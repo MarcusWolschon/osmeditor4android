@@ -1,0 +1,67 @@
+{"type":"FeatureCollection",
+"features":[
+{"type":"Feature",
+"properties":{"OSM geometry":"point","OSM id":2546957335,"missing or wrong addr:postcode":"false","missing or wrong addr:city":"false","addr:street instead of addr:place":"false","distance more than 50 m":"true","no addr:street or addr:place":"false","not in GWR":"false"},
+"geometry":{"type":"Point","coordinates":[8.394496,47.385323]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"polygon","OSM id":211096317,"missing or wrong addr:postcode":"false","missing or wrong addr:city":"false","addr:street instead of addr:place":"true","distance more than 50 m":"false","no addr:street or addr:place":"false","not in GWR":"false"},
+"geometry":{"type":"Point","coordinates":[8.393165,47.37763]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"polygon","OSM id":301707726,"missing or wrong addr:postcode":"false","missing or wrong addr:city":"false","addr:street instead of addr:place":"false","distance more than 50 m":"true","no addr:street or addr:place":"false","not in GWR":"false"},
+"geometry":{"type":"Point","coordinates":[8.393071,47.38712]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"polygon","OSM id":306261589,"missing or wrong addr:postcode":"false","missing or wrong addr:city":"false","addr:street instead of addr:place":"true","distance more than 50 m":"false","no addr:street or addr:place":"false","not in GWR":"false"},
+"geometry":{"type":"Point","coordinates":[8.39433,47.37818]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"polygon","OSM id":306261588,"missing or wrong addr:postcode":"false","missing or wrong addr:city":"false","addr:street instead of addr:place":"true","distance more than 50 m":"false","no addr:street or addr:place":"false","not in GWR":"false"},
+"geometry":{"type":"Point","coordinates":[8.394462,47.37782]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"polygon","OSM id":306261595,"missing or wrong addr:postcode":"false","missing or wrong addr:city":"false","addr:street instead of addr:place":"true","distance more than 50 m":"false","no addr:street or addr:place":"false","not in GWR":"false"},
+"geometry":{"type":"Point","coordinates":[8.394202,47.377426]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"polygon","OSM id":1239857525,"missing or wrong addr:postcode":"true","missing or wrong addr:city":"true","addr:street instead of addr:place":"false","distance more than 50 m":"false","no addr:street or addr:place":"false","not in GWR":"false"},
+"geometry":{"type":"Point","coordinates":[8.387805,47.388157]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"polygon","OSM id":1239857526,"missing or wrong addr:postcode":"true","missing or wrong addr:city":"true","addr:street instead of addr:place":"false","distance more than 50 m":"false","no addr:street or addr:place":"false","not in GWR":"false"},
+"geometry":{"type":"Point","coordinates":[8.3879595,47.38827]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"polygon","OSM id":211096300,"missing or wrong addr:postcode":"false","missing or wrong addr:city":"false","addr:street instead of addr:place":"true","distance more than 50 m":"false","no addr:street or addr:place":"false","not in GWR":"false"},
+"geometry":{"type":"Point","coordinates":[8.392645,47.377716]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"point","OSM id":11978482598,"missing or wrong addr:postcode":"false","missing or wrong addr:city":"false","addr:street instead of addr:place":"false","distance more than 50 m":"false","no addr:street or addr:place":"false","not in GWR":"true"},
+"geometry":{"type":"Point","coordinates":[8.376781,47.397053]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"point","OSM id":11978482617,"missing or wrong addr:postcode":"false","missing or wrong addr:city":"false","addr:street instead of addr:place":"false","distance more than 50 m":"false","no addr:street or addr:place":"false","not in GWR":"true"},
+"geometry":{"type":"Point","coordinates":[8.376758,47.397003]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"point","OSM id":11978482616,"missing or wrong addr:postcode":"false","missing or wrong addr:city":"false","addr:street instead of addr:place":"false","distance more than 50 m":"false","no addr:street or addr:place":"false","not in GWR":"true"},
+"geometry":{"type":"Point","coordinates":[8.391742,47.38668]}
+}
+,
+{"type":"Feature",
+"properties":{"OSM geometry":"polygon","OSM id":306261586,"missing or wrong addr:postcode":"false","missing or wrong addr:city":"false","addr:street instead of addr:place":"false","distance more than 50 m":"false","no addr:street or addr:place":"false","not in GWR":"true"},
+"geometry":{"type":"Point","coordinates":[8.394663,47.377464]}
+}
+]}

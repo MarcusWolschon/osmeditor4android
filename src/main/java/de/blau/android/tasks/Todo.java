@@ -1,15 +1,22 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Objects;
 
+import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.Point;
+import com.mapbox.turf.TurfMeasurement;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -17,12 +24,14 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
+import de.blau.android.javascript.Utils;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.collections.LongPrimitiveList;
@@ -35,7 +44,8 @@ import de.blau.android.util.collections.LongPrimitiveList;
 public final class Todo extends Bug implements Serializable {
     private static final long serialVersionUID = 4L;
 
-    private static final String DEBUG_TAG = Todo.class.getSimpleName().substring(0, Math.min(23, Todo.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Todo.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Todo.class.getSimpleName().substring(0, TAG_LEN);
 
     static final String FILTER_KEY = "TODO";
 
@@ -136,6 +146,18 @@ public final class Todo extends Bug implements Serializable {
     private Todo() {
         open();
     }
+    
+    /**
+     * Construct a todo with just a list name and id
+     * 
+     * @param listName the name of the todo list to add this to // NOSONAR
+     * 
+     */
+    private Todo(@Nullable String listName) {
+        this();
+        list = listName;
+        id = java.util.UUID.randomUUID().toString();
+    }
 
     /**
      * Construct a new Todo from an OsmElement //NOSONAR
@@ -146,19 +168,17 @@ public final class Todo extends Bug implements Serializable {
      * @param element the OsmElement
      */
     public Todo(@Nullable String listName, @NonNull OsmElement element) {
-        this();
-        list = listName;
-        id = java.util.UUID.randomUUID().toString();
+        this(listName);
         LongPrimitiveList elementList = new LongPrimitiveList();
         elementList.add(element.getOsmId());
         switch (element.getName()) {
         case Node.NAME:
-            nodes = elementList;
+            setNodes(elementList);
             lat = ((Node) element).getLat();
             lon = ((Node) element).getLon();
             break;
         case Way.NAME:
-            ways = elementList;
+            setWays(elementList);
             double[] center = Geometry.centroidLonLat((Way) element);
             if (center.length == 2) {
                 lon = (int) Math.round(center[0] * 1E7D);
@@ -166,7 +186,7 @@ public final class Todo extends Bug implements Serializable {
             }
             break;
         case Relation.NAME:
-            relations = elementList;
+            setRelations(elementList);
             BoundingBox box = element.getBounds();
             if (box != null) {
                 ViewBox viewBox = new ViewBox(element.getBounds());
@@ -178,6 +198,42 @@ public final class Todo extends Bug implements Serializable {
         default:
             throw new IllegalArgumentException("Unknown element " + element);
         }
+    }
+
+    /**
+     * Construct a new Todo from an GeoJson Feature //NOSONAR
+     * 
+     * If a centroid cannot be determined the item will end up in null island
+     * 
+     * @param context an Android context
+     * @param listName the name of the todo list to add this to // NOSONAR
+     * @param feature the GeoJson Feature
+     * @param script optional conversion script if null a default conversion will be performed
+     */
+    public Todo(@NonNull Context context, @Nullable String listName, @NonNull Feature feature, @Nullable String script) {
+        this(listName);
+        if (script != null) {
+            Utils.evalString(context, script, script, feature, this);
+            return;
+        }
+        StringBuilder content = new StringBuilder();
+        final JsonObject properties = feature.properties();
+        if (properties != null) {
+            for (Entry<String, com.google.gson.JsonElement> property : properties.entrySet()) {
+                content.append(property.getKey() + " " + property.getValue().getAsString() + "<BR>");
+            }
+        }
+        setTitle(content.toString());
+        final com.mapbox.geojson.Geometry geometry = TurfMeasurement.center(feature).geometry();
+        if (geometry == null) {
+            throw new IllegalArgumentException("Cannot determine center for  " + feature.toString());
+        }
+        if (GeoJSONConstants.POINT.equals(geometry.type())) {
+            lat = (int) (((Point) geometry).latitude() * 1E7D);
+            lon = (int) (((Point) geometry).longitude() * 1E7D);
+            return;
+        }
+        throw new IllegalArgumentException("Unknown / unsupported geometry type for center  " + geometry.toString());
     }
 
     @Override
@@ -331,6 +387,51 @@ public final class Todo extends Bug implements Serializable {
     @Override
     public void drawBitmapClosed(Canvas c, float x, float y, boolean selected) {
         drawIcon(cachedIconTodoClosed, c, x, y, selected);
+    }
+
+    /**
+     * Set a new List to hold OSM element ids for Nodes
+     * 
+     * @param nodes the List
+     */
+    public void setNodes(@Nullable LongPrimitiveList nodes) {
+        this.nodes = nodes;
+    }
+
+    /**
+     * Set a new List to hold OSM element ids for Ways
+     * 
+     * @param nodes the List
+     */
+    public void setWays(@Nullable LongPrimitiveList ways) {
+        this.ways = ways;
+    }
+
+    /**
+     * Set a new List to hold OSM element ids for Relations
+     * 
+     * @param nodes the List
+     */
+    public void setRelations(@Nullable LongPrimitiveList relations) {
+        this.relations = relations;
+    }
+
+    /**
+     * Set the latitude in WGS84*1E7 degrees for the Todo // NOSONAR
+     * 
+     * @param lat the latitude in WGS84*1E7 degrees
+     */
+    public void setLat(int lat) {
+        this.lat = lat;
+    }
+
+    /**
+     * Set the longitude in WGS84*1E7 degrees for the Todo // NOSONAR
+     * 
+     * @param lat the longitude in WGS84*1E7 degrees
+     */
+    public void setLon(int lon) {
+        this.lon = lon;
     }
 
     @Override

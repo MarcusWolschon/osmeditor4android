@@ -53,6 +53,8 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.tasks.TaskStorage;
+import de.blau.android.tasks.Todo;
 import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.mockwebserver.MockWebServer;
 
@@ -357,6 +359,132 @@ public class LayerDialogTest {
         assertNotNull(layer);
         assertTrue(layer.isVisible());
     }
+    
+    /**
+     * Load geojson file and create Todos with default conversion, discard
+     */
+    @Test
+    public void geoJsonLayerToTodos1() {
+        final String geoJsonFile = "warnings-4023.geojson";
+        try {
+            JavaResources.copyFileFromResources(main, geoJsonFile, "", "/");
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_load_geojson), true, false));
+        TestUtils.selectFile(device, main, null, geoJsonFile, true);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+
+        UiObject2 menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        
+        TaskStorage tasks = App.getTaskStorage();
+        List<Todo> todos = tasks.getTodos(null, true);
+        assertTrue(todos.isEmpty());
+        
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_convert_geojson_todo), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.geojson_todo_default_conversion), true));
+        
+        TestUtils.sleep(5000);
+        assertEquals(map.getGeojsonLayer().getFeatures().size(), tasks.getTodos(null, true).size());
+ 
+        menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
+        assertNull(map.getGeojsonLayer());
+        tasks.reset();
+    }
+    
+    /**
+     * Load geojson file and create Todos with custom conversion, discard
+     */
+    @Test
+    public void geoJsonLayerToTodos2() {
+        final String geoJsonFile = "warnings-4023.geojson";
+        final String scriptFile = "conversion-example.js";
+        try {
+            JavaResources.copyFileFromResources(main, geoJsonFile, "", "/");
+            JavaResources.copyFileFromResources(main, scriptFile, "", "/");
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_load_geojson), true, false));
+        TestUtils.selectFile(device, main, null, geoJsonFile, true);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+
+        UiObject2 menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        
+        TaskStorage tasks = App.getTaskStorage();
+        List<Todo> todos = tasks.getTodos(null, true);
+        assertTrue(todos.isEmpty());
+        
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_convert_geojson_todo), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.geojson_todo_custom_conversion), true));
+        TestUtils.selectFile(device, main, null, scriptFile, true);
+        
+        TestUtils.sleep(15000);
+        assertEquals(map.getGeojsonLayer().getFeatures().size(), tasks.getTodos(null, true).size());
+ 
+        menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
+        assertNull(map.getGeojsonLayer());
+        tasks.reset();
+    }
+    
+    /**
+     * Load geojson file and try tp create Todos with broken custom conversion, discard
+     */
+    @Test
+    public void geoJsonLayerToTodos3() {
+        final String geoJsonFile = "warnings-4023.geojson";
+        final String scriptFile = "broken-example.js";
+        try {
+            JavaResources.copyFileFromResources(main, geoJsonFile, "", "/");
+            JavaResources.copyFileFromResources(main, scriptFile, "", "/");
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_load_geojson), true, false));
+        TestUtils.selectFile(device, main, null, geoJsonFile, true);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+
+        UiObject2 menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        
+        TaskStorage tasks = App.getTaskStorage();
+        List<Todo> todos = tasks.getTodos(null, true);
+        assertTrue(todos.isEmpty());
+        
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_convert_geojson_todo), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.geojson_todo_custom_conversion), true));
+        TestUtils.selectFile(device, main, null, scriptFile, true);
+        TestUtils.sleep(5000);
+        UiObject output = TestUtils.findObjectWithResourceId(device, false, device.getCurrentPackageName() + ":id/output");
+        try {
+            assertTrue(output.getText().contains("Error at line 17, column 0"));
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+        
+        menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
+        assertNull(map.getGeojsonLayer());
+        tasks.reset();
+    }
+    
 
     /**
      * Set to "mapnik"

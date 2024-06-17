@@ -1,13 +1,19 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.mozilla.javascript.RhinoException;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mapbox.geojson.Feature;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -95,6 +101,9 @@ import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.WmsEndpointDatabaseView;
+import de.blau.android.tasks.TaskStorage;
+import de.blau.android.tasks.Todo;
+import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
@@ -117,7 +126,9 @@ import de.blau.android.views.layers.MapTilesLayer;
  *
  */
 public class Layers extends AbstractConfigurationDialog implements OnUpdateListener {
-    private static final String DEBUG_TAG = Layers.class.getSimpleName().substring(0, Math.min(23, Layers.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Layers.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Layers.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int  VERTICAL_OFFSET     = 64;
     private static final long MAX_STYLE_FILE_SIZE = 10000000L;
@@ -558,7 +569,6 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         tl.setColumnShrinkable(2, true);
         tl.setStretchAllColumns(false);
         tl.setColumnStretchable(2, true);
-
         addRows(activity);
 
         return layout;
@@ -820,7 +830,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         return tr;
     }
 
-    class LayerMenuListener implements View.OnClickListener {
+    private class LayerMenuListener implements View.OnClickListener {
 
         final MapViewLayer layer;
         final View         button;
@@ -980,47 +990,6 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                 });
             }
 
-            if (layer instanceof DiscardInterface) {
-                MenuItem item = menu.add(R.string.discard);
-                item.setOnMenuItemClickListener(unused -> {
-                    if (layer != null) {
-                        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
-                            db.deleteLayer(layer.getIndex(), layer.getType());
-                            ((DiscardInterface) layer).discard(getContext());
-                            updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
-                        }
-                    }
-                    return true;
-                });
-            }
-
-            if (layer instanceof PruneableInterface) {
-                MenuItem item = menu.add(R.string.prune);
-                item.setOnMenuItemClickListener(unused -> {
-                    if (layer != null) {
-                        Logic logic = App.getLogic();
-                        new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
-                            @Override
-                            protected void onPreExecute() {
-                                Progress.showDialog(activity, Progress.PROGRESS_PRUNING);
-                            }
-
-                            @Override
-                            protected Void doInBackground(Void arg) {
-                                ((PruneableInterface) layer).prune();
-                                return null;
-                            }
-
-                            @Override
-                            protected void onPostExecute(Void result) {
-                                Progress.dismissDialog(activity, Progress.PROGRESS_PRUNING);
-                            }
-                        }.execute();
-                    }
-                    return true;
-                });
-            }
-
             if (layer instanceof MapTilesLayer) { // these items are less important, show them at the bottom of the menu
                 MenuItem item = menu.add(R.string.layer_flush_tile_cache);
                 item.setOnMenuItemClickListener(unused -> {
@@ -1173,6 +1142,80 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     item.setEnabled(!((de.blau.android.layer.gpx.MapOverlay) layer).isStopped());
                 }
             }
+            if (layer instanceof de.blau.android.layer.geojson.MapOverlay) {
+                MenuItem item = menu.add(R.string.menu_layers_convert_geojson_todo);
+                item.setOnMenuItemClickListener(unused -> {
+                    Builder builder = new AlertDialog.Builder(activity);
+                    builder.setTitle(R.string.geojson_todo_title);
+                    builder.setPositiveButton(R.string.geojson_todo_default_conversion,
+                            (d, pos) -> convertTodos(activity, map, (de.blau.android.layer.geojson.MapOverlay) layer, null));
+                    builder.setNegativeButton(R.string.geojson_todo_custom_conversion,
+                            (d, pos) -> SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
+                                private static final long serialVersionUID = 1L;
+
+                                @Override
+                                public boolean read(FragmentActivity activity, Uri fileUri) {
+                                    try {
+                                        convertTodos(activity, map, (de.blau.android.layer.geojson.MapOverlay) layer,
+                                                FileUtil.readToString(new InputStreamReader(activity.getContentResolver().openInputStream(fileUri))));
+                                    } catch (FileNotFoundException e) {
+                                        ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_file_not_found, fileUri.toString()));
+                                        return false;
+                                    } catch (IOException e) {
+                                        ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_error_reading, fileUri.toString()));
+                                        return false;
+                                    }
+                                    return true;
+                                }
+
+                            }, false));
+                    builder.show();
+                    dismissDialog();
+                    return true;
+                });
+            }
+
+            if (layer instanceof PruneableInterface) {
+                MenuItem item = menu.add(R.string.prune);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null) {
+                        Logic logic = App.getLogic();
+                        new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
+                            @Override
+                            protected void onPreExecute() {
+                                Progress.showDialog(activity, Progress.PROGRESS_PRUNING);
+                            }
+
+                            @Override
+                            protected Void doInBackground(Void arg) {
+                                ((PruneableInterface) layer).prune();
+                                return null;
+                            }
+
+                            @Override
+                            protected void onPostExecute(Void result) {
+                                Progress.dismissDialog(activity, Progress.PROGRESS_PRUNING);
+                            }
+                        }.execute();
+                    }
+                    return true;
+                });
+            }
+
+            if (layer instanceof DiscardInterface) {
+                MenuItem item = menu.add(R.string.discard);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null) {
+                        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+                            db.deleteLayer(layer.getIndex(), layer.getType());
+                            ((DiscardInterface) layer).discard(getContext());
+                            updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
+                        }
+                    }
+                    return true;
+                });
+            }
+
             MenuItem item = menu.add(R.string.move_up);
             item.setOnMenuItemClickListener(unused -> {
                 if (layer != null) {
@@ -1193,6 +1236,65 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             item.setEnabled(layer.getIndex() > 0);
             popup.show();
         }
+    }
+
+    /**
+     * Convert all GeoJSOn objects in a layer to todos // NOSONAR
+     * 
+     * @param activity the current Activity
+     * @param map the current Map instance
+     * @param layer the GeoJSON layer
+     * @param script an optionalJavaScript conversion script
+     */
+    private static void convertTodos(@NonNull final FragmentActivity activity, @NonNull final Map map, @Nullable de.blau.android.layer.geojson.MapOverlay layer,
+            @Nullable final String script) { // NOSONAR needs to be here
+        new ExecutorTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String script) throws Exception {
+                if (layer != null && activity instanceof Main) {
+                    List<Todo> todos = new ArrayList<>();
+                    try {
+                        for (Feature f : layer.getFeatures()) {
+                            todos.add(new Todo(activity, layer.getName(), f, script));
+                        }
+                        final TaskStorage bugs = App.getTaskStorage();
+                        TransferTasks.merge(activity, bugs, todos);
+                        TransferTasks.addBoundingBoxFromData(bugs, todos);
+                        map.invalidate();
+                        activity.invalidateOptionsMenu();
+                        return null;
+                    } catch (RhinoException ex) {
+                        handleRhinoException(activity, layer, script, ex);
+                    } catch (Exception ex) {
+                        Log.e(DEBUG_TAG, ex.getMessage());
+                        ScreenMessage.toastTopError(activity, ex.getMessage(), true);
+                    }
+                }
+                return null;
+            }
+        }.execute(script);
+    }
+
+    /**
+     * Show the contents of a RhinoException in the JS console together with the script
+     * 
+     * @param activity current Activity
+     * @param layer the GeoJSON layer
+     * @param script the script
+     * @param ex the exception
+     */
+    private static void handleRhinoException(final FragmentActivity activity, de.blau.android.layer.geojson.MapOverlay layer, String script,
+            RhinoException ex) {
+        String message = activity.getString(R.string.rhino_exception, ex.lineNumber(), ex.columnNumber(), ex.details());
+        Log.e(DEBUG_TAG, "Exception processing feature for TODO conversion " + message);
+        int layerIndex = layer.getIndex();
+        ConsoleDialog.showDialog(activity, R.string.tag_menu_js_console, -1, -1, script, message, (context, input, flag1, flag2) -> {
+            // we need to avoid references to fields in this class or else we will crash when this gets
+            // serialized
+            Map map = App.getLogic().getMap();
+            convertTodos((Main) context, map, (de.blau.android.layer.geojson.MapOverlay) map.getLayer(layerIndex), input);
+            return null;
+        }, true);
     }
 
     /**
