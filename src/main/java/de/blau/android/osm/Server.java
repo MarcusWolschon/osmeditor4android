@@ -78,8 +78,7 @@ public class Server {
     /**
      * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
      */
-    private static final String API_VERSION       = "0.6";
-    private static final String OSMCHANGE_VERSION = "0.3";
+    private static final String API_VERSION = "0.6";
 
     // maximum number of elements retrievable in one multifetch call, essentially nothing is guaranteed, making this
     // very very iffy, JOSM uses 200 which is likely derived from the maximum length supported in MS IE/Edge, if the
@@ -624,40 +623,6 @@ public class Server {
     }
 
     /**
-     * Sends an delete-request to the server.
-     * 
-     * Note this uses the diff upload mechanism
-     * 
-     * @param elem the element which should be deleted.
-     * @return true when the server indicates the successful deletion (HTTP 200), otherwise false.
-     * @throws IOException on an IO issue
-     */
-    public boolean deleteElement(@NonNull final OsmElement elem) throws IOException {
-        Log.d(DEBUG_TAG, "Deleting " + elem.getName() + " #" + elem.getOsmId());
-        RequestBody body = new XmlRequestBody() {
-            @Override
-            public void writeTo(BufferedSink sink) throws IOException {
-                try {
-                    sendPayload(sink.outputStream(), new XmlSerializable() {
-                        @Override
-                        public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-                            startChangeXml(serializer, OsmXml.DELETE);
-                            elem.toXml(serializer, changeSetId);
-                            endChangeXml(serializer, OsmXml.DELETE);
-                        }
-                    }, changesetId);
-                } catch (IllegalArgumentException | IllegalStateException e) {
-                    throw new IOException(e);
-                }
-            }
-        };
-        try (Response response = openConnectionForAuthenticatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body)) {
-            checkResponseCode(response, elem);
-        }
-        return true;
-    }
-
-    /**
      * Return true if either login/pass is set or if oAuth is enabled
      * 
      * @return true if either oauth is set or we have login information
@@ -1137,42 +1102,6 @@ public class Server {
      */
     static void endXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.endTag("", OsmXml.OSM);
-        xmlSerializer.endDocument();
-    }
-
-    /**
-     * Start an XML document for an OSM diff upload for a single action element
-     * 
-     * @param xmlSerializer an XmlSerializer instance
-     * @param action the action (create, modify, delete)
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws IOException on an IO error
-     */
-    private void startChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
-            throws IllegalArgumentException, IllegalStateException, IOException {
-        xmlSerializer.startDocument(OsmXml.UTF_8, null);
-        xmlSerializer.startTag("", OsmXml.OSM_CHANGE);
-        xmlSerializer.attribute("", VERSION_KEY, OSMCHANGE_VERSION);
-        xmlSerializer.attribute("", GENERATOR_KEY, generator);
-        xmlSerializer.startTag("", action);
-        xmlSerializer.attribute("", VERSION_KEY, OSMCHANGE_VERSION);
-        xmlSerializer.attribute("", GENERATOR_KEY, generator);
-    }
-
-    /**
-     * End an XML document for an OSM diff upload for a single action element
-     * 
-     * @param xmlSerializer an XmlSerializer instance
-     * @param action the action (create, modify, delete)
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws IOException on an IO error
-     */
-    private void endChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
-            throws IllegalArgumentException, IllegalStateException, IOException {
-        xmlSerializer.endTag("", action);
-        xmlSerializer.endTag("", OsmXml.OSM_CHANGE);
         xmlSerializer.endDocument();
     }
 
