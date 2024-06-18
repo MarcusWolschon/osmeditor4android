@@ -1,5 +1,7 @@
 package de.blau.android.presets;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileFilter;
@@ -89,6 +91,9 @@ public class Preset implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Preset.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Preset.class.getSimpleName().substring(0, TAG_LEN);
+
     static final String COMBO_DELIMITER       = ",";
     static final String MULTISELECT_DELIMITER = ";";
 
@@ -100,9 +105,6 @@ public class Preset implements Serializable {
 
     // hardwired layout stuff
     public static final int SPACING = 5;
-
-    //
-    private static final String DEBUG_TAG = Preset.class.getSimpleName().substring(0, Math.min(23, Preset.class.getSimpleName().length()));
 
     /** The directory containing all data (xml, MRU data, images) about this preset */
     private File directory;
@@ -1099,6 +1101,10 @@ public class Preset implements Serializable {
         return findBestMatch(presets, tags, regions, null, false, ignoreTags);
     }
 
+    private static final int FIXED_TAG_WEIGHT = 1000;                 // weight per fixed tag
+    private static final int RELATION_WEIGHT  = 2 * FIXED_TAG_WEIGHT; // additional weight for relations
+    private static final int DOWNGRADE_WEIGHT = 200;
+
     /**
      * Finds the preset item best matching a certain tag set, or null if no preset item matches. To match, all
      * (mandatory) tags of the preset item need to be in the tag set. The preset item does NOT need to have all tags in
@@ -1134,9 +1140,10 @@ public class Preset implements Serializable {
             buildPossibleMatches(possibleMatches, presets, tags, true, ignoreTags);
         }
         // Find best
-        final int FIXED_WEIGHT = 1000; // always prioritize presets with fixed keys
+        // always prioritize presets with fixed keys that match
         for (PresetItem possibleMatch : possibleMatches) {
-            int fixedTagCount = possibleMatch.getFixedTagCount(regions) * FIXED_WEIGHT;
+            int fixedTagCount = possibleMatch.getFixedTagCount(regions) * FIXED_TAG_WEIGHT
+                    + (ElementType.RELATION == elementType && possibleMatch.isFixedTag(Tags.KEY_TYPE) ? RELATION_WEIGHT : 0);
             int recommendedTagCount = possibleMatch.getRecommendedKeyCount();
             if (fixedTagCount + recommendedTagCount >= bestMatchStrength) {
                 int matches = 0;
@@ -1149,15 +1156,11 @@ public class Preset implements Serializable {
                 }
                 if (regions != null && !possibleMatch.appliesIn(regions)) {
                     // downgrade so much that recommended tags can't compensate
-                    matches -= 200;
+                    matches -= DOWNGRADE_WEIGHT;
                 }
-                if (elementType != null) {
-                    if (!possibleMatch.appliesTo(elementType)) {
-                        // downgrade even more
-                        matches -= 200;
-                    } else if (ElementType.RELATION == elementType && possibleMatch.isFixedTag(Tags.KEY_TYPE)) {
-                        matches += 2 * FIXED_WEIGHT; // prioritize actual relation presets
-                    }
+                if (elementType != null && !possibleMatch.appliesTo(elementType)) {
+                    // downgrade even more
+                    matches -= DOWNGRADE_WEIGHT;
                 }
                 if (recommendedTagCount > 0) {
                     matches = matches + possibleMatch.matchesRecommended(tags, regions);

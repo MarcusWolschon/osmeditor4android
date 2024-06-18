@@ -149,6 +149,19 @@ public class PresetTest {
         assertNotNull(match);
         assertTrue(match.hasKeyValue(Tags.KEY_SHOP, "supermarket"));
     }
+    
+    /**
+     * Test that we match a bicycle route relation
+     */
+    @Test
+    public void matching5() {
+        //
+        Map<String, String> tags = new HashMap<>();
+        tags.put(Tags.KEY_TYPE, Tags.VALUE_ROUTE);
+        tags.put(Tags.VALUE_ROUTE, "bicycle");
+        PresetItem match = Preset.findBestMatch(presets, tags, null, ElementType.RELATION, false, null);
+        assertEquals("Bicycle Route", match.getName());
+    }
 
     /**
      * Remove an item
