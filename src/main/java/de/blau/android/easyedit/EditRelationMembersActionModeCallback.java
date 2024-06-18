@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,7 +53,9 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class EditRelationMembersActionModeCallback extends BuilderActionModeCallback {
-    private static final String DEBUG_TAG = EditRelationMembersActionModeCallback.class.getSimpleName().substring(0, Math.min(23, EditRelationMembersActionModeCallback.class.getSimpleName().length()));
+ 
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, EditRelationMembersActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = EditRelationMembersActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MENUITEM_REVERT = 1;
 
@@ -109,7 +113,6 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             @NonNull List<OsmElement> selection) {
         super(manager);
         this.presetPath = presetPath;
-        determineRelationPreset();
         for (OsmElement e : selection) {
             addElement(e);
         }
@@ -125,7 +128,6 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @Nullable PresetElementPath presetPath, @NonNull OsmElement element) {
         super(manager);
         this.presetPath = presetPath;
-        determineRelationPreset();
         addElement(element);
     }
 
@@ -140,7 +142,6 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @NonNull Relation relation, @Nullable OsmElement element) {
         super(manager);
         this.relation = relation;
-        determineRelationPreset();
         if (element != null) {
             addElement(element);
         }
@@ -157,7 +158,6 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @NonNull Relation relation, @NonNull List<OsmElement> selection) {
         super(manager);
         this.relation = relation;
-        determineRelationPreset();
         for (OsmElement e : selection) {
             addElement(e);
         }
@@ -258,6 +258,9 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         } else if (presetPath != null) {
             relationPreset = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(main).getRootGroup(), presetPath);
         }
+        if (getRoles() == null) {
+            ScreenMessage.toastTopWarning(main, relationPreset == null ? R.string.toast_no_preset_found : R.string.toast_no_roles_found);
+        }
     }
 
     /**
@@ -299,6 +302,22 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     }
 
     /**
+     * Check if a OsmElement is in a Collection of members
+     * 
+     * @param members the RelationMembers
+     * @param memberElement the OsmElement to check
+     * @return true if the member is present
+     */
+    private boolean contains(@NonNull Collection<RelationMember> members, @NonNull OsmElement memberElement) {
+        for (RelationMember member : members) {
+            if (member.getRef() == memberElement.getOsmId() && member.getType().equals(memberElement.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Pretend that the element is already a member and highlight it
      * 
      * @param element the element
@@ -328,26 +347,27 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             List<Relation> relationRelations = logic.getSelectedRelationRelations();
             // new members might be downloaded
             for (RelationMember rm : relation.getMembers()) {
-                if (rm.downloaded()) {
-                    switch (rm.getType()) {
-                    case Way.NAME:
-                        if (relationWays != null && !relationWays.contains(rm.getElement())) {
-                            logic.addSelectedRelationWay((Way) rm.getElement());
-                        }
-                        break;
-                    case Node.NAME:
-                        if (relationNodes != null && !relationNodes.contains(rm.getElement())) {
-                            logic.addSelectedRelationNode((Node) rm.getElement());
-                        }
-                        break;
-                    case Relation.NAME:
-                        if (relationRelations != null && !relationRelations.contains(rm.getElement())) {
-                            logic.addSelectedRelationRelation((Relation) rm.getElement());
-                        }
-                        break;
-                    default:
-                        // do nothing
+                if (!rm.downloaded()) {
+                    continue;
+                }
+                switch (rm.getType()) {
+                case Way.NAME:
+                    if (inList(relationWays, rm)) {
+                        logic.addSelectedRelationWay((Way) rm.getElement());
                     }
+                    break;
+                case Node.NAME:
+                    if (inList(relationNodes, rm)) {
+                        logic.addSelectedRelationNode((Node) rm.getElement());
+                    }
+                    break;
+                case Relation.NAME:
+                    if (inList(relationRelations, rm)) {
+                        logic.addSelectedRelationRelation((Relation) rm.getElement());
+                    }
+                    break;
+                default:
+                    // do nothing
                 }
             }
         }
@@ -358,6 +378,17 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             arrangeMenu(menu);
         }
         return updated;
+    }
+
+    /**
+     * A "contains" that checks if the List is null
+     * 
+     * @param list the List
+     * @param rm the RelationMember
+     * @return true if the element of the memer is present in the list
+     */
+    private <T extends OsmElement> boolean inList(@Nullable List<T> list, @NonNull RelationMember rm) {
+        return list != null && !list.contains(rm.getElement());
     }
 
     @Override
@@ -390,8 +421,16 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         List<Way> relationWays = logic.getSelectedRelationWays();
         List<Node> relationNodes = logic.getSelectedRelationNodes();
         List<Relation> relationRelations = logic.getSelectedRelationRelations();
-        if ((relationWays != null && relationWays.contains(element)) || (relationNodes != null && relationNodes.contains(element))
-                || (relationRelations != null && relationRelations.contains(element))) {
+        final long osmId = element.getOsmId();
+        Set<RelationMember> toRemove = removeMembers.get(osmId);
+        if (contains(toRemove, element)) {
+            // removed element being added back
+            if (toRemove.size() > 1) {
+                ScreenMessage.toastTopWarning(main, R.string.toast_undeleting_all_members);
+            }
+            removeMembers.removeKey(osmId);
+        } else if (((relationWays != null && relationWays.contains(element)) || (relationNodes != null && relationNodes.contains(element))
+                || (relationRelations != null && relationRelations.contains(element)))) {
             new AlertDialog.Builder(main).setTitle(R.string.duplicate_relation_member_title).setMessage(R.string.duplicate_relation_member_message)
                     .setPositiveButton(R.string.duplicate_route_segment_button, (dialog, which) -> addElement(element))
                     .setNegativeButton(R.string.duplicate_relation_member_remove_button, (dialog, which) -> removeElement(element))
@@ -410,73 +449,88 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     private void setClickableElements() {
         BoundingBox viewBox = main.getMap().getViewBox();
+        List<PresetRole> roles = getRoles();
+        if (roles == null) {
+            // make everything selectable
+            logic.setClickableElements(null);
+            return;
+        }
+        for (PresetRole role : roles) {
+            if (role.appliesTo(ElementType.RELATION) || role.appliesTo(ElementType.AREA)) {
+                logic.setReturnRelations(true);
+                break;
+            }
+        }
+        Set<OsmElement> elements = new HashSet<>();
+        final Storage currentStorage = App.getDelegator().getCurrentStorage();
+        elements.addAll(currentStorage.getNodes(viewBox));
+        elements.addAll(currentStorage.getWays(viewBox));
+        elements.addAll(currentStorage.getRelations());
+        Set<OsmElement> clickable = new HashSet<>();
+        Wrapper wrapper = new Wrapper(main);
+        Map<String, Condition> conditionCache = new HashMap<>();
+        for (OsmElement e : elements) {
+            for (PresetRole role : roles) {
+                if (role.appliesTo(e.getType())) {
+                    String memberExpression = role.getMemberExpression();
+                    if (memberExpression == null) {
+                        clickable.add(e);
+                        break;
+                    }
+                    memberExpression = memberExpression.trim();
+                    wrapper.setElement(e);
+                    Condition condition = getCondition(conditionCache, memberExpression);
+                    if (condition != null && condition.eval(Wrapper.toJosmFilterType(e), wrapper, e.getTags())) {
+                        clickable.add(e);
+                        break;
+                    }
+                }
+            }
+        }
+        logic.setClickableElements(clickable);
+
+    }
+
+    /**
+     * Get the Condition object for a memberExpression, caching it
+     * 
+     * @param conditionCache the cache
+     * @param memberExpression the
+     * @return the Condition or null
+     */
+    @Nullable
+    private Condition getCondition(@NonNull Map<String, Condition> conditionCache, @NonNull String memberExpression) {
+        Condition condition = conditionCache.get(memberExpression); // NOSONAR
+        if (condition == null) {
+            try {
+                JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(memberExpression.getBytes()));
+                condition = parser.condition();
+            } catch (ch.poole.osm.josmfilterparser.ParseException | IllegalArgumentException ex) {
+                Log.e(DEBUG_TAG, "member_expression " + memberExpression + " caused " + ex.getMessage());
+                try {
+                    JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream("".getBytes()));
+                    condition = parser.condition();
+                } catch (ch.poole.osm.josmfilterparser.ParseException | IllegalArgumentException ex2) {
+                    Log.e(DEBUG_TAG, "member_expression dummy caused " + ex2.getMessage());
+                }
+            }
+            conditionCache.put(memberExpression, condition);
+        }
+        return condition;
+    }
+
+    /**
+     * If a preset match has been found return any roles
+     * 
+     * @return a List of roles or null
+     */
+    @Nullable
+    private List<PresetRole> getRoles() {
         List<PresetRole> roles = null;
         if (relationPreset != null) {
             roles = relationPreset.getRoles();
         }
-
-        if (roles != null) {
-            for (PresetRole role : roles) {
-                if (role.appliesTo(ElementType.RELATION) || role.appliesTo(ElementType.AREA)) {
-                    logic.setReturnRelations(true);
-                    break;
-                }
-            }
-            Set<OsmElement> elements = new HashSet<>();
-            final Storage currentStorage = App.getDelegator().getCurrentStorage();
-            elements.addAll(currentStorage.getNodes(viewBox));
-            elements.addAll(currentStorage.getWays(viewBox));
-            elements.addAll(currentStorage.getRelations());
-            Set<OsmElement> clickable = new HashSet<>();
-            Wrapper wrapper = new Wrapper(main);
-            Map<String, Condition> conditionCache = new HashMap<>();
-            for (OsmElement e : elements) {
-                for (PresetRole role : roles) {
-                    if (role.appliesTo(e.getType())) {
-                        String memberExpression = role.getMemberExpression();
-                        if (memberExpression != null) {
-                            memberExpression = memberExpression.trim();
-                            wrapper.setElement(e);
-                            Condition condition = conditionCache.get(memberExpression); // NOSONAR
-                            if (condition == null) {
-                                try {
-                                    JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(memberExpression.getBytes()));
-                                    condition = parser.condition();
-                                    conditionCache.put(memberExpression, condition);
-                                } catch (ch.poole.osm.josmfilterparser.ParseException | IllegalArgumentException ex) {
-                                    Log.e(DEBUG_TAG, "member_expression " + memberExpression + " caused " + ex.getMessage());
-                                    try {
-                                        JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream("".getBytes()));
-                                        condition = parser.condition();
-                                        conditionCache.put(memberExpression, condition);
-                                    } catch (ch.poole.osm.josmfilterparser.ParseException | IllegalArgumentException ex2) {
-                                        Log.e(DEBUG_TAG, "member_expression dummy caused " + ex2.getMessage());
-                                    }
-                                }
-                            }
-                            if (condition != null && condition.eval(Wrapper.toJosmFilterType(e), wrapper, e.getTags())) {
-                                clickable.add(e);
-                                break;
-                            }
-                        } else {
-                            clickable.add(e);
-                            break;
-                        }
-                    }
-                }
-            }
-            logic.setClickableElements(clickable);
-        } else {
-            List<OsmElement> excludes = new ArrayList<>();
-            for (RelationMember member : newMembers) {
-                excludes.add(member.getElement());
-            }
-            if (relation != null) {
-                logic.setSelectedRelationMembers(relation);
-                excludes.addAll(relation.getMemberElements());
-            }
-            logic.setClickableElements(logic.findClickableElements(viewBox, excludes));
-        }
+        return roles;
     }
 
     @Override

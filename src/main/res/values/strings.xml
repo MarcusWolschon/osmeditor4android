@@ -787,6 +787,9 @@
     <string name="toast_error_loading_egm">Error loading EGM %1$s</string>
     <string name="toast_querying_wms_server_failed">Querying WMS server failed: %1$s</string>
     <string name="toast_note_not_found">Note #%1$d not found</string>
+    <string name="toast_no_roles_found">No roles found, all elements can be selected</string>
+    <string name="toast_no_preset_found">No matching preset found, all elements can be selected</string>
+    <string name="toast_undeleting_all_members">Undeleting all relation members with this element</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
