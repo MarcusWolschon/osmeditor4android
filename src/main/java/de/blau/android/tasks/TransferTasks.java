@@ -877,7 +877,7 @@ public final class TransferTasks {
                     if (b.getLastUpdate().getTime() > existing.getLastUpdate().getTime()) {
                         // downloaded task is newer
                         if (existing.hasBeenChanged()) { // conflict, show message and abort
-                            ScreenMessage.toastTopError(context, context.getString(R.string.toast_task_conflict, existing.getDescription()));
+                            ScreenMessage.toastTopError(context, context.getString(R.string.toast_task_conflict, existing.getDescription(context)));
                             break;
                         } else {
                             storage.delete(existing);
