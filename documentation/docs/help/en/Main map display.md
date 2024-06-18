@@ -65,6 +65,7 @@ The layer dialog supports the following actions on the layer entries:
     * GeoJSON layers: 
         * __Change style__ Show the layer styling dialog.
         * __Info__ Display some information on the contents.
+        * __Create Todos from GeoJSON objects ...__ create Todos from the GeoJSON objects in the layer. The default conversion adds the GeoJSON properties as text to the Todo, Custom conversion allows you to select a script for the conversion, for example a script can include references to OSM elements in the Todos. [Example script](http://vespucci.io/tutorials/other/conversion_exacmple.js)
     * GPX layers:
       Starting recording by the "Start GPX track" item in the GPS menu will add a layer for the recording. Layers for GPX files and downloaded tracks from the OSM API can be added via the __+__ button, see below.  
         * __Change style__ Show the layer styling dialog.

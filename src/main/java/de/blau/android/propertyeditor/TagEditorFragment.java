@@ -2092,8 +2092,8 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
             return true;
         case R.id.tag_menu_js_console:
             ConsoleDialog.showDialog(getActivity(), R.string.tag_menu_js_console, -1, -1, null,
-                    (context, input, flag1, flag2) -> de.blau.android.javascript.Utils.evalString(context, "JS Preset Test", input, getTagsInEditForm(),
-                            getKeyValueMap(true), "test", tags2Preset, App.getCurrentPresets(context)));
+                    null, (context, input, flag1, flag2) -> de.blau.android.javascript.Utils.evalString(context, "JS Preset Test", input, getTagsInEditForm(),
+                            getKeyValueMap(true), "test", tags2Preset, App.getCurrentPresets(context)), false);
             return true;
         case R.id.tag_menu_select_all:
             selectAllRows();

@@ -204,7 +204,7 @@ public final class IssueAlert {
                     Util.getBearingString(context, location.getLongitude(), location.getLatitude(), eLon, eLat)) + "\n";
             ticker = ticker + " " + message;
         }
-        message = message + b.getDescription();
+        message = message + b.getDescription(context);
         Notifications.initChannel(context, QA_CHANNEL, R.string.qa_channel_name, R.string.qa_channel_description);
         NotificationCompat.Builder mBuilder;
         try {

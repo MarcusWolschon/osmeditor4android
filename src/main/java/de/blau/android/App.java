@@ -680,8 +680,10 @@ public class App extends Application implements android.app.Application.Activity
                     rhinoScope = new ImporterTopLevel(c);
                     c.evaluateString(rhinoScope, "java", RHINO_LAZY_LOAD, 0, null);
                     // note any classes loaded here need to be kept in the ProGuard configuration
+                    c.evaluateString(rhinoScope, "importClass(com.mapbox.turf.TurfMeasurement)", RHINO_LAZY_LOAD, 0, null);
                     c.evaluateString(rhinoScope, "importClass(Packages.de.blau.android.osm.BoundingBox)", RHINO_LAZY_LOAD, 0, null);
                     c.evaluateString(rhinoScope, "importClass(Packages.de.blau.android.util.GeoMath)", RHINO_LAZY_LOAD, 0, null);
+                    c.evaluateString(rhinoScope, "importClass(Packages.de.blau.android.util.collections.LongPrimitiveList)", RHINO_LAZY_LOAD, 0, null);
                     ((ScriptableObject) rhinoScope).sealObject();
                 } finally {
                     org.mozilla.javascript.Context.exit();

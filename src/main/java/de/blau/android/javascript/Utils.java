@@ -1,5 +1,7 @@
 package de.blau.android.javascript;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.Map.Entry;
 
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
+
+import com.mapbox.geojson.Feature;
 
 import android.content.Context;
 import android.util.Log;
@@ -18,6 +22,7 @@ import de.blau.android.BuildConfig;
 import de.blau.android.Logic;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.tasks.Todo;
 
 /**
  * Various JS related utility methods
@@ -30,14 +35,17 @@ import de.blau.android.presets.PresetItem;
  *
  */
 public final class Utils {
-    private static final String DEBUG_TAG = Utils.class.getSimpleName().substring(0, Math.min(23, Utils.class.getSimpleName().length()));
 
+    private static final int    TAG_LEN          = Math.min(LOG_TAG_LEN, Utils.class.getSimpleName().length());
+    private static final String DEBUG_TAG        = Utils.class.getSimpleName().substring(0, TAG_LEN);
     private static final String LOGIC            = "logic";
     private static final String KEY2_PRESET_ITEM = "key2PresetItem";
     private static final String VALUE            = "value";
     private static final String TAGS             = "tags";
     private static final String ORIGINAL_TAGS    = "originalTags";
     private static final String VERSION_CODE     = "versionCode";
+    private static final String TODO             = "todo";
+    private static final String FEATURE          = "feature";
 
     /**
      * Empty private constructor
@@ -124,11 +132,42 @@ public final class Utils {
                 }
                 throw cce;
             }
-            if (result == null) {
-                return null;
-            } else {
+            if (result != null) {
                 return org.mozilla.javascript.Context.toString(result);
             }
+            return null;
+        } finally {
+            org.mozilla.javascript.Context.exit();
+        }
+    }
+
+    /**
+     * Set fields in a Todo from a GeoJosn Feature // NOSONAR
+     * 
+     * @param ctx android context
+     * @param scriptName name for error reporting
+     * @param script the javascript
+     * @param feature the Feature to convert
+     * @param todo the pre-allocated Todo // NOSONAR
+     * @return whatever the JS returned as a string
+     */
+    @Nullable
+    public static String evalString(@NonNull Context ctx, @NonNull String scriptName, @NonNull String script, @NonNull Feature feature, @NonNull Todo todo) {
+        org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
+        try {
+            Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
+            Scriptable scope = rhinoContext.newObject(restrictedScope);
+            scope.setPrototype(restrictedScope);
+            scope.setParentScope(null);
+            Object wrappedOut = org.mozilla.javascript.Context.javaToJS(feature, scope);
+            ScriptableObject.putProperty(scope, FEATURE, wrappedOut);
+            wrappedOut = org.mozilla.javascript.Context.javaToJS(todo, scope);
+            ScriptableObject.putProperty(scope, TODO, wrappedOut);
+            Object result = rhinoContext.evaluateString(scope, script, scriptName, 1, null);
+            if (result != null) {
+                return org.mozilla.javascript.Context.toString(result);
+            }
+            return null;
         } finally {
             org.mozilla.javascript.Context.exit();
         }

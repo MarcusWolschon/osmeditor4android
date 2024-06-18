@@ -2622,7 +2622,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param text initial overpass query
      */
     public static void showOverpassConsole(@NonNull final FragmentActivity activity, @Nullable String text) {
-        ConsoleDialog.showDialog(activity, R.string.overpass_console, R.string.merge_result, -1, text, (context, input, merge, flag2) -> {
+        ConsoleDialog.showDialog(activity, R.string.overpass_console, R.string.merge_result, -1, text, null, (context, input, merge, flag2) -> {
             Logic logic = App.getLogic();
             if (!merge && logic != null && logic.hasChanges()) {
                 return Util.withHtmlColor(context, R.attr.errorTextColor, context.getString(R.string.overpass_query_would_overwrite));
@@ -2639,7 +2639,7 @@ public class Main extends FullScreenAppCompatActivity
             } else {
                 return Util.withHtmlColor(context, R.attr.errorTextColor, result.getMessage());
             }
-        });
+        }, false);
     }
 
     /**
@@ -2649,7 +2649,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     public static void showJsConsole(@NonNull final Main main) {
         main.descheduleAutoLock();
-        ConsoleDialog.showDialog(main, R.string.tag_menu_js_console, -1, -1, null, (context, input, flag1, flag2) -> {
+        ConsoleDialog.showDialog(main, R.string.tag_menu_js_console, -1, -1, null, null, (context, input, flag1, flag2) -> {
             String result = de.blau.android.javascript.Utils.evalString(context, "JS Console", input, App.getLogic());
             if (context instanceof Main) {
                 ((Main) context).runOnUiThread(() -> {
@@ -2658,7 +2658,7 @@ public class Main extends FullScreenAppCompatActivity
                 });
             }
             return result;
-        });
+        }, false);
     }
 
     /**

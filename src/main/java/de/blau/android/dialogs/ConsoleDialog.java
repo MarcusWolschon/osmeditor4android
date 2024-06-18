@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -49,14 +51,17 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class ConsoleDialog extends DialogFragment {
-    private static final String DEBUG_TAG = ConsoleDialog.class.getSimpleName().substring(0, Math.min(23, ConsoleDialog.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ConsoleDialog.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ConsoleDialog.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String TAG              = "consoledialog";
-    private static final String TITLE_KEY        = "title";
-    private static final String INITIAL_TEXT_KEY = "initial_text";
-    private static final String CALLBACK_KEY     = "callback";
-    private static final String CHECKBOX1_KEY    = "checkbox1";
-    private static final String CHECKBOX2_KEY    = "checkbox2";
+    private static final String TAG                = "consoledialog";
+    private static final String TITLE_KEY          = "title";
+    private static final String INITIAL_TEXT_KEY   = "initial_text";
+    private static final String INITIAL_OUTPUT_KEY = "initial_output";
+    private static final String CALLBACK_KEY       = "callback";
+    private static final String CHECKBOX1_KEY      = "checkbox1";
+    private static final String CHECKBOX2_KEY      = "checkbox2";
+    private static final String DISMISS_ON_RUN_KEY = "dismiss_on_run";
 
     private EditText input;
 
@@ -68,14 +73,17 @@ public class ConsoleDialog extends DialogFragment {
      * @param checkbox1Resource checkbox text resource for flag 1
      * @param checkbox2Resource checkbox text resource for flag 2
      * @param initialText initial code to display
+     * @param initialOutput any initial output to display
      * @param callback code to execute on when Run/Evaluate is clicked
+     * @param dismissOnRun if true the modal will be dismissed when run is selected
      */
     public static void showDialog(@NonNull FragmentActivity activity, int titleResource, int checkbox1Resource, int checkbox2Resource,
-            @Nullable String initialText, @NonNull final EvalCallback callback) {
+            @Nullable String initialText, @Nullable String initialOutput, @NonNull final EvalCallback callback, boolean dismissOnRun) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            ConsoleDialog consoleFragment = newInstance(titleResource, checkbox1Resource, checkbox2Resource, initialText, callback);
+            ConsoleDialog consoleFragment = newInstance(titleResource, checkbox1Resource, checkbox2Resource, initialText, initialOutput, callback,
+                    dismissOnRun);
             consoleFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -98,12 +106,13 @@ public class ConsoleDialog extends DialogFragment {
      * @param checkbox1Resource checkbox text resource for flag 1
      * @param checkbox2Resource checkbox text resource for flag 2
      * @param initialText initial code to display
+     * @param initialOutput any initial output
      * @param callback code to execute on when Run/Evaluate is clicked
-     * 
+     * @param dismissOnRun if true the modal will be dismissed when run is selected
      * @return a ConsoleDialog instance
      */
     private static ConsoleDialog newInstance(int titleResource, int checkbox1Resource, int checkbox2Resource, @Nullable String initialText,
-            @NonNull final EvalCallback callback) {
+            String initialOutput, @NonNull final EvalCallback callback, boolean dismissOnRun) {
 
         ConsoleDialog f = new ConsoleDialog();
 
@@ -112,7 +121,9 @@ public class ConsoleDialog extends DialogFragment {
         args.putInt(CHECKBOX1_KEY, checkbox1Resource);
         args.putInt(CHECKBOX2_KEY, checkbox2Resource);
         args.putString(INITIAL_TEXT_KEY, initialText);
+        args.putString(INITIAL_OUTPUT_KEY, initialOutput);
         args.putSerializable(CALLBACK_KEY, callback);
+        args.putBoolean(DISMISS_ON_RUN_KEY, dismissOnRun);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -130,6 +141,8 @@ public class ConsoleDialog extends DialogFragment {
         int checkbox1Resource = getArguments().getInt(CHECKBOX1_KEY);
         int checkbox2Resource = getArguments().getInt(CHECKBOX2_KEY);
         String initialText = getArguments().getString(INITIAL_TEXT_KEY);
+        String initialOutput = getArguments().getString(INITIAL_OUTPUT_KEY);
+        final boolean dismissOnRun = getArguments().getBoolean(DISMISS_ON_RUN_KEY, false);
 
         // Create some useful objects
         final FragmentActivity activity = getActivity();
@@ -149,6 +162,9 @@ public class ConsoleDialog extends DialogFragment {
         if (initialText != null) {
             input.setText(initialText);
         }
+        if (initialOutput != null) {
+            setOutput(output, initialOutput);
+        }
 
         builder.setTitle(titleResource);
         builder.setView(v);
@@ -158,39 +174,7 @@ public class ConsoleDialog extends DialogFragment {
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(d -> {
             Button negative = ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEGATIVE);
-            negative.setOnClickListener(view -> {
-                Logic logic = App.getLogic();
-                final ExecutorTask<String, Void, String> runner = new ExecutorTask<String, Void, String>(logic.getExecutorService(), logic.getHandler()) {
-                    final AlertDialog progress = ProgressDialog.get(getActivity(), Progress.PROGRESS_RUNNING);
-
-                    @Override
-                    protected void onPreExecute() {
-                        progress.show();
-                    }
-
-                    @Override
-                    protected String doInBackground(String text) {
-                        try {
-                            return callback.eval(getActivity(), text, checkbox1.isChecked(), checkbox2.isChecked());
-                        } catch (Exception ex) {
-                            Log.e(DEBUG_TAG, "dialog failed with " + ex);
-                            return ex.getMessage();
-                        }
-                    }
-
-                    @Override
-                    protected void onPostExecute(final String result) {
-                        try {
-                            progress.dismiss();
-                        } catch (Exception ex) {
-                            Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
-                        }
-                        // small hack to display HTML correctly
-                        output.setText(result.startsWith("<") ? Util.fromHtml(result) : result);
-                    }
-                };
-                runner.execute(input.getText().toString());
-            });
+            negative.setOnClickListener(view -> runScript(dialog, callback, output, dismissOnRun, checkbox1, checkbox2));
             Button positive = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
             Drawable more = ThemeUtils.getTintedDrawable(activity, R.drawable.ic_more_vert_black_24dp, R.attr.colorAccent);
             positive.setCompoundDrawablesWithIntrinsicBounds(null, null, more, null);
@@ -203,6 +187,53 @@ public class ConsoleDialog extends DialogFragment {
             });
         });
         return dialog;
+    }
+
+    /**
+     * Actually run the script async
+     * 
+     * @param dialog the AlertDialog
+     * @param callback called after evaluation
+     * @param output destination for any output
+     * @param dismissOnRun dismiss dialog after the run
+     * @param checkbox1 Checkbox 1
+     * @param checkbox2 Checkbox 2
+     */
+    private void runScript(@NonNull AlertDialog dialog, @NonNull EvalCallback callback, @NonNull final TextView output, final boolean dismissOnRun,
+            final CheckBox checkbox1, final CheckBox checkbox2) {
+        Logic logic = App.getLogic();
+        final ExecutorTask<String, Void, String> runner = new ExecutorTask<String, Void, String>(logic.getExecutorService(), logic.getHandler()) {
+            final AlertDialog progress = ProgressDialog.get(getActivity(), Progress.PROGRESS_RUNNING);
+
+            @Override
+            protected void onPreExecute() {
+                progress.show();
+            }
+
+            @Override
+            protected String doInBackground(String text) {
+                try {
+                    return callback.eval(getActivity(), text, checkbox1.isChecked(), checkbox2.isChecked());
+                } catch (Exception ex) {
+                    Log.e(DEBUG_TAG, "dialog failed with " + ex);
+                    return ex.getMessage();
+                }
+            }
+
+            @Override
+            protected void onPostExecute(final String result) {
+                try {
+                    progress.dismiss();
+                } catch (Exception ex) {
+                    Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
+                }
+                if (dismissOnRun) {
+                    dialog.dismiss();
+                }
+                setOutput(output, result == null ? "" : result);
+            }
+        };
+        runner.execute(input.getText().toString());
     }
 
     /**
@@ -284,6 +315,17 @@ public class ConsoleDialog extends DialogFragment {
             checkbox.setChecked(sharedPrefs.getBoolean(prefKey, false));
             checkbox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> sharedPrefs.edit().putBoolean(prefKey, isChecked).commit());
         }
+    }
+
+    /**
+     * Set the text of the output field
+     * 
+     * @param outputView the output TextView
+     * @param text the output text
+     */
+    private static void setOutput(@NonNull final TextView outputView, @NonNull final String text) {
+        // small hack to display HTML correctly
+        outputView.setText(text.startsWith("<") ? Util.fromHtml(text) : text);
     }
 
     /**
