@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -340,5 +341,46 @@ public class RelationTest {
         outer = outerMembers.get(2);
         assertEquals(1, outer.getElement().getTags().size());
         assertTrue(outer.getElement().hasTagWithValue(Tags.KEY_ADDR_HOUSENUMBER, "38"));
+    }
+    
+    /**
+     * Edit route relation
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void editRoute() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 22);
+        //
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
+        assertTrue(TestUtils.clickText(device, false, "↓ Hiking route", false, false));
+        List<Relation> relations = App.getLogic().getSelectedRelations();
+        assertNotNull(relations);
+        assertEquals(1, relations.size());
+        Relation relation = relations.get(0);
+       
+        assertEquals(6490362L, relation.getOsmId());
+        assertNotNull(relation.getMember(Way.NAME, 104148456L));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_relationselect)));
+
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_relation_member), true, true));
+       
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add_relation_member)));
+        
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.duplicate_relation_member_title, 5000)));
+        TestUtils.clickButton(device, "android:id/button2", true);
+       
+        TestUtils.sleep(2000);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        TestUtils.sleep(2000);
+        
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        TestUtils.sleep(2000);
+        assertNotNull(relation.getMember(Way.NAME, 104148456L));
     }
 }
