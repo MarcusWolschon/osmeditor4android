@@ -32,6 +32,7 @@ import com.mapbox.geojson.Polygon;
 import com.mapbox.turf.TurfException;
 import com.mapbox.turf.TurfJoins;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -523,15 +524,15 @@ public class MapOverlay extends StyleableFileLayer
             }
         } catch (OutOfMemoryError oom) {
             data = null;
-            ScreenMessage.toastTopError(ctx, R.string.out_of_memory_title);
+            runOnUiThread(ctx, () -> ScreenMessage.toastTopError(ctx, R.string.out_of_memory_title));
             Log.e(DEBUG_TAG, "Out of memory error " + oom.getMessage());
         } catch (com.google.gson.JsonSyntaxException jsex) {
-            ScreenMessage.toastTopError(ctx, jsex.getLocalizedMessage());
+            runOnUiThread(ctx, () -> ScreenMessage.toastTopError(ctx, jsex.getLocalizedMessage()));
             Log.e(DEBUG_TAG, "Syntax error " + jsex.getMessage());
         } catch (Exception e) {
             // never crash
             data = null;
-            ScreenMessage.toastTopError(ctx, e.getLocalizedMessage());
+            runOnUiThread(ctx, () -> ScreenMessage.toastTopError(ctx, e.getLocalizedMessage()));
             Log.e(DEBUG_TAG, "Exception " + e.getMessage());
         }
         // re-enable drawing
@@ -540,10 +541,26 @@ public class MapOverlay extends StyleableFileLayer
     }
 
     /**
+     * Run action on the UI thread
+     * 
+     * @param ctx an Android Context
+     * @param action the runnable
+     */
+    private void runOnUiThread(@NonNull Context ctx, @NonNull final Runnable action) {
+        if (ctx instanceof Activity) {
+            ((Activity) ctx).runOnUiThread(action);
+        }
+    }
+
+    /**
      * @param features a List of Feature
      */
     private void loadFeatures(@NonNull List<Feature> features) {
         for (Feature f : features) {
+            if (f == null) {
+                Log.e(DEBUG_TAG, "loadFeatures: null feature");
+                continue;
+            }
             if (GeoJSONConstants.FEATURE.equals(f.type()) && f.geometry() != null) {
                 data.insert(new BoundedFeature(f));
             } else {
