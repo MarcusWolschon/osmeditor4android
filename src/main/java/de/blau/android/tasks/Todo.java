@@ -148,7 +148,7 @@ public final class Todo extends Bug implements Serializable {
     }
     
     /**
-     * Construct a todo with just a list name and id
+     * Construct a todo with just a list name and id //NOSONAR
      * 
      * @param listName the name of the todo list to add this to // NOSONAR
      * 
