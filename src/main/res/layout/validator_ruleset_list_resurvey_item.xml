@@ -10,6 +10,14 @@
     	android:layout_marginTop="5dp"
     	android:layout_marginBottom="1dp" 
     	android:orientation="horizontal" >
+	   <CheckBox
+		   android:id="@+id/resurvey_enabled"
+		   android:layout_width="27dp"
+		   android:layout_height="fill_parent"
+		   android:layout_marginBottom="1dp"
+		   android:paddingRight="5dp"
+		   android:saveEnabled="false"
+		   android:text=""/>
 		<TextView
         	android:id="@+id/key"
     	    android:layout_width="0dp"
