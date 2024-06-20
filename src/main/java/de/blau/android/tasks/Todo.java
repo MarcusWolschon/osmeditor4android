@@ -362,7 +362,7 @@ public final class Todo extends Bug implements Serializable {
         if (count >= 2) {
             final double curLat = getLat() / 1E7D;
             final double curLon = getLon() / 1E7D;
-            sortByDistance(todos, curLon, curLat);
+            sortByDistance(todos, curLon, curLat, true);
         } else if (count == 0) {
             return this; // the only thing we can return
         }

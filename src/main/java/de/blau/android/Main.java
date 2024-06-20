@@ -2722,7 +2722,7 @@ public class Main extends FullScreenAppCompatActivity
             ScreenMessage.toastTopError(this, R.string.toast_no_todos_in_list, false);
             return;
         }
-        Task.sortByDistance(todos, lon, lat);
+        Task.sortByDistance(todos, lon, lat, true);
         Todo nearest = todos.get(0);
         map.getViewBox().moveTo(map, nearest.getLon(), nearest.getLat());
         TodoFragment.showDialog(this, nearest);
