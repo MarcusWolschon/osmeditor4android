@@ -3,20 +3,20 @@ package de.blau.android.util;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -144,7 +144,7 @@ public final class IssueAlert {
             resultIntent.setData(rc);
             mBuilder.setContentIntent(Notifications.createPendingIntent(context, Main.class, resultIntent));
 
-            NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
             addGroupNotification(context, QA_CHANNEL, GROUP_DATA, GROUP_DATA_ID, title, mNotificationManager);
 
             // mId allows you to update the notification later on.
@@ -222,7 +222,7 @@ public final class IssueAlert {
         resultIntent.setData(Uri.fromParts(Schemes.GEO, eLat + "," + eLon, null));
         mBuilder.setContentIntent(Notifications.createPendingIntent(context, Main.class, resultIntent));
 
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         if (b instanceof Note) {
             addGroupNotification(context, QA_CHANNEL, GROUP_NOTES, GROUP_NOTES_ID, title, mNotificationManager);
         } else {
@@ -254,8 +254,8 @@ public final class IssueAlert {
      * @return true if present
      */
     @SuppressLint("NewApi")
-    private static boolean hasGroupNotification(@NonNull NotificationManager notificationManager, int groupId) {
-        StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+    private static boolean hasGroupNotification(@NonNull NotificationManagerCompat notificationManager, int groupId) {
+        List<StatusBarNotification> notifications = notificationManager.getActiveNotifications();
         for (StatusBarNotification notification : notifications) {
             if (notification.getId() == groupId) {
                 return true;
@@ -271,7 +271,7 @@ public final class IssueAlert {
      * @param e the OsmElement
      */
     public static void cancel(@NonNull Context context, @NonNull OsmElement e) {
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         App.getOsmDataNotifications(context).remove(mNotificationManager, id(e));
     }
 
@@ -283,7 +283,7 @@ public final class IssueAlert {
      */
     public static void cancel(@Nullable Context context, @NonNull Task b) {
         if (context != null) {
-            NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
             App.getTaskNotifications(context).remove(mNotificationManager, id(b)); // cancels and removes from cache
         }
     }
@@ -340,19 +340,17 @@ public final class IssueAlert {
      * @param notificationManager a NotificationManager instance
      */
     private static void addGroupNotification(@NonNull Context context, @NonNull String channel, @NonNull String group, int groupId, @NonNull String title,
-            @NonNull NotificationManager notificationManager) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !hasGroupNotification(notificationManager, groupId)) {
-            NotificationCompat.Builder groupBuilder = null;
+            @NonNull NotificationManagerCompat notificationManager) {
+        if (!hasGroupNotification(notificationManager, groupId)) {
             try {
-                groupBuilder = Notifications.builder(context, channel).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title)
-                        .setPriority(NotificationCompat.PRIORITY_HIGH).setGroup(group).setGroupSummary(true)
+                NotificationCompat.Builder groupBuilder = Notifications.builder(context, channel).setSmallIcon(R.drawable.logo_simplified)
+                        .setContentTitle(title).setPriority(NotificationCompat.PRIORITY_HIGH).setGroup(group).setGroupSummary(true)
                         .setColor(ContextCompat.getColor(context, R.color.osm_green));
+                notificationManager.notify(groupId, groupBuilder.build());
             } catch (RuntimeException re) {
                 // don't do anything
             }
-            if (groupBuilder != null) {
-                notificationManager.notify(groupId, groupBuilder.build());
-            }
+
         }
     }
 }

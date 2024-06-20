@@ -1,13 +1,15 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationManagerCompat;
 import de.blau.android.App;
 
 /**
@@ -17,10 +19,12 @@ import de.blau.android.App;
  *
  */
 public class NotificationCache implements Serializable {
-    private static final String DEBUG_TAG        = NotificationCache.class.getSimpleName().substring(0, Math.min(23, NotificationCache.class.getSimpleName().length()));
-    private static final long   serialVersionUID = 2L;
-    private List<Integer>       cache;
-    private int                 size             = 5;
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, IssueAlert.class.getSimpleName().length());
+    private static final String DEBUG_TAG = NotificationCache.class.getSimpleName().substring(0, TAG_LEN);
+
+    private static final long serialVersionUID = 2L;
+    private List<Integer>     cache;
+    private int               size             = 5;
 
     /**
      * Construct a new cache getting the size from the preferences
@@ -52,7 +56,7 @@ public class NotificationCache implements Serializable {
      * @param manager a NotificationManager instance
      * @param id the id to save
      */
-    synchronized void save(@NonNull NotificationManager manager, int id) {
+    synchronized void save(@NonNull NotificationManagerCompat manager, int id) {
         if (cache.size() >= size) {
             remove(manager);
         }
@@ -65,7 +69,7 @@ public class NotificationCache implements Serializable {
      * @param manager a NotificationManager instance
      * @param id the id to remove
      */
-    synchronized void remove(@NonNull NotificationManager manager, int id) {
+    synchronized void remove(@NonNull NotificationManagerCompat manager, int id) {
         remove(id);
         manager.cancel(id); // cancel even if not found
     }
@@ -89,7 +93,7 @@ public class NotificationCache implements Serializable {
      * 
      * @param manager a NotificationManager instance
      */
-    private synchronized void remove(@NonNull NotificationManager manager) {
+    private synchronized void remove(@NonNull NotificationManagerCompat manager) {
         // remove notification
         int last = cache.size() - 1;
         if (last >= 0) {
@@ -118,7 +122,7 @@ public class NotificationCache implements Serializable {
         if (prefSize > this.size) {
             this.size = prefSize;
         } else if (prefSize < this.size) {
-            NotificationManager manager = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManagerCompat manager = NotificationManagerCompat.from(ctx);
             for (int i = 0; i < (this.size - prefSize); i++) {
                 remove(manager);
             }
