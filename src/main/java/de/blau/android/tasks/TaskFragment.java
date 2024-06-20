@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -52,7 +54,9 @@ import de.blau.android.util.Util;
  *
  */
 public abstract class TaskFragment extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = TaskFragment.class.getSimpleName().substring(0, Math.min(23, TaskFragment.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TaskFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TaskFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     protected static final String BUG_KEY = "bug";
 
@@ -133,11 +137,11 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         // Apply the adapter to the spinner
         state.setAdapter(adapter);
 
-        int stateOrdinal = task.getState().ordinal();
-        if (adapter.getCount() > stateOrdinal) {
-            state.setSelection(stateOrdinal);
+        int statePos = state2pos(task.getState());
+        if (adapter.getCount() > statePos) {
+            state.setSelection(statePos);
         } else {
-            Log.e(DEBUG_TAG, "ArrayAdapter too short state " + stateOrdinal + " adapter " + adapter.getCount());
+            Log.e(DEBUG_TAG, "ArrayAdapter too short state " + statePos + " adapter " + adapter.getCount());
         }
 
         enableStateSpinner(task);
@@ -162,7 +166,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
      * @return true if we've changed something wrt the Task
      */
     protected boolean changed(int newState) {
-        return newState != task.getState().ordinal();
+        return newState != state2pos(task.getState());
     }
 
     /**
@@ -340,11 +344,19 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     /**
      * ¨ Get the State value corresponding to position
      * 
-     * @param position the ordinal value
+     * @param position the ordinal value in the enum
      * @return the State value corresponding to position
      */
     @NonNull
     protected abstract State pos2state(int position);
+
+    /**
+     * Get the position for the state
+     * 
+     * @param state the State
+     * @return the position
+     */
+    protected abstract int state2pos(@NonNull State state);
 
     /**
      * Saves bug to storage if it is new, otherwise update comment and/or state

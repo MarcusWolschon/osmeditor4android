@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,7 +34,8 @@ public abstract class Bug extends Task implements Serializable {
 
     private static final long serialVersionUID = 3L;
 
-    private static final String DEBUG_TAG = Bug.class.getSimpleName().substring(0, Math.min(23, Bug.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Bug.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Bug.class.getSimpleName().substring(0, TAG_LEN);
 
     protected static final String OSM_IDS         = "osm_ids";
     protected static final String NODES_ARRAY     = "nodes";
@@ -100,8 +103,7 @@ public abstract class Bug extends Task implements Serializable {
      * @return a String with a short description
      */
     protected String getBugDescription(@NonNull Context context, int bugNameRes) { // NOSONAR
-        String[] states = context.getResources().getStringArray(R.array.bug_state);
-        String state = states[getState().ordinal()];
+        String state = stateToString(context, R.array.bug_state, R.array.bug_state_values, getState());
         if (notEmpty(title) && notEmpty(subtitle)) {
             return context.getString(R.string.bug_description_2_191, title, subtitle, state);
         } else {

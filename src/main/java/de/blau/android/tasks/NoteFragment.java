@@ -1,5 +1,9 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
+import java.util.Arrays;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,7 +31,8 @@ import de.blau.android.util.Util;
  *
  */
 public class NoteFragment extends TaskFragment {
-    private static final String DEBUG_TAG = NoteFragment.class.getSimpleName().substring(0, Math.min(23, NoteFragment.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, NoteFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = NoteFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_note";
 
@@ -137,8 +142,9 @@ public class NoteFragment extends TaskFragment {
                 boolean changed = !original.equals(edited.toString()) || NoteFragment.super.changed(state.getSelectedItemPosition());
                 save.setEnabled(changed);
                 upload.setEnabled(changed);
-                if (changed && state.getSelectedItemPosition() != State.OPEN.ordinal()) {
-                    state.setSelection(State.OPEN.ordinal());
+                final int openPos = state2pos(State.OPEN);
+                if (changed && state.getSelectedItemPosition() != openPos) {
+                    state.setSelection(openPos);
                     ScreenMessage.toastTopInfo(getContext(), R.string.toast_note_reopened);
                 }
             }
@@ -180,5 +186,11 @@ public class NoteFragment extends TaskFragment {
     protected State pos2state(int position) {
         String[] array = getResources().getStringArray(R.array.note_state_values);
         return State.valueOf(array[position]);
+    }
+
+    @Override
+    protected int state2pos(State state) {
+        String[] array = getResources().getStringArray(R.array.note_state_values);
+        return Arrays.asList(array).indexOf(state.name());
     }
 }

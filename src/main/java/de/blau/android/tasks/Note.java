@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,7 +33,8 @@ import de.blau.android.util.Util;
  * @author Simon Poole
  */
 public class Note extends LongIdTask implements Serializable, JosmXmlSerializable {
-    private static final String DEBUG_TAG = Note.class.getSimpleName().substring(0, Math.min(23, Note.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Note.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Note.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final long serialVersionUID = 8L;
 
@@ -315,9 +318,8 @@ public class Note extends LongIdTask implements Serializable, JosmXmlSerializabl
 
     @Override
     public String getDescription(@NonNull Context context) {
-        String[] states = context.getResources().getStringArray(R.array.bug_state);
-        return context.getString(R.string.note_description, comments != null && !comments.isEmpty() ? Util.fromHtml(comments.get(0).getText()) : "",
-                states[getState().ordinal()]);
+        String state = stateToString(context, R.array.bug_state, R.array.bug_state_values, getState());
+        return context.getString(R.string.note_description, comments != null && !comments.isEmpty() ? Util.fromHtml(comments.get(0).getText()) : "", state);
     }
 
     /**

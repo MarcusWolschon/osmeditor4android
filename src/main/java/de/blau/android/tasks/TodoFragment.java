@@ -1,5 +1,6 @@
 package de.blau.android.tasks;
 
+import java.util.Arrays;
 import java.util.List;
 
 import android.os.Bundle;
@@ -116,6 +117,12 @@ public class TodoFragment extends BugFragment {
     protected State pos2state(int position) {
         String[] array = getResources().getStringArray(R.array.todo_state_values);
         return State.valueOf(array[position]);
+    }
+
+    @Override
+    protected int state2pos(State state) {
+        String[] array = getResources().getStringArray(R.array.todo_state_values);
+        return Arrays.asList(array).indexOf(state.name());
     }
 
     @Override

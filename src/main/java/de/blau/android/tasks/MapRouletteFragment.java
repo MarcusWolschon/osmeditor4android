@@ -1,6 +1,9 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,6 +12,7 @@ import com.mapbox.geojson.Feature;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Spanned;
@@ -52,7 +56,8 @@ import io.noties.markwon.Markwon;
  */
 public class MapRouletteFragment extends TaskFragment {
 
-    private static final String DEBUG_TAG = MapRouletteFragment.class.getSimpleName().substring(0, Math.min(23, MapRouletteFragment.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapRouletteFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapRouletteFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_maproulette";
 
@@ -234,6 +239,23 @@ public class MapRouletteFragment extends TaskFragment {
     protected State pos2state(int position) {
         String[] array = getResources().getStringArray(R.array.maproulette_state_values);
         return State.valueOf(array[position]);
+    }
+
+    @Override
+    protected int state2pos(State state) {
+        return state2pos(getResources(), state);
+    }
+
+    /**
+     * Convert State to a position
+     * 
+     * @param resources Android Resources
+     * @param state the state
+     * @return the position
+     */
+    static int state2pos(@NonNull Resources resources, @NonNull State state) {
+        String[] array = resources.getStringArray(R.array.maproulette_state_values);
+        return Arrays.asList(array).indexOf(state.name());
     }
 
     /**

@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
+import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +28,8 @@ import okhttp3.ResponseBody;
 
 final class MapRouletteServer {
 
-    private static final String DEBUG_TAG = MapRouletteServer.class.getSimpleName().substring(0, Math.min(23, MapRouletteServer.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapRouletteServer.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapRouletteServer.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String APIPATH = "api/v2/";
     private static final String API_KEY = "apiKey";
@@ -96,15 +100,16 @@ final class MapRouletteServer {
     /**
      * Change the state of the MapRoulette task on the server
      * 
+     * @param context an Android Context
      * @param server the maproulette server
      * @param apiKey the users apiKey
      * @param task the task with the state the server side task should be changed to
      * @return true if successful
      */
     @NonNull
-    public static UploadResult changeState(@NonNull String server, @NonNull String apiKey, @NonNull MapRouletteTask task) {
+    public static UploadResult changeState(@NonNull Context context, @NonNull String server, @NonNull String apiKey, @NonNull MapRouletteTask task) {
         try {
-            URL url = new URL(getServerURL(server) + "task/" + task.getId() + "/" + task.getState().ordinal());
+            URL url = new URL(getServerURL(server) + "task/" + task.getId() + "/" + MapRouletteFragment.state2pos(context.getResources(), task.getState()));
             Log.d(DEBUG_TAG, "changeState " + url.toString());
             Request request = new Request.Builder().url(url).put(RequestBody.create(null, "")).addHeader(API_KEY, apiKey).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
