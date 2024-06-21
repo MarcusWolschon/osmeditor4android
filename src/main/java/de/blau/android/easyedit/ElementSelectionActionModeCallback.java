@@ -504,16 +504,19 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             Button positive = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
             positive.setOnClickListener(view -> {
                 final TaskStorage storage = App.getTaskStorage();
-                final String name = todoList.getText().toString();
+                String listName = todoList.getText().toString();
+                if ("".equals(listName)) {
+                    listName = Todo.DEFAULT_LIST;
+                }
                 final String comment = todoComment.getText().toString();
                 for (OsmElement e : elements) {
-                    if (storage.contains(e, name)) {
+                    if (storage.contains(e, listName)) {
                         ScreenMessage.toastTopWarning(activity, R.string.toast_todo_already_in_list);
                         return;
                     }
                 }
                 for (OsmElement e : elements) {
-                    Todo todo = new Todo(name, e);
+                    Todo todo = new Todo(listName, e);
                     if (!"".equals(comment)) {
                         todo.setTitle(comment);
                     }
