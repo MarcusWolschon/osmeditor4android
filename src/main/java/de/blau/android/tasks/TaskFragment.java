@@ -211,6 +211,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
      * @param state the state spinner
      */
     protected void onShowListener(@NonNull Task task, @NonNull Button save, @NonNull Button upload, @NonNull Button cancel, @NonNull Spinner state) {
+        Log.d(DEBUG_TAG, "onShowListener");
         if ((App.getTaskStorage().contains(task)) && (!task.hasBeenChanged() || task.isNew())) {
             save.setEnabled(false);
         }

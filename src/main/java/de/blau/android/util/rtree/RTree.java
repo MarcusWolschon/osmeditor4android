@@ -8,7 +8,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.util.GeoMath;
 
 /**
  * 2D R-Tree implementation for Android. Uses algorithms from:
@@ -409,8 +408,7 @@ public class RTree<T extends BoundedObject & Serializable> implements Serializab
      * @param results A collection to store the query results
      */
     public void query(@NonNull Collection<T> results) {
-        BoundingBox box = new BoundingBox(-GeoMath.MAX_LON_E7, -GeoMath.MAX_LAT_E7, GeoMath.MAX_LON_E7, GeoMath.MAX_LAT_E7);
-        query(results, box, root, new BoundingBox());
+        query(results, root);
     }
 
     /**
@@ -450,6 +448,30 @@ public class RTree<T extends BoundedObject & Serializable> implements Serializab
                 if (BoundingBox.intersects(child.box, box)) {
                     query(results, box, child, tempBox);
                 }
+            }
+        }
+    }
+
+    /**
+     * Return all items in the tree below node
+     * 
+     * @param results a Collection holding the results
+     * @param node the Node to start at
+     */
+    private void query(@NonNull Collection<T> results, @Nullable Node<T> node) {
+        if (node == null) {
+            return;
+        }
+        if (node.isLeaf()) {
+            final int size = node.data.size();
+            for (int i = 0; i < size; i++) {
+                results.add(node.data.get(i));
+            }
+        } else {
+            final int size = node.children.size();
+            for (int i = 0; i < size; i++) {
+                final RTree<T>.Node<T> child = node.children.get(i);
+                query(results, child);
             }
         }
     }
