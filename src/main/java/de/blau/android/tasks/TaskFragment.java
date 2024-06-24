@@ -7,6 +7,9 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -394,5 +397,33 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     @Nullable
     protected Task getTask() {
         return task;
+    }
+
+    /**
+     * Remove padding from an EditText
+     * 
+     * From https://stackoverflow.com/a/67233417
+     * 
+     * @param editText the EditText
+     */
+    protected void removePadding(@NonNull EditText editText) {
+        Drawable background = editText.getBackground();
+        if (background instanceof InsetDrawable) {
+            InsetDrawable insetDrawable = (InsetDrawable) background;
+            Drawable originalDrawable = insetDrawable.getDrawable();
+            Rect insetDrawablePadding = new Rect();
+            insetDrawable.getPadding(insetDrawablePadding);
+            Rect originalDrawablePadding = new Rect();
+            originalDrawable.getPadding(originalDrawablePadding);
+
+            // We subtract original padding dimensions from inset drawable padding dimensions.
+            // We assume that padding is calculated by summing original drawable padding
+            // and inset drawable insets. So to retrieve only insets we have to perform subtraction
+            Rect insetDrawableInsets = new Rect(insetDrawablePadding.left - originalDrawablePadding.left,
+                    insetDrawablePadding.top - originalDrawablePadding.top, insetDrawablePadding.right - originalDrawablePadding.right,
+                    insetDrawablePadding.bottom - originalDrawablePadding.bottom);
+            // Remove side spacing from editText background to make it fit fully into layout width
+            editText.setBackground(new InsetDrawable(originalDrawable, 0, insetDrawablePadding.top, 0, insetDrawableInsets.bottom));
+        }
     }
 }

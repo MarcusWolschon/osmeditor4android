@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.List;
 
 import android.content.Context;
@@ -31,7 +33,8 @@ import io.noties.markwon.Markwon;
  *
  */
 public abstract class BugFragment extends TaskFragment {
-    private static final String DEBUG_TAG = BugFragment.class.getSimpleName().substring(0, Math.min(23, BugFragment.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, BugFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = BugFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * Add links to elements to the layout
@@ -43,7 +46,7 @@ public abstract class BugFragment extends TaskFragment {
     protected <T extends Task> void addElementLinks(@NonNull T task, @NonNull LinearLayout layout) {
         final StorageDelegator storageDelegator = App.getDelegator();
         final List<OsmElement> elements = ((Bug) task).getElements();
-        if (!elements.isEmpty()) {
+        if (!elements.isEmpty() && comment.getVisibility() != View.VISIBLE) {
             final View ruler = inflater.inflate(R.layout.ruler, null);
             layout.addView(ruler);
         }

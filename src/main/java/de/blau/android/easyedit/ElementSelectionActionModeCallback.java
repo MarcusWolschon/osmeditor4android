@@ -60,6 +60,7 @@ import de.blau.android.search.Search;
 import de.blau.android.services.TrackerService;
 import de.blau.android.tasks.Bug;
 import de.blau.android.tasks.BugFragment;
+import de.blau.android.tasks.Task.State;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.TodoFragment;
@@ -81,7 +82,8 @@ import me.zed.elementhistorydialog.ElementHistoryDialog;
  */
 public abstract class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
 
-    private static final String DEBUG_TAG = ElementSelectionActionModeCallback.class.getSimpleName().substring(0, Math.min(23, ElementSelectionActionModeCallback.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = ElementSelectionActionModeCallback.class.getSimpleName().substring(0,
+            Math.min(23, ElementSelectionActionModeCallback.class.getSimpleName().length()));
 
     private static final int   MENUITEM_UNDO                 = 0;
     static final int           MENUITEM_TAG                  = 1;
@@ -109,7 +111,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     static final int           MENUITEM_ADD_TO_TODO         = 39;
 
     private static final int MENUITEM_TODO_CLOSE_AND_NEXT = 70;
-    private static final int MENUITEM_TASK_CLOSE_ALL      = 71;
+    private static final int MENUITEM_TODO_SKIP_AND_NEXT  = 71;
+    private static final int MENUITEM_TASK_CLOSE_ALL      = 72;
 
     protected final OsmElement element;
 
@@ -122,6 +125,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private MenuItem calibrateItem;
     private MenuItem taskMenuItem;
     private MenuItem todoCloseAndNextItem;
+    private MenuItem todoSkipAndNextItem;
 
     Preferences prefs;
 
@@ -165,6 +169,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         taskMenuItem = menu.findItem(R.id.task_menu);
         SubMenu taskMenu = taskMenuItem.getSubMenu();
         todoCloseAndNextItem = taskMenu.add(Menu.NONE, MENUITEM_TODO_CLOSE_AND_NEXT, Menu.NONE, R.string.menu_todo_close_and_next);
+        todoSkipAndNextItem = taskMenu.add(Menu.NONE, MENUITEM_TODO_SKIP_AND_NEXT, Menu.NONE, R.string.menu_todo_skip_and_next);
         taskMenu.add(Menu.NONE, MENUITEM_TASK_CLOSE_ALL, Menu.NONE, R.string.menu_todo_close_all_tasks);
 
         menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
@@ -261,6 +266,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             }
         }
         updated |= setItemVisibility(hasTaskLayer && hasTodo, todoCloseAndNextItem, true);
+        updated |= setItemVisibility(hasTaskLayer && hasTodo, todoSkipAndNextItem, true);
 
         updated |= setItemVisibility(!element.isUnchanged(), uploadItem, true);
         updated |= setItemVisibility(!App.getTagClipboard(main).isEmpty(), pasteItem, true);
@@ -392,15 +398,18 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             addToTodoList(main, manager, Util.wrapInList(element));
             break;
         case MENUITEM_TODO_CLOSE_AND_NEXT:
+        case MENUITEM_TODO_SKIP_AND_NEXT:
             final List<Todo> todos = taskStorage.getTodosForElement(element);
-            if (todos.size() == 1) {
-                closeTodoAndNext(taskStorage, todos.get(0));
+            State newState = item.getItemId() == MENUITEM_TODO_CLOSE_AND_NEXT ? State.CLOSED : State.SKIPPED;
+            Set<StringWithDescription> listNames = new HashSet<>();
+            for (int i = 0; i < todos.size(); i++) {
+                listNames.add(todos.get(i).getListName(main));
+            }
+            if (todos.size() == 1 || listNames.size() == 1) {
+                setTodoStateAndNext(taskStorage, todos.get(0), newState);
             } else {
-                List<StringWithDescription> listNames = new ArrayList<>();
-                for (int i = 0; i < todos.size(); i++) {
-                    listNames.add(todos.get(i).getListName(main));
-                }
-                selectTodoList(main, listNames, (DialogInterface dialog, int which) -> closeTodoAndNext(taskStorage, todos.get(which)));
+                selectTodoList(main, new ArrayList<>(listNames),
+                        (DialogInterface dialog, int which) -> setTodoStateAndNext(taskStorage, todos.get(which), newState));
             }
             break;
         case MENUITEM_TASK_CLOSE_ALL:
@@ -441,9 +450,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * 
      * @param taskStorage the current TaskStorage
      * @param todo the Todo //NOSONAR
+     * @param state the State to set
      */
-    private void closeTodoAndNext(@NonNull final TaskStorage taskStorage, @NonNull final Todo todo) {
-        todo.close();
+    private void setTodoStateAndNext(@NonNull final TaskStorage taskStorage, @NonNull final Todo todo, @NonNull State state) {
+        todo.setState(state);
+        taskStorage.setDirty();
         final StringWithDescription listName = todo.getListName(main);
         List<Todo> todoList = taskStorage.getTodos(listName.getValue(), false);
         if (todoList.isEmpty()) {
@@ -460,9 +471,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             builder.show();
         } else {
             Todo next = todo.getNearest(todoList);
-            taskStorage.setDirty();
-            final OsmElement e = next.getElements().get(0);
-            if (OsmElement.STATE_DELETED != e.getState()) {
+            final List<OsmElement> elements = next.getElements();
+            final OsmElement e = !elements.isEmpty() ? elements.get(0) : null;
+            if (e != null && OsmElement.STATE_DELETED != e.getState()) {
                 BugFragment.gotoAndEditElement(main, App.getDelegator(), e, next.getLon(), next.getLat());
             } else {
                 TodoFragment.showDialog(main, next);

@@ -146,7 +146,7 @@ public final class Todo extends Bug implements Serializable {
     private Todo() {
         open();
     }
-    
+
     /**
      * Construct a todo with just a list name and id //NOSONAR
      * 
@@ -285,7 +285,8 @@ public final class Todo extends Bug implements Serializable {
 
     @Override
     public boolean canBeUploaded() {
-        return false;
+        // this is not true, but allows the "upload" button to be enabled
+        return true;
     }
 
     /**
@@ -301,7 +302,7 @@ public final class Todo extends Bug implements Serializable {
     }
 
     /**
-     * Generate a JSON representation this element
+     * Generate a JSON representation for this element
      * 
      * @param writer the JsonWriter
      * @throws IOException if writing Json fails
@@ -359,14 +360,13 @@ public final class Todo extends Bug implements Serializable {
     public Todo getNearest(@NonNull List<Todo> todos) {
         todos.remove(this); // this would always be the nearest
         int count = todos.size();
-        if (count >= 2) {
+        if (count >= 1) {
             final double curLat = getLat() / 1E7D;
             final double curLon = getLon() / 1E7D;
             sortByDistance(todos, curLon, curLat, true);
-        } else if (count == 0) {
-            return this; // the only thing we can return
+            return todos.get(0);
         }
-        return todos.get(0);
+        return this; // the only thing we can return
     }
 
     @Override
