@@ -104,10 +104,10 @@ public class RelationMemberDescription extends RelationMember {
     /**
      * Set the position of the member in the Relation
      * 
-     * @param postiion the position to set
+     * @param postion the position to set
      */
-    public void setPosition(int postiion) {
-        this.position = postiion;
+    public void setPosition(int postion) {
+        this.position = postion;
     }
 
     @Override
@@ -135,7 +135,7 @@ public class RelationMemberDescription extends RelationMember {
      * @throws IOException if writing fails
      */
     private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-        super.setElement(null); // don't save the actual relation ref
+        super.setElement(null); // don't save the actual object
         out.defaultWriteObject();
     }
 
