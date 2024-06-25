@@ -61,7 +61,8 @@
         <activity
             android:name=".Splash"
             android:exported="true"
-            android:theme="@style/SplashTheme" >
+            android:theme="@style/SplashTheme" 
+            android:alwaysRetainTaskState="true">"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -79,7 +80,8 @@
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:exported="true"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.customMain" >
+            android:theme="@style/Theme.customMain" 
+            android:alwaysRetainTaskState="true">
             <meta-data
                 android:name="com.samsung.android.keepalive.density"
                 android:value="true" />
@@ -134,7 +136,8 @@
             android:name=".propertyeditor.PropertyEditorActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.customTagEditor" />
+            android:theme="@style/Theme.customTagEditor" 
+            android:alwaysRetainTaskState="true"/>
         <activity
             android:name=".prefs.APIEditorActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
