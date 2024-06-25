@@ -241,15 +241,18 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     public void onDataUpdate() {
         Log.d(DEBUG_TAG, "onDataUpdate");
         Relation r = (Relation) propertyEditorListener.getElement();
-        List<MemberEntry> tempEntries = new ArrayList<>();
+        List<MemberEntry> currentEntries = new ArrayList<>();
         final ArrayList<RelationMemberDescription> currentMembers = PropertyEditorData.getRelationMemberDescriptions(r, new ArrayList<>());
-        getMemberEntries(currentMembers, tempEntries);
-        setIcons(tempEntries);
-        if (!tempEntries.equals(membersInternal)) {
+        getMemberEntries(currentMembers, currentEntries);
+        setIcons(currentEntries);
+        // relations can be very large and this might cause issues on the stack
+        List<RelationMemberDescription> origMembers = savingHelper.load(getContext(), Long.toString(id) + FILENAME_ORIG_MEMBERS, true);
+        // only update our copy if the relation members have actually changed from the original state
+        if (!currentMembers.equals(origMembers) && !currentEntries.equals(membersInternal)) {
             Log.d(DEBUG_TAG, "onDataUpdate current members have changed");
             ScreenMessage.toastTopInfo(getContext(), R.string.toast_updating_members);
             membersInternal.clear();
-            membersInternal.addAll(tempEntries);
+            membersInternal.addAll(currentEntries);
             adapter.notifyDataSetChanged();
             savingHelper.save(getContext(), Long.toString(id) + FILENAME_ORIG_MEMBERS, currentMembers, true);
         }
