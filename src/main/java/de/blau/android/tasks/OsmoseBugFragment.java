@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import java.util.Arrays;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +31,8 @@ import de.blau.android.util.Util;
  *
  */
 public class OsmoseBugFragment extends BugFragment {
-    private static final String DEBUG_TAG = OsmoseBugFragment.class.getSimpleName().substring(0, Math.min(23, OsmoseBugFragment.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = OsmoseBugFragment.class.getSimpleName().substring(0,
+            Math.min(23, OsmoseBugFragment.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_bug";
 
@@ -160,5 +163,11 @@ public class OsmoseBugFragment extends BugFragment {
     protected State pos2state(int position) {
         String[] array = getResources().getStringArray(R.array.bug_state_values);
         return State.valueOf(array[position]);
+    }
+
+    @Override
+    protected int state2pos(State state) {
+        String[] array = getResources().getStringArray(R.array.bug_state_values);
+        return Arrays.asList(array).indexOf(state.name());
     }
 }

@@ -240,6 +240,7 @@
     <string name="toast_todo_already_in_list">Element is already in this todo list</string>
     <string name="toast_no_open_todos">No open todos</string>
     <string name="toast_no_todos_in_list">No todos in the selected list</string>
+    <string name="save_changes_title">Save changes?</string>  
     <!-- Unsaved data dialog -->
     <string name="unsaved_data_title">Caution!</string>
     <string name="unsaved_data_message">Your unsaved changes will be discarded if you proceed.</string>
@@ -1065,8 +1066,9 @@
     <string name="menu_upload_elements">Upload elements</string>
     <string name="menu_todo">Todo…</string>
     <string name="menu_todo_close_and_next">Close and goto next</string>
+    <string name="menu_todo_skip_and_next">Skip and goto next</string>
     <string name="menu_todo_close_all_tasks">Close all tasks</string>
-    <string name="menu_add_to_todo">Add to todo list…</string>    
+    <string name="menu_add_to_todo">Add to todo list…</string>  
     <string name="menu_set_name">Set name</string>
     <string name="menu_tools">Tools…</string>
     <string name="menu_tools_imagery">More imagery tools…</string>

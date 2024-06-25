@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -58,7 +60,8 @@ import de.blau.android.util.ScreenMessage;
 
 public final class TransferTasks {
 
-    private static final String DEBUG_TAG = TransferTasks.class.getSimpleName().substring(0, Math.min(23, TransferTasks.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TransferTasks.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TransferTasks.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String MAPROULETTE_APIKEY_V2 = "maproulette_apikey_v2";
 
@@ -487,7 +490,7 @@ public final class TransferTasks {
                 if (apiKey == null) {
                     return new UploadResult(ErrorCodes.MISSING_API_KEY);
                 }
-                return MapRouletteServer.changeState(maprouletteServer, apiKey, task);
+                return MapRouletteServer.changeState(activity, maprouletteServer, apiKey, task);
             }
 
             @Override

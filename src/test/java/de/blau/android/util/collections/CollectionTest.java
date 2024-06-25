@@ -1,4 +1,4 @@
-package de.blau.android.util;
+package de.blau.android.util.collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -17,6 +17,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
 import de.blau.android.util.collections.MRUList;
@@ -120,11 +121,17 @@ public class CollectionTest {
         }
         System.out.println("Query " + (System.currentTimeMillis() - start)); // NOSONAR
         assertEquals(NODES, tree.count());
+        result.clear();
+        start = System.currentTimeMillis();
+        tree.query(result);
+        assertEquals(NODES, result.size());
+        System.out.println("Query all " + (System.currentTimeMillis() - start)); // NOSONAR
         // currently contains and remove doesn't work for nodes
         start = System.currentTimeMillis();
         for (long i = 0; i < NODES; i++) {
             assertTrue(tree.contains(temp[(int) i]));
         }
+
         System.out.println("Contains " + (System.currentTimeMillis() - start)); // NOSONAR
         start = System.currentTimeMillis();
         for (long i = 0; i < NODES; i++) {

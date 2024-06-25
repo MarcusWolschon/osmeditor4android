@@ -24,6 +24,10 @@ Available actions are
 
 Close a todo associated with the element and goto the nearest open todo in the list. If the element is present in multiple todo list a modal will ask which one to choose.
 
+#### Skip and goto next
+
+Skip a todo associated with the element and goto the nearest open todo in the list. If the element is present in multiple todo list a modal will ask which one to choose.
+
 #### Close all
 
 Close all todos and osmose bugs associated with the element. 

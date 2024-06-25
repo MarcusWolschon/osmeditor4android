@@ -1,11 +1,13 @@
 package de.blau.android.tasks;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -302,10 +304,32 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param tasks the list of tasks
      * @param lon WGS84 longitude
      * @param lat WGS84 latitude
+     * @param openFirst if true, sort open tasks before any other state
      */
-    public static <T extends Task> void sortByDistance(@NonNull List<T> tasks, final double lon, final double lat) {
-        Collections.sort(tasks, (T t1, T t2) -> Double.compare(GeoMath.haversineDistance(lon, lat, t1.getLon() / 1E7D, t1.getLat() / 1E7D),
-                GeoMath.haversineDistance(lon, lat, t2.getLon() / 1E7D, t2.getLat() / 1E7D)));
+    public static <T extends Task> void sortByDistance(@NonNull List<T> tasks, final double lon, final double lat, boolean openFirst) {
+        Collections.sort(tasks, (T t1, T t2) -> {
+            if (openFirst && t1.isOpen() && !t2.isOpen()) {
+                return -1;
+            }
+            return Double.compare(GeoMath.haversineDistance(lon, lat, t1.getLon() / 1E7D, t1.getLat() / 1E7D),
+                    GeoMath.haversineDistance(lon, lat, t2.getLon() / 1E7D, t2.getLat() / 1E7D));
+        });
+    }
+
+    /**
+     * Get the translated string for a State value
+     * 
+     * @param context an Android Context
+     * @param valuesRes the resource id for the state values
+     * @param stringRes the resource id for the translated string
+     * @param state the Sate that we want the string for
+     * @return the translates string
+     */
+    protected static String stateToString(@NonNull Context context, int valuesRes, int stringRes, State state) {
+        final Resources resources = context.getResources();
+        String[] states = resources.getStringArray(valuesRes);
+        String[] array = resources.getStringArray(stringRes);
+        return states[Arrays.asList(array).indexOf(state.name())];
     }
 
     @Override

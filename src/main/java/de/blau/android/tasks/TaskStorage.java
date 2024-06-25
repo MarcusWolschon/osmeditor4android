@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,9 +21,12 @@ import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.exception.IllegalOperationException;
+import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.util.DataStorage;
+import de.blau.android.util.GeoMath;
+import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
@@ -34,14 +39,19 @@ import de.blau.android.util.rtree.RTree;
  *
  */
 public class TaskStorage implements Serializable, DataStorage {
-    private static final long               serialVersionUID = 8L;
-    private static final String             DEBUG_TAG        = TaskStorage.class.getSimpleName();
-    private int                             newId            = -1;
+    private static final long serialVersionUID = 8L;
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TaskStorage.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TaskStorage.class.getSimpleName().substring(0, TAG_LEN);
+
+    private static final int TODO_RADIUS = 100;
+
+    private int                             newId = -1;
     private RTree<Task>                     tasks;
     private RTree<BoundingBox>              boxes;
     private Map<Long, MapRouletteChallenge> challenges;
     private OsmoseMeta                      osmoseMeta;
-    private transient boolean               dirty            = true;
+    private transient boolean               dirty = true;
 
     /**
      * when reading state lockout writing/reading
@@ -417,6 +427,10 @@ public class TaskStorage implements Serializable, DataStorage {
         final String elementType = element.getName();
         final BoundingBox bounds = element.getBounds();
         if (bounds != null) {
+            if (bounds.isEmpty()) {
+                // expand by a tiny bit
+                bounds.set(bounds.getLeft() - 1, bounds.getBottom() - 1, bounds.getRight() + 1, bounds.getTop() + 1);
+            }
             for (Task t : getTasks(bounds)) {
                 if ((t instanceof Bug) && !t.isClosed() && ((Bug) t).hasElement(elementType, osmId)) {
                     result.add((Bug) t);
@@ -494,7 +508,18 @@ public class TaskStorage implements Serializable, DataStorage {
     @NonNull
     public List<Todo> getTodosForElement(@NonNull OsmElement element) {
         List<Todo> result = new ArrayList<>();
-        List<Task> taskList = getTasks(element.getBounds());
+        BoundingBox bounds = element.getBounds();
+        if (bounds == null) {
+            return result;
+        }
+        if (bounds.isEmpty()) {
+            try {
+                bounds = GeoMath.createBoundingBoxForCoordinates(new IntCoordinates(bounds.getLeft(), bounds.getTop()), TODO_RADIUS);
+            } catch (OsmException e) {
+                Log.e(DEBUG_TAG, "getTodosForElement: " + e.getMessage());
+            }
+        }
+        List<Task> taskList = getTasks(bounds);
         if (!taskList.isEmpty()) {
             final long osmId = element.getOsmId();
             final String elementType = element.getName();

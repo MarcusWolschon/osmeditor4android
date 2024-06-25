@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,7 +32,8 @@ public class MapRouletteTask extends LongIdTask {
 
     private static final long serialVersionUID = 4L;
 
-    private static final String DEBUG_TAG = MapRouletteTask.class.getSimpleName().substring(0, Math.min(23, MapRouletteTask.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapRouletteTask.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapRouletteTask.class.getSimpleName().substring(0, TAG_LEN);
 
     static final String FILTER_KEY = "MAPROULETTE";
 
