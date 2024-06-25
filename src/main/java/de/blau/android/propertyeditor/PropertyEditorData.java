@@ -26,7 +26,8 @@ import de.blau.android.util.collections.MultiHashMap;
 public class PropertyEditorData implements Serializable {
     private static final long serialVersionUID = 5L;
 
-    private static final String DEBUG_TAG = PropertyEditorData.class.getSimpleName().substring(0, Math.min(23, PropertyEditorData.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = PropertyEditorData.class.getSimpleName().substring(0,
+            Math.min(23, PropertyEditorData.class.getSimpleName().length()));
 
     public final long                                       osmId;
     public final String                                     type;
@@ -100,9 +101,12 @@ public class PropertyEditorData implements Serializable {
      * @return the List
      */
     static <T extends List<RelationMemberDescription>> T getRelationMemberDescriptions(@NonNull Relation relation, @NonNull T members) {
+        int position = 0;
         for (RelationMember rm : relation.getMembers()) {
             RelationMemberDescription newRm = new RelationMemberDescription(rm);
+            newRm.setPosition(position);
             members.add(newRm);
+            position++;
         }
         return members;
     }
