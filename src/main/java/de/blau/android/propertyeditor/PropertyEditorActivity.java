@@ -46,7 +46,8 @@ import de.blau.android.util.ScreenMessage;
 public class PropertyEditorActivity<M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable>
         extends AppCompatActivity implements ControlListener {
 
-    private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName().substring(0, Math.min(23, PropertyEditorActivity.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName().substring(0,
+            Math.min(23, PropertyEditorActivity.class.getSimpleName().length()));
 
     /**
      * Start a PropertyEditor activity
@@ -61,11 +62,13 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
      */
     public static <M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable> void start(@NonNull Activity activity,
             @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets, M extraTags, L presetItems, int requestCode) {
-        Log.d(DEBUG_TAG, "startFor");
+        Log.d(DEBUG_TAG, "start");
         try {
             final Intent intent = buildIntent(activity, dataClass, predictAddressTags, showPresets, extraTags, presetItems);
             if (App.getPreferences(activity).useSplitWindowForPropertyEditor()) {
                 activity.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT));
+            } else if (App.getPreferences(activity).useNewTaskForPropertyEditor()) {
+                activity.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             } else {
                 activity.startActivityForResult(intent, requestCode);
             }
@@ -281,7 +284,9 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
     public void finished(@Nullable Fragment finishedFragment) {
         final FragmentManager fm = getSupportFragmentManager();
         int count = backStackCount(fm);
+        // calling activity is not waiting for us
         final boolean notWaiting = getCallingActivity() == null;
+        final boolean multiWindow = isInMultiWindowMode();
         if (count > 1) {
             fm.popBackStackImmediate();
             PropertyEditorFragment<M, L, T> top = peekBackStack(fm);
@@ -289,20 +294,20 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.show(top);
                 ft.commit();
-                if (notWaiting) { // calling activity is not waiting for us
+                if (notWaiting && multiWindow) {
                     startActivity(getIntent(Main.ACTION_POP_SELECTION));
                     return;
                 }
             }
-            if (notWaiting) { // calling activity is not waiting for us
+            if (notWaiting && multiWindow) {
                 startActivity(getIntent(Main.ACTION_MAP_UPDATE));
             }
             return;
         }
+        finish();
         if (notWaiting) {
             startActivity(getIntent(Main.ACTION_CLEAR_SELECTION_STACK));
         }
-        finish();
     }
 
     /**
@@ -323,7 +328,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
     public void addPropertyEditor(@NonNull OsmElement element) {
         final FragmentManager fm = getSupportFragmentManager();
         PropertyEditorFragment<M, L, T> top = peekBackStack(fm);
-        if (top != null && getCallingActivity() == null) {
+        if (top != null && getCallingActivity() == null && isInMultiWindowMode()) {
             Intent intent = getIntent(Main.ACTION_PUSH_SELECTION);
             Selection selection = new Selection();
             selection.add(element);

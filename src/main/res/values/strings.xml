@@ -1506,6 +1506,8 @@
     <string name="config_voiceCommandsEnabled_summary">Enable voice command support.</string>
     <string name="config_splitWindowForPropertyEditor_summary">Enable displaying the property editor in a separate window if available.</string>
     <string name="config_splitWindowForPropertyEditor_title">Enable split window property editor</string>
+    <string name="config_newTaskForPropertyEditor_summary">Set FLAG_ACTIVITY_NEW_TASK when starting the property editor, this may improve the behaviour of certain launchers when resuming the app.</string>
+    <string name="config_newTaskForPropertyEditor_title">Use \"new task\" mode for property editor</string>
     <!--  -->
     <string name="manage_apis">Manage APIs</string>
     <string name="config_api_url_title">API URL</string>

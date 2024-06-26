@@ -1030,6 +1030,7 @@ public class Main extends FullScreenAppCompatActivity
                     while (stack.size() > 1) {
                         logic.popSelection();
                     }
+                    handlePropertyEditorResult();
                     break;
                 default:
                     // carry on
@@ -3089,10 +3090,8 @@ public class Main extends FullScreenAppCompatActivity
             // visual state
             logic.deselectAll();
         } else {
-            // invalidate the action mode menu ... updates the state of the undo
-            // button
-            // for visual feedback reasons we leave selected elements selected
-            // (tag edit mode)
+            // invalidate the action mode menu ... updates the state of the undo button
+            // for visual feedback reasons we leave selected elements selected (tag edit mode)
             invalidateOptionsMenu();
             if (easyEditManager != null) {
                 easyEditManager.invalidate();
