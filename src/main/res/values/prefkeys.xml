@@ -104,6 +104,7 @@
     <string name="config_indexMediaStore_key">indexMediaStore</string>
     <string name="config_wayNodeDragging_key">wayNodeDragging</string>
     <string name="config_splitWindowForPropertyEditor_key">splitWindowForPropertyEditor</string>
+    <string name="config_newTaskForPropertyEditor_key">newTaskForPropertyEditor</string>
     <string name="config_useImperialUnits_key">useImperialUnits</string>
     <string name="config_supportPresetLabels_key">supportPresetLabels</string>
     <string name="config_zoomWithKeys_key">zoomWithKeys</string>

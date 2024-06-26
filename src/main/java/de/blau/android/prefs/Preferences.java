@@ -124,6 +124,7 @@ public class Preferences {
     private final int         autoNameCap;
     private boolean           wayNodeDragging;
     private final boolean     splitWindowForPropertyEditor;
+    private boolean           newTaskForPropertyEditor;
     private final boolean     useImperialUnits;
     private final boolean     supportPresetLabels;
     private final int         longStringLimit;
@@ -319,6 +320,7 @@ public class Preferences {
         wayNodeDragging = prefs.getBoolean(r.getString(R.string.config_wayNodeDragging_key), false);
 
         splitWindowForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_splitWindowForPropertyEditor_key), false);
+        newTaskForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_newTaskForPropertyEditor_key), false);
 
         useImperialUnits = prefs.getBoolean(r.getString(R.string.config_useImperialUnits_key), false);
 
@@ -350,7 +352,7 @@ public class Preferences {
     /**
      * Check if we should prefer removable storage over built in for tiles
      * 
-     * @return true id er should prefer removable storage
+     * @return true if we should prefer removable storage
      */
     public boolean preferRemovableStorage() {
         return preferRemovableStorage;
@@ -1702,6 +1704,25 @@ public class Preferences {
      */
     public boolean useSplitWindowForPropertyEditor() {
         return splitWindowForPropertyEditor;
+    }
+
+    /**
+     * Enable or disable using FLAG_ACTIVITY_NEW_TASK for the PropertyEditor
+     * 
+     * @param enabled if true set FLAG_ACTIVITY_NEW_TASK for the PropertyEditor
+     */
+    public void setNewTaskForPropertyEditor(boolean enabled) {
+        newTaskForPropertyEditor = enabled;
+        prefs.edit().putBoolean(r.getString(R.string.config_newTaskForPropertyEditor_key), enabled).commit();
+    }
+
+    /**
+     * Check if we should set FLAG_ACTIVITY_NEW_TASK for the PropertyEditor
+     * 
+     * @return true if we should set FLAG_ACTIVITY_NEW_TASK
+     */
+    public boolean useNewTaskForPropertyEditor() {
+        return newTaskForPropertyEditor;
     }
 
     /**

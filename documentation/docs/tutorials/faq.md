@@ -311,6 +311,12 @@ On Android versions between 4.1 and 4.4 the app can be used without issues, exce
 * go to _Preferences_ -> _Advanced preferences_ -> _Server settings_ and set login and password under the _User account_ entry.
 * in the layer control select the _Configure_ menu entry for the data layer entry, edit the active entry, and uncheck OAuth support.   
 
+### Resuming the app doesn't bring me back to the property editor
+
+Depending on the device, Android version and the phase of the moon, some Android launchers will restart the app instead of resuming it if you click on the icon in the app draw instead of selecting the app from the current application list. This will lead to any state/edit in the property editor being lost if you had navigated away from it, for example recent Samsung devices exhibit this behaviour. 
+
+If you are experiencing this issue, setting _Use "new task" mode for property editor_ in the experimental section of the _Advanced preferences_ may help.
+
 ## Performance
 
 ### Vespucci is getting slower and slower
