@@ -11,7 +11,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,7 +49,8 @@ import de.blau.android.util.Util;
  *
  */
 public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment implements OnMenuItemClickListener {
-    private static final String DEBUG_TAG = PhotoViewerFragment.class.getSimpleName().substring(0, Math.min(23, PhotoViewerFragment.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = PhotoViewerFragment.class.getSimpleName().substring(0,
+            Math.min(23, PhotoViewerFragment.class.getSimpleName().length()));
 
     public static final String TAG = "fragment_photo_viewer";
 
@@ -304,7 +304,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
         viewPager.setOffscreenPageLimit(2);
         viewPager.setCurrentItem(startPos);
         viewPager.addOnPageChangeListener((OnPageSelectedListener) page -> {
-            if (photoLoader != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activity.isInMultiWindowMode()) {
+            if (photoLoader != null && Util.isInMultiWindowModeCompat(activity)) {
                 // doing this in single window mode is very annoying so we don't
                 photoLoader.showOnMap(requireContext(), page);
             }

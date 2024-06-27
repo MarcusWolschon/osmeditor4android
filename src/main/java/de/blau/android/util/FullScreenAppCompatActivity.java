@@ -99,7 +99,7 @@ public abstract class FullScreenAppCompatActivity extends ConfigurationChangeAwa
      * @return true if we are not showing the status bar
      */
     protected boolean statusBarHidden() {
-        return hideStatus && !safeIsInMultiWIndowMode();
+        return hideStatus && !Util.isInMultiWindowModeCompat(this);
     }
 
     /**
@@ -150,15 +150,6 @@ public abstract class FullScreenAppCompatActivity extends ConfigurationChangeAwa
     }
 
     /**
-     * Variant of isInMultiWindowMode that can be called on any platform
-     * 
-     * @return true if in multi windo mode
-     */
-    protected boolean safeIsInMultiWIndowMode() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && isInMultiWindowMode();
-    }
-
-    /**
      * Test if the device has a navigation bar
      * 
      * This uses an undocumented internal resource id, but there is nothing else prior to Android 11 / API 30
@@ -185,7 +176,7 @@ public abstract class FullScreenAppCompatActivity extends ConfigurationChangeAwa
      *         Full screen gesture(Gesture on android Q)
      *
      * @see <a href=
-     *      "https://stackoverflow.com/questions/56689210/how-to-detect-full-screen-gesture-mode-in-android-10">yHow to
+     *      "https://stackoverflow.com/questions/56689210/how-to-detect-full-screen-gesture-mode-in-android-10">How to
      *      detect full screen gesture mode in android 10</a>
      */
     private static int isEdgeToEdgeEnabled(@NonNull Resources resources) {

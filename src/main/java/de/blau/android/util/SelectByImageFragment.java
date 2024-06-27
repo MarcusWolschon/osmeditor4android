@@ -8,7 +8,6 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +38,8 @@ import de.blau.android.listener.DoNothingListener;
  *
  */
 public class SelectByImageFragment extends SizedDynamicImmersiveDialogFragment implements OnMenuItemClickListener {
-    private static final String DEBUG_TAG = SelectByImageFragment.class.getSimpleName().substring(0, Math.min(23, SelectByImageFragment.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = SelectByImageFragment.class.getSimpleName().substring(0,
+            Math.min(23, SelectByImageFragment.class.getSimpleName().length()));
 
     public static final String TAG = "fragment_combo_image_viewer";
 
@@ -168,7 +168,7 @@ public class SelectByImageFragment extends SizedDynamicImmersiveDialogFragment i
         viewPager.setOffscreenPageLimit(2);
         viewPager.setCurrentItem(startPos);
         viewPager.addOnPageChangeListener((OnPageSelectedListener) page -> {
-            if (imageLoader != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activity.isInMultiWindowMode()) {
+            if (imageLoader != null && Util.isInMultiWindowModeCompat(activity)) {
                 // doing this in single window mode is very annoying so we don't
                 imageLoader.showOnMap(requireContext(), page);
             }
