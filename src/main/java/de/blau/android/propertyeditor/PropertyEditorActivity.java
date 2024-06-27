@@ -33,6 +33,7 @@ import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Util;
 
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
@@ -286,7 +287,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         int count = backStackCount(fm);
         // calling activity is not waiting for us
         final boolean notWaiting = getCallingActivity() == null;
-        final boolean multiWindow = isInMultiWindowMode();
+        final boolean multiWindow = Util.isInMultiWindowModeCompat(this);
         if (count > 1) {
             fm.popBackStackImmediate();
             PropertyEditorFragment<M, L, T> top = peekBackStack(fm);
@@ -328,7 +329,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
     public void addPropertyEditor(@NonNull OsmElement element) {
         final FragmentManager fm = getSupportFragmentManager();
         PropertyEditorFragment<M, L, T> top = peekBackStack(fm);
-        if (top != null && getCallingActivity() == null && isInMultiWindowMode()) {
+        if (top != null && getCallingActivity() == null && Util.isInMultiWindowModeCompat(this)) {
             Intent intent = getIntent(Main.ACTION_PUSH_SELECTION);
             Selection selection = new Selection();
             selection.add(element);

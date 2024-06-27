@@ -903,4 +903,14 @@ public final class Util {
         }
         return result;
     }
+    
+    /**
+     * Check if we are in multi window mode
+     * 
+     * @param the calling Activity
+     * @return true if we are in multi window mode, false otherwise
+     */
+    public static boolean isInMultiWindowModeCompat(@NonNull FragmentActivity activity) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activity.isInMultiWindowMode();
+    }
 }
