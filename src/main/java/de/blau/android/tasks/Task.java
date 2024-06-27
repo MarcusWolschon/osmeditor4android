@@ -308,8 +308,13 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      */
     public static <T extends Task> void sortByDistance(@NonNull List<T> tasks, final double lon, final double lat, boolean openFirst) {
         Collections.sort(tasks, (T t1, T t2) -> {
-            if (openFirst && t1.isOpen() && !t2.isOpen()) {
-                return -1;
+            if (openFirst) {
+                if (t1.isOpen() && !t2.isOpen()) {
+                    return -1;
+                }
+                if (!t1.isOpen() && t2.isOpen()) {
+                    return 1;
+                }
             }
             return Double.compare(GeoMath.haversineDistance(lon, lat, t1.getLon() / 1E7D, t1.getLat() / 1E7D),
                     GeoMath.haversineDistance(lon, lat, t2.getLon() / 1E7D, t2.getLat() / 1E7D));
