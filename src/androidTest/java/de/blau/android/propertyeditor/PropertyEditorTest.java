@@ -271,8 +271,9 @@ public class PropertyEditorTest {
         direction.clickAndWait(Until.newWindow(), 2000);
         TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
         TestUtils.clickHome(device, true);
+        TestUtils.sleep(5000);
         try {
-            assertTrue(Integer.parseInt(direction.getText()) >= 0);
+            assertTrue(Integer.parseInt(n.getTagWithKey("direction")) >= 0);
         } catch (NumberFormatException nfex) {
             fail(nfex.getMessage());
         }
@@ -320,7 +321,7 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, "Forward", false, false);
         TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
         TestUtils.clickHome(device, true);
-        assertEquals("forward", direction.getText());
+        assertEquals("forward", n.getTagWithKey("direction"));
     }
 
     @Test

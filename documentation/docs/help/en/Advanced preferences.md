@@ -400,3 +400,7 @@ Do not use, may cause hangs of the app and other problems.
 ### Enable split window property editor
 
 Enable displaying the property editor in a separate window if available. Default: _off_
+
+### Use "new task" mode for property editor
+
+Set FLAG_ACTIVITY_NEW_TASK when starting the property editor, this may improve the behaviour of certain launchers when resuming the app. Default: _off_
