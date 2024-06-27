@@ -1,8 +1,9 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.os.Bundle;
 import android.util.Log;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.preference.ListPreference;
 import androidx.preference.MultiSelectListPreference;
@@ -16,7 +17,8 @@ import de.blau.android.util.ScreenMessage;
 
 public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompat {
 
-    protected static final String DEBUG_TAG = ExtendedPreferenceFragment.class.getSimpleName().substring(0, Math.min(23, ExtendedPreferenceFragment.class.getSimpleName().length()));
+    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, ExtendedPreferenceFragment.class.getSimpleName().length());
+    protected static final String DEBUG_TAG = ExtendedPreferenceFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     @Override
     public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);
@@ -45,9 +47,9 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
      * Set the action bar title of the activity calling us to the PreferenceScreen title
      */
     protected void setTitle() {
-        AppCompatActivity activity = ((AppCompatActivity) getActivity());
+        PrefEditorActivity activity = ((PrefEditorActivity) getActivity());
         if (activity != null) {
-            activity.getSupportActionBar().setTitle(getPreferenceScreen().getTitle());
+            activity.setTitle(getPreferenceScreen().getTitle());
         }
     }
 
