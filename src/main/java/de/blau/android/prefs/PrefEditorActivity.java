@@ -1,10 +1,14 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentTransaction;
@@ -25,9 +29,12 @@ import de.blau.android.util.ThemeUtils;
  */
 public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
-    private static final String DEBUG_TAG = PrefEditorActivity.class.getSimpleName().substring(0, Math.min(23, PrefEditorActivity.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PrefEditorActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PrefEditorActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     protected static final int MENUITEM_HELP = 1;
+
+    private TextView titleView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,9 +45,25 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
         }
         super.onCreate(savedInstanceState);
 
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(R.layout.actionbar_title_layout);
+        titleView = findViewById(R.id.actionbar_title);
+    }
 
+    /**
+     * Set the title in the actionbar
+     * 
+     * @param title the title to set
+     */
+    @Override
+    public void setTitle(@NonNull CharSequence title) {
+        if (titleView == null) {
+            Log.e(DEBUG_TAG, "TitleView is null");
+            return;
+        }
+        titleView.setText(title);
     }
 
     @Override
