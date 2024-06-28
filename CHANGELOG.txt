@@ -1,5 +1,17 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.0.4:
+
+- Fix add workaround of misbehaviour of certain launchers
+- Fix check that any relation changes are actually real when drilling down relation members
+- Fix protect against null GeoJSON Feature caused by trailing commas
+- Fix when no roles can be found allow all elements to be selected when editing relations
+- Fix relation preset matching 
+- Fix add workaround for the letsencrypt issue for WebViews
+- Update default preset
+- Update imagery configuration from ELI
+- Update NSI
+
 20.0.3:
 
 - Fix add ISRG X1 certificate manually, fixes issue with letsencrypt on pre 7.1 devices
