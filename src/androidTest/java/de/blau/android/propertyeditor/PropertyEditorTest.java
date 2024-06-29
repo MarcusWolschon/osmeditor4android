@@ -32,6 +32,9 @@ import android.graphics.Rect;
 import android.os.RemoteException;
 import android.view.KeyEvent;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -1093,12 +1096,18 @@ public class PropertyEditorTest {
         int oldPos = members.get(0).getPosition();
 
         main.performTagEdit(r, null, false, false);
-        waitForPropertyEditor();
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
+        PropertyEditorFragment fragment = getPropertyEditorFragment(propertyEditor);
+
+        assertNotNull(fragment);
+        assertTrue(fragment.isPagingEnabled());
 
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
 
         selectMember("Vorbühl");
+
+        assertFalse(fragment.isPagingEnabled());
 
         clickButtonOrOverflowMenu(main.getString(R.string.tag_menu_move_up));
         clickButtonOrOverflowMenu(main.getString(R.string.tag_menu_move_up));
@@ -1112,6 +1121,23 @@ public class PropertyEditorTest {
         members = r.getAllMembersWithPosition(n);
         assertEquals(1, members.size());
         assertEquals(oldPos - 1, members.get(0).getPosition());
+    }
+
+    /**
+     * Get the PropertyEditorFragment
+     * 
+     * @param propertyEditor
+     * @return a propertyeditorfragment or null
+     */
+    @Nullable
+    private PropertyEditorFragment getPropertyEditorFragment(@NonNull PropertyEditorActivity propertyEditor) {
+        FragmentManager fm = propertyEditor.getSupportFragmentManager();
+        for (Fragment f : fm.getFragments()) {
+            if (f instanceof PropertyEditorFragment) {
+                return (PropertyEditorFragment) f;
+            }
+        }
+        return null;
     }
 
     /**
@@ -1275,7 +1301,8 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
         String name1 = m1.getElement().getTagWithKey(Tags.KEY_NAME);
-        TestUtils.scrollToStartsWith(name1, true);
+        TestUtils.scrollToStartsWith(device, name1, r.getMemberCount(), true);
+      
         selectMember(name1);
         clickButtonOrOverflowMenu(main.getString(R.string.tag_menu_move_up));
         // exit property editor
@@ -1298,7 +1325,7 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
 
         String name2 = m2.getElement().getTagWithKey(Tags.KEY_NAME);
-        TestUtils.scrollToStartsWith(name2, true);
+        TestUtils.scrollToStartsWith(device, name2, r.getMemberCount(), true);
         selectMember(name1);
         selectMember("#119104097");
         selectMember(name2);

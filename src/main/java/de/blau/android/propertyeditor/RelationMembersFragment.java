@@ -3,6 +3,7 @@ package de.blau.android.propertyeditor;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +32,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.ItemTouchHelper.Callback;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -92,7 +96,7 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         NOT, UP, DOWN, BOTH, RING_TOP, RING, RING_BOTTOM, CLOSEDWAY, CLOSEDWAY_UP, CLOSEDWAY_DOWN, CLOSEDWAY_BOTH, CLOSEDWAY_RING
     }
 
-    class MemberEntry extends RelationMemberDescription {
+    class MemberEntry extends RelationMemberDescription { // NOSONAR currently this is only used in a list
         private static final long serialVersionUID = 1L;
 
         Connected      connected;
@@ -213,7 +217,7 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         notDownloadedWayRes = ThemeUtils.getResIdFromAttribute(getContext(), R.attr.not_downloaded_line_small);
         notDownloadedRelationRes = ThemeUtils.getResIdFromAttribute(getContext(), R.attr.not_downloaded_relation_small);
 
-        setIcons(membersInternal);
+        setConnections(membersInternal);
 
         adapter = new RelationMemberAdapter(getContext(), this, inflater, membersInternal, (buttonView, isChecked) -> {
             if (isChecked) {
@@ -223,6 +227,8 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
             }
         }, propertyEditorListener.getCapabilities().getMaxStringLength());
         membersVerticalLayout.setAdapter(adapter);
+        ItemTouchHelper helper = new ItemTouchHelper(new DragHelperCallback(membersVerticalLayout));
+        helper.attachToRecyclerView(membersVerticalLayout);
 
         CheckBox headerCheckBox = (CheckBox) relationMembersLayout.findViewById(R.id.header_member_selected);
         headerCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -236,6 +242,59 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         return relationMembersLayout;
     }
 
+    private class DragHelperCallback extends Callback {
+
+        private final Update updater;
+
+        DragHelperCallback(@NonNull RecyclerView recyclerView) {
+            updater = new Update((RelationMemberAdapter) recyclerView.getAdapter());
+        }
+
+        @Override
+        public int getMovementFlags(RecyclerView arg0, ViewHolder arg1) {
+            return makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0);
+        }
+
+        @Override
+        public boolean isLongPressDragEnabled() {
+            return propertyEditorListener.isPagingEnabled();
+        }
+
+        @Override
+        public boolean onMove(RecyclerView rv, ViewHolder dragged, ViewHolder target) {
+            dragged.itemView.setBackgroundColor(0xffff0000);
+            final int draggedPos = dragged.getAdapterPosition();
+            final int targetPos = target.getAdapterPosition();
+            Collections.swap(membersInternal, draggedPos, targetPos);
+            for (int i = 0; i < membersInternal.size(); i++) {
+                membersInternal.get(i).setPosition(i);
+            }
+            setConnections();
+            rv.removeCallbacks(updater);
+            rv.postDelayed(updater, 500);
+            rv.getAdapter().notifyItemMoved(draggedPos, targetPos);
+            return true;
+        }
+
+        class Update implements Runnable {
+            private final RelationMemberAdapter adapter;
+
+            Update(RelationMemberAdapter adapter) {
+                this.adapter = adapter;
+            }
+
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void onSwiped(ViewHolder arg0, int arg1) {
+            // nothing
+        }
+    }
+
     @Override
     public void onDataUpdate() {
         Log.d(DEBUG_TAG, "onDataUpdate");
@@ -243,7 +302,7 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         List<MemberEntry> currentEntries = new ArrayList<>();
         final ArrayList<RelationMemberDescription> currentMembers = PropertyEditorData.getRelationMemberDescriptions(r, new ArrayList<>());
         getMemberEntries(currentMembers, currentEntries);
-        setIcons(currentEntries);
+        setConnections(currentEntries);
         // relations can be very large and this might cause issues on the stack
         List<RelationMemberDescription> origMembers = savingHelper.load(getContext(), Long.toString(id) + FILENAME_ORIG_MEMBERS, true);
         // only update our copy if the relation members have actually changed from the original state
@@ -259,17 +318,23 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
 
     /**
      * Loop over the the members and set the connection icon
+     * 
+     * @return a List of changed positions
      */
-    void setIcons() {
-        setIcons(membersInternal);
+    @NonNull
+    List<Integer> setConnections() {
+        return setConnections(membersInternal);
     }
 
     /**
      * Loop over the the members and set the connection icon
      *
      * @param entries a List of MemberEntry
+     * @return a List of changed positions
      */
-    void setIcons(@NonNull List<MemberEntry> entries) {
+    @NonNull
+    List<Integer> setConnections(@NonNull List<MemberEntry> entries) {
+        List<Integer> changed = new ArrayList<>();
         int s = entries.size();
         Connected[] status = new Connected[s];
         int ringStart = 0;
@@ -311,8 +376,12 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         }
         // actually set the connection status
         for (int i = 0; i < s; i++) {
+            if (entries.get(i).connected != status[i]) {
+                changed.add(i);
+            }
             entries.get(i).connected = status[i];
         }
+        return changed;
     }
 
     /**
@@ -637,78 +706,86 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         public void setIcon(@NonNull Context ctx, RelationMemberDescription rmd, @NonNull Connected c) {
             String objectType = rmd.getType();
             int iconId = 0;
-            if (rmd.downloaded()) {
-                if (Node.NAME.equals(objectType)) {
-                    switch (c) {
-                    case UP:
-                        iconId = R.attr.node_up;
-                        break;
-                    case DOWN:
-                        iconId = R.attr.node_down;
-                        break;
-                    case BOTH:
-                        iconId = R.attr.node_both;
-                        break;
-                    default:
-                        iconId = R.attr.node_small;
-                        break;
-                    }
-                } else if (Way.NAME.equals(objectType)) {
-                    switch (c) {
-                    case UP:
-                        iconId = R.attr.line_up;
-                        break;
-                    case DOWN:
-                        iconId = R.attr.line_down;
-                        break;
-                    case BOTH:
-                        iconId = R.attr.line_both;
-                        break;
-                    case RING:
-                        iconId = R.attr.ring;
-                        break;
-                    case RING_TOP:
-                        iconId = R.attr.ring_top;
-                        break;
-                    case RING_BOTTOM:
-                        iconId = R.attr.ring_bottom;
-                        break;
-                    case CLOSEDWAY:
-                        iconId = R.attr.closedway;
-                        break;
-                    case CLOSEDWAY_UP:
-                        iconId = R.attr.closedway_up;
-                        break;
-                    case CLOSEDWAY_DOWN:
-                        iconId = R.attr.closedway_down;
-                        break;
-                    case CLOSEDWAY_BOTH:
-                        iconId = R.attr.closedway_both;
-                        break;
-                    case CLOSEDWAY_RING:
-                        iconId = R.attr.closedway_ring;
-                        break;
-                    default:
-                        iconId = R.attr.line_small;
-                        break;
-                    }
-                } else if (Relation.NAME.equals(objectType)) {
-                    iconId = R.attr.relation_small;
-                } else {
-                    // don't know yet
-                }
-                typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx, iconId));
-            } else {
-                if (Node.NAME.equals(objectType)) {
+            if (!rmd.downloaded()) {
+                switch (objectType) {
+                case Node.NAME:
                     typeView.setImageResource(owner.notDownloadedNodeRes);
-                } else if (Way.NAME.equals(objectType)) {
+                    break;
+                case Way.NAME:
                     typeView.setImageResource(owner.notDownloadedWayRes);
-                } else if (Relation.NAME.equals(objectType)) {
+                    break;
+                case Relation.NAME:
                     typeView.setImageResource(owner.notDownloadedRelationRes);
-                } else {
+                    break;
+                default:
                     // don't know yet
                 }
+                return;
             }
+            switch (objectType) {
+            case Node.NAME:
+                switch (c) {
+                case UP:
+                    iconId = R.attr.node_up;
+                    break;
+                case DOWN:
+                    iconId = R.attr.node_down;
+                    break;
+                case BOTH:
+                    iconId = R.attr.node_both;
+                    break;
+                default:
+                    iconId = R.attr.node_small;
+                    break;
+                }
+                break;
+            case Way.NAME:
+                switch (c) {
+                case UP:
+                    iconId = R.attr.line_up;
+                    break;
+                case DOWN:
+                    iconId = R.attr.line_down;
+                    break;
+                case BOTH:
+                    iconId = R.attr.line_both;
+                    break;
+                case RING:
+                    iconId = R.attr.ring;
+                    break;
+                case RING_TOP:
+                    iconId = R.attr.ring_top;
+                    break;
+                case RING_BOTTOM:
+                    iconId = R.attr.ring_bottom;
+                    break;
+                case CLOSEDWAY:
+                    iconId = R.attr.closedway;
+                    break;
+                case CLOSEDWAY_UP:
+                    iconId = R.attr.closedway_up;
+                    break;
+                case CLOSEDWAY_DOWN:
+                    iconId = R.attr.closedway_down;
+                    break;
+                case CLOSEDWAY_BOTH:
+                    iconId = R.attr.closedway_both;
+                    break;
+                case CLOSEDWAY_RING:
+                    iconId = R.attr.closedway_ring;
+                    break;
+                default:
+                    iconId = R.attr.line_small;
+                    break;
+                }
+                break;
+            case Relation.NAME:
+                iconId = R.attr.relation_small;
+                break;
+            default:
+                // don't know yet
+            }
+            typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx, iconId));
         }
 
         /**
@@ -775,26 +852,26 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         @NonNull
         ArrayAdapter<PresetRole> getMemberRoleAutocompleteAdapter() {
             List<PresetRole> roles = new ArrayList<>();
-            PropertyEditorListener listener = (PropertyEditorListener) owner.getParentFragment();
-            List<Map<String, String>> allTags = listener.getUpdatedTags();
-            if (allTags != null && !allTags.isEmpty()) {
-                PresetItem relationPreset = Preset.findBestMatch(listener.getPresets(), allTags.get(0), null, null);
-                if (relationPreset != null) {
-                    Map<String, Integer> counter = new HashMap<>();
-                    int position = 0;
-                    List<String> tempRoles = App.getMruTags().getRoles(relationPreset);
-                    if (tempRoles != null) {
-                        for (String role : tempRoles) {
-                            roles.add(new PresetRole(role, null, rmd.getType()));
-                            counter.put(role, position++);
-                        }
+            List<Map<String, String>> allTags = owner.propertyEditorListener.getUpdatedTags();
+            if (Util.notEmpty(allTags)) {
+                PresetItem relationPreset = Preset.findBestMatch(owner.propertyEditorListener.getPresets(), allTags.get(0), null, null);
+                if (relationPreset == null) {
+                    return new ArrayAdapter<>(getContext(), R.layout.autocomplete_row, roles);
+                }
+                Map<String, Integer> counter = new HashMap<>();
+                int position = 0;
+                List<String> tempRoles = App.getMruTags().getRoles(relationPreset);
+                if (tempRoles != null) {
+                    for (String role : tempRoles) {
+                        roles.add(new PresetRole(role, null, rmd.getType()));
+                        counter.put(role, position++);
                     }
-                    List<String> regions = owner.propertyEditorListener.getIsoCodes();
-                    List<PresetRole> tempPresetRoles = rmd.downloaded() ? relationPreset.getRoles(getContext(), rmd.getElement(), null, regions)
-                            : relationPreset.getRoles(rmd.getType(), regions);
-                    if (tempPresetRoles != null) {
-                        RelationMembershipRow.countAndAddRoles(tempPresetRoles, counter, roles);
-                    }
+                }
+                List<String> regions = owner.propertyEditorListener.getIsoCodes();
+                List<PresetRole> tempPresetRoles = rmd.downloaded() ? relationPreset.getRoles(getContext(), rmd.getElement(), null, regions)
+                        : relationPreset.getRoles(rmd.getType(), regions);
+                if (tempPresetRoles != null) {
+                    RelationMembershipRow.countAndAddRoles(tempPresetRoles, counter, roles);
                 }
             }
             return new ArrayAdapter<>(getContext(), R.layout.autocomplete_row, roles);
@@ -900,7 +977,7 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         final Relation r = (Relation) propertyEditorListener.getElement();
         final Preset[] presets = propertyEditorListener.getPresets();
         final List<Map<String, String>> allTags = propertyEditorListener.getUpdatedTags();
-        final PresetItem presetItem = allTags != null && !allTags.isEmpty() ? Preset.findBestMatch(presets, allTags.get(0), null, null) : null;
+        final PresetItem presetItem = Util.notEmpty(allTags) ? Preset.findBestMatch(presets, allTags.get(0), null, null) : null;
 
         final MultiHashMap<String, String> originalMembersRoles = new MultiHashMap<>(false);
         List<RelationMember> originalMembers = r.getMembers();
@@ -968,7 +1045,7 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
             membersInternal.clear();
             getMemberEntries(members, membersInternal);
         }
-        setIcons();
+        setConnections();
         adapter.notifyDataSetChanged();
     }
 

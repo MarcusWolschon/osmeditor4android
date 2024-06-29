@@ -38,10 +38,10 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RelationMemberSelectedActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = RelationMemberSelectedActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
-    // pm: protected static final int MENU_ITEM_DELETE = 1;
-    // pm: private static final int MENU_ITEM_COPY = 2;
-    // pm: private static final int MENU_ITEM_CUT = 3;
-    // pm: protected static final int MENU_ITEM_HELP = 15;
+    // pm: protected static final int MENU_ITEM_DELETE = 1; NOSONAR
+    // pm: private static final int MENU_ITEM_COPY = 2; NOSONAR
+    // pm: private static final int MENU_ITEM_CUT = 3; NOSONAR
+    // pm: protected static final int MENU_ITEM_HELP = 15; NOSONAR
     private static final int MENU_ITEM_MOVE_UP       = 4;
     private static final int MENU_ITEM_MOVE_DOWN     = 5;
     private static final int MENU_ITEM_SORT          = 6;
@@ -296,7 +296,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
         for (int i = 0; i < members.size(); i++) {
             members.get(i).setPosition(i);
         }
-        ((RelationMembersFragment) caller).setIcons();
+        ((RelationMembersFragment) caller).setConnections();
         adapter.notifyDataSetChanged();
     }
 

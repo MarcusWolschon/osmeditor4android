@@ -134,7 +134,7 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
             holder.row.elementView.setOnClickListener(null);
         }
     }
-
+    
     @Override
     public int getItemViewType(int position) {
         return entries.get(position).downloaded() ? R.layout.relation_member_downloaded_row : R.layout.relation_member_row;

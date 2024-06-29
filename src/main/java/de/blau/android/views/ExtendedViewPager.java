@@ -1,5 +1,7 @@
 package de.blau.android.views;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -18,7 +20,8 @@ import de.blau.android.R;
  */
 public class ExtendedViewPager extends ViewPager {
 
-    private static final String DEBUG_TAG = ExtendedViewPager.class.getSimpleName().substring(0, Math.min(23, ExtendedViewPager.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ExtendedViewPager.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ExtendedViewPager.class.getSimpleName().substring(0, TAG_LEN);
 
     private boolean enabled;
 
@@ -75,5 +78,14 @@ public class ExtendedViewPager extends ViewPager {
         } catch (Exception ex) {
             Log.d(DEBUG_TAG, "Exception in setPAgingEnabled " + ex);
         }
+    }
+
+    /**
+     * Check if paging is enabled
+     * 
+     * @return true if paging is enabled
+     */
+    public boolean isPagingEnabled() {
+        return enabled;
     }
 }

@@ -119,6 +119,8 @@ This tab will only be displayed if you are editing a relation, it displays entri
 
 Members with a dark object field and only a numeric id displayed have not been downloaded, member highlighted in blue can be clicked on and a new property editor will be opened for the element. Note: during such a drill down operation the property editors are stacked, if you close a stacked property editor you will be returned to the previous one and so on.
 
+Individual member entries can be moved by _drag and drop_ (long press followed by dragging).
+
 The following operation can be performed on selected relation members.
 
  * _Delete_ - remove the object from this (the edited) relation.

@@ -76,7 +76,7 @@ public interface PropertyEditorListener {
      */
     @Nullable
     public List<Map<String, String>> getUpdatedTags();
-    
+
     /**
      * Get original tags
      * 
@@ -106,6 +106,13 @@ public interface PropertyEditorListener {
     public void disablePaging();
 
     /**
+     * Check if paging is enabled
+     * 
+     * @return true if paging is enabled
+     */
+    public boolean isPagingEnabled();
+
+    /**
      * Allow presets to be applied
      */
     public void enablePresets();
@@ -114,7 +121,7 @@ public interface PropertyEditorListener {
      * Disallow presets to be applied
      */
     public void disablePresets();
-    
+
     /**
      * Get the current API-Servers Capabilities object
      * 
