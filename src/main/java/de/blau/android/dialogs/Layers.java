@@ -36,6 +36,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnDragListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
@@ -693,45 +694,65 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             return true;
         });
         cell.setHapticFeedbackEnabled(true);
-        tr.setOnDragListener((View v, DragEvent event) -> {
+        tr.setOnDragListener(new LayerDragListener() {
+            @Override
+            public boolean onLayerDrag(View v, TableLayout tableLayout, int position, DragEvent event, int action) {
+                View top = ((TableRow) tableLayout.getChildAt(position - 1)).getChildAt(0);
+                View bottom = ((TableRow) tableLayout.getChildAt(position + 1)).getChildAt(0);
+                switch (action) {
+                case DragEvent.ACTION_DRAG_EXITED:
+                    highlightDivder(top, false);
+                    highlightDivder(bottom, false);
+                    return true;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                case DragEvent.ACTION_DRAG_LOCATION:
+                    if (inTop(v, event)) {
+                        highlightDivder(top, true);
+                        highlightDivder(bottom, false);
+                    } else {
+                        highlightDivder(top, false);
+                        highlightDivder(bottom, true);
+                    }
+                    return true;
+                case DragEvent.ACTION_DROP:
+                    highlightDivder(top, false);
+                    highlightDivder(bottom, false);
+                    int ourIndex = layer.getIndex();
+                    return moveEntryByDrag(event, inTop(v, event) ? ourIndex : ourIndex - 1);
+                default:
+                    return false;
+                }
+            }
+        });
+        return tr;
+    }
+
+    private abstract class LayerDragListener implements OnDragListener {
+
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
             int action = event.getAction();
             // Start the drag handle this separately or else things could go wrong
             if (action == DragEvent.ACTION_DRAG_STARTED) {
                 return true;
             }
+            if (action == DragEvent.ACTION_DRAG_ENDED) {
+                return false;
+            }
             final TableLayout tableLayout = (TableLayout) v.getParent();
+            if (tableLayout == null) {
+                Log.e(DEBUG_TAG, "TableLayout null in OnDragListener action " + action);
+                return false;
+            }
             int position = tableLayout.indexOfChild(v);
             if (position < 0) {
-                Log.e(DEBUG_TAG, "OnDragListener row not found in layout");
+                Log.e(DEBUG_TAG, "divider OnDragListener row not found in layout");
                 return false;
             }
-            View top = ((TableRow) tableLayout.getChildAt(position - 1)).getChildAt(0);
-            View bottom = ((TableRow) tableLayout.getChildAt(position + 1)).getChildAt(0);
-            switch (action) {
-            case DragEvent.ACTION_DRAG_EXITED:
-                highlightDivder(top, false);
-                highlightDivder(bottom, false);
-                return true;
-            case DragEvent.ACTION_DRAG_ENTERED:
-            case DragEvent.ACTION_DRAG_LOCATION:
-                if (inTop(v, event)) {
-                    highlightDivder(top, true);
-                    highlightDivder(bottom, false);
-                } else {
-                    highlightDivder(top, false);
-                    highlightDivder(bottom, true);
-                }
-                return true;
-            case DragEvent.ACTION_DROP:
-                highlightDivder(top, false);
-                highlightDivder(bottom, false);
-                int ourIndex = layer.getIndex();
-                return moveEntryByDrag(event, inTop(v, event) ? ourIndex : ourIndex - 1);
-            default:
-                return false;
-            }
-        });
-        return tr;
+            return onLayerDrag(v, tableLayout, position, event, action);
+        }
+
+        public abstract boolean onLayerDrag(@NonNull View v, @NonNull TableLayout tableLayout, int position, @NonNull DragEvent event, int action);
     }
 
     /**
@@ -805,31 +826,23 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         v.setLayoutParams(trlp);
         highlightDivder(v, false);
         tr.addView(v);
-        tr.setOnDragListener((View d, DragEvent event) -> {
-            int action = event.getAction();
-            // Start the drag handle this separately or else things could go wrong
-            if (action == DragEvent.ACTION_DRAG_STARTED) {
-                return true;
-            }
-            final TableLayout tableLayout = (TableLayout) d.getParent();
-            int position = tableLayout.indexOfChild(d);
-            if (position < 0) {
-                Log.e(DEBUG_TAG, "divider OnDragListener row not found in layout");
-                return false;
-            }
-            switch (action) {
-            case DragEvent.ACTION_DRAG_EXITED:
-                highlightDivder(v, false);
-                return true;
-            case DragEvent.ACTION_DRAG_ENTERED:
-            case DragEvent.ACTION_DRAG_LOCATION:
-                highlightDivder(v, true);
-                return true;
-            case DragEvent.ACTION_DROP:
-                highlightDivder(v, false);
-                return moveEntryByDrag(event, Math.round((tableLayout.getChildCount() - position - 1) / 2F));
-            default:
-                return false;
+        tr.setOnDragListener(new LayerDragListener() {
+            @Override
+            public boolean onLayerDrag(View v, TableLayout tableLayout, int position, DragEvent event, int action) {
+                switch (action) {
+                case DragEvent.ACTION_DRAG_EXITED:
+                    highlightDivder(v, false);
+                    return true;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                case DragEvent.ACTION_DRAG_LOCATION:
+                    highlightDivder(v, true);
+                    return true;
+                case DragEvent.ACTION_DROP:
+                    highlightDivder(v, false);
+                    return moveEntryByDrag(event, Math.round((tableLayout.getChildCount() - position - 1) / 2F));
+                default:
+                    return false;
+                }
             }
         });
         return tr;
