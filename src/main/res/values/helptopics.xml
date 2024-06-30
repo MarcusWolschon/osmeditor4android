@@ -36,7 +36,8 @@
     <string name="help_newnoteselection">New Note selection</string>
     <string name="help_voice_commands">Voice commands</string>
     <string name="help_add_route_segment">Add route segment</string>
-    <string name="help_upgrade">20.0 Release notes</string>
+    <string name="help_upgrade">20.1 Release notes</string>
+    <string name="help_upgrade_200">20.0 Release notes</string>
     <string name="help_upgrade_193">19.3 Release notes</string>
     <string name="help_upgrade_192">19.2 Release notes</string>
     <string name="help_upgrade_191">19.1 Release notes</string>
@@ -94,6 +95,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_200</item>
         <item>@string/help_upgrade_193</item>
         <item>@string/help_upgrade_192</item>
         <item>@string/help_upgrade_191</item>
@@ -152,6 +154,7 @@
         <item>New Note selected</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>20.1.0 Release notes</item>
         <item>20.0.0 Release notes</item>
         <item>19.3.0 Release notes</item>
         <item>19.2.0 Release notes</item>

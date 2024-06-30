@@ -1,5 +1,42 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.1.0-1:
+
+- Fix add workaround of misbehaviour of certain launchers
+- Fix check that any relation changes are actually real
+- Fix if no name for the Todo list is set, use the default
+- Fix position in state spinner adapter not being determined correctly for Tasks
+- Fix Protect against null Feature caused by trailing commas
+- Fix if no roles can be found allow adding all elements
+- Fix relation matching
+- Fix add workarounds for the letsencrypt issue for WebViews
+- Fix the ISRG X1 certificate to the trust store used by OkHttp
+- Fix warning toasts not being displayed
+- Fix support matching deleted state when using object search
+- Fix protect against relation members for which no centroid can be determined
+- Fix make error text in tile source modal selectable
+- Fix protect against IllegalArgumentExscetion from CountryBoundaries lib
+- Fix respect multi-fetch limit when fetching elements for conflict resolution
+- Fix protect against degenerate/empty way being selected on app restart
+- Fix save the state and restart action modes in the propertyeditor
+- Fix remove suppression of non match values for taginfo project files
+- Add support multi-line preference titles
+- Add support drag and drop moving of relation members
+- Add a facility to create Todos from the objects in a GeoJSON layer
+- Add improved Todo support
+- Add allow layers in layer modal to be moved by dragging
+- Add support labels for all GeoJSON geometries
+- Add support per preset item behaviour selection for pre-filling tags
+- Add highlight problem ways with error style
+- Add make default set of keys used for the nearby POI display configurable
+- Add filter roles by region
+- Add value picker for integers
+- Add dialog to add/set compass direction for appropriate tags
+- Add display a direction indicator for nodes with an appropriate tag
+- Add indicate in the taginfo project file if an entry is "not recommended"
+- Add support for rotating nodes with a direction tag and multiple elements and relations 
+- Remove pre-Android 5 API 21 specific code and dependencies
+
 20.0.0:
 
 - Fix only use EGM for calibration if it has been loaded
