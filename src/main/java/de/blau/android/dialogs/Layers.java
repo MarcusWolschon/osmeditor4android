@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -684,7 +685,11 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             ClipData.Item item = new ClipData.Item(Integer.toString(layer.getIndex()));
             ClipData dragData = new ClipData(Integer.toString(layer.getIndex()), new String[] { ClipDescription.MIMETYPE_TEXT_PLAIN }, item);
             View.DragShadowBuilder myShadow = new View.DragShadowBuilder(tr);
-            v.startDragAndDrop(dragData, myShadow, null, 0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                v.startDragAndDrop(dragData, myShadow, null, 0);
+            } else {
+                v.startDrag(dragData, myShadow, null, 0); // NOSONAR
+            }
             return true;
         });
         cell.setHapticFeedbackEnabled(true);
