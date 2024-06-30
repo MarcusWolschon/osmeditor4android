@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../20.1.0%20Release%20notes/" class="dropdown-item">20.1.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../20.0.0%20Release%20notes/" class="dropdown-item">20.0.0 Release notes</a>
 </li>
                                     
@@ -402,7 +406,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#preset-display" class="nav-link">Preset display</a>
+            <li class="nav-item" data-level="2"><a href="#preset-tab" class="nav-link">Preset tab</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -419,7 +423,7 @@
 
 <h1 id="vespucci-property-editor">Vespucci Property Editor<a class="headerlink" href="#vespucci-property-editor" title="Permanent link">#</a></h1>
 <p>The property editor screen is the central place for changing object attributes and relation memberships. To exit and save your changes tap the check mark icon in the upper left hand corner, pressing the device back button will give you the option of exiting without saving. Tags with empty value fields will not be saved.</p>
-<p>Most of the fields use context sensitive auto complete provided by the active presets. Clicking twice (with a short pause) will re-display the auto complete menu. </p>
+<p>Many of the fields use context sensitive auto complete provided by the active presets and previously used tags. Clicking twice (with a short pause) will re-display the auto complete menu. </p>
 <p>Depending on size and orientation of your device the layout will change to make maximum use of the space available.</p>
 <ul>
 <li>small devices: tab layout with <em>Presets</em>, <em>Properties</em> (including the recently used presets), <em>Details</em> and <em>Relations</em> tabs. If the selected object is a relation a further <em>Members</em> tab will be available. </li>
@@ -429,9 +433,14 @@
 <p>If the <em>Display tag form</em> preference in the <em><a href="../Advanced%20preferences/">Advanced preferences</a></em> has been disabled pre-0.9.8 behaviour is enabled and the <em>Details</em> tab will have the heading <em>Properties</em>.</p>
 <p>In the tabs tapping the checkbox in the header row will select/de-select all elements.</p>
 <h2 id="properties-tab">Properties Tab<a class="headerlink" href="#properties-tab" title="Permanent link">#</a></h2>
-<p>This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simply remove or reset the value (or delete them in the <em>Details</em> tab).</p>
+<p>This tab gives a simplified, preset-driven, editing screen for the tags for the selected object. Instead of displaying the raw keys, they are represented by their description, which, if available will be translated. To remove individual attributes you can simply remove or reset the value (or delete them in the <em>Details</em> tab).</p>
 <p>Fields are added by applying presets, either via the <em>Preset</em> tab or via the <img alt="Apply preset" src="../../images/preset.png" /> <em>Apply best preset</em> or <img alt="Apply preset with optional tags" src="../../images/tag_menu_apply_preset.png" /> <em>Apply best preset with optional tags</em> buttons. The later will add fields for any optional tags that are present in the preset.</p>
-<p>If alternative tagging is available for the main object, the alternative presets will be displayed before those in the most recently used list.</p>
+<p>If alternative tagging is available for the main object, the alternative presets will be displayed before those in the most recently used list. Long pressing on an item in the MRU preset view will display a menu allowing to</p>
+<ul>
+<li>Set <em>Apply with last values</em>, after setting this, further use of the preset will use the most recently used tag values as defaults. If this is not set (<em>default</em>) the use of the last value is determined by the <em>use_last_as_default</em> attribute in the preset.</li>
+<li>Set <em>Apply with optional tags</em>, after setting this, optional tags will be added when you apply the preset to an object, the same behaviour as pressing the <img alt="Apply preset with optional tags" src="../../images/tag_menu_apply_preset.png" />, but this will work when auto-applying the best matching preset on startup of the property editor too.</li>
+<li><em>Remove</em> remove the item from the MRU preset view. Note that the above settings are persistent and will remain in force even if the preset item is removed.  </li>
+</ul>
 <p>Further behaviour and menu items are similar or the same as for the <em>Details</em> tab, the <em>Add language tags</em> menu item will add local language variants of the name and similar keys to the preset if configured for the region (see <a href="https://github.com/simonpoole/geocontext">the GeoContext repository</a>).</p>
 <h2 id="details-tab">Details Tab<a class="headerlink" href="#details-tab" title="Permanent link">#</a></h2>
 <p>Display of the key - value attributes of the edited object.</p>
@@ -459,7 +468,7 @@
 <h3 id="paste-from-clipboard">Paste from clipboard<a class="headerlink" href="#paste-from-clipboard" title="Permanent link">#</a></h3>
 <p>Paste and merge multi-line text from the system clipboard. If the lines have the form <em>key</em>=<em>value</em> the lines will be split at the = and pasted in to key and values fields, otherwise the complete lines will be copied to the value field. This function can be used for example with OCR apps. </p>
 <h3 id="surveyed"><img alt="Surveyed" src="../../images/tag_menu_sourcesurvey.png" /> Surveyed<a class="headerlink" href="#surveyed" title="Permanent link">#</a></h3>
-<p>Short cut for adding source=survey to the object. This is deprecated, the normal place to add source tags is in the corresponding field on the upload form. The action is only available on the <em>Details</em> tab.</p>
+<p>Short cut for adding a source key, if a key is present in the current row source:<em>key</em>=survey will be added, otherwise source=survey to the object. Such tags are in general deprecated the normal place to add source tags is in the corresponding field on the upload form. The action is only available on the <em>Details</em> tab.</p>
 <h3 id="map-features-wiki"><img alt="Wiki" src="../../images/tag_menu_mapfeatures.png" /> Map Features Wiki<a class="headerlink" href="#map-features-wiki" title="Permanent link">#</a></h3>
 <p>Invoke a web browser on the map features page in the OpenStreetMap wiki. <em>(requires network connectivity)</em> </p>
 <h3 id="reset-address-prediction">Reset address prediction<a class="headerlink" href="#reset-address-prediction" title="Permanent link">#</a></h3>
@@ -483,6 +492,7 @@
 <h2 id="members-tab">Members Tab<a class="headerlink" href="#members-tab" title="Permanent link">#</a></h2>
 <p>This tab will only be displayed if you are editing a relation, it displays entries for all the members of the relation.</p>
 <p>Members with a dark object field and only a numeric id displayed have not been downloaded, member highlighted in blue can be clicked on and a new property editor will be opened for the element. Note: during such a drill down operation the property editors are stacked, if you close a stacked property editor you will be returned to the previous one and so on.</p>
+<p>Individual member entries can be moved by <em>drag and drop</em> (long press followed by dragging).</p>
 <p>The following operation can be performed on selected relation members.</p>
 <ul>
 <li><em>Delete</em> - remove the object from this (the edited) relation.</li>
@@ -502,7 +512,7 @@
 <p>Scroll the screen to the bottom.</p>
 <h3 id="help_2"><img alt="Help" src="../../images/menu_help.png" /> Help<a class="headerlink" href="#help_2" title="Permanent link">#</a></h3>
 <p>Start the on device help browser.</p>
-<h2 id="preset-display">Preset display<a class="headerlink" href="#preset-display" title="Permanent link">#</a></h2>
+<h2 id="preset-tab">Preset tab<a class="headerlink" href="#preset-tab" title="Permanent link">#</a></h2>
 <p>Find, select and apply a <a href="../Presets/">preset</a>. Groups of presets have a light background, presets a dark one. The on device presets can be searched for terms, if enabled and network connectivity is available you can try and construct additional presets by querying the Taginfo service, when the results from the internal search are displayed.</p>
 <p>Presets in the "Auto-presets" group, that is such generated from taginfo or custom presets, can be removed from the configuration by long-pressing the respective icon.</p>
 <h3 id="top">Top<a class="headerlink" href="#top" title="Permanent link">#</a></h3>
@@ -544,7 +554,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#preset-display" class="nav-link">Preset display</a>
+            <li class="nav-item" data-level="2"><a href="#preset-tab" class="nav-link">Preset tab</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -561,7 +571,7 @@
 
 <h1 id="vespucci-property-editor">Vespucci Property Editor<a class="headerlink" href="#vespucci-property-editor" title="Permanent link">#</a></h1>
 <p>The property editor screen is the central place for changing object attributes and relation memberships. To exit and save your changes tap the check mark icon in the upper left hand corner, pressing the device back button will give you the option of exiting without saving. Tags with empty value fields will not be saved.</p>
-<p>Most of the fields use context sensitive auto complete provided by the active presets. Clicking twice (with a short pause) will re-display the auto complete menu. </p>
+<p>Many of the fields use context sensitive auto complete provided by the active presets and previously used tags. Clicking twice (with a short pause) will re-display the auto complete menu. </p>
 <p>Depending on size and orientation of your device the layout will change to make maximum use of the space available.</p>
 <ul>
 <li>small devices: tab layout with <em>Presets</em>, <em>Properties</em> (including the recently used presets), <em>Details</em> and <em>Relations</em> tabs. If the selected object is a relation a further <em>Members</em> tab will be available. </li>
@@ -571,9 +581,14 @@
 <p>If the <em>Display tag form</em> preference in the <em><a href="../Advanced%20preferences/">Advanced preferences</a></em> has been disabled pre-0.9.8 behaviour is enabled and the <em>Details</em> tab will have the heading <em>Properties</em>.</p>
 <p>In the tabs tapping the checkbox in the header row will select/de-select all elements.</p>
 <h2 id="properties-tab">Properties Tab<a class="headerlink" href="#properties-tab" title="Permanent link">#</a></h2>
-<p>This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simply remove or reset the value (or delete them in the <em>Details</em> tab).</p>
+<p>This tab gives a simplified, preset-driven, editing screen for the tags for the selected object. Instead of displaying the raw keys, they are represented by their description, which, if available will be translated. To remove individual attributes you can simply remove or reset the value (or delete them in the <em>Details</em> tab).</p>
 <p>Fields are added by applying presets, either via the <em>Preset</em> tab or via the <img alt="Apply preset" src="../../images/preset.png" /> <em>Apply best preset</em> or <img alt="Apply preset with optional tags" src="../../images/tag_menu_apply_preset.png" /> <em>Apply best preset with optional tags</em> buttons. The later will add fields for any optional tags that are present in the preset.</p>
-<p>If alternative tagging is available for the main object, the alternative presets will be displayed before those in the most recently used list.</p>
+<p>If alternative tagging is available for the main object, the alternative presets will be displayed before those in the most recently used list. Long pressing on an item in the MRU preset view will display a menu allowing to</p>
+<ul>
+<li>Set <em>Apply with last values</em>, after setting this, further use of the preset will use the most recently used tag values as defaults. If this is not set (<em>default</em>) the use of the last value is determined by the <em>use_last_as_default</em> attribute in the preset.</li>
+<li>Set <em>Apply with optional tags</em>, after setting this, optional tags will be added when you apply the preset to an object, the same behaviour as pressing the <img alt="Apply preset with optional tags" src="../../images/tag_menu_apply_preset.png" />, but this will work when auto-applying the best matching preset on startup of the property editor too.</li>
+<li><em>Remove</em> remove the item from the MRU preset view. Note that the above settings are persistent and will remain in force even if the preset item is removed.  </li>
+</ul>
 <p>Further behaviour and menu items are similar or the same as for the <em>Details</em> tab, the <em>Add language tags</em> menu item will add local language variants of the name and similar keys to the preset if configured for the region (see <a href="https://github.com/simonpoole/geocontext">the GeoContext repository</a>).</p>
 <h2 id="details-tab">Details Tab<a class="headerlink" href="#details-tab" title="Permanent link">#</a></h2>
 <p>Display of the key - value attributes of the edited object.</p>
@@ -601,7 +616,7 @@
 <h3 id="paste-from-clipboard">Paste from clipboard<a class="headerlink" href="#paste-from-clipboard" title="Permanent link">#</a></h3>
 <p>Paste and merge multi-line text from the system clipboard. If the lines have the form <em>key</em>=<em>value</em> the lines will be split at the = and pasted in to key and values fields, otherwise the complete lines will be copied to the value field. This function can be used for example with OCR apps. </p>
 <h3 id="surveyed"><img alt="Surveyed" src="../../images/tag_menu_sourcesurvey.png" /> Surveyed<a class="headerlink" href="#surveyed" title="Permanent link">#</a></h3>
-<p>Short cut for adding source=survey to the object. This is deprecated, the normal place to add source tags is in the corresponding field on the upload form. The action is only available on the <em>Details</em> tab.</p>
+<p>Short cut for adding a source key, if a key is present in the current row source:<em>key</em>=survey will be added, otherwise source=survey to the object. Such tags are in general deprecated the normal place to add source tags is in the corresponding field on the upload form. The action is only available on the <em>Details</em> tab.</p>
 <h3 id="map-features-wiki"><img alt="Wiki" src="../../images/tag_menu_mapfeatures.png" /> Map Features Wiki<a class="headerlink" href="#map-features-wiki" title="Permanent link">#</a></h3>
 <p>Invoke a web browser on the map features page in the OpenStreetMap wiki. <em>(requires network connectivity)</em> </p>
 <h3 id="reset-address-prediction">Reset address prediction<a class="headerlink" href="#reset-address-prediction" title="Permanent link">#</a></h3>
@@ -625,6 +640,7 @@
 <h2 id="members-tab">Members Tab<a class="headerlink" href="#members-tab" title="Permanent link">#</a></h2>
 <p>This tab will only be displayed if you are editing a relation, it displays entries for all the members of the relation.</p>
 <p>Members with a dark object field and only a numeric id displayed have not been downloaded, member highlighted in blue can be clicked on and a new property editor will be opened for the element. Note: during such a drill down operation the property editors are stacked, if you close a stacked property editor you will be returned to the previous one and so on.</p>
+<p>Individual member entries can be moved by <em>drag and drop</em> (long press followed by dragging).</p>
 <p>The following operation can be performed on selected relation members.</p>
 <ul>
 <li><em>Delete</em> - remove the object from this (the edited) relation.</li>
@@ -644,7 +660,7 @@
 <p>Scroll the screen to the bottom.</p>
 <h3 id="help_2"><img alt="Help" src="../../images/menu_help.png" /> Help<a class="headerlink" href="#help_2" title="Permanent link">#</a></h3>
 <p>Start the on device help browser.</p>
-<h2 id="preset-display">Preset display<a class="headerlink" href="#preset-display" title="Permanent link">#</a></h2>
+<h2 id="preset-tab">Preset tab<a class="headerlink" href="#preset-tab" title="Permanent link">#</a></h2>
 <p>Find, select and apply a <a href="../Presets/">preset</a>. Groups of presets have a light background, presets a dark one. The on device presets can be searched for terms, if enabled and network connectivity is available you can try and construct additional presets by querying the Taginfo service, when the results from the internal search are displayed.</p>
 <p>Presets in the "Auto-presets" group, that is such generated from taginfo or custom presets, can be removed from the configuration by long-pressing the respective icon.</p>
 <h3 id="top">Top<a class="headerlink" href="#top" title="Permanent link">#</a></h3>
@@ -663,7 +679,7 @@
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.0.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.1.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

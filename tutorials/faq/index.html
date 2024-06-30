@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../../help/en/20.1.0%20Release%20notes/" class="dropdown-item">20.1.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../../help/en/20.0.0%20Release%20notes/" class="dropdown-item">20.0.0 Release notes</a>
 </li>
                                     
@@ -434,7 +438,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <h3 id="what-do-i-need-to-get-started-with-vespucci">What do I need to get started with Vespucci?<a class="headerlink" href="#what-do-i-need-to-get-started-with-vespucci" title="Permanent link">#</a></h3>
 <p>You need:</p>
 <ul>
-<li>An Android device (or the emulator), note that Release 0.9.x has only been tested on Android 2.3 and later</li>
+<li>An Android device (or the emulator), Vespucci version 20 supports Android starting with 4.1, version 20.1 starting with Android 5.</li>
 <li>The Vespucci APK file (available from Google Play and GitHub)</li>
 <li>Some familiarity with <a href="http://wiki.openstreetmap.org/wiki/Map_Features">OSM Map features</a></li>
 <li>An <a href="http://www.openstreetmap.org/user/new">OSM account</a></li>
@@ -471,7 +475,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <h3 id="is-vespucci-available-for-other-mobile-platforms">Is Vespucci available for other mobile platforms?<a class="headerlink" href="#is-vespucci-available-for-other-mobile-platforms" title="Permanent link">#</a></h3>
 <p>No, with the exception of those that provide an Android compatible environment.</p>
 <h3 id="supported-devices">Supported devices<a class="headerlink" href="#supported-devices" title="Permanent link">#</a></h3>
-<p>Current Vespucci builds support Android 4.1 and later. Pre-release testing has been done on a limited number of physical devices, but with the exception of manufacturer specific quirks there is no reason to believe that it isn't compatible with all devices with a current Android version. Note that pre-Android 5 devices are not recommended due both to the limited resources they typically have and the age of the operating system.</p>
+<p>Current Vespucci builds support Android 5.0 and later. Pre-release testing has been done on a limited number of physical devices, but with the exception of manufacturer specific quirks there is no reason to believe that it isn't compatible with all devices with a current Android version. </p>
 <p>Physical devices:</p>
 <pre><code>5.1.1 Amazon Fire (5th gen) tablet
 6.0 HTC One M8
@@ -480,7 +484,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 9.0 Samsung Note 8 
 11.0 Samsung A40
 11.0 Samsung S5e tablet
-13.0 Samsung S23 Ultra
+14.0 Samsung S23 Ultra
 </code></pre>
 <p>Emulators:</p>
 <pre><code>4.1.2
@@ -623,6 +627,9 @@ the problem is related to access to a removable storages, disabling the "Prefer 
 <li>go to <em>Preferences</em> -&gt; <em>Advanced preferences</em> -&gt; <em>Server settings</em> and set login and password under the <em>User account</em> entry.</li>
 <li>in the layer control select the <em>Configure</em> menu entry for the data layer entry, edit the active entry, and uncheck OAuth support.   </li>
 </ul>
+<h3 id="resuming-the-app-doesnt-bring-me-back-to-the-property-editor">Resuming the app doesn't bring me back to the property editor<a class="headerlink" href="#resuming-the-app-doesnt-bring-me-back-to-the-property-editor" title="Permanent link">#</a></h3>
+<p>Depending on the device, Android version and the phase of the moon, some Android launchers will restart the app instead of resuming it if you click on the icon in the app draw instead of selecting the app from the current application list. This will lead to any state/edit in the property editor being lost if you had navigated away from it, for example recent Samsung devices exhibit this behaviour. </p>
+<p>If you are experiencing this issue, setting <em>Use "new task" mode for property editor</em> in the experimental section of the <em>Advanced preferences</em> may help.</p>
 <h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">#</a></h2>
 <h3 id="vespucci-is-getting-slower-and-slower">Vespucci is getting slower and slower<a class="headerlink" href="#vespucci-is-getting-slower-and-slower" title="Permanent link">#</a></h3>
 <p>Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. In current versions of Vespucci data downloaded by the auto-download facilities will be automatically pruned if possible, but particularly zooming far out will make this less effective. </p>
@@ -703,7 +710,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <h3 id="what-do-i-need-to-get-started-with-vespucci">What do I need to get started with Vespucci?<a class="headerlink" href="#what-do-i-need-to-get-started-with-vespucci" title="Permanent link">#</a></h3>
 <p>You need:</p>
 <ul>
-<li>An Android device (or the emulator), note that Release 0.9.x has only been tested on Android 2.3 and later</li>
+<li>An Android device (or the emulator), Vespucci version 20 supports Android starting with 4.1, version 20.1 starting with Android 5.</li>
 <li>The Vespucci APK file (available from Google Play and GitHub)</li>
 <li>Some familiarity with <a href="http://wiki.openstreetmap.org/wiki/Map_Features">OSM Map features</a></li>
 <li>An <a href="http://www.openstreetmap.org/user/new">OSM account</a></li>
@@ -740,7 +747,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <h3 id="is-vespucci-available-for-other-mobile-platforms">Is Vespucci available for other mobile platforms?<a class="headerlink" href="#is-vespucci-available-for-other-mobile-platforms" title="Permanent link">#</a></h3>
 <p>No, with the exception of those that provide an Android compatible environment.</p>
 <h3 id="supported-devices">Supported devices<a class="headerlink" href="#supported-devices" title="Permanent link">#</a></h3>
-<p>Current Vespucci builds support Android 4.1 and later. Pre-release testing has been done on a limited number of physical devices, but with the exception of manufacturer specific quirks there is no reason to believe that it isn't compatible with all devices with a current Android version. Note that pre-Android 5 devices are not recommended due both to the limited resources they typically have and the age of the operating system.</p>
+<p>Current Vespucci builds support Android 5.0 and later. Pre-release testing has been done on a limited number of physical devices, but with the exception of manufacturer specific quirks there is no reason to believe that it isn't compatible with all devices with a current Android version. </p>
 <p>Physical devices:</p>
 <pre><code>5.1.1 Amazon Fire (5th gen) tablet
 6.0 HTC One M8
@@ -749,7 +756,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 9.0 Samsung Note 8 
 11.0 Samsung A40
 11.0 Samsung S5e tablet
-13.0 Samsung S23 Ultra
+14.0 Samsung S23 Ultra
 </code></pre>
 <p>Emulators:</p>
 <pre><code>4.1.2
@@ -892,6 +899,9 @@ the problem is related to access to a removable storages, disabling the "Prefer 
 <li>go to <em>Preferences</em> -&gt; <em>Advanced preferences</em> -&gt; <em>Server settings</em> and set login and password under the <em>User account</em> entry.</li>
 <li>in the layer control select the <em>Configure</em> menu entry for the data layer entry, edit the active entry, and uncheck OAuth support.   </li>
 </ul>
+<h3 id="resuming-the-app-doesnt-bring-me-back-to-the-property-editor">Resuming the app doesn't bring me back to the property editor<a class="headerlink" href="#resuming-the-app-doesnt-bring-me-back-to-the-property-editor" title="Permanent link">#</a></h3>
+<p>Depending on the device, Android version and the phase of the moon, some Android launchers will restart the app instead of resuming it if you click on the icon in the app draw instead of selecting the app from the current application list. This will lead to any state/edit in the property editor being lost if you had navigated away from it, for example recent Samsung devices exhibit this behaviour. </p>
+<p>If you are experiencing this issue, setting <em>Use "new task" mode for property editor</em> in the experimental section of the <em>Advanced preferences</em> may help.</p>
 <h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">#</a></h2>
 <h3 id="vespucci-is-getting-slower-and-slower">Vespucci is getting slower and slower<a class="headerlink" href="#vespucci-is-getting-slower-and-slower" title="Permanent link">#</a></h3>
 <p>Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. In current versions of Vespucci data downloaded by the auto-download facilities will be automatically pruned if possible, but particularly zooming far out will make this less effective. </p>
@@ -917,7 +927,7 @@ however older devices tend to have very limited memory and correspondingly the a
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.0.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.1.0 </p>
         </footer>
         <script>
             var base_url = "../..",

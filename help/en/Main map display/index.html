@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../20.1.0%20Release%20notes/" class="dropdown-item">20.1.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../20.0.0%20Release%20notes/" class="dropdown-item">20.0.0 Release notes</a>
 </li>
                                     
@@ -428,6 +432,7 @@
 <ul>
 <li>Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.</li>
 <li>Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.</li>
+<li>Drag layer to a new position in the layer stack by a long press and then dragging the layer.</li>
 <li>Menu button.<ul>
 <li>Tile based layers: <ul>
 <li><strong>Select imagery</strong> Show a imagery selection dialog, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. </li>
@@ -455,6 +460,7 @@
 <li>GeoJSON layers: <ul>
 <li><strong>Change style</strong> Show the layer styling dialog.</li>
 <li><strong>Info</strong> Display some information on the contents.</li>
+<li><strong>Create Todos from GeoJSON objects ...</strong> create Todos from the GeoJSON objects in the layer. The default conversion adds the GeoJSON properties as text to the Todo, Custom conversion allows you to select a script for the conversion, for example a script can include references to OSM elements in the Todos. <a href="http://vespucci.io/tutorials/other/conversion_exacmple.js">Example script</a></li>
 </ul>
 </li>
 <li>GPX layers:
@@ -700,6 +706,7 @@ Overpass API query and use that to download data.</p>
 <ul>
 <li>Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.</li>
 <li>Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.</li>
+<li>Drag layer to a new position in the layer stack by a long press and then dragging the layer.</li>
 <li>Menu button.<ul>
 <li>Tile based layers: <ul>
 <li><strong>Select imagery</strong> Show a imagery selection dialog, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. </li>
@@ -727,6 +734,7 @@ Overpass API query and use that to download data.</p>
 <li>GeoJSON layers: <ul>
 <li><strong>Change style</strong> Show the layer styling dialog.</li>
 <li><strong>Info</strong> Display some information on the contents.</li>
+<li><strong>Create Todos from GeoJSON objects ...</strong> create Todos from the GeoJSON objects in the layer. The default conversion adds the GeoJSON properties as text to the Todo, Custom conversion allows you to select a script for the conversion, for example a script can include references to OSM elements in the Todos. <a href="http://vespucci.io/tutorials/other/conversion_exacmple.js">Example script</a></li>
 </ul>
 </li>
 <li>GPX layers:
@@ -923,7 +931,7 @@ Overpass API query and use that to download data.</p>
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.0.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.1.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

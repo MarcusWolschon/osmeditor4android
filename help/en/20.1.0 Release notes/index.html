@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>20.1.0 Release notes - Vespucci</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+
+<!--
+                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+<!--                            <li class="navitem">
+                                <a href="../../.." class="nav-link">Vespucci</a>
+</li> -->
+                                <li class="navitem">
+                                    
+                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
+                                </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../Introduction/" class="dropdown-item">Introduction</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/features/" class="dropdown-item">Features</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">20.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../20.0.0%20Release%20notes/" class="dropdown-item">20.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../19.3.0%20Release%20notes/" class="dropdown-item">19.3.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../19.2.0%20Release%20notes/" class="dropdown-item">19.2.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../19.1.0%20Release%20notes/" class="dropdown-item">19.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../19.0.0%20Release%20notes/" class="dropdown-item">19.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../18.1.0%20Release%20notes/" class="dropdown-item">18.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../18.0.0%20Release%20notes/" class="dropdown-item">18.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../17.1.0%20Release%20notes/" class="dropdown-item">17.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../17.0.0%20Release%20notes/" class="dropdown-item">17.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../16.1.0%20Release%20notes/" class="dropdown-item">16.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../16.0.0%20Release%20notes/" class="dropdown-item">16.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../15.2.0%20Release%20notes/" class="dropdown-item">15.2.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../15.1.0%20Release%20notes/" class="dropdown-item">15.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../15.0.0%20Release%20notes/" class="dropdown-item">15.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../14.1.0%20Release%20notes/" class="dropdown-item">14.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../14.0.0%20Release%20notes/" class="dropdown-item">14.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../13.1.0%20Release%20notes/" class="dropdown-item">13.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../13.0.0%20Release%20notes/" class="dropdown-item">13.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../12.1.0%20Release%20notes/" class="dropdown-item">12.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../12.0.0%20Release%20notes/" class="dropdown-item">12.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../11.2.0%20Release%20notes/" class="dropdown-item">11.2.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../11.1.0%20Release%20notes/" class="dropdown-item">11.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../11.0.0%20Release%20notes/" class="dropdown-item">11.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../10.2.0%20Release%20notes/" class="dropdown-item">10.2.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../10.1.0%20Release%20notes/" class="dropdown-item">10.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../10.0.0%20Release%20notes/" class="dropdown-item">10.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../0.9.9%20Release%20notes/" class="dropdown-item">0.9.9 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../0.9.8%20Release%20notes/" class="dropdown-item">0.9.8 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../0.9.7%20Release%20notes/" class="dropdown-item">0.9.7 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../0.9.6%20Release%20notes/" class="dropdown-item">0.9.6 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/old_release_notes/" class="dropdown-item">Previous release notes</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../Main%20map%20display/" class="dropdown-item">Main map display</a>
+</li>
+                                    
+<li>
+    <a href="../Simple%20actions/" class="dropdown-item">Simple actions</a>
+</li>
+                                    
+<li>
+    <a href="../Creating%20new%20objects/" class="dropdown-item">Creating new objects</a>
+</li>
+                                    
+<li>
+    <a href="../Node%20selected/" class="dropdown-item">Node selected</a>
+</li>
+                                    
+<li>
+    <a href="../Way%20selected/" class="dropdown-item">Way selected</a>
+</li>
+                                    
+<li>
+    <a href="../Relation%20selected/" class="dropdown-item">Relation selected</a>
+</li>
+                                    
+<li>
+    <a href="../New%20Note%20selected/" class="dropdown-item">New note selected</a>
+</li>
+                                    
+<li>
+    <a href="../Property%20editor/" class="dropdown-item">Property editor</a>
+</li>
+                                    
+<li>
+    <a href="../Multiselect/" class="dropdown-item">Multiselect</a>
+</li>
+                                    
+<li>
+    <a href="../Conflict%20resolution/" class="dropdown-item">Conflict resolution</a>
+</li>
+                                    
+<li>
+    <a href="../Presets/" class="dropdown-item">Presets</a>
+</li>
+                                    
+<li>
+    <a href="../Aligning%20background%20imagery/" class="dropdown-item">Aligning background imagery</a>
+</li>
+                                    
+<li>
+    <a href="../Keyboard/" class="dropdown-item">Keyboard and mouse</a>
+</li>
+                                    
+<li>
+    <a href="../GPS%20sources/" class="dropdown-item">GPS sources</a>
+</li>
+                                    
+<li>
+    <a href="../Tag%20filter/" class="dropdown-item">Tag based filter</a>
+</li>
+                                    
+<li>
+    <a href="../Preset%20filter/" class="dropdown-item">Preset based filter</a>
+</li>
+                                    
+<li>
+    <a href="../Opening%20hours/" class="dropdown-item">Opening hours</a>
+</li>
+                                    
+<li>
+    <a href="../Preferences/" class="dropdown-item">Preferences</a>
+</li>
+                                    
+<li>
+    <a href="../Advanced%20preferences/" class="dropdown-item">Advanced preferences</a>
+</li>
+                                    
+<li>
+    <a href="../Custom%20imagery/" class="dropdown-item">Custom imagery</a>
+</li>
+                                    
+<li>
+    <a href="../Voice%20commands/" class="dropdown-item">Voice commands</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../tutorials/network_location/" class="dropdown-item">"network" Location Provider Support</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/custom_imagery/" class="dropdown-item">Custom imagery</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/custom_imagery_mbtiles/" class="dropdown-item">Generating MBTiles files with custom imagery</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/name_suggestions/" class="dropdown-item">Using name suggestions</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/reporting_issues/" class="dropdown-item">Reporting Vespucci issues</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/tag_only/" class="dropdown-item">Tag-only editing</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/presets/" class="dropdown-item">Vespucci presets</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/data_styling/" class="dropdown-item">Vespucci data styling</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/vespucci_intents/" class="dropdown-item">Controlling Vespucci from other apps</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/object_search/" class="dropdown-item">Object search</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/offline/" class="dropdown-item">Going completely offline with Vespucci</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/mapbox-style/" class="dropdown-item">Mapbox-GL Style Support</a>
+</li>
+                                    
+<li>
+    <a href="../../../tutorials/todos/" class="dropdown-item">Todo file format description</a>
+</li>
+                                </ul>
+                            </li>
+<!--                            <li class="navitem">
+                                <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
+</li> -->
+                                <li class="navitem">
+                                    
+                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
+                                </li>
+<!--                            <li class="navitem">
+                                <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
+</li> -->
+                                <li class="navitem">
+                                    
+                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
+                                </li>
+<!--                            <li class="navitem">
+                                <a href="../Privacy/" class="nav-link">Privacy</a>
+</li> -->
+                                <li class="navitem">
+                                    
+                                        <a href="../Privacy/" class="nav-link">Privacy</a>
+                                </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+
+<!--
+                            <li class="nav-item">
+                                <a rel="prev" href="../../../tutorials/features/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../20.0.0%20Release%20notes/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+<!--                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#vespucci-201-beta-highlights" class="nav-link">Vespucci 20.1 BETA Highlights</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+<div class="col-md-9" role="main">
+
+<h1 id="vespucci-201-beta-highlights">Vespucci 20.1 BETA Highlights<a class="headerlink" href="#vespucci-201-beta-highlights" title="Permanent link">#</a></h1>
+<p>2024-07-01</p>
+<h3 id="end-of-support-for-android-41-to-44">End of support for Android 4.1 to 4.4<a class="headerlink" href="#end-of-support-for-android-41-to-44" title="Permanent link">#</a></h3>
+<p>This version removes support for Android 4.1 to 4.4. While we aspire to maintain backwards compatibility as long as reasonably possible, 4.4 was released in October 2013 and is now more than a decade old, these versions have even issues with support of more recent TLS variants and certificates and in practical terms were likely only to work on private instances of the OSM API. This has allowed us to remove some version specific code and the <em>legacy</em> build for pre-Android 5 devices.</p>
+<h3 id="workaround-issues-with-sites-using-letsencrypt-certificates-on-android-7-and-earlier">Workaround issues with sites using Letsencrypt certificates on Android 7 and earlier<a class="headerlink" href="#workaround-issues-with-sites-using-letsencrypt-certificates-on-android-7-and-earlier" title="Permanent link">#</a></h3>
+<p>Android devices running Android 7 and earlier do not trust the root certificates used to sign new or re-issued Letsencrypt certificates since earlier this year, leading to failures to down-/upload data to the OpenStreetMap API and to authenticate with the OpenStreetMap site since the beginning of June. The later being particular annoying as google decided to simply show a blank screen in webviews for SSL errors due to untrusted certificates instead of displaying an error message.</p>
+<p>Version 20.1 contains workarounds for both issues (and displays an error message if this happens again in the future for any of the usages of webviews in the app).</p>
+<p><em>Both workaround were backported to 20.0</em></p>
+<h3 id="workaround-issues-with-certain-launchers-restarting-instead-of-resuming-the-app">Workaround issues with certain launchers restarting instead of resuming the app<a class="headerlink" href="#workaround-issues-with-certain-launchers-restarting-instead-of-resuming-the-app" title="Permanent link">#</a></h3>
+<p>On certain devices and Android versions if you switch to a different app while in Vespuccis <em>Property Editor</em> and then return to Vespucci by clicking the app icon in the launcher, the app will be restarted instead of being resumed losing any unsaved changes made in the <em>Property Editor</em> in the process. Selecting Vespucci from the <em>recent apps</em> will in our experience always resume the app, but to avoid the issue on affected devices we've added a workaround that you can enable in the <a href="http://vespucci.io/help/en/Advanced%20preferences/#experimental"><em>Experimental</em> section of the preferences</a>. </p>
+<p>Enabling this option starts the <em>Property Editor</em> in the same mode we use for split-window support and <strong>experimentally</strong> seems to avoid the issues on those devices that are affected by the issue. As this uses a different method to communicate back to the main map display than previously (the same as we use in split-window mode) we haven't made this the default at this point in time and would like have some more feedback from our users before doing so.</p>
+<p>It should be noted that this and similar issues have been an ongoing problem with Android since Android API 1 and are totally outside of our control.</p>
+<p><em>This workaround was backported to 20.0</em></p>
+<h3 id="ui-changes">UI changes<a class="headerlink" href="#ui-changes" title="Permanent link">#</a></h3>
+<h4 id="re-arrange-entries-in-the-layer-modal-with-drag-and-drop">Re-arrange entries in the layer modal with drag and drop<a class="headerlink" href="#re-arrange-entries-in-the-layer-modal-with-drag-and-drop" title="Permanent link">#</a></h4>
+<p>Entries in the layer modal can be moved by long pressing and then dragging the entry to its new position. You will get a visual cue when you have pressed long enough by a dimmed image of the entry appearing.</p>
+<h4 id="re-arrange-relation-members-with-drag-and-drop">Re-arrange relation members with drag and drop<a class="headerlink" href="#re-arrange-relation-members-with-drag-and-drop" title="Permanent link">#</a></h4>
+<p>In the <em>Members</em> tab in the <em>Property Editor</em> (present when you are editing a <em>Relation</em>) you can now re-arrange member entries per drag and drop. As above you can start the process with a long press, however you will not be shown an image before you actually start dragging (that is Android for you). </p>
+<h4 id="default-set-of-keys-used-for-the-nearby-poi-display-configurable">Default set of keys used for the nearby POI display configurable<a class="headerlink" href="#default-set-of-keys-used-for-the-nearby-poi-display-configurable" title="Permanent link">#</a></h4>
+<p>In the absence of a filter being set the <em>nearby POI display</em> uses a default set of keys for which it will display entries. This makes sense as you typically don't want to display entries for all objects on the screen, just for those that have <em>POI</em> character, but work flows differ and to accommodate a wide range of uses we've now made the set of keys configurable in the <em>Preferences</em> in <em>Nearby POI display</em>.</p>
+<h4 id="validation-styling-highlights-instead-of-replacing-normal-styling">Validation styling highlights instead of replacing normal styling<a class="headerlink" href="#validation-styling-highlights-instead-of-replacing-normal-styling" title="Permanent link">#</a></h4>
+<p>Previously the colors returned by the <a href="http://vespucci.io/tutorials/data_styling/#validation-styling">validation styling</a> replaced the normal styling of an object, in some cases making affected objects difficult to manipulate. We have changed this to use the colors as a highlight "behind" the normal element rendering which seems to work better. </p>
+<h4 id="value-selectors-for-direction-and-integers">Value selectors for direction and integers<a class="headerlink" href="#value-selectors-for-direction-and-integers" title="Permanent link">#</a></h4>
+<p>Providing dedicated selector UIs for values in OpenStreetMap is not straight forward as there is no formal typing system and a value can have literally any value representable by an UTF-8 string. </p>
+<p>For example a selector for the value of the the <em>layer</em> tag needs to equally be able to deal with numbers as with the string <em>I don't like integers</em> . The approach we have taken in the past and intend to continue in the future is to provide UI support for the selection of existing and preset derived values and provide free form input via the <em>Details</em> tab. For this release we've added two dedicated modals for entering <em>integer</em> and <em>direction</em> values (this can be set in the presets) replacing previous text only entry.</p>
+<h5 id="direction-values">Direction values<a class="headerlink" href="#direction-values" title="Permanent link">#</a></h5>
+<p>This provides input either of tag specific values via a conventional single choice radio button selector or via a compass direction display below it, besides using any built in magnetic compass to determine the value or you can simply drag the display to the correct value.</p>
+<h5 id="integer-values">Integer values<a class="headerlink" href="#integer-values" title="Permanent link">#</a></h5>
+<p>This provides input of tag specific values  as above, or selection of a whole number via a number picker.</p>
+<h4 id="rendering-of-direction-values">Rendering of direction values<a class="headerlink" href="#rendering-of-direction-values" title="Permanent link">#</a></h4>
+<p>Elements with a direction tag that contains a degree value are now rendered with a pointer in the the direction.</p>
+<h4 id="support-for-rotating-nodes-with-a-direction-tag-and-multiple-elements-and-relations">Support for rotating nodes with a direction tag and multiple elements and relations<a class="headerlink" href="#support-for-rotating-nodes-with-a-direction-tag-and-multiple-elements-and-relations" title="Permanent link">#</a></h4>
+<p>Selected nodes with a direction tag, multiple elements and relations now support rotation just a previously available for ways.</p>
+<h4 id="per-preset-item-support-for-pre-filling-tags-with-default-values">Per-preset item support for pre-filling tags with default values<a class="headerlink" href="#per-preset-item-support-for-pre-filling-tags-with-default-values" title="Permanent link">#</a></h4>
+<p>We now support setting a preferred behaviour on how to handle pre-filling tag values with either the previously used or the default value. </p>
+<p>This is again a case of one size doesn't fit all, so you can now turn on pre-filling on a per preset item base. In the <em>most recently used</em> display a long press will display three options (instead of previously simply removing the item from the display): </p>
+<ul>
+<li><em>Apply with last values</em> apply the item using previously used values or defaults (persistent)</li>
+<li><em>Apply with optional</em> apply the item with optional tags (persistent)</li>
+<li><em>Remove</em> remove item from MRU display </li>
+</ul>
+<p>Note that pre-filling will only have an effect on tags without a value.</p>
+<h3 id="improved-todo-support">Improved <em>Todo</em> support<a class="headerlink" href="#improved-todo-support" title="Permanent link">#</a></h3>
+<p>The <em>Todo</em> support has been re-factored to support</p>
+<ul>
+<li>editing of the comment field</li>
+<li>easier skipping of todos (both in the modal as in the menu associated with any references OSM element)</li>
+</ul>
+<p>To make skipping a bit more useful the sorting to determine the nearest <em>Todo</em> to display with sort open items before skipped ones.</p>
+<h4 id="facility-to-create-todos-from-the-objects-in-a-geojson-layer">Facility to create Todos from the objects in a GeoJSON layer<a class="headerlink" href="#facility-to-create-todos-from-the-objects-in-a-geojson-layer" title="Permanent link">#</a></h4>
+<p>In some situations it is useful to work through a set of GeoJSON objects in the manner of todos, we now support creation of <em>Todos</em> from objects in a GeoJSON layer. You can either use a built in conversion that will create a <em>Todo</em> with a comment containing the GeoJSON properties, or use JavaScript to run a custom conversion. The later is particularly useful if the GeoJSON has references to OSM objects and you want to create Todos that will directly references these. </p>
+<p>See <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/documentation/docs/tutorials/other/conversion-example.js">sample conversion script</a>.</p>
+<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
+<ul>
+<li>Add support for multi-line preference titles</li>
+<li>Add support for labels for all GeoJSON geometries</li>
+<li>Indicate in the taginfo project file if an entry is "not recommended" (aka deprecated)</li>
+</ul>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
+<p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one. </p>
+<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div> -->
+		    
+                    	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#vespucci-201-beta-highlights" class="nav-link">Vespucci 20.1 BETA Highlights</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    	<div class="col-md-9" role="main">
+
+<h1 id="vespucci-201-beta-highlights">Vespucci 20.1 BETA Highlights<a class="headerlink" href="#vespucci-201-beta-highlights" title="Permanent link">#</a></h1>
+<p>2024-07-01</p>
+<h3 id="end-of-support-for-android-41-to-44">End of support for Android 4.1 to 4.4<a class="headerlink" href="#end-of-support-for-android-41-to-44" title="Permanent link">#</a></h3>
+<p>This version removes support for Android 4.1 to 4.4. While we aspire to maintain backwards compatibility as long as reasonably possible, 4.4 was released in October 2013 and is now more than a decade old, these versions have even issues with support of more recent TLS variants and certificates and in practical terms were likely only to work on private instances of the OSM API. This has allowed us to remove some version specific code and the <em>legacy</em> build for pre-Android 5 devices.</p>
+<h3 id="workaround-issues-with-sites-using-letsencrypt-certificates-on-android-7-and-earlier">Workaround issues with sites using Letsencrypt certificates on Android 7 and earlier<a class="headerlink" href="#workaround-issues-with-sites-using-letsencrypt-certificates-on-android-7-and-earlier" title="Permanent link">#</a></h3>
+<p>Android devices running Android 7 and earlier do not trust the root certificates used to sign new or re-issued Letsencrypt certificates since earlier this year, leading to failures to down-/upload data to the OpenStreetMap API and to authenticate with the OpenStreetMap site since the beginning of June. The later being particular annoying as google decided to simply show a blank screen in webviews for SSL errors due to untrusted certificates instead of displaying an error message.</p>
+<p>Version 20.1 contains workarounds for both issues (and displays an error message if this happens again in the future for any of the usages of webviews in the app).</p>
+<p><em>Both workaround were backported to 20.0</em></p>
+<h3 id="workaround-issues-with-certain-launchers-restarting-instead-of-resuming-the-app">Workaround issues with certain launchers restarting instead of resuming the app<a class="headerlink" href="#workaround-issues-with-certain-launchers-restarting-instead-of-resuming-the-app" title="Permanent link">#</a></h3>
+<p>On certain devices and Android versions if you switch to a different app while in Vespuccis <em>Property Editor</em> and then return to Vespucci by clicking the app icon in the launcher, the app will be restarted instead of being resumed losing any unsaved changes made in the <em>Property Editor</em> in the process. Selecting Vespucci from the <em>recent apps</em> will in our experience always resume the app, but to avoid the issue on affected devices we've added a workaround that you can enable in the <a href="http://vespucci.io/help/en/Advanced%20preferences/#experimental"><em>Experimental</em> section of the preferences</a>. </p>
+<p>Enabling this option starts the <em>Property Editor</em> in the same mode we use for split-window support and <strong>experimentally</strong> seems to avoid the issues on those devices that are affected by the issue. As this uses a different method to communicate back to the main map display than previously (the same as we use in split-window mode) we haven't made this the default at this point in time and would like have some more feedback from our users before doing so.</p>
+<p>It should be noted that this and similar issues have been an ongoing problem with Android since Android API 1 and are totally outside of our control.</p>
+<p><em>This workaround was backported to 20.0</em></p>
+<h3 id="ui-changes">UI changes<a class="headerlink" href="#ui-changes" title="Permanent link">#</a></h3>
+<h4 id="re-arrange-entries-in-the-layer-modal-with-drag-and-drop">Re-arrange entries in the layer modal with drag and drop<a class="headerlink" href="#re-arrange-entries-in-the-layer-modal-with-drag-and-drop" title="Permanent link">#</a></h4>
+<p>Entries in the layer modal can be moved by long pressing and then dragging the entry to its new position. You will get a visual cue when you have pressed long enough by a dimmed image of the entry appearing.</p>
+<h4 id="re-arrange-relation-members-with-drag-and-drop">Re-arrange relation members with drag and drop<a class="headerlink" href="#re-arrange-relation-members-with-drag-and-drop" title="Permanent link">#</a></h4>
+<p>In the <em>Members</em> tab in the <em>Property Editor</em> (present when you are editing a <em>Relation</em>) you can now re-arrange member entries per drag and drop. As above you can start the process with a long press, however you will not be shown an image before you actually start dragging (that is Android for you). </p>
+<h4 id="default-set-of-keys-used-for-the-nearby-poi-display-configurable">Default set of keys used for the nearby POI display configurable<a class="headerlink" href="#default-set-of-keys-used-for-the-nearby-poi-display-configurable" title="Permanent link">#</a></h4>
+<p>In the absence of a filter being set the <em>nearby POI display</em> uses a default set of keys for which it will display entries. This makes sense as you typically don't want to display entries for all objects on the screen, just for those that have <em>POI</em> character, but work flows differ and to accommodate a wide range of uses we've now made the set of keys configurable in the <em>Preferences</em> in <em>Nearby POI display</em>.</p>
+<h4 id="validation-styling-highlights-instead-of-replacing-normal-styling">Validation styling highlights instead of replacing normal styling<a class="headerlink" href="#validation-styling-highlights-instead-of-replacing-normal-styling" title="Permanent link">#</a></h4>
+<p>Previously the colors returned by the <a href="http://vespucci.io/tutorials/data_styling/#validation-styling">validation styling</a> replaced the normal styling of an object, in some cases making affected objects difficult to manipulate. We have changed this to use the colors as a highlight "behind" the normal element rendering which seems to work better. </p>
+<h4 id="value-selectors-for-direction-and-integers">Value selectors for direction and integers<a class="headerlink" href="#value-selectors-for-direction-and-integers" title="Permanent link">#</a></h4>
+<p>Providing dedicated selector UIs for values in OpenStreetMap is not straight forward as there is no formal typing system and a value can have literally any value representable by an UTF-8 string. </p>
+<p>For example a selector for the value of the the <em>layer</em> tag needs to equally be able to deal with numbers as with the string <em>I don't like integers</em> . The approach we have taken in the past and intend to continue in the future is to provide UI support for the selection of existing and preset derived values and provide free form input via the <em>Details</em> tab. For this release we've added two dedicated modals for entering <em>integer</em> and <em>direction</em> values (this can be set in the presets) replacing previous text only entry.</p>
+<h5 id="direction-values">Direction values<a class="headerlink" href="#direction-values" title="Permanent link">#</a></h5>
+<p>This provides input either of tag specific values via a conventional single choice radio button selector or via a compass direction display below it, besides using any built in magnetic compass to determine the value or you can simply drag the display to the correct value.</p>
+<h5 id="integer-values">Integer values<a class="headerlink" href="#integer-values" title="Permanent link">#</a></h5>
+<p>This provides input of tag specific values  as above, or selection of a whole number via a number picker.</p>
+<h4 id="rendering-of-direction-values">Rendering of direction values<a class="headerlink" href="#rendering-of-direction-values" title="Permanent link">#</a></h4>
+<p>Elements with a direction tag that contains a degree value are now rendered with a pointer in the the direction.</p>
+<h4 id="support-for-rotating-nodes-with-a-direction-tag-and-multiple-elements-and-relations">Support for rotating nodes with a direction tag and multiple elements and relations<a class="headerlink" href="#support-for-rotating-nodes-with-a-direction-tag-and-multiple-elements-and-relations" title="Permanent link">#</a></h4>
+<p>Selected nodes with a direction tag, multiple elements and relations now support rotation just a previously available for ways.</p>
+<h4 id="per-preset-item-support-for-pre-filling-tags-with-default-values">Per-preset item support for pre-filling tags with default values<a class="headerlink" href="#per-preset-item-support-for-pre-filling-tags-with-default-values" title="Permanent link">#</a></h4>
+<p>We now support setting a preferred behaviour on how to handle pre-filling tag values with either the previously used or the default value. </p>
+<p>This is again a case of one size doesn't fit all, so you can now turn on pre-filling on a per preset item base. In the <em>most recently used</em> display a long press will display three options (instead of previously simply removing the item from the display): </p>
+<ul>
+<li><em>Apply with last values</em> apply the item using previously used values or defaults (persistent)</li>
+<li><em>Apply with optional</em> apply the item with optional tags (persistent)</li>
+<li><em>Remove</em> remove item from MRU display </li>
+</ul>
+<p>Note that pre-filling will only have an effect on tags without a value.</p>
+<h3 id="improved-todo-support">Improved <em>Todo</em> support<a class="headerlink" href="#improved-todo-support" title="Permanent link">#</a></h3>
+<p>The <em>Todo</em> support has been re-factored to support</p>
+<ul>
+<li>editing of the comment field</li>
+<li>easier skipping of todos (both in the modal as in the menu associated with any references OSM element)</li>
+</ul>
+<p>To make skipping a bit more useful the sorting to determine the nearest <em>Todo</em> to display with sort open items before skipped ones.</p>
+<h4 id="facility-to-create-todos-from-the-objects-in-a-geojson-layer">Facility to create Todos from the objects in a GeoJSON layer<a class="headerlink" href="#facility-to-create-todos-from-the-objects-in-a-geojson-layer" title="Permanent link">#</a></h4>
+<p>In some situations it is useful to work through a set of GeoJSON objects in the manner of todos, we now support creation of <em>Todos</em> from objects in a GeoJSON layer. You can either use a built in conversion that will create a <em>Todo</em> with a comment containing the GeoJSON properties, or use JavaScript to run a custom conversion. The later is particularly useful if the GeoJSON has references to OSM objects and you want to create Todos that will directly references these. </p>
+<p>See <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/documentation/docs/tutorials/other/conversion-example.js">sample conversion script</a>.</p>
+<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
+<ul>
+<li>Add support for multi-line preference titles</li>
+<li>Add support for labels for all GeoJSON geometries</li>
+<li>Indicate in the taginfo project file if an entry is "not recommended" (aka deprecated)</li>
+</ul>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
+<p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one. </p>
+<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div>
+                    
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.1.0 </p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

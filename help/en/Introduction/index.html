@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../20.1.0%20Release%20notes/" class="dropdown-item">20.1.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../20.0.0%20Release%20notes/" class="dropdown-item">20.0.0 Release notes</a>
 </li>
                                     
@@ -394,7 +398,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#notes-and-bugs" class="nav-link">Notes and Bugs</a>
+            <li class="nav-item" data-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -556,10 +560,13 @@
 <p>Touching the <img alt="GPS" src="../../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
 <p>To record a GPX track and display it on your device select "Start GPX track" item in the <img alt="GPS" src="../../images/menu_gps.png" /> menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the <a href="../Main%20map%20display/">layer control</a>. Further layers can be added from local GPX files and tracks downloaded from the OSM API.</p>
 <p>Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the <a href="../Advanced%20preferences/">Advanced preferences</a> and configure NMEA input.</p>
-<h2 id="notes-and-bugs">Notes and Bugs<a class="headerlink" href="#notes-and-bugs" title="Permanent link">#</a></h2>
-<p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.</p>
-<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. </p>
-<p>The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
+<h3 id="how-to-export-a-gpx-track">How to export a GPX track?<a class="headerlink" href="#how-to-export-a-gpx-track" title="Permanent link">#</a></h3>
+<p>Open the layer menu, then click the 3-dots menu next to "GPX recording", then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
+<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos<a class="headerlink" href="#notes-bugs-and-todos" title="Permanent link">#</a></h2>
+<p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once. </p>
+<p>Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. </p>
+<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
+<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
 <h3 id="filtering">Filtering<a class="headerlink" href="#filtering" title="Permanent link">#</a></h3>
 <p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
@@ -661,7 +668,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#notes-and-bugs" class="nav-link">Notes and Bugs</a>
+            <li class="nav-item" data-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -823,10 +830,13 @@
 <p>Touching the <img alt="GPS" src="../../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
 <p>To record a GPX track and display it on your device select "Start GPX track" item in the <img alt="GPS" src="../../images/menu_gps.png" /> menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the <a href="../Main%20map%20display/">layer control</a>. Further layers can be added from local GPX files and tracks downloaded from the OSM API.</p>
 <p>Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the <a href="../Advanced%20preferences/">Advanced preferences</a> and configure NMEA input.</p>
-<h2 id="notes-and-bugs">Notes and Bugs<a class="headerlink" href="#notes-and-bugs" title="Permanent link">#</a></h2>
-<p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.</p>
-<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. </p>
-<p>The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
+<h3 id="how-to-export-a-gpx-track">How to export a GPX track?<a class="headerlink" href="#how-to-export-a-gpx-track" title="Permanent link">#</a></h3>
+<p>Open the layer menu, then click the 3-dots menu next to "GPX recording", then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
+<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos<a class="headerlink" href="#notes-bugs-and-todos" title="Permanent link">#</a></h2>
+<p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once. </p>
+<p>Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. </p>
+<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
+<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
 <h3 id="filtering">Filtering<a class="headerlink" href="#filtering" title="Permanent link">#</a></h3>
 <p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
@@ -913,7 +923,7 @@
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.0.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.1.0 </p>
         </footer>
         <script>
             var base_url = "../../..",
