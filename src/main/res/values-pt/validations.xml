@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Idade do objeto</item>
+        <item>Etiquetas FIXME</item>
+        <item>Etiquetas em falta</item>
+        <item>Rodovia</item>
+        <item>Sem tipo de relação</item>
+        <item>Faltam unidades imperiais</item>
+        <item>Objeto inválido</item>
+        <item>Objeto sem etiquetas</item>
+        <item>Nó final não ligado</item>
+        <item>Degenerar via</item>
+        <item>Relação vazia</item>
+        <item>Falta a função de membro da relação</item>
+        <item>Relação em \"loop\"</item>
+        <item>Tipo de elemento não normalizado</item>
+    </string-array>
+    </resources>

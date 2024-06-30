@@ -302,7 +302,7 @@
   <!--Overpass console-->
   <string name="run">اجرا</string>
   <string name="overpass_result">دانلود شد%1$d گره(ها), %2$d راه (ها) و %3$d رابطه(ها).</string>
-  <string name="overpass_console">کنسول روگذر</string>
+  <string name="overpass_console">کنسول Overpass</string>
   <string name="select_result">نتیجه را انتخاب کنید</string>
   <string name="merge_result">ادغام نتیجه</string>
   <string name="overpass_query_would_overwrite">نتیجه تغییرات را بازنویسی خواهد کرد! درخواست لغو شد.</string>
@@ -474,6 +474,7 @@
   <string name="undo_location_text">مکانی که واگرد می‌شود در دید نیست.</string>
   <string name="undo_location_undo_anyway">واگرد</string>
   <string name="undo_location_zoom">زوم روی مکان، سپس واگرد</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">با نام نمایشی شما در OpenStreetMap فرستاده شود</string>
   <string name="feedback_displayname_hint">نام نمایشی OpenStreetMap هنوز دریافت نشده</string>
@@ -548,7 +549,6 @@
   <string name="toast_cant_autoapply_preset">این پیش‌تنظیم را نمی‌توان به‌طور خودکار به کار برد</string>
   <string name="toast_oneway_reversed">خیابانی یکطرفه یا راهی با برچسب‌های وابسته به جهت را معکوس نمودید. لطفاً برچسب‌ها را بررسی و در صورت نیاز آن‌ها را اصلاح کنید.</string>
   <string name="toast_potential_merge_tag_conflict">تلاش می‌کنید عناصری را ادغام نمایید که مقدار برچسب‌های‌شان با هم تداخل دارد.\n\nلطفاً برچسب‌ها را بررسی و پیش از تلاش مجدد آن‌ها را اصلاح کنید.</string>
-  <string name="toast_state_file_failed">پروندهٔ state قابل خواندن نیست یا خراب است</string>
   <string name="toast_way_nodes_moved">%1$d گره در راهِ جابه‌جاشده</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">یک پیام نخوانده دارید</item>
@@ -581,7 +581,6 @@
   <string name="toast_timeout">پایان مهلت از سمت کارساز</string>
   <string name="coordinates_out_of_range">طول جغرافیایی باید بین  ‎-180°/+180° باشد، عرض جغرافیایی بین ‎-85°/85°</string>
   <string name="toast_nothing_found">چیزی پیدا نشد</string>
-  <string name="toast_statesave_failed">ذخیره‌سازی وضعیت کنونی ناموفق بود!\nاین خطایی مهلک است. در حال تلاش برای نوشتن پرونده‌ای که بتوانید با JOSM بازیابی‌اش کنید.</string>
   <string name="toast_missing_filemanager">لطفاً برنامه‌ای برای مدیریت پرونده‌ها نصب کنید.</string>
   <string name="toast_outside_of_download">برای ویرایش این محدوده دادهٔ بیشتری بارگیری کنید.</string>
   <string name="toast_file_not_found">‏%1$s پیدا نشد.</string>
@@ -795,7 +794,6 @@
   <string name="tag_dialog_value_hint">لمس برای مقدارها</string>
   <string name="tag_action_tag_title">برچسب(ها) انتخاب شد</string>
   <string name="tag_action_members_title">عضو(ها) انتخاب شد</string>
-  <string name="tag_action_parents_title">رابطه(ها) انتخاب شد</string>
   <string name="tag_additional_properties">خصوصیات بیشتر</string>
   <string name="tag_details">جزئیات</string>
   <string name="tag_not_set">تنظیم نشده</string>
@@ -825,6 +823,7 @@
   <string name="default_checkgroup_hint">ویژگی های اضافی</string>
   <string name="tag_form_unknown_element">عنصر ناشناخته (پیش‌تنظیمی یافت نشد)</string>
   <string name="tag_form_untagged_element">عنصر بدون برچسب</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">ساخت پیش‌تنظیم سفارشی</string>
   <string name="create_preset_title">نام پیش‌تنظیم سفارشی</string>
@@ -925,7 +924,7 @@
   <string name="menu_transfer_download_replace">پاک‌سازی و بارگیری نمای کنونی</string>
   <string name="menu_transfer_load_current">بارکردن نمای کنونی</string>
   <string name="menu_transfer_load_replace">پاک‌سازی و بارکردن نمای کنونی</string>
-  <string name="menu_transfer_query_overpass">درخواست روگذر...</string>
+  <string name="menu_transfer_query_overpass">پرس‌وجو از Overpass…</string>
   <string name="menu_transfer_upload">بارگذاری داده‌ها در سرور OSM...</string>
   <string name="menu_transfer_review">بررسی تغییرات...</string>
   <string name="menu_transfer_update">به‌روزرسانی داده</string>
@@ -1095,7 +1094,7 @@
     <item quantity="one">1 شیء</item>
     <item quantity="other">%1$d شیء</item>
   </plurals>
-  <string name="actionmode_rotateway">چرخش راه</string>
+  <string name="actionmode_rotate">چرخش</string>
   <string name="menu_snap">عکس فوری</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">افزودن گره</string>
@@ -1472,7 +1471,6 @@
   <string name="undo_action_move_tags">انتقال برچسب‌ها به رابطه</string>
   <string name="undo_action_cut">برش</string>
   <string name="undo_action_paste">درج</string>
-  <string name="undo_action_rotateway">چرخش راه</string>
   <string name="undo_action_orthogonalize">قائمه‌کردن راه</string>
   <string name="undo_action_circulize">چیدن روی دایره</string>
   <string name="undo_action_fix_conflict">حل تداخل</string>

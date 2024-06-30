@@ -472,6 +472,7 @@
   <string name="undo_location_text">המיקום שיושפע מהביטול אינו מופיע בתצוגה.</string>
   <string name="undo_location_undo_anyway">לבטל בכל זאת</string>
   <string name="undo_location_zoom">להתמקד על המיקום ואז לבטל</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">שליחה עם שם התצוגה שלך ב־OpenStreetMap</string>
   <string name="feedback_displayname_hint">שם התצוגה ב־OpenStreetMap לא התקבל עדיין</string>
@@ -528,7 +529,6 @@
   <string name="toast_cant_autoapply_preset">לא ניתן להחיל את הערכה הזאת אוטומטית</string>
   <string name="toast_oneway_reversed">הפכת כביש חד־סטרי או דרך עם תגיות תלויות כיווניות. נא לבדוק את התגיות ולתקן במידת הצורך.</string>
   <string name="toast_potential_merge_tag_conflict">בפעולה זו מתבצע ניסיון למזג רכיבים שיש להם תגיות סותרות.\n\nנא לבדוק את התגיות ולתקן תחילה בטרם ביצוע ניסיון חוזר.</string>
-  <string name="toast_state_file_failed">קובץ מצב בלתי קריא או פגום</string>
   <string name="toast_way_nodes_moved">%1$d מפרקים בדרך שהועברה</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">ממתינה לך הודעה שלא נקרא ב־OSM</item>
@@ -557,7 +557,6 @@
   <string name="toast_timeout">תום זמן מהשרת</string>
   <string name="coordinates_out_of_range">קו האורך חייב להיות בטווח ‎-180°/+180°, קו הרוחב בין ‎-85°/85°</string>
   <string name="toast_nothing_found">שום דבר לא נמצא</string>
-  <string name="toast_statesave_failed">לא ניתן לשמור את המצב הנוכחי!\nמדובר בתקלה קריטית, מתבצע ניסיון לכתיבה לקובץ מיוצא לשחזור מאוחר יותר עם JOSM.</string>
   <string name="toast_missing_filemanager">נא להתקין מנהל קבצים.</string>
   <string name="toast_outside_of_download">יש להוריד נתונים נוספים כדי לערוך את האזור הזה.</string>
   <string name="toast_file_not_found">%1$s לא נמצא.</string>
@@ -753,7 +752,6 @@
   <string name="tag_dialog_value_hint">יש לגעת כדי לקבל ערכים</string>
   <string name="tag_action_tag_title">נבחרו תגיות</string>
   <string name="tag_action_members_title">נבחרו חברים</string>
-  <string name="tag_action_parents_title">נבחרו יחסים</string>
   <string name="tag_additional_properties">מאפיינים נוספים</string>
   <string name="tag_details">פרטים</string>
   <string name="tag_not_set">לא הוגדר</string>
@@ -783,6 +781,7 @@
   <string name="default_checkgroup_hint">תכונות נוספות</string>
   <string name="tag_form_unknown_element">רכיב לא ידוע (לא נמצאה ערכה מוגדרת)</string>
   <string name="tag_form_untagged_element">רכיב ללא תיוג</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">יצירת ערכה מוגדרת אישית</string>
   <string name="create_preset_title">שם מותאם אישית לערכה מוגדרת</string>
@@ -1030,7 +1029,7 @@
     <item quantity="two">%1$d פריטים</item>
     <item quantity="other">%1$d פריטים</item>
   </plurals>
-  <string name="actionmode_rotateway">הטיית דרך</string>
+  <string name="actionmode_rotate">הטייה</string>
   <string name="menu_snap">הצמדה</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">הוספת מפרק</string>
@@ -1337,7 +1336,6 @@
   <string name="undo_action_move_tags">העברת תגיות ליחס</string>
   <string name="undo_action_cut">גזירה</string>
   <string name="undo_action_paste">הדבקה</string>
-  <string name="undo_action_rotateway">הטיית דרך</string>
   <string name="undo_action_orthogonalize">ריבוע דרך</string>
   <string name="undo_action_circulize">סידור במעגל</string>
   <string name="undo_action_fix_conflict">פתרון סתירות</string>

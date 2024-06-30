@@ -463,6 +463,7 @@
   <string name="undo_location_text">L\'emplacement qui sera affecté par l\'annulation n\'est pas affiché sur l\'écran.</string>
   <string name="undo_location_undo_anyway">Annuler tout de même</string>
   <string name="undo_location_zoom">Zoomer sur l\'emplacement puis annuler</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Envoyer avec votre nom d\'affichage OpenStreetMap</string>
   <string name="feedback_displayname_hint">Nom d\'affichage OpenStreetMap pas encore récupéré</string>
@@ -534,7 +535,6 @@
   <string name="toast_cant_autoapply_preset">Ce modèle ne peut pas être appliqué automatiquement</string>
   <string name="toast_oneway_reversed">Vous avez inversé une route à sens unique (oneway), ou un chemin contenant un attribut dépendant de la direction. Vérifiez les attributs et corrigez-les si nécessaire.</string>
   <string name="toast_potential_merge_tag_conflict">Vous essayez de fusionner des élément avec des valeurs d\'attributs incompatibles.\n\nVérifiez les attributs et corrigez-les avant de réessayer.</string>
-  <string name="toast_state_file_failed">Fichier d\'état illisible ou corrompu</string>
   <string name="toast_way_nodes_moved">%1$d nœuds dans le chemin déplacé</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Vous avez un message OSM non lu</item>
@@ -566,7 +566,6 @@
   <string name="toast_timeout">Le serveur n\'a pas répondu</string>
   <string name="coordinates_out_of_range">La longitude doit être comprise entre -180° et +180° et la latitude entre -85° et +85°</string>
   <string name="toast_nothing_found">Aucun résultat</string>
-  <string name="toast_statesave_failed">L\'enregistrement a échoué !\nC\'est une erreur fatale qui s\'est produite lors de l\'export du fichier pour une récupération dans JOSM.</string>
   <string name="toast_missing_filemanager">Installez un gestionnaire de fichiers.</string>
   <string name="toast_outside_of_download">Téléchargez plus de données pour modifier cette zone.</string>
   <string name="toast_file_not_found">%1$s introuvable.</string>
@@ -749,7 +748,6 @@
   <string name="tag_dialog_value_hint">Appuyez pour voir les valeurs</string>
   <string name="tag_action_tag_title">Attribut(s) sélectionné(s)</string>
   <string name="tag_action_members_title">Membre(s) sélectionné(s)</string>
-  <string name="tag_action_parents_title">Relation(s) sélectionnée(s)</string>
   <string name="tag_additional_properties">Propriétés additionnelles</string>
   <string name="tag_details">Détails</string>
   <string name="tag_not_set">Non renseigné</string>
@@ -779,6 +777,7 @@
   <string name="default_checkgroup_hint">Attributs supplémentaires</string>
   <string name="tag_form_unknown_element">Élément inconnu (pas de modèle d\'attributs)</string>
   <string name="tag_form_untagged_element">Élément sans attribut</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Créer un modèle personnalisé</string>
   <string name="create_preset_title">Nom du modèle personnalisé</string>
@@ -1048,7 +1047,7 @@
     <item quantity="many">%1$d objets</item>
     <item quantity="other">%1$d nœuds</item>
   </plurals>
-  <string name="actionmode_rotateway">Tourner le chemin</string>
+  <string name="actionmode_rotate">Pivoter</string>
   <string name="menu_snap">Capturer</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Ajouter un nœud</string>
@@ -1388,7 +1387,6 @@
   <string name="undo_action_update_relations">Mise à jour d\'une relation</string>
   <string name="undo_action_cut">Couper</string>
   <string name="undo_action_paste">Coller</string>
-  <string name="undo_action_rotateway">Rotation d\'un chemin</string>
   <string name="undo_action_orthogonalize">Chemin rendu orthogonal</string>
   <string name="undo_action_circulize">Placer en cercle</string>
   <string name="undo_action_fix_conflict">Résolution de conflit</string>

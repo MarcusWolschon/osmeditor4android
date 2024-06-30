@@ -371,6 +371,7 @@
   <string name="undo_location_text">La ubicación que se verá afectada por el deshacer no está a la vista.</string>
   <string name="undo_location_undo_anyway">Deshacer de todos modos</string>
   <string name="undo_location_zoom">Acercar a la ubicación, luego deshacer</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Envíe con su nombre de OpenStreetMap</string>
   <string name="feedback_displayname_hint">El nombre para mostrar de OpenStreetMap aún no se ha recuperado</string>
@@ -419,7 +420,6 @@
   <string name="toast_cant_autoapply_preset">Este predefinido no se puede aplicar automáticamente</string>
   <string name="toast_oneway_reversed">Invirtió una calle de sentido único o un camino con etiquetas dependientes de la dirección. Verifique las etiquetas y corríjalas si es necesario.</string>
   <string name="toast_potential_merge_tag_conflict">Está intentando fusionar elementos con valores de etiqueta en conflicto.\n\ nCompruebe las etiquetas y corríjalas antes de volver a intentarlo.</string>
-  <string name="toast_state_file_failed">No se puede leer el archivo de estado</string>
   <string name="toast_way_nodes_moved">%1$d nodos en vía movida</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Tiene un mensaje de OSM sin leer</item>
@@ -447,7 +447,6 @@
   <string name="toast_timeout">Tiempo de espera del servidor</string>
   <string name="coordinates_out_of_range">La longitud debe estar entre -180º y +180º; la latitud entre -85º y 85º</string>
   <string name="toast_nothing_found">No se encontró nada</string>
-  <string name="toast_statesave_failed">¡No se pudo guardar el estado actual!\nEste es un error fatal al intentar escribir un archivo de exportación para una recuperación posterior con JOSM.</string>
   <string name="toast_missing_filemanager">Instala un administrador de archivos.</string>
   <string name="toast_outside_of_download">Descargue más datos para editar esta área.</string>
   <string name="toast_file_not_found">%1$s no encontrado.</string>
@@ -622,7 +621,6 @@
   <string name="tag_dialog_value_hint">Pulse para obtener valores</string>
   <string name="tag_action_tag_title">Etiqueta(s) seleccionada(s)</string>
   <string name="tag_action_members_title">Miembro(s) seleccionado(s)</string>
-  <string name="tag_action_parents_title">Relacion(es) seleccionada(s)</string>
   <string name="tag_additional_properties">Propiedades adicionales</string>
   <string name="tag_details">Detalles</string>
   <string name="tag_not_set">No establecer</string>
@@ -652,6 +650,7 @@
   <string name="default_checkgroup_hint">Atributos adicionales</string>
   <string name="tag_form_unknown_element">Elemento desconocido (sin predefinido)</string>
   <string name="tag_form_untagged_element">Elemento sin etiquetar</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Crear predefinido personalizado</string>
   <string name="create_preset_title">Nombre de predefinido personalizado</string>
@@ -878,7 +877,7 @@
     <item quantity="many">%1$d objetos</item>
     <item quantity="other">%1$d objetos</item>
   </plurals>
-  <string name="actionmode_rotateway">Rotar vía</string>
+  <string name="actionmode_rotate">Girar</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Añadir nodo</string>
   <string name="simple_add_node">Pulse en la posición de la pantalla</string>
@@ -1181,7 +1180,6 @@
   <string name="undo_action_move_tags">Mover etiquetas a la relación</string>
   <string name="undo_action_cut">Cortar</string>
   <string name="undo_action_paste">Pegar</string>
-  <string name="undo_action_rotateway">Rotación de la vía</string>
   <string name="undo_action_orthogonalize">Escuadrar vía</string>
   <string name="undo_action_circulize">Organizar en círculo</string>
   <string name="undo_action_fix_conflict">Resolución de conflictos</string>

@@ -484,6 +484,7 @@
   <string name="undo_location_text">Il luogo interessato dall’annullamento non è nella vista corrente.</string>
   <string name="undo_location_undo_anyway">Annulla comunque</string>
   <string name="undo_location_zoom">Ingrandisci sulla posizione poi annulla</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Invia insieme al tuo nome utente di OpenStreetMap</string>
   <string name="feedback_displayname_hint">Nome utente di OpenStreetMap non ancora recuperato</string>
@@ -551,7 +552,6 @@
   <string name="toast_cant_autoapply_preset">Questo predefinito non può essere applicato automaticamente</string>
   <string name="toast_oneway_reversed">Hai invertito una strada a senso unico o una strada con tag dipendenti dalla direzione. Per favore controlla i tag e correggili se necessario.</string>
   <string name="toast_potential_merge_tag_conflict">Stai tentando di unire elementi con valori di etichette in conflitto.\n\nVerifica e correggi le etichette prima di tentare di nuovo.</string>
-  <string name="toast_state_file_failed">File di stato illegibile o corrotto</string>
   <string name="toast_way_nodes_moved">%1$d nodi nel percorso spostato</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Ha un messaggio OSM non letto</item>
@@ -585,7 +585,6 @@
   <string name="toast_timeout">Timeout del server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
-  <string name="toast_statesave_failed">Impossibile salvare lo stato corrente!\nSi tratta di un errore fatale, verrà tentata la scrittura su un file di esportazione per un successivo recupero con JOSM.</string>
   <string name="toast_missing_filemanager">Per favore installa un file manager</string>
   <string name="toast_outside_of_download">Scarica più dati per modificare quest’area.</string>
   <string name="toast_file_not_found">%1$s non è stato trovato.</string>
@@ -786,7 +785,6 @@
   <string name="tag_dialog_value_hint">Premi per i valori</string>
   <string name="tag_action_tag_title">Etichetta/e selezionata/e</string>
   <string name="tag_action_members_title">Membro/i selezionato/i</string>
-  <string name="tag_action_parents_title">Relazione/i selezionata/e</string>
   <string name="tag_additional_properties">Proprietà aggiuntive</string>
   <string name="tag_details">Dettagli</string>
   <string name="tag_not_set">Nessun valore</string>
@@ -816,6 +814,7 @@
   <string name="default_checkgroup_hint">Attributi aggiuntivi</string>
   <string name="tag_form_unknown_element">Elemento sconosciuto (nessun predefinito trovato)</string>
   <string name="tag_form_untagged_element">Elementi senza etichette</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Crea predefinito personalizzato</string>
   <string name="create_preset_title">Nome predefinito personalizzato</string>
@@ -1086,7 +1085,7 @@
     <item quantity="many">%1$d oggetti</item>
     <item quantity="other">%1$d oggetti</item>
   </plurals>
-  <string name="actionmode_rotateway">Ruota percorso</string>
+  <string name="actionmode_rotate">Ruota</string>
   <string name="menu_snap">Scatto</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Aggiungi punto</string>
@@ -1446,7 +1445,6 @@
   <string name="undo_action_move_tags">Sposta le etichette sulla relazione</string>
   <string name="undo_action_cut">Taglia</string>
   <string name="undo_action_paste">Incolla</string>
-  <string name="undo_action_rotateway">Rotazione del percorso</string>
   <string name="undo_action_orthogonalize">Squadratura del percorso</string>
   <string name="undo_action_circulize">Disponi in cerchio</string>
   <string name="undo_action_fix_conflict">Risoluzione conflitti</string>

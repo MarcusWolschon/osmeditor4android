@@ -22,7 +22,19 @@
   <string name="upload_conflict_title">Wystąpił konflikt podczas wysyłania danych</string>
   <string name="upload_conflict_message_version">Konflikt wersji</string>
   <string name="upload_conflict_message_deleted">%1$s\nma lokalną wersję %2$d \ni zostało skasowane na serwerze</string>
+  <string name="upload_conflict_message_referential">Element został usunięty lokalnie ale ma odniesienia na serwerze</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nzostał usunięty na serwerze, ponawianie próby</string>
+  <string name="upload_conflict_message_missing_references">Lokalny element odnoai się do obiektów nieistniejących na serwerze</string>
   <string name="upload_conflict_message_unknown">%1$s \nspowodował nieznany konflikt przesyłania \n%2$s</string>
+  <string name="resolve_by">Rozwiąż konflikt...</string>
+  <string name="resolve">Rozwiąż...</string>
+  <string name="delete_refering_element">...usunięciem odwołującego się elementu</string>
+  <string name="use_local_version">...użyciem wersji lokalnej</string>
+  <string name="merge_tags_in_to_local">...połączeniem tagów do wersji lokalnej</string>
+  <string name="merge_tags_in_to_server">...połączeniem tagów do wersji serwera</string>
+  <string name="use_server_version">...użyciem wersji serwera</string>
+  <string name="undoing_local_delete">...cofnięciem usunięcia w wersji lokalnej</string>
+  <string name="deleting_references_on_server">...usunięciem odniesień na serwerze</string>
   <!---->
   <string name="no_login_data_title">Nie można uwierzytelnić</string>
   <string name="no_login_data_message">Jeśli używasz OAuth oznacza to, że wystąpił błąd. Prześlij raport o błędach, jednak jeśli używasz loginu i hasła (niepolecane) sprawdź, czy wprowadzono je poprawnie.</string>
@@ -415,6 +427,7 @@
   <string name="undo_location_text">Miejsce, w którym zmiany zostaną wycofane, jest poza widocznym obszarem</string>
   <string name="undo_location_undo_anyway">Wycofaj mimo wszystko</string>
   <string name="undo_location_zoom">Przenieś do tego miejsca, potem wycofaj</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Prześlij wraz ze swoją wyświetlaną nazwą OpenStreetMap</string>
   <string name="feedback_displayname_hint">Wyświetlana nazwa OpenStreetMap nie została jeszcze pobrana</string>
@@ -460,7 +473,6 @@
   <string name="toast_cant_autoapply_preset">Tego szablonu nie można zastosować automatycznie</string>
   <string name="toast_oneway_reversed">Odwrócono kierunek drogi jednokierunkowej lub drogi z kierunkiem zależnym od znaczników. Sprawdź znaczniki i popraw je w razie potrzeby.</string>
   <string name="toast_potential_merge_tag_conflict">Próbujesz połączyć obiekty, które mają sprzeczne wartości znaczników.\n\nSprawdź i popraw znaczniki przed połączeniem.</string>
-  <string name="toast_state_file_failed">Nieczytelny lub uszkodzony plik stanu</string>
   <string name="toast_way_nodes_moved">%1$d węzłów w przenoszonej linii</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Masz nieprzeczytaną wiadomość w OSM</item>
@@ -490,7 +502,6 @@
   <string name="toast_timeout">Przekroczono czas oczekiwania na serwer</string>
   <string name="coordinates_out_of_range">Długość geograficzna musi mieścić się w −180°/+180°, szerokość w −85°/+85°</string>
   <string name="toast_nothing_found">Nic nie znaleziono</string>
-  <string name="toast_statesave_failed">Nie można zapisać aktualnego stanu!\nTo jest błąd krytyczny, próbuję zapisać i wyeksportować plik do późniejszego odzyskiwania w JOSM.</string>
   <string name="toast_missing_filemanager">Prosimy zainstalować menadżera plików.</string>
   <string name="toast_outside_of_download">Pobierz więcej danych, aby edytować ten obszar.</string>
   <string name="toast_file_not_found">%1$s – nie znaleziono szukanej frazy.</string>
@@ -654,7 +665,6 @@
   <string name="tag_dialog_value_hint">Dotknij, by zobaczyć wartości</string>
   <string name="tag_action_tag_title">Zaznaczono znaczniki</string>
   <string name="tag_action_members_title">Wybrane człony relacji</string>
-  <string name="tag_action_parents_title">Wybrane relacje</string>
   <string name="tag_additional_properties">Dodatkowe właściwości</string>
   <string name="tag_details">Szczegóły</string>
   <string name="tag_not_set">Nie przypisano</string>
@@ -684,6 +694,7 @@
   <string name="default_checkgroup_hint">Dodatkowe atrybuty</string>
   <string name="tag_form_unknown_element">Nieznany element (brak szablonu)</string>
   <string name="tag_form_untagged_element">Element bez znaczników</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Utwórz własny szablon</string>
   <string name="create_preset_title">Nazwa własnego szablonu</string>
@@ -906,7 +917,7 @@
     <item quantity="many">%1$d obiektów</item>
     <item quantity="other">%1$d obiektów</item>
   </plurals>
-  <string name="actionmode_rotateway">Obróć linię</string>
+  <string name="actionmode_rotate">Obróć</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Dodaj węzeł</string>
   <string name="simple_add_node">Dotknij pozycję na ekranie</string>
@@ -1190,7 +1201,6 @@
   <string name="undo_action_update_relations">Zaktualizowanie relacji</string>
   <string name="undo_action_cut">Wytnij</string>
   <string name="undo_action_paste">Wklej</string>
-  <string name="undo_action_rotateway">Obrót linii</string>
   <string name="undo_action_orthogonalize">Poprawienie prost. linii</string>
   <string name="undo_action_circulize">Ułóż w koło</string>
   <string name="undo_action_fix_conflict">Rozwiązanie konfliktu</string>

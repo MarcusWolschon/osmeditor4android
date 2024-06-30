@@ -472,6 +472,7 @@
   <string name="undo_location_text">受到撤销影响的地点不在视野内。</string>
   <string name="undo_location_undo_anyway">仍然撤销</string>
   <string name="undo_location_zoom">缩放到地点，然后撤销</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">发送时带上您的 OpenStreetMap 显示名称</string>
   <string name="feedback_displayname_hint">暂未取回 OpenStreetMap 显示名称</string>
@@ -539,7 +540,6 @@
   <string name="toast_cant_autoapply_preset">这个预设不能自动应用</string>
   <string name="toast_oneway_reversed">您已反转单行道或有依赖方向的标签的路径。请检查标签并按需修正。</string>
   <string name="toast_potential_merge_tag_conflict">您正在尝试合并标签值有冲突的要素。\n\n请检查标签并修正后重试。</string>
-  <string name="toast_state_file_failed">无法读取或已损坏的文件</string>
   <string name="toast_way_nodes_moved">%1$d 节点在已移动的路径</string>
   <plurals name="toast_unread_mail">
     <item quantity="other">您有 %1$d 未读的 OSM 消息</item>
@@ -571,7 +571,6 @@
   <string name="toast_timeout">服务器超时</string>
   <string name="coordinates_out_of_range">经度必须在 -180°/+180° 以内，纬度必须在 -85°/85° 以内</string>
   <string name="toast_nothing_found">什么都没找到</string>
-  <string name="toast_statesave_failed">无法存储当前状态！\n这是个致命错误，请尝试导出到文件，用于在 JOSM 中恢复。</string>
   <string name="toast_missing_filemanager">请安装文件管理器。</string>
   <string name="toast_outside_of_download">下载更多数据以编辑此区域。</string>
   <string name="toast_file_not_found">%1$s 未找到。</string>
@@ -773,7 +772,6 @@
   <string name="tag_dialog_value_hint">点选值</string>
   <string name="tag_action_tag_title">已选择标签</string>
   <string name="tag_action_members_title">已选择成员</string>
-  <string name="tag_action_parents_title">已选择关系</string>
   <string name="tag_additional_properties">额外属性</string>
   <string name="tag_details">详情</string>
   <string name="tag_not_set">未设置</string>
@@ -803,6 +801,7 @@
   <string name="default_checkgroup_hint">额外属性</string>
   <string name="tag_form_unknown_element">未知要素（未找到预设）</string>
   <string name="tag_form_untagged_element">未标记的要素</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">创建自定义预设</string>
   <string name="create_preset_title">自定义预设名称</string>
@@ -1063,7 +1062,7 @@
   <plurals name="actionmode_object_count">
     <item quantity="other">%1$d 对象</item>
   </plurals>
-  <string name="actionmode_rotateway">旋转路径</string>
+  <string name="actionmode_rotate">旋转</string>
   <string name="menu_snap">断开</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">添加节点</string>
@@ -1414,7 +1413,6 @@
   <string name="undo_action_move_tags">将标签移动到关系</string>
   <string name="undo_action_cut">剪切</string>
   <string name="undo_action_paste">粘贴</string>
-  <string name="undo_action_rotateway">路径旋转</string>
   <string name="undo_action_orthogonalize">正交化路径</string>
   <string name="undo_action_circulize">圆形排列</string>
   <string name="undo_action_fix_conflict">冲突调解</string>

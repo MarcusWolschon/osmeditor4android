@@ -539,6 +539,7 @@
   <string name="undo_location_text">De locatie die wordt beïnvloedt door het ongedaan maken is niet in beeld.</string>
   <string name="undo_location_undo_anyway">Maak alsnog ongedaan</string>
   <string name="undo_location_zoom">Zoom naar locatie, maak dan ongedaan</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Stuur op met je OpenStreetMap weergavenaam</string>
   <string name="feedback_displayname_hint">OpenStreetMap weergavenaam is nog niet opgehaald</string>
@@ -615,7 +616,6 @@
   <string name="toast_cant_autoapply_preset">Deze voorkeuze kan niet automatisch worden toegepast</string>
   <string name="toast_oneway_reversed">Je hebt een eenrichtingsweg of een weg met richtingsafhankelijke tags omgekeerd. Check de tags en corrigeer ze waar nodig.</string>
   <string name="toast_potential_merge_tag_conflict">Je probeert elementen met conflicterende tag waardes samen te voegen.\n\nCheck de tags en corrigeer ze, alvorens het nogmaals te proberen.</string>
-  <string name="toast_state_file_failed">Onleesbaar of corrupt gegevensbestand</string>
   <string name="toast_way_nodes_moved">%1$d knopen in verplaatste weg</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Je hebt een ongelezen OSM bericht</item>
@@ -648,7 +648,6 @@
   <string name="toast_timeout">Timeout van server</string>
   <string name="coordinates_out_of_range">Lengtegraad moet tussen -180° en +180° liggen, breedtegraad tussen -85° en 85°</string>
   <string name="toast_nothing_found">Niks gevonden</string>
-  <string name="toast_statesave_failed">Kon huidige status niet opslaan!\nDit is een fatale fout, er wordt geprobeerd om een exportbestand te schrijven voor later herstel met JOSM.</string>
   <string name="toast_missing_filemanager">Installeer een bestandsbeheerder.</string>
   <string name="toast_outside_of_download">Download meer data om dit gebied aan te passen.</string>
   <string name="toast_file_not_found">%1$s niet gevonden.</string>
@@ -863,7 +862,6 @@
   <string name="tag_dialog_value_hint">Tik voor waarden</string>
   <string name="tag_action_tag_title">Tag(s) geselecteerd</string>
   <string name="tag_action_members_title">Lid/Leden geselecteerd</string>
-  <string name="tag_action_parents_title">Relatie(s) geselecteerd</string>
   <string name="tag_additional_properties">Extra eigenschappen</string>
   <string name="tag_details">Details</string>
   <string name="tag_not_set">Niet ingesteld</string>
@@ -893,6 +891,7 @@
   <string name="default_checkgroup_hint">Extra attributen</string>
   <string name="tag_form_unknown_element">Onbekend element (geen voorkeuze gevonden)</string>
   <string name="tag_form_untagged_element">Element zonder tags</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Aangepaste voorkeuze aanmaken</string>
   <string name="create_preset_title">Aangepaste voorkeuze naam</string>
@@ -1168,7 +1167,7 @@
     <item quantity="one">1 object</item>
     <item quantity="other">%1$d objecten</item>
   </plurals>
-  <string name="actionmode_rotateway">Roteer weg</string>
+  <string name="actionmode_rotate">Draai</string>
   <string name="menu_snap">Uitlijnen</string>
   <string name="menu_follow_way">Volg weg</string>
   <string name="select_follow_way">Selecteer weg om te volgen</string>
@@ -1559,7 +1558,6 @@
   <string name="undo_action_move_tags">Verplaats tags naar Relatie</string>
   <string name="undo_action_cut">Knippen</string>
   <string name="undo_action_paste">Plakken</string>
-  <string name="undo_action_rotateway">Weg roteren</string>
   <string name="undo_action_orthogonalize">Weg vierkant maken</string>
   <string name="undo_action_circulize">Schikken in cirkel</string>
   <string name="undo_action_fix_conflict">Conflict oplossing</string>

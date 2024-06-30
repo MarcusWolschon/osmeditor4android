@@ -448,6 +448,7 @@
   <string name="undo_location_text">الموقع الذي سيتأثر بالتراجع غير مرئي ومعروف حالياً.</string>
   <string name="undo_location_undo_anyway">تراجع على أي حال</string>
   <string name="undo_location_zoom">تكبير إلى الموقع ، ثم التراجع</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">أرسل باستخدام اسمك الرسمي الموجود على شبكة خريطة الشارع المفتوحة</string>
   <string name="feedback_displayname_hint">لم يتم استرجاع اسمك الرسمي الموجود على شبكة خريطة الشارع المفتوحة</string>
@@ -529,7 +530,6 @@
   <string name="toast_cant_autoapply_preset">لا يمكن تطبيق هذا القالب بشكل تلقائي</string>
   <string name="toast_oneway_reversed">قمت بعكس اتجاه شارع ليكون في اتجاه واحد أو طريق عليه وسوم تحدد الاتجاه. يرجى التحقق من الوسوم وتصحيحها إذا لزم الأمر.</string>
   <string name="toast_potential_merge_tag_conflict">أنت تحاول دمج العناصر بقيم وسوم متعارضة.\n\nالرجاء التحقق من الوسوم وتصحيحها قبل المحاولة مرة أخرى.</string>
-  <string name="toast_state_file_failed">ملف غير قابل للقراءة أو بحالة تالفة</string>
   <string name="toast_way_nodes_moved">%1$d العقد/النقاط الموجودة في طريق تم تحريكه</string>
   <plurals name="toast_unread_mail">
     <item quantity="zero">ليس لديك رسائل غير مقروءة</item>
@@ -566,7 +566,6 @@
   <string name="toast_timeout">انتهت مهلة الخادم</string>
   <string name="coordinates_out_of_range">يجب أن يكون خط الطول ضمن النطاق -180° / +180° ، وخط العرض ضمن -85° / 85°</string>
   <string name="toast_nothing_found">لم يتم العثور على شيء</string>
-  <string name="toast_statesave_failed">لا يمكن حفظ الحالة الحالية!\nهذا خطأ فادح،سيتم محاولة كتابة ملف تصدير لاستعادته لاحقًا باستخدام محرر JOSM.</string>
   <string name="toast_missing_filemanager">الرجاء تثبيت مدير الملفات.</string>
   <string name="toast_outside_of_download">قم بتنزيل المزيد من البيانات لتعديل هذه المنطقة.</string>
   <string name="toast_file_not_found">لم يتم العثور على %1$s</string>
@@ -770,7 +769,6 @@
   <string name="tag_dialog_value_hint">انقر للحصول على القيم</string>
   <string name="tag_action_tag_title">تم تحديد (الوسم/الوسوم)</string>
   <string name="tag_action_members_title">تم تحديد (العضو/الأعضاء)</string>
-  <string name="tag_action_parents_title">تم تحديد (العلاقة/العلاقات)</string>
   <string name="tag_additional_properties">خصائص إضافية</string>
   <string name="tag_details">تفاصيل</string>
   <string name="tag_not_set">غير مضبوط</string>
@@ -800,6 +798,7 @@
   <string name="default_checkgroup_hint">سمات إضافية</string>
   <string name="tag_form_unknown_element">عنصر غير معروف (لم يتم العثور على قالب له)</string>
   <string name="tag_form_untagged_element">عنصر غير موسوم</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">إنشاء قالب مخصص</string>
   <string name="create_preset_title">اسم القالب المخصص</string>
@@ -1064,7 +1063,7 @@
     <item quantity="many">%1$d عنصر/عناصر</item>
     <item quantity="other">%1$d عنصر/عناصر</item>
   </plurals>
-  <string name="actionmode_rotateway">تدوير الطريق</string>
+  <string name="actionmode_rotate">تدوير</string>
   <string name="menu_snap">التقاط</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">أضف عقدة/نقطة</string>
@@ -1413,7 +1412,6 @@
   <string name="undo_action_move_tags">نقل الوسوم إلى العلاقة</string>
   <string name="undo_action_cut">قص</string>
   <string name="undo_action_paste">لصق</string>
-  <string name="undo_action_rotateway">تدوير طريق</string>
   <string name="undo_action_orthogonalize">تربيع طريق</string>
   <string name="undo_action_circulize"> ترتيب على شكل دائرة</string>
   <string name="undo_action_fix_conflict">حل تعارض</string>

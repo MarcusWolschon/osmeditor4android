@@ -530,6 +530,7 @@ elemek megkövetelése</string>
   <string name="undo_location_text">Nem látható az a hely, amelyet a visszavonás érint.</string>
   <string name="undo_location_undo_anyway">Visszavonás mindenképpen</string>
   <string name="undo_location_zoom">Nagyítás a helyre, majd visszavonás</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Elküldés az OpenStreetMapen megjelenő névvel</string>
   <string name="feedback_displayname_hint">Az OpenStreetMapen megjelenő név még nincs lekérdezve</string>
@@ -606,7 +607,6 @@ elemek megkövetelése</string>
   <string name="toast_cant_autoapply_preset">Ez az előbeállítás nem alkalmazható automatikusan</string>
   <string name="toast_oneway_reversed">Megfordított egy egyirányú utat, vagy irányfüggő címkékkel rendelkező vonalat. Ellenőrizze a címkéket, és javítsa őket, ha szükséges.</string>
   <string name="toast_potential_merge_tag_conflict">Ütköző címkeértékekkel rendelkező elemek egyesítésére készül. Ellenőrizze, hogy a címkék helyesek-e, mielőtt újrapróbálkozik.</string>
-  <string name="toast_state_file_failed">Olvashatatlan vagy sérült állapotfájl</string>
   <string name="toast_way_nodes_moved">%1$d pont az elmozgatott vonalon</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Egy olvasatlan OSM üzenete van</item>
@@ -639,7 +639,6 @@ elemek megkövetelése</string>
   <string name="toast_timeout">Időtúllépés a kiszolgálótól</string>
   <string name="coordinates_out_of_range">A szélesség -180°/+180 között kell legyen, a hosszúság pedig -85°/+85° között</string>
   <string name="toast_nothing_found">Nincs találat</string>
-  <string name="toast_statesave_failed">A jelenlegi állapot nem menthető!\nEz egy végzetes hiba, exportálási fájl írásának kísérlete a későbbi JOSM helyreállításhoz.</string>
   <string name="toast_missing_filemanager">Kérjük telepítsen egy fájlkezelőt.</string>
   <string name="toast_outside_of_download">Töltsön le több adatot a terület szerkesztéséhez.</string>
   <string name="toast_file_not_found">%1$s nem található.</string>
@@ -854,7 +853,6 @@ elemek megkövetelése</string>
   <string name="tag_dialog_value_hint">Koppintás az értékekért</string>
   <string name="tag_action_tag_title">Címkék kijelölve</string>
   <string name="tag_action_members_title">Címkék kijelölve</string>
-  <string name="tag_action_parents_title">Kapcsolatok kijelölve</string>
   <string name="tag_additional_properties">További tulajdonságok</string>
   <string name="tag_details">Részletek</string>
   <string name="tag_not_set">Nincs megadva</string>
@@ -884,6 +882,7 @@ elemek megkövetelése</string>
   <string name="default_checkgroup_hint">További tulajdonságok</string>
   <string name="tag_form_unknown_element">Ismeretlen elem (nem található előbeállítás)</string>
   <string name="tag_form_untagged_element">Címkézetlen elem</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Egyéni előbeállítás létrehozása</string>
   <string name="create_preset_title">Egyéni előbeállítás neve</string>
@@ -1159,7 +1158,7 @@ elemek megkövetelése</string>
     <item quantity="one">1 objektum</item>
     <item quantity="other">%1$d objektum</item>
   </plurals>
-  <string name="actionmode_rotateway">Vonal forgatása</string>
+  <string name="actionmode_rotate">Forgatás</string>
   <string name="menu_snap">Illesztés</string>
   <string name="menu_follow_way">Vonal követése</string>
   <string name="select_follow_way">Követendő vonal kijelölése</string>
@@ -1550,7 +1549,6 @@ elemek megkövetelése</string>
   <string name="undo_action_move_tags">Címkék áthelyezése kapcsolatra</string>
   <string name="undo_action_cut">Kivágás</string>
   <string name="undo_action_paste">Beillesztés</string>
-  <string name="undo_action_rotateway">Vonal forgatása</string>
   <string name="undo_action_orthogonalize">Vonal derékszögesítése</string>
   <string name="undo_action_circulize">Elrendezés kör alakban</string>
   <string name="undo_action_fix_conflict">Ütközés feloldása</string>

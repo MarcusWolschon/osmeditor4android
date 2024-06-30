@@ -460,6 +460,7 @@
   <string name="undo_location_text">Sijainti, johon peruminen kohdistuu, ei ole näkyvissä.</string>
   <string name="undo_location_undo_anyway">Peru silti</string>
   <string name="undo_location_zoom">Siirry sijaintiin, ja peru sitten</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Lähetä OpenStreetMapin näyttönimellä</string>
   <string name="feedback_displayname_hint">OpenStreetMapin näyttönimeä ei ole vielä haettu</string>
@@ -534,7 +535,6 @@
   <string name="toast_cant_autoapply_preset">Tätä esivalintaa ei voi käyttää automaattisesti</string>
   <string name="toast_oneway_reversed">Muutit yksisuuntaisen kadun tai suuntariippuvaisia tägejä sisältävän viivan suunnan. Tarkista tägit ja korjaa ne tarvittaessa.</string>
   <string name="toast_potential_merge_tag_conflict">Yritit sulauttaa yhteen elementtejä, joilla on ristiriitaisia tägejä.\n\nTarkista tägit ja korjaa ne ennen uutta yritystä.</string>
-  <string name="toast_state_file_failed">Tiedostoa ei voi lukea tai se on vioittunut</string>
   <string name="toast_way_nodes_moved">%1$d pistettä siirretyssä viivassa</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Sinulla on yksi lukematon OSM-viesti</item>
@@ -567,7 +567,6 @@
   <string name="toast_timeout">Palvelimen aikaraja umpeutui</string>
   <string name="coordinates_out_of_range">Pituuspiirin pitää olla välillä -180°/+180°, leveyspiirin -85°/85°</string>
   <string name="toast_nothing_found">Mitään ei löytynyt</string>
-  <string name="toast_statesave_failed">Nykyisen tilan tallennus epäonnistui!\nTämä on vakava virhe. Tila yritetään tallentaa tiedostoon, josta sen voi myöhemmin palauttaa JOSM-muokkaimella.</string>
   <string name="toast_missing_filemanager">Asenna tiedostonhallintasovellus.</string>
   <string name="toast_outside_of_download">Ennen muokkausta tämä alue pitää ladata.</string>
   <string name="toast_file_not_found">Tiedostoa %1$s ei löytynyt.</string>
@@ -774,7 +773,6 @@
   <string name="tag_dialog_value_hint">Napauta arvoja esiin</string>
   <string name="tag_action_tag_title">Tägejä valittu</string>
   <string name="tag_action_members_title">Jäseniä valittu</string>
-  <string name="tag_action_parents_title">Relaatioita valittu</string>
   <string name="tag_additional_properties">Lisäominaisuudet</string>
   <string name="tag_details">Yksityiskohdat</string>
   <string name="tag_not_set">Ei asetettu</string>
@@ -804,6 +802,7 @@
   <string name="default_checkgroup_hint">Lisämääritteitä</string>
   <string name="tag_form_unknown_element">Tuntematon elementti (ei esivalintaa)</string>
   <string name="tag_form_untagged_element">Elementti ilman tägejä</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Luo oma esivalinta</string>
   <string name="create_preset_title">Oman esivalinnan nimi</string>
@@ -1073,7 +1072,7 @@
     <item quantity="one">1 kohde</item>
     <item quantity="other">%1$d kohdetta</item>
   </plurals>
-  <string name="actionmode_rotateway">Pyöritä viivaa</string>
+  <string name="actionmode_rotate">Pyöritä</string>
   <string name="menu_snap">Loksauta</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Lisää piste</string>
@@ -1444,7 +1443,6 @@
   <string name="undo_action_move_tags">Tägien siirto relaatioon</string>
   <string name="undo_action_cut">Leikkaus</string>
   <string name="undo_action_paste">Liittäminen</string>
-  <string name="undo_action_rotateway">Viivan pyöritys</string>
   <string name="undo_action_orthogonalize">Viivan suorakulmaistus</string>
   <string name="undo_action_circulize">Ympyrälle järjestäminen</string>
   <string name="undo_action_fix_conflict">Ristiriidan ratkaisu</string>

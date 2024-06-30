@@ -335,6 +335,7 @@
   <string name="undo_latest">Senaste</string>
   <!--Undo location not in view dialog-->
   <string name="undo_location_undo_anyway">Ångra ändå</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_title">Återkoppling för utvecklarna</string>
   <!--BoxPicker-->
@@ -361,7 +362,6 @@
   <string name="toast_export_failed">Kunde inte exportera</string>
   <string name="toast_export_success">Exporterade till %1$s</string>
   <string name="toast_potential_merge_tag_conflict">Du försöker sammanfoga element med motstridiga taggvärden.\n\nVänligen kontrollera taggarna och korrigera dem innan du försöker igen.</string>
-  <string name="toast_state_file_failed">Icke läsbar eller korrupt statusfil</string>
   <string name="toast_way_nodes_moved">%1$d noder i flyttad väg</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Du har ett oläst OSM-meddelande</item>
@@ -474,7 +474,6 @@
   <string name="tag_dialog_value_hint">Knacka för värden</string>
   <string name="tag_action_tag_title">Tagg(ar) valda</string>
   <string name="tag_action_members_title">Medlem(mar) valda</string>
-  <string name="tag_action_parents_title">Relation(er) vald(a)</string>
   <string name="tag_additional_properties">Extra egenskaper</string>
   <string name="tag_details">Detaljer</string>
   <string name="tag_not_set">Inte angivet</string>
@@ -498,6 +497,7 @@
   <string name="tag_restriction_add_opening_hours">Lägg till öppettider</string>
   <string name="default_checkgroup_hint">Ytterligare attribut</string>
   <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Skapa anpassade presets</string>
   <string name="create_preset_title">Anpassade presetsnamn</string>
@@ -663,7 +663,7 @@
     <item quantity="one">1 föremål</item>
     <item quantity="other">%1$d föremål</item>
   </plurals>
-  <string name="actionmode_rotateway">Rotera vägen</string>
+  <string name="actionmode_rotate">Rotera</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Lägg till nod</string>
   <string name="simple_add_node">Tryck på skärmens position</string>
@@ -849,7 +849,6 @@
   <string name="undo_action_unjoin_ways">Vägseparering</string>
   <string name="undo_action_cut">Klipp ut</string>
   <string name="undo_action_paste">Klistra in</string>
-  <string name="undo_action_rotateway">Vägrotation</string>
   <string name="undo_action_orthogonalize">Gör vinkelrät</string>
   <string name="undo_action_circulize">Arrangera i cirkel</string>
   <string name="undo_action_fix_conflict">Lösa konflikter</string>

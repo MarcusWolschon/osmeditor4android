@@ -530,6 +530,7 @@
   <string name="undo_location_text">Der Bereich der vom Undo geändert würde, wird nicht angezeigt.</string>
   <string name="undo_location_undo_anyway">Undo trotzdem durchführen</string>
   <string name="undo_location_zoom">Zuerst auf das Gebiet zoomen</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Mit OpenStreetMap-Benutzernamen senden</string>
   <string name="feedback_displayname_hint">OpenStreetMap-Benutzername noch nicht abgerufen</string>
@@ -606,7 +607,6 @@
   <string name="toast_cant_autoapply_preset">Die Vorlage kann nicht automatisch angewendet werden</string>
   <string name="toast_oneway_reversed">Die Richtung einer Einbahnstraße oder eines Weges mit richtungsabhängigen Tags wurde geändert. Bitte Tags überprüfen und ggf. korrigieren.</string>
   <string name="toast_potential_merge_tag_conflict">Es sollen Elemente mit sich widersprechenden Tags zusammengeführt werden. Bitte Tags überprüfen und vor einem neuen Versuch korrigieren.</string>
-  <string name="toast_state_file_failed">Gespeicherte Zustandsdaten sind unlesbar oder beschädigt</string>
   <string name="toast_way_nodes_moved">%1$dKnoten eines Weges verschoben.</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Im OSM-Posteingang befindet sich eine ungelesene Nachricht.</item>
@@ -639,7 +639,6 @@
   <string name="toast_timeout">Zeitüberschreitung</string>
   <string name="coordinates_out_of_range">Der Längengrad muss zwischen -180° und +180° sein, der Breitengrad zwischen -85° und 85°</string>
   <string name="toast_nothing_found">Nichts gefunden</string>
-  <string name="toast_statesave_failed">Speichern des aktuellen Zustandes ist fehlgeschlagen!\nDies ist ein schwerwiegender Fehler, es wird versucht eine Exportdatei für die spätere Verwendung in JOSM zu schreiben.</string>
   <string name="toast_missing_filemanager">Bitte einen \"File Manager\" installieren</string>
   <string name="toast_outside_of_download">Weitere Daten herunterladen, um diesen Bereich zu editieren.</string>
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
@@ -772,6 +771,7 @@
   <string name="toast_error_loading_egm">Fehler beim Laden von EGM %1$s</string>
   <string name="toast_querying_wms_server_failed">Anfrage an WMS Server fehlgeschlagen: %1$s</string>
   <string name="toast_note_not_found">Knoten #%1$d nicht gefunden</string>
+  <string name="toast_no_compass">Gerät hat keinen Kompass</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -854,7 +854,6 @@
   <string name="tag_dialog_value_hint">Antippen, um Werte zu sehen</string>
   <string name="tag_action_tag_title">Tag(s) ausgewählt</string>
   <string name="tag_action_members_title">Mitglied(er) ausgewählt</string>
-  <string name="tag_action_parents_title">Relation(en) ausgewählt</string>
   <string name="tag_additional_properties">Zusätzliche Eigenschaften</string>
   <string name="tag_details">Details</string>
   <string name="tag_not_set">Nicht vorhanden</string>
@@ -884,6 +883,7 @@
   <string name="default_checkgroup_hint">Zusätzliche Eigenschaften</string>
   <string name="tag_form_unknown_element">Unbekanntes Element (keine Vorlage gefunden)</string>
   <string name="tag_form_untagged_element">Element ohne Attribute</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Benutzerdefinierte Vorlage erstellen</string>
   <string name="create_preset_title">Benutzerdefinierter Vorlagenname</string>
@@ -1083,6 +1083,7 @@
   <string name="menu_layers_configure">Konfigurieren…</string>
   <string name="menu_layers_background_align">Bildmaterial justieren…</string>
   <string name="wms_hint">%1$s [wms]</string>
+  <string name="geojson_todo_default_conversion">Standard Konversion</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Gespeicherten Hintergrundversatz anwenden</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -1159,7 +1160,7 @@
     <item quantity="one">1 Objekt</item>
     <item quantity="other">%1$d Objekte</item>
   </plurals>
-  <string name="actionmode_rotateway">Weg drehen</string>
+  <string name="actionmode_rotate">Drehen</string>
   <string name="menu_snap">Einrasten</string>
   <string name="menu_follow_way">Weg folgen</string>
   <string name="select_follow_way">Weg zum Folgen auswählen</string>
@@ -1300,6 +1301,8 @@
   <string name="config_longStringLimit_current">%1$d</string>
   <string name="config_zoomWithKeys_title">Lautstärketasten zum Zoomen verwenden</string>
   <string name="config_zoomWithKeys_summary">Erlaube die Verwendung der Lautstärketasten zum Vergrößern und Verkleinern.</string>
+  <string name="config_poi_keys_title">POIs in der Nähe Anzeige</string>
+  <string name="config_poi_keys_summary">Auswahl der Schlüsselwerte für die POIs in der Nähe Anzeige </string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
   <string name="config_category_editing_summary">Auto-Download-Einstellungen</string>
@@ -1464,6 +1467,8 @@
   <string name="config_voiceCommandsEnabled_summary">Unterstützung von Sprachbefehlen aktivieren</string>
   <string name="config_splitWindowForPropertyEditor_summary">Anzeige des Eigenschaftseditors in einem separaten Fenster aktivieren, falls verfügbar.</string>
   <string name="config_splitWindowForPropertyEditor_title">Eigenschaftseditor im geteilten Fenster aktivieren</string>
+  <string name="config_newTaskForPropertyEditor_summary">Setze FLAG_ACTIVITY_NEW_TASK  beim starten des Eigenschaftseditors, dies kann möglicherweise das Verhalten von gewissen Launchern verbessern wenn die Ausführen der App wieder aufgenommen wird.</string>
+  <string name="config_newTaskForPropertyEditor_title">Verwende den \"new task\" Modus für den Eigenschaftseditor </string>
   <!---->
   <string name="manage_apis">APIs verwalten</string>
   <string name="config_api_url_title">API-URL</string>
@@ -1550,7 +1555,6 @@
   <string name="undo_action_move_tags">Eigenschaften zur Relation verschieben</string>
   <string name="undo_action_cut">Ausschneiden</string>
   <string name="undo_action_paste">Einfügen</string>
-  <string name="undo_action_rotateway">Weg drehen</string>
   <string name="undo_action_orthogonalize">Weg rechtwinklig machen</string>
   <string name="undo_action_circulize">Im Kreis anordnen</string>
   <string name="undo_action_fix_conflict">Konfliktbehebung</string>

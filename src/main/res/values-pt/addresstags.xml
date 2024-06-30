@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="addr_housenumber">Número de porta (addr:housenumber)</string>
+  <string name="addr_conscriptionnumber">Número de conscrição (addr:conscriptionnumber)</string>
+  <string name="addr_street">Rua (addr:street)</string>
+  <string name="addr_postcode">Código postal (addr:postcode)</string>
+  <string name="addr_city">Cidade/vila/adeia/.. (addr:city)</string>
+  <string name="addr_country">País (addr:country)</string>
+  <string name="addr_full">Endereço completo (addr:full)</string>
+  <string name="addr_place">Local (addr:place)</string>
+  <string name="addr_block">Bloco (addr:block)</string>
+  <string name="addr_block_number">Número do bloco (addr:block_number)</string>
+  <string name="addr_parentstreet">Localização adicional (addr:parenstreet)</string>
+  <string name="addr_hamlet">Lugar (addr:hamlet)</string>
+  <string name="addr_suburb">Subúrbio (addr:suburb)</string>
+  <string name="addr_subdistrict">Subdistrito (addr:subdistrict)</string>
+  <string name="addr_district">Distrito (addr:district)</string>
+  <string name="addr_province">Província (addr:province)</string>
+  <string name="addr_state">Estado (addr:state)</string>
+  <string name="addr_flats">Números de porta de apartamentos (addr:flats)</string>
+  <string name="addr_door">Porta (addr:door)</string>
+  <string name="addr_unit">Unidade (addr:unit)</string>
+</resources>

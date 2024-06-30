@@ -543,6 +543,7 @@
   <string name="undo_location_text">Místo, které bude vrácením ovlivněno, není vidět.</string>
   <string name="undo_location_undo_anyway">Přesto vrátit</string>
   <string name="undo_location_zoom">Přiblížit na místo a poté vrátit zpět</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Poslat vaší OpenStreetMap přezdívkou</string>
   <string name="feedback_displayname_hint">OpenStreetMap zobrazované jméno zatím nezjištěno</string>
@@ -623,7 +624,6 @@
   <string name="toast_cant_autoapply_preset">Toto přednastavení nelze použít automaticky</string>
   <string name="toast_oneway_reversed">Obrátili jste jednosměrnou ulici nebo cestu se směrovými tagy. Zkontrolujte prosím tagy a v případě potřeby je opravte.</string>
   <string name="toast_potential_merge_tag_conflict">Pokoušíte se sloučit prvky s konfliktními hodnotami tagů.\n\nNejprve prosím zkontrolujte a opravte tagy a poté akci opakujte.</string>
-  <string name="toast_state_file_failed">Nečitelný nebo poškozený stavový soubor</string>
   <string name="toast_way_nodes_moved">%1$d uzlů posunuto s cestou</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Máte nepřečtenou OSM zprávu</item>
@@ -658,7 +658,6 @@
   <string name="toast_timeout">Časový limit serveru vypršel</string>
   <string name="coordinates_out_of_range">Zem. délka musí být v rozmezí -180°/+180°, šířka v rozmezí -85°/85°</string>
   <string name="toast_nothing_found">Nic nenalezeno</string>
-  <string name="toast_statesave_failed">Aktuální stav nelze uložit!\nNastala kritická chyba při ukládání exportního souboru pro obnovení z JOSM.</string>
   <string name="toast_missing_filemanager">Prosím nainstalujte správce souborů.</string>
   <string name="toast_outside_of_download">Stáhněte více dat pro editování této oblasti.</string>
   <string name="toast_file_not_found">%1$s nenalezeno.</string>
@@ -875,7 +874,6 @@
   <string name="tag_dialog_value_hint">Klepněte pro zvolení hodnoty</string>
   <string name="tag_action_tag_title">Zvolené tagy</string>
   <string name="tag_action_members_title">Zvolené členy</string>
-  <string name="tag_action_parents_title">Zvolené relace</string>
   <string name="tag_additional_properties">Další vlastnosti</string>
   <string name="tag_details">Detaily</string>
   <string name="tag_not_set">Nenastaveno</string>
@@ -905,6 +903,7 @@
   <string name="default_checkgroup_hint">Další atributy</string>
   <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
   <string name="tag_form_untagged_element">Neoznačený prvek</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Vytvořit vlastní předvolbu</string>
   <string name="create_preset_title">Název vlastní předvolby</string>
@@ -1182,7 +1181,7 @@
     <item quantity="many">%1$d objektů</item>
     <item quantity="other">%1$d objektů</item>
   </plurals>
-  <string name="actionmode_rotateway">Otočit cestu</string>
+  <string name="actionmode_rotate">Otočit</string>
   <string name="menu_snap">Přichytit</string>
   <string name="menu_follow_way">Sledovat cestu</string>
   <string name="select_follow_way">Zvolit cesty ke sledování</string>
@@ -1573,7 +1572,6 @@
   <string name="undo_action_move_tags">Přesunout tagy do relace</string>
   <string name="undo_action_cut">Vyjmout</string>
   <string name="undo_action_paste">Vložit</string>
-  <string name="undo_action_rotateway">Otočení cesty</string>
   <string name="undo_action_orthogonalize">Narovnání cesty</string>
   <string name="undo_action_circulize">Uspořádat do kruhu</string>
   <string name="undo_action_fix_conflict">Opravení konfliktu</string>

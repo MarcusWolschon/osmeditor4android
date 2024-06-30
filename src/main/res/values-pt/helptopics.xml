@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">Ajuda</string>
+    <string name="help_app_description">Visualizador de ajuda do Vespucci</string>
+    <string name="help_title">Ajuda: %1$s</string>
     <string name="help_introduction">Introdução</string>
     <string name="help_main">Mapa principal</string>
     <string name="help_simple_actions">Ações simples</string>
@@ -8,7 +10,9 @@
     <string name="help_multiselect">Seleção múltipla</string>
     <string name="help_longclick">Criar novos objetos</string>
     <string name="help_nodeselection">Nó selecionado</string>
+    <string name="help_pathcreation">Adicionar nós de linhas</string>
     <string name="help_relationselection">Relação selecionada</string>
+    <string name='help_add_route_segmement'>Adicionar segmento de rota</string>
     <string name="help_wayselection">Linha selecionada</string>
     <string name="help_aligningbackgroundiamgery">Alinhar imagem de fundo</string>
     <string name="help_propertyeditor">Editor de propriedades</string>
@@ -22,12 +26,26 @@
     <string name="help_tagfilter">Filtro de etiquetas</string>
     <string name="help_presetfilter">Filtro de modelos de etiquetas</string>
     <string name="help_opening_hours">Horário de abertura</string>
-    <string name="help_newnoteselection">Seleção de Nova Nota</string>
+    <string name="help_newnoteselection">Seleção de nova nota</string>
     <string name="help_voice_commands">Comandos de voz</string>
-    <string name="help_upgrade_193">19.3 Notas de lançamento</string>
-    <string name="help_upgrade_192">19.2 Notas de lançamento</string>
-    <string name="help_upgrade_191">19.1 Notas de lançamento</string>
-    <string name="help_upgrade_190">19.0 Notas de lançamento</string>
+    <string name="help_add_route_segment">Adicionar segmento de rota</string>
+    <string name="help_upgrade_200">Notas da versão 20.0</string>
+    <string name="help_upgrade_193">Notas da versão 19.3</string>
+    <string name="help_upgrade_192">Notas da versão 19.2</string>
+    <string name="help_upgrade_191">Notas da versão 19.1</string>
+    <string name="help_upgrade_190">Notas da versão 19.0</string>
+    <string name="help_upgrade_181">Notas da versão 18.1</string>
+    <string name="help_upgrade_180">Notas da versão 18.0</string>
+    <string name="help_upgrade_171">Notas da versão 17.1</string>
+    <string name="help_upgrade_170">Notas da versão 17.0</string>
+    <string name="help_upgrade_161">Notas da versão 16.1</string>
+    <string name="help_upgrade_160">Notas da versão  16.0</string>
+    <string name="help_upgrade_152">Notas da versão  15.2</string>
+    <string name="help_upgrade_151">Notas da versão 15.1</string>
+    <string name="help_upgrade_150">Notas da versão  15.0</string>
+    <string name="help_upgrade_141">Notas da versão  14.1</string>
+    <string name="help_upgrade_140">Notas da versão  14.0</string>
+    <string name="help_upgrade_131">Notas da versão  13.1</string>
     <string name="help_upgrade_130">Notas da versão 13.0</string>
     <string name="help_upgrade_121">Notas da versão 12.1</string>
     <string name="help_upgrade_120">Notas da versão 12.0</string>
@@ -57,6 +75,7 @@
         <item>@string/help_advanced_preferences</item>
         <item>@string/help_custom_imagery</item>
     	<item>@string/help_presets</item>	
+        <item>@string/help_rotate</item>
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
     	<item>@string/help_gpssources</item>
@@ -68,6 +87,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_200</item>
         <item>@string/help_upgrade_193</item>
         <item>@string/help_upgrade_192</item>
         <item>@string/help_upgrade_191</item>
@@ -115,6 +135,7 @@
         <item>Advanced preferences</item>
         <item>Custom imagery</item>
     	<item>Presets</item>	
+        <item>Rotating elements</item>
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
     	<item>GPS sources</item>
@@ -125,6 +146,7 @@
         <item>New Note selected</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>20.1.0 Release notes</item>
         <item>20.0.0 Release notes</item>
         <item>19.3.0 Release notes</item>
         <item>19.2.0 Release notes</item>

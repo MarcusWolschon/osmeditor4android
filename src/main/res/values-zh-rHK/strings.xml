@@ -294,6 +294,7 @@
   <string name="undo_all">取消所有後來的檢查點 (安全)</string>
   <string name="redo_all">重復所有先前的檢查點 (安全)</string>
   <!--Undo location not in view dialog-->
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">傳送時附上你的開放街圖顯示名稱</string>
   <string name="feedback_displayname_hint">還沒收到開放街圖顯示名稱 </string>
@@ -328,7 +329,6 @@
   <string name="toast_merge_overwrote_tags">注意 - 這動作將覆蓋標籤(們)</string>
   <string name="toast_oneway_reversed">您已反轉了單行道或道路方向依據的標籤。請檢查標籤並在需要時訂正。</string>
   <string name="toast_potential_merge_tag_conflict">您正在試圖合併的元件，它和標籤的值有衝突。請重試之前，請先檢查標籤和修正。</string>
-  <string name="toast_state_file_failed">無法讀取或已損壞狀態的檔案</string>
   <string name="toast_way_nodes_moved">%1$d節點在已移動的路徑</string>
   <plurals name="toast_unread_mail">
     <item quantity="other">你有 %1$d 封未讀 OSM 訊息</item>
@@ -352,7 +352,6 @@
   <string name="toast_timeout">伺服器逾時</string>
   <string name="coordinates_out_of_range">經度必須在 -180°/+180° 以內，而緯度在 -85°/85° 以內</string>
   <string name="toast_nothing_found">沒找到什麼</string>
-  <string name="toast_statesave_failed">無法儲存目前的狀態！\n這是致命的錯誤，試著寫入一個匯出檔，用於以後 JOSM 恢復。</string>
   <string name="toast_missing_filemanager">請安裝檔案管理器。</string>
   <string name="toast_outside_of_download">下載更多資料以編輯此區域。</string>
   <string name="toast_file_not_found">%1$s 未找到。</string>
@@ -478,7 +477,6 @@
   <string name="tag_dialog_value_hint">點選數值</string>
   <string name="tag_action_tag_title">選擇標籤(們)</string>
   <string name="tag_action_members_title">選擇成員(們)</string>
-  <string name="tag_action_parents_title">選擇關係(們)</string>
   <string name="tag_additional_properties">額外性質</string>
   <string name="tag_details">詳情</string>
   <string name="tag_not_set">未設定</string>
@@ -505,6 +503,7 @@
   <string name="tag_restriction_add_opening_hours">增加營業時間</string>
   <string name="tag_restriction_value_hint">修件限制</string>
   <string name="tag_form_unknown_element">未知元件 (未找到預設組合)</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">選取半徑：</string>
@@ -669,7 +668,7 @@
   <plurals name="actionmode_object_count">
     <item quantity="other">%1$d 物件</item>
   </plurals>
-  <string name="actionmode_rotateway">旋轉路徑</string>
+  <string name="actionmode_rotate">旋轉</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">增加節點</string>
   <string name="simple_add_node">點螢幕位置</string>
@@ -926,7 +925,6 @@
   <string name="undo_action_update_relations">更新關聯</string>
   <string name="undo_action_cut">剪下</string>
   <string name="undo_action_paste">貼上</string>
-  <string name="undo_action_rotateway">路徑旋轉</string>
   <string name="undo_action_orthogonalize">直角化路徑</string>
   <string name="undo_action_circulize">在圓週排列</string>
   <string name="undo_action_fix_conflict">修正衝突</string>

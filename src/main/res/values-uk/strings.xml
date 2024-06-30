@@ -520,6 +520,7 @@
   <string name="undo_location_text">Місце в якому відбувається скасування змін знаходиться за межами екрана.</string>
   <string name="undo_location_undo_anyway">Всеодно скасувати</string>
   <string name="undo_location_zoom">Перейти до місця та скасувати</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Надіслати з вашим нікнеймом з OpenStreetMap</string>
   <string name="feedback_displayname_hint">Ваш нікнейм з OpenStreetMap ще не отриманий</string>
@@ -599,7 +600,6 @@
   <string name="toast_cant_autoapply_preset">Заготовка не може бути застосована автоматично</string>
   <string name="toast_oneway_reversed">Ви змінили дорогу з одностороннім рухом або дорогу з напрямно-залежними теґами.  Будь ласка, перевірте теґи та за потреби виправте їх.</string>
   <string name="toast_potential_merge_tag_conflict">Ви намагаєтесь злити елементи з різними значеннями теґів.\n\nБудь ласка, перевірте теґи та виправте їх за потреби.</string>
-  <string name="toast_state_file_failed">Не читається або пошкоджений файл стану</string>
   <string name="toast_way_nodes_moved">Посунута лінія складається з %1$d точок</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">У вас є непрочитане повідомлення</item>
@@ -634,7 +634,6 @@
   <string name="toast_timeout">Час очікування з\'єднання з сервером сплив</string>
   <string name="coordinates_out_of_range">Довгота повинна бути в межах від -180° до 180°, широта від -85° до +85°</string>
   <string name="toast_nothing_found">Нічого не знайдено</string>
-  <string name="toast_statesave_failed">Збій збереження поточного стану!\nЦе фатальна помилка, намагаюсь експортувати дані в файл для подальшого його відкриття в JOSM.</string>
   <string name="toast_missing_filemanager">Встановіть менеджер файлів.</string>
   <string name="toast_outside_of_download">Завантажте більше даних для цієї ділянки.</string>
   <string name="toast_file_not_found">%1$s не знайдено.</string>
@@ -845,7 +844,6 @@
   <string name="tag_dialog_value_hint">Натисніть для вибору значень</string>
   <string name="tag_action_tag_title">Теґ(и) виділені </string>
   <string name="tag_action_members_title">Член(и) виділені</string>
-  <string name="tag_action_parents_title">Зв\'язок(и) виділені</string>
   <string name="tag_additional_properties">Додаткові властивості</string>
   <string name="tag_details">Деталі</string>
   <string name="tag_not_set">Не встановлено</string>
@@ -875,6 +873,7 @@
   <string name="default_checkgroup_hint">Додаткові атрибути</string>
   <string name="tag_form_unknown_element">Невідомий елемент (заготовки відсутні)</string>
   <string name="tag_form_untagged_element">Елемент без тегів</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Створити власний пресет</string>
   <string name="create_preset_title">Користувальницьке ім\'я пресету</string>
@@ -1149,7 +1148,7 @@
     <item quantity="many">%1$d об\'єктів</item>
     <item quantity="other">%1$d об\'єктів</item>
   </plurals>
-  <string name="actionmode_rotateway">Обертати лінію</string>
+  <string name="actionmode_rotate">Повернути</string>
   <string name="menu_snap">Прив\'язка</string>
   <string name="menu_follow_way">Слідувати за лінією</string>
   <string name="select_follow_way">Виберіть шлях, яким слідувати</string>
@@ -1483,7 +1482,6 @@
   <string name="undo_action_move_tags">Перемістити теги до Зв\'язку</string>
   <string name="undo_action_cut">Вирізати</string>
   <string name="undo_action_paste">Вставити</string>
-  <string name="undo_action_rotateway">Розвернути лінію</string>
   <string name="undo_action_orthogonalize">Ортогоналізувати лінію</string>
   <string name="undo_action_circulize">Вирівняти по колу</string>
   <string name="undo_action_fix_conflict">Розвʼязання конфліктів</string>

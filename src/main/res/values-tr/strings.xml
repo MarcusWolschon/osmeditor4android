@@ -370,6 +370,7 @@
   <string name="undo_location_text">Geri alma komutundan etkilenecek konum görüntüde yok.</string>
   <string name="undo_location_undo_anyway">Yine de geri al</string>
   <string name="undo_location_zoom">Konuma yakınlaştır, sonra geri al</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">OpenStreetMap görünen adınızla gönder</string>
   <string name="feedback_displayname_hint">OpenStreetMap görünen adı henüz alınmadı</string>
@@ -419,7 +420,6 @@
 </string>
   <string name="toast_oneway_reversed">Tek yönlü bir caddeyi veya yöne bağlı etiketleri olan bir yolu tersine çevirdiniz. Lütfen etiketleri kontrol edin ve gerekirse düzeltin.</string>
   <string name="toast_potential_merge_tag_conflict">Çakışan etiket değerlerine sahip öğeleri birleştirmeye çalışıyorsunuz.\n\nTekrar denemeden önce lütfen etiketleri kontrol edin ve düzeltin.</string>
-  <string name="toast_state_file_failed">Bozuk ya da okunamaz durum dosyası</string>
   <string name="toast_way_nodes_moved">%1$ddüğüm taşınmış şekilde</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Bir okunmamış OSM mesajınız var</item>
@@ -446,7 +446,6 @@
   <string name="toast_timeout">Sunucudan zaman aşımı</string>
   <string name="coordinates_out_of_range">Boylam -180°/+180°, enlem -85°/85° arasında olmalıdır</string>
   <string name="toast_nothing_found">Hiç bir şey bulunamadı</string>
-  <string name="toast_statesave_failed">Mevcut durum kaydedilemedi!\nBu, JOSM ile daha sonra kurtarma için bir dışa aktarma dosyası yazmaya çalışırken önemli bir hatadır.</string>
   <string name="toast_missing_filemanager">Lütfen bir dosya yöneticisi yükleyin.</string>
   <string name="toast_outside_of_download">Bu alanı düzenlemek için daha fazla veri yükleyin.</string>
   <string name="toast_file_not_found">%1$s bulunamadı.</string>
@@ -618,7 +617,6 @@
   <string name="tag_dialog_value_hint">Değer için dokunun</string>
   <string name="tag_action_tag_title">Yafta(lar) seçildi</string>
   <string name="tag_action_members_title">Üye(ler) seçildi</string>
-  <string name="tag_action_parents_title">İlişki(ler) seçildi</string>
   <string name="tag_additional_properties">Ek özellikler</string>
   <string name="tag_details">Detaylar</string>
   <string name="tag_not_set">Ayarlanmadı</string>
@@ -648,6 +646,7 @@
   <string name="default_checkgroup_hint">Ek özellikler</string>
   <string name="tag_form_unknown_element">Bilinmeyen öğe (ön ayar bulunamadı)</string>
   <string name="tag_form_untagged_element">Etiketsiz öğe</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Özel ön ayar oluştur</string>
   <string name="create_preset_title">Özel ön ayar adı</string>
@@ -868,7 +867,7 @@
     <item quantity="one">1 nesne</item>
     <item quantity="other">%1$dnesne</item>
   </plurals>
-  <string name="actionmode_rotateway">Yolu döndür</string>
+  <string name="actionmode_rotate">Döndür</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Düğüm ekle</string>
   <string name="simple_add_node">Ekran konumuna dokunun</string>
@@ -1160,7 +1159,6 @@
   <string name="undo_action_update_relations">İlişki güncelleme</string>
   <string name="undo_action_cut">Kes</string>
   <string name="undo_action_paste">Yapıştır</string>
-  <string name="undo_action_rotateway">Yol dönüşü</string>
   <string name="undo_action_orthogonalize">Yol kareleniyor</string>
   <string name="undo_action_circulize">Daire içinde düzenle</string>
   <string name="undo_action_fix_conflict">Çözünürlük çatışması</string>
