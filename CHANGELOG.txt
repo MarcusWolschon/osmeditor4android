@@ -36,6 +36,9 @@
 - Add indicate in the taginfo project file if an entry is "not recommended"
 - Add support for rotating nodes with a direction tag and multiple elements and relations 
 - Remove pre-Android 5 API 21 specific code and dependencies
+- Update imagery configuration from ELI
+- Update translations
+- Update NSI
 
 20.0.0:
 
