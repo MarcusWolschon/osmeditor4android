@@ -317,6 +317,23 @@ Depending on the device, Android version and the phase of the moon, some Android
 
 If you are experiencing this issue, setting _Use "new task" mode for property editor_ in the experimental section of the _Advanced preferences_ may help.
 
+
+#### Testing on selected devices
+
+|OS and device                      | Has issue | Workaround works | Comment
+|-----------------------------------|-----------|------------------|-----------------------
+|5.1.1 Amazon Fire (5th gen) tablet | Yes       | No               | With workaround enabled launches on top of resumed app
+|6.0 HTC One M8                     | No        |                  |
+|6.0.1 Samsung S5                   | No        |                  |
+|8.0 Samsung S7                     | No        |                  |
+|9.0 Samsung Note 8                 | No        |                  |
+|11.0 Samsung A40                   | No        |                  |
+|11.0 Samsung S5e tablet            | No        |                  |
+|14.0 Samsung S23 Ultra             | Yes       | Yes              |
+
+Further devices that we have had received reports of the issue: Android 14 Motorola G73
+
+
 ## Performance
 
 ### Vespucci is getting slower and slower
