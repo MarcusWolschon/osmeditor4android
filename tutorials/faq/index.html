@@ -630,6 +630,68 @@ the problem is related to access to a removable storages, disabling the "Prefer 
 <h3 id="resuming-the-app-doesnt-bring-me-back-to-the-property-editor">Resuming the app doesn't bring me back to the property editor<a class="headerlink" href="#resuming-the-app-doesnt-bring-me-back-to-the-property-editor" title="Permanent link">#</a></h3>
 <p>Depending on the device, Android version and the phase of the moon, some Android launchers will restart the app instead of resuming it if you click on the icon in the app draw instead of selecting the app from the current application list. This will lead to any state/edit in the property editor being lost if you had navigated away from it, for example recent Samsung devices exhibit this behaviour. </p>
 <p>If you are experiencing this issue, setting <em>Use "new task" mode for property editor</em> in the experimental section of the <em>Advanced preferences</em> may help.</p>
+<h4 id="testing-on-selected-devices">Testing on selected devices<a class="headerlink" href="#testing-on-selected-devices" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>OS and device</th>
+<th>Has issue</th>
+<th>Workaround works</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5.1.1 Amazon Fire (5th gen) tablet</td>
+<td>Yes</td>
+<td>No</td>
+<td>With workaround enabled launches on top of resumed app</td>
+</tr>
+<tr>
+<td>6.0 HTC One M8</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6.0.1 Samsung S5</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>8.0 Samsung S7</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>9.0 Samsung Note 8</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>11.0 Samsung A40</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>11.0 Samsung S5e tablet</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>14.0 Samsung S23 Ultra</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Further devices that we have had received reports of the issue: Android 14 Motorola G73</p>
 <h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">#</a></h2>
 <h3 id="vespucci-is-getting-slower-and-slower">Vespucci is getting slower and slower<a class="headerlink" href="#vespucci-is-getting-slower-and-slower" title="Permanent link">#</a></h3>
 <p>Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. In current versions of Vespucci data downloaded by the auto-download facilities will be automatically pruned if possible, but particularly zooming far out will make this less effective. </p>
@@ -902,6 +964,68 @@ the problem is related to access to a removable storages, disabling the "Prefer 
 <h3 id="resuming-the-app-doesnt-bring-me-back-to-the-property-editor">Resuming the app doesn't bring me back to the property editor<a class="headerlink" href="#resuming-the-app-doesnt-bring-me-back-to-the-property-editor" title="Permanent link">#</a></h3>
 <p>Depending on the device, Android version and the phase of the moon, some Android launchers will restart the app instead of resuming it if you click on the icon in the app draw instead of selecting the app from the current application list. This will lead to any state/edit in the property editor being lost if you had navigated away from it, for example recent Samsung devices exhibit this behaviour. </p>
 <p>If you are experiencing this issue, setting <em>Use "new task" mode for property editor</em> in the experimental section of the <em>Advanced preferences</em> may help.</p>
+<h4 id="testing-on-selected-devices">Testing on selected devices<a class="headerlink" href="#testing-on-selected-devices" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>OS and device</th>
+<th>Has issue</th>
+<th>Workaround works</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5.1.1 Amazon Fire (5th gen) tablet</td>
+<td>Yes</td>
+<td>No</td>
+<td>With workaround enabled launches on top of resumed app</td>
+</tr>
+<tr>
+<td>6.0 HTC One M8</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6.0.1 Samsung S5</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>8.0 Samsung S7</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>9.0 Samsung Note 8</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>11.0 Samsung A40</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>11.0 Samsung S5e tablet</td>
+<td>No</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>14.0 Samsung S23 Ultra</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Further devices that we have had received reports of the issue: Android 14 Motorola G73</p>
 <h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">#</a></h2>
 <h3 id="vespucci-is-getting-slower-and-slower">Vespucci is getting slower and slower<a class="headerlink" href="#vespucci-is-getting-slower-and-slower" title="Permanent link">#</a></h3>
 <p>Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. In current versions of Vespucci data downloaded by the auto-download facilities will be automatically pruned if possible, but particularly zooming far out will make this less effective. </p>
