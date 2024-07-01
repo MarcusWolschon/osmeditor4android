@@ -70,7 +70,7 @@ import okhttp3.OkHttpClient;
 
 @AcraCore(resReportSendSuccessToast = R.string.report_success, resReportSendFailureToast = R.string.report_failure, logcatArguments = { "-t", "500", "-v",
         "time" })
-@AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = "https://acrarium.vespucci.io/")
+@AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = "https://acrarium.vespucci.io/", resCertificate = R.raw.isrg_root_x1)
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
 public class App extends Application implements android.app.Application.ActivityLifecycleCallbacks {
