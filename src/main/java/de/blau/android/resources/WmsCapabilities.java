@@ -1,5 +1,7 @@
 package de.blau.android.resources;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -38,7 +40,9 @@ import de.blau.android.util.Version;
  *
  */
 public class WmsCapabilities {
-    private static final String DEBUG_TAG = WmsCapabilities.class.getSimpleName().substring(0, Math.min(23, WmsCapabilities.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, WmsCapabilities.class.getSimpleName().length());
+    private static final String DEBUG_TAG = WmsCapabilities.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String WMS_1_3_0 = "1.3.0";
 
@@ -73,6 +77,8 @@ public class WmsCapabilities {
     private static final String MINX_ATTR                  = "minx";
     private static final String ONLINE_RESOURCE            = "OnlineResource";
     private static final String XLINK_HREF_ATTR            = "xlink:href";
+
+    private static final String NONAME = "nn";
 
     private static final String IMAGE_BMP       = "image/bmp";
     private static final String IMAGE_PNG       = "image/png";
@@ -388,33 +394,16 @@ public class WmsCapabilities {
                 case EXGEOGRAPHICBOUNDINGBOX:
                     switch (name) {
                     case WEST_BOUND_LONGITUDE:
-                        try {
-                            current.minx = new BigDecimal(buffer.toString());
-                        } catch (NumberFormatException nfe) {
-                            current.maxx = new BigDecimal(180);
-                        }
+                        current.minx = bufferToBigDecimal(buffer, -180);
                         break;
                     case EAST_BOUND_LONGITUDE:
-                        try {
-                            current.maxx = new BigDecimal(buffer.toString());
-                        } catch (NumberFormatException nfe) {
-                            current.maxx = new BigDecimal(180);
-                        }
+                        current.maxx = bufferToBigDecimal(buffer, 180);
                         break;
                     case SOUTH_BOUND_LATITUDE:
-                        try {
-                            current.miny = new BigDecimal(buffer.toString());
-                        } catch (NumberFormatException nfe) {
-                            current.miny = new BigDecimal(-90);
-                        }
+                        current.miny = bufferToBigDecimal(buffer, -90);
                         break;
                     case NORTH_BOUND_LATITUDE:
-                        try {
-                            current.maxy = new BigDecimal(buffer.toString());
-                        } catch (NumberFormatException nfe) {
-                            current.maxy = new BigDecimal(90);
-                        }
-
+                        current.maxy = bufferToBigDecimal(buffer, 90);
                         break;
                     case EX_GEOGRAPHIC_BOUNDING_BOX:
                         current.boxCrs = TileLayerSource.EPSG_4326;
@@ -486,6 +475,22 @@ public class WmsCapabilities {
                     break;
                 }
             }
+
+            /**
+             * Try to convert the contents of a StringBuilder to a BigDecimal
+             * 
+             * @param input the input StringBuilder
+             * @param defaultValue the value to use if the StringBuilder cannot be converted
+             * @return a BigDecimal
+             */
+            @NonNull
+            private BigDecimal bufferToBigDecimal(@NonNull StringBuilder input, int defaultValue) {
+                try {
+                    return new BigDecimal(buffer.toString());
+                } catch (NumberFormatException nfe) {
+                    return new BigDecimal(180);
+                }
+            }
         });
     }
 
@@ -518,7 +523,7 @@ public class WmsCapabilities {
             } else if (t.name != null && !"".equals(t.name)) {
                 resultTitle.append(t.name);
             } else {
-                resultTitle.append("nn");
+                resultTitle.append(NONAME);
             }
             if (t.crs != null) {
                 layer.proj = t.crs;
