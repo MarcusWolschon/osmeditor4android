@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -31,7 +33,9 @@ import de.blau.android.util.collections.LongOsmElementMap;
  * @author simon
  */
 public class OsmParser extends DefaultHandler {
-    private static final String DEBUG_TAG = OsmParser.class.getSimpleName().substring(0, Math.min(23, OsmParser.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OsmParser.class.getSimpleName().length());
+    private static final String DEBUG_TAG = OsmParser.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
@@ -339,9 +343,8 @@ public class OsmParser extends DefaultHandler {
                 throw new OsmParseException("Unknown element " + name);
             }
         } catch (NumberFormatException | NullPointerException e) {
-            throw new OsmParseException("Element unparsable");
+            throw new OsmParseException("Element unparsable " + atts.toString());
         }
-
     }
 
     /**
