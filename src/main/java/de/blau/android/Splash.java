@@ -63,8 +63,8 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         // don't use Preferences here as this will create the Vespucci directory which is bad for migration
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final boolean lightTheme = prefs.getBoolean(getString(R.string.config_enableLightTheme_key), true);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final boolean lightTheme = sharedPrefs.getBoolean(getString(R.string.config_enableLightTheme_key), true);
         setTheme(lightTheme ? R.style.SplashThemeLight : R.style.SplashTheme);
         SplashScreen.Companion.installSplashScreen(this);
         super.onCreate(savedInstanceState);
@@ -124,8 +124,20 @@ public class Splash extends AppCompatActivity {
             }
             // read Presets here to avoid reading them on UI thread on startup of Main
             Progress.showDialog(Splash.this, Progress.PROGRESS_LOADING_PRESET);
+            // migration has already happened, so we can use prefs here, this avoids lazy loading on the start of the
+            // PropertyEditor, we don't have to wait on this so can run it separately 
+            if (App.getPreferences(Splash.this).nameSuggestionPresetsEnabled()) {
+                new ExecutorTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void param) {
+                        App.getNameSearchIndex(Splash.this);
+                        return null;
+                    }
+                }.execute();
+            }
             Log.d(DEBUG_TAG, "Initial preset load");
             App.getCurrentPresets(Splash.this);
+
             Log.d(DEBUG_TAG, "Preset load finished");
             //
             Intent intent = new Intent(Splash.this, Main.class);

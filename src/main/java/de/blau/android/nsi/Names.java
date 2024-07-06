@@ -1,5 +1,7 @@
 package de.blau.android.nsi;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,10 +38,14 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class Names {
-    private static final String DEBUG_TAG = Names.class.getSimpleName().substring(0, Math.min(23, Names.class.getSimpleName().length()));
 
-    private static final String WERID_WHOLE_WORLD_NSI_VALUE = "001";
-    
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Names.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Names.class.getSimpleName().substring(0, TAG_LEN);
+
+    // besides country codes, the NSI uses UN M49 numeric values, see https://en.wikipedia.org/wiki/UN_M49 however only
+    // 001 seems to be actually used
+    private static final String UN_M49_WHOLE_WORLD = "001";
+
     private static final String TAGS_FIELD         = "tags";
     private static final String EXCLUDE_FIELD      = "exclude";
     private static final String INCLUDE_FIELD      = "include";
@@ -137,29 +143,29 @@ public class Names {
          * @return true if the entry is appropriate for the region
          */
         public boolean inUseIn(@Nullable List<String> currentRegions) {
-            if (currentRegions != null) {
-                boolean inUse = false;
-                if (includeRegions != null) {
-                    for (String current : currentRegions) {
-                        if (includeRegions.contains(current)) {
-                            inUse = true;
-                            break;
-                        }
-                    }
-                } else {
-                    inUse = true;
-                }
-                if (excludeRegions != null) {
-                    for (String current : currentRegions) {
-                        if (excludeRegions.contains(current)) {
-                            inUse = false;
-                            break;
-                        }
-                    }
-                }
-                return inUse;
+            if (currentRegions == null) {
+                return true;
             }
-            return true;
+            boolean inUse = false;
+            if (includeRegions != null) {
+                for (String current : currentRegions) {
+                    if (includeRegions.contains(current)) {
+                        inUse = true;
+                        break;
+                    }
+                }
+            } else {
+                inUse = true;
+            }
+            if (excludeRegions != null) {
+                for (String current : currentRegions) {
+                    if (excludeRegions.contains(current)) {
+                        inUse = false;
+                        break;
+                    }
+                }
+            }
+            return inUse;
         }
 
         @Override
@@ -265,10 +271,10 @@ public class Names {
                                             while (reader.hasNext()) {
                                                 switch (reader.nextName()) {
                                                 case INCLUDE_FIELD:
-                                                    includeRegions = readStringArray(reader);
+                                                    includeRegions = readLocationStringArray(reader);
                                                     break;
                                                 case EXCLUDE_FIELD:
-                                                    excludeRegions = readStringArray(reader);
+                                                    excludeRegions = readLocationStringArray(reader);
                                                     break;
                                                 default:
                                                     reader.skipValue();
@@ -379,19 +385,20 @@ public class Names {
      * @throws IOException on IO and parse errors
      */
     @Nullable
-    private List<String> readStringArray(@NonNull JsonReader reader) throws IOException {
+    private List<String> readLocationStringArray(@NonNull JsonReader reader) throws IOException {
         boolean valid = true;
         List<String> result = new ArrayList<>();
         reader.beginArray();
         while (reader.hasNext()) {
-            if (reader.peek() == JsonToken.STRING) { // FIXME weird location stuff
+            if (reader.peek() == JsonToken.STRING) {
                 String code = reader.nextString().toUpperCase(Locale.US);
-                if (WERID_WHOLE_WORLD_NSI_VALUE.equals(code)) {
+                if (UN_M49_WHOLE_WORLD.equals(code)) {
                     valid = false;
                 } else {
                     result.add(code);
                 }
             } else {
+                // we currently don't support coordinates with radius
                 reader.skipValue();
                 valid = false;
             }
