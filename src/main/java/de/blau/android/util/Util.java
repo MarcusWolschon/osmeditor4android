@@ -734,7 +734,7 @@ public final class Util {
      * @param collection the input Collection
      * @return true if text is neither null nor empty
      */
-    public static boolean notEmpty(@Nullable final Collection collection) {
+    public static <T extends Object> boolean notEmpty(@Nullable final Collection<T> collection) {
         return collection != null && !collection.isEmpty();
     }
 
@@ -913,7 +913,7 @@ public final class Util {
         }
         return result;
     }
-    
+
     /**
      * Check if we are in multi window mode
      * 
