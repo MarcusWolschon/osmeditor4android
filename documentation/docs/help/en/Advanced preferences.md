@@ -295,7 +295,7 @@ OpenStreetMap API and other servers configuration.
 
 ### OSM API URL
 
-Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024. These preferences can also changed by selecting _Configure_ for the OpenStreetMap Data layer in the layers modal.
+Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024. These preferences can also be changed by selecting _Configure_ for the OpenStreetMap Data layer in the layers modal.
 
 ### User account
 
