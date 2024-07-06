@@ -82,7 +82,7 @@ The layer dialog supports the following actions on the layer entries:
         * __Configure...__ (for the Grid and Task layers)
         * __Disable__ Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.
     * Data layer:
-        * __Configure...__ Allows selection and configuration of the current OSM data sources.
+        * __Configure...__ Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024.
     * Data and Tasks layers:
         * __Info__ Display some information on the contents.
         * __Prune__ remove downloaded data from storage that is outside of the current screen and unmodified.
