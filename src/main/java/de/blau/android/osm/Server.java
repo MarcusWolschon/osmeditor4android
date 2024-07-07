@@ -1685,7 +1685,7 @@ public class Server {
      * @return true if we are using OAuth but have not retrieved the accesstoken yet
      */
     public boolean needOAuthHandshake() {
-        return authentication == Auth.OAUTH1A && ((accesstoken == null) || (accesstokensecret == null));
+        return authentication != Auth.BASIC && ((accesstoken == null) || (accesstokensecret == null));
     }
 
     /**
