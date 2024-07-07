@@ -51,7 +51,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 16;
+    private static final int DATA_VERSION = 17;
 
     /** The ID string for the default API and the default Preset */
     public static final String ID_DEFAULT = "default";
@@ -226,6 +226,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             db.execSQL("ALTER TABLE presets ADD COLUMN version TEXT DEFAULT NULL");
             db.execSQL("ALTER TABLE presets ADD COLUMN shortdescription TEXT DEFAULT NULL");
             db.execSQL("ALTER TABLE presets ADD COLUMN description TEXT DEFAULT NULL");
+        }
+        if (oldVersion <= 16 && newVersion >= 17) {
+            // force migrate the default API entries as now the old ones will definitely not work any more
+            final int oauth2 = Auth.OAUTH2.ordinal();
+            db.execSQL("UPDATE apis SET oauth=" + oauth2 + ", accesstokensecret=NULL, accesstoken=NULL WHERE id='" + ID_DEFAULT + "' AND NOT oauth=" + oauth2);
+            db.execSQL("UPDATE apis SET oauth=" + oauth2 + ", accesstokensecret=NULL, accesstoken=NULL WHERE id='" + ID_SANDBOX + "' AND NOT oauth=" + oauth2);
         }
     }
 
