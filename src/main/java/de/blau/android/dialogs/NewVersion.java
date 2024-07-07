@@ -77,15 +77,8 @@ public class NewVersion extends ImmersiveDialogFragment {
         final FragmentActivity activity = getActivity();
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.upgrade_title);
-        // shoe-horned OAuth 2 migration
         Preferences prefs = App.getPreferences(getContext());
-        Server server = prefs.getServer();
         String message = getString(R.string.upgrade_message);
-        if (server.getAuthentication() != Auth.OAUTH2 && Urls.DEFAULT_API_NAME.equals(server.getApiName())) {
-            // migration necessary
-            builder.setPositiveButton(R.string.migrate_now, null);
-            message += getString(R.string.upgrade_message_oauth2);
-        }
         builder.setMessage(Util.fromHtml(message));
         builder.setNegativeButton(R.string.skip, (d, which) -> dismiss());
         builder.setNeutralButton(R.string.read_upgrade, (d, which) -> {
@@ -93,17 +86,6 @@ public class NewVersion extends ImmersiveDialogFragment {
             HelpViewer.start(activity, R.string.help_upgrade);
         });
         final AlertDialog dialog = builder.create();
-        dialog.setOnShowListener((DialogInterface d) -> {
-            Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            positive.setOnClickListener((View v) -> {
-                try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
-                    API api = db.getCurrentAPI();
-                    db.setAPIDescriptors(api.id, api.name, api.url, api.readonlyurl, api.notesurl, Auth.OAUTH2);
-                }
-                Authorize.startForResult(activity, null);
-                positive.setEnabled(false);
-            });
-        });
         return dialog;
     }
 }
