@@ -1,26 +1,15 @@
 package de.blau.android.dialogs;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import de.blau.android.App;
-import de.blau.android.Authorize;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
-import de.blau.android.contract.Urls;
-import de.blau.android.osm.Server;
-import de.blau.android.prefs.API;
-import de.blau.android.prefs.API.Auth;
-import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.Util;
 
@@ -77,7 +66,6 @@ public class NewVersion extends ImmersiveDialogFragment {
         final FragmentActivity activity = getActivity();
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.upgrade_title);
-        Preferences prefs = App.getPreferences(getContext());
         String message = getString(R.string.upgrade_message);
         builder.setMessage(Util.fromHtml(message));
         builder.setNegativeButton(R.string.skip, (d, which) -> dismiss());
@@ -85,7 +73,6 @@ public class NewVersion extends ImmersiveDialogFragment {
             dismiss();
             HelpViewer.start(activity, R.string.help_upgrade);
         });
-        final AlertDialog dialog = builder.create();
-        return dialog;
+        return builder.create();
     }
 }
