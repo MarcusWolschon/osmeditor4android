@@ -148,7 +148,7 @@ Choose "Upload data to  OSM server" from the transfer menu.
 
 Vespucci uses OAuth authorization by default for new installations. On your first upload you will be directed to an OSM page where you will need to grant Vespucci permission to use your OpenStreetMap account. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).
 
-Note: OAuth will work for both the OSMF-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.
+Note: OAuth will work for both the OSMF-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration.
 
 ### How can I zoom into an area?
 
@@ -181,6 +181,19 @@ The google play store allows only one reply to a review with a maximum length of
 350 characters is 100 characters less than the text above.  
   
 ## Error messages and other issues
+
+### OAuth 1.0a to OAuth 2 migration
+
+Starting June 2024 the "standard" OpenStreetMap API on openstreetmap.org stopped supporting Basic (login/password) and OAuth 1.0a authorization. When you upgrade from
+an older version than version 20, the "upgrade" modal will display a text explaining this and allow a "one click" migration of your configuration. Version 20.1 and later will force migrate the configuration.
+
+To do the same manually:
+
+- go to the menu for _OpenStreetMap data_ in the layer modal,
+- select _Configure_ and then _Edit_ in the menu for the current API entry,
+- switch 'Authentication' to 'OAuth 2' and save, return to the main map display,
+- go to the tools menu and select 'Authorize OAuth', login to your account and allow the app access.
+
 
 ### App hangs
 
