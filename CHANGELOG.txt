@@ -1,5 +1,11 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.1.0-2:
+
+- Fix correctly check if we need to re-authorize
+- Fix force migrate the default API entries
+- Fix pre-load NSI (improves PropertyEditor start up time)
+
 20.1.0-1:
 
 - Fix add workaround of misbehaviour of certain launchers
