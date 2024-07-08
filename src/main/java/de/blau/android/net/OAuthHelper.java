@@ -1,5 +1,7 @@
 package de.blau.android.net;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -9,6 +11,7 @@ import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -20,7 +23,9 @@ import oauth.signpost.exception.OAuthException;
  * 
  */
 public abstract class OAuthHelper {
-    private static final String DEBUG_TAG = OAuthHelper.class.getSimpleName().substring(0, Math.min(23, OAuthHelper.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OAuthHelper.class.getSimpleName().length());
+    private static final String DEBUG_TAG = OAuthHelper.class.getSimpleName().substring(0, TAG_LEN);
 
     protected static final int TIMEOUT = 10;
 
@@ -87,12 +92,16 @@ public abstract class OAuthHelper {
     abstract ExecutorTask<Void, Void, ?> getAccessTokenTask(@NonNull Context context, @NonNull Uri data, @NonNull PostAsyncActionHandler handler);
 
     /**
-     * @param context
-     * @param accessToken
+     * Set the access tokens
+     * 
+     * @param context an Android context
+     * @param accessToken the access token
+     * @param secret secret if necessary
      */
-    protected void setAccessToken(final Context context, String accessToken, String secret) {
+    protected void setAccessToken(@NonNull final Context context, @Nullable String accessToken, @Nullable String secret) {
         try (AdvancedPrefDatabase prefDb = new AdvancedPrefDatabase(context)) {
             prefDb.setAPIAccessToken(accessToken, secret);
+            AdvancedPrefDatabase.resetCurrentServer();
         }
     }
 
