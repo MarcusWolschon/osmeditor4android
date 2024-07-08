@@ -190,7 +190,7 @@ public final class TransferTasks {
         // check if we need to oAuth first
         for (Task b : queryResult) {
             if (b.hasBeenChanged() && b instanceof Note) {
-                PostAsyncActionHandler restartAction = () -> upload(activity, server, postUploadHandler);
+                PostAsyncActionHandler restartAction = () -> upload(activity, App.getPreferences(activity).getServer(), postUploadHandler);
                 if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
                     return;
                 }
