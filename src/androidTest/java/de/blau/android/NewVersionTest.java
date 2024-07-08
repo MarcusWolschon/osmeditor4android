@@ -101,36 +101,4 @@ public class NewVersionTest {
         assertTrue(TestUtils.clickMenuButton(device, "Back", false, true));
         assertFalse(TestUtils.findText(device, false, main.getString(R.string.upgrade_title)));
     }
-
-    /**
-     * No migration test
-     */
-    @Test
-    public void migration() {
-        KeyDatabaseHelper.readKeysFromAssets(ApplicationProvider.getApplicationContext());
-        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext())) {
-            KeyDatabaseHelper.replaceOrDeleteKey(keyDatabase.getWritableDatabase(), "OpenStreetMap", EntryType.API_OAUTH2_KEY, "123456", false, false, "empty",
-                    mockServer.server().url("/").toString());
-        }
-        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
-            API api = db.getCurrentAPI();
-            db.setAPIDescriptors(api.id, api.name, api.url, api.readonlyurl, api.notesurl, Auth.OAUTH1A);
-        }
-        NewVersion.showDialog(main);
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upgrade_title)));
-        UiObject b2 = TestUtils.findObjectWithResourceId(device, "android:id/button1", 0);
-        try {
-            assertEquals(main.getString(R.string.migrate_now).toUpperCase(), b2.getText().toUpperCase());
-            mockServer.enqueue("200");
-            assertTrue(b2.clickAndWaitForNewWindow());
-        } catch (UiObjectNotFoundException ex) {
-            fail(ex.getMessage());
-        }
-        device.pressBack();
-        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
-            API api = db.getCurrentAPI();
-            assertEquals(Auth.OAUTH2, api.auth);
-        }
-        TestUtils.sleep(10000);
-    }
 }

@@ -364,7 +364,7 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
         TestUtils.clickHome(device, true);
         try {
-            assertTrue(Integer.parseInt(direction.getText()) >= 0);
+            assertTrue(Integer.parseInt(n.getTagWithKey(Tags.KEY_DIRECTION)) >= 0);
         } catch (NumberFormatException nfex) {
             fail(nfex.getMessage());
         }

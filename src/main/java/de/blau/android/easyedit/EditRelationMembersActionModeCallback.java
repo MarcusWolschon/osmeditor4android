@@ -342,37 +342,9 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        Log.d(DEBUG_TAG, "onPrepareActionMode");
         setClickableElements();
-        if (relation != null) {
-            List<Way> relationWays = logic.getSelectedRelationWays();
-            List<Node> relationNodes = logic.getSelectedRelationNodes();
-            List<Relation> relationRelations = logic.getSelectedRelationRelations();
-            // new members might be downloaded
-            for (RelationMember rm : relation.getMembers()) {
-                if (!rm.downloaded()) {
-                    continue;
-                }
-                switch (rm.getType()) {
-                case Way.NAME:
-                    if (inList(relationWays, rm)) {
-                        logic.addSelectedRelationWay((Way) rm.getElement());
-                    }
-                    break;
-                case Node.NAME:
-                    if (inList(relationNodes, rm)) {
-                        logic.addSelectedRelationNode((Node) rm.getElement());
-                    }
-                    break;
-                case Relation.NAME:
-                    if (inList(relationRelations, rm)) {
-                        logic.addSelectedRelationRelation((Relation) rm.getElement());
-                    }
-                    break;
-                default:
-                    // do nothing
-                }
-            }
-        }
+        highlightAll();
         menu = replaceMenu(menu, mode, this);
         boolean updated = super.onPrepareActionMode(mode, menu);
         updated |= ElementSelectionActionModeCallback.setItemVisibility(!newMembers.isEmpty(), revertItem, false);
@@ -380,17 +352,6 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             arrangeMenu(menu);
         }
         return updated;
-    }
-
-    /**
-     * A "contains" that checks if the List is null
-     * 
-     * @param list the List
-     * @param rm the RelationMember
-     * @return true if the element of the memer is present in the list
-     */
-    private <T extends OsmElement> boolean inList(@Nullable List<T> list, @NonNull RelationMember rm) {
-        return list != null && !list.contains(rm.getElement());
     }
 
     @Override
