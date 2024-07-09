@@ -330,7 +330,6 @@ Depending on the device, Android version and the phase of the moon, some Android
 
 If you are experiencing this issue, setting _Use "new task" mode for property editor_ in the experimental section of the _Advanced preferences_ may help.
 
-
 #### Testing on selected devices
 
 |OS and device                      | Has issue | Workaround works | Comment
@@ -343,9 +342,7 @@ If you are experiencing this issue, setting _Use "new task" mode for property ed
 |11.0 Samsung A40                   | No        |                  |
 |11.0 Samsung S5e tablet            | No        |                  |
 |14.0 Samsung S23 Ultra             | Yes       | Yes              |
-
-Further devices that we have had received reports of the issue: Android 14 Motorola G73
-
+|14.0 Motorola G73                  | Yes       | Yes              |
 
 ## Performance
 
