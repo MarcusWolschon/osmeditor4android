@@ -59,6 +59,7 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NotificationCache;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.TagClipboard;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -310,13 +311,18 @@ public class App extends Application implements android.app.Application.Activity
     public static Preset[] getCurrentPresets(@NonNull Context ctx) {
         synchronized (currentPresetsLock) {
             if (currentPresets == null) {
-                currentPresets = getPreferences(ctx).getPreset();
-                mruTags = new MRUTags();
-                mruTags.load(ctx);
-                if (logic != null && logic.getFilter() instanceof PresetFilter) {
-                    // getCurrentPresets will be called if the presets have been
-                    // changed and the preset need to be re-referenced
-                    logic.getFilter().init(ctx);
+                try {
+                    Util.clearDataLayerIconCaches(false);
+                    currentPresets = getPreferences(ctx).getPreset();
+                    mruTags = new MRUTags();
+                    mruTags.load(ctx);
+                    if (logic != null && logic.getFilter() instanceof PresetFilter) {
+                        // getCurrentPresets will be called if the presets have been
+                        // changed and the preset need to be re-referenced
+                        logic.getFilter().init(ctx);
+                    }
+                } catch (OutOfMemoryError oome) {
+                    Util.runOnUiThread(ctx, () -> ScreenMessage.toastTopError(ctx, R.string.out_of_memory_title));
                 }
             }
             return currentPresets;

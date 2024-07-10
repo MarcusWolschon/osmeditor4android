@@ -21,6 +21,7 @@ import de.blau.android.bookmarks.BookmarkStorage;
 import de.blau.android.layer.bookmarks.MapOverlay;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Display a dialog showing the saved bookmarks
@@ -130,9 +131,7 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
 
             @Override
             public void onError(Context context) {
-                if (context instanceof Activity) {
-                    ((Activity) context).runOnUiThread(() -> ScreenMessage.toastTopError(context, R.string.toast_error_saving_bookmark));
-                }
+                Util.runOnUiThread(context, () -> ScreenMessage.toastTopError(context, R.string.toast_error_saving_bookmark));
             }
         });
 
