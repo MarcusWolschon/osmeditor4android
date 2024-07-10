@@ -508,6 +508,16 @@ public final class Util {
                 p.clearIcons();
             }
         }
+        clearDataLayerIconCaches(true);
+        TileLayerSource.clearLogos();
+    }
+
+    /**
+     * Clear the icon caches in the data layer if it exists
+     * 
+     * @param invalidate invalidate the layer after clearing the caches
+     */
+    public static void clearDataLayerIconCaches(boolean invalidate) {
         Logic logic = App.getLogic();
         if (logic != null) {
             de.blau.android.Map map = logic.getMap();
@@ -515,11 +525,12 @@ public final class Util {
                 de.blau.android.layer.data.MapOverlay<OsmElement> dataLayer = map.getDataLayer();
                 if (dataLayer != null) {
                     dataLayer.clearCaches();
-                    dataLayer.invalidate();
+                    if (invalidate) {
+                        dataLayer.invalidate();
+                    }
                 }
             }
         }
-        TileLayerSource.clearLogos();
     }
 
     /**
@@ -922,5 +933,17 @@ public final class Util {
      */
     public static boolean isInMultiWindowModeCompat(@NonNull FragmentActivity activity) {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activity.isInMultiWindowMode();
+    }
+
+    /**
+     * Run action on the UI thread
+     * 
+     * @param ctx an Android Context
+     * @param action the runnable
+     */
+    public static void runOnUiThread(@NonNull Context ctx, @NonNull final Runnable action) {
+        if (ctx instanceof Activity) {
+            ((Activity) ctx).runOnUiThread(action);
+        }
     }
 }
