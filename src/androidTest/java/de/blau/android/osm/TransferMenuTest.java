@@ -246,13 +246,45 @@ public class TransferMenuTest {
                 viewBox.getCenter()[1] / 1E7D + 0.0001, false, 10);
 
         try {
-            mockServer.server().takeRequest(5, TimeUnit.SECONDS);
-            mockServer.server().takeRequest(5, TimeUnit.SECONDS);
+            mockServer.server().takeRequest(10, TimeUnit.SECONDS);
+            mockServer.server().takeRequest(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             fail(e.getMessage());
         }
         TestUtils.sleep(2000);
         assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
+    }
+
+    /**
+     * Turn on pan and zoom download and see if it pauses when it gets an 429 message
+     */
+    @Test
+    public void panAndZoomDownload2() {
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_data_clear), true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.unsaved_data_proceed), true, false);
+        assertTrue(App.getDelegator().getCurrentStorage().isEmpty());
+        assertTrue(App.getDelegator().getApiStorage().isEmpty());
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        mockServer.enqueue("429");
+
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_enable_pan_and_zoom_auto_download), true, false);
+
+        TestUtils.clickAwayTip(device, context);
+        ViewBox viewBox = main.getMap().getViewBox();
+        TestUtils.drag(device, main.getMap(), viewBox.getCenter()[0] / 1E7D, viewBox.getCenter()[1] / 1E7D, viewBox.getCenter()[0] / 1E7D + 0.001,
+                viewBox.getCenter()[1] / 1E7D + 0.0001, false, 10);
+
+        try {
+            mockServer.server().takeRequest(10, TimeUnit.SECONDS);
+            mockServer.server().takeRequest(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.download_limit_title), 10000));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true));
+        assertFalse(App.getPreferences(main).getAutoDownload());
     }
 
     /**

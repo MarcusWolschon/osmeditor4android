@@ -52,6 +52,7 @@ import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.gpx.Track;
+import de.blau.android.layer.data.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
@@ -891,8 +892,9 @@ public class TrackerService extends Service {
                             return;
                         }
                         int code = result.getCode();
-                        if (ErrorCodes.CORRUPTED_DATA == code || ErrorCodes.DATA_CONFLICT == code || ErrorCodes.OUT_OF_MEMORY == code) {
+                        if (MapOverlay.PAUSE_AUTO_DOWNLOAD.contains(code)) {
                             prefs.setAutoDownload(false);
+                            stopAutoDownload();
                             int messageRes = R.string.unknown_error_message;
                             switch (code) {
                             case ErrorCodes.CORRUPTED_DATA:
@@ -904,11 +906,14 @@ public class TrackerService extends Service {
                             case ErrorCodes.OUT_OF_MEMORY:
                                 messageRes = R.string.out_of_memory_message;
                                 break;
+                            case ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED:
+                                messageRes = R.string.download_limit_message;
+                                break;
                             default:
                                 // do nothing
                             }
-                            ScreenMessage.toastTopError(TrackerService.this, getString(messageRes));
-                            ScreenMessage.toastTopError(TrackerService.this, getString(R.string.autodownload_has_been_paused));
+                            ScreenMessage.toastTopError(TrackerService.this, getString(messageRes), true);
+                            ScreenMessage.toastTopError(TrackerService.this, getString(R.string.autodownload_has_been_paused), true);
                         }
                     }
                 });

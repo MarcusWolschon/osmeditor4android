@@ -7,6 +7,7 @@ import static de.blau.android.util.Winding.winding;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -102,6 +103,9 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
+
+    public static final List<Integer> PAUSE_AUTO_DOWNLOAD = Arrays.asList(ErrorCodes.CORRUPTED_DATA, ErrorCodes.DATA_CONFLICT, ErrorCodes.OUT_OF_MEMORY,
+            ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED);
 
     private static final int THREAD_POOL_SIZE = 2;
 
@@ -400,7 +404,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                             map.postInvalidate();
                         }, true, true);
                         final int code = result.getCode();
-                        if (ErrorCodes.CORRUPTED_DATA == code || ErrorCodes.DATA_CONFLICT == code || ErrorCodes.OUT_OF_MEMORY == code) {
+                        if (PAUSE_AUTO_DOWNLOAD.contains(code)) {
                             prefs.setPanAndZoomAutoDownload(false);
                             setPrefs(prefs);
                             if (context instanceof FragmentActivity) {
