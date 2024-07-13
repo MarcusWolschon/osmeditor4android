@@ -3042,6 +3042,7 @@ public class Logic {
                     result = new AsyncResult(ErrorCodes.BOUNDING_BOX_TOO_LARGE);
                 }
                 break;
+            case HttpStatusCodes.HTTP_TOO_MANY_REQUESTS:
             case HttpStatusCodes.HTTP_BANDWIDTH_LIMIT_EXCEEDED:
                 result = new AsyncResult(ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED);
                 break;
