@@ -32,6 +32,7 @@ public final class ApiResponse {
     private static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION         = Pattern
             .compile("(?i)(?:Precondition failed: )?The relation ([0-9]+) is used in relation ([0-9]+).");
     private static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET                       = Pattern.compile("(?i)The changeset ([0-9]+) was closed at.*");
+    private static final Pattern ERROR_MESSAGE_BOUNDING_BOX_TOO_LARGE                 = Pattern.compile("(?i)Changeset bounding box size limit exceeded.*");
 
     public abstract static class Conflict implements Serializable {
 
@@ -195,11 +196,11 @@ public final class ApiResponse {
         }
     }
 
+    private static final String CHANGESET = "CHANGESET";
+
     public static class ClosedChangesetConflict extends Conflict implements Serializable {
 
         private static final long serialVersionUID = 1L;
-
-        private static final String CHANGESET = "CHANGESET";
 
         /**
          * Closed changeset on upload conflict
@@ -208,6 +209,18 @@ public final class ApiResponse {
          */
         public ClosedChangesetConflict(long id) {
             super(CHANGESET, id);
+        }
+    }
+
+    public static class BoundingBoxTooLargeError extends Conflict implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Bounding box too large error
+         */
+        public BoundingBoxTooLargeError() {
+            super(CHANGESET, -1);
         }
     }
 
@@ -266,6 +279,13 @@ public final class ApiResponse {
             m = ERROR_MESSAGE_PRECONDITION_RELATION_RELATION.matcher(message);
             if (m.matches()) {
                 return new StillUsedConflict(Relation.NAME, Long.parseLong(m.group(1)), Relation.NAME, parseIdList(m.group(2)));
+            }
+            break;
+        case HttpURLConnection.HTTP_ENTITY_TOO_LARGE:
+            m = ERROR_MESSAGE_BOUNDING_BOX_TOO_LARGE.matcher(message);
+            if (m.matches()) {
+                // BoundingBox is too large
+                return new BoundingBoxTooLargeError();
             }
             break;
         default:

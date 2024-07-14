@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -25,13 +27,12 @@ import de.blau.android.util.Util;
  */
 public class ErrorAlert extends ImmersiveDialogFragment {
 
-    private static final String TITLE = "title";
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ErrorAlert.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ErrorAlert.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String MESSAGE = "message";
-
+    private static final String TITLE            = "title";
+    private static final String MESSAGE          = "message";
     private static final String ORIGINAL_MESSAGE = "original_message";
-
-    private static final String DEBUG_TAG = ErrorAlert.class.getSimpleName().substring(0, Math.min(23, ErrorAlert.class.getSimpleName().length()));
 
     private int    titleId;
     private int    messageId;
@@ -153,6 +154,8 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return "upload_limit_exceeded";
         case ErrorCodes.DUPLICATE_TAG_KEY:
             return "alert_duplicate_tag_key";
+        case ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE:
+            return "alert_bounding_box_too_large";
         default:
             // nothing
         }
@@ -219,6 +222,8 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return createNewInstance(R.string.upload_limit_title, R.string.upload_limit_message, msg);
         case ErrorCodes.DUPLICATE_TAG_KEY:
             return createNewInstance(R.string.duplicate_tag_key_title, R.string.duplicate_tag_key_message, msg);
+        case ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE:
+            return createNewInstance(R.string.upload_bounding_box_too_large_title, R.string.upload_bounding_box_too_large_message, null);
         default:
             // ignore
         }
