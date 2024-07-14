@@ -48,6 +48,8 @@ public class ApiResponseTest {
     private static final String ERROR_MESSAGE_PRECONDITION_RELATION_RELATION = "Precondition failed: The relation 12345 is used in relation 6789.";
 
     private static final String ERROR_MESSAGE_CLOSED_CHANGESET = "The changeset 123456 was closed at 2022-01-12T06:06:08.";
+    
+    private static final String ERROR_MESSAGE_BOUNDING_BOX_TOO_LARGE = "Changeset bounding box size limit exceeded.";
 
     /**
      */
@@ -251,5 +253,13 @@ public class ApiResponseTest {
         ApiResponse.Conflict conflict = ApiResponse.parseConflictResponse(HttpURLConnection.HTTP_CONFLICT, ERROR_MESSAGE_CLOSED_CHANGESET);
         assertTrue(conflict instanceof ApiResponse.ClosedChangesetConflict);
         assertEquals(123456L, conflict.getElementId());
+    }
+    
+    /**
+     */
+    @Test
+    public void boundingBoxTooLarge() {
+        ApiResponse.Conflict conflict = ApiResponse.parseConflictResponse(HttpURLConnection.HTTP_ENTITY_TOO_LARGE, ERROR_MESSAGE_BOUNDING_BOX_TOO_LARGE);
+        assertTrue(conflict instanceof ApiResponse.BoundingBoxTooLargeError);
     }
 }

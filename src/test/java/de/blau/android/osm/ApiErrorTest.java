@@ -1,20 +1,12 @@
 package de.blau.android.osm;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.robolectric.Shadows.shadowOf;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
 
 import org.junit.After;
@@ -39,15 +31,11 @@ import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.ShadowWorkManager;
 import de.blau.android.SignalUtils;
-import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.Util;
-import de.blau.android.validation.Validator;
 import okhttp3.HttpUrl;
-import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(shadows = { ShadowWorkManager.class })

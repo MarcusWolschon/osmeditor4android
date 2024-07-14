@@ -4308,6 +4308,7 @@ public class Logic {
                         break;
                     case HttpURLConnection.HTTP_CONFLICT:
                     case HttpURLConnection.HTTP_PRECON_FAILED:
+                    case HttpURLConnection.HTTP_ENTITY_TOO_LARGE:
                         result.setError(ErrorCodes.UPLOAD_CONFLICT);
                         result.setMessage(e.getMessage());
                         break;
@@ -4376,6 +4377,12 @@ public class Logic {
                                 ScreenMessage.toastTopWarning(activity, R.string.upload_conflict_message_changeset_closed);
                                 this.execute(); // restart new changeset will be opened automatically
                                 return;
+                            } else if (conflict instanceof ApiResponse.BoundingBoxTooLargeError) {
+                                if (!closeOpenChangeset) { 
+                                    // we've potentially already uploaded something, so don't reuse this changeset
+                                    server.resetChangeset();
+                                }
+                                ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE, result.getMessage());
                             } else {
                                 UploadConflict.showDialog(activity, conflict);
                             }

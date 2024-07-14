@@ -75,7 +75,8 @@
     <string name="invalid_bounding_box_title">Invalid bounding box</string>
     <string name="invalid_bounding_box_message">The selected area does not conform to API restrictions, please choose a different one.</string>
     <string name="bounding_box_too_large_title">Download area too large</string>
-    <string name="bounding_box_too_large_message">The area you are trying to download is too large or contains too much data.\n\nPlease zoom in farther and try again.</string>
+    <string name="bounding_box_too_large_message">The area you are trying to download is too large or contains too much data.
+        &lt;br&gt;&lt;br&gt;Please zoom in farther and try again.</string>
     <string name="api_offline_title">API offline</string>
     <string name="api_offline_message">The API is currently offline, no data can be retrieved or written.</string>
     <string name="out_of_memory_title">Out of memory</string>
@@ -96,6 +97,10 @@
     <string name="duplicate_tag_key_title">Duplicate keys</string>
     <string name="duplicate_tag_key_message">You have added the following key more than once, this needs to be resolved before you can proceed:</string>
     <string name="autodownload_has_been_paused">Auto download has been paused.</string>
+    <string name="upload_bounding_box_too_large_title">Area too large for upload</string>
+    <string name="upload_bounding_box_too_large_message">The area covering the changes you are trying to upload is too large.
+        &lt;br&gt;&lt;br&gt;Please split your changes in to multiple smaller changesets. 
+        You can do this by selecting a subset of changed elements and uploading them separately.</string>
     <!--  -->
     <string name="select_file_picker_title">Select file picker</string>
     <!-- Newbie dialog -->

@@ -30,15 +30,16 @@ public final class ErrorCodes {
     public static final int DOWNLOAD_LIMIT_EXCEEDED = 17;
     public static final int UPLOAD_LIMIT_EXCEEDED   = 18;
 
-    public static final int UPLOAD_CONFLICT          = 50;
-    public static final int INVALID_LOGIN            = 51;
-    public static final int FORBIDDEN                = 52;
-    public static final int NOT_FOUND                = 53;
-    public static final int UNKNOWN_ERROR            = 54;
-    public static final int NO_DATA                  = 55;
-    public static final int REQUIRED_FEATURE_MISSING = 56;
-    public static final int APPLYING_OSC_FAILED      = 57;
-    public static final int MISSING_API_KEY          = 58;
-    public static final int DUPLICATE_TAG_KEY        = 59;
-    public static final int ALREADY_DELETED          = 60;
+    public static final int UPLOAD_CONFLICT               = 50;
+    public static final int INVALID_LOGIN                 = 51;
+    public static final int FORBIDDEN                     = 52;
+    public static final int NOT_FOUND                     = 53;
+    public static final int UNKNOWN_ERROR                 = 54;
+    public static final int NO_DATA                       = 55;
+    public static final int REQUIRED_FEATURE_MISSING      = 56;
+    public static final int APPLYING_OSC_FAILED           = 57;
+    public static final int MISSING_API_KEY               = 58;
+    public static final int DUPLICATE_TAG_KEY             = 59;
+    public static final int ALREADY_DELETED               = 60;
+    public static final int UPLOAD_BOUNDING_BOX_TOO_LARGE = 61;
 }
