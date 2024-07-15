@@ -32,7 +32,9 @@ public final class ApiResponse {
     private static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION         = Pattern
             .compile("(?i)(?:Precondition failed: )?The relation ([0-9]+) is used in relation ([0-9]+).");
     private static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET                       = Pattern.compile("(?i)The changeset ([0-9]+) was closed at.*");
-    private static final Pattern ERROR_MESSAGE_BOUNDING_BOX_TOO_LARGE                 = Pattern.compile("(?i)Changeset bounding box size limit exceeded.*");
+    private static final Pattern ERROR_MESSAGE_CHANGESET_LOCKED                       = Pattern
+            .compile("(?i)Changeset ([0-9]+) is currently locked by another process.");
+    private static final Pattern ERROR_MESSAGE_BOUNDING_BOX_TOO_LARGE                 = Pattern.compile("(?i)Changeset bounding box size limit exceeded.");
 
     public abstract static class Conflict implements Serializable {
 
@@ -212,6 +214,22 @@ public final class ApiResponse {
         }
     }
 
+    public static class ChangesetLocked extends Conflict implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Changeset locked
+         * 
+         * This could only occur with parallel uploads/
+         * 
+         * @param id the changeset id
+         */
+        public ChangesetLocked(long id) {
+            super(CHANGESET, id);
+        }
+    }
+
     public static class BoundingBoxTooLargeError extends Conflict implements Serializable {
 
         private static final long serialVersionUID = 1L;
@@ -252,6 +270,11 @@ public final class ApiResponse {
             if (m.matches()) {
                 // note this should never happen, since we check if the changeset is still open before upload
                 return new ClosedChangesetConflict(Long.parseLong(m.group(1)));
+            }
+            m = ERROR_MESSAGE_CHANGESET_LOCKED.matcher(message);
+            if (m.matches()) {
+                // note this should never happen, we wait for uploads to complete
+                return new ChangesetLocked(Long.parseLong(m.group(1)));
             }
             break;
         case HttpURLConnection.HTTP_GONE:

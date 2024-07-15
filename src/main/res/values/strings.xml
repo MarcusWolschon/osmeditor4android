@@ -19,7 +19,7 @@
     <string name="transfer_download_current_download">Discard &amp; download</string>
     <string name="transfer_download_current_back">Back (don\'t do anything)</string>
     <string name="upload_problem_title">Could not upload</string>
-    <string name="upload_problem_message">Some or all the data was not uploaded. Try again later.</string>
+    <string name="upload_problem_message">Some of or all the data was not uploaded. Try again later.</string>
     <string name="bad_request_message">The API responded with an error, please save your data and report the issue:\n\n</string>
     <!-- Upload conflict -->
     <string name="upload_conflict_title">Upload conflict</string>

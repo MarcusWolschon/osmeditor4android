@@ -4378,11 +4378,13 @@ public class Logic {
                                 this.execute(); // restart new changeset will be opened automatically
                                 return;
                             } else if (conflict instanceof ApiResponse.BoundingBoxTooLargeError) {
-                                if (!closeOpenChangeset) { 
+                                if (!closeOpenChangeset) {
                                     // we've potentially already uploaded something, so don't reuse this changeset
                                     server.resetChangeset();
                                 }
                                 ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE, result.getMessage());
+                            } else if (conflict instanceof ApiResponse.ChangesetLocked) {
+                                ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_PROBLEM, result.getMessage());
                             } else {
                                 UploadConflict.showDialog(activity, conflict);
                             }
