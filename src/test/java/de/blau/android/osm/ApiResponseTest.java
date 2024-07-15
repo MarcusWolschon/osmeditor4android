@@ -50,6 +50,8 @@ public class ApiResponseTest {
     private static final String ERROR_MESSAGE_CLOSED_CHANGESET = "The changeset 123456 was closed at 2022-01-12T06:06:08.";
     
     private static final String ERROR_MESSAGE_BOUNDING_BOX_TOO_LARGE = "Changeset bounding box size limit exceeded.";
+    
+    private static final String ERROR_MESSAGE_CHANGESET_LOCKED = "Changeset 123456 is currently locked by another process.";
 
     /**
      */
@@ -252,6 +254,15 @@ public class ApiResponseTest {
     public void closedChangeset() {
         ApiResponse.Conflict conflict = ApiResponse.parseConflictResponse(HttpURLConnection.HTTP_CONFLICT, ERROR_MESSAGE_CLOSED_CHANGESET);
         assertTrue(conflict instanceof ApiResponse.ClosedChangesetConflict);
+        assertEquals(123456L, conflict.getElementId());
+    }
+    
+    /**
+     */
+    @Test
+    public void changesetLocked() {
+        ApiResponse.Conflict conflict = ApiResponse.parseConflictResponse(HttpURLConnection.HTTP_CONFLICT, ERROR_MESSAGE_CHANGESET_LOCKED);
+        assertTrue(conflict instanceof ApiResponse.ChangesetLocked);
         assertEquals(123456L, conflict.getElementId());
     }
     
