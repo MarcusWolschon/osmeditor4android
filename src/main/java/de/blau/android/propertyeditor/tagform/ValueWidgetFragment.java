@@ -71,7 +71,7 @@ public abstract class ValueWidgetFragment extends DialogFragment {
         args.putString(HINT_KEY, hint);
         args.putString(KEY_KEY, key);
         args.putString(VALUE_KEY, value);
-        args.putStringArrayList(VALUES_KEY, new ArrayList<>(values));
+        args.putStringArrayList(VALUES_KEY, values != null ? new ArrayList<>(values) : new ArrayList<>());
         args.putSerializable(PRESET_KEY, presetPath);
         args.putSerializable(ALL_TAGS_KEY, new HashMap<>(allTags));
         f.setArguments(args);
@@ -91,7 +91,7 @@ public abstract class ValueWidgetFragment extends DialogFragment {
         PresetElementPath presetPath = Util.getSerializeable(getArguments(), PRESET_KEY, PresetElementPath.class);
         Map<String, String> allTags = Util.getSerializeable(getArguments(), ALL_TAGS_KEY, HashMap.class);
 
-        PresetItem preset = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetPath);
+        PresetItem preset = presetPath != null ? (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetPath) : null;
         final FragmentActivity activity = getActivity();
         Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(hint);
