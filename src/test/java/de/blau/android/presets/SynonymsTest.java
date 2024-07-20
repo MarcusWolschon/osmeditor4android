@@ -25,7 +25,7 @@ import de.blau.android.util.SearchIndexUtils;
  *
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class SynonymsTest {
     

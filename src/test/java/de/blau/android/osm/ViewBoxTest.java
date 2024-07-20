@@ -20,7 +20,7 @@ import de.blau.android.Map;
 import de.blau.android.ShadowWorkManager;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class ViewBoxTest {
 

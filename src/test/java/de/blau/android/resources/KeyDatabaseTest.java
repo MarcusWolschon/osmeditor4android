@@ -11,6 +11,7 @@ import java.io.InputStream;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -20,6 +21,7 @@ import de.blau.android.prefs.API.Auth;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 @LargeTest
 public class KeyDatabaseTest {
 

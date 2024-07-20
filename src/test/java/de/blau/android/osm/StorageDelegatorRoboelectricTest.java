@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import android.view.ViewGroup.LayoutParams;
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import de.blau.android.App;
 import de.blau.android.Map;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 @LargeTest
 public class StorageDelegatorRoboelectricTest {
 

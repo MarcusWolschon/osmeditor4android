@@ -38,7 +38,7 @@ import de.blau.android.prefs.Preferences;
 import okhttp3.HttpUrl;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class ApiErrorTest {
 

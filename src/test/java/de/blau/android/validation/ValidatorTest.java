@@ -53,7 +53,7 @@ import de.blau.android.presets.Preset;
  *
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class ValidatorTest {
 

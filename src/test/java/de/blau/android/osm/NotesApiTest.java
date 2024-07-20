@@ -46,7 +46,7 @@ import de.blau.android.tasks.TransferTasks;
 import okhttp3.HttpUrl;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class NotesApiTest {
 

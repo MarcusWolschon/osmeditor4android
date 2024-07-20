@@ -17,7 +17,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 public class SelectionTest {
     Context  context;
 

@@ -276,7 +276,7 @@ android {
             dimension "api"
             multiDexEnabled true
             minSdkVersion 21
-            targetSdkVersion 33
+            targetSdkVersion 34
             applicationIdSuffix ""
             versionNameSuffix ""
             resValue "string", "content_provider", "de.blau.android.provider"

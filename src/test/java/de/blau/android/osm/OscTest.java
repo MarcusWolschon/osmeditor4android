@@ -13,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 import org.xml.sax.SAXException;
 
 import androidx.test.core.app.ApplicationProvider;
@@ -21,6 +22,7 @@ import de.blau.android.OscTestCommon;
 import de.blau.android.util.SavingHelper;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 @LargeTest
 public class OscTest {
 

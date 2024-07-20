@@ -38,7 +38,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.util.Util;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class WrapperTest {
 
