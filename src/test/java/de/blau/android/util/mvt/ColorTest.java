@@ -5,12 +5,14 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import androidx.test.filters.LargeTest;
 import de.blau.android.util.IntegerUtil;
 import de.blau.android.util.mvt.style.Color;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 @LargeTest
 public class ColorTest {
 

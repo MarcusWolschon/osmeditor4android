@@ -30,6 +30,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowContentResolver;
 import org.xml.sax.SAXException;
 
@@ -57,6 +58,7 @@ import de.blau.android.util.SearchIndexUtils;
  *
  */
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 @LargeTest
 public class PresetTest {
 

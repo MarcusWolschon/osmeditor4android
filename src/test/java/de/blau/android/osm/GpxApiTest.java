@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
@@ -27,6 +28,7 @@ import de.blau.android.prefs.Preferences;
 import okhttp3.HttpUrl;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 @LargeTest
 public class GpxApiTest {
 

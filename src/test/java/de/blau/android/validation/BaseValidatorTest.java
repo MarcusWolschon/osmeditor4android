@@ -35,7 +35,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class BaseValidatorTest {
 

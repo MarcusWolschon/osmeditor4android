@@ -19,7 +19,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Util;
 
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @RunWith(RobolectricTestRunner.class)
 @LargeTest
 public class LogicTest {

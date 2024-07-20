@@ -18,7 +18,7 @@ import de.blau.android.bookmarks.Bookmark;
 import de.blau.android.osm.ViewBox;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 public class BookmarkStorageTest {
     Context         context;
     Activity        activity;

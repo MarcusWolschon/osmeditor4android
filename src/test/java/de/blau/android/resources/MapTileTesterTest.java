@@ -35,7 +35,7 @@ import okhttp3.mockwebserver.MockWebServer;
  *
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class, ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class })
+@Config(shadows = { ShadowWorkManager.class, ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class }, sdk=33)
 @LargeTest
 public class MapTileTesterTest {
 

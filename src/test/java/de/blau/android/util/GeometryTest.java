@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import de.blau.android.App;
 import de.blau.android.osm.Node;
@@ -17,6 +18,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 public class GeometryTest {
 
     /**

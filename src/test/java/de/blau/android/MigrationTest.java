@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
@@ -17,6 +18,7 @@ import de.blau.android.contract.Paths;
 import de.blau.android.util.FileUtil;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 public class MigrationTest {
     private static final String TEST_STYLE = "test-style.xml";
     private static final String TEST_JPG   = "test.jpg";

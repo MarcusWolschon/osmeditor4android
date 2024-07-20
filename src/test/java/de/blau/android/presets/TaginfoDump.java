@@ -7,6 +7,7 @@ import java.io.File;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import android.content.Context;
 import android.net.Uri;
@@ -23,6 +24,7 @@ import de.blau.android.prefs.PresetLoader;
  *
  */
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 @LargeTest
 public class TaginfoDump { // NOSONAR
 

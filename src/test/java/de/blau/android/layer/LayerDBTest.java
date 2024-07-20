@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.test.filters.LargeTest;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 @LargeTest
 public class LayerDBTest {
 

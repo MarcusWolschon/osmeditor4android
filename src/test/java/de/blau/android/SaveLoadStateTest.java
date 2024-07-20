@@ -16,7 +16,7 @@ import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class SaveLoadStateTest {
     Main    main    = null;

@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import androidx.test.filters.LargeTest;
 import de.blau.android.UnitTestUtils;
@@ -18,6 +19,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 @LargeTest
 public class LayerComparatorTest {
 

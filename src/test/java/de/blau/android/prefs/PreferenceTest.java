@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SmallTest;
@@ -15,6 +16,7 @@ import de.blau.android.R;
  *
  */
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk=33)
 @SmallTest
 public class PreferenceTest {
 

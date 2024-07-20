@@ -25,7 +25,7 @@ import de.blau.android.SignalHandler;
 import de.blau.android.exception.OsmIllegalOperationException;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class })
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class BasicStuffTest {
 

@@ -31,7 +31,7 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.views.util.MapTileProviderCallback;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class })
+@Config(shadows = { ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class }, sdk=33)
 @LargeTest
 public class MapTileFilesystemProviderLocalTest {
 
