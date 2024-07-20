@@ -1,5 +1,17 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.1.0-4:
+
+- Fix reduce memory usage for icons generated from SVG
+- Fix protect against NPEs caused by missing values and preset
+- Fix catch OOM when (re-)creating the current presets object
+- Add parse 409 with changeset locked message
+- Add handle 413 code and bounding box too large error on upload
+- Add explicit handling of 429 code on download and pause auto download
+- Add bump API target to 34
+- Update imagery from ELI
+- Update translations
+
 20.1.0-3:
 
 - Fix stop notes upload from looping
