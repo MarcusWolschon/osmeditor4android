@@ -45,8 +45,7 @@
   <string name="missing_referenced_elements">参照された要素が欠落</string>
   <string name="still_in_use_by_elements">要素が使用するままにする</string>
   <string name="delete_locally">端末内で削除</string>
-  <string name="undelete_on_server">サーバー上で\n
-復元</string>
+  <string name="undelete_on_server">サーバー上で\n復元</string>
   <!---->
   <string name="no_login_data_title">認証できませんでした</string>
   <string name="no_login_data_message">OAuthを使用中で、これがバグでありそうならば、問題の報告を送信してください。（非推奨である）パスワードでログインを使用中ならば、現在入力されたそれらを確認してください。</string>
@@ -160,6 +159,7 @@
   <string name="upload_comment_label">コメント:</string>
   <string name="upload_source_label">情報源:</string>
   <string name="upload_close_changeset_label">変更セットを閉じる：</string>
+  <string name="upload_request_review_label">レビューを依頼:</string>
   <string name="upload_validation_error_empty_comment">コメントは空にできません</string>
   <string name="upload_validation_error_empty_source">情報源は空にできません</string>
   <!--Review changes dialog-->
@@ -253,6 +253,7 @@
   <!--Tile layer info dialog-->
   <!--GPX info dialog-->
   <string name="track_points">経路点</string>
+  <string name="way_points">ウェイの点</string>
   <!--Image information dialog-->
   <string name="image_information_title">画像情報</string>
   <string name="created_by">作成者</string>
@@ -405,7 +406,7 @@
   <string name="checkpoints">チェックポイント</string>
   <string name="undo_redo_title">元に戻す - やり直し</string>
   <string name="undo_redo_one">選択されたチェックポイントだけ (危険)</string>
-  <string name="undo_all">以後のチェックポイントを全て取り消し (安全)</string>
+  <string name="undo_all">以後のチェックポイントを全て元に戻す (安全)</string>
   <string name="redo_all">以前のチェックポイントを全てやり直し (安全)</string>
   <string name="undo_latest">最後</string>
   <!--Undo location not in view dialog-->
@@ -711,7 +712,7 @@
   <string name="menu_transfer_review">変更点の確認…</string>
   <string name="menu_transfer_update">データを更新</string>
   <string name="menu_transfer_data_clear">データを消去</string>
-  <string name="menu_transfer_close_changeset">現在の変更セットをクローズ</string>
+  <string name="menu_transfer_close_changeset">現在の変更セットを閉じる</string>
   <string name="menu_transfer_file">ファイル…</string>
   <string name="menu_transfer_export">変更をOSCファイルに出力</string>
   <string name="menu_transfer_apply_osc_file">OSCファイルから変更を適用</string>
@@ -784,7 +785,8 @@
   <string name="menu_layers_add_photolayer">写真レイヤーを有効化</string>
   <string name="menu_layers_enable_mapillary_layer">Mapillaryレイヤーを有効化</string>
   <string name="menu_layers_enable_bookmarkslayer">ブックマークレイヤーを有効化</string>
-  <string name="menu_layers_configure">設定...</string>
+  <string name="menu_layers_configure">設定…</string>
+  <string name="menu_layers_background_align">空中写真…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">保存されたオフセットを画像に適用</string>
   <string name="menu_tools_background_contrast">比較</string>
@@ -800,17 +802,29 @@
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
-  <string name="menu_history">オブジェクト編集履歴</string>
+  <string name="start_end_way_description">ウェイの開始点か終了点に行く</string>
+  <string name="menu_history">履歴</string>
   <string name="menu_history_web">履歴(ウェブ)</string>
   <string name="menu_merge">結合</string>
   <string name="menu_add_node_at_intersection">交点にノードを追加</string>
   <string name="menu_reverse">反転</string>
   <string name="notreversable_description">このウェイは方向に依存する特性を持つタグが付けられているため、反転できません。それを反転すると、付けられたタグを破壊します。</string>
   <string name="reverse_anyway">とにかく反転する</string>
+  <string name="deleteway_description">ウェイを削除する寸前です。\n\n全ノードを残したままにするか、このウェイに属するタグなしノードを削除するか、選べます。</string>
+  <string name="deleteway_relation_description">1個以上のリレーションのメンバーであるウェイを削除する寸前です。ウェイを削除すると、リレーションが正しくない形式で描画されるかもしれません。</string>
+  <string name="deleteway_nodesnotdownloaded_description">ウェイにはダウンロードされた領域の外側のノードが含まれ、もしかすると一貫しない状態の生成なくして削除できません。\n\n再試行する前に、その周囲の領域をダウンロードしてください。</string>
+  <string name="deleteways_nodesnotdownloaded_description">選択したものにはダウンロードされた領域の外側のノードが伴い、もしかすると一貫しない状態の生成なくして削除できません。\n\n再試行する前に、そのウェイの周囲の領域の全てをダウンロードしてください。</string>
   <string name="deleteway_wayonly">ウェイだけを削除</string>
   <string name="deleteway_wayandnodes">ウェイを削除</string>
+  <string name="deletenode_relation_description">1個以上のリレーションのメンバーであるノードを削除する寸前です。ノードを削除すると、リレーションが正しくない形式で描画されるかもしれません。</string>
   <string name="deletenode">ノードを削除</string>
   <!--EasyEdit context menus-->
+  <string name="split_context_title">…を分割</string>
+  <string name="split_all_ways">全てのウェイ…</string>
+  <string name="merge_context_title">…と結合</string>
+  <string name="merge_with_all_ways">付近の全ウェイ…</string>
+  <string name="merge_with_all_nodes">付近の全ノード…</string>
+  <string name="append_context_title">…へ付加</string>
   <string name="delete_note_description">メモの削除に失敗しました！</string>
   <string name="delete_note">メモを削除</string>
   <!--EasyEdit action mode titles-->
@@ -820,6 +834,8 @@
   <string name="actionmode_createpath">パスを作成</string>
   <string name="actionmode_multiselect">複数選択</string>
   <string name="actionmode_newnoteselect">新しいメモが選択されました</string>
+  <string name="actionmode_split_way">ウェイを分割</string>
+  <string name="actionmode_split_closed_way">閉じたウェイを分割</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_restriction">進行方向制限を追加</string>
   <string name="actionmode_restriction_restart_from">「from」セグメントを再選択</string>
@@ -829,6 +845,7 @@
   <string name="actionmode_restriction_restart_to">「to」セグメントを再選択</string>
   <string name="actionmode_rotate">回転</string>
   <!--Simple Action Mode-->
+  <string name="menu_add_node">ノードを追加</string>
   <string name="simple_add_node">画面上の位置をタップしてください</string>
   <string name="menu_add_node_tags">タグ付きノードを追加</string>
   <string name="menu_add_way">ウェイを追加</string>
@@ -837,7 +854,9 @@
   <string name="add_way_node_instruction">次のノードの位置をタップしてください</string>
   <string name="menu_add_map_note">地図メモを追加</string>
   <string name="simple_add_note">画面上の位置をタップしてください</string>
+  <string name="menu_paste_object">オブジェクトを貼り付け</string>
   <string name="simple_paste">画面上の位置をタップしてください</string>
+  <string name="menu_paste_multiple">複数回貼り付け</string>
   <string name="simple_paste_multiple">画面上の位置をタップしてください</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">背景地図</string>
@@ -888,9 +907,19 @@
   <string name="config_selectCameraApp_title">カメラアプリ</string>
   <string name="config_selectCameraApp_summary">使用するカメラアプリを選択してください。</string>
   <string name="config_system_camera">システムのデフォルト</string>
+  <string name="config_useInternalPhotoViewer_title">組み込みの写真表示器を使用</string>
+  <string name="config_useInternalPhotoViewer_summary">組み込みの写真表示器を使用します。チェックがついていない場合は、外部の表示器が使用されます。</string>
+  <string name="config_indexMediaStore_summary">写真を利用するために、追加でMediaStoreを使用します</string>
+  <string name="config_indexMediaStore_title">MediaStoreを使用</string>
   <string name="config_alwaysDrawBoundingBoxes_title">ダウンロードされていないエリアを常に暗くする</string>
+  <string name="config_fullscreenMode_title">全画面モード</string>
   <string name="config_fullscreenMode_summary">「ソフト」キーでの端末装置上のふるまい。</string>
+  <string name="config_map_orientation_title">地図画面の向き</string>
+  <string name="config_map_orientation_summary">端末の向きが変わるときの地図画面のふるまい。</string>
   <string name="config_showTolerance_title">反応域を表示</string>
+  <string name="config_showTolerance_summary">選択可能な要素の領域を表示します。</string>
+  <string name="config_use_back_for_undo_title">← キーを元に戻すために使用</string>
+  <string name="config_use_back_for_undo_summary">主編集画面で ← キーを元に戻すために使用します。</string>
   <string name="config_theme_title">テーマ</string>
   <string name="config_theme_summary">アプリの様式を選択します</string>
   <string name="config_splitActionBarEnabled_title">分割アクションバーを利用可にする</string>
@@ -919,6 +948,9 @@
   <string name="config_forceContextMenu_title">常にコンテキストメニューを利用する</string>
   <string name="config_forceContextMenu_summary">選択されたものがあいまいな場合にコンテキストメニューを常に表示する</string>
   <string name="config_address_tags">住所タグ</string>
+  <string name="config_address_tags_summary">タグは住所の予測に使用されます。</string>
+  <string name="config_neighbourDistance_title">近隣住所の間の距離</string>
+  <string name="config_neighbourDistance_summary">近隣になり得るとみなす２つの住所の最大距離です</string>
   <string name="config_neighbourDistance_current">%1$d メートル</string>
   <string name="config_enableNameSuggestions_title">名称の提案を有効化</string>
   <string name="config_enableNameSuggestions_summary">名称タグに提案を有効化します</string>
@@ -933,8 +965,12 @@
   <string name="config_maxAlertDistance_title">通知用の最大距離</string>
   <string name="config_maxAlertDistance_summary">問題やメモにより通知を発生させるための現在位置からの最大距離</string>
   <string name="config_maxAlertDistance_current">%1$d メートル</string>
-  <string name="config_closeChangesetOnSave_title">チェンジセットを閉じる</string>
+  <string name="config_closeChangesetOnSave_title">変更セットを閉じる</string>
+  <string name="config_closeChangesetOnSave_summary">初期設定では、保存すると変更セットを閉じます。</string>
   <string name="config_enableAutoPresets_title">自動プリセット生成を有効化</string>
+  <string name="config_enableAutoPresets_summary">taginfoからプリセットの生成を有効化します。</string>
+  <string name="config_autoformatPhoneNumbers_title">電話番号を自動的に形式化</string>
+  <string name="config_autoformatPhoneNumbers_summary">電話番号の形式を自動的に整える機能を有効化します。</string>
   <string name="config_maxOffsetDistance_title">保存された画像オフセット用の最大距離</string>
   <string name="config_maxOffsetDistance_current">%1$d メートル</string>
   <string name="config_maxCircleSegmentcurrent">%1$d メートル</string>
@@ -942,7 +978,8 @@
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">ダウンロード半径</string>
   <string name="config_downloadRadius_current">%1$d メートル</string>
-  <string name="config_maxDownloadSpeed_title">自動ダウンロード速度上限</string>
+  <string name="config_maxDownloadSpeed_title">最大自動ダウンロード速度</string>
+  <string name="config_maxDownloadSpeed_summary">自動ダウンロードを一時停止させるための上限速度(km/h、キロメートル毎時)</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_autoPruneNodeLimit_title">自動節減の上限</string>
   <string name="config_autoPruneNodeLimit_summary">メモリ内でこのノード数に到達したとき、節減が発動します。</string>
@@ -989,19 +1026,39 @@
   <string name="config_osmoseServer_title">OSMOSE サーバー</string>
   <string name="config_osmoseServer_summary">OSMOSEサーバー用のURL。</string>
   <string name="config_geocoderbutton_title">ジオコーダー設定</string>
+  <string name="config_taginfoServer_title">Taginfoサーバー</string>
+  <string name="config_taginfoServer_summary">Taginfoサーバーはブリセットの生成に使用します</string>
   <string name="config_oamServer_title">OpenAerialMapサーバー</string>
   <string name="config_oamServer_summary">OpenAerialMapサーバーは画像の提供に使用されます</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">レイヤーのダウンロードと保存領域</string>
   <string name="config_maxTileDownloadThreads_title">ダウンロードスレッド数の最大数</string>
+  <string name="config_maxTileDownloadThreads_summary">タイルのダウンロードに使用するスレッドの最大数。</string>
   <string name="config_downLoadThreads_current">%1$d スレッド</string>
-  <string name="config_tileCacheSize_title">タイルキャッシュサイズ</string>
+  <string name="config_tileCacheSize_title">タイルキャッシュの大きさ</string>
+  <string name="config_tileCacheSize_summary">タイルをオフラインで利用できるように留めておくために使用される、合計ストレージ量。MB単位。</string>
+  <string name="config_preferRemovableStorage_title">取り外し可能なストレージを優先</string>
+  <string name="config_preferRemovableStorage_summary">タイルのキャッシュに取り外し可能なストレージを優先します。</string>
   <string name="config_tileCache_current">%1$d MB</string>
+  <string name="config_mapillaryCacheSize_title">Mapillaryキャッシュの大きさ</string>
+  <string name="config_mapillaryCacheSize_summary">Mapillaryの画像をオフラインで利用できるように留めておくために使用される、合計ストレージ量。MB単位。</string>
   <!--Auto-save-->
+  <string name="config_category_autosave">自動保存設定</string>
+  <string name="config_category_autosave_summary">編集の自動保存のための設定。</string>
+  <string name="config_autosaveSaveState_title">状態を保存</string>
+  <string name="config_autosaveSaveState_summary">変更しないデータを含めた完全な状態を保存します。</string>
   <string name="config_autosaveSaveChanges_title">編集結果を保存</string>
+  <string name="config_autosaveSaveChanges_summary">OSCファイルとして変更を保存。</string>
+  <string name="config_autosaveInterval_title">最小間隔</string>
+  <string name="config_autosaveInterval_summary">保存する間の最小間隔。分単位。</string>
   <string name="config_autosaveInterval_current">%1$d 分</string>
-  <string name="config_autosaveChanges_current">%1$d</string>
-  <string name="config_autosaveMaxFiles_current">%1$d</string>
+  <string name="config_autosaveChanges_title">変更の最小数</string>
+  <string name="config_autosaveChanges_summary">保存するために必要な変更の最小数。</string>
+  <string name="config_autosaveChanges_current">%1$d 個</string>
+  <string name="config_autosaveMaxFiles_title">保持するOSCファイルの最大数</string>
+  <string name="config_autosaveMaxFiles_current">%1$d 個</string>
+  <string name="config_gpxAutosaveInterval_title">GPXを保存する最小間隔</string>
+  <string name="config_gpxAutosaveInterval_summary">GPX記録を保存する間の最小間隔。</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">その他</string>
   <string name="pref_enable_acra">アプリのクラッシュを報告</string>
@@ -1019,6 +1076,7 @@
   <string name="listedit_auth">認証</string>
   <string name="config_username_title">OSM利用者名</string>
   <string name="config_password_title">OSMパスワード</string>
+  <string name="config_password_summary">wikiのパスワードと間違えないでください。注意: プレーンテキストで保管・送信されます！</string>
   <string name="manage_presets">プリセットの管理</string>
   <string name="manage_geocoders">ジオコーダーの管理</string>
   <!--preset downloader messages-->
@@ -1057,9 +1115,9 @@
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">プリセット</string>
   <string name="api">API</string>
-  <string name="undo">やり直し</string>
+  <string name="undo">元に戻す</string>
   <string name="redo">やり直し</string>
-  <string name="undo_nothing">やり直すことがありません</string>
+  <string name="undo_nothing">元に戻すことがありません</string>
   <string name="tracking_active_title">Vespucci バックグラウンドサービス</string>
   <string name="tracking_active_title_short">バックグラウンドサービスが有効</string>
   <string name="tracking_active_text">GPS経路を記録または自動ダウンロード中</string>
@@ -1092,6 +1150,7 @@
   <string name="undo_action_paste">貼り付け</string>
   <string name="undo_action_circulize">円状に配置する</string>
   <string name="undo_action_fix_conflict">競合解決</string>
+  <string name="undo_action_apply_osc">OSCファイルを適応</string>
   <string name="undo_action_remove_node_from_way">ウェイからノードを削除</string>
   <!--ACRA-->
   <string name="crash_dialog_comment_prompt">更に参考になりそうな情報を追加し、返答が必要な場合は(任意で)OSM利用者名を追加してください。</string>
@@ -1120,8 +1179,10 @@
   <string name="position">位置</string>
   <string name="type">タイプ</string>
   <string name="object">オブジェクト</string>
+  <string name="deleterelation_relation_description">1個以上のリレーションのメンバーであるリレーションを削除する寸前です。各リレーションからの各リレーションを削除すると、リレーションが正しくない形式で描画されるかもしれません。</string>
   <string name="deleterelation">リレーションを削除</string>
   <string name="delete_from_relation_description">この要素をリレーションから削除しようとしています。</string>
+  <string name="delete_elements_from_relation_description">1個以上のリレーションから要素を削除しようとしています。</string>
   <string name="unset_relation_type">リレーション種別を解除</string>
   <!--Things-->
   <string name="bridge">橋</string>
@@ -1170,4 +1231,5 @@
   <string name="way_id">ウェイ %1$d</string>
   <string name="relation_id">リレーション %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="empty_tile">空のタイル</string>
 </resources>

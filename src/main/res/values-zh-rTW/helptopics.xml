@@ -29,6 +29,7 @@
     <string name="help_newnoteselection">選擇新的備註</string>
     <string name="help_voice_commands">語音指令</string>
     <string name="help_add_route_segment">新增關聯片段</string>
+    <string name="help_upgrade">20.1 發佈通知</string>
     <string name="help_upgrade_200">20.0 發佈通知</string>
     <string name="help_upgrade_193">19.3 發佈通知</string>
     <string name="help_upgrade_192">19.2 發佈通知</string>

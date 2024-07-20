@@ -31,6 +31,11 @@
         <item>Уже исправлено</item>
         <item>Слишком трудно</item>
     </string-array>
+    <string-array name="todo_state">
+        <item>Открытый</item>
+        <item>Закрыто</item>
+        <item>Пропущено</item> 
+    </string-array>
     <string-array name="followGPSbutton_entries">
         <item>Слева</item>
         <item>Справа</item>
@@ -70,4 +75,16 @@
         <item>Неверный URL</item>
         <item>Некорректный аргумент</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>Без заглавных букв</item>
+        <item>Слово с заглавной буквы</item>
+        <item>Предложение с заглавной буквы</item>
+    </string-array>
+    <string name="theme_follow_entry">Системная</string>
+    <string name="theme_light_entry">Светлая</string>
+    <string name="theme_dark_entry">Тёмная</string>
+    <string name="authentication_basic_entry">Логин - Пароль</string>
+    <string name="authentication_oauth1a_entry">OAuth 1a</string>
+    <string name="authentication_oauth2_entry">OAuth 2</string>
+    </resources>

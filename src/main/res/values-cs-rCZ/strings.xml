@@ -586,7 +586,7 @@
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">QA výstrahy problémů s daty a úkoly</string>
   <!--Notifications-->
-  <string name="upload_checker_title">Připomenout nahrát vaši práci</string>
+  <string name="upload_checker_title">Nezapomeňte nahrát svou práci</string>
   <plurals name="upload_checker_message">
     <item quantity="one">Máte jednu nepublikovanou změnu.</item>
     <item quantity="few">Máte %1$d nepublikované změny.</item>

@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">Ajuda</string>
+    <string name="help_app_description">Visualizador de ajuda do Vespucci</string>
     <string name="help_title">Ajuda: %1$s</string>
+    <string name="help_introduction">Introdução</string>
+    <string name="help_main">Mapa principal</string>
+    <string name="help_simple_actions">Ações simples</string>
     <string name="help_addrelationmember">Relação selecionada</string>
     <string name="help_multiselect">Multi-Seleção</string>
+    <string name="help_longclick">Criando novos objetos</string>
     <string name="help_nodeselection">Nó selecionado</string>
     <string name="help_relationselection">Relação selecionada</string>
+    <string name='help_add_route_segmement'>Adicionar segmento de rota</string>
     <string name="help_wayselection">Via selecionada</string>
+    <string name="help_aligningbackgroundiamgery">Alinhar imagem de fundo</string>
+    <string name="help_propertyeditor">Editor de propriedades</string>
     <string name="help_preferences">Preferências</string>
     <string name="help_advanced_preferences">Preferências avançadas</string>
+    <string name="help_custom_imagery">Imagem personalizada</string>
     <string name="help_presets">Pré-definições</string>
     <string name="help_conflictresolution">Resolução de conflitos</string>
+    <string name="help_gpssources">Fontes de GPS</string>
     <string name="help_keyboard">Teclado</string>
     <string name="help_opening_hours">Horário de funcionamento</string>
+    <string name="help_voice_commands">Comandos de voz</string>
+    <string name="help_add_route_segment">Adicionar segmento de rota</string>
+    <string name="help_upgrade">Notas de lançamento da versão 20.1</string>
+    <string name="help_upgrade_200">Notas de lançamento da versão 20.0</string>
     <string name="help_upgrade_193">Notas de lançamento da versão 19.3</string>
     <string name="help_upgrade_192">Notas de lançamento da versão  19.2</string>
     <string name="help_upgrade_191">Notas de lançamento da versão 19.1</string>
@@ -23,6 +37,16 @@
     <string name="help_upgrade_170">Notas de lançamento da versão 17.0</string>
     <string name="help_upgrade_161">Notas de lançamento da versão 16.1</string>
     <string name="help_upgrade_160">Notas de lançamento da versão 16.0</string>
+    <string name="help_upgrade_152">Notas de lançamento da versão  15.2</string>
+    <string name="help_upgrade_151">Notas de lançamento da versão  15.1</string>
+    <string name="help_upgrade_150">Notas de lançamento da versão  15.0</string>
+    <string name="help_upgrade_141">Notas de lançamento da versão  14.1</string>
+    <string name="help_upgrade_140">Notas de lançamento da versão 14.0</string>
+    <string name="help_upgrade_131">Notas de lançamento da versão 13.1</string>
+    <string name="help_upgrade_130">Notas de lançamento da versão 13.0</string>
+    <string name="help_upgrade_121">Notas de lançamento da versão 12.1</string>
+    <string name="help_upgrade_120">Notas de lançamento da versão 12.0</string>
+    <string name="help_upgrade_112">Notas de lançamento da versão 11.2</string>
     <string name="help_upgrade_111">Notas de lançamento da versão 11.1</string>
     <string name="help_upgrade_110">Notas de lançamento da versão 11.0</string>
     <string name="help_upgrade_102">Notas de lançamento da versão 10.2</string>
@@ -48,6 +72,7 @@
         <item>@string/help_advanced_preferences</item>
         <item>@string/help_custom_imagery</item>
     	<item>@string/help_presets</item>	
+        <item>@string/help_rotate</item>
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
     	<item>@string/help_gpssources</item>
@@ -59,6 +84,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_200</item>
         <item>@string/help_upgrade_193</item>
         <item>@string/help_upgrade_192</item>
         <item>@string/help_upgrade_191</item>
@@ -106,6 +132,7 @@
         <item>Advanced preferences</item>
         <item>Custom imagery</item>
     	<item>Presets</item>	
+        <item>Rotating elements</item>
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
     	<item>GPS sources</item>
@@ -116,6 +143,7 @@
         <item>New Note selected</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>20.1.0 Release notes</item>
         <item>20.0.0 Release notes</item>
         <item>19.3.0 Release notes</item>
         <item>19.2.0 Release notes</item>

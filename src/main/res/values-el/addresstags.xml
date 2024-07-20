@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="addr_housenumber">Αριθμός κατοικίας (addr:housenumber)</string>
+  <string name="addr_conscriptionnumber">Αριθμός επιστράτευσης (addr:conscriptionnumber)</string>
+  <string name="addr_street">Οδός (addr:street)</string>
+  <string name="addr_postcode">Ταχυδρομικός κώδικας (addr:postcode)</string>
+  <string name="addr_city">Πόλη/Κωμόπολη/Χωριό/.. (addr:city)</string>
+  <string name="addr_country">Χώρα (addr:country)</string>
+  <string name="addr_full">Πλήρης διεύθυνση (addr:full)</string>
+  <string name="addr_place">Τοποθεσία (addr:place)</string>
+  <string name="addr_block">Οικοδομικό τετράγωνο (addr:block)</string>
+  <string name="addr_block_number">Αριθμός οικοδομικού τετραγώνου (addr:block_number)</string>
+  <string name="addr_parentstreet">Πρόσθετος εντοπισμός (addr:parenstreet)</string>
+  <string name="addr_hamlet">Οικισμός (addr:hamlet)</string>
+  <string name="addr_suburb">Προάστιο (addr:suburb)</string>
+  <string name="addr_subdistrict">Υποπεριοχή (addr:subdistrict)</string>
+  <string name="addr_district">Περιοχή (addr:district)</string>
+  <string name="addr_province">Επαρχία (addr:province)</string>
+  <string name="addr_state">Πολιτεία (addr:state)</string>
+  <string name="addr_flats">Διαμερίσματα (addr:flats)</string>
+  <string name="addr_door">Πόρτα (addr:door)</string>
+  <string name="addr_unit">Μονάδα (addr:unit)</string>
+</resources>

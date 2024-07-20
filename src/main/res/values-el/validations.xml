@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Ηλικία αντικειμένου</item>
+        <item>Ετικέτες FIXME</item>
+        <item>Λείπουν ετικέτες</item>
+        <item>Δρόμος δηλωμένος ως \"road\"</item>
+        <item>Σχέση χωρίς τύπο</item>
+        <item>Λείπουν μονάδες μέτρησης του αγγλικού συστήματος</item>
+        <item>Μη έγκυρο αντικείμενο</item>
+        <item>Αντικείμενο χωρίς ετικέτες</item>
+        <item>Μη συνδεδεμένος τερματικός κόμβος</item>
+        <item>Εκφυλισμένη γραμμή</item>
+        <item>Κενή σχέση</item>
+        <item>Λείπει ο ρόλος ενός μέλους μιας σχέσης</item>
+        <item>Βρόχος σχέσης</item>
+        <item>Μη τυπικό είδος στοιχείου</item>
+    </string-array>
+    </resources>
