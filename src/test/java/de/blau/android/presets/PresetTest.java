@@ -11,6 +11,9 @@ import static org.robolectric.Shadows.shadowOf;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,8 +35,10 @@ import org.xml.sax.SAXException;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.util.Base64;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -149,7 +154,7 @@ public class PresetTest {
         assertNotNull(match);
         assertTrue(match.hasKeyValue(Tags.KEY_SHOP, "supermarket"));
     }
-    
+
     /**
      * Test that we match a bicycle route relation
      */
@@ -194,7 +199,15 @@ public class PresetTest {
         System.out.println(item.getIconpath());
         BitmapDrawable icon = item.getMapIcon(ApplicationProvider.getApplicationContext());
         assertNotNull(icon);
-        assertEquals(1345600, icon.getBitmap().getByteCount());
+        Bitmap bitmap = icon.getBitmap();
+        ByteBuffer dst = ByteBuffer.allocate(bitmap.getByteCount());
+        bitmap.copyPixelsToBuffer(dst);
+        try {
+            assertEquals("5h9B1X2yCMX5KjXEznGYVwkko/yH7rqDRB/O7l1qKGU",
+                    Base64.encodeToString(MessageDigest.getInstance("SHA-256").digest(dst.array()), Base64.NO_PADDING | Base64.NO_WRAP));
+        } catch (NoSuchAlgorithmException e) {
+            fail(e.getMessage());
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
 package de.blau.android.presets;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,13 +34,16 @@ import de.blau.android.util.Hash;
  * data sources.
  * 
  * @author Jan
+ * @author simon
  *
  */
 public class PresetIconManager implements Serializable {
-
-    private static final String DEBUG_TAG = PresetIconManager.class.getSimpleName().substring(0, Math.min(23, PresetIconManager.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetIconManager.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PresetIconManager.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final long serialVersionUID = 1L;
+
+    private static final String SVG_100_PERCENT = "100%";
 
     /** context of own application */
     private final transient Context context;
@@ -177,7 +182,7 @@ public class PresetIconManager implements Serializable {
     @NonNull
     public static BitmapDrawable bitmapDrawableFromStream(@NonNull Context context, int size, @NonNull InputStream stream, boolean isSvg)
             throws SVGParseException, IOException {
-        Bitmap bitmap = isSvg ? bitmapFromSVG(stream) : BitmapFactory.decodeStream(stream);
+        Bitmap bitmap = isSvg ? bitmapFromSVG(stream, size) : BitmapFactory.decodeStream(stream);
         if (bitmap == null) {
             throw new IOException("Unable to decode icon");
         }
@@ -192,20 +197,24 @@ public class PresetIconManager implements Serializable {
      * Create a Bitmap from a SVG InputStream
      * 
      * @param stream the InputStream
+     * @param size size of target Drawable
      * @return the Bitmap
      * @throws SVGParseException if SVG parsing failed
      * @throws IOException on IO issues
      */
     @NonNull
-    private static Bitmap bitmapFromSVG(@NonNull InputStream stream) throws SVGParseException, IOException {
-        Bitmap bitmap;
+    private static Bitmap bitmapFromSVG(@NonNull InputStream stream, int size) throws SVGParseException, IOException {
         SVG svg = SVG.getFromInputStream(stream);
-        if (svg.getDocumentWidth() == -1) {
-            throw new IOException("Invalid SVG width");
+        if (svg.getDocumentViewBox() == null && svg.getDocumentWidth() == -1) {
+            throw new IOException("SVG dimensions missing");
         }
         // Create a canvas to draw onto
-        bitmap = Bitmap.createBitmap((int) Math.ceil(svg.getDocumentWidth()), (int) Math.ceil(svg.getDocumentHeight()), Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
+        // only SVGs with a view box will be scaled, but Inkscape only adds explicit height and width values
+        svg.setDocumentViewBox(0, 0, svg.getDocumentWidth(), svg.getDocumentHeight());
+        svg.setDocumentWidth(SVG_100_PERCENT);
+        svg.setDocumentHeight(SVG_100_PERCENT);
         svg.renderToCanvas(canvas);
         return bitmap;
     }
