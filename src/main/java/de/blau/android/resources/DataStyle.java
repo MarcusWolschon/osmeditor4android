@@ -1,12 +1,16 @@
 package de.blau.android.resources;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -40,6 +44,7 @@ import android.graphics.Paint.Cap;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
+import android.net.Uri;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.Typeface;
@@ -52,18 +57,22 @@ import ch.poole.poparser.Po;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Paths;
+import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StyleableFeature;
 import de.blau.android.osm.Way;
+import de.blau.android.presets.Preset;
 import de.blau.android.resources.symbols.Symbols;
 import de.blau.android.util.Density;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Util;
 import de.blau.android.util.Version;
 import de.blau.android.util.XmlFileFilter;
+import de.blau.android.util.collections.MultiHashMap;
 
 public final class DataStyle extends DefaultHandler {
     private static final String DEBUG_TAG = DataStyle.class.getSimpleName().substring(0, Math.min(23, DataStyle.class.getSimpleName().length()));
@@ -2090,5 +2099,76 @@ public final class DataStyle extends DefaultHandler {
             }
         }
         return result;
+    }
+
+    /**
+     * Generate a taginfo project file for the current style
+     * 
+     * @param output File to write to
+     * @return true if successful
+     */
+    public static boolean generateTaginfoJson(@NonNull File output) {
+        MultiHashMap<String, String> tagMap = new MultiHashMap<>(true);
+        addRecursive(tagMap, currentStyle.nodeStyles, "node");
+        addRecursive(tagMap, currentStyle.wayStyles, "way");
+        addRecursive(tagMap, currentStyle.relationStyles, "relation");
+
+        try (FileOutputStream fout = new FileOutputStream(output); PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout))) {
+            Preset.tagInfoHeader(outputStream, "Vespucci map style", "https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo-style.json",
+                    "Default map style for Vespucci. Nodes are rendered with the icons from the matching preset item.");
+            outputStream.println("\"tags\":[");
+            boolean firstTag = true;
+            for (String tag : tagMap.getKeys()) {
+                String[] keyValue = tag.split("=");
+                final String key = keyValue[0];
+                if (Util.isEmpty(key)) {
+                    continue;
+                }
+                if (!firstTag) {
+                    outputStream.println(",");
+                }
+                outputStream.print("{\"description\":\"Data rendering\",");
+                outputStream
+                        .print("\"key\": \"" + key + "\"" + (keyValue.length == 1 || "*".equals(keyValue[1]) ? "" : ",\"value\": \"" + keyValue[1] + "\""));
+                outputStream.print(",\"object_types\": [");
+                boolean firstGeometry = true;
+                for (String geometry : tagMap.get(tag)) {
+                    if (!firstGeometry) {
+                        outputStream.print(",");
+                    }
+                    outputStream.print("\"" + geometry + "\"");
+                    firstGeometry = false;
+                }
+                outputStream.print("]");
+                firstTag = false;
+                outputStream.print("}");
+            }
+            outputStream.print("]}");
+        } catch (Exception e) {
+            Log.e(DEBUG_TAG, "Export failed - " + output.getAbsolutePath() + " exception " + e);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Add tags from a style recursively to a map
+     * 
+     * @param tagMap the Map
+     * @param style the input style
+     * @param geometry the geometry value
+     */
+    private static void addRecursive(@NonNull MultiHashMap<String, String> tagMap, @NonNull FeatureStyle style, @NonNull String geometry) {
+        if (style.isArea()) {
+            geometry = "area";
+        }
+        for (Entry<String, String> entry : style.tags.entrySet()) {
+            tagMap.add(entry.getKey() + "=" + entry.getValue(), geometry);
+        }
+        if (style.cascadedStyles != null) {
+            for (FeatureStyle subStyle : style.cascadedStyles) {
+                addRecursive(tagMap, subStyle, geometry);
+            }
+        }
     }
 }
