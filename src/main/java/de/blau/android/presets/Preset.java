@@ -1489,22 +1489,8 @@ public class Preset implements Serializable {
      */
     public static boolean generateTaginfoJson(@NonNull Context ctx, @NonNull Preset[] presets, @NonNull File output) {
         try (FileOutputStream fout = new FileOutputStream(output); PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout))) {
-            outputStream.println("{");
-            outputStream.println("\"data_format\":1,");
-            outputStream.println("\"data_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo.json\",");
-            outputStream.println("\"project\":{");
-            outputStream.println("\"name\":\"Vespucci\",");
-            outputStream.println("\"description\":\"Presets for Vespucci (OSM editor for Android) and JOSM.\",");
-            outputStream.println("\"project_url\":\"https://github.com/MarcusWolschon/osmeditor4android\",");
-            outputStream.println("\"doc_url\":\"http://vespucci.io/\",");
-            outputStream.println(
-                    "\"icon_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/src/main/res/drawable/vespucci_logo.png\",");
-            outputStream.println("\"contact_name\":\"Simon Poole\",");
-            outputStream.println("\"contact_email\":\"info@vespucci.io\",");
-            outputStream.println("\"keywords\":[");
-            outputStream.println("\"editor\"");
-            outputStream.println("]},");
-
+            tagInfoHeader(outputStream, "Vespucci", "https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo.json",
+                    "Presets for Vespucci (OSM editor for Android) and JOSM.");
             outputStream.println("\"tags\":[");
             Collection<String> discardedKeys = new DiscardedTags(ctx).getKeys();
             for (String key : discardedKeys) {
@@ -1530,6 +1516,32 @@ public class Preset implements Serializable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Output a header for a taginfo project file
+     * 
+     * @param outputStream the OutputStream
+     * @param projectName name of the (sub-)project
+     * @param dataUrl the location of the file
+     * @param description a description of the contents
+     */
+    public static void tagInfoHeader(@NonNull PrintStream outputStream, @NonNull String projectName, @NonNull String dataUrl, @NonNull String description) {
+        outputStream.println("{");
+        outputStream.println("\"data_format\":1,");
+        outputStream.println("\"data_url\":\"" + dataUrl + "\",");
+        outputStream.println("\"project\":{");
+        outputStream.println("\"name\":\"" + projectName + "\",");
+        outputStream.println("\"description\":\"" + description + "\",");
+        outputStream.println("\"project_url\":\"https://github.com/MarcusWolschon/osmeditor4android\",");
+        outputStream.println("\"doc_url\":\"http://vespucci.io/\",");
+        outputStream
+                .println("\"icon_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/src/main/res/drawable/vespucci_logo.png\",");
+        outputStream.println("\"contact_name\":\"Simon Poole\",");
+        outputStream.println("\"contact_email\":\"info@vespucci.io\",");
+        outputStream.println("\"keywords\":[");
+        outputStream.println("\"editor\"");
+        outputStream.println("]},");
     }
 
     /**

@@ -36,7 +36,7 @@ public class TaginfoDump { // NOSONAR
     /**
      * Write out the current preset in taginfo format
      * 
-     * If the system property test.manual is set to true it will generate the dumpfile in the toplelvel repositority
+     * If the system property test.manual is set to true it will generate the dumpfile in the toplevel repository
      * directory and potentially add additional presets.
      */
     @Test
