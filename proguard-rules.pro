@@ -74,6 +74,9 @@
 -keep,includedescriptorclasses class com.mapbox.geojson.** {
   public protected private *;
 }
+-keep,includedescriptorclasses classcom.mapbox.turf.** {
+  public protected private *;
+}
 
 -keep class sun.misc.Unsafe { *; }
 
