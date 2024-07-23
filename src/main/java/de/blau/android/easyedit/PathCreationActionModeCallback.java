@@ -521,6 +521,10 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         // remove nodes that are not "in front of the current node"
         final Node current = addedNodes.get(size - 1);
         int posCurrent = endNodesCandidates.indexOf(current);
+        if (posCurrent < -1) {
+            Log.e(DEBUG_TAG, "followWay inconsistent state can't find current node");
+            return;
+        }
         final Node previous = addedNodes.get(size - 2);
         int posPrevious = endNodesCandidates.indexOf(previous);
         if (follow.isClosed()) {
