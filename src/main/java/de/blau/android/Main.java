@@ -703,7 +703,11 @@ public class Main extends FullScreenAppCompatActivity
 
         // register received for changes in connectivity
         connectivityChangedReceiver = new ConnectivityChangedReceiver();
-        registerReceiver(connectivityChangedReceiver, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            registerReceiver(connectivityChangedReceiver, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"), RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(connectivityChangedReceiver, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+        }
 
         haveCamera = checkForCamera();
 
