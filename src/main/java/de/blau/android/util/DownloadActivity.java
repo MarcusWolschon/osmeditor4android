@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.DesktopModeReceiver;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.MimeTypes;
@@ -217,8 +219,11 @@ public class DownloadActivity extends WebViewActivity {
         networks.setChecked(prefs.allowAllNetworks());
 
         mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        registerReceiver(onNotificationClick, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            registerReceiver(onNotificationClick, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED), RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(onNotificationClick, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
+        }
         synchronized (webViewLock) {
             webView.setWebViewClient(new DownloadWebViewClient());
             loadUrlOrRestore(savedInstanceState, url);

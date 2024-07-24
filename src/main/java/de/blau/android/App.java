@@ -32,6 +32,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -207,7 +208,11 @@ public class App extends Application implements android.app.Application.Activity
         // application exists
         IntentFilter desktopModeFilter = new IntentFilter("android.app.action.ENTER_KNOX_DESKTOP_MODE");
         desktopModeFilter.addAction("android.app.action.EXIT_KNOX_DESKTOP_MODE");
-        registerReceiver(new DesktopModeReceiver(), desktopModeFilter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            registerReceiver(new DesktopModeReceiver(), desktopModeFilter, RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(new DesktopModeReceiver(), desktopModeFilter);
+        }
     }
 
     /**
