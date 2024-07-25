@@ -11,6 +11,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import android.app.PendingIntent;
 import android.content.Context;
 import androidx.lifecycle.LiveData;
+import androidx.work.Configuration;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -85,6 +86,10 @@ public class ShadowWorkManager {
         public Operation enqueueUniqueWork(String arg0, ExistingWorkPolicy arg1, List<OneTimeWorkRequest> arg2) {
             return null;
         }
+        
+        public Configuration getConfiguration() {
+            return null;
+        }
 
         @Override
         public ListenableFuture<Long> getLastCancelAllTimeMillis() {
@@ -138,6 +143,10 @@ public class ShadowWorkManager {
 
         @Override
         public Operation pruneWork() {
+            return null;
+        }
+        
+        public ListenableFuture<WorkManager.UpdateResult> updateWork(WorkRequest request) {
             return null;
         }
     }
