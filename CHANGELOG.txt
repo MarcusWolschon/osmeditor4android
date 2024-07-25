@@ -1,7 +1,8 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-20.1.0-5:
+20.1.0-6:
 
+- Fix add foreground service permissions
 - Fix Proguard/R8 from removing Turf
 - Fix set EXPORT_RECEIVER when registering broadcast receivers, Android 14 requirement.
 
