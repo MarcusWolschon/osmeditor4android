@@ -15,7 +15,7 @@ buildscript {
             }
         }
         
-        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath 'com.android.tools.build:gradle:8.1.1'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.4'
         classpath 'org.jacoco:org.jacoco.core:0.8.9'
         classpath "ch.poole:preset-utils:0.26.0"
@@ -267,7 +267,7 @@ android {
     }
 
     // this, unluckily, cannot be set per flavour
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     // Specifies one flavor dimension.
     flavorDimensions "api"
@@ -597,7 +597,14 @@ ext {
     signpostVersion = "2.1.1"
     acraVersion = "5.7.0"
     mapboxVersion = "5.8.0"
-    work_version = "2.7.1"
+    work_version = "2.8.1"
+}
+
+configurations.all {
+    resolutionStrategy {
+        // hack around duplicate kotlin dependencies
+        force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
+    }
 }
 
 dependencies {
@@ -615,7 +622,7 @@ dependencies {
     implementation "androidx.preference:preference:1.1.0"
     implementation "com.google.android.material:material:1.8.0"
     implementation "androidx.annotation:annotation:1.1.0"
-    implementation "androidx.core:core:1.7.0"
+    implementation "androidx.core:core:1.12.0"
     implementation "androidx.exifinterface:exifinterface:1.3.6"
     implementation "androidx.legacy:legacy-preference-v14:1.0.0"
     implementation "androidx.work:work-runtime:$work_version"

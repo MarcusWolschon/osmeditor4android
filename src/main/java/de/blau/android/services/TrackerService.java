@@ -18,6 +18,7 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ServiceInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -42,6 +43,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import de.blau.android.App;
@@ -449,7 +451,7 @@ public class TrackerService extends Service {
         notificationBuilder.setSmallIcon(R.drawable.logo_simplified).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent)
                 .setColor(ContextCompat.getColor(this, R.color.osm_green))
                 .addAction(R.drawable.logo_simplified, getString(R.string.exit_title), pendingExitIntent);
-        startForeground(R.id.notification_tracker, notificationBuilder.build());
+        ServiceCompat.startForeground(this, R.id.notification_tracker, notificationBuilder.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
         init();
         if (externalListener != null) {
             externalListener.onStateChanged();
