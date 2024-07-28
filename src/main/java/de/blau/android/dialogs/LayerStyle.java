@@ -60,6 +60,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
     private int                layerIndex;
     private StyleableInterface layer;
     private View               colorView;
+    private View               labelContainer;
     private String             subLayerName = null;
 
     /**
@@ -113,7 +114,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
         DoNothingListener doNothingListener = new DoNothingListener();
         View layout = inflater.inflate(R.layout.layer_style, null);
         View layerContainer = layout.findViewById(R.id.layer_layer_container);
-        View labelContainer = layout.findViewById(R.id.layer_label_container);
+        labelContainer = layout.findViewById(R.id.layer_label_container);
         final Spinner labelSpinner = (Spinner) labelContainer.findViewById(R.id.layer_style_label);
         View labelMinZoomContainer = layout.findViewById(R.id.layer_label_min_zoom_container);
         final NumberPicker labelMinZoomPicker = (NumberPicker) labelMinZoomContainer.findViewById(R.id.label_zoom_min);
@@ -306,7 +307,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
                 }
             });
         } else {
-            labelSpinner.setVisibility(View.GONE);
+            labelContainer.setVisibility(View.GONE);
         }
     }
 
