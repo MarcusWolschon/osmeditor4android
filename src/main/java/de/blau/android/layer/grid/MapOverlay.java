@@ -327,7 +327,12 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
         labelH.setColor(color);
         labelV.setColor(color);
     }
-
+    
+    @Override
+    public boolean usesPointSymbol() {
+        return false;
+    }
+    
     @Override
     public void resetStyling() {
         Log.d(DEBUG_TAG, "resetStyling");
