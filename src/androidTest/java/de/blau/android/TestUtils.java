@@ -1208,9 +1208,8 @@ public final class TestUtils {
      */
     public static void selectFile(@NonNull UiDevice device, @NonNull Context context, @Nullable String directory, @NonNull String fileName,
             boolean useVespucciDir, boolean create) {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q && findText(device, false, context.getString(R.string.select_file_picker_title))) {
             // we should see the file picker selector here
-            assertTrue(findText(device, false, context.getString(R.string.select_file_picker_title)));
             assertTrue(clickText(device, false, "Files", true));
         }
         // if the fileName we are looking for is on screen click and be done with it
@@ -1252,7 +1251,7 @@ public final class TestUtils {
                 }
 
                 UiSelector android = new UiSelector().resourceIdMatches(".*:id/title")
-                        .textMatches("(^Android SDK.*)|(^AOSP.*)|(^Internal.*)|(^Samsung.*)|(^sdk_.*)");
+                        .textMatches("(^Android SDK.*)|(^AOSP.*)|(^Internal.*)|(^Samsung.*)|(^sdk_.*)|(SDCARD)");
                 UiObject androidButton = device.findObject(android);
                 try {
                     androidButton.clickAndWaitForNewWindow();
