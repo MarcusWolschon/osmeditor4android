@@ -78,7 +78,7 @@ import okhttp3.OkHttpClient;
 public class App extends Application implements android.app.Application.ActivityLifecycleCallbacks {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, App.class.getSimpleName().length());
     private static final String DEBUG_TAG = App.class.getSimpleName().substring(0, TAG_LEN);
-
+    
     private static final String     RHINO_LAZY_LOAD = "lazyLoad";
     private static App              currentInstance;
     private static StorageDelegator delegator       = new StorageDelegator();
@@ -376,6 +376,9 @@ public class App extends Application implements android.app.Application.Activity
             currentRootPreset = null;
             presetSearchIndex = null;
             translatedPresetSearchIndex = null;
+        }
+        synchronized (defaultValidatorLock) {
+            defaultValidator = null;
         }
     }
 
