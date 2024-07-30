@@ -21,7 +21,6 @@ import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentActivity;
-import de.blau.android.DesktopModeReceiver;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.MimeTypes;
