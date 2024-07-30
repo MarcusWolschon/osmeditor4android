@@ -397,13 +397,13 @@ public class ElementInfo extends InfoDialogFragment {
         }
 
         // tag display
-        if (element.getTags() != null && element.getTags().size() > 0) {
+        if (element.hasTags() || (original instanceof OsmElementInterface && !original.getTags().isEmpty())) {
             tl.addView(TableLayoutUtils.divider(ctx));
             tl.addView(TableLayoutUtils.createRow(ctx, R.string.menu_tags, null, null, tp));
             Map<String, String> currentTags = element.getTags(); // the result of getTags is unmodifiable
             Set<String> keys = new TreeSet<>(currentTags.keySet());
             if (compare) {
-                if (deleted) {
+                if (deleted || currentTags.isEmpty()) {
                     keys = original.getTags().keySet(); // just the original
                 } else {
                     keys.addAll(original.getTags().keySet());
