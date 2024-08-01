@@ -9,6 +9,8 @@
 <p>2024-07-01</p>
 <h3>End of support for Android 4.1 to 4.4</h3>
 <p>This version removes support for Android 4.1 to 4.4. While we aspire to maintain backwards compatibility as long as reasonably possible, 4.4 was released in October 2013 and is now more than a decade old, these versions have issues with support of more recent TLS variants and certificates and in practical terms were likely only to work on private instances of the OSM API. This has allowed us to remove some version specific code and the <em>legacy</em> build for pre-Android 5 devices.</p>
+<h3>Android 14/API 34</h3>
+<p>As per google requirements, version 20.1 targets Android 14/API 34. For new installs on Android 14 and later devices this will add a further option to the Android permissions modal for photo and video access: &quot;Select photos and videos&quot;. This allows users to limit which media is access by an app, and will work with Vespucci too, but will only have an effect if you are including images outside of the ones directly recorded by Vespucci by enabling the <a href="http://vespucci.io/help/en/Advanced%20preferences/#use-the-mediastore"><em>Use the mediastore</em></a> preference.</p>
 <h3>Workaround issues with sites using Letsencrypt certificates on Android 7 and earlier</h3>
 <p>Android devices running Android 7 and earlier do not trust the root certificates used to sign new or re-issued Letsencrypt certificates since earlier this year, leading to failures to down-/upload data to the OpenStreetMap API and to authenticate with the OpenStreetMap site since the beginning of June. The later being particular annoying as google decided to simply show a blank screen in webviews for SSL errors due to untrusted certificates instead of displaying an error message.</p>
 <p>Version 20.1 contains workarounds for both issues (and displays an error message if this happens again in the future for any of the usages of webviews in the app).</p>
@@ -66,7 +68,6 @@
 <li>Add support for multi-line preference titles</li>
 <li>Add support for labels for all GeoJSON geometries</li>
 <li>Indicate in the taginfo project file if an entry is &quot;not recommended&quot; (aka deprecated)</li>
-<li>Target Android 14/API 34</li>
 </ul>
 <h1>Upgrading from previous versions</h1>
 <p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one.</p>
