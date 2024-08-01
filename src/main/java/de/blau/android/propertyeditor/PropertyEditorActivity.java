@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -47,8 +50,8 @@ import de.blau.android.util.Util;
 public class PropertyEditorActivity<M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable>
         extends AppCompatActivity implements ControlListener {
 
-    private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName().substring(0,
-            Math.min(23, PropertyEditorActivity.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PropertyEditorActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * Start a PropertyEditor activity
@@ -137,6 +140,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         } else {
             postLoadData.onSuccess();
         }
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
     }
 
     @Override
@@ -269,17 +273,24 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         addFromIntent(intent);
     }
 
-    @Override
-    public void onBackPressed() {
-        Log.d(DEBUG_TAG, "onBackPressed");
-        PropertyEditorFragment<M, L, T> top = peekBackStack(getSupportFragmentManager());
-        if (top != null && top.hasChanges()) {
-            new AlertDialog.Builder(this).setNeutralButton(R.string.cancel, null).setNegativeButton(R.string.tag_menu_revert, (dialog, which) -> top.doRevert())
-                    .setPositiveButton(R.string.tag_menu_exit_no_save, (dialog, which) -> finished(null)).create().show();
-        } else {
-            finished(null);
+    /**
+     * Handle the back button/key being pressed
+     */
+    private OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+
+        @Override
+        public void handleOnBackPressed() {
+            Log.d(DEBUG_TAG, "onBackPressed");
+            PropertyEditorFragment<M, L, T> top = peekBackStack(getSupportFragmentManager());
+            if (top != null && top.hasChanges()) {
+                new AlertDialog.Builder(PropertyEditorActivity.this).setNeutralButton(R.string.cancel, null)
+                        .setNegativeButton(R.string.tag_menu_revert, (dialog, which) -> top.doRevert())
+                        .setPositiveButton(R.string.tag_menu_exit_no_save, (dialog, which) -> finished(null)).create().show();
+            } else {
+                finished(null);
+            }
         }
-    }
+    };
 
     @Override
     public void finished(@Nullable Fragment finishedFragment) {

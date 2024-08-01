@@ -70,6 +70,7 @@ import android.view.ViewStub;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -603,6 +604,8 @@ public class Main extends FullScreenAppCompatActivity
         easyEditManager = new EasyEditManager(this);
 
         haveCamera = checkForCamera(); // we recall this in onResume just to be
+
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
     }
 
     /**
@@ -3397,20 +3400,23 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * potentially do some special stuff for invoking undo and exiting
      */
-    @Override
-    public void onBackPressed() {
-        Log.d(DEBUG_TAG, "onBackPressed()");
-        if (prefs.useBackForUndo()) {
-            String name = App.getLogic().undo();
-            if (name != null) {
-                ScreenMessage.barInfo(this, getResources().getString(R.string.undo) + ": " + name);
+    private OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+
+        @Override
+        public void handleOnBackPressed() {
+            Log.d(DEBUG_TAG, "onBackPressed()");
+            if (prefs.useBackForUndo()) {
+                String name = App.getLogic().undo();
+                if (name != null) {
+                    ScreenMessage.barInfo(Main.this, getResources().getString(R.string.undo) + ": " + name);
+                } else {
+                    exit();
+                }
             } else {
                 exit();
             }
-        } else {
-            exit();
         }
-    }
+    };
 
     /**
      * pop up a dialog asking for confirmation and if confirmed exit
@@ -3428,7 +3434,8 @@ public class Main extends FullScreenAppCompatActivity
                     }
                     try {
                         saveSync = true;
-                        Main.super.onBackPressed();
+                        onBackPressedCallback.setEnabled(false);
+                        getOnBackPressedDispatcher().onBackPressed();
                     } catch (Exception e) {
                         // silently ignore .. might be Android confusion
                     }
