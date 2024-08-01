@@ -597,14 +597,7 @@ ext {
     signpostVersion = "2.1.1"
     acraVersion = "5.7.0"
     mapboxVersion = "5.8.0"
-    work_version = "2.8.1"
-}
-
-configurations.all {
-    resolutionStrategy {
-        // hack around duplicate kotlin dependencies
-        force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
-    }
+    work_version = "2.9.0"
 }
 
 dependencies {
@@ -614,7 +607,7 @@ dependencies {
     implementation "ch.acra:acra-dialog:$acraVersion"
     
     // android support 
-    implementation "androidx.activity:activity:1.2.4"
+    implementation "androidx.activity:activity:1.8.2"
     implementation "androidx.fragment:fragment:1.3.6"
     implementation "androidx.appcompat:appcompat:1.6.1"
     implementation "androidx.appcompat:appcompat-resources:1.6.1"
@@ -626,8 +619,8 @@ dependencies {
     implementation "androidx.exifinterface:exifinterface:1.3.6"
     implementation "androidx.legacy:legacy-preference-v14:1.0.0"
     implementation "androidx.work:work-runtime:$work_version"
-    implementation "androidx.window:window:1.0.0"
-    implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
+    implementation "androidx.window:window:1.2.0"
+    implementation 'androidx.core:core-splashscreen:1.0.1'
     implementation "androidx.multidex:multidex:2.0.1"
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.viewpager:viewpager:1.1.0-alpha01"
