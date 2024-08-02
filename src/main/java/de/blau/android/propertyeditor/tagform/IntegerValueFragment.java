@@ -130,19 +130,18 @@ public class IntegerValueFragment extends ValueWidgetFragment {
         public void enable() {
             picker.setEnabled(true);
             picker.setFocusable(true);
-
         }
 
         @Override
         public void disable() {
             picker.setEnabled(false);
             picker.setFocusable(false);
-
         }
 
         @Override
         public void onDismiss() {
-            // do nothing for now
+            TagFormFragment caller = (TagFormFragment) getParentFragment();
+            caller.enableTextRow(key);
         }
 
         @Override

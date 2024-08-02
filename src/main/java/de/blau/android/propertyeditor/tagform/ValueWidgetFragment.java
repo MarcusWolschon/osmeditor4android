@@ -48,8 +48,10 @@ public abstract class ValueWidgetFragment extends DialogFragment {
 
     private static final int MAX_BUTTONS_WITHOUT_MRU = 15;
 
-    private int    lastChecked = -1;
-    private String value       = null;
+    private int         lastChecked = -1;
+    protected String    key         = null;
+    private String      value       = null;
+    private ValueWidget widget      = null;
 
     /**
      * Set the fragment arguments
@@ -85,7 +87,7 @@ public abstract class ValueWidgetFragment extends DialogFragment {
         TagFormFragment caller = (TagFormFragment) getParentFragment();
 
         String hint = getArguments().getString(HINT_KEY);
-        String key = getArguments().getString(KEY_KEY);
+        key = getArguments().getString(KEY_KEY);
         value = savedInstanceState != null ? savedInstanceState.getString(VALUE_KEY) : getArguments().getString(VALUE_KEY);
         List<String> values = getArguments().getStringArrayList(VALUES_KEY);
         PresetElementPath presetPath = Util.getSerializeable(getArguments(), PRESET_KEY, PresetElementPath.class);
@@ -99,7 +101,7 @@ public abstract class ValueWidgetFragment extends DialogFragment {
 
         final ViewGroup layout = (ViewGroup) themedInflater.inflate(R.layout.value_fragment, null);
 
-        ValueWidget widget = getWidget(activity, value, values);
+        widget = getWidget(activity, value, values);
 
         layout.addView(widget.getWidgetView());
 
@@ -156,6 +158,11 @@ public abstract class ValueWidgetFragment extends DialogFragment {
             }
         }));
         return dialog;
+    }
+
+    @Override
+    public void onDismiss(final DialogInterface dialog) {
+        widget.onDismiss();
     }
 
     /**
