@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -23,10 +26,17 @@ import de.blau.android.dialogs.ErrorAlert;
  */
 public abstract class WebViewActivity extends FullScreenAppCompatActivity implements OnKeyListener {
 
-    private static final String DEBUG_TAG = WebViewActivity.class.getSimpleName().substring(0, Math.min(23, WebViewActivity.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, WebViewActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = WebViewActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     protected WebView webView;
     protected Object  webViewLock = new Object();
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+    }
 
     /**
      * Check if we have a working WebView, if not toast
@@ -52,19 +62,22 @@ public abstract class WebViewActivity extends FullScreenAppCompatActivity implem
     }
 
     /**
-     * potentially do some special stuff for exiting
+     * Handle the back button/key being pressed
      */
-    @Override
-    public void onBackPressed() {
-        Log.d(DEBUG_TAG, "onBackPressed()");
-        synchronized (webViewLock) {
-            if (webView != null && webView.canGoBack()) {
-                webView.goBack();
-                return;
+    private OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+
+        @Override
+        public void handleOnBackPressed() {
+            Log.d(DEBUG_TAG, "onBackPressed()");
+            synchronized (webViewLock) {
+                if (webView != null && webView.canGoBack()) {
+                    webView.goBack();
+                    return;
+                }
             }
+            exit();
         }
-        exit();
-    }
+    };
 
     /**
      * Do what ever clean up is necessary and finish the activity

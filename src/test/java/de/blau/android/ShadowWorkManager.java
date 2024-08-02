@@ -22,6 +22,7 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.WorkQuery;
 import androidx.work.WorkRequest;
+import kotlinx.coroutines.flow.Flow;
 
 @Implements(WorkManager.class)
 public class ShadowWorkManager {
@@ -127,10 +128,20 @@ public class ShadowWorkManager {
         }
 
         @Override
+        public Flow<List<WorkInfo>> getWorkInfosFlow(WorkQuery workQuery) {
+            return null;
+        }
+        
+        @Override
         public ListenableFuture<List<WorkInfo>> getWorkInfosForUniqueWork(String arg0) {
             return null;
         }
-
+        
+        @Override
+        public Flow<List<WorkInfo>> getWorkInfosForUniqueWorkFlow(String uniqueWorkName) {
+            return null;
+        }
+        
         @Override
         public LiveData<List<WorkInfo>> getWorkInfosForUniqueWorkLiveData(String arg0) {
             return null;
@@ -147,6 +158,16 @@ public class ShadowWorkManager {
         }
         
         public ListenableFuture<WorkManager.UpdateResult> updateWork(WorkRequest request) {
+            return null;
+        }
+
+        @Override
+        public Flow<WorkInfo> getWorkInfoByIdFlow(UUID arg0) {
+            return null;
+        }
+
+        @Override
+        public Flow<List<WorkInfo>> getWorkInfosByTagFlow(String arg0) {
             return null;
         }
     }
