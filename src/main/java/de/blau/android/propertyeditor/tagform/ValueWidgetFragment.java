@@ -48,10 +48,11 @@ public abstract class ValueWidgetFragment extends DialogFragment {
 
     private static final int MAX_BUTTONS_WITHOUT_MRU = 15;
 
-    private int         lastChecked = -1;
-    protected String    key         = null;
-    private String      value       = null;
-    private ValueWidget widget      = null;
+    private int          lastChecked = -1;
+    protected String     key         = null;
+    private String       value       = null;
+    private ValueWidget  widget      = null;
+    protected PresetItem preset      = null;
 
     /**
      * Set the fragment arguments
@@ -93,7 +94,7 @@ public abstract class ValueWidgetFragment extends DialogFragment {
         PresetElementPath presetPath = Util.getSerializeable(getArguments(), PRESET_KEY, PresetElementPath.class);
         Map<String, String> allTags = Util.getSerializeable(getArguments(), ALL_TAGS_KEY, HashMap.class);
 
-        PresetItem preset = presetPath != null ? (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetPath) : null;
+        preset = presetPath != null ? (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetPath) : null;
         final FragmentActivity activity = getActivity();
         Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(hint);
@@ -106,12 +107,7 @@ public abstract class ValueWidgetFragment extends DialogFragment {
         layout.addView(widget.getWidgetView());
 
         // filter 1
-        List<String> filteredValues = new ArrayList<>();
-        for (String v : values) {
-            if (widget.filter(v)) {
-                filteredValues.add(v);
-            }
-        }
+        List<String> filteredValues = filterValues(values);
 
         ArrayAdapter<?> adapter = caller.getValueAutocompleteAdapter(key, filteredValues, preset, null, allTags, true, false, MAX_BUTTONS_WITHOUT_MRU);
         final RadioGroup valueGroup = (RadioGroup) layout.findViewById(R.id.valueGroup);
@@ -158,6 +154,25 @@ public abstract class ValueWidgetFragment extends DialogFragment {
             }
         }));
         return dialog;
+    }
+
+    /**
+     * Filter a list of values using the filter provided by the widget
+     * 
+     * @param values original list of values
+     * @return the filtered list of values
+     */
+    @NonNull
+    private List<String> filterValues(@Nullable List<String> values) {
+        List<String> filteredValues = new ArrayList<>();
+        if (values != null) {
+            for (String v : values) {
+                if (widget.filter(v)) {
+                    filteredValues.add(v);
+                }
+            }
+        }
+        return filteredValues;
     }
 
     @Override
