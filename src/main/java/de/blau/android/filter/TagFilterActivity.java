@@ -1,5 +1,7 @@
 package de.blau.android.filter;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.content.ContentValues;
@@ -25,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -43,7 +46,8 @@ import de.blau.android.prefs.ListActivity;
  */
 public class TagFilterActivity extends ListActivity {
 
-    private static final String DEBUG_TAG  = TagFilterActivity.class.getSimpleName().substring(0, Math.min(23, TagFilterActivity.class.getSimpleName().length()));
+    private static final int    TAG_LEN    = Math.min(LOG_TAG_LEN, TagFilterActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG  = TagFilterActivity.class.getSimpleName().substring(0, TAG_LEN);
     private static final String FILTER_KEY = "FILTER";
 
     static final String FILTERENTRIES_TABLE = "filterentries";
@@ -127,6 +131,8 @@ public class TagFilterActivity extends ListActivity {
         getListView().setItemsCanFocus(true);
         // Attach cursor adapter to the ListView
         getListView().setAdapter(filterAdapter);
+
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
     }
 
     @Override
@@ -230,11 +236,19 @@ public class TagFilterActivity extends ListActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        updateDatabaseFromList();
-        super.onBackPressed();
-    }
+    /**
+     * Update database if exiting via back button
+     */
+    private OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+
+        @Override
+        public void handleOnBackPressed() {
+            Log.d(DEBUG_TAG, "onBackPressed()");
+            updateDatabaseFromList();
+            onBackPressedCallback.setEnabled(false);
+            getOnBackPressedDispatcher().onBackPressed();
+        }
+    };
 
     /**
      * Update the database from the whole view

@@ -368,7 +368,7 @@ public class HelpViewer extends WebViewActivity {
                 webView.goBack();
                 invalidateOptionsMenu();
             } else {
-                onBackPressed(); // return to caller
+                getOnBackPressedDispatcher().onBackPressed(); // return to caller
             }
             return true;
 
