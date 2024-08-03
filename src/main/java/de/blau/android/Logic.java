@@ -76,6 +76,7 @@ import de.blau.android.filter.Filter;
 import de.blau.android.gpx.Track;
 import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.data.MapOverlay;
 import de.blau.android.osm.ApiResponse;
 import de.blau.android.osm.ApiResponse.Conflict;
 import de.blau.android.osm.BoundingBox;
@@ -362,7 +363,12 @@ public class Logic {
      */
     public void setPrefs(@NonNull final Preferences prefs) {
         this.prefs = prefs;
-        DataStyle.switchTo(prefs.getDataStyle());
+        if (!DataStyle.getCurrent().getName().equals(prefs.getDataStyle())) {
+            DataStyle.switchTo(prefs.getDataStyle());
+            if (map != null) {
+                updateStyle();
+            }
+        }
     }
 
     /**
@@ -370,7 +376,6 @@ public class Logic {
      * clears the way cache.
      */
     public void updateStyle() {
-        DataStyle.switchTo(prefs.getDataStyle());
         DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
         DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
         // zap the cached style for all ways
@@ -381,6 +386,10 @@ public class Logic {
             r.setStyle(null);
         }
         map.updateStyle();
+        MapOverlay<OsmElement> dataLayer = map.getDataLayer();
+        if (dataLayer != null) {
+            dataLayer.clearCaches();
+        }
     }
 
     /**
