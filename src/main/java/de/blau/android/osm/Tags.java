@@ -271,6 +271,7 @@ public final class Tags {
     public static final char   VALUE_WEST           = 'W';
     public static final char   VALUE_SOUTH          = 'S';
     public static final char   VALUE_NORTH          = 'N';
+    public static final String VALUE_CLOCKWISE      = "clockwise";
     public static final String KEY_CAMERA_DIRECTION = "camera:direction";
     public static final String KEY_LIGHT_DIRECTION  = "light:direction";
 

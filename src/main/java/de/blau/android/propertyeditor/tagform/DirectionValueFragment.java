@@ -159,6 +159,8 @@ public class DirectionValueFragment extends ValueWidgetFragment {
             if (rotation != null) {
                 sensorManager.unregisterListener(compassListener, rotation);
             }
+            TagFormFragment caller = (TagFormFragment) getParentFragment();
+            caller.enableTextRow(key);
         }
 
         @Override
