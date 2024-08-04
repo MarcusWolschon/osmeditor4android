@@ -894,6 +894,11 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
      * Revert changes in all fragments
      */
     void doRevert() {
+        Log.d(DEBUG_TAG, "doRevert");
+        if (tagFormFragment != null) {
+            // ensure that the form is consistent before reverting
+            tagFormFragment.update();
+        }
         if (tagEditorFragment != null) {
             tagEditorFragment.doRevert();
         }

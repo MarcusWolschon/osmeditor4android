@@ -286,9 +286,9 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
                 new AlertDialog.Builder(PropertyEditorActivity.this).setNeutralButton(R.string.cancel, null)
                         .setNegativeButton(R.string.tag_menu_revert, (dialog, which) -> top.doRevert())
                         .setPositiveButton(R.string.tag_menu_exit_no_save, (dialog, which) -> finished(null)).create().show();
-            } else {
-                finished(null);
+                return;
             }
+            finished(null);
         }
     };
 

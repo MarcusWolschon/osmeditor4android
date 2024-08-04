@@ -1104,7 +1104,6 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
             boolean applyDefault) {
         final TagEditRow row = (TagEditRow) inflater.inflate(R.layout.tag_edit_row, rowLayout, false);
         row.setOwner(this);
-
         boolean same = true;
         if (tagValues.size() > 1) {
             for (int i = 1; i < tagValues.size(); i++) {
@@ -2091,9 +2090,10 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
             Address.resetLastAddresses(getActivity());
             return true;
         case R.id.tag_menu_js_console:
-            ConsoleDialog.showDialog(getActivity(), R.string.tag_menu_js_console, -1, -1, null,
-                    null, (context, input, flag1, flag2) -> de.blau.android.javascript.Utils.evalString(context, "JS Preset Test", input, getTagsInEditForm(),
-                            getKeyValueMap(true), "test", tags2Preset, App.getCurrentPresets(context)), false);
+            ConsoleDialog.showDialog(getActivity(), R.string.tag_menu_js_console, -1, -1, null, null,
+                    (context, input, flag1, flag2) -> de.blau.android.javascript.Utils.evalString(context, "JS Preset Test", input, getTagsInEditForm(),
+                            getKeyValueMap(true), "test", tags2Preset, App.getCurrentPresets(context)),
+                    false);
             return true;
         case R.id.tag_menu_select_all:
             selectAllRows();
@@ -2335,8 +2335,10 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
      * reload original arguments
      */
     void doRevert() {
+        Log.d(DEBUG_TAG, "doRevert");
         loadEdits(getTagsInEditForm(propertyEditorListener.getOriginalTags()), false);
         updateAutocompletePresetItem(null);
+        formUpdate.tagsUpdated();
     }
 
     /**
