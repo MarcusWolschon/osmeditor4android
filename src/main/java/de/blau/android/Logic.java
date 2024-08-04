@@ -2984,8 +2984,6 @@ public class Logic {
                         if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
                             return new AsyncResult(ErrorCodes.API_OFFLINE);
                         }
-                        // try to get write capabilities in any case FIXME unclear what we should do if the write
-                        // server is not available
                         server.getCapabilities();
                     }
                 } else {
