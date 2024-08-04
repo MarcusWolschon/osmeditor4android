@@ -177,6 +177,58 @@ public class PropertyEditorTest {
     }
 
     /**
+     * Test that pressing back does the correct thing(s)
+     */
+    @Test
+    public void backPressed() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        assertNotNull(n);
+        java.util.Map<String,String> oTags = new HashMap<>(n.getTags());
+        oTags.remove("openGeoDB:name");
+        oTags.remove("openGeoDB:sort_name");
+        logic.setTags(main, n, oTags);
+
+        main.performTagEdit(n, null, false, false);
+        waitForPropertyEditor();
+        TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
+        final String original = "Bergdietikon";
+        final String edited = "dietikonBerg";
+        device.wait(Until.findObject(By.clickable(true).textStartsWith(original)), 500);
+        UiObject editText = device.findObject(new UiSelector().clickable(true).textStartsWith(original));
+        try {
+            editText.click(); // NOTE this seems to be necessary
+            editText.setText(edited);
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        device.pressBack(); // get rid of keyboard
+        device.pressBack();
+
+        // click cancel
+        TestUtils.clickButton(device, "android:id/button3", true);
+        assertTrue(TestUtils.findText(device, false, edited));
+
+        device.pressBack();
+       
+        // click revert
+        TestUtils.clickButton(device, "android:id/button2", true);
+        assertTrue(TestUtils.findText(device, false, original));
+
+        TestUtils.clickHome(device, true);
+        assertEquals(original, n.getTagWithKey(Tags.KEY_NAME));
+    }
+
+    /**
      * Add a tag and relation membership to a new node
      */
     @Test
@@ -1302,7 +1354,7 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
         String name1 = m1.getElement().getTagWithKey(Tags.KEY_NAME);
         TestUtils.scrollToStartsWith(device, name1, r.getMemberCount(), true);
-      
+
         selectMember(name1);
         clickButtonOrOverflowMenu(main.getString(R.string.tag_menu_move_up));
         // exit property editor
