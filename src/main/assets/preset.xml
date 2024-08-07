@@ -50,6 +50,8 @@
     
     
     
+    
+    
     <!-- Item chunks -->
     <chunk id="optional_speech_output">
         <optional>
@@ -111,13 +113,14 @@
             <list_entry value="sand" display_value="Sand"/>
             <list_entry value="tartan" display_value="Tartan"/>
             <list_entry value="ground" display_value="Ground"/>
+            <list_entry value="woodchips" display_value="Woodchips"/>
         </combo>
     </chunk>
     <chunk id="motorsport_surface">
         <combo key="surface" text="Surface" values="asphalt,concrete,ground" display_values="Asphalt,Concrete,Ground" match="none"/>
     </chunk>
     <chunk id="riding_surface">
-          <combo key="surface" text="Surface" values="grass,sand,clay,dirt,fine_gravel,ground,mud,unpaved,compacted" display_values="Grass,Sand,Clay,Dirt,Fine gravel,Ground,Mud,Unpaved,Compacted" match="none"/>
+          <combo key="surface" text="Surface" values="grass,sand,clay,dirt,fine_gravel,ground,mud,unpaved,compacted,woodchips" display_values="Grass,Sand,Clay,Dirt,Fine gravel,Ground,Mud,Unpaved,Compacted,Woodchips" match="none"/>
     </chunk>
     <chunk id="lanes">
         <combo key="lanes" text="Lanes" values="1,2,3,4,5,6" length="3" match="none" value_type="integer"/>
@@ -1117,12 +1120,20 @@
         <text key="taxon" text="Taxon"/>
     </chunk>
     <chunk id="leaf">
-        <combo key="leaf_type" text="Leaf type" values="broadleaved,needleleaved,mixed,leafless" display_values="Broadleaved,Needleleaved,Mixed,Leafless" values_searchable="true"/>
+        <combo key="leaf_type" text="Leaf type" values_searchable="true">
+            <list_entry value="broadleaved" display_value="Broadleaved"/><list_entry value="needleleaved" display_value="Needleleaved"/><list_entry value="leafless" display_value="Leafless"/><list_entry value="palm" display_value="Palm" deprecated="true"/>
+        </combo>
         <combo key="leaf_cycle" text="Leaf cycle" values_searchable="true">
-            <list_entry value="deciduous" display_value="Deciduous" short_description="Plants that are leafless for a certain period during the year."/>
-            <list_entry value="evergreen" display_value="Evergreen" short_description="Plants that are never entirely without green foliage."/>
-            <list_entry value="semi_deciduous" display_value="Semi deciduous" short_description="Plants that lose their foliage for a very short period, when old leaves fall off and new foliage growth is starting."/>
-            <list_entry value="semi_evergreen" display_value="Semi evergreen" short_description="Plants that lose most, but not all, of their foliage for a fraction of the year."/>
+            <list_entry value="deciduous" display_value="Deciduous" short_description="Plants that are leafless for a certain period during the year."/><list_entry value="evergreen" display_value="Evergreen" short_description="Plants that are never entirely without green foliage."/><list_entry value="semi_deciduous" display_value="Semi deciduous" short_description="Plants that lose their foliage for a very short period, when old leaves fall off and new foliage growth is starting."/><list_entry value="semi_evergreen" display_value="Semi evergreen" short_description="Plants that lose most, but not all, of their foliage for a fraction of the year."/>
+        </combo>
+    </chunk>
+    <chunk id="leaf_with_mixed">
+        <combo key="leaf_type" text="Leaf type" values_searchable="true">
+            <list_entry value="broadleaved" display_value="Broadleaved"/><list_entry value="needleleaved" display_value="Needleleaved"/><list_entry value="leafless" display_value="Leafless"/><list_entry value="palm" display_value="Palm" deprecated="true"/>
+            <list_entry value="mixed" display_value="Mixed"/>
+        </combo>
+        <combo key="leaf_cycle" text="Leaf cycle" values_searchable="true">
+            <list_entry value="deciduous" display_value="Deciduous" short_description="Plants that are leafless for a certain period during the year."/><list_entry value="evergreen" display_value="Evergreen" short_description="Plants that are never entirely without green foliage."/><list_entry value="semi_deciduous" display_value="Semi deciduous" short_description="Plants that lose their foliage for a very short period, when old leaves fall off and new foliage growth is starting."/><list_entry value="semi_evergreen" display_value="Semi evergreen" short_description="Plants that lose most, but not all, of their foliage for a fraction of the year."/>
             <list_entry value="mixed" display_value="Mixed" short_description="Habitat with evergreen and deciduous vegetation."/>
         </combo>
     </chunk>
@@ -2126,6 +2137,9 @@
     <chunk id="facility_visibility">
         <combo key="visibility" text="Visibility" values="house,street,area" display_values="House (up to 5m),Street (up to 20m),Area (more than 20m)"/>
     </chunk>
+    <chunk id="aerialway_usage">
+        <multiselect key="usage" text="Usage" values="industrial;freight;tourism" display_values="Freight;Industrial;Tourism" values_context="usage" values_searchable="true"/>
+    </chunk>
     <!-- Groups -->
     <group name="Highways" icon="icons/png/highway_highway_sp.png">
     <group name="Streets" icon="icons/png/highway_highway_sp.png" items_sort="false">
@@ -2196,6 +2210,7 @@
                 <reference ref="highway_public_transport"/>
                 <reference ref="parking_lane"/>
                 <reference ref="shoulder"/>
+                <check key="frontage_road" text="Frontage road" disable_off="true"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="lane_presets"/>
@@ -2238,6 +2253,7 @@
                 <reference ref="highway_public_transport"/>
                 <reference ref="parking_lane"/>
                 <reference ref="shoulder"/>
+                <check key="frontage_road" text="Frontage road" disable_off="true"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="lane_presets"/>
@@ -2278,6 +2294,7 @@
                 <reference ref="highway_public_transport"/>
                 <reference ref="parking_lane"/>
                 <reference ref="shoulder"/>
+                <check key="frontage_road" text="Frontage road" disable_off="true"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="lane_presets"/>
@@ -2336,6 +2353,7 @@
                 <reference ref="highway_public_transport"/>
                 <reference ref="parking_lane"/>
                 <reference ref="shoulder"/>
+                <check key="frontage_road" text="Frontage road" disable_off="true"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="lane_presets"/>
@@ -2415,6 +2433,7 @@
                 <list_entry value="parking_aisle" short_description="Parking aisle"/>
                 <list_entry value="drive-through" short_description="Drive-through"/>
                 <list_entry value="emergency_access" short_description="Emergency access"/>
+                <list_entry value="slipway" short_description="Slipway"/>
             </combo>
             <optional>
                 <text key="name" text="Name"/>
@@ -3228,10 +3247,12 @@
         <item name="Passing Place" icon="icons/png/highway_passing_place_18020.png" type="node" preset_name_label="true">
             <link wiki="Tag:highway=passing_place"/>
             <key key="highway" value="passing_place"/>
+            <preset_link preset_name="Emergency Bay" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Passing Place -->
         <item name="Emergency bay" icon="icons/png/emergency_bay.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:highway=emergency_bay"/>
             <key key="highway" value="emergency_bay"/>
+            <preset_link preset_name="Passing Place" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Emergency bay -->
         <item name="Turning Circle" icon="icons/png/transport_turning_circle.png" type="node" preset_name_label="true">
             <link wiki="Tag:highway=turning_circle"/>
@@ -3488,7 +3509,7 @@
             <reference ref="check_access_nomotor"/>
             <reference ref="check_access_motor"/>
         </item> <!-- Motorcycle Barrier -->
-        <item name="Gate" icon="icons/png/barrier_gate.png" type="node" preset_name_label="true">
+        <item name="Gate" icon="icons/png/barrier_gate.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:barrier=gate"/>
             <key key="barrier" value="gate"/>
             <optional>
@@ -3500,7 +3521,7 @@
             <reference ref="check_access_motor"/>
             <check key="locked" text="Usually locked"/>
         </item> <!-- Gate -->
-        <item name="Lift Gate" icon="icons/png/barrier_lift_gate.png" type="node" preset_name_label="true">
+        <item name="Lift Gate" icon="icons/png/barrier_lift_gate.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:barrier=lift_gate"/>
             <key key="barrier" value="lift_gate"/>
             <combo key="lift_gate:type" text="Type" values="single,double" display_values="Single,Double" values_context="lift_gate"/>
@@ -3510,7 +3531,7 @@
             <reference ref="check_access_motor"/>
             <check key="locked" text="Usually locked"/>
         </item> <!-- Lift Gate -->
-        <item name="Swing Gate" icon="icons/png/barrier_swing_gate_13034.png" type="node" preset_name_label="true">
+        <item name="Swing Gate" icon="icons/png/barrier_swing_gate_13034.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:barrier=swing_gate"/>
             <key key="barrier" value="swing_gate"/>
             <combo key="swing_gate:type" text="Type" values="single,double" display_values="Single,Double" values_context="swing_gate"/>
@@ -3520,7 +3541,7 @@
             <reference ref="check_access_motor"/>
             <check key="locked" text="Usually locked"/>
         </item> <!-- Swing Gate -->
-        <item name="Hampshire Gate" icon="icons/png/barrier_hampshire_gate_13014.png" type="node" preset_name_label="true">
+        <item name="Hampshire Gate" icon="icons/png/barrier_hampshire_gate_13014.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:barrier=hampshire_gate"/>
             <key key="barrier" value="hampshire_gate"/>
             <text key="maxlength" text="Max. length (meters)" match="key" value_type="dimension_horizontal"/>
@@ -3530,7 +3551,7 @@
             <reference ref="check_access_motor"/>
             <check key="locked" text="Usually locked"/>
         </item> <!-- Hampshire Gate -->
-        <item name="Bump Gate" icon="icons/png/barrier_bump_gate_13005.png" type="node" preset_name_label="true">
+        <item name="Bump Gate" icon="icons/png/barrier_bump_gate_13005.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:barrier=bump_gate"/>
             <key key="barrier" value="bump_gate"/>
             <text key="maxlength" text="Max. length (meters)" match="key" value_type="dimension_horizontal"/>
@@ -3540,7 +3561,7 @@
             <reference ref="check_access_motor"/>
             <check key="locked" text="Usually locked"/>
         </item> <!-- Bump Gate -->
-        <item name="Kissing Gate" icon="icons/png/barrier_kissing_gate.png" type="node" preset_name_label="true">
+        <item name="Kissing Gate" icon="icons/png/barrier_kissing_gate.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:barrier=kissing_gate"/>
             <key key="barrier" value="kissing_gate"/>
             <reference ref="optional_maxwidth"/>
@@ -3550,7 +3571,7 @@
             <reference ref="check_access_nomotor"/>
             <check key="locked" text="Usually locked"/>
         </item> <!-- Kissing Gate -->
-        <item name="Height restrictor" icon="icons/png/barrier_height_restrictor.png" type="node" preset_name_label="true">
+        <item name="Height restrictor" icon="icons/png/barrier_height_restrictor.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:barrier=height_restrictor"/>
             <key key="barrier" value="height_restrictor"/>
             <text key="maxheight" text="Max. height (meters)" value_type="dimension_vertical"/>
@@ -3618,11 +3639,14 @@
             <reference ref="check_access_nomotor"/>
             <preset_link preset_name="All vehicles"/>
         </item> <!-- Full-Height Turnstile -->
-        <item name="Wicket gate" icon="icons/png/barrier_empty.png" type="node" preset_name_label="true">
+        <item name="Wicket gate" icon="icons/png/barrier_empty.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:barrier=wicket_gate"/>
+            <label text="A pedestrian door or gate near a larger gate"/>
             <key key="barrier" value="wicket_gate"/>
             <reference ref="optional_maxwidth"/>
+            <label text="The tag `foot=yes` is implied and does not need to be set."/>
             <reference ref="check_access_nomotor"/>
+            <check key="locked" text="Usually locked"/>
         </item> <!-- Turnstile -->
         <item name="Sally Port" icon="icons/png/highway_sally_port_13031.png" type="node" preset_name_label="true">
             <link wiki="Tag:barrier=sally_port"/>
@@ -3674,7 +3698,7 @@
         <item name="Hedge" icon="icons/png/barrier_hedge.png" type="way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:barrier=hedge"/>
             <key key="barrier" value="hedge"/>
-            <reference ref="leaf"/>
+            <reference ref="leaf_with_mixed"/>
             <optional>
                 <reference ref="genus_species_taxon"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
@@ -3728,6 +3752,7 @@
                 <combo key="wall" text="Type" values_searchable="true">
                     <list_entry value="brick" display_value="Brick"/>
                     <list_entry value="castle_wall" display_value="Castle wall"/>
+                    <list_entry value="concrete" display_value="Concrete"/>
                     <list_entry value="dry_stone" display_value="Dry stone"/>
                     <list_entry value="flood_wall" display_value="Flood wall"/>
                     <list_entry value="gabion" display_value="Gabion"/>
@@ -4870,6 +4895,7 @@
                 <reference ref="oh"/>
                 <optional>
                     <reference ref="additonal_aerialway_tags"/>
+                    <reference ref="aerialway_usage"/>
                 </optional>
             </item> <!-- Cable Car -->
             <item name="Chair Lift" icon="icons/png/transport_chair_lift_10002.png" type="way" preset_name_label="true">
@@ -4881,6 +4907,7 @@
                 <check key="oneway" text="Bidirectional" value_on="no" disable_off="true"/>
                 <optional>
                     <reference ref="additonal_aerialway_tags_with_bubble"/>
+                    <reference ref="aerialway_usage"/>
                 </optional>
             </item> <!-- Chair Lift -->
             <item name="Gondola" icon="icons/png/transport_gondola_10006.png" type="way" preset_name_label="true">
@@ -4936,6 +4963,7 @@
                     <reference ref="name_ref_operator"/>
                     <reference ref="fee"/>
                     <text key="aerialway:duration" text="Typical journey time in minutes"/>
+                    <reference ref="aerialway_usage"/>
                 </optional>
             </item> <!-- Goods -->
             <item name="Zip Line" icon="icons/png/transport_zip_line_10005.png" type="way" preset_name_label="true">
@@ -4949,6 +4977,7 @@
                     <reference ref="fee"/>
                     <reference ref="min_age"/>
                     <reference ref="maxweight"/>
+                    <reference ref="aerialway_usage"/>
                 </optional>
             </item> <!-- Zip Line -->
             <separator/>
@@ -4958,12 +4987,18 @@
                 <key key="aerialway" value="station"/>
                 <text key="name" text="Name"/>
                 <preset_link preset_name="No name"/>
+                <optional>
+                    <reference ref="aerialway_usage"/>
+                </optional>
             </item> <!-- Station -->
             <item name="Pylon" icon="icons/png/transport_aerialway_pylon_10009.png" type="node" preset_name_label="true">
                 <link wiki="Tag:aerialway=pylon"/>
                 <space/>
                 <key key="aerialway" value="pylon"/>
                 <reference ref="optional_name"/>
+                <optional>
+                    <reference ref="aerialway_usage"/>
+                </optional>
             </item> <!-- Pylon -->
         </group> <!-- Aerialway -->
         <separator/>
@@ -5153,7 +5188,31 @@
                 <reference ref="name_operator"/>
                 <reference ref="oh_ohworkshop_wheelchair"/>
                 <reference ref="car_brands"/>
-                <multiselect key="service" text="Service" text_context="shop=car_repair" values="dealer;repair;parts;tyres" display_values="Dealer;Repair;Parts;Tyres" rows="5"/>
+                <multiselect key="service" text="Service" text_context="shop=car_repair" values="dealer;repair;parts;tyres;inspection" display_values="Dealer;Repair;Parts;Tyres;Inspection" rows="5"/>
+                <optional text="Alternate service tagging">
+                    <checkgroup columns="4">
+                        <check key="service:vehicle:car_repair" text="Car repair" text_context="shop=car_repair"/>
+                        <check key="service:vehicle:truck_repair" text="Truck repair" text_context="shop=car_repair"/>
+                        <check key="service:vehicle:new_car_sales" text="Sells new cars" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:used_car_sales" text="Sells used cars" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:air_conditioning" text="Repairs AC" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:alignment" text="Aligns tyres" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:batteries" text="Repairs/replaces batteries" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:body_repair" text="Repairs body" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:brakes" text="Services brakes" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:car_parts" text="Sells car parts" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:diagnostics" text="Performs diagnostics" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:electrical" text="Repairs electrical" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:glass" text="Repairs glass" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:inspection" text="State mandated inspections" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:motor" text="Repairs motor" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:muffler" text="Repairs muffler" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:oil_change" text="Performs oil changes" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:painting" text="Paints exterior" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:transmission" text="Repairs transmission" text_context="shop=car_repair" disable_off="true"/>
+                        <check key="service:vehicle:tyres" text="Replaces tires" text_context="shop=car_repair" disable_off="true"/>
+                    </checkgroup>
+                </optional>
                 <reference ref="link_contact_address_payment"/>
             </item> <!-- Repair -->
             <item name="Parts" icon="icons/png/shopping_car_parts_29021.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -9794,7 +9853,7 @@
             <link wiki="Key:building"/>
             <space/>
             <combo key="building" text="Building" values_context="building" default="yes" match="keyvalue!" values_searchable="true">
-                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="outbuilding" display_value="Outbuilding" deprecated="true"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="tent" display_value="Tent"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
+                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="container" display_value="Container"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="outbuilding" display_value="Outbuilding" deprecated="true"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="tent" display_value="Tent"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
             </combo>
             <reference ref="additional_building_tags"/>
             <preset_link preset_name="Address"/>
@@ -9848,7 +9907,7 @@
             <link wiki="Key:building:part"/>
             <space/>
             <combo key="building:part" text="Building part" values_context="building" default="yes" match="key" values_searchable="true">
-                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="outbuilding" display_value="Outbuilding" deprecated="true"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="tent" display_value="Tent"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
+                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="container" display_value="Container"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="outbuilding" display_value="Outbuilding" deprecated="true"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="tent" display_value="Tent"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
             </combo>
             <reference ref="additional_building_tags"/>
             <combo key="building:min_level" text="Skipped Levels" values="1,2,3,4,5,6,7,8,9,10" editable="true" text_context="building" value_type="integer"/>
@@ -9859,7 +9918,7 @@
             <space/>
             <key key="building" value="construction"/>
             <combo key="construction" text="Construction type" values_context="building" default="yes" match="none" values_searchable="true">
-                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="outbuilding" display_value="Outbuilding" deprecated="true"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="tent" display_value="Tent"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
+                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="container" display_value="Container"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="outbuilding" display_value="Outbuilding" deprecated="true"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="tent" display_value="Tent"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
             </combo>             
             <reference ref="additional_building_tags"/>
             <preset_link preset_name="Address"/>
@@ -12649,6 +12708,7 @@
             <link wiki="Tag:shop=craft"/>
             <space/>
             <key key="shop" value="craft"/>
+            <check key="training" text="Provides classes" text_context="Tag:shop=craft"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Arts and craft supplies -->
@@ -13512,7 +13572,7 @@
             <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
             <optional>
                 <reference ref="genus_species_taxon"/>
-                <reference ref="leaf"/>
+                <reference ref="leaf_with_mixed"/>
                 <reference ref="denotation"/>
                 <reference ref="tree_form"/>
             </optional>
@@ -13555,7 +13615,7 @@
                 <space/>
                 <reference ref="genus_species_taxon"/>
                 <space/>
-                <reference ref="leaf"/>
+                <reference ref="leaf_with_mixed"/>
             </optional>
             <preset_link preset_name="Shrub" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Shrubbery -->
@@ -13567,14 +13627,14 @@
             <space/>
             <key key="natural" value="wood"/>
             <reference ref="optional_name"/>
-            <reference ref="leaf"/>
+            <reference ref="leaf_with_mixed"/>
         </item> <!-- Wood -->
         <item name="Forest" icon="icons/png/landuse_coniferous_and_deciduous.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=forest"/>
             <space/>
             <key key="landuse" value="forest"/>
             <reference ref="optional_name"/>
-            <reference ref="leaf"/>
+            <reference ref="leaf_with_mixed"/>
         </item> <!-- Forest -->
         <item name="Cutline" icon="icons/png/natural_empty.png" type="way" preset_name_label="true">
             <link wiki="Tag:man_made=cutline"/>
@@ -13636,7 +13696,7 @@
             <key key="natural" value="scrub"/>
             <optional>
                 <text key="name" text="Name"/>
-                <reference ref="leaf"/>
+                <reference ref="leaf_with_mixed"/>
             </optional>
         </item> <!-- Scrub -->
         <item name="Heath" icon="icons/png/natural_empty.png" type="closedway,multipolygon" preset_name_label="true">
@@ -13746,7 +13806,7 @@
             <key key="landuse" value="plant_nursery"/>
             <reference ref="optional_name_operator"/>
             <space/>
-            <reference ref="leaf"/>
+            <reference ref="leaf_with_mixed"/>
             <reference ref="genus_species_taxon"/>
         </item> <!-- Plant Nursery -->
         <item name="Salt Pond" icon="icons/png/natural_empty.png" type="closedway,multipolygon" preset_name_label="true">
