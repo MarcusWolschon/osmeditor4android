@@ -97,6 +97,7 @@
         <feature type="way" tags="natural" closed="true" area="true" offset="0.50" >
             <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
             <feature type="way" tags="natural=glacier" widthFactor="1.0" minVisibleZoom="10" color="ff368BC1" />
+            <feature type="way" tags="natural=wetland" widthFactor="2.0" minVisibleZoom="10" color="ff53f5a9" />
         </feature>
         <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
         <feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" />
@@ -448,6 +449,7 @@
         <feature type="relation" tags="natural" color="ff71BE80" >
             <feature type="relation" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
             <feature type="relation" tags="natural=glacier" widthFactor="1.0" minVisibleZoom="10" color="ff368BC1" />
+            <feature type="relation" tags="natural=wetland" widthFactor="2.0" minVisibleZoom="10" color="ff53f5a9" />
             <feature type="relation" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" />
             <feature type="relation" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" />
             <feature type="relation" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" />
