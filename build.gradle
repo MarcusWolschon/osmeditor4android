@@ -50,11 +50,10 @@ allprojects {
         mavenCentral()
         google()
         maven { url "https://jitpack.io" }
+        maven { url "https://maven.scijava.org/content/repositories/public/" }
         mavenLocal()
-        jcenter()
     }
 }
-
 
 ext {
     private_assets = "$projectDir/../private_assets"
