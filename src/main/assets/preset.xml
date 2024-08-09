@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.57.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.59.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing">
 <!--
     Icons have been derived from mainly from
   
@@ -99,6 +99,14 @@
             <list_entry value="4" short_description="4: Loose surface or boulders, dangerous hairpins"/>
             <list_entry value="5" short_description="5: Maximum difficulty, boulder fields, landslides"/>
             <list_entry value="6" short_description="6: Not rideable"/>
+        </combo>
+        <combo key="mtb:scale:uphill" text="Uphill MTB Scale">
+            <list_entry value="0" short_description="0: Graveled or hardened earth. Good Grip. Avg. incline 10%"/>
+            <list_entry value="1" short_description="1: Graveled or hardened earth. Good Grip. Avg. incline 15%"/>
+            <list_entry value="2" short_description="2: Mostly stable, unsurfaced, partly washed out"/>
+            <list_entry value="3" short_description="3: Variable Surface, tight corners, small steps, surface rocks, earth or grass."/>
+            <list_entry value="4" short_description="4: Way is very steep, or in bad condition for pedalling uphill. Steps, trees, roots, tight corners."/>
+            <list_entry value="5" short_description="5: Way is too steep and/or too difficult to ride uphill."/>
         </combo>
     </chunk>
     <chunk id="sport_surface">
@@ -9277,6 +9285,28 @@
             <key key="leisure" value="miniature_golf"/>
             <reference ref="name_oh_wheelchair"/>
         </item> <!-- Miniature Golf -->
+        <item name="Bike park" icon="icons/png/sport_bike_park.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:leisure"/>
+            <space/>
+            <key key="leisure" value="bike_park"/>
+            <key key="sport" value="mtb"/>
+            <text key="name" text="Name"/>
+            <reference ref="oh"/>
+            <reference ref="link_contact_address_payment"/>
+            <preset_link preset_name="Pump track" text="Similar but different tags:" alternative="true"/>
+        </item> <!-- Bike park -->
+        <item name="Pump track" icon="icons/png/sport_bmx_21178.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:cycling=pump_track"/>
+            <space/>
+            <key key="cycling" value="pump_track"/>
+            <multiselect key="sport" values="bmx;skateboard" display_values="BMX;Skateboard" values_context="sport"/>
+            <text key="name" text="Name"/>
+            <reference ref="sport_facility_track"/>
+            <reference ref="sport_surface"/>
+            <reference ref="oh"/>
+            <reference ref="link_contact_address_payment"/>
+            <preset_link preset_name="Bike park" text="Similar but different tags:" alternative="true"/>
+        </item> <!-- Pump track -->
     </group> <!-- Sport Facilities -->
     <group name="Sport" icon="icons/png/sport_rowing_21113.png">
         <item name="Multi" icon="icons/png/sport_multi_21054.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -9557,6 +9587,16 @@
             <reference ref="oh"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Skateboard -->
+        <item name="BMX" icon="icons/png/sport_bmx_21178.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:sport=bmx"/>
+            <space/>
+            <key key="sport" value="bmx"/>
+            <text key="name" text="Name"/>
+            <reference ref="sport_facility_track"/>
+            <reference ref="sport_surface"/>
+            <reference ref="oh"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Pump track -->
         <item name="Swimming" icon="icons/png/sport_swimming_outdoor.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:sport=swimming"/>
             <space/>
