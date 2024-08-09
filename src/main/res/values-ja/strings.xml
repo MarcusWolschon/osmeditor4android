@@ -334,6 +334,7 @@
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">任意の画像</string>
   <string name="oam_layer_title">OAM 画像</string>
+  <string name="wms_endpoints_title">WMSのEndpoint一群</string>
   <string name="edit_layer_title">レイヤーエントリーを編集</string>
   <string name="add_layer_title">レイヤーエントリーを追加</string>
   <string name="select_layer_title">レイヤーを選択</string>
@@ -346,6 +347,10 @@
   <string name="tile_size">タイルの大きさ</string>
   <string name="toast_invalid_box">不適切または不完全な矩形境界</string>
   <string name="delete_layer">レイヤーを削除しますか?</string>
+  <string name="delete_endpoint">endpointを削除しますか?</string>
+  <string name="add_wms_endpoint_title">WMSのEndpointを追加</string>
+  <string name="edit_wms_endpoint_title">WMSのEndpointを編集</string>
+  <string name="add_imagery_from_wms_endpoint">WMSから画像を追加</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">レイヤー様式</string>
   <string name="layer_style_stroke_width">ストローク幅</string>
@@ -380,6 +385,7 @@
   <string name="layer_category_historicphoto">期限切れの空中写真</string>
   <string name="layer_category_map">地図板</string>
   <string name="layer_category_historicmap">期限切れの地図</string>
+  <string name="layer_category_osmbasedmap">OSMを基にする地図</string>
   <string name="layer_category_other">その他</string>
   <string name="layer_add_layer_from_mvt_style">MVT型からレイヤーを追加…</string>
   <string name="layer_add_custom_imagery">任意の画像を追加…</string>
@@ -388,19 +394,29 @@
   <string name="layer_download_track">GPX経路をダウンロード…</string>
   <string name="layer_available_tracks">入手可能なGPX経路</string>
   <!--Layer info dialog-->
+  <string name="layer_info_terms">利用規約</string>
   <string name="layer_info_privacy_policy">プライバシーポリシー</string>
   <string name="errors">エラー</string>
   <string name="layer_info_layer_not_available">レイヤー情報を入手できません</string>
   <string name="layer_info_no_meta_data">メタデータが読み込みこまれません</string>
   <!--Mapillary layer-->
   <!--Date range dialog-->
+  <string name="date_range_title">日時の範囲を設定</string>
   <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">写真を削除</string>
+  <string name="photo_viewer_delete_button">永久的に削除</string>
+  <string name="photo_viewer_goto">写真に行く</string>
+  <string name="photo_viewer_label">写真表示器</string>
+  <string name="mapillary_viewer_label">Mapillary表示器</string>
   <!--API info dialog-->
   <string name="api_info_bounds">矩形境界</string>
   <string name="api_info_mapsplit_source">MapSplitは読み込みのみの情報源です</string>
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
+  <string name="select_route_title">ルートを選択</string>
+  <string name="select_relation_title">リレーションを選択</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">リレーションの種別を選択</string>
   <string name="select_relation_type_other">その他</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">チェックポイント</string>
@@ -425,7 +441,9 @@
   <string name="clear_track_description">経路記録を停止して保存された全ての経路点を削除します。これは取り消せません。</string>
   <!--Measurement dialog-->
   <!--Tips-->
+  <string name="tip_undo">元に戻すボタンを長押しすると、全ての「元に戻す」と「やり直し」の チェック項目が表示されます。</string>
   <string name="tip_imagery_privacy">背景とオーバーレイのレイヤーは第三者から提供されています。送信されるレイヤーを使用すると、あなたのネットワークアドレスと、閲覧している領域を大まかに示す情報が、提供元に送信されます。&lt;p&gt;提供元が個人情報保護方針の情報を提供している場合は、レイヤーのダイアログ内の「情報」メニューで表示できます。</string>
+  <string name="tip_wms_tile_size">WMS (Web Map Service)は256x256より大きなタイルに対応します。より効率的にするために、512x512を使用する設定を検討してください。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -526,6 +544,7 @@
   <string name="toast_style_file_too_large">提供されたその様式は大きすぎで、しかも恐らくはMapbox-GL様式ではないでしょう。</string>
   <string name="toast_no_track_points">経路点なし</string>
   <string name="toast_import_destination_exists">取り込んだ宛先は既に存在します。</string>
+  <string name="toast_querying_wms_server_failed">WMSサーバーへの問い合わせに失敗: %1$s</string>
   <!--Error messages-->
   <string name="error_pbf_unknown_relation_member_type">不明なリレーションメンバー種別%1$s</string>
   <!--Some generic labels/buttons-->
@@ -557,13 +576,16 @@
   <string name="ignore">無視</string>
   <string name="select">選択</string>
   <string name="skip">スキップ</string>
+  <string name="deprecated">%1$s (非推奨)</string>
   <string name="more_information">更なる情報</string>
+  <string name="osm_tags">OSMタグ</string>
   <!--Read a file-->
   <string name="read">読込</string>
   <string name="load">読み込み</string>
   <string name="overwrite">上書き</string>
   <string name="share">共有</string>
   <string name="share_position">位置の共有</string>
+  <string name="share_on_openstreetmap">OpenStreetMapで共有</string>
   <string name="min">最小</string>
   <string name="max">最大</string>
   <string name="geojson_object">%1$s (%2$s)</string>
@@ -577,6 +599,8 @@
   <string name="Key">キー</string>
   <string name="value">値</string>
   <string name="Value">値</string>
+  <string name="multiselect_header_short">値(%1$d)</string>
+  <string name="multiselect_header_long">値(%1$d個の要素に)</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">アドレスタグを加える</string>
   <string name="tag_menu_sourcesurvey">調査済み</string>
@@ -729,6 +753,7 @@
   <string name="menu_transfer_autodownload_long">タスクを自動ダウンロード</string>
   <string name="menu_transfer_save_notes_all">全てのメモを保存…</string>
   <string name="menu_transfer_save_notes_new_and_changed">新しいもしくは変更があったメモを保存</string>
+  <string name="menu_transfer_read_notes">メモを読み込み…</string>
   <string name="menu_save">ファイルとして保存</string>
   <string name="menu_join">結合</string>
   <string name="menu_unjoin">結合をとく</string>
@@ -757,6 +782,8 @@
   <string name="menu_tools_imagery">更なる画像ツール…</string>
   <string name="menu_tools_add_imagery_from_oam">OAMから画像を追加</string>
   <string name="menu_tools_flush_all_tile_caches">全タイルのキャッシュをクリア</string>
+  <string name="menu_tools_update_imagery_configuration">JOSMから設定を更新</string>
+  <string name="menu_tools_update_imagery_configuration_eli">ELIから設定を更新</string>
   <string name="menu_tools_zoom_to_layer_extent">背景レイヤ拡張にズーム</string>
   <string name="menu_tools_clear_clipboard">クリップボードを消去</string>
   <string name="menu_tools_install_egm">地球重力モデルをインストール</string>
@@ -765,6 +792,8 @@
   <string name="menu_tools_load_keys">ファイルから諸キーを読込…</string>
   <!---->
   <string name="menu_simple_actions">シンプルモード</string>
+  <string name="menu_feedback">フィードバックを提供</string>
+  <string name="menu_preset_feedback">プリセットのフィードバックを提供</string>
   <string name="menu_privacy">プライバシー</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">空中写真</string>
@@ -938,6 +967,10 @@
   <string name="config_maxStrokeWidth_title">ライン幅の最大</string>
   <string name="config_maxStrokeWidth_summary">これよりも太いウェイを描画しない</string>
   <string name="config_maxStrokeWidth_current">%1$d ピクセル</string>
+  <string name="config_uploadOk_title">未アップロード許容上限</string>
+  <string name="config_uploadOk_summary">アップロードが済んでいない物体の数は、この上限を下回ると、無問題とみなします。</string>
+  <string name="config_uploadWarn_title">未アップロード警告上限</string>
+  <string name="config_uploadWarn_summary">アップロードが済んでいない物体の数は、この上限を下回ると、警告状態になります。未アップロード数がこれを上回ると、危険状態になります。</string>
   <string name="config_uploadChecker_current">%1$d時間</string>
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>

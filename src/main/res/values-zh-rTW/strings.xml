@@ -232,6 +232,7 @@
   <string name="toast_todo_already_in_list">元素已經在這份待辦清單</string>
   <string name="toast_no_open_todos">沒有開啟的待辦事項</string>
   <string name="toast_no_todos_in_list">選取清單沒有待辦事項</string>
+  <string name="save_changes_title">儲存變動？</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存儲的變更，如果繼續將被丟棄。</string>
@@ -535,6 +536,9 @@
   <string name="undo_location_undo_anyway">還是進行復原</string>
   <string name="undo_location_zoom">縮放到位置，並且開始復原</string>
   <!--Value widget dialogs-->
+  <string name="compass_widget_usage_with_additional">取消選擇上述任何值，並且指向你裝置的方向來錄製，或是拖動到你想要的值</string>
+  <string name="compass_widget_usage">指向你裝置的方向來錄製，或是拖動到你想要的值</string>
+  <string name="integer_widget_usage_with_additional">取消選擇上述任何值，並且用數值選擇器</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">傳送時附上你的開放街圖顯示名稱</string>
   <string name="feedback_displayname_hint">還沒收到開放街圖顯示名稱 </string>
@@ -567,6 +571,7 @@
   <string name="tip_closed_way_splitting">封閉路徑必須分割為兩部分，碰觸高度度呈現的節點來決定第一個分割位置，接下來則會詢問第二個位置。</string>
   <string name="tip_disambiguation_menu">當有多個 OSM 元素或其他物件相當靠近彼此，或是元素是關聯的成員，消歧義的選單就會出現。你可以從清單選擇精確的元素。&lt;p&gt; 如果已經有元素被選取則會高亮度顯示。</string>
   <string name="tip_file_import">在運行 Android 10 或者之後版本的裝置上，你必須複製檔案才會有完整權限。複製的檔案位於  &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;.，如果需要你可以刪除原檔只需要保留複製版本。</string>
+  <string name="tip_wms_tile_size">WMS 伺服器能夠支援大於 256x256 大小的圖磚，考慮使用 512x512 的更有效設定。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -619,6 +624,7 @@
   <string name="toast_photo_failed">照相時失數，你有在使用相機 app 時啟動地理位置嗎？</string>
   <string name="toast_download_failed">下載失敗，錯誤代碼是 %1$d，訊息為 %2$s</string>
   <string name="toast_note_reopened">已重新開放的註解</string>
+  <string name="toast_untrusted_certificate">無法信任的憑證\n%1$s</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">未勘測的路</string>
   <string name="toast_noname">道路缺少名稱或編號</string>
@@ -628,6 +634,7 @@
   <string name="toast_untagged_element">沒有標示標籤的元素</string>
   <string name="toast_unconnected_end_node">節點接近連接的元素</string>
   <string name="toast_degenerate_way">退化的路徑</string>
+  <string name="toast_degenerate_way_with_info">退化的路徑 \"%1$s\"</string>
   <string name="toast_wrong_element_type">非標準元素類型：%1$s</string>
   <!---->
   <string name="toast_oauth_retry">在允許 OAuth 存取你的 OSM 帳號後再上傳一次。</string>
@@ -640,6 +647,11 @@
   <string name="toast_timeout">伺服器逾時</string>
   <string name="coordinates_out_of_range">經度必須在 -180°/+180° 以內，而緯度在 -85°/85° 以內</string>
   <string name="toast_nothing_found">沒找到什麼</string>
+  <string name="toast_layer_statesave_failed">無法替圖層%1$s儲存目前狀態！</string>
+  <string name="toast_task_layer_statesave_failed">無法儲存目前任務圖層狀態！</string>
+  <string name="toast_task_storage_statesave_failed">無法儲存目前任務儲存狀態！</string>
+  <string name="toast_data_statesave_failed">無法儲存目前狀態的資料\n這是相當嚴重的錯誤：如果你有未儲存的變動，離開然後採用自動儲存的檔案來恢復。</string>
+  <string name="toast_data_stateload_failed">無法載入狀態的資料\n檔案可能毀損或是不同的版本。\n如果你有未儲存的變動，你可以用自動儲存的 .ocs 檔案來恢復。</string>
   <string name="toast_missing_filemanager">請安裝檔案管理器。</string>
   <string name="toast_outside_of_download">下載更多資料以編輯此區域。</string>
   <string name="toast_file_not_found">%1$s 未找到。</string>
@@ -771,6 +783,11 @@
   <string name="toast_error_loading_egm">錯誤載入 EGM %1$s</string>
   <string name="toast_querying_wms_server_failed">檢索 WMS 伺服器失敗：%1$s</string>
   <string name="toast_note_not_found">沒有找到註解 #%1$d</string>
+  <string name="toast_pressure_calibration">新高度 %1$f公尺\n目前壓力%2$f百帕\n參考氣壓 %3$f百帕</string>
+  <string name="toast_no_compass">裝置沒有指南針！</string>
+  <string name="toast_no_roles_found">沒有找到角色，可以選擇所有的元件</string>
+  <string name="toast_no_preset_found">沒有找到吻合的預設組合，可以選擇所有的元件</string>
+  <string name="toast_undeleting_all_members">取消刪除有這個元件的所有關聯成員</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -853,6 +870,7 @@
   <string name="tag_dialog_value_hint">點選數值</string>
   <string name="tag_action_tag_title">選擇標籤(們)</string>
   <string name="tag_action_members_title">選擇成員(們)</string>
+  <string name="tag_action_parents_title">已經選擇上層關係</string>
   <string name="tag_additional_properties">額外性質</string>
   <string name="tag_details">詳情</string>
   <string name="tag_not_set">未設定</string>
@@ -883,6 +901,8 @@
   <string name="tag_form_unknown_element">未知元件 (未找到預設組合)</string>
   <string name="tag_form_untagged_element">沒有標示標籤的元素</string>
   <!--preset item menu in preset MRU-->
+  <string name="apply_with_last_values">套用最後的值</string>
+  <string name="apply_with_optional_tags">套用選擇的標籤</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">創建客製預置</string>
   <string name="create_preset_title">客製預置名稱</string>
@@ -1035,6 +1055,7 @@
   <string name="menu_upload_elements">上傳片段</string>
   <string name="menu_todo">待辦…</string>
   <string name="menu_todo_close_and_next">關閉與到下一個</string>
+  <string name="menu_todo_skip_and_next">跳過並且到下一個</string>
   <string name="menu_todo_close_all_tasks">關閉所有任務</string>
   <string name="menu_add_to_todo">新增到待辦清單…</string>
   <string name="menu_set_name">設定名稱</string>
@@ -1083,6 +1104,11 @@
   <string name="menu_layers_configure">設定...</string>
   <string name="menu_layers_background_align">對齊影像...</string>
   <string name="wms_hint">%1$s [wms]</string>
+  <string name="menu_layers_convert_geojson_todo">從 GeoJSON 物件創建待辦事項...</string>
+  <string name="geojson_todo_title">從 GeoJSON 物件創建待辦事項</string>
+  <string name="geojson_todo_default_conversion">預設轉換</string>
+  <string name="geojson_todo_custom_conversion">自訂轉換</string>
+  <string name="rhino_exception">&lt;br&gt; %1$d行出現錯誤，%2$d欄 &lt;br&gt;&lt;br&gt;%3$s</string>
   <!---->
   <string name="menu_tools_apply_local_offset">套用儲存的影像偏移值</string>
   <string name="menu_tools_background_contrast">對比</string>
@@ -1299,6 +1325,8 @@
   <string name="config_longStringLimit_current">%1$d</string>
   <string name="config_zoomWithKeys_title">使用音量鍵來縮放</string>
   <string name="config_zoomWithKeys_summary">允許使用音量鍵來放大與縮小。</string>
+  <string name="config_poi_keys_title">顯示附近興趣點</string>
+  <string name="config_poi_keys_summary">設定顯示附近興趣點要設定的鍵。</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
@@ -1463,6 +1491,8 @@
   <string name="config_voiceCommandsEnabled_summary">啟用聲控指令支援功能</string>
   <string name="config_splitWindowForPropertyEditor_summary">啟用如果可能在分開的視窗顯示屬性編輯器。</string>
   <string name="config_splitWindowForPropertyEditor_title">啟用分開的視窗的屬性編輯器</string>
+  <string name="config_newTaskForPropertyEditor_summary">當開啟屬性編輯器時設定 FLAG_ACTIVITY_NEW_TASK，這也許會改進 app 啟動時特定啟動器的行為。</string>
+  <string name="config_newTaskForPropertyEditor_title">屬性編輯器使用「新任務」模式</string>
   <!---->
   <string name="manage_apis">管理 APIs</string>
   <string name="config_api_url_title">API URL</string>
@@ -1549,6 +1579,7 @@
   <string name="undo_action_move_tags">移動標籤到關聯</string>
   <string name="undo_action_cut">剪下</string>
   <string name="undo_action_paste">貼上</string>
+  <string name="undo_action_rotate">旋轉</string>
   <string name="undo_action_orthogonalize">直角化路徑</string>
   <string name="undo_action_circulize">在圓週排列</string>
   <string name="undo_action_fix_conflict">修正衝突</string>

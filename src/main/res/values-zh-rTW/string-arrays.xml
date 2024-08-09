@@ -84,4 +84,7 @@
     <string name="theme_follow_entry">跟隨系統</string>
     <string name="theme_light_entry">明亮</string>
     <string name="theme_dark_entry">黑暗</string>
+    <string name="authentication_basic_entry">登入 - 密碼</string>
+    <string name="authentication_oauth1a_entry">OAuth 1a</string>
+    <string name="authentication_oauth2_entry">OAuth 2</string>
     </resources>

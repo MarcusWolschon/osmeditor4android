@@ -26,6 +26,8 @@
   <string name="upload_conflict_message_already_deleted">%1$s \nzostał usunięty na serwerze, ponawianie próby</string>
   <string name="upload_conflict_message_missing_references">Lokalny element odnoai się do obiektów nieistniejących na serwerze</string>
   <string name="upload_conflict_message_unknown">%1$s \nspowodował nieznany konflikt przesyłania \n%2$s</string>
+  <string name="server_side_object">Wersja serwerowa</string>
+  <string name="local_object">Wersja lokalna</string>
   <string name="resolve_by">Rozwiąż konflikt...</string>
   <string name="resolve">Rozwiąż...</string>
   <string name="delete_refering_element">...usunięciem odwołującego się elementu</string>
@@ -81,7 +83,17 @@
   <string name="select_file_picker_title">Wyvierz selektor plików</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Witaj</string>
+  <string name="welcome_message">Dziękujemy za zainstalowanie Vespucci.\n&lt;br&gt;&lt;br&gt;Vespucci to potężne narzędzie do edytowania OpenStreetMap.
+Wspiera on prawie wszystko na urządzeniach mobilnych, co możesz osiągnąć używając edytora na komputerze, to jednak jest powiązane z pewnym poziomem złożoności.
+Strony z pomocą na urządzeniu lub online odpowiedzą na większość pytań, jeśli to nie wystarcza, rekomendujemy zapytać na forach społeczności OpenStreetMap.
+&lt;br&gt;&lt;br&gt;By zacząć, potrzebujesz wiedzieć trzy rzeczy:
+&lt;ul&gt;&lt;li&gt;naciśnięcie na przycisk kłódki w górnym lewym rogu przełącza tryb między zablokowanym (brak możliwości edytowania) i odblokowanym.
+&lt;/li&gt;&lt;li&gt;by dodać nowy obiekt naciśnij duży, zielony przycisk i wybierz co chcesz dodać z menu, a następnie naciśnij miejsce, w którym chcesz umieścić obiekt.
+&lt;/li&gt;&lt;li&gt;by wyświetlić pobliskie punkty zainteresowania, przeciągnij uchwyt nad dolnym paskiem menu w górę.
+&lt;/li&gt;&lt;/ul&gt;
+Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry, które spawią, że Twoja podróż z Vespucci stanie się przyjemną.</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Twoje urządzenie ma \"dotykowe przyciski\", które są ukryte. Przesuń od dołu ekranu, aby je pokazać ponownie.</string>
+  <string name="welcome_auto_download_text">Automatycznie pobieraj dane</string>
   <string name="read_introduction">Przeczytaj wprowadzenie</string>
   <!---->
   <string name="upgrade_title">To jest nowa wersja programu Vespucci</string>
