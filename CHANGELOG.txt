@@ -1,5 +1,26 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.1.0:
+
+- Fix rearrange order of natural
+- Fix replace jcenter with scijava for android-issue-reporter indirect dep
+- Fix update tag form if revert is chosen exiting via pressing back
+- Fix disable back navigation previews
+- Fix clear caches when data style is changed
+- Fix don't show the direction widget for mini-roundabouts
+- Fix improve handling of negative values for integer widger
+- Fix unlock TextRow in onDismiss
+- Fix tag display in element info for the special case of all tags deleted
+- Fix reset validation when we reset presets
+- Fix suppress symbol spinner in grid layer styling
+- Fix use API URL for web history
+- Add use OnBackPressedCallback instead of onBackPressed
+- Add fancy tree row rendering
+- Add styling for natural=wetland
+- Update default preset
+- Update imagery from ELI
+- Update translations
+
 20.1.0-6:
 
 - Fix add foreground service permissions
