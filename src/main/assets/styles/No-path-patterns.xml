@@ -93,16 +93,23 @@
     <feature type="way" tags="leisure=garden" updateWidth="true" widthFactor="1.0" color="882d6e3a" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
     <feature type="way" tags="leisure=park" updateWidth="true" area="true" widthFactor="2.0" minVisibleZoom="10" color="88DFFCE2" style="STROKE" cap="BUTT" join="BEVEL" offset="0.50"/>
 
+    <feature type="tree_row_casing" updateWidth="true" widthFactor="0.2" color="ff037100" style="STROKE" cap="BUTT" join="MITER" />
+    
     <feature type="way" tags="natural" updateWidth="true" widthFactor="0.5" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER"> 
+        <feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" />
+        <feature type="way" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" />
+        <feature type="way" tags="natural=tree_row" widthFactor="2.5" color="ff146824" cap="ROUND" join="ROUND" casingStyle="tree_row_casing" labelZoomLimit="20">
+        <dash phase="1.0">
+                <interval length="0.05" />
+                <interval length="2.0" />
+            </dash>
+        </feature>
         <feature type="way" tags="natural" closed="true" area="true" offset="0.50" >
             <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
             <feature type="way" tags="natural=glacier" widthFactor="1.0" minVisibleZoom="10" color="ff368BC1" />
             <feature type="way" tags="natural=wetland" widthFactor="2.0" minVisibleZoom="10" color="ff53f5a9" />
         </feature>
-        <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
-        <feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" />
-        <feature type="way" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80"/>
-        <feature type="way" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" />
+        <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />       
     </feature>
     <feature type="way" tags="waterway" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="waterway_direction" >
         <feature type="way" tags="tunnel" >
