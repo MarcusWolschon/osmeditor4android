@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Offline data guide - Vespucci</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+
+<!--
+                <a class="navbar-brand" href="../..">Vespucci</a> -->
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+<!--                            <li class="navitem">
+                                <a href="../.." class="nav-link">Vespucci</a>
+</li> -->
+                                <li class="navitem">
+                                    
+                                        <a href="../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
+                                </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../help/en/Introduction/" class="dropdown-item">Introduction</a>
+</li>
+                                    
+<li>
+    <a href="../features/" class="dropdown-item">Features</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/20.1.0%20Release%20notes/" class="dropdown-item">20.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/20.0.0%20Release%20notes/" class="dropdown-item">20.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/19.3.0%20Release%20notes/" class="dropdown-item">19.3.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/19.2.0%20Release%20notes/" class="dropdown-item">19.2.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/19.1.0%20Release%20notes/" class="dropdown-item">19.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/19.0.0%20Release%20notes/" class="dropdown-item">19.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/18.1.0%20Release%20notes/" class="dropdown-item">18.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/18.0.0%20Release%20notes/" class="dropdown-item">18.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/17.1.0%20Release%20notes/" class="dropdown-item">17.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/17.0.0%20Release%20notes/" class="dropdown-item">17.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/16.1.0%20Release%20notes/" class="dropdown-item">16.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/16.0.0%20Release%20notes/" class="dropdown-item">16.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/15.2.0%20Release%20notes/" class="dropdown-item">15.2.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/15.1.0%20Release%20notes/" class="dropdown-item">15.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/15.0.0%20Release%20notes/" class="dropdown-item">15.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/14.1.0%20Release%20notes/" class="dropdown-item">14.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/14.0.0%20Release%20notes/" class="dropdown-item">14.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/13.1.0%20Release%20notes/" class="dropdown-item">13.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/13.0.0%20Release%20notes/" class="dropdown-item">13.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/12.1.0%20Release%20notes/" class="dropdown-item">12.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/12.0.0%20Release%20notes/" class="dropdown-item">12.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/11.2.0%20Release%20notes/" class="dropdown-item">11.2.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/11.1.0%20Release%20notes/" class="dropdown-item">11.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/11.0.0%20Release%20notes/" class="dropdown-item">11.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/10.2.0%20Release%20notes/" class="dropdown-item">10.2.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/10.1.0%20Release%20notes/" class="dropdown-item">10.1.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/10.0.0%20Release%20notes/" class="dropdown-item">10.0.0 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/0.9.9%20Release%20notes/" class="dropdown-item">0.9.9 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/0.9.8%20Release%20notes/" class="dropdown-item">0.9.8 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/0.9.7%20Release%20notes/" class="dropdown-item">0.9.7 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/0.9.6%20Release%20notes/" class="dropdown-item">0.9.6 Release notes</a>
+</li>
+                                    
+<li>
+    <a href="../old_release_notes/" class="dropdown-item">Previous release notes</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../help/en/Main%20map%20display/" class="dropdown-item">Main map display</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Simple%20actions/" class="dropdown-item">Simple actions</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Creating%20new%20objects/" class="dropdown-item">Creating new objects</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Node%20selected/" class="dropdown-item">Node selected</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Way%20selected/" class="dropdown-item">Way selected</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Relation%20selected/" class="dropdown-item">Relation selected</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/New%20Note%20selected/" class="dropdown-item">New note selected</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Property%20editor/" class="dropdown-item">Property editor</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Multiselect/" class="dropdown-item">Multiselect</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Conflict%20resolution/" class="dropdown-item">Conflict resolution</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Presets/" class="dropdown-item">Presets</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Aligning%20background%20imagery/" class="dropdown-item">Aligning background imagery</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Keyboard/" class="dropdown-item">Keyboard and mouse</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/GPS%20sources/" class="dropdown-item">GPS sources</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Tag%20filter/" class="dropdown-item">Tag based filter</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Preset%20filter/" class="dropdown-item">Preset based filter</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Opening%20hours/" class="dropdown-item">Opening hours</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Preferences/" class="dropdown-item">Preferences</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Advanced%20preferences/" class="dropdown-item">Advanced preferences</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Custom%20imagery/" class="dropdown-item">Custom imagery</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Voice%20commands/" class="dropdown-item">Voice commands</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../network_location/" class="dropdown-item">"network" Location Provider Support</a>
+</li>
+                                    
+<li>
+    <a href="../custom_imagery/" class="dropdown-item">Custom imagery</a>
+</li>
+                                    
+<li>
+    <a href="../custom_imagery_mbtiles/" class="dropdown-item">Generating MBTiles files with custom imagery</a>
+</li>
+                                    
+<li>
+    <a href="../name_suggestions/" class="dropdown-item">Using name suggestions</a>
+</li>
+                                    
+<li>
+    <a href="../reporting_issues/" class="dropdown-item">Reporting Vespucci issues</a>
+</li>
+                                    
+<li>
+    <a href="../tag_only/" class="dropdown-item">Tag-only editing</a>
+</li>
+                                    
+<li>
+    <a href="../presets/" class="dropdown-item">Vespucci presets</a>
+</li>
+                                    
+<li>
+    <a href="../data_styling/" class="dropdown-item">Vespucci data styling</a>
+</li>
+                                    
+<li>
+    <a href="../vespucci_intents/" class="dropdown-item">Controlling Vespucci from other apps</a>
+</li>
+                                    
+<li>
+    <a href="../object_search/" class="dropdown-item">Object search</a>
+</li>
+                                    
+<li>
+    <a href="../offline/" class="dropdown-item">Going completely offline with Vespucci</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Offline data guide</a>
+</li>
+                                    
+<li>
+    <a href="../mapbox-style/" class="dropdown-item">Mapbox-GL Style Support</a>
+</li>
+                                    
+<li>
+    <a href="../todos/" class="dropdown-item">Todo file format description</a>
+</li>
+                                </ul>
+                            </li>
+<!--                            <li class="navitem">
+                                <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
+</li> -->
+                                <li class="navitem">
+                                    
+                                        <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
+                                </li>
+<!--                            <li class="navitem">
+                                <a href="../faq/" class="nav-link">FAQ</a>
+</li> -->
+                                <li class="navitem">
+                                    
+                                        <a href="../faq/" class="nav-link">FAQ</a>
+                                </li>
+<!--                            <li class="navitem">
+                                <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
+</li> -->
+                                <li class="navitem">
+                                    
+                                        <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
+                                </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+
+<!--
+                            <li class="nav-item">
+                                <a rel="prev" href="../offline/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../mapbox-style/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+<!--                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#offline-guide" class="nav-link">Offline Guide</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+<div class="col-md-9" role="main">
+
+<h1 id="offline-guide">Offline Guide<a class="headerlink" href="#offline-guide" title="Permanent link">#</a></h1>
+<p><em>2024 Tomáš Hnyk</em></p>
+<p>Vespucci is able to use OSM data stored on your device so you can map in areas without internet coverage and upload your changes later. To do that, follow these steps:</p>
+<p>1) If you are lucky and the region you are interested in is included <a href="https://mapsplit.poole.ch">here</a>, you can download the needed data offline through the app. Within reason more areas can be added if there is interest and you ask nicely.</p>
+<pre><code>a) In Vespucci, first tap the two-arrows-in-opposing-directions icon and then select **File...**
+[&lt;img src="images/offline_guide_1.jpg" width="250"/&gt;](offline_guide_1.jpg)
+
+b) Select **Download data for offline use...**
+
+[&lt;img src="images/offline_guide_2.jpg" width="250"/&gt;](offline_guide_2.jpg)
+
+c) A view of https://mapsplit.poole.ch will open, just tap on the desired region and Vespucci will download it. Then go to Step 6.
+</code></pre>
+<p>2) If your region is not included, you first need to download the area you are interested in. This service is helpful: https://download.geofabrik.de.
+Get the appropriate osb.pbf file and save it to your working directory on your computer.</p>
+<p>3) Then you need to use the mapsplit tool that can be downloaded from <a href="https://github.com/simonpoole/mapsplit/tags">Github</a>. Choose the file that has "all" in its name and save it to the same directory where you saved the PBF file.</p>
+<p>4) Then run this command on you computer (you need to have a working java installation):</p>
+<pre><code>    java -Xmx6G -jar mapsplit-all-0.4.0.jar -tvMm  -i slovenia-latest.osm.pbf -o slovenia.msf -f 2000 -z 14 -O 2000 -s 200000000,20000000,2000000
+
+In this example, Slovenia PBF file is used. Replace the appropriate filename for your area. Possibly adjust he mapsplit version to the latest. You can adjust the number after `-z` to select the maximal zoom that will be used. It is also possible to use a .poly file to only get a specific subarea like a city. Instructions to do that are on the Mapsplit Github page. For getting the appropriate .poly files, https://osm-boundaries.com/map is recommended. However, in practice, you can usually just use whole countries and do not bother with .poly files. Once you have the .msf file, transfer it to your phone.
+</code></pre>
+<p>5) In Vespucci:</p>
+<pre><code>a) Tap the hamburger menu, then the three vertical dots next to **OpenStreetMap data** and lastly **Configure...**
+
+[&lt;img src="images/offline_guide_3.jpg" width="250"/&gt;](offline_guide_3.jpg)
+
+b) Then tap **Add API**:
+
+[&lt;img src="images/offline_guide_4.jpg" width="250"/&gt;](offline_guide_4.jpg)
+
+c) Choose an appropriate **API name**, under **API URL**, fill in what the other entries use, as of July 2024, it is `https://api.openstreetmap.org/api/0.6/` and finally tap the memory card card icon and choose the .msf file you transferred to your phone in the previous step.
+
+[&lt;img src="images/offline_guide_5.jpg" width="250"/&gt;](offline_guide_5.jpg)
+
+Note that Vespucci copies the file due to [peculiar Android design](https://github.com/MarcusWolschon/osmeditor4android/issues/2455), so you can delete the .msf file afterwards.
+</code></pre>
+<p>6) Now to switch to using offline source instead of downloading OSM data from the internet, choose the tickbox next to your new source, in our case Slovenia:</p>
+<pre><code>[&lt;img src="images/offline_guide_6.jpg" width="250"/&gt;](offline_guide_6.jpg)
+
+(to go back to online source, tick "OpenStreetMap")
+</code></pre>
+<p>7) Now, when you want to edit an area coverred by what you downloaded, you can use the "Load current view" function even when you are completely offline.</p>
+<p>Of course, when you are offline, you cannot upload your changes to OSM, so use the functions <strong>Export changes to OSC file</strong> and <strong>Save to JOSM file...</strong> (see screenshot from step 1. b)). Due to <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/2589">Android design</a>, the files do not get saved with an extension, so use <code>.osm</code> for JOSM and <code>.osc</code> for OSC. When you get online again, you can load the changes with <strong>Apply changes from OSC files</strong> or <strong>Read from JOSM file...</strong>. For this to work, you first need to <strong>Load current view</strong> that is bigger than the one used originally. Of course, you could also use these files in JOSM. OSC only saves the changes, JOSM files save the new state after your edit (so the file is much bigger).</p>
+<p>Some background on developement of this feature can be found <a href="https://www.openstreetmap.org/user/SimonPoole/diary/47275">here</a> and <a href="https://www.openstreetmap.org/user/SimonPoole/diary/193235">here</a>.</p>
+<p>It is also possible to use <a href="https://vespucci.io/tutorials/custom_imagery_mbtiles/">offline background imagery</a>.</p></div> -->
+		    
+                    	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#offline-guide" class="nav-link">Offline Guide</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    	<div class="col-md-9" role="main">
+
+<h1 id="offline-guide">Offline Guide<a class="headerlink" href="#offline-guide" title="Permanent link">#</a></h1>
+<p><em>2024 Tomáš Hnyk</em></p>
+<p>Vespucci is able to use OSM data stored on your device so you can map in areas without internet coverage and upload your changes later. To do that, follow these steps:</p>
+<p>1) If you are lucky and the region you are interested in is included <a href="https://mapsplit.poole.ch">here</a>, you can download the needed data offline through the app. Within reason more areas can be added if there is interest and you ask nicely.</p>
+<pre><code>a) In Vespucci, first tap the two-arrows-in-opposing-directions icon and then select **File...**
+[&lt;img src="images/offline_guide_1.jpg" width="250"/&gt;](offline_guide_1.jpg)
+
+b) Select **Download data for offline use...**
+
+[&lt;img src="images/offline_guide_2.jpg" width="250"/&gt;](offline_guide_2.jpg)
+
+c) A view of https://mapsplit.poole.ch will open, just tap on the desired region and Vespucci will download it. Then go to Step 6.
+</code></pre>
+<p>2) If your region is not included, you first need to download the area you are interested in. This service is helpful: https://download.geofabrik.de.
+Get the appropriate osb.pbf file and save it to your working directory on your computer.</p>
+<p>3) Then you need to use the mapsplit tool that can be downloaded from <a href="https://github.com/simonpoole/mapsplit/tags">Github</a>. Choose the file that has "all" in its name and save it to the same directory where you saved the PBF file.</p>
+<p>4) Then run this command on you computer (you need to have a working java installation):</p>
+<pre><code>    java -Xmx6G -jar mapsplit-all-0.4.0.jar -tvMm  -i slovenia-latest.osm.pbf -o slovenia.msf -f 2000 -z 14 -O 2000 -s 200000000,20000000,2000000
+
+In this example, Slovenia PBF file is used. Replace the appropriate filename for your area. Possibly adjust he mapsplit version to the latest. You can adjust the number after `-z` to select the maximal zoom that will be used. It is also possible to use a .poly file to only get a specific subarea like a city. Instructions to do that are on the Mapsplit Github page. For getting the appropriate .poly files, https://osm-boundaries.com/map is recommended. However, in practice, you can usually just use whole countries and do not bother with .poly files. Once you have the .msf file, transfer it to your phone.
+</code></pre>
+<p>5) In Vespucci:</p>
+<pre><code>a) Tap the hamburger menu, then the three vertical dots next to **OpenStreetMap data** and lastly **Configure...**
+
+[&lt;img src="images/offline_guide_3.jpg" width="250"/&gt;](offline_guide_3.jpg)
+
+b) Then tap **Add API**:
+
+[&lt;img src="images/offline_guide_4.jpg" width="250"/&gt;](offline_guide_4.jpg)
+
+c) Choose an appropriate **API name**, under **API URL**, fill in what the other entries use, as of July 2024, it is `https://api.openstreetmap.org/api/0.6/` and finally tap the memory card card icon and choose the .msf file you transferred to your phone in the previous step.
+
+[&lt;img src="images/offline_guide_5.jpg" width="250"/&gt;](offline_guide_5.jpg)
+
+Note that Vespucci copies the file due to [peculiar Android design](https://github.com/MarcusWolschon/osmeditor4android/issues/2455), so you can delete the .msf file afterwards.
+</code></pre>
+<p>6) Now to switch to using offline source instead of downloading OSM data from the internet, choose the tickbox next to your new source, in our case Slovenia:</p>
+<pre><code>[&lt;img src="images/offline_guide_6.jpg" width="250"/&gt;](offline_guide_6.jpg)
+
+(to go back to online source, tick "OpenStreetMap")
+</code></pre>
+<p>7) Now, when you want to edit an area coverred by what you downloaded, you can use the "Load current view" function even when you are completely offline.</p>
+<p>Of course, when you are offline, you cannot upload your changes to OSM, so use the functions <strong>Export changes to OSC file</strong> and <strong>Save to JOSM file...</strong> (see screenshot from step 1. b)). Due to <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/2589">Android design</a>, the files do not get saved with an extension, so use <code>.osm</code> for JOSM and <code>.osc</code> for OSC. When you get online again, you can load the changes with <strong>Apply changes from OSC files</strong> or <strong>Read from JOSM file...</strong>. For this to work, you first need to <strong>Load current view</strong> that is bigger than the one used originally. Of course, you could also use these files in JOSM. OSC only saves the changes, JOSM files save the new state after your edit (so the file is much bigger).</p>
+<p>Some background on developement of this feature can be found <a href="https://www.openstreetmap.org/user/SimonPoole/diary/47275">here</a> and <a href="https://www.openstreetmap.org/user/SimonPoole/diary/193235">here</a>.</p>
+<p>It is also possible to use <a href="https://vespucci.io/tutorials/custom_imagery_mbtiles/">offline background imagery</a>.</p></div>
+                    
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.1.0 </p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
