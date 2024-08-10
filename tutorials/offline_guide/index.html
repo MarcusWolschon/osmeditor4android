@@ -405,38 +405,29 @@
 <p><em>2024 Tomáš Hnyk</em></p>
 <p>Vespucci is able to use OSM data stored on your device so you can map in areas without internet coverage and upload your changes later. To do that, follow these steps:</p>
 <p>1) If you are lucky and the region you are interested in is included <a href="https://mapsplit.poole.ch">here</a>, you can download the needed data offline through the app. Within reason more areas can be added if there is interest and you ask nicely.</p>
-<pre><code>a) In Vespucci, first tap the two-arrows-in-opposing-directions icon and then select **File...**
-</code></pre>
-<p><img src="../images/offline_guide_1.jpg" width="250"/></p>
-<pre><code>b) Select **Download data for offline use...**
-</code></pre>
+<p>a) In Vespucci, first tap the two-arrows-in-opposing-directions icon and then select <strong>File...</strong>
+<img src="../images/offline_guide_1.jpg" width="250"/></p>
+<p>b) Select <strong>Download data for offline use...</strong></p>
 <p><img src="../images/offline_guide_2.jpg" width="250"/></p>
-<pre><code>c) A view of https://mapsplit.poole.ch will open, just tap on the desired region and Vespucci will download it. Then go to Step 6.
-</code></pre>
+<p>c) A view of https://mapsplit.poole.ch will open, just tap on the desired region and Vespucci will download it. Then go to Step 6.</p>
 <p>2) If your region is not included, you first need to download the area you are interested in. This service is helpful: https://download.geofabrik.de.
 Get the appropriate osb.pbf file and save it to your working directory on your computer.</p>
 <p>3) Then you need to use the mapsplit tool that can be downloaded from <a href="https://github.com/simonpoole/mapsplit/tags">Github</a>. Choose the file that has "all" in its name and save it to the same directory where you saved the PBF file.</p>
 <p>4) Then run this command on you computer (you need to have a working java installation):</p>
 <pre><code>    java -Xmx6G -jar mapsplit-all-0.4.0.jar -tvMm  -i slovenia-latest.osm.pbf -o slovenia.msf -f 2000 -z 14 -O 2000 -s 200000000,20000000,2000000
-
-In this example, Slovenia PBF file is used. Replace the appropriate filename for your area. Possibly adjust he mapsplit version to the latest. You can adjust the number after `-z` to select the maximal zoom that will be used. It is also possible to use a .poly file to only get a specific subarea like a city. Instructions to do that are on the Mapsplit Github page. For getting the appropriate .poly files, https://osm-boundaries.com/map is recommended. However, in practice, you can usually just use whole countries and do not bother with .poly files. Once you have the .msf file, transfer it to your phone.
 </code></pre>
+<p>In this example, Slovenia PBF file is used. Replace the appropriate filename for your area. Possibly adjust he mapsplit version to the latest. You can adjust the number after <code>-z</code> to select the maximal zoom that will be used. It is also possible to use a .poly file to only get a specific subarea like a city. Instructions to do that are on the Mapsplit Github page. For getting the appropriate .poly files, https://osm-boundaries.com/map is recommended. However, in practice, you can usually just use whole countries and do not bother with .poly files. Once you have the .msf file, transfer it to your phone.</p>
 <p>5) In Vespucci:</p>
-<pre><code>a) Tap the hamburger menu, then the three vertical dots next to **OpenStreetMap data** and lastly **Configure...**
-</code></pre>
+<p>a) Tap the hamburger menu, then the three vertical dots next to <strong>OpenStreetMap data</strong> and lastly <strong>Configure...</strong></p>
 <p><img src="../images/offline_guide_3.jpg" width="250"/></p>
-<pre><code>b) Then tap **Add API**:
-</code></pre>
+<p>b) Then tap <strong>Add API</strong>:</p>
 <p><img src="../images/offline_guide_4.jpg" width="250"/></p>
-<pre><code>c) Choose an appropriate **API name**, under **API URL**, fill in what the other entries use, as of July 2024, it is `https://api.openstreetmap.org/api/0.6/` and finally tap the memory card card icon and choose the .msf file you transferred to your phone in the previous step.
-</code></pre>
+<p>c) Choose an appropriate <strong>API name</strong>, under <strong>API URL</strong>, fill in what the other entries use, as of July 2024, it is <code>https://api.openstreetmap.org/api/0.6/</code> and finally tap the memory card card icon and choose the .msf file you transferred to your phone in the previous step.</p>
 <p><img src="../images/offline_guide_5.jpg" width="250"/></p>
-<pre><code>Note that Vespucci copies the file due to [peculiar Android design](https://github.com/MarcusWolschon/osmeditor4android/issues/2455), so you can delete the .msf file afterwards.
-</code></pre>
+<p>Note that Vespucci copies the file due to <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/2455">peculiar Android design</a>, so you can delete the .msf file afterwards.</p>
 <p>6) Now to switch to using offline source instead of downloading OSM data from the internet, choose the tickbox next to your new source, in our case Slovenia:</p>
 <p><img src="../images/offline_guide_6.jpg" width="250"/></p>
-<pre><code>(to go back to online source, tick "OpenStreetMap")
-</code></pre>
+<p>(to go back to online source, tick "OpenStreetMap")</p>
 <p>7) Now, when you want to edit an area coverred by what you downloaded, you can use the "Load current view" function even when you are completely offline.</p>
 <p>Of course, when you are offline, you cannot upload your changes to OSM, so use the functions <strong>Export changes to OSC file</strong> and <strong>Save to JOSM file...</strong> (see screenshot from step 1. b)). Due to <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/2589">Android design</a>, the files do not get saved with an extension, so use <code>.osm</code> for JOSM and <code>.osc</code> for OSC. When you get online again, you can load the changes with <strong>Apply changes from OSC files</strong> or <strong>Read from JOSM file...</strong>. For this to work, you first need to <strong>Load current view</strong> that is bigger than the one used originally. Of course, you could also use these files in JOSM. OSC only saves the changes, JOSM files save the new state after your edit (so the file is much bigger).</p>
 <p>Some background on developement of this feature can be found <a href="https://www.openstreetmap.org/user/SimonPoole/diary/47275">here</a> and <a href="https://www.openstreetmap.org/user/SimonPoole/diary/193235">here</a>.</p>
@@ -466,38 +457,29 @@ In this example, Slovenia PBF file is used. Replace the appropriate filename for
 <p><em>2024 Tomáš Hnyk</em></p>
 <p>Vespucci is able to use OSM data stored on your device so you can map in areas without internet coverage and upload your changes later. To do that, follow these steps:</p>
 <p>1) If you are lucky and the region you are interested in is included <a href="https://mapsplit.poole.ch">here</a>, you can download the needed data offline through the app. Within reason more areas can be added if there is interest and you ask nicely.</p>
-<pre><code>a) In Vespucci, first tap the two-arrows-in-opposing-directions icon and then select **File...**
-</code></pre>
-<p><img src="../images/offline_guide_1.jpg" width="250"/></p>
-<pre><code>b) Select **Download data for offline use...**
-</code></pre>
+<p>a) In Vespucci, first tap the two-arrows-in-opposing-directions icon and then select <strong>File...</strong>
+<img src="../images/offline_guide_1.jpg" width="250"/></p>
+<p>b) Select <strong>Download data for offline use...</strong></p>
 <p><img src="../images/offline_guide_2.jpg" width="250"/></p>
-<pre><code>c) A view of https://mapsplit.poole.ch will open, just tap on the desired region and Vespucci will download it. Then go to Step 6.
-</code></pre>
+<p>c) A view of https://mapsplit.poole.ch will open, just tap on the desired region and Vespucci will download it. Then go to Step 6.</p>
 <p>2) If your region is not included, you first need to download the area you are interested in. This service is helpful: https://download.geofabrik.de.
 Get the appropriate osb.pbf file and save it to your working directory on your computer.</p>
 <p>3) Then you need to use the mapsplit tool that can be downloaded from <a href="https://github.com/simonpoole/mapsplit/tags">Github</a>. Choose the file that has "all" in its name and save it to the same directory where you saved the PBF file.</p>
 <p>4) Then run this command on you computer (you need to have a working java installation):</p>
 <pre><code>    java -Xmx6G -jar mapsplit-all-0.4.0.jar -tvMm  -i slovenia-latest.osm.pbf -o slovenia.msf -f 2000 -z 14 -O 2000 -s 200000000,20000000,2000000
-
-In this example, Slovenia PBF file is used. Replace the appropriate filename for your area. Possibly adjust he mapsplit version to the latest. You can adjust the number after `-z` to select the maximal zoom that will be used. It is also possible to use a .poly file to only get a specific subarea like a city. Instructions to do that are on the Mapsplit Github page. For getting the appropriate .poly files, https://osm-boundaries.com/map is recommended. However, in practice, you can usually just use whole countries and do not bother with .poly files. Once you have the .msf file, transfer it to your phone.
 </code></pre>
+<p>In this example, Slovenia PBF file is used. Replace the appropriate filename for your area. Possibly adjust he mapsplit version to the latest. You can adjust the number after <code>-z</code> to select the maximal zoom that will be used. It is also possible to use a .poly file to only get a specific subarea like a city. Instructions to do that are on the Mapsplit Github page. For getting the appropriate .poly files, https://osm-boundaries.com/map is recommended. However, in practice, you can usually just use whole countries and do not bother with .poly files. Once you have the .msf file, transfer it to your phone.</p>
 <p>5) In Vespucci:</p>
-<pre><code>a) Tap the hamburger menu, then the three vertical dots next to **OpenStreetMap data** and lastly **Configure...**
-</code></pre>
+<p>a) Tap the hamburger menu, then the three vertical dots next to <strong>OpenStreetMap data</strong> and lastly <strong>Configure...</strong></p>
 <p><img src="../images/offline_guide_3.jpg" width="250"/></p>
-<pre><code>b) Then tap **Add API**:
-</code></pre>
+<p>b) Then tap <strong>Add API</strong>:</p>
 <p><img src="../images/offline_guide_4.jpg" width="250"/></p>
-<pre><code>c) Choose an appropriate **API name**, under **API URL**, fill in what the other entries use, as of July 2024, it is `https://api.openstreetmap.org/api/0.6/` and finally tap the memory card card icon and choose the .msf file you transferred to your phone in the previous step.
-</code></pre>
+<p>c) Choose an appropriate <strong>API name</strong>, under <strong>API URL</strong>, fill in what the other entries use, as of July 2024, it is <code>https://api.openstreetmap.org/api/0.6/</code> and finally tap the memory card card icon and choose the .msf file you transferred to your phone in the previous step.</p>
 <p><img src="../images/offline_guide_5.jpg" width="250"/></p>
-<pre><code>Note that Vespucci copies the file due to [peculiar Android design](https://github.com/MarcusWolschon/osmeditor4android/issues/2455), so you can delete the .msf file afterwards.
-</code></pre>
+<p>Note that Vespucci copies the file due to <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/2455">peculiar Android design</a>, so you can delete the .msf file afterwards.</p>
 <p>6) Now to switch to using offline source instead of downloading OSM data from the internet, choose the tickbox next to your new source, in our case Slovenia:</p>
 <p><img src="../images/offline_guide_6.jpg" width="250"/></p>
-<pre><code>(to go back to online source, tick "OpenStreetMap")
-</code></pre>
+<p>(to go back to online source, tick "OpenStreetMap")</p>
 <p>7) Now, when you want to edit an area coverred by what you downloaded, you can use the "Load current view" function even when you are completely offline.</p>
 <p>Of course, when you are offline, you cannot upload your changes to OSM, so use the functions <strong>Export changes to OSC file</strong> and <strong>Save to JOSM file...</strong> (see screenshot from step 1. b)). Due to <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/2589">Android design</a>, the files do not get saved with an extension, so use <code>.osm</code> for JOSM and <code>.osc</code> for OSC. When you get online again, you can load the changes with <strong>Apply changes from OSC files</strong> or <strong>Read from JOSM file...</strong>. For this to work, you first need to <strong>Load current view</strong> that is bigger than the one used originally. Of course, you could also use these files in JOSM. OSC only saves the changes, JOSM files save the new state after your edit (so the file is much bigger).</p>
 <p>Some background on developement of this feature can be found <a href="https://www.openstreetmap.org/user/SimonPoole/diary/47275">here</a> and <a href="https://www.openstreetmap.org/user/SimonPoole/diary/193235">here</a>.</p>
