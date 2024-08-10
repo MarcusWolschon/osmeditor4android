@@ -84,6 +84,7 @@ nav:
     - 'Controlling Vespucci from other apps': 'tutorials/vespucci_intents.md'
     - 'Object search': 'tutorials/object_search.md'
     - 'Going completely offline with Vespucci': 'tutorials/offline.md'
+    - 'Offline data guide': 'tutorials/offline_guide.md'
     - 'Mapbox-GL Style Support': 'tutorials/mapbox-style.md'
     - 'Todo file format description': 'tutorials/todos.md'
 - Videos & Screenshots: 'tutorials/screenshots.md'
