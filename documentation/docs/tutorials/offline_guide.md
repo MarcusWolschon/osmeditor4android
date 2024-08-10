@@ -6,11 +6,11 @@ Vespucci is able to use OSM data stored on your device so you can map in areas w
 1) If you are lucky and the region you are interested in is included [here](https://mapsplit.poole.ch), you can download the needed data offline through the app. Within reason more areas can be added if there is interest and you ask nicely.
 
     a) In Vespucci, first tap the two-arrows-in-opposing-directions icon and then select **File...**
-<img src="images/offline_guide_1.jpg" width="250"/>
+<img src="../images/offline_guide_1.jpg" width="250"/>
 
     b) Select **Download data for offline use...**
 
-<img src="images/offline_guide_2.jpg" width="250"/>
+<img src="../images/offline_guide_2.jpg" width="250"/>
 
     c) A view of https://mapsplit.poole.ch will open, just tap on the desired region and Vespucci will download it. Then go to Step 6.
 
@@ -29,21 +29,21 @@ Get the appropriate osb.pbf file and save it to your working directory on your c
 
     a) Tap the hamburger menu, then the three vertical dots next to **OpenStreetMap data** and lastly **Configure...**
 
-<img src="images/offline_guide_3.jpg" width="250"/>
+<img src="../images/offline_guide_3.jpg" width="250"/>
 
     b) Then tap **Add API**:
 
-<img src="images/offline_guide_4.jpg" width="250"/>
+<img src="../images/offline_guide_4.jpg" width="250"/>
 
     c) Choose an appropriate **API name**, under **API URL**, fill in what the other entries use, as of July 2024, it is `https://api.openstreetmap.org/api/0.6/` and finally tap the memory card card icon and choose the .msf file you transferred to your phone in the previous step.
 
-<img src="images/offline_guide_5.jpg" width="250"/>
+<img src="../images/offline_guide_5.jpg" width="250"/>
 
     Note that Vespucci copies the file due to [peculiar Android design](https://github.com/MarcusWolschon/osmeditor4android/issues/2455), so you can delete the .msf file afterwards.
 
 6) Now to switch to using offline source instead of downloading OSM data from the internet, choose the tickbox next to your new source, in our case Slovenia:
 
-<img src="images/offline_guide_6.jpg" width="250"/>
+<img src="../images/offline_guide_6.jpg" width="250"/>
 
     (to go back to online source, tick "OpenStreetMap")
 
