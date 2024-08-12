@@ -128,6 +128,10 @@ public class TodoFragment extends BugFragment {
         upload.setText(R.string.Done);
         upload.setEnabled(true);
         upload.setOnClickListener((View v) -> {
+            if (getContext() == null) {
+                Log.e(DEBUG_TAG, "Save button onClickListener context is null");
+                return;
+            }
             String commentText = ((Todo) task).getTitle();
             if (commentText == null) {
                 commentText = "";
