@@ -14,7 +14,7 @@ b) Select **Download data for offline use...**
 
 c) A view of https://mapsplit.poole.ch will open, just tap on the desired region and Vespucci will download it. Then go to Step 6.
 
-2) However, if your region is not included, you first need to download the area you are interested in. This service is helpful: [https://download.geofabrik.de](https://download.geofabrik.de]).
+2) However, if your region is not included, you first need to download the area you are interested in. This service is helpful: [https://download.geofabrik.de](https://download.geofabrik.de).
 Get the appropriate osb.pbf file and save it to your working directory on your computer.
 
 3) Then you need to use the mapsplit tool that can be downloaded from [Github](https://github.com/simonpoole/mapsplit/tags). Choose the file that has "all" in its name and save it to the same directory where you saved the PBF file.
