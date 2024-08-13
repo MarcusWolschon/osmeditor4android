@@ -488,10 +488,17 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         waysResult.clear();
         List<Node> paintNodes;
         List<Way> ways;
-        synchronized (delegator) {
-            final Storage currentStorage = delegator.getCurrentStorage();
-            paintNodes = currentStorage.getNodes(viewBox, nodesResult);
-            ways = currentStorage.getWays(viewBox, waysResult);
+        try {
+            if (delegator.tryLock()) {
+                final Storage currentStorage = delegator.getCurrentStorage();
+                paintNodes = currentStorage.getNodes(viewBox, nodesResult);
+                ways = currentStorage.getWays(viewBox, waysResult);
+            } else {
+                Log.w(DEBUG_TAG, "Delegator already locked");
+                return;
+            }
+        } finally {
+            delegator.unlock();
         }
 
         // the following should guarantee that if the selected node is off screen but the handle not, the handle gets
