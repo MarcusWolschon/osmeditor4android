@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import static de.blau.android.util.Winding.COLINEAR;
 import static de.blau.android.util.Winding.COUNTERCLOCKWISE;
 import static de.blau.android.util.Winding.winding;
@@ -59,7 +60,8 @@ import de.blau.android.validation.BaseValidator;
 
 public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
-    private static final String DEBUG_TAG = StorageDelegator.class.getSimpleName().substring(0, Math.min(23, StorageDelegator.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, StorageDelegator.class.getSimpleName().length());
+    private static final String DEBUG_TAG = StorageDelegator.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final long serialVersionUID = 11L;
 
@@ -3929,7 +3931,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Free the reading lock
+     * Free the reading lock checking if it is currently held
      */
     public void unlock() {
         if (readingLock.isHeldByCurrentThread()) {

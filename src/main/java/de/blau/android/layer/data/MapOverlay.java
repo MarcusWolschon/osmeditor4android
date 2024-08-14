@@ -484,18 +484,16 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         int screenHeight = map.getHeight();
 
         // first find all nodes and ways that we need to display
-        nodesResult.clear();
-        waysResult.clear();
-        List<Node> paintNodes;
-        List<Way> ways;
+        // if the delegator is locked re-render what we already have
         try {
             if (delegator.tryLock()) {
+                nodesResult.clear();
+                waysResult.clear();
                 final Storage currentStorage = delegator.getCurrentStorage();
-                paintNodes = currentStorage.getNodes(viewBox, nodesResult);
-                ways = currentStorage.getWays(viewBox, waysResult);
+                currentStorage.getNodes(viewBox, nodesResult);
+                currentStorage.getWays(viewBox, waysResult);
             } else {
-                Log.w(DEBUG_TAG, "Delegator already locked");
-                return;
+                Log.w(DEBUG_TAG, "Delegator already locked, rerendering existing data");
             }
         } finally {
             delegator.unlock();
@@ -505,8 +503,8 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         // drawn, this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
         if (tmpDrawingSelectedNodes != null) {
             for (Node n : tmpDrawingSelectedNodes) {
-                if (!paintNodes.contains(n)) {
-                    paintNodes.add(n);
+                if (!nodesResult.contains(n)) {
+                    nodesResult.add(n);
                 }
             }
         }
@@ -522,10 +520,10 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
 
         // Paint all ways
 
-        List<Way> waysToDraw = ways;
+        List<Way> waysToDraw = waysResult;
         if (filterMode) {
             // initial filtering need to happen before relations are processed
-            for (Node n : paintNodes) {
+            for (Node n : nodesResult) {
                 tmpFilter.include(n, false);
             }
             /*
@@ -534,7 +532,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
              */
             tmpHiddenWays.clear();
             tmpStyledWays.clear();
-            for (Way w : ways) {
+            for (Way w : waysResult) {
                 if (tmpFilter.include(w, tmpDrawingInEditRange && tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(w))) {
                     tmpStyledWays.add(w);
                 } else {
@@ -550,10 +548,10 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
 
         // get relations for all nodes and ways
         paintRelations.clear();
-        for (Node n : paintNodes) {
+        for (Node n : nodesResult) {
             addRelations(filterMode, n.getParentRelations(), paintRelations);
         }
-        for (Way w : ways) {
+        for (Way w : waysResult) {
             addRelations(filterMode, w.getParentRelations(), paintRelations);
         }
 
@@ -579,10 +577,10 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         int coordSize = 0;
         float r = wayTolerancePaint.getStrokeWidth() / 2;
         float r2 = r * r;
-        if (drawTolerance && (coord == null || coord.length < paintNodes.size())) {
-            coord = new float[paintNodes.size()][2];
+        if (drawTolerance && (coord == null || coord.length < nodesResult.size())) {
+            coord = new float[nodesResult.size()][2];
         }
-        for (Node n : paintNodes) {
+        for (Node n : nodesResult) {
             boolean noTolerance = false;
             int lat = n.getLat();
             float y = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, lat);
@@ -620,10 +618,11 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                 }
             }
         }
+
         paintHandles(canvas);
 
         if (onUpdateListener != null) {
-            onUpdateListener.onUpdate((Collection<O>) paintNodes, (Collection<O>) waysToDraw, (Collection<O>) paintRelations);
+            onUpdateListener.onUpdate((Collection<O>) nodesResult, (Collection<O>) waysToDraw, (Collection<O>) paintRelations);
         }
     }
 
