@@ -541,7 +541,8 @@ public class UndoStorage implements Serializable {
             boolean ok = true;
             List<UndoElement> list = new ArrayList<>(elements.values());
             final StorageDelegator delegator = App.getDelegator();
-            synchronized (delegator) {
+            try {
+                delegator.lock();
                 if (redoCheckpoint != null) {
                     for (UndoElement ue : list) {
                         redoCheckpoint.add(getUptodateElement(ue.element)); // save current state
@@ -567,6 +568,8 @@ public class UndoStorage implements Serializable {
                 }
 
                 delegator.fixupBacklinks();
+            } finally {
+                delegator.unlock();
             }
             return ok;
         }
