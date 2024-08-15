@@ -1,5 +1,7 @@
 package de.blau.android.photos;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.BoundingBox;
@@ -47,7 +50,8 @@ public class PhotoIndex extends SQLiteOpenHelper {
 
     private static final int    DATA_VERSION = 6;
     public static final String  DB_NAME      = PhotoIndex.class.getSimpleName();
-    private static final String DEBUG_TAG    = PhotoIndex.class.getSimpleName().substring(0, Math.min(23, PhotoIndex.class.getSimpleName().length()));
+    private static final int    TAG_LEN      = Math.min(LOG_TAG_LEN, PhotoIndex.class.getSimpleName().length());
+    private static final String DEBUG_TAG    = PhotoIndex.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String NOVESPUCCI = ".novespucci";
 
@@ -164,20 +168,26 @@ public class PhotoIndex extends SQLiteOpenHelper {
      */
     public void indexMediaStore() {
         Log.d(DEBUG_TAG, "scanning MediaStore");
-        SQLiteDatabase db = null;
-        Cursor cursor = null;
-        try {
-            db = getWritableDatabase();
+        try (SQLiteDatabase db = getWritableDatabase()) {
             final String mediaStoreVersion = MediaStore.getVersion(context);
-            if (!mediaStoreVersion.equals(getTag(db, MEDIA_STORE))) {
-                db.delete(PHOTOS_TABLE, SOURCE_COLUMN + " = ?", new String[] { MEDIA_STORE });
-                String[] projection = new String[] { BaseColumns._ID, MediaStore.MediaColumns.DISPLAY_NAME, MediaColumns.MIME_TYPE };
-                cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, MediaColumns.MIME_TYPE + " = ?",
-                        new String[] { MimeTypes.JPEG }, null);
+            if (mediaStoreVersion.equals(getTag(db, MEDIA_STORE))) {
+                Log.d(DEBUG_TAG, "MediaStore unchanged");
+                return;
+            }
+            db.delete(PHOTOS_TABLE, SOURCE_COLUMN + " = ?", new String[] { MEDIA_STORE });
+            String[] projection = new String[] { BaseColumns._ID, MediaStore.MediaColumns.DISPLAY_NAME, MediaColumns.MIME_TYPE };
+            try (Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection,
+                    MediaColumns.MIME_TYPE + " = ? OR " + MediaColumns.MIME_TYPE + " = ?", new String[] { MimeTypes.JPEG, MimeTypes.HEIC }, null)) {
+                Log.d(DEBUG_TAG, "Media store contains " + cursor.getCount() + " entries");
                 // Cache column indices.
                 int idColumn = cursor.getColumnIndexOrThrow(BaseColumns._ID);
                 int displayNameColumn = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
+                int mimeTypeColumn = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.MIME_TYPE);
                 while (cursor.moveToNext()) {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && MimeTypes.HEIC.equals(cursor.getString(mimeTypeColumn))) {
+                        // skip HEIC images is we are on an old Android version
+                        continue;
+                    }
                     Uri photoUri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cursor.getString(idColumn));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         photoUri = MediaStore.setRequireOriginal(photoUri);
@@ -189,26 +199,8 @@ public class PhotoIndex extends SQLiteOpenHelper {
                         }
                     }
                 }
-                updateSources(db, MEDIA_STORE, mediaStoreVersion, System.currentTimeMillis());
-            } else {
-                Log.d(DEBUG_TAG, "MediaStore unchanged");
             }
-        } finally {
-            close(cursor);
-            SavingHelper.close(db);
-        }
-    }
-
-    /**
-     * Close a Cursor
-     * 
-     * Pre API 16 Cursor doesn't implement Closeable
-     * 
-     * @param cursor the Cursor
-     */
-    private void close(@Nullable Cursor cursor) {
-        if (cursor != null) {
-            cursor.close();
+            updateSources(db, MEDIA_STORE, mediaStoreVersion, System.currentTimeMillis());
         }
     }
 
@@ -252,13 +244,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
             }
         }
 
-        SQLiteDatabase db = null;
-        Cursor dbresult = null;
-
-        try {
-            db = getWritableDatabase();
-            dbresult = db.query(SOURCES_TABLE, new String[] { URI_COLUMN, LAST_SCAN_COLUMN, TAG_COLUMN }, TAG_COLUMN + " is NULL", null, null, null, null,
-                    null);
+        try (SQLiteDatabase db = getWritableDatabase();
+                Cursor dbresult = db.query(SOURCES_TABLE, new String[] { URI_COLUMN, LAST_SCAN_COLUMN, TAG_COLUMN }, TAG_COLUMN + " is NULL", null, null, null,
+                        null, null)) {
             int dirCount = dbresult.getCount();
             dbresult.moveToFirst();
             // loop over the directories configured
@@ -271,10 +259,8 @@ public class PhotoIndex extends SQLiteOpenHelper {
                     File indir = new File(m, dir);
                     Log.d(DEBUG_TAG, "Scanning directory " + indir.getAbsolutePath());
                     if (indir.exists()) {
-                        Cursor dbresult2 = null;
-                        try {
-                            dbresult2 = db.query(PHOTOS_TABLE, new String[] { "distinct dir" }, "dir LIKE '" + indir.getAbsolutePath() + "%'", null, null, null,
-                                    null, null);
+                        try (Cursor dbresult2 = db.query(PHOTOS_TABLE, new String[] { "distinct dir" }, "dir LIKE '" + indir.getAbsolutePath() + "%'", null,
+                                null, null, null, null)) {
                             int dirCount2 = dbresult2.getCount();
                             dbresult2.moveToFirst();
                             for (int j = 0; j < dirCount2; j++) {
@@ -286,11 +272,8 @@ public class PhotoIndex extends SQLiteOpenHelper {
                                 }
                                 dbresult2.moveToNext();
                             }
-                            dbresult2.close();
                             scanDir(db, indir.getAbsolutePath(), lastScan);
                             updateSources(db, indir.getName(), null, System.currentTimeMillis());
-                        } finally {
-                            close(dbresult2);
                         }
                         continue;
                     }
@@ -304,9 +287,6 @@ public class PhotoIndex extends SQLiteOpenHelper {
         } catch (SQLiteException ex) {
             // Don't crash just report
             ACRAHelper.nocrashReport(ex, ex.getMessage());
-        } finally {
-            close(dbresult);
-            SavingHelper.close(db);
         }
     }
 
@@ -333,24 +313,48 @@ public class PhotoIndex extends SQLiteOpenHelper {
         }
         // now process
         File[] list = indir.listFiles();
-        if (list == null) {
+        if (list == null || dontIndex(list)) {
             return;
-        }
-        // check if we shouldn't process this directory, not the most efficient way likely
-        for (File f : list) {
-            if (NOVESPUCCI.equals(f.getName())) {
-                return;
-            }
         }
         for (File f : list) {
             if (f.isDirectory()) {
                 // recursive decent
                 scanDir(db, f.getAbsolutePath(), lastScan);
             }
-            if (needsReindex && f.getName().toLowerCase(Locale.US).endsWith(Paths.FILE_EXTENSION_IMAGE)) {
+            if (!needsReindex) {
+                continue;
+            }
+            String extension = getFileExtension(f.getName().toLowerCase(Locale.US));
+            if (FileExtensions.JPG.equals(extension) || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && FileExtensions.HEIC.equals(extension))) {
                 addPhoto(db, indir, f);
             }
         }
+    }
+
+    /**
+     * Check if the list of File contains a .novespucci file
+     * 
+     * @param true if the file is found
+     */
+    private boolean dontIndex(File[] list) {
+        // check if we shouldn't process this directory, not the most efficient way likely
+        for (File f : list) {
+            if (NOVESPUCCI.equals(f.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get the file extension if any
+     * 
+     * @param fileName the full file name
+     * @return the extension of the the file name if there is none
+     */
+    private String getFileExtension(@NonNull String fileName) {
+        String[] parts = fileName.split("\\.");
+        return parts[parts.length - 1];
     }
 
     /**
@@ -361,14 +365,10 @@ public class PhotoIndex extends SQLiteOpenHelper {
      */
     @Nullable
     public synchronized Photo addPhoto(@NonNull File f) {
-        SQLiteDatabase db = null;
-        try {
-            db = getWritableDatabase();
+        try (SQLiteDatabase db = getWritableDatabase()) {
             Photo p = addPhoto(db, f.getParentFile(), f);
             addToIndex(p);
             return p;
-        } finally {
-            SavingHelper.close(db);
         }
     }
 
@@ -479,15 +479,11 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * @return true if already present
      */
     private boolean isIndexed(@NonNull SQLiteDatabase db, @NonNull String uriString) {
-        Cursor dbresult = null;
-        try {
-            dbresult = db.query(PHOTOS_TABLE, new String[] { URI_COLUMN }, URI_COLUMN + "  = ?", new String[] { uriString }, null, null, null, null);
+        try (Cursor dbresult = db.query(PHOTOS_TABLE, new String[] { URI_COLUMN }, URI_COLUMN + "  = ?", new String[] { uriString }, null, null, null, null)) {
             return dbresult.getCount() > 0;
         } catch (Exception ex) {
             Log.e(DEBUG_TAG, ex.getMessage());
             return true;
-        } finally {
-            close(dbresult);
         }
     }
 
@@ -546,17 +542,13 @@ public class PhotoIndex extends SQLiteOpenHelper {
      */
     @Nullable
     private String getTag(@NonNull SQLiteDatabase db, @NonNull String source) {
-        Cursor dbresult = null;
-        try {
-            dbresult = db.query(SOURCES_TABLE, new String[] { TAG_COLUMN, URI_COLUMN }, URI_WHERE, new String[] { source }, null, null, null, null);
+        try (Cursor dbresult = db.query(SOURCES_TABLE, new String[] { TAG_COLUMN, URI_COLUMN }, URI_WHERE, new String[] { source }, null, null, null, null)) {
             if (dbresult.getCount() >= 1) {
                 dbresult.moveToFirst();
                 return dbresult.getString(0);
             }
         } catch (Exception ex) {
             Log.e(DEBUG_TAG, ex.getMessage());
-        } finally {
-            close(dbresult);
         }
         return null;
     }
@@ -585,12 +577,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
      */
     public boolean deletePhoto(@NonNull Context context, @NonNull String uriString) {
         Log.d(DEBUG_TAG, "deletePhoto " + uriString);
-        SQLiteDatabase db = null;
-        Cursor dbresult = null;
-        try {
-            db = getWritableDatabase();
-            dbresult = db.query(PHOTOS_TABLE, new String[] { URI_COLUMN, LON_COLUMN, LAT_COLUMN }, URI_WHERE, new String[] { uriString }, null, null, null,
-                    null);
+        try (SQLiteDatabase db = getWritableDatabase();
+                Cursor dbresult = db.query(PHOTOS_TABLE, new String[] { URI_COLUMN, LON_COLUMN, LAT_COLUMN }, URI_WHERE, new String[] { uriString }, null, null,
+                        null, null)) {
             if (dbresult.getCount() > 0) {
                 RTree<Photo> index = App.getPhotoIndex();
                 if (index != null) {
@@ -611,9 +600,6 @@ public class PhotoIndex extends SQLiteOpenHelper {
             }
             Log.e(DEBUG_TAG, "deletePhoto uri not found in database");
             return false;
-        } finally {
-            close(dbresult);
-            SavingHelper.close(db);
         }
     }
 

@@ -10,7 +10,9 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap.Config;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Ui;
 import de.blau.android.dialogs.ImageInfo;
 import de.blau.android.listener.DoNothingListener;
@@ -152,6 +155,16 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
 
         @Override
         public void load(SubsamplingScaleImageView view, String uri) {
+            String imageType = view.getContext().getContentResolver().getType(Uri.parse(uri));
+            if (imageType.equals(MimeTypes.HEIC)) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    Log.e(DEBUG_TAG, "Can't load " + uri + " HEIC is not supported in this Android version");
+                    return;
+                }
+                SubsamplingScaleImageView.setPreferredBitmapConfig(Config.ARGB_8888);
+            } else {
+                SubsamplingScaleImageView.setPreferredBitmapConfig(Config.RGB_565); // default
+            }
             view.setOrientation(SubsamplingScaleImageView.ORIENTATION_USE_EXIF);
             view.setImage(ImageSource.uri(uri));
         }
