@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +23,8 @@ import de.blau.android.util.Util;
 
 public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
 
-    private static final String DEBUG_TAG = AdvancedPrefEditorFragment.class.getSimpleName().substring(0, Math.min(23, AdvancedPrefEditorFragment.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AdvancedPrefEditorFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = AdvancedPrefEditorFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private Resources    r;
     AdvancedPrefDatabase db;
@@ -87,6 +90,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setRestartRequiredMessage(R.string.config_autosaveMaxFiles_key);
         setRestartRequiredMessage(R.string.config_indexMediaStore_key);
         setRestartRequiredMessage(R.string.config_supportPresetLabels_key);
+        setRestartRequiredMessage(R.string.config_enableHwAcceleration_key);
         setTitle();
     }
 

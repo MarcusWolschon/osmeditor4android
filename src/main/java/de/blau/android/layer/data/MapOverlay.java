@@ -478,7 +478,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     @SuppressWarnings("unchecked")
     private void paintOsmData(@NonNull final Canvas canvas) {
 
-        boolean hwAccelarationWorkaround = canvas.isHardwareAccelerated();
+        boolean hwAccelerated = canvas.isHardwareAccelerated();
 
         int screenWidth = map.getWidth();
         int screenHeight = map.getHeight();
@@ -607,8 +607,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                     coordSize++;
                 }
             }
-            paintNode(canvas, n, x, y, hwAccelarationWorkaround,
-                    drawTolerance && !noTolerance && (n.getState() != OsmElement.STATE_UNCHANGED || isInDownload(lon, lat)));
+            paintNode(canvas, n, x, y, hwAccelerated, drawTolerance && !noTolerance && (n.getState() != OsmElement.STATE_UNCHANGED || isInDownload(lon, lat)));
         }
         // turn restrictions
         if (inNodeIconZoomRange && showIcons) {
@@ -977,10 +976,10 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
      * @param node Node to be painted.
      * @param x screen x coordinate
      * @param y screen y coordinate
-     * @param hwAccelarationWorkaround use a workaround for unsupported operations when HW acceleration is used
+     * @param hwAccelerated use a workaround for unsupported operations when HW acceleration is used
      * @param drawTolerance draw the touch halo
      */
-    private void paintNode(@NonNull final Canvas canvas, @NonNull final Node node, final float x, final float y, final boolean hwAccelarationWorkaround,
+    private void paintNode(@NonNull final Canvas canvas, @NonNull final Node node, final float x, final float y, final boolean hwAccelerated,
             final boolean drawTolerance) {
 
         boolean isSelected = tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node);
@@ -1068,56 +1067,57 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             isTagged = false;
         }
 
-        if (isTagged) {
-            boolean noIcon = true;
-            if (inNodeIconZoomRange && showIcons) {
-                Float direction = getDirection(node);
-                if (direction != null && !direction.equals(Float.NaN)) {
-                    canvas.save();
-                    canvas.rotate(direction + 90, x, y);
-                    canvas.translate(x - iconRadius, y);
-                    canvas.drawPath(currentStyle.getDirectionArrowPath(), nodeFeatureStyle.getPaint());
-                    canvas.restore();
-                }
-
-                noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected || hasProblem ? featureStyleTagged : null);
-                if (noIcon) {
-                    String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
-                    if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
-                        paintHouseNumber(x, y, canvas, featureStyleThin, featureStyleFontSmall, houseNumber);
-                        return;
-                    }
-                } else if (zoomLevel > showIconLabelZoomLimit) {
-                    paintLabel(x, y, canvas, featureStyleFont, node, nodeFeatureStyleTagged.getPaint().getStrokeWidth(), true);
-                }
-            }
-
-            if (noIcon) {
-                // draw regular nodes or without icons
-                if (zoomLevel < featureStyleTagged.getMinVisibleZoom()) {
-                    return;
-                }
-                Paint paint = featureStyleTagged.getPaint();
-                float strokeWidth = paint.getStrokeWidth();
-                if (hwAccelarationWorkaround) {
-                    canvas.drawCircle(x, y, strokeWidth / 2, paint);
-                } else {
-                    canvas.drawPoint(x, y, paint);
-                }
-                if (inNodeIconZoomRange) {
-                    paintLabel(x, y, canvas, featureStyleFont, node, strokeWidth, false);
-                }
-            }
-        } else {
+        if (!isTagged) {
             // this bit of code duplication makes sense
             if (zoomLevel < featureStyle.getMinVisibleZoom()) {
                 return;
             }
             Paint paint = featureStyle.getPaint();
-            if (hwAccelarationWorkaround) { // FIXME we don't actually know if this is slower than drawPoint
+            if (hwAccelerated) { // we don't actually know if this is slower than drawPoint
                 canvas.drawCircle(x, y, paint.getStrokeWidth() / 2, paint);
             } else {
                 canvas.drawPoint(x, y, paint);
+            }
+            return;
+        }
+
+        boolean noIcon = true;
+        if (inNodeIconZoomRange && showIcons) {
+            Float direction = getDirection(node);
+            if (direction != null && !direction.equals(Float.NaN)) {
+                canvas.save();
+                canvas.rotate(direction + 90, x, y);
+                canvas.translate(x - iconRadius, y);
+                canvas.drawPath(currentStyle.getDirectionArrowPath(), nodeFeatureStyle.getPaint());
+                canvas.restore();
+            }
+
+            noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected || hasProblem ? featureStyleTagged : null);
+            if (noIcon) {
+                String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+                if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
+                    paintHouseNumber(x, y, canvas, featureStyleThin, featureStyleFontSmall, houseNumber);
+                    return;
+                }
+            } else if (zoomLevel > showIconLabelZoomLimit) {
+                paintLabel(x, y, canvas, featureStyleFont, node, nodeFeatureStyleTagged.getPaint().getStrokeWidth(), true);
+            }
+        }
+
+        if (noIcon) {
+            // draw regular nodes or without icons
+            if (zoomLevel < featureStyleTagged.getMinVisibleZoom()) {
+                return;
+            }
+            Paint paint = featureStyleTagged.getPaint();
+            float strokeWidth = paint.getStrokeWidth();
+            if (hwAccelerated) {
+                canvas.drawCircle(x, y, strokeWidth / 2, paint);
+            } else {
+                canvas.drawPoint(x, y, paint);
+            }
+            if (inNodeIconZoomRange) {
+                paintLabel(x, y, canvas, featureStyleFont, node, strokeWidth, false);
             }
         }
     }
@@ -1271,8 +1271,13 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         }
         Bitmap icon;
         if (iconDrawable != null) {
-            icon = Bitmap.createBitmap(iconRadius * 2, iconRadius * 2, Config.ARGB_8888);
+            icon = Bitmap.createBitmap(iconRadius * 2, iconRadius * 2, Bitmap.Config.ARGB_8888);
             iconDrawable.draw(new Canvas(icon));
+            if (map.isHardwareLayerType()) {
+                Bitmap temp = icon;
+                icon = temp.copy(Bitmap.Config.HARDWARE, false);
+                temp.recycle();
+            }
         } else {
             icon = NOICON;
         }

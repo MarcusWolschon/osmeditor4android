@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,7 +29,8 @@ public final class OsmoseBug extends Bug implements Serializable {
 
     private static final long serialVersionUID = 5L;
 
-    private static final String DEBUG_TAG = OsmoseBug.class.getSimpleName().substring(0, Math.min(23, OsmoseBug.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OsmoseBug.class.getSimpleName().length());
+    private static final String DEBUG_TAG = OsmoseBug.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String OSMOSE_ISSUES   = "issues";
     private static final String OSMOSE_LAT      = "lat";
@@ -56,12 +59,15 @@ public final class OsmoseBug extends Bug implements Serializable {
 
     /**
      * Setup the icon caches
+     * 
+     * @param context android Context
+     * @param hwAccelerated true if the Canvas is hw accelerated
      */
-    public static void setupIconCache(Context context) {
-        cachedIconBugOpen = getIcon(context, R.drawable.bug_open);
-        cachedIconBugChanged = getIcon(context, R.drawable.bug_changed);
-        cachedIconChangedBugClosed = getIcon(context, R.drawable.bug_changed_closed);
-        cachedIconBugClosed = getIcon(context, R.drawable.bug_closed);
+    public static void setupIconCache(@NonNull Context context, boolean hwAccelerated) {
+        cachedIconBugOpen = getIcon(context, R.drawable.bug_open, hwAccelerated);
+        cachedIconBugChanged = getIcon(context, R.drawable.bug_changed, hwAccelerated);
+        cachedIconChangedBugClosed = getIcon(context, R.drawable.bug_changed_closed, hwAccelerated);
+        cachedIconBugClosed = getIcon(context, R.drawable.bug_closed, hwAccelerated);
     }
 
     /**

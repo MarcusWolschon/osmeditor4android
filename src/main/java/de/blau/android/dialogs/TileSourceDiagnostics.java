@@ -153,7 +153,7 @@ public class TileSourceDiagnostics extends ImmersiveDialogFragment {
                     text.setText(tester.getOutput());
                     byte[] image = tester.getTile();
                     if (result && tester.getTileType() == TileType.BITMAP && image != null && image.length > 0) {
-                        BitmapDecoder decoder = new BitmapDecoder();
+                        BitmapDecoder decoder = new BitmapDecoder(false);
                         Bitmap bitmap = decoder.decode(image, false);
                         if (bitmap != null) {
                             tileView.setVisibility(View.VISIBLE);

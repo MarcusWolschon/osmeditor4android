@@ -224,12 +224,15 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * 
      * @param context Android Context
      * @param icon the icon resource
+     * @param hwAccelerated true is the canvas is hw accellerated
      * @return the Bitmap
      */
     @NonNull
-    static BitmapWithOffset getIcon(@NonNull Context context, int icon) {
+    static BitmapWithOffset getIcon(@NonNull Context context, int icon, boolean hwAccelerated) {
         BitmapWithOffset bitmap = new BitmapWithOffset();
-        bitmap.icon = BitmapFactory.decodeResource(context.getResources(), icon);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = hwAccelerated ? Bitmap.Config.HARDWARE : Bitmap.Config.ARGB_8888;
+        bitmap.icon = BitmapFactory.decodeResource(context.getResources(), icon, options);
         bitmap.w2 = bitmap.icon.getWidth() / 2f;
         bitmap.h2 = bitmap.icon.getHeight() / 2f;
         bitmap.iconSelectedBorder = Density.dpToPx(context, ICON_SELECTED_BORDER);

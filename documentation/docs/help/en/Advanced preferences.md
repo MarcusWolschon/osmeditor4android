@@ -395,7 +395,7 @@ Enable voice command support: Default: _off_.
 
 ### Enable hardware acceleration
 
-Do not use, may cause hangs of the app and other problems.
+Turn on use of hardware rendering on Android 10 and later. Default: _off_
 
 ### Enable split window property editor
 
