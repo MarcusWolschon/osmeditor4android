@@ -45,12 +45,12 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 |                           | textsize       |         |
 |                           | shadow         |         |
 |                           | pathPattern    |         | Reference to a pattern to apply along the path, one of "triangle_left", "triangle_right", "border_left", "border_right"
-|                           | minVisibleZoom |         | Minimum zoom that has to be reached before the element is rendered
+|                           | minVisibleZoom |      15 | Minimum zoom that has to be reached before the element is rendered
 |                           | casingStyle    |         | Reference to a style to use for casing
 |                           | arrowStyle     |         | Reference to a style to use for way arrows                          
 |                           | oneway         |         | Set this on the referenced arrowStyle if it should have oneway semantics
 |                           | labelKey       |         | Tag key to use as label if present, magic value "preset" will use the preset name.
-|                           | labelZoomLimit |         | List for displaying labels on ways, if not set no label will be displayed
+|                           | labelZoomLimit |    none | List for displaying labels on ways, if not set no label will be displayed
 |                           | iconPath       |         | Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" (see below) will use the preset icon.
 |__&lt;dash&gt;__           |                |         | feature sub-element used to define a dash pattern
 |                           | phase          |         | Phase of the dash
