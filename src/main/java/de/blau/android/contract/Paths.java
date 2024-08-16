@@ -25,7 +25,6 @@ public final class Paths {
     public static final String DIRECTORY_PATH_TILE_CACHE_CLASSIC = "/andnav2/tiles/";// NOSONAR
     public static final String DIRECTORY_PATH_GPX                = "GPX";
     public static final String DIRECTORY_PATH_AUTOSAVE           = "Autosave";
-    public static final String FILE_EXTENSION_IMAGE              = ".jpg";
-    public static final String FILE_EXTENSION_XML                = ".xml";
+    
     public static final String DELIMITER                         = "/";
 }

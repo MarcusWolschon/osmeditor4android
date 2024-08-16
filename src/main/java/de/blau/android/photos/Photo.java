@@ -1,5 +1,7 @@
 package de.blau.android.photos;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +29,8 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = Photo.class.getSimpleName().substring(0, Math.min(23, Photo.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Photo.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Photo.class.getSimpleName().substring(0, TAG_LEN);
 
     /** a name for display purposes NOTE this ignored for equals and hashCode */
     private final String displayName;
@@ -103,7 +106,6 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
     private Photo(@NonNull ExifInterface exif, @NonNull String ref, @Nullable String displayName) throws IOException {
         this.ref = ref;
         this.displayName = displayName;
-
         /**
          * get the attribute. rest of the attributes are the same. will add convertToDegree on the bottom (not required)
          **/

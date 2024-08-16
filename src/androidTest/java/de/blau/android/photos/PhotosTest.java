@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import android.content.Context;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import androidx.preference.PreferenceManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -48,6 +49,7 @@ public class PhotosTest {
     private static final String PHOTO_FILE  = "test.jpg";
     private static final String PHOTO_FILE2 = "test2.jpg";
     private static final String PHOTO_FILE3 = "test3.jpg";
+    private static final String PHOTO_FILE4 = "test4.heic";
     private Context             context     = null;
     private Main                main        = null;
     private Preferences         prefs;
@@ -56,6 +58,7 @@ public class PhotosTest {
     private File                photo1      = null;
     private File                photo2      = null;
     private File                photo3      = null;
+    private File                photo4      = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -85,6 +88,12 @@ public class PhotosTest {
             MediaScannerConnection.scanFile(context, new String[] { photo3.getAbsolutePath() }, new String[] { MimeTypes.JPEG },
                     (String path, Uri uri) -> signal.countDown());
             SignalUtils.signalAwait(signal, 10);
+            photo4 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath(), PHOTO_FILE4);
+            JavaResources.copyFileFromResources(PHOTO_FILE4, null, photo4);
+            final CountDownLatch signal2 = new CountDownLatch(1);
+            MediaScannerConnection.scanFile(context, new String[] { photo4.getAbsolutePath() }, new String[] { MimeTypes.HEIC },
+                    (String path, Uri uri) -> signal2.countDown());
+            SignalUtils.signalAwait(signal2, 10);
         } catch (IOException e) {
             fail(e.getMessage());
         }
@@ -159,13 +168,19 @@ public class PhotosTest {
             index.fill(tree);
             List<Photo> photos = new ArrayList<>();
             tree.query(photos);
-            assertEquals(3, photos.size());
+            assertEquals(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q ? 3 : 4, photos.size());
+            boolean got3 = false;
+            boolean got4 = false;
             for (Photo p : photos) {
                 if (PHOTO_FILE3.equals(ContentResolverUtil.getDisplaynameColumn(context, Uri.parse(p.getRef())))) {
-                    return;
+                    got3 = true;
+                }
+                if (PHOTO_FILE4.equals(ContentResolverUtil.getDisplaynameColumn(context, Uri.parse(p.getRef())))) {
+                    got4 = true;
                 }
             }
-            fail(PHOTO_FILE3 + " not found");
+            assertTrue(got3);
+            assertTrue(got4 || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q);
         }
     }
 

@@ -1893,7 +1893,7 @@ public final class DataStyle extends DefaultHandler {
             String[] fileList = assetManager.list(Paths.DIRECTORY_PATH_STYLES);
             if (fileList != null) {
                 for (String fn : fileList) {
-                    if (fn.endsWith(Paths.FILE_EXTENSION_XML)) {
+                    if (fn.endsWith("." + FileExtensions.XML)) {
                         Log.i(DEBUG_TAG, "Creating style from file in assets directory " + fn);
                         try (InputStream is = assetManager.open(Paths.DIRECTORY_PATH_STYLES + Paths.DELIMITER + fn)) {
                             DataStyle p = new DataStyle(ctx, is, null);

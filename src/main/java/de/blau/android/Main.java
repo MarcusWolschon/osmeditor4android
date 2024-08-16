@@ -1097,6 +1097,7 @@ public class Main extends FullScreenAppCompatActivity
         case MimeTypes.JPEG:
         case MimeTypes.ALL_IMAGE_FORMATS:
         case FileExtensions.JPG:
+        case FileExtensions.HEIC:
             handlePhotoUri();
             break;
         case MimeTypes.GPX:
@@ -2817,7 +2818,8 @@ public class Main extends FullScreenAppCompatActivity
     private File getImageFile() throws IOException {
         File outDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_PICTURES);
         String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
-        File newImageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outDir);
+        //FIXME this forces the extension to jpg, but it could be a HEIC image 
+        File newImageFile = File.createTempFile(imageFileName, "." + FileExtensions.JPG, outDir);
         Log.d(DEBUG_TAG, "getImageFile " + newImageFile.getAbsolutePath());
         return newImageFile;
     }

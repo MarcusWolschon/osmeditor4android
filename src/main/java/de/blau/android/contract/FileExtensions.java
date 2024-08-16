@@ -12,12 +12,14 @@ public final class FileExtensions {
     public static final String MVT     = "mvt";
     public static final String PBF     = "pbf";
     public static final String PNG     = "png";
+    public static final String HEIC    = "heic";
     public static final String ZIP     = "zip";
     public static final String HTML    = "html";
     public static final String RES     = "res";
     public static final String SVG     = "svg";
     public static final String TEMP    = "temp";
     public static final String PMTILES = "pmtiles";
+    public static final String XML     = "xml";
 
     /**
      * Private default constructor
