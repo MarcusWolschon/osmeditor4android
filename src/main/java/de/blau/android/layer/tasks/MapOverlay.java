@@ -1,5 +1,7 @@
 package de.blau.android.layer.tasks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -59,7 +61,8 @@ import de.blau.android.views.IMapView;
 public class MapOverlay extends MapViewLayer
         implements ExtentInterface, DiscardInterface, ClickableInterface<Task>, LayerInfoInterface, ConfigureInterface, PruneableInterface {
 
-    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String FILENAME = "selectedtask" + "." + FileExtensions.RES;
 
@@ -120,10 +123,11 @@ public class MapOverlay extends MapViewLayer
         setPrefs(prefs);
         download = new TaskDownloader(prefs.getServer());
         // the following sets up the static icon caches
-        Note.setupIconCache(context);
-        OsmoseBug.setupIconCache(context);
-        MapRouletteTask.setupIconCache(context);
-        Todo.setupIconCache(context);
+        boolean hwAccelerated = map.isHardwareLayerType();
+        Note.setupIconCache(context, hwAccelerated);
+        OsmoseBug.setupIconCache(context, hwAccelerated);
+        MapRouletteTask.setupIconCache(context, hwAccelerated);
+        Todo.setupIconCache(context, hwAccelerated);
     }
 
     @Override

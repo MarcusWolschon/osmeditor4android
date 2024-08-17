@@ -109,12 +109,15 @@ public class Note extends LongIdTask implements Serializable, JosmXmlSerializabl
 
     /**
      * Setup the icon caches
+     * 
+     * @param context android Context
+     * @param hwAccelerated true if the Canvas is hw accelerated
      */
-    public static void setupIconCache(Context context) {
-        cachedIconNoteOpen = getIcon(context, R.drawable.note_open);
-        cachedIconNoteChanged = getIcon(context, R.drawable.note_changed);
-        cachedIconNoteChangedClosed = getIcon(context, R.drawable.note_changed_closed);
-        cachedIconNoteClosed = getIcon(context, R.drawable.note_closed);
+    public static void setupIconCache(@NonNull Context context, boolean hwAccelerated) {
+        cachedIconNoteOpen = getIcon(context, R.drawable.note_open, hwAccelerated);
+        cachedIconNoteChanged = getIcon(context, R.drawable.note_changed, hwAccelerated);
+        cachedIconNoteChangedClosed = getIcon(context, R.drawable.note_changed_closed, hwAccelerated);
+        cachedIconNoteClosed = getIcon(context, R.drawable.note_closed, hwAccelerated);
     }
 
     /**

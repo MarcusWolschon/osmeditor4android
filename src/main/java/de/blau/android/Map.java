@@ -172,6 +172,8 @@ public class Map extends View implements IMapView {
 
     private TrackerService tracker = null;
 
+    private final boolean hardwareLayerType;
+
     /**
      * Construct a new Map object that orchestrates the layer drawing and related rendering
      * 
@@ -192,7 +194,8 @@ public class Map extends View implements IMapView {
 
         iconRadius = Density.dpToPx(context, ICON_SIZE_DP / 2);
 
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        hardwareLayerType = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && App.getPreferences(context).hwAccelerationEnabled();
+        setLayerType(hardwareLayerType ? View.LAYER_TYPE_HARDWARE : View.LAYER_TYPE_SOFTWARE, null);
     }
 
     /**
@@ -225,7 +228,7 @@ public class Map extends View implements IMapView {
                                     layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), false);
                                     ((MapTilesOverlayLayer<?>) layer).setRendererInfo(backgroundSource);
                                 } else {
-                                    layer = new MapTilesLayer<Bitmap>(this, backgroundSource, null, new MapTilesLayer.BitmapTileRenderer());
+                                    layer = new MapTilesLayer<Bitmap>(this, backgroundSource, null, new MapTilesLayer.BitmapTileRenderer(hardwareLayerType));
                                 }
                             }
                             break;
@@ -235,7 +238,7 @@ public class Map extends View implements IMapView {
                                 if (overlaySource.getTileType() == TileType.MVT) {
                                     layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), true);
                                 } else {
-                                    layer = new MapTilesOverlayLayer<Bitmap>(this, new MapTilesLayer.BitmapTileRenderer());
+                                    layer = new MapTilesOverlayLayer<Bitmap>(this, new MapTilesLayer.BitmapTileRenderer(hardwareLayerType));
                                 }
                                 ((MapTilesOverlayLayer<?>) layer).setRendererInfo(overlaySource);
                             }
@@ -1301,5 +1304,16 @@ public class Map extends View implements IMapView {
      */
     public boolean rtlLayout() {
         return getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    }
+
+    /**
+     * Check if we configured hardware acceleration
+     * 
+     * The value returned from isHardwareAccelerated seems to not necessarily be consistent with what we set
+     * 
+     * @return true if we enabled hardware acceleration
+     */
+    public boolean isHardwareLayerType() {
+        return hardwareLayerType;
     }
 }

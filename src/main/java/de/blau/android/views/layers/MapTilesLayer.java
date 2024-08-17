@@ -1,5 +1,7 @@
 package de.blau.android.views.layers;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.util.BitSet;
 import java.util.Collection;
@@ -68,7 +70,8 @@ import de.blau.android.views.util.MapTileProvider.TileDecoder;
  */
 public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, LayerInfoInterface, DiscardInterface, AttributionInterface {
 
-    private static final String DEBUG_TAG = MapTilesLayer.class.getSimpleName().substring(0, Math.min(23, MapTilesLayer.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapTilesLayer.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapTilesLayer.class.getSimpleName().substring(0, TAG_LEN);
 
     /** Define a minimum active area for taps on the tile attribution data. */
     private static final int TAPAREA_MIN_WIDTH  = 40;
@@ -173,6 +176,16 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     }
 
     public static class BitmapTileRenderer implements TileRenderer<Bitmap> {
+        private final boolean hardwareRenderer;
+
+        /**
+         * Construct a new renderer
+         * 
+         * @param hardwareRenderer decode bitmap for hardware rendering if true
+         */
+        public BitmapTileRenderer(boolean hardwareRenderer) {
+            this.hardwareRenderer = hardwareRenderer;
+        }
 
         @Override
         public void render(@NonNull Canvas c, @NonNull Bitmap tileBlob, int z, @Nullable Rect fromRect, @NonNull Rect screenRect, @NonNull Paint paint) {
@@ -182,7 +195,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         @Override
         @NonNull
         public TileDecoder<Bitmap> decoder() {
-            return new MapTileProvider.BitmapDecoder();
+            return new MapTileProvider.BitmapDecoder(hardwareRenderer);
         }
     }
 

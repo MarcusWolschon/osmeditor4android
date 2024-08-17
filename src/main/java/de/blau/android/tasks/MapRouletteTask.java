@@ -59,12 +59,15 @@ public class MapRouletteTask extends LongIdTask {
 
     /**
      * Setup the icon caches
+     * 
+     * @param context android Context
+     * @param hwAccelerated true if the Canvas is hw accelerated
      */
-    public static void setupIconCache(Context context) {
-        cachedIconRouletteOpen = getIcon(context, R.drawable.roulette_open);
-        cachedIconRouletteChanged = getIcon(context, R.drawable.roulette_changed);
-        cachedIconChangedRouletteClosed = getIcon(context, R.drawable.roulette_closed_changed);
-        cachedIconRouletteClosed = getIcon(context, R.drawable.roulette_closed);
+    public static void setupIconCache(@NonNull Context context, boolean hwAccelerated) {
+        cachedIconRouletteOpen = getIcon(context, R.drawable.roulette_open, hwAccelerated);
+        cachedIconRouletteChanged = getIcon(context, R.drawable.roulette_changed, hwAccelerated);
+        cachedIconChangedRouletteClosed = getIcon(context, R.drawable.roulette_closed_changed, hwAccelerated);
+        cachedIconRouletteClosed = getIcon(context, R.drawable.roulette_closed, hwAccelerated);
     }
 
     @Override

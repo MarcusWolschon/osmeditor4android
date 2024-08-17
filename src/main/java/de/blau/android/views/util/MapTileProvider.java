@@ -1,5 +1,7 @@
 package de.blau.android.views.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -46,7 +48,8 @@ public class MapTileProvider<T> {
     /**
      * Tag used in debug log-entries.
      */
-    private static final String DEBUG_TAG = MapTileProvider.class.getSimpleName().substring(0, Math.min(23, MapTileProvider.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapTileProvider.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapTileProvider.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MVT_CACHE_SIZE = 128;
 
@@ -85,17 +88,30 @@ public class MapTileProvider<T> {
     public static class BitmapDecoder implements TileDecoder<Bitmap> {
         private BitmapFactory.Options options = new BitmapFactory.Options();
 
+        private boolean hardwareRendering;
+
+        /**
+         * Construct a new decoder
+         * 
+         * @param hardwareRendering if true decode for hardware rendering
+         */
+        public BitmapDecoder(boolean hardwareRendering) {
+            this.hardwareRendering = hardwareRendering;
+        }
+
         @Override
         public Bitmap decode(@NonNull byte[] data, boolean small) {
-            if (small) {
+            if (hardwareRendering) {
+                options.inPreferredConfig = Bitmap.Config.HARDWARE;
+            } else if (small) {
                 options.inPreferredConfig = Bitmap.Config.RGB_565;
             } else {
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             }
             return BitmapFactory.decodeByteArray(data, 0, data.length, options);
         }
-
     }
+
     // ===========================================================
     // Constructors
     // ===========================================================

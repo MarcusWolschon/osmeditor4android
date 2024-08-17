@@ -67,12 +67,15 @@ public final class Todo extends Bug implements Serializable {
 
     /**
      * Setup the icon caches
+     * 
+     * @param context android Context
+     * @param hwAccelerated true if the Canvas is hw accelerated
      */
-    public static void setupIconCache(Context context) {
-        cachedIconTodoOpen = getIcon(context, R.drawable.todo_open);
-        cachedIconTogoChanged = getIcon(context, R.drawable.todo_open);
-        cachedIconTodoChangedClosed = getIcon(context, R.drawable.todo_closed);
-        cachedIconTodoClosed = getIcon(context, R.drawable.todo_closed);
+    public static void setupIconCache(@NonNull Context context, boolean hwAccelerated) {
+        cachedIconTodoOpen = getIcon(context, R.drawable.todo_open, hwAccelerated);
+        cachedIconTogoChanged = getIcon(context, R.drawable.todo_open, hwAccelerated);
+        cachedIconTodoChangedClosed = getIcon(context, R.drawable.todo_closed, hwAccelerated);
+        cachedIconTodoClosed = getIcon(context, R.drawable.todo_closed, hwAccelerated);
     }
 
     /**
