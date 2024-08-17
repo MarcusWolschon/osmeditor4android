@@ -178,6 +178,7 @@ public abstract class ValueWidgetFragment extends DialogFragment {
     @Override
     public void onDismiss(final DialogInterface dialog) {
         widget.onDismiss();
+        super.onDismiss(dialog);
     }
 
     /**
