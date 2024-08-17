@@ -216,7 +216,6 @@ public class TextRow extends LinearLayout implements KeyValueRow, TagChanged {
                         caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1), row, valueType, imperial);
                 dialog.setOnDismissListener(d -> finalView.setEnabled(true));
                 dialog.show();
-                return;
             });
         }
         if (ValueType.INTEGER == valueType) {
@@ -226,17 +225,16 @@ public class TextRow extends LinearLayout implements KeyValueRow, TagChanged {
                 final View finalView = v;
                 finalView.setEnabled(false); // debounce
                 IntegerValueFragment.show(caller, hint != null ? hint : key, key, ((TextView) v).getText().toString(), values, preset, allTags);
-                return;
             });
         }
-        if (Tags.DIRECTION_KEYS.contains(key) && (preset != null && !preset.hasKeyValue(key, Tags.VALUE_CLOCKWISE))) {
+        if (Tags.DIRECTION_KEYS.contains(key)
+                && (preset == null || !(preset.hasKeyValue(Tags.KEY_HIGHWAY, Tags.VALUE_MINI_ROUNDABOUT) && Tags.KEY_DIRECTION.equals(key)))) {
             ourValueView.setFocusable(false);
             ourValueView.setFocusableInTouchMode(false);
             ourValueView.setOnClickListener(v -> {
                 final View finalView = v;
                 finalView.setEnabled(false); // debounce
                 DirectionValueFragment.show(caller, hint != null ? hint : key, key, ((TextView) v).getText().toString(), values, preset, allTags);
-                return;
             });
         }
         ourValueView.setOnFocusChangeListener((v, hasFocus) -> {
