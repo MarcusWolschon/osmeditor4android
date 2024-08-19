@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.59.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.60.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing">
 <!--
     Icons have been derived from mainly from
   
@@ -8219,6 +8219,7 @@
             <key key="lifeguard" value="base"/>
             <text key="ref" text="Reference"/>
             <text key="operator" text="Operator"/>
+            <check key="seasonal" text="Seasonal" disable_off="true"/>
         </item> <!-- Lifeguard base -->
         <item name="Lifeguard tower" icon="icons/png/emergency_lifeguard_tower_12076.png" type="node" preset_name_label="true" deprecated="true">
             <link wiki="Tag:emergency=lifeguard_tower"/>
@@ -8232,12 +8233,15 @@
             <key key="lifeguard" value="tower"/>
             <text key="ref" text="Reference"/>
             <text key="operator" text="Operator"/>
+            <check key="seasonal" text="Seasonal" disable_off="true"/>
         </item> <!-- Lifeguard tower -->
         <item name="Life ring" icon="icons/png/emergency_life_ring_12080.png" type="node" preset_name_label="true">
             <link wiki="Tag:emergency=life_ring"/>
             <key key="emergency" value="life_ring"/>
             <text key="ref" text="Reference"/>
             <text key="operator" text="Operator"/>
+            <combo key="support" text="Support" values="pole,pillar,wall_mounted,fence" display_values="Pole,Pillar,Wall mounted,Fence" values_context="mounting/support"/>
+            <reference ref="colours"/>
         </item> <!-- Life ring -->
         <item name="Emergency Access Point (highway variant)" icon="icons/png/emergency_emergency_access_point_17005.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:highway=emergency_access_point"/>
@@ -9299,7 +9303,7 @@
             <link wiki="Tag:cycling=pump_track"/>
             <space/>
             <key key="cycling" value="pump_track"/>
-            <multiselect key="sport" values="bmx;skateboard" display_values="BMX;Skateboard" values_context="sport"/>
+            <multiselect key="sport" text="Sport" values="bmx;skateboard" display_values="BMX;Skateboard" values_context="sport"/>
             <text key="name" text="Name"/>
             <reference ref="sport_facility_track"/>
             <reference ref="sport_surface"/>
@@ -10441,6 +10445,7 @@
             <link wiki="Tag:man_made=cairn"/>
             <space/>
             <key key="man_made" value="cairn"/>
+            <text key="height" text="Height (meters)" value_type="dimension_vertical"/>
         </item> <!-- Cairn -->
         <separator/>
         <item name="Pipeline" icon="icons/png/man_made_pipeline.png" type="way" preset_name_label="true">
@@ -13146,6 +13151,7 @@
         <text key="ref" text="Reference"/>
         <reference ref="link_contact_address"/>
         <reference ref="kids_area"/>
+        <preset_link preset_name="Financial" text="Similar but different tags:" alternative="true"/>
     </item> <!-- Bank -->
     <item name="Money Exchange" icon="icons/png/money_currency_exchange.png" type="node,closedway,multipolygon" preset_name_label="true">
         <link wiki="Tag:amenity=bureau_de_change"/>
@@ -13604,7 +13610,7 @@
             <key key="species" value="ficus benghalensis"/>
             <key key="species:wikidata" value="Q1405636"/>
         </item> <!-- Banyan tree -->
-        <item name="Tree Row" icon="icons/png/landuse_coniferous_and_deciduous.png" type="way" preset_name_label="true">
+        <item name="Tree Row" icon="icons/png/landuse_coniferous_and_deciduous.png" type="way,closedway" preset_name_label="true">
             <link wiki="Tag:natural=tree_row"/>
             <label text="A line of trees."/>
             <space/>
@@ -15565,6 +15571,14 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Financial advisor -->
+        <item name="Financial" icon="icons/png/office_financial_25046.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=financial"/>
+            <space/>
+            <key key="office" value="financial"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+            <preset_link preset_name="Bank" text="Similar but different tags:" alternative="true"/>
+        </item> <!-- Financial -->
         <item name="Consulting" icon="icons/png/office_consulting_25044.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=consulting"/>
             <space/>
@@ -15579,13 +15593,6 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Cooperative -->
-        <item name="Financial" icon="icons/png/office_financial_25046.png" type="node,closedway,multipolygon">
-            <link wiki="Tag:office=financial"/>
-            <space/>
-            <key key="office" value="financial"/>
-            <reference ref="name_oh_wheelchair_level"/>
-            <reference ref="link_contact_address"/>
-        </item> <!-- Financial -->
         <item name="Forestry" icon="icons/png/office_forestry_25047.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=forestry"/>
             <space/>
