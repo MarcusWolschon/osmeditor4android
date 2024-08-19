@@ -29,6 +29,7 @@ import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
@@ -1152,6 +1153,7 @@ public class StorageDelegatorTest {
         Logic logic = App.getLogic();
         Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
         Server server = prefs.getServer();
+        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         try {
             server.getCachedCapabilities().setMaxRelationMembers(1);
             logic.setPrefs(prefs);
@@ -1293,6 +1295,7 @@ public class StorageDelegatorTest {
         Logic logic = App.getLogic();
         Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
         Server server = prefs.getServer();
+        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         try {
             server.getCachedCapabilities().setMaxRelationMembers(1);
             logic.setPrefs(prefs);

@@ -1,8 +1,12 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -14,6 +18,10 @@ import java.util.TreeMap;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import ch.poole.osm.josmfilterparser.Condition;
+import ch.poole.osm.josmfilterparser.JosmFilterParseException;
+import ch.poole.osm.josmfilterparser.JosmFilterParser;
+import de.blau.android.search.Wrapper;
 
 /**
  * Logic for reversing direction dependent tags, this is one of the more arcane things about the OSM data model
@@ -22,7 +30,8 @@ import androidx.annotation.Nullable;
  *
  */
 final class Reverse {
-    private static final String DEBUG_TAG = Reverse.class.getSimpleName().substring(0, Math.min(23, Reverse.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Reverse.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Reverse.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String LEFT_INFIX       = ":left:";
     private static final String RIGHT_INFIX      = ":right:";
@@ -35,10 +44,20 @@ final class Reverse {
     private static final String PERCENT          = "%";
     private static final String DEGREE           = "°";
 
-    private static Set<String> directionDependentKeys   = Collections
+    private static final Set<String> directionDependentKeys   = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.KEY_ONEWAY, Tags.KEY_INCLINE, Tags.KEY_DIRECTION, Tags.KEY_CONVEYING, Tags.KEY_PRIORITY)));
-    private static Set<String> directionDependentValues = Collections
+    private static final Set<String> directionDependentValues = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.VALUE_RIGHT, Tags.VALUE_LEFT, Tags.VALUE_FORWARD, Tags.VALUE_BACKWARD)));
+
+    private static final Map<String, Condition> reverseExceptions = new HashMap<>();
+    static {
+        try {
+            reverseExceptions.put(Tags.KEY_SIDE,
+                    compilePattern(Tags.KEY_HIGHWAY + "=" + Tags.VALUE_CYCLIST_WAITING_AID + " -child (type:way highway: (oneway? OR oneway=\"-1\"))"));
+        } catch (JosmFilterParseException e) {
+            Log.e(DEBUG_TAG, e.getMessage());
+        }
+    }
 
     /**
      * Private constructor
@@ -51,31 +70,42 @@ final class Reverse {
      * Return the direction dependent tags and associated values oneway, *:left, *:right, *:backward, *:forward from the
      * element
      * 
-     * Probably we should check for issues with relation membership too
-     * 
      * @param e element that we extract the direction dependent tags from
      * @return map containing the tags
      */
-    @Nullable
-    public static Map<String, String> getDirectionDependentTags(@NonNull OsmElement e) {
-        Map<String, String> result = null;
+    @NonNull
+    public static synchronized Map<String, String> getDirectionDependentTags(@NonNull OsmElement e) {
+        Map<String, String> result = new TreeMap<>();
         Map<String, String> tags = e.getTags();
-        if (tags != null) {
-            for (Entry<String, String> entry : tags.entrySet()) {
-                String key = entry.getKey();
-                String value = entry.getValue();
-                if ((Tags.KEY_HIGHWAY.equals(key) && (Tags.VALUE_MOTORWAY.equals(value) || Tags.VALUE_MOTORWAY_LINK.equals(value)))
-                        || directionDependentKeys.contains(key) || key.endsWith(LEFT_POSTFIX) || key.endsWith(RIGHT_POSTFIX) || key.endsWith(BACKWARD_POSTFIX)
-                        || key.endsWith(FORWARD_POSTFIX) || key.contains(FORWARD_INFIX) || key.contains(BACKWARD_INFIX) || key.contains(RIGHT_INFIX)
-                        || key.contains(LEFT_INFIX) || directionDependentValues.contains(value)) {
-                    if (result == null) {
-                        result = new TreeMap<>();
-                    }
-                    result.put(key, value);
-                }
+        for (Entry<String, String> entry : tags.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (((Tags.KEY_HIGHWAY.equals(key) && (Tags.VALUE_MOTORWAY.equals(value) || Tags.VALUE_MOTORWAY_LINK.equals(value)))
+                    || directionDependentKeys.contains(key) || key.endsWith(LEFT_POSTFIX) || key.endsWith(RIGHT_POSTFIX) || key.endsWith(BACKWARD_POSTFIX)
+                    || key.endsWith(FORWARD_POSTFIX) || key.contains(FORWARD_INFIX) || key.contains(BACKWARD_INFIX) || key.contains(RIGHT_INFIX)
+                    || key.contains(LEFT_INFIX) || directionDependentValues.contains(value)) && !matchExceptions(e, key)) {
+                result.put(key, value);
             }
         }
         return result;
+    }
+
+    /**
+     * Check if a key is in the exceptions map and the object matches the pattern
+     * 
+     * @param e the OsmElement
+     * @param key the key to check
+     * @return true if this is an exception we should not reverse
+     */
+    private static boolean matchExceptions(@NonNull OsmElement e, @NonNull String key) {
+        Condition c = reverseExceptions.get(key);
+        if (c != null) {
+            c.reset();
+            Wrapper meta = new Wrapper();
+            meta.setElement(e);
+            return c.eval(Wrapper.toJosmFilterType(e), meta, e.getTags());
+        }
+        return false;
     }
 
     /**
@@ -232,9 +262,9 @@ final class Reverse {
      * @return reversed value
      */
     private static String reverseOneway(@NonNull final String value) {
-        if (Tags.VALUE_YES.equalsIgnoreCase(value) || Tags.VALUE_TRUE.equalsIgnoreCase(value) || "1".equals(value)) {
-            return "-1";
-        } else if (Tags.VALUE_REVERSE.equalsIgnoreCase(value) || "-1".equals(value)) {
+        if (Tags.VALUE_YES.equalsIgnoreCase(value) || Tags.VALUE_TRUE.equalsIgnoreCase(value) || Tags.VALUE_ONE.equals(value)) {
+            return Tags.VALUE_MINUS_ONE;
+        } else if (Tags.VALUE_REVERSE.equalsIgnoreCase(value) || Tags.VALUE_MINUS_ONE.equals(value)) {
             return Tags.VALUE_YES;
         }
         return value;
@@ -256,7 +286,7 @@ final class Reverse {
         }
         Map<String, String> tags = new TreeMap<>(e.getTags());
 
-        // remove all dir dependent key first
+        // remove all dir dependent keys first
         for (String key : dirTags.keySet()) {
             tags.remove(key);
         }
@@ -271,7 +301,7 @@ final class Reverse {
                 if (reverseOneway && Tags.KEY_HIGHWAY.equals(key) && (Tags.VALUE_MOTORWAY.equals(value) || Tags.VALUE_MOTORWAY_LINK.equals(value))) {
                     tags.put(key, value); // don't have to change anything
                     if (!dirTags.containsKey(Tags.KEY_ONEWAY)) {
-                        tags.put(Tags.KEY_ONEWAY, "-1");
+                        tags.put(Tags.KEY_ONEWAY, Tags.VALUE_MINUS_ONE);
                     }
                     continue;
                 }
@@ -329,7 +359,7 @@ final class Reverse {
                     continue;
                 }
                 if (Tags.VALUE_FORWARD.equals(value)) {
-                    tags.put(key, "backward");
+                    tags.put(key, Tags.VALUE_BACKWARD);
                     continue;
                 }
                 if (Tags.VALUE_BACKWARD.equals(value)) {
@@ -358,5 +388,16 @@ final class Reverse {
         } else {
             return String.format(Locale.US, "%s", f);
         }
+    }
+
+    /**
+     * Compile a JosmFilter pattern
+     * 
+     * @param pattern the pattern to compile
+     * @return the compiled pattern in a Condition object
+     * @throws JosmFilterParseException if parsing fails
+     */
+    private static Condition compilePattern(@NonNull String pattern) throws JosmFilterParseException {
+        return new JosmFilterParser(new ByteArrayInputStream(pattern.getBytes())).condition(false);
     }
 }

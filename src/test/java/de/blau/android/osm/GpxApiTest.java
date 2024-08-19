@@ -25,6 +25,7 @@ import de.blau.android.Logic;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.DataStyle;
 import okhttp3.HttpUrl;
 
 @RunWith(RobolectricTestRunner.class)
@@ -55,6 +56,7 @@ public class GpxApiTest {
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         Logic logic = App.newLogic();
+        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         logic.setPrefs(new Preferences(ApplicationProvider.getApplicationContext()));
     }
 
