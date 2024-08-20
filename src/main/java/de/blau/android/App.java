@@ -380,6 +380,7 @@ public class App extends Application implements android.app.Application.Activity
         synchronized (defaultValidatorLock) {
             defaultValidator = null;
         }
+        delegator.resetProblems();
     }
 
     /**
