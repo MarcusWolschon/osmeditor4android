@@ -115,7 +115,8 @@ public class ImageInfo extends InfoDialogFragment {
             try {
                 FragmentActivity activity = getActivity();
                 Photo image = new Photo(getContext(), uri, null);
-                tl.addView(TableLayoutUtils.createRow(activity, ContentResolverUtil.getPath(getContext(), uri), null, tp));
+                String path = ContentResolverUtil.getPath(getContext(), uri);
+                tl.addView(TableLayoutUtils.createRow(activity, path == null ? uri.toString() : path, null, tp));
                 long size = ContentResolverUtil.getSizeColumn(getContext(), uri);
                 if (size > -1) {
                     tl.addView(TableLayoutUtils.createRow(activity, R.string.file_size, getString(R.string.file_size_kB, size / 1024), tp));
