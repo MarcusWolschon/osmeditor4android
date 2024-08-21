@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,6 +32,7 @@ import com.mapbox.geojson.Polygon;
 import com.mapbox.turf.TurfException;
 import com.mapbox.turf.TurfJoins;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -59,7 +60,6 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableFileLayer;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
@@ -491,11 +491,12 @@ public class MapOverlay extends StyleableFileLayer
      * @return true if successful
      * @throws IOException if reading the InputStream fails
      */
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull InputStream is, boolean fromState) throws IOException {
         boolean successful = false;
         // don't draw while we are loading
         setVisible(false);
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8))); // NOSONAR
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
         try {
             String json = FileUtil.readToString(rd);
             data = new RTree<>(2, 12);

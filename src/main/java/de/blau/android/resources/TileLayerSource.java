@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,6 +37,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.mapbox.geojson.Feature;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -60,7 +61,6 @@ import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Paths;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
@@ -800,9 +800,10 @@ public class TileLayerSource implements Serializable {
      * @param async obtain meta data async (bing only)
      * @throws IOException if there was an IO error
      */
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     public static void parseImageryFile(@NonNull Context ctx, @NonNull SQLiteDatabase writeableDb, @NonNull String source, @NonNull InputStream is,
             final boolean async) throws IOException {
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8))); // NOSONAR
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
         try {
             EliFeatureCollection fc = EliFeatureCollection.fromJson(FileUtil.readToString(rd));
             Version formatVersion = fc.formatVersion();
@@ -2615,7 +2616,7 @@ public class TileLayerSource implements Serializable {
         Locale locale = Locale.getDefault();
         String language = locale.getLanguage();
         try (InputStream in = openTranslationFile(assetManager, locale, language)) {
-            try (BufferedReader rd = new BufferedReader(new InputStreamReader(in, Charset.forName(OsmXml.UTF_8)))) {
+            try (BufferedReader rd = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
                 JsonElement root = JsonParser.parseReader(rd);
                 if (root.isJsonObject()) {
                     JsonObject rootObject = (JsonObject) root;

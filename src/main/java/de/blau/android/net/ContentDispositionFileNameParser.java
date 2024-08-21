@@ -1,12 +1,15 @@
 package de.blau.android.net;
 
+import android.annotation.SuppressLint;
+
+import androidx.annotation.NonNull;
+
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
 
 /*
  * Copyright 2002-2020 the original author or authors.
@@ -32,10 +35,6 @@ import androidx.annotation.NonNull;
  * @author Rossen Stoyanchev
  */
 public final class ContentDispositionFileNameParser {
-
-    private static final Charset US_ASCII                              = Charset.forName("US-ASCII");
-    private static final Charset UTF_8                                 = Charset.forName("UTF-8");
-    private static final Charset ISO_8859_1                            = Charset.forName("ISO-8859-1");
     private static final String  FILENAME_ATTR                         = "filename*";
     private static final String  INVALID_HEADER_FIELD_PARAMETER_FORMAT = "Invalid header field parameter format (as defined in RFC 5987)";
 
@@ -53,6 +52,7 @@ public final class ContentDispositionFileNameParser {
      * @return Return the value of the {@literal filename} parameter (or the value of the {@literal filename*} one
      *         decoded as defined in the RFC 5987), or {@code null} if not defined.
      */
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     public static String parse(@NonNull String contentDisposition) {
         List<String> parts = tokenize(contentDisposition);
         String filename = null;
@@ -69,13 +69,13 @@ public final class ContentDispositionFileNameParser {
                     int idx2 = value.indexOf('\'', idx1 + 1);
                     if (idx1 != -1 && idx2 != -1) {
                         charset = Charset.forName(value.substring(0, idx1).trim());
-                        if (!(UTF_8.equals(charset) || ISO_8859_1.equals(charset))) {
+                        if (!(StandardCharsets.UTF_8.equals(charset) || StandardCharsets.ISO_8859_1.equals(charset))) {
                             throw new IllegalArgumentException("Charset should be UTF-8 or ISO-8859-1");
                         }
                         filename = decodeFilename(value.substring(idx2 + 1), charset);
                     } else {
                         // US ASCII
-                        filename = decodeFilename(value, US_ASCII);
+                        filename = decodeFilename(value, StandardCharsets.US_ASCII);
                     }
                 } else if (attribute.equals(FILENAME_ATTR) && (filename == null)) {
                     filename = value;

@@ -9,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.junit.Test;
@@ -331,6 +331,6 @@ public class GeoJsonTest {
      */
     @NonNull
     String inputStreamToString(@NonNull InputStream input) throws IOException {
-        return FileUtil.readToString(new BufferedReader(new InputStreamReader(input, Charset.forName(OsmXml.UTF_8))));
+        return FileUtil.readToString(new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8)));
     }
 }

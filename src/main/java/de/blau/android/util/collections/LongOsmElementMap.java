@@ -430,24 +430,26 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     @NonNull
     @Override
     public Iterator<V> iterator() {
-        return new SafeIterator();
+        synchronized (this) {
+            return new SafeIterator<>(this);
+        }
     }
 
-    class SafeIterator implements Iterator<V> {
-        int          index      = 0;
-        int          found      = 0;
-        int          sizeTemp   = 0;
-        OsmElement[] dataTemp   = null;
-        OsmElement   cachedNext = null;
+    private static class SafeIterator<W extends OsmElement> implements Iterator<W> {
+        int                index      = 0;
+        int                found      = 0;
+        final int          sizeTemp;
+        final OsmElement[] dataTemp;
+        OsmElement         cachedNext = null;
+        final OsmElement   removedTemp;
 
         /**
          * Construct a new iterator
          */
-        SafeIterator() {
-            synchronized (LongOsmElementMap.this) {
-                sizeTemp = size;
-                dataTemp = data;
-            }
+        SafeIterator(@NonNull final LongOsmElementMap<W> map) {
+            sizeTemp = map.size;
+            dataTemp = map.data;
+            removedTemp = map.removedKey;
         }
 
         @Override
@@ -458,7 +460,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
                     return false;
                 } else {
                     OsmElement e = dataTemp[index];
-                    if (e != FREE_KEY && e != removedKey) {
+                    if (e != FREE_KEY && e != removedTemp) {
                         found++;
                         cachedNext = e;
                         return true;
@@ -471,19 +473,19 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
 
         @SuppressWarnings("unchecked")
         @Override
-        public V next() {
+        public W next() {
             if (cachedNext != null) {
                 index++;
-                return (V) cachedNext;
+                return (W) cachedNext;
             }
             while (true) {
                 if (index >= dataTemp.length) { // already returned all elements
                     throw new NoSuchElementException();
                 } else {
                     OsmElement e = dataTemp[index];
-                    if (e != FREE_KEY && e != removedKey) {
+                    if (e != FREE_KEY && e != removedTemp) {
                         index++;
-                        return (V) e;
+                        return (W) e;
                     } else {
                         index++;
                     }

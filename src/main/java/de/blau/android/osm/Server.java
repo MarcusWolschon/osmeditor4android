@@ -1,5 +1,21 @@
 package de.blau.android.osm;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.database.sqlite.SQLiteException;
+import android.net.Uri;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlSerializer;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,19 +37,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-import org.xmlpull.v1.XmlSerializer;
-
-import android.app.Activity;
-import android.content.Context;
-import android.database.sqlite.SQLiteException;
-import android.net.Uri;
-import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Authorize;
 import de.blau.android.ErrorCodes;
@@ -639,8 +642,9 @@ public class Server {
      * @param changeSetId changeset id to use
      * @throws OsmIOException thrown if a write or other error occurs
      */
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     private void sendPayload(@NonNull final OutputStream outputStream, @NonNull final XmlSerializable xmlSerializable, long changeSetId) throws OsmIOException {
-        try (OutputStreamWriter out = new OutputStreamWriter(outputStream, Charset.defaultCharset())) {
+        try (OutputStreamWriter out = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)) {
             XmlSerializer xmlSerializer = getXmlSerializer();
             xmlSerializer.setOutput(out);
             xmlSerializable.toXml(xmlSerializer, changeSetId);

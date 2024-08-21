@@ -1,14 +1,12 @@
 package de.blau.android.geocode;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import android.annotation.SuppressLint;
+import android.net.Uri;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -17,14 +15,18 @@ import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.Point;
 
-import android.net.Uri;
-import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import de.blau.android.App;
 import de.blau.android.geocode.Search.SearchResult;
-import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
@@ -57,6 +59,7 @@ class QueryPhoton extends Query {
         super(activity, url, bbox);
     }
 
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     @Override
     protected List<SearchResult> doInBackground(String query) {
         List<SearchResult> result = new ArrayList<>();
@@ -77,7 +80,7 @@ class QueryPhoton extends Query {
             if (searchCallResponse.isSuccessful()) {
                 try (ResponseBody responseBody = searchCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
                     if (inputStream != null) {
-                        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8))); // NOSONAR
+                        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
                         FeatureCollection fc = FeatureCollection.fromJson(FileUtil.readToString(rd));
                         for (Feature f : fc.features()) {
                             SearchResult searchResult = readPhotonResult(f);

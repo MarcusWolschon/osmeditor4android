@@ -5,20 +5,20 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import androidx.annotation.NonNull;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import androidx.annotation.NonNull;
-import androidx.test.filters.LargeTest;
-import de.blau.android.osm.OsmXml;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
 import de.blau.android.resources.eli.EliFeatureCollection;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.Version;
@@ -27,8 +27,6 @@ import de.blau.android.util.Version;
 @Config(sdk=33)
 @LargeTest
 public class EliTest {
-
-    private static final String DEBUG_TAG = EliTest.class.getSimpleName().substring(0, Math.min(23, EliTest.class.getSimpleName().length()));
 
     /**
      * Parse a sample ELI geojson config without meta
@@ -61,9 +59,8 @@ public class EliTest {
      * @return a resource file as a String
      */
     String stringFromResource(@NonNull String path) {
-        StringBuilder sb = new StringBuilder();
         try (InputStream is = getClass().getResourceAsStream(path)) {
-            return FileUtil.readToString(new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)))); // NOSONAR
+            return FileUtil.readToString(new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8)));
         } catch (IOException e) {
             fail(e.getMessage());
         }
