@@ -48,8 +48,9 @@ import de.blau.android.util.rtree.RTree;
  */
 public class PhotoIndex extends SQLiteOpenHelper {
 
-    private static final int    DATA_VERSION = 6;
+    private static final int    DATA_VERSION = 7;
     public static final String  DB_NAME      = PhotoIndex.class.getSimpleName();
+    
     private static final int    TAG_LEN      = Math.min(LOG_TAG_LEN, PhotoIndex.class.getSimpleName().length());
     private static final String DEBUG_TAG    = PhotoIndex.class.getSimpleName().substring(0, TAG_LEN);
 
@@ -90,7 +91,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
     public synchronized void onCreate(SQLiteDatabase db) {
         Log.d(DEBUG_TAG, "Creating photo index DB");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + PHOTOS_TABLE
-                + " (lat int, lon int, direction int DEFAULT NULL, dir VARCHAR, name VARCHAR, source VARCHAR DEFAULT NULL);");
+                + " (lat int, lon int, direction int DEFAULT NULL, dir VARCHAR, name VARCHAR, source VARCHAR DEFAULT NULL, orientation int DEFAULT 0);");
         db.execSQL("CREATE INDEX latidx ON " + PHOTOS_TABLE + " (lat)");
         db.execSQL("CREATE INDEX lonidx ON " + PHOTOS_TABLE + " (lon)");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + SOURCES_TABLE + " (dir VARCHAR, last_scan int8, tag VARCHAR DEFAULT NULL);");
@@ -124,6 +125,10 @@ public class PhotoIndex extends SQLiteOpenHelper {
             db.execSQL(ALTER_TABLE + PHOTOS_TABLE + " ADD source VARCHAR DEFAULT NULL");
             db.execSQL(ALTER_TABLE + SOURCES_TABLE + " ADD tag VARCHAR DEFAULT NULL");
             initSource(db, MEDIA_STORE, "");
+            db.execSQL("DELETE FROM " + PHOTOS_TABLE);
+        }
+        if (oldVersion <= 6) {
+            db.execSQL(ALTER_TABLE + PHOTOS_TABLE + " ADD orientation int DEFAULT 0");
             db.execSQL("DELETE FROM " + PHOTOS_TABLE);
         }
     }

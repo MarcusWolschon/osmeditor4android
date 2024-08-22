@@ -27,7 +27,7 @@ import de.blau.android.util.rtree.BoundedObject;
  */
 public class Photo implements BoundedObject, GeoPoint, Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Photo.class.getSimpleName().length());
     private static final String DEBUG_TAG = Photo.class.getSimpleName().substring(0, TAG_LEN);
@@ -45,6 +45,8 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
      */
     private int          direction    = 0;
     private String       directionRef = null; // if null direction not present
+
+    private int orientation = ExifInterface.ORIENTATION_UNDEFINED;
 
     private Long   captureDate = null;
     private String creator     = null;
@@ -132,18 +134,30 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
 
         lat = (int) (latf * 1E7d);
         lon = (int) (lonf * 1E7d);
-        Log.d(DEBUG_TAG, "lat: " + lat + " lon: " + lon);
+
         String dir = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION);
         if (dir != null) {
             String[] r = dir.split("/");
             if (r.length != 2) {
                 return;
             }
-            direction = (int) (Double.valueOf(r[0]) / Double.valueOf(r[1]));
-            Log.d(DEBUG_TAG, ExifInterface.TAG_GPS_IMG_DIRECTION + " " + dir);
-            directionRef = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF);
-            Log.d(DEBUG_TAG, "dir " + dir + " direction " + direction + " ref " + directionRef);
+            try {
+                direction = (int) (Double.valueOf(r[0]) / Double.valueOf(r[1]));
+                directionRef = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF);
+            } catch (NumberFormatException nfex) {
+                Log.w(DEBUG_TAG, "Unable to parse cardinal direction " + nfex.getMessage());
+            }
         }
+
+        String orientationStr = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        if (orientationStr != null) {
+            try {
+                orientation = Integer.parseInt(orientationStr);
+            } catch (NumberFormatException nfex) {
+                Log.w(DEBUG_TAG, "Unable to parse orientation " + nfex.getMessage());
+            }
+        }
+
         captureDate = exif.getDateTime();
         creator = exif.getAttribute(ExifInterface.TAG_ARTIST);
     }
@@ -291,6 +305,15 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
      */
     public int getDirection() {
         return direction;
+    }
+
+    /**
+     * get the orientation EXIF value
+     * 
+     * @return the orientation EXIF value
+     */
+    public int getOrientation() {
+        return orientation;
     }
 
     /**
