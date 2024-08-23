@@ -469,6 +469,7 @@
     <string name="layer_gpx">GPX</string>
     <string name="layer_gpx_recording">GPX recording</string>
     <string name="layer_photos">Photos</string>
+    <string name="layer_photos_reindex">Reindex</string>
     <string name="layer_tasks">Tasks</string>
     <string name="layer_data">OSM data</string>
     <string name="layer_data_name">%1$s data</string>

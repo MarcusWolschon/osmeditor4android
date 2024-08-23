@@ -135,6 +135,19 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
         lat = (int) (latf * 1E7d);
         lon = (int) (lonf * 1E7d);
 
+        String orientationStr = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        if (orientationStr != null) {
+            try {
+                orientation = Integer.parseInt(orientationStr);
+            } catch (NumberFormatException nfex) {
+                Log.w(DEBUG_TAG, "Unable to parse orientation " + nfex.getMessage());
+            }
+        }
+
+        captureDate = exif.getDateTime();
+        creator = exif.getAttribute(ExifInterface.TAG_ARTIST);
+
+        // don't add anything after this section that needs to be processed in any case
         String dir = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION);
         if (dir != null) {
             String[] r = dir.split("/");
@@ -148,18 +161,6 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
                 Log.w(DEBUG_TAG, "Unable to parse cardinal direction " + nfex.getMessage());
             }
         }
-
-        String orientationStr = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-        if (orientationStr != null) {
-            try {
-                orientation = Integer.parseInt(orientationStr);
-            } catch (NumberFormatException nfex) {
-                Log.w(DEBUG_TAG, "Unable to parse orientation " + nfex.getMessage());
-            }
-        }
-
-        captureDate = exif.getDateTime();
-        creator = exif.getAttribute(ExifInterface.TAG_ARTIST);
     }
 
     /**
@@ -169,12 +170,11 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
      * @param lon longitude in WGS84*1E7 degrees
      * @param ref the path of the file
      * @param displayName a short name for the Photo
+     * @param orientation image orientation
      */
-    public Photo(int lat, int lon, @NonNull String ref, @Nullable String displayName) {
-        this.lat = lat;
-        this.lon = lon;
-        this.ref = ref;
-        this.displayName = displayName;
+    public Photo(int lat, int lon, @NonNull String ref, @Nullable String displayName, int orientation) {
+        this(lat, lon, 0, ref, displayName, orientation);
+        this.directionRef = null;
     }
 
     /**
@@ -185,14 +185,16 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
      * @param direction in degrees
      * @param ref the path of the file
      * @param displayName a short name for the Photo
+     * @param orientation image orientation
      */
-    public Photo(int lat, int lon, int direction, @NonNull String ref, @Nullable String displayName) {
+    public Photo(int lat, int lon, int direction, @NonNull String ref, @Nullable String displayName, int orientation) {
         this.lat = lat;
         this.lon = lon;
         this.direction = direction;
         this.directionRef = ExifInterface.GPS_DIRECTION_MAGNETIC;
         this.ref = ref;
         this.displayName = displayName;
+        this.orientation = orientation;
     }
 
     /**
