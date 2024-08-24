@@ -48,10 +48,11 @@ import de.blau.android.util.rtree.RTree;
  */
 public class PhotoIndex extends SQLiteOpenHelper {
 
-    private static final int    DATA_VERSION = 6;
-    public static final String  DB_NAME      = PhotoIndex.class.getSimpleName();
-    private static final int    TAG_LEN      = Math.min(LOG_TAG_LEN, PhotoIndex.class.getSimpleName().length());
-    private static final String DEBUG_TAG    = PhotoIndex.class.getSimpleName().substring(0, TAG_LEN);
+    private static final int   DATA_VERSION = 7;
+    public static final String DB_NAME      = PhotoIndex.class.getSimpleName();
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PhotoIndex.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PhotoIndex.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String NOVESPUCCI = ".novespucci";
 
@@ -59,20 +60,29 @@ public class PhotoIndex extends SQLiteOpenHelper {
     private static final String OSMTRACKER  = "osmtracker";
     private static final String DCIM        = "DCIM";
 
-    private static final String SOURCES_TABLE    = "directories";
-    private static final String PHOTOS_TABLE     = "photos";
-    private static final String NAME_COLUMN      = "name";
-    private static final String SOURCE_COLUMN    = "source";
-    private static final String LAT_COLUMN       = "lat";
-    private static final String LON_COLUMN       = "lon";
-    private static final String DIRECTION_COLUMN = "direction";
-    private static final String URI_COLUMN       = "dir";        // historically this was the dir
-    private static final String URI_WHERE        = "dir = ?";
-    private static final String LAST_SCAN_COLUMN = "last_scan";
-    private static final String TAG_COLUMN       = "tag";
+    private static final String SOURCES_TABLE      = "directories";
+    private static final String PHOTOS_TABLE       = "photos";
+    private static final String NAME_COLUMN        = "name";
+    private static final String SOURCE_COLUMN      = "source";
+    private static final String LAT_COLUMN         = "lat";
+    private static final String LON_COLUMN         = "lon";
+    private static final String DIRECTION_COLUMN   = "direction";
+    private static final String ORIENTATION_COLUMN = "orientation";
+    private static final String URI_COLUMN         = "dir";        // historically this was the dir
+    private static final String URI_WHERE          = "dir = ?";
+    private static final String LAST_SCAN_COLUMN   = "last_scan";
+    private static final String TAG_COLUMN         = "tag";
 
     private static final String INSERT_INTO = "INSERT INTO ";
     private static final String ALTER_TABLE = "ALTER TABLE ";
+    private static final String DELETE_FROM = "DELETE FROM ";
+
+    private static final int LAT_INDEX         = 0;
+    private static final int LON_INDEX         = 1;
+    private static final int DIRECTION_INDEX   = 2;
+    private static final int DIR_INDEX         = 3;
+    private static final int NAME_INDEX        = 4;
+    private static final int ORIENTATION_INDEX = 5;
 
     private final Context context;
 
@@ -90,7 +100,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
     public synchronized void onCreate(SQLiteDatabase db) {
         Log.d(DEBUG_TAG, "Creating photo index DB");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + PHOTOS_TABLE
-                + " (lat int, lon int, direction int DEFAULT NULL, dir VARCHAR, name VARCHAR, source VARCHAR DEFAULT NULL);");
+                + " (lat int, lon int, direction int DEFAULT NULL, dir VARCHAR, name VARCHAR, source VARCHAR DEFAULT NULL, orientation int DEFAULT 0);");
         db.execSQL("CREATE INDEX latidx ON " + PHOTOS_TABLE + " (lat)");
         db.execSQL("CREATE INDEX lonidx ON " + PHOTOS_TABLE + " (lon)");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + SOURCES_TABLE + " (dir VARCHAR, last_scan int8, tag VARCHAR DEFAULT NULL);");
@@ -118,13 +128,18 @@ public class PhotoIndex extends SQLiteOpenHelper {
             db.execSQL(ALTER_TABLE + PHOTOS_TABLE + " ADD direction int DEFAULT NULL");
         }
         if (oldVersion <= 4) {
-            db.execSQL("DELETE FROM " + PHOTOS_TABLE); // this should force a complete reindex
+            db.execSQL(DELETE_FROM + PHOTOS_TABLE); // this should force a complete reindex
         }
         if (oldVersion <= 5) {
             db.execSQL(ALTER_TABLE + PHOTOS_TABLE + " ADD source VARCHAR DEFAULT NULL");
             db.execSQL(ALTER_TABLE + SOURCES_TABLE + " ADD tag VARCHAR DEFAULT NULL");
             initSource(db, MEDIA_STORE, "");
-            db.execSQL("DELETE FROM " + PHOTOS_TABLE);
+            db.execSQL(DELETE_FROM + PHOTOS_TABLE);
+        }
+        if (oldVersion <= 6) {
+            db.execSQL(ALTER_TABLE + PHOTOS_TABLE + " ADD orientation int DEFAULT 0");
+            db.execSQL(DELETE_FROM + PHOTOS_TABLE);
+            updateSources(db, MEDIA_STORE, null, System.currentTimeMillis());
         }
     }
 
@@ -151,15 +166,21 @@ public class PhotoIndex extends SQLiteOpenHelper {
                 indexMediaStore();
             } else {
                 // delete scanned photos from index
-                SQLiteDatabase db = null;
-                try {
-                    db = getWritableDatabase();
+                try (SQLiteDatabase db = getWritableDatabase()) {
                     db.delete(PHOTOS_TABLE, SOURCE_COLUMN + "= ?", new String[] { MEDIA_STORE });
                     updateSources(db, MEDIA_STORE, "", 0);
-                } finally {
-                    SavingHelper.close(db);
                 }
             }
+        }
+    }
+
+    /**
+     * Remove all information from the index
+     */
+    public synchronized void resetIndex() {
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.execSQL(DELETE_FROM + PHOTOS_TABLE);
+            db.execSQL(DELETE_FROM + SOURCES_TABLE);
         }
     }
 
@@ -227,22 +248,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
      */
     private void indexDirectories() {
         Log.d(DEBUG_TAG, "scanning directories");
-        // determine at least a few of the possible mount points
-        File sdcard = Environment.getExternalStorageDirectory(); // NOSONAR
-        List<String> mountPoints = new ArrayList<>();
-        mountPoints.add(sdcard.getAbsolutePath());
-        mountPoints.add(sdcard.getAbsolutePath() + Paths.DIRECTORY_PATH_EXTERNAL_SD_CARD);
-        mountPoints.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()); // NOSONAR
-        File storageDir = new File(Paths.DIRECTORY_PATH_STORAGE);
-        File[] list = storageDir.listFiles();
-        if (list != null) {
-            for (File f : list) {
-                if (f.exists() && f.isDirectory() && !sdcard.getAbsolutePath().equals(f.getAbsolutePath())) {
-                    Log.d(DEBUG_TAG, "Adding mount point " + f.getAbsolutePath());
-                    mountPoints.add(f.getAbsolutePath());
-                }
-            }
-        }
+        List<String> mountPoints = getMountPoints(Environment.getExternalStorageDirectory()); // NOSONAR
 
         try (SQLiteDatabase db = getWritableDatabase();
                 Cursor dbresult = db.query(SOURCES_TABLE, new String[] { URI_COLUMN, LAST_SCAN_COLUMN, TAG_COLUMN }, TAG_COLUMN + " is NULL", null, null, null,
@@ -258,29 +264,28 @@ public class PhotoIndex extends SQLiteOpenHelper {
                 for (String m : mountPoints) {
                     File indir = new File(m, dir);
                     Log.d(DEBUG_TAG, "Scanning directory " + indir.getAbsolutePath());
-                    if (indir.exists()) {
-                        try (Cursor dbresult2 = db.query(PHOTOS_TABLE, new String[] { "distinct dir" }, "dir LIKE '" + indir.getAbsolutePath() + "%'", null,
-                                null, null, null, null)) {
-                            int dirCount2 = dbresult2.getCount();
-                            dbresult2.moveToFirst();
-                            for (int j = 0; j < dirCount2; j++) {
-                                String photo = dbresult2.getString(0);
-                                File pDir = new File(photo);
-                                if (!pDir.exists()) {
-                                    Log.d(DEBUG_TAG, "Deleting entries for gone photo " + photo);
-                                    db.delete(PHOTOS_TABLE, URI_WHERE, new String[] { photo });
-                                }
-                                dbresult2.moveToNext();
-                            }
-                            scanDir(db, indir.getAbsolutePath(), lastScan);
-                            updateSources(db, indir.getName(), null, System.currentTimeMillis());
-                        }
+                    if (!indir.exists()) {
+                        Log.d(DEBUG_TAG, "Directory " + indir.getAbsolutePath() + " doesn't exist");
+                        // remove all entries for this directory
+                        db.delete(PHOTOS_TABLE, URI_WHERE, new String[] { indir.getAbsolutePath() });
+                        db.delete(PHOTOS_TABLE, "dir LIKE ?", new String[] { indir.getAbsolutePath() + "/%" });
                         continue;
                     }
-                    Log.d(DEBUG_TAG, "Directory " + indir.getAbsolutePath() + " doesn't exist");
-                    // remove all entries for this directory
-                    db.delete(PHOTOS_TABLE, URI_WHERE, new String[] { indir.getAbsolutePath() });
-                    db.delete(PHOTOS_TABLE, "dir LIKE ?", new String[] { indir.getAbsolutePath() + "/%" });
+                    try (Cursor dbresult2 = db.query(PHOTOS_TABLE, new String[] { "distinct dir" }, "dir LIKE '" + indir.getAbsolutePath() + "%'", null, null,
+                            null, null, null)) {
+                        int dirCount2 = dbresult2.getCount();
+                        dbresult2.moveToFirst();
+                        for (int j = 0; j < dirCount2; j++) {
+                            String photo = dbresult2.getString(0);
+                            if (!new File(photo).exists()) {
+                                Log.d(DEBUG_TAG, "Deleting entries for gone photo " + photo);
+                                db.delete(PHOTOS_TABLE, URI_WHERE, new String[] { photo });
+                            }
+                            dbresult2.moveToNext();
+                        }
+                        scanDir(db, indir.getAbsolutePath(), lastScan);
+                        updateSources(db, indir.getName(), null, System.currentTimeMillis());
+                    }
                 }
                 dbresult.moveToNext();
             }
@@ -288,6 +293,30 @@ public class PhotoIndex extends SQLiteOpenHelper {
             // Don't crash just report
             ACRAHelper.nocrashReport(ex, ex.getMessage());
         }
+    }
+
+    /**
+     * Determine at least a few of the possible mount points
+     * 
+     * @param extStorage location of external storage
+     * @return list of directories
+     */
+    private List<String> getMountPoints(File extStorage) {
+        List<String> mountPoints = new ArrayList<>();
+        mountPoints.add(extStorage.getAbsolutePath());
+        mountPoints.add(extStorage.getAbsolutePath() + Paths.DIRECTORY_PATH_EXTERNAL_SD_CARD);
+        mountPoints.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()); // NOSONAR
+        File storageDir = new File(Paths.DIRECTORY_PATH_STORAGE);
+        File[] list = storageDir.listFiles();
+        if (list != null) {
+            for (File f : list) {
+                if (f.exists() && f.isDirectory() && !extStorage.getAbsolutePath().equals(f.getAbsolutePath())) {
+                    Log.d(DEBUG_TAG, "Adding mount point " + f.getAbsolutePath());
+                    mountPoints.add(f.getAbsolutePath());
+                }
+            }
+        }
+        return mountPoints;
     }
 
     /**
@@ -521,6 +550,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
             if (source != null) {
                 values.put(SOURCE_COLUMN, source);
             }
+            values.put(ORIENTATION_COLUMN, photo.getOrientation());
             db.insert(PHOTOS_TABLE, null, values);
         } catch (SQLiteException sqex) {
             Log.d(DEBUG_TAG, sqex.toString());
@@ -630,20 +660,21 @@ public class PhotoIndex extends SQLiteOpenHelper {
         }
         try {
             SQLiteDatabase db = getReadableDatabase();
-            Cursor dbresult = db.query(PHOTOS_TABLE, new String[] { LAT_COLUMN, LON_COLUMN, DIRECTION_COLUMN, URI_COLUMN, NAME_COLUMN }, null, null, null, null,
-                    null, null);
+            Cursor dbresult = db.query(PHOTOS_TABLE, new String[] { LAT_COLUMN, LON_COLUMN, DIRECTION_COLUMN, URI_COLUMN, NAME_COLUMN, ORIENTATION_COLUMN },
+                    null, null, null, null, null, null);
             int photoCount = dbresult.getCount();
             dbresult.moveToFirst();
             Log.i(DEBUG_TAG, "Query returned " + photoCount + " photos");
             //
             for (int i = 0; i < photoCount; i++) {
-                String name = dbresult.getString(4);
-                String dir = dbresult.getString(3);
+                String name = dbresult.getString(NAME_INDEX);
+                String dir = dbresult.getString(DIR_INDEX);
                 Photo newPhoto;
-                if (dbresult.isNull(2)) { // no direction
-                    newPhoto = new Photo(dbresult.getInt(0), dbresult.getInt(1), dir, name);
+                if (dbresult.isNull(DIRECTION_INDEX)) { // no direction
+                    newPhoto = new Photo(dbresult.getInt(LAT_INDEX), dbresult.getInt(LON_INDEX), dir, name, dbresult.getInt(ORIENTATION_INDEX));
                 } else {
-                    newPhoto = new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dir, name);
+                    newPhoto = new Photo(dbresult.getInt(LAT_INDEX), dbresult.getInt(LON_INDEX), dbresult.getInt(DIRECTION_INDEX), dir, name,
+                            dbresult.getInt(ORIENTATION_INDEX));
                 }
                 if (!index.contains(newPhoto)) {
                     index.insert(newPhoto);

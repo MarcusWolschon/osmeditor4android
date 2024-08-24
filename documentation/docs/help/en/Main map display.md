@@ -78,9 +78,12 @@ The layer dialog supports the following actions on the layer entries:
         * __Start playback__ Playback the current file, this behaves similar to recording tracks, the display will be centered on the current track point, then the following on and so on. *(not available on the recording layer)*
         * __Pause playback__ Temporarily pause the playback. *(not available on the recording layer)*
         * __Stop playback__ Stop the playback. *(not available on the recording layer)*
-    * Photo, Grid and Task layers:
-        * __Configure...__ (for the Grid and Task layers)
-        * __Disable__ Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.
+    * Photo layer:
+        * __Reindex__ clear the current index data and reindex images on the device.
+        * __Discard__ Turn this layer off. This will free resources if the app is exited and re-started.
+    * Grid and Task layers:
+        * __Configure...__ Change layer settings
+        * __Discard__ Turn this layer off. For the task layer this will free resources if the app is exited and re-started.
     * Data layer:
         * __Configure...__ Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024.
     * Data and Tasks layers:

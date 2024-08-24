@@ -998,6 +998,17 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                 });
             }
 
+            if (layer instanceof de.blau.android.layer.photos.MapOverlay) {
+                MenuItem item = menu.add(R.string.layer_photos_reindex);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null) {
+                        ((de.blau.android.layer.photos.MapOverlay) layer).reIndex();
+                        layer.invalidate();
+                    }
+                    return true;
+                });
+            }
+
             if (layer instanceof LayerInfoInterface) {
                 MenuItem item = menu.add(R.string.menu_information);
                 item.setOnMenuItemClickListener(unused -> {

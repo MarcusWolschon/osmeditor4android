@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import java.io.Serializable;
 import java.util.List;
 
 import android.content.Context;
@@ -10,12 +11,12 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-public class ImagePagerAdapter extends PagerAdapter {
+public class ImagePagerAdapter<T extends Serializable> extends PagerAdapter {
 
-    protected final Context      mContext;
-    protected LayoutInflater     mLayoutInflater;
-    protected final ImageLoader  loader;
-    protected final List<String> images;
+    protected final Context     mContext;
+    protected LayoutInflater    mLayoutInflater;
+    protected final ImageLoader loader;
+    protected final List<T>     images;
 
     /**
      * Construct a new adapter
@@ -24,7 +25,7 @@ public class ImagePagerAdapter extends PagerAdapter {
      * @param loader the PhotoLoader to use
      * @param images list of images
      */
-    public ImagePagerAdapter(@NonNull Context context, @NonNull ImageLoader loader, @NonNull List<String> images) {
+    public ImagePagerAdapter(@NonNull Context context, @NonNull ImageLoader loader, @NonNull List<T> images) {
         mContext = context;
         this.loader = loader;
         this.images = images;

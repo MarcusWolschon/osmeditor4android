@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 
 public abstract class ImageLoader implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     protected transient Fragment parentFragment = null;
 
@@ -30,6 +30,17 @@ public abstract class ImageLoader implements Serializable {
      * @param uri the Uri or other reference
      */
     public abstract void load(@NonNull SubsamplingScaleImageView view, @NonNull String uri);
+
+    /**
+     * Load the image
+     * 
+     * @param view the ImageView to load it in to
+     * @param uri the Uri or other reference
+     * @param exifOrientation the EXIT orientation value
+     */
+    public void load(@NonNull SubsamplingScaleImageView view, @NonNull String uri, int exifOrientation) {
+        load(view, uri);
+    }
 
     /**
      * Show the location of the photo on the map

@@ -181,8 +181,8 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
         if (isVisible) {
-            if (needsIndexing() && Util.permissionGranted(map.getContext(), Main.STORAGE_PERMISSION)) {
-                indexer.execute(map::invalidate);
+            if (needsIndexing()) {
+                indexWithPermission();
                 return;
             }
 
@@ -203,6 +203,15 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
             if (selected != null) {
                 drawIcon(c, bb, w, h, selected, selectedIcon);
             }
+        }
+    }
+
+    /**
+     * Check for permissions and run the indexer
+     */
+    private void indexWithPermission() {
+        if (Util.permissionGranted(map.getContext(), Main.STORAGE_PERMISSION)) {
+            indexer.execute(map::invalidate);
         }
     }
 
@@ -296,24 +305,13 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
      * @param photo the Photo
      */
     private void startInternalViewer(@NonNull FragmentActivity activity, @NonNull Photo photo) {
-        ArrayList<String> uris = new ArrayList<>();
         List<Photo> temp = new ArrayList<>(photos);
         GeoMath.sortGeoPoint(photo, temp, new ViewBox(bb), map.getWidth(), map.getHeight());
-
-        final int size = temp.size();
-        for (int i = 0; i < Math.min(VIEWER_MAX, size); i++) {
-            Photo p = temp.get(i);
-            Uri uri = p.getRefUri(activity);
-            if (uri != null) {
-                uris.add(uri.toString());
-            } else {
-                Log.e(DEBUG_TAG, "Null URI at position " + i);
-            }
-        }
+        ArrayList<Photo> shortList = new ArrayList<>(temp.subList(0, Math.min(temp.size(), VIEWER_MAX)));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            PhotoViewerFragment.showDialog(activity, uris, 0, null);
+            PhotoViewerFragment.showDialog(activity, shortList, 0, null);
         } else {
-            PhotoViewerActivity.start(activity, uris, 0);
+            PhotoViewerActivity.start(activity, shortList, 0);
         }
     }
 
@@ -368,6 +366,16 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
      */
     private boolean needsIndexing() {
         return !indexed && !indexing && !indexer.isExecuting();
+    }
+
+    /**
+     * Recreate the index
+     */
+    public void reIndex() {
+        if (pi != null && !indexing) {
+            pi.resetIndex();
+            indexWithPermission();
+        }
     }
 
     @Override

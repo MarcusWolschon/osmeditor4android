@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +40,8 @@ import de.blau.android.listener.DoNothingListener;
  *
  */
 public class SelectByImageFragment extends SizedDynamicImmersiveDialogFragment implements OnMenuItemClickListener {
-    private static final String DEBUG_TAG = SelectByImageFragment.class.getSimpleName().substring(0,
-            Math.min(23, SelectByImageFragment.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, SelectByImageFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = SelectByImageFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String TAG = "fragment_combo_image_viewer";
 
@@ -189,7 +191,7 @@ public class SelectByImageFragment extends SizedDynamicImmersiveDialogFragment i
         return layout;
     }
 
-    private class SelectImagePagerAdapter extends ImagePagerAdapter {
+    private class SelectImagePagerAdapter extends ImagePagerAdapter<String> {
 
         /**
          * Construct a new adapter

@@ -14,7 +14,7 @@ import de.blau.android.util.ImageLoader;
  * @author simon
  *
  */
-public class MapillaryViewerActivity extends PhotoViewerActivity {
+public class MapillaryViewerActivity extends PhotoViewerActivity<String> {
 
     /**
      * Start a new activity with the PhotoViewer as the contents

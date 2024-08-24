@@ -1,6 +1,9 @@
 package de.blau.android.photos;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +29,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
+import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -51,9 +55,9 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment implements OnMenuItemClickListener {
-    private static final String DEBUG_TAG = PhotoViewerFragment.class.getSimpleName().substring(0,
-            Math.min(23, PhotoViewerFragment.class.getSimpleName().length()));
+public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImmersiveDialogFragment implements OnMenuItemClickListener {
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PhotoViewerFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PhotoViewerFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String TAG = "fragment_photo_viewer";
 
@@ -69,12 +73,12 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
     private static final int MENUITEM_DELETE  = 4;
     private static final int MENUITEM_FORWARD = 5;
 
-    private List<String> photoList = null;
+    private List<T> photoList = null;
 
     SubsamplingScaleImageView photoView = null;
 
-    private PhotoPagerAdapter photoPagerAdapter;
-    private ImageLoader       photoLoader;
+    private PhotoPagerAdapter<T> photoPagerAdapter;
+    private ImageLoader          photoLoader;
 
     private ViewPager viewPager;
 
@@ -91,11 +95,12 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
      * @param startPos starting position in the list
      * @param loader callback for loading images etc
      */
-    public static void showDialog(@NonNull FragmentActivity activity, @NonNull ArrayList<String> photoList, int startPos, @Nullable ImageLoader loader) { // NOSONAR
+    public static <L extends List<V> & Serializable, V extends Serializable> void showDialog(@NonNull FragmentActivity activity, @NonNull L photoList,
+            int startPos, @Nullable ImageLoader loader) { // NOSONAR
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            PhotoViewerFragment photoViewerFragment = newInstance(photoList, startPos, loader, true);
+            PhotoViewerFragment<V> photoViewerFragment = newInstance(photoList, startPos, loader, true);
             photoViewerFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -113,6 +118,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
 
     /**
      * 
+     * @param <V>
      * @param photoList list of Uris
      * @param startPos starting position in the list
      * @param loader callback for loading images etc.
@@ -120,11 +126,12 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
      * @return a new instance of PhotoViwerFragment
      */
     @NonNull
-    public static PhotoViewerFragment newInstance(@NonNull ArrayList<String> photoList, int startPos, @Nullable ImageLoader loader, boolean wrap) { // NOSONAR
-        PhotoViewerFragment f = new PhotoViewerFragment();
+    public static <L extends List<V> & Serializable, V extends Serializable> PhotoViewerFragment<V> newInstance(@NonNull L photoList, int startPos,
+            @Nullable ImageLoader loader, boolean wrap) { // NOSONAR
+        PhotoViewerFragment<V> f = new PhotoViewerFragment<>();
 
         Bundle args = new Bundle();
-        args.putStringArrayList(PHOTO_LIST_KEY, photoList);
+        args.putSerializable(PHOTO_LIST_KEY, photoList);
         args.putInt(START_POS_KEY, startPos);
         args.putSerializable(PHOTO_LOADER_KEY, loader);
         args.putBoolean(WRAP_KEY, wrap);
@@ -151,28 +158,46 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
     }
 
     ImageLoader defaultLoader = new ImageLoader() {
-        private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 2L;
 
         @Override
         public void load(SubsamplingScaleImageView view, String uri) {
-            String imageType = view.getContext().getContentResolver().getType(Uri.parse(uri));
-            if (imageType.equals(MimeTypes.HEIC)) {
+            load(view, uri, ExifInterface.ORIENTATION_UNDEFINED);
+        }
+
+        @Override
+        public void load(SubsamplingScaleImageView view, String uri, int exifOrientation) {
+            final Uri parsedUri = Uri.parse(uri);
+            if (MimeTypes.HEIC.equals(view.getContext().getContentResolver().getType(parsedUri))) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                    Log.e(DEBUG_TAG, "Can't load " + uri + " HEIC is not supported in this Android version");
+                    Log.w(DEBUG_TAG, "Can't load " + uri + " HEIC is not supported in this Android version");
                     return;
                 }
                 SubsamplingScaleImageView.setPreferredBitmapConfig(Config.ARGB_8888);
             } else {
                 SubsamplingScaleImageView.setPreferredBitmapConfig(Config.RGB_565); // default
             }
-            view.setOrientation(SubsamplingScaleImageView.ORIENTATION_USE_EXIF);
+            int orientation = SubsamplingScaleImageView.ORIENTATION_0;
+            switch (exifOrientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                orientation = SubsamplingScaleImageView.ORIENTATION_90;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                orientation = SubsamplingScaleImageView.ORIENTATION_180;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                orientation = SubsamplingScaleImageView.ORIENTATION_270;
+                break;
+            default: // leave as is
+            }
+            view.setOrientation(orientation);
             view.setImage(ImageSource.uri(uri));
         }
 
         @Override
         public void showOnMap(Context context, int index) {
             try {
-                Photo p = new Photo(context, Uri.parse(photoList.get(index)), "");
+                Photo p = new Photo(context, getUri(index), "");
                 if (getShowsDialog()) {
                     Map map = (context instanceof Main) ? ((Main) context).getMap() : null;
                     final de.blau.android.layer.photos.MapOverlay overlay = map != null ? map.getPhotoLayer() : null;
@@ -226,7 +251,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
                         int position = getCurrentPosition();
                         final int size = photoList.size();
                         if (position >= 0 && position < size) { // avoid crashes from bouncing
-                            Uri photoUri = Uri.parse(photoList.get(position));
+                            Uri photoUri = getUri(position);
                             try {
                                 if (getShowsDialog()) {
                                     // delete from in memory and on device index
@@ -272,7 +297,20 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
                         }
                     }).setNeutralButton(R.string.cancel, null).show();
         }
+
     };
+
+    /**
+     * Get the URI in String format for the item
+     * 
+     * @param index
+     * @return
+     */
+    @NonNull
+    protected Uri getUri(int index) {
+        T item = photoList.get(index);
+        return item instanceof Photo ? ((Photo) item).getRefUri(getContext()) : Uri.parse((String) item);
+    }
 
     /**
      * Create the view we want to display
@@ -280,6 +318,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
      * @param savedInstanceState the saved state if any
      * @return the View
      */
+    @SuppressWarnings("unchecked")
     @NonNull
     private View createView(@Nullable Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
@@ -287,14 +326,14 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
         int startPos = 0;
         if (savedInstanceState == null) {
             Log.d(DEBUG_TAG, "Initializing from intent");
-            photoList = getArguments().getStringArrayList(PHOTO_LIST_KEY);
+            photoList = Util.getSerializeable(getArguments(), PhotoViewerFragment.PHOTO_LIST_KEY, ArrayList.class);
             startPos = getArguments().getInt(START_POS_KEY);
             photoLoader = Util.getSerializeable(getArguments(), PHOTO_LOADER_KEY, ImageLoader.class);
             getArguments().remove(PHOTO_LOADER_KEY);
             wrap = getArguments().getBoolean(WRAP_KEY, true);
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
-            photoList = savedInstanceState.getStringArrayList(PHOTO_LIST_KEY);
+            photoList = Util.getSerializeable(savedInstanceState, PhotoViewerFragment.PHOTO_LIST_KEY, ArrayList.class);
             startPos = savedInstanceState.getInt(START_POS_KEY);
             photoLoader = Util.getSerializeable(savedInstanceState, PHOTO_LOADER_KEY, ImageLoader.class);
             wrap = savedInstanceState.getBoolean(WRAP_KEY);
@@ -310,7 +349,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
             ScreenMessage.toastTopError(activity, R.string.toast_no_photo_found);
             return layout;
         }
-        photoPagerAdapter = new PhotoPagerAdapter(activity, photoLoader, photoList);
+        photoPagerAdapter = new PhotoPagerAdapter<>(activity, photoLoader, photoList);
 
         viewPager = (ViewPager) layout.findViewById(R.id.pager);
         viewPager.setAdapter(photoPagerAdapter);
@@ -334,7 +373,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
             menu.add(Menu.NONE, MENUITEM_INFO, Menu.NONE, R.string.menu_information).setIcon(R.drawable.outline_info_white_48dp)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
-        if (photoLoader.supportsDelete() && getString(R.string.content_provider).equals(Uri.parse(photoList.get(startPos)).getAuthority())) {
+        if (photoLoader.supportsDelete() && getString(R.string.content_provider).equals(getUri(startPos).getAuthority())) {
             // we can only delete stuff that is provided by our provider, currently this is a bit of a hack
             menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -362,7 +401,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
         itemBackward.setIcon(backwardEnabled ? R.drawable.ic_arrow_back_white_36dp : R.drawable.ic_arrow_back_dimmed_36dp);
     }
 
-    private class PhotoPagerAdapter extends ImagePagerAdapter {
+    private class PhotoPagerAdapter<S extends Serializable> extends ImagePagerAdapter<S> {
 
         /**
          * Construct a new adapter
@@ -371,7 +410,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
          * @param loader the PhotoLoader to use
          * @param images list of images
          */
-        public PhotoPagerAdapter(@NonNull Context context, @NonNull ImageLoader loader, @NonNull List<String> images) {
+        public PhotoPagerAdapter(@NonNull Context context, @NonNull ImageLoader loader, @NonNull List<S> images) {
             super(context, loader, images);
         }
 
@@ -380,7 +419,14 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
             View itemView = mLayoutInflater.inflate(R.layout.photo_viewer_item, container, false);
             SubsamplingScaleImageView view = itemView.findViewById(R.id.photoView);
             try {
-                loader.load(view, images.get(position));
+                S item = images.get(position);
+                if (item instanceof Photo) {
+                    loader.load(view, ((Photo) item).getRef(), ((Photo) item).getOrientation());
+                } else if (item instanceof String) {
+                    loader.load(view, (String) item);
+                } else {
+                    Log.e(DEBUG_TAG, "Unexpecteded element " + item);
+                }
             } catch (IndexOutOfBoundsException e) {
                 Log.e(DEBUG_TAG, e.getMessage());
             }
@@ -418,17 +464,17 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
                 break;
             case MENUITEM_SHARE:
                 if (loaderPresent) {
-                    photoLoader.share(caller, photoList.get(pos));
+                    photoLoader.share(caller, getUri(pos).toString());
                 }
                 break;
             case MENUITEM_INFO:
                 if (loaderPresent) {
-                    photoLoader.info(caller, photoList.get(pos));
+                    photoLoader.info(caller, getUri(pos).toString());
                 }
                 break;
             case MENUITEM_DELETE:
                 if (loaderPresent) {
-                    photoLoader.delete(caller, photoList.get(pos));
+                    photoLoader.delete(caller, getUri(pos).toString());
                 }
                 break;
             default:
@@ -444,7 +490,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
-        outState.putStringArrayList(PHOTO_LIST_KEY, (ArrayList<String>) photoList);
+        outState.putSerializable(PHOTO_LIST_KEY, (ArrayList<T>) photoList);
         // there seems to be a situation in which this is called before viewPager is created
         outState.putInt(START_POS_KEY, viewPager != null ? viewPager.getCurrentItem() : 0);
         if (!photoLoader.equals(defaultLoader)) {
@@ -476,9 +522,9 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
     /**
      * Add a photo at the end of the list and switch to it
      * 
-     * @param photo the photo Uri as a String
+     * @param photo the photo Uri as a String or Photo object
      */
-    void addPhoto(@NonNull String photo) {
+    void addPhoto(@NonNull T photo) {
         photoList.add(photo);
         photoPagerAdapter.notifyDataSetChanged();
         setCurrentPosition(photoList.size() - 1);
@@ -490,7 +536,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
      * @param list the new list
      * @param pos the new position in list
      */
-    void replacePhotos(@NonNull ArrayList<String> list, int pos) {
+    void replacePhotos(@NonNull List<T> list, int pos) {
         photoList.clear();
         photoList.addAll(list);
         photoPagerAdapter.notifyDataSetChanged();
