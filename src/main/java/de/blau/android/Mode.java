@@ -1,9 +1,12 @@
 package de.blau.android;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.content.Context;
@@ -61,14 +64,16 @@ public enum Mode {
             // empty
         }
 
+        @SuppressWarnings("unchecked")
         @Override
-        public HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
-            return null;
+        public <M extends Map<String, String> & Serializable> M getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
+            return (M) new HashMap<String, String>();
         }
 
+        @SuppressWarnings("unchecked")
         @Override
-        public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
-            return null;
+        public <L extends List<PresetElementPath> & Serializable> L getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
+            return (L) new ArrayList<PresetElementPath>();
         }
     }),
     /**
@@ -119,8 +124,9 @@ public enum Mode {
         }
 
         @Override
-        public HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
-            HashMap<String, String> result = new HashMap<>();
+        public <M extends Map<String, String> & Serializable> M getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
+            @SuppressWarnings("unchecked")
+            M result = (M) new HashMap<String, String>();
             // we only want to apply a level tag automatically to newly created objects if they don't already have the
             // tag and not when the filter is inverted
             Filter filter = logic.getFilter();
@@ -131,9 +137,10 @@ public enum Mode {
             return result;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
-        public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
-            return null;
+        public <L extends List<PresetElementPath> & Serializable> L getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
+            return (L) new ArrayList<PresetElementPath>();
         }
     }), MODE_CORRECT(R.string.mode_correct, "CORRECT", true, true, true, false, null, R.drawable.unlocked_correct_white, new ModeConfig() {
 
@@ -181,8 +188,9 @@ public enum Mode {
         }
 
         @Override
-        public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
-            ArrayList<PresetElementPath> result = new ArrayList<>();
+        public <L extends List<PresetElementPath> & Serializable> L getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
+            @SuppressWarnings("unchecked")
+            L result = (L) new ArrayList<PresetElementPath>();
             Preset[] presets = App.getCurrentPresets(ctx);
             if (presets.length > 0 && presets[0] != null) {
                 PresetItem pi = Preset.findBestMatch(presets, e.getTags(), null, null);
@@ -193,9 +201,10 @@ public enum Mode {
             return result;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
-        public HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
-            return null;
+        public <M extends Map<String, String> & Serializable> M getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
+            return (M) new HashMap<String, String>();
         }
     }), MODE_VOICE(R.string.mode_voice, "VOICE", true, true, true, true, null, R.drawable.unlocked_voice_white, new FilterModeConfig() {
 
@@ -409,12 +418,13 @@ public enum Mode {
      * @param e the selected element
      * @return map containing the additional tags or null
      */
-    @Nullable
-    public HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
+    @SuppressWarnings("unchecked")
+    @NonNull
+    public <M extends Map<String, String> & Serializable> M getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
         if (config != null) {
             return config.getExtraTags(logic, e);
         }
-        return null;
+        return (M) new HashMap<String, String>();
     }
 
     /**
@@ -424,12 +434,13 @@ public enum Mode {
      * @param e the OsmElement
      * @return a List of PresetElementPath or null if none available
      */
-    @Nullable
-    public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
+    @SuppressWarnings("unchecked")
+    @NonNull
+    public <L extends List<PresetElementPath> & Serializable> L getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
         if (config != null) {
             return config.getPresetItems(ctx, e);
         }
-        return null;
+        return (L) new ArrayList<PresetElementPath>();
     }
 
     /**

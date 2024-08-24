@@ -334,7 +334,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
         // Add any extra tags that were supplied
         @SuppressWarnings("unchecked")
         Map<String, String> extraTags = Util.getSerializeable(getArguments(), EXTRA_TAGS_KEY, HashMap.class);
-        if (extraTags != null) {
+        if (extraTags != null && !extraTags.isEmpty()) {
             for (Entry<String, String> e : extraTags.entrySet()) {
                 addTag(editRowLayout, e.getKey(), e.getValue(), true, false);
             }
@@ -357,7 +357,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
 
         if (savedInstanceState == null) { // the following should only happen once on initial creation
             List<PresetElementPath> presetsToApply = Util.getSerializeableArrayList(getArguments(), PRESETSTOAPPLY_KEY, PresetElementPath.class);
-            if (presetsToApply != null && !presetsToApply.isEmpty()) {
+            if (Util.notEmpty(presetsToApply)) {
                 FragmentActivity activity = getActivity();
                 Preset preset = App.getCurrentRootPreset(activity);
                 PresetGroup rootGroup = preset.getRootGroup();

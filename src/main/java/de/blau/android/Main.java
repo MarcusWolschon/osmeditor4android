@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
@@ -2818,7 +2819,7 @@ public class Main extends FullScreenAppCompatActivity
     private File getImageFile() throws IOException {
         File outDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_PICTURES);
         String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
-        //FIXME this forces the extension to jpg, but it could be a HEIC image 
+        // FIXME this forces the extension to jpg, but it could be a HEIC image
         File newImageFile = File.createTempFile(imageFileName, "." + FileExtensions.JPG, outDir);
         Log.d(DEBUG_TAG, "getImageFile " + newImageFile.getAbsolutePath());
         return newImageFile;
@@ -3332,8 +3333,8 @@ public class Main extends FullScreenAppCompatActivity
      * @param tags any existing tags to apply
      * @param showPresets show the preset tab on start up.
      */
-    public void performTagEdit(@NonNull final OsmElement selectedElement, @Nullable PresetElementPath presetPath, @Nullable HashMap<String, String> tags,
-            boolean showPresets) {
+    public <M extends java.util.Map<String, String> & Serializable> void performTagEdit(@NonNull final OsmElement selectedElement, @Nullable PresetElementPath presetPath,
+            @Nullable M tags, boolean showPresets) {
         ArrayList<PresetElementPath> presetPathList = new ArrayList<>();
         if (presetPath != null) {
             presetPathList.add(presetPath);
@@ -3351,8 +3352,9 @@ public class Main extends FullScreenAppCompatActivity
      * @param tags any existing tags to apply
      * @param showPresets show the preset tab on start up.
      */
-    private void performTagEdit(@NonNull final OsmElement selectedElement, @Nullable String focusOn, boolean applyLastAddressTags,
-            @Nullable ArrayList<PresetElementPath> presetPathList, @Nullable HashMap<String, String> tags, boolean showPresets) {
+    private <M extends java.util.Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable> void performTagEdit(
+            @NonNull final OsmElement selectedElement, @Nullable String focusOn, boolean applyLastAddressTags, @Nullable L presetPathList, @Nullable M tags,
+            boolean showPresets) {
         descheduleAutoLock();
         unlock();
         final Logic logic = App.getLogic();
