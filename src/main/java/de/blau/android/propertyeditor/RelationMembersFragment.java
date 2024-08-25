@@ -2,6 +2,7 @@ package de.blau.android.propertyeditor;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -144,7 +145,7 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
      * @return a new RelationMembersFragment instance
      */
     @NonNull
-    public static RelationMembersFragment newInstance(long id, ArrayList<RelationMemberDescription> members) {
+    public static <L extends List<RelationMemberDescription> & Serializable> RelationMembersFragment newInstance(long id, L members) {
         RelationMembersFragment f = new RelationMembersFragment();
 
         Bundle args = new Bundle();

@@ -2,6 +2,7 @@ package de.blau.android.propertyeditor;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetSearchResultsFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName().substring(0, TAG_LEN);
-    
+
     private static final String SEARCH_RESULTS_KEY = "searchResults";
     private static final String SEARCH_TERM_KEY    = "searchTerm";
 
@@ -68,7 +69,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
      * @param searchResults a List of PresetEements to display
      * @return an instance of PresetSearchResultsFragment
      */
-    public static PresetSearchResultsFragment newInstance(@NonNull String searchTerm, @NonNull ArrayList<PresetElement> searchResults) {
+    public static <L extends List<PresetElement> & Serializable> PresetSearchResultsFragment newInstance(@NonNull String searchTerm, @NonNull L searchResults) {
         PresetSearchResultsFragment f = new PresetSearchResultsFragment();
 
         Bundle args = new Bundle();
@@ -89,7 +90,6 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         propertyEditorListener = (PropertyEditorListener) parent;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

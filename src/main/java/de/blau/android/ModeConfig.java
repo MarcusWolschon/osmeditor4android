@@ -1,9 +1,10 @@
 package de.blau.android;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.content.Context;
@@ -41,7 +42,7 @@ public interface ModeConfig {
      * @return HashMap with tags to apply
      */
     @Nullable
-    HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e);
+    <M extends Map<String, String> & Serializable> M getExtraTags(@NonNull Logic logic, @NonNull OsmElement e);
 
     /**
      * Called before PropertyEditor startup to provide any mode specific PresetItems
@@ -53,7 +54,7 @@ public interface ModeConfig {
      * @return list of PrestItems to apply
      */
     @Nullable
-    ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e);
+    <L extends List<PresetElementPath> & Serializable> L getPresetItems(@NonNull Context ctx, @NonNull OsmElement e);
 
     /**
      * Return the simple actions that are enabled in the menu
