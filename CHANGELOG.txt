@@ -1,5 +1,19 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.1.1:
+
+- Fix protect against data style not being initialized
+- Fix determine direction as last action when creating photo object
+- Fix protect against path being null when creating photo object
+- Fix reset cached validation results when preset changes
+- Fix call through to super in onDismiss in value widget
+- Fix regression that caused the direction widget not to be displayed
+- Fix protect against dialog already being detached.
+- Update JosmFilterParser dependency
+- Update default preset
+- Update imagery from ELI
+. Update translations
+
 20.1.0:
 
 - Fix rearrange order of natural
