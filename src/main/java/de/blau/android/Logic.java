@@ -363,12 +363,18 @@ public class Logic {
      */
     public void setPrefs(@NonNull final Preferences prefs) {
         this.prefs = prefs;
-        if (!DataStyle.getCurrent().getName().equals(prefs.getDataStyle())) {
+        final DataStyle currentStyle = DataStyle.getCurrent();
+        if (currentStyle == null) {
+            Log.e(DEBUG_TAG, "setPrefs data style null");
+            return;
+        }
+        if (!currentStyle.getName().equals(prefs.getDataStyle())) {
             DataStyle.switchTo(prefs.getDataStyle());
             if (map != null) {
                 updateStyle();
             }
         }
+
     }
 
     /**

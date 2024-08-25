@@ -826,6 +826,10 @@ public class Main extends FullScreenAppCompatActivity
             // reset in any case
             setViewBox = true;
         }
+        if (DataStyle.getCurrent() == null) {
+            Log.e(DEBUG_TAG, "onResume current data style null");
+            DataStyle.getStylesFromFiles(this); // will likely cause an ANR
+        }
         logic.updateStyle();
 
         // start listening for location updates

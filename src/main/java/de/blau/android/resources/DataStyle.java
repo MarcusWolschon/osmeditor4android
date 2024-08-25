@@ -1386,6 +1386,7 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @return the current DataStyle
      */
+    @Nullable
     public static DataStyle getCurrent() {
         return currentStyle;
     }
