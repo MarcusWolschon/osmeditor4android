@@ -131,6 +131,10 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
         lat = (int) (latf * 1E7d);
         lon = (int) (lonf * 1E7d);
         Log.d(DEBUG_TAG, "lat: " + lat + " lon: " + lon);
+        
+        captureDate = exif.getDateTime();
+        creator = exif.getAttribute(ExifInterface.TAG_ARTIST);
+        
         String dir = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION);
         if (dir != null) {
             String[] r = dir.split("/");
@@ -142,8 +146,6 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
             directionRef = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF);
             Log.d(DEBUG_TAG, "dir " + dir + " direction " + direction + " ref " + directionRef);
         }
-        captureDate = exif.getDateTime();
-        creator = exif.getAttribute(ExifInterface.TAG_ARTIST);
     }
 
     /**
