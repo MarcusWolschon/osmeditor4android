@@ -111,6 +111,7 @@ public class Authorize extends WebViewActivity {
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
             synchronized (progressLock) {
                 synchronized (webViewLock) {
                     if (progressShown && webView != null) {
@@ -119,6 +120,20 @@ public class Authorize extends WebViewActivity {
                     }
                 }
             }
+            
+            // Remove navigation and sign up tab from osm.org 
+            // @formatter:off
+            String script = "(function() {" 
+                    + "var navs = document.getElementsByTagName('nav');" 
+                    + "for (let nav of navs) {" 
+                    + "  nav.innerHTML = '';" 
+                    + "}"
+                    + "var tabs = document.getElementsByClassName('nav-item');" 
+                    + "for (let tab of tabs) {" 
+                    + "  tab.innerHTML = '';" 
+                    + "} })();";
+            // @formatter:on
+            view.evaluateJavascript(script, null);
         }
 
         @Override
