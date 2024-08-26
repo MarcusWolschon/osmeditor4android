@@ -1,5 +1,9 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.1.2:
+
+- Fix remove navigation and sign up tag from osm.org login page
+
 20.1.1:
 
 - Fix protect against data style not being initialized
