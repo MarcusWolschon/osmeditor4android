@@ -1,8 +1,8 @@
 package de.blau.android.views.layers;
 
 import android.graphics.Canvas;
-import android.view.View;
 import androidx.annotation.NonNull;
+import de.blau.android.Map;
 import de.blau.android.layer.LayerType;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.collections.MRUList;
@@ -17,11 +17,11 @@ public class MapTilesOverlayLayer<T> extends MapTilesLayer<T> {
     /**
      * Construct a tile layer for showing transparent tiles over over tiles/data
      * 
-     * @param aView the view we are displaying in
+     * @param map the view we are displaying in
      * @param aTileRenderer the TileRenderer for T
      */
-    public MapTilesOverlayLayer(@NonNull final View aView, @NonNull TileRenderer<T> aTileRenderer) {
-        super(aView, TileLayerSource.get(aView.getContext(), null, true), null, aTileRenderer);
+    public MapTilesOverlayLayer(@NonNull final Map map, @NonNull TileRenderer<T> aTileRenderer) {
+        super(map, TileLayerSource.get(map.getContext(), null, true), null, aTileRenderer);
     }
 
     @Override

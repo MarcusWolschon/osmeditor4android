@@ -200,8 +200,8 @@ public class MapOverlay extends StyleableFileLayer
         final Preferences prefs = map.getPrefs();
         initStyling(!hasStateFile(map.getContext()), prefs.getGeoJsonStrokeWidth(), prefs.getGeoJsonLabelSource(), prefs.getGeoJsonLabelMinZoom(),
                 prefs.getGeoJsonSynbol());
-        paint.setColor(
-                ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GEOJSON), 9, DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint().getColor()));
+        paint.setColor(ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GEOJSON), 9,
+                map.getDataStyle().getInternal(DataStyle.GEOJSON_DEFAULT).getPaint().getColor()));
     }
 
     @Override
@@ -218,9 +218,10 @@ public class MapOverlay extends StyleableFileLayer
         int width = map.getWidth();
         int height = map.getHeight();
         int zoomLevel = map.getZoomLevel();
-        labelFs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
+        DataStyle styles = map.getDataStyle();
+        labelFs = styles.getInternal(DataStyle.LABELTEXT_NORMAL);
         labelPaint = labelFs.getPaint();
-        labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        labelBackground = styles.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
         labelStrokeWidth = labelPaint.getStrokeWidth();
 
         queryForDisplayResult.clear();
@@ -589,7 +590,7 @@ public class MapOverlay extends StyleableFileLayer
         List<Feature> result = new ArrayList<>();
         Log.d(DEBUG_TAG, "getClicked");
         if (data != null) {
-            final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
+            final float tolerance = map.getDataStyle().getCurrent().getNodeToleranceValue();
             Collection<BoundedFeature> queryResult = new ArrayList<>();
             data.query(queryResult, viewBox);
             Log.d(DEBUG_TAG, "features result count " + queryResult.size());
@@ -672,6 +673,7 @@ public class MapOverlay extends StyleableFileLayer
      * @return if the returned value is > 0 then the coords are in the tolerance
      */
     private double distanceToLineString(final float x, final float y, final Map map, final ViewBox viewBox, List<Point> vertices) {
+        final float tolerance = map.getDataStyle().getCurrent().getWayToleranceValue();
         float p1X = Float.MAX_VALUE;
         float p1Y = Float.MAX_VALUE;
         int width = map.getWidth();
@@ -686,7 +688,7 @@ public class MapOverlay extends StyleableFileLayer
             }
             float p2X = GeoMath.lonToX(width, viewBox, p2.longitude());
             float p2Y = GeoMath.latToY(height, width, viewBox, p2.latitude());
-            double distance = de.blau.android.util.Geometry.isPositionOnLine(x, y, p1X, p1Y, p2X, p2Y);
+            double distance = de.blau.android.util.Geometry.isPositionOnLine(tolerance, x, y, p1X, p1Y, p2X, p2Y);
             if (distance >= 0) {
                 return distance;
             }
@@ -754,7 +756,7 @@ public class MapOverlay extends StyleableFileLayer
      * @param symbolName the name of the point symbol
      */
     private void initStyling(boolean style, float strokeWidth, @NonNull String labelKey, int labelMinZoom, String symbolName) {
-        paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
+        paint = new SerializableTextPaint(map.getDataStyle().getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
         iconRadius = map.getIconRadius();
         if (style) {
             setStrokeWidth(strokeWidth);

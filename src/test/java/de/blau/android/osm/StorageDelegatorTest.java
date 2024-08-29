@@ -1153,7 +1153,8 @@ public class StorageDelegatorTest {
         Logic logic = App.getLogic();
         Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
         Server server = prefs.getServer();
-        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         try {
             server.getCachedCapabilities().setMaxRelationMembers(1);
             logic.setPrefs(prefs);
@@ -1295,7 +1296,8 @@ public class StorageDelegatorTest {
         Logic logic = App.getLogic();
         Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
         Server server = prefs.getServer();
-        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         try {
             server.getCachedCapabilities().setMaxRelationMembers(1);
             logic.setPrefs(prefs);

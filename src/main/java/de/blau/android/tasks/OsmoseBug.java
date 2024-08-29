@@ -15,6 +15,7 @@ import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
@@ -226,23 +227,23 @@ public final class OsmoseBug extends Bug implements Serializable {
     }
 
     @Override
-    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconBugOpen, c, x, y, selected);
+    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconBugOpen, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconBugChanged, c, x, y, selected);
+    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconBugChanged, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconChangedBugClosed, c, x, y, selected);
+    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconChangedBugClosed, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconBugClosed, c, x, y, selected);
+    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconBugClosed, c, x, y, selected, paint);
     }
 
     @Override

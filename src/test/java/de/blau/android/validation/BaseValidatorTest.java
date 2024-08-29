@@ -77,7 +77,8 @@ public class BaseValidatorTest {
     public void suppressedMissingTest() {
         Logic logic = App.newLogic();
         // this needs a lot of setup as highway validation relies on a valid map object
-        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         de.blau.android.Map map = new de.blau.android.Map(ApplicationProvider.getApplicationContext());
         logic.setMap(map, false);
         map.setPrefs(ApplicationProvider.getApplicationContext(), new Preferences(ApplicationProvider.getApplicationContext()));

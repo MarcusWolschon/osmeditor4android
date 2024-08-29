@@ -20,6 +20,7 @@ import com.mapbox.turf.TurfMeasurement;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -373,23 +374,23 @@ public final class Todo extends Bug implements Serializable {
     }
 
     @Override
-    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconTodoOpen, c, x, y, selected);
+    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconTodoOpen, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconTogoChanged, c, x, y, selected);
+    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconTogoChanged, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconTodoChangedClosed, c, x, y, selected);
+    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconTodoChangedClosed, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconTodoClosed, c, x, y, selected);
+    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconTodoClosed, c, x, y, selected, paint);
     }
 
     /**

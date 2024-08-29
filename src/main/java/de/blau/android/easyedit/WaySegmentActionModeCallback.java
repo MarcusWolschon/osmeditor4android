@@ -79,6 +79,7 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
     @NonNull
     static Node[] findSegmentFromCoordinates(@NonNull final List<Node> wayNodes, final float x, final float y) {
         Logic logic = App.getLogic();
+        final float tolerance = logic.getMap().getDataStyle().getCurrent().getWayToleranceValue();
         Node node1 = null;
         Node node2 = null;
 
@@ -95,7 +96,7 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
             }
             float node2X = logic.lonE7ToX(node2.getLon());
             float node2Y = logic.latE7ToY(node2.getLat());
-            if (Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y) >= 0) {
+            if (Geometry.isPositionOnLine(tolerance, x, y, node1X, node1Y, node2X, node2Y) >= 0) {
                 return new Node[] { node1, node2 };
             }
             node1X = node2X;

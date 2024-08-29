@@ -1,5 +1,7 @@
 package de.blau.android.resources;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -72,7 +74,8 @@ import de.blau.android.util.XmlFileFilter;
 import de.blau.android.util.collections.MultiHashMap;
 
 public final class DataStyle extends DefaultHandler {
-    private static final String DEBUG_TAG = DataStyle.class.getSimpleName().substring(0, Math.min(23, DataStyle.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, DataStyle.class.getSimpleName().length());
+    private static final String DEBUG_TAG = DataStyle.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String I18N_DATASTYLE = "i18n/datastyle_";
 
@@ -753,8 +756,8 @@ public final class DataStyle extends DefaultHandler {
     private FeatureStyle               wayStyles;
     private FeatureStyle               relationStyles;
 
-    private static DataStyle                  currentStyle;
-    private static HashMap<String, DataStyle> availableStyles = new HashMap<>();
+    private DataStyle                  currentStyle;
+    private HashMap<String, DataStyle> availableStyles = new HashMap<>();
 
     public static final float NODE_OVERLAP_TOLERANCE_VALUE = 10f;
 
@@ -809,7 +812,7 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @param ctx Android Context
      */
-    private DataStyle(@NonNull final Context ctx) {
+    public DataStyle(@NonNull final Context ctx) {
         this.ctx = ctx;
         init();
     }
@@ -1221,7 +1224,7 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @param aa the boolean value to set
      */
-    public static void setAntiAliasing(final boolean aa) {
+    public void setAntiAliasing(final boolean aa) {
         processCurrentStyle(style -> style.getPaint().setAntiAlias(aa));
     }
 
@@ -1239,7 +1242,7 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @param processor the actions to carry out on the styles
      */
-    public static void processCurrentStyle(@NonNull ProcessStyle processor) {
+    public void processCurrentStyle(@NonNull ProcessStyle processor) {
         for (FeatureStyle style : currentStyle.internalStyles.values()) {
             if (style != null) {
                 processor.process(style);
@@ -1288,7 +1291,7 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @param newStrokeWidth the new width to set
      */
-    public static void updateStrokes(final float newStrokeWidth) {
+    public void updateStrokes(final float newStrokeWidth) {
         processCurrentStyle(style -> {
             if (style.updateWidth) {
                 style.setStrokeWidth(newStrokeWidth);
@@ -1362,7 +1365,7 @@ public final class DataStyle extends DefaultHandler {
      * @return the style or null if not found
      */
     @Nullable
-    public static FeatureStyle getInternal(@NonNull final String key) {
+    public FeatureStyle getInternal(@NonNull final String key) {
         return currentStyle.internalStyles.get(key);
     }
 
@@ -1373,7 +1376,7 @@ public final class DataStyle extends DefaultHandler {
      * @return the style or the default problem style if not found
      */
     @Nullable
-    public static FeatureStyle getValidationStyle(int code) {
+    public FeatureStyle getValidationStyle(int code) {
         FeatureStyle style = currentStyle.validationStyles.get(code);
         if (style == null) {
             return getInternal(DataStyle.PROBLEM_WAY);
@@ -1386,7 +1389,7 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @return the current DataStyle
      */
-    public static DataStyle getCurrent() {
+    public DataStyle getCurrent() {
         return currentStyle;
     }
 
@@ -1397,7 +1400,7 @@ public final class DataStyle extends DefaultHandler {
      * @return the DataStyle object or null if it couldn't be found
      */
     @Nullable
-    public static DataStyle getStyle(@NonNull String name) {
+    public DataStyle getStyle(@NonNull String name) {
         if (availableStyles == null) {
             return null;
         }
@@ -1411,7 +1414,7 @@ public final class DataStyle extends DefaultHandler {
      * @return list of available Styles (Default entry first, rest sorted)
      */
     @NonNull
-    public static String[] getStyleList(@NonNull Context context) {
+    public String[] getStyleList(@NonNull Context context) {
         if (availableStyles.size() == 0) { // shouldn't happen
             Log.e(DEBUG_TAG, "getStyleList called before initialized");
             addDefaultStyle(context);
@@ -1493,7 +1496,7 @@ public final class DataStyle extends DefaultHandler {
      * @param n name of the style
      * @return true if successful
      */
-    public static boolean switchTo(@NonNull String n) {
+    public boolean switchTo(@NonNull String n) {
         DataStyle p = getStyle(n);
         if (p != null) {
             currentStyle = p;
@@ -1880,7 +1883,7 @@ public final class DataStyle extends DefaultHandler {
      * @param ctx Android Context
      */
     @SuppressLint("NewApi")
-    public static void getStylesFromFiles(@NonNull Context ctx) {
+    public void getStylesFromFiles(@NonNull Context ctx) {
         if (availableStyles.size() == 0) {
             Log.i(DEBUG_TAG, "No style files found");
             // no files, need to install a default
@@ -1888,26 +1891,22 @@ public final class DataStyle extends DefaultHandler {
         }
         // assets directory
         AssetManager assetManager = ctx.getAssets();
-        //
-        try {
-            String[] fileList = assetManager.list(Paths.DIRECTORY_PATH_STYLES);
-            if (fileList != null) {
-                for (String fn : fileList) {
-                    if (fn.endsWith("." + FileExtensions.XML)) {
-                        Log.i(DEBUG_TAG, "Creating style from file in assets directory " + fn);
-                        try (InputStream is = assetManager.open(Paths.DIRECTORY_PATH_STYLES + Paths.DELIMITER + fn)) {
-                            DataStyle p = new DataStyle(ctx, is, null);
-                            availableStyles.put(p.getName(), p);
-                        } catch (Exception ex) {
-                            // this shouldn't happen with styles included with the APK, so no need to toast
-                            Log.e(DEBUG_TAG, "Reading " + fn + " failed");
-                        }
+        String[] fileList = getAssetStyleList(assetManager);
+        if (fileList != null) {
+            for (String fn : fileList) {
+                if (fn.endsWith("." + FileExtensions.XML)) {
+                    Log.i(DEBUG_TAG, "Creating style from file in assets directory " + fn);
+                    try (InputStream is = assetManager.open(Paths.DIRECTORY_PATH_STYLES + Paths.DELIMITER + fn)) {
+                        DataStyle p = new DataStyle(ctx, is, null);
+                        availableStyles.put(p.getName(), p);
+                    } catch (Exception ex) {
+                        // this shouldn't happen with styles included with the APK, so no need to toast
+                        Log.e(DEBUG_TAG, "Reading " + fn + " failed");
                     }
                 }
             }
-        } catch (IOException ex) {
-            Log.i(DEBUG_TAG, ex.toString());
         }
+
         // old style named files
         try {
             File indir = FileUtil.getPublicDirectory();
@@ -1938,12 +1937,28 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
+     * Get a list of styles from the assets
+     * 
+     * @param assetManager an AssertManager instance
+     * @return a array of names or null
+     */
+    @Nullable
+    private String[] getAssetStyleList(@NonNull AssetManager assetManager) {
+        try {
+            return assetManager.list(Paths.DIRECTORY_PATH_STYLES);
+        } catch (IOException ex) {
+            Log.i(DEBUG_TAG, ex.toString());
+            return null;
+        }
+    }
+
+    /**
      * Read styles provided as a list of Files, adding them to the available styles
      * 
      * @param ctx an Android Context
      * @param list the list
      */
-    private static void readStylesFromFileList(@NonNull Context ctx, @Nullable File[] list) {
+    private void readStylesFromFileList(@NonNull Context ctx, @Nullable File[] list) {
         if (list == null) {
             Log.w(DEBUG_TAG, "Null file list");
             return;
@@ -1966,7 +1981,7 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @param ctx an Android Context
      */
-    private static void addDefaultStyle(@NonNull Context ctx) {
+    private void addDefaultStyle(@NonNull Context ctx) {
         DataStyle p = new DataStyle(ctx);
         p.name = BUILTIN_STYLE_NAME;
         currentStyle = p;
@@ -1976,7 +1991,7 @@ public final class DataStyle extends DefaultHandler {
     /**
      * Reset contents used for testing only
      */
-    public static void reset() {
+    public void reset() {
         availableStyles.clear();
         currentStyle = null;
     }
@@ -2059,7 +2074,7 @@ public final class DataStyle extends DefaultHandler {
      * @return the style
      */
     @NonNull
-    public static <T extends OsmElement> FeatureStyle matchStyle(@NonNull final T element) {
+    public <T extends OsmElement> FeatureStyle matchStyle(@NonNull final T element) {
         final boolean styleable = element instanceof StyleableFeature;
         FeatureStyle style = styleable ? ((StyleableFeature) element).getStyle() : null;
         if (style == null) {
@@ -2104,14 +2119,15 @@ public final class DataStyle extends DefaultHandler {
      * @param output File to write to
      * @return true if successful
      */
-    public static boolean generateTaginfoJson(@NonNull File output) {
+    public boolean generateTaginfoJson(@NonNull File output) {
         MultiHashMap<String, String> tagMap = new MultiHashMap<>(true);
         addRecursive(tagMap, currentStyle.nodeStyles, "node");
         addRecursive(tagMap, currentStyle.wayStyles, "way");
         addRecursive(tagMap, currentStyle.relationStyles, "relation");
 
         try (FileOutputStream fout = new FileOutputStream(output); PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout))) {
-            Preset.tagInfoHeader(outputStream, "Vespucci map style", "https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo-style.json",
+            Preset.tagInfoHeader(outputStream, "Vespucci map style",
+                    "https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo-style.json",
                     "Default map style for Vespucci. Nodes are rendered with the icons from the matching preset item.");
             outputStream.println("\"tags\":[");
             boolean firstTag = true;
@@ -2125,8 +2141,7 @@ public final class DataStyle extends DefaultHandler {
                     outputStream.println(",");
                 }
                 outputStream.print("{\"description\":\"Data rendering\",");
-                outputStream
-                        .print("\"key\": \"" + key + "\"" + (keyValue.length == 1 || "*".equals(keyValue[1]) ? "" : ",\"value\": \"" + keyValue[1] + "\""));
+                outputStream.print("\"key\": \"" + key + "\"" + (keyValue.length == 1 || "*".equals(keyValue[1]) ? "" : ",\"value\": \"" + keyValue[1] + "\""));
                 outputStream.print(",\"object_types\": [");
                 boolean firstGeometry = true;
                 for (String geometry : tagMap.get(tag)) {

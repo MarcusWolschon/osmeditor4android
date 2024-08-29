@@ -1,5 +1,7 @@
 package de.blau.android.layer.photos;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -37,7 +39,6 @@ import de.blau.android.photos.PhotoIndex;
 import de.blau.android.photos.PhotoViewerActivity;
 import de.blau.android.photos.PhotoViewerFragment;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.DataStyle;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ExecutorTask;
@@ -54,7 +55,8 @@ import de.blau.android.views.IMapView;
  */
 public class MapOverlay extends MapViewLayer implements DiscardInterface, ClickableInterface<Photo> {
 
-    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int VIEWER_MAX = 100;
 
@@ -246,7 +248,7 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     @Override
     public List<Photo> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Photo> result = new ArrayList<>();
-        final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
+        final float tolerance = map.getDataStyle().getCurrent().getNodeToleranceValue();
         for (Photo p : photos) {
             float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, p.getLon()) - x);
             float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, p.getLat()) - y);

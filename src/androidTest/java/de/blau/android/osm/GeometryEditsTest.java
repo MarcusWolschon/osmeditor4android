@@ -42,8 +42,9 @@ import de.blau.android.util.Util;
 @LargeTest
 public class GeometryEditsTest {
 
-    Context context = null;
-    Main    main    = null;
+    Context   context = null;
+    Main      main    = null;
+    DataStyle styles  = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -57,6 +58,7 @@ public class GeometryEditsTest {
         context = instrumentation.getTargetContext();
         UiDevice device = UiDevice.getInstance(instrumentation);
         main = mActivityRule.getActivity();
+        styles = App.getDataStyle(main);
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
         Logic logic = App.getLogic();
@@ -443,7 +445,7 @@ public class GeometryEditsTest {
             Logic logic = App.getLogic();
             Map map = main.getMap();
             logic.setZoom(map, 20);
-            float tolerance = DataStyle.getCurrent().getWayToleranceValue();
+            float tolerance = styles.getCurrent().getWayToleranceValue();
             System.out.println("Tolerance " + tolerance); // NOSONAR
 
             logic.setSelectedWay(null);

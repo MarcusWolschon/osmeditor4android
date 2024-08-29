@@ -119,6 +119,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         Preferences prefs = logic.getPrefs();
         if (prefs == null) {
             Log.e(DEBUG_TAG, "prefs was null creating new");
+            App.getDataStyle(this);
             prefs = new Preferences(this);
             logic.setPrefs(prefs);
         }

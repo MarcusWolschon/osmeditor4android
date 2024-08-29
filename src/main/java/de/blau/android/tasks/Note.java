@@ -14,6 +14,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -464,23 +465,23 @@ public class Note extends LongIdTask implements Serializable, JosmXmlSerializabl
     }
 
     @Override
-    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconNoteOpen, c, x, y, selected);
+    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconNoteOpen, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconNoteChanged, c, x, y, selected);
+    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconNoteChanged, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconNoteChangedClosed, c, x, y, selected);
+    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconNoteChangedClosed, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconNoteClosed, c, x, y, selected);
+    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconNoteClosed, c, x, y, selected, paint);
     }
 
     @Override

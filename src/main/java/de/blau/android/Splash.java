@@ -135,6 +135,14 @@ public class Splash extends AppCompatActivity {
                     }
                 }.execute();
             }
+            // and another config loading thread
+            new ExecutorTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void param) {
+                    App.getDataStyle(Splash.this);
+                    return null;
+                }
+            }.execute();
             Log.d(DEBUG_TAG, "Initial preset load");
             App.getCurrentPresets(Splash.this);
 

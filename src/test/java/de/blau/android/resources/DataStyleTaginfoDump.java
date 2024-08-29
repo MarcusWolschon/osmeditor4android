@@ -12,6 +12,7 @@ import org.robolectric.annotation.Config;
 import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
+import de.blau.android.App;
 
 /**
  * This is just a convenient way of generating the default preset dump
@@ -38,8 +39,9 @@ public class DataStyleTaginfoDump { // NOSONAR
         boolean manual = System.getProperty(TEST_MANUAL_PROPERTY).equals("true");
         final Context ctx = ApplicationProvider.getApplicationContext();
         File target = manual ? new File(TARGET_FILE) : new File(ctx.getFilesDir(), TARGET_FILE);
-        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
-        DataStyle.switchTo("Color Round Nodes");
-        assertTrue(DataStyle.generateTaginfoJson(target));
+        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        styles.switchTo("Color Round Nodes");
+        assertTrue(styles.generateTaginfoJson(target));
     }
 }

@@ -54,6 +54,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.Synonyms;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
+import de.blau.android.resources.DataStyle;
 import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.FileUtil;
@@ -78,7 +79,7 @@ import okhttp3.OkHttpClient;
 public class App extends Application implements android.app.Application.ActivityLifecycleCallbacks {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, App.class.getSimpleName().length());
     private static final String DEBUG_TAG = App.class.getSimpleName().substring(0, TAG_LEN);
-    
+
     private static final String     RHINO_LAZY_LOAD = "lazyLoad";
     private static App              currentInstance;
     private static StorageDelegator delegator       = new StorageDelegator();
@@ -179,6 +180,12 @@ public class App extends Application implements android.app.Application.Activity
      */
     private static MapTileFilesystemProvider mapTileFilesystemProvider;
     private static final Object              mapTileFilesystemProviderLock = new Object();
+
+    /**
+     * DataStyles
+     */
+    private static DataStyle    dataStyle;
+    private static final Object dataStyleLock = new Object();
 
     private static Configuration configuration = null;
 
@@ -757,6 +764,23 @@ public class App extends Application implements android.app.Application.Activity
                 mapTileFilesystemProvider = MapTileFilesystemProvider.getInstance(ctx);
             }
             return mapTileFilesystemProvider;
+        }
+    }
+
+    /**
+     * Get the DataStyle object
+     * 
+     * @param ctx am Android Context
+     * @return a DataStyle object
+     */
+    @NonNull
+    public static DataStyle getDataStyle(@NonNull Context ctx) {
+        synchronized (dataStyleLock) {
+            if (dataStyle == null) {
+                dataStyle = new DataStyle(ctx);
+                dataStyle.getStylesFromFiles(ctx);
+            }
+            return dataStyle;
         }
     }
 

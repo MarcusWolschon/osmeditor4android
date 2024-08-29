@@ -1,5 +1,7 @@
 package de.blau.android.layer.gpx;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -73,7 +75,8 @@ public class MapOverlay extends StyleableFileLayer
     private static final long serialVersionUID = 5L; // note that this can't actually be serialized as the transient
                                                      // wields need to be set in readObject
 
-    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String FILENAME = "gpxlayer" + "." + FileExtensions.RES;
 
@@ -114,13 +117,14 @@ public class MapOverlay extends StyleableFileLayer
         final Preferences prefs = map.getPrefs();
         // this is slightly annoying as we need to protect against overwriting already saved state
         initStyling(!hasStateFile(context), prefs.getGpxStrokeWidth(), prefs.getGpxLabelSource(), prefs.getGpxLabelMinZoom(), prefs.getGpxSynbol());
-        paint.setColor(ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GPX), 9, DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint().getColor()));
+        DataStyle styles = map.getDataStyle();
+        paint.setColor(ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GPX), 9, styles.getInternal(DataStyle.GPS_TRACK).getPaint().getColor()));
 
         // the following can only be changed in the DataStyle
-        FeatureStyle fs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
+        FeatureStyle fs = styles.getInternal(DataStyle.LABELTEXT_NORMAL);
         fontPaint = fs.getPaint();
         fm = fs.getFontMetrics();
-        labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        labelBackground = styles.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
         yOffset = 2 * fontPaint.getStrokeWidth() + iconRadius;
 
         labelList = Arrays.asList(context.getString(R.string.gpx_automatic), context.getString(R.string.gpx_name), context.getString(R.string.gpx_description),
@@ -289,7 +293,7 @@ public class MapOverlay extends StyleableFileLayer
         if (track != null) {
             List<WayPoint> wayPoints = track.getWayPoints();
             if (!wayPoints.isEmpty()) {
-                final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
+                final float tolerance = map.getDataStyle().getCurrent().getNodeToleranceValue();
                 for (WayPoint wpp : wayPoints) {
                     int lat = wpp.getLat();
                     int lon = wpp.getLon();
@@ -394,8 +398,9 @@ public class MapOverlay extends StyleableFileLayer
      * @param symbolName the name of the point symbol
      */
     private void initStyling(boolean style, float strokeWidth, @NonNull String labelKey, int labelMinZoom, @NonNull String symbolName) {
-        paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
-        wayPointPaint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
+        DataStyle styles = map.getDataStyle();
+        paint = new SerializableTextPaint(styles.getInternal(DataStyle.GPS_TRACK).getPaint());
+        wayPointPaint = new SerializableTextPaint(styles.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
         iconRadius = map.getIconRadius();
         if (style) {
             paint.setStrokeWidth(strokeWidth);

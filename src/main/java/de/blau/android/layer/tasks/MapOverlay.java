@@ -15,6 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.location.Location;
 import android.text.SpannableString;
 import android.text.style.StrikethroughSpan;
@@ -201,6 +202,11 @@ public class MapOverlay extends MapViewLayer
         //
         int w = map.getWidth();
         int h = map.getHeight();
+        DataStyle styles = map.getDataStyle();
+        final float largDragToleranceRadius = styles.getCurrent().getLargDragToleranceRadius();
+        final Paint dragAreaPaint = styles.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint();
+        final Paint iconPaint = styles.getInternal(DataStyle.SELECTED_NODE).getPaint();
+
         for (Task t : tasks.getTasks(bb, taskList)) {
             // filter
             if (!filter.contains(t.bugFilterKey())) {
@@ -211,17 +217,17 @@ public class MapOverlay extends MapViewLayer
             boolean isSelected = t.equals(selected) && App.getLogic().isInEditZoomRange();
             if (isSelected && t.isNew() && map.getPrefs().largeDragArea()) {
                 // if the task can be dragged and large drag area is turned on show the large drag area
-                c.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
+                c.drawCircle(x, y, largDragToleranceRadius, dragAreaPaint);
             }
             final boolean closed = t.isClosed();
             if (closed && t.hasBeenChanged()) {
-                t.drawBitmapChangedClosed(c, x, y, isSelected);
+                t.drawBitmapChangedClosed(c, x, y, isSelected, iconPaint);
             } else if (closed) {
-                t.drawBitmapClosed(c, x, y, isSelected);
+                t.drawBitmapClosed(c, x, y, isSelected, iconPaint);
             } else if (t.isNew() || t.hasBeenChanged()) {
-                t.drawBitmapChanged(c, x, y, isSelected);
+                t.drawBitmapChanged(c, x, y, isSelected, iconPaint);
             } else {
-                t.drawBitmapOpen(c, x, y, isSelected);
+                t.drawBitmapOpen(c, x, y, isSelected, iconPaint);
             }
         }
     }
@@ -234,7 +240,7 @@ public class MapOverlay extends MapViewLayer
     @Override
     public List<Task> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Task> result = new ArrayList<>();
-        final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
+        final float tolerance = map.getDataStyle().getCurrent().getNodeToleranceValue();
         List<Task> tasksInViewBox = tasks.getTasks(viewBox);
         final int width = map.getWidth();
         final int height = map.getHeight();

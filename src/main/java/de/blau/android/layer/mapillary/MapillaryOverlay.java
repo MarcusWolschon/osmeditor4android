@@ -1,5 +1,7 @@
 package de.blau.android.layer.mapillary;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,7 +65,8 @@ import okhttp3.ResponseBody;
 
 public class MapillaryOverlay extends de.blau.android.layer.mvt.MapOverlay implements DateRangeInterface {
 
-    private static final String DEBUG_TAG = MapillaryOverlay.class.getSimpleName().substring(0, Math.min(23, MapillaryOverlay.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapillaryOverlay.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapillaryOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String MAPILLARY_TILES_ID           = "MAPILLARYV4";
     public static final int    MAPILLARY_DEFAULT_MIN_ZOOM   = 16;
@@ -485,12 +488,12 @@ public class MapillaryOverlay extends de.blau.android.layer.mvt.MapOverlay imple
             ((VectorTileRenderer) tileRenderer).setStyle(style);
             Layer layer = style.getLayer(IMAGE_LAYER);
             if (layer instanceof Symbol) {
-                ((Symbol) layer).setSymbol(Mapillary.NAME);
+                ((Symbol) layer).setSymbol(Mapillary.NAME, map.getDataStyle());
                 layer.setColor(layer.getColor());
             }
             layer = style.getLayer(SELECTED_IMAGE_LAYER);
             if (layer instanceof Symbol) {
-                ((Symbol) layer).setSymbol(Mapillary.NAME);
+                ((Symbol) layer).setSymbol(Mapillary.NAME, map.getDataStyle());
                 layer.setColor(layer.getColor());
                 selectedFilter = layer.getFilter();
             }

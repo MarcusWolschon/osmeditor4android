@@ -29,7 +29,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(sdk = 33)
 @LargeTest
 public class DataStyleTest {
 
@@ -38,7 +38,8 @@ public class DataStyleTest {
      */
     @Before
     public void setup() {
-        DataStyle.reset();
+        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        styles.reset();
     }
 
     /**
@@ -46,25 +47,26 @@ public class DataStyleTest {
      */
     @Test
     public void buildingTest() {
-        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         final StorageDelegator delegator = App.getDelegator();
         Way w = addWayToStorage(delegator, true);
         Map<String, String> tags = new TreeMap<>();
         tags.put(Tags.KEY_BUILDING, Tags.VALUE_YES);
         delegator.setTags(w, tags);
-        assertEquals(5, DataStyle.getStyleList(ApplicationProvider.getApplicationContext()).length);
-        assertEquals(DataStyle.getBuiltinStyleName(), DataStyle.getCurrent().getName());
-        DataStyle.getStyle(DataStyle.getBuiltinStyleName());
-        DataStyle.switchTo("Color Round Nodes");
-        assertEquals("Color Round Nodes", DataStyle.getCurrent().getName());
-        FeatureStyle style = DataStyle.matchStyle(w);
+        assertEquals(5, styles.getStyleList(ApplicationProvider.getApplicationContext()).length);
+        assertEquals(styles.getBuiltinStyleName(), styles.getCurrent().getName());
+        styles.getStyle(DataStyle.getBuiltinStyleName());
+        styles.switchTo("Color Round Nodes");
+        assertEquals("Color Round Nodes", styles.getCurrent().getName());
+        FeatureStyle style = styles.matchStyle(w);
         assertEquals(((int) Long.parseLong("ffcc9999", 16)), style.getPaint().getColor());
         assertNull(style.getLabelKey());
         assertFalse(style.usePresetIcon());
         assertFalse(style.isArea());
         tags.put(Tags.KEY_ADDR_HOUSENUMBER, "111");
         delegator.setTags(w, tags);
-        style = DataStyle.matchStyle(w);
+        style = styles.matchStyle(w);
         assertEquals(Tags.KEY_ADDR_HOUSENUMBER, style.getLabelKey());
     }
 
@@ -78,8 +80,9 @@ public class DataStyleTest {
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
-        assertEquals(6, DataStyle.getStyleList(ApplicationProvider.getApplicationContext()).length);
+        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        assertEquals(6, styles.getStyleList(ApplicationProvider.getApplicationContext()).length);
         // matching test
 
         final StorageDelegator delegator = App.getDelegator();
@@ -88,21 +91,21 @@ public class DataStyleTest {
         Map<String, String> tags = new TreeMap<>();
         tags.put(Tags.KEY_NATURAL, "tree");
         delegator.setTags(tree, tags);
-        DataStyle.switchTo("Test Style");
-        assertEquals("Test Style", DataStyle.getCurrent().getName());
-        FeatureStyle style = DataStyle.matchStyle(tree);
+        styles.switchTo("Test Style");
+        assertEquals("Test Style", styles.getCurrent().getName());
+        FeatureStyle style = styles.matchStyle(tree);
         assertTrue(style.usePresetIcon());
         tags.put("height", "1");
         delegator.setTags(tree, tags);
-        style = DataStyle.matchStyle(tree);
+        style = styles.matchStyle(tree);
         assertTrue(style.getIconPath().endsWith("tree_height.png"));
         tags.put("circumference", "2");
         delegator.setTags(tree, tags);
-        style = DataStyle.matchStyle(tree);
+        style = styles.matchStyle(tree);
         assertTrue(style.getIconPath().endsWith("tree_height_circumference.png"));
         tags.put("diameter_crown", "3");
         delegator.setTags(tree, tags);
-        style = DataStyle.matchStyle(tree);
+        style = styles.matchStyle(tree);
         assertTrue(style.getIconPath().endsWith("tree_all.png"));
     }
 }
