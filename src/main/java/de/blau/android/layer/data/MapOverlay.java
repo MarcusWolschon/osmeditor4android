@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedMap;
 import java.util.WeakHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -1263,23 +1262,16 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         boolean usePresetIcon = style.usePresetIcon();
 
         if (iconPath != null && !usePresetIcon) {
-            iconDrawable = retrieveCustomIcon(iconPath);
-        } else if (tmpPresets != null) {
-            SortedMap<String, String> tags = element.getTags();
-            PresetItem match = null;
-            if (isWay) {
-                if (usePresetIcon) {
-                    // don't show building and similar icons, only icons for those with POI tags
-                    match = Preset.findBestMatch(tmpPresets, tags, null, Tags.IGNORE_FOR_MAP_ICONS);
-                }
-            } else {
-                match = Preset.findBestMatch(tmpPresets, tags, null, null);
+            if (!"".equals(iconPath)) { // empty icon path suppresses icons
+                iconDrawable = retrieveCustomIcon(iconPath);
             }
+        } else if (tmpPresets != null) {
+            PresetItem match = !isWay || usePresetIcon ? Preset.findBestMatch(tmpPresets, element.getTags(), null, null) : null;
             if (match != null) {
                 iconDrawable = match.getMapIcon(context);
             }
         }
-        Bitmap icon;
+        Bitmap icon = NOICON;
         if (iconDrawable != null) {
             icon = Bitmap.createBitmap(iconRadius * 2, iconRadius * 2, Bitmap.Config.ARGB_8888);
             iconDrawable.draw(new Canvas(icon));
@@ -1288,8 +1280,6 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                 icon = temp.copy(Bitmap.Config.HARDWARE, false);
                 temp.recycle();
             }
-        } else {
-            icon = NOICON;
         }
         synchronized (MapOverlay.this) {
             element.addToCache(cache, icon);

@@ -513,14 +513,6 @@ public final class Tags {
     // S3DB
     public static final String KEY_BUILDING_PART = "building:part";
 
-    private static final Map<String, String> IGNORE_FOR_MAP_ICONS_TEMP = new HashMap<>();
-    static {
-        IGNORE_FOR_MAP_ICONS_TEMP.put(KEY_BUILDING, "");
-        IGNORE_FOR_MAP_ICONS_TEMP.put(KEY_BUILDING_PART, "");
-        IGNORE_FOR_MAP_ICONS_TEMP.put(KEY_INDOOR, VALUE_ROOM);
-    }
-    public static final Map<String, String> IGNORE_FOR_MAP_ICONS = Collections.unmodifiableMap(IGNORE_FOR_MAP_ICONS_TEMP);
-
     //
     public static final String KEY_LAYER = "layer";
 

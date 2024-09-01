@@ -1,5 +1,5 @@
 ## Vespucci Data Styling
-_Documentation for Vespucci 16.0 Style file format version 0.3.1_
+_Documentation for Vespucci 20.2 Style file format version 0.3.1_
 
 The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.
 
@@ -18,7 +18,7 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 |---------------------------|----------------|---------|------------------------------------------------------
 |__&lt;profile&gt;__        |                |         | Top level enclosing element
 |                           | name           |         | Style name
-|                           | format         |         | Format version, currently 0.3.0
+|                           | format         |         | Format version, currently 0.3.1
 |__&lt;!--&nbsp;comment&nbsp;--&gt;__ |      |         | A comment
 |__&lt;config&gt;__         |                |         | Configuration element
 |                           | type           |         | One of "large_drag_area", "marker_scale", "min_handle_len", "icon_zoom_limit"
@@ -57,7 +57,7 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 |__&lt;interval&gt;__       |                |         | dash sub-element used to define the length of the dash/no-dash phases
 |                           | length         |         | Length of the dash as a float
 
-Using _"preset"_ as the value for iconPath will match the objects tags with the presets, just as this is done throughout the application, however "building", "building:part" and "indoor=room" tags are ignored. If you need to render icons specifically for such objects, reference an icon directly. 
+Using _"preset"_ as the value for _iconPath_ will match the objects tags with the presets, just as this is done throughout the application. An _""_ (empty string) value for _iconPath_ will suppress rendering any icon.
                  
 ### Internal features
 
