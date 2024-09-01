@@ -92,14 +92,12 @@ public class IntegerValueFragment extends ValueWidgetFragment {
             List<Integer> fieldInts = new ArrayList<>();
             fieldInts.add(v);
 
-            if (preset != null) {
-                PresetTagField field = preset.getField(key);
-                if (field instanceof PresetComboField) {
-                    StringWithDescription[] fieldValues = ((PresetComboField) field).getValues();
-                    if (fieldValues != null) {
-                        for (StringWithDescription s : fieldValues) {
-                            addIntToList(fieldInts, s.getValue());
-                        }
+            PresetTagField field = preset != null ? preset.getField(key) : null;
+            if (field instanceof PresetComboField) {
+                StringWithDescription[] fieldValues = ((PresetComboField) field).getValues();
+                if (fieldValues != null) {
+                    for (StringWithDescription s : fieldValues) {
+                        addIntToList(fieldInts, s.getValue());
                     }
                 }
             }
