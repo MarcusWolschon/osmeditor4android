@@ -60,7 +60,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         if (mapProfilePref != null) {
             DataStyle styles = App.getDataStyle(getActivity());
             final String[] styleList = styles.getStyleList(getActivity());
-            final String[] styleListTranslated = styles.getStyleListTranslated(getActivity(), styleList);
+            final String[] styleListTranslated = DataStyle.getStyleListTranslated(getActivity(), styleList);
             mapProfilePref.setEntryValues(styleList);
             mapProfilePref.setEntries(styleListTranslated);
             OnPreferenceChangeListener p = (preference, newValue) -> {
