@@ -172,7 +172,8 @@ public class Map extends View implements IMapView {
 
     private TrackerService tracker = null;
 
-    private final boolean hardwareLayerType;
+    private final boolean   hardwareLayerType;
+    private final DataStyle styles;
 
     /**
      * Construct a new Map object that orchestrates the layer drawing and related rendering
@@ -185,6 +186,8 @@ public class Map extends View implements IMapView {
         this.context = context;
 
         canvasBounds = new Rect();
+
+        styles = App.getDataStyle(context);
 
         setFocusable(true);
         setFocusableInTouchMode(true);
@@ -765,9 +768,9 @@ public class Map extends View implements IMapView {
     private void paintCrosshairs(@NonNull Canvas canvas) {
         float x = GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon);
         float y = GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(), crosshairsLat);
-        Paint paint = DataStyle.getInternal(DataStyle.CROSSHAIRS_HALO).getPaint();
+        Paint paint = getDataStyle().getInternal(DataStyle.CROSSHAIRS_HALO).getPaint();
         drawCrosshairs(canvas, x, y, paint);
-        paint = DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint();
+        paint = getDataStyle().getInternal(DataStyle.CROSSHAIRS).getPaint();
         drawCrosshairs(canvas, x, y, paint);
     }
 
@@ -782,7 +785,7 @@ public class Map extends View implements IMapView {
     private void drawCrosshairs(@NonNull Canvas canvas, float x, float y, @NonNull Paint paint) {
         canvas.save();
         canvas.translate(x, y);
-        canvas.drawPath(DataStyle.getCurrent().getCrosshairsPath(), paint);
+        canvas.drawPath(getDataStyle().getCurrent().getCrosshairsPath(), paint);
         canvas.restore();
     }
 
@@ -830,7 +833,7 @@ public class Map extends View implements IMapView {
             canvas.save();
             canvas.translate(x, y);
             canvas.rotate(o);
-            canvas.drawPath(DataStyle.getCurrent().getOrientationPath(), paint);
+            canvas.drawPath(getDataStyle().getCurrent().getOrientationPath(), paint);
             canvas.restore();
         }
         if (displayLocation.hasAccuracy()) {
@@ -849,7 +852,7 @@ public class Map extends View implements IMapView {
     private void paintStats(@NonNull final Canvas canvas, final float fps) {
         int pos = 1;
         String text = "";
-        Paint infotextPaint = DataStyle.getInternal(DataStyle.INFOTEXT).getPaint();
+        Paint infotextPaint = getDataStyle().getInternal(DataStyle.INFOTEXT).getPaint();
         float textSize = infotextPaint.getTextSize();
 
         BoundingBox viewBox = getViewBox();
@@ -1097,13 +1100,13 @@ public class Map extends View implements IMapView {
      */
     public void updateStyle() {
         // changes when profile changes
-        labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
-        gpsPosFollowPaint = DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint();
-        gpsPosPaint = DataStyle.getInternal(DataStyle.GPS_POS).getPaint();
-        gpsPosFollowPaintStale = DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW_STALE).getPaint();
-        gpsPosPaintStale = DataStyle.getInternal(DataStyle.GPS_POS_STALE).getPaint();
-        gpsAccuracyPaint = DataStyle.getInternal(DataStyle.GPS_ACCURACY).getPaint();
-        boxPaint = DataStyle.getInternal(DataStyle.VIEWBOX).getPaint();
+        labelBackground = getDataStyle().getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        gpsPosFollowPaint = getDataStyle().getInternal(DataStyle.GPS_POS_FOLLOW).getPaint();
+        gpsPosPaint = getDataStyle().getInternal(DataStyle.GPS_POS).getPaint();
+        gpsPosFollowPaintStale = getDataStyle().getInternal(DataStyle.GPS_POS_FOLLOW_STALE).getPaint();
+        gpsPosPaintStale = getDataStyle().getInternal(DataStyle.GPS_POS_STALE).getPaint();
+        gpsAccuracyPaint = getDataStyle().getInternal(DataStyle.GPS_ACCURACY).getPaint();
+        boxPaint = getDataStyle().getInternal(DataStyle.VIEWBOX).getPaint();
         for (MapViewLayer layer : getLayers(LayerType.OSMDATA, null)) {
             ((de.blau.android.layer.data.MapOverlay<?>) layer).updateStyle();
         }
@@ -1315,5 +1318,12 @@ public class Map extends View implements IMapView {
      */
     public boolean isHardwareLayerType() {
         return hardwareLayerType;
+    }
+
+    /**
+     * @return the current DataStyle instance
+     */
+    public DataStyle getDataStyle() {
+        return styles;
     }
 }

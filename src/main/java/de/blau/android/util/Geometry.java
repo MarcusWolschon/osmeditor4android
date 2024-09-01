@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import static de.blau.android.util.Winding.COLINEAR;
 
 import java.util.ArrayList;
@@ -18,11 +19,11 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
-import de.blau.android.resources.DataStyle;
 
 public final class Geometry {
 
-    private static final String DEBUG_TAG = Geometry.class.getSimpleName().substring(0, Math.min(23, Geometry.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Geometry.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Geometry.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final double PI_2 = 2 * Math.PI;
 
@@ -240,23 +241,6 @@ public final class Geometry {
         }
         Log.d(DEBUG_TAG, "couldn't determine centroid for " + e);
         return new double[0];
-    }
-
-    /**
-     * Checks if the x,y-position plus the tolerance is on a line between node1(x,y) and node2(x,y).
-     * 
-     * To avoid the typical two time calculation of the distance we actually return it
-     * 
-     * @param x screen X coordinate of the position
-     * @param y screen Y coordinate of the position
-     * @param node1X screen X coordinate of node1
-     * @param node1Y screen Y coordinate of node1
-     * @param node2X screen X coordinate of node2
-     * @param node2Y screen Y coordinate of node2
-     * @return distance &gt;= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
-     */
-    public static double isPositionOnLine(final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
-        return isPositionOnLine(DataStyle.getCurrent().getWayToleranceValue() / 2f, x, y, node1X, node1Y, node2X, node2Y);
     }
 
     /**

@@ -1,5 +1,7 @@
 package de.blau.android.layer.grid;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.util.Locale;
 
@@ -32,7 +34,8 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
 
     private static final long serialVersionUID = 4L;
 
-    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MAX_WIDTH_IN_METERS = 1000000;
 
@@ -327,18 +330,19 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
         labelH.setColor(color);
         labelV.setColor(color);
     }
-    
+
     @Override
     public boolean usesPointSymbol() {
         return false;
     }
-    
+
     @Override
     public void resetStyling() {
         Log.d(DEBUG_TAG, "resetStyling");
         main = map.getContext() instanceof Main ? (Main) map.getContext() : null;
-        paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint());
-        labelH = new SerializableTextPaint(DataStyle.getInternal(DataStyle.LABELTEXT).getPaint());
+        DataStyle styles = map.getDataStyle();
+        paint = new SerializableTextPaint(styles.getInternal(DataStyle.CROSSHAIRS).getPaint());
+        labelH = new SerializableTextPaint(styles.getInternal(DataStyle.LABELTEXT).getPaint());
         labelV = new SerializableTextPaint(labelH);
         labelV.setTextAlign(Paint.Align.RIGHT);
         textHeight = labelV.getTextSize();

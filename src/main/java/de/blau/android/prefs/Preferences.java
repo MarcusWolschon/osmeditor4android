@@ -481,14 +481,18 @@ public class Preferences {
     /**
      * Get the current data rendering style
      * 
+     * Side effect: if the currently configured style doesn't exist, we fallback to an existing one, and set the current
+     * style to that
+     * 
+     * @param currentStyles current styles
      * @return the name of the current data rendering style
      */
     @NonNull
-    public String getDataStyle() {
+    public String getDataStyle(@NonNull DataStyle currentStyles) {
         // check if we actually still have the profile
-        if (DataStyle.getStyle(mapProfile) == null) {
+        if (currentStyles.getStyle(mapProfile) == null) {
             Log.w(DEBUG_TAG, "Style " + mapProfile + " missing, replacing by default");
-            setDataStyle(DataStyle.getStyle(DEFAULT_MAP_STYLE) == null ? DataStyle.getBuiltinStyleName() : DEFAULT_MAP_STYLE);
+            setDataStyle(currentStyles.getStyle(DEFAULT_MAP_STYLE) == null ? DataStyle.getBuiltinStyleName() : DEFAULT_MAP_STYLE);
         }
         return mapProfile;
     }

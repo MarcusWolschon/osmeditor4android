@@ -1,5 +1,7 @@
 package de.blau.android.util.mvt;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +42,8 @@ import de.blau.android.views.util.MapTileProvider.TileDecoder;
  */
 public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String, List<VectorTileDecoder.Feature>>> {
 
-    private static final String DEBUG_TAG = VectorTileRenderer.class.getSimpleName().substring(0, Math.min(23, VectorTileRenderer.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, VectorTileRenderer.class.getSimpleName().length());
+    private static final String DEBUG_TAG = VectorTileRenderer.class.getSimpleName().substring(0, TAG_LEN);
 
     private VectorTileDecoder decoder = new VectorTileDecoder();
 
@@ -232,7 +235,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
 
     @Override
     @NonNull
-    public TileDecoder<Map<String, List<VectorTileDecoder.Feature>>> decoder() {
+    public TileDecoder<Map<String, List<VectorTileDecoder.Feature>>> decoder(@NonNull de.blau.android.Map map) {
         return (byte[] data, boolean small) -> {
             try {
                 Map<String, List<VectorTileDecoder.Feature>> features = decoder.decode(data).asMap();
@@ -241,7 +244,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
                         final String sourceLayer = feature.getLayerName();
                         layerNames.add(sourceLayer);
                         if (style.isAutoStyle()) {
-                            style.addAutoLayers(sourceLayer);
+                            style.addAutoLayers(map, sourceLayer);
                         }
                         Set<String> keys = attributeKeys.get(sourceLayer);
                         if (keys == null) {

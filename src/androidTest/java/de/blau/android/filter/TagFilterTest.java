@@ -78,7 +78,7 @@ public class TagFilterTest {
      */
     @After
     public void teardown() {
-
+        main.deleteDatabase(TagFilterDatabaseHelper.DATABASE_NAME);
     }
 
     /**

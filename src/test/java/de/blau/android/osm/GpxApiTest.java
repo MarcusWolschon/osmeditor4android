@@ -56,7 +56,8 @@ public class GpxApiTest {
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         Logic logic = App.newLogic();
-        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         logic.setPrefs(new Preferences(ApplicationProvider.getApplicationContext()));
     }
 

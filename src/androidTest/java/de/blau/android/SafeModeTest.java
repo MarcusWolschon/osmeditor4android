@@ -69,7 +69,8 @@ public class SafeModeTest {
         TestUtils.dismissStartUpDialogs(device, context);
 
         Preferences prefs = App.getLogic().getPrefs();
-        assertEquals(prefs.getDataStyle(), DataStyle.getBuiltinStyleName());
+        DataStyle styles = App.getDataStyle(main);
+        assertEquals(prefs.getDataStyle(styles), styles.getBuiltinStyleName());
 
         Map map = App.getLogic().getMap();
         for (MapViewLayer l : map.getLayers()) {

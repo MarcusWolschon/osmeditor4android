@@ -15,12 +15,12 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.resources.DataStyle;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ExecutorTask;
 
 /**
- * Simple extension around ExecutorTask for loading OSM data files or similar which typically have a lot of boilerplate code
+ * Simple extension around ExecutorTask for loading OSM data files or similar which typically have a lot of boilerplate
+ * code
  * 
  * @author simon
  *
@@ -29,7 +29,7 @@ public abstract class ReadAsyncClass extends ExecutorTask<Boolean, Void, AsyncRe
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ReadAsyncClass.class.getSimpleName().length());
     private static final String DEBUG_TAG = ReadAsyncClass.class.getSimpleName().substring(0, TAG_LEN);
-    
+
     final Context                context;
     final Map                    map;
     final InputStream            is;
@@ -48,7 +48,8 @@ public abstract class ReadAsyncClass extends ExecutorTask<Boolean, Void, AsyncRe
      * @param add if true add to exiting data (not always used)
      * @param postLoad a handler to call after the load has completed
      */
-    protected ReadAsyncClass(@NonNull ExecutorService executorService, @NonNull Handler uiHandler, @NonNull final Context context, @NonNull final InputStream is, boolean add, @Nullable final PostAsyncActionHandler postLoad) {
+    protected ReadAsyncClass(@NonNull ExecutorService executorService, @NonNull Handler uiHandler, @NonNull final Context context,
+            @NonNull final InputStream is, boolean add, @Nullable final PostAsyncActionHandler postLoad) {
         super(executorService, uiHandler);
         this.context = context;
         this.is = is;
@@ -77,7 +78,7 @@ public abstract class ReadAsyncClass extends ExecutorTask<Boolean, Void, AsyncRe
             } catch (OsmException e) {
                 Log.d(DEBUG_TAG, "onPostExecute got " + e.getMessage());
             }
-            DataStyle.updateStrokes(App.getLogic().strokeWidth(viewBox.getWidth()));
+            map.getDataStyle().updateStrokes(App.getLogic().strokeWidth(viewBox.getWidth()));
         }
         int code = result.getCode();
         if (code != 0) {

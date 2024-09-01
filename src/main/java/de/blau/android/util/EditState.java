@@ -20,7 +20,6 @@ import de.blau.android.filter.Filter;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.resources.DataStyle;
 
 /**
  * Save the edit state across pause / resume cycles
@@ -163,7 +162,7 @@ public class EditState implements Serializable {
             // shouldn't happen since we would have only stored a legal BB
         }
         map.setViewBox(logic.getViewBox());
-        DataStyle.updateStrokes(logic.strokeWidth(logic.getViewBox().getWidth()));
+        map.getDataStyle().updateStrokes(logic.strokeWidth(logic.getViewBox().getWidth()));
         map.invalidate();
     }
 }

@@ -17,6 +17,7 @@ import com.mapbox.geojson.Point;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
+import de.blau.android.App;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.mvt.VectorTileDecoder;
 
@@ -31,7 +32,8 @@ public class FilterTest {
     @Before
     public void setup() {
         // default values are currently taken from the data style
-        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
     }
 
     /**

@@ -1,5 +1,7 @@
 package de.blau.android.imageryoffset;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -86,7 +88,8 @@ import okhttp3.ResponseBody;
  */
 public class ImageryAlignmentActionModeCallback implements Callback {
 
-    private static final String DEBUG_TAG = ImageryAlignmentActionModeCallback.class.getSimpleName().substring(0, Math.min(23, ImageryAlignmentActionModeCallback.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ImageryAlignmentActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ImageryAlignmentActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MENUITEM_QUERYDB   = 1;
     private static final int MENUITEM_APPLY2ALL = 2;
@@ -177,7 +180,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
 
         zoomAndOffsetText = new SpannableStringBuilder();
         zoomAndOffsetLayout = new DynamicLayout(zoomAndOffsetText, zoomAndOffsetText,
-                new TextPaint(DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint()),
+                new TextPaint(map.getDataStyle().getInternal(DataStyle.LABELTEXT_NORMAL).getPaint()),
                 map.getWidth() - 2 * (int) Density.dpToPx(main, de.blau.android.layer.grid.MapOverlay.DISTANCE2SIDE_DP),
                 map.rtlLayout() ? Layout.Alignment.ALIGN_OPPOSITE : Layout.Alignment.ALIGN_NORMAL, 1.0f, 0f, true);
         setOffset(map.getZoomLevel(), 0, 0);

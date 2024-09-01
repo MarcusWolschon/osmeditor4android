@@ -11,11 +11,11 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import androidx.annotation.NonNull;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
-import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
@@ -247,15 +247,16 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param x x position on the canvas
      * @param y y position on the canvas
      * @param selected true if selected and highlighting should be applied
+     * @param paint Paint to use for rendering
      * @return the Bitmap for caching
      */
     @NonNull
-    static void drawIcon(@NonNull BitmapWithOffset cache, @NonNull Canvas c, float x, float y, boolean selected) {
+    static void drawIcon(@NonNull BitmapWithOffset cache, @NonNull Canvas c, float x, float y, boolean selected, @NonNull Paint paint) {
         if (selected) {
             int iconSelectedBorder = cache.iconSelectedBorder;
             RectF r = new RectF(x - cache.w2 - iconSelectedBorder, y - cache.h2 - iconSelectedBorder, x + cache.w2 + iconSelectedBorder,
                     y + cache.h2 + iconSelectedBorder);
-            c.drawRoundRect(r, cache.iconSelectedBorder, cache.iconSelectedBorder, DataStyle.getInternal(DataStyle.SELECTED_NODE).getPaint());
+            c.drawRoundRect(r, cache.iconSelectedBorder, cache.iconSelectedBorder, paint);
         }
         c.drawBitmap(cache.icon, x - cache.w2, y - cache.h2, null);
     }
@@ -267,8 +268,9 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param x x position on the canvas
      * @param y y position on the canvas
      * @param selected true if selected
+     * @param paint Paint to use for rendering
      */
-    public abstract void drawBitmapOpen(@NonNull Canvas c, float x, float y, boolean selected);
+    public abstract void drawBitmapOpen(@NonNull Canvas c, float x, float y, boolean selected, @NonNull Paint paint);
 
     /**
      * Draw an icon for when the Task has been changed and not uploaded
@@ -277,8 +279,9 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param x x position on the canvas
      * @param y y position on the canvas
      * @param selected true if selected
+     * @param paint Paint to use for rendering
      */
-    public abstract void drawBitmapChanged(@NonNull Canvas c, float x, float y, boolean selected);
+    public abstract void drawBitmapChanged(@NonNull Canvas c, float x, float y, boolean selected, @NonNull Paint paint);
 
     /**
      * Draw an icon for when the Task has been closed but not uploaded
@@ -287,8 +290,9 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param x x position on the canvas
      * @param y y position on the canvas
      * @param selected true if selected
+     * @param paint Paint to use for rendering
      */
-    public abstract void drawBitmapChangedClosed(@NonNull Canvas c, float x, float y, boolean selected);
+    public abstract void drawBitmapChangedClosed(@NonNull Canvas c, float x, float y, boolean selected, @NonNull Paint paint);
 
     /**
      * Draw an icon for when the Task has been closed
@@ -297,8 +301,9 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param x x position on the canvas
      * @param y y position on the canvas
      * @param selected true if selected
+     * @param paint Paint to use for rendering
      */
-    public abstract void drawBitmapClosed(@NonNull Canvas c, float x, float y, boolean selected);
+    public abstract void drawBitmapClosed(@NonNull Canvas c, float x, float y, boolean selected, @NonNull Paint paint);
 
     /**
      * Sort a list of Tasks by their distance to the supplied coordinates, nearest first

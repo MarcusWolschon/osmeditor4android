@@ -1,22 +1,5 @@
 package de.blau.android.util.mvt.style;
 
-import android.annotation.SuppressLint;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.graphics.Paint;
-import android.net.Uri;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSyntaxException;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,6 +19,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSyntaxException;
+
+import android.annotation.SuppressLint;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.graphics.Paint;
+import android.net.Uri;
+import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import ch.poole.android.sprites.Sprites;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -702,13 +700,16 @@ public class Style implements Serializable {
     /**
      * Add three automatically generate Layers for the supplied source layer
      * 
+     * @param map the current Map instance
+     * 
      * @param sourceLayer the name of the source layer
      */
-    public void addAutoLayers(@NonNull String sourceLayer) {
+    public void addAutoLayers(@NonNull de.blau.android.Map map, @NonNull String sourceLayer) {
         if (!layerMap.containsKey(sourceLayer)) {
+            DataStyle styles = map.getDataStyle();
             synchronized (layers) {
                 // add default styles
-                Paint paint = new Paint(DataStyle.getInternal(DataStyle.MVT_DEFAULT).getPaint());
+                Paint paint = new Paint(styles.getInternal(DataStyle.MVT_DEFAULT).getPaint());
                 paint.setColor(ColorUtil.generateColor(layers.size() / 3, 11, paint.getColor()));
                 Line defaultLine = Line.fromPaint(sourceLayer, paint);
                 layerMap.add(sourceLayer, defaultLine);
@@ -716,7 +717,8 @@ public class Style implements Serializable {
                 Fill defaultFill = Fill.fromPaint(sourceLayer, paint);
                 layerMap.add(sourceLayer, defaultFill);
                 layers.add(defaultFill);
-                Symbol defaultSymbol = Symbol.fromPaint(sourceLayer, paint, DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint(), TriangleDown.NAME);
+                Symbol defaultSymbol = Symbol.fromPaint(sourceLayer, paint, styles.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint(), TriangleDown.NAME,
+                        styles);
                 layerMap.add(sourceLayer, defaultSymbol);
                 layers.add(defaultSymbol);
                 Collections.sort(layers, LAYER_TYPE_COMPARATOR);

@@ -93,7 +93,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     /**
      * The view we are a part of.
      */
-    private final View        myView;
+    private final Map         map;
     /**
      * The tile-server to load a rendered map from.
      */
@@ -149,10 +149,11 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         /**
          * Get the tile decoder for this renderer
          * 
+         * @param map the current map instance
          * @return a TileDecoder
          */
         @NonNull
-        MapTileProvider.TileDecoder<B> decoder();
+        MapTileProvider.TileDecoder<B> decoder(@NonNull Map map);
 
         /**
          * Prepare for a rendering pass
@@ -194,7 +195,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
         @Override
         @NonNull
-        public TileDecoder<Bitmap> decoder() {
+        public TileDecoder<Bitmap> decoder(Map map) {
             return new MapTileProvider.BitmapDecoder(hardwareRenderer);
         }
     }
@@ -202,24 +203,24 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     /**
      * Construct a new tile layer
      * 
-     * @param aView The view we are a part of.
+     * @param map The view we are a part of.
      * @param aRendererInfo The tile-server to load a rendered map from.
      * @param aTileProvider the MapTileProvider if null a new one will be allocated
      * @param aTileRenderer the TileRender for this layer
      */
-    public MapTilesLayer(@NonNull final View aView, @Nullable final TileLayerSource aRendererInfo, @Nullable final MapTileProvider<T> aTileProvider,
+    public MapTilesLayer(@NonNull final Map map, @Nullable final TileLayerSource aRendererInfo, @Nullable final MapTileProvider<T> aTileProvider,
             @NonNull TileRenderer<T> aTileRenderer) {
-        myView = aView;
-        ctx = myView.getContext();
+        this.map = map;
+        ctx = map.getContext();
         setRendererInfo(aRendererInfo);
         if (aTileProvider == null) {
-            mTileProvider = new MapTileProvider<>(ctx, aTileRenderer.decoder(), new SimpleInvalidationHandler(myView));
+            mTileProvider = new MapTileProvider<>(ctx, aTileRenderer.decoder(map), new SimpleInvalidationHandler(map));
         } else {
             mTileProvider = aTileProvider;
         }
         mTileRenderer = aTileRenderer;
         //
-        textPaint = DataStyle.getInternal(DataStyle.ATTRIBUTION_TEXT).getPaint();
+        textPaint = map.getDataStyle().getInternal(DataStyle.ATTRIBUTION_TEXT).getPaint();
 
         Log.d(DEBUG_TAG,
                 aRendererInfo != null ? (aRendererInfo.isMetadataLoaded()
@@ -318,7 +319,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         Log.d(DEBUG_TAG, "setRendererInfo " + tileLayer.getId());
         if (layerSource != tileLayer) {
             try {
-                coverageWarningMessage = myView.getResources().getString(R.string.toast_no_coverage, tileLayer.getName());
+                coverageWarningMessage = map.getResources().getString(R.string.toast_no_coverage, tileLayer.getName());
             } catch (Exception ex) {
                 coverageWarningMessage = "";
             }
@@ -918,7 +919,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
     @Override
     public void invalidate() {
-        myView.invalidate();
+        map.invalidate();
     }
 
     @Override

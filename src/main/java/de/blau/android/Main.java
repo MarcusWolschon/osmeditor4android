@@ -553,8 +553,7 @@ public class Main extends FullScreenAppCompatActivity
             Layers.showDialog(Main.this);
         });
 
-        DataStyle.getStylesFromFiles(this); // needs to happen before
-                                            // setContentView
+        App.getDataStyle(this); // needs to happen before setContentView
 
         setContentView(ml);
 
@@ -2530,8 +2529,8 @@ public class Main extends FullScreenAppCompatActivity
                             FileUtil.unpackZip(destDir.getAbsolutePath() + Paths.DELIMITER, filename);
                             dest.delete(); // NOSONAR delete the zip file
                         }
-                        DataStyle.reset();
-                        DataStyle.getStylesFromFiles(currentActivity);
+                        App.getDataStyle(currentActivity).reset();
+                        App.getDataStyle(currentActivity).getStylesFromFiles(currentActivity);
                         SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     } catch (IOException fex) {
                         fileNotFound(fileUri);
@@ -3333,8 +3332,8 @@ public class Main extends FullScreenAppCompatActivity
      * @param tags any existing tags to apply
      * @param showPresets show the preset tab on start up.
      */
-    public <M extends java.util.Map<String, String> & Serializable> void performTagEdit(@NonNull final OsmElement selectedElement, @Nullable PresetElementPath presetPath,
-            @Nullable M tags, boolean showPresets) {
+    public <M extends java.util.Map<String, String> & Serializable> void performTagEdit(@NonNull final OsmElement selectedElement,
+            @Nullable PresetElementPath presetPath, @Nullable M tags, boolean showPresets) {
         ArrayList<PresetElementPath> presetPathList = new ArrayList<>();
         if (presetPath != null) {
             presetPathList.add(presetPath);
@@ -3715,7 +3714,7 @@ public class Main extends FullScreenAppCompatActivity
                     // ignored
                 }
             }
-            DataStyle.updateStrokes(logic.strokeWidth(viewBox.getWidth()));
+            map.getDataStyle().updateStrokes(logic.strokeWidth(viewBox.getWidth()));
             if (logic.isRotationMode()) {
                 logic.showCrosshairsForCentroid();
             }

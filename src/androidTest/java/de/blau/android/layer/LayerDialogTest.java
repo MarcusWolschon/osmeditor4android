@@ -171,13 +171,12 @@ public class LayerDialogTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void dataLayerPrune() {
-        TestUtils.zoomToLevel(device, main, 22);
+        TestUtils.zoomToLevel(device, main, 23);
         String dataLayerName = map.getDataLayer().getName();
         StorageDelegator delegator = App.getDelegator();
-        // as view port may vary, do this a fuzzy
-        assertEquals(929, delegator.getCurrentStorage().getNodeCount(), 1);
-        assertEquals(99, delegator.getCurrentStorage().getWayCount(), 1);
-        assertEquals(5, delegator.getCurrentStorage().getRelationCount(), 1);
+        assertEquals(928, delegator.getCurrentStorage().getNodeCount());
+        assertEquals(99, delegator.getCurrentStorage().getWayCount());
+        assertEquals(5, delegator.getCurrentStorage().getRelationCount());
         TestUtils.unlock(device);
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect)));
@@ -191,8 +190,9 @@ public class LayerDialogTest {
         assertNotNull(delegator.getOsmElement(Node.NAME, 3465444349L));
         assertNull(delegator.getOsmElement(Way.NAME, 206010346L));
 
-        assertEquals(387, delegator.getCurrentStorage().getNodeCount());
-        assertEquals(15, delegator.getCurrentStorage().getWayCount());
+        // as view port may vary, do this a fuzzy
+        assertEquals(354, delegator.getCurrentStorage().getNodeCount(), 20);
+        assertEquals(15, delegator.getCurrentStorage().getWayCount(), 5);
         assertEquals(1, delegator.getCurrentStorage().getRelationCount());
     }
 
@@ -319,7 +319,7 @@ public class LayerDialogTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         assertNull(map.getGeojsonLayer());
     }
-    
+
     /**
      * Add two geojson layers, hide the 1st one then discard it
      */
@@ -338,28 +338,28 @@ public class LayerDialogTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_load_geojson), true, false));
         TestUtils.selectFile(device, main, null, geoJsonFile1, true);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
-        
+
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_load_geojson), true, false));
         TestUtils.selectFile(device, main, null, geoJsonFile2, true);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
-        
+
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
-              
+
         UiObject2 visibleButton = TestUtils.getLayerButton(device, geoJsonFile1, VISIBLE_BUTTON);
         visibleButton.click();
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
-        
+
         UiObject2 menuButton = TestUtils.getLayerButton(device, geoJsonFile1, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
-        
+
         de.blau.android.layer.geojson.MapOverlay layer = map.getGeojsonLayer();
         assertNotNull(layer);
         assertTrue(layer.isVisible());
     }
-    
+
     /**
      * Load geojson file and create Todos with default conversion, discard
      */
@@ -380,24 +380,24 @@ public class LayerDialogTest {
 
         UiObject2 menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        
+
         TaskStorage tasks = App.getTaskStorage();
         List<Todo> todos = tasks.getTodos(null, true);
         assertTrue(todos.isEmpty());
-        
+
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_convert_geojson_todo), true, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.geojson_todo_default_conversion), true));
-        
+
         TestUtils.sleep(5000);
         assertEquals(map.getGeojsonLayer().getFeatures().size(), tasks.getTodos(null, true).size());
- 
+
         menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         assertNull(map.getGeojsonLayer());
         tasks.reset();
     }
-    
+
     /**
      * Load geojson file and create Todos with custom conversion, discard
      */
@@ -420,25 +420,25 @@ public class LayerDialogTest {
 
         UiObject2 menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        
+
         TaskStorage tasks = App.getTaskStorage();
         List<Todo> todos = tasks.getTodos(null, true);
         assertTrue(todos.isEmpty());
-        
+
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_convert_geojson_todo), true, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.geojson_todo_custom_conversion), true));
         TestUtils.selectFile(device, main, null, scriptFile, true);
-        
+
         TestUtils.sleep(15000);
         assertEquals(map.getGeojsonLayer().getFeatures().size(), tasks.getTodos(null, true).size());
- 
+
         menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         assertNull(map.getGeojsonLayer());
         tasks.reset();
     }
-    
+
     /**
      * Load geojson file and try tp create Todos with broken custom conversion, discard
      */
@@ -461,11 +461,11 @@ public class LayerDialogTest {
 
         UiObject2 menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        
+
         TaskStorage tasks = App.getTaskStorage();
         List<Todo> todos = tasks.getTodos(null, true);
         assertTrue(todos.isEmpty());
-        
+
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_convert_geojson_todo), true, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.geojson_todo_custom_conversion), true));
         TestUtils.selectFile(device, main, null, scriptFile, true);
@@ -477,14 +477,13 @@ public class LayerDialogTest {
             fail(e.getMessage());
         }
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
-        
+
         menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         assertNull(map.getGeojsonLayer());
         tasks.reset();
     }
-    
 
     /**
      * Set to "mapnik"

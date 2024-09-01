@@ -45,7 +45,8 @@ public class MapTest {
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
     }
 
     /**

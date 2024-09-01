@@ -1,5 +1,7 @@
 package de.blau.android.layer.mvt;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,7 +61,8 @@ import de.blau.android.views.util.MapTileProvider;
 public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<VectorTileDecoder.Feature>>>
         implements ClickableInterface<VectorTileDecoder.Feature>, StyleableInterface {
 
-    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final Type[] DEFAULT_STYLE_TYPES = new Type[] { Type.LINE, Type.FILL, Type.SYMBOL };
 
@@ -102,44 +105,44 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
         Log.d(DEBUG_TAG, "getClicked");
 
         Set<VectorTileDecoder.Feature> result = new LinkedHashSet<>();
-        if (layerSource != null) {
-            int z = map.getZoomLevel();
+        if (layerSource == null) {
+            Log.e(DEBUG_TAG, "No tile layer source set");
+            return new ArrayList<>();
+        }
+        int z = map.getZoomLevel();
 
-            MapTile mapTile = getTile(z, x, y);
-            java.util.Map<String, List<VectorTileDecoder.Feature>> tile = mTileProvider.getMapTileFromCache(mapTile);
-            while (tile == null && z > layerSource.getMinZoom()) { // try zooming out
-                z--;
-                mapTile = getTile(z, x, y);
-                tile = mTileProvider.getMapTileFromCache(mapTile);
+        MapTile mapTile = getTile(z, x, y);
+        java.util.Map<String, List<VectorTileDecoder.Feature>> tile = mTileProvider.getMapTileFromCache(mapTile);
+        while (tile == null && z > layerSource.getMinZoom()) { // try zooming out
+            z--;
+            mapTile = getTile(z, x, y);
+            tile = mTileProvider.getMapTileFromCache(mapTile);
+        }
+        if (tile == null) {
+            Log.e(DEBUG_TAG, "Tile " + mapTile + " not found in cache");
+            return new ArrayList<>();
+        }
+        Rect rect = getScreenRectForTile(new Rect(), map.getWidth(), map.getHeight(), map, mapTile.zoomLevel, mapTile.y, mapTile.x, true, 0, 0);
+        final float tolerance = map.getDataStyle().getCurrent().getNodeToleranceValue() * 256 / rect.width();
+        final float scaledX = (x - rect.left) * 256 / rect.width();
+        final float scaledY = (y - rect.top) * 256 / rect.height();
+        Style style = ((VectorTileRenderer) tileRenderer).getStyle();
+        // we need layer information to be able to check the interactive status
+        for (Layer layer : style.getLayers()) {
+            if (layer instanceof Background) {
+                continue; // this is not particularly safe
             }
-            if (tile != null) {
-                Rect rect = getScreenRectForTile(new Rect(), map.getWidth(), map.getHeight(), map, mapTile.zoomLevel, mapTile.y, mapTile.x, true, 0, 0);
-                final float tolerance = DataStyle.getCurrent().getNodeToleranceValue() * 256 / rect.width();
-                final float scaledX = (x - rect.left) * 256 / rect.width();
-                final float scaledY = (y - rect.top) * 256 / rect.height();
-                Style style = ((VectorTileRenderer) tileRenderer).getStyle();
-                // we need layer information to be able to check the interactive status
-                for (Layer layer : style.getLayers()) {
-                    if (layer instanceof Background) {
-                        continue; // this is not particularly safe
-                    }
-                    for (List<VectorTileDecoder.Feature> list : tile.values()) {
-                        for (VectorTileDecoder.Feature f : list) {
-                            if (f.getLayerName().equals(layer.getSourceLayer()) && (layer.getFilter() == null || layer.evaluateFilter(layer.getFilter(), f))
-                                    && layer.isInteractive()) {
-                                Geometry g = f.getGeometry();
-                                if (geometryClicked(scaledX, scaledY, tolerance, g)) {
-                                    result.add(f);
-                                }
-                            }
+            for (List<VectorTileDecoder.Feature> list : tile.values()) {
+                for (VectorTileDecoder.Feature f : list) {
+                    if (f.getLayerName().equals(layer.getSourceLayer()) && (layer.getFilter() == null || layer.evaluateFilter(layer.getFilter(), f))
+                            && layer.isInteractive()) {
+                        Geometry g = f.getGeometry();
+                        if (geometryClicked(scaledX, scaledY, tolerance, g)) {
+                            result.add(f);
                         }
                     }
                 }
-            } else {
-                Log.e(DEBUG_TAG, "Tile " + mapTile + " not found in cache");
             }
-        } else {
-            Log.e(DEBUG_TAG, "No tile layer source set");
         }
         return new ArrayList<>(result);
     }
@@ -371,7 +374,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
     public void setPointSymbol(@NonNull String layerName, @Nullable String symbol) {
         Symbol style = (Symbol) ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.SYMBOL);
         if (style != null) {
-            style.setSymbol(symbol);
+            style.setSymbol(symbol, map.getDataStyle());
             flushTileCache();
         }
     }
@@ -473,6 +476,14 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
         Style style = styleSavingHelper.load(ctx, getStateFileName(), false, true, true);
         if (style != null) {
             if (!dirty) {
+                for (Layer layer : style.getLayers()) {
+                    if (layer instanceof Symbol) {
+                        // these need a DataStyle that isn't present when de-serializing
+                        final DataStyle dataStyle = map.getDataStyle();
+                        ((Symbol) layer).setSymbol(((Symbol) layer).getSymbol(), dataStyle);
+                        ((Symbol) layer).setLabelFont(dataStyle.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint().getTypeface());
+                    }
+                }
                 ((VectorTileRenderer) tileRenderer).setStyle(style);
             }
         } else {

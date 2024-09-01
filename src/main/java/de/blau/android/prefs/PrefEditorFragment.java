@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -23,7 +25,8 @@ import de.blau.android.validation.ValidatorRulesUI;
  */
 public class PrefEditorFragment extends ExtendedPreferenceFragment {
 
-    private static final String DEBUG_TAG = PrefEditorFragment.class.getSimpleName().substring(0, Math.min(23, PrefEditorFragment.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PrefEditorFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PrefEditorFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private boolean resetValidationFlag;
 
@@ -55,8 +58,9 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
 
         ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(r.getString(R.string.config_mapProfile_key));
         if (mapProfilePref != null) {
-            final String[] styleList = DataStyle.getStyleList(getActivity());
-            final String[] styleListTranslated = DataStyle.getStyleListTranslated(getActivity(), styleList);
+            DataStyle styles = App.getDataStyle(getActivity());
+            final String[] styleList = styles.getStyleList(getActivity());
+            final String[] styleListTranslated = styles.getStyleListTranslated(getActivity(), styleList);
             mapProfilePref.setEntryValues(styleList);
             mapProfilePref.setEntries(styleListTranslated);
             OnPreferenceChangeListener p = (preference, newValue) -> {
@@ -71,7 +75,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
                 return true;
             };
             mapProfilePref.setOnPreferenceChangeListener(p);
-            p.onPreferenceChange(mapProfilePref, prefs.getDataStyle());
+            p.onPreferenceChange(mapProfilePref, prefs.getDataStyle(styles));
         }
 
         Preference customLayersPref = getPreferenceScreen().findPreference(r.getString(R.string.config_customlayers_key));

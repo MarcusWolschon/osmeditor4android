@@ -21,6 +21,7 @@ import com.mapbox.geojson.gson.GeoJsonAdapterFactory;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -193,23 +194,23 @@ public class MapRouletteTask extends LongIdTask {
     }
 
     @Override
-    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconRouletteOpen, c, x, y, selected);
+    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconRouletteOpen, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconRouletteChanged, c, x, y, selected);
+    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconRouletteChanged, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconChangedRouletteClosed, c, x, y, selected);
+    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconChangedRouletteClosed, c, x, y, selected, paint);
     }
 
     @Override
-    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected) {
-        drawIcon(cachedIconRouletteClosed, c, x, y, selected);
+    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected, Paint paint) {
+        drawIcon(cachedIconRouletteClosed, c, x, y, selected, paint);
     }
 
     @Override

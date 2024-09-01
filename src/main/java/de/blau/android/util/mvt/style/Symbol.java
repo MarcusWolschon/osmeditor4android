@@ -1,5 +1,7 @@
 package de.blau.android.util.mvt.style;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
@@ -17,6 +19,7 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -32,7 +35,8 @@ import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
 public class Symbol extends Layer {
 
-    private static final String DEBUG_TAG = Symbol.class.getSimpleName().substring(0, Math.min(23, Symbol.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Symbol.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Symbol.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final long serialVersionUID = 16L;
 
@@ -228,48 +232,24 @@ public class Symbol extends Layer {
     }
 
     /**
-     * Copy constructor
-     * 
-     * @param other another Layer
-     */
-    public Symbol(@NonNull Symbol other) {
-        super(other);
-
-        this.iconImage = other.iconImage;
-        this.symbolPath = other.symbolPath;
-        this.label = other.label;
-        setLabelPaint(new SerializableTextPaint(other.labelPaint));
-        this.textSize = other.textSize;
-        this.textColor = other.textColor;
-        this.textOpacity = other.textOpacity;
-        this.textLetterSpacing = other.textLetterSpacing;
-        this.textHaloWidth = other.textHaloWidth;
-        this.textHaloColor = other.textHaloColor;
-        this.textTransform = other.textTransform;
-        this.symbolPlacement = other.symbolPlacement;
-        this.iconRotate = other.iconRotate;
-        this.textAnchor = other.textAnchor;
-        this.iconAnchor = other.iconAnchor;
-        this.textOffset = other.textOffset;
-        this.iconOffset = other.iconOffset;
-    }
-
-    /**
      * Create a rudimentary style from Paint objects for the geometries and labels
      * 
      * @param layerName the layer name
      * @param paint the Paint to use for the geometries
      * @param labelPaint the Paint to use for labels
      * @param symbolName a name to use for point symbols
+     * @param dataStyle current data style
      * @return a Style
      */
     @NonNull
-    public static Symbol fromPaint(@NonNull String layerName, @NonNull Paint paint, @NonNull Paint labelPaint, @Nullable String symbolName) {
+    public static Symbol fromPaint(@NonNull String layerName, @NonNull Paint paint, @NonNull Paint labelPaint, @Nullable String symbolName,
+            @NonNull DataStyle dataStyle) {
         Symbol style = new Symbol(layerName);
         style.paint = new SerializableTextPaint(paint);
         style.paint.setStyle(Paint.Style.STROKE);
-        style.setSymbol(symbolName);
+        style.setSymbol(symbolName, dataStyle);
         style.setLabelPaint(new SerializableTextPaint(labelPaint));
+        style.setLabelFont(dataStyle.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint().getTypeface());
         labelPaint.setTextAlign(Align.CENTER);
         return style;
     }
@@ -278,11 +258,12 @@ public class Symbol extends Layer {
      * Set the symbol
      * 
      * @param symbolName name of the symbol
+     * @param dataStyle current data style
      */
-    public void setSymbol(@Nullable String symbolName) {
+    public void setSymbol(@Nullable String symbolName, @Nullable DataStyle dataStyle) {
         this.symbolName = symbolName;
-        if (symbolName != null) {
-            symbolPath = DataStyle.getCurrent().getSymbol(symbolName);
+        if (symbolName != null && dataStyle != null) {
+            symbolPath = dataStyle.getCurrent().getSymbol(symbolName);
         } else {
             symbolPath = null;
         }
@@ -334,13 +315,19 @@ public class Symbol extends Layer {
 
     /**
      * @param labelPaint the labelPaint to set
+     * @param dataStyle current data styling
      */
-    private void setLabelPaint(SerializableTextPaint labelPaint) {
+    private void setLabelPaint(@NonNull SerializableTextPaint labelPaint) {
         this.labelPaint = labelPaint;
-        labelPaint.setTypeface(DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint().getTypeface());
         labelFontMetrics = labelPaint.getFontMetrics();
         vOffset = (-labelFontMetrics.top - labelFontMetrics.bottom) / 2;
         ems = labelPaint.measureText("M");
+    }
+
+    public void setLabelFont(@NonNull Typeface typeface) {
+        if (labelPaint != null) {
+            labelPaint.setTypeface(typeface);
+        }
     }
 
     @Override
@@ -807,16 +794,15 @@ public class Symbol extends Layer {
      */
     private void readObject(@NonNull ObjectInputStream stream) throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
-
         if (labelPaint != null) {
             setLabelPaint(labelPaint);
         }
+        setSymbol(symbolName, null);
+
         builder = new StringBuilder();
         moustache = new StringBuilder();
         pathMeasure = new PathMeasure();
         iconRect = new Rect();
         labelRect = new Rect();
-
-        setSymbol(symbolName);
     }
 }

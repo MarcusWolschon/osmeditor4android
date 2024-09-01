@@ -1,5 +1,7 @@
 package de.blau.android.layer.bookmarks;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 
 import android.content.Context;
@@ -30,7 +32,8 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Labe
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String FILENAME = "bookmarks" + "." + FileExtensions.RES;
 
@@ -130,11 +133,12 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Labe
     @Override
     public void resetStyling() {
         Log.d(DEBUG_TAG, "resetStyling");
-        labelFs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
+        DataStyle styles = map.getDataStyle();
+        labelFs = styles.getInternal(DataStyle.LABELTEXT_NORMAL);
         labelPaint = new SerializableTextPaint(labelFs.getPaint());
         labelStrokeWidth = labelPaint.getStrokeWidth();
-        labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
-        paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.BOOKMARK_DEFAULT).getPaint());
+        labelBackground = styles.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        paint = new SerializableTextPaint(styles.getInternal(DataStyle.BOOKMARK_DEFAULT).getPaint());
         labelPaint.setColor(paint.getColor());
         labelMinZoom = SHOW_LABEL_LIMIT;
     }

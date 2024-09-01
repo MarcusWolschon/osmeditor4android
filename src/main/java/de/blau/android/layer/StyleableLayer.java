@@ -1,5 +1,7 @@
 package de.blau.android.layer;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.locks.ReentrantLock;
@@ -10,15 +12,17 @@ import android.graphics.Path;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.App;
+import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.resources.DataStyle;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableTextPaint;
 
 public abstract class StyleableLayer extends MapViewLayer implements StyleableInterface, DiscardInterface, Serializable {
     private static final long serialVersionUID = 4L;
 
-    private static final String DEBUG_TAG = StyleableLayer.class.getSimpleName().substring(0, Math.min(23, StyleableLayer.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, StyleableLayer.class.getSimpleName().length());
+    private static final String DEBUG_TAG = StyleableLayer.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * when reading state lockout writing/reading
@@ -72,7 +76,10 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
         dirty();
         symbolName = symbol;
         if (symbol != null) {
-            symbolPath = DataStyle.getCurrent().getSymbol(symbol);
+            Map map = App.getLogic().getMap();
+            if (map != null) {
+                symbolPath = map.getDataStyle().getCurrent().getSymbol(symbol);
+            }
         }
     }
 
@@ -125,7 +132,7 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
                     iconRadius = restoredOverlay.iconRadius;
                     name = restoredOverlay.name;
                     symbolName = restoredOverlay.symbolName;
-                    symbolPath = DataStyle.getCurrent().getSymbol(symbolName);
+                    symbolPath = App.getDataStyle(context).getCurrent().getSymbol(symbolName);
                     return true;
                 } else {
                     Log.d(DEBUG_TAG, "saved state null");

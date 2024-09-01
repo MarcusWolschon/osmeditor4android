@@ -1,5 +1,7 @@
 package de.blau.android.filter;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,8 +9,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class TagFilterDatabaseHelper extends SQLiteOpenHelper {
-    private static final String DEBUG_TAG        = TagFilterDatabaseHelper.class.getSimpleName().substring(0, Math.min(23, TagFilterDatabaseHelper.class.getSimpleName().length()));
-    private static final String DATABASE_NAME    = "tagfilters";
+    private static final int    TAG_LEN          = Math.min(LOG_TAG_LEN, TagFilterDatabaseHelper.class.getSimpleName().length());
+    private static final String DEBUG_TAG        = TagFilterDatabaseHelper.class.getSimpleName().substring(0, TAG_LEN);
+    
+    static final String         DATABASE_NAME    = "tagfilters";
     private static final int    DATABASE_VERSION = 2;
 
     /**
