@@ -152,7 +152,9 @@ public class PresetTest {
         PresetItem match = Preset.findBestMatch(presets, tags, null, null);
         assertNotNull(match);
         assertTrue(match.hasKeyValue(Tags.KEY_INDOOR, Tags.VALUE_ROOM));
-        match = Preset.findBestMatch(presets, tags, null, Tags.IGNORE_FOR_MAP_ICONS);
+        Map<String, String> ignore = new HashMap<>();
+        ignore.put(Tags.KEY_INDOOR, Tags.VALUE_ROOM);
+        match = Preset.findBestMatch(presets, tags, null, ignore);
         assertNotNull(match);
         assertTrue(match.hasKeyValue(Tags.KEY_SHOP, "supermarket"));
     }
