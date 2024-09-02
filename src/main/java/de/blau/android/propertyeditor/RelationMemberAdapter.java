@@ -18,6 +18,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.propertyeditor.RelationMembersFragment.Connected;
 import de.blau.android.propertyeditor.RelationMembersFragment.MemberEntry;
 import de.blau.android.propertyeditor.RelationMembersFragment.RelationMemberRow;
+import de.blau.android.util.AfterTextChangedWatcher;
 
 public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAdapter.MemberRowViewHolder> {
 
@@ -104,24 +105,10 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
         };
         holder.row.setOnCheckedChangeListener(realListener);
 
-        holder.row.setRoleWatcher(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // do nothing
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // do nothing
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                watcher.afterTextChanged(s);
-                memberEntry.setRole(s.toString());
-            }
-        });
+        holder.row.setRoleWatcher((AfterTextChangedWatcher) ((Editable s) -> {
+            watcher.afterTextChanged(s);
+            memberEntry.setRole(s.toString());
+        }));
 
         if (memberEntry.downloaded() && !memberEntry.selected) {
             holder.row.elementView.setOnClickListener((View v) -> {
@@ -134,7 +121,7 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
             holder.row.elementView.setOnClickListener(null);
         }
     }
-    
+
     @Override
     public int getItemViewType(int position) {
         return entries.get(position).downloaded() ? R.layout.relation_member_downloaded_row : R.layout.relation_member_row;

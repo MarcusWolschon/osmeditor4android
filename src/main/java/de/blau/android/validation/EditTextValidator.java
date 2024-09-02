@@ -1,11 +1,11 @@
 package de.blau.android.validation;
 
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
+import de.blau.android.util.AfterTextChangedWatcher;
 
-abstract class EditTextValidator implements TextWatcher, FormValidation {
+abstract class EditTextValidator implements AfterTextChangedWatcher, FormValidation {
 
     private static final String EMPTY_TEXT = "";
 
@@ -20,16 +20,6 @@ abstract class EditTextValidator implements TextWatcher, FormValidation {
     EditTextValidator(@NonNull EditText editText) {
         this.editText = editText;
         this.editText.addTextChangedListener(this);
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-        // Nothing to do here.
-    }
-
-    @Override
-    public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-        // Nothing to do here.
     }
 
     @Override

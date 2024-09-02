@@ -8,7 +8,6 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,6 +24,7 @@ import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
 import de.blau.android.tasks.Task.State;
+import de.blau.android.util.AfterTextChangedWatcher;
 import de.blau.android.util.Util;
 
 /**
@@ -99,23 +99,7 @@ public class TodoFragment extends BugFragment {
         if (commentText != null) {
             comment.setText(Util.fromHtml(commentText));
         }
-        comment.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable edited) {
-                changed = true;
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // required, but not used
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // required, but not used
-            }
-        });
+        comment.addTextChangedListener((AfterTextChangedWatcher)((Editable edited) -> changed = true));
         addElementLinks(task, elementLayout);
         //
         return ArrayAdapter.createFromResource(getActivity(), R.array.todo_state, android.R.layout.simple_spinner_item);

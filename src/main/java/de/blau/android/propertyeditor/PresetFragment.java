@@ -12,8 +12,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -55,6 +53,7 @@ import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.OnTextChangedWatcher;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Sound;
@@ -260,29 +259,14 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 return false;
             });
 
-            presetSearch.addTextChangedListener(new TextWatcher() {
-
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    // do nothing
+            presetSearch.addTextChangedListener((OnTextChangedWatcher) (CharSequence cs, int start, int count, int after) -> {
+                displaySearchResults.cancel();
+                presetSearch.removeCallbacks(displaySearchResults);
+                if (cs.length() >= MIN_SEARCH_TERM_LENGTH) {
+                    presetSearch.postDelayed(displaySearchResults, 200);
+                } else {
+                    de.blau.android.propertyeditor.Util.removeChildFragment(getChildFragmentManager(), FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
                 }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    displaySearchResults.cancel();
-                    presetSearch.removeCallbacks(displaySearchResults);
-                    if (s.length() >= MIN_SEARCH_TERM_LENGTH) {
-                        presetSearch.postDelayed(displaySearchResults, 200);
-                    } else {
-                        de.blau.android.propertyeditor.Util.removeChildFragment(getChildFragmentManager(), FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    // do nothing
-                }
-
             });
         }
 
