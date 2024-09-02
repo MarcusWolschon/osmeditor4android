@@ -4,9 +4,10 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -697,7 +698,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
     @NonNull
     private String formatDouble(double d) {
         try {
-            return String.format(Locale.US, "%.5f", d);
+            return BigDecimal.valueOf(d).setScale(5, RoundingMode.DOWN).toString();
         } catch (Exception e) {
             Log.w(DEBUG_TAG, "Formatting failed " + e.getMessage());
             return "";
