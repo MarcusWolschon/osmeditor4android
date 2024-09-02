@@ -201,6 +201,7 @@
         <item name="more_small">@drawable/ic_more_vert_white_24dp</item>
         <item name="information_small">@drawable/ic_info_outline_white_24dp</item>
         <item name="snap">@drawable/snap_dark</item>
+        <item name="search_small">@drawable/outline_search_white_18</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonDark</item>
 		<item name="EditText">@style/EditTextDark</item>
@@ -281,6 +282,7 @@
         <item name="more_small">@drawable/ic_more_vert_black_24dp</item>
         <item name="information_small">@drawable/ic_info_outline_black_24dp</item>
         <item name="snap">@drawable/snap_light</item>
+        <item name="search_small">@drawable/outline_search_black_18</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonLight</item>
 		<item name="EditText">@style/EditTextLight</item>
@@ -309,6 +311,7 @@
         <item name="alert_dialog">@drawable/ic_action_warning_holo_dark</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_white</item>
         <item name="share">@drawable/share_dark</item>
+        <item name="search_small">@drawable/outline_search_white_18</item>
         <!--  -->
         <item name="StaticText">@style/DialogStaticText</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
@@ -330,6 +333,7 @@
         <item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_black</item>
         <item name="share">@drawable/share_light</item>
+         <item name="search_small">@drawable/outline_search_black_18</item>
         <!--  -->
         <item name="StaticText">@style/StaticTextLight</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.Light.AutoCompleteTextView</item>
