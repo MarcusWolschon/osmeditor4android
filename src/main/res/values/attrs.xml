@@ -94,6 +94,7 @@
     <attr name="propertyeditor_done" format="reference" />
     <attr name="share" format="reference" /> 
     <attr name="snap" format="reference" /> 
+    <attr name="search_small" format="reference" />
 	<!-- Colors -->
 	<attr name="snack_info" format="reference|color" />
 	<attr name="snack_warning" format="reference|color" />

@@ -618,7 +618,12 @@ public class LayerDialogTest {
 
             TestUtils.scrollTo(endpointName, false);
             assertTrue(TestUtils.clickText(device, false, endpointName, true, false));
-            assertTrue(TestUtils.findText(device, false, main.getString(R.string.select_layer_title)));
+            UiObject search = TestUtils.findObjectWithResourceId(device, false, device.getCurrentPackageName() + ":id/searchField");
+            try {
+                search.click();
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
             UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
             try {
                 appView.setSwipeDeadZonePercentage(0.4);

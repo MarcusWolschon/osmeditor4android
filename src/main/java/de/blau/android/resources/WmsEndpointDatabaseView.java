@@ -17,10 +17,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -42,6 +46,7 @@ import de.blau.android.resources.WmsCapabilities.Layer;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.OnTextChangedWatcher;
 import de.blau.android.util.Util;
 import de.blau.android.util.WidestItemArrayAdapter;
 
@@ -49,7 +54,8 @@ import de.blau.android.util.WidestItemArrayAdapter;
  * WMS endpoint management UI
  */
 public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements OnUpdateListener {
-    private static final String DEBUG_TAG = WmsEndpointDatabaseView.class.getSimpleName().substring(0, Math.min(23, WmsEndpointDatabaseView.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = WmsEndpointDatabaseView.class.getSimpleName().substring(0,
+            Math.min(23, WmsEndpointDatabaseView.class.getSimpleName().length()));
 
     private EndpointAdapter endpointAdapter;
 
@@ -208,12 +214,13 @@ public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements 
                         builder.setNeutralButton(R.string.Done, null);
                         View layerListView = LayoutInflater.from(activity).inflate(R.layout.wms_layer_list, null);
                         ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
+                        EditText searchField = (EditText) layerListView.findViewById(R.id.searchField);
                         builder.setView(layerListView);
                         List<String> layers = new ArrayList<>();
                         for (Layer layer : result.layers) {
                             layers.add(layer.title);
                         }
-                        WidestItemArrayAdapter<String> adapter = new WidestItemArrayAdapter<>(activity, R.layout.layer_list_item, R.id.name, layers);
+                        FilteredAdapter adapter = new FilteredAdapter(activity, R.layout.layer_list_item, R.id.name, layers);
                         layerList.setAdapter(adapter);
                         layerList.setOnItemClickListener((parent, view, position, id) -> {
                             LayerEntry entry = new LayerEntry();
@@ -224,6 +231,8 @@ public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements 
                             entry.gsd = layer.gsd;
                             TileLayerDialog.showDialog(WmsEndpointDatabaseView.this, -1, entry);
                         });
+                        searchField.addTextChangedListener(
+                                (OnTextChangedWatcher) (CharSequence cs, int start, int count, int after) -> adapter.getFilter().filter(cs));
                         builder.create().show();
                     }
                 }.execute();
@@ -242,7 +251,7 @@ public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements 
             Uri.Builder uriBuilder = uri.buildUpon();
             uriBuilder.clearQuery();
             for (String n : uri.getQueryParameterNames()) {
-                 if (!"".equals(n) && !REQUEST_PARAM.equalsIgnoreCase(n) && !SERVICE_PARAM.equalsIgnoreCase(n)) {
+                if (!"".equals(n) && !REQUEST_PARAM.equalsIgnoreCase(n) && !SERVICE_PARAM.equalsIgnoreCase(n)) {
                     uriBuilder.appendQueryParameter(n, uri.getQueryParameter(n));
                 }
             }
@@ -266,5 +275,49 @@ public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements 
     public void update() {
         TileLayerDatabaseView.resetLayer(getActivity(), writableDb);
         TileLayerDialog.update(this);
+    }
+
+    private class FilteredAdapter extends WidestItemArrayAdapter<String> {
+        private final List<String> originalObjects;
+
+        public FilteredAdapter(Context context, int resource, int textView, List<String> objects) {
+            super(context, resource, textView, objects);
+            originalObjects = new ArrayList<>(objects);
+        }
+
+        @Override
+        public Filter getFilter() {
+
+            return new Filter() {
+
+                @SuppressWarnings("unchecked")
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    clear();
+                    for (String v : (List<String>) results.values) {
+                        add(v);
+                    }
+                    notifyDataSetChanged();
+                }
+
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+
+                    FilterResults results = new FilterResults();
+                    List<String> filteredNames = new ArrayList<>();
+
+                    constraint = constraint.toString().toLowerCase();
+                    for (String object : originalObjects) {
+                        if (object.toLowerCase().contains(constraint.toString())) {
+                            filteredNames.add(object);
+                        }
+                    }
+
+                    results.count = filteredNames.size();
+                    results.values = filteredNames;
+                    return results;
+                }
+            };
+        }
     }
 }
