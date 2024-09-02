@@ -17,8 +17,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,8 +43,8 @@ import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.resources.WmsCapabilities.Layer;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.OnTextChangedWatcher;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import de.blau.android.util.WidestItemArrayAdapter;
 
