@@ -47,6 +47,7 @@ public class WmsCapabilities {
     private static final String WMS_1_3_0 = "1.3.0";
 
     private static final String ONE                        = "1";
+    private static final String TRUE                       = "true";
     private static final String QUERYABLE                  = "queryable";
     private static final String VERSION                    = "version";
     private static final String CAPABILITY                 = "Capability";
@@ -233,7 +234,7 @@ public class WmsCapabilities {
                     case LAYER:
                         current.group = true;
                         stateStack.push(currentState);
-                        layerStack.push(new LayerTemp(ONE.equals(attr.getValue(QUERYABLE)), current));
+                        layerStack.push(new LayerTemp(isQueryable(attr), current));
                         break;
                     case BOUNDING_BOX:
                         String tempCrs = attr.getValue(is130(wmsVersion) ? CRS : SRS);
@@ -299,7 +300,7 @@ public class WmsCapabilities {
                     case LAYER:
                         stateStack.push(currentState);
                         currentState = State.LAYER;
-                        layerStack.push(new LayerTemp(ONE.equals(attr.getValue(QUERYABLE)), current));
+                        layerStack.push(new LayerTemp(isQueryable(attr), current));
                         break;
                     default:
                         // ignore
@@ -332,6 +333,17 @@ public class WmsCapabilities {
                 default:
                     // ignored
                 }
+            }
+
+            /**
+             * Check if queryable flag is set
+             * 
+             * @param attr the current attributes
+             * @return true is queryable is set
+             */
+            private boolean isQueryable(@NonNull Attributes attr) {
+                final String queryable = attr.getValue(QUERYABLE);
+                return ONE.equals(queryable) || TRUE.equalsIgnoreCase(queryable);
             }
 
             @Override
@@ -376,7 +388,7 @@ public class WmsCapabilities {
                         }
                         break;
                     case LAYER:
-                        if (!current.group && current.name != null && current.queryable) {
+                        if (!current.group && current.name != null) {
                             try {
                                 Layer layer = constructLayer(layerStack);
                                 layers.add(layer);
@@ -530,22 +542,23 @@ public class WmsCapabilities {
             } else {
                 throw new UnsupportedFormatException("No supported projection");
             }
-            if (t.boxCrs != null) {
-                try {
-                    if (TileLayerSource.isLatLon(t.boxCrs)) {
-                        if (is130(wmsVersion) && TileLayerSource.EPSG_4326.equals(t.boxCrs)) { // flip axis
-                            layer.extent = new BoundingBox(scaledDecimal(t.miny), scaledDecimal(t.minx), scaledDecimal(t.maxy), scaledDecimal(t.maxx));
-                        } else {
-                            layer.extent = new BoundingBox(scaledDecimal(t.minx), scaledDecimal(t.miny), scaledDecimal(t.maxx), scaledDecimal(t.maxy));
-                        }
-                    } else { // EPSG:3857
-                        layer.extent = new BoundingBox(Math.toDegrees(t.minx.doubleValue() / GeoMath.EARTH_RADIUS_EQUATOR),
-                                GeoMath.mercatorToLat(t.miny.doubleValue()), Math.toDegrees(t.maxx.doubleValue() / GeoMath.EARTH_RADIUS_EQUATOR),
-                                GeoMath.mercatorToLat(t.maxy.doubleValue()));
+            if (t.boxCrs == null) {
+                continue;
+            }
+            try {
+                if (TileLayerSource.isLatLon(t.boxCrs)) {
+                    if (is130(wmsVersion) && TileLayerSource.EPSG_4326.equals(t.boxCrs)) { // flip axis
+                        layer.extent = new BoundingBox(scaledDecimal(t.miny), scaledDecimal(t.minx), scaledDecimal(t.maxy), scaledDecimal(t.maxx));
+                    } else {
+                        layer.extent = new BoundingBox(scaledDecimal(t.minx), scaledDecimal(t.miny), scaledDecimal(t.maxx), scaledDecimal(t.maxy));
                     }
-                } catch (IllegalArgumentException iae) {
-                    Log.e(DEBUG_TAG, iae.getMessage());
+                } else { // EPSG:3857
+                    layer.extent = new BoundingBox(Math.toDegrees(t.minx.doubleValue() / GeoMath.EARTH_RADIUS_EQUATOR),
+                            GeoMath.mercatorToLat(t.miny.doubleValue()), Math.toDegrees(t.maxx.doubleValue() / GeoMath.EARTH_RADIUS_EQUATOR),
+                            GeoMath.mercatorToLat(t.maxy.doubleValue()));
                 }
+            } catch (IllegalArgumentException iae) {
+                Log.e(DEBUG_TAG, iae.getMessage());
             }
         }
         layer.title = resultTitle.toString();
