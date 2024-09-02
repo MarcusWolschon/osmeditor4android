@@ -2,11 +2,11 @@ package de.blau.android.propertyeditor;
 
 import android.content.Context;
 import android.text.Editable;
-import android.text.TextWatcher;
 import androidx.annotation.Nullable;
+import de.blau.android.util.AfterTextChangedWatcher;
 import de.blau.android.util.Util;
 
-public class SanitizeTextWatcher implements TextWatcher {
+public class SanitizeTextWatcher implements AfterTextChangedWatcher {
     final Context context;
     final int     maxStringLength;
 
@@ -19,16 +19,6 @@ public class SanitizeTextWatcher implements TextWatcher {
     public SanitizeTextWatcher(@Nullable Context context, int maxStringLength) {
         this.context = context;
         this.maxStringLength = maxStringLength;
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        // unused
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // unused
     }
 
     @Override

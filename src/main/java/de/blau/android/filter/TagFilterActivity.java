@@ -36,6 +36,7 @@ import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.ListActivity;
+import de.blau.android.util.AfterTextChangedWatcher;
 
 /**
  * Activity for editing filter entries. Due to the difficulties in using a ListView for editable items, this is a rather
@@ -355,22 +356,7 @@ public class TagFilterActivity extends ListActivity {
 
             String key = cursor.getString(cursor.getColumnIndexOrThrow(KEY_COLUMN));
             vh.keyView.setText(key);
-            TextWatcher watcher = new TextWatcher() {
-                @Override
-                public void afterTextChanged(Editable arg0) {
-                    vh.modified = true;
-                }
-
-                @Override
-                public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-                    // Empty
-                }
-
-                @Override
-                public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-                    // Empty
-                }
-            };
+            TextWatcher watcher = (AfterTextChangedWatcher) ((Editable edited) -> vh.modified = true);
             vh.keyView.addTextChangedListener(watcher);
 
             String value = cursor.getString(cursor.getColumnIndexOrThrow(VALUE_COLUMN));

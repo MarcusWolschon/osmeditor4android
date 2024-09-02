@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor.tagform;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,12 +69,14 @@ import de.blau.android.osm.Tags;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.TagEditorFragment;
+import de.blau.android.util.AfterTextChangedWatcher;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
 public class ConditionalRestrictionFragment extends DialogFragment implements OnSaveListener {
 
-    private static final String DEBUG_TAG = ConditionalRestrictionFragment.class.getSimpleName().substring(0, Math.min(23, ConditionalRestrictionFragment.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ConditionalRestrictionFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ConditionalRestrictionFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String FRAGMENT_OPENING_HOURS_TAG = "fragment_opening_hours";
 
@@ -452,25 +456,12 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             }
             setAdapterAndListeners(value, adapter);
         }
-        TextWatcher valueWatcher = new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                r.setValue(value.getText().toString().trim());
-                Runnable ourRebuild = () -> updateRestrictionStringFromView(value, r);
-                value.removeCallbacks(ourRebuild);
-                value.postDelayed(ourRebuild, 500);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // unused
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // unused
-            }
-        };
+        TextWatcher valueWatcher = (AfterTextChangedWatcher) ((Editable edited) -> {
+            r.setValue(value.getText().toString().trim());
+            Runnable ourRebuild = () -> updateRestrictionStringFromView(value, r);
+            value.removeCallbacks(ourRebuild);
+            value.postDelayed(ourRebuild, 500);
+        });
         value.addTextChangedListener(valueWatcher);
         addMenuItems(groupHeader, r, null);
         ll.addView(groupHeader);

@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
@@ -21,6 +20,7 @@ import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
 import de.blau.android.tasks.Task.State;
+import de.blau.android.util.AfterTextChangedWatcher;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
@@ -134,7 +134,7 @@ public class NoteFragment extends TaskFragment {
     @Override
     protected void onShowListener(Task task, Button save, Button upload, Button cancel, Spinner state) {
         super.onShowListener(task, save, upload, cancel, state);
-        comment.addTextChangedListener(new TextWatcher() {
+        comment.addTextChangedListener(new AfterTextChangedWatcher() {
             final String original = comment.getText().toString();
 
             @Override
@@ -147,16 +147,6 @@ public class NoteFragment extends TaskFragment {
                     state.setSelection(openPos);
                     ScreenMessage.toastTopInfo(getContext(), R.string.toast_note_reopened);
                 }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // required, but not used
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // required, but not used
             }
         });
     }
