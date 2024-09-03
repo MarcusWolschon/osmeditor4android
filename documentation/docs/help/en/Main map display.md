@@ -182,7 +182,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
  * **Review changes...** - review current changes
  * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
  * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
- * **Query Overpass...** - run a query against a Overpass API server *(requires network connectivity)*
+ * **Query Overpass...** - run a query against a Overpass API server, for more information see _Overpass queries_ below. *(requires network connectivity)*
  * **Close current changeset** - manually close the current changeset *(only available if a changeset is open)*
  * **Location based auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
  * **Pan and zoom auto download** - download the area shown in the current screen automatically *(requires network connectivity)*
@@ -228,7 +228,7 @@ Show the user preference screens. The settings are split into two sets: the firs
  * **Remove EGM** - remove the EGM.
  * **Import data style...** - import an additional data style from an XML file or from a ZIP archive containing an XML file and icons. This overwrites existing style files with the same name.
  * **Load keys from file...** - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.
- * **JS Console** - start the JavaScript console for scripting the application. Note that this needs to be anabled in the "Advaced preferences":
+ * **JS Console** - start the JavaScript console for scripting the application. Note that this needs to be enabled in the "Advanced preferences".
 
 ### ![Find](../images/ic_menu_search_holo_light.png) Find
 
@@ -236,8 +236,16 @@ Search for a location and pan to it with the OpenStreetMap Nominatim or Photon s
 
 ### Search for objects
 
-Search for OSM objects in the loaded data using JOSMs search/filter expressions. See [JOSM filter documentation](http://vespucci.io/tutorials/object_search/) for more information. Besides searching in the loaded data alternatively you can create a 
-Overpass API query and use that to download data.
+Search for OSM objects in the loaded data using JOSMs search/filter expressions. See [JOSM filter documentation](http://vespucci.io/tutorials/object_search/) for more information. Besides searching in the loaded data alternatively you can create a Overpass API query and use that to download data.
+
+#### Overpass queries
+
+The queries will be run against the Overpass server set in the "Advanced preferences". The standard behaviour is to replace the current data with the results of the query, 
+if you have unsaved changes the query will not run except if you select the _Merge result_ check box (this will merge the results of the query with the existing data). 
+If _Select result_ is checked, any results (with the exception of way nodes) will be selected and the app will zoom to the data.
+
+Note: if you are generating the query from the JOSM query language you need to add an _inview_ term otherwise the query will be executed for the whole world, if you are manually 
+creating a query you should add _({{bbox}})_ terms for the same reason.
 
 ### Modes...
 
