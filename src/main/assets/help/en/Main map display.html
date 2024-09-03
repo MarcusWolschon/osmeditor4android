@@ -191,7 +191,7 @@
 <li><strong>Review changes...</strong> - review current changes</li>
 <li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
+<li><strong>Query Overpass...</strong> - run a query against a Overpass API server, for more information see <em>Overpass queries</em> below. <em>(requires network connectivity)</em></li>
 <li><strong>Close current changeset</strong> - manually close the current changeset <em>(only available if a changeset is open)</em></li>
 <li><strong>Location based auto download</strong> - download an area around the current location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
 <li><strong>Pan and zoom auto download</strong> - download the area shown in the current screen automatically <em>(requires network connectivity)</em></li>
@@ -247,12 +247,15 @@
 <li><strong>Remove EGM</strong> - remove the EGM.</li>
 <li><strong>Import data style...</strong> - import an additional data style from an XML file or from a ZIP archive containing an XML file and icons. This overwrites existing style files with the same name.</li>
 <li><strong>Load keys from file...</strong> - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.</li>
-<li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be anabled in the &quot;Advaced preferences&quot;:</li>
+<li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be enabled in the &quot;Advanced preferences&quot;.</li>
 </ul>
 <h3><img src="../images/ic_menu_search_holo_light.png" alt="Find" /> Find</h3>
 <p>Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service <em>(requires network connectivity)</em></p>
 <h3>Search for objects</h3>
 <p>Search for OSM objects in the loaded data using JOSMs search/filter expressions. See <a href="http://vespucci.io/tutorials/object_search/">JOSM filter documentation</a> for more information. Besides searching in the loaded data alternatively you can create a Overpass API query and use that to download data.</p>
+<h4>Overpass queries</h4>
+<p>The queries will be run against the Overpass server set in the &quot;Advanced preferences&quot;. The standard behaviour is to replace the current data with the results of the query, if you have unsaved changes the query will not run except if you select the <em>Merge result</em> check box (this will merge the results of the query with the existing data). If <em>Select result</em> is checked, any results (with the exception of way nodes) will be selected and the app will zoom to the data.</p>
+<p>Note: if you are generating the query from the JOSM query language you need to add an <em>inview</em> term otherwise the query will be executed for the whole world, if you are manually creating a query you should add <em>({{bbox}})</em> terms for the same reason.</p>
 <h3>Modes...</h3>
 <p>This menu allows mode selection as via the <em>lock button</em> and enabling/disabling of the <em>simple mode</em>.</p>
 <h3>Tag-Filter <em>(checkbox)</em></h3>

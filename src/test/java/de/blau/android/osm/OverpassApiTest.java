@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -95,11 +96,30 @@ public class OverpassApiTest {
         String query = "[out:xml][timeout:90];" + "(" + "node[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);"
                 + "way[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);"
                 + "relation[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);" + ");" + "(._;>;);" + "out meta;";
-        de.blau.android.overpass.Server.query(main, query, false);
+        de.blau.android.overpass.Server.query(main, query, false, false);
         runLooper();
         Way way = (Way) App.getDelegator().getOsmElement(Way.NAME, 47977728L);
         assertNotNull(way);
         assertEquals(12, way.getOsmVersion());
+    }
+    
+    /**
+     * Simple overpass query with selection of results
+     */
+    @Test
+    public void overpassQueryWithSelect() {
+        mockServer.enqueue("overpass");
+        String query = "[out:xml][timeout:90];" + "(" + "node[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);"
+                + "way[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);"
+                + "relation[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);" + ");" + "(._;>;);" + "out meta;";
+        de.blau.android.overpass.Server.query(main, query, false, true);
+        runLooper();
+        Way way = (Way) App.getDelegator().getOsmElement(Way.NAME, 47977728L);
+        assertNotNull(way);
+        assertTrue(App.getLogic().getSelectedElements().contains(way));
+        Node wayNode = (Node) App.getDelegator().getOsmElement(Node.NAME,289981009L);
+        assertNotNull(wayNode);
+        assertFalse(App.getLogic().getSelectedElements().contains(wayNode));
     }
 
     /**

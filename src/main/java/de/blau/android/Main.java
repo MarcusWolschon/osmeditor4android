@@ -2631,24 +2631,33 @@ public class Main extends FullScreenAppCompatActivity
      * @param text initial overpass query
      */
     public static void showOverpassConsole(@NonNull final FragmentActivity activity, @Nullable String text) {
-        ConsoleDialog.showDialog(activity, R.string.overpass_console, R.string.merge_result, -1, text, null, (context, input, merge, flag2) -> {
-            Logic logic = App.getLogic();
-            if (!merge && logic != null && logic.hasChanges()) {
-                return Util.withHtmlColor(context, R.attr.errorTextColor, context.getString(R.string.overpass_query_would_overwrite));
-            }
-            AsyncResult result = de.blau.android.overpass.Server.query(context, de.blau.android.overpass.Server.replacePlaceholders(context, input), merge);
-            if (ErrorCodes.OK == result.getCode()) {
-                if (context instanceof Main) {
-                    ((Main) context).invalidateMap();
-                }
-                Storage storage = App.getDelegator().getCurrentStorage();
-                return context.getString(R.string.overpass_result, storage.getNodeCount(), storage.getWayCount(), storage.getRelationCount());
-            } else if (ErrorCodes.NOT_FOUND == result.getCode()) {
-                return context.getString(R.string.toast_nothing_found);
-            } else {
-                return Util.withHtmlColor(context, R.attr.errorTextColor, result.getMessage());
-            }
-        }, false);
+        ConsoleDialog.showDialog(activity, R.string.overpass_console, R.string.merge_result, R.string.select_result, text, null,
+                (context, input, merge, select) -> {
+                    Logic logic = App.getLogic();
+                    if (!merge && logic != null && logic.hasChanges()) {
+                        return Util.withHtmlColor(context, R.attr.errorTextColor, context.getString(R.string.overpass_query_would_overwrite));
+                    }
+                    AsyncResult result = de.blau.android.overpass.Server.query(context, de.blau.android.overpass.Server.replacePlaceholders(context, input),
+                            merge, select);
+                    if (ErrorCodes.OK == result.getCode()) {
+                        if (context instanceof Main) {
+                            Main main = (Main) context;
+                            main.mapLayout.post(() -> {
+                                if (select) {
+                                    main.getEasyEditManager().editElements();
+                                    main.zoomTo(logic.getSelectedElements());
+                                }
+                                main.invalidateMap();
+                            });
+                        }
+                        Storage storage = App.getDelegator().getCurrentStorage();
+                        return context.getString(R.string.overpass_result, storage.getNodeCount(), storage.getWayCount(), storage.getRelationCount());
+                    } else if (ErrorCodes.NOT_FOUND == result.getCode()) {
+                        return context.getString(R.string.toast_nothing_found);
+                    } else {
+                        return Util.withHtmlColor(context, R.attr.errorTextColor, result.getMessage());
+                    }
+                }, false);
     }
 
     /**
