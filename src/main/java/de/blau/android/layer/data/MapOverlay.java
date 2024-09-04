@@ -573,8 +573,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             }
         }
 
-        boolean displayHandles = tmpDrawingSelectedRelationWays == null && tmpDrawingSelectedRelationNodes == null
-                && tmpDrawingEditMode.elementsGeomEditiable();
+        boolean displayHandles = tmpDrawingSelectedRelationWays == null && tmpDrawingSelectedRelationNodes == null && tmpDrawingEditMode.elementsGeomEditable();
         handles.clear();
         Collections.sort(waysToDraw, layerComparator);
 
@@ -1031,7 +1030,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             featureStyleFont = labelTextStyleNormalSelected;
             featureStyleFontSmall = labelTextStyleSmallSelected;
 
-            if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) {
+            if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditable()) {
                 // don't draw large areas in multi-select mode
                 canvas.drawCircle(x, y, currentStyle.getLargDragToleranceRadius(), nodeDragRadiusPaint);
             } else {

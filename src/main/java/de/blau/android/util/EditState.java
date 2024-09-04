@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -28,6 +30,10 @@ import de.blau.android.osm.StorageDelegator;
  *
  */
 public class EditState implements Serializable {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, EditState.class.getSimpleName().length());
+    private static final String DEBUG_TAG = EditState.class.getSimpleName().substring(0, TAG_LEN);
+
     private static final long         serialVersionUID = 29L;
     private final boolean             savedLocked;
     private final Mode                savedMode;
@@ -108,7 +114,7 @@ public class EditState implements Serializable {
     public void setSelected(@NonNull Main main, @NonNull Logic logic) {
         logic.setLocked(savedLocked);
         logic.setMode(main, savedMode);
-        Log.d("EditState", "savedMode " + savedMode);
+        Log.d(DEBUG_TAG, "savedMode " + savedMode);
         Deque<Selection> selectionStack = new ArrayDeque<>();
         if (savedSelection != null) {
             final StorageDelegator delegator = App.getDelegator();

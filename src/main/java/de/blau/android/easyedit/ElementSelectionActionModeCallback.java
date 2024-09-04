@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -83,8 +85,8 @@ import me.zed.elementhistorydialog.ElementHistoryDialog;
  */
 public abstract class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
 
-    private static final String DEBUG_TAG = ElementSelectionActionModeCallback.class.getSimpleName().substring(0,
-            Math.min(23, ElementSelectionActionModeCallback.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ElementSelectionActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ElementSelectionActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int   MENUITEM_UNDO                 = 0;
     static final int           MENUITEM_TAG                  = 1;
@@ -359,7 +361,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             break;
         case MENUITEM_EXTEND_SELECTION:
             deselect = false;
-            main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, element));
+            main.startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(manager, element));
             break;
         case MENUITEM_ELEMENT_INFO:
             main.descheduleAutoLock();
@@ -575,9 +577,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     /**
      * Opens the history page of the selected element in a browser
      *
-     * FIXME To avoid being caught by the pathPatterns in the manifest we use the API url, that is redirected 
-     * to the website in this special case, this is a hack that will require API 31 with better pattern support
-     * to fix properly.
+     * FIXME To avoid being caught by the pathPatterns in the manifest we use the API url, that is redirected to the
+     * website in this special case, this is a hack that will require API 31 with better pattern support to fix
+     * properly.
      */
     private void showHistory() {
         Intent intent = new Intent(Intent.ACTION_VIEW);

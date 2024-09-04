@@ -99,7 +99,7 @@ public class EasyEditManager {
     public boolean inElementSelectedMode() {
         synchronized (actionModeCallbackLock) {
             return currentActionModeCallback instanceof ElementSelectionActionModeCallback
-                    || currentActionModeCallback instanceof ExtendSelectionActionModeCallback;
+                    || currentActionModeCallback instanceof MultiSelectWithGeometryActionModeCallback;
         }
     }
 
@@ -143,7 +143,7 @@ public class EasyEditManager {
      */
     public boolean inMultiSelectMode() {
         synchronized (actionModeCallbackLock) {
-            return currentActionModeCallback instanceof ExtendSelectionActionModeCallback;
+            return currentActionModeCallback instanceof MultiSelectActionModeCallback;
         }
     }
 
@@ -155,7 +155,7 @@ public class EasyEditManager {
     public boolean draggingEnabled() {
         synchronized (actionModeCallbackLock) {
             return currentActionModeCallback instanceof ElementSelectionActionModeCallback
-                    || currentActionModeCallback instanceof ExtendSelectionActionModeCallback
+                    || currentActionModeCallback instanceof MultiSelectWithGeometryActionModeCallback
                     || currentActionModeCallback instanceof NewNoteSelectionActionModeCallback
                     || currentActionModeCallback instanceof RotationActionModeCallback;
         }
@@ -244,7 +244,7 @@ public class EasyEditManager {
         }
         synchronized (actionModeCallbackLock) {
             if (currentActionModeCallback instanceof ElementSelectionActionModeCallback
-                    || currentActionModeCallback instanceof ExtendSelectionActionModeCallback
+                    || currentActionModeCallback instanceof MultiSelectActionModeCallback
                     || currentActionModeCallback instanceof WayAppendingActionModeCallback
                     || currentActionModeCallback instanceof NewNoteSelectionActionModeCallback) {
                 currentActionMode.finish();
@@ -376,7 +376,7 @@ public class EasyEditManager {
                 cb = new RelationSelectionActionModeCallback(this, (Relation) e);
             }
         } else {
-            cb = new ExtendSelectionActionModeCallback(this, selection);
+            cb = new MultiSelectWithGeometryActionModeCallback(this, selection);
         }
         if (cb != null && (e != null || !selection.isEmpty())) {
             getMain().startSupportActionMode(cb);
@@ -473,16 +473,16 @@ public class EasyEditManager {
                 ((ElementSelectionActionModeCallback) currentActionModeCallback).deselect = false; // keep the element
                                                                                                    // visually selected
                 getMain().startSupportActionMode(
-                        new ExtendSelectionActionModeCallback(this, ((ElementSelectionActionModeCallback) currentActionModeCallback).element));
+                        new MultiSelectWithGeometryActionModeCallback(this, ((ElementSelectionActionModeCallback) currentActionModeCallback).element));
                 // add 2nd element
-                ((ExtendSelectionActionModeCallback) currentActionModeCallback).handleElementClick(osmElement);
-            } else if (currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
+                ((MultiSelectWithGeometryActionModeCallback) currentActionModeCallback).handleElementClick(osmElement);
+            } else if (currentActionModeCallback instanceof MultiSelectWithGeometryActionModeCallback) {
                 // ignore for now
             } else if (currentActionModeCallback != null) {
                 // ignore for now
             } else {
                 // nothing selected
-                getMain().startSupportActionMode(new ExtendSelectionActionModeCallback(this, osmElement));
+                getMain().startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(this, osmElement));
             }
         }
     }
@@ -644,8 +644,8 @@ public class EasyEditManager {
             // only need to test if anything at all is still selected
             if (logic.selectedNodesCount() + logic.selectedWaysCount() + logic.selectedRelationsCount() == 0) {
                 finish();
-            } else if (currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
-                ((ExtendSelectionActionModeCallback) currentActionModeCallback).updateSelection();
+            } else if (currentActionModeCallback instanceof MultiSelectWithGeometryActionModeCallback) {
+                ((MultiSelectWithGeometryActionModeCallback) currentActionModeCallback).updateSelection();
             }
         }
     }

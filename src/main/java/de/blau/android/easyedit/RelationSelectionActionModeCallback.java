@@ -140,7 +140,7 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
         }
         if (!selection.isEmpty()) {
             deselect = false;
-            main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, selection));
+            main.startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(manager, selection));
             if (members != null && members.size() != selection.size()) {
                 ScreenMessage.toastTopWarning(main, R.string.toast_members_not_downloaded);
             }

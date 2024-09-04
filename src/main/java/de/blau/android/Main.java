@@ -120,6 +120,7 @@ import de.blau.android.dialogs.bookmarks.BookmarkEdit;
 import de.blau.android.dialogs.bookmarks.BookmarksDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.ElementSelectionActionModeCallback;
+import de.blau.android.easyedit.MultiSelectActionModeCallback;
 import de.blau.android.easyedit.SimpleActionModeCallback;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -718,7 +719,7 @@ public class Main extends FullScreenAppCompatActivity
         PostAsyncActionHandler postLoadData = () -> {
             updateActionbarEditMode();
             Mode mode = logic.getMode();
-            if (easyEditManager != null && mode.elementsGeomEditiable()) {
+            if (easyEditManager != null && (mode.elementsGeomEditable() || easyEditManager.inMultiSelectMode())) {
                 // need to restart whatever we were doing
                 Log.d(DEBUG_TAG, "restarting element action mode");
                 easyEditManager.restart();
@@ -1344,7 +1345,7 @@ public class Main extends FullScreenAppCompatActivity
         final Logic logic = App.getLogic();
         if (rcData.select()) {
             // need to actually switch to easyeditmode
-            if (!logic.getMode().elementsGeomEditiable()) {
+            if (!logic.getMode().elementsGeomEditable()) {
                 // TODO there might be states in which we don't
                 // want to exit which ever mode we are in
                 logic.setMode(this, Mode.MODE_EASYEDIT);
@@ -3102,8 +3103,8 @@ public class Main extends FullScreenAppCompatActivity
      */
     private void handlePropertyEditorResult() {
         final Logic logic = App.getLogic();
-        if (logic != null && ((logic.getMode().elementsGeomEditiable() && easyEditManager != null && !easyEditManager.isProcessingAction())
-                || logic.getMode() == Mode.MODE_TAG_EDIT)) {
+        if (logic != null && easyEditManager != null && ((logic.getMode().elementsGeomEditable() && !easyEditManager.isProcessingAction())
+                || (logic.getMode() == Mode.MODE_TAG_EDIT && !easyEditManager.inMultiSelectMode()))) {
             // not in an easy edit mode, de-select objects avoids inconsistent
             // visual state
             logic.deselectAll();
@@ -3394,7 +3395,7 @@ public class Main extends FullScreenAppCompatActivity
     public void performTagEdit(final List<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
         descheduleAutoLock();
         unlock();
-        ArrayList<PropertyEditorData> multiple = new ArrayList<>();
+        List<PropertyEditorData> multiple = new ArrayList<>();
         StorageDelegator storageDelegator = App.getDelegator();
         for (OsmElement e : selection) {
             if (storageDelegator.getOsmElement(e.getName(), e.getOsmId()) != null) {
@@ -3625,7 +3626,7 @@ public class Main extends FullScreenAppCompatActivity
 
         @Override
         public void onUp(View v, float x, float y) {
-            if (App.getLogic().getMode().elementsGeomEditiable()) {
+            if (App.getLogic().getMode().elementsGeomEditable()) {
                 getEasyEditManager().invalidate();
             }
         }
@@ -3751,7 +3752,7 @@ public class Main extends FullScreenAppCompatActivity
                 int elementCount = clickedNodesAndWays.size();
                 int clickedObjectsCount = clickedObjects.size();
                 int itemCount = elementCount + clickedObjectsCount;
-                boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
+                boolean inEasyEditMode = logic.getMode().elementsGeomEditable();
                 switch (itemCount) {
                 case 0:
                     // no elements were touched
@@ -3765,7 +3766,7 @@ public class Main extends FullScreenAppCompatActivity
                         descheduleAutoLock();
                         clickedObjects.get(0).onSelected(Main.this);
                     } else if (clickedNodesAndWays.size() == 1) {
-                        if (inEasyEditMode) {
+                        if (inEasyEditMode || getEasyEditManager().inMultiSelectMode()) {
                             getEasyEditManager().editElement(clickedNodesAndWays.get(0));
                         } else {
                             performTagEdit(clickedNodesAndWays.get(0), null, false, false);
@@ -3908,7 +3909,7 @@ public class Main extends FullScreenAppCompatActivity
                     ElementInfo.showDialog(Main.this, element);
                 } else {
                     Mode mode = App.getLogic().getMode();
-                    if (mode.elementsGeomEditiable()) {
+                    if (mode.elementsGeomEditable()) {
                         if (doubleTap) {
                             doubleTap = false;
                             getEasyEditManager().startExtendedSelection(element);
@@ -3919,7 +3920,12 @@ public class Main extends FullScreenAppCompatActivity
                             getEasyEditManager().editElement(element);
                         }
                     } else if (mode.elementsEditable()) {
-                        performTagEdit(element, null, false, false);
+                        if (doubleTap) {
+                            doubleTap = false;
+                            startSupportActionMode(new MultiSelectActionModeCallback(getEasyEditManager(), clickedNodesAndWays.get(0)));
+                        } else {
+                            performTagEdit(element, null, false, false);
+                        }
                     }
                 }
             }
@@ -3932,28 +3938,28 @@ public class Main extends FullScreenAppCompatActivity
                 ScreenMessage.toastTopInfo(Main.this, R.string.toast_unlock_to_edit);
                 return;
             }
-            if (logic.getMode().elementsGeomEditiable()) {
-                clickedNodesAndWays = getClickedOsmElements(logic, x, y);
-                final int clickedCount = clickedNodesAndWays.size();
-                if (clickedCount == 0) {
-                    // no elements were touched
-                    // short cut to finishing multi-select
-                    getEasyEditManager().nothingTouched(true);
-                    return;
+            clickedNodesAndWays = getClickedOsmElements(logic, x, y);
+            final int clickedCount = clickedNodesAndWays.size();
+            if (clickedCount == 0) {
+                // no elements were touched
+                // short cut to finishing multi-select
+                getEasyEditManager().nothingTouched(true);
+                return;
+            }
+            if (!getEasyEditManager().inMultiSelectMode()) {
+                if (clickedCount > 1 && menuRequired()) {
+                    // multiple possible elements touched - show menu
+                    Log.d(DEBUG_TAG, "onDoubleTap displaying menu");
+                    doubleTap = true; // ugly flag
+                    showDisambiguationMenu(v, x, y);
+                } else if (logic.getMode().elementsGeomEditable()) {
+                    // menuRequired tells us it's ok to just take the first one
+                    getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
+                } else if (App.getLogic().getMode().elementsEditable()) {
+                    startSupportActionMode(new MultiSelectActionModeCallback(getEasyEditManager(), clickedNodesAndWays.get(0)));
                 }
-                if (!getEasyEditManager().inMultiSelectMode()) {
-                    if (clickedCount > 1 && menuRequired()) {
-                        // multiple possible elements touched - show menu
-                        Log.d(DEBUG_TAG, "onDoubleTap displaying menu");
-                        doubleTap = true; // ugly flag
-                        showDisambiguationMenu(v, x, y);
-                    } else {
-                        // menuRequired tells us it's ok to just take the first one
-                        getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
-                    }
-                } else {
-                    ScreenMessage.toastTopInfo(Main.this, R.string.toast_already_in_multiselect);
-                }
+            } else {
+                ScreenMessage.toastTopInfo(Main.this, R.string.toast_already_in_multiselect);
             }
         }
 
@@ -4374,7 +4380,7 @@ public class Main extends FullScreenAppCompatActivity
             }
             break;
         }
-        if (easyEditManager != null && logic.getMode().elementsGeomEditiable()) {
+        if (easyEditManager != null && logic.getMode().elementsGeomEditable()) {
             easyEditManager.editElement(e);
             map.invalidate();
         } else { // tag edit mode

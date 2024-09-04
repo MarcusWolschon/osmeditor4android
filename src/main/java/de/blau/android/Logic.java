@@ -1315,7 +1315,7 @@ public class Logic {
         draggingHandle = false;
         draggingNote = false;
         draggedNode = null;
-        if (!isLocked() && isInEditZoomRange() && mode.elementsGeomEditiable()) {
+        if (!isLocked() && isInEditZoomRange() && mode.elementsGeomEditable()) {
             if (activity instanceof Main && !((Main) activity).getEasyEditManager().draggingEnabled()) {
                 // dragging is currently only supported in element selection modes
                 return;
