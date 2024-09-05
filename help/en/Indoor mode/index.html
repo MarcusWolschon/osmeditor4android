@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>18.1.0 Release notes - Vespucci</title>
+        <title>Indoor mode - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -42,7 +42,7 @@
                                     
                                         <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
                                 </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -79,7 +79,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">18.1.0 Release notes</a>
+    <a href="../18.1.0%20Release%20notes/" class="dropdown-item">18.1.0 Release notes</a>
 </li>
                                     
 <li>
@@ -183,7 +183,7 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -228,7 +228,7 @@
 </li>
                                     
 <li>
-    <a href="../Indoor%20mode/" class="dropdown-item">Indoor mode</a>
+    <a href="./" class="dropdown-item active">Indoor mode</a>
 </li>
                                     
 <li>
@@ -377,12 +377,12 @@
 
 <!--
                             <li class="nav-item">
-                                <a rel="prev" href="../19.0.0%20Release%20notes/" class="nav-link">
+                                <a rel="prev" href="../Tag%20only%20mode/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../18.0.0%20Release%20notes/" class="nav-link">
+                                <a rel="next" href="../Address%20mode/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li> -->
@@ -404,21 +404,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#vespucci-181-highlights" class="nav-link">Vespucci 18.1 Highlights</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+            <li class="nav-item" data-level="1"><a href="#indoor-mode" class="nav-link">Indoor mode</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -427,39 +413,9 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h1 id="vespucci-181-highlights">Vespucci 18.1 Highlights<a class="headerlink" href="#vespucci-181-highlights" title="Permanent link">#</a></h1>
-<p>2023-01-04</p>
-<h3 id="rearranged-uploaddownload-menu">Rearranged "upload/download" menu<a class="headerlink" href="#rearranged-uploaddownload-menu" title="Permanent link">#</a></h3>
-<p>The menu entries have been rearranged, in particular the <strong>Upload to OSM server...</strong> entry has been moved to the top and the other entries grouped slightly differently. A <strong>Clear OSM data</strong>  function has been added and <strong>Review changes..</strong> will display all currently edited objects without requiring a network connection or already authenticated access.</p>
-<h3 id="support-for-selecting-which-part-of-a-split-way-gets-a-new-id">Support for selecting which part of a split way gets a new id<a class="headerlink" href="#support-for-selecting-which-part-of-a-split-way-gets-a-new-id" title="Permanent link">#</a></h3>
-<p>Long pressing on the node you want to split at will allow you to select which side should get the new id, and as a consequence lose its history when you are splitting a way. Note that this only works for non-closed ways.</p>
-<h3 id="data-style-changes">Data style changes<a class="headerlink" href="#data-style-changes" title="Permanent link">#</a></h3>
-<p>The built-in style has been renamed from <em>Default</em> to <em>Built-in (minimal)</em> as it hasn't been the actual default style for many years. </p>
-<p>Custom styles can now be imported with <strong>Import data style...</strong> function in the <strong>Tools</strong> menu. This ia a workaround of an Android 12 and later issue with accessing custom style files.</p>
-<h3 id="support-for-svg-icons-in-presets">Support for SVG icons in presets<a class="headerlink" href="#support-for-svg-icons-in-presets" title="Permanent link">#</a></h3>
-<p>Android has no "built-in" support for SVG images. We have now added third party support for SVG rendering, this allows us to support SVG icons in presets and makes using "JOSM-only" presets much more practical.</p>
-<h3 id="work-around-android-issues-with-multiple-installed-file-pickersselectors">Work around Android issues with multiple installed file pickers/selectors<a class="headerlink" href="#work-around-android-issues-with-multiple-installed-file-pickersselectors" title="Permanent link">#</a></h3>
-<p>Prior to Android 11 if more than one installed app supported the ACTION_OPEN_DOCUMENT or ACTION_CREATE_DOCUMENT intents and none of them was selected as default, the system target chooser would be shown to allow app selection. While then selecting the app and then selecting a file would seem to work, the system does not return the selected file and the behaviour is indistinguishable from the user simply not selecting a file and canceling the operation. Android 11 and later seem to always display the system file picker and are not affected by the issue.</p>
-<p>On systems that had this issue you were not able to select files at all. As a workaround we now try to detect if such apps are installed and display a modal/dialog for selection.          </p>
-<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
-<ul>
-<li>"import", that is make a copy, of MBT files on API 29 and higher, as the file needs to be owned by Vespucci for random file access. Note that this will double the required space on your device.</li>
-<li>If latin script is being used, use sentence caps for comment and source field in the upload dialog.</li>
-<li>Add enable resetting the style to default values for all styleable layers.</li>
-<li>Add *=construction tags as default tags to re-survey, only for new installs.</li>
-<li>Add support for zipped (with icons) custom data styles.</li>
-<li>Allow limited tuning of address prediction by adjusting how near neighboring addresses need to be. </li>
-<li>Many documentation updates and fixes, thanks to Dan Jacobson.</li>
-</ul>
-<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
-<ul>
-<li>As the saved state file may have changed you should upload any pending changes before updating.</li>
-</ul>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>The documentation is out of date.</li>
-<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
-</ul></div> -->
+<h1 id="indoor-mode">Indoor mode<a class="headerlink" href="#indoor-mode" title="Permanent link">#</a></h1>
+<p><em>Indoor</em> mode can be selected either be a long press on the lock button or by the using the <em>Modes</em> menu from the overflow main menu. In indoor mode the displayed level can be changed with the up/down buttons, tapping the level display button will show suitable objects that don’t have a level tag, tapping again will revert to the level selector.</p>
+<p>Elements that are not on the current level are drawn in a light grey, this works best on an uncluttered background map, for example the Thunderforest Landscape map. Newly created elements will automatically have the current level assigned in the property editor.</p></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
@@ -472,21 +428,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#vespucci-181-highlights" class="nav-link">Vespucci 18.1 Highlights</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+            <li class="nav-item" data-level="1"><a href="#indoor-mode" class="nav-link">Indoor mode</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -495,39 +437,9 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h1 id="vespucci-181-highlights">Vespucci 18.1 Highlights<a class="headerlink" href="#vespucci-181-highlights" title="Permanent link">#</a></h1>
-<p>2023-01-04</p>
-<h3 id="rearranged-uploaddownload-menu">Rearranged "upload/download" menu<a class="headerlink" href="#rearranged-uploaddownload-menu" title="Permanent link">#</a></h3>
-<p>The menu entries have been rearranged, in particular the <strong>Upload to OSM server...</strong> entry has been moved to the top and the other entries grouped slightly differently. A <strong>Clear OSM data</strong>  function has been added and <strong>Review changes..</strong> will display all currently edited objects without requiring a network connection or already authenticated access.</p>
-<h3 id="support-for-selecting-which-part-of-a-split-way-gets-a-new-id">Support for selecting which part of a split way gets a new id<a class="headerlink" href="#support-for-selecting-which-part-of-a-split-way-gets-a-new-id" title="Permanent link">#</a></h3>
-<p>Long pressing on the node you want to split at will allow you to select which side should get the new id, and as a consequence lose its history when you are splitting a way. Note that this only works for non-closed ways.</p>
-<h3 id="data-style-changes">Data style changes<a class="headerlink" href="#data-style-changes" title="Permanent link">#</a></h3>
-<p>The built-in style has been renamed from <em>Default</em> to <em>Built-in (minimal)</em> as it hasn't been the actual default style for many years. </p>
-<p>Custom styles can now be imported with <strong>Import data style...</strong> function in the <strong>Tools</strong> menu. This ia a workaround of an Android 12 and later issue with accessing custom style files.</p>
-<h3 id="support-for-svg-icons-in-presets">Support for SVG icons in presets<a class="headerlink" href="#support-for-svg-icons-in-presets" title="Permanent link">#</a></h3>
-<p>Android has no "built-in" support for SVG images. We have now added third party support for SVG rendering, this allows us to support SVG icons in presets and makes using "JOSM-only" presets much more practical.</p>
-<h3 id="work-around-android-issues-with-multiple-installed-file-pickersselectors">Work around Android issues with multiple installed file pickers/selectors<a class="headerlink" href="#work-around-android-issues-with-multiple-installed-file-pickersselectors" title="Permanent link">#</a></h3>
-<p>Prior to Android 11 if more than one installed app supported the ACTION_OPEN_DOCUMENT or ACTION_CREATE_DOCUMENT intents and none of them was selected as default, the system target chooser would be shown to allow app selection. While then selecting the app and then selecting a file would seem to work, the system does not return the selected file and the behaviour is indistinguishable from the user simply not selecting a file and canceling the operation. Android 11 and later seem to always display the system file picker and are not affected by the issue.</p>
-<p>On systems that had this issue you were not able to select files at all. As a workaround we now try to detect if such apps are installed and display a modal/dialog for selection.          </p>
-<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
-<ul>
-<li>"import", that is make a copy, of MBT files on API 29 and higher, as the file needs to be owned by Vespucci for random file access. Note that this will double the required space on your device.</li>
-<li>If latin script is being used, use sentence caps for comment and source field in the upload dialog.</li>
-<li>Add enable resetting the style to default values for all styleable layers.</li>
-<li>Add *=construction tags as default tags to re-survey, only for new installs.</li>
-<li>Add support for zipped (with icons) custom data styles.</li>
-<li>Allow limited tuning of address prediction by adjusting how near neighboring addresses need to be. </li>
-<li>Many documentation updates and fixes, thanks to Dan Jacobson.</li>
-</ul>
-<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
-<ul>
-<li>As the saved state file may have changed you should upload any pending changes before updating.</li>
-</ul>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>The documentation is out of date.</li>
-<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
-</ul></div>
+<h1 id="indoor-mode">Indoor mode<a class="headerlink" href="#indoor-mode" title="Permanent link">#</a></h1>
+<p><em>Indoor</em> mode can be selected either be a long press on the lock button or by the using the <em>Modes</em> menu from the overflow main menu. In indoor mode the displayed level can be changed with the up/down buttons, tapping the level display button will show suitable objects that don’t have a level tag, tapping again will revert to the level selector.</p>
+<p>Elements that are not on the current level are drawn in a light grey, this works best on an uncluttered background map, for example the Thunderforest Landscape map. Newly created elements will automatically have the current level assigned in the property editor.</p></div>
                     
             </div>
         </div>

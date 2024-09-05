@@ -224,6 +224,18 @@
 </li>
                                     
 <li>
+    <a href="../../help/en/Tag%20only%20mode/" class="dropdown-item">Tag only mode</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Indoor%20mode/" class="dropdown-item">Indoor mode</a>
+</li>
+                                    
+<li>
+    <a href="../../help/en/Address%20mode/" class="dropdown-item">Address mode</a>
+</li>
+                                    
+<li>
     <a href="../../help/en/Conflict%20resolution/" class="dropdown-item">Conflict resolution</a>
 </li>
                                     
@@ -402,7 +414,7 @@
 <div class="col-md-9" role="main">
 
 <h2 id="vespucci-data-styling">Vespucci Data Styling<a class="headerlink" href="#vespucci-data-styling" title="Permanent link">#</a></h2>
-<p><em>Documentation for Vespucci 16.0 Style file format version 0.3.1</em></p>
+<p><em>Documentation for Vespucci 20.2 Style file format version 0.3.1</em></p>
 <p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
 <h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci<a class="headerlink" href="#using-custom-style-files-in-vespucci" title="Permanent link">#</a></h3>
 <p>Files need to need have an unique <em>name</em> attribute and the <em>.xml</em> extension and reside in a <em>styles</em> directory in an app specific files directory (for example <em>Android/data/de.blau.android/files/styles/test.xml</em> ). Currently the legacy storage format and location continues to work: unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and stored in the <em>Vespucci</em> directory, this is the only location that will work for devices with Android version older than 4.4. </p>
@@ -435,7 +447,7 @@
 <td></td>
 <td>format</td>
 <td></td>
-<td>Format version, currently 0.3.0</td>
+<td>Format version, currently 0.3.1</td>
 </tr>
 <tr>
 <td><strong>&lt;!--&nbsp;comment&nbsp;--&gt;</strong></td>
@@ -661,7 +673,7 @@
 </tr>
 </tbody>
 </table>
-<p>Using <em>"preset"</em> as the value for iconPath will match the objects tags with the presets, just as this is done throughout the application, however "building", "building:part" and "indoor=room" tags are ignored. If you need to render icons specifically for such objects, reference an icon directly. </p>
+<p>Using <em>"preset"</em> as the value for <em>iconPath</em> will match the objects tags with the presets, just as this is done throughout the application. An <em>""</em> (empty string) value for <em>iconPath</em> will suppress rendering any icon.</p>
 <h3 id="internal-features">Internal features<a class="headerlink" href="#internal-features" title="Permanent link">#</a></h3>
 <p>Styling for internal features is provided by the app, but they can be overridden by setting them in a style file.</p>
 <table>
@@ -1282,7 +1294,7 @@
                     	<div class="col-md-9" role="main">
 
 <h2 id="vespucci-data-styling">Vespucci Data Styling<a class="headerlink" href="#vespucci-data-styling" title="Permanent link">#</a></h2>
-<p><em>Documentation for Vespucci 16.0 Style file format version 0.3.1</em></p>
+<p><em>Documentation for Vespucci 20.2 Style file format version 0.3.1</em></p>
 <p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
 <h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci<a class="headerlink" href="#using-custom-style-files-in-vespucci" title="Permanent link">#</a></h3>
 <p>Files need to need have an unique <em>name</em> attribute and the <em>.xml</em> extension and reside in a <em>styles</em> directory in an app specific files directory (for example <em>Android/data/de.blau.android/files/styles/test.xml</em> ). Currently the legacy storage format and location continues to work: unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and stored in the <em>Vespucci</em> directory, this is the only location that will work for devices with Android version older than 4.4. </p>
@@ -1315,7 +1327,7 @@
 <td></td>
 <td>format</td>
 <td></td>
-<td>Format version, currently 0.3.0</td>
+<td>Format version, currently 0.3.1</td>
 </tr>
 <tr>
 <td><strong>&lt;!--&nbsp;comment&nbsp;--&gt;</strong></td>
@@ -1541,7 +1553,7 @@
 </tr>
 </tbody>
 </table>
-<p>Using <em>"preset"</em> as the value for iconPath will match the objects tags with the presets, just as this is done throughout the application, however "building", "building:part" and "indoor=room" tags are ignored. If you need to render icons specifically for such objects, reference an icon directly. </p>
+<p>Using <em>"preset"</em> as the value for <em>iconPath</em> will match the objects tags with the presets, just as this is done throughout the application. An <em>""</em> (empty string) value for <em>iconPath</em> will suppress rendering any icon.</p>
 <h3 id="internal-features">Internal features<a class="headerlink" href="#internal-features" title="Permanent link">#</a></h3>
 <p>Styling for internal features is provided by the app, but they can be overridden by setting them in a style file.</p>
 <table>
