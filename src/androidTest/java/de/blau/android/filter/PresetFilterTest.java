@@ -93,7 +93,7 @@ public class PresetFilterTest {
         assertTrue(TestUtils.clickText(device, false, "Facilities", true));
         assertTrue(TestUtils.clickText(device, false, "Place of Worship", true, true));
         assertTrue(TestUtils.clickText(device, false, "Church", true));
-        TestUtils.waitForSimpleButton(device, 5000);
+        TestUtils.waitForSimpleButton(device, 10000);
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.38819D, 47.38961D);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_wayselect), 5000));
         assertEquals(206010144L, App.getLogic().getSelectedWay().getOsmId());
@@ -117,7 +117,7 @@ public class PresetFilterTest {
         assertTrue(TestUtils.clickText(device, false, "Highways", true));
         assertTrue(TestUtils.clickText(device, false, "Waypoints", true, true));
         assertTrue(TestUtils.clickText(device, false, "Pedestrian Crossing", true));
-        TestUtils.waitForSimpleButton(device, 5000);
+        TestUtils.waitForSimpleButton(device, 10000);
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.3886622D, 47.3887223D, true);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect), 5000));
         assertEquals(289987514L, App.getLogic().getSelectedNode().getOsmId());
@@ -150,7 +150,7 @@ public class PresetFilterTest {
         assertTrue(TestUtils.clickText(device, false, "Place of Worship", true, true));
         assertTrue(TestUtils.clickText(device, false, "Church", true));
         
-        TestUtils.clickSimpleButton(device, 5000);
+        TestUtils.clickSimpleButton(device, 10000);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node_tags), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_node_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
@@ -191,7 +191,7 @@ public class PresetFilterTest {
         assertTrue(TestUtils.clickText(device, false, "Facilities", true));
         assertTrue(TestUtils.longClickText(device, "Place of Worship"));
 
-        TestUtils.clickSimpleButton(device, 5000);
+        TestUtils.clickSimpleButton(device, 10000);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node_tags), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_node_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);

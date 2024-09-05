@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,9 @@ import de.blau.android.util.SerializableState;
  *
  */
 public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplittingActionModeCallback {
-    private static final String DEBUG_TAG = ClosedWaySplittingActionModeCallback.class.getSimpleName().substring(0, Math.min(23, ClosedWaySplittingActionModeCallback.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ClosedWaySplittingActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ClosedWaySplittingActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String CREATE_POLYGONS_KEY = "create polygons";
 
@@ -92,7 +96,7 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
                     logic.addSelectedWay(result[1]);
                     List<OsmElement> selection = new ArrayList<>();
                     selection.addAll(logic.getSelectedWays());
-                    main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, selection));
+                    main.startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(manager, selection));
                     return true;
                 }
             }

@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,18 +9,14 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
-import de.blau.android.Main;
-import de.blau.android.Main.UndoListener;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.TagConflictDialog;
-import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -28,8 +26,6 @@ import de.blau.android.osm.Result;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
-import de.blau.android.prefs.PrefEditor;
-import de.blau.android.search.Search;
 import de.blau.android.util.BentleyOttmannForOsm;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.GeoMath;
@@ -38,9 +34,10 @@ import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG = ExtendSelectionActionModeCallback.class.getSimpleName().substring(0,
-            Math.min(23, ExtendSelectionActionModeCallback.class.getSimpleName().length()));
+public class MultiSelectWithGeometryActionModeCallback extends MultiSelectActionModeCallback {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, EasyEditActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MultiSelectWithGeometryActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MENUITEM_MERGE                = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 1;
     private static final int MENUITEM_RELATION             = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 2;
@@ -49,22 +46,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private static final int MENUITEM_INTERSECT            = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 5;
     private static final int MENUITEM_CREATE_CIRCLE        = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 6;
     private static final int MENUITEM_ROTATE               = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 7;
-    private static final int MENUITEM_UPLOAD               = ElementSelectionActionModeCallback.MENUITEM_UPLOAD;
-    private static final int MENUITEM_ZOOM_TO_SELECTION    = ElementSelectionActionModeCallback.MENUITEM_ZOOM_TO_SELECTION;
-    private static final int MENUITEM_SEARCH_OBJECTS       = ElementSelectionActionModeCallback.MENUITEM_SEARCH_OBJECTS;
-    private static final int MENUITEM_ADD_TO_TODO          = ElementSelectionActionModeCallback.MENUITEM_ADD_TO_TODO;
 
-    private List<OsmElement> selection;
-    private List<OsmElement> sortedWays;
-
-    UndoListener undoListener;
-
-    private boolean deselect = true;
-
-    private MenuItem undoItem;
     private MenuItem mergeItem;
     private MenuItem orthogonalizeItem;
-    private MenuItem uploadItem;
     private MenuItem intersectItem;
     private MenuItem createCircleItem;
 
@@ -74,15 +58,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
      * @param manager the current EasEditManager instance
      * @param elements the List of OsmElements
      */
-    public ExtendSelectionActionModeCallback(@NonNull EasyEditManager manager, @NonNull List<OsmElement> elements) {
-        super(manager);
-        selection = new ArrayList<>();
-        for (OsmElement e : elements) {
-            if (e != null) {
-                addOrRemoveElement(e);
-            }
-        }
-        undoListener = main.new UndoListener();
+    public MultiSelectWithGeometryActionModeCallback(@NonNull EasyEditManager manager, @NonNull List<OsmElement> elements) {
+        super(manager, elements);
     }
 
     /**
@@ -91,106 +68,14 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
      * @param manager the current EasEditManager instance
      * @param element the OsmElement
      */
-    public ExtendSelectionActionModeCallback(@NonNull EasyEditManager manager, @Nullable OsmElement element) {
-        super(manager);
-        Log.d(DEBUG_TAG, "Multi-Select create mode with " + element);
-        selection = new ArrayList<>();
-        if (element != null) {
-            addOrRemoveElement(element);
-        }
-        undoListener = main.new UndoListener();
-    }
-
-    /**
-     * Add or remove objects from the selection
-     * 
-     * @param element object to add or remove
-     */
-    private void addOrRemoveElement(OsmElement element) {
-        try {
-            if (!selection.contains(element)) {
-                selection.add(element);
-                switch (element.getName()) {
-                case Way.NAME:
-                    if (((Way) element).nodeCount() == 0) {
-                        ScreenMessage.toastTopError(main, main.getString(R.string.toast_degenerate_way_with_info, element.getDescription(main)), true);
-                        selection.remove(element);
-                        break;
-                    }
-                    logic.addSelectedWay((Way) element);
-                    break;
-                case Node.NAME:
-                    logic.addSelectedNode((Node) element);
-                    break;
-                case Relation.NAME:
-                    logic.addSelectedRelation((Relation) element);
-                    break;
-                default:
-                    throw new OsmException(element.getName());
-                }
-            } else {
-                selection.remove(element);
-                switch (element.getName()) {
-                case Way.NAME:
-                    logic.removeSelectedWay((Way) element);
-                    break;
-                case Node.NAME:
-                    logic.removeSelectedNode((Node) element);
-                    break;
-                case Relation.NAME:
-                    logic.removeSelectedRelation((Relation) element);
-                    break;
-                default:
-                    throw new OsmException(element.getName());
-                }
-            }
-        } catch (OsmException osmex) {
-            Log.e(DEBUG_TAG, "Unkown element type " + osmex.getMessage());
-        }
-        if (selection.isEmpty()) {
-            // nothing selected more .... stop
-            manager.finish();
-        } else {
-            sortedWays = Util.sortWays(selection);
-            manager.invalidate();
-        }
-        setSubTitle(mode);
-        main.invalidateMap();
-    }
-
-    /**
-     * Set a selected object count in the action mode subtitle
-     * 
-     * @param mode the ActionMode
-     */
-    private void setSubTitle(@Nullable ActionMode mode) {
-        if (mode != null) {
-            int count = selection.size();
-            mode.setSubtitle(main.getResources().getQuantityString(R.plurals.actionmode_object_count, count, count));
-        }
+    public MultiSelectWithGeometryActionModeCallback(@NonNull EasyEditManager manager, @Nullable OsmElement element) {
+        super(manager, element);
     }
 
     @Override
     public boolean onCreateActionMode(@NonNull ActionMode mode, @NonNull Menu menu) {
-        helpTopic = R.string.help_multiselect;
-        mode.setTitle(R.string.actionmode_multiselect);
-        setSubTitle(mode);
         super.onCreateActionMode(mode, menu);
-        logic.setReturnRelations(true); // can add relations
-
-        // setup menus
         menu = replaceMenu(menu, mode, this);
-        menu.clear();
-        menuUtil.reset();
-        main.getMenuInflater().inflate(R.menu.undo_action, menu);
-        undoItem = menu.findItem(R.id.undo_action);
-
-        View undoView = undoItem.getActionView();
-        undoView.setOnClickListener(undoListener);
-        undoView.setOnLongClickListener(undoListener);
-
-        menu.add(Menu.NONE, ElementSelectionActionModeCallback.MENUITEM_TAG, Menu.NONE, R.string.menu_tags)
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
         menu.add(Menu.NONE, ElementSelectionActionModeCallback.MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
         if (!selectionContainsRelation()) {
@@ -217,34 +102,14 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
         menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_rotate));
 
-        menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
-        menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
-        menu.add(GROUP_BASE, MENUITEM_ADD_TO_TODO, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_to_todo);
-
-        uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_elements);
-
-        menu.add(GROUP_BASE, ElementSelectionActionModeCallback.MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
-        menu.add(GROUP_BASE, ElementSelectionActionModeCallback.MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM | 10, R.string.tag_menu_js_console)
-                .setEnabled(logic.getPrefs().isJsConsoleEnabled());
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         return true;
     }
 
     @SuppressLint("InflateParams")
     @Override
     public boolean onPrepareActionMode(@NonNull ActionMode mode, @NonNull Menu menu) {
-        menu = replaceMenu(menu, mode, this);
         boolean updated = super.onPrepareActionMode(mode, menu);
-        if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
-            if (!undoItem.isVisible()) {
-                undoItem.setVisible(true);
-                updated = true;
-            }
-        } else if (undoItem.isVisible()) {
-            undoItem.setVisible(false);
-            updated = true;
-        }
+
         final boolean canMergePolygons = canMergePolygons(selection);
         int count = selection.size();
         updated |= ElementSelectionActionModeCallback
@@ -257,15 +122,6 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
         updated |= ElementSelectionActionModeCallback.setItemVisibility(countType(ElementType.NODE) >= StorageDelegator.MIN_NODES_CIRCLE, createCircleItem,
                 false);
-
-        boolean changedElementsSelected = false;
-        for (OsmElement e : selection) {
-            if (!e.isUnchanged()) {
-                changedElementsSelected = true;
-                break;
-            }
-        }
-        updated |= ElementSelectionActionModeCallback.setItemVisibility(changedElementsSelected, uploadItem, true);
 
         if (updated) {
             arrangeMenu(menu);
@@ -303,11 +159,6 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         return false;
     }
 
-    @Override
-    public boolean elementsOnly() {
-        return true;
-    }
-
     /**
      * Check if the current selection are closed ways
      * 
@@ -327,14 +178,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         if (!super.onActionItemClicked(mode, item)) {
             switch (item.getItemId()) {
-
-            case ElementSelectionActionModeCallback.MENUITEM_TAG:
-                main.performTagEdit(selection, false, false);
-                break;
             case ElementSelectionActionModeCallback.MENUITEM_DELETE:
                 menuDelete(false);
                 break;
-
             case ElementSelectionActionModeCallback.MENUITEM_COPY:
                 logic.copyToClipboard(selection);
                 mode.finish();
@@ -374,33 +220,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 createCircle();
                 break;
             case MENUITEM_ROTATE:
-                deselect = false;
+                deselectOnExit = false;
                 main.startSupportActionMode(new RotationActionModeCallback(manager));
-                break;
-            case MENUITEM_ZOOM_TO_SELECTION:
-                main.zoomTo(selection);
-                main.invalidateMap();
-                break;
-            case MENUITEM_SEARCH_OBJECTS:
-                Search.search(main);
-                break;
-            case MENUITEM_ADD_TO_TODO:
-                ElementSelectionActionModeCallback.addToTodoList(main, manager, selection);
-                break;
-            case MENUITEM_UPLOAD:
-                main.descheduleAutoLock();
-                main.confirmUpload(ElementSelectionActionModeCallback.addRequiredElements(main, new ArrayList<>(selection)));
-                break;
-            case ElementSelectionActionModeCallback.MENUITEM_PREFERENCES:
-                PrefEditor.start(main);
-                break;
-            case ElementSelectionActionModeCallback.MENUITEM_JS_CONSOLE:
-                Main.showJsConsole(main);
-                break;
-            case R.id.undo_action:
-                // should not happen
-                Log.d(DEBUG_TAG, "menu undo clicked");
-                undoListener.onClick(null);
                 break;
             default:
                 return false;
@@ -518,43 +339,6 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     }
 
     /**
-     * Update the selection from logic, used after undo/redo
-     */
-    public void updateSelection() {
-        synchronized (selection) {
-            for (OsmElement e : new ArrayList<>(selection)) {
-                if (!logic.isSelected(e)) {
-                    selection.remove(e);
-                }
-            }
-            sortedWays = Util.sortWays(selection);
-            manager.invalidate();
-            setSubTitle(mode);
-        }
-    }
-
-    @Override
-    public boolean handleElementClick(OsmElement element) {
-        // due to clickableElements, only valid elements can be clicked
-        Log.d(DEBUG_TAG, "Multi-Select add/remove " + element);
-        addOrRemoveElement(element);
-        main.invalidateMap();
-        return true;
-    }
-
-    @Override
-    public void onDestroyActionMode(ActionMode mode) {
-        Log.d(DEBUG_TAG, "onDestroyActionMode deselect " + deselect);
-        super.onDestroyActionMode(mode);
-        logic.setClickableElements(null);
-        logic.setReturnRelations(true);
-        if (deselect) {
-            logic.deselectAll();
-            main.invalidateMap();
-        }
-    }
-
-    /**
      * Delete action
      * 
      * @param deleteFromRelations if true the elements will be deleted without regards for their Relation membership
@@ -597,13 +381,6 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     }
 
     @Override
-    public boolean onBackPressed() {
-        Log.d(DEBUG_TAG, "onBackPressed");
-        deselect = true;
-        return super.onBackPressed(); // call the normal stuff
-    }
-
-    @Override
     public boolean processShortcut(Character c) {
         if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
             logic.copyToClipboard(selection);
@@ -612,9 +389,6 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         } else if (c == Util.getShortCut(main, R.string.shortcut_cut)) {
             logic.cutToClipboard(main, selection);
             manager.finish();
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
-            main.performTagEdit(selection, false, false);
             return true;
         } else if (c == Util.getShortCut(main, R.string.shortcut_undo)) {
             undoListener.onClick(null);

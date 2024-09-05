@@ -312,7 +312,7 @@ public enum Mode {
      * 
      * @return true if elements geometry is editable
      */
-    public boolean elementsGeomEditiable() {
+    public boolean elementsGeomEditable() {
         return geomEditable;
     }
 

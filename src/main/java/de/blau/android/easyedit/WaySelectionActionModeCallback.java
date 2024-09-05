@@ -297,7 +297,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 case MENUITEM_SELECT_WAY_NODES:
                     logic.deselectAll();
                     deselect = false;
-                    main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, new ArrayList<>(new HashSet<>(way.getNodes()))));
+                    main.startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(manager, new ArrayList<>(new HashSet<>(way.getNodes()))));
                     break;
                 case MENUITEM_START_END_OF_WAY:
                     new AlertDialog.Builder(main).setMessage(R.string.start_end_way_description).setPositiveButton(R.string.end, (dialog, which) -> {

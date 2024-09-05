@@ -15,9 +15,9 @@ If a small "T" is displayed on the lock icon you are in "Tag editing only" mode 
 All the mode options are 
 
 * __Normal__ conventional editing mode.
-* __Tag only__ selecting an object will immediately start the property editor.
-* __Address__ slightly simplified dedicated mode for surveying addresses.
-* __Indoor__ indoor editing with level selector.
+* __Tag only__ selecting an object will immediately start the property editor. See [Tag only mode](Tag%20only%20mode.md) 
+* __Address__ slightly simplified dedicated mode for surveying addresses. See [Address mode](Address%20mode.md) 
+* __Indoor__ indoor editing with level selector. See [Indoor mode](Indoor%20mode.md) 
 * __C-Mode__ "complete" mode, only objects with validation warnings will be shown.
 
 The lock icon will always be located in the upper left corner of your devices screen. The placement of the following controls will depend on the size, orientation and age of your device, and may be in the top or bottom bar, or in a menu. 
@@ -126,11 +126,6 @@ The included map styles highlight certain data issues, these are
 
 The colours can be changed in the [data style](http://vespucci.io/tutorials/data_styling/#validation-styling).
 
-### Indoor mode
-   
-In indoor mode the displayed level can be changed with the up/down buttons, tapping the level display button will show suitable objects that doesn’t have a level tag, tapping again will revert to the level selector.
-
-Elements that are not on the current level are drawn in a light grey, this works best on an uncluttered background map, for example the Thunderforest Landscape map. Newly created elements will automatically have the current level assigned in the property editor.
 
 ## Available Actions
 

@@ -36,6 +36,9 @@
     <string name="help_newnoteselection">New Note selection</string>
     <string name="help_voice_commands">Voice commands</string>
     <string name="help_add_route_segment">Add route segment</string>
+    <string name="help_tag_only_mode">Tag only mode</string>
+    <string name="help_indoor_mode">Indoor mode</string>
+    <string name="help_address_mode">Address mode</string>
     <string name="help_upgrade">20.1 Release notes</string>
     <string name="help_upgrade_200">20.0 Release notes</string>
     <string name="help_upgrade_193">19.3 Release notes</string>
@@ -92,6 +95,9 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
         <item>@string/help_newnoteselection</item>
+        <item>@string/help_tag_only_mode</item>
+        <item>@string/help_indoor_mode</item>
+        <item>@string/help_address_mode</item>
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
@@ -152,6 +158,9 @@
     	<item>Preset filter</item>
     	<item>Opening hours</item>
         <item>New Note selected</item>
+        <item>Tag only mode</item>
+        <item>Indoor mode</item>
+        <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
         <item>20.1.0 Release notes</item>
