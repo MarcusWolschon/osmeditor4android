@@ -3903,30 +3903,31 @@ public class Main extends FullScreenAppCompatActivity
         @Override
         public void onItemClick(int position) {
             int itemId = position - clickedObjects.size();
-            if ((itemId >= 0) && (clickedNodesAndWays != null) && (itemId < clickedNodesAndWays.size())) {
-                final OsmElement element = clickedNodesAndWays.get(itemId);
-                if (App.getLogic().isLocked()) {
-                    ElementInfo.showDialog(Main.this, element);
+            if (itemId < 0 || clickedNodesAndWays == null || itemId >= clickedNodesAndWays.size()) {
+                return;
+            }
+            final OsmElement element = clickedNodesAndWays.get(itemId);
+            if (App.getLogic().isLocked()) {
+                ElementInfo.showDialog(Main.this, element);
+                return;
+            }
+            Mode mode = App.getLogic().getMode();
+            if (mode.elementsGeomEditable()) {
+                if (doubleTap) {
+                    doubleTap = false;
+                    getEasyEditManager().startExtendedSelection(element);
+                } else if (longClick) {
+                    longClick = false;
+                    getEasyEditManager().handleLongClick(null, element);
                 } else {
-                    Mode mode = App.getLogic().getMode();
-                    if (mode.elementsGeomEditable()) {
-                        if (doubleTap) {
-                            doubleTap = false;
-                            getEasyEditManager().startExtendedSelection(element);
-                        } else if (longClick) {
-                            longClick = false;
-                            getEasyEditManager().handleLongClick(null, element);
-                        } else {
-                            getEasyEditManager().editElement(element);
-                        }
-                    } else if (mode.elementsEditable()) {
-                        if (doubleTap) {
-                            doubleTap = false;
-                            startSupportActionMode(new MultiSelectActionModeCallback(getEasyEditManager(), clickedNodesAndWays.get(0)));
-                        } else {
-                            performTagEdit(element, null, false, false);
-                        }
-                    }
+                    getEasyEditManager().editElement(element);
+                }
+            } else if (mode.elementsEditable()) {
+                if (doubleTap) {
+                    doubleTap = false;
+                    startSupportActionMode(new MultiSelectActionModeCallback(getEasyEditManager(), clickedNodesAndWays.get(0)));
+                } else {
+                    performTagEdit(element, null, false, false);
                 }
             }
         }
