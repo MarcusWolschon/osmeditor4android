@@ -202,8 +202,7 @@ public final class EliFeatureCollection implements GeoJson {
             return false;
         }
         EliFeatureCollection other = (EliFeatureCollection) obj;
-        return Objects.equals(bbox, other.bbox) && Objects.equals(features, other.features)
-                && Objects.equals(meta, other.meta) && type.equals(other.type);
+        return Objects.equals(bbox, other.bbox) && Objects.equals(features, other.features) && Objects.equals(meta, other.meta) && type.equals(other.type);
     }
 
     /**
@@ -265,8 +264,8 @@ public final class EliFeatureCollection implements GeoJson {
                 jsonWriter.nullValue();
             } else {
                 if (listFeatureAdapter == null) {
-                    TypeToken typeToken = TypeToken.getParameterized(List.class, Feature.class);
-                    listFeatureAdapter = (TypeAdapter<List<Feature>>) gson.getAdapter(typeToken);
+                    TypeToken<List<Feature>> typeToken = (TypeToken<List<Feature>>) TypeToken.getParameterized(List.class, Feature.class);
+                    listFeatureAdapter = gson.getAdapter(typeToken);
                 }
                 listFeatureAdapter.write(jsonWriter, object.features());
             }
@@ -314,8 +313,8 @@ public final class EliFeatureCollection implements GeoJson {
 
                 case NAME_FEATURES:
                     if (listFeatureAdapter == null) {
-                        TypeToken typeToken = TypeToken.getParameterized(List.class, Feature.class);
-                        listFeatureAdapter = (TypeAdapter<List<Feature>>) gson.getAdapter(typeToken);
+                        TypeToken<List<Feature>> typeToken = (TypeToken<List<Feature>>) TypeToken.getParameterized(List.class, Feature.class);
+                        listFeatureAdapter = gson.getAdapter(typeToken);
                     }
                     features = listFeatureAdapter.read(jsonReader);
                     break;
