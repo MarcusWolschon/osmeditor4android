@@ -3128,10 +3128,11 @@ public class Logic {
 
             @Override
             protected AsyncResult doInBackground(Void arg) {
+                Server server = prefs.getServer();
+                final float maxArea = server.getCachedCapabilities().getMaxArea();
                 for (BoundingBox box : boxes) {
-                    Server server = prefs.getServer();
-                    if (box != null && box.isValidForApi(server.getCachedCapabilities().getMaxArea())) {
-                        AsyncResult result = download(activity, prefs.getServer(), box, postMerge, null, true, true);
+                    if (box != null && box.isValidForApi(maxArea)) {
+                        AsyncResult result = download(activity, server, box, postMerge, null, true, true);
                         if (result.getCode() != 0) {
                             return result;
                         }
@@ -3421,7 +3422,6 @@ public class Logic {
                 int result = downloadElement(ctx, type, id, relationFull, withParents, osmParser);
                 if (result == ErrorCodes.OK) {
                     try {
-                        // FIXME need to check if providing a handler makes sense here
                         getDelegator().mergeData(osmParser.getStorage(), null);
                     } catch (DataConflictException dcex) {
                         result = ErrorCodes.DATA_CONFLICT;
@@ -3709,42 +3709,40 @@ public class Logic {
         new ReadAsyncClass(executorService, uiHandler, context, is, false, postLoad) {
             @Override
             protected AsyncResult doInBackground(Boolean arg) {
-                synchronized (Logic.this) {
-                    try {
-                        final OsmParser osmParser = new OsmParser();
-                        osmParser.clearBoundingBoxes(); // this removes the default bounding box
-                        try (final InputStream in = new BufferedInputStream(is)) {
-                            osmParser.start(in);
-                            StorageDelegator sd = getDelegator();
-                            sd.reset(false);
-                            sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
-                            sd.fixupApiStorage();
-                            if (!add && sd.getBoundingBoxes().isEmpty()) {
-                                // ensure a valid bounding box
-                                sd.addBoundingBox(sd.getCurrentStorage().calcBoundingBoxFromData());
-                            }
-                            if (map != null) {
-                                viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
-                            }
+                try {
+                    final OsmParser osmParser = new OsmParser();
+                    osmParser.clearBoundingBoxes(); // this removes the default bounding box
+                    try (final InputStream in = new BufferedInputStream(is)) {
+                        osmParser.start(in);
+                        StorageDelegator sd = getDelegator();
+                        sd.reset(false);
+                        sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
+                        sd.fixupApiStorage();
+                        if (!add && sd.getBoundingBoxes().isEmpty()) {
+                            // ensure a valid bounding box
+                            sd.addBoundingBox(sd.getCurrentStorage().calcBoundingBoxFromData());
                         }
-                    } catch (SAXException e) {
-                        Log.e(DEBUG_TAG, "Problem parsing ", e);
-                        Exception ce = e.getException();
-                        if (ce instanceof StorageException) {
-                            return new AsyncResult(ErrorCodes.OUT_OF_MEMORY, ce.getMessage());
+                        if (map != null) {
+                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
                         }
-                        return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
-                    } catch (StorageException sex) {
-                        return new AsyncResult(ErrorCodes.OUT_OF_MEMORY, sex.getMessage());
-                    } catch (ParserConfigurationException e) {
-                        Log.e(DEBUG_TAG, "Problem parsing", e);
-                        return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
-                    } catch (IOException e) {
-                        Log.e(DEBUG_TAG, "Problem reading", e);
-                        return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                     }
-                    return new AsyncResult(ErrorCodes.OK, null);
+                } catch (SAXException e) {
+                    Log.e(DEBUG_TAG, "Problem parsing ", e);
+                    Exception ce = e.getException();
+                    if (ce instanceof StorageException) {
+                        return new AsyncResult(ErrorCodes.OUT_OF_MEMORY, ce.getMessage());
+                    }
+                    return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                } catch (StorageException sex) {
+                    return new AsyncResult(ErrorCodes.OUT_OF_MEMORY, sex.getMessage());
+                } catch (ParserConfigurationException e) {
+                    Log.e(DEBUG_TAG, "Problem parsing", e);
+                    return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                } catch (IOException e) {
+                    Log.e(DEBUG_TAG, "Problem reading", e);
+                    return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                 }
+                return new AsyncResult(ErrorCodes.OK, null);
             }
         }.execute(add);
     }
@@ -4223,18 +4221,17 @@ public class Logic {
             @Override
             protected void onPostExecute(Integer result) {
                 Log.d(DEBUG_TAG, "loadLayerState onPostExecute");
+                map.invalidate();
+                if (postLoad == null) {
+                    return;
+                }
                 if (result != READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadLayerState: state loaded correctly");
-                    if (postLoad != null) {
-                        postLoad.onSuccess();
-                    }
+                    postLoad.onSuccess();
                     return;
                 }
                 Log.d(DEBUG_TAG, "loadLayerState: state load failed");
-                if (postLoad != null) {
-                    postLoad.onError(null);
-                }
-                map.invalidate();
+                postLoad.onError(null);
             }
         };
         loader.execute();
@@ -4323,15 +4320,10 @@ public class Logic {
                     }
                     getDelegator().uploadToServer(server, comment, source, closeOpenChangeset, closeChangeset, extraTags, elements);
                 } catch (final OsmServerException e) {
-                    result.setHttpError(e.getHttpErrorCode());
+                    int errorCode = e.getHttpErrorCode();
+                    result.setHttpError(errorCode);
                     result.setMessage(e.getMessageWithDescription());
-                    switch (e.getHttpErrorCode()) {
-                    case HttpURLConnection.HTTP_FORBIDDEN:
-                        result.setError(ErrorCodes.FORBIDDEN);
-                        break;
-                    case HttpURLConnection.HTTP_UNAUTHORIZED:
-                        result.setError(ErrorCodes.INVALID_LOGIN);
-                        break;
+                    switch (errorCode) {
                     case HttpURLConnection.HTTP_GONE:
                         result.setError(ErrorCodes.ALREADY_DELETED);
                         result.setMessage(e.getMessage());
@@ -4342,28 +4334,12 @@ public class Logic {
                         result.setError(ErrorCodes.UPLOAD_CONFLICT);
                         result.setMessage(e.getMessage());
                         break;
-                    case HttpURLConnection.HTTP_BAD_REQUEST:
-                        result.setError(ErrorCodes.BAD_REQUEST);
-                        result.setMessage(e.getMessage());
-                        break;
-                    case HttpURLConnection.HTTP_NOT_FOUND:
-                        result.setError(ErrorCodes.NOT_FOUND);
-                        result.setMessage(e.getMessage());
-                        break;
-                    case HttpURLConnection.HTTP_INTERNAL_ERROR:
-                    case HttpURLConnection.HTTP_BAD_GATEWAY:
-                    case HttpURLConnection.HTTP_UNAVAILABLE:
-                        result.setError(ErrorCodes.UPLOAD_PROBLEM);
-                        break;
                     case HttpStatusCodes.HTTP_TOO_MANY_REQUESTS:
                         result.setError(ErrorCodes.UPLOAD_LIMIT_EXCEEDED);
                         result.setMessage(e.getMessage());
                         break;
                     default:
-                        Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
-                        result.setError(ErrorCodes.UNKNOWN_ERROR);
-                        result.setMessage(e.getMessage());
-                        break;
+                        mapErrorCode(errorCode, result);
                     }
                 } catch (final IOException | NumberFormatException e) {
                     Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
@@ -4463,6 +4439,38 @@ public class Logic {
     }
 
     /**
+     * Map "standard" http error codes from the API to internal codes
+     * 
+     * @param errorCode the error code
+     * @param result a result object
+     */
+    public static void mapErrorCode(int errorCode, @NonNull UploadResult result) {
+        switch (errorCode) {
+        case HttpURLConnection.HTTP_FORBIDDEN:
+            result.setError(ErrorCodes.FORBIDDEN);
+            break;
+        case HttpURLConnection.HTTP_UNAUTHORIZED:
+            result.setError(ErrorCodes.INVALID_LOGIN);
+            break;
+        case HttpURLConnection.HTTP_BAD_REQUEST:
+            result.setError(ErrorCodes.BAD_REQUEST);
+            break;
+        case HttpURLConnection.HTTP_NOT_FOUND:
+            result.setError(ErrorCodes.NOT_FOUND);
+            break;
+        case HttpURLConnection.HTTP_INTERNAL_ERROR:
+        case HttpURLConnection.HTTP_BAD_GATEWAY:
+        case HttpURLConnection.HTTP_UNAVAILABLE:
+            result.setError(ErrorCodes.UPLOAD_PROBLEM);
+            break;
+        default:
+            Log.e(DEBUG_TAG, METHOD_UPLOAD + " " + result.getMessage());
+            result.setError(ErrorCodes.UNKNOWN_ERROR);
+            break;
+        }
+    }
+
+    /**
      * Invalidate whatever has focus
      * 
      * @param activity the current Activity
@@ -4486,7 +4494,7 @@ public class Logic {
     public void uploadTrack(@NonNull final FragmentActivity activity, @NonNull final Track track, @NonNull final String description, @NonNull final String tags,
             final Visibility visibility) {
         final Server server = prefs.getServer();
-        new ExecutorTask<Void, Void, Integer>(executorService, uiHandler) {
+        new ExecutorTask<Void, Void, UploadResult>(executorService, uiHandler) {
 
             @Override
             protected void onPreExecute() {
@@ -4494,59 +4502,42 @@ public class Logic {
             }
 
             @Override
-            protected Integer doInBackground(Void params) {
-                int result = 0;
+            protected UploadResult doInBackground(Void params) {
+                UploadResult result = new UploadResult();
                 try {
                     OsmGpxApi.uploadTrack(server, track, description, tags, visibility);
                 } catch (final OsmServerException e) {
                     Log.e(DEBUG_TAG, e.getMessage());
-                    switch (e.getHttpErrorCode()) {
-                    case HttpURLConnection.HTTP_FORBIDDEN:
-                    case HttpURLConnection.HTTP_UNAUTHORIZED:
-                        result = ErrorCodes.INVALID_LOGIN;
-                        break;
-                    case HttpURLConnection.HTTP_BAD_REQUEST:
-                    case HttpURLConnection.HTTP_PRECON_FAILED:
-                    case HttpURLConnection.HTTP_CONFLICT:
-                        result = ErrorCodes.UPLOAD_PROBLEM;
-                        break;
-                    case HttpURLConnection.HTTP_NOT_FOUND:
-                    case HttpURLConnection.HTTP_GONE:
-                    case HttpURLConnection.HTTP_INTERNAL_ERROR:
-                    case HttpURLConnection.HTTP_BAD_GATEWAY:
-                    case HttpURLConnection.HTTP_UNAVAILABLE:
-                        result = ErrorCodes.UPLOAD_PROBLEM;
-                        break;
-                    default:
-                        ACRAHelper.nocrashReport(e, e.getMessage());
-                        result = ErrorCodes.UPLOAD_PROBLEM;
-                        break;
-                    }
+                    int errorCode = e.getHttpErrorCode();
+                    result.setHttpError(errorCode);
+                    result.setMessage(e.getMessage());
+                    Logic.mapErrorCode(errorCode, result);
                 } catch (final IOException e) {
-                    result = ErrorCodes.NO_CONNECTION;
+                    result.setError(ErrorCodes.NO_CONNECTION);
                     Log.e(DEBUG_TAG, "", e);
                 } catch (IllegalArgumentException | IllegalStateException | NullPointerException e) {
-                    result = ErrorCodes.UPLOAD_PROBLEM;
+                    result.setError(ErrorCodes.UPLOAD_PROBLEM);
                     Log.e(DEBUG_TAG, "", e);
                 }
                 return result;
             }
 
             @Override
-            protected void onPostExecute(Integer result) {
+            protected void onPostExecute(UploadResult result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING);
                 invalidateCurrentFocus(activity);
-                if (result == 0) {
+                final int resultCode = result.getError();
+                if (resultCode == ErrorCodes.OK) {
                     ScreenMessage.barInfo(activity, R.string.toast_upload_success);
                     return;
                 }
                 if (activity.isFinishing()) {
                     return;
                 }
-                if (result == ErrorCodes.INVALID_LOGIN) {
+                if (resultCode == ErrorCodes.INVALID_LOGIN) {
                     InvalidLogin.showDialog(activity);
                 } else {
-                    ErrorAlert.showDialog(activity, result);
+                    ErrorAlert.showDialog(activity, resultCode);
                 }
             }
         }.execute();
@@ -4775,6 +4766,7 @@ public class Logic {
      * 
      * @return a List of Relations that are selected
      */
+    @Nullable
     public List<Relation> getSelectedRelations() {
         return selectionStack.getFirst().getRelations();
     }
@@ -5591,22 +5583,27 @@ public class Logic {
             // not locally deleted
             // given that the element is deleted on the server we likely need to add it back to ways and relations
             // there too, we force an upload by bumping the version
-            if (elementLocal.getName().equals(Node.NAME)) {
-                for (Way w : getWaysForNode((Node) elementLocal)) {
-                    if (w.getState() != OsmElement.STATE_CREATED) {
-                        getDelegator().setOsmVersion(w, w.getOsmVersion() + 1);
-                    }
-                }
+            if (Node.NAME.equals(elementLocal.getName())) {
+                bumpVersion(getWaysForNode((Node) elementLocal));
             }
             if (elementLocal.hasParentRelations()) {
-                for (Relation r : elementLocal.getParentRelations()) {
-                    if (r.getState() != OsmElement.STATE_CREATED) {
-                        getDelegator().setOsmVersion(r, r.getOsmVersion() + 1);
-                    }
-                }
+                bumpVersion(elementLocal.getParentRelations());
             }
         }
         getDelegator().setOsmVersion(elementLocal, newVersion);
+    }
+
+    /**
+     * Bump the version of a list of osm elements by one
+     * 
+     * @param elements List of OsmElement
+     */
+    private <T extends OsmElement> void bumpVersion(List<T> elements) {
+        for (OsmElement e : elements) {
+            if (e.getState() != OsmElement.STATE_CREATED) {
+                getDelegator().setOsmVersion(e, e.getOsmVersion() + 1);
+            }
+        }
     }
 
     /**

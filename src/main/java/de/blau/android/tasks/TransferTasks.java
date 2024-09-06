@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -51,7 +50,6 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
-import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.IssueAlert;
@@ -302,50 +300,28 @@ public final class TransferTasks {
         try {
             boolean newNote = note.isNew();
             boolean wasClosed = note.getOriginalState() == State.CLOSED;
-            if (!newNote && wasClosed && !close) {
+            if (!newNote && wasClosed) {
                 // reopen, do this before trying to add anything
                 server.reopenNote(note);
             }
-            if (!(wasClosed && close)) { // this doesn't make sense
-                if (comment != null && comment.getText().length() > 0) {
-                    // Add or edit the bug as appropriate
-                    if (newNote) {
-                        server.addNote(note, comment);
-                    } else {
-                        server.addComment(note, comment);
-                    }
+            if (comment != null && comment.getText().length() > 0) {
+                // Add or edit the bug as appropriate
+                if (newNote) {
+                    server.addNote(note, comment);
+                } else {
+                    server.addComment(note, comment);
                 }
-                // Close the bug if requested, but only if there haven't been any problems
-                if (close) {
-                    server.closeNote(note);
-                }
+            }
+            // Close the bug if requested, but only if there haven't been any problems
+            if (close) {
+                server.closeNote(note);
             }
             note.setChanged(false);
         } catch (final OsmServerException e) {
             int errorCode = e.getHttpErrorCode();
             result.setHttpError(errorCode);
-            String message = e.getMessage();
-            result.setMessage(message);
-            switch (errorCode) {
-            case HttpURLConnection.HTTP_FORBIDDEN:
-                result.setError(ErrorCodes.FORBIDDEN);
-                break;
-            case HttpURLConnection.HTTP_UNAUTHORIZED:
-                result.setError(ErrorCodes.INVALID_LOGIN);
-                break;
-            case HttpURLConnection.HTTP_BAD_REQUEST:
-            case HttpURLConnection.HTTP_NOT_FOUND:
-            case HttpURLConnection.HTTP_INTERNAL_ERROR:
-            case HttpURLConnection.HTTP_BAD_GATEWAY:
-            case HttpURLConnection.HTTP_UNAVAILABLE:
-                result.setError(ErrorCodes.UPLOAD_PROBLEM);
-                break;
-            default:
-                Log.e(DEBUG_TAG, "", e);
-                ACRAHelper.nocrashReport(e, message);
-                result.setError(ErrorCodes.UPLOAD_PROBLEM); // use this as generic error
-                break;
-            }
+            result.setMessage(e.getMessage());
+            Logic.mapErrorCode(errorCode, result);
         } catch (XmlPullParserException e) {
             result.setError(ErrorCodes.INVALID_DATA_RECEIVED);
         } catch (IOException e) {
