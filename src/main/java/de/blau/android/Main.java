@@ -4539,36 +4539,34 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Runnable for locking
+     */
+    private Runnable autoLock = () -> lock();
+
+    /**
      * Lock screen if we are in a mode in which that can reasonably be done
      */
-    private Runnable autoLock = new Runnable() { // NOSONAR
-        @Override
-        public void run() {
-            if (!App.getLogic().isLocked()) {
-                EasyEditManager manager = getEasyEditManager();
-                boolean elementSelected = manager.inElementSelectedMode() || manager.inNewNoteSelectedMode();
-                if (!manager.isProcessingAction() || elementSelected) {
-                    View lock = getLock();
-                    if (lock != null) {
-                        lock.performClick();
-                    }
-                    if (elementSelected) {
-                        App.getLogic().deselectAll();
-                        map.deselectObjects();
-                        manager.finish();
-                    }
-                } else {
-                    // can't lock now, reschedule
-                    if (prefs != null) {
-                        int delay = prefs.getAutolockDelay();
-                        if (delay > 0) {
-                            map.postDelayed(autoLock, delay);
-                        }
-                    }
-                }
-            }
+    public void lock() {
+        if (App.getLogic().isLocked()) {
+            return;
         }
-    };
+        EasyEditManager manager = getEasyEditManager();
+        boolean elementSelected = manager.inElementSelectedMode() || manager.inNewNoteSelectedMode();
+        if (!manager.isProcessingAction() || elementSelected) {
+            View lock = getLock();
+            if (lock != null) {
+                lock.performClick();
+            }
+            if (elementSelected) {
+                App.getLogic().deselectAll();
+                map.deselectObjects();
+                manager.finish();
+            }
+        } else {
+            // can't lock now, reschedule
+            scheduleAutoLock();
+        }
+    }
 
     /**
      * Schedule automatic locking of the screen in a configurable time in the future
@@ -4576,7 +4574,7 @@ public class Main extends FullScreenAppCompatActivity
     public void scheduleAutoLock() {
         map.removeCallbacks(autoLock);
         if (prefs != null) {
-            int delay = prefs.getAutolockDelay();
+            long delay = prefs.getAutolockDelay();
             if (delay > 0) {
                 map.postDelayed(autoLock, delay);
             }

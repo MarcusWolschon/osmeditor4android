@@ -207,6 +207,11 @@ public class Logic {
     private static final int MAX_RELATION_SELECTION_DEPTH = 5;
 
     /**
+     * 24 hours in ms
+     */
+    private static final long ONE_DAY_MS = 24 * 3600 * 1000L;
+
+    /**
      * Stores the {@link Preferences} as soon as they are available.
      */
     private Preferences prefs;
@@ -4027,6 +4032,11 @@ public class Logic {
             editState.setSelected(main, this);
             if (setViewBox) {
                 editState.setViewBox(this, main.getMap());
+            }
+            File editStateFile = main.getFileStreamPath(EDITSTATE_FILENAME);
+            if (System.currentTimeMillis() - editStateFile.lastModified() > ONE_DAY_MS) {
+                Log.w(DEBUG_TAG, "App hasn't been run in a long time, locking");
+                main.lock();
             }
         }
         editingStateRead = true;
