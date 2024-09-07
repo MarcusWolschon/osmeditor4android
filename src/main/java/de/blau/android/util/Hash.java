@@ -11,7 +11,7 @@ import de.blau.android.exception.OperationFailedException;
  * 
  * @author Jan
  */
-public abstract class Hash {
+public final class Hash {
 
     /**
      * Private constructor to stop instantiation

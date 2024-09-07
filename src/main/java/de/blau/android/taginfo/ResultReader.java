@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
  * @author Simon Poole
  *
  */
-abstract class ResultReader {
+interface ResultReader {
     /**
      * Process the input from a JsonReader
      * 
@@ -20,5 +20,5 @@ abstract class ResultReader {
      * @return an Object
      * @throws IOException if reading caused an error
      */
-    abstract Object read(@NonNull JsonReader reader) throws IOException;
+    Object read(@NonNull JsonReader reader) throws IOException;
 }

@@ -9,7 +9,7 @@ import android.graphics.PathDashPathEffect.Style;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-abstract class PathPattern {
+interface PathPattern {
     /**
      * Create the pattern Path
      * 
@@ -24,7 +24,7 @@ abstract class PathPattern {
      * @param size step size
      * @return the amount to advance the pattern
      */
-    float advance(float size) {
+    default float advance(float size) {
         return size;
     }
 
@@ -33,12 +33,12 @@ abstract class PathPattern {
      * 
      * @return a PathDashPathEffect.Style value
      */
-    Style style() {
+    default Style style() {
         return PathDashPathEffect.Style.ROTATE;
     }
 }
 
-class TriangleLeft extends PathPattern {
+class TriangleLeft implements PathPattern {
     static final String NAME = "triangle_left";
 
     Path path = new Path();
@@ -55,7 +55,7 @@ class TriangleLeft extends PathPattern {
     }
 }
 
-class TriangleRight extends PathPattern {
+class TriangleRight implements PathPattern {
     static final String NAME = "triangle_right";
 
     Path path = new Path();
@@ -72,7 +72,7 @@ class TriangleRight extends PathPattern {
     }
 }
 
-class SquareLeft extends PathPattern {
+class SquareLeft implements PathPattern {
     static final String NAME = "square_left";
 
     Path path = new Path();
@@ -93,7 +93,7 @@ class SquareLeft extends PathPattern {
     }
 }
 
-class SquareRight extends PathPattern {
+class SquareRight implements PathPattern {
     static final String NAME = "square_right";
 
     Path path = new Path();
@@ -114,7 +114,7 @@ class SquareRight extends PathPattern {
     }
 }
 
-class SquareBoth extends PathPattern {
+class SquareBoth implements PathPattern {
     static final String NAME = "square_both";
 
     Path path = new Path();
@@ -135,7 +135,7 @@ class SquareBoth extends PathPattern {
     }
 }
 
-class Border extends PathPattern {
+class Border implements PathPattern {
 
     Path  path = new Path();
     float width;
@@ -158,7 +158,7 @@ class Border extends PathPattern {
     }
 
     @Override
-    Style style() {
+    public Style style() {
         return PathDashPathEffect.Style.MORPH;
     }
 }

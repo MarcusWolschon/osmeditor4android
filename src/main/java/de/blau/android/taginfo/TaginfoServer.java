@@ -451,7 +451,7 @@ public final class TaginfoServer {
         ResultReader resultReader = new ResultReader() {
 
             @Override
-            Object read(JsonReader reader) throws IOException {
+            public Object read(JsonReader reader) throws IOException {
 
                 List<SearchResult> result = new ArrayList<>();
                 reader.beginObject();
@@ -496,7 +496,7 @@ public final class TaginfoServer {
         return (WikiPageResult) querySync(context, url, new ResultReader() {
 
             @Override
-            Object read(JsonReader reader) throws IOException {
+            public Object read(JsonReader reader) throws IOException {
                 return new WikiPageResult(reader, lang);
             }
         }, null);
@@ -518,7 +518,7 @@ public final class TaginfoServer {
         return (List<ValueResult>) querySync(context, url, new ResultReader() {
 
             @Override
-            Object read(JsonReader reader) throws IOException {
+            public Object read(JsonReader reader) throws IOException {
 
                 List<ValueResult> result = new ArrayList<>();
                 reader.beginObject();
@@ -561,7 +561,7 @@ public final class TaginfoServer {
         return (SearchResult) querySync(context, url, new ResultReader() {
 
             @Override
-            Object read(JsonReader reader) throws IOException {
+            public Object read(JsonReader reader) throws IOException {
                 SearchResult result = null;
                 reader.beginObject();
                 while (reader.hasNext()) {
@@ -631,7 +631,7 @@ public final class TaginfoServer {
     private static final ResultReader keyValueReader = new ResultReader() {
 
         @Override
-        Object read(JsonReader reader) throws IOException {
+        public Object read(JsonReader reader) throws IOException {
             List<String> result = new ArrayList<>();
             reader.beginObject();
             while (reader.hasNext()) {
