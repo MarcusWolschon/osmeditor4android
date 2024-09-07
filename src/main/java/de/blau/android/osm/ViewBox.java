@@ -460,7 +460,7 @@ public class ViewBox extends BoundingBox {
         if (tmpLeft + horizontalChange < -GeoMath.MAX_LON_E7) {
             long rest = left + horizontalChange + GeoMath.MAX_LON_E7;
             tmpLeft = -GeoMath.MAX_LON_E7;
-            tmpRight = Math.min((long) GeoMath.MAX_LON_E7, tmpRight - rest);
+            tmpRight = Math.min(GeoMath.MAX_LON_E7, tmpRight - rest);
         } else {
             tmpLeft = tmpLeft + horizontalChange;
         }

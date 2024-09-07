@@ -1669,7 +1669,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             if (addHandles) {
                 double len = Math.hypot(xDelta, yDelta);
                 if (len > minLen) {
-                    handles.put(((long) (Float.floatToRawIntBits(x1 + xDelta / 2)) << 32) + (long) Float.floatToRawIntBits(y1 + yDelta / 2));
+                    handles.put(((long) (Float.floatToRawIntBits(x1 + xDelta / 2)) << 32) + Float.floatToRawIntBits(y1 + yDelta / 2));
                     xDelta = xDelta / 4;
                     yDelta = yDelta / 4;
                     secondArrow = true;
