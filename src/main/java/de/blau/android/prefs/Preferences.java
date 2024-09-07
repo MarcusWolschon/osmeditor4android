@@ -1173,12 +1173,12 @@ public class Preferences {
     }
 
     /**
-     * Get the number of seconds we should wait before locking the display
+     * Get the number of milliseconds we should wait before locking the display
      * 
-     * @return delay in seconds till we auto-lock
+     * @return delay in milliseconds till we auto-lock
      */
-    public int getAutolockDelay() {
-        return 1000 * autoLockDelay;
+    public long getAutolockDelay() {
+        return 1000L * autoLockDelay;
     }
 
     /**
