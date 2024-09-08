@@ -1,6 +1,10 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -54,6 +58,7 @@ import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Dialog to resolve upload conflicts one by one
@@ -62,14 +67,16 @@ import de.blau.android.util.ThemeUtils;
  *
  */
 public class UploadConflict extends ImmersiveDialogFragment {
-
-    private static final String DEBUG_TAG = UploadConflict.class.getSimpleName().substring(0, Math.min(23, UploadConflict.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UploadConflict.class.getSimpleName().length());
+    private static final String DEBUG_TAG = UploadConflict.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String CONFLICT_KEY = "uploadresult";
+    private static final String ELEMENTS_KEY = "elements";
 
     private static final String TAG = "fragment_upload_conflict";
 
-    private Conflict conflict;
+    private Conflict         conflict;
+    private List<OsmElement> elements;
 
     private class RestartHandler implements PostAsyncActionHandler {
         private final String           errorMessage;
@@ -92,7 +99,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                 ((Main) activity).invalidateMap();
             }
             if (App.getDelegator().hasChanges()) {
-                ReviewAndUpload.showDialog(activity, null);
+                ReviewAndUpload.showDialog(activity, elements);
             }
         }
 
@@ -106,14 +113,15 @@ public class UploadConflict extends ImmersiveDialogFragment {
      * Show a dialog after a conflict has been detected and allow the user to fix it
      * 
      * @param activity the calling Activity
+     * @param elements optional list of elements in upload
      * @param result the UploadResult
      */
-    public static void showDialog(@NonNull FragmentActivity activity, @NonNull Conflict conflict) {
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull Conflict conflict, @Nullable List<OsmElement> elements) {
         dismissDialog(activity);
 
         FragmentManager fm = activity.getSupportFragmentManager();
         try {
-            UploadConflict uploadConflictDialogFragment = newInstance(conflict);
+            UploadConflict uploadConflictDialogFragment = newInstance(conflict, elements);
             uploadConflictDialogFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "dismissDialog", isex);
@@ -132,15 +140,20 @@ public class UploadConflict extends ImmersiveDialogFragment {
     /**
      * Construct a new UploadConflict dialog
      * 
-     * @param result an UploadResult
+     * @param conflict an COnflict object with the relevant info
+     * @param elements optional list of elements in upload
+     * 
      * @return an UploadConflict dialog
      */
     @NonNull
-    private static UploadConflict newInstance(@NonNull final Conflict conflict) {
+    private static UploadConflict newInstance(@NonNull final Conflict conflict, List<OsmElement> elements) {
         UploadConflict f = new UploadConflict();
 
         Bundle args = new Bundle();
         args.putSerializable(CONFLICT_KEY, conflict);
+        if (elements != null) {
+            args.putSerializable(ELEMENTS_KEY, new ArrayList<>(elements));
+        }
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -154,8 +167,10 @@ public class UploadConflict extends ImmersiveDialogFragment {
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "restoring from saved state");
             conflict = de.blau.android.util.Util.getSerializeable(savedInstanceState, CONFLICT_KEY, Conflict.class);
+            elements = Util.getSerializeableArrayList(savedInstanceState, ELEMENTS_KEY, OsmElement.class);
         } else {
             conflict = de.blau.android.util.Util.getSerializeable(getArguments(), CONFLICT_KEY, Conflict.class);
+            elements = Util.getSerializeableArrayList(getArguments(), ELEMENTS_KEY, OsmElement.class);
         }
     }
 
@@ -218,13 +233,16 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     logic.createCheckpoint(activity, R.string.undo_action_fix_conflict);
                     delegator.undoLast(elementLocal);
                     if (delegator.getApiElementCount() > 0) {
-                        ReviewAndUpload.showDialog(activity, null);
+                        ReviewAndUpload.showDialog(activity, elements);
                     }
                 });
                 resolveActions.put(res.getString(R.string.deleting_references_on_server), () -> {
                     logic.createCheckpoint(activity, R.string.undo_action_fix_conflict);
                     // first undelete
                     delegator.removeFromUpload(elementLocal, OsmElement.STATE_UNCHANGED);
+                    if (elements != null) {
+                        elements.remove(elementLocal);
+                    }
                     delegator.insertElementSafe(elementLocal);
                     // now download referring elements
                     for (long id : usedByElementIds) {
@@ -248,7 +266,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     default:
                         throw new IllegalStateException("Unknown element type");
                     }
-                    ReviewAndUpload.showDialog(activity, null);
+                    ReviewAndUpload.showDialog(activity, elements);
                 });
             } else if (conflict instanceof ApiResponse.VersionConflict) {
                 //
@@ -262,7 +280,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                         activity.getString(R.string.toast_download_server_version_failed, elementLocal.getDescription()));
                 resolveActions.put(res.getString(R.string.use_local_version), () -> {
                     logic.fixElementWithConflict(activity, elementOnServer.getOsmVersion(), elementLocal, elementOnServer, true);
-                    ReviewAndUpload.showDialog(activity, null);
+                    ReviewAndUpload.showDialog(activity, elements);
                 });
                 resolveActions.put(res.getString(R.string.merge_tags_in_to_server), () -> {
                     Map<String, String> mergedTags = MergeAction.mergeTags(elementOnServer, elementLocal);
@@ -512,5 +530,8 @@ public class UploadConflict extends ImmersiveDialogFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(CONFLICT_KEY, conflict);
+        if (elements != null) {
+            outState.putSerializable(ELEMENTS_KEY, new ArrayList<>(elements));
+        }
     }
 }
