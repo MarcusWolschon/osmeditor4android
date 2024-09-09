@@ -4402,7 +4402,7 @@ public class Logic {
                             } else if (conflict instanceof ApiResponse.ChangesetLocked) {
                                 ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_PROBLEM, result.getMessage());
                             } else {
-                                UploadConflict.showDialog(activity, conflict);
+                                UploadConflict.showDialog(activity, conflict, elements);
                             }
                             break;
                         case ErrorCodes.INVALID_LOGIN:
