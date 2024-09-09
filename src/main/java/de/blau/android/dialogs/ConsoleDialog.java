@@ -46,6 +46,7 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -264,11 +265,6 @@ public class ConsoleDialog extends DialogFragment {
                             Log.e(DEBUG_TAG, "Restored fragment is null");
                             return false;
                         }
-                        fileUri = FileUtil.contentUriToFileUri(currentActivity, fileUri);
-                        if (fileUri == null) {
-                            Log.e(DEBUG_TAG, "Couldn't convert " + fileUri);
-                            return false;
-                        }
                         writeScriptFile(currentActivity, fileUri, fragment.input.getText().toString(), null);
                         SelectFile.savePref(prefs, R.string.config_scriptsPreferredDir_key, fileUri);
                         return true;
@@ -354,6 +350,7 @@ public class ConsoleDialog extends DialogFragment {
                 } catch (IOException | IllegalArgumentException | IllegalStateException e) {
                     result = ErrorCodes.FILE_WRITE_FAILED;
                     Log.e(DEBUG_TAG, "Problem writing", e);
+                    ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_error_writing, e.getLocalizedMessage()), true);
                 }
                 return result;
             }
