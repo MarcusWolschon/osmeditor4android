@@ -32,7 +32,7 @@ jobs:
       run: ./gradlew testCurrentDebugUnitTest
     - name: Upload Test Results
       if: ${{ always() }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
          name: Test output
          path: $GITHUB_WORKSPACE/build/reports/tests/testCurrentDebugUnitTest/
