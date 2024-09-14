@@ -294,8 +294,8 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     @Override
     public boolean handleElementClick(OsmElement element) {
         // protect against race conditions and other issues
-        if (!(element instanceof Node) || wayToFollow == null || initialFollowNode == null) {
-            Log.e(DEBUG_TAG, "handleElementClick " + element + " " + wayToFollow + " " + initialFollowNode);
+        if (!(element instanceof Node) || wayToFollow == null || initialFollowNode == null || createdWay == null) {
+            Log.e(DEBUG_TAG, "handleElementClick " + element + " " + wayToFollow + " " + initialFollowNode + " " + createdWay);
             return false;
         }
         List<Node> followNodes = wayToFollow.getNodes();
