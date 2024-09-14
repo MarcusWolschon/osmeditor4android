@@ -1,5 +1,18 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.1.3:
+
+- Fix protect against null createdWay (Path creation mode)
+- Fix support conflict resolution for partial uploads
+- Fix remove content URI to file URI conversion (saving scripts from consoles)
+- Fix when formatting bounding box coords round down (WMS)
+- Fix ignore queryable attribute when creating layers (WMS)
+- Fix protect against integer value preset being null
+- Update ElementHistoryDialog dependency
+- Update imagery from ELI
+- Update default preset
+- Update NSI
+
 20.1.2:
 
 - Fix remove navigation and sign up tag from osm.org login page
