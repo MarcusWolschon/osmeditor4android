@@ -16,7 +16,7 @@
   <string name="transfer_download_current_download">Elvetés és letöltés</string>
   <string name="transfer_download_current_back">Vissza (ne történjék semmi)</string>
   <string name="upload_problem_title">Nem sikerült feltölteni</string>
-  <string name="upload_problem_message">Az adatok egy része vagy egésze nem lett feltöltve. Próbálja meg később.</string>
+  <string name="upload_problem_message">Az adatok egy része vagy az összes adat nem lett feltöltve. Próbáld meg később újra.</string>
   <string name="bad_request_message">Az API hibával válaszolt, mentse el az adatait, és jelentse a problémát:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Feltöltési ütközés</string>
@@ -72,7 +72,6 @@
   <string name="invalid_bounding_box_title">Érvénytelen határolókeret</string>
   <string name="invalid_bounding_box_message">A kijelölt terület nem tartja be az API-korlátozásokat, válasszon egy másikat.</string>
   <string name="bounding_box_too_large_title">Túl nagy a letöltendő terület</string>
-  <string name="bounding_box_too_large_message">A letölteni próbált terület túl nagy vagy túl sok adatot tartalmaz.\n\nNagyítson, és próbálja meg újra.</string>
   <string name="api_offline_title">API offline</string>
   <string name="api_offline_message">Az API jelenleg offline, nem lehet adatokat lekérni vagy írni.</string>
   <string name="out_of_memory_title">Elfogyott a memória</string>
@@ -227,6 +226,7 @@ ezt a lépést kihagyhatod, és ha szeretnéd, később is megadhatod az egyéni
   <string name="toast_todo_already_in_list">Ez az elem már szerepel a teendők listáján</string>
   <string name="toast_no_open_todos">Nincs nyitott teendő</string>
   <string name="toast_no_todos_in_list">A kijelölt listán nincs teendő</string>
+  <string name="save_changes_title">Módosítások mentése?</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Vigyázat!</string>
   <string name="unsaved_data_message">A mentetlen változtatásai elvesznek, ha folytatja.</string>
@@ -531,6 +531,9 @@ elemek megkövetelése</string>
   <string name="undo_location_undo_anyway">Visszavonás mindenképpen</string>
   <string name="undo_location_zoom">Nagyítás a helyre, majd visszavonás</string>
   <!--Value widget dialogs-->
+  <string name="compass_widget_usage_with_additional">Törölje bármelyik fenti érték kijelölését, majd irányítsa a készüléket a rögzíteni kívánt irányba, vagy húzza a kijelzőt a kívánt értékre</string>
+  <string name="compass_widget_usage">Irányítsa a készüléket a rögzíteni kívánt irányba, vagy húzza a kijelzőt a kívánt értékre</string>
+  <string name="integer_widget_usage_with_additional">A számválasztó használatához törölje valamelyik fenti érték kijelölését</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Elküldés az OpenStreetMapen megjelenő névvel</string>
   <string name="feedback_displayname_hint">Az OpenStreetMapen megjelenő név még nincs lekérdezve</string>
@@ -562,7 +565,7 @@ elemek megkövetelése</string>
   <string name="tip_way_splitting">Érintsen meg egy kiemelt pontot az elvágás helyének meghatározásához. Hosszú érintéssel kijelölheti, hogy egy következő lépésben melyik részt használja az új vonalhoz.</string>
   <string name="tip_closed_way_splitting">Zárt vonalat két helyen kell elvágni. Érintsen meg egy kiemelt pontot az első elvágási pozíció meghatározásához, a következő lépésben pedig az alkalmazás fel fogja kérni, hogy jelölje ki a második pozíciót.</string>
   <string name="tip_disambiguation_menu">Ha több OSM-elem vagy más objektum nagyon közel van egymáshoz, vagy ha az elemek kapcsolatok tagjai, akkor megjelenik az egyértelműsítő menü. Ezután kiválaszthatja az adott elemet a listából.&lt;p&gt;Ha egy elem már ki van jelölve, akkor az ki lesz emelve.</string>
-  <string name="tip_file_import">Az Android 10 vagy újabb verziót futtató eszközökön szükségünk van a fájlok másolására ahhoz, hogy teljes mértékben hozzájuk férhessünk. A másolatok a <i>Downloads/Vespucci/imports</i> alatt találhatók. Szükség esetén törölheted az eredetit, és megőrizheted a másolatokat.</string>
+  <string name="tip_wms_tile_size">A WMS-kiszolgálók a 256×256-nál nagyobb csempeméreteket is támogatnak. A hatékonyabb konfiguráció érdekében fontolja meg az 512×512-es méret használatát.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">–</string>
@@ -618,6 +621,7 @@ elemek megkövetelése</string>
   <string name="toast_photo_failed">A fényképezés nem sikerült. Be van kapcsolva a földrajzi helymeghatározás a kameraalkalmazásban?</string>
   <string name="toast_download_failed">Sikertelen letöltés, hibakód: %1$d, üzenet: %2$s.</string>
   <string name="toast_note_reopened">Jegyzet újra megnyitva</string>
+  <string name="toast_untrusted_certificate">Nem megbízható tanúsítvány\n%1$s</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Nem felmért út</string>
   <string name="toast_noname">Az útnak nincs neve vagy hivatkozási száma</string>
@@ -627,6 +631,7 @@ elemek megkövetelése</string>
   <string name="toast_untagged_element">Címkézetlen elem</string>
   <string name="toast_unconnected_end_node">A pont egy olyan elem közelében van, amelyhez hozzáköthető lehet</string>
   <string name="toast_degenerate_way">Degenerált vonal</string>
+  <string name="toast_degenerate_way_with_info">Hibás vonal: %1$s</string>
   <string name="toast_wrong_element_type">Nem szabványos elemtípus: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">Próbálja meg újból a feltöltést, miután engedélyezte az OAuth hozzáférést az OSM fiókjához.</string>
@@ -639,6 +644,11 @@ elemek megkövetelése</string>
   <string name="toast_timeout">Időtúllépés a kiszolgálótól</string>
   <string name="coordinates_out_of_range">A szélesség -180°/+180 között kell legyen, a hosszúság pedig -85°/+85° között</string>
   <string name="toast_nothing_found">Nincs találat</string>
+  <string name="toast_layer_statesave_failed">Nem sikerült elmenteni a %1$s réteg jelenlegi állapotát.</string>
+  <string name="toast_task_layer_statesave_failed">Nem sikerült elmenteni a feladatréteg jelenlegi állapotát.</string>
+  <string name="toast_task_storage_statesave_failed">Nem sikerült elmenteni az aktuális feladat tárolási állapotát.</string>
+  <string name="toast_data_statesave_failed">Nem sikerült elmenteni az aktuális állapotadatokat.\nEz végzetes hiba: lépj ki, és használj egy automatikusan mentett fájlt a helyreállításhoz, ha voltak nem mentett változtatásaid.</string>
+  <string name="toast_data_stateload_failed">Nem sikerült betölteni az állapotadatokat!\nA fájl hibás volt, vagy egy másik verzióból származott.\nHa voltak nem mentett változtatásaid, akkor egy automatikusan mentett .ocs fájl segítségével megpróbálhatod helyreállítani.</string>
   <string name="toast_missing_filemanager">Kérjük telepítsen egy fájlkezelőt.</string>
   <string name="toast_outside_of_download">Töltsön le több adatot a terület szerkesztéséhez.</string>
   <string name="toast_file_not_found">%1$s nem található.</string>
@@ -771,6 +781,11 @@ elemek megkövetelése</string>
   <string name="toast_error_loading_egm">Hiba történt az EGM %1$s betöltésénél</string>
   <string name="toast_querying_wms_server_failed">Nem sikerült a WMS-kiszolgálóról történő lekérdezés: %1$s</string>
   <string name="toast_note_not_found">Nem sikerült megtalálni a #%1$d jegyzetet</string>
+  <string name="toast_pressure_calibration">Új magasság: %1$f m\nJelenlegi légnyomás: %2$f hPa\nReferencia-légnyomás: %3$f hPa</string>
+  <string name="toast_no_compass">Az eszközben nincs iránytű.</string>
+  <string name="toast_no_roles_found">Nem található szerep, minden elem kijelölhető</string>
+  <string name="toast_no_preset_found">Nem található illeszkedő címkesablon; minden elem kijelölhető</string>
+  <string name="toast_undeleting_all_members">Minden kapcsolattag törlésének visszavonása ezzel az elemmel</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">A MapSplit forrásoknál meg kell adni a legkisebb és legnagyobb nagyítást</string>
   <string name="error_pbf_no_version">A verzióinformációk hiányoznak a PBF-fájlban</string>
@@ -853,6 +868,7 @@ elemek megkövetelése</string>
   <string name="tag_dialog_value_hint">Koppintás az értékekért</string>
   <string name="tag_action_tag_title">Címkék kijelölve</string>
   <string name="tag_action_members_title">Címkék kijelölve</string>
+  <string name="tag_action_parents_title">Szülő(k) kijelölve</string>
   <string name="tag_additional_properties">További tulajdonságok</string>
   <string name="tag_details">Részletek</string>
   <string name="tag_not_set">Nincs megadva</string>
@@ -883,6 +899,8 @@ elemek megkövetelése</string>
   <string name="tag_form_unknown_element">Ismeretlen elem (nem található előbeállítás)</string>
   <string name="tag_form_untagged_element">Címkézetlen elem</string>
   <!--preset item menu in preset MRU-->
+  <string name="apply_with_last_values">Alkalmazás a legutóbbi értékekkel</string>
+  <string name="apply_with_optional_tags">Alkalmazás szabadon választható címkékkel</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Egyéni előbeállítás létrehozása</string>
   <string name="create_preset_title">Egyéni előbeállítás neve</string>
@@ -1034,6 +1052,7 @@ elemek megkövetelése</string>
   <string name="menu_upload_elements">Elemek feltöltése</string>
   <string name="menu_todo">Teendő…</string>
   <string name="menu_todo_close_and_next">Bezárás és ugrás a következőre</string>
+  <string name="menu_todo_skip_and_next">Kihagyás és ugrás a következőre</string>
   <string name="menu_todo_close_all_tasks">Minden feladat bezárása</string>
   <string name="menu_add_to_todo">Hozzáadás a teendők listájához…</string>
   <string name="menu_set_name">Név beállítása</string>
@@ -1082,6 +1101,11 @@ elemek megkövetelése</string>
   <string name="menu_layers_configure">Beállítás…</string>
   <string name="menu_layers_background_align">Légi felvétel igazítása…</string>
   <string name="wms_hint">%1$s [wms]</string>
+  <string name="menu_layers_convert_geojson_todo">Todo-k (teendők) létrehozása GeoJSON-objektumokból…</string>
+  <string name="geojson_todo_title">Todo-k (teendők) létrehozása GeoJSON-objektumokból</string>
+  <string name="geojson_todo_default_conversion">Alapértelmezett konverzió</string>
+  <string name="geojson_todo_custom_conversion">Egyéni konverzió…</string>
+  <string name="rhino_exception">&lt;br&gt;Hiba a %1$d. sorban, a %2$d. oszlopban&lt;br&gt;&lt;br&gt;%3$s</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Tárolt eltolás alkalmazása a légifelvételekre</string>
   <string name="menu_tools_background_contrast">Kontraszt</string>
@@ -1299,6 +1323,8 @@ elemek megkövetelése</string>
   <string name="config_longStringLimit_current">%1$d</string>
   <string name="config_zoomWithKeys_title">Hangerőgombok használata nagyításhoz</string>
   <string name="config_zoomWithKeys_summary">Lehetővé teszi a hangerőgombok használatát a nagyításhoz és kicsinyítéshez.</string>
+  <string name="config_poi_keys_title">Közeli érdekes pontok (POI-k) megjelenítése</string>
+  <string name="config_poi_keys_summary">A közeli érdekes pontok (POI-k) megjelenítéséhez használt billentyűt megadása.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Adat- és szerkesztési beállítások</string>
   <string name="config_category_editing_summary">Automatikus letöltési, mentési és értesítési beállítások.</string>
@@ -1403,7 +1429,6 @@ elemek megkövetelése</string>
   <string name="config_category_server">Kiszolgálóbeállítások</string>
   <string name="config_category_server_summary">OSM API és más kiszolgálók beállításai.</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">Itt állíthat be nem szabványos API URL-t. Többnyire nem kell megváltoztatnia.</string>
   <string name="config_loginbutton_title">Felhasználói fiók</string>
   <string name="config_username_summary">Csak akkor szükséges megadni az OSM adatok feltöltéséhez, ha nem használ OAuth-ot. Regisztráció: http://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">Eltolás-kiszolgáló</string>
@@ -1463,6 +1488,8 @@ elemek megkövetelése</string>
   <string name="config_voiceCommandsEnabled_summary">Hangutasítás-támogatás engedélyezése.</string>
   <string name="config_splitWindowForPropertyEditor_summary">A tulajdonságszerkesztő különálló ablakban történő megjelenésének engedélyezése, ha lehetséges.</string>
   <string name="config_splitWindowForPropertyEditor_title">Különálló tulajdonságszerkesztő-ablak engedélyezése</string>
+  <string name="config_newTaskForPropertyEditor_summary">FLAG_ACTIVITY_NEW_TASK beállítása a tulajdonságszerkesztő indításakor; az alkalmazás folytatásakor ez javíthatja bizonyos indítók viselkedését.</string>
+  <string name="config_newTaskForPropertyEditor_title">„Új feladat” mód használata a tulajdonságszerkesztőhöz</string>
   <!---->
   <string name="manage_apis">API-k kezelése</string>
   <string name="config_api_url_title">API URL</string>
@@ -1549,6 +1576,7 @@ elemek megkövetelése</string>
   <string name="undo_action_move_tags">Címkék áthelyezése kapcsolatra</string>
   <string name="undo_action_cut">Kivágás</string>
   <string name="undo_action_paste">Beillesztés</string>
+  <string name="undo_action_rotate">Forgatás</string>
   <string name="undo_action_orthogonalize">Vonal derékszögesítése</string>
   <string name="undo_action_circulize">Elrendezés kör alakban</string>
   <string name="undo_action_fix_conflict">Ütközés feloldása</string>
