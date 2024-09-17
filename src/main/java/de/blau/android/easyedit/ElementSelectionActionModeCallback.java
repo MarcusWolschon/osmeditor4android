@@ -108,10 +108,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private static final int   MENUITEM_TAG_LAST            = 33;
     static final int           MENUITEM_ZOOM_TO_SELECTION   = 34;
     static final int           MENUITEM_SEARCH_OBJECTS      = 35;
-    private static final int   MENUITEM_CALIBRATE_BAROMETER = 36;
-    static final int           MENUITEM_PREFERENCES         = 37;
-    static final int           MENUITEM_JS_CONSOLE          = 38;
-    static final int           MENUITEM_ADD_TO_TODO         = 39;
+    private static final int   MENUITEM_REPLACE_GEOMETRY    = 36;
+    private static final int   MENUITEM_CALIBRATE_BAROMETER = 37;
+    static final int           MENUITEM_PREFERENCES         = 38;
+    static final int           MENUITEM_JS_CONSOLE          = 39;
+    static final int           MENUITEM_ADD_TO_TODO         = 40;
 
     private static final int MENUITEM_TODO_CLOSE_AND_NEXT = 70;
     private static final int MENUITEM_TODO_SKIP_AND_NEXT  = 71;
@@ -176,7 +177,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         taskMenu.add(Menu.NONE, MENUITEM_TASK_CLOSE_ALL, Menu.NONE, R.string.menu_todo_close_all_tasks);
 
         menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
-        if (!(element instanceof Relation)) {
+        final boolean isRelation = element instanceof Relation;
+        if (!isRelation) {
             menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
             menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
         }
@@ -201,6 +203,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
         menu.add(GROUP_BASE, MENUITEM_ADD_TO_TODO, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_to_todo);
+        if (!isRelation) {
+            menu.add(GROUP_BASE, MENUITEM_REPLACE_GEOMETRY, Menu.CATEGORY_SYSTEM | 10, R.string.menu_replace_geometry);
+        }
 
         uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_element);
 
@@ -383,6 +388,10 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         case MENUITEM_SEARCH_OBJECTS:
             main.descheduleAutoLock();
             Search.search(main);
+            break;
+        case MENUITEM_REPLACE_GEOMETRY:
+            deselect = false;
+            main.startSupportActionMode(new ReplaceGeometryActionModeCallback(manager, element));
             break;
         case MENUITEM_CALIBRATE_BAROMETER:
             Intent intent = new Intent(main, TrackerService.class);
