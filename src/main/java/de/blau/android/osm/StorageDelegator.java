@@ -540,15 +540,20 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // undo - nothing done here, relation gets saved/marked on insert
         dirty = true;
         Relation relation = factory.createRelationWithNewId();
-        insertElementUnsafe(relation);
-        if (members != null) {
-            for (OsmElement e : members) {
-                undo.save(e);
-                RelationMember rm = new RelationMember("", e);
-                relation.addMember(rm);
-                e.addParentRelation(relation);
-                onParentRelationChanged(e);
+        try {
+            lock();
+            insertElementUnsafe(relation);
+            if (members != null) {
+                for (OsmElement e : members) {
+                    undo.save(e);
+                    RelationMember rm = new RelationMember("", e);
+                    relation.addMember(rm);
+                    e.addParentRelation(relation);
+                    onParentRelationChanged(e);
+                }
             }
+        } finally {
+            unlock();
         }
         return relation;
     }
@@ -564,17 +569,22 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // undo - nothing done here, relation gets saved/marked on insert
         dirty = true;
         Relation relation = factory.createRelationWithNewId();
-        insertElementUnsafe(relation);
-        for (RelationMember member : members) {
-            if (member.downloaded()) {
-                OsmElement e = member.getElement();
-                undo.save(e);
-                relation.addMember(member);
-                e.addParentRelation(relation);
-                onParentRelationChanged(e);
-            } else {
-                relation.addMember(member);
+        try {
+            lock();
+            insertElementUnsafe(relation);
+            for (RelationMember member : members) {
+                if (member.downloaded()) {
+                    OsmElement e = member.getElement();
+                    undo.save(e);
+                    relation.addMember(member);
+                    e.addParentRelation(relation);
+                    onParentRelationChanged(e);
+                } else {
+                    relation.addMember(member);
+                }
             }
+        } finally {
+            unlock();
         }
         return relation;
     }
@@ -585,13 +595,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param firstWayNode the first node
      * @return the new way
      */
-    public Way createAndInsertWay(final Node firstWayNode) {
+    public Way createAndInsertWay(@NonNull final Node firstWayNode) {
         // undo - nothing done here, way gets saved/marked on insert
         dirty = true;
-
         Way way = factory.createWayWithNewId();
         way.addNode(firstWayNode);
-        insertElementUnsafe(way);
+        try {
+            lock();
+            insertElementUnsafe(way);
+        } finally {
+            unlock();
+        }
         return way;
     }
 
@@ -603,13 +617,65 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
      *             constraint
      */
-    public void addNodeToWay(final Node node, final Way way) {
+    public void addNodeToWay(@NonNull final Node node, @NonNull final Way way) {
         dirty = true;
         undo.save(way);
         validateWayNodeCount(way.nodeCount() + 1);
-        apiStorage.insertElementSafe(way);
-        way.addNode(node);
-        way.updateState(OsmElement.STATE_MODIFIED);
+        try {
+            lock();
+            apiStorage.insertElementSafe(way);
+            way.addNode(node);
+            way.updateState(OsmElement.STATE_MODIFIED);
+        } finally {
+            unlock();
+        }
+        onElementChanged(null, way);
+    }
+
+    /**
+     * Add nodes at the end of a way
+     * 
+     * @param nodes the nodes to add
+     * @param way the way to add the node to
+     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
+     *             constraint
+     */
+    public void addNodesToWay(@NonNull final List<Node> nodes, @NonNull final Way way) {
+        dirty = true;
+        undo.save(way);
+        validateWayNodeCount(way.nodeCount() + nodes.size());
+        try {
+            lock();
+            apiStorage.insertElementSafe(way);
+            way.addNodes(nodes, false);
+            way.updateState(OsmElement.STATE_MODIFIED);
+        } finally {
+            unlock();
+        }
+        onElementChanged(null, way);
+    }
+
+    /**
+     * Replace the current nodes with new ones
+     * 
+     * @param nodes the new nodes
+     * @param way the way to add the node to
+     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
+     *             constraint
+     */
+    public void replaceWayNodes(@NonNull final List<Node> nodes, @NonNull final Way way) {
+        dirty = true;
+        undo.save(way);
+        validateWayNodeCount(nodes.size());
+        try {
+            lock();
+            way.removeAllNodes();
+            apiStorage.insertElementSafe(way);
+            way.addNodes(nodes, false);
+            way.updateState(OsmElement.STATE_MODIFIED);
+        } finally {
+            unlock();
+        }
         onElementChanged(null, way);
     }
 
@@ -619,7 +685,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param newCount the node count we would like to have
      * @throws OsmIllegalOperationException if the count is larger than the maximum supported
      */
-    void validateWayNodeCount(final int newCount) {
+    public void validateWayNodeCount(final int newCount) {
         Logic logic = App.getLogic();
         if (logic != null) {
             Preferences prefs = logic.getPrefs();
@@ -638,14 +704,19 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
      *             constraint
      */
-    public void addNodeToWayAfter(final int nodeBeforeIndex, final Node newNode, final Way way) throws OsmIllegalOperationException {
+    public void addNodeToWayAfter(final int nodeBeforeIndex, @NonNull final Node newNode, @NonNull final Way way) throws OsmIllegalOperationException {
         dirty = true;
         undo.save(way);
         validateWayNodeCount(way.nodeCount() + 1);
-        apiStorage.insertElementSafe(way);
-        way.addNodeAfter(nodeBeforeIndex, newNode);
-        way.updateState(OsmElement.STATE_MODIFIED);
-        onElementChanged(null, way);
+        try {
+            lock();
+            apiStorage.insertElementSafe(way);
+            way.addNodeAfter(nodeBeforeIndex, newNode);
+            way.updateState(OsmElement.STATE_MODIFIED);
+            onElementChanged(null, way);
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -657,14 +728,19 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
      *             constraint
      */
-    public void appendNodeToWay(final Node refNode, final Node nextNode, final Way way) throws OsmIllegalOperationException {
+    public void appendNodeToWay(@NonNull final Node refNode, @NonNull final Node nextNode, @NonNull final Way way) throws OsmIllegalOperationException {
         dirty = true;
         undo.save(way);
         validateWayNodeCount(way.nodeCount() + 1);
-        apiStorage.insertElementSafe(way);
-        way.appendNode(refNode, nextNode);
-        way.updateState(OsmElement.STATE_MODIFIED);
-        onElementChanged(null, way);
+        try {
+            lock();
+            apiStorage.insertElementSafe(way);
+            way.appendNode(refNode, nextNode);
+            way.updateState(OsmElement.STATE_MODIFIED);
+            onElementChanged(null, way);
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -678,9 +754,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         validateCoordinates(latE7, lonE7);
         dirty = true;
         undo.save(node);
-        invalidateWayBoundingBox(node);
-        updateLatLon(node, latE7, lonE7);
-        onElementChanged(null, node);
+        try {
+            lock();
+            invalidateWayBoundingBox(node);
+            updateLatLon(node, latE7, lonE7);
+            onElementChanged(null, node);
+        } finally {
+            unlock();
+        }
     }
 
     /**

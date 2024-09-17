@@ -388,6 +388,8 @@
     <!-- hidden object warning dialog  -->
     <string name="attached_object_warning_title">This operation affects filtered attached objects!</string>
     <string name="attached_object_warning_message">The changed object is connected to hidden elements that will change with it.</string>
+    <!--  replace geometry confirm -->
+    <string name="remove_geometry_source">Remove geometry source?</string>
     <!-- This concerns a shown message that should be shown every time -->
     <string name="attached_object_warning_continue">OK, keep showing</string>
     <!-- This concerns a shown message that should only be shown once -->
@@ -1070,6 +1072,7 @@
     <string name="menu_voice_commands">Voice commands</string>
     <string name="menu_upload_element">Upload element</string>
     <string name="menu_upload_elements">Upload elements</string>
+    <string name="menu_replace_geometry">Replace geometry…</string>
     <string name="menu_todo">Todo…</string>
     <string name="menu_todo_close_and_next">Close and goto next</string>
     <string name="menu_todo_skip_and_next">Skip and goto next</string>
@@ -1180,6 +1183,7 @@
     <string name="actionmode_reselect_first_segment">Re-select first segment</string>
     <string name="actionmode_split_way">Split way</string>
     <string name="actionmode_split_closed_way">Split closed way</string>
+    <string name="actionmode_rotate">Rotate</string>
     <!-- EasyEdit action mode sub-titles -->
     <string name="actionmode_closed_way_split_1">Select 1st node</string>
     <string name="actionmode_closed_way_split_2">Select 2nd node</string>
@@ -1198,11 +1202,11 @@
     <string name="actionmode_extract_segment_select">Select segment</string>
     <string name="actionmode_extract_segment_set_tags">Set tags</string>
     <string name="actionmode_createpath_follow_way_select_end_node">Select end node</string>
+    <string name="actionmode_subtitle_replace_geometry">Select new source geometry</string>
     <plurals name="actionmode_object_count">
         <item quantity="one">1 object</item>
         <item quantity="other">%1$d objects</item>
-    </plurals>
-    <string name="actionmode_rotate">Rotate</string>
+    </plurals>   
     <string name="menu_snap">Snap</string>
     <string name="menu_follow_way">Follow way</string>
     <string name="select_follow_way">Select way to follow</string>
@@ -1608,6 +1612,7 @@
     <string name="undo_action_apply_osc">Apply OSC file</string>
     <string name="undo_action_remove_node_from_way">Remove node from way</string>
     <string name="undo_action_extract_segment">Extract segment</string>
+    <string name="undo_action_replace_geometry">Replace geometry</string>
     <!-- ACRA -->
     <string name="crash_dialog_text">Vespucci crashed or encountered a serious issue the last time it ran.\n\nPlease help by clicking by \'OK\' to send an error report.\n</string>
     <string name="crash_dialog_comment_prompt">Add any further info you believe might help and (optionally,) your OSM user name if you want feedback.\n\nThank you.</string>
