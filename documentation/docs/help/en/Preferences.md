@@ -61,7 +61,7 @@ By default all validations are enabled, if you want to disable individual checks
  - __No relation type__ missing type tag on a relation
  - __Imperial units missing__ in the US and UK missing units for values that are likely imperial measurement values
  - __Invalid object__ OSM element that isn't valid, for example a way without nodes
- - __Untagged object__ untagged object that is not a child ohild object or member of a relation
+ - __Untagged object__ untagged object that is not a child object (aka a way node) or member of a relation
  - __Unconnected end node__ report end nodes of ways tagged with highway that should likely be joined to a nearby highway
  - __Degenerate way__ way with just one node
  - __Empty relation__ relation without members

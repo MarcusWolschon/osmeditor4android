@@ -234,9 +234,9 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 ### Configuring checks
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
+All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the [preferences](Preferences.md). 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.
 
 #### Re-survey entries
 
