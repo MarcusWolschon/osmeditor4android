@@ -118,18 +118,19 @@ public class IntegerValueFragment extends ValueWidgetFragment {
             picker.setValue(v + offset);
             picker.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.highlight_background, R.color.black));
             picker.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
-
+            
             // see
             // https://stackoverflow.com/questions/17708325/android-numberpicker-with-formatter-doesnt-format-on-first-rendering
             View editView = picker.getChildAt(0);
             if (editView instanceof EditText) {
                 // Remove default input filter
                 ((EditText) editView).setFilters(new InputFilter[0]);
+                ((EditText) editView).setFocusable(false);
             }
         }
 
         /**
-         * Parse a String as an int and add it to a List if sucessful
+         * Parse a String as an int and add it to a List if successful
          * 
          * @param ints target list of ints
          * @param val value to parse and add
