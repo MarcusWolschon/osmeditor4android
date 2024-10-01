@@ -41,6 +41,8 @@ public class TodoFragment extends BugFragment {
     private static final String CHANGED_KEY = "changed";
 
     private boolean changed; // comment text changed
+    
+    private String[] states;
 
     /**
      * Display a dialog for editing OSMOSE bugs
@@ -88,6 +90,7 @@ public class TodoFragment extends BugFragment {
 
     @Override
     protected <T extends Task> ArrayAdapter<CharSequence> setupView(Bundle savedInstanceState, View v, T task) {
+        states = getResources().getStringArray(R.array.todo_state_values);
         changed = savedInstanceState != null && savedInstanceState.getBoolean(CHANGED_KEY, false);
         commentLabel.setVisibility(View.GONE);
         comment.setVisibility(View.VISIBLE);
@@ -181,14 +184,12 @@ public class TodoFragment extends BugFragment {
 
     @Override
     protected State pos2state(int position) {
-        String[] array = getResources().getStringArray(R.array.todo_state_values);
-        return State.valueOf(array[position]);
+        return State.valueOf(states[position]);
     }
 
     @Override
     protected int state2pos(State state) {
-        String[] array = getResources().getStringArray(R.array.todo_state_values);
-        return Arrays.asList(array).indexOf(state.name());
+        return Arrays.asList(states).indexOf(state.name());
     }
 
     @Override
