@@ -55,6 +55,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import ch.poole.osm.josmfilterparser.Nodes;
 import de.blau.android.contract.HttpStatusCodes;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.AttachedObjectWarning;
@@ -1812,8 +1813,18 @@ public class Logic {
      */
     @NonNull
     private Node addNode(@Nullable final Activity activity, final float x, final float y) {
-        int lat = yToLatE7(y);
-        int lon = xToLonE7(x);
+        return addNode(activity, xToLonE7(x), yToLatE7(y));
+    }
+
+    /**
+     * Create and add node to storage
+     * 
+     * @param activity optional activity for warnings
+     * @param lon longitude WGS84*1E7
+     * @param lat latitude WGS84*1E7
+     * @return the new Node
+     */
+    private Node addNode(@Nullable final Activity activity, int lon, int lat) {
         Node node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
         getDelegator().insertElementSafe(node);
         outsideOfDownload(activity, lon, lat);
@@ -1973,14 +1984,30 @@ public class Logic {
      * @param lat latitude (WGS84)
      */
     public void performSetPosition(@Nullable final FragmentActivity activity, @NonNull final Node node, double lon, double lat) {
-        createCheckpoint(activity, R.string.undo_action_movenode);
+
         int lonE7 = (int) (lon * 1E7d);
         int latE7 = (int) (lat * 1E7d);
+        performSetPosition(activity, node, lonE7, latE7, true);
+        viewBox.moveTo(map, lonE7, latE7);
+        invalidateMap();
+    }
+
+    /**
+     * Set new coordinates for an existing node
+     * 
+     * @param activity activity this was called from, if null no warnings will be displayed
+     * @param node node to set position on
+     * @param lonE7 longitude (WGS84*E7)
+     * @param latE7 latitude (WGS84*E7)
+     * @param createCheckpoint if true create an undo checkpoint
+     */
+    public void performSetPosition(@Nullable final FragmentActivity activity, @NonNull final Node node, int lonE7, int latE7, boolean createCheckpoint) {
+        if (createCheckpoint) {
+            createCheckpoint(activity, R.string.undo_action_movenode);
+        }
         try {
             displayAttachedObjectWarning(activity, node);
             getDelegator().moveNode(node, latE7, lonE7);
-            viewBox.moveTo(map, lonE7, latE7);
-            invalidateMap();
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
@@ -2705,6 +2732,85 @@ public class Logic {
         setSelectedNode(lSelectedNode);
         setSelectedWay(lSelectedWay);
         invalidateMap();
+    }
+
+    /**
+     * Replace a Ways geometry adding/deleting nodes if necessary
+     * 
+     * @param activity optional Activity
+     * @param target way that will get the new geometry
+     * @param geometry list of GeoPoint with the new geometry
+     */
+    public synchronized <T extends GeoPoint> void performReplaceGeometry(@Nullable final FragmentActivity activity, @NonNull Way target,
+            @NonNull List<T> geometry) {
+        StorageDelegator delegator = getDelegator();
+        createCheckpoint(activity, R.string.undo_action_replace_geometry);
+        final int geometrySize = geometry.size();
+        try {
+            delegator.validateWayNodeCount(geometrySize);
+            boolean sourceClosed = geometry.get(0).equals(geometry.get(geometrySize - 1));
+            int sourceNodeCount = geometrySize - (sourceClosed ? 1 : 0);
+
+            int targetNodeCount = target.nodeCount() - (target.isClosed() ? 1 : 0);
+            // copy without closing node if present
+            List<Node> targetNodes = new ArrayList<>(target.getNodes().subList(0, targetNodeCount));
+            List<Node> newNodes = new ArrayList<>();
+            for (int i = 0; i < sourceNodeCount; i++) {
+                final GeoPoint sourceNode = geometry.get(i);
+                // find a suitable target node
+                int sourceLon = sourceNode.getLon();
+                int sourceLat = sourceNode.getLat();
+                Node targetNode = findTargetNode(targetNodes, sourceLon / 1E7D, sourceLat / 1E7D);
+                if (targetNode != null) {
+                    performSetPosition(activity, targetNode, sourceLon, sourceLat, false);
+                } else {
+                    targetNode = addNode(activity, sourceLon, sourceLat);
+                }
+                newNodes.add(targetNode);
+            }
+            if (sourceClosed) {
+                newNodes.add(newNodes.get(0)); // close the target
+            }
+            delegator.replaceWayNodes(newNodes, target);
+            // final act: delete all unused untagged nodes left
+            for (Node n : targetNodes) {
+                if (!n.isTagged() && !n.hasParentRelations() && getWaysForNode(n).isEmpty()) {
+                    performEraseNode(activity, n, false);
+                }
+            }
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
+    }
+
+    /**
+     * Get a node that we can move to a new position in a ways geometry without losing too much information
+     * 
+     * @param targetNodes List of Nodes that we can use
+     * @param newLon new longitude
+     * @param newLat new latitude
+     * @return a Node or null
+     */
+    @Nullable
+    private Node findTargetNode(@NonNull List<Node> targetNodes, double newLon, double newLat) {
+        Node bestTarget = null;
+        double bestDistance = Double.MAX_VALUE;
+        for (Node target : targetNodes) {
+            double distance = GeoMath.haversineDistance(target.getLon() / 1E7D, target.getLat() / 1E7D, newLon, newLat);
+            if (distance < bestDistance) {
+                if (target.hasTags() && distance > 1) { // only use tagged nodes if they are really close to new
+                                                        // position
+                    continue;
+                }
+                bestDistance = distance;
+                bestTarget = target;
+            }
+        }
+        if (bestTarget != null) {
+            targetNodes.remove(bestTarget);
+        }
+        return bestTarget;
     }
 
     /**

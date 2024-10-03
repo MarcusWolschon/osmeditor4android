@@ -50,10 +50,24 @@ public class MergeAction {
      * @param mergeFrom the OsmElement that is going to be removed
      */
     public MergeAction(final @NonNull StorageDelegator delegator, @NonNull OsmElement mergeInto, @NonNull OsmElement mergeFrom) {
+        this(delegator, mergeInto, mergeFrom, true);
+    }
+
+    /**
+     * Initialize a new MergeAction
+     * 
+     * Note depending on id and version mergeInto and mergeFrom may switch
+     * 
+     * @param delegator the StorageDelegator to use
+     * @param mergeInto the OsmElement that we are going to merge into
+     * @param mergeFrom the OsmElement that is going to be removed
+     * @param swappable if true the elements can be swapped to maintain history
+     */
+    public MergeAction(final @NonNull StorageDelegator delegator, @NonNull OsmElement mergeInto, @NonNull OsmElement mergeFrom, boolean swappable) {
         this.delegator = delegator;
         // first determine if one of the elements already has a valid id, if it is not and other node has valid id swap
         // else check version numbers, the point of this is to preserve as much history as possible
-        if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {
+        if (swappable && (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion())) {
             // swap
             Log.d(DEBUG_TAG, "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
             OsmElement tmpElement = mergeInto;
@@ -132,7 +146,7 @@ public class MergeAction {
      * @param merged the merged tags
      * @param result the merge result
      */
-    private static void checkForMergedTags(@NonNull Map<String, String> into, @NonNull Map<String, String> from, @NonNull Map<String, String> merged,
+    public static void checkForMergedTags(@NonNull Map<String, String> into, @NonNull Map<String, String> from, @NonNull Map<String, String> merged,
             @NonNull Result result) {
         // if merging the tags creates a new tag for a key report it
         for (Entry<String, String> m : merged.entrySet()) {
@@ -741,8 +755,19 @@ public class MergeAction {
      */
     @NonNull
     public static Map<String, String> mergeTags(@NonNull OsmElement e1, @NonNull OsmElement e2) throws OsmIllegalOperationException {
-        Map<String, String> merged = new TreeMap<>(e1.getTags());
-        for (Entry<String, String> entry : e2.getTags().entrySet()) {
+        return mergeTags(e2, e1.getTags());
+    }
+
+    /**
+     * Get a set of merged tags from an element and a map of tags
+     * 
+     * @param e the element
+     * @param tags the map of tags
+     * @return the merged tags
+     */
+    public static Map<String, String> mergeTags(OsmElement e, Map<String, String> tags) {
+        Map<String, String> merged = new TreeMap<>(tags);
+        for (Entry<String, String> entry : e.getTags().entrySet()) {
             final String key = entry.getKey();
             String value = entry.getValue();
             final String mergedValue = merged.get(key); // NOSONAR
