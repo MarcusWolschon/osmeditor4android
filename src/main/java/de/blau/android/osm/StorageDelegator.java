@@ -3773,7 +3773,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public boolean isInDownload(int lonE7, int latE7) {
         for (BoundingBox bb : new ArrayList<>(currentStorage.getBoundingBoxes())) { // make shallow copy
-            if (bb.isIn(lonE7, latE7)) {
+            if (bb != null && bb.isIn(lonE7, latE7)) {
                 return true;
             }
         }
