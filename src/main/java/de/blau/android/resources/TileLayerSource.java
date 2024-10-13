@@ -1274,9 +1274,11 @@ public class TileLayerSource implements Serializable {
     public Collection<Provider> getProviders(final int zoom, @NonNull final BoundingBox area) {
         checkMetaData();
         Collection<Provider> ret = new ArrayList<>();
-        for (Provider p : providers) {
-            if (p.getAttribution() != null && p.covers(Math.min(zoom, getMaxZoom()), area)) { // ignore overzoom
-                ret.add(p);
+        if (providers != null) {
+            for (Provider p : providers) {
+                if (p.getAttribution() != null && p.covers(Math.min(zoom, getMaxZoom()), area)) { // ignore overzoom
+                    ret.add(p);
+                }
             }
         }
         return ret;
