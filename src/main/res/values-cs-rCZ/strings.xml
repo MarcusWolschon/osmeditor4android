@@ -16,7 +16,7 @@
   <string name="transfer_download_current_download">Zahodit a stáhnout</string>
   <string name="transfer_download_current_back">Zpět (nic nedělat)</string>
   <string name="upload_problem_title">Nelze nahrát</string>
-  <string name="upload_problem_message">Některé nebo všechny údaje nebyly nahrány. Zkuste to později znovu.</string>
+  <string name="upload_problem_message">Některá nebo všechna data nebyla nahrána. Zkuste to později.</string>
   <string name="bad_request_message">API odpovědělo chybou, uložte prosím vaše data a problém nahlaste.\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Konflikt nahrávání</string>
@@ -72,7 +72,8 @@
   <string name="invalid_bounding_box_title">Neplatný ohraničující obdélník</string>
   <string name="invalid_bounding_box_message">Zvolená oblast nevyhovuje omezením API. Prosím, zvolte jinou oblast.</string>
   <string name="bounding_box_too_large_title">Příliš velká oblast ke stažení</string>
-  <string name="bounding_box_too_large_message">Snažíte se stáhnout oblast, která je příliš velká nebo obsahuje příliš dat.\n\nProsím, přibližte více mapu a zkuste to znovu.</string>
+  <string name="bounding_box_too_large_message">Oblast, kterou se snažíte stáhnout, je příliš velká nebo obsahuje příliš mnoho dat.
+&lt;br&gt;&lt;br&gt;Přibližte si ji prosím více a zkuste to znovu.</string>
   <string name="api_offline_title">API bez připojení</string>
   <string name="api_offline_message">API je momentálně bez připojení, data nelze stahovat ani zapisovat.</string>
   <string name="out_of_memory_title">Nedostatek paměti</string>
@@ -93,6 +94,10 @@
   <string name="duplicate_tag_key_title">Duplicitní klíče</string>
   <string name="duplicate_tag_key_message">Přidali jste následující klíč více než jednou, než budete moci pokračovat, budete muset vyřešit:</string>
   <string name="autodownload_has_been_paused">Automatické stahování bylo pozastaveno.</string>
+  <string name="upload_bounding_box_too_large_title">Oblast příliš velká pro odeslání</string>
+  <string name="upload_bounding_box_too_large_message">Oblast pokrývající změny, které se snažíte nahrát, je příliš velká.
+&lt;br&gt;&lt;br&gt;Rozdělte prosím své změny do více menších sad změn. 
+Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajete je samostatně.</string>
   <!---->
   <string name="select_file_picker_title">Vyberte soubor pro výběr</string>
   <!--Newbie dialog-->
@@ -241,6 +246,7 @@
   <string name="toast_todo_already_in_list">Prvek je již v tomto seznamu úkolů</string>
   <string name="toast_no_open_todos">Žádné otevřené úkoly</string>
   <string name="toast_no_todos_in_list">Žádné úkoly ve vybraném seznamu</string>
+  <string name="save_changes_title">Uložit změny?</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Pozor!</string>
   <string name="unsaved_data_message">Neuložené změny budou zahozeny, pokud budete pokračovat.</string>
@@ -544,6 +550,9 @@
   <string name="undo_location_undo_anyway">Přesto vrátit</string>
   <string name="undo_location_zoom">Přiblížit na místo a poté vrátit zpět</string>
   <!--Value widget dialogs-->
+  <string name="compass_widget_usage_with_additional">Zrušte výběr kterékoli výše uvedené hodnoty a poté nasměrujte zařízení směrem, kterým chcete nahrávat, nebo přetáhněte displej na požadovanou hodnotu.</string>
+  <string name="compass_widget_usage">Namiřte zařízení směrem, kterým chcete nahrávat, nebo přetáhněte displej na požadovanou hodnotu.</string>
+  <string name="integer_widget_usage_with_additional">Zrušte výběr libovolné výše uvedené hodnoty a použijte nástroj pro výběr čísel.</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Poslat vaší OpenStreetMap přezdívkou</string>
   <string name="feedback_displayname_hint">OpenStreetMap zobrazované jméno zatím nezjištěno</string>
@@ -575,7 +584,8 @@
   <string name="tip_way_splitting">Klepnutím na zvýrazněný uzel určete polohu rozdělení. Dlouhý dotyk vám umožní v dalším kroku vybrat, která část se použije pro nový způsob.</string>
   <string name="tip_closed_way_splitting">Uzavřená cesta musí být rozdělena na dvě místa. Dotkněte se zvýrazněného uzlu pro určení 1. pozice rozdělení, v dalším kroku budete požádáni o výběr 2. pozice.</string>
   <string name="tip_disambiguation_menu">Pokud je více prvků OSM nebo jiných objektů velmi blízko u sebe nebo jsou prvky členy relací, zobrazí se nabídka disambiguace. Poté můžete vybrat konkrétní prvek ze seznamu.&lt;p&gt;Pokud je prvek aktuálně vybrán, bude zvýrazněn.</string>
-  <string name="tip_file_import">Na zařízeních se systémem Android 10 nebo novějším musíme zkopírovat soubory, abychom k nim měli úplný přístup. Kopie jsou umístěny v &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. V případě potřeby můžete odstranit originály a ponechat si pouze kopie.</string>
+  <string name="tip_file_import">V zařízeních se systémem Android 10 nebo novějším musíme soubory zkopírovat, abychom k nim měli plný přístup. Kopie se nacházejí v adresáři &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. V případě potřeby můžete originály smazat a ponechat si pouze kopie.</string>
+  <string name="tip_wms_tile_size">Servery WMS mohou podporovat větší velikosti dlaždic než 256x256, pro efektivnější konfiguraci zvažte použití 512x512.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -637,6 +647,7 @@
   <string name="toast_photo_failed">Pořízení fotografie se nezdařilo. Máte v aplikaci fotoaparátu povolenou geolokaci?</string>
   <string name="toast_download_failed">Stahování se nezdařilo s kódem chyby %1$d, %2$s</string>
   <string name="toast_note_reopened">Poznámka znovu otevřena</string>
+  <string name="toast_untrusted_certificate">Nedůvěryhodný certifikát\n%1$s</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Neprozkoumaná cesta</string>
   <string name="toast_noname">Cesta bez názvu či referenčního čísla</string>
@@ -646,6 +657,7 @@
   <string name="toast_untagged_element">Neoznačený prvek</string>
   <string name="toast_unconnected_end_node">Uzel je poblíž prvku, ke kterému by se mohl připojit</string>
   <string name="toast_degenerate_way">Degenerovaná cesta</string>
+  <string name="toast_degenerate_way_with_info">Degenerativní cesta \"%1$s\"</string>
   <string name="toast_wrong_element_type">Nestandardní typ prvku: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">Nahrávání zkuste zopakovat poté, co povolíte OAuth přístup k vašemu OSM účtu.</string>
@@ -658,6 +670,11 @@
   <string name="toast_timeout">Časový limit serveru vypršel</string>
   <string name="coordinates_out_of_range">Zem. délka musí být v rozmezí -180°/+180°, šířka v rozmezí -85°/85°</string>
   <string name="toast_nothing_found">Nic nenalezeno</string>
+  <string name="toast_layer_statesave_failed">Nepodařilo se uložit aktuální stav vrstvy %1$s!</string>
+  <string name="toast_task_layer_statesave_failed">Nepodařilo se uložit aktuální stav vrstvy úloh!</string>
+  <string name="toast_task_storage_statesave_failed">Nepodařilo se uložit aktuální stav úložiště úlohy!</string>
+  <string name="toast_data_statesave_failed">Nelze uložit data aktuálního stavu!\nJedná se o fatální chybu: ukončete program a použijte automaticky uložený soubor pro obnovu, pokud jste měli neuložené změny.</string>
+  <string name="toast_data_stateload_failed">Nelze načíst stavová data!\nSoubor byl poškozen nebo pocházel z jiné verze.\nPokud jste měli neuložené změny, můžete se pokusit o obnovu pomocí automaticky uloženého souboru .ocs.</string>
   <string name="toast_missing_filemanager">Prosím nainstalujte správce souborů.</string>
   <string name="toast_outside_of_download">Stáhněte více dat pro editování této oblasti.</string>
   <string name="toast_file_not_found">%1$s nenalezeno.</string>
@@ -792,6 +809,11 @@
   <string name="toast_error_loading_egm">Chyba při načítání EGM %1$s</string>
   <string name="toast_querying_wms_server_failed">Dotaz na server WMS se nezdařil: %1$s</string>
   <string name="toast_note_not_found">Poznámka #%1$d nenalezena</string>
+  <string name="toast_pressure_calibration">Nová výška %1$fm\nAktuální tlak %2$fhPa\nReferenční tlak %3$fhPa\"</string>
+  <string name="toast_no_compass">Zařízení nemá kompas!</string>
+  <string name="toast_no_roles_found">Nebyly nalezeny žádné role, lze vybrat všechny prvky</string>
+  <string name="toast_no_preset_found">No roles found, all elements can be selected</string>
+  <string name="toast_undeleting_all_members">Zrušení smazání všech členů vztahu s tímto prvkem</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -874,6 +896,7 @@
   <string name="tag_dialog_value_hint">Klepněte pro zvolení hodnoty</string>
   <string name="tag_action_tag_title">Zvolené tagy</string>
   <string name="tag_action_members_title">Zvolené členy</string>
+  <string name="tag_action_parents_title">Vybrán nadřazený(í)</string>
   <string name="tag_additional_properties">Další vlastnosti</string>
   <string name="tag_details">Detaily</string>
   <string name="tag_not_set">Nenastaveno</string>
@@ -904,6 +927,8 @@
   <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
   <string name="tag_form_untagged_element">Neoznačený prvek</string>
   <!--preset item menu in preset MRU-->
+  <string name="apply_with_last_values">Použít s posledními hodnotami</string>
+  <string name="apply_with_optional_tags">Použít s volitelnými značkami</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Vytvořit vlastní předvolbu</string>
   <string name="create_preset_title">Název vlastní předvolby</string>
@@ -1055,6 +1080,7 @@
   <string name="menu_upload_elements">Nahrát prvky</string>
   <string name="menu_todo">Úkol…</string>
   <string name="menu_todo_close_and_next">Zavřít a přejít na další</string>
+  <string name="menu_todo_skip_and_next">Přeskočit a přejít na další</string>
   <string name="menu_todo_close_all_tasks">Zavřít všechny úkoly</string>
   <string name="menu_add_to_todo">Přidat do seznamu úkolů…</string>
   <string name="menu_set_name">Zadat název</string>
@@ -1103,6 +1129,11 @@
   <string name="menu_layers_configure">Nastavit…</string>
   <string name="menu_layers_background_align">Zarovnat snímky…</string>
   <string name="wms_hint">%1$s [wms]</string>
+  <string name="menu_layers_convert_geojson_todo">Vytváření souborů Todos z objektů GeoJSON...</string>
+  <string name="geojson_todo_title">Vytvořit soubory Todos z objektů GeoJSON</string>
+  <string name="geojson_todo_default_conversion">Výchozí konverze</string>
+  <string name="geojson_todo_custom_conversion">Vlastní konverze...</string>
+  <string name="rhino_exception">&lt;br&gt;Chyba na řádku %1$d, sloupec %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Použít uložený ofset na snímky</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -1322,6 +1353,8 @@
   <string name="config_longStringLimit_current">%1$d</string>
   <string name="config_zoomWithKeys_title">Používat tlačítka hlasitosti pro přiblížení</string>
   <string name="config_zoomWithKeys_summary">Povolit použití tlačítek hlasitosti pro přiblížení a oddálení.</string>
+  <string name="config_poi_keys_title">Zobrazení blízkých POI</string>
+  <string name="config_poi_keys_summary">Nastavení tlačítek používaných pro zobrazení blízkých POI.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Nastavení dat a úprav</string>
   <string name="config_category_editing_summary">Nastavení automatického stahování, ukládání a notifikací.</string>
@@ -1426,7 +1459,7 @@
   <string name="config_category_server">Nastavení serveru</string>
   <string name="config_category_server_summary">OSM API a nastavení dalších serverů</string>
   <string name="config_apibutton_title">URL API OSM</string>
-  <string name="config_apibutton_summary">Zde můžete zadat nestandardní URL API. Obvykle se nemění!</string>
+  <string name="config_apibutton_summary">Konfigurace adresy URL a metody ověřování pro používané rozhraní OSM API</string>
   <string name="config_loginbutton_title">Uživatelský účet</string>
   <string name="config_username_summary">Konfigurace potřebná k nahrávání OSM dat pouze v případě, že nepoužíváte OAuth. Registrujte se na: https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">Ofset server</string>
@@ -1486,6 +1519,8 @@
   <string name="config_voiceCommandsEnabled_summary">Povolit podporu hlasových příkazů.</string>
   <string name="config_splitWindowForPropertyEditor_summary">Povolit zobrazení editoru vlastností v samostatném okně, pokud je k dispozici.</string>
   <string name="config_splitWindowForPropertyEditor_title">Povolit editor vlastností rozděleného okna</string>
+  <string name="config_newTaskForPropertyEditor_summary">Při spuštění editoru vlastností nastavte FLAG_ACTIVITY_NEW_TASK, což může zlepšit chování některých spouštěčů při obnovení aplikace.</string>
+  <string name="config_newTaskForPropertyEditor_title">Použít režim \"nová úloha\" pro editor vlastností</string>
   <!---->
   <string name="manage_apis">Spravovat API</string>
   <string name="config_api_url_title">URL API</string>
@@ -1572,6 +1607,7 @@
   <string name="undo_action_move_tags">Přesunout tagy do relace</string>
   <string name="undo_action_cut">Vyjmout</string>
   <string name="undo_action_paste">Vložit</string>
+  <string name="undo_action_rotate">Otáčení</string>
   <string name="undo_action_orthogonalize">Narovnání cesty</string>
   <string name="undo_action_circulize">Uspořádat do kruhu</string>
   <string name="undo_action_fix_conflict">Opravení konfliktu</string>

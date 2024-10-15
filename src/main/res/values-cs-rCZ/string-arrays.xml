@@ -84,4 +84,7 @@
     <string name="theme_follow_entry">Sledovat systém</string>
     <string name="theme_light_entry">Světlý</string>
     <string name="theme_dark_entry">Tmavý</string>
+    <string name="authentication_basic_entry">Přihlášení - Heslo</string>
+    <string name="authentication_oauth1a_entry">OAuth 1a</string>
+    <string name="authentication_oauth2_entry">OAuth 2</string>
     </resources>

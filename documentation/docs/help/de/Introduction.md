@@ -54,7 +54,7 @@ In der Standardeinstellung wird um auswählbare Knoten und Wege ein oranger Bere
 * Doppelklick: Startet den [Mehrfachauswahl-Modus](Multiselect.md)
 * Klicken und halten: Erstellt ein "Fadenkreuz" und ermöglicht das Hinzufügen von Knoten, siehe unten und [Erstellen neuer Objekte](Creating%20new%20objects.md). Dies ist nur möglich, wenn der "Einfache Modus" deaktiviert ist.
 
-In einem Gebiet, in dem die OSM-Daten sehr dicht sind, empfiehlt es sich, das Gebiet stark zu vergrößern.
+In einem Gebiet, in dem die OSM-Daten sehr dicht sind, empfiehlt es sich, zum Bearbeiten eine hohe Vergrößerungsstufe zu wählen.
 
 Vespucci hat eine gute Unterstützung von "Undo" und "Redo", weshalb man ohne Bedenken auf seinem Gerät experimentieren kann, bitte aber keine reinen Testdaten auf OSM-Server speichern.
 
