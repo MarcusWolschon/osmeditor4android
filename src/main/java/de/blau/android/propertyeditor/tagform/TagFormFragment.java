@@ -1498,7 +1498,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             int childCount = ll.getChildCount();
             for (int i = 0; i < childCount; i++) {
                 View v = ll.getChildAt(i);
-                if (v instanceof EditableLayout) {
+                if (v instanceof EditableLayout || v instanceof LinearLayout) {
                     int editableChildCount = ((LinearLayout) v).getChildCount();
                     for (int j = 0; j < editableChildCount; j++) {
                         processRow.process(((LinearLayout) v).getChildAt(j));
