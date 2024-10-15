@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.61.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.62.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -199,6 +199,7 @@
         <reference ref="incline"/>
         <check key="noexit" text="No exit (cul-de-sac)" disable_off="true"/>
         <check key="narrow" text="Narrow" disable_off="true"/>
+        <check key="flood_prone" text="Flood prone" disable_off="true"/>
     </chunk>
     <chunk id="oneway">
         <combo key="oneway" text="Oneway" values_sort="false">
@@ -2592,9 +2593,9 @@
             </item> <!-- Single direction roads -->
             <item name="Bi-directional roads" icon="icons/png/spurpfeile2.png" type="way,closedway" preset_name_label="true">
                 <link wiki="Lanes"/>
-                <combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes" value_type="integer"/>
-                <combo key="lanes:forward" values="1,2,3,4,5,6,7,8" description="# full width lanes in way direction" value_type="integer" values_sort="false"/>
-                <combo key="lanes:backward" values="1,2,3,4,5,6,7,8" description="# full width lanes opposite to way direction" value_type="integer"/>
+                <combo key="lanes" values="1,2,3,4,5,6,7,8" text="Total number of full width lanes" value_type="integer"/>
+                <combo key="lanes:forward" values="1,2,3,4,5,6,7,8" text="# full width lanes in way direction" value_type="integer" values_sort="false"/>
+                <combo key="lanes:backward" values="1,2,3,4,5,6,7,8" text="# full width lanes opposite to way direction" value_type="integer"/>
                 <!-- forwards -->
                 <multiselect key="turn:lanes:forward" text="Turning lanes in way direction" delimiter="|" match="key" editable="true">
                     <list_entry value="none" short_description="None"/><list_entry value="reverse" short_description="Reverse"/><list_entry value="sharp_left" short_description="Sharp left"/><list_entry value="left" short_description="Left"/><list_entry value="left;through" short_description="Left and through"/><list_entry value="slight_left" short_description="Slight left"/><list_entry value="merge_to_left" short_description="Merge to left"/><list_entry value="through" short_description="Through"/><list_entry value="merge_to_right" short_description="Merge to right"/><list_entry value="slight_right" short_description="Slight right"/><list_entry value="through;right" short_description="Through and right"/><list_entry value="right" short_description="Right"/><list_entry value="sharp_right" short_description="Sharp right"/>
@@ -12727,7 +12728,7 @@
             <link wiki="Tag:shop=fuel"/>
             <space/>
             <key key="shop" value="fuel"/>
-            <multiselect key="fuel" values="wood;gas;charcoal" display_values="Wood;Gas;Charcoal" deprecated="true"/>
+            <multiselect key="fuel" text="Fuel types" values="wood;gas;charcoal" display_values="Wood;Gas;Charcoal" deprecated="true"/>
             <checkgroup text="Fuel types" columns="2">
                 <check key="fuel:alcohol" text="Alcohol" disable_off="true"/>
                 <check key="fuel:anthracite" text="Anthracite" disable_off="true"/>
@@ -12934,7 +12935,7 @@
             <link wiki="Tag:shop=repair"/>
             <space/>
             <key key="shop" value="repair"/>
-            <multiselect key="repair" values="assisted_self_service;appliance;computer;electronics;mobile_phone;motorcycle;shoes;tv;tyres" display_values="Assisted self service;Appliances;Computers;Electronics;Mobile phones;Motorcycles;Shoes;TVs;Tyres"/>
+            <multiselect key="repair" text="Repair types" values="assisted_self_service;appliance;computer;electronics;mobile_phone;motorcycle;shoes;tv;tyres" display_values="Assisted self service;Appliances;Computers;Electronics;Mobile phones;Motorcycles;Shoes;TVs;Tyres"/>
             <reference ref="name_oh_wheelchair"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Repair -->
@@ -13559,7 +13560,7 @@
             <space/>
             <key key="natural" value="hot_spring"/>
             <reference ref="optional_name_wikipedia"/>
-            <combo key="water_characteristic">
+            <combo key="water_characteristic" text="Water characteristic">
                 <list_entry value="sulfuric" display_value="Contains sulfuric acid"/>
                 <list_entry value="sulfurous" display_value="Contains sulfur"/>
                 <list_entry value="mud" display_value="Mud"/>
@@ -15786,7 +15787,7 @@
         <item name="Abandoned amenity" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:abandoned:"/>
             <space/>
-            <text key="abandoned:aeroway" match="key"/>
+            <text key="abandoned:amenity" match="key"/>
         </item> <!-- Abandoned amenity -->
         <item name="Abandoned aeroway" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:abandoned:"/>
