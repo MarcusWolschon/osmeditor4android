@@ -1,5 +1,16 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.1.4:
+
+- Fix check non-preset matched fields for changes too
+- Fix protect against providers being null
+- Fix protect against null bounding boxes
+- Fix don't rely on fragment being attached to determine state
+- Fix NumberPicker behaviour on Android 8 and earlier
+- Update translations
+- Update imagery from ELI
+- Update default preset
+
 20.1.3:
 
 - Fix protect against null createdWay (Path creation mode)
