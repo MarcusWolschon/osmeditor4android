@@ -1,10 +1,10 @@
 #
-# This files hold the OAuth1 authentication keys as a courtesy for private builds and F_droid, they are not the same as those used for our distribution
+# This file hold the OAuth1 and OAuth2 authentication keys as a courtesy for private builds and F_droid, they are not the same as those used for our distribution
 #
 # File format, tab separated fields  
 # <name> <key type>  <key>   <overwrite> <additional 1>  <additional 2>
 #
-# <key type> is one of imagery api_key api_oauth1_key
+# <key type> is one of imagery api_key api_oauth1_key api_oauth2_key
 # 
 # if the type is imagery then <name> is the id of the imagery source configuration
 #
@@ -12,8 +12,8 @@
 #
 # <overwrite> controls if existing entries should be overwritten or not
 #
-# <additional 1> is used for the consumer secret if <key type> is api_oauth1_key and should be empty otherwise
-# <additional 2> is used for the base url for OAuth authorization if <key type> is api_oauth1_key and should be empty otherwise
+# <additional 1> is used for the consumer secret if <key type> is api_oauth1_key and should be empty otherwise, for api_oauth2_key use this needs to present but can be any value
+# <additional 2> is used for the base url for OAuth authorization if <key type> is api_oauth1_key or api_oauth2_key and should be empty otherwise
 #
 OpenStreetMap	api_oauth1_key	nmWBEJd7LS0ld8HR4JlAngJeJ8nopMngJSDE8Wx9	false	KXtzsmxYtuZAjfkMuvPgRQXxMbKdDPHPcf2sX4mD	https://www.openstreetmap.org/
 OpenStreetMap	api_oauth2_key	261CdAzHBI1HXgFEuhxmL_xXCiJY5JxTlhOs2pKVjb0	false	empty	https://www.openstreetmap.org/
