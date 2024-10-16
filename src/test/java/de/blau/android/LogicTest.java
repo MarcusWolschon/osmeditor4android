@@ -2,6 +2,7 @@ package de.blau.android;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +14,15 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import androidx.annotation.NonNull;
 import androidx.test.filters.LargeTest;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Util;
 
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @RunWith(RobolectricTestRunner.class)
 @LargeTest
 public class LogicTest {
@@ -70,5 +73,58 @@ public class LogicTest {
         list.add(n2);
         App.getLogic().performJoinNodeToWays(null, list, n1);
         assertEquals(1, way.getNodes().indexOf(n1));
+    }
+
+    /**
+     * Replace way geometry by new one, this should simply adjust the position of the three nodes and delete the fourth
+     * one
+     */
+    @Test
+    public void replaceGeometry1() {
+        assertTrue(replaceGeometry("replace_geometry.osm", -1, -2).isEmpty());
+    }
+
+    /**
+     * Replace way geometry by new one, this should simply adjust the position of the four existing nodes and add two
+     * more
+     */
+    @Test
+    public void replaceGeometry2() {
+        assertTrue(replaceGeometry("replace_geometry.osm", -1, -3).isEmpty());
+    }
+
+    /**
+     * Replace way geometry by new one, this should simply adjust the position of the four existing nodes and add two
+     * more
+     */
+    @Test
+    public void replaceGeometry3() {
+        List<Result> result = replaceGeometry("replace_geometry2.osm", -1, -3);
+        assertEquals(1, result.size());
+        Result r = result.get(0);
+        assertEquals(-14, r.getElement().getOsmId());
+        assertTrue(App.getLogic().getWaysForNode((Node) r.getElement()).isEmpty());
+    }
+
+    /**
+     * Replace way geometry by new one
+     */
+    private List<Result> replaceGeometry(@NonNull String input, int targetId, int sourceId) {
+        UnitTestUtils.loadTestData(getClass(), input);
+        Way target = (Way) App.getDelegator().getOsmElement(Way.NAME, targetId);
+        assertNotNull(target);
+        Way source = (Way) App.getDelegator().getOsmElement(Way.NAME, sourceId);
+        assertNotNull(source);
+        List<Result> result = App.getLogic().performReplaceGeometry(null, target, source.getNodes());
+        assertEquals(target.nodeCount(), source.nodeCount());
+        List<Node> sourceNodes = source.getNodes();
+        List<Node> targetNodes = target.getNodes();
+        for (int i = 0; i < source.nodeCount(); i++) {
+            Node s = sourceNodes.get(i);
+            Node t = targetNodes.get(i);
+            assertEquals(s.getLon(), t.getLon());
+            assertEquals(s.getLat(), t.getLat());
+        }
+        return result;
     }
 }
