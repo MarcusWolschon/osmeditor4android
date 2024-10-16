@@ -213,6 +213,10 @@ Maximum distance between two circle nodes. Default: _2m_.
 ### Minimum circle segment length
    
 Minimum distance between two circle nodes. Default: _0.5m_.
+
+### Maximum distance to move tagged node
+
+Maximum distance to move a tagged node when replacing way geometry. DEfault: _1.0m_.
     
 ## Auto-download Settings
 

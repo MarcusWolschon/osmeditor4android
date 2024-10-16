@@ -109,6 +109,10 @@ Search for OSM objects in the loaded data using JOSMs search expressions.
 
 Add the current selection to an existing or new todo list.
 
+### Replace geometry
+
+Move the tags of current node to a (in a second step) selected way and merge the current node in to one of the target ways to preserve history.
+
 ### Upload element
 
 Upload the selected element (only available for a new or modified element).
