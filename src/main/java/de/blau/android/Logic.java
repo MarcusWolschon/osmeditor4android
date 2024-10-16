@@ -99,6 +99,7 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.RelationUtils;
+import de.blau.android.osm.ReplaceIssue;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Storage;
@@ -2115,7 +2116,7 @@ public class Logic {
      * @param way the way to split
      * @param node the node at which the way should be split
      * @param fromEnd create new Way from Nodes after node
-     * @return a Result object containing the new Way or null if failed
+     * @return a List of Result objects containing the new Way and any issues
      * @throws OsmIllegalOperationException if the operation failed
      * @throws StorageException if we ran out of memory
      */
@@ -2740,8 +2741,10 @@ public class Logic {
      * @param activity optional Activity
      * @param target way that will get the new geometry
      * @param geometry list of GeoPoint with the new geometry
+     * @return a List of Result elements
      */
-    public synchronized <T extends GeoPoint> void performReplaceGeometry(@Nullable final FragmentActivity activity, @NonNull Way target,
+    @NonNull
+    public synchronized <T extends GeoPoint> List<Result> performReplaceGeometry(@Nullable final FragmentActivity activity, @NonNull Way target,
             @NonNull List<T> geometry) {
         StorageDelegator delegator = getDelegator();
         createCheckpoint(activity, R.string.undo_action_replace_geometry);
@@ -2773,11 +2776,17 @@ public class Logic {
             }
             delegator.replaceWayNodes(newNodes, target);
             // final act: delete all unused untagged nodes left
+            List<Result> result = new ArrayList<>();
             for (Node n : targetNodes) {
                 if (!n.isTagged() && !n.hasParentRelations() && getWaysForNode(n).isEmpty()) {
                     performEraseNode(activity, n, false);
+                } else {
+                    Result r = new Result(n);
+                    r.addIssue(ReplaceIssue.EXTRACTED_NODE);
+                    result.add(r);
                 }
             }
+            return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
@@ -2799,7 +2808,7 @@ public class Logic {
         for (Node target : targetNodes) {
             double distance = GeoMath.haversineDistance(target.getLon() / 1E7D, target.getLat() / 1E7D, newLon, newLat);
             if (distance < bestDistance) {
-                if (target.hasTags() && distance > 1) { // only use tagged nodes if they are really close to new
+                if (target.hasTags() && prefs != null && distance > prefs.getReplaceTolerance()) { // only use tagged nodes if they are really close to new
                                                         // position
                     continue;
                 }

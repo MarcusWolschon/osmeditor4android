@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.List;
 import java.util.Set;
 
@@ -9,7 +11,7 @@ import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
-import de.blau.android.dialogs.TagConflictDialog;
+import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
@@ -17,7 +19,10 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.ScreenMessage;
 
 public class WayMergingActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String   DEBUG_TAG = "WayMerging...";
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, WayMergingActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = WayMergingActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
+
     private final Way             way;
     private final Set<OsmElement> ways;
 
@@ -61,7 +66,7 @@ public class WayMergingActionModeCallback extends NonSimpleActionModeCallback {
             Result r = result.get(0);
             main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) r.getElement()));
             if (result.size() > 1 || r.hasIssue()) {
-                TagConflictDialog.showDialog(main, result);
+                ElementIssueDialog.showTagConflictDialog(main, result);
             }
         } catch (OsmIllegalOperationException e) {
             ScreenMessage.barError(main, e.getLocalizedMessage());

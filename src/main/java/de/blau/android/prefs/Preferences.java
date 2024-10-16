@@ -151,6 +151,7 @@ public class Preferences {
     private final double      maxCircleSegment;
     private final double      minCircleSegment;
     private final Set<String> poiKeys;
+    private final double      replaceTolerance;
 
     public static final String DEFAULT_MAP_STYLE     = "Color Round Nodes";
     public static final String DEFAULT_PEN_MAP_STYLE = "Pen Round Nodes";
@@ -343,6 +344,8 @@ public class Preferences {
         minCircleSegment = getFloatFromStringPref(R.string.config_minCircleSegment_key, 0.5f);
 
         poiKeys = prefs.getStringSet(r.getString(R.string.config_poi_keys_key), new HashSet<>(Arrays.asList(r.getStringArray(R.array.poi_keys_defaults))));
+    
+        replaceTolerance = getFloatFromStringPref(R.string.config_replaceTolerance_key, 1.0f);
     }
 
     /**
@@ -1959,7 +1962,7 @@ public class Preferences {
     }
 
     /**
-     * Get the max distance two nodes on a circle should have after circulize or create circle operations
+     * Get the min distance two nodes on a circle should have after circulize or create circle operations
      * 
      * @return the min. distance between two circle nodes
      */
@@ -1975,6 +1978,15 @@ public class Preferences {
     @NonNull
     public Set<String> poiKeys() {
         return poiKeys;
+    }
+    
+    /**
+     * Get the max distance a tagged node can be moved when replacing a way geometry
+     * 
+     * @return the max allowed distance a tagged node can be moved
+     */
+    public double getReplaceTolerance() {
+        return replaceTolerance;
     }
 
     /**

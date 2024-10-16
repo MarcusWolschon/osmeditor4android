@@ -32,8 +32,8 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.dialogs.ErrorAlert;
-import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.RelationUtils;
@@ -473,7 +473,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     protected void checkSplitResult(@NonNull Way originalWay, @Nullable List<Result> resultList) {
         saveSplitResult(originalWay, resultList);
         if (!savedResults.isEmpty()) {
-            TagConflictDialog.showDialog(main, new ArrayList<>(savedResults.values()));
+            ElementIssueDialog.showTagConflictDialog(main, new ArrayList<>(savedResults.values()));
         }
     }
 

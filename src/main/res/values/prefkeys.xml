@@ -145,6 +145,7 @@
     <string name="config_minCircleNodes_key">minCircleNodes</string>
     <string name="config_maxCircleSegment_key">maxCircleSegment</string>
     <string name="config_minCircleSegment_key">minCircleSegment</string>
+    <string name="config_replaceTolerance_key">replaceTolerance</string>
     <!-- Last directories used in the file selector -->
     <string name="config_gpxPreferredDir_key">gpxPreferredDir</string>
     <string name="config_osmPreferredDir_key">osmPreferredDir</string>

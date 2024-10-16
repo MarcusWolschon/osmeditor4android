@@ -386,6 +386,12 @@
             android:key="@string/config_minCircleSegment_key"
             android:summary="@string/config_minCircleSegment_summary"
             android:title="@string/config_minCircleSegment_title" />
+        <androidx.preference.EditTextPreference
+            android:defaultValue="1.0"
+            android:dialogTitle="@string/config_replaceTolerance_title"
+            android:key="@string/config_replaceTolerance_key"
+            android:summary="@string/config_replaceTolerance_summary"
+            android:title="@string/config_replaceTolerance_title" />    
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_auto_download"

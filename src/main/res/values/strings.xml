@@ -529,9 +529,11 @@
     <string name="api_info_latest_date">Last included date</string>
     <string name="api_info_attribution">Attribution</string>
     <string name="api_info_mapsplit_source">MapSplit read only source</string>
-    <!-- Tag conflict dialog -->
+    <!-- Element issue dialog -->
     <string name="tag_conflict_title">Properties changed</string>
     <string name="tag_conflict_message">The operation required changing properties of the elements involved.</string>
+    <string name="replace_geometry_issue_title">Element changed</string>
+    <string name="replace_geometry_issue_message">The operation required changing an elements position or membership.</string>
     <!-- Relation selection dialog -->
     <string name="no_suitable_relations_message">No suitable relations in downloaded data</string>
     <string name="select_route_title">Select route</string>
@@ -576,6 +578,7 @@
     <string name="tip_longpress_simple_mode">In simple mode a long press will not do anything. Turn simple mode off in the main menu if you want to use long clicks to create objects.</string>
     <string name="tip_gpx_no_elevation">Starting with version 15, GPX tracks no longer contain elevation information by default.&lt;p&gt;To enable elevation recording, install a Geoid model with &lt;i&gt;Install EGM&lt;/i&gt; from the Tools menu, or switch to NMEA input.</string>
     <string name="tip_tag_conflict">Merging and reversing OSM elements sometimes requires changing attributes on the elements, if there is a potential error or conflict you are alerted to this and are offered an opportunity to review the objects in question.</string>
+    <string name="tip_replace_geometry">Replacing the geometry of a way often requires moving the position of existing nodes, if these are tagged, that is they represent objects themselves, this might be undesireable.&lt;p&gt;To avoid this problem we extract nodes that are not within a small tolerance radius from the parent way and display a warning. You can adjust the tolerance (default 1m) in the advanced preferences.</string>
     <string name="tip_gpx_recording">When you start GPX recording Vespucci collects location data to enable the GPX recording even when the app is not visible.&lt;p&gt;Explicitly closing the application or turning GPX recording off will stop the use of location data in such situations.</string>
     <string name="tip_auto_download">When you start auto-downloading OSM data or tasks Vespucci utilizes location data to determine the current position even when the app is not visible.&lt;p&gt;Explicitly closing the application or turning auto-downloading off will stop the use of location data in such situations.</string>
     <string name="tip_tristate_checkbox">You just touched a tristate checkbox, these work just as normal checkboxes, toggling between two values, for example yes/no or true/false.&lt;p&gt;However they have an additional third &lt;b&gt;not set&lt;/b&gt; state, indicated by a greyed out checkbox which will stop the corresponding tag from being added. You can set the checkbox to this state with a long press.</string>
@@ -1397,10 +1400,13 @@
     <string name="config_minCircleNodes_current">%1$d nodes</string>
     <string name="config_maxCircleSegment_title">Maximum circle segment length</string>
     <string name="config_maxCircleSegment_summary">Maximum distance between two circle nodes.</string>
-    <string name="config_maxCircleSegmentcurrent">%1$d meter(s)</string>
+    <string name="config_maxCircleSegment_current">%1$d meter(s)</string>
     <string name="config_minCircleSegment_title">Minimum circle segment length</string>
     <string name="config_minCircleSegment_summary">Minimum distance between two circle nodes.</string>
-    <string name="config_minCircleSegmentcurrent">%1$d meter(s)</string>
+    <string name="config_minCircleSegment_current">%1$d meter(s)</string>
+    <string name="config_replaceTolerance_title">Maximum distance to move tagged node</string>
+    <string name="config_replaceTolerance_summary">Maximum distance to move a tagged node when replacing way geometry.</string>
+    <string name="config_replaceTolerance_current">%1$d meter(s)</string>
      
     <!-- Auto-download settings -->
     <string name="config_category_auto_download">Auto-download settings</string>
@@ -1665,6 +1671,7 @@
     <string name="issue_split_metric">Length dependent value was split</string>
     <string name="issue_split_route_ordering">Route may need manual reordering</string>
     <string name="issue_precondition_relation_member_count">Relation member count exceeded</string>
+    <string name="issue_replace_extracted_node">Tagged node extracted from way</string>
     <!-- time and distance -->
     <plurals name="days">
         <item quantity="one">1 day</item>

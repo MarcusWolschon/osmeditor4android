@@ -16,7 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.dialogs.TagConflictDialog;
+import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.easyedit.route.RouteSegmentActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -217,7 +217,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         try {
             List<Result> result = logic.performReverse(main, way);
             if (!result.isEmpty()) {
-                TagConflictDialog.showDialog(main, result);
+                ElementIssueDialog.showTagConflictDialog(main, result);
             }
         } catch (OsmIllegalOperationException | StorageException ex) {
             // toast has already been displayed
