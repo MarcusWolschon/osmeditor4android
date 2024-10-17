@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.62.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.63.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -374,7 +374,7 @@
         </optional>
     </chunk>
     <chunk id="traffic_signals_direction">
-        <combo key="direction" text="For traffic direction" values="forward,backward,N,E,S,W,0,90,180,270" display_values="Forward,Backward,North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;" values_sort="false"/>
+        <combo key="direction" text="For traffic direction" values="forward,backward,N,E,S,W,0,90,180,270" display_values="Forward,Backward,North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;" values_sort="false" value_type="cardinal_direction"/>
     </chunk>
     <chunk id="min_age">
         <text key="min_age" text="Minimum age"/>
@@ -1978,6 +1978,7 @@
             <check key="trolleybus" text="Trolleybus" disable_off="true"/>
             <check key="share_taxi" text="Share taxi" disable_off="true"/>
             <check key="subway" text="Subway" disable_off="true"/>
+            <check key="light_rail" text="Light rail" disable_off="true"/>
             <check key="monorail" text="Monorail" disable_off="true"/>
             <check key="funicular" text="Funicular" disable_off="true"/>
             <check key="aerialway" text="Aerialway" disable_off="true"/>
@@ -6643,7 +6644,7 @@
             <item name="Regional hiking network junction" icon="icons/png/tourist_hiking_network_junction.png" type="node" preset_name_label="true">
                 <link wiki="Tag:network:type=node_network"/>
                 <key key="network:type" value="node_network" object="true"/>
-                <text key="rhn_ref" text="Reference" match="key"/>
+                <text key="rwn_ref" text="Reference" match="key"/>
                 <optional>
                     <text key="expected_rhn_route_relations" text="Expected route count" match="none" value_type="integer"/>
                 </optional>
@@ -8895,6 +8896,7 @@
             <reference ref="material"/>
             <reference ref="colours"/>
             <combo key="seats" text="Seats count" values="1,2,3,4,5,6,7,8,9,10" value_type="integer"/>
+            <combo key="direction" text="Seat direction" values="N,E,S,W,0,90,180,270" display_values="North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;" values_sort="false" value_type="cardinal_direction"/>
             <optional>
                 <check key="covered" text="Covered"/>
                 <text key="operator" text="Operator"/>
@@ -10657,7 +10659,7 @@
             <combo key="lamp_mount" text="Mounted on" values="bent_mast,high_mast,pole,straight_mast,suspended,wall" display_values="Bent mast,High mast,Pole,Straight mast,Suspended,Wall" values_context="lamp_mount" match="key"/>
             <optional>
                 <reference ref="support"/>
-                <text key="light:direction" text="Direction in degrees" match="key"/>
+                <text key="light:direction" text="Direction in degrees" match="key" value_type="cardinal_direction"/>
                 <text key="light:count" text="Number of lamps" match="key" value_type="integer"/>
                 <text key="ref" text="Ref"/>
                 <text key="operator" text="Operator"/>
@@ -10757,7 +10759,7 @@
             <combo key="camera:type" text="Camera type" values="fixed,panning,dome" display_values="Fixed,Panning,Dome" values_context="camera:type" match="key"/>
             <combo key="camera:mount" text="Mounted on" values="wall,pole,ceiling" display_values="Wall,Pole,Ceiling" values_context="camera:mount" match="key"/>
             <optional>
-                <text key="camera:direction" text="Direction in degrees" match="key"/>
+                <text key="camera:direction" text="Direction in degrees" match="key" value_type="cardinal_direction"/>
                 <text key="camera:angle" text="Inclination in degrees" match="key"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
             </optional>
