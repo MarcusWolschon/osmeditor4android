@@ -26,9 +26,9 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AdvancedPrefEditorFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = AdvancedPrefEditorFragment.class.getSimpleName().substring(0, TAG_LEN);
 
-    private Resources    r;
-    AdvancedPrefDatabase db;
-    private String       apiPrefKey;
+    private Resources            r;
+    private AdvancedPrefDatabase db;
+    private String               apiPrefKey;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -74,9 +74,13 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setListPreferenceSummary(R.string.config_fullscreenMode_key, true);
         setListPreferenceSummary(R.string.config_mapOrientation_key, false);
         setListPreferenceSummary(R.string.config_gps_source_key, false);
+        setEditTextPreferenceSummary(R.string.config_gps_source_tcp_key, false);
         setEditTextPreferenceSummary(R.string.config_offsetServer_key, false);
         setEditTextPreferenceSummary(R.string.config_osmoseServer_key, false);
         setEditTextPreferenceSummary(R.string.config_taginfoServer_key, false);
+        setEditTextPreferenceSummary(R.string.config_overpassServer_key, false);
+        setEditTextPreferenceSummary(R.string.config_oamServer_key, false);
+
         setRestartRequiredMessage(R.string.config_enableLightTheme_key);
         setRestartRequiredMessage(R.string.config_splitActionBarEnabled_key);
         setListPreferenceSummary(R.string.config_followGPSbutton_key, true);
