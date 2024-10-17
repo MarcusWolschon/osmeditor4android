@@ -16,7 +16,7 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.dialogs.TagConflictDialog;
+import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -36,7 +36,7 @@ import de.blau.android.util.Util;
 
 public class MultiSelectWithGeometryActionModeCallback extends MultiSelectActionModeCallback {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, EasyEditActionModeCallback.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MultiSelectWithGeometryActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = MultiSelectWithGeometryActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MENUITEM_MERGE                = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 1;
@@ -308,7 +308,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
             final Result r = result.get(0);
             main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) r.getElement()));
             if (result.size() > 1 || r.hasIssue()) {
-                TagConflictDialog.showDialog(main, result);
+                ElementIssueDialog.showTagConflictDialog(main, result);
             }
         } catch (OsmIllegalOperationException | IllegalStateException e) {
             ScreenMessage.barError(main, e.getLocalizedMessage());
@@ -331,7 +331,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
                 main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, (Relation) e));
             }
             if (result.size() > 1 || r.hasIssue()) {
-                TagConflictDialog.showDialog(main, result);
+                ElementIssueDialog.showTagConflictDialog(main, result);
             }
         } catch (OsmIllegalOperationException | IllegalStateException e) {
             ScreenMessage.barError(main, e.getLocalizedMessage());

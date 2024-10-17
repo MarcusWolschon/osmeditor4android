@@ -26,7 +26,7 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.DisambiguationMenu;
 import de.blau.android.R;
-import de.blau.android.dialogs.TagConflictDialog;
+import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.easyedit.turnrestriction.FromElementWithViaNodeActionModeCallback;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
@@ -236,7 +236,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                     manager.editElement(newElement);
                 }
                 if (result.size() > 1 || result.get(0).hasIssue()) {
-                    TagConflictDialog.showDialog(main, result);
+                    ElementIssueDialog.showTagConflictDialog(main, result);
                 } else {
                     ScreenMessage.toastTopInfo(main, R.string.toast_merged);
                 }

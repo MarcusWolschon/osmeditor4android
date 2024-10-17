@@ -11,6 +11,7 @@
     <string name="tip_longpress_simple_mode_key">longPressSimpleModeTip</string>
     <string name="tip_gpx_no_elevation_key">gpxNoElevationTip</string>
     <string name="tip_tag_conflict_key">tagConflictTip</string>
+    <string name="tip_replace_geometry_key">replaceGeometryTip</string>
     <string name="tip_gpx_recording_key">gpxRecordingTip</string>
     <string name="tip_auto_download_key">autoDownloadTip</string>
     <string name="tip_tristate_checkbox_key">tristateCheckbox</string>

@@ -430,7 +430,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
         if (mergeResult.hasIssue()) {
             ((Main) activity).edit(into);
             // NOTE Arrays.asList doesn't work here
-            TagConflictDialog.showDialog(((Main) activity), de.blau.android.util.Util.wrapInList(mergeResult));
+            ElementIssueDialog.showTagConflictDialog(((Main) activity), de.blau.android.util.Util.wrapInList(mergeResult));
         } else {
             restartHandler.onSuccess();
         }

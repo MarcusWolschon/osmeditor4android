@@ -1,5 +1,7 @@
 package de.blau.android.easyedit.route;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.dialogs.TagConflictDialog;
+import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.easyedit.BuilderActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.ElementSelectionActionModeCallback;
@@ -37,7 +39,8 @@ import de.blau.android.util.Util;
 
 public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
 
-    private static final String DEBUG_TAG = RouteSegmentActionModeCallback.class.getSimpleName().substring(0, Math.min(23, RouteSegmentActionModeCallback.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RouteSegmentActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = RouteSegmentActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     static final String SEGMENT_IDS_KEY = "segment ids";
     static final String ROUTE_ID_KEY    = "route id";
@@ -337,7 +340,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
             main.performTagEdit(route, Tags.VALUE_ROUTE, false, false);
             main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, route));
             if (!savedResults.isEmpty()) {
-                TagConflictDialog.showDialog(main, new ArrayList<>(savedResults.values()));
+                ElementIssueDialog.showTagConflictDialog(main, new ArrayList<>(savedResults.values()));
             }
         } catch (OsmIllegalOperationException | StorageException ex) {
             // toast has already been displayed

@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,30 +36,64 @@ import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class TagConflictDialog extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = TagConflictDialog.class.getSimpleName().substring(0, Math.min(23, TagConflictDialog.class.getSimpleName().length()));
+public class ElementIssueDialog extends ImmersiveDialogFragment {
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ElementIssueDialog.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ElementIssueDialog.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String TAG = "fragment_tag_conflict";
+    private static final String TAG = "fragment_element_issue";
 
+    private static final String TITLE_KEY   = "title_key";
+    private static final String MESSAGE_KEY = "message_key";
+    private static final String TIP_KEY_KEY = "tip_key_key";
+    private static final String TIP_KEY     = "tip_key";
     private static final String RESULTS_KEY = "results";
 
+    private int          titleRes;
+    private int          messageRes;
+    private int          tipKeyRes;
+    private int          tipRes;
     private List<Result> result;
+
+    /**
+     * Show a dialog with a list of tag conflict issues
+     * 
+     * @param activity the calling FragmentActivity
+     * @param result the List of Result elements
+     */
+    public static void showTagConflictDialog(@NonNull AppCompatActivity activity, @NonNull List<Result> result) {
+        showDialog(activity, R.string.tag_conflict_title, R.string.tag_conflict_message, R.string.tip_tag_conflict_key, R.string.tip_tag_conflict, result);
+    }
+
+    /**
+     * Show a dialog with a list of issues caused by replacing geometry
+     * 
+     * @param activity the calling FragmentActivity
+     * @param result the List of Result elements
+     */
+    public static void showReplaceGeometryIssuetDialog(@NonNull AppCompatActivity activity, @NonNull List<Result> result) {
+        showDialog(activity, R.string.replace_geometry_issue_title, R.string.replace_geometry_issue_message, R.string.tip_replace_geometry_key,
+                R.string.tip_replace_geometry, result);
+    }
 
     /**
      * Show a dialog with a list of issues
      * 
      * @param activity the calling FragmentActivity
+     * @param titleRes resource id for the title
+     * @param messageRes resource if for the message
+     * @param tipKeyRes tip key resource
+     * @param tipRes tip message resource
      * @param result the List of Result elements
      */
-    public static void showDialog(@NonNull AppCompatActivity activity, @NonNull List<Result> result) {
+    private static void showDialog(@NonNull AppCompatActivity activity, int titleRes, int messageRes, int tipKeyRes, int tipRes, @NonNull List<Result> result) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             if (activity instanceof Main) {
                 ((Main) activity).descheduleAutoLock();
             }
-            TagConflictDialog tagConflictFragment = newInstance(result);
-            tagConflictFragment.show(fm, TAG);
+            ElementIssueDialog elementIssueFragment = newInstance(titleRes, messageRes, tipKeyRes, tipRes, result);
+            elementIssueFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
         }
@@ -75,12 +111,20 @@ public class TagConflictDialog extends ImmersiveDialogFragment {
     /**
      * Create new instance of this object
      * 
+     * @param titleRes resource id for the title
+     * @param messageRes resource if for the message
+     * @param tipKeyRes tip key resource
+     * @param tipRes tip message resource
      * @param result the List of Result elements
      * @return a TagConflictDialog instance
      */
-    private static TagConflictDialog newInstance(@NonNull List<Result> result) {
-        TagConflictDialog f = new TagConflictDialog();
+    private static ElementIssueDialog newInstance(int titleRes, int messageRes, int tipKeyRes, int tipRes, @NonNull List<Result> result) {
+        ElementIssueDialog f = new ElementIssueDialog();
         Bundle args = new Bundle();
+        args.putInt(TITLE_KEY, titleRes);
+        args.putInt(MESSAGE_KEY, messageRes);
+        args.putInt(TIP_KEY_KEY, tipKeyRes);
+        args.putInt(TIP_KEY, tipRes);
         args.putSerializable(RESULTS_KEY, (Serializable) result);
 
         f.setArguments(args);
@@ -95,19 +139,28 @@ public class TagConflictDialog extends ImmersiveDialogFragment {
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "Recreating from saved state");
+            titleRes = savedInstanceState.getInt(TITLE_KEY);
+            messageRes = savedInstanceState.getInt(MESSAGE_KEY);
+            tipKeyRes = savedInstanceState.getInt(TIP_KEY_KEY);
+            tipRes = savedInstanceState.getInt(TIP_KEY);
             result = Util.getSerializeableArrayList(savedInstanceState, RESULTS_KEY, Result.class);
             // restore the elements
             for (Result r : result) {
                 r.restoreElement(App.getDelegator());
             }
         } else {
+            Bundle args = getArguments();
+            titleRes = args.getInt(TITLE_KEY);
+            messageRes = args.getInt(MESSAGE_KEY);
+            tipKeyRes = args.getInt(TIP_KEY_KEY);
+            tipRes = args.getInt(TIP_KEY);
             result = Util.getSerializeableArrayList(getArguments(), RESULTS_KEY, Result.class);
         }
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         View layout = inflater.inflate(R.layout.tag_conflict, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(R.string.tag_conflict_title);
-        builder.setMessage(R.string.tag_conflict_message);
+        builder.setTitle(titleRes);
+        builder.setMessage(messageRes);
 
         ListView list = layout.findViewById(R.id.elements);
         list.setAdapter(new ResultArrayAdapter(getContext(), R.layout.tag_conflict_item, R.id.text1, result));
@@ -129,7 +182,7 @@ public class TagConflictDialog extends ImmersiveDialogFragment {
     public void onStart() {
         super.onStart();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        Tip.showDialog(getActivity(), R.string.tip_tag_conflict_key, R.string.tip_tag_conflict);
+        Tip.showDialog(getActivity(), tipKeyRes, tipRes);
     }
 
     @Override
@@ -144,6 +197,10 @@ public class TagConflictDialog extends ImmersiveDialogFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
+        outState.putInt(TITLE_KEY, titleRes);
+        outState.putInt(MESSAGE_KEY, messageRes);
+        outState.putInt(TIP_KEY_KEY, tipKeyRes);
+        outState.putInt(TIP_KEY, tipRes);
         List<Result> toSave = new ArrayList<>();
         // directly saving OsmElements is a bad idea
         // we need to copy everything as otherwise we

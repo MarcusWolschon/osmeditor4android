@@ -167,6 +167,23 @@ public class StorageDelegatorRoboelectricTest {
         Result r = results.get(0);
         assertTrue(r.getElement() instanceof Way);
     }
+    
+    /**
+     * Replace the nodes of one way by those of another
+     */
+    @Test
+    public void replaceWayNodesTest() {
+        StorageDelegator d = RelationUtilTest.loadTestData(getClass());
+        Way w = RelationUtilTest.getWay(d, -1L);
+        Way w2 = RelationUtilTest.getWay(d, -8L);
+        List<Node> nodes = w2.getNodes();
+        d.replaceWayNodes(nodes, w); 
+        assertEquals(nodes.size(), w.nodeCount());
+        final List<Node> wayNodes = w.getNodes();
+        for (int i = 0;i< nodes.size();i++) {
+            assertEquals(nodes.get(i), wayNodes.get(i));
+        }
+    }
 
     /**
      * Get a Map instance
