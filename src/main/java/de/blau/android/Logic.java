@@ -55,7 +55,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
-import ch.poole.osm.josmfilterparser.Nodes;
 import de.blau.android.contract.HttpStatusCodes;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.AttachedObjectWarning;
@@ -110,6 +109,7 @@ import de.blau.android.osm.UserDetails;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.tasks.Note;
@@ -1577,7 +1577,7 @@ public class Logic {
     /**
      * Rotate selected objects
      * 
-     * Note that this needs to rotate all the nodes of all objects at once to avoid rotating the same ome multiple
+     * Note that this needs to rotate all the nodes of all objects at once to avoid rotating the same one multiple
      * times, special cases exactly one node selected.
      * 
      * @param activity the current Activity
@@ -1597,7 +1597,7 @@ public class Logic {
         List<Node> selectedNodes = selection.getNodes();
         if (selectedNodes != null) {
             if (selection.count() == 1) {
-                updateDirection((float) Math.toDegrees(angle), direction, selectedNodes.get(0));
+                updateDirection(activity, (float) Math.toDegrees(angle), direction, selectedNodes.get(0));
                 return;
             }
             nodes.addAll(selectedNodes);
@@ -1625,8 +1625,9 @@ public class Logic {
      * @param direction rotation direction (+ == clockwise)
      * @param node the Node
      */
-    private void updateDirection(float angle, int direction, @NonNull final Node node) {
-        String directionKey = Tags.getDirectionKey(node);
+    private void updateDirection(@NonNull Context context, float angle, int direction, @NonNull final Node node) {
+        // this is obviously quiet expensive bit avoids having state somewhere else
+        String directionKey = Tags.getDirectionKey(Preset.findBestMatch(App.getCurrentPresets(context), node.getTags(), null, null), node);
         if (directionKey != null) {
             java.util.Map<String, String> tags = new HashMap<>(node.getTags());
             Float currentAngle = Tags.parseDirection(tags.get(directionKey));
@@ -2808,8 +2809,11 @@ public class Logic {
         for (Node target : targetNodes) {
             double distance = GeoMath.haversineDistance(target.getLon() / 1E7D, target.getLat() / 1E7D, newLon, newLat);
             if (distance < bestDistance) {
-                if (target.hasTags() && prefs != null && distance > prefs.getReplaceTolerance()) { // only use tagged nodes if they are really close to new
-                                                        // position
+                if (target.hasTags() && prefs != null && distance > prefs.getReplaceTolerance()) { // only use tagged
+                                                                                                   // nodes if they are
+                                                                                                   // really close to
+                                                                                                   // new
+                    // position
                     continue;
                 }
                 bestDistance = distance;

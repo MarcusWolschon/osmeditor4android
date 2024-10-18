@@ -993,7 +993,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         ValueType valueType = field.getValueType();
         if (field instanceof PresetTextField || key.startsWith(Tags.KEY_ADDR_BASE)
                 || (isComboField && ((PresetComboField) field).isEditable() && ValueType.OPENING_HOURS_MIXED != valueType) || Tags.isConditional(key)
-                || ValueType.INTEGER == valueType || Tags.DIRECTION_KEYS.contains(key)) {
+                || ValueType.INTEGER == valueType || ValueType.CARDINAL_DIRECTION == valueType) {
             if (Tags.isConditional(key)) {
                 rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, values, allTags));
                 return;
