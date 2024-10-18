@@ -24,6 +24,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.App;
 import de.blau.android.DisambiguationMenu;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementIssueDialog;
@@ -36,6 +37,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.presets.Preset;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Sound;
@@ -67,6 +69,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     private MenuItem         restrictionItem;
     private MenuItem         rotateItem;
     private int              action;
+    private Preset[]         presets;
 
     /**
      * Construct a callback for Node selection
@@ -86,9 +89,9 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         main.invalidateMap();
         mode.setTitle(R.string.actionmode_nodeselect);
         mode.setSubtitle(null);
-
+        presets = App.getCurrentPresets(main);
         menu = replaceMenu(menu, mode, this);
-        SortedMap<String, String> tags = ((Node) element).getTags();
+        SortedMap<String, String> tags = element.getTags();
         if (!tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER) && !tags.containsKey(Tags.KEY_HIGHWAY)) {
             // exclude some stuff that typically doesn't have an address
             menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
@@ -137,7 +140,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         }
         updated |= setItemVisibility(highways.size() >= 2, restrictionItem, false);
 
-        updated |= setItemVisibility(Tags.getDirectionKey(element) != null, rotateItem, false);
+        updated |= setItemVisibility(Tags.getDirectionKey(Preset.findBestMatch(presets, element.getTags(), null, null), element) != null, rotateItem, false);
 
         if (updated) {
             arrangeMenu(menu);

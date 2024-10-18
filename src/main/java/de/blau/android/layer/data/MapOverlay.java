@@ -188,6 +188,11 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     private final WeakHashMap<java.util.Map<String, String>, Float> directionCache = new WeakHashMap<>();
 
     /**
+     * Cache for any preset matching during one draw pass
+     */
+    private final HashMap<java.util.Map<String, String>, PresetItem> matchCache = new HashMap<>();
+
+    /**
      * Stores custom icons
      */
     private final HashMap<String, BitmapDrawable> customIconCache = new HashMap<>();
@@ -477,6 +482,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             download.setBox(viewBox);
             map.getRootView().postDelayed(download, 100);
         }
+        matchCache.clear();
         paintOsmData(canvas);
     }
 
@@ -1141,15 +1147,35 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         Float direction = node.getFromCache(directionCache);
         if (direction == null) {
             direction = Float.NaN;
-            String key = Tags.getDirectionKey(node);
-            if (key != null) {
-                direction = Tags.parseDirection(node.getTagWithKey(key));
+            PresetItem match = getMatch(node);
+            if (match != null) {
+                String key = Tags.getDirectionKey(match, node);
+                if (key != null) {
+                    direction = Tags.parseDirection(node.getTagWithKey(key));
+                }
             }
             synchronized (directionCache) {
                 node.addToCache(directionCache, direction);
             }
         }
         return direction;
+    }
+
+    /**
+     * Get the best preset match for an element and cache it during this draw pass
+     * 
+     * @param e the OsmElement
+     * @return a PresetItem or null
+     */
+    @Nullable
+    private PresetItem getMatch(@NonNull OsmElement e) {
+        java.util.Map<String, String> tags = e.getTags();
+        PresetItem match = matchCache.get(tags);
+        if (match == null && !matchCache.containsKey(tags)) {
+            match = Preset.findBestMatch(tmpPresets, tags, null, null);
+            matchCache.put(tags, match);
+        }
+        return match;
     }
 
     /**
@@ -1190,7 +1216,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             }
             FeatureStyle style = styles.matchStyle(e);
             if (style.usePresetLabel() && tmpPresets != null) {
-                PresetItem match = Preset.findBestMatch(tmpPresets, e.getTags(), null, null);
+                PresetItem match = getMatch(e);
                 if (match != null) {
                     String template = e.nameFromTemplate(context, match);
                     label = template != null ? template : match.getTranslatedName();
@@ -1265,7 +1291,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                 iconDrawable = retrieveCustomIcon(iconPath);
             }
         } else if (tmpPresets != null) {
-            PresetItem match = !isWay || usePresetIcon ? Preset.findBestMatch(tmpPresets, element.getTags(), null, null) : null;
+            PresetItem match = !isWay || usePresetIcon ? getMatch(element) : null;
             if (match != null) {
                 iconDrawable = match.getMapIcon(context);
             }

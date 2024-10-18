@@ -11,6 +11,10 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetTagField;
+import de.blau.android.presets.ValueType;
 
 /**
  * Key and value constants for tags that are used in the code
@@ -281,19 +285,20 @@ public final class Tags {
     public static final String KEY_CAMERA_DIRECTION = "camera:direction";
     public static final String KEY_LIGHT_DIRECTION  = "light:direction";
 
-    public static final List<String> DIRECTION_KEYS = Collections.unmodifiableList(Arrays.asList(KEY_DIRECTION, KEY_CAMERA_DIRECTION, KEY_LIGHT_DIRECTION));
-
     /**
      * Get a direction key if any are present from the OSM element
      * 
+     * @param presetItem matching preset item
      * @param e the OSM element
      * @return the key or null
      */
     @Nullable
-    public static String getDirectionKey(@NonNull OsmElement e) {
-        for (String key : Tags.DIRECTION_KEYS) {
-            if (e.hasTagKey(key)) {
-                return key;
+    public static String getDirectionKey(@Nullable PresetItem presetItem, @NonNull OsmElement e) {
+        if (presetItem != null) {
+            for (PresetField field : presetItem.getFields().values()) {
+                if (field instanceof PresetTagField && ((PresetTagField) field).getValueType() == ValueType.CARDINAL_DIRECTION) {
+                    return ((PresetTagField) field).getKey();
+                }
             }
         }
         return null;

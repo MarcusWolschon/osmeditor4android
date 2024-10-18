@@ -227,8 +227,7 @@ public class TextRow extends LinearLayout implements KeyValueRow, TagChanged {
                 IntegerValueFragment.show(caller, hint != null ? hint : key, key, ((TextView) v).getText().toString(), values, preset, allTags);
             });
         }
-        if (Tags.DIRECTION_KEYS.contains(key)
-                && (preset == null || !(preset.hasKeyValue(Tags.KEY_HIGHWAY, Tags.VALUE_MINI_ROUNDABOUT) && Tags.KEY_DIRECTION.equals(key)))) {
+        if (ValueType.CARDINAL_DIRECTION == valueType) {
             ourValueView.setFocusable(false);
             ourValueView.setFocusableInTouchMode(false);
             ourValueView.setOnClickListener(v -> {
