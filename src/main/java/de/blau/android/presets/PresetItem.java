@@ -528,13 +528,12 @@ public class PresetItem extends PresetElement {
      * 
      * @param type the OsmElement type as a string (NODE, WAY, RELATION)
      * @param regions regions the object is located in
-     * @return a List of PresetRoles or null if none
+     * @return a List of PresetRoles
      */
-    @Nullable
+    @NonNull
     public List<PresetRole> getRoles(@Nullable String type, @Nullable List<String> regions) {
-        List<PresetRole> result = null;
+        List<PresetRole> result = new ArrayList<>();
         if (roles != null) {
-            result = new ArrayList<>();
             for (PresetRole role : roles) {
                 if (role.appliesTo(type) && role.appliesIn(regions)) {
                     result.add(role);
@@ -551,33 +550,33 @@ public class PresetItem extends PresetElement {
      * @param element the OsmElement that is the relation member
      * @param tags alternative Map of tags to use
      * @param regions list of regions the object is located in
-     * @return a List of PresetRoles or null if none
+     * @return a List of PresetRoles
      */
-    @Nullable
+    @NonNull
     public List<PresetRole> getRoles(@NonNull Context context, @NonNull OsmElement element, @Nullable Map<String, String> tags,
             @Nullable List<String> regions) {
-        List<PresetRole> result = null;
-        if (roles != null) {
-            result = new ArrayList<>();
-            Wrapper wrapper = new Wrapper(context);
-            wrapper.setElement(element);
-            ElementType type = element.getType();
-            Map<String, String> tagsToUse = tags != null ? tags : element.getTags();
-            for (PresetRole role : roles) {
-                if (role.appliesTo(type) && role.appliesIn(regions)) {
-                    String memberExpression = role.getMemberExpression();
-                    if (memberExpression != null) {
-                        JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(memberExpression.getBytes()));
-                        try { // test if this matches the member expression
-                            if (!parser.condition().eval(Wrapper.toJosmFilterType(element), wrapper, tagsToUse)) {
-                                continue;
-                            }
-                        } catch (ch.poole.osm.josmfilterparser.ParseException | IllegalArgumentException e) {
-                            Log.e(DEBUG_TAG, "member_expression " + memberExpression + " caused " + e.getMessage());
+        List<PresetRole> result = new ArrayList<>();
+        if (roles == null) {
+            return result;
+        }
+        Wrapper wrapper = new Wrapper(context);
+        wrapper.setElement(element);
+        ElementType type = element.getType();
+        Map<String, String> tagsToUse = tags != null ? tags : element.getTags();
+        for (PresetRole role : roles) {
+            if (role.appliesTo(type) && role.appliesIn(regions)) {
+                String memberExpression = role.getMemberExpression();
+                if (memberExpression != null) {
+                    JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(memberExpression.getBytes()));
+                    try { // test if this matches the member expression
+                        if (!parser.condition().eval(Wrapper.toJosmFilterType(element), wrapper, tagsToUse)) {
+                            continue;
                         }
+                    } catch (ch.poole.osm.josmfilterparser.ParseException | IllegalArgumentException e) {
+                        Log.e(DEBUG_TAG, "member_expression " + memberExpression + " caused " + e.getMessage());
                     }
-                    result.add(role);
                 }
+                result.add(role);
             }
         }
         return result;

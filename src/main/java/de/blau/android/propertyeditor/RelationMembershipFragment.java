@@ -415,7 +415,7 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
                 PropertyEditorListener listener = (PropertyEditorListener) owner.getParentFragment();
                 List<PresetRole> tempPresetRoles = presetItem.getRoles(getContext(), listener.getElement(),
                         ((PropertyEditorFragment) listener).getKeyValueMapSingle(true), listener.getIsoCodes());
-                if (tempPresetRoles != null) {
+                if (!tempPresetRoles.isEmpty()) {
                     countAndAddRoles(tempPresetRoles, counter, result);
                 }
             } else {

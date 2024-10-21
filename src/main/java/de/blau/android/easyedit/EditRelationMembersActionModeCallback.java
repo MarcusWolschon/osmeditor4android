@@ -183,7 +183,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         if (relationPreset != null) {
             GeoContext geoContext = App.getGeoContext(main);
             List<PresetRole> roles = relationPreset.getRoles(main, element, null, geoContext != null ? geoContext.getIsoCodes(element) : null);
-            if (roles != null) {
+            if (!roles.isEmpty()) {
                 if (roles.size() == 1) {
                     // exactly one match
                     member.setRole(roles.get(0).getRole());
