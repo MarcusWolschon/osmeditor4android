@@ -7,14 +7,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -22,12 +19,10 @@ import de.blau.android.R;
 import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
-import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.MergeAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
-import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
 
