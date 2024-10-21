@@ -125,7 +125,7 @@ public class IntegerValueFragment extends ValueWidgetFragment {
             if (editView instanceof EditText) {
                 // Remove default input filter
                 ((EditText) editView).setFilters(new InputFilter[0]);
-                ((EditText) editView).setFocusable(false);
+                editView.setFocusable(false);
             }
         }
 

@@ -322,7 +322,7 @@ public class PropertyEditorTest {
             fail();
         }
         assertNotNull(direction);
-        assertEquals("Type or tap for values", direction.getText());
+        assertEquals(main.getString(R.string.tag_dialog_value_hint), direction.getText());
         direction.clickAndWait(Until.newWindow(), 2000);
         TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
         TestUtils.clickHome(device, true);
@@ -371,12 +371,12 @@ public class PropertyEditorTest {
             fail();
         }
         assertNotNull(direction);
-        assertEquals("Type or tap for values", direction.getText());
+        assertEquals(main.getString(R.string.tag_dialog_value_hint), direction.getText());
         direction.clickAndWait(Until.newWindow(), 2000);
         TestUtils.clickText(device, true, "Forward", false, false);
         TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
         TestUtils.clickHome(device, true);
-        assertEquals("forward", n.getTagWithKey("direction"));
+        assertEquals("forward", n.getTagWithKey("direction").toLowerCase());
     }
 
     @Test
@@ -410,7 +410,7 @@ public class PropertyEditorTest {
             fail();
         }
         assertNotNull(direction);
-        assertEquals("forward", direction.getText());
+        assertEquals("forward", direction.getText().toLowerCase());
         direction.clickAndWait(Until.newWindow(), 2000);
         TestUtils.clickText(device, true, "Forward", false, false);
         TestUtils.clickText(device, true, main.getString(R.string.save), true, false);

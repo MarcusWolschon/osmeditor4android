@@ -1014,6 +1014,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 rowLayout.addView(LongTextDialogRow.getRow(this, inflater, rowLayout, preset, (PresetTextField) field, value, maxStringLength));
                 return;
             }
+            if ( ValueType.INTEGER == valueType || ValueType.CARDINAL_DIRECTION == valueType) {
+                rowLayout.addView(ValueWidgetRow.getRow(this, inflater, rowLayout, preset, field, value, values, allTags));
+                return;
+            }
             rowLayout.addView(TextRow.getRow(this, inflater, rowLayout, preset, field, value, values, allTags));
             return;
         }
