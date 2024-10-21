@@ -204,7 +204,7 @@ public abstract class ValueWidgetFragment extends DialogFragment {
             @NonNull ArrayAdapter<?> adapter, @NonNull final RadioGroup valueGroup) {
         final View.OnClickListener listener = v -> {
             RadioGroup g = (RadioGroup) v.getParent();
-            int id = ((RadioButton) v).getId();
+            int id = v.getId();
             if (((RadioButton) v).isChecked() && widget.getWidgetView().isEnabled()) {
                 widget.disable();
             } else if (((RadioButton) v).isChecked() && lastChecked == id) {

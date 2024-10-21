@@ -115,7 +115,7 @@ public class NmeaTcpClientServer implements Runnable {
             }
         } catch (Throwable e) { // NOSONAR
             Log.w(DEBUG_TAG, "Exception  " + e);
-            String message = ((SocketException) e).getMessage();
+            String message = e.getMessage();
             // there is no good way to avoid this
             if (e instanceof SocketException && message != null && message.toLowerCase().contains(CLOSED)) {
                 return; // don't show message as it is expected

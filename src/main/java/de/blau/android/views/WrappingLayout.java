@@ -335,11 +335,11 @@ public class WrappingLayout extends LinearLayout {
                 int childWidth = getViewWidth(child);
                 if (newWidth > childWidth && child instanceof TextView) { // TODO this will fail with non square
                                                                           // children views
-                    android.view.ViewGroup.LayoutParams childLayout = ((TextView) child).getLayoutParams();
+                    android.view.ViewGroup.LayoutParams childLayout = child.getLayoutParams();
                     if (childLayout != null) {
                         childLayout.width = newWidth;
                         childLayout.height = newWidth;
-                        ((TextView) child).setLayoutParams(childLayout);
+                        child.setLayoutParams(childLayout);
                     } else {
                         Log.e(DEBUG_TAG, "child view layout params null");
                     }

@@ -863,7 +863,7 @@ public class PresetItem extends PresetElement {
     public Set<String> getI18nKeys() {
         Set<String> result = new HashSet<>();
         for (PresetTagField field : getTagFields()) {
-            if (field instanceof PresetTextField && ((PresetTextField) field).isI18n()) {
+            if (field instanceof PresetTextField && field.isI18n()) {
                 result.add(((PresetTextField) field).key);
             }
         }
@@ -1512,11 +1512,11 @@ public class PresetItem extends PresetElement {
                 continue;
             }
             if (field instanceof PresetTagField) {
-                if (!inOptional && ((PresetTagField) field).isOptional()) {
+                if (!inOptional && field.isOptional()) {
                     s.startTag("", PresetParser.OPTIONAL);
                     inOptional = true;
                 }
-                if (inOptional && !((PresetTagField) field).isOptional()) {
+                if (inOptional && !field.isOptional()) {
                     s.endTag("", PresetParser.OPTIONAL);
                     inOptional = false;
                 }

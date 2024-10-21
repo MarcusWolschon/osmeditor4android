@@ -162,7 +162,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
             }
             mainView.findViewById(R.id.urldialog_checkboxEnable).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
             mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
-            ((Button) mainView.findViewById(R.id.urldialog_buttonAddPreset)).setOnClickListener(this);
+            mainView.findViewById(R.id.urldialog_buttonAddPreset).setOnClickListener(this);
         }
     }
 

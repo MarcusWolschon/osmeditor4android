@@ -1658,7 +1658,7 @@ public class Main extends FullScreenAppCompatActivity
         //
         lock.setOnClickListener(b -> {
             Log.d(DEBUG_TAG, "Lock pressed " + b.getClass().getName());
-            int[] drawableState = ((FloatingActionButton) b).getDrawableState();
+            int[] drawableState = b.getDrawableState();
             Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length == 1 ? Integer.toHexString(drawableState[0]) : ""));
             if (drawableState.length == 0 || drawableState[0] != android.R.attr.state_pressed) {
                 logic.setMode(Main.this, Mode.modeForTag((String) b.getTag()));

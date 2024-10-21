@@ -795,7 +795,7 @@ public class Preset implements Serializable {
         List<PresetElement> elements = regions == null ? group.getElements() : PresetElement.filterElementsByRegion(group.getElements(), regions);
         for (PresetElement element : elements) {
             final boolean isDeprecated = element.isDeprecated();
-            if (element instanceof PresetItem && name.equals(((PresetItem) element).getName()) && !(isDeprecated ^ deprecated)) {
+            if (element instanceof PresetItem && name.equals(element.getName()) && !(isDeprecated ^ deprecated)) {
                 return (PresetItem) element;
             } else if (element instanceof PresetGroup) {
                 PresetItem result = getElementByName((PresetGroup) element, name, regions, deprecated);

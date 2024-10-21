@@ -71,7 +71,7 @@ public class MultiselectDialogRow extends DialogRow {
         for (int pos = 0; pos < valueList.getChildCount(); pos++) {
             View v = valueList.getChildAt(pos);
             if (v instanceof TextView) {
-                ((TextView) v).setOnClickListener(listener);
+                v.setOnClickListener(listener);
             }
         }
     }
@@ -236,7 +236,7 @@ public class MultiselectDialogRow extends DialogRow {
         check.setText(description != null && !"".equals(description) ? description : swd.getValue());
         check.setTag(swd);
         if (icon != null) {
-            Util.setCompoundDrawableWithIntrinsicBounds(Util.isRtlScript(context),check,icon);
+            Util.setCompoundDrawableWithIntrinsicBounds(Util.isRtlScript(context), check, icon);
             check.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }
         check.setLayoutParams(layoutParams);

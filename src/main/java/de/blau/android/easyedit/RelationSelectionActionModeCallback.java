@@ -75,7 +75,7 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
      */
     private boolean checkForEmptyRelation(@NonNull ActionMode mode) {
         if (element != null && (((Relation) element).getMembers() == null || ((Relation) element).getMembers().isEmpty())) {
-            EmptyRelation.showDialog(main, ((Relation) element).getOsmId());
+            EmptyRelation.showDialog(main, element.getOsmId());
             mode.finish();
             return true;
         }
@@ -92,7 +92,7 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
 
         updated |= setItemVisibility(((Relation) element).getMembers() != null, selectMembersItem, false);
 
-        updated |= setItemVisibility(((Relation) element).hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) && ((Relation) element).allDownloaded(), rotateItem,
+        updated |= setItemVisibility(element.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) && ((Relation) element).allDownloaded(), rotateItem,
                 false);
 
         if (updated) {

@@ -579,7 +579,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
                     List<UndoElement> undoWays = undo.getUndoElements(w);
                     UndoElement undoWay = undoWays.get(undoWays.size() - 1);
                     if (undoWay instanceof UndoWay) {
-                        if (((UndoWay) undoWay).getState() == OsmElement.STATE_UNCHANGED && w.getNodes().equals(((UndoWay) undoWay).getNodes())) {
+                        if (undoWay.getState() == OsmElement.STATE_UNCHANGED && w.getNodes().equals(((UndoWay) undoWay).getNodes())) {
                             undoWay.restore(); // this should just update the state
                             undo.remove(w);
                         } else {

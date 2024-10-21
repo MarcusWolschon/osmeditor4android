@@ -904,7 +904,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             for (int pos = 0; pos < valueList.getChildCount(); pos++) {
                 View v = valueList.getChildAt(pos);
                 if (v instanceof TextView) {
-                    ((TextView) v).setOnClickListener(listener);
+                    v.setOnClickListener(listener);
                 }
             }
         }
