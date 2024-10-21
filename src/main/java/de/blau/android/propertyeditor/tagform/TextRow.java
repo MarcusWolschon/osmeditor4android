@@ -178,7 +178,6 @@ public class TextRow extends LinearLayout implements KeyValueRow, TagChanged {
         final TextRow row = (TextRow) inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
         final String key = field.getKey();
         final String hint = preset != null ? field.getHint() : null;
-        final String defaultValue = field.getDefaultValue();
         row.valueType = preset != null ? preset.getValueType(key) : null;
         final boolean isName = Tags.isLikeAName(key);
         final Context context = rowLayout.getContext();
@@ -216,25 +215,6 @@ public class TextRow extends LinearLayout implements KeyValueRow, TagChanged {
                         caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1), row, valueType, imperial);
                 dialog.setOnDismissListener(d -> finalView.setEnabled(true));
                 dialog.show();
-            });
-        }
-        if (ValueType.INTEGER == valueType) {
-            ourValueView.setFocusable(false);
-            ourValueView.setFocusableInTouchMode(false);
-            ourValueView.setOnClickListener(v -> {
-                final View finalView = v;
-                finalView.setEnabled(false); // debounce
-                IntegerValueFragment.show(caller, hint != null ? hint : key, key, ((TextView) v).getText().toString(), values, preset, allTags);
-            });
-        }
-        if (Tags.DIRECTION_KEYS.contains(key)
-                && (preset == null || !(preset.hasKeyValue(Tags.KEY_HIGHWAY, Tags.VALUE_MINI_ROUNDABOUT) && Tags.KEY_DIRECTION.equals(key)))) {
-            ourValueView.setFocusable(false);
-            ourValueView.setFocusableInTouchMode(false);
-            ourValueView.setOnClickListener(v -> {
-                final View finalView = v;
-                finalView.setEnabled(false); // debounce
-                DirectionValueFragment.show(caller, hint != null ? hint : key, key, ((TextView) v).getText().toString(), values, preset, allTags);
             });
         }
         ourValueView.setOnFocusChangeListener((v, hasFocus) -> {
