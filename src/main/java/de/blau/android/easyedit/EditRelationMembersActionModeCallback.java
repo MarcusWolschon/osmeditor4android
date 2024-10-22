@@ -2,7 +2,6 @@ package de.blau.android.easyedit;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,7 +19,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import ch.poole.osm.josmfilterparser.Condition;
-import ch.poole.osm.josmfilterparser.JosmFilterParser;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -442,7 +440,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                     }
                     memberExpression = memberExpression.trim();
                     wrapper.setElement(e);
-                    Condition condition = getCondition(conditionCache, memberExpression);
+                    Condition condition = de.blau.android.search.Util.getCondition(conditionCache, memberExpression);
                     if (condition != null && condition.eval(Wrapper.toJosmFilterType(e), wrapper, e.getTags())) {
                         clickable.add(e);
                         break;
@@ -452,34 +450,6 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         }
         logic.setClickableElements(clickable);
 
-    }
-
-    /**
-     * Get the Condition object for a memberExpression, caching it
-     * 
-     * @param conditionCache the cache
-     * @param memberExpression the
-     * @return the Condition or null
-     */
-    @Nullable
-    private Condition getCondition(@NonNull Map<String, Condition> conditionCache, @NonNull String memberExpression) {
-        Condition condition = conditionCache.get(memberExpression); // NOSONAR
-        if (condition == null) {
-            try {
-                JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(memberExpression.getBytes()));
-                condition = parser.condition();
-            } catch (ch.poole.osm.josmfilterparser.ParseException | IllegalArgumentException ex) {
-                Log.e(DEBUG_TAG, "member_expression " + memberExpression + " caused " + ex.getMessage());
-                try {
-                    JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream("".getBytes()));
-                    condition = parser.condition();
-                } catch (ch.poole.osm.josmfilterparser.ParseException | IllegalArgumentException ex2) {
-                    Log.e(DEBUG_TAG, "member_expression dummy caused " + ex2.getMessage());
-                }
-            }
-            conditionCache.put(memberExpression, condition);
-        }
-        return condition;
     }
 
     /**

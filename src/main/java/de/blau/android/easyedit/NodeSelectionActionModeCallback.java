@@ -38,6 +38,7 @@ import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
+import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Sound;
@@ -59,6 +60,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     private static final int MENUITEM_ADDRESS      = LAST_REGULAR_MENUITEM + 7;
     private static final int MENUITEM_ROTATE       = LAST_REGULAR_MENUITEM + 8;
 
+    private final GeoContext geoContext;
     private List<OsmElement> joinableElements = null;
     private List<Way>        appendableWays   = null;
     private List<Way>        highways         = new ArrayList<>();
@@ -79,6 +81,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      */
     NodeSelectionActionModeCallback(EasyEditManager manager, Node node) {
         super(manager, node);
+        geoContext = App.getGeoContext(main);
     }
 
     @Override
@@ -139,8 +142,9 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             }
         }
         updated |= setItemVisibility(highways.size() >= 2, restrictionItem, false);
-
-        updated |= setItemVisibility(Tags.getDirectionKey(Preset.findBestMatch(presets, element.getTags(), null, null), element) != null, rotateItem, false);
+        updated |= setItemVisibility(Tags.getDirectionKey(
+                Preset.findBestMatch(main, presets, element.getTags(), geoContext != null ? geoContext.getIsoCodes(element) : null, element), element) != null,
+                rotateItem, false);
 
         if (updated) {
             arrangeMenu(menu);

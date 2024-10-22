@@ -307,7 +307,10 @@ public abstract class PresetElement extends Regionalizable implements Serializab
      * @param type the ElementType to check for
      * @return true if applicable
      */
-    public boolean appliesTo(@NonNull ElementType type) {
+    public boolean appliesTo(@Nullable ElementType type) {
+        if (type == null) {
+            return true;
+        }
         switch (type) {
         case NODE:
             return appliesToNode;
@@ -319,8 +322,9 @@ public abstract class PresetElement extends Regionalizable implements Serializab
             return appliesToRelation;
         case AREA:
             return appliesToArea;
+        default:
+            return true;
         }
-        return true; // should never happen
     }
 
     /**

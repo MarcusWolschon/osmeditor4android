@@ -1,5 +1,7 @@
 package de.blau.android.presets;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -48,7 +50,9 @@ import de.blau.android.util.collections.MRUList;
  *
  */
 public class MRUTags {
-    private static final String DEBUG_TAG = MRUTags.class.getSimpleName().substring(0, Math.min(23, MRUTags.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MRUTags.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MRUTags.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String MRUTAGS_TAG      = "mrutags";
     private static final String VALUE_TAG        = "value";
@@ -66,11 +70,11 @@ public class MRUTags {
     private static final int VALUE_MRU_SIZE = 10;
     private static final int ROLE_MRU_SIZE  = 10;
 
-    Map<PresetItem, Map<String, MRUList<String>>> valueStore = new HashMap<>();
-    Map<ElementType, MRUList<String>>             keyStore   = new EnumMap<>(ElementType.class);
-    Map<PresetItem, MRUList<String>>              roleStore  = new HashMap<>();
-    final PresetItem                              dummyItem;
-    boolean                                       dirty      = false;
+    private Map<PresetItem, Map<String, MRUList<String>>> valueStore = new HashMap<>();
+    private Map<ElementType, MRUList<String>>             keyStore   = new EnumMap<>(ElementType.class);
+    private Map<PresetItem, MRUList<String>>              roleStore  = new HashMap<>();
+    private final PresetItem                              dummyItem;
+    private boolean                                       dirty      = false;
 
     /**
      * Construct a new container for most recently used tags
@@ -341,16 +345,17 @@ public class MRUTags {
             serializer.startTag("", VALUES_TAG);
             writePathXML(ctx, pathCache, serializer, entry.getKey());
             for (Entry<String, MRUList<String>> entry2 : entry.getValue().entrySet()) {
-                if (entry2 != null) {
-                    serializer.startTag("", KEY_TAG);
-                    serializer.attribute("", VALUE_ATTR, entry2.getKey());
-                    for (String v : entry2.getValue()) {
-                        serializer.startTag("", VALUE_TAG);
-                        serializer.attribute("", VALUE_ATTR, v);
-                        serializer.endTag("", VALUE_TAG);
-                    }
-                    serializer.endTag("", KEY_TAG);
+                if (entry2 == null) {
+                    continue;
                 }
+                serializer.startTag("", KEY_TAG);
+                serializer.attribute("", VALUE_ATTR, entry2.getKey());
+                for (String v : entry2.getValue()) {
+                    serializer.startTag("", VALUE_TAG);
+                    serializer.attribute("", VALUE_ATTR, v);
+                    serializer.endTag("", VALUE_TAG);
+                }
+                serializer.endTag("", KEY_TAG);
             }
             serializer.endTag("", VALUES_TAG);
         }
@@ -380,7 +385,8 @@ public class MRUTags {
      * @param item the PresetItem
      * @throws IOException it something went wrong while writing
      */
-    private void writePathXML(Context ctx, Map<PresetItem, PresetElementPath> pathCache, XmlSerializer serializer, PresetItem item) throws IOException {
+    private void writePathXML(@NonNull Context ctx, @NonNull Map<PresetItem, PresetElementPath> pathCache, @NonNull XmlSerializer serializer,
+            @NonNull PresetItem item) throws IOException {
         serializer.startTag("", PRESET_TAG);
         PresetElementPath path = pathCache.get(item); // NOSONAR needs Android 24
         if (path == null) {

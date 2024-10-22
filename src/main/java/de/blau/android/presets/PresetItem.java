@@ -99,6 +99,11 @@ public class PresetItem extends PresetElement {
     private String nameTemplate = null;
 
     /**
+     * Optional JOSM search expression for matching
+     */
+    private String matchExpression = null;
+
+    /**
      * Construct a new PresetItem
      * 
      * @param preset the Preset this belongs to
@@ -160,6 +165,8 @@ public class PresetItem extends PresetElement {
         this.roles = item.roles;
         this.linkedPresetItems = item.linkedPresetItems;
         this.minMatch = item.minMatch;
+        this.nameTemplate = item.nameTemplate;
+        this.matchExpression = item.matchExpression;
         preset.addToIndices(this);
         buildSearchIndex();
     }
@@ -924,6 +931,20 @@ public class PresetItem extends PresetElement {
      */
     public void setNameTemplate(@Nullable String nameTemplate) {
         this.nameTemplate = nameTemplate;
+    }
+
+    /**
+     * @return the matchExpression
+     */
+    public String getMatchExpression() {
+        return matchExpression;
+    }
+
+    /**
+     * @param matchExpression the matchExpression to set
+     */
+    public void setMatchExpression(String matchExpression) {
+        this.matchExpression = matchExpression;
     }
 
     /**
