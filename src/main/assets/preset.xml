@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.63.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.65.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -373,8 +373,23 @@
             <check key="embankment" text="Embankment" disable_off="true"/>
         </optional>
     </chunk>
-    <chunk id="traffic_signals_direction">
-        <combo key="direction" text="For traffic direction" values="forward,backward,N,E,S,W,0,90,180,270" display_values="Forward,Backward,North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;" values_sort="false" value_type="cardinal_direction"/>
+    <chunk id="traffic_sign_direction">
+        <combo key="direction" text="For traffic direction" values="forward,backward" display_values="Forward,Backward" values_sort="false" match="key"/>
+    </chunk>
+    <chunk id="traffic_sign_direction_standalone">
+        <combo key="direction" text="Facing" values="N,E,S,W,0,90,180,270" display_values="North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;" values_sort="false" match="key" value_type="cardinal_direction"/>
+    </chunk>
+    <chunk id="city_limit_base">
+        <link wiki="Tag:traffic_sign=city_limit"/>
+        <space/>
+        <key key="traffic_sign" value="city_limit"/>
+        <text key="name" text="Name"/>
+        <text key="alt_name" text="Alternate name" alternative_autocomplete_keys="name"/>
+        <combo key="city_limit" values="begin,end,both" display_values="Begin,End,Both" values_sort="false"/>
+        <combo key="colour:back" text="Background colour" values_context="colour">
+            <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
+        </combo>
+        <preset_link preset_name="Name"/>
     </chunk>
     <chunk id="min_age">
         <text key="min_age" text="Minimum age"/>
@@ -1939,7 +1954,19 @@
         </combo>
     </chunk>
     <chunk id="fountain_type">
-        <combo key="fountain" text="Fountain type" values="yes,bubbler,nasone,nozzle,splash_pad" display_values="Yes,Bubbler,Nasone,Nozzle,Splash pad"/>
+        <combo key="fountain" text="Fountain type">
+            <list_entry value="bubbler" display_value="Bubbler"/>
+            <list_entry value="nasone" display_value="Nasone"/>
+            <list_entry value="nozzle" display_value="Nozzle"/>
+            <list_entry value="splash_pad" display_value="Splash pad"/>
+            <list_entry value="stone_block" display_value="Stone block"/>
+            <list_entry value="bottle_refill" display_value="Bottle refill"/>
+            <list_entry value="toret" display_value="Toret"/>
+            <list_entry value="roman_wolf" display_value="Roman wolf"/>
+            <list_entry value="sebilj" display_value="Sebilj"/>
+            <list_entry value="viktorija_zdenac" display_value="Viktorija zdenac"/>
+            <list_entry value="wallace" display_value="Wallace"/>
+        </combo>      
     </chunk>
     <chunk id="highchair">
         <combo key="highchair" text="High chair for small children" values="yes,no,1,2,3,4,5,6,7,8,9,10" display_values="Yes,No,1,2,3,4,5,6,7,8,9,10" editable="true" values_sort="false"/>
@@ -3153,12 +3180,12 @@
             <link wiki="Tag:highway=stop"/>
             <key key="highway" value="stop"/>
             <combo key="stop" text="Type" values="all,minor" display_values="All,Minor"/>
-            <reference ref="traffic_signals_direction"/>
+            <reference ref="traffic_sign_direction"/>
         </item> <!-- Stop -->
         <item name="Give Way" icon="icons/png/give_way.png" type="node" preset_name_label="true">
             <link wiki="Tag:highway=give_way"/>
             <key key="highway" value="give_way"/>
-            <reference ref="traffic_signals_direction"/>
+            <reference ref="traffic_sign_direction"/>
         </item> <!-- Give Way -->
         <item name="Advanced stop line" icon="icons/png/asl.png" type="node" preset_name_label="true">
             <link wiki="Tag:cycleway=asl"/>
@@ -3285,40 +3312,56 @@
             <link wiki="Tag:highway=turning_loop"/>
             <key key="highway" value="turning_loop"/>
         </item> <!-- Turning Loop -->
-        <item name="City Limit" icon="icons/png/city_limits_DE.png" type="node" preset_name_label="true">
-            <link wiki="Tag:traffic_sign=city_limit"/>
-            <space/>
-            <key key="traffic_sign" value="city_limit"/>
-            <text key="name" text="Name"/>
-            <text key="alt_name" text="Alternate name" alternative_autocomplete_keys="name"/>
-            <combo key="city_limit" values="begin,end,both" display_values="Begin,End,Both" values_sort="false"/>
-            <reference ref="traffic_signals_direction"/>
-            <combo key="colour:back" text="Background colour" values_context="colour">
-                <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
-            </combo>
-            <preset_link preset_name="Name"/>
+        <item name="City limit" icon="icons/png/city_limits_DE.png" type="node" preset_name_label="true" match_expression="child highway=*">
+            <reference ref="city_limit_base"/>
+            <reference ref="traffic_sign_direction"/>
         </item> <!-- City Limit -->
-        <item name="Speed Limit Sign" icon="icons/png/speed_limit.png" type="node" preset_name_label="true">
+        <item name="City limit (separate)" icon="icons/png/city_limits_DE.png" type="node" preset_name_label="true" match_expression="-child highway=*">
+            <reference ref="city_limit_base"/>
+            <reference ref="traffic_sign_direction_standalone"/>
+        </item> <!-- City Limit (separate)-->
+        <item name="Speed limit sign" icon="icons/png/speed_limit.png" type="node" preset_name_label="true" match_expression="child highway=*">
             <link wiki="Key:traffic_sign"/>
             <space/>
             <key key="traffic_sign" value="maxspeed"/>
             <reference ref="maxspeed"/>
-            <reference ref="traffic_signals_direction"/>
+            <reference ref="traffic_sign_direction"/>
         </item> <!-- Speed Limit Sign -->
-        <item name="Stop sign" icon="icons/png/stop.png" type="node" preset_name_label="true">
+        <item name="Speed limit sign (separate)" icon="icons/png/speed_limit.png" type="node" preset_name_label="true" match_expression="-child highway=*">
+            <link wiki="Key:traffic_sign"/>
+            <space/>
+            <key key="traffic_sign" value="maxspeed"/>
+            <reference ref="maxspeed"/>
+            <reference ref="traffic_sign_direction_standalone"/>
+        </item> <!-- Speed Limit Sign (separate)-->
+        <item name="Stop sign" icon="icons/png/stop.png" type="node" preset_name_label="true" match_expression="child highway=*">
             <link wiki="Key:traffic_sign"/>
             <space/>
             <key key="traffic_sign" value="stop"/>
-            <reference ref="traffic_signals_direction"/>
+            <reference ref="traffic_sign_direction"/>
         </item> <!-- Stop sign -->
-        <item name="Traffic sign" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
+        <item name="Stop sign (separate)" icon="icons/png/stop.png" type="node" preset_name_label="true" match_expression="-child highway=*">
+            <link wiki="Key:traffic_sign"/>
+            <space/>
+            <key key="traffic_sign" value="stop"/>
+            <reference ref="traffic_sign_direction_standalone"/>
+        </item> <!-- Stop sign (separate)-->
+        <item name="Traffic sign" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true" match_expression="child highway=*">
             <link wiki="Key:traffic_sign"/>
             <space/>
             <combo key="traffic_sign" text="Traffic sign" match="key" editable="true">
                 <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="variable_message" display_value="Variable message"/><list_entry value="yield_ahead" display_value="Yield ahead"/>
             </combo>
-            <reference ref="traffic_signals_direction"/>
+            <reference ref="traffic_sign_direction"/>
         </item> <!-- Traffic sign -->
+        <item name="Traffic sign  (separate)" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true" match_expression="-child highway=*">
+            <link wiki="Key:traffic_sign"/>
+            <space/>
+            <combo key="traffic_sign" text="Traffic sign" match="key" editable="true">
+                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="variable_message" display_value="Variable message"/><list_entry value="yield_ahead" display_value="Yield ahead"/>
+            </combo>
+            <reference ref="traffic_sign_direction_standalone"/>
+        </item> <!-- Traffic sign (separate)-->
         <item name="Traffic Sign Forward" text="Traffic sign forward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
             <link wiki="Key:traffic_sign"/>
             <space/>
@@ -6641,10 +6684,10 @@
                     <text key="expected_lwn_route_relations" text="Expected route count" match="none" value_type="integer"/>
                 </optional>
             </item>
-            <item name="Regional hiking network junction" icon="icons/png/tourist_hiking_network_junction.png" type="node" preset_name_label="true">
+            <item name="Regional riding network junction" icon="icons/png/tourist_riding_network_junction.png" type="node" preset_name_label="true">
                 <link wiki="Tag:network:type=node_network"/>
                 <key key="network:type" value="node_network" object="true"/>
-                <text key="rwn_ref" text="Reference" match="key"/>
+                <text key="rhn_ref" text="Reference" match="key"/>
                 <optional>
                     <text key="expected_rhn_route_relations" text="Expected route count" match="none" value_type="integer"/>
                 </optional>
@@ -8974,14 +9017,20 @@
             <space/>
             <key key="amenity" value="drinking_water"/>
             <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
+            <reference ref="fountain_type"/>
             <optional>
                 <text key="name" text="Name"/>
-                <text key="description" text="Description" length="255"/>
-                <reference ref="fountain_type"/>
-                <check key="bottle" text="Suitable for bottle filling" disable_off="true"/>
+                <text key="description" text="Description" length="255"/>       
+                <checkgroup columns="2">
+                    <check key="bottle" text="Suitable for bottle filling" disable_off="true"/>
+                    <check key="seasonal" text="Seasonal availability" disable_off="true"/>
+                    <check key="dog" text="Dog usage" value_on="designated"/>
+                    <check key="historic" text="Historic"/>
+                </checkgroup>
                 <reference ref="level"/>
                 <reference ref="facility_access"/>
             </optional>
+            
         </item> <!-- Drinking Water -->
         <item name="Water Point" icon="icons/png/amenity_water_point_34025.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=water_point"/>
