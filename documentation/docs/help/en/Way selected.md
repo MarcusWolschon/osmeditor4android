@@ -38,7 +38,7 @@ Adds address tags with prediction. Only visible if way is tagged as building.
 
 ### ![Reverse](../images/tag_menu_reverse.png) Reverse way
 
-Reverse the direction of the way. If the way has direction dependent tags it will automatically change them to still have the same effect as before the direction change. oneway tags are not automatically reversed here the assumption is that the intent was to change the effect of the tag, the tag editor will be started automatically and you can change the tag manually if necessary. Direction dependent tags currently handled are:
+Reverse the direction of the way. If the way has direction dependent tags it will automatically change them to still have the same effect as before the direction change with the exception of _oneway_ tags as the assumption is that the intent was to actually change the direction of the one way street. If any such tags are present, including _oneway_ a warning dialog will be shown and you can change the tag manually if necessary. Direction dependent tags currently handled are:
 				
 * direction
 * incline
