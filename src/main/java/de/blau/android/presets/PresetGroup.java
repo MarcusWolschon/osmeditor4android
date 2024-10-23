@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import de.blau.android.R;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.views.WrappingLayout;
 
@@ -124,17 +125,18 @@ public class PresetGroup extends PresetElement {
      * @param ctx Android Context
      * @param handler listeners for click events on the View, in null no listeners
      * @param type ElementType the views are applicable for, if null don't filter
+     * @param osmElement an optional OsmElement for use with match expressions
      * @param selectedElement highlight the background if true, if null no selection
      * @param regions a list of regions in question
      * @return a view showing the content (nodes, subgroups) of this group
      */
     @NonNull
-    public View getGroupView(@NonNull Context ctx, @Nullable PresetClickHandler handler, @Nullable ElementType type, @Nullable PresetElement selectedElement,
-            @Nullable List<String> regions) {
+    public View getGroupView(@NonNull Context ctx, @Nullable PresetClickHandler handler, @Nullable ElementType type, @Nullable OsmElement osmElement,
+            @Nullable PresetElement selectedElement, @Nullable List<String> regions) {
         ScrollView scrollView = new ScrollView(ctx);
         scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         scrollView.setSaveEnabled(false);
-        return getGroupView(ctx, scrollView, handler, type, selectedElement, regions);
+        return getGroupView(ctx, scrollView, handler, type, osmElement, selectedElement, regions);
     }
 
     /**
@@ -144,13 +146,14 @@ public class PresetGroup extends PresetElement {
      * @param scrollView the ScrollView to add the PresetElement Views to
      * @param handler listeners for click events on the View, in null no listeners
      * @param type ElementType the views are applicable for, if null don't filter
+     * @param osmElement an optional OsmElement for use with match expressions
      * @param selectedElement highlight the background if true, if null no selection
      * @param regions a list of regions to filter on
      * @return the supplied ScrollView
      */
     @NonNull
     public View getGroupView(@NonNull Context ctx, @NonNull ScrollView scrollView, @Nullable PresetClickHandler handler, @Nullable ElementType type,
-            @Nullable PresetElement selectedElement, @Nullable List<String> regions) {
+            @Nullable OsmElement osmElement, @Nullable PresetElement selectedElement, @Nullable List<String> regions) {
         scrollView.removeAllViews();
         WrappingLayout wrappingLayout = new WrappingLayout(ctx);
         wrappingLayout.setSaveEnabled(false);
@@ -159,7 +162,7 @@ public class PresetGroup extends PresetElement {
         wrappingLayout.setBackgroundColor(ContextCompat.getColor(ctx, android.R.color.transparent));
         wrappingLayout.setHorizontalSpacing((int) (Preset.SPACING * density));
         wrappingLayout.setVerticalSpacing((int) (Preset.SPACING * density));
-        List<PresetElement> filteredElements = type == null ? elements : Preset.filterElements(elements, type);
+        List<PresetElement> filteredElements = Preset.filterElements(elements, type, osmElement);
         filteredElements = regions == null ? filteredElements : filterElementsByRegion(filteredElements, regions);
         if (itemSort) {
             List<PresetItem> tempItems = new ArrayList<>();

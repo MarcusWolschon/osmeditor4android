@@ -1172,7 +1172,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         java.util.Map<String, String> tags = e.getTags();
         PresetItem match = matchCache.get(tags);
         if (match == null && !matchCache.containsKey(tags)) {
-            match = Preset.findBestMatch(tmpPresets, tags, null, null);
+            match = Preset.findBestMatch(context, tmpPresets, e.getTags(), null, e);
             matchCache.put(tags, match);
         }
         return match;

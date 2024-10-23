@@ -98,7 +98,7 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
      * @return a View of the PresetGroup
      */
     private ScrollView getPresetView(@NonNull PresetGroup group, @Nullable PresetElement element) {
-        View view = group.getGroupView(this, this, null, element, null);
+        View view = group.getGroupView(this, this, null, null, element, null);
         view.setId(R.id.preset_view);
         return (ScrollView) view;
     }
@@ -146,7 +146,7 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
         case R.id.preset_menu_top:
             if (rootGroup != null) {
                 currentGroup = rootGroup;
-                currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
+                currentGroup.getGroupView(this, presetView, this, null, null, filter.getPresetElement(), null);
                 presetView.invalidate();
                 invalidateOptionsMenu();
                 return true;
@@ -157,7 +157,7 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
                 PresetGroup group = currentGroup.getParent();
                 if (group != null) {
                     currentGroup = group;
-                    currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
+                    currentGroup.getGroupView(this, presetView, this, null, null, filter.getPresetElement(), null);
                     presetView.invalidate();
                     invalidateOptionsMenu();
                     return true;
@@ -211,7 +211,7 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
         }
         filter = (PresetFilter) App.getLogic().getFilter();
         currentGroup = group;
-        currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
+        currentGroup.getGroupView(this, presetView, this, null, null, filter.getPresetElement(), null);
         presetView.invalidate();
         invalidateOptionsMenu();
     }
@@ -235,7 +235,7 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
             final PresetElementPath path = element.getPath(rootGroup);
             if (path != null) {
                 filter.setPresetElement(path);
-                currentGroup.getGroupView(this, presetView, this, null, element, null);
+                currentGroup.getGroupView(this, presetView, this, null, null, element, null);
             }
             presetView.invalidate();
         }

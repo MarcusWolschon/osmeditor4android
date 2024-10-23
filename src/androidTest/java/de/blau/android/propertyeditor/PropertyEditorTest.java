@@ -117,6 +117,7 @@ public class PropertyEditorTest {
         prefDB.resetCurrentServer();
         prefs = new Preferences(context);
         App.getLogic().setPrefs(prefs);
+        App.getDelegator().reset(false);
         System.out.println(prefs.getServer().getReadWriteUrl());
         device = UiDevice.getInstance(instrumentation);
         TestUtils.grantPermissons(device);
@@ -313,11 +314,14 @@ public class PropertyEditorTest {
         assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Waypoints"), true, false);
         assertTrue(found);
-        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Traffic sign"), true, true);
-        assertTrue(found);
+        UiObject2 p = TestUtils.findObjectWithText(device, true, getTranslatedPresetItemName(main, "Traffic sign"), 500, true);
+        assertNotNull(p);
+        p.click();
+       
+        // assertTrue(TestUtils.findText(device, false, getTranslatedPresetItemName(main, "Traffic sign (separate)"), 500));
         UiObject2 direction = null;
         try {
-            direction = getField(device, "For traffic direction", 1);
+            direction = getField(device, "Facing", 1);
         } catch (UiObjectNotFoundException e) {
             fail();
         }
@@ -362,21 +366,25 @@ public class PropertyEditorTest {
         assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Waypoints"), true, false);
         assertTrue(found);
-        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Traffic sign"), true, true);
-        assertTrue(found);
+        UiObject2 p = TestUtils.findObjectWithText(device, true, getTranslatedPresetItemName(main, "Traffic sign"), 500, true);
+        assertNotNull(p);
+        p.click();
+       
+        // assertTrue(TestUtils.findText(device, false, getTranslatedPresetItemName(main, "Traffic sign (separate)"), 500));
+        
         UiObject2 direction = null;
         try {
-            direction = getField(device, "For traffic direction", 1);
+            direction = getField(device, "Facing", 1);
         } catch (UiObjectNotFoundException e) {
             fail();
         }
         assertNotNull(direction);
         assertEquals(main.getString(R.string.tag_dialog_value_hint), direction.getText());
         direction.clickAndWait(Until.newWindow(), 2000);
-        TestUtils.clickText(device, true, "Forward", false, false);
+        TestUtils.clickText(device, true, "North", false, false);
         TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
         TestUtils.clickHome(device, true);
-        assertEquals("forward", n.getTagWithKey("direction").toLowerCase());
+        assertEquals("n", n.getTagWithKey("direction").toLowerCase());
     }
 
     @Test
@@ -398,21 +406,21 @@ public class PropertyEditorTest {
         assertNotNull(n);
         java.util.Map<String, String> tags = new HashMap<>();
         tags.put("traffic_sign", "stop");
-        tags.put("direction", "forward");
+        tags.put("direction", "N");
         logic.setTags(main, n, tags);
 
         main.performTagEdit(n, null, false, false);
         waitForPropertyEditor();
         UiObject2 direction = null;
         try {
-            direction = getField(device, "For traffic direction", 1);
+            direction = getField(device, "Facing", 1);
         } catch (UiObjectNotFoundException e) {
             fail();
         }
         assertNotNull(direction);
-        assertEquals("forward", direction.getText().toLowerCase());
+        assertEquals("North", direction.getText());
         direction.clickAndWait(Until.newWindow(), 2000);
-        TestUtils.clickText(device, true, "Forward", false, false);
+        TestUtils.clickText(device, true, "North", false, false);
         TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
         TestUtils.clickHome(device, true);
         try {
@@ -1658,7 +1666,7 @@ public class PropertyEditorTest {
      * @return the translated name
      */
     static String getTranslatedPresetItemName(Context context, String name) {
-        String result = null;
+        String result = name;
         Preset[] presets = App.getCurrentPresets(context);
         for (Preset p : presets) {
             if (p != null) {

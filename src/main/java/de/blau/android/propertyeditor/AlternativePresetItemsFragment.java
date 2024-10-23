@@ -133,7 +133,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
                 }
             }
         }
-        View v = alternatives.getGroupView(getContext(), presetClickHandler, null, null, null);
+        View v = alternatives.getGroupView(getContext(), presetClickHandler, null, null, null, null);
         v.setId(R.id.recentPresets);
         return v;
     }

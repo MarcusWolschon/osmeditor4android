@@ -246,7 +246,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
                 }
             }
         }
-        v = results.getGroupView(getActivity(), presetClickHandler, null, null, null);
+        v = results.getGroupView(getActivity(), presetClickHandler, null, null, null, null);
 
         if (setPadding) {
             int padding = ThemeUtils.getDimensionFromAttribute(getActivity(), R.attr.dialogPreferredPadding);

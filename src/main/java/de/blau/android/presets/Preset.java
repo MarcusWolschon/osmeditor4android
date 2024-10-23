@@ -38,17 +38,20 @@ import android.util.Log;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import ch.poole.osm.josmfilterparser.Condition;
 import ch.poole.poparser.Po;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.DiscardedTags;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.search.Wrapper;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
@@ -99,6 +102,11 @@ public class Preset implements Serializable {
 
     // hardwired layout stuff
     public static final int SPACING = 5;
+
+    /**
+     * Global condition cache
+     */
+    private static Map<String, Condition> conditionCache = new HashMap<>();
 
     /** The directory containing all data (xml, MRU data, images) about this preset */
     private File directory;
@@ -944,7 +952,7 @@ public class Preset implements Serializable {
         PresetGroup recent = new PresetGroup(dummy, null, "recent", null);
         recent.setItemSort(false);
         PresetMRUInfo.addToPresetGroup(recent, presets, regions);
-        return recent.getGroupView(ctx, handler, type, null, null); // we've already filtered on region
+        return recent.getGroupView(ctx, handler, type, null, null, null); // we've already filtered on region
     }
 
     /**
@@ -1055,6 +1063,48 @@ public class Preset implements Serializable {
     }
 
     /**
+     * Finds the preset item best matching an OSM element, or null if no preset item matches. To match, all (mandatory)
+     * tags of the preset item need to be in the tag set. The preset item does NOT need to have all tags in the tag set,
+     * but the tag set needs to have all (mandatory) tags of the preset item.
+     * 
+     * If multiple items match, the most specific one (i.e. having most tags) wins. If there is a draw, no guarantees
+     * are made.
+     * 
+     * This version takes any match_expression attributes in the candidate presets in to account
+     * 
+     * @param context an Android context
+     * @param presets presets to match against
+     * @param tags tags to check against (i.e. tags of a map element)
+     * @param regions if not null this will be taken in to account wrt scoring
+     * @param osmElement
+     * @return @return null, or the "best" matching item for the element
+     */
+    public static PresetItem findBestMatch(@NonNull Context context, @Nullable Preset[] presets, @Nullable Map<String, String> tags,
+            @Nullable List<String> regions, @NonNull OsmElement osmElement) {
+        if (tags == null || presets == null) {
+            Log.e(DEBUG_TAG, "findBestMatch " + (tags == null ? "tags null" : "presets null"));
+            return null;
+        }
+        // Build candidate list
+        Set<PresetItem> possibleMatches = new LinkedHashSet<>();
+        buildPossibleMatches(possibleMatches, presets, tags, false, null);
+        // check match expressions
+        Wrapper wrapper = new Wrapper(context);
+        wrapper.setElement(osmElement);
+        for (PresetItem candidate : new ArrayList<>(possibleMatches)) {
+            String matchExpression = candidate.getMatchExpression();
+            if (matchExpression != null) {
+                Condition condition = de.blau.android.search.Util.getCondition(conditionCache, matchExpression);
+                wrapper.setElement(osmElement);
+                if (condition != null && !condition.eval(Wrapper.toJosmFilterType(osmElement), wrapper, tags)) {
+                    possibleMatches.remove(candidate);
+                }
+            }
+        }
+        return findBestMatch(tags, regions, null, possibleMatches);
+    }
+
+    /**
      * Finds the preset item best matching a certain tag set, or null if no preset item matches. To match, all
      * (mandatory) tags of the preset item need to be in the tag set. The preset item does NOT need to have all tags in
      * the tag set, but the tag set needs to have all (mandatory) tags of the preset item.
@@ -1097,9 +1147,6 @@ public class Preset implements Serializable {
     @Nullable
     public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, @Nullable List<String> regions,
             @Nullable ElementType elementType, boolean useAddressKeys, @Nullable Map<String, String> ignoreTags) {
-        int bestMatchStrength = 0;
-        PresetItem bestMatch = null;
-
         if (tags == null || presets == null) {
             Log.e(DEBUG_TAG, "findBestMatch " + (tags == null ? "tags null" : "presets null"));
             return null;
@@ -1112,6 +1159,27 @@ public class Preset implements Serializable {
         if (useAddressKeys && possibleMatches.isEmpty()) {
             buildPossibleMatches(possibleMatches, presets, tags, true, ignoreTags);
         }
+
+        return findBestMatch(tags, regions, elementType, possibleMatches);
+    }
+
+    /**
+     * Finds the preset item best matching a certain tag set, or null if no preset item matches. To match, all
+     * (mandatory) tags of the preset item need to be in the tag set. The preset item does NOT need to have all tags in
+     * the tag set, but the tag set needs to have all (mandatory) tags of the preset item.
+     * 
+     * If multiple items match, the most specific one (i.e. having most tags) wins. If there is a draw, no guarantees
+     * are made.
+     * 
+     * @param tags tags to check against (i.e. tags of a map element)
+     * @param regions if not null this will be taken in to account wrt scoring
+     * @param elementType if not null the ElementType will be considered
+     * @param possibleMatches candidate matches
+     * @return the best match or null
+     */
+    private static PresetItem findBestMatch(Map<String, String> tags, List<String> regions, ElementType elementType, Set<PresetItem> possibleMatches) {
+        int bestMatchStrength = 0;
+        PresetItem bestMatch = null;
         // Find best
         // always prioritize presets with fixed keys that match
         for (PresetItem possibleMatch : possibleMatches) {
@@ -1213,12 +1281,28 @@ public class Preset implements Serializable {
      * @return a filtered list containing only elements of the specified type
      */
     @NonNull
-    static List<PresetElement> filterElements(@NonNull List<PresetElement> originalElements, @NonNull ElementType type) {
+    static List<PresetElement> filterElements(@NonNull List<PresetElement> originalElements, @Nullable ElementType type, @Nullable OsmElement osmElement) {
         List<PresetElement> filteredElements = new ArrayList<>();
+        Wrapper wrapper = null;
+        Map<String, String> tags = null;
         for (PresetElement e : originalElements) {
             if (!e.isDeprecated() && (e.appliesTo(type) || ((e instanceof PresetSeparator) && !filteredElements.isEmpty()
                     && !(filteredElements.get(filteredElements.size() - 1) instanceof PresetSeparator)))) {
                 // only add separators if there is a non-separator element above them
+                if (osmElement != null && e instanceof PresetItem) {
+                    String matchExpression = ((PresetItem) e).getMatchExpression();
+                    if (matchExpression != null) {
+                        if (wrapper == null) {
+                            wrapper = new Wrapper();
+                            wrapper.setElement(osmElement);
+                            tags = osmElement.getTags();
+                        }
+                        Condition condition = de.blau.android.search.Util.getCondition(conditionCache, matchExpression);
+                        if (condition != null && !condition.eval(Wrapper.toJosmFilterType(osmElement), wrapper, tags)) {
+                            continue;
+                        }
+                    }
+                }
                 filteredElements.add(e);
             }
         }

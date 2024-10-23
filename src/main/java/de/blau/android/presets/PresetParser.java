@@ -118,6 +118,7 @@ public class PresetParser {
     private static final String SHORTDESCRIPTION_ATTR = "shortdescription";
     private static final String VERSION_ATTR          = "version";
     private static final String BACKGROUND            = "background";
+    private static final String MATCH_EXPRESSION      = "match_expression";
 
     private enum PARSE_STATE {
         TOP, ITEM, CHUNK
@@ -268,6 +269,7 @@ public class PresetParser {
                             Log.e(DEBUG_TAG, "Illegal min_match value " + minMatchStr + " " + e.getMessage());
                         }
                     }
+                    currentItem.setMatchExpression(attr.getValue(MATCH_EXPRESSION));
                     checkGroupCounter = 0;
                     state = PARSE_STATE.ITEM;
                     break;
@@ -336,6 +338,7 @@ public class PresetParser {
                         ((PresetFixedField) field).setIsObject(Boolean.parseBoolean(isObjectString));
                     }
                     setRegions(attr, field);
+                    field.setMatchExpression(attr.getValue(MATCH_EXPRESSION));
                     break;
                 case TEXT_FIELD:
                     key = attr.getValue(KEY_ATTR);
@@ -384,6 +387,7 @@ public class PresetParser {
                     field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                     setBackground(attr, field);
                     setRegions(attr, field);
+                    field.setMatchExpression(attr.getValue(MATCH_EXPRESSION));
                     break;
                 case LINK:
                     String language = Locale.getDefault().getLanguage();
@@ -460,6 +464,7 @@ public class PresetParser {
                     }
                     setBackground(attr, checkField);
                     setRegions(attr, checkField);
+                    checkField.setMatchExpression(attr.getValue(MATCH_EXPRESSION));
                     break;
                 case COMBO_FIELD:
                 case MULTISELECT_FIELD:
@@ -548,6 +553,7 @@ public class PresetParser {
                     field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                     setBackground(attr, field);
                     setRegions(attr, field);
+                    field.setMatchExpression(attr.getValue(MATCH_EXPRESSION));
                     break;
                 case ROLES:
                     break;

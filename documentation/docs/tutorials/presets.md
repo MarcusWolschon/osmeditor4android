@@ -1,5 +1,5 @@
 # Vespucci Preset System
-_Documentation for Vespucci 20.0_
+_Documentation for Vespucci 20.2_
 
 As explained in the [help documentation](../help/en/Presets.md) Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.
 
@@ -41,6 +41,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | name_template                 | supported | if set will always be used 
 |                   | name_template_filter          | ignored   |
 |                   | preset_name_label             | ignored   |
+|                   | match_expression              | supported |
 |                   | deprecated                    | extension | only use the preset for matching and map icon display
 |                   | regions                       | extension | comma separated list of countries this preset item is applicable for
 |                   | exclude_regions               | extension | if true, invert the meaning of regions
@@ -53,7 +54,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |__&lt;key&gt;__    |                               | supported |
 |                   | value                         | supported | required
 |                   | match                         | partial   | "none" is supported
-|                   | match_expression              | ignored   |
+|                   | match_expression              | extension |
 |                   | text                          | extension | Something to display
 |                   | values_context                | extension | Translation context
 |                   | object                        | extension | If present and true or false the tag will be considered as defining/not-defining a top level object, overriding the normal rules
@@ -63,7 +64,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | key                           | supported | required
 |                   | text                          | supported |
 |                   | match                         | partial   | only the "key", "key!" and "none" values are supported, all other values are ignored
-|                   | match_expression              | ignored   |
+|                   | match_expression              | extension |
 |                   | default                       | supported |
 |                   | use_last_as_default           | partial   | "force" has the same effect as "true"
 |                   | auto_increment                | ignored   |
@@ -84,7 +85,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | delimiter                     | supported |
 |                   | default                       | supported |
 |                   | match                         | supported |
-|                   | match_expression              | ignored   |
+|                   | match_expression              | extension |
 |                   | display_values                | supported |
 |                   | short_descriptions            | partial   | will only be used if display_values is not present
 |                   | values_context                | supported |
@@ -105,7 +106,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | delimiter                     | supported |
 |                   | default                       | supported |
 |                   | match                         | supported |
-|                   | match_expression              | ignored   |
+|                   | match_expression              | extension |
 |                   | display_values                | supported |
 |                   | short_descriptions            | partial   | will only be used if display_values is not present
 |                   | values_context                | supported |
@@ -143,7 +144,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | disable_off                   | supported |
 |                   | default                       | supported |
 |                   | match                         | supported |
-|                   | match_expression              | ignored   |
+|                   | match_expression              | extension |
 |                   | use_last_as_default           | extension | "force" has the same effect as "true"
 |                   | regions                       | supported | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | supported | if true, invert the meaning of regions
@@ -217,3 +218,4 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 * _value_count_key_ reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".
 * _alternative_ indicates that the preset_link points to an alternative tagging of the object.
 * _image_ optional reference to a large image in an _list_entry_. See [Bicycle parking preset](https://github.com/simonpoole/bicycle-parking-preset) for an example of using this tag.
+* _match_expression_ on text, combo, multiselect and check elements. Note that having a field with the same key multiple times in an item leads to undefined behaviour. 

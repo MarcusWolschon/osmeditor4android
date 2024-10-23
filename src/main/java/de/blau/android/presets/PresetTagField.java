@@ -57,6 +57,11 @@ public abstract class PresetTagField extends PresetField {
     private UseLastAsDefaultType useLastAsDefault = UseLastAsDefaultType.FALSE;
 
     /**
+     * JOSM Filter Expression to determine if the field is shown or not
+     */
+    private String matchExpression;
+
+    /**
      * Construct a new PresetField
      * 
      * @param key the key
@@ -82,6 +87,7 @@ public abstract class PresetTagField extends PresetField {
         this.valueContext = field.valueContext;
         this.setValueType(field.getValueType());
         this.setUseLastAsDefault(field.getUseLastAsDefault());
+        this.matchExpression = field.matchExpression;
     }
 
     /**
@@ -259,6 +265,21 @@ public abstract class PresetTagField extends PresetField {
      */
     public void setValueType(@Nullable ValueType type) {
         this.valueType = type;
+    }
+
+    /**
+     * @return the matchExpression
+     */
+    @Nullable
+    public String getMatchExpression() {
+        return matchExpression;
+    }
+
+    /**
+     * @param matchExpression the matchExpression to set
+     */
+    public void setMatchExpression(@Nullable String matchExpression) {
+        this.matchExpression = matchExpression;
     }
 
     @Override

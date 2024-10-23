@@ -42,6 +42,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import ch.poole.android.checkbox.IndeterminateCheckBox;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
+import ch.poole.osm.josmfilterparser.Condition;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -78,6 +79,7 @@ import de.blau.android.propertyeditor.FormUpdate;
 import de.blau.android.propertyeditor.NameAdapters;
 import de.blau.android.propertyeditor.Prefill;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.search.Wrapper;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
@@ -128,6 +130,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     private int longStringLimit;
 
     private Map<PresetItem, Boolean> displayOptional = new HashMap<>();
+
+    private Map<String, Condition> conditionCache = new HashMap<>();
 
     final class Ruler extends StringWithDescription {
         private static final long serialVersionUID = 1L;
@@ -748,6 +752,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         boolean groupingRequired = false;
         LinkedHashMap<String, String> tagList = new LinkedHashMap<>(tags);
         if (preset != null) {
+            Wrapper wrapper = new Wrapper(getContext());
             PresetField previous = null;
             // iterate over preset entries so that we maintain ordering
             for (Entry<String, PresetField> entry : preset.getFields().entrySet()) {
@@ -756,6 +761,17 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     PresetTagField tagField = (PresetTagField) field;
                     String key = tagField.getKey();
                     String value = tagList.get(key);
+                    String matchExpression = tagField.getMatchExpression();
+                    final OsmElement element = propertyEditorListener.getElement();
+                    if (matchExpression != null) {
+                        Condition condition = de.blau.android.search.Util.getCondition(conditionCache, matchExpression);
+                        wrapper.setElement(element);
+                        if (condition != null && !condition.eval(Wrapper.toJosmFilterType(element), wrapper, tags)) {
+                            // don't add this field
+                            tagList.remove(key);
+                            continue;
+                        }
+                    }
                     if (value != null) {
                         if (tagField instanceof PresetFixedField) {
                             if (value.equals(((PresetFixedField) tagField).getValue().getValue())) {
@@ -770,6 +786,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     } else if (tagField instanceof PresetCheckGroupField) {
                         Map<String, String> keyValues = new HashMap<>();
                         for (PresetCheckField check : ((PresetCheckGroupField) tagField).getCheckFields()) {
+                            String checkMatchExpression = check.getMatchExpression();
+                            if (checkMatchExpression != null) {
+                                Condition condition = de.blau.android.search.Util.getCondition(conditionCache, checkMatchExpression);
+                                if (condition != null && !condition.eval(Wrapper.toJosmFilterType(element), wrapper, tags)) {
+                                    // don't add this check
+                                    continue;
+                                }
+                            }
                             key = check.getKey();
                             value = tagList.get(key);
                             if (value != null) {
@@ -1014,7 +1038,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 rowLayout.addView(LongTextDialogRow.getRow(this, inflater, rowLayout, preset, (PresetTextField) field, value, maxStringLength));
                 return;
             }
-            if ( ValueType.INTEGER == valueType || ValueType.CARDINAL_DIRECTION == valueType) {
+            if (ValueType.INTEGER == valueType || ValueType.CARDINAL_DIRECTION == valueType) {
                 rowLayout.addView(ValueWidgetRow.getRow(this, inflater, rowLayout, preset, field, value, values, allTags));
                 return;
             }

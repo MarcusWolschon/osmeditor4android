@@ -871,7 +871,7 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
                 List<String> regions = owner.propertyEditorListener.getIsoCodes();
                 List<PresetRole> tempPresetRoles = rmd.downloaded() ? relationPreset.getRoles(getContext(), rmd.getElement(), null, regions)
                         : relationPreset.getRoles(rmd.getType(), regions);
-                if (tempPresetRoles != null) {
+                if (!tempPresetRoles.isEmpty()) {
                     RelationMembershipRow.countAndAddRoles(tempPresetRoles, counter, roles);
                 }
             }

@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -45,8 +44,13 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.JavaResources;
+import de.blau.android.UnitTestUtils;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.osm.RelationUtilTest;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetLoader;
 import de.blau.android.util.SearchIndexUtils;
@@ -58,7 +62,7 @@ import de.blau.android.util.SearchIndexUtils;
  *
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(sdk = 33)
 @LargeTest
 public class PresetTest {
 
@@ -482,5 +486,33 @@ public class PresetTest {
             }
         }
         assertTrue(found);
+    }
+
+    /**
+     * Match a traffic sign node on a way (match_expression=child highway=*)
+     */
+    @Test
+    public void matchExpression1() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "test2.osm");
+        Node n = (Node) d.getOsmElement(Node.NAME, 633468436L);
+        Map<String, String> tags = new HashMap<>();
+        tags.put("traffic_sign", "stop");
+        App.getLogic().setTags(null, n, tags);
+        PresetItem sign = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, n);
+        assertEquals("Stop sign", sign.getName());
+    }
+
+    /**
+     * Match a traffic sign node on a separate node (match_expression=-child highway=*)
+     */
+    @Test
+    public void matchExpression2() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "test2.osm");
+        Node n = (Node) d.getOsmElement(Node.NAME, 101792984L);
+        Map<String, String> tags = new HashMap<>();
+        tags.put("traffic_sign", "stop");
+        App.getLogic().setTags(null, n, tags);
+        PresetItem sign = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, n);
+        assertEquals("Stop sign (separate)", sign.getName());
     }
 }
