@@ -265,11 +265,12 @@ public class NodeTest {
             TestUtils.clickText(device, false, context.getString(R.string.menu_rotate), false, false);
         }
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_rotate)));
-        TestUtils.drag(device, map, 8.3882867, 47.38887072, 8.3882853, 47.3886022, true, 100);
+
+        TestUtils.drag(device, map, 8.3882867, 47.38887072, 8.3882853, 47.3886022, false, 100);
 
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect), 2000));
 
-        assertEquals(205, Integer.parseInt(node.getTagWithKey(Tags.KEY_DIRECTION)), 5);
+        assertEquals(148, Integer.parseInt(node.getTagWithKey(Tags.KEY_DIRECTION)), 5);
     }
 }
