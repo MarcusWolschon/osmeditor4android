@@ -1864,7 +1864,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         if (!dirTags.isEmpty()) {
             Result wayResult = new Result();
             wayResult.setElement(way);
-            wayResult.addIssue(ReverseIssue.TAGSREVERSED);
+            final boolean containsOneWay = dirTags.containsKey(Tags.KEY_ONEWAY);
+            if (containsOneWay) {
+                wayResult.addIssue(ReverseIssue.ONEWAYDIRECTIONREVERSED);
+            }
+            if (dirTags.size() > 1 || !containsOneWay) {
+                wayResult.addIssue(ReverseIssue.TAGSREVERSED);
+            }
             wayResult.addTags(dirTags);
             result.add(wayResult);
             Reverse.reverseDirectionDependentTags(way, dirTags, false);

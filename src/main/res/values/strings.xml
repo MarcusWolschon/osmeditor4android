@@ -1664,6 +1664,7 @@
     <string name="issue_shared_node">Shared with other way</string>
     <string name="issue_tags_reversed">Tags reversed</string>
     <string name="issue_role_reversed">Role reversed</string>
+    <string name="issue_oneway_direction_reversed">Oneway direction reversed</string>
     <string name="issue_role_conflict">Role conflict</string>
     <string name="issue_merged_tags">Merged tags</string>
     <string name="issue_same_object">Same object</string>

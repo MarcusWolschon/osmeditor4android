@@ -4,7 +4,7 @@ import android.content.Context;
 import de.blau.android.R;
 
 public enum ReverseIssue implements Issue {
-    NOTREVERSABLE, SHAREDNODE, TAGSREVERSED, ROLEREVERSED;
+    NOTREVERSABLE, SHAREDNODE, TAGSREVERSED, ROLEREVERSED, ONEWAYDIRECTIONREVERSED;
 
     @Override
     public String toTranslatedString(Context context) {
@@ -17,6 +17,8 @@ public enum ReverseIssue implements Issue {
             return context.getString(R.string.issue_tags_reversed);
         case ROLEREVERSED:
             return context.getString(R.string.issue_role_reversed);
+        case ONEWAYDIRECTIONREVERSED:
+            return context.getString(R.string.issue_oneway_direction_reversed);
         default:
             return "";
         }
@@ -24,6 +26,6 @@ public enum ReverseIssue implements Issue {
 
     @Override
     public boolean isError() {
-        return this != TAGSREVERSED && this != ROLEREVERSED;
+        return this != TAGSREVERSED && this != ROLEREVERSED && this != ONEWAYDIRECTIONREVERSED;
     }
 }
