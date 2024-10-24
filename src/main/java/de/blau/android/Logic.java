@@ -1626,8 +1626,8 @@ public class Logic {
      * @param node the Node
      */
     private void updateDirection(@NonNull Context context, float angle, int direction, @NonNull final Node node) {
-        // this is obviously quiet expensive bit avoids having state somewhere else
-        String directionKey = Tags.getDirectionKey(Preset.findBestMatch(context, App.getCurrentPresets(context), node.getTags(), null, node), node);
+        // this is obviously rather expensive bit avoids having state somewhere else
+        String directionKey = Tags.getDirectionKey(Preset.findBestMatch(context, App.getCurrentPresets(context), node.getTags(), null, node, false), node);
         if (directionKey != null) {
             java.util.Map<String, String> tags = new HashMap<>(node.getTags());
             Float currentAngle = Tags.parseDirection(tags.get(directionKey));

@@ -669,14 +669,14 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
         clearSecondaryPresets();
         final List<String> regions = propertyEditorListener.getIsoCodes();
         if (presetItem == null) {
-            primaryPresetItem = Preset.findBestMatch(getContext(), presets, allTags, regions, elements[0]);
+            primaryPresetItem = Preset.findBestMatch(getContext(), presets, allTags, regions, elements[0], true);
         } else {
             primaryPresetItem = presetItem;
         }
         Map<String, String> nonAssigned = addPresetsToTags(primaryPresetItem, allTags);
         int nonAssignedCount = nonAssigned.size();
         while (nonAssignedCount > 0) {
-            PresetItem nonAssignedPreset = Preset.findBestMatch(getContext(), presets, nonAssigned, regions, elements[0]);
+            PresetItem nonAssignedPreset = Preset.findBestMatch(getContext(), presets, nonAssigned, regions, elements[0], true);
             if (nonAssignedPreset == null) {
                 // no point in continuing
                 break;
