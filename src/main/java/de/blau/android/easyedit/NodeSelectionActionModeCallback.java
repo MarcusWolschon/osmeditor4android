@@ -143,8 +143,8 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         }
         updated |= setItemVisibility(highways.size() >= 2, restrictionItem, false);
         updated |= setItemVisibility(Tags.getDirectionKey(
-                Preset.findBestMatch(main, presets, element.getTags(), geoContext != null ? geoContext.getIsoCodes(element) : null, element), element) != null,
-                rotateItem, false);
+                Preset.findBestMatch(main, presets, element.getTags(), geoContext != null ? geoContext.getIsoCodes(element) : null, element, false),
+                element) != null, rotateItem, false);
 
         if (updated) {
             arrangeMenu(menu);

@@ -1076,11 +1076,12 @@ public class Preset implements Serializable {
      * @param presets presets to match against
      * @param tags tags to check against (i.e. tags of a map element)
      * @param regions if not null this will be taken in to account wrt scoring
-     * @param osmElement
+     * @param osmElement the OsmElement
+     * @param useAddressKeys use addr: keys if true
      * @return @return null, or the "best" matching item for the element
      */
     public static PresetItem findBestMatch(@NonNull Context context, @Nullable Preset[] presets, @Nullable Map<String, String> tags,
-            @Nullable List<String> regions, @NonNull OsmElement osmElement) {
+            @Nullable List<String> regions, @NonNull OsmElement osmElement, boolean useAddressKeys) {
         if (tags == null || presets == null) {
             Log.e(DEBUG_TAG, "findBestMatch " + (tags == null ? "tags null" : "presets null"));
             return null;
@@ -1088,6 +1089,9 @@ public class Preset implements Serializable {
         // Build candidate list
         Set<PresetItem> possibleMatches = new LinkedHashSet<>();
         buildPossibleMatches(possibleMatches, presets, tags, false, null);
+        if (useAddressKeys && possibleMatches.isEmpty()) { // use address keys
+            buildPossibleMatches(possibleMatches, presets, tags, true, null);
+        }
         // check match expressions
         Wrapper wrapper = new Wrapper(context);
         wrapper.setElement(osmElement);
