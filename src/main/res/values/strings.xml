@@ -182,6 +182,15 @@
     <string name="upload_request_review_label">Request review:</string>
     <string name="upload_validation_error_empty_comment">Comment should not be empty</string>
     <string name="upload_validation_error_empty_source">Source should not be empty</string>
+    <string name="upload_empty_comment_warning_label">Warn if comment is empty</string>
+    <string name="upload_auto_summary">Automatically generated summary</string>
+    <string name="untagged_node">untagged node</string>
+    <string name="untagged_way">untagged way</string>
+    <string name="untagged_relation">untagged relation</string>
+    <string name="changed_preset">%1$s to %2$s</string>
+    <string name="changed_tags">%1$s changed tags</string>
+    <string name="moved">%1$s moved</string>
+    <string name="unknown_object">unknown object</string>
     <!-- Review changes dialog -->
     <string name="review_changes_title">Review changes</string>
     <!-- Upload GPX -->
@@ -591,6 +600,7 @@
     <string name="tip_disambiguation_menu">When multiple OSM elements or other objects are very close together or elements are members of relations the disambiguation menu will be displayed. You can then select the specific element from the list.&lt;p&gt;If an element is currently already selected it will be highlighted.</string>
     <string name="tip_file_import">On devices running Android 10 or later we need to copy files to be able to access them fully. The copies are located in &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. If necessary you can delete the originals and just retain the copies.</string>
     <string name="tip_wms_tile_size">WMS servers can support larger tile sizes than 256x256, consider using 512x512 for a more efficient configuration.</string>
+    <string name="tip_empty_comment_warning">Vespucci always adds an automatically created summary of what you uploaded.&lt;p&gt;You should still consider adding a few words on why you are making the edits to provide more context for other mappers.</string>
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>

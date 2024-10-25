@@ -460,7 +460,7 @@ public class UndoStorage implements Serializable {
      * 
      * The checkpoint can later be restored using {@link #restore(Checkpoint)}.
      */
-    class Checkpoint implements Serializable {
+    public class Checkpoint implements Serializable {
         private static final long serialVersionUID = 2L;
 
         private final Map<OsmElement, UndoElement> elements = new HashMap<>();
@@ -1168,7 +1168,7 @@ public class UndoStorage implements Serializable {
     }
 
     /**
-     * Get a list of all UndoElements for a specific element
+     * Get a list of all UndoElements for a specific element, more recent first, oldest last
      * 
      * @param checkpoints list of checkpoints
      * @param element the element

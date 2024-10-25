@@ -4447,7 +4447,9 @@ public class Logic {
                         result.setError(ErrorCodes.API_OFFLINE);
                         return result;
                     }
-                    getDelegator().uploadToServer(server, comment, source, closeOpenChangeset, closeChangeset, extraTags, elements);
+                    // set comment here if empty to avoid saving it
+                    getDelegator().uploadToServer(server, Util.isEmpty(comment) ? activity.getString(R.string.upload_auto_summary) : comment, source,
+                            closeOpenChangeset, closeChangeset, extraTags, elements);
                 } catch (final OsmServerException e) {
                     int errorCode = e.getHttpErrorCode();
                     result.setHttpError(errorCode);

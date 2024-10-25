@@ -19,6 +19,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -174,6 +176,13 @@ public class ReviewAndUpload extends AbstractReviewDialog {
         closeChangeset.setChecked(prefs.closeChangesetOnSave());
         CheckBox requestReview = (CheckBox) layout.findViewById(R.id.upload_request_review);
 
+        CheckBox emptyCommentWarning = (CheckBox) layout.findViewById(R.id.upload_empty_comment_warning);
+        emptyCommentWarning.setChecked(prefs.emptyCommentWarning());
+        emptyCommentWarning.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+            prefs.setEmptyCommentWarning(isChecked);
+            Tip.showDialog(getActivity(), R.string.tip_empty_comment_warning_key, R.string.tip_empty_comment_warning);
+        });
+
         comment = (AutoCompleteTextView) layout.findViewById(R.id.upload_comment);
         List<String> comments = new ArrayList<>(App.getLogic().getLastComments());
         FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line, comments);
@@ -211,17 +220,13 @@ public class ReviewAndUpload extends AbstractReviewDialog {
             source.requestFocus();
         });
 
-        FormValidation commentValidator = new NotEmptyValidator(comment, getString(R.string.upload_validation_error_empty_comment));
-        FormValidation sourceValidator = new NotEmptyValidator(source, getString(R.string.upload_validation_error_empty_source));
-        List<FormValidation> validators = Arrays.asList(commentValidator, sourceValidator);
-
         builder.setPositiveButton(R.string.transfer_download_current_upload, null);
 
         builder.setNegativeButton(R.string.no, (dialog, which) -> saveCommentAndSource(comment, source));
 
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(
-                new UploadListener(activity, comment, source, openChangeset ? closeOpenChangeset : null, closeChangeset, requestReview, validators, elements));
+                new UploadListener(activity, comment, source, openChangeset ? closeOpenChangeset : null, closeChangeset, requestReview, elements));
 
         return dialog;
     }
