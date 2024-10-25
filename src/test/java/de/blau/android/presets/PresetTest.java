@@ -498,7 +498,7 @@ public class PresetTest {
         Map<String, String> tags = new HashMap<>();
         tags.put("traffic_sign", "stop");
         App.getLogic().setTags(null, n, tags);
-        PresetItem sign = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, n);
+        PresetItem sign = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, n, false);
         assertEquals("Stop sign", sign.getName());
     }
 
@@ -512,7 +512,30 @@ public class PresetTest {
         Map<String, String> tags = new HashMap<>();
         tags.put("traffic_sign", "stop");
         App.getLogic().setTags(null, n, tags);
-        PresetItem sign = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, n);
+        PresetItem sign = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, n, false);
         assertEquals("Stop sign (separate)", sign.getName());
     }
+    
+    /**
+     * Iteratively match until we only have address tags left
+     */
+    @Test
+    public void matchAddresses() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "test2.osm");
+        Way w = (Way) d.getOsmElement(Way.NAME, 96291973L);
+        Map<String,String> tags = new HashMap<>(w.getTags());
+        PresetItem match = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, null, true);
+        assertTrue(match.hasKeyValue(Tags.KEY_AMENITY, "townhall"));
+        for (String key:match.getFields().keySet()) {
+            tags.remove(key);
+        }
+        match = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, null, true);
+        assertTrue(match.hasKey(Tags.KEY_BUILDING));
+        for (String key:match.getFields().keySet()) {
+            tags.remove(key);
+        }
+        match = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, null, true);
+        assertTrue(match.hasKey(Tags.KEY_ADDR_STREET));
+    }
+    
 }
