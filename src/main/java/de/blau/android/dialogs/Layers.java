@@ -631,6 +631,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                 setVisibility(context, layer, !layer.isVisible());
                 visible.setImageResource(layer.isVisible() ? visibleId : invisibleId);
                 layer.invalidate();
+                App.getDelegator().setImageryRecorded(false);
             }
         });
         tr.addView(visible);
@@ -799,6 +800,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
             map.invalidate();
         }
+        App.getDelegator().setImageryRecorded(false);
     }
 
     /**
