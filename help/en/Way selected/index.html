@@ -437,7 +437,7 @@
 <h3 id="add-address-tags"><img alt="Address" src="../../images/address.png" /> Add address tags<a class="headerlink" href="#add-address-tags" title="Permanent link">#</a></h3>
 <p>Adds address tags with prediction. Only visible if way is tagged as building.</p>
 <h3 id="reverse-way"><img alt="Reverse" src="../../images/tag_menu_reverse.png" /> Reverse way<a class="headerlink" href="#reverse-way" title="Permanent link">#</a></h3>
-<p>Reverse the direction of the way. If the way has direction dependent tags it will automatically change them to still have the same effect as before the direction change. oneway tags are not automatically reversed here the assumption is that the intent was to change the effect of the tag, the tag editor will be started automatically and you can change the tag manually if necessary. Direction dependent tags currently handled are:</p>
+<p>Reverse the direction of the way. If the way has direction dependent tags it will automatically change them to still have the same effect as before the direction change with the exception of <em>oneway</em> tags as the assumption is that the intent was to actually change the direction of the one way street. If any such tags are present, including <em>oneway</em> a warning dialog will be shown and you can change the tag manually if necessary. Direction dependent tags currently handled are:</p>
 <ul>
 <li>direction</li>
 <li>incline</li>
@@ -499,6 +499,8 @@
 <p>Search for OSM objects in the loaded data using JOSMs search expressions.</p>
 <h3 id="add-to-todo-list">Add to todo list<a class="headerlink" href="#add-to-todo-list" title="Permanent link">#</a></h3>
 <p>Add the current selection to an existing or new todo list.</p>
+<h3 id="replace-geometry">Replace geometry<a class="headerlink" href="#replace-geometry" title="Permanent link">#</a></h3>
+<p>Replace the geometry of the current way with that of a  (in a second step) selected way, the algorithm tries to reuse the nodes in the way as best as possible. Tagged nodes in way will be moved up to an adjustable maximum (default 1m, this can be changed in the <a href="../Advanced%20preferences/">Advanced preferences</a>), if they would have to be moved more they will be extracted from the way to give the user a chance to position them correctly. </p>
 <h3 id="upload-element">Upload element<a class="headerlink" href="#upload-element" title="Permanent link">#</a></h3>
 <p>Upload the selected element (only available for a new or modified element).</p>
 <h3 id="share-position">Share position<a class="headerlink" href="#share-position" title="Permanent link">#</a></h3>
@@ -552,7 +554,7 @@
 <h3 id="add-address-tags"><img alt="Address" src="../../images/address.png" /> Add address tags<a class="headerlink" href="#add-address-tags" title="Permanent link">#</a></h3>
 <p>Adds address tags with prediction. Only visible if way is tagged as building.</p>
 <h3 id="reverse-way"><img alt="Reverse" src="../../images/tag_menu_reverse.png" /> Reverse way<a class="headerlink" href="#reverse-way" title="Permanent link">#</a></h3>
-<p>Reverse the direction of the way. If the way has direction dependent tags it will automatically change them to still have the same effect as before the direction change. oneway tags are not automatically reversed here the assumption is that the intent was to change the effect of the tag, the tag editor will be started automatically and you can change the tag manually if necessary. Direction dependent tags currently handled are:</p>
+<p>Reverse the direction of the way. If the way has direction dependent tags it will automatically change them to still have the same effect as before the direction change with the exception of <em>oneway</em> tags as the assumption is that the intent was to actually change the direction of the one way street. If any such tags are present, including <em>oneway</em> a warning dialog will be shown and you can change the tag manually if necessary. Direction dependent tags currently handled are:</p>
 <ul>
 <li>direction</li>
 <li>incline</li>
@@ -614,6 +616,8 @@
 <p>Search for OSM objects in the loaded data using JOSMs search expressions.</p>
 <h3 id="add-to-todo-list">Add to todo list<a class="headerlink" href="#add-to-todo-list" title="Permanent link">#</a></h3>
 <p>Add the current selection to an existing or new todo list.</p>
+<h3 id="replace-geometry">Replace geometry<a class="headerlink" href="#replace-geometry" title="Permanent link">#</a></h3>
+<p>Replace the geometry of the current way with that of a  (in a second step) selected way, the algorithm tries to reuse the nodes in the way as best as possible. Tagged nodes in way will be moved up to an adjustable maximum (default 1m, this can be changed in the <a href="../Advanced%20preferences/">Advanced preferences</a>), if they would have to be moved more they will be extracted from the way to give the user a chance to position them correctly. </p>
 <h3 id="upload-element">Upload element<a class="headerlink" href="#upload-element" title="Permanent link">#</a></h3>
 <p>Upload the selected element (only available for a new or modified element).</p>
 <h3 id="share-position">Share position<a class="headerlink" href="#share-position" title="Permanent link">#</a></h3>

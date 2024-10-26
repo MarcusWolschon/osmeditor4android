@@ -434,7 +434,7 @@
 <div class="col-md-9" role="main">
 
 <h1 id="vespucci-preset-system">Vespucci Preset System<a class="headerlink" href="#vespucci-preset-system" title="Permanent link">#</a></h1>
-<p><em>Documentation for Vespucci 20.0</em></p>
+<p><em>Documentation for Vespucci 20.2</em></p>
 <p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h2 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci<a class="headerlink" href="#preset-driven-tag-editing-in-vespucci" title="Permanent link">#</a></h2>
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
@@ -603,6 +603,12 @@
 </tr>
 <tr>
 <td></td>
+<td>match_expression</td>
+<td>supported</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
 <td>deprecated</td>
 <td>extension</td>
 <td>only use the preset for matching and map icon display</td>
@@ -676,7 +682,7 @@
 <tr>
 <td></td>
 <td>match_expression</td>
-<td>ignored</td>
+<td>extension</td>
 <td></td>
 </tr>
 <tr>
@@ -736,7 +742,7 @@
 <tr>
 <td></td>
 <td>match_expression</td>
-<td>ignored</td>
+<td>extension</td>
 <td></td>
 </tr>
 <tr>
@@ -862,7 +868,7 @@
 <tr>
 <td></td>
 <td>match_expression</td>
-<td>ignored</td>
+<td>extension</td>
 <td></td>
 </tr>
 <tr>
@@ -988,7 +994,7 @@
 <tr>
 <td></td>
 <td>match_expression</td>
-<td>ignored</td>
+<td>extension</td>
 <td></td>
 </tr>
 <tr>
@@ -1216,7 +1222,7 @@
 <tr>
 <td></td>
 <td>match_expression</td>
-<td>ignored</td>
+<td>extension</td>
 <td></td>
 </tr>
 <tr>
@@ -1462,6 +1468,7 @@ work with JOSM.</p>
 <li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".</li>
 <li><em>alternative</em> indicates that the preset_link points to an alternative tagging of the object.</li>
 <li><em>image</em> optional reference to a large image in an <em>list_entry</em>. See <a href="https://github.com/simonpoole/bicycle-parking-preset">Bicycle parking preset</a> for an example of using this tag.</li>
+<li><em>match_expression</em> on text, combo, multiselect and check elements. Note that having a field with the same key multiple times in an item leads to undefined behaviour. </li>
 </ul></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
@@ -1505,7 +1512,7 @@ work with JOSM.</p>
                     	<div class="col-md-9" role="main">
 
 <h1 id="vespucci-preset-system">Vespucci Preset System<a class="headerlink" href="#vespucci-preset-system" title="Permanent link">#</a></h1>
-<p><em>Documentation for Vespucci 20.0</em></p>
+<p><em>Documentation for Vespucci 20.2</em></p>
 <p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h2 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci<a class="headerlink" href="#preset-driven-tag-editing-in-vespucci" title="Permanent link">#</a></h2>
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
@@ -1674,6 +1681,12 @@ work with JOSM.</p>
 </tr>
 <tr>
 <td></td>
+<td>match_expression</td>
+<td>supported</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
 <td>deprecated</td>
 <td>extension</td>
 <td>only use the preset for matching and map icon display</td>
@@ -1747,7 +1760,7 @@ work with JOSM.</p>
 <tr>
 <td></td>
 <td>match_expression</td>
-<td>ignored</td>
+<td>extension</td>
 <td></td>
 </tr>
 <tr>
@@ -1807,7 +1820,7 @@ work with JOSM.</p>
 <tr>
 <td></td>
 <td>match_expression</td>
-<td>ignored</td>
+<td>extension</td>
 <td></td>
 </tr>
 <tr>
@@ -1933,7 +1946,7 @@ work with JOSM.</p>
 <tr>
 <td></td>
 <td>match_expression</td>
-<td>ignored</td>
+<td>extension</td>
 <td></td>
 </tr>
 <tr>
@@ -2059,7 +2072,7 @@ work with JOSM.</p>
 <tr>
 <td></td>
 <td>match_expression</td>
-<td>ignored</td>
+<td>extension</td>
 <td></td>
 </tr>
 <tr>
@@ -2287,7 +2300,7 @@ work with JOSM.</p>
 <tr>
 <td></td>
 <td>match_expression</td>
-<td>ignored</td>
+<td>extension</td>
 <td></td>
 </tr>
 <tr>
@@ -2533,6 +2546,7 @@ work with JOSM.</p>
 <li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".</li>
 <li><em>alternative</em> indicates that the preset_link points to an alternative tagging of the object.</li>
 <li><em>image</em> optional reference to a large image in an <em>list_entry</em>. See <a href="https://github.com/simonpoole/bicycle-parking-preset">Bicycle parking preset</a> for an example of using this tag.</li>
+<li><em>match_expression</em> on text, combo, multiselect and check elements. Note that having a field with the same key multiple times in an item leads to undefined behaviour. </li>
 </ul></div>
                     
             </div>
