@@ -297,7 +297,10 @@ public final class Tags {
         if (presetItem != null) {
             for (PresetField field : presetItem.getFields().values()) {
                 if (field instanceof PresetTagField && ((PresetTagField) field).getValueType() == ValueType.CARDINAL_DIRECTION) {
-                    return ((PresetTagField) field).getKey();
+                    String key = ((PresetTagField) field).getKey();
+                    if (key != null && e.hasTagKey(key)) {
+                        return key;
+                    }
                 }
             }
         }
