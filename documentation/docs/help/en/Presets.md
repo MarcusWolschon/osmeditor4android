@@ -33,7 +33,7 @@ Most current JOSM presets can be found in [JOSM preset list](http://josm.openstr
 
 Some further potentially useful presets:
 
- * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/vespucci_v4_zip.zip&presetname=Updated default preset">Update of default preset</a> *
+ * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/vespucci_v5.zip&presetname=Updated default preset">Update of default preset</a> *
  * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3fpage=Presets/LaneAttributes%26zip=1&presetname=Lane tagging">Presets for lane tagging</a>
  * <a href="vespucci://preset/?preseturl=https://github.com/kendzi/Simple3dBuildingsPreset/releases/download/0.9_2018-05-08/s3db-preset.zip&presetname=Simple 3D building properties">Presets for Simple 3D building properties</a>
  * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3Fpage=Presets/Simple_Indoor_Tagging%26zip=1&presetname=Simple Indoor Tagging">Presets for Simple Indoor Tagging</a>
