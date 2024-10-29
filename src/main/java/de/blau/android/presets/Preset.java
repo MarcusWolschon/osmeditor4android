@@ -1182,7 +1182,7 @@ public class Preset implements Serializable {
      * @return the best match or null
      */
     private static PresetItem findBestMatch(Map<String, String> tags, List<String> regions, ElementType elementType, Set<PresetItem> possibleMatches) {
-        int bestMatchStrength = 0;
+        int bestMatchStrength = Integer.MIN_VALUE;
         PresetItem bestMatch = null;
         // Find best
         // always prioritize presets with fixed keys that match

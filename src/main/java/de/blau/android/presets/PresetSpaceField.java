@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import ch.poole.poparser.Po;
 
 public class PresetSpaceField extends PresetFormattingField implements FieldHeight {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private int height;
 
