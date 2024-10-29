@@ -10,7 +10,7 @@ import ch.poole.poparser.Po;
 import de.blau.android.util.StringWithDescription;
 
 public class PresetCheckField extends PresetTagField {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     /**
      * on value
@@ -18,7 +18,7 @@ public class PresetCheckField extends PresetTagField {
     final StringWithDescription onValue;
 
     /**
-     * on value
+     * off value
      */
     private StringWithDescription offValue = null;
 
@@ -41,6 +41,7 @@ public class PresetCheckField extends PresetTagField {
     public PresetCheckField(@NonNull PresetCheckField field) {
         super(field);
         this.onValue = field.onValue;
+        this.offValue = field.offValue;
     }
 
     /**
@@ -111,6 +112,6 @@ public class PresetCheckField extends PresetTagField {
 
     @Override
     public String toString() {
-        return super.toString() + " onValue: " + onValue;
+        return super.toString() + " onValue: " + onValue + " offValue " + offValue + " default " + getDefaultValue();
     }
 }

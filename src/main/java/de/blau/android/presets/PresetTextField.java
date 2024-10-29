@@ -7,7 +7,7 @@ import org.xmlpull.v1.XmlSerializer;
 import androidx.annotation.NonNull;
 
 public class PresetTextField extends PresetTagField implements PresetFieldJavaScript {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     /**
      * Script for pre-filling text fields

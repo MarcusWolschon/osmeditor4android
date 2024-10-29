@@ -12,7 +12,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.util.StringWithDescription;
 
 public class PresetFixedField extends PresetTagField {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     
     private final StringWithDescription value;
     private Boolean                     isObject;
@@ -33,7 +33,7 @@ public class PresetFixedField extends PresetTagField {
      * 
      * @param field PresetFixedField to copy
      */
-    public PresetFixedField(PresetFixedField field) {
+    public PresetFixedField(@NonNull PresetFixedField field) {
         super(field);
         this.value = field.value;
     }

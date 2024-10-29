@@ -276,8 +276,8 @@ public class PresetParser {
                         throw new SAXException("Nested chunks are not allowed");
                     }
                     if (inOptionalSection) {
-                        Log.e(DEBUG_TAG, "Chunk " + attr.getValue(ID) + " optional must be nested");
-                        throw new SAXException("optional must be nexted");
+                        Log.e(DEBUG_TAG, "Chunk " + attr.getValue(ID) + " optional must be nested");  // NOSONAR
+                        throw new SAXException("optional must be nested");
                     }
                     type = attr.getValue(TYPE);
                     if (type == null) {
@@ -567,43 +567,45 @@ public class PresetParser {
                 case REFERENCE:
                     PresetChunk chunk = chunks.get(attr.getValue(REF)); // note this assumes that there are no
                                                                         // forward references
-                    if (chunk != null) {
-                        if (chunk.getListValues() != null) {
-                            if (listValues != null) {
-                                listValues.addAll(chunk.getListValues());
-                            } else {
-                                Log.d(DEBUG_TAG, "chunk with LIST_ENTRY sequence referenced outside of COMBO/MULTISELECT");
-                                throw new SAXException("chunk with LIST_ENTRY sequence referenced outside of COMBO/MULTISELECT");
+                    if (chunk == null) {
+                        Log.e(DEBUG_TAG, "Chunk " + attr.getValue(REF) + " not found"); // NOSONAR
+                        break;
+                    }
+                    if (chunk.getListValues() != null) {
+                        if (listValues != null) {
+                            listValues.addAll(chunk.getListValues());
+                        } else {
+                            Log.d(DEBUG_TAG, "chunk with LIST_ENTRY sequence referenced outside of COMBO/MULTISELECT");
+                            throw new SAXException("chunk with LIST_ENTRY sequence referenced outside of COMBO/MULTISELECT");
+                        }
+                    } else {
+                        if (inOptionalSection) {
+                            // fixed tags don't make sense in an optional section, and doesn't seem to happen in
+                            // practice
+                            if (chunk.getFixedTagCount() > 0) {
+                                Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section");  // NOSONAR
+                            }
+                            for (PresetField f : chunk.getFields().values()) {
+                                if (f instanceof PresetTagField) {
+                                    key = ((PresetTagField) f).getKey();
+                                    // don't overwrite exiting fields
+                                    if (!currentItem.hasKey(key)) {
+                                        addOptionalCopy(f);
+                                    } else {
+                                        Log.w(DEBUG_TAG, "PresetItem " + currentItem.getName() + " chunk " + attr.getValue(REF) + " field " + key
+                                                + " overwrites existing field");
+                                    }
+                                } else {
+                                    addOptionalCopy(f);
+                                }
                             }
                         } else {
-                            if (inOptionalSection) {
-                                // fixed tags don't make sense in an optional section, and doesn't seem to happen in
-                                // practice
-                                if (chunk.getFixedTagCount() > 0) {
-                                    Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section");
-                                }
-                                for (PresetField f : chunk.getFields().values()) {
-                                    if (f instanceof PresetTagField) {
-                                        key = ((PresetTagField) f).getKey();
-                                        // don't overwrite exiting fields
-                                        if (!currentItem.hasKey(key)) {
-                                            addOptionalCopy(f);
-                                        } else {
-                                            Log.w(DEBUG_TAG, "PresetItem " + currentItem.getName() + " chunk " + attr.getValue(REF) + " field " + key
-                                                    + " overwrites existing field");
-                                        }
-                                    } else {
-                                        addOptionalCopy(f);
-                                    }
-                                }
-                            } else {
-                                currentItem.addAllFixedFields(chunk.getFixedTags());
-                                currentItem.addAllFields(chunk.getFields());
-                            }
-                            currentItem.addAllRoles(chunk.getRoles());
-                            currentItem.addAllLinkedPresetItems(chunk.getLinkedPresetItems());
-                            currentItem.addAllAlternativePresetItems(chunk.getAlternativePresetItems());
+                            currentItem.addAllFixedFields(chunk.getFixedTags());
+                            currentItem.addAllFields(chunk.getFields());
                         }
+                        currentItem.addAllRoles(chunk.getRoles());
+                        currentItem.addAllLinkedPresetItems(chunk.getLinkedPresetItems());
+                        currentItem.addAllAlternativePresetItems(chunk.getAlternativePresetItems());
                     }
                     break;
                 case LIST_ENTRY:

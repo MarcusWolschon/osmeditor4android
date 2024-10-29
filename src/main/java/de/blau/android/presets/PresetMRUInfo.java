@@ -150,9 +150,11 @@ public class PresetMRUInfo implements Serializable {
         }
         Collections.sort(paths, (TimestampedPresetElementPath p1, TimestampedPresetElementPath p2) -> Long.compare(p2.getTimestamp(), p1.getTimestamp()));
         for (PresetElementPath path : paths) {
-            final PresetItem item = (PresetItem) Preset.getElementByPath(parent.get(path).getRootGroup(), path, regions, false);
-            if (item != null) {
-                group.addElement(item, false);
+            final PresetElement element = Preset.getElementByPath(parent.get(path).getRootGroup(), path, regions, false);
+            if (element instanceof PresetItem) {
+                group.addElement(element, false);
+            } else {
+                Log.e(DEBUG_TAG, "Unexpected element for " + path);
             }
         }
     }

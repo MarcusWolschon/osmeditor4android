@@ -1097,7 +1097,7 @@ public class Preset implements Serializable {
     @Nullable
     public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, @Nullable List<String> regions,
             @Nullable ElementType elementType, boolean useAddressKeys, @Nullable Map<String, String> ignoreTags) {
-        int bestMatchStrength = 0;
+        int bestMatchStrength = Integer.MIN_VALUE;
         PresetItem bestMatch = null;
 
         if (tags == null || presets == null) {
