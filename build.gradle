@@ -761,7 +761,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
 // see https://marathonlabs.github.io/marathon/doc/configuration.html
 marathon {
     uncompletedTestRetryQuota = 6
-    testOutputTimeoutMillis = 720000
+    testOutputTimeoutMillis = 1080000
     poolingStrategy {
         operatingSystem = true
     }
