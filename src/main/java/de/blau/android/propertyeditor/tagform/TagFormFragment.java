@@ -751,6 +751,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         Map<String, Map<String, String>> checkGroupKeyValues = new HashMap<>();
         boolean groupingRequired = false;
         LinkedHashMap<String, String> tagList = new LinkedHashMap<>(tags);
+        
         if (preset != null) {
             Wrapper wrapper = new Wrapper(getContext());
             PresetField previous = null;
@@ -885,7 +886,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             PresetItem linkedItem = field instanceof PresetTagField ? keyToLinkedPreset.get(((PresetTagField) field).getKey()) : null;
             addFieldToView(editableView, linkedItem, tags, checkGroupKeyValues, entry);
         }
-
         return tagList;
     }
 
@@ -902,14 +902,16 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             @NonNull Map<String, Map<String, String>> checkGroupKeyValues, @NonNull Entry<PresetField, String> entry) {
         PresetField field = entry.getKey();
         if (field instanceof PresetCheckGroupField) {
-            CheckGroupDialogRow.getRow(this, inflater, editableView, (PresetCheckGroupField) field,
-                    checkGroupKeyValues.get(((PresetCheckGroupField) field).getKey()), preset, tags);
+            CheckGroupDialogRow.getRow(this, inflater, editableView, (PresetCheckGroupField) field, checkGroupKeyValues.get(((PresetTagField) field).getKey()),
+                    preset, tags);
         } else if (field instanceof PresetTagField) {
             addRow(editableView, (PresetTagField) field, entry.getValue(), preset, tags);
         } else if (field instanceof PresetLabelField) {
             editableView.addView(LabelRow.getRow(inflater, editableView, (PresetLabelField) field));
         } else if (field instanceof PresetFormattingField) {
             editableView.addView(FormattingRow.getRow(inflater, editableView, (PresetFormattingField) field));
+        } else {
+            Log.e(DEBUG_TAG, "Unexpected field " + field.getClass().getSimpleName());
         }
     }
 

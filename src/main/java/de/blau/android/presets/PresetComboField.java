@@ -10,7 +10,7 @@ import ch.poole.poparser.Po;
 import de.blau.android.util.StringWithDescription;
 
 public class PresetComboField extends PresetTagField implements PresetFieldJavaScript {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private StringWithDescription[] values;
 

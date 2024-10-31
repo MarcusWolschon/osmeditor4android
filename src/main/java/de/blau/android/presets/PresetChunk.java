@@ -11,7 +11,7 @@ import de.blau.android.util.StringWithDescription;
 
 public class PresetChunk extends PresetItem {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private List<StringWithDescription> listValues = null;
 

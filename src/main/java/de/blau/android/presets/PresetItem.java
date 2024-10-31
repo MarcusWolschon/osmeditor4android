@@ -45,7 +45,7 @@ import de.blau.android.util.StringWithDescription;
 /** Represents a preset item (e.g. "footpath", "grocery store") */
 public class PresetItem extends PresetElement {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetItem.class.getSimpleName().length());
     private static final String DEBUG_TAG = PresetItem.class.getSimpleName().substring(0, TAG_LEN);
@@ -231,6 +231,9 @@ public class PresetItem extends PresetElement {
                             }
                         }
                     }
+                    if (tagField instanceof PresetCheckField) {
+                        addCheckToSearchIndex((PresetCheckField) tagField);
+                    }
                 } else {
                     for (PresetCheckField check : ((PresetCheckGroupField) tagField).getCheckFields()) {
                         preset.addToSearchIndex(check.getKey(), textContext, this);
@@ -238,16 +241,25 @@ public class PresetItem extends PresetElement {
                         if (hint != null) {
                             preset.addToSearchIndex(hint, textContext, this);
                         }
-                        StringWithDescription value = check.getOnValue();
-                        String valueContext = check.getValueContext();
-                        addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valueContext);
-                        value = check.getOffValue();
-                        if (value != null && !"".equals(value.getValue())) {
-                            addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valueContext);
-                        }
+                        addCheckToSearchIndex(check);
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Add a check values to the search index
+     * 
+     * @param check the search field
+     */
+    private void addCheckToSearchIndex(@NonNull PresetCheckField check) {
+        StringWithDescription value = check.getOnValue();
+        String valueContext = check.getValueContext();
+        addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valueContext);
+        value = check.getOffValue();
+        if (value != null && !"".equals(value.getValue())) {
+            addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valueContext);
         }
     }
 
@@ -807,19 +819,20 @@ public class PresetItem extends PresetElement {
             presets.remove(preset);
         }
         presets.add(0, preset); // move this Preset to front
-        if (linkedPresetItems != null) {
-            for (PresetItemLink pl : linkedPresetItems) {
-                for (Preset preset : presets) {
-                    if (preset != null) {
-                        PresetItem candidateItem = preset.getItemByName(pl.getPresetName(), regions);
-                        if (candidateItem != null) {
-                            if (!noPrimary || !candidateItem.isObject(preset)) { // remove primary objects
-                                result.add(candidateItem);
-                            }
-                            break;
-                        } else {
-                            Log.e(DEBUG_TAG, "Couldn't find linked preset " + pl.getPresetName() + " for regions " + regions);
+        if (linkedPresetItems == null) {
+            return result;
+        }
+        for (PresetItemLink pl : linkedPresetItems) {
+            for (Preset preset : presets) {
+                if (preset != null) {
+                    PresetItem candidateItem = preset.getItemByName(pl.getPresetName(), regions);
+                    if (candidateItem != null) {
+                        if (!noPrimary || !candidateItem.isObject(preset)) { // remove primary objects
+                            result.add(candidateItem);
                         }
+                        break;
+                    } else {
+                        Log.e(DEBUG_TAG, "Couldn't find linked preset " + pl.getPresetName() + " for regions " + regions);
                     }
                 }
             }

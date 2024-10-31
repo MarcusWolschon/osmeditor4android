@@ -28,7 +28,7 @@ import de.blau.android.osm.OsmElement.ElementType;
  */
 public abstract class PresetElement extends Regionalizable implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final int VIEW_PADDING     = 4;
     private static final int VIEW_SIDE_LENGTH = 72;
