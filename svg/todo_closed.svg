@@ -13,7 +13,10 @@
    version="1.1"
    id="svg5115"
    sodipodi:docname="todo_closed.svg"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\src\main\res\drawable-xhdpi\todo_closed.png"
+   inkscape:export-xdpi="270"
+   inkscape:export-ydpi="270">
   <metadata
      id="metadata5121">
     <rdf:RDF>
@@ -22,7 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -42,10 +45,10 @@
      id="namedview5117"
      showgrid="false"
      inkscape:zoom="23.96"
-     inkscape:cx="8"
+     inkscape:cx="-1.1193656"
      inkscape:cy="8"
-     inkscape:window-x="355"
-     inkscape:window-y="187"
+     inkscape:window-x="2007"
+     inkscape:window-y="327"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg5115" />
   <path

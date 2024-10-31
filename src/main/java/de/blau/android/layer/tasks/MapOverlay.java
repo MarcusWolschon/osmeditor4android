@@ -112,6 +112,12 @@ public class MapOverlay extends MapViewLayer
      */
     private final Downloader download;
 
+    // icon styling
+    private float   largDragToleranceRadius;
+    private Paint   dragAreaPaint;
+    private Paint   iconPaint;
+    private boolean largeDragArea;
+
     /**
      * Construct a new task layer
      * 
@@ -199,10 +205,6 @@ public class MapOverlay extends MapViewLayer
         //
         int w = map.getWidth();
         int h = map.getHeight();
-        DataStyle styles = map.getDataStyle();
-        final float largDragToleranceRadius = styles.getCurrent().getLargDragToleranceRadius();
-        final Paint dragAreaPaint = styles.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint();
-        final Paint iconPaint = styles.getInternal(DataStyle.SELECTED_NODE).getPaint();
 
         for (Task t : tasks.getTasks(bb, taskList)) {
             // filter
@@ -212,7 +214,8 @@ public class MapOverlay extends MapViewLayer
             float x = GeoMath.lonE7ToX(w, bb, t.getLon());
             float y = GeoMath.latE7ToY(h, w, bb, t.getLat());
             boolean isSelected = t.equals(selected) && App.getLogic().isInEditZoomRange();
-            if (isSelected && t.isNew() && map.getPrefs().largeDragArea()) {
+
+            if (isSelected && t.isNew() && largeDragArea) {
                 // if the task can be dragged and large drag area is turned on show the large drag area
                 c.drawCircle(x, y, largDragToleranceRadius, dragAreaPaint);
             }
@@ -413,6 +416,11 @@ public class MapOverlay extends MapViewLayer
         autoPruneEnabled = prefs.autoPrune();
         autoPruneTaskLimit = prefs.getAutoPruneTaskLimit();
         autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
+        largeDragArea = prefs.largeDragArea();
+        DataStyle styles = map.getDataStyle();
+        largDragToleranceRadius = styles.getCurrent().getLargDragToleranceRadius();
+        dragAreaPaint = styles.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint();
+        iconPaint = styles.getInternal(DataStyle.SELECTED_NODE).getPaint();
     }
 
     @Override

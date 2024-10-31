@@ -12,11 +12,11 @@
    viewBox="0 0 16 16"
    version="1.1"
    id="svg5115"
-   sodipodi:docname="todo_open.svg"
+   sodipodi:docname="todo_skipped.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\src\main\res\drawable-xhdpi\todo_open.png"
-   inkscape:export-xdpi="270"
-   inkscape:export-ydpi="270">
+   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\src\main\res\drawable-xhdpi\todo_skipped.png"
+   inkscape:export-xdpi="270.00003"
+   inkscape:export-ydpi="270.00003">
   <metadata
      id="metadata5121">
     <rdf:RDF>
@@ -25,7 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -40,20 +40,20 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1212"
-     inkscape:window-height="798"
+     inkscape:window-width="1920"
+     inkscape:window-height="1147"
      id="namedview5117"
      showgrid="false"
      inkscape:zoom="23.96"
-     inkscape:cx="-1.1193656"
+     inkscape:cx="8"
      inkscape:cy="8"
-     inkscape:window-x="1952"
-     inkscape:window-y="67"
-     inkscape:window-maximized="0"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
      inkscape:current-layer="svg5115" />
   <path
      d="m 2.3689151,3.2580213 h 5.9274735 c 0.654725,0 1.1854947,-0.5307697 1.1854947,-1.1854947 0,-0.654725 -0.5307697,-1.18549476 -1.1854947,-1.18549476 H 2.3689151 c -1.3094619,0 -2.37098938,1.06152766 -2.37098938,2.37098946 v 9.4839567 c 0,1.309498 1.06152748,2.37099 2.37098938,2.37099 h 9.4839569 c 1.309498,0 2.37099,-1.061492 2.37099,-2.37099 V 10.37099 c 0,-0.6547374 -0.530746,-1.1854952 -1.185496,-1.1854952 -0.654748,0 -1.185494,0.5307578 -1.185494,1.1854952 v 2.370988 H 2.3689151 Z M 15.654872,1.2342515 c -0.462936,-0.46295946 -1.21359,-0.46295946 -1.676526,0 L 7.7036412,7.5089564 6.7636743,6.5689776 c -0.4629711,-0.4629594 -1.2135789,-0.4629594 -1.6765502,0 -0.4629594,0.4629712 -0.4629594,1.213579 0,1.6765503 l 1.778242,1.7782421 c 0.2223276,0.222316 0.5238582,0.34722 0.8382751,0.34722 0.314417,0 0.6159475,-0.124904 0.8382752,-0.34722 L 15.654872,2.9108018 c 0.462936,-0.4629712 0.462936,-1.2135791 0,-1.6765503 z"
      id="path5113"
-     style="fill:#f2f300;fill-opacity:0.80000001;fill-rule:evenodd;stroke-width:1.18549466"
+     style="fill:#0068c8;fill-opacity:0.80000001;fill-rule:evenodd;stroke-width:1.18549466"
      inkscape:connector-curvature="0" />
 </svg>
