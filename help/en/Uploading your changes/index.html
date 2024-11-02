@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>12.1.0 Release notes - Vespucci</title>
+        <title>Uploading your changes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -42,7 +42,7 @@
                                     
                                         <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
                                 </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -131,7 +131,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">12.1.0 Release notes</a>
+    <a href="../12.1.0%20Release%20notes/" class="dropdown-item">12.1.0 Release notes</a>
 </li>
                                     
 <li>
@@ -183,7 +183,7 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -236,7 +236,7 @@
 </li>
                                     
 <li>
-    <a href="../Uploading%20your%20changes/" class="dropdown-item">Uploading your changes</a>
+    <a href="./" class="dropdown-item active">Uploading your changes</a>
 </li>
                                     
 <li>
@@ -381,12 +381,12 @@
 
 <!--
                             <li class="nav-item">
-                                <a rel="prev" href="../13.0.0%20Release%20notes/" class="nav-link">
+                                <a rel="prev" href="../Address%20mode/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../12.0.0%20Release%20notes/" class="nav-link">
+                                <a rel="next" href="../Conflict%20resolution/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li> -->
@@ -408,22 +408,20 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#vespucci-121-highlights" class="nav-link">Vespucci 12.1 Highlights</a>
+            <li class="nav-item" data-level="1"><a href="#uploading-your-changes" class="nav-link">Uploading your changes</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
+            <li class="nav-item" data-level="2"><a href="#authorization" class="nav-link">Authorization</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            
-            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+            <li class="nav-item" data-level="2"><a href="#uploading" class="nav-link">Uploading</a>
               <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#upload-options" class="nav-link">Upload options</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -431,25 +429,28 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h1 id="vespucci-121-highlights">Vespucci 12.1 Highlights<a class="headerlink" href="#vespucci-121-highlights" title="Permanent link">#</a></h1>
-<p>2019-01-20</p>
-<p>This is a minor release with little new functionality, however as the preset support changes are not backwards compatible it was not suitable for a patch release.</p>
-<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
+<h1 id="uploading-your-changes">Uploading your changes<a class="headerlink" href="#uploading-your-changes" title="Permanent link">#</a></h1>
+<p>While Vespucci allows you to save your edits to local files on your device, most use cases center around uploading and publishing your data 
+to a server providing the <a href="https://wiki.openstreetmap.org/wiki/API_v0.6">OpenStreetMap editing API</a> and that will be the instance available on <a href="https://openstreetmap.org">openstreetmap.org</a> if you are contributing to regular OpenStreetMap. The following information only concerns itself with this standard configuration, other APIs and non-standard authorizations methods can be configured in the <a href="../Main%20map%20display/#layer_control">data layer configuration</a>. </p>
+<h2 id="authorization">Authorization<a class="headerlink" href="#authorization" title="Permanent link">#</a></h2>
+<p>To successfully publish your edits you need to authorize your Vespucci on your device to access your account on openstreetmap.prg on your behalf. You can start the authorization process by either selecting the corresponding option in the configuration dialog display on initial install of the app, by starting an upload process or by using the <em>Authorize OAuth</em> option from the <a href="../Main%20map%20display/#tools">Tools menu</a>.</p>
+<p><em>Note</em> that you will need to have your OSM display name and password available and be connected to the Internet to successfully complete authorization, if you don't already have an account you will have to create one outside of Vespucci prior to starting authorization. While it technically would be possible to create the account from inside the app, doing so invokes additional requirements from google that we cannot fulfill for legal reasons.</p>
+<p>During the authorization process you will be connected to openstreetmap.org and asked to login to your account, you then need to confirm the authorization and will be returned back to Vespuccis map map display.</p>
+<p>If you have pending edits and for whatever reason cannot authorize, Vespucci reliably saves your edits on your device until you upload them or explicitly delete them. If you want to be extra safe you can <a href="../Main%20map%20display/#file">save them to a local file</a> in OCS or (J)OSM format that you can read with Vespucci or import in to JOSM. </p>
+<h2 id="uploading">Uploading<a class="headerlink" href="#uploading" title="Permanent link">#</a></h2>
+<p>To upload your edits you can either select <em>Upload data to OSM server</em> from the <a href="../Main%20map%20display/#trasfer">Transfer menu</a>, or select <em>Upload element</em> from the overflow menu in any of the element selection modes or multi-select. The later will only upload the selected elements.</p>
+<p>The <em>Upload changes</em> dialog display two tabs <em>Changes</em> and <em>Properties</em>. The <em>Changes</em> tab displays a list of all the OSM elements that will be affected by the upload, the type of change and an information button that allows you to view further information on the element and jump to it to make corrections. The <em>Properties</em> tab allows you to set a <em>comment</em>
+for this upload and document that <em>source</em> that was used to create the changes (for example <em>survey</em> if you were personally present at the location in question). Prior entries in both
+fields are retained and can be used when appropriate.</p>
+<p>It is considered best practice to provide meaningful information for other mappers in these fields. However Vespucci will automatically include a summary of your changes (starting with version 20.2) and a list of all imagery layers used for the current set of changes. If you leave the comment field empty it will include text pointing to the automatically generated summary.</p>
+<h2 id="upload-options">Upload options<a class="headerlink" href="#upload-options" title="Permanent link">#</a></h2>
 <ul>
-<li><del>Use most recently used tags when applying preset</del> (Reverted in 12.1.2)</li>
-<li>Support "wiki" attribute in presets</li>
-<li>Support splitting via ways in turn-restrictions</li>
-<li>Add marker to share on OpenStreetMap URL</li>
-<li>multiple small behaviour improvements</li>
-</ul>
-<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
-<ul>
-<li>As the saved task state file format changed for version 12.0, please complete any edits before upgrading if your current version is older.</li>
-</ul>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>the documentation is out of date.</li>
-<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+<li><em>Close changeset</em> close the changeset after the upload. If this is unchecked, changesets will be left open and further uploads will be appended. Note that the changeset may be automatically closed by the API, this is detected on upload and a new changeset will be created. The default setting for this is enabled.</li>
+<li><em>Close open changeset</em> only displayed if an open changeset has been detected (that is <em>Close changeset</em> must be disabled). Close the current changeset after upload. This setting only applies to the current upload. The default setting for this is disabled.</li>
+<li><em>Request review</em> add a tag asking for a review of the changes. Note this does not stop your changes from being immediately available after you have completed the upload, it is 
+simply an indication to other contributors and they might or might not actually review your edits. The default setting for this is disabled.</li>
+<li><em>Warn if comment is empty</em> As described above it is best practice to add a meaningful comment to your upload, if you don't want to do this, unchecking this option
+will disable warnings that the comment is empty and disable the automatic switch to the <em>Properties</em> tab prior to the upload. This is available from version 20.2 on, the default setting for this is enabled.</li>
 </ul></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
@@ -463,22 +464,20 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#vespucci-121-highlights" class="nav-link">Vespucci 12.1 Highlights</a>
+            <li class="nav-item" data-level="1"><a href="#uploading-your-changes" class="nav-link">Uploading your changes</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
+            <li class="nav-item" data-level="2"><a href="#authorization" class="nav-link">Authorization</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            
-            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+            <li class="nav-item" data-level="2"><a href="#uploading" class="nav-link">Uploading</a>
               <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#upload-options" class="nav-link">Upload options</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -486,25 +485,28 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h1 id="vespucci-121-highlights">Vespucci 12.1 Highlights<a class="headerlink" href="#vespucci-121-highlights" title="Permanent link">#</a></h1>
-<p>2019-01-20</p>
-<p>This is a minor release with little new functionality, however as the preset support changes are not backwards compatible it was not suitable for a patch release.</p>
-<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
+<h1 id="uploading-your-changes">Uploading your changes<a class="headerlink" href="#uploading-your-changes" title="Permanent link">#</a></h1>
+<p>While Vespucci allows you to save your edits to local files on your device, most use cases center around uploading and publishing your data 
+to a server providing the <a href="https://wiki.openstreetmap.org/wiki/API_v0.6">OpenStreetMap editing API</a> and that will be the instance available on <a href="https://openstreetmap.org">openstreetmap.org</a> if you are contributing to regular OpenStreetMap. The following information only concerns itself with this standard configuration, other APIs and non-standard authorizations methods can be configured in the <a href="../Main%20map%20display/#layer_control">data layer configuration</a>. </p>
+<h2 id="authorization">Authorization<a class="headerlink" href="#authorization" title="Permanent link">#</a></h2>
+<p>To successfully publish your edits you need to authorize your Vespucci on your device to access your account on openstreetmap.prg on your behalf. You can start the authorization process by either selecting the corresponding option in the configuration dialog display on initial install of the app, by starting an upload process or by using the <em>Authorize OAuth</em> option from the <a href="../Main%20map%20display/#tools">Tools menu</a>.</p>
+<p><em>Note</em> that you will need to have your OSM display name and password available and be connected to the Internet to successfully complete authorization, if you don't already have an account you will have to create one outside of Vespucci prior to starting authorization. While it technically would be possible to create the account from inside the app, doing so invokes additional requirements from google that we cannot fulfill for legal reasons.</p>
+<p>During the authorization process you will be connected to openstreetmap.org and asked to login to your account, you then need to confirm the authorization and will be returned back to Vespuccis map map display.</p>
+<p>If you have pending edits and for whatever reason cannot authorize, Vespucci reliably saves your edits on your device until you upload them or explicitly delete them. If you want to be extra safe you can <a href="../Main%20map%20display/#file">save them to a local file</a> in OCS or (J)OSM format that you can read with Vespucci or import in to JOSM. </p>
+<h2 id="uploading">Uploading<a class="headerlink" href="#uploading" title="Permanent link">#</a></h2>
+<p>To upload your edits you can either select <em>Upload data to OSM server</em> from the <a href="../Main%20map%20display/#trasfer">Transfer menu</a>, or select <em>Upload element</em> from the overflow menu in any of the element selection modes or multi-select. The later will only upload the selected elements.</p>
+<p>The <em>Upload changes</em> dialog display two tabs <em>Changes</em> and <em>Properties</em>. The <em>Changes</em> tab displays a list of all the OSM elements that will be affected by the upload, the type of change and an information button that allows you to view further information on the element and jump to it to make corrections. The <em>Properties</em> tab allows you to set a <em>comment</em>
+for this upload and document that <em>source</em> that was used to create the changes (for example <em>survey</em> if you were personally present at the location in question). Prior entries in both
+fields are retained and can be used when appropriate.</p>
+<p>It is considered best practice to provide meaningful information for other mappers in these fields. However Vespucci will automatically include a summary of your changes (starting with version 20.2) and a list of all imagery layers used for the current set of changes. If you leave the comment field empty it will include text pointing to the automatically generated summary.</p>
+<h2 id="upload-options">Upload options<a class="headerlink" href="#upload-options" title="Permanent link">#</a></h2>
 <ul>
-<li><del>Use most recently used tags when applying preset</del> (Reverted in 12.1.2)</li>
-<li>Support "wiki" attribute in presets</li>
-<li>Support splitting via ways in turn-restrictions</li>
-<li>Add marker to share on OpenStreetMap URL</li>
-<li>multiple small behaviour improvements</li>
-</ul>
-<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
-<ul>
-<li>As the saved task state file format changed for version 12.0, please complete any edits before upgrading if your current version is older.</li>
-</ul>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>the documentation is out of date.</li>
-<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+<li><em>Close changeset</em> close the changeset after the upload. If this is unchecked, changesets will be left open and further uploads will be appended. Note that the changeset may be automatically closed by the API, this is detected on upload and a new changeset will be created. The default setting for this is enabled.</li>
+<li><em>Close open changeset</em> only displayed if an open changeset has been detected (that is <em>Close changeset</em> must be disabled). Close the current changeset after upload. This setting only applies to the current upload. The default setting for this is disabled.</li>
+<li><em>Request review</em> add a tag asking for a review of the changes. Note this does not stop your changes from being immediately available after you have completed the upload, it is 
+simply an indication to other contributors and they might or might not actually review your edits. The default setting for this is disabled.</li>
+<li><em>Warn if comment is empty</em> As described above it is best practice to add a meaningful comment to your upload, if you don't want to do this, unchecking this option
+will disable warnings that the comment is empty and disable the automatic switch to the <em>Properties</em> tab prior to the upload. This is available from version 20.2 on, the default setting for this is enabled.</li>
 </ul></div>
                     
             </div>
