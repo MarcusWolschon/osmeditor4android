@@ -55,8 +55,8 @@ public class UploadConflictTest {
 
     public static final int TIMEOUT = 90;
 
-    private static final String SOURCE_1  = "source 1";
-    private static final String COMMENT_1 = "comment 1";
+    static final String SOURCE_1  = "source 1";
+    static final String COMMENT_1 = "comment 1";
 
     MockWebServerPlus       mockServer = null;
     Context                 context    = null;

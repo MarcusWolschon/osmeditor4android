@@ -137,28 +137,32 @@ public class Changeset {
         Changeset result = new Changeset();
         while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
             String tagName = parser.getName();
-            if (eventType == XmlPullParser.START_TAG) {
-                switch (tagName) {
-                case OsmXml.CHANGESET:
-                    result.open = TRUE.equals(parser.getAttributeValue(null, OPEN_ATTR));
-                    try {
-                        result.osmId = Long.parseLong(parser.getAttributeValue(null, ID_ATTR));
-                        String changesStr = parser.getAttributeValue(null, CHANGES_COUNT_ATTR);
-                        result.changes = Integer.parseInt(changesStr);
-                    } catch (NumberFormatException nex) {
-                        throw new XmlPullParserException(nex.getMessage());
-                    }
-                    break;
-                case OsmElement.TAG:
-                    String k = parser.getAttributeValue(null, OsmElement.TAG_KEY_ATTR);
-                    String v = parser.getAttributeValue(null, OsmElement.TAG_VALUE_ATTR);
-                    result.getTags().put(k, v);
-                    break;
-                default:
-                    // nothing
-                }
-                Log.d(DEBUG_TAG, "#" + result.osmId + " is " + (result.isOpen() ? "open" : "closed"));
+            if (eventType != XmlPullParser.START_TAG) {
+                continue;
             }
+            switch (tagName) {
+            case OsmXml.CHANGESET:
+                if (parser.getAttributeCount() < 3) { // in testing these won't be available
+                    break;
+                }
+                result.open = TRUE.equals(parser.getAttributeValue(null, OPEN_ATTR));
+                try {
+                    result.osmId = Long.parseLong(parser.getAttributeValue(null, ID_ATTR));
+                    String changesStr = parser.getAttributeValue(null, CHANGES_COUNT_ATTR);
+                    result.changes = Integer.parseInt(changesStr);
+                } catch (NumberFormatException | NullPointerException ex) {
+                    throw new XmlPullParserException(ex.getMessage());
+                }
+                break;
+            case OsmElement.TAG:
+                String k = parser.getAttributeValue(null, OsmElement.TAG_KEY_ATTR);
+                String v = parser.getAttributeValue(null, OsmElement.TAG_VALUE_ATTR);
+                result.tags.put(k, v);
+                break;
+            default:
+                // nothing
+            }
+            Log.d(DEBUG_TAG, "#" + result.osmId + " is " + (result.isOpen() ? "open" : "closed"));
         }
         return result;
     }

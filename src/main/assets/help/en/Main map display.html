@@ -29,6 +29,7 @@
 <p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up.</p>
 <p>The view will include a filtered view of all &quot;POI&quot;s displayed on the current map view. If no explicit filter is set this is limited to objects that have a key with one of <em>shop</em>, <em>amenity</em>, <em>leisure</em>, <em>tourism</em>, <em>craft</em>, <em>office</em> or <em>emergency</em>. If an explicit filter is set, that is a tag filter or a preset filter, or a mode (<em>Indoor</em> and <em>C</em>-mode) is selected that sets a filter the display will display objects that are allowed by the filter. For example if <em>Indoor</em> mode is selected, the display will only show POIs on the currently selected level.</p>
 <p>Tapping an entry in the display will center the map on the object and select it, tapping it a second time (just as on the map display) will start the property editor, in <em>Tag only</em> mode the property editor will start directly as expected. The POI entries are highlighted with the same validation indication as map icons, see <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/styles/Color-round.xml#L39">validation styling</a>.</p>
+<p><a id="layer_control"></a></p>
 <h3>Layer control</h3>
 <p>Vespucci currently supports multiple tiled background imagery layers, multiple tiled overlay layers (both raster and Mapbox vector tiles), a grid/scale layer, a task layer, a photo layer, multiple GeoJSON layers, multiple GPX/GPS layers and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).</p>
 <p>The layer dialog supports the following actions on the layer entries:</p>
@@ -100,7 +101,7 @@
 </li>
 <li>Data layer:
 <ul>
-<li><strong>Configure...</strong> Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024.</li>
+<li><strong>Configure...</strong> Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since July 2024.</li>
 </ul>
 </li>
 <li>Data and Tasks layers:
@@ -181,6 +182,7 @@
 <li><strong>Pause GPX track</strong> - pause recording the current GPX track</li>
 <li><strong>Clear GPX track</strong> - clear the current GPX track</li>
 </ul>
+<p><a id="transfer"></a></p>
 <h3><img src="../images/menu_transfer.png" alt="Transfer" /> Transfer</h3>
 <p>Select either the transfer icon <img src="../images/menu_transfer.png" alt="Transfer" /> or the &quot;Transfer&quot; menu item. This will display seven or eight options:</p>
 <ul>
@@ -194,7 +196,7 @@
 <li><strong>Pan and zoom auto download</strong> - download the area shown in the current screen automatically <em>(requires network connectivity)</em></li>
 <li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
 <li><strong>Clear data</strong> - remove any OSM data in memory</li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.
+<li><strong>File...</strong> - saving and loading OSM data to/from on device files. <a id="file"></a>
 <ul>
 <li><strong>Export changes to OSC file</strong> - write a &quot;.osc&quot; format file containing the current edits</li>
 <li><strong>Apply changes from OSC file</strong> - read a &quot;.osc&quot; format file and apply its contents</li>
@@ -224,6 +226,7 @@
 </ul>
 <h3><img src="../images/menu_config.png" alt="Preferences" /> Preferences</h3>
 <p>Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the &quot;Advanced preferences&quot; contains the less used ones.</p>
+<p><a id="tools"></a></p>
 <h3><img src="../images/menu_tools.png" alt="Tools" /> Tools…</h3>
 <ul>
 <li><strong>Apply stored offset to imagery</strong> - apply stored offset, if it exists, for the current background layer</li>

@@ -27,6 +27,7 @@
     <string name="help_advanced_preferences">Advanced preferences</string>
     <string name="help_custom_imagery">Custom imagery</string>
     <string name="help_presets">Presets</string>
+    <string name="help_uploading">Uploading your changes</string>
     <string name="help_conflictresolution">Conflict resolution</string>
     <string name="help_gpssources">GPS sources</string>
     <string name="help_keyboard">Keyboard</string>
@@ -82,6 +83,7 @@
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
         <item>@string/help_pathcreation</item>
+        <item>@string/help_uploading</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
         <item>@string/help_custom_imagery</item>
@@ -145,6 +147,7 @@
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
         <item>Adding way nodes</item>
+        <item>Uploading your changes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
         <item>Custom imagery</item>

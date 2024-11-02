@@ -82,6 +82,7 @@ public class Preferences {
     private final boolean     nameSuggestionPresetsEnabled;
     private final boolean     autoApplyPreset;
     private final boolean     closeChangesetOnSave;
+    private boolean           emptyCommentWarning;
     private final boolean     splitActionBarEnabled;
     private String            gpsSource;
     private final String      gpsTcpSource;
@@ -215,6 +216,7 @@ public class Preferences {
         nameSuggestionPresetsEnabled = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestionsPresets_key), true);
         autoApplyPreset = prefs.getBoolean(r.getString(R.string.config_autoApplyPreset_key), true);
         closeChangesetOnSave = prefs.getBoolean(r.getString(R.string.config_closeChangesetOnSave_key), true);
+        emptyCommentWarning = prefs.getBoolean(r.getString(R.string.config_emptyCommentWarning_key), true);
         splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
         scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), r.getString(R.string.scale_metric));
         mapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
@@ -344,7 +346,7 @@ public class Preferences {
         minCircleSegment = getFloatFromStringPref(R.string.config_minCircleSegment_key, 0.5f);
 
         poiKeys = prefs.getStringSet(r.getString(R.string.config_poi_keys_key), new HashSet<>(Arrays.asList(r.getStringArray(R.array.poi_keys_defaults))));
-    
+
         replaceTolerance = getFloatFromStringPref(R.string.config_replaceTolerance_key, 1.0f);
     }
 
@@ -1934,13 +1936,32 @@ public class Preferences {
     }
 
     /**
-     * Enable/diable the zoom with keys preference
+     * Enable/disable the zoom with keys preference
      * 
      * @param enable value to set
      */
     public void setZoomWithKeys(boolean enable) {
         zoomWithKeys = enable;
-        prefs.edit().putBoolean(r.getString(R.string.config_zoomWithKeys_key), enable).commit();
+        putBoolean(r.getString(R.string.config_zoomWithKeys_key), enable);
+    }
+
+    /**
+     * Warn if the comment field is empty on upload
+     * 
+     * @return true is we should warn
+     */
+    public boolean emptyCommentWarning() {
+        return emptyCommentWarning;
+    }
+
+    /**
+     * Set if we should warn if the comment field is empty on upload
+     * 
+     * @param enable if true show a warning
+     */
+    public void setEmptyCommentWarning(boolean enable) {
+        emptyCommentWarning = enable;
+        putBoolean(r.getString(R.string.config_emptyCommentWarning_key), enable);
     }
 
     /**
@@ -1979,7 +2000,7 @@ public class Preferences {
     public Set<String> poiKeys() {
         return poiKeys;
     }
-    
+
     /**
      * Get the max distance a tagged node can be moved when replacing a way geometry
      * 

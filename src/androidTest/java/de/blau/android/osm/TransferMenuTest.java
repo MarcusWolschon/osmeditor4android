@@ -20,6 +20,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
@@ -38,10 +40,10 @@ import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.R.string;
 import de.blau.android.SignalHandler;
 import de.blau.android.SignalUtils;
 import de.blau.android.TestUtils;
+import de.blau.android.listener.UploadListener;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -133,6 +135,8 @@ public class TransferMenuTest {
             fail(e1.getMessage());
         }
         UploadConflictTest.fillCommentAndSource(instrumentation, device);
+        uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        button = device.findObject(uiSelector);
         try {
             button.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e1) {
@@ -152,10 +156,12 @@ public class TransferMenuTest {
             mockServer.takeRequest(); // capabilities query
             RecordedRequest recordedRequest = mockServer.takeRequest(); // changeset
             // this currently doesn't work
-            // Changeset changeset = Changeset.parse(XmlPullParserFactory.newInstance().newPullParser(),
-            // new ByteArrayInputStream(recordedRequest.getBody().readByteArray()));
-            // assertEquals(COMMENT_1, changeset.tags.get("comment"));
-            // assertEquals(SOURCE_1, changeset.tags.get("source"));
+            byte[] request = recordedRequest.getBody().readByteArray();
+            Changeset changeset = Changeset.parse(XmlPullParserFactory.newInstance().newPullParser(), new ByteArrayInputStream(request));
+            assertEquals(UploadConflictTest.COMMENT_1, changeset.getTags().get(Tags.KEY_COMMENT));
+            assertEquals("1 Tertiary", changeset.getTags().get(UploadListener.V_CREATED));
+            assertEquals("1 untagged way", changeset.getTags().get(UploadListener.V_DELETED));
+            assertTrue(changeset.getTags().get(UploadListener.V_MODIFIED).contains("2 unknown object to Public transport route (Legacy)"));
             recordedRequest = mockServer.takeRequest(); // diff upload
             OsmChangeParser ocParser = new OsmChangeParser();
             ocParser.start(new ByteArrayInputStream(recordedRequest.getBody().readByteArray()));
@@ -171,7 +177,7 @@ public class TransferMenuTest {
             Way w = (Way) storage.getOsmElement(Way.NAME, 210461100);
             assertNotNull(w);
             assertEquals(OsmElement.STATE_DELETED, w.getState());
-        } catch (InterruptedException | SAXException | IOException | ParserConfigurationException e) {
+        } catch (InterruptedException | SAXException | IOException | ParserConfigurationException | XmlPullParserException e) {
             fail(e.getMessage());
         }
     }
