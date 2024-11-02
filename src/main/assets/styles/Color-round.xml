@@ -453,6 +453,16 @@
 
         <feature type="relation" tags="highway=pedestrian" widthFactor="1.0" color="ff888888" offset="0.50"/>
 
+        <feature type="relation" tags="amenity" widthFactor="1.0" iconPath="preset" labelKey="name">
+            <dash phase="1.0">
+                <interval length="2.0" />
+                <interval length="2.0" />
+            </dash>
+            <feature type="relation" tags="amenity=parking" color="ff99CCFF" />
+            <feature type="relation" tags="amenity=bicycle_parking"  color="ff99CCFF" />
+            <feature type="relation" tags="amenity=motorcycle_parking" color="ff99CCFF" />
+        </feature>
+    
         <feature type="relation" tags="natural" color="ff71BE80" >
             <feature type="relation" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
             <feature type="relation" tags="natural=glacier" widthFactor="1.0" minVisibleZoom="10" color="ff368BC1" />
