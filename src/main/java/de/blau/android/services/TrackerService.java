@@ -39,6 +39,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,6 +50,7 @@ import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import de.blau.android.App;
 import de.blau.android.AsyncResult;
+import de.blau.android.BuildConfig;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -74,8 +77,9 @@ import de.blau.android.validation.Validator;
 
 public class TrackerService extends Service {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TrackerService.class.getSimpleName().length());
-    private static final String DEBUG_TAG = TrackerService.class.getSimpleName().substring(0, TAG_LEN);
+    private static final String WAKELOCK_TAG = BuildConfig.APPLICATION_ID + ":gpx_recording";
+    private static final int    TAG_LEN      = Math.min(LOG_TAG_LEN, TrackerService.class.getSimpleName().length());
+    private static final String DEBUG_TAG    = TrackerService.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
 
@@ -160,6 +164,8 @@ public class TrackerService extends Service {
 
     private Sensor pressure    = null;
     private Sensor temperature = null;
+
+    private WakeLock wakeLock = null;
 
     @Override
     public void onCreate() {
@@ -378,12 +384,15 @@ public class TrackerService extends Service {
      * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
      * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
-    private void startTrackingInternal() {
+    private synchronized void startTrackingInternal() {
         Log.i(DEBUG_TAG, "Start tracking");
         if (startInternal()) {
             tracking = true;
             track.markNewSegment();
             startAutosave();
+            PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK_TAG);
+            wakeLock.acquire();
         }
     }
 
@@ -464,7 +473,7 @@ public class TrackerService extends Service {
      * 
      * @param deleteTrack true if the track should be deleted, false if it should be kept
      */
-    public void stopTracking(boolean deleteTrack) {
+    public synchronized void stopTracking(boolean deleteTrack) {
         Log.d(DEBUG_TAG, "Stop tracking");
         if (autosaveFuture != null) {
             Log.i(DEBUG_TAG, "Cancelling autosave");
@@ -482,6 +491,10 @@ public class TrackerService extends Service {
             track.save();
         }
         tracking = false;
+        if (wakeLock != null && wakeLock.isHeld()) {
+            wakeLock.release();
+            wakeLock = null;
+        }
         stop();
     }
 
