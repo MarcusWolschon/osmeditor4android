@@ -6,7 +6,7 @@
 * imagery layers in [MBTiles](https://github.com/mapbox/mbtiles-spec) and [PMtiles V3](https://github.com/protomaps/PMTiles/blob/main/spec/v3/spec.md) format on device
 * WMS servers supporting images in EPSG:3857 (including alternative names like EPSG:900913 etc) and EPSG:4326 projections
 
-Besides manually adding layers you can add WMS layers by querying a WMS server for a list of supported layers see [layer control](Main%20map%20display.md#Layer%20control), or by querying the Open Aerial Map (OAM) service.
+Besides manually adding layers you can add WMS layers by querying a WMS server for a list of supported layers see [layer control](Main%20map%20display.md#layer_control), or by querying the Open Aerial Map (OAM) service.
 
 __NOTE__ even though the URLs may look similar to those for a WMS layer, we do not support requesting data from ESRI MapServer with their native protocol.
 

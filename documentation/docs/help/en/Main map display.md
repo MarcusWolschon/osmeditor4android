@@ -37,6 +37,8 @@ _shop_, _amenity_, _leisure_, _tourism_, _craft_, _office_ or _emergency_. If an
 
 Tapping an entry in the display will center the map on the object and select it, tapping it a second time (just as on the map display) will start the property editor, in _Tag only_ mode the property editor will start directly as expected. The POI entries are highlighted with the same validation indication as map icons, see [validation styling](https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/styles/Color-round.xml#L39).
 
+<a id="layer_control"></a>
+
 ### Layer control
 
 Vespucci currently supports multiple tiled background imagery layers, multiple tiled overlay layers (both raster and Mapbox vector tiles), a grid/scale layer, a task layer, a photo layer, multiple GeoJSON layers, multiple GPX/GPS layers and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).
@@ -85,7 +87,7 @@ The layer dialog supports the following actions on the layer entries:
         * __Configure...__ Change layer settings
         * __Discard__ Turn this layer off. For the task layer this will free resources if the app is exited and re-started.
     * Data layer:
-        * __Configure...__ Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024.
+        * __Configure...__ Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since July 2024.
     * Data and Tasks layers:
         * __Info__ Display some information on the contents.
         * __Prune__ remove downloaded data from storage that is outside of the current screen and unmodified.
@@ -169,6 +171,8 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
  * **Pause GPX track** - pause recording the current GPX track
  * **Clear GPX track** - clear the current GPX track
 
+<a id="transfer"></a>
+
 ### ![Transfer](../images/menu_transfer.png) Transfer
 
 Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven or eight options:
@@ -183,7 +187,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
  * **Pan and zoom auto download** - download the area shown in the current screen automatically *(requires network connectivity)*
  * **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
  * **Clear data** - remove any OSM data in memory
- * **File...** - saving and loading OSM data to/from on device files.
+ * **File...** - saving and loading OSM data to/from on device files. <a id="file"></a>
     * **Export changes to OSC file** - write a ".osc" format file containing the current edits
     * **Apply changes from OSC file** - read a ".osc" format file and apply its contents
     * **Save to JOSM file...** - save as a JOSM compatible XML format file
@@ -205,6 +209,8 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
 ### ![Preferences](../images/menu_config.png) Preferences
 
 Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. 
+
+<a id="tools"></a>
 
 ### ![Tools](../images/menu_tools.png) Tools…
 

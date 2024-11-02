@@ -1,7 +1,6 @@
 package de.blau.android.dialogs;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -20,7 +19,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -47,8 +45,6 @@ import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
-import de.blau.android.validation.FormValidation;
-import de.blau.android.validation.NotEmptyValidator;
 import de.blau.android.views.ExtendedViewPager;
 
 /**
