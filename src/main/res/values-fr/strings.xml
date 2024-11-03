@@ -91,12 +91,12 @@ Vous pouvez sélectionner une partie des éléments modifiés et les envoyer sé
   <string name="select_file_picker_title">Choisir le gestionnaire de fichier</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Bienvenue</string>
-  <string name="welcome_message">Merci d'avoir installé Vespucci.\n&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;Vespucci est un outil avancé d'édition OpenStreetMap. Il supporte presque toutes les fonctions d'un éditeur bureautique mais cela implique une certaine complexité. L'aide disponible dans l'application ou en ligne répondra à la plupart des questions. Si vous avez besoin de plus d'informations, nous vous recommandons de poser vos questions sur les forums de la communauté OpenStreetMaps.
-&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;Trois éléments sont importants pour démarrer :
-&amp;lt;ul&amp;gt;&amp;lt;li&amp;gt;Cliquer sur l'icône cadenas dans le coin supérieur gauche permettra d'alterner entre le mode verrouillé (pas d'édition) et déverrouillé.
-&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;pour ajouter un nouvel objet, cliquez sur le gros bouton vert et sélectionnez ce que vous souhaitez ajouter dans le menu; cliquez ensuite sur la position que vous souhaitez lui attribuer.
-&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;Pour ouvrir la fenêtre des POIs proches, faites glisser vers le haut la petite barre bleu clair au-dessus du menu en bas de l'écran.
-&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt
+  <string name="welcome_message">Merci d\'avoir installé Vespucci.\n&lt;br&gt;&lt;br&gt;Vespucci est un outil avancé d\'édition OpenStreetMap. Il supporte presque toutes les fonctions d\'un éditeur bureautique mais cela implique une certaine complexité. L\'aide disponible dans l\'application ou en ligne répondra à la plupart des questions. Si vous avez besoin de plus d\'informations, nous vous recommandons de poser vos questions sur les forums de la communauté OpenStreetMap.
+&lt;br&gt;&lt;br&gt;Trois éléments sont importants pour démarrer :
+&lt;ul&gt;&lt;li&gt;Cliquer sur l\'icône cadenas dans le coin supérieur gauche permettra d\'alterner entre le mode verrouillé (pas d\'édition) et déverrouillé.
+&lt;/li&gt;&lt;li&gt;pour ajouter un nouvel objet, cliquez sur le gros bouton vert et sélectionnez ce que vous souhaitez ajouter dans le menu; cliquez ensuite sur la position que vous souhaitez lui attribuer.
+&lt;/li&gt;&lt;li&gt;Pour ouvrir la fenêtre des POIs proches, faites glisser vers le haut la petite barre bleu clair au-dessus du menu en bas de l\'écran.
+&lt;/li&gt;&lt;/ul&gt;
 Sur la page suivante vous pouvez définir quelques préférences qui rendront votre voyage avec Vespucci plus agréable.</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Votre appareil utilise des « touches logicielles » qui ont été cachées. Glissez vers le haut depuis le bas de l\'écran pour les afficher.</string>
   <string name="welcome_settings_tab_text">Pour améliorer votre première expérience vous pouvez configurer quelques options dès maintenant.
