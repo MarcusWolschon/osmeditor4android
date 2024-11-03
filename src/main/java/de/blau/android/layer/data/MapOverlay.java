@@ -21,6 +21,7 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -1278,6 +1279,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
      * @param isWay if the element is a Way
      * @param cache the relevant cache
      */
+    @TargetApi(26)
     private void retrieveIcon(@NonNull OsmElement element, boolean isWay, @NonNull WeakHashMap<java.util.Map<String, String>, Bitmap> cache) {
         BitmapDrawable iconDrawable = null;
 

@@ -14,6 +14,7 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.zip.GZIPInputStream;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -99,6 +100,7 @@ public class MapTileProvider<T> {
             this.hardwareRendering = hardwareRendering;
         }
 
+        @TargetApi(26)
         @Override
         public Bitmap decode(@NonNull byte[] data, boolean small) {
             if (hardwareRendering) {

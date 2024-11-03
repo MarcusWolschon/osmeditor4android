@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -227,6 +228,7 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param hwAccelerated true is the canvas is hw accellerated
      * @return the Bitmap
      */
+    @TargetApi(26)
     @NonNull
     static BitmapWithOffset getIcon(@NonNull Context context, int icon, boolean hwAccelerated) {
         BitmapWithOffset bitmap = new BitmapWithOffset();
