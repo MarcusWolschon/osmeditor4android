@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Vespucci 20.2 BETA Highlights</h1>
+<p>2024-11-03</p>
+<h3>Automatically generate summary of changes</h3>
+<p>Vespucci will now automatically add a summary of the edits made to the changeset tags. As this typically will be far more than what can be added to a single comment tag (max. 255 characters), it uses additional tags for this. If the comment tag is left empty it will add a comment referencing the automatically generated tags.</p>
+<p>We further added an option on the &quot;Properties&quot; tab of the upload modal to reduce the nagging about filling out the comment field.</p>
+<h3>Change of direction values handling</h3>
+<p>In 20.1 we added support for <em>direction</em> tag handling including a specific modal for adding direction values, however we showed this for all direction values which was less than optimal. We've now added a further preset <em>value_type</em> <em>cardinal_direction</em> and will only show the direction modal for objects that match preset fields with that value.</p>
+<h3>Support for <em>match_expression</em> in presets</h3>
+<p>We now support the <em>match_expression</em> attribute for preset items and fields (extension). This allows fine grained control of preset matching in cases for which the standard node, way closed way and relation matching isn't sufficient.</p>
+<p>For example the <em>direction</em> tag for <em>traffic_sign</em> objects has different semantics depending on if the traffic sign is tagged on a way node of a <em>highway</em> object, or if it is a stand alone traffic sign node (the relevant direction changes by 180°). Using match expressions allows to differentiate between these two cases.</p>
+<h3>Support for replacing geometries</h3>
+<p>We've added support for the most common &quot;replace geometry&quot; operations.</p>
+<h4>Replace node by way</h4>
+<p>This operation will replace one of the way nodes with the node maintaining a link to the history and move and merge tags from the original node to the target way.</p>
+<h4>Replace way geometry with geometry of a source way</h4>
+<p>This operation will move the nodes of a target way to the positions of those in a source way, adding new and deleting existing nodes as necessary. Tagged way nodes that would have to be moved more than a configurable distance (default 1m) will be extracted from the way and replaced by a new node.</p>
+<h3>Improve GPX recording behaviour when device is locked</h3>
+<p>Depending on device and Android version devices would pause GPX track recoding if the device was locked (aka screen turned off) leading to breaks in the recording (if you left the screen on or forced it on this wasn't an issue). We now acquire a partial wake lock when GPX recording is active which should avoid this issue. Note that this means that power consumption in such situations will be higher.</p>
+<h3>Optionally use hardware rendering on Android 10 and later</h3>
+<p>Starting with Android 10, Androids graphic library supports all operations that we use for OSM data rendering, in particular the scaling issues that used to make it unusable seem to be fixed now, therefore we have re-enabled the support for it that you can turn on in the <em>Experimental</em> section of the <em>advanced Preferences</em>. Note that this will not make things blazingly fast, but it will allow use of graphics memory to store tiles and in general reduce some of the pressure on the JAVA heap.</p>
+<h2>Miscellaneous</h2>
+<ul>
+<li>Add support for HEIC/HEIF images on Android 10 and later</li>
+<li>Remove hardwired suppression of icons on buildings, building:parts etc.</li>
+<li>Add traffic_sign to hardwired object tags</li>
+<li>Add a search box to the WMS layer modal</li>
+<li>Add multi-select for tag only editing mode</li>
+<li>Support automatically selecting overpass query results</li>
+<li>Add basic and parking amenity rendering for multipolygons</li>
+<li>Lock screen if last use is more than 24 hours ago</li>
+<li>Add image orientation to photo index</li>
+<li>Add use a JOSM filter expression to determine exceptions to reversing rules</li>
+<li>Re-factor locking in StorageDelegator to reduce (rare) dead locks.</li>
+</ul>
+<h1>Upgrading from previous versions</h1>
+<p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one.</p>
+<h1>Known problems</h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul>
+
+</body>
+</html>
