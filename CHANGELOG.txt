@@ -1,5 +1,40 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.2.0-1:
+
+- Fix reset record imagery flag on visibility and position changes
+- Fix warn of specific issue when reversing a one way
+- Fix use a specific row type instead of TextRow for the value widgets
+- Fix support value type "cardinal_direction"
+- Fix check non-preset matched fields for changes too
+- Fix don't rely on fragment being attached to determine state
+- Fix NumberPicker behaviour on Android 8 and earlier
+- Fix support conflict resolution for partial uploads
+- Fix lock screen if last use is more than 24 hours ago
+- Fix when formatting bounding box coords round down
+- Fix ignore queryable attribute when creating WMS layers
+- Fix remove navigation and sign up tag from osm.org login page
+- Fix reset cached validation results when preset changes
+- Fix replace synchronized by an ReentrantLock in StorageDelegator
+- Add basic and parking amenity rendering for multipolygons
+- Add acquire a partial wake lock when GPX recording is running
+- Add generate an automatic summary of an upload
+- Add traffic_sign to hardwired object tags
+- Add support match expressions for preset items and fields
+- Add support replacing geometry for nodes and ways
+- Add multi-select for tag only editing mode
+- Add support automatically selecting overpass query results
+- Add a search box to the WMS layer modal
+- Add remove hardwired suppression of icons on buildings, building:parts etc.
+- Add image orientation to photo index
+- Add use a JOSM filter expression to determine exceptions to reversing rules
+- Add optionally use hardware rendering on Android 10 and later
+- Add support for HEIC/HEIF images on Android 10 and later
+- Update ElementHistoryDialog dependency
+- Update default presets and taginfo project file
+- Update translations
+- Update imagery from ELI
+
 20.1.0:
 
 - Fix rearrange order of natural
@@ -8,7 +43,7 @@
 - Fix disable back navigation previews
 - Fix clear caches when data style is changed
 - Fix don't show the direction widget for mini-roundabouts
-- Fix improve handling of negative values for integer widger
+- Fix improve handling of negative values for integer widget
 - Fix unlock TextRow in onDismiss
 - Fix tag display in element info for the special case of all tags deleted
 - Fix reset validation when we reset presets
