@@ -16,7 +16,6 @@
   <string name="transfer_download_current_download">放弃&amp;下载</string>
   <string name="transfer_download_current_back">返回（不会改变任何东西）</string>
   <string name="upload_problem_title">无法上传</string>
-  <string name="upload_problem_message">有数据未上传，请重试。</string>
   <string name="bad_request_message">API 响应错误，请检查你的数据并上报问题：\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">上传冲突</string>
@@ -54,7 +53,6 @@
   <string name="invalid_bounding_box_title">无效的边框</string>
   <string name="invalid_bounding_box_message">选择的区域不符合 API 限制，请选择另一个地方。</string>
   <string name="bounding_box_too_large_title">下载的区域过大</string>
-  <string name="bounding_box_too_large_message">您尝试下载的区域过大或包含过多数据。\n\n请放大并重试。</string>
   <string name="api_offline_title">API 离线</string>
   <string name="api_offline_message">API 当前处于离线状态，无法存取数据。</string>
   <string name="out_of_memory_title">内存不足</string>
@@ -318,6 +316,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">此操作将影响筛选、附着的对象！</string>
   <string name="attached_object_warning_message">已更改的对象连接到的隐藏元素将随之更改。</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK，继续显示</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -450,7 +449,7 @@
   <string name="api_info_latest_date">最后包含的日期</string>
   <string name="api_info_attribution">属性</string>
   <string name="api_info_mapsplit_source">MapSplit 只读来源</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <string name="tag_conflict_title">属性已改变</string>
   <string name="tag_conflict_message">这个操作需要修改涉及的要素的属性。</string>
   <!--Relation selection dialog-->
@@ -1044,6 +1043,7 @@
   <string name="actionmode_reselect_first_segment">重新选择第一个片段</string>
   <string name="actionmode_split_way">分割路径</string>
   <string name="actionmode_split_closed_way">分割封闭路径</string>
+  <string name="actionmode_rotate">旋转</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">选择第1个节点</string>
   <string name="actionmode_closed_way_split_2">选择第2个节点</string>
@@ -1062,7 +1062,6 @@
   <plurals name="actionmode_object_count">
     <item quantity="other">%1$d 对象</item>
   </plurals>
-  <string name="actionmode_rotate">旋转</string>
   <string name="menu_snap">断开</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">添加节点</string>
@@ -1162,7 +1161,6 @@
   <string name="config_enableAntiAliasing_title">启用抗锯齿</string>
   <string name="config_enableAntiAliasing_summary">使线条更平滑。</string>
   <string name="config_enableHwAcceleration_title">启用硬件加速</string>
-  <string name="config_enableHwAcceleration_summary">如果支持的话，允许使用硬件加速，该设置目前不生效。</string>
   <string name="config_maxStrokeWidth_title">最大线宽</string>
   <string name="config_maxStrokeWidth_summary">不要把路径绘制得比这更宽</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -1223,8 +1221,9 @@
   <string name="config_maxOffsetDistance_title">存储影像偏移的最大距离</string>
   <string name="config_maxOffsetDistance_summary">自动应用本地存储的图层偏移的最远距离。</string>
   <string name="config_maxOffsetDistance_current">%1$d 米</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d 米</string>
-  <string name="config_minCircleSegmentcurrent">%1$d 米</string>
+  <string name="config_maxCircleSegment_current">%1$d 米</string>
+  <string name="config_minCircleSegment_current">%1$d 米</string>
+  <string name="config_replaceTolerance_current">%1$d 米</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自动下载设置</string>
   <string name="config_category_auto_download_summary">数据和任务的自动下载设置</string>
@@ -1275,7 +1274,6 @@
   <string name="config_category_server">服务器设置</string>
   <string name="config_category_server_summary">OSM API 和其他服务器设置。</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">您可以在此设置一个非标准的 API URL。通常不用更改此设置！</string>
   <string name="config_loginbutton_title">用户账号</string>
   <string name="config_username_summary">如果您不使用 OAuth，才要设置上传 OSM 数据的账号。在 https://www.openstreetmap.org/user/new 注册新账号。</string>
   <string name="config_offsetServer_title">偏移服务器</string>

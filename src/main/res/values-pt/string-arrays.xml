@@ -2,89 +2,89 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Arrays - in a separate file as these need to be 100% translated for use -->
     <string-array name="gpx_visibility">
-        <item>Privado</item>
-        <item>Público</item>
-        <item>Rastreable</item>
-        <item>Identificable</item>
+        <item>privado</item>
+        <item>público</item>
+        <item>rastreável</item>
+        <item>identificável</item>
     </string-array>
     <string-array name="gps_source">
         <item>Interno</item>
         <item>NMEA interno</item>
-        <item>NMEA desde cliente TCP</item>
-        <item>NMEA desde servidor TCP</item>
+        <item>NMEA do cliente TCP</item>
+        <item>NMEA do servidor TCP</item>
     </string-array>
     <string-array name="bug_state">
-        <item>Abierto</item>
-        <item>Cerrado</item>
+        <item>Aberto</item>
+        <item>Fechado</item>
         <item>Falso positivo</item>
     </string-array>
     <string-array name="note_state">
-        <item>Abierta</item>
-        <item>Cerrada</item>
+        <item>Aberto</item>
+        <item>Fechado</item>
     </string-array>
     <string-array name="maproulette_state">
-        <item>Abierta</item>
-        <item>Cerrada</item>
+        <item>Aberto</item>
+        <item>Fechado</item>
         <item>Falso positivo</item>
-        <item>Omitida</item> 
-        <item>Eliminada</item>
-        <item>Ya corregida</item>
+        <item>Ignorado</item> 
+        <item>Eliminado</item>
+        <item>Já corrigido</item>
         <item>Demasiado difícil</item>
     </string-array>
     <string-array name="todo_state">
-        <item>Abierta</item>
-        <item>Cerrada</item>
-        <item>Omitida</item> 
+        <item>Aberto</item>
+        <item>Fechado</item>
+        <item>Ignorado</item> 
     </string-array>
     <string-array name="followGPSbutton_entries">
-        <item>Izquierda</item>
-        <item>Derecha</item>
-        <item>Ninguno</item>
+        <item>Esquerda</item>
+        <item>Direita</item>
+        <item>Nenhum</item>
     </string-array>
     <string-array name="full_screen_preference_entries">
         <item>Automático</item>
         <item>Nunca</item>
-        <item>Forzar</item>
-        <item>Sin barra de estado</item>
+        <item>Forçar</item>
+        <item>Sem barra de estado</item>
     </string-array>
     <string-array name="full_screen_preference_no_auto_entries">
         <item>Nunca</item>
-        <item>Forzar</item>
-        <item>Sin barra de estado</item>
+        <item>Forçar</item>
+        <item>Sem barra de estado</item>
     </string-array>
     <string-array name="map_orientation_entries">
-        <item>Automática</item>
-        <item>Bloqueada</item>
-        <item>Vertical</item>
-        <item>Horizontal</item>
+        <item>Automático</item>
+        <item>Bloqueado</item>
+        <item>Retrato</item>
+        <item>Paisagem</item>
     </string-array>
     <string-array name="tagfilter_type_entries">
-        <item>Todo</item>
-        <item>Nodos</item>
-        <item>Vías</item>
-        <item>Vías+</item>
-        <item>Relaciones</item>
-        <item>Relaciones+</item>
+        <item>Tudo</item>
+        <item>Nós</item>
+        <item>Vias</item>
+        <item>Vias+</item>
+        <item>Relações</item>
+        <item>Relações+</item>
     </string-array>
     <!-- The entries need to match the order of the CheckStatus enum -->
     <string-array name="checkstatus_entries">
         <item>HTTP</item>
         <item>HTTPS</item>
-        <item>El dominio no existe</item>
-        <item>Dominio inalcanzable</item>
-        <item>URL mal formada</item>
-        <item>Argumento no válido</item>
+        <item>Domínio não existe</item>
+        <item>Domínio inacessível</item>
+        <item>URL malformado</item>
+        <item>Argumento inválido</item>
     </string-array>
     <!-- automatic name tag capitalization -->
     <string-array translatable="true" name="name_cap_entries">
-        <item>Sin mayúsculas</item>
-        <item>Mayúsculas al principio de cada palabra</item>
-        <item>Mayúscula al principio de la frase</item>
+        <item>Sem capitalização</item>
+        <item>Capitalização de palavras</item>
+        <item>Capitalização de frases</item>
     </string-array>
-    <string name="theme_follow_entry">Seguir el sistema</string>
+    <string name="theme_follow_entry">Seguir o sistema</string>
     <string name="theme_light_entry">Claro</string>
-    <string name="theme_dark_entry">Oscuro</string>
-    <string name="authentication_basic_entry">Usuario - Contraseña</string>
+    <string name="theme_dark_entry">Escuro</string>
+    <string name="authentication_basic_entry">Iniciar sessão - Palavra-passe</string>
     <string name="authentication_oauth1a_entry">OAuth 1a</string>
     <string name="authentication_oauth2_entry">OAuth 2</string>
     </resources>

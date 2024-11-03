@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">Ayuda</string>
-    <string name="help_app_description">Visor de Ayuda de Vespucci</string>
+    <string name="help_app_description">Visor de ayuda de Vespucci</string>
     <string name="help_title">Ayuda: %1$s</string>
     <string name="help_introduction">Introducción</string>
     <string name="help_main">Pantalla principal del mapa</string>
-    <string name="help_simple_actions">Acciones simples</string>
+    <string name="help_simple_actions">Acciones sencillas</string>
     <string name="help_addrelationmember">Relación seleccionada</string>
-    <string name="help_multiselect">Multiselección</string>
+    <string name="help_multiselect">Selección múltiple</string>
     <string name="help_longclick">Crear nuevos objetos</string>
     <string name="help_nodeselection">Nodo seleccionado</string>
     <string name="help_pathcreation">Añadir nodos a la vía</string>
     <string name="help_relationselection">Relación seleccionada</string>
     <string name='help_add_route_segmement'>Añadir segmento de ruta</string>
     <string name="help_wayselection">Vía seleccionada</string>
-    <string name="help_aligningbackgroundiamgery">Alinear imagen de fondo</string>
+    <string name="help_aligningbackgroundiamgery">Alinear imágenes de fondo</string>
     <string name="help_propertyeditor">Editor de propiedades</string>
     <string name="help_preferences">Preferencias</string>
     <string name="help_advanced_preferences">Preferencias avanzadas</string>
     <string name="help_custom_imagery">Imágenes personalizadas</string>
-    <string name="help_presets">Predefinidos</string>
+    <string name="help_presets">Presets</string>
     <string name="help_conflictresolution">Resolución de conflictos</string>
-    <string name="help_gpssources">Fuentes GPS</string>
+    <string name="help_gpssources">Fuentes de GPS</string>
     <string name="help_keyboard">Teclado</string>
     <string name="help_tagfilter">Filtro de etiquetas</string>
-    <string name="help_presetfilter">Filtro de predefinido</string>
+    <string name="help_presetfilter">Filtro de presets</string>
     <string name="help_opening_hours">Horarios de apertura</string>
     <string name="help_newnoteselection">Nueva selección de nota</string>
     <string name="help_voice_commands">Comandos de voz</string>
     <string name="help_add_route_segment">Añadir segmento de ruta</string>
-    <string name="help_upgrade_152">15.2 Notas de la versión</string>
-    <string name="help_upgrade_151">15.1 Notas de versión</string>
-    <string name="help_upgrade_150">15.0 Notas de versión</string>
-    <string name="help_upgrade_141">14.1 Notas de versión</string>
-    <string name="help_upgrade_140">14.0 Notas de versión</string>
-    <string name="help_upgrade_131">13.1 Notas de versión</string>
-    <string name="help_upgrade_130">13.0 Notas de versión</string>
-    <string name="help_upgrade_121">12.1 Notas de versión</string>
-    <string name="help_upgrade_120">12.0 Notas de versión</string>
-    <string name="help_upgrade_112">11.2 Notas de versión</string>
-    <string name="help_upgrade_111">11.1 Notas de versión</string>
-    <string name="help_upgrade_110">11.0 Notas de versión</string>
-    <string name="help_upgrade_102">10.2 Notas de versión</string>
-    <string name="help_upgrade_101">10.1 Notas de versión</string>
-    <string name="help_upgrade_100">10.0 Notas de versión</string>
-    <string name="help_upgrade_099">0.9.9 Notas de versión</string>
-    <string name="help_upgrade_098">0.9.8 Notas de versión</string>
-    <string name="help_upgrade_097">0.9.7 Notas de versión</string>
-    <string name="help_upgrade_096">0.9.6 Notas de versión</string>
+    <string name="help_upgrade_210">Versión 20.1 - Notas de la versión</string>
+    <string name="help_upgrade_200">Versión 20.0 - Notas de la versión</string>
+    <string name="help_upgrade_193">Versión 19.3 - Notas de la versión</string>
+    <string name="help_upgrade_192">Versión 19.2 - Notas de la versión</string>
+    <string name="help_upgrade_191">Versión 19.1 - Notas de la versión</string>
+    <string name="help_upgrade_190">Versión 19.0 - Notas de la versión</string>
+    <string name="help_upgrade_181">Versión 18.1 - Notas de la versión</string>
+    <string name="help_upgrade_180">Versión 18.0 - Notas de la versión</string>
+    <string name="help_upgrade_171">Versión 17.1 - Notas de la versión</string>
+    <string name="help_upgrade_170">Versión 17.0 - Notas de la versión</string>
+    <string name="help_upgrade_161">Versión 16.1 - Notas de la versión</string>
+    <string name="help_upgrade_160">Versión 16.0 - Notas de la versión</string>
+    <string name="help_upgrade_152">Versión 15.2 - Notas de la versión</string>
+    <string name="help_upgrade_151">Versión 15.1 - Notas de la versión</string>
+    <string name="help_upgrade_150">Versión 15.0 - Notas de la versión</string>
+    <string name="help_upgrade_141">Versión 14.1 - Notas de la versión</string>
+    <string name="help_upgrade_140">Versión 14.0 - Notas de la versión</string>
+    <string name="help_upgrade_131">Versión 13.1 - Notas de la versión</string>
+    <string name="help_upgrade_130">Versión 13.0 - Notas de la versión</string>
+    <string name="help_upgrade_121">Versión 12.1 - Notas de la versión</string>
+    <string name="help_upgrade_120">Versión 12.0 - Notas de la versión</string>
+    <string name="help_upgrade_112">Versión 11.2 - Notas de la versión</string>
+    <string name="help_upgrade_111">Versión 11.1 - Notas de la versión</string>
+    <string name="help_upgrade_110">Versión 11.0 - Notas de la versión</string>
+    <string name="help_upgrade_102">Versión 10.2 - Notas de la versión</string>
+    <string name="help_upgrade_101">Versión 10.1 - Notas de la versión</string>
+    <string name="help_upgrade_100">Versión 10.0 - Notas de la versión</string>
+    <string name="help_upgrade_099">Versión 0.9.9 - Notas de la versión</string>
+    <string name="help_upgrade_098">Versión 0.9.8 - Notas de la versión</string>
+    <string name="help_upgrade_097">Versión 0.9.7 - Notas de la versión</string>
+    <string name="help_upgrade_096">Versión 0.9.6 - Notas de la versión</string>
     <string name="help_privacy">Privacidad</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
@@ -60,10 +72,12 @@
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
         <item>@string/help_pathcreation</item>
+        <item>@string/help_uploading</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
         <item>@string/help_custom_imagery</item>
     	<item>@string/help_presets</item>	
+        <item>@string/help_rotate</item>
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
     	<item>@string/help_gpssources</item>
@@ -72,9 +86,15 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
         <item>@string/help_newnoteselection</item>
+        <item>@string/help_tag_only_mode</item>
+        <item>@string/help_indoor_mode</item>
+        <item>@string/help_address_mode</item>
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_210</item>
+        <item>@string/help_upgrade_200</item>
+        <item>@string/help_upgrade_193</item>
         <item>@string/help_upgrade_192</item>
         <item>@string/help_upgrade_191</item>
         <item>@string/help_upgrade_190</item>
@@ -117,10 +137,12 @@
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
         <item>Adding way nodes</item>
+        <item>Uploading your changes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
         <item>Custom imagery</item>
     	<item>Presets</item>	
+        <item>Rotating elements</item>
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
     	<item>GPS sources</item>
@@ -129,8 +151,14 @@
     	<item>Preset filter</item>
     	<item>Opening hours</item>
         <item>New Note selected</item>
+        <item>Tag only mode</item>
+        <item>Indoor mode</item>
+        <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>20.2.0 Release notes</item>
+        <item>20.1.0 Release notes</item>
+        <item>20.0.0 Release notes</item>
         <item>19.3.0 Release notes</item>
         <item>19.2.0 Release notes</item>
         <item>19.1.0 Release notes</item>

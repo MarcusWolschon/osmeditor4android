@@ -16,7 +16,6 @@
   <string name="transfer_download_current_download">Скасувати й завантажити</string>
   <string name="transfer_download_current_back">Назад (нічого не робити)</string>
   <string name="upload_problem_title">Не вдалося надіслати</string>
-  <string name="upload_problem_message">Частина або всі дані не були надіслані. Спробуйте ще раз.</string>
   <string name="bad_request_message">API відповів помилкою, будь ласка, збережіть свої дані та повідомте про проблему:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Конфлікт надсилання</string>
@@ -72,7 +71,6 @@
   <string name="invalid_bounding_box_title">Хибні межі завантаження даних</string>
   <string name="invalid_bounding_box_message">Виділена ділянка не відповідає вимогам API, виділіть іншу.</string>
   <string name="bounding_box_too_large_title">Ділянка для завантаження завелика</string>
-  <string name="bounding_box_too_large_message">Ділянка, яку ви намагаєтесь завантажити завелика або містить забагато даних.\n\n Наблизьтесь та спробуйте ще раз.</string>
   <string name="api_offline_title">Немає з\'єднання з API</string>
   <string name="api_offline_message">Зараз немає зв\'язку з API, тому, а ні отримати, а ні надіслати дані неможливо.</string>
   <string name="out_of_memory_title">Недостатньо пам\'яті</string>
@@ -361,6 +359,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Ця операція впливає на відфільтровані приєднанні об\'єкти!</string>
   <string name="attached_object_warning_message">Змінений обʼєкт приєднано до прихованого елемента, який також буде змінений.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Так, показувати</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -498,7 +497,7 @@
   <string name="api_info_latest_date">Остання врахована дата</string>
   <string name="api_info_attribution">Атрибуція</string>
   <string name="api_info_mapsplit_source">Читати MapSplit тільки один раз</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <string name="tag_conflict_title">Властивості змінено</string>
   <string name="tag_conflict_message">Операція вимагала зміни властивостей у залучених елементів.</string>
   <!--Relation selection dialog-->
@@ -673,6 +672,7 @@
   <string name="toast_invalid_object">Недійсний об\'єкт</string>
   <string name="toast_openinghours_invalid">Помилкове значення годин роботи у %1$s</string>
   <string name="toast_openinghours_autocorrected">Значення годин роботи у %1$s було автоматично скореговане</string>
+  <string name="toast_exit_multiselect">Двічі торкніться порожнього місця або скористайтеся стрілкою ←, щоб вийти з мультивибору</string>
   <string name="toast_already_in_multiselect">Вже в режимі мультивибору</string>
   <string name="toast_abort_actionmode">Скористайтесь ← стрілкою, щоб перервати</string>
   <string name="toast_null_island">Будь ласка, не додавайте об\'єкти в точці з координатами 0º/0º (Null Island)</string>
@@ -1124,6 +1124,7 @@
   <string name="actionmode_reselect_first_segment">Повторно обрати перший відрізок</string>
   <string name="actionmode_split_way">Розділити лінію</string>
   <string name="actionmode_split_closed_way">Розділити замкнену лінію</string>
+  <string name="actionmode_rotate">Повернути</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Виберіть 1-у точку</string>
   <string name="actionmode_closed_way_split_2">Виберіть 2-у точку</string>
@@ -1148,7 +1149,6 @@
     <item quantity="many">%1$d об\'єктів</item>
     <item quantity="other">%1$d об\'єктів</item>
   </plurals>
-  <string name="actionmode_rotate">Повернути</string>
   <string name="menu_snap">Прив\'язка</string>
   <string name="menu_follow_way">Слідувати за лінією</string>
   <string name="select_follow_way">Виберіть шлях, яким слідувати</string>
@@ -1254,7 +1254,6 @@
   <string name="config_enableAntiAliasing_title">Увімкнути згладжування</string>
   <string name="config_enableAntiAliasing_summary">Згладжує лінії.</string>
   <string name="config_enableHwAcceleration_title">Увімкнути апаратне прискорення</string>
-  <string name="config_enableHwAcceleration_summary">Дозволяє використовувати апаратне прискорення, якщо і де підтримується, наразі це налаштування ні на що не впливає.</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина лінії</string>
   <string name="config_maxStrokeWidth_summary">Не малювати лінію товстіше, ніж ця.</string>
   <string name="config_uploadOk_summary">Якщо кількість об\'єктів, що очікують на завантаження, не перевищує цього ліміту, ситуація вважається безпроблемною.</string>
@@ -1278,6 +1277,8 @@
   <string name="config_longStringLimit_summary">Межа, з якої показуватиметься модальне вікно для редагування тексту в редакторі властивостей</string>
   <string name="config_zoomWithKeys_title">Використовуйте клавіші гучності для масштабування</string>
   <string name="config_zoomWithKeys_summary">Дозвольте використовувати клавіші гучності для збільшення та зменшення масштабу.</string>
+  <string name="config_poi_keys_title">Відображення найближчих POI</string>
+  <string name="config_poi_keys_summary">Установіть клавіші, що використовуються для відображення POI поблизу.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Налаштування даних та редагування</string>
   <string name="config_category_editing_summary">Налаштування автозавантаження, збереження та сповіщень.</string>
@@ -1363,7 +1364,6 @@
   <string name="config_category_server">Налаштування сервера</string>
   <string name="config_category_server_summary">OSM API та налаштування інших серверів.</string>
   <string name="config_apibutton_title">URL для API OpenStreetMap</string>
-  <string name="config_apibutton_summary">Тут можна встановити нестандартну URL-адресу API.  Зазвичай не слід змінювати!</string>
   <string name="config_loginbutton_title">Обліковий запис</string>
   <string name="config_username_summary">Вам потрібна лише конфігурація для завантаження даних OSM, якщо ви не використовуєте OAuth.  Отримайте обліковий запис на https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">Сервер зміщень</string>

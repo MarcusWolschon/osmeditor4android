@@ -14,7 +14,6 @@
   <string name="transfer_download_current_download">Desbotar e baixar</string>
   <string name="transfer_download_current_back">Voltar (non fagas ren)</string>
   <string name="upload_problem_title">Non se puido subir</string>
-  <string name="upload_problem_message">Algúns ou todos os datos non foron subidos. Téntao de novo máis tarde.</string>
   <string name="bad_request_message">A API respostou cun erro, garde os seus datos e informe do problema:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Conflito na subida</string>
@@ -44,7 +43,6 @@
   <string name="invalid_bounding_box_title">Caixa de límite non válida</string>
   <string name="invalid_bounding_box_message">A área selecionada non cumpre coas restricións da API, por favor escolle outra diferente.</string>
   <string name="bounding_box_too_large_title">Área da baixada moi grande</string>
-  <string name="bounding_box_too_large_message">A área que estás a tentar baixar é moi grande ou contén moitos datos.\n\nPor favor achega máis a vista e téntao novamente.</string>
   <string name="api_offline_title">API sen conexión</string>
   <string name="api_offline_message">A API está actualmente sen conexión, non permite que os datos sexan recuperados ou escritos.</string>
   <string name="out_of_memory_title">Sen memoria dabondo</string>
@@ -222,6 +220,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Esta operación afecta aos obxectos anexos filtrados!</string>
   <string name="attached_object_warning_message">O obxecto mudado está conectado a elementos agochados que tamén serán mudados.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Dacordo, segue amosando</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -312,7 +311,7 @@
   <string name="api_info_latest_date">Última data de inclusión</string>
   <string name="api_info_attribution">Atribución</string>
   <string name="api_info_mapsplit_source">Fonte MapSplit de só lectura</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
   <string name="select_relation_type_other">Outros</string>
@@ -699,6 +698,7 @@
   <string name="actionmode_createpath">Creando camiño</string>
   <string name="actionmode_multiselect">Multiselección</string>
   <string name="actionmode_newnoteselect">Nova nota seleccionada</string>
+  <string name="actionmode_rotate">Rotar</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_restriction">Engadir restricción de xiro</string>
   <string name="actionmode_restriction_restart_from">Re-seleccionar o segmento \"dende\"</string>
@@ -713,7 +713,6 @@
     <item quantity="one">1 obxecto</item>
     <item quantity="other">%1$d obxectos</item>
   </plurals>
-  <string name="actionmode_rotate">Rotar</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Engadir nó</string>
   <string name="simple_add_node">Preme na posición da pantalla</string>
@@ -791,8 +790,9 @@
   <string name="config_closeChangesetOnSave_title">Pechar conxuntos de modificacións</string>
   <string name="config_closeChangesetOnSave_summary">Pechar os conxuntos de modificacións por defecto ó gardar.</string>
   <string name="config_maxOffsetDistance_current">%1$d metro(s)</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d metro(s)</string>
-  <string name="config_minCircleSegmentcurrent">%1$d metro(s)</string>
+  <string name="config_maxCircleSegment_current">%1$d metro(s)</string>
+  <string name="config_minCircleSegment_current">%1$d metro(s)</string>
+  <string name="config_replaceTolerance_current">%1$d metro(s)</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Raio da baixada</string>
   <string name="config_downloadRadius_current">%1$d metro(s)</string>

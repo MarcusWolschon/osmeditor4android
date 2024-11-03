@@ -8,6 +8,7 @@
   <string name="mode_address">Indirizzo</string>
   <string name="mode_voice">Voce</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">Sicuro</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attenzione!</string>
   <string name="transfer_download_current_dialog_message">Hai effettuato delle modifiche. Vuoi caricarle invece di annullarle?</string>
@@ -15,7 +16,6 @@
   <string name="transfer_download_current_download">Annulla modifiche e scarica</string>
   <string name="transfer_download_current_back">Indietro (non fare niente)</string>
   <string name="upload_problem_title">Caricamento fallito</string>
-  <string name="upload_problem_message">Alcuni o tutti i dati non sono stati caricati. Prova di nuovo più tardi.</string>
   <string name="bad_request_message">Le API hanno risposto con un errore. Salva i tuoi i dati e segnala il problema:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Conflitto di caricamento</string>
@@ -37,6 +37,7 @@
   <string name="use_server_version">…usando la versione server</string>
   <string name="undoing_local_delete">..annullando l’eliminazione locale</string>
   <string name="deleting_references_on_server">…eliminando i riferimenti sul server</string>
+  <string name="unable_to_download_referring_element_for_deletion">Non riesco a scaricare l\'elemento di riferimento a causa dell\'eliminazione %1$s %2$d</string>
   <!---->
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth questo è probabilmente un bug; per favore invia un report. Se stai usando nome utente e password (sconsigliato), controlla di averli inseriti correttamente.</string>
@@ -63,7 +64,6 @@
   <string name="invalid_bounding_box_title">Riquadro di selezione non valido</string>
   <string name="invalid_bounding_box_message">L’area selezionata non rispetta i limiti dell’API, scegli un’area differente.</string>
   <string name="bounding_box_too_large_title">Area da scaricare troppo grande</string>
-  <string name="bounding_box_too_large_message">L’area che stati tentando di scaricare è troppo grande o contiene troppi dati.\n\nIngrandisci ancora e prova di nuovo.</string>
   <string name="api_offline_title">API non in linea</string>
   <string name="api_offline_message">L’API non è al momento in linea, non è possibile ottenere o scrivere alcun dato.</string>
   <string name="out_of_memory_title">Memoria esaurita</string>
@@ -332,6 +332,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Questa operazione ha effetti sugli oggetti filtrati</string>
   <string name="attached_object_warning_message">L’oggetto modificato è collegato a degli elementi nascosti che cambieranno insieme a esso.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Ok, continua a mostrare</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -462,7 +463,7 @@
   <string name="api_info_latest_date">Ultima data inclusa</string>
   <string name="api_info_attribution">Attribuzione</string>
   <string name="api_info_mapsplit_source">Fonte in sola lettura MapSplit</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <string name="tag_conflict_title">Proprietà modificate</string>
   <string name="tag_conflict_message">L\'operazione richiedeva la modifica delle proprietà degli elementi coinvolti.</string>
   <!--Relation selection dialog-->
@@ -1063,6 +1064,7 @@
   <string name="actionmode_reselect_first_segment">Riseleziona primo segmento</string>
   <string name="actionmode_split_way">Dividi percorso</string>
   <string name="actionmode_split_closed_way">Dividi percorso chiuso</string>
+  <string name="actionmode_rotate">Ruota</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Seleziona 1º nodo</string>
   <string name="actionmode_closed_way_split_2">Seleziona 2º nodo</string>
@@ -1085,7 +1087,6 @@
     <item quantity="many">%1$d oggetti</item>
     <item quantity="other">%1$d oggetti</item>
   </plurals>
-  <string name="actionmode_rotate">Ruota</string>
   <string name="menu_snap">Scatto</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Aggiungi punto</string>
@@ -1190,7 +1191,6 @@
   <string name="config_enableAntiAliasing_title">Abilità l\'anti-aliasing</string>
   <string name="config_enableAntiAliasing_summary">Rendi le linee più morbide.</string>
   <string name="config_enableHwAcceleration_title">Abilita accelerazione hardware</string>
-  <string name="config_enableHwAcceleration_summary">Abilita l’uso dell’accelerazione hardware se e dove supportata, attualmente questa impostazione non ha alcun effetto.</string>
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
   <string name="config_maxStrokeWidth_summary">Non disegnare una strada più larga di così.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -1249,8 +1249,9 @@
   <string name="config_maxOffsetDistance_title">Distanza max per gli offset locali delle immagini</string>
   <string name="config_maxOffsetDistance_summary">La distanza più lontana a cui l’offset di uno strato salvato localmente sarà applicato automaticamente.</string>
   <string name="config_maxOffsetDistance_current">%1$d metro(i)</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d metro(i)</string>
-  <string name="config_minCircleSegmentcurrent">%1$d metro(i)</string>
+  <string name="config_maxCircleSegment_current">%1$d metro(i)</string>
+  <string name="config_minCircleSegment_current">%1$d metro(i)</string>
+  <string name="config_replaceTolerance_current">%1$d metro(i)</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Impostazioni per lo scaricamento automatico</string>
   <string name="config_category_auto_download_summary">Impostazioni per lo scaricamento automatico di dati e compiti</string>
@@ -1301,7 +1302,6 @@
   <string name="config_category_server">Impostazioni server</string>
   <string name="config_category_server_summary">API OSM e configurazione di altri server.</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">Puoi impostare un URL delle API non standard. Non dovrebbe essere modificato generalmente!</string>
   <string name="config_loginbutton_title">Account utente</string>
   <string name="config_username_summary">Devi creare una configurazione per caricare i dati su OSM se non usi OAuth. Crea un account al sito https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">Server allineamenti</string>

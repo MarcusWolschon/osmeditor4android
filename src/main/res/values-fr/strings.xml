@@ -16,13 +16,25 @@
   <string name="transfer_download_current_download">Abandonner &amp; recevoir</string>
   <string name="transfer_download_current_back">Retour (ne rien faire)</string>
   <string name="upload_problem_title">Envoi impossible </string>
-  <string name="upload_problem_message">Tout ou partie des données n\'a pas été envoyée. Réessayez plus tard.</string>
+  <string name="upload_problem_message">Tout ou partie des données n\'ont pas été envoyées. Réessayez plus tard.</string>
   <string name="bad_request_message">L\'API a répondu avec une erreur, sauvez vos données et signalez le problème :\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Conflit durant l\'envoi</string>
   <string name="upload_conflict_message_version">Conflit de version</string>
   <string name="upload_conflict_message_deleted">%1$s \na pour version locale %2$d \net a été supprimé du serveur</string>
+  <string name="upload_conflict_message_referential">Élément supprimé localement mais disposant de références sur le serveur.</string>
+  <string name="upload_conflict_message_missing_references">Des éléments locaux font référence à des objets supprimés sur le serveur</string>
   <string name="upload_conflict_message_unknown">%1$s \na causé un conflit de chargement \n%2$s</string>
+  <string name="upload_conflict_message_changeset_closed">Groupe de modifications fermé inopinément, nouvel essai</string>
+  <string name="server_side_object">Version du serveur</string>
+  <string name="local_object">Version locale</string>
+  <string name="resolve_by">Résoudre le conflit en…</string>
+  <string name="resolve">Résoudre</string>
+  <string name="use_local_version">... en utilisant la version locale</string>
+  <string name="use_server_version">... en utilisant la version du serveur</string>
+  <string name="deleting_references_on_server">... en supprimant les références sur le serveur</string>
+  <string name="unable_to_download_server_version">Impossible de télécharger la version du serveur %1$s%2$d</string>
+  <string name="delete_locally">Supprimer\nlocalement</string>
   <!---->
   <string name="no_login_data_title">Erreur d\'authentification</string>
   <string name="no_login_data_message">Si vous utilisez OAuth, ceci est probablement un bogue, merci de rapporter le problème. Si vous utilisez un login et un mot de passe (non recommandé) vérifiez que vous les avez renseigné correctement.</string>
@@ -49,7 +61,8 @@
   <string name="invalid_bounding_box_title">Zone invalide</string>
   <string name="invalid_bounding_box_message">La zone sélectionnée n\'est pas conforme aux restrictions de l\'API. Merci d\'en choisir une autre.</string>
   <string name="bounding_box_too_large_title">Zone de téléchargement trop vaste</string>
-  <string name="bounding_box_too_large_message">la zone que vous essayez de télécharger est trop vaste ou contient trop de données.\n\nZommez un peu plus et réessayez.</string>
+  <string name="bounding_box_too_large_message">La zone que vous essayez de télécharger est trop étendue ou contient trop de données.
+&lt;br&gt;&lt;br&gt;Merci de zoomer davantage et de réessayer.</string>
   <string name="api_offline_title">API hors service</string>
   <string name="api_offline_message">L\'API est actuellement hors service, aucune donnée ne peut être envoyée ou reçue.</string>
   <string name="out_of_memory_title">Plus de mémoire disponible</string>
@@ -63,14 +76,38 @@
   <string name="file_write_failed_message">Vespucci n\'a pas pu modifier ou sauvegarder le fichier.</string>
   <string name="applying_osc_failed_title">Échec à l\'application du fichier OSC</string>
   <string name="applying_osc_failed_message">Le plus probable est que vous ayez oublié de charger une partie des données requises pour appliquer les changements.</string>
+  <string name="download_limit_title">Limite de téléchargement dépassée</string>
+  <string name="download_limit_message">Merci d\'attendre avant de télécharger plus de données.</string>
+  <string name="upload_limit_title">Limite d\'envois dépassée</string>
+  <string name="upload_limit_message">Vous avez épuisé votre quota d\'envois. Merci de réessayer plus tard.</string>
   <string name="duplicate_tag_key_title">Clés en doublon</string>
   <string name="duplicate_tag_key_message">Vous avez ajouté la clé suivante plus d\'une fois, ce doit être corrigé avant de pouvoir continuer :</string>
+  <string name="autodownload_has_been_paused">Le téléchargement automatique a été mis en pause.</string>
+  <string name="upload_bounding_box_too_large_title">Zone trop étendue pour l\'envoi.</string>
+  <string name="upload_bounding_box_too_large_message">La zone contenant les changements que vous souhaitez envoyer est trop étendue.
+&lt;br&gt;&lt;br&gt;Merci de séparer vos modifications en petits groupes.
+Vous pouvez sélectionner une partie des éléments modifiés et les envoyer séparément.</string>
   <!---->
   <string name="select_file_picker_title">Choisir le gestionnaire de fichier</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Bienvenue</string>
+  <string name="welcome_message">Merci d'avoir installé Vespucci.\n&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;Vespucci est un outil avancé d'édition OpenStreetMap. Il supporte presque toutes les fonctions d'un éditeur bureautique mais cela implique une certaine complexité. L'aide disponible dans l'application ou en ligne répondra à la plupart des questions. Si vous avez besoin de plus d'informations, nous vous recommandons de poser vos questions sur les forums de la communauté OpenStreetMaps.
+&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;Trois éléments sont importants pour démarrer :
+&amp;lt;ul&amp;gt;&amp;lt;li&amp;gt;Cliquer sur l'icône cadenas dans le coin supérieur gauche permettra d'alterner entre le mode verrouillé (pas d'édition) et déverrouillé.
+&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;pour ajouter un nouvel objet, cliquez sur le gros bouton vert et sélectionnez ce que vous souhaitez ajouter dans le menu; cliquez ensuite sur la position que vous souhaitez lui attribuer.
+&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;Pour ouvrir la fenêtre des POIs proches, faites glisser vers le haut la petite barre bleu clair au-dessus du menu en bas de l'écran.
+&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt
+Sur la page suivante vous pouvez définir quelques préférences qui rendront votre voyage avec Vespucci plus agréable.</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Votre appareil utilise des « touches logicielles » qui ont été cachées. Glissez vers le haut depuis le bas de l\'écran pour les afficher.</string>
+  <string name="welcome_settings_tab_text">Pour améliorer votre première expérience vous pouvez configurer quelques options dès maintenant.
+Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</string>
+  <string name="welcome_use_imagery_text">Afficher l\'image aérienne\npour la position actuelle</string>
+  <string name="welcome_auto_download_text">Télécharger les données automatiquement</string>
+  <string name="welcome_pen_setup_text">Configurer l\'utilisation avec un stylet ou une souris</string>
+  <string name="welcome_pen_setup_explanation">Si vous utilisez un styles, une souris ou un autre appareil de pointage, sélectionner cette option facilitera l\'édition.</string>
+  <string name="welcome_authorize_text">Autoriser maintenant</string>
   <string name="read_introduction">Lire l\'introduction</string>
+  <string name="welcome_start">Démarrer !</string>
   <!---->
   <string name="upgrade_title">C\'est une nouvelle version de Vespucci</string>
   <string name="upgrade_message">Les nouvelles fonctionnalités et comportements sont décrits dans les notes de publication.</string>
@@ -175,6 +212,7 @@
   <string name="toast_todo_already_in_list">L\'élément est déjà dans la liste de tâches</string>
   <string name="toast_no_open_todos">Pas de tâche ouverte</string>
   <string name="toast_no_todos_in_list">Pas de tâche dans la liste sélectionnée</string>
+  <string name="save_changes_title">Enregistrer les modifications ?</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Attention !</string>
   <string name="unsaved_data_message">Vos modifications non enregistrées seront abandonnées si vous continuez.</string>
@@ -249,7 +287,12 @@
   <string name="track_points">Points de la trace</string>
   <string name="way_points">Points du chemin</string>
   <!--Image information dialog-->
+  <string name="image_information_title">Informations sur l\'image</string>
+  <string name="created_by">Créée par</string>
+  <string name="capture_date">Date de prise de vue</string>
   <string name="direction">Direction</string>
+  <string name="file_size">Taille</string>
+  <string name="file_size_kB">%1$d kB</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Trop de données chargées !</string>
   <string name="too_much_data_message">Vous avez %1$d nœuds chargés et vous avez dépassé la limite configurée. Ceci mènera à un ralentissement, et si vous ajoutez plus de données, jusqu\'à amener des problèmes potentiels lors de la sauvegarde</string>
@@ -310,6 +353,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Cette opération affecte des objets invisibles attachés !</string>
   <string name="attached_object_warning_message">L\'objet modifié est connecté à des éléments cachés qui seront aussi modifiés.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, continuer à me montrer ce message</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -332,6 +376,7 @@
   <string name="add_check_entry">Ajouter une vérification</string>
   <!--Safe mode dialog-->
   <string name="safe_layer_label">Désactiver toutes les couches</string>
+  <string name="safe_delete_state_text">Oui (ne peut pas être annulé)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Relation vide</string>
   <string name="empty_relation_message">La relation %1$s n\'a aucun membre.\n\nLa laisser telle-quelle la rendra impossible à modifier dans Vespucci.</string>
@@ -441,7 +486,7 @@
   <string name="api_info_latest_date">Dernière date incluse</string>
   <string name="api_info_attribution">Attribution</string>
   <string name="api_info_mapsplit_source">Source MapSplit en lecture seule</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <string name="tag_conflict_title">Propriétés modifiées</string>
   <string name="tag_conflict_message">L\'opération requiert un changement de propriétés pour les éléments concernés.</string>
   <!--Relation selection dialog-->
@@ -488,8 +533,13 @@
   <string name="tip_gpx_recording">Quand que vous démarrer l\'enregistrement GPX, Vespucci collecte des données de localisation pour activer l\'enregistrement GPX y compris lorsque l\'application n\'est pas visible. &lt;p&gt;La fermeture explicite de l\'application ou l\'arrêt de l\'enregistrement GPX cessera l\'utilisation des données de localisation dans de telles situations.</string>
   <string name="tip_auto_download">Lorsque vous commencez à télécharger automatiquement des données OSM ou des tâches Vespucci utilise vos données de localisation afin de déterminer votre position actuelle même si l\'application n\'est pas visible.&lt;p&gt;Fermer définitivement l\'application ou stopper le téléchargement automatique stoppera la collecte des données de localisation.</string>
   <string name="tip_tristate_checkbox">Vous venez de cliquer une case à choix, elles fonctionnent comme une case classique vous donnant le choix entre deux valeurs, par exemple oui/non ou vrai/faux.&amp;lt;p&amp;gt;Cependant elles ont un troisième &amp;lt;b&amp;étatgt;&amp;lt;/b&amp;gt; non défini, indiqué par une case grisée qui empêchera au tag correspondant d\'être ajouté. Vous pouvez définir cet état à cette case en cliquant longuement.</string>
+  <string name="tip_mode_switching">Le bouton de verouillage permet également de changer de mode, un appui long affichera le menu avec les différentes options.&lt;p&gt; Vous pouvez trouver plus d\'informations sur les modes de Vespucci dans l\'aide.</string>
   <string name="tip_empty_gpx_download">En raison d\'une bizarrerie dans l\'API OSM, le point de départ de la trace GPX doit être visible pour qu\'elle puisse être trouvée pour être téléchargée.</string>
   <string name="tip_no_redo">Ce mode ne supporte pas actuellement le ré-ajout de nœuds.</string>
+  <string name="tip_way_splitting">Sélectionnez un noeud en surbrillance pour indiquer l\'emplacement de séparation. Un appui long permettra de définir quelle partie servira de nouvelle voie dans une étape suivante.</string>
+  <string name="tip_disambiguation_menu">Lorsque plusieurs éléments sont proches ou qu\'ils font partie de relations, le menu de sélection s\'affichera. Vous pouvez alors sélectionner précisément l\'élément dans la liste.&lt;p&gt;Si un élément est déjà sélectionné, il apparaitra en surbrillance.</string>
+  <string name="tip_file_import">Sur les appareils équipés d\' Android 10 ou supérieur, l\'application doit copier les fichiers pour y avoir l\'accès total. Les copies sont disponibles dans &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. Si nécessaire, vous pouvez supprimer les fichiers initiaux et conserver uniquement les copies.</string>
+  <string name="tip_wms_tile_size">Les serveurs WMS peuvent fournir des tuiles plus grandes que 256x256. Pour une configuration plus performante, pensez à utiliser du 512x512.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -595,12 +645,14 @@
   <string name="toast_security_error_accessing_photo">Pas autorisé à accéder à la photo %1$s</string>
   <string name="toast_no_voice_recognition">Pas de système de reconnaissance vocale trouvé</string>
   <string name="toast_no_coverage">%1$s ne couvre pas cette zone</string>
+  <string name="toast_tile_layer_errors">La source d\'imagerie \'%1$s\' est en erreur</string>
   <string name="toast_file_exists">Le fichier %1$s existe.</string>
   <string name="toast_needs_resurvey">L\'objet est peut être périmé</string>
   <string name="toast_missing_key">La clef %1$s est manquante</string>
   <string name="toast_invalid_object">objet invalide</string>
   <string name="toast_openinghours_invalid">Horaires d\'ouverture de %1$s invalides</string>
   <string name="toast_openinghours_autocorrected">Les horaires d\'ouvertures de %1$sont été corrigées automatiquement</string>
+  <string name="toast_already_in_multiselect">Le mode sélection multiple est déjà activé.</string>
   <string name="toast_abort_actionmode">Utilisez la flèche ← pour abandonner</string>
   <string name="toast_null_island">N\'ajoutez pas d\'élément à 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Chaîne trop longue (%1$d caractères), tronquée !</string>
@@ -656,6 +708,7 @@
   <string name="toast_split_first_and_next_segment">Séparer le premier et le segment suivant</string>
   <string name="toast_split_next_segment">Séparer le segment suivant</string>
   <string name="toast_nothing_changed">Rien n\'a été modifié</string>
+  <string name="toast_multipolygon_has_incomplete_rings">Le multi-polygone a des parties incomplètes.</string>
   <string name="toast_error_saving_bookmark">Impossible d\'enregistrer le signet</string>
   <string name="toast_no_intersection_found">Aucune intersection trouvée</string>
   <string name="toast_api_key_missing">Aucun clé d\'API trouvée pour %1$s</string>
@@ -663,10 +716,17 @@
   <string name="toast_no_way_points">Aucun point de chemin</string>
   <string name="toast_url_check">%1$s %2$d</string>
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
+  <string name="toast_import_destination_exists">La destination d\'import existe déjà</string>
   <string name="toast_element_has_been_deleted">L\'élément a été supprimé</string>
   <string name="toast_updating_tags">Mise à jour des tags...</string>
   <string name="toast_updating_parents">Mise à jour des parents...</string>
   <string name="toast_updating_members">Mise à jour des membres...</string>
+  <string name="toast_querying_wms_server_failed">La requête WMS a échoué : %1$s</string>
+  <string name="toast_note_not_found">Note #%1$d introuvable</string>
+  <string name="toast_no_compass">L\'appareil n\'a pas de compas !</string>
+  <string name="toast_no_roles_found">Aucun rôle trouvé, tous les éléments sont sélectionnables</string>
+  <string name="toast_no_preset_found">Aucun préréglage correspond trouvé, tous les éléments sont sélectionnables</string>
+  <string name="toast_undeleting_all_members">Annulation de la suppression des membres de la relation avec cet élément</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Les sources MapSplit doivent avoir un niveau de zoom min et max</string>
   <string name="error_pbf_no_version">Informations de version manquantes dans le fichier PBF</string>
@@ -869,7 +929,7 @@
   <string name="menu_gps_import">Importer la trace GPX...</string>
   <string name="menu_gps_goto_start">Aller au début de la trace</string>
   <string name="menu_gps_goto_first_waypoint">Aller au premier point du chemin</string>
-  <string name="menu_gps_add_bookmark">Ajouter un favori...</string>
+  <string name="menu_gps_add_bookmark">Ajouter un marque-page…</string>
   <string name="menu_enable_gps_autodownload">Téléchargement auto (localisation GPS)</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Téléchargement auto (zoom/déplacement)</string>
   <string name="menu_transfer">Transfert des données…</string>
@@ -1025,6 +1085,7 @@
   <string name="actionmode_reselect_first_segment">Re-sélectionner le premier segment</string>
   <string name="actionmode_split_way">Séparer le chemin</string>
   <string name="actionmode_split_closed_way">Séparer le chemin fermé</string>
+  <string name="actionmode_rotate">Pivoter</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Sélectionner le 1er nœud</string>
   <string name="actionmode_closed_way_split_2">Sélectionner le 2nd nœud</string>
@@ -1047,7 +1108,6 @@
     <item quantity="many">%1$d objets</item>
     <item quantity="other">%1$d nœuds</item>
   </plurals>
-  <string name="actionmode_rotate">Pivoter</string>
   <string name="menu_snap">Capturer</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Ajouter un nœud</string>
@@ -1141,7 +1201,8 @@
   <string name="config_use_back_for_undo_title">Bouton ← pour annuler</string>
   <string name="config_use_back_for_undo_summary">Utiliser le bouton \"Retour en arrière\" pour annuler vos modifications</string>
   <string name="config_theme_title">Thème</string>
-  <string name="config_splitActionBarEnabled_title">Afiicher la barre de menu en bas</string>
+  <string name="config_splitActionBarEnabled_title">Afficher le menu en bas</string>
+  <string name="config_splitActionBarEnabled_summary">Affiche les boutons en bas de l\'écran. Nécessite le redémarrage de Vespucci et Android 4.0 minimum.</string>
   <string name="config_appLocale_title">Langue de l\'application</string>
   <string name="config_appLocale_device_language">Langue de l\'appareil</string>
   <string name="config_maxInlineValues_title">Nombre max. de valeurs suggérées</string>
@@ -1152,7 +1213,6 @@
   <string name="config_enableAntiAliasing_title">Activer l\'anti-crénelage</string>
   <string name="config_enableAntiAliasing_summary">Lisse les traits.</string>
   <string name="config_enableHwAcceleration_title">Activer l\'accélération matérielle</string>
-  <string name="config_enableHwAcceleration_summary">Autoriser l\'utilisation de l\'accélération matérielle quand elle est supportée, pour le moment ce réglage n\'a pas d\'effet.</string>
   <string name="config_maxStrokeWidth_title">Largeur maximale des lignes des chemins</string>
   <string name="config_maxStrokeWidth_summary">Ne pas dessiner de chemin plus épais que ça.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -1173,6 +1233,10 @@
   <string name="config_nameCap_title">Majuscules pour l\'attribut name et équivalents</string>
   <string name="config_longStringLimit_title">Limite de chaîne de caractère trop longue</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <string name="config_zoomWithKeys_title">Utiliser les touches de volume pour le zoom</string>
+  <string name="config_zoomWithKeys_summary">Autoriser l\'utilisation des touches de volume pour zoomer et dézoomer.</string>
+  <string name="config_poi_keys_title">Affichage des POIs proches</string>
+  <string name="config_poi_keys_summary">Sélectionner les POIs à afficher dans la fenêtre des POIs proches.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Paramètres de données et de modifications</string>
   <string name="config_category_editing_summary">Paramètres de téléchargement automatique, de sauvegardes et de notifications.</string>
@@ -1183,6 +1247,7 @@
   <string name="config_address_tags">Attributs d\'adresse</string>
   <string name="config_address_tags_summary">Attributs utilisés pour la prédiction d\'adresse.</string>
   <string name="config_neighbourDistance_title">Distance entre adresses voisines</string>
+  <string name="config_neighbourDistance_summary">La distance maximale pour laquelle deux adresses sont considérées comme voisines potentielles</string>
   <string name="config_neighbourDistance_current">%1$d mètres</string>
   <string name="config_enableNameSuggestions_title">Activer les suggestions de nom</string>
   <string name="config_enableNameSuggestions_summary">Activer les suggestions pour les attributs de nom.</string>
@@ -1212,8 +1277,15 @@
   <string name="config_maxOffsetDistance_title">Distance maximale pour les décalages d\'images stockées</string>
   <string name="config_maxOffsetDistance_current">%1$d mètres</string>
   <string name="config_useImperialUnits_title">Utiliser les unités impériales pour mesurer</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d mètres</string>
-  <string name="config_minCircleSegmentcurrent">%1$d mètres</string>
+  <string name="config_useImperialUnits_summary">Utiliser les unités impériales pour des mesures dans les pays où elles sont en vigueur.</string>
+  <string name="config_minCircleNodes_title">Nombre minimum de nœuds dans un cercle</string>
+  <string name="config_maxCircleSegment_title">Longueur maximale d\'un segment dans un cercle</string>
+  <string name="config_maxCircleSegment_summary">Distance maximum entre deux nœuds d\'un cercle</string>
+  <string name="config_maxCircleSegment_current">%1$d mètres</string>
+  <string name="config_minCircleSegment_title">Longueur minimum d\'un segment de cercle</string>
+  <string name="config_minCircleSegment_summary">Distance minimum entre deux nœuds d\'un cercle</string>
+  <string name="config_minCircleSegment_current">%1$d mètres</string>
+  <string name="config_replaceTolerance_current">%1$d mètres</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Paramètres du téléchargement automatique</string>
   <string name="config_category_auto_download_summary">Les paramètres pour le téléchargement automatique des données et des tâches</string>
@@ -1243,7 +1315,7 @@
   <string name="config_gps_source_summary">Source des mise à jour d\'emplacement GPS / GNSS</string>
   <string name="config_gps_source_tcp_title">Utiliser le réseau NMEA</string>
   <string name="config_gps_source_tcp_summary">Adresse de la source NMEA en TCP sous la forme hôte:port.</string>
-  <string name="config_gps_interval_title">Intervalle de temps GPS / GNSS minimal</string>
+  <string name="config_gps_interval_title">Intervalle de temps GPS / GNSS minimale</string>
   <string name="config_gps_interval_summary">Intervalle de temps minimal entre des notifications du GPS / GNSS, en millisecondes. Les petites valeurs consomment davantage d\'énergie.</string>
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_title">Distance GPS / GNSS minimale</string>
@@ -1262,7 +1334,6 @@
   <string name="config_category_server">Paramètres de serveur</string>
   <string name="config_category_server_summary">Configuration de l\'API OSM et d\'autres serveurs.</string>
   <string name="config_apibutton_title">URL de l\'API OSM</string>
-  <string name="config_apibutton_summary">Vous pouvez indiquer ici une URL non standarde de l\'API. Vous ne devriez normalement pas la modifier !</string>
   <string name="config_loginbutton_title">Compte d\'utilisateur</string>
   <string name="config_username_summary">Vous n\'avez besoin de configuration pour envoyer des données à OSM que si vous n\'utilisez pas OAuth. Créez un compte sur https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">Serveur de décalage</string>
@@ -1275,6 +1346,8 @@
   <string name="config_taginfoServer_summary">Serveur taginfo à utiliser pour la génération de modèles d\'attributs</string>
   <string name="config_overpassServer_title">Serveur Overpass</string>
   <string name="config_overpassServer_summary">Serveur Overpass utilisé pour les requêtes</string>
+  <string name="config_oamServer_title">Serveur OpenAerialMap</string>
+  <string name="config_oamServer_summary">Serveur OpenAerialMap utilisé pour l\'imagerie</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Téléchargement et stockage des couches</string>
   <string name="config_category_layers_summary">Téléchargement et stockage des images de fond de carte basées sur des tuiles.</string>
@@ -1284,16 +1357,25 @@
   <string name="config_tileCacheSize_title">Taille du cache de tuiles</string>
   <string name="config_tileCacheSize_summary">Taille totale du cache des tuiles, en Mo.</string>
   <string name="config_preferRemovableStorage_title">Préférer le stockage amovible</string>
+  <string name="config_preferRemovableStorage_summary">Préférer le stockage amovible pour le cache de tuiles.</string>
   <string name="config_tileCache_current">%1$d Mo</string>
   <string name="config_mapillaryCacheSize_title">Taille du cache Mapillary</string>
+  <string name="config_mapillaryCacheSize_summary">Stockage total utilisé pour le cache des images Mapillary, en MB</string>
   <!--Auto-save-->
+  <string name="config_category_autosave">Configuration de la sauvegarde automatique</string>
+  <string name="config_category_autosave_summary">Paramètres pour la sauvegarde automatique des modifications.</string>
   <string name="config_autosaveSaveChanges_title">Enregistrer les modifications</string>
+  <string name="config_autosaveSaveChanges_summary">Enregistrer les modifications dans un fichier OSC.</string>
   <string name="config_autosaveInterval_title">Intervalle minimum</string>
+  <string name="config_autosaveInterval_summary">Intervalle minimale en minutes entre chaque enregistrement.</string>
   <string name="config_autosaveInterval_current">%1$d min</string>
   <string name="config_autosaveChanges_title">Nombre minimum de modifications</string>
   <string name="config_autosaveChanges_summary">Nombre minimum de modifications requis pour enregistrer.</string>
   <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_title">Nombre maximal de fichiers OSC à conserver</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
+  <string name="config_gpxAutosaveInterval_title">Intervalle minimale d\'enregistrement GPX</string>
+  <string name="config_gpxAutosaveInterval_summary">Intervalle minimale en minutes entre chaque sauvegarde des enregistrements GPX.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Divers</string>
   <string name="pref_enable_acra">Signaler les plantages de l\'application</string>
@@ -1387,6 +1469,7 @@
   <string name="undo_action_update_relations">Mise à jour d\'une relation</string>
   <string name="undo_action_cut">Couper</string>
   <string name="undo_action_paste">Coller</string>
+  <string name="undo_action_rotate">Pivoter</string>
   <string name="undo_action_orthogonalize">Chemin rendu orthogonal</string>
   <string name="undo_action_circulize">Placer en cercle</string>
   <string name="undo_action_fix_conflict">Résolution de conflit</string>
@@ -1471,7 +1554,10 @@
   <!--Help system-->
   <string name="toast_nohelp">Pas d\'aide ici.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark_title">Ajouter un marque-page</string>
+  <string name="edit_bookmark_title">Modifier un marque-page</string>
   <string name="bookmarks_desc">Nom</string>
+  <string name="show_bookmarks">Marque-pages…</string>
   <string name="_dots">⋮</string>
   <string name="bookmarkstitle">Marque-pages</string>
   <!--Element types-->
@@ -1483,4 +1569,6 @@
   <string name="node_id">nœud %1$d</string>
   <string name="relation_id">relation %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="tile_success">Réussite</string>
+  <string name="tile_fail">Échec</string>
 </resources>

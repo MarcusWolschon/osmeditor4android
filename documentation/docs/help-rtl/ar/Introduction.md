@@ -1,8 +1,8 @@
-_ قبل أن نبدأ: تحتوي معظم الشاشات على روابط في القائمة إلى نظام المساعدة على الجهاز مما يتيح لك الوصول المباشر إلى المعلومات ذات الصلة بالسياق الحالي ، ويمكنك بسهولة الرجوع إلى هذا النص أيضًا. إذا كان لديك جهاز أكبر ، على سبيل المثال جهاز لوحي ، يمكنك فتح نظام المساعدة في نافذة منفصلة. يمكن العثور على جميع نصوص المساعدة والمزيد (الأسئلة الشائعة والبرامج التعليمية) على [موقع وثائق فسبوتشي] (https://vespucci.io/) أيضًا.
+_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"_
 
 # مقدمة فسبوتشي
 
-فسبوتشي Vespucci  هو محرر لخريطة الشارع المفتوحة وبكامل الميزات يدعم معظم العمليات التي توفرها محررات الحاسب الآلي، وقد تم اختباره بنجاح على إصدارات قوقل أندرويد 2.3 إلى 10.0 والمتغيرات المختلفة القائمة على AOSP. تحذير: على الرغم من أن قدرات الأجهزة المحمولة قد أصبحت منافسه لأجهزة سطح المكتب والحاسب الآلي ، إلا أن الأجهزة القديمة على وجه الخصوص بها ذاكرة محدودة للغاية وتميل إلى أن تكون بطيئة نوعًا ما. يجب أن تأخذ هذا في الاعتبار عند استخدام فسبوتشي وتقليل المناطق التي تقوم بتحريرها وجعل أحجامها معقولة وعدم تحميل جهازك مالا يحتمل.
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
 
 ## التحرير باستخدام فسبوتشي Vespucci
 
@@ -12,20 +12,25 @@ _ قبل أن نبدأ: تحتوي معظم الشاشات على روابط ف�
 
 ### تنزيل بيانات خريطة الشارع المفتوحة
 
-حدد إما رمز النقل! [Transfer](../images/menu_transfer.png) أو عنصر القائمة "نقل". سيعرض هذا سبعة خيارات:
+Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display eleven options:
 
-* ** تنزيل العرض الحالي ** - قم بتنزيل المنطقة المرئية على الشاشة ودمجها مع البيانات الموجودة * (يتطلب اتصالاً بالشبكة أو مصدر بيانات غير متصل بالإنترنت)
-* ** مسح وتنزيل العرض الحالي ** - امسح أي بيانات في الذاكرة ثم قم بتنزيل المنطقة المرئية على الشاشة * (يتطلب الاتصال بالشبكة) *
-* ** رفع البيانات إلى خادم OSM ** - رفع التعديلات إلى خادم خريطة الشارع المفتوحة* (يتطلب المصادقة) * * (يتطلب اتصالاً بالشبكة) *
-* ** تحديث البيانات ** - إعادة تنزيل البيانات لجميع المناطق وتحديث ما هو موجود في الذاكرة * (يتطلب الاتصال بالشبكة) *
-* ** التنزيل التلقائي المستند إلى الموقع ** - قم بتنزيل منطقة حول الموقع الجغرافي الحالي تلقائيًا * (يتطلب اتصالاً بالشبكة أو بيانات غير متصلة بالإنترنت) * * (يتطلب GPS) *
-* ** التنزيل التلقائي للتجول والتكبير ** - تنزيل البيانات تلقائيًا لمنطقة الخريطة المعروضة حاليًا * (يتطلب اتصالاً بالشبكة أو بيانات غير متصلة بالإنترنت) * * (يتطلب GPS) *
-* ** ملف ... ** - حفظ وتحميل بيانات OSM من / إلى ملفات الجهاز.
-* ** ملاحظة / أخطاء ... ** - تنزيل (آليًا ويدويًا) ملاحظات OSM و "الأخطاء" من أدوات ضمان الجودة (حاليًا OSMOSE) * (يتطلب اتصالاً بالشبكة) *
+* **Upload data to OSM server...** - review and upload changes to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Review changes...** - review current changes
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
+* **Clear and download current view** - clear any data in memory, including pending changes, and then download the area visible on the screen *(requires network connectivity)*
+* **Query Overpass...** - run a query against a Overpass API server *(requires network connectivity)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
+* **Clear data** - remove any OSM data in memory, including pending changes.
+* **File...** - saving and loading OSM data to/from on device files.
+* **Tasks...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 أسهل طريقة لتنزيل البيانات على الجهاز هي التكبير والتحريك إلى الموقع الذي تريد تعديله ثم تحديد "تنزيل العرض الحالي". يمكنك التكبير باستخدام الإيماءات أو أزرار التكبير أو أزرار التحكم في مستوى الصوت على جهازك. سيقوم برنامج فسبوتشي بعد ذلك بتنزيل البيانات للعرض الحالي. لا يلزم المصادقة وتسجيل الدخول بحساب لتنزيل البيانات على جهازك.
 
-باستخدام الإعدادات الافتراضية ، سيتم تعتيم أي مناطق لم يتم تنزيلها بالنسبة إلى المناطق التي تم تنزيلها ، وذلك لتجنب إضافة عناصر مكررة عن غير قصد في المناطق التي لا يتم عرضها ولم يتم تنزيلها. يمكن تغيير السلوك في التفضيلات المتقدمة [Advanced preferences](Advanced%20preferences.md).
+In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md) so that dimming is always active.
+
+If you need to use a non-standard OSM API entry, or use [offline data](https://vespucci.io/tutorials/offline/) in _MapSplit_ format you can add or change entries via the _Configure..._ entry for the data layer in the layer control.
 
 ### التحرير
 
@@ -35,13 +40,15 @@ _ قبل أن نبدأ: تحتوي معظم الشاشات على روابط ف�
 
 لتجنب التعديلات غير المقصودة ، يبدأ فسبوتشي في وضع "القفل" ، وهو وضع يسمح فقط بتكبير الخريطة وتحريكها. اضغط على أيقونة! [مغلق] (../images/locked.png) لفتح الشاشة. 
 
-سيؤدي الضغط لفترة طويلة على رمز القفل إلى عرض قائمة تقدم حاليًا 4 خيارات:
+A long press on the lock icon or the _Modes_ menu in the map display overflow menu will display a menu offering 4 options:
 
-* ** عادي ** - وضع التحرير الافتراضي ، يمكن إضافة عناصر جديدة وتحرير العناصر الحالية الموجودة ونقلها أوإزالتها. تم عرض رمز قفل أبيض بسيط.
-* ** الوسم فقط ** - سيؤدي تحديد عنصر موجود إلى بدء محرر الخصائص والوسوم، وسيؤدي الضغط لفترة طويلة على الشاشة الرئيسية إلى إضافة عناصر، ولكن لن تعمل أي عمليات هندسية أخرى. يتم عرض رمز القفل الأبيض بحرف "T".
-* ** العنوان ** - يمكّن وضع العنوان ، وهو وضع مبسط قليلاً مع إجراءات محددة متاحة من[Simple mode](../en/Simple%20actions.md) زر "+". يتم عرض رمز القفل الأبيض مع الحرف "A".
-* ** داخلي ** - يمكّن الوضع الداخلي ، راجع [Indoor mode](#indoor). يتم عرض رمز القفل الأبيض مع الحرف "I".
-* **وضع الاكمال** - عند تمكين وضع الاكمال، سيتم فقط عرض العناصر التي يوجد عليها علامة تحذير أو تنبيه بوجود خطأ ما، راجع[C-Mode](#c-mode). يتم عرض رمز القفل الأبيض بحرف "C".
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+
+If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to _Address_ and _Indoor_ mode.
 
 #### نقرة واحدة أو نقرتين مزدوجة أو ضغطة طويلة
 
@@ -87,7 +94,7 @@ _ قبل أن نبدأ: تحتوي معظم الشاشات على روابط ف�
 
 سيؤدي النقر فوق الزر العائم الأخضر الكبير على شاشة الخريطة إلى إظهار قائمة. بعد تحديد أحد العناصر، سيُطلب منك النقر على الشاشة في الموقع الذي تريد إنشاء العنصر فيه ، ويستمر التحريك والتكبير / التصغير في العمل إذا كنت بحاجة إلى ضبط عرض الخريطة. 
 
-راجع إنشاء عناصر جديدة في وضع الإجراءات البسيطة [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md) لمزيد من المعلومات.
+See [Creating new objects in simple actions mode](Simple%20actions.md) for more information. Simple mode os the default for new installs.
 
 ##### الوضع المتقدم (الضغط لفترة طويلة)
 
@@ -120,7 +127,7 @@ _ قبل أن نبدأ: تحتوي معظم الشاشات على روابط ف�
 
 #### قص ونسخ ولصق
 
-يمكنك نسخ العقد والطرق المحددة أو قصها ، ثم لصقها مرة واحدة أو عدة مرات في موقع جديد. وعند قص أي عنصر فإنه سيتم الاحتفاظ بمعرف osm للعنصر والإصدار.و للصق ، اضغط مطولاً على المكان الذي تريد اللصق فيه (سترى تقاطعًا يحدد الموقع). ثم حدد "لصق" من القائمة.
+You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
 
 #### إضافة العناوين بكفاءة
 
@@ -158,9 +165,9 @@ _ قبل أن نبدأ: تحتوي معظم الشاشات على روابط ف�
 
 اضغط نفس الزر أو على عنصر القائمة الذي قمت به للتنزيل وحدد الآن "رفع البيانات إلى خادم خريطة الشارع المفتوحة".
 
-يدعم تطبيق فسبوتشي بروتكول تفويض OAuth بالإضافة إلى طريقة الدخول العادية عبر اسم المستخدم وكلمة المرور. يُفضل بروتوكول OAuth لأنه يتجنب إرسال كلمات المرور بشكل واضح وهو أكثر أماناً للاستخدام.
+Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  
 
-سيتم تمكين OAuth افتراضيًا في عندما تقوم بتثبيت تطبيق فسبوتشي، وفي محاولتك الأولى لرفع البيانات المعدلة، ستفتح لك صفحة من موقع OSM، وبعدما تسجيل الدخول (عبر اتصال مشفر)، سيُطلب منك تفويض تطبيق فسبوتشي Vespucci لاستخدامه للتحرير عبر حسابك. إذا كنت تريد أو تحتاج إلى تفويض وصول OAuth إلى حسابك قبل أن تقوم بأي تعديل، فهناك عنصر مطابق في قائمة "الأدوات".
+Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
 
 إذا كنت تريد حفظ عملك وليس لديك اتصال بالإنترنت، فيمكنك حفظ تعديلاتك على ملف بصيغة .osm وهو متوافق مع محرر JOSM ومن ثم يمكنك رفعه لاحقًا باستخدام تطبيق فسبوتشي أو باستخدام JOSM. 
 
@@ -168,34 +175,46 @@ _ قبل أن نبدأ: تحتوي معظم الشاشات على روابط ف�
 
 لدى تطبيق فسبوتشي أداة حل تعارضات بسيطة، ومع ذلك ،إذا كنت تشك في وجود مشكلات كبيرة في تعديلاتك، فقم بتصدير التغييرات إلى ملف بصيغة .osc (اختر من القائمة "تصدير" في قائمة "نقل") وقم بإصلاحها ورفعها باستخدام JOSM. راجع المساعدة التفصيلية حول حل التعارض [conflict resolution](Conflict%20resolution.md).  
 
+### Nearby point-of-interest display
+
+A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. 
+
+More information on this and other available functionality on the main display can be found here [Main map display](Main%20map%display.md).
+
 ## استخدام مسارات GPS و GPX
 
 من خلال الإعدادات القياسية، سيحاول فسبوتشي تمكين خدمة GPS (وأنظمة الملاحة الأخرى المعتمدة على الأقمار الصناعية) وسيعود إلى تحديد الموقع عبر ما يسمى "موقع الشبكة" إذا لم يكن ذلك ممكنًا. يفترض هذا السلوك أنه في الاستخدام العادي سيكون جهاز أندرويد الخاص بك قد تم تكوينه لاستخدام المواقع التي تم إنشاؤها بواسطة GPX فقط (لتجنب التعقب)، وهذا يعني أنه تم إيقاف تشغيل خيار "تحسين دقة الموقع" المسمى بشكل ملطف، فإذا كنت تريد تمكين الخيار ولكنك تريد تجنب عودة فسبوتشي إلى "موقع الشبكة" ، فيجب عليك إيقاف تشغيل الخيار المقابل في الإعدادات المتقدمة [Advanced preferences](Advanced%20preferences.md). 
 
-سيؤدي لمس الزر ![GPS](../images/menu_gps.png) (الموجود على الجانب الأيسر من شاشة عرض الخريطة) إلى توسيط الشاشة على الموضع الحالي ، وأثناء تحريكك ، سيتم تبطين شاشة عرض الخريطة للحفاظ على ذلك، كما سيؤدي تحريك الشاشة يدويًا أو التحرير إلى تعطيل وضع "متابعة الـGPS" وسيتغير سهم GPS الأزرق من شكل مأطر إلى سهم ممتلئ، وللعودة بسرعة إلى وضع "المتابعة" ، ما عليك سوى لمس زر GPS أو إعادة تحديد خيار القائمة المكافئ، وإذا لم يكن للجهاز موقع حالي فسيتم عرض علامة الموقع / السهم باللون الأسود ، وإذا كان الموقع الحالي متاحًا ، فستكون العلامة باللون الأزرق.
+Touching the ![GPS](../images/menu_gps.png) button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
 
 لتسجيل مسار GPX وعرضه على جهازك ، حدد عنصر "بدء مسار GPX" في قائمة ![GPS](../images/menu_gps.png)، كما أن ذلك سيؤدي إلى إضافة طبقة إلى شاشة العرض تتضمن المسار الحالي المسجل، كما يمكنك تحميل وتصدير المسار من الإدخال عبر التحكم في الطبقة [layer control](Main%20map%20display.md)، كما يمكن إضافة طبقات أخرى من ملفات GPX المحلية والمسارات التي تم تنزيلها من الواجهة البرمجية لـOSM.
 
 ملاحظة: افتراضيًا ، لن يقوم محرر فسبوتشي بتسجيل بيانات الارتفاع باستخدام مسار GPX الخاص بك ، ويرجع ذلك إلى بعض المشكلات الخاصة بنظام أندرويد، ولتمكين تسجيل الارتفاع قم بتثبيت نموذج جاذبية أو بشكل أبسط انتقل إلى الإعدادات المتقدمة [Advanced preferences](Advanced%20preferences.md) ثم قم بتكوين إعدادات NMEA.
 
-## الملاحظات والأخطاء
+### How to export a GPX track?
 
-يدعم تطبيق فسبوتشي تنزيل ملاحظات خريطة الشارع المفتوحة OSM Notes والتعليق عليها وإغلاقها (المعروفة سابقًا باسم OSM Bugs) والوظائف المكافئة لـ "Bugs" التي تنتجها [أداة ضمان جودة OSMOSE](http://osmose.openstreetmap.fr/en/map/). كلاهما يجب أن يتم تنزيلهما بشكل صريح أو يمكنك استخدام مرفق التنزيل التلقائي للوصول إلى العناصر الموجودة في منطقتك الحالية. بمجرد التحرير أو الإغلاق ، يمكنك إما رفع تعديلات الخطأ أو الملاحظة على الفور أو رفع الكل مرة واحدة.
+Open the layer menu, then click the 3-dots menu next to "GPX recording", then select **Export GPX track...**. Choose in which folder to export the track, then give it a name suffixed with `.gpx` (example: MyTrack.gpx).
 
-على الخريطة ، يتم تمثيل الملاحظات والأخطاء برمز خطأ صغير ![Bug](../images/bug_open.png)، الملاحظات الخضراء مغلقة / تم حلها ، الملاحظات الزرقاء هي التي تم إنشاؤها أو تحريرها بواسطتك، والصفراء تشير إلى أنها لا تزال نشطة ولم يتم تغييرها. 
+## Notes, Bugs and Todos
 
-ستوفر شاشة عرض الأخطاء من OSMOSE رابطًا للعنصر المتأثر باللون الأزرق ، وسيؤدي لمس الرابط إلى تحديد العنصر وتوسيط الشاشة عليه وتحميل المنطقة مسبقًا إذا لزم الأمر. 
+يدعم تطبيق فسبوتشي تنزيل ملاحظات خريطة الشارع المفتوحة OSM Notes والتعليق عليها وإغلاقها (المعروفة سابقًا باسم OSM Bugs) والوظائف المكافئة لـ "Bugs" التي تنتجها [أداة ضمان جودة OSMOSE](http://osmose.openstreetmap.fr/en/map/). كلاهما يجب أن يتم تنزيلهما بشكل صريح أو يمكنك استخدام مرفق التنزيل التلقائي للوصول إلى العناصر الموجودة في منطقتك الحالية. بمجرد التحرير أو الإغلاق ، يمكنك إما رفع تعديلات الخطأ أو الملاحظة على الفور أو رفع الكل مرة واحدة. 
+
+Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. 
+
+On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.
+
+The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
 ### الفلتره والتصفية
 
 إلى جانب التمكين العام لعرض الملاحظات والمشاكل، يمكنك تحديد مصفي لعرض الحبوب الخشنة لتقليل الفوضى. يمكن الوصول إلى تكوين المصفي من إدخال طبقة المهمة في [التحكم في الطبقة](#layers):
 
-* الملاحظات
-* أخطاء Osmose
-* تحذيرات Osmose
-* المشاكل الثانوية Osmose
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
 * Maproulette
-* مخصص
+* Todo
 
 <a id="indoor"></a>
 
@@ -215,9 +234,9 @@ _ قبل أن نبدأ: تحتوي معظم الشاشات على روابط ف�
 
 ### إعداد الفحوصات
 
-يوجد حاليًا نوعان من عمليات التحقق القابلة للتكوين (بالنسبة لفحص وسم أصلحني -FIXME واختبار لوسوم النوع الغير موجودة على العلاقات فهي غير قابلة للتكوين حاليًا) كما يمكن تكوين كليهما عن طريق تحديد "إعدادات التحقق من الصحة" في التفضيلات [preferences](Preferences.md). 
+All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the [preferences](Preferences.md). 
 
-يتم تقسيم قائمة الإدخالات إلى قسمين ، النصف العلوي يسرد إدخالات "إعادة دراسة واستطلاع" ، والنصف السفلي "فحص الإدخالات". يمكن تحرير الإدخالات بالنقر فوقها ، ويسمح زر القائمة الأخضر بإضافة إدخالات.
+The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.
 
 #### مدخلات إعادة الدراسة والاستطلاع
 
@@ -263,14 +282,15 @@ _ قبل أن نبدأ: تحتوي معظم الشاشات على روابط ف�
 
 أنواع الطبقات المتاحة:
 
-* طبقة البيانات - هذه هي الطبقة التي يتم تحميل بيانات خريطة الشارع المفتوحة إليها. في الاستخدام العادي ، لا تحتاج إلى تغيير أي شيء هنا. وهي مفعلة بشكل افتراضي.
-* طبقة الخلفية - تتوفر مجموعة كبيرة من الصور الخلفية المصورة من الجو أو الأقمار الصناعية. والطبقة الإفتراضية للطبقة الخلية هي خريطة "النمط القياسي" من openstreetmap.org.
-* الطبقات العلوية - هذه طبقات شبه شفافة بمعلومات إضافية ، تحتوي على سبيل المثال على مسارات GPX. قد تتسبب إضافة الطبقات العلوية الكثيرة في حدوث مشاكل مع الأجهزة القديمة مثل امتلاء الذاكرة. وهي طبقة معطلة بشكل افتراضي.
-* طبقة الملاحظات / الأخطاء - سيتم عرض الملاحظات والأخطاء المفتوحة كرمز أصفر بشكل حشرات ، والمغلق منها سيكون باللون الأخضر. وهي طبقة مفعلة بشكل افتراضي.
-* طبقة الصور - تعرض هذه الطبقة الصور التي تكون مربوطة بمرجعية جغرافية كأيقونات كاميرا حمراء، وإذا توفرت معلومات الاتجاه، فسيتم تدوير الرمز. وهي طبقة معطلة بشكل افتراضي.
-* طبقة Mapillary - وهي طبقة تعرض مقاطع صور Mapillary بعلامات تحدد مكان وجود الصور ، سيؤدي النقر علا العلامة إلى عرض الصورة. وهي طبقة معطلة بشكل افتراضي.
-* طبقة GeoJSON - تعرض محتويات ملف GeoJSON. وهي طبقة معطلة بشكل افتراضي.
-* المسطرة - وهي مسطرة للقياس تظهر على جوانب الشاشة. وهي طبقة مفعلة بشكل افتراضي. 
+* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
+* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
+* Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
+* GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.
+* GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.
+* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
 
 يمكن العثور على مزيد من المعلومات في القسم الموجود على عرض الخريطة [map display](Main%20map%20display.md).
 
@@ -283,16 +303,19 @@ _ قبل أن نبدأ: تحتوي معظم الشاشات على روابط ف�
 
 #### التفضيلات المتقدمة
 
-* إظهار أيقونات العقد/النقاط. وهي مفعلة بشكل افتراضي.
-* اعرض القائمة المنبثقة بشكل دائم. عند تشغيل كل عملية اختيار ستظهر قائمة منبثقة، كما أنه يتم إيقاف تشغيل ظهور القائمة فقط عندما يكون التحديد واضح ولا يمكن أن يعني شيأً آخر. وهي ميزة متعطلة بشكل افتراضي (كانت في السابق تفعل بشكل افتراضي).
-* تمكين المظهر الخفيف. يتم تشغيل هذه الميزة افتراضيًا على الأجهزة الحديثة. بينما يمكنك تمكينه لإصدارات أندرويد الأقدم، فمن المحتمل أن يكون النمط متعارض. 
+* Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In _Auto_ mode we try to determine automatically if using full screen mode is sensible or not, setting it to _Force_ or _Never_ skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the _Auto_ mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: _Auto_.  
+* Node icons. Default: _on_.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
 
 يمكن العثور على الشرح الكامل هنا في شرح التفضيلات المتقدمة [Advanced preferences](Advanced%20preferences.md)
 
-## الإبلاغ عن المشاكل
+## Reporting and Resolving Issues
 
 في حال تعطل تطبيق فسبوتشي Vespucci، أو اكتشاف حالة غير متناسقة ، سيُطلب منك إرسال ملف سجل الأعطال، يرجى القيام بذلك إذا حدث ذلك ، ولكن من فضلك قم بذلك مرة واحدة فقط لكل مشكلة محددة. إذا كنت ترغب في تقديم المزيد من المدخلات أو فتح مشكلة لطلب ميزة أو ما شابه ، فالرجاء القيام بذلك هنا: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). ستؤدي وظيفة "تقديم التعليقات" من القائمة الرئيسية إلى فتح مشكلة جديدة وتضمين المعلومات ذات الصلة ومعلومات الجهاز دون الحاجة إلى كتابة بيانات إضافية.
 
-إذا كنت تريد مناقشة شيء متعلق بـتطبيق فسبوتشي Vespucci ، فيمكنك إما بدء مناقشة على [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) أو على [منتدى خريطة الشارع المفتوحة في القسم الخاص لأجهزة الأندرويد](http://forum.openstreetmap.org/viewforum.php?id=56)
+If you are experiencing difficulties starting the app after a crash, you can try to start it in _Safe_ mode on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
+
+If you want to discuss something related to Vespucci, you can either start a discussion on the [OpenStreetMap forum](https://community.openstreetmap.org).
 
 

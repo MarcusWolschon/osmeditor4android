@@ -16,7 +16,6 @@
   <string name="transfer_download_current_download">دور بریز و بارگیری کن</string>
   <string name="transfer_download_current_back">برگشت (کاری نکن)</string>
   <string name="upload_problem_title">نمی‌توان بارگذاری کرد</string>
-  <string name="upload_problem_message">همه یا بخشی از داده بارگذاری نشد. بعداً تلاش کنید.</string>
   <string name="bad_request_message">‏API با خطا پاسخ داد. لطفاً دادهٔ خود را ذخیره کنید و این مسئله را گزارش دهید:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">تداخل در بارگذاری</string>
@@ -49,7 +48,6 @@
   <string name="invalid_bounding_box_title">کادر محصورکنندهٔ نامعتبر</string>
   <string name="invalid_bounding_box_message">ناحیهٔ انتخاب‌شده با محدودیت‌های API مطابقت ندارد، لطفاً منطقهٔ دیگری را انتخاب کنید.</string>
   <string name="bounding_box_too_large_title">محدودهٔ بارگیری بسیار بزرگ است</string>
-  <string name="bounding_box_too_large_message">محدوده‌ای که می‌خواهید بارگیری کنید خیلی بزرگ است یا دربردارندهٔ دادهٔ زیادی است.\n\nلطفاً بیشتر زوم کنید و دوباره تلاش نمایید.</string>
   <string name="api_offline_title">‏API برون‌خط</string>
   <string name="api_offline_message">API در حال حاضر برون‌خط است، هیچ داده ای قابل بازیابی یا نوشتن نیست.</string>
   <string name="out_of_memory_title">کمبود حافظه</string>
@@ -314,6 +312,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">این کنش بر اشیای پنهان متصل اثرگذار است!</string>
   <string name="attached_object_warning_message">شیء تغییریافته به عناصر پنهانی متصل است که همراه با آن تغییر می‌کنند.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">خب، باز هم نشان بده</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -452,7 +451,7 @@
   <string name="api_info_latest_date">آخرین تاریخ شامل شده</string>
   <string name="api_info_attribution">انتساب</string>
   <string name="api_info_mapsplit_source">منبع فقط خواندنی MapSplit</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <string name="tag_conflict_title">خواص تغییر کرده است</string>
   <string name="tag_conflict_message">این عملیات نیاز به تغییر خواص عناصر درگیر داشت.</string>
   <!--Relation selection dialog-->
@@ -1073,6 +1072,7 @@
   <string name="actionmode_reselect_first_segment">بخش اول را دوباره انتخاب کنید</string>
   <string name="actionmode_split_way">تقسیم راه</string>
   <string name="actionmode_split_closed_way">تقسیم راه بسته</string>
+  <string name="actionmode_rotate">چرخش</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">گره 1 را انتخاب کنید</string>
   <string name="actionmode_closed_way_split_2">گره 2 را انتخاب کنید</string>
@@ -1094,7 +1094,6 @@
     <item quantity="one">1 شیء</item>
     <item quantity="other">%1$d شیء</item>
   </plurals>
-  <string name="actionmode_rotate">چرخش</string>
   <string name="menu_snap">عکس فوری</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">افزودن گره</string>
@@ -1204,7 +1203,6 @@
   <string name="config_enableAntiAliasing_title">فعال‌سازی ضدپلّگی</string>
   <string name="config_enableAntiAliasing_summary">خط‌ها را هموارتر می‌کند.</string>
   <string name="config_enableHwAcceleration_title">فعال‌سازی شتاب‌دهی سخت‌افزاری</string>
-  <string name="config_enableHwAcceleration_summary">اگر و هرجا پشتیبانی شود، امکان استفاده از شتاب‌دهی سخت‌افزاری را فراهم می‌کند. در حال حاضر تنظیم این گزینه تأثیری ندارد.</string>
   <string name="config_maxStrokeWidth_title">بیشینهٔ پهنای خط</string>
   <string name="config_maxStrokeWidth_summary">راهی را ضخیم‌تر از این رسم نکن.</string>
   <string name="config_maxStrokeWidth_current">%1$d پیکسل</string>
@@ -1273,8 +1271,9 @@
   <string name="config_maxOffsetDistance_current">%1$d متر (ها)</string>
   <string name="config_useImperialUnits_title">برای اندازه‌گیری از واحدهای امپریالیستی استفاده کنید</string>
   <string name="config_useImperialUnits_summary">هنگام اندازه‌گیری در کشورهایی که معمولاً از آنها استفاده می‌کنند، از واحدهای امپریالیستی استفاده کنید.</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d متر</string>
-  <string name="config_minCircleSegmentcurrent">%1$d متر</string>
+  <string name="config_maxCircleSegment_current">%1$d متر</string>
+  <string name="config_minCircleSegment_current">%1$d متر</string>
+  <string name="config_replaceTolerance_current">%1$d متر</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">تنظیمات بارگیری خودکار</string>
   <string name="config_category_auto_download_summary">تنظیمات بارگیری خودکار داده و وظیفه</string>
@@ -1325,7 +1324,6 @@
   <string name="config_category_server">تنظیمات کارساز</string>
   <string name="config_category_server_summary">‏OSM API و پیکربندی سایر کارسازها.</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">اینجا می‌توانید API URL غیراستاندارد تنظیم کنید. معمولاً نباید تغییر کند!</string>
   <string name="config_loginbutton_title">حساب کاربری</string>
   <string name="config_username_summary">فقط اگر از OAuth استفاده نمی‌کنید، برای بارگذاری دادهٔ OSM به پیکربندی نیاز دارید. در https://www.openstreetmap.org/user/new برای خود حساب کاربری بسازید.</string>
   <string name="config_offsetServer_title">کارساز آفست</string>

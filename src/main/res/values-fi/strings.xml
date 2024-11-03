@@ -16,7 +16,6 @@
   <string name="transfer_download_current_download">Hylkää &amp; lataa</string>
   <string name="transfer_download_current_back">Takaisin (älä tee mitään)</string>
   <string name="upload_problem_title">Lähetys epäonnistui</string>
-  <string name="upload_problem_message">Ainakin osaa muutoksista ei ole lähetetty. Yritä myöhemmin uudestaan.</string>
   <string name="bad_request_message">API palautti virheen. Tallenna muokkauksesi ja ilmoita virheestä:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Ristiriita lähetyksessä</string>
@@ -49,7 +48,6 @@
   <string name="invalid_bounding_box_title">Virheellinen rajauslaatikko</string>
   <string name="invalid_bounding_box_message">Valittu alue ei kelpaa API:n rajoitusten vuoksi. Valitse muunlainen alue.</string>
   <string name="bounding_box_too_large_title">Latausalue liian laaja</string>
-  <string name="bounding_box_too_large_message">Alue jota yrität ladata on liian laaja tai se sisältää liikaa dataa.\n\nPienennä näkymää ja yritä uudelleen.</string>
   <string name="api_offline_title">API suljettu</string>
   <string name="api_offline_message">API on väliaikaisesti suljettu, eikä se hyväksy datan hakemista eikä kirjoittamista.</string>
   <string name="out_of_memory_title">Muisti ei riitä</string>
@@ -308,6 +306,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Toiminto vaikuttaa myös suodatettuhin kohteisiin!</string>
   <string name="attached_object_warning_message">Muutettu kohde on yhteydessä piilotettuihin kohteisiin, jotka muuttuvat samalla.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, näytä jatkossakin</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -438,7 +437,7 @@
   <string name="api_info_latest_date">Viimeksi sisällytetty (pvm)</string>
   <string name="api_info_attribution">Lähde</string>
   <string name="api_info_mapsplit_source">MapSplitin kirjoitussuojattu lähde</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <string name="tag_conflict_title">Ominaisuuksia muutettu</string>
   <string name="tag_conflict_message">Toiminto vaati käsiteltyjen elementtien ominaisuuksien muuttamista</string>
   <!--Relation selection dialog-->
@@ -1051,6 +1050,7 @@
   <string name="actionmode_reselect_first_segment">Valitse ensimmäinen segmentti uudestaan</string>
   <string name="actionmode_split_way">Jaa viiva</string>
   <string name="actionmode_split_closed_way">Jaa suljettu viiva</string>
+  <string name="actionmode_rotate">Pyöritä</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Valitse 1. piste</string>
   <string name="actionmode_closed_way_split_2">Valitse 2. piste</string>
@@ -1072,7 +1072,6 @@
     <item quantity="one">1 kohde</item>
     <item quantity="other">%1$d kohdetta</item>
   </plurals>
-  <string name="actionmode_rotate">Pyöritä</string>
   <string name="menu_snap">Loksauta</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Lisää piste</string>
@@ -1179,7 +1178,6 @@
   <string name="config_enableAntiAliasing_title">Käytä reunanpehmennystä</string>
   <string name="config_enableAntiAliasing_summary">Tekee viivoista sileämpiä.</string>
   <string name="config_enableHwAcceleration_title">Käytä laitteistokiihdytystä</string>
-  <string name="config_enableHwAcceleration_summary">Sallii laitteistokiihdytyksen käytön silloin kun se on mahdollista – toistaiseksi tällä asetuksella ei ole vaikutusta</string>
   <string name="config_maxStrokeWidth_title">Viivan enimmäispaksuus</string>
   <string name="config_maxStrokeWidth_summary">Älä piirrä tätä paksumpia viivoja</string>
   <string name="config_maxStrokeWidth_current">%1$d pikseliä</string>
@@ -1248,8 +1246,9 @@
   <string name="config_maxOffsetDistance_current">%1$d metri(ä)</string>
   <string name="config_useImperialUnits_title">Käytä brittiyksiköitä mittaukseen</string>
   <string name="config_useImperialUnits_summary">Käytä brittiläisen mittajärjestelmän yksiköitä, kun mitataan niitä yleisesti käyttävissä maissa.</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d metri(ä)</string>
-  <string name="config_minCircleSegmentcurrent">%1$d metri(ä)</string>
+  <string name="config_maxCircleSegment_current">%1$d metri(ä)</string>
+  <string name="config_minCircleSegment_current">%1$d metri(ä)</string>
+  <string name="config_replaceTolerance_current">%1$d metri(ä)</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Automaattisen latauksen asetukset</string>
   <string name="config_category_auto_download_summary">Automaattisen datan ja tehtävien latauksen asetukset.</string>
@@ -1300,7 +1299,6 @@
   <string name="config_category_server">Palvelimen asetukset</string>
   <string name="config_category_server_summary">OSM-API:n ja muiden palvelimien asetukset</string>
   <string name="config_apibutton_title">OSM-API:n URL</string>
-  <string name="config_apibutton_summary">Voit antaa vaihtoehtoisen URLin API:lle. Tavallisesti sitä ei tarvitse muuttaa!</string>
   <string name="config_loginbutton_title">Käyttäjätili</string>
   <string name="config_username_summary">Näitä asetuksia tarvitaan OSM-datan lähettämiseen vain, jos et käytä OAuthia. Tilin voi luoda sivulla http://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">Siirrospalvelin</string>

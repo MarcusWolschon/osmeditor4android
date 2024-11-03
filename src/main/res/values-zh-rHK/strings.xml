@@ -14,7 +14,6 @@
   <string name="transfer_download_current_download">放棄與下載</string>
   <string name="transfer_download_current_back">返回 (不要做任何事情) </string>
   <string name="upload_problem_title">無法上傳</string>
-  <string name="upload_problem_message">有一些或全部的資料未被上傳，請以後再嘗試上傳。</string>
   <string name="bad_request_message">API 回傳錯誤，請儲存你的資料然後回報問題:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">上傳衝突</string>
@@ -42,7 +41,6 @@
   <string name="invalid_bounding_box_title">無效的邊框</string>
   <string name="invalid_bounding_box_message">選擇的區域無法符合 API 限制，請選擇另一個地方。</string>
   <string name="bounding_box_too_large_title">下載的區域太大</string>
-  <string name="bounding_box_too_large_message">你想下載的範圍太大，或是資料太多。\n\n請放更大然後再試一次。</string>
   <string name="api_offline_title">API 離線</string>
   <string name="api_offline_message">該 API 目前處於離線，無法存取資料。</string>
   <string name="out_of_memory_title">記憶體不足</string>
@@ -208,6 +206,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">這次動作影響篩選、附著的物件！</string>
   <string name="attached_object_warning_message">變動的物件同時遲結到隱藏的元件會同時改變。</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK，繼續顯示</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -283,7 +282,7 @@
   <!--Date range dialog-->
   <!--Photo viewer-->
   <!--API info dialog-->
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
   <string name="select_relation_type_other">其他</string>
@@ -656,6 +655,7 @@
   <string name="actionmode_createpath">建立路徑</string>
   <string name="actionmode_multiselect">多重選擇</string>
   <string name="actionmode_newnoteselect">選擇新的備註</string>
+  <string name="actionmode_rotate">旋轉</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_restriction">增加轉彎限制</string>
   <string name="actionmode_restriction_restart_from">重新選擇\"從\"片段</string>
@@ -668,7 +668,6 @@
   <plurals name="actionmode_object_count">
     <item quantity="other">%1$d 物件</item>
   </plurals>
-  <string name="actionmode_rotate">旋轉</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">增加節點</string>
   <string name="simple_add_node">點螢幕位置</string>
@@ -745,7 +744,6 @@
   <string name="config_enableAntiAliasing_title">啟用反鋸齒</string>
   <string name="config_enableAntiAliasing_summary">使線條更滑順。</string>
   <string name="config_enableHwAcceleration_title">啟用硬體加速</string>
-  <string name="config_enableHwAcceleration_summary">如果支援的話，允許使用硬體加速，也許會造成假像。</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的道路。</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -778,8 +776,9 @@
   <string name="config_enableAutoPresets_title">啟用自動預設產生</string>
   <string name="config_enableAutoPresets_summary">允許從 taginfo 產生預置</string>
   <string name="config_maxOffsetDistance_current">%1$d 公尺</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d 公尺</string>
-  <string name="config_minCircleSegmentcurrent">%1$d 公尺</string>
+  <string name="config_maxCircleSegment_current">%1$d 公尺</string>
+  <string name="config_minCircleSegment_current">%1$d 公尺</string>
+  <string name="config_replaceTolerance_current">%1$d 公尺</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">下載半徑</string>
   <string name="config_extTriggeredDownloadRadius_summary">只有在地圖上的時候，從外部觸發下載的半徑 (m) 0 = 中心。</string>
@@ -814,7 +813,6 @@
   <string name="config_category_server">伺服器設定</string>
   <string name="config_category_server_summary">OSM API 和其他伺服器設定。</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">您可以在此設定非標準的 API 網址。通常不應該改變！</string>
   <string name="config_loginbutton_title">使用者帳號</string>
   <string name="config_username_summary">如果您不使用 OAuth，才要設定上傳 OSM 資料用的帳號。帳號可在這申請 https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">偏移伺服器</string>

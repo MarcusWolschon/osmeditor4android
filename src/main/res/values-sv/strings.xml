@@ -15,7 +15,6 @@
   <string name="transfer_download_current_download">Släng &amp; hämtning</string>
   <string name="transfer_download_current_back">Tillbaka (gör ingenting)</string>
   <string name="upload_problem_title">Kunde inte ladda upp</string>
-  <string name="upload_problem_message">Vissa eller alla data överfördes inte. Försök igen senare.</string>
   <string name="bad_request_message">API:n svarade med ett fel, var god spara dina data och rapportera problemet:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Uppladdningskonflikt</string>
@@ -51,7 +50,6 @@
   <string name="corrupted_data_title">Korrupt data</string>
   <string name="invalid_bounding_box_title">Ogiltiga avgränsningsruta</string>
   <string name="bounding_box_too_large_title">Hämtningsområdet för stort</string>
-  <string name="bounding_box_too_large_message">Området du försöker ladda ner är för stort eller innehåller för mycket data.\n\nZooma in och försök igen.</string>
   <string name="api_offline_title">API frånkopplad</string>
   <string name="api_offline_message">API:n är för närvarande frånkopplad, ingen data kan hämtas eller skrivas.</string>
   <string name="out_of_memory_title">Slut på minne</string>
@@ -63,7 +61,9 @@
   <!---->
   <!--Newbie dialog-->
   <string name="welcome_title">Välkommen</string>
+  <string name="welcome_authorize_text">Auktorisera nu</string>
   <string name="read_introduction">Läs introduktionen</string>
+  <string name="welcome_start">Starta!</string>
   <!---->
   <string name="upgrade_title">Detta är en ny Vespucci version</string>
   <string name="upgrade_message">Nya funktioner och beteenden är detaljerade i utgåvans noteringar.</string>
@@ -243,6 +243,7 @@
   <string name="minor_issue">Mindre problem</string>
   <string name="unknown_error_level">Okänd felnivå</string>
   <!--hidden object warning dialog-->
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, fortsätt visa</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -322,7 +323,7 @@
   <string name="api_info_latest_date">Senast inkluderade datum</string>
   <string name="api_info_attribution">Attribuering</string>
   <string name="api_info_mapsplit_source">MapSplit skrivskyddad källa</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <!--Relation selection dialog-->
   <string name="select_route_title">Välj rutt</string>
   <string name="select_relation_title">Välj relation</string>
@@ -656,14 +657,19 @@
   <string name="actionmode_createpath">Skapa väg</string>
   <string name="actionmode_multiselect">Markera flera</string>
   <string name="actionmode_add_segment">Lägg till segment</string>
+  <string name="actionmode_split_way">Dela sträcka</string>
+  <string name="actionmode_split_closed_way">Dela sluten sträcka</string>
+  <string name="actionmode_rotate">Rotera</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Välj 1:a noden</string>
+  <string name="actionmode_closed_way_split_2">Välj 2:a noden</string>
+  <string name="actionmode_split_way_node_selection">Välj nod</string>
   <string name="actionmode_restriction">Lägg till svängrestriktion</string>
   <string name="actionmode_restriction_to">Lägg till i segment</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 föremål</item>
     <item quantity="other">%1$d föremål</item>
   </plurals>
-  <string name="actionmode_rotate">Rotera</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Lägg till nod</string>
   <string name="simple_add_node">Tryck på skärmens position</string>
@@ -738,8 +744,9 @@
   <string name="config_maxAlertDistance_current">%1$d meter</string>
   <string name="config_closeChangesetOnSave_title">Stäng ändringsuppsättningar</string>
   <string name="config_maxOffsetDistance_current">%1$d meter</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d meter</string>
-  <string name="config_minCircleSegmentcurrent">%1$d meter</string>
+  <string name="config_maxCircleSegment_current">%1$d meter</string>
+  <string name="config_minCircleSegment_current">%1$d meter</string>
+  <string name="config_replaceTolerance_current">%1$d meter</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
   <string name="config_downloadRadius_current">%1$d meter</string>
@@ -764,7 +771,6 @@
   <string name="config_category_server">Serverinställningar</string>
   <string name="config_category_server_summary">OSM API och konfiguration av andra servrar.</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">Du kan ställa in en icke-standard-API-webbadress här. Bör vanligtvis inte ändras!</string>
   <string name="config_loginbutton_title">Användarkonto</string>
   <string name="config_username_summary">Du behöver endast konfiguration för att skicka OSM-data om du inte använder OAuth. Få ett konto på https://www.openstreetmap.org/user/new</string>
   <string name="config_osmoseServer_title">OSMOSE-server</string>

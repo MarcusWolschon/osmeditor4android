@@ -15,7 +15,6 @@
   <string name="transfer_download_current_download">At &amp; indir</string>
   <string name="transfer_download_current_back">Geri (bir şey yapmayın)</string>
   <string name="upload_problem_title">Yüklenemedi</string>
-  <string name="upload_problem_message">Verilerin bir kısmı veya tamamı yüklenmedi. Daha sonra tekrar deneyin.</string>
   <string name="bad_request_message">API bir hatayla yanıt verdi, lütfen verilerinizi kaydedin ve sorunu bildirin:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Yükleme çakışması</string>
@@ -46,7 +45,6 @@
   <string name="invalid_bounding_box_title">Geçersiz sınırlayıcı kutu</string>
   <string name="invalid_bounding_box_message">Seçilen alan API kısıtlamalarına uymuyor, lütfen farklı bir alan seçin.</string>
   <string name="bounding_box_too_large_title">İndirecek alan fazla büyük</string>
-  <string name="bounding_box_too_large_message">İndirmeye çalıştığınız alan çok büyük veya çok fazla veri içeriyor. \n \nLütfen daha fazla yakınlaştırın ve tekrar deneyin.</string>
   <string name="api_offline_title">API çevrimdışı</string>
   <string name="api_offline_message">API şu anda çevrimdışı, veri alınamıyor veya yazılamıyor.</string>
   <string name="out_of_memory_title">Bellek yetersiz</string>
@@ -249,6 +247,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Bu işlem süzülmüş ekli nesneleri etkiler!</string>
   <string name="attached_object_warning_message">Değiştirilen nesne, onunla değişecek gizli öğelere bağlanır.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Tamam, göstermeye devam et .</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -350,7 +349,7 @@
   <string name="api_info_latest_date">Dahil edilen son tarih</string>
   <string name="api_info_attribution">Atfetme</string>
   <string name="api_info_mapsplit_source">MapSplit salt-okunur kaynağı</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">İndirilen verilerde uygun ilişki yok</string>
   <string name="select_route_title">Rota seç</string>
@@ -851,6 +850,7 @@
   <string name="actionmode_newnoteselect">Yeni Not seçildi</string>
   <string name="actionmode_add_segment">Segment ekle</string>
   <string name="actionmode_reselect_first_segment">İlk segmenti tekrar seç</string>
+  <string name="actionmode_rotate">Döndür</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_restriction">Dönüş kısıtlaması ekleyin</string>
   <string name="actionmode_restriction_restart_from">Segmentler \"den\" tekrar seç</string>
@@ -867,7 +867,6 @@
     <item quantity="one">1 nesne</item>
     <item quantity="other">%1$dnesne</item>
   </plurals>
-  <string name="actionmode_rotate">Döndür</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Düğüm ekle</string>
   <string name="simple_add_node">Ekran konumuna dokunun</string>
@@ -948,7 +947,6 @@
   <string name="config_enableAntiAliasing_title">Kenar yumuşatmayı etkinleştir</string>
   <string name="config_enableAntiAliasing_summary">Çizgileri pürüzsüz yapar.</string>
   <string name="config_enableHwAcceleration_title">Donanım hızlandırmayı etkinleştirin</string>
-  <string name="config_enableHwAcceleration_summary">Desteklenirse ve desteklendiğinde donanım hızlandırma kullanımına izin verir, şu anda ayarlamanın hiçbir etkisi yoktur.</string>
   <string name="config_maxStrokeWidth_title">Maks çizgi genişliği</string>
   <string name="config_maxStrokeWidth_summary">Bundan daha kalın bir yol çizmeyin.</string>
   <string name="config_maxStrokeWidth_current">%1$dpiksel</string>
@@ -996,8 +994,9 @@
   <string name="config_autoformatPhoneNumbers_title">Otomatik biçimlendirilmiş telefon numaraları</string>
   <string name="config_autoformatPhoneNumbers_summary">Telefon numaralarının otomatik biçimlendirilmesini etkinleştirin</string>
   <string name="config_maxOffsetDistance_current">%1$d metre</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d metre</string>
-  <string name="config_minCircleSegmentcurrent">%1$d metre</string>
+  <string name="config_maxCircleSegment_current">%1$d metre</string>
+  <string name="config_minCircleSegment_current">%1$d metre</string>
+  <string name="config_replaceTolerance_current">%1$d metre</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Otomatik indirme ayarları</string>
   <string name="config_category_auto_download_summary">Veri ve görevi otomatik indirme ayarları</string>
@@ -1045,7 +1044,6 @@
   <string name="config_category_server">Sunucu ayarları</string>
   <string name="config_category_server_summary">OSM API ve diğer sunucuların konfigürasyonu.</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">Burada standart olmayan bir API URL\'si ayarlayabilirsiniz. Genellikle değiştirilmemelidir!</string>
   <string name="config_loginbutton_title">Kullanıcı hesabı</string>
   <string name="config_username_summary">OAuth kullanmıyorsanız, yalnızca OSM verilerini yüklemek için yapılandırmanız gerekir. https://www.openstreetmap.org/user/new adresinde bir hesap açın</string>
   <string name="config_offsetServer_title">Ofset sunucusu</string>

@@ -16,7 +16,6 @@
   <string name="transfer_download_current_download">放棄與下載</string>
   <string name="transfer_download_current_back">返回 (不要做任何事情) </string>
   <string name="upload_problem_title">無法上傳</string>
-  <string name="upload_problem_message">有一些或全部的資料未被上傳，請以後再嘗試上傳。</string>
   <string name="bad_request_message">API 回傳錯誤，請儲存你的資料然後回報問題:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">上傳衝突</string>
@@ -72,7 +71,6 @@
   <string name="invalid_bounding_box_title">無效的邊框</string>
   <string name="invalid_bounding_box_message">選擇的區域無法符合 API 限制，請選擇另一個地方。</string>
   <string name="bounding_box_too_large_title">下載的區域太大</string>
-  <string name="bounding_box_too_large_message">你想下載的範圍太大，或是資料太多。\n\n請放更大然後再試一次。</string>
   <string name="api_offline_title">API 離線</string>
   <string name="api_offline_message">該 API 目前處於離線，無法存取資料。</string>
   <string name="out_of_memory_title">記憶體不足</string>
@@ -375,6 +373,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">這次動作影響篩選、附著的物件！</string>
   <string name="attached_object_warning_message">變動的物件同時遲結到隱藏的元件會同時改變。</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK，繼續顯示</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -513,7 +512,7 @@
   <string name="api_info_latest_date">最後包括的日期</string>
   <string name="api_info_attribution">貢獻者</string>
   <string name="api_info_mapsplit_source">MapSplit 唯讀來源</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <string name="tag_conflict_title">屬性已經變動了</string>
   <string name="tag_conflict_message">這個操作需要改變涉入元愫的屬性。</string>
   <!--Relation selection dialog-->
@@ -570,7 +569,6 @@
   <string name="tip_way_splitting">碰觸高亮度呈現的節點來決定分割位置，長按則會允許你選擇那個部分會在接下來的步驟成為新的路徑。</string>
   <string name="tip_closed_way_splitting">封閉路徑必須分割為兩部分，碰觸高度度呈現的節點來決定第一個分割位置，接下來則會詢問第二個位置。</string>
   <string name="tip_disambiguation_menu">當有多個 OSM 元素或其他物件相當靠近彼此，或是元素是關聯的成員，消歧義的選單就會出現。你可以從清單選擇精確的元素。&lt;p&gt; 如果已經有元素被選取則會高亮度顯示。</string>
-  <string name="tip_file_import">在運行 Android 10 或者之後版本的裝置上，你必須複製檔案才會有完整權限。複製的檔案位於  &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;.，如果需要你可以刪除原檔只需要保留複製版本。</string>
   <string name="tip_wms_tile_size">WMS 伺服器能夠支援大於 256x256 大小的圖磚，考慮使用 512x512 的更有效設定。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
@@ -1163,6 +1161,7 @@
   <string name="actionmode_reselect_first_segment">重新選擇第一個片段</string>
   <string name="actionmode_split_way">分割路徑</string>
   <string name="actionmode_split_closed_way">分割封閉路徑</string>
+  <string name="actionmode_rotate">旋轉</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">選取第一個節點</string>
   <string name="actionmode_closed_way_split_2">選取第二個節點</string>
@@ -1184,7 +1183,6 @@
   <plurals name="actionmode_object_count">
     <item quantity="other">%1$d 物件</item>
   </plurals>
-  <string name="actionmode_rotate">旋轉</string>
   <string name="menu_snap">拆斷</string>
   <string name="menu_follow_way">跟隨的路線</string>
   <string name="select_follow_way">選擇跟隨的路線</string>
@@ -1296,7 +1294,6 @@
   <string name="config_enableAntiAliasing_title">啟用反鋸齒</string>
   <string name="config_enableAntiAliasing_summary">使線條更滑順。</string>
   <string name="config_enableHwAcceleration_title">啟用硬體加速</string>
-  <string name="config_enableHwAcceleration_summary">如果支援的話，允許使用硬體加速，也許目前設定並沒有效果。</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的道路。</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -1374,10 +1371,11 @@
   <string name="config_minCircleNodes_current">%1$d節點</string>
   <string name="config_maxCircleSegment_title">圓圈片段的最大距離</string>
   <string name="config_maxCircleSegment_summary">圓圈節點的最大距離。</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d公尺</string>
+  <string name="config_maxCircleSegment_current">%1$d公尺</string>
   <string name="config_minCircleSegment_title">圓圈片段的最小長度</string>
   <string name="config_minCircleSegment_summary">圓圈節點的最小距離。</string>
-  <string name="config_minCircleSegmentcurrent">%1$d公尺</string>
+  <string name="config_minCircleSegment_current">%1$d公尺</string>
+  <string name="config_replaceTolerance_current">%1$d公尺</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
   <string name="config_category_auto_download_summary">資料和任務自動下載的設定</string>
@@ -1431,7 +1429,6 @@
   <string name="config_category_server">伺服器設定</string>
   <string name="config_category_server_summary">OSM API 和其他伺服器設定。</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">您可以在此設定非標準的 API 網址。通常不應該改變！</string>
   <string name="config_loginbutton_title">使用者帳號</string>
   <string name="config_username_summary">如果您不使用 OAuth，才要設定上傳 OSM 資料用的帳號。帳號可在這申請 https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">偏移伺服器</string>

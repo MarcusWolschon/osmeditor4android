@@ -16,7 +16,6 @@
   <string name="transfer_download_current_download">Verwerp &amp; download</string>
   <string name="transfer_download_current_back">Terug (doe niets)</string>
   <string name="upload_problem_title">Kon niet uploaden</string>
-  <string name="upload_problem_message">Sommige of alle gegevens zijn niet geüpload. Probeer het later opnieuw.</string>
   <string name="bad_request_message">De API antwoordde met een fout, sla je gegevens op en rapporteer de fout:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Uploadconflict</string>
@@ -72,7 +71,6 @@
   <string name="invalid_bounding_box_title">Ongeldig bereik</string>
   <string name="invalid_bounding_box_message">Het geselecteerde gebied voldoet niet aan API-beperkingen, kies alsjeblieft een andere.</string>
   <string name="bounding_box_too_large_title">Downloadgebied te groot</string>
-  <string name="bounding_box_too_large_message">Het gebied dat je probeert te downloaden is te groot of bevat te veel gegevens.\n\nZoom alsjeblieft verder in en probeer het opnieuw.</string>
   <string name="api_offline_title">API offline</string>
   <string name="api_offline_message">De API is op dit moment offline, geen gegevens kunnen opgehaald of geschreven worden.</string>
   <string name="out_of_memory_title">Geen geheugen meer</string>
@@ -237,6 +235,7 @@
   <string name="toast_todo_already_in_list">Element is al in deze takenlijst</string>
   <string name="toast_no_open_todos">Geen open taken</string>
   <string name="toast_no_todos_in_list">Geen taken in de geselecteerde lijst</string>
+  <string name="save_changes_title">Wijzigingen opslaan?</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Let op!</string>
   <string name="unsaved_data_message">Je niet opgeslagen wijzigingen worden verworpen als je verder gaat.</string>
@@ -379,6 +378,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Deze actie beïnvloedt gefilterde gekoppelde objecten!</string>
   <string name="attached_object_warning_message">Het gewijzigde object is gekoppeld met verborgen elementen die mee zullen wijzigen.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, blijf weergeven</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -517,7 +517,7 @@
   <string name="api_info_latest_date">Laatste inbegrepen datum</string>
   <string name="api_info_attribution">Attributie</string>
   <string name="api_info_mapsplit_source">MapSplit alleen-lezen bron</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <string name="tag_conflict_title">Eigenschappen gewijzigd</string>
   <string name="tag_conflict_message">De operatie vereist het wijzigen van eigenschappen van de betrokken elementen.</string>
   <!--Relation selection dialog-->
@@ -540,6 +540,9 @@
   <string name="undo_location_undo_anyway">Maak alsnog ongedaan</string>
   <string name="undo_location_zoom">Zoom naar locatie, maak dan ongedaan</string>
   <!--Value widget dialogs-->
+  <string name="compass_widget_usage_with_additional">Select een waarde hierboven en richt dan je apparaat in de richting die je wilt opnemen, of sleep het scherm naar de gewenste waarde</string>
+  <string name="compass_widget_usage">Richt je apparaat in de richting die je wilt opnemen, of sleep het scherm naar de gewenste waarde</string>
+  <string name="integer_widget_usage_with_additional">Deselecteer een waarde hierboven om een getal te kunnen selecteren</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Stuur op met je OpenStreetMap weergavenaam</string>
   <string name="feedback_displayname_hint">OpenStreetMap weergavenaam is nog niet opgehaald</string>
@@ -571,7 +574,7 @@
   <string name="tip_way_splitting">Tik een gemarkeerde knoop aan, om de positie te bepalen voor het splitsen. Een lange tik laat je het deel van de weg selecteren dat zal worden gebruikt voor de volgende stap.</string>
   <string name="tip_closed_way_splitting">Een gesloten weg moet op twee plaatsen worden gesplitst. Tik een gemarkeerde knoop aan om de 1ste positie te bepalen om te splitsen. De volgende stap laat je de 2e positie bepalen.</string>
   <string name="tip_disambiguation_menu">Wanneer meerdere OSM elementen of andere objecten erg dicht bij elkaar liggen of elementen zijn onderdelen van relaties, zal het ondescheidingsmenu worden getoond. Je kunt dan het specifieke element uit de lijst selecteren.&lt;p&gt;Als een element al geselecteerd is, wordt het gemarkeerd.</string>
-  <string name="tip_file_import">Op apparaten die Android 10 of later draaien, moeten we bestanden kopiëren om ze volledig te kunnen gebruiken. De kopieën worden in  &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt; opgeslagen. Zo nodig kunnen de originelen worden verwijderd, en alleen de kopieën worden bewaard.</string>
+  <string name="tip_wms_tile_size">WMS servers kunnen tegels groter dan 256x256 ondersteunen, overweeg 512x512 voor een efficiëntere configuratie</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -627,6 +630,7 @@
   <string name="toast_photo_failed">Foto nemen is mislukt. Zijn locatiegegevens ingeschakeld in de foto-app?</string>
   <string name="toast_download_failed">Downloaden is mislukt met foutcode %1$d, bericht %2$s</string>
   <string name="toast_note_reopened">Notitie heropend</string>
+  <string name="toast_untrusted_certificate">Niet vertrouwd certificaat\n%1$s</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Ongeclassifiseerde weg</string>
   <string name="toast_noname">Straat heeft geen naam of referentie</string>
@@ -636,6 +640,7 @@
   <string name="toast_untagged_element">Element zonder tags</string>
   <string name="toast_unconnected_end_node">Knoop ligt dicht bij een element waarmee het verbonden zou kunnen zijn</string>
   <string name="toast_degenerate_way">Onvolwaardige weg</string>
+  <string name="toast_degenerate_way_with_info">Ongeldige weg \"%1$s\"</string>
   <string name="toast_wrong_element_type">Non-standaard elementtype: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">Probeer nogmaals te uploaden na OAuth toegang tot je OSM accout te hebben gegeven.</string>
@@ -648,6 +653,11 @@
   <string name="toast_timeout">Timeout van server</string>
   <string name="coordinates_out_of_range">Lengtegraad moet tussen -180° en +180° liggen, breedtegraad tussen -85° en 85°</string>
   <string name="toast_nothing_found">Niks gevonden</string>
+  <string name="toast_layer_statesave_failed">Kon huidige staat niet opslaan voor laag %1$s!</string>
+  <string name="toast_task_layer_statesave_failed">Kon status van de huidige takenlaag niet opslaan!</string>
+  <string name="toast_task_storage_statesave_failed">Kon de huidige takenstatus niet opslaan!</string>
+  <string name="toast_data_statesave_failed">Kon huidige statusgegevens niet opslaan!\nDit is een onherstelbare fout: sluit af en gebruik een automatisch opgeslagen bestand als je niet-opgeslagen wijzigingen had.</string>
+  <string name="toast_data_stateload_failed">Kon statusgegevens niet inladen!\nHet bestand was corrupt of van een verschillende versie.\nAls je niet-opgeslagen wijzigingen had kan je proberen te herstellen met een automatisch opgeslagen .ocs bestand.</string>
   <string name="toast_missing_filemanager">Installeer een bestandsbeheerder.</string>
   <string name="toast_outside_of_download">Download meer data om dit gebied aan te passen.</string>
   <string name="toast_file_not_found">%1$s niet gevonden.</string>
@@ -780,6 +790,11 @@
   <string name="toast_error_loading_egm">Fout tijdens laden van EGM %1$s</string>
   <string name="toast_querying_wms_server_failed">Opvragen bij WMS server is mislukt: %1$s</string>
   <string name="toast_note_not_found">Notitie #%1$d niet gevonden</string>
+  <string name="toast_pressure_calibration">Nieuwe hoogte %1$fm\nHuidige druk %2$fhPa\nEikdruk %3$fhPa\"</string>
+  <string name="toast_no_compass">Apparaat heeft geen compas</string>
+  <string name="toast_no_roles_found">Geen rollen gevonden, alle elementen kunnen worden geselecteerd</string>
+  <string name="toast_no_preset_found">Geen passende voorkeuze gevonden, alle elementen kunnen worden geselecteerd</string>
+  <string name="toast_undeleting_all_members">Verwijderen van alle relatieleden ongedaan maken met dit element</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit bronnen moeten minimum en maximum zoom hebben gezet</string>
   <string name="error_pbf_no_version">Versie-informatie ontbreekt in PBF bestand</string>
@@ -862,6 +877,7 @@
   <string name="tag_dialog_value_hint">Tik voor waarden</string>
   <string name="tag_action_tag_title">Tag(s) geselecteerd</string>
   <string name="tag_action_members_title">Lid/Leden geselecteerd</string>
+  <string name="tag_action_parents_title">Bovenliggende(n) geselecteerd</string>
   <string name="tag_additional_properties">Extra eigenschappen</string>
   <string name="tag_details">Details</string>
   <string name="tag_not_set">Niet ingesteld</string>
@@ -892,6 +908,8 @@
   <string name="tag_form_unknown_element">Onbekend element (geen voorkeuze gevonden)</string>
   <string name="tag_form_untagged_element">Element zonder tags</string>
   <!--preset item menu in preset MRU-->
+  <string name="apply_with_last_values">Pas toe met laatste waarden</string>
+  <string name="apply_with_optional_tags">Pas toe met optionele tags</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Aangepaste voorkeuze aanmaken</string>
   <string name="create_preset_title">Aangepaste voorkeuze naam</string>
@@ -1043,6 +1061,7 @@
   <string name="menu_upload_elements">Upload elementen</string>
   <string name="menu_todo">Taak...</string>
   <string name="menu_todo_close_and_next">Sluit en ga naar volgende</string>
+  <string name="menu_todo_skip_and_next">Sla over en ga naar volgende</string>
   <string name="menu_todo_close_all_tasks">Sluit alle taken</string>
   <string name="menu_add_to_todo">Voeg toe aan takenlijst...</string>
   <string name="menu_set_name">Stel naam in</string>
@@ -1091,6 +1110,11 @@
   <string name="menu_layers_configure">Configureer...</string>
   <string name="menu_layers_background_align">Luchtfoto\'s uitlijnen...</string>
   <string name="wms_hint">%1$s [wms]</string>
+  <string name="menu_layers_convert_geojson_todo">Maak Taken van GeoJSON objecten...</string>
+  <string name="geojson_todo_title">Maak Taken van GeoJSON objecten</string>
+  <string name="geojson_todo_default_conversion">Standaardconversie</string>
+  <string name="geojson_todo_custom_conversion">Eigen conversie...</string>
+  <string name="rhino_exception">&lt;br&gt;Fout op regel %1$d, kolom %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Pas opgeslagen verplaatsing op luchtfotografie toe </string>
   <string name="menu_tools_background_contrast">Contrast</string>
@@ -1145,6 +1169,7 @@
   <string name="actionmode_reselect_first_segment">Herselecteer eerste segment</string>
   <string name="actionmode_split_way">Splits weg</string>
   <string name="actionmode_split_closed_way">Splits gesloten weg</string>
+  <string name="actionmode_rotate">Draai</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Selecteer 1ste knoop</string>
   <string name="actionmode_closed_way_split_2">Selecteer 2e knoop</string>
@@ -1167,7 +1192,6 @@
     <item quantity="one">1 object</item>
     <item quantity="other">%1$d objecten</item>
   </plurals>
-  <string name="actionmode_rotate">Draai</string>
   <string name="menu_snap">Uitlijnen</string>
   <string name="menu_follow_way">Volg weg</string>
   <string name="select_follow_way">Selecteer weg om te volgen</string>
@@ -1279,7 +1303,6 @@
   <string name="config_enableAntiAliasing_title">Zet anti-aliasing aan</string>
   <string name="config_enableAntiAliasing_summary">Maakt de lijnen gladder.</string>
   <string name="config_enableHwAcceleration_title">Zet hardware versnelling aan</string>
-  <string name="config_enableHwAcceleration_summary">Staat het gebruik van hardware versnelling toe als het wordt ondersteund, momenteel heeft deze instelling geen effect.</string>
   <string name="config_maxStrokeWidth_title">Maximale lijndikte</string>
   <string name="config_maxStrokeWidth_summary">Teken geen weg dikker dan dit</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -1308,6 +1331,8 @@
   <string name="config_longStringLimit_current">%1$d</string>
   <string name="config_zoomWithKeys_title">Gebruik volumeknoppen om te zoomen</string>
   <string name="config_zoomWithKeys_summary">Sta toe om de volumeknoppen te gebruiken om in en uit te zoomen.</string>
+  <string name="config_poi_keys_title">Weergave dichtbijzijnde interessante punten</string>
+  <string name="config_poi_keys_summary">Stel de sleutels in voor het tonen van dichtbijzijnde interessante punten </string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Gegevens en wijzigen instellingen</string>
   <string name="config_category_editing_summary">Auto-download, opslaan en notificatieinstellingen</string>
@@ -1355,10 +1380,11 @@
   <string name="config_minCircleNodes_current">%1$d knopen</string>
   <string name="config_maxCircleSegment_title">Maximale lengte cirkelsegment</string>
   <string name="config_maxCircleSegment_summary">Maximale afstand tussen twee cirkelknopen.</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d meter</string>
+  <string name="config_maxCircleSegment_current">%1$d meter</string>
   <string name="config_minCircleSegment_title">Minimale lengte cirkelsegment</string>
   <string name="config_minCircleSegment_summary">Minimale afstand tussen twee cirkelknopen.</string>
-  <string name="config_minCircleSegmentcurrent">%1$d meter</string>
+  <string name="config_minCircleSegment_current">%1$d meter</string>
+  <string name="config_replaceTolerance_current">%1$d meter</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-download instellingen</string>
   <string name="config_category_auto_download_summary">Instellingen voor het automatisch downloaden van gegevens en taken</string>
@@ -1412,7 +1438,6 @@
   <string name="config_category_server">Serverinstellingen </string>
   <string name="config_category_server_summary">OSM API en configuratie van andere servers.</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">Je kan een niet-standaard API URL instellen. Dit hoeft normaal gesproken niet te worden aangepast!</string>
   <string name="config_loginbutton_title">Gebruikersaccount</string>
   <string name="config_username_summary">Je hebt alleen configuratie nodig om OSM gegevens te uploaden, wanneer geen OAuth wordt gebruikt. Registreer een account op https://www.openstreetmap.org/user/new.</string>
   <string name="config_offsetServer_title">Verplaatsing server</string>
@@ -1472,6 +1497,8 @@
   <string name="config_voiceCommandsEnabled_summary">Activeer spraakcommando-ondersteuning</string>
   <string name="config_splitWindowForPropertyEditor_summary">Schakel gedeelde eigenschappeneditor in voor een los scherm, als beschikbaar.</string>
   <string name="config_splitWindowForPropertyEditor_title">Schakel gedeelde eigenschappeneditor in</string>
+  <string name="config_newTaskForPropertyEditor_summary">Stel FLAG_ACTIVITY_NEW_TASK in wanneer de eigenschappen editor wordt gestart. Dit kan het gedrag van sommige starters verbeteren wanneer de app wordt hervat.</string>
+  <string name="config_newTaskForPropertyEditor_title">Gebruik \"nieuwe taak\" modus voor de eigenschappen editor</string>
   <!---->
   <string name="manage_apis">Beheer APIs</string>
   <string name="config_api_url_title">API URL</string>
@@ -1558,6 +1585,7 @@
   <string name="undo_action_move_tags">Verplaats tags naar Relatie</string>
   <string name="undo_action_cut">Knippen</string>
   <string name="undo_action_paste">Plakken</string>
+  <string name="undo_action_rotate">Rotatie</string>
   <string name="undo_action_orthogonalize">Weg vierkant maken</string>
   <string name="undo_action_circulize">Schikken in cirkel</string>
   <string name="undo_action_fix_conflict">Conflict oplossing</string>

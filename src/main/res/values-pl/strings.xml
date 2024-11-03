@@ -16,7 +16,6 @@
   <string name="transfer_download_current_download">Odrzuć i pobierz</string>
   <string name="transfer_download_current_back">Wróć (nic nie rób)</string>
   <string name="upload_problem_title">Nie można przesłać</string>
-  <string name="upload_problem_message">Niektóre lub wszystkie dane nie zostały wysłane. Spróbuj wysłać ponownie później.</string>
   <string name="bad_request_message">API OSM wysłało błędną odpowiedź, zapisz dane do pliku i zgłoś błąd: \n \n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Wystąpił konflikt podczas wysyłania danych</string>
@@ -63,7 +62,6 @@
   <string name="invalid_bounding_box_title">Niepoprawny obszar pobierania</string>
   <string name="invalid_bounding_box_message">Wyznaczony obszar nie mieści się w ograniczeniach narzuconych przez API, proszę wybrać inny.</string>
   <string name="bounding_box_too_large_title">Zbyt duży obszar pobierania</string>
-  <string name="bounding_box_too_large_message">Obszar, który próbujesz pobrać, jest za duży lub zawiera za dużo danych.\n\nPrzybliż widok i spróbuj ponownie.</string>
   <string name="api_offline_title">Brak połączenia z API</string>
   <string name="api_offline_message">API jest aktualnie niedostępne, żadne dane nie zostaną przetworzone ani zapisane.</string>
   <string name="out_of_memory_title">Brak pamięci</string>
@@ -315,6 +313,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Ta operacja zmienia obiekty ukryte przez filtry!</string>
   <string name="attached_object_warning_message">Zmieniony obiekt powiązany jest z ukrytymi elementami, które również się zmienią.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, nadal wyświetlaj</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -419,7 +418,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="api_info_latest_date">Data ostatniej aktualizacji</string>
   <string name="api_info_attribution">Przypisanie</string>
   <string name="api_info_mapsplit_source">Źródło MapSplit tylko do odczytu</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Nie ma odpowiedniej relacji w pobranych danych</string>
   <string name="select_route_title">Wybierz drogę</string>
@@ -911,6 +910,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="actionmode_newnoteselect">Wybrana nowa uwaga</string>
   <string name="actionmode_add_segment">Dodaj odcinek</string>
   <string name="actionmode_reselect_first_segment">Zaznacz ponownie pierwszy odcinek</string>
+  <string name="actionmode_rotate">Obróć</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_restriction">Dodaj nakaz/zakaz skrętu</string>
   <string name="actionmode_restriction_restart_from">Ponownie wybierz segment \"from\"</string>
@@ -929,7 +929,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
     <item quantity="many">%1$d obiektów</item>
     <item quantity="other">%1$d obiektów</item>
   </plurals>
-  <string name="actionmode_rotate">Obróć</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Dodaj węzeł</string>
   <string name="simple_add_node">Dotknij pozycję na ekranie</string>
@@ -1011,7 +1010,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="config_enableAntiAliasing_title">Włącz antyaliasing</string>
   <string name="config_enableAntiAliasing_summary">Wygładza widoczne linie</string>
   <string name="config_enableHwAcceleration_title">Włącz przyspieszenie sprzętowe</string>
-  <string name="config_enableHwAcceleration_summary">Zezwól na użycie przyspieszenia sprzętowego jeżeli jest wspierane, aktualnie ustawienie nie powoduje żadnych zmian.</string>
   <string name="config_maxStrokeWidth_title">Maksymalna szerokość linii</string>
   <string name="config_maxStrokeWidth_summary">Nie wyświetlaj linii grubszych niż.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -1052,8 +1050,9 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="config_autoformatPhoneNumbers_title">Automatyczny format numerów telefonów</string>
   <string name="config_autoformatPhoneNumbers_summary">Włącz automatyczne formatowanie numerów telefonów</string>
   <string name="config_maxOffsetDistance_current">%1$d metr(ów)</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d metr(ów)</string>
-  <string name="config_minCircleSegmentcurrent">%1$d metr(ów)</string>
+  <string name="config_maxCircleSegment_current">%1$d metr(ów)</string>
+  <string name="config_minCircleSegment_current">%1$d metr(ów)</string>
+  <string name="config_replaceTolerance_current">%1$d metr(ów)</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Ustawienia automatycznego pobierania</string>
   <string name="config_category_auto_download_summary">Ustawienia automatycznego pobierania danych i zadań</string>
@@ -1097,7 +1096,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="config_category_server">Ustawienia serwera</string>
   <string name="config_category_server_summary">Konfiguracja OSM API i innych serwerów.</string>
   <string name="config_apibutton_title">Adres API OpenStreetMap</string>
-  <string name="config_apibutton_summary">Możesz tu ustawić niestandardowy adres URL API. Zazwyczaj nie powinien być zmieniany!</string>
   <string name="config_loginbutton_title">Konto użytkownika</string>
   <string name="config_username_summary">Potrzebujesz konfiguracji do wysłania danych OSM tylko wtedy, gdy nie używasz OAuth. Załóż konto na https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">Serwer przesunięć</string>

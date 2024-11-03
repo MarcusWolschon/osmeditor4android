@@ -15,7 +15,6 @@
   <string name="transfer_download_current_download">تجاهل وتنزيل</string>
   <string name="transfer_download_current_back">العودة (لا تفعل أي شيء)</string>
   <string name="upload_problem_title">لا يمكن الرفع</string>
-  <string name="upload_problem_message">لم يتم رفع بعض أو كل البيانات. حاول مرة أخرى في وقت لاحق.</string>
   <string name="bad_request_message">استجاب API بخطأ، الرجاء حفظ البيانات الخاصة بك والإبلاغ عن المشكلة:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">تعارض الرفع</string>
@@ -48,7 +47,6 @@
   <string name="invalid_bounding_box_title">مربع حدود غير صالح</string>
   <string name="invalid_bounding_box_message">المنطقة المحددة لا تتوافق مع قيود API ، يرجى اختيار منطقة أخرى.</string>
   <string name="bounding_box_too_large_title">منطقة التنزيل كبيرة جدًا</string>
-  <string name="bounding_box_too_large_message">المنطقة التي تحاول تحميلها كبيرة جدا أو تحتوي على الكثير من البيانات.\n\nالرجاء تصغير المساحة المطلوبة للتحميل والمحاولة مرة أخرى.</string>
   <string name="api_offline_title">واجهة التطبيق البرمجية متعطلة ودون اتصال</string>
   <string name="api_offline_message">واجهة التطبيق البرمجية غير متصلة حاليًا ، ولا يمكن استرداد أي بيانات أو كتابتها.</string>
   <string name="out_of_memory_title">نفذت الذاكرة</string>
@@ -298,6 +296,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">تؤثر هذه العملية على العناصر المرتبطة والتي تم تصفيتها!</string>
   <string name="attached_object_warning_message">العنصر الذي تم تغييره متصل بالعناصر المخفية والتي ستتغير معه.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">حسنًا ، استمر في العرض</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -426,7 +425,7 @@
   <string name="api_info_latest_date">آخر تاريخ مشمول</string>
   <string name="api_info_attribution">الإسناد</string>
   <string name="api_info_mapsplit_source">قراءة المصدر فقط MapSplit</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <string name="tag_conflict_title">تغيرت الخصائص</string>
   <string name="tag_conflict_message">تتطلب هذه العملية تغيير خصائص العناصر ذات العلاقة.</string>
   <!--Relation selection dialog-->
@@ -1038,6 +1037,7 @@
   <string name="actionmode_reselect_first_segment">أعد تحديد الجزء الأول</string>
   <string name="actionmode_split_way">تقسيم الطريق</string>
   <string name="actionmode_split_closed_way">تقسيم طريق مغلق</string>
+  <string name="actionmode_rotate">تدوير</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">تحديد العقدة الأولى</string>
   <string name="actionmode_closed_way_split_2">تحديد العقدة الثانية</string>
@@ -1063,7 +1063,6 @@
     <item quantity="many">%1$d عنصر/عناصر</item>
     <item quantity="other">%1$d عنصر/عناصر</item>
   </plurals>
-  <string name="actionmode_rotate">تدوير</string>
   <string name="menu_snap">التقاط</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">أضف عقدة/نقطة</string>
@@ -1165,7 +1164,6 @@
   <string name="config_enableAntiAliasing_title">قم بتشغيل تجانس الحواف</string>
   <string name="config_enableAntiAliasing_summary">يجعل الخطوط أكثر سلاسة.</string>
   <string name="config_enableHwAcceleration_title">تفعيل تسريع الأجهزة</string>
-  <string name="config_enableHwAcceleration_summary">يسمح باستخدام تسريع الأجهزة إذا كان مدعوما في جهاز وإلا فإن هذا الإعداد ليس له أي تأثير.</string>
   <string name="config_maxStrokeWidth_title">أقصى عرض للخط</string>
   <string name="config_maxStrokeWidth_summary">لا ترسم طريق أكثر سمكاً من هذا.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -1224,8 +1222,9 @@
   <string name="config_maxOffsetDistance_title">أقصى مساحة تخزين لمعلومات إزاحة الصور</string>
   <string name="config_maxOffsetDistance_summary">سيتم تطبيق إزاحة الطبقة المخزنة محليًا إلى أقصى مساحة تلقائيًا.</string>
   <string name="config_maxOffsetDistance_current">%1$d متر (أمتار)</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d متر (أمتار)</string>
-  <string name="config_minCircleSegmentcurrent">%1$d متر (أمتار)</string>
+  <string name="config_maxCircleSegment_current">%1$d متر (أمتار)</string>
+  <string name="config_minCircleSegment_current">%1$d متر (أمتار)</string>
+  <string name="config_replaceTolerance_current">%1$d متر (أمتار)</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">إعدادات التنزيل التلقائي</string>
   <string name="config_category_auto_download_summary">إعدادات البيانات وتنزيل المهام تلقائيًا</string>
@@ -1276,7 +1275,6 @@
   <string name="config_category_server">اعدادات الخادم</string>
   <string name="config_category_server_summary">الواجة البرمجة لتطبيقات خريطة الشارع المفتوحة وتكوين الخوادم الأخرى.</string>
   <string name="config_apibutton_title">رابط الواجة البرمجة لتطبيقات خريطة الشارع المفتوحة</string>
-  <string name="config_apibutton_summary">يمكنك هنا تعيين عنوان URL غير قياسي لواجهة برمجة التطبيقات.  في العادة لا يجب تغييرها!</string>
   <string name="config_loginbutton_title">حساب المستخدم</string>
   <string name="config_username_summary">تحتاج فقط إلى التكوين لتحميل بيانات OSM إذا لم تكن تستخدم OAuth.  احصل على حساب على https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">خادم الإزاحة</string>

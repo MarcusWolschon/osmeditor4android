@@ -16,7 +16,7 @@
   <string name="transfer_download_current_download">Descartar e descarregar</string>
   <string name="transfer_download_current_back">Voltar (não fazer nada)</string>
   <string name="upload_problem_title">Não foi possível enviar</string>
-  <string name="upload_problem_message">Não foi possível enviar alguns ou todos os dados. Tente novamente mais tarde.</string>
+  <string name="upload_problem_message">Alguns ou todos os dados não foram carregados. Tente novamente mais tarde.</string>
   <string name="bad_request_message">A API respondeu com um erro, por favor guarde os seus dados e reporte o problema:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Conflito no envio</string>
@@ -72,7 +72,8 @@
   <string name="invalid_bounding_box_title">Caixa de limites inválida</string>
   <string name="invalid_bounding_box_message">A área selecionada não está conforme as restrições da API. Por favor escolha outra diferente.</string>
   <string name="bounding_box_too_large_title">A área para download é demasiado grande</string>
-  <string name="bounding_box_too_large_message">A área que está a tentar descarregar é demasiado grande ou contém demasiados dados.\n\nPor favor aproxime mais a visualização e tente novamente.</string>
+  <string name="bounding_box_too_large_message">A área que está a tentar descarregar é demasiado grande ou contém demasiados dados.
+        &lt;br&gt;&lt;br&gt;Amplie mais e tente novamente.</string>
   <string name="api_offline_title">API desligada</string>
   <string name="api_offline_message">A API não está disponível neste momento e não permite obter nem enviar dados.</string>
   <string name="out_of_memory_title">Memória esgotada</string>
@@ -93,6 +94,10 @@
   <string name="duplicate_tag_key_title">Chaves duplicadas</string>
   <string name="duplicate_tag_key_message">Adicionou a seguinte chave mais do que uma vez. Isto tem de ser resolvido antes de poder continuar:</string>
   <string name="autodownload_has_been_paused">O descarregamento automático foi colocado em pausa.</string>
+  <string name="upload_bounding_box_too_large_title">Área demasiado grande para ser enviada</string>
+  <string name="upload_bounding_box_too_large_message">A área que abrange as alterações que está a tentar enviar é demasiado grande.
+        &lt;br&gt;&lt;br&gt;Divida as suas alterações em vários conjuntos de alterações mais pequenos. 
+        Pode fazê-lo selecionando um subconjunto de elementos alterados e enviando-os separadamente.</string>
   <!---->
   <string name="select_file_picker_title">Selecione o seletor de ficheiros</string>
   <!--Newbie dialog-->
@@ -238,6 +243,7 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="toast_todo_already_in_list">O elemento já se encontra nesta lista de tarefas</string>
   <string name="toast_no_open_todos">Sem tarefas abertas</string>
   <string name="toast_no_todos_in_list">Sem tarefas abertas na lista selecionada</string>
+  <string name="save_changes_title">Guardar alterações?</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Atenção!</string>
   <string name="unsaved_data_message">Se continuar perderá as suas alterações por guardar.</string>
@@ -380,6 +386,7 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Esta operação afetará os filtros anexados aos objetos!</string>
   <string name="attached_object_warning_message">O objeto alterado está ligado a elementos ocultos que também serão alterados.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, continuar a mostrar</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -518,7 +525,7 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="api_info_latest_date">Última data de inclusão</string>
   <string name="api_info_attribution">Atribuição</string>
   <string name="api_info_mapsplit_source">Fonte MapSplit  de apenas leitura</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <string name="tag_conflict_title">Propriedades alteradas</string>
   <string name="tag_conflict_message">A operação exigiu a alteração das propriedades dos elementos envolvidos.</string>
   <!--Relation selection dialog-->
@@ -541,6 +548,9 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="undo_location_undo_anyway">Desfazer mesmo assim</string>
   <string name="undo_location_zoom">Enquadre a localização e, em seguida, desfaça</string>
   <!--Value widget dialogs-->
+  <string name="compass_widget_usage_with_additional">Desmarque qualquer valor acima e, em seguida, aponte o dispositivo na direção que pretende gravar ou arraste o visor para o valor pretendido</string>
+  <string name="compass_widget_usage">Aponte o seu dispositivo na direção em que pretende gravar ou arraste o visor para o valor que pretende</string>
+  <string name="integer_widget_usage_with_additional">Desmarque qualquer valor acima para utilizar o seletor de números</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Enviar com o seu nome visível do OpenStreetMap</string>
   <string name="feedback_displayname_hint">O seu nome visível do OpenStreetMap ainda não foi obtido</string>
@@ -573,6 +583,7 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="tip_closed_way_splitting">Uma linha fechada tem de ser dividida em dois sítios. Toque num nó realçado para determinar a 1ª posição de divisão, o passo seguinte pedir-lhe-á para selecionar a 2ª posição.</string>
   <string name="tip_disambiguation_menu">Quando vários elementos OSM ou outros objetos estão muito próximos uns dos outros ou os elementos são membros de relações, será apresentado o menu de desambiguação. Pode então selecionar o elemento específico da lista.&lt;p&gt;Se um elemento já estiver selecionado, será destacado.</string>
   <string name="tip_file_import">Nos dispositivos com Android 10 ou posterior, é necessário copiar os ficheiros para podermos aceder-lhes plenamente. As cópias estão localizadas em &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. Se necessário, pode eliminar os originais e manter apenas as cópias.</string>
+  <string name="tip_wms_tile_size">Os servidores WMS podem suportar tamanhos de mosaico maiores do que 256x256, considere a utilização de 512x512 para uma configuração mais eficiente.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -631,6 +642,7 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="toast_photo_failed">Falha ao tirar uma fotografia. Tem a geolocalização ativada na aplicação da câmara?</string>
   <string name="toast_download_failed">O descarregamento falhou com código de erro %1$d, mensagem %2$s</string>
   <string name="toast_note_reopened">Nota reaberta</string>
+  <string name="toast_untrusted_certificate">Certificado não fiável\n%1$s</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Estrada por verificar no terreno</string>
   <string name="toast_noname">Falta o nome ou a ref na estrada</string>
@@ -640,6 +652,7 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="toast_untagged_element">Elemento sem etiquetas</string>
   <string name="toast_unconnected_end_node">O nó está perto de um elemento ao qual poderia estar ligado.</string>
   <string name="toast_degenerate_way">Degenerar via</string>
+  <string name="toast_degenerate_way_with_info">Linha degenerada \"%1$s\"</string>
   <string name="toast_wrong_element_type">Tipo de elemento não-padrão: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">Tente enviar novamente após autorizar o acesso OAuth à sua conta no OpenStreetMap.</string>
@@ -652,6 +665,11 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="toast_timeout">O servidor excedeu o tempo limite</string>
   <string name="coordinates_out_of_range">A longitude deve estar entre -180º e +180º, a latitude entre -85º e +85º</string>
   <string name="toast_nothing_found">Não foi encontrado nada</string>
+  <string name="toast_layer_statesave_failed">Não foi possível guardar o estado atual da camada %1$s!</string>
+  <string name="toast_task_layer_statesave_failed">Não foi possível guardar o estado atual da camada de tarefas!</string>
+  <string name="toast_task_storage_statesave_failed">Não foi possível guardar o estado atual do armazenamento de tarefas!</string>
+  <string name="toast_data_statesave_failed">Não foi possível guardar os dados do estado atual!\nEste é um erro fatal: saia e utilize um ficheiro guardado automaticamente para recuperação se tiver alterações não guardadas.</string>
+  <string name="toast_data_stateload_failed">Não foi possível carregar os dados de estado!\nO ficheiro estava corrompido ou era de uma versão diferente.\nSe tiver alterações não guardadas, pode tentar recuperar utilizando um ficheiro .ocs guardado automaticamente.</string>
   <string name="toast_missing_filemanager">Por favor instale um gestor de ficheiros.</string>
   <string name="toast_outside_of_download">Descarregar mais dados para editar esta área.</string>
   <string name="toast_file_not_found">%1$s não encontrado.</string>
@@ -787,6 +805,11 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="toast_error_loading_egm">Erro ao carregar o EGM %1$s</string>
   <string name="toast_querying_wms_server_failed">Falha na consulta do servidor WMS: %1$s</string>
   <string name="toast_note_not_found">Nota #%1$d não encontrada</string>
+  <string name="toast_pressure_calibration">Nova altura %1$fm\nPressão atual  %2$fhPa\nPressão de referência %3$fhPa\"</string>
+  <string name="toast_no_compass">O dispositivo não tem bússola!</string>
+  <string name="toast_no_roles_found">Não foram encontradas funções, todos os elementos podem ser selecionados</string>
+  <string name="toast_no_preset_found">Não foi encontrado nenhum modelo de etiquetas correspondente, todos os elementos podem ser selecionados</string>
+  <string name="toast_undeleting_all_members">Anular a eliminação de todos os membros da relação com este elemento</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">As fontes MapSplit tem de ter a aproximação máxima e afastamento máximo definidos</string>
   <string name="error_pbf_no_version">Falta a informação sobre a versão no ficheiro PBF</string>
@@ -870,6 +893,7 @@ sem gravar</string>
   <string name="tag_dialog_value_hint">Carregar para obter valores</string>
   <string name="tag_action_tag_title">Etiquetas selecionadas</string>
   <string name="tag_action_members_title">Membros selecionados</string>
+  <string name="tag_action_parents_title">Pai(s) selecionado(s)</string>
   <string name="tag_additional_properties">Propriedades adicionais</string>
   <string name="tag_details">Detalhes</string>
   <string name="tag_not_set">Não definido</string>
@@ -900,6 +924,8 @@ sem gravar</string>
   <string name="tag_form_unknown_element">Elemento desconhecido (sem modelo de etiquetas)</string>
   <string name="tag_form_untagged_element">Elemento sem etiquetas</string>
   <!--preset item menu in preset MRU-->
+  <string name="apply_with_last_values">Aplicar com os últimos valores</string>
+  <string name="apply_with_optional_tags">Aplicar com etiquetas opcionais</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Criar modelo de etiquetas personalizado</string>
   <string name="create_preset_title">Nome do modelo de etiquetas personalizado</string>
@@ -1053,6 +1079,7 @@ há %3$s %4$s</string>
   <string name="menu_upload_elements">Enviar elementos</string>
   <string name="menu_todo">Tarefas a fazer…</string>
   <string name="menu_todo_close_and_next">Fechar e ir para o próximo</string>
+  <string name="menu_todo_skip_and_next">Saltar e ir para a próxima</string>
   <string name="menu_todo_close_all_tasks">Fechar todas as tarefas</string>
   <string name="menu_add_to_todo">Adicionar à lista de tarefas…</string>
   <string name="menu_set_name">Definir nome</string>
@@ -1101,6 +1128,11 @@ há %3$s %4$s</string>
   <string name="menu_layers_configure">Configurar…</string>
   <string name="menu_layers_background_align">Alinhar imagens aéreas…</string>
   <string name="wms_hint">%1$s [wms]</string>
+  <string name="menu_layers_convert_geojson_todo">Criar \"Todos\" (a fazer) a partir de objetos GeoJSON…</string>
+  <string name="geojson_todo_title">Criar \"Todos\" (a fazer) a partir de objetos GeoJSON</string>
+  <string name="geojson_todo_default_conversion">Conversão predefinida</string>
+  <string name="geojson_todo_custom_conversion">Conversão predefinida…</string>
+  <string name="rhino_exception">&lt;br&gt;Erro na linha %1$d, coluna %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar na camada o alinhamento guardado</string>
   <string name="menu_tools_background_contrast">Contraste</string>
@@ -1155,6 +1187,7 @@ há %3$s %4$s</string>
   <string name="actionmode_reselect_first_segment">Re-selecionar o primeiro segmento</string>
   <string name="actionmode_split_way">Dividir linha</string>
   <string name="actionmode_split_closed_way">Dividir linha fechada</string>
+  <string name="actionmode_rotate">Rodar</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Selecionar o 1º nó</string>
   <string name="actionmode_closed_way_split_2">Selecionar o 2º nó</string>
@@ -1178,7 +1211,6 @@ há %3$s %4$s</string>
     <item quantity="many">%1$d objetos</item>
     <item quantity="other">%1$d objetos</item>
   </plurals>
-  <string name="actionmode_rotate">Rodar</string>
   <string name="menu_snap">Atrair</string>
   <string name="menu_follow_way">Seguir linha</string>
   <string name="select_follow_way">Selecionar a linha a seguir</string>
@@ -1291,7 +1323,6 @@ há %3$s %4$s</string>
   <string name="config_enableAntiAliasing_title">Ativar suavização</string>
   <string name="config_enableAntiAliasing_summary">Torna as linhas mais suaves como anti-serrilhado.</string>
   <string name="config_enableHwAcceleration_title">Ativar aceleração por hardware</string>
-  <string name="config_enableHwAcceleration_summary">Permite a aceleração por hardware se e quando suportado. Definir isto atualmente não tem qualquer efeito.</string>
   <string name="config_maxStrokeWidth_title">Espessura máxima da linha</string>
   <string name="config_maxStrokeWidth_summary">Não desenhar uma linha mais larga que isto.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -1320,6 +1351,8 @@ há %3$s %4$s</string>
   <string name="config_longStringLimit_current">%1$d</string>
   <string name="config_zoomWithKeys_title">Utilizar as teclas de volume para fazer zoom</string>
   <string name="config_zoomWithKeys_summary">Permitir a utilização das teclas de volume para aumentar e diminuir o zoom.</string>
+  <string name="config_poi_keys_title">Visualização de POI nas proximidades</string>
+  <string name="config_poi_keys_summary">Definir as teclas utilizadas para a visualização de POIs próximos.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Configurações de dados e edição</string>
   <string name="config_category_editing_summary">Configurações de descarregamento automático, gravar e notificações.</string>
@@ -1367,10 +1400,11 @@ há %3$s %4$s</string>
   <string name="config_minCircleNodes_current">%1$d nós</string>
   <string name="config_maxCircleSegment_title">Comprimento máximo do segmento do círculo</string>
   <string name="config_maxCircleSegment_summary">Distância máxima entre 2 nós de círculo.</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d metro(s)</string>
+  <string name="config_maxCircleSegment_current">%1$d metro(s)</string>
   <string name="config_minCircleSegment_title">Comprimento mínimo do segmento de círculo</string>
   <string name="config_minCircleSegment_summary">Distância mínima entre 2 nós de círculo.</string>
-  <string name="config_minCircleSegmentcurrent">%1$d metro(s)</string>
+  <string name="config_minCircleSegment_current">%1$d metro(s)</string>
+  <string name="config_replaceTolerance_current">%1$d metro(s)</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Definições de descarregamento automático</string>
   <string name="config_category_auto_download_summary">Definições para o descarregamento automático de dados e tarefas</string>
@@ -1424,7 +1458,7 @@ há %3$s %4$s</string>
   <string name="config_category_server">Configurações do servidor</string>
   <string name="config_category_server_summary">API do OpenStreetMap e configuração de outros servidores.</string>
   <string name="config_apibutton_title">URL da API OpenStreetMap</string>
-  <string name="config_apibutton_summary">Pode definir aqui um URL da API do OpenStreetMap diferente do usual. Em geral isto não deve ser alterado!</string>
+  <string name="config_apibutton_summary">Configure o URL e o método de autenticação para a API do OSM que está a utilizar</string>
   <string name="config_loginbutton_title">Conta de utilizador</string>
   <string name="config_username_summary">Apenas necessita de configurar para enviar dados para o OpenStreetMap se não utilizar o OAuth. Crie uma conta em http://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">Servidor de alinhamentos</string>
@@ -1484,6 +1518,8 @@ há %3$s %4$s</string>
   <string name="config_voiceCommandsEnabled_summary">Ativar suporte de comandos de voz.</string>
   <string name="config_splitWindowForPropertyEditor_summary">Ativar a apresentação do editor de propriedades numa janela separada, se disponível.</string>
   <string name="config_splitWindowForPropertyEditor_title">Ativar o editor de propriedades de janela dividida</string>
+  <string name="config_newTaskForPropertyEditor_summary">Definir FLAG_ACTIVITY_NEW_TASK ao iniciar o editor de propriedades, o que pode melhorar o comportamento de certos lançadores ao retomar a aplicação.</string>
+  <string name="config_newTaskForPropertyEditor_title">Utilizar o modo “nova tarefa” para o editor de propriedades</string>
   <!---->
   <string name="manage_apis">Gerir APIs</string>
   <string name="config_api_url_title">URL da API</string>
@@ -1570,6 +1606,7 @@ há %3$s %4$s</string>
   <string name="undo_action_move_tags">Mover etiquetas para a relação</string>
   <string name="undo_action_cut">Cortar</string>
   <string name="undo_action_paste">Colar</string>
+  <string name="undo_action_rotate">Rotação</string>
   <string name="undo_action_orthogonalize">Esquadrar linha</string>
   <string name="undo_action_circulize">Organizar em círculo</string>
   <string name="undo_action_fix_conflict">Resolução de conflito</string>

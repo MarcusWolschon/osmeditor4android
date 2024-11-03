@@ -1,16 +1,16 @@
 _Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"_
 
-# Introdução ao Vespucci
+# Vespucci Увядзенне
 
 Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
 
-## Personalizando o Vespucci
+## Рэдагаванне з Vespucci
 
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
+У залежнасці ад памеру экрана і ўзросту вашай прылады дзеянні рэдагавання могуць быць даступныя непасрэдна праз значкі ў верхняй панэлі, праз выпадальнае меню справа ад верхняй панэлі, з ніжняй панэлі (калі ёсць) або праз клавішу меню.
 
 <a id="download"></a>
 
-### Baixando Dados OSM
+### Загрузка дадзеных OSM
 
 Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display eleven options:
 
@@ -26,19 +26,19 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
 * **File...** - saving and loading OSM data to/from on device files.
 * **Tasks...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Самы просты спосаб загрузіць даныя на прыладу - павялічыць і панарамаваць месца, якое вы хочаце адрэдагаваць, а затым выбраць «Спампаваць бягучы выгляд». Вы можаце маштабаваць з дапамогай жэстаў, кнопак маштабавання або кнопак рэгулявання гучнасці на прыладзе. Затым Vespucci павінен загрузіць даныя для бягучага выгляду. Для загрузкі даных на прыладу не патрабуецца аўтэнтыфікацыя.
 
 In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md) so that dimming is always active.
 
 If you need to use a non-standard OSM API entry, or use [offline data](https://vespucci.io/tutorials/offline/) in _MapSplit_ format you can add or change entries via the _Configure..._ entry for the data layer in the layer control.
 
-### Editando
+### Рэдагаванне
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Блакаванне, разблакіроўка, пераключэнне рэжымаў
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+Каб пазбегнуць выпадковых правак, Vespucci запускаецца ў «заблакіраваным» рэжыме, які дазваляе толькі маштабаванне і перамяшчэнне карты. Дакраніцеся да значка ![Заблакіравана](../images/locked.png), каб разблакіраваць экран. 
 
 A long press on the lock icon or the _Modes_ menu in the map display overflow menu will display a menu offering 4 options:
 
@@ -50,86 +50,86 @@ A long press on the lock icon or the _Modes_ menu in the map display overflow me
 
 If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to _Address_ and _Indoor_ mode.
 
-#### Single tap, double tap, and long press
+#### Адзін націск, двайны націск і доўгае націсканне
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+Па змаўчанні вузлы і шляхі, якія можна выбраць, маюць аранжавую вобласць вакол іх, якая прыблізна паказвае месца, дзе трэба дакрануцца, каб выбраць аб'ект. У вас ёсць тры варыянты:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md). This is only enabled if "Simple mode" is deactivated.
+* Адно націсканне: выбар аб'екта.
+* Ізаляваны вузел/шлях адразу вылучаецца.
+* Аднак, калі вы паспрабуеце выбраць аб'ект і Vespucci вызначыць, што выбар можа азначаць некалькі аб'ектаў, ён прадставіць меню выбару, якое дазволіць вам выбраць аб'ект, які вы хочаце выбраць.
+* Выбраныя аб'екты вылучаюцца жоўтым колерам.
+* Для атрымання дадатковай інфармацыі гл. [Выбраны вузел](Node%20selected.md), [Выбраны шлях](Way%20selected.md) і [Выбраная сувязь](Relation%20selected.md).
+* Двойчы націск: запусціце [рэжым множнага выбару] (Multiselect.md)
+* Доўгі націск: стварае "крыжык", што дазваляе дадаваць вузлы, глядзіце ніжэй і [Стварэнне новых аб'ектаў](Creating%20new%20objects.md). Гэта ўключана, толькі калі «Просты рэжым» адключаны.
 
-É uma boa estratégia ampliar o zoom caso edite uma área densa.
+Гэта добрая стратэгія - павялічваць маштаб, калі вы спрабуеце рэдагаваць вобласць з высокай шчыльнасцю.
 
-Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+У Vespucci ёсць добрая сістэма "адмяніць/паўтарыць", так што не бойцеся эксперыментаваць на сваёй прыладзе, аднак, калі ласка, не загружайце і не захоўвайце чыстыя тэставыя дадзеныя.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### Выбар / адмена выбару (адно націсканне і «меню выбару»)
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Дакраніцеся да аб'екта, каб выбраць і вылучыць яго. Дакрананне да экрана ў пустой вобласці здыме выбар. Калі вы выбралі аб'ект і вам трэба выбраць што-небудзь яшчэ, проста дакраніцеся да аб'екта, пра які ідзе гаворка, не трэба спачатку здымаць выбар. Двойчы націск на аб'ект запускае [рэжым Multiselect](Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Звярніце ўвагу, што калі вы паспрабуеце выбраць аб'ект і Vespucci вызначыць, што выбар можа азначаць некалькі аб'ектаў (напрыклад, вузел на дарозе або іншыя аб'екты, якія перакрываюцца), адкрыецца меню выбару: націсніце на аб'ект, які вы хочаце выбраць, і аб'ект будзе выбраны. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+Выбраныя аб'екты пазначаны тонкай жоўтай рамкай. Жоўтую мяжу можа быць цяжка заўважыць у залежнасці ад фону карты і каэфіцыента маштабавання. Пасля таго, як выбар будзе зроблены, вы ўбачыце апавяшчэнне, якое пацвярджае выбар.
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+Пасля завяршэння выбару вы ўбачыце (альбо ў выглядзе кнопак, альбо ў выглядзе пунктаў меню) спіс падтрымліваемых аперацый для абранага аб'екта: Для атрымання дадатковай інфармацыі гл.  [Выбраная кропка](Node%20selected.md), Выбраная лінія](Way%20selected.md) і [Выбраныя адносіны](Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Выбраныя аб'екты: рэдагаванне тэгаў
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+Другі дотык да абранага аб'екта адкрывае рэдактар ​​тэгаў, і вы можаце рэдагаваць тэгі, звязаныя з аб'ектам.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+Звярніце ўвагу, што для аб'ектаў, якія перакрываюцца (напрыклад, вузел на шляху), меню выбару вяртаецца другі раз. Выбар таго ж аб'екта выклікае рэдактар ​​тэгаў; выбар іншага аб'екта проста выбірае іншы аб'ект.
 
-#### Selected objects: Moving a Node or Way
+#### Выбраныя аб'екты: перасоўванне кропкі або лініі
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
+Пасля таго, як вы выбралі аб'ект, яго можна перамяшчаць. Звярніце ўвагу, што аб'екты можна перацягваць/перамяшчаць, толькі калі яны выбраны. Проста перацягніце побач (г.зн. у зоне допуску) выбраны аб'ект, каб перамясціць яго. Калі вы вылучыце вялікую вобласць перацягвання ў [наладах](Preferences.md), вы атрымаеце вялікую вобласць вакол абранага вузла, што палягчае размяшчэнне аб'екта. 
 
-#### Incluindo um novo Nó/Ponto ou Via 
+#### Даданне новага вузла/кропкі або лініі 
 
-On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+Пры першым запуску праграма запускаецца ў «Простым рэжыме», гэта можна змяніць у галоўным меню, зняўшы адпаведны сцяжок.
 
-##### Simple mode
+##### Просты рэжым
 
-Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
+Націск на вялікую зялёную плаваючую кнопку на экране карты адкрые меню. Пасля таго, як вы выбралі адзін з элементаў, вам будзе прапанавана націснуць на экран у месцы, дзе вы хочаце стварыць аб'ект, панарамаванне і маштабаванне працягваюць працаваць, калі вам трэба наладзіць выгляд карты. 
 
 See [Creating new objects in simple actions mode](Simple%20actions.md) for more information. Simple mode os the default for new installs.
 
-##### Advanced (long press) mode
- 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), touch away from existing objects.
-* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+##### Пашыраны (доўгі націск) рэжым
 
-Once you can see the crosshair symbol, you have these options:
+Доўгі націск на тое месца, дзе вы хочаце размясціць вузел, або пачатак лініі. Вы ўбачыце чорны сімвал «крыжык».
+* Калі вы хочаце стварыць новы вузел (не звязаны з аб'ектам), дакраніцеся да існуючых аб'ектаў.
+* Калі вы хочаце правіць лінію, дакраніцеся да «зоны допуску» лініі (або вузла на лініі). Зона допуску пазначаецца ўчасткамі вакол вузла або лініі.
 
-* _Normal press in the same place._
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+Калі вы ўбачыце сімвал крыжыка, у вас ёсць наступныя варыянты:
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
+* _Звычайны націск там жа._
+* Калі крыжык знаходзіцца не побач з вузлом, паўторнае дакрананне да таго ж месца стварае новы вузел. Калі вы знаходзіцеся паблізу лініі (але не побач з вузлом), новы вузел будзе на лініі (і падлучаны да лініі).
+* Калі перакрыжаванне знаходзіцца побач з вузлом (г.зн. у зоне допуску вузла), дакрананне да таго ж месца проста выбірае вузел (і адкрываецца рэдактар ​​тэгаў). Новы вузел не ствараецца. Дзеянне такое ж, як і пры выбары вышэй).
+* _Звычайны дотык у іншым месцы._ Дакрананне да іншага месца (па-за зонай допуску прыцэла) дадае сегмент лініі ад зыходнага становішча да бягучага. Калі прыцэл быў побач з шляхам або вузлом, новы сегмент будзе злучаны з гэтым вузлом або шляхам.
 
-You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
+Проста дакраніцеся да экрана, дзе вы хочаце дадаць дадатковыя вузлы шляху. Каб скончыць, двойчы дакраніцеся да апошняга вузла. Калі канчатковы вузел знаходзіцца на шляху або вузле, сегмент будзе падлучаны да шляху або вузла аўтаматычна. 
+
+Вы таксама можаце выкарыстоўваць пункт меню: Глядзіце [Стварэнне новых аб'ектаў](Creating%20new%20objects.md) для атрымання дадатковай інфармацыі.
 
 #### Adding an Area
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+У цяперашні час OpenStreetMap не мае тыпу аб'екта "вобласць", у адрозненне ад іншых сістэм геаданых. Рэдактар ​​"iD" спрабуе стварыць абстракцыю вобласці з асноўных элементаў OSM, якая працуе добра ў некаторых абставінах, у іншых - не. У цяперашні час Vespucci не спрабуе зрабіць што-небудзь падобнае, таму вам трэба ведаць крыху аб тым, як прадстаўлены вобласці:
 
 * _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
 * _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
 * _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
-#### Aprimorando a Geometria da Via
+#### Выпраўленне геаметрыі ліній
 
-If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
+Калі вы дастаткова наблізіце абраную лінію, вы ўбачыце невялікі "х" пасярэдзіне досыць доўгіх адрэзкаў лініі. Перацягванне "x" створыць вузел на лініі ў гэтым месцы. Заўвага: каб пазбегнуць выпадковага стварэння вузлоў, вобласць допуску для гэтай аперацыі даволі малая.
 
-#### Recortar, Copiar e Colar
+#### Выразаць, капіяваць і ўставіць
 
 You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
 
-#### Adicionando Endereços Eficientemente
+#### Efficiently Adding Addresses
 
 Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
 
@@ -145,7 +145,7 @@ House number prediction typically requires at least two house numbers on each si
 
 Consider using this with one of the [Auto-download](#download) modes.  
 
-#### Adicionando Restrições de Curva
+#### Adding Turn Restrictions
 
 Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
 
@@ -159,9 +159,9 @@ Vespucci has a fast way to add turn restrictions. if necessary it will split way
 
 When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
-#### Salvando Suas Alterações
+### Saving Your Changes
 
-*(requer conectividade de rede)*
+*(requires network connectivity)*
 
 Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 
@@ -171,7 +171,7 @@ Authorizing Vespucci to access your account on your behalf requires you to one t
 
 If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
 
-#### Resolvendo conflitos nos uploads
+#### Resolving conflicts on uploads
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
 
@@ -183,7 +183,7 @@ More information on this and other available functionality on the main display c
 
 ## Using GPS and GPX tracks
 
-With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
+Са стандартнымі наладамі Vespucci паспрабуе ўключыць GPS (і іншыя спадарожнікавыя сістэмы навігацыі) і вернецца да вызначэння месцазнаходжання праз так званае "сеткавае месцазнаходжанне", калі гэта немагчыма. Такія паводзіны мяркуюць, што ваша прылада Android пры звычайным выкарыстанні наладжана на выкарыстанне толькі згенераваных месцазнаходжанняў GPX (каб пазбегнуць адсочвання), гэта значыць у вас выключана эўфемістычна названая опцыя «Палепшыць дакладнасць месцазнаходжання». Калі вы жадаеце ўключыць гэту опцыю, але жадаеце пазбегнуць вяртання Vespucci да «сеткавага месцазнаходжання», вам варта адключыць адпаведную опцыю ў [Дадатковыя налады](Advanced%20preferences.md). 
 
 Touching the ![GPS](../images/menu_gps.png) button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
 
@@ -226,7 +226,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 <a id="c-mode"></a>
 
-## Modo-C
+## C-Mode
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
@@ -266,11 +266,11 @@ This check works by first determining the matching preset and then checking if *
 
 The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
 
-### Filtro baseado em modelos de etiquetas
+### Preset based filter
 
 An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
 
-## Personalizando o Vespucci
+## Customizing Vespucci
 
 Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
@@ -294,14 +294,14 @@ Available layer types:
 
 More information can be found in the section on the [map display](Main%20map%20display.md).
 
-#### Preferências
+#### Preferences
 
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
 The full description can be found here [Preferences](Preferences.md)
 
-Preferências avançadas
+#### Advanced preferences
 
 * Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In _Auto_ mode we try to determine automatically if using full screen mode is sensible or not, setting it to _Force_ or _Never_ skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the _Auto_ mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: _Auto_.  
 * Node icons. Default: _on_.

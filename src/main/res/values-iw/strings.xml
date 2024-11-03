@@ -16,7 +16,6 @@
   <string name="transfer_download_current_download">התעלמות והורדה</string>
   <string name="transfer_download_current_back">חזרה (לא לעשות כלום)</string>
   <string name="upload_problem_title">לא ניתן להעלות</string>
-  <string name="upload_problem_message">חלק מהנתונים או כולם לא הועלו. כדאי לנסות שוב מאוחר יותר.</string>
   <string name="bad_request_message">תגובת ה־API הייתה שגיאה, נא לשמור את הנתונים שלך ולדווח על התקלה:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">סתירת העלאה</string>
@@ -48,7 +47,6 @@
   <string name="invalid_bounding_box_title">תיבה תוחמת שגויה</string>
   <string name="invalid_bounding_box_message">האזור הנבחר לא תואם למגבלות ה־API, נא לבחור באזור אחר.</string>
   <string name="bounding_box_too_large_title">אזור ההורדה גדול מדי</string>
-  <string name="bounding_box_too_large_message">האזור שניסית להוריד גדול מדי או שהוא מכיל יותר מדי נתונים.\n\nנא להתקרב יותר ולנסות שוב.</string>
   <string name="api_offline_title">API בלתי מקוון</string>
   <string name="api_offline_message">ה־API אינו זמין כרגע, לא ניתן לקבל או לכתוב נתונים.</string>
   <string name="out_of_memory_title">אין מספיק זיכרון</string>
@@ -68,11 +66,13 @@
   <string name="upload_limit_message">ניצלת עד תום את מסגרת ההעלאה שלך, נא להמתין בטרם ביצוע ניסיון חוזר.</string>
   <string name="duplicate_tag_key_title">מפתחות כפולים</string>
   <string name="duplicate_tag_key_message">הוספת את המפתח הבא יותר מפעם אחת, יש לפתור את הסוגיה הזאת לפני שניתן יהיה להמשיך:</string>
+  <string name="autodownload_has_been_paused">הורדה אוטומטית הושהתה.</string>
   <!---->
   <string name="select_file_picker_title">בחירת בורר קבצים</string>
   <!--Newbie dialog-->
   <string name="welcome_title">ברוך בואך</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;למכשיר שלך יש „מקשי תכנה” שמוסתרים בתצוגה. יש להחליק מתחת המסך כדי להציג אותם שוב.</string>
+  <string name="welcome_pen_setup_text">הגדר לשימוש בעט או עכבר</string>
   <string name="read_introduction">הצגת ההקדמה</string>
   <!---->
   <string name="upgrade_title">זו גרסה חדשה של וספוצ׳י</string>
@@ -178,6 +178,7 @@
   <string name="toast_todo_already_in_list">הרכיב כבר נמצא ברשימת המטלות הזאת</string>
   <string name="toast_no_open_todos">אין מטלות פתוחות</string>
   <string name="toast_no_todos_in_list">אין מטלות ברשימה הנבחרת</string>
+  <string name="save_changes_title">לשמור שינויים?</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">אזהרה!</string>
   <string name="unsaved_data_message">השינויים שלא שמרת יימחקו אלמלא יישמרו.</string>
@@ -312,6 +313,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">פעולה זו משפיעה על פריטים מצורפים מסוננים!</string>
   <string name="attached_object_warning_message">הפריט שנערך מחובר לרכיבים נסתרים שישתנו יחד אתו.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">סבבה, להמשיך להציג</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -450,7 +452,7 @@
   <string name="api_info_latest_date">תאריך ההכללה האחרון</string>
   <string name="api_info_attribution">ייחוס</string>
   <string name="api_info_mapsplit_source">מקור לקריאה בלבד MapSplit</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
   <string name="tag_conflict_title">מאפיינים השתנו</string>
   <string name="tag_conflict_message">הפעולה דרשה שינוי מאפיינים של הרכיבים המעורבים.</string>
   <!--Relation selection dialog-->
@@ -1012,6 +1014,7 @@
   <string name="actionmode_newnoteselect">נבחרה הערה חדשה</string>
   <string name="actionmode_add_segment">הוספת מקטע</string>
   <string name="actionmode_reselect_first_segment">לבחור מחדש את המקטע הראשון</string>
+  <string name="actionmode_rotate">הטייה</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_restriction">הוספת מגבלת פנייה</string>
   <string name="actionmode_restriction_restart_from">בחירת מקטע „מוצא” מחדש</string>
@@ -1029,7 +1032,6 @@
     <item quantity="two">%1$d פריטים</item>
     <item quantity="other">%1$d פריטים</item>
   </plurals>
-  <string name="actionmode_rotate">הטייה</string>
   <string name="menu_snap">הצמדה</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">הוספת מפרק</string>
@@ -1117,7 +1119,6 @@
   <string name="config_enableAntiAliasing_title">הפעלת ביטול החלקה</string>
   <string name="config_enableAntiAliasing_summary">החלקת הקווים.</string>
   <string name="config_enableHwAcceleration_title">הפעלת האצת חומרה</string>
-  <string name="config_enableHwAcceleration_summary">מאפשר שימוש בהאצת חומרה אם וכאשר נתמכת, כרגע אין שום משמעות להגדרה הזאת.</string>
   <string name="config_maxStrokeWidth_title">עובי קו מרבי</string>
   <string name="config_maxStrokeWidth_summary">לא לצייר דרכים בקו עבה יותר מההגדרה הזאת.</string>
   <string name="config_maxStrokeWidth_current">%1$d פיקסלים</string>
@@ -1168,8 +1169,9 @@
   <string name="config_autoformatPhoneNumbers_title">סידור מספרי טלפון בתבנית</string>
   <string name="config_autoformatPhoneNumbers_summary">להפעיל תבנית אוטומטית למספרי טלפון</string>
   <string name="config_maxOffsetDistance_current">%1$d מטר/ים</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d מטר/ים</string>
-  <string name="config_minCircleSegmentcurrent">%1$d מטר/ים</string>
+  <string name="config_maxCircleSegment_current">%1$d מטר/ים</string>
+  <string name="config_minCircleSegment_current">%1$d מטר/ים</string>
+  <string name="config_replaceTolerance_current">%1$d מטר/ים</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">הגדרות הורדה אוטומטית</string>
   <string name="config_category_auto_download_summary">הגדרות להורדה אוטומטית של נתונים ומשימות</string>
@@ -1217,7 +1219,6 @@
   <string name="config_category_server">הגדרות שרת</string>
   <string name="config_category_server_summary">ה־API של OSM והגדרות לשרתים אחרים.</string>
   <string name="config_apibutton_title">כתובת ה־API של OSM</string>
-  <string name="config_apibutton_summary">כאן ניתן להגדיר כתובת API שונה מהרגיל. בדרך כלל אין סיבה לשנות זאת!</string>
   <string name="config_loginbutton_title">חשבון משתמש</string>
   <string name="config_username_summary">הגדרות נדרשות רק לטובת העלאת נתונים ל־OSM במקרה שלא נעשה שימוש ב־OAuth. ניתן לפתוח חשבון בכתובת https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">שרת היסט</string>

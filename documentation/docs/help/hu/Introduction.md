@@ -1,8 +1,8 @@
-_Mielőtt elkezdenénk: a legtöbb képernyőn a menüből vannak linkek a készülék súgórendszerére, amivel közvetlenül elérheted az aktuális kontextusban lényeges információkat, és könnyen visszanavigálhatsz ehhez a szöveghez is. Ha nagyobb eszközöd (pl. táblagéped) van, a súgórendszert egy külön osztott ablakban is megnyithatod. Az összes súgószöveg és egyéb (gyik, oktatóanyagok) megtalálható a [Vespucci dokumentációs oldalán](https://vespucci.io/) is._
+_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"_
 
 # Vespucci bevezetés
 
-A Vespucci egy teljes funkcionalitású OpenStreetMap-szerkesztő, amely az asztali szerkesztők által biztosított legtöbb műveletet támogatja. Sikeresen tesztelték a Google Android 2.3–10.0 és különböző AOSP-alapú változataira. Vigyázat: bár a mobileszközök képességei felzárkóztak asztali vetélytársaikéihoz, különösen a régebbi eszközök memóriája korlátozott, és általában meglehetősen lassúak. Ezt vegye figyelembe a Vespucci használatakor, és például ésszerű méretű területeket próbáljon szerkeszteni.
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
 
 ## Szerkesztés a Vespuccival
 
@@ -12,20 +12,25 @@ A képernyő méretétől és a készülék életkorától függően a szerkeszt
 
 ### OSM-adatok letöltése
 
-Jelölje ki vagy az átvitel ikont ![Transfer](../images/menu_transfer.png) vagy az „Átvitel” menüpontot. Ez hét lehetőséget fog megjeleníteni:
+Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display eleven options:
 
-* **Aktuális nézet letöltése** - a képernyőn látható terület letöltése és egyesítése a meglévő adatokkal *(hálózati kapcsolatot vagy offline adatforrást igényel)*
-* **Aktuális nézet törlése és letöltése** - az összes adat törlése a memóriából, majd a képernyőn látható terület letöltése *(hálózati kapcsolatot igényel)*
-* **Adatok feltöltése az OSM szerverre** - szerkesztések feltöltése az OpenStreetMap-kiszolgálóra *(hitelesítést és hálózati kapcsolatot igényel)*
-* **Adatok frissítése** - az összes terület adatainak ismételt letöltése, és a memóriában tárolt adatok frissítése *(hálózati kapcsolatot igényel)*
-* **Helyalapú automatikus letöltés** - az aktuális földrajzi hely körüli terület automatikus letöltése *(hálózati kapcsolatot vagy offline adatokat igényel)* *(GPS-t igényel)*
-* **Automatikus letöltés és nagyítás** - az aktuálisan megjelenített térképterület adatainak automatikus letöltése *(hálózati kapcsolatot vagy offline adatokat igényel)* *(GPS-t igényel)*
-* **Fájl…** - OSM-adatok mentése és betöltése az eszközön tárolt fájlokba /-ból.
-* **Jegyzet / hibák…** - OSM-jegyzetek és „hibák” (automatikus és kézi) letöltése minőségbiztosítási eszközökből (jelenleg Osmose) *(hálózati kapcsolatot igényel)*
+* **Upload data to OSM server...** - review and upload changes to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Review changes...** - review current changes
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
+* **Clear and download current view** - clear any data in memory, including pending changes, and then download the area visible on the screen *(requires network connectivity)*
+* **Query Overpass...** - run a query against a Overpass API server *(requires network connectivity)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
+* **Clear data** - remove any OSM data in memory, including pending changes.
+* **File...** - saving and loading OSM data to/from on device files.
+* **Tasks...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 Az adatok eszközre töltésének legkönnyebb módja a szerkesztendő területre görgetés és nagyítás, aztán a „Jelenlegi nézet letöltése”. Gesztusokkal, a nagyítási gombokkal és a hangerőszabályzó gombokkal nagyíthat. A Vespucci aztán letölti a jelenlegi nézet adatait. Az adatok eszközre letöltéséhez nem szükséges hitelesítés.
 
-Az alapértelmezett beállításokkal a nem letöltött területek a letöltöttekhez képest halványabbak lesznek, ezzel elkerülhető a duplikált objektumok véletlen hozzáadása a nem megjelenített területeken. Ez a viselkedés megváltoztatható a [Speciális beállítások](Advanced%20preferences.md) részben.
+In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md) so that dimming is always active.
+
+If you need to use a non-standard OSM API entry, or use [offline data](https://vespucci.io/tutorials/offline/) in _MapSplit_ format you can add or change entries via the _Configure..._ entry for the data layer in the layer control.
 
 ### Szerkesztés
 
@@ -35,13 +40,15 @@ Az alapértelmezett beállításokkal a nem letöltött területek a letöltött
 
 A véletlen szerkesztések elkerülése miatt a Vespucci „zárolt” módban indul, olyan módban, amely csak a nagyítást és a térkép mozgatását engedélyezi. Koppintson a ![Zárolt](../images/locked.png) ikonra a képernyő feloldásához. 
 
-A zárolás ikonra hosszan nyomva egy menü jelenik meg, amely jelenleg 4 lehetőséget kínál:
+A long press on the lock icon or the _Modes_ menu in the map display overflow menu will display a menu offering 4 options:
 
-* **Normál** - az alapértelmezett szerkesztési mód, új elemek hozhatók létre, a létezők szerkeszthetők, mozgathatók és törölhetők. Egy egyszerű fehér lakatikon látszik.
-* **Csak címkézés** - egy létező objektum kijelölése megjeleníti a Tulajdonságszerkesztőt, a hosszú nyomás a főképernyőn létrehoz egy objektumot, más geometriai műveletek viszont nem működnek. Egy fehér lakatikon fog látszik, egy „T” betűvel.
-* **Cím** - lehetővé teszi a cím módot, amely az [egyszerű mód](../en/Simple%20actions.md) „+” gombjával elérhető kicsit egyszerűsített mód néhány specifikus funkcióval. Egy „A” betűvel ellátott fehér lakatikon jelzi.
-* **Beltéri** - engedélyezi a beltéri módot, lásd [Beltéri mód](#indoor). Egy fehér lakatikon jelenik meg egy „I” betűvel.
-* **C-mód** - engedélyezi a C-módot, csak a figyelmeztetés jelzővel megjelölt elemek lesznek megjelenítve, lásd [C-mód](#c-mode). Egy fehér lakatikon jeöli egy „C” betűvel.
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+
+If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to _Address_ and _Indoor_ mode.
 
 #### Egyszeres koppintás, dupla koppintás, hosszú nyomás
 
@@ -87,7 +94,7 @@ Az alkalmazás első indításakor „Egyszerű módban” indul, ez módosítha
 
 A nagy zöld lebegő gomb a fő térképképernyőn egy menüt jelenít meg. Miután kiválasztotta az egyik elemet, arra lesz kérve, hogy koppintson a képernyő azon helyére, ahol létre akarja hozni az objektumot, a mozgás és a nagyítás továbbra is működik, ha igazítania kell a térképnézeten. 
 
-További információkért lásd: [Új objektumok létrehozása az egyszerű műveletek módban](Creating%20new%20objects%20in%20simple%20actions%20mode.md).
+See [Creating new objects in simple actions mode](Simple%20actions.md) for more information. Simple mode os the default for new installs.
 
 ##### Speciális mód (hosszú lenyomás)
 
@@ -120,7 +127,7 @@ Ha eléggé ránagyít a kiválasztott vonalra, akkor egy kis „x”-et fog lá
 
 #### Kivágás, másolás és beillesztés
 
-Másolhatja és kivághatja a kiválasztott pontokat és vonalakat, aztán egyszer vagy többször beillesztheti egy új helyen. A kivágás megtartja az OSM azonosítót és verziót. A beillesztéshez nyomja hosszan a területet, ahová be akarja illeszteni (egy célkereszt fogja jelölni a helyet). Aztán válassza ki a „Beillesztést” a menüből.
+You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
 
 #### Címek hatékony hozzáadása
 
@@ -158,9 +165,9 @@ Ha a piros lakat látszik, akkor az összes nem szerkesztési művelet elérhet�
 
 Válassza ugyanazt a gombot vagy menüelemet, melyet a letöltésnél használt, és most válassza az „Adatok feltöltése az OSM kiszolgálóra” lehetőséget.
 
-A Vespucci támogatja az OAuth engedélyezést és a klasszikus felhasználónév és jelszó módszert. Az OAuth a javasolt, mivel így nem kell jelszót küldeni.
+Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  
 
-Az új Vespucci telepítésekben az OAuth automatikusan engedélyezett. Az első feltöltési kísérletkor az OSM weboldal egy lapja töltődik be. Ha bejelentkezett (titkosított kapcsolaton keresztül), akkor megkérésre kerül, hogy engedélyezze a Vespuccinak, hogy szerkessze a fiókját. Ha a szerkesztés előtt akarja engedélyezni az OAuth hozzáférést, akkor ezt megteheti az „Eszközök” menüben.
+Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
 
 Ha menteni akarja a munkáját, és nincs internetkapcsolata, akkor elmentheti egy JOSM kompatibilis .osm fájlba, és felöltheti később a Vespuccival vagy a JOSM-mel. 
 
@@ -168,34 +175,46 @@ Ha menteni akarja a munkáját, és nincs internetkapcsolata, akkor elmentheti e
 
 A Vespucci rendelkezik egy egyszerű ütközésfeloldóval. Viszont ha azt gondolja, hogy komoly problémák vannak a szerkesztéseivel, akkor exportálja a módosításokat egy .osc fájlba („Exportálás” menüelem az „Átküldés” menüben), majd javítsa ki és töltse fel a JOSM-mel. Lásd a részletes súgót az [ütközésfeloldásról](Conflict%20resolution.md).  
 
+### Nearby point-of-interest display
+
+A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. 
+
+More information on this and other available functionality on the main display can be found here [Main map display](Main%20map%display.md).
+
 ## GPS és GPX nyomvonalak használata
 
 A normál beállításokkal a Vespucci megpróbálja engedélyezni a GPS-t (és más műholdas navigációs rendszereket), és ha ez nem lehetséges, akkor a pozíciót az úgynevezett „hálózati helymeghatározás” segítségével határozza meg. Ez a viselkedés feltételezi, hogy normál használat esetén maga az Android készülék úgy van beállítva, hogy csak a GPX által generált helyeket használja (a nyomon követés elkerülése érdekében), azaz az eufemisztikusan „Helymeghatározási pontosság javítása” névre hallgató opció ki van kapcsolva. Ha engedélyezni szeretné az opciót, de el akarja kerülni, hogy a Vespucci visszaessen a „hálózati helymeghatározásra”, akkor kapcsolja ki a [Speciális beállítások](Advanced%20preferences.md) megfelelő opcióját. 
 
-A térképkijelző bal oldalán a ![GPS](../images/menu_gps.png) gomb megérintésével a képernyőn az aktuális pozíció kerül középre, és a térkép követni fogja az Ön mozgását. A képernyő kézi mozgatásával vagy szerkesztésével a „GPS követése” mód kikapcsol, és a kék GPS nyíl körvonalról kitöltött nyílra változik. A „követés” üzemmód gyors visszaállításához egyszerűen érintse meg a GPS gombot, vagy jelölje be újra a megfelelő menüpontot. Ha a készülék nem rendelkezik aktuális helymeghatározással, akkor a jelöl/nyíl fekete színnel jelenik meg, ha van aktuális helymeghatározás, akkor a jelölő/nyíl kék színű lesz.
+Touching the ![GPS](../images/menu_gps.png) button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
 
 GPX-nyomvonal rögzítéséhez és a készüléken való megjelenítéséhez válassza a ![GPS](../images/menu_gps.png) menü „GPX-nyomvonal indítása” pontját. Ezáltal réteg kerül a kijelzőre az aktuálisan felvett nyomvonallal. A [rétegek](Main%20map%20display.md) pontból feltölthet és exportálhat nyomvonalakat. További rétegek adhatók hozzá helyi GPX fájlokból és az OSM API-val letöltött nyomvonalakból.
 
 Megjegyzés: alapértelmezés szerint a Vespucci nem rögzít magassági adatokat a GPX nyomvonallal együtt, ez néhány Android-specifikus probléma miatt van. A magassági adatok rögzítésének engedélyezéséhez telepítsen egy gravitációs modellt, vagy egyszerűbben, menjen a [Speciális beállítások](Advanced%20preferences.md) menüpontba, és konfigurálja az NMEA bemenetet.
 
-## Jegyzetek és hibák
+### How to export a GPX track?
 
-A Vespucci támogatja az OSM jegyzetek (régebben OSM hibák) letöltését, lezárását és a megjegyzések hozzáfűzését, valamint támogatja az [OSMOSE hibaellenőrző eszköz](http://osmose.openstreetmap.fr/en/map/) „hibáit” is. Mind a kettőt vagy le kell tölteni direktben, vagy használhatja az automatikus letöltési lehetőséget, hogy elérje a közeli területen lévő elemeket. Ha már egyszer szerkesztette vagy lezárta őket, akkor egyesével vagy egyben is feltöltheti a hibákat vagy jegyzeteket.
+Open the layer menu, then click the 3-dots menu next to "GPX recording", then select **Export GPX track...**. Choose in which folder to export the track, then give it a name suffixed with `.gpx` (example: MyTrack.gpx).
 
-A térképen a jegyzeteket vagy hibákat kis hiba ikonok ![Hiba](../images/bug_open.png) jelzik, a zöldek lezártak/megoldottak, a kékeket Ön hozta létre vagy szerkesztette, a sárgák pedig még mindig aktívak, és Ön nem változtatott rajtuk. 
+## Notes, Bugs and Todos
 
-Az OSMOSE hibák kék hivatkozást jelenítenek meg az érintett objektumhoz, a hivatkozás megnyomása kiválasztja az objektumot, a képernyő közepére teszi azt, és letölti a területet, ha az szükséges. 
+A Vespucci támogatja az OSM jegyzetek (régebben OSM hibák) letöltését, lezárását és a megjegyzések hozzáfűzését, valamint támogatja az [OSMOSE hibaellenőrző eszköz](http://osmose.openstreetmap.fr/en/map/) „hibáit” is. Mind a kettőt vagy le kell tölteni direktben, vagy használhatja az automatikus letöltési lehetőséget, hogy elérje a közeli területen lévő elemeket. Ha már egyszer szerkesztette vagy lezárta őket, akkor egyesével vagy egyben is feltöltheti a hibákat vagy jegyzeteket. 
+
+Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. 
+
+On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.
+
+The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
 ### Szűrés
 
 A jegyzetek és hibák megjelenítésének globális bekapcsolása mellett beállítható egy durva szűrőt, hogy csökkentse a zsúfoltságot. A szűrő beállítási a feladatréteg bejegyzésből érhetők el a [rétegvezérlésből](#layers):
 
-* Jegyzetek
-* Osmose hiba
-* Osmose figyelmeztetés
-* Osmose kis probléma
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
 * Maproulette
-* Egyéni
+* Todo
 
 <a id="indoor"></a>
 
@@ -215,9 +234,9 @@ A mód a zárolás gomb hosszú megnyomásával, és a megfelelő menüelem kiv�
 
 ### Ellenőrzések beállítása
 
-Jelenleg két beállítható ellenőrzés van (egy a FIXME címkéket ellenőrzi, és egy másik, amely a hiányzó típuscímkéket ellenőrzi a kapcsolatokon, de jelenleg nem konfigurálható), mindkettő az „Érvényesítő beállításai” kiválasztásával érhető el a [beállításokban](Preferences.md). 
+All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the [preferences](Preferences.md). 
 
-A bejegyzések listája két részre van osztva, a felső része az „újbóli felmérési” bejegyzéseket tartalmazza, az alsó rész pedig az „ellenőrzési bejegyzéseket”. A bejegyzések koppintással szerkeszthetőek, és a zöld menügombbal adhatóak hozzá új bejegyzések.
+The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.
 
 #### Újbóli felmérési bejegyzések
 
@@ -263,14 +282,15 @@ A rétegbeállítások a rétegvezérlőn keresztül módosíthatók (a jobb fel
 
 Elérhető rétegtípusok
 
-* Adatréteg - ez az a réteg, amelyre az OpenStreetMap-adatok betöltődnek. Normál használat esetén itt semmit sem kell megváltoztatnia. Alapértelmezés: bekapcsolva
-* Háttérréteg - légi és műholdas háttérképek széles választéka áll rendelkezésre. Ennek alapértelmezett értéke az openstreetmap.org webhely „standard stílusú” térképe
-* Fedőréteg - ezek félig átlátszó rétegek további információkkal, például GPX-nyomvonalakkal. Régebbi, korlátozott memóriával rendelkező készülékeknél a fedőréteg hozzáadása problémákat okozhat. Alapértelmezés: nincs.
-* Jegyzetek/hibák megjelenítése - A nyitott jegyzetek és hibák sárga hibaikonként jelennek meg, a lezártak zölddel. Alapértelmezés: bekapcsolva
-* Fényképréteg - A georeferált fényképek piros kameraikonként jelennek meg; ha rendelkezésre állnak irányinformációk, akkor az ikon elfordul. Alapértelmezés: kikapcsolva
-* Mapillary-réteg - Mapillary szakaszokat jelenít meg jelölőkkel, ahol képek vannak, a jelölőre kattintva megjelenik a kép. Alapértelmezés: kikapcsolva
-* GeoJSON-réteg - Megjeleníti egy GeoJSON fájl tartalmát. Alapértelmezés: kikapcsolva
-* Rács - megjeleníti a méretarányt a térkép vagy a rács oldalán. Alapértelmezés: bekapcsolva. 
+* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
+* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
+* Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
+* GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.
+* GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.
+* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
 
 További információk találhatók a [térkép megjelenítéséről](Main%20map%20display.md) szóló szakaszban.
 
@@ -283,16 +303,19 @@ A teljes leírás megtalálható a [beállításoknál](Preferences.md).
 
 #### Speciális beállítások
 
-* Pont ikonok. Alapértelmezés: bekapcsolva.
-* Mindig mutassa a helyi menüt. Bekapcsolva minden kijelölési folyamat megmutatja a helyi menüt, kikapcsolva a menü csak akkor jelenik meg, ha nem lehet egyértelmű kijelölést meghatározni. Alapértelmezés: kikapcsolva (korábban be volt kapcsolva).
-* Könnyű téma engedélyezése. Modern eszközökön ez alapértelmezés szerint be van kapcsolva. Régebbi Android verziók esetében is engedélyezhető, a stílus azonban valószínűleg következetlen lesz. 
+* Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In _Auto_ mode we try to determine automatically if using full screen mode is sensible or not, setting it to _Force_ or _Never_ skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the _Auto_ mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: _Auto_.  
+* Node icons. Default: _on_.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
 
 A teljes leírás megtalálhat a [speciális beállításoknál](Advanced%20preferences.md).
 
-## Problémák jelentése
+## Reporting and Resolving Issues
 
 Ha a Vespucci összeomlik vagy nem konzisztens állapotot észlel, akkor megkérjük, hogy küldje el az összeomlás-jelentésben. Tegyen így, ha ez történik, de helyzetenként csak egyszer. Ha további hozzáfűznivalója van, funkciókérés vagy hasonló okból akar jegyet nyitni, akkor itt tegye meg: [Vespucci hibakövető](https://github.com/MarcusWolschon/osmeditor4android/issues). A főmenüben lévő „Visszajelzés küldése” funkció egy új hibajegyet nyit, és további gépelés nélkül beleteszi a releváns alkalmazás- és eszközinformációkat.
 
-Ha valamilyen Vespuccival kapcsolatos dolgot szeretne megbeszélni, akkor kezdjen egy beszélgetést a [Vespucci Google csoportban](https://groups.google.com/forum/#!forum/osmeditor4android) vagy az [OpenStreetMap Android fórumban](http://forum.openstreetmap.org/viewforum.php?id=56)
+If you are experiencing difficulties starting the app after a crash, you can try to start it in _Safe_ mode on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
+
+If you want to discuss something related to Vespucci, you can either start a discussion on the [OpenStreetMap forum](https://community.openstreetmap.org).
 
 

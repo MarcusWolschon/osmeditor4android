@@ -8,6 +8,7 @@
   <string name="mode_address">Адрес</string>
   <string name="mode_voice">Голос</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">Безопасно</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Внимание!</string>
   <string name="transfer_download_current_dialog_message">Вы сделали изменения. Хотите передать их на сервер?</string>
@@ -15,13 +16,26 @@
   <string name="transfer_download_current_download">Отменить и загрузить</string>
   <string name="transfer_download_current_back">Назад (ничего не менять)</string>
   <string name="upload_problem_title">Не удалось передать</string>
-  <string name="upload_problem_message">Некоторые данные не были переданы на сервер. Попробуйте снова через некоторое время.</string>
   <string name="bad_request_message">API ответил ошибкой. Пожалуйста, сохраните данные и сообщите о проблеме:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Конфликт передачи</string>
   <string name="upload_conflict_message_version">Конфликт версий</string>
   <string name="upload_conflict_message_deleted">%1$s \nимеет локальную версию %2$d \n и удалено на сервере</string>
   <string name="upload_conflict_message_unknown">%1$s \nвызывает неизвестный конфликт передачи \n%2$s</string>
+  <string name="server_side_object">Версия сервера</string>
+  <string name="local_object">Локальная версия</string>
+  <string name="resolve_by">Разрешить конфликт через…</string>
+  <string name="resolve">Разрешить</string>
+  <string name="delete_refering_element">… удаление ссылающегося элемента</string>
+  <string name="use_local_version">… использование локальной версии</string>
+  <string name="merge_tags_in_to_local">… объединение тегов в локальную версию</string>
+  <string name="merge_tags_in_to_server">… объединение тегов в версию сервера</string>
+  <string name="use_server_version">… использование версии сервера</string>
+  <string name="undoing_local_delete">… отмену локального удаления</string>
+  <string name="deleting_references_on_server">… удаление ссылок на сервере</string>
+  <string name="unexpected_conflict_type">Неожиданный тип конфликта</string>
+  <string name="delete_locally">Удалить\nлокально</string>
+  <string name="undelete_on_server">Восстановить\nна сервере</string>
   <!---->
   <string name="no_login_data_title">Не удалось войти</string>
   <string name="no_login_data_message">Если вы используете OAuth, то это, вероятно, ошибка, пожалуйста, отправьте отчёт. Если вы используете логин и пароль (не рекомендуется), проверьте, что они введены корректно.</string>
@@ -48,7 +62,6 @@
   <string name="invalid_bounding_box_title">Неверные границы</string>
   <string name="invalid_bounding_box_message">Выбранная область не соответствует ограничениям API, пожалуйста, выберите другую.</string>
   <string name="bounding_box_too_large_title">Область для загрузки слишком велика</string>
-  <string name="bounding_box_too_large_message">Область, которую Вы пытаетесь загрузить, слишком велика или содержит слишком много данных.\n\nПожалуйста, уменьшите масштаб и попробуйте снова.</string>
   <string name="api_offline_title">Нет связи с API</string>
   <string name="api_offline_message">Нет связи с API, передача данных невозможна.</string>
   <string name="out_of_memory_title">Недостаточно памяти</string>
@@ -62,21 +75,29 @@
   <string name="file_write_failed_message">Vespucci не смог изменить или сохранить файл.</string>
   <string name="applying_osc_failed_title">Не удалось применить файл OSC</string>
   <string name="applying_osc_failed_message">Скорее всего вы загрузили не все исходные объекты, необходимые для применения изменений</string>
+  <string name="download_limit_title">Превышен лимит скачивания</string>
+  <string name="upload_limit_title">Превышен лимит передачи</string>
   <string name="duplicate_tag_key_title">Дубликаты тегов</string>
   <string name="duplicate_tag_key_message">Вы добавили следующие теги несколько раз, выберите что-то одно, прежде чем сможете продолжать:</string>
+  <string name="autodownload_has_been_paused">Автоскачивание было приостановлено.</string>
   <!---->
   <string name="select_file_picker_title">Выберите файл</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Добро пожаловать</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Ваше устройство имеет настраиваемые кнопки (\"soft keys\"), которые пока скрыты. Пролистывание от нижнего края покажет их снова. </string>
+  <string name="welcome_auto_download_text">Автоматически скачивать данные</string>
+  <string name="welcome_authorize_text">Авторизоваться сейчас</string>
   <string name="read_introduction">Прочесть введение</string>
+  <string name="welcome_start">Начать!</string>
   <!---->
   <string name="upgrade_title">Это новая версия Vespucci</string>
   <string name="upgrade_message">Новые функции и возможности описаны в примечаниях к версии.</string>
+  <string name="migrate_now">Мигрировать конфигурацию сейчас</string>
   <string name="read_upgrade">Прочитать о новой версии</string>
   <string name="progress_title">Загрузка</string>
   <string name="progress_message">Загрузка данных в память…</string>
   <string name="progress_download_message">Загрузка данных с сервера…</string>
+  <string name="progress_download_tasks_message">Скачивание задач с серверов…</string>
   <string name="progress_general_title">Подождите</string>
   <string name="progress_deleting_message">Удаление...</string>
   <string name="progress_searching_message">Поиск…</string>
@@ -132,6 +153,9 @@
   <string name="openstreetbug_commit_fail_with_message">Не удалось сохранить изменения задачи\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Неизвестный тип задачи</string>
   <string name="openstreetbug_not_supported">%1$s не поддерживается.</string>
+  <string name="note_description">%1$s - %2$s</string>
+  <string name="bug_description_191">%1$s - %2$s</string>
+  <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
   <string name="generic_bug">Ошибка</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Доделать</string>
@@ -146,13 +170,20 @@
   <string name="maproulette_task_title">Задачи MapRoulette</string>
   <string name="maproulette_task_coords">Широта %1$4g, долгота %2$4g</string>
   <string name="maproulette_task_explanations">Объяснения</string>
+  <string name="maproulette_task_instructions">Инструкции</string>
   <string name="maproulette_task_set_apikey">Задать ключ MapRoulette API</string>
   <string name="maproulette_task_apikey_not_set">Не удалось сохранить ключ MapRoulette API</string>
   <string name="maproulette_task_disable">Убрать</string>
   <string name="maproulette_task_apikey_set">Ключ MapRoulette API сохранён</string>
   <string name="maproulette_task_no_apikey">Нет ключа MapRoulette API</string>
+  <string name="maproulette_description">Maproulette: %1$s</string>
   <!--Todo dialogs-->
+  <string name="todo_list_legend">Список задач</string>
+  <string name="todo_list_hint">Кликните для предложений</string>
   <string name="todo_comment_legend">Комментарий</string>
+  <string name="todo_comment_hint">Необязательный комментарий</string>
+  <string name="toast_no_open_todos">Нет открытых задач</string>
+  <string name="save_changes_title">Сохранить изменения?</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Внимание!</string>
   <string name="unsaved_data_message">Если вы продолжите, ваши несохранённые изменения будут утеряны.</string>
@@ -223,8 +254,14 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Атрибуция</string>
   <!--GPX info dialog-->
+  <string name="track_points">Точки трека</string>
+  <string name="way_points">Точки пути</string>
   <!--Image information dialog-->
+  <string name="image_information_title">Информация об изображении</string>
+  <string name="created_by">Создано</string>
   <string name="direction">Направление</string>
+  <string name="file_size">Размер</string>
+  <string name="file_size_kB">%1$d КБ</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Загруженно слишком много данных!</string>
   <string name="too_much_data_message">Вы загрузили %1$d точек и превысили лимит, указанный в настройках. Это приведет к замедлению работы и, возможно, к проблемам при сохранениии данных.</string>
@@ -285,6 +322,7 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Это действие затрагивает соединённые скрытые объекты</string>
   <string name="attached_object_warning_message">Изменённый объект соединён с неотображаемыми элементами, которые также будут изменены.</string>
+  <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Понятно, показывать и дальше</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -306,6 +344,8 @@
   <string name="add_resurvey_entry">Добавить проверку по дате</string>
   <string name="add_check_entry">Добавить проверку по значению</string>
   <!--Safe mode dialog-->
+  <string name="safe_mode_dialog_title">Настройки безопасного режима</string>
+  <string name="safe_delete_state_text">Да (нельзя отменить)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Пустое отношение</string>
   <string name="empty_relation_message">Отношение %1$s не имеет участников.\n\nОставляя его таким, вы потеряете возможность его редактирования в Vespucci.</string>
@@ -348,12 +388,17 @@
   <string name="layer_style_symbol">Символ</string>
   <string name="json_object_not_displayed">Объект JSON (не отображается)</string>
   <string name="json_array_not_displayed">Массив JSON (не отображается)</string>
+  <string name="gpx_automatic">Автоматически</string>
+  <string name="gpx_name">Название GPX</string>
+  <string name="gpx_description">Описание GPX</string>
+  <string name="gpx_type">Тип GPX</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Сетка</string>
   <string name="layer_bookmarks">Закладки</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">Запись GPX</string>
   <string name="layer_photos">Фотографии</string>
   <string name="layer_tasks">Задачи</string>
   <string name="layer_data">Данные OSM</string>
@@ -362,6 +407,7 @@
   <string name="layer_change_style">Изменить стиль...</string>
   <string name="layer_load_style">Загрузить стиль...</string>
   <string name="layer_reset_style">Сбросить стиль</string>
+  <string name="layer_set_date_range">Установка диапазона дат…</string>
   <string name="layer_select_imagery">Выбрать источник...</string>
   <string name="layer_category_all">Все</string>
   <string name="layer_category_photo">Аэроснимки</string>
@@ -387,7 +433,9 @@
   <string name="projection">Проекция</string>
   <string name="errors">Ошибки</string>
   <string name="layer_info_layer_not_available">Информация о слое недоступна</string>
+  <string name="layer_info_no_meta_data">Метаданные не загружены</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">%1$s</string>
   <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Удалить фото</string>
@@ -400,7 +448,8 @@
   <string name="api_info_latest_date">Последняя включенная дата</string>
   <string name="api_info_attribution">Атрибуция</string>
   <string name="api_info_mapsplit_source">Источник MapSplit только для чтения</string>
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
+  <string name="tag_conflict_title">Свойства изменены</string>
   <string name="tag_conflict_message">Операция требовала изменения свойств задействованных элементов.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Нет подходящих отношений в загруженных данных</string>
@@ -431,6 +480,7 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Завершить запись трека и удалить все его сохранённые точки без возможности восстановления.</string>
   <!--Measurement dialog-->
+  <string name="measure">Измерение</string>
   <!--Tips-->
   <string name="tip_title">А вы знали?</string>
   <string name="tip_check_label">Больше не показывать советы</string>
@@ -484,6 +534,12 @@
   <string name="toast_save_failed">Не удалось сохранить</string>
   <string name="toast_export_failed">Сбой экспорта</string>
   <string name="toast_export_success">Экспортировано на %1$s</string>
+  <plurals name="toast_preset_removed_or_replaced_tags">
+    <item quantity="one">Переписан или удалён 1 тег</item>
+    <item quantity="few">Переписано или удалено %1$d тега</item>
+    <item quantity="many">Переписано или удалено %1$d тегов</item>
+    <item quantity="other">Переписано или удалено %1$d тегов</item>
+  </plurals>
   <string name="toast_merge_overwrote_tags">Внимание: операция перезаписала тег(и)</string>
   <string name="toast_cant_autoapply_preset">Эта заготовка не может быть применена автоматически</string>
   <string name="toast_oneway_reversed">Вы изменили направление односторонней улицы или линии с тегами, зависимыми от направления. Пожалуйста, проверьте теги и скорректируйте их, если необходимо.</string>
@@ -500,6 +556,8 @@
   <string name="toast_photo_indexing_finished">Завершено сканирование гео-привязанных фото</string>
   <string name="toast_photo_failed">Сфотографировать не удалось.  У вас включена геолокация в приложении камеры?</string>
   <string name="toast_download_failed">Загрузка прервана, код ошибки: %1$d, сообщение: %2$s</string>
+  <string name="toast_note_reopened">Заметка переоткрыта</string>
+  <string name="toast_untrusted_certificate">Недоверенный сертификат\n%1$s</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Необследованная дорога</string>
   <string name="toast_noname">У дороги нет ни имени, ни индекса</string>
@@ -545,6 +603,7 @@
   <string name="toast_missing_preset_file">Отсутствует заготовка для \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">Неправильное регулярное выражение в фильтре с ключом \"%1$s\" и значением \"%2$s\"</string>
   <string name="toast_error_accessing_photo">Нет доступа к фотографии %1$s</string>
+  <string name="toast_no_photo_found">Фотографии не найдены</string>
   <string name="toast_security_error_accessing_photo">Не разрешён доступ к фото %1$s</string>
   <string name="toast_no_voice_recognition">Отсутствуют средства распознавания голоса</string>
   <string name="toast_no_coverage">%1$s не имеет здесь покрытия</string>
@@ -555,6 +614,7 @@
   <string name="toast_invalid_object">Некорректный объект</string>
   <string name="toast_openinghours_invalid">Неверное значение времени работы для %1$s</string>
   <string name="toast_openinghours_autocorrected">Время работы для %1$s было скорректировано</string>
+  <string name="toast_already_in_multiselect">Уже в режиме мультивыбора</string>
   <string name="toast_abort_actionmode">Нажмите на стрелку ← для отмены</string>
   <string name="toast_null_island">Пожалуйста, не добавляйте ничего в 0°/0° (начало координат)</string>
   <string name="toast_string_too_long">Строка слишком длинная (%1$d символов), обрезана!</string>
@@ -590,6 +650,7 @@
   <string name="toast_error_reading">Ошибка чтения %1$s</string>
   <string name="toast_read_successfully">Файл успешно прочитан</string>
   <string name="toast_error_writing">Ошибка записи %1$s</string>
+  <string name="toast_successfully_written">%1$s успешно записано</string>
   <string name="toast_http_data_error_for">Ошибка данных HTTP для %1$s</string>
   <string name="toast_error_insufficient_space_for">На устройстве нет места для %1$s</string>
   <string name="toast_error_too_many_redirects_for">Слишком много переадресации для %1$s</string>
@@ -627,7 +688,16 @@
   <string name="toast_imagery_offset_download_failed">Не удалось загрузить смещение: %1$s</string>
   <string name="toast_download_server_version_failed">Не удалось загрузить версию сервера для %1$s</string>
   <string name="toast_error_element_too_large">Элемент слишком большой для редактора свойств</string>
+  <string name="toast_no_track_points">Нет точек трека</string>
+  <string name="toast_no_way_points">Нет точек пути</string>
   <string name="toast_unexpected_element">Выбран неожиданный элемент:\n%1$s</string>
+  <string name="toast_element_has_been_deleted">Элемент был удалён</string>
+  <string name="toast_updating_tags">Обновление тегов…</string>
+  <string name="toast_updating_parents">Обновление родителей…</string>
+  <string name="toast_updating_members">Обновление членов…</string>
+  <string name="toast_error_loading_egm">Ошибка загрузки EGM %1$s</string>
+  <string name="toast_note_not_found">Заметка #%1$d не найдена</string>
+  <string name="toast_no_compass">Устройство не имеет компаса!</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">В источниках MapSplit должны быть установлены минимальное и максимальное масштабирование</string>
   <string name="error_pbf_no_version">В PBF-файле нет информации о версии</string>
@@ -657,7 +727,11 @@
   <string name="prune">Очистка</string>
   <string name="check">Проверка</string>
   <string name="download">Загрузить</string>
+  <string name="ignore">Игнорировать</string>
   <string name="select">Выбрать</string>
+  <string name="skip">Пропустить</string>
+  <string name="more_information">Больше информации</string>
+  <string name="osm_tags">Теги OSM</string>
   <!--Read a file-->
   <string name="read">Прочесть</string>
   <string name="load">Загрузить</string>
@@ -705,6 +779,7 @@
   <string name="tag_dialog_value_hint">Выберите значение</string>
   <string name="tag_action_tag_title">Выделенный(е) тег(и)</string>
   <string name="tag_action_members_title">Выделенный(е) участник(и)</string>
+  <string name="tag_action_parents_title">Родитель(и) выбран(ы)</string>
   <string name="tag_additional_properties">Дополнительные свойства</string>
   <string name="tag_details">Подробности</string>
   <string name="tag_not_set">Не задано</string>
@@ -735,6 +810,7 @@
   <string name="tag_form_unknown_element">Неизвестный элемент (заготовка не найдена)</string>
   <string name="tag_form_untagged_element">Элемент без тегов</string>
   <!--preset item menu in preset MRU-->
+  <string name="apply_with_last_values">Применить с последними значениями</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Создать свою заготовку</string>
   <string name="create_preset_title">Название своей заготовки</string>
@@ -867,15 +943,20 @@
   <string name="menu_orthogonalize">Сделать прямоугольником</string>
   <string name="menu_straighten">Выпрямить</string>
   <string name="menu_circulize">Выстроить в круг</string>
+  <string name="menu_create_circle">Создать круг</string>
   <string name="menu_split_polygon">Разделить на полигоны</string>
   <string name="menu_unjoin_dissimilar">Разъединить непохожие</string>
   <string name="menu_extract_segment">Извлечь сегмент</string>
   <string name="menu_select_way_nodes">Выбрать точки линии</string>
   <string name="menu_newnode_gps">Новая точка на позиции GPS</string>
   <string name="menu_extend_selection">Расширить выделение</string>
+  <string name="menu_information">Инфо…</string>
   <string name="menu_voice_commands">Голосовые команды</string>
   <string name="menu_upload_element">Передача элемента</string>
   <string name="menu_upload_elements">Передача элементов</string>
+  <string name="menu_todo_close_and_next">Закрыть и перейти к следующей</string>
+  <string name="menu_todo_skip_and_next">Пропустить и перейти к следующей</string>
+  <string name="menu_todo_close_all_tasks">Закрыть все задачи</string>
   <string name="menu_set_name">Задать название</string>
   <string name="menu_tools">Инструменты...</string>
   <string name="menu_tools_imagery">Другие действия со снимками...</string>
@@ -902,6 +983,7 @@
   <string name="menu_tools_background_align_zero">Ноль</string>
   <string name="menu_tools_background_align_retrieve_from_db">Из базы</string>
   <string name="menu_tools_background_align_retrieve_from_device">С устройства</string>
+  <string name="menu_tools_background_align_save_db">Сохранить в базу данных…</string>
   <string name="menu_tools_background_align_save_device">Сохранить на устройство</string>
   <string name="menu_tools_background_align_apply2all">Применить (все масштабы)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -930,6 +1012,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">Свойства</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
@@ -953,6 +1036,7 @@
   <string name="merge_context_title">Объединить с  …</string>
   <string name="merge_with_all_ways">… всеми линиями рядом</string>
   <string name="merge_with_all_nodes">… всеми точками рядом</string>
+  <string name="append_context_title">Добавить к…</string>
   <string name="delete_note_description">Удалённую заметку нельзя будет восстановить!</string>
   <string name="delete_note">Удалить заметку</string>
   <!--EasyEdit action mode titles-->
@@ -960,13 +1044,19 @@
   <string name="actionmode_nodeselect">Выбрана точка</string>
   <string name="actionmode_relationselect">Выбрано отношение</string>
   <string name="actionmode_createpath">Рисование линии</string>
+  <string name="actionmode_createpath_follow_way">Следовать пути</string>
   <string name="actionmode_multiselect">Мультивыбор</string>
   <string name="actionmode_newnoteselect">Выбрана новая заметка</string>
   <string name="actionmode_add_segment">Добавить сегмент</string>
   <string name="actionmode_reselect_first_segment">Повторно выбрать сегмент</string>
   <string name="actionmode_split_way">Разделить линию</string>
   <string name="actionmode_split_closed_way">Разделить замкнутую линию</string>
+  <string name="actionmode_rotate">Повернуть</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Выбрать первую точку</string>
+  <string name="actionmode_closed_way_split_2">Выбрать вторую точку</string>
+  <string name="actionmode_split_way_node_selection">Выбрать точку</string>
+  <string name="actionmode_select_node_to_append_to">Выбрать точку для добавления</string>
   <string name="actionmode_restriction">Добавить ограничение поворота</string>
   <string name="actionmode_restriction_restart_from">Повторно выбрать сегмент \"from\"</string>
   <string name="actionmode_restriction_select_from">Выбрать сегмент \"from\"</string>
@@ -978,14 +1068,15 @@
   <string name="actionmode_restriction_split_via">Разделить сегмент \"через\"</string>
   <string name="actionmode_extract_segment_select">Выбрать сегмент</string>
   <string name="actionmode_extract_segment_set_tags">Установить теги</string>
+  <string name="actionmode_createpath_follow_way_select_end_node">Выбрать конечную точку</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 объект</item>
     <item quantity="few">%1$d объекта</item>
     <item quantity="many">%1$d объектов</item>
     <item quantity="other">%1$d объектов</item>
   </plurals>
-  <string name="actionmode_rotate">Повернуть</string>
   <string name="menu_snap">Привязка</string>
+  <string name="menu_follow_way">Следовать пути</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Добавить точку</string>
   <string name="simple_add_node">Нажмите на экран в нужном месте</string>
@@ -1076,15 +1167,16 @@
   <string name="config_splitActionBarEnabled_title">Разделить панель</string>
   <string name="config_appLocale_title">Язык приложения</string>
   <string name="config_appLocale_summary">Выберите нестандартный язык приложения</string>
+  <string name="config_appLocale_device_language">Язык устройства</string>
   <string name="config_maxInlineValues_title">Макс. число встроенных значений</string>
   <string name="config_maxInlineValues_summary">Макс. число встроенных значений, отображаемых в шаблоне тега.</string>
+  <string name="config_maxInlineValues_current">%1$d значений</string>
   <string name="config_autoLockDelay_title">Время автоблокировки</string>
   <string name="config_autoLockDelay_summary">Время ожидания в секундах до автоблокировки, 0 - отключено.</string>
   <string name="config_autoLockDelay_current">%1$d с</string>
   <string name="config_enableAntiAliasing_title">Сглаживание</string>
   <string name="config_enableAntiAliasing_summary">Сглаживать линии карты на экране</string>
   <string name="config_enableHwAcceleration_title">Аппаратное ускорение</string>
-  <string name="config_enableHwAcceleration_summary">Разрешить аппаратное ускорение, если поддерживается. В настоящий момент эта настройка ни на что не влияет.</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина линии</string>
   <string name="config_maxStrokeWidth_summary">Не рисуйте линию толще, чем эта.</string>
   <string name="config_maxStrokeWidth_current">%1$d пикс.</string>
@@ -1101,6 +1193,7 @@
   <string name="config_mapillary_min_zoom_title">Минимальный масштаб для Mapillary</string>
   <string name="config_mapillary_min_zoom_summary">Для отображения данных Mapillary необходим минимальный масштаб.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_nameCap_title">Капитализация названий</string>
   <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Данные и редактирование</string>
@@ -1140,8 +1233,10 @@
   <string name="config_maxOffsetDistance_title">Максимальная дистанция для сохраненных смещений изображений</string>
   <string name="config_maxOffsetDistance_summary">Будет автоматически применено самое дальнее расстояние до смещения локально сохранённого слоя.</string>
   <string name="config_maxOffsetDistance_current">%1$d м</string>
-  <string name="config_maxCircleSegmentcurrent">%1$d м</string>
-  <string name="config_minCircleSegmentcurrent">%1$d м</string>
+  <string name="config_minCircleNodes_current">%1$d точек</string>
+  <string name="config_maxCircleSegment_current">%1$d м</string>
+  <string name="config_minCircleSegment_current">%1$d м</string>
+  <string name="config_replaceTolerance_current">%1$d м</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Автозагрузка</string>
   <string name="config_category_auto_download_summary">Параметры автоматической загрузки данных и задач</string>
@@ -1192,7 +1287,6 @@
   <string name="config_category_server">Серверы</string>
   <string name="config_category_server_summary">Параметры OSM API и других серверов.</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">Здесь мы можете задать нестандартный URL для API. Обычно это не требует изменений!</string>
   <string name="config_loginbutton_title">Учётная запись</string>
   <string name="config_username_summary">Эта настройка необходима для передачи данных на сервер OSM без использования OAuth-доступа. Зарегистрируйтесь на http://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">Сервер смещений</string>
@@ -1203,6 +1297,10 @@
   <string name="config_geocoderbutton_summary">Добавить, изменить или удалить геокодер для поиска мест.</string>
   <string name="config_taginfoServer_title">Сервер Taginfo</string>
   <string name="config_taginfoServer_summary">Сервер Taginfo, который будет использоваться для генерирования шаблонов</string>
+  <string name="config_overpassServer_title">Сервер Overpass</string>
+  <string name="config_overpassServer_summary">Сервер Overpass, используемый для запросов</string>
+  <string name="config_oamServer_title">Сервер OpenAerialMap</string>
+  <string name="config_oamServer_summary">Сервер OpenAerialMap, используемый для показа изображения</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Загрузка и сохранение слоёв</string>
   <string name="config_category_layers_summary">Параметры загрузки и хранения снимков для фоновой карты.</string>
@@ -1217,7 +1315,14 @@
   <string name="config_mapillaryCacheSize_title">Размер кэша Mapillary</string>
   <string name="config_mapillaryCacheSize_summary">Предельный размер памяти для хранения изображений Mapillary в MB</string>
   <!--Auto-save-->
+  <string name="config_category_autosave">Настройки автоматического сохранения</string>
+  <string name="config_autosaveSaveState_title">Сохранить состояние</string>
   <string name="config_autosaveSaveChanges_title">Сохранить изменения</string>
+  <string name="config_autosaveInterval_title">Минимальный интервал</string>
+  <string name="config_autosaveInterval_summary">Минимальный интервал в минутах между сохранениями.</string>
+  <string name="config_autosaveInterval_current">%1$d мин</string>
+  <string name="config_autosaveChanges_title">Минимальное количество изменений</string>
+  <string name="config_autosaveChanges_summary">Минимальное количество изменений, необходимое для сохранения.</string>
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
@@ -1239,6 +1344,7 @@
   <string name="manage_apis">Управление API</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Использовать OAuth</string>
+  <string name="listedit_auth">Аутентификация</string>
   <string name="config_username_title">Имя пользователя OSM</string>
   <string name="config_password_title">Пароль OSM</string>
   <string name="config_password_summary">Не перепутайте его с паролем для Wiki. Помните, он хранится и передается в незашифрованном виде!</string>
@@ -1309,12 +1415,14 @@
   <string name="undo_action_set_tags">Добавление тегов</string>
   <string name="undo_action_join">Слияние</string>
   <string name="undo_action_unjoin_ways">Разъединение линии</string>
+  <string name="undo_action_merge_polygons">Объединение полигонов</string>
   <string name="undo_action_create_relation">Создание отношения</string>
   <string name="undo_action_delete_relation">Удаление отношения</string>
   <string name="undo_action_update_relations">Обновление отношения</string>
   <string name="undo_action_move_tags">Переместить тэги на отношение</string>
   <string name="undo_action_cut">Вырезать</string>
   <string name="undo_action_paste">Вставить</string>
+  <string name="undo_action_rotate">Поворот</string>
   <string name="undo_action_orthogonalize">Ортогонализация линии</string>
   <string name="undo_action_circulize">Выстроить в круг</string>
   <string name="undo_action_fix_conflict">Исправление конфликта</string>
@@ -1362,6 +1470,7 @@
   <string name="culvert">Водопропускная труба</string>
   <string name="steps">Ступеньки</string>
   <!--Issues-->
+  <string name="issue_role_conflict">Конфликт ролей</string>
   <string name="issue_merged_tags">Объединенные теги</string>
   <string name="issue_split_metric">Зависящее от длины значение было разделено</string>
   <string name="issue_precondition_relation_member_count">Превышено количество участников отношения</string>
@@ -1417,5 +1526,9 @@
   <string name="element_type_area">полигон</string>
   <string name="element_type_relation">отношение</string>
   <!--Element names with id-->
+  <string name="node_id">точка %1$d</string>
+  <string name="way_id">путь %1$d</string>
+  <string name="relation_id">отношение %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="tile_success">Успех</string>
 </resources>
