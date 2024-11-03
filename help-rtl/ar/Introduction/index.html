@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../../../help/en/20.2.0%20Release%20notes/" class="dropdown-item">20.2 BETA Release notes</a>
+</li>
+                                    
+<li>
     <a href="../../../help/en/20.1.0%20Release%20notes/" class="dropdown-item">20.1.0 Release notes</a>
 </li>
                                     
@@ -408,27 +412,27 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_20" class="nav-link">الملاحظات والأخطاء</a>
+            <li class="nav-item" data-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_22" class="nav-link">الوضع الداخلي</a>
+            <li class="nav-item" data-level="2"><a href="#_21" class="nav-link">الوضع الداخلي</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_23" class="nav-link">وضع الاكمال</a>
+            <li class="nav-item" data-level="2"><a href="#_22" class="nav-link">وضع الاكمال</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_27" class="nav-link">الفلاتر والمصفيات</a>
+            <li class="nav-item" data-level="2"><a href="#_26" class="nav-link">الفلاتر والمصفيات</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_30" class="nav-link">تخصيص فسبوتشي</a>
+            <li class="nav-item" data-level="2"><a href="#_29" class="nav-link">تخصيص فسبوتشي</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_34" class="nav-link">الإبلاغ عن المشاكل</a>
+            <li class="nav-item" data-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -439,38 +443,43 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<p>_ قبل أن نبدأ: تحتوي معظم الشاشات على روابط في القائمة إلى نظام المساعدة على الجهاز مما يتيح لك الوصول المباشر إلى المعلومات ذات الصلة بالسياق الحالي ، ويمكنك بسهولة الرجوع إلى هذا النص أيضًا. إذا كان لديك جهاز أكبر ، على سبيل المثال جهاز لوحي ، يمكنك فتح نظام المساعدة في نافذة منفصلة. يمكن العثور على جميع نصوص المساعدة والمزيد (الأسئلة الشائعة والبرامج التعليمية) على [موقع وثائق فسبوتشي] (https://vespucci.io/) أيضًا.</p>
+<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
 <h1 id="_1">مقدمة فسبوتشي<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
-<p>فسبوتشي Vespucci  هو محرر لخريطة الشارع المفتوحة وبكامل الميزات يدعم معظم العمليات التي توفرها محررات الحاسب الآلي، وقد تم اختباره بنجاح على إصدارات قوقل أندرويد 2.3 إلى 10.0 والمتغيرات المختلفة القائمة على AOSP. تحذير: على الرغم من أن قدرات الأجهزة المحمولة قد أصبحت منافسه لأجهزة سطح المكتب والحاسب الآلي ، إلا أن الأجهزة القديمة على وجه الخصوص بها ذاكرة محدودة للغاية وتميل إلى أن تكون بطيئة نوعًا ما. يجب أن تأخذ هذا في الاعتبار عند استخدام فسبوتشي وتقليل المناطق التي تقوم بتحريرها وجعل أحجامها معقولة وعدم تحميل جهازك مالا يحتمل.</p>
+<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
 <h2 id="vespucci">التحرير باستخدام فسبوتشي Vespucci<a class="headerlink" href="#vespucci" title="Permanent link">#</a></h2>
 <p>اعتمادًا على حجم الشاشة وعمر إجراءات التحرير الخاصة بجهازك ، يمكن الوصول إليها إما مباشرة عبر الرموز الموجودة في الشريط العلوي ، أو عبر قائمة منسدلة على يمين الشريط العلوي ، أو من الشريط السفلي (إن وجد) أو عبر زر القائمة.</p>
 <p><a id="download"></a></p>
 <h3 id="_2">تنزيل بيانات خريطة الشارع المفتوحة<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
-<p>حدد إما رمز النقل! <a href="../images/menu_transfer.png">Transfer</a> أو عنصر القائمة "نقل". سيعرض هذا سبعة خيارات:</p>
+<p>Select either the transfer icon <img alt="Transfer" src="../images/menu_transfer.png" /> or the "Transfer" menu item. This will display eleven options:</p>
 <ul>
-<li><strong> تنزيل العرض الحالي </strong> - قم بتنزيل المنطقة المرئية على الشاشة ودمجها مع البيانات الموجودة * (يتطلب اتصالاً بالشبكة أو مصدر بيانات غير متصل بالإنترنت)</li>
-<li><strong> مسح وتنزيل العرض الحالي </strong> - امسح أي بيانات في الذاكرة ثم قم بتنزيل المنطقة المرئية على الشاشة * (يتطلب الاتصال بالشبكة) *</li>
-<li><strong> رفع البيانات إلى خادم OSM </strong> - رفع التعديلات إلى خادم خريطة الشارع المفتوحة<em> (يتطلب المصادقة) * </em> (يتطلب اتصالاً بالشبكة) *</li>
-<li><strong> تحديث البيانات </strong> - إعادة تنزيل البيانات لجميع المناطق وتحديث ما هو موجود في الذاكرة * (يتطلب الاتصال بالشبكة) *</li>
-<li><strong> التنزيل التلقائي المستند إلى الموقع </strong> - قم بتنزيل منطقة حول الموقع الجغرافي الحالي تلقائيًا * (يتطلب اتصالاً بالشبكة أو بيانات غير متصلة بالإنترنت) * * (يتطلب GPS) *</li>
-<li><strong> التنزيل التلقائي للتجول والتكبير </strong> - تنزيل البيانات تلقائيًا لمنطقة الخريطة المعروضة حاليًا * (يتطلب اتصالاً بالشبكة أو بيانات غير متصلة بالإنترنت) * * (يتطلب GPS) *</li>
-<li><strong> ملف ... </strong> - حفظ وتحميل بيانات OSM من / إلى ملفات الجهاز.</li>
-<li><strong> ملاحظة / أخطاء ... </strong> - تنزيل (آليًا ويدويًا) ملاحظات OSM و "الأخطاء" من أدوات ضمان الجودة (حاليًا OSMOSE) * (يتطلب اتصالاً بالشبكة) *</li>
+<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Review changes...</strong> - review current changes</li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
+<li><strong>Clear and download current view</strong> - clear any data in memory, including pending changes, and then download the area visible on the screen <em>(requires network connectivity)</em></li>
+<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Clear data</strong> - remove any OSM data in memory, including pending changes.</li>
+<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
+<li><strong>Tasks...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
 <p>أسهل طريقة لتنزيل البيانات على الجهاز هي التكبير والتحريك إلى الموقع الذي تريد تعديله ثم تحديد "تنزيل العرض الحالي". يمكنك التكبير باستخدام الإيماءات أو أزرار التكبير أو أزرار التحكم في مستوى الصوت على جهازك. سيقوم برنامج فسبوتشي بعد ذلك بتنزيل البيانات للعرض الحالي. لا يلزم المصادقة وتسجيل الدخول بحساب لتنزيل البيانات على جهازك.</p>
-<p>باستخدام الإعدادات الافتراضية ، سيتم تعتيم أي مناطق لم يتم تنزيلها بالنسبة إلى المناطق التي تم تنزيلها ، وذلك لتجنب إضافة عناصر مكررة عن غير قصد في المناطق التي لا يتم عرضها ولم يتم تنزيلها. يمكن تغيير السلوك في التفضيلات المتقدمة <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
+<p>In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a> so that dimming is always active.</p>
+<p>If you need to use a non-standard OSM API entry, or use <a href="https://vespucci.io/tutorials/offline/">offline data</a> in <em>MapSplit</em> format you can add or change entries via the <em>Configure...</em> entry for the data layer in the layer control.</p>
 <h3 id="_3">التحرير<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
 <p><a id="lock"></a></p>
 <h4 id="_4">وضع القفل ، الفتح ، تبديل الوضع<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
 <p>لتجنب التعديلات غير المقصودة ، يبدأ فسبوتشي في وضع "القفل" ، وهو وضع يسمح فقط بتكبير الخريطة وتحريكها. اضغط على أيقونة! [مغلق] (../images/locked.png) لفتح الشاشة. </p>
-<p>سيؤدي الضغط لفترة طويلة على رمز القفل إلى عرض قائمة تقدم حاليًا 4 خيارات:</p>
+<p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
 <ul>
-<li><strong> عادي </strong> - وضع التحرير الافتراضي ، يمكن إضافة عناصر جديدة وتحرير العناصر الحالية الموجودة ونقلها أوإزالتها. تم عرض رمز قفل أبيض بسيط.</li>
-<li><strong> الوسم فقط </strong> - سيؤدي تحديد عنصر موجود إلى بدء محرر الخصائص والوسوم، وسيؤدي الضغط لفترة طويلة على الشاشة الرئيسية إلى إضافة عناصر، ولكن لن تعمل أي عمليات هندسية أخرى. يتم عرض رمز القفل الأبيض بحرف "T".</li>
-<li><strong> العنوان </strong> - يمكّن وضع العنوان ، وهو وضع مبسط قليلاً مع إجراءات محددة متاحة من<a href="../en/Simple%20actions.md">Simple mode</a> زر "+". يتم عرض رمز القفل الأبيض مع الحرف "A".</li>
-<li><strong> داخلي </strong> - يمكّن الوضع الداخلي ، راجع <a href="#indoor">Indoor mode</a>. يتم عرض رمز القفل الأبيض مع الحرف "I".</li>
-<li><strong>وضع الاكمال</strong> - عند تمكين وضع الاكمال، سيتم فقط عرض العناصر التي يوجد عليها علامة تحذير أو تنبيه بوجود خطأ ما، راجع<a href="#c-mode">C-Mode</a>. يتم عرض رمز القفل الأبيض بحرف "C".</li>
+<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
+<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.</li>
+<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../en/Simple%20actions.md">Simple mode</a> "+" button. White lock icon with an "A" is displayed.</li>
+<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an "I" is displayed.</li>
+<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
 </ul>
+<p>If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to <em>Address</em> and <em>Indoor</em> mode.</p>
 <h4 id="_5">نقرة واحدة أو نقرتين مزدوجة أو ضغطة طويلة<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
 <p>بشكل افتراضي ، تحتوي العقد/النقاط والطرق/الخطوط القابلة للتحديد على منطقة برتقالية حولها تشير تقريبًا إلى المكان الذي يجب أن تلمسه لتحديدها. ولديك ثلاثة خيارات:</p>
 <ul>
@@ -498,7 +507,7 @@
 <p>عند بدء تشغيل التطبيق لأول مرة في "الوضع البسيط" ، يمكن تغيير ذلك في القائمة الرئيسية عن طريق إلغاء تحديد مربع الاختيار المقابل.</p>
 <h5 id="_10">الوضع البسيط<a class="headerlink" href="#_10" title="Permanent link">#</a></h5>
 <p>سيؤدي النقر فوق الزر العائم الأخضر الكبير على شاشة الخريطة إلى إظهار قائمة. بعد تحديد أحد العناصر، سيُطلب منك النقر على الشاشة في الموقع الذي تريد إنشاء العنصر فيه ، ويستمر التحريك والتكبير / التصغير في العمل إذا كنت بحاجة إلى ضبط عرض الخريطة. </p>
-<p>راجع إنشاء عناصر جديدة في وضع الإجراءات البسيطة <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> لمزيد من المعلومات.</p>
+<p>See <a href="Simple%20actions.md">Creating new objects in simple actions mode</a> for more information. Simple mode os the default for new installs.</p>
 <h5 id="_11">الوضع المتقدم (الضغط لفترة طويلة)<a class="headerlink" href="#_11" title="Permanent link">#</a></h5>
 <p>اضغط لفترة طويلة حيث تريد أن تكون العقدة أو بداية الطريق. سترى رمز "علامة التقاطع" سوداء.
 * إذا كنت تريد إنشاء عقدة جديدة (غير متصلة بعنصر) ، فالمس بعيدًا عن العناصر الموجودة.
@@ -522,7 +531,7 @@
 <h4 id="_13">تحسين هندسة وشكل الطرق<a class="headerlink" href="#_13" title="Permanent link">#</a></h4>
 <p>إذا قمت بالتكبير بشكل كافٍ للطريق المحدد ، فسترى "x" صغيرًا في منتصف الطريق وفي أجزائه الطويلة بما يكفي. سيؤدي سحب "x" إلى إنشاء عقدة في الطريق في ذلك الموقع. ملاحظة: لتجنب إنشاء العقد عن طريق الخطأ ، تكون منطقة التغيير باللمس لهذه العملية صغيرة إلى حد ما.</p>
 <h4 id="_14">قص ونسخ ولصق<a class="headerlink" href="#_14" title="Permanent link">#</a></h4>
-<p>يمكنك نسخ العقد والطرق المحددة أو قصها ، ثم لصقها مرة واحدة أو عدة مرات في موقع جديد. وعند قص أي عنصر فإنه سيتم الاحتفاظ بمعرف osm للعنصر والإصدار.و للصق ، اضغط مطولاً على المكان الذي تريد اللصق فيه (سترى تقاطعًا يحدد الموقع). ثم حدد "لصق" من القائمة.</p>
+<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p>
 <h4 id="_15">إضافة العناوين بكفاءة<a class="headerlink" href="#_15" title="Permanent link">#</a></h4>
 <p>يدعم فسبوتشي الوظائف التي تجعل عناوين المسح أكثر كفاءة من خلال التنبؤ بأرقام المنازل (الجانبين الأيسر والأيمن للشوارع بشكل منفصل) وإضافة وسوم <em>addr:street</em> أو <em>addr:place</em> بناءً على آخر قيمة مستخدمة والقرب في أفضل الأحوال، وهذا يسمح بإضافة العنوان بدون الحاجة لكتابة أي شيء على الإطلاق.   </p>
 <p>يمكن بدء إضافة الوسوم بالضغط على <img alt="Address" src="../images/address.png" />: </p>
@@ -548,42 +557,48 @@
 <h3 id="_18">حفظ التغييرات الخاصة بك<a class="headerlink" href="#_18" title="Permanent link">#</a></h3>
 <p><em>(لابد من وجود اتصال بالشبكة)</em></p>
 <p>اضغط نفس الزر أو على عنصر القائمة الذي قمت به للتنزيل وحدد الآن "رفع البيانات إلى خادم خريطة الشارع المفتوحة".</p>
-<p>يدعم تطبيق فسبوتشي بروتكول تفويض OAuth بالإضافة إلى طريقة الدخول العادية عبر اسم المستخدم وكلمة المرور. يُفضل بروتوكول OAuth لأنه يتجنب إرسال كلمات المرور بشكل واضح وهو أكثر أماناً للاستخدام.</p>
-<p>سيتم تمكين OAuth افتراضيًا في عندما تقوم بتثبيت تطبيق فسبوتشي، وفي محاولتك الأولى لرفع البيانات المعدلة، ستفتح لك صفحة من موقع OSM، وبعدما تسجيل الدخول (عبر اتصال مشفر)، سيُطلب منك تفويض تطبيق فسبوتشي Vespucci لاستخدامه للتحرير عبر حسابك. إذا كنت تريد أو تحتاج إلى تفويض وصول OAuth إلى حسابك قبل أن تقوم بأي تعديل، فهناك عنصر مطابق في قائمة "الأدوات".</p>
+<p>Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  </p>
+<p>Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p>
 <p>إذا كنت تريد حفظ عملك وليس لديك اتصال بالإنترنت، فيمكنك حفظ تعديلاتك على ملف بصيغة .osm وهو متوافق مع محرر JOSM ومن ثم يمكنك رفعه لاحقًا باستخدام تطبيق فسبوتشي أو باستخدام JOSM. </p>
 <h4 id="_19">حل التعارضات عند قيامك بالرفع<a class="headerlink" href="#_19" title="Permanent link">#</a></h4>
 <p>لدى تطبيق فسبوتشي أداة حل تعارضات بسيطة، ومع ذلك ،إذا كنت تشك في وجود مشكلات كبيرة في تعديلاتك، فقم بتصدير التغييرات إلى ملف بصيغة .osc (اختر من القائمة "تصدير" في قائمة "نقل") وقم بإصلاحها ورفعها باستخدام JOSM. راجع المساعدة التفصيلية حول حل التعارض <a href="Conflict%20resolution.md">conflict resolution</a>.  </p>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
+<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. </p>
+<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
 <h2 id="gps-gpx">استخدام مسارات GPS و GPX<a class="headerlink" href="#gps-gpx" title="Permanent link">#</a></h2>
 <p>من خلال الإعدادات القياسية، سيحاول فسبوتشي تمكين خدمة GPS (وأنظمة الملاحة الأخرى المعتمدة على الأقمار الصناعية) وسيعود إلى تحديد الموقع عبر ما يسمى "موقع الشبكة" إذا لم يكن ذلك ممكنًا. يفترض هذا السلوك أنه في الاستخدام العادي سيكون جهاز أندرويد الخاص بك قد تم تكوينه لاستخدام المواقع التي تم إنشاؤها بواسطة GPX فقط (لتجنب التعقب)، وهذا يعني أنه تم إيقاف تشغيل خيار "تحسين دقة الموقع" المسمى بشكل ملطف، فإذا كنت تريد تمكين الخيار ولكنك تريد تجنب عودة فسبوتشي إلى "موقع الشبكة" ، فيجب عليك إيقاف تشغيل الخيار المقابل في الإعدادات المتقدمة <a href="Advanced%20preferences.md">Advanced preferences</a>. </p>
-<p>سيؤدي لمس الزر <img alt="GPS" src="../images/menu_gps.png" /> (الموجود على الجانب الأيسر من شاشة عرض الخريطة) إلى توسيط الشاشة على الموضع الحالي ، وأثناء تحريكك ، سيتم تبطين شاشة عرض الخريطة للحفاظ على ذلك، كما سيؤدي تحريك الشاشة يدويًا أو التحرير إلى تعطيل وضع "متابعة الـGPS" وسيتغير سهم GPS الأزرق من شكل مأطر إلى سهم ممتلئ، وللعودة بسرعة إلى وضع "المتابعة" ، ما عليك سوى لمس زر GPS أو إعادة تحديد خيار القائمة المكافئ، وإذا لم يكن للجهاز موقع حالي فسيتم عرض علامة الموقع / السهم باللون الأسود ، وإذا كان الموقع الحالي متاحًا ، فستكون العلامة باللون الأزرق.</p>
+<p>Touching the <img alt="GPS" src="../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
 <p>لتسجيل مسار GPX وعرضه على جهازك ، حدد عنصر "بدء مسار GPX" في قائمة <img alt="GPS" src="../images/menu_gps.png" />، كما أن ذلك سيؤدي إلى إضافة طبقة إلى شاشة العرض تتضمن المسار الحالي المسجل، كما يمكنك تحميل وتصدير المسار من الإدخال عبر التحكم في الطبقة <a href="Main%20map%20display.md">layer control</a>، كما يمكن إضافة طبقات أخرى من ملفات GPX المحلية والمسارات التي تم تنزيلها من الواجهة البرمجية لـOSM.</p>
 <p>ملاحظة: افتراضيًا ، لن يقوم محرر فسبوتشي بتسجيل بيانات الارتفاع باستخدام مسار GPX الخاص بك ، ويرجع ذلك إلى بعض المشكلات الخاصة بنظام أندرويد، ولتمكين تسجيل الارتفاع قم بتثبيت نموذج جاذبية أو بشكل أبسط انتقل إلى الإعدادات المتقدمة <a href="Advanced%20preferences.md">Advanced preferences</a> ثم قم بتكوين إعدادات NMEA.</p>
-<h2 id="_20">الملاحظات والأخطاء<a class="headerlink" href="#_20" title="Permanent link">#</a></h2>
-<p>يدعم تطبيق فسبوتشي تنزيل ملاحظات خريطة الشارع المفتوحة OSM Notes والتعليق عليها وإغلاقها (المعروفة سابقًا باسم OSM Bugs) والوظائف المكافئة لـ "Bugs" التي تنتجها <a href="http://osmose.openstreetmap.fr/en/map/">أداة ضمان جودة OSMOSE</a>. كلاهما يجب أن يتم تنزيلهما بشكل صريح أو يمكنك استخدام مرفق التنزيل التلقائي للوصول إلى العناصر الموجودة في منطقتك الحالية. بمجرد التحرير أو الإغلاق ، يمكنك إما رفع تعديلات الخطأ أو الملاحظة على الفور أو رفع الكل مرة واحدة.</p>
-<p>على الخريطة ، يتم تمثيل الملاحظات والأخطاء برمز خطأ صغير <img alt="Bug" src="../images/bug_open.png" />، الملاحظات الخضراء مغلقة / تم حلها ، الملاحظات الزرقاء هي التي تم إنشاؤها أو تحريرها بواسطتك، والصفراء تشير إلى أنها لا تزال نشطة ولم يتم تغييرها. </p>
-<p>ستوفر شاشة عرض الأخطاء من OSMOSE رابطًا للعنصر المتأثر باللون الأزرق ، وسيؤدي لمس الرابط إلى تحديد العنصر وتوسيط الشاشة عليه وتحميل المنطقة مسبقًا إذا لزم الأمر. </p>
-<h3 id="_21">الفلتره والتصفية<a class="headerlink" href="#_21" title="Permanent link">#</a></h3>
+<h3 id="how-to-export-a-gpx-track">How to export a GPX track?<a class="headerlink" href="#how-to-export-a-gpx-track" title="Permanent link">#</a></h3>
+<p>Open the layer menu, then click the 3-dots menu next to "GPX recording", then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
+<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos<a class="headerlink" href="#notes-bugs-and-todos" title="Permanent link">#</a></h2>
+<p>يدعم تطبيق فسبوتشي تنزيل ملاحظات خريطة الشارع المفتوحة OSM Notes والتعليق عليها وإغلاقها (المعروفة سابقًا باسم OSM Bugs) والوظائف المكافئة لـ "Bugs" التي تنتجها <a href="http://osmose.openstreetmap.fr/en/map/">أداة ضمان جودة OSMOSE</a>. كلاهما يجب أن يتم تنزيلهما بشكل صريح أو يمكنك استخدام مرفق التنزيل التلقائي للوصول إلى العناصر الموجودة في منطقتك الحالية. بمجرد التحرير أو الإغلاق ، يمكنك إما رفع تعديلات الخطأ أو الملاحظة على الفور أو رفع الكل مرة واحدة. </p>
+<p>Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. </p>
+<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
+<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
+<h3 id="_20">الفلتره والتصفية<a class="headerlink" href="#_20" title="Permanent link">#</a></h3>
 <p>إلى جانب التمكين العام لعرض الملاحظات والمشاكل، يمكنك تحديد مصفي لعرض الحبوب الخشنة لتقليل الفوضى. يمكن الوصول إلى تكوين المصفي من إدخال طبقة المهمة في <a href="#layers">التحكم في الطبقة</a>:</p>
 <ul>
-<li>الملاحظات</li>
-<li>أخطاء Osmose</li>
-<li>تحذيرات Osmose</li>
-<li>المشاكل الثانوية Osmose</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
 <li>Maproulette</li>
-<li>مخصص</li>
+<li>Todo</li>
 </ul>
 <p><a id="indoor"></a></p>
-<h2 id="_22">الوضع الداخلي<a class="headerlink" href="#_22" title="Permanent link">#</a></h2>
+<h2 id="_21">الوضع الداخلي<a class="headerlink" href="#_21" title="Permanent link">#</a></h2>
 <p>يمثل رسم الخرائط للعناصر التي داخل المباني تحديًا نظرًا للعدد الكبير من العناصر التي غالبًا ما تتراكب مع بعضها البعض، لذا فإن تطبيق فسبوتشي يحتوي على وضع داخلي مخصص يسمح لك بتصفية جميع الكائنات التي ليست على نفس المستوى والتي ستضيف وبشكل تلقائي المستوى الحالي إلى العناصر الجديدة التي تم إنشاؤها.</p>
 <p>يمكن تمكين الوضع من خلال الضغط لفترة طويلة على رمز القفل ، راجع <a href="#lock">وضع القفل ، الفتح ، تبديل الوضع</a> واختيار إدخال القائمة المقابل.</p>
 <p><a id="c-mode"></a></p>
-<h2 id="_23">وضع الاكمال<a class="headerlink" href="#_23" title="Permanent link">#</a></h2>
+<h2 id="_22">وضع الاكمال<a class="headerlink" href="#_22" title="Permanent link">#</a></h2>
 <p>في وضع الاكمال يتم عرض العناصر التي يوجد عليها علامة تحذير، وهذا يسهل عليك تحديد العناصر التي بها مشاكل محددة أو تطابق أشكال المشاكل المعينة التي قمت بإعدادها لتظهر لك. إذا تم تحديد عنصر وبدأ محرر الخصائص في وضع الاكمال، فسيتم تطبيق أفضل قالب مطابق بشكل تلقائي.</p>
 <p>يمكن تمكين الوضع من خلال الضغط لفترة طويلة على رمز القفل ، راجع <a href="#lock">وضع القفل ، الفتح ، تبديل الوضع</a> واختيار إدخال القائمة المقابل.</p>
-<h3 id="_24">إعداد الفحوصات<a class="headerlink" href="#_24" title="Permanent link">#</a></h3>
-<p>يوجد حاليًا نوعان من عمليات التحقق القابلة للتكوين (بالنسبة لفحص وسم أصلحني -FIXME واختبار لوسوم النوع الغير موجودة على العلاقات فهي غير قابلة للتكوين حاليًا) كما يمكن تكوين كليهما عن طريق تحديد "إعدادات التحقق من الصحة" في التفضيلات <a href="Preferences.md">preferences</a>. </p>
-<p>يتم تقسيم قائمة الإدخالات إلى قسمين ، النصف العلوي يسرد إدخالات "إعادة دراسة واستطلاع" ، والنصف السفلي "فحص الإدخالات". يمكن تحرير الإدخالات بالنقر فوقها ، ويسمح زر القائمة الأخضر بإضافة إدخالات.</p>
-<h4 id="_25">مدخلات إعادة الدراسة والاستطلاع<a class="headerlink" href="#_25" title="Permanent link">#</a></h4>
+<h3 id="_23">إعداد الفحوصات<a class="headerlink" href="#_23" title="Permanent link">#</a></h3>
+<p>All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the <a href="Preferences.md">preferences</a>. </p>
+<p>The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
+<h4 id="_24">مدخلات إعادة الدراسة والاستطلاع<a class="headerlink" href="#_24" title="Permanent link">#</a></h4>
 <p>تحتوي مدخلات إعادة الدراسة والاستطلاع على الخصائص التالية:</p>
 <ul>
 <li><strong>المفتاح</strong> - مفتاح الوسوم التي تهتم لها.</li>
@@ -593,51 +608,54 @@
 </ul>
 <p>يتم فحص <strong>المفتاح</strong> و <strong>القيمة</strong> مقابل الوسوم <em>الموجودة</em> للعنصر المعني.</p>
 <p>تحتوي مجموعة <em>Annotations</em> في القوالب القياسية على عنصر سيضيف تلقائيًا وسم <em>check_date</em> بالتاريخ الحالي.</p>
-<h4 id="_26">تدقيق وفحص الإدخالات<a class="headerlink" href="#_26" title="Permanent link">#</a></h4>
+<h4 id="_25">تدقيق وفحص الإدخالات<a class="headerlink" href="#_25" title="Permanent link">#</a></h4>
 <p>ميزة تدقيق الإدخالات لها الخاصيتان التاليتان:</p>
 <ul>
 <li><strong>مفتاح</strong> - المفتاح الذي يجب أن يكون موجودًا على العنصر وفقًا للقالب المطابق.</li>
 <li><strong>متطلب اختياري</strong> - اطلب المفتاح حتى إذا كان المفتاح موجودًا في الوسوم الاختيارية للقالب المطابق.</li>
 </ul>
 <p>يعمل هذا الفحص عن طريق تحديد القالب المطابق أولاً ثم التحقق مما إذا كان <strong>المفتاح</strong> هو مفتاح "موصى به" لهذا العنصر وفقًا للقالب، أما ما هو <strong>مطلوب اختياريًا</strong> فإن إدخاله سيؤدي إلى توسيع نطاق التحقق ليشمل الوسوم "الاختيارية* في العنصر. ملاحظة: لم يتم فحص القوالب المرتبطة حاليًا..</p>
-<h2 id="_27">الفلاتر والمصفيات<a class="headerlink" href="#_27" title="Permanent link">#</a></h2>
-<h3 id="_28">التصفية بناءاً على الوسم<a class="headerlink" href="#_28" title="Permanent link">#</a></h3>
+<h2 id="_26">الفلاتر والمصفيات<a class="headerlink" href="#_26" title="Permanent link">#</a></h2>
+<h3 id="_27">التصفية بناءاً على الوسم<a class="headerlink" href="#_27" title="Permanent link">#</a></h3>
 <p>يمكن تمكين فلتر الوسوم من القائمة الرئيسية، ويمكن بعد ذلك تغييره من خلال النقر على أيقونة الفلتر في الشاشة الرئيسية. يمكن العثور على المزيد من الوثائق هنا فلتر الوسوم <a href="Tag%20filter.md">Tag filter</a>.</p>
-<h3 id="_29">الفلترة بناءاً على القالب<a class="headerlink" href="#_29" title="Permanent link">#</a></h3>
+<h3 id="_28">الفلترة بناءاً على القالب<a class="headerlink" href="#_28" title="Permanent link">#</a></h3>
 <p>كبديل لما ورد أعلاه، يتم تصفية العناصر إما حسب القوالب الفردية أو على مجموعات قوالب. سيؤدي النقر فوق أيقونة المصفي/الفلتر إلى عرض نافذة للاختيار بين العناصر المتعارف عليها في أماكن أخرى في تطبيق فسبوتشي. كما يمكن تحديد القوالب بشكل فردي بنقرة عادية، ولتحديد مجموعات منها اضغط ضغطة مطولة عليها (النقر العادي يدخل المجموعة). يمكن العثور على المزيد من الوثائق هنا فلتر القوالب <a href="Preset%20filter.md">Preset filter</a>.</p>
-<h2 id="_30">تخصيص فسبوتشي<a class="headerlink" href="#_30" title="Permanent link">#</a></h2>
+<h2 id="_29">تخصيص فسبوتشي<a class="headerlink" href="#_29" title="Permanent link">#</a></h2>
 <p>يمكن تخصيص العديد من جوانب التطبيق ، إذا كنت تبحث عن شيء محدد ولا يمكنك العثور عليه ، فإنه يمكنك البحث في <a href="https://vespucci.io/">موقع Vespucci</a> كما أنه يحتوي على معلومات إضافية حول ما هو متاح على الجهاز.</p>
 <p><a id="layers"></a></p>
-<h3 id="_31">إعدادات الطبقات<a class="headerlink" href="#_31" title="Permanent link">#</a></h3>
+<h3 id="_30">إعدادات الطبقات<a class="headerlink" href="#_30" title="Permanent link">#</a></h3>
 <p>يمكن تغيير إعدادات الطبقات عن طريق التحكم في الطبقة (قائمة "hamburger" في الزاوية العليا على اليمين) ، ويمكن الوصول إلى جميع الإعدادات الأخرى عبر زر تفضيلات القائمة الرئيسية. كما يمكن تمكين الطبقات وتعطيلها وإخفائها مؤقتًا.</p>
 <p>أنواع الطبقات المتاحة:</p>
 <ul>
-<li>طبقة البيانات - هذه هي الطبقة التي يتم تحميل بيانات خريطة الشارع المفتوحة إليها. في الاستخدام العادي ، لا تحتاج إلى تغيير أي شيء هنا. وهي مفعلة بشكل افتراضي.</li>
-<li>طبقة الخلفية - تتوفر مجموعة كبيرة من الصور الخلفية المصورة من الجو أو الأقمار الصناعية. والطبقة الإفتراضية للطبقة الخلية هي خريطة "النمط القياسي" من openstreetmap.org.</li>
-<li>الطبقات العلوية - هذه طبقات شبه شفافة بمعلومات إضافية ، تحتوي على سبيل المثال على مسارات GPX. قد تتسبب إضافة الطبقات العلوية الكثيرة في حدوث مشاكل مع الأجهزة القديمة مثل امتلاء الذاكرة. وهي طبقة معطلة بشكل افتراضي.</li>
-<li>طبقة الملاحظات / الأخطاء - سيتم عرض الملاحظات والأخطاء المفتوحة كرمز أصفر بشكل حشرات ، والمغلق منها سيكون باللون الأخضر. وهي طبقة مفعلة بشكل افتراضي.</li>
-<li>طبقة الصور - تعرض هذه الطبقة الصور التي تكون مربوطة بمرجعية جغرافية كأيقونات كاميرا حمراء، وإذا توفرت معلومات الاتجاه، فسيتم تدوير الرمز. وهي طبقة معطلة بشكل افتراضي.</li>
-<li>طبقة Mapillary - وهي طبقة تعرض مقاطع صور Mapillary بعلامات تحدد مكان وجود الصور ، سيؤدي النقر علا العلامة إلى عرض الصورة. وهي طبقة معطلة بشكل افتراضي.</li>
-<li>طبقة GeoJSON - تعرض محتويات ملف GeoJSON. وهي طبقة معطلة بشكل افتراضي.</li>
-<li>المسطرة - وهي مسطرة للقياس تظهر على جوانب الشاشة. وهي طبقة مفعلة بشكل افتراضي. </li>
+<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
+<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
+<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
+<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
+<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
+<li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
 <p>يمكن العثور على مزيد من المعلومات في القسم الموجود على عرض الخريطة <a href="Main%20map%20display.md">map display</a>.</p>
-<h4 id="_32">التفضيلات<a class="headerlink" href="#_32" title="Permanent link">#</a></h4>
+<h4 id="_31">التفضيلات<a class="headerlink" href="#_31" title="Permanent link">#</a></h4>
 <ul>
 <li>حافظ على الشاشة قيد التشغيل. وهو خيار معطل بشكل افتراضي.</li>
 <li>منطقة سحب عقدة كبيرة. يعد تحريك العقد على جهاز يتم التحكم فيه عن طريق اللمس مشكلة نظرًا لأن أصابعك ستحجب الموضع الحالي على الشاشة. سيؤدي تشغيل هذا إلى توفير مساحة كبيرة يمكن استخدامها للسحب خارج مركز الشاشة (لا يزال التحديد والعمليات الأخرى تستخدم منطقة تحمل اللمس العادية). وهو خيار معطل بشكل افتراضي.</li>
 </ul>
 <p>يمكن العثور على الشرح الكامل هنا في التفضيلات <a href="Preferences.md">Preferences</a></p>
-<h4 id="_33">التفضيلات المتقدمة<a class="headerlink" href="#_33" title="Permanent link">#</a></h4>
+<h4 id="_32">التفضيلات المتقدمة<a class="headerlink" href="#_32" title="Permanent link">#</a></h4>
 <ul>
-<li>إظهار أيقونات العقد/النقاط. وهي مفعلة بشكل افتراضي.</li>
-<li>اعرض القائمة المنبثقة بشكل دائم. عند تشغيل كل عملية اختيار ستظهر قائمة منبثقة، كما أنه يتم إيقاف تشغيل ظهور القائمة فقط عندما يكون التحديد واضح ولا يمكن أن يعني شيأً آخر. وهي ميزة متعطلة بشكل افتراضي (كانت في السابق تفعل بشكل افتراضي).</li>
-<li>تمكين المظهر الخفيف. يتم تشغيل هذه الميزة افتراضيًا على الأجهزة الحديثة. بينما يمكنك تمكينه لإصدارات أندرويد الأقدم، فمن المحتمل أن يكون النمط متعارض. </li>
+<li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.  </li>
+<li>Node icons. Default: <em>on</em>.</li>
+<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
+<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. </li>
 </ul>
 <p>يمكن العثور على الشرح الكامل هنا في شرح التفضيلات المتقدمة <a href="Advanced%20preferences.md">Advanced preferences</a></p>
-<h2 id="_34">الإبلاغ عن المشاكل<a class="headerlink" href="#_34" title="Permanent link">#</a></h2>
+<h2 id="reporting-and-resolving-issues">Reporting and Resolving Issues<a class="headerlink" href="#reporting-and-resolving-issues" title="Permanent link">#</a></h2>
 <p>في حال تعطل تطبيق فسبوتشي Vespucci، أو اكتشاف حالة غير متناسقة ، سيُطلب منك إرسال ملف سجل الأعطال، يرجى القيام بذلك إذا حدث ذلك ، ولكن من فضلك قم بذلك مرة واحدة فقط لكل مشكلة محددة. إذا كنت ترغب في تقديم المزيد من المدخلات أو فتح مشكلة لطلب ميزة أو ما شابه ، فالرجاء القيام بذلك هنا: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. ستؤدي وظيفة "تقديم التعليقات" من القائمة الرئيسية إلى فتح مشكلة جديدة وتضمين المعلومات ذات الصلة ومعلومات الجهاز دون الحاجة إلى كتابة بيانات إضافية.</p>
-<p>إذا كنت تريد مناقشة شيء متعلق بـتطبيق فسبوتشي Vespucci ، فيمكنك إما بدء مناقشة على <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> أو على <a href="http://forum.openstreetmap.org/viewforum.php?id=56">منتدى خريطة الشارع المفتوحة في القسم الخاص لأجهزة الأندرويد</a></p></div> -->
+<p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
@@ -660,27 +678,27 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_20" class="nav-link">الملاحظات والأخطاء</a>
+            <li class="nav-item" data-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_22" class="nav-link">الوضع الداخلي</a>
+            <li class="nav-item" data-level="2"><a href="#_21" class="nav-link">الوضع الداخلي</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_23" class="nav-link">وضع الاكمال</a>
+            <li class="nav-item" data-level="2"><a href="#_22" class="nav-link">وضع الاكمال</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_27" class="nav-link">الفلاتر والمصفيات</a>
+            <li class="nav-item" data-level="2"><a href="#_26" class="nav-link">الفلاتر والمصفيات</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_30" class="nav-link">تخصيص فسبوتشي</a>
+            <li class="nav-item" data-level="2"><a href="#_29" class="nav-link">تخصيص فسبوتشي</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_34" class="nav-link">الإبلاغ عن المشاكل</a>
+            <li class="nav-item" data-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -691,38 +709,43 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<p>_ قبل أن نبدأ: تحتوي معظم الشاشات على روابط في القائمة إلى نظام المساعدة على الجهاز مما يتيح لك الوصول المباشر إلى المعلومات ذات الصلة بالسياق الحالي ، ويمكنك بسهولة الرجوع إلى هذا النص أيضًا. إذا كان لديك جهاز أكبر ، على سبيل المثال جهاز لوحي ، يمكنك فتح نظام المساعدة في نافذة منفصلة. يمكن العثور على جميع نصوص المساعدة والمزيد (الأسئلة الشائعة والبرامج التعليمية) على [موقع وثائق فسبوتشي] (https://vespucci.io/) أيضًا.</p>
+<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
 <h1 id="_1">مقدمة فسبوتشي<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
-<p>فسبوتشي Vespucci  هو محرر لخريطة الشارع المفتوحة وبكامل الميزات يدعم معظم العمليات التي توفرها محررات الحاسب الآلي، وقد تم اختباره بنجاح على إصدارات قوقل أندرويد 2.3 إلى 10.0 والمتغيرات المختلفة القائمة على AOSP. تحذير: على الرغم من أن قدرات الأجهزة المحمولة قد أصبحت منافسه لأجهزة سطح المكتب والحاسب الآلي ، إلا أن الأجهزة القديمة على وجه الخصوص بها ذاكرة محدودة للغاية وتميل إلى أن تكون بطيئة نوعًا ما. يجب أن تأخذ هذا في الاعتبار عند استخدام فسبوتشي وتقليل المناطق التي تقوم بتحريرها وجعل أحجامها معقولة وعدم تحميل جهازك مالا يحتمل.</p>
+<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
 <h2 id="vespucci">التحرير باستخدام فسبوتشي Vespucci<a class="headerlink" href="#vespucci" title="Permanent link">#</a></h2>
 <p>اعتمادًا على حجم الشاشة وعمر إجراءات التحرير الخاصة بجهازك ، يمكن الوصول إليها إما مباشرة عبر الرموز الموجودة في الشريط العلوي ، أو عبر قائمة منسدلة على يمين الشريط العلوي ، أو من الشريط السفلي (إن وجد) أو عبر زر القائمة.</p>
 <p><a id="download"></a></p>
 <h3 id="_2">تنزيل بيانات خريطة الشارع المفتوحة<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
-<p>حدد إما رمز النقل! <a href="../images/menu_transfer.png">Transfer</a> أو عنصر القائمة "نقل". سيعرض هذا سبعة خيارات:</p>
+<p>Select either the transfer icon <img alt="Transfer" src="../images/menu_transfer.png" /> or the "Transfer" menu item. This will display eleven options:</p>
 <ul>
-<li><strong> تنزيل العرض الحالي </strong> - قم بتنزيل المنطقة المرئية على الشاشة ودمجها مع البيانات الموجودة * (يتطلب اتصالاً بالشبكة أو مصدر بيانات غير متصل بالإنترنت)</li>
-<li><strong> مسح وتنزيل العرض الحالي </strong> - امسح أي بيانات في الذاكرة ثم قم بتنزيل المنطقة المرئية على الشاشة * (يتطلب الاتصال بالشبكة) *</li>
-<li><strong> رفع البيانات إلى خادم OSM </strong> - رفع التعديلات إلى خادم خريطة الشارع المفتوحة<em> (يتطلب المصادقة) * </em> (يتطلب اتصالاً بالشبكة) *</li>
-<li><strong> تحديث البيانات </strong> - إعادة تنزيل البيانات لجميع المناطق وتحديث ما هو موجود في الذاكرة * (يتطلب الاتصال بالشبكة) *</li>
-<li><strong> التنزيل التلقائي المستند إلى الموقع </strong> - قم بتنزيل منطقة حول الموقع الجغرافي الحالي تلقائيًا * (يتطلب اتصالاً بالشبكة أو بيانات غير متصلة بالإنترنت) * * (يتطلب GPS) *</li>
-<li><strong> التنزيل التلقائي للتجول والتكبير </strong> - تنزيل البيانات تلقائيًا لمنطقة الخريطة المعروضة حاليًا * (يتطلب اتصالاً بالشبكة أو بيانات غير متصلة بالإنترنت) * * (يتطلب GPS) *</li>
-<li><strong> ملف ... </strong> - حفظ وتحميل بيانات OSM من / إلى ملفات الجهاز.</li>
-<li><strong> ملاحظة / أخطاء ... </strong> - تنزيل (آليًا ويدويًا) ملاحظات OSM و "الأخطاء" من أدوات ضمان الجودة (حاليًا OSMOSE) * (يتطلب اتصالاً بالشبكة) *</li>
+<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Review changes...</strong> - review current changes</li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
+<li><strong>Clear and download current view</strong> - clear any data in memory, including pending changes, and then download the area visible on the screen <em>(requires network connectivity)</em></li>
+<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Clear data</strong> - remove any OSM data in memory, including pending changes.</li>
+<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
+<li><strong>Tasks...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
 <p>أسهل طريقة لتنزيل البيانات على الجهاز هي التكبير والتحريك إلى الموقع الذي تريد تعديله ثم تحديد "تنزيل العرض الحالي". يمكنك التكبير باستخدام الإيماءات أو أزرار التكبير أو أزرار التحكم في مستوى الصوت على جهازك. سيقوم برنامج فسبوتشي بعد ذلك بتنزيل البيانات للعرض الحالي. لا يلزم المصادقة وتسجيل الدخول بحساب لتنزيل البيانات على جهازك.</p>
-<p>باستخدام الإعدادات الافتراضية ، سيتم تعتيم أي مناطق لم يتم تنزيلها بالنسبة إلى المناطق التي تم تنزيلها ، وذلك لتجنب إضافة عناصر مكررة عن غير قصد في المناطق التي لا يتم عرضها ولم يتم تنزيلها. يمكن تغيير السلوك في التفضيلات المتقدمة <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
+<p>In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a> so that dimming is always active.</p>
+<p>If you need to use a non-standard OSM API entry, or use <a href="https://vespucci.io/tutorials/offline/">offline data</a> in <em>MapSplit</em> format you can add or change entries via the <em>Configure...</em> entry for the data layer in the layer control.</p>
 <h3 id="_3">التحرير<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
 <p><a id="lock"></a></p>
 <h4 id="_4">وضع القفل ، الفتح ، تبديل الوضع<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
 <p>لتجنب التعديلات غير المقصودة ، يبدأ فسبوتشي في وضع "القفل" ، وهو وضع يسمح فقط بتكبير الخريطة وتحريكها. اضغط على أيقونة! [مغلق] (../images/locked.png) لفتح الشاشة. </p>
-<p>سيؤدي الضغط لفترة طويلة على رمز القفل إلى عرض قائمة تقدم حاليًا 4 خيارات:</p>
+<p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
 <ul>
-<li><strong> عادي </strong> - وضع التحرير الافتراضي ، يمكن إضافة عناصر جديدة وتحرير العناصر الحالية الموجودة ونقلها أوإزالتها. تم عرض رمز قفل أبيض بسيط.</li>
-<li><strong> الوسم فقط </strong> - سيؤدي تحديد عنصر موجود إلى بدء محرر الخصائص والوسوم، وسيؤدي الضغط لفترة طويلة على الشاشة الرئيسية إلى إضافة عناصر، ولكن لن تعمل أي عمليات هندسية أخرى. يتم عرض رمز القفل الأبيض بحرف "T".</li>
-<li><strong> العنوان </strong> - يمكّن وضع العنوان ، وهو وضع مبسط قليلاً مع إجراءات محددة متاحة من<a href="../en/Simple%20actions.md">Simple mode</a> زر "+". يتم عرض رمز القفل الأبيض مع الحرف "A".</li>
-<li><strong> داخلي </strong> - يمكّن الوضع الداخلي ، راجع <a href="#indoor">Indoor mode</a>. يتم عرض رمز القفل الأبيض مع الحرف "I".</li>
-<li><strong>وضع الاكمال</strong> - عند تمكين وضع الاكمال، سيتم فقط عرض العناصر التي يوجد عليها علامة تحذير أو تنبيه بوجود خطأ ما، راجع<a href="#c-mode">C-Mode</a>. يتم عرض رمز القفل الأبيض بحرف "C".</li>
+<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
+<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.</li>
+<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../en/Simple%20actions.md">Simple mode</a> "+" button. White lock icon with an "A" is displayed.</li>
+<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an "I" is displayed.</li>
+<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
 </ul>
+<p>If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to <em>Address</em> and <em>Indoor</em> mode.</p>
 <h4 id="_5">نقرة واحدة أو نقرتين مزدوجة أو ضغطة طويلة<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
 <p>بشكل افتراضي ، تحتوي العقد/النقاط والطرق/الخطوط القابلة للتحديد على منطقة برتقالية حولها تشير تقريبًا إلى المكان الذي يجب أن تلمسه لتحديدها. ولديك ثلاثة خيارات:</p>
 <ul>
@@ -750,7 +773,7 @@
 <p>عند بدء تشغيل التطبيق لأول مرة في "الوضع البسيط" ، يمكن تغيير ذلك في القائمة الرئيسية عن طريق إلغاء تحديد مربع الاختيار المقابل.</p>
 <h5 id="_10">الوضع البسيط<a class="headerlink" href="#_10" title="Permanent link">#</a></h5>
 <p>سيؤدي النقر فوق الزر العائم الأخضر الكبير على شاشة الخريطة إلى إظهار قائمة. بعد تحديد أحد العناصر، سيُطلب منك النقر على الشاشة في الموقع الذي تريد إنشاء العنصر فيه ، ويستمر التحريك والتكبير / التصغير في العمل إذا كنت بحاجة إلى ضبط عرض الخريطة. </p>
-<p>راجع إنشاء عناصر جديدة في وضع الإجراءات البسيطة <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> لمزيد من المعلومات.</p>
+<p>See <a href="Simple%20actions.md">Creating new objects in simple actions mode</a> for more information. Simple mode os the default for new installs.</p>
 <h5 id="_11">الوضع المتقدم (الضغط لفترة طويلة)<a class="headerlink" href="#_11" title="Permanent link">#</a></h5>
 <p>اضغط لفترة طويلة حيث تريد أن تكون العقدة أو بداية الطريق. سترى رمز "علامة التقاطع" سوداء.
 * إذا كنت تريد إنشاء عقدة جديدة (غير متصلة بعنصر) ، فالمس بعيدًا عن العناصر الموجودة.
@@ -774,7 +797,7 @@
 <h4 id="_13">تحسين هندسة وشكل الطرق<a class="headerlink" href="#_13" title="Permanent link">#</a></h4>
 <p>إذا قمت بالتكبير بشكل كافٍ للطريق المحدد ، فسترى "x" صغيرًا في منتصف الطريق وفي أجزائه الطويلة بما يكفي. سيؤدي سحب "x" إلى إنشاء عقدة في الطريق في ذلك الموقع. ملاحظة: لتجنب إنشاء العقد عن طريق الخطأ ، تكون منطقة التغيير باللمس لهذه العملية صغيرة إلى حد ما.</p>
 <h4 id="_14">قص ونسخ ولصق<a class="headerlink" href="#_14" title="Permanent link">#</a></h4>
-<p>يمكنك نسخ العقد والطرق المحددة أو قصها ، ثم لصقها مرة واحدة أو عدة مرات في موقع جديد. وعند قص أي عنصر فإنه سيتم الاحتفاظ بمعرف osm للعنصر والإصدار.و للصق ، اضغط مطولاً على المكان الذي تريد اللصق فيه (سترى تقاطعًا يحدد الموقع). ثم حدد "لصق" من القائمة.</p>
+<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p>
 <h4 id="_15">إضافة العناوين بكفاءة<a class="headerlink" href="#_15" title="Permanent link">#</a></h4>
 <p>يدعم فسبوتشي الوظائف التي تجعل عناوين المسح أكثر كفاءة من خلال التنبؤ بأرقام المنازل (الجانبين الأيسر والأيمن للشوارع بشكل منفصل) وإضافة وسوم <em>addr:street</em> أو <em>addr:place</em> بناءً على آخر قيمة مستخدمة والقرب في أفضل الأحوال، وهذا يسمح بإضافة العنوان بدون الحاجة لكتابة أي شيء على الإطلاق.   </p>
 <p>يمكن بدء إضافة الوسوم بالضغط على <img alt="Address" src="../images/address.png" />: </p>
@@ -800,42 +823,48 @@
 <h3 id="_18">حفظ التغييرات الخاصة بك<a class="headerlink" href="#_18" title="Permanent link">#</a></h3>
 <p><em>(لابد من وجود اتصال بالشبكة)</em></p>
 <p>اضغط نفس الزر أو على عنصر القائمة الذي قمت به للتنزيل وحدد الآن "رفع البيانات إلى خادم خريطة الشارع المفتوحة".</p>
-<p>يدعم تطبيق فسبوتشي بروتكول تفويض OAuth بالإضافة إلى طريقة الدخول العادية عبر اسم المستخدم وكلمة المرور. يُفضل بروتوكول OAuth لأنه يتجنب إرسال كلمات المرور بشكل واضح وهو أكثر أماناً للاستخدام.</p>
-<p>سيتم تمكين OAuth افتراضيًا في عندما تقوم بتثبيت تطبيق فسبوتشي، وفي محاولتك الأولى لرفع البيانات المعدلة، ستفتح لك صفحة من موقع OSM، وبعدما تسجيل الدخول (عبر اتصال مشفر)، سيُطلب منك تفويض تطبيق فسبوتشي Vespucci لاستخدامه للتحرير عبر حسابك. إذا كنت تريد أو تحتاج إلى تفويض وصول OAuth إلى حسابك قبل أن تقوم بأي تعديل، فهناك عنصر مطابق في قائمة "الأدوات".</p>
+<p>Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  </p>
+<p>Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p>
 <p>إذا كنت تريد حفظ عملك وليس لديك اتصال بالإنترنت، فيمكنك حفظ تعديلاتك على ملف بصيغة .osm وهو متوافق مع محرر JOSM ومن ثم يمكنك رفعه لاحقًا باستخدام تطبيق فسبوتشي أو باستخدام JOSM. </p>
 <h4 id="_19">حل التعارضات عند قيامك بالرفع<a class="headerlink" href="#_19" title="Permanent link">#</a></h4>
 <p>لدى تطبيق فسبوتشي أداة حل تعارضات بسيطة، ومع ذلك ،إذا كنت تشك في وجود مشكلات كبيرة في تعديلاتك، فقم بتصدير التغييرات إلى ملف بصيغة .osc (اختر من القائمة "تصدير" في قائمة "نقل") وقم بإصلاحها ورفعها باستخدام JOSM. راجع المساعدة التفصيلية حول حل التعارض <a href="Conflict%20resolution.md">conflict resolution</a>.  </p>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
+<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. </p>
+<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
 <h2 id="gps-gpx">استخدام مسارات GPS و GPX<a class="headerlink" href="#gps-gpx" title="Permanent link">#</a></h2>
 <p>من خلال الإعدادات القياسية، سيحاول فسبوتشي تمكين خدمة GPS (وأنظمة الملاحة الأخرى المعتمدة على الأقمار الصناعية) وسيعود إلى تحديد الموقع عبر ما يسمى "موقع الشبكة" إذا لم يكن ذلك ممكنًا. يفترض هذا السلوك أنه في الاستخدام العادي سيكون جهاز أندرويد الخاص بك قد تم تكوينه لاستخدام المواقع التي تم إنشاؤها بواسطة GPX فقط (لتجنب التعقب)، وهذا يعني أنه تم إيقاف تشغيل خيار "تحسين دقة الموقع" المسمى بشكل ملطف، فإذا كنت تريد تمكين الخيار ولكنك تريد تجنب عودة فسبوتشي إلى "موقع الشبكة" ، فيجب عليك إيقاف تشغيل الخيار المقابل في الإعدادات المتقدمة <a href="Advanced%20preferences.md">Advanced preferences</a>. </p>
-<p>سيؤدي لمس الزر <img alt="GPS" src="../images/menu_gps.png" /> (الموجود على الجانب الأيسر من شاشة عرض الخريطة) إلى توسيط الشاشة على الموضع الحالي ، وأثناء تحريكك ، سيتم تبطين شاشة عرض الخريطة للحفاظ على ذلك، كما سيؤدي تحريك الشاشة يدويًا أو التحرير إلى تعطيل وضع "متابعة الـGPS" وسيتغير سهم GPS الأزرق من شكل مأطر إلى سهم ممتلئ، وللعودة بسرعة إلى وضع "المتابعة" ، ما عليك سوى لمس زر GPS أو إعادة تحديد خيار القائمة المكافئ، وإذا لم يكن للجهاز موقع حالي فسيتم عرض علامة الموقع / السهم باللون الأسود ، وإذا كان الموقع الحالي متاحًا ، فستكون العلامة باللون الأزرق.</p>
+<p>Touching the <img alt="GPS" src="../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
 <p>لتسجيل مسار GPX وعرضه على جهازك ، حدد عنصر "بدء مسار GPX" في قائمة <img alt="GPS" src="../images/menu_gps.png" />، كما أن ذلك سيؤدي إلى إضافة طبقة إلى شاشة العرض تتضمن المسار الحالي المسجل، كما يمكنك تحميل وتصدير المسار من الإدخال عبر التحكم في الطبقة <a href="Main%20map%20display.md">layer control</a>، كما يمكن إضافة طبقات أخرى من ملفات GPX المحلية والمسارات التي تم تنزيلها من الواجهة البرمجية لـOSM.</p>
 <p>ملاحظة: افتراضيًا ، لن يقوم محرر فسبوتشي بتسجيل بيانات الارتفاع باستخدام مسار GPX الخاص بك ، ويرجع ذلك إلى بعض المشكلات الخاصة بنظام أندرويد، ولتمكين تسجيل الارتفاع قم بتثبيت نموذج جاذبية أو بشكل أبسط انتقل إلى الإعدادات المتقدمة <a href="Advanced%20preferences.md">Advanced preferences</a> ثم قم بتكوين إعدادات NMEA.</p>
-<h2 id="_20">الملاحظات والأخطاء<a class="headerlink" href="#_20" title="Permanent link">#</a></h2>
-<p>يدعم تطبيق فسبوتشي تنزيل ملاحظات خريطة الشارع المفتوحة OSM Notes والتعليق عليها وإغلاقها (المعروفة سابقًا باسم OSM Bugs) والوظائف المكافئة لـ "Bugs" التي تنتجها <a href="http://osmose.openstreetmap.fr/en/map/">أداة ضمان جودة OSMOSE</a>. كلاهما يجب أن يتم تنزيلهما بشكل صريح أو يمكنك استخدام مرفق التنزيل التلقائي للوصول إلى العناصر الموجودة في منطقتك الحالية. بمجرد التحرير أو الإغلاق ، يمكنك إما رفع تعديلات الخطأ أو الملاحظة على الفور أو رفع الكل مرة واحدة.</p>
-<p>على الخريطة ، يتم تمثيل الملاحظات والأخطاء برمز خطأ صغير <img alt="Bug" src="../images/bug_open.png" />، الملاحظات الخضراء مغلقة / تم حلها ، الملاحظات الزرقاء هي التي تم إنشاؤها أو تحريرها بواسطتك، والصفراء تشير إلى أنها لا تزال نشطة ولم يتم تغييرها. </p>
-<p>ستوفر شاشة عرض الأخطاء من OSMOSE رابطًا للعنصر المتأثر باللون الأزرق ، وسيؤدي لمس الرابط إلى تحديد العنصر وتوسيط الشاشة عليه وتحميل المنطقة مسبقًا إذا لزم الأمر. </p>
-<h3 id="_21">الفلتره والتصفية<a class="headerlink" href="#_21" title="Permanent link">#</a></h3>
+<h3 id="how-to-export-a-gpx-track">How to export a GPX track?<a class="headerlink" href="#how-to-export-a-gpx-track" title="Permanent link">#</a></h3>
+<p>Open the layer menu, then click the 3-dots menu next to "GPX recording", then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
+<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos<a class="headerlink" href="#notes-bugs-and-todos" title="Permanent link">#</a></h2>
+<p>يدعم تطبيق فسبوتشي تنزيل ملاحظات خريطة الشارع المفتوحة OSM Notes والتعليق عليها وإغلاقها (المعروفة سابقًا باسم OSM Bugs) والوظائف المكافئة لـ "Bugs" التي تنتجها <a href="http://osmose.openstreetmap.fr/en/map/">أداة ضمان جودة OSMOSE</a>. كلاهما يجب أن يتم تنزيلهما بشكل صريح أو يمكنك استخدام مرفق التنزيل التلقائي للوصول إلى العناصر الموجودة في منطقتك الحالية. بمجرد التحرير أو الإغلاق ، يمكنك إما رفع تعديلات الخطأ أو الملاحظة على الفور أو رفع الكل مرة واحدة. </p>
+<p>Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. </p>
+<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
+<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
+<h3 id="_20">الفلتره والتصفية<a class="headerlink" href="#_20" title="Permanent link">#</a></h3>
 <p>إلى جانب التمكين العام لعرض الملاحظات والمشاكل، يمكنك تحديد مصفي لعرض الحبوب الخشنة لتقليل الفوضى. يمكن الوصول إلى تكوين المصفي من إدخال طبقة المهمة في <a href="#layers">التحكم في الطبقة</a>:</p>
 <ul>
-<li>الملاحظات</li>
-<li>أخطاء Osmose</li>
-<li>تحذيرات Osmose</li>
-<li>المشاكل الثانوية Osmose</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
 <li>Maproulette</li>
-<li>مخصص</li>
+<li>Todo</li>
 </ul>
 <p><a id="indoor"></a></p>
-<h2 id="_22">الوضع الداخلي<a class="headerlink" href="#_22" title="Permanent link">#</a></h2>
+<h2 id="_21">الوضع الداخلي<a class="headerlink" href="#_21" title="Permanent link">#</a></h2>
 <p>يمثل رسم الخرائط للعناصر التي داخل المباني تحديًا نظرًا للعدد الكبير من العناصر التي غالبًا ما تتراكب مع بعضها البعض، لذا فإن تطبيق فسبوتشي يحتوي على وضع داخلي مخصص يسمح لك بتصفية جميع الكائنات التي ليست على نفس المستوى والتي ستضيف وبشكل تلقائي المستوى الحالي إلى العناصر الجديدة التي تم إنشاؤها.</p>
 <p>يمكن تمكين الوضع من خلال الضغط لفترة طويلة على رمز القفل ، راجع <a href="#lock">وضع القفل ، الفتح ، تبديل الوضع</a> واختيار إدخال القائمة المقابل.</p>
 <p><a id="c-mode"></a></p>
-<h2 id="_23">وضع الاكمال<a class="headerlink" href="#_23" title="Permanent link">#</a></h2>
+<h2 id="_22">وضع الاكمال<a class="headerlink" href="#_22" title="Permanent link">#</a></h2>
 <p>في وضع الاكمال يتم عرض العناصر التي يوجد عليها علامة تحذير، وهذا يسهل عليك تحديد العناصر التي بها مشاكل محددة أو تطابق أشكال المشاكل المعينة التي قمت بإعدادها لتظهر لك. إذا تم تحديد عنصر وبدأ محرر الخصائص في وضع الاكمال، فسيتم تطبيق أفضل قالب مطابق بشكل تلقائي.</p>
 <p>يمكن تمكين الوضع من خلال الضغط لفترة طويلة على رمز القفل ، راجع <a href="#lock">وضع القفل ، الفتح ، تبديل الوضع</a> واختيار إدخال القائمة المقابل.</p>
-<h3 id="_24">إعداد الفحوصات<a class="headerlink" href="#_24" title="Permanent link">#</a></h3>
-<p>يوجد حاليًا نوعان من عمليات التحقق القابلة للتكوين (بالنسبة لفحص وسم أصلحني -FIXME واختبار لوسوم النوع الغير موجودة على العلاقات فهي غير قابلة للتكوين حاليًا) كما يمكن تكوين كليهما عن طريق تحديد "إعدادات التحقق من الصحة" في التفضيلات <a href="Preferences.md">preferences</a>. </p>
-<p>يتم تقسيم قائمة الإدخالات إلى قسمين ، النصف العلوي يسرد إدخالات "إعادة دراسة واستطلاع" ، والنصف السفلي "فحص الإدخالات". يمكن تحرير الإدخالات بالنقر فوقها ، ويسمح زر القائمة الأخضر بإضافة إدخالات.</p>
-<h4 id="_25">مدخلات إعادة الدراسة والاستطلاع<a class="headerlink" href="#_25" title="Permanent link">#</a></h4>
+<h3 id="_23">إعداد الفحوصات<a class="headerlink" href="#_23" title="Permanent link">#</a></h3>
+<p>All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the <a href="Preferences.md">preferences</a>. </p>
+<p>The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
+<h4 id="_24">مدخلات إعادة الدراسة والاستطلاع<a class="headerlink" href="#_24" title="Permanent link">#</a></h4>
 <p>تحتوي مدخلات إعادة الدراسة والاستطلاع على الخصائص التالية:</p>
 <ul>
 <li><strong>المفتاح</strong> - مفتاح الوسوم التي تهتم لها.</li>
@@ -845,51 +874,54 @@
 </ul>
 <p>يتم فحص <strong>المفتاح</strong> و <strong>القيمة</strong> مقابل الوسوم <em>الموجودة</em> للعنصر المعني.</p>
 <p>تحتوي مجموعة <em>Annotations</em> في القوالب القياسية على عنصر سيضيف تلقائيًا وسم <em>check_date</em> بالتاريخ الحالي.</p>
-<h4 id="_26">تدقيق وفحص الإدخالات<a class="headerlink" href="#_26" title="Permanent link">#</a></h4>
+<h4 id="_25">تدقيق وفحص الإدخالات<a class="headerlink" href="#_25" title="Permanent link">#</a></h4>
 <p>ميزة تدقيق الإدخالات لها الخاصيتان التاليتان:</p>
 <ul>
 <li><strong>مفتاح</strong> - المفتاح الذي يجب أن يكون موجودًا على العنصر وفقًا للقالب المطابق.</li>
 <li><strong>متطلب اختياري</strong> - اطلب المفتاح حتى إذا كان المفتاح موجودًا في الوسوم الاختيارية للقالب المطابق.</li>
 </ul>
 <p>يعمل هذا الفحص عن طريق تحديد القالب المطابق أولاً ثم التحقق مما إذا كان <strong>المفتاح</strong> هو مفتاح "موصى به" لهذا العنصر وفقًا للقالب، أما ما هو <strong>مطلوب اختياريًا</strong> فإن إدخاله سيؤدي إلى توسيع نطاق التحقق ليشمل الوسوم "الاختيارية* في العنصر. ملاحظة: لم يتم فحص القوالب المرتبطة حاليًا..</p>
-<h2 id="_27">الفلاتر والمصفيات<a class="headerlink" href="#_27" title="Permanent link">#</a></h2>
-<h3 id="_28">التصفية بناءاً على الوسم<a class="headerlink" href="#_28" title="Permanent link">#</a></h3>
+<h2 id="_26">الفلاتر والمصفيات<a class="headerlink" href="#_26" title="Permanent link">#</a></h2>
+<h3 id="_27">التصفية بناءاً على الوسم<a class="headerlink" href="#_27" title="Permanent link">#</a></h3>
 <p>يمكن تمكين فلتر الوسوم من القائمة الرئيسية، ويمكن بعد ذلك تغييره من خلال النقر على أيقونة الفلتر في الشاشة الرئيسية. يمكن العثور على المزيد من الوثائق هنا فلتر الوسوم <a href="Tag%20filter.md">Tag filter</a>.</p>
-<h3 id="_29">الفلترة بناءاً على القالب<a class="headerlink" href="#_29" title="Permanent link">#</a></h3>
+<h3 id="_28">الفلترة بناءاً على القالب<a class="headerlink" href="#_28" title="Permanent link">#</a></h3>
 <p>كبديل لما ورد أعلاه، يتم تصفية العناصر إما حسب القوالب الفردية أو على مجموعات قوالب. سيؤدي النقر فوق أيقونة المصفي/الفلتر إلى عرض نافذة للاختيار بين العناصر المتعارف عليها في أماكن أخرى في تطبيق فسبوتشي. كما يمكن تحديد القوالب بشكل فردي بنقرة عادية، ولتحديد مجموعات منها اضغط ضغطة مطولة عليها (النقر العادي يدخل المجموعة). يمكن العثور على المزيد من الوثائق هنا فلتر القوالب <a href="Preset%20filter.md">Preset filter</a>.</p>
-<h2 id="_30">تخصيص فسبوتشي<a class="headerlink" href="#_30" title="Permanent link">#</a></h2>
+<h2 id="_29">تخصيص فسبوتشي<a class="headerlink" href="#_29" title="Permanent link">#</a></h2>
 <p>يمكن تخصيص العديد من جوانب التطبيق ، إذا كنت تبحث عن شيء محدد ولا يمكنك العثور عليه ، فإنه يمكنك البحث في <a href="https://vespucci.io/">موقع Vespucci</a> كما أنه يحتوي على معلومات إضافية حول ما هو متاح على الجهاز.</p>
 <p><a id="layers"></a></p>
-<h3 id="_31">إعدادات الطبقات<a class="headerlink" href="#_31" title="Permanent link">#</a></h3>
+<h3 id="_30">إعدادات الطبقات<a class="headerlink" href="#_30" title="Permanent link">#</a></h3>
 <p>يمكن تغيير إعدادات الطبقات عن طريق التحكم في الطبقة (قائمة "hamburger" في الزاوية العليا على اليمين) ، ويمكن الوصول إلى جميع الإعدادات الأخرى عبر زر تفضيلات القائمة الرئيسية. كما يمكن تمكين الطبقات وتعطيلها وإخفائها مؤقتًا.</p>
 <p>أنواع الطبقات المتاحة:</p>
 <ul>
-<li>طبقة البيانات - هذه هي الطبقة التي يتم تحميل بيانات خريطة الشارع المفتوحة إليها. في الاستخدام العادي ، لا تحتاج إلى تغيير أي شيء هنا. وهي مفعلة بشكل افتراضي.</li>
-<li>طبقة الخلفية - تتوفر مجموعة كبيرة من الصور الخلفية المصورة من الجو أو الأقمار الصناعية. والطبقة الإفتراضية للطبقة الخلية هي خريطة "النمط القياسي" من openstreetmap.org.</li>
-<li>الطبقات العلوية - هذه طبقات شبه شفافة بمعلومات إضافية ، تحتوي على سبيل المثال على مسارات GPX. قد تتسبب إضافة الطبقات العلوية الكثيرة في حدوث مشاكل مع الأجهزة القديمة مثل امتلاء الذاكرة. وهي طبقة معطلة بشكل افتراضي.</li>
-<li>طبقة الملاحظات / الأخطاء - سيتم عرض الملاحظات والأخطاء المفتوحة كرمز أصفر بشكل حشرات ، والمغلق منها سيكون باللون الأخضر. وهي طبقة مفعلة بشكل افتراضي.</li>
-<li>طبقة الصور - تعرض هذه الطبقة الصور التي تكون مربوطة بمرجعية جغرافية كأيقونات كاميرا حمراء، وإذا توفرت معلومات الاتجاه، فسيتم تدوير الرمز. وهي طبقة معطلة بشكل افتراضي.</li>
-<li>طبقة Mapillary - وهي طبقة تعرض مقاطع صور Mapillary بعلامات تحدد مكان وجود الصور ، سيؤدي النقر علا العلامة إلى عرض الصورة. وهي طبقة معطلة بشكل افتراضي.</li>
-<li>طبقة GeoJSON - تعرض محتويات ملف GeoJSON. وهي طبقة معطلة بشكل افتراضي.</li>
-<li>المسطرة - وهي مسطرة للقياس تظهر على جوانب الشاشة. وهي طبقة مفعلة بشكل افتراضي. </li>
+<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
+<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
+<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
+<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
+<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
+<li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
 <p>يمكن العثور على مزيد من المعلومات في القسم الموجود على عرض الخريطة <a href="Main%20map%20display.md">map display</a>.</p>
-<h4 id="_32">التفضيلات<a class="headerlink" href="#_32" title="Permanent link">#</a></h4>
+<h4 id="_31">التفضيلات<a class="headerlink" href="#_31" title="Permanent link">#</a></h4>
 <ul>
 <li>حافظ على الشاشة قيد التشغيل. وهو خيار معطل بشكل افتراضي.</li>
 <li>منطقة سحب عقدة كبيرة. يعد تحريك العقد على جهاز يتم التحكم فيه عن طريق اللمس مشكلة نظرًا لأن أصابعك ستحجب الموضع الحالي على الشاشة. سيؤدي تشغيل هذا إلى توفير مساحة كبيرة يمكن استخدامها للسحب خارج مركز الشاشة (لا يزال التحديد والعمليات الأخرى تستخدم منطقة تحمل اللمس العادية). وهو خيار معطل بشكل افتراضي.</li>
 </ul>
 <p>يمكن العثور على الشرح الكامل هنا في التفضيلات <a href="Preferences.md">Preferences</a></p>
-<h4 id="_33">التفضيلات المتقدمة<a class="headerlink" href="#_33" title="Permanent link">#</a></h4>
+<h4 id="_32">التفضيلات المتقدمة<a class="headerlink" href="#_32" title="Permanent link">#</a></h4>
 <ul>
-<li>إظهار أيقونات العقد/النقاط. وهي مفعلة بشكل افتراضي.</li>
-<li>اعرض القائمة المنبثقة بشكل دائم. عند تشغيل كل عملية اختيار ستظهر قائمة منبثقة، كما أنه يتم إيقاف تشغيل ظهور القائمة فقط عندما يكون التحديد واضح ولا يمكن أن يعني شيأً آخر. وهي ميزة متعطلة بشكل افتراضي (كانت في السابق تفعل بشكل افتراضي).</li>
-<li>تمكين المظهر الخفيف. يتم تشغيل هذه الميزة افتراضيًا على الأجهزة الحديثة. بينما يمكنك تمكينه لإصدارات أندرويد الأقدم، فمن المحتمل أن يكون النمط متعارض. </li>
+<li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.  </li>
+<li>Node icons. Default: <em>on</em>.</li>
+<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
+<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. </li>
 </ul>
 <p>يمكن العثور على الشرح الكامل هنا في شرح التفضيلات المتقدمة <a href="Advanced%20preferences.md">Advanced preferences</a></p>
-<h2 id="_34">الإبلاغ عن المشاكل<a class="headerlink" href="#_34" title="Permanent link">#</a></h2>
+<h2 id="reporting-and-resolving-issues">Reporting and Resolving Issues<a class="headerlink" href="#reporting-and-resolving-issues" title="Permanent link">#</a></h2>
 <p>في حال تعطل تطبيق فسبوتشي Vespucci، أو اكتشاف حالة غير متناسقة ، سيُطلب منك إرسال ملف سجل الأعطال، يرجى القيام بذلك إذا حدث ذلك ، ولكن من فضلك قم بذلك مرة واحدة فقط لكل مشكلة محددة. إذا كنت ترغب في تقديم المزيد من المدخلات أو فتح مشكلة لطلب ميزة أو ما شابه ، فالرجاء القيام بذلك هنا: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. ستؤدي وظيفة "تقديم التعليقات" من القائمة الرئيسية إلى فتح مشكلة جديدة وتضمين المعلومات ذات الصلة ومعلومات الجهاز دون الحاجة إلى كتابة بيانات إضافية.</p>
-<p>إذا كنت تريد مناقشة شيء متعلق بـتطبيق فسبوتشي Vespucci ، فيمكنك إما بدء مناقشة على <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> أو على <a href="http://forum.openstreetmap.org/viewforum.php?id=56">منتدى خريطة الشارع المفتوحة في القسم الخاص لأجهزة الأندرويد</a></p></div>
+<p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div>
                     
             </div>
         </div>
@@ -897,7 +929,7 @@
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.1.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

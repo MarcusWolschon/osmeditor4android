@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>Add route segment - Vespucci</title>
+        <title>20.2 BETA Release notes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -42,7 +42,7 @@
                                     
                                         <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
                                 </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -55,7 +55,7 @@
 </li>
                                     
 <li>
-    <a href="../20.2.0%20Release%20notes/" class="dropdown-item">20.2 BETA Release notes</a>
+    <a href="./" class="dropdown-item active">20.2 BETA Release notes</a>
 </li>
                                     
 <li>
@@ -383,7 +383,17 @@
                             </a>
                         </li>
 
-<!-- -->
+<!--
+                            <li class="nav-item">
+                                <a rel="prev" href="../../../tutorials/features/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../20.1.0%20Release%20notes/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li> -->
                     </ul>
                 </div>
             </div>
@@ -402,12 +412,22 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#add-route-segment" class="nav-link">Add route segment</a>
+            <li class="nav-item" data-level="1"><a href="#vespucci-202-beta-highlights" class="nav-link">Vespucci 20.2 BETA Highlights</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#further-actions" class="nav-link">Further actions</a>
+            <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+              <ul class="nav flex-column">
               </ul>
             </li>
         </ul>
@@ -415,15 +435,50 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h1 id="add-route-segment">Add route segment<a class="headerlink" href="#add-route-segment" title="Permanent link">#</a></h1>
-<p>In this mode you can add segments to an existing or new route relation. Ways will automatically split if necessary and only ways that are connected to the route will be selectable.</p>
-<p>To finish adding segments click the the check button, selecting the back button will abort the mode not adding any of the segements.</p>
-<p>Note: aborting does not undo any way splits that were necessary.</p>
-<h2 id="further-actions">Further actions<a class="headerlink" href="#further-actions" title="Permanent link">#</a></h2>
-<h3 id="undo"><img alt="Undo" src="../../images/undolist_undo.png" /> Undo<a class="headerlink" href="#undo" title="Permanent link">#</a></h3>
-<p>Remove the last segment added. Note: this does not undo any way splits that were necessary to create that segment.</p>
-<h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help<a class="headerlink" href="#help" title="Permanent link">#</a></h3>
-<p>Start the Vespucci Help browser displaying this document.</p></div> -->
+<h1 id="vespucci-202-beta-highlights">Vespucci 20.2 BETA Highlights<a class="headerlink" href="#vespucci-202-beta-highlights" title="Permanent link">#</a></h1>
+<p>2024-11-03</p>
+<h3 id="automatically-generate-summary-of-changes">Automatically generate summary of changes<a class="headerlink" href="#automatically-generate-summary-of-changes" title="Permanent link">#</a></h3>
+<p>Vespucci will now automatically add a summary of the edits made to the changeset tags. As this typically will be far more than what can be added to a single comment tag (max. 255 characters), it uses additional tags for this. If the comment tag is left empty it will add a comment referencing the automatically generated tags.</p>
+<p>We further added an option on the "Properties" tab of the upload modal to reduce the nagging about filling out the comment field.</p>
+<h3 id="change-of-direction-values-handling">Change of direction values handling<a class="headerlink" href="#change-of-direction-values-handling" title="Permanent link">#</a></h3>
+<p>In 20.1 we added support for <em>direction</em> tag handling including a specific modal for adding direction values, however we showed this for all direction values which was less than optimal. We've now added a further preset <em>value_type</em> <em>cardinal_direction</em> and will only show the direction modal for objects that match preset fields with that value.</p>
+<h3 id="support-for-match_expression-in-presets">Support for <em>match_expression</em> in presets<a class="headerlink" href="#support-for-match_expression-in-presets" title="Permanent link">#</a></h3>
+<p>We now support the <em>match_expression</em> attribute for preset items and fields (extension). This allows fine grained control of preset matching in cases for which the standard node, way closed way and relation matching isn't sufficient.</p>
+<p>For example the <em>direction</em> tag for <em>traffic_sign</em> objects has different semantics depending on if the traffic sign is tagged on a way node of a <em>highway</em> object, or if it is a stand alone traffic sign node (the relevant direction changes by 180°). Using match expressions allows to differentiate between these two cases.  </p>
+<h3 id="support-for-replacing-geometries">Support for replacing geometries<a class="headerlink" href="#support-for-replacing-geometries" title="Permanent link">#</a></h3>
+<p>We've added support for the most common "replace geometry" operations.</p>
+<h4 id="replace-node-by-way">Replace node by way<a class="headerlink" href="#replace-node-by-way" title="Permanent link">#</a></h4>
+<p>This operation will replace one of the way nodes with the node maintaining a link to the history and move and merge tags from the original node to the target way.</p>
+<h4 id="replace-way-geometry-with-geometry-of-a-source-way">Replace way geometry with geometry of a source way<a class="headerlink" href="#replace-way-geometry-with-geometry-of-a-source-way" title="Permanent link">#</a></h4>
+<p>This operation will move the nodes of a target way to the positions of those in a source way, adding new and deleting existing nodes as necessary. Tagged way nodes that 
+would have to be moved more than a configurable distance (default 1m) will be extracted from the way and replaced by a new node.</p>
+<h3 id="improve-gpx-recording-behaviour-when-device-is-locked">Improve GPX recording behaviour when device is locked<a class="headerlink" href="#improve-gpx-recording-behaviour-when-device-is-locked" title="Permanent link">#</a></h3>
+<p>Depending on device and Android version devices would pause GPX track recoding if the device was locked (aka screen turned off) leading to breaks in the recording (if you left the screen on or forced it on this wasn't an issue). We now acquire a partial wake lock when GPX recording is active which should avoid this issue. Note that this means that power consumption in such situations will be higher.</p>
+<h3 id="optionally-use-hardware-rendering-on-android-10-and-later">Optionally use hardware rendering on Android 10 and later<a class="headerlink" href="#optionally-use-hardware-rendering-on-android-10-and-later" title="Permanent link">#</a></h3>
+<p>Starting with Android 10, Androids graphic library supports all operations that we use for OSM data rendering, in particular the scaling issues that used to make it unusable seem to 
+be fixed now, therefore we have re-enabled the support for it that you can turn on in the <em>Experimental</em> section of the <em>advanced Preferences</em>. Note that this will not make things 
+blazingly fast, but it will allow use of graphics memory to store tiles and in general reduce some of the pressure on the JAVA heap. </p>
+<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
+<ul>
+<li>Add support for HEIC/HEIF images on Android 10 and later</li>
+<li>Remove hardwired suppression of icons on buildings, building:parts etc.</li>
+<li>Add traffic_sign to hardwired object tags</li>
+<li>Add a search box to the WMS layer modal</li>
+<li>Add multi-select for tag only editing mode</li>
+<li>Support automatically selecting overpass query results</li>
+<li>Add basic and parking amenity rendering for multipolygons</li>
+<li>Lock screen if last use is more than 24 hours ago</li>
+<li>Add image orientation to photo index</li>
+<li>Add use a JOSM filter expression to determine exceptions to reversing rules</li>
+<li>Re-factor locking in StorageDelegator to reduce (rare) dead locks.</li>
+</ul>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
+<p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one. </p>
+<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
@@ -436,12 +491,22 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#add-route-segment" class="nav-link">Add route segment</a>
+            <li class="nav-item" data-level="1"><a href="#vespucci-202-beta-highlights" class="nav-link">Vespucci 20.2 BETA Highlights</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#further-actions" class="nav-link">Further actions</a>
+            <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+              <ul class="nav flex-column">
               </ul>
             </li>
         </ul>
@@ -449,15 +514,50 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h1 id="add-route-segment">Add route segment<a class="headerlink" href="#add-route-segment" title="Permanent link">#</a></h1>
-<p>In this mode you can add segments to an existing or new route relation. Ways will automatically split if necessary and only ways that are connected to the route will be selectable.</p>
-<p>To finish adding segments click the the check button, selecting the back button will abort the mode not adding any of the segements.</p>
-<p>Note: aborting does not undo any way splits that were necessary.</p>
-<h2 id="further-actions">Further actions<a class="headerlink" href="#further-actions" title="Permanent link">#</a></h2>
-<h3 id="undo"><img alt="Undo" src="../../images/undolist_undo.png" /> Undo<a class="headerlink" href="#undo" title="Permanent link">#</a></h3>
-<p>Remove the last segment added. Note: this does not undo any way splits that were necessary to create that segment.</p>
-<h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help<a class="headerlink" href="#help" title="Permanent link">#</a></h3>
-<p>Start the Vespucci Help browser displaying this document.</p></div>
+<h1 id="vespucci-202-beta-highlights">Vespucci 20.2 BETA Highlights<a class="headerlink" href="#vespucci-202-beta-highlights" title="Permanent link">#</a></h1>
+<p>2024-11-03</p>
+<h3 id="automatically-generate-summary-of-changes">Automatically generate summary of changes<a class="headerlink" href="#automatically-generate-summary-of-changes" title="Permanent link">#</a></h3>
+<p>Vespucci will now automatically add a summary of the edits made to the changeset tags. As this typically will be far more than what can be added to a single comment tag (max. 255 characters), it uses additional tags for this. If the comment tag is left empty it will add a comment referencing the automatically generated tags.</p>
+<p>We further added an option on the "Properties" tab of the upload modal to reduce the nagging about filling out the comment field.</p>
+<h3 id="change-of-direction-values-handling">Change of direction values handling<a class="headerlink" href="#change-of-direction-values-handling" title="Permanent link">#</a></h3>
+<p>In 20.1 we added support for <em>direction</em> tag handling including a specific modal for adding direction values, however we showed this for all direction values which was less than optimal. We've now added a further preset <em>value_type</em> <em>cardinal_direction</em> and will only show the direction modal for objects that match preset fields with that value.</p>
+<h3 id="support-for-match_expression-in-presets">Support for <em>match_expression</em> in presets<a class="headerlink" href="#support-for-match_expression-in-presets" title="Permanent link">#</a></h3>
+<p>We now support the <em>match_expression</em> attribute for preset items and fields (extension). This allows fine grained control of preset matching in cases for which the standard node, way closed way and relation matching isn't sufficient.</p>
+<p>For example the <em>direction</em> tag for <em>traffic_sign</em> objects has different semantics depending on if the traffic sign is tagged on a way node of a <em>highway</em> object, or if it is a stand alone traffic sign node (the relevant direction changes by 180°). Using match expressions allows to differentiate between these two cases.  </p>
+<h3 id="support-for-replacing-geometries">Support for replacing geometries<a class="headerlink" href="#support-for-replacing-geometries" title="Permanent link">#</a></h3>
+<p>We've added support for the most common "replace geometry" operations.</p>
+<h4 id="replace-node-by-way">Replace node by way<a class="headerlink" href="#replace-node-by-way" title="Permanent link">#</a></h4>
+<p>This operation will replace one of the way nodes with the node maintaining a link to the history and move and merge tags from the original node to the target way.</p>
+<h4 id="replace-way-geometry-with-geometry-of-a-source-way">Replace way geometry with geometry of a source way<a class="headerlink" href="#replace-way-geometry-with-geometry-of-a-source-way" title="Permanent link">#</a></h4>
+<p>This operation will move the nodes of a target way to the positions of those in a source way, adding new and deleting existing nodes as necessary. Tagged way nodes that 
+would have to be moved more than a configurable distance (default 1m) will be extracted from the way and replaced by a new node.</p>
+<h3 id="improve-gpx-recording-behaviour-when-device-is-locked">Improve GPX recording behaviour when device is locked<a class="headerlink" href="#improve-gpx-recording-behaviour-when-device-is-locked" title="Permanent link">#</a></h3>
+<p>Depending on device and Android version devices would pause GPX track recoding if the device was locked (aka screen turned off) leading to breaks in the recording (if you left the screen on or forced it on this wasn't an issue). We now acquire a partial wake lock when GPX recording is active which should avoid this issue. Note that this means that power consumption in such situations will be higher.</p>
+<h3 id="optionally-use-hardware-rendering-on-android-10-and-later">Optionally use hardware rendering on Android 10 and later<a class="headerlink" href="#optionally-use-hardware-rendering-on-android-10-and-later" title="Permanent link">#</a></h3>
+<p>Starting with Android 10, Androids graphic library supports all operations that we use for OSM data rendering, in particular the scaling issues that used to make it unusable seem to 
+be fixed now, therefore we have re-enabled the support for it that you can turn on in the <em>Experimental</em> section of the <em>advanced Preferences</em>. Note that this will not make things 
+blazingly fast, but it will allow use of graphics memory to store tiles and in general reduce some of the pressure on the JAVA heap. </p>
+<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
+<ul>
+<li>Add support for HEIC/HEIF images on Android 10 and later</li>
+<li>Remove hardwired suppression of icons on buildings, building:parts etc.</li>
+<li>Add traffic_sign to hardwired object tags</li>
+<li>Add a search box to the WMS layer modal</li>
+<li>Add multi-select for tag only editing mode</li>
+<li>Support automatically selecting overpass query results</li>
+<li>Add basic and parking amenity rendering for multipolygons</li>
+<li>Lock screen if last use is more than 24 hours ago</li>
+<li>Add image orientation to photo index</li>
+<li>Add use a JOSM filter expression to determine exceptions to reversing rules</li>
+<li>Re-factor locking in StorageDelegator to reduce (rare) dead locks.</li>
+</ul>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
+<p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one. </p>
+<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div>
                     
             </div>
         </div>

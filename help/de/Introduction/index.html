@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../../en/20.2.0%20Release%20notes/" class="dropdown-item">20.2 BETA Release notes</a>
+</li>
+                                    
+<li>
     <a href="../../en/20.1.0%20Release%20notes/" class="dropdown-item">20.1.0 Release notes</a>
 </li>
                                     
@@ -408,7 +412,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#notizen-und-fehler" class="nav-link">Notizen und Fehler</a>
+            <li class="nav-item" data-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -428,7 +432,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#fehler-melden" class="nav-link">Fehler melden</a>
+            <li class="nav-item" data-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -439,37 +443,43 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<p><em>Bevor wir beginnen: Die meisten Ansichten enthalten im Menü eine Verknüpfung zum geräteinternen Hilfesystem, das Ihnen den direkten Zugriff auf Informationen ermöglicht, die im aktuellen Kontext relevant sind. Hier können Sie auch sehr leicht zu diesem Text hier zurückkehren. Wenn Sie ein größeres Gerät, zum Beispiel ein Tablet, besitzen, können Sie das Hilfesystem in einem geteilten Bildschirmfenster öffnen. Alle Hilfetexte und Weiteres (FAQs, Anleitungen) können auch auf der <a href="https://vespucci.io/">Vespucci documentation site</a> eingesehen werden.</em></p>
+<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
 <h1 id="einfuhrung-in-vespucci">Einführung in Vespucci<a class="headerlink" href="#einfuhrung-in-vespucci" title="Permanent link">#</a></h1>
-<p>Vespucci ist ein vollwertiger OpenStreetMap-Editor, der die meisten Funktionen von Desktop-Editoren beherrscht. Er wurde erfolgreich auf Googles Android 2.3 bis 10.0 und verschiedenen AOSP-basierten Varianten getestet. Achtung: Während die Leistung mobiler Geräte mit der von Desktop-Konkurrenten aufgeholt hat, haben vor allem ältere Geräte nur sehr begrenzten Speicher zur Verfügung und sind meist recht langsam. Bei der Verwendung von Vespucci sollten Sie dies berücksichtigen und z.B. die zu bearbeitenden Bereiche auf eine angemessene Größe beschränken.</p>
+<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
 <h2 id="mit-vespucci-osm-daten-bearbeiten">Mit Vespucci OSM-Daten bearbeiten<a class="headerlink" href="#mit-vespucci-osm-daten-bearbeiten" title="Permanent link">#</a></h2>
 <p>Abhängig von Bildschirmgröße und Alter des Gerätes sind die Bearbeitungsfunktionen entweder über Icons in einer Leiste am Oberrand, über ein Dropdown-Menü rechts in dieser Leiste, über eine Menüleiste am Unterrand (falls vorhanden) oder über die Menütaste zugänglich.</p>
 <p><a id="download"></a></p>
 <h3 id="osm-daten-herunterladen">OSM-Daten herunterladen<a class="headerlink" href="#osm-daten-herunterladen" title="Permanent link">#</a></h3>
-<p>Entweder das Icon zur Übertragung <img alt="Transfer" src="../../images/menu_transfer.png" /> oder den Menüeintrag "Übertragen" wählen. Danach werden sieben Optionen zur Auswahl angezeigt:</p>
+<p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display eleven options:</p>
 <ul>
-<li><strong>Aktuelle Ansicht herunterladen</strong> - Gebiet der aktuellen Bildschirmansicht herunterladen und mit den existierenden Daten zusammenführen <em>(erfordert Netzwerkverbindung)</em></li>
-<li><strong>Löschen und aktuelle Ansicht herunterladen</strong> - Alle Daten im Speicher löschen und dann die aktuelle Bildschirmansicht herunterladen <em>(erfordert Netzwerkverbindung)</em></li>
-<li><strong>Daten zum OSM-Server hochladen</strong> - Bearbeitungen an OpenStreetMap übertragen <em>(erfordert Authentifikation)</em> <em>(erfordert Netzwerkverbindung)</em></li>
-<li><strong>Auto-Download nach Standort</strong> - Automatisch ein Gebiet rund um den aktuellen geographischen Standort herunterladen <em>(erfordert Netzwerkverbindung oder Offline-Daten)</em> <em>(erfordert GPS)</em></li>
-<li><strong>Auto-Download nach aktueller Ansicht</strong> - Automatisch das momentan auf dem Bildschirm angezeigte Gebiet herunterladen <em>(erfordert Netzwerkverbindung oder Offline-Daten)</em> <em>(erfordert GPS)</em></li>
-<li><strong>Datei...</strong> - OSM-Daten aus Gerätedateien laden oder in sie speichern.</li>
-<li><strong>Notiz/Fehler...</strong> - OSM-Hinweise und "Fehler" aus der Qualitätssicherung (momentan OSMOSE) herunterladen (automatisch oder manuell) <em>(erfordert Netzwerkverbindung)</em></li>
+<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Review changes...</strong> - review current changes</li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
+<li><strong>Clear and download current view</strong> - clear any data in memory, including pending changes, and then download the area visible on the screen <em>(requires network connectivity)</em></li>
+<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Clear data</strong> - remove any OSM data in memory, including pending changes.</li>
+<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
+<li><strong>Tasks...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
 <p>Um Daten auf dem Gerät zu öffnen, ist es am einfachsten, mit Gesten den Bildschirm auf das gewünschte Gebiet zu zentrieren und dann im Menü "Aktuelle Ansicht herunterladen" anzuwählen. Der Zoom kann mit Gesten, den Zoom-Schaltflächen oder den Lautstärketasten bedient werden. Vespucci sollte dann das Gebiet herunterladen. Um Daten herunterzuladen, muss man nicht angemeldet sein.</p>
-<p>Mit den Standardeinstellungen werden alle nicht heruntergeladenen Bereiche im Vergleich zu heruntergeladenen abgedunkelt. Dies soll unbeabsichtigtes Editieren und Verdoppelung von Elementen in solchen Gebieten verhindern. Das Verhalten kann in den <a href="Advanced%20preferences.md">Erweiterten Einstellungen</a> geändert werden.</p>
+<p>In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a> so that dimming is always active.</p>
+<p>If you need to use a non-standard OSM API entry, or use <a href="https://vespucci.io/tutorials/offline/">offline data</a> in <em>MapSplit</em> format you can add or change entries via the <em>Configure...</em> entry for the data layer in the layer control.</p>
 <h3 id="bearbeiten">Bearbeiten<a class="headerlink" href="#bearbeiten" title="Permanent link">#</a></h3>
 <p><a id="lock"></a></p>
 <h4 id="sperren-entsperren-modus-wechseln">Sperren, entsperren, Modus wechseln<a class="headerlink" href="#sperren-entsperren-modus-wechseln" title="Permanent link">#</a></h4>
 <p>Um versehentliche Änderungen zu verhindern, startet Vespucci im "gesperrten" Modus, einem Modus, der nur das Zoomen und Verschieben der Karte erlaubt. Um den Schirm zu entsperren, auf das <img alt="Schloss" src="../../images/locked.png" />-Icon tippen. </p>
-<p>Ein langer Druck auf das Schlosssymbol zeigt ein Auswahlmenü mit 4 Optionen:</p>
+<p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
 <ul>
-<li><strong>Normal</strong> - der Standardbearbeitungsmodus, neue Objekte können erstellt werden, bestehende bearbeitet, verschoben und gelöscht. Ein einfaches weißes Schlosssymbol wird angezeigt.</li>
-<li><strong>Nur Tags</strong> - wird ein bestehendes Objekt ausgewählt, startet der Eigenschaftseditor, ein langer Druck auf dem Hauptschirm wird weiterhin neue Objekte hinzufügen, aber keine anderen Geometriebearbeitungen sind möglich. Ein weißes Schlosssymbol mit einem "T" wird angezeigt.</li>
-<li><strong>Adresse</strong> - schaltet den Adressenmodus ein, einen etwas vereinfachten Modus mit adressspezifschen Aktionen im <a href="../../en/Simple%20actions/">Einfachen Modus</a> "+" Schaltfläche.  Ein weißes Schlosssymbol mit einem "A" wird angezeigt.</li>
-<li><strong>Innenraum</strong> - schaltet in den Innenraum-Modus, siehe  <a href="#indoor">Innenraum-Modus</a>. Ein weißes Schlosssymbol mit einem "I" wird angezeigt.</li>
-<li><strong>C-Modus</strong> - in C-Modus werden nur Objekte angezeigt, die ein Problem haben, siehe <a href="#c-mode">C-Modus</a>.  Ein weißes Schlosssymbol mit einem "C" wird angezeigt.</li>
+<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
+<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.</li>
+<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../../en/Simple%20actions/">Simple mode</a> "+" button. White lock icon with an "A" is displayed.</li>
+<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an "I" is displayed.</li>
+<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
 </ul>
+<p>If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to <em>Address</em> and <em>Indoor</em> mode.</p>
 <h4 id="einfacher-klick-doppelklick-und-langer-klick">Einfacher Klick, Doppelklick und langer Klick<a class="headerlink" href="#einfacher-klick-doppelklick-und-langer-klick" title="Permanent link">#</a></h4>
 <p>In der Standardeinstellung wird um auswählbare Knoten und Wege ein oranger Bereich angezeigt, der angibt, in welchen Bereich man auf den Bildschirm tippen kann, um ein Objekt anzuwählen. Die drei Möglichkeiten sind:</p>
 <ul>
@@ -483,7 +493,7 @@
 <li>Doppelklick: Startet den <a href="Multiselect.md">Mehrfachauswahl-Modus</a></li>
 <li>Klicken und halten: Erstellt ein "Fadenkreuz" und ermöglicht das Hinzufügen von Knoten, siehe unten und <a href="Creating%20new%20objects.md">Erstellen neuer Objekte</a>. Dies ist nur möglich, wenn der "Einfache Modus" deaktiviert ist.</li>
 </ul>
-<p>In einem Gebiet, in dem die OSM-Daten sehr dicht sind, empfiehlt es sich, das Gebiet stark zu vergrößern.</p>
+<p>In einem Gebiet, in dem die OSM-Daten sehr dicht sind, empfiehlt es sich, zum Bearbeiten eine hohe Vergrößerungsstufe zu wählen.</p>
 <p>Vespucci hat eine gute Unterstützung von "Undo" und "Redo", weshalb man ohne Bedenken auf seinem Gerät experimentieren kann, bitte aber keine reinen Testdaten auf OSM-Server speichern.</p>
 <h4 id="auswahlen-abwahlen-einfacher-klick-und-auswahlmenu">Auswählen / Abwählen (einfacher Klick und "Auswahlmenü")<a class="headerlink" href="#auswahlen-abwahlen-einfacher-klick-und-auswahlmenu" title="Permanent link">#</a></h4>
 <p>Um ein Objekt anzuwählen und hervorzuheben, tippt man darauf. Ist ein Objekt markiert, kann es durch Tippen in einen leeren Bereich abgewählt werden. Wurde ein Objekt markiert und soll ein anderes ausgewählt werden, tippt man einfach auf das in Frage kommende Element. Es ist nicht nötig, zuerst das aktuell markierte abzuwählen. Ein "Doppeltipp" startet den <a href="../../en/Multiselect/">Mehrfachauswahl-Modus</a>.</p>
@@ -499,7 +509,7 @@
 <p>Beim ersten Start der App ist der "Einfache Modus" aktiviert. Dies kann im Hauptmenü geändert werden, indem die entsprechende Auswahlbox deaktiviert wird.</p>
 <h5 id="einfacher-modus">Einfacher Modus<a class="headerlink" href="#einfacher-modus" title="Permanent link">#</a></h5>
 <p>Drücken des großen grünen Knopfes auf dem Bildschirm zeigt ein Menü an. Nach der Auswahl eines Befehls wird man aufgefordert, auf dem Bildschirm die Position anzutippen, an der das Objekt erstellt werden soll. Verschieben und Zoomen funktionieren weiterhin, falls der Bildschirmausschnitt angepasst werden muss. </p>
-<p>Siehe <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Erstellen neuer Objekte im einfachen Modus</a> für mehr Informationen.</p>
+<p>See <a href="Simple%20actions.md">Creating new objects in simple actions mode</a> for more information. Simple mode os the default for new installs.</p>
 <h5 id="erweiterter-modus-tippen-und-halten">Erweiterter Modus (Tippen und halten)<a class="headerlink" href="#erweiterter-modus-tippen-und-halten" title="Permanent link">#</a></h5>
 <p>Durch langes Drücken an der Stelle, wo ein Knoten oder Weg erstellt werden soll, wird ein schwarzes "Fadenkreuz" angezeigt.
 * Wenn man einen neuen (nicht mit einem Objekt verbundenen) Knoten erstellen will, klickt man neben bereits vorhandene Objekte.
@@ -525,7 +535,7 @@
 <h4 id="die-geometrie-eines-weges-verbessern">Die Geometrie eines Weges verbessern<a class="headerlink" href="#die-geometrie-eines-weges-verbessern" title="Permanent link">#</a></h4>
 <p>Zoomt man genügend nah an ein ausgewähltes Wegsegment, wird ein kleines "x" sichtbar. Zieht man daran, wird ein Knoten im Weg erstellt. Hinweis: um das versehentliche Erstellen solcher Punkte zu verhindern, ist der empfindliche Bereich um das "x" ziemlich klein.</p>
 <h4 id="kopieren-ausschneiden-einfugen">Kopieren, Ausschneiden &amp; Einfügen<a class="headerlink" href="#kopieren-ausschneiden-einfugen" title="Permanent link">#</a></h4>
-<p>Ausgewählte Knoten und Wege können kopiert oder ausgeschnitten und dann einmal oder mehrfach wieder eingefügt werden. Beim Ausschneiden bleibt sowohl die OSM-ID als auch die Version erhalten. Ein langer Druck markiert die Position, an der eingefügt werden soll, um die Aktion abzuschließen, danach "Einfügen" aus dem Menü auswählen.</p>
+<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p>
 <h4 id="effizient-adressen-eintragen">Effizient Adressen eintragen<a class="headerlink" href="#effizient-adressen-eintragen" title="Permanent link">#</a></h4>
 <p>Vespucci unterstützt Funktionen, die die Erfassung von Adressen effizienter machen, indem sie Hausnummern vorhersagen (linke und rechte Straßenseite getrennt) und automatisch <em>addr:street</em> oder <em>addr:place</em> Tags auf Grundlage vom zuletzt verwendeten Wert und der Nähe hinzufügen. Im besten Fall ermöglicht dies das Hinzufügen einer Adresse, ohne dass überhaupt etwas eingegeben werden muss.   </p>
 <p>Das Hinzufügen der Tags kann durch Drücken von <img alt="Adresse" src="../../images/address.png" /> ausgelöst werden: </p>
@@ -551,29 +561,35 @@
 <h3 id="die-bearbeitungen-abspeichern">Die Bearbeitungen abspeichern<a class="headerlink" href="#die-bearbeitungen-abspeichern" title="Permanent link">#</a></h3>
 <p>*(benötigt Netzwerkzugang)</p>
 <p>Über denselben Knopf oder Menüeintrag, der für das Herunterladen verwendet wurde, kann "Daten zum OSM-Server hochladen" ausgewählt werden.</p>
-<p>Vespucci unterstützt sowohl OAuth-Autorisierung (Standardeinstellung) als auch die klassische Methode mit Benutzername und Passwort. Wo möglich sollte OAuth verwendet werden, um die Passwortübertragung im Klartext zu vermeiden.  </p>
-<p>Neue Vespucci-Installationen haben OAuth voreingestellt. Beim ersten Versuch, bearbeitete Daten auf den OSM-Server zu speichern, wird eine Seite der OSM-Website geladen. Nach der Anmeldung (über eine verschlüsselte Verbindung) wird um die Autorisierung von Vespucci zum Bearbeiten unter Verwendung des eigenen Kontos gebeten. Soll oder muss schon vor der Bearbeitung der OAuth-Zugriff auf das eigene Konto gestattet werden, gibt es hierfür einen entsprechenden Eintrag im "Werkzeuge"-Menü.</p>
+<p>Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  </p>
+<p>Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p>
 <p>Sollen die Änderungen gespeichert werden und es ist kein Internetzugang verfügbar, können sie in einer mit JOSM kompatiblen .osm-Datei gespeichert werden und später entweder mit Vespucci oder mit JOSM hochgeladen werden. </p>
 <h4 id="konfliktbehebung-beim-upload">Konfliktbehebung beim Upload<a class="headerlink" href="#konfliktbehebung-beim-upload" title="Permanent link">#</a></h4>
 <p>Vespucci hat einen einfachen Konfliktbehebungsmechanismus eingebaut. Sind größere Probleme mit den Änderungen zu erwarten, empfehlen wir, sie in eine .osc-Datei zu speichern ("Transfer" Menü, "Datei...,"  "Änderungen exportieren") und die Konflikte dann mit JOSM zu beheben. Für Details siehe Hilfetext zur <a href="../../en/Conflict%20resolution/">Konfliktauflösung</a>.  </p>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
+<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. </p>
+<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
 <h2 id="nutzung-von-gps-und-gpx-tracks">Nutzung von GPS und GPX-Tracks<a class="headerlink" href="#nutzung-von-gps-und-gpx-tracks" title="Permanent link">#</a></h2>
 <p>Mit Standardeinstellungen wird Vespucci versuchen, das GPS (und andere satellitenbasierte Navigstionssysteme) zu aktivieren, und, falls dies nicht möglich ist, auf die Positionsbestimmung über den sogenannten "Netzwerkstandort" zurückgreifen. Dieses Verhalten lässt vermuten, dass Sie für den normalen Gebrauch Ihr Android-Gerät selbst so konfiguriert haben, dass es nur GPX-generierte Standorte verwenden soll (um Tracking zu vermeiden), das heißt, Sie haben die euphemistisch mit "Verbesserte Standortgenauigkeit" bezeichnete Option ausgeschaltet. Wenn Sie die Option aktivieren möchten aber Vespucci daran hindern wollen, auf den "Netzwerkstandort" zurückzugreifen, sollten Sie die dazugehörige Option in den <a href="Advanced%20preferences.md">Erweiterten Einstellungen</a> ausschalten. </p>
-<p>Durch Tippen auf die <img alt="GPS" src="../../images/menu_gps.png" /> Taste (auf der linken Seite der Karte) wird der Bildschirm auf die aktuelle Position zentriert, und wenn Sie sich bewegen, wird die Kartenanzeige laufend aktualisiert. Wenn Sie den Bildschirm manuell verschieben oder bearbeiten, wird der Modus "GPS folgen" deaktiviert und der blaue GPS-Pfeil wechselt von einem Umriss zu einem ausgefüllten Pfeil. Um schnell zum "Folgen"-Modus zurückzukehren, tippen Sie einfach auf die GPS-Taste oder aktivieren Sie die entsprechende Menüoption erneut. Wenn das Gerät keinen aktuellen Standort hat, wird die Standortmarkierung/der Pfeil schwarz angezeigt, wenn ein aktueller Standort verfügbar ist, wird die Markierung blau.</p>
+<p>Touching the <img alt="GPS" src="../../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
 <p>Um einen GPX-Track aufzuzeichnen und auf Ihrem Gerät anzuzeigen, wählen Sie "GPX-Track starten" im Menü <img alt="GPS" src="../../images/menu_gps.png" />. Dies fügt der Anzeige einen Layer mit dem aktuell aufgezeichneten Track hinzu. Sie können den Track über den Eintrag in der <a href="Main%20map%20display.md">Ebenenkontrolle</a> hochladen und exportieren. Weitere Ebenen können aus lokalen GPX-Dateien und von heruntergeladenen Tracks der OSM-API hinzugefügt werden.</p>
 <p>Hinweis: Vespucci zeichnet standardmäßig keine Höhendaten mit Ihrem GPX-Track auf, dies ist auf einige Android-spezifische Probleme zurückzuführen. Um die Höhenaufzeichnung zu aktivieren, installieren Sie entweder ein Gravitationsmodell oder, einfacher, gehen Sie zu den <a href="Advanced%20preferences.md">Erweiterten Voreinstellungen</a> und konfigurieren Sie den NMEA-Eingang.</p>
-<h2 id="notizen-und-fehler">Notizen und Fehler<a class="headerlink" href="#notizen-und-fehler" title="Permanent link">#</a></h2>
-<p>Vespucci unterstützt das Herunterladen, Kommentieren und Schließen von OSM-Notizen (vormals OSM Bugs) und die entsprechende Funktionalität für "Fehler" die vom <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE Qualitätssicherungswerkzeug</a> gemeldet werden. Beide müssen entweder explizit heruntergeladen werden oder die Notizen und Fehler in der Nähe können automatisch geladen werden. Geänderte oder geschlossene Notizen und Fehler können entweder sofort hochgeladen werden oder gespeichert und alle zusammen später hochgeladen werden.</p>
-<p>Auf der Karte werden die Notizen und Fehler mit einem kleinen Käfer-Symbol  <img alt="Bug" src="../../images/bug_open.png" /> angezeigt, grüne sind behoben, blaue sind neu erstellt oder geändert, und Gelb zeigt an, dass die Notiz respektive der Fehler noch unverändert aktiv ist. </p>
-<p>In der OSMOSE-Fehlerdarstellung wird für die betroffenen Objekte jeweils ein blau hervorgehobener Link angezeigt. Wählt man den Link an, wird das Objekt ausgewählt, der Bildschirm darauf zentriert und, falls nötig, das entsprechende Gebiet heruntergeladen. </p>
+<h3 id="how-to-export-a-gpx-track">How to export a GPX track?<a class="headerlink" href="#how-to-export-a-gpx-track" title="Permanent link">#</a></h3>
+<p>Open the layer menu, then click the 3-dots menu next to "GPX recording", then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
+<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos<a class="headerlink" href="#notes-bugs-and-todos" title="Permanent link">#</a></h2>
+<p>Vespucci unterstützt das Herunterladen, Kommentieren und Schließen von OSM-Notizen (vormals OSM Bugs) und die entsprechende Funktionalität für "Fehler" die vom <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE Qualitätssicherungswerkzeug</a> gemeldet werden. Beide müssen entweder explizit heruntergeladen werden oder die Notizen und Fehler in der Nähe können automatisch geladen werden. Geänderte oder geschlossene Notizen und Fehler können entweder sofort hochgeladen werden oder gespeichert und alle zusammen später hochgeladen werden. </p>
+<p>Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. </p>
+<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
+<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
 <h3 id="anzeigefilter">Anzeigefilter<a class="headerlink" href="#anzeigefilter" title="Permanent link">#</a></h3>
 <p>Zusätzlich zum Freischalten der Notiz- und Fehleranzeige kann eine grobe Auswahl der angezeigten Objekte eingestellt werden. In den "Erweiterten Einstellungen" kann folgendes ausgewählt werden:   </p>
 <ul>
-<li>Notizen</li>
-<li>Osmose-Fehler</li>
-<li>Osmose-Warnung</li>
-<li>Osmose-Hinweis</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
 <li>Maproulette</li>
-<li>Benutzerdefiniert</li>
+<li>Todo</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="innenraum-modus">Innenraum-Modus<a class="headerlink" href="#innenraum-modus" title="Permanent link">#</a></h2>
@@ -584,8 +600,8 @@
 <p>Im C-Modus werden nur Objekte angezeigt, die ein Problem haben, was das Finden von Objekten, die spezifische Probleme haben oder zu  konfigurierbaren Qualitätsprüfungen passen, erleichtert. Wird ein solches Objekt angewählt, startet der Eigenschaftseditor und die am besten passende Vorlage wird automatisch angewandt.</p>
 <p>In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werden, siehe auch <a href="#lock">Sperren, entsperren, Modus wechseln</a>.</p>
 <h3 id="prufungen-konfigurieren">Prüfungen konfigurieren<a class="headerlink" href="#prufungen-konfigurieren" title="Permanent link">#</a></h3>
-<p>Im Augenblick sind zwei der Prüfungen konfigurierbar, beide können durch Auswahl der "Validierungseinstellungen" in den "Einstellungen" geändert werden. (Die Tests für FIXME-Tags und  für fehlende "type"-Tags bei Relationen sind derzeit nicht konfigurierbar.)  </p>
-<p>Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests", die untere die Tests auf "Fehlende Tags". Einträge können durch anklicken bearbeitet werden, der grüne Menüknopf erlaubt es weitere Einträge hinzuzufügen.</p>
+<p>All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the <a href="Preferences.md">preferences</a>. </p>
+<p>The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
 <h4 id="eintrage-fur-elemente-die-uberpruft-werden-sollten">Einträge für Elemente die überprüft werden sollten<a class="headerlink" href="#eintrage-fur-elemente-die-uberpruft-werden-sollten" title="Permanent link">#</a></h4>
 <p>Überprüfungstest-Einträge haben die folgenden Eigenschaften:</p>
 <ul>
@@ -615,14 +631,15 @@
 <p>Die Ebeneneigenschaften können über den Ebenen-Schalter (obere rechte Ecke) geändert werden, alle anderen Festlegungen sind über die Einstellungen im Hauptmenü zugänglich.</p>
 <p>Verfügbare Ebenen:</p>
 <ul>
-<li>Datenebene - OpenStreetMap Daten werden in dieses Ebene geladen. Im normalen Gebrauch muss hier nichts geändert werden. Standardeinstellung: eingeschaltet.</li>
-<li>Hintergrundebene - es steht eine große Auswahl an Luftbildern und anderen Hintergründen zur Verfügung. Standardeinstellung ist die "standard style"-Karte von openstreetmap.org.</li>
-<li>Überlagerungsebene - teiltransparente Ebenen mit Zusatzdaten, zum Beispiel GPX-Aufzeichnungen. Auf alten Geräten und solchen mit wenig Hauptspeicher können zusätzliche Ebenen zu Problemen führen. Standardeinstellung: keine Ebene.</li>
-<li>Notizen/Aufgaben/Fehlerebene - offene Notizen und Fehler werden mit einem gelben Icon angezeigt, geschlossene in grün. Standardeinstellung: eingeschaltet.</li>
-<li>Fotoebene - zeigt georeferenzierte Fotos als rote Kamera-Icons an, falls die Aufnahmerichtung mitgespeichert wurde, werden die Icons entsprechend gedreht. Berühren/Klicken auf die Icons zeigt das Bild an. Standardeinstellung: ausgeschaltet.</li>
-<li>Mapillary-Ebene - Zeigt Mapillary-Segmente mit Marker für die Bilder an. Berühren/Klicken auf die Icons zeigt das Bild an. Standardeinstellung: ausgeschaltet.</li>
-<li>GeoJSON-Ebene - zeigt den Inhalt eine GeoJSON Datei an. Standardeinstellung: ausgeschaltet.</li>
-<li>Gitter / Skalen - zeigt eine Skala entlang der Seiten der Karte oder Gitterlinien an. Standardeinstellung: eingeschaltet. </li>
+<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
+<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
+<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
+<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
+<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
+<li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
 <p>Mehr Informationen sind in der Karte verfügbar <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="einstellungen">Einstellungen<a class="headerlink" href="#einstellungen" title="Permanent link">#</a></h4>
@@ -633,14 +650,16 @@
 <p>Die vollständige Beschreibung findet man hier [Einstellungen] (Preferences.md)</p>
 <p>Erweiterte Einstellungen</p>
 <ul>
-<li>Knotensymbole. Standard: ein.</li>
-<li>Kontextmenü immer anzeigen. Wenn eingeschaltet, wird bei jedem Auswahlvorgang das Kontextmenü angezeigt, ausgeschaltet wird das Menü nur dann angezeigt, wenn keine eindeutige Auswahl bestimmt werden kann. Voreinstellung: aus (war früher eingeschaltet).</li>
-<li>Helles Thema aktivieren. Bei modernen Geräten ist dies standardmäßig eingeschaltet. Die Aktivierung bei älteren Android-Versionen führt wahrscheinlich zu einem nicht einheitlichen Aussehen. </li>
+<li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.  </li>
+<li>Node icons. Default: <em>on</em>.</li>
+<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
+<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. </li>
 </ul>
 <p>Die vollständige Beschreibung findet man hier [Erweiterte Einstellungen] (Advanced%20Preferences.md)</p>
-<h2 id="fehler-melden">Fehler melden<a class="headerlink" href="#fehler-melden" title="Permanent link">#</a></h2>
+<h2 id="reporting-and-resolving-issues">Reporting and Resolving Issues<a class="headerlink" href="#reporting-and-resolving-issues" title="Permanent link">#</a></h2>
 <p>Wenn Vespucci abstürzt oder einen internen Fehler feststellt, fordert die App dazu auf einen Fehlerbericht einzusenden. Dies sollte man in diesen Fällen tun, aber bitte nur ein Mal für jede spezifische Situation. Will man Informationen ergänzen, eine Funktion vorschlagen oder Ähnliches, kann das hier geschehen: [Vespucci-Fehlerberichte] (https://github.com/MarcusWolschon/osmeditor4android/issues). Der "Informationen zur Problembehebung"-Button im Debug-Menü erstellt einen neuen Fehlerbericht und fügt die relevanten App- und Geräteinformationen hinzu - ohne extra Tipparbeit.</p>
-<p>Wer Themen zu Vespucci diskutieren will, kann eine Diskussion in der <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci-Google-Gruppe</a> oder im <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap-Android-Forum</a> beginnen.</p></div> -->
+<p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
@@ -663,7 +682,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#notizen-und-fehler" class="nav-link">Notizen und Fehler</a>
+            <li class="nav-item" data-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -683,7 +702,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#fehler-melden" class="nav-link">Fehler melden</a>
+            <li class="nav-item" data-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -694,37 +713,43 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<p><em>Bevor wir beginnen: Die meisten Ansichten enthalten im Menü eine Verknüpfung zum geräteinternen Hilfesystem, das Ihnen den direkten Zugriff auf Informationen ermöglicht, die im aktuellen Kontext relevant sind. Hier können Sie auch sehr leicht zu diesem Text hier zurückkehren. Wenn Sie ein größeres Gerät, zum Beispiel ein Tablet, besitzen, können Sie das Hilfesystem in einem geteilten Bildschirmfenster öffnen. Alle Hilfetexte und Weiteres (FAQs, Anleitungen) können auch auf der <a href="https://vespucci.io/">Vespucci documentation site</a> eingesehen werden.</em></p>
+<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
 <h1 id="einfuhrung-in-vespucci">Einführung in Vespucci<a class="headerlink" href="#einfuhrung-in-vespucci" title="Permanent link">#</a></h1>
-<p>Vespucci ist ein vollwertiger OpenStreetMap-Editor, der die meisten Funktionen von Desktop-Editoren beherrscht. Er wurde erfolgreich auf Googles Android 2.3 bis 10.0 und verschiedenen AOSP-basierten Varianten getestet. Achtung: Während die Leistung mobiler Geräte mit der von Desktop-Konkurrenten aufgeholt hat, haben vor allem ältere Geräte nur sehr begrenzten Speicher zur Verfügung und sind meist recht langsam. Bei der Verwendung von Vespucci sollten Sie dies berücksichtigen und z.B. die zu bearbeitenden Bereiche auf eine angemessene Größe beschränken.</p>
+<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
 <h2 id="mit-vespucci-osm-daten-bearbeiten">Mit Vespucci OSM-Daten bearbeiten<a class="headerlink" href="#mit-vespucci-osm-daten-bearbeiten" title="Permanent link">#</a></h2>
 <p>Abhängig von Bildschirmgröße und Alter des Gerätes sind die Bearbeitungsfunktionen entweder über Icons in einer Leiste am Oberrand, über ein Dropdown-Menü rechts in dieser Leiste, über eine Menüleiste am Unterrand (falls vorhanden) oder über die Menütaste zugänglich.</p>
 <p><a id="download"></a></p>
 <h3 id="osm-daten-herunterladen">OSM-Daten herunterladen<a class="headerlink" href="#osm-daten-herunterladen" title="Permanent link">#</a></h3>
-<p>Entweder das Icon zur Übertragung <img alt="Transfer" src="../../images/menu_transfer.png" /> oder den Menüeintrag "Übertragen" wählen. Danach werden sieben Optionen zur Auswahl angezeigt:</p>
+<p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display eleven options:</p>
 <ul>
-<li><strong>Aktuelle Ansicht herunterladen</strong> - Gebiet der aktuellen Bildschirmansicht herunterladen und mit den existierenden Daten zusammenführen <em>(erfordert Netzwerkverbindung)</em></li>
-<li><strong>Löschen und aktuelle Ansicht herunterladen</strong> - Alle Daten im Speicher löschen und dann die aktuelle Bildschirmansicht herunterladen <em>(erfordert Netzwerkverbindung)</em></li>
-<li><strong>Daten zum OSM-Server hochladen</strong> - Bearbeitungen an OpenStreetMap übertragen <em>(erfordert Authentifikation)</em> <em>(erfordert Netzwerkverbindung)</em></li>
-<li><strong>Auto-Download nach Standort</strong> - Automatisch ein Gebiet rund um den aktuellen geographischen Standort herunterladen <em>(erfordert Netzwerkverbindung oder Offline-Daten)</em> <em>(erfordert GPS)</em></li>
-<li><strong>Auto-Download nach aktueller Ansicht</strong> - Automatisch das momentan auf dem Bildschirm angezeigte Gebiet herunterladen <em>(erfordert Netzwerkverbindung oder Offline-Daten)</em> <em>(erfordert GPS)</em></li>
-<li><strong>Datei...</strong> - OSM-Daten aus Gerätedateien laden oder in sie speichern.</li>
-<li><strong>Notiz/Fehler...</strong> - OSM-Hinweise und "Fehler" aus der Qualitätssicherung (momentan OSMOSE) herunterladen (automatisch oder manuell) <em>(erfordert Netzwerkverbindung)</em></li>
+<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Review changes...</strong> - review current changes</li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
+<li><strong>Clear and download current view</strong> - clear any data in memory, including pending changes, and then download the area visible on the screen <em>(requires network connectivity)</em></li>
+<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Clear data</strong> - remove any OSM data in memory, including pending changes.</li>
+<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
+<li><strong>Tasks...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
 <p>Um Daten auf dem Gerät zu öffnen, ist es am einfachsten, mit Gesten den Bildschirm auf das gewünschte Gebiet zu zentrieren und dann im Menü "Aktuelle Ansicht herunterladen" anzuwählen. Der Zoom kann mit Gesten, den Zoom-Schaltflächen oder den Lautstärketasten bedient werden. Vespucci sollte dann das Gebiet herunterladen. Um Daten herunterzuladen, muss man nicht angemeldet sein.</p>
-<p>Mit den Standardeinstellungen werden alle nicht heruntergeladenen Bereiche im Vergleich zu heruntergeladenen abgedunkelt. Dies soll unbeabsichtigtes Editieren und Verdoppelung von Elementen in solchen Gebieten verhindern. Das Verhalten kann in den <a href="Advanced%20preferences.md">Erweiterten Einstellungen</a> geändert werden.</p>
+<p>In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a> so that dimming is always active.</p>
+<p>If you need to use a non-standard OSM API entry, or use <a href="https://vespucci.io/tutorials/offline/">offline data</a> in <em>MapSplit</em> format you can add or change entries via the <em>Configure...</em> entry for the data layer in the layer control.</p>
 <h3 id="bearbeiten">Bearbeiten<a class="headerlink" href="#bearbeiten" title="Permanent link">#</a></h3>
 <p><a id="lock"></a></p>
 <h4 id="sperren-entsperren-modus-wechseln">Sperren, entsperren, Modus wechseln<a class="headerlink" href="#sperren-entsperren-modus-wechseln" title="Permanent link">#</a></h4>
 <p>Um versehentliche Änderungen zu verhindern, startet Vespucci im "gesperrten" Modus, einem Modus, der nur das Zoomen und Verschieben der Karte erlaubt. Um den Schirm zu entsperren, auf das <img alt="Schloss" src="../../images/locked.png" />-Icon tippen. </p>
-<p>Ein langer Druck auf das Schlosssymbol zeigt ein Auswahlmenü mit 4 Optionen:</p>
+<p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
 <ul>
-<li><strong>Normal</strong> - der Standardbearbeitungsmodus, neue Objekte können erstellt werden, bestehende bearbeitet, verschoben und gelöscht. Ein einfaches weißes Schlosssymbol wird angezeigt.</li>
-<li><strong>Nur Tags</strong> - wird ein bestehendes Objekt ausgewählt, startet der Eigenschaftseditor, ein langer Druck auf dem Hauptschirm wird weiterhin neue Objekte hinzufügen, aber keine anderen Geometriebearbeitungen sind möglich. Ein weißes Schlosssymbol mit einem "T" wird angezeigt.</li>
-<li><strong>Adresse</strong> - schaltet den Adressenmodus ein, einen etwas vereinfachten Modus mit adressspezifschen Aktionen im <a href="../../en/Simple%20actions/">Einfachen Modus</a> "+" Schaltfläche.  Ein weißes Schlosssymbol mit einem "A" wird angezeigt.</li>
-<li><strong>Innenraum</strong> - schaltet in den Innenraum-Modus, siehe  <a href="#indoor">Innenraum-Modus</a>. Ein weißes Schlosssymbol mit einem "I" wird angezeigt.</li>
-<li><strong>C-Modus</strong> - in C-Modus werden nur Objekte angezeigt, die ein Problem haben, siehe <a href="#c-mode">C-Modus</a>.  Ein weißes Schlosssymbol mit einem "C" wird angezeigt.</li>
+<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
+<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.</li>
+<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../../en/Simple%20actions/">Simple mode</a> "+" button. White lock icon with an "A" is displayed.</li>
+<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an "I" is displayed.</li>
+<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
 </ul>
+<p>If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to <em>Address</em> and <em>Indoor</em> mode.</p>
 <h4 id="einfacher-klick-doppelklick-und-langer-klick">Einfacher Klick, Doppelklick und langer Klick<a class="headerlink" href="#einfacher-klick-doppelklick-und-langer-klick" title="Permanent link">#</a></h4>
 <p>In der Standardeinstellung wird um auswählbare Knoten und Wege ein oranger Bereich angezeigt, der angibt, in welchen Bereich man auf den Bildschirm tippen kann, um ein Objekt anzuwählen. Die drei Möglichkeiten sind:</p>
 <ul>
@@ -738,7 +763,7 @@
 <li>Doppelklick: Startet den <a href="Multiselect.md">Mehrfachauswahl-Modus</a></li>
 <li>Klicken und halten: Erstellt ein "Fadenkreuz" und ermöglicht das Hinzufügen von Knoten, siehe unten und <a href="Creating%20new%20objects.md">Erstellen neuer Objekte</a>. Dies ist nur möglich, wenn der "Einfache Modus" deaktiviert ist.</li>
 </ul>
-<p>In einem Gebiet, in dem die OSM-Daten sehr dicht sind, empfiehlt es sich, das Gebiet stark zu vergrößern.</p>
+<p>In einem Gebiet, in dem die OSM-Daten sehr dicht sind, empfiehlt es sich, zum Bearbeiten eine hohe Vergrößerungsstufe zu wählen.</p>
 <p>Vespucci hat eine gute Unterstützung von "Undo" und "Redo", weshalb man ohne Bedenken auf seinem Gerät experimentieren kann, bitte aber keine reinen Testdaten auf OSM-Server speichern.</p>
 <h4 id="auswahlen-abwahlen-einfacher-klick-und-auswahlmenu">Auswählen / Abwählen (einfacher Klick und "Auswahlmenü")<a class="headerlink" href="#auswahlen-abwahlen-einfacher-klick-und-auswahlmenu" title="Permanent link">#</a></h4>
 <p>Um ein Objekt anzuwählen und hervorzuheben, tippt man darauf. Ist ein Objekt markiert, kann es durch Tippen in einen leeren Bereich abgewählt werden. Wurde ein Objekt markiert und soll ein anderes ausgewählt werden, tippt man einfach auf das in Frage kommende Element. Es ist nicht nötig, zuerst das aktuell markierte abzuwählen. Ein "Doppeltipp" startet den <a href="../../en/Multiselect/">Mehrfachauswahl-Modus</a>.</p>
@@ -754,7 +779,7 @@
 <p>Beim ersten Start der App ist der "Einfache Modus" aktiviert. Dies kann im Hauptmenü geändert werden, indem die entsprechende Auswahlbox deaktiviert wird.</p>
 <h5 id="einfacher-modus">Einfacher Modus<a class="headerlink" href="#einfacher-modus" title="Permanent link">#</a></h5>
 <p>Drücken des großen grünen Knopfes auf dem Bildschirm zeigt ein Menü an. Nach der Auswahl eines Befehls wird man aufgefordert, auf dem Bildschirm die Position anzutippen, an der das Objekt erstellt werden soll. Verschieben und Zoomen funktionieren weiterhin, falls der Bildschirmausschnitt angepasst werden muss. </p>
-<p>Siehe <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Erstellen neuer Objekte im einfachen Modus</a> für mehr Informationen.</p>
+<p>See <a href="Simple%20actions.md">Creating new objects in simple actions mode</a> for more information. Simple mode os the default for new installs.</p>
 <h5 id="erweiterter-modus-tippen-und-halten">Erweiterter Modus (Tippen und halten)<a class="headerlink" href="#erweiterter-modus-tippen-und-halten" title="Permanent link">#</a></h5>
 <p>Durch langes Drücken an der Stelle, wo ein Knoten oder Weg erstellt werden soll, wird ein schwarzes "Fadenkreuz" angezeigt.
 * Wenn man einen neuen (nicht mit einem Objekt verbundenen) Knoten erstellen will, klickt man neben bereits vorhandene Objekte.
@@ -780,7 +805,7 @@
 <h4 id="die-geometrie-eines-weges-verbessern">Die Geometrie eines Weges verbessern<a class="headerlink" href="#die-geometrie-eines-weges-verbessern" title="Permanent link">#</a></h4>
 <p>Zoomt man genügend nah an ein ausgewähltes Wegsegment, wird ein kleines "x" sichtbar. Zieht man daran, wird ein Knoten im Weg erstellt. Hinweis: um das versehentliche Erstellen solcher Punkte zu verhindern, ist der empfindliche Bereich um das "x" ziemlich klein.</p>
 <h4 id="kopieren-ausschneiden-einfugen">Kopieren, Ausschneiden &amp; Einfügen<a class="headerlink" href="#kopieren-ausschneiden-einfugen" title="Permanent link">#</a></h4>
-<p>Ausgewählte Knoten und Wege können kopiert oder ausgeschnitten und dann einmal oder mehrfach wieder eingefügt werden. Beim Ausschneiden bleibt sowohl die OSM-ID als auch die Version erhalten. Ein langer Druck markiert die Position, an der eingefügt werden soll, um die Aktion abzuschließen, danach "Einfügen" aus dem Menü auswählen.</p>
+<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p>
 <h4 id="effizient-adressen-eintragen">Effizient Adressen eintragen<a class="headerlink" href="#effizient-adressen-eintragen" title="Permanent link">#</a></h4>
 <p>Vespucci unterstützt Funktionen, die die Erfassung von Adressen effizienter machen, indem sie Hausnummern vorhersagen (linke und rechte Straßenseite getrennt) und automatisch <em>addr:street</em> oder <em>addr:place</em> Tags auf Grundlage vom zuletzt verwendeten Wert und der Nähe hinzufügen. Im besten Fall ermöglicht dies das Hinzufügen einer Adresse, ohne dass überhaupt etwas eingegeben werden muss.   </p>
 <p>Das Hinzufügen der Tags kann durch Drücken von <img alt="Adresse" src="../../images/address.png" /> ausgelöst werden: </p>
@@ -806,29 +831,35 @@
 <h3 id="die-bearbeitungen-abspeichern">Die Bearbeitungen abspeichern<a class="headerlink" href="#die-bearbeitungen-abspeichern" title="Permanent link">#</a></h3>
 <p>*(benötigt Netzwerkzugang)</p>
 <p>Über denselben Knopf oder Menüeintrag, der für das Herunterladen verwendet wurde, kann "Daten zum OSM-Server hochladen" ausgewählt werden.</p>
-<p>Vespucci unterstützt sowohl OAuth-Autorisierung (Standardeinstellung) als auch die klassische Methode mit Benutzername und Passwort. Wo möglich sollte OAuth verwendet werden, um die Passwortübertragung im Klartext zu vermeiden.  </p>
-<p>Neue Vespucci-Installationen haben OAuth voreingestellt. Beim ersten Versuch, bearbeitete Daten auf den OSM-Server zu speichern, wird eine Seite der OSM-Website geladen. Nach der Anmeldung (über eine verschlüsselte Verbindung) wird um die Autorisierung von Vespucci zum Bearbeiten unter Verwendung des eigenen Kontos gebeten. Soll oder muss schon vor der Bearbeitung der OAuth-Zugriff auf das eigene Konto gestattet werden, gibt es hierfür einen entsprechenden Eintrag im "Werkzeuge"-Menü.</p>
+<p>Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  </p>
+<p>Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p>
 <p>Sollen die Änderungen gespeichert werden und es ist kein Internetzugang verfügbar, können sie in einer mit JOSM kompatiblen .osm-Datei gespeichert werden und später entweder mit Vespucci oder mit JOSM hochgeladen werden. </p>
 <h4 id="konfliktbehebung-beim-upload">Konfliktbehebung beim Upload<a class="headerlink" href="#konfliktbehebung-beim-upload" title="Permanent link">#</a></h4>
 <p>Vespucci hat einen einfachen Konfliktbehebungsmechanismus eingebaut. Sind größere Probleme mit den Änderungen zu erwarten, empfehlen wir, sie in eine .osc-Datei zu speichern ("Transfer" Menü, "Datei...,"  "Änderungen exportieren") und die Konflikte dann mit JOSM zu beheben. Für Details siehe Hilfetext zur <a href="../../en/Conflict%20resolution/">Konfliktauflösung</a>.  </p>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
+<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. </p>
+<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
 <h2 id="nutzung-von-gps-und-gpx-tracks">Nutzung von GPS und GPX-Tracks<a class="headerlink" href="#nutzung-von-gps-und-gpx-tracks" title="Permanent link">#</a></h2>
 <p>Mit Standardeinstellungen wird Vespucci versuchen, das GPS (und andere satellitenbasierte Navigstionssysteme) zu aktivieren, und, falls dies nicht möglich ist, auf die Positionsbestimmung über den sogenannten "Netzwerkstandort" zurückgreifen. Dieses Verhalten lässt vermuten, dass Sie für den normalen Gebrauch Ihr Android-Gerät selbst so konfiguriert haben, dass es nur GPX-generierte Standorte verwenden soll (um Tracking zu vermeiden), das heißt, Sie haben die euphemistisch mit "Verbesserte Standortgenauigkeit" bezeichnete Option ausgeschaltet. Wenn Sie die Option aktivieren möchten aber Vespucci daran hindern wollen, auf den "Netzwerkstandort" zurückzugreifen, sollten Sie die dazugehörige Option in den <a href="Advanced%20preferences.md">Erweiterten Einstellungen</a> ausschalten. </p>
-<p>Durch Tippen auf die <img alt="GPS" src="../../images/menu_gps.png" /> Taste (auf der linken Seite der Karte) wird der Bildschirm auf die aktuelle Position zentriert, und wenn Sie sich bewegen, wird die Kartenanzeige laufend aktualisiert. Wenn Sie den Bildschirm manuell verschieben oder bearbeiten, wird der Modus "GPS folgen" deaktiviert und der blaue GPS-Pfeil wechselt von einem Umriss zu einem ausgefüllten Pfeil. Um schnell zum "Folgen"-Modus zurückzukehren, tippen Sie einfach auf die GPS-Taste oder aktivieren Sie die entsprechende Menüoption erneut. Wenn das Gerät keinen aktuellen Standort hat, wird die Standortmarkierung/der Pfeil schwarz angezeigt, wenn ein aktueller Standort verfügbar ist, wird die Markierung blau.</p>
+<p>Touching the <img alt="GPS" src="../../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
 <p>Um einen GPX-Track aufzuzeichnen und auf Ihrem Gerät anzuzeigen, wählen Sie "GPX-Track starten" im Menü <img alt="GPS" src="../../images/menu_gps.png" />. Dies fügt der Anzeige einen Layer mit dem aktuell aufgezeichneten Track hinzu. Sie können den Track über den Eintrag in der <a href="Main%20map%20display.md">Ebenenkontrolle</a> hochladen und exportieren. Weitere Ebenen können aus lokalen GPX-Dateien und von heruntergeladenen Tracks der OSM-API hinzugefügt werden.</p>
 <p>Hinweis: Vespucci zeichnet standardmäßig keine Höhendaten mit Ihrem GPX-Track auf, dies ist auf einige Android-spezifische Probleme zurückzuführen. Um die Höhenaufzeichnung zu aktivieren, installieren Sie entweder ein Gravitationsmodell oder, einfacher, gehen Sie zu den <a href="Advanced%20preferences.md">Erweiterten Voreinstellungen</a> und konfigurieren Sie den NMEA-Eingang.</p>
-<h2 id="notizen-und-fehler">Notizen und Fehler<a class="headerlink" href="#notizen-und-fehler" title="Permanent link">#</a></h2>
-<p>Vespucci unterstützt das Herunterladen, Kommentieren und Schließen von OSM-Notizen (vormals OSM Bugs) und die entsprechende Funktionalität für "Fehler" die vom <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE Qualitätssicherungswerkzeug</a> gemeldet werden. Beide müssen entweder explizit heruntergeladen werden oder die Notizen und Fehler in der Nähe können automatisch geladen werden. Geänderte oder geschlossene Notizen und Fehler können entweder sofort hochgeladen werden oder gespeichert und alle zusammen später hochgeladen werden.</p>
-<p>Auf der Karte werden die Notizen und Fehler mit einem kleinen Käfer-Symbol  <img alt="Bug" src="../../images/bug_open.png" /> angezeigt, grüne sind behoben, blaue sind neu erstellt oder geändert, und Gelb zeigt an, dass die Notiz respektive der Fehler noch unverändert aktiv ist. </p>
-<p>In der OSMOSE-Fehlerdarstellung wird für die betroffenen Objekte jeweils ein blau hervorgehobener Link angezeigt. Wählt man den Link an, wird das Objekt ausgewählt, der Bildschirm darauf zentriert und, falls nötig, das entsprechende Gebiet heruntergeladen. </p>
+<h3 id="how-to-export-a-gpx-track">How to export a GPX track?<a class="headerlink" href="#how-to-export-a-gpx-track" title="Permanent link">#</a></h3>
+<p>Open the layer menu, then click the 3-dots menu next to "GPX recording", then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
+<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos<a class="headerlink" href="#notes-bugs-and-todos" title="Permanent link">#</a></h2>
+<p>Vespucci unterstützt das Herunterladen, Kommentieren und Schließen von OSM-Notizen (vormals OSM Bugs) und die entsprechende Funktionalität für "Fehler" die vom <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE Qualitätssicherungswerkzeug</a> gemeldet werden. Beide müssen entweder explizit heruntergeladen werden oder die Notizen und Fehler in der Nähe können automatisch geladen werden. Geänderte oder geschlossene Notizen und Fehler können entweder sofort hochgeladen werden oder gespeichert und alle zusammen später hochgeladen werden. </p>
+<p>Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. </p>
+<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
+<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
 <h3 id="anzeigefilter">Anzeigefilter<a class="headerlink" href="#anzeigefilter" title="Permanent link">#</a></h3>
 <p>Zusätzlich zum Freischalten der Notiz- und Fehleranzeige kann eine grobe Auswahl der angezeigten Objekte eingestellt werden. In den "Erweiterten Einstellungen" kann folgendes ausgewählt werden:   </p>
 <ul>
-<li>Notizen</li>
-<li>Osmose-Fehler</li>
-<li>Osmose-Warnung</li>
-<li>Osmose-Hinweis</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
 <li>Maproulette</li>
-<li>Benutzerdefiniert</li>
+<li>Todo</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="innenraum-modus">Innenraum-Modus<a class="headerlink" href="#innenraum-modus" title="Permanent link">#</a></h2>
@@ -839,8 +870,8 @@
 <p>Im C-Modus werden nur Objekte angezeigt, die ein Problem haben, was das Finden von Objekten, die spezifische Probleme haben oder zu  konfigurierbaren Qualitätsprüfungen passen, erleichtert. Wird ein solches Objekt angewählt, startet der Eigenschaftseditor und die am besten passende Vorlage wird automatisch angewandt.</p>
 <p>In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werden, siehe auch <a href="#lock">Sperren, entsperren, Modus wechseln</a>.</p>
 <h3 id="prufungen-konfigurieren">Prüfungen konfigurieren<a class="headerlink" href="#prufungen-konfigurieren" title="Permanent link">#</a></h3>
-<p>Im Augenblick sind zwei der Prüfungen konfigurierbar, beide können durch Auswahl der "Validierungseinstellungen" in den "Einstellungen" geändert werden. (Die Tests für FIXME-Tags und  für fehlende "type"-Tags bei Relationen sind derzeit nicht konfigurierbar.)  </p>
-<p>Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests", die untere die Tests auf "Fehlende Tags". Einträge können durch anklicken bearbeitet werden, der grüne Menüknopf erlaubt es weitere Einträge hinzuzufügen.</p>
+<p>All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the <a href="Preferences.md">preferences</a>. </p>
+<p>The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
 <h4 id="eintrage-fur-elemente-die-uberpruft-werden-sollten">Einträge für Elemente die überprüft werden sollten<a class="headerlink" href="#eintrage-fur-elemente-die-uberpruft-werden-sollten" title="Permanent link">#</a></h4>
 <p>Überprüfungstest-Einträge haben die folgenden Eigenschaften:</p>
 <ul>
@@ -870,14 +901,15 @@
 <p>Die Ebeneneigenschaften können über den Ebenen-Schalter (obere rechte Ecke) geändert werden, alle anderen Festlegungen sind über die Einstellungen im Hauptmenü zugänglich.</p>
 <p>Verfügbare Ebenen:</p>
 <ul>
-<li>Datenebene - OpenStreetMap Daten werden in dieses Ebene geladen. Im normalen Gebrauch muss hier nichts geändert werden. Standardeinstellung: eingeschaltet.</li>
-<li>Hintergrundebene - es steht eine große Auswahl an Luftbildern und anderen Hintergründen zur Verfügung. Standardeinstellung ist die "standard style"-Karte von openstreetmap.org.</li>
-<li>Überlagerungsebene - teiltransparente Ebenen mit Zusatzdaten, zum Beispiel GPX-Aufzeichnungen. Auf alten Geräten und solchen mit wenig Hauptspeicher können zusätzliche Ebenen zu Problemen führen. Standardeinstellung: keine Ebene.</li>
-<li>Notizen/Aufgaben/Fehlerebene - offene Notizen und Fehler werden mit einem gelben Icon angezeigt, geschlossene in grün. Standardeinstellung: eingeschaltet.</li>
-<li>Fotoebene - zeigt georeferenzierte Fotos als rote Kamera-Icons an, falls die Aufnahmerichtung mitgespeichert wurde, werden die Icons entsprechend gedreht. Berühren/Klicken auf die Icons zeigt das Bild an. Standardeinstellung: ausgeschaltet.</li>
-<li>Mapillary-Ebene - Zeigt Mapillary-Segmente mit Marker für die Bilder an. Berühren/Klicken auf die Icons zeigt das Bild an. Standardeinstellung: ausgeschaltet.</li>
-<li>GeoJSON-Ebene - zeigt den Inhalt eine GeoJSON Datei an. Standardeinstellung: ausgeschaltet.</li>
-<li>Gitter / Skalen - zeigt eine Skala entlang der Seiten der Karte oder Gitterlinien an. Standardeinstellung: eingeschaltet. </li>
+<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
+<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
+<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
+<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
+<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
+<li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
 <p>Mehr Informationen sind in der Karte verfügbar <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="einstellungen">Einstellungen<a class="headerlink" href="#einstellungen" title="Permanent link">#</a></h4>
@@ -888,14 +920,16 @@
 <p>Die vollständige Beschreibung findet man hier [Einstellungen] (Preferences.md)</p>
 <p>Erweiterte Einstellungen</p>
 <ul>
-<li>Knotensymbole. Standard: ein.</li>
-<li>Kontextmenü immer anzeigen. Wenn eingeschaltet, wird bei jedem Auswahlvorgang das Kontextmenü angezeigt, ausgeschaltet wird das Menü nur dann angezeigt, wenn keine eindeutige Auswahl bestimmt werden kann. Voreinstellung: aus (war früher eingeschaltet).</li>
-<li>Helles Thema aktivieren. Bei modernen Geräten ist dies standardmäßig eingeschaltet. Die Aktivierung bei älteren Android-Versionen führt wahrscheinlich zu einem nicht einheitlichen Aussehen. </li>
+<li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.  </li>
+<li>Node icons. Default: <em>on</em>.</li>
+<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
+<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. </li>
 </ul>
 <p>Die vollständige Beschreibung findet man hier [Erweiterte Einstellungen] (Advanced%20Preferences.md)</p>
-<h2 id="fehler-melden">Fehler melden<a class="headerlink" href="#fehler-melden" title="Permanent link">#</a></h2>
+<h2 id="reporting-and-resolving-issues">Reporting and Resolving Issues<a class="headerlink" href="#reporting-and-resolving-issues" title="Permanent link">#</a></h2>
 <p>Wenn Vespucci abstürzt oder einen internen Fehler feststellt, fordert die App dazu auf einen Fehlerbericht einzusenden. Dies sollte man in diesen Fällen tun, aber bitte nur ein Mal für jede spezifische Situation. Will man Informationen ergänzen, eine Funktion vorschlagen oder Ähnliches, kann das hier geschehen: [Vespucci-Fehlerberichte] (https://github.com/MarcusWolschon/osmeditor4android/issues). Der "Informationen zur Problembehebung"-Button im Debug-Menü erstellt einen neuen Fehlerbericht und fügt die relevanten App- und Geräteinformationen hinzu - ohne extra Tipparbeit.</p>
-<p>Wer Themen zu Vespucci diskutieren will, kann eine Diskussion in der <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci-Google-Gruppe</a> oder im <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap-Android-Forum</a> beginnen.</p></div>
+<p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div>
                     
             </div>
         </div>
@@ -903,7 +937,7 @@
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.1.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

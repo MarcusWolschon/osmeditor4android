@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../../../help/en/20.2.0%20Release%20notes/" class="dropdown-item">20.2 BETA Release notes</a>
+</li>
+                                    
+<li>
     <a href="../../../help/en/20.1.0%20Release%20notes/" class="dropdown-item">20.1.0 Release notes</a>
 </li>
                                     
@@ -408,11 +412,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_20" class="nav-link">یادداشت‌ها و باگ‌ها</a>
+            <li class="nav-item" data-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_22" class="nav-link">حالت داخلی</a>
+            <li class="nav-item" data-level="2"><a href="#_21" class="nav-link">حالت داخلی</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -420,15 +424,15 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_26" class="nav-link">فیلترها</a>
+            <li class="nav-item" data-level="2"><a href="#_25" class="nav-link">فیلترها</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_29" class="nav-link">سفارشی‌سازی وسپوچی</a>
+            <li class="nav-item" data-level="2"><a href="#_28" class="nav-link">سفارشی‌سازی وسپوچی</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_33" class="nav-link">گزارش مشکلات</a>
+            <li class="nav-item" data-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -439,36 +443,43 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<p><em>قبل از شروع: بیشتر صفحه‌ها پیوندهایی در منو به سیستم راهنمای روی دستگاه دارند که به شما امکان دسترسی مستقیم به اطلاعات مرتبط با زمینه فعلی را می‌دهد، می‌توانید به راحتی به این متن نیز برگردید. اگر دستگاه بزرگتری دارید، برای مثال تبلت، می‌توانید سیستم راهنما را در یک پنجره تقسیم جداگانه باز کنید. تمام متون راهنما و موارد دیگر (سؤالات متداول، آموزش) را می توانید در [سایت اسناد وسپوچی] (https://vespucci.io/) نیز بیابید.</em></p>
+<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
 <h1 id="_1">معرفی وسپوچی<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
-<p>وسپوچی ویرایشگر کاملی برای اوپن‌ استریت مپ است که بیشتر قابلیت‌های ویرایشگرهای رومیزی را پشتیبانی می‌کند. این برنامه با موفقیت روی اندروید گوگل از نسخهٔ 2.3 تا 10.0 و گونه‌های مبتنی بر AOSP آزمایش شده است. نکتهٔ شایان توجه: در حالی که قابلیت‌های دستگاهِ همراه، با رقبای رومیزی رقابت می‌کند، مخصوصاً دستگاه‌های قدیمی‌تر حافظهٔ بسیار محدودی دارند و بنابراین نسبتاً کند خواهند بود. هنگام استفاده از حساب کاربری وسپوچی به این نکته توجه داشته باشید و به‌عنوان مثال، محدودهٔ ویرایش را در اندازهٔ معقولی نگه دارید.</p>
+<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
 <h2 id="_2">ویرایش با وسپوچی<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>بسته به اندازهٔ صفحه‌نمایش و عمر دستگاه، کنش‌های ویرایش مستقیماً از طریق نمادهای موجود در نوار بالا، از طریق منوی کشویی در سمت راست نوار بالا، از نوار پایین (در صورت وجود) یا از طریق کلید منو قابل دسترسی است.</p>
 <p><a id="download"></a></p>
 <h3 id="osm">بارگیری دادهٔ OSM<a class="headerlink" href="#osm" title="Permanent link">#</a></h3>
-<p>نماد داده‌رسانی <img alt="Transfer" src="../images/menu_transfer.png" /> یا گزینهٔ «داده‌رسانی» را از منو انتخاب کنید. این کار هفت گزینه را پیش روی شما قرار می‌دهد:</p>
+<p>Select either the transfer icon <img alt="Transfer" src="../images/menu_transfer.png" /> or the "Transfer" menu item. This will display eleven options:</p>
 <ul>
-<li><strong>بارگیری نمای جاری</strong> - ناحیهٔ قابل‌مشاهده روی صفحه را بارگیری کرده و آن را با دادهٔ موجود ادغام کنید <em>(اتصال شبکه یا منبع دادهٔ برون‌خط نیاز دارد)</em></li>
-<li><strong>پاک کردن و بارگیری نمای کنونی</strong> - هرگونه داده در حافظه را پاک کنید و سپس ناحیهٔ قابل‌مشاهده روی صفحه را بارگیری کنید <em>(اتصال شبکه نیاز دارد)</em></li>
-<li><strong>بارگذاری داده‌ها در سرور OSM</strong> - ویرایش‌ها را در اوپن‌‌استریت‌مپ بارگذاری کنید <em>(احراز هویت نیاز دارد)</em> <em>(اتصال شبکه نیاز دارد)</em></li>
-<li><strong>به‌روزرسانی داده</strong> - دادهٔ همهٔ نواحی را بارگیری مجدد کنید و آنچه در حافظه است را به‌روز کنید <em>(اتصال شبکه نیاز دارد)</em></li>
-<li><strong>بارگیری خودکار مبتنی بر مکان</strong> - ناحیه‌ای در اطراف موقعیت جغرافیایی کنونی را به صورت خودکار بارگیری کنید <em>(اتصال شبکه یا دادهٔ برون‌خط نیاز دارد)</em> <em>(GPS نیاز دارد)</em></li>
-<li><strong>بارگیری خودکار هنگام جابه‌جایی و بزرگنمایی</strong> - برای ناحیهٔ در حال نمایش نقشه، داده را به صورت خودکار بارگیری کنید <em>(اتصال شبکه یا دادهٔ برون‌خط نیاز دارد)</em> <em>(GPS نیاز دارد)</em></li>
-<li><strong>پرونده...</strong> - دادهٔ OSM را به/از پرونده‌های روی دستگاه ذخیره یا بار کنید.</li>
-<li><strong>توجه/اشکالا ...</strong> - یادداشت‌های OSM و «اشکالات» را از ابزارهای QA (در حال حاضر OSMOSE) بارگیری (خودکار و دستی) کنید <em>(اتصال شبکه نیاز دارد)</em></li>
+<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Review changes...</strong> - review current changes</li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
+<li><strong>Clear and download current view</strong> - clear any data in memory, including pending changes, and then download the area visible on the screen <em>(requires network connectivity)</em></li>
+<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Clear data</strong> - remove any OSM data in memory, including pending changes.</li>
+<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
+<li><strong>Tasks...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
 <p>ساده‌ترین روش بارگیری داده در دستگاه این است که با حرکت و زوم به مکانی که می‌خواهید ویرایش کنید بروید و «بارگیری نمای کنونی» را انتخاب نمایید. می‌توانید با ژست‌های حرکتی، دکمه‌های زوم یا دکمه‌های کنترل صدای دستگاه، زوم کنید. سپس وسپوچی دادهٔ نمای کنونی را دریافت می‌کند. برای بارگیری داده در دستگاهتان به احراز هویت نیازی نیست.</p>
-<p>با تنظیمات پیش فرض هر ناحیه بارگیری نشده نسبت به مناطق بارگیری شده کم نور می‌شود، این کار برای جلوگیری از اضافه شدن ناخواسته اشیاء تکراری در مناطقی است که نمایش داده نمی‌شوند. رفتار را می‌توان در [ترجیحات پیشرفته] (Advanced٪ 20preferences.md) تغییر داد.</p>
+<p>In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a> so that dimming is always active.</p>
+<p>If you need to use a non-standard OSM API entry, or use <a href="https://vespucci.io/tutorials/offline/">offline data</a> in <em>MapSplit</em> format you can add or change entries via the <em>Configure...</em> entry for the data layer in the layer control.</p>
 <h3 id="_3">ویرایش<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
 <p><a id="lock"></a></p>
 <h4 id="_4">حالت قفل، حالت باز، تعویض حالت<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
 <p>برای پیشگیری از ویرایش‌های ناخواسته، وسپوچی در حالت «قفل» آغاز می‌شود؛ حالتی که در آن فقط می‌توانید زوم کنید و نقشه را جابه‌جا نمایید. روی نماد <img alt="قفل" src="../images/locked.png" /> بزنید تا قفل باز شود. </p>
-<p>با فشار طولانی بر روی نماد قفل منویی حاوی 4 گزینه باز می‌شود:</p>
-<p><strong><em> عادی </em>* - حالت ویرایش پیش فرض، اشیاء جدید را می توان اضافه کرد، موارد موجود را ویرایش، جابجا و حذف کرد. نماد قفل سفید ساده نمایش داده می‌شود.
-</strong><em> فقط برچسب </em><em> - با انتخاب یک شی موجود ، ویرایشگر ویژگی آغاز می شود ، با فشار طولانی روی صفحه اصلی ، اشیاء اضافه می‌شود ، اما هیچ عمل هندسی دیگری کار نمی‌کند. نماد قفل سفید با "T" نمایش داده می شود.
-</em><strong> آدرس </strong> - حالت آدرس را فعال می‌کند ، یک حالت کمی ساده شده با اقدامات خاص موجود در دکمه [+Simple] (../ en/Simple٪ 20actions.md) "+". نماد قفل سفید با "A" نمایش داده می‌شود.
-<strong><em> داخل سالن </em>* - حالت داخلی را فعال می‌کند ، به [حالت داخلی] (#داخلی) مراجعه کنید. نماد قفل سفید با "I" نمایش داده می‌شود.
-</strong><em> C-Mode </em>*-حالت C را فعال می‌کند ، فقط اشیایی که دارای پرچم هشدار هستند نمایش داده می‌شوند ، به [حالت C] (حالت#c) مراجعه کنید. نماد قفل سفید با "C" نمایش داده می‌شود.</p>
+<p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
+<ul>
+<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
+<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.</li>
+<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../en/Simple%20actions.md">Simple mode</a> "+" button. White lock icon with an "A" is displayed.</li>
+<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an "I" is displayed.</li>
+<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
+</ul>
+<p>If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to <em>Address</em> and <em>Indoor</em> mode.</p>
 <h4 id="_5">تک‌ضربه، دوضربه و لمس طولانی<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
 <p>به‌طور پیشفرض، دور گره‌ها و راه‌های قابل‌انتخاب محدودهٔ نارنجی‌رنگی مشاهده می‌کنید. با لمس این محدوده می‌توانید چیزها را انتخاب کنید. سه گزینه پیش روی شماست:</p>
 <ul>
@@ -498,7 +509,7 @@
 <p>در اولین اجرا، برنامه در «حالت ساده» بالا می‌آید. این حالت را می‌توانید از منوی اصلی با برداشتن تیک مربوطه غیرفعال کنید. </p>
 <h5 id="_10">حالت ساده<a class="headerlink" href="#_10" title="Permanent link">#</a></h5>
 <p>با زدن روی دکمهٔ شناور سبزرنگ بزرگی که روی صفحه است منویی نمایان می‌شود. پس از انتخاب یکی از موارد، از شما خواسته می‌شود مکان موردنظرتان را برای رسم شیء لمس کنید. اگر نیاز دارید نمای نقشه را تنظیم کنید، از کشیدن و زوم‌کردن بهره ببرید. </p>
-<p>برای اطلاعات بیشتر <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">ایجاد اشیای جدید در حالت کنش‌های ساده</a> را ببینید.</p>
+<p>See <a href="Simple%20actions.md">Creating new objects in simple actions mode</a> for more information. Simple mode os the default for new installs.</p>
 <h5 id="_11">حالت پیشرفته (فشار طولانی)<a class="headerlink" href="#_11" title="Permanent link">#</a></h5>
 <p>فشار طولانی را در جایی که می خواهید گره باشد یا راه شروع را فشار دهید. نماد سیاه "crosshair" را مشاهده خواهید کرد.
 * اگر می خواهید یک گره جدید ایجاد کنید (به یک شی متصل نیست) ، اجسام موجود را دور بزنید.
@@ -522,7 +533,7 @@
 <h4 id="_13">بهبود هندسهٔ راه<a class="headerlink" href="#_13" title="Permanent link">#</a></h4>
 <p>اگر به اندازهٔ کافی روی راهی زوم کنید، وسط پاره‌هایی از راه که به قدر کافی بلند باشند، "×" کوچکی می‌بینید. با کشیدن ضربدر، در آن مکان گرهی روی راه ایجاد می‌شود. نکته: برای پیشگیری از ایجاد گره‌های تصادفی، فضای انتخاب پیرامون این ضربدر نسبتاً کوچک در نظر گرفته شده است.</p>
 <h4 id="_14">برش، کپی و درج<a class="headerlink" href="#_14" title="Permanent link">#</a></h4>
-<p>شما می‌توانید گره‌ها و راه‌های انتخابی را کپی کنید یا برش بزنید و سپس یک یا چند بار در مکان‌های دیگر درج کنید. با برش‌زدن، شناسه و نسخهٔ OSMای ثابت می‌ماند. برای درج، در مکان دلخواه لمس طولانی کنید (علامت + آنجا را نشانه‌گذاری می‌کند). سپس گزینهٔ «درج» را از منو برگزینید.</p>
+<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p>
 <h4 id="_15">نشانی‌زنی به‌طور کارآمد<a class="headerlink" href="#_15" title="Permanent link">#</a></h4>
 <p>وسپوچی از عملکردی پشتیبانی می‌کند که با پیش‌بینی شماره خانه (سمت چپ و راست خیابان‌ها به طور جداگانه) و افزودن خودکار برچسب‌های <em>addr:street</em> یا <em>addr:place</em> بر اساس آخرین مقدار استفاده شده و مجاورت، آدرس‌های نقشه‌برداری را کارآمدتر می‌کند. در بهترین حالت، این ویژگی امکان اضافه کردن یک آدرس را بدون هیچ گونه تایپی فراهم می‌کند.   </p>
 <p>امکان افزودن برچسب‌ها با فشار دادن <img alt="Address" src="../images/address.png" />: </p>
@@ -548,42 +559,48 @@
 <h3 id="_18">ذخیره‌سازی تغییراتتان<a class="headerlink" href="#_18" title="Permanent link">#</a></h3>
 <p><em>(به اتصال شبکه نیاز دارد)</em></p>
 <p>روی همان دکمه یا گزینهٔ منو که برای بارگیری زدید، بزنید و اکنون "بارگذاری داده ها در سرور OSM" را انتخاب کنید.</p>
-<p>وسپوچی از احراز هویت OAuth و روش کلاسیک نام کاربری و گذرواژه پشتیبانی می‌کند. OAuth روش بهتری است زیرا در این روش امنیت گذرواژه به خطر نمی‌افتد.</p>
-<p>در نصب‌های جدید وسپوچی OAuth به‌طور پیشفرض فعال است. اولین باری که بخواهید داده ای بارگذاری کنید، صفحه‌ای از وبسایت OSM باز می‌شود. پس از اینکه وارد حساب کاربری خود شدید (با اتصال اینترنتی رمزگذاری‌شده) ازتان خواسته می‌شود هویت وسپوچی را تأیید کنید تا بتواند با استفاده از حساب شما ویرایش انجام دهد. اگر می‌خواهید یا نیاز دارید که پیش از ویرایش، دسترسی OAuth به حساب کاربری را تأیید کنید، گزینه‌ای در منوی «ابزارها» برای این کار تعبیه شده است.</p>
+<p>Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  </p>
+<p>Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p>
 <p>اگر می‌خواهید کار خود را ذخیره کنید اما به اینترنت دسترسی ندارید، می‌توانید تغییرات را در قالب پروندهٔ ‎.osm سازگار با JOSM ذخیره کنید و آن را در آینده با استفاده از وسپوچی یا JOSM بارگذاری نمایید. </p>
 <h4 id="_19">حل تداخل‌ها هنگام بارگذاری<a class="headerlink" href="#_19" title="Permanent link">#</a></h4>
 <p>وسپوچی حل‌کنندهٔ تداخل ساده‌ای دارد. البته اگر فکر می‌کنید مسئله‌ای جدّی در ویرایش‌هایتان وجود دارد، تغییرات خود را در قالب پروندهٔ ‎.osc برون‌برد کنید (گزینهٔ «انتقال» در منوی «داده‌رسانی») و کار اصلاح و بارگذاری را با JOSM انجام دهید. راهنمای مفصل‌تر را در <a href="Conflict%20resolution.md">حل تداخل</a> ببینید.  </p>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
+<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. </p>
+<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
 <h2 id="gps-gpx">استفاده از GPS و مسیرهای GPX<a class="headerlink" href="#gps-gpx" title="Permanent link">#</a></h2>
 <p>وسپوچی با تنظیمات استاندارد سعی می‌کند GPS (و سایر سیستم‌های ناوبری مبتنی بر ماهواره) را فعال کند و در صورت عدم امکان، موقعیت را از طریق به اصطلاح "موقعیت شبکه" تعیین می‌کند. این رفتار فرض می‌کند که شما در استفاده معمولی، خود دستگاه اندروید خود را طوری پیکربندی کرده‌اید که فقط از مکان‌های تولید شده GPX استفاده کند (برای جلوگیری از ردیابی)، یعنی گزینه «بهبود دقت موقعیت مکانی» را خاموش کرده‌اید. اگر می‌خواهید این گزینه را فعال کنید اما می‌خواهید از بازگشت وسپوچی به "موقعیت شبکه" جلوگیری کنید، باید گزینه مربوطه را در [ترجیحات پیشرفته] (Advanced%20preferences.md) خاموش کنید. </p>
-<p>با لمس دکمه <img alt="GPS" src="../images/menu_gps.png" /> (در سمت چپ صفحه نمایش نقشه) صفحه را در موقعیت فعلی قرار می‌دهید و همانطور که حرکت می‌کنید، صفحه نمایش نقشه برای حفظ این حالت قرار می‌گیرد. حرکت صفحه نمایش به صورت دستی یا ویرایش باعث می شود حالت "دنبال کردن GPS" غیرفعال شود و فلش آبی GPS از یک طرح کلی به یک فلش پر شده تغییر کند. برای بازگشت سریع به حالت "دنبال کردن"، کافی است دکمه GPS را لمس کنید یا گزینه منوی معادل را دوباره بررسی کنید. اگر دستگاه مکان فعلی نداشته باشد، نشانگر مکان به رنگ مشکی نمایش داده می شود، اگر مکان فعلی موجود باشد نشانگر آبی خواهد بود.</p>
+<p>Touching the <img alt="GPS" src="../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
 <p>برای ضبط یک رد GPX و نمایش آن در دستگاه خود، مورد "Start GPX track" را در منوی <img alt="GPS" src="../images/menu_gps.png" /> انتخاب کنید. این یک لایه به صفحه نمایش با رد ضبط شده فعلی اضافه می‌کند، می توانید رد را از ورودی در [کنترل لایه] (Main%20map%20display.md) آپلود و صادر کنید. لایه‌های بیشتری را می‌توان از فایل‌های GPX محلی و ردهای دانلود شده از OSM API اضافه کرد.</p>
 <p>توجه: به‌طور پیش‌فرض وسپوچی داده‌های ارتفاع را با مسیر GPX شما ثبت نمی‌کند، این به دلیل برخی مشکلات خاص اندروید است. برای فعال کردن ضبط ارتفاع، یا یک مدل گرانشی نصب کنید، یا برای حالت ساده تر، به [ترجیحات پیشرفته] (Advanced%20preferences.md) بروید و ورودی NMEA را پیکربندی کنید.</p>
-<h2 id="_20">یادداشت‌ها و باگ‌ها<a class="headerlink" href="#_20" title="Permanent link">#</a></h2>
-<p>وسپوچی از بارگیری، نظردهی و بستن یادداشت‌های OSM (همان باگ‌های OSM در گذشته) و قابلیت متناظر با «باگ» که <a href="http://osmose.openstreetmap.fr/en/map/">ابزار تضمین کیفیت OSMOSE</a> آن را تولید می‌کند، پشتیبانی می‌کند. هر کدام از این دو مورد را می‌توانید به‌طور دستی بارگیری کنید یا از قابلیت بارگیری خودکار بهره ببرید و آن‌ها را در محدوده‌ای که هر لحظه کار می‌کنید مشاهده نمایید. پس از ویرایش یا بستن آن‌ها، می‌توانید بلافاصله یادداشت یا باگ را بارگذاری نمایید یا همگی را با هم بارگذاری کنید.</p>
-<p>یادداشت‌ها و باگ‌ها روی نقشه با نماد کوچک حشره <img alt="Bug" src="../images/bug_open.png" /> نشان داده می شوند. سبزرنگ‌ها حل/بسته شده‌اند. آبی‌رنگ‌ها را شما ایجاد/ویرایش کرده‌اید. زردرنگ‌ها هنوز فعال هستند و تغییر نکرده‌اند. </p>
-<p>در هنگام نمایش هر کدام از باگ‌های OSMOSE پیوند آبی‌رنگی مشاهده می‌کنید. با لمس این پیوند عنصر مربوطه انتخاب می‌شود و صفحه روی آن متمرکز می‌گردد و محدودهٔ قرارگیری آن در صورت نیاز بارگیری می‌شود. </p>
-<h3 id="_21">پالایش<a class="headerlink" href="#_21" title="Permanent link">#</a></h3>
+<h3 id="how-to-export-a-gpx-track">How to export a GPX track?<a class="headerlink" href="#how-to-export-a-gpx-track" title="Permanent link">#</a></h3>
+<p>Open the layer menu, then click the 3-dots menu next to "GPX recording", then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
+<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos<a class="headerlink" href="#notes-bugs-and-todos" title="Permanent link">#</a></h2>
+<p>وسپوچی از بارگیری، نظردهی و بستن یادداشت‌های OSM (همان باگ‌های OSM در گذشته) و قابلیت متناظر با «باگ» که <a href="http://osmose.openstreetmap.fr/en/map/">ابزار تضمین کیفیت OSMOSE</a> آن را تولید می‌کند، پشتیبانی می‌کند. هر کدام از این دو مورد را می‌توانید به‌طور دستی بارگیری کنید یا از قابلیت بارگیری خودکار بهره ببرید و آن‌ها را در محدوده‌ای که هر لحظه کار می‌کنید مشاهده نمایید. پس از ویرایش یا بستن آن‌ها، می‌توانید بلافاصله یادداشت یا باگ را بارگذاری نمایید یا همگی را با هم بارگذاری کنید. </p>
+<p>Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. </p>
+<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
+<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
+<h3 id="_20">پالایش<a class="headerlink" href="#_20" title="Permanent link">#</a></h3>
 <p>علاوه بر فعال سازی جهانی نمایش یادداشت ها و اشکالات ، می توانید یک فیلتر نمایش دانه درشت را برای کاهش درهم ریختگی تنظیم کنید. پیکربندی فیلتر را می توان از ورودی لایه وظیفه در [کنترل لایه] (#لایه) دریافت کرد:</p>
 <ul>
-<li>یادداشت ها</li>
-<li>خطای Osmose</li>
-<li>هشدار Osmose</li>
-<li>مسئله جزئی Osmose</li>
-<li>مپ رولت</li>
-<li>سفارشی</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Todo</li>
 </ul>
 <p><a id="indoor"></a></p>
-<h2 id="_22">حالت داخلی<a class="headerlink" href="#_22" title="Permanent link">#</a></h2>
+<h2 id="_21">حالت داخلی<a class="headerlink" href="#_21" title="Permanent link">#</a></h2>
 <p>نقشه‌کشی داخلی کار چالش‌برانگیزی است. زیرا چیزهای زیادی هست که معمولاً روی هم می‌افتند. وسپوچی حالت ویژه‌ای برای این منظور دارد که به‌وسیلهٔ آن می‌توانید چیزهایی را که در یک طبقه نیستند فیلتر کنید و همچنین به‌طور خودکار شمارهٔ طبقهٔ کنونی را به همهٔ اشیای نوساخته در آن طبقه می‌افزاید.</p>
 <p>این حالت با لمس طولانی روی نماد قفل و انتخاب گزینهٔ مربوطه از منو قابل‌فعال‌سازی است. <a href="#قفل">حالت قفل، حالت باز، تعویض حالت</a> را ببینید.</p>
 <p><a id="c-mode"></a></p>
 <h2 id="c">حالت C<a class="headerlink" href="#c" title="Permanent link">#</a></h2>
 <p>در حالت C فقط چیزهایی نشان داده می‌شود که پرچم هشدار داشته باشند که درنتیجه کمک می‌کند تا چیزهای مشکل‌دار یا چیزهایی را که بر اساس بررسی‌های قابل‌پیکربندی به دست می‌آیند، آسان‌تر بیابیم. در حالت C اگر عنصری انتخاب و ویرایشگر خصوصیت باز شود، بهترین تنظیم از پیش تنظیم شده به طور خودکار اعمال می شود.</p>
 <p>این حالت با لمس طولانی روی نماد قفل و انتخاب گزینهٔ مربوطه از منو قابل‌فعال‌سازی است. <a href="#قفل">حالت قفل، حالت باز، تعویض حالت</a> را ببینید.</p>
-<h3 id="_23">پیکربندی بررسی‌ها<a class="headerlink" href="#_23" title="Permanent link">#</a></h3>
-<p>در حال حاضر دو چک قابل تنظیم وجود دارد (یک بررسی برای برچسب های FIXME و یک آزمایش برای تگ های نوع گم شده در روابطی که در حال حاضر قابل تنظیم نیستند) هر دو را می توان با انتخاب "تنظیمات اعتبارسنج" در [تنظیمات] (Preferences.md) پیکربندی کرد. </p>
-<p>فهرست مدخل‌ها دو بخش دارد. یک بخش «بازنقشه‌برداری» و یک بخش «مدخل‌های بررسی». با کلیک روی هر مدخل می‌توانید آن را اصلاح کنید. دکمهٔ سبزرنگ منو را برای افزودن مدخل‌ها استفاده نمایید.</p>
-<h4 id="_24">مدخل‌های بازنقشه‌برداری<a class="headerlink" href="#_24" title="Permanent link">#</a></h4>
+<h3 id="_22">پیکربندی بررسی‌ها<a class="headerlink" href="#_22" title="Permanent link">#</a></h3>
+<p>All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the <a href="Preferences.md">preferences</a>. </p>
+<p>The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
+<h4 id="_23">مدخل‌های بازنقشه‌برداری<a class="headerlink" href="#_23" title="Permanent link">#</a></h4>
 <p>مدخل‌های نقشه‌برداری مجدد این خصوصیت‌ها را دارند:</p>
 <p><strong><em> کلید </em>* - کلید برچسب مورد علاقه.
 </strong><em> ارزش </em><em> - مقداری که برچسب مورد علاقه باید داشته باشد ، در صورت خالی ، مقدار برچسب نادیده گرفته می شود.
@@ -591,51 +608,54 @@
 <strong><em> عبارت منظم </em>* - اگر علامت زده شود </strong> مقدار ** یک عبارت معمولی JAVA در نظر گرفته می‌شود.</p>
 <p><strong>کلید</strong> و <strong>مقدار</strong> با تگ‌های <em>موجود</em> در عنصر موردبحث مطابقت داده می‌شود.</p>
 <p>گروه <em>Annotations</em> در پیش‌تنظیم‌های استاندارد گزینه‌ای دارد که به‌طور خودکار تگ <em>check_date</em> را همراه با تاریخ جاری اضافه می‌کند.</p>
-<h4 id="_25">مدخل‌های بررسی<a class="headerlink" href="#_25" title="Permanent link">#</a></h4>
+<h4 id="_24">مدخل‌های بررسی<a class="headerlink" href="#_24" title="Permanent link">#</a></h4>
 <p>مدخل‌های بررسی این دو خصوصیت را دارند:</p>
 <ul>
 <li><strong>کلید</strong> - کلیدی که مطابق با پیش‌تنظیم متناظر، باید روی شیء وجود داشته باشد.</li>
 <li><strong>اختیاریِ لازم</strong> - کلید ضروری است هرچند در پیش‌تنظیم متناظر، جزو کلیدهای اختیاری تعریف شده باشد.</li>
 </ul>
 <p>این بررسی، ابتدا پیش‌تنظیم جور را تشخیص می‌دهد و سپس بررسی می‌کند که طبق پیش‌تنظیم، آیا <strong>کلید</strong> برای این عنصر «توصیه‌شده» است. گزینهٔ <strong>اختیاریِ لازم</strong> بررسی را به تگ‌های «اختیاری» عارضه گسترش می‌دهد. توجه: فعلاً پیش‌تنظیم‌های پیوندشده بررسی نمی‌شوند.</p>
-<h2 id="_26">فیلترها<a class="headerlink" href="#_26" title="Permanent link">#</a></h2>
-<h3 id="_27">فیلتر مبتنی بر تگ<a class="headerlink" href="#_27" title="Permanent link">#</a></h3>
+<h2 id="_25">فیلترها<a class="headerlink" href="#_25" title="Permanent link">#</a></h2>
+<h3 id="_26">فیلتر مبتنی بر تگ<a class="headerlink" href="#_26" title="Permanent link">#</a></h3>
 <p>فیلتر را می‌توانید از منوی اصلی فعال کنید. سپس با زدن روی نماد فیلتر، آن را تغییر دهید. مستندات بیشتر در این باره در <a href="Tag%20filter.md">فیلتر با تگ</a> آمده است.</p>
-<h3 id="_28">فیلتر مبتنی بر پیش‌تنظیم<a class="headerlink" href="#_28" title="Permanent link">#</a></h3>
+<h3 id="_27">فیلتر مبتنی بر پیش‌تنظیم<a class="headerlink" href="#_27" title="Permanent link">#</a></h3>
 <p>راه دیگری برای کار بالا، فیلتر عارضه‌ها بر اساس پیش‌تنظیم یا گروهی از پیش‌تنظیم‌ها است. با زدن روی نماد پالایه، مشابه با جاهای دیگر وسپوچی، کادری برای انتخاب پیش‌تنظیم باز می‌شود. برای انتخاب پیش‌تنظیم، یک بار لمس کافی است. برای انتخاب گروه پیش‌تنظیم‌ها لمس طولانی بکنید (لمس کوتاه گروه را باز می‌کند). مستندات بیشتر در <a href="Preset%20filter.md">فیلتر با پیش‌تنظیم</a> آمده است.</p>
-<h2 id="_29">سفارشی‌سازی وسپوچی<a class="headerlink" href="#_29" title="Permanent link">#</a></h2>
+<h2 id="_28">سفارشی‌سازی وسپوچی<a class="headerlink" href="#_28" title="Permanent link">#</a></h2>
 <p>برنامه را از جنبه‌های مختلفی می‌توانید سفارشی کنید. اگر به دنبال چیز خاصی هستید و پیدایش نمی‌کنید، <a href="https://vespucci.io/">وبسایت وسپوچی</a> قابل‌جستجو است و اطلاعاتی علاوه بر اطلاعات موجود روی دستگاه دارد.</p>
 <p><a id="layers"></a></p>
-<h3 id="_30">تنظیمات لایه<a class="headerlink" href="#_30" title="Permanent link">#</a></h3>
+<h3 id="_29">تنظیمات لایه<a class="headerlink" href="#_29" title="Permanent link">#</a></h3>
 <p>تنظیمات لایه را می توان از طریق کنترل لایه (منوی "همبرگر" در گوشه بالا سمت راست) تغییر داد ، همه تنظیمات دیگر از طریق دکمه تنظیمات منوی اصلی قابل دسترسی است. لایه ها را می توان فعال ، غیرفعال و به طور موقت پنهان کرد.</p>
 <p>انواع لایه های موجود:</p>
 <ul>
-<li>لایه داده - این لایه ای است که داده های اوپن‌ استریت مپ در آن بارگیری می شود. در استفاده عادی ، نیازی به تغییر چیزی در اینجا ندارید. پیش فرض: روشن است.</li>
-<li>لایه پس‌زمینه - طیف گسترده ای از تصاویر پس زمینه هوایی و ماهواره ای موجود است. مقدار پیش فرض برای این نقشه "سبک استاندارد" از openstreetmap.org است.</li>
-<li>لایه همپوشانی - اینها لایه های نیمه شفاف با اطلاعات اضافی هستند ، به عنوان مثال آهنگ های GPX. افزودن یک روکش ممکن است مشکلاتی را در دستگاه های قدیمی و از جمله محدودیت حافظه ایجاد کند. پیش فرض: هیچ</li>
-<li>یادداشت ها/اشکالات نمایش داده می شود - یادداشت ها و اشکالات باز شده به عنوان یک نماد اشکال زرد نمایش داده می شوند ، مواردی که به رنگ سبز هستند. پیش فرض: روشن است.</li>
-<li>لایه عکس - عکسهای دارای منبع جغرافیایی را به عنوان نمادهای دوربین قرمز نمایش می دهد ، در صورت موجود بودن اطلاعات جهت ، نماد چرخانده می شود. پیش فرض: خاموش</li>
-<li>لایه Mapillary - قسمت های Mapillary را با نشانگرهایی که در آن تصاویر وجود دارد نمایش می دهد ، با کلیک بر روی نشانگر ، تصویر نمایش داده می شود. پیش فرض: خاموش</li>
-<li>لایه GeoJSON - محتویات یک فایل GeoJSON را نمایش می دهد. پیش فرض: خاموش</li>
-<li>Grid - یک مقیاس در امتداد کناره های نقشه یا یک شبکه نمایش می دهد. پیش فرض: روشن است. </li>
+<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
+<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
+<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
+<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
+<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
+<li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
 <p>اطلاعات بیشتر را می توانید در بخش [نمایش نقشه] (Main%20map%20display.md) مشاهده کنید.</p>
-<h4 id="_31">ترجیحات<a class="headerlink" href="#_31" title="Permanent link">#</a></h4>
+<h4 id="_30">ترجیحات<a class="headerlink" href="#_30" title="Permanent link">#</a></h4>
 <ul>
 <li>روشن‌ماندن صفحه. پیشفرض: خاموش.</li>
 <li>فضای بزرگ برای کشیدن گره. جابه‌جاکردن گره‌ها در دستگاهی با ورودی لمسی مشکل است، زیرا انگشت‌هایتان موقعیت جاری روی صفحه را مبهم می‌کند. با روشن‌کردن این گزینه، فضای بزرگی پیرامون عنصر ایجاد می‌شود که با استفاده از آن می‌توانید عنصر را جابه‌جا کنید (انتخاب و سایر کنش‌ها هنوز در «فضای انتخاب» عنصر کار می‌کنند). پیشفرض: خاموش.</li>
 </ul>
 <p>توضیحات کامل را اینجا ببینید <a href="Preferences.md">ترجیحات</a></p>
-<h4 id="_32">ترجیحات پیشرفته<a class="headerlink" href="#_32" title="Permanent link">#</a></h4>
+<h4 id="_31">ترجیحات پیشرفته<a class="headerlink" href="#_31" title="Permanent link">#</a></h4>
 <ul>
-<li>نماد گره‌ها. پیشفرض: روشن.</li>
-<li>نمایش همیشگی منوی زمینه. اگر روشن باشد با هر انتخاب منوی زمینه نمایان می‌شود. اگر خاموش باشد فقط در صورتی که انتخاب مبهم تشخیص داده شود، نمایان می‌شود. پیشفرض: خاموش (پیشتر روشن بود).</li>
-<li>فعال‌سازی پوستهٔ روشن. در دستگاه‌های پیشرفته این گزینه به‌طور پیشفرض روشن است. اگرچه می‌توانید آن را روی نسخه‌های قدیمی‌تر اندروید نیز فعال کنید، اما احتمال دارد ناسازگار باشد. </li>
+<li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.  </li>
+<li>Node icons. Default: <em>on</em>.</li>
+<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
+<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. </li>
 </ul>
 <p>توضیحات کامل را اینجا ببینید <a href="Advanced%20preferences.md">ترجیحات پیشرفته</a></p>
-<h2 id="_33">گزارش مشکلات<a class="headerlink" href="#_33" title="Permanent link">#</a></h2>
+<h2 id="reporting-and-resolving-issues">Reporting and Resolving Issues<a class="headerlink" href="#reporting-and-resolving-issues" title="Permanent link">#</a></h2>
 <p>اگر وسپوچی خراب شود یا حالتی ناسازگار را تشخیص دهد، از شما خواسته می شود که برگرفتِ خرابی را ارسال کنید. لطفاً اگر چنین شد، این کار را انجام دهید، اما فقط یک بار در هر موقعیت خاص. اگر می‌خواهید اطلاعات بیشتری بدهید یا برای درخواست ویژگی یا موارد مشابه مسئله‌ای باز کنید، لطفاً این کار را در اینجا انجام دهید: [پیگیر مسائل وسپوچی] (https://github.com/MarcusWolschon/osmeditor4android/issues). عملکرد «ارائه بازخورد» از منوی اصلی مسئلهٔ جدیدی باز می‌کند و اطلاعات مربوط به برنامه و دستگاه را بدون تایپ اضافی شامل می‌شود.</p>
-<p>اگر می‌خواهید دربارهٔ چیزی مربوط به وسپوچی بحث کنید، می‌توانید از <a href="https://groups.google.com/forum/#!forum/osmeditor4android">گروه گوگلی وسپوچی</a> یا <a href="http://forum.openstreetmap.org/viewforum.php?id=56">تالار اندروید در انجمن OpenStreetMap</a> استفاده کنید.</p></div> -->
+<p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
@@ -658,11 +678,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_20" class="nav-link">یادداشت‌ها و باگ‌ها</a>
+            <li class="nav-item" data-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_22" class="nav-link">حالت داخلی</a>
+            <li class="nav-item" data-level="2"><a href="#_21" class="nav-link">حالت داخلی</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -670,15 +690,15 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_26" class="nav-link">فیلترها</a>
+            <li class="nav-item" data-level="2"><a href="#_25" class="nav-link">فیلترها</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_29" class="nav-link">سفارشی‌سازی وسپوچی</a>
+            <li class="nav-item" data-level="2"><a href="#_28" class="nav-link">سفارشی‌سازی وسپوچی</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_33" class="nav-link">گزارش مشکلات</a>
+            <li class="nav-item" data-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -689,36 +709,43 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<p><em>قبل از شروع: بیشتر صفحه‌ها پیوندهایی در منو به سیستم راهنمای روی دستگاه دارند که به شما امکان دسترسی مستقیم به اطلاعات مرتبط با زمینه فعلی را می‌دهد، می‌توانید به راحتی به این متن نیز برگردید. اگر دستگاه بزرگتری دارید، برای مثال تبلت، می‌توانید سیستم راهنما را در یک پنجره تقسیم جداگانه باز کنید. تمام متون راهنما و موارد دیگر (سؤالات متداول، آموزش) را می توانید در [سایت اسناد وسپوچی] (https://vespucci.io/) نیز بیابید.</em></p>
+<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
 <h1 id="_1">معرفی وسپوچی<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
-<p>وسپوچی ویرایشگر کاملی برای اوپن‌ استریت مپ است که بیشتر قابلیت‌های ویرایشگرهای رومیزی را پشتیبانی می‌کند. این برنامه با موفقیت روی اندروید گوگل از نسخهٔ 2.3 تا 10.0 و گونه‌های مبتنی بر AOSP آزمایش شده است. نکتهٔ شایان توجه: در حالی که قابلیت‌های دستگاهِ همراه، با رقبای رومیزی رقابت می‌کند، مخصوصاً دستگاه‌های قدیمی‌تر حافظهٔ بسیار محدودی دارند و بنابراین نسبتاً کند خواهند بود. هنگام استفاده از حساب کاربری وسپوچی به این نکته توجه داشته باشید و به‌عنوان مثال، محدودهٔ ویرایش را در اندازهٔ معقولی نگه دارید.</p>
+<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
 <h2 id="_2">ویرایش با وسپوچی<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>بسته به اندازهٔ صفحه‌نمایش و عمر دستگاه، کنش‌های ویرایش مستقیماً از طریق نمادهای موجود در نوار بالا، از طریق منوی کشویی در سمت راست نوار بالا، از نوار پایین (در صورت وجود) یا از طریق کلید منو قابل دسترسی است.</p>
 <p><a id="download"></a></p>
 <h3 id="osm">بارگیری دادهٔ OSM<a class="headerlink" href="#osm" title="Permanent link">#</a></h3>
-<p>نماد داده‌رسانی <img alt="Transfer" src="../images/menu_transfer.png" /> یا گزینهٔ «داده‌رسانی» را از منو انتخاب کنید. این کار هفت گزینه را پیش روی شما قرار می‌دهد:</p>
+<p>Select either the transfer icon <img alt="Transfer" src="../images/menu_transfer.png" /> or the "Transfer" menu item. This will display eleven options:</p>
 <ul>
-<li><strong>بارگیری نمای جاری</strong> - ناحیهٔ قابل‌مشاهده روی صفحه را بارگیری کرده و آن را با دادهٔ موجود ادغام کنید <em>(اتصال شبکه یا منبع دادهٔ برون‌خط نیاز دارد)</em></li>
-<li><strong>پاک کردن و بارگیری نمای کنونی</strong> - هرگونه داده در حافظه را پاک کنید و سپس ناحیهٔ قابل‌مشاهده روی صفحه را بارگیری کنید <em>(اتصال شبکه نیاز دارد)</em></li>
-<li><strong>بارگذاری داده‌ها در سرور OSM</strong> - ویرایش‌ها را در اوپن‌‌استریت‌مپ بارگذاری کنید <em>(احراز هویت نیاز دارد)</em> <em>(اتصال شبکه نیاز دارد)</em></li>
-<li><strong>به‌روزرسانی داده</strong> - دادهٔ همهٔ نواحی را بارگیری مجدد کنید و آنچه در حافظه است را به‌روز کنید <em>(اتصال شبکه نیاز دارد)</em></li>
-<li><strong>بارگیری خودکار مبتنی بر مکان</strong> - ناحیه‌ای در اطراف موقعیت جغرافیایی کنونی را به صورت خودکار بارگیری کنید <em>(اتصال شبکه یا دادهٔ برون‌خط نیاز دارد)</em> <em>(GPS نیاز دارد)</em></li>
-<li><strong>بارگیری خودکار هنگام جابه‌جایی و بزرگنمایی</strong> - برای ناحیهٔ در حال نمایش نقشه، داده را به صورت خودکار بارگیری کنید <em>(اتصال شبکه یا دادهٔ برون‌خط نیاز دارد)</em> <em>(GPS نیاز دارد)</em></li>
-<li><strong>پرونده...</strong> - دادهٔ OSM را به/از پرونده‌های روی دستگاه ذخیره یا بار کنید.</li>
-<li><strong>توجه/اشکالا ...</strong> - یادداشت‌های OSM و «اشکالات» را از ابزارهای QA (در حال حاضر OSMOSE) بارگیری (خودکار و دستی) کنید <em>(اتصال شبکه نیاز دارد)</em></li>
+<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Review changes...</strong> - review current changes</li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
+<li><strong>Clear and download current view</strong> - clear any data in memory, including pending changes, and then download the area visible on the screen <em>(requires network connectivity)</em></li>
+<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Clear data</strong> - remove any OSM data in memory, including pending changes.</li>
+<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
+<li><strong>Tasks...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
 <p>ساده‌ترین روش بارگیری داده در دستگاه این است که با حرکت و زوم به مکانی که می‌خواهید ویرایش کنید بروید و «بارگیری نمای کنونی» را انتخاب نمایید. می‌توانید با ژست‌های حرکتی، دکمه‌های زوم یا دکمه‌های کنترل صدای دستگاه، زوم کنید. سپس وسپوچی دادهٔ نمای کنونی را دریافت می‌کند. برای بارگیری داده در دستگاهتان به احراز هویت نیازی نیست.</p>
-<p>با تنظیمات پیش فرض هر ناحیه بارگیری نشده نسبت به مناطق بارگیری شده کم نور می‌شود، این کار برای جلوگیری از اضافه شدن ناخواسته اشیاء تکراری در مناطقی است که نمایش داده نمی‌شوند. رفتار را می‌توان در [ترجیحات پیشرفته] (Advanced٪ 20preferences.md) تغییر داد.</p>
+<p>In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a> so that dimming is always active.</p>
+<p>If you need to use a non-standard OSM API entry, or use <a href="https://vespucci.io/tutorials/offline/">offline data</a> in <em>MapSplit</em> format you can add or change entries via the <em>Configure...</em> entry for the data layer in the layer control.</p>
 <h3 id="_3">ویرایش<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
 <p><a id="lock"></a></p>
 <h4 id="_4">حالت قفل، حالت باز، تعویض حالت<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
 <p>برای پیشگیری از ویرایش‌های ناخواسته، وسپوچی در حالت «قفل» آغاز می‌شود؛ حالتی که در آن فقط می‌توانید زوم کنید و نقشه را جابه‌جا نمایید. روی نماد <img alt="قفل" src="../images/locked.png" /> بزنید تا قفل باز شود. </p>
-<p>با فشار طولانی بر روی نماد قفل منویی حاوی 4 گزینه باز می‌شود:</p>
-<p><strong><em> عادی </em>* - حالت ویرایش پیش فرض، اشیاء جدید را می توان اضافه کرد، موارد موجود را ویرایش، جابجا و حذف کرد. نماد قفل سفید ساده نمایش داده می‌شود.
-</strong><em> فقط برچسب </em><em> - با انتخاب یک شی موجود ، ویرایشگر ویژگی آغاز می شود ، با فشار طولانی روی صفحه اصلی ، اشیاء اضافه می‌شود ، اما هیچ عمل هندسی دیگری کار نمی‌کند. نماد قفل سفید با "T" نمایش داده می شود.
-</em><strong> آدرس </strong> - حالت آدرس را فعال می‌کند ، یک حالت کمی ساده شده با اقدامات خاص موجود در دکمه [+Simple] (../ en/Simple٪ 20actions.md) "+". نماد قفل سفید با "A" نمایش داده می‌شود.
-<strong><em> داخل سالن </em>* - حالت داخلی را فعال می‌کند ، به [حالت داخلی] (#داخلی) مراجعه کنید. نماد قفل سفید با "I" نمایش داده می‌شود.
-</strong><em> C-Mode </em>*-حالت C را فعال می‌کند ، فقط اشیایی که دارای پرچم هشدار هستند نمایش داده می‌شوند ، به [حالت C] (حالت#c) مراجعه کنید. نماد قفل سفید با "C" نمایش داده می‌شود.</p>
+<p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
+<ul>
+<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
+<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.</li>
+<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../en/Simple%20actions.md">Simple mode</a> "+" button. White lock icon with an "A" is displayed.</li>
+<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an "I" is displayed.</li>
+<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
+</ul>
+<p>If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to <em>Address</em> and <em>Indoor</em> mode.</p>
 <h4 id="_5">تک‌ضربه، دوضربه و لمس طولانی<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
 <p>به‌طور پیشفرض، دور گره‌ها و راه‌های قابل‌انتخاب محدودهٔ نارنجی‌رنگی مشاهده می‌کنید. با لمس این محدوده می‌توانید چیزها را انتخاب کنید. سه گزینه پیش روی شماست:</p>
 <ul>
@@ -748,7 +775,7 @@
 <p>در اولین اجرا، برنامه در «حالت ساده» بالا می‌آید. این حالت را می‌توانید از منوی اصلی با برداشتن تیک مربوطه غیرفعال کنید. </p>
 <h5 id="_10">حالت ساده<a class="headerlink" href="#_10" title="Permanent link">#</a></h5>
 <p>با زدن روی دکمهٔ شناور سبزرنگ بزرگی که روی صفحه است منویی نمایان می‌شود. پس از انتخاب یکی از موارد، از شما خواسته می‌شود مکان موردنظرتان را برای رسم شیء لمس کنید. اگر نیاز دارید نمای نقشه را تنظیم کنید، از کشیدن و زوم‌کردن بهره ببرید. </p>
-<p>برای اطلاعات بیشتر <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">ایجاد اشیای جدید در حالت کنش‌های ساده</a> را ببینید.</p>
+<p>See <a href="Simple%20actions.md">Creating new objects in simple actions mode</a> for more information. Simple mode os the default for new installs.</p>
 <h5 id="_11">حالت پیشرفته (فشار طولانی)<a class="headerlink" href="#_11" title="Permanent link">#</a></h5>
 <p>فشار طولانی را در جایی که می خواهید گره باشد یا راه شروع را فشار دهید. نماد سیاه "crosshair" را مشاهده خواهید کرد.
 * اگر می خواهید یک گره جدید ایجاد کنید (به یک شی متصل نیست) ، اجسام موجود را دور بزنید.
@@ -772,7 +799,7 @@
 <h4 id="_13">بهبود هندسهٔ راه<a class="headerlink" href="#_13" title="Permanent link">#</a></h4>
 <p>اگر به اندازهٔ کافی روی راهی زوم کنید، وسط پاره‌هایی از راه که به قدر کافی بلند باشند، "×" کوچکی می‌بینید. با کشیدن ضربدر، در آن مکان گرهی روی راه ایجاد می‌شود. نکته: برای پیشگیری از ایجاد گره‌های تصادفی، فضای انتخاب پیرامون این ضربدر نسبتاً کوچک در نظر گرفته شده است.</p>
 <h4 id="_14">برش، کپی و درج<a class="headerlink" href="#_14" title="Permanent link">#</a></h4>
-<p>شما می‌توانید گره‌ها و راه‌های انتخابی را کپی کنید یا برش بزنید و سپس یک یا چند بار در مکان‌های دیگر درج کنید. با برش‌زدن، شناسه و نسخهٔ OSMای ثابت می‌ماند. برای درج، در مکان دلخواه لمس طولانی کنید (علامت + آنجا را نشانه‌گذاری می‌کند). سپس گزینهٔ «درج» را از منو برگزینید.</p>
+<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p>
 <h4 id="_15">نشانی‌زنی به‌طور کارآمد<a class="headerlink" href="#_15" title="Permanent link">#</a></h4>
 <p>وسپوچی از عملکردی پشتیبانی می‌کند که با پیش‌بینی شماره خانه (سمت چپ و راست خیابان‌ها به طور جداگانه) و افزودن خودکار برچسب‌های <em>addr:street</em> یا <em>addr:place</em> بر اساس آخرین مقدار استفاده شده و مجاورت، آدرس‌های نقشه‌برداری را کارآمدتر می‌کند. در بهترین حالت، این ویژگی امکان اضافه کردن یک آدرس را بدون هیچ گونه تایپی فراهم می‌کند.   </p>
 <p>امکان افزودن برچسب‌ها با فشار دادن <img alt="Address" src="../images/address.png" />: </p>
@@ -798,42 +825,48 @@
 <h3 id="_18">ذخیره‌سازی تغییراتتان<a class="headerlink" href="#_18" title="Permanent link">#</a></h3>
 <p><em>(به اتصال شبکه نیاز دارد)</em></p>
 <p>روی همان دکمه یا گزینهٔ منو که برای بارگیری زدید، بزنید و اکنون "بارگذاری داده ها در سرور OSM" را انتخاب کنید.</p>
-<p>وسپوچی از احراز هویت OAuth و روش کلاسیک نام کاربری و گذرواژه پشتیبانی می‌کند. OAuth روش بهتری است زیرا در این روش امنیت گذرواژه به خطر نمی‌افتد.</p>
-<p>در نصب‌های جدید وسپوچی OAuth به‌طور پیشفرض فعال است. اولین باری که بخواهید داده ای بارگذاری کنید، صفحه‌ای از وبسایت OSM باز می‌شود. پس از اینکه وارد حساب کاربری خود شدید (با اتصال اینترنتی رمزگذاری‌شده) ازتان خواسته می‌شود هویت وسپوچی را تأیید کنید تا بتواند با استفاده از حساب شما ویرایش انجام دهد. اگر می‌خواهید یا نیاز دارید که پیش از ویرایش، دسترسی OAuth به حساب کاربری را تأیید کنید، گزینه‌ای در منوی «ابزارها» برای این کار تعبیه شده است.</p>
+<p>Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  </p>
+<p>Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p>
 <p>اگر می‌خواهید کار خود را ذخیره کنید اما به اینترنت دسترسی ندارید، می‌توانید تغییرات را در قالب پروندهٔ ‎.osm سازگار با JOSM ذخیره کنید و آن را در آینده با استفاده از وسپوچی یا JOSM بارگذاری نمایید. </p>
 <h4 id="_19">حل تداخل‌ها هنگام بارگذاری<a class="headerlink" href="#_19" title="Permanent link">#</a></h4>
 <p>وسپوچی حل‌کنندهٔ تداخل ساده‌ای دارد. البته اگر فکر می‌کنید مسئله‌ای جدّی در ویرایش‌هایتان وجود دارد، تغییرات خود را در قالب پروندهٔ ‎.osc برون‌برد کنید (گزینهٔ «انتقال» در منوی «داده‌رسانی») و کار اصلاح و بارگذاری را با JOSM انجام دهید. راهنمای مفصل‌تر را در <a href="Conflict%20resolution.md">حل تداخل</a> ببینید.  </p>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
+<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. </p>
+<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
 <h2 id="gps-gpx">استفاده از GPS و مسیرهای GPX<a class="headerlink" href="#gps-gpx" title="Permanent link">#</a></h2>
 <p>وسپوچی با تنظیمات استاندارد سعی می‌کند GPS (و سایر سیستم‌های ناوبری مبتنی بر ماهواره) را فعال کند و در صورت عدم امکان، موقعیت را از طریق به اصطلاح "موقعیت شبکه" تعیین می‌کند. این رفتار فرض می‌کند که شما در استفاده معمولی، خود دستگاه اندروید خود را طوری پیکربندی کرده‌اید که فقط از مکان‌های تولید شده GPX استفاده کند (برای جلوگیری از ردیابی)، یعنی گزینه «بهبود دقت موقعیت مکانی» را خاموش کرده‌اید. اگر می‌خواهید این گزینه را فعال کنید اما می‌خواهید از بازگشت وسپوچی به "موقعیت شبکه" جلوگیری کنید، باید گزینه مربوطه را در [ترجیحات پیشرفته] (Advanced%20preferences.md) خاموش کنید. </p>
-<p>با لمس دکمه <img alt="GPS" src="../images/menu_gps.png" /> (در سمت چپ صفحه نمایش نقشه) صفحه را در موقعیت فعلی قرار می‌دهید و همانطور که حرکت می‌کنید، صفحه نمایش نقشه برای حفظ این حالت قرار می‌گیرد. حرکت صفحه نمایش به صورت دستی یا ویرایش باعث می شود حالت "دنبال کردن GPS" غیرفعال شود و فلش آبی GPS از یک طرح کلی به یک فلش پر شده تغییر کند. برای بازگشت سریع به حالت "دنبال کردن"، کافی است دکمه GPS را لمس کنید یا گزینه منوی معادل را دوباره بررسی کنید. اگر دستگاه مکان فعلی نداشته باشد، نشانگر مکان به رنگ مشکی نمایش داده می شود، اگر مکان فعلی موجود باشد نشانگر آبی خواهد بود.</p>
+<p>Touching the <img alt="GPS" src="../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
 <p>برای ضبط یک رد GPX و نمایش آن در دستگاه خود، مورد "Start GPX track" را در منوی <img alt="GPS" src="../images/menu_gps.png" /> انتخاب کنید. این یک لایه به صفحه نمایش با رد ضبط شده فعلی اضافه می‌کند، می توانید رد را از ورودی در [کنترل لایه] (Main%20map%20display.md) آپلود و صادر کنید. لایه‌های بیشتری را می‌توان از فایل‌های GPX محلی و ردهای دانلود شده از OSM API اضافه کرد.</p>
 <p>توجه: به‌طور پیش‌فرض وسپوچی داده‌های ارتفاع را با مسیر GPX شما ثبت نمی‌کند، این به دلیل برخی مشکلات خاص اندروید است. برای فعال کردن ضبط ارتفاع، یا یک مدل گرانشی نصب کنید، یا برای حالت ساده تر، به [ترجیحات پیشرفته] (Advanced%20preferences.md) بروید و ورودی NMEA را پیکربندی کنید.</p>
-<h2 id="_20">یادداشت‌ها و باگ‌ها<a class="headerlink" href="#_20" title="Permanent link">#</a></h2>
-<p>وسپوچی از بارگیری، نظردهی و بستن یادداشت‌های OSM (همان باگ‌های OSM در گذشته) و قابلیت متناظر با «باگ» که <a href="http://osmose.openstreetmap.fr/en/map/">ابزار تضمین کیفیت OSMOSE</a> آن را تولید می‌کند، پشتیبانی می‌کند. هر کدام از این دو مورد را می‌توانید به‌طور دستی بارگیری کنید یا از قابلیت بارگیری خودکار بهره ببرید و آن‌ها را در محدوده‌ای که هر لحظه کار می‌کنید مشاهده نمایید. پس از ویرایش یا بستن آن‌ها، می‌توانید بلافاصله یادداشت یا باگ را بارگذاری نمایید یا همگی را با هم بارگذاری کنید.</p>
-<p>یادداشت‌ها و باگ‌ها روی نقشه با نماد کوچک حشره <img alt="Bug" src="../images/bug_open.png" /> نشان داده می شوند. سبزرنگ‌ها حل/بسته شده‌اند. آبی‌رنگ‌ها را شما ایجاد/ویرایش کرده‌اید. زردرنگ‌ها هنوز فعال هستند و تغییر نکرده‌اند. </p>
-<p>در هنگام نمایش هر کدام از باگ‌های OSMOSE پیوند آبی‌رنگی مشاهده می‌کنید. با لمس این پیوند عنصر مربوطه انتخاب می‌شود و صفحه روی آن متمرکز می‌گردد و محدودهٔ قرارگیری آن در صورت نیاز بارگیری می‌شود. </p>
-<h3 id="_21">پالایش<a class="headerlink" href="#_21" title="Permanent link">#</a></h3>
+<h3 id="how-to-export-a-gpx-track">How to export a GPX track?<a class="headerlink" href="#how-to-export-a-gpx-track" title="Permanent link">#</a></h3>
+<p>Open the layer menu, then click the 3-dots menu next to "GPX recording", then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
+<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos<a class="headerlink" href="#notes-bugs-and-todos" title="Permanent link">#</a></h2>
+<p>وسپوچی از بارگیری، نظردهی و بستن یادداشت‌های OSM (همان باگ‌های OSM در گذشته) و قابلیت متناظر با «باگ» که <a href="http://osmose.openstreetmap.fr/en/map/">ابزار تضمین کیفیت OSMOSE</a> آن را تولید می‌کند، پشتیبانی می‌کند. هر کدام از این دو مورد را می‌توانید به‌طور دستی بارگیری کنید یا از قابلیت بارگیری خودکار بهره ببرید و آن‌ها را در محدوده‌ای که هر لحظه کار می‌کنید مشاهده نمایید. پس از ویرایش یا بستن آن‌ها، می‌توانید بلافاصله یادداشت یا باگ را بارگذاری نمایید یا همگی را با هم بارگذاری کنید. </p>
+<p>Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. </p>
+<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
+<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
+<h3 id="_20">پالایش<a class="headerlink" href="#_20" title="Permanent link">#</a></h3>
 <p>علاوه بر فعال سازی جهانی نمایش یادداشت ها و اشکالات ، می توانید یک فیلتر نمایش دانه درشت را برای کاهش درهم ریختگی تنظیم کنید. پیکربندی فیلتر را می توان از ورودی لایه وظیفه در [کنترل لایه] (#لایه) دریافت کرد:</p>
 <ul>
-<li>یادداشت ها</li>
-<li>خطای Osmose</li>
-<li>هشدار Osmose</li>
-<li>مسئله جزئی Osmose</li>
-<li>مپ رولت</li>
-<li>سفارشی</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Todo</li>
 </ul>
 <p><a id="indoor"></a></p>
-<h2 id="_22">حالت داخلی<a class="headerlink" href="#_22" title="Permanent link">#</a></h2>
+<h2 id="_21">حالت داخلی<a class="headerlink" href="#_21" title="Permanent link">#</a></h2>
 <p>نقشه‌کشی داخلی کار چالش‌برانگیزی است. زیرا چیزهای زیادی هست که معمولاً روی هم می‌افتند. وسپوچی حالت ویژه‌ای برای این منظور دارد که به‌وسیلهٔ آن می‌توانید چیزهایی را که در یک طبقه نیستند فیلتر کنید و همچنین به‌طور خودکار شمارهٔ طبقهٔ کنونی را به همهٔ اشیای نوساخته در آن طبقه می‌افزاید.</p>
 <p>این حالت با لمس طولانی روی نماد قفل و انتخاب گزینهٔ مربوطه از منو قابل‌فعال‌سازی است. <a href="#قفل">حالت قفل، حالت باز، تعویض حالت</a> را ببینید.</p>
 <p><a id="c-mode"></a></p>
 <h2 id="c">حالت C<a class="headerlink" href="#c" title="Permanent link">#</a></h2>
 <p>در حالت C فقط چیزهایی نشان داده می‌شود که پرچم هشدار داشته باشند که درنتیجه کمک می‌کند تا چیزهای مشکل‌دار یا چیزهایی را که بر اساس بررسی‌های قابل‌پیکربندی به دست می‌آیند، آسان‌تر بیابیم. در حالت C اگر عنصری انتخاب و ویرایشگر خصوصیت باز شود، بهترین تنظیم از پیش تنظیم شده به طور خودکار اعمال می شود.</p>
 <p>این حالت با لمس طولانی روی نماد قفل و انتخاب گزینهٔ مربوطه از منو قابل‌فعال‌سازی است. <a href="#قفل">حالت قفل، حالت باز، تعویض حالت</a> را ببینید.</p>
-<h3 id="_23">پیکربندی بررسی‌ها<a class="headerlink" href="#_23" title="Permanent link">#</a></h3>
-<p>در حال حاضر دو چک قابل تنظیم وجود دارد (یک بررسی برای برچسب های FIXME و یک آزمایش برای تگ های نوع گم شده در روابطی که در حال حاضر قابل تنظیم نیستند) هر دو را می توان با انتخاب "تنظیمات اعتبارسنج" در [تنظیمات] (Preferences.md) پیکربندی کرد. </p>
-<p>فهرست مدخل‌ها دو بخش دارد. یک بخش «بازنقشه‌برداری» و یک بخش «مدخل‌های بررسی». با کلیک روی هر مدخل می‌توانید آن را اصلاح کنید. دکمهٔ سبزرنگ منو را برای افزودن مدخل‌ها استفاده نمایید.</p>
-<h4 id="_24">مدخل‌های بازنقشه‌برداری<a class="headerlink" href="#_24" title="Permanent link">#</a></h4>
+<h3 id="_22">پیکربندی بررسی‌ها<a class="headerlink" href="#_22" title="Permanent link">#</a></h3>
+<p>All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the <a href="Preferences.md">preferences</a>. </p>
+<p>The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
+<h4 id="_23">مدخل‌های بازنقشه‌برداری<a class="headerlink" href="#_23" title="Permanent link">#</a></h4>
 <p>مدخل‌های نقشه‌برداری مجدد این خصوصیت‌ها را دارند:</p>
 <p><strong><em> کلید </em>* - کلید برچسب مورد علاقه.
 </strong><em> ارزش </em><em> - مقداری که برچسب مورد علاقه باید داشته باشد ، در صورت خالی ، مقدار برچسب نادیده گرفته می شود.
@@ -841,51 +874,54 @@
 <strong><em> عبارت منظم </em>* - اگر علامت زده شود </strong> مقدار ** یک عبارت معمولی JAVA در نظر گرفته می‌شود.</p>
 <p><strong>کلید</strong> و <strong>مقدار</strong> با تگ‌های <em>موجود</em> در عنصر موردبحث مطابقت داده می‌شود.</p>
 <p>گروه <em>Annotations</em> در پیش‌تنظیم‌های استاندارد گزینه‌ای دارد که به‌طور خودکار تگ <em>check_date</em> را همراه با تاریخ جاری اضافه می‌کند.</p>
-<h4 id="_25">مدخل‌های بررسی<a class="headerlink" href="#_25" title="Permanent link">#</a></h4>
+<h4 id="_24">مدخل‌های بررسی<a class="headerlink" href="#_24" title="Permanent link">#</a></h4>
 <p>مدخل‌های بررسی این دو خصوصیت را دارند:</p>
 <ul>
 <li><strong>کلید</strong> - کلیدی که مطابق با پیش‌تنظیم متناظر، باید روی شیء وجود داشته باشد.</li>
 <li><strong>اختیاریِ لازم</strong> - کلید ضروری است هرچند در پیش‌تنظیم متناظر، جزو کلیدهای اختیاری تعریف شده باشد.</li>
 </ul>
 <p>این بررسی، ابتدا پیش‌تنظیم جور را تشخیص می‌دهد و سپس بررسی می‌کند که طبق پیش‌تنظیم، آیا <strong>کلید</strong> برای این عنصر «توصیه‌شده» است. گزینهٔ <strong>اختیاریِ لازم</strong> بررسی را به تگ‌های «اختیاری» عارضه گسترش می‌دهد. توجه: فعلاً پیش‌تنظیم‌های پیوندشده بررسی نمی‌شوند.</p>
-<h2 id="_26">فیلترها<a class="headerlink" href="#_26" title="Permanent link">#</a></h2>
-<h3 id="_27">فیلتر مبتنی بر تگ<a class="headerlink" href="#_27" title="Permanent link">#</a></h3>
+<h2 id="_25">فیلترها<a class="headerlink" href="#_25" title="Permanent link">#</a></h2>
+<h3 id="_26">فیلتر مبتنی بر تگ<a class="headerlink" href="#_26" title="Permanent link">#</a></h3>
 <p>فیلتر را می‌توانید از منوی اصلی فعال کنید. سپس با زدن روی نماد فیلتر، آن را تغییر دهید. مستندات بیشتر در این باره در <a href="Tag%20filter.md">فیلتر با تگ</a> آمده است.</p>
-<h3 id="_28">فیلتر مبتنی بر پیش‌تنظیم<a class="headerlink" href="#_28" title="Permanent link">#</a></h3>
+<h3 id="_27">فیلتر مبتنی بر پیش‌تنظیم<a class="headerlink" href="#_27" title="Permanent link">#</a></h3>
 <p>راه دیگری برای کار بالا، فیلتر عارضه‌ها بر اساس پیش‌تنظیم یا گروهی از پیش‌تنظیم‌ها است. با زدن روی نماد پالایه، مشابه با جاهای دیگر وسپوچی، کادری برای انتخاب پیش‌تنظیم باز می‌شود. برای انتخاب پیش‌تنظیم، یک بار لمس کافی است. برای انتخاب گروه پیش‌تنظیم‌ها لمس طولانی بکنید (لمس کوتاه گروه را باز می‌کند). مستندات بیشتر در <a href="Preset%20filter.md">فیلتر با پیش‌تنظیم</a> آمده است.</p>
-<h2 id="_29">سفارشی‌سازی وسپوچی<a class="headerlink" href="#_29" title="Permanent link">#</a></h2>
+<h2 id="_28">سفارشی‌سازی وسپوچی<a class="headerlink" href="#_28" title="Permanent link">#</a></h2>
 <p>برنامه را از جنبه‌های مختلفی می‌توانید سفارشی کنید. اگر به دنبال چیز خاصی هستید و پیدایش نمی‌کنید، <a href="https://vespucci.io/">وبسایت وسپوچی</a> قابل‌جستجو است و اطلاعاتی علاوه بر اطلاعات موجود روی دستگاه دارد.</p>
 <p><a id="layers"></a></p>
-<h3 id="_30">تنظیمات لایه<a class="headerlink" href="#_30" title="Permanent link">#</a></h3>
+<h3 id="_29">تنظیمات لایه<a class="headerlink" href="#_29" title="Permanent link">#</a></h3>
 <p>تنظیمات لایه را می توان از طریق کنترل لایه (منوی "همبرگر" در گوشه بالا سمت راست) تغییر داد ، همه تنظیمات دیگر از طریق دکمه تنظیمات منوی اصلی قابل دسترسی است. لایه ها را می توان فعال ، غیرفعال و به طور موقت پنهان کرد.</p>
 <p>انواع لایه های موجود:</p>
 <ul>
-<li>لایه داده - این لایه ای است که داده های اوپن‌ استریت مپ در آن بارگیری می شود. در استفاده عادی ، نیازی به تغییر چیزی در اینجا ندارید. پیش فرض: روشن است.</li>
-<li>لایه پس‌زمینه - طیف گسترده ای از تصاویر پس زمینه هوایی و ماهواره ای موجود است. مقدار پیش فرض برای این نقشه "سبک استاندارد" از openstreetmap.org است.</li>
-<li>لایه همپوشانی - اینها لایه های نیمه شفاف با اطلاعات اضافی هستند ، به عنوان مثال آهنگ های GPX. افزودن یک روکش ممکن است مشکلاتی را در دستگاه های قدیمی و از جمله محدودیت حافظه ایجاد کند. پیش فرض: هیچ</li>
-<li>یادداشت ها/اشکالات نمایش داده می شود - یادداشت ها و اشکالات باز شده به عنوان یک نماد اشکال زرد نمایش داده می شوند ، مواردی که به رنگ سبز هستند. پیش فرض: روشن است.</li>
-<li>لایه عکس - عکسهای دارای منبع جغرافیایی را به عنوان نمادهای دوربین قرمز نمایش می دهد ، در صورت موجود بودن اطلاعات جهت ، نماد چرخانده می شود. پیش فرض: خاموش</li>
-<li>لایه Mapillary - قسمت های Mapillary را با نشانگرهایی که در آن تصاویر وجود دارد نمایش می دهد ، با کلیک بر روی نشانگر ، تصویر نمایش داده می شود. پیش فرض: خاموش</li>
-<li>لایه GeoJSON - محتویات یک فایل GeoJSON را نمایش می دهد. پیش فرض: خاموش</li>
-<li>Grid - یک مقیاس در امتداد کناره های نقشه یا یک شبکه نمایش می دهد. پیش فرض: روشن است. </li>
+<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
+<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
+<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
+<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
+<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
+<li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
 <p>اطلاعات بیشتر را می توانید در بخش [نمایش نقشه] (Main%20map%20display.md) مشاهده کنید.</p>
-<h4 id="_31">ترجیحات<a class="headerlink" href="#_31" title="Permanent link">#</a></h4>
+<h4 id="_30">ترجیحات<a class="headerlink" href="#_30" title="Permanent link">#</a></h4>
 <ul>
 <li>روشن‌ماندن صفحه. پیشفرض: خاموش.</li>
 <li>فضای بزرگ برای کشیدن گره. جابه‌جاکردن گره‌ها در دستگاهی با ورودی لمسی مشکل است، زیرا انگشت‌هایتان موقعیت جاری روی صفحه را مبهم می‌کند. با روشن‌کردن این گزینه، فضای بزرگی پیرامون عنصر ایجاد می‌شود که با استفاده از آن می‌توانید عنصر را جابه‌جا کنید (انتخاب و سایر کنش‌ها هنوز در «فضای انتخاب» عنصر کار می‌کنند). پیشفرض: خاموش.</li>
 </ul>
 <p>توضیحات کامل را اینجا ببینید <a href="Preferences.md">ترجیحات</a></p>
-<h4 id="_32">ترجیحات پیشرفته<a class="headerlink" href="#_32" title="Permanent link">#</a></h4>
+<h4 id="_31">ترجیحات پیشرفته<a class="headerlink" href="#_31" title="Permanent link">#</a></h4>
 <ul>
-<li>نماد گره‌ها. پیشفرض: روشن.</li>
-<li>نمایش همیشگی منوی زمینه. اگر روشن باشد با هر انتخاب منوی زمینه نمایان می‌شود. اگر خاموش باشد فقط در صورتی که انتخاب مبهم تشخیص داده شود، نمایان می‌شود. پیشفرض: خاموش (پیشتر روشن بود).</li>
-<li>فعال‌سازی پوستهٔ روشن. در دستگاه‌های پیشرفته این گزینه به‌طور پیشفرض روشن است. اگرچه می‌توانید آن را روی نسخه‌های قدیمی‌تر اندروید نیز فعال کنید، اما احتمال دارد ناسازگار باشد. </li>
+<li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.  </li>
+<li>Node icons. Default: <em>on</em>.</li>
+<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
+<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. </li>
 </ul>
 <p>توضیحات کامل را اینجا ببینید <a href="Advanced%20preferences.md">ترجیحات پیشرفته</a></p>
-<h2 id="_33">گزارش مشکلات<a class="headerlink" href="#_33" title="Permanent link">#</a></h2>
+<h2 id="reporting-and-resolving-issues">Reporting and Resolving Issues<a class="headerlink" href="#reporting-and-resolving-issues" title="Permanent link">#</a></h2>
 <p>اگر وسپوچی خراب شود یا حالتی ناسازگار را تشخیص دهد، از شما خواسته می شود که برگرفتِ خرابی را ارسال کنید. لطفاً اگر چنین شد، این کار را انجام دهید، اما فقط یک بار در هر موقعیت خاص. اگر می‌خواهید اطلاعات بیشتری بدهید یا برای درخواست ویژگی یا موارد مشابه مسئله‌ای باز کنید، لطفاً این کار را در اینجا انجام دهید: [پیگیر مسائل وسپوچی] (https://github.com/MarcusWolschon/osmeditor4android/issues). عملکرد «ارائه بازخورد» از منوی اصلی مسئلهٔ جدیدی باز می‌کند و اطلاعات مربوط به برنامه و دستگاه را بدون تایپ اضافی شامل می‌شود.</p>
-<p>اگر می‌خواهید دربارهٔ چیزی مربوط به وسپوچی بحث کنید، می‌توانید از <a href="https://groups.google.com/forum/#!forum/osmeditor4android">گروه گوگلی وسپوچی</a> یا <a href="http://forum.openstreetmap.org/viewforum.php?id=56">تالار اندروید در انجمن OpenStreetMap</a> استفاده کنید.</p></div>
+<p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div>
                     
             </div>
         </div>
@@ -893,7 +929,7 @@
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.1.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
         </footer>
         <script>
             var base_url = "../../..",
