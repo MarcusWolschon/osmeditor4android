@@ -15,7 +15,7 @@ If you have pending edits and for whatever reason cannot authorize, Vespucci rel
 
 ## Uploading
 
-To upload your edits you can either select _Upload data to OSM server_ from the [Transfer menu](Main%20map%20display.md#trasfer), or select _Upload element_ from the overflow menu in any of the element selection modes or multi-select. The later will only upload the selected elements.
+To upload your edits you can either select _Upload data to OSM server_ from the [Transfer menu](Main%20map%20display.md#transfer), or select _Upload element_ from the overflow menu in any of the element selection modes or multi-select. The later will only upload the selected elements.
 
 The _Upload changes_ dialog display two tabs _Changes_ and _Properties_. The _Changes_ tab displays a list of all the OSM elements that will be affected by the upload, the type of change and an information button that allows you to view further information on the element and jump to it to make corrections. The _Properties_ tab allows you to set a _comment_
 for this upload and document that _source_ that was used to create the changes (for example _survey_ if you were personally present at the location in question). Prior entries in both

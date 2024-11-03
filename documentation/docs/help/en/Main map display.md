@@ -177,11 +177,11 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 
 Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven or eight options:
 
- * **Upload data to OSM server...** - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available *(requires authentication)* *(requires network connectivity)*
+ * **Upload data to OSM server...** - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available. See [Uploading your changes](Uploading%20your%20changes.md) for more information *(requires authentication)* *(requires network connectivity)*
  * **Review changes...** - review current changes
  * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
  * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
- * **Query Overpass...** - run a query against a Overpass API server, for more information see _Overpass queries_ below. *(requires network connectivity)*
+ * **Query Overpass...** - run a query against a Overpass API server, see [Overpass queries](#overpass_queries). *(requires network connectivity)*
  * **Close current changeset** - manually close the current changeset *(only available if a changeset is open)*
  * **Location based auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
  * **Pan and zoom auto download** - download the area shown in the current screen automatically *(requires network connectivity)*
@@ -238,6 +238,8 @@ Search for a location and pan to it with the OpenStreetMap Nominatim or Photon s
 ### Search for objects
 
 Search for OSM objects in the loaded data using JOSMs search/filter expressions. See [JOSM filter documentation](http://vespucci.io/tutorials/object_search/) for more information. Besides searching in the loaded data alternatively you can create a Overpass API query and use that to download data.
+
+<a id="overpass_queries"></a>
 
 #### Overpass queries
 
