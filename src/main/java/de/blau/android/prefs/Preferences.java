@@ -270,7 +270,7 @@ public class Preferences {
         voiceCommandsEnabled = prefs.getBoolean(r.getString(R.string.config_voiceCommandsEnabled_key), false);
 
         leaveGpsDisabled = prefs.getBoolean(r.getString(R.string.config_leaveGpsDisabled_key), false);
-        allowFallbackToNetworkLocation = prefs.getBoolean(r.getString(R.string.config_gps_network_key), true);
+        allowFallbackToNetworkLocation = prefs.getBoolean(r.getString(R.string.config_gps_network_key), false);
 
         showIcons = prefs.getBoolean(r.getString(R.string.config_showIcons_key), true);
 

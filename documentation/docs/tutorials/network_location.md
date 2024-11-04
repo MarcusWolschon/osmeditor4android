@@ -12,10 +12,12 @@ If Vespucci detects that network positions can at least potentially be used, it 
 
 instead of the classic GPS icon on the screen and will alert you to which provider it is currently using via toasts (the short on-screen messages). The fallback to network locations can be disabled in the Location Settings in the Advanced Preferences.
 
-Modern devices running a google variant of Android have three location mode setting (besides turning location services completely off):
+~~Modern devices running a google variant of Android have three location mode setting (besides turning location services completely off):~~
 
-* __Device only__ - use only the on device GPS location information, does not require sharing your location data with google
-* __Battery saving__ - doesn't use GPS, instead uses mobile network, WLAN and other signals to determine your location, requires sharing of your location data with google
-* __High accuracy__ - uses GPS and other signals to determine your location, requires sharing of your location data with google, this is typically only more "accurate" than __Device only__ if receiving GPS signals is seriously impaired
+~~* __Device only__ - use only the on device GPS location information, does not require sharing your location data with google~~
+~~* __Battery saving__ - doesn't use GPS, instead uses mobile network, WLAN and other signals to determine your location, requires sharing of your location data with google~~
+~~* __High accuracy__ - uses GPS and other signals to determine your location, requires sharing of your location data with google, this is typically only more "accurate" than __Device only__ if receiving GPS signals is seriously impaired~~
+
+As of Android 14 there seems to only be a _Google Location Accuracy_ setting in _Location services_ that changes if wifi is used or not.
 
 Vespucci does not use the Google play servers "fused" location service and remains usable independent of if you are running it in a Google sanctioned environment or not.

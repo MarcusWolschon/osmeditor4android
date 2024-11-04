@@ -541,7 +541,7 @@
             android:summary="@string/config_leaveGpsDisabled_summary"
             android:title="@string/config_leaveGpsDisabled_title" />
         <androidx.preference.CheckBoxPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="@string/config_gps_network_key"
             android:summary="@string/config_gps_network_summary"
             android:title="@string/config_gps_network_title" />

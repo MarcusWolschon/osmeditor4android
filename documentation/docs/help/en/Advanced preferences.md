@@ -287,7 +287,7 @@ If GPS has been disabled by the user, don't ask to turn it on. Default: _off_.
 
 ### Fallback to network location
 
-If the device is providing "Network" location data use it as a fallback if we haven't received a GPS location for a longer time. Default: _on_.
+If the device is providing "Network" location data use it as a fallback if we haven't received a GPS location for a longer time. Default: _off_.
 
 ### Stale location after
 
