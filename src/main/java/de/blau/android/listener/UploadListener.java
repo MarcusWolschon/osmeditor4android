@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import android.content.DialogInterface;
 import android.os.SystemClock;
@@ -175,9 +177,20 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
         Map<String, String> result = new HashMap<>();
         UndoStorage undoStorage = App.getDelegator().getUndo();
         Preset[] presets = App.getCurrentPresets(caller);
+        List<Node> movedNodes = new ArrayList<>();
         Actions actions = new Actions();
         for (OsmElement current : elements) {
-            addActionsForElement(actions, undoStorage, presets, current);
+            addActionsForElement(actions, movedNodes, undoStorage, presets, current);
+        }
+        if (!movedNodes.isEmpty()) {
+            Set<Way> modifiedGeometryWays = new HashSet<>();
+            for (Node n : movedNodes) {
+                modifiedGeometryWays.addAll(App.getLogic().getWaysForNode(n));
+            }
+            for (Way w : modifiedGeometryWays) {
+                PresetItem match = Preset.findBestMatch(caller, presets, w.getTags(), null, w, true);
+                actions.geometryModified.add(getPresetName(match));
+            }
         }
         putSummary(V_CREATED, actions.created, result);
         putSummary(V_MODIFIED, actions.modified, result);
@@ -193,11 +206,13 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      * Note has the side effect of adding changes for ways if way nodes were changed
      * 
      * @param actions container for the list of actions
+     * @param movedNodes list of Nodes that have been moved
      * @param undoStorage our current UndoStorage
      * @param presets current presets
      * @param element the OsmElement
      */
-    private void addActionsForElement(@NonNull Actions actions, @NonNull UndoStorage undoStorage, @NonNull Preset[] presets, @NonNull OsmElement element) {
+    private void addActionsForElement(@NonNull Actions actions, @NonNull List<Node> movedNodes, @NonNull UndoStorage undoStorage, @NonNull Preset[] presets,
+            @NonNull OsmElement element) {
 
         final boolean hasTags = element.hasTags();
         final Map<String, String> currentTags = element.getTags();
@@ -224,7 +239,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             actions.deleted.add(!originalTags.isEmpty() ? getPresetName(matchOriginal) : getUntaggedString(element));
             return;
         }
-        addGeometryActions(actions, presets, element, original, hasTags, currentPresetName);
+        addGeometryActions(actions, presets, element, original, movedNodes, hasTags, currentPresetName);
         if (!hasTags) {
             return;
         }
@@ -244,11 +259,12 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      * @param presets current presets
      * @param element the current element
      * @param original the elements original state
+     * @param movedNodes list of moved nodes
      * @param hasTags true if element has tags
      * @param currentPresetName the name of the preset for element
      */
     private void addGeometryActions(@NonNull Actions actions, @NonNull Preset[] presets, @NonNull OsmElement element, @Nullable UndoElement original,
-            final boolean hasTags, @NonNull final String currentPresetName) {
+            List<Node> movedNodes, final boolean hasTags, @NonNull final String currentPresetName) {
         if (original == null) {
             return;
         }
@@ -257,27 +273,13 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             if (hasTags) {
                 actions.geometryModified.add(caller.getString(R.string.moved, currentPresetName));
             }
-            addModifiedWays(presets, (Node) element, actions.geometryModified);
+            movedNodes.add((Node) element);
         }
         if (element instanceof Way && !((UndoWay) original).getNodes().equals(((Way) element).getNodes())) {
             actions.geometryModified.add(currentPresetName);
         }
         if (element instanceof Relation && !((UndoRelation) original).getMembers().equals(((Relation) element).getMembers())) {
             actions.membersModified.add(currentPresetName);
-        }
-    }
-
-    /**
-     * Add actions for all ways modified by moving a node
-     * 
-     * @param presets current presets
-     * @param node the Node
-     * @param geometryModified set of actions to return
-     */
-    private void addModifiedWays(@NonNull Preset[] presets, @NonNull Node node, @NonNull Collection<String> geometryModified) {
-        for (Way w : App.getLogic().getWaysForNode(node)) {
-            PresetItem match = Preset.findBestMatch(caller, presets, w.getTags(), null, w, true);
-            geometryModified.add(getPresetName(match));
         }
     }
 
