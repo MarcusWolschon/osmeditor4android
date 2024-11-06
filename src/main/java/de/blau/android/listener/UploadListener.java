@@ -239,7 +239,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             actions.deleted.add(!originalTags.isEmpty() ? getPresetName(matchOriginal) : getUntaggedString(element));
             return;
         }
-        addGeometryActions(actions, presets, element, original, movedNodes, hasTags, currentPresetName);
+        addGeometryActions(actions, element, original, movedNodes, hasTags, currentPresetName);
         if (!hasTags) {
             return;
         }
@@ -256,15 +256,14 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      * Add geometry changes for element
      * 
      * @param actions container for the list of actions
-     * @param presets current presets
      * @param element the current element
      * @param original the elements original state
      * @param movedNodes list of moved nodes
      * @param hasTags true if element has tags
      * @param currentPresetName the name of the preset for element
      */
-    private void addGeometryActions(@NonNull Actions actions, @NonNull Preset[] presets, @NonNull OsmElement element, @Nullable UndoElement original,
-            List<Node> movedNodes, final boolean hasTags, @NonNull final String currentPresetName) {
+    private void addGeometryActions(@NonNull Actions actions, @NonNull OsmElement element, @Nullable UndoElement original, List<Node> movedNodes,
+            final boolean hasTags, @NonNull final String currentPresetName) {
         if (original == null) {
             return;
         }
