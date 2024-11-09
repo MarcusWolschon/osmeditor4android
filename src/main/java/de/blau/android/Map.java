@@ -427,7 +427,7 @@ public class Map extends View implements IMapView {
             if (index >= 0 && index < mLayers.size()) {
                 return mLayers.get(index);
             }
-            Log.e(DEBUG_TAG, "Layer for index " + index + " is null");
+            Log.e(DEBUG_TAG, "Layer for index " + index + " is null " + mLayers.size() + " layers total");
             return null;
         }
     }
