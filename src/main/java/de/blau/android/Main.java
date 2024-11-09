@@ -67,6 +67,7 @@ import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.ViewStub;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -492,13 +493,17 @@ public class Main extends FullScreenAppCompatActivity
         LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(layout, null);
         mapLayout = (RelativeLayout) ml.findViewById(R.id.mainMap);
 
-        if (map != null) {
-            Log.d(DEBUG_TAG, "map exists .. destroying");
-            map.onDestroy();
+        Logic logic = App.getLogic(); // logic instance might still be around
+        map = logic != null ? logic.getMap() : null;
+        if (map == null) {
+            map = new Map(this);
+            map.setId(R.id.map_view);
+        } else {
+            ViewGroup parent = (ViewGroup) map.getParent();
+            if (parent != null) {
+                parent.removeView(map);
+            }
         }
-        map = new Map(this);
-        map.setId(R.id.map_view);
-
         // Register some Listener
         mapTouchListener = new MapTouchListener();
         map.setOnTouchListener(mapTouchListener);
@@ -585,14 +590,14 @@ public class Main extends FullScreenAppCompatActivity
 
         loadOnResume = false;
 
-        if (App.getLogic() == null) {
+        if (logic == null) {
             Log.i(DEBUG_TAG, "onCreate - creating new logic");
-            App.newLogic();
+            logic = App.newLogic();
         }
         Log.i(DEBUG_TAG, "onCreate - setting new map");
 
-        App.getLogic().setPrefs(prefs);
-        App.getLogic().setMap(map, true);
+        logic.setPrefs(prefs);
+        logic.setMap(map, true);
 
         Log.d(DEBUG_TAG, "StorageDelegator dirty is " + App.getDelegator().isDirty());
         if (StorageDelegator.isStateAvailable(this) && !App.getDelegator().isDirty()) {
@@ -806,7 +811,7 @@ public class Main extends FullScreenAppCompatActivity
                     // loadStateFromFile does this above
                     App.getLogic().loadEditingState(this, setViewBox);
                 }
-                logic.loadLayerState(this, postLoadTasks);
+                // layer state should still be available if logic is still around, no need to load
                 map.invalidate();
                 checkPermissions(() -> {
                     postLoadData.onSuccess();
