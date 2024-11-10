@@ -93,7 +93,7 @@ public class ApiErrorTest {
 
         @Override
         public void onError(AsyncResult result) {
-            System.out.println("FailOnErrorHandler onError");
+            System.out.println("FailOnSuccessHandler onError " + expectedError + " " + result.getCode());
             assertEquals(expectedError, result.getCode());
             signal.countDown();
         }
@@ -106,14 +106,15 @@ public class ApiErrorTest {
     public void setup() {
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
+        App.getDelegator().reset(true);
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
         prefDB.selectAPI("Test");
-        System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
-        Logic logic = App.getLogic();
+        System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR        
         prefs = new Preferences(main);
+        Logic logic = App.getLogic();
         logic.setPrefs(prefs);
         logic.getMap().setPrefs(main, prefs);
     }
