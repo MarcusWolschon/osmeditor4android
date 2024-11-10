@@ -26,6 +26,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.AsyncResult;
+import de.blau.android.ErrorCodes;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.OsmXml;
@@ -168,9 +169,9 @@ public class OAuth2Helper extends OAuthHelper {
             String description = data.getQueryParameter(ERROR_DESCRIPTION_PARAM);
             throw new IllegalArgumentException(description == null ? error : description);
         }
-        return new ExecutorTask<Void, Void, Response>() {
+        return new ExecutorTask<Void, Void, AsyncResult>() {
             @Override
-            protected Response doInBackground(Void param) throws IOException {
+            protected AsyncResult doInBackground(Void param) throws IOException {
                 Log.d(DEBUG_TAG, "oAuthHandshake doInBackground");
                 try (AdvancedPrefDatabase prefDb = new AdvancedPrefDatabase(context)) {
                     API api = prefDb.getCurrentAPI();
@@ -183,37 +184,52 @@ public class OAuth2Helper extends OAuthHelper {
                     Request request = new Request.Builder().url(accessTokenUrl).post(requestBody).build();
                     OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.SECONDS).readTimeout(TIMEOUT,
                             TimeUnit.SECONDS);
-                    return builder.build().newCall(request).execute();
+                    Response result = builder.build().newCall(request).execute();
+                    if (result.isSuccessful()) {
+                        return readAccessToken(context, result);
+                    }
+                    Log.e(DEBUG_TAG, "Handshake fail " + result.code() + " " + result.message());
+                    return new AsyncResult(result.code(), result.message());
                 }
+            }
+
+            /**
+             * Read/parse access token and save it
+             * 
+             * @param context an Android Context
+             * @param result the Response from the API
+             * @return an AsyncResult object indicating if things worked or failed
+             */
+            private AsyncResult readAccessToken(@NonNull Context context, @NonNull Response result) {
+                try (BufferedReader rd = new BufferedReader(new InputStreamReader(result.body().byteStream(), Charset.forName(OsmXml.UTF_8)))) {
+                    JsonElement root = JsonParser.parseReader(rd);
+                    if (root.isJsonObject()) {
+                        JsonElement accessToken = ((JsonObject) root).get(ACCESS_TOKEN_FIELD);
+                        if (accessToken instanceof JsonElement) {
+                            setAccessToken(context, accessToken.getAsString(), null);
+                        }
+                    }
+                } catch (IOException | JsonSyntaxException e) {
+                    Log.e(DEBUG_TAG, "Error reading response " + e.getMessage());
+                    return new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
+                }
+                return new AsyncResult(ErrorCodes.OK);
             }
 
             @Override
             protected void onBackgroundError(Exception e) {
                 Log.d(DEBUG_TAG, "oAuthHandshake onBackgroundError " + e.getMessage());
-                handler.onError(new AsyncResult(0, e.getMessage()));
+                handler.onError(new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage()));
             }
 
             @Override
-            protected void onPostExecute(Response result) {
+            protected void onPostExecute(AsyncResult result) {
                 Log.d(DEBUG_TAG, "oAuthHandshake onPostExecute");
-                if (result.isSuccessful()) {
-                    try (BufferedReader rd = new BufferedReader(new InputStreamReader(result.body().byteStream(), Charset.forName(OsmXml.UTF_8)))) {
-                        JsonElement root = JsonParser.parseReader(rd);
-                        if (root.isJsonObject()) {
-                            JsonElement accessToken = ((JsonObject) root).get(ACCESS_TOKEN_FIELD);
-                            if (accessToken instanceof JsonElement) {
-                                setAccessToken(context, accessToken.getAsString(), null);
-                            }
-                        }
-                        handler.onSuccess();
-                    } catch (IOException | JsonSyntaxException e) {
-                        Log.e(DEBUG_TAG, "Error reading response " + e.getMessage());
-                        handler.onError(new AsyncResult(0, e.getMessage()));
-                    }
+                if (ErrorCodes.OK == result.getCode()) {
+                    handler.onSuccess();
                     return;
                 }
-                Log.e(DEBUG_TAG, "Handshake fail " + result.code() + " " + result.message());
-                handler.onError(new AsyncResult(result.code(), result.message()));
+                handler.onError(result);
             }
         };
     }
