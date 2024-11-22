@@ -359,6 +359,9 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 configureFromRemote(tileUrl);
                 return false;
             }
+            if (tileUrl.endsWith("." + FileExtensions.PBF) || tileUrl.endsWith("." + FileExtensions.MVT)) {
+                metadataMap.put(TILE_TYPE, TileType.MVT);
+            }
 
             layerId = layerExists ? layer.getId() : TileLayerSource.nameToId(name);
             isOverlay = overlayCheck.isChecked();
