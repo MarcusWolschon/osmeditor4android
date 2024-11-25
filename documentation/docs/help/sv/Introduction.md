@@ -181,7 +181,7 @@ A nearby point-of-interest display can be shown by pulling the handle in the mid
 
 More information on this and other available functionality on the main display can be found here [Main map display](Main%20map%display.md).
 
-## Using GPS and GPX tracks
+## Använder GPS and GPX spår
 
 With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
 

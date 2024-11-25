@@ -15,10 +15,15 @@
   <string name="transfer_download_current_download">At &amp; indir</string>
   <string name="transfer_download_current_back">Geri (bir şey yapmayın)</string>
   <string name="upload_problem_title">Yüklenemedi</string>
+  <string name="upload_problem_message">Verilerin bir kısmı veya tamamı karşıya yüklenmedi. Daha sonra yeniden deneyin.</string>
   <string name="bad_request_message">API bir hatayla yanıt verdi, lütfen verilerinizi kaydedin ve sorunu bildirin:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Yükleme çakışması</string>
+  <string name="upload_conflict_message_version">Sürüm çakışması</string>
   <string name="upload_conflict_message_deleted">%1$s \nyerel sürümü %2$d \nve sunucusunda silindi</string>
+  <string name="server_side_object">Sunucu sürümü</string>
+  <string name="local_object">Yerel sürümü</string>
+  <string name="resolve">Çöz</string>
   <!---->
   <string name="no_login_data_title">Doğrulanamadı</string>
   <string name="no_login_data_message">Eğer OAuth kullanıyorsanız, bu muhtemelen bir hatadır, lütfen bir sorun raporu gönderin, giriş ve şifre kullanıyorsanız (önerilmez), lütfen bunların doğru girilip girilmediğini kontrol edin.</string>

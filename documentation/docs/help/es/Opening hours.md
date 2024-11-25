@@ -1,110 +1,110 @@
-# Editor de horarios de apertura de OpenStreetMap
+# Editor de horario de apertura de OpenStreetMap
 
-La especificación de horarios de apertura en OpenStreetMap es bastante compleja y no permite una interfaz de usuario simple e intuitiva.
+La especificación de horario de apertura en OpenStreetMap es bastante compleja y no se presta fácilmente a una interfaz de usuario simple e intuitiva.
 
-Sin embargo, en la mayoría de ocasiones basta con usar una pequeña parte de la especificación. El editor tiene esto en cuenta y trata de ocultar las características menos intuitivas en menús, reduciendo la mayor parte del tiempo su uso a realizar pequeños cambios en plantillas predefinidas.
+Sin embargo, la mayoría de las veces probablemente solo usarás una pequeña parte de la definición. El editor tiene esto en cuenta al intentar ocultar las funciones más confusas en los menús y, la mayoría de las veces, reduce el uso "en la calle" a pequeñas personalizaciones de plantillas predefinidas.
 
-_Esta documentación es preliminar y está en progreso_
+_Esta documentación es preliminar y un trabajo en progreso._
 
-## Uso del editor de horarios de apertura
+## Uso del editor de horario de apertura
 
-En un flujo de trabajo típico, el objeto que está editando ya tendrá una etiqueta de horas de apertura (opening_hours, service_times y collection_times) o puede volver a aplicar el ajuste preestablecido para el objeto para obtener un campo de horario de apertura vacío. Si necesita agregar el campo manualmente y está utilizando Vespucci, puede ingresar la clave en la página de detalles y luego volver a la pestaña basada en el formulario para editar. Si cree que la etiqueta de las horas de apertura debería haber sido parte del ajuste preestablecido, abra una publicación para su editor.
+En un flujo de trabajo típico, el objeto que estás editando ya tendrá una etiqueta de horario de apertura (`opening_hours`, `service_times` y `collection_times`) o puedes volver a aplicar el preajuste para el objeto y obtener un campo de horario de apertura vacío. Si necesitas agregar el campo manualmente y estás usando Vespucci, puedes ingresar la clave en la página de detalles y luego volver a la pestaña basada en formulario para editar. Si crees que la etiqueta de horario de apertura debería haber sido parte del preajuste, abre un reporte de error para tu editor.
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
+Si has definido una plantilla predeterminada (hazlo a través del elemento del menú "Administrar plantillas"), se cargará automáticamente cuando se inicie el editor con un valor vacío. Con la función "Cargar plantilla" puedes cargar cualquier plantilla guardada y con el menú "Guardar plantilla" puedes guardar el valor actual como plantilla. Puedes definir plantillas separadas y valores predeterminados para claves específicas, por ejemplo, "opening_hours", "collection_times" y "service_times" o valores personalizados. Además, puedes limitar la aplicabilidad de una plantilla a una región y un identificador específico, generalmente una etiqueta de nivel superior de OSM (por ejemplo, `amenity=restaurant`).
 
-Naturalmente, puedes crear un valor de horarios de apertura desde cero, pero recomendamos usar una de las plantillas existentes para empezar.
+Naturalmente, puedes crear un valor de horario de apertura desde cero, pero recomendamos usar una de las plantillas existentes como punto de partida.
 
-Si se carga un valor existente, se intentará autocorregir para ajustarlo a las especificaciones de horarios de apertura. Si no es posible, la ubicación aproximada del error se marcará el la pantalla del valor en texto plano de los horarios de apertura, y podrás intentar corregirlo manualmente. Aproximadamente, una cuarta parte de los valores de horarios de apertura en la base de datos de OpenStreetMap tienen problemas, pero menos del 10% no son corregibles; ver [OpeningHoursParser](https://github.com/simonpoole/OpeningHoursParser) para más información sobre qué desviaciones sobre las especificaciones son toleradas.
+Si se carga un valor de horario de apertura existente, se intentará corregirlo automáticamente para que se ajuste a la especificación de horario de apertura. Si eso no es posible, se resaltará la ubicación aproximada donde se produjo el error en la visualización del valor bruto del horario de apertura, y puedes intentar corregirlo manualmente. Aproximadamente una cuarta parte de los valores de horario de apertura en la base de datos de OpenStreetMap tienen problemas, pero menos del 10 % no se pueden corregir; consulta [OpeningHoursParser](https://github.com/simonpoole/OpeningHoursParser) para obtener más información sobre qué desviaciones de la especificación se toleran.
 
 ### Botón del menú principal
 
-* __Añadir regla__: añadir una nueva regla.
-* __Añadir regla para vacaciones__: añada una nueva regla para unas vacaciones junto con un cambio de estado.
-* __Añadir regla para 24/7__: añada una regla para un objeto que siempre está abierto, la especificación de horas de apertura no admite ningún otro valor secundario para 24/7 sin embargo, sí permitimos añadir selectores de mayor nivel (por ejemplo, rangos de año).
-* __Cargar plantilla__: cargue una plantilla existente.
-* __Guardar a plantilla__: guarde el valor actual de las horas de apertura como una plantilla para uso futuro.
-* __Administrar plantillas__: editar, por ejemplo cambiar el nombre, y borrar las plantillas existentes.
-* __Refrescar__: volver a analizar el valor de la hora de apertura.
-* __Eliminar todo__: remover todas las reglas.
+* __Añadir regla__: añade una nueva regla.
+* __Añadir regla para días festivos__: añade una nueva regla para un día festivo junto con un cambio de estado.
+* __Añadir regla para 24/7__: añade una regla para un objeto que siempre está abierto; la especificación de horario de apertura no admite ningún otro subvalor para 24/7; sin embargo, sí permitimos añadir selectores de nivel superior (por ejemplo, rangos de años).
+* __Cargar plantilla__: carga una plantilla existente.
+* __Guardar a plantilla__: guarda el valor actual del horario de apertura como una plantilla para uso futuro.
+* __Administrar plantillas__: edita (por ejemplo, cambia el nombre) y elimina las plantillas existentes.
+* __Actualizar__: vuelve a analizar el valor del horario de apertura.
+* __Eliminar todo__: elimina todas las reglas.
 
 ### Reglas
 
-Se añaden reglas predeterminadas como_reglas_ normales, esto implica que anularán los valores de las reglas anteriores para los mismos días. Esto puede ser una preocupación al especificar tiempos extendidos, por lo general, querrá cambiar las reglas a través de la entrada del menú _Mostrar tipo de regla_ a _aditivo_.
+Las reglas predeterminadas se añaden como reglas _normales_; esto implica que anularán los valores de las reglas anteriores para los mismos días. Esto puede ser un problema al especificar horarios extendidos; por lo general, en ese caso querrás cambiar las reglas a _aditivas_ a través de la entrada del menú _Mostrar tipo de regla_.
 
 #### Menú Regla
 
 * __Añadir modificador/comentario__: cambia el efecto de esta regla y añade un comentario opcional.
-* __Añadir vacaciones__: añadir un selector para vacaciones públicas o escolares.
-* __Añadir período de tiempo...__
-    * __Hora - tiempo__: una hora de inicio para una hora de finalización en el mismo día.
-    * __Hora - tiempo prolongado__: una hora de inicio hasta un tiempo de finalización al día siguiente (ejemplo 26:00 es 02:00 (am) el día siguiente).
-    * __Var. hora - hora__: desde una hora variable de inicio (amanecer, atardecer, amanecer y atardecer) a una hora de finalización en el mismo día.
-    * __Var. hora - tiempo prolongado__: desde una hora variable de inicio hasta una hora de finalización al día siguiente.
-    * __Hora - var. tiempo__: una hora de inicio a una hora variable final.
-    * __Var. time - var. time__: un tiempo variable de inicio a un tiempo variable final.
-    * __Time__: un punto en el tiempo.
-    * __Time-open end__: desde un punto de inicio en el tiempo en adelante.
-    * __Variable time__: en el tiempo variable
-    * __Variable time-open end__: a partir de un tiempo variable de inicio en adelante
-* __Add week day range__: añade un selector basado en el día de la semana.
+* __Añadir día festivo__: añade un selector para días festivos o vacaciones escolares.
+* __Añadir intervalo de tiempo...__
+    * __Hora - Hora__: una hora de inicio y una hora de fin en el mismo día.
+    * __Hora - Hora extendida__: una hora de inicio hasta una hora de fin al día siguiente (por ejemplo, 26:00 es las 02:00 (a. m.) del día siguiente).
+    * __Hora var. - Hora__: desde una hora de inicio variable (amanecer, atardecer, alba y crepúsculo) hasta una hora de fin en el mismo día.
+    * __Hora var. - Hora extendida__: desde una hora de inicio variable hasta una hora de fin al día siguiente.
+    * __Hora - Hora var.__: una hora de inicio y una hora de fin variable.
+    * __Hora var. - Hora var.__: una hora de inicio variable y una hora de fin variable.
+    * __Hora__: un punto en el tiempo.
+    * __Hora - Fin abierto__: desde un punto de inicio en el tiempo en adelante.
+    * __Hora variable__: a la hora variable.
+    * __Hora variable - Fin abierto__: desde una hora de inicio variable en adelante.
+* __Añadir rango de días de la semana__: añade un selector basado en el día de la semana.
 * __Añadir rango de fechas...__
-    * __Fecha - fecha__: desde una fecha de inicio (año, mes, día) hasta una fecha final.
-    * __Fecha variable - fecha__: desde una fecha variable de inicio (actualmente la especificación solo define _Pascua_) hasta una fecha final.
-    * __Fecha - fecha variable__: desde una fecha de inicio hasta una fecha variable.
-    * __Fecha variable - fecha variable__: desde una fecha variable de inicio hasta una fecha variable final.
-    * __Ocurrencia en mes - ocurrencia en mes__: desde una ocurrencia de inicio de día de semana en un mes al mismo.
-    * __Ocurrencia en mes - fecha__: desde una ocurrencia de un día laborable en un mes hasta una fecha final.
-    * __Fecha - ocurrencia en mes__: desde una fecha de inicio hasta una ocurrencia de fin de día de la semana en un mes.
-    * __Ocurrencia en mes - fecha variable__: desde una ocurrencia de un día laborable de inicio en un mes a una fecha variable final.
-    * __Fecha variable - ocurrencia en mes__: desde una fecha variable de inicio hasta el final de un a ocurrencia de día de la semana en un mes.
-    * __Fecha - sin plazo definido__: desde una fecha de inicio en adelante.
-    * __Fecha variable - final abierto__: desde una fecha de inicio variable en adelante.
-    * __Ocurrencia en mes - final abierto__: a partir de una ocurrencia de un día de la semana en un mes en adelante.
-    * __Con compensaciones...__: las mismas entradas que arriba pero con compensaciones especificadas (esto no se utiliza a menudo).
-* __Add year range...__    
-    * __Añadir rango de año__: añadir un selector basado en el año.
-    * __Add starting year__: add an open ended year range.
-* __Añadir rango de semana__: agregar un selector basado en el número de la semana.
-* __Duplicar__: crear una copia de esta regla y insertarla después de la posición actual.
-* __Mostrar tipo de regla__: mostrar y permitir el cambio del tipo de regla _normal_, _additive_ y _fallback_ (no disponible en la primera regla).
-* __Ascender__: subir esta regla una posición (no disponible en la primera regla).
-* __Bajar__: bajar esta regla una posición.
-* __Eliminar__: eliminar esta regla.
+    * __Fecha - Fecha__: desde una fecha de inicio (año, mes, día) hasta una fecha de fin.
+    * __Fecha variable - Fecha__: desde una fecha de inicio variable (actualmente la especificación solo define _Pascua_) hasta una fecha de fin.
+    * __Fecha - Fecha variable__: desde una fecha de inicio hasta una fecha variable.
+    * __Fecha variable - Fecha variable__: desde una fecha de inicio variable hasta una fecha de fin variable.
+    * __Ocurrencia en mes - Ocurrencia en mes__: desde una ocurrencia de día de la semana de inicio en un mes hasta la misma.
+    * __Ocurrencia en mes - Fecha__: desde una ocurrencia de día de la semana de inicio en un mes hasta una fecha de fin.
+    * __Fecha - Ocurrencia en mes__: desde una fecha de inicio hasta una ocurrencia de día de la semana de fin en un mes.
+    * __Ocurrencia en mes - Fecha variable__: desde una ocurrencia de día de la semana de inicio en un mes hasta una fecha variable de fin.
+    * __Fecha variable - Ocurrencia en mes__: desde una fecha variable de inicio hasta una ocurrencia de día de la semana de fin en un mes.
+    * __Fecha - Fin abierto__: desde una fecha de inicio en adelante.
+    * __Fecha variable - Fin abierto__: desde una fecha de inicio variable en adelante.
+    * __Ocurrencia en mes - Fin abierto__: desde una ocurrencia de un día de la semana en un mes en adelante.
+    * __Con desfases…__: las mismas entradas que las anteriores, pero con desfases especificados (esto se utiliza con poca frecuencia).
+* __Añadir rango de años…__    
+    * __Añadir rango de años__: añade un selector basado en el año.
+    * __Añadir año de inicio__: añade un rango de años con final abierto.
+* __Añadir rango de semana__: agrega un selector basado en el número de semana.
+* __Duplicar__: crea una copia de esta regla y la inserta después de la posición actual.
+* __Mostrar tipo de regla__: muestra y permite cambiar el tipo de regla: _normal_, _aditiva_ y _de reserva_ (no disponible en la primera regla).
+* __Ascender__: sube esta regla una posición (no disponible en la primera regla).
+* __Bajar__: baja esta regla una posición.
+* __Eliminar__: elimina esta regla.
 
-### Lapsos de tiempo
+### Intervalos de tiempo
 
-Para que el tiempo de edición sea lo más fácil posible, tratamos de elegir un rango de tiempo y una granularidad óptimos para las barras de rango al cargar valores existentes. Para nuevos tiempos, las barras comienzan a las 6:00 (am) y tienen incrementos de 15 minutos, esto se puede cambiar a través del menú.
+Para que la edición de intervalos de tiempo sea lo más sencilla posible, intentamos elegir un rango de tiempo y una granularidad óptimos para las barras de rango al cargar valores existentes. Para intervalos de tiempo nuevos, las barras comienzan a las 6:00 (a. m.) y tienen incrementos de 15 minutos; esto se puede cambiar a través del menú.
 
-Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+Al hacer clic en la barra de tiempo (no en los marcadores), se abrirá el selector de tiempo grande, cuando el uso directo de las barras sea demasiado difícil. Los selectores de tiempo se extienden hasta el día siguiente, por lo que son una forma sencilla de extender un rango de tiempo sin tener que eliminar y volver a agregar el rango.
 
-#### Menú de lapso de tiempo
+#### Menú de intervalo de tiempo
 
-* __Mostrar el selector de tiempo__: mostrar un selector de tiempo para seleccionar la hora de inicio y finalización, en pantallas muy pequeñas esta es la forma preferida de cambiar los horarios.
-* __Cambiar a marcas de 15 minutos__: use una granularidad de 15 minutos para la barra de rango.
-* __Cambiar a ticks de 5 minutos__: use una granularidad de 5 minutos para la barra de rango.
-* __Cambiar a marcas de 1 minuto__: use una granularidad de 1 minuto para la barra de rango, muy difícil de usar en un teléfono.
-* __Comienzar a la medianoche__: iniciar la barra de rango a la medianoche.
-* __Mostrar intervalo__: mostrar el campo de intervalo para especificar un intervalo en minutos.
-* __Eliminar__: eliminar este lapso de tiempo.
+* __Mostrar selector de tiempo__: muestra un selector de tiempo grande para seleccionar la hora de inicio y finalización; en pantallas muy pequeñas, esta es la forma preferida de cambiar las horas.
+* __Cambiar a intervalos de 15 minutos__: usa una granularidad de 15 minutos para la barra de rango.
+* __Cambiar a intervalos de 5 minutos__: usa una granularidad de 5 minutos para la barra de rango.
+* __Cambiar a intervalos de 1 minuto__: usa una granularidad de 1 minuto para la barra de rango (muy difícil de usar en un teléfono).
+* __Comenzar a medianoche__: inicia la barra de rango a medianoche.
+* __Mostrar intervalo__: muestra el campo de intervalo para especificar un intervalo en minutos.
+* __Eliminar__: elimina este intervalo de tiempo.
 
 ### Administrar plantillas
 
-The template management dialog allows you to add, edit and delete templates.
+El cuadro de diálogo de administración de plantillas te permite agregar, editar y eliminar plantillas.
 
-In Android 4.4 and later the following additional functionality is available from the menu button. 
+En Android 4.4 y versiones posteriores, la siguiente funcionalidad adicional está disponible en el botón de menú.
 
-* __Show all__: display all templates in the database.
-* __Save to file__: write the contents of the template database to a file.
-* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
-* __Load from file__: load templates from a file retaining the current contents.
+* __Mostrar todo__: muestra todas las plantillas en la base de datos.
+* __Guardar en archivo__: escribe el contenido de la base de datos de plantillas en un archivo.
+* __Cargar desde archivo (reemplazar)__: carga plantillas desde un archivo reemplazando el contenido actual de la base de datos.
+* __Cargar desde archivo__: carga plantillas desde un archivo conservando el contenido actual.
 
-#### Save and edit template dialogs
+#### Cuadros de diálogo para guardar y editar plantillas
 
-The dialog allows you to set
+El cuadro de diálogo te permite configurar:
 
-* __Name__ a descriptive name for the template.
-* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
-* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
-* __Region__ the region the template is applicable to.
-* __Object__ an application specific string to use for matching.
+* __Nombre__: un nombre descriptivo para la plantilla.
+* __Predeterminado__: si está marcado, se considerará como una plantilla predeterminada (normalmente más restringida por los otros campos).
+* __Clave__: la clave para la que esta plantilla es relevante; si se establece en _Clave personalizada_, puedes agregar un valor no estándar en el campo de abajo. Los valores de clave admiten comodines SQL, es decir, _%_ coincide con cero o más caracteres, *_* coincide con un solo carácter. Ambos caracteres comodín se pueden escapar con _\\_ para coincidencias literales.
+* __Región__: la región a la que se aplica la plantilla.
+* __Objeto__: una cadena específica de la aplicación para usar en la coincidencia.
 

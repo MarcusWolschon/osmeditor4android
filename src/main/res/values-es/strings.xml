@@ -3,8 +3,8 @@
   <!--Mode names-->
   <string name="mode_easy">Normal</string>
   <string name="mode_tag_only">Solo etiquetas</string>
-  <string name="mode_indoor">Interior</string>
-  <string name="mode_correct">Modo C</string>
+  <string name="mode_indoor">Interiores</string>
+  <string name="mode_correct">Modo-C</string>
   <string name="mode_address">Dirección</string>
   <string name="mode_voice">Voz</string>
   <!--additional short cuts-->
@@ -180,6 +180,15 @@
   <string name="upload_request_review_label">Solicitar revisión:</string>
   <string name="upload_validation_error_empty_comment">El comentario no debe estar vacío</string>
   <string name="upload_validation_error_empty_source">La fuente no debe estar vacía</string>
+  <string name="upload_empty_comment_warning_label">Advertir si el comentario está vacío</string>
+  <string name="upload_auto_summary">Resumen generado automáticamente</string>
+  <string name="untagged_node">nodo sin etiquetas</string>
+  <string name="untagged_way">vía sin etiquetas</string>
+  <string name="untagged_relation">relación sin etiquetas</string>
+  <string name="changed_preset">%1$s a %2$s</string>
+  <string name="changed_tags">%1$s etiquetas cambiadas</string>
+  <string name="moved">%1$s movidas</string>
+  <string name="unknown_object">objeto desconocido</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">Revisar cambios</string>
   <!--Upload GPX-->
@@ -274,7 +283,7 @@
   <string name="search_objects_hint">Ingresa un filtro JOSM / expresión de búsqueda</string>
   <string name="search_objects_use_regexps">Usar expresiones regulares</string>
   <string name="search_objects_unsupported">Expresión no admitida \"%1$s\"</string>
-  <string name="search_objects_query_overpass">Consultar Overpass</string>
+  <string name="search_objects_query_overpass">Consulta Overpass</string>
   <!---->
   <string name="preset_search_hint">Cadena de búsqueda de presets</string>
   <string name="preset_autopreset">Preset automático</string>
@@ -376,8 +385,8 @@
   <string name="run">Ejecutar</string>
   <string name="overpass_result">Se descargaron %1$d nodo(s), %2$d vía(s) y %3$d relación(es).</string>
   <string name="overpass_console">Consola Overpass</string>
-  <string name="select_result">Seleccionar resultado</string>
-  <string name="merge_result">Combinar resultado</string>
+  <string name="select_result">Seleccionar</string>
+  <string name="merge_result">Combinar</string>
   <string name="overpass_query_would_overwrite">¡El resultado sobrescribiría los cambios! Consulta abortada.</string>
   <!---->
   <string name="error">Error</string>
@@ -388,6 +397,7 @@
   <string name="attached_object_warning_title">¡Esta operación afecta a los objetos adjuntos filtrados!</string>
   <string name="attached_object_warning_message">El objeto modificado está conectado a elementos ocultos que cambiarán con él.</string>
   <!--replace geometry confirm-->
+  <string name="remove_geometry_source">¿Eliminar la fuente de la geometría?</string>
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Aceptar, seguir mostrando</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -469,6 +479,7 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">Grabación GPX</string>
   <string name="layer_photos">Fotos</string>
+  <string name="layer_photos_reindex">Reindexar</string>
   <string name="layer_tasks">Tareas</string>
   <string name="layer_data">Datos OSM</string>
   <string name="layer_data_name">Datos %1$s</string>
@@ -529,6 +540,8 @@
   <!--Element issue dialog-->
   <string name="tag_conflict_title">Propiedades modificadas</string>
   <string name="tag_conflict_message">La operación requirió cambiar las propiedades de los elementos involucrados.</string>
+  <string name="replace_geometry_issue_title">Elemento cambiado</string>
+  <string name="replace_geometry_issue_message">La operación requería cambiar la posición o pertenencia de un elemento.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">No hay relaciones adecuadas en los datos descargados.</string>
   <string name="select_route_title">Seleccionar ruta</string>
@@ -573,6 +586,7 @@
   <string name="tip_longpress_simple_mode">En el modo simple, una pulsación larga no hará nada. Desactiva el modo simple en el menú principal si deseas utilizar pulsaciones largas para crear objetos.</string>
   <string name="tip_gpx_no_elevation">A partir de la versión 15, las trazas GPX ya no contienen información de elevación de forma predeterminada.&lt;p&gt;Para habilitar el registro de elevación, instala un modelo de geoide con &lt;i&gt;Instalar EGM&lt;/i&gt; desde el menú Herramientas o cambia a la entrada NMEA.</string>
   <string name="tip_tag_conflict">La combinación y la inversión de elementos OSM a veces requiere cambiar los atributos de los elementos; si hay un posible error o conflicto, se te alertará y se te ofrecerá la oportunidad de revisar los objetos en cuestión.</string>
+  <string name="tip_replace_geometry">Reemplazar la geometría de una vía a menudo requiere mover la posición de nodos existentes. Si estos tienen etiquetas, es decir, representan objetos, esto podría ser no deseable.&lt;p&gt;Para evitar este problema, extraemos los nodos que no están dentro de un pequeño radio de tolerancia de la vía principal y mostramos una advertencia. Puedes ajustar la tolerancia (por defecto 1 m) en las preferencias avanzadas.</string>
   <string name="tip_gpx_recording">Cuando inicias la grabación GPX, Vespucci recopila datos de ubicación para habilitar la grabación GPX incluso cuando la app no está visible.&lt;p&gt;Cerrar explícitamente la aplicación o desactivar la grabación GPX detendrá el uso de datos de ubicación en tales situaciones.</string>
   <string name="tip_auto_download">Cuando inicias la descarga automática de datos o tareas de OSM, Vespucci utiliza los datos de ubicación para determinar la posición actual, incluso cuando la app no está visible.&lt;p&gt;Cerrar explícitamente la aplicación o desactivar la descarga automática detendrá el uso de datos de ubicación en tales situaciones.</string>
   <string name="tip_tristate_checkbox">Acabas de tocar una casilla de verificación triestado. Estas funcionan como casillas normales, alternando entre dos valores, por ejemplo, sí/no o verdadero/falso.&lt;p&gt;Sin embargo, tienen un tercer estado adicional  &lt;b&gt;no establecido&lt;/b&gt;, indicado por una casilla de verificación atenuada, que impedirá que se agregue la etiqueta correspondiente. Puedes establecer la casilla de verificación en este estado con una pulsación larga.</string>
@@ -585,6 +599,7 @@
   <string name="tip_disambiguation_menu">Cuando varios elementos OSM u otros objetos están muy juntos o los elementos son miembros de relaciones, se mostrará el menú de desambiguación. A continuación, puedes seleccionar el elemento específico de la lista.&lt;p&gt;Si un elemento ya está seleccionado, se resaltará.</string>
   <string name="tip_file_import">En dispositivos con Android 10 o posterior, necesitamos copiar archivos para poder acceder a ellos por completo. Las copias se encuentran en &lt;i&gt;Descargas/Vespucci/imports&lt;/i&gt;. Si es necesario, puedes eliminar los originales y conservar solo las copias.</string>
   <string name="tip_wms_tile_size">Los servidores WMS pueden admitir tamaños de tesela mayores que 256x256; considera usar 512x512 para una configuración más eficiente.</string>
+  <string name="tip_empty_comment_warning">Vespucci siempre agrega un resumen generado automáticamente de lo que subiste.&lt;p&gt;Deberías considerar agregar algunas palabras sobre el motivo de tus ediciones para dar más contexto a otros mapeadores.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -1018,14 +1033,14 @@
   <string name="menu_gps_goto_start">Ir al inicio de la traza GPX</string>
   <string name="menu_gps_goto_first_waypoint">Ir al primer punto de ruta</string>
   <string name="menu_gps_add_bookmark">Añadir marcador…</string>
-  <string name="menu_enable_gps_autodownload">Descarga automática basada en la ubicación</string>
-  <string name="menu_enable_pan_and_zoom_auto_download">Descarga automática de desplazamiento y zoom</string>
+  <string name="menu_enable_gps_autodownload">Autodescarga por ubicación</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">Autodescarga por desplazamiento y zoom</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Descargar vista actual</string>
   <string name="menu_transfer_download_replace">Borrar y descargar vista actual</string>
   <string name="menu_transfer_load_current">Cargar vista actual</string>
   <string name="menu_transfer_load_replace">Borrar y cargar vista actual</string>
-  <string name="menu_transfer_query_overpass">Consultar Overpass…</string>
+  <string name="menu_transfer_query_overpass">Consulta Overpass…</string>
   <string name="menu_transfer_upload">Subir datos al servidor OSM…</string>
   <string name="menu_transfer_review">Revisar cambios…</string>
   <string name="menu_transfer_update">Actualizar datos</string>
@@ -1044,7 +1059,7 @@
   <string name="menu_transfer_bugs_upload_long">Subir todas las tareas</string>
   <string name="menu_transfer_bugs_clear">Borrar</string>
   <string name="menu_transfer_bugs_clear_long">Borrar tareas</string>
-  <string name="menu_transfer_autodownload_long">Descarga automática de tareas</string>
+  <string name="menu_transfer_autodownload_long">Autodescarga de tareas</string>
   <string name="menu_transfer_save_notes_all">Guardar todas las notas…</string>
   <string name="menu_transfer_save_notes_new_and_changed">Guardar notas nuevas y modificadas…</string>
   <string name="menu_transfer_read_notes">Cargar notas…</string>
@@ -1074,6 +1089,7 @@
   <string name="menu_voice_commands">Comandos de voz</string>
   <string name="menu_upload_element">Subir elemento</string>
   <string name="menu_upload_elements">Subir elementos</string>
+  <string name="menu_replace_geometry">Reemplazar geometría…</string>
   <string name="menu_todo">Tarea pendiente…</string>
   <string name="menu_todo_close_and_next">Cerrar e ir a la siguiente</string>
   <string name="menu_todo_skip_and_next">Omitir e ir a la siguiente</string>
@@ -1203,6 +1219,7 @@
   <string name="actionmode_extract_segment_select">Seleccionar segmento</string>
   <string name="actionmode_extract_segment_set_tags">Establecer etiquetas</string>
   <string name="actionmode_createpath_follow_way_select_end_node">Seleccionar nodo final</string>
+  <string name="actionmode_subtitle_replace_geometry">Seleccionar nueva fuente de geometría</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 objeto</item>
     <item quantity="many">%1$d objetos</item>
@@ -1319,6 +1336,7 @@
   <string name="config_enableAntiAliasing_title">Habilitar antialiasing</string>
   <string name="config_enableAntiAliasing_summary">Suaviza las líneas.</string>
   <string name="config_enableHwAcceleration_title">Habilitar aceleración por hardware</string>
+  <string name="config_enableHwAcceleration_summary">Activar el uso de renderizado por hardware en Android 10 y versiones posteriores.</string>
   <string name="config_maxStrokeWidth_title">Ancho máximo de línea</string>
   <string name="config_maxStrokeWidth_summary">No dibujes una vía con un grosor mayor que este.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -1351,7 +1369,7 @@
   <string name="config_poi_keys_summary">Establece las claves utilizadas para la visualización de PDI cercanos.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Ajustes de datos y edición</string>
-  <string name="config_category_editing_summary">Ajustes de descarga automática, guardado y notificaciones.</string>
+  <string name="config_category_editing_summary">Ajustes de autodescarga, guardado y notificaciones.</string>
   <string name="config_forceContextMenu_title">Usar siempre el menú contextual</string>
   <string name="config_forceContextMenu_summary">Muestra siempre el menú contextual si una selección es ambigua.</string>
   <string name="config_overrideRegionAddressTags_title">Anular la etiqueta de dirección predeterminada</string>
@@ -1400,9 +1418,11 @@
   <string name="config_minCircleSegment_title">Longitud mínima del segmento del círculo</string>
   <string name="config_minCircleSegment_summary">Distancia mínima entre dos nodos del círculo.</string>
   <string name="config_minCircleSegment_current">%1$d metro(s)</string>
+  <string name="config_replaceTolerance_title">Distancia máxima para mover un nodo etiquetado</string>
+  <string name="config_replaceTolerance_summary">Distancia máxima para mover un nodo etiquetado al reemplazar la geometría de una vía.</string>
   <string name="config_replaceTolerance_current">%1$d metro(s)</string>
   <!--Auto-download settings-->
-  <string name="config_category_auto_download">Configuración de descarga automática</string>
+  <string name="config_category_auto_download">Ajustes de descarga automática</string>
   <string name="config_category_auto_download_summary">Ajustes para la descarga automática de datos y tareas</string>
   <string name="config_extTriggeredDownloadRadius_title">Radio de descarga</string>
   <string name="config_extTriggeredDownloadRadius_summary">Radio (m) de descargas activadas externamente, 0 centra solo en el mapa.</string>
@@ -1429,7 +1449,7 @@
   <string name="config_autoPruneTaskLimit_summary">Número de tareas en la memoria que, cuando se alcanzan, activarán una poda.</string>
   <string name="config_autoPruneTaskLimit_current">%1$d tareas</string>
   <!--Location Settings-->
-  <string name="config_category_gps">Configuración de ubicación</string>
+  <string name="config_category_gps">Ajustes de ubicación</string>
   <string name="config_category_gps_summary">Parámetros de GPS/GNSS y otros proveedores de ubicación.</string>
   <string name="config_gps_source_title">Fuente de GPS/GNSS</string>
   <string name="config_gps_source_summary">Fuente de actualizaciones de ubicación de GPS/GNSS.</string>
@@ -1474,7 +1494,7 @@
   <string name="config_category_layers_summary">Descarga y almacenamiento de imágenes de fondo basadas en teselas.</string>
   <string name="config_maxTileDownloadThreads_title">Número máx. de hilos de descarga</string>
   <string name="config_maxTileDownloadThreads_summary">Número máximo de hilos para descargar teselas.</string>
-  <string name="config_downLoadThreads_current">%1$d hilos</string>
+  <string name="config_downLoadThreads_current">%1$d Hilos</string>
   <string name="config_tileCacheSize_title">Tamaño de la caché de teselas</string>
   <string name="config_tileCacheSize_summary">Almacenamiento total utilizado para el almacenamiento en caché de teselas, en MB.</string>
   <string name="config_preferRemovableStorage_title">Preferir almacenamiento extraíble</string>
@@ -1545,7 +1565,7 @@
   <!--API configuration-->
   <string name="api_name">Nombre de la API</string>
   <string name="api_url">URL de la API</string>
-  <string name="readonly_url">URL de la API de solo lectura (opcional)</string>
+  <string name="readonly_url">URL de API de solo lectura (opcional)</string>
   <string name="notes_url">URL de la API de notas (opcional)</string>
   <string name="copy_of">Copia de %1$s</string>
   <!--common terms-->
@@ -1610,6 +1630,7 @@
   <string name="undo_action_apply_osc">Aplicar archivo OSC</string>
   <string name="undo_action_remove_node_from_way">Quitar nodo de la vía</string>
   <string name="undo_action_extract_segment">Extraer segmento</string>
+  <string name="undo_action_replace_geometry">Reemplazar geometría</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci se bloqueó o encontró un problema grave la última vez que se ejecutó.\n\nPulsa \"Aceptar\" para enviar un informe de error.\n</string>
   <string name="crash_dialog_comment_prompt">Agrega cualquier información adicional que creas que pueda ayudar y (opcionalmente) tu nombre de usuario de OSM si deseas recibir comentarios.\n\nGracias.</string>
@@ -1655,6 +1676,7 @@
   <string name="issue_shared_node">Compartido con otra vía</string>
   <string name="issue_tags_reversed">Etiquetas invertidas</string>
   <string name="issue_role_reversed">Rol invertido</string>
+  <string name="issue_oneway_direction_reversed">Dirección de una vía de un solo sentido invertida</string>
   <string name="issue_role_conflict">Conflicto de roles</string>
   <string name="issue_merged_tags">Etiquetas combinadas</string>
   <string name="issue_same_object">Mismo objeto</string>
@@ -1662,6 +1684,7 @@
   <string name="issue_split_metric">El valor dependiente de la longitud se dividió</string>
   <string name="issue_split_route_ordering">La ruta puede necesitar un reordenamiento manual</string>
   <string name="issue_precondition_relation_member_count">Se excedió el recuento de miembros de la relación</string>
+  <string name="issue_replace_extracted_node">Nodo etiquetado extraído de la vía</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 día</item>

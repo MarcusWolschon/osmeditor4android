@@ -20,6 +20,7 @@
     <string name="help_advanced_preferences">進階參數選項</string>
     <string name="help_custom_imagery">客製化影像</string>
     <string name="help_presets">預設</string>
+    <string name="help_uploading">上傳你的變動</string>
     <string name="help_conflictresolution">排除衝突</string>
     <string name="help_gpssources">GPS 來源</string>
     <string name="help_keyboard">鍵盤</string>
@@ -29,6 +30,10 @@
     <string name="help_newnoteselection">選擇新的備註</string>
     <string name="help_voice_commands">語音指令</string>
     <string name="help_add_route_segment">新增關聯片段</string>
+    <string name="help_tag_only_mode">只有標籤模式</string>
+    <string name="help_indoor_mode">室內模式</string>
+    <string name="help_address_mode">地址模式</string>
+    <string name="help_upgrade">20.2 發佈通知</string>
     <string name="help_upgrade_210">20.1 發佈通知</string>
     <string name="help_upgrade_200">20.0 發佈通知</string>
     <string name="help_upgrade_193">19.3 發佈通知</string>

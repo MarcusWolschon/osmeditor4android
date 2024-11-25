@@ -16,6 +16,7 @@
   <string name="transfer_download_current_download">放棄與下載</string>
   <string name="transfer_download_current_back">返回 (不要做任何事情) </string>
   <string name="upload_problem_title">無法上傳</string>
+  <string name="upload_problem_message">有一些或全部的資料未被上傳，請再嘗試上傳。</string>
   <string name="bad_request_message">API 回傳錯誤，請儲存你的資料然後回報問題:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">上傳衝突</string>
@@ -71,6 +72,8 @@
   <string name="invalid_bounding_box_title">無效的邊框</string>
   <string name="invalid_bounding_box_message">選擇的區域無法符合 API 限制，請選擇另一個地方。</string>
   <string name="bounding_box_too_large_title">下載的區域太大</string>
+  <string name="bounding_box_too_large_message">你嘗試下載的地方太大或是有太多資料。
+ &lt;br&gt;&lt;br&gt;請放更大並再試一次。</string>
   <string name="api_offline_title">API 離線</string>
   <string name="api_offline_message">該 API 目前處於離線，無法存取資料。</string>
   <string name="out_of_memory_title">記憶體不足</string>
@@ -91,6 +94,10 @@
   <string name="duplicate_tag_key_title">重覆的鍵</string>
   <string name="duplicate_tag_key_message">你新增下列鍵超過一次，請先解決再繼續下去：</string>
   <string name="autodownload_has_been_paused">已經暫停自動下載</string>
+  <string name="upload_bounding_box_too_large_title">上傳的區域太大了</string>
+  <string name="upload_bounding_box_too_large_message">你變動包括的區域太大了。
+&lt;br&gt;&lt;br&gt;請分割你的變動為多個較小的變動。
+你可以藉由選擇變動元素的子集並分開上傳。</string>
   <!---->
   <string name="select_file_picker_title">選取檔案選取器</string>
   <!--Newbie dialog-->
@@ -168,6 +175,15 @@
   <string name="upload_request_review_label">請求審核：</string>
   <string name="upload_validation_error_empty_comment">註解不應該留空</string>
   <string name="upload_validation_error_empty_source">來源不應該留空</string>
+  <string name="upload_empty_comment_warning_label">當註記空白時警告</string>
+  <string name="upload_auto_summary">自動產生摘要</string>
+  <string name="untagged_node">沒有標籤的節點</string>
+  <string name="untagged_way">沒有標籤的路徑</string>
+  <string name="untagged_relation">沒有標籤的關係</string>
+  <string name="changed_preset">%1$s 到 %2$s</string>
+  <string name="changed_tags">%1$s個已經變動的標籤</string>
+  <string name="moved">%1$s個已經移動了</string>
+  <string name="unknown_object">不明的物件</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">覆核變動</string>
   <!--Upload GPX-->
@@ -374,6 +390,7 @@
   <string name="attached_object_warning_title">這次動作影響篩選、附著的物件！</string>
   <string name="attached_object_warning_message">變動的物件同時遲結到隱藏的元件會同時改變。</string>
   <!--replace geometry confirm-->
+  <string name="remove_geometry_source">是否移除幾何來源？</string>
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK，繼續顯示</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -455,6 +472,7 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">GPX 錄製</string>
   <string name="layer_photos">照片</string>
+  <string name="layer_photos_reindex">重新索引</string>
   <string name="layer_tasks">任務</string>
   <string name="layer_data">OSM 資料</string>
   <string name="layer_data_name">%1$s資料</string>
@@ -515,6 +533,8 @@
   <!--Element issue dialog-->
   <string name="tag_conflict_title">屬性已經變動了</string>
   <string name="tag_conflict_message">這個操作需要改變涉入元愫的屬性。</string>
+  <string name="replace_geometry_issue_title">元素已經改變</string>
+  <string name="replace_geometry_issue_message">這次操作需要改變元素位置或是成員身份。</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">下載資料沒有適當的關聯</string>
   <string name="select_route_title">選擇路線</string>
@@ -559,6 +579,7 @@
   <string name="tip_longpress_simple_mode">在簡單模式之下長按什麼事情都不會發生。如果要用長按方式來新增物件，則要在主選單關閉簡單模式。</string>
   <string name="tip_gpx_no_elevation">從版本 15 開始，GPX 軌跡預設將不會有海拔資訊。&lt;p&gt;要啟用海拔記錄，請在用&lt;i&gt;安裝 Geoid 模式。從工具選單安裝 EGM&lt;/i&gt; ，或是切換為 NMEA 輸入。</string>
   <string name="tip_tag_conflict">合併或回復 OSM 元件有時候需要改變元件的屬性，如果變動時有可能出現錯誤或衝突的話，你能手動審核有問題的元件。</string>
+  <string name="tip_replace_geometry">取代路徑的幾何通常需要移動既有節點的位置，如果這些節點都有標籤，表示他們本身代表物件，這可能不太妙。&lt;p&gt;要避免上述問題，我們從上層路徑截取沒有在容許範圍內的節點，然後顯示警告。你可以在進階設定調整容許值 (預設為1公尺)。</string>
   <string name="tip_gpx_recording">當你開始錄製 GPX 時，Vespucci 收集地點資訊，即便 app 在背景，仍然在錄製。強制關閉 app 或是停止 GPS 記錄，則會停止收集位置資料。</string>
   <string name="tip_auto_download">當你自動下載 OSM 資料或是任務時，Vespucci 運用位置資料來決定你所在位置，即便你 app 在背景執行。.&lt;p&gt;強制關閉 app 或是將自動下載關掉則會停止記錄位置資訊。</string>
   <string name="tip_tristate_checkbox">你剛弄到三相檢核框，就像一般檢核框，能夠在兩個值變動，例如說是/否，或是真/假。&lt;p&gt;然而這個有第三個狀態&lt;b&gt;沒有設定&lt;/b&gt; 狀態，用灰階的檢核框來顯示，不會在相關的標籤做出變動。你可以透過長按來設定檢核框的狀態。</string>
@@ -569,7 +590,9 @@
   <string name="tip_way_splitting">碰觸高亮度呈現的節點來決定分割位置，長按則會允許你選擇那個部分會在接下來的步驟成為新的路徑。</string>
   <string name="tip_closed_way_splitting">封閉路徑必須分割為兩部分，碰觸高度度呈現的節點來決定第一個分割位置，接下來則會詢問第二個位置。</string>
   <string name="tip_disambiguation_menu">當有多個 OSM 元素或其他物件相當靠近彼此，或是元素是關聯的成員，消歧義的選單就會出現。你可以從清單選擇精確的元素。&lt;p&gt; 如果已經有元素被選取則會高亮度顯示。</string>
+  <string name="tip_file_import">在運行 Android 10 或者之後版本的裝置上，你必須複製檔案才會有完整權限。複製的檔案位於  &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;.，如果需要你可以刪除原檔只需要保留複製版本。</string>
   <string name="tip_wms_tile_size">WMS 伺服器能夠支援大於 256x256 大小的圖磚，考慮使用 512x512 的更有效設定。</string>
+  <string name="tip_empty_comment_warning">Vespucci 總是自動新增你上傳事物的摘要。&lt;p&gt;你仍然應該考慮新增一些文字為何你做出這次編輯，並且提供更多背景資訊給其他圖客。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -1051,6 +1074,7 @@
   <string name="menu_voice_commands">聲音指令</string>
   <string name="menu_upload_element">上傳片段</string>
   <string name="menu_upload_elements">上傳片段</string>
+  <string name="menu_replace_geometry">取代幾何…</string>
   <string name="menu_todo">待辦…</string>
   <string name="menu_todo_close_and_next">關閉與到下一個</string>
   <string name="menu_todo_skip_and_next">跳過並且到下一個</string>
@@ -1180,6 +1204,7 @@
   <string name="actionmode_extract_segment_select">選擇片段</string>
   <string name="actionmode_extract_segment_set_tags">設定標籤</string>
   <string name="actionmode_createpath_follow_way_select_end_node">選擇結束節點</string>
+  <string name="actionmode_subtitle_replace_geometry">選擇新來源幾何</string>
   <plurals name="actionmode_object_count">
     <item quantity="other">%1$d 物件</item>
   </plurals>
@@ -1294,6 +1319,7 @@
   <string name="config_enableAntiAliasing_title">啟用反鋸齒</string>
   <string name="config_enableAntiAliasing_summary">使線條更滑順。</string>
   <string name="config_enableHwAcceleration_title">啟用硬體加速</string>
+  <string name="config_enableHwAcceleration_summary">在 Android 10 以及之後版本啟用硬體渲染。</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的道路。</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -1375,6 +1401,8 @@
   <string name="config_minCircleSegment_title">圓圈片段的最小長度</string>
   <string name="config_minCircleSegment_summary">圓圈節點的最小距離。</string>
   <string name="config_minCircleSegment_current">%1$d公尺</string>
+  <string name="config_replaceTolerance_title">移動有標籤節點的最大距離</string>
+  <string name="config_replaceTolerance_summary">當取代路徑幾何時移動有標籤節點的最大距離。</string>
   <string name="config_replaceTolerance_current">%1$d公尺</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
@@ -1429,6 +1457,7 @@
   <string name="config_category_server">伺服器設定</string>
   <string name="config_category_server_summary">OSM API 和其他伺服器設定。</string>
   <string name="config_apibutton_title">OSM API URL</string>
+  <string name="config_apibutton_summary">設定你使用的 OSM API 的 URL 與認證方式。</string>
   <string name="config_loginbutton_title">使用者帳號</string>
   <string name="config_username_summary">如果您不使用 OAuth，才要設定上傳 OSM 資料用的帳號。帳號可在這申請 https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">偏移伺服器</string>
@@ -1584,6 +1613,7 @@
   <string name="undo_action_apply_osc">套用 OSC 檔案</string>
   <string name="undo_action_remove_node_from_way">移除路徑的節點</string>
   <string name="undo_action_extract_segment">抽出片段</string>
+  <string name="undo_action_replace_geometry">取代幾何</string>
   <!--ACRA-->
   <string name="crash_dialog_text">上次 Vespucci 運行時當掉或是遇到嚴重的問題。\n\n請點 \'OK\' 來傳送錯誤報告。\n</string>
   <string name="crash_dialog_comment_prompt">增加任何你覺得能幫助的資訊 (選擇性)，如要回應請填 OSM 名稱。\n\n謝謝你。</string>
@@ -1629,6 +1659,7 @@
   <string name="issue_shared_node">與其他路徑分享</string>
   <string name="issue_tags_reversed">標籤回復</string>
   <string name="issue_role_reversed">角色回復</string>
+  <string name="issue_oneway_direction_reversed">單行道方向倒轉</string>
   <string name="issue_role_conflict">角色衝突</string>
   <string name="issue_merged_tags">合併標籤</string>
   <string name="issue_same_object">相同物件</string>
@@ -1636,6 +1667,7 @@
   <string name="issue_split_metric">長度相關數值已經分割</string>
   <string name="issue_split_route_ordering">路線也許需要手動調整順序</string>
   <string name="issue_precondition_relation_member_count">超出關聯成員數目</string>
+  <string name="issue_replace_extracted_node">有標籤節點從路徑抽出</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="other">%1$d天</item>

@@ -170,6 +170,15 @@
   <string name="upload_request_review_label">Anfrage prüfen:</string>
   <string name="upload_validation_error_empty_comment">Kommentar sollte nicht leer sein</string>
   <string name="upload_validation_error_empty_source">Quelle sollte nicht leer sein</string>
+  <string name="upload_empty_comment_warning_label">Warnung, wenn der Kommentar leer ist</string>
+  <string name="upload_auto_summary">Automatisch erzeugte Zusammenfassung</string>
+  <string name="untagged_node">nicht gekennzeichneter Knoten</string>
+  <string name="untagged_way">nicht gekennzeichneter Weg</string>
+  <string name="untagged_relation">nicht gekennzeichnete Relation</string>
+  <string name="changed_preset">%1$s zu %2$s</string>
+  <string name="changed_tags">%1$s Tags geändert</string>
+  <string name="moved">%1$s verschoben</string>
+  <string name="unknown_object">unbekanntes Objekt</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">Änderungen überprüfen</string>
   <!--Upload GPX-->
@@ -377,6 +386,7 @@
   <string name="attached_object_warning_title">Diese Aktion verändert gefilterte verbundene Objekte!</string>
   <string name="attached_object_warning_message">Das veränderte Objekt ist mit versteckten Objekten verbunden, die auch geändert werden.</string>
   <!--replace geometry confirm-->
+  <string name="remove_geometry_source">Geometriequelle entfernen?</string>
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, diese Meldung weiter anzeigen</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -458,6 +468,7 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">GPX-Aufnahme</string>
   <string name="layer_photos">Fotos</string>
+  <string name="layer_photos_reindex">Neu indexieren</string>
   <string name="layer_tasks">Aufgaben</string>
   <string name="layer_data">OSM-Daten</string>
   <string name="layer_data_name">%1$s Daten</string>
@@ -518,6 +529,8 @@
   <!--Element issue dialog-->
   <string name="tag_conflict_title">Eigenschaften geändert</string>
   <string name="tag_conflict_message">Die Operation musste Eigenschaften der beteiligten Objekte ändern.</string>
+  <string name="replace_geometry_issue_title">Element geändert</string>
+  <string name="replace_geometry_issue_message">Der Vorgang erforderte eine Änderung der Position oder der Mitgliedschaft eines Elements.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Keine geeigneten Relationen in den heruntergeladenen Daten gefunden</string>
   <string name="select_route_title">Route auswählen</string>
@@ -562,6 +575,7 @@
   <string name="tip_longpress_simple_mode">Im einfachen Modus hat ein langer Klick keine Funktion. Schalten Sie den einfachen Modus ab, wenn Sie mit langem Klick Objekte erstellen wollen.</string>
   <string name="tip_gpx_no_elevation">Ab Version 15 enthalten GPX-Aufzeichnungen standardmäßig keine Höhendaten mehr.&lt;p&gt;Um Höhendaten hinzufügen entweder im Werkzeugmenü &lt;i&gt;EGM installieren&lt;/i&gt; auswählen, oder als Standortdatenquelle NMEA-Input verwenden.</string>
   <string name="tip_tag_conflict">Das Zusammenführen und Umdrehen von OSM-Objekten führt manchmal dazu, dass Eigenschaften der Objekte geändert werden. Falls das zu einem Fehler oder Konflikt führen könnte, wird eine Meldung angezeigt und die Änderungen können geprüft werden.</string>
+  <string name="tip_replace_geometry">Das Ersetzen der Geometrie eines Weges erfordert oft das Verschieben der Position vorhandener Knoten. Wenn diese Knoten jedoch mit Tags versehen sind, d. h. sie selbst Objekte darstellen, kann dies unerwünscht sein.&lt;p&gt;Um dieses Problem zu vermeiden, extrahieren wir Knoten, die sich nicht innerhalb eines kleinen Toleranzradius zum übergeordneten Weg befinden, und zeigen eine Warnung an. Du kannst die Toleranz (standardmäßig 1 m) in den erweiterten Einstellungen anpassen.</string>
   <string name="tip_gpx_recording">Beim Aufzeichnen eine GPX-Spur verwendet Vespucci Standortdaten um die Aufzeichnung zu ermöglichen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
   <string name="tip_auto_download">Beim automatischen Download von Daten oder Aufgaben um den aktuellen Standort verwendet Vespucci Standortdaten um den aktuellen Standort zu bestimmen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder der automatischer Download beendet, wird der Standort nicht mehr verwendet.</string>
   <string name="tip_tristate_checkbox">Sie haben gerade ein Kontrollkästchen mit drei Zuständen berührt. Diese funktionieren wie normale Kontrollkästchen, die zwischen zwei Werten, wie ja/nein oder wahr/falsch, hin- und herschalten. &lt;p&gt;Allerdings besitzen sie einen weiteren dritten&lt;b&gt;nicht aktivierten&lt;/b&gt; Zustand, der dazu führt, dass das entsprechende Merkmal nicht mehr hinzugefügt wird. Sie können das Kontrollkästchen durch langes Drücken in diesen Zustand versetzen. Es wird danach ausgegraut sein.</string>
@@ -574,6 +588,7 @@
   <string name="tip_disambiguation_menu">Wenn mehrere OSM-Elemente oder andere Objekte sehr nahe zusammen oder Elemente Mitglieder von Relationen sind, wird das Auswahlmenu angezeigt.&lt;p&gt;Ist ein Element bereits ausgewählt, so wird es hervorgehoben.</string>
   <string name="tip_file_import">Auf Geräten, die Android 10 oder neuer ausführen, müssen wir Dateien kopieren, um vollen Zugriff auf sie zu haben. Die Kopien befinden sich in &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. Falls notwendig, kannst du die Originale löschen und nur die Kopien behalten.</string>
   <string name="tip_wms_tile_size">WMS-Server können größere Kachelgrößen als 256x256 unterstützen. Für eine effizientere Konfiguration solltest du 512x512 verwenden.</string>
+  <string name="tip_empty_comment_warning">Vespucci fügt immer eine automatisch erstellte Zusammenfassung dessen hinzu, was du hochgeladen hast.&lt;p&gt;Du solltest trotzdem ein paar Worte hinzufügen, warum du die Änderungen vorgenommen hast, um anderen Mappern mehr Kontext zu geben.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -1188,6 +1203,7 @@
   <string name="actionmode_extract_segment_select">Segment auswählen</string>
   <string name="actionmode_extract_segment_set_tags">Tags setzen</string>
   <string name="actionmode_createpath_follow_way_select_end_node">Endknoten auswählen</string>
+  <string name="actionmode_subtitle_replace_geometry">Neue Quellgeometrie auswählen</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 Objekt</item>
     <item quantity="other">%1$d Objekte</item>
@@ -1303,6 +1319,7 @@
   <string name="config_enableAntiAliasing_title">Anti-Aliasing</string>
   <string name="config_enableAntiAliasing_summary">Kantenglättung anwenden</string>
   <string name="config_enableHwAcceleration_title">Hardwarebeschleunigung aktivieren</string>
+  <string name="config_enableHwAcceleration_summary">Die Verwendung von Hardware-Rendering unter Android 10 und höher aktivieren.</string>
   <string name="config_maxStrokeWidth_title">Maximale Linienbreite</string>
   <string name="config_maxStrokeWidth_summary">Weg nicht breiter zeichnen als:</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -1384,6 +1401,8 @@
   <string name="config_minCircleSegment_title">Minimale Länge eines Kreissegments</string>
   <string name="config_minCircleSegment_summary">Minimaler Abstand zwischen zwei Kreisknoten.</string>
   <string name="config_minCircleSegment_current">%1$d Meter</string>
+  <string name="config_replaceTolerance_title">Maximale Entfernung zum Verschieben des markierten Knotens</string>
+  <string name="config_replaceTolerance_summary">Maximale Entfernung, um die ein markierter Knoten beim Ersetzen der Weggeometrie verschoben werden kann.</string>
   <string name="config_replaceTolerance_current">%1$d Meter</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-Download-Einstellungen</string>
@@ -1594,6 +1613,7 @@
   <string name="undo_action_apply_osc">OSC-Datei anwenden</string>
   <string name="undo_action_remove_node_from_way">Knoten aus Weg entfernen</string>
   <string name="undo_action_extract_segment">Segment extrahieren</string>
+  <string name="undo_action_replace_geometry">Geometrie ersetzen</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci ist abgestürzt oder auf ein ernsthaftes Problem gestoßen.\n\nUnterstützen Sie uns mit einem Fehlerreport, einfach \'OK\' drücken.\n</string>
   <string name="crash_dialog_comment_prompt">Fügen Sie weitere hilfreiche Informationen hinzu und (optional) Ihren OSM-Namen, wenn Sie ein Feedback wünschen.\n\nDanke.</string>
@@ -1640,6 +1660,7 @@ in %1$d m %2$s</string>
   <string name="issue_shared_node">Wird mit anderem Weg geteilt</string>
   <string name="issue_tags_reversed">Eigenschaften gedreht</string>
   <string name="issue_role_reversed">Rolle umgedreht</string>
+  <string name="issue_oneway_direction_reversed">Einbahnrichtung umgekehrt</string>
   <string name="issue_role_conflict">Rollenkonflikt</string>
   <string name="issue_merged_tags">Eigenschaften zusammengeführt</string>
   <string name="issue_same_object">Das selbe Objekt</string>
@@ -1647,6 +1668,7 @@ in %1$d m %2$s</string>
   <string name="issue_split_metric">Längenabhängiger Wert wurde geteilt</string>
   <string name="issue_split_route_ordering">Die Route muss eventuell händisch geordnet werden</string>
   <string name="issue_precondition_relation_member_count">Anzahl der Mitglieder in der Relation überschritten</string>
+  <string name="issue_replace_extracted_node">Markierter Knoten aus Weg extrahiert</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 Tag</item>

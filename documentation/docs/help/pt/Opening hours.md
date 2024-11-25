@@ -10,7 +10,7 @@ _Esta documentação é temporária e encontra-se em desenvolvimento_
 
 Num processo normal, o objeto que está a editar irá ter uma etiqueta de horário de abertura (opening_hours, service_times e collection_times) ou então poderá tornar a aplicar o modelo de etiquetas ao objeto para obter um campo de horário de abertura limpo. Se necessitar de adicionar o campo manualmente e estiver a usar o Vespucci, pode introduzir a chave na página de detalhes e então mudar para a aba baseada em formulário para editá-la. Se acreditar que a etiqueta de horário de abertura devia fazer parte do modelo de etiquetas, por favor abra um relatório para o seu editor.
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
+Se tiver definido um modelo predefinido (faça-o através do item de menu "Gerir modelos"), este será carregado automaticamente quando o editor for iniciado com um valor vazio. Com a função "Carregar modelo" pode carregar qualquer modelo guardado e com o menu "Guardar modelo" pode guardar o valor atual como um modelo. Pode definir modelos separados e predefinições para chaves específicas, por exemplo, "opening_hours", "collection_times" e "service_times" ou valores personalizados. Além disso, pode limitar a aplicabilidade de um modelo a uma região e a um identificador específico, normalmente uma etiqueta de nível superior do OSM (por exemplo, amenity=restaurant).
 
 Claro que pode construir um valor de abertura a partir do nada, mas recomendamos usar um dos modelos existentes como ponto de partida.
 
@@ -75,11 +75,11 @@ As regras padrão são adicionadas como regras _normais_, isto implica que elas 
 
 Para tornar a edição de segmentos de tempo o mais fácil possível, tentamos escolher o melhor intervalo de tempo e granularidade para as barras de intervalo ao carregar valores existentes. Para novos segmentos de tempo novos, as barras começam às 6:00 e têm incrementos de  minutos. Isto pode ser alterado no menu.
 
-Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+Clicar (não nos pinos) na barra de tempo abrirá o grande seletor de tempo, quando a utilização direta das barras for demasiado difícil. Os seletores de tempo prolongam-se até ao dia seguinte, pelo que são uma forma simples de prolongar um intervalo de tempo sem ter de apagar e voltar a adicionar o intervalo.
 
 #### Menu de segmento de tempo
 
-* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
+* __Mostrar seletor de hora__: mostra um seletor de hora grande para selecionar a hora de início e de fim, em ecrãs muito pequenos esta é a forma preferida de mudar as horas.
 * __Mudar para intervalos de 15 minutos__: usa intervalos de 15 minutos na barra de intervalo.
 * __Mudar para intervalos de 5 minutos__: usa intervalos de 5 minutos na barra de intervalo.
 * __Mudar para intervalos de 1 minuto__: usa intervalos de 1 minuto na barra de intervalo, pode ser difícil de usar esta opção num ecrã pequeno.
@@ -89,22 +89,22 @@ Clicking (not on the pins) the time bar will open the large time picker, when us
 
 ### Gerir modelos
 
-The template management dialog allows you to add, edit and delete templates.
+A caixa de diálogo de gestão de modelos permite-lhe adicionar, editar e eliminar modelos.
 
-In Android 4.4 and later the following additional functionality is available from the menu button. 
+No Android 4.4 e posterior, a seguinte funcionalidade adicional está disponível a partir do botão de menu.
 
-* __Show all__: display all templates in the database.
-* __Save to file__: write the contents of the template database to a file.
-* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
-* __Load from file__: load templates from a file retaining the current contents.
+* __Mostrar tudo__: mostra todos os modelos na base de dados.
+* __Guardar no ficheiro__: guarda o conteúdo da base de dados de modelos num ficheiro.
+* __Carregar de ficheiro (substituir)__: carrega modelos de um ficheiro substituindo o conteúdo atual da base de dados.
+* __Carregar do ficheiro__: carrega modelos de um ficheiro mantendo o conteúdo atual.
 
-#### Save and edit template dialogs
+#### Diálogos para guardar e editar modelos
 
-The dialog allows you to set
+O diálogo permite-lhe definir
 
-* __Name__ a descriptive name for the template.
-* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
-* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
-* __Region__ the region the template is applicable to.
-* __Object__ an application specific string to use for matching.
+* __Nome__ um nome descritivo para o modelo.
+* __Predefinição__ se estiver selecionado, será considerado como um modelo predefinido (normalmente mais limitado pelos outros campos).
+* __Chave__ a chave para a qual este modelo é relevante; se definido como _Chave personalizada_, pode adicionar um valor não normalizado no campo abaixo. Os valores de chave suportam os wild cards SQL, ou seja, _%_ corresponde a zero ou mais caracteres, *_* corresponde a um único carácter. Ambos os caracteres de wild card podem ser escapados com _\\_ para correspondências literais.
+* __Região__ a região à qual o modelo é aplicável.
+* __Objeto__ uma cadeia de caracteres específica da aplicação a utilizar para a correspondência.
 

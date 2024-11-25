@@ -11,7 +11,7 @@
 <p><em>Esta documentação é temporária e encontra-se em desenvolvimento</em></p>
 <h2>Usar o editor de horário de abertura</h2>
 <p>Num processo normal, o objeto que está a editar irá ter uma etiqueta de horário de abertura (opening_hours, service_times e collection_times) ou então poderá tornar a aplicar o modelo de etiquetas ao objeto para obter um campo de horário de abertura limpo. Se necessitar de adicionar o campo manualmente e estiver a usar o Vespucci, pode introduzir a chave na página de detalhes e então mudar para a aba baseada em formulário para editá-la. Se acreditar que a etiqueta de horário de abertura devia fazer parte do modelo de etiquetas, por favor abra um relatório para o seu editor.</p>
-<p>If you have defined a default template (do this via the &quot;Manage templates&quot; menu item) it will be loaded automatically when the editor is started with an empty value. With the &quot;Load template&quot; function you can load any saved template and with the &quot;Save template&quot; menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example &quot;opening_hours&quot;, &quot;collection_times&quot; and &quot;service_times&quot; or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant).</p>
+<p>Se tiver definido um modelo predefinido (faça-o através do item de menu &quot;Gerir modelos&quot;), este será carregado automaticamente quando o editor for iniciado com um valor vazio. Com a função &quot;Carregar modelo&quot; pode carregar qualquer modelo guardado e com o menu &quot;Guardar modelo&quot; pode guardar o valor atual como um modelo. Pode definir modelos separados e predefinições para chaves específicas, por exemplo, &quot;opening_hours&quot;, &quot;collection_times&quot; e &quot;service_times&quot; ou valores personalizados. Além disso, pode limitar a aplicabilidade de um modelo a uma região e a um identificador específico, normalmente uma etiqueta de nível superior do OSM (por exemplo, amenity=restaurant).</p>
 <p>Claro que pode construir um valor de abertura a partir do nada, mas recomendamos usar um dos modelos existentes como ponto de partida.</p>
 <p>Se for carregado um valor de horário de abertura existente, é feita uma tentativa para corrigir automaticamente para estar conforme a especificação do horário de abertura. Se isso não for possível, a localização onde o erro se encontra é destacada e poderá corrigir manualmente. Certa de um quarto de todos os valores de horários de abertura no OpenStreetMap têm problemas, mas menos de 10% não podem ser corrigidos. Veja <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para mais informação sobre que desvios da especificação são tolerados.</p>
 <h3>Botão do menu principal</h3>
@@ -78,10 +78,10 @@
 </ul>
 <h3>Segmentos de tempo</h3>
 <p>Para tornar a edição de segmentos de tempo o mais fácil possível, tentamos escolher o melhor intervalo de tempo e granularidade para as barras de intervalo ao carregar valores existentes. Para novos segmentos de tempo novos, as barras começam às 6:00 e têm incrementos de  minutos. Isto pode ser alterado no menu.</p>
-<p>Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.</p>
+<p>Clicar (não nos pinos) na barra de tempo abrirá o grande seletor de tempo, quando a utilização direta das barras for demasiado difícil. Os seletores de tempo prolongam-se até ao dia seguinte, pelo que são uma forma simples de prolongar um intervalo de tempo sem ter de apagar e voltar a adicionar o intervalo.</p>
 <h4>Menu de segmento de tempo</h4>
 <ul>
-<li><strong>Display time picker</strong>: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.</li>
+<li><strong>Mostrar seletor de hora</strong>: mostra um seletor de hora grande para selecionar a hora de início e de fim, em ecrãs muito pequenos esta é a forma preferida de mudar as horas.</li>
 <li><strong>Mudar para intervalos de 15 minutos</strong>: usa intervalos de 15 minutos na barra de intervalo.</li>
 <li><strong>Mudar para intervalos de 5 minutos</strong>: usa intervalos de 5 minutos na barra de intervalo.</li>
 <li><strong>Mudar para intervalos de 1 minuto</strong>: usa intervalos de 1 minuto na barra de intervalo, pode ser difícil de usar esta opção num ecrã pequeno.</li>
@@ -90,22 +90,22 @@
 <li><strong>Eliminar</strong>: eliminar este segmento de tempo.</li>
 </ul>
 <h3>Gerir modelos</h3>
-<p>The template management dialog allows you to add, edit and delete templates.</p>
-<p>In Android 4.4 and later the following additional functionality is available from the menu button.</p>
+<p>A caixa de diálogo de gestão de modelos permite-lhe adicionar, editar e eliminar modelos.</p>
+<p>No Android 4.4 e posterior, a seguinte funcionalidade adicional está disponível a partir do botão de menu.</p>
 <ul>
-<li><strong>Show all</strong>: display all templates in the database.</li>
-<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
-<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
-<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+<li><strong>Mostrar tudo</strong>: mostra todos os modelos na base de dados.</li>
+<li><strong>Guardar no ficheiro</strong>: guarda o conteúdo da base de dados de modelos num ficheiro.</li>
+<li><strong>Carregar de ficheiro (substituir)</strong>: carrega modelos de um ficheiro substituindo o conteúdo atual da base de dados.</li>
+<li><strong>Carregar do ficheiro</strong>: carrega modelos de um ficheiro mantendo o conteúdo atual.</li>
 </ul>
-<h4>Save and edit template dialogs</h4>
-<p>The dialog allows you to set</p>
+<h4>Diálogos para guardar e editar modelos</h4>
+<p>O diálogo permite-lhe definir</p>
 <ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
+<li><strong>Nome</strong> um nome descritivo para o modelo.</li>
+<li><strong>Predefinição</strong> se estiver selecionado, será considerado como um modelo predefinido (normalmente mais limitado pelos outros campos).</li>
+<li><strong>Chave</strong> a chave para a qual este modelo é relevante; se definido como <em>Chave personalizada</em>, pode adicionar um valor não normalizado no campo abaixo. Os valores de chave suportam os wild cards SQL, ou seja, <em>%</em> corresponde a zero ou mais caracteres, <em>_</em> corresponde a um único carácter. Ambos os caracteres de wild card podem ser escapados com <em>\</em> para correspondências literais.</li>
+<li><strong>Região</strong> a região à qual o modelo é aplicável.</li>
+<li><strong>Objeto</strong> uma cadeia de caracteres específica da aplicação a utilizar para a correspondência.</li>
 </ul>
 
 </body>

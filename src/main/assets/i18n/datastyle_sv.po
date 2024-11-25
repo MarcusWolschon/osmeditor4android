@@ -2,13 +2,14 @@
 # Translators:
 # Erik, 2021
 # Tomas Marklund, 2023
+# YraFyra, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-04-25 11:28+0200\n"
 "PO-Revision-Date: 2020-05-21 07:54+0000\n"
-"Last-Translator: Tomas Marklund, 2023\n"
+"Last-Translator: YraFyra, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/openstreetmap/teams/26285/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +24,7 @@ msgid "Color Round Nodes"
 msgstr "Färgade Runda Noder"
 
 msgid "Color Round Nodes No Multipolygons"
-msgstr "Färgade Runda Noder inga multipolygorner"
+msgstr "Färgade Runda Noder inga multipolygoner"
 
 msgid "Pen Round Nodes"
-msgstr "Pen Runa Noder"
+msgstr "Penna Runda Noder"

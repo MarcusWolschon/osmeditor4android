@@ -1,8 +1,8 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"_
+_Antes de empezar: la mayoría de las pantallas tienen enlaces en el menú al sistema de ayuda del dispositivo, lo que te da acceso directo a la información relevante para el contexto actual. También puedes volver fácilmente a este texto. Si tienes un dispositivo más grande, por ejemplo, una tableta, puedes abrir el sistema de ayuda en una ventana dividida separada. Todos los textos de ayuda y más (preguntas frecuentes, tutoriales) también se pueden encontrar en el [sitio de documentación de Vespucci](https://vespucci.io/). Además, puedes iniciar el visor de ayuda directamente en dispositivos que admiten accesos directos con una pulsación larga en el icono de la aplicación y seleccionando "Ayuda"._
 
 # Introducción a Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
+Vespucci es un editor de OpenStreetMap con todas las funciones que admite la mayoría de las operaciones que ofrecen los editores de escritorio. Se ha probado con éxito en Android de Google desde la versión 2.3 a la 14.0 (las versiones anteriores a la 4.1 ya no son compatibles) y en varias variantes basadas en AOSP. Una advertencia: si bien las capacidades de los dispositivos móviles se han puesto al día con las de sus rivales de escritorio, los dispositivos más antiguos, en particular, tienen una memoria muy limitada disponible y tienden a ser bastante lentos. Debes tener esto en cuenta al usar Vespucci y, por ejemplo, mantener las áreas que estás editando en un tamaño razonable.
 
 ## Editar con Vespucci
 
@@ -12,25 +12,25 @@ Dependiendo del tamaño de la pantalla y la antigüedad de tu dispositivo, puede
 
 ### Descargar datos de OSM
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display eleven options:
+Selecciona el icono de transferencia ![Transfer](../images/menu_transfer.png) o el elemento del menú "Transferir". Esto mostrará once opciones:
 
-* **Upload data to OSM server...** - review and upload changes to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Review changes...** - review current changes
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory, including pending changes, and then download the area visible on the screen *(requires network connectivity)*
-* **Query Overpass...** - run a query against a Overpass API server *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Clear data** - remove any OSM data in memory, including pending changes.
-* **File...** - saving and loading OSM data to/from on device files.
-* **Tasks...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Subir datos al servidor OSM...** - revisa y sube los cambios a OpenStreetMap *(requiere autenticación)* *(requiere conexión a la red)*
+* **Revisar cambios...** - revisa los cambios actuales
+* **Descargar vista actual** - descarga el área visible en la pantalla y combínala con los datos existentes *(requiere conexión a la red o fuente de datos sin conexión)*
+* **Borrar y descargar vista actual** - borra cualquier dato en la memoria, incluidos los cambios pendientes, y luego descarga el área visible en la pantalla *(requiere conexión a la red)*
+* **Consulta Overpass...** - ejecuta una consulta contra un servidor API de Overpass *(requiere conexión a la red)*
+* **Descarga automática basada en la ubicación** - descarga automáticamente un área alrededor de la ubicación geográfica actual *(requiere conexión a la red o datos sin conexión)* *(requiere GPS)*
+* **Descarga automática al desplazar y hacer zoom** - descarga automáticamente los datos del área del mapa que se muestra actualmente *(requiere conexión a la red o datos sin conexión)* *(requiere GPS)*
+* **Actualizar datos** - vuelve a descargar los datos de todas las áreas y actualiza lo que está en la memoria *(requiere conexión a la red)*
+* **Borrar datos** - elimina cualquier dato de OSM en la memoria, incluidos los cambios pendientes.
+* **Archivo...** - guardar y cargar datos de OSM en/desde archivos del dispositivo.
+* **Tareas...** - descarga (automática y manual) Notas de OSM y "Errores" de herramientas de control de calidad (actualmente OSMOSE) *(requiere conexión a la red)*
 
 La manera más fácil de descargar datos al dispositivo es hacer zoom y desplazarte hasta la ubicación que quieres editar y luego seleccionar "Descargar vista actual". Puedes hacer zoom utilizando gestos, los botones de zoom o los botones de control de volumen del dispositivo. Vespucci debería descargar entonces los datos de la vista actual. No se requiere autenticación para descargar datos a tu dispositivo.
 
-In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md) so that dimming is always active.
+En estado desbloqueado, cualquier área no descargada se atenuará en relación con las descargadas si has hecho suficiente zoom para habilitar la edición. Esto es para evitar agregar inadvertidamente objetos duplicados en áreas que no se están mostrando. En el estado bloqueado, la atenuación está desactivada, este comportamiento se puede cambiar en las [Preferencias avanzadas](Advanced%20preferences.md) para que la atenuación esté siempre activa.
 
-If you need to use a non-standard OSM API entry, or use [offline data](https://vespucci.io/tutorials/offline/) in _MapSplit_ format you can add or change entries via the _Configure..._ entry for the data layer in the layer control.
+Si necesitas usar una entrada de API OSM no estándar o usar [datos sin conexión](https://vespucci.io/tutorials/offline/) en formato _MapSplit_, puedes agregar o cambiar entradas a través de la entrada _Configurar..._ para la capa de datos en el control de capas.
 
 ### Editar
 
@@ -40,15 +40,15 @@ If you need to use a non-standard OSM API entry, or use [offline data](https://v
 
 Para evitar ediciones accidentales, Vespucci inicia en modo "bloqueado", un modo que solo permite hacer zoom y mover el mapa. Toca el ícono ![Bloqueado](../images/locked.png) para desbloquear la pantalla. 
 
-A long press on the lock icon or the _Modes_ menu in the map display overflow menu will display a menu offering 4 options:
+Una pulsación larga en el icono de bloqueo o el menú _Modos_ en el menú desplegable de la pantalla del mapa mostrará un menú que ofrece 5 opciones:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.
-* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normal** - el modo de edición predeterminado, se pueden agregar nuevos objetos, editar, mover y eliminar los existentes. Se muestra un icono de candado blanco simple.
+* **Solo etiqueta** - al seleccionar un objeto existente se iniciará el Editor de propiedades, se pueden agregar nuevos objetos a través del botón verde "+", o pulsación larga, pero no se habilitan otras operaciones de geometría. Se muestra un icono de candado blanco con una "T".
+* **Dirección** - habilita el modo Dirección, un modo ligeramente simplificado con acciones específicas disponibles desde el botón "+" del [Modo simple](../en/Simple%20actions.md). Se muestra un icono de candado blanco con una "A".
+* **Interiores** - habilita el modo Interiores, consulta [Modo interiores](#indoor). Se muestra un icono de candado blanco con una "I".
+* **Modo-C** - habilita el Modo-C, solo se mostrarán los objetos que tengan un indicador de advertencia establecido, consulta [Modo-C](#c-mode). Se muestra un icono de candado blanco con una "C".
 
-If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to _Address_ and _Indoor_ mode.
+Si estás usando Vespucci en un dispositivo Android que admite accesos directos (pulsación larga en el icono de la aplicación), puedes iniciar directamente en el modo _Dirección_ e _Interiores_.
 
 #### Toque simple, toque doble y pulsación larga
 
@@ -94,7 +94,7 @@ Al iniciar la aplicación por primera vez, se inicia en "Modo simple". Esto se p
 
 Al tocar el botón flotante verde grande en la pantalla del mapa, se mostrará un menú. Después de que hayas seleccionado uno de los elementos, se te pedirá que toques la pantalla en la ubicación donde deseas crear el objeto. Desplazar y hacer zoom continúa funcionando si necesitas ajustar la vista del mapa. 
 
-See [Creating new objects in simple actions mode](Simple%20actions.md) for more information. Simple mode os the default for new installs.
+Consulta [Crear nuevos objetos en el modo de acciones simples](Simple%20actions.md) para obtener más información. El modo simple es el predeterminado para las nuevas instalaciones.
 
 ##### Modo avanzado (pulsación larga)
 
@@ -127,7 +127,7 @@ Si acercas el zoom lo suficiente en una vía seleccionada, verás una pequeña "
 
 #### Cortar, copiar y pegar
 
-You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+Puedes copiar los nodos y vías seleccionados y luego pegarlos una o varias veces en una nueva ubicación. Cortar conservará el ID y la versión de OSM, por lo que solo se puede pegar una vez. Para pegar, mantén pulsada la ubicación donde deseas pegar (verás una cruz que marca la ubicación). Luego selecciona "Pegar" en el menú.
 
 #### Agregar direcciones de forma eficiente
 
@@ -165,9 +165,9 @@ Cuando se muestra el candado rojo, todas las acciones que no son de edición est
 
 Selecciona el mismo botón o elemento de menú que usaste para la descarga y ahora selecciona "Subir datos al servidor OSM".
 
-Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  
+Vespucci admite la autorización OAuth 2, OAuth 1.0a y el método clásico de nombre de usuario y contraseña. Desde el 1 de julio de 2024, la API estándar de OpenStreetMap solo admite OAuth 2 y otros métodos solo están disponibles en instalaciones privadas de la API u otros proyectos que han reutilizado el software de OSM.  
 
-Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+Autorizar a Vespucci para acceder a tu cuenta en tu nombre requiere que inicies sesión una vez con tu nombre para mostrar y contraseña. Si tu instalación de Vespucci no está autorizada cuando intentas subir datos modificados, se te pedirá que inicies sesión en el sitio web de OSM (a través de una conexión cifrada). Después de haber iniciado sesión, se te pedirá que autorices a Vespucci para editar usando tu cuenta. Si deseas o necesitas autorizar el acceso OAuth a tu cuenta antes de editar, hay un elemento correspondiente en el menú "Herramientas".
 
 Si quieres guardar tu trabajo y no tienes acceso a Internet, puedes guardarlo en un archivo .osm compatible con JOSM y subirlo más tarde con Vespucci o con JOSM. 
 
@@ -175,46 +175,46 @@ Si quieres guardar tu trabajo y no tienes acceso a Internet, puedes guardarlo en
 
 Vespucci tiene un solucionador de conflictos simple. Sin embargo, si sospechas que hay problemas importantes con tus ediciones, exporta los cambios a un archivo .osc (elemento del menú "Exportar" en el menú "Transferir"), corrígelos y súbelos con JOSM. Consulta la ayuda detallada sobre [resolución de conflictos](Conflict%20resolution.md).  
 
-### Nearby point-of-interest display
+### Visualización de puntos de interés cercanos
 
-A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. 
+Se puede mostrar una visualización de puntos de interés cercanos tirando hacia arriba del controlador en el centro y la parte superior de la barra de menú inferior. 
 
-More information on this and other available functionality on the main display can be found here [Main map display](Main%20map%display.md).
+Puedes encontrar más información sobre esta y otras funciones disponibles en la pantalla principal aquí [Pantalla del mapa principal](Main%20map%display.md).
 
-## Usar GPS y pistas GPX
+## Usar GPS y trazas GPX
 
 Con la configuración estándar, Vespucci intentará habilitar el GPS (y otros sistemas de navegación basados en satélites) y recurrirá a determinar la posición mediante la llamada "ubicación de red" si esto no es posible. Este comportamiento asume que, en el uso normal, tienes tu dispositivo Android configurado para usar solo ubicaciones generadas por GPX (para evitar el seguimiento), es decir, que tienes desactivada la opción eufemísticamente llamada "Mejorar la precisión de la ubicación". Si quieres habilitar la opción pero quieres evitar que Vespucci recurra a la "ubicación de red", debes desactivar la opción correspondiente en las [Preferencias avanzadas](Advanced%20preferences.md). 
 
-Touching the ![GPS](../images/menu_gps.png) button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+Tocar el botón ![GPS](../images/menu_gps.png) (normalmente en el lado izquierdo de la pantalla del mapa) centrará la pantalla en la posición actual y, a medida que te muevas, la pantalla del mapa se desplazará para mantener esto. Mover la pantalla manualmente o editar hará que el modo "seguir GPS" se desactive y la flecha azul del GPS cambiará de un contorno a una flecha rellena. Para volver rápidamente al modo "seguir", simplemente toca el botón GPS o vuelve a marcar la opción de menú equivalente. Si el dispositivo no tiene una ubicación actual, el marcador/flecha de ubicación se mostrará en negro, si hay una ubicación actual disponible, el marcador será azul.
 
-Para grabar una pista GPX y mostrarla en tu dispositivo, selecciona la opción "Iniciar pista GPX" en el menú ![GPS](../images/menu_gps.png). Esto agregará una capa a la pantalla con la pista grabada actual; puedes subir y exportar la pista desde la entrada en el [control de capas](Main%20map%20display.md). Se pueden agregar más capas desde archivos GPX locales y pistas descargadas de la API de OSM.
+Para grabar una traza GPS y mostrarla en tu dispositivo, selecciona el elemento "Iniciar traza GPS" en el menú ![GPS](../images/menu_gps.png). Esto agregará una capa a la pantalla con la traza grabada actual, puedes subir y exportar la traza desde la entrada en el [control de capas](Main%20map%20display.md). Se pueden agregar más capas desde archivos GPX locales y trazas descargadas de la API de OSM.
 
-Nota: De forma predeterminada, Vespucci no grabará datos de elevación con tu pista GPX debido a algunos problemas específicos de Android. Para habilitar la grabación de elevación, instala un modelo gravitacional o, más sencillo, ve a las [Preferencias avanzadas](Advanced%20preferences.md) y configura la entrada NMEA.
+Nota: de forma predeterminada, Vespucci no registrará datos de elevación con tu traza GPS, esto se debe a algunos problemas específicos de Android. Para habilitar el registro de elevación, instala un modelo gravitacional o, más simple, ve a las [Preferencias avanzadas](Advanced%20preferences.md) y configura la entrada NMEA.
 
-### How to export a GPX track?
+### ¿Cómo exportar una traza GPS?
 
-Open the layer menu, then click the 3-dots menu next to "GPX recording", then select **Export GPX track...**. Choose in which folder to export the track, then give it a name suffixed with `.gpx` (example: MyTrack.gpx).
+Abre el menú de capas, luego haz clic en el menú de 3 puntos junto a "Grabación GPX", luego selecciona **Exportar traza GPS...**. Elige en qué carpeta exportar la traza, luego asígnale un nombre con el sufijo `.gpx` (ejemplo: MiTraza.gpx).
 
-## Notes, Bugs and Todos
+## Notas, errores y tareas pendientes
 
 Vespucci admite la descarga, los comentarios y el cierre de notas de OSM (anteriormente errores de OSM) y la funcionalidad equivalente para los "errores" producidos por la [herramienta de control de calidad OSMOSE](http://osmose.openstreetmap.fr/en/map/). Ambos tienen que descargarse explícitamente o puedes usar la función de descarga automática para acceder a los elementos en tu área inmediata. Una vez editados o cerrados, puedes subir el error o la nota inmediatamente o subir todo a la vez. 
 
-Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. 
+Además, admitimos "Tareas pendientes" que se pueden crear a partir de elementos OSM, desde una capa GeoJSON o externamente a Vespucci. Estas proporcionan una forma conveniente de realizar un seguimiento del trabajo que deseas completar. 
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.
+En el mapa, las Notas y los errores se representan mediante un pequeño icono de error ![Error](../images/bug_open.png), los verdes están cerrados/resueltos, los azules los has creado o editado tú y el amarillo indica que todavía está activo y no se ha modificado. Las tareas pendientes usan un icono de casilla de verificación amarilla.
 
-The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+La visualización de errores de OSMOSE y las tareas pendientes proporcionará un enlace al elemento afectado en azul (en el caso de las tareas pendientes, solo si un elemento OSM está asociado a él), al tocar el enlace se seleccionará el objeto, se centrará la pantalla en él y se descargará el área de antemano si es necesario. 
 
 ### Filtrado
 
 Además de habilitar globalmente la visualización de notas y errores, puedes configurar un filtro de visualización de grano grueso para reducir el desorden. Se puede acceder a la configuración del filtro desde la entrada de la capa de tareas en el [control de capas](#layers):
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* Notas
+* Error de Osmose
+* Advertencia de Osmose
+* Problema menor de Osmose
 * Maproulette
-* Todo
+* Tarea pendiente
 
 <a id="indoor"></a>
 
@@ -234,13 +234,13 @@ Puedes habilitar el modo manteniendo pulsado el elemento de bloqueo; consulta [B
 
 ### Configurar comprobaciones
 
-All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the [preferences](Preferences.md). 
+Todas las validaciones se pueden desactivar/activar en "Ajustes del validador/Validaciones habilitadas" en las [preferencias](Preferences.md). 
 
-The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.
+La configuración para las entradas "Volver a inspeccionar" te permite establecer un tiempo después del cual se debe volver a inspeccionar una combinación de etiquetas. Las entradas "Comprobar" son etiquetas que deben estar presentes en los objetos según lo determinado por los ajustes preestablecidos coincidentes. Las entradas se pueden editar haciéndoles clic, el botón verde del menú permite agregar entradas.
 
-#### Entradas de revisión
+#### Entradas para volver a inspeccionar
 
-Las entradas de revisión tienen las siguientes propiedades:
+Las entradas para volver a inspeccionar tienen las siguientes propiedades:
 
 * **Clave**: clave de la etiqueta de interés.
 * **Valor**: valor que debe tener la etiqueta de interés; si está vacío, se ignorará el valor de la etiqueta.
@@ -282,15 +282,15 @@ Puedes cambiar los ajustes de capa a través del control de capas (menú de "ham
 
 Tipos de capas disponibles:
 
-* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
-* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
-* Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
-* GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.
-* GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.
-* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+* Capa de datos: esta es la capa en la que se cargan los datos de OpenStreetMap. En uso normal, no necesitas cambiar nada aquí. Predeterminado: activado.
+* Capa de fondo: hay una amplia gama de imágenes aéreas y de satélite de fondo disponibles. El valor predeterminado para esto es el mapa de "estilo estándar" de openstreetmap.org.
+* Capa de superposición: estas son capas semitransparentes con información adicional, por ejemplo, información de control de calidad. Agregar una superposición puede causar problemas con dispositivos antiguos y con poca memoria. Predeterminado: ninguna.
+* Visualización de notas/errores: las notas y errores abiertos se mostrarán como un icono de error amarillo, los cerrados igual en verde. Predeterminado: activado.
+* Capa de fotos: muestra fotografías georreferenciadas como iconos de cámara rojos; si hay información de dirección disponible, el icono girará. Predeterminado: desactivado.
+* Capa Mapillary: muestra segmentos Mapillary con marcadores donde existen imágenes, al hacer clic en un marcador se mostrará la imagen. Predeterminado: desactivado.
+* Capa GeoJSON: muestra el contenido de un archivo GeoJSON, se pueden agregar varias capas desde archivos. Predeterminado: ninguna.
+* Capa GPX: muestra trazas y puntos de ruta GPX, se pueden agregar varias capas desde archivos, durante la grabación, la traza GPX generada se muestra en una propia. Predeterminado: ninguna.
+* Cuadrícula: muestra una escala a los lados del mapa o una cuadrícula. Predeterminado: activado. 
 
 Puedes encontrar más información en la sección sobre la [visualización del mapa](Main%20map%20display.md).
 
@@ -303,19 +303,19 @@ Puedes encontrar la descripción completa aquí: [Preferencias](Preferences.md).
 
 #### Preferencias avanzadas
 
-* Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In _Auto_ mode we try to determine automatically if using full screen mode is sensible or not, setting it to _Force_ or _Never_ skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the _Auto_ mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: _Auto_.  
-* Node icons. Default: _on_.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+* Modo de pantalla completa. En dispositivos sin botones de hardware, Vespucci puede ejecutarse en modo de pantalla completa, lo que significa que los botones de navegación "virtuales" se ocultarán automáticamente mientras se muestra el mapa, proporcionando más espacio en la pantalla para el mapa. Dependiendo de tu dispositivo, esto puede funcionar bien o no. En el modo _Automático_, intentamos determinar automáticamente si el uso del modo de pantalla completa es sensato o no, configurarlo en _Forzar_ o _Nunca_ omite la comprobación automática y el modo de pantalla completa siempre se utilizará o nunca se utilizará, respectivamente. En dispositivos con Android 11 o superior, el modo _Automático_ nunca activará el modo de pantalla completa, ya que la navegación por gestos de Android proporciona una alternativa viable. Predeterminado: _Automático_.
+* Iconos de nodo. Predeterminado: _activado_.
+* Mostrar siempre el menú contextual. Cuando está activado, cada proceso de selección mostrará el menú contextual; cuando está desactivado, el menú se muestra solo cuando no se puede determinar una selección inequívoca. Predeterminado: desactivado (solía estar activado).
+* Habilitar tema claro. En los dispositivos modernos, esto está activado de forma predeterminada. Si bien puedes habilitarlo para versiones anteriores de Android, es probable que el estilo sea inconsistente. 
 
 Puedes encontrar la descripción completa aquí: [Preferencias avanzadas](Advanced%20preferences.md).
 
-## Reporting and Resolving Issues
+## Informar y resolver problemas
 
 Si Vespucci falla o detecta un estado inconsistente, se te pedirá que envíes el volcado de memoria. Hazlo si eso sucede, pero solo una vez por situación específica. Si quieres proporcionar más información o abrir un problema para una solicitud de función o similar, hazlo aquí: [Rastreador de problemas de Vespucci](https://github.com/MarcusWolschon/osmeditor4android/issues). La función "Enviar comentarios" del menú principal abrirá un nuevo problema e incluirá la información relevante de la aplicación y el dispositivo sin necesidad de escribir más.
 
-If you are experiencing difficulties starting the app after a crash, you can try to start it in _Safe_ mode on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
+Si tienes dificultades para iniciar la aplicación después de un fallo, puedes intentar iniciarla en modo _Seguro_ en dispositivos que admiten accesos directos: mantén pulsado el icono de la aplicación y luego selecciona _Seguro_ en el menú. 
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [OpenStreetMap forum](https://community.openstreetmap.org).
+Si deseas discutir algo relacionado con Vespucci, puedes iniciar una discusión en el [foro de OpenStreetMap](https://community.openstreetmap.org).
 
 

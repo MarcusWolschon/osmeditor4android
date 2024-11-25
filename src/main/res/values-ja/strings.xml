@@ -16,6 +16,7 @@
   <string name="transfer_download_current_download">編集を破棄 &amp; ダウンロード</string>
   <string name="transfer_download_current_back">戻る（何もしない）</string>
   <string name="upload_problem_title">アップロードできませんでした</string>
+  <string name="upload_problem_message">いくつかまたは全てのデータはアップロードされませんでした。後に再びお試しください</string>
   <string name="bad_request_message">API がエラーを返しました。データを保存して問題を報告してください。\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">アップロード競合</string>
@@ -71,6 +72,8 @@
   <string name="invalid_bounding_box_title">不適切な矩形境界</string>
   <string name="invalid_bounding_box_message">選択された範囲はAPI制限に適合しません。異なる範囲を選択してください。</string>
   <string name="bounding_box_too_large_title">大きすぎるダウンロード範囲</string>
+  <string name="bounding_box_too_large_message">ダウンロードを試みた範囲が大きすぎるか、データが多すぎます。
+　&lt;br&gt;&lt;br&gt;更に拡大して、再びお試しください。</string>
   <string name="api_offline_title">APIがオフライン</string>
   <string name="api_offline_message">APIは現在オフラインです。データを検索または書き込みできません。</string>
   <string name="out_of_memory_title">メモリ不足</string>
@@ -164,6 +167,12 @@
   <string name="upload_request_review_label">レビューを依頼:</string>
   <string name="upload_validation_error_empty_comment">コメントは空にできません</string>
   <string name="upload_validation_error_empty_source">情報源は空にできません</string>
+  <string name="upload_empty_comment_warning_label">コメントが空の場合の警告</string>
+  <string name="upload_auto_summary">自動生成概要</string>
+  <string name="untagged_node">タグの無いノード</string>
+  <string name="untagged_way">タグの無いウェイ</string>
+  <string name="untagged_relation">タグの無いリレーション</string>
+  <string name="unknown_object">未知の物体</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">変更点を確認</string>
   <!--Upload GPX-->
@@ -517,6 +526,8 @@
   <string name="toast_oauth_not_enabled">現在のAPI用にはOAuthは有効化されていません。</string>
   <string name="coordinates_out_of_range">経度の値は -180°/+180° 以内です。緯度は -85°/85° です。</string>
   <string name="toast_nothing_found">検索結果なし</string>
+  <string name="toast_missing_filemanager">ファイル管理ソフトをインストールしてください。</string>
+  <string name="toast_outside_of_download">この領域を編集するために、更にデータをダウンロードしてください。</string>
   <string name="toast_file_not_found">%1$s が見つかりません。</string>
   <string name="toast_no_voice">音声認識の装置がありません</string>
   <string name="toast_no_suitable_storage">タイルシステムからタイルデータベース用の適切な位置が返ってきませんでした。</string>
@@ -601,6 +612,7 @@
   <string name="toast_import_destination_exists">取り込んだ宛先は既に存在します。</string>
   <string name="toast_element_has_been_deleted">要素は削除されました</string>
   <string name="toast_querying_wms_server_failed">WMSサーバーへの問い合わせに失敗: %1$s</string>
+  <string name="toast_no_compass">端末は方位磁石機能を持ちません!</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">発信源MapSplitには最小と最大の拡大が設定されている必要があります</string>
   <string name="error_pbf_no_version">PBFファイル内のバージョン情報が欠落しています</string>
@@ -741,6 +753,7 @@
   <string name="download_files_title">ファイルをダウンロード</string>
   <string name="allow_all_networks">全ネットワークを許可</string>
   <!--Strings in Go to coordinates-->
+  <string name="network_required">位置情報の照会にネットワークが必要です</string>
   <string name="no_nominatim_server">設定済み Nominatim サーバーがありません</string>
   <!--Menu-->
   <string name="menu_move">表示位置の移動</string>
@@ -1028,6 +1041,7 @@
   <string name="config_enableAntiAliasing_title">アンチエイリアスを有効化</string>
   <string name="config_enableAntiAliasing_summary">線をより滑らかにする</string>
   <string name="config_enableHwAcceleration_title">ハードウェアアクセラレーションを有効化</string>
+  <string name="config_enableHwAcceleration_summary">ハードウェアの画面描画を使用するには、Android 10以降である必要があります。</string>
   <string name="config_maxStrokeWidth_title">ライン幅の最大</string>
   <string name="config_maxStrokeWidth_summary">これよりも太いウェイを描画しない</string>
   <string name="config_maxStrokeWidth_current">%1$d ピクセル</string>
@@ -1346,4 +1360,7 @@
   <string name="relation_id">リレーション %1$d</string>
   <!--Tile downloader diagnostics-->
   <string name="empty_tile">空のタイル</string>
+  <string name="tile_decoding_failed">タイルのデコードに失敗</string>
+  <string name="tile_success">成功</string>
+  <string name="tile_fail">失敗</string>
 </resources>

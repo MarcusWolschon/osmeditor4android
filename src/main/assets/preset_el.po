@@ -2279,7 +2279,7 @@ msgstr "Μπάρμπεκιου\nΨητά"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12532(check:text|group:For_the_body|preset:Hairdresser/Barber|key:hairdresser)
 msgid "Barber"
-msgstr ""
+msgstr "Κουρείο"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8202(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Barcelona"
@@ -16709,7 +16709,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6535(combo:display_values|group:Tourism|preset:Map|key:map_type)
 msgid "Toposcope"
-msgstr ""
+msgstr "Τοποσκόπιο"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1964(list_entry:display_value|value:toret)
 msgid "Toret"

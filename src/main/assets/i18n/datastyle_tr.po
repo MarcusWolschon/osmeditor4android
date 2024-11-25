@@ -1,22 +1,22 @@
 # 
 # Translators:
-# Roman Neumüller, 2020
+# Roman Neumüller, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-04-25 11:28+0200\n"
 "PO-Revision-Date: 2020-05-21 07:54+0000\n"
-"Last-Translator: Roman Neumüller, 2020\n"
-"Language-Team: Turkish (https://www.transifex.com/openstreetmap/teams/26285/tr/)\n"
+"Last-Translator: Roman Neumüller, 2024\n"
+"Language-Team: Turkish (https://app.transifex.com/openstreetmap/teams/26285/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "Default"
-msgstr "Varsayılan"
+msgid "Built-in (minimal)"
+msgstr "Yerleşik (minimal)"
 
 msgid "Color Round Nodes"
 msgstr "Renk Yuvarlak Düğümler"

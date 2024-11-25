@@ -7,6 +7,7 @@
     <string name="help_simple_actions">Простыя дзеянні</string>
     <string name="help_addrelationmember">Выбраныя сувязі</string>
     <string name="help_multiselect">Выбар некалькіх аб\'ектаў</string>
+    <string name="help_longclick">Стварэнне новых аб\'ектаў</string>
     <string name="help_nodeselection">Выбраны вузел</string>
     <string name="help_relationselection">Выбраныя сувязі</string>
     <string name="help_aligningbackgroundiamgery">Выраўноўванне фонавых малюнкаў</string>
@@ -15,6 +16,7 @@
     <string name="help_advanced_preferences">Пашыраныя налады</string>
     <string name="help_custom_imagery">Свае выявы</string>
     <string name="help_presets">Прасэты</string>
+    <string name="help_conflictresolution">Вырашэнне канфліктаў</string>
     <string name="help_keyboard">Клавіятура</string>
     <string name="help_tagfilter">Фільтр тэгаў</string>
     <string name="help_presetfilter">Фільтр прасэтаў</string>

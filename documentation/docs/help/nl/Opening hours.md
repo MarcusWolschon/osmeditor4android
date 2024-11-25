@@ -10,7 +10,7 @@ _Deze documentatie is voorlopig en een werk in uitvoering_
 
 In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker. 
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
+Als je een standaardsjabloon hebt gedefinieerd (doe dit via het "Beheer sjablonen" menu item) zal het sjabloon automatisch worden geladen als de bewerker wordt geladen met een lege waarde. Met de "Laad sjabloon" kan je een ander opgeslagen sjabloon laden en met het "Sjabloon opslaan" menu kan de huidige waarde als een sjabloon worden opgeslagen. Er kunnen verschillende standaardsjablonen worden gedefinieerd voor de "opening_hours", "collection_times" en "service_times" of voor zelfgekozen tags. Ook kan toepasbaarheid van een sjabloon worden beperkt per regio of per specifieke identificatie, meestal een OSM-tag (bijvoorbeeld amenity=restaurant).
 
 Natuurlijk kan je een openingstijden met de hand maken, maar we raden aan om een van de bestaande sjablonen als een startpunt te gebruiken.
 
@@ -62,9 +62,9 @@ Standaard regels worden toegevoegd als _normale_ rules, dat betekent dat ze waar
     * __Variable datum - open eind__: vanaf een variabele startdatum.
     * __Voorkomen in maand - open einde__: vanafeen voorkomen van een dag in de week in de maand.
     * __Met verplaatsingen...__: hetzelfde als hierboven maar met verplaatsingen gespecificeerd (dit wordt zelden gebruikt).
-* __Add year range...__    
+* __Voeg jaarbereik toe...__
     * __Voeg jaarbereik toe__: voeg een jaargebaseerde selector toe.
-    * __Add starting year__: add an open ended year range.
+    * __Voeg beginjaar toe__: voeg een jaarbereik toe met open einde.
 * __Voeg weekbereik toe__: voeg een selector voor een weeknummer.
 * __Dupliceer__: maak een kopie van deze regel en voeg hem toe achter de huidige positie.
 * __Toon regeltype__: toon en wijzig het regeltype tussen _normal_, _additief_ en _terugval_ (niet beschikbaar op de eerste regel).
@@ -90,22 +90,22 @@ Klikken (niet op de bolletjes) op de tijdsbalk opent een groter tijdskeuzescherm
 
 ### Beheer sjablonen
 
-The template management dialog allows you to add, edit and delete templates.
+Met sjabloonbeheer dialoog kunnen sjablonen worden toegevoegd, gewijzigd en verwijderd.
 
-In Android 4.4 and later the following additional functionality is available from the menu button. 
+In Android 4.4 en later is de volgende extra functionaliteit beschikbaar via de menuknop. 
 
-* __Show all__: display all templates in the database.
-* __Save to file__: write the contents of the template database to a file.
-* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
-* __Load from file__: load templates from a file retaining the current contents.
+* __Toon alles__: toon alle sjablonen in de databank.
+* __Sla op naar een bestand__: schrijf de inhoud van het sjabloon in of een sjabloon databank naar een bestand.
+* __Laad van bestand (vervangen)__: laad sjablonen uit een bestand waarmee de huidige inhoud van de databank wordt vervangen.
+* __Laad van bestand__: laad sjablonen uit een bestand met behoud van de huidige inhoud.
 
-#### Save and edit template dialogs
+#### Sla op en wijzig sjabloondialogen
 
-The dialog allows you to set
+Met dit dialoog kan je het volgende instellen
 
-* __Name__ a descriptive name for the template.
-* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
-* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
-* __Region__ the region the template is applicable to.
-* __Object__ an application specific string to use for matching.
+* __Naam__ een beschrijvende naam voor het sjabloon.
+* __Standaard__ als aangevinkt zal dit sjabloon als een standaard sjabloon worden overwogen (over het algemeen verder beperkt door andere velden).
+* __Sleutel__ de sleutel waarvoor dit sjabloon relevant is. Als het ingesteld is op _Eigen sleutel_ dan kan je een eigen gekozen waarde invullen in het veld eronder. De sleutel ondersteunt SQL wildcards: _%_ voldoet aan nul of meer karakter, *_* voldoet aan precies één karakter. Beide wildcards kunnen met _\\_ worden uitgesloten.
+* __Regio__ de regio waar het sjabloon van toepassing is.
+* __Object__ een applicatie-specifieke string om mee te koppelen.
 

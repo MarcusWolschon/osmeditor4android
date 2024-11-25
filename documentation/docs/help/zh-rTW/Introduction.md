@@ -1,8 +1,8 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"_
+_開始之前：大部分操作畫面在選單當中連結到裝置上的說明系統，能夠給予相關操作的資訊，你也能輕易找到這段文字。如果你有畫面較大的裝置，例如平板的話，你也能有分割畫面模式來開啟說明文件。所有的說明文件以及其他文件 (常見問題、教學) 也能在  [Vespucci 文件網站](https://vespucci.io/) 找得到。你可以直接在支援快捷方式的裝置直接對著 app 圖示長按，然後選擇"說明"_
 
 # Vespucci 介紹
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
+Vespucci 是全功能的開放街圖編輯器，支援大部分能在桌面版編輯器能做的操作。Vespucci 已經在 Google Android 2.3 到 14.0 ( 4.1 之前的版本已經不支援了) 等多個以 AOSP 為基礎的版本測試成功。忠告：儘管行動裝置的效能已經追上桌機，但在較老的裝置上面，記憶體並不夠，因此運作速度上會很慢。你應該記住上述的事情，並且可能的話，控制自己編輯的區域大小在合理的大小。
 
 ## 使用 Vespucci 編輯
 
@@ -12,25 +12,25 @@ Vespucci is a full featured OpenStreetMap editor that supports most operations t
 
 ### 下載 OSM 資料
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display eleven options:
+選擇轉移圖示 ![Transfer](../images/menu_transfer.png)，或是轉移選項的項目，這樣會顯示十一個選項：
 
-* **Upload data to OSM server...** - review and upload changes to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Review changes...** - review current changes
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory, including pending changes, and then download the area visible on the screen *(requires network connectivity)*
-* **Query Overpass...** - run a query against a Overpass API server *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Clear data** - remove any OSM data in memory, including pending changes.
-* **File...** - saving and loading OSM data to/from on device files.
-* **Tasks...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **上傳資料到 OSM 伺服器…** - 在 OpenStreetMap 檢視與上傳變動 *(需要認證)* *(需要網路連線)*
+* **檢視變動...** - 檢視目前變動
+* **下載現有的檢視** - 下載在螢幕上可見的區域，並與所有目前的資料合併*(需要網路連線或是離線資料來源)* 
+* **清除現有資料並下載現有的檢視** 清除所有在記憶體中的資料，之後下載在螢幕上可見的區域*(需要網路連線)* 
+* **檢索 Overpass...* - 運用 Overpass API 伺服器查詢檢索 *(要網路連線)*
+* **依據位置自動下載** - 自動的下載目前周圍位置區域 *(需要網路連線或離線資料)*  *(需要 GPS)*
+* **拖放和縮放並自動下載** - 自動下載目前地圖現有的檢視 *(需要網路連線或離線資料)  *(需要 GPS)*
+* **更新資料** - 再次從所有區域下載資料，並且更新記憶體當中的資料 *(需要網路連線)*
+* **清除資料** - 移除記憶體當中所有 OSM 資料，包括駐列的變動
+* **檔案...** - 儲存和載入在裝置的 OSM 檔案資料。
+* **任務** -從 QA 工具 (目前的 OSMOSE) 下載 (自動或手動) OSM 備註和"錯誤" *(需要網路連線)*
 
 最簡單下載資料到裝置的方式是縮放和平移到你想編輯的地方，接著選擇 "下載當前檢視"。你可以用手勢縮放，用縮放按鈕，或是用裝置的音量鍵。Vespucci 應當下載當前檢視的資料，下載資料到裝置時並不需要認證。
 
-In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md) so that dimming is always active.
+採用非鎖定設定時，所有非下載區域相比下載區域會用暗淡色顯示，只有在放大到一定程度才會允許編輯。這是要避免在未顯示區域不適當的新增重覆物件。在鎖定狀態時，暗淡色顯示則會取消，而在[進階設定](Advanced%20preferences.md)當中能改變行為，能夠一直以暗淡色顯示。
 
-If you need to use a non-standard OSM API entry, or use [offline data](https://vespucci.io/tutorials/offline/) in _MapSplit_ format you can add or change entries via the _Configure..._ entry for the data layer in the layer control.
+如果你需要非正規 OSM API 輸入，或是以 _MapSplit_ 格式使用[離線資料](https://vespucci.io/tutorials/offline/)，你可以在 _設定..._ 的圖層控制當中資料圖層那邊改變。
 
 ### 編輯
 
@@ -40,15 +40,15 @@ If you need to use a non-standard OSM API entry, or use [offline data](https://v
 
 要避免不小心編輯的狀況，Vespucci 啟動時處於"鎖定"模式。處於鎖定模式時只允許縮放和移動地圖。點 ![Locked](../images/locked.png)  圖示則會解鎖螢幕。 
 
-A long press on the lock icon or the _Modes_ menu in the map display overflow menu will display a menu offering 4 options:
+在鎖定圖示長按，或是在地圖顯示的  _模式_ 選單，跳出選單會顯示以下四個選項：
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.
-* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **正常** - 預設的編輯模式，新物件能被添加，既有的物件可以被編輯、移動和移除。用簡單的白色鎖定圖示表示。
+* **只有標籤** - 選擇既有的物件會跳進內容編輯器，由綠色 "+" 按鈕或是長按新增物件，但不會有任何幾何動作。用白色鎖定圖示加上"T"的方式表示。
+* **地址** - 啟動地址模式，有一些特別功能加上稍微簡化過的[簡單模式](../en/Simple%20actions.md) "+" 用白色鎖定圖示加上"A"的方式表示。
+* **室內** - 啟動室內模式，請見[室內模式](#indoor)。用白色鎖定圖示加上"I"的方式表示。
+* C-模式** - 啟動 C-模式，只有上面有警告標示的物件會顯示，請見 [C-模式](#c-mode)。用白色鎖定圖示加上"C"的方式表示。
 
-If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to _Address_ and _Indoor_ mode.
+如果你使用 Vespucci 的 Android 裝置支援快捷選項 (對著 app 圖示長按)，你可以直接進入 _地址_ 與 _室內_ 模式。
 
 #### 單點，雙點和長按
 
@@ -94,7 +94,7 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 按著地圖畫面上的綠色浮動按鈕，能顯示選單。當你選擇其中一個項目時，你會被問到想在那個位置新建物件，持續平移和縮放到你想要的地圖畫面為止。 
 
-See [Creating new objects in simple actions mode](Simple%20actions.md) for more information. Simple mode os the default for new installs.
+請看[簡單模式下新增物件](Simple%20actions.md) 來得到更多資訊。簡單模式為新安裝的預設值。
 
 ##### 進階 (長按) 模式
 
@@ -127,7 +127,7 @@ See [Creating new objects in simple actions mode](Simple%20actions.md) for more 
 
 #### 剪下、複製和貼上
 
-You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+您可以複製選擇的節點和路徑，然後貼上一次或多次到一個新的位置。剪切將保留 OSM ID 和版本，但只能貼上一次。要貼上長按要貼上的位置(您會看到一個十字線標記的位置)。然後從選單中選擇“貼上”。
 
 #### 有效的增加地址
 
@@ -165,9 +165,9 @@ Vespucci 有個快速增加轉彎限制的功能。如果需要則可以自動�
 
 選擇您在下載時相同的按鈕或選單項目，現在選擇 "上傳資料到 OSM 的伺服器"。
 
-Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  
+Vespucci 支援 OAuth 2，OAuth 1.0a 認證機制以及傳統的帳號名稱與密碼方式。自從 2024 年 7 月 1 日開始 OpenStreetMap API 只支援 OAuth 2，而其他方式則只在私有站點的 API 或是其他使用 OSM 軟體的計畫。  
 
-Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+認證 Vespucci 連結你帳號，需要你以你帳號與密碼先登入一次。如果你的 Vespucci 還未認證，會在上傳變動的資料時，要求你到 OSM 網站登入 (透過加密連線)。當你登入後，會要求你授權 Vespucci 以你帳號編輯。如果你想要在編輯前授權 OAuth 連接你帳號，請到選單中的"工具" 當中設定好。
 
 如果您想要儲存您的工作，並且不能連入網際網路，您可以儲存成 JOSM 相容的 .osm 檔案，以後以 Vespucci 或 JOSM 任何一個上載。 
 
@@ -175,46 +175,46 @@ Authorizing Vespucci to access your account on your behalf requires you to one t
 
 Vespucci 有個簡單的衝突解決。不管怎樣，如果您于您的編輯察覺到有重要事件，將您的更改匯出到 .osc  檔案 (在"傳輸"選單中"匯出"的選單項目) 並且修復和上傳給 JOSM。請參閱有關詳細的説明 [衝突解決](Conflict%20resolution.md)。  
 
-### Nearby point-of-interest display
+### 顯示附近興趣點
 
-A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. 
+顯示附近興趣點可以在底部選單中間拉起選項。 
 
-More information on this and other available functionality on the main display can be found here [Main map display](Main%20map%display.md).
+更多主選單上這個或其他可用的選項能在這邊[顯示主要地圖](Main%20map%display.md)找到。
 
 ## 使用 GPS 與 GPX 軌跡
 
 當在標準設定時，Vespucci 會嘗試打開 GPS (以及其他依據衛星定位的導航系統)，如果不行才會退下來用"電信網路"來定位。這項行為預設你是在正常狀態使用你的 Android 裝置，只採用 GPX 產生的位置 (避免遭到追蹤)，就是委婉寫做"改進定位準確度"選項關閉。如果你想啟用這選項，但想避免 Vespucci 退下來採用"電信網路位置"，你應該在 [進階設定](Advanced%20preferences.md)關閉該選項。 
 
-Touching the ![GPS](../images/menu_gps.png) button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+碰觸 ![GPS](../images/menu_gps.png)按鈕 (通常在地圖顯示的左側) 則會以目前位置置中螢幕，而當你移動地圖顯示時，則會維持置中。手動移動螢幕或是編輯時則會關閉"跟隨GPS"模式，以及藍色GPS箭頭則從輪廓變實心箭頭。要快速回到"跟隨"模式，只要碰觸 GPS 按鈕或是按其他選單選項。如果裝置沒有目前位置的標記/箭頭則會顯示為黑色，如果有目前位置則會顯示為藍色。
 
 要錄製 GPS 軌跡並且在裝置上顯示，你要在![GPS](../images/menu_gps.png) 選單選擇"開始錄製GPX軌跡"。這會在螢幕上新增目前錄製軌跡圖層，你可以在 [圖層控制](Main%20map%20display.md)上傳或是匯出軌跡。你可以新增本地 GPX 檔案與從 OSM API 下載軌跡變成其他圖層。
 
 注意：預設 Vespucci 不會在錄製 GPX 軌跡時記錄高度，這是因為一些 Android 裝置的特殊問題。要啟用高度記錄，需要啟用高度記錄，或是安裝重力模組，或是更簡單到[進階設定](Advanced%20preferences.md) 設定 NMEA 輸入。
 
-### How to export a GPX track?
+### 如何匯出 GPS 軌跡？
 
-Open the layer menu, then click the 3-dots menu next to "GPX recording", then select **Export GPX track...**. Choose in which folder to export the track, then give it a name suffixed with `.gpx` (example: MyTrack.gpx).
+開啟圖層選單，接著點在"GPS錄製"旁邊的3點選單，最後選擇**輸出GPX軌跡...**。選擇那個資料夾來匯出，接著以`.gpx`的後綴命名檔案 (例如：MyTrack.gpx)。
 
-## Notes, Bugs and Todos
+## 備註、錯誤和待辦事項
 
 Vespucci 支援下載、回應和關閉 OSM 註解 (先前的 OSM 臭蟲)，以及相等功能由 [OSMOSE 品質監控工具](http://osmose.openstreetmap.fr/en/map/)產生的"臭蟲"。兩者都能完整下載下來，或者你可以使用自動下載功能，馬下輔助你取得所在區域的物件。一旦編輯或關閉，你可以馬上上傳臭蟲或是註解，或是全部一次上傳。 
 
-Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. 
+接著我們支援能從 OSM 元素，從 GeoJSON 圖層，或是從 Vespucci 外部新增的"待辦事項"，這能夠提供方便追蹤你想要完成的事項的方式。 
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.
+註解和臭蟲會以小蟲子圖示  ![Bug](../images/bug_open.png) 顯示在地圖上面，綠色代表關閉/解決，藍色代表被新增或是由你編輯過，而黃色表示仍然有效還沒有變動。待辦事項則會以黃色勾選框顯示。
 
-The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+OSMOSE 錯誤以及待辦事項的顯示會將受影響的元素有連結，以藍色呈現出來 (而待辦事頁則只會顯示相關的 OSM 元素)，碰觸連結則會選擇元素，置中螢幕並且必要時先下載區域的資料。 
 
 ### 篩選
 
 除了全域時啟用顯示註解和臭蟲以外，你可以設定粗略顯示過瀘降低雜亂程度。你可以從任務圖層當中的[圖層控制](#layers)當中，設定過濾選項：
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* 註解
+* Osmose 錯誤
+* Osmose 警告
+* Osmose 小問題
 * Maproulette
-* Todo
+* 待辦事項
 
 <a id="indoor"></a>
 
@@ -234,9 +234,9 @@ The OSMOSE bug and Todos display will provide a link to the affected element in 
 
 ### 設定檢查
 
-All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the [preferences](Preferences.md). 
+所有的驗證都能在[設定](Preferences.md)"驗證設定/啟用驗登"當中被關閉/開啟。 
 
-The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.
+"重新踏查"的設定允許你設定一段時間重新踏查特定的標籤組合的物件。"檢查"項目則視符合的預置而被呈現出來。你可以點項目來編輯項目，綠色選單按鈕則允許新增項目。
 
 #### 重新踏察選項
 
@@ -282,15 +282,15 @@ The configuration for "Re-survey" entries allows you to set a time after which a
 
 可用的圖層種類：
 
-* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
-* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
-* Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
-* GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.
-* GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.
-* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+* 資料圖層 - 這是開放街圖資料會載入的圖層，一般來說使用上不必更動。預設：啟用。
+* 背景圖層 - 這裡有相當多可供使用的空照和衛星背景影像，預設的數值是 openstreetmap.org 的"標準樣式"地圖。
+* 重疊圖層 - 這些是有額外資訊的半透明圖層，像是品質檢查資訊。增加重疊圖層也許會對較老的裝置和有限記憶體裝置造成負擔。預設：無。
+* 註解/臭蟲顯示。開啟註解和臭蟲會以黃色蟲子圖示來顯示，關閉的則會顯示綠色。預設：開啟。
+* 圖片圖層，會顯示地理參照的圖片為紅色攝影機圖示，如果有方向資訊則會轉向。預設：關閉。
+* Mapillary 圖層 - 顯示有影像存在具有標記的 Mapillary 片段，點標記則會顯示影像。預設：關閉。
+* GeoJSON 圖層 - 顯示 GeoJSON 檔案的內容，多個圖層可以從檔案新增。預設：關閉。
+* GPX 圖層 -顯示 GPX 軌跡與路徑節點，多個圖層可以從檔案新增，而在記錄軌跡時 GPX 軌跡會另外顯示。預設：關閉。
+* 網格 - 在地圖兩邊顯示尺規或網格。預設：啟用。 
 
 更多資訊能在[地圖顯示](Main%20map%20display.md)取得。
 
@@ -303,19 +303,19 @@ The configuration for "Re-survey" entries allows you to set a time after which a
 
 進階參數選項
 
-* Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In _Auto_ mode we try to determine automatically if using full screen mode is sensible or not, setting it to _Force_ or _Never_ skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the _Auto_ mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: _Auto_.  
-* Node icons. Default: _on_.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+* 全螢幕模式。在沒有硬體按鈕的裝置上，Vespucci 能夠以全螢幕方式運作，這意味著"虛擬"瀏覽按鈕將在地圖顯示時自動被隱藏，提供地圖更多螢幕空間。而視你裝置也許能運作也許不能。在 _自動_ 模式我們會自動偵測，視設定為 _強制_ 或是 _總不_ 來決定是否啟用全螢幕模式，或是跳過自動檢查，而總是啟用全螢幕或是總不使用。而在使用 Android 11 或以上版本，_自動_ 模式因為有 Android 的手勢提供替代操作方式，則不會啟用全螢幕模。預設：_自動_。
+* 節點圖示。預設：_啟用_。
+* 總是顯示內容選單。當啟用所有選擇程序，則會顯示內容選單，關閉選單有顯示則只會在沒有明顯選擇時來決定。預設：關閉 (先前為啟用)。
+* 啟用亮色主題。在現代裝置則是預設開啟。你仍可以為較舊版本 Anroid 啟用，但樣式可能不一致。 
 
 整個敘述能在這裡[進階設定](Advanced%20preferences.md)找到
 
-## Reporting and Resolving Issues
+## 回報與解決問題
 
 如果 Vespucci 當掉，或是偵測不一致的狀態，你會被詢問是否傳送當機報告。如果發生的話請寄送報告，但請一次描述特定狀況。如果你想提供更多資訊，或是開啟 issue 請求新功能或其他類似請求，請到這邊開：[Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues)。主選單的"提供回饋"功能會開放新的 issue，不用額外輸入就有包含相關的 app 和裝置資訊。
 
-If you are experiencing difficulties starting the app after a crash, you can try to start it in _Safe_ mode on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
+如果你遇到困難，開啟 app 後當掉，你可以在支援快捷鍵的裝置當中以 _安全_ 模式開啟：對著 app 圖示長按，然後在選單選擇 _安全_ 模式。 
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [OpenStreetMap forum](https://community.openstreetmap.org).
+如果你想討論 Vespucci 相關議題，你可以在[開放街圖討論區](https://community.openstreetmap.org)開啟討論。
 
 

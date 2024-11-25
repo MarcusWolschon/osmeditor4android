@@ -89,9 +89,9 @@ Kiedy używanie paska czasu jest zbyt trudne, to kliknięcie go (poza znacznikam
 
 ### Zarządzaj szablonami
 
-The template management dialog allows you to add, edit and delete templates.
+Okno zarządzania szablonami pozwala dodawać, edytować i usuwać szablony.
 
-In Android 4.4 and later the following additional functionality is available from the menu button. 
+W Androidzie 4.4 i nowszych następująca funkcjonalność jest dostępna z poziomu przycisku menu.
 
 * __Show all__: display all templates in the database.
 * __Save to file__: write the contents of the template database to a file.

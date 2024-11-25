@@ -20,6 +20,7 @@
     <string name="help_advanced_preferences">Προηγμένες προτιμήσεις</string>
     <string name="help_custom_imagery">Προσαρμοσμένες εικόνες</string>
     <string name="help_presets">Προκαθορισμένες</string>
+    <string name="help_uploading">Μεταφόρτωση των αλλαγών σας</string>
     <string name="help_conflictresolution">Επίλυση συγκρούσεων</string>
     <string name="help_gpssources">Πηγές GPS</string>
     <string name="help_keyboard">Πληκτρολόγιο</string>
@@ -29,6 +30,10 @@
     <string name="help_newnoteselection">Επιλογή Νέας Σημείωσης</string>
     <string name="help_voice_commands">Φωνητικές εντολές </string>
     <string name="help_add_route_segment">Προσθήκη τμήματος διαδρομής</string>
+    <string name="help_tag_only_mode">Λειτουργία ετικέτας μόνο</string>
+    <string name="help_indoor_mode">Λειτουργία εσωτερικού χώρου</string>
+    <string name="help_address_mode">Λειτουργία διεύθυνσης</string>
+    <string name="help_upgrade">20.2 Σημειώσεις έκδοσης</string>
     <string name="help_upgrade_210">20.1 Σημειώσεις έκδοσης</string>
     <string name="help_upgrade_200">20.0 Σημειώσεις έκδοσης</string>
     <string name="help_upgrade_193">19.3 Σημειώσεις έκδοσης</string>

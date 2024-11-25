@@ -11,7 +11,7 @@
         <item>Intern</item>
         <item>Intern NMEA</item>
         <item>NMEA från TCP-client</item>
-        <item> NMEA från TCP-server</item>
+        <item>NMEA från TCP-server</item>
     </string-array>
     <string-array name="bug_state">
         <item>Öppna lindningar</item>
@@ -27,12 +27,12 @@
         <item>Stängd</item>
         <item>Falsk positiv</item>
         <item>Överhoppad</item> 
-        <item>Raderat</item>
+        <item>Raderad</item>
         <item>Redan fixad</item>
         <item>För svårt</item>
     </string-array>
     <string-array name="todo_state">
-        <item>Öppna lindningar</item>
+        <item>Öppen</item>
         <item>Stängd</item>
         <item>Överhoppad</item> 
     </string-array>
@@ -84,4 +84,7 @@
     <string name="theme_follow_entry">Följ systemet</string>
     <string name="theme_light_entry">Ljus</string>
     <string name="theme_dark_entry">Mörk</string>
+    <string name="authentication_basic_entry">Login - Lösenord</string>
+    <string name="authentication_oauth1a_entry">OAuth 1a</string>
+    <string name="authentication_oauth2_entry">OAuth 2</string>
     </resources>

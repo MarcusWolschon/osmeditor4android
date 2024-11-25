@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Objektets ålder</item>
+        <item>FIXME-taggar</item>
+        <item>Saknade taggar</item>
+        <item>Väg</item>
+        <item>Ingen relationstyp</item>
+        <item>Brittiska enheter saknas</item>
+        <item>Felaktigt objekt</item>
+        <item>Otaggat objekt</item>
+        <item>Ej kopplad slutnod</item>
+        <item>Tom relation</item>
+        <item>Saknad roll för relationsmedlem</item>
+        <item>Relationsloop</item>
+        <item>Icke-standard elementtyp</item>
+    </string-array>
+    </resources>

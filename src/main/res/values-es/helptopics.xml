@@ -20,6 +20,7 @@
     <string name="help_advanced_preferences">Preferencias avanzadas</string>
     <string name="help_custom_imagery">Imágenes personalizadas</string>
     <string name="help_presets">Presets</string>
+    <string name="help_uploading">Subir tus cambios</string>
     <string name="help_conflictresolution">Resolución de conflictos</string>
     <string name="help_gpssources">Fuentes de GPS</string>
     <string name="help_keyboard">Teclado</string>
@@ -29,6 +30,10 @@
     <string name="help_newnoteselection">Nueva selección de nota</string>
     <string name="help_voice_commands">Comandos de voz</string>
     <string name="help_add_route_segment">Añadir segmento de ruta</string>
+    <string name="help_tag_only_mode">Modo solo etiquetas</string>
+    <string name="help_indoor_mode">Modo interiores</string>
+    <string name="help_address_mode">Modo de direcciones</string>
+    <string name="help_upgrade">Versión 20.2 - Notas de la versión</string>
     <string name="help_upgrade_210">Versión 20.1 - Notas de la versión</string>
     <string name="help_upgrade_200">Versión 20.0 - Notas de la versión</string>
     <string name="help_upgrade_193">Versión 19.3 - Notas de la versión</string>

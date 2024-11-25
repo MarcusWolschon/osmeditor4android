@@ -6,6 +6,8 @@
   <string name="mode_indoor">Εσωτερικά</string>
   <string name="mode_correct">Λειτουργία-C</string>
   <string name="mode_address">Διεύθυνση</string>
+  <string name="mode_voice">Φωνή</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Προσοχή!</string>
   <string name="transfer_download_current_dialog_message">Έχετε κάνει αλλαγές. Θέλετε να τις μεταφορτώσετε αντί να τις απορρίψετε;</string>
@@ -13,12 +15,37 @@
   <string name="transfer_download_current_download">Απόρριψη και λήψη</string>
   <string name="transfer_download_current_back">Επιστροφή (Μην κάνεις τίποτα)</string>
   <string name="upload_problem_title">Δεν ήταν δυνατή η μεταφόρτωση</string>
-  <string name="upload_problem_message">Ορισμένα ή όλα τα δεδομένα δεν φορτώθηκαν. Δοκιμάστε ξανά αργότερα.</string>
+  <string name="upload_problem_message">Ορισμένα ή όλα τα δεδομένα δεν ανέβηκαν. Δοκιμάστε ξανά αργότερα.</string>
   <string name="bad_request_message">Το API απάντησε με σφάλμα, αποθηκεύστε τα δεδομένα σας και αναφέρετε το πρόβλημα:\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Διένεξη μεταφόρτωσης</string>
+  <string name="upload_conflict_message_version">Σύγκρουση εκδόσεων</string>
   <string name="upload_conflict_message_deleted">%1$s \nέχει τοπική έκδοση %2$d \nκαι διαγράφηκε στον διακομιστή</string>
-  <string name="use_local_version">Χρήση της τοπικής έκδοσης</string>
-  <string name="use_server_version">Χρήση έκδοση για το διακομιστή</string>
+  <string name="upload_conflict_message_referential">Το στοιχείο διαγράφηκε τοπικά αλλά έχει αναφορές στο διακομιστή</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nείχε ήδη διαγραφεί στο διακομιστή, προσπάθεια ξανά</string>
+  <string name="upload_conflict_message_missing_references">Το τοπικό στοιχείο αναφέρει αντικείμενα τα οποία είναι διεγραμμένα στο διακομιστή</string>
+  <string name="upload_conflict_message_unknown">%1$s \nδημιούργησε άγνωστη σύγκρουση μεταφόρτωσης \n%2$s</string>
+  <string name="upload_conflict_message_changeset_closed">Το σύνολο αλλαγών έκλεισε αναπάντεχα, προσπάθεια ξανά</string>
+  <string name="server_side_object">Έκδοση διακομιστή</string>
+  <string name="local_object">Τοπική έκδοση</string>
+  <string name="resolve_by">Επίλυση σύγκρουσης…</string>
+  <string name="resolve">Επίλυση</string>
+  <string name="delete_refering_element">… διαγράφοντας το αναφερόμενο στοιχείο</string>
+  <string name="use_local_version">… χρησιμοποιώντας την τοπική έκδοση</string>
+  <string name="merge_tags_in_to_local">… συγχωνεύοντας τις ετικέτες προς την τοπική έκδοση</string>
+  <string name="merge_tags_in_to_server">… συγχωνεύοντας τις ετικέτες προς την έκδοση διακομιστή</string>
+  <string name="use_server_version">… χρησιμοποιώντας την έκδοση διακομιστή</string>
+  <string name="undoing_local_delete">… αναιρώντας την τοπική διαγραφή</string>
+  <string name="deleting_references_on_server">… διαγράφοντας τις αναφορές στο διακομιστή</string>
+  <string name="unable_to_download_referring_element">Αδυναμία λήψης αναφερόμενων στοιχείων %1$s %2$d</string>
+  <string name="unable_to_download_referring_element_for_deletion">Αδυναμία λήψης αναφερόμενων στοιχείων για διαγραφή %1$s %2$d</string>
+  <string name="unable_to_download_server_version">Αδυναμία λήψης έκδοσης διακομιστή %1$s %2$d</string>
+  <string name="unexpected_conflict_type">Μη αναμενόμενο είδος σύγκρουσης</string>
+  <string name="missing_referenced_elements">Λείπουν αναφερόμενα στοιχεία</string>
+  <string name="still_in_use_by_elements">Ακόμη σε χρήση από στοιχεία</string>
+  <string name="delete_locally">Διαγραφή\nτοπικά</string>
+  <string name="undelete_on_server">Αναίρεση διαγραφής\nστο διακομιστή</string>
+  <!---->
   <string name="no_login_data_title">Δεν ήταν δυνατή η πιστοποίηση</string>
   <string name="no_connection_title">Δεν υπάρχει σύνδεση με το διακομιστή</string>
   <string name="no_connection_message">Δεν ήταν δυνατή η σύνδεση στο διακομιστή OSM τώρα. Ελέγξτε ότι είστε συνδεδεμένοι στο Internet ή δοκιμάστε ξανά αργότερα.</string>
@@ -29,11 +56,20 @@
   <string name="unknown_error_title">Άγνωστο σφάλμα</string>
   <string name="no_data_title">Χωρίς δεδομένα</string>
   <string name="go_to_openstreetmap">Πηγαίνετε στο openstreetmap.org</string>
+  <string name="data_conflict_title">Σύγκρουση εκδόσεων</string>
+  <string name="corrupted_data_title">Κατεστραμμένα δεδομένα</string>
   <string name="bounding_box_too_large_title">Η περιοχή λήψης είναι πολύ μεγάλη</string>
+  <string name="api_offline_title">API εκτός σύνδεσης</string>
+  <string name="out_of_memory_title">Η μνήμη εξαντλήθηκε</string>
+  <string name="file_write_failed_title">Αδυναμία εγγραφής στο αρχείο</string>
   <string name="file_write_failed_message">Το Vespucci δεν μπορεί να αλλάξει ή να αποθηκεύσει το αρχείο.</string>
+  <string name="duplicate_tag_key_title">Διπλότυπα κλειδιά</string>
   <!---->
+  <!--Newbie dialog-->
   <string name="welcome_title">Καλώς ήλθατε</string>
   <string name="read_introduction">Διαβάστε την εισαγωγή</string>
+  <string name="welcome_start">Ξεκινήστε!</string>
+  <!---->
   <string name="upgrade_title">Αυτή είναι μια νέα έκδοση Vespucci</string>
   <string name="upgrade_message">Τα νέα χαρακτηριστικά και η συμπεριφορά αναλύονται στις σημειώσεις έκδοσης.</string>
   <string name="read_upgrade">Διαβάστε για τη νέα έκδοση</string>
@@ -46,8 +82,11 @@
   <string name="progress_saving_message">Γίνεται αποθήκευση…</string>
   <string name="progress_uploading_message">Γίνεται αποστολή...</string>
   <string name="progress_preset_message">Προεπιλεγμένη λήψη...</string>
+  <string name="progress_importing_file_message">Γίνεται εισαγωγή αρχείου...</string>
   <string name="progress_running_message">Λειτουργία...</string>
   <string name="progress_oauth">Φόρτωση του λογαριασμού σας στο openstreetmap.org για εξουσιοδότηση του OAuth...</string>
+  <string name="progress_building_imagery_database">Κατασκευή εικονικής βάσης δεδομένων...</string>
+  <string name="progress_pruning">Κλάδεμα...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" διαγράφηκε</string>
   <string name="changes_changed">\"%1$s\" άλλαξε</string>
@@ -57,32 +96,68 @@
   <string name="upload_comment_label">Σχόλιο:</string>
   <string name="upload_source_label">Προέλευση:</string>
   <string name="upload_close_changeset_label">Κλείσιμο ομάδας αλλαγών</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">Το σχόλιο δεν πρέπει να είναι άδειο</string>
+  <string name="upload_validation_error_empty_source">Η πηγή δεν πρέπει να είναι άδεια</string>
+  <string name="upload_empty_comment_warning_label">Προειδοποίησε εάν το σχόλιο είναι κενό</string>
+  <string name="upload_auto_summary">Αυτόματα παραγόμενη περίληψη</string>
+  <string name="untagged_node">κόμβος χωρίς ετικέτες</string>
+  <string name="untagged_way">γραμμή χωρίς ετικέτες</string>
+  <string name="untagged_relation">σχέση χωρίς ετικέτες</string>
+  <string name="changed_preset">%1$s σε %2$s</string>
+  <string name="changed_tags">%1$s άλλαξαν ετικέτες</string>
+  <string name="moved">%1$s μετακινήθηκε</string>
+  <string name="unknown_object">άγνωστο αντικείμενο</string>
+  <!--Review changes dialog-->
+  <!--Upload GPX-->
+  <string name="upload_gpx_title">Μεταφόρτωση ίχνους GPX</string>
   <string name="upload_gpx_description_label">Περιγραφή</string>
   <string name="upload_gpx_tags_label">Ετικέτες</string>
   <string name="upload_gpx_visibility_label">ορατότητα</string>
-  <string name="upload_validation_error_empty_comment">Το σχόλιο δεν πρέπει να είναι άδειο</string>
-  <string name="upload_validation_error_empty_source">Η πηγή δεν πρέπει να είναι άδεια</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Ιδιότητες φόντου</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Νέα σημείωση</string>
+  <string name="openstreetbug_new_bug">Αναφορά προβλήματος</string>
   <string name="openstreetbug_bug_title">Ζήτημα</string>
   <string name="openstreetbug_new_nodeway">Δημιουργία κόμβου/διαδρομής </string>
   <string name="openstreetbug_edit_title"> Επεξεργασία σημείωσης</string>
   <string name="openstreetbug_comment_label">Σχόλιο:</string>
+  <string name="openstreetbug_commit_ok">Οι αλλαγές της εργασίας αποθηκεύτηκαν</string>
+  <string name="openstreetbug_commit_fail">Δεν ήταν δυνατή η αποθήκευση των αλλαγών της εργασίας</string>
   <string name="openstreetbug_unknown_task_type">Άγνωστος τύπος εργασίας</string>
   <string name="openstreetbug_not_supported">%1$s δεν υποστηρίζεται.</string>
-  <string name="note_description">Σημείωση: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="note_description">%1$s - %2$s</string>
+  <string name="bug_description_191">%1$s - %2$s</string>
+  <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
   <string name="generic_bug">Σφάλμα</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="custom_bug">Προσαρμοσμένο</string>
+  <string name="todo_title">Εκκρεμότητα</string>
+  <string name="todo_list">Λίστα %1$s</string>
+  <string name="todo_list_and_comment">Λίστα %1$s&lt;br&gt;&lt;br&gt;%2$s</string>
+  <string name="todo">Εκκρεμότητα</string>
+  <string name="select_todo_list">Επιλογή λίστας εκκρεμοτήτων</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$s</string>
   <string name="bug_element_1">%1$s(δεν κατέβηκε) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_explanations">Επεξηγήσεις</string>
+  <string name="maproulette_task_instructions">Οδηγίες</string>
+  <string name="maproulette_task_set_apikey">Ορισμός κλειδιού MapRoulette API</string>
+  <string name="maproulette_task_apikey_not_set">Αδυναμία αποθήκευσης κλειδιού MapRoulette API</string>
   <string name="maproulette_task_disable">Απενεργοποίηση</string>
+  <string name="maproulette_task_apikey_set">Κλειδί MapRoulette API αποθηκεύτηκε</string>
+  <string name="maproulette_task_no_apikey">Χωρίς κλειδί MapRoulette API</string>
+  <string name="maproulette_description">Maproulette: %1$s</string>
+  <!--Todo dialogs-->
+  <plurals name="add_todo_title">
+    <item quantity="one">Προσθέστε την εκκρεμότητα στη λίστα</item>
+    <item quantity="other">Προσθέστε τις εκκρεμότητες στη λίστα</item>
+  </plurals>
+  <string name="all_todos_done_title">Όλες οι εκκρεμότητες στη λίστα υλοποιήθηκαν</string>
+  <string name="todo_comment_legend">Σχόλιο</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Προσοχή!</string>
+  <string name="unsaved_data_message">Οι μη αποθηκευμένες αλλαγές θα απορριφθούν εάν προχωρήσετε.</string>
   <string name="unsaved_data_proceed">Απόρριψη και συνέχεια</string>
   <!--Imagery offset dialog-->
   <string name="imagery_offset_description">Περιγραφή</string>
@@ -100,13 +175,20 @@
   <string name="search_online">Αναζήτηση στο διαδίκτυο</string>
   <string name="find_message">Εισαγάγετε κείμενο αναζήτησης</string>
   <string name="geocoder_prompt">με</string>
+  <string name="geocoder_limit_label">Σε θέα</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Αναζήτηση για αντικείμενα</string>
   <!---->
   <string name="preset_search_hint">Προεπιλεγμένη αναζήτηση συμβολοσειράς </string>
   <string name="search">Αναζήτηση</string>
   <string name="no_valid_preset">Μη έγκυρη προεπιλογή!</string>
+  <string name="save_file">Αποθήκευση σε</string>
+  <string name="existing_track_title">Υπάρχοντα δεδομένα ίχνους GPX</string>
+  <string name="existing_track_message">Έχετε ήδη υπάρχοντα δεδομένα ίχνους GPX. Ίσως να θέλετε να ακυρώσετε και να αποθηκεύσετε πρώτα.</string>
+  <string name="delete_tags">Πραγματικά θέλετε να διαγράψτε όλες τις ετικέτες για το αντικείμενο \" %1$s \";</string>
   <!--element information dialog-->
   <string name="element_information">Πληροφορία στοιχείου</string>
+  <string name="id">ID</string>
   <string name="nodes">Κόμβοι</string>
   <string name="relation_membership">Σχέση μέλους</string>
   <string name="problem">Πρόβλημα</string>
@@ -121,11 +203,18 @@
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Αντιγραφή ιδιοτήτων</string>
   <!--API/Data layer info dialog-->
+  <string name="ways">Γραμμές</string>
   <!--Tile layer info dialog-->
+  <!--GPX info dialog-->
+  <!--Image information dialog-->
+  <string name="direction">Κατεύθυνση</string>
+  <string name="file_size">Μέγεθος</string>
+  <string name="file_size_kB">%1$d kB</string>
   <!--Too much data dialog-->
   <string name="upload_data_now">Μεταφόρτωση αλλαγών</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">Προσθήκη τμήματος διαδρομής</string>
   <!--Duplicate relation element dialog-->
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move">Μετακίνηση</string>
@@ -138,31 +227,37 @@
   <string name="odd">Περιττός</string>
   <string name="other">Άλλο</string>
   <!--Safe split dialog-->
+  <!--JS console dialog-->
+  <string name="evaluate">Αξιολόγηση</string>
+  <string name="js_console_msg_live">Ζωντανή λειτουργία!</string>
+  <string name="js_console_msg_debug">Λειτουργία αποσφαλμάτωσης!</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">Σφάλμα</string>
   <string name="warning">Προειδοποίηση</string>
   <string name="minor_issue">Δευτερεύον ζήτημα</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Αυτή η λειτουργία επηρεάζει τα φιλτραρισμένα αντικείμενα!</string>
+  <!--replace geometry confirm-->
+  <string name="remove_geometry_source">Αφαίρεση πηγής γεωμετρίας;</string>
   <!--This concerns a shown message that should be shown every time-->
   <!--This concerns a shown message that should only be shown once-->
   <string name="attached_object_warning_stop">ΟΚ, αγνόησε</string>
   <!--debug dialog-->
-  <!--JS console dialog-->
-  <string name="evaluate">Αξιολόγηση</string>
-  <string name="js_console_msg_live">Ζωντανή λειτουργία!</string>
-  <string name="js_console_msg_debug">Λειτουργία αποσφαλμάτωσης!</string>
   <!--Validator dialogs-->
   <string name="validator_title">Επικύρωση πακέτου κανόνων %1$s</string>
   <string name="edit_resurvey_title">Επεξεργασία καταχώρησης επανέρευνας</string>
   <string name="add_resurvey_title">Προσθήκη καταχώρησης επανέρευνας</string>
+  <string name="check_entries">Επιταγή</string>
   <string name="edit_check_title">Επεξεργασία καταχώρησης ελέγχου</string>
   <string name="add_check_title">Προσθήκη καταχώρησης ελέγχου</string>
   <string name="max_age">Μέγιστη ηλικία</string>
   <string name="age">Ηλικία</string>
   <string name="add_resurvey_entry">Προσθήκη καταχώρησης επανέρευνας</string>
   <string name="add_check_entry">Προσθήκη καταχώρησης ελέγχου</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">Κενή σχέση</string>
   <string name="add_members">Προσθήκη μελών</string>
   <string name="leave_empty">Αφήστε κενό</string>
   <!--GPX waypoint dialog-->
@@ -192,15 +287,15 @@
   <string name="json_array_not_displayed">Σειρά JSON (δεν εμφανίζεται)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Πλέγμα</string>
+  <string name="layer_bookmarks">Σελιδοδείκτες</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Φωτογραφίες</string>
   <string name="layer_tasks">Καθήκοντα</string>
   <string name="layer_data">Δεδομένα OSM</string>
   <string name="layer_data_name">%1$s δεδομένα</string>
   <string name="layer_flush_tile_cache">Ξέπλυμα πλακιδίων μνήμης</string>
-  <string name="layer_change_style">Αλλαγή στυλ</string>
-  <string name="layer_select_imagery">Επιλογή εικόνας</string>
   <string name="layer_category_all">\'Ολα</string>
   <string name="layer_category_map">Χάρτης</string>
   <string name="layer_category_other">Άλλο</string>
@@ -209,9 +304,12 @@
   <string name="layer_info_max_zoom">Ανώτερη εστίαση</string>
   <string name="errors">Σφάλματα</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">%1$s</string>
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <!--API info dialog-->
-  <!--Tag conflict dialog-->
+  <!--Element issue dialog-->
+  <string name="replace_geometry_issue_title">Στοιχείο άλλαξε</string>
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
   <string name="select_relation_type_other">Άλλο</string>
@@ -220,33 +318,71 @@
   <string name="undo_redo_title">Αναίρεση - επανάληψη</string>
   <string name="undo_all">Αναίρεση όλων των επόμενων σημείων ελέγχου (ασφαλές)</string>
   <string name="redo_all">Επαναλάβετε όλα τα προηγούμενα σημεία ελέγχου (ασφαλές)</string>
+  <string name="undo_latest">Τελευταία</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_title">Η τοποθεσία αναίρεσης δεν είναι σε θέα</string>
+  <string name="undo_location_text">Η τοποθεσία η οποία θα επηρεαστεί από την αναίρεση δεν είναι σε θέα.</string>
+  <string name="undo_location_undo_anyway">Αναίρεση ούτως ή άλλως</string>
+  <string name="undo_location_zoom">Κάντε ζουμ στην τοποθεσία, έπειτα αναίρεση</string>
+  <!--Value widget dialogs-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Κατεβάστε τα δεδομένα του OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
+  <!--Measurement dialog-->
   <!--Tips-->
+  <string name="tip_title">Το ήξερες;</string>
+  <string name="tip_check_label">Σταμάτα την εμφάνιση προαιρετικών συμβουλών</string>
+  <string name="tip_empty_comment_warning">Το Vespucci προσθέτει πάντα μια αυτόματα δημιουργημένη σύνοψη του τι ανεβάσατε.&lt;p&gt;Θα πρέπει ακόμα να λάβετε υπόψη να προσθέσετε λίγες λέξεις για το γιατί κάνετε αυτές τις επεξεργασίες για να δώσετε μεγαλύτερο πλαίσιο κατανόησης για άλλους χαρτογράφους.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <string name="default_channel_name">Προεπιλογή Vespucci</string>
+  <string name="default_channel_description">Προεπιλεγμένο κανάλι ειδοποιήσεων</string>
+  <!--Notifications-->
+  <plurals name="upload_checker_message">
+    <item quantity="one">Έχεις μία μη δημοσιευμένη αλλαγή.</item>
+    <item quantity="other">Έχεις %1$d μη δημοσιευμένες αλλαγές.</item>
+  </plurals>
   <!--Toaster-->
+  <string name="toast_permission_denied">Άδεια απορρίφθηκε %1$s</string>
+  <string name="toast_unable_to_persist_permissions">Αδυναμία διατήρησης αδειών</string>
+  <string name="toast_name_empty">Επιλέξτε ένα όνομα</string>
+  <string name="toast_url_empty">Εισάγετε ένα URL</string>
   <string name="toast_no_changes">Δεν έχετε αλλάξει τίποτα ως τώρα…</string>
   <string name="clear_anyway">Διαγραφή οπωσδήποτε;</string>
+  <string name="toast_upload_success">Μεταφορτώθηκε στο διακομιστή OSM.</string>
   <string name="toast_unlock_to_edit">Ξεκλειδώστε για επεξεργασία</string>
+  <string name="toast_save_done">Αποθηκεύτηκε</string>
+  <string name="toast_save_failed">Αδυναμία αποθήκευσης</string>
+  <string name="toast_export_failed">Δεν ήταν δυνατή η εξαγωγή</string>
   <string name="toast_export_success">Εξήχθη στο %1$s</string>
-  <string name="toast_preset_overwrote_tags">Σημείωση - προεπιλογή αντικατάστασης ετικέτας(των)</string>
+  <plurals name="toast_preset_removed_or_replaced_tags">
+    <item quantity="one">Αντικαταστάθηκε ή αφαιρέθηκε 1 ετικέτα</item>
+    <item quantity="other">Αντικαταστάθηκαν ή αφαιρέθηκαν %1$d ετικέτες</item>
+  </plurals>
   <string name="toast_merge_overwrote_tags">Σημείωση - λειτουργία αντικατάστασης ετικέτας(των)</string>
-  <string name="toast_state_file_failed">Μη αναγνώσιμο ή κατεστραμμένο αρχείο</string>
+  <string name="toast_way_nodes_moved">%1$d κόμβοι σε μετακινημένη γραμμή</string>
+  <plurals name="toast_unread_mail">
+    <item quantity="one">Έχετε ένα μη αναγνωσμένο μήνυμα στο OSM</item>
+    <item quantity="other">Έχετε %1$d μη αναγνωσμένα μήνυματα στο OSM</item>
+  </plurals>
   <string name="read_mail">Διάβασμα</string>
   <string name="toast_photo_indexing_started">Ξεκίνησε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_photo_indexing_finished">Ολοκληρώθηκε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_download_failed">Η λήψη απέτυχε με κωδικό σφάλματος %1$d, μήνυμα %2$s</string>
+  <string name="toast_note_reopened">Σημείωση ανοίχθηκε ξανά</string>
+  <string name="toast_untrusted_certificate">Μη αξιόπιστο πιστοποιητικό\n%1$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Μη ερευνημένος δρόμος</string>
+  <string name="toast_untagged_element">Στοιχείο χωρίς ετικέτες</string>
+  <string name="toast_degenerate_way">Εκφυλισμένη γραμμή</string>
   <!---->
   <string name="toast_oauth">Παρακαλούμε να επιτραπεί η πρόσβαση του OAuth στο λογαριασμό του OSM σας.</string>
   <string name="toast_oauth_not_enabled">Το OAuth δεν είναι ενεργοποιημένο για το τρέχον API.</string>
+  <string name="toast_timeout">Χρονικό όριο από το διακομιστή</string>
   <string name="coordinates_out_of_range">Γεωγραφικό μήκος πρέπει να είναι εντός -180°/+180°, γεωγραφικό πλάτος εντός -85°/85°</string>
   <string name="toast_nothing_found">Δεν βρέθηκαν αποτελέσματα</string>
   <string name="toast_file_not_found">%1$s δεν βρέθηκε.</string>
@@ -262,21 +398,54 @@
   <string name="toast_invalid_apiurl">Άκυρη διεύθυνση API</string>
   <string name="toast_invalid_readonlyurl">Άκυρη διεύθυνση API Μόνο Για Ανάγνωση</string>
   <string name="toast_invalid_filter_regexp">Άκυρη κανονική έκφραση στο φίλτρο με κλειδί=\"%1$s\" τιμή=\"%2$s\"</string>
+  <string name="toast_no_photo_found">Δεν βρέθηκε φωτογραφία</string>
+  <string name="toast_security_error_accessing_photo">Δεν επιτρέπεται η πρόσβαση στη φωτογραφία %1$s</string>
   <string name="toast_no_coverage">%1$s δεν έχει κάλυψη εδώ</string>
+  <string name="toast_file_exists">Το αρχείο %1$s υπάρχει.</string>
   <string name="toast_needs_resurvey">Το αντικείμενο μπορεί να είναι ξεπερασμένο</string>
+  <string name="toast_missing_key">Το κλειδί %1$s λείπει</string>
+  <string name="toast_invalid_object">Μη έγκυρο αντικείμενο</string>
   <string name="toast_openinghours_invalid">Άκυρη τιμή ωαρίου λειτουργίας για %1$s</string>
   <string name="toast_null_island">Παρακαλώ μην προσθέτετε στοιχεία στις 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Σειρά πολύ μεγάλη (%1$d χαρακτήρες), περικόπηκε!</string>
   <string name="toast_illegal_operation">Παράνομη λειτουργία: %1$s</string>
   <string name="toast_imperial_units">Λείπει αγγλοσαξονικές μονάδες</string>
+  <string name="toast_server_connection_failed">Η σύνδεση στο διακομιστή απέτυχε: %1$s</string>
   <string name="toast_flus_all_caches">Αυτό θα ξεπλύνει όλα τα πλακίδια της μνήμης!</string>
+  <string name="toast_applied_offset">Εφαρμόστηκε απόκλιση εικόνας.</string>
   <string name="toast_unsupported_format">Μορφή που δεν υποστηρίζεται: %1$s</string>
   <string name="toast_returning_less_than_found">Επιστροφή %1$d από %2$dευρεθέντες καταχωρήσεις</string>
-  <string name="toast_not_mbtiles">Δεν είναι αρχείο μορφής MBTiles</string>
   <string name="toast_using_network_location">Χρησιμοποιώντας την θέση δικτύου</string>
   <string name="toast_tags_copied">Οι ετικέτες έχουν αντιγραφεί στο πρόχειρο</string>
   <string name="toast_tags_cut">Οι ετικέτες αποκόπηκαν στο πρόχειρο</string>
   <string name="toast_properties_copied">Οι ιδιότητες έχουν αντιγραφεί στο πρόχειρο</string>
+  <string name="toast_merged">Συγχωνεύθηκαν</string>
+  <string name="toast_updated">Ενημερώθηκε %1$s</string>
+  <string name="toast_cannot_resume_download_of">Αδυναμία συνέχισης λήψης του %1$s</string>
+  <string name="toast_device_not_found_for">Συσκευή δεν βρέθηκε για %1$s</string>
+  <string name="toast_file_already_exists">Το αρχείο %1$s υπάρχει ήδη</string>
+  <string name="toast_file_error_for">Σφάλμα αρχείου στο %1$s</string>
+  <string name="toast_error_reading">Σφάλμα ανάγνωσης του %1$s</string>
+  <string name="toast_read_successfully">Το αρχείο αναγνώστηκε επιτυχώς</string>
+  <string name="toast_error_writing">Σφάλμα εγγραφής στο %1$s</string>
+  <string name="toast_successfully_written">Επιτυχής εγγραφή στο %1$s</string>
+  <string name="toast_unknown_error_for">Άγνωστο σφάλμα για %1$s</string>
+  <string name="toast_download_started">Άρχισε η λήψη του %1$s</string>
+  <string name="toast_members_not_downloaded">Κάποια μέλη της σχέσης δεν λήφθηκαν</string>
+  <string name="toast_restart_required">Πρέπει να επανεκκινήσετε το Vespucci για να εφαρμοστούν οι αλλαγές</string>
+  <string name="toast_out_of_memory">ΕΞΑΝΤΛΗΘΗΚΕ Η ΜΝΗΝΗ!</string>
+  <string name="toast_no_intersection_found">Δεν βρέθηκε διασταύρωση</string>
+  <string name="toast_api_key_missing">Δεν βρέθηκε κλειδί API για %1$s</string>
+  <string name="toast_no_track_points">Χωρίς σημεία ίχνους</string>
+  <string name="toast_no_way_points">Χωρίς σημεία γραμμής</string>
+  <string name="toast_url_check">%1$s %2$d</string>
+  <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
+  <string name="toast_element_has_been_deleted">Το στοιχείο διαγράφηκε</string>
+  <string name="toast_updating_tags">Ενημέρωση ετικετών…</string>
+  <string name="toast_updating_parents">Ενημέρωση γονέων…</string>
+  <string name="toast_updating_members">Ενημέρωση μελών…</string>
+  <string name="toast_note_not_found">Η σημείωση #%1$d δεν βρέθηκε</string>
+  <string name="toast_no_compass">Η συσκευή δεν έχει πυξίδα!</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Ναι</string>
@@ -300,23 +469,37 @@
   <string name="clear">Εκκαθάριση</string>
   <string name="discard">Απόρριψη</string>
   <string name="retry">Επανάληψη</string>
+  <string name="prune">Περικοπή</string>
+  <string name="check">Επιταγή</string>
   <string name="download">Λήψη</string>
+  <string name="abort">Ματαίωση</string>
+  <string name="ignore">Αγνόηση</string>
+  <string name="select">Επιλογή</string>
+  <string name="skip">Παράλειψη</string>
+  <string name="more_information">Περισσότερες πληροφορίες</string>
+  <string name="osm_tags">Ετικέτες OSM</string>
   <!--Read a file-->
   <string name="read">Διάβασμα</string>
+  <string name="load">Φόρτωση</string>
   <string name="overwrite">Αντικατάσταση</string>
   <string name="share">Μοίρασμα</string>
   <string name="share_position">Μοίρασμα τοποθεσίας</string>
+  <string name="share_on_openstreetmap">Κοινοποίησε στο OpenStreetMap</string>
   <string name="min">Ελάχιστο</string>
   <string name="max">Μέγιστο</string>
   <string name="geojson_object">%1$s (%2$s)</string>
   <string name="none">Κανένα</string>
   <!--Dialog for back button-->
+  <string name="exit_title">Έξοδος από το Vespucci</string>
   <string name="exit_text">Θέλετε σίγουρα να κλείσετε το πρόγραμμα;</string>
+  <string name="pause_exit_text">Θέλετε σίγουρα να κάνετε παύση παρακολούθησης και να βγείτε;</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">κλειδί</string>
   <string name="Key">Κλειδί</string>
   <string name="value">τιμή</string>
   <string name="Value">Τιμή</string>
+  <string name="multiselect_header_short">Τιμές (%1$d)</string>
+  <string name="multiselect_header_long">Τιμές (για %1$d στοιχεία)</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/El:Map_Features</string>
   <string name="tag_menu_address">Προσθήκη ετικετών διεύθυνσης</string>
   <string name="tag_menu_sourcesurvey">Χαρτογραφήθικε</string>
@@ -336,7 +519,6 @@
   <string name="tag_dialog_value_hint">Πατήστε για τιμές</string>
   <string name="tag_action_tag_title">Επιλεγμένη ετικέτα(τες)</string>
   <string name="tag_action_members_title">Επιλεγμένο μέλος(η)</string>
-  <string name="tag_action_parents_title">Επιλεγμένη σχέση(σεις)</string>
   <string name="tag_additional_properties">Πρόσθετες ιδιότητες</string>
   <string name="tag_details">Λεπτομέρειες</string>
   <string name="tag_not_set">Δεν ρυθμίστηκε</string>
@@ -360,6 +542,8 @@
   <string name="tag_restriction_add_expression">Προσθήκη έκφρασης</string>
   <string name="tag_restriction_add_opening_hours">Προσθήκη τις ώρες λειτουργίας</string>
   <string name="tag_form_unknown_element">Άγνωστο στοιχείο (δεν βρέθηκε προεπιλογή)</string>
+  <string name="tag_form_untagged_element">Στοιχείο χωρίς ετικέτες</string>
+  <!--preset item menu in preset MRU-->
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Επιλέξτε ακτίνα:</string>
@@ -369,19 +553,30 @@
   <string name="location_current_text">Τωρινή τοποθεσία:</string>
   <string name="location_text_unknown">Άγνωστο</string>
   <string name="location_last_text_parameterized">Τελευταία γνωστή τοποθεσία: %1$s</string>
-  <string name="location_current_text_parameterized">Τωρινή τοποθεσία:</string>
-  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s ago</string>
+  <string name="location_current_text_parameterized">Τωρινή τοποθεσία: %1$s</string>
+  <string name="location_text_metadata_location">\nΓ. Πλ %1$4g, Γ. Μηκ %2$4g\n%3$s %4$s νωρίτερα</string>
+  <string name="location_text_metadata_accuracy">Ακρίβεια %1$2.0f μέτρα, </string>
+  <string name="location_text_metadata">(%1$s%2$s)</string>
   <string name="location_coordinates_text">Από συντεταγμένες:</string>
   <string name="location_lat_label">Γ. Πλ:</string>
   <string name="location_lon_label">Γ. Μηκ:</string>
   <string name="location_search_label">Αναζήτηση:</string>
   <string name="location_load_button">Φόρτωση</string>
   <string name="location_load_dismiss">Μετάβαση στο χάρτη</string>
+  <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">Χρήση</string>
+  <string name="barometer_calibration_gps">GNSS</string>
   <!--Strings in postition info-->
+  <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">Υψόμετρο</string>
+  <string name="position_info_barometric_height">Βαρομετρικό ύψος</string>
   <!--Strings in DownloadActivity-->
+  <string name="download_files_title">Λήψη πλακιδίων</string>
+  <string name="allow_all_networks">Να επιτρέπονται όλα τα δίκτυα</string>
   <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">Πήγαινε σε συντεταγμένες</string>
+  <string name="go_to_coordinates_hint">Εισάγετε συντεταγμένες (lat lon) ή ένα OLC</string>
   <!--Menu-->
   <string name="menu_move">Μετακίνηση</string>
   <string name="menu_edit">Επεξεργασία</string>
@@ -389,31 +584,54 @@
   <string name="menu_config">Προτιμήσεις</string>
   <string name="menu_find">Εύρεση</string>
   <string name="menu_help">Βοήθεια</string>
+  <string name="menu_view">Προβολή</string>
   <string name="menu_erase">Διαγραφή κόμβου</string>
   <string name="menu_set_position">Θέση</string>
   <string name="menu_split">Διαίρεση</string>
+  <string name="menu_remove_node_from_way">Αφαίρεση κόμβου από γραμμή</string>
+  <string name="menu_start_end_way">Αρχή/Τέλος της Γραμμής</string>
   <string name="menu_extract">Εξαγωγή κόμβου</string>
   <string name="menu_append">Προσάρτηση</string>
+  <string name="menu_create_route">Δημιουργία διαδρομής</string>
+  <string name="menu_add_to_route">Προσθήκη στην διαδρομή</string>
   <string name="menu_relation">Δημιουργία σχέσης</string>
   <string name="menu_edit_relation">Επεξεργασία σχέσης</string>
+  <string name="menu_add_relation_member">Προσθήκη / αφαίρεση μέλους</string>
   <string name="menu_select_relation_members">Επιλογή μελών</string>
   <string name="menu_tag">Επεξεργασία χαρακτηριστικών</string>
+  <string name="menu_openstreetbug">Προσθήκη σημείωσης</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_camera">Κάμερα</string>
   <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Προβολή τοποθεσίας</string>
   <string name="menu_gps_follow">Ακολουθήστε την τοποθεσία</string>
-  <string name="menu_gps_upload">Μεταφόρτωση ίχνους GPX</string>
-  <string name="menu_gps_export">Εξαγωγή ίχνους GPX</string>
-  <string name="menu_gps_import">Εισαγωγή ίχνους GPX</string>
+  <string name="menu_gps_goto">Πήγαινε στην τρέχουσα τοποθεσία</string>
+  <string name="menu_gps_goto_coordinates">Πήγαινε στις συνταταγμένες…</string>
+  <string name="menu_gps_goto_last_edit">Πήγαινε στην τελευταία επεξεργασία</string>
+  <string name="menu_gps_position_info">Πληροφορίες τρέχουσας τοποθεσίας</string>
+  <string name="menu_gps_start">Έναρξη ίχνους GPX</string>
+  <string name="menu_gps_resume">Συνέχιση ίχνους GPX</string>
+  <string name="menu_gps_pause">Παύση ίχνους GPX</string>
+  <string name="menu_gps_clear">Καθαρισμός ίχνους GPX και σημείων του</string>
+  <string name="menu_gps_track_managment">Διαχείριση ίχνους GPX…</string>
+  <string name="menu_gps_upload">Μεταφόρτωση ίχνους GPX…</string>
+  <string name="menu_gps_export">Εξαγωγή ίχνους GPX…</string>
+  <string name="menu_gps_import">Εισαγωγή ίχνους GPX…</string>
+  <string name="menu_gps_goto_start">Πήγαινε στην αρχή του ίχνους GPX</string>
+  <string name="menu_gps_goto_first_waypoint">Πήγαινε στο πρώτο σημείο</string>
+  <string name="menu_gps_add_bookmark">Προσθήκη σελιδοδείκτη…</string>
   <string name="menu_transfer">Γίνεται μεταφορά…</string>
   <string name="menu_transfer_download_current">Λήψη τρέχουσας προβολής</string>
-  <string name="menu_transfer_upload">Αποστολή δεδομένων στον διακομιστή </string>
+  <string name="menu_transfer_upload">Μεταφόρωση δεδομένων στο διακομιστή OSM…</string>
   <string name="menu_transfer_close_changeset">Κλείσιμο τρέχουσας ομάδας αλλαγών</string>
+  <string name="menu_transfer_file">Αρχείο…</string>
   <string name="menu_transfer_export">Εξαγωγή αλλαγών σε αρχείο OSC</string>
+  <string name="menu_transfer_apply_osc_file">Εφαρμογή αλλαγών από αρχείο OSC</string>
+  <string name="menu_transfer_read_file">Ανάγνωση από αρχείο JOSM…</string>
+  <string name="menu_transfer_read_pbf_file">Ανάγνωση από αρχείο PBF</string>
+  <string name="menu_transfer_save_file">Αποθήκευση στο αρχείο JOSM…</string>
   <string name="menu_transfer_bugs_upload">Αποστολή όλων</string>
   <string name="menu_transfer_bugs_clear">Εκκαθάριση</string>
-  <string name="menu_transfer_write_custom_bugs">Αποθήκευση ανοιχτών προσαρμοσμένων εργασιών...</string>
   <string name="menu_save">Αποθήκευση ως αρχείο</string>
   <string name="menu_join">Σύνδεση</string>
   <string name="menu_unjoin">Αποσύνδεση</string>
@@ -428,24 +646,28 @@
   <string name="menu_straighten">Ευθυγράμμιση</string>
   <string name="menu_circulize">Τακτοποίηση σε κύκλο</string>
   <string name="menu_split_polygon">Διαχωρίστε τα σε πολύγωνα</string>
+  <string name="menu_extract_segment">Εξαγωγή τμήματος</string>
+  <string name="menu_select_way_nodes">Επιλογή κόμβων γραμμής</string>
+  <string name="menu_newnode_gps">Νέος κόμβος στην τοποθεσία GPS</string>
   <string name="menu_extend_selection">Επέκταση επιλογής</string>
-  <string name="menu_information">Πληροφορίες</string>
+  <string name="menu_information">Πληροφορίες…</string>
   <string name="menu_voice_commands">Φωνητικές εντολές</string>
+  <string name="menu_replace_geometry">Αντικατάσταση γεωμετρίας…</string>
   <string name="menu_set_name">Ορισμός ονόματος</string>
   <string name="menu_tools">Εργαλεία...</string>
   <string name="menu_tools_add_imagery_from_oam">Προσθήκη εικόνων από το OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Απομαρύντε όλες τις μνήμες πλακιδίων</string>
-  <string name="menu_tools_background_properties">Ιδιότητες φόντου</string>
   <string name="menu_tools_zoom_to_layer_extent">Μεγέθυνση στο μέγεθος στρώματος του φόντου</string>
   <!---->
+  <string name="menu_modes">Λειτουργίες…</string>
+  <string name="menu_simple_actions">Απλή λειτουργία</string>
   <string name="menu_privacy">Ιδιωτικότητα</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Ευθυγράμμιση φόντου</string>
   <string name="menu_tools_background_align_reset">Επαναφορά</string>
   <string name="menu_tools_background_align_zero">Μηδέν</string>
   <string name="menu_tools_background_align_retrieve_from_db">Από την βάση δεδομένων</string>
   <string name="menu_tools_background_align_retrieve_from_device">Από την συσκευή</string>
-  <string name="menu_tools_background_align_save_db">Αποθήκευση στην βάση δεδομένων</string>
+  <string name="menu_tools_background_align_save_db">Αποθήκευση στην βάση δεδομένων…</string>
   <string name="menu_tools_background_align_save_device">Αποθήκευση στην συσκευή</string>
   <string name="menu_tools_background_align_apply2all">Εφαρμογή (όλα τα επίπεδα εστίασης)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -453,6 +675,8 @@
   <string name="distance_km">%1$.3f χλμ</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Επίπεδα...</string>
+  <string name="menu_layers_load_geojson">Προσθήκη επιπέδου GeoJSON…</string>
+  <string name="wms_hint">%1$s [wms]</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Εφαρμογή αποθηκευμένης μετατόπισης στις εικόνες</string>
   <string name="menu_tools_background_contrast">Αντίθεση</string>
@@ -464,9 +688,16 @@
   <string name="preset_menu_invert">Αντιστροφή των φίλτρων</string>
   <!--element action mode menu-->
   <string name="menu_tags">Ιδιότητες</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu">%1$s</string>
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
+  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Ιστορικό</string>
+  <string name="menu_history_web">Ιστορικό (Ιστός)</string>
   <string name="menu_merge">Σύνδεση</string>
+  <string name="menu_add_node_at_intersection">Προσθήκη κόμβου στην διασταύρωση</string>
   <string name="menu_reverse">Ανακατεύθυνση</string>
   <string name="reverse_anyway">Ανακατεύθυνση οπωσδήποτε</string>
   <string name="deleteway_wayandnodes">Διαγραφή διαδρομής</string>
@@ -478,17 +709,27 @@
   <string name="actionmode_relationselect">Η Σχέση επιλεχθηκε</string>
   <string name="actionmode_createpath">Δημιουργία διαδρομής</string>
   <string name="actionmode_multiselect">Πολυεπιλογή</string>
+  <string name="actionmode_rotate">Περιστροφή</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Διαίρεση κλειστού τρόπου, 1ο κόμβος</string>
-  <string name="actionmode_closed_way_split_2">Διαίρεση κλειστού τρόπου, 2ο κόμβος</string>
   <string name="actionmode_restriction">Προσθήκη περιορισμού στροφών</string>
   <string name="actionmode_restriction_restart_from">Επανεπιλογή \"από\" το τμήμα</string>
   <string name="actionmode_restriction_via">Προσθήκη \"μέσω\" τμήματος/στοιχείου</string>
   <string name="actionmode_restriction_restart_via">Επανεπιλογή \"μέσω\" τμήματος</string>
   <string name="actionmode_restriction_to">Προσθήκη \"στο\" τμήμα</string>
   <string name="actionmode_restriction_restart_to">Επανεπιλογή \"στο\" τμήμα</string>
-  <string name="actionmode_rotateway">Περιστροφή διαδρομής</string>
+  <string name="actionmode_subtitle_replace_geometry">Επιλογή νέας πηγής γεωμετρίας</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 αντικείμενο</item>
+    <item quantity="other">%1$d αντικείμενα</item>
+  </plurals>
   <!--Simple Action Mode-->
+  <string name="menu_add_node">Προσθήκη κόμβου</string>
+  <string name="menu_add_node_tags">Προσθήκη κόμβου με ετικέτες</string>
+  <string name="menu_add_node_address">Προσθήκη κόμβου διεύθυνσης</string>
+  <string name="menu_add_way">Προσθήκη γραμμής</string>
+  <string name="menu_add_map_note">Προσθήκη σημείωσης χάρτη</string>
+  <string name="menu_paste_object">Επικόλληση αντικειμένου</string>
+  <string name="menu_paste_multiple">Επιικόλληση πολλαπλές φορές</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Παρασκήνιο χάρτη</string>
   <string name="config_backgroundLayer_summary">Φόντο χάρτη με βάση τα πλακίδια</string>
@@ -502,6 +743,7 @@
   <string name="config_enableKeepScreenOn_title">Παραμονή οθόνης ανοικτή</string>
   <string name="config_largeDragArea_title">Μεγάλος κόμβος περιοχής μεταφοράς</string>
   <string name="config_advancedprefs">Προχωρημένες προτιμήσεις</string>
+  <string name="config_moreprefs">Περισσότερες ρυθμίσεις…</string>
   <string name="config_presetbutton_title">Προκαθορισμένες</string>
   <string name="config_presetbutton_summary">Προσθέστε και ενεργοποιήστε προκαθορισμένα συμβατά με JOSM</string>
   <!--Validator preferences-->
@@ -512,26 +754,47 @@
   <string name="config_category_info">Σχετικά</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
+  <string name="config_category_view">Ρυθμίσεις διεπαφής χρήστη</string>
   <string name="config_iconbutton_title">Εμφάνιση εικονιδίων κόμβων</string>
   <string name="config_iconbutton_summary">Εμφάνιση του εικονίδιου του πιο ταιριαστού προκαθορισμένου πάνω από τους κόμβους.</string>
   <string name="config_showWayIcons_title">Εμφάνιση εικονιδίων POI στα κτίρια</string>
   <string name="config_showWayIcons_summary">Εμφάνιση των καλύτερα-ταιριαστών προεπιλεγμένων εικονιδίων πάνω από τα κτίρια.</string>
   <string name="config_tagFormEnabled_title">Εμφάνιση φόρμας ετικέτας</string>
   <string name="config_showCameraAction_title">Εμφάνιση κάμερας δράσης</string>
+  <string name="config_selectCameraApp_title">Εφαρμογή κάμερας</string>
+  <string name="config_selectCameraApp_summary">Επιλέξτε εφαρμογή κάμερας για χρήση.</string>
+  <string name="config_system_camera">Προεπιλογή συστήματος</string>
+  <string name="config_open_camera">Open Camera</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Πάντα θολές οι μη ληφθέντες περιοχές</string>
   <string name="config_fullscreenMode_summary">Συμπεριφορά σε συσκευές με \"μαλακά\" πλήκτρα.</string>
   <string name="config_showTolerance_title">Εμφάνιση ανεκτικότητας</string>
+  <string name="config_theme_title">Θέμα</string>
   <string name="config_splitActionBarEnabled_title">Ενεργοποίηση γραμμής διαίρεσης δράσης</string>
+  <string name="config_appLocale_title">Επιλογή γλώσσας</string>
+  <string name="config_appLocale_device_language">Γλώσσα συσκευής</string>
   <string name="config_maxInlineValues_title">Μέγιστος αριθμός των σε σειρά τιμών</string>
-  <string name="config_maxInlineValues_current">%1$d Τιμές</string>
+  <string name="config_maxInlineValues_current">%1$d τιμές</string>
   <string name="config_autoLockDelay_title">Χρόνος αναμονής πριν από το αυτόματο κλείδωμα</string>
   <string name="config_autoLockDelay_current">%1$d ς</string>
   <string name="config_enableAntiAliasing_summary">Κάνει τις γραμμές ομαλές.</string>
+  <string name="config_enableHwAcceleration_title">Ενεργοποίηση επιτάχυνσης υλικού</string>
+  <string name="config_enableHwAcceleration_summary">Ενεργοποιήστε την απόδοση με χρήση υλικού σε Android 10 και μετά.</string>
   <string name="config_maxStrokeWidth_title">Μέγιστο πάχος γραμμής</string>
+  <string name="config_maxStrokeWidth_summary">Μην σχεδιάσετε ένα δρόμο παχύτερο από αυτό.</string>
   <string name="config_maxStrokeWidth_current">%1$d px </string>
+  <string name="config_upload_current">%1$d αντικείμενα</string>
+  <string name="config_uploadChecker_current">%1$d ώρες</string>
+  <string name="config_beepVolume_title">Ένταση μπιπ</string>
+  <string name="config_beepVolume_summary">Ρύθμιση έντασης ήχου για τα μπιπ.</string>
+  <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing_summary">Ρυθμίσεις αυτόματης λήψης, αποθήκευσης και ειδοποίησης.</string>
   <string name="config_address_tags">Ετικέτες διεύθυνσης</string>
+  <string name="config_neighbourDistance_current">%1$d μέτρο(α)</string>
   <string name="config_enableNameSuggestions_title">Ενεργοποίηση προτάσεων ονομασίας</string>
   <string name="config_enableNameSuggestionsPresets_title">Ενεργοπoίηση προεπιλογής πρότασης ονόματος</string>
   <string name="config_generateAlerts_title">Δημιουργία ειδοποιήσεων</string>
@@ -542,12 +805,21 @@
   <string name="config_maxAlertDistance_current">%1$d μέτρο(α)</string>
   <string name="config_closeChangesetOnSave_title">Κλείσιμο ομάδων αλλαγών</string>
   <string name="config_enableAutoPresets_title">Ενεργοποίηση δημιουργίας αυτόματης προεπιλογής</string>
+  <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_maxOffsetDistance_current">%1$d μέτρο(α)</string>
+  <string name="config_minCircleNodes_current">%1$d κόμβοι</string>
+  <string name="config_maxCircleSegment_current">%1$d μέτρο(α)</string>
+  <string name="config_minCircleSegment_current">%1$d μέτρο(α)</string>
+  <string name="config_replaceTolerance_title">Μέγιστη απόσταση για μετακίνηση κόμβου με ετικέτες</string>
+  <string name="config_replaceTolerance_summary">Μέγιστη απόσταση για μετακίνηση ενός κόμβου με ετικέτες όταν γίνεται αντικατάσταση της γεωμετρίας της γραμμής.</string>
+  <string name="config_replaceTolerance_current">%1$d μέτρο(α)</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Ακτίνα λήψης</string>
   <string name="config_downloadRadius_current">%1$d μέτρο(α)</string>
   <string name="config_maxDownloadSpeed_title">Μέγιστη ταχύτητα αυτόματης λήψης</string>
   <string name="config_downloadSpeed_current">%1$d Χλμ/Ω</string>
+  <string name="config_autoPruneNodeLimit_current">%1$d Κόμβοι</string>
+  <string name="config_panAndZoomLimit_current">%1$d</string>
   <!--Location Settings-->
   <string name="config_gps_source_tcp_title">NMEA Προέλευση δικτυου</string>
   <string name="config_gps_interval_current">%1$dms </string>
@@ -555,8 +827,13 @@
   <string name="config_gps_network_title">Επαναφορά στη θέση δικτύου</string>
   <string name="config_gnssTimeToStale_current">%1$d ς</string>
   <!--Server Settings-->
+  <string name="config_category_server">Ρυθμίσεις διακομιστή</string>
   <string name="config_apibutton_title">URL για το OSM API</string>
   <string name="config_loginbutton_title">Λογαριασμός χρήστη</string>
+  <string name="config_offsetServer_title">Διακομιστής απόκλισης</string>
+  <string name="config_offsetServer_summary">URL του διακομιστή απόκλισης δορυφορικής εικόνας</string>
+  <string name="config_osmoseServer_title">Διακομιστής OSMOSE</string>
+  <string name="config_osmoseServer_summary">URL για το διακομιστή OSMOSE</string>
   <string name="config_geocoderbutton_title">Διαμόρφωση των γεωκωδικοποιητών</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Επίπεδο λήψης και αποθήκευσης</string>
@@ -564,6 +841,10 @@
   <string name="config_downLoadThreads_current">%1$d Θέματα</string>
   <string name="config_tileCacheSize_title">Μέγεθος μνήμης cache</string>
   <string name="config_tileCache_current">%1$d ΜΒ</string>
+  <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Αποθήκευση αλλαγών</string>
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Διάφορα</string>
   <string name="pref_enable_acra">Αναφορά σφαλμάτων εφαρμογής</string>
@@ -594,6 +875,7 @@
   <string name="api_url">URL API</string>
   <string name="readonly_url">Διεύθυνση API μόνο για ανάγνωση (προαιρετικά)</string>
   <string name="notes_url">Διεύθυνση σημειώσεων API (προαιρετικό)</string>
+  <string name="copy_of">Αντιγραφή του %1$s</string>
   <!--common terms-->
   <string name="add">Προσθήκη</string>
   <string name="edit">Επεξεργασία</string>
@@ -601,8 +883,9 @@
   <string name="name">Όνομα</string>
   <string name="url">URL</string>
   <string name="default_">Προκαθορισμένο</string>
-  <string name="regular_expression">Κοινή έκφραση</string>
+  <string name="regular_expression">Κανονική έκφραση</string>
   <string name="state">Κατάσταση</string>
+  <string name="Continue">Συνέχιση</string>
   <!---->
   <string name="empty_list">Χωρίς καταχωρήσεις</string>
   <string name="geocoder_type">Τύπος γεωκωδικοποιητή</string>
@@ -619,12 +902,33 @@
   <!--element description-->
   <string name="address_housenumber">Διεύθυνση %1$s</string>
   <string name="address_housenumber_street">Διεύθυνση %1$s %2$s</string>
+  <string name="description_id">%1$s #%2$s</string>
+  <string name="description_type_id">%1$s %2$s #%3$s</string>
+  <string name="only_id">#%1$s</string>
+  <string name="type_id">%1$s #%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">Κόμβος μετακινήθηκε</string>
+  <string name="undo_action_moveway">Γραμμή μετακινήθηκε</string>
+  <string name="undo_action_moveobjects">Αντικείμενα μετακινήθηκαν</string>
+  <string name="undo_action_deletenode">Κόμβος διαγράφηκε</string>
+  <string name="undo_action_deleteway">Γραμμή διαγράφηκε</string>
+  <string name="undo_action_delete_objects">Αντικείμενα διαγράφηκαν</string>
+  <string name="undo_action_merge_polygons">Συγχώνευση πολυγώνου</string>
+  <string name="undo_action_create_relation">Σχέση δημιουργήθηκε</string>
+  <string name="undo_action_delete_relation">Σχέση διαγράφηκε</string>
+  <string name="undo_action_update_relations">Σχέση ενημερώθηκε</string>
   <string name="undo_action_cut">Αποκοπή</string>
   <string name="undo_action_paste">Επικόλληση</string>
+  <string name="undo_action_rotate">Περιστροφή</string>
   <string name="undo_action_circulize">Τακτοποίηση σε κύκλο</string>
   <string name="undo_action_fix_conflict">Επίλυση συγκρούσεων</string>
+  <string name="undo_action_extract_node">Εξαγωγή κόμβου</string>
+  <string name="undo_action_remove_node_from_way">Αφαίρεση κόμβου από γραμμή</string>
+  <string name="undo_action_extract_segment">Εξαγωγή τμήματος</string>
+  <string name="undo_action_replace_geometry">Αντικατάσταση γεωμετρίας</string>
   <!--ACRA-->
+  <string name="report_success">Αναφέρθηκε.</string>
+  <string name="report_failure">Απέτυχε η αποστολή της αναφοράς.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Αυτή η πράξη θα δημιουργήσει έναν δρομο με πάρα πολλούς κόμβους.</string>
   <!--Notifications-->
@@ -632,6 +936,14 @@
   <string name="alert_note">Εντοπίστηκε κοντινή σημείωση OSM</string>
   <string name="alert_bug">Εντοπίστηκε κοντινό σφάλμα OSM</string>
   <string name="alert_distance_direction">σε %1$d μ %2$s</string>
+  <string name="bearing_ne">ΒΑ ↗</string>
+  <string name="bearing_e">Α →</string>
+  <string name="bearing_se">ΝΑ ↘</string>
+  <string name="bearing_s">Ν ↓</string>
+  <string name="bearing_sw">ΝΔ ↙</string>
+  <string name="bearing_w">Δ ←</string>
+  <string name="bearing_nw">ΒΔ ↖</string>
+  <string name="bearing_n">Δ ↑</string>
   <!--Misc relation related stuff-->
   <string name="role">Ρόλος</string>
   <string name="role_lc">Ρόλος</string>
@@ -646,8 +958,59 @@
   <!--Things-->
   <string name="bridge">Γέφυρα</string>
   <string name="tunnel">Τούνελ</string>
-  <!--Tag issues-->
+  <string name="culvert">Υπόγειος Οχετός</string>
+  <string name="steps">Σκαλοπάτια</string>
+  <!--Issues-->
+  <string name="issue_oneway_direction_reversed">Αντιστράφηκε κατεύθυνση μονόδρομου</string>
+  <string name="issue_same_object">Ίδιο αντικείμενο</string>
+  <string name="issue_replace_extracted_node">Αποσπάσθηκε κόμβος με ετικέτες από γραμμή</string>
   <!--time and distance-->
+  <plurals name="days">
+    <item quantity="one">1 μέρα</item>
+    <item quantity="other">%1$d μέρες</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">1 ώρα</item>
+    <item quantity="other">%1$d ώρες</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 λεπτό</item>
+    <item quantity="other">%1$d λεπτά</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">1 δευτερόλεπτο</item>
+    <item quantity="other">%1$d δευτερόλεπτα</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">1 χλμ</item>
+    <item quantity="other">%1$d χλμ</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">1 μέτρο</item>
+    <item quantity="other">%1$d μέτρα</item>
+  </plurals>
   <!--Help system-->
+  <string name="toast_nohelp">Καμία βοήθεια εδώ.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark_title">Προσθήκη σελιδοδείκτη</string>
+  <string name="edit_bookmark_title">Επεξεργασία σελιδοδείκτη</string>
+  <string name="bookmarks_desc">Όνομα</string>
+  <string name="show_bookmarks">Σελιδοδείκτες…</string>
+  <string name="_dots">⋮</string>
+  <string name="gotobookmark">Πήγαινε</string>
+  <string name="bookmarkstitle">Σελιδοδείκτες</string>
+  <!--Element types-->
+  <string name="element_type_node">κόμβος</string>
+  <string name="element_type_way">γραμμή</string>
+  <string name="element_type_closedway">κλειστή γραμμή</string>
+  <string name="element_type_area">περιοχή</string>
+  <string name="element_type_relation">σχέση</string>
+  <!--Element names with id-->
+  <string name="node_id">κόμβος %1$d</string>
+  <string name="way_id">γραμμή %1$d</string>
+  <string name="relation_id">σχέση %1$d</string>
+  <!--Tile downloader diagnostics-->
+  <string name="diagnostics_for_tile">Διαγνωστικά για %1$s</string>
+  <string name="tile_success">Επιτυχία</string>
+  <string name="tile_fail">Αποτυχία</string>
 </resources>
