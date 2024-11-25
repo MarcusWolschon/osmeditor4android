@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 20.2 BETA Highlights</h1>
+<h1>Vespucci 20.2 Highlights</h1>
 <p>2024-11-03</p>
 <h3>Automatically generate summary of changes</h3>
 <p>Vespucci will now automatically add a summary of the edits made to the changeset tags. As this typically will be far more than what can be added to a single comment tag (max. 255 characters), it uses additional tags for this. If the comment tag is left empty it will add a comment referencing the automatically generated tags.</p>
@@ -24,7 +24,7 @@
 <h3>Improve GPX recording behaviour when device is locked</h3>
 <p>Depending on device and Android version devices would pause GPX track recoding if the device was locked (aka screen turned off) leading to breaks in the recording (if you left the screen on or forced it on this wasn't an issue). We now acquire a partial wake lock when GPX recording is active which should avoid this issue. Note that this means that power consumption in such situations will be higher.</p>
 <h3>Optionally use hardware rendering on Android 10 and later</h3>
-<p>Starting with Android 10, Androids graphic library supports all operations that we use for OSM data rendering, in particular the scaling issues that used to make it unusable seem to be fixed now, therefore we have re-enabled the support for it that you can turn on in the <em>Experimental</em> section of the <em>advanced Preferences</em>. Note that this will not make things blazingly fast, but it will allow use of graphics memory to store tiles and in general reduce some of the pressure on the JAVA heap.</p>
+<p>Starting with Android 10, Androids graphic library supports all operations that we use for OSM data rendering, in particular the scaling issues that used to make it unusable seem to be fixed now, therefore we have re-enabled the support for it that you can turn on in the <em>Experimental</em> section of the <em>Advanced Preferences</em>. Note that this will not make things blazingly fast, but it will allow use of graphics memory to store tiles and in general reduce some of the pressure on the JAVA heap.</p>
 <h2>Miscellaneous</h2>
 <ul>
 <li>Add support for HEIC/HEIF images on Android 10 and later</li>
@@ -38,6 +38,7 @@
 <li>Add image orientation to photo index</li>
 <li>Add use a JOSM filter expression to determine exceptions to reversing rules</li>
 <li>Re-factor locking in StorageDelegator to reduce (rare) dead locks.</li>
+<li>Fallback to network location is now disabled as default.</li>
 </ul>
 <h1>Upgrading from previous versions</h1>
 <p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one.</p>

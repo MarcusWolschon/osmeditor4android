@@ -1,5 +1,19 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.2.0:
+
+- Fix better detection of MVT layers from URL
+- Fix avoid network access in onPostExecute
+- Fix avoid TTLE possibly caused by saving elements with parent relations
+- Fix incorrect way count for modified geometry
+- Fix change default for network location fallback to off
+- Update documentation and translations
+- Update imagery from ELI
+- Update NSI
+- Update synonyms
+- Update OpeningHoursFragment dependency
+- Update ElementHistoryDialog dependency
+
 20.2.0-1:
 
 - Fix reset record imagery flag on visibility and position changes
