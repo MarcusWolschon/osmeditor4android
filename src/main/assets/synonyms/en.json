@@ -1471,8 +1471,8 @@
 "barber"
 ],
 "shop/hairdresser":[
-"beard",
-"Hairdresser"
+"Hairdresser",
+"haircut"
 ],
 "shop/greengrocer":[
 "fruit",
@@ -1990,6 +1990,18 @@
 ],
 "shop/laundry/self_service":[
 "Self-Service Laundry"
+],
+"shop/hairdresser/barber":[
+"Barber",
+"groom",
+"hairdresser",
+"beard",
+"grooming",
+"shaving",
+"razor",
+"shave",
+"hair cut",
+"moustache"
 ],
 "shop/erotic/lgbtq":[
 "sex",
@@ -3141,6 +3153,16 @@
 "place/farm":[
 "Farm"
 ],
+"piste/take_off":[
+"ski jump take-off",
+"takeoff",
+"ski jumping hill in-run table",
+"ski jump table",
+"take-off",
+"ski jump",
+"Ski Jumping Take-Off",
+"jump"
+],
 "piste/sleigh":[
 "horse",
 "piste",
@@ -3169,6 +3191,12 @@
 "Ski Touring Trail",
 "skitour",
 "crosscountry"
+],
+"piste/ski_jump":[
+"ski jumping hill",
+"Ski Jumping Piste",
+"ski jump",
+"jump"
 ],
 "piste/piste":[
 "sleigh",
@@ -3669,6 +3697,17 @@
 "seep",
 "Spring",
 "aquifer"
+],
+"natural/sinkhole":[
+"cenote",
+"sink",
+"swallet",
+"Sinkhole",
+"doline",
+"shakehole",
+"swallow hole",
+"collapse sink",
+"snake hole"
 ],
 "natural/shrub":[
 "bush",
@@ -4173,6 +4212,16 @@
 "water",
 "Storage Tank"
 ],
+"man_made/ski_jump":[
+"in-run",
+"ski jump in-run tower",
+"ski jumping hill tower",
+"Ski Jumping Tower",
+"inrun",
+"ski jump",
+"ski jump structure",
+"jump"
+],
 "man_made/silo":[
 "corn",
 "wheat",
@@ -4329,6 +4378,22 @@
 "gasoline",
 "cng",
 "biodiesel"
+],
+"man_made/footwear_decontamination-AU-NZ":[
+"boot cleaning",
+"Footwear Decontamination Station",
+"decontamination station",
+"contamination station",
+"footwear cleaning",
+"shoe cleaning"
+],
+"man_made/flare":[
+"burn",
+"oil",
+"Gas Flare",
+"gas",
+"fire",
+"flare stack"
 ],
 "man_made/flagpole":[
 "Flagpole"
@@ -4976,13 +5041,18 @@
 "waltz",
 "dance teaching",
 "tango",
+"ballet",
+"ballet studio",
 "jive"
 ],
 "leisure/dance":[
 "swing",
 "waltz",
+"dance studio",
 "ballroom",
 "tango",
+"ballet",
+"ballet studio",
 "Dance Hall",
 "jive"
 ],
@@ -5011,6 +5081,16 @@
 ],
 "leisure/beach_resort":[
 "Beach Resort"
+],
+"leisure/bathing_place":[
+"swimming",
+"Bathing Place",
+"pier",
+"bathing",
+"ladder",
+"swimming hole",
+"dipping",
+"water"
 ],
 "leisure/bandstand":[
 "Bandstand"
@@ -5107,6 +5187,12 @@
 "shooting gallery",
 "firing range",
 "gun practice"
+],
+"leisure/sports_centre/karting":[
+"go cart",
+"karting",
+"kart racing",
+"Go Kart Facility"
 ],
 "leisure/sports_centre/horse_racing":[
 "equestrian race course",
@@ -5872,6 +5958,10 @@
 "Wayside Shrine"
 ],
 "historic/wayside_cross":[
+"christ",
+"jesus",
+"christian",
+"cross",
 "Wayside Cross"
 ],
 "historic/tomb":[
@@ -6247,6 +6337,9 @@
 "highway/living_street":[
 "Living Street"
 ],
+"highway/ladder":[
+"Ladder"
+],
 "highway/give_way":[
 "Yield Sign",
 "give way",
@@ -6556,7 +6649,9 @@
 "therapist"
 ],
 "healthcare/sample_collection":[
+"medical",
 "urine sample collection",
+"laboratory",
 "Sample Collection Facility",
 "blood sample collection"
 ],
@@ -6923,6 +7018,17 @@
 ],
 "emergency/designated":[
 "Emergency Access Designated"
+],
+"emergency/fire_hydrant/underground":[
+"underground hydrant",
+"Underground Fire Hydrant",
+"fire water well",
+"fire plug"
+],
+"emergency/fire_hydrant/pillar":[
+"pillar hydrant",
+"fire plug",
+"Pillar Fire Hydrant"
 ],
 "disused/shop":[
 "Disused Shop"
@@ -7883,6 +7989,11 @@
 "sidewalk shape",
 "sidewalk area"
 ],
+"area/highway/traffic_island":[
+"traffic island",
+"refuge island",
+"Traffic Island Area"
+],
 "amenity/weighbridge":[
 "weigh station",
 "Truck Scale",
@@ -8001,6 +8112,15 @@
 "amenity/taxi":[
 "Taxi Stand",
 "cab"
+],
+"amenity/swingerclub":[
+"porn*",
+"Swinger Club",
+"sex",
+"strip*",
+"swinger*",
+"lifestyle club",
+"adult*"
 ],
 "amenity/studio":[
 "television",
@@ -8846,6 +8966,7 @@
 ],
 "amenity/bicycle_repair_station":[
 "bike chain",
+"compressed air",
 "Bicycle Repair Tool Stand",
 "cycle pump",
 "bike multitool",
@@ -9658,7 +9779,8 @@
 "breakfast",
 "drive-in",
 "grill",
-"table"
+"table",
+"dim sum"
 ],
 "amenity/restaurant/barbecue":[
 "bbq",
@@ -10045,6 +10167,10 @@
 "breakfast",
 "table"
 ],
+"amenity/fast_food/chinese":[
+"Chinese Fast Food",
+"dim sum"
+],
 "amenity/fast_food/chicken":[
 "lunch",
 "dine",
@@ -10326,6 +10452,14 @@
 "Youth Center",
 "youth club"
 ],
+"amenity/community_centre/village_hall":[
+"Village Hall",
+"village community center"
+],
+"amenity/community_centre/parish_hall":[
+"parish center",
+"Parish Hall"
+],
 "amenity/community_centre/lgbtq":[
 "lgbtq hall",
 "LGBTQ+ Community Center",
@@ -10334,6 +10468,19 @@
 "lgbt hall",
 "lgb event",
 "lgb hall"
+],
+"amenity/community_centre/family_centre":[
+"Family Centre"
+],
+"amenity/community_centre/cultural_centre":[
+"Cultural Centre"
+],
+"amenity/community_centre/community_hall":[
+"Community Hall",
+"community center"
+],
+"amenity/community_centre/club_home":[
+"Club Home"
 ],
 "amenity/clock/sundial":[
 "gnomon",

@@ -236,6 +236,9 @@
 "terminal",
 "Caixa eletrônico"
 ],
+"amenity/baking_oven":[
+"Forno de pão"
+],
 "amenity/bank":[
 "Banco",
 "banco"
@@ -301,6 +304,9 @@
 "reparo",
 "ciclismo",
 "oficina de bicicletas"
+],
+"amenity/bicycle_wash":[
+"Lavagem de bicicletas"
 ],
 "amenity/biergarten":[
 "Biergarten",
@@ -1730,6 +1736,9 @@
 "Máquina de venda de comida",
 "máquina de venda automática de alimentos"
 ],
+"amenity/vending_machine/food/snacks":[
+"Máquina de venda de lanches"
+],
 "amenity/vending_machine/ice_cream":[
 "Máquina de venda de sorvete",
 "máquina de venda automática de sorvetes"
@@ -1980,6 +1989,9 @@
 "imigração",
 "alfândega"
 ],
+"barrier/cable_barrier":[
+"Cabos de aço"
+],
 "barrier/cattle_grid":[
 "mata-burro",
 "Mata-burro"
@@ -2035,6 +2047,9 @@
 "barrier/guard_rail":[
 "Mureta",
 "mureta"
+],
+"barrier/hampshire_gate":[
+"Portão de arame"
 ],
 "barrier/handrail":[
 "Corrimão"
@@ -2092,6 +2107,12 @@
 "imbricação",
 "quebra costela",
 "quebra cabeça"
+],
+"barrier/lift_gate":[
+"Cancela elevatória"
+],
+"barrier/log":[
+"Tronco"
 ],
 "barrier/motorcycle_barrier":[
 "Barreira de motocicletas"
@@ -2156,6 +2177,12 @@
 "Barreira sonora",
 "barreira sonora"
 ],
+"barrier/wicket_gate":[
+"Portinhola"
+],
+"barrier/yes":[
+"Tipo indeterminado"
+],
 "boundary":[
 "Limite"
 ],
@@ -2164,6 +2191,9 @@
 "divisa",
 "Limite administrativo",
 "limite administrativo"
+],
+"boundary/hazard":[
+"Área perigosa"
 ],
 "bridge/support":[
 "Suporte da ponte",
@@ -2178,6 +2208,9 @@
 "edificação",
 "edifício",
 "Edifício"
+],
+"building/allotment_house":[
+"Casa de horta urbana/comunitária"
 ],
 "building/apartments":[
 "prédio residencial",
@@ -2314,6 +2347,9 @@
 "Garagens",
 "garagens"
 ],
+"building/ger":[
+"Yurt"
+],
 "building/grandstand":[
 "Arquibancada (edificação)",
 "arquibancada"
@@ -2342,6 +2378,9 @@
 "casa",
 "Casa",
 "residência"
+],
+"building/house/terraced":[
+"Casa geminada"
 ],
 "building/houseboat":[
 "casa flutuante",
@@ -2464,6 +2503,9 @@
 "local sagrado",
 "igreja",
 "lugar de adoração"
+],
+"building/terrace":[
+"Fileira de casas geminadas"
 ],
 "building/train_station":[
 "Edifício de estação de trem"
@@ -2801,6 +2843,15 @@
 "demolished/building":[
 "Edifício recentemente demolido"
 ],
+"disc_golf/basket":[
+"Cesto de golfe de disco"
+],
+"disc_golf/hole":[
+"Buraco de golfe de disco"
+],
+"disc_golf/tee":[
+"Área de partida de golfe de disco"
+],
 "disused/amenity":[
 "Amenidade em desuso"
 ],
@@ -2821,6 +2872,9 @@
 "primeiros socorros",
 "Posto de ambulâncias",
 "garagem de ambulâncias"
+],
+"emergency/assembly_point":[
+"Ponto de encontro de emergência"
 ],
 "emergency/defibrillator":[
 "dea",
@@ -2851,6 +2905,15 @@
 "Hidrante",
 "hidrante",
 "mangueira"
+],
+"emergency/fire_hydrant/pillar":[
+"Hidrante pilar"
+],
+"emergency/fire_hydrant/underground":[
+"Hidrante subterrâneo"
+],
+"emergency/fire_service_inlet":[
+"Válvula para bombeiros"
 ],
 "emergency/first_aid_kit":[
 "Kit de primeiros socorros",
@@ -3072,6 +3135,9 @@
 "healthcare/alternative/osteopathy":[
 "Osteopata"
 ],
+"healthcare/alternative/traditional_chinese_medicine":[
+"Profissional de medicina chinesa"
+],
 "healthcare/audiologist":[
 "audiólogo",
 "fonoaudiólogo",
@@ -3172,6 +3238,9 @@
 "terapia",
 "reabilitação",
 "Clínica de reabilitação"
+],
+"healthcare/sample_collection":[
+"Instalação de coleta de amostras"
 ],
 "healthcare/speech_therapist":[
 "fonoaudiologista",
@@ -3294,6 +3363,12 @@
 "travessia de ciclo não marcada",
 "Travessia de bicicleta não marcada"
 ],
+"highway/cycleway/moped_link-NL":[
+"Via para ciclomotores"
+],
+"highway/cyclist_waiting_aid":[
+"Apoio para ciclistas"
+],
 "highway/elevator":[
 "elevador",
 "Elevador"
@@ -3374,6 +3449,9 @@
 "dar a preferência",
 "preferência",
 "preferencial"
+],
+"highway/ladder":[
+"Escada"
 ],
 "highway/living_street":[
 "Via compartilhada",
@@ -3701,6 +3779,9 @@
 "construção histórica",
 "Construção histórica"
 ],
+"historic/cannon":[
+"Canhão"
+],
 "historic/castle":[
 "castelo",
 "fortificação",
@@ -3768,6 +3849,9 @@
 "historic/memorial/plaque":[
 "placa comemorativa",
 "Placa comemorativa"
+],
+"historic/memorial/stolperstein-EU":[
+"Placa memorial stolperstein"
 ],
 "historic/monument":[
 "monumento",
@@ -4310,6 +4394,9 @@
 "Jardim Comunitário",
 "horta comunitária"
 ],
+"leisure/garden/kitchen":[
+"Horta de cozinha"
+],
 "leisure/garden/residential":[
 "Jardim Residencial"
 ],
@@ -4328,6 +4415,9 @@
 ],
 "leisure/horse_riding":[
 "Centro equestre"
+],
+"leisure/hot_tub":[
+"Jacúzi"
 ],
 "leisure/ice_rink":[
 "patinação",
@@ -4403,6 +4493,21 @@
 "andebol",
 "Quadra de Handball Americano",
 "campo"
+],
+"leisure/pitch/archery":[
+"Campo de tiro com arco"
+],
+"leisure/pitch/athletics":[
+"Campo de atletismo"
+],
+"leisure/pitch/athletics/discus_throw":[
+"Área de lançamento do disco"
+],
+"leisure/pitch/athletics/hammer_throw":[
+"Área de lançamento do martelo"
+],
+"leisure/pitch/athletics/high_jump":[
+"Colchão de salto em altura"
 ],
 "leisure/pitch/athletics/javelin_throw":[
 "Área de lançamento de dardo"
@@ -4481,11 +4586,17 @@
 "Campo de hóquei em campo",
 "field hockey pitch"
 ],
+"leisure/pitch/funnel_ball":[
+"Campo de funil de bola"
+],
 "leisure/pitch/futsal":[
 "quadra de futebol de salão",
 "Quadra de Futsal",
 "futsal",
 "futebol de salão"
+],
+"leisure/pitch/gaga":[
+"Arena de gaga"
 ],
 "leisure/pitch/handball":[
 "Quadra de Handball"
@@ -4513,6 +4624,9 @@
 "leisure/pitch/paintball":[
 "campo de paintball",
 "Campo de paintball"
+],
+"leisure/pitch/pickleball":[
+"Campo de pickleball"
 ],
 "leisure/pitch/rugby_league":[
 "Campo de Rugby League",
@@ -4694,6 +4808,9 @@
 "pista",
 "cães"
 ],
+"leisure/track/athletics":[
+"Pista de atletismo"
+],
 "leisure/track/athletics/javelin_throw":[
 "Pista de lançamento de dardo"
 ],
@@ -4705,6 +4822,12 @@
 ],
 "leisure/track/athletics/running":[
 "Pista de Corrida"
+],
+"leisure/track/athletics/sprint":[
+"Pista de corrida de velocidade"
+],
+"leisure/track/athletics/steeplechase":[
+"Pista de corrida de obstáculos"
 ],
 "leisure/track/athletics/triple_jump":[
 "Pista de salto triplo"
@@ -4783,6 +4906,9 @@
 "forno",
 "lareira"
 ],
+"man_made/clarifier":[
+"Clarificador de águas residuais"
+],
 "man_made/clearcut":[
 "Floresta desmatada",
 "floresta desmatada"
@@ -4830,6 +4956,9 @@
 "mastro",
 "Mastro de Bandeira"
 ],
+"man_made/fuel_pump":[
+"Bomba de combustível"
+],
 "man_made/gantry":[
 "Guindaste de logística"
 ],
@@ -4848,6 +4977,9 @@
 "estacada",
 "barreira contra deslizamentos",
 "relevo"
+],
+"man_made/insect_hotel":[
+"Hotel de insetos"
 ],
 "man_made/lighthouse":[
 "Farol",
@@ -4967,6 +5099,9 @@
 "Estação de bombeamento",
 "casa de bombas"
 ],
+"man_made/quay":[
+"Cais"
+],
 "man_made/reservoir_covered":[
 "Reservatório coberto",
 "reservatório coberto"
@@ -5004,6 +5139,18 @@
 "armário de rua",
 "Armário de rua"
 ],
+"man_made/street_cabinet/postal_service":[
+"Armário de distribuição postal"
+],
+"man_made/street_cabinet/traffic_control":[
+"Painel do sistema de controle de tráfego"
+],
+"man_made/street_cabinet/traffic_monitoring":[
+"Painel de monitoramento de tráfego"
+],
+"man_made/street_cabinet/transport_management":[
+"Painel de gerenciamento de transporte"
+],
 "man_made/surveillance":[
 "circuito interno",
 "câmera",
@@ -5033,6 +5180,15 @@
 ],
 "man_made/tailings_pond":[
 "Lagoa de rejeitos"
+],
+"man_made/telescope":[
+"Telescópio"
+],
+"man_made/telescope/optical":[
+"Telescópio ótico"
+],
+"man_made/telescope/radio":[
+"Radiotelescópio"
 ],
 "man_made/torii":[
 "torii",
@@ -5355,6 +5511,12 @@
 "planta",
 "Árvore",
 "árvore"
+],
+"natural/tree/broadleaved":[
+"Árvore de folha larga"
+],
+"natural/tree/broadleaved/evergreen":[
+"Árvore de folha larga perene"
 ],
 "natural/tree_row":[
 "plantas",

@@ -841,6 +841,9 @@
 "stanovanjska hiša",
 "Hiša"
 ],
+"building/house/terraced":[
+"Vrstna hiša"
+],
 "building/hut":[
 "dom",
 "lovska koča",
@@ -894,6 +897,9 @@
 "building/stable":[
 "štala",
 "Hlev"
+],
+"building/terrace":[
+"Niz vrstnih hiš"
 ],
 "building/university":[
 "višja šola",
@@ -1292,6 +1298,9 @@
 "highway/pedestrian_area":[
 "Cona za pešce"
 ],
+"highway/pedestrian_line":[
+"Ulica namenjena pešcem"
+],
 "highway/primary":[
 "Glavna cesta",
 "glavna cesta",
@@ -1534,6 +1543,9 @@
 "Industrijsko področje",
 "industrijsko območje",
 "industrijska cona"
+],
+"landuse/industrial/slaughterhouse":[
+"Klavnica"
 ],
 "landuse/landfill":[
 "Smetišče",
@@ -1973,6 +1985,30 @@
 "natural/tree":[
 "drevje",
 "Drevo"
+],
+"natural/tree/broadleaved":[
+"Listavec"
+],
+"natural/tree/broadleaved/deciduous":[
+"Listavec (nezimzelen)"
+],
+"natural/tree/broadleaved/evergreen":[
+"Listavec (zimzelen)"
+],
+"natural/tree/needleleaved":[
+"Iglavec"
+],
+"natural/tree/needleleaved/deciduous":[
+"Iglavec (nezimzelen)"
+],
+"natural/tree/needleleaved/evergreen":[
+"Iglavec (zimzelen)"
+],
+"natural/tree_row":[
+"drevored"
+],
+"natural/tree_stump":[
+"Štor"
 ],
 "natural/volcano":[
 "ognjenik",
@@ -2666,7 +2702,8 @@
 "tourism/guest_house":[
 "hrana",
 "Penzion",
-"prenočišče"
+"prenočišče",
+"hiša za goste"
 ],
 "tourism/hostel":[
 "Hostel",

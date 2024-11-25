@@ -307,6 +307,8 @@
 "Sitzbank"
 ],
 "amenity/bicycle_parking":[
+"veloständer",
+"veloparkplatz",
 "fahrradparkplatz",
 "Fahrradparkplatz",
 "fahrradständer"
@@ -333,9 +335,12 @@
 "fahrradmietstation"
 ],
 "amenity/bicycle_repair_station":[
+"fahrrad-station",
 "fahrradreparatur-werkzeug-standplatz",
+"fahrrad-servicestationen",
 "fahrradreparatur-werkzeugkasten",
-"Fahrradreparatur-Werkzeugkasten"
+"Fahrradreparatur-Werkzeugkasten",
+"fahrrad-stützpunkt"
 ],
 "amenity/bicycle_wash":[
 "fahrradwaschstation",
@@ -531,9 +536,95 @@
 "stadteilzentrum",
 "gemeinschaftszentrum"
 ],
+"amenity/community_centre/club_home":[
+"vereinsgebäude",
+"vereinsheim",
+"klubheim",
+"Vereinshaus",
+"klublokal",
+"vereinssitz",
+"vereinslokal",
+"klubhaus",
+"vereinshaus",
+"clubhaus"
+],
+"amenity/community_centre/community_hall":[
+"gemeinschaftshaus",
+"Gemeinschaftshaus",
+"versammlungshaus",
+"gemeindesaal",
+"mehrzweckhalle"
+],
+"amenity/community_centre/cultural_centre":[
+"kulturtempel",
+"kulturzentrum",
+"kulturinstitut",
+"kulturforum",
+"kulturtreffpunkt",
+"kulturkomplex",
+"kulturanlage",
+"kulturgebäude",
+"kulturpavillon",
+"kulturstätte",
+"Kulturhaus",
+"kulturpalast"
+],
+"amenity/community_centre/family_centre":[
+"familienhilfezentrum",
+"familienunterstützungszentrum",
+"familienberatungsstelle",
+"familientreff",
+"familienbegegnungsstätte",
+"familientreffpunkt",
+"elternzentrum",
+"eltern-kind-zentrum",
+"familienservicezentrum",
+"eltern-kind-treff",
+"familiencafé",
+"familienberatungszentrum",
+"Familienzentrum",
+"familienkompetenzzentrum",
+"familienhaus"
+],
 "amenity/community_centre/lgbtq":[
 "lgbtq+ gemeindezentrum",
 "LGBTQ+ Gemeindezentrum"
+],
+"amenity/community_centre/parish_hall":[
+"pfarrhei",
+"kirchengemeindezentrum",
+"Gemeindezentrum",
+"kirchengemeindehaus",
+"gemeinderaum",
+"pfarrsaal",
+"gemeindetreffpunkt",
+"pfarrzentrum",
+"kirchentreff",
+"gemeindetreff",
+"gemeindezentrum",
+"kirchensaal",
+"gemeindehaus",
+"kirchengemeindehalle",
+"gemeindehalle",
+"gemeindesaal",
+"gemeindelokal"
+],
+"amenity/community_centre/village_hall":[
+"dorftreff",
+"dorfplatz",
+"dorftreffpunkt",
+"dorfgemeinschaftszentrum",
+"dorfversammlungsraum",
+"dorfhaus",
+"dorflokal",
+"dorfgemeindehaus",
+"dorfzentrum",
+"dorfhalle",
+"mehrzweckhaus",
+"dorfsaal",
+"dorfmittelpunkt",
+"dorfgebäude",
+"Dorfgemeinschaftshaus"
 ],
 "amenity/community_centre/youth_centre":[
 "jugendfreizeitheim",
@@ -834,6 +925,7 @@
 "prostata"
 ],
 "amenity/dog_toilet":[
+"hundeklo",
 "Hundetoilette"
 ],
 "amenity/dojo":[
@@ -876,7 +968,12 @@
 ],
 "amenity/events_venue":[
 "veranstaltungszentrum",
-"Veranstaltungszentrum"
+"veranstaltungsraum",
+"Veranstaltungsstätte",
+"veranstaltungsort",
+"veranstaltungssaal",
+"feier",
+"event location"
 ],
 "amenity/exhibition_centre":[
 "messe",
@@ -917,15 +1014,31 @@
 "hühner fast food",
 "Hühner Fast Food"
 ],
+"amenity/fast_food/chinese":[
+"chinesisches schnellrestaurant",
+"china-schnellimbiss",
+"china-imbiss",
+"wok",
+"chinesischetakeaway-küche",
+"chinesisches imbisslokal",
+"chinesische snack-bar",
+"chinesische schnellgastronomie",
+"chinesisches takeaway",
+"chinesischer imbiss",
+"chinesische schnellküche",
+"china-bistro",
+"dim sum",
+"Chinesisches Fast Food"
+],
 "amenity/fast_food/donut":[
 "kantine",
 "cafe",
-"frhstück",
 "diner",
 "brunch",
 "dinieren",
 "donut",
 "tisch",
+"frühstück",
 "essen",
 "kaffe",
 "Donut Fast Food"
@@ -963,9 +1076,13 @@
 ],
 "amenity/fast_food/kebab":[
 "kebapstand",
+"dönergrill",
 "kebab fast food",
 "kebap takeaway",
-"Kebab Fast Food"
+"döner",
+"Kebab Fast Food",
+"dönerladen",
+"döner-imbiss"
 ],
 "amenity/fast_food/mexican":[
 "mexikanisches fast food",
@@ -1600,9 +1717,9 @@
 ],
 "amenity/recycling_container":[
 "gelber sack",
-"Recycling Container",
 "wertstoff",
 "recycling",
+"Recyclingcontainer",
 "gelbe tonne"
 ],
 "amenity/refugee_site":[
@@ -1912,6 +2029,14 @@
 "filmstudio",
 "filmproduktion"
 ],
+"amenity/swingerclub":[
+"swinger club",
+"pärchenclub",
+"partytreff",
+"swinger-club",
+"Swingerclub",
+"swingerklub"
+],
 "amenity/taxi":[
 "Taxistand",
 "taxi"
@@ -2070,6 +2195,7 @@
 "baguette"
 ],
 "amenity/vending_machine/cigarettes":[
+"kippenautomat",
 "Zigarettenautomat",
 "zigarettenautomat"
 ],
@@ -2177,8 +2303,14 @@
 "tierarztpraxis"
 ],
 "amenity/waste/dog_excrement":[
+"hundekotbeutelspender",
+"hundetütenspender",
+"hundekotbeutel",
+"hundekottüte",
 "Hundekotabfalleimer",
-"hundeexkrementbehälter"
+"robidog",
+"säckli",
+"sackerl"
 ],
 "amenity/waste_basket":[
 "abfalleimer",
@@ -2236,6 +2368,16 @@
 "fläche",
 "asphalt"
 ],
+"area/highway/traffic_island":[
+"verkehrsinselfläche",
+"mittelinsel",
+"fußgängerinsel",
+"fahrbahninsel",
+"verkehrsinsel",
+"fahrbahnteiler",
+"Verkehrsinselfläche",
+"verkehrsberuhigungsinsel"
+],
 "attraction":[
 "Attraktion"
 ],
@@ -2250,6 +2392,7 @@
 "gehege"
 ],
 "attraction/big_wheel":[
+"rummel",
 "Riesenrad",
 "fahrgeschäft",
 "riesenrad"
@@ -2360,7 +2503,10 @@
 "Pollerreihe"
 ],
 "barrier/border_control":[
+"grenzübertrittskontrolle",
 "Grenzkontrolle",
+"grenzüberwachung",
+"zoll",
 "grenzkontrolle"
 ],
 "barrier/bump_gate":[
@@ -2397,7 +2543,9 @@
 "barrier/cycle_barrier":[
 "Umlaufgitter",
 "drängelgitter",
-"umlaufsperre"
+"umlaufsperre",
+"umlaufgitter",
+"umlaufschranke"
 ],
 "barrier/ditch":[
 "graben",
@@ -2441,6 +2589,7 @@
 "leitplanke"
 ],
 "barrier/hampshire_gate":[
+"maschendrahtzaun",
 "netztor",
 "zaundraht",
 "drahtzaun",
@@ -2498,6 +2647,8 @@
 "abgerundeter bordstein"
 ],
 "barrier/kissing_gate":[
+"gattertor",
+"gittertor",
 "Schwinggatter",
 "tor",
 "gatter"
@@ -2568,6 +2719,13 @@
 "schlagbaum"
 ],
 "barrier/toll_booth":[
+"pickerl",
+"autobahnvignette",
+"vignette",
+"vignettenpflicht",
+"toll-collect",
+"mautpflicht",
+"korridorvignette",
 "Mautstation",
 "mautstelle"
 ],
@@ -2889,8 +3047,13 @@
 "reiten"
 ],
 "building/roof":[
+"dächer",
 "Dach",
-"dach"
+"dächelchen",
+"bedachung",
+"dach",
+"dächerchen",
+"dächlein"
 ],
 "building/ruins":[
 "ruine",
@@ -3142,6 +3305,7 @@
 "schnapsbrennerei"
 ],
 "craft/dressmaker":[
+"nähstube",
 "damenschneiderei",
 "Damenschneiderei",
 "schneiderei"
@@ -3319,8 +3483,14 @@
 "craft/rigger":[
 "takler",
 "höhenarbeiter",
+"splisshorn",
 "rigger",
-"Takler"
+"segelmast",
+"takelage",
+"masttrimm",
+"hohlspieker",
+"Takler",
+"marlspieker"
 ],
 "craft/roofer":[
 "dachdecker",
@@ -3426,8 +3596,15 @@
 "weinbauer"
 ],
 "cycleway/asl":[
+"efa",
 "Vorgezogene Aufstellfläche",
-"vorgezogene aufstellfläche"
+"vorgezogene aufstellfläche",
+"ofo",
+"erweiterte fahrradaufstellfläche",
+"aufgeweitete radaufstellstreifen",
+"aras",
+"radaufstellstreifen",
+"ofos"
 ],
 "demolished/building":[
 "kürzlich abgerissenes Gebäude"
@@ -3459,7 +3636,7 @@
 "künstliche Böschung"
 ],
 "emergency":[
-"Notfalleinrichtungen"
+"Notfalleinrichtung"
 ],
 "emergency/ambulance_station":[
 "Rettungswache",
@@ -3520,6 +3697,20 @@
 "hydrant",
 "löschwasserentnahmestelle",
 "Hydrant"
+],
+"emergency/fire_hydrant/pillar":[
+"hydrant",
+"überflurhydrant",
+"feuerwehrhydrant",
+"löschwasser",
+"Überflurhydrant"
+],
+"emergency/fire_hydrant/underground":[
+"hydrant",
+"unterflurhydrant",
+"feuerwehrhydrant",
+"löschwasser",
+"Unterflurhydrant"
 ],
 "emergency/fire_service_inlet":[
 "löschwasser",
@@ -3671,8 +3862,12 @@
 "stiegenhaus"
 ],
 "ford":[
+"flachstelle",
 "furt (gewässerquerung)",
-"Furt (Gewässerquerung)"
+"flussübergang",
+"niedrigwasserquerung",
+"Furt (Gewässerquerung)",
+"flussdurchgang"
 ],
 "ford_line":[
 "Furt"
@@ -3988,10 +4183,12 @@
 "radfahrweg",
 "Radweg",
 "fahrradweg",
+"veloweg",
 "radweg",
 "radfahrerweg"
 ],
 "highway/cycleway/bicycle_foot":[
+"velo- und fussweg",
 "Rad- und Fußweg",
 "rad- und fußweg"
 ],
@@ -4144,6 +4341,17 @@
 "Vorfahrt gewähren",
 "vorrang gewähren-zeichen"
 ],
+"highway/ladder":[
+"Leiter",
+"anstellleiter",
+"einhängeleiter",
+"bockleiter",
+"sprossen",
+"fahrten",
+"leiter",
+"strickleiter",
+"steigleiter"
+],
 "highway/living_street":[
 "begegnungszone",
 "spielstraße",
@@ -4188,6 +4396,9 @@
 ],
 "highway/passing_place":[
 "haltebucht",
+"ausbuchtung",
+"pannenbucht",
+"nothaltebucht",
 "Ausweichstelle"
 ],
 "highway/path":[
@@ -4207,6 +4418,7 @@
 "wanderweg",
 "weg",
 "wanderung",
+"veloweg",
 "trampelpfad",
 "schmaler weg",
 "Pfad",
@@ -4216,10 +4428,13 @@
 "highway/path/boardwalk":[
 "pier",
 "Bohlenweg",
+"knüppelweg",
+"bohlenweg",
 "steg",
 "knüppeldamm",
 "erhöhter fußweg aus holz",
 "plankenweg",
+"holzweg",
 "prügelweg",
 "holzsteg"
 ],
@@ -4404,12 +4619,19 @@
 "raststation"
 ],
 "highway/speed_camera":[
+"geschwindigkeitsüberwachung",
 "radarkontrolle",
+"starenkasten",
 "Radarfalle",
 "blitzer"
 ],
 "highway/speed_display":[
 "radar-geschwindigkeitsanzeige",
+"geschwindigkeitsanzeige",
+"geschwindigkeitsdisplay",
+"radarkontrolle",
+"tempo-display",
+"tempo-anzeige",
 "Radar-Geschwindigkeitsanzeiger"
 ],
 "highway/steps":[
@@ -4650,10 +4872,30 @@
 "krypta"
 ],
 "historic/wayside_cross":[
-"wegkreuz",
+"hussitenkreuz",
+"wetterkreuz",
+"gekreuzigt",
+"marterl",
+"christlich",
+"mordkreuz",
+"primizkreuz",
+"schwedenkreuz",
+"steinkreuz",
+"votivkreuz",
+"kruzifix",
 "wegekreuz",
+"hofkreuz",
+"pestkreuz",
+"jesus",
+"feldkreuz",
+"wegkreuz",
+"sühnekreuz",
+"hagelkreuz",
+"kreuz",
+"christentum",
 "flurkreuz",
-"Wegkreuz"
+"Wegkreuz",
+"unfallkreuz"
 ],
 "historic/wayside_shrine":[
 "marterl",
@@ -5077,6 +5319,21 @@
 "musikpavillion",
 "orchesterpavillon"
 ],
+"leisure/bathing_place":[
+"badeplatz",
+"tauchplatz",
+"schwimmplatz",
+"badestelle",
+"schwimmstelle",
+"wasser",
+"tauchen",
+"pier",
+"schwimmen",
+"Badeplatz",
+"wildschwimmplatz",
+"baden",
+"leiter"
+],
 "leisure/beach_resort":[
 "strandhotelanalge",
 "strandresort",
@@ -5117,9 +5374,11 @@
 "ballsaal",
 "tanzhalle",
 "tanzlokal",
+"ballettstudio",
 "tanzboden"
 ],
 "leisure/dancing_school":[
+"ballettstudio",
 "Tanzschule",
 "tanzschule"
 ],
@@ -5140,7 +5399,10 @@
 "hundezone"
 ],
 "leisure/escape_game":[
-"Escape Room"
+"Escape Room",
+"escape game",
+"escape the room",
+"adventure rooms"
 ],
 "leisure/firepit":[
 "Feuerstelle",
@@ -5483,7 +5745,7 @@
 "longierzirkel",
 "Reitplatz",
 "roundpen",
-"pferdesportplatz",
+"pferdesport",
 "longieren",
 "reitbahn",
 "round-pen",
@@ -5689,16 +5951,17 @@
 ],
 "leisure/sports_centre/horse_racing":[
 "pferderennen",
-"galopp",
 "Pferderennbahn",
 "rennwiese",
 "turf",
-"rennbahn",
-"trab",
 "galopprennen",
-"trabrennen",
-"reit",
-"reiten"
+"trabrennen"
+],
+"leisure/sports_centre/karting":[
+"kartrennen",
+"go-kart",
+"Go-Kart-Anlage",
+"kartfahren"
 ],
 "leisure/sports_centre/shooting":[
 "schützenhaus",
@@ -5976,6 +6239,25 @@
 "Fahnenmast",
 "fahne"
 ],
+"man_made/flare":[
+"hochfackel",
+"öl",
+"flamme",
+"gas",
+"brenner",
+"bodenfackel",
+"abgas",
+"feuer",
+"verbrennung",
+"Gasfackel",
+"abfackelung"
+],
+"man_made/footwear_decontamination-AU-NZ":[
+"schuhdekontaminationsstation
+schuhdesinfektionsstation
+schuhreinigungsstation",
+"Schuhdekontaminationsstation"
+],
 "man_made/fuel_pump":[
 "tankstellensäule",
 "tanksäule",
@@ -6231,6 +6513,18 @@
 "speicher",
 "silo",
 "Silo"
+],
+"man_made/ski_jump":[
+"skisprungschanzenstruktur",
+"skisprungstruktur",
+"sprung",
+"anlauf",
+"skisprungschanzenturm",
+"skisprungturm",
+"Skisprungturm",
+"skisprung",
+"anlaufturm",
+"skisprung-anlaufturm"
 ],
 "man_made/storage_tank":[
 "lagertank",
@@ -6566,7 +6860,8 @@
 "steilkante",
 "Klippe",
 "klippe",
-"kliff"
+"kliff",
+"abbruchkante"
 ],
 "natural/coastline":[
 "ufer",
@@ -6710,6 +7005,14 @@
 "busch",
 "gehölz"
 ],
+"natural/sinkhole":[
+"Doline",
+"sinkhöhle",
+"doline",
+"krater",
+"trichter",
+"erdloch"
+],
 "natural/spring":[
 "quelle",
 "grundwasseraustritt",
@@ -6745,13 +7048,23 @@
 "laubholz"
 ],
 "natural/tree/broadleaved/evergreen":[
-"Laubbaum (immergrün)"
+"Laubbaum (immergrün)",
+"baum",
+"immergrün",
+"laubbaum",
+"laubholz"
 ],
 "natural/tree/needleleaved":[
 "Nadelbaum"
 ],
 "natural/tree/needleleaved/deciduous":[
-"Nadelbaum (blattabwerfend)"
+"Nadelbaum (blattabwerfend)",
+"laubabwerfend",
+"nadelblättrig",
+"sommergrün",
+"baum",
+"weichholz",
+"nadelbaum"
 ],
 "natural/tree/needleleaved/evergreen":[
 "Nadelbaum (immergrün)",
@@ -7375,6 +7688,12 @@
 "schlitten",
 "loipe"
 ],
+"piste/ski_jump":[
+"skisprungschanze",
+"sprung",
+"Skisprungpiste",
+"skisprung"
+],
 "piste/skitour":[
 "piste",
 "Skitourentrail",
@@ -7412,6 +7731,17 @@
 "schlitten",
 "ziehschlitten",
 "Piste für Zug- oder Motorschlitten"
+],
+"piste/take_off":[
+"schanzentisch",
+"sprung",
+"skisprung-absprung",
+"absprungtisch",
+"skisprungschanzen-anlauftisch",
+"absprung",
+"Skisprungabsprung",
+"skisprung",
+"skisprungschanzenabsprung"
 ],
 "place":[
 "Ort"
@@ -8292,6 +8622,8 @@
 "Eisenbahn-Eisenbahn-Kreuzung"
 ],
 "railway/signal":[
+"signalisierung",
+"eisenbahnsignal",
 "Eisenbahnsignal"
 ],
 "railway/station":[
@@ -8535,7 +8867,10 @@
 "fahrrad-handlung",
 "fahrrad-geschäft",
 "Fahrradladen",
+"veloladen",
+"radservice",
 "fahrradgeschäft",
+"velogeschäft",
 "fahrradladen"
 ],
 "shop/boat":[
@@ -8990,6 +9325,12 @@
 "Friseur",
 "barbier",
 "friseur"
+],
+"shop/hairdresser/barber":[
+"Barbier",
+"barber
+barbier
+herrenfriseur"
 ],
 "shop/hairdresser_supply":[
 "Friseurbedarf",
@@ -9919,8 +10260,8 @@
 "Fahrbahnverengung"
 ],
 "traffic_calming/cushion":[
-"bodenwelle mit lücken",
-"Bodenwelle mit Lücken"
+"Bodenwelle mit Lücken",
+"berliner kissen"
 ],
 "traffic_calming/dip":[
 "Bodensenke",
@@ -9947,9 +10288,10 @@
 "kreisförmige unebenheiten",
 "langsam",
 "kleine unebenheiten",
+"kölner teller",
 "kreisförmige geschwindigkeitsbegrenzungen",
+"Bremsschwelle (kleine Teller)",
 "geschwindigkeit",
-"Kleine Bodenwelle",
 "kleine geschwindigkeitsbegrenzungen",
 "unebenheiten"
 ],

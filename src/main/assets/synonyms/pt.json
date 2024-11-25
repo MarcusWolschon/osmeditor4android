@@ -2612,6 +2612,14 @@
 "filme",
 "Estúdio de cinema"
 ],
+"amenity/swingerclub":[
+"swing",
+"swinger",
+"Clube de swing",
+"clube",
+"adultos",
+"sexo"
+],
 "amenity/taxi":[
 "paragem de táxis",
 "táxi",
@@ -3119,6 +3127,18 @@
 "área de pavimento",
 "formato da estrada",
 "Estrada (área)"
+],
+"area/highway/traffic_island":[
+"Ilha rodoviária",
+"divisor",
+"refúgio",
+"island",
+"estrada",
+"divisão",
+"separação",
+"highway",
+"separador",
+"traffic"
 ],
 "attraction":[
 "Atração turística"
@@ -4830,10 +4850,12 @@
 "Ponto de Encontro de Emergência"
 ],
 "emergency/defibrillator":[
+"aed",
 "desfibrilador",
 "Desfibrilhador",
 "desfibrilação",
 "desfibrilhação",
+"dae",
 "defibrillator"
 ],
 "emergency/designated":[
@@ -4841,6 +4863,16 @@
 ],
 "emergency/destination":[
 "Acesso de emergência, destino"
+],
+"emergency/disaster_response":[
+"protecção",
+"catástrofes",
+"acidentes",
+"socorro",
+"proteção",
+"calamidades",
+"Centro de proteção civil",
+"desastres"
 ],
 "emergency/fire_alarm":[
 "alarme",
@@ -4881,6 +4913,34 @@
 "fire",
 "Boca de incêndio",
 "hidrante"
+],
+"emergency/fire_hydrant/pillar":[
+"hydrant",
+"fogo",
+"fogos",
+"incêndio",
+"água",
+"bombeiros",
+"emergência",
+"boca de",
+"Hidrante pilar",
+"incêndios",
+"mangueira"
+],
+"emergency/fire_hydrant/underground":[
+"fogo",
+"incêndio",
+"bombeiros",
+"incêndios",
+"hydrant",
+"subsolo",
+"fogos",
+"água",
+"debaixo de terra",
+"emergência",
+"boca de",
+"Hidrante subterrâneo",
+"mangueira"
 ],
 "emergency/fire_service_inlet":[
 "fogo",
@@ -5587,13 +5647,14 @@
 "placa"
 ],
 "highway/emergency_bay":[
-"acostamento de parada de emergência",
-"acostamento para parada de emergência",
-"faixa para paragem de emergência",
-"local de paragem de emergência",
-"emergency stopping place",
-"berma para paragem de emergência",
-"local para paragem de emergência",
+"acostamento",
+"refúgio",
+"stopping",
+"berma",
+"parada",
+"emergency",
+"paragem",
+"faixa",
 "Paragem de emergência"
 ],
 "highway/escape":[
@@ -5719,6 +5780,11 @@
 "cedência",
 "perda de prioridade",
 "Sinal de cedência de passagem"
+],
+"highway/ladder":[
+"escadote",
+"ladder",
+"Escada"
 ],
 "highway/living_street":[
 "prioridade",
@@ -6038,8 +6104,8 @@
 "placa"
 ],
 "highway/steps":[
-"Escadas",
-"escadaria",
+"Escadaria",
+"escadas",
 "degraus"
 ],
 "highway/steps/conveying":[
@@ -8071,6 +8137,21 @@
 "cavalos",
 "apostas"
 ],
+"leisure/sports_centre/karting":[
+"motor",
+"racing",
+"Kartódromo",
+"automobilismo",
+"karts",
+"go kart",
+"motorizado",
+"corridas",
+"karting",
+"centro",
+"desportivo",
+"desporto",
+"complexo"
+],
 "leisure/sports_centre/shooting":[
 "armas",
 "tiro",
@@ -8569,6 +8650,31 @@
 "Mastro de bandeira",
 "estandarte",
 "bandeira"
+],
+"man_made/flare":[
+"flare",
+"fogo",
+"burn",
+"queimar",
+"stack",
+"chama",
+"combustão",
+"gás",
+"Torre do queimador de tocha",
+"gasoduto",
+"queima"
+],
+"man_made/footwear_decontamination-AU-NZ":[
+"botas",
+"posto",
+"footwear",
+"sapatos",
+"descontaminar",
+"pés",
+"estação",
+"Ponto de descontaminação de calçado",
+"ténis",
+"limpeza"
 ],
 "man_made/fuel_pump":[
 "diesel",
@@ -9732,6 +9838,14 @@
 "planta lenhosa",
 "mato"
 ],
+"natural/sinkhole":[
+"Dolina",
+"cenote",
+"depressão",
+"sumidouro",
+"sinkhole",
+"buraco"
+],
 "natural/spring":[
 "nascente",
 "Nascente de água",
@@ -9805,13 +9919,37 @@
 "caducifólia"
 ],
 "natural/tree/broadleaved/evergreen":[
-"Árvore de folha larga perene"
+"broadleaf",
+"folhas",
+"largas",
+"perenifólia",
+"evergreen",
+"folhagem",
+"sempre-verde",
+"copa",
+"Árvore de folha larga perene",
+"perenal",
+"broadleaved",
+"perene",
+"perenifólio"
 ],
 "natural/tree/needleleaved":[
 "Árvore de folha acicular"
 ],
 "natural/tree/needleleaved/deciduous":[
-"Árvore de folha acicular caduca"
+"folhas",
+"Árvore de folha acicular caduca",
+"folhagem",
+"decídua",
+"caduco",
+"caducifólia",
+"copa",
+"caduca",
+"decíduo",
+"needle",
+"needleleaved",
+"caducifólio",
+"agulhas"
 ],
 "natural/tree/needleleaved/evergreen":[
 "acícula",
@@ -13366,6 +13504,21 @@
 "cabeleireiro",
 "barbeiro",
 "barbearia"
+],
+"shop/hairdresser/barber":[
+"barba",
+"bigode",
+"cabeleireiro",
+"cabelos",
+"corte",
+"pera",
+"Barbeiro",
+"patilhas",
+"barbear",
+"barber",
+"shave",
+"moustache",
+"pêra"
 ],
 "shop/hairdresser_supply":[
 "material de cabeleireiro",

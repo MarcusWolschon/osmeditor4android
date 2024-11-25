@@ -1468,8 +1468,10 @@
 "automatizovaná poštovní schránka",
 "skříňka",
 "Schránka na zásilky",
+"balíkomat",
 "balík",
 "odevzdání",
+"balikomat",
 "pošta",
 "balicí stanice"
 ],
@@ -2771,10 +2773,12 @@
 "železnice"
 ],
 "amenity/vending_machine/stamps":[
-"razítko",
-"poštovné",
-"Poštovní automat",
-"pošta"
+"postovni znamky",
+"výdejní automat na poštovní známky",
+"automat na postovni znamky",
+"poštovní známky",
+"vydejni automat na postovni znamky",
+"Automat na balíky"
 ],
 "amenity/vending_machine/sweets":[
 "Prodejní automat na cukrovinky",
@@ -2862,6 +2866,11 @@
 "tvar dálnice",
 "tvar silnice",
 "chodník"
+],
+"area/highway/traffic_island":[
+"pomocný ostrůvek",
+"dopravní ostrůvek",
+"Plocha dopravního ostrůvku"
 ],
 "attraction":[
 "Atrakce"
@@ -4228,6 +4237,14 @@
 "emergency/destination":[
 "Vjezd záchranným vozidlům jen do místa"
 ],
+"emergency/disaster_response":[
+"ses",
+"civilní obrana",
+"civilní ochrana",
+"krizové řízení",
+"Stanice reakce na katastrofy",
+"zvládání katastrof"
+],
 "emergency/fire_alarm":[
 "Ohlašovna požárů",
 "požární hlásič",
@@ -4253,6 +4270,17 @@
 "Požární hydrant",
 "pumpa",
 "požární hydrant"
+],
+"emergency/fire_hydrant/pillar":[
+"požární zátka",
+"sloupkový hydrant",
+"Sloupek požárního hydrantu"
+],
+"emergency/fire_hydrant/underground":[
+"požární zátka",
+"studna na požární vodu",
+"podzemní hydrant",
+"Podzemní požární hydrant"
 ],
 "emergency/fire_service_inlet":[
 "fdc",
@@ -4938,6 +4966,9 @@
 "dej přednost",
 "značka přednosti v jízdě"
 ],
+"highway/ladder":[
+"Žebřík"
+],
 "highway/living_street":[
 "obytná ulice",
 "Obytná zóna",
@@ -5387,6 +5418,11 @@
 ],
 "historic/building":[
 "Historická budova"
+],
+"historic/cannon":[
+"kanón",
+"kanon",
+"Dělo"
 ],
 "historic/castle":[
 "hradiště",
@@ -6172,6 +6208,14 @@
 "skupinou",
 "Komunitní zahrada"
 ],
+"leisure/garden/kitchen":[
+"bramborová zahrada",
+"zahrada na jídlo",
+"kuchyňská zahrada",
+"Zeleninová zahrada",
+"kuchařská zahrada",
+"kulinářská zahrada"
+],
 "leisure/garden/residential":[
 "předzahrádka",
 "Obytná zahrada",
@@ -6204,6 +6248,11 @@
 "areál jezdectví",
 "koňský ranč",
 "koňská farma"
+],
+"leisure/hot_tub":[
+"usspa",
+"Vířivka",
+"lázně"
 ],
 "leisure/ice_rink":[
 "zimní stadion",
@@ -6864,6 +6913,12 @@
 "komín",
 "Komín"
 ],
+"man_made/clarifier":[
+"Čistič odpadních vod",
+"čistička odpadních vod",
+"čistička",
+"sedimentační nádrž"
+],
 "man_made/clearcut":[
 "řezivo",
 "strom",
@@ -6936,6 +6991,14 @@
 "stožár",
 "vlajkový stožár",
 "vlajka"
+],
+"man_made/flare":[
+"hořet",
+"plynový komín",
+"plyn",
+"olej",
+"oheň",
+"Fléra"
 ],
 "man_made/fuel_pump":[
 "lng",
@@ -7434,6 +7497,10 @@
 "podzemní chodba"
 ],
 "man_made/utility_pole":[
+"sloup technické infrastruktury",
+"technická infrastruktura",
+"infrastruktura",
+"sloup",
 "Stožár"
 ],
 "man_made/video_wall":[
@@ -7748,6 +7815,17 @@
 "Keř",
 "větve"
 ],
+"natural/sinkhole":[
+"údolí",
+"vlaštovčí díra",
+"cenote",
+"závrtový",
+"dolina",
+"hadí díra",
+"dolík",
+"Závrt",
+"propadliště"
+],
 "natural/spring":[
 "Pramen",
 "pramen",
@@ -7783,13 +7861,23 @@
 "tvrdé dřevo"
 ],
 "natural/tree/broadleaved/evergreen":[
+"stálezelený",
+"strom",
+"listnatý",
+"listí",
+"tvrdé dřevo",
 "Listnatý strom (stálezelený)"
 ],
 "natural/tree/needleleaved":[
 "Jehličnatý strom"
 ],
 "natural/tree/needleleaved/deciduous":[
-"Jehličnatý strom (opadavý)"
+"strom",
+"Jehličnatý strom (opadavý)",
+"měkké dřevo",
+"jehličnan",
+"listí",
+"jehličnatý"
 ],
 "natural/tree/needleleaved/evergreen":[
 "stálezelený",
@@ -8730,7 +8818,8 @@
 "Tyč na tetherball"
 ],
 "playground/trampoline":[
-"Trampolína"
+"Trampolína",
+"trampolina"
 ],
 "playground/tunnel_tube":[
 "Hrací tunel"

@@ -1180,6 +1180,19 @@
 "Centre social",
 "comunitat"
 ],
+"amenity/social_facility/ambulatory_care":[
+"cura ambulatòria",
+"ambulatori",
+"ambulatòria",
+"atenció ambulatòria",
+"Atenció ambulatòria"
+],
+"amenity/social_facility/assisted_living":[
+"residència assistida per a gent major",
+"residència assistida per a gent gran",
+"Residència assistida per a gent major",
+"residència assistida per a anciants"
+],
 "amenity/social_facility/food_bank":[
 "menjador social",
 "economat",
@@ -1187,21 +1200,23 @@
 "banc d'aliments"
 ],
 "amenity/social_facility/group_home":[
-"Residència d'avis",
 "residencia geriàtrica",
+"Habitatge grupal d'ancians",
 "geriàtric"
 ],
 "amenity/social_facility/homeless_shelter":[
 "vagabund",
+"Refugi per a persones sense llar",
 "sense sostre",
 "sense casa",
-"Refugi per a indigents",
-"indigent"
+"sense llar",
+"indigent",
+"sensellar"
 ],
 "amenity/social_facility/nursing_home":[
 "residència d'ancians",
 "avis",
-"Llar d'avis",
+"Llar d'ancians",
 "ancians",
 "residència d'avis",
 "residència"
@@ -1618,7 +1633,42 @@
 "bordillo",
 "rebaix",
 "vorera",
-"Gual"
+"Vorada"
+],
+"barrier/kerb/flush":[
+"vorada rasa",
+"gual ras",
+"vorada a ras",
+"Vorada rasa",
+"vorada ras",
+"vorada al ras"
+],
+"barrier/kerb/lowered":[
+"gual rebaixat",
+"rebaix",
+"Vorada rebaixada/gual",
+"vorada rebaixada"
+],
+"barrier/kerb/raised":[
+"vorada elevada",
+"vorada alçada",
+"gual alçat",
+"Vorada elevada",
+"gual elevat",
+"gual alt"
+],
+"barrier/kerb/rolled":[
+"gual enrotllat",
+"vora encorbada",
+"vorada encorbada",
+"gual en forma de canal",
+"canal de paviment",
+"canal",
+"vorada en forma de canal",
+"vorada enrotllada",
+"forma de canal",
+"vorada corbada",
+"Vorada enrotllada"
 ],
 "barrier/kissing_gate":[
 "porta giratòria",
@@ -3762,6 +3812,9 @@
 "natural/wetland":[
 "Aiguamolls"
 ],
+"natural/wetland/bog":[
+"Torbera"
+],
 "natural/wetland/fen":[
 "llacuna alcalina",
 "aiguamoll alcalí",
@@ -3931,6 +3984,9 @@
 "electricitat",
 "companyia elèctrica"
 ],
+"office/engineer":[
+"Oficina d'enginyeria"
+],
 "office/estate_agent":[
 "Agència immobiliària",
 "propietat",
@@ -3966,6 +4022,12 @@
 "funcionari",
 "naiximent",
 "naixement"
+],
+"office/government/tax":[
+"Oficina tributària d'impostos/hisenda"
+],
+"office/graphic_design":[
+"Oficina de disseny gràfic"
 ],
 "office/guide":[
 "Oficina de guies turístics"
@@ -4099,6 +4161,9 @@
 "municipi",
 "Ciutat"
 ],
+"place/city_block":[
+"Illa urbana"
+],
 "place/farm":[
 "Granja"
 ],
@@ -4150,8 +4215,14 @@
 "place/plot":[
 "Parcel·la"
 ],
+"place/quarter":[
+"Subdistricte / Quarter"
+],
 "place/square":[
 "Plaça"
+],
+"place/suburb":[
+"Districte / Suburbi"
 ],
 "place/town":[
 "Ciutat"
@@ -4532,6 +4603,9 @@
 "railway/construction":[
 "Via fèrria en construcció"
 ],
+"railway/crossing":[
+"Pas a nivell ferroviari"
+],
 "railway/disused":[
 "via de tren abandonada",
 "Via fèrria fora d'ús",
@@ -4606,12 +4680,42 @@
 "Tramvia",
 "tram"
 ],
+"railway/tram_crossing":[
+"Encreuament tramvia-camí"
+],
+"railway/tram_level_crossing":[
+"Encreuament tramvia-carretera"
+],
 "railway/tram_stop":[
 "Tram Stopping Position"
+],
+"railway/turntable":[
+"Plat giratori ferroviari",
+"plataforma giratòria",
+"taula giratòria",
+"plat giratori",
+"taula giratòria ferroviària",
+"placa giratòria"
 ],
 "relation":[
 "Relació",
 "relació"
+],
+"roller_coaster/station":[
+"Estació de muntanya russa",
+"parada de muntanya russa",
+"caseta de muntanya russa",
+"estació de muntanya russa"
+],
+"roller_coaster/support":[
+"Estructura de muntanya russa"
+],
+"roller_coaster/track":[
+"raïls de muntanya russa",
+"Raïl de muntanya russa",
+"via de muntanya russa",
+"vies de muntanya russa",
+"raïl de muntanya russa"
 ],
 "route/ferry":[
 "Ruta de ferri"
@@ -4835,6 +4939,9 @@
 ],
 "shop/clothes/second_hand":[
 "Botiga de roba de segona mà"
+],
+"shop/clothes/suits":[
+"Botiga de trages"
 ],
 "shop/clothes/underwear":[
 "braga",
@@ -5106,6 +5213,9 @@
 "shop/hardware":[
 "Ferreteria"
 ],
+"shop/health_food":[
+"Botiga de menjar saludable"
+],
 "shop/hearing_aids":[
 "Centre d'audició"
 ],
@@ -5235,7 +5345,15 @@
 "Botiga de pintura"
 ],
 "shop/pastry":[
-"Pastisseria"
+"pastís",
+"pastisseria",
+"pastisset",
+"dolç",
+"pasteleria",
+"pastes",
+"rebosteria",
+"Pastisseria",
+"dolços"
 ],
 "shop/perfumery":[
 "botiga de colònies",
@@ -5277,6 +5395,9 @@
 "tenda de lloguers",
 "lloguer",
 "Botiga de lloguers"
+],
+"shop/rice":[
+"Botiga d'arròs"
 ],
 "shop/scuba_diving":[
 "aigua",
@@ -5362,6 +5483,28 @@
 ],
 "shop/supermarket/organic":[
 "Supermercat ecològic"
+],
+"shop/swimming_pool":[
+"forniment de piscina",
+"clor",
+"equipament de piscina",
+"subministres de piscina",
+"equip de piscina",
+"equips de piscina",
+"productes per a piscines",
+"piscines",
+"provisió de piscina",
+"producte de piscines",
+"productes de piscina",
+"ph",
+"accessoris de piscina",
+"piscina",
+"abastament de piscina",
+"serveis de piscina",
+"botiga de subministrament per a piscines",
+"Botiga d'equipament per a piscines",
+"subministre de piscina",
+"productes químics per a piscines"
 ],
 "shop/tailor":[
 "Sastreria"
@@ -5469,6 +5612,19 @@
 "Armeria",
 "gavinets"
 ],
+"shop/wholesale":[
+"botiga a l'engròs",
+"comerç al major",
+"comerç a l'engròs",
+"comerç en gros",
+"comerç majorista",
+"venda a l'engròs",
+"Comerç majorista",
+"majorista",
+"en gros",
+"engròs",
+"al major"
+],
 "shop/wigs":[
 "pèl",
 "monyo",
@@ -5496,7 +5652,15 @@
 "Element de telecomunicacions"
 ],
 "telecom/data_center":[
-"Centre de dades"
+"centre de dades",
+"centre de dates",
+"centres de dates",
+"data center",
+"centre de data",
+"centres de dades",
+"Centre de dades",
+"data centre",
+"datacenter"
 ],
 "telecom/exchange":[
 "estació de telecomunicacions",
@@ -5660,6 +5824,9 @@
 "zoo",
 "Zoo",
 "zoològic"
+],
+"tourism/zoo/safari":[
+"Parc de safari"
 ],
 "traffic_calming":[
 "Mesures de reducció de velocitat",
@@ -5982,14 +6149,14 @@
 ],
 "waterway/fish_pass":[
 "escala de peixos",
+"Pas per a peixos",
 "escala d'anguiles",
 "migració de peixos",
 "escalons de peixos",
 "camí de peixos",
 "pas d'anguiles",
 "sifó de peixos",
-"pas de peixos",
-"Pas per peixos"
+"pas de peixos"
 ],
 "waterway/fuel":[
 "diesel",

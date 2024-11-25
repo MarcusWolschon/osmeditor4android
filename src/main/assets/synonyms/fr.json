@@ -554,7 +554,7 @@
 "blackjack"
 ],
 "amenity/charging_station":[
-"Borne de recharge",
+"Station de recharge",
 "recharge",
 "charging station",
 "chargeur",
@@ -564,9 +564,9 @@
 "station de recharge"
 ],
 "amenity/childcare":[
-"crèche",
-"garderie",
-"Garderie"
+"ne pas utiliser",
+"déprécié",
+"Déprécié, ne pas utiliser"
 ],
 "amenity/cinema":[
 "films",
@@ -1730,6 +1730,7 @@
 "bain public"
 ],
 "amenity/public_bookcase":[
+"armoire à livres",
 "Microbibliothèque",
 "boîte à livres",
 "bibliothèque en libre service",
@@ -4314,6 +4315,9 @@
 "Borne incendie",
 "borne fontaine"
 ],
+"emergency/fire_hydrant/pillar":[
+"Borne d'incendie"
+],
 "emergency/fire_service_inlet":[
 "Colonne sèche",
 "colonne sèche"
@@ -4640,9 +4644,11 @@
 "Optométriste"
 ],
 "healthcare/physiotherapist":[
+"physiothérapeute",
 "kinésithérapeute",
-"kiné",
-"Physiothérapeute"
+"masseur",
+"Masseur-kinésithérapeute",
+"kiné"
 ],
 "healthcare/podiatrist":[
 "podologue",
@@ -4874,6 +4880,9 @@
 "cédez-le-passage",
 "cedez le passage",
 "Cédez-le-passage"
+],
+"highway/ladder":[
+"Échelle"
 ],
 "highway/living_street":[
 "zone de rencontre",
@@ -5173,6 +5182,10 @@
 "monument",
 "historique",
 "Bâtiment historique"
+],
+"historic/cannon":[
+"Canon",
+"canon"
 ],
 "historic/castle":[
 "Château",
@@ -5526,7 +5539,7 @@
 "landuse/recreation_ground":[
 "terrain de jeux",
 "terrain de loisirs",
-"Aire de jeux"
+"Terrain de loisirs"
 ],
 "landuse/religious":[
 "zone religieuse",
@@ -6134,8 +6147,8 @@
 ],
 "leisure/playground":[
 "aire de jeu",
-"Jeux pour enfants",
-"cour de récréation"
+"cour de récréation",
+"Aire de jeux pour enfants"
 ],
 "leisure/playground/indoor":[
 "aire",
@@ -7144,6 +7157,10 @@
 "Arbuste",
 "arbrisseau"
 ],
+"natural/sinkhole":[
+"Gouffre",
+"gouffre"
+],
 "natural/spring":[
 "source",
 "Source"
@@ -7574,7 +7591,7 @@
 "Notaire"
 ],
 "office/physician":[
-"Médecin"
+"Obsolète, utiliser healthcare=doctor à la place"
 ],
 "office/political_party":[
 "Bureau de parti politique",
@@ -7639,9 +7656,9 @@
 "fai"
 ],
 "office/therapist":[
-"thérapeute",
-"Thérapeute",
-"soigneur"
+"Obsolète, utiliser healthcare=doctor ou alternative à la place",
+"utiliser healthcare=doctor ou alternative à la place",
+"obsolète"
 ],
 "office/travel_agent":[
 "Agence de voyage"
@@ -7820,7 +7837,7 @@
 "Village (de 100 à 10 000 habitants)"
 ],
 "playground":[
-"Jeux"
+"Module de jeux pour enfants"
 ],
 "playground/activitypanel":[
 "éducatif",
@@ -8002,8 +8019,8 @@
 "jeux"
 ],
 "playground/zipwire":[
-"Tyrolienne",
-"tyrolienne"
+"tyrolienne",
+"Tyrolienne (jeu pour enfants)"
 ],
 "point":[
 "Point",
@@ -9065,9 +9082,11 @@
 "fromager"
 ],
 "shop/chemist":[
-"droguerie",
-"Parapharmacie",
-"pharmacie"
+"Droguerie",
+"cosmétiques",
+"produits d'entretien",
+"parapharmacie",
+"hygiène"
 ],
 "shop/chocolate":[
 "Chocolatier",
@@ -9663,7 +9682,7 @@
 "shop/photo":[
 "photographe",
 "tirage de photos",
-"Tirage de photos"
+"Boutique photo"
 ],
 "shop/pottery":[
 "potier",

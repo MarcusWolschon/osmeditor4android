@@ -3,7 +3,11 @@
 "پتہ"
 ],
 "aeroway/aerodrome":[
-"ہوائی اڈہ"
+"ائیرپورت",
+"ہوائی اڈہ",
+"ائیر پورت",
+"ہوائی اڈا",
+"ائرپورٹ"
 ],
 "amenity":[
 "سہولت"
@@ -84,6 +88,9 @@
 "amenity/telephone":[
 "ٹیلی فون"
 ],
+"barrier/toll_booth":[
+"ٹول پلازہ"
+],
 "boundary":[
 "حدود"
 ],
@@ -108,6 +115,14 @@
 "تھگلی",
 "جھگی"
 ],
+"building/mosque":[
+"مسجد عمارت"
+],
+"building/office":[
+"دفاتر عمارت",
+"دفتر",
+"دفاتر"
+],
 "building/roof":[
 "چھت"
 ],
@@ -118,8 +133,14 @@
 "building_point":[
 "عمارت"
 ],
+"cemetery/grave":[
+"قبر"
+],
 "craft/carpenter":[
 "بڑھئی"
+],
+"highway/motorway":[
+"موٹروے"
 ],
 "highway/speed_camera":[
 "کیمرہ برائے رفتار"
@@ -145,6 +166,9 @@
 "landuse/railway":[
 "ریلوے راہداری",
 "ریل راہداری"
+],
+"landuse/residential":[
+"رہائشی علاقہ"
 ],
 "leisure/garden":[
 "باغ"
@@ -195,6 +219,22 @@
 ],
 "office":[
 "دفتر"
+],
+"office/administrative":[
+"انتظامی دفتر"
+],
+"office/government":[
+"سرکاری دفتر"
+],
+"office/insurance":[
+"بیمہ دفتر"
+],
+"office/political_party":[
+"دفتر برائے سیاسی جماعت",
+"سیاسی جماعت کا دفتر"
+],
+"office/yes":[
+"دفتر (نامعلوم)"
 ],
 "place":[
 "جگہ"
@@ -249,9 +289,11 @@
 "درزی"
 ],
 "shop/weapons":[
+"بندوقوں والی دکان",
 "بندوق کی دکان",
 "بندوق کی دوکان",
-"بندوقوں کی دکان"
+"بندوقوں کی دکان",
+"بندوق والی دکان"
 ],
 "tourism/artwork/statue":[
 "مجسمہ"

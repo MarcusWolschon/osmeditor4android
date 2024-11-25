@@ -596,8 +596,8 @@
 "clinica per l’aborto"
 ],
 "amenity/clinic/dialysis":[
-"Centro Dialisi",
 "dialisi renale",
+"Centro dialisi",
 "clinica di dialisi"
 ],
 "amenity/clinic/fertility":[
@@ -747,7 +747,7 @@
 "unghie",
 "dermatologia",
 "pelle",
-"Dermatologa",
+"Dermatologo",
 "capelli"
 ],
 "amenity/doctors/gastroenterology":[
@@ -877,9 +877,10 @@
 "gambe"
 ],
 "amenity/doctors/proctology":[
-"assman",
-"Chirurgo colorettale",
-"chirurgia colorettale",
+"chirurgia colo-rettale",
+"colon",
+"retto",
+"Chirurgo colo-rettale",
 "proctologia"
 ],
 "amenity/doctors/psychiatrist":[
@@ -914,7 +915,7 @@
 "Reumatologo"
 ],
 "amenity/doctors/surgery":[
-"Chirurgo Generale"
+"Chirurgo generale"
 ],
 "amenity/doctors/trauma":[
 "Chirurgo traumatologo"
@@ -1750,6 +1751,7 @@
 "Riciclaggio"
 ],
 "amenity/recycling/container/electrical_items":[
+"raee",
 "Cassonetto per la raccolta di RAEE"
 ],
 "amenity/recycling/container/green_waste":[
@@ -1760,7 +1762,16 @@
 "Centro di riciclaggio"
 ],
 "amenity/recycling_container":[
-"Cestino per raccolta differenziata"
+"carta",
+"differenziata",
+"cassonetto",
+"abiti",
+"lattine",
+"Bidone per raccolta differenziata",
+"vestiti",
+"cartone",
+"riciclo",
+"bottiglie"
 ],
 "amenity/refugee_site":[
 "Campo profughi"
@@ -1815,6 +1826,9 @@
 "drivein",
 "sushi",
 "colazione"
+],
+"amenity/restaurant/barbecue":[
+"Ristorante con Griglia"
 ],
 "amenity/restaurant/chinese":[
 "cinese",
@@ -2320,7 +2334,8 @@
 "Distributore automatico di bevande",
 "bottigliette",
 "distributore automatico",
-"bottiglie"
+"bottiglie",
+"bibite"
 ],
 "amenity/vending_machine/eggs":[
 "uova",
@@ -2957,6 +2972,9 @@
 "condomini",
 "case"
 ],
+"building/bakehouse":[
+"Forno"
+],
 "building/barn":[
 "Fienile",
 "tesa",
@@ -3439,7 +3457,7 @@
 "libri"
 ],
 "craft/brewery":[
-"Birrificio Artigianale"
+"Birrificio artigianale"
 ],
 "craft/carpenter":[
 "Carpentiere",
@@ -3705,7 +3723,7 @@
 "Elemento ferroviario in disuso"
 ],
 "disused/shop":[
-"Negozio in disuso"
+"Negozio in Disuso"
 ],
 "embankment":[
 "Terrapieno"
@@ -5073,15 +5091,20 @@
 "Parcheggio per roulotte"
 ],
 "landuse/retail":[
-"Area di vendita al dettaglio",
-"commerciale"
+"vendita",
+"vendita al dettaglio",
+"negozi",
+"Area di negozi"
 ],
 "landuse/salt_pond":[
 "Stagno di evaporazione del sale"
 ],
 "landuse/vineyard":[
+"vino",
 "Vigneto",
-"vigna"
+"vigna",
+"filari",
+"viti"
 ],
 "landuse/winter_sports":[
 "piste da sci",
@@ -5577,6 +5600,9 @@
 "calarsi",
 "Palestra di arrampicata",
 "parete"
+],
+"leisure/sports_centre/climbing_adventure":[
+"Parco Avventura"
 ],
 "leisure/sports_centre/shooting":[
 "Poligono di tiro"
@@ -6083,6 +6109,8 @@
 "vigilanza"
 ],
 "man_made/surveillance/camera":[
+"telecamera di sicurezza",
+"videosorveglianza",
 "Telecamera di sorveglianza"
 ],
 "man_made/survey_point":[
@@ -6707,6 +6735,8 @@
 ],
 "office/estate_agent":[
 "immobiliare",
+"vendita di case",
+"affitti",
 "Agenzia immobiliare",
 "agenzia immobiliare"
 ],
@@ -6847,7 +6877,17 @@
 "Ufficio della vigilanza"
 ],
 "office/surveyor":[
-"Ufficio di supervisione"
+"studio",
+"rischio",
+"geometra",
+"danni",
+"catastale",
+"Ufficio di un geometra",
+"geometri",
+"catasto",
+"edilizia",
+"valutazione",
+"particella"
 ],
 "office/tax_advisor":[
 "Centro assistenza fiscale"
@@ -7803,7 +7843,9 @@
 "negozio di candele"
 ],
 "shop/cannabis":[
-"Negozio di cannabis"
+"fumo",
+"Negozio di cannabis",
+"marijuana"
 ],
 "shop/car":[
 "concessionaria auto",
@@ -8525,7 +8567,10 @@
 "teieria"
 ],
 "shop/telecommunication":[
-"Negozio al dettaglio di Telefonia"
+"Negozio di telefonia",
+"telefonia",
+"mobile",
+"telefono"
 ],
 "shop/ticket":[
 "biglietteria",
@@ -8571,11 +8616,15 @@
 "Negozio di coppe"
 ],
 "shop/tyres":[
+"ruote",
 "negozio pneumatici",
-"Gommista"
+"Gommista",
+"copertoni"
 ],
 "shop/vacant":[
-"Negozio vuoto"
+"vacante",
+"Negozio vuoto",
+"chiuso"
 ],
 "shop/vacuum_cleaner":[
 "aspirapolveri",
@@ -8784,8 +8833,8 @@
 "breakfast",
 "camera",
 "nottata",
-"Bed & Breakfast",
 "alloggio",
+"Affittacamere",
 "b&b",
 "colazione"
 ],

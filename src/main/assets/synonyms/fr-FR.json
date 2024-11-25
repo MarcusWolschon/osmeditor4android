@@ -5,6 +5,18 @@
 "amenity/recycling/container/green_waste":[
 "Benne pour déchets verts"
 ],
+"landuse/recreation_ground":[
+"Terrain de loisirs"
+],
+"leisure/playground":[
+"Aire de jeux pour enfants"
+],
+"playground":[
+"Module de jeux pour enfants"
+],
+"playground/zipwire":[
+"Tyrolienne (jeu)"
+],
 "waterway/river":[
 "Rivière"
 ]

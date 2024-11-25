@@ -242,8 +242,26 @@
 "amenity/community_centre":[
 "Месна заедница"
 ],
+"amenity/community_centre/club_home":[
+"Клупски дом"
+],
+"amenity/community_centre/community_hall":[
+"Дом на заедница"
+],
+"amenity/community_centre/cultural_centre":[
+"Културен центар"
+],
+"amenity/community_centre/family_centre":[
+"Семеен центар"
+],
 "amenity/community_centre/lgbtq":[
 "Дом на ЛГБТК+"
+],
+"amenity/community_centre/parish_hall":[
+"Парохиски дом"
+],
+"amenity/community_centre/village_hall":[
+"Селски дом"
 ],
 "amenity/community_centre/youth_centre":[
 "Младински дом"
@@ -399,6 +417,9 @@
 ],
 "amenity/fast_food/chicken":[
 "Пилешко"
+],
+"amenity/fast_food/chinese":[
+"Кинеска брза храна"
 ],
 "amenity/fast_food/donut":[
 "Крофни"
@@ -845,6 +866,9 @@
 "amenity/studio/video":[
 "Филмско студио"
 ],
+"amenity/swingerclub":[
+"Секс-клуб"
+],
 "amenity/taxi":[
 "Такси-постојка"
 ],
@@ -1009,6 +1033,9 @@
 ],
 "area/highway":[
 "Патно подрачје"
+],
+"area/highway/traffic_island":[
+"Сообраќаен остров"
 ],
 "attraction":[
 "Знаменитост"
@@ -1654,6 +1681,12 @@
 "emergency/fire_hydrant":[
 "Хидрант"
 ],
+"emergency/fire_hydrant/pillar":[
+"Столбен хидрант"
+],
+"emergency/fire_hydrant/underground":[
+"Подземен хидрант"
+],
 "emergency/fire_service_inlet":[
 "[преведете со истозначници и сродни поими на „пожарникарски довод“",
 "одделени со запирки]",
@@ -1949,6 +1982,9 @@
 "highway/give_way":[
 "Знак за предност"
 ],
+"highway/ladder":[
+"Скала"
+],
 "highway/living_street":[
 "Маалска улица"
 ],
@@ -1956,7 +1992,7 @@
 "Автопатен километражник"
 ],
 "highway/mini_roundabout":[
-"Мини-кружен тек"
+"Минираскружница"
 ],
 "highway/motorway":[
 "Автопат"
@@ -2088,7 +2124,7 @@
 "Приод кон магистрала"
 ],
 "highway/turning_circle":[
-"Кружен тек"
+"Раскружница"
 ],
 "highway/turning_loop":[
 "Свртилиште (остров)"
@@ -2329,6 +2365,9 @@
 ],
 "leisure/bandstand":[
 "Оркестарска естрада"
+],
+"leisure/bathing_place":[
+"Место за капење"
 ],
 "leisure/beach_resort":[
 "Плажно летувалиште"
@@ -2643,6 +2682,9 @@
 "leisure/sports_centre/horse_racing":[
 "Хиподром"
 ],
+"leisure/sports_centre/karting":[
+"Картинг"
+],
 "leisure/sports_centre/shooting":[
 "Стрелиштен објект"
 ],
@@ -2787,6 +2829,12 @@
 "man_made/flagpole":[
 "Јарбол за знаме"
 ],
+"man_made/flare":[
+"Гасен факел"
+],
+"man_made/footwear_decontamination-AU-NZ":[
+"Станица за деконтаминација на обувки"
+],
 "man_made/fuel_pump":[
 "Бензинска пумпа"
 ],
@@ -2894,6 +2942,9 @@
 ],
 "man_made/silo":[
 "Силос"
+],
+"man_made/ski_jump":[
+"Кула на скијачка скокалница"
 ],
 "man_made/storage_tank":[
 "Резервоар"
@@ -3098,6 +3149,9 @@
 ],
 "natural/shrub":[
 "Грмушки"
+],
+"natural/sinkhole":[
+"Вртача"
 ],
 "natural/spring":[
 "Извор"
@@ -3408,6 +3462,9 @@
 "piste/piste":[
 "Патека / писта за зимски спортови"
 ],
+"piste/ski_jump":[
+"Писта на скијачка скокалница"
+],
 "piste/skitour":[
 "Патека за скијачко планинарство"
 ],
@@ -3416,6 +3473,9 @@
 ],
 "piste/sleigh":[
 "Патека за санки во природа"
+],
+"piste/take_off":[
+"Спушталиште за скијачко скокање"
 ],
 "place":[
 "Место"
@@ -4169,6 +4229,9 @@
 ],
 "shop/hairdresser":[
 "Фризерски салон"
+],
+"shop/hairdresser/barber":[
+"Бербер"
 ],
 "shop/hairdresser_supply":[
 "Фризерски набавки"

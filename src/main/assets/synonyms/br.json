@@ -250,13 +250,20 @@
 "belo",
 "marc'hhouarnerezh",
 "marc'hoù-houarn",
-"beloioù"
+"beloioù",
+"parklec'h beloioù"
 ],
 "amenity/bicycle_parking/building":[
 "parklec'h",
+"parkañ",
 "marc'h-houarn",
+"mirc'hi-houarn",
+"garaj",
 "karrdi",
-"Karrdi marc'hoù-houarn"
+"marc'hhouarnerezh",
+"Karrdi marc'hoù-houarn",
+"marc'hoù-houarn",
+"parklec'h beloioù"
 ],
 "amenity/bicycle_parking/lockers":[
 "Kombodoù marc'hoù-houarn",
@@ -281,6 +288,17 @@
 "gwerzhañ",
 "marc'hoù-houarn",
 "beloioù"
+],
+"amenity/bicycle_wash":[
+"kempenn",
+"mirc'hi-houarn",
+"marc'h-houarn",
+"gwalc'hañ",
+"naetaat",
+"marc'hhouarnerezh",
+"marc'hoù-houarn",
+"beloioù",
+"Gwalc'hañ marc'hoù-houarn"
 ],
 "amenity/binoculars":[
 "Lunedoù hirwel"
@@ -699,7 +717,17 @@
 "dour naet"
 ],
 "amenity/driver_training":[
-"Tachenn skol-vleinañ"
+"karr-tan;gwetur",
+"takad",
+"skol vleinañ",
+"tachad",
+"skol-vleinañ",
+"skol bleinañ",
+"oto",
+"Tachenn skol-vleinañ",
+"kirri-tan",
+"bleinañ",
+"tachenn"
 ],
 "amenity/driving_school":[
 "skol",
@@ -1806,6 +1834,11 @@
 "Tachenn skol-veur",
 "tachenn"
 ],
+"amenity/vacuum_cleaner":[
+"Sunerezioù evit naetaat ar c'hirri-tan",
+"sunerezioù",
+"sunerez"
+],
 "amenity/vehicle_inspection":[
 "Kontroll teknikel",
 "kontroll teknikel"
@@ -2816,7 +2849,9 @@
 ],
 "craft/gardener":[
 "liorzhour",
+"jardriner",
 "liorzhourez",
+"jardrinerez",
 "jardinerez",
 "liorzher",
 "liorzherez",
@@ -3079,6 +3114,10 @@
 "emergency/fire_hydrant":[
 "Genoù tan-gwall",
 "genoù tan-gwall"
+],
+"emergency/fire_hydrant/underground":[
+"genoù tan-gwall dindandouar",
+"Genoù tan-gwall dindandouar"
 ],
 "emergency/fire_service_inlet":[
 "Kolonenn sec'h",
@@ -3628,6 +3667,9 @@
 "lezit da dremen",
 "Panell \"lezit da dremen\""
 ],
+"highway/ladder":[
+"Skeul"
+],
 "highway/living_street":[
 "bev",
 "Straed vev",
@@ -4170,11 +4212,17 @@
 "Elfenn implij an douar"
 ],
 "landuse/allotments":[
+"menaj",
 "jardin",
+"tiegezh",
 "liorzh tiegezh",
 "liorzhoù tiegezhel",
+"atant",
 "Liorzhoù tiegezhel",
-"familh"
+"familh",
+"jardinoù",
+"feurm",
+"jardrin"
 ],
 "landuse/aquaculture":[
 "Dourc'hounezerezh",
@@ -4523,12 +4571,30 @@
 "jardin",
 "liorzh",
 "atil",
-"park"
+"park",
+"jardrin"
 ],
 "leisure/garden/botanical":[
 "liorzh-plant",
+"jardin",
 "Liorzh-plant",
-"liorzh louzawouriezh"
+"plant",
+"louzaouennoù",
+"jardin-plant",
+"plantoù",
+"liorzh louzawouriezh",
+"louzoù",
+"jardrin"
+],
+"leisure/garden/kitchen":[
+"liorzh legumaj",
+"legumaj",
+"jardin",
+"jardin-legumaj",
+"atil",
+"liorzh-legumaj",
+"jardrin",
+"Liorzh legumaj"
 ],
 "leisure/golf_course":[
 "golf",
@@ -7535,7 +7601,23 @@
 "armel"
 ],
 "shop/garden_centre":[
-"Liorzherezh"
+"jardineri",
+"jardinerezh",
+"liorzhdi",
+"liorzhañ",
+"dafar jardinañ",
+"jardinañ",
+"jardrinat",
+"stal liorzhañ",
+"stal jardinañ",
+"Liorzherezh",
+"dafar liorzhañ",
+"jardrinañ",
+"stal jardinat",
+"jardinat",
+"liorzherezh",
+"stal",
+"jardrin"
 ],
 "shop/gift":[
 "profañ",
@@ -7672,6 +7754,14 @@
 "kanndi",
 "emservij",
 "Kanndi emgefre"
+],
+"shop/leather":[
+"Marokiner",
+"marokinerez",
+"lêr",
+"gavrgen",
+"marokiner",
+"marokinerezh"
 ],
 "shop/lighting":[
 "Stal lampoù"

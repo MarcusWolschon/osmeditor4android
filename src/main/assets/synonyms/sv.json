@@ -4314,6 +4314,17 @@
 "promenatyta",
 "trottoar"
 ],
+"area/highway/traffic_island":[
+"refug",
+"trafiköområde",
+"Trafiköområde",
+"trafikö",
+"vägö",
+"trafikseparator",
+"refugö",
+"trafikrefug",
+"säkerhetsö"
+],
 "attraction":[
 "Attraktion"
 ],
@@ -7349,6 +7360,9 @@
 "Väjningsplikt",
 "företräde"
 ],
+"highway/ladder":[
+"Stege"
+],
 "highway/living_street":[
 "torg",
 "gångfartsområde",
@@ -9547,6 +9561,9 @@
 "rep",
 "bergsklättring"
 ],
+"leisure/sports_centre/climbing_adventure":[
+"Äventyrspark"
+],
 "leisure/sports_centre/horse_racing":[
 "kapplöpning",
 "galopp",
@@ -9855,10 +9872,43 @@
 "piska",
 "matthängare"
 ],
+"man_made/charge_point":[
+"laddningsstation",
+"laddställe",
+"Laddpunkt för elektriskt fordon",
+"elbilsladdare",
+"laddstolpe",
+"laddbås",
+"ladduttag",
+"laddplats",
+"elbilsuttag",
+"laddstation",
+"laddningsplats",
+"elfordon",
+"laddningspunkt",
+"elektriskt fordon",
+"billaddare",
+"elbil"
+],
 "man_made/chimney":[
 "Skorsten",
 "rökgång",
 "skorsten"
+],
+"man_made/clarifier":[
+"sedimenteringsbassäng",
+"reningsverk",
+"klarnare",
+"klarningstank",
+"avföring",
+"avloppsvatten",
+"klarningsbassäng",
+"Klarningsbassäng",
+"skit",
+"slamavskiljare",
+"reningsbassäng",
+"avloppsvattenbassäng",
+"segmenteringsbassäng"
 ],
 "man_made/clearcut":[
 "föryngringsavverkning",
@@ -10245,7 +10295,11 @@
 "stadionbelysning"
 ],
 "man_made/milk_churn_stand":[
-"mjölkbord"
+"mjölkpall",
+"mjölkkanneställ",
+"mjölkställ",
+"mjölkbord",
+"mjölkbrygga"
 ],
 "man_made/mineshaft":[
 "grotta",
@@ -10386,6 +10440,24 @@
 "Övertäckt reservoir",
 "vattentank"
 ],
+"man_made/satellite_dish":[
+"satellitlänk",
+"riktbar satellitparabol",
+"fast satellitparabol",
+"satellitkommunikation",
+"parabol",
+"stationär parabolantenn",
+"roterbar satellitparabol",
+"parabolisk antenn",
+"spårande satellitparabol",
+"Satellitparabol",
+"parabolantenn",
+"motorstyrd parabolantenn",
+"satellitantenn",
+"parabolmottagare",
+"motoriserad satellitparabol",
+"parabolisk disk"
+],
 "man_made/silo":[
 "lager",
 "spannmålssilo",
@@ -10428,6 +10500,19 @@
 "kabel-tv",
 "elskåp",
 "telekommunikation"
+],
+"man_made/street_cabinet/postal_service":[
+"fördelningslåda",
+"brevlagring",
+"postfördelningslåda",
+"fördelningsbox",
+"postdistributionsbox",
+"buntlåda",
+"postutdelningslåda",
+"postdistributionslåda",
+"postutdelning",
+"postutdelningsbox",
+"Postfördelningslåda"
 ],
 "man_made/surveillance":[
 "övervakningsutrustning",
@@ -10472,13 +10557,45 @@
 "slamdamm"
 ],
 "man_made/telescope":[
-"Teleskop"
+"stjärnkikare",
+"rymdteleskop",
+"kikare",
+"astronomisk kikare",
+"Teleskop",
+"teleskop",
+"astronomiskt teleskop"
 ],
 "man_made/telescope/optical":[
-"Optiskt teleskop"
+"reflekterande teleskop",
+"stjärnkikare",
+"rymdteleskop",
+"kikare",
+"astronomisk kikare",
+"Optiskt teleskop",
+"spegelteleskop",
+"teleskop",
+"astronomiskt teleskop",
+"optiskt teleskop",
+"ljusteleskop"
 ],
 "man_made/telescope/radio":[
-"Radioteleskop"
+"rymdteleskop",
+"radiokikare",
+"radioteleskop",
+"astronomisk kikare",
+"Radioteleskop",
+"parabol",
+"teleskop",
+"parabolanten",
+"radio",
+"radioanten",
+"markstation",
+"stjärnkikare",
+"parabolantenn",
+"kikare",
+"anten",
+"astronomiskt teleskop",
+"radioparabol"
 ],
 "man_made/torii":[
 "torii",
@@ -11009,6 +11126,9 @@
 "buskage",
 "buskmark",
 "buskar"
+],
+"natural/sinkhole":[
+"Slukhål"
 ],
 "natural/spring":[
 "källsprång",
@@ -13620,6 +13740,15 @@
 "railway/tram_stop":[
 "Stopposition för spårvagn"
 ],
+"railway/turntable":[
+"tågsvängskiva",
+"järnvägsvändskiva",
+"vändskiva",
+"vändskiva för järnväg",
+"tågvändskiva",
+"lokvändskiva",
+"Vändskiva för järnväg"
+],
 "railway/yard":[
 "rangerbangård",
 "godsvagnstopp",
@@ -13642,6 +13771,56 @@
 "förhållande",
 "kontext",
 "relation"
+],
+"roller_coaster/station":[
+"berg- och dalbanestation",
+"nöjespark",
+"temapark",
+"åkattraktion",
+"berg- och dalbana",
+"bergochdalbana",
+"Berg- och dalbanestation",
+"dalbana",
+"berg-och-dalbana",
+"berg-och-dal-bana",
+"bergodalbana",
+"tivoli",
+"station för berg- och dalbana"
+],
+"roller_coaster/support":[
+"pylon",
+"Berg- och dalbanestöd",
+"stödben",
+"nöjespark",
+"temapark",
+"berg- och dalbanestöd",
+"åkattraktion",
+"berg- och dalbana",
+"bergochdalbana",
+"dalbana",
+"berg-och-dalbana",
+"berg-och-dal-bana",
+"bergodalbana",
+"tivoli",
+"stödpelare",
+"pelare",
+"stöd för berg- och dalbana"
+],
+"roller_coaster/track":[
+"berg- och dalbanespår",
+"Berg- och dalbanespår",
+"nöjespark",
+"berg- och dalbaneskena",
+"temapark",
+"åkattraktion",
+"berg- och dalbana",
+"bergochdalbana",
+"dalbana",
+"berg-och-dalbana",
+"berg-och-dal-bana",
+"bergodalbana",
+"tivoli",
+"berg- och dalbaneräls"
 ],
 "route/ferry":[
 "färjelinje",

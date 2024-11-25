@@ -521,9 +521,34 @@
 ],
 "amenity/community_centre":[
 "świetlica wiejska",
+"świetlica środowiskowa",
 "Centrum społecznościowe",
 "centrum społecznościowe",
+"ośrodek kultury",
+"dom kultury",
+"świetlica",
+"centrum kultury",
 "centrum społeczności"
+],
+"amenity/community_centre/club_home":[
+"Świetlica klubowa",
+"świetlica klubowa",
+"świetlica stowarzyszenia"
+],
+"amenity/community_centre/community_hall":[
+"Świetlica (sala spotkań społeczności)",
+"świetlica",
+"sala spotkań",
+"sala zebrań"
+],
+"amenity/community_centre/cultural_centre":[
+"Ośrodek kultury",
+"ośrodek kultury",
+"centrum kultury"
+],
+"amenity/community_centre/family_centre":[
+"Centrum dla rodzin",
+"centrum dla rodzin"
 ],
 "amenity/community_centre/lgbtq":[
 "lesbijek",
@@ -532,10 +557,19 @@
 "centrum społeczności lgbtq+",
 "lgbt"
 ],
+"amenity/community_centre/parish_hall":[
+"sala parafialna",
+"dom parafialny",
+"Dom parafialny / Sala parafialna"
+],
+"amenity/community_centre/village_hall":[
+"świetlica wiejska",
+"Świetlica wiejska"
+],
 "amenity/community_centre/youth_centre":[
 "centrum młodzieżowe",
 "ośrodek młodzieżowy",
-"Centrum młodzieżowe"
+"Ośrodek młodzieżowy"
 ],
 "amenity/compressed_air":[
 "kompresor",
@@ -836,6 +870,10 @@
 "kurczak z rożna",
 "bar z kurczakiem",
 "Bar z kurczakiem"
+],
+"amenity/fast_food/chinese":[
+"Bar chiński",
+"bar chiński"
 ],
 "amenity/fast_food/donut":[
 "sklep z donutami",
@@ -1834,6 +1872,10 @@
 "produkcja filmowa",
 "produkcja filmów"
 ],
+"amenity/swingerclub":[
+"klub swingersów",
+"Klub swingersów"
+],
 "amenity/taxi":[
 "postój taksówek",
 "taxi",
@@ -2210,6 +2252,13 @@
 "powierzchnia drogi",
 "nawierzchnia",
 "Obszar drogi"
+],
+"area/highway/traffic_island":[
+"Wysepka drogowa",
+"wysepka uspokajająca ruch",
+"wysepka",
+"wyspa",
+"wysepka drogowa"
 ],
 "attraction":[
 "Atrakcja"
@@ -3619,8 +3668,16 @@
 "Wąż strażacki"
 ],
 "emergency/fire_hydrant":[
-"hydrant przeciwpożarowy",
-"Hydrant przeciwpożarowy"
+"hydrant",
+"Hydrant"
+],
+"emergency/fire_hydrant/pillar":[
+"Hydrant nadziemny",
+"hydrant nadziemny"
+],
+"emergency/fire_hydrant/underground":[
+"hydrant podziemny",
+"Hydrant podziemny"
 ],
 "emergency/fire_service_inlet":[
 "instalacja przeciwpożarowa",
@@ -4097,7 +4154,7 @@
 "ścieżka",
 "chodzenie",
 "deptak",
-"Ścieżka dla pieszych",
+"Chodnik/ścieżka dla pieszych",
 "ścieżka dla pieszych"
 ],
 "highway/footway/access_aisle":[
@@ -4141,7 +4198,7 @@
 "Nieformalna ścieżka dla pieszych"
 ],
 "highway/footway/sidewalk":[
-"Chodnik",
+"Chodnik przy jezdni",
 "chodnik przy jezdni",
 "chodnik",
 "chodnik wzdłuż drogi"
@@ -4156,6 +4213,11 @@
 "a-7",
 "Znak \"ustąp pierwszeństwa\"",
 "znak ustąp pierwszeństwa przejazdu"
+],
+"highway/ladder":[
+"drabina",
+"drabinka",
+"Drabinka"
 ],
 "highway/living_street":[
 "d40",
@@ -4205,9 +4267,9 @@
 "mijanka"
 ],
 "highway/path":[
-"Ścieżka (nieokreślona)",
 "dróżka",
 "ścieżka",
+"Ścieżka",
 "droga"
 ],
 "highway/path/boardwalk":[
@@ -4469,7 +4531,7 @@
 "Stanowisko archeologiczne"
 ],
 "historic/boundary_stone":[
-"kamień graniczny",
+"historyczny kamień graniczny",
 "Kamień graniczny"
 ],
 "historic/building":[
@@ -4794,8 +4856,8 @@
 "Trawnik"
 ],
 "landuse/greenfield":[
-"Teren niezabudowany",
 "budowa",
+"Teren pod zabudowę",
 "teren niezabudowany",
 "teren pod budowę"
 ],
@@ -5006,6 +5068,10 @@
 "arena",
 "muszla koncertowa",
 "trybuny"
+],
+"leisure/bathing_place":[
+"Kąpielisko",
+"kąpielisko"
 ],
 "leisure/beach_resort":[
 "Ośrodek plażowy",
@@ -5580,6 +5646,14 @@
 "tor wyścigów konnych",
 "hipodrom"
 ],
+"leisure/sports_centre/karting":[
+"ośrodek gokartowy",
+"gokarty",
+"centrum gokartowe",
+"centrum kartingowe",
+"Ośrodek kartingowy",
+"ośrodek kartingowy"
+],
 "leisure/sports_centre/shooting":[
 "strzelnica",
 "Strzelnica (ośrodek sportowy)"
@@ -5599,7 +5673,7 @@
 "Stadion"
 ],
 "leisure/swimming_area":[
-"Kąpielisko",
+"Kąpielisko (obszar wodny)",
 "kąpielisko"
 ],
 "leisure/swimming_pool":[
@@ -5821,6 +5895,20 @@
 "maszt flagowy",
 "Maszt flagowy",
 "flaga"
+],
+"man_made/flare":[
+"pochodnia gazowa",
+"flara gazowa",
+"Pochodnia gazowa"
+],
+"man_made/footwear_decontamination-AU-NZ":[
+"punkt odkażania obuwia",
+"stacja dekontaminacji obuwia",
+"stacja dezynfekcji obuwia",
+"Punkt dekontaminacji obuwia",
+"punkt dezynfekcji obuwia",
+"stacja odkażania obuwia",
+"punkt dekontaminacji obuwia"
 ],
 "man_made/fuel_pump":[
 "dystrybutor paliwa",
@@ -6110,6 +6198,10 @@
 "silos zbożowy",
 "silos wieżowy"
 ],
+"man_made/ski_jump":[
+"skocznia narciarska",
+"Skocznia narciarska (konstrukcja)"
+],
 "man_made/storage_tank":[
 "cysterna",
 "Zbiornik",
@@ -6124,7 +6216,9 @@
 ],
 "man_made/street_cabinet":[
 "skrzynka elektryczna",
+"bzbwi",
 "rozdzielnica elektryczna",
+"szafka instalacyjna",
 "Skrzynka elektryczna",
 "szafka elektryczna",
 "szafka uliczna"
@@ -6544,6 +6638,13 @@
 "Krzew",
 "krzew"
 ],
+"natural/sinkhole":[
+"Lej krasowy",
+"lejek krasowy",
+"werteb",
+"lej krasowy",
+"wertep"
+],
 "natural/spring":[
 "młaka",
 "źródło",
@@ -6574,13 +6675,17 @@
 "drzewo liściaste gubiące liście"
 ],
 "natural/tree/broadleaved/evergreen":[
-"Drzewo liściaste (zimozielone)"
+"Drzewo liściaste (zimozielone)",
+"drzewo liściaste wiecznie zielone",
+"drzewo liściaste zimozielone"
 ],
 "natural/tree/needleleaved":[
 "Drzewo iglaste"
 ],
 "natural/tree/needleleaved/deciduous":[
-"Drzewo iglaste (gubiące igły)"
+"drzewo iglaste sezonowe",
+"Drzewo iglaste (gubiące igły)",
+"drzewo iglaste gubiące igły"
 ],
 "natural/tree/needleleaved/evergreen":[
 "drzewo iglaste wiecznie zielone",
@@ -7232,6 +7337,12 @@
 "przełajowe",
 "snowboard"
 ],
+"piste/ski_jump":[
+"Skocznia narciarska (najazd/zeskok)",
+"skocznia narciarska",
+"najazd",
+"zeskok"
+],
 "piste/skitour":[
 "trasa skiturowa",
 "szlak skiturowy",
@@ -7266,6 +7377,10 @@
 "trasa do kuligów",
 "sanie",
 "narty"
+],
+"piste/take_off":[
+"próg skoczni narciarskiej",
+"Próg skoczni narciarskiej"
 ],
 "place":[
 "Miejsce"
@@ -9127,6 +9242,16 @@
 "zakład fryzjerski",
 "barber",
 "fryzjer"
+],
+"shop/hairdresser/barber":[
+"Barber",
+"golibroda",
+"cyrulik",
+"fryzjer męski",
+"balwierz",
+"balbierz",
+"barber",
+"barbierz"
 ],
 "shop/hairdresser_supply":[
 "artykuły fryzjerskie",

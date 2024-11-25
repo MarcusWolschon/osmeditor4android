@@ -731,12 +731,49 @@
 "centro de la comunidad",
 "Centro Comunitario"
 ],
+"amenity/community_centre/club_home":[
+"club",
+"local del club",
+"casa del club",
+"Sede del club",
+"sede del club"
+],
+"amenity/community_centre/community_hall":[
+"centro comunitario",
+"salón de la comunidad",
+"Salón comunitario",
+"salón comunitario"
+],
+"amenity/community_centre/cultural_centre":[
+"instituto cultural",
+"Centro cultural",
+"casa de la cultura",
+"centro cultural"
+],
+"amenity/community_centre/family_centre":[
+"centro familiar",
+"casa de la familia",
+"Centro familiar",
+"centro de familia"
+],
 "amenity/community_centre/lgbtq":[
 "evento lgbtq",
 "sala de lgbtq",
 "lgb",
 "Centro comunitario LGBTQ+",
 "salón de eventos lgb"
+],
+"amenity/community_centre/parish_hall":[
+"salón parroquial",
+"Salón parroquial",
+"casa parroquial",
+"salón de la iglesia"
+],
+"amenity/community_centre/village_hall":[
+"casa del pueblo",
+"salón comunal",
+"salón del pueblo",
+"Salón del pueblo"
 ],
 "amenity/community_centre/youth_centre":[
 "centro juvenil",
@@ -1184,6 +1221,12 @@
 "cena",
 "café",
 "comida al paso"
+],
+"amenity/fast_food/chinese":[
+"fast food chino",
+"Comida rápida china",
+"restaurante de comida rápida china",
+"comida rápida china"
 ],
 "amenity/fast_food/donut":[
 "comedor",
@@ -2813,6 +2856,12 @@
 "producción de video",
 "estudio de video"
 ],
+"amenity/swingerclub":[
+"club de intercambio de parejas",
+"club de swingers",
+"club liberal",
+"Club de Swingers"
+],
 "amenity/taxi":[
 "parada",
 "acopio de taxis",
@@ -3346,6 +3395,11 @@
 "forma",
 "Área de la carretera",
 "borde"
+],
+"area/highway/traffic_island":[
+"camellón",
+"Área de mediana",
+"isla para peatones"
 ],
 "attraction":[
 "Atracción"
@@ -5178,6 +5232,18 @@
 "boca de incendio",
 "hidrante contra incendios"
 ],
+"emergency/fire_hydrant/pillar":[
+"columna hidrante",
+"hidrante de pilar",
+"Boca de incendios de columna",
+"boca de incendios de columna"
+],
+"emergency/fire_hydrant/underground":[
+"boca de incendios subterránea",
+"Boca de incendios subterránea",
+"pozo de agua contra incendios",
+"hidrante subterráneo"
+],
 "emergency/fire_service_inlet":[
 "entrada de tubo ascendente seco",
 "entrada de tubo ascendente",
@@ -5821,8 +5887,8 @@
 ],
 "highway/crossing/traffic_signals":[
 "paso de bicicletas",
+"Cruce semaforizado para peatones",
 "cruce de peatones",
-"Cruce con señales para peatones",
 "paso de peatones",
 "señal para peatones",
 "semáforo para peatones"
@@ -5882,10 +5948,10 @@
 ],
 "highway/cycleway/crossing/traffic_signals":[
 "cruce de carril bici",
-"Cruce de ciclovía con señales de tránsito",
 "cruce de bicicletas",
 "cruce de bicisenda",
-"cruce de ciclovía"
+"cruce de ciclovía",
+"Cruce de ciclovía semaforizado"
 ],
 "highway/cycleway/crossing/uncontrolled":[
 "cruce de carril bici",
@@ -6003,9 +6069,9 @@
 "highway/footway/crossing/traffic_signals":[
 "paso de bicicletas",
 "cruce de peatones",
-"Cruce con señales para peatones",
 "paso de peatones",
 "señal para peatones",
+"Cruce con semáforo peatonal",
 "semáforo para peatones"
 ],
 "highway/footway/crossing/uncontrolled":[
@@ -6049,6 +6115,10 @@
 "señal",
 "ceder el paso",
 "Señal de ceda el paso"
+],
+"highway/ladder":[
+"Escalera",
+"escalera"
 ],
 "highway/living_street":[
 "zona residencial",
@@ -6240,10 +6310,10 @@
 "urbana",
 "ruta",
 "calle",
-"boulevar",
 "residencial",
 "vía",
-"domiciliaria"
+"domiciliaria",
+"local"
 ],
 "highway/rest_area":[
 "Área de descanso",
@@ -7226,6 +7296,12 @@
 "musica",
 "Quiosco de música"
 ],
+"leisure/bathing_place":[
+"zona de baños",
+"Lugar para bañarse",
+"área de natación",
+"lugar para bañarse"
+],
 "leisure/beach_resort":[
 "playa",
 "Balneario de playa",
@@ -7521,10 +7597,10 @@
 "cancha de golf"
 ],
 "leisure/hackerspace":[
-"Hacklab",
 "hackspace",
 "laboratorio hacker",
 "makerspace",
+"Espacio hacker",
 "espacio de hacker",
 "hacklab",
 "hackerspace"
@@ -8121,6 +8197,12 @@
 "hipódromo",
 "apuestas de caballos"
 ],
+"leisure/sports_centre/karting":[
+"instalación de go-karts",
+"pista de go-karts",
+"circuito de go-karts",
+"Pista de Go-Karts"
+],
 "leisure/sports_centre/shooting":[
 "polígono de tiro",
 "campo de tiro",
@@ -8420,6 +8502,23 @@
 "mastil",
 "Asta de bandera",
 "astabandera"
+],
+"man_made/flare":[
+"Quemado en antorcha",
+"llama",
+"petróleo",
+"gas",
+"fuego",
+"quemar",
+"quemado en antorcha"
+],
+"man_made/footwear_decontamination-AU-NZ":[
+"estación de descontaminación",
+"Estación de descontaminación de calzado",
+"limpieza de zapatos",
+"limpieza de botas",
+"estación de contaminación",
+"limpieza de calzado"
 ],
 "man_made/fuel_pump":[
 "diesel",
@@ -8767,6 +8866,12 @@
 "silo",
 "granero",
 "Silo"
+],
+"man_made/ski_jump":[
+"torre de salto en esquí",
+"torre de esquí",
+"Torre de salto en esquí",
+"estructura para salto en esquí"
 ],
 "man_made/storage_tank":[
 "almacenamiento",
@@ -9334,6 +9439,18 @@
 "arbusto",
 "matorral"
 ],
+"natural/sinkhole":[
+"socavón",
+"torca",
+"hondonada",
+"Dolina",
+"cenote",
+"dolina",
+"hundimiento",
+"sumidero",
+"hoyo",
+"sima"
+],
 "natural/spring":[
 "fuente natural",
 "Manantial",
@@ -9738,13 +9855,13 @@
 "asesoramiento"
 ],
 "office/coworking":[
+"Espacio de cotrabajo",
 "cooperativo",
-"cotrabajo",
 "oficina",
 "coworking",
 "cooperación",
 "trabajo",
-"Espacio de trabajo compartido"
+"trabajo cooperativo"
 ],
 "office/diplomatic":[
 "diplomatica",
@@ -10187,6 +10304,12 @@
 "esquí",
 "snowboard"
 ],
+"piste/ski_jump":[
+"Pista de salto en esquí",
+"pista de esquí de saltos",
+"pista de salto en esquí",
+"rampa de salto en esquí"
+],
 "piste/skitour":[
 "ski",
 "esquí de montaña",
@@ -10211,6 +10334,12 @@
 "skijoring",
 "pista",
 "Pista de trineo"
+],
+"piste/take_off":[
+"despegue de salto en esquí",
+"rampa de despegue",
+"Despegue de salto en esquí",
+"plataforma de despegue"
 ],
 "place":[
 "Lugar"
@@ -11249,7 +11378,9 @@
 "amortiguador",
 "parachoques deslizante",
 "tope",
-"Parachoques deslizante"
+"Topera",
+"final de vía",
+"topera"
 ],
 "railway/construction":[
 "vías",
@@ -11289,13 +11420,13 @@
 "venicular"
 ],
 "railway/halt":[
-"Estación / Aparadero de tren (parada / a pedido)"
+"Apeadero"
 ],
 "railway/level_crossing":[
 "cruce",
 "cruce de trenes",
+"Paso a nivel",
 "paso a nivel",
-"Ferrocarril - Cruce vehicular",
 "cruce de ferrocarril",
 "cruce de vías férreas",
 "camino a través del ferrocarril"
@@ -11332,37 +11463,37 @@
 "monorraíl",
 "monorriel",
 "monocarril",
-"Vía de monorriel"
+"Vía de monorraíl"
 ],
 "railway/monorail/hanging":[
 "vía colgante",
+"Vía de monorraíl suspendido",
 "monocarril",
 "monorriel colgante",
 "monorrail",
 "vía suspendida",
-"Carril de monorriel colgante",
 "monorriel suspendido",
 "monorail"
 ],
 "railway/narrow_gauge":[
 "vía angosta",
 "gálibo estrecho",
-"ferrocarril de vía estrecha",
-"Vía de trocha angosta"
+"Vía de ferrocarril de ancho estrecho",
+"ferrocarril de vía estrecha"
 ],
 "railway/platform":[
-"Plataforma de tren"
+"Andén"
 ],
 "railway/preserved":[
 "protegida",
 "tren a vapor",
-"Vía de tren patrimonio histórico",
 "tren turístico",
 "tren histórico",
 "patrimonio",
 "patrimonial",
 "histórica",
 "historica",
+"Vía de ferrocarril histórico",
 "ferrocarril preservado"
 ],
 "railway/rail":[
@@ -11385,11 +11516,10 @@
 "tren bala"
 ],
 "railway/railway_crossing":[
-"Ferrocarril - Cruce de vía férrea",
-"cruce plano",
+"Travesía sin unión",
+"travesía",
 "cruce de ferrocarril",
-"cruce a nivel",
-"cruce de diamantes"
+"travesía sin unión"
 ],
 "railway/signal":[
 "luces",
@@ -12344,6 +12474,12 @@
 "peluquería",
 "peluquero",
 "barbero"
+],
+"shop/hairdresser/barber":[
+"Barbero",
+"cortador de cabello",
+"barbero",
+"peluquero"
 ],
 "shop/hairdresser_supply":[
 "champu",

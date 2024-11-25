@@ -1431,8 +1431,8 @@
 ],
 "amenity/vending_machine/cigarettes":[
 "cigiautomata",
-"cigerettaautomata",
-"Cigerettaautomata",
+"Cigarettaautomata",
+"cigarettaautomata",
 "dohányautomata"
 ],
 "amenity/vending_machine/coffee":[

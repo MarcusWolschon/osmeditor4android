@@ -503,6 +503,9 @@
 "amenity/restaurant/french":[
 "Fransk restaurant"
 ],
+"amenity/restaurant/georgian":[
+"Georgisk restaurant"
+],
 "amenity/restaurant/german":[
 "Tysk restaurant"
 ],
@@ -518,6 +521,9 @@
 "amenity/restaurant/japanese":[
 "Japansk restaurant"
 ],
+"amenity/restaurant/korean":[
+"Koreansk restaurant"
+],
 "amenity/restaurant/mexican":[
 "Meksikansk restaurant"
 ],
@@ -529,6 +535,9 @@
 ],
 "amenity/restaurant/seafood":[
 "Sjømatrestaurant"
+],
+"amenity/restaurant/spanish":[
+"Spansk restaurant"
 ],
 "amenity/restaurant/steakhouse":[
 "Biffrestaurant"
@@ -613,6 +622,9 @@
 ],
 "amenity/theatre/type/amphi":[
 "Amfiteater"
+],
+"amenity/ticket_validator":[
+"Billettautomat"
 ],
 "amenity/toilets":[
 "Toalett"
@@ -765,6 +777,9 @@
 "barrier/border_control":[
 "Grensekontroll"
 ],
+"barrier/bus_trap":[
+"Bussluse"
+],
 "barrier/cattle_grid":[
 "Fanghekk"
 ],
@@ -861,6 +876,9 @@
 "building/apartments":[
 "Leilighetsbygg"
 ],
+"building/bakehouse":[
+"Baksthus"
+],
 "building/barn":[
 "Låve"
 ],
@@ -942,6 +960,9 @@
 "building/houseboat":[
 "Husbåt"
 ],
+"building/hut":[
+"Skur"
+],
 "building/industrial":[
 "Industribygg"
 ],
@@ -990,6 +1011,15 @@
 "building/stadium":[
 "Stadionbyging"
 ],
+"building/static_caravan":[
+"Karavan"
+],
+"building/sty":[
+"Grisehus"
+],
+"building/synagogue":[
+"Synagogebygning"
+],
 "building/temple":[
 "Tempelbygning"
 ],
@@ -1017,6 +1047,9 @@
 "club":[
 "Klubb"
 ],
+"club/scout":[
+"Speidergruppe"
+],
 "club/sport":[
 "Sportsklubb"
 ],
@@ -1037,6 +1070,9 @@
 ],
 "craft/bookbinder":[
 "Bokbinderi"
+],
+"craft/brewery":[
+"Mikrobryggeri"
 ],
 "craft/carpenter":[
 "Snekker"
@@ -1164,8 +1200,17 @@
 "craft/winery":[
 "Vingård"
 ],
+"cycleway/asl":[
+"Sykkelboks"
+],
 "demolished/building":[
 "Nylig revet bygning"
+],
+"disc_golf/basket":[
+"Frisbeegolfkurv"
+],
+"disc_golf/hole":[
+"Frisbeegolf hull"
 ],
 "disused/amenity":[
 "Nedlagt fasilitet"
@@ -1209,6 +1254,9 @@
 "emergency/life_ring":[
 "Livbøye"
 ],
+"emergency/lifeboat_station":[
+"Livbåtsstasjon"
+],
 "emergency/lifeguard":[
 "Livvakt"
 ],
@@ -1251,6 +1299,9 @@
 "golf/cartpath":[
 "Golfbilvei"
 ],
+"golf/clubhouse":[
+"Golfklubbhus"
+],
 "golf/driving_range":[
 "Drivingrange"
 ],
@@ -1283,6 +1334,9 @@
 ],
 "healthcare/blood_donation":[
 "Blodgiversentral"
+],
+"healthcare/dentist/orthodontics":[
+"Kjeveortoped"
 ],
 "healthcare/hospice":[
 "Hospits"
@@ -1385,6 +1439,9 @@
 ],
 "highway/give_way":[
 "Vikepliktskilt"
+],
+"highway/ladder":[
+"Stige"
 ],
 "highway/living_street":[
 "Gatetun"
@@ -1540,6 +1597,9 @@
 "historic/building":[
 "Historisk bygning"
 ],
+"historic/cannon":[
+"Kanon"
+],
 "historic/castle":[
 "Slott"
 ],
@@ -1627,6 +1687,9 @@
 "landuse/construction":[
 "Byggeplass"
 ],
+"landuse/education":[
+"Utdanningsområde"
+],
 "landuse/farm":[
 "Jordbruksland"
 ],
@@ -1693,6 +1756,9 @@
 "landuse/residential/apartments":[
 "Leilighetskompleks"
 ],
+"landuse/residential/trailer_park":[
+"Campingvognpark"
+],
 "landuse/retail":[
 "Butikkområde"
 ],
@@ -1719,6 +1785,9 @@
 ],
 "leisure/common":[
 "Fellesområde"
+],
+"leisure/dance":[
+"Dansesal"
 ],
 "leisure/dancing_school":[
 "Danseskole"
@@ -1861,6 +1930,9 @@
 "leisure/sports_centre/climbing":[
 "Klatresenter"
 ],
+"leisure/sports_centre/climbing_adventure":[
+"Fornøyelsespark"
+],
 "leisure/sports_centre/swimming":[
 "Svømmehall / badeland"
 ],
@@ -1878,6 +1950,9 @@
 ],
 "leisure/track/cycling":[
 "Sykkelbane"
+],
+"leisure/track/horse_racing":[
+"Hesteløpsbane"
 ],
 "leisure/track/running":[
 "Løpebane"
@@ -1924,14 +1999,26 @@
 "man_made/crane":[
 "Kran"
 ],
+"man_made/cross":[
+"Kors"
+],
 "man_made/cutline":[
 "Utsiktssted"
+],
+"man_made/dovecote":[
+"Dueslag"
 ],
 "man_made/embankment":[
 "Dike"
 ],
 "man_made/flagpole":[
 "Flaggstang"
+],
+"man_made/flare":[
+"Gassfakkel"
+],
+"man_made/fuel_pump":[
+"Drivstoffpumpe"
 ],
 "man_made/gasometer":[
 "Gasometer"
@@ -1962,6 +2049,9 @@
 ],
 "man_made/mineshaft":[
 "Gruvesjakt"
+],
+"man_made/obelisk":[
+"Obelisk"
 ],
 "man_made/observatory":[
 "Observatorium"
@@ -2032,6 +2122,9 @@
 "man_made/tunnel":[
 "Tunnelområde"
 ],
+"man_made/video_wall":[
+"Digital Skjerm"
+],
 "man_made/wastewater_plant":[
 "Renseanlegg"
 ],
@@ -2086,6 +2179,9 @@
 "natural/fell":[
 "Snaufjell"
 ],
+"natural/geyser":[
+"Geysir"
+],
 "natural/glacier":[
 "Bre"
 ],
@@ -2104,6 +2200,9 @@
 "natural/reef":[
 "Rev"
 ],
+"natural/ridge":[
+"Høydedrag"
+],
 "natural/saddle":[
 "Sadelpunkt"
 ],
@@ -2119,6 +2218,9 @@
 "natural/shrub":[
 "Krattskog"
 ],
+"natural/sinkhole":[
+"Synkehull"
+],
 "natural/spring":[
 "Vannkilde"
 ],
@@ -2127,6 +2229,9 @@
 ],
 "natural/tree_row":[
 "Trerekke"
+],
+"natural/tree_stump":[
+"Trestamme"
 ],
 "natural/valley":[
 "Dal"
@@ -2146,6 +2251,12 @@
 "natural/water/lake":[
 "Innsjø"
 ],
+"natural/water/moat":[
+"Vollgrav"
+],
+"natural/water/oxbow":[
+"Kroksjø"
+],
 "natural/water/pond":[
 "Dam"
 ],
@@ -2158,11 +2269,26 @@
 "natural/water/stream":[
 "Bekkområde"
 ],
+"natural/water/wastewater":[
+"Avløpsbasseng"
+],
 "natural/wetland":[
+"Myr"
+],
+"natural/wetland/bog":[
 "Myr"
 ],
 "natural/wetland/mangrove":[
 "Mangrove"
+],
+"natural/wetland/marsh":[
+"Sump"
+],
+"natural/wetland/string_bog":[
+"Strengmyr"
+],
+"natural/wetland/swamp":[
+"Sump"
 ],
 "natural/wetland/tidalflat":[
 "Flatt tidevann"
@@ -2188,8 +2314,17 @@
 "office/architect":[
 "Arkitektkontor"
 ],
+"office/association":[
+"Ideell organisasjonskontor"
+],
 "office/charity":[
 "Veldedighetskontor"
+],
+"office/company":[
+"Bedriftskontor"
+],
+"office/consulting":[
+"Konsulentkontor"
 ],
 "office/coworking":[
 "Medarbeiderområde"
@@ -2203,17 +2338,35 @@
 "office/diplomatic/embassy":[
 "Ambassade"
 ],
+"office/diplomatic/liaison":[
+"Liaison Kontor"
+],
 "office/educational_institution":[
 "Utdanningsinstitusjon"
 ],
 "office/employment_agency":[
 "Bemanningsbyrå"
 ],
+"office/energy_supplier":[
+"Energileverandørkontor"
+],
+"office/engineer":[
+"Ingeniørkontor"
+],
 "office/estate_agent":[
 "Eiendomsmegler"
 ],
+"office/financial":[
+"Finanskontor"
+],
+"office/financial_advisor":[
+"Finansiell Rådgiver"
+],
 "office/forestry":[
 "Skogbrukskontoret"
+],
+"office/foundation":[
+"Kontor til Stiftelse"
 ],
 "office/government":[
 "myndighetskontor",
@@ -2235,6 +2388,9 @@
 "office/newspaper":[
 "Avisredaksjon"
 ],
+"office/ngo":[
+"Ikke-statlig organisasjonskontor"
+],
 "office/physician":[
 "Lege"
 ],
@@ -2250,6 +2406,9 @@
 "office/research":[
 "Forskningskontor"
 ],
+"office/security":[
+"Sikkerhetsvaktkontor"
+],
 "office/surveyor":[
 "Landmålerkontor"
 ],
@@ -2264,6 +2423,9 @@
 ],
 "office/travel_agent":[
 "Reisebyrå"
+],
+"office/union":[
+"Fagforeningskontor"
 ],
 "office/yes":[
 "Kontor (uspesifisert type)"
@@ -2826,6 +2988,9 @@
 "shop/dairy":[
 "Ferskvarebutikk"
 ],
+"shop/deli":[
+"Delikatesseforretning"
+],
 "shop/department_store":[
 "Supermarked"
 ],
@@ -2920,6 +3085,15 @@
 "shop/hobby":[
 "Hobbybutikk"
 ],
+"shop/honey":[
+"Honningbutikk"
+],
+"shop/household_linen":[
+"Tekstil- og Interiør Butikk"
+],
+"shop/houseware":[
+"Kjøkkenutstyrbutikk"
+],
 "shop/hunting":[
 "Jaktbutikk"
 ],
@@ -2979,6 +3153,9 @@
 ],
 "shop/musical_instrument":[
 "Musikkinstrumentbutikk"
+],
+"shop/newsagent":[
+"Aviskiosk"
 ],
 "shop/optician":[
 "Optiker"
@@ -3141,6 +3318,9 @@
 ],
 "tourism/attraction":[
 "Turistattraksjon"
+],
+"tourism/camp_site":[
+"Campingplass"
 ],
 "tourism/caravan_site":[
 "Bobilpark"
