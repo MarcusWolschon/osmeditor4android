@@ -421,7 +421,7 @@
 <p><em>Deze documentatie is voorlopig en een werk in uitvoering</em></p>
 <h2 id="gebruik-van-de-openingstijden-bewerker">Gebruik van de openingstijden-bewerker<a class="headerlink" href="#gebruik-van-de-openingstijden-bewerker" title="Permanent link">#</a></h2>
 <p>In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker. </p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
+<p>Als je een standaardsjabloon hebt gedefinieerd (doe dit via het "Beheer sjablonen" menu item) zal het sjabloon automatisch worden geladen als de bewerker wordt geladen met een lege waarde. Met de "Laad sjabloon" kan je een ander opgeslagen sjabloon laden en met het "Sjabloon opslaan" menu kan de huidige waarde als een sjabloon worden opgeslagen. Er kunnen verschillende standaardsjablonen worden gedefinieerd voor de "opening_hours", "collection_times" en "service_times" of voor zelfgekozen tags. Ook kan toepasbaarheid van een sjabloon worden beperkt per regio of per specifieke identificatie, meestal een OSM-tag (bijvoorbeeld amenity=restaurant).</p>
 <p>Natuurlijk kan je een openingstijden met de hand maken, maar we raden aan om een van de bestaande sjablonen als een startpunt te gebruiken.</p>
 <p>Als een bestaande openingstijden waarde is geladen, wordt geprobeerd om het automatisch te corrigeren naar de openingstijden specificatie. Als dat niet mogelijk is zal de locatie van de found worden getoond op de plek in de rauwe OT waarde, en kan worden geprobeerd om het handmatig te herstellen. Ongeveer een kwart van de OT waarden in de OpenStreetMap gegevensbank heeft problemen, maar minder dan 10% kan niet automatisch worden gecorrigeerd, zie <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> voor meer informatie over de afwijkingen in de specificatie die worden getolereerd.</p>
 <h3 id="hoofdmenu-knop">Hoofdmenu knop<a class="headerlink" href="#hoofdmenu-knop" title="Permanent link">#</a></h3>
@@ -472,9 +472,9 @@
 <li><strong>Met verplaatsingen...</strong>: hetzelfde als hierboven maar met verplaatsingen gespecificeerd (dit wordt zelden gebruikt).</li>
 </ul>
 </li>
-<li><strong>Add year range...</strong>    <ul>
+<li><strong>Voeg jaarbereik toe...</strong><ul>
 <li><strong>Voeg jaarbereik toe</strong>: voeg een jaargebaseerde selector toe.</li>
-<li><strong>Add starting year</strong>: add an open ended year range.</li>
+<li><strong>Voeg beginjaar toe</strong>: voeg een jaarbereik toe met open einde.</li>
 </ul>
 </li>
 <li><strong>Voeg weekbereik toe</strong>: voeg een selector voor een weeknummer.</li>
@@ -498,22 +498,22 @@
 <li><strong>Verwijder</strong>: verwijder dit tijdsbereik.</li>
 </ul>
 <h3 id="beheer-sjablonen">Beheer sjablonen<a class="headerlink" href="#beheer-sjablonen" title="Permanent link">#</a></h3>
-<p>The template management dialog allows you to add, edit and delete templates.</p>
-<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<p>Met sjabloonbeheer dialoog kunnen sjablonen worden toegevoegd, gewijzigd en verwijderd.</p>
+<p>In Android 4.4 en later is de volgende extra functionaliteit beschikbaar via de menuknop. </p>
 <ul>
-<li><strong>Show all</strong>: display all templates in the database.</li>
-<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
-<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
-<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+<li><strong>Toon alles</strong>: toon alle sjablonen in de databank.</li>
+<li><strong>Sla op naar een bestand</strong>: schrijf de inhoud van het sjabloon in of een sjabloon databank naar een bestand.</li>
+<li><strong>Laad van bestand (vervangen)</strong>: laad sjablonen uit een bestand waarmee de huidige inhoud van de databank wordt vervangen.</li>
+<li><strong>Laad van bestand</strong>: laad sjablonen uit een bestand met behoud van de huidige inhoud.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
-<p>The dialog allows you to set</p>
+<h4 id="sla-op-en-wijzig-sjabloondialogen">Sla op en wijzig sjabloondialogen<a class="headerlink" href="#sla-op-en-wijzig-sjabloondialogen" title="Permanent link">#</a></h4>
+<p>Met dit dialoog kan je het volgende instellen</p>
 <ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
+<li><strong>Naam</strong> een beschrijvende naam voor het sjabloon.</li>
+<li><strong>Standaard</strong> als aangevinkt zal dit sjabloon als een standaard sjabloon worden overwogen (over het algemeen verder beperkt door andere velden).</li>
+<li><strong>Sleutel</strong> de sleutel waarvoor dit sjabloon relevant is. Als het ingesteld is op <em>Eigen sleutel</em> dan kan je een eigen gekozen waarde invullen in het veld eronder. De sleutel ondersteunt SQL wildcards: <em>%</em> voldoet aan nul of meer karakter, <em>_</em> voldoet aan precies één karakter. Beide wildcards kunnen met <em>\</em> worden uitgesloten.</li>
+<li><strong>Regio</strong> de regio waar het sjabloon van toepassing is.</li>
+<li><strong>Object</strong> een applicatie-specifieke string om mee te koppelen.</li>
 </ul></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
@@ -546,7 +546,7 @@
 <p><em>Deze documentatie is voorlopig en een werk in uitvoering</em></p>
 <h2 id="gebruik-van-de-openingstijden-bewerker">Gebruik van de openingstijden-bewerker<a class="headerlink" href="#gebruik-van-de-openingstijden-bewerker" title="Permanent link">#</a></h2>
 <p>In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker. </p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
+<p>Als je een standaardsjabloon hebt gedefinieerd (doe dit via het "Beheer sjablonen" menu item) zal het sjabloon automatisch worden geladen als de bewerker wordt geladen met een lege waarde. Met de "Laad sjabloon" kan je een ander opgeslagen sjabloon laden en met het "Sjabloon opslaan" menu kan de huidige waarde als een sjabloon worden opgeslagen. Er kunnen verschillende standaardsjablonen worden gedefinieerd voor de "opening_hours", "collection_times" en "service_times" of voor zelfgekozen tags. Ook kan toepasbaarheid van een sjabloon worden beperkt per regio of per specifieke identificatie, meestal een OSM-tag (bijvoorbeeld amenity=restaurant).</p>
 <p>Natuurlijk kan je een openingstijden met de hand maken, maar we raden aan om een van de bestaande sjablonen als een startpunt te gebruiken.</p>
 <p>Als een bestaande openingstijden waarde is geladen, wordt geprobeerd om het automatisch te corrigeren naar de openingstijden specificatie. Als dat niet mogelijk is zal de locatie van de found worden getoond op de plek in de rauwe OT waarde, en kan worden geprobeerd om het handmatig te herstellen. Ongeveer een kwart van de OT waarden in de OpenStreetMap gegevensbank heeft problemen, maar minder dan 10% kan niet automatisch worden gecorrigeerd, zie <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> voor meer informatie over de afwijkingen in de specificatie die worden getolereerd.</p>
 <h3 id="hoofdmenu-knop">Hoofdmenu knop<a class="headerlink" href="#hoofdmenu-knop" title="Permanent link">#</a></h3>
@@ -597,9 +597,9 @@
 <li><strong>Met verplaatsingen...</strong>: hetzelfde als hierboven maar met verplaatsingen gespecificeerd (dit wordt zelden gebruikt).</li>
 </ul>
 </li>
-<li><strong>Add year range...</strong>    <ul>
+<li><strong>Voeg jaarbereik toe...</strong><ul>
 <li><strong>Voeg jaarbereik toe</strong>: voeg een jaargebaseerde selector toe.</li>
-<li><strong>Add starting year</strong>: add an open ended year range.</li>
+<li><strong>Voeg beginjaar toe</strong>: voeg een jaarbereik toe met open einde.</li>
 </ul>
 </li>
 <li><strong>Voeg weekbereik toe</strong>: voeg een selector voor een weeknummer.</li>
@@ -623,22 +623,22 @@
 <li><strong>Verwijder</strong>: verwijder dit tijdsbereik.</li>
 </ul>
 <h3 id="beheer-sjablonen">Beheer sjablonen<a class="headerlink" href="#beheer-sjablonen" title="Permanent link">#</a></h3>
-<p>The template management dialog allows you to add, edit and delete templates.</p>
-<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<p>Met sjabloonbeheer dialoog kunnen sjablonen worden toegevoegd, gewijzigd en verwijderd.</p>
+<p>In Android 4.4 en later is de volgende extra functionaliteit beschikbaar via de menuknop. </p>
 <ul>
-<li><strong>Show all</strong>: display all templates in the database.</li>
-<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
-<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
-<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+<li><strong>Toon alles</strong>: toon alle sjablonen in de databank.</li>
+<li><strong>Sla op naar een bestand</strong>: schrijf de inhoud van het sjabloon in of een sjabloon databank naar een bestand.</li>
+<li><strong>Laad van bestand (vervangen)</strong>: laad sjablonen uit een bestand waarmee de huidige inhoud van de databank wordt vervangen.</li>
+<li><strong>Laad van bestand</strong>: laad sjablonen uit een bestand met behoud van de huidige inhoud.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
-<p>The dialog allows you to set</p>
+<h4 id="sla-op-en-wijzig-sjabloondialogen">Sla op en wijzig sjabloondialogen<a class="headerlink" href="#sla-op-en-wijzig-sjabloondialogen" title="Permanent link">#</a></h4>
+<p>Met dit dialoog kan je het volgende instellen</p>
 <ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
+<li><strong>Naam</strong> een beschrijvende naam voor het sjabloon.</li>
+<li><strong>Standaard</strong> als aangevinkt zal dit sjabloon als een standaard sjabloon worden overwogen (over het algemeen verder beperkt door andere velden).</li>
+<li><strong>Sleutel</strong> de sleutel waarvoor dit sjabloon relevant is. Als het ingesteld is op <em>Eigen sleutel</em> dan kan je een eigen gekozen waarde invullen in het veld eronder. De sleutel ondersteunt SQL wildcards: <em>%</em> voldoet aan nul of meer karakter, <em>_</em> voldoet aan precies één karakter. Beide wildcards kunnen met <em>\</em> worden uitgesloten.</li>
+<li><strong>Regio</strong> de regio waar het sjabloon van toepassing is.</li>
+<li><strong>Object</strong> een applicatie-specifieke string om mee te koppelen.</li>
 </ul></div>
                     
             </div>
