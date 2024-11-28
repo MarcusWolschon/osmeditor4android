@@ -130,7 +130,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
     private OnSaveListener realOnSaveListener = null;
 
-    private transient boolean loadedDefault = false;
+    private boolean loadedDefault = false;
 
     private int maxStringLength;
 

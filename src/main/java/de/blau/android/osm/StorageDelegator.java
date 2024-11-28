@@ -1213,7 +1213,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             double newY = pivotY + direction * (nodeX - pivotX) * sin + (nodeY - pivotY) * cos;
             updateLatLon(nd, GeoMath.yToLatE7(h, w, v, (float) newY), GeoMath.xToLonE7(w, v, (float) newX));
         }
-        // Don't call onElementChanged(null, new ArrayList<>(nodes));
+        // Don't call onElementChanged(null, new ArrayList<>(nodes)); NOSONAR
     }
 
     /**
@@ -1246,23 +1246,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "removeNode got " + e.getMessage());
-        }
-    }
-
-    /**
-     * Split all Ways that contain the Node
-     * 
-     * @param node Node to split at
-     * @deprecated This is only used in testing
-     */
-    @Deprecated
-    public void splitAtNode(@NonNull final Node node) {
-        Log.d(DEBUG_TAG, "splitAtNode for all ways");
-        // undo - nothing done here, everything done in splitAtNode
-        dirty = true;
-        List<Way> ways = currentStorage.getWays(node);
-        for (Way way : ways) {
-            splitAtNode(way, node, true);
         }
     }
 
@@ -3144,10 +3127,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     }
                     Node existingNode = nodeIndex.get(n.getOsmId());
                     if (existingNode != null) {
-                        if (existingNode.getOsmVersion() >= n.getOsmVersion()) { // larger just to be on the safe
-                                                                                 // side
-                            continue; // can use node we already have
-                        } else {
+                        if (existingNode.getOsmVersion() < n.getOsmVersion()) {
                             if (existingNode.isUnchanged()) {
                                 temp.insertNodeUnsafe(n);
                                 newElements.add(n);
@@ -3157,7 +3137,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                             }
                         }
                     } else {
-                        throw logAndGetIllegalStateException("mergeData null existing node " + n.getOsmId() + " containsKey is "
+                        throw logAndGetIllegalStateException("mergeData null existing node " + n.getOsmId() + " containsKey for nodeIndex is "
                                 + nodeIndex.containsKey(n.getOsmId()) + " apiNode is " + apiNode);
                     }
                 }
@@ -3181,9 +3161,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     }
                     Way existingWay = wayIndex.get(w.getOsmId());
                     if (existingWay != null) {
-                        if (existingWay.getOsmVersion() >= w.getOsmVersion()) {// larger just to be on the safe side
-                            continue; // can use way we already have
-                        } else {
+                        if (existingWay.getOsmVersion() < w.getOsmVersion()) {
                             if (existingWay.isUnchanged()) {
                                 temp.insertWayUnsafe(w);
                                 newElements.add(w);
@@ -3193,7 +3171,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                             }
                         }
                     } else {
-                        throw logAndGetIllegalStateException("mergeData null existing way " + w.getOsmId() + " containsKey is "
+                        throw logAndGetIllegalStateException("mergeData null existing way " + w.getOsmId() + " containsKey for wayIndex is "
                                 + wayIndex.containsKey(w.getOsmId()) + " apiWay is " + apiWay);
                     }
                 }
@@ -3213,13 +3191,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         nodes.set(i, n);
                     } else {
                         // node might have been deleted, aka somebody deleted nodes outside of the down loaded data
-                        // bounding box
-                        // that belonged to a not downloaded way
+                        // bounding box that belonged to a not downloaded way
                         Node apiNode = apiStorage.getNode(wayNodeId);
                         if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
                             // attempt to fix this up, reinstate the original node so that any existing references
                             // remain
-                            // FIXME undoing the original delete will likely cause havoc
                             Log.e(DEBUG_TAG, "mergeData null undeleting node " + wayNodeId);
                             if (apiNode.getOsmVersion() == wayNode.getOsmVersion() && (apiNode.isTagged() && apiNode.getTags().equals(wayNode.getTags()))
                                     && apiNode.getLat() == wayNode.getLat() && apiNode.getLon() == wayNode.getLon()) {
@@ -3256,10 +3232,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     }
                     Relation existingRelation = relationIndex.get(r.getOsmId());
                     if (existingRelation != null) {
-                        if (existingRelation.getOsmVersion() >= r.getOsmVersion()) { // larger just to be on the
-                                                                                     // safe side
-                            continue; // can use relation we already have
-                        } else {
+                        if (existingRelation.getOsmVersion() < r.getOsmVersion()) {
                             if (existingRelation.isUnchanged()) {
                                 temp.insertRelationUnsafe(r);
                                 newElements.add(r);
@@ -3269,7 +3242,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                             }
                         }
                     } else {
-                        throw logAndGetIllegalStateException("mergeData null existing relation " + r.getOsmId() + " containsKey is "
+                        throw logAndGetIllegalStateException("mergeData null existing relation " + r.getOsmId() + " containsKey for relationIndex is "
                                 + relationIndex.containsKey(r.getOsmId()) + " apiRelation is " + apiRelation);
                     }
                 }
@@ -3620,9 +3593,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void pruneAll() {
         LongHashSet keepNodes = new LongHashSet();
         LongHashSet keepRelations = new LongHashSet();
-
         try {
-
             lock();
             for (Way w : currentStorage.getWays()) {
                 if (apiStorage.getWay(w.getOsmId()) == null) {
@@ -3753,6 +3724,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                                 postMerge.handler(n);
                             }
                         }
+                    } else {
+                        // this shouldn't be able to happen
+                        logAndSendReport("applyOsc null existing node " + n.getOsmId() + " containsKey for nodeIndex is " + nodeIndex.containsKey(n.getOsmId())
+                                + " apiMpde is " + apiNode);
+                        return false;
                     }
                 }
             }
@@ -3803,8 +3779,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         }
                     } else {
                         // this shouldn't be able to happen
-                        logAndSendReport("applyOsc null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId()) + " apiWay is "
-                                + apiWay);
+                        logAndSendReport("applyOsc null existing way " + w.getOsmId() + " containsKey for wayIndex is " + wayIndex.containsKey(w.getOsmId())
+                                + " apiWay is " + apiWay);
                         return false;
                     }
                 }
