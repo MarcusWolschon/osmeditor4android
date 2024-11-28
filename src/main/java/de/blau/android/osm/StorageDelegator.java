@@ -1250,23 +1250,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Split all Ways that contain the Node
-     * 
-     * @param node Node to split at
-     * @deprecated This is only used in testing
-     */
-    @Deprecated
-    public void splitAtNode(@NonNull final Node node) {
-        Log.d(DEBUG_TAG, "splitAtNode for all ways");
-        // undo - nothing done here, everything done in splitAtNode
-        dirty = true;
-        List<Way> ways = currentStorage.getWays(node);
-        for (Way way : ways) {
-            splitAtNode(way, node, true);
-        }
-    }
-
-    /**
      * Split a (closed) way at two points
      * 
      * @param way way to split
