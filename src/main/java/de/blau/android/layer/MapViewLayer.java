@@ -33,8 +33,8 @@ public abstract class MapViewLayer {
      */
     private static final String DEBUG_TAG = MapViewLayer.class.getSimpleName().substring(0, Math.min(23, MapViewLayer.class.getSimpleName().length()));
 
-    private transient int index     = -1;
-    protected boolean     isVisible = true;
+    private int       index     = -1;
+    protected boolean isVisible = true;
 
     // ===========================================================
     // Constants
