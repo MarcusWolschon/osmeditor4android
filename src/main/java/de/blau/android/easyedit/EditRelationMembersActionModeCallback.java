@@ -541,7 +541,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         if (!tags.isEmpty()) {
             AlertDialog alertDialog = new AlertDialog.Builder(main).setTitle(R.string.move_outer_tags_title).setMessage(R.string.move_outer_tags_message)
                     .setPositiveButton(R.string.move, (dialog, which) -> {
-                        logic.getUndo().createCheckpoint(main.getString(R.string.undo_action_move_tags));
+                        logic.createCheckpoint(main, R.string.undo_action_move_tags);
                         RelationUtils.moveOuterTags(App.getDelegator(), relation);
                     }).setNeutralButton(R.string.leave_as_is, null).create();
             alertDialog.setOnDismissListener(dialog -> finishMode.run());
