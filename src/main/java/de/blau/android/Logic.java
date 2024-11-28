@@ -653,8 +653,9 @@ public class Logic {
      */
     public void createCheckpoint(@Nullable Activity activity, int stringId) {
         Resources r = activity != null ? activity.getResources() : App.resources();
-        boolean firstCheckpoint = !getDelegator().getUndo().canUndo();
-        getDelegator().getUndo().createCheckpoint(r.getString(stringId));
+        final UndoStorage undo = getDelegator().getUndo();
+        boolean firstCheckpoint = !undo.canUndo();
+        undo.createCheckpoint(r.getString(stringId));
         getDelegator().recordImagery(map);
         if (firstCheckpoint && activity instanceof AppCompatActivity) {
             ((AppCompatActivity) activity).invalidateOptionsMenu();

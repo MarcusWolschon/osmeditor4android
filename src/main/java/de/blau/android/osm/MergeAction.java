@@ -539,6 +539,7 @@ public class MergeAction {
                 try {
                     delegator.lock();
                     delegator.getUndo().createCheckpoint(map.getContext().getString(R.string.undo_action_move_tags));
+                    delegator.recordImagery(map);
                 } finally {
                     delegator.unlock();
                 }
