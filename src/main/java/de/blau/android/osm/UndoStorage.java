@@ -837,7 +837,9 @@ public class UndoStorage implements Serializable {
         @Override
         public OsmElement restore() {
             OsmElement restored = super.restore();
-
+            if (restored == null) {
+                return null;
+            }
             ((Node) restored).lat = lat;
             ((Node) restored).lon = lon;
             return restored;
@@ -902,31 +904,32 @@ public class UndoStorage implements Serializable {
                 return null;
             }
             // now we can restore with confidence
-            if (restored != null) {
-                ((Way) restored).removeAllNodes();
-                for (Node n : nodes) {
-                    Node wayNode = currentStorage.getNode(n.getOsmId());
-                    boolean nodeNotNull = wayNode != null;
-                    if (nodeNotNull || deleted) {
-                        // only add undeleted way nodes except if we are deleted
-                        ((Way) restored).addNode(nodeNotNull ? wayNode : n);
-                        if (nodeNotNull) {
-                            wayNode.resetHasProblem();
-                        }
-                    } else {
-                        Log.w(DEBUG_TAG, "#" + element.getOsmId() + " " + element.getDescription() + " missing node " + n.getOsmId());
-                        restored.updateState(OsmElement.STATE_MODIFIED);
-                        try {
-                            apiStorage.insertElementSafe(restored);
-                        } catch (StorageException e) {
-                            // TODO Handle OOM
-                        }
+            if (restored == null) {
+                return null;
+            }
+            ((Way) restored).removeAllNodes();
+            for (Node n : nodes) {
+                Node wayNode = currentStorage.getNode(n.getOsmId());
+                boolean nodeNotNull = wayNode != null;
+                if (nodeNotNull || deleted) {
+                    // only add undeleted way nodes except if we are deleted
+                    ((Way) restored).addNode(nodeNotNull ? wayNode : n);
+                    if (nodeNotNull) {
+                        wayNode.resetHasProblem();
+                    }
+                } else {
+                    Log.w(DEBUG_TAG, "#" + element.getOsmId() + " " + element.getDescription() + " missing node " + n.getOsmId());
+                    restored.updateState(OsmElement.STATE_MODIFIED);
+                    try {
+                        apiStorage.insertElementSafe(restored);
+                    } catch (StorageException e) {
+                        // TODO Handle OOM
                     }
                 }
-                // reset the style
-                ((Way) restored).setStyle(null);
-                ((Way) restored).invalidateBoundingBox();
             }
+            // reset the style
+            ((Way) restored).setStyle(null);
+            ((Way) restored).invalidateBoundingBox();
             return restored;
         }
 
@@ -979,7 +982,7 @@ public class UndoStorage implements Serializable {
             // deep copy
             members = new ArrayList<>();
             if (inCurrentStorage || inApiStorage) {
-                for (RelationMember member : originalRelation.members) {
+                for (RelationMember member : originalRelation.getMembers()) {
                     members.add(new RelationMember(member));
                 }
             }
@@ -988,27 +991,29 @@ public class UndoStorage implements Serializable {
         @Override
         public OsmElement restore() {
             OsmElement restored = super.restore();
-            if (restored != null) {
-                ((Relation) restored).members.clear();
-                for (RelationMember rm : members) {
-                    OsmElement rmElement = rm.getElement();
-                    if (rmElement instanceof StyleableFeature) {
-                        ((StyleableFeature) rmElement).setStyle(null); // style could have been generated from Relation
-                    }
-                    OsmElement rmStorage = currentStorage.getOsmElement(rm.getType(), rm.getRef());
-                    Log.d(DEBUG_TAG, "rmElement " + rmElement + " rmStorage " + rmStorage);
-                    if (rmElement == null || rmStorage != null) {
-                        rm.setElement(rmStorage);
-                        ((Relation) restored).members.add(rm); // only add undeleted members or ones that haven't been
-                                                               // downloaded
-                    } else {
-                        Log.e(DEBUG_TAG, rm.getType() + " #" + rmElement.getOsmId() + " member of relation #" + restored.getOsmId() + " is deleted");
-                        restored.updateState(OsmElement.STATE_MODIFIED);
-                        try {
-                            apiStorage.insertElementSafe(restored);
-                        } catch (StorageException e) {
-                            // TODO Handle OOM
-                        }
+            if (restored == null) {
+                return null;
+            }
+            ((Relation) restored).getMembers().clear();
+            for (RelationMember rm : members) {
+                OsmElement rmElement = rm.getElement();
+                if (rmElement instanceof StyleableFeature) {
+                    ((StyleableFeature) rmElement).setStyle(null); // style could have been generated from Relation
+                }
+                OsmElement rmStorage = currentStorage.getOsmElement(rm.getType(), rm.getRef());
+                Log.d(DEBUG_TAG, "rmElement " + rmElement + " rmStorage " + rmStorage);
+                if (rmElement == null || rmStorage != null) {
+                    rm.setElement(rmStorage);
+                    ((Relation) restored).getMembers().add(rm); // only add undeleted members or ones that haven't
+                                                                // been
+                    // downloaded
+                } else {
+                    Log.e(DEBUG_TAG, rm.getType() + " #" + rmElement.getOsmId() + " member of relation #" + restored.getOsmId() + " is deleted");
+                    restored.updateState(OsmElement.STATE_MODIFIED);
+                    try {
+                        apiStorage.insertElementSafe(restored);
+                    } catch (StorageException e) {
+                        // TODO Handle OOM
                     }
                 }
             }

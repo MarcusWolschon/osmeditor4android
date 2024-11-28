@@ -34,7 +34,7 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
      */
     private static final long serialVersionUID = 1104911642016294268L;
 
-    final List<RelationMember> members;
+    private final List<RelationMember> members;
 
     public static final String NAME = "relation";
 
