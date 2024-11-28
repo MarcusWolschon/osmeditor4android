@@ -157,6 +157,7 @@ public class ValidationPrefTest {
         Way t = (Way) App.getDelegator().getOsmElement(Way.NAME, 96291968L);
         assertNotNull(t);
         assertTrue(t.hasTag("amenity", "school"));
+        t.resetHasProblem();
         assertEquals(Validator.MISSING_TAG, t.hasProblem(main, App.getDefaultValidator(main)));
 
         // toggle off
