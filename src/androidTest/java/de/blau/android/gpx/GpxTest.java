@@ -90,7 +90,11 @@ public class GpxTest {
         Map map = main.getMap();
         map.setPrefs(main, prefs);
         prefs.enableBarometricHeight(false);
-
+        if (main.getTracker() != null) {
+            main.getTracker().stopTracking(true);
+            main.invalidateOptionsMenu();
+        }
+        
         App.getDelegator().reset(true);
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
             db.deleteLayer(LayerType.GPX, null);
