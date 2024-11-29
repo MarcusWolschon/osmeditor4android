@@ -127,6 +127,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     private final int houseNumberRadius;
     private final int verticalNumberOffset;
     private float     maxDownloadSpeed;
+    private boolean   autoPruneEnabled     = false;
     private int       autoPruneNodeLimit   = DEFAULT_AUTOPRUNE_NODE_LIMIT; // node count for autoprune
     private int       autoDownloadBoxLimit = DEFAULT_DOWNLOADBOX_LIMIT;
     private int       panAndZoomLimit      = PAN_AND_ZOOM_LIMIT;
@@ -405,10 +406,6 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
             List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
             for (BoundingBox b : bboxes) {
-                if (b.getWidth() <= 1 || b.getHeight() <= 1) {
-                    Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
-                    continue;
-                }
                 delegator.addBoundingBox(b);
                 final Logic logic = App.getLogic();
                 try {
@@ -432,7 +429,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                     logic.removeBoundingBox(b);
                 }
             }
-            if ((System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL
+            if (autoPruneEnabled && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL
                     && delegator.reachedPruneLimits(autoPruneNodeLimit, autoDownloadBoxLimit)) {
                 try {
                     dataThreadPoolExecutor.execute(MapOverlay.this::prune);
@@ -1754,6 +1751,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
         minDownloadSize = prefs.getDownloadRadius() * 2;
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
+        autoPruneEnabled = prefs.autoPrune();
         autoPruneNodeLimit = prefs.getAutoPruneNodeLimit();
         autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
         panAndZoomLimit = prefs.getPanAndZoomLimit();

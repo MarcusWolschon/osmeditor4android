@@ -14,11 +14,13 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
+import androidx.preference.CheckBoxPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import de.blau.android.R;
 import de.blau.android.util.LocaleUtils;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
@@ -95,7 +97,34 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setRestartRequiredMessage(R.string.config_indexMediaStore_key);
         setRestartRequiredMessage(R.string.config_supportPresetLabels_key);
         setRestartRequiredMessage(R.string.config_enableHwAcceleration_key);
+
+        CheckBoxPreference autoPrunePref = getPreferenceScreen().findPreference(getString(R.string.config_autoPrune_key));
+        if (autoPrunePref != null) {
+            OnPreferenceChangeListener listener = (preference, newValue) -> {
+                boolean autoPruneEnabled = (Boolean) newValue;
+                enablePreference(R.string.config_autoPruneBoundingBoxLimit_key, autoPruneEnabled);
+                enablePreference(R.string.config_autoPruneNodeLimit_key, autoPruneEnabled);
+                enablePreference(R.string.config_autoPruneTaskLimit_key, autoPruneEnabled);
+                return true;
+            };
+            listener.onPreferenceChange(autoPrunePref, autoPrunePref.isChecked());
+            autoPrunePref.setOnPreferenceChangeListener(listener);
+        }
+
         setTitle();
+    }
+
+    /**
+     * Enable/disable a preference
+     * 
+     * @param keyResource the resource id for the preference
+     * @param enabled state it should have
+     */
+    private void enablePreference(int keyResource, boolean enabled) {
+        Preference pref = getPreferenceScreen().findPreference(getString(keyResource));
+        if (pref != null) {
+            pref.setEnabled(enabled);
+        }
     }
 
     /**

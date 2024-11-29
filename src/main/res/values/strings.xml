@@ -1427,6 +1427,8 @@
     <string name="config_maxDownloadSpeed_title">Maximum auto-download speed</string>
     <string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended.</string>
     <string name="config_downloadSpeed_current">%1$d km/h</string>
+    <string name="config_autoPrune_title">Auto-prune</string>
+    <string name="config_autoPrune_summary">Enable/disable automatically pruning in memory data and tasks</string>           
     <string name="config_autoPruneNodeLimit_title">Auto-prune limit</string>
     <string name="config_autoPruneNodeLimit_summary">Number of Nodes in memory that when reached will trigger a prune.</string>
     <string name="config_autoPruneNodeLimit_current">%1$d Nodes</string>

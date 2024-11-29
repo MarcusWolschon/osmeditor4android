@@ -120,8 +120,12 @@
 <p>When auto-downloading, the radius of the area that is attempted to download around the current position. In pan and zoom auto-download mode, this is the minimum download size. Default: <em>50 meters</em>.</p>
 <h3>Maximum auto-download speed</h3>
 <p>Maximum speed up to which auto-download is attempted. Default: <em>10 km/h</em>.</p>
+<h3>Auto-prune</h3>
+<p>Enable/disable automatically pruning in memory data and tasks. Default: <em>on</em>.</p>
 <h3>Auto-prune limit</h3>
-<p>Limit at, when reached, an automatic prune of the data in memory is attempted. Default: <em>5000 Nodes</em>.</p>
+<p>Limit at, when reached, an automatic prune of the data in memory is attempted. Requires <em>Auto prune</em> to be on. Default: <em>5000 Nodes</em>.</p>
+<h3>Auto-prune Bounding Boxes limit</h3>
+<p>Number of Bounding Boxes in memory that when reached will trigger a prune. Requires <em>Auto prune</em> to be on. Default: <em>100 Bounding boxes</em>.</p>
 <h3>Zoom limit</h3>
 <p>Minimum zoom for pan and zoom auto-download to work. In high data density areas this should be set to higher values to avoid loading very large amounts of data when zooming out. This is used both for data and tasks. Default: <em>17</em>.</p>
 <h3>Task download radius</h3>
@@ -129,7 +133,7 @@
 <h3>Maximum task auto-download speed</h3>
 <p>Maximum speed up to which auto-download of notes and bugs is attempted. Default: <em>30 km/h</em>.</p>
 <h3>Task auto-prune limit</h3>
-<p>Limit at, when reached, an automatic prune of the tasks in memory is attempted. Default: <em>10000 Tasks</em>.</p>
+<p>Limit at, when reached, an automatic prune of the tasks in memory is attempted. Requires <em>Auto prune</em> to be on. Default: <em>10000 Tasks</em>.</p>
 <h2>Location Settings</h2>
 <p>GPS and Network location settings.</p>
 <h3>GPS/GNSS source</h3>
