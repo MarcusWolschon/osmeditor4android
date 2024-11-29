@@ -1,11 +1,14 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.HashMap;
 
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.osm.Tags;
@@ -14,7 +17,9 @@ import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
 
 public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String DEBUG_TAG = WaySegmentModifyActionModeCallback.class.getSimpleName().substring(0, Math.min(23, WaySegmentModifyActionModeCallback.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, WaySegmentModifyActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = WaySegmentModifyActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MENUITEM_BRIDGE  = 24;
     private static final int MENUITEM_TUNNEL  = 25;
@@ -110,6 +115,20 @@ public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallb
             }
         }
         return true;
+    }
+
+    @Override
+    protected void onCloseClicked() {
+        onBackPressed();
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        new AlertDialog.Builder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> {
+            logic.rollback();
+            super.onBackPressed();
+        }).setNeutralButton(R.string.cancel, null).show();
+        return false;
     }
 
     @Override
