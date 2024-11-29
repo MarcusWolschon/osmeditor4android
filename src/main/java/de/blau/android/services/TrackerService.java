@@ -1033,7 +1033,7 @@ public class TrackerService extends Service {
                     public void download(BoundingBox box) {
                         taskStorage.addBoundingBox(box); // will be filled once download is complete
                         TransferTasks.downloadBox(TrackerService.this, prefs.getServer(), box, true, TransferTasks.MAX_PER_REQUEST, null);
-                        if (taskStorage.reachedPruneLimits(prefs.getAutoPruneNodeLimit(), prefs.getAutoPruneBoundingBoxLimit())) {
+                        if (prefs.autoPrune() && taskStorage.reachedPruneLimits(prefs.getAutoPruneNodeLimit(), prefs.getAutoPruneBoundingBoxLimit())) {
                             ViewBox pruneBox = new ViewBox(App.getLogic().getViewBox());
                             pruneBox.scale(1.6);
                             taskStorage.prune(pruneBox);

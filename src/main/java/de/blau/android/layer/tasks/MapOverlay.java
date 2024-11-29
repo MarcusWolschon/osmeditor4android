@@ -94,9 +94,9 @@ public class MapOverlay extends MapViewLayer
     private float       maxDownloadSpeed   = 30;
     private Set<String> filter             = new HashSet<>();
 
-    private int autoPruneTaskLimit = DEFAULT_AUTOPRUNE_TASK_LIMIT; // task count for autoprune
-
-    private int autoDownloadBoxLimit = de.blau.android.layer.data.MapOverlay.DEFAULT_DOWNLOADBOX_LIMIT;
+    private boolean autoPruneEnabled     = false;
+    private int     autoPruneTaskLimit   = DEFAULT_AUTOPRUNE_TASK_LIMIT;
+    private int     autoDownloadBoxLimit = de.blau.android.layer.data.MapOverlay.DEFAULT_DOWNLOADBOX_LIMIT;
 
     private ThreadPoolExecutor downloadThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(DOWNLOAD_THREAD_POOL_SIZE);
     private ThreadPoolExecutor pruneThreadPool    = (ThreadPoolExecutor) Executors.newFixedThreadPool(PRUNE_THREAD_POOL_SIZE);
@@ -156,10 +156,6 @@ public class MapOverlay extends MapViewLayer
             box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
             List<BoundingBox> bboxes = BoundingBox.newBoxes(tasks.getBoundingBoxes(boxes), box);
             for (BoundingBox b : bboxes) {
-                if (b.getWidth() <= 1 || b.getHeight() <= 1) {
-                    Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
-                    continue;
-                }
                 tasks.addBoundingBox(b);
                 try {
                     downloadThreadPool.execute(() -> {
@@ -172,7 +168,8 @@ public class MapOverlay extends MapViewLayer
                 }
             }
             // check interval first as tasks.count traverses the whole R-Tree
-            if ((System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL && tasks.reachedPruneLimits(autoPruneTaskLimit, autoDownloadBoxLimit)) {
+            if (autoPruneEnabled && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL
+                    && tasks.reachedPruneLimits(autoPruneTaskLimit, autoDownloadBoxLimit)) {
                 try {
                     pruneThreadPool.execute(MapOverlay.this::prune);
                     lastAutoPrune = System.currentTimeMillis();
@@ -194,9 +191,9 @@ public class MapOverlay extends MapViewLayer
         Location location = map.getLocation();
 
         if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
-            map.getRootView().removeCallbacks(download);
+            map.removeCallbacks(download);
             download.setBox(bb);
-            map.getRootView().postDelayed(download, 100);
+            map.postDelayed(download, 100);
         }
 
         //
@@ -413,6 +410,7 @@ public class MapOverlay extends MapViewLayer
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         panAndZoomLimit = prefs.getPanAndZoomLimit();
         filter = prefs.taskFilter();
+        autoPruneEnabled = prefs.autoPrune();
         autoPruneTaskLimit = prefs.getAutoPruneTaskLimit();
         autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
     }

@@ -735,7 +735,11 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
             }
             if (changed) {
                 result.clear();
-                result.addAll(temp);
+                for (BoundingBox box : temp) {
+                    if (box.getWidth() > 1 && box.getHeight() > 1) { // don't add mini boxes
+                        result.add(box);
+                    }
+                }
             }
         }
         return result;

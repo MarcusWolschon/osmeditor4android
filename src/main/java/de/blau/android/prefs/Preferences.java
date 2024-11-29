@@ -70,6 +70,7 @@ public class Preferences {
     private int               mapillaryCacheSize;            // in MB
     private int               downloadRadius;                // in m
     private float             maxDownloadSpeed;              // in km/h
+    private final boolean     autoPrune;
     private final int         autoPruneBoundingBoxLimit;
     private final int         autoPruneNodeLimit;
     private final int         autoPruneTaskLimit;
@@ -193,6 +194,7 @@ public class Preferences {
 
         downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, 50);
         maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 10);
+        autoPrune = prefs.getBoolean(r.getString(R.string.config_autoPrune_key), true);
         autoPruneBoundingBoxLimit = getIntPref(R.string.config_autoPruneBoundingBoxLimit_key, de.blau.android.layer.data.MapOverlay.DEFAULT_DOWNLOADBOX_LIMIT);
         autoPruneNodeLimit = getIntPref(R.string.config_autoPruneNodeLimit_key, de.blau.android.layer.data.MapOverlay.DEFAULT_AUTOPRUNE_NODE_LIMIT);
         autoPruneTaskLimit = getIntPref(R.string.config_autoPruneTaskLimit_key, de.blau.android.layer.tasks.MapOverlay.DEFAULT_AUTOPRUNE_TASK_LIMIT);
@@ -681,6 +683,15 @@ public class Preferences {
     public void setMaxDownloadSpeed(float maxDownloadSpeed) {
         this.maxDownloadSpeed = maxDownloadSpeed;
         prefs.edit().putInt(r.getString(R.string.config_maxDownloadSpeed_key), (int) maxDownloadSpeed).commit();
+    }
+
+    /**
+     * Check if autoPrune is enabled
+     * 
+     * @return true if autoPrune is enabled
+     */
+    public boolean autoPrune() {
+        return autoPrune;
     }
 
     /**
