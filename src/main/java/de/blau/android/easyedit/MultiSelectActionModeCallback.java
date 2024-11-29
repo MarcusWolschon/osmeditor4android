@@ -222,39 +222,40 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        if (!super.onActionItemClicked(mode, item)) {
-            switch (item.getItemId()) {
-            case ElementSelectionActionModeCallback.MENUITEM_TAG:
-                main.performTagEdit(selection, false, false);
-                break;
-            case MENUITEM_ZOOM_TO_SELECTION:
-                main.zoomTo(selection);
-                main.invalidateMap();
-                break;
-            case MENUITEM_SEARCH_OBJECTS:
-                Search.search(main);
-                break;
-            case MENUITEM_ADD_TO_TODO:
-                ElementSelectionActionModeCallback.addToTodoList(main, manager, selection);
-                break;
-            case MENUITEM_UPLOAD:
-                main.descheduleAutoLock();
-                main.confirmUpload(ElementSelectionActionModeCallback.addRequiredElements(main, new ArrayList<>(selection)));
-                break;
-            case ElementSelectionActionModeCallback.MENUITEM_PREFERENCES:
-                PrefEditor.start(main);
-                break;
-            case ElementSelectionActionModeCallback.MENUITEM_JS_CONSOLE:
-                Main.showJsConsole(main);
-                break;
-            case R.id.undo_action:
-                // should not happen
-                Log.d(DEBUG_TAG, "menu undo clicked");
-                undoListener.onClick(null);
-                break;
-            default:
-                return false;
-            }
+        if (super.onActionItemClicked(mode, item)) {
+            return true;
+        }
+        switch (item.getItemId()) {
+        case ElementSelectionActionModeCallback.MENUITEM_TAG:
+            main.performTagEdit(selection, false, false);
+            break;
+        case MENUITEM_ZOOM_TO_SELECTION:
+            main.zoomTo(selection);
+            main.invalidateMap();
+            break;
+        case MENUITEM_SEARCH_OBJECTS:
+            Search.search(main);
+            break;
+        case MENUITEM_ADD_TO_TODO:
+            ElementSelectionActionModeCallback.addToTodoList(main, manager, selection);
+            break;
+        case MENUITEM_UPLOAD:
+            main.descheduleAutoLock();
+            main.confirmUpload(ElementSelectionActionModeCallback.addRequiredElements(main, new ArrayList<>(selection)));
+            break;
+        case ElementSelectionActionModeCallback.MENUITEM_PREFERENCES:
+            PrefEditor.start(main);
+            break;
+        case ElementSelectionActionModeCallback.MENUITEM_JS_CONSOLE:
+            Main.showJsConsole(main);
+            break;
+        case R.id.undo_action:
+            // should not happen
+            Log.d(DEBUG_TAG, "menu undo clicked");
+            undoListener.onClick(null);
+            break;
+        default:
+            return false;
         }
         return true;
     }
