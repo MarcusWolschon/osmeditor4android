@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 public class RelationMember implements Serializable {
     private static final long serialVersionUID = 6L;
 
-    final String       type;
+    String             type;
     long               ref;
     String             role    = null;
     private OsmElement element = null;
@@ -109,12 +109,16 @@ public class RelationMember implements Serializable {
     }
 
     /**
-     * set the element, used for post processing relations
+     * Set the element, mainly used for post processing relations
      * 
      * @param e the OsmElement
      */
     public synchronized void setElement(@Nullable final OsmElement e) {
         element = e;
+        if (e != null) {
+            ref = e.getOsmId();
+            type = e.getName();
+        }
     }
 
     /**
@@ -130,7 +134,7 @@ public class RelationMember implements Serializable {
     public String toString() {
         return role + " " + type + " " + ref;
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(ref, role, type);

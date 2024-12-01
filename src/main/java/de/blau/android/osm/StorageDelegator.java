@@ -2381,6 +2381,34 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Replace the element of all relation member with a specific element with a different one
+     * 
+     * @param relation the Relation
+     * @param origElement the original element
+     * @param newElement the replacement element
+     */
+    public void replaceRelationMemberElement(@NonNull Relation relation, @NonNull OsmElement origElement, @NonNull OsmElement newElement) {
+        dirty = true;
+        undo.save(relation);
+        undo.save(origElement);
+        undo.save(newElement);
+        try {
+            lock();
+            for (RelationMember rm : relation.getAllMembers(origElement)) {
+                rm.setElement(newElement);
+            }
+            newElement.addParentRelation(relation);
+            onParentRelationChanged(newElement);
+            origElement.removeParentRelation(relation.getOsmId());
+            onParentRelationChanged(origElement);
+            relation.updateState(OsmElement.STATE_MODIFIED);
+            insertElementSafe(relation);
+        } finally {
+            unlock();
+        }
+    }
+
+    /**
      * Check the future relation member count against the maximum supported by the current API
      * 
      * @param r the Relation we inten to modify
