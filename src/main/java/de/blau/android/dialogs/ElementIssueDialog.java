@@ -160,7 +160,10 @@ public class ElementIssueDialog extends ImmersiveDialogFragment {
         View layout = inflater.inflate(R.layout.tag_conflict, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(titleRes);
-        builder.setMessage(messageRes);
+
+        // setMessage doesn't erally work with custom layouts, so DIY here
+        TextView message = layout.findViewById(R.id.message);
+        message.setText(messageRes);
 
         ListView list = layout.findViewById(R.id.elements);
         list.setAdapter(new ResultArrayAdapter(getContext(), R.layout.tag_conflict_item, R.id.text1, result));

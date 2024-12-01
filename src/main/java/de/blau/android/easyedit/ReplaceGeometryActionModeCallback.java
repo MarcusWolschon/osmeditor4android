@@ -22,7 +22,10 @@ import de.blau.android.exception.StorageException;
 import de.blau.android.osm.MergeAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.ReplaceIssue;
 import de.blau.android.osm.Result;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
 
@@ -113,19 +116,31 @@ public class ReplaceGeometryActionModeCallback extends NonSimpleActionModeCallba
                 d.show();
             }
             if (target instanceof Node) {
-                // arguably this section should really be in Logic 
+                // arguably this section should really be in Logic
                 logic.createCheckpoint(main, R.string.undo_action_replace_geometry);
+                List<Relation> parents = target.getParentRelations();
+                final StorageDelegator delegator = App.getDelegator();
+                List<Result> relationResults = new ArrayList<>();
+                if (parents != null) {
+                    for (Relation r : new ArrayList<>(parents)) {
+                        delegator.replaceRelationMemberElement(r, target, element);
+                        Result result = new Result(r);
+                        result.addIssue(ReplaceIssue.MEMBER_REPLACED);
+                        relationResults.add(result);
+                    }
+                }
                 Node toReplace = findYoungestUntaggedNode((Way) element);
                 logic.setTags(main, Node.NAME, target.getOsmId(), null, false);
                 logic.performSetPosition(main, (Node) target, toReplace.getLon(), toReplace.getLat(), false);
-                MergeAction merge = new MergeAction(App.getDelegator(), target, toReplace, false);
+                MergeAction merge = new MergeAction(delegator, target, toReplace, false);
                 List<Result> mergeResult = merge.mergeNodes();
                 java.util.Map<String, String> mergedTags = MergeAction.mergeTags(element, targetTags);
                 Result r = mergeResult.get(0);
                 MergeAction.checkForMergedTags(targetTags, element.getTags(), mergedTags, r);
                 logic.setTags(main, Way.NAME, element.getOsmId(), mergedTags, false);
+                mergeResult.addAll(relationResults);
                 if (mergeResult.size() > 1 || r.hasIssue()) {
-                    ElementIssueDialog.showTagConflictDialog(main, mergeResult);
+                    ElementIssueDialog.showReplaceGeometryIssuetDialog(main, mergeResult);
                 }
                 logic.deselectAll();
                 logic.addSelectedWay((Way) element);

@@ -30,6 +30,7 @@ import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -120,7 +121,48 @@ public class ReplaceGeometryTest {
         assertTrue(w.hasTag(Tags.KEY_SHOP, "convenience"));
         assertTrue(w.hasNode(node));
     }
-    
+
+    /**
+     * Select, replace with way
+     */
+    @Test
+    public void replaceNodeWithRelation() {
+        loadData("replace_geometry4.osm");
+        Node node = (Node) App.getDelegator().getOsmElement(Node.NAME, -14L);
+        assertNotNull(node);
+        assertTrue(node.hasTag(Tags.KEY_SHOP, "convenience"));
+        TestUtils.clickAtCoordinates(device, map, node.getLon(), node.getLat(), true);
+        TestUtils.sleep();
+        TestUtils.clickAwayTip(device, context);
+        assertTrue(TestUtils.clickTextContains(device, "Convenience", true, 5000));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(-14L, node.getOsmId());
+
+        assertTrue(TestUtils.clickOverflowButton(device));
+        TestUtils.scrollTo(context.getString(R.string.menu_replace_geometry), false);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_replace_geometry), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_subtitle_replace_geometry)));
+        TestUtils.clickAtCoordinates(device, map, 8.3760111D, 47.3981113D);
+        TestUtils.sleep();
+        TestUtils.clickAwayTip(device, context);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.issue_replace_member_element_replaced)));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.Done), true, false));
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+
+        assertFalse(node.hasTag(Tags.KEY_SHOP, "convenience"));
+        Way w = App.getLogic().getSelectedWay();
+        assertEquals(-1, w.getOsmId());
+        assertTrue(w.hasTag(Tags.KEY_SHOP, "convenience"));
+        assertTrue(w.hasNode(node));
+        List<Relation> parents = w.getParentRelations();
+        assertNotNull(parents);
+        assertEquals(1, parents.size());
+        assertTrue(parents.get(0).hasTag(Tags.KEY_TYPE, "enforcement"));
+    }
+
     /**
      * Select, replace with geometry from way
      */
@@ -130,7 +172,7 @@ public class ReplaceGeometryTest {
         Node node = (Node) App.getDelegator().getOsmElement(Node.NAME, -14L);
         assertNotNull(node);
         TestUtils.clickAtCoordinates(device, map, 8.3760111D, 47.3981113D);
-        
+
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
@@ -141,7 +183,7 @@ public class ReplaceGeometryTest {
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_replace_geometry), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_subtitle_replace_geometry)));
         TestUtils.clickAtCoordinates(device, map, 8.3761799D, 47.3979480D);
-        
+
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.remove_geometry_source)));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.Yes), true, false));
         TestUtils.clickAwayTip(device, context);

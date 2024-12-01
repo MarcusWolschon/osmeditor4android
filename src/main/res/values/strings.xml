@@ -542,7 +542,7 @@
     <string name="tag_conflict_title">Properties changed</string>
     <string name="tag_conflict_message">The operation required changing properties of the elements involved.</string>
     <string name="replace_geometry_issue_title">Element changed</string>
-    <string name="replace_geometry_issue_message">The operation required changing an elements position or membership.</string>
+    <string name="replace_geometry_issue_message">The operation required changing an elements position, membership or tags.</string>
     <!-- Relation selection dialog -->
     <string name="no_suitable_relations_message">No suitable relations in downloaded data</string>
     <string name="select_route_title">Select route</string>
@@ -1685,6 +1685,7 @@
     <string name="issue_split_route_ordering">Route may need manual reordering</string>
     <string name="issue_precondition_relation_member_count">Relation member count exceeded</string>
     <string name="issue_replace_extracted_node">Tagged node extracted from way</string>
+    <string name="issue_replace_member_element_replaced">Member element replaced</string>
     <!-- time and distance -->
     <plurals name="days">
         <item quantity="one">1 day</item>
