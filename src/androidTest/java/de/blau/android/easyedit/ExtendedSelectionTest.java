@@ -2,9 +2,9 @@ package de.blau.android.easyedit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -271,4 +271,37 @@ public class ExtendedSelectionTest {
         TestUtils.clickText(device, false, context.getString(R.string.okay), true); // click away tip
         assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 1, 2)));
     }
+
+    /**
+     * Select node, select 2nd node, extract segment
+     */
+    @Test
+    public void extractSegment() {
+        TestUtils.loadTestData(main, "test2.osm");
+        TestUtils.zoomToLevel(device, main, 20); // if we are zoomed in too far we might not get the selection popups
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.sleep(2000);
+        TestUtils.clickAtCoordinates(device, map, 8.3894224, 47.3891963, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_extend_selection), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+        TestUtils.clickAtCoordinates(device, map, 8.389856, 47.3891991, true);
+
+        assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 2, 2), 5000));
+        List<Node> nodes = new ArrayList<>(App.getLogic().getSelectedNodes());
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_extract_segment), true, false));
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+
+        Way way = App.getLogic().getSelectedWay();
+        final List<Node> wayNodes = way.getNodes();
+        assertEquals(2, wayNodes.size());
+        assertTrue(wayNodes.contains(nodes.get(0)));
+        assertTrue(wayNodes.contains(nodes.get(1)));
+    }
+
 }

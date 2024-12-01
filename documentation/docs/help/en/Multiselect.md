@@ -32,7 +32,13 @@ Remove the objects from the data.
 
 Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected, or the selection is two closed ways (polygons), in the later case if the polygons do not have common nodes a multi-polygon relation will be created and the ways added as members. If post-merge tag conflicts are detected you will be alerted. 
 
-### Add node at intersection
+### Extract segment
+
+If you have selected exactly two nodes on the same way, you can extract the segment of the way between the two nodes. If the way is closed the segment extracted will between the first and 2nd node selected in the winding direction (clockwise or counterclockwise) of the way.
+
+If the way has _highway_ or _waterway_ tagging a number of shortcuts will be displayed, for example to change a _footway_ in to _steps_.   
+
+### Add node at intersectionn
 
 If two or more ways are selected and they intersect without a common node, a new node will be added at the first intersection found.
 
