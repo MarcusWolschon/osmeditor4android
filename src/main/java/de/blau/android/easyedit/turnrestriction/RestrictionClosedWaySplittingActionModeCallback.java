@@ -1,5 +1,7 @@
 package de.blau.android.easyedit.turnrestriction;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +26,13 @@ import de.blau.android.osm.Way;
  *
  */
 public class RestrictionClosedWaySplittingActionModeCallback extends AbstractClosedWaySplittingActionModeCallback {
-    private static final String DEBUG_TAG = RestrictionClosedWaySplittingActionModeCallback.class.getSimpleName().substring(0, Math.min(23, RestrictionClosedWaySplittingActionModeCallback.class.getSimpleName().length()));
-    private final Way           way;
-    private final Node          node;
-    private final Way           fromWay;
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RestrictionClosedWaySplittingActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = RestrictionClosedWaySplittingActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
+
+    private final Way  way;
+    private final Node node;
+    private final Way  fromWay;
 
     /**
      * Construct a new callback for splitting a closed way/polygon as part of a turn restriction
@@ -58,22 +63,23 @@ public class RestrictionClosedWaySplittingActionModeCallback extends AbstractClo
         super.handleElementClick(element);
         try {
             if (element instanceof Node) {
-                Way[] result = logic.performClosedWaySplit(main, way, node, (Node) element, false);
-                if (result.length == 2) {
-                    if (fromWay == null) {
-                        Set<OsmElement> candidates = new HashSet<>();
-                        candidates.add(result[0]);
-                        candidates.add(result[1]);
-                        main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates, savedResults));
-                    } else {
-                        Way viaWay = result[0];
-                        if (fromWay.hasCommonNode(result[1])) {
-                            viaWay = result[1];
-                        }
-                        main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay, savedResults));
+                List<Result> results = logic.performClosedWaySplit(main, way, node, (Node) element, false);
+                // FIXME we currently don't display any issues as that would be confusing
+                Way way0 = (Way) results.get(0).getElement();
+                Way way1 = (Way) results.get(1).getElement();
+                if (fromWay == null) {
+                    Set<OsmElement> candidates = new HashSet<>();
+                    candidates.add(way0);
+                    candidates.add(way1);
+                    main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates, savedResults));
+                } else {
+                    Way viaWay = way0;
+                    if (fromWay.hasCommonNode(way1)) {
+                        viaWay = way1;
                     }
-                    return true;
+                    main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay, savedResults));
                 }
+                return true;
             }
         } catch (OsmIllegalOperationException | StorageException ex) {
             // toast has already been displayed

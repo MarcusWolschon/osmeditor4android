@@ -25,7 +25,7 @@ import de.blau.android.UnitTestUtils;
 import de.blau.android.util.Util;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(sdk = 33)
 @LargeTest
 public class RelationUtilTest {
 
@@ -49,12 +49,16 @@ public class RelationUtilTest {
         Way w10 = getWay(d, -10L);
         Relation mp = d.createAndInsertRelation(Arrays.asList(w1, w5, w4, w10));
         assertNotNull(mp);
-        Way[] newWays = d.splitAtNodes(w5, w5.getFirstNode(), w5.getNodes().get(2), false);
-        assertEquals(2, newWays.length);
+        List<Result> results = d.splitAtNodes(w5, w5.getFirstNode(), w5.getNodes().get(2), false);
+        assertEquals(2, results.size());
+        Way newWay0 = (Way) results.get(0).getElement();
+        assertNotNull(newWay0);
+        Way newWay1 = (Way) results.get(1).getElement();
+        assertNotNull(newWay1);
         RelationUtils.setMultipolygonRoles(null, mp.getMembers(), false);
         assertEquals(Tags.ROLE_OUTER, mp.getMember(w1).getRole());
-        assertEquals(Tags.ROLE_OUTER, mp.getMember(newWays[0]).getRole());
-        assertEquals(Tags.ROLE_OUTER, mp.getMember(newWays[1]).getRole());
+        assertEquals(Tags.ROLE_OUTER, mp.getMember(newWay0).getRole());
+        assertEquals(Tags.ROLE_OUTER, mp.getMember(newWay1).getRole());
         assertEquals(Tags.ROLE_INNER, mp.getMember(w4).getRole());
         assertEquals("", mp.getMember(w10).getRole());
     }

@@ -106,8 +106,18 @@ public class Result implements Serializable {
      * 
      * @return the element
      */
+    @Nullable
     public OsmElement getElement() {
         return element;
+    }
+
+    /**
+     * Check if this result contains an OsmElement
+     * 
+     * @return true if an element is present
+     */
+    public boolean hasElement() {
+        return element != null;
     }
 
     /**

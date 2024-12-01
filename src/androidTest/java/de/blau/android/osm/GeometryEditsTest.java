@@ -324,10 +324,10 @@ public class GeometryEditsTest {
             final Node n5 = nList1.get(4);
             assertEquals(n1, n5);
             assertTrue(w1.isClosed());
-            Way[] ways = logic.performClosedWaySplit(main, w1, n2, n4, false);
-            assertEquals(2, ways.length);
-            assertEquals(3, ways[0].getNodes().size());
-            assertEquals(3, ways[1].getNodes().size());
+            List<Result> results = logic.performClosedWaySplit(main, w1, n2, n4, false);
+            assertEquals(2, results.size());
+            assertEquals(3, ((Way) results.get(0).getElement()).getNodes().size());
+            assertEquals(3, ((Way) results.get(1).getElement()).getNodes().size());
         } catch (Exception igit) {
             fail(igit.getMessage());
         }
@@ -361,12 +361,14 @@ public class GeometryEditsTest {
             final Node n5 = nList1.get(4);
             assertEquals(n1, n5);
             assertTrue(w1.isClosed());
-            Way[] ways = logic.performClosedWaySplit(main, w1, n1, n3, true);
-            assertEquals(2, ways.length);
-            assertEquals(4, ways[0].getNodes().size());
-            assertTrue(ways[0].isClosed());
-            assertEquals(4, ways[1].getNodes().size());
-            assertTrue(ways[1].isClosed());
+            List<Result> results = logic.performClosedWaySplit(main, w1, n1, n3, true);
+            assertEquals(2, results.size());
+            final Way way0 = (Way) results.get(0).getElement();
+            assertEquals(4, way0.getNodes().size());
+            assertTrue(way0.isClosed());
+            final Way way1 = (Way) results.get(1).getElement();
+            assertEquals(4, way1.getNodes().size());
+            assertTrue(way1.isClosed());
         } catch (Exception igit) {
             fail(igit.getMessage());
         }

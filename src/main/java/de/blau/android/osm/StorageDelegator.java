@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -53,6 +54,7 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
+import de.blau.android.util.Winding;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
 import de.blau.android.util.collections.MultiHashMap;
@@ -65,7 +67,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
     private static final long serialVersionUID = 11L;
 
-    public static final int MIN_NODES_CIRCLE = 3;
+    public static final int  MIN_NODES_CIRCLE            = 3;
+    private static final int MINIMUN_NODES_FOR_WAY_SPLIT = 3;
 
     private Storage currentStorage;
 
@@ -1250,105 +1253,158 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Split a (closed) way at two points
+     * Split a closed way at two points
      * 
      * @param way way to split
      * @param node1 first node to split at
      * @param node2 second node to split at
      * @param createPolygons split in to two polygons
-     * @return null if split failed or wasn't possible, the two resulting ways otherwise
+     * @return the original Way in the 1st Result, the new Way in the 2nd Result, issues if not successful
      */
     @NonNull
-    public Way[] splitAtNodes(@NonNull Way way, @NonNull Node node1, @NonNull Node node2, boolean createPolygons) {
+    public List<Result> splitAtNodes(@NonNull Way way, @NonNull Node node1, @NonNull Node node2, boolean createPolygons) {
         Log.d(DEBUG_TAG, "splitAtNodes way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
+        Result resultOrig = new Result();
+        Result resultNew = new Result();
         // undo - old way is saved here, new way is saved at insert
         dirty = true;
         undo.save(way);
 
         List<Node> nodes = way.getNodes();
-        if (nodes.size() < 3) {
+        if (nodes.size() < MINIMUN_NODES_FOR_WAY_SPLIT) {
             throw new OsmIllegalOperationException("Closed way with less than three nodes cannot be split");
         }
 
+        int winding = Winding.winding(nodes);
+        int pos1 = nodes.indexOf(node1);
+        int pos2 = nodes.indexOf(node2);
+
         validateRelationMemberCount(way.getParentRelations(), 1);
+
+        List<String> metricKeys = getMetricKeys(way);
+        double originalLength = getWayLength(way, metricKeys);
 
         /*
          * convention iterate over list, copy everything between first split node found and 2nd split node found if 2nd
          * split node found first the same
          */
-        List<Node> nodesForNewWay = new LinkedList<>();
-        List<Node> nodesForOldWay1 = new LinkedList<>();
-        List<Node> nodesForOldWay2 = new LinkedList<>();
+        List<Node> nodesExtracted = new LinkedList<>();
+        List<Node> nodesEnd1 = new LinkedList<>();
+        List<Node> nodesEnd2 = new LinkedList<>();
         boolean found1 = false;
         boolean found2 = false;
-        for (Iterator<Node> it = way.getNodeIterator(); it.hasNext();) {
-            Node wayNode = it.next();
-            if (!found1 && wayNode.getOsmId() == node1.getOsmId()) {
+        final long node1Id = node1.getOsmId();
+        final long node2Id = node2.getOsmId();
+        for (Node wayNode : nodes) {
+            if (!found1 && wayNode.getOsmId() == node1Id) {
                 found1 = true;
-                nodesForNewWay.add(wayNode);
+                nodesExtracted.add(wayNode);
                 if (!found2) {
-                    nodesForOldWay1.add(wayNode);
+                    nodesEnd1.add(wayNode);
                 } else {
-                    nodesForOldWay2.add(wayNode);
+                    nodesEnd2.add(wayNode);
                 }
-            } else if (!found2 && wayNode.getOsmId() == node2.getOsmId()) {
+            } else if (!found2 && wayNode.getOsmId() == node2Id) {
                 found2 = true;
-                nodesForNewWay.add(wayNode);
+                nodesExtracted.add(wayNode);
                 if (!found1) {
-                    nodesForOldWay1.add(wayNode);
+                    nodesEnd1.add(wayNode);
                 } else {
-                    nodesForOldWay2.add(wayNode);
+                    nodesEnd2.add(wayNode);
                 }
             } else if ((found1 && !found2) || (!found1 && found2)) {
-                nodesForNewWay.add(wayNode);
+                nodesExtracted.add(wayNode);
             } else if (!found1) {
-                nodesForOldWay1.add(wayNode);
+                nodesEnd1.add(wayNode);
             } else {
-                nodesForOldWay2.add(wayNode);
+                nodesEnd2.add(wayNode);
             }
         }
 
-        // shuffle the nodes around for the original way so that they are in sequence and the way isn't closed
-        Log.d(DEBUG_TAG, "nodesForNewWay " + nodesForNewWay.size() + " oldNodes1 " + nodesForOldWay1.size() + " oldNodes2 " + nodesForOldWay2.size());
-        List<Node> oldNodes = way.getNodes();
-        oldNodes.clear();
-        if (nodesForOldWay1.isEmpty()) {
-            oldNodes.addAll(nodesForOldWay2);
-        } else if (nodesForOldWay2.isEmpty()) {
-            oldNodes.addAll(nodesForOldWay1);
-        } else if (nodesForOldWay1.get(0) == nodesForOldWay2.get(nodesForOldWay2.size() - 1)) {
-            oldNodes.addAll(nodesForOldWay2);
-            nodesForOldWay1.remove(0);
-            oldNodes.addAll(nodesForOldWay1);
-        } else {
-            oldNodes.addAll(nodesForOldWay1);
-            nodesForOldWay2.remove(0);
-            oldNodes.addAll(nodesForOldWay2);
-        }
-        List<OsmElement> changedElements = new ArrayList<>();
-        if (createPolygons && way.nodeCount() > Way.MINIMUM_NODES_IN_WAY) { // close the original way now
-            way.addNode(way.getFirstNode());
-        }
-        way.updateState(OsmElement.STATE_MODIFIED);
-        apiStorage.insertElementSafe(way);
-        changedElements.add(way);
+        // shuffle the nodes around from the original way so that they are in sequence and the way isn't closed
+        Log.d(DEBUG_TAG, "nodesForNewWay " + nodesExtracted.size() + " oldNodes1 " + nodesEnd1.size() + " oldNodes2 " + nodesEnd2.size());
 
         // create the new way
         Way newWay = factory.createWayWithNewId();
         newWay.addTags(way.getTags());
-        newWay.addNodes(nodesForNewWay, false);
-        if (createPolygons && newWay.nodeCount() > Way.MINIMUM_NODES_IN_WAY) { // close the new way now
-            newWay.addNode(newWay.getFirstNode());
+
+        // enforce behaviour that first and second node are relative to the winding of the ring
+        if ((winding == Winding.CLOCKWISE && pos2 > pos1) || (winding == Winding.COUNTERCLOCKWISE && pos1 < pos2)) {
+            addEndSegmentsToWay(way, nodesEnd1, nodesEnd2);
+            newWay.getNodes().clear();
+            newWay.addNodes(nodesExtracted, false);
+        } else {
+            addEndSegmentsToWay(newWay, nodesEnd1, nodesEnd2);
+            way.getNodes().clear();
+            way.addNodes(nodesExtracted, false);
         }
+
+        if (createPolygons) {
+            closeWay(way);
+            closeWay(newWay);
+        }
+
+        List<OsmElement> changedElements = new ArrayList<>();
+        way.updateState(OsmElement.STATE_MODIFIED);
+        apiStorage.insertElementSafe(way);
+        changedElements.add(way);
+
         insertElementUnsafe(newWay);
 
-        addSplitWayToRelations(way, true, newWay, changedElements);
+        if (!metricKeys.isEmpty() && originalLength != 0) {
+            resultOrig.addIssue(SplitIssue.SPLIT_METRIC);
+            resultNew.addIssue(SplitIssue.SPLIT_METRIC);
+            for (String key : metricKeys) {
+                distributeMetric(key, originalLength, way);
+                distributeMetric(key, originalLength, newWay);
+            }
+        }
+
+        List<Result> relationResults = addSplitWayToRelations(way, true, newWay, changedElements);
 
         onElementChanged(null, changedElements);
-        Way[] result = new Way[2];
-        result[0] = way;
-        result[1] = newWay;
-        return result;
+
+        resultOrig.setElement(way);
+        resultNew.setElement(newWay);
+        List<Result> resultList = Arrays.asList(resultOrig, resultNew);
+        resultList.addAll(relationResults);
+        return resultList;
+    }
+
+    /**
+     * Add way nodes from two end segments of a (formerly) existing way to a way
+     * 
+     * @param way the Way
+     * @param nodesEndSegment1 nodes from 1st segment
+     * @param nodesForEndSegment2 nodes from 2nd segment
+     */
+    private void addEndSegmentsToWay(@NonNull Way way, @NonNull List<Node> nodesEndSegment1, @NonNull List<Node> nodesForEndSegment2) {
+        List<Node> nodes = way.getNodes();
+        nodes.clear();
+        if (nodesEndSegment1.isEmpty()) {
+            nodes.addAll(nodesForEndSegment2);
+        } else if (nodesForEndSegment2.isEmpty()) {
+            nodes.addAll(nodesEndSegment1);
+        } else if (nodesEndSegment1.get(0) == nodesForEndSegment2.get(nodesForEndSegment2.size() - 1)) {
+            nodes.addAll(nodesForEndSegment2);
+            nodesEndSegment1.remove(0);
+            nodes.addAll(nodesEndSegment1);
+        } else {
+            nodes.addAll(nodesEndSegment1);
+            nodesForEndSegment2.remove(0);
+            nodes.addAll(nodesForEndSegment2);
+        }
+    }
+
+    /**
+     * Close a way by adding the 1st node to the end
+     * 
+     * @param way the Way
+     */
+    private void closeWay(@NonNull Way way) {
+        if (way.nodeCount() > Way.MINIMUM_NODES_IN_WAY) { // close the original way now
+            way.addNode(way.getFirstNode());
+        }
     }
 
     /**
@@ -1377,18 +1433,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         validateRelationMemberCount(way.getParentRelations(), 1);
 
-        // check tags for problematic keys
-        List<String> metricKeys = new ArrayList<>();
-        for (String key : way.getTags().keySet()) {
-            if (Tags.isWayMetric(key)) {
-                metricKeys.add(key);
-            }
-        }
-        // determine the length before we remove nodes
-        double originalLength = 1D;
-        if (!metricKeys.isEmpty()) {
-            originalLength = way.length();
-        }
+        List<String> metricKeys = getMetricKeys(way);
+        double originalLength = getWayLength(way, metricKeys);
 
         // we assume this node is only contained in the way once.
         // else the user needs to split the remaining way again.
@@ -1422,6 +1468,40 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<Result> resultList = Util.wrapInList(result);
         resultList.addAll(relationResults);
         return resultList;
+    }
+
+    /**
+     * Returnn the length of the way is thaere are metric keys
+     * 
+     * @param way the way
+     * @param metricKeys a list of relevant keys
+     * @return the length
+     */
+    private double getWayLength(@NonNull final Way way, @NonNull List<String> metricKeys) {
+        // determine the length before we remove nodes
+        double originalLength = 1D;
+        if (!metricKeys.isEmpty()) {
+            originalLength = way.length();
+        }
+        return originalLength;
+    }
+
+    /**
+     * Get a list of length dependent keys that thw Way has
+     * 
+     * @param way the Way
+     * @return a list of keys
+     */
+    @NonNull
+    private List<String> getMetricKeys(@NonNull final Way way) {
+        // check tags for problematic keys
+        List<String> metricKeys = new ArrayList<>();
+        for (String key : way.getTags().keySet()) {
+            if (Tags.isWayMetric(key)) {
+                metricKeys.add(key);
+            }
+        }
+        return metricKeys;
     }
 
     /**

@@ -1030,13 +1030,17 @@ public class StorageDelegatorTest {
         assertNotNull(temp);
         Node n1 = w.getNodes().get(1);
         Node n2 = w.getNodes().get(2);
-        Way[] newWays = d.splitAtNodes(w, n1, n2, false);
-        assertNotNull(newWays);
-        assertEquals(2, newWays.length);
-        assertTrue(newWays[0].hasNode(n1));
-        assertTrue(newWays[0].hasNode(n2));
-        assertTrue(newWays[1].hasNode(n1));
-        assertTrue(newWays[1].hasNode(n2));
+        List<Result> results = d.splitAtNodes(w, n1, n2, false);
+        assertNotNull(results);
+        assertEquals(2, results.size());
+        Way newWay0 = (Way) results.get(0).getElement();
+        assertNotNull(newWay0);
+        assertTrue(newWay0.hasNode(n1));
+        assertTrue(newWay0.hasNode(n2));
+        Way newWay1 = (Way) results.get(1).getElement();
+        assertNotNull(newWay1);
+        assertTrue(newWay1.hasNode(n1));
+        assertTrue(newWay1.hasNode(n2));
     }
 
     /**
@@ -1051,15 +1055,19 @@ public class StorageDelegatorTest {
         assertNotNull(temp);
         Node n1 = w.getNodes().get(1);
         Node n2 = w.getNodes().get(3);
-        Way[] newWays = d.splitAtNodes(w, n1, n2, true);
-        assertNotNull(newWays);
-        assertEquals(2, newWays.length);
-        assertTrue(newWays[0].hasNode(n1));
-        assertTrue(newWays[0].hasNode(n2));
-        assertTrue(newWays[1].hasNode(n1));
-        assertTrue(newWays[1].hasNode(n2));
-        assertTrue(newWays[0].isClosed());
-        assertTrue(newWays[1].isClosed());
+        List<Result> results  = d.splitAtNodes(w, n1, n2, true);
+        assertNotNull(results);
+        assertEquals(2, results.size());
+        Way newWay0 = (Way) results.get(0).getElement();
+        assertNotNull(newWay0);
+        Way newWay1 = (Way) results.get(1).getElement();
+        assertNotNull(newWay1);
+        assertTrue(newWay0.hasNode(n1));
+        assertTrue(newWay0.hasNode(n2));
+        assertTrue(newWay1.hasNode(n1));
+        assertTrue(newWay1.hasNode(n2));
+        assertTrue(newWay0.isClosed());
+        assertTrue(newWay1.isClosed());
     }
 
     /**
