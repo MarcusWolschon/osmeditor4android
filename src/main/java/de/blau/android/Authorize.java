@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.CookieManager;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import androidx.annotation.NonNull;
@@ -120,8 +121,9 @@ public class Authorize extends WebViewActivity {
                     }
                 }
             }
+
+            // Remove navigation and sign up tab from osm.org
             
-            // Remove navigation and sign up tab from osm.org 
             // @formatter:off
             String script = "(function() {" 
                     + "var navs = document.getElementsByTagName('nav');" 
@@ -200,5 +202,17 @@ public class Authorize extends WebViewActivity {
             Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
             exit();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(DEBUG_TAG, "onDestroy");
+        // remove any cookies, in particular session cookies, this might seem to be overkill, but there is no per cookie
+        // method
+        final CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.removeAllCookies((Boolean b) -> {
+            cookieManager.flush();
+        });
+        super.onDestroy();
     }
 }
