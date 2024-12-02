@@ -519,8 +519,7 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      */
     public void removeParentRelation(long osmId) {
         if (parentRelations != null) {
-            ArrayList<Relation> tempRelList = new ArrayList<>(parentRelations);
-            for (Relation r : tempRelList) {
+            for (Relation r : new ArrayList<>(parentRelations)) {
                 if (osmId == r.getOsmId()) {
                     parentRelations.remove(r);
                 }

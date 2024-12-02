@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/elements"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="?attr/dialogPreferredPadding"
-    android:paddingRight="?attr/dialogPreferredPadding" />
+    android:paddingRight="?attr/dialogPreferredPadding"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <ListView
+        android:id="@+id/elements"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+</LinearLayout>

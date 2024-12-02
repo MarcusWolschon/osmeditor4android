@@ -25,6 +25,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.UnitTestUtils;
 import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -35,7 +36,7 @@ import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(sdk = 33)
 @LargeTest
 public class StorageDelegatorTest {
 
@@ -275,7 +276,7 @@ public class StorageDelegatorTest {
         assertEquals(nodeCount + 4L, d.getCurrentStorage().getNodeCount());
         assertEquals(wayCount + 1L, d.getCurrentStorage().getWayCount());
     }
-    
+
     /**
      * Load some data try to merge a way with a higher version
      */
@@ -299,7 +300,7 @@ public class StorageDelegatorTest {
         StorageDelegator d2 = new StorageDelegator();
         Way w2 = DelegatorUtil.addWayToStorage(d2, true);
         w2.setOsmId(w.getOsmId());
-        w2.setOsmVersion(w.getOsmVersion()+1);
+        w2.setOsmVersion(w.getOsmVersion() + 1);
         d2.getCurrentStorage().rehash();
         d2.getApiStorage().rehash();
         try {
@@ -714,7 +715,7 @@ public class StorageDelegatorTest {
      * Replace a Node in Ways it is a member of
      */
     @Test
-    public void repplaceNodeInWays() {
+    public void replaceNodeInWays() {
         StorageDelegator d = new StorageDelegator();
         Way w = DelegatorUtil.addWayToStorage(d, false);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
@@ -1369,5 +1370,35 @@ public class StorageDelegatorTest {
         assertTrue(circle.isClosed());
         assertEquals(n1, circle.getFirstNode());
         assertEquals(44, circle.nodeCount());
+    }
+
+    /**
+     * Replace a node relation memeber with a way
+     */
+    @Test
+    public void replaceRelationMemberElement() {
+        StorageDelegator d = UnitTestUtils.loadTestData(this.getClass(), "replace_geometry4.osm");
+        Relation r = (Relation) d.getOsmElement(Relation.NAME, -3L);
+        Way w = (Way) d.getOsmElement(Way.NAME, -1L);
+        Node n = (Node) d.getOsmElement(Node.NAME, -14L);
+        List<Relation> parents = n.getParentRelations();
+        assertNotNull(parents);
+        assertEquals(1, parents.size());
+        assertEquals(r, parents.get(0));
+        List<RelationMember> members = r.getMembers();
+        assertNotNull(members);
+        assertEquals(1, members.size());
+        assertEquals(n, members.get(0).getElement());
+        d.replaceRelationMemberElement(r, n, w);
+        parents = n.getParentRelations();
+        assertTrue(parents == null || parents.isEmpty());
+        parents = w.getParentRelations();
+        assertNotNull(parents);
+        assertEquals(1, parents.size());
+        assertEquals(r, parents.get(0));
+        members = r.getMembers();
+        assertNotNull(members);
+        assertEquals(1, members.size());
+        assertEquals(w, members.get(0).getElement());
     }
 }
