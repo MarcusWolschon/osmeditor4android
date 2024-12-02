@@ -20,7 +20,6 @@ import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import de.blau.android.R;
 import de.blau.android.util.LocaleUtils;
-import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
@@ -47,19 +46,8 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
     public void onResume() {
         Log.d(DEBUG_TAG, "onResume");
         super.onResume();
-        Preference apiPref = getPreferenceScreen().findPreference(apiPrefKey);
-        if (apiPref != null) {
-            API current = db.getCurrentAPI();
-            if (current.id.equals(AdvancedPrefDatabase.ID_DEFAULT)) {
-                apiPref.setSummary(R.string.config_apibutton_summary);
-            } else {
-                apiPref.setSummary("".equals(current.name) ? current.url : current.name);
-            }
-            Preference loginpref = getPreferenceScreen().findPreference(r.getString(R.string.config_loginbutton_key));
-            if (loginpref != null) {
-                loginpref.setSummary(current.user != null && !"".equals(current.user) ? current.user : r.getString(R.string.config_username_summary));
-            }
-        }
+        
+        setUpApiPrefs();
 
         ListPreference cameraAppPref = getPreferenceScreen().findPreference(r.getString(R.string.config_selectCameraApp_key));
         if (cameraAppPref != null) {
@@ -112,6 +100,25 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         }
 
         setTitle();
+    }
+
+    /**
+     * Set up the API preferences
+     */
+    private void setUpApiPrefs() {
+        Preference apiPref = getPreferenceScreen().findPreference(apiPrefKey);
+        if (apiPref != null) {
+            API current = db.getCurrentAPI();
+            if (current.id.equals(AdvancedPrefDatabase.ID_DEFAULT)) {
+                apiPref.setSummary(R.string.config_apibutton_summary);
+            } else {
+                apiPref.setSummary("".equals(current.name) ? current.url : current.name);
+            }
+            Preference loginpref = getPreferenceScreen().findPreference(r.getString(R.string.config_loginbutton_key));
+            if (loginpref != null) {
+                loginpref.setSummary(current.user != null && !"".equals(current.user) ? current.user : r.getString(R.string.config_username_summary));
+            }
+        }
     }
 
     /**
