@@ -197,6 +197,10 @@ public class RelationTest {
         TestUtils.clickAtCoordinates(device, map, 8.3881251, 47.3885077, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_2)));
         TestUtils.clickAtCoordinates(device, map, 8.3881577, 47.3886924, true);
+        // click away issue
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_conflict_title)));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.Done), true, false));
+        
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
 
         assertTrue(TestUtils.clickOverflowButton(device));
@@ -264,6 +268,11 @@ public class RelationTest {
         TestUtils.clickAtCoordinates(device, map, 8.3881251, 47.3885077, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_2)));
         TestUtils.clickAtCoordinates(device, map, 8.3881577, 47.3886924, true);
+        
+        // click away issue
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_conflict_title)));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.Done), true, false));
+        
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
         TestUtils.clickUp(device);
         //

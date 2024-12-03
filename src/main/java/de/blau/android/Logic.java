@@ -101,6 +101,7 @@ import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.ReplaceIssue;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.SplitIssue;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
@@ -2155,9 +2156,12 @@ public class Logic {
         createCheckpoint(activity, R.string.undo_action_split_way);
         try {
             displayAttachedObjectWarning(activity, way);
-            List<Result> result = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
+            List<Result> results = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
+            if (!createPolygons) {
+                checkForArea(activity, way, results);
+            }
             invalidateMap();
-            return result;
+            return results;
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
@@ -2180,8 +2184,11 @@ public class Logic {
             displayAttachedObjectWarning(activity, way);
             List<Result> result = null;
             if (way.isClosed()) {
+                // extracted segment is in the 2nd result
                 result = getDelegator().splitAtNodes(way, node1, node2, false);
-                return result.subList(1, result.size()); // extracted segment is in the 2nd result
+                result = result.subList(1, result.size());
+                checkForArea(activity, way, result);
+                return result;
             } else if (way.isEndNode(node1)) {
                 result = extractSegmentAtEnd(way, node1, node2);
             } else if (way.isEndNode(node2)) {
@@ -2200,6 +2207,19 @@ public class Logic {
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex;
+        }
+    }
+
+    /**
+     * If Way has implied area semantics or an explicit area=yes, add an issue to the result
+     * 
+     * @param activity an Activity
+     * @param way the Way
+     * @param results a list of Result
+     */
+    private void checkForArea(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull List<Result> results) {
+        if (way.hasTag(Tags.KEY_AREA, Tags.VALUE_YES) || ( activity != null && App.getAreaTags(activity).isImpliedArea(way.getTags()))) {
+            results.get(0).addIssue(SplitIssue.SPLIT_AREA);
         }
     }
 
