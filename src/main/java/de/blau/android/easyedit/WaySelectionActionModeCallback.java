@@ -200,7 +200,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         updated |= setItemVisibility(joined, unjoinItem, false);
         updated |= setItemVisibility(joined, unjoinDissimilarItem, false);
 
-        updated |= setItemVisibility(size >= 3 && !closed, extractSegmentItem, false);
+        updated |= setItemVisibility(size >= 3, extractSegmentItem, false);
 
         if (updated) {
             arrangeMenu(menu);

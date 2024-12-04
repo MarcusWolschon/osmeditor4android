@@ -101,6 +101,7 @@ import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.ReplaceIssue;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.SplitIssue;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
@@ -2144,19 +2145,23 @@ public class Logic {
      * @param node1 first split point
      * @param node2 second split point
      * @param createPolygons create polygons by closing the split ways if true
-     * @return null if the split fails, the two ways otherwise
+     * @return a List of Result objects containing the original Way in the 1st element and the new Way in the 2ndand any
+     *         issues
      * @throws OsmIllegalOperationException if the operation failed
      * @throws StorageException if we ran out of memory
      */
     @NonNull
-    public synchronized Way[] performClosedWaySplit(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2,
+    public synchronized List<Result> performClosedWaySplit(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2,
             boolean createPolygons) {
         createCheckpoint(activity, R.string.undo_action_split_way);
         try {
             displayAttachedObjectWarning(activity, way);
-            Way[] result = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
+            List<Result> results = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
+            if (!createPolygons) {
+                checkForArea(activity, way, results);
+            }
             invalidateMap();
-            return result;
+            return results;
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
@@ -2167,10 +2172,10 @@ public class Logic {
      * Extract a segment from a way (the way between two nodes of the same way)
      * 
      * @param activity activity we were called fron
-     * @param way Unclosed Way to split
+     * @param way Way to split
      * @param node1 first split point
      * @param node2 second split point
-     * @return null if the split fails, the segment otherwise
+     * @return the segment in the 1st Result if successful, otherwise the results contain issues
      */
     @NonNull
     public synchronized List<Result> performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
@@ -2178,15 +2183,18 @@ public class Logic {
         try {
             displayAttachedObjectWarning(activity, way);
             List<Result> result = null;
-            if (way.isEndNode(node1)) {
+            if (way.isClosed()) {
+                // extracted segment is in the 2nd result
+                result = getDelegator().splitAtNodes(way, node1, node2, false);
+                result = result.subList(1, result.size());
+                checkForArea(activity, way, result);
+                return result;
+            } else if (way.isEndNode(node1)) {
                 result = extractSegmentAtEnd(way, node1, node2);
             } else if (way.isEndNode(node2)) {
                 result = extractSegmentAtEnd(way, node2, node1);
             } else {
                 result = getDelegator().splitAtNode(way, node1, true);
-                if (result.isEmpty()) {
-                    throw new OsmIllegalOperationException("Splitting way " + way.getOsmId() + " at node " + node1.getOsmId() + " failed");
-                }
                 Result first = result.get(0);
                 boolean splitOriginal = way.hasNode(node2);
                 Way newWay = (Way) first.getElement();
@@ -2199,6 +2207,19 @@ public class Logic {
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex;
+        }
+    }
+
+    /**
+     * If Way has implied area semantics or an explicit area=yes, add an issue to the result
+     * 
+     * @param activity an Activity
+     * @param way the Way
+     * @param results a list of Result
+     */
+    private void checkForArea(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull List<Result> results) {
+        if (way.hasTag(Tags.KEY_AREA, Tags.VALUE_YES) || ( activity != null && App.getAreaTags(activity).isImpliedArea(way.getTags()))) {
+            results.get(0).addIssue(SplitIssue.SPLIT_AREA);
         }
     }
 

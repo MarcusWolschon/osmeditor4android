@@ -34,6 +34,8 @@ import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.dialogs.ErrorAlert;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.RelationUtils;
@@ -551,6 +553,45 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         } else {
             runnable.run();
         }
+    }
+
+    /**
+     * Extract a segment(s) from a List of Way given two nodes on all the Ways
+     * 
+     * @param ways a List of Ways
+     * @param n1 1st Node
+     * @param n2 2nd Node
+     * @return a Runnable that will actually do the work
+     */
+    @NonNull
+    protected Runnable extractSegment(@NonNull final List<Way> ways, @NonNull final Node n1, @NonNull final Node n2) {
+        return () -> {
+            try {
+                List<OsmElement> segments = new ArrayList<>();
+                for (Way way : ways) {
+                    List<Result> result = logic.performExtractSegment(main, way, n1, n2);
+                    checkSplitResult(way, result);
+                    Way segment = newWayFromSplitResult(result);
+                    if (segment == null) {
+                        throw new OsmIllegalOperationException("null segment");
+                    }
+                    segments.add(segment);
+                }
+                if (segments.size() == 1) {
+                    Way segment = (Way) segments.get(0);
+                    if (segment.hasTagKey(Tags.KEY_HIGHWAY) || segment.hasTagKey(Tags.KEY_WATERWAY)) {
+                        main.startSupportActionMode(new WaySegmentModifyActionModeCallback(manager, segment));
+                    } else {
+                        main.startSupportActionMode(new WaySelectionActionModeCallback(manager, segment));
+                    }
+                } else {
+                    main.startSupportActionMode(new MultiSelectActionModeCallback(manager, segments));
+                }
+            } catch (OsmIllegalOperationException | StorageException ex) {
+                // toast has already been displayed
+                manager.finish();
+            }
+        };
     }
 
     /**

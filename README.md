@@ -75,6 +75,10 @@ Vespucci utilizes a number of independent, separately maintained, projects. The 
 * [OpeningHoursFragment](https://github.com/simonpoole/OpeningHoursFragment) opening hours user interface
 * [Name Suggestion Index](https://github.com/osmlab/name-suggestion-index) name/brand-related tag suggestions database
 * [iD tagging schema](https://github.com/openstreetmap/id-tagging-schema) for synonyms used for searching presets
+* [geocontext](https://github.com/simonpoole/geocontext) country/region specific speed limits and similar
+* [osm-area-tags](https://github.com/simonpoole/osm-area-tags) OSM tags that imply area semantics
+
+You can update both the imagery and preset configuration from within the app, the other configuration files are updated when necessary in the APK. 
 
 ## License and trademarks
 

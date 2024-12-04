@@ -14,8 +14,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
+import de.blau.android.DisambiguationMenu;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.DisambiguationMenu.Type;
 import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
@@ -23,6 +25,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -46,11 +49,13 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
     private static final int MENUITEM_INTERSECT            = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 5;
     private static final int MENUITEM_CREATE_CIRCLE        = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 6;
     private static final int MENUITEM_ROTATE               = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 7;
+    private static final int MENUITEM_EXTRACT_SEGMENT      = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 8;
 
     private MenuItem mergeItem;
     private MenuItem orthogonalizeItem;
     private MenuItem intersectItem;
     private MenuItem createCircleItem;
+    private MenuItem extractSegmentItem;
 
     /**
      * Construct an Multi-Select actionmode from a List of OsmElements
@@ -87,6 +92,8 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
 
         mergeItem = menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
 
+        extractSegmentItem = menu.add(Menu.NONE, MENUITEM_EXTRACT_SEGMENT, Menu.NONE, R.string.menu_extract_segment);
+
         menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation));
 
@@ -122,6 +129,11 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
 
         updated |= ElementSelectionActionModeCallback.setItemVisibility(countType(ElementType.NODE) >= StorageDelegator.MIN_NODES_CIRCLE, createCircleItem,
                 false);
+
+        if (selection.size() == 2 && selection.get(0) instanceof Node && selection.get(1) instanceof Node) {
+            List<Way> commonWays = getWaysForNodes((Node) selection.get(0), (Node) selection.get(1));
+            updated |= ElementSelectionActionModeCallback.setItemVisibility(!commonWays.isEmpty(), extractSegmentItem, true);
+        }
 
         if (updated) {
             arrangeMenu(menu);
@@ -176,58 +188,94 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        if (!super.onActionItemClicked(mode, item)) {
-            switch (item.getItemId()) {
-            case ElementSelectionActionModeCallback.MENUITEM_DELETE:
-                menuDelete(false);
-                break;
-            case ElementSelectionActionModeCallback.MENUITEM_COPY:
-                logic.copyToClipboard(selection);
-                mode.finish();
-                break;
-            case ElementSelectionActionModeCallback.MENUITEM_CUT:
-                logic.cutToClipboard(main, selection);
-                mode.finish();
-                break;
-            case MENUITEM_RELATION:
-                ElementSelectionActionModeCallback.buildPresetSelectDialog(main,
-                        p -> main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager,
-                                p != null ? p.getPath(App.getCurrentRootPreset(main).getRootGroup()) : null, selection)),
-                        ElementType.RELATION, R.string.select_relation_type_title, Tags.KEY_TYPE, null).show();
-                break;
-            case MENUITEM_ADD_RELATION_MEMBERS:
-                ElementSelectionActionModeCallback.buildRelationSelectDialog(main, r -> {
-                    Relation relation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
-                    if (relation != null) {
-                        main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager, relation, selection));
-                    }
-                }, -1, R.string.select_relation_title, null, null, selection).show();
-                break;
-            case MENUITEM_ORTHOGONALIZE:
-                orthogonalizeWays();
-                break;
-            case MENUITEM_MERGE:
-                if (canMergePolygons(selection)) {
-                    mergePolygons();
-                } else {
-                    mergeWays();
+        if (super.onActionItemClicked(mode, item)) {
+            return true;
+        }
+        switch (item.getItemId()) {
+        case ElementSelectionActionModeCallback.MENUITEM_DELETE:
+            menuDelete(false);
+            break;
+        case ElementSelectionActionModeCallback.MENUITEM_COPY:
+            logic.copyToClipboard(selection);
+            mode.finish();
+            break;
+        case ElementSelectionActionModeCallback.MENUITEM_CUT:
+            logic.cutToClipboard(main, selection);
+            mode.finish();
+            break;
+        case MENUITEM_RELATION:
+            ElementSelectionActionModeCallback.buildPresetSelectDialog(main,
+                    p -> main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager,
+                            p != null ? p.getPath(App.getCurrentRootPreset(main).getRootGroup()) : null, selection)),
+                    ElementType.RELATION, R.string.select_relation_type_title, Tags.KEY_TYPE, null).show();
+            break;
+        case MENUITEM_ADD_RELATION_MEMBERS:
+            ElementSelectionActionModeCallback.buildRelationSelectDialog(main, r -> {
+                Relation relation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
+                if (relation != null) {
+                    main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager, relation, selection));
                 }
-                break;
-            case MENUITEM_INTERSECT:
-                intersectWays();
-                break;
-            case MENUITEM_CREATE_CIRCLE:
-                createCircle();
-                break;
-            case MENUITEM_ROTATE:
-                deselectOnExit = false;
-                main.startSupportActionMode(new RotationActionModeCallback(manager));
-                break;
-            default:
-                return false;
+            }, -1, R.string.select_relation_title, null, null, selection).show();
+            break;
+        case MENUITEM_ORTHOGONALIZE:
+            orthogonalizeWays();
+            break;
+        case MENUITEM_MERGE:
+            if (canMergePolygons(selection)) {
+                mergePolygons();
+            } else {
+                mergeWays();
             }
+            break;
+        case MENUITEM_INTERSECT:
+            intersectWays();
+            break;
+        case MENUITEM_CREATE_CIRCLE:
+            createCircle();
+            break;
+        case MENUITEM_ROTATE:
+            deselectOnExit = false;
+            main.startSupportActionMode(new RotationActionModeCallback(manager));
+            break;
+        case MENUITEM_EXTRACT_SEGMENT:
+            extractSegment();
+            break;
+        default:
+            return false;
         }
         return true;
+    }
+
+    /**
+     * Extract a segment from way(s) between two nodes
+     */
+    private void extractSegment() {
+        if (selection.size() == 2 && selection.get(0) instanceof Node && selection.get(1) instanceof Node) {
+            final Node node1 = (Node) selection.get(0);
+            final Node node2 = (Node) selection.get(1);
+            List<Way> commonWays = getWaysForNodes(node1, node2);
+            if (!commonWays.isEmpty()) {
+                if (commonWays.size() == 1) {
+                    splitSafe(commonWays, extractSegment(commonWays, node1, node2));
+                } else {
+                    DisambiguationMenu menu = new DisambiguationMenu(main.getMap());
+                    menu.setHeaderTitle(R.string.select_way_to_extract_from);
+                    int id = 0;
+                    menu.add(id, Type.WAY, main.getString(R.string.split_all_ways),
+                            (int position) -> splitSafe(commonWays, extractSegment(commonWays, node1, node2)));
+                    id++;
+                    for (Way w : commonWays) {
+                        menu.add(id, Type.WAY, w.getDescription(main),
+                                (int position) -> splitSafe(Util.wrapInList(w), extractSegment(Util.wrapInList(w), node1, node2)));
+                        id++;
+                    }
+                    menu.show();
+                }
+                return;
+            }
+        }
+        Log.e(DEBUG_TAG, "extractSegment called but selection is invalid");
+
     }
 
     /**
@@ -336,6 +384,32 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         } catch (OsmIllegalOperationException | IllegalStateException e) {
             ScreenMessage.barError(main, e.getLocalizedMessage());
         }
+    }
+
+    /**
+     * Get a list of all the Ways common to the two given Nodes.
+     * 
+     * @param node1 the 1st Node
+     * @param node2 the 2nd Node
+     * @return A list of all Ways connected to both Nodes
+     */
+    @NonNull
+    public List<Way> getWaysForNodes(@NonNull final Node node1, @NonNull final Node node2) {
+        List<Way> result = new ArrayList<>();
+        final Storage currentStorage = App.getDelegator().getCurrentStorage();
+        List<Way> ways1 = currentStorage.getWays(node1);
+        List<Way> ways2 = currentStorage.getWays(node2);
+        if (ways1.size() < ways2.size()) {
+            List<Way> temp = ways2;
+            ways2 = ways1;
+            ways1 = temp;
+        }
+        for (Way w : ways1) {
+            if (ways2.contains(w)) {
+                result.add(w);
+            }
+        }
+        return result;
     }
 
     /**

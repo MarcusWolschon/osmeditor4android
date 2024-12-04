@@ -57,6 +57,7 @@ import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.tasks.TaskStorage;
+import de.blau.android.util.AreaTags;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NotificationCache;
@@ -186,6 +187,12 @@ public class App extends Application implements android.app.Application.Activity
      */
     private static DataStyle    dataStyle;
     private static final Object dataStyleLock = new Object();
+
+    /**
+     * Implied area tags
+     */
+    private static AreaTags     areaTags;
+    private static final Object areaTagsLock = new Object();
 
     private static Configuration configuration = null;
 
@@ -781,6 +788,22 @@ public class App extends Application implements android.app.Application.Activity
                 dataStyle.getStylesFromFiles(ctx);
             }
             return dataStyle;
+        }
+    }
+
+    /**
+     * Get the AreaTags object
+     * 
+     * @param ctx am Android Context
+     * @return an AreaTags object
+     */
+    @NonNull
+    public static AreaTags getAreaTags(@NonNull Context ctx) {
+        synchronized (areaTagsLock) {
+            if (areaTags == null) {
+                areaTags = new AreaTags(ctx);
+            }
+            return areaTags;
         }
     }
 

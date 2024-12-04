@@ -138,6 +138,14 @@ task updateGeocontext(type: Download) {
 updateGeocontext.group = 'vespucci'
 updateGeocontext.description = 'Update the geocontext configuration'
 
+task updateAreaTags(type: Download) {
+    acceptAnyCertificate true
+    src 'https://raw.githubusercontent.com/simonpoole/osm-area-tags/master/area-tags.json'
+    dest new File(projectDir.getPath() + '/src/main/assets/area-tags.json')
+}
+updateAreaTags.group = 'vespucci'
+updateAreaTags.description = 'Update the area tags configuration'
+
 task updateNameSuggestionIndex(type: Download) {
     acceptAnyCertificate true
     src 'https://raw.githubusercontent.com/osmlab/name-suggestion-index/main/dist/nsi.min.json'

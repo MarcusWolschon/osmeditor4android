@@ -10,7 +10,7 @@ import de.blau.android.R;
  *
  */
 public enum SplitIssue implements Issue {
-    SPLIT_METRIC, SPLIT_ROUTE_ORDERING;
+    SPLIT_METRIC, SPLIT_ROUTE_ORDERING, SPLIT_AREA;
 
     @Override
     public String toTranslatedString(Context context) {
@@ -18,6 +18,8 @@ public enum SplitIssue implements Issue {
             return context.getString(R.string.issue_split_metric);
         } else if (SPLIT_ROUTE_ORDERING.equals(this)) {
             return context.getString(R.string.issue_split_route_ordering);
+        } else if (SPLIT_AREA.equals(this)) {
+            return context.getString(R.string.issue_split_area);
         } else {
             return "";
         }

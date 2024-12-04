@@ -1223,6 +1223,7 @@
     <string name="menu_snap">Snap</string>
     <string name="menu_follow_way">Follow way</string>
     <string name="select_follow_way">Select way to follow</string>
+    <string name="select_way_to_extract_from">Select way to extract segment from</string>
     <!-- Simple Action Mode -->
     <string name="menu_add_node">Add node</string>
     <string name="simple_add_node">Tap the screen position</string>
@@ -1683,6 +1684,7 @@
     <string name="issue_merged_metric">Length dependent value was merged</string>
     <string name="issue_split_metric">Length dependent value was split</string>
     <string name="issue_split_route_ordering">Route may need manual reordering</string>
+    <string name="issue_split_area">Area split, may need to be converted to a multipolygon</string>
     <string name="issue_precondition_relation_member_count">Relation member count exceeded</string>
     <string name="issue_replace_extracted_node">Tagged node extracted from way</string>
     <string name="issue_replace_member_element_replaced">Member element replaced</string>

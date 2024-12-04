@@ -7,10 +7,12 @@ import java.util.List;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
+import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
 
@@ -88,17 +90,24 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
         super.handleElementClick(element);
         try {
             if (element instanceof Node) {
-                Way[] result = logic.performClosedWaySplit(main, way, node, (Node) element, createPolygons);
-                if (result.length == 2) {
-                    logic.setSelectedNode(null);
-                    logic.setSelectedRelation(null);
-                    logic.setSelectedWay(result[0]);
-                    logic.addSelectedWay(result[1]);
-                    List<OsmElement> selection = new ArrayList<>();
-                    selection.addAll(logic.getSelectedWays());
-                    main.startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(manager, selection));
-                    return true;
+                List<Result> results = logic.performClosedWaySplit(main, way, node, (Node) element, createPolygons);
+                logic.setSelectedNode(null);
+                logic.setSelectedRelation(null);
+                logic.setSelectedWay((Way) results.get(0).getElement());
+                logic.addSelectedWay((Way) results.get(1).getElement());
+                List<OsmElement> selection = new ArrayList<>();
+                selection.addAll(logic.getSelectedWays());
+                main.startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(manager, selection));
+                List<Result> resultsWithIssue = new ArrayList<>();
+                for (Result r : results) {
+                    if (r.hasIssue()) {
+                        resultsWithIssue.add(r);
+                    }
                 }
+                if (!resultsWithIssue.isEmpty()) {
+                    ElementIssueDialog.showTagConflictDialog(main, resultsWithIssue);
+                }
+                return true;
             }
         } catch (OsmIllegalOperationException | StorageException ex) {
             // toast has already been displayed

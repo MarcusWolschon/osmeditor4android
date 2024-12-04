@@ -9,12 +9,8 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
-import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.Result;
-import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.SerializableState;
@@ -117,21 +113,8 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
         if (segmentNodes.length == 2) {
             final Node n1 = segmentNodes[0];
             final Node n2 = segmentNodes[1];
-            splitSafe(Util.wrapInList(way), () -> {
-                try {
-                    List<Result> result = logic.performExtractSegment(main, way, n1, n2);
-                    checkSplitResult(way, result);
-                    Way segment = newWayFromSplitResult(result);
-                    if (segment.hasTagKey(Tags.KEY_HIGHWAY) || segment.hasTagKey(Tags.KEY_WATERWAY)) {
-                        main.startSupportActionMode(new WaySegmentModifyActionModeCallback(manager, segment));
-                    } else {
-                        main.startSupportActionMode(new WaySelectionActionModeCallback(manager, segment));
-                    }
-                } catch (OsmIllegalOperationException | StorageException ex) {
-                    // toast has already been displayed
-                    manager.finish();
-                }
-            });
+            final List<Way> wayList = Util.wrapInList(way);
+            splitSafe(wayList, extractSegment(wayList, n1, n2));
         }
         return true;
     }
