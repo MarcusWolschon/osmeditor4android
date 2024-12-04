@@ -123,7 +123,7 @@ public class Authorize extends WebViewActivity {
             }
 
             // Remove navigation and sign up tab from osm.org
-            
+
             // @formatter:off
             String script = "(function() {" 
                     + "var navs = document.getElementsByTagName('nav');" 
@@ -210,9 +210,7 @@ public class Authorize extends WebViewActivity {
         // remove any cookies, in particular session cookies, this might seem to be overkill, but there is no per cookie
         // method
         final CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.removeAllCookies((Boolean b) -> {
-            cookieManager.flush();
-        });
+        cookieManager.removeAllCookies((Boolean b) -> cookieManager.flush());
         super.onDestroy();
     }
 }
