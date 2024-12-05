@@ -420,7 +420,8 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
      * @param map current Map
      * @param type the layer type
      */
-    private void addStyleableLayerFromFile(final FragmentActivity activity, final Preferences prefs, final Map map, @NonNull final LayerType type) {
+    private void addStyleableLayerFromFile(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map,
+            @NonNull final LayerType type) {
         Log.d(DEBUG_TAG, "addStyleableLayerFromFile");
         SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
             private static final long serialVersionUID = 1L;
