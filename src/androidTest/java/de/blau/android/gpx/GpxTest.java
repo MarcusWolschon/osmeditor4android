@@ -26,6 +26,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import androidx.annotation.NonNull;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -343,6 +344,55 @@ public class GpxTest {
             fail(ex.getMessage());
         }
     }
+    
+    /**
+     * Import a track file with waypoints with links
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void importWayPointsWithLinks() {
+        try {
+            File zippedGpxFile = JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "2011-06-08_13-21-55 OT.zip", null, "/");
+            assertTrue(FileUtil.unpackZip(FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), "/").getAbsolutePath() + "/", zippedGpxFile.getName()));
+            assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+            assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
+            TestUtils.selectFile(device, main, "2011-06-08_13-21-55 OT", "2011-06-08_13-21-55.gpx", true);
+            TestUtils.textGone(device, "Imported", 10000);
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+            MapViewLayer foundLayer = null;
+            for (MapViewLayer layer : main.getMap().getLayers()) {
+                if (layer instanceof de.blau.android.layer.gpx.MapOverlay && "2011-06-08_13-21-55.gpx".equals(layer.getName())) {
+                    foundLayer = layer;
+                    break;
+                }
+            }
+            assertNotNull(foundLayer);
+            
+            Track track = ((de.blau.android.layer.gpx.MapOverlay)foundLayer).getTrack();
+            assertEquals(3, track.getWayPoints().size());
+            WayPoint wp = track.getWayPoints().get(0);
+            
+            Map map = main.getMap();
+            ViewBox viewBox = map.getViewBox();
+            App.getLogic().setZoom(map, 19);
+            viewBox.moveTo(map, wp.getLon(), wp.getLat()); // NOSONAR
+            map.invalidate();
+
+            TestUtils.unlock(device);
+
+            TestUtils.clickAtCoordinates(device, map, wp.getLon(), wp.getLat(), true);
+            assertTrue(TestUtils.findText(device, false, "2011-06-08_13-22-47.3gpp", 1000, true));
+            assertTrue(TestUtils.clickText(device, false, "2011-06-08_13-22-47.3gpp", true, false));   
+            // unblear what an assertion should look like here
+            TestUtils.sleep(10000);
+            device.pressBack();
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
+
 
     /**
      * Replay a track and pretend the output are network generated locations
