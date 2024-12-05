@@ -1,6 +1,8 @@
 package de.blau.android.gpx;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Locale;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -14,18 +16,59 @@ public class WayPoint extends TrackPoint {
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     static final String TYPE_ELEMENT = "type";
     static final String DESC_ELEMENT = "desc";
     static final String NAME_ELEMENT = "name";
     static final String WPT_ELEMENT  = "wpt";
     static final String SYM_ELEMENT  = "sym";
+    static final String LINK_ELEMENT = "link";
 
-    private String name;
-    private String description;
-    private String type;
-    private String symbol;
+    private String     name;
+    private String     description;
+    private String     type;
+    private String     symbol;
+    private List<Link> links;
+
+    public static class Link implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
+        static final String TEXT_ELEMENT = "text";
+        static final String HREF_ATTR    = "href";
+
+        private String url;
+        private String description;
+
+        /**
+         * @return the description
+         */
+        public String getDescription() {
+            return description;
+        }
+
+        /**
+         * @param description the description to set
+         */
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        /**
+         * @return the url
+         */
+        public String getUrl() {
+            return url;
+        }
+
+        /**
+         * @param url the url to set
+         */
+        public void setUrl(String url) {
+            this.url = url;
+        }
+    }
 
     /**
      * Construct a new WayPoint
@@ -34,18 +77,9 @@ public class WayPoint extends TrackPoint {
      * @param longitude the longitude (WSG84)
      * @param altitude altitude in meters
      * @param time time (ms since the epoch)
-     * @param name optional name value
-     * @param description optional description
-     * @param type optional type value
-     * @param symbol optional symbol
      */
-    public WayPoint(double latitude, double longitude, double altitude, long time, @Nullable String name, @Nullable String description, @Nullable String type,
-            @Nullable String symbol) {
+    public WayPoint(double latitude, double longitude, double altitude, long time) {
         super((byte) 0, latitude, longitude, altitude, time);
-        this.name = name;
-        this.description = description;
-        this.type = type;
-        this.symbol = symbol;
     }
 
     @Override
@@ -68,6 +102,18 @@ public class WayPoint extends TrackPoint {
         }
         if (symbol != null) {
             serializer.startTag(null, SYM_ELEMENT).text(symbol).endTag(null, SYM_ELEMENT);
+        }
+        if (links != null) {
+            for (Link link : links) {
+                serializer.startTag(null, LINK_ELEMENT);
+                if (link.getUrl() != null) {
+                    serializer.attribute(null, Link.HREF_ATTR, link.getUrl());
+                }
+                if (link.getDescription() != null) {
+                    serializer.startTag(null, Link.TEXT_ELEMENT).text(link.getDescription()).endTag(null, Link.TEXT_ELEMENT);
+                }
+                serializer.endTag(null, LINK_ELEMENT);
+            }
         }
         serializer.endTag(null, WPT_ELEMENT);
     }
@@ -93,6 +139,15 @@ public class WayPoint extends TrackPoint {
     }
 
     /**
+     * Set an optional symbol value
+     * 
+     * @param symbol the symbol value
+     */
+    public void setSymbol(@Nullable String symbol) {
+        this.symbol = symbol;
+    }
+
+    /**
      * Get the name if any
      * 
      * @return the name
@@ -103,6 +158,15 @@ public class WayPoint extends TrackPoint {
     }
 
     /**
+     * Set optional name value
+     * 
+     * @param name the name
+     */
+    public void setName(@Nullable String name) {
+        this.name = name;
+    }
+
+    /**
      * Get a description if any
      * 
      * @return the description
@@ -110,6 +174,15 @@ public class WayPoint extends TrackPoint {
     @Nullable
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Set an optional description
+     * 
+     * @param description the description
+     */
+    public void setDescription(@Nullable String description) {
+        this.description = description;
     }
 
     /**
@@ -128,6 +201,29 @@ public class WayPoint extends TrackPoint {
     @Nullable
     public String getType() {
         return type;
+    }
+
+    /**
+     * Set an optional type
+     * 
+     * @param type the type
+     */
+    public void setType(@Nullable String type) {
+        this.type = type;
+    }
+
+    /**
+     * @return the links
+     */
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    /**
+     * @param links the links to set
+     */
+    public void setLinks(@Nullable List<Link> links) {
+        this.links = links;
     }
 
     /**

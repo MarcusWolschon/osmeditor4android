@@ -1,5 +1,7 @@
 package de.blau.android.gpx;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -39,6 +41,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.contract.FileExtensions;
+import de.blau.android.gpx.WayPoint.Link;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SavingHelper;
@@ -51,7 +54,8 @@ import de.blau.android.util.SavingHelper.Exportable;
  */
 public class Track extends DefaultHandler implements GpxTimeFormater, Exportable {
 
-    private static final String DEBUG_TAG = Track.class.getSimpleName().substring(0, Math.min(23, Track.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Track.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Track.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TRKSEG_ELEMENT = "trkseg";
     private static final String TRK_ELEMENT    = "trk";
@@ -528,6 +532,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
      */
     private void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
         SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
+        factory.setNamespaceAware(true);
         SAXParser saxParser = factory.newSAXParser();
         saxParser.parse(in, this);
     }
@@ -535,18 +540,20 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
     /**
      * minimalistic GPX file parser
      */
-    private boolean newSegment        = false;
-    private double  parsedLat;
-    private double  parsedLon;
-    private double  parsedEle         = Double.NaN;
-    private long    parsedTime        = 0L;
-    private String  parsedName        = null;
-    private String  parsedDescription = null;
-    private String  parsedType        = null;
-    private String  parsedSymbol      = null;
+    private boolean    newSegment        = false;
+    private double     parsedLat;
+    private double     parsedLon;
+    private double     parsedEle         = Double.NaN;
+    private long       parsedTime        = 0L;
+    private String     parsedName        = null;
+    private String     parsedDescription = null;
+    private String     parsedType        = null;
+    private String     parsedSymbol      = null;
+    private Link       parsedLink        = null;
+    private List<Link> parsedLinks       = new ArrayList<>();
 
     private enum State {
-        NONE, TIME, ELE, NAME, DESC, TYPE, SYM
+        NONE, TIME, ELE, NAME, DESC, TYPE, SYM, LINK, TRACK, WAYPOINT, WAYPOINT_LINK, LINK_TEXT
     }
 
     private State state = State.NONE;
@@ -561,6 +568,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
                 break;
             case TRK_ELEMENT:
                 Log.d(DEBUG_TAG, "parsing trk");
+                state = State.TRACK;
                 break;
             case TRKSEG_ELEMENT:
                 Log.d(DEBUG_TAG, "parsing trkseg");
@@ -570,6 +578,10 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
             case WayPoint.WPT_ELEMENT:
                 parsedLat = Double.parseDouble(atts.getValue(TrackPoint.LAT_ATTR));
                 parsedLon = Double.parseDouble(atts.getValue(TrackPoint.LON_ATTR));
+                if (WayPoint.WPT_ELEMENT.equals(element)) {
+                    state = State.WAYPOINT;
+                    parsedLinks.clear();
+                }
                 break;
             case TrackPoint.TIME_ELEMENT:
                 state = State.TIME;
@@ -589,6 +601,20 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
             case WayPoint.SYM_ELEMENT:
                 state = State.SYM;
                 break;
+            case WayPoint.Link.TEXT_ELEMENT:
+                if (state != State.WAYPOINT_LINK) {
+                    break;
+                }
+                state = State.LINK_TEXT;
+                break;
+            case WayPoint.LINK_ELEMENT:
+                if (state != State.WAYPOINT) {
+                    break;
+                }
+                state = State.WAYPOINT_LINK;
+                parsedLink = new WayPoint.Link();
+                parsedLink.setUrl(atts.getValue(WayPoint.Link.HREF_ATTR));
+                break;
             default:
             }
         } catch (Exception e) {
@@ -598,27 +624,33 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
 
     @Override
     public void characters(char[] ch, int start, int length) {
+        final String string = new String(ch, start, length);
         switch (state) {
         case NONE:
             return;
         case ELE:
-            parsedEle = Double.parseDouble(new String(ch, start, length));
+            parsedEle = Double.parseDouble(string);
             return;
         case TIME:
             try {
-                parsedTime = parseTime(new String(ch, start, length));
+                parsedTime = parseTime(string);
             } catch (ParseException e) {
                 parsedTime = 0L;
             }
             return;
         case NAME:
-            parsedName = new String(ch, start, length);
+            parsedName = string;
             return;
         case DESC:
-            parsedDescription = new String(ch, start, length);
+            parsedDescription = string;
             return;
         case TYPE:
-            parsedType = new String(ch, start, length);
+            parsedType = string;
+            return;
+        case LINK_TEXT:
+            if (parsedLink != null) {
+                parsedLink.setDescription(string);
+            }
             return;
         default:
             break;
@@ -644,6 +676,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
         case GPX_ELEMENT:
             break;
         case TRK_ELEMENT:
+            state = State.NONE;
             break;
         case TRKSEG_ELEMENT:
             break;
@@ -652,17 +685,34 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
             newSegment = false;
             parsedEle = Double.NaN;
             parsedTime = 0L;
-            state = State.NONE;
+            state = State.TRACK;
             break;
         case WayPoint.WPT_ELEMENT:
-            currentWayPoints.add(new WayPoint(parsedLat, parsedLon, parsedEle, parsedTime, parsedName, parsedDescription, parsedType, parsedSymbol));
+            WayPoint wpt = new WayPoint(parsedLat, parsedLon, parsedEle, parsedTime);
+            wpt.setName(parsedName);
+            wpt.setDescription(parsedDescription);
+            wpt.setType(parsedType);
+            wpt.setSymbol(parsedSymbol);
+            if (!parsedLinks.isEmpty()) {
+                wpt.setLinks(new ArrayList<>(parsedLinks));
+            }
+            currentWayPoints.add(wpt);
+
             parsedEle = Double.NaN;
             parsedTime = 0L;
             parsedName = null;
             parsedDescription = null;
             parsedType = null;
             parsedSymbol = null;
+            parsedLinks.clear();
             state = State.NONE;
+            break;
+        case WayPoint.Link.TEXT_ELEMENT:
+            state = State.WAYPOINT_LINK;
+            break;
+        case WayPoint.LINK_ELEMENT:
+            parsedLinks.add(parsedLink);
+            state = State.WAYPOINT;
             break;
         case TrackPoint.TIME_ELEMENT:
         case TrackPoint.ELE_ELEMENT:
@@ -670,7 +720,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
         case WayPoint.DESC_ELEMENT:
         case WayPoint.TYPE_ELEMENT:
         case WayPoint.SYM_ELEMENT:
-            state = State.NONE;
+            state = State.WAYPOINT;
             break;
         default:
             state = State.NONE;

@@ -439,6 +439,7 @@
     <string name="altitude">Altitude</string>
     <string name="create_osm_object">Create OSM object</string>
     <string name="create_osm_object_search">Create OSM object from preset search</string>
+    <string name="waypoint_link">Link</string>
     <!-- Custom imagery dialogs  -->
     <string name="custom_layer_title">Custom imagery</string>
     <string name="oam_layer_title">OAM imagery</string>

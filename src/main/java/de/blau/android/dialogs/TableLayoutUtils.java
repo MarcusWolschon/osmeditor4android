@@ -333,6 +333,23 @@ public final class TableLayoutUtils {
     @SuppressLint("NewApi")
     @NonNull
     public static TableRow createRow(@NonNull Context context, int cell1, @Nullable CharSequence cell2, boolean isUrl, @NonNull TableLayout.LayoutParams tp) {
+        return createRow(context, context.getString(cell1), cell2, isUrl, null, tp);
+    }
+
+    /**
+     * Get a new TableRow with the provided contents - two columns
+     * 
+     * @param context an Android Context
+     * @param cell1 a string for the first cell
+     * @param cell2 text for the second cell
+     * @param isUrl if true don't allow C&amp;P on the values so that they can be clicked on
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
+    @SuppressLint("NewApi")
+    @NonNull
+    public static TableRow createRow(@NonNull Context context, @NonNull CharSequence cell1, @Nullable CharSequence cell2, boolean isUrl,
+            @Nullable View.OnClickListener listener, @NonNull TableLayout.LayoutParams tp) {
         TableRow tr = new TableRow(context);
         TextView cell = new TextView(context);
         cell.setMinEms(FIRST_CELL_WIDTH);
@@ -343,13 +360,20 @@ public final class TableLayoutUtils {
             cell.setTypeface(null, Typeface.BOLD);
         }
         cell.setEllipsize(TruncateAt.MARQUEE);
-        cell.setTextIsSelectable(true);
         tr.addView(cell);
         TableRow.LayoutParams trp = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if (cell2 == null) {
             trp.span = 2;
         }
-        addCell(context, cell2, isUrl, tr, trp);
+
+        if (listener != null) {
+            SpannableString span = new SpannableString(cell2);
+            ThemeUtils.setSpanColor(context, span, android.R.attr.textColorLink, R.color.ccc_blue);
+            addCell(context, span, isUrl, tr, trp).setOnClickListener(listener);
+            tr.setOnClickListener(listener);
+        } else {
+            addCell(context, cell2, isUrl, tr, trp);
+        }
         tr.setLayoutParams(tp);
         return tr;
     }
@@ -365,7 +389,8 @@ public final class TableLayoutUtils {
      * @return the TextView added
      */
     @NonNull
-    private static TextView addCell(@NonNull Context context, @Nullable CharSequence cellText, boolean isUrl, TableRow tr, @Nullable TableRow.LayoutParams tp) {
+    private static TextView addCell(@NonNull Context context, @Nullable CharSequence cellText, boolean isUrl, @NonNull TableRow tr,
+            @Nullable TableRow.LayoutParams tp) {
         TextView cell = new TextView(context);
         if (cellText != null) {
             cell.setText(cellText);

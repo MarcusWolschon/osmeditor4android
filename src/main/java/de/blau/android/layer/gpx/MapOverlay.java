@@ -357,7 +357,7 @@ public class MapOverlay extends StyleableFileLayer
 
     @Override
     public void onSelected(FragmentActivity activity, WayPoint wp) {
-        ViewWayPoint.showDialog(activity, wp);
+        ViewWayPoint.showDialog(activity, contentId, wp);
     }
 
     @Override
