@@ -2218,7 +2218,7 @@ public class Logic {
      * @param results a list of Result
      */
     private void checkForArea(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull List<Result> results) {
-        if (way.hasTag(Tags.KEY_AREA, Tags.VALUE_YES) || (activity != null && App.getAreaTags(activity).isImpliedArea(way.getTags()))) {
+        if (way.hasTag(Tags.KEY_AREA, Tags.VALUE_YES) || ( activity != null && App.getAreaTags(activity).isImpliedArea(way.getTags()))) {
             results.get(0).addIssue(SplitIssue.SPLIT_AREA);
         }
     }
@@ -3860,16 +3860,18 @@ public class Logic {
                     osmParser.clearBoundingBoxes(); // this removes the default bounding box
                     try (final InputStream in = new BufferedInputStream(is)) {
                         osmParser.start(in);
+                        StorageDelegator sd = getDelegator();
+                        sd.reset(false);
+                        sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
+                        sd.fixupApiStorage();
+                        if (!add && sd.getBoundingBoxes().isEmpty()) {
+                            // ensure a valid bounding box
+                            sd.addBoundingBox(sd.getCurrentStorage().calcBoundingBoxFromData());
+                        }
+                        if (map != null) {
+                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
+                        }
                     }
-                    StorageDelegator sd = getDelegator();
-                    sd.reset(false);
-                    sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
-                    sd.fixupApiStorage();
-                    if (!add && sd.getBoundingBoxes().isEmpty()) {
-                        // ensure a valid bounding box
-                        sd.addBoundingBox(sd.getCurrentStorage().calcBoundingBoxFromData());
-                    }
-                    fitToBoundingBox(sd);
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "Problem parsing ", e);
                     Exception ce = e.getException();
@@ -3892,17 +3894,6 @@ public class Logic {
     }
 
     /**
-     * Set the current ViewBox to the last BoundingBox held by the StorageDelegator
-     * 
-     * @param sd the StorageDelegator
-     */
-    private void fitToBoundingBox(StorageDelegator sd) {
-        if (map != null) {
-            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
-        }
-    }
-
-    /**
      * Write data to a file in (J)OSM compatible format, if fileName contains directories these are created, otherwise
      * it is stored in the standard public dir
      * 
@@ -3911,9 +3902,10 @@ public class Logic {
      * @param postSaveHandler if not null executes code after saving
      */
     public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
-        try (OutputStream os = new FileOutputStream(FileUtil.openFileForWriting(activity, fileName))) {
-            Log.d(DEBUG_TAG, "Saving to " + fileName);
-            writeOsmFile(activity, os, postSaveHandler);
+        try {
+            File outfile = FileUtil.openFileForWriting(activity, fileName);
+            Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
+            writeOsmFile(activity, new FileOutputStream(outfile), postSaveHandler);
         } catch (IOException e) {
             if (!activity.isFinishing()) {
                 ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
@@ -3932,8 +3924,8 @@ public class Logic {
      * @param postSaveHandler if not null executes code after saving
      */
     public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable final PostAsyncActionHandler postSaveHandler) {
-        try (OutputStream os = activity.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE)) {
-            writeOsmFile(activity, os, postSaveHandler);
+        try {
+            writeOsmFile(activity, activity.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE), postSaveHandler);
         } catch (IOException e) {
             if (!activity.isFinishing()) {
                 ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
@@ -3969,6 +3961,8 @@ public class Logic {
                 } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException | IOException e) {
                     result = ErrorCodes.FILE_WRITE_FAILED;
                     Log.e(DEBUG_TAG, "Problem writing", e);
+                } finally {
+                    SavingHelper.close(fout);
                 }
                 return result;
             }
@@ -4013,11 +4007,8 @@ public class Logic {
      * @throws FileNotFoundException when the selected file could not be found
      */
     public void readPbfFile(@NonNull final FragmentActivity activity, @NonNull Uri uri, boolean add) throws FileNotFoundException {
-        try (final InputStream is = activity.getContentResolver().openInputStream(uri)) {
-            readPbfFile(activity, is, add, null);
-        } catch (IOException e) {
-            Log.e(DEBUG_TAG, "Problem closing PBF " + e.getMessage());
-        }
+        final InputStream is = activity.getContentResolver().openInputStream(uri);
+        readPbfFile(activity, is, add, null);
     }
 
     /**
@@ -4038,13 +4029,19 @@ public class Logic {
                 synchronized (Logic.this) {
                     try {
                         Storage storage = new Storage();
-                        BlockReaderAdapter opp = new OsmPbfParser(storage);
-                        new BlockInputStream(is, opp).process();
-                        StorageDelegator sd = getDelegator();
-                        sd.reset(false);
-                        sd.setCurrentStorage(storage); // this sets dirty flag
-                        sd.fixupApiStorage();
-                        fitToBoundingBox(sd);
+                        try {
+                            BlockReaderAdapter opp = new OsmPbfParser(storage);
+                            new BlockInputStream(is, opp).process();
+                            StorageDelegator sd = getDelegator();
+                            sd.reset(false);
+                            sd.setCurrentStorage(storage); // this sets dirty flag
+                            sd.fixupApiStorage();
+                            if (map != null) {
+                                viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
+                            }
+                        } finally {
+                            SavingHelper.close(is);
+                        }
                     } catch (StorageException sex) {
                         Log.e(DEBUG_TAG, "Problem reading PBF " + sex.getMessage());
                         return new AsyncResult(ErrorCodes.OUT_OF_MEMORY, sex.getMessage());
@@ -4087,7 +4084,9 @@ public class Logic {
                             removeCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc, true);
                             return new AsyncResult(ErrorCodes.APPLYING_OSC_FAILED);
                         }
-                        fitToBoundingBox(sd);
+                        if (map != null) {
+                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
+                        }
                         // support for OSMAND extension
                         List<Note> notes = oscParser.getNotes();
                         if (!notes.isEmpty()) {
@@ -4252,7 +4251,18 @@ public class Logic {
                 }
                 Log.d(DEBUG_TAG, "loadfromFile: File read correctly");
                 if (mainMap != null) {
-                    setupMapAndViewBox(activity, mainMap);
+                    try {
+                        viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
+                    } catch (Exception e) {
+                        // invalid dimensions or similar error
+                        viewBox.setBorders(mainMap, new BoundingBox(-GeoMath.MAX_LON, -GeoMath.MAX_COMPAT_LAT, GeoMath.MAX_LON, GeoMath.MAX_COMPAT_LAT));
+                    }
+                    mainMap.getDataStyle().updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not
+                                                                                              // done in
+                    // loadEiditngState
+                    synchronized (Logic.this) {
+                        loadEditingState((Main) activity, true);
+                    }
                 } else {
                     Log.e(DEBUG_TAG, "loadFromFile map is null");
                 }
@@ -4407,32 +4417,20 @@ public class Logic {
         if (result != READ_FAILED) {
             Log.d(DEBUG_TAG, "syncLoadfromFile: File read correctly");
             if (hasMap) {
-                setupMapAndViewBox(activity, mainMap);
+                try {
+                    viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
+                } catch (Exception e) {
+                    // invalid dimensions or similar error
+                    viewBox.setBorders(mainMap, new BoundingBox(-180.0, -GeoMath.MAX_COMPAT_LAT, 180.0, GeoMath.MAX_COMPAT_LAT));
+                }
+                mainMap.getDataStyle().updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+                loadEditingState((Main) activity, true);
                 invalidateMap();
             }
             activity.invalidateOptionsMenu();
         } else {
             Log.d(DEBUG_TAG, "syncLoadfromFile: File read failed");
             ScreenMessage.barError(activity, R.string.toast_data_stateload_failed);
-        }
-    }
-
-    /**
-     * Setup ViewBox and Map post loading data
-     * 
-     * @param activity the current Activity
-     * @param mainMap the Map instance
-     */
-    private void setupMapAndViewBox(@NonNull FragmentActivity activity, @NonNull Map mainMap) {
-        try {
-            viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
-        } catch (Exception e) {
-            // invalid dimensions or similar error
-            viewBox.setBorders(mainMap, new BoundingBox(-GeoMath.MAX_LON, -GeoMath.MAX_COMPAT_LAT, GeoMath.MAX_LON, GeoMath.MAX_COMPAT_LAT));
-        }
-        mainMap.getDataStyle().updateStrokes(STROKE_FACTOR / viewBox.getWidth());
-        synchronized (Logic.this) {
-            loadEditingState((Main) activity, true);
         }
     }
 
@@ -4528,61 +4526,60 @@ public class Logic {
                             postUploadHandler.onSuccess();
                         }
                     }
-                    if (activity.isFinishing()) {
-                        return;
-                    }
-                    switch (error) {
-                    case ErrorCodes.UPLOAD_CONFLICT:
-                        Conflict conflict = ApiResponse.parseConflictResponse(result.getHttpError(), result.getMessage());
-                        if (conflict instanceof ApiResponse.ClosedChangesetConflict) {
-                            // this can really only happen if the changeset is closed between when we check for an
-                            // open one and we starting the upload
-                            ScreenMessage.toastTopWarning(activity, R.string.upload_conflict_message_changeset_closed);
-                            this.execute(); // restart new changeset will be opened automatically
-                            return;
-                        } else if (conflict instanceof ApiResponse.BoundingBoxTooLargeError) {
-                            if (!closeOpenChangeset) {
-                                // we've potentially already uploaded something, so don't reuse this changeset
-                                server.resetChangeset();
+                    if (!activity.isFinishing()) {
+                        switch (error) {
+                        case ErrorCodes.UPLOAD_CONFLICT:
+                            Conflict conflict = ApiResponse.parseConflictResponse(result.getHttpError(), result.getMessage());
+                            if (conflict instanceof ApiResponse.ClosedChangesetConflict) {
+                                // this can really only happen if the changeset is closed between when we check for an
+                                // open one and we starting the upload
+                                ScreenMessage.toastTopWarning(activity, R.string.upload_conflict_message_changeset_closed);
+                                this.execute(); // restart new changeset will be opened automatically
+                                return;
+                            } else if (conflict instanceof ApiResponse.BoundingBoxTooLargeError) {
+                                if (!closeOpenChangeset) {
+                                    // we've potentially already uploaded something, so don't reuse this changeset
+                                    server.resetChangeset();
+                                }
+                                ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE, result.getMessage());
+                            } else if (conflict instanceof ApiResponse.ChangesetLocked) {
+                                ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_PROBLEM, result.getMessage());
+                            } else {
+                                UploadConflict.showDialog(activity, conflict, elements);
                             }
-                            ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE, result.getMessage());
-                        } else if (conflict instanceof ApiResponse.ChangesetLocked) {
-                            ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_PROBLEM, result.getMessage());
-                        } else {
-                            UploadConflict.showDialog(activity, conflict, elements);
+                            break;
+                        case ErrorCodes.INVALID_LOGIN:
+                            InvalidLogin.showDialog(activity);
+                            break;
+                        case ErrorCodes.FORBIDDEN:
+                            ForbiddenLogin.showDialog(activity, result.getMessage());
+                            break;
+                        case ErrorCodes.BAD_REQUEST:
+                        case ErrorCodes.NOT_FOUND:
+                        case ErrorCodes.UNKNOWN_ERROR:
+                        case ErrorCodes.UPLOAD_PROBLEM:
+                        case ErrorCodes.UPLOAD_LIMIT_EXCEEDED:
+                            ErrorAlert.showDialog(activity, error, result.getMessage());
+                            break;
+                        case ErrorCodes.ALREADY_DELETED:
+                            conflict = ApiResponse.parseConflictResponse(result.getHttpError(), result.getMessage());
+                            if (conflict instanceof ApiResponse.AlreadyDeletedConflict) {
+                                final OsmElement deletedElement = delegator.getOsmElement(conflict.getElementType(), conflict.getElementId());
+                                delegator.removeFromUpload(deletedElement, OsmElement.STATE_DELETED);
+                                if (elements != null) {
+                                    elements.remove(deletedElement);
+                                }
+                                ScreenMessage.toastTopWarning(activity,
+                                        activity.getString(R.string.upload_conflict_message_already_deleted, deletedElement.getDescription(true)));
+                                this.execute(); // restart
+                                return;
+                            } // NOSONAR fall through
+                        default:
+                            ErrorAlert.showDialog(activity, error);
                         }
-                        break;
-                    case ErrorCodes.INVALID_LOGIN:
-                        InvalidLogin.showDialog(activity);
-                        break;
-                    case ErrorCodes.FORBIDDEN:
-                        ForbiddenLogin.showDialog(activity, result.getMessage());
-                        break;
-                    case ErrorCodes.BAD_REQUEST:
-                    case ErrorCodes.NOT_FOUND:
-                    case ErrorCodes.UNKNOWN_ERROR:
-                    case ErrorCodes.UPLOAD_PROBLEM:
-                    case ErrorCodes.UPLOAD_LIMIT_EXCEEDED:
-                        ErrorAlert.showDialog(activity, error, result.getMessage());
-                        break;
-                    case ErrorCodes.ALREADY_DELETED:
-                        conflict = ApiResponse.parseConflictResponse(result.getHttpError(), result.getMessage());
-                        if (conflict instanceof ApiResponse.AlreadyDeletedConflict) {
-                            final OsmElement deletedElement = delegator.getOsmElement(conflict.getElementType(), conflict.getElementId());
-                            delegator.removeFromUpload(deletedElement, OsmElement.STATE_DELETED);
-                            if (elements != null) {
-                                elements.remove(deletedElement);
-                            }
-                            ScreenMessage.toastTopWarning(activity,
-                                    activity.getString(R.string.upload_conflict_message_already_deleted, deletedElement.getDescription(true)));
-                            this.execute(); // restart
-                            return;
-                        } // NOSONAR fall through
-                    default:
-                        ErrorAlert.showDialog(activity, error);
-                    }
-                    if (postUploadHandler != null) {
-                        postUploadHandler.onError(null);
+                        if (postUploadHandler != null) {
+                            postUploadHandler.onError(null);
+                        }
                     }
                 } catch (Exception ex) {
                     Log.e(DEBUG_TAG, "Unexpected exception in upload " + ex.getMessage());
