@@ -233,6 +233,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      * 
      */
     private void mergeNodeWith(@NonNull List<OsmElement> target) {
+        Log.d(DEBUG_TAG, "mergeNodesWith " + element.getDescription(main));
         try {
             List<Result> result = target.get(0) instanceof Way ? logic.performJoinNodeToWays(main, target, (Node) element)
                     : logic.performMergeNodes(main, target, (Node) element);
@@ -286,6 +287,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
 
     @Override
     public void onItemClick(int position) {
+        Log.d(DEBUG_TAG, "onItemClick " + position);
         int itemId = position;
         if (action == MENUITEM_JOIN) {
             if (itemId == 0) {

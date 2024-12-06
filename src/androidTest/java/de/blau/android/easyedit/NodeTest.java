@@ -181,6 +181,7 @@ public class NodeTest {
     @Test
     public void unjoinMergeNodes() {
         TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
         TestUtils.clickAtCoordinates(device, map, 8.3866386, 47.3904394, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         Node node = App.getLogic().getSelectedNode();
@@ -195,11 +196,14 @@ public class NodeTest {
 
         TestUtils.clickAtCoordinates(device, map, 8.3866386, 47.3904394, false);
         TestUtils.clickAwayTip(device, context);
-        assertTrue(TestUtils.clickTextContains(device, false, " #-2221", false)); // the first node in the list
+        assertTrue(TestUtils.clickTextContains(device, false, " #-2221", true));
+
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
 
         // merge all
-        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.merge_with_all_nodes), false, false));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.merge_with_all_nodes), true, false));
+        TestUtils.textGone(device, context.getString(R.string.toast_merged), 2000);
+
         assertEquals(apiNodeCount + 1, delegator.getApiNodeCount());
 
         node = App.getLogic().getSelectedNode();
