@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.osm.Tags;
@@ -16,7 +15,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
 
-public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallback {
+public class WaySegmentModifyActionModeCallback extends AbortableActionModeCallback {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, WaySegmentModifyActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = WaySegmentModifyActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
@@ -115,20 +114,6 @@ public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallb
             }
         }
         return true;
-    }
-
-    @Override
-    protected void onCloseClicked() {
-        onBackPressed();
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        new AlertDialog.Builder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> {
-            logic.rollback();
-            super.onBackPressed();
-        }).setNeutralButton(R.string.cancel, null).show();
-        return false;
     }
 
     @Override

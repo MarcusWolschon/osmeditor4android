@@ -8,14 +8,13 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 
 /**
  * Rotate the current selection
  */
-public class RotationActionModeCallback extends NonSimpleActionModeCallback {
+public class RotationActionModeCallback extends AbortableActionModeCallback {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RotationActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = RotationActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
@@ -73,19 +72,5 @@ public class RotationActionModeCallback extends NonSimpleActionModeCallback {
             main.hideSimpleActionsButton();
         }
         super.onDestroyActionMode(mode);
-    }
-
-    @Override
-    protected void onCloseClicked() {
-        onBackPressed();
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        new AlertDialog.Builder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> {
-            logic.rollback();
-            super.onBackPressed();
-        }).setNeutralButton(R.string.cancel, null).show();
-        return false;
     }
 }
