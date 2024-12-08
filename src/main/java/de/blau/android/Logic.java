@@ -2218,7 +2218,7 @@ public class Logic {
      * @param results a list of Result
      */
     private void checkForArea(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull List<Result> results) {
-        if (way.hasTag(Tags.KEY_AREA, Tags.VALUE_YES) || ( activity != null && App.getAreaTags(activity).isImpliedArea(way.getTags()))) {
+        if (way.hasTag(Tags.KEY_AREA, Tags.VALUE_YES) || (activity != null && App.getAreaTags(activity).isImpliedArea(way.getTags()))) {
             results.get(0).addIssue(SplitIssue.SPLIT_AREA);
         }
     }
@@ -2521,6 +2521,7 @@ public class Logic {
      */
     @NonNull
     public synchronized List<Result> performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin) {
+        Log.d(DEBUG_TAG, "performMergeNodes " + nodeToJoin.getOsmId() + " " + elements.size() + " targets");
         List<Result> overallResult = new ArrayList<>();
         if (elements.isEmpty()) {
             return overallResult;

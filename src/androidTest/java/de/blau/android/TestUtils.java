@@ -794,9 +794,10 @@ public final class TestUtils {
             try {
                 if (waitForNewWindow) {
                     button.clickAndWaitForNewWindow();
+                    Log.w(DEBUG_TAG, ".... clicked waiting for new window");
                 } else {
                     button.click();
-                    Log.e(DEBUG_TAG, ".... clicked");
+                    Log.w(DEBUG_TAG, ".... clicked");
                 }
                 return true;
             } catch (UiObjectNotFoundException e) {

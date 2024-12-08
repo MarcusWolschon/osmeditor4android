@@ -66,8 +66,10 @@ public class MergeAction {
     public MergeAction(final @NonNull StorageDelegator delegator, @NonNull OsmElement mergeInto, @NonNull OsmElement mergeFrom, boolean swappable) {
         this.delegator = delegator;
         // first determine if one of the elements already has a valid id, if it is not and other node has valid id swap
-        // else check version numbers, the point of this is to preserve as much history as possible
-        if (swappable && (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion())) {
+        // else check version numbers, then choose the older element. The point of this is to preserve as much history
+        // as possible
+        if (swappable && mergeFrom.getOsmId() > 0
+                && (mergeInto.getOsmId() < 0 || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion() || mergeInto.getOsmId() > mergeFrom.getOsmId())) {
             // swap
             Log.d(DEBUG_TAG, "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
             OsmElement tmpElement = mergeInto;
