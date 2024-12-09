@@ -74,7 +74,7 @@ public final class Todo extends Bug implements Serializable {
      */
     public static void setupIconCache(@NonNull Context context, boolean hwAccelerated) {
         cachedIconTodoOpen = getIcon(context, R.drawable.todo_open, hwAccelerated);
-        cachedIconTogoChanged = getIcon(context, R.drawable.todo_open, hwAccelerated);
+        cachedIconTogoChanged = getIcon(context, R.drawable.todo_skipped, hwAccelerated);
         cachedIconTodoChangedClosed = getIcon(context, R.drawable.todo_closed, hwAccelerated);
         cachedIconTodoClosed = getIcon(context, R.drawable.todo_closed, hwAccelerated);
     }
@@ -87,7 +87,7 @@ public final class Todo extends Bug implements Serializable {
      * @throws IOException for JSON reading issues
      * @throws NumberFormatException if a number conversion fails
      */
-    public static List<Todo> parseTodos(InputStream is) throws IOException, NumberFormatException {
+    public static List<Todo> parseTodos(@NonNull InputStream is) throws IOException, NumberFormatException {
         List<Todo> result = new ArrayList<>();
         try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
             // key object
@@ -101,36 +101,7 @@ public final class Todo extends Bug implements Serializable {
                 } else if (TODOS.equals(key)) {
                     reader.beginArray();
                     while (reader.hasNext()) {
-                        Todo todo = new Todo();
-                        todo.list = listName;
-                        reader.beginObject();
-                        while (reader.hasNext()) {
-                            String jsonName = reader.nextName();
-                            switch (jsonName) {
-                            case TODO_LAT:
-                                todo.lat = (int) (reader.nextDouble() * 1E7D);
-                                break;
-                            case TODO_LON:
-                                todo.lon = (int) (reader.nextDouble() * 1E7D);
-                                break;
-                            case TODO_ID:
-                                todo.id = reader.nextString();
-                                break;
-                            case TODO_STATE:
-                                todo.setState(State.valueOf(reader.nextString()));
-                                break;
-                            case TODO_COMMENT:
-                                todo.setTitle(reader.nextString());
-                                break;
-                            case OSM_IDS:
-                                parseIds(reader, todo);
-                                break;
-                            default:
-                                reader.skipValue();
-                            }
-                        }
-                        reader.endObject();
-                        result.add(todo);
+                        result.add(parseTodo(reader, listName));
                     }
                     reader.endArray();
                 } else {
@@ -142,6 +113,47 @@ public final class Todo extends Bug implements Serializable {
             Log.d(DEBUG_TAG, "Parse error, ignoring " + ex);
         }
         return result;
+    }
+
+    /**
+     * Parse a single todo object
+     * 
+     * @param reader the current JsonReader
+     * @param listName optional list name
+     * @return a new Todo
+     * @throws IOException on errors reading the JSON
+     */
+    private static Todo parseTodo(@NonNull JsonReader reader, @Nullable String listName) throws IOException {
+        Todo todo = new Todo();
+        todo.list = listName;
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String jsonName = reader.nextName();
+            switch (jsonName) {
+            case TODO_LAT:
+                todo.lat = (int) (reader.nextDouble() * 1E7D);
+                break;
+            case TODO_LON:
+                todo.lon = (int) (reader.nextDouble() * 1E7D);
+                break;
+            case TODO_ID:
+                todo.id = reader.nextString();
+                break;
+            case TODO_STATE:
+                todo.setState(State.valueOf(reader.nextString()));
+                break;
+            case TODO_COMMENT:
+                todo.setTitle(reader.nextString());
+                break;
+            case OSM_IDS:
+                parseIds(reader, todo);
+                break;
+            default:
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+        return todo;
     }
 
     /**
@@ -371,6 +383,11 @@ public final class Todo extends Bug implements Serializable {
             return todos.get(0);
         }
         return this; // the only thing we can return
+    }
+
+    @Override
+    public boolean hasBeenChanged() {
+        return !isClosed() && getState() == State.SKIPPED;
     }
 
     @Override
