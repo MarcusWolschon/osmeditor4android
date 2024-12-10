@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +19,11 @@ import de.blau.android.util.ImmersiveDialogFragment;
  */
 public class Progress extends ImmersiveDialogFragment {
 
-    private static final String TYPE = "type";
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Progress.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Progress.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String DEBUG_TAG = Progress.class.getSimpleName().substring(0, Math.min(23, Progress.class.getSimpleName().length()));
+    private static final String TYPE    = "type";
+    private static final String ARG_KEY = "arg";
 
     public static final int PROGRESS_LOADING                   = 1;
     public static final int PROGRESS_DOWNLOAD                  = 2;
@@ -38,7 +42,8 @@ public class Progress extends ImmersiveDialogFragment {
     public static final int PROGRESS_IMPORTING_FILE            = 15;
     public static final int PROGRESS_DOWNLOAD_TASKS            = 16;
 
-    private int dialogType;
+    private int    dialogType;
+    private String messageArg;
 
     /**
      * Display a progress spinner
@@ -58,11 +63,23 @@ public class Progress extends ImmersiveDialogFragment {
      * @param tag a string to differentiate between multiple similar spinners
      */
     public static void showDialog(@NonNull FragmentActivity activity, int dialogType, @Nullable String tag) {
+        showDialog(activity, dialogType, null, tag);
+    }
+
+    /**
+     * Display a progress spinner
+     * 
+     * @param activity the calling FragmentActivity
+     * @param dialogType an int indicating which heading to show
+     * @param arg optional argument to the message
+     * @param tag a string to differentiate between multiple similar spinners
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, int dialogType, @Nullable String arg, @Nullable String tag) {
         tag = getTag(dialogType) + (tag != null ? "-" + tag : "");
         dismissDialog(activity, dialogType, tag);
 
         FragmentManager fm = activity.getSupportFragmentManager();
-        Progress progressDialogFragment = newInstance(dialogType);
+        Progress progressDialogFragment = newInstance(dialogType, arg);
         progressDialogFragment.setCancelable(true);
         try {
             progressDialogFragment.show(fm, tag);
@@ -172,11 +189,12 @@ public class Progress extends ImmersiveDialogFragment {
      * @return a Progress instance
      */
     @NonNull
-    private static Progress newInstance(final int dialogType) {
+    private static Progress newInstance(final int dialogType, @Nullable String arg) {
         Progress f = new Progress();
 
         Bundle args = new Bundle();
         args.putSerializable(TYPE, dialogType);
+        args.putString(ARG_KEY, arg);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -188,11 +206,12 @@ public class Progress extends ImmersiveDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dialogType = de.blau.android.util.Util.getSerializeable(getArguments(), TYPE, Integer.class);
+        messageArg = getArguments().getString(ARG_KEY);
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return ProgressDialog.get(getActivity(), dialogType);
+        return ProgressDialog.get(getActivity(), dialogType, messageArg);
     }
 }
