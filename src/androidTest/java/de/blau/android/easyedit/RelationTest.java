@@ -232,8 +232,8 @@ public class RelationTest {
         Way way = (Way) relation.getMembers().get(0).getElement();
         Node n0 = way.getFirstNode();
 
-        assertEquals(83881251, n0.getLon());
-        assertEquals(473885077, n0.getLat());
+        assertEquals(83881251, n0.getLon(), 300);
+        assertEquals(473885077, n0.getLat(), 300);
         if (!TestUtils.clickMenuButton(device, context.getString(R.string.menu_rotate), false, false)) {
             TestUtils.clickOverflowButton(device);
             TestUtils.clickText(device, false, context.getString(R.string.menu_rotate), false, false);

@@ -126,6 +126,7 @@ public class WayTest {
         assertTrue(TestUtils.clickText(device, false, menuInfo, true, false));
         assertTrue(TestUtils.findText(device, false, "asphalt"));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false));
+        TestUtils.unlock(device);
         assertTrue(TestUtils.clickOverflowButton(device));
         String menuDelete = context.getString(R.string.delete);
         TestUtils.scrollTo(menuDelete, false);

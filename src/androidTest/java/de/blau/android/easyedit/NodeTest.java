@@ -150,6 +150,7 @@ public class NodeTest {
     public void unjoinMergeWays() {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3874964, 47.3884769, true);
+        TestUtils.clickAwayTip(device, main);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
@@ -183,6 +184,7 @@ public class NodeTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
         TestUtils.clickAtCoordinates(device, map, 8.3866386, 47.3904394, true);
+        TestUtils.clickAwayTip(device, main);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
@@ -220,6 +222,7 @@ public class NodeTest {
     public void append() {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3878990, 47.3891959, true);
+        TestUtils.clickAwayTip(device, main);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
@@ -236,7 +239,9 @@ public class NodeTest {
     @Test
     public void appendWithMenu() {
         TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAwayTip(device, main);
         TestUtils.clickAtCoordinates(device, map, 8.3879569, 47.3893814, true);
+        TestUtils.clickAwayTip(device, main);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
@@ -256,6 +261,7 @@ public class NodeTest {
     public void rotate() {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3881577, 47.3886924, true);
+        TestUtils.clickAwayTip(device, main);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
