@@ -32,6 +32,19 @@ public final class ProgressDialog {
      */
     @Nullable
     public static AlertDialog get(@NonNull Context ctx, int dialogType) {
+        return get(ctx, dialogType, null);
+    }
+
+    /**
+     * Factory like method to get new Instances of a ProgressDialog
+     * 
+     * @param ctx Android Context
+     * @param dialogType determines title and heading
+     * @param arg optional argument for the message
+     * @return an ProgressDialog instance or null
+     */
+    @Nullable
+    public static AlertDialog get(@NonNull Context ctx, int dialogType, @Nullable String arg) {
         int titleId = 0;
         int messageId = 0;
         switch (dialogType) {
@@ -111,7 +124,7 @@ public final class ProgressDialog {
 
         View layout = inflater.inflate(R.layout.progress, null);
         TextView message = (TextView) layout.findViewById(R.id.progressMessage);
-        message.setText(messageId);
+        message.setText(arg != null ? ctx.getString(messageId, arg) : ctx.getString(messageId));
         ProgressBar progressBar = (ProgressBar) layout.findViewById(R.id.progressBar);
         if (progressBar.getIndeterminateDrawable() != null) {
             progressBar.getIndeterminateDrawable().setColorFilter(BlendModeColorFilterCompat

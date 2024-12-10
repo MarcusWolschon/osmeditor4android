@@ -220,8 +220,8 @@ Show the user preference screens. The settings are split into two sets: the firs
     * **Update configuration from ELI** - download a current version of the imagery layer configuration from the Editor Layer Index repository. *(requires network connectivity)*
     * **Flush all tile caches** - empty all on device tile caches. 
  * **Reset address prediction** - reset the current address prediction data, will seeded from loaded data if possible.
- * **Reset OAuth** - reset the OAuth tokens, this will force re-authorisation the next time you upload.
- * **Authorise OAuth** - start authorisation process immediately. *(requires network connectivity)*
+ * **Reset authorization** - reset the OAuth tokens, this will force re-authorisation the next time you upload.
+ * **Authorize with OAuth...** - start authorization process immediately. *(requires network connectivity)*
  * **Set MapRoulette API key** - set the API key for modifying the status of MapRoulette tasks.
  * **Clear clipboard** - remove content from the internal OSM element clipboard.
  * **Calibrate pressure sensor...** - calibrate the conversion from barometric pressure to elevation.

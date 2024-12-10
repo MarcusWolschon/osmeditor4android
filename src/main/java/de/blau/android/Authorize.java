@@ -75,9 +75,20 @@ public class Authorize extends WebViewActivity {
     private class OAuthWebViewClient extends UpdatedWebViewClient {
         private static final String MATOMO = "matomo";
 
-        Object   progressLock  = new Object();
-        boolean  progressShown = false;
-        Runnable dismiss       = () -> Progress.dismissDialog(Authorize.this, Progress.PROGRESS_OAUTH);
+        Object         progressLock  = new Object();
+        boolean        progressShown = false;
+        Runnable       dismiss       = () -> Progress.dismissDialog(Authorize.this, Progress.PROGRESS_OAUTH);
+        private String host;
+
+        /**
+         * Create a new client
+         * 
+         * @param host the host we are trying to authorize
+         */
+        OAuthWebViewClient(@NonNull String host) {
+            super();
+            this.host = host;
+        }
 
         @Override
         public boolean handleLoading(WebView view, Uri uri) {
@@ -105,7 +116,7 @@ public class Authorize extends WebViewActivity {
             synchronized (progressLock) {
                 if (!progressShown) {
                     progressShown = true;
-                    Progress.showDialog(Authorize.this, Progress.PROGRESS_OAUTH);
+                    Progress.showDialog(Authorize.this, Progress.PROGRESS_OAUTH, host, null);
                 }
             }
         }
@@ -190,7 +201,8 @@ public class Authorize extends WebViewActivity {
             webView = new WebView(this);
             setContentView(webView);
             webView.getSettings().setJavaScriptEnabled(true);
-            webView.setWebViewClient(new OAuthWebViewClient());
+            Uri uri = Uri.parse(server.getWebsiteBaseUrl());
+            webView.setWebViewClient(new OAuthWebViewClient(uri.getHost()));
             loadUrlOrRestore(savedInstanceState, authUrl);
         }
     }
