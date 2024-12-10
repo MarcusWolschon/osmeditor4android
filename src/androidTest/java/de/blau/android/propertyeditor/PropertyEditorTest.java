@@ -752,6 +752,7 @@ public class PropertyEditorTest {
         assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Charging Station"), true, false);
         assertTrue(found);
+        TestUtils.clickAwayTip(device, main);
         UiObject2 vehicles = null;
         try {
             vehicles = getField(device, "Types of vehicles which can be charged", 1);
