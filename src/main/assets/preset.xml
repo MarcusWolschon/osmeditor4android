@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.65.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.66.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -4952,7 +4952,7 @@
                 <link wiki="Tag:railway=milestone"/>
                 <key key="railway" value="milestone"/>
                 <text key="railway:position" text="Position (kilometers)"/>
-                <text key="ref" text="Reference"/>
+                <text key="railway:ref" text="Reference"/>
             </item> <!-- Railway Milestone -->
             <item name="Derail" icon="icons/png/transport_derail_27023.png" type="node" preset_name_label="true">
                 <link wiki="Tag:railway=derail"/>
@@ -4964,10 +4964,17 @@
                 <text key="operator" text="Operator"/>
                 <reference ref="name_ref"/>
             </item> <!-- Yard -->
+            <item name="Signal box" icon="icons/png/transport_signal_box.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <key key="railway" value="signal_box"/>
+                <reference ref="optional_name"/>
+                <text key="operator" text="Operator"/>
+                <text key="railway:ref" text="Reference"/>
+                <combo key="railway:signal_box" text="Type" values="electric,electronic,mechanical,track_diagram" display_values="Electric,Electronic,Mechanical,Track diagram" values_context="railway"/>
+            </item> <!-- Train wash -->
             <item name="Train wash" icon="icons/png/transport_train_wash.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="railway" value="train_wash"/>
                 <text key="operator" text="Operator"/>
-                <text key="ref" text="Reference"/>
+                <text key="railway:ref" text="Reference"/>
             </item> <!-- Train wash -->
         </group> <!-- Railway -->
         <group name="Aerialway" icon="icons/png/transport_aerialway_10001.png">
@@ -14211,11 +14218,11 @@
             <link wiki="Key:addr"/>
             <space/>
             <text key="addr:housenumber" text="House number" match="key" auto_increment="-2,-1,+1,+2"/>
-            <text key="addr:street" text="Street name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name"/>
+            <text key="addr:street" text="Street name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name" i18n="true"/>
             <check key="nohousenumber" text="No house number" disable_off="true"/>
             <optional>
-                <text key="addr:place" text="Place name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name"/>
-                <text key="addr:city" text="City name" use_last_as_default="force" match="key"/>
+                <text key="addr:place" text="Place name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name" i18n="true"/>
+                <text key="addr:city" text="City name" use_last_as_default="force" match="key" i18n="true"/>
                 <text key="addr:postcode" text="Post code" use_last_as_default="force" match="key"/>
                 <combo key="addr:country" text="Country code" values_from="java.util.Locale#getISOCountries" use_last_as_default="force" match="key" values_context="country codes"/>
             </optional>
@@ -14229,8 +14236,8 @@
                 <text key="addr:hamlet" text="Hamlet" match="key"/>
                 <text key="addr:suburb" text="Suburb" use_last_as_default="force" match="key"/>
                 <text key="addr:subdistrict" text="Subdistrict" use_last_as_default="force" match="key"/>
-                <text key="addr:district" text="District" use_last_as_default="force" match="key"/>
-                <text key="addr:province" text="Province" use_last_as_default="force" match="key"/>
+                <text key="addr:district" text="District" use_last_as_default="force" match="key" i18n="true"/>
+                <text key="addr:province" text="Province" use_last_as_default="force" match="key" i18n="true"/>
                 <!-- US States as defined in ISO 3166-2 -->
                 <combo key="addr:state" text="State" text_context="addr:" values="AL,AK,AZ,AR,CA,CO,CT,DE,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,DC,AS,GU,MP,PR,UM,VI" use_last_as_default="force" match="key"/>
             </optional>
