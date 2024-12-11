@@ -409,11 +409,75 @@
     		<interval length="2.0" />
     	</dash>
     </feature>
-    <feature type="way" tags="railway" updateWidth="true" widthFactor="0.7" color="ff999999" style="STROKE" cap="BUTT" join="MITER">
-    	<dash phase="1.0">
-    		<interval length="4.0" />
-    		<interval length="4.0" />
-    	</dash>
+    <feature type="railway_rail_casing" updateWidth="true" widthFactor="0.9" color="FF000000" style="STROKE" cap="BUTT" join="MITER"  />
+    <feature type="railway_thin_casing" updateWidth="true" widthFactor="0.6" color="FF000000" style="STROKE" cap="BUTT" join="MITER"  />
+    <feature type="railway_minature_casing" updateWidth="true" widthFactor="0.4" color="FF000000" style="STROKE" cap="BUTT" join="MITER"  />
+    <feature type="way" tags="railway" updateWidth="true" widthFactor="0.7" color="ffAAAAAA" style="STROKE" cap="BUTT" join="MITER" >
+        <feature type="way" tags="railway=rail" casingStyle="railway_rail_casing" >
+    	   <dash phase="1.0">
+    	       <interval length="4.0" />
+    		   <interval length="4.0" />
+    	   </dash>
+           <feature type="way" tags="bridge=yes" color="ff777777" />
+           <feature type="way" tags="tunnel=yes" color="ff777777" />
+        </feature>
+        <feature type="way" tags="railway=light_rail" widthFactor="0.4" casingStyle="railway_thin_casing" >
+            <dash phase="1.0">
+                <interval length="4.0" />
+                <interval length="4.0" />
+            </dash>
+            <feature type="way" tags="bridge=yes" color="ff777777" />
+            <feature type="way" tags="tunnel=yes" color="ff777777" />
+        </feature>
+        <feature type="way" tags="railway=tram" widthFactor="0.4" casingStyle="railway_thin_casing" >
+            <dash phase="1.0">
+                <interval length="4.0" />
+                <interval length="4.0" />
+            </dash>
+            <feature type="way" tags="bridge=yes" color="ff777777" />
+            <feature type="way" tags="tunnel=yes" color="ff777777" />
+        </feature>
+        <feature type="way" tags="railway=narrow_gauge" widthFactor="0.4" casingStyle="railway_thin_casing" >
+            <dash phase="1.0">
+                <interval length="4.0" />
+                <interval length="4.0" />
+            </dash>
+            <feature type="way" tags="bridge=yes" color="ff777777" />
+            <feature type="way" tags="tunnel=yes" color="ff777777" />
+        </feature>
+        <feature type="way" tags="railway=funicular" widthFactor="0.4" casingStyle="railway_thin_casing" >
+            <dash phase="1.0">
+                <interval length="4.0" />
+                <interval length="4.0" />
+            </dash>
+            <feature type="way" tags="bridge=yes" color="ff777777" />
+            <feature type="way" tags="tunnel=yes" color="ff777777" />
+        </feature>
+        <feature type="way" tags="railway=monorail" widthFactor="0.4" casingStyle="railway_thin_casing" >
+            <dash phase="1.0">
+                <interval length="4.0" />
+                <interval length="4.0" />
+            </dash>
+            <feature type="way" tags="bridge=yes" color="ff777777" />
+            <feature type="way" tags="tunnel=yes" color="ff777777" />
+        </feature>
+        <feature type="way" tags="railway=preserved" widthFactor="0.4" casingStyle="railway_thin_casing" >
+            <dash phase="1.0">
+                <interval length="2.0" />
+                <interval length="2.0" />
+            </dash>
+            <feature type="way" tags="bridge=yes" color="ff777777" />
+            <feature type="way" tags="tunnel=yes" color="ff777777" />
+        </feature>
+        <feature type="way" tags="railway=minature" widthFactor="0.2" casingStyle="railway_minature_casing" >
+            <dash phase="1.0">
+                <interval length="4.0" />
+                <interval length="4.0" />
+            </dash>
+            <feature type="way" tags="bridge=yes" color="ff777777" />
+            <feature type="way" tags="tunnel=yes" color="ff777777" />
+        </feature>
+        <feature type="way" tags="railway=platform" widthFactor="1.0" closed="true" area="true" offset="0.50" />
     </feature>
     <feature type="way" tags="addr:interpolation" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER">
     	<dash phase="1.0">
