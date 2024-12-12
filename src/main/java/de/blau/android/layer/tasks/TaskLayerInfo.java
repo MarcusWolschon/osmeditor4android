@@ -55,7 +55,7 @@ public class TaskLayerInfo extends LayerInfo {
             boolean changed = t.hasBeenChanged();
             if (t instanceof Todo) {
                 customCount++;
-                if (changed) {
+                if (changed || t.isClosed()) { //changed is only true when skipped
                     customChangedCount++;
                 }
             } else if (t instanceof OsmoseBug) {
