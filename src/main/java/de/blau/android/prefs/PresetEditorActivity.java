@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -54,8 +56,8 @@ import de.blau.android.util.Util;
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
 
-    private static final String DEBUG_TAG = PresetEditorActivity.class.getSimpleName().substring(0,
-            Math.min(23, PresetEditorActivity.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetEditorActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PresetEditorActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     private AdvancedPrefDatabase db;
 
@@ -171,9 +173,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 
     @Override
     protected void onItemClicked(ListEditItem item) {
-        if (item.active && db.getActivePresets().length == 1) { // at least one item needs to be selected
-            updateAdapter();
-            ScreenMessage.barWarning(this, R.string.toast_min_one_preset);
+        if (!activePresetEnsured(item)) {
             return;
         }
         item.active = !item.active;
@@ -207,8 +207,29 @@ public class PresetEditorActivity extends URLListEditActivity {
 
     @Override
     protected void onItemDeleted(ListEditItem item) {
-        db.deletePreset(item.id);
-        App.resetPresets();
+        if (!activePresetEnsured(item)) {
+            return;
+        }
+        new AlertDialog.Builder(this).setTitle(R.string.delete).setMessage(R.string.preset_management_delete)
+                .setPositiveButton(R.string.Yes, (dialog, which) -> {
+                    db.deletePreset(item.id);
+                    App.resetPresets();
+                }).setNegativeButton(R.string.cancel, null).show();
+    }
+
+    /**
+     * Check that we have at least one active preset
+     * 
+     * @param item the current item
+     * @return true if there will be at least one active item after item is de-activated or deleted
+     */
+    private boolean activePresetEnsured(@NonNull ListEditItem item) {
+        if (item.active && db.getActivePresets().length == 1) { // at least one item needs to be selected
+            updateAdapter();
+            ScreenMessage.barWarning(this, R.string.toast_min_one_preset);
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -276,12 +297,8 @@ public class PresetEditorActivity extends URLListEditActivity {
             protected Integer doInBackground(Void args) {
                 Uri uri = Uri.parse(item.value);
                 final String scheme = uri.getScheme();
-                int loadResult;
-                if (Schemes.FILE.equals(scheme) || Schemes.CONTENT.equals(scheme)) {
-                    loadResult = PresetLoader.load(activity, uri, presetDir, Preset.PRESETXML);
-                } else {
-                    loadResult = PresetLoader.download(item.value, presetDir, Preset.PRESETXML);
-                }
+                int loadResult = Schemes.FILE.equals(scheme) || Schemes.CONTENT.equals(scheme) ? PresetLoader.load(activity, uri, presetDir, Preset.PRESETXML)
+                        : PresetLoader.download(item.value, presetDir, Preset.PRESETXML);
 
                 if (loadResult == PresetLoader.DOWNLOADED_PRESET_ERROR) {
                     return RESULT_TOTAL_FAILURE;
@@ -381,11 +398,11 @@ public class PresetEditorActivity extends URLListEditActivity {
 
             final PresetEditorActivity activity = (PresetEditorActivity) getActivity();
 
-            if (item != null) {
+            final boolean itemExists = item != null;
+            if (itemExists) {
                 editName.setText(item.name);
                 editValue.setText(item.value);
                 useTranslations.setChecked(item.boolean0);
-
             } else if (activity.isAddingViaIntent()) {
                 String tmpName = activity.getIntent().getExtras().getString(EXTRA_NAME);
                 String tmpValue = activity.getIntent().getExtras().getString(EXTRA_VALUE);
@@ -393,13 +410,13 @@ public class PresetEditorActivity extends URLListEditActivity {
                 editValue.setText(tmpValue == null ? "" : tmpValue);
                 useTranslations.setChecked(true);
             }
-            if (item != null && item.value3 != null) {
+            if (itemExists && item.value3 != null) {
                 version.setText(item.value3);
             } else {
                 versionLabel.setVisibility(View.GONE);
                 version.setVisibility(View.GONE);
             }
-            if (item != null && LISTITEM_ID_DEFAULT.equals(item.id)) {
+            if (itemExists && LISTITEM_ID_DEFAULT.equals(item.id)) {
                 // name and value are not editable
                 editName.setInputType(InputType.TYPE_NULL);
                 editName.setBackground(null);
@@ -447,7 +464,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 
                     // save or display toast, exception for localhost is needed for testing
                     if (validPresetURL || presetURL.startsWith(Schemes.FILE) || presetURL.startsWith(Schemes.CONTENT)
-                            || (url != null && "localhost".equals(url.getHost())) || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
+                            || (url != null && "localhost".equals(url.getHost())) || (itemExists && item.id.equals(LISTITEM_ID_DEFAULT))) {
                         if (item == null) {
                             // new item
                             activity.finishCreateItem(new ListEditItem(name, presetURL, null, null, useTranslationsEnabled, null));

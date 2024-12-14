@@ -175,6 +175,7 @@ public class PresetEditorTest {
         menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
         menu.click();
         TestUtils.clickText(device, false, main.getString(R.string.delete), true);
+        TestUtils.clickText(device, false, main.getString(R.string.yes), true);
         TestUtils.clickHome(device, true);
         App.resetPresets();
     }

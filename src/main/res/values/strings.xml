@@ -1552,6 +1552,8 @@
     <string name="preset_download_parse_failed">The preset file is invalid. The preset will not work.</string>
     <string name="preset_download_missing_images">Preset file downloaded. However, some missing icons were not.</string>
     <string name="preset_download_title">Preset downloader</string>
+    <!-- preset management -->
+    <string name="preset_management_delete">Really delete Preset?</string>
     <!-- url handler activity -->
     <string name="urldialog_add_preset">Add preset</string>
     <string name="urldialog_preset_exists">This preset already exists</string>
