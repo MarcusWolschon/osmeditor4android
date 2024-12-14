@@ -67,7 +67,6 @@ import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.ViewStub;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
