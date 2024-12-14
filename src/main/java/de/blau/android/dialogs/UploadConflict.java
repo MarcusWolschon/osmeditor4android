@@ -2,7 +2,6 @@ package de.blau.android.dialogs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +57,6 @@ import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.Util;
 
 /**
  * Dialog to resolve upload conflicts one by one
@@ -70,9 +68,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UploadConflict.class.getSimpleName().length());
     private static final String DEBUG_TAG = UploadConflict.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String CONFLICT_KEY      = "uploadresult";
-    private static final String ELEMENT_IDS_KEY   = "ids";
-    private static final String ELEMENT_TYPES_KEY = "types";
+    private static final String CONFLICT_KEY = "uploadresult";
 
     private static final String TAG = "fragment_upload_conflict";
 
@@ -153,7 +149,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
         Bundle args = new Bundle();
         args.putSerializable(CONFLICT_KEY, conflict);
         if (elements != null) {
-            putElementsInBundle(elements, args);
+            Util.putElementsInBundle(elements, args);
         }
 
         f.setArguments(args);
@@ -168,58 +164,11 @@ public class UploadConflict extends ImmersiveDialogFragment {
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "restoring from saved state");
             conflict = de.blau.android.util.Util.getSerializeable(savedInstanceState, CONFLICT_KEY, Conflict.class);
-            elements = getElementsFromBundle(savedInstanceState);
+            elements = de.blau.android.dialogs.Util.getElementsFromBundle(savedInstanceState);
         } else {
             conflict = de.blau.android.util.Util.getSerializeable(getArguments(), CONFLICT_KEY, Conflict.class);
-            elements = getElementsFromBundle(getArguments());
+            elements = de.blau.android.dialogs.Util.getElementsFromBundle(getArguments());
         }
-    }
-
-    /**
-     * Put element ids and types in to a bundle
-     * 
-     * @param elements a List of OsmELement
-     * @param bundle the target bundle
-     */
-    private static void putElementsInBundle(@NonNull List<OsmElement> elements, @NonNull Bundle bundle) {
-        ArrayList<Long> ids = new ArrayList<>();
-        ArrayList<String> types = new ArrayList<>();
-        for (OsmElement e : elements) {
-            ids.add(e.getOsmId());
-            types.add(e.getName());
-        }
-        bundle.putStringArrayList(ELEMENT_TYPES_KEY, types);
-        bundle.putSerializable(ELEMENT_IDS_KEY, ids);
-    }
-
-    /**
-     * Get elements from bundle if any
-     * 
-     * @param bundle the bundle
-     * @return return a List of elements or null
-     */
-    @Nullable
-    private List<OsmElement> getElementsFromBundle(@NonNull Bundle bundle) {
-        List<OsmElement> result = new ArrayList<>();
-        List<Long> ids = Util.getSerializeableArrayList(bundle, ELEMENT_IDS_KEY, Long.class);
-        List<String> types = bundle.getStringArrayList(ELEMENT_TYPES_KEY);
-        if (ids != null && types != null) {
-            if (ids.size() != types.size()) {
-                throw new IllegalArgumentException("Mismatched ids types size " + ids.size() + " != " + types.size());
-            }
-            StorageDelegator delegator = App.getDelegator();
-            for (int i = 0; i < ids.size(); i++) {
-                final String elementType = types.get(i);
-                final long osmId = ids.get(i);
-                OsmElement e = delegator.getOsmElement(elementType, osmId);
-                if (e == null) {
-                    throw new IllegalStateException(elementType + " " + osmId + " not in memory");
-                }
-                result.add(e);
-            }
-            return result;
-        }
-        return null;
     }
 
     @NonNull
@@ -580,7 +529,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
         super.onSaveInstanceState(outState);
         outState.putSerializable(CONFLICT_KEY, conflict);
         if (elements != null) {
-            putElementsInBundle(elements, outState);
+            Util.putElementsInBundle(elements, outState);
         }
     }
 }

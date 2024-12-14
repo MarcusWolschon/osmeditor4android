@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +22,8 @@ import de.blau.android.util.ThemeUtils;
  */
 public class Review extends AbstractReviewDialog {
 
-    private static final String DEBUG_TAG = Review.class.getSimpleName().substring(0, Math.min(23, Review.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Review.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Review.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String TAG = "fragment_review";
 
