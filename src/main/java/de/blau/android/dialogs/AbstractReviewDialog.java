@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -38,10 +40,10 @@ import de.blau.android.validation.Validator;
  */
 public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = AbstractReviewDialog.class.getSimpleName().substring(0, Math.min(23, AbstractReviewDialog.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AbstractReviewDialog.class.getSimpleName().length());
+    private static final String DEBUG_TAG = AbstractReviewDialog.class.getSimpleName().substring(0, TAG_LEN);
 
-    protected static final String TAG_KEY      = "tag";
-    protected static final String ELEMENTS_KEY = "elements";
+    protected static final String TAG_KEY = "tag";
 
     protected List<OsmElement> elements = null;
 
@@ -256,7 +258,7 @@ public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         if (elements != null) {
-            outState.putSerializable(ELEMENTS_KEY, new ArrayList<>(elements));
+            Util.putElementsInBundle(elements, outState);
         }
     }
 }

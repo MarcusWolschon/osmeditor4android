@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +56,8 @@ import de.blau.android.views.ExtendedViewPager;
  */
 public class ReviewAndUpload extends AbstractReviewDialog {
 
-    private static final String DEBUG_TAG = ReviewAndUpload.class.getSimpleName().substring(0, Math.min(23, ReviewAndUpload.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ReviewAndUpload.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ReviewAndUpload.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String TAG = "fragment_confirm_upload";
 
@@ -106,7 +109,7 @@ public class ReviewAndUpload extends AbstractReviewDialog {
         Bundle args = new Bundle();
         args.putString(TAG_KEY, TAG);
         if (elements != null) {
-            args.putSerializable(ELEMENTS_KEY, new ArrayList<>(elements));
+            de.blau.android.dialogs.Util.putElementsInBundle(elements, args);
         }
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -120,9 +123,9 @@ public class ReviewAndUpload extends AbstractReviewDialog {
         Log.d(DEBUG_TAG, "onCreateDialog");
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "restoring from saved state");
-            elements = Util.getSerializeableArrayList(savedInstanceState, ELEMENTS_KEY, OsmElement.class);
+            elements = de.blau.android.dialogs.Util.getElementsFromBundle(savedInstanceState);
         } else {
-            elements = Util.getSerializeableArrayList(getArguments(), ELEMENTS_KEY, OsmElement.class);
+            elements = de.blau.android.dialogs.Util.getElementsFromBundle(getArguments());
         }
 
         FragmentActivity activity = getActivity();
