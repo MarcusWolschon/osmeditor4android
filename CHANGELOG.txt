@@ -1,5 +1,17 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.2.1:
+
+- Fix won't allow deleting a preset if it is the sole active one
+- Fix abort and rollback correctly in extract way segment callback
+- Fix remove all cookies stored by WebView after authorization, this enables changing logins for authorization
+- Fix when replacing a node with a way, replace relation memberships too
+- Fix we were not recording imagery in two (minor) places
+- Add improved railway=* rendering
+- Update translations
+- Update imagery from ELI
+- Update default preset
+
 20.2.0:
 
 - Fix better detection of MVT layers from URL
