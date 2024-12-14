@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Random;
 import java.util.TreeMap;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -199,7 +198,6 @@ public class App extends Application implements android.app.Application.Activity
     private static boolean propertyEditorRunning;
 
     private ScheduledThreadPoolExecutor autosaveExecutor = new ScheduledThreadPoolExecutor(1);
-    private ScheduledFuture<?>          autosaveFuture   = null;
 
     private static FSTConfiguration singletonConf;
 
@@ -207,7 +205,13 @@ public class App extends Application implements android.app.Application.Activity
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+        setupFST();
+    }
 
+    /**
+     * Setup the FST singleton
+     */
+    private static void setupFST() {
         singletonConf = FSTConfiguration.createAndroidDefaultConfiguration();
         singletonConf.registerSerializer(TreeMap.class, new FSTMapSerializer(), true);
     }
@@ -217,10 +221,7 @@ public class App extends Application implements android.app.Application.Activity
         ACRA.init(this);
         super.onCreate();
         registerActivityLifecycleCallbacks(this);
-        String appName = getString(R.string.app_name);
-        String appVersion = getString(R.string.app_version);
-        userAgent = appName + "/" + appVersion;
-        currentInstance = this;
+        setupMisc(this);
         setConfiguration(getResources().getConfiguration());
         // register a broadcast receiver for DeX mode
         // this will remain registered as long as the
@@ -232,6 +233,16 @@ public class App extends Application implements android.app.Application.Activity
         } else {
             registerReceiver(new DesktopModeReceiver(), desktopModeFilter);
         }
+    }
+
+    /**
+     * Setup misc singletons
+     */
+    private static void setupMisc(@NonNull App app) {
+        String appName = app.getString(R.string.app_name);
+        String appVersion = app.getString(R.string.app_version);
+        userAgent = appName + "/" + appVersion;
+        currentInstance = app;
     }
 
     /**
@@ -850,7 +861,7 @@ public class App extends Application implements android.app.Application.Activity
         final int interval = prefs.getInt(getString(R.string.config_autosaveInterval_key), 5);
         final int changes = prefs.getInt(getString(R.string.config_autosaveChanges_key), 1);
         final int maxFiles = prefs.getInt(getString(R.string.config_autosaveMaxFiles_key), 5);
-        autosaveFuture = autosaveExecutor.scheduleAtFixedRate(() -> {
+        autosaveExecutor.scheduleAtFixedRate(() -> {
             if (delegator.isDirty() && delegator.getApiElementCount() >= changes) {
                 if (logic != null && saveState) {
                     logic.save(this);
@@ -902,11 +913,6 @@ public class App extends Application implements android.app.Application.Activity
             synchronized (this) {
                 propertyEditorRunning = false;
             }
-            return;
-        }
-        if (activity instanceof Main && autosaveFuture != null) {
-            Log.i(DEBUG_TAG, "Cancelling autosave");
-            autosaveFuture.cancel(false);
         }
     }
 
