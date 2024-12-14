@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.65.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.66.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -1867,6 +1867,9 @@
             <check key="bicycle" text="By bicycle" disable_off="true"/>
         </checkgroup>
     </chunk>
+    <chunk id="facility_visibility">
+        <combo key="visibility" text="Visibility" values="house,street,area" display_values="House (up to 5m),Street (up to 20m),Area (more than 20m)"/>
+    </chunk>
     <chunk id="advertising_optional">
         <optional>
             <check key="lit" text="Lit" disable_off="true"/>
@@ -1874,6 +1877,9 @@
             <combo key="animated" text="Animation" values="no,yes,trivision_blades,winding_posters,revolving,screen,digital_messages,digital_prices,wind" display_values="No,Yes,Trivision blades,Winding posters,Revolving,Screen,Digital messages,Digital prices,Wind" values_context="advertising" values_searchable="true" match="key"/>
             <text key="height" text="Height (Meters)" value_type="dimension_vertical"/>
             <combo key="sides" text="Number of sides" length="3" values="1,2,3,4,5,6" values_sort="false" match="none" editable="true" value_type="integer"/>
+            <combo key="direction" text="Facing" values="N,E,S,W,0,90,180,270" display_values="North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;" values_sort="false" match="key" value_type="cardinal_direction"/>
+            <combo key="orientation" text="Orientation" values="front,medium,parallel,opposite,multi" display_values="Front,Medium,Parallel,Opposite,Multi"/>
+            <reference ref="facility_visibility"/>
             <reference ref="support"/>
         </optional>
     </chunk>
@@ -2176,11 +2182,23 @@
     <chunk id="trailblazed">
         <combo key="trailblazed" text="Trail markings" values="yes,poles,cairns,symbols,no" display_values="Yes,Poles,Cairns,Symbols,No" match="key"/>
     </chunk>
-    <chunk id="facility_visibility">
-        <combo key="visibility" text="Visibility" values="house,street,area" display_values="House (up to 5m),Street (up to 20m),Area (more than 20m)"/>
-    </chunk>
     <chunk id="aerialway_usage">
         <multiselect key="usage" text="Usage" values="industrial;freight;tourism" display_values="Freight;Industrial;Tourism" values_context="usage" values_searchable="true"/>
+    </chunk>
+    <chunk id="map_base">
+        <reference ref="optional_name_ref_operator"/>
+        <combo key="map_type" text="Detail Grade" values="topo,street,scheme,toposcope" display_values="Topo,Street,Scheme,Toposcope"/>
+        <combo key="map_size" text="Shown Area" values="site,city,region" display_values="Site,City,Region" values_sort="false"/>
+        <text key="description" text="Detailed description" length="255"/>
+        <optional text="Routes shown for:">
+            <check key="hiking" text="Hiking" disable_off="true"/>
+            <check key="bicycle" text="Cycling" disable_off="true"/>
+            <check key="mtb" text="Mountainbiking" disable_off="true"/>
+            <check key="ski" text="Skiing" disable_off="true"/>
+            <check key="horse" text="Riding" disable_off="true"/>
+            <space/>
+            <label text="... other transportation modes possible"/>
+        </optional>
     </chunk>
     <!-- Groups -->
     <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -2700,25 +2718,30 @@
             <combo key="cycleway:lane" text="Bicycle lane type" values_context="cycleway" match="none">
                 <list_entry value="exclusive" display_value="Exclusive"/><list_entry value="advisory" display_value="Advisory"/><list_entry value="pictogram" display_value="Pictogram"/>
             </combo>
-            <!-- the following two items are SChisms that are forced on everybody -->
+            <check key="cycleway:buffer" text="Buffer between cars and cycleway" match="none"/>
+            <!-- the following two items are Schisms that are forced on everybody -->
             <combo key="cycleway:both" text="Cycleway" values_context="cycleway" match="none" deprecated="true">
                 <list_entry value="lane" display_value="Lane"/><list_entry value="track" display_value="Track"/><list_entry value="share_busway" display_value="Share busway"/><list_entry value="shared_lane" display_value="Shared lane"/><list_entry value="separate" display_value="Separate"/>
             </combo>
             <combo key="cycleway:both:lane" text="Bicycle lane type" values_context="cycleway" match="none" deprecated="true">
                 <list_entry value="exclusive" display_value="Exclusive"/><list_entry value="advisory" display_value="Advisory"/><list_entry value="pictogram" display_value="Pictogram"/>
             </combo>
+            <check key="cycleway:both:buffer" text="Buffer between cars and cycleway" match="none" deprecated="true"/>
+            <!-- -->
             <combo key="cycleway:left" text="Cycleway left" values_context="cycleway" match="none">
                 <list_entry value="lane" display_value="Lane"/><list_entry value="track" display_value="Track"/><list_entry value="share_busway" display_value="Share busway"/><list_entry value="shared_lane" display_value="Shared lane"/><list_entry value="separate" display_value="Separate"/>
             </combo>
             <combo key="cycleway:left:lane" text="Bicycle lane type left" values_context="cycleway" match="none">
                 <list_entry value="exclusive" display_value="Exclusive"/><list_entry value="advisory" display_value="Advisory"/><list_entry value="pictogram" display_value="Pictogram"/>
             </combo>
+            <check key="cycleway:left:buffer" text="Buffer between cars and left cycleway" match="none"/>
             <combo key="cycleway:right" text="Cycleway right" values_context="cycleway" match="none">
                 <list_entry value="lane" display_value="Lane"/><list_entry value="track" display_value="Track"/><list_entry value="share_busway" display_value="Share busway"/><list_entry value="shared_lane" display_value="Shared lane"/><list_entry value="separate" display_value="Separate"/>
             </combo>
             <combo key="cycleway:right:lane" text="Bicycle lane type right" values_context="cycleway" match="none">
                 <list_entry value="exclusive" display_value="Exclusive"/><list_entry value="advisory" display_value="Advisory"/><list_entry value="pictogram" display_value="Pictogram"/>
             </combo>
+            <check key="cycleway:right:buffer" text="Buffer between cars and right cycleway" match="none"/>
             <combo key="oneway:bicycle" text="Oneway (bicycle)" values_sort="false">
                 <list_entry value="yes" display_value="In way direction"/><list_entry value="-1" display_value="Against way direction"/><list_entry value="no" display_value="Not oneway"/>
             </combo>
@@ -3225,7 +3248,7 @@
             <checkgroup text="In case of traffic signals:" columns="2">  
                 <check key="button_operated" text="Button operated" disable_off="true"/>
                 <check key="traffic_signals:sound" text="Sound signals" disable_off="true"/>
-                <check key="traffic_signals:minimap" text="Tactile map" disable_off="true"/>
+                <check key="traffic_signals:minimap" text="Tactile mini map" disable_off="true"/>
             </checkgroup>
         </item> <!-- Pedestrian Crossing -->
         <group name="Traffic Calming" icon="icons/png/transport_speedbump.png">
@@ -4929,7 +4952,7 @@
                 <link wiki="Tag:railway=milestone"/>
                 <key key="railway" value="milestone"/>
                 <text key="railway:position" text="Position (kilometers)"/>
-                <text key="ref" text="Reference"/>
+                <text key="railway:ref" text="Reference"/>
             </item> <!-- Railway Milestone -->
             <item name="Derail" icon="icons/png/transport_derail_27023.png" type="node" preset_name_label="true">
                 <link wiki="Tag:railway=derail"/>
@@ -4941,10 +4964,17 @@
                 <text key="operator" text="Operator"/>
                 <reference ref="name_ref"/>
             </item> <!-- Yard -->
+            <item name="Signal box" icon="icons/png/transport_signal_box.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <key key="railway" value="signal_box"/>
+                <reference ref="optional_name"/>
+                <text key="operator" text="Operator"/>
+                <text key="railway:ref" text="Reference"/>
+                <combo key="railway:signal_box" text="Type" values="electric,electronic,mechanical,track_diagram" display_values="Electric,Electronic,Mechanical,Track diagram" values_context="railway"/>
+            </item> <!-- Train wash -->
             <item name="Train wash" icon="icons/png/transport_train_wash.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="railway" value="train_wash"/>
                 <text key="operator" text="Operator"/>
-                <text key="ref" text="Reference"/>
+                <text key="railway:ref" text="Reference"/>
             </item> <!-- Train wash -->
         </group> <!-- Railway -->
         <group name="Aerialway" icon="icons/png/transport_aerialway_10001.png">
@@ -6531,20 +6561,18 @@
             <space/>
             <key key="tourism" value="information"/>
             <key key="information" value="map"/>
-            <reference ref="optional_name_ref_operator"/>
-            <combo key="map_type" text="Detail Grade" values="topo,street,scheme,toposcope" display_values="Topo,Street,Scheme,Toposcope"/>
-            <combo key="map_size" text="Shown Area" values="site,city,region" display_values="Site,City,Region" values_sort="false"/>
-            <text key="description" text="Detailed description" length="255"/>
-            <optional text="Routes shown for:">
-                <check key="hiking" text="Hiking" disable_off="true"/>
-                <check key="bicycle" text="Cycling" disable_off="true"/>
-                <check key="mtb" text="Mountainbiking" disable_off="true"/>
-                <check key="ski" text="Skiing" disable_off="true"/>
-                <check key="horse" text="Riding" disable_off="true"/>
-                <space/>
-                <label text="... other transportation modes possible"/>
-            </optional>
+            <reference ref="map_base"/>
         </item> <!-- Map -->
+        <item name="Tactile map" icon="icons/png/tourist_information_tactile_map_20006.png" type="node" preset_name_label="true">
+            <link wiki="Tag:information=tactile_map"/>
+            <space/>
+            <label text="A tactile map."/>
+            <space/>
+            <key key="tourism" value="information"/>
+            <key key="information" value="tactile_map"/>
+            <reference ref="map_base"/>
+            <text key="blind:description" text="Description for visiually impaired" i18n="true"/>          
+        </item> <!-- Tactile map -->
         <item name="Information Board" icon="icons/png/tourist_information_board_20002.png" type="node" preset_name_label="true">
             <link wiki="Key:information=board"/>
             <space/>
@@ -6623,6 +6651,15 @@
             <label text="Audioguide via mobile phone?"/>
             <text key="phone" text="Phone number" value_type="phone"/>
         </item> <!-- Audio Guide -->
+        <item name="Tactile model" icon="icons/png/tourist_information_tactile_model_20007.png" type="node" preset_name_label="true">
+            <link wiki="Tag:information=tactile_model"/>
+            <space/>
+            <label text="A tactile model."/>
+            <space/>
+            <key key="tourism" value="information"/>
+            <key key="information" value="tactile_model"/>
+            <text key="blind:description" text="Description for visiually impaired" i18n="true"/>          
+        </item> <!-- Tactile model -->
         <item name="Other Information Point" icon="icons/png/tourist_information.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:tourism=information"/>
             <space/>
@@ -9065,30 +9102,7 @@
             <reference ref="fee"/>
         </item> <!-- Vacuum cleaner station -->
         <separator/>
-        <item name="Advertising" icon="icons/png/amenity_advertising_12451.png" type="node,closedway" preset_name_label="true">
-            <link wiki="Key:advertising"/>
-            <space/>
-            <combo key="advertising" text="Advertising facility" values="billboard,board,column,flag,poster_box,screen,sign,totem" display_values="Billboard,Board,Column,Flag,Poster box,Screen,Sign,Totem" values_context="advertising" values_searchable="true" match="key"/>
-            <reference ref="advertising_optional"/>
-        </item> <!-- Advertising -->
-        <item name="Advertising Column" icon="icons/png/amenity_advertising_column_12428.png" type="node,closedway" preset_name_label="true">
-            <link wiki="Tag:advertising=column"/>
-            <space/>
-            <key key="advertising" value="column"/>
-            <reference ref="advertising_optional"/>
-        </item> <!-- Advertising Column -->
-        <item name="Billboard" icon="icons/png/amenity_advertising_billboard_12427.png" type="node" preset_name_label="true">
-            <link wiki="Tag:advertising=billboard"/>
-            <space/>
-            <key key="advertising" value="billboard"/>
-            <reference ref="advertising_optional"/>
-        </item> <!-- Billboard -->
-        <item name="Poster box" icon="icons/png/amenity_advertising_poster_box_12441.png" type="node,way" preset_name_label="true">
-            <link wiki="Tag:advertising=poster_box"/>
-            <space/>
-            <key key="advertising" value="poster_box"/>
-            <reference ref="advertising_optional"/>
-        </item> <!-- Poster box -->
+ 
         <item name="Excrement Bags" icon="icons/png/amenity_vending_excrement_bags_12290.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=vending_machine%3Dexcrement_bags"/>
             <space/>
@@ -9128,7 +9142,44 @@
             <reference ref="name_operator"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Research institute -->
-    </group> <!-- Facilities -->
+        </group> <!-- Facilities -->
+           <group name="Advertising" icon="icons/png/amenity_advertising_12451.png">
+            <item name="Advertising" icon="icons/png/amenity_advertising_12451.png" type="node,closedway" preset_name_label="true">
+                <link wiki="Key:advertising"/>
+                <space/>
+                <combo key="advertising" text="Advertising facility" values="billboard,board,column,flag,poster_box,screen,sign,totem" display_values="Billboard,Board,Column,Flag,Poster box,Screen,Sign,Totem" values_context="advertising" values_searchable="true" match="key"/>
+                <reference ref="advertising_optional"/>
+            </item> <!-- Advertising -->
+            <item name="Advertising Column" icon="icons/png/amenity_advertising_column_12428.png" type="node,closedway" preset_name_label="true">
+                <link wiki="Tag:advertising=column"/>
+                <space/>
+                <key key="advertising" value="column"/>
+                <reference ref="advertising_optional"/>
+            </item> <!-- Advertising Column -->
+            <item name="Billboard" icon="icons/png/amenity_advertising_billboard_12427.png" type="node" preset_name_label="true">
+                <link wiki="Tag:advertising=billboard"/>
+                <space/>
+                <key key="advertising" value="billboard"/>
+                <reference ref="advertising_optional"/>
+            </item> <!-- Billboard -->
+            <item name="Poster box" icon="icons/png/amenity_advertising_poster_box_12441.png" type="node,way" preset_name_label="true">
+                <link wiki="Tag:advertising=poster_box"/>
+                <space/>
+                <key key="advertising" value="poster_box"/>
+                <reference ref="advertising_optional"/>
+            </item> <!-- Poster box -->
+            <item name="Totem" icon="icons/png/amenity_advertising_totem.png" type="node,way" preset_name_label="true">
+                <link wiki="Tag:advertising=totem"/>
+                <space/>
+                <key key="advertising" value="totem"/>
+                <combo key="message" text="Message type" values="commercial,local,safety,legal,map,political,showbiz,non_profit,opinion,religion" display_values="Commercial,Local,Safety,Legal,Map,Political,Showbiz,Non profit,Opinion,Religion"/>
+                <optional>
+                    <reference ref="ref_operator"/>
+                    <reference ref="advertising_optional"/>
+                    <text key="width" text="Width (meters)"/>
+                </optional>
+            </item> <!-- Totem -->
+        </group> <!-- Advertising -->
     </group>  <!-- Facilities -->
     <group name="Sports" icon="icons/png/sport_soccer.png">
     <group name="Sport Facilities" icon="icons/png/sport_stadium.png">
@@ -11737,7 +11788,7 @@
                 <list_entry value="bench" display_value="Bench" short_description="A bench placed in memory of someone or something; usually has a plaque, and sometimes a statue sitting on (part of) it."/>
             </combo>
             <optional>
-                <text key="inscription" text="Inscription" length="255"/>
+                <text key="inscription" text="Inscription" multiline="true" length="255"/>
                 <text key="artist_name" text="Artist Name"/>
                 <text key="start_date" text="Start date"/>
                 <reference ref="material"/>
@@ -11752,7 +11803,7 @@
             <reference ref="optional_name"/>
             <reference ref="religious_catholic_christian"/>
             <text key="start_date" text="Start date"/>
-            <text key="inscription" text="Inscription" length="255"/>
+            <text key="inscription" text="Inscription" multiline="true" length="255"/>
             <reference ref="material"/>
             <reference ref="historic_optional"/>
         </item> <!-- Wayside Cross -->
@@ -11765,7 +11816,7 @@
             <check key="amenity" text="Place of worship" value_on="place_of_worship" disable_off="true"/>
             <check key="building" value_on="wayside_shrine" text="Wayside shrine building" values_context="building" disable_off="true" values_searchable="true" match="keyvalue"/>
             <text key="start_date" text="Start date"/>
-            <text key="inscription" text="Inscription" length="255"/>
+            <text key="inscription" text="Inscription" multiline="true" length="255"/>
             <reference ref="historic_optional"/>
             <optional>
                 <reference ref="additional_building_tags"/>
@@ -11783,7 +11834,7 @@
             <key key="historic" value="boundary_stone"/>
             <optional>
                 <text key="name" text="Name"/>
-                <text key="inscription" text="Inscription"/>
+                <text key="inscription" text="Inscription" multiline="true" length="255"/>
             </optional>
             <preset_link preset_name="Boundary Marker" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Boundary Stone -->
@@ -11793,7 +11844,7 @@
             <key key="historic" value="milestone"/>
             <optional>
                 <text key="name" text="Name"/>
-                <text key="inscription" text="Inscription"/>
+                <text key="inscription" text="Inscription" multiline="true" length="255"/>
             </optional>
         </item> <!-- Milestone -->
         <item name="Pillory" icon="icons/png/tourist_empty.png" type="node,closedway" preset_name_label="true">
@@ -12593,7 +12644,7 @@
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Sports -->
         <item name="Water sports" icon="icons/png/shopping_water_sports_29208.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Key:shop"/>
+            <link wiki="Tag:shop=water_sports"/>
             <space/>
             <key key="shop" value="water_sports"/>
             <reference ref="name_oh_wheelchair_level"/>
@@ -13346,7 +13397,7 @@
             <key key="boundary" value="marker"/>
             <optional>
                 <reference ref="name_ref"/>
-                <text key="inscription" text="Inscription"/>
+                <text key="inscription" text="Inscription" multiline="true" length="255"/>
                 <reference ref="material"/>
             </optional>
             <preset_link preset_name="Boundary Stone" text="Similar but different tags:" alternative="true"/>
@@ -14167,11 +14218,11 @@
             <link wiki="Key:addr"/>
             <space/>
             <text key="addr:housenumber" text="House number" match="key" auto_increment="-2,-1,+1,+2"/>
-            <text key="addr:street" text="Street name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name"/>
+            <text key="addr:street" text="Street name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name" i18n="true"/>
             <check key="nohousenumber" text="No house number" disable_off="true"/>
             <optional>
-                <text key="addr:place" text="Place name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name"/>
-                <text key="addr:city" text="City name" use_last_as_default="force" match="key"/>
+                <text key="addr:place" text="Place name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name" i18n="true"/>
+                <text key="addr:city" text="City name" use_last_as_default="force" match="key" i18n="true"/>
                 <text key="addr:postcode" text="Post code" use_last_as_default="force" match="key"/>
                 <combo key="addr:country" text="Country code" values_from="java.util.Locale#getISOCountries" use_last_as_default="force" match="key" values_context="country codes"/>
             </optional>
@@ -14185,8 +14236,8 @@
                 <text key="addr:hamlet" text="Hamlet" match="key"/>
                 <text key="addr:suburb" text="Suburb" use_last_as_default="force" match="key"/>
                 <text key="addr:subdistrict" text="Subdistrict" use_last_as_default="force" match="key"/>
-                <text key="addr:district" text="District" use_last_as_default="force" match="key"/>
-                <text key="addr:province" text="Province" use_last_as_default="force" match="key"/>
+                <text key="addr:district" text="District" use_last_as_default="force" match="key" i18n="true"/>
+                <text key="addr:province" text="Province" use_last_as_default="force" match="key" i18n="true"/>
                 <!-- US States as defined in ISO 3166-2 -->
                 <combo key="addr:state" text="State" text_context="addr:" values="AL,AK,AZ,AR,CA,CO,CT,DE,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,DC,AS,GU,MP,PR,UM,VI" use_last_as_default="force" match="key"/>
             </optional>
