@@ -1443,7 +1443,6 @@ public class Main extends FullScreenAppCompatActivity
     @Override
     protected void onDestroy() {
         Log.d(DEBUG_TAG, "onDestroy");
-        map.onDestroy();
         if (getTracker() != null) {
             getTracker().setListener(null);
             // the services onDestroy is not guaranteed to be called, so we do it here
