@@ -3157,6 +3157,7 @@ public class Logic {
      * @param background this is being called in the background and shouldn't do any thing that effects the UI
      * @return a ReadAsyncResult with detailed result information
      */
+    @NonNull
     public AsyncResult download(@NonNull final Context ctx, @NonNull Server server, @NonNull final BoundingBox mapBox,
             @Nullable final PostMergeHandler postMerge, @Nullable final PostAsyncActionHandler handler, boolean merge, boolean background) {
         AsyncResult result = new AsyncResult(ErrorCodes.OK);
