@@ -123,6 +123,7 @@ public class LayerDialogTest {
             // ignore
         }
         instrumentation.getTargetContext().deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        instrumentation.getTargetContext().deleteDatabase(AdvancedPrefDatabase.DATABASE_NAME);
         instrumentation.waitForIdleSync();
         resetTaskFilter(new Preferences(main));
     }

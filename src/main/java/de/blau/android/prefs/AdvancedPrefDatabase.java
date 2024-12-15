@@ -51,6 +51,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
+    public static final String DATABASE_NAME = "AdvancedPrefs";
+
     private static final int DATA_VERSION = 17;
 
     /** The ID string for the default API and the default Preset */
@@ -108,8 +110,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param context an Android Context
      */
     public AdvancedPrefDatabase(@NonNull Context context) {
-        super(context.getApplicationContext(), "AdvancedPrefs", null, DATA_VERSION); // always use the application
-                                                                                     // context
+        super(context.getApplicationContext(), DATABASE_NAME, null, DATA_VERSION); // always use the application
+                                                                                   // context
         this.context = context;
         r = context.getResources();
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
