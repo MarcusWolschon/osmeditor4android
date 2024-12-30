@@ -25,6 +25,9 @@ public class Capabilities {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Capabilities.class.getSimpleName().length());
     private static final String DEBUG_TAG = Capabilities.class.getSimpleName().substring(0, TAG_LEN);
 
+    private static final String API_STATUS_READONLY = "readonly";
+    private static final String API_STATUS_ONLINE   = "online";
+
     public enum Status {
         // TODO add unknown status for when we haven't determined the status yet
         ONLINE, READONLY, OFFLINE
@@ -90,9 +93,9 @@ public class Capabilities {
             return Status.OFFLINE;
         }
         switch (s) {
-        case "online":
+        case API_STATUS_ONLINE:
             return Status.ONLINE;
-        case "readonly":
+        case API_STATUS_READONLY:
             return Status.READONLY;
         default:
             return Status.OFFLINE;
