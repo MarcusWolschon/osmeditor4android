@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -20,7 +22,11 @@ import androidx.annotation.NonNull;
  */
 public class Capabilities {
 
-    private static final String DEBUG_TAG = Capabilities.class.getSimpleName().substring(0, Math.min(23, Capabilities.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Capabilities.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Capabilities.class.getSimpleName().substring(0, TAG_LEN);
+
+    private static final String API_STATUS_READONLY = "readonly";
+    private static final String API_STATUS_ONLINE   = "online";
 
     public enum Status {
         // TODO add unknown status for when we haven't determined the status yet
@@ -78,9 +84,9 @@ public class Capabilities {
             return Status.OFFLINE;
         }
         switch (s) {
-        case "online":
+        case API_STATUS_ONLINE:
             return Status.ONLINE;
-        case "readonly":
+        case API_STATUS_READONLY:
             return Status.READONLY;
         default:
             return Status.OFFLINE;
