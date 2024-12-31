@@ -485,6 +485,9 @@
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <!--Notifications-->
+  <plurals name="upload_checker_message">
+    <item quantity="other">公開していない変更が %1$d 件あります。</item>
+  </plurals>
   <!--Toaster-->
   <string name="toast_name_empty">名前を選ぶ</string>
   <string name="toast_url_empty">URLを入力</string>
@@ -496,7 +499,7 @@
   <string name="toast_jpeg_not_transparent">JPEGファイルは透過せず、一面に被せての使用はできません</string>
   <string name="toast_unsaved_changes">先に、保存していない変更をアップロードしてください。</string>
   <string name="clear_anyway">とにかく消去しますか?</string>
-  <string name="toast_upload_success">OSMサーバーへアップロードする。</string>
+  <string name="toast_upload_success">OSMサーバーへアップロードしました。</string>
   <string name="toast_not_in_edit_range">編集するには拡大せよ(音量↑/↓または画面上でボタンを押すか2本指を広げる)</string>
   <string name="toast_unlock_to_edit">編集するためには鍵を解除してください</string>
   <string name="toast_save_done">保存しました</string>
@@ -611,6 +614,7 @@
   <string name="toast_no_way_points">ウェイの点なし</string>
   <string name="toast_import_destination_exists">取り込んだ宛先は既に存在します。</string>
   <string name="toast_element_has_been_deleted">要素は削除されました</string>
+  <string name="toast_error_loading_egm">地球重力モデルの読み込み中にエラー %1$s</string>
   <string name="toast_querying_wms_server_failed">WMSサーバーへの問い合わせに失敗: %1$s</string>
   <string name="toast_no_compass">端末は方位磁石機能を持ちません!</string>
   <!--Error messages-->
@@ -720,6 +724,8 @@
   <string name="tag_form_unknown_element">不明な要素 (プリセットが見つかりません)</string>
   <string name="tag_form_untagged_element">タグの無い要素</string>
   <!--preset item menu in preset MRU-->
+  <string name="apply_with_last_values">最後の値を適用</string>
+  <string name="apply_with_optional_tags">追加のタグを適用</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">任意プリセットを作成</string>
   <string name="create_preset_title">任意プリセット名</string>
@@ -773,6 +779,7 @@
   <string name="menu_add_to_route">ルートを追加</string>
   <string name="menu_relation">リレーションを作成</string>
   <string name="menu_edit_relation">リレーションを編集</string>
+  <string name="menu_add_relation_member">メンバーを追加または削除</string>
   <string name="menu_select_relation_members">メンバーを選択</string>
   <string name="menu_tag">タグ編集</string>
   <string name="menu_openstreetbug">メモを追加</string>
