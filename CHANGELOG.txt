@@ -1,5 +1,13 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.2.2:
+
+- Fix don't assume that list of styles hasn't changed in length
+- Fix update OH Fragment dependency, fixes form input not changing OH value
+- Update translations
+- Update imagery from ELI
+- Update default preset
+
 20.2.1:
 
 - Fix avoid potential TTLE in ReviewAndUpload modal
