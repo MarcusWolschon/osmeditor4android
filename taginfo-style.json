@@ -96,7 +96,7 @@
 {"description":"Data rendering","key": "railway","object_types": ["way"]},
 {"description":"Data rendering","key": "railway","value": "funicular","object_types": ["way"]},
 {"description":"Data rendering","key": "railway","value": "light_rail","object_types": ["way"]},
-{"description":"Data rendering","key": "railway","value": "minature","object_types": ["way"]},
+{"description":"Data rendering","key": "railway","value": "miniature","object_types": ["way"]},
 {"description":"Data rendering","key": "railway","value": "monorail","object_types": ["way"]},
 {"description":"Data rendering","key": "railway","value": "narrow_gauge","object_types": ["way"]},
 {"description":"Data rendering","key": "railway","value": "platform","object_types": ["area"]},
