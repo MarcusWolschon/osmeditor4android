@@ -1420,8 +1420,6 @@ public final class DataStyle extends DefaultHandler {
             addDefaultStyle(context);
         }
         // creating the default style object will set availableStyles
-        String[] res = new String[availableStyles.size()];
-        res[0] = BUILTIN_STYLE_NAME;
         Map<String, DataStyle> sortedMap = new TreeMap<>();
         for (Entry<String, DataStyle> entry : availableStyles.entrySet()) {
             final DataStyle value = entry.getValue();
@@ -1432,15 +1430,12 @@ public final class DataStyle extends DefaultHandler {
                 Log.e(DEBUG_TAG, "Style object missing for style " + key);
             }
         }
-        String[] keys = sortedMap.keySet().toArray(new String[0]); // sort the list
-        int j = 1;
-        for (int i = 0; i < res.length; i++) {
-            if (!BUILTIN_STYLE_NAME.equals(keys[i])) {
-                res[j] = keys[i];
-                j++;
-            }
-        } // probably silly way of doing this
-        return res;
+        List<String> res = new ArrayList<>();
+        res.addAll(sortedMap.keySet());
+        if (!BUILTIN_STYLE_NAME.equals(res.get(0))) {
+            res.add(0, BUILTIN_STYLE_NAME);
+        }
+        return res.toArray(new String[0]);
     }
 
     /**
