@@ -132,6 +132,8 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     private int       autoDownloadBoxLimit = DEFAULT_DOWNLOADBOX_LIMIT;
     private int       panAndZoomLimit      = PAN_AND_ZOOM_LIMIT;
 
+    private boolean wayNodeDragging;
+
     private final StorageDelegator delegator;
     private final Context          context;
     private final Validator        validator;
@@ -1474,7 +1476,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             labelFontStyle = labelTextStyleNormalSelected;
             labelFontStyleSmall = labelTextStyleSmallSelected;
             // visual feedback if way nodes are draggable
-            if (prefs.isWayNodeDraggingEnabled() && context instanceof Main && ((Main) context).getEasyEditManager().inWaySelectedMode()) {
+            if (wayNodeDragging && context instanceof Main && ((Main) context).getEasyEditManager().inWaySelectedMode()) {
                 for (int i = 0; i < pointsSize; i += 4) {
                     canvas.drawCircle(linePoints[i], linePoints[i + 1], nodeToleranceRadius, nodeDragRadiusPaint);
                 }
@@ -1755,6 +1757,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         autoPruneNodeLimit = prefs.getAutoPruneNodeLimit();
         autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
         panAndZoomLimit = prefs.getPanAndZoomLimit();
+        wayNodeDragging = prefs.isWayNodeDraggingEnabled();
         iconCache.clear();
         areaIconCache.clear();
     }
