@@ -50,7 +50,7 @@ public class StorageDelegatorTest {
         Node n0 = w.getNodes().get(0);
 
         try {
-            d.getUndo().createCheckpoint("rotate test");
+            d.getUndo().createCheckpoint("rotate test", null);
             ViewBox v = new ViewBox(0D, 51.476D, 0.003D, 51.478D);
             Coordinates[] coords = Coordinates.nodeListToCoordinateArray(1000, 2000, v, new ArrayList<>(w.getNodes()));
             Coordinates center = Geometry.centroidXY(coords, true);
@@ -144,7 +144,7 @@ public class StorageDelegatorTest {
         int parentCount = w.getParentRelations().size();
         SortedMap<String, String> tags = new TreeMap<>(w.getTags());
         tags.put("test", "pruneAll");
-        d.getUndo().createCheckpoint("pruneAll");
+        d.getUndo().createCheckpoint("pruneAll", null);
         d.setTags(w, tags);
         assertEquals(1, d.getApiElementCount());
         Node n = (Node) d.getOsmElement(Node.NAME, 761534749L);
@@ -179,7 +179,7 @@ public class StorageDelegatorTest {
         int parentCount = w.getParentRelations().size();
         SortedMap<String, String> tags = new TreeMap<>(w.getTags());
         tags.put("test", "prunBox");
-        d.getUndo().createCheckpoint("pruneBox");
+        d.getUndo().createCheckpoint("pruneBox", null);
         d.setTags(w, tags);
         assertEquals(1, d.getApiElementCount());
 
@@ -252,7 +252,7 @@ public class StorageDelegatorTest {
         assertNotNull(w);
         SortedMap<String, String> tags = new TreeMap<>(w.getTags());
         tags.put("test", "merge");
-        d.getUndo().createCheckpoint("merge");
+        d.getUndo().createCheckpoint("merge", null);
         d.setTags(w, tags);
         assertEquals(1, d.getApiElementCount());
         Node n = (Node) d.getOsmElement(Node.NAME, 761534749L);
@@ -288,7 +288,7 @@ public class StorageDelegatorTest {
         assertNotNull(w);
         SortedMap<String, String> tags = new TreeMap<>(w.getTags());
         tags.put("test", "merge");
-        d.getUndo().createCheckpoint("merge");
+        d.getUndo().createCheckpoint("merge", null);
         d.setTags(w, tags);
         assertEquals(1, d.getApiElementCount());
         Node n = (Node) d.getOsmElement(Node.NAME, 761534749L);
@@ -332,7 +332,7 @@ public class StorageDelegatorTest {
         Way newWay = (Way) splitResult.get(0).getElement();
 
         // all things the same the 1st way remains after merger
-        MergeAction action = new MergeAction(d, w, newWay);
+        MergeAction action = new MergeAction(d, w, newWay, null);
         List<Result> result = action.mergeWays();
         assertFalse(result.isEmpty());
         assertFalse(result.get(0).hasIssue());
@@ -342,7 +342,7 @@ public class StorageDelegatorTest {
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
-        action = new MergeAction(d, newWay, w, false);
+        action = new MergeAction(d, newWay, w, false, null);
         result = action.mergeWays();
         assertFalse(result.isEmpty());
         assertFalse(result.get(0).hasIssue());
@@ -354,7 +354,7 @@ public class StorageDelegatorTest {
         assertFalse(splitResult.isEmpty());
         w = (Way) splitResult.get(0).getElement();
         d.reverseWay(w);
-        action = new MergeAction(d, w, newWay, false);
+        action = new MergeAction(d, w, newWay, false, null);
         result = action.mergeWays();
         assertFalse(result.isEmpty());
         assertFalse(result.get(0).hasIssue());
@@ -367,7 +367,7 @@ public class StorageDelegatorTest {
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
         d.reverseWay(w);
-        action = new MergeAction(d, w, newWay, false);
+        action = new MergeAction(d, w, newWay, false, null);
         result = action.mergeWays();
         assertFalse(result.isEmpty());
         assertFalse(result.get(0).hasIssue());
@@ -383,7 +383,7 @@ public class StorageDelegatorTest {
         tags.clear();
         tags.put(Tags.KEY_HIGHWAY, "service");
         newWay.setTags(tags);
-        action = new MergeAction(d, w, newWay, false);
+        action = new MergeAction(d, w, newWay, false, null);
         result = action.mergeWays();
         assertEquals(4, w.getNodes().size());
         assertFalse(result.isEmpty());
@@ -402,7 +402,7 @@ public class StorageDelegatorTest {
         newWay.setTags(tags);
         tags.put(Tags.KEY_STEP_COUNT, "4");
         w.setTags(tags);
-        action = new MergeAction(d, w, newWay, false);
+        action = new MergeAction(d, w, newWay, false, null);
         result = action.mergeWays();
         assertEquals(4, w.getNodes().size());
         assertFalse(result.isEmpty());
@@ -421,7 +421,7 @@ public class StorageDelegatorTest {
         tags.clear();
         tags.put(Tags.KEY_STEP_COUNT, "3");
         newWay.setTags(tags);
-        action = new MergeAction(d, w, newWay, false);
+        action = new MergeAction(d, w, newWay, false, null);
         result = action.mergeWays();
         assertEquals(4, w.getNodes().size());
         assertFalse(result.isEmpty());
@@ -441,7 +441,7 @@ public class StorageDelegatorTest {
         tags.clear();
         tags.put(Tags.KEY_STEP_COUNT, "ABC");
         newWay.setTags(tags);
-        action = new MergeAction(d, w, newWay, false);
+        action = new MergeAction(d, w, newWay, false, null);
         result = action.mergeWays();
         assertEquals(4, w.getNodes().size());
         assertFalse(result.isEmpty());
@@ -461,7 +461,7 @@ public class StorageDelegatorTest {
         newWay.setTags(tags);
         tags.put(Tags.KEY_DURATION, "5");
         w.setTags(tags);
-        action = new MergeAction(d, w, newWay, false);
+        action = new MergeAction(d, w, newWay, false, null);
         result = action.mergeWays();
         assertEquals(4, w.getNodes().size());
         assertFalse(result.isEmpty());
@@ -479,7 +479,7 @@ public class StorageDelegatorTest {
         assertNotNull(newWay.getParentRelations());
         Relation r = newWay.getParentRelations().get(0);
         r.getMember(newWay).setRole("test2");
-        action = new MergeAction(d, w, newWay, false);
+        action = new MergeAction(d, w, newWay, false, null);
         result = action.mergeWays();
         assertEquals(4, w.getNodes().size());
         assertFalse(result.isEmpty());
@@ -492,7 +492,7 @@ public class StorageDelegatorTest {
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
         newWay.setOsmId(1234L);
-        action = new MergeAction(d, w, newWay);
+        action = new MergeAction(d, w, newWay, null);
         result = action.mergeWays();
         assertFalse(result.isEmpty());
         assertFalse(result.get(0).hasIssue());
@@ -506,7 +506,7 @@ public class StorageDelegatorTest {
         assertFalse(splitResult.isEmpty());
         w = (Way) splitResult.get(0).getElement();
         d.unjoinWays(n);
-        action = new MergeAction(d, w, newWay, false);
+        action = new MergeAction(d, w, newWay, false, null);
         try {
             action.mergeWays();
             fail("Should have thrown an OsmIllegalOperationException");
@@ -526,7 +526,7 @@ public class StorageDelegatorTest {
         d.insertElementSafe(n1);
         Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
-        MergeAction action = new MergeAction(d, n1, n2);
+        MergeAction action = new MergeAction(d, n1, n2, null);
         List<Result> result = action.mergeNodes();
         assertFalse(result.isEmpty());
         assertFalse(result.get(0).hasIssue());
@@ -545,7 +545,7 @@ public class StorageDelegatorTest {
         d.insertElementSafe(n1);
         Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
-        MergeAction action = new MergeAction(d, n2, n1);
+        MergeAction action = new MergeAction(d, n2, n1, null);
         List<Result> result = action.mergeNodes();
         assertFalse(result.isEmpty());
         assertFalse(result.get(0).hasIssue());
@@ -565,7 +565,7 @@ public class StorageDelegatorTest {
         Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
         n2.setOsmId(1234L);
-        MergeAction action = new MergeAction(d, n1, n2);
+        MergeAction action = new MergeAction(d, n1, n2, null);
         List<Result> result = action.mergeNodes();
         assertFalse(result.isEmpty());
         assertFalse(result.get(0).hasIssue());
@@ -582,7 +582,7 @@ public class StorageDelegatorTest {
         OsmElementFactory factory = d.getFactory();
         Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n1);
-        MergeAction action = new MergeAction(d, n1, n1);
+        MergeAction action = new MergeAction(d, n1, n1, null);
         List<Result> result = action.mergeNodes();
         assertFalse(result.isEmpty());
         assertTrue(result.get(0).hasIssue());
@@ -607,7 +607,7 @@ public class StorageDelegatorTest {
         Node n1 = w.getLastNode();
         Node n2 = newWay.getFirstNode();
         assertNotEquals(n1, n2);
-        MergeAction action = new MergeAction(d, n1, n2, false);
+        MergeAction action = new MergeAction(d, n1, n2, false, null);
         List<Result> result = action.mergeNodes();
         assertFalse(result.isEmpty());
         assertFalse(result.get(0).hasIssue());
@@ -637,7 +637,7 @@ public class StorageDelegatorTest {
         RelationMember member2 = new RelationMember("test2", n2);
         r.addMember(member2);
         n2.addParentRelation(r);
-        MergeAction action = new MergeAction(d, n1, n2);
+        MergeAction action = new MergeAction(d, n1, n2, null);
         List<Result> result = action.mergeNodes();
         assertEquals(2, result.size());
         assertEquals(1, result.get(1).getIssues().size());
@@ -662,7 +662,7 @@ public class StorageDelegatorTest {
         SortedMap<String, String> tags2 = new TreeMap<>();
         tags2.put(Tags.KEY_HIGHWAY, "b");
         n2.setTags(tags2);
-        MergeAction action = new MergeAction(d, n1, n2);
+        MergeAction action = new MergeAction(d, n1, n2, null);
         List<Result> result = action.mergeNodes();
         assertFalse(result.isEmpty());
         assertEquals(1, result.get(0).getIssues().size());
@@ -687,7 +687,7 @@ public class StorageDelegatorTest {
         SortedMap<String, String> tags2 = new TreeMap<>();
         tags2.put("test2", "d;e;f");
         n2.setTags(tags2);
-        MergeAction action = new MergeAction(d, n1, n2);
+        MergeAction action = new MergeAction(d, n1, n2, null);
         List<Result> result = action.mergeNodes();
         assertNotNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
         assertEquals("a;b;c", n1.getTagWithKey("test1"));
@@ -716,7 +716,7 @@ public class StorageDelegatorTest {
         tags2.put(Tags.KEY_HIGHWAY,
                 "baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         n2.setTags(tags2);
-        MergeAction action = new MergeAction(d, n1, n2);
+        MergeAction action = new MergeAction(d, n1, n2, null);
         try {
             List<Result> result = action.mergeNodes();
             fail("this should have failed");
@@ -743,7 +743,7 @@ public class StorageDelegatorTest {
         SortedMap<String, String> tags2 = new TreeMap<>();
         tags2.put(Tags.KEY_HIGHWAY, "d;e;f");
         n2.setTags(tags2);
-        MergeAction action = new MergeAction(d, n1, n2);
+        MergeAction action = new MergeAction(d, n1, n2, null);
         List<Result> result = action.mergeNodes();
         assertNotNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
         assertEquals("a;b;c;d;e;f", n1.getTagWithKey(Tags.KEY_HIGHWAY));
@@ -770,7 +770,7 @@ public class StorageDelegatorTest {
         SortedMap<String, String> tags2 = new TreeMap<>();
         tags2.put("test" + Tags.KEY_CONDITIONAL_SUFFIX, "(d;e;f)");
         n2.setTags(tags2);
-        MergeAction action = new MergeAction(d, n1, n2);
+        MergeAction action = new MergeAction(d, n1, n2, null);
         List<Result> result = action.mergeNodes();
         assertNotNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
         assertEquals("(a;b;c);(d;e;f)", n1.getTagWithKey("test" + Tags.KEY_CONDITIONAL_SUFFIX));
@@ -1075,7 +1075,7 @@ public class StorageDelegatorTest {
         assertEquals("00:04:53", newWay.getTagWithKey(Tags.KEY_DURATION));
 
         // merge
-        MergeAction action = new MergeAction(d, newWay, w);
+        MergeAction action = new MergeAction(d, newWay, w, null);
         List<Result> results = action.mergeWays();
         assertNotNull(results);
         assertEquals(1, results.size());

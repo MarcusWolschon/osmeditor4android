@@ -132,7 +132,7 @@ public class ReplaceGeometryActionModeCallback extends NonSimpleActionModeCallba
                 Node toReplace = findYoungestUntaggedNode((Way) element);
                 logic.setTags(main, Node.NAME, target.getOsmId(), null, false);
                 logic.performSetPosition(main, (Node) target, toReplace.getLon(), toReplace.getLat(), false);
-                MergeAction merge = new MergeAction(delegator, target, toReplace, false);
+                MergeAction merge = new MergeAction(delegator, target, toReplace, false, logic.getSelectedIds());
                 List<Result> mergeResult = merge.mergeNodes();
                 java.util.Map<String, String> mergedTags = MergeAction.mergeTags(element, targetTags);
                 Result r = mergeResult.get(0);

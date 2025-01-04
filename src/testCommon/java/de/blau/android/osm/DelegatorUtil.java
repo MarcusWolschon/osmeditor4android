@@ -12,7 +12,7 @@ public class DelegatorUtil {
      * @return the way
      */
     public static Way addWayToStorage(@NonNull StorageDelegator d, boolean close) {
-        d.getUndo().createCheckpoint("add test way");
+        d.getUndo().createCheckpoint("add test way", null);
         OsmElementFactory factory = d.getFactory();
         Way w = factory.createWayWithNewId();
         Node n0 = factory.createNodeWithNewId(toE7(51.478), toE7(0));

@@ -39,7 +39,7 @@ public class StorageDelegatorRoboelectricTest {
         StorageDelegator d = RelationUtilTest.loadTestData(getClass());
         Way w9 = RelationUtilTest.getWay(d, -9L);
         Way w8 = RelationUtilTest.getWay(d, -8L);
-        MergeAction action = new MergeAction(d, w9, w8);
+        MergeAction action = new MergeAction(d, w9, w8, null);
         List<Result> results = action.mergeSimplePolygons(getMap(d));
         assertEquals(1, results.size());
         Result r = results.get(0);
@@ -69,7 +69,7 @@ public class StorageDelegatorRoboelectricTest {
         StorageDelegator d = RelationUtilTest.loadTestData(getClass());
         Way w9 = RelationUtilTest.getWay(d, -9L);
         Way w8 = RelationUtilTest.getWay(d, -8L);
-        MergeAction action = new MergeAction(d, w8, w9);
+        MergeAction action = new MergeAction(d, w8, w9, null);
         List<Result> results = action.mergeSimplePolygons(getMap(d));
         assertEquals(1, results.size());
         Result r = results.get(0);
@@ -92,7 +92,7 @@ public class StorageDelegatorRoboelectricTest {
         Way w9 = RelationUtilTest.getWay(d, -9L);
         Way w8 = RelationUtilTest.getWay(d, -8L);
         d.reverseWay(w8);
-        MergeAction action = new MergeAction(d, w8, w9);
+        MergeAction action = new MergeAction(d, w8, w9, null);
         List<Result> results = action.mergeSimplePolygons(getMap(d));
         assertEquals(1, results.size());
         Result r = results.get(0);
@@ -115,7 +115,7 @@ public class StorageDelegatorRoboelectricTest {
         Way w9 = RelationUtilTest.getWay(d, -9L);
         Way w8 = RelationUtilTest.getWay(d, -8L);
         d.reverseWay(w9);
-        MergeAction action = new MergeAction(d, w8, w9);
+        MergeAction action = new MergeAction(d, w8, w9, null);
         List<Result> results = action.mergeSimplePolygons(getMap(d));
         assertEquals(1, results.size());
         Result r = results.get(0);
@@ -137,7 +137,7 @@ public class StorageDelegatorRoboelectricTest {
         StorageDelegator d = RelationUtilTest.loadTestData(getClass());
         Way w1 = RelationUtilTest.getWay(d, -1L);
         Way w3 = RelationUtilTest.getWay(d, -3L);
-        MergeAction action = new MergeAction(d, w1, w3);
+        MergeAction action = new MergeAction(d, w1, w3, null);
         List<Result> results = action.mergeSimplePolygons(getMap(d));
         assertEquals(1, results.size());
         Result r = results.get(0);
@@ -161,7 +161,7 @@ public class StorageDelegatorRoboelectricTest {
         StorageDelegator d = RelationUtilTest.loadTestData(getClass());
         Way w7 = RelationUtilTest.getWay(d, -7L);
         Way w6 = RelationUtilTest.getWay(d, -6L);
-        MergeAction action = new MergeAction(d, w6, w7);
+        MergeAction action = new MergeAction(d, w6, w7, null);
         List<Result> results = action.mergeSimplePolygons(getMap(d));
         assertEquals(1, results.size());
         Result r = results.get(0);

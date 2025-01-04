@@ -192,6 +192,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         } else {
             mode.setSubtitle(R.string.actionmode_createpath);
         }
+        logic.createCheckpoint(main, R.string.undo_action_append);
         snap = logic.getPrefs().isWaySnapEnabled();
         logic.setSelectedWay(null);
         logic.setSelectedNode(appendTargetNode);
@@ -373,13 +374,13 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         final boolean firstNode = addedNodes.isEmpty();
         Node clicked = logic.getClickedNode(x, y);
         if (appendTargetNode != null) {
-            logic.performAppendAppend(main, x, y, firstNode, snap);
+            logic.performAppendAppend(main, x, y, false, snap);
             appendTargetNode = logic.getSelectedNode();
             if (firstNode) {
                 checkpointName = R.string.undo_action_append;
             }
         } else {
-            logic.performAdd(main, x, y, firstNode, snap);
+            logic.performAdd(main, x, y, false, snap);
             if (firstNode) {
                 checkpointName = R.string.undo_action_add;
             }
