@@ -19,6 +19,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
+import de.blau.android.Selection;
+import de.blau.android.Selection.Ids;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Coordinates;
@@ -40,6 +42,8 @@ public class MergeAction {
     private final OsmElement       mergeFrom;
     private final List<Result>     overallResult;
 
+    private final Selection.Ids selection;
+
     /**
      * Initialize a new MergeAction
      * 
@@ -48,9 +52,10 @@ public class MergeAction {
      * @param delegator the StorageDelegator to use
      * @param mergeInto the OsmElement that we are going to merge into
      * @param mergeFrom the OsmElement that is going to be removed
+     * @param selection the current selection in the UI
      */
-    public MergeAction(final @NonNull StorageDelegator delegator, @NonNull OsmElement mergeInto, @NonNull OsmElement mergeFrom) {
-        this(delegator, mergeInto, mergeFrom, true);
+    public MergeAction(final @NonNull StorageDelegator delegator, @NonNull OsmElement mergeInto, @NonNull OsmElement mergeFrom, Ids selection) {
+        this(delegator, mergeInto, mergeFrom, true, selection);
     }
 
     /**
@@ -62,8 +67,10 @@ public class MergeAction {
      * @param mergeInto the OsmElement that we are going to merge into
      * @param mergeFrom the OsmElement that is going to be removed
      * @param swappable if true the elements can be swapped to maintain history
+     * @param selection the current selection in the UI
      */
-    public MergeAction(final @NonNull StorageDelegator delegator, @NonNull OsmElement mergeInto, @NonNull OsmElement mergeFrom, boolean swappable) {
+    public MergeAction(final @NonNull StorageDelegator delegator, @NonNull OsmElement mergeInto, @NonNull OsmElement mergeFrom, boolean swappable,
+            Ids selection) {
         this.delegator = delegator;
         // first determine if one of the elements already has a valid id, if it is not and other node has valid id swap
         // else check version numbers, then choose the older element. The point of this is to preserve as much history
@@ -79,6 +86,7 @@ public class MergeAction {
         }
         this.mergeInto = mergeInto;
         this.mergeFrom = mergeFrom;
+        this.selection = selection;
         overallResult = roleConflict(mergeInto, mergeFrom);
     }
 
@@ -540,7 +548,7 @@ public class MergeAction {
                 delegator.setTags(result, tags);
                 try {
                     delegator.lock();
-                    delegator.getUndo().createCheckpoint(map.getContext().getString(R.string.undo_action_move_tags));
+                    delegator.getUndo().createCheckpoint(map.getContext().getString(R.string.undo_action_move_tags), selection);
                     delegator.recordImagery(map);
                 } finally {
                     delegator.unlock();

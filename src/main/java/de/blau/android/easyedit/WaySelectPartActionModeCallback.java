@@ -81,9 +81,11 @@ public class WaySelectPartActionModeCallback extends NonSimpleActionModeCallback
                 try {
                     List<Result> result = logic.performSplit(main, way, node, fromEnd);
                     checkSplitResult(way, result);
+                    manager.finish();
+                    logic.setSelectedWay((Way) result.get(0).getElement());
+                    manager.editElements();
                 } catch (OsmIllegalOperationException | StorageException ex) {
                     // toast has already been displayed
-                } finally {
                     manager.finish();
                 }
             });
@@ -96,7 +98,7 @@ public class WaySelectPartActionModeCallback extends NonSimpleActionModeCallback
         state.putLong(WAY_ID_KEY, way.getOsmId());
         state.putLong(NODE_ID_KEY, node.getOsmId());
     }
-    
+
     @Override
     public void onDestroyActionMode(ActionMode mode) {
         logic.setClickableElements(null);

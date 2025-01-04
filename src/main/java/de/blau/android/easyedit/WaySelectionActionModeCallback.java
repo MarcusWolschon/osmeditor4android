@@ -231,9 +231,11 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 Way way = (Way) element;
                 switch (item.getItemId()) {
                 case MENUITEM_SPLIT:
+                    deselect = false;
                     main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, false));
                     break;
                 case MENUITEM_MERGE:
+                    deselect = false;
                     main.startSupportActionMode(new WayMergingActionModeCallback(manager, way, cachedMergeableWays));
                     break;
                 case MENUITEM_REVERSE:
@@ -247,9 +249,11 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                     findConnectedWays(way);
                     break;
                 case MENUITEM_APPEND:
+                    deselect = false;
                     main.startSupportActionMode(new WayAppendingActionModeCallback(manager, way, cachedAppendableNodes));
                     break;
                 case MENUITEM_RESTRICTION:
+                    deselect = false;
                     main.startSupportActionMode(new FromElementActionModeCallback(manager, way, cachedViaElements));
                     break;
                 case MENUITEM_ROUTE:
@@ -282,6 +286,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                     main.performTagEdit(element, null, true, false);
                     break;
                 case MENUITEM_REMOVE_NODE:
+                    deselect = false;
                     main.startSupportActionMode(new RemoveNodeFromWayActionModeCallback(manager, way));
                     break;
                 case MENUITEM_UNJOIN:
@@ -292,6 +297,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                     Util.sharePosition(main, Geometry.centroidLonLat(way), main.getMap().getZoomLevel());
                     break;
                 case MENUITEM_EXTRACT_SEGMENT:
+                    deselect = false;
                     main.startSupportActionMode(new WaySegmentActionModeCallback(manager, way));
                     break;
                 case MENUITEM_SELECT_WAY_NODES:

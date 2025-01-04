@@ -55,6 +55,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.Selection.Ids;
 import de.blau.android.contract.HttpStatusCodes;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.AttachedObjectWarning;
@@ -64,6 +65,7 @@ import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.dialogs.UploadConflict;
+import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.ElementSelectionActionModeCallback;
 import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.IllegalOperationException;
@@ -106,6 +108,7 @@ import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.UndoStorage;
+import de.blau.android.osm.UndoStorage.Checkpoint;
 import de.blau.android.osm.UserDetails;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
@@ -470,17 +473,48 @@ public class Logic {
     }
 
     /**
-     * Wrapper to ensure the dirty flag is set
+     * Undo the last checkpoint
      * 
      * @return checkpoint name or null if none available
      */
     @Nullable
     public String undo() {
-        final StorageDelegator delegator = getDelegator();
-        String name = delegator.getUndo().undo();
+        return undo(getDelegator(), getDelegator().getUndo().undo());
+    }
+
+    /**
+     * Undo a specific checkpoint
+     * 
+     * @param checkpoint index of the checkpoint to undo
+     * @return checkpoint name or null if none available
+     */
+    @Nullable
+    public String undo(int checkpoint) {
+        return undo(getDelegator(), getDelegator().getUndo().undo(checkpoint));
+    }
+
+    /**
+     * Undo a checkpoint
+     * 
+     * @param delegator the current StorageDelegator instance
+     * @param toUndo the Checkpoint to undo
+     * @return checkpoint name or null if none available
+     */
+    private String undo(@NonNull final StorageDelegator delegator, @Nullable Checkpoint toUndo) {
+        Selection.Ids ids = toUndo != null ? toUndo.getSelection() : null;
+        if (ids != null && map != null && map.getContext() instanceof Main) {
+            Main main = (Main) map.getContext();
+            final EasyEditManager easyEditManager = main.getEasyEditManager();
+            easyEditManager.finish();
+            final Selection currentSelection = selectionStack.getFirst();
+            currentSelection.reset();
+            currentSelection.fromIds(main, delegator, ids);
+            selectFromTop();
+            easyEditManager.editElements();
+        }
         checkClipboard(delegator);
         delegator.dirty();
-        return name;
+        return toUndo != null ? toUndo.getName() : null;
     }
 
     /**
@@ -490,21 +524,6 @@ public class Logic {
         if (!delegator.clipboardIsEmpty()) {
             delegator.checkClipboard();
         }
-    }
-
-    /**
-     * Wrapper to ensure the dirty flag is set
-     * 
-     * @param checkpoint index of the checkpoint to undo
-     * @return checkpoint name or null if none available
-     */
-    @Nullable
-    public String undo(int checkpoint) {
-        final StorageDelegator delegator = getDelegator();
-        String name = delegator.getUndo().undo(checkpoint);
-        checkClipboard(delegator);
-        delegator.dirty();
-        return name;
     }
 
     /**
@@ -656,7 +675,7 @@ public class Logic {
         Resources r = activity != null ? activity.getResources() : App.resources();
         final UndoStorage undo = getDelegator().getUndo();
         boolean firstCheckpoint = !undo.canUndo();
-        undo.createCheckpoint(r.getString(stringId));
+        undo.createCheckpoint(r.getString(stringId), getSelectedIds());
         getDelegator().recordImagery(map);
         if (firstCheckpoint && activity instanceof AppCompatActivity) {
             ((AppCompatActivity) activity).invalidateOptionsMenu();
@@ -2290,7 +2309,7 @@ public class Logic {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
         try {
             displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
-            MergeAction action = new MergeAction(getDelegator(), mergeInto, mergeFrom);
+            MergeAction action = new MergeAction(getDelegator(), mergeInto, mergeFrom, getSelectedIds());
             List<Result> result = action.mergeWays();
             invalidateMap();
             return result;
@@ -2327,7 +2346,7 @@ public class Logic {
             result.setElement(previousWay);
             for (int i = 1; i < sortedWays.size(); i++) {
                 Way nextWay = (Way) sortedWays.get(i);
-                MergeAction action = new MergeAction(getDelegator(), previousWay, nextWay);
+                MergeAction action = new MergeAction(getDelegator(), previousWay, nextWay, getSelectedIds());
                 List<Result> tempResult = action.mergeWays();
                 final Result newMergeResult = tempResult.get(0);
                 if (!(newMergeResult.getElement() instanceof Way)) {
@@ -2364,7 +2383,7 @@ public class Logic {
             throw new OsmIllegalOperationException("No mergeable polygons");
         }
         try {
-            MergeAction action = new MergeAction(getDelegator(), ways.get(0), ways.get(1));
+            MergeAction action = new MergeAction(getDelegator(), ways.get(0), ways.get(1), getSelectedIds());
             return action.mergeSimplePolygons(map);
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
@@ -2534,7 +2553,7 @@ public class Logic {
                 throw new OsmIllegalOperationException("Trying to join node to itself");
             }
             displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
-            MergeAction action = new MergeAction(getDelegator(), element, nodeToJoin);
+            MergeAction action = new MergeAction(getDelegator(), element, nodeToJoin, getSelectedIds());
             try {
                 List<Result> tempResult = action.mergeNodes();
                 if (overallResult.isEmpty()) {
@@ -2617,7 +2636,7 @@ public class Logic {
                         } else {
                             displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
                             // merge node into target Node
-                            MergeAction action = new MergeAction(getDelegator(), node, nodeToJoin);
+                            MergeAction action = new MergeAction(getDelegator(), node, nodeToJoin, getSelectedIds());
                             tempResult = action.mergeNodes();
                         }
                     } catch (OsmIllegalOperationException | StorageException ex) {
@@ -4978,6 +4997,15 @@ public class Logic {
             result.addAll(selectedRelations);
         }
         return result;
+    }
+
+    /**
+     * Get the ids of currently selected objects
+     * 
+     * @return an Selection.Ids object containing the ids of currently selected objects
+     */
+    public Ids getSelectedIds() {
+        return selectionStack.getFirst().getIds();
     }
 
     /**

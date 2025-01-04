@@ -213,6 +213,39 @@ public class NodeTest {
         assertEquals(600181872L, node.getOsmId());
         assertEquals(4, delegator.getCurrentStorage().getWays(node).size());
     }
+    
+    /**
+     * Select, unjoin, then undo, node should be selected again
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void unjoinNodesUndo() {
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickAtCoordinates(device, map, 8.3866386, 47.3904394, true);
+        TestUtils.clickAwayTip(device, main);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(600181872L, node.getOsmId());
+        final StorageDelegator delegator = App.getDelegator();
+        assertEquals(4, delegator.getCurrentStorage().getWays(node).size());
+
+        int apiNodeCount = delegator.getApiNodeCount();
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_unjoin), false, true));
+        assertEquals(apiNodeCount + 3, delegator.getApiNodeCount());
+
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        TestUtils.clickAwayTip(device, context);
+        
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect), 5000));
+        assertEquals(apiNodeCount, delegator.getApiNodeCount());
+
+        node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(600181872L, node.getOsmId());
+        assertEquals(4, delegator.getCurrentStorage().getWays(node).size());
+    }
 
     /**
      * Select node that is member of a way, append to it

@@ -88,8 +88,7 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
     }
 
     @Override
-    public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be
-                                                            // clicked
+    public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
         super.handleElementClick(element);
         // protect against race conditions
         if (!(element instanceof Node)) {
@@ -102,9 +101,11 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
                 try {
                     List<Result> result = logic.performSplit(main, way, (Node) element, true);
                     checkSplitResult(way, result);
+                    manager.finish();
+                    logic.setSelectedWay((Way) result.get(0).getElement());
+                    manager.editElements();
                 } catch (OsmIllegalOperationException | StorageException ex) {
                     // toast has already been displayed
-                } finally {
                     manager.finish();
                 }
             });

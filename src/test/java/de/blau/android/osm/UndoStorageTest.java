@@ -23,7 +23,7 @@ import de.blau.android.osm.UndoStorage.UndoWay;
 import de.blau.android.util.Util;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(sdk = 33)
 @LargeTest
 public class UndoStorageTest {
 
@@ -89,7 +89,7 @@ public class UndoStorageTest {
         assertFalse(undo.canUndo());
         assertFalse(undo.canRedo());
         Way w = addWayToStorage(d, false); // w is already a member here
-        undo.createCheckpoint("add test relation");
+        undo.createCheckpoint("add test relation", null);
         Relation r = d.createAndInsertRelation(Util.wrapInList(w));
         assertEquals(1, d.getCurrentStorage().getWayCount());
         assertEquals(1, d.getApiStorage().getWayCount());
