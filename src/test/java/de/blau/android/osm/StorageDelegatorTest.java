@@ -128,6 +128,105 @@ public class StorageDelegatorTest {
     }
 
     /**
+     * Test duplication
+     */
+    @Test
+    public void duplicateWay() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+
+        List<OsmElement> duplicates = d.duplicate(Util.wrapInList(w), true);
+        assertNotNull(d.getOsmElement(Way.NAME, w.getOsmId()));
+        assertEquals(1, duplicates.size());
+        assertTrue(duplicates.get(0) instanceof Way);
+        Way dup = (Way) duplicates.get(0);
+        assertNotEquals(w, dup);
+        assertEquals(w.nodeCount(), dup.nodeCount());
+        List<Node> originalNodes = w.getNodes();
+        List<Node> dupNodes = dup.getNodes();
+        for (int i = 0; i < w.nodeCount(); i++) {
+            assertNotEquals(originalNodes.get(i), dupNodes.get(i));
+            assertEquals(originalNodes.get(i).getLat(), dupNodes.get(i).getLat());
+            assertEquals(originalNodes.get(i).getLon(), dupNodes.get(i).getLon());
+        }
+    }
+
+    /**
+     * Test shallow duplication
+     */
+    @Test
+    public void shallowDuplicateWay() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+
+        List<OsmElement> duplicates = d.duplicate(Util.wrapInList(w), false);
+        assertNotNull(d.getOsmElement(Way.NAME, w.getOsmId()));
+        assertEquals(1, duplicates.size());
+        assertTrue(duplicates.get(0) instanceof Way);
+        Way dup = (Way) duplicates.get(0);
+        assertNotEquals(w, dup);
+        assertEquals(w.nodeCount(), dup.nodeCount());
+        List<Node> originalNodes = w.getNodes();
+        List<Node> dupNodes = dup.getNodes();
+        for (int i = 0; i < w.nodeCount(); i++) {
+            assertEquals(originalNodes.get(i), dupNodes.get(i));
+        }
+    }
+
+    /**
+     * Test duplication
+     */
+    @Test
+    public void duplicateRelation() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+
+        final Relation r = w.getParentRelations().get(0);
+        List<OsmElement> duplicates = d.duplicate(Util.wrapInList(r), true);
+        assertNotNull(d.getOsmElement(Way.NAME, w.getOsmId()));
+        assertEquals(1, duplicates.size());
+        assertTrue(duplicates.get(0) instanceof Relation);
+        Relation dup = (Relation) duplicates.get(0);
+        assertNotEquals(r, dup);
+        assertEquals(r.getMemberCount(), dup.getMemberCount());
+        List<RelationMember> originalMembers = r.getMembers();
+        List<RelationMember> dupMembers = dup.getMembers();
+        final OsmElement dupElement = dupMembers.get(0).getElement();
+        assertNotEquals(originalMembers.get(0).getElement(), dupElement);
+        assertTrue(dupElement instanceof Way);
+        List<Node> originalNodes = w.getNodes();
+        List<Node> dupNodes = ((Way) dupElement).getNodes();
+        for (int i = 0; i < w.nodeCount(); i++) {
+            assertNotEquals(originalNodes.get(i), dupNodes.get(i));
+            assertEquals(originalNodes.get(i).getLat(), dupNodes.get(i).getLat());
+            assertEquals(originalNodes.get(i).getLon(), dupNodes.get(i).getLon());
+        }
+    }
+
+    /**
+     * Test shallow duplication
+     */
+    @Test
+    public void shallowDuplicateRelation() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+
+        final Relation r = w.getParentRelations().get(0);
+        List<OsmElement> duplicates = d.duplicate(Util.wrapInList(r), false);
+        assertNotNull(d.getOsmElement(Way.NAME, w.getOsmId()));
+        assertEquals(1, duplicates.size());
+        assertTrue(duplicates.get(0) instanceof Relation);
+        Relation dup = (Relation) duplicates.get(0);
+        assertNotEquals(r, dup);
+        assertEquals(r.getMemberCount(), dup.getMemberCount());
+        List<RelationMember> originalMembers = r.getMembers();
+        List<RelationMember> dupMembers = dup.getMembers();
+        for (int i = 0; i < r.getMemberCount(); i++) {
+            assertEquals(originalMembers.get(i).getElement(), dupMembers.get(i).getElement());
+        }
+    }
+
+    /**
      * Load some data modify a way and a node, then prune
      */
     @Test
