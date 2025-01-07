@@ -44,6 +44,18 @@ Start Multi-Select mode with all members of the current relation selected. The r
 
 If the relation is a multi-polygon, rotate it around its centroid by dragging the display roughly in a circle. The centroid position is marked with a cross.
 
+### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
+
+Copy the selected relation to the internal copy and paste buffer. Only available for multi-polygon relations.
+
+### ![Duplicate](../images/content_duplicate_light.png) Duplicate
+
+Create a copy of the selected relation in the same location. Only available for multi-polygon relations. This does not utilize the copy and paste buffer.
+
+### Shallow duplicate
+
+Create a copy of the selected relation with the same member elements. This does not utilize the copy and paste buffer.
+
 ### ![Delete](../images/tag_menu_delete.png) Delete
 
 Remove the object from the data.

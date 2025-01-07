@@ -65,6 +65,10 @@ If the node has a direction tag with a degree value, rotate the node by dragging
 
 Copy the node to the internal copy and paste buffer.
 
+### ![Duplicate](../images/content_duplicate_light.png) Duplicate
+
+Create a copy of the selected node in the same location. This does not utilize the copy and paste buffer.
+
 ### ![Cut](../images/ic_menu_cut_holo_light.png) Cut
 
 Move the node to the internal copy and paste buffer removing it from the data.
