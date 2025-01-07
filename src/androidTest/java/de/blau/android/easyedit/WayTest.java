@@ -69,6 +69,7 @@ public class WayTest {
         prefDB.addAPI("Test", "Test", "", null, null, "user", "pass", API.Auth.BASIC);
         prefDB.selectAPI("Test");
         Preferences prefs = new Preferences(context);
+        prefs.setAutolockDelay(300000L);
         LayerUtils.removeImageryLayers(context);
         map = main.getMap();
         map.setPrefs(main, prefs);

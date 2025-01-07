@@ -1221,6 +1221,16 @@ public class Preferences {
     }
 
     /**
+     * Set the number of milliseconds we should wait before locking the display
+     * 
+     * @@param delay in milliseconds till we auto-lock
+     */
+    public void setAutolockDelay(long delay) {
+        autoLockDelay = (int) (delay / 1000);
+        prefs.edit().putInt(r.getString(R.string.config_autoLockDelay_key), autoLockDelay);
+    }
+
+    /**
      * Turn auto download with a fixed download size around the current position on
      * 
      * @param enabled if true auto-download will be enabled
