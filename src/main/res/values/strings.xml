@@ -1066,6 +1066,8 @@
     <string name="menu_join">Join</string>
     <string name="menu_unjoin">Unjoin</string>
     <string name="menu_copy">Copy</string>
+    <string name="menu_duplicate">Duplicate</string>
+    <string name="menu_shallow_duplicate">Shallow duplicate</string>
     <string name="menu_cut">Cut</string>
     <string name="menu_paste">Paste</string>
     <string name="menu_paste_tags">Paste tags</string>
@@ -1241,6 +1243,8 @@
     <string name="simple_paste">Tap the screen position</string>
     <string name="menu_paste_multiple">Paste multiple times</string>
     <string name="simple_paste_multiple">Tap the screen position</string>
+    <!--  -->
+    <string name="duplicated_name_template">Duplicate of %1$s</string>
     <!--  Preferences -->
     <string name="config_backgroundLayer_title">Map background</string>
     <string name="config_backgroundLayer_summary">The tile based map background.</string>
@@ -1626,6 +1630,7 @@
     <string name="undo_action_move_tags">Move tags to Relation</string>
     <string name="undo_action_cut">Cut</string>
     <string name="undo_action_paste">Paste</string>
+    <string name="undo_action_duplicate">Duplicate</string>
     <string name="undo_action_rotate">Rotation</string>
     <string name="undo_action_orthogonalize">Way squaring</string>
     <string name="undo_action_circulize">Arrange in circle</string>

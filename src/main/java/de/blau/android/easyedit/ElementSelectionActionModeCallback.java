@@ -95,24 +95,26 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private static final int   MENUITEM_HISTORY_WEB          = 4;
     private static final int   MENUITEM_HISTORY              = 5;
     static final int           MENUITEM_COPY                 = 6;
-    static final int           MENUITEM_CUT                  = 7;
-    private static final int   MENUITEM_PASTE_TAGS           = 8;
-    private static final int   MENUITEM_CREATE_RELATION      = 9;
-    private static final int   MENUITEM_ADD_RELATION_MEMBERS = 10;
-    private static final int   MENUITEM_EXTEND_SELECTION     = 11;
-    private static final int   MENUITEM_ELEMENT_INFO         = 12;
+    static final int           MENUITEM_DUPLICATE            = 7;
+    static final int           MENUITEM_SHALLOW_DUPLICATE    = 8;
+    static final int           MENUITEM_CUT                  = 9;
+    private static final int   MENUITEM_PASTE_TAGS           = 10;
+    private static final int   MENUITEM_CREATE_RELATION      = 11;
+    private static final int   MENUITEM_ADD_RELATION_MEMBERS = 12;
+    private static final int   MENUITEM_EXTEND_SELECTION     = 13;
+    private static final int   MENUITEM_ELEMENT_INFO         = 14;
     protected static final int LAST_REGULAR_MENUITEM         = MENUITEM_ELEMENT_INFO;
 
-    static final int           MENUITEM_UPLOAD              = 31;
-    protected static final int MENUITEM_SHARE_POSITION      = 32;
-    private static final int   MENUITEM_TAG_LAST            = 33;
-    static final int           MENUITEM_ZOOM_TO_SELECTION   = 34;
-    static final int           MENUITEM_SEARCH_OBJECTS      = 35;
-    private static final int   MENUITEM_REPLACE_GEOMETRY    = 36;
-    private static final int   MENUITEM_CALIBRATE_BAROMETER = 37;
-    static final int           MENUITEM_PREFERENCES         = 38;
-    static final int           MENUITEM_JS_CONSOLE          = 39;
-    static final int           MENUITEM_ADD_TO_TODO         = 40;
+    static final int           MENUITEM_UPLOAD              = 40;
+    protected static final int MENUITEM_SHARE_POSITION      = 41;
+    private static final int   MENUITEM_TAG_LAST            = 42;
+    static final int           MENUITEM_ZOOM_TO_SELECTION   = 43;
+    static final int           MENUITEM_SEARCH_OBJECTS      = 44;
+    private static final int   MENUITEM_REPLACE_GEOMETRY    = 45;
+    private static final int   MENUITEM_CALIBRATE_BAROMETER = 46;
+    static final int           MENUITEM_PREFERENCES         = 47;
+    static final int           MENUITEM_JS_CONSOLE          = 48;
+    static final int           MENUITEM_ADD_TO_TODO         = 49;
 
     private static final int MENUITEM_TODO_CLOSE_AND_NEXT = 70;
     private static final int MENUITEM_TODO_SKIP_AND_NEXT  = 71;
@@ -178,9 +180,16 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
         menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
         final boolean isRelation = element instanceof Relation;
-        if (!isRelation) {
+        if (!isRelation || element.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON)) {
             menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
+            menu.add(Menu.NONE, MENUITEM_DUPLICATE, Menu.CATEGORY_SECONDARY, R.string.menu_duplicate)
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_duplicate));
+        }
+        if (!isRelation) {
             menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
+        }
+        if (!(element instanceof Node)) {
+            menu.add(Menu.NONE, MENUITEM_SHALLOW_DUPLICATE, Menu.CATEGORY_SECONDARY, R.string.menu_shallow_duplicate);
         }
         pasteItem = menu.add(Menu.NONE, MENUITEM_PASTE_TAGS, Menu.CATEGORY_SECONDARY, R.string.menu_paste_tags);
 
@@ -312,7 +321,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         super.onActionItemClicked(mode, item);
         final TaskStorage taskStorage = App.getTaskStorage();
-        switch (item.getItemId()) {
+        final int itemId = item.getItemId();
+        switch (itemId) {
         case MENUITEM_TAG:
             main.performTagEdit(element, null, false, false);
             break;
@@ -338,6 +348,13 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         case MENUITEM_CUT:
             logic.cutToClipboard(main, element);
             mode.finish();
+            break;
+        case MENUITEM_DUPLICATE:
+        case MENUITEM_SHALLOW_DUPLICATE:
+            List<OsmElement> result = logic.duplicate(main, Util.wrapInList(element), itemId == MENUITEM_DUPLICATE);
+            mode.finish();
+            App.getLogic().setSelection(result);
+            manager.editElements();
             break;
         case MENUITEM_PASTE_TAGS:
             main.performTagEdit(element, null, new HashMap<>(App.getTagClipboard(main).paste()), false);
@@ -412,7 +429,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         case MENUITEM_TODO_CLOSE_AND_NEXT:
         case MENUITEM_TODO_SKIP_AND_NEXT:
             final List<Todo> todos = taskStorage.getTodosForElement(element);
-            State newState = item.getItemId() == MENUITEM_TODO_CLOSE_AND_NEXT ? State.CLOSED : State.SKIPPED;
+            State newState = itemId == MENUITEM_TODO_CLOSE_AND_NEXT ? State.CLOSED : State.SKIPPED;
             Set<StringWithDescription> listNames = new HashSet<>();
             for (int i = 0; i < todos.size(); i++) {
                 listNames.add(todos.get(i).getListName(main));
