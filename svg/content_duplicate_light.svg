@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="64"
+   viewBox="0 0 38.4 38.4"
+   width="64"
+   version="1.1"
+   id="svg4534"
+   sodipodi:docname="content_duplicate_light.svg"
+   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\src\main\res\drawable-xhdpi\content_duplicate_light.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   style="fill:#5f6368">
+  <metadata
+     id="metadata4540">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs4538" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1896"
+     inkscape:window-height="1101"
+     id="namedview4536"
+     showgrid="false"
+     inkscape:zoom="3.92"
+     inkscape:cx="-31.706085"
+     inkscape:cy="11.596276"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg4534"
+     showguides="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid1380"
+       empspacing="1"
+       visible="false" />
+  </sodipodi:namedview>
+  <g
+     id="g1378"
+     transform="matrix(1.4144133,0,0,1.4144133,2.2270404,-18.140511)">
+    <path
+       style="fill:none"
+       inkscape:connector-curvature="0"
+       id="path4530"
+       d="m 0,14.4 h 24 v 24 H 0 Z" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4532"
+       d="M 16,15.4 H 2 v 16 h 2 v -14 h 12 z m 5,4 H 6 v 18 h 15 z m -2,16 H 8 v -14 h 11 z" />
+    <text
+       id="text4544"
+       y="32.694206"
+       x="7.4888563"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.39999962px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#5f6368;fill-opacity:1;stroke:none;stroke-width:0.60000002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="fill:#5f6368;fill-opacity:1;stroke-width:0.60000002px"
+         y="32.694206"
+         x="7.4888563"
+         id="tspan4542"
+         sodipodi:role="line">+</tspan></text>
+  </g>
+</svg>

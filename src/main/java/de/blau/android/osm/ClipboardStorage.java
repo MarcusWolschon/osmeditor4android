@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +11,9 @@ import androidx.annotation.NonNull;
 import de.blau.android.exception.StorageException;
 
 public class ClipboardStorage implements Serializable {
-    static final String DEBUG_TAG = ClipboardStorage.class.getSimpleName().substring(0, Math.min(23, ClipboardStorage.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ClipboardStorage.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ClipboardStorage.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * 
@@ -58,7 +62,6 @@ public class ClipboardStorage implements Serializable {
         selectionLat = latE7;
         selectionLon = lonE7;
         mode = Mode.COPY;
-
         try {
             for (OsmElement e : elements) {
                 storage.insertElementUnsafe(e);
@@ -99,6 +102,7 @@ public class ClipboardStorage implements Serializable {
     public List<OsmElement> pasteFrom() {
         List<Way> ways = storage.getWays();
         List<Node> nodes = storage.getNodes();
+        List<Relation> relations = storage.getRelations();
         List<OsmElement> result = new ArrayList<>();
         if (mode == Mode.CUT) {
             reset(); // can only paste a cut way once
@@ -111,6 +115,11 @@ public class ClipboardStorage implements Serializable {
         if (ways != null) {
             for (Way w : ways) {
                 result.add(w);
+            }
+        }
+        if (relations != null) {
+            for (Relation r : relations) {
+                result.add(r);
             }
         }
         return result;

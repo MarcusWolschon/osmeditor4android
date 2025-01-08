@@ -5915,7 +5915,7 @@ public class Logic {
      * @param activity the activity we were called from
      * @param x screen x to position the object at
      * @param y screen y to position the object at
-     * @return the pasted object or null if the clipboard was empty
+     * @return the pasted objects or null if the clipboard was empty
      */
     @Nullable
     public List<OsmElement> pasteFromClipboard(@Nullable Activity activity, float x, float y) {
@@ -5923,6 +5923,31 @@ public class Logic {
         int lat = yToLatE7(y);
         int lon = xToLonE7(x);
         return getDelegator().pasteFromClipboard(lat, lon);
+    }
+
+    /**
+     * Duplicate a list of elements
+     * 
+     * If the the duplicated objects have a name tag, a compositie name will be generated
+     * 
+     * @param activity the activity we were called from
+     * @param elements the List of OsmElement
+     * @param deep duplicate child elements if true
+     * @return the duplicated objects
+     */
+    @Nullable
+    public List<OsmElement> duplicate(@Nullable Activity activity, @NonNull List<OsmElement> elements, boolean deep) {
+        createCheckpoint(activity, R.string.undo_action_duplicate);
+        List<OsmElement> duplicated = getDelegator().duplicate(elements, deep);
+        for (OsmElement d : duplicated) {
+            String nameTag = d.getTagWithKey(Tags.KEY_NAME);
+            if (nameTag != null && activity != null) {
+                SortedMap<String, String> tags = new TreeMap<>(d.getTags());
+                tags.put(Tags.KEY_NAME, activity.getString(R.string.duplicated_name_template, nameTag));
+                setTags(activity, d, tags, false);
+            }
+        }
+        return duplicated;
     }
 
     /**

@@ -2524,29 +2524,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void copyToClipboard(@NonNull List<OsmElement> elements, int lat, int lon) {
         dirty = true; // otherwise clipboard will not get saved without other changes
         List<OsmElement> toCopy = new ArrayList<>();
-        Map<Long, Node> processedNodes = new HashMap<>();
+        Map<OsmElement, OsmElement> processed = new HashMap<>();
         try {
-
             lock();
             for (OsmElement e : elements) {
                 if (e instanceof Node) {
-                    Node newNode = factory.createNodeWithNewId(((Node) e).getLat(), ((Node) e).getLon());
-                    newNode.setTags(e.getTags());
-                    toCopy.add(newNode);
-                    processedNodes.put(e.getOsmId(), newNode);
+                    toCopy.add(duplicateNode((Node) e, 0, 0, processed));
                 } else if (e instanceof Way) {
-                    Way newWay = factory.createWayWithNewId();
-                    newWay.setTags(e.getTags());
-                    for (Node nd : ((Way) e).getNodes()) {
-                        Node newNode = processedNodes.get(nd.getOsmId());
-                        if (newNode == null) {
-                            newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
-                            newNode.setTags(nd.getTags());
-                            processedNodes.put(nd.getOsmId(), newNode);
-                        }
-                        newWay.addNode(newNode);
-                    }
-                    toCopy.add(newWay);
+                    toCopy.add(duplicateWay((Way) e, 0, 0, processed, true));
+                } else if (e instanceof Relation) {
+                    toCopy.add(duplicateRelation((Relation) e, 0, 0, processed, true));
                 }
             }
             if (!toCopy.isEmpty()) {
@@ -2569,9 +2556,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<OsmElement> toCut = new ArrayList<>();
         Map<Long, Node> replacedNodes = new HashMap<>();
         try {
-
             lock();
             for (OsmElement e : elements) {
+                if (e instanceof Relation) {
+                    throw new IllegalArgumentException("Cutting of Relations not supported");
+                }
                 toCut.add(e);
                 if (e instanceof Way) {
                     undo.save(e);
@@ -2579,24 +2568,26 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     List<Node> nodes = new ArrayList<>(((Way) e).getNodes());
                     for (Node nd : nodes) {
                         List<Way> ways = currentStorage.getWays(nd);
-                        if (ways.size() > 1) { // 1 is expected (our way will be deleted later)
-                            Node newNode = replacedNodes.get(nd.getOsmId());
-                            if (newNode == null) {
-                                // check if there is actually a Way we are not cutting
-                                for (Way w : ways) {
-                                    if (!elements.contains(w)) {
-                                        newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
-                                        newNode.setTags(nd.getTags());
-                                        insertElementSafe(newNode);
-                                        replacedNodes.put(nd.getOsmId(), newNode);
-                                        break;
-                                    }
+                        if (ways.size() <= 1) { // 1 is expected (our way will be deleted later)
+                            continue;
+                        }
+                        Node newNode = replacedNodes.get(nd.getOsmId());
+                        if (newNode == null) {
+                            // check if there is actually a Way we are not cutting
+                            for (Way w : ways) {
+                                if (!elements.contains(w)) {
+                                    newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
+                                    newNode.setTags(nd.getTags());
+                                    insertElementSafe(newNode);
+                                    replacedNodes.put(nd.getOsmId(), newNode);
+                                    break;
                                 }
                             }
                         }
                     }
                 }
             }
+            Set<Node> wayNodes = new HashSet<>();
             for (OsmElement removeElement : toCut) {
                 if (removeElement instanceof Node) {
                     removeNode((Node) removeElement);
@@ -2610,17 +2601,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                             ((Way) removeElement).replaceNode(nd, replacement);
                         }
                     }
+                    wayNodes.addAll(((Way) removeElement).getNodes());
                     removeWay((Way) removeElement);
                 }
             }
             // way nodes have to wait till we have removed all the ways
-            for (OsmElement removeElement : toCut) {
-                if (removeElement instanceof Way) {
-                    Set<Node> nodes = new HashSet<>(((Way) removeElement).getNodes());
-                    for (Node nd : nodes) {
-                        removeNode(nd); //
-                    }
-                }
+            for (Node nd : wayNodes) {
+                removeNode(nd); //
             }
             clipboard.cutTo(toCut, lat, lon);
         } finally {
@@ -2648,68 +2635,204 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         boolean copy = !clipboard.isEmpty();
         int deltaLat = lat - clipboard.getSelectionLat();
         int deltaLon = lon - clipboard.getSelectionLon();
-        Map<Node, Node> newNodes = new HashMap<>(); // every node needs to only be transformed once
-        for (OsmElement e : elements) {
+        Map<OsmElement, OsmElement> processed = new HashMap<>(); // every element only needs to be transformed once
+        for (OsmElement original : elements) {
             // if the clipboard isn't empty now we need to clone the element
             if (copy) { // paste from copy
-                if (e instanceof Node) {
-                    Node newNode = factory.createNodeWithNewId(((Node) e).getLat() + deltaLat, ((Node) e).getLon() + deltaLon);
-                    newNode.setTags(e.getTags());
-                    insertElementSafe(newNode);
-                    newNodes.put((Node) e, newNode);
-                    e = newNode;
-                } else if (e instanceof Way) {
-                    Way newWay = factory.createWayWithNewId();
-                    undo.save(newWay); // do this before we create and add nodes
-                    newWay.setTags(e.getTags());
-                    List<Node> nodeList = ((Way) e).getNodes();
-                    // this is slightly complicated because we need to handle cases with potentially broken geometry
-                    // allocate and set the position of the new nodes
-                    Set<Node> nodes = new HashSet<>(nodeList);
-                    for (Node nd : nodes) {
-                        if (!newNodes.containsKey(nd)) {
-                            Node newNode = factory.createNodeWithNewId(nd.getLat() + deltaLat, nd.getLon() + deltaLon);
-                            newNode.setTags(nd.getTags());
-                            insertElementSafe(newNode);
-                            newNodes.put(nd, newNode);
-                        }
-                    }
-                    // now add them to the new way
-                    for (Node nd : nodeList) {
-                        newWay.addNode(newNodes.get(nd));
-                    }
-                    insertElementSafe(newWay);
-                    e = newWay;
-                }
+                result.add(createDuplicate(original, deltaLat, deltaLon, processed, true));
             } else { // paste from cut
-                if (currentStorage.contains(e)) {
-                    Log.e(DEBUG_TAG, "Attempt to paste from cut, but element is already present");
-                    clipboard.reset();
-                    return null;
+                OsmElement e = pasteFromCut(original, deltaLat, deltaLon, processed);
+                if (e != null) {
+                    result.add(e);
                 }
-                undo.save(e);
-                if (e instanceof Node) {
-                    ((Node) e).setLat(((Node) e).getLat() + deltaLat);
-                    ((Node) e).setLon(((Node) e).getLon() + deltaLon);
-                    newNodes.put((Node) e, null);
-                } else if (e instanceof Way) {
-                    Set<Node> nodes = new HashSet<>(((Way) e).getNodes());
-                    for (Node nd : nodes) {
-                        if (!newNodes.containsKey(nd)) {
-                            undo.save(nd);
-                            nd.setLat(nd.getLat() + deltaLat);
-                            nd.setLon(nd.getLon() + deltaLon);
-                            nd.updateState(nd.getOsmId() < 0 ? OsmElement.STATE_CREATED : OsmElement.STATE_MODIFIED);
-                            insertElementSafe(nd);
-                            newNodes.put(nd, null);
-                        }
-                    }
-                    ((Way) e).invalidateBoundingBox();
-                }
-                insertElementSafe(e);
-                e.updateState(e.getOsmId() < 0 ? OsmElement.STATE_CREATED : OsmElement.STATE_MODIFIED);
             }
-            result.add(e);
+        }
+        return result;
+    }
+
+    /**
+     * Re-create an OsmElement from a cut at a specific position
+     * 
+     * @param e the OsmElement to re-create
+     * @param deltaLat delta latitude (WGS84*1E7)
+     * @param deltaLon delta longitude (WGS84*1E7)
+     * @param processed bookkeeping which nodes have already been duplicated
+     * @return the re-created OsmElement
+     */
+    @Nullable
+    private OsmElement pasteFromCut(@NonNull OsmElement e, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed) {
+        if (currentStorage.contains(e)) {
+            Log.e(DEBUG_TAG, "Attempt to paste from cut, but element is already present");
+            clipboard.reset();
+            return null;
+        }
+        undo.save(e);
+        if (e instanceof Node) {
+            ((Node) e).setLat(((Node) e).getLat() + deltaLat);
+            ((Node) e).setLon(((Node) e).getLon() + deltaLon);
+            processed.put(e, null);
+        } else if (e instanceof Way) {
+            Set<Node> nodes = new HashSet<>(((Way) e).getNodes());
+            for (Node nd : nodes) {
+                if (!processed.containsKey(nd)) {
+                    undo.save(nd);
+                    nd.setLat(nd.getLat() + deltaLat);
+                    nd.setLon(nd.getLon() + deltaLon);
+                    nd.updateState(nd.getOsmId() < 0 ? OsmElement.STATE_CREATED : OsmElement.STATE_MODIFIED);
+                    insertElementSafe(nd);
+                    processed.put(nd, null);
+                }
+            }
+            ((Way) e).invalidateBoundingBox();
+        }
+        insertElementSafe(e);
+        e.updateState(e.getOsmId() < 0 ? OsmElement.STATE_CREATED : OsmElement.STATE_MODIFIED);
+        return e;
+    }
+
+    /**
+     * Create a duplicate of an OsmElement at a specific position
+     * 
+     * @param e the OsmElement to duplicate
+     * @param deltaLat delta latitude (WGS84*1E7)
+     * @param deltaLon delta longitude (WGS84*1E7)
+     * @param processed bookkeeping which elements have already been duplicated
+     * @param deep duplicate child elements if true
+     * @return the new, duplicated, OsmElement
+     */
+    @NonNull
+    private OsmElement createDuplicate(@NonNull OsmElement e, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed, boolean deep) {
+        if (e instanceof Node) {
+            return duplicateNode((Node) e, deltaLat, deltaLon, processed);
+        }
+        if (e instanceof Way) {
+            return duplicateWay((Way) e, deltaLat, deltaLon, processed, deep);
+        }
+        if (e instanceof Relation) {
+            return duplicateRelation((Relation) e, deltaLat, deltaLon, processed, deep);
+        }
+        throw new IllegalArgumentException("Unexpected element " + e);
+    }
+
+    /**
+     * Duplicate a Relation
+     * 
+     * @param r the Relation
+     * @param deltaLat delta latitude (WGS84*1E7)
+     * @param deltaLon delta longitude (WGS84*1E7)
+     * @param processed bookkeeping which elements have already been duplicated
+     * @param deep duplicate child elements if true
+     * @return a duplicate of r
+     */
+    @NonNull
+    private Relation duplicateRelation(@NonNull Relation r, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed, boolean deep) {
+        Relation newRelation = factory.createRelationWithNewId();
+        undo.save(newRelation); // do this before we create and add members
+        newRelation.setTags(r.getTags());
+        List<RelationMember> memberList = r.getMembers();
+        if (deep) {
+            if (!r.allDownloaded()) {
+                throw new IllegalArgumentException("Relation members not downloaded");
+            }
+            Set<RelationMember> members = new HashSet<>(memberList);
+            for (RelationMember rm : members) {
+                if (!processed.containsKey(rm.getElement())) {
+                    switch (rm.type) {
+                    case Node.NAME:
+                        duplicateNode((Node) rm.getElement(), deltaLat, deltaLon, processed);
+                        break;
+                    case Way.NAME:
+                        duplicateWay((Way) rm.getElement(), deltaLat, deltaLon, processed, true);
+                        break;
+                    case Relation.NAME:
+                        duplicateRelation((Relation) rm.getElement(), deltaLat, deltaLon, processed, true);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unexpected member element " + rm);
+                    }
+                }
+            }
+            for (RelationMember rm : memberList) {
+                final OsmElement memberElement = processed.get(rm.getElement());
+                newRelation.addMember(new RelationMember(rm.getRole(), memberElement));
+                memberElement.addParentRelation(newRelation);
+            }
+        } else {
+            newRelation.addMembers(memberList, true);
+        }
+        processed.put(r, newRelation);
+        return newRelation;
+    }
+
+    /**
+     * Duplicate a way
+     * 
+     * @param way the Way
+     * @param deltaLat delta latitude (WGS84*1E7)
+     * @param deltaLon delta longitude (WGS84*1E7)
+     * @param processed bookkeeping which elements have already been duplicated
+     * @param deep duplicate child elements if true
+     * @return a duplicate of way
+     */
+    @NonNull
+    private Way duplicateWay(@NonNull Way way, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed, boolean deep) {
+        Way newWay = factory.createWayWithNewId();
+        undo.save(newWay); // do this before we create and add nodes
+        newWay.setTags(way.getTags());
+        List<Node> nodeList = way.getNodes();
+        if (deep) {
+            // this is slightly complicated because we need to handle cases with potentially broken geometry
+            // allocate and set the position of the new nodes
+            Set<Node> nodes = new HashSet<>(nodeList);
+            for (Node nd : nodes) {
+                if (!processed.containsKey(nd)) {
+                    duplicateNode(nd, deltaLat, deltaLon, processed);
+                }
+            }
+            // now add them to the new way
+            for (Node nd : nodeList) {
+                newWay.addNode((Node) processed.get(nd));
+            }
+        } else {
+            newWay.addNodes(nodeList, true);
+        }
+        insertElementSafe(newWay);
+        processed.put(way, newWay);
+        return newWay;
+    }
+
+    /**
+     * Duplicate a Node
+     * 
+     * @param node the Node
+     * @param deltaLat delta latitude (WGS84*1E7)
+     * @param deltaLon delta longitude (WGS84*1E7)
+     * @param processed bookkeeping which elements have already been duplicated
+     * @return a duplicate of node
+     */
+    @NonNull
+    private Node duplicateNode(@NonNull Node node, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed) {
+        Node newNode = factory.createNodeWithNewId(node.getLat() + deltaLat, node.getLon() + deltaLon);
+        newNode.setTags(node.getTags());
+        insertElementSafe(newNode);
+        processed.put(node, newNode);
+        return newNode;
+    }
+
+    /**
+     * Create duplicates of a list of elements
+     * 
+     * @param elements the OsmElements
+     * @param deep duplicate child elements if true
+     * @return a List of the duplicated elements
+     */
+    @NonNull
+    public List<OsmElement> duplicate(@NonNull List<OsmElement> elements, boolean deep) {
+        Collections.sort(elements, new NwrComparator()); // enforce NWR order
+        List<OsmElement> result = new ArrayList<>();
+        Map<OsmElement, OsmElement> processed = new HashMap<>();
+        for (OsmElement original : elements) {
+            result.add(createDuplicate(original, 0, 0, processed, deep));
         }
         return result;
     }

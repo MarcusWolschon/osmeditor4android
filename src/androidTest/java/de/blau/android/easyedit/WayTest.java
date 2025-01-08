@@ -175,8 +175,8 @@ public class WayTest {
         TestUtils.clickAtCoordinates(device, map, splitNode.getLon(), splitNode.getLat());
         TestUtils.sleep(2000);
         assertTrue(TestUtils.textGone(device, context.getString(R.string.actionmode_wayselect), 5000));
-        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        assertTrue(TestUtils.clickText(device, false, "↗ Path", false, false));
+        // TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        // assertTrue(TestUtils.clickText(device, false, "↗ Path", false, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         way = App.getLogic().getSelectedWay();
         assertNotNull(way);

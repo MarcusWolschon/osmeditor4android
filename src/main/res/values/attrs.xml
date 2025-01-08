@@ -10,6 +10,7 @@
 	<attr name="menu_delete" format="reference" />
 	<attr name="menu_cut" format="reference" />
 	<attr name="menu_copy" format="reference" />
+    <attr name="menu_duplicate" format="reference" />
 	<attr name="menu_paste" format="reference" />
 	<attr name="menu_save" format="reference" />
 	<attr name="menu_tags" format="reference" />
