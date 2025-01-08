@@ -58,6 +58,7 @@ public class TodoTest {
         main = mActivityRule.getActivity();
         App.getTaskStorage().reset();
         Preferences prefs = new Preferences(context);
+        main.updatePrefs(prefs);
         prefs.setAutolockDelay(300000L);
         Set<String> filter = prefs.taskFilter();
         filter.add(Todo.FILTER_KEY);

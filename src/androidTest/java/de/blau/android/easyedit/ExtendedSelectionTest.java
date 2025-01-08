@@ -58,6 +58,7 @@ public class ExtendedSelectionTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
+        main.updatePrefs(prefs);
         prefs.setAutolockDelay(300000L);
         LayerUtils.removeImageryLayers(context);
         map = main.getMap();
