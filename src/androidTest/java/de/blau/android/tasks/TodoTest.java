@@ -55,6 +55,7 @@ public class TodoTest {
     public void setup() {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        App.newLogic();
         main = mActivityRule.getActivity();
         App.getTaskStorage().reset();
         Preferences prefs = new Preferences(context);

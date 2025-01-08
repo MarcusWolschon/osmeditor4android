@@ -71,6 +71,7 @@ public class WayActionsTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         instrumentation = InstrumentationRegistry.getInstrumentation();
         context = instrumentation.getTargetContext();
+        App.newLogic();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         main.updatePrefs(prefs);

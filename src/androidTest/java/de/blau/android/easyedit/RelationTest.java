@@ -67,6 +67,7 @@ public class RelationTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
+        App.newLogic();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         main.updatePrefs(prefs);

@@ -56,6 +56,7 @@ public class ExtendedSelectionTest {
     public void setup() {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        App.newLogic();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         main.updatePrefs(prefs);

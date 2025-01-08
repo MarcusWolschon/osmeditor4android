@@ -63,6 +63,7 @@ public class WayTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
+        App.newLogic();
         main = mActivityRule.getActivity();
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
