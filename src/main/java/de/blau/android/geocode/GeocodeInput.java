@@ -1,5 +1,7 @@
 package de.blau.android.geocode;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -13,28 +15,32 @@ import com.google.openlocationcode.OpenLocationCode;
 import com.google.openlocationcode.OpenLocationCode.CodeArea;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialog;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.util.CoordinateParser;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.GeoUriData;
 import de.blau.android.util.LatLon;
 import de.blau.android.util.NetworkStatus;
 
 /**
- * Ask the user for coordinates or an OLC for example WF8Q+WF Praia, Cabo Verde
+ * Ask the user for input Supported are coordinates or an OLC for example WF8Q+WF Praia, Cabo Verde, or an geo: Uri
  * 
  * @author simon
  *
  */
-public class CoordinatesOrOLC {
+public class GeocodeInput {
 
-    protected static final String DEBUG_TAG = CoordinatesOrOLC.class.getSimpleName().substring(0, Math.min(23, CoordinatesOrOLC.class.getSimpleName().length()));
+    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, GeocodeInput.class.getSimpleName().length());
+    protected static final String DEBUG_TAG = GeocodeInput.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final Pattern OLC_SHORT = Pattern.compile("^([23456789CFGHJMPQRVWX]{4,6}\\+[23456789CFGHJMPQRVWX]{2,3})\\s*(.*)$",
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
@@ -92,34 +98,17 @@ public class CoordinatesOrOLC {
                     return CoordinateParser.parseVerbatimCoordinates(text);
                 } catch (ParseException pex) {
                     try {
-                        OpenLocationCode olc = null;
-                        Matcher m = OLC_FULL.matcher(text);
-                        if (m.find()) {
-                            olc = new OpenLocationCode(m.group(1));
-                        } else {
-                            m = OLC_SHORT.matcher(text);
-                            if (m.find()) {
-                                olc = new OpenLocationCode(m.group(1));
-                                final String loc = m.group(2);
-                                if (!"".equals(loc)) { // user has supplied a location
-                                    olc = recoverLocation(context, handler, olc, loc);
-                                } else { // relative to screen center
-                                    ViewBox box = App.getLogic().getViewBox();
-                                    if (box != null) {
-                                        double[] c = box.getCenter();
-                                        olc = olc.recover(c[1], c[0]);
-                                    }
-                                }
-                            }
-                        }
-                        if (olc == null) {
-                            throw new IOException("Unparseable OLC " + text);
-                        }
-                        CodeArea ca = olc.decode();
-                        return new LatLon(ca.getCenterLatitude(), ca.getCenterLongitude());
+                        return parseOLC(context, handler, text);
                     } catch (Exception e) {
-                        Log.e(DEBUG_TAG, e.getMessage());
-                        handler.onError(context.getString(R.string.unparseable_coordinates));
+                        try {
+                            Uri uri = Uri.parse(text);
+                            if (Schemes.GEO.equals(uri.getScheme())) {
+                                return GeoUriData.parse(uri.getSchemeSpecificPart()).getLatLon();
+                            }
+                        } catch (Exception e2) {
+                            Log.e(DEBUG_TAG, e.getMessage());
+                            handler.onError(context.getString(R.string.unparseable_coordinates));
+                        }
                     }
                 }
                 return null;
@@ -142,6 +131,43 @@ public class CoordinatesOrOLC {
         if (dialog != null) {
             dialog.dismiss();
         }
+    }
+
+    /**
+     * Parse an OLC (code)
+     * 
+     * @param context an android context
+     * @param handler handler for errors
+     * @param text the input text
+     * @return a LatLon object
+     * @throws IOException on any kind of errror
+     */
+    private static LatLon parseOLC(@NonNull final Context context, @NonNull final HandleResult handler, @NonNull String text) throws IOException {
+        OpenLocationCode olc = null;
+        Matcher m = OLC_FULL.matcher(text);
+        if (m.find()) {
+            olc = new OpenLocationCode(m.group(1));
+        } else {
+            m = OLC_SHORT.matcher(text);
+            if (m.find()) {
+                olc = new OpenLocationCode(m.group(1));
+                final String loc = m.group(2);
+                if (!"".equals(loc)) { // user has supplied a location
+                    olc = recoverLocation(context, handler, olc, loc);
+                } else { // relative to screen center
+                    ViewBox box = App.getLogic().getViewBox();
+                    if (box != null) {
+                        double[] c = box.getCenter();
+                        olc = olc.recover(c[1], c[0]);
+                    }
+                }
+            }
+        }
+        if (olc == null) {
+            throw new IOException("Unparseable OLC " + text);
+        }
+        CodeArea ca = olc.decode();
+        return new LatLon(ca.getCenterLatitude(), ca.getCenterLongitude());
     }
 
     /**
