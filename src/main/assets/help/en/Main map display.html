@@ -122,7 +122,7 @@
 <li><strong>+</strong> button:
 <ul>
 <li>for disabled layers that can only be displayed once it will show a corresponding &quot;Enable ...&quot; entry that will turn the layer on.</li>
-<li><strong>Add GeoJSON layer</strong> Loads a GeoJSON layer from a file in to a new GeoJSON layer.</li>
+<li><strong>Add GeoJSON layer</strong> Loads a GeoJSON layer from a file in to a new GeoJSON layer, this will load CVS files with suitable (WGS84) longitude and latitude columns and write a converted file to the Vespucci directory.</li>
 <li><strong>Add background imagery layer</strong> Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
 <li><strong>Add overlay imagery layer</strong> As above but assumes that the layer is partially transparent.</li>
 <li><strong>Enable photo layer</strong> Enables the photo layer this will display clickable icons for photos that will start an internal or external viewer. Which photos can be displayed depends strongly on your Android version and settings <a href="Advanced%20preferences.md">Advanced preferences</a>.</li>
@@ -187,7 +187,7 @@
 <p>Select either the transfer icon <img src="../images/menu_transfer.png" alt="Transfer" /> or the &quot;Transfer&quot; menu item. This will display seven or eight options:</p>
 <ul>
 <li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available. See <a href="Uploading%20your%20changes.md">Uploading your changes</a> for more information <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Review changes...</strong> - review current changes</li>
+<li><strong>Review changes...</strong> - review current changes, and potentially select them for upload.</li>
 <li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
 <li><strong>Query Overpass...</strong> - run a query against a Overpass API server, see <a href="#overpass_queries">Overpass queries</a>. <em>(requires network connectivity)</em></li>

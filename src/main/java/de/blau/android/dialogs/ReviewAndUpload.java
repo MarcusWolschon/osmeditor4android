@@ -23,6 +23,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -228,6 +229,11 @@ public class ReviewAndUpload extends AbstractReviewDialog {
                 new UploadListener(activity, comment, source, openChangeset ? closeOpenChangeset : null, closeChangeset, requestReview, elements));
 
         return dialog;
+    }
+
+    protected void createChangesView() {
+        addChangesToView(getActivity(), (ListView) requireDialog().findViewById(R.id.upload_changes), elements, DEFAULT_COMPARATOR,
+                getArguments().getString(TAG_KEY), R.layout.changes_list_item);
     }
 
     /**
