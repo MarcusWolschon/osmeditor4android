@@ -127,7 +127,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
-import de.blau.android.geocode.CoordinatesOrOLC;
+import de.blau.android.geocode.GeocodeInput;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
@@ -184,7 +184,7 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.GeoUrlData;
+import de.blau.android.util.GeoUriData;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.LatLon;
 import de.blau.android.util.MenuUtil;
@@ -345,7 +345,7 @@ public class Main extends FullScreenAppCompatActivity
 
     private Queue<Intent>        newIntents     = new LinkedList<>();
     private final Object         newIntentsLock = new Object();
-    private GeoUrlData           geoData        = null;
+    private GeoUriData           geoData        = null;
     private RemoteControlUrlData rcData         = null;
     private Uri                  contentUri     = null;
     private String               contentUriType = null;
@@ -936,7 +936,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     private void getIntentData() {
         synchronized (newIntentsLock) {
-            geoData = Util.getSerializableExtra(getIntent(), GeoUrlActivity.GEODATA, GeoUrlData.class);
+            geoData = Util.getSerializableExtra(getIntent(), GeoUrlActivity.GEODATA, GeoUriData.class);
             rcData = Util.getSerializableExtra(getIntent(), RemoteControlUrlActivity.RCDATA, RemoteControlUrlData.class);
             shortcutExtras = getIntent().getBundleExtra(Splash.SHORTCUT_EXTRAS_KEY);
             Uri uri = getIntent().getData();
@@ -1227,7 +1227,7 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param geoData the data from the intent
      */
-    void processGeoIntent(@NonNull final GeoUrlData geoData) {
+    void processGeoIntent(@NonNull final GeoUriData geoData) {
         final Logic logic = App.getLogic();
         final ViewBox viewBox = logic.getViewBox();
         final double lon = geoData.getLon();
@@ -2139,7 +2139,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_gps_goto_coordinates:
             descheduleAutoLock();
-            CoordinatesOrOLC.get(this, new CoordinatesOrOLC.HandleResult() {
+            GeocodeInput.get(this, new GeocodeInput.HandleResult() {
                 @Override
                 public void onSuccess(LatLon ll) {
                     runOnUiThread(() -> {
