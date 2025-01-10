@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +34,9 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.Tip;
 
 public final class FileUtil {
-    private static final String DEBUG_TAG = FileUtil.class.getSimpleName().substring(0, Math.min(23, FileUtil.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, FileUtil.class.getSimpleName().length());
+    private static final String DEBUG_TAG = FileUtil.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final char  PATH_DELIMITER_CHAR = '/';
     public static final String FILE_SCHEME_PREFIX  = Schemes.FILE + ":";
@@ -464,5 +468,17 @@ public final class FileUtil {
                 }
             }
         }.execute();
+    }
+
+    /**
+     * Get the filename from an uri (assuming it has one)
+     * 
+     * @param fileUri the Uri
+     * @return the filename
+     */
+    @NonNull
+    public static String fileNameFromUri(@NonNull Uri fileUri) {
+        String[] temp = fileUri.getLastPathSegment().split("" + PATH_DELIMITER_CHAR);
+        return temp[temp.length - 1];
     }
 }

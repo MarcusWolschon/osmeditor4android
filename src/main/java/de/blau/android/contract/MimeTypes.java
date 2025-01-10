@@ -6,11 +6,15 @@ public final class MimeTypes {
     public static final String JPEG              = "image/jpeg";
     public static final String PNG               = "image/png";
     public static final String HEIC              = "image/heic";
-    public static final String GPX               = "application/gpx+xml";
-    public static final String GEOJSON           = "application/geo+json";
-    public static final String TEXTPLAIN         = "text/plain";
-    public static final String TEXTXML           = "text/xml";
-    public static final String ZIP               = "application/zip";
+
+    public static final String GPX     = "application/gpx+xml";
+    public static final String GEOJSON = "application/geo+json";
+
+    public static final String TEXTPLAIN = "text/plain";
+    public static final String TEXTXML   = "text/xml";
+    public static final String TEXTCSV   = "text/comma-separated-values";
+
+    public static final String ZIP = "application/zip";
 
     // types and subtypes
     public static final String IMAGE_TYPE                = "image";

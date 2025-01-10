@@ -1,11 +1,18 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.google.gson.GsonBuilder;
 import com.mapbox.geojson.CoordinateContainer;
 import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.GeometryAdapterFactory;
 import com.mapbox.geojson.GeometryCollection;
@@ -14,6 +21,8 @@ import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
 import com.mapbox.geojson.gson.BoundingBoxTypeAdapter;
 import com.mapbox.geojson.gson.GeoJsonAdapterFactory;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -32,7 +41,11 @@ import de.blau.android.util.collections.FloatPrimitiveList;
  */
 public final class GeoJson {
 
-    private static final String DEBUG_TAG = GeoJson.class.getSimpleName().substring(0, Math.min(23, GeoJson.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, GeoJson.class.getSimpleName().length());
+    private static final String DEBUG_TAG = GeoJson.class.getSimpleName().substring(0, TAG_LEN);
+
+    private static final String LON = "lon";
+    private static final String LAT = "lat";
 
     /**
      * Private constructor to stop instantiation
@@ -238,5 +251,64 @@ public final class GeoJson {
         gson.registerTypeAdapterFactory(GeometryAdapterFactory.create());
         gson.registerTypeAdapter(BoundingBox.class, new BoundingBoxTypeAdapter());
         return gson.create().fromJson(json, Geometry.class);
+    }
+
+    /**
+     * Convert a CSV format input stream to a GeoJson FeatureCollection
+     * 
+     * @param is the input stream in CSV format
+     * @return a FeatureCollection holding Points created from the CSV
+     * @throws IOException if reading the CSV fails
+     * @throws CsvException if the CSV can't be parsed
+     * @throws IllegalArgumentException if no header for the coordinates can be found, or coordinates cannot be parsed
+     * 
+     */
+    @NonNull
+    public static FeatureCollection fromCSV(@NonNull InputStream is) throws IOException, CsvException {
+        List<Feature> features = new ArrayList<>();
+        try (CSVReader csvReader = new CSVReader(new InputStreamReader(is))) {
+            List<String[]> csv = csvReader.readAll();
+            String[] header = csv.get(0);
+            int latIndex = -1;
+            int lonIndex = -1;
+            for (int i = 0; i < header.length; i++) {
+                if (header[i].toLowerCase(Locale.US).startsWith(LAT)) {
+                    latIndex = i;
+                }
+                if (header[i].toLowerCase(Locale.US).startsWith(LON)) {
+                    lonIndex = i;
+                }
+            }
+            if (latIndex < 0 || lonIndex < 0) {
+                throw new IllegalArgumentException("Unable to find coordinates in CSV header");
+            }
+            for (int i = 1; i < csv.size(); i++) {
+                String[] values = csv.get(i);
+                double lon = Double.parseDouble(values[lonIndex]);
+                double lat = Double.parseDouble(values[latIndex]);
+                checkCoordinates(lon, lat);
+                Feature feature = Feature.fromGeometry(Point.fromLngLat(lon, lat));
+                for (int j = 0; j < header.length; j++) {
+                    if (j == latIndex || j == lonIndex) {
+                        continue;
+                    }
+                    feature.addStringProperty(header[j], values[j]);
+                }
+                features.add(feature);
+            }
+        }
+        return FeatureCollection.fromFeatures(features);
+    }
+
+    /**
+     * Cehck that the coordinates are in WGS84 value ranges
+     * 
+     * @param lon the longitude
+     * @param lat the latitude
+     */
+    private static void checkCoordinates(double lon, double lat) {
+        if (lat < -GeoMath.MAX_LAT || lat > GeoMath.MAX_LAT || lon < -GeoMath.MAX_LON || lon > GeoMath.MAX_LON) {
+            throw new IllegalArgumentException("Coordinates out of WGS84 range. Lat: " + lat + " Lon: " + lon);
+        }
     }
 }
