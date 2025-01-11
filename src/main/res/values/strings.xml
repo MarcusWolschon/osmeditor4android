@@ -762,6 +762,7 @@
     <string name="toast_file_already_exists">File %1$s already exists</string>
     <string name="toast_file_error_for">File error for %1$s</string>
     <string name="toast_error_reading">Error reading %1$s</string>
+    <string name="toast_error_converting">Error converting %1$s</string>
     <string name="toast_read_successfully">File read successfully</string>
     <string name="toast_error_writing">Error writing %1$s</string>
     <string name="toast_successfully_written">%1$s successfully written</string>

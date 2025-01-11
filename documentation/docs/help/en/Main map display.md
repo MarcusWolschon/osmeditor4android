@@ -97,7 +97,7 @@ The layer dialog supports the following actions on the layer entries:
         * __Down__ move the layer down.
 * __+__ button:
     * for disabled layers that can only be displayed once it will show a corresponding "Enable ..." entry that will turn the layer on.
-    * __Add GeoJSON layer__ Loads a GeoJSON layer from a file in to a new GeoJSON layer.
+    * __Add GeoJSON layer__ Loads a GeoJSON layer from a file in to a new GeoJSON layer, this will load CVS files with suitable (WGS84) longitude and latitude columns and write a converted file to the Vespucci directory.
     * __Add background imagery layer__ Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.
     * __Add overlay imagery layer__ As above but assumes that the layer is partially transparent.
     * __Enable photo layer__ Enables the photo layer this will display clickable icons for photos that will start an internal or external viewer. Which photos can be displayed depends strongly on your Android version and settings [Advanced preferences](Advanced%20preferences.md).

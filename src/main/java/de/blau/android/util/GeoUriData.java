@@ -25,8 +25,6 @@ public class GeoUriData implements Serializable {
 
     private static final String ZOOM_PARAMETER = "z";
 
-    private static final int MAX_LAT = 90;
-
     private double lat  = -Double.MAX_VALUE;
     private double lon  = -Double.MAX_VALUE;
     private int    zoom = -1;
@@ -175,6 +173,6 @@ public class GeoUriData implements Serializable {
      * @return true if the object contains both a latitude and a longitude
      */
     boolean isValid() {
-        return lat >= -MAX_LAT && lat <= MAX_LAT && lon >= -GeoMath.MAX_LON && lon <= GeoMath.MAX_LON;
+        return lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT && lon >= -GeoMath.MAX_LON && lon <= GeoMath.MAX_LON;
     }
 }

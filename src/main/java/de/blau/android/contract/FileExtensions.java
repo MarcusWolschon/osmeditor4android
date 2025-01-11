@@ -20,6 +20,7 @@ public final class FileExtensions {
     public static final String TEMP    = "temp";
     public static final String PMTILES = "pmtiles";
     public static final String XML     = "xml";
+    public static final String CSV     = "csv";
 
     /**
      * Private default constructor

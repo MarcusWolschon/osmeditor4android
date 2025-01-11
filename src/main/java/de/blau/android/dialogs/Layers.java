@@ -2,23 +2,33 @@ package de.blau.android.dialogs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map.Entry;
 
 import org.mozilla.javascript.RhinoException;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.Point;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
@@ -68,6 +78,8 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Paths;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.gpx.Track;
@@ -110,6 +122,7 @@ import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
+import de.blau.android.util.GeoJson;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
@@ -453,10 +466,20 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
      */
     private void addStyleableLayerFromUri(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map,
             @NonNull LayerType type, @NonNull Uri fileUri, boolean showDialog) {
-        final String uriString = fileUri.toString();
+        String uriString = fileUri.toString();
         de.blau.android.layer.StyleableLayer layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
         if (layer == null) {
             Log.d(DEBUG_TAG, "addStyleableLayerFromUri " + uriString);
+            final ContentResolver contentResolver = activity.getContentResolver();
+            String mimeType = contentResolver.getType(fileUri);
+            if (MimeTypes.TEXTCSV.equals(mimeType)) {
+                try {
+                    uriString = convertCSV(activity, fileUri).toString();
+                } catch (IOException | CsvException | SecurityException | IllegalArgumentException e) {
+                    ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_error_converting, e.getLocalizedMessage()));
+                    return;
+                }
+            }
             de.blau.android.layer.Util.addLayer(activity, type, uriString);
             map.setUpLayers(activity);
             layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
@@ -471,6 +494,32 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             }
         } else {
             ScreenMessage.toastTopWarning(activity, activity.getString(R.string.toast_styleable_layer_exists, fileUri.getLastPathSegment()));
+        }
+    }
+
+    /**
+     * Convert an CSV file to geojson and write it to our directory, returning an URi
+     * 
+     * @param context an Android Context
+     * @param fileUri the original Uri
+     * @return an Uri a new Uri for the converted file
+     * @throws IOException if reading the CSV fails
+     * @throws CsvException if the CSV can't be parsed
+     */
+    @NonNull
+    private Uri convertCSV(@NonNull final Context context, @NonNull Uri fileUri) throws IOException, CsvException {
+        final ContentResolver contentResolver = context.getContentResolver();
+        try (InputStream is = contentResolver.openInputStream(fileUri)) {
+            FeatureCollection featureCollection = GeoJson.fromCSV(is);
+            String fileName = FileUtil.fileNameFromUri(fileUri).replaceAll("\\." + FileExtensions.CSV + "$", "\\." + FileExtensions.GEOJSON);
+            if (!fileName.contains(FileExtensions.GEOJSON)) {
+                fileName = fileName + "." + FileExtensions.GEOJSON;
+            }
+            File output = FileUtil.openFileForWriting(context, fileName);
+            try (PrintWriter p = new PrintWriter(new FileWriter(output))) {
+                p.write(featureCollection.toJson());
+            }
+            return Uri.parse(FileUtil.FILE_SCHEME_PREFIX + output.getAbsolutePath());
         }
     }
 
