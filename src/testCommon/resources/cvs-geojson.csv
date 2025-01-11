@@ -1,0 +1,3 @@
+shop,service:vehicle:body_repair,service:vehicle:painting,name,addr:street,addr:housenumber,addr:postcode,addr:city,email,website,phone,lat,lon
+car_repair,yes,yes,Beulen Werke AG,Teststrasse,12,9999,Irgendwo,info@vespucci.io,https://www.acw-ag.ch/,099 999 54 54,47.399875769847,8.06783179982675
+car_repair,yes,yes,Beulenweg AG,Testteststrasse,63,9990,Irgendwo2,info2@vespucci.io,https://www.vespucci.ch/,099 999 88 61,47.3694221184834,9.55894962312467

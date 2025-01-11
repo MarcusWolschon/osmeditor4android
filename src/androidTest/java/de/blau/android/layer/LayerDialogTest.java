@@ -19,6 +19,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.mapbox.geojson.Point;
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.app.Instrumentation;
@@ -318,6 +319,31 @@ public class LayerDialogTest {
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         assertNull(map.getGeojsonLayer());
+    }
+    
+    /**
+     * Load cvs
+     */
+    @Test
+    public void geoJsonLayerFromCVS() {
+        final String cvsFile = "cvs-geojson.csv";
+        try {
+            JavaResources.copyFileFromResources(main, cvsFile, null, "/");
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_load_geojson), true, false));
+        TestUtils.selectFile(device, main, null, cvsFile, true);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+        TestUtils.unlock(device);
+        TestUtils.clickAtCoordinates(device, map, 8.06783179982675, 47.399875769847, true);
+        
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.feature_information), 5000));
+        assertTrue(TestUtils.findText(device, false, "Beulen Werke AG"));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
     }
 
     /**
