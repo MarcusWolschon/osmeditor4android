@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -47,7 +49,7 @@ public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
 
     protected List<OsmElement> elements = null;
 
-    private static final Comparator<ChangedElement> DEFAULT_COMPARATOR = (ce0, ce1) -> {
+    protected static final Comparator<ChangedElement> DEFAULT_COMPARATOR = (ce0, ce1) -> {
         OsmElement element0 = ce0.element;
         OsmElement element1 = ce1.element;
         int problems0 = element0.getCachedProblems();
@@ -99,9 +101,10 @@ public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
     public void onStart() {
         super.onStart();
         Log.d(DEBUG_TAG, "onStart");
-        addChangesToView(getActivity(), (ListView) requireDialog().findViewById(R.id.upload_changes), elements, DEFAULT_COMPARATOR,
-                getArguments().getString(TAG_KEY));
+        createChangesView();
     }
+
+    protected abstract void createChangesView();
 
     /**
      * Add changes to a ListView
@@ -111,26 +114,16 @@ public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
      * @param elements a List of OsmElement or null
      * @param comparator a Comparator for sorting the changes
      * @param parentTag tag of parent dialog
+     * @param itemResource the layout resource for the item
      */
-    private void addChangesToView(@NonNull final FragmentActivity activity, @NonNull final ListView changesView, @Nullable List<OsmElement> elements,
-            @NonNull Comparator<ChangedElement> comparator, @Nullable String parentTag) {
+    protected void addChangesToView(@NonNull final FragmentActivity activity, @NonNull final ListView changesView, @Nullable List<OsmElement> elements,
+            @NonNull Comparator<ChangedElement> comparator, @Nullable String parentTag, int itemResource) {
         ExtendedValidator validator = new ExtendedValidator(activity, App.getDefaultValidator(activity));
         final ChangedElement[] changes = getPendingChanges(activity.getResources(), elements == null ? App.getLogic().getPendingChangedElements() : elements);
         revalidate(activity, validator, changes);
         Arrays.sort(changes, comparator);
 
-        changesView.setAdapter(new ValidatorArrayAdapter(activity, R.layout.changes_list_item, changes, validator));
-        changesView.setOnItemClickListener((parent, view, position, id) -> {
-            ChangedElement clicked = changes[position];
-            OsmElement element = clicked.element;
-            byte elemenState = element.getState();
-            boolean deleted = elemenState == OsmElement.STATE_DELETED;
-            if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
-                ElementInfo.showDialog(activity, 0, element, !deleted, parentTag);
-            } else {
-                ElementInfo.showDialog(activity, element, !deleted, parentTag);
-            }
-        });
+        changesView.setAdapter(new ValidatorArrayAdapter(activity, itemResource, changes, validator, parentTag));
     }
 
     /**
@@ -151,9 +144,10 @@ public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
         }
     }
 
-    static class ChangedElement {
+    protected static class ChangedElement {
         final OsmElement element;
         final String     description;
+        boolean          selected;
 
         /**
          * Construct a new instance
@@ -197,10 +191,11 @@ public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
      * @author Simon Poole
      *
      */
-    private static class ValidatorArrayAdapter extends ArrayAdapter<ChangedElement> {
+    protected static class ValidatorArrayAdapter extends ArrayAdapter<ChangedElement> {
         final ChangedElement[] elements;
         final Validator        validator;
         final ColorStateList   colorStateList;
+        final String           parentTag;
 
         /**
          * Construct a new instance
@@ -209,11 +204,14 @@ public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
          * @param resource the resource id of the per item layout
          * @param elements the array holding the elements
          * @param validator the Validator to use
+         * @param parentTag
          */
-        public ValidatorArrayAdapter(@NonNull Context context, int resource, @NonNull ChangedElement[] elements, @NonNull Validator validator) {
-            super(context, resource, elements);
+        public ValidatorArrayAdapter(@NonNull Context context, int resource, @NonNull final ChangedElement[] elements, @NonNull Validator validator,
+                @Nullable String parentTag) {
+            super(context, resource, R.id.text1, elements);
             this.elements = elements;
             this.validator = validator;
+            this.parentTag = parentTag;
             colorStateList = ColorStateList.valueOf(ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red));
         }
 
@@ -228,8 +226,28 @@ public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
                 } else {
                     setTintList(textView, null);
                 }
+                textView.setOnClickListener(view -> {
+                    ChangedElement clicked = elements[position];
+                    OsmElement e = clicked.element;
+                    byte elemenState = element.getState();
+                    boolean deleted = elemenState == OsmElement.STATE_DELETED;
+                    final FragmentActivity fragmentActivity = (FragmentActivity) view.getContext();
+                    if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
+                        ElementInfo.showDialog(fragmentActivity, 0, e, !deleted, parentTag);
+                    } else {
+                        ElementInfo.showDialog(fragmentActivity, e, !deleted, parentTag);
+                    }
+                });
             } else {
                 Log.e("ValidatorAdapterView", "position " + position + " view is null");
+            }
+            CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox1);
+            if (checkBox != null) {
+                checkBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+                    elements[position].selected = isChecked;
+                    notifyDataSetChanged();
+                });
+                checkBox.setChecked(elements[position].selected);
             }
             return v;
         }

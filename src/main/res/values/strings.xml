@@ -193,6 +193,7 @@
     <string name="unknown_object">unknown object</string>
     <!-- Review changes dialog -->
     <string name="review_changes_title">Review changes</string>
+    <string name="review_upload_selected">Upload selected</string>
     <!-- Upload GPX -->
     <string name="upload_gpx_title">Upload GPX track</string>
     <string name="upload_gpx_description_label">Description</string>
