@@ -40,7 +40,8 @@ import de.blau.android.TestUtils;
 import de.blau.android.dialogs.DateRangeDialog;
 import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.layer.LayerType;
-import de.blau.android.photos.MapillaryViewerActivity;
+import de.blau.android.layer.streetlevel.ImageViewerActivity;
+import de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
@@ -81,7 +82,7 @@ public class MapillaryTest {
         TestUtils.grantPermissons(device);
         LayerUtils.removeLayer(main, LayerType.MAPILLARY);
         tileServer = MockTileServer.setupTileServer(main, "mapillary.mbt", true, LayerType.MAPILLARY, TileType.MVT,
-                de.blau.android.layer.mapillary.MapillaryOverlay.MAPILLARY_TILES_ID);
+                de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay.MAPILLARY_TILES_ID);
 
         mockApiServer = new MockWebServerPlus();
         HttpUrl mockApiBaseUrl = mockApiServer.server().url("/");
@@ -120,7 +121,7 @@ public class MapillaryTest {
         }
         LayerUtils.removeLayer(main, LayerType.MAPILLARY);
         try (TileLayerDatabase tlDb = new TileLayerDatabase(main); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-            TileLayerDatabase.deleteLayerWithId(db, de.blau.android.layer.mapillary.MapillaryOverlay.MAPILLARY_TILES_ID);
+            TileLayerDatabase.deleteLayerWithId(db, de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay.MAPILLARY_TILES_ID);
         }
         instrumentation.waitForIdleSync();
     }
@@ -135,7 +136,7 @@ public class MapillaryTest {
         imageResponse.setResponseCode(200);
         imageResponse.setBody("{\"thumb_2048_url\": \"" + mockImagesBaseUrl.toString() + "\",\"computed_geometry\": {\"type\": \"Point\",\"coordinates\": ["
                 + "8.407748800863,47.412813485744]" + "},\"id\": \"178993950747668\"}");
-        de.blau.android.layer.mapillary.MapillaryOverlay layer = (MapillaryOverlay) map.getLayer(LayerType.MAPILLARY);
+        de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay layer = (MapillaryOverlay) map.getLayer(LayerType.MAPILLARY);
         assertNotNull(layer);
         layer.flushCaches(main); // forces the layer to retrieve everything
 
@@ -154,7 +155,7 @@ public class MapillaryTest {
         TestUtils.unlock(device);
         TestUtils.sleep();
 
-        ActivityMonitor monitor = instrumentation.addMonitor(MapillaryViewerActivity.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(ImageViewerActivity.class.getName(), null, false);
         // hack around slow rendering on some emulators
         map.getViewBox().moveTo(map, (int) (8.407748800863 * 1E7), (int) (47.412813485744 * 1E7));
         map.invalidate();
@@ -163,9 +164,9 @@ public class MapillaryTest {
         if (TestUtils.clickText(device, false, "OK", true)) {
             TestUtils.clickAtCoordinates(device, map, 8.407748800863, 47.412813485744, true);
         }
-        MapillaryViewerActivity viewer = null;
+        ImageViewerActivity viewer = null;
         try {
-            viewer = (MapillaryViewerActivity) instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+            viewer = (ImageViewerActivity) instrumentation.waitForMonitorWithTimeout(monitor, 30000);
             assertNotNull(viewer);
             try {
                 RecordedRequest recorded = mockImagesServer.server().takeRequest(10, TimeUnit.SECONDS);

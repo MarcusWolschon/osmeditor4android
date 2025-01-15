@@ -1,4 +1,4 @@
-package de.blau.android.photos;
+package de.blau.android.layer.streetlevel;
 
 import java.util.ArrayList;
 
@@ -6,15 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.photos.PhotoViewerActivity;
+import de.blau.android.photos.PhotoViewerFragment;
 import de.blau.android.util.ImageLoader;
 
 /**
- * This allows to distinguish between an activity for photos and one for mapillary images
+ * This allows to distinguish between an activity for photos and one for streetlevel images
  * 
  * @author simon
  *
  */
-public class MapillaryViewerActivity extends PhotoViewerActivity<String> {
+public class ImageViewerActivity extends PhotoViewerActivity<String> {
 
     /**
      * Start a new activity with the PhotoViewer as the contents
@@ -25,7 +27,7 @@ public class MapillaryViewerActivity extends PhotoViewerActivity<String> {
      * @param loader the PhotoLoader to use
      */
     public static void start(@NonNull Context context, @NonNull ArrayList<String> photoList, int startPos, @Nullable ImageLoader loader) { // NOSONAR
-        Intent intent = new Intent(context, MapillaryViewerActivity.class);
+        Intent intent = new Intent(context, ImageViewerActivity.class);
         intent.putExtra(PhotoViewerFragment.PHOTO_LOADER_KEY, loader);
         intent.putExtra(PhotoViewerFragment.WRAP_KEY, false);
         setExtrasAndStart(context, photoList, startPos, intent);

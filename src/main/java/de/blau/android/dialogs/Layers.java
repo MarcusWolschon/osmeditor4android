@@ -98,6 +98,7 @@ import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.StyleableInterface;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.layer.mvt.MapOverlay;
+import de.blau.android.layer.streetlevel.DateRangeInterface;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GpxFile;
 import de.blau.android.osm.OsmGpxApi;
@@ -264,7 +265,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
 
             if (map.getLayer(LayerType.MAPILLARY) == null) {
                 try (KeyDatabaseHelper keys = new KeyDatabaseHelper(activity); SQLiteDatabase db = keys.getReadableDatabase()) {
-                    if (KeyDatabaseHelper.getKey(db, de.blau.android.layer.mapillary.MapillaryOverlay.APIKEY_KEY, EntryType.API_KEY) != null) {
+                    if (KeyDatabaseHelper.getKey(db, de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay.APIKEY_KEY, EntryType.API_KEY) != null) {
                         item = popup.getMenu().add(R.string.menu_layers_enable_mapillary_layer);
                         item.setOnMenuItemClickListener(unused -> {
                             de.blau.android.layer.Util.addLayer(activity, LayerType.MAPILLARY);
@@ -274,6 +275,16 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                         });
                     }
                 }
+            }
+
+            if (map.getLayer(LayerType.PANORAMAX) == null) {
+                item = popup.getMenu().add(R.string.menu_layers_enable_panoramax_layer);
+                item.setOnMenuItemClickListener(unused -> {
+                    de.blau.android.layer.Util.addLayer(activity, LayerType.PANORAMAX);
+                    updateDialogAndPrefs(activity, prefs, map);
+                    Tip.showDialog(activity, R.string.tip_panoramax_privacy_key, R.string.tip_panoramax_privacy);
+                    return true;
+                });
             }
 
             item = popup.getMenu().add(R.string.layer_add_gpx);
@@ -924,14 +935,13 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             final Map map = App.getLogic().getMap();
 
             // maybe we should use an interface here
-            if (layer instanceof MapTilesLayer && !(layer instanceof de.blau.android.layer.mapillary.MapillaryOverlay)) {
+            if (layer instanceof MapTilesLayer && !(layer instanceof de.blau.android.layer.streetlevel.AbstractImageOverlay)) {
                 // get MRU list from layer
                 final String[] tileServerIds = ((MapTilesLayer<?>) layer).getMRU();
                 final TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) layer).getTileLayerConfiguration();
                 final String currentServerId = tileLayerConfiguration.getId();
                 for (int i = 0; i < tileServerIds.length; i++) {
                     final String id = tileServerIds[i];
-
                     if (!currentServerId.equals(id)) {
                         final TileLayerSource tileServer = TileLayerSource.get(activity, id, true);
                         if (tileServer != null) {
@@ -1026,11 +1036,11 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                 item.setEnabled(stylingEnabled);
             }
 
-            if (layer instanceof de.blau.android.layer.mapillary.MapillaryOverlay) {
+            if (layer instanceof DateRangeInterface) {
                 MenuItem item = menu.add(R.string.layer_set_date_range);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
-                        ((de.blau.android.layer.mapillary.MapillaryOverlay) layer).selectDateRange(getActivity(), layer.getIndex());
+                        ((DateRangeInterface) layer).selectDateRange(getActivity(), layer.getIndex());
                     }
                     return true;
                 });

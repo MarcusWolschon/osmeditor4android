@@ -121,6 +121,20 @@
                 "url": "https://tiles.mapillary.com/maps/vtp/mly1_computed_public/2/{z}/{x}/{y}?access_token={apikey}"
             },
             "type": "Feature"
+        },
+        {
+            "geometry": null,
+            "properties": {
+                "id": "PANORAMAX",
+                "overlay": true,
+                "max_zoom": 15,
+                "name": "Panoramax",
+                "type": "tms",
+                "tile_type": "mvt",
+                "category": "internal",
+                "url": "https://panoramax.openstreetmap.fr/api/map/{z}/{x}/{y}.pbf"
+            },
+            "type": "Feature"
         }
     ],
     "type": "FeatureCollection"

@@ -63,6 +63,7 @@
     <string name="config_mapillaryApi_key">mapillaryApi</string> <!-- no longer used -->
     <string name="config_mapillaryImagesUrlV4_key">mapillaryImagesUrlV4</string>
     <string name="config_mapillaryImages_key">mapillaryImages</string> <!-- no longer used -->
+    <string name="config_panoramaxApiUrl_key">panoramaxApiUrl</string>
     <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_selectCameraApp_key">selectCameraApp</string>
     <string name="config_useInternalPhotoViewer_key">useInternalPhotoViewer</string>

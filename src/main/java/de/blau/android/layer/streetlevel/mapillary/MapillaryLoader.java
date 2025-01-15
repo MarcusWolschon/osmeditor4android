@@ -1,4 +1,6 @@
-package de.blau.android.layer.mapillary;
+package de.blau.android.layer.streetlevel.mapillary;
+
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,15 +10,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -25,53 +22,29 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
-import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
-import de.blau.android.Main;
-import de.blau.android.R;
-import de.blau.android.contract.FileExtensions;
-import de.blau.android.contract.MimeTypes;
-import de.blau.android.contract.Schemes;
-import de.blau.android.dialogs.ImageInfo;
-import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.FileUtil;
-import de.blau.android.util.ImageLoader;
-import de.blau.android.util.ScreenMessage;
+import de.blau.android.layer.LayerType;
+import de.blau.android.layer.streetlevel.NetworkImageLoader;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-class MapillaryLoader extends ImageLoader {
+class MapillaryLoader extends NetworkImageLoader {
     private static final long serialVersionUID = 2L;
 
-    protected static final String DEBUG_TAG = MapillaryLoader.class.getSimpleName().substring(0, Math.min(23, MapillaryLoader.class.getSimpleName().length()));
-
-    private static final int IMAGERY_LOAD_THREADS = 3;
+    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, MapillaryLoader.class.getSimpleName().length());
+    protected static final String DEBUG_TAG = MapillaryLoader.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String COORDINATES_FIELD            = "coordinates";
     private static final String COMPUTED_GEOMETRY_FIELD      = "computed_geometry";
     private static final String COMPUTED_COMPASS_ANGLE_FIELD = "computed_compass_angle";
     private static final String CAPTURED_AT_FIELD            = "captured_at";
     private static final String THUMB_2048_URL_FIELD         = "thumb_2048_url";
-
-    private static final String JPG = "." + FileExtensions.JPG;
-
-    final File                          cacheDir;
-    final long                          cacheSize;
-    final String                        imageUrl;
-    private final Map<String, double[]> coordinates = new HashMap<>();
-    private final List<String>          ids;
-
-    private transient ThreadPoolExecutor mThreadPool;
 
     /**
      * Construct a new loader
@@ -82,10 +55,7 @@ class MapillaryLoader extends ImageLoader {
      * @param ids list of images ids
      */
     MapillaryLoader(@NonNull File cacheDir, long cacheSize, @NonNull String imageUrl, List<String> ids) {
-        this.cacheDir = cacheDir;
-        this.cacheSize = cacheSize;
-        this.imageUrl = imageUrl;
-        this.ids = ids;
+        super(cacheDir, cacheSize, imageUrl, ids);
     }
 
     @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
@@ -105,9 +75,7 @@ class MapillaryLoader extends ImageLoader {
             return;
         }
         // download
-        if (mThreadPool == null) {
-            mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(IMAGERY_LOAD_THREADS);
-        }
+        initThreadPool();
         try {
             mThreadPool.execute(() -> {
                 Log.d(DEBUG_TAG, "querying server for " + key);
@@ -141,19 +109,6 @@ class MapillaryLoader extends ImageLoader {
         } catch (RejectedExecutionException rjee) {
             Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
         }
-    }
-
-    /**
-     * Prune the image cache
-     */
-    private void pruneCache() {
-        new ExecutorTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void arg) {
-                FileUtil.pruneCache(cacheDir, cacheSize);
-                return null;
-            }
-        }.execute();
     }
 
     /**
@@ -211,54 +166,8 @@ class MapillaryLoader extends ImageLoader {
         }
     }
 
-    /**
-     * Set the image
-     * 
-     * @param view the ImageView to set it in
-     * @param imageFile the file
-     */
-    void setImage(@NonNull SubsamplingScaleImageView view, @NonNull File imageFile) {
-        view.post(() -> { // needs to run on the ui thread
-            view.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CENTER_INSIDE);
-            view.setOrientation(SubsamplingScaleImageView.ORIENTATION_USE_EXIF);
-            view.setImage(ImageSource.uri(Uri.parse(Schemes.FILE + ":" + imageFile.getAbsolutePath())));
-        });
-    }
-
     @Override
-    public void showOnMap(Context context, int index) {
-        if (!App.isPropertyEditorRunning()) {
-            Intent intent = new Intent(context, Main.class);
-            intent.setAction(Main.ACTION_MAPILLARY_SELECT);
-            intent.putExtra(MapillaryOverlay.SET_POSITION_KEY, index);
-            String key = ids.get(index);
-            if (key != null && coordinates.containsKey(key)) {
-                intent.putExtra(MapillaryOverlay.COORDINATES_KEY, coordinates.get(key));
-            }
-            context.startActivity(intent);
-        }
-    }
-
-    @Override
-    public void share(Context context, String key) {
-        File imageFile = new File(cacheDir, key + JPG);
-        if (imageFile.exists()) {
-            Uri f = FileProvider.getUriForFile(context, context.getString(R.string.content_provider), imageFile);
-            de.blau.android.layer.photos.Util.sharePhoto(context, key, f, MimeTypes.JPEG);
-        } else {
-            ScreenMessage.toastTopError(context, context.getString(R.string.toast_error_accessing_photo, key));
-        }
-    }
-
-    @Override
-    public boolean supportsInfo() {
-        return true;
-    }
-
-    @Override
-    public void info(@NonNull FragmentActivity activity, @NonNull String uri) {
-        Uri f = FileProvider.getUriForFile(activity, activity.getString(R.string.content_provider), new File(cacheDir, uri + JPG));
-        ImageInfo.showDialog(activity, f.toString());
-
+    protected LayerType getLayerType() {
+        return LayerType.MAPILLARY;
     }
 }

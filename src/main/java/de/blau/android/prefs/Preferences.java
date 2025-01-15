@@ -21,6 +21,7 @@ import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
+import de.blau.android.layer.streetlevel.AbstractImageOverlay;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElementPath;
@@ -97,6 +98,7 @@ public class Preferences {
     private String            mapillarySequencesUrlV4;
     private String            mapillaryImagesUrlV4;
     private final int         mapillaryMinZoom;
+    private String            panoramaxApiUrl;
     private final boolean     showCameraAction;
     private final String      cameraApp;
     private final boolean     useInternalPhotoViewer;
@@ -190,7 +192,7 @@ public class Preferences {
 
         tileCacheSize = getIntPref(R.string.config_tileCacheSize_key, 100);
         preferRemovableStorage = prefs.getBoolean(r.getString(R.string.config_preferRemovableStorage_key), true);
-        mapillaryCacheSize = getIntPref(R.string.config_mapillaryCacheSize_key, de.blau.android.layer.mapillary.MapillaryOverlay.MAPILLARY_DEFAULT_CACHE_SIZE);
+        mapillaryCacheSize = getIntPref(R.string.config_mapillaryCacheSize_key, AbstractImageOverlay.DEFAULT_CACHE_SIZE);
 
         downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, 50);
         maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 10);
@@ -249,7 +251,9 @@ public class Preferences {
 
         mapillarySequencesUrlV4 = prefs.getString(r.getString(R.string.config_mapillarySequencesUrlV4_key), Urls.DEFAULT_MAPILLARY_SEQUENCES_URL_V4);
         mapillaryImagesUrlV4 = prefs.getString(r.getString(R.string.config_mapillaryImagesUrlV4_key), Urls.DEFAULT_MAPILLARY_IMAGES_V4);
-        mapillaryMinZoom = getIntPref(R.string.config_mapillary_min_zoom_key, de.blau.android.layer.mapillary.MapillaryOverlay.MAPILLARY_DEFAULT_MIN_ZOOM);
+        mapillaryMinZoom = getIntPref(R.string.config_mapillary_min_zoom_key, AbstractImageOverlay.DEFAULT_MIN_ZOOM);
+
+        panoramaxApiUrl = prefs.getString(r.getString(R.string.config_panoramaxApiUrl_key), Urls.DEFAULT_PANORAMAX_API_URL);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
         cameraApp = prefs.getString(r.getString(R.string.config_selectCameraApp_key), "");
@@ -937,6 +941,25 @@ public class Preferences {
     public void setMapillaryImagesUrlV4(@NonNull String url) {
         this.mapillaryImagesUrlV4 = url;
         prefs.edit().putString(r.getString(R.string.config_mapillaryImagesUrlV4_key), url).commit();
+    }
+
+    /**
+     * Get the configured panoramax api url
+     * 
+     * @return the API url
+     */
+    public String getPanoramaxApiUrl() {
+        return panoramaxApiUrl;
+    }
+
+    /**
+     * Set the configured panoramax api url
+     * 
+     * @param url the API url
+     */
+    public void setPanoramaxApiUrl(@NonNull String url) {
+        this.panoramaxApiUrl = url;
+        prefs.edit().putString(r.getString(R.string.config_panoramaxApiUrl_key), url).commit();
     }
 
     /**

@@ -138,6 +138,8 @@ import de.blau.android.layer.DownloadInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.geojson.MapOverlay;
+import de.blau.android.layer.streetlevel.NetworkImageLoader;
+import de.blau.android.layer.streetlevel.SelectImageInterface;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -244,7 +246,7 @@ public class Main extends FullScreenAppCompatActivity
     public static final String ACTION_EXIT                  = "de.blau.android.EXIT";
     public static final String ACTION_UPDATE                = "de.blau.android.UPDATE";
     public static final String ACTION_DELETE_PHOTO          = "de.blau.android.DELETE_PHOTO";
-    public static final String ACTION_MAPILLARY_SELECT      = "de.blau.android.ACTION_MAPILLARY_SELECT";
+    public static final String ACTION_IMAGE_SELECT          = "de.blau.android.ACTION_MAPILLARY_SELECT";
     public static final String ACTION_MAP_UPDATE            = "de.blau.android.MAP_UPDATE";
     public static final String ACTION_PUSH_SELECTION        = "de.blau.android.PUSH_SELECTION";
     public static final String ACTION_POP_SELECTION         = "de.blau.android.POP_SELECTION";
@@ -1005,16 +1007,11 @@ public class Main extends FullScreenAppCompatActivity
                         photoLayer.invalidate();
                     }
                     break;
-                case ACTION_MAPILLARY_SELECT:
-                    final de.blau.android.layer.mapillary.MapillaryOverlay mapillaryLayer = map != null
-                            ? (de.blau.android.layer.mapillary.MapillaryOverlay) map.getLayer(LayerType.MAPILLARY)
-                            : null;
-                    if (mapillaryLayer != null) {
-                        double[] coords = intent.getDoubleArrayExtra(de.blau.android.layer.mapillary.MapillaryOverlay.COORDINATES_KEY);
-                        if (coords != null) {
-                            map.getViewBox().moveTo(map, (int) (coords[1] * 1E7), (int) (coords[0] * 1E7));
-                        }
-                        mapillaryLayer.select(intent.getIntExtra(de.blau.android.layer.mapillary.MapillaryOverlay.SET_POSITION_KEY, 0));
+                case ACTION_IMAGE_SELECT:
+                    if (map != null) {
+                        SelectImageInterface layer = (SelectImageInterface) map
+                                .getLayer((LayerType) intent.getSerializableExtra(NetworkImageLoader.LAYER_TYPE_KEY));
+                        selectImageOnLayer(intent, layer);
                     }
                     break;
                 case ACTION_MAP_UPDATE:
@@ -1072,6 +1069,22 @@ public class Main extends FullScreenAppCompatActivity
             if (shortcutExtras != null) {
                 processShortcutExtras();
             }
+        }
+    }
+
+    /**
+     * Select an image on a layer
+     * 
+     * @param intent the intent that we need to process
+     * @param layer the relevant layer
+     */
+    private void selectImageOnLayer(Intent intent, final SelectImageInterface layer) {
+        if (layer != null) {
+            double[] coords = intent.getDoubleArrayExtra(NetworkImageLoader.COORDINATES_KEY);
+            if (coords != null) {
+                map.getViewBox().moveTo(map, (int) (coords[1] * 1E7), (int) (coords[0] * 1E7));
+            }
+            layer.selectImage(intent.getIntExtra(NetworkImageLoader.SET_POSITION_KEY, 0));
         }
     }
 
