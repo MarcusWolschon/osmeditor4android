@@ -337,6 +337,10 @@ Configure the overpass API server used online object search.
 
 Configure the OpenAerialMap server used for providing additional imagery for backgrounds.
 
+### Panoramax URL
+
+The base URL for a Panoramax instance without the appended "/api".
+
 ## Layer download and storage
 
 Download and storage configuration for the tiled imagery layers.
