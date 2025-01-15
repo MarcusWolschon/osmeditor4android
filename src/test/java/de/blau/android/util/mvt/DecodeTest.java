@@ -11,10 +11,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import androidx.annotation.NonNull;
+import androidx.test.filters.LargeTest;
 import de.blau.android.util.GeoJSONConstants;
 
+@RunWith(RobolectricTestRunner.class)
+@Config(sdk = 33)
+@LargeTest
 public class DecodeTest {
 
     /**
@@ -23,7 +30,9 @@ public class DecodeTest {
     @Test
     public void decodeOpenInfraMapTest() {
         try {
+            long start = System.currentTimeMillis();
             VectorTileDecoder.FeatureIterable decodedTile = new VectorTileDecoder().decode(readTile("/openinframap_tile.pbf"));
+            System.out.println("Decoding took " + (System.currentTimeMillis()-start) + "ms");
             List<VectorTileDecoder.Feature> list = decodedTile.asList();
             assertEquals(101, list.size());
             Map<String, Integer> counts = new HashMap<>();
@@ -50,7 +59,9 @@ public class DecodeTest {
     @Test
     public void decodeTilemakerTest() {
         try {
+            long start = System.currentTimeMillis();
             VectorTileDecoder.FeatureIterable decodedTile = new VectorTileDecoder().decode(readTile("/tilemaker_tile.pbf"));
+            System.out.println("Decoding took " + (System.currentTimeMillis()-start) + "ms");
             List<VectorTileDecoder.Feature> list = decodedTile.asList();
             assertEquals(314, list.size());
             Map<String, Integer> counts = new HashMap<>();
@@ -79,7 +90,7 @@ public class DecodeTest {
      * 
      * @return a byte array containing the data
      */
-    private static byte[] readTile(@NonNull String filename) throws IOException {
+    static byte[] readTile(@NonNull String filename) throws IOException {
         InputStream input = DecodeTest.class.getResourceAsStream(filename);
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int nRead;

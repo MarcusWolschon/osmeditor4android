@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.SerializableTextPaint;
+import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
@@ -39,6 +40,8 @@ public class Fill extends Layer {
                                                }
                                            };
     FloatArrayStyleAttribute fillTranslate = new FloatArrayStyleAttribute(true);
+
+    private FloatPrimitiveList points = new FloatPrimitiveList();
 
     /**
      * Default constructor
@@ -94,13 +97,13 @@ public class Fill extends Layer {
         case GeoJSONConstants.POLYGON:
             @SuppressWarnings("unchecked")
             List<List<Point>> rings = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
-            drawPolygon(c, rings);
+            drawPolygon(screenRect, c, rings);
             break;
         case GeoJSONConstants.MULTIPOLYGON:
             @SuppressWarnings("unchecked")
             List<List<List<Point>>> polygons = ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates();
             for (List<List<Point>> polygon : polygons) {
-                drawPolygon(c, polygon);
+                drawPolygon(screenRect, c, polygon);
             }
             break;
         default:
@@ -111,19 +114,23 @@ public class Fill extends Layer {
     /**
      * Draw a polygon
      * 
+     * @param screenRect screen dimensions
      * @param canvas Canvas object we are drawing on
      * @param polygon List of List of Point objects defining the polygon rings
      */
-    private void drawPolygon(@NonNull Canvas canvas, @NonNull List<List<Point>> polygon) {
+    private void drawPolygon(Rect screenRect, @NonNull Canvas canvas, @NonNull List<List<Point>> polygon) {
         path.reset();
+        float left = destinationRect.left + fillTranslate.literal[0];
+        float top = destinationRect.top + fillTranslate.literal[1];
         for (List<Point> ring : polygon) {
             int ringSize = ring.size();
             if (ringSize > 2) {
-                float left = destinationRect.left + fillTranslate.literal[0];
-                float top = destinationRect.top + fillTranslate.literal[1];
-                path.moveTo((float) (left + ring.get(0).longitude() * scaleX), (float) (top + ring.get(0).latitude() * scaleY));
-                for (int i = 1; i < ringSize; i++) {
-                    path.lineTo((float) (left + ring.get(i).longitude() * scaleX), (float) (top + ring.get(i).latitude() * scaleY));
+                Line.pointListToLinePointsArray(screenRect, left, scaleX, top, scaleY, points, ring);
+                float[] linePoints = points.getArray();
+                int pointsSize = points.size();
+                path.moveTo(linePoints[0], linePoints[1]);
+                for (int i = 0; i < pointsSize; i = i + 4) {
+                    path.lineTo(linePoints[i + 2], linePoints[i + 3]);
                 }
                 path.close();
             }

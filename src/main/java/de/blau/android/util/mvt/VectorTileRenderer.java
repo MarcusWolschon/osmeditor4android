@@ -11,9 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.gson.JsonArray;
-import com.mapbox.geojson.CoordinateContainer;
 import com.mapbox.geojson.Geometry;
-import com.mapbox.geojson.GeometryCollection;
 import com.mapbox.geojson.Point;
 
 import android.graphics.Canvas;
@@ -132,8 +130,8 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
         return null;
     }
 
-    List<Layer>                     layerToRender    = new ArrayList<>();
-    List<VectorTileDecoder.Feature> featuresToRender = new ArrayList<>();
+    private List<Layer>                     layerToRender    = new ArrayList<>();
+    private List<VectorTileDecoder.Feature> featuresToRender = new ArrayList<>();
 
     @Override
     public void preRender(@NonNull Canvas c, int z) {
@@ -225,12 +223,15 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
      */
     private void renderFeatures(@NonNull Canvas c, @NonNull Layer layer, int z, @NonNull Rect destinationRect,
             @NonNull List<VectorTileDecoder.Feature> features) {
+
+        boolean newZoom = z != lastZoom;
         for (VectorTileDecoder.Feature feature : features) {
-            if (z != lastZoom) {
+            if (newZoom) {
                 layer.onZoomChange(style, feature, z);
             }
             layer.render(c, style, feature, z, screenRect, destinationRect, scaleX, scaleX);
         }
+
     }
 
     @Override
@@ -285,28 +286,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     }
 
     /**
-     * Calculate the bounding box of a List of Points and sets an existing rect to the values
-     * 
-     * @param rect the Rect for the result
-     * @param points the List of Points
-     */
-    private void rectFromPoints(Rect rect, List<Point> points) {
-        Point first = points.get(0);
-        int start = 0;
-        if (rect.isEmpty()) {
-            rect.set((int) first.longitude(), (int) first.latitude(), (int) first.longitude(), (int) first.latitude());
-            start = 1;
-        }
-        for (int i = start; i < points.size(); i++) {
-            Point p = points.get(i);
-            rect.union((int) p.longitude(), (int) p.latitude());
-        }
-    }
-
-    /**
      * Check if the feature intersects the screen
-     * 
-     * Caches the bounding box of the feature in the feature
      * 
      * @param f the Feature
      * @return true if intersects the screen
@@ -317,78 +297,11 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
             return screenRect.contains(destinationRect.left + (int) (((Point) g).longitude() * scaleX),
                     destinationRect.top + (int) (((Point) g).latitude() * scaleY));
         }
-        Rect rect = f.getBox();
-        if (rect == null) {
-            rect = getBoundingBox(new Rect(), g);
-            f.setBox(rect);
-        }
-        tempRect.set(rect);
+        tempRect.set(f.getBox());
         tempRect.right = destinationRect.left + (int) (tempRect.right * scaleX);
         tempRect.left = destinationRect.left + (int) (tempRect.left * scaleX);
         tempRect.bottom = destinationRect.top + (int) (tempRect.bottom * scaleY);
         tempRect.top = destinationRect.top + (int) (tempRect.top * scaleY);
         return tempRect.intersect(screenRect);
-    }
-
-    /**
-     * Get a bounding box for a Geometry
-     * 
-     * @param rect pre-allocated Rect
-     * @param g the Geometry
-     * @return the REct set to the bounding box
-     */
-    @NonNull
-    private Rect getBoundingBox(@NonNull Rect rect, @NonNull Geometry g) {
-        switch (g.type()) {
-        case GeoJSONConstants.POINT:
-            rect.union((int) ((Point) g).longitude(), (int) ((Point) g).latitude());
-            break;
-        case GeoJSONConstants.MULTIPOINT:
-            @SuppressWarnings("unchecked")
-            List<Point> pointList = ((CoordinateContainer<List<Point>>) g).coordinates();
-            rectFromPoints(rect, pointList);
-            break;
-        case GeoJSONConstants.LINESTRING:
-            @SuppressWarnings("unchecked")
-            List<Point> line = ((CoordinateContainer<List<Point>>) g).coordinates();
-            rect = new Rect();
-            rectFromPoints(rect, line);
-            break;
-        case GeoJSONConstants.MULTILINESTRING:
-            @SuppressWarnings("unchecked")
-            List<List<Point>> lines = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
-            rect = new Rect();
-            for (List<Point> l : lines) {
-                rectFromPoints(rect, l);
-            }
-            break;
-        case GeoJSONConstants.POLYGON:
-            @SuppressWarnings("unchecked")
-            List<List<Point>> rings = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
-            rect = new Rect();
-            for (List<Point> ring : rings) {
-                rectFromPoints(rect, ring);
-            }
-            break;
-        case GeoJSONConstants.MULTIPOLYGON:
-            @SuppressWarnings("unchecked")
-            List<List<List<Point>>> polygons = ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates();
-            rect = new Rect();
-            for (List<List<Point>> polygon : polygons) {
-                for (List<Point> ring : polygon) {
-                    rectFromPoints(rect, ring);
-                }
-            }
-            break;
-        case GeoJSONConstants.GEOMETRYCOLLECTION:
-            List<Geometry> geometries = ((GeometryCollection) g).geometries();
-            for (Geometry geometry : geometries) {
-                getBoundingBox(rect, geometry);
-            }
-            break;
-        default:
-            Log.e(DEBUG_TAG, "drawGeometry unknown GeoJSON geometry " + g.type());
-        }
-        return rect;
     }
 }
