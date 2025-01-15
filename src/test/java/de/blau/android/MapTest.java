@@ -72,7 +72,7 @@ public class MapTest {
         assertNotNull(mapnik);
         assertEquals(mapnik.getName(), map.getImageryNames().get(0));
         TileLayerSource mapillary = TileLayerSource.get(ApplicationProvider.getApplicationContext(),
-                de.blau.android.layer.mapillary.MapillaryOverlay.MAPILLARY_TILES_ID, false);
+                de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay.MAPILLARY_TILES_ID, false);
         assertNotNull(mapillary);
         de.blau.android.layer.Util.addLayer(ApplicationProvider.getApplicationContext(), LayerType.MAPILLARY);
         map.setUpLayers(ApplicationProvider.getApplicationContext());

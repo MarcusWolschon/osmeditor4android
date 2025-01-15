@@ -62,8 +62,8 @@ The layer dialog supports the following actions on the layer entries:
         * __Change style__ Show the layer styling dialog (disabled if a style has been loaded).
         * __Load style__ Load a mapbox-gl style.
         * __Reset style__ Reset the style to the default.
-    * Mapillary layer (additionally to _Mapbox Vector Tile layers_):
-        * __Set date range ...__ Select start and end date to filter Mapillary data on. Note that this functionality depends on some specifics of the loaded Mapbox GL style.  
+    * Mapillary and Panoramax layers (additionally to _Mapbox Vector Tile layers_):
+        * __Set date range ...__ Select start and end date to filter the displayed data on. Note that this functionality depends on some specifics of the loaded Mapbox GL style.  
     * GeoJSON layers: 
         * __Change style__ Show the layer styling dialog.
         * __Info__ Display some information on the contents.
@@ -103,6 +103,7 @@ The layer dialog supports the following actions on the layer entries:
     * __Enable photo layer__ Enables the photo layer this will display clickable icons for photos that will start an internal or external viewer. Which photos can be displayed depends strongly on your Android version and settings [Advanced preferences](Advanced%20preferences.md).
     * __Enable bookmark layer__ Enables a layer displaying saved bookmarks.
     * __Enable Mapillary layer__ Enables the Mapillay layer.
+    * __Enable Panoramax layer__ Enables the Panoramax layer.
     * __Add layer from GPX file__ Adds a layer from a GPX file on device.
     * __Download GPX track__ Download a GPX [track that you have previously uploaded to the OSM website](https://www.openstreetmap.org/traces/mine), and create a layer from it. Note that only GPX tracks with their starting point in the area currently displayed will be available for selection, this is a limitation of the current OSM API.
     * __Add custom imagery__ Adds a custom imagery configuration, this can then be used just 

@@ -56,7 +56,7 @@ public class DisambiguationMenu {
     private static final String DEBUG_TAG = DisambiguationMenu.class.getSimpleName().substring(0, TAG_LEN);
 
     public enum Type {
-        NODE, WAY, RELATION, NOTE, BUG, MAPROULETTE, TODO, GEOJSON, GPX, MAPILLARY, MVT, IMAGE
+        NODE, WAY, RELATION, NOTE, BUG, MAPROULETTE, TODO, GEOJSON, GPX, MAPILLARY, PANORAMAX, MVT, IMAGE
     }
 
     public interface OnMenuItemClickListener {
@@ -161,7 +161,12 @@ public class DisambiguationMenu {
             return Type.GPX;
         }
         if (object instanceof de.blau.android.util.mvt.VectorTileDecoder.Feature) {
-            return clicked.getLayer() instanceof de.blau.android.layer.mapillary.MapillaryOverlay ? Type.MAPILLARY : Type.MVT;
+            if (clicked.getLayer() instanceof de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay) {
+                return Type.MAPILLARY;
+            } else if (clicked.getLayer() instanceof de.blau.android.layer.streetlevel.panoramax.PanoramaxOverlay) {
+                return Type.PANORAMAX;
+            }
+            return Type.MVT;
         }
         if (object instanceof Photo) {
             return Type.IMAGE;
@@ -395,6 +400,8 @@ public class DisambiguationMenu {
                 case IMAGE:
                     return ContextCompat.getDrawable(context, R.drawable.photo_small);
                 case MAPILLARY:
+                    return ContextCompat.getDrawable(context, R.drawable.mapillary_small);
+                case PANORAMAX:
                     return ContextCompat.getDrawable(context, R.drawable.mapillary_small);
                 default:
                 }

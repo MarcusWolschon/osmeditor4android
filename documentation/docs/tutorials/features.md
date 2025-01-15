@@ -104,7 +104,8 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | GPX track upload                                         |
 |                           | GPX waypoint support                                     |
 |__Street level imagery__   |                                                          |
-|                           | Mapillary support                                        |  
+|                           | Mapillary   
+|                           | Panoramax                                     |  
 |__Misc__                   |                                                          |
 |                           | Styleable data layer                                     |
 |                           | Turn restriction rendering                               |

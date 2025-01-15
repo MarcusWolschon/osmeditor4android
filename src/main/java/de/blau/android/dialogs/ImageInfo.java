@@ -26,7 +26,7 @@ import de.blau.android.util.DateFormatter;
 import de.blau.android.util.InfoDialogFragment;
 
 /**
- * Very simple dialog fragment to display some info on a GeoJSON element
+ * Very simple dialog fragment to display some info on an image
  * 
  * @author simon
  *
@@ -40,7 +40,7 @@ public class ImageInfo extends InfoDialogFragment {
     private static final String TAG = "fragment_image_info";
 
     private Uri              uri        = null;
-    private SimpleDateFormat dateFormat = DateFormatter.getUtcFormat("yyyy-MM-dd HH:mm:ssZ");
+    private SimpleDateFormat dateFormat = DateFormatter.getUtcFormat("yyyy-MM-dd HH:mm:ssZZ");
 
     /**
      * Show an info dialog for an image
@@ -69,11 +69,11 @@ public class ImageInfo extends InfoDialogFragment {
     }
 
     /**
-     * Create a new instance of the FeatureInfo dialog
+     * Create a new instance of the ImageInfo dialog
      * 
      * @param feature Feature to display the info on
      * 
-     * @return an instance of ElementInfo
+     * @return an instance of ImageInfo
      */
     @NonNull
     private static ImageInfo newInstance(@NonNull String uriString) {

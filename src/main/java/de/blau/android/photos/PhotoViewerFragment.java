@@ -61,10 +61,10 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImm
 
     public static final String TAG = "fragment_photo_viewer";
 
-    static final String PHOTO_LIST_KEY   = "photo_list";
-    static final String START_POS_KEY    = "start_pos";
-    static final String PHOTO_LOADER_KEY = "loader";
-    static final String WRAP_KEY         = "wrap";
+    static final String        PHOTO_LIST_KEY   = "photo_list";
+    static final String        START_POS_KEY    = "start_pos";
+    public static final String PHOTO_LOADER_KEY = "loader";
+    public static final String WRAP_KEY         = "wrap";
 
     private static final int MENUITEM_BACK    = 0;
     private static final int MENUITEM_SHARE   = 1;

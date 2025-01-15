@@ -6,6 +6,7 @@
     <string name="tip_undo_key">showUndoTip</string>
     <string name="tip_imagery_privacy_key">showImageryPrivacyTip</string>
     <string name="tip_mapillary_privacy_key">showMapillaryPrivacyTip</string>
+    <string name="tip_panoramax_privacy_key">showPanoramaxPrivacyTip</string>
     <string name="tip_pan_and_zoom_auto_download_key">panAndZoomAutoDownloadTip</string>
     <string name="tip_locked_mode_key">lockedModeTip</string>
     <string name="tip_longpress_simple_mode_key">longPressSimpleModeTip</string>
