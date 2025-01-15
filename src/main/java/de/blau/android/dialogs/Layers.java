@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map.Entry;
 
 import org.mozilla.javascript.RhinoException;
@@ -20,8 +19,6 @@ import org.mozilla.javascript.RhinoException;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.Point;
-import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
 import android.annotation.SuppressLint;

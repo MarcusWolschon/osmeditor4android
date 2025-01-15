@@ -1,0 +1,98 @@
+{
+    "version": 8,
+    "name": "Default mapillary style",
+    "layers": [
+        {
+            "id": "overview",
+            "type": "line",
+            "source-layer": "overview",
+            "maxzoom": 13,
+            "paint": {
+                "line-opacity": 1,
+                "line-width": {
+                    "base": 1.4,
+                    "stops": [
+                        [
+                            8,
+                            3
+                        ],
+                        [
+                            20,
+                            8
+                        ]
+                    ]
+                },
+                "line-dasharray": [
+                    1,
+                    1.5
+                ],
+                "line-color": "rgba(0, 0, 215, 1)"
+            }
+        },
+        {
+            "id": "sequence",
+            "type": "line",
+            "source-layer": "sequence",
+            "minzoom": 14,
+            "paint": {
+                "line-opacity": 1,
+                "line-width": {
+                    "base": 1.4,
+                    "stops": [
+                        [
+                            8,
+                            2
+                        ],
+                        [
+                            20,
+                            4
+                        ]
+                    ]
+                },
+                "line-dasharray": [
+                    1,
+                    1.5
+                ],
+                "line-color": "rgba(0, 0, 215, 1)"
+            }
+        },
+        {
+            "id": "image",
+            "type": "symbol",
+            "source-layer": "image",
+            "minzoom": 19,
+            "layout": {
+                "icon-image": "arrow",
+                "icon-rotate": {
+                    "property": "compass_angle",
+                    "type": "identity"
+                }
+            },
+            "paint": {
+                "icon-color": "rgba(0, 0, 215, 1)"
+            }
+        },
+        {
+            "id": "selected_image",
+            "type": "symbol",
+            "source-layer": "image",
+            "filter": [
+                "==",
+                "id",
+                0
+            ],
+            "minzoom": 19,
+            "layout": {
+                "icon-image": "arrow",
+                "icon-rotate": {
+                    "property": "compass_angle",
+                    "type": "identity"
+                }
+            },
+            "paint": {
+                "icon-color": "rgba(200, 100, 0, 1)"
+            }
+        }
+    ],
+    "id": "mapillary"
+}

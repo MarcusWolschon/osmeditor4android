@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import com.mapbox.geojson.CoordinateContainer;
 import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.GeometryCollection;
 import com.mapbox.geojson.LineString;
@@ -40,6 +41,7 @@ import android.graphics.Rect;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.util.GeoJSONConstants;
 import vector_tile.VectorTile;
 import vector_tile.VectorTile.Tile.GeomType;
 import vector_tile.VectorTile.Tile.Layer;
@@ -262,8 +264,84 @@ public class VectorTileDecoder {
             Log.e(DEBUG_TAG, "Empty geometry for " + geomType);
             geometry = GeometryCollection.fromGeometries(new ArrayList<>());
         }
-
         return geometry;
+    }
+
+    /**
+     * Calculate the bounding box of a List of Points and sets an existing rect to the values
+     * 
+     * @param rect the Rect for the result
+     * @param points the List of Points
+     */
+    private static void rectFromPoints(Rect rect, List<Point> points) {
+        Point first = points.get(0);
+        int start = 0;
+        if (rect.isEmpty()) {
+            rect.set((int) first.longitude(), (int) first.latitude(), (int) first.longitude(), (int) first.latitude());
+            start = 1;
+        }
+        for (int i = start; i < points.size(); i++) {
+            Point p = points.get(i);
+            rect.union((int) p.longitude(), (int) p.latitude());
+        }
+    }
+
+    /**
+     * Get a bounding box for a Geometry
+     * 
+     * @param rect pre-allocated Rect
+     * @param g the Geometry
+     * @return the REct set to the bounding box
+     */
+    @NonNull
+    private static Rect getBoundingBox(@NonNull final Rect rect, @NonNull Geometry g) {
+        switch (g.type()) {
+        case GeoJSONConstants.POINT:
+            rect.union((int) ((Point) g).longitude(), (int) ((Point) g).latitude());
+            break;
+        case GeoJSONConstants.MULTIPOINT:
+            @SuppressWarnings("unchecked")
+            List<Point> pointList = ((CoordinateContainer<List<Point>>) g).coordinates();
+            rectFromPoints(rect, pointList);
+            break;
+        case GeoJSONConstants.LINESTRING:
+            @SuppressWarnings("unchecked")
+            List<Point> line = ((CoordinateContainer<List<Point>>) g).coordinates();
+            rectFromPoints(rect, line);
+            break;
+        case GeoJSONConstants.MULTILINESTRING:
+            @SuppressWarnings("unchecked")
+            List<List<Point>> lines = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
+            for (List<Point> l : lines) {
+                rectFromPoints(rect, l);
+            }
+            break;
+        case GeoJSONConstants.POLYGON:
+            @SuppressWarnings("unchecked")
+            List<List<Point>> rings = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
+            for (List<Point> ring : rings) {
+                rectFromPoints(rect, ring);
+            }
+            break;
+        case GeoJSONConstants.MULTIPOLYGON:
+            @SuppressWarnings("unchecked")
+            List<List<List<Point>>> polygons = ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates();
+            for (List<List<Point>> polygon : polygons) {
+                for (List<Point> ring : polygon) {
+                    rectFromPoints(rect, ring);
+                }
+            }
+            break;
+        case GeoJSONConstants.GEOMETRYCOLLECTION:
+            List<Geometry> geometries = ((GeometryCollection) g).geometries();
+            for (Geometry geometry : geometries) {
+                getBoundingBox(rect, geometry);
+            }
+            break;
+        default:
+            Log.e(DEBUG_TAG, "drawGeometry unknown GeoJSON geometry " + g.type());
+        }
+        return rect;
     }
 
     public static final int COLINEAR         = 0;
@@ -502,19 +580,23 @@ public class VectorTileDecoder {
          * @return a Feature
          */
         private Feature parseFeature(@NonNull VectorTile.Tile.Feature feature) {
-
             int tagsCount = feature.getTagsCount();
             Map<String, Object> attributes = new HashMap<>(tagsCount / 2);
             int tagIdx = 0;
-            while (tagIdx < feature.getTagsCount()) {
+            while (tagIdx < tagsCount) {
                 String key = keys.get(feature.getTags(tagIdx++));
                 Object value = values.get(feature.getTags(tagIdx++));
                 attributes.put(key, value);
             }
-
-            Geometry geometry = decodeGeometry(feature.getType(), feature.getGeometryList(), scale);
-
-            return new Feature(layerName, extent, geometry, Collections.unmodifiableMap(attributes), feature.getId());
+            GeomType geomType = feature.getType();
+            Geometry geometry = decodeGeometry(geomType, feature.getGeometryList(), scale);
+            Feature f = new Feature(layerName, extent, geometry, Collections.unmodifiableMap(attributes), feature.getId());
+            if (GeomType.POINT != geomType) {
+                Rect rect = new Rect();
+                getBoundingBox(rect, geometry);
+                f.setBox(rect);
+            }
+            return f;
         }
 
         @Override
