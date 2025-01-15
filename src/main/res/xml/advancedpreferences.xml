@@ -386,7 +386,7 @@
             android:dialogTitle="@string/config_replaceTolerance_title"
             android:key="@string/config_replaceTolerance_key"
             android:summary="@string/config_replaceTolerance_summary"
-            android:title="@string/config_replaceTolerance_title" />         
+            android:title="@string/config_replaceTolerance_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_auto_download"
@@ -420,7 +420,7 @@
             android:defaultValue="true"
             android:key="@string/config_autoPrune_key"
             android:summary="@string/config_autoPrune_summary"
-            android:title="@string/config_autoPrune_title" />        
+            android:title="@string/config_autoPrune_title" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="5000"
             android:dialogTitle="@string/config_autoPruneNodeLimit_title"
@@ -609,6 +609,12 @@
             android:summary="@string/config_oamServer_summary"
             android:dialogMessage="@string/config_oamServer_summary"
             android:title="@string/config_oamServer_title" />
+        <androidx.preference.EditTextPreference
+            android:defaultValue="https://panoramax.xyz/"
+            android:key="@string/config_panoramaxApiUrl_key"
+            android:summary="@string/config_panoramaxApiUrl_summary"
+            android:dialogMessage="@string/config_panoramaxApiUrl_summary"
+            android:title="@string/config_panoramaxApiUrl_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_layers"

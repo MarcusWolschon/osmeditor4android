@@ -477,6 +477,7 @@
     <!--  Layer dialog -->
     <string name="layer_geojson">GeoJSON</string>
     <string name="layer_mapillary">Mapillary</string>
+    <string name="layer_panoramax">Panoramax</string>
     <string name="layer_grid">Grid</string>
     <string name="layer_bookmarks">Bookmarks</string>
     <string name="layer_gpx">GPX</string>
@@ -584,6 +585,7 @@
     <string name="tip_undo">Long pressing the undo button will show all undo and redo checkpoints.</string>
     <string name="tip_imagery_privacy">Background and overlay layers are provided by third parties. Using a layer transmits your network address and a rough indication of the area you are looking at to the provider.&lt;p&gt;If the provider has supplied privacy policy information, you can view it with the \"Info\" menu item in the layer dialog.</string>
     <string name="tip_mapillary_privacy">Mapillary is a service provided by Mapillary AB, Sweden, a subsidiary of Facebook. Using the service transmits your network address and information on which images you have viewed to the company.</string>
+    <string name="tip_panoramax_privacy">Panoramax is a service provided by third parties, the default server is operated by OpenStreetMap France, however you can change the server in the preferences. Using the service transmits your network address and information on which images you have viewed to the operator.</string>
     <string name="tip_pan_and_zoom_auto_download">Pan and zoom auto download should be used with caution as it has the potential to severely tax both the OpenStreetMap APIs and your device.&lt;p&gt;The load on the API servers can be avoided by using an offline data source.</string>
     <string name="tip_locked_mode">In locked mode you can\'t edit, but a long press on an object will open a display with detailed information.</string>
     <string name="tip_longpress_simple_mode">In simple mode a long press will not do anything. Turn simple mode off in the main menu if you want to use long clicks to create objects.</string>
@@ -1138,6 +1140,7 @@
     <string name="menu_layers_add_grid">Enable grid</string>
     <string name="menu_layers_add_photolayer">Enable photo layer</string>
     <string name="menu_layers_enable_mapillary_layer">Enable Mapillary layer</string>
+    <string name="menu_layers_enable_panoramax_layer">Enable Panoramax layer</string>
     <string name="menu_layers_enable_bookmarkslayer">Enable bookmark layer</string>
     <string name="menu_layers_configure">Configure…</string>
     <string name="menu_layers_background_align">Align imagery…</string>
@@ -1496,7 +1499,9 @@
     <string name="config_overpassServer_summary">Overpass server used for queries</string>
     <string name="config_oamServer_title">OpenAerialMap server</string>
     <string name="config_oamServer_summary">OpenAerialMap server used for serving imagery</string>
-            
+    <string name="config_panoramaxApiUrl_title">Panoramax URL</string>
+    <string name="config_panoramaxApiUrl_summary">The base URL for a Panoramax instance without appended \"/api\"</string>
+ 
     <!-- Layer download and storage -->
     <string name="config_category_layers">Layer download and storage</string>
     <string name="config_category_layers_summary">Tile-based background imagery download and storage.</string>

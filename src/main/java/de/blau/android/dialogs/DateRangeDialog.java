@@ -19,7 +19,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.layer.DateRangeInterface;
+import de.blau.android.layer.streetlevel.DateRangeInterface;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ImmersiveDialogFragment;

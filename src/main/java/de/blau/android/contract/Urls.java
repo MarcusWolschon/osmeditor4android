@@ -27,6 +27,7 @@ public final class Urls {
     public static final String DEFAULT_TAGINFO_SERVER     = "https://taginfo.openstreetmap.org/";
     public static final String DEFAULT_OVERPASS_SERVER    = "https://overpass-api.de/api/interpreter";
     public static final String DEFAULT_OAM_SERVER         = "https://api.openaerialmap.org/";
+    public static final String DEFAULT_PANORAMAX_API_URL  = "https://panoramax.xyz/";
 
     // these are only configurable for testing
     public static final String DEFAULT_MAPILLARY_IMAGES_V4        = "https://graph.mapillary.com/%s?access_token=%s&fields=thumb_2048_url,computed_geometry,computed_compass_angle,captured_at";
@@ -49,6 +50,6 @@ public final class Urls {
     public static final String EGM96 = "https://github.com/simonpoole/egm96/raw/master/src/main/resources/EGM96.dat";
 
     public static final String GITHUB = "https://github.com/";
-    
+
     public static final String REMOTE_ICON_LOCATION = "https://simonpoole.github.io/beautified-JOSM-preset/icons/png/";
 }

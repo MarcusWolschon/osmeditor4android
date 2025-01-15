@@ -285,12 +285,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".photos.MapillaryViewerActivity"
+            android:name=".layer.streetlevel.ImageViewerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:exported="true"
             android:label="@string/mapillary_viewer_label"
             android:launchMode="singleTask"
-            android:taskAffinity=".MapillaryViewerActivity"
+            android:taskAffinity=".ImageViewerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
