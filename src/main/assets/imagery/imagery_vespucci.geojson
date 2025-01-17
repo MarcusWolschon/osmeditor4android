@@ -135,6 +135,20 @@
                 "url": "https://panoramax.openstreetmap.fr/api/map/{z}/{x}/{y}.pbf"
             },
             "type": "Feature"
+        },
+        {
+            "geometry": null,
+            "properties": {
+                "id": "OSMFVECTOR",
+                "overlay": false,
+                "max_zoom": 14,
+                "name": "OSMF Vector Tiles",
+                "type": "tms",
+                "tile_type": "mvt",
+                "category": "osmbasedmap",
+                "url": "https://vector.openstreetmap.org/shortbread_v1/{z}/{x}/{y}.mvt"
+            },
+            "type": "Feature"
         }
     ],
     "type": "FeatureCollection"
