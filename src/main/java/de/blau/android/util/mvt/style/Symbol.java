@@ -78,7 +78,7 @@ public class Symbol extends Layer {
                                                        }
                                                    }
                                                };
-    FloatStyleAttribute      textOpacity       = new FloatStyleAttribute(true) {
+    FloatStyleAttribute      textOpacity       = new FloatStyleAttribute(false) {
                                                    private static final long serialVersionUID = 1L;
 
                                                    @Override
@@ -133,8 +133,8 @@ public class Symbol extends Layer {
                                                        literal = getAnchor(anchor);
                                                    }
                                                };
-    FloatArrayStyleAttribute textOffset        = new FloatArrayStyleAttribute(false);
-    FloatArrayStyleAttribute iconOffset        = new FloatArrayStyleAttribute(false);
+    FloatArrayStyleAttribute textOffset        = new FloatArrayStyleAttribute(true);
+    FloatArrayStyleAttribute iconOffset        = new FloatArrayStyleAttribute(true);
     FloatStyleAttribute      iconSize          = new FloatStyleAttribute(true);
     FloatStyleAttribute      textMaxWidth      = new FloatStyleAttribute(false);
     FloatStyleAttribute      textSize          = new FloatStyleAttribute(true) {
