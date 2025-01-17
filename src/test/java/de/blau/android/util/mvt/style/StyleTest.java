@@ -25,7 +25,7 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(sdk = 33)
 @LargeTest
 public class StyleTest {
 
@@ -67,23 +67,23 @@ public class StyleTest {
         assertEquals(0, bridgeHatching.getStrokeWidth(), 0.01);
         bridgeHatching.onZoomChange(style, null, 16);
         double interpolated = Layer.interpolation(1.4, 15, 3, 20, 8, 16);
-        assertEquals(interpolated * density, bridgeHatching.getStrokeWidth(), 0.01);
+        assertEquals(interpolated * density / 2, bridgeHatching.getStrokeWidth(), 0.01);
         bridgeHatching.onZoomChange(style, null, 20);
-        assertEquals(8 * density, bridgeHatching.getStrokeWidth(), 0.01);
+        assertEquals(8 * density / 2, bridgeHatching.getStrokeWidth(), 0.01);
         // "fill-translate": { "stops": [[15,[0,0]],[16,[-2,-2]]],"base": 1}
         Fill buildingTop = (Fill) getLayer("building_top", layers);
         buildingTop.onZoomChange(style, null, 14);
         assertEquals(0, buildingTop.fillTranslate.literal[0], 0.01);
         assertEquals(0, buildingTop.fillTranslate.literal[1], 0.01);
         buildingTop.onZoomChange(style, null, 17);
-        assertEquals(-2 * density, buildingTop.fillTranslate.literal[0], 0.01);
-        assertEquals(-2 * density, buildingTop.fillTranslate.literal[1], 0.01);
+        assertEquals(-2 * density / 2, buildingTop.fillTranslate.literal[0], 0.01);
+        assertEquals(-2 * density / 2, buildingTop.fillTranslate.literal[1], 0.01);
         // "text-size": {"base": 1,"stops": [[13,12],[14,13]]}
         Symbol roadLabel = (Symbol) getLayer("road_label", layers);
         roadLabel.onZoomChange(style, null, 12);
-        assertEquals(12 * density, roadLabel.getLabelPaint().getTextSize(), 0.01);
+        assertEquals(12 * density / 2, roadLabel.getLabelPaint().getTextSize(), 0.01);
         roadLabel.onZoomChange(style, null, 14);
-        assertEquals(13 * density, roadLabel.getLabelPaint().getTextSize(), 0.01);
+        assertEquals(13 * density / 2, roadLabel.getLabelPaint().getTextSize(), 0.01);
         // "symbol-placement": { "base": 1, "stops": [[10,"point"],[11,"line"]]}
         Symbol roadShield = (Symbol) getLayer("road_shield", layers);
         roadShield.onZoomChange(style, null, 9);
@@ -104,8 +104,8 @@ public class StyleTest {
         final List<Layer> layers = style.getLayers();
         Circle something = (Circle) getLayer("something", layers);
         assertNotNull(something);
-        assertEquals(6 * density, something.circleRadius.literal, 0.01);
-        assertEquals(2 * density, something.stroke.getStrokeWidth(), 0.01);
+        assertEquals(3 * density, something.circleRadius.literal, 0.01);
+        assertEquals(1 * density, something.stroke.getStrokeWidth(), 0.01);
     }
 
     /**

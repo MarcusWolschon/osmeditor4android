@@ -292,7 +292,7 @@ public class TileLayerSourceTest {
             mockServer.server().enqueue(new MockResponse().setResponseCode(200).setBody(data));
             TileLayerSource.updateImagery(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI, url);
             String[] ids = TileLayerSource.getIds(null, false, null, null);
-            assertEquals(7, ids.length); // base config plus what we just loaded
+            assertEquals(8, ids.length); // base config plus what we just loaded
             TileLayerSource a = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "A", false);
             assertNotNull(a);
             TileLayerSource b = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "B", false);
