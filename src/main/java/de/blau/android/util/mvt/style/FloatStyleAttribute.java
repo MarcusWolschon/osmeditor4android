@@ -1,5 +1,7 @@
 package de.blau.android.util.mvt.style;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -12,7 +14,8 @@ public class FloatStyleAttribute extends StyleAttribute {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = FloatStyleAttribute.class.getSimpleName().substring(0, Math.min(23, FloatStyleAttribute.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, FloatStyleAttribute.class.getSimpleName().length());
+    private static final String DEBUG_TAG = FloatStyleAttribute.class.getSimpleName().substring(0, TAG_LEN);
 
     float   literal;
     boolean convert;
@@ -35,7 +38,7 @@ public class FloatStyleAttribute extends StyleAttribute {
      * @param d default value, this will be converted from dip to screen pixels if necessary
      */
     void set(Context ctx, String name, JsonObject paintOrLayout, float d) {
-        literal = convert ? d * ctx.getResources().getDisplayMetrics().density : d;
+        literal = convert ? d * ctx.getResources().getDisplayMetrics().density / 2 : d;
         set(ctx, name, paintOrLayout);
     }
 
@@ -44,7 +47,7 @@ public class FloatStyleAttribute extends StyleAttribute {
         JsonElement number = paintOrLayout.get(name);
         if (number != null) {
             if (Style.isNumber(number)) {
-                set(number.getAsFloat() * (convert ? ctx.getResources().getDisplayMetrics().density : 1));
+                set(number.getAsFloat() * (convert ? ctx.getResources().getDisplayMetrics().density / 2 : 1));
             } else if (number.isJsonObject()) {// interpolation expression
                 if (convert) {
                     dipStops(ctx, (JsonObject) number);

@@ -20,7 +20,7 @@ import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
 public class Line extends Layer {
 
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 6L;
 
     public static final float DEFAULT_LINE_WIDTH = 1f;
 
@@ -54,7 +54,8 @@ public class Line extends Layer {
      * @param other another Style
      */
     public Line(@NonNull Line other) {
-        super(other);
+        this(other.getSourceLayer());
+        lineWidth.set(other.getStrokeWidth());
     }
 
     /**
@@ -215,16 +216,6 @@ public class Line extends Layer {
      */
     private static boolean isIntersectionPossible(final Rect rect, final float x, final float y, final float x2, final float y2) {
         return !(y < rect.top && y2 < rect.top || y > rect.bottom && y2 > rect.bottom || x > rect.right && x2 > rect.right || x < rect.left && x2 < rect.left);
-    }
-
-    /**
-     * Set the line width
-     * 
-     * @param width the width in pixels
-     */
-    public void setLineWidth(float width) {
-        paint.setStrokeWidth(width);
-        setDashArrayOnPaint();
     }
 
     /**

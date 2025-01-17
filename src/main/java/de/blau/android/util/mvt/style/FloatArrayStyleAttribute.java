@@ -1,5 +1,7 @@
 package de.blau.android.util.mvt.style;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -13,7 +15,8 @@ public class FloatArrayStyleAttribute extends StyleAttribute {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = FloatArrayStyleAttribute.class.getSimpleName().substring(0, Math.min(23, FloatArrayStyleAttribute.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, FloatArrayStyleAttribute.class.getSimpleName().length());
+    private static final String DEBUG_TAG = FloatArrayStyleAttribute.class.getSimpleName().substring(0, TAG_LEN);
 
     float[] literal = new float[] { 0f, 0f };
     boolean convert;
@@ -35,7 +38,7 @@ public class FloatArrayStyleAttribute extends StyleAttribute {
                 float a1 = ((JsonArray) array).get(0).getAsFloat();
                 float a2 = ((JsonArray) array).get(1).getAsFloat();
                 final float density = ctx.getResources().getDisplayMetrics().density;
-                set(new float[] { a1 * (convert ? density : 1), a2 * (convert ? density : 1) });
+                set(new float[] { a1 * (convert ? density / 2 : 1), a2 * (convert ? density / 2 : 1) });
             } else if (array.isJsonObject()) {// interpolation expression
                 if (convert) {
                     dipStops(ctx, (JsonObject) array);

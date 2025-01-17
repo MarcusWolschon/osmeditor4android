@@ -104,7 +104,7 @@ public abstract class Layer implements Serializable {
                                              setColor(color);
                                          }
                                      };
-    FloatStyleAttribute  opacity     = new FloatStyleAttribute(true) {
+    FloatStyleAttribute  opacity     = new FloatStyleAttribute(false) {
                                          private static final long serialVersionUID = 1L;
 
                                          @Override
