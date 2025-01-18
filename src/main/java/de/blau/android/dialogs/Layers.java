@@ -1088,34 +1088,37 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     return true;
                 });
 
-                item = menu.add(R.string.menu_tools_background_properties);
-                item.setOnMenuItemClickListener(unused -> {
-                    if (layer != null) {
-                        BackgroundProperties.showDialog(activity, layer.getIndex());
-                    }
-                    return true;
-                });
-
-                item = menu.add(R.string.menu_layers_background_align);
-                item.setEnabled(layer.isVisible() && map.isVisible(layer));
-                item.setOnMenuItemClickListener(unused -> {
-                    if (layer != null) {
-                        try {
-                            Logic logic = App.getLogic();
-                            ImageryAlignmentActionModeCallback backgroundAlignmentActionModeCallback = new ImageryAlignmentActionModeCallback(((Main) activity),
-                                    logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT,
-                                    ((MapTilesLayer<?>) layer).getContentId());
-                            // NOTE needs to be after instance creation, logic.setMode needs to be called -after- this
-                            ((Main) activity).setImageryAlignmentActionModeCallback(backgroundAlignmentActionModeCallback);
-                            logic.setMode(((Main) activity), Mode.MODE_ALIGN_BACKGROUND);
-                            ((Main) activity).startSupportActionMode(backgroundAlignmentActionModeCallback);
-                        } catch (IllegalStateException isex) {
-                            Log.e(DEBUG_TAG, isex.getMessage());
+                if (!(layer instanceof de.blau.android.layer.mvt.MapOverlay)) {
+                    item = menu.add(R.string.menu_tools_background_properties);
+                    item.setOnMenuItemClickListener(unused -> {
+                        if (layer != null) {
+                            BackgroundProperties.showDialog(activity, layer.getIndex());
                         }
-                        dismissDialog();
-                    }
-                    return true;
-                });
+                        return true;
+                    });
+
+                    item = menu.add(R.string.menu_layers_background_align);
+                    item.setEnabled(layer.isVisible() && map.isVisible(layer));
+                    item.setOnMenuItemClickListener(unused -> {
+                        if (layer != null) {
+                            try {
+                                Logic logic = App.getLogic();
+                                ImageryAlignmentActionModeCallback backgroundAlignmentActionModeCallback = new ImageryAlignmentActionModeCallback(
+                                        ((Main) activity), logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT,
+                                        ((MapTilesLayer<?>) layer).getContentId());
+                                // NOTE needs to be after instance creation, logic.setMode needs to be called -after-
+                                // this
+                                ((Main) activity).setImageryAlignmentActionModeCallback(backgroundAlignmentActionModeCallback);
+                                logic.setMode(((Main) activity), Mode.MODE_ALIGN_BACKGROUND);
+                                ((Main) activity).startSupportActionMode(backgroundAlignmentActionModeCallback);
+                            } catch (IllegalStateException isex) {
+                                Log.e(DEBUG_TAG, isex.getMessage());
+                            }
+                            dismissDialog();
+                        }
+                        return true;
+                    });
+                }
 
                 if (!((MapTilesLayer<?>) layer).getTileLayerConfiguration().isLocalFile()) {
                     item = menu.add(R.string.layer_test);
