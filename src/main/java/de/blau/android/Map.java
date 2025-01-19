@@ -26,6 +26,7 @@ import android.text.DynamicLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -69,7 +70,7 @@ import de.blau.android.views.layers.MapTilesOverlayLayer;
  * @author Simon Poole
  */
 
-public class Map extends View implements IMapView {
+public class Map extends SurfaceView implements IMapView {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Map.class.getSimpleName().length());
     private static final String DEBUG_TAG = Map.class.getSimpleName().substring(0, TAG_LEN);
@@ -199,6 +200,7 @@ public class Map extends View implements IMapView {
 
         hardwareLayerType = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && App.getPreferences(context).hwAccelerationEnabled();
         setLayerType(hardwareLayerType ? View.LAYER_TYPE_HARDWARE : View.LAYER_TYPE_SOFTWARE, null);
+        setWillNotDraw(false);
     }
 
     /**
