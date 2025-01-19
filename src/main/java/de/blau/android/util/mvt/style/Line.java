@@ -14,14 +14,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.SerializableTextPaint;
+import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
 public class Line extends Layer {
 
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 6L;
 
     public static final float DEFAULT_LINE_WIDTH = 1f;
+
+    private FloatPrimitiveList points = new FloatPrimitiveList();
 
     FloatStyleAttribute lineWidth = new FloatStyleAttribute(true) {
         private static final long serialVersionUID = 1L;
@@ -51,7 +54,8 @@ public class Line extends Layer {
      * @param other another Style
      */
     public Line(@NonNull Line other) {
-        super(other);
+        this(other.getSourceLayer());
+        lineWidth.set(other.getStrokeWidth());
     }
 
     /**
@@ -88,13 +92,13 @@ public class Line extends Layer {
         case GeoJSONConstants.LINESTRING:
             @SuppressWarnings("unchecked")
             List<Point> line = ((CoordinateContainer<List<Point>>) g).coordinates();
-            drawLine(c, line);
+            drawLine(screenRect, c, line);
             break;
         case GeoJSONConstants.MULTILINESTRING:
             @SuppressWarnings("unchecked")
             List<List<Point>> lines = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
             for (List<Point> l : lines) {
-                drawLine(c, l);
+                drawLine(screenRect, c, l);
             }
             break;
         default:
@@ -105,29 +109,113 @@ public class Line extends Layer {
     /**
      * Draw a line
      * 
+     * @param screenRect a REct with the screen bounds
      * @param canvas Canvas object we are drawing on
      * @param line a List of Points making up the line
      */
-    public void drawLine(@NonNull Canvas canvas, @NonNull List<Point> line) {
-        int lineSize = line.size();
-        if (lineSize > 1) {
-            path.rewind();
-            path.moveTo((float) (destinationRect.left + line.get(0).longitude() * scaleX), (float) (destinationRect.top + line.get(0).latitude() * scaleY));
-            for (int i = 1; i < lineSize; i++) {
-                path.lineTo((float) (destinationRect.left + line.get(i).longitude() * scaleX), (float) (destinationRect.top + line.get(i).latitude() * scaleY));
+    public void drawLine(@NonNull Rect screenRect, @NonNull Canvas canvas, @NonNull List<Point> line) {
+        pointListToLinePointsArray(screenRect, destinationRect.left, scaleX, destinationRect.top, scaleY, points, line);
+        float[] linePoints = points.getArray();
+        int pointsSize = points.size();
+        if (pointsSize > 1) {
+            path.reset();
+            path.moveTo(linePoints[0], linePoints[1]);
+            for (int i = 0; i < pointsSize; i = i + 4) {
+                path.lineTo(linePoints[i + 2], linePoints[i + 3]);
             }
             canvas.drawPath(path, paint);
         }
     }
 
     /**
-     * Set the line width
+     * Converts linestring nodes to a list of screen-coordinate points for drawing.
      * 
-     * @param width the width in pixels
+     * Only segments that are inside the rect are included. This duplicates the logic in Map for OSM objects
+     * 
+     * @param rect the current screen rect
+     * @param left left coordinate of the destiation rect
+     * @param scaleX scale factor X
+     * @param top top coordindate of the destiation rect
+     * @param scaleY scale factoY
+     * @param points list to (re-)use for projected points in the format expected by
+     *            {@link Canvas#drawLines(float[], Paint)}
+     * @param nodes A List of the Points to be drawn
      */
-    public void setLineWidth(float width) {
-        paint.setStrokeWidth(width);
-        setDashArrayOnPaint();
+    static void pointListToLinePointsArray(@NonNull final Rect rect, float left, float scaleX, float top, float scaleY,
+            @NonNull final FloatPrimitiveList points, @NonNull final List<Point> nodes) {
+        points.clear(); // reset
+        // loop over all nodes
+        Point prevNode = null;
+        Point lastDrawnNode = null;
+        float lastDrawnNodeX = 0;
+        float lastDrawnNodeY = 0;
+        float prevX = 0f;
+        float prevY = 0f;
+        boolean thisIntersects = false;
+        boolean nextIntersects = false;
+        int nodesSize = nodes.size();
+        if (nodesSize == 0) {
+            return;
+        }
+        Point nextNode = nodes.get(0);
+        float nextNodeX = left + ((float) nextNode.longitude() * scaleX);
+        float nextNodeY = top + ((float) nextNode.latitude() * scaleY);
+
+        float nodeX;
+        float nodeY;
+        boolean didntIntersect = false;
+        boolean lastDidntIntersect = false;
+        for (int i = 0; i < nodesSize; i++) {
+            Point node = nextNode;
+            nodeX = nextNodeX;
+            nodeY = nextNodeY;
+            nextIntersects = true;
+            if (i < nodesSize - 1) {
+                nextNode = nodes.get(i + 1);
+                nextNodeX = left + ((float) nextNode.longitude() * scaleX);
+                nextNodeY = top + ((float) nextNode.latitude() * scaleY);
+                nextIntersects = isIntersectionPossible(rect, nextNodeX, nextNodeY, nodeX, nodeY);
+            } else {
+                nextNode = null;
+            }
+            didntIntersect = true;
+            if (prevNode != null && (thisIntersects || nextIntersects
+                    || (!(nextNode != null && lastDrawnNode != null) || isIntersectionPossible(rect, nextNodeX, nextNodeY, lastDrawnNodeX, lastDrawnNodeY)))) {
+                if (lastDidntIntersect) { // last segment didn't intersect
+                    prevX = (float) (left + prevNode.longitude() * scaleX);
+                    prevY = (float) (top + prevNode.latitude() * scaleY);
+                }
+                // Line segment needs to be drawn
+                points.add(prevX);
+                points.add(prevY);
+                points.add(nodeX);
+                points.add(nodeY);
+                lastDrawnNode = node;
+                lastDrawnNodeY = nodeY;
+                lastDrawnNodeX = nodeX;
+                didntIntersect = false;
+            }
+            lastDidntIntersect = didntIntersect;
+            prevNode = node;
+            prevX = nodeX;
+            prevY = nodeY;
+            thisIntersects = nextIntersects;
+        }
+    }
+
+    /**
+     * Checks if an intersection with a line between lat/lon and lat2/lon2 is possible. If two coordinates are outside
+     * of a border, no intersection is possible.
+     * 
+     * @param rect the rect to test against
+     * @param x x coordinate of 1st node
+     * @param y y coordinate of 1st node
+     * @param x2 x coordinate of 2nd node
+     * @param y2 y coordinate of 2nd node
+     * @return true, when an intersection is possible.
+     */
+    private static boolean isIntersectionPossible(final Rect rect, final float x, final float y, final float x2, final float y2) {
+        return !(y < rect.top && y2 < rect.top || y > rect.bottom && y2 > rect.bottom || x > rect.right && x2 > rect.right || x < rect.left && x2 < rect.left);
     }
 
     /**

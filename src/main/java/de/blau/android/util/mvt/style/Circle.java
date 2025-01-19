@@ -36,7 +36,7 @@ public class Circle extends Layer {
                                                 }
                                             }
                                         };
-    FloatStyleAttribute   strokeOpacity = new FloatStyleAttribute(true) {
+    FloatStyleAttribute   strokeOpacity = new FloatStyleAttribute(false) {
                                             private static final long serialVersionUID = 1L;
 
                                             @Override

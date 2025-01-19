@@ -1,5 +1,7 @@
 package de.blau.android.util.mvt.style;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -31,7 +33,8 @@ import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
 public abstract class Layer implements Serializable {
 
-    private static final String DEBUG_TAG = Layer.class.getSimpleName().substring(0, Math.min(23, Layer.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Layer.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Layer.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final long serialVersionUID = 13L;
 
@@ -67,6 +70,8 @@ public abstract class Layer implements Serializable {
     private static final String LAYER_EXPRESSION_GET        = "get";
     private static final String LAYER_EXPRESSION_TO_BOOLEAN = "to-boolean";
 
+    private static final String FALSE = "false";
+
     private static final long RGB_ONLY   = 0x00FFFFFFL;
     private static final long ALPHA_ONLY = 0xFF000000L;
 
@@ -99,7 +104,7 @@ public abstract class Layer implements Serializable {
                                              setColor(color);
                                          }
                                      };
-    FloatStyleAttribute  opacity     = new FloatStyleAttribute(true) {
+    FloatStyleAttribute  opacity     = new FloatStyleAttribute(false) {
                                          private static final long serialVersionUID = 1L;
 
                                          @Override
@@ -347,6 +352,7 @@ public abstract class Layer implements Serializable {
      */
     public boolean evaluateFilter(@NonNull JsonArray expression, @NonNull VectorTileDecoder.Feature feature) {
         String function = expression.get(0).getAsString();
+        final int size = expression.size();
         switch (function) {
         case LAYER_FILTER_EQ:
         case LAYER_FILTER_NOT_EQ:
@@ -366,7 +372,7 @@ public abstract class Layer implements Serializable {
             if (left == null) {
                 return false;
             }
-            for (int i = 2; i < expression.size(); i++) {
+            for (int i = 2; i < size; i++) {
                 if (compare(LAYER_FILTER_EQ, left, expression.get(i))) {
                     return true;
                 }
@@ -378,21 +384,21 @@ public abstract class Layer implements Serializable {
             if (left == null) {
                 return true;
             }
-            for (int i = 2; i < expression.size(); i++) {
+            for (int i = 2; i < size; i++) {
                 if (compare(LAYER_FILTER_EQ, left, expression.get(i))) {
                     return false;
                 }
             }
             return true;
         case LAYER_FILTER_ALL:
-            for (int i = 1; i < expression.size(); i++) {
+            for (int i = 1; i < size; i++) {
                 if (!evaluateFilter((JsonArray) expression.get(i), feature)) {
                     return false;
                 }
             }
             return true;
         case LAYER_FILTER_ANY:
-            for (int i = 1; i < expression.size(); i++) {
+            for (int i = 1; i < size; i++) {
                 if (evaluateFilter((JsonArray) expression.get(i), feature)) {
                     return true;
                 }
@@ -402,7 +408,6 @@ public abstract class Layer implements Serializable {
             Object result = evaluateExpression(expression, feature);
             return result instanceof Boolean ? (Boolean) result : result != null;
         }
-
     }
 
     /**
@@ -526,7 +531,7 @@ public abstract class Layer implements Serializable {
             return ((Integer) o != 0);
         }
         if (o instanceof String) {
-            return !("".equals(o) || "false".equals(o));
+            return !("".equals(o) || FALSE.equals(o));
         }
         if (o instanceof JsonPrimitive) {
             JsonPrimitive p = (JsonPrimitive) o;
@@ -535,7 +540,7 @@ public abstract class Layer implements Serializable {
             }
             if (p.isString()) {
                 String str = p.getAsString();
-                return !("false".equals(str) || "".equals(str));
+                return !(FALSE.equals(str) || "".equals(str));
             }
             Log.w(DEBUG_TAG, "isTrue unexpected value " + p.toString());
         }
@@ -624,7 +629,8 @@ public abstract class Layer implements Serializable {
                 if (x <= startX) {
                     return startY;
                 }
-                for (int i = 1; i < stops.size(); i++) {
+                final int stopsSize = stops.size();
+                for (int i = 1; i < stopsSize; i++) {
                     JsonArray next = (JsonArray) stops.get(i);
                     float nextX = next.get(0).getAsFloat();
                     float nextY = next.get(1).getAsFloat();
@@ -666,7 +672,8 @@ public abstract class Layer implements Serializable {
                 }
                 long alpha = startY & ALPHA_ONLY;
                 startY = startY & RGB_ONLY;
-                for (int i = 1; i < stops.size(); i++) {
+                final int stopsSize = stops.size();
+                for (int i = 1; i < stopsSize; i++) {
                     JsonArray next = (JsonArray) stops.get(i);
                     float nextX = next.get(0).getAsFloat();
                     long nextY = IntegerUtil.toUnsignedLong(Color.parseColor(next.get(1).getAsString()));
@@ -705,7 +712,8 @@ public abstract class Layer implements Serializable {
                 if (x <= startX) {
                     return startY;
                 }
-                for (int i = 1; i < stops.size(); i++) {
+                final int stopsSize = stops.size();
+                for (int i = 1; i < stopsSize; i++) {
                     JsonArray next = (JsonArray) stops.get(i);
                     float nextX = next.get(0).getAsFloat();
                     JsonArray nextY = next.get(1).getAsJsonArray();
@@ -741,7 +749,7 @@ public abstract class Layer implements Serializable {
      * Get the base for an exponential interpolation
      * 
      * @param function the JsonObject holding the values
-     * @return a float value for the base
+     * @return a float value for the base, 1 if no value can be found
      */
     private static float getExponentialBase(JsonObject function) {
         JsonElement temp = function.get(INTERPOLATION_TYPE_EXPONENTIONAL_BASE);
@@ -772,7 +780,8 @@ public abstract class Layer implements Serializable {
                 if (x <= startX) {
                     return startY;
                 }
-                for (int i = 1; i < stops.size(); i++) {
+                final int stopsSize = stops.size();
+                for (int i = 1; i < stopsSize; i++) {
                     JsonArray next = (JsonArray) stops.get(i);
                     float nextX = next.get(0).getAsFloat();
                     JsonElement nextY = next.get(1);

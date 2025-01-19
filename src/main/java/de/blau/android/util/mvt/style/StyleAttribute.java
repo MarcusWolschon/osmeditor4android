@@ -1,5 +1,7 @@
 package de.blau.android.util.mvt.style;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -25,7 +27,8 @@ import de.blau.android.util.mvt.VectorTileDecoder;
 abstract class StyleAttribute implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = StyleAttribute.class.getSimpleName().substring(0, Math.min(23, StyleAttribute.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, StyleAttribute.class.getSimpleName().length());
+    private static final String DEBUG_TAG = StyleAttribute.class.getSimpleName().substring(0, TAG_LEN);
 
     transient JsonObject function;
 
@@ -50,6 +53,9 @@ abstract class StyleAttribute implements Serializable {
     /**
      * Transform style px values in stops that are assumed to be density independent to screen values
      * 
+     * Note that we half the pixel values which seems to be necessary, likely because mapbox uses a different pixel
+     * density definition.
+     * 
      * @param ctx an Android Context
      * @param stopArray an JsonArray holding the stops
      */
@@ -59,10 +65,10 @@ abstract class StyleAttribute implements Serializable {
             if (stop.isJsonArray() && ((JsonArray) stop).size() == 2) {
                 JsonElement stopValue = ((JsonArray) stop).get(1);
                 if (Style.isNumber(stopValue)) {
-                    ((JsonArray) stop).set(1, new JsonPrimitive(Density.dpToPx(ctx, ((JsonArray) stop).get(1).getAsFloat())));
+                    ((JsonArray) stop).set(1, new JsonPrimitive(Density.dpToPx(ctx, ((JsonArray) stop).get(1).getAsFloat()) / 2));
                 } else if (stopValue != null && stopValue.isJsonArray()) {
                     for (int i = 0; i < ((JsonArray) stopValue).size(); i++) {
-                        ((JsonArray) stopValue).set(i, new JsonPrimitive(Density.dpToPx(ctx, ((JsonArray) stopValue).get(i).getAsFloat())));
+                        ((JsonArray) stopValue).set(i, new JsonPrimitive(Density.dpToPx(ctx, ((JsonArray) stopValue).get(i).getAsFloat()) / 2));
                     }
                 } else {
                     Log.w(DEBUG_TAG, "Unsupported stop value " + stopValue);

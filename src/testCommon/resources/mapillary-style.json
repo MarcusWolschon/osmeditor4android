@@ -1,22 +1,62 @@
 {
     "version": 8,
-    "name": "Default Panoramax style",
+    "name": "Default mapillary style",
     "layers": [
         {
-            "id": "sequences",
+            "id": "overview",
             "type": "line",
-            "source-layer": "sequences",
+            "source-layer": "overview",
             "filter": [
                 "all",
                 [
                     ">=",
-                    "date",
+                    "captured_at",
                     0
                 ],
                 [
                     "<=",
-                    "date",
+                    "captured_at",
+                    9223372036854775807
+                ]
+            ],
+            "maxzoom": 13,
+            "paint": {
+                "line-opacity": 1,
+                "line-width": {
+                    "base": 1.4,
+                    "stops": [
+                        [
+                            8,
+                            3
+                        ],
+                        [
+                            20,
+                            8
+                        ]
+                    ]
+                },
+                "line-dasharray": [
+                    1,
+                    1.5
+                ],
+                "line-color": "rgba(0, 0, 215, 1)"
+            }
+        },
+        {
+            "id": "sequence",
+            "type": "line",
+            "source-layer": "sequence",
+            "filter": [
+                "all",
+                [
+                    ">=",
+                    "captured_at",
                     0
+                ],
+                [
+                    "<=",
+                    "captured_at",
+                    9223372036854775807
                 ]
             ],
             "minzoom": 14,
@@ -39,36 +79,36 @@
                     1,
                     1.5
                 ],
-                "line-color": "rgba(0, 215, 0, 1)"
+                "line-color": "rgba(0, 0, 215, 1)"
             }
         },
         {
-            "id": "pictures",
+            "id": "image",
             "type": "symbol",
-            "source-layer": "pictures",
+            "source-layer": "image",
             "filter": [
                 "all",
                 [
                     ">=",
-                    "ts",
+                    "captured_at",
                     0
                 ],
                 [
                     "<=",
-                    "ts",
-                    0
+                    "captured_at",
+                    9223372036854775807
                 ]
             ],
             "minzoom": 19,
             "layout": {
                 "icon-image": "arrow",
                 "icon-rotate": {
-                    "property": "heading",
+                    "property": "compass_angle",
                     "type": "identity"
                 }
             },
             "paint": {
-                "icon-color": "rgba(0, 215, 0, 1)"
+                "icon-color": "rgba(0, 0, 215, 1)"
             }
         },
         {
@@ -84,14 +124,14 @@
             "layout": {
                 "icon-image": "arrow",
                 "icon-rotate": {
-                    "property": "heading",
+                    "property": "compass_angle",
                     "type": "identity"
                 }
             },
             "paint": {
-                "icon-color": "rgba(100, 200, 0, 1)"
+                "icon-color": "rgba(200, 100, 0, 1)"
             }
         }
     ],
-    "id": "panoramax"
+    "id": "mapillary"
 }

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import com.mapbox.geojson.CoordinateContainer;
 import com.mapbox.geojson.Geometry;
@@ -19,6 +20,7 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
@@ -35,8 +37,10 @@ import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
 public class Symbol extends Layer {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Symbol.class.getSimpleName().length());
-    private static final String DEBUG_TAG = Symbol.class.getSimpleName().substring(0, TAG_LEN);
+    private static final char   MOUSTACHE_RIGHT = '}';
+    private static final char   MOUSTACHE_LEFT  = '{';
+    private static final int    TAG_LEN         = Math.min(LOG_TAG_LEN, Symbol.class.getSimpleName().length());
+    private static final String DEBUG_TAG       = Symbol.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final long serialVersionUID = 16L;
 
@@ -58,13 +62,14 @@ public class Symbol extends Layer {
 
     private static final int FUDGE = 6;
 
-    StringStyleAttribute          iconImage = new StringStyleAttribute();
-    private String                symbolName;
-    private transient Path        symbolPath;
-    StringStyleAttribute          label     = new StringStyleAttribute();
-    private String                labelKey;
-    private SerializableTextPaint labelPaint;
-    private transient FontMetrics labelFontMetrics;
+    StringStyleAttribute                        iconImage   = new StringStyleAttribute();
+    private String                              symbolName;
+    private transient Path                      symbolPath;
+    private transient WeakHashMap<Path, Bitmap> symbolCache = new WeakHashMap<>();
+    StringStyleAttribute                        label       = new StringStyleAttribute();
+    private String                              labelKey;
+    private SerializableTextPaint               labelPaint;
+    private transient FontMetrics               labelFontMetrics;
 
     ColorStyleAttribute      textColor         = new ColorStyleAttribute() {
                                                    private static final long serialVersionUID = 1L;
@@ -78,7 +83,7 @@ public class Symbol extends Layer {
                                                        }
                                                    }
                                                };
-    FloatStyleAttribute      textOpacity       = new FloatStyleAttribute(true) {
+    FloatStyleAttribute      textOpacity       = new FloatStyleAttribute(false) {
                                                    private static final long serialVersionUID = 1L;
 
                                                    @Override
@@ -133,8 +138,8 @@ public class Symbol extends Layer {
                                                        literal = getAnchor(anchor);
                                                    }
                                                };
-    FloatArrayStyleAttribute textOffset        = new FloatArrayStyleAttribute(false);
-    FloatArrayStyleAttribute iconOffset        = new FloatArrayStyleAttribute(false);
+    FloatArrayStyleAttribute textOffset        = new FloatArrayStyleAttribute(true);
+    FloatArrayStyleAttribute iconOffset        = new FloatArrayStyleAttribute(true);
     FloatStyleAttribute      iconSize          = new FloatStyleAttribute(true);
     FloatStyleAttribute      textMaxWidth      = new FloatStyleAttribute(false);
     FloatStyleAttribute      textSize          = new FloatStyleAttribute(true) {
@@ -204,8 +209,9 @@ public class Symbol extends Layer {
     private transient float vOffset;
     private transient float ems;
 
-    private transient Rect iconRect  = new Rect();
-    private transient Rect labelRect = new Rect();
+    private transient Rect  iconRect  = new Rect();
+    private transient Rect  labelRect = new Rect();
+    private transient RectF bounds    = new RectF();
 
     private transient CollisionDetector detector = new SimpleCollisionDetector();
 
@@ -367,13 +373,10 @@ public class Symbol extends Layer {
             }
             float x = (float) (destinationRect.left + ((Point) g).longitude() * scaleX);
             float y = (float) (destinationRect.top + ((Point) g).latitude() * scaleY);
-            // non-visible points have already been removed
-            if (iconImage.literal != null || symbolPath != null) {
-                drawIcon(c, sprites, screenRect, x, y, feature);
+            if (!screenRect.contains((int) x, (int) y)) {
+                return;
             }
-            if (hasLabel) {
-                drawLabel(c, screenRect, x, y, feature);
-            }
+            drawIconSymbolLabel(c, sprites, hasLabel, x, y, feature);
             break;
         case GeoJSONConstants.MULTIPOINT:
             if (symbolPlacement.literal != null) {
@@ -384,26 +387,21 @@ public class Symbol extends Layer {
             for (Point p : pointList) {
                 x = (float) (destinationRect.left + p.longitude() * scaleX);
                 y = (float) (destinationRect.top + p.latitude() * scaleY);
-                if (!destinationRect.contains((int) x, (int) y)) {
+                if (!destinationRect.contains((int) x, (int) y) || !screenRect.contains((int) x, (int) y)) {
                     continue; // don't render stuff in the buffer around the tile
                 }
-                if (iconImage.literal != null || symbolPath != null) {
-                    drawIcon(c, sprites, screenRect, x, y, feature);
-                }
-                if (hasLabel) {
-                    drawLabel(c, screenRect, x, y, feature);
-                }
+                drawIconSymbolLabel(c, sprites, hasLabel, x, y, feature);
             }
             break;
         case GeoJSONConstants.LINESTRING:
-            if (hasLabel && (SYMBOL_PLACEMENT_LINE.equals(symbolPlacement.literal) || SYMBOL_PLACEMENT_LINE_CENTER.equals(symbolPlacement.literal))) {
+            if (hasLabel && useLinePlacement()) {
                 @SuppressWarnings("unchecked")
                 List<Point> line = ((CoordinateContainer<List<Point>>) g).coordinates();
                 drawLineLabel(c, destinationRect, line, feature);
             }
             break;
         case GeoJSONConstants.MULTILINESTRING:
-            if (hasLabel && (SYMBOL_PLACEMENT_LINE.equals(symbolPlacement.literal) || SYMBOL_PLACEMENT_LINE_CENTER.equals(symbolPlacement.literal))) {
+            if (hasLabel && useLinePlacement()) {
                 @SuppressWarnings("unchecked")
                 List<List<Point>> lines = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
                 for (List<Point> l : lines) {
@@ -418,6 +416,37 @@ public class Symbol extends Layer {
         default:
             // do nothing for now
         }
+    }
+
+    /**
+     * Draw a symbol or icon and potentially a label
+     * 
+     * @param canvas Canvas object we are drawing on
+     * @param sprites Object holding the sprite bitmap and sheet
+     * @param hasLabel has a label
+     * @param x screen x coordinate
+     * @param y screen y coordinate
+     * @param feature the Feature we are rendering
+     */
+    private void drawIconSymbolLabel(@NonNull Canvas c, Sprites sprites, final boolean hasLabel, float x, float y, @NonNull Feature feature) {
+        // non-visible points have already been removed
+        if (symbolPath != null) {
+            drawSymbol(c, x, y, feature);
+        } else if (iconImage.literal != null) {
+            drawIcon(c, sprites, x, y, feature);
+        }
+        if (hasLabel) {
+            drawLabel(c, x, y, feature);
+        }
+    }
+
+    /**
+     * Check if the label is supposed to be rendered on a line
+     * 
+     * @return true if we should render on a line
+     */
+    private boolean useLinePlacement() {
+        return SYMBOL_PLACEMENT_LINE.equals(symbolPlacement.literal) || SYMBOL_PLACEMENT_LINE_CENTER.equals(symbolPlacement.literal);
     }
 
     /**
@@ -465,10 +494,10 @@ public class Symbol extends Layer {
         boolean inMoustache = false;
         for (char c : input.toCharArray()) {
             switch (c) {
-            case '{':
+            case MOUSTACHE_LEFT:
                 inMoustache = true;
                 break;
-            case '}':
+            case MOUSTACHE_RIGHT:
                 String key = moustache.toString();
                 if (attributes.containsKey(key)) {
                     builder.append(attributes.get(key).toString());
@@ -491,56 +520,47 @@ public class Symbol extends Layer {
      * 
      * @param canvas Canvas object we are drawing on
      * @param sprites Object holding the sprite bitmap and sheet
-     * @param screenRect current screen Rect
      * @param x screen x coordinate
      * @param y screen y coordinate
      * @param feature the Feature we are rendering
      */
-    public void drawIcon(@NonNull Canvas canvas, @Nullable Sprites sprites, @NonNull Rect screenRect, float x, float y, @NonNull Feature feature) {
-        if (!screenRect.contains((int) x, (int) y)) {
-            return;
-        }
-        canvas.save();
-
+    private void drawIcon(@NonNull Canvas canvas, @Nullable Sprites sprites, float x, float y, @NonNull Feature feature) {
         Bitmap icon = feature.getCachedBitmap();
         if (icon == null && iconImage.literal != null && sprites != null) {
             icon = retrieveIcon(sprites, deMoustache(iconImage.literal, feature.getAttributes()));
             feature.setCachedBitmap(icon);
         }
         if (icon != null) {
+            canvas.save();
             int retina = sprites != null && sprites.retina() ? 2 : 1;
             final int width = (int) (icon.getWidth() * iconSize.literal / retina);
             final int height = (int) (icon.getHeight() * iconSize.literal / retina);
-            if (iconAnchor.literal != null) {
-                switch (iconAnchor.literal) {
-                case SYMBOL_ANCHOR_CENTER:
-                    x = x - width / 2F;
-                    y = y - height / 2F;
-                    break;
-                case SYMBOL_ANCHOR_BOTTOM: // NOSONAR
-                    y = y - height;
-                case SYMBOL_ANCHOR_TOP:
-                    x = x - width / 2F;
-                    break;
-                case SYMBOL_ANCHOR_RIGHT: // NOSONAR
-                    x = x - width;
-                case SYMBOL_ANCHOR_LEFT:
-                    y = y - height / 2F;
-                    break;
-                case SYMBOL_ANCHOR_BOTTOM_RIGHT: // NOSONAR
-                    x = x - width;
-                case SYMBOL_ANCHOR_BOTTOM_LEFT:
-                    y = y - height;
-                    break;
-                case SYMBOL_ANCHOR_TOP_RIGHT: // NOSONAR
-                    x = x - width;
-                case SYMBOL_ANCHOR_TOP_LEFT:
-                default:
-                    // just ignore
-                }
-            } else { // center
+
+            switch (iconAnchor.literal != null ? iconAnchor.literal : SYMBOL_ANCHOR_CENTER) {
+            case SYMBOL_ANCHOR_CENTER:
                 x = x - width / 2F;
                 y = y - height / 2F;
+                break;
+            case SYMBOL_ANCHOR_BOTTOM: // NOSONAR
+                y = y - height;
+            case SYMBOL_ANCHOR_TOP:
+                x = x - width / 2F;
+                break;
+            case SYMBOL_ANCHOR_RIGHT: // NOSONAR
+                x = x - width;
+            case SYMBOL_ANCHOR_LEFT:
+                y = y - height / 2F;
+                break;
+            case SYMBOL_ANCHOR_BOTTOM_RIGHT: // NOSONAR
+                x = x - width;
+            case SYMBOL_ANCHOR_BOTTOM_LEFT:
+                y = y - height;
+                break;
+            case SYMBOL_ANCHOR_TOP_RIGHT: // NOSONAR
+                x = x - width;
+            case SYMBOL_ANCHOR_TOP_LEFT:
+            default:
+                // just ignore
             }
             x = x + iconOffset.literal[0] * width;
             y = y + iconOffset.literal[1] * height;
@@ -550,12 +570,54 @@ public class Symbol extends Layer {
             }
             rotate(canvas, feature);
             canvas.drawBitmap(icon, null, iconRect, null);
-        } else if (symbolPath != null) {
-            canvas.translate(x, y);
-            rotate(canvas, feature);
-            canvas.drawPath(symbolPath, paint);
+            canvas.restore();
         }
+    }
+
+    /**
+     * Draw a symbol from a provided Path
+     * 
+     * @param canvas Canvas object we are drawing on
+     * @param x screen x coordinate
+     * @param y screen y coordinate
+     * @param feature the Feature we are rendering
+     */
+    private void drawSymbol(@NonNull Canvas canvas, float x, float y, @NonNull Feature feature) {
+        canvas.save();
+        Bitmap symbol = getSymbolBitmap(canvas);
+        canvas.translate(x, y);
+        rotate(canvas, feature);
+        int offsetX = symbol.getWidth() / 2;
+        int offsetY = symbol.getHeight() / 2;
+        iconRect.set(-offsetX, -offsetY, offsetX, offsetY);
+        canvas.drawBitmap(symbol, null, iconRect, null);
         canvas.restore();
+    }
+
+    /**
+     * Get a Bitmap for a Path defined Symbol, if it needs to be rendered create a bitmap and cache
+     * 
+     * @param hardwareAccelerated use a bitmap stored in GPU memory if true
+     * @return a Bitmap
+     */
+    @NonNull
+    private Bitmap getSymbolBitmap(@NonNull Canvas canvas) {
+        Bitmap symbol = symbolCache.get(symbolPath);
+        if (symbol == null) {
+            // render to bitmap
+            symbolPath.computeBounds(bounds, false);
+            symbol = Bitmap.createBitmap((int) bounds.width(), (int) bounds.height(), Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(symbol);
+            c.translate(bounds.width() / 2, bounds.height() / 2);
+            c.drawPath(symbolPath, paint);
+            if (canvas.isHardwareAccelerated()) {
+                Bitmap temp = symbol;
+                symbol = temp.copy(Bitmap.Config.HARDWARE, false);
+                temp.recycle();
+            }
+            symbolCache.put(symbolPath, symbol);
+        }
+        return symbol;
     }
 
     /**
@@ -633,15 +695,11 @@ public class Symbol extends Layer {
      * Draw a point label
      * 
      * @param canvas Canvas object we are drawing on
-     * @param screenRect rect for the current screen
      * @param x target screen x coordinate
      * @param y target screen y coordinate
      * @param feature the Feature we are rendering
      */
-    public void drawLabel(@NonNull Canvas canvas, @NonNull Rect screenRect, float x, float y, @NonNull Feature feature) {
-        if (!screenRect.contains((int) x, (int) y)) {
-            return;
-        }
+    private void drawLabel(@NonNull Canvas canvas, float x, float y, @NonNull Feature feature) {
         Object layout = feature.getCachedLabel();
         if (!(layout instanceof StaticLayoutWithWidth)) {
             layout = new StaticLayoutWithWidth(evaluateLabel(feature.getAttributes()), labelPaint, (int) (textMaxWidth.literal * ems), Alignment.ALIGN_NORMAL,
@@ -686,43 +744,42 @@ public class Symbol extends Layer {
      */
     public void drawLineLabel(@NonNull Canvas canvas, @NonNull Rect destinationRect, @NonNull List<Point> line, @NonNull Feature feature) {
         int lineSize = line.size();
-        if (lineSize > 1) {
-            Object evaluatedLabel = feature.getCachedLabel();
-            if (!(evaluatedLabel instanceof String)) {
-                evaluatedLabel = evaluateLabel(feature.getAttributes());
+        if (lineSize <= 1) {
+            return;
+        }
+        Object evaluatedLabel = feature.getCachedLabel();
+        if (!(evaluatedLabel instanceof String)) {
+            evaluatedLabel = evaluateLabel(feature.getAttributes());
+        }
+        if ("".equals(evaluatedLabel)) {
+            return;
+        }
+        path.rewind();
+        int last = lineSize - 1;
+        if (line.get(0).longitude() > line.get(last).longitude()) {
+            path.moveTo((float) (destinationRect.left + line.get(last).longitude() * scaleX),
+                    (float) (destinationRect.top + line.get(last).latitude() * scaleY));
+            for (int i = (last - 1); i >= 0; i--) {
+                path.lineTo((float) (destinationRect.left + line.get(i).longitude() * scaleX), (float) (destinationRect.top + line.get(i).latitude() * scaleY));
             }
-            if (!"".equals(evaluatedLabel)) {
-                path.rewind();
-                int last = lineSize - 1;
-                if (line.get(0).longitude() > line.get(last).longitude()) {
-                    path.moveTo((float) (destinationRect.left + line.get(last).longitude() * scaleX),
-                            (float) (destinationRect.top + line.get(last).latitude() * scaleY));
-                    for (int i = (last - 1); i >= 0; i--) {
-                        path.lineTo((float) (destinationRect.left + line.get(i).longitude() * scaleX),
-                                (float) (destinationRect.top + line.get(i).latitude() * scaleY));
-                    }
-                } else {
-                    path.moveTo((float) (destinationRect.left + line.get(0).longitude() * scaleX),
-                            (float) (destinationRect.top + line.get(0).latitude() * scaleY));
-                    for (int i = 1; i < lineSize; i++) {
-                        path.lineTo((float) (destinationRect.left + line.get(i).longitude() * scaleX),
-                                (float) (destinationRect.top + line.get(i).latitude() * scaleY));
-                    }
-                }
-                pathMeasure.setPath(path, false);
-                float halfPathLength = pathMeasure.getLength() / 2;
-                float halfTextLength = labelPaint.measureText((String) evaluatedLabel) / 2;
-                if (halfPathLength > halfTextLength) {
-                    float[] start = new float[2];
-                    pathMeasure.getPosTan(halfPathLength - halfTextLength, start, null);
-                    float[] end = new float[2];
-                    pathMeasure.getPosTan(halfPathLength + halfTextLength, end, null);
-                    if (detector.collides(start, end, labelPaint.getTextSize())) {
-                        return;
-                    }
-                    canvas.drawTextOnPath((String) evaluatedLabel, path, 0, vOffset, labelPaint);
-                }
+        } else {
+            path.moveTo((float) (destinationRect.left + line.get(0).longitude() * scaleX), (float) (destinationRect.top + line.get(0).latitude() * scaleY));
+            for (int i = 1; i < lineSize; i++) {
+                path.lineTo((float) (destinationRect.left + line.get(i).longitude() * scaleX), (float) (destinationRect.top + line.get(i).latitude() * scaleY));
             }
+        }
+        pathMeasure.setPath(path, false);
+        float halfPathLength = pathMeasure.getLength() / 2;
+        float halfTextLength = labelPaint.measureText((String) evaluatedLabel) / 2;
+        if (halfPathLength > halfTextLength) {
+            float[] start = new float[2];
+            pathMeasure.getPosTan(halfPathLength - halfTextLength, start, null);
+            float[] end = new float[2];
+            pathMeasure.getPosTan(halfPathLength + halfTextLength, end, null);
+            if (detector.collides(start, end, labelPaint.getTextSize())) {
+                return;
+            }
+            canvas.drawTextOnPath((String) evaluatedLabel, path, 0, vOffset, labelPaint);
         }
     }
 
