@@ -2,6 +2,7 @@ package de.blau.android.validation;
 
 import static de.blau.android.osm.DelegatorUtil.toE7;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
@@ -24,7 +25,9 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.ShadowWorkManager;
+import de.blau.android.osm.DelegatorUtil;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
@@ -32,10 +35,13 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyle.FeatureStyle;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class BaseValidatorTest {
 
@@ -135,5 +141,26 @@ public class BaseValidatorTest {
         List<String> warnings = Arrays.asList(v.describeProblem(ctx, n));
         assertEquals(1, warnings.size());
         assertTrue(warnings.get(0).contains(ctx.getString(R.string.element_type_node)));
+    }
+
+    /**
+     * Test correct area determination
+     */
+    @Test
+    public void nonStandardTypeTest2() {
+        final Context ctx = ApplicationProvider.getApplicationContext();
+        Validator v = App.getDefaultValidator(ctx);
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+        Map<String, String> tags = new HashMap<>();
+        tags.put("golf", "bunker");
+        tags.put(Tags.KEY_NATURAL, "sand");
+        d.setTags(w, tags);
+        assertTrue(App.getDataStyle(ctx).switchTo(Preferences.DEFAULT_MAP_STYLE));
+        FeatureStyle style = App.getDataStyle(ctx).matchStyle(w);  
+        assertTrue(style.isArea());
+        PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null, null);
+        assertFalse(pi.appliesTo().contains(ElementType.AREA));
+        assertEquals(Validator.OK, v.validate(w));
     }
 }

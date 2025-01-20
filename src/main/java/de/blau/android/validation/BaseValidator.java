@@ -32,6 +32,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.util.AreaTags;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
@@ -46,6 +47,7 @@ public class BaseValidator implements Validator {
 
     private Preset[]   presets;
     private GeoContext geoContext;
+    private AreaTags   areaTags;
 
     /**
      * Tags for objects that should be re-surveyed regularly.
@@ -130,6 +132,7 @@ public class BaseValidator implements Validator {
         // !!!! don't store ctx as that will cause a potential memory leak
         presets = App.getCurrentPresets(ctx);
         geoContext = App.getGeoContext(ctx);
+        areaTags = App.getAreaTags(ctx);
 
         // get per validation prefs
         Preferences prefs = new Preferences(ctx); // use our own instance as logics one may be out of sync
@@ -188,7 +191,7 @@ public class BaseValidator implements Validator {
     }
 
     /**
-     * Check if the element is not one of the ElementType required by the PresetItem
+     * Check if the element is not one of the ElementTypes required by the PresetItem
      * 
      * @param status previous validation status
      * @param e the OsmElement
@@ -196,8 +199,13 @@ public class BaseValidator implements Validator {
      * @return new validation status
      */
     public int validateWrongType(int status, @NonNull OsmElement e, @NonNull PresetItem pi) {
-        List<ElementType> elementType = pi.appliesTo();
-        if (!elementType.contains(e.getType())) {
+        List<ElementType> elementTypes = pi.appliesTo();
+        ElementType type = e.getType();
+        // presets currently can't model just simple closed ways as areas
+        if (e instanceof Way && type == ElementType.AREA && elementTypes.contains(ElementType.CLOSEDWAY) && areaTags.isImpliedArea(e.getTags())) {
+            return status;
+        }
+        if (!elementTypes.contains(type)) {
             status |= Validator.WRONG_ELEMENT_TYPE;
         }
         return status;
@@ -243,22 +251,23 @@ public class BaseValidator implements Validator {
         long now = System.currentTimeMillis() / 1000;
         long timestamp = e.getTimestamp();
         for (String key : resurveyTags.getKeys()) {
-            if (tags.containsKey(key)) {
-                for (PatternAndAge value : resurveyTags.get(key)) {
-                    if ((value.getValue() == null || "".equals(value.getValue()) || value.matches(tags.get(key)))) {
-                        long age = value.getAge();
-                        // timestamp is too old
-                        if (timestamp >= 0 && (now - timestamp > age)) {
-                            status |= Validator.AGE;
-                        } else if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
-                            // check_date tag is too old
-                            status |= checkAge(tags, now, Tags.KEY_CHECK_DATE, age);
-                        } else {
-                            // key specific check_date tag is too old
-                            final String keyCheckDate = Tags.KEY_CHECK_DATE + ":" + key;
-                            if (tags.containsKey(keyCheckDate)) {
-                                status |= checkAge(tags, now, keyCheckDate, age);
-                            }
+            if (!tags.containsKey(key)) {
+                continue;
+            }
+            for (PatternAndAge value : resurveyTags.get(key)) {
+                if ((value.getValue() == null || "".equals(value.getValue()) || value.matches(tags.get(key)))) {
+                    long age = value.getAge();
+                    // timestamp is too old
+                    if (timestamp >= 0 && (now - timestamp > age)) {
+                        status |= Validator.AGE;
+                    } else if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
+                        // check_date tag is too old
+                        status |= checkAge(tags, now, Tags.KEY_CHECK_DATE, age);
+                    } else {
+                        // key specific check_date tag is too old
+                        final String keyCheckDate = Tags.KEY_CHECK_DATE + ":" + key;
+                        if (tags.containsKey(keyCheckDate)) {
+                            status |= checkAge(tags, now, keyCheckDate, age);
                         }
                     }
                 }
