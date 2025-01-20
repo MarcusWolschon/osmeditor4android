@@ -751,7 +751,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         Map<String, Map<String, String>> checkGroupKeyValues = new HashMap<>();
         boolean groupingRequired = false;
         LinkedHashMap<String, String> tagList = new LinkedHashMap<>(tags);
-        
+
         if (preset != null) {
             Wrapper wrapper = new Wrapper(getContext());
             PresetField previous = null;
@@ -1496,14 +1496,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     /**
-     * Enable a specific text row
+     * Enable a specific dialog row
      * 
      * @param key the key of the row
      */
-    void enableTextRow(@NonNull final String key) {
+    void enableDialogRow(@NonNull final String key) {
         iterateOverRows((View row) -> {
-            if (row instanceof TextRow && key.equals(((TextRow) row).getKey())) {
-                ((TextRow) row).getValueView().setEnabled(true);
+            if (row instanceof DialogRow && key.equals(((DialogRow) row).getKey())) {
+                ((DialogRow) row).getValueView().setEnabled(true);
             }
         });
     }

@@ -143,7 +143,7 @@ public abstract class ValueWidgetFragment extends DialogFragment {
             caller.updateSingleValue((String) layout.getTag(), ourValue);
         });
         builder.setNegativeButton(R.string.clear, (d, which) -> caller.updateSingleValue((String) layout.getTag(), ""));
-        builder.setNeutralButton(R.string.cancel, (d, which) -> caller.enableTextRow((String) layout.getTag()));
+        builder.setNeutralButton(R.string.cancel, (d, which) -> caller.enableDialogRow((String) layout.getTag()));
 
         final AlertDialog dialog = builder.create();
         layout.setTag(key);
