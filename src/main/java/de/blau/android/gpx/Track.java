@@ -441,7 +441,9 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
                 saveFileStream = null;
             }
             savingDisabled = true;
-            isSaving = false;
+            synchronized (savingLock) {
+                isSaving = false;
+            }
             Log.i(DEBUG_TAG, "Track closed");
         } finally {
             loadingLock.unlock();
