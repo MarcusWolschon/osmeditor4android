@@ -178,7 +178,7 @@ public class IntegerValueFragment extends ValueWidgetFragment {
         @Override
         public void onDismiss() {
             TagFormFragment caller = (TagFormFragment) getParentFragment();
-            caller.enableTextRow(key);
+            caller.enableDialogRow(key);
         }
 
         @Override
