@@ -137,6 +137,7 @@ public class PanoramaxTest {
         }
         mockApiServer.server().enqueue(response);
         de.blau.android.layer.streetlevel.panoramax.PanoramaxOverlay layer = (PanoramaxOverlay) map.getLayer(LayerType.PANORAMAX);
+        layer.setVisible(true);
         assertNotNull(layer);
         layer.flushCaches(main); // forces the layer to retrieve everything
 
