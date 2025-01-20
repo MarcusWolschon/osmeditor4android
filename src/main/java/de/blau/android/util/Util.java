@@ -682,23 +682,6 @@ public final class Util {
     }
 
     /**
-     * estimate number of 'usable' processors
-     *
-     * @return number of processors
-     */
-    public static int usableProcessors() {
-        int val = Runtime.getRuntime().availableProcessors();
-        if (val > 4) {
-            // Typically has big+little architecture. Try to avoid the 'little' cores
-            // as they would need a smaller chunk to finish work in similar time.
-            // E.g. on Samsung A50 it's faster to use only the 4 fast cores instead of using
-            // all 8 cores and wait for 4 slower cores to finish their equal sized chunk.
-            val /= 2;
-        }
-        return val;
-    }
-
-    /**
      * Get a translated string with element type and id
      * 
      * @param ctx an Android COntext

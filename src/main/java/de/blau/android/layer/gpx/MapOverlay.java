@@ -10,11 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -22,6 +18,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
+import android.graphics.Path;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -65,7 +62,6 @@ import de.blau.android.util.PlaybackTask;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableTextPaint;
-import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
 
@@ -80,13 +76,11 @@ public class MapOverlay extends StyleableFileLayer
 
     private static final String FILENAME = "gpxlayer" + "." + FileExtensions.RES;
 
-    private static final int TRACKPOINT_PARALLELIZATION_THRESHOLD = 10000; // multithreaded if more trackpoints
-
     /** Map this is an overlay of. */
     private final transient Map map;
 
-    private final transient ExecutorService          executorService;
-    private final transient List<FloatPrimitiveList> linePointsList;
+    private final transient FloatPrimitiveList       linePoints   = new FloatPrimitiveList(FloatPrimitiveList.MEDIUM_DEFAULT);
+    private final transient Path                     path         = new Path();
     private final transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
 
     private transient Track       track;
@@ -129,14 +123,6 @@ public class MapOverlay extends StyleableFileLayer
 
         labelList = Arrays.asList(context.getString(R.string.gpx_automatic), context.getString(R.string.gpx_name), context.getString(R.string.gpx_description),
                 context.getString(R.string.gpx_type));
-
-        int threadPoolSize = Util.usableProcessors();
-        Log.d(DEBUG_TAG, "using " + threadPoolSize + " threads");
-        executorService = Executors.newFixedThreadPool(threadPoolSize);
-        linePointsList = new ArrayList<>(threadPoolSize);
-        for (int i = 0; i < threadPoolSize; i++) {
-            linePointsList.add(new FloatPrimitiveList());
-        }
     }
 
     /**
@@ -181,35 +167,16 @@ public class MapOverlay extends StyleableFileLayer
         List<TrackPoint> trackPoints = track.getTrackPoints();
         int size = trackPoints.size();
         if (size > 0) {
-            final float maxLen = getStrokeWidth() * 2;
-            if (size < TRACKPOINT_PARALLELIZATION_THRESHOLD || linePointsList.size() == 1) {
-                final FloatPrimitiveList linePoints = linePointsList.get(0);
-                map.pointListToLinePointsArray(linePoints, trackPoints);
-                GeoMath.squashPointsArray(linePoints, getStrokeWidth() * 2);
-                canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), paint);
-            } else {
-                int offset = 0;
-                int length = size / linePointsList.size();
-                List<Callable<Void>> callableTasks = new ArrayList<>();
-                for (int i = linePointsList.size() - 1; i >= 0; i--) {
-                    final FloatPrimitiveList finalLinePoints = linePointsList.get(i);
-                    final int finalOffset = offset;
-                    // + 1 to join with next chunk, last chunk slightly different due to division remainder
-                    final int finalLength = i != 0 ? length + 1 : size - offset;
-                    callableTasks.add(() -> {
-                        map.pointListToLinePointsArray(finalLinePoints, trackPoints, finalOffset, finalLength);
-                        GeoMath.squashPointsArray(finalLinePoints, maxLen);
-                        canvas.drawLines(finalLinePoints.getArray(), 0, finalLinePoints.size(), paint);
-                        return null;
-                    });
-                    offset += length;
-                }
-                try {
-                    executorService.invokeAll(callableTasks);
-                } catch (InterruptedException | RejectedExecutionException ex) { // NOSONAR not much we can do here
-                    Log.e(DEBUG_TAG, ex.getMessage());
-                }
+            map.pointListToLinePointsArray(linePoints, trackPoints);
+            GeoMath.squashPointsArray(linePoints, getStrokeWidth() * 2);
+            float[] linePointsArray = linePoints.getArray();
+            path.reset();
+            path.moveTo(linePointsArray[0], linePointsArray[1]);
+            int pointsSize = linePoints.size();
+            for (int i = 0; i < pointsSize; i = i + 4) {
+                path.lineTo(linePointsArray[i + 2], linePointsArray[i + 3]);
             }
+            canvas.drawPath(path, paint);
         }
     }
 
@@ -554,9 +521,6 @@ public class MapOverlay extends StyleableFileLayer
             Log.e(DEBUG_TAG, "Failed to delete state file " + stateFileName);
         }
         map.invalidate();
-        if (executorService != null) {
-            executorService.shutdown();
-        }
     }
 
     /**
