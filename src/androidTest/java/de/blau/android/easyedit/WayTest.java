@@ -70,6 +70,7 @@ public class WayTest {
         prefDB.selectAPI("Test");
         Preferences prefs = new Preferences(context);
         prefs.setAutolockDelay(300000L);
+        main.updatePrefs(prefs);
         LayerUtils.removeImageryLayers(context);
         map = main.getMap();
         map.setPrefs(main, prefs);

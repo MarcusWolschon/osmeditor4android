@@ -70,6 +70,7 @@ public class RelationTest {
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setAutolockDelay(300000L);
+        main.updatePrefs(prefs);
         LayerUtils.removeImageryLayers(context);
         prefs.enableSimpleActions(true);
         main.runOnUiThread(() -> main.showSimpleActionsButton());
