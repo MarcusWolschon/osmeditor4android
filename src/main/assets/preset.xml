@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.69.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.70.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -1603,9 +1603,11 @@
         <preset_link preset_name="Address"/>
     </chunk>
     <chunk id="link_contact_address_payment">
+        <!-- this should likely be renamed to contact_commercial or similar -->
         <preset_link preset_name="Contact"/>
         <preset_link preset_name="Contact ('contact:*')"/>
         <preset_link preset_name="Address"/>
+        <text key="ref:vatin" text="VAT code (international)"/>
         <preset_link preset_name="Payment Methods"/>
         <preset_link preset_name="Cash withdrawal"/>
     </chunk>
@@ -4971,7 +4973,15 @@
                 <text key="operator" text="Operator"/>
                 <text key="railway:ref" text="Reference"/>
                 <combo key="railway:signal_box" text="Type" values="electric,electronic,mechanical,track_diagram" display_values="Electric,Electronic,Mechanical,Track diagram" values_context="railway"/>
-            </item> <!-- Train wash -->
+            </item> <!-- Signal box -->
+            <item name="Railway junction" icon="icons/png/transport_railway_junction.png" type="node" preset_name_label="true">
+                <key key="railway" value="junction"/>
+                <space/>
+                <label text="A junction where railways diverge or converge."/>
+                <space/>
+                <text key="operator" text="Operator"/>
+                <reference ref="name_ref"/>
+            </item> <!-- Railway junction -->
             <item name="Train wash" icon="icons/png/transport_train_wash.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="railway" value="train_wash"/>
                 <text key="operator" text="Operator"/>
@@ -10776,9 +10786,25 @@
         <item name="Street cabinet" icon="icons/png/man_made_empty.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=street_cabinet"/>
             <key key="man_made" value="street_cabinet"/>
+            <reference ref="utilities"/>
             <optional>
-                <combo key="street_cabinet" text="Type" values="cable_tv,gas,postal_service,power,street_lighting,telecom,traffic_control,traffic_monitoring,transport_management,waste,water,water_management" display_values="Cable tv,Gas,Postal service,Power,Street lighting,Telecom,Traffic control,Traffic monitoring,Transport management,Waste,Water,Water management"/>
-                <reference ref="ref_operator"/>
+                <combo key="street_cabinet" text="Type">
+                    <list_entry value="cable_tv" display_value="Cable tv" deprecated="true"/>
+                    <list_entry value="gas" display_value="Gas" deprecated="true"/>
+                    <list_entry value="postal_service" display_value="Postal service"/>
+                    <list_entry value="power" display_value="Power" deprecated="true"/>
+                    <list_entry value="street_lighting" display_value="Street lighting" deprecated="true"/>
+                    <list_entry value="telecom" display_value="Telecom" deprecated="true"/>
+                    <list_entry value="traffic_control" display_value="Traffic control"/>
+                    <list_entry value="traffic_monitoring" display_value="Traffic monitoring"/>
+                    <list_entry value="transport_management" display_value="Transport management"/>
+                    <list_entry value="waste" display_value="Waste"/>
+                    <list_entry value="water" display_value="Water" deprecated="true"/>
+                    <list_entry value="water_management" display_value="Water management" deprecated="true"/>
+                </combo>
+            </optional>
+            <reference ref="ref_operator"/>
+            <optional>    
                 <text key="manufacturer" text="Manufacturer"/>
                 <reference ref="colours"/>
             </optional>
