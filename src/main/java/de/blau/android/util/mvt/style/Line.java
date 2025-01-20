@@ -24,7 +24,7 @@ public class Line extends Layer {
 
     public static final float DEFAULT_LINE_WIDTH = 1f;
 
-    private FloatPrimitiveList points = new FloatPrimitiveList();
+    private FloatPrimitiveList points = new FloatPrimitiveList(1000);
 
     FloatStyleAttribute lineWidth = new FloatStyleAttribute(true) {
         private static final long serialVersionUID = 1L;

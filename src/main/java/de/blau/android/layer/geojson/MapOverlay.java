@@ -166,7 +166,7 @@ public class MapOverlay extends StyleableFileLayer
 
     private RTree<BoundedFeature>                data;
     private final transient Path                 path                  = new Path();
-    private transient FloatPrimitiveList         points                = new FloatPrimitiveList();
+    private transient FloatPrimitiveList         points                = new FloatPrimitiveList(FloatPrimitiveList.MEDIUM_DEFAULT);
     private transient Collection<BoundedFeature> queryForDisplayResult = new ArrayList<>();
     private final transient Coordinates          centroid              = new Coordinates(0, 0);
     /** Map this is an overlay of. */

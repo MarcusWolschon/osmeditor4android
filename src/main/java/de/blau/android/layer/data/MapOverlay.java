@@ -314,7 +314,8 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
 
     private float[][] coord = null;
 
-    private final FloatPrimitiveList points          = new FloatPrimitiveList();     // allocate these just once
+    // allocate these just once
+    private final FloatPrimitiveList points          = new FloatPrimitiveList(FloatPrimitiveList.MEDIUM_DEFAULT);
     private float[]                  offsettedCasing = new float[100];
     private final List<Node>         nodesResult     = new LowAllocArrayList<>(1000);
     private final List<Way>          waysResult      = new LowAllocArrayList<>(1000);

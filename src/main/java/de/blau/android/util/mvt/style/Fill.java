@@ -41,7 +41,7 @@ public class Fill extends Layer {
                                            };
     FloatArrayStyleAttribute fillTranslate = new FloatArrayStyleAttribute(true);
 
-    private FloatPrimitiveList points = new FloatPrimitiveList();
+    private FloatPrimitiveList points = new FloatPrimitiveList(1000);
 
     /**
      * Default constructor
