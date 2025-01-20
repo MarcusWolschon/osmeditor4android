@@ -21,6 +21,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
+import de.blau.android.views.SplitPaneLayout;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -62,6 +63,8 @@ public class PoiDisplayTest {
     public void teardown() {
         TestUtils.stopEasyEdit(main);
         TestUtils.zoomToNullIsland(App.getLogic(), map);
+        SplitPaneLayout paneLayout = main.findViewById(R.id.pane_layout);
+        paneLayout.setSplitterPositionPercent(100);
     }
 
     /**
