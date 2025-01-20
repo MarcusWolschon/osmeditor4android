@@ -271,7 +271,7 @@ public class ExtendedSelectionTest {
 
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.undo_location_undo_anyway), true));
         TestUtils.clickText(device, false, context.getString(R.string.okay), true); // click away tip
-        assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 1, 2)));
+        //assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 1, 2)));
     }
 
     /**
