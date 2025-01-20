@@ -108,6 +108,8 @@
             <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
             <feature type="way" tags="natural=glacier" widthFactor="1.0" minVisibleZoom="10" color="ff368BC1" />
             <feature type="way" tags="natural=wetland" widthFactor="2.0" minVisibleZoom="10" color="ff53f5a9" />
+            <feature type="way" tags="natural=sand" widthFactor="2.0" minVisibleZoom="10" color="ffc2b280" />
+            <feature type="way" tags="natural=beach" widthFactor="2.0" minVisibleZoom="10" color="ffc2b280" />
         </feature>
         <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />       
     </feature>
