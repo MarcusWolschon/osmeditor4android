@@ -13,6 +13,7 @@ import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
+import de.blau.android.prefs.Preferences;
 
 /**
  * This is just a convenient way of generating the default preset dump
@@ -41,7 +42,7 @@ public class DataStyleTaginfoDump { // NOSONAR
         File target = manual ? new File(TARGET_FILE) : new File(ctx.getFilesDir(), TARGET_FILE);
         DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
-        styles.switchTo("Color Round Nodes");
+        styles.switchTo(Preferences.DEFAULT_MAP_STYLE);
         assertTrue(styles.generateTaginfoJson(target));
     }
 }

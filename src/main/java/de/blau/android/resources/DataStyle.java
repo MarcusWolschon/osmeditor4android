@@ -187,26 +187,26 @@ public final class DataStyle extends DefaultHandler {
 
     public class FeatureStyle {
 
-        final Map<String, String> tags;
-        private int               minVisibleZoom = DEFAULT_MIN_VISIBLE_ZOOM;
-        private boolean           area           = false;
-        boolean                   dontrender     = false;
-        boolean                   updateWidth    = true;
-        final Paint               paint;
-        float                     widthFactor;
-        float                     offset         = 0f;
-        DashPath                  dashPath       = null;
-        private FontMetrics       fontMetrics    = null;
-        private PathPattern       pathPattern    = null;
-        private boolean           pathPatternSupported;
-        private FeatureStyle      arrowStyle     = null;
-        private FeatureStyle      casingStyle    = null;
-        private boolean           oneway         = false;
-        private Boolean           closed         = null;
-        private String            labelKey       = null;
-        private String            iconPath       = null;
-        private int               labelZoomLimit = Integer.MAX_VALUE;
-        private int               textColor;
+        private final Map<String, String> tags;
+        private int                       minVisibleZoom = DEFAULT_MIN_VISIBLE_ZOOM;
+        private boolean                   area           = false;
+        boolean                           dontrender     = false;
+        boolean                           updateWidth    = true;
+        final Paint                       paint;
+        float                             widthFactor;
+        float                             offset         = 0f;
+        DashPath                          dashPath       = null;
+        private FontMetrics               fontMetrics    = null;
+        private PathPattern               pathPattern    = null;
+        private boolean                   pathPatternSupported;
+        private FeatureStyle              arrowStyle     = null;
+        private FeatureStyle              casingStyle    = null;
+        private boolean                   oneway         = false;
+        private Boolean                   closed         = null;
+        private String                    labelKey       = null;
+        private String                    iconPath       = null;
+        private int                       labelZoomLimit = Integer.MAX_VALUE;
+        private int                       textColor;
 
         List<FeatureStyle> cascadedStyles = null;
 
@@ -674,6 +674,13 @@ public final class DataStyle extends DefaultHandler {
         }
 
         /**
+         * @return the tags
+         */
+        public Map<String, String> getTags() {
+            return tags;
+        }
+
+        /**
          * Dump this Style in XML format, not very abstracted and closely tied to the implementation
          * 
          * @param s an XmlSerialzer instance
@@ -865,6 +872,8 @@ public final class DataStyle extends DefaultHandler {
 
         FeatureStyle baseWayStyle = new FeatureStyle(WAY, standardPath);
         baseWayStyle.setColor(Color.BLACK);
+        baseWayStyle.getPaint().setStrokeCap(Cap.ROUND);
+        baseWayStyle.getPaint().setStrokeJoin(Join.ROUND);
 
         FeatureStyle fp = new FeatureStyle(PROBLEM_WAY, standardPath);
         int problemColor = ContextCompat.getColor(ctx, R.color.problem);
@@ -936,15 +945,11 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(GPS_TRACK, baseWayStyle);
         fp.setColor(Color.BLUE);
-        fp.getPaint().setStrokeCap(Cap.ROUND);
-        fp.getPaint().setStrokeJoin(Join.ROUND);
         internalStyles.put(GPS_TRACK, fp);
 
         fp = new FeatureStyle(MVT_DEFAULT, baseWayStyle);
         fp.setColor(Color.BLUE);
         fp.getPaint().setAlpha(0x7F);
-        fp.getPaint().setStrokeCap(Cap.ROUND);
-        fp.getPaint().setStrokeJoin(Join.ROUND);
         internalStyles.put(MVT_DEFAULT, fp);
 
         fp = new FeatureStyle(WAY_TOLERANCE, baseWayStyle);
@@ -1031,16 +1036,12 @@ public final class DataStyle extends DefaultHandler {
         fp = new FeatureStyle(SELECTED_WAY, baseWayStyle);
         fp.setColor(cccBeige);
         fp.setWidthFactor(2f);
-        fp.getPaint().setStrokeCap(Cap.ROUND);
-        fp.getPaint().setStrokeJoin(Join.ROUND);
         internalStyles.put(SELECTED_WAY, fp);
 
         fp = new FeatureStyle(HIDDEN_WAY, baseWayStyle);
         fp.setColor(ContextCompat.getColor(ctx, R.color.light_grey));
         fp.getPaint().setAlpha(TOLERANCE_ALPHA);
         fp.setWidthFactor(0.5f);
-        fp.getPaint().setStrokeCap(Cap.ROUND);
-        fp.getPaint().setStrokeJoin(Join.ROUND);
         internalStyles.put(HIDDEN_WAY, fp);
 
         fp = new FeatureStyle(SELECTED_RELATION_WAY, internalStyles.get(SELECTED_WAY));
