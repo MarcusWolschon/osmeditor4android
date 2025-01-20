@@ -108,6 +108,8 @@
             <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
             <feature type="way" tags="natural=glacier" widthFactor="1.0" minVisibleZoom="10" color="ff368BC1" />
             <feature type="way" tags="natural=wetland" widthFactor="2.0" minVisibleZoom="10" color="ff53f5a9" />
+            <feature type="way" tags="natural=sand" widthFactor="2.0" minVisibleZoom="10" color="ffc2b280" />
+            <feature type="way" tags="natural=beach" widthFactor="2.0" minVisibleZoom="10" color="ffc2b280" />
         </feature>
         <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />       
     </feature>
@@ -531,8 +533,7 @@
             <feature type="relation" tags="amenity=parking" color="ff99CCFF" />
             <feature type="relation" tags="amenity=bicycle_parking"  color="ff99CCFF" />
             <feature type="relation" tags="amenity=motorcycle_parking" color="ff99CCFF" />
-        </feature>
-    
+        </feature>    
         <feature type="relation" tags="natural" color="ff71BE80" >
             <feature type="relation" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
             <feature type="relation" tags="natural=glacier" widthFactor="1.0" minVisibleZoom="10" color="ff368BC1" />
@@ -540,6 +541,8 @@
             <feature type="relation" tags="natural=cliff" widthFactor="2.0" color="ff555555" />
             <feature type="relation" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" />
             <feature type="relation" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" />
+            <feature type="relation" tags="natural=sand" widthFactor="2.0" minVisibleZoom="10" color="ffc2b280" />
+            <feature type="relation" tags="natural=beach" widthFactor="2.0" minVisibleZoom="10" color="ffc2b280" />
         </feature>
         <feature type="relation" tags="landuse" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="BEVEL" offset="0.50">
             <feature type="relation" tags="landuse=construction" color="88996633" />
