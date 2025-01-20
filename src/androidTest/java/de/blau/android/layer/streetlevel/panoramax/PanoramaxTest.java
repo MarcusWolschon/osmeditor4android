@@ -113,9 +113,9 @@ public class PanoramaxTest {
         } catch (IOException | NullPointerException e) {
             // ignore
         }
-        LayerUtils.removeLayer(main, LayerType.MAPILLARY);
+        LayerUtils.removeLayer(main, LayerType.PANORAMAX);
         try (TileLayerDatabase tlDb = new TileLayerDatabase(main); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-            TileLayerDatabase.deleteLayerWithId(db, de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay.MAPILLARY_TILES_ID);
+            TileLayerDatabase.deleteLayerWithId(db, de.blau.android.layer.streetlevel.panoramax.PanoramaxOverlay.PANORAMAX_TILES_ID);
         }
         instrumentation.waitForIdleSync();
     }

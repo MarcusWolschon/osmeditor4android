@@ -133,6 +133,7 @@ public class GpxUploadTest {
             try {
                 assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
                 assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+                TestUtils.scrollTo(main.getString(R.string.layer_add_gpx), false);
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
                 TestUtils.selectFile(device, main, null, GPX_FILE, true);
                 TestUtils.textGone(device, "Imported", 10000);

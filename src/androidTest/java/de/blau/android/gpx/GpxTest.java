@@ -184,6 +184,7 @@ public class GpxTest {
         TestUtils.selectFile(device, main, null, filename, true, true);
 
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        TestUtils.scrollTo(main.getString(R.string.layer_add_gpx), false);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
         TestUtils.selectFile(device, main, null, filename, true);
 
@@ -310,6 +311,7 @@ public class GpxTest {
             File gpxFile = JavaResources.copyFileFromResources(main, GpxUploadTest.GPX_FILE, null, "/");
             assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
             assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+            TestUtils.scrollTo(main.getString(R.string.layer_add_gpx), false);
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
             TestUtils.selectFile(device, main, null, GpxUploadTest.GPX_FILE, true);
             TestUtils.textGone(device, "Imported", 10000);
@@ -360,6 +362,7 @@ public class GpxTest {
             assertTrue(FileUtil.unpackZip(FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), "/").getAbsolutePath() + "/", zippedGpxFile.getName()));
             assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
             assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+            TestUtils.scrollTo(main.getString(R.string.layer_add_gpx), false);
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
             TestUtils.selectFile(device, main, "2011-06-08_13-21-55 OT", "2011-06-08_13-21-55.gpx", true);
             TestUtils.textGone(device, "Imported", 10000);
@@ -470,6 +473,7 @@ public class GpxTest {
             try {
                 assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
                 assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+                TestUtils.scrollTo(main.getString(R.string.layer_add_gpx), false);
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
                 TestUtils.selectFile(device, main, null, fileName, true);
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
@@ -503,6 +507,7 @@ public class GpxTest {
             try {
                 assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
                 assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+                TestUtils.scrollTo(main.getString(R.string.layer_add_gpx), false);
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
                 TestUtils.selectFile(device, main, null, fileName, true);
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
