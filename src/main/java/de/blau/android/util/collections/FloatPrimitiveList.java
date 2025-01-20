@@ -12,7 +12,9 @@ import androidx.annotation.NonNull;
  *
  */
 public class FloatPrimitiveList implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
+
+    public static final int MEDIUM_DEFAULT = 2000;
 
     private float[] array;
     private int     size     = 0;
