@@ -3,10 +3,14 @@ package de.blau.android.layer.streetlevel;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
@@ -15,8 +19,10 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
+import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -47,7 +53,7 @@ public abstract class NetworkImageLoader extends ImageLoader {
     protected final long                  cacheSize;
     protected final String                imageUrl;
     protected final Map<String, double[]> coordinates = new HashMap<>();
-    protected final List<String>          ids;
+    private final List<String>            ids;
 
     private static final int               IMAGERY_LOAD_THREADS = 3;
     protected transient ThreadPoolExecutor mThreadPool;
@@ -67,12 +73,68 @@ public abstract class NetworkImageLoader extends ImageLoader {
         this.ids = ids;
     }
 
+    @Override
+    public void load(SubsamplingScaleImageView view, String key) {
+        File imageFile = new File(cacheDir, key + JPG);
+        if (imageFile.exists() && imageFile.length() > 0) {
+            if (!coordinates.containsKey(key)) {
+                try {
+                    ExifInterface exif = new ExifInterface(imageFile);
+                    coordinates.put(key, exif.getLatLong());
+                } catch (IOException e) {
+                    Log.e(DEBUG_TAG, e.getMessage());
+                }
+            }
+            setImage(view, imageFile);
+            return;
+        }
+
+        initThreadPool();
+
+        // download
+        try {
+            mThreadPool.execute(getDownloader(key, view, imageFile));
+        } catch (RejectedExecutionException rjee) {
+            Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
+        }
+    }
+
+    /**
+     * Get a runnable for the provider specific image download
+     * 
+     * @param key the identifier for the image
+     * @param view target View
+     * @param imageFile target File
+     * @return a Runnable
+     */
+    protected abstract Runnable getDownloader(@NonNull final String key, @NonNull final SubsamplingScaleImageView view, @NonNull final File imageFile);
+
     /**
      * Initialize the thread pool
      */
     protected void initThreadPool() {
         if (mThreadPool == null) {
             mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(IMAGERY_LOAD_THREADS);
+        }
+    }
+
+    /**
+     * Write an InputStream to a file
+     * 
+     * @param inputStream the InputStream
+     * @param imageFile the target File
+     * @throws IOException if writing goes wrond
+     */
+    protected void writeStreamToFile(InputStream inputStream, File imageFile) throws IOException {
+        if (inputStream == null) {
+            throw new IOException("Download failed no InputStream");
+        }
+        try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
+            byte[] buffer = new byte[1024];
+            int bufferLength = 0;
+            while ((bufferLength = inputStream.read(buffer)) > 0) {
+                fileOutput.write(buffer, 0, bufferLength);
+            }
         }
     }
 
@@ -123,7 +185,7 @@ public abstract class NetworkImageLoader extends ImageLoader {
      * 
      * @return a LayerType
      */
-    abstract protected LayerType getLayerType();
+    protected abstract LayerType getLayerType();
 
     @Override
     public void share(Context context, String key) {

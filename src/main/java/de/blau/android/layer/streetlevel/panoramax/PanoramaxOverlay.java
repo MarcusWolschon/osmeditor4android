@@ -2,36 +2,26 @@ package de.blau.android.layer.streetlevel.panoramax;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Canvas;
 import android.os.Build;
 import android.text.SpannableString;
-import android.text.format.DateFormat;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
@@ -40,33 +30,15 @@ import de.blau.android.dialogs.DateRangeDialog;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.streetlevel.AbstractImageOverlay;
 import de.blau.android.layer.streetlevel.AbstractSequenceFetcher;
-import de.blau.android.layer.streetlevel.DateRangeInterface;
 import de.blau.android.layer.streetlevel.ImageViewerActivity;
-import de.blau.android.layer.streetlevel.SelectImageInterface;
-import de.blau.android.osm.OsmParser;
-import de.blau.android.osm.ViewBox;
 import de.blau.android.photos.PhotoViewerFragment;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.KeyDatabaseHelper;
-import de.blau.android.resources.KeyDatabaseHelper.EntryType;
-import de.blau.android.resources.TileLayerSource;
-import de.blau.android.resources.symbols.Mapillary;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.FileUtil;
-import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.ScreenMessage;
-import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileRenderer;
 import de.blau.android.util.mvt.style.Layer;
 import de.blau.android.util.mvt.style.Style;
 import de.blau.android.util.mvt.style.Symbol;
-import de.blau.android.views.IMapView;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class PanoramaxOverlay extends AbstractImageOverlay {
 
@@ -80,34 +52,34 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
     private static final String SEQUENCE_LAYER = "sequences";
 
     // panoramax tile API constants
-    private static final String TIMESTAMP_KEY   = "ts";
-    private static final String ID_KEY          = "id";
-    private static final String SEQUENCE_ID_KEY = "first_sequence";
+    private static final String TIMESTAMP_KEY      = "ts";
+    private static final String ID_KEY             = "id";
+    private static final String FIRST_SEQUENCE_KEY = "first_sequence";
+    private static final String SEQUENCES_KEY      = "sequences";
 
     private static final String DEFAULT_PANORAMAX_STYLE_JSON = "panoramax-style.json";
 
     /** this is the format used by panoramax */
     private final SimpleDateFormat dateFormat = DateFormatter.getUtcFormat("yyyy-MM-dd");
 
-    private static final String API_PICTURES          = "api/pictures/%s/hd.jpg";
     private static final String API_COLLECTIONS_ITEMS = "api/collections/%s/items";
-    private String              panoramaxImagesUrl    = Urls.DEFAULT_PANORAMAX_API_URL + API_PICTURES;
     private String              panoramaxSequencesUrl = Urls.DEFAULT_PANORAMAX_API_URL + API_COLLECTIONS_ITEMS;
 
     public static final String FILENAME = "panoramax" + "." + FileExtensions.RES;
 
     static class State implements Serializable {
-        private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 2L;
 
         private String                                         sequenceId    = null;
         private String                                         imageId       = null;
         private final java.util.Map<String, ArrayList<String>> sequenceCache = new HashMap<>();
+        private final java.util.Map<String, String>            urlCache      = new HashMap<>();
         private long                                           startDate     = 0L;
         private long                                           endDate       = new Date().getTime();
     }
 
-    private State                     state        = new State();
-    private final SavingHelper<State> savingHelper = new SavingHelper<>();
+    private State                     panoramaxState = new State();
+    private final SavingHelper<State> savingHelper   = new SavingHelper<>();
 
     /**
      * Construct this layer
@@ -116,23 +88,23 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
      */
     public PanoramaxOverlay(@NonNull final Map map) {
         super(map, PANORAMAX_TILES_ID, IMAGE_LAYER, DEFAULT_PANORAMAX_STYLE_JSON);
-        setDateRange(state.startDate, state.endDate);
+        setDateRange(panoramaxState.startDate, panoramaxState.endDate);
     }
 
     @Override
     public void onSaveState(@NonNull Context ctx) throws IOException {
         super.onSaveState(ctx);
-        savingHelper.save(ctx, FILENAME, state, false);
+        savingHelper.save(ctx, FILENAME, panoramaxState, false);
     }
 
     @Override
     public boolean onRestoreState(@NonNull Context ctx) {
         boolean result = super.onRestoreState(ctx);
-        if (state == null) {
-            state = savingHelper.load(ctx, FILENAME, true);
-            if (state != null) {
-                setSelected(state.imageId);
-                setDateRange(state.startDate, state.endDate);
+        if (panoramaxState == null) {
+            panoramaxState = savingHelper.load(ctx, FILENAME, true);
+            if (panoramaxState != null) {
+                setSelected(panoramaxState.imageId);
+                setDateRange(panoramaxState.startDate, panoramaxState.endDate);
             }
         }
         return result;
@@ -145,28 +117,40 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
 
     @Override
     public void onSelected(FragmentActivity activity, de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
-        if (isPoint(f)) {
-            // we ignore anything except the images for now
-            java.util.Map<String, Object> attributes = f.getAttributes();
-            String sequenceId = (String) attributes.get(SEQUENCE_ID_KEY);
-            String id = (String) attributes.get(ID_KEY);
-            if (id != null && sequenceId != null) {
-                ArrayList<String> keys = state != null ? state.sequenceCache.get(sequenceId) : null;
-                if (keys == null) {
-                    try {
-                        Thread t = new Thread(null, new PanoramaxSequenceFetcher(activity, panoramaxSequencesUrl, sequenceId, id), "Panoramax Sequence");
-                        t.start();
-                    } catch (SecurityException | IllegalThreadStateException e) {
-                        Log.e(DEBUG_TAG, "Unable to run SequenceFetcher " + e.getMessage());
-                        return;
-                    }
-                } else {
-                    showImages(activity, id, keys);
-                }
-                setSelected(f);
-                state.sequenceId = sequenceId;
+        if (!isPoint(f)) {
+            Log.e(DEBUG_TAG, "Unexpected feature type " + f);
+            return;
+        }
+        // we ignore anything except the images for now
+        java.util.Map<String, Object> attributes = f.getAttributes();
+        String sequenceId = (String) attributes.get(FIRST_SEQUENCE_KEY);
+        if (sequenceId == null) {
+            Object o = attributes.get(SEQUENCES_KEY);
+            if (o instanceof String) {
+                sequenceId = (String) o;
             }
         }
+
+        String id = (String) attributes.get(ID_KEY);
+        Log.e(DEBUG_TAG, "trying to retrieve sequence " + sequenceId + " for " + id);
+        if (id != null && sequenceId != null) {
+            ArrayList<String> keys = panoramaxState != null ? panoramaxState.sequenceCache.get(sequenceId) : null;
+            if (keys == null) {
+                try {
+                    Thread t = new Thread(null, new PanoramaxSequenceFetcher(activity, panoramaxSequencesUrl, sequenceId, id), "Panoramax Sequence");
+                    t.start();
+                } catch (SecurityException | IllegalThreadStateException e) {
+                    Log.e(DEBUG_TAG, "Unable to run SequenceFetcher " + e.getMessage());
+                    return;
+                }
+            } else {
+                showImages(activity, id, keys);
+            }
+            setSelected(f);
+            panoramaxState.sequenceId = sequenceId;
+            return;
+        }
+        Log.e(DEBUG_TAG, "Sequence ID " + sequenceId + " ID " + id);
     }
 
     /**
@@ -179,11 +163,10 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
     private void showImages(@NonNull FragmentActivity activity, @NonNull String id, @NonNull ArrayList<String> ids) {
         int pos = ids.indexOf(id);
         if (pos >= 0 && cacheDir != null) {
-            String imagesUrl = String.format(panoramaxImagesUrl, "%s");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                PhotoViewerFragment.showDialog(activity, ids, pos, new PanoramaxLoader(cacheDir, cacheSize, imagesUrl, ids));
+                PhotoViewerFragment.showDialog(activity, ids, pos, new PanoramaxLoader(cacheDir, cacheSize, ids, panoramaxState.urlCache));
             } else {
-                ImageViewerActivity.start(activity, ids, pos, new PanoramaxLoader(cacheDir, cacheSize, imagesUrl, ids));
+                ImageViewerActivity.start(activity, ids, pos, new PanoramaxLoader(cacheDir, cacheSize, ids, panoramaxState.urlCache));
             }
             activity.runOnUiThread(() -> map.invalidate());
         } else {
@@ -200,6 +183,9 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
     private class PanoramaxSequenceFetcher extends AbstractSequenceFetcher {
 
         private static final String FEATURES_KEY = "features";
+        private static final String ASSETS_KEY   = "assets";
+        private static final String HD_KEY       = "hd";
+        private static final String HREF_KEY     = "href";
 
         private final String id;
 
@@ -217,12 +203,12 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
 
         @Override
         protected void saveIdsAndUpdate(ArrayList<String> ids) {
-            if (state == null) {
-                state = new State();
+            Log.d(DEBUG_TAG, "Saving ids in sequence");
+            if (panoramaxState == null) {
+                panoramaxState = new State();
             }
-            state.sequenceCache.put(sequenceId, ids);
+            panoramaxState.sequenceCache.put(sequenceId, ids);
             showImages(activity, id, ids);
-
         }
 
         @Override
@@ -235,19 +221,49 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
             ArrayList<String> ids = new ArrayList<>();
             for (JsonElement element : featuresArray) {
                 if (element instanceof JsonObject) {
-                    JsonElement temp = ((JsonObject) element).get(ID_KEY);
-                    if (temp != null) {
-                        ids.add(temp.getAsString());
-                    }
+                    getIdAndUrl(ids, panoramaxState.urlCache, element);
                 }
             }
             return ids;
+        }
+
+        /**
+         * Get the id and url from the API retrieved JsonElement and add them to the caches
+         * 
+         * @param ids sequence cache id list
+         * @param urls url cache
+         * @param element the JsonElement from the API
+         */
+        private void getIdAndUrl(@NonNull List<String> ids, @NonNull java.util.Map<String, String> urls, @NonNull JsonElement element) {
+            JsonElement idElement = ((JsonObject) element).get(ID_KEY);
+            if (idElement == null) {
+                Log.e(DEBUG_TAG, "id not found in sequence from API");
+                return;
+            }
+            final String idString = idElement.getAsString();
+            ids.add(idString);
+            JsonElement assets = ((JsonObject) element).get(ASSETS_KEY);
+            if (assets == null) {
+                Log.e(DEBUG_TAG, "assets not found in sequence from API for id " + idString);
+                return;
+            }
+            JsonElement hd = ((JsonObject) assets).get(HD_KEY);
+            if (hd == null) {
+                Log.e(DEBUG_TAG, "hd not found in sequence from API for id " + idString);
+                return;
+            }
+            JsonElement href = ((JsonObject) hd).get(HREF_KEY);
+            if (href == null) {
+                Log.e(DEBUG_TAG, "href not found in sequence from API for id " + idString);
+            }
+            urls.put(idString, href.getAsString());
+
         }
     }
 
     @Override
     public void deselectObjects() {
-        state = null;
+        panoramaxState = null;
         setSelected((String) null);
         dirty();
     }
@@ -273,10 +289,10 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
             }
         }
         if (selectedFilter != null && selectedFilter.size() == 3) {
-            if (state == null) {
-                state = new State();
+            if (panoramaxState == null) {
+                panoramaxState = new State();
             }
-            state.imageId = id;
+            panoramaxState.imageId = id;
             selectedFilter.set(2, id != null ? new JsonPrimitive(id) : null);
             map.invalidate();
             dirty();
@@ -286,8 +302,8 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
     @Override
     public void selectImage(int pos) {
         synchronized (this) {
-            if (state != null && state.sequenceId != null) {
-                List<String> ids = state.sequenceCache.get(state.sequenceId);
+            if (panoramaxState != null && panoramaxState.sequenceId != null) {
+                List<String> ids = panoramaxState.sequenceCache.get(panoramaxState.sequenceId);
                 if (ids != null) {
                     String id = ids.get(pos);
                     if (id != null) {
@@ -295,15 +311,15 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
                         return;
                     }
                 }
-                Log.e(DEBUG_TAG, "position " + pos + " not found in sequence " + state.sequenceId);
+                Log.e(DEBUG_TAG, "position " + pos + " not found in sequence " + panoramaxState.sequenceId);
             }
         }
     }
 
     @Override
     public void setDateRange(long start, long end) {
-        state.startDate = start;
-        state.endDate = end;
+        panoramaxState.startDate = start;
+        panoramaxState.endDate = end;
         Style style = ((VectorTileRenderer) tileRenderer).getStyle();
         setDateRange(style, IMAGE_LAYER, start, end, timestampFormat);
         setDateRange(style, SEQUENCE_LAYER, start, end, dateFormat);
@@ -325,11 +341,12 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
 
     @Override
     protected void flushSequenceCache(@NonNull Context ctx) {
-        if (state != null) {
-            state.imageId = null;
-            state.sequenceCache.clear();
-            state.sequenceId = null;
-            savingHelper.save(ctx, FILENAME, state, false);
+        if (panoramaxState != null) {
+            panoramaxState.imageId = null;
+            panoramaxState.sequenceCache.clear();
+            panoramaxState.urlCache.clear();
+            panoramaxState.sequenceId = null;
+            savingHelper.save(ctx, FILENAME, panoramaxState, false);
         }
     }
 
@@ -337,7 +354,6 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
     public void setPrefs(Preferences prefs) {
         cacheSize = prefs.getMapillaryCacheSize() * ONE_MILLION;
         panoramaxSequencesUrl = prefs.getPanoramaxApiUrl() + API_COLLECTIONS_ITEMS;
-        panoramaxImagesUrl = prefs.getPanoramaxApiUrl() + API_PICTURES;
     }
 
     @Override
@@ -354,6 +370,6 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
      */
     @Override
     public void selectDateRange(@NonNull FragmentActivity activity, int layerIndex) {
-        DateRangeDialog.showDialog(activity, layerIndex, state.startDate, state.endDate);
+        DateRangeDialog.showDialog(activity, layerIndex, panoramaxState.startDate, panoramaxState.endDate);
     }
 }

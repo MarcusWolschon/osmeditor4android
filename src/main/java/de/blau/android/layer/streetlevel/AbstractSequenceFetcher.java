@@ -77,7 +77,7 @@ public abstract class AbstractSequenceFetcher implements Runnable {
                 saveIdsAndUpdate(ids);
             }
         } catch (IOException ex) {
-            Log.d(DEBUG_TAG, "query sequence failed with " + ex.getMessage());
+            Log.e(DEBUG_TAG, "query sequence failed with " + ex.getMessage());
         }
     }
 

@@ -4,14 +4,12 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -21,7 +19,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
-import android.annotation.SuppressLint;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.exifinterface.media.ExifInterface;
@@ -58,57 +55,35 @@ class MapillaryLoader extends NetworkImageLoader {
         super(cacheDir, cacheSize, imageUrl, ids);
     }
 
-    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     @Override
-    public void load(SubsamplingScaleImageView view, String key) {
-        File imageFile = new File(cacheDir, key + JPG);
-        if (imageFile.exists() && imageFile.length() > 0) {
-            if (!coordinates.containsKey(key)) {
-                try {
-                    ExifInterface exif = new ExifInterface(imageFile);
-                    coordinates.put(key, exif.getLatLong());
-                } catch (IOException e) {
-                    Log.e(DEBUG_TAG, e.getMessage());
+    protected Runnable getDownloader(final String key, final SubsamplingScaleImageView view, final File imageFile) {
+        return () -> {
+            Log.d(DEBUG_TAG, "querying mapillary server for " + key);
+            try {
+                Request request = new Request.Builder().url(new URL(String.format(imageUrl, key))).build();
+                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS).readTimeout(20000, TimeUnit.MILLISECONDS)
+                        .build();
+                Call mapillaryCall = client.newCall(request);
+                Response mapillaryCallResponse = mapillaryCall.execute();
+                if (!mapillaryCallResponse.isSuccessful()) {
+                    throw new IOException("Download of " + key + " failed with " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
                 }
+                try (ResponseBody responseBody = mapillaryCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
+                    if (inputStream == null) {
+                        throw new IOException("No InputStream");
+                    }
+                    JsonElement root = JsonParser.parseReader(new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8)));
+                    if (!root.isJsonObject() || !((JsonObject) root).has(THUMB_2048_URL_FIELD)) {
+                        throw new IOException("Unexpected / missing response");
+                    }
+                    loadImage(key, imageFile, client, (JsonObject) root, ((JsonObject) root).get(THUMB_2048_URL_FIELD).getAsString());
+                }
+                setImage(view, imageFile);
+                pruneCache();
+            } catch (IOException e) {
+                Log.e(DEBUG_TAG, e.getMessage());
             }
-            setImage(view, imageFile);
-            return;
-        }
-        // download
-        initThreadPool();
-        try {
-            mThreadPool.execute(() -> {
-                Log.d(DEBUG_TAG, "querying server for " + key);
-                try {
-                    String urlString = String.format(imageUrl, key);
-                    URL url = new URL(urlString);
-                    Request request = new Request.Builder().url(url).build();
-                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS)
-                            .readTimeout(20000, TimeUnit.MILLISECONDS).build();
-                    Call mapillaryCall = client.newCall(request);
-                    Response mapillaryCallResponse = mapillaryCall.execute();
-                    if (!mapillaryCallResponse.isSuccessful()) {
-                        throw new IOException("Download of " + key + " failed with " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
-                    }
-                    try (ResponseBody responseBody = mapillaryCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
-                        if (inputStream == null) {
-                            throw new IOException("No InputStream");
-                        }
-                        JsonElement root = JsonParser.parseReader(new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8)));
-                        if (!root.isJsonObject() || !((JsonObject) root).has(THUMB_2048_URL_FIELD)) {
-                            throw new IOException("Unexpected / missing response");
-                        }
-                        loadImage(key, imageFile, client, (JsonObject) root, ((JsonObject) root).get(THUMB_2048_URL_FIELD).getAsString());
-                    }
-                    setImage(view, imageFile);
-                    pruneCache();
-                } catch (IOException e) {
-                    Log.e(DEBUG_TAG, e.getMessage());
-                }
-            });
-        } catch (RejectedExecutionException rjee) {
-            Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
-        }
+        };
     }
 
     /**
@@ -129,16 +104,7 @@ class MapillaryLoader extends NetworkImageLoader {
             throw new IOException("Download failed " + response.message());
         }
         try (ResponseBody responseBody = response.body(); InputStream inputStream = responseBody.byteStream()) {
-            if (inputStream == null) {
-                throw new IOException("Download failed no InputStream");
-            }
-            try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
-                byte[] buffer = new byte[1024];
-                int bufferLength = 0;
-                while ((bufferLength = inputStream.read(buffer)) > 0) {
-                    fileOutput.write(buffer, 0, bufferLength);
-                }
-            }
+            writeStreamToFile(inputStream, imageFile);
             JsonElement point = meta.get(COMPUTED_GEOMETRY_FIELD);
             if (!(point instanceof JsonObject) || imageFile.length() == 0) {
                 throw new IOException("No geometry for image or image empty");
