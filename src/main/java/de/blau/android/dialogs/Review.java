@@ -22,8 +22,6 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
-import de.blau.android.dialogs.AbstractReviewDialog.ChangedElement;
-import de.blau.android.dialogs.AbstractReviewDialog.ValidatorArrayAdapter;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ThemeUtils;
