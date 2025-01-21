@@ -80,8 +80,8 @@ public class MapillaryOverlay extends AbstractImageOverlay {
         private long                                           endDate       = new Date().getTime();
     }
 
-    private State                     state        = new State();
-    private final SavingHelper<State> savingHelper = new SavingHelper<>();
+    private State                     mapillaryState = new State();
+    private final SavingHelper<State> savingHelper   = new SavingHelper<>();
 
     private final String apiKey;
 
@@ -99,23 +99,23 @@ public class MapillaryOverlay extends AbstractImageOverlay {
                 ScreenMessage.toastTopError(context, context.getString(R.string.toast_api_key_missing, APIKEY_KEY));
             }
         }
-        setDateRange(state.startDate, state.endDate);
+        setDateRange(mapillaryState.startDate, mapillaryState.endDate);
     }
 
     @Override
     public void onSaveState(@NonNull Context ctx) throws IOException {
         super.onSaveState(ctx);
-        savingHelper.save(ctx, FILENAME, state, false);
+        savingHelper.save(ctx, FILENAME, mapillaryState, false);
     }
 
     @Override
     public boolean onRestoreState(@NonNull Context ctx) {
         boolean result = super.onRestoreState(ctx);
-        if (state == null) {
-            state = savingHelper.load(ctx, FILENAME, true);
-            if (state != null) {
-                setSelected(state.imageId);
-                setDateRange(state.startDate, state.endDate);
+        if (mapillaryState == null) {
+            mapillaryState = savingHelper.load(ctx, FILENAME, true);
+            if (mapillaryState != null) {
+                setSelected(mapillaryState.imageId);
+                setDateRange(mapillaryState.startDate, mapillaryState.endDate);
             }
         }
         return result;
@@ -134,7 +134,7 @@ public class MapillaryOverlay extends AbstractImageOverlay {
             String sequenceId = (String) attributes.get(SEQUENCE_ID_KEY);
             Long id = (Long) attributes.get(ID_KEY);
             if (id != null && sequenceId != null) {
-                ArrayList<String> keys = state != null ? state.sequenceCache.get(sequenceId) : null;
+                ArrayList<String> keys = mapillaryState != null ? mapillaryState.sequenceCache.get(sequenceId) : null;
                 if (keys == null) {
                     try {
                         Thread t = new Thread(null, new MapillarySequenceFetcher(activity, mapillarySequencesUrl, sequenceId, id, apiKey),
@@ -148,7 +148,7 @@ public class MapillaryOverlay extends AbstractImageOverlay {
                     showImages(activity, id, keys);
                 }
                 setSelected(f);
-                state.sequenceId = sequenceId;
+                mapillaryState.sequenceId = sequenceId;
             }
         }
     }
@@ -200,10 +200,10 @@ public class MapillaryOverlay extends AbstractImageOverlay {
 
         @Override
         protected void saveIdsAndUpdate(ArrayList<String> ids) {
-            if (state == null) {
-                state = new State();
+            if (mapillaryState == null) {
+                mapillaryState = new State();
             }
-            state.sequenceCache.put(sequenceId, ids);
+            mapillaryState.sequenceCache.put(sequenceId, ids);
             showImages(activity, id, ids);
         }
 
@@ -229,7 +229,7 @@ public class MapillaryOverlay extends AbstractImageOverlay {
 
     @Override
     public void deselectObjects() {
-        state = null;
+        mapillaryState = null;
         setSelected(0);
         dirty();
     }
@@ -255,10 +255,10 @@ public class MapillaryOverlay extends AbstractImageOverlay {
             }
         }
         if (selectedFilter != null && selectedFilter.size() == 3) {
-            if (state == null) {
-                state = new State();
+            if (mapillaryState == null) {
+                mapillaryState = new State();
             }
-            state.imageId = id;
+            mapillaryState.imageId = id;
             selectedFilter.set(2, new JsonPrimitive(id));
             map.invalidate();
             dirty();
@@ -268,8 +268,8 @@ public class MapillaryOverlay extends AbstractImageOverlay {
     @Override
     public void selectImage(int pos) {
         synchronized (this) {
-            if (state != null && state.sequenceId != null) {
-                List<String> ids = state.sequenceCache.get(state.sequenceId);
+            if (mapillaryState != null && mapillaryState.sequenceId != null) {
+                List<String> ids = mapillaryState.sequenceCache.get(mapillaryState.sequenceId);
                 if (ids != null) {
                     String idStr = ids.get(pos);
                     if (idStr != null) {
@@ -278,15 +278,15 @@ public class MapillaryOverlay extends AbstractImageOverlay {
                         return;
                     }
                 }
-                Log.e(DEBUG_TAG, "position " + pos + " not found in sequence " + state.sequenceId);
+                Log.e(DEBUG_TAG, "position " + pos + " not found in sequence " + mapillaryState.sequenceId);
             }
         }
     }
 
     @Override
     public void setDateRange(long start, long end) {
-        state.startDate = start;
-        state.endDate = end;
+        mapillaryState.startDate = start;
+        mapillaryState.endDate = end;
         Style style = ((VectorTileRenderer) tileRenderer).getStyle();
         setDateRange(style, IMAGE_LAYER, start, end, null);
         setDateRange(style, SEQUENCE_LAYER, start, end, null);
@@ -304,11 +304,11 @@ public class MapillaryOverlay extends AbstractImageOverlay {
 
     @Override
     protected void flushSequenceCache(@NonNull Context ctx) {
-        if (state != null) {
-            state.imageId = 0;
-            state.sequenceCache.clear();
-            state.sequenceId = null;
-            savingHelper.save(ctx, FILENAME, state, false);
+        if (mapillaryState != null) {
+            mapillaryState.imageId = 0;
+            mapillaryState.sequenceCache.clear();
+            mapillaryState.sequenceId = null;
+            savingHelper.save(ctx, FILENAME, mapillaryState, false);
         }
     }
 
@@ -338,6 +338,6 @@ public class MapillaryOverlay extends AbstractImageOverlay {
      * @param layerIndex the index of this layer
      */
     public void selectDateRange(@NonNull FragmentActivity activity, int layerIndex) {
-        DateRangeDialog.showDialog(activity, layerIndex, state.startDate, state.endDate);
+        DateRangeDialog.showDialog(activity, layerIndex, mapillaryState.startDate, mapillaryState.endDate);
     }
 }

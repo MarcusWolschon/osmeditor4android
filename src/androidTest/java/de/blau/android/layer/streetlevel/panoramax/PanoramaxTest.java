@@ -1,16 +1,17 @@
 package de.blau.android.layer.streetlevel.panoramax;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,13 +23,11 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
-import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
-import androidx.test.uiautomator.UiObject2;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
@@ -37,33 +36,32 @@ import de.blau.android.Map;
 import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
-import de.blau.android.dialogs.DateRangeDialog;
-import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.streetlevel.ImageViewerActivity;
-import de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource.TileType;
+import de.blau.android.util.FileUtil;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
+import okio.Buffer;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class PanoramaxTest {
 
-    AdvancedPrefDatabase prefDB            = null;
-    Main                 main              = null;
-    UiDevice             device            = null;
-    Map                  map               = null;
-    Logic                logic             = null;
-    Instrumentation      instrumentation   = null;
-    MockWebServerPlus    mockApiServer     = null;
-    MockWebServer        tileServer        = null;
-    HttpUrl              mockImagesBaseUrl = null;
+    AdvancedPrefDatabase prefDB          = null;
+    Main                 main            = null;
+    UiDevice             device          = null;
+    Map                  map             = null;
+    Logic                logic           = null;
+    Instrumentation      instrumentation = null;
+    MockWebServerPlus    mockApiServer   = null;
+    MockWebServer        tileServer      = null;
+    HttpUrl              mockApiBaseUrl  = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -84,10 +82,10 @@ public class PanoramaxTest {
                 de.blau.android.layer.streetlevel.panoramax.PanoramaxOverlay.PANORAMAX_TILES_ID);
 
         mockApiServer = new MockWebServerPlus();
-        HttpUrl mockApiBaseUrl = mockApiServer.server().url("/");
+        mockApiBaseUrl = mockApiServer.server().url("/");
         Preferences prefs = new Preferences(main);
         prefs.setPanoramaxApiUrl(mockApiBaseUrl.toString());
-     
+
         App.getLogic().setPrefs(prefs);
         map = main.getMap();
         map.setPrefs(main, prefs);
@@ -125,7 +123,19 @@ public class PanoramaxTest {
      */
     @Test
     public void panoramaxLayer() {
-        mockApiServer.enqueue("panoramax_sequences");
+        MockResponse response = new MockResponse();
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        try (InputStream inputStream = loader.getResourceAsStream("fixtures/panoramax_sequences.json");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String sequenceJson = FileUtil.readToString(reader);
+            sequenceJson = sequenceJson.replaceAll("https\\://panoramax.openstreetmap.fr/", mockApiBaseUrl.toString());
+            Buffer buffer = new Buffer();
+            buffer.write(sequenceJson.getBytes());
+            response.setBody(buffer);
+        } catch (IOException e1) {
+            Assert.fail(e1.getMessage());
+        }
+        mockApiServer.server().enqueue(response);
         de.blau.android.layer.streetlevel.panoramax.PanoramaxOverlay layer = (PanoramaxOverlay) map.getLayer(LayerType.PANORAMAX);
         assertNotNull(layer);
         layer.flushCaches(main); // forces the layer to retrieve everything
@@ -142,12 +152,12 @@ public class PanoramaxTest {
 
         ActivityMonitor monitor = instrumentation.addMonitor(ImageViewerActivity.class.getName(), null, false);
         // hack around slow rendering on some emulators
-        map.getViewBox().moveTo(map, (int) (2.3281776 * 1E7), (int) (48.8698124 * 1E7));
+        map.getViewBox().moveTo(map, (int) (2.3285747 * 1E7), (int) (48.8588878 * 1E7));
         map.invalidate();
         TestUtils.zoomToLevel(device, main, 22);
-        TestUtils.clickAtCoordinates(device, map, 2.3281776, 48.8698124, true);
+        TestUtils.clickAtCoordinates(device, map, 2.3285747, 48.8588878, true);
         if (TestUtils.clickText(device, false, "OK", true)) {
-            TestUtils.clickAtCoordinates(device, map, 2.3281776, 48.8698124, true);
+            TestUtils.clickAtCoordinates(device, map, 2.3285747, 48.8588878, true);
         }
         ImageViewerActivity viewer = null;
         try {
@@ -166,7 +176,7 @@ public class PanoramaxTest {
             }
             assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.share), false, true));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                assertTrue(TestUtils.findText(device, false, "178993950747668"));
+                assertTrue(TestUtils.findText(device, false, "f4fd371a-1203-4aa7-95ca-24026fa956b1"));
             } else { // currently can't test this properly on Android before 10
                 assertTrue(TestUtils.findText(device, false, "Share with"));
             }
