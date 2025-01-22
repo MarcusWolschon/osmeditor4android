@@ -1,5 +1,7 @@
 package de.blau.android.util.mvt.style;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 
 import com.mapbox.geojson.CoordinateContainer;
@@ -20,11 +22,11 @@ import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
 public class Line extends Layer {
 
-    private static final long serialVersionUID = 6L;
+    private static final long serialVersionUID = 7L;
 
     public static final float DEFAULT_LINE_WIDTH = 1f;
 
-    private FloatPrimitiveList points = new FloatPrimitiveList(1000);
+    private transient FloatPrimitiveList points = new FloatPrimitiveList(1000);
 
     FloatStyleAttribute lineWidth = new FloatStyleAttribute(true) {
         private static final long serialVersionUID = 1L;
@@ -180,7 +182,7 @@ public class Line extends Layer {
             }
             didntIntersect = true;
             if (prevNode != null && (thisIntersects || nextIntersects
-                    || (!(nextNode != null && lastDrawnNode != null) || isIntersectionPossible(rect, nextNodeX, nextNodeY, lastDrawnNodeX, lastDrawnNodeY)))) {
+                    || (!(nextNode != null && lastDrawnNode != null) || isIntersectionPossible(rect, nextNodeX, nextNodeY, lastDrawnNodeX, lastDrawnNodeY)))) { // NOSONAR
                 if (lastDidntIntersect) { // last segment didn't intersect
                     prevX = (float) (left + prevNode.longitude() * scaleX);
                     prevY = (float) (top + prevNode.latitude() * scaleY);
@@ -257,5 +259,17 @@ public class Line extends Layer {
     @NonNull
     public String toString() {
         return super.toString() + " " + getClass().getSimpleName() + " " + Integer.toHexString(paint.getColor()) + " " + paint.getStrokeWidth();
+    }
+
+    /**
+     * Read serialized object
+     * 
+     * @param stream the input stream
+     * @throws IOException if reading fails
+     * @throws ClassNotFoundException if the Class to deserialize can't be found
+     */
+    private void readObject(@NonNull ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        points = new FloatPrimitiveList(1000);
     }
 }

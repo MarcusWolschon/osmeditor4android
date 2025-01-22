@@ -1,5 +1,7 @@
 package de.blau.android.util.mvt.style;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 
 import com.mapbox.geojson.CoordinateContainer;
@@ -20,7 +22,7 @@ import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
 public class Fill extends Layer {
 
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 5L;
 
     SerializableTextPaint    outline       = null;
     ColorStyleAttribute      outlineColor  = new ColorStyleAttribute() {
@@ -41,7 +43,7 @@ public class Fill extends Layer {
                                            };
     FloatArrayStyleAttribute fillTranslate = new FloatArrayStyleAttribute(true);
 
-    private FloatPrimitiveList points = new FloatPrimitiveList(1000);
+    private transient FloatPrimitiveList points = new FloatPrimitiveList(1000);
 
     /**
      * Default constructor
@@ -163,5 +165,17 @@ public class Fill extends Layer {
     @NonNull
     public String toString() {
         return super.toString() + " " + getClass().getSimpleName() + " " + Integer.toHexString(paint.getColor());
+    }
+    
+    /**
+     * Read serialized object
+     * 
+     * @param stream the input stream
+     * @throws IOException if reading fails
+     * @throws ClassNotFoundException if the Class to deserialize can't be found
+     */
+    private void readObject(@NonNull ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        points = new FloatPrimitiveList(1000);
     }
 }

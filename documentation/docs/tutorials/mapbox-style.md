@@ -192,9 +192,9 @@ Value support:
 |_!=_                   | in filters | legacy
 |_==_                   | in filters | legacy
 |                       |            |
-|_!has_                 | in filters | new, 1 argument version only
-|_has_                  | in filters | new, 1 argument version only
-|_get_                  | in filters | new, 1 argument version only
+|_!has_                 | partial    | new, 1 argument version only
+|_has_                  | partial    | new, 1 argument version only
+|_get_                  | partial    | new, 1 argument version only
 |_id_                   | no         | new
 |_geometry-type_        | no         | new
 |_properties_           | no         | new
@@ -210,8 +210,8 @@ Value support:
 |_number-format_        | no         | new
 |_object_               | no         | new
 |_string_               | no         | new
-|_to-boolean_           | in filters | new
-|_to-number_            | no         | new
+|_to-boolean_           | yes        | new
+|_to-number_            | partial    | new 1 argument version only
 |_to-string_            | no         | new
 |_to-color_             | no         | new
 |_typeof_               | no         | new
@@ -241,7 +241,7 @@ Value support:
 |_any_                  | no         | new
 |_case_                 | no         | new
 |_coalesce_             | no         | new
-|_match_                | no         | new
+|_match_                | yes        | new
 |_within_               | no         | new
 |                       |            |
 |_interpolate_          | no         | new

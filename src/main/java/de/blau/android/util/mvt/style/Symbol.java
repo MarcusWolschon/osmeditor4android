@@ -42,7 +42,7 @@ public class Symbol extends Layer {
     private static final int    TAG_LEN         = Math.min(LOG_TAG_LEN, Symbol.class.getSimpleName().length());
     private static final String DEBUG_TAG       = Symbol.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final long serialVersionUID = 16L;
+    private static final long serialVersionUID = 17L;
 
     static final String         SYMBOL_PLACEMENT_POINT       = "point";
     private static final String SYMBOL_PLACEMENT_LINE_CENTER = "line-center";
@@ -430,7 +430,7 @@ public class Symbol extends Layer {
      */
     private void drawIconSymbolLabel(@NonNull Canvas c, Sprites sprites, final boolean hasLabel, float x, float y, @NonNull Feature feature) {
         // non-visible points have already been removed
-        if (symbolPath != null) {
+        if (symbolPath != null && !symbolPath.isEmpty()) {
             drawSymbol(c, x, y, feature);
         } else if (iconImage.literal != null) {
             drawIcon(c, sprites, x, y, feature);
@@ -861,5 +861,7 @@ public class Symbol extends Layer {
         pathMeasure = new PathMeasure();
         iconRect = new Rect();
         labelRect = new Rect();
+        symbolCache = new WeakHashMap<>();
+        bounds = new RectF();
     }
 }

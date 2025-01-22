@@ -36,7 +36,7 @@ public abstract class Layer implements Serializable {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Layer.class.getSimpleName().length());
     private static final String DEBUG_TAG = Layer.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final long serialVersionUID = 13L;
+    private static final long serialVersionUID = 14L;
 
     private static final String INTERPOLATION_DEFAULT                 = "default";
     private static final String INTERPOLATION_PROPERTY                = "property";
@@ -69,6 +69,8 @@ public abstract class Layer implements Serializable {
     private static final String LAYER_EXPRESSION_HAS        = "has";
     private static final String LAYER_EXPRESSION_GET        = "get";
     private static final String LAYER_EXPRESSION_TO_BOOLEAN = "to-boolean";
+    private static final String LAYER_EXPRESSION_TO_NUMBER  = "to-number";
+    private static final String LAYER_EXPRESSION_MATCH      = "match";
 
     private static final String FALSE = "false";
 
@@ -463,7 +465,7 @@ public abstract class Layer implements Serializable {
      * @param key the key
      * @return the value for the key
      */
-    private Object getKeyValue(VectorTileDecoder.Feature feature, String key) {
+    private static Object getKeyValue(VectorTileDecoder.Feature feature, String key) {
         switch (key) {
         case LAYER_KEY_TYPE:
             String type = feature.getGeometry().type();
@@ -479,16 +481,21 @@ public abstract class Layer implements Serializable {
      * Evaluate a new style expression
      * 
      * @param expression the expression
-     * @param feature the feature we need to filter gains
-     * @return true if the filter excepts the feature
+     * @param feature the feature
+     * @return the result
      */
     @Nullable
-    public Object evaluateExpression(@NonNull JsonArray expression, @NonNull VectorTileDecoder.Feature feature) {
+    public static Object evaluateExpression(@NonNull JsonArray expression, @NonNull VectorTileDecoder.Feature feature) {
+        final int expressionSize = expression.size();
+        if (expressionSize < 2) {
+            Log.w(DEBUG_TAG, "Invalid expression " + expression);
+            return null;
+        }
         String function = expression.get(0).getAsString();
         switch (function) {
         case LAYER_EXPRESSION_HAS:
         case LAYER_EXPRESSION_NOT_HAS:
-            if (expression.size() == 3) {
+            if (expressionSize == 3) {
                 Log.w(DEBUG_TAG, "Two argument versions of has and !has are not implemented");
                 return null;
             }
@@ -497,7 +504,7 @@ public abstract class Layer implements Serializable {
             Object left = getKeyValue(feature, key);
             return LAYER_EXPRESSION_HAS.equals(function) ? left != null : left == null;
         case LAYER_EXPRESSION_GET:
-            if (expression.size() == 3) {
+            if (expressionSize == 3) {
                 Log.w(DEBUG_TAG, "Two argument version of get is not implemented");
                 return null;
             }
@@ -508,10 +515,59 @@ public abstract class Layer implements Serializable {
             arg1 = expression.get(1);
             Object o = arg1.isJsonArray() ? evaluateExpression((JsonArray) arg1, feature) : arg1;
             return isTrue(o);
+        case LAYER_EXPRESSION_TO_NUMBER:
+            if (expressionSize > 2) {
+                Log.w(DEBUG_TAG, "Multiple argument version of to-number is not implemented");
+            }
+            arg1 = expression.get(1);
+            o = arg1.isJsonArray() ? evaluateExpression((JsonArray) arg1, feature) : arg1;
+            if (o instanceof String) {
+                try {
+                    return Double.parseDouble((String) o);
+                } catch (NumberFormatException nfex) {
+                    //
+                }
+            }
+            if (o instanceof Boolean) {
+                return ((Boolean) o).booleanValue() ? Integer.valueOf(1) : Integer.valueOf(0);
+            }
+            if (o instanceof Number) {
+                return o;
+            }
+            Log.e(DEBUG_TAG, "Error parsing as a number  " + o + " " + expression);
+            return Integer.valueOf(0);
+        case LAYER_EXPRESSION_MATCH:
+            arg1 = expression.get(1);
+            o = arg1.isJsonArray() ? evaluateExpression((JsonArray) arg1, feature) : arg1;
+            for (int i = 2; i < expressionSize - 1; i = i + 2) {
+                JsonElement label = expression.get(i);
+                if (label instanceof JsonArray) {
+                    for (JsonElement e : (JsonArray) label) {
+                        if (literalEquals(o, e)) {
+                            return expression.get(i + 1);
+                        }
+                    }
+                } else if (literalEquals(o, label)) {
+                    return expression.get(i + 1);
+                }
+            }
+            return expression.get(expressionSize - 1);
         default:
             Log.e(DEBUG_TAG, "Unknown/unsupported expression " + function);
         }
         return null;
+    }
+
+    /**
+     * Test if the literals of an Object and a JsonElement are equal
+     * 
+     * @param o the Object
+     * @param e the JsonElement
+     * @return true if equal
+     */
+    private static boolean literalEquals(@Nullable Object o, @NonNull JsonElement e) {
+        return (o instanceof JsonElement && o.equals(e)) || (o instanceof String && o.equals(e.getAsString()))
+                || (o instanceof Number && o.equals(e.getAsNumber()));
     }
 
     /**
@@ -520,7 +576,7 @@ public abstract class Layer implements Serializable {
      * @param o the Object
      * @return true if it corresponds to a "true" value
      */
-    private boolean isTrue(@Nullable Object o) {
+    private static boolean isTrue(@Nullable Object o) {
         if (o == null) {
             return false;
         }
@@ -612,11 +668,18 @@ public abstract class Layer implements Serializable {
                 Object o = feature.getAttributes().get(property.getAsString());
                 if (o instanceof Number) {
                     x = ((Number) o).doubleValue();
+                } else if (o instanceof String) {
+                    x = Double.parseDouble((String) o);
                 } else if (Style.isNumber(defaultValue)) {
                     return defaultValue.getAsDouble();
                 }
             } else {
                 Log.e(DEBUG_TAG, "Null feature but property provided " + property);
+            }
+        } else if (Style.isArray(property)) { // expression
+            Object o = evaluateExpression((JsonArray) property, feature);
+            if (o instanceof Number) {
+                x = ((Number) o).doubleValue();
             }
         }
         if (type == null || INTERPOLATION_TYPE_EXPONENTIAL.equals(type.getAsString())) {
