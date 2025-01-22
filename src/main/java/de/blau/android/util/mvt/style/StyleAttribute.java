@@ -25,12 +25,12 @@ import de.blau.android.util.mvt.VectorTileDecoder;
  * @author Simon Poole
  */
 abstract class StyleAttribute implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, StyleAttribute.class.getSimpleName().length());
     private static final String DEBUG_TAG = StyleAttribute.class.getSimpleName().substring(0, TAG_LEN);
 
-    transient JsonObject function;
+    transient JsonElement function;
 
     /**
      * Set the current value of the attribute
@@ -98,6 +98,6 @@ abstract class StyleAttribute implements Serializable {
     private void readObject(@NonNull ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         Object temp = in.readObject();
-        function = temp != null ? (JsonObject) JsonParser.parseString(temp.toString()) : null;
+        function = temp != null ? (JsonElement) JsonParser.parseString(temp.toString()) : null;
     }
 }

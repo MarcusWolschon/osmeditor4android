@@ -371,6 +371,7 @@ public class Style implements Serializable {
 
             @Override
             protected void onPostExecute(Sprites result) {
+                Log.i(DEBUG_TAG, "getSprites " + url + (result != null ? " loaded" : " not loaded"));
                 sprites = result;
             }
         }.execute();
@@ -662,7 +663,7 @@ public class Style implements Serializable {
      * @param element the JsonElement
      * @return true if a Boolean
      */
-    private boolean isArray(@Nullable JsonElement element) {
+    static boolean isArray(@Nullable JsonElement element) {
         return element != null && element.isJsonArray();
     }
 

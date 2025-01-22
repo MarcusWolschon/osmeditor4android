@@ -1,5 +1,6 @@
 package de.blau.android.util.mvt.style;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -12,7 +13,8 @@ public class StringStyleAttribute extends StyleAttribute {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = StringStyleAttribute.class.getSimpleName().substring(0, Math.min(23, StringStyleAttribute.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = StringStyleAttribute.class.getSimpleName().substring(0,
+            Math.min(23, StringStyleAttribute.class.getSimpleName().length()));
 
     String literal;
 
@@ -24,7 +26,9 @@ public class StringStyleAttribute extends StyleAttribute {
                 set(string.getAsString());
             } else if (string.isJsonObject()) {// interpolation expression
                 function = (JsonObject) string;
-            } else { // feature-state or interpolation expression
+            } else if (string.isJsonArray()) {
+                function = (JsonArray) string;
+            } else { // feature-state
                 Log.w(DEBUG_TAG, "Unsupported " + name + " value " + string);
             }
         }
@@ -32,12 +36,24 @@ public class StringStyleAttribute extends StyleAttribute {
 
     @Override
     public void eval(@Nullable VectorTileDecoder.Feature feature, int z) {
-        if (function != null) {
-            JsonElement temp = Layer.evalCategoryFunction(function, feature, z);
+        if (function instanceof JsonObject) {
+            JsonElement temp = Layer.evalCategoryFunction((JsonObject) function, feature, z);
             if (Style.isString(temp)) {
                 set(temp.getAsString());
             }
+        } else if (function instanceof JsonArray) {
+            Object temp = Layer.evaluateExpression((JsonArray) function, feature);
+            if (temp instanceof String) {
+                set((String) temp);
+                return;
+            }
+            if (temp instanceof JsonElement) {
+                set(((JsonElement) temp).getAsString());
+                return;
+            }
+            Log.w(DEBUG_TAG, "Value is not a String " + temp);
         }
+
     }
 
     /**

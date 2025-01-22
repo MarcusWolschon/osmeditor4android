@@ -1,7 +1,9 @@
 package de.blau.android.util.mvt.style;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,7 +14,8 @@ public class ColorStyleAttribute extends StyleAttribute {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = ColorStyleAttribute.class.getSimpleName().substring(0, Math.min(23, ColorStyleAttribute.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = ColorStyleAttribute.class.getSimpleName().substring(0,
+            Math.min(23, ColorStyleAttribute.class.getSimpleName().length()));
 
     int literal;
 
@@ -24,7 +27,9 @@ public class ColorStyleAttribute extends StyleAttribute {
                 set(Color.parseColor(color.getAsString()));
             } else if (color.isJsonObject()) {// interpolation expression
                 function = ((JsonObject) color);
-            } else { // feature-state or interpolation expression
+            } else if (color.isJsonArray()) {
+                function = (JsonArray) color;
+            } else { // feature-state
                 Log.w(DEBUG_TAG, "Unsupported " + name + " value " + color);
             }
         }
@@ -32,8 +37,19 @@ public class ColorStyleAttribute extends StyleAttribute {
 
     @Override
     public void eval(@Nullable VectorTileDecoder.Feature feature, int z) {
-        if (function != null) {
-            set(Layer.evalColorFunction(function, feature, z));
+        if (function instanceof JsonObject) {
+            set(Layer.evalColorFunction((JsonObject) function, feature, z));
+        } else if (function instanceof JsonArray) {
+            Object temp = Layer.evaluateExpression((JsonArray) function, feature);
+            if (temp instanceof Number) {
+                set(((Number) temp).intValue());
+                return;
+            }
+            if (temp instanceof JsonPrimitive) {
+                set(((JsonPrimitive) temp).getAsNumber().intValue());
+                return;
+            }
+            Log.w(DEBUG_TAG, "Value is not an int " + temp);
         }
     }
 

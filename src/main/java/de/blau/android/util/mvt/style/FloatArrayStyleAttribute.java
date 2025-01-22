@@ -37,14 +37,14 @@ public class FloatArrayStyleAttribute extends StyleAttribute {
             if (array.isJsonArray() && ((JsonArray) array).size() == 2) {
                 float a1 = ((JsonArray) array).get(0).getAsFloat();
                 float a2 = ((JsonArray) array).get(1).getAsFloat();
-                final float density = ctx.getResources().getDisplayMetrics().density;
-                set(new float[] { a1 * (convert ? density / 2 : 1), a2 * (convert ? density / 2 : 1) });
+                final float conversionFactor = ctx.getResources().getDisplayMetrics().density / 2;
+                set(new float[] { a1 * (convert ? conversionFactor : 1), a2 * (convert ? conversionFactor : 1) });
             } else if (array.isJsonObject()) {// interpolation expression
                 if (convert) {
                     dipStops(ctx, (JsonObject) array);
                 }
                 function = (JsonObject) array;
-            } else { // feature-state or interpolation expression
+            } else { // feature-state or expression
                 Log.w(DEBUG_TAG, "Unsupported " + name + " value " + array);
             }
         }
@@ -52,8 +52,8 @@ public class FloatArrayStyleAttribute extends StyleAttribute {
 
     @Override
     public void eval(@Nullable VectorTileDecoder.Feature feature, int z) {
-        if (function != null) {
-            JsonArray r = Layer.evalArrayFunction(function, feature, z);
+        if (function instanceof JsonObject) {
+            JsonArray r = Layer.evalArrayFunction((JsonObject) function, feature, z);
             set(new float[] { r.get(0).getAsFloat(), r.get(1).getAsFloat() });
         }
     }

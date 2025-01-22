@@ -15,6 +15,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonPrimitive;
 import com.mapbox.geojson.Point;
 
 import androidx.test.core.app.ApplicationProvider;
@@ -24,7 +25,7 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.util.mvt.VectorTileDecoder;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(sdk = 33)
 @LargeTest
 public class ExpressionTest {
 
@@ -37,7 +38,7 @@ public class ExpressionTest {
         DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
     }
-    
+
     /**
      * Test has expression
      */
@@ -49,30 +50,29 @@ public class ExpressionTest {
         attributes.put("test", "i1");
         Point point = Point.fromLngLat(0, 0);
         VectorTileDecoder.Feature feature = new VectorTileDecoder.Feature("test", 256, point, attributes, -1);
-        Symbol symbol = new Symbol("test");
         JsonArray array = new JsonArray();
         array.add("has");
         array.add("s1");
-        Object o = symbol.evaluateExpression(array, feature);
+        Object o = Symbol.evaluateExpression(array, feature);
         assertTrue(o instanceof Boolean);
-        assertTrue((Boolean)o);
+        assertTrue((Boolean) o);
         array = new JsonArray();
         array.add("has");
         array.add("s2");
-        o = symbol.evaluateExpression(array, feature);
+        o = Symbol.evaluateExpression(array, feature);
         assertTrue(o instanceof Boolean);
-        assertFalse((Boolean)o);
+        assertFalse((Boolean) o);
         array = new JsonArray();
         array.add("has");
         JsonArray getArray = new JsonArray();
         getArray.add("get");
         getArray.add("test");
         array.add(getArray);
-        o = symbol.evaluateExpression(array, feature);
+        o = Symbol.evaluateExpression(array, feature);
         assertTrue(o instanceof Boolean);
-        assertTrue((Boolean)o);
+        assertTrue((Boolean) o);
     }
-    
+
     /**
      * Test !has expression
      */
@@ -84,21 +84,20 @@ public class ExpressionTest {
         attributes.put("test", "i1");
         Point point = Point.fromLngLat(0, 0);
         VectorTileDecoder.Feature feature = new VectorTileDecoder.Feature("test", 256, point, attributes, -1);
-        Symbol symbol = new Symbol("test");
         JsonArray array = new JsonArray();
         array.add("!has");
         array.add("s2");
-        Object o = symbol.evaluateExpression(array, feature);
+        Object o = Symbol.evaluateExpression(array, feature);
         assertTrue(o instanceof Boolean);
-        assertTrue((Boolean)o);
+        assertTrue((Boolean) o);
         array = new JsonArray();
         array.add("!has");
         array.add("s1");
-        o = symbol.evaluateExpression(array, feature);
+        o = Symbol.evaluateExpression(array, feature);
         assertTrue(o instanceof Boolean);
-        assertFalse((Boolean)o);
+        assertFalse((Boolean) o);
     }
-    
+
     /**
      * Test get expression
      */
@@ -110,17 +109,16 @@ public class ExpressionTest {
         attributes.put("test", "i1");
         Point point = Point.fromLngLat(0, 0);
         VectorTileDecoder.Feature feature = new VectorTileDecoder.Feature("test", 256, point, attributes, -1);
-        Symbol symbol = new Symbol("test");
         JsonArray array = new JsonArray();
         array.add("get");
         array.add("s1");
-        assertEquals("string", symbol.evaluateExpression(array, feature));
+        assertEquals("string", Symbol.evaluateExpression(array, feature));
         array = new JsonArray();
         array.add("get");
         array.add("s2");
-        assertNull(symbol.evaluateExpression(array, feature));
+        assertNull(Symbol.evaluateExpression(array, feature));
     }
-    
+
     /**
      * Test toBooleean expression
      */
@@ -133,14 +131,13 @@ public class ExpressionTest {
         attributes.put("test2", false);
         Point point = Point.fromLngLat(0, 0);
         VectorTileDecoder.Feature feature = new VectorTileDecoder.Feature("test", 256, point, attributes, -1);
-        Symbol symbol = new Symbol("test");
         JsonArray array = new JsonArray();
         array.add("to-boolean");
         JsonArray getArray = new JsonArray();
         getArray.add("get");
         getArray.add("test");
         array.add(getArray);
-        Object o = symbol.evaluateExpression(array, feature);
+        Object o = Symbol.evaluateExpression(array, feature);
         assertTrue(o instanceof Boolean);
         assertFalse((boolean) o);
         //
@@ -150,7 +147,7 @@ public class ExpressionTest {
         getArray.add("get");
         getArray.add("s1");
         array.add(getArray);
-        o = symbol.evaluateExpression(array, feature);
+        o = Symbol.evaluateExpression(array, feature);
         assertTrue(o instanceof Boolean);
         assertTrue((boolean) o);
         //
@@ -160,8 +157,135 @@ public class ExpressionTest {
         getArray.add("get");
         getArray.add("test2");
         array.add(getArray);
-        o = symbol.evaluateExpression(array, feature);
+        o = Symbol.evaluateExpression(array, feature);
         assertTrue(o instanceof Boolean);
         assertFalse((boolean) o);
+    }
+
+    /**
+     * Test toNumber expression
+     */
+    @Test
+    public void toNumberTest() {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("n1", "string");
+        attributes.put("n2", null);
+        attributes.put("n3", 1111);
+        attributes.put("n4", true);
+        attributes.put("n5", false);
+
+        Point point = Point.fromLngLat(0, 0);
+        VectorTileDecoder.Feature feature = new VectorTileDecoder.Feature("test", 256, point, attributes, -1);
+        JsonArray array = new JsonArray();
+        array.add("to-number");
+        JsonArray getArray = new JsonArray();
+        getArray.add("get");
+        getArray.add("n1");
+        array.add(getArray);
+        Object o = Symbol.evaluateExpression(array, feature);
+        assertTrue(o instanceof Number);
+        assertEquals(0, ((Number) o).intValue());
+        //
+        getArray.set(1, new JsonPrimitive("n2"));
+        o = Symbol.evaluateExpression(array, feature);
+        assertTrue(o instanceof Number);
+        assertEquals(0, ((Number) o).intValue());
+        //
+        getArray.set(1, new JsonPrimitive("n3"));
+        o = Symbol.evaluateExpression(array, feature);
+        assertTrue(o instanceof Number);
+        assertEquals(1111, ((Number) o).intValue());
+        //
+        getArray.set(1, new JsonPrimitive("n4"));
+        o = Symbol.evaluateExpression(array, feature);
+        assertTrue(o instanceof Number);
+        assertEquals(1, ((Number) o).intValue());
+        //
+        getArray.set(1, new JsonPrimitive("n5"));
+        o = Symbol.evaluateExpression(array, feature);
+        assertTrue(o instanceof Number);
+        assertEquals(0, ((Number) o).intValue());
+    }
+
+    /**
+     * Test match expression
+     */
+    @Test
+    public void matchTest() {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("n1", "bench");
+        attributes.put("n2", "fountain");
+        attributes.put("n3", "nothing");
+
+        Point point = Point.fromLngLat(0, 0);
+        VectorTileDecoder.Feature feature = new VectorTileDecoder.Feature("test", 256, point, attributes, -1);
+        JsonArray array = new JsonArray();
+        array.add("match");
+        JsonArray getArray = new JsonArray();
+        getArray.add("get");
+        getArray.add("n1");
+        array.add(getArray);
+        array.add("bench");
+        array.add("icon-bench");
+        array.add("something");
+        array.add("icon-something");
+        array.add("fountain");
+        array.add("icon-fountain");
+        array.add("unknown");
+        Object o = Symbol.evaluateExpression(array, feature);
+        assertTrue(o instanceof JsonPrimitive);
+        assertEquals("icon-bench", ((JsonPrimitive) o).getAsString());
+
+        getArray.set(1, new JsonPrimitive("n2"));
+        o = Symbol.evaluateExpression(array, feature);
+        assertTrue(o instanceof JsonPrimitive);
+        assertEquals("icon-fountain", ((JsonPrimitive) o).getAsString());
+
+        getArray.set(1, new JsonPrimitive("n3"));
+        o = Symbol.evaluateExpression(array, feature);
+        assertTrue(o instanceof JsonPrimitive);
+        assertEquals("unknown", ((JsonPrimitive) o).getAsString());
+    }
+
+    /**
+     * Test match expression
+     */
+    @Test
+    public void matchTest2() {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("n1", "bench");
+        attributes.put("n2", "fountain");
+        attributes.put("n3", "nothing");
+
+        Point point = Point.fromLngLat(0, 0);
+        VectorTileDecoder.Feature feature = new VectorTileDecoder.Feature("test", 256, point, attributes, -1);
+        JsonArray array = new JsonArray();
+        array.add("match");
+        JsonArray getArray = new JsonArray();
+        getArray.add("get");
+        getArray.add("n1");
+        array.add(getArray);
+        JsonArray labelArray = new JsonArray();
+        labelArray.add("something");
+        labelArray.add("bench");
+        array.add(labelArray);
+        array.add("icon-bench");
+
+        array.add("fountain");
+        array.add("icon-fountain");
+        array.add("unknown");
+        Object o = Symbol.evaluateExpression(array, feature);
+        assertTrue(o instanceof JsonPrimitive);
+        assertEquals("icon-bench", ((JsonPrimitive) o).getAsString());
+
+        getArray.set(1, new JsonPrimitive("n2"));
+        o = Symbol.evaluateExpression(array, feature);
+        assertTrue(o instanceof JsonPrimitive);
+        assertEquals("icon-fountain", ((JsonPrimitive) o).getAsString());
+
+        getArray.set(1, new JsonPrimitive("n3"));
+        o = Symbol.evaluateExpression(array, feature);
+        assertTrue(o instanceof JsonPrimitive);
+        assertEquals("unknown", ((JsonPrimitive) o).getAsString());
     }
 }

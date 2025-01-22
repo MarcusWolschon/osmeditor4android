@@ -211,7 +211,7 @@ Value support:
 |_object_               | no         | new
 |_string_               | no         | new
 |_to-boolean_           | in filters | new
-|_to-number_            | no         | new
+|_to-number_            | partial    | new 1 argument version only
 |_to-string_            | no         | new
 |_to-color_             | no         | new
 |_typeof_               | no         | new
