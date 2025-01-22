@@ -84,6 +84,7 @@ public class PoiDisplayTest {
         final int startY = pos[1] + h;
         TestUtils.longClickAt(device, startX, startY);
         TestUtils.drag(device, startX, startY, startX, startY - 200, 100);
+        TestUtils.unlock(device);
         assertTrue(TestUtils.clickText(device, false, "Excrement bags", true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.element_information)));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true));
@@ -106,6 +107,7 @@ public class PoiDisplayTest {
         final int startY = pos[1] + h;
         TestUtils.longClickAt(device, startX, startY);
         TestUtils.drag(device, startX, startY, startX, startY - 200, 100);
+        TestUtils.unlock(device);
         assertTrue(TestUtils.clickText(device, false, "Excrement bags", true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect)));
     }
