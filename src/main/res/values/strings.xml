@@ -826,6 +826,8 @@
     <string name="toast_no_roles_found">No roles found, all elements can be selected</string>
     <string name="toast_no_preset_found">No matching preset found, all elements can be selected</string>
     <string name="toast_undeleting_all_members">Undeleting all relation members with this element</string>
+    <string name="toast_panoramax_sequence_error">Unable to retrieve panoramax sequence id %1$s id %2$s</string>
+    <string name="toast_panoramax_image_not_in_sequence_error">Image id %1$s not found in sequence</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

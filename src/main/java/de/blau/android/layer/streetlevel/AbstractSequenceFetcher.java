@@ -51,33 +51,41 @@ public abstract class AbstractSequenceFetcher implements Runnable {
         try {
             URL url = new URL(String.format(urlTemplate, sequenceId, apiKey));
             Log.d(DEBUG_TAG, "query sequence: " + url.toString());
-            Request request = new Request.Builder().url(url).build();
-            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS).readTimeout(20000, TimeUnit.MILLISECONDS)
-                    .build();
-            Call mapillaryCall = client.newCall(request);
-            Response mapillaryCallResponse = mapillaryCall.execute();
-            if (!mapillaryCallResponse.isSuccessful()) {
-                return;
-            }
-            ResponseBody responseBody = mapillaryCallResponse.body();
-            try (InputStream inputStream = responseBody.byteStream()) {
-                if (inputStream == null) {
-                    throw new IOException("null InputStream");
-                }
-                StringBuilder sb = new StringBuilder();
-                int cp;
-                while ((cp = inputStream.read()) != -1) {
-                    sb.append((char) cp);
-                }
-                JsonElement root = JsonParser.parseString(sb.toString());
-                if (!root.isJsonObject()) {
-                    throw new IOException("root is not a JsonObject");
-                }
-                ArrayList<String> ids = getIds(root);
-                saveIdsAndUpdate(ids);
-            }
+            ArrayList<String> ids = new ArrayList<>();
+            querySequence(url, ids);
+            saveIdsAndUpdate(ids);
         } catch (IOException ex) {
             Log.e(DEBUG_TAG, "query sequence failed with " + ex.getMessage());
+        }
+    }
+
+    /**
+     * @param url
+     * @throws IOException
+     */
+    protected void querySequence(URL url, ArrayList<String> ids) throws IOException {
+        Request request = new Request.Builder().url(url).build();
+        OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS).readTimeout(20000, TimeUnit.MILLISECONDS).build();
+        Call mapillaryCall = client.newCall(request);
+        Response mapillaryCallResponse = mapillaryCall.execute();
+        if (!mapillaryCallResponse.isSuccessful()) {
+            return;
+        }
+        ResponseBody responseBody = mapillaryCallResponse.body();
+        try (InputStream inputStream = responseBody.byteStream()) {
+            if (inputStream == null) {
+                throw new IOException("null InputStream");
+            }
+            StringBuilder sb = new StringBuilder();
+            int cp;
+            while ((cp = inputStream.read()) != -1) {
+                sb.append((char) cp);
+            }
+            JsonElement root = JsonParser.parseString(sb.toString());
+            if (!root.isJsonObject()) {
+                throw new IOException("root is not a JsonObject");
+            }
+            getIds(root, ids);
         }
     }
 
@@ -92,9 +100,10 @@ public abstract class AbstractSequenceFetcher implements Runnable {
      * Get list of ids from a sequence
      * 
      * @param root top level JsonElement
+     * @param ids
      * @return a List of ids
      * @throws IOException if the ids can't be found
      */
     @NonNull
-    protected abstract ArrayList<String> getIds(@NonNull JsonElement root) throws IOException;
+    protected abstract ArrayList<String> getIds(@NonNull JsonElement root, ArrayList<String> ids) throws IOException;
 }

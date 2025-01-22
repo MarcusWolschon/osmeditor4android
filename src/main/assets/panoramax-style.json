@@ -62,10 +62,7 @@
             "minzoom": 19,
             "layout": {
                 "icon-image": "arrow",
-                "icon-rotate": {
-                    "property": "heading",
-                    "type": "identity"
-                }
+                "icon-rotate": ["to-number", ["get","heading"]]
             },
             "paint": {
                 "icon-color": "rgba(0, 215, 0, 1)"
@@ -83,10 +80,7 @@
             "minzoom": 19,
             "layout": {
                 "icon-image": "arrow",
-                "icon-rotate": {
-                    "property": "heading",
-                    "type": "identity"
-                }
+                "icon-rotate": ["to-number", ["get","heading"]]
             },
             "paint": {
                 "icon-color": "rgba(100, 200, 0, 1)"

@@ -132,7 +132,7 @@
                 "type": "tms",
                 "tile_type": "mvt",
                 "category": "internal",
-                "url": "https://panoramax.openstreetmap.fr/api/map/{z}/{x}/{y}.pbf"
+                "url": "https://panoramax.xyz/api/map/{z}/{x}/{y}.mvt"
             },
             "type": "Feature"
         },
