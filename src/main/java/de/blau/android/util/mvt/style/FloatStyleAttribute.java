@@ -58,9 +58,9 @@ public class FloatStyleAttribute extends StyleAttribute {
                 if (convert) {
                     dipStops(ctx, (JsonObject) number);
                 }
-                function = (JsonObject) number;
+                function = number;
             } else if (number.isJsonArray()) {
-                function = (JsonArray) number;
+                function = number;
             } else { // feature-state
                 Log.w(DEBUG_TAG, "Unsupported " + name + " value " + number);
             }
@@ -71,13 +71,13 @@ public class FloatStyleAttribute extends StyleAttribute {
     public void eval(@Nullable VectorTileDecoder.Feature feature, int z) {
         if (function instanceof JsonObject) {
             set((float) Layer.evalNumberFunction((JsonObject) function, feature, z));
-        } else if (function instanceof JsonArray) {
+        } else if (function instanceof JsonArray && feature != null) {
             Object temp = Layer.evaluateExpression((JsonArray) function, feature);
             if (temp instanceof Number) {
                 set(((Number) temp).floatValue() * (convert ? conversionFactor : 1));
                 return;
             }
-            if (temp instanceof JsonPrimitive) {
+            if (temp instanceof JsonPrimitive && ((JsonPrimitive) temp).isNumber()) {
                 set(((JsonPrimitive) temp).getAsNumber().floatValue());
                 return;
             }

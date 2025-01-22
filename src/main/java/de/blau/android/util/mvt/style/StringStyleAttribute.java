@@ -24,10 +24,8 @@ public class StringStyleAttribute extends StyleAttribute {
         if (string != null) {
             if (Style.isString(string)) {
                 set(string.getAsString());
-            } else if (string.isJsonObject()) {// interpolation expression
-                function = (JsonObject) string;
-            } else if (string.isJsonArray()) {
-                function = (JsonArray) string;
+            } else if (string.isJsonObject() || string.isJsonArray()) {// interpolation expression
+                function = string;
             } else { // feature-state
                 Log.w(DEBUG_TAG, "Unsupported " + name + " value " + string);
             }
@@ -41,7 +39,7 @@ public class StringStyleAttribute extends StyleAttribute {
             if (Style.isString(temp)) {
                 set(temp.getAsString());
             }
-        } else if (function instanceof JsonArray) {
+        } else if (function instanceof JsonArray && feature != null) {
             Object temp = Layer.evaluateExpression((JsonArray) function, feature);
             if (temp instanceof String) {
                 set((String) temp);

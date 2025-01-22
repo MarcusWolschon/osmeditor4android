@@ -43,7 +43,7 @@ public class FloatArrayStyleAttribute extends StyleAttribute {
                 if (convert) {
                     dipStops(ctx, (JsonObject) array);
                 }
-                function = (JsonObject) array;
+                function = array;
             } else { // feature-state or expression
                 Log.w(DEBUG_TAG, "Unsupported " + name + " value " + array);
             }

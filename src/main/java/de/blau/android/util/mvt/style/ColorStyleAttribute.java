@@ -25,10 +25,8 @@ public class ColorStyleAttribute extends StyleAttribute {
         if (color != null) {
             if (Style.isString(color)) {
                 set(Color.parseColor(color.getAsString()));
-            } else if (color.isJsonObject()) {// interpolation expression
-                function = ((JsonObject) color);
-            } else if (color.isJsonArray()) {
-                function = (JsonArray) color;
+            } else if (color.isJsonObject() || color.isJsonArray()) {
+                function = color;
             } else { // feature-state
                 Log.w(DEBUG_TAG, "Unsupported " + name + " value " + color);
             }
@@ -39,13 +37,13 @@ public class ColorStyleAttribute extends StyleAttribute {
     public void eval(@Nullable VectorTileDecoder.Feature feature, int z) {
         if (function instanceof JsonObject) {
             set(Layer.evalColorFunction((JsonObject) function, feature, z));
-        } else if (function instanceof JsonArray) {
+        } else if (function instanceof JsonArray && feature != null) {
             Object temp = Layer.evaluateExpression((JsonArray) function, feature);
             if (temp instanceof Number) {
                 set(((Number) temp).intValue());
                 return;
             }
-            if (temp instanceof JsonPrimitive) {
+            if (temp instanceof JsonPrimitive && ((JsonPrimitive) temp).isNumber()) {
                 set(((JsonPrimitive) temp).getAsNumber().intValue());
                 return;
             }

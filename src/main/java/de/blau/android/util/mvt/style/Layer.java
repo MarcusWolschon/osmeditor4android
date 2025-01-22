@@ -676,7 +676,7 @@ public abstract class Layer implements Serializable {
             } else {
                 Log.e(DEBUG_TAG, "Null feature but property provided " + property);
             }
-        } else if (Style.isArray(property)) { // expression
+        } else if (Style.isArray(property) && feature != null) { // expression
             Object o = evaluateExpression((JsonArray) property, feature);
             if (o instanceof Number) {
                 x = ((Number) o).doubleValue();
