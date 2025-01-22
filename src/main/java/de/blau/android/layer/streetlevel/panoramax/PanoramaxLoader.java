@@ -27,7 +27,7 @@ class PanoramaxLoader extends NetworkImageLoader {
     private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, PanoramaxLoader.class.getSimpleName().length());
     protected static final String DEBUG_TAG = PanoramaxLoader.class.getSimpleName().substring(0, TAG_LEN);
 
-    final Map<String, String> urls;
+    private final Map<String, String> urls;
 
     /**
      * Construct a new loader

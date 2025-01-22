@@ -4,11 +4,14 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -16,12 +19,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.text.SpannableString;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
@@ -35,6 +40,7 @@ import de.blau.android.photos.PhotoViewerFragment;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.mvt.VectorTileRenderer;
 import de.blau.android.util.mvt.style.Layer;
 import de.blau.android.util.mvt.style.Style;
@@ -56,6 +62,8 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
     private static final String ID_KEY             = "id";
     private static final String FIRST_SEQUENCE_KEY = "first_sequence";
     private static final String SEQUENCES_KEY      = "sequences";
+
+    private static final Pattern SEQUENCES_PATTERN = Pattern.compile("^\\[\\\"([^\\, ]+)\\\".*\\]$");
 
     private static final String DEFAULT_PANORAMAX_STYLE_JSON = "panoramax-style.json";
 
@@ -88,6 +96,15 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
      */
     public PanoramaxOverlay(@NonNull final Map map) {
         super(map, PANORAMAX_TILES_ID, IMAGE_LAYER, DEFAULT_PANORAMAX_STYLE_JSON);
+        // hack so that we can follow the preferences
+        try {
+            Uri uri = Uri.parse(layerSource.getTileUrl());
+            Uri prefsUri = Uri.parse(App.getPreferences(map.getContext()).getPanoramaxApiUrl());
+            Log.i(DEBUG_TAG, "Change host from " + uri.getAuthority() + " to " + prefsUri.getAuthority());
+            uri.buildUpon().authority(prefsUri.getAuthority());
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, "Unparsable tile url " + ex.getMessage());
+        }
         setDateRange(panoramaxState.startDate, panoramaxState.endDate);
     }
 
@@ -123,16 +140,10 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
         }
         // we ignore anything except the images for now
         java.util.Map<String, Object> attributes = f.getAttributes();
-        String sequenceId = (String) attributes.get(FIRST_SEQUENCE_KEY);
-        if (sequenceId == null) {
-            Object o = attributes.get(SEQUENCES_KEY);
-            if (o instanceof String) {
-                sequenceId = (String) o;
-            }
-        }
+        String sequenceId = getSequenceId(attributes);
 
         String id = (String) attributes.get(ID_KEY);
-        Log.e(DEBUG_TAG, "trying to retrieve sequence " + sequenceId + " for " + id);
+        Log.d(DEBUG_TAG, "trying to retrieve sequence " + sequenceId + " for " + id);
         if (id != null && sequenceId != null) {
             ArrayList<String> keys = panoramaxState != null ? panoramaxState.sequenceCache.get(sequenceId) : null;
             if (keys == null) {
@@ -150,7 +161,30 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
             panoramaxState.sequenceId = sequenceId;
             return;
         }
-        Log.e(DEBUG_TAG, "Sequence ID " + sequenceId + " ID " + id);
+        String message = activity.getString(R.string.toast_panoramax_sequence_error, sequenceId, id);
+        ScreenMessage.toastTopError(activity, message);
+        Log.e(DEBUG_TAG, message);
+    }
+
+    /**
+     * Try to determine the sequence id from the atributes
+     * 
+     * @param attributes the attributes
+     * @return the id or null if it can't be found
+     */
+    @Nullable
+    private String getSequenceId(@NonNull java.util.Map<String, Object> attributes) {
+        String sequenceId = (String) attributes.get(FIRST_SEQUENCE_KEY);
+        if (sequenceId == null) {
+            Object o = attributes.get(SEQUENCES_KEY);
+            if (o instanceof String) {
+                Matcher m = SEQUENCES_PATTERN.matcher((String) o);
+                if (m.find()) {
+                    sequenceId = m.group(1);
+                }
+            }
+        }
+        return sequenceId;
     }
 
     /**
@@ -169,9 +203,13 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
                 ImageViewerActivity.start(activity, ids, pos, new PanoramaxLoader(cacheDir, cacheSize, ids, panoramaxState.urlCache));
             }
             activity.runOnUiThread(() -> map.invalidate());
+            return;
         } else {
-            Log.e(DEBUG_TAG, "image id " + id + " not found in sequence");
+            Log.e(DEBUG_TAG, "Image id " + id + " not found in sequence");
         }
+        String message = activity.getString(R.string.toast_panoramax_image_not_in_sequence_error, id);
+        ScreenMessage.toastTopError(activity, message);
+        Log.e(DEBUG_TAG, message);
     }
 
     /**
@@ -182,6 +220,9 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
      */
     private class PanoramaxSequenceFetcher extends AbstractSequenceFetcher {
 
+        private static final String LINKS_KEY    = "links";
+        private static final String REL_KEY      = "rel";
+        private static final String NEXT_VALUE   = "next";
         private static final String FEATURES_KEY = "features";
         private static final String ASSETS_KEY   = "assets";
         private static final String HD_KEY       = "hd";
@@ -212,16 +253,27 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
         }
 
         @Override
-        protected ArrayList<String> getIds(JsonElement root) throws IOException {
+        protected ArrayList<String> getIds(JsonElement root, ArrayList<String> ids) throws IOException {
             JsonElement features = ((JsonObject) root).get(FEATURES_KEY);
             if (!(features instanceof JsonArray)) {
                 throw new IOException("features not a JsonArray");
             }
             JsonArray featuresArray = features.getAsJsonArray();
-            ArrayList<String> ids = new ArrayList<>();
             for (JsonElement element : featuresArray) {
                 if (element instanceof JsonObject) {
                     getIdAndUrl(ids, panoramaxState.urlCache, element);
+                }
+            }
+            // check for paginated response
+            JsonElement linksArray = ((JsonObject) root).get(LINKS_KEY);
+            if (linksArray instanceof JsonArray) {
+                for (JsonElement element : ((JsonArray) linksArray)) {
+                    if (element instanceof JsonObject && ((JsonObject) element).has(REL_KEY)
+                            && NEXT_VALUE.equals(((JsonObject) element).get(REL_KEY).getAsString())) {
+                        Log.d(DEBUG_TAG, "get next page");
+                        querySequence(new URL(((JsonObject) element).get(HREF_KEY).getAsString()), ids);
+                        break;
+                    }
                 }
             }
             return ids;
@@ -255,6 +307,7 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
             JsonElement href = ((JsonObject) hd).get(HREF_KEY);
             if (href == null) {
                 Log.e(DEBUG_TAG, "href not found in sequence from API for id " + idString);
+                return;
             }
             urls.put(idString, href.getAsString());
 

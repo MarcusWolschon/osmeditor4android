@@ -208,13 +208,12 @@ public class MapillaryOverlay extends AbstractImageOverlay {
         }
 
         @Override
-        protected ArrayList<String> getIds(JsonElement root) throws IOException {
+        protected ArrayList<String> getIds(JsonElement root, ArrayList<String> ids) throws IOException {
             JsonElement data = ((JsonObject) root).get(DATA_KEY);
             if (!(data instanceof JsonArray)) {
                 throw new IOException("data not a JsonArray");
             }
             JsonArray idArray = data.getAsJsonArray();
-            ArrayList<String> ids = new ArrayList<>();
             for (JsonElement element : idArray) {
                 if (element instanceof JsonObject) {
                     JsonElement temp = ((JsonObject) element).get(ID_KEY);
