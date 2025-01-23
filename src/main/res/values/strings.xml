@@ -151,6 +151,7 @@
     <string name="progress_message">Loading data into memory…</string>
     <string name="progress_download_message">Downloading data from server…</string>
     <string name="progress_download_tasks_message">Downloading tasks from servers…</string>
+    <string name="progress_download_sequence_message">Downloading sequence from server…</string>
     <string name="progress_general_title">Please wait</string>
     <string name="progress_deleting_message">Deleting…</string>
     <string name="progress_searching_message">Searching…</string>

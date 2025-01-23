@@ -32,6 +32,7 @@ import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.DateRangeDialog;
+import de.blau.android.dialogs.Progress;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.streetlevel.AbstractImageOverlay;
 import de.blau.android.layer.streetlevel.AbstractSequenceFetcher;
@@ -39,8 +40,10 @@ import de.blau.android.layer.streetlevel.ImageViewerActivity;
 import de.blau.android.photos.PhotoViewerFragment;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.DateFormatter;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.collections.MRUHashMap;
 import de.blau.android.util.mvt.VectorTileRenderer;
 import de.blau.android.util.mvt.style.Layer;
 import de.blau.android.util.mvt.style.Style;
@@ -70,20 +73,53 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
     /** this is the format used by panoramax */
     private final SimpleDateFormat dateFormat = DateFormatter.getUtcFormat("yyyy-MM-dd");
 
-    private static final String API_COLLECTIONS_ITEMS = "api/collections/%s/items";
+    private static final String API_COLLECTIONS_ITEMS = "api/collections/%s/items?limit=1000";
     private String              panoramaxSequencesUrl = Urls.DEFAULT_PANORAMAX_API_URL + API_COLLECTIONS_ITEMS;
 
     public static final String FILENAME = "panoramax" + "." + FileExtensions.RES;
 
-    static class State implements Serializable {
-        private static final long serialVersionUID = 2L;
+    private static final int MAX_IMAGE_IDS = 100; // max number of image ids left and right to send to the viewer
 
-        private String                                         sequenceId    = null;
-        private String                                         imageId       = null;
-        private final java.util.Map<String, ArrayList<String>> sequenceCache = new HashMap<>();
-        private final java.util.Map<String, String>            urlCache      = new HashMap<>();
-        private long                                           startDate     = 0L;
-        private long                                           endDate       = new Date().getTime();
+    static class State implements Serializable {
+        private static final long serialVersionUID = 3L;
+
+        private static final int RETAINED_SEQUENCES = 50;
+
+        private String                                      sequenceId    = null;
+        private String                                      imageId       = null;
+        private final MRUHashMap<String, ArrayList<String>> sequenceCache = new MRUHashMap<>(RETAINED_SEQUENCES);
+        private final java.util.Map<String, String>         urlCache      = new HashMap<>();
+        private long                                        startDate     = 0L;
+        private long                                        endDate       = new Date().getTime();
+
+        /**
+         * Add a sequence to the sequence cache, if the cache capacity is exceeded, entries will be removed from the url
+         * cache too
+         * 
+         * @param id the sequence id
+         * @param list the list of image ids in the sequence
+         */
+        void cacheSequence(@NonNull String id, @NonNull ArrayList<String> list) {
+            synchronized (urlCache) {
+                final ArrayList<String> removedList = sequenceCache.put(id, list);
+                Log.d(DEBUG_TAG, "Sequence cache size " + sequenceCache.size());
+                if (removedList != null) {
+                    new ExecutorTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void input) throws Exception {
+                            // remove entries from URL cache
+                            Log.d(DEBUG_TAG, "Removing " + removedList.size() + " entries from url cache");
+                            synchronized (urlCache) {
+                                for (String url : removedList) {
+                                    urlCache.remove(url);
+                                }
+                            }
+                            return null;
+                        }
+                    }.execute();
+                }
+            }
+        }
     }
 
     private State                     panoramaxState = new State();
@@ -105,7 +141,7 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
         } catch (Exception ex) {
             Log.e(DEBUG_TAG, "Unparsable tile url " + ex.getMessage());
         }
-        setDateRange(panoramaxState.startDate, panoramaxState.endDate);
+        setDateRange(0, new Date().getTime());
     }
 
     @Override
@@ -117,7 +153,7 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
     @Override
     public boolean onRestoreState(@NonNull Context ctx) {
         boolean result = super.onRestoreState(ctx);
-        if (panoramaxState == null) {
+        if (panoramaxState.sequenceCache.isEmpty()) {
             panoramaxState = savingHelper.load(ctx, FILENAME, true);
             if (panoramaxState != null) {
                 setSelected(panoramaxState.imageId);
@@ -147,13 +183,23 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
         if (id != null && sequenceId != null) {
             ArrayList<String> keys = panoramaxState != null ? panoramaxState.sequenceCache.get(sequenceId) : null;
             if (keys == null) {
-                try {
-                    Thread t = new Thread(null, new PanoramaxSequenceFetcher(activity, panoramaxSequencesUrl, sequenceId, id), "Panoramax Sequence");
-                    t.start();
-                } catch (SecurityException | IllegalThreadStateException e) {
-                    Log.e(DEBUG_TAG, "Unable to run SequenceFetcher " + e.getMessage());
-                    return;
-                }
+                new ExecutorTask<Void, Integer, Void>() {
+                    @Override
+                    protected void onPreExecute() {
+                        Progress.showDialog(activity, Progress.PROGRESS_DOWNLOAD_SEQUENCE);
+                    }
+
+                    @Override
+                    protected Void doInBackground(Void param) {
+                        new PanoramaxSequenceFetcher(activity, panoramaxSequencesUrl, sequenceId, id).run();
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD_SEQUENCE);
+                    }
+                }.execute();
             } else {
                 showImages(activity, id, keys);
             }
@@ -194,13 +240,20 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
      * @param id id of the image
      * @param ids list of all ids in the sequence
      */
-    private void showImages(@NonNull FragmentActivity activity, @NonNull String id, @NonNull ArrayList<String> ids) {
+    private void showImages(@NonNull FragmentActivity activity, @NonNull String id, @NonNull List<String> ids) {
         int pos = ids.indexOf(id);
+        // sequences can be very large, we show an excerpt of ~200 around the current position
+        ArrayList<String> tempIds = new ArrayList<>(ids.subList(Math.max(0, pos - MAX_IMAGE_IDS), Math.min(pos + MAX_IMAGE_IDS, ids.size())));
+        pos = tempIds.indexOf(id);
+        java.util.Map<String, String> tempUrlCache = new HashMap<>();
+        for (String tempId : tempIds) {
+            tempUrlCache.put(tempId, panoramaxState.urlCache.get(tempId));
+        }
         if (pos >= 0 && cacheDir != null) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                PhotoViewerFragment.showDialog(activity, ids, pos, new PanoramaxLoader(cacheDir, cacheSize, ids, panoramaxState.urlCache));
+                PhotoViewerFragment.showDialog(activity, tempIds, pos, new PanoramaxLoader(cacheDir, cacheSize, tempIds, tempUrlCache));
             } else {
-                ImageViewerActivity.start(activity, ids, pos, new PanoramaxLoader(cacheDir, cacheSize, ids, panoramaxState.urlCache));
+                ImageViewerActivity.start(activity, tempIds, pos, new PanoramaxLoader(cacheDir, cacheSize, tempIds, tempUrlCache));
             }
             activity.runOnUiThread(() -> map.invalidate());
             return;
@@ -248,12 +301,12 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
             if (panoramaxState == null) {
                 panoramaxState = new State();
             }
-            panoramaxState.sequenceCache.put(sequenceId, ids);
+            panoramaxState.cacheSequence(sequenceId, ids);
             showImages(activity, id, ids);
         }
 
         @Override
-        protected ArrayList<String> getIds(JsonElement root, ArrayList<String> ids) throws IOException {
+        protected URL getIds(JsonElement root, ArrayList<String> ids) throws IOException {
             JsonElement features = ((JsonObject) root).get(FEATURES_KEY);
             if (!(features instanceof JsonArray)) {
                 throw new IOException("features not a JsonArray");
@@ -271,12 +324,11 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
                     if (element instanceof JsonObject && ((JsonObject) element).has(REL_KEY)
                             && NEXT_VALUE.equals(((JsonObject) element).get(REL_KEY).getAsString())) {
                         Log.d(DEBUG_TAG, "get next page");
-                        querySequence(new URL(((JsonObject) element).get(HREF_KEY).getAsString()), ids);
-                        break;
+                        return new URL(((JsonObject) element).get(HREF_KEY).getAsString());
                     }
                 }
             }
-            return ids;
+            return null;
         }
 
         /**
@@ -371,8 +423,10 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
 
     @Override
     public void setDateRange(long start, long end) {
-        panoramaxState.startDate = start;
-        panoramaxState.endDate = end;
+        if (panoramaxState != null) {
+            panoramaxState.startDate = start;
+            panoramaxState.endDate = end;
+        }
         Style style = ((VectorTileRenderer) tileRenderer).getStyle();
         setDateRange(style, IMAGE_LAYER, start, end, timestampFormat);
         setDateRange(style, SEQUENCE_LAYER, start, end, dateFormat);

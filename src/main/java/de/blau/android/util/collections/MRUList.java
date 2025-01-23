@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * A list that can be used in a stack like fashion for implementing MRU (Most Recently Used) semantics
@@ -42,16 +43,20 @@ public class MRUList<T> extends ArrayList<T> {
      * Add o to top of stack, if o is already present move it there
      * 
      * @param o Object to push
+     * @return the Object removed from the list or null if there was none
      */
-    public void push(T o) {
+    @Nullable
+    public T push(T o) {
         int index = indexOf(o);
         if (index >= 0) {
             remove(index);
         }
+        T removed = null;
         if (size() >= capacity) {
-            remove(size() - 1);
+            removed = remove(size() - 1);
         }
         add(0, o);
+        return removed;
     }
 
     /**

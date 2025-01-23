@@ -50,9 +50,11 @@ public abstract class AbstractSequenceFetcher implements Runnable {
     public void run() {
         try {
             URL url = new URL(String.format(urlTemplate, sequenceId, apiKey));
-            Log.d(DEBUG_TAG, "query sequence: " + url.toString());
             ArrayList<String> ids = new ArrayList<>();
-            querySequence(url, ids);
+            do {
+                Log.d(DEBUG_TAG, "query sequence: " + url.toString());
+                url = querySequence(url, ids);
+            } while (url != null);
             saveIdsAndUpdate(ids);
         } catch (IOException ex) {
             Log.e(DEBUG_TAG, "query sequence failed with " + ex.getMessage());
@@ -60,18 +62,21 @@ public abstract class AbstractSequenceFetcher implements Runnable {
     }
 
     /**
-     * @param url
-     * @throws IOException
+     * query the api for a sequence
+     * 
+     * @param url the URL
+     * @throws IOException if IO goes wrong
      */
-    protected void querySequence(URL url, ArrayList<String> ids) throws IOException {
+    @Nullable
+    protected URL querySequence(@NonNull URL url, @NonNull ArrayList<String> ids) throws IOException {
         Request request = new Request.Builder().url(url).build();
         OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS).readTimeout(20000, TimeUnit.MILLISECONDS).build();
-        Call mapillaryCall = client.newCall(request);
-        Response mapillaryCallResponse = mapillaryCall.execute();
-        if (!mapillaryCallResponse.isSuccessful()) {
-            return;
+        Call call = client.newCall(request);
+        Response callResponse = call.execute();
+        if (!callResponse.isSuccessful()) {
+            return null;
         }
-        ResponseBody responseBody = mapillaryCallResponse.body();
+        ResponseBody responseBody = callResponse.body();
         try (InputStream inputStream = responseBody.byteStream()) {
             if (inputStream == null) {
                 throw new IOException("null InputStream");
@@ -85,7 +90,7 @@ public abstract class AbstractSequenceFetcher implements Runnable {
             if (!root.isJsonObject()) {
                 throw new IOException("root is not a JsonObject");
             }
-            getIds(root, ids);
+            return getIds(root, ids);
         }
     }
 
@@ -104,6 +109,6 @@ public abstract class AbstractSequenceFetcher implements Runnable {
      * @return a List of ids
      * @throws IOException if the ids can't be found
      */
-    @NonNull
-    protected abstract ArrayList<String> getIds(@NonNull JsonElement root, ArrayList<String> ids) throws IOException;
+    @Nullable
+    protected abstract URL getIds(@NonNull JsonElement root, ArrayList<String> ids) throws IOException;
 }
