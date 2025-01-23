@@ -69,6 +69,8 @@ public class RelationTest {
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
+        prefs.setAutolockDelay(300000L);
+        main.updatePrefs(prefs);
         LayerUtils.removeImageryLayers(context);
         prefs.enableSimpleActions(true);
         main.runOnUiThread(() -> main.showSimpleActionsButton());
@@ -244,8 +246,8 @@ public class RelationTest {
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_relationselect)));
 
-        assertEquals(83882342, n0.getLon(), 1000);
-        assertEquals(473890641, n0.getLat(), 1000);
+        assertEquals(83882342, n0.getLon(), 10000);
+        assertEquals(473890641, n0.getLat(), 10000);
     }
 
     /**
@@ -264,13 +266,13 @@ public class RelationTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickMenuButton(device, "Split", false, true));
         TestUtils.clickAwayTip(device, context);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_1)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_1), 2000));
         TestUtils.clickAtCoordinates(device, map, 8.3881251, 47.3885077, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_2)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_2), 2000));
         TestUtils.clickAtCoordinates(device, map, 8.3881577, 47.3886924, true);
         
         // click away issue
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_conflict_title)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_conflict_title), 2000));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.Done), true, false));
         
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));

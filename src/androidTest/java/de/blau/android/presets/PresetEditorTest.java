@@ -257,7 +257,9 @@ public class PresetEditorTest {
                 UiObject2 entry = TestUtils.findObjectWithText(device, false, TEST_PRESET_NAME, 100, false);
                 UiObject2 menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
                 menu.click();
-                TestUtils.clickText(device, false, main.getString(R.string.Delete), true);
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Delete), true));
+                assertTrue(TestUtils.findText(device, false,  main.getString(R.string.Delete)));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Yes), true));
                 TestUtils.clickHome(device, true);
                 App.resetPresets();
             } finally {

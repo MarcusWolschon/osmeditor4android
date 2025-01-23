@@ -31,6 +31,7 @@ import de.blau.android.SignalHandler;
 import de.blau.android.SignalUtils;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.Preferences;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -55,6 +56,9 @@ public class ElementInfoDialogTest {
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
+        Preferences prefs = new Preferences(context);
+        prefs.setAutolockDelay(300000L);
+        main.updatePrefs(prefs);
         LayerUtils.removeImageryLayers(context);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
