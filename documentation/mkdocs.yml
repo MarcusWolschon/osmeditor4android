@@ -13,6 +13,8 @@ markdown_extensions:
 extra:
   version: 20.2.0
   project: Vespucci
+exclude_docs: |
+  !.well-known
 nav:
 - Vespucci: 'index.md'
 - Introduction: 
