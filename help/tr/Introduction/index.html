@@ -391,48 +391,48 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
         </button>
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#vespucci-giris" class="nav-link">Vespucci Giriş</a>
+            <li class="nav-item" data-bs-level="1"><a href="#vespucci-giris" class="nav-link">Vespucci Giriş</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#vespucci-ile-duzenleme" class="nav-link">Vespucci ile düzenleme</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#using-gps-and-gpx-tracks" class="nav-link">Using GPS and GPX tracks</a>
+            <li class="nav-item" data-bs-level="2"><a href="#vespucci-ile-duzenleme" class="nav-link">Vespucci ile düzenleme</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
+            <li class="nav-item" data-bs-level="2"><a href="#using-gps-and-gpx-tracks" class="nav-link">Using GPS and GPX tracks</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#kapal-mekan-kipi" class="nav-link">Kapalı mekan kipi</a>
+            <li class="nav-item" data-bs-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#c-modu" class="nav-link">C-Modu</a>
+            <li class="nav-item" data-bs-level="2"><a href="#kapal-mekan-kipi" class="nav-link">Kapalı mekan kipi</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#suzgecler" class="nav-link">Süzgeçler</a>
+            <li class="nav-item" data-bs-level="2"><a href="#c-modu" class="nav-link">C-Modu</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#vespucciyi-ozellestirme" class="nav-link">Vespucci'yi Özelleştirme</a>
+            <li class="nav-item" data-bs-level="2"><a href="#suzgecler" class="nav-link">Süzgeçler</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
+            <li class="nav-item" data-bs-level="2"><a href="#vespucciyi-ozellestirme" class="nav-link">Vespucci'yi Özelleştirme</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -606,7 +606,7 @@ Artı işareti bir düğümün yakınındaysa (yani düğümün tolerans bölges
 <li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a <em>check_date</em> tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
 <li><strong>Regular expression</strong> - if checked <strong>Value</strong> is assumed to be a JAVA regular expression.</li>
 </ul>
-<p><strong> Anahtar </strong> ve <strong> Değer </strong>, söz konusu nesnenin _ mevcut _ etiketleriyle karşılaştırılır.</p>
+<p>** Anahtar ** ve ** Değer **, söz konusu nesnenin _ mevcut _ etiketleriyle karşılaştırılır.</p>
 <p>Standart ön ayarlardaki <em>Annotations</em> grubu, geçerli tarihle otomatik olarak bir <em>check_date</em> etiketi ekleyen bir öğe içerir.</p>
 <h4 id="girdileri-denetle">Girdileri denetle<a class="headerlink" href="#girdileri-denetle" title="Permanent link">#</a></h4>
 <p>Girdilerin aşağıdaki iki özelliğe sahip olduğunu denetleyin:</p>
@@ -614,7 +614,7 @@ Artı işareti bir düğümün yakınındaysa (yani düğümün tolerans bölges
 <li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
 <li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset.</li>
 </ul>
-<p>Bu kontrol, önce eşleşen ön ayarı belirleyerek ve ardından <strong> Anahtar </strong> ın ön ayara göre bu nesne için "önerilen" anahtar olup olmadığını kontrol ederek çalışır, <strong> İsteğe bağlı gerektirir </strong>, denetimi nesne üzerinde "isteğe bağlı * olan etiketlere genişletir. Not: Şu anda bağlantılı ön ayarlar kontrol edilmemiştir.</p>
+<p>Bu kontrol, önce eşleşen ön ayarı belirleyerek ve ardından ** Anahtar ** ın ön ayara göre bu nesne için "önerilen" anahtar olup olmadığını kontrol ederek çalışır, ** İsteğe bağlı gerektirir **, denetimi nesne üzerinde "isteğe bağlı * olan etiketlere genişletir. Not: Şu anda bağlantılı ön ayarlar kontrol edilmemiştir.</p>
 <h2 id="suzgecler">Süzgeçler<a class="headerlink" href="#suzgecler" title="Permanent link">#</a></h2>
 <h3 id="etiket-temelli-suzme">Etiket temelli süzme<a class="headerlink" href="#etiket-temelli-suzme" title="Permanent link">#</a></h3>
 <p>Bu filtre ana menüden devreye sokulabilir, filtre simgesine dokunulduğunda değişir. Daha fazla doküman burada bulunabilir  <a href="Tag%20filter.md">Tag filter</a>.</p>
@@ -657,48 +657,48 @@ Artı işareti bir düğümün yakınındaysa (yani düğümün tolerans bölges
 <p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
 <p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div> -->
 		    
-                    	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
         </button>
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#vespucci-giris" class="nav-link">Vespucci Giriş</a>
+            <li class="nav-item" data-bs-level="1"><a href="#vespucci-giris" class="nav-link">Vespucci Giriş</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#vespucci-ile-duzenleme" class="nav-link">Vespucci ile düzenleme</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#using-gps-and-gpx-tracks" class="nav-link">Using GPS and GPX tracks</a>
+            <li class="nav-item" data-bs-level="2"><a href="#vespucci-ile-duzenleme" class="nav-link">Vespucci ile düzenleme</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
+            <li class="nav-item" data-bs-level="2"><a href="#using-gps-and-gpx-tracks" class="nav-link">Using GPS and GPX tracks</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#kapal-mekan-kipi" class="nav-link">Kapalı mekan kipi</a>
+            <li class="nav-item" data-bs-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#c-modu" class="nav-link">C-Modu</a>
+            <li class="nav-item" data-bs-level="2"><a href="#kapal-mekan-kipi" class="nav-link">Kapalı mekan kipi</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#suzgecler" class="nav-link">Süzgeçler</a>
+            <li class="nav-item" data-bs-level="2"><a href="#c-modu" class="nav-link">C-Modu</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#vespucciyi-ozellestirme" class="nav-link">Vespucci'yi Özelleştirme</a>
+            <li class="nav-item" data-bs-level="2"><a href="#suzgecler" class="nav-link">Süzgeçler</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
+            <li class="nav-item" data-bs-level="2"><a href="#vespucciyi-ozellestirme" class="nav-link">Vespucci'yi Özelleştirme</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -872,7 +872,7 @@ Artı işareti bir düğümün yakınındaysa (yani düğümün tolerans bölges
 <li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a <em>check_date</em> tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
 <li><strong>Regular expression</strong> - if checked <strong>Value</strong> is assumed to be a JAVA regular expression.</li>
 </ul>
-<p><strong> Anahtar </strong> ve <strong> Değer </strong>, söz konusu nesnenin _ mevcut _ etiketleriyle karşılaştırılır.</p>
+<p>** Anahtar ** ve ** Değer **, söz konusu nesnenin _ mevcut _ etiketleriyle karşılaştırılır.</p>
 <p>Standart ön ayarlardaki <em>Annotations</em> grubu, geçerli tarihle otomatik olarak bir <em>check_date</em> etiketi ekleyen bir öğe içerir.</p>
 <h4 id="girdileri-denetle">Girdileri denetle<a class="headerlink" href="#girdileri-denetle" title="Permanent link">#</a></h4>
 <p>Girdilerin aşağıdaki iki özelliğe sahip olduğunu denetleyin:</p>
@@ -880,7 +880,7 @@ Artı işareti bir düğümün yakınındaysa (yani düğümün tolerans bölges
 <li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
 <li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset.</li>
 </ul>
-<p>Bu kontrol, önce eşleşen ön ayarı belirleyerek ve ardından <strong> Anahtar </strong> ın ön ayara göre bu nesne için "önerilen" anahtar olup olmadığını kontrol ederek çalışır, <strong> İsteğe bağlı gerektirir </strong>, denetimi nesne üzerinde "isteğe bağlı * olan etiketlere genişletir. Not: Şu anda bağlantılı ön ayarlar kontrol edilmemiştir.</p>
+<p>Bu kontrol, önce eşleşen ön ayarı belirleyerek ve ardından ** Anahtar ** ın ön ayara göre bu nesne için "önerilen" anahtar olup olmadığını kontrol ederek çalışır, ** İsteğe bağlı gerektirir **, denetimi nesne üzerinde "isteğe bağlı * olan etiketlere genişletir. Not: Şu anda bağlantılı ön ayarlar kontrol edilmemiştir.</p>
 <h2 id="suzgecler">Süzgeçler<a class="headerlink" href="#suzgecler" title="Permanent link">#</a></h2>
 <h3 id="etiket-temelli-suzme">Etiket temelli süzme<a class="headerlink" href="#etiket-temelli-suzme" title="Permanent link">#</a></h3>
 <p>Bu filtre ana menüden devreye sokulabilir, filtre simgesine dokunulduğunda değişir. Daha fazla doküman burada bulunabilir  <a href="Tag%20filter.md">Tag filter</a>.</p>
@@ -943,7 +943,7 @@ Artı işareti bir düğümün yakınındaysa (yani düğümün tolerans bölges
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>From here you can search these documents. Enter your search terms below.</p>
@@ -963,7 +963,7 @@ Artı işareti bir düğümün yakınındaysa (yani düğümün tolerans bölges
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <table class="table">
