@@ -3,6 +3,7 @@ package de.blau.android.util.collections;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -18,11 +19,6 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.collections.LongHashSet;
-import de.blau.android.util.collections.LongOsmElementMap;
-import de.blau.android.util.collections.MRUList;
-import de.blau.android.util.collections.MultiHashMap;
-import de.blau.android.util.collections.UnsignedSparseBitSet;
 import de.blau.android.util.rtree.RTree;
 
 public class CollectionTest {
@@ -203,10 +199,43 @@ public class CollectionTest {
         assertEquals(2, mru.size());
         assertEquals("bottom", mru.last());
 
+        assertFalse(mru.equals(new MRUList<String>(mru))); // the limit is different
+        assertFalse(mru.equals(new MRUList<String>(11)));
+
         mru.pushAll(Arrays.asList("1", "2"));
         assertEquals(4, mru.size());
         assertEquals("2", mru.last());
         mru.push("top");
         assertEquals(4, mru.size());
+        assertTrue(mru.remove("top"));
+        mru.clear();
+        assertEquals(0, mru.size());
+        assertTrue(mru.isEmpty());
+    }
+
+    @Test
+    public void mruHashMap() {
+        MRUHashMap<String, String> mruMap = new MRUHashMap<>(10);
+        for (int i = 0; i < 9; i++) {
+            assertNull(mruMap.put("key" + i, "value" + i));
+        }
+
+        MRUHashMap<String, String> mruMap2 = new MRUHashMap<>(10);
+        for (int i = 0; i < 9; i++) {
+            assertNull(mruMap2.put("key" + i, "value" + i));
+        }
+        assertTrue(mruMap.equals(mruMap2));
+        assertFalse(mruMap.equals(new MRUHashMap<String, String>(11)));
+
+        assertEquals(9, mruMap.size());
+        assertEquals("value8", mruMap.get("key8"));
+        assertNull(mruMap.put("key9", "value9"));
+        assertEquals(10, mruMap.size());
+        assertEquals("value0", mruMap.put("key10", "value10"));
+        assertEquals(10, mruMap.size());
+        assertEquals("value8", mruMap.remove("key8"));
+        mruMap.clear();
+        assertEquals(0, mruMap.size());
+        assertTrue(mruMap.isEmpty());
     }
 }

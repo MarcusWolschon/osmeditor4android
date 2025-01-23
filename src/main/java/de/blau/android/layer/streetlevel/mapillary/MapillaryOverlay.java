@@ -4,10 +4,10 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import com.google.gson.JsonArray;
@@ -38,6 +38,7 @@ import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.collections.MRUHashMap;
 import de.blau.android.util.mvt.VectorTileRenderer;
 import de.blau.android.util.mvt.style.Layer;
 import de.blau.android.util.mvt.style.Style;
@@ -71,13 +72,15 @@ public class MapillaryOverlay extends AbstractImageOverlay {
     public static final String FILENAME = "mapillary" + "." + FileExtensions.RES;
 
     static class State implements Serializable {
-        private static final long serialVersionUID = 4L;
+        private static final long serialVersionUID = 5L;
 
-        private String                                         sequenceId    = null;
-        private long                                           imageId       = 0;
-        private final java.util.Map<String, ArrayList<String>> sequenceCache = new HashMap<>();
-        private long                                           startDate     = 0L;
-        private long                                           endDate       = new Date().getTime();
+        private static final int RETAINED_SEQUENCES = 100;
+
+        private String                                      sequenceId    = null;
+        private long                                        imageId       = 0;
+        private final MRUHashMap<String, ArrayList<String>> sequenceCache = new MRUHashMap<>(RETAINED_SEQUENCES);
+        private long                                        startDate     = 0L;
+        private long                                        endDate       = new Date().getTime();
     }
 
     private State                     mapillaryState = new State();
@@ -99,7 +102,7 @@ public class MapillaryOverlay extends AbstractImageOverlay {
                 ScreenMessage.toastTopError(context, context.getString(R.string.toast_api_key_missing, APIKEY_KEY));
             }
         }
-        setDateRange(mapillaryState.startDate, mapillaryState.endDate);
+        setDateRange(0, new Date().getTime());
     }
 
     @Override
@@ -111,7 +114,7 @@ public class MapillaryOverlay extends AbstractImageOverlay {
     @Override
     public boolean onRestoreState(@NonNull Context ctx) {
         boolean result = super.onRestoreState(ctx);
-        if (mapillaryState == null) {
+        if (mapillaryState.sequenceCache.isEmpty()) {
             mapillaryState = savingHelper.load(ctx, FILENAME, true);
             if (mapillaryState != null) {
                 setSelected(mapillaryState.imageId);
@@ -208,7 +211,7 @@ public class MapillaryOverlay extends AbstractImageOverlay {
         }
 
         @Override
-        protected ArrayList<String> getIds(JsonElement root, ArrayList<String> ids) throws IOException {
+        protected URL getIds(JsonElement root, ArrayList<String> ids) throws IOException {
             JsonElement data = ((JsonObject) root).get(DATA_KEY);
             if (!(data instanceof JsonArray)) {
                 throw new IOException("data not a JsonArray");
@@ -222,7 +225,7 @@ public class MapillaryOverlay extends AbstractImageOverlay {
                     }
                 }
             }
-            return ids;
+            return null;
         }
     }
 
@@ -284,8 +287,10 @@ public class MapillaryOverlay extends AbstractImageOverlay {
 
     @Override
     public void setDateRange(long start, long end) {
-        mapillaryState.startDate = start;
-        mapillaryState.endDate = end;
+        if (mapillaryState != null) {
+            mapillaryState.startDate = start;
+            mapillaryState.endDate = end;
+        }
         Style style = ((VectorTileRenderer) tileRenderer).getStyle();
         setDateRange(style, IMAGE_LAYER, start, end, null);
         setDateRange(style, SEQUENCE_LAYER, start, end, null);
