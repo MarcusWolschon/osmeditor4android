@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +35,7 @@ import de.blau.android.osm.GeoJson;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.Way;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ScreenMessage;
@@ -47,7 +50,8 @@ import de.blau.android.util.Util;
  */
 public class FeatureInfo extends InfoDialogFragment {
 
-    private static final String DEBUG_TAG = FeatureInfo.class.getSimpleName().substring(0, Math.min(23, FeatureInfo.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, FeatureInfo.class.getSimpleName().length());
+    private static final String DEBUG_TAG = FeatureInfo.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String FEATURE_KEY = "feature";
     private static final String TITLE_KEY   = "title";
@@ -138,13 +142,7 @@ public class FeatureInfo extends InfoDialogFragment {
                 final Logic logic = App.getLogic();
                 logic.addElements(activity, elements);
                 if (activity instanceof Main) {
-                    logic.deselectAll();
-                    final OsmElement first = elements.get(0);
-                    if (Tags.isMultiPolygon(first)) {
-                        logic.setSelectedRelation((Relation) first);
-                    } else {
-                        logic.setSelection(elements);
-                    }
+                    selectElements(logic, elements);
                     ((Main) activity).getEasyEditManager().startElementSelectionMode();
                 }
             });
@@ -160,6 +158,34 @@ public class FeatureInfo extends InfoDialogFragment {
         builder.setTitle(getArguments().getInt(TITLE_KEY, R.string.feature_information));
         builder.setView(createView(null));
         return builder.create();
+    }
+
+    /**
+     * Select the generated elements
+     * 
+     * @param logic the current Logic instance
+     * @param elements the List of OsmElements
+     */
+    private void selectElements(@NonNull final Logic logic, @NonNull List<OsmElement> elements) {
+        logic.deselectAll();
+        final OsmElement last = elements.get(elements.size() - 1);
+        if (Tags.isMultiPolygon(last)) {
+            logic.setSelectedRelation((Relation) last);
+        } else {
+            switch (feature.geometry().type()) {
+            case GeoJSONConstants.LINESTRING:
+            case GeoJSONConstants.MULTILINESTRING:
+            case GeoJSONConstants.POLYGON:
+                for (OsmElement e : elements) {
+                    if (e instanceof Way) {
+                        logic.addSelectedWay((Way) e);
+                    }
+                }
+                break;
+            default:
+                logic.setSelection(elements);
+            }
+        }
     }
 
     @Override
