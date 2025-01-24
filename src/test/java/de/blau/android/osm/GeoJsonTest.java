@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -91,10 +92,14 @@ public class GeoJsonTest {
             assertNotNull(g.type());
             List<OsmElement> elements = GeoJson.toOsm(Feature.fromGeometry(g), 2000);
             assertNotNull(elements);
-            assertEquals(1, elements.size());
-            OsmElement w = elements.get(0);
+            assertEquals(4, elements.size());
+            OsmElement w = elements.get(3);
             assertTrue(w instanceof Way);
             assertEquals(3, ((Way) w).nodeCount());
+            List<Node> nodes = ((Way) w).getNodes();
+            assertTrue(elements.contains(nodes.get(0)));
+            assertTrue(elements.contains(nodes.get(1)));
+            assertTrue(elements.contains(nodes.get(2)));
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
@@ -110,11 +115,11 @@ public class GeoJsonTest {
             assertNotNull(g.type());
             List<OsmElement> elements = GeoJson.toOsm(Feature.fromGeometry(g), 2);
             assertNotNull(elements);
-            assertEquals(2, elements.size());
-            OsmElement w1 = elements.get(0);
+            assertEquals(5, elements.size());
+            OsmElement w1 = elements.get(3);
             assertTrue(w1 instanceof Way);
             assertEquals(2, ((Way) w1).nodeCount());
-            OsmElement w2 = elements.get(1);
+            OsmElement w2 = elements.get(4);
             assertTrue(w2 instanceof Way);
             assertEquals(2, ((Way) w2).nodeCount());
             assertEquals(((Way) w1).getLastNode(), ((Way) w2).getFirstNode());
@@ -133,11 +138,11 @@ public class GeoJsonTest {
             assertNotNull(g.type());
             List<OsmElement> elements = GeoJson.toOsm(Feature.fromGeometry(g), 2000);
             assertNotNull(elements);
-            assertEquals(2, elements.size());
-            OsmElement w = elements.get(0);
+            assertEquals(9, elements.size());
+            OsmElement w = elements.get(3);
             assertTrue(w instanceof Way);
             assertEquals(3, ((Way) w).nodeCount());
-            OsmElement w2 = elements.get(1);
+            OsmElement w2 = elements.get(8);
             assertTrue(w2 instanceof Way);
             assertEquals(4, ((Way) w2).nodeCount());
         } catch (Exception ex) {
@@ -146,7 +151,7 @@ public class GeoJsonTest {
     }
 
     /**
-     * Convert a GeoJson polygon to a single closed Way
+     * Convert a GeoJson polygon to closed way
      */
     @Test
     public void polygonTest() {
@@ -155,8 +160,8 @@ public class GeoJsonTest {
             assertNotNull(g.type());
             List<OsmElement> elements = GeoJson.toOsm(Feature.fromGeometry(g), 2000);
             assertNotNull(elements);
-            assertEquals(1, elements.size());
-            OsmElement w = elements.get(0);
+            assertEquals(5, elements.size());
+            OsmElement w = elements.get(4);
             assertTrue(w instanceof Way);
             assertEquals(5, ((Way) w).nodeCount());
             assertTrue(((Way) w).isClosed());
@@ -173,14 +178,18 @@ public class GeoJsonTest {
         try (InputStream input = getClass().getResourceAsStream("/geojson/polygonFeature.geojson")) {
             List<OsmElement> elements = GeoJson.toOsm(Feature.fromJson(inputStreamToString(input)), 3);
             assertNotNull(elements);
-            assertEquals(3, elements.size());
-            OsmElement e = elements.get(0);
-            assertTrue(Tags.isMultiPolygon(e));
-            OsmElement e2 = elements.get(1);
-            OsmElement e3 = elements.get(2);
-            assertNotNull(((Relation) e).getMember(e2));
-            assertNotNull(((Relation) e).getMember(e3));
-            assertTrue(e.hasTag("prop0", "value0"));
+            assertEquals(7, elements.size());
+            OsmElement r = elements.get(6);
+            assertTrue(Tags.isMultiPolygon(r));
+            OsmElement e2 = elements.get(4);
+            assertTrue(e2 instanceof Way);
+            assertTrue(e2.getParentRelations().contains(r));
+            OsmElement e3 = elements.get(5);
+            assertTrue(e3 instanceof Way);
+            assertTrue(e3.getParentRelations().contains(r));
+            assertNotNull(((Relation) r).getMember(e2));
+            assertNotNull(((Relation) r).getMember(e3));
+            assertTrue(r.hasTag("prop0", "value0"));
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
@@ -196,17 +205,17 @@ public class GeoJsonTest {
             assertNotNull(g.type());
             List<OsmElement> elements = GeoJson.toOsm(Feature.fromGeometry(g), 2000);
             assertNotNull(elements);
-            assertEquals(3, elements.size());
-            OsmElement e = elements.get(0);
-            assertTrue(Tags.isMultiPolygon(e));
-            OsmElement e2 = elements.get(1);
-            OsmElement e3 = elements.get(2);
-            RelationMember o1 = ((Relation) e).getMember(e2);
+            assertEquals(11, elements.size());
+            OsmElement r = elements.get(10);
+            assertTrue(Tags.isMultiPolygon(r));
+            OsmElement e2 = elements.get(5);
+            OsmElement e3 = elements.get(9);
+            RelationMember o1 = ((Relation) r).getMember(e2);
             assertNotNull(o1);
             assertEquals(Way.NAME, o1.getType());
             assertEquals(Tags.ROLE_OUTER, o1.getRole());
             assertTrue(((Way) o1.getElement()).isClosed());
-            RelationMember o2 = ((Relation) e).getMember(e3);
+            RelationMember o2 = ((Relation) r).getMember(e3);
             assertNotNull(o2);
             assertEquals(Way.NAME, o2.getType());
             assertEquals(Tags.ROLE_INNER, o2.getRole());
@@ -226,21 +235,61 @@ public class GeoJsonTest {
             assertNotNull(g.type());
             List<OsmElement> elements = GeoJson.toOsm(Feature.fromGeometry(g), 2000);
             assertNotNull(elements);
-            assertEquals(3, elements.size());
-            OsmElement e = elements.get(0);
-            assertTrue(Tags.isMultiPolygon(e));
-            OsmElement e2 = elements.get(1);
-            OsmElement e3 = elements.get(2);
-            RelationMember o1 = ((Relation) e).getMember(e2);
+            assertEquals(10, elements.size());
+            OsmElement r = elements.get(9);
+            assertTrue(Tags.isMultiPolygon(r));
+            OsmElement e2 = elements.get(3);
+            OsmElement e3 = elements.get(8);
+            RelationMember o1 = ((Relation) r).getMember(e2);
             assertNotNull(o1);
             assertEquals(Way.NAME, o1.getType());
             assertEquals(Tags.ROLE_OUTER, o1.getRole());
             assertTrue(((Way) o1.getElement()).isClosed());
-            RelationMember o2 = ((Relation) e).getMember(e3);
+            RelationMember o2 = ((Relation) r).getMember(e3);
             assertNotNull(o2);
             assertEquals(Way.NAME, o2.getType());
             assertEquals(Tags.ROLE_OUTER, o2.getRole());
             assertTrue(((Way) o2.getElement()).isClosed());
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
+
+    /**
+     * Convert a GeoJson multipolygon to a MP with two closed Ways as outers, force 2nd ring to be split
+     */
+    @Test
+    public void multiPolygonTest2() {
+        try (InputStream input = getClass().getResourceAsStream("/geojson/multiPolygon.geojson")) {
+            Geometry g = de.blau.android.util.GeoJson.geometryFromJson(inputStreamToString(input));
+            assertNotNull(g.type());
+            List<OsmElement> elements = GeoJson.toOsm(Feature.fromGeometry(g), 3);
+            assertNotNull(elements);
+            assertEquals(11, elements.size());
+            OsmElement r = elements.get(10);
+            assertTrue(Tags.isMultiPolygon(r));
+            OsmElement e2 = elements.get(3);
+            OsmElement e3 = elements.get(8);
+            OsmElement e4 = elements.get(8);
+            RelationMember o1 = ((Relation) r).getMember(e2);
+            assertNotNull(o1);
+            assertEquals(Way.NAME, o1.getType());
+            assertEquals(Tags.ROLE_OUTER, o1.getRole());
+            assertTrue(((Way) o1.getElement()).isClosed());
+            RelationMember o2 = ((Relation) r).getMember(e3);
+            assertNotNull(o2);
+            assertEquals(Way.NAME, o2.getType());
+            assertEquals(Tags.ROLE_OUTER, o2.getRole());
+            assertFalse(((Way) o2.getElement()).isClosed());
+            RelationMember o3 = ((Relation) r).getMember(e4);
+            assertNotNull(o3);
+            assertEquals(Way.NAME, o3.getType());
+            assertEquals(Tags.ROLE_OUTER, o3.getRole());
+            assertFalse(((Way) o3.getElement()).isClosed());
+            assertTrue(((Way) e4).hasNode(((Way) e3).getFirstNode()));
+            assertTrue(((Way) e4).hasNode(((Way) e3).getLastNode()));
+            assertTrue(((Way) e3).hasNode(((Way) e4).getFirstNode()));
+            assertTrue(((Way) e3).hasNode(((Way) e4).getLastNode()));
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
@@ -256,8 +305,8 @@ public class GeoJsonTest {
             assertNotNull(g.type());
             List<OsmElement> elements = GeoJson.toOsm(Feature.fromGeometry(g), 2000);
             assertNotNull(elements);
-            assertEquals(1, elements.size());
-            OsmElement e = elements.get(0);
+            assertEquals(5, elements.size());
+            OsmElement e = elements.get(3);
             assertEquals(Way.NAME, e.getName());
             assertTrue(((Way) e).isClosed());
         } catch (Exception ex) {
@@ -275,12 +324,12 @@ public class GeoJsonTest {
             assertNotNull(g.type());
             List<OsmElement> elements = GeoJson.toOsm(Feature.fromGeometry(g), 2000);
             assertNotNull(elements);
-            assertEquals(4, elements.size());
-            OsmElement e = elements.get(0);
+            assertEquals(15, elements.size());
+            OsmElement e = elements.get(14);
             assertTrue(Tags.isMultiPolygon(e));
-            OsmElement e2 = elements.get(1);
-            OsmElement e3 = elements.get(2);
-            OsmElement e4 = elements.get(3);
+            OsmElement e2 = elements.get(3);
+            OsmElement e3 = elements.get(9);
+            OsmElement e4 = elements.get(13);
             RelationMember o1 = ((Relation) e).getMember(e2);
             assertNotNull(o1);
             assertEquals(Way.NAME, o1.getType());
@@ -311,11 +360,15 @@ public class GeoJsonTest {
             assertNotNull(g.type());
             List<OsmElement> elements = GeoJson.toOsm(Feature.fromGeometry(g), 2000);
             assertNotNull(elements);
-            assertEquals(2, elements.size());
-            OsmElement w = elements.get(0);
+            for (OsmElement e : elements) {
+                System.out.println(e.getName() + e.getOsmId());
+            }
+            assertEquals(6, elements.size());
+            OsmElement w = elements.get(4);
             assertTrue(w instanceof Way);
             assertEquals(5, ((Way) w).nodeCount());
-            OsmElement n = elements.get(1);
+            assertTrue(((Way) w).isClosed());
+            OsmElement n = elements.get(5);
             assertTrue(n instanceof Node);
         } catch (Exception ex) {
             fail(ex.getMessage());

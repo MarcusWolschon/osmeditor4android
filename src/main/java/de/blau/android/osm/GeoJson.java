@@ -1,10 +1,14 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -23,11 +27,24 @@ import de.blau.android.util.GeoJSONConstants;
 /**
  * Methods to convert GeoJson objects to OSM elements
  * 
+ * The returned lists will be in element order nwr except for GeoJson MPs or Polygons with multiple rings, which will
+ * have nwnww...r
+ * 
+ * Caveats:
+ * 
+ * - polygons that can be modelled as an OSM simple closed ways will be returned as that (maybe this should be
+ * switchable)
+ * 
+ * - in geometrycollections points that are in the same position as points in the same position as vertexes of
+ * linear/area elements are not merged
+ * 
  * @author Simon Poole
  *
  */
 public final class GeoJson {
-    private static final String DEBUG_TAG = GeoJson.class.getSimpleName().substring(0, Math.min(23, GeoJson.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, GeoJson.class.getSimpleName().length());
+    private static final String DEBUG_TAG = GeoJson.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * Private constructor to stop instantiation
@@ -70,12 +87,18 @@ public final class GeoJson {
         JsonObject properties = f.properties();
         Map<String, String> tags = properties != null ? extractTags(properties) : null;
         if (!result.isEmpty() && tags != null) {
-            final OsmElement first = result.get(0);
-            if (Tags.isMultiPolygon(first)) {
-                tags.putAll(first.getTags());
-                first.setTags(tags);
+            final OsmElement last = result.get(result.size() - 1);
+            if (Tags.isMultiPolygon(last)) {
+                tags.putAll(last.getTags());
+                tags.put(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON); // setTags overwrites existing tags
+                last.setTags(tags);
             } else {
                 for (OsmElement e : result) {
+                    String geomType = f.geometry().type();
+                    if (e instanceof Node && (GeoJSONConstants.LINESTRING.equals(geomType) || GeoJSONConstants.MULTILINESTRING.equals(geomType)
+                            || GeoJSONConstants.POLYGON.equals(geomType))) {
+                        continue;
+                    }
                     e.setTags(tags);
                 }
             }
@@ -110,44 +133,7 @@ public final class GeoJson {
             result.addAll(pointsToWays(factory, ((CoordinateContainer<List<Point>>) g).coordinates(), maxNodes));
             break;
         case GeoJSONConstants.MULTIPOLYGON:
-            List<List<List<Point>>> polygons = ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates();
-            Relation mp = null;
-            for (List<List<Point>> polygon : polygons) {
-                List<OsmElement> p = polygonToOsm(factory, polygon, maxNodes);
-                // post process
-                if (p.isEmpty()) {
-                    Log.e(DEBUG_TAG, "polygonToOsm returned empty");
-                } else if (polygons.size() == 1) {
-                    result.addAll(p); // 1 simple polygon
-                } else {
-                    if (mp == null) {
-                        mp = createNewMp(factory);
-                        result.add(mp);
-                    }
-                    if (p.size() == 1) {
-                        OsmElement e = p.get(0);
-                        mp.addMember(new RelationMember(Tags.ROLE_OUTER, e));
-                        e.addParentRelation(mp);
-                        result.add(e);
-                    } else {
-                        for (OsmElement e : p) {
-                            if (Tags.isMultiPolygon(e)) {
-                                for (RelationMember rm : ((Relation) e).getMembers()) {
-                                    mp.addMember(rm);
-                                    final OsmElement element = rm.getElement();
-                                    if (element != null) {
-                                        element.clearParentRelations();
-                                        element.addParentRelation(mp);
-                                        result.add(element);
-                                    } else {
-                                        Log.e(DEBUG_TAG, "polygonToOsm returned relation member without element");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            result.addAll(multiPolygonsToOsm(factory, ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates(), maxNodes));
             break;
         case GeoJSONConstants.GEOMETRYCOLLECTION:
             List<Geometry> geometries = ((GeometryCollection) g).geometries();
@@ -157,8 +143,8 @@ public final class GeoJson {
             break;
         case GeoJSONConstants.MULTILINESTRING:
             for (List<Point> l : ((CoordinateContainer<List<List<Point>>>) g).coordinates()) {
-                List<Way> ways = pointsToWays(factory, l, maxNodes);
-                result.addAll(ways);
+                List<OsmElement> elements = pointsToWays(factory, l, maxNodes);
+                result.addAll(elements);
             }
             break;
         case GeoJSONConstants.POLYGON:
@@ -171,7 +157,54 @@ public final class GeoJson {
     }
 
     /**
-     * Create a new MP
+     * Convert a GeoJson multipolygons geometry to OsmElements
+     * 
+     * @param factory an instance of OsmFactory
+     * @param rings a list of list of rings
+     * @param maxNodes maximum number of Nodes in an OSM Way
+     * @return a List of OsmElements
+     */
+    @NonNull
+    private static List<OsmElement> multiPolygonsToOsm(OsmElementFactory factory, List<List<List<Point>>> polygons, int maxNodes) {
+        List<OsmElement> result = new ArrayList<>();
+        Relation mp = createNewMp(factory);
+        for (List<List<Point>> polygon : polygons) {
+            List<OsmElement> p = polygonToOsm(factory, polygon, maxNodes);
+            // post process
+            if (p.isEmpty()) {
+                Log.e(DEBUG_TAG, "polygonToOsm returned empty");
+                continue;
+            }
+            OsmElement lastElement = p.get(p.size() - 1);
+            if (polygon.size() == 1 && lastElement instanceof Way) {
+                for (OsmElement e : p) {
+                    addRingMember(mp, Tags.ROLE_OUTER, e);
+                    result.add(e);
+                }
+            } else if (Tags.isMultiPolygon(lastElement)) {
+                for (OsmElement e : p) {
+                    if (Tags.isMultiPolygon(e)) {
+                        continue;
+                    }
+                    result.add(e);
+                    // fixup way relation membership
+                    if (e instanceof Way) {
+                        RelationMember rm = ((Relation) lastElement).getMember(e);
+                        mp.addMember(rm);
+                        e.clearParentRelations();
+                        e.addParentRelation(mp);
+                    }
+                }
+            } else {
+                Log.e(DEBUG_TAG, "Unexpected last element " + lastElement.getName());
+            }
+        }
+        result.add(mp);
+        return result;
+    }
+
+    /**
+     * Create a new MP Relation
      * 
      * @param factory the current OsmElementFactory instance
      * @return a Multi-Polygon
@@ -188,7 +221,8 @@ public final class GeoJson {
     /**
      * Convert a GeoJson polygons geometry to OsmElements
      * 
-     * If this generated a MP, it will be the 1st element of the result
+     * If this generated a MP, it will be the last element of the result, for a single ring polygon it will try to
+     * generate an OSM closed way
      * 
      * @param factory an instance of OsmFactory
      * @param rings a list of rings
@@ -197,36 +231,52 @@ public final class GeoJson {
      */
     @NonNull
     private static List<OsmElement> polygonToOsm(@NonNull OsmElementFactory factory, @NonNull List<List<Point>> rings, int maxNodes) {
-        List<List<Way>> temp = new ArrayList<>();
-        for (List<Point> l : rings) {
-            List<Way> ways = pointsToWays(factory, l, maxNodes);
-            temp.add(ways);
+        List<List<OsmElement>> temp = new ArrayList<>();
+        for (List<Point> ring : rings) {
+            temp.add(pointsToWays(factory, ring, maxNodes));
         }
-        if (temp.size() == 1 && temp.get(0).size() == 1) {
-            // simple OSM polygon
-            return new ArrayList<>(temp.get(0));
-        } else {
-            // need to create a MP
-            Relation mp = createNewMp(factory);
-            List<OsmElement> result = new ArrayList<>();
-            result.add(mp);
-            // 1st ring is outer
-            List<Way> outer = temp.remove(0);
-            for (Way w : outer) {
-                mp.addMember(new RelationMember(Tags.ROLE_OUTER, w));
-                w.addParentRelation(mp);
-                result.add(w);
-            }
-            // the rest are inners
-            for (List<Way> inner : temp) {
-                for (Way w : inner) {
-                    // determine inner / outer from winding
-                    mp.addMember(new RelationMember(Tags.ROLE_INNER, w));
-                    w.addParentRelation(mp);
-                    result.add(w);
+        if (temp.size() == 1) { // just one ring
+            List<OsmElement> ring = temp.get(0);
+            int ringSize = ring.size();
+            if (ringSize > 0) {
+                OsmElement lastElement = ring.get(ringSize - 1);
+                if (lastElement instanceof Way && ((Way) lastElement).isClosed() && ((Way) lastElement).nodeCount() == ringSize) {
+                    // simple OSM polygon
+                    return temp.get(0);
                 }
             }
-            return result;
+        }
+        // need to create a MP
+        Relation mp = createNewMp(factory);
+        List<OsmElement> result = new ArrayList<>();
+        // 1st ring is outer
+        List<OsmElement> outer = temp.remove(0);
+        for (OsmElement e : outer) {
+            addRingMember(mp, Tags.ROLE_OUTER, e);
+            result.add(e);
+        }
+        // the rest are inners
+        for (List<OsmElement> inner : temp) {
+            for (OsmElement e : inner) {
+                addRingMember(mp, Tags.ROLE_INNER, e);
+                result.add(e);
+            }
+        }
+        result.add(mp);
+        return result;
+    }
+
+    /**
+     * Add a way to the multi-polygon with the specified role
+     * 
+     * @param mp the multi-polygon
+     * @param role the rolw
+     * @param e the element to potentionall< add
+     */
+    private static void addRingMember(@NonNull Relation mp, @NonNull String role, @Nullable OsmElement e) {
+        if (e instanceof Way) {
+            mp.addMember(new RelationMember(role, e));
+            e.addParentRelation(mp);
         }
     }
 
@@ -241,8 +291,8 @@ public final class GeoJson {
      * @return a List of Ways
      */
     @NonNull
-    private static List<Way> pointsToWays(@NonNull OsmElementFactory factory, @NonNull List<Point> coordinates, int maxNodes) {
-        List<Way> result = new ArrayList<>();
+    private static List<OsmElement> pointsToWays(@NonNull OsmElementFactory factory, @NonNull List<Point> coordinates, int maxNodes) {
+        List<OsmElement> result = new ArrayList<>();
         Way way = factory.createWayWithNewId();
         int nodeCount = 0;
         final int lastIndex = coordinates.size() - 1;
@@ -262,8 +312,14 @@ public final class GeoJson {
         }
         result.add(way);
         if (closed) {
-            way.addNode(result.get(0).getFirstNode());
+            way.addNode(((Way) result.get(0)).getFirstNode());
         }
+        // now add the nodes
+        Set<Node> nodes = new HashSet<>();
+        for (OsmElement e : result) {
+            nodes.addAll(((Way) e).getNodes());
+        }
+        result.addAll(0, nodes);
         return result;
     }
 
