@@ -1,5 +1,7 @@
 package de.blau.android.filter;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,11 +36,10 @@ import de.blau.android.util.SavingHelper;
  */
 public class PresetFilter extends CommonFilter {
 
-    /**
-     * 
-     */
-    private static final long   serialVersionUID = 7L;
-    private static final String DEBUG_TAG        = PresetFilter.class.getSimpleName().substring(0, Math.min(23, PresetFilter.class.getSimpleName().length()));
+    private static final long serialVersionUID = 7L;
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetFilter.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PresetFilter.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String                        FILENAME     = "lastpresetfilter" + "." + FileExtensions.RES;
     private transient SavingHelper<PresetElementPath> savingHelper = new SavingHelper<>();
@@ -95,7 +96,7 @@ public class PresetFilter extends CommonFilter {
         if (update != null) {
             update.execute();
         }
-        setIcon();
+        setIcon(context);
     }
 
     /**
@@ -147,20 +148,21 @@ public class PresetFilter extends CommonFilter {
     @Override
     protected Include filter(@NonNull OsmElement e) {
         Include include = Include.DONT;
-        if (preset != null) {
-            PresetItem item = Preset.findMatch(preset, e.getTags());
-            if (item != null) {
-                include = includeWayNodes ? Include.INCLUDE_WITH_WAYNODES : Include.INCLUDE;
-            }
-            if (include == Include.DONT) {
-                // check if it is a relation member
-                List<Relation> parents = e.getParentRelations();
-                if (parents != null) {
-                    for (Relation r : parents) {
-                        Include relationInclude = testRelation(r, false);
-                        if (relationInclude != null && relationInclude != Include.DONT) {
-                            return relationInclude; // inherit include status from relation
-                        }
+        if (preset == null) {
+            return include;
+        }
+        PresetItem item = Preset.findMatch(preset, e.getTags());
+        if (item != null) {
+            include = includeWayNodes ? Include.INCLUDE_WITH_WAYNODES : Include.INCLUDE;
+        }
+        if (include == Include.DONT) {
+            // check if it is a relation member
+            List<Relation> parents = e.getParentRelations();
+            if (parents != null) {
+                for (Relation r : parents) {
+                    Include relationInclude = testRelation(r, false);
+                    if (relationInclude != null && relationInclude != Include.DONT) {
+                        return relationInclude; // inherit include status from relation
                     }
                 }
             }
@@ -192,7 +194,7 @@ public class PresetFilter extends CommonFilter {
                     .inflate(prefs.followGPSbuttonPosition().equals(buttonPos) ? R.layout.tagfilter_controls_right : R.layout.tagfilter_controls_left, layout);
             presetFilterButton = (FloatingActionButton) controls.findViewById(R.id.tagFilterButton);
         }
-        setIcon();
+        setIcon(ctx);
         presetFilterButton.setClickable(true);
         presetFilterButton.setOnClickListener(b -> PresetFilterActivity.start(ctx));
         presetFilterButton.setAlpha(Main.FABALPHA);
@@ -202,11 +204,11 @@ public class PresetFilter extends CommonFilter {
     /**
      * Set the icon on the filter button
      */
-    private void setIcon() {
+    private void setIcon(@NonNull final Context ctx) {
         if (element != null && presetFilterButton != null) {
-            BitmapDrawable icon = element.getMapIcon(context);
+            BitmapDrawable icon = element.getMapIcon(ctx);
             if (icon != null && icon.getBitmap() != null) {
-                BitmapDrawable buttonIcon = new BitmapDrawable(context.getResources(), icon.getBitmap());
+                BitmapDrawable buttonIcon = new BitmapDrawable(ctx.getResources(), icon.getBitmap());
                 presetFilterButton.setImageDrawable(buttonIcon);
             } else {
                 presetFilterButton.setImageResource(R.drawable.ic_filter_list_black_36dp);
