@@ -77,7 +77,7 @@
 <ul>
 <li><strong>Change style</strong> Show the layer styling dialog.</li>
 <li><strong>Reset style</strong> Reset the style to the default.</li>
-<li><strong>Info</strong> Display some information on the contents.</li>
+<li><strong>Info</strong> Display some summary information on the layer.</li>
 <li><strong>Go to start of GPX track</strong> Center the display on the start of the track. <em>(not available on the recording layer)</em></li>
 <li><strong>Go to first waypoint</strong> Center the display on the first waypoint. <em>(not available on the recording layer)</em></li>
 <li><strong>Upload GPX track</strong> Upload the track to the OSM API. Note: the OSM API only accepts tracks with valid time stamps for each track point, if they are missing a time stamp corresponding to the UNIX epoch date will be added.</li>
@@ -139,7 +139,8 @@
 </li>
 </ul>
 <p>Custom tile layers, including on device MBTile containers can be added in the <a href="Preferences.md">preferences</a> or as decribed above..</p>
-<h3>Highlighting of data issues</h3>
+<h3>Layer specific information</h3>
+<h4>Highlighting of issues on the data layer</h4>
 <p>The included map styles highlight certain data issues, these are</p>
 <ul>
 <li>objects with 'fixme' and 'todo' tags (case insensitive) <em>magenta</em></li>
@@ -151,6 +152,9 @@
 <li>unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted <em>magenta</em></li>
 </ul>
 <p>The colours can be changed in the <a href="http://vespucci.io/tutorials/data_styling/#validation-styling">data style</a>.</p>
+<h4>GeoJSON layer</h4>
+<p>Clicked GeoJSON objects will display a modal with its details. Further you can copy the attributes from the object to the clipboard and paste them as tags in to an OSM element, or you can directly create an OSM element from the object.</p>
+<p><em>Note</em> GeoJSON Polygon objects that consist of a single ring will be converted to a OSM closed way if the ring has less than 2000 vertices (the limit for an OSM way element), all other Polygons and Multipolygons will be converted to OSM multipolygon relations. Nodes in GeoJSON GeometryCollections will not be merged with the vertices of linear and area elements in OSM. You might want to do the later manually.</p>
 <h2>Available Actions</h2>
 <h3><img src="../images/undolist_undo.png" alt="Undo" /> Undo</h3>
 <p>Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding &quot;redo&quot; checkpoint will be displayed. <em>Some operations consist of multiple simpler actions that will be listed as individual items.</em></p>

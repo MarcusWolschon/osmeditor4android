@@ -72,7 +72,7 @@ The layer dialog supports the following actions on the layer entries:
       Starting recording by the "Start GPX track" item in the GPS menu will add a layer for the recording. Layers for GPX files and downloaded tracks from the OSM API can be added via the __+__ button, see below.  
         * __Change style__ Show the layer styling dialog.
         * __Reset style__ Reset the style to the default.
-        * __Info__ Display some information on the contents.
+        * __Info__ Display some summary information on the layer. 
         * __Go to start of GPX track__ Center the display on the start of the track. *(not available on the recording layer)*
         * __Go to first waypoint__ Center the display on the first waypoint. *(not available on the recording layer)*
         * __Upload GPX track__ Upload the track to the OSM API. Note: the OSM API only accepts tracks with valid time stamps for each track point, if they are missing a time stamp corresponding to the UNIX epoch date will be added.
@@ -115,7 +115,9 @@ The layer dialog supports the following actions on the layer entries:
 Custom tile layers, including on device MBTile containers can be added in the [preferences](Preferences.md) 
 or as decribed above..
 
-### Highlighting of data issues
+### Layer specific information
+
+#### Highlighting of issues on the data layer
 
 The included map styles highlight certain data issues, these are
 
@@ -128,6 +130,12 @@ The included map styles highlight certain data issues, these are
 * unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted _magenta_
 
 The colours can be changed in the [data style](http://vespucci.io/tutorials/data_styling/#validation-styling).
+
+#### GeoJSON layer
+
+Clicked GeoJSON objects will display a modal with its details. Further you can copy the attributes from the object to the clipboard and paste them as tags in to an OSM element, or you can directly create an OSM element from the object. 
+
+_Note_ GeoJSON Polygon objects that consist of a single ring will be converted to a OSM closed way if the ring has less than 2000 vertices (the limit for an OSM way element), all other Polygons and Multipolygons will be converted to OSM multipolygon relations. Nodes in GeoJSON GeometryCollections will not be merged with the vertices of linear and area elements in OSM. You might want to do the later manually.
 
 
 ## Available Actions
