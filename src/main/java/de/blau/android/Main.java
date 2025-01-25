@@ -1010,7 +1010,7 @@ public class Main extends FullScreenAppCompatActivity
                 case ACTION_IMAGE_SELECT:
                     if (map != null) {
                         SelectImageInterface layer = (SelectImageInterface) map
-                                .getLayer((LayerType) intent.getSerializableExtra(NetworkImageLoader.LAYER_TYPE_KEY));
+                                .getLayer(Util.getSerializableExtra(intent, NetworkImageLoader.LAYER_TYPE_KEY, LayerType.class));
                         selectImageOnLayer(intent, layer);
                     }
                     break;
@@ -2315,7 +2315,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_transfer_export:
             descheduleAutoLock();
-            SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
+            SelectFile.save(this, null, R.string.config_osmPreferredDir_key, new SaveFile() {
                 private static final long serialVersionUID = 1L;
 
                 @Override
@@ -2374,12 +2374,20 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_transfer_save_file:
             descheduleAutoLock();
-            SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
+            SelectFile.save(this, MimeTypes.OSMXML, R.string.config_osmPreferredDir_key, new SaveFile() {
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public boolean save(FragmentActivity currentActivity, Uri fileUri) {
-                    App.getLogic().writeOsmFile(currentActivity, fileUri, new PostFileWriteCallback(currentActivity, fileUri.getPath()));
+
+                    App.getLogic().writeOsmFile(currentActivity, fileUri, new PostFileWriteCallback(currentActivity, fileUri.getPath()) {
+                        @Override
+                        public void onSuccess() {
+                            super.onSuccess();
+                            addExtensionIfNeeded(currentActivity, fileUri, FileExtensions.OSM);
+                        }
+                    });
+
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     return true;
                 }
@@ -2419,13 +2427,19 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_transfer_save_notes_all:
         case R.id.menu_transfer_save_notes_new_and_changed:
             descheduleAutoLock();
-            SelectFile.save(this, R.string.config_notesPreferredDir_key, new SaveFile() {
+            SelectFile.save(this, MimeTypes.OSNXML, R.string.config_notesPreferredDir_key, new SaveFile() {
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public boolean save(FragmentActivity currentActivity, Uri fileUri) {
                     TransferTasks.writeOsnFile(currentActivity, item.getItemId() == R.id.menu_transfer_save_notes_all, fileUri,
-                            new PostFileWriteCallback(currentActivity, fileUri.toString()));
+                            new PostFileWriteCallback(currentActivity, fileUri.toString()) {
+                                @Override
+                                public void onSuccess() {
+                                    super.onSuccess();
+                                    addExtensionIfNeeded(currentActivity, fileUri, FileExtensions.OSN);
+                                }
+                            });
                     SelectFile.savePref(prefs, R.string.config_notesPreferredDir_key, fileUri);
                     return true;
                 }
@@ -2702,12 +2716,18 @@ public class Main extends FullScreenAppCompatActivity
      * @param listName the todo list name or null for all // NOSONAR
      */
     private void writeTodos(@Nullable String listName) {
-        SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
+        SelectFile.save(this, MimeTypes.TODOJSON, R.string.config_osmPreferredDir_key, new SaveFile() {
             private static final long serialVersionUID = 1L;
 
             @Override
             public boolean save(FragmentActivity currentActivity, Uri fileUri) {
-                TransferTasks.writeTodoFile(currentActivity, fileUri, listName, true, null);
+                TransferTasks.writeTodoFile(currentActivity, fileUri, listName, true, new PostFileWriteCallback(currentActivity, fileUri.getPath()) {
+                    @Override
+                    public void onSuccess() {
+                        super.onSuccess();
+                        addExtensionIfNeeded(currentActivity, fileUri, FileExtensions.JSON);
+                    }
+                });
                 SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                 return true;
             }

@@ -254,7 +254,7 @@ public class ConsoleDialog extends DialogFragment {
                 activity.startActivity(shareIntent);
                 break;
             case R.id.console_menu_save:
-                SelectFile.save(activity, R.string.config_scriptsPreferredDir_key, new SaveFile() {
+                SelectFile.save(activity, null, R.string.config_scriptsPreferredDir_key, new SaveFile() {
                     private static final long serialVersionUID = 1L;
 
                     @Override

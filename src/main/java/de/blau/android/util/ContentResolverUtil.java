@@ -1,6 +1,9 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,8 @@ import de.blau.android.contract.Schemes;
 
 public final class ContentResolverUtil {
 
-    private static final String DEBUG_TAG = ContentResolverUtil.class.getSimpleName().substring(0, Math.min(23, ContentResolverUtil.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ContentResolverUtil.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ContentResolverUtil.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String PRIMARY                   = "primary";
     private static final String MY_DOWNLOADS              = "content://downloads/my_downloads";
@@ -152,6 +156,24 @@ public final class ContentResolverUtil {
         } else if (Schemes.CONTENT.equals(scheme)) {
             Log.i(DEBUG_TAG, "content scheme");
             return getDataColumn(context, uri, null, null);
+        }
+        return null;
+    }
+
+    /**
+     * Rename a file
+     * 
+     * @param context an Android Context
+     * @param uri the URI
+     * @param newName the new name
+     * @param the new uri or null
+     */
+    @Nullable
+    public static Uri rename(@NonNull Context context, @NonNull Uri uri, @NonNull String newName) {
+        try {
+            return DocumentsContract.renameDocument(context.getContentResolver(), uri, newName);
+        } catch (FileNotFoundException e) {
+            Log.e(DEBUG_TAG, e.getMessage());
         }
         return null;
     }
