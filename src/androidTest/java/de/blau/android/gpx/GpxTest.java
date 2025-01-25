@@ -43,6 +43,7 @@ import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
@@ -180,12 +181,14 @@ public class GpxTest {
         UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_gpx_recording), LayerDialogTest.MENU_BUTTON);
         menuButton.click();
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_export), false, false));
-        String filename = "" + System.currentTimeMillis() + ".gpx";
+        String filename = "" + System.currentTimeMillis();
         TestUtils.selectFile(device, main, null, filename, true, true);
 
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
         TestUtils.scrollTo(main.getString(R.string.layer_add_gpx), false);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
+        // should have extension now
+        filename = filename  + "." + FileExtensions.GPX;
         TestUtils.selectFile(device, main, null, filename, true);
 
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));

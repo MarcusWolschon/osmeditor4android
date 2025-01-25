@@ -1,6 +1,8 @@
 
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,8 @@ import de.blau.android.presets.PresetElement;
  */
 public final class SelectFile {
 
-    private static final String DEBUG_TAG = SelectFile.class.getSimpleName().substring(0, Math.min(23, SelectFile.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, SelectFile.class.getSimpleName().length());
+    private static final String DEBUG_TAG = SelectFile.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final int SAVE_FILE = 7113;
     public static final int READ_FILE = 9340;
@@ -65,15 +68,17 @@ public final class SelectFile {
      * Save a file
      * 
      * @param activity activity that called us
+     * @param mimeType the mime type to use, or null to not specifiy
      * @param directoryPrefKey string resources for shared preferences for preferred (last) directory
      * @param callback callback that does the actual saving, should call {@link #savePref(Preferences, int, Uri)}
      */
-    public static void save(@NonNull FragmentActivity activity, int directoryPrefKey, @NonNull de.blau.android.util.SaveFile callback) {
+    public static void save(@NonNull FragmentActivity activity, @Nullable String mimeType, int directoryPrefKey,
+            @NonNull de.blau.android.util.SaveFile callback) {
         synchronized (saveCallbackLock) {
             saveCallback = callback;
         }
         String path = App.getPreferences(activity).getString(directoryPrefKey);
-        startFileSelector(activity, Intent.ACTION_CREATE_DOCUMENT, SAVE_FILE, path, false);
+        startFileSelector(activity, Intent.ACTION_CREATE_DOCUMENT, SAVE_FILE, path, mimeType, false);
     }
 
     /**
@@ -98,7 +103,7 @@ public final class SelectFile {
             readCallback = readFile;
         }
         String path = App.getPreferences(activity).getString(directoryPrefKey);
-        startFileSelector(activity, Intent.ACTION_OPEN_DOCUMENT, READ_FILE, path, allowMultiple);
+        startFileSelector(activity, Intent.ACTION_OPEN_DOCUMENT, READ_FILE, path, null, allowMultiple);
     }
 
     /**
@@ -108,11 +113,16 @@ public final class SelectFile {
      * @param intentAction the intent action we want to use
      * @param intentRequestCode the request code
      * @param path a directory path to try to start with
+     * @param mimeType mime type to use, null to not specify
      */
     private static void startFileSelector(@NonNull FragmentActivity activity, @NonNull String intentAction, int intentRequestCode, @Nullable String path,
-            boolean allowMultiple) {
+            String mimeType, boolean allowMultiple) {
         Intent i = new Intent(intentAction);
-        i.setType("*/*");
+        if (mimeType == null) {
+            i.setType("*/*");
+        } else {
+            i.setTypeAndNormalize(mimeType);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && path != null) {
             i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
         }

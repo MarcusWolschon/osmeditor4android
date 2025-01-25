@@ -1179,7 +1179,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                 });
                 item = menu.add(R.string.menu_gps_export);
                 item.setOnMenuItemClickListener(unused -> {
-                    SelectFile.save(activity, R.string.config_osmPreferredDir_key, new SaveFile() {
+                    SelectFile.save(activity, MimeTypes.GPX, R.string.config_osmPreferredDir_key, new SaveFile() {
                         private static final long serialVersionUID = 1L;
 
                         @Override
@@ -1189,6 +1189,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                                 final Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
                                 if (track != null) {
                                     SavingHelper.asyncExport(currentActivity, track, fileUri);
+                                    SaveFile.addExtensionIfNeeded(currentActivity, fileUri, FileExtensions.GPX);
                                     SelectFile.savePref(App.getLogic().getPrefs(), R.string.config_osmPreferredDir_key, fileUri);
                                 }
                             }
