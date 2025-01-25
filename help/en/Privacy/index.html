@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Privacy - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem active">
-                                <a href="./" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem active">
-                                    
-                                        <a href="./" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Privacy</a>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../../../tutorials/faq/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" class="nav-link disabled">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -419,45 +400,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="privacy-statement">Privacy statement<a class="headerlink" href="#privacy-statement" title="Permanent link">#</a></h1>
-<p>Vespucci is a collaboratively developed app for editing OpenStreetMap data via its editing API. The developers do not collect, store or otherwise process any personal data related to your usage of the app, you should however be aware of the following:</p>
-<ul>
-<li>Using the OpenStreetMap Foundations infrastructure and contributing to OpenStreetMap is subject to the <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy">OSMFs privacy policy</a> and <a href="https://wiki.osmfoundation.org/wiki/Terms_of_Use">Terms of Use</a>, you should have studied these when you created your OpenStreetMap account and should be aware of the privacy consequences.</li>
-<li>Vespucci automatically adds an indication of the app name and version ( <strong>created_by</strong> changeset tag), the background imagery used ( <strong>imagery_used</strong> changeset tag) and the locale (language) setting of your device ( <strong>locale</strong> changeset tag). This information is currently visible to anybody visiting the openstreetmap.org website or processing changeset data.</li>
-<li>The vespucci.io site and the Vespucci source code repository and issue tracker is hosted on <a href="https://help.github.com/articles/github-privacy-statement/">github (likely in the USA)</a> the developers have no access to any data on use of the site, IP addresses or similar.</li>
-<li>Using the <em>Provide feedback</em> functionality without a github account will create an issue that contains information on your device (you can review that prior to submitting the data) and, if available, your OpenStreetMap display name so that we can contact you with any questions. You can have the information removed by sending mail to the e-mail address below. Processing of this data is based on a legitimate interest of the developers see <a href="https://gdpr-info.eu/art-6-gdpr/">GDPR Art 6.(1) f)</a>.</li>
-<li>Crash dumps contain IP addresses, detailed information on your device and log information from your device immediately before the crash. This information is stored on a server operated by Simon Poole and located in Germany, when you submit a report. The information is deleted after 90 days if it is not required further for issue identification and resolution, general web server logfiles are retained for 15 days. None of this data is shared with 3rd parties. Processing of this data is based on a legitimate interest of the developers see <a href="https://gdpr-info.eu/art-6-gdpr/">GDPR Art 6.(1) f)</a>.</li>
-<li>Updating background, overlay and other layers will result in your device connecting to the <a href="https://josm.openstreetmap.de">JOSM project</a> or <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index github repo</a> and using the layers will connect you to the sites of the respective operators. More information on the provenance of such layers can be found via the per layer information displays, or from the respective source repositories.</li>
-<li>Using the Tasks layer can result in your device connecting to the OSMOSE QA service operated by <a href="http://openstreetmap.fr/">OpenStreetMap France</a>.</li>
-<li>Accessing the OpenAerialMap catalogue and retrieving imagery from the service will transmit your IP address and other information to its operator, which might be governed by this <a href="https://www.hotosm.org/privacy">privacy policy</a>.</li>
-<li>Using the Mapillary layer will connect your devices to services operated by Mapillary AB, Sweden, <a href="https://www.mapillary.com/privacy">privacy policy</a>.</li>
-<li>Installing the app from Amazon, google or F-Droid requires you to access these sites and potentially submit personal data (at least IP addresses) to them. </li>
-<li>Recording a GPX track, or starting location based auto-download, will lead to a service continuously updating your current position, including when you navigate away from the app for example by starting a different application. If GPX recording is enabled the location information will be stored on your device until you explicitly clear it or de-install the app. Such location access will stop if you either turn recording or auto-download off, or exit the app. No location information is made available to the Vespucci developers or other third parties. It is at your sole discretion how to use the recorded location data, for example if you upload it to OpenStreetMap or if you use it simply for private documentation. A notification is persistently displayed as long as the service is actively using location data. </li>
-<li>Background and overlay layers are generally operated by third parties over which we have no control. Links to their privacy policies are provided if available. A one time metadata retrieval call per session is required for use of the Bing orthoimagery layer, this happens in an asynchronous fashion when imagery is being configured regardless if you are using the Bing layer or not. You can disable this behaviour by removing the Bing key from the configuration, see the FAQs for more information. </li>
-</ul>
-<p>If you have questions with respect to this document, please feel free to contact us at privacy@vespucci.io</p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#privacy-statement" class="nav-link">Privacy statement</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="privacy-statement">Privacy statement<a class="headerlink" href="#privacy-statement" title="Permanent link">#</a></h1>
 <p>Vespucci is a collaboratively developed app for editing OpenStreetMap data via its editing API. The developers do not collect, store or otherwise process any personal data related to your usage of the app, you should however be aware of the following:</p>
@@ -476,21 +419,20 @@
 <li>Background and overlay layers are generally operated by third parties over which we have no control. Links to their privacy policies are provided if available. A one time metadata retrieval call per session is required for use of the Bing orthoimagery layer, this happens in an asynchronous fashion when imagery is being configured regardless if you are using the Bing layer or not. You can disable this behaviour by removing the Bing key from the configuration, see the FAQs for more information. </li>
 </ul>
 <p>If you have questions with respect to this document, please feel free to contact us at privacy@vespucci.io</p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>OpenStreetMap åpningstid-redigerer - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -413,131 +394,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="openstreetmap-apningstid-redigerer">OpenStreetMap åpningstid-redigerer<a class="headerlink" href="#openstreetmap-apningstid-redigerer" title="Permanent link">#</a></h1>
-<p>OpenStreetMap-åpningstidenes spesifikasjoner er ganske kompliserte og gir seg ikke lett til et enkelt og intuitivt brukergrensesnitt.</p>
-<p>Men for det meste bruker du sannsynligvis bare en liten del av definisjonen. Redaktøren tar dette med i betraktningen ved å prøve å skjule de mer obskure funksjonene i menyer, og mesteparten av tiden reduserer bruken "på veien" til små tilpasninger av forhåndsdefinerte maler.</p>
-<p><em>Denne dokumentasjonen er foreløpig og et arbeid som pågår</em></p>
-<h2 id="bruker-apningstid-redigerer">Bruker åpningstid redigerer<a class="headerlink" href="#bruker-apningstid-redigerer" title="Permanent link">#</a></h2>
-<p>I en typisk arbeidsflyt vil objektet du redigerer enten allerede ha en åpningstidsmerke (åpnings_tider, service_tider and hente_tider) , eller du kan bruke forhåndsinnstillingen på nytt for objektet for å få et tomme åpningstidsfelt. Hvis du trenger å legge til feltet manuelt og du bruker Vespucci, kan du skrive inn nøkkelen på informasjonssiden og deretter bytte tilbake til den skjemabaserte fanen for å redigere. Hvis du mener at åpningskoden burde vært en del av forhåndsinnstillingen, kan du åpne et problem for redaktøren.</p>
-<p>Hvis du har definert en standardmal (gjør dette via menypunktet "Administrer maler") vil den lastes automatisk når editoren startes med en tom verdi. Med funksjonen "Last inn mal" kan du laste inn hvilken som helst lagret mal og med menyen "Lagre mal" kan du lagre gjeldende verdi som en mal. Du kan definere separate maler og standardinnstillinger for spesifikke nøkkel, for eksempel "opening_hours", "collection_times" og "service_times" eller egendefinerte verdier. Videre kan du begrense anvendeligheten av en mal til en region og en spesifikk identifikator, vanligvis en OSM-tag på toppnivå (for eksempel amenity=restaurant).</p>
-<p>Naturligvis kan du bygge en åpningstidsverdi fra bunnen av, men vi anbefaler at du bruker en av de eksisterende malene som utgangspunkt. </p>
-<p>Hvis en eksisterende åpningstidsverdi lastes inn, blir det forsøkt å korrigere den automatisk for å være i samsvar med spesifikasjonen for åpningstider. Hvis dette ikke er mulig, blir den grove plasseringen der feilen oppstod, uthevet i visningen av den rå OH-verdien, og du kan prøve å rette den manuelt. Omtrent en fjerdedel av OH-verdiene i OpenStreetMap-databasen har problemer, men mindre enn 10% kan ikke korrigeres. Se [OpeningHoursParser] (https://github.com/simonpoole/OpeningHoursParser) for mer informasjon om hvilke avvik fra spesifikasjon tolereres. </p>
-<h3 id="hovedmenyknapp">Hovedmenyknapp<a class="headerlink" href="#hovedmenyknapp" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>Legg til regel</strong>: legg til en ny regel.</li>
-<li><strong>Legg til regel for helligdager</strong>: legg til en ny regel for en ferie sammen med en statlig endring.</li>
-<li><strong>Legg til regel for 24 / 7</strong>: legg til en regel for et objekt som alltid er åpent, åpningstid spesifikasjonen støtter ikke andre underverdier for 24/7, men vi tillater å legge til høyere nivånivåer (for eksempel års områder).</li>
-<li><strong>Last mal</strong>: last inn en eksisterende mal.</li>
-<li>__ Lagre til mal__: lagre gjeldende åpningstidsverdi som en mal for fremtidig bruk.</li>
-<li><strong>Håndter maler</strong>: rediger, for eksempel endre navn, og slett eksisterende maler.</li>
-<li><strong>Refresh</strong>: parse åpningstidsverdien på nytt.</li>
-<li><strong>Slette alle</strong>: fjern alle regler.</li>
-</ul>
-<h3 id="regler">Regler<a class="headerlink" href="#regler" title="Permanent link">#</a></h3>
-<p>Standard regel er lagt til som <em>normal</em> regel, dette innebærer at de vil overstyre verdiene til tidligere regler for de samme dagene. Det kan være en bekymring når du spesifiserer lengre tider, vanligvis vil du da bytte regler via <em>Vis regel type</em> meny innlegg til <em>additiv</em>.</p>
-<h4 id="regelmeny">Regelmeny<a class="headerlink" href="#regelmeny" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>Legg til modifikasjon / kommentar</strong>: endre effekten av denne regelen og legg til en valgfri kommentar.</li>
-<li><strong>Legg til ferie</strong>: legg til en velger for helligdager eller skoleferier.</li>
-<li><strong>Legg til tidsrom ...</strong><ul>
-<li><strong>Tid - tid</strong>: en starttid til en sluttid på samme dag.</li>
-<li><strong>Tid - utvidet tid</strong>: en starttid til en sluttid neste dag (eksempel 26:00 er 02:00 (am) neste dag). </li>
-<li><strong>Var. tid - tid</strong>: fra en startvariabel tid (soloppgang, skumring, soloppgang og solnedgang) til sluttid på samme dag. </li>
-<li><strong>Var. tid - utvidet tid</strong>: fra en startvariabel tid til en sluttid neste dag. </li>
-<li><strong>Tid - var. tid</strong>: en start tid til en sluttvariabel tid.</li>
-<li><strong>Var. tid - var. tid</strong>: en startvariabel tid til en sluttvariabel tid.</li>
-<li><strong>Tid</strong>: et tidspunkt.</li>
-<li><strong>Tid-åpen slutt</strong>: fra et startpunkt fremover i tid.</li>
-<li><strong>Variert tid</strong>: på variert tid</li>
-<li><strong>Variert Tid-åpen slut</strong>: fra en start variert fremover i tid</li>
-</ul>
-</li>
-<li><strong>Legg til uke dag rekkevidde</strong>: og en ukedag basert velger.</li>
-<li><strong>Legg til datoperiode ...</strong><ul>
-<li><strong>Dato - dato</strong>: fra en start dato (år, måned, dag) til en sluttdato.</li>
-<li><strong>Variert dato - dato </strong>: fra en start variert dato (for tiden spesifikasjonen  kun defineres <em>påske</em>) til en sluttdato .</li>
-<li><strong>Dato - variert dato</strong>: fra en start dato til en variert dato.</li>
-<li><strong>Variert dato- variert dato</strong>: fra en start variert dato til en slutt variert dato.</li>
-<li><strong>Oppkomst i måned - forekomst i måned</strong>: fra en start ukedag hendelse  i en måned til den samme. </li>
-<li><strong>Hendelse i måned - dato</strong>: fra en start ukedag i en måned til en sluttdato.</li>
-<li><strong>Date - hendelse i måned</strong>: fra en startdato til en slutt på ukedagen i en måned. </li>
-<li><strong>Hendelse i måned - variabel dato</strong>: fra en start ukedag hendelse i en måned til en slutt variabel dato.</li>
-<li><strong>Variabel dato - hendelse i måned</strong>: fra en start variabel dato til en slutt på ukedag i en måned. </li>
-<li><strong>Dato - åpen slutt</strong>: fra en startdato og fremover.</li>
-<li><strong>Variabel dato - åpen slutt</strong>: fra en startvariabel dato og fremover.</li>
-<li><strong>Forekomst i måned - åpen slutt</strong>: fra en start ukedag hendelse om en måned og utover.</li>
-<li><strong>Med forskyvninger ...</strong>: de samme oppføringene som nevnt ovenfor(dette blir sjelden brukt).</li>
-</ul>
-</li>
-<li><strong>Legg til årsområde...</strong><ul>
-<li><strong>Legg til årsområde</strong>: legg til en årsbasert velger.</li>
-<li><strong>Legg til startår</strong>: legg til et åpent årsområde.</li>
-</ul>
-</li>
-<li><strong>Legg til ukes rekkevidde </strong>: legg til et uke nummer basert velger.</li>
-<li><strong>Dupliser</strong>: opprett en kopi av denne regelen og legg den in etter the nåværende posisjon.</li>
-<li><strong>Vis regeltype</strong>: vis og tillat endring av regeltypen <em>normal</em>, <em>additiv</em> og <em>tilbakefall</em> (ikke tilgjengelig på den første regelen).</li>
-<li><strong>Flytt opp</strong>: flytt denne regelen opp en posisjon (ikke tilgjengelig på den første regelen). </li>
-<li><strong>Flytt ned</strong>: flytt denne regelen ned en posisjon.</li>
-<li><strong>Delete</strong>: slett denne regelen.</li>
-</ul>
-<h3 id="tidsrom">Tidsrom<a class="headerlink" href="#tidsrom" title="Permanent link">#</a></h3>
-<p>For å gjøre redigeringstiden så enkel som mulig, vi prøver å velge et optimalt tidsområde og granularitet for områdelinjene når vi laster inn eksisterende verdier.  For nye tidsperioder begynner stolpene klokka 6:00 (am) og har trinn på 15 minutter, dette kan endres via menyen. </p>
-<p>Ved å klikke (ikke på pinnene) åpner tidslinjen den store tidsvelgeren, når det er vanskelig å bruke linjene direkte. Tidsvelgerne utvides til neste dag, så de er en enkel måte å utvide et tidsintervall uten å måtte slette og legge til området på nytt. </p>
-<h4 id="tidsrom-meny">Tidsrom meny<a class="headerlink" href="#tidsrom-meny" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>VIs tidsvelger </strong>: vis  en stor tidsvelger for valg av start og sluttid, på en veldig liten skjermer dette er den foretrukne måten av skiftende tider.</li>
-<li><strong>Bryt til 15 minutters tikk</strong>: bruk 15 minutters granularitet for rekkevidde linjen.</li>
-<li><strong>Bytt til 5 minutt tikk</strong>: bruk 5 minutt granularitet for rekkevidde linje. </li>
-<li><strong>Bytt til 1 minutt tikk</strong>: bruk 1 minutt granularitet for områdelinja, veldig vanskelig å bruke på en telefon.</li>
-<li><strong>Start i midnatt</strong>: start rekkevidden linje ved midnatt.</li>
-<li><strong>Vis intervall</strong>: vis intervallfeltet for å spesifisere et intervall i minutter.</li>
-<li><strong>Delete</strong>: slett dette tidsrommet.</li>
-</ul>
-<h3 id="administrer-maler">Administrer maler<a class="headerlink" href="#administrer-maler" title="Permanent link">#</a></h3>
-<p>Malbehandlingsdialoggen lar deg legge til, redigere og slette maler.</p>
-<p>I Android 4.4 og nyere er følgende tilleggsfunksjonalitet tilgjengelig fra menyknappen.</p>
-<ul>
-<li><strong>Vis alle</strong>: vis alle maler i databasen.</li>
-<li><strong>Lagre til fil</strong>: skriv innholdet i maldatabasen til en fil.</li>
-<li><strong>Last fra fil (erstatt)</strong>: last inn maler fra en fil som erstatter gjeldende innhold i databasen.</li>
-<li><strong>Last fra fil</strong>: last inn maler fra en fil som beholder det gjeldende innholdet.</li>
-</ul>
-<h4 id="lagre-og-rediger-maldialogger">Lagre og rediger maldialogger<a class="headerlink" href="#lagre-og-rediger-maldialogger" title="Permanent link">#</a></h4>
-<p>Dialogen lar deg stille inn</p>
-<ul>
-<li><strong>Navn</strong> et beskrivende navn for malen.</li>
-<li><strong>Standard</strong> hvis det er merket av, vil dette bli vurdert som en standardmal (vanligvis ytterligere begrenset av de andre feltene).</li>
-<li><strong>Key</strong> nøkkelen denne malen er relevant for, hvis satt til <em>Egendefinert nøkkel</em> kan du legge til en ikke-standard verdi i feltet nedenfor. Nøkkelverdiene støtter SQL-jokertegn, det vil si at <em>%</em> samsvarer med null eller flere tegn, <em>_</em> samsvarer med et enkelt tegn. Begge jokertegnene kan rømte med <em>\</em> for bokstavelige treff.</li>
-<li><strong>Region</strong> regionen malen gjelder for.</li>
-<li><strong>Objekt</strong> en applikasjonsspesifikk streng som skal brukes for matching.</li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#openstreetmap-apningstid-redigerer" class="nav-link">OpenStreetMap åpningstid-redigerer</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#bruker-apningstid-redigerer" class="nav-link">Bruker åpningstid redigerer</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="openstreetmap-apningstid-redigerer">OpenStreetMap åpningstid-redigerer<a class="headerlink" href="#openstreetmap-apningstid-redigerer" title="Permanent link">#</a></h1>
 <p>OpenStreetMap-åpningstidenes spesifikasjoner er ganske kompliserte og gir seg ikke lett til et enkelt og intuitivt brukergrensesnitt.</p>
@@ -638,21 +495,20 @@
 <li><strong>Region</strong> regionen malen gjelder for.</li>
 <li><strong>Objekt</strong> en applikasjonsspesifikk streng som skal brukes for matching.</li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

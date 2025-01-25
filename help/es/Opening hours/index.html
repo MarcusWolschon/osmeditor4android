@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Editor de horario de apertura de OpenStreetMap - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -413,131 +394,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="editor-de-horario-de-apertura-de-openstreetmap">Editor de horario de apertura de OpenStreetMap<a class="headerlink" href="#editor-de-horario-de-apertura-de-openstreetmap" title="Permanent link">#</a></h1>
-<p>La especificación de horario de apertura en OpenStreetMap es bastante compleja y no se presta fácilmente a una interfaz de usuario simple e intuitiva.</p>
-<p>Sin embargo, la mayoría de las veces probablemente solo usarás una pequeña parte de la definición. El editor tiene esto en cuenta al intentar ocultar las funciones más confusas en los menús y, la mayoría de las veces, reduce el uso "en la calle" a pequeñas personalizaciones de plantillas predefinidas.</p>
-<p><em>Esta documentación es preliminar y un trabajo en progreso.</em></p>
-<h2 id="uso-del-editor-de-horario-de-apertura">Uso del editor de horario de apertura<a class="headerlink" href="#uso-del-editor-de-horario-de-apertura" title="Permanent link">#</a></h2>
-<p>En un flujo de trabajo típico, el objeto que estás editando ya tendrá una etiqueta de horario de apertura (<code>opening_hours</code>, <code>service_times</code> y <code>collection_times</code>) o puedes volver a aplicar el preajuste para el objeto y obtener un campo de horario de apertura vacío. Si necesitas agregar el campo manualmente y estás usando Vespucci, puedes ingresar la clave en la página de detalles y luego volver a la pestaña basada en formulario para editar. Si crees que la etiqueta de horario de apertura debería haber sido parte del preajuste, abre un reporte de error para tu editor.</p>
-<p>Si has definido una plantilla predeterminada (hazlo a través del elemento del menú "Administrar plantillas"), se cargará automáticamente cuando se inicie el editor con un valor vacío. Con la función "Cargar plantilla" puedes cargar cualquier plantilla guardada y con el menú "Guardar plantilla" puedes guardar el valor actual como plantilla. Puedes definir plantillas separadas y valores predeterminados para claves específicas, por ejemplo, "opening_hours", "collection_times" y "service_times" o valores personalizados. Además, puedes limitar la aplicabilidad de una plantilla a una región y un identificador específico, generalmente una etiqueta de nivel superior de OSM (por ejemplo, <code>amenity=restaurant</code>).</p>
-<p>Naturalmente, puedes crear un valor de horario de apertura desde cero, pero recomendamos usar una de las plantillas existentes como punto de partida.</p>
-<p>Si se carga un valor de horario de apertura existente, se intentará corregirlo automáticamente para que se ajuste a la especificación de horario de apertura. Si eso no es posible, se resaltará la ubicación aproximada donde se produjo el error en la visualización del valor bruto del horario de apertura, y puedes intentar corregirlo manualmente. Aproximadamente una cuarta parte de los valores de horario de apertura en la base de datos de OpenStreetMap tienen problemas, pero menos del 10 % no se pueden corregir; consulta <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para obtener más información sobre qué desviaciones de la especificación se toleran.</p>
-<h3 id="boton-del-menu-principal">Botón del menú principal<a class="headerlink" href="#boton-del-menu-principal" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>Añadir regla</strong>: añade una nueva regla.</li>
-<li><strong>Añadir regla para días festivos</strong>: añade una nueva regla para un día festivo junto con un cambio de estado.</li>
-<li><strong>Añadir regla para 24/7</strong>: añade una regla para un objeto que siempre está abierto; la especificación de horario de apertura no admite ningún otro subvalor para 24/7; sin embargo, sí permitimos añadir selectores de nivel superior (por ejemplo, rangos de años).</li>
-<li><strong>Cargar plantilla</strong>: carga una plantilla existente.</li>
-<li><strong>Guardar a plantilla</strong>: guarda el valor actual del horario de apertura como una plantilla para uso futuro.</li>
-<li><strong>Administrar plantillas</strong>: edita (por ejemplo, cambia el nombre) y elimina las plantillas existentes.</li>
-<li><strong>Actualizar</strong>: vuelve a analizar el valor del horario de apertura.</li>
-<li><strong>Eliminar todo</strong>: elimina todas las reglas.</li>
-</ul>
-<h3 id="reglas">Reglas<a class="headerlink" href="#reglas" title="Permanent link">#</a></h3>
-<p>Las reglas predeterminadas se añaden como reglas <em>normales</em>; esto implica que anularán los valores de las reglas anteriores para los mismos días. Esto puede ser un problema al especificar horarios extendidos; por lo general, en ese caso querrás cambiar las reglas a <em>aditivas</em> a través de la entrada del menú <em>Mostrar tipo de regla</em>.</p>
-<h4 id="menu-regla">Menú Regla<a class="headerlink" href="#menu-regla" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>Añadir modificador/comentario</strong>: cambia el efecto de esta regla y añade un comentario opcional.</li>
-<li><strong>Añadir día festivo</strong>: añade un selector para días festivos o vacaciones escolares.</li>
-<li><strong>Añadir intervalo de tiempo...</strong><ul>
-<li><strong>Hora - Hora</strong>: una hora de inicio y una hora de fin en el mismo día.</li>
-<li><strong>Hora - Hora extendida</strong>: una hora de inicio hasta una hora de fin al día siguiente (por ejemplo, 26:00 es las 02:00 (a. m.) del día siguiente).</li>
-<li><strong>Hora var. - Hora</strong>: desde una hora de inicio variable (amanecer, atardecer, alba y crepúsculo) hasta una hora de fin en el mismo día.</li>
-<li><strong>Hora var. - Hora extendida</strong>: desde una hora de inicio variable hasta una hora de fin al día siguiente.</li>
-<li><strong>Hora - Hora var.</strong>: una hora de inicio y una hora de fin variable.</li>
-<li><strong>Hora var. - Hora var.</strong>: una hora de inicio variable y una hora de fin variable.</li>
-<li><strong>Hora</strong>: un punto en el tiempo.</li>
-<li><strong>Hora - Fin abierto</strong>: desde un punto de inicio en el tiempo en adelante.</li>
-<li><strong>Hora variable</strong>: a la hora variable.</li>
-<li><strong>Hora variable - Fin abierto</strong>: desde una hora de inicio variable en adelante.</li>
-</ul>
-</li>
-<li><strong>Añadir rango de días de la semana</strong>: añade un selector basado en el día de la semana.</li>
-<li><strong>Añadir rango de fechas...</strong><ul>
-<li><strong>Fecha - Fecha</strong>: desde una fecha de inicio (año, mes, día) hasta una fecha de fin.</li>
-<li><strong>Fecha variable - Fecha</strong>: desde una fecha de inicio variable (actualmente la especificación solo define <em>Pascua</em>) hasta una fecha de fin.</li>
-<li><strong>Fecha - Fecha variable</strong>: desde una fecha de inicio hasta una fecha variable.</li>
-<li><strong>Fecha variable - Fecha variable</strong>: desde una fecha de inicio variable hasta una fecha de fin variable.</li>
-<li><strong>Ocurrencia en mes - Ocurrencia en mes</strong>: desde una ocurrencia de día de la semana de inicio en un mes hasta la misma.</li>
-<li><strong>Ocurrencia en mes - Fecha</strong>: desde una ocurrencia de día de la semana de inicio en un mes hasta una fecha de fin.</li>
-<li><strong>Fecha - Ocurrencia en mes</strong>: desde una fecha de inicio hasta una ocurrencia de día de la semana de fin en un mes.</li>
-<li><strong>Ocurrencia en mes - Fecha variable</strong>: desde una ocurrencia de día de la semana de inicio en un mes hasta una fecha variable de fin.</li>
-<li><strong>Fecha variable - Ocurrencia en mes</strong>: desde una fecha variable de inicio hasta una ocurrencia de día de la semana de fin en un mes.</li>
-<li><strong>Fecha - Fin abierto</strong>: desde una fecha de inicio en adelante.</li>
-<li><strong>Fecha variable - Fin abierto</strong>: desde una fecha de inicio variable en adelante.</li>
-<li><strong>Ocurrencia en mes - Fin abierto</strong>: desde una ocurrencia de un día de la semana en un mes en adelante.</li>
-<li><strong>Con desfases…</strong>: las mismas entradas que las anteriores, pero con desfases especificados (esto se utiliza con poca frecuencia).</li>
-</ul>
-</li>
-<li><strong>Añadir rango de años…</strong>    <ul>
-<li><strong>Añadir rango de años</strong>: añade un selector basado en el año.</li>
-<li><strong>Añadir año de inicio</strong>: añade un rango de años con final abierto.</li>
-</ul>
-</li>
-<li><strong>Añadir rango de semana</strong>: agrega un selector basado en el número de semana.</li>
-<li><strong>Duplicar</strong>: crea una copia de esta regla y la inserta después de la posición actual.</li>
-<li><strong>Mostrar tipo de regla</strong>: muestra y permite cambiar el tipo de regla: <em>normal</em>, <em>aditiva</em> y <em>de reserva</em> (no disponible en la primera regla).</li>
-<li><strong>Ascender</strong>: sube esta regla una posición (no disponible en la primera regla).</li>
-<li><strong>Bajar</strong>: baja esta regla una posición.</li>
-<li><strong>Eliminar</strong>: elimina esta regla.</li>
-</ul>
-<h3 id="intervalos-de-tiempo">Intervalos de tiempo<a class="headerlink" href="#intervalos-de-tiempo" title="Permanent link">#</a></h3>
-<p>Para que la edición de intervalos de tiempo sea lo más sencilla posible, intentamos elegir un rango de tiempo y una granularidad óptimos para las barras de rango al cargar valores existentes. Para intervalos de tiempo nuevos, las barras comienzan a las 6:00 (a. m.) y tienen incrementos de 15 minutos; esto se puede cambiar a través del menú.</p>
-<p>Al hacer clic en la barra de tiempo (no en los marcadores), se abrirá el selector de tiempo grande, cuando el uso directo de las barras sea demasiado difícil. Los selectores de tiempo se extienden hasta el día siguiente, por lo que son una forma sencilla de extender un rango de tiempo sin tener que eliminar y volver a agregar el rango.</p>
-<h4 id="menu-de-intervalo-de-tiempo">Menú de intervalo de tiempo<a class="headerlink" href="#menu-de-intervalo-de-tiempo" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>Mostrar selector de tiempo</strong>: muestra un selector de tiempo grande para seleccionar la hora de inicio y finalización; en pantallas muy pequeñas, esta es la forma preferida de cambiar las horas.</li>
-<li><strong>Cambiar a intervalos de 15 minutos</strong>: usa una granularidad de 15 minutos para la barra de rango.</li>
-<li><strong>Cambiar a intervalos de 5 minutos</strong>: usa una granularidad de 5 minutos para la barra de rango.</li>
-<li><strong>Cambiar a intervalos de 1 minuto</strong>: usa una granularidad de 1 minuto para la barra de rango (muy difícil de usar en un teléfono).</li>
-<li><strong>Comenzar a medianoche</strong>: inicia la barra de rango a medianoche.</li>
-<li><strong>Mostrar intervalo</strong>: muestra el campo de intervalo para especificar un intervalo en minutos.</li>
-<li><strong>Eliminar</strong>: elimina este intervalo de tiempo.</li>
-</ul>
-<h3 id="administrar-plantillas">Administrar plantillas<a class="headerlink" href="#administrar-plantillas" title="Permanent link">#</a></h3>
-<p>El cuadro de diálogo de administración de plantillas te permite agregar, editar y eliminar plantillas.</p>
-<p>En Android 4.4 y versiones posteriores, la siguiente funcionalidad adicional está disponible en el botón de menú.</p>
-<ul>
-<li><strong>Mostrar todo</strong>: muestra todas las plantillas en la base de datos.</li>
-<li><strong>Guardar en archivo</strong>: escribe el contenido de la base de datos de plantillas en un archivo.</li>
-<li><strong>Cargar desde archivo (reemplazar)</strong>: carga plantillas desde un archivo reemplazando el contenido actual de la base de datos.</li>
-<li><strong>Cargar desde archivo</strong>: carga plantillas desde un archivo conservando el contenido actual.</li>
-</ul>
-<h4 id="cuadros-de-dialogo-para-guardar-y-editar-plantillas">Cuadros de diálogo para guardar y editar plantillas<a class="headerlink" href="#cuadros-de-dialogo-para-guardar-y-editar-plantillas" title="Permanent link">#</a></h4>
-<p>El cuadro de diálogo te permite configurar:</p>
-<ul>
-<li><strong>Nombre</strong>: un nombre descriptivo para la plantilla.</li>
-<li><strong>Predeterminado</strong>: si está marcado, se considerará como una plantilla predeterminada (normalmente más restringida por los otros campos).</li>
-<li><strong>Clave</strong>: la clave para la que esta plantilla es relevante; si se establece en <em>Clave personalizada</em>, puedes agregar un valor no estándar en el campo de abajo. Los valores de clave admiten comodines SQL, es decir, <em>%</em> coincide con cero o más caracteres, <em>_</em> coincide con un solo carácter. Ambos caracteres comodín se pueden escapar con <em>\</em> para coincidencias literales.</li>
-<li><strong>Región</strong>: la región a la que se aplica la plantilla.</li>
-<li><strong>Objeto</strong>: una cadena específica de la aplicación para usar en la coincidencia.</li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#editor-de-horario-de-apertura-de-openstreetmap" class="nav-link">Editor de horario de apertura de OpenStreetMap</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#uso-del-editor-de-horario-de-apertura" class="nav-link">Uso del editor de horario de apertura</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="editor-de-horario-de-apertura-de-openstreetmap">Editor de horario de apertura de OpenStreetMap<a class="headerlink" href="#editor-de-horario-de-apertura-de-openstreetmap" title="Permanent link">#</a></h1>
 <p>La especificación de horario de apertura en OpenStreetMap es bastante compleja y no se presta fácilmente a una interfaz de usuario simple e intuitiva.</p>
@@ -638,21 +495,20 @@
 <li><strong>Región</strong>: la región a la que se aplica la plantilla.</li>
 <li><strong>Objeto</strong>: una cadena específica de la aplicación para usar en la coincidencia.</li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Conflict resolution - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../Uploading%20your%20changes/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../Presets/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -419,53 +400,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="conflict-resolution">Conflict resolution<a class="headerlink" href="#conflict-resolution" title="Permanent link">#</a></h1>
-<p>Vespucci provides basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity by downloading only small areas, refreshing them often and saving changes frequently.</p>
-<p>The OSM API reports conflicts one by one. The upload will abort at the first error and you will need to resolve that and then re-upload, fix the next issue and so on, exceptions noted below. If you suspect that your edits have caused more than a handful of conflicts you can save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM, if you prefer using a desktop computer.</p>
-<h3 id="version-conflicts">Version conflicts<a class="headerlink" href="#version-conflicts" title="Permanent link">#</a></h3>
-<p>The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, or resolve the issue by </p>
-<ul>
-<li><em>using the local version</em> - this simply increments the version of the local element. This leads to your local version overwriting any changes made on the server to the element.</li>
-<li><em>merging tags in to the server version</em> - this retains the server side geometry but merges the local tags in to the server version of the tags, you will be notified if there are conflict between the tags and you can address any tagging issues before re-trying the upload.</li>
-<li><em>merging tags in to the local version</em> - the behaviour is as above, but this variant retains the local geometry.</li>
-<li><em>using the server version</em> - this replaces the local version of the element with the server version, overwriting any changes you made locally.</li>
-</ul>
-<h3 id="referential-conflicts">Referential conflicts<a class="headerlink" href="#referential-conflicts" title="Permanent link">#</a></h3>
-<p>While Vespucci attempts to avoid this happening, a referential conflict can occur when you delete an object locally, and the server still has objects that refer to the deleted one, which haven't been modified accordingly or you have local elements that refer to elements that have been deleted on the server.</p>
-<p>In the first scenario you can resolve the issue by (for each element)</p>
-<ul>
-<li><em>undoing the local deletion</em> - this will utilize Vespuccis undo system to locate and undo the undo checkpoint that deleted the element, note that this may result in other elements being changed too.</li>
-<li><em>deleting the references on the server</em> this will download the relevant elements and delete them, adding them to the upload for deletion on the server.</li>
-</ul>
-<p>In the second scenario, you can, again per element</p>
-<ul>
-<li><em>delete the element locally</em> - this will delete the element locally.</li>
-<li><em>undelete the element on the server</em> - this will upload the local element as a new, no longer deleted, version.</li>
-</ul>
-<h3 id="deleting-an-element-that-has-already-been-deleted">Deleting an element that has already been deleted<a class="headerlink" href="#deleting-an-element-that-has-already-been-deleted" title="Permanent link">#</a></h3>
-<p>This is the easiest to handle conflict and Vespucci will automatically retry the upload after removing the deleted element from the to be uploaded data.</p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#conflict-resolution" class="nav-link">Conflict resolution</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="conflict-resolution">Conflict resolution<a class="headerlink" href="#conflict-resolution" title="Permanent link">#</a></h1>
 <p>Vespucci provides basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity by downloading only small areas, refreshing them often and saving changes frequently.</p>
@@ -492,21 +427,20 @@
 </ul>
 <h3 id="deleting-an-element-that-has-already-been-deleted">Deleting an element that has already been deleted<a class="headerlink" href="#deleting-an-element-that-has-already-been-deleted" title="Permanent link">#</a></h3>
 <p>This is the easiest to handle conflict and Vespucci will automatically retry the upload after removing the deleted element from the to be uploaded data.</p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

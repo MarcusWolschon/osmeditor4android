@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>14.0.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../14.1.0%20Release%20notes/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../13.1.0%20Release%20notes/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -433,107 +414,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="vespucci-140-highlights">Vespucci 14.0 Highlights<a class="headerlink" href="#vespucci-140-highlights" title="Permanent link">#</a></h1>
-<p>2019-10-20</p>
-<h3 id="changes-in-download-menu">Changes in download menu<a class="headerlink" href="#changes-in-download-menu" title="Permanent link">#</a></h3>
-<p>We've now removed the "Download at other location" as the functionality can just as well be obtained by using the find function and then downloading. The <em>Download current view</em> function now merges data, to replace the data in memory you will need to selec <em>Clear and download current view</em>. </p>
-<p>These changes makes the behaviour more similar to JOSM and reduces some unnecessary clutter.</p>
-<h3 id="automatically-apply-preset-when-property-editor-is-invoked">Automatically apply preset when property editor is invoked<a class="headerlink" href="#automatically-apply-preset-when-property-editor-is-invoked" title="Permanent link">#</a></h3>
-<p>This is a significant behaviour change relative to earlier versions. When the property editor is invoked the best preset will be applied (without optional tags), in other words fields will be shown with empty values for such tags.</p>
-<p>Automatically applying the preset has some dangers as, depending on the preset, existing values could be overwritten, if that happens a warning will be shown.</p>
-<p>The feature can be turned off in the <a href="../Advanced%20preferences/">Advanced preferences</a>.</p>
-<h3 id="pan-and-zoom-auto-downloading">Pan and zoom auto downloading<a class="headerlink" href="#pan-and-zoom-auto-downloading" title="Permanent link">#</a></h3>
-<p>This release adds support for downloading data and tasks in a more conventional way by retrieving the data covered by the current screen. To keep the amount of data in memory in check a manual facility to prune the data in storage to the screen contents (plus a tolerance) is available via the layer dialog entries for the data and task layers. Additionally the data layer will try to "auto-prune" the stored data once it has reached a configurable number of Nodes in memory  <a href="../Advanced%20preferences/">Advanced preferences</a>. </p>
-<p>The auto-download speed limit preferences will be observed both for data and tasks. </p>
-<p>IMPORTANT: this facility should only be used with caution as it has the potential to severely tax both the OpenStreetMap APIs and your device. The former can be 
-reduced by using an offline data source.</p>
-<p>CAVEAT: if you are using an offline data source you should complete all your edits in the area before uploading, as uploading makes new or modified data eligible for pruning and re-visiting the same area before updating the read-only source would give you stale data. Instead of uploading regularly you can save your changes either as a JOSM style OSM file or as in OSC format. </p>
-<h3 id="internal-photo-viewer">Internal photo viewer<a class="headerlink" href="#internal-photo-viewer" title="Permanent link">#</a></h3>
-<p>The internal viewer is used be default in place of trying to start an external on device gallery or viewer app, it allows deleting and "sharing" of photos directly from Vespucci. When started via a click on a photo icon it will load references to all photos currently in view. </p>
-<p>In the current version the photo is shown in a dialog, however we intend to integrate it in a split window view in the future.</p>
-<p>The feature can be turned off in the <a href="../Advanced%20preferences/">Advanced preferences</a>.</p>
-<h3 id="incremental-preset-search">Incremental preset search<a class="headerlink" href="#incremental-preset-search" title="Permanent link">#</a></h3>
-<p>THe preset search will now search while you are typing and display the results directly in the preset display. As we integrated the name suggestion index in to the same search in 13.1, the separately available name search dialog in non-simple mode has been removed.</p>
-<h3 id="on-the-fly-custom-presets">On-the-fly custom presets<a class="headerlink" href="#on-the-fly-custom-presets" title="Permanent link">#</a></h3>
-<p><em>This is an experimental feature.</em></p>
-<p>A custom preset can be built from existing tags in the "Details" view in the property editor. Select the tags you want to include, then select "Create custom preset" from the menu and then enter a name when you are prompted. The new preset can then be found in the "Auto-preset" group.</p>
-<p>The function tries to do the "right thing" by not including the values for tags that have "name" semantics, and setting the current value for combo and multi-select fields as the default value.</p>
-<h3 id="tip-display-function">"Tip" display function<a class="headerlink" href="#tip-display-function" title="Permanent link">#</a></h3>
-<p>A function has been added to display tips on certain functions. Every tip will be displayed only once, optional ones can be suppressed by setting an option in the display itself, non-optional ones will always be displayed once. </p>
-<h3 id="support-for-multi-valued-but-editable-tags">Support for multi-valued but editable tags<a class="headerlink" href="#support-for-multi-valued-but-editable-tags" title="Permanent link">#</a></h3>
-<p>Some tags, for example phone numbers, lane values, allow multiple values that can't be or are difficult to edit with the previously available forms. 14.0 adds a view for phone numbers and for editable multi-select fields that will display multiple vertically arranged text fields that can be individually edited, and in the case of multi-select fields will have individual drop downs.</p>
-<p>Buttons to apply the preset without optional tags have been added too.</p>
-<h3 id="automatic-phone-number-formatting">Automatic phone number formatting<a class="headerlink" href="#automatic-phone-number-formatting" title="Permanent link">#</a></h3>
-<p><em>This is an experimental feature.</em></p>
-<p>When entering a new phone number the number is automatically formated correctly for the country the object is in. Further the same formating is applied when invoking the property editor, a warning will be displayed if this actually happens.</p>
-<h3 id="unjoin-way">Unjoin way<a class="headerlink" href="#unjoin-way" title="Permanent link">#</a></h3>
-<p>Previously unjoining a way required selecting a node at where you wanted to unjoin ways and resulted in all ways except one receiving new nodes. This makes sense for example when you are trying to rewire a junction, however not so much if you want to "unglue" landuse joined to a road and similar constructs. While this wasn't a classical use case for Vespucci, but as the app gets used more and more for nearly everything, we've now added support for more classical unjoin options.</p>
-<p>There are two option when you have selected a way that has shared nodes with other ways:</p>
-<ul>
-<li><strong>Unjoin</strong> this will simply replace all nodes in the way with copies of the original nodes.</li>
-<li><strong>Unjoin dissimilar</strong> this will replace nodes as above, but additionally replace nodes in similar ways if necessary to maintain connections.</li>
-</ul>
-<p>An example of the later function: assume you have landuse glued to a way from both sides and additionally other roads connecting to to it. If you use the basic <strong>Unjoin</strong> option the way will be disconnected form the lanuse but also from all the roads connecting to it, if you use <strong>Unjoin dissimilar</strong> the connections to the roads will be maintained.</p>
-<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
-<ul>
-<li>Selection of OAM imagery has been moved to the layer dialog and imagery configuration removed the preferences with the exception of adding custom imagery.</li>
-<li>Allow Vespucci to consume intents to show photos from other apps. Note: due to the ongoing changes in the way Android controls access to files this may or not may work reasonably.</li>
-<li>If you have left a changeset open after an upload, you can close it before the next upload with an option in the upload dialog.</li>
-<li>Undo and redo checkpoint lists have been moved to separate tabs in the display. </li>
-<li>Go back to last edit function added, this will pan and zoom to the bounding box of the top most undo checkpoint.</li>
-<li>"Squaring" / "Straightening" threshold is now adjustable in the  <a href="../Advanced%20preferences/">Advanced preferences</a>. The process itself is now done asynchronously and doesn't lock up the device anymore. </li>
-<li>The preferences can now be changed from within the property editor too.</li>
-<li>Multi-select now support copying and cutting multiple objects to the clipboard, and pasting of multiple objects.</li>
-<li>Merging a node in to another node or way will now show a context menu if there are multiple candidate target elements and offer the option of merging with all candidates. </li>
-<li>Support country specific presets.</li>
-<li>The presets now include some entries for disused:* objects.</li>
-<li>Lots of stability improvements.</li>
-</ul>
-<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
-<ul>
-<li>As the saved state file format changed for version 14.0, please complete any edits before upgrading if your current version is older.</li>
-</ul>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>The documentation is out of date.</li>
-<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#vespucci-140-highlights" class="nav-link">Vespucci 14.0 Highlights</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="vespucci-140-highlights">Vespucci 14.0 Highlights<a class="headerlink" href="#vespucci-140-highlights" title="Permanent link">#</a></h1>
 <p>2019-10-20</p>
@@ -600,21 +481,20 @@ reduced by using an offline data source.</p>
 <li>The documentation is out of date.</li>
 <li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

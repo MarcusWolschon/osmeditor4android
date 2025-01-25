@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Aligning background imagery - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../Presets/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../Keyboard/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -419,49 +400,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="align-imagery">Align imagery<a class="headerlink" href="#align-imagery" title="Permanent link">#</a></h1>
-<p>Many different background sources are available for OpenStreetMap editors. Satellite and aerial imagery often suffers from small to large offsets from reality. It is important to check and potentially adjust for this <strong>before</strong> tracing anything for inclusion in OpenStreetMap in every editor. Vespucci provides functions do this both from stored offsets and manually.</p>
-<p>All operations affect only the current background layer.</p>
-<h3 id="manually-adjusting-the-offset">Manually adjusting the offset<a class="headerlink" href="#manually-adjusting-the-offset" title="Permanent link">#</a></h3>
-<p>To adjust the offset manually you need to align it to a reference. This could be a known numeric coordinate offset, GPS traces (from the corresponding overlay) or simply the existing OpenStreetMap data. In the "Align imagery" screen you can simply drag the background to the desired position, overlays and the OpenStreetMap data will remain stationary. In the upper left hand corner you will see a display indicating current zoom level and the current offset in decimal degrees.</p>
-<p>Exiting the screen with the green checkmark button will store the offset for this zoom level. To apply it to all zoom levels select "Apply (all Zooms)" from the menu. Per adjusted layer one set of offsets is stored permanently。 If the app is started with a view near (default 100m, can be changed in the preferences) the location of such an adjustment it will be automatically applied and a warning displayed, the same on background layer changes. As result app restarts and pausing in the same location will not suddenly change imagery alignment, but doing so further away from the location will show the layer as is.</p>
-<h3 id="retrieving-an-offset-from-the-imagery-offset-db">Retrieving an offset from the imagery offset DB<a class="headerlink" href="#retrieving-an-offset-from-the-imagery-offset-db" title="Permanent link">#</a></h3>
-<p><em>(requires network connectivity)</em></p>
-<p>Select "FROM DB" to retrieve an offset from the imagery offset DB, this searches in a radius of 10km for offsets that are applicable to the current background layer. If offsets are found they will be presented in a nearest first order, with the options to either skip to the next one, apply the offset to all zooms, or just as stored in the offset DB.</p>
-<h3 id="saving-an-offset-to-the-imagery-offset-db">Saving an offset to the imagery offset DB<a class="headerlink" href="#saving-an-offset-to-the-imagery-offset-db" title="Permanent link">#</a></h3>
-<p><em>(requires network connectivity)</em></p>
-<p>A manually set offset can be saved to the DB. Vespucci will create separate entries for each distinct offset and set of zooms, you can then individually decide to save or not. Please state in your description clearly what you used as a reference for your offset.</p>
-<h3 id="all-functions">All functions<a class="headerlink" href="#all-functions" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>FROM DB</strong> - retrieve offset from imagery offset DB</li>
-<li><strong>RESET</strong> - reset the offset to what is was before the "Align background" mode was started</li>
-<li><strong>ZERO</strong> - set the offset to zero</li>
-<li><strong>Apply (all Zooms)</strong> - apply the current offset to all zoom levels</li>
-<li><strong>Save to DB</strong> - save to imagery offset DB</li>
-<li><strong>Help</strong> - start the Vespucci help browser</li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#align-imagery" class="nav-link">Align imagery</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="align-imagery">Align imagery<a class="headerlink" href="#align-imagery" title="Permanent link">#</a></h1>
 <p>Many different background sources are available for OpenStreetMap editors. Satellite and aerial imagery often suffers from small to large offsets from reality. It is important to check and potentially adjust for this <strong>before</strong> tracing anything for inclusion in OpenStreetMap in every editor. Vespucci provides functions do this both from stored offsets and manually.</p>
@@ -484,21 +423,20 @@
 <li><strong>Save to DB</strong> - save to imagery offset DB</li>
 <li><strong>Help</strong> - start the Vespucci help browser</li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

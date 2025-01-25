@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Editor de horário de abertura do OpenStreetMap - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -413,131 +394,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="editor-de-horario-de-abertura-do-openstreetmap">Editor de horário de abertura do OpenStreetMap<a class="headerlink" href="#editor-de-horario-de-abertura-do-openstreetmap" title="Permanent link">#</a></h1>
-<p>A especificação dos horários de aberturas no OpenStreetMap é bastante complexa e não permite uma utilização simples e intuitiva.</p>
-<p>No entanto, na maioria das vezes só se usa uma pequena parte da especificação. O editor tem isto em conta e tenta simplificar não mostrando outras opções avançadas nos menus, assim como mostrar pequenos modelos de preenchimento úteis em levantamentos no terreno.</p>
-<p><em>Esta documentação é temporária e encontra-se em desenvolvimento</em></p>
-<h2 id="usar-o-editor-de-horario-de-abertura">Usar o editor de horário de abertura<a class="headerlink" href="#usar-o-editor-de-horario-de-abertura" title="Permanent link">#</a></h2>
-<p>Num processo normal, o objeto que está a editar irá ter uma etiqueta de horário de abertura (opening_hours, service_times e collection_times) ou então poderá tornar a aplicar o modelo de etiquetas ao objeto para obter um campo de horário de abertura limpo. Se necessitar de adicionar o campo manualmente e estiver a usar o Vespucci, pode introduzir a chave na página de detalhes e então mudar para a aba baseada em formulário para editá-la. Se acreditar que a etiqueta de horário de abertura devia fazer parte do modelo de etiquetas, por favor abra um relatório para o seu editor.</p>
-<p>Se tiver definido um modelo predefinido (faça-o através do item de menu "Gerir modelos"), este será carregado automaticamente quando o editor for iniciado com um valor vazio. Com a função "Carregar modelo" pode carregar qualquer modelo guardado e com o menu "Guardar modelo" pode guardar o valor atual como um modelo. Pode definir modelos separados e predefinições para chaves específicas, por exemplo, "opening_hours", "collection_times" e "service_times" ou valores personalizados. Além disso, pode limitar a aplicabilidade de um modelo a uma região e a um identificador específico, normalmente uma etiqueta de nível superior do OSM (por exemplo, amenity=restaurant).</p>
-<p>Claro que pode construir um valor de abertura a partir do nada, mas recomendamos usar um dos modelos existentes como ponto de partida.</p>
-<p>Se for carregado um valor de horário de abertura existente, é feita uma tentativa para corrigir automaticamente para estar conforme a especificação do horário de abertura. Se isso não for possível, a localização onde o erro se encontra é destacada e poderá corrigir manualmente. Certa de um quarto de todos os valores de horários de abertura no OpenStreetMap têm problemas, mas menos de 10% não podem ser corrigidos. Veja <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para mais informação sobre que desvios da especificação são tolerados.</p>
-<h3 id="botao-do-menu-principal">Botão do menu principal<a class="headerlink" href="#botao-do-menu-principal" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>Adicionar regra</strong>: adiciona uma nova regra.</li>
-<li><strong>Adicionar regra para feriado</strong>: adiciona uma nova regra para feriado junto com um alteração de estado.</li>
-<li><strong>Adicionar regra para 24/7</strong>: adiciona uma regra para um elemento que está sempre aberto, a especificação de horário de abertura não suporta mais nenhum sub valor para 24/7, no entanto permite-se adicionar seletores de alto nível (por exemplo, intervalos de tempo).</li>
-<li><strong>Carregar modelo</strong>: carrega um modelo existente.</li>
-<li><strong>Gravar no modelo</strong>: grava os valores do horário de abertura atual num modelo para futura reutilização.</li>
-<li><strong>Gerir modelos</strong>: editar, por exemplo alterar o nome e eliminar os modelos existentes.</li>
-<li><strong>Atualizar</strong>: torna a processar os valores das horas.</li>
-<li><strong>Eliminar tudo</strong>: elimina todas as regras.</li>
-</ul>
-<h3 id="regras">Regras<a class="headerlink" href="#regras" title="Permanent link">#</a></h3>
-<p>As regras padrão são adicionadas como regras <em>normais</em>, isto implica que elas irão gravar por cima que quaisquer valores existentes para os mesmo dias. Isto pode ser um problema ao especificar horas expandidas, normalmente irá querer mudar as regras através do menu <em>Mostrar tipo de regra</em> para <em>aditivo</em>.</p>
-<h4 id="menu-de-regras">Menu de regras<a class="headerlink" href="#menu-de-regras" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>Adicionar estado/comentário</strong>: altera o efeito desta regra e permite adicionar um comentário opcional.</li>
-<li><strong>Adicionar feriado</strong>: adiciona um seletor para feriados civis ou escolares.</li>
-<li><strong>Adicionar segmento de tempo...</strong><ul>
-<li><strong>Hora - hora</strong>: uma hora inicial e final no mesmo dia.</li>
-<li><strong>Hora - tempo alargado</strong>: uma hora inicial e uma final no dia seguinte (por exemplo 26:00 corresponde às 02:00 do dia seguinte)</li>
-<li><strong>Hora variável - hora</strong>: de uma hora inicial variável (amanhecer, anoitecer, nascer do sol e pôr do sol) até uma hora de fecho no mesmo dia.</li>
-<li><strong>Hora variável - tempo alargado</strong>: de uma hora inicial variável até uma hora de fecho no dia seguinte.</li>
-<li><strong>Hora - hora variável</strong>: de uma hora de início até uma hora de fim.</li>
-<li><strong>Hora variável - hora variável</strong>: de uma hora de início variável até uma hora de fim variável.</li>
-<li><strong>Hora</strong>: um ponto no tempo.</li>
-<li><strong>Hora-fecho após últ.cliente</strong>: começa numa hora inicial.</li>
-<li><strong>Hora variável</strong>: na hora variável</li>
-<li><strong>Hora variável-fecho após últ.cliente</strong>: começa numa hora inicial variável.</li>
-</ul>
-</li>
-<li><strong>Adicionar intervalo de dia da semana</strong>: adiciona um seletor baseado no dia da semana.</li>
-<li><strong>Adicionar intervalo de datas...</strong><ul>
-<li><strong>Data - data</strong>: de uma data inicial (ano, mês, dia) até uma data de fim.</li>
-<li><strong>Data variável - data</strong>: de uma data inicial variável (atualmente a especificação apenas define a <em>páscoa</em>) até uma data de fim.</li>
-<li><strong>Data - data variável</strong>: de uma data inicial até uma data variável.</li>
-<li><strong>Data variável - data variável</strong>: de uma data inicial variável até uma data de fim variável.</li>
-<li><strong>Ocorrência no mês - ocorrência no mês</strong>: de uma ocorrência no mês do dia da semana até ao mesmo.</li>
-<li><strong>Ocorrência num mês - data</strong>: de uma ocorrência no mês do dia da semana até a uma data de fim.</li>
-<li><strong>Data - ocorrência num mês</strong>: de uma data de início até uma ocorrência no mês do dia da semana.</li>
-<li><strong>Ocorrência no mês - data variável</strong>: de uma ocorrência no dia da semana num mês até uma data de fim variável.</li>
-<li><strong>Data variável - ocorrência no mês</strong>: de uma data inicial variável até uma ocorrência no dia da semana num mês.</li>
-<li><strong>Data - fecho após últ.cliente</strong>: começa numa data inicial.</li>
-<li><strong>Data variável - fecho após últ.cliente</strong>: começa numa data inicial variável.</li>
-<li><strong>Ocorrência no mês - fecho após últ.cliente</strong>: começa num dia da semana num mês inicial.</li>
-<li><strong>Com deslocamentos...</strong>: como as mesmas entradas de cima mas com deslocamentos especificados (isto raramente é usado)</li>
-</ul>
-</li>
-<li><strong>Adicionar intervalo de anos...</strong>    <ul>
-<li><strong>Adicionar intervalo de anos</strong>: adiciona um seletor baseado em anos.</li>
-<li><strong>Adicionar ano de início</strong>: adicionar um intervalo de anos com fim aberto.</li>
-</ul>
-</li>
-<li><strong>Adicionar intervalo de semanas</strong>: adiciona um seletor baseado no número da semana</li>
-<li><strong>Duplicar</strong>: cria uma cópia da regra atual e insere-a após a posição atual.</li>
-<li><strong>Mostrar tipo de regra</strong>: mostra e permite mudar o tipo de regra <em>normal</em>, <em>aditivo</em> e <em>alternativo (ou)</em> (não disponível na primeira regra).</li>
-<li><strong>Mover para cima</strong>: move uma posição para cima a regra atual (não disponível na primeira regra).</li>
-<li><strong>Mover para baixo</strong>: move uma posição para baixo a regra atual</li>
-<li><strong>Eliminar</strong>: elimina a regra atual.</li>
-</ul>
-<h3 id="segmentos-de-tempo">Segmentos de tempo<a class="headerlink" href="#segmentos-de-tempo" title="Permanent link">#</a></h3>
-<p>Para tornar a edição de segmentos de tempo o mais fácil possível, tentamos escolher o melhor intervalo de tempo e granularidade para as barras de intervalo ao carregar valores existentes. Para novos segmentos de tempo novos, as barras começam às 6:00 e têm incrementos de  minutos. Isto pode ser alterado no menu.</p>
-<p>Clicar (não nos pinos) na barra de tempo abrirá o grande seletor de tempo, quando a utilização direta das barras for demasiado difícil. Os seletores de tempo prolongam-se até ao dia seguinte, pelo que são uma forma simples de prolongar um intervalo de tempo sem ter de apagar e voltar a adicionar o intervalo.</p>
-<h4 id="menu-de-segmento-de-tempo">Menu de segmento de tempo<a class="headerlink" href="#menu-de-segmento-de-tempo" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>Mostrar seletor de hora</strong>: mostra um seletor de hora grande para selecionar a hora de início e de fim, em ecrãs muito pequenos esta é a forma preferida de mudar as horas.</li>
-<li><strong>Mudar para intervalos de 15 minutos</strong>: usa intervalos de 15 minutos na barra de intervalo.</li>
-<li><strong>Mudar para intervalos de 5 minutos</strong>: usa intervalos de 5 minutos na barra de intervalo.</li>
-<li><strong>Mudar para intervalos de 1 minuto</strong>: usa intervalos de 1 minuto na barra de intervalo, pode ser difícil de usar esta opção num ecrã pequeno.</li>
-<li><strong>Começar à meia-noite</strong>: a barra de intervalo começa à meia-noite.</li>
-<li><strong>Mostrar intervalo</strong>: mostra o campo de intervalo para especificar um intervalo em minutos.</li>
-<li><strong>Eliminar</strong>: eliminar este segmento de tempo.</li>
-</ul>
-<h3 id="gerir-modelos">Gerir modelos<a class="headerlink" href="#gerir-modelos" title="Permanent link">#</a></h3>
-<p>A caixa de diálogo de gestão de modelos permite-lhe adicionar, editar e eliminar modelos.</p>
-<p>No Android 4.4 e posterior, a seguinte funcionalidade adicional está disponível a partir do botão de menu.</p>
-<ul>
-<li><strong>Mostrar tudo</strong>: mostra todos os modelos na base de dados.</li>
-<li><strong>Guardar no ficheiro</strong>: guarda o conteúdo da base de dados de modelos num ficheiro.</li>
-<li><strong>Carregar de ficheiro (substituir)</strong>: carrega modelos de um ficheiro substituindo o conteúdo atual da base de dados.</li>
-<li><strong>Carregar do ficheiro</strong>: carrega modelos de um ficheiro mantendo o conteúdo atual.</li>
-</ul>
-<h4 id="dialogos-para-guardar-e-editar-modelos">Diálogos para guardar e editar modelos<a class="headerlink" href="#dialogos-para-guardar-e-editar-modelos" title="Permanent link">#</a></h4>
-<p>O diálogo permite-lhe definir</p>
-<ul>
-<li><strong>Nome</strong> um nome descritivo para o modelo.</li>
-<li><strong>Predefinição</strong> se estiver selecionado, será considerado como um modelo predefinido (normalmente mais limitado pelos outros campos).</li>
-<li><strong>Chave</strong> a chave para a qual este modelo é relevante; se definido como <em>Chave personalizada</em>, pode adicionar um valor não normalizado no campo abaixo. Os valores de chave suportam os wild cards SQL, ou seja, <em>%</em> corresponde a zero ou mais caracteres, <em>_</em> corresponde a um único carácter. Ambos os caracteres de wild card podem ser escapados com <em>\</em> para correspondências literais.</li>
-<li><strong>Região</strong> a região à qual o modelo é aplicável.</li>
-<li><strong>Objeto</strong> uma cadeia de caracteres específica da aplicação a utilizar para a correspondência.</li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#editor-de-horario-de-abertura-do-openstreetmap" class="nav-link">Editor de horário de abertura do OpenStreetMap</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#usar-o-editor-de-horario-de-abertura" class="nav-link">Usar o editor de horário de abertura</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="editor-de-horario-de-abertura-do-openstreetmap">Editor de horário de abertura do OpenStreetMap<a class="headerlink" href="#editor-de-horario-de-abertura-do-openstreetmap" title="Permanent link">#</a></h1>
 <p>A especificação dos horários de aberturas no OpenStreetMap é bastante complexa e não permite uma utilização simples e intuitiva.</p>
@@ -638,21 +495,20 @@
 <li><strong>Região</strong> a região à qual o modelo é aplicável.</li>
 <li><strong>Objeto</strong> uma cadeia de caracteres específica da aplicação a utilizar para a correspondência.</li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

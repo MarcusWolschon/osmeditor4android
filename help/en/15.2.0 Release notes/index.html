@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>15.2.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../16.0.0%20Release%20notes/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../15.1.0%20Release%20notes/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -433,93 +414,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="vespucci-152-highlights">Vespucci 15.2 Highlights<a class="headerlink" href="#vespucci-152-highlights" title="Permanent link">#</a></h1>
-<p>2021-03-14</p>
-<h3 id="dedicated-address-mode-and-address-handling-improvements">Dedicated address mode and address handling improvements<a class="headerlink" href="#dedicated-address-mode-and-address-handling-improvements" title="Permanent link">#</a></h3>
-<p>When we introduced the "simple mode" in Vespucci 12 in 2019 there was no way to directly add address nodes without switching to the old element creation mode via long press (you could however add a node and then predict the address in the property editor). To make this a bit easier 15.2 introduces a dedicated "Address" mode that switches the "plus"-button to allow adding </p>
-<ul>
-<li>an address node (including automatically adding an entrance tag if the node is on a building outline)</li>
-<li>an address interpolation</li>
-<li>a map note</li>
-</ul>
-<p>Further improvements include support for addr:block, addr:conscriptionnumber and addr:block_number in the address tags preference, and the use of information from <a href="https://github.com/simonpoole/geocontext">geocontext project</a> for region specific default address tags.   </p>
-<h3 id="support-mode-specific-launcher-shortcuts">Support mode specific launcher shortcuts<a class="headerlink" href="#support-mode-specific-launcher-shortcuts" title="Permanent link">#</a></h3>
-<p>After adding a short cut for the "help" system in 15.1, we've added further short cuts for specific modes: Indoor, Tag-only and Address.</p>
-<p>In launchers that support the functionality short cuts can be accessed by a long press on the app icon, and dragged to create short cut links for direct access.</p>
-<h3 id="support-merging-closed-wayspolygons">Support merging closed ways/polygons<a class="headerlink" href="#support-merging-closed-wayspolygons" title="Permanent link">#</a></h3>
-<p>Basic support for merging two closed ways/polygons has been added to the multi-select mode. If their are no common nodes, or if the function dedects inner rings this will create a multi-polygon, otherwise a single closed way. </p>
-<p>If a multi-polygon is created common tags from the outers will be moved to the multi-polygon relation, this is done in a separate undo changeset and can be reverted without undoing the polygon merge.</p>
-<h3 id="better-detection-and-handling-of-empty-relations">Better detection and handling of empty relations<a class="headerlink" href="#better-detection-and-handling-of-empty-relations" title="Permanent link">#</a></h3>
-<p>Creating empty relation objects is a harmless, but sometimes annoying side effect of other operations. Vespucci has detected these in a number of places prior to this release, 15.2 expands this to cover everywhere this can happen indirectly. Contrary to other editing apps behaviour we do not delete empty relations automatically (for example you may have just emptied one for re-use in a next step), but will prompt you for how to treat them.</p>
-<p>To prevent accidental upload of empty relations they are now highlighted by the validator in the upload dialog. Additionally we've added an extension to our object search support that allows searching for relations with a specific number of members, see <a href="https://github.com/simonpoole/JosmFilterParser">JOSM filter expression parser project</a>.</p>
-<h3 id="support-for-creating-osm-objects-from-geojson-features">Support for creating OSM objects from GeoJson Features<a class="headerlink" href="#support-for-creating-osm-objects-from-geojson-features" title="Permanent link">#</a></h3>
-<p>Individual geometries in a GeoJSON layer can now be directly converted to OSM elements in the OSM data layer. Attributes of the geometries will be mapped to OSM tags.</p>
-<p>Don't forget that any source used in this way needs to have compatible licence terms and, if you are planning on importing larger number of objects, you need to follow the <a href="https://wiki.openstreetmap.org/wiki/Import/Guidelines">OSM import guidelines</a>.</p>
-<h3 id="support-node-icons-and-flexible-labeling-in-data-styling">Support node icons and flexible labeling in data styling<a class="headerlink" href="#support-node-icons-and-flexible-labeling-in-data-styling" title="Permanent link">#</a></h3>
-<p>Previously the icon used to display a tagged node was retrieved from the best matching preset (if any), in 15.2 this can be overridden in the data style, just as the key that is used to label an object (default is the <em>name</em> key). This allows more flexible icon and label selection using the data style hierarchical matching. Any other styling parameters for nodes is ignored outside of the internal node style values that can be set in the style. See <a href="http://vespucci.io/tutorials/data_styling/">Vespucci data styling</a>.</p>
-<p>Further icons on closed ways are no longer hardwired but can be configured  just as above too. </p>
-<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
-<ul>
-<li>Show a disambiguation menu when multiple ways could be appended to</li>
-<li>Add preference UI for taginfo server URL</li>
-<li>Add support for ELI meta field and tests</li>
-<li>Add proper multi-polygon support for ELI</li>
-<li>Add support for selecting MultiLineString and GeometryCollection features in the GeoJSON layer</li>
-<li>Support multiple parse error messages from opening hours parser</li>
-<li>Support regular expressions in object search (JOSM filter expressions) </li>
-<li>Support import of JOSM .osn and osmand .ocs files with Notes</li>
-<li>Improve task dialogs behaviour (Notes, OSMOSE etc)</li>
-<li>Keep way selected after rotation</li>
-<li>Suppress display of pre-element-creation state in info dialog</li>
-<li>Add preference for maximum distance to which we auto-apply a locally stored imagery offset</li>
-<li>Render tunnel=* for waterways</li>
-<li>Add option for changing extracted footway or similar segment to steps</li>
-</ul>
-<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
-<ul>
-<li>As a safety measure, you should always upload any changes before updating.</li>
-</ul>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>The documentation is out of date.</li>
-<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#vespucci-152-highlights" class="nav-link">Vespucci 15.2 Highlights</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="vespucci-152-highlights">Vespucci 15.2 Highlights<a class="headerlink" href="#vespucci-152-highlights" title="Permanent link">#</a></h1>
 <p>2021-03-14</p>
@@ -572,21 +467,20 @@
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

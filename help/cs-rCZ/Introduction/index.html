@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Introduction - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -441,275 +422,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
-<h1 id="uvod-do-vespucci">Úvod do Vespucci<a class="headerlink" href="#uvod-do-vespucci" title="Permanent link">#</a></h1>
-<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
-<h2 id="editovani-s-vespucci">Editování s Vespucci<a class="headerlink" href="#editovani-s-vespucci" title="Permanent link">#</a></h2>
-<p>V závislosti na velikosti obrazovky a stáří vašeho zařízení mohou být možnosti editace dostupné buď přímo skrze ikony na horním panelu, skrze rozbalovací nabídku vpravo na horním panelu, nebo skrze dolní panel (pokud tu je), a nebo skrze klávesu nabídky.</p>
-<p><a id="download"></a></p>
-<h3 id="stahovani-dat-osm">Stahování dat OSM<a class="headerlink" href="#stahovani-dat-osm" title="Permanent link">#</a></h3>
-<p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display eleven options:</p>
-<ul>
-<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Review changes...</strong> - review current changes</li>
-<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
-<li><strong>Clear and download current view</strong> - clear any data in memory, including pending changes, and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
-<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
-<li><strong>Clear data</strong> - remove any OSM data in memory, including pending changes.</li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
-<li><strong>Tasks...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
-</ul>
-<p>Nejjednodušším způsobem stahování dat je najít požadovanou oblast, kterou chcete editovat, na mapě a poté zvolit "Stáhnout aktuální pohled". Přibližovat můžete pomocí gest, tlačítek přiblížení nebo pomocí tlačítek pro ovládání hlasitosti vašeho zařízení. Vespucci by poté měl stáhnout data pro aktuální pohled. Pro stahování dat do vašeho zařízení není zapotřebí žádného ověření.</p>
-<p>In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a> so that dimming is always active.</p>
-<p>If you need to use a non-standard OSM API entry, or use <a href="https://vespucci.io/tutorials/offline/">offline data</a> in <em>MapSplit</em> format you can add or change entries via the <em>Configure...</em> entry for the data layer in the layer control.</p>
-<h3 id="editovani">Editování<a class="headerlink" href="#editovani" title="Permanent link">#</a></h3>
-<p><a id="lock"></a></p>
-<h4 id="uzamceni-odemceni-prepinani-rezimu">Uzamčení, odemčení, přepínání režimů<a class="headerlink" href="#uzamceni-odemceni-prepinani-rezimu" title="Permanent link">#</a></h4>
-<p>K zabránění nechtěných úprav se Vespucci spustí v "uzamčeném" režimu, který dovoluje pouze přibližování a posouvání mapy. Pro odemčení obrazovky klepněte na ikonu <img alt="zámku" src="../../images/locked.png" />. </p>
-<p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
-<ul>
-<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
-<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.</li>
-<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../../en/Simple%20actions/">Simple mode</a> "+" button. White lock icon with an "A" is displayed.</li>
-<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an "I" is displayed.</li>
-<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
-</ul>
-<p>If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to <em>Address</em> and <em>Indoor</em> mode.</p>
-<h4 id="jedno-klepnuti-dve-klepnuti-a-dlouhe-stisknuti">Jedno klepnutí, dvě klepnutí a dlouhé stisknutí<a class="headerlink" href="#jedno-klepnuti-dve-klepnuti-a-dlouhe-stisknuti" title="Permanent link">#</a></h4>
-<p>Ve výchozím nastavení mají uzly a cesty, které lze zvolit, oranžově vyznačenou oblast do které musíte přibližně klepnout pro zvolení objektu. Existují tři možnosti:</p>
-<ul>
-<li>Jedno klepnutí: Vybírá objekt. <ul>
-<li>Osamocený uzel/cesta je označena ihned. </li>
-<li>Nicméně pokud se pokusíte vybrat objekt a Vespucci uzná, že je výběr nejednoznačný, zobrazí se nabídka s výběrem umožňující vybrat objekt, který jste si přáli zvolit. </li>
-<li>Zvolené objekty jsou zvýrazněny žlutě. </li>
-<li>Více informací viz <a href="Node%20selected.md">Zvolený uzel</a>, <a href="Way%20selected.md">Zvolená cesta</a> a <a href="Relation%20selected.md">Zvolená relace</a>.</li>
-</ul>
-</li>
-<li>Dvě klepnutí: Zahájí <a href="Multiselect.md">Režim vícenásobného výběru</a></li>
-<li>Dlouhé stisknutí: Vytvoří zaměřovač "+" umožňující přidat uzly, viz níže, a <a href="Creating%20new%20objects.md">Vytváření nových objektů</a>. Tento způsob je možný při vypnutém „Jednoduchém režimu“.</li>
-</ul>
-<p>Vyplatí se přiblížit mapu, pokud plánujete upravovat v oblasti s vysokou hustotou.</p>
-<p>Vespucci má kvalitní systém "zpět/vpřed", takže se nemusíte bát experimentovat s vaším zařízením, nicméně prosíme nenahrávejte a neukládejte čistě testovací data.</p>
-<h4 id="vyber-zruseni-vyberu-jedno-klepnuti-a-nabidka-vyberu">Výběr / Zrušení výběru (jedno klepnutí a "nabídka výběru")<a class="headerlink" href="#vyber-zruseni-vyberu-jedno-klepnuti-a-nabidka-vyberu" title="Permanent link">#</a></h4>
-<p>Klepněte na objekt, který chcete zvolit a označit. Klepnutím na prázdnou oblast výběr zrušíte. Pokud máte označený objekt a chcete označit jiný, jednoduše klepněte na dotyčný objekt, není nutné rušit označení původního objektu. Dvě klepnutí na objekt zahájí <a href="Multiselect.md">Multiselect</a>.</p>
-<p>Všimněte si, že pokud se pokusíte vybrat objekt a Vespucci nazná, že je výběr nejednoznačný (např. uzel ležící na cestě nebo jiné překrývající se objekty), zobrazí se nabídka výběru - klepněte na objekt, který chcete vybrat. </p>
-<p>Vybrané objekty jsou odlišeny tenkým žlutým okrajem. Žlutý okraj může být obtížné zpozorovat v závislosti na mapovém podkladu a přiblížení. Po provedení výběru se objeví oznámení potvrzující výběr.</p>
-<p>Po provedení výběru se zobrazí seznam podporovaných operací (buď jako tlačítka nebo jako položky menu) pro zvolený objekt: Pro více informací viz <a href="Node%20selected.md">Uzel vybránl</a>, <a href="Way%20selected.md">Cesta vybrána</a> a <a href="Relation%20selected.md">Relace vybrána</a>.</p>
-<h4 id="zvolene-objekty-uprava-tagu">Zvolené objekty: Úprava tagů<a class="headerlink" href="#zvolene-objekty-uprava-tagu" title="Permanent link">#</a></h4>
-<p>Druhé klepnutí na zvolený objekt otevře editor tagů, ve kterém můžete upravovat tagy přiřazené k objektu.</p>
-<p>Všimněte si, že pro překrývající se objekty (např. uzel na cestě) se podruhé zobrazí menu s výběrem. Zvolení stejného objektu zobrazí editor tagů; zvolení jiného objektu jednoduše zvolí daný objekt.</p>
-<h4 id="zvolene-objekty-posun-uzlu-nebo-cesty">Zvolené objekty: Posun Uzlu nebo Cesty<a class="headerlink" href="#zvolene-objekty-posun-uzlu-nebo-cesty" title="Permanent link">#</a></h4>
-<p>Zvolené objekty můžete posouvat. Všimněte si, že objekty lze přetahovat/posouvat pouze pokud jsou zvolené. Jednoduše uchopte vybraný objekt (v oblasti tolerance) a posuňte jej. Pokud vyberete velkou oblast tažení v <a href="Preferences.md">preferences</a>, získáte kolem vybraného uzlu velkou oblast, která usnadňuje umístění objektu. </p>
-<h4 id="pridani-noveho-uzlubodu-nebo-cesty">Přidání nového Uzlu/Bodu nebo Cesty<a class="headerlink" href="#pridani-noveho-uzlubodu-nebo-cesty" title="Permanent link">#</a></h4>
-<p>Při prvním spuštění je aplikace v „Jednoduchém režimu“, to lze změnit v hlavní nabídce zrušením zatržení odpovídající volby.</p>
-<h5 id="jednoduchy-rezim">Jednoduchý režim<a class="headerlink" href="#jednoduchy-rezim" title="Permanent link">#</a></h5>
-<p>Stisknutí velkého zeleného tlačítka na obrazovce s mapou zobrazí nabídku. Po zvolení jedné z nabízených možností určíte klepnutím do mapy místo, na které chcete objekt umístit. Během volby umístění lze mapu v případě potřeby přibližovat či oddalovat. </p>
-<p>See <a href="Simple%20actions.md">Creating new objects in simple actions mode</a> for more information. Simple mode os the default for new installs.</p>
-<h5 id="pokrocily-rezim-s-dlouhym-stiskem">Pokročilý režim (s dlouhým stiskem)<a class="headerlink" href="#pokrocily-rezim-s-dlouhym-stiskem" title="Permanent link">#</a></h5>
-<p>Dlouze stiskněte na místo, kde chcete vytvořit uzel nebo počátek cesty. Zobrazí se černý symbol "zaměřovače". 
-* Pokud chcete vytvořit nový uzel (nenapojený na objekt), klikněte mimo existující objekty.
-* Pokud chcete rozšířit cestu, klikněte do oblasti tolerance výběru cesty (nebo uzlu cesty). Tolerance výběru je vyznačena oranžovou oblastí okolo uzlu nebo cesty.</p>
-<p>Jakmile se zobrazí symbol zaměřovače, máte tři možnosti:</p>
-<ul>
-<li><em>Normální stisknutí na stejném místě.</em></li>
-<li>Pokud se nitkový kříž nenachází v blízkosti uzlu, opětovný dotek stejného místa vytvoří nový uzel. Pokud jste blízko cesty (ale ne poblíž uzlu), bude nový uzel na cestě (a připojen k cestě).</li>
-<li>Pokud je nitkový kříž v blízkosti uzlu (tj. Uvnitř toleranční zóny uzlu), dotýká se stejného místa, vybírá uzel (a otevře se editor tagů.) Není vytvořen žádný nový uzel. Akce je stejná jako v předchozím výběru.</li>
-<li><em>Normálně se dotkněte jiného místa.</em> Dotyk jiného místa (mimo toleranční zónu nitkového kříže) přidá další segment cesty od původní pozice k aktuální pozici. Pokud je nitkový kříž blízko cesty nebo uzlu, nový segment bude připojen k tomuto uzlu nebo cestě.</li>
-</ul>
-<p>Jednoduše se dotkněte obrazovky v místě, kam chcete přidat další uzly cesty. Poslední uzel dokončíte tak, že se ho dvakrát dotknete. Pokud se koncový uzel nachází na cestě nebo uzlu, segment se k cestě nebo uzlu připojí automaticky. </p>
-<p>Můžete také použít položku nabídky: Viz <a href="Creating%20new%20objects.md">Vytvoření nového objektu</a> pro víc informací.</p>
-<h4 id="pridani-oblasti">Přidání oblasti<a class="headerlink" href="#pridani-oblasti" title="Permanent link">#</a></h4>
-<p>OpenStreetMap momentálně nemá typ objektu "oblast" na rozdíl od jiných geo-datových systémů. Editor online "iD" se pokouší vytvořit abstrakci od základních prvků OSM, která v některých případech funguje dobře, v jiných tolik ne. Vespucci se momentálně nepokouší dělat něco podobného, takže potřebujete vědět trochu o tom, jak jsou reprezentovány oblasti:</p>
-<ul>
-<li><em>closed ways (*polygons")</em>: nejjednodušší a nejběžnější varianty oblastí jsou cesty, které mají sdílený první a poslední uzel tvořící uzavřený "kruh" (například většina budov tohoto typu). To se dělá ve Vespucci jednoduše, prostě se připojte zpět k prvnímu uzlu, až skončíte kreslením oblasti. Poznámka: interpretace uzavřené cesty závisí na jejím označení: například pokud je uzavřená cesta označena jako budova, bude považován za plochu, pokud je označen jako kruhový objezd, pak obvykle ne. V některých situacích, ve kterých mohou být obě interpretace platné, značka "oblast" může objasnit zamýšlené použití.</li>
-<li><em>multi-polygons</em>: některé oblasti mají více částí, díry a kruhy, OSM používá specifický typ vztahu (náš obecný účelový objekt, který může modelovat vztahy mezi prvky), aby se dostal kolem toho, vícestranného polygonu. Multi-polygon může mít několik "vnějších" kruhů a více "vnitřních" kruhů. Každý kruh může být buď uzavřený, jak je popsáno, nebo více různých způsobů, které mají uzly společného konce. Zatímco velké multi-polygony jsou obtížně zvládnutelné s jakýmkoliv nástrojem, ve Vespucci není obtížné vytvářet malé. </li>
-<li><em>coastlines</em>: u velmi velkých objektů, kontinentů a ostrovů dokonce i multi-polygonový model nefunguje uspokojivým způsobem. Pro přírodní cesty = pobřežní linie předpokládáme směrovou sémantiku: země je na levé straně cesty, voda na pravé straně. Vedlejším efektem je, že obecně byste neměli zvrátit směr cesty s označením pobřeží. Další informace naleznete na <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
-</ul>
-<h4 id="zlepseni-geometrie-cesty">Zlepšení geometrie cesty<a class="headerlink" href="#zlepseni-geometrie-cesty" title="Permanent link">#</a></h4>
-<p>Pokud zvětšíte dostatečně daleko zvolený způsob, uvidíte malé "x" uprostřed cesty, které jsou dostatečně dlouhé. Přetahováním "x" vytvoříte uzel způsobem, který se nachází na daném místě. Poznámka: Aby nedošlo k náhodnému vytvoření uzlů, je tato toleranční oblast pro tuto operaci poměrně malá.</p>
-<h4 id="vyjmout-kopirovat-a-vlozit">Vyjmout, kopírovat a vložit<a class="headerlink" href="#vyjmout-kopirovat-a-vlozit" title="Permanent link">#</a></h4>
-<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p>
-<h4 id="efektivne-pridavat-adresy">Efektivně přidávat adresy<a class="headerlink" href="#efektivne-pridavat-adresy" title="Permanent link">#</a></h4>
-<p>Vespucci podporuje funkcionalitu, která zefektivňuje měření adres předpovídáním čísel domů (levé a pravé strany ulic samostatně) a automatickým přidáváním značek <em>addr:street</em> nebo <em>addr:place</em> na základě naposledy použité hodnoty a blízkosti. V nejlepším případě to umožňuje přidání adresy bez jakéhokoli psaní.   </p>
-<p>Přidání značek lze spustit stisknutím <img alt="Adresa" src="../../images/address.png" />: </p>
-<ul>
-<li>po dlouhém stisknutí (pouze v pokročilém režimu): Vespucci přidá na místě uzel a nejlépe odhadne číslo domu a přidá adresy, které jste v poslední době používali. Pokud je uzel na obrysu budovy, automaticky přidá na uzel značku „entrance=yes“. Editor tagů se otevře pro dotyčný objekt a umožní vám provést další potřebné změny.</li>
-<li>ve vybraných režimech uzel / cesta: Vespucci přidá tagy adres, jak je uvedeno výše, a spustí editor tagů.</li>
-<li>v editoru vlastností.</li>
-</ul>
-<p>Chcete-li přidat jednotlivé uzly adresy přímo, zatímco ve výchozím „Jednoduchém režimu“, přepněte do režimu úprav „Adresa“ (dlouhým stisknutím tlačítka zámku), „Přidat uzel adresy“ poté přidá uzel adresy na místo a pokud je na obrys budovy přidejte k němu vstupní štítek, jak je popsáno výše.</p>
-<p>Předpověď čísla domu obvykle vyžaduje, aby byly na každé straně silnice zadány alespoň dvě čísla domů, čím je více dat v data, tím lépe.</p>
-<p>Zvažte použití s jedním z režimů <a href="#download">Auto-download</a>.  </p>
-<h4 id="pridani-omezeni-odboceni">Přidání omezení odbočení<a class="headerlink" href="#pridani-omezeni-odboceni" title="Permanent link">#</a></h4>
-<p>Vespucci má rychlý způsob, jak přidat omezení odbočení. V případě potřeby automaticky rozdělí způsoby a vyzve vás k opětovnému výběru prvků. </p>
-<ul>
-<li>vyberte cestu s označením dálnice (pro omezení cesty je možné přidat pouze na dálnicích, pokud to potřebujete pro jiné způsoby, použijte obecný režim "vytvořit vztah") </li>
-<li>z nabídky vyberte "Přidat omezení" </li>
-<li>vyberte uzel "přes" nebo cestu (pouze dotyková plocha se zobrazí pomocí dotykové plochy) </li>
-<li>vyberte cestu "do" (je možné zdvojnásobit zpět a nastavit prvek "to" na " z "elementu, Vespucci předpokládá, že přidáváte omezení no_u_turn) </li>
-<li>nastavte typ omezení</li>
-</ul>
-<h3 id="vespucci-je-v-uzamcenem-rezimu">Vespucci je v "uzamčeném" režimu<a class="headerlink" href="#vespucci-je-v-uzamcenem-rezimu" title="Permanent link">#</a></h3>
-<p>Když je zobrazen červený zámek, jsou k dispozici všechny akce bez úpravy. Dlouhým stisknutím na objektu nebo v jeho blízkosti se zobrazí obrazovka s detailními informacemi, pokud jde o objekt OSM.</p>
-<h3 id="ulozeni-zmen">Uložení změn<a class="headerlink" href="#ulozeni-zmen" title="Permanent link">#</a></h3>
-<p><em>(vyžaduje připojení k síti)</em></p>
-<p>Vyberte stejné tlačítko nebo položku nabídky, kterou jste provedli při stahování, a nyní vyberte možnost "Odeslat data na server OSM".</p>
-<p>Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  </p>
-<p>Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p>
-<p>Pokud chcete uložit svou práci a nemáte přístup k Internetu, můžete ji uložit do souboru .osm kompatibilního s JOSM a nahrát později pomocí Vespucci nebo JOSM. </p>
-<h4 id="reseni-konfliktu-pri-nahravani">Řešení konfliktů při nahrávání<a class="headerlink" href="#reseni-konfliktu-pri-nahravani" title="Permanent link">#</a></h4>
-<p>Vespucci má jednoduché řešení konfliktů. Pokud však máte podezření, že se jedná o závažné potíže s vašimi úpravami, exportujte změny do souboru .osc (položku nabídky "Exportovat" v nabídce "Přenos") a opravte je a nahrajte je pomocí JOSM. Viz podrobná nápověda k <a href="Conflict%20resolution.md">řešení konfliktů</a>.  </p>
-<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
-<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. </p>
-<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
-<h2 id="pouzivani-gps-a-gpx-stop">Používání GPS a GPX stop<a class="headerlink" href="#pouzivani-gps-a-gpx-stop" title="Permanent link">#</a></h2>
-<p>Se standardním nastavením se Vespucci pokusí povolit GPS (a další satelitní navigační systémy) a pokud to není možné, vrátí se k určení polohy pomocí tzv. „síťové polohy“. Toto chování předpokládá, že při běžném používání máte samotné zařízení Android nakonfigurováno tak, aby používalo pouze polohy generované GPX (abyste se vyhnuli sledování), to znamená, že máte vypnutou možnost eufemisticky pojmenovanou „Zlepšit přesnost polohy“. Pokud chcete tuto možnost povolit, ale chcete zabránit tomu, aby se Vespucci vrátila zpět do "síťového umístění", měli byste vypnout odpovídající možnost v <a href="Advanced%20preferences.md">Pokročilé předvolby</a>. </p>
-<p>Touching the <img alt="GPS" src="../../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
-<p>Chcete-li zaznamenat trasu GPX a zobrazit ji na svém zařízení, vyberte položku „Spustit trasu GPX“ v nabídce <img alt="GPS" src="../../images/menu_gps.png" />. Tím se na displej přidá vrstva s aktuálně nahranou trasou, trasu můžete nahrát a exportovat ze záznamu v <a href="Main%20map%20display.md">ovládání vrstvy</a>. Další vrstvy lze přidat z místních souborů GPX a stop stažených z OSM API.</p>
-<p>Poznámka: Vespucci ve výchozím nastavení nezaznamenává údaje o nadmořské výšce pomocí vaší trasy GPX, je to způsobeno některými specifickými problémy systému Android. Chcete-li povolit záznam nadmořské výšky, buďto nainstalujte gravitační model, nebo jednodušeji přejděte na [Pokročilé předvolby] (Advanced%20preferences.md) a nakonfigurujte vstup NMEA.</p>
-<h3 id="how-to-export-a-gpx-track">How to export a GPX track?<a class="headerlink" href="#how-to-export-a-gpx-track" title="Permanent link">#</a></h3>
-<p>Open the layer menu, then click the 3-dots menu next to "GPX recording", then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
-<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos<a class="headerlink" href="#notes-bugs-and-todos" title="Permanent link">#</a></h2>
-<p>Vespucci podporuje stahování, komentování a zavírání OSM Notes (dříve OSM Bugs) a ekvivalentní funkcionalitu "Bugs", vytvořenou nástrojem <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE Quality Assurance Tool</a>. Obě musí být buď načteny explicitně, nebo můžete použít funkci Automatické stahování pro přístup k položkám v bezprostředním okolí. Po úpravě nebo zavření můžete buď nahrát chybu nebo poznámku okamžitě, nebo nahrát vše najednou. </p>
-<p>Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. </p>
-<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
-<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
-<h3 id="filtrovani">Filtrování<a class="headerlink" href="#filtrovani" title="Permanent link">#</a></h3>
-<p>Kromě globálního zapnutí zobrazení poznámek a chyb můžete nastavit hrubý filtr zobrazení, abyste omezili nepořádek. Konfigurace filtru je přístupná z položky vrstvy úloh v <a href="#vrstvy">ovládací prvek vrstvy</a>:</p>
-<ul>
-<li>Notes</li>
-<li>Osmose error</li>
-<li>Osmose warning</li>
-<li>Osmose minor issue</li>
-<li>Maproulette</li>
-<li>Todo</li>
-</ul>
-<p><a id="indoor"></a></p>
-<h2 id="interierovy-rezim">Interierový režim<a class="headerlink" href="#interierovy-rezim" title="Permanent link">#</a></h2>
-<p>Mapování v interiéru je náročné kvůli vysokému počtu objektů, které se velmi často překrývají. Vespucci má vyhrazený vnitřní režim, který vám umožní odfiltrovat všechny objekty, které nejsou na stejné úrovni a které automaticky přidávají aktuální úroveň nově vytvořeným objektům.</p>
-<p>Režim lze aktivovat dlouhým stisknutím tlačítka zámku, viz <a href="#lock">Zamknout, odemknout, přepnout režim</a> a vybrat odpovídající položku nabídky.</p>
-<p><a id="c-mode"></a></p>
-<h2 id="c-mod">C-Mód<a class="headerlink" href="#c-mod" title="Permanent link">#</a></h2>
-<p>V režimu C-Mód jsou zobrazeny pouze objekty, které mají nastavenou varovnou vlajku, což usnadňuje detekci objektů, které mají specifické problémy nebo odpovídají konfigurovatelným kontrolám. Pokud je vybrán objekt a editor vlastností je spuštěn v režimu C-Mód, automaticky se použije nejlépe odpovídající předvolba.</p>
-<p>Režim lze aktivovat dlouhým stisknutím tlačítka zámku, viz <a href="#lock">Zamknout, odemknout, přepnout režim</a> a vybrat odpovídající položku nabídky.</p>
-<h3 id="konfigurace-kontrol">Konfigurace kontrol<a class="headerlink" href="#konfigurace-kontrol" title="Permanent link">#</a></h3>
-<p>All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the <a href="Preferences.md">preferences</a>. </p>
-<p>The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
-<h4 id="overeni-zaznamu">Ověření záznamů<a class="headerlink" href="#overeni-zaznamu" title="Permanent link">#</a></h4>
-<p>Položky opětovného Ověření mají následující vlastnosti:</p>
-<ul>
-<li><strong>Key</strong> - Klíč značky zájmu.</li>
-<li><strong>Hodnota</strong> - Hodnota, kterou by měla mít požadovaná značka, pokud bude prázdná, bude ignorována.</li>
-<li><strong>Čas</strong> - kolik dní po poslední změně prvku by měl být prvek znovu prozkoumán, pokud je použita značka <em>check_date</em>, která bude použita, jinak datum vytvoření aktuální verze. Nastavení hodnoty na nulu povede ke kontrole, která se jednoduše shoduje s klíčem a hodnotou.</li>
-<li><strong>Regulární výraz</strong> - pokud je zaškrtnuto <strong>Hodnota</strong> se považuje za regulární výraz jazyka JAVA.</li>
-</ul>
-<p><strong>Klíč</strong> a <strong>Hodnota</strong> jsou kontrolovány proti značkám <em>existing</em> daného objektu.</p>
-<p>Skupina <em>Annotations</em> ve standardních předvolbách obsahuje položku, která automaticky přidá značku <em>check_date</em> s aktuálním datem.</p>
-<h4 id="kontrola-polozek">Kontrola položek<a class="headerlink" href="#kontrola-polozek" title="Permanent link">#</a></h4>
-<p>Kontrolní položky mají následující dvě vlastnosti:</p>
-<ul>
-<li><strong>Klíč</strong> - Klíč, který by měl být přítomen na objektu podle příslušné předvolby.</li>
-<li><strong>Kontrola volitelných</strong> - Zkontrolujte volitelná označení odpovídajících předvoleb.</li>
-</ul>
-<p>Tato kontrola funguje nejdříve při určování přednastavení a následném zkontrolování, zda <strong>Klíč</strong> je pro tento objekt "doporučen" podle předvoleb, <strong>Kontrola volitelných</strong> rozšiřuje kontrolu na značky, které jsou na objektu "volitelné". Upozornění: Aktuální přednastavené položky nejsou zaškrtnuty.</p>
-<h2 id="filtry">Filtry<a class="headerlink" href="#filtry" title="Permanent link">#</a></h2>
-<h3 id="filtr-na-zaklade-tagu">Filtr na základě tagů<a class="headerlink" href="#filtr-na-zaklade-tagu" title="Permanent link">#</a></h3>
-<p>Filtr lze aktivovat z hlavního menu, poté jej lze změnit klepnutím na ikonu filtru. Další dokumentaci naleznete zde <a href="Tag%20filter.md">Tag filter</a>.</p>
-<h3 id="prednastaveny-filtr">Přednastavený filtr<a class="headerlink" href="#prednastaveny-filtr" title="Permanent link">#</a></h3>
-<p>Alternativou k výše uvedeným objektům jsou objekty filtrovány buď na základě individuálních předvoleb nebo na přednastavených skupinách. Klepnutím na ikonu filtru se zobrazí přednastavené dialogové okno pro výběr, které se používá ve Vespucci. Jednotlivé předvolby lze zvolit pomocí normálního kliknutí, přednastavených skupin dlouhým kliknutím (normální kliknutí se dostane do skupiny). Další dokumentaci naleznete zde <a href="Preset%20filter.md">Přednastavený filtr</a>.</p>
-<h2 id="prizpusobeni-vespucci">Přizpůsobení Vespucci<a class="headerlink" href="#prizpusobeni-vespucci" title="Permanent link">#</a></h2>
-<p>Mnoho aspektů aplikace lze přizpůsobit, pokud hledáte něco konkrétního a nemůžete jej najít, <a href="https://vespucci.io/">web Vespucci</a> je prohledávatelný a obsahuje další informace o tom, co je k dispozici na zařízení.</p>
-<p><a id="layers"></a></p>
-<h3 id="nastaveni-vrstev">nastavení vrstev<a class="headerlink" href="#nastaveni-vrstev" title="Permanent link">#</a></h3>
-<p>Nastavení vrstvy lze změnit pomocí ovládacího prvku vrstvy (nabídka "hamburger" v pravém horním rohu), všechna ostatní nastavení jsou dostupná pomocí tlačítka předvoleb v hlavní nabídce. Vrstvy lze povolit, zakázat a dočasně skrýt.</p>
-<p>Dostupné typy vrstev:</p>
-<ul>
-<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
-<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
-<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
-<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
-<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
-<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
-<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
-<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
-<li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
-</ul>
-<p>Více informací lze nalézt v sekci na <a href="Main%20map%20display.md">zobrazení mapy</a>.</p>
-<h4 id="predvolby">Předvolby<a class="headerlink" href="#predvolby" title="Permanent link">#</a></h4>
-<ul>
-<li>Nechte obrazovku zapnutou. Výchozí: vypnuto.</li>
-<li>Velká oblast přetažení uzlu. Přesunutí uzlů na zařízení s dotykovým vstupem je problematické, protože vaše prsty zakrývají aktuální polohu na displeji. Zapnutím této funkce získáte velkou oblast, kterou lze použít pro přetažení mimo střed (výběr a další operace stále používají normální oblast tolerance dotyku). Výchozí: vypnuto.</li>
-</ul>
-<p>Úplný popis naleznete zde <a href="Preferences.md">Preferences</a></p>
-<h4 id="rozsirene-predvolby">Rozšířené předvolby<a class="headerlink" href="#rozsirene-predvolby" title="Permanent link">#</a></h4>
-<ul>
-<li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.  </li>
-<li>Node icons. Default: <em>on</em>.</li>
-<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
-<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. </li>
-</ul>
-<p>Úplný popis naleznete zde <a href="Advanced%20preferences.md">Advanced preferences</a></p>
-<h2 id="reporting-and-resolving-issues">Reporting and Resolving Issues<a class="headerlink" href="#reporting-and-resolving-issues" title="Permanent link">#</a></h2>
-<p>Pokud dojde k selhání Vespucci, nebo zjistí nekonzistentní stav, budete požádáni o odeslání výpisu havárie. Pokud tak učiníte, postupujte prosím, ale pouze jednou za konkrétní situaci. Chcete-li zadat další informace nebo otevřít problém pro požadavek na funkci nebo podobné, proveďte to prosím zde: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. Funkce „Zpětná vazba“ z hlavní nabídky otevře nový úkol a automaticky přiloží informace o aplikaci a zařížení.</p>
-<p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
-<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#uvod-do-vespucci" class="nav-link">Úvod do Vespucci</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#editovani-s-vespucci" class="nav-link">Editování s Vespucci</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#pouzivani-gps-a-gpx-stop" class="nav-link">Používání GPS a GPX stop</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#interierovy-rezim" class="nav-link">Interierový režim</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#c-mod" class="nav-link">C-Mód</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#filtry" class="nav-link">Filtry</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#prizpusobeni-vespucci" class="nav-link">Přizpůsobení Vespucci</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
 <h1 id="uvod-do-vespucci">Úvod do Vespucci<a class="headerlink" href="#uvod-do-vespucci" title="Permanent link">#</a></h1>
@@ -926,21 +639,20 @@
 <p>Pokud dojde k selhání Vespucci, nebo zjistí nekonzistentní stav, budete požádáni o odeslání výpisu havárie. Pokud tak učiníte, postupujte prosím, ale pouze jednou za konkrétní situaci. Chcete-li zadat další informace nebo otevřít problém pro požadavek na funkci nebo podobné, proveďte to prosím zde: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. Funkce „Zpětná vazba“ z hlavní nabídky otevře nový úkol a automaticky přiloží informace o aplikaci a zařížení.</p>
 <p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
 <p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

@@ -149,8 +149,6 @@ footer {
 
 .bs-sidebar.card {
     padding: 0;
-    max-height: 90%;
-    overflow-y: auto;
 }
 
 .bs-sidebar > .card {

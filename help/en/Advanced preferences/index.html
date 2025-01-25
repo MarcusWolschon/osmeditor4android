@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Advanced preferences - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../Preferences/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../Custom%20imagery/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -455,270 +436,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="advanced-preferences">Advanced preferences<a class="headerlink" href="#advanced-preferences" title="Permanent link">#</a></h1>
-<p>The Advanced preferences page is split in to seven topical sections that can be access by clicking on the main entries. Depending on the Android version running on your device some settings may be not available for technical reasons.</p>
-<h2 id="user-interface-settings">User Interface Settings<a class="headerlink" href="#user-interface-settings" title="Permanent link">#</a></h2>
-<h3 id="show-node-icons">Show node icons<a class="headerlink" href="#show-node-icons" title="Permanent link">#</a></h3>
-<p>Show icons on nodes if they can be matched with a preset. Default: <em>on</em>.</p>
-<h3 id="show-poi-icons-on-buildings">Show POI icons on buildings<a class="headerlink" href="#show-poi-icons-on-buildings" title="Permanent link">#</a></h3>
-<p>Show icons on buildings if the tags on the building can be matched with a preset. Default: <em>on</em>.</p>
-<h3 id="display-tag-form">Display tag form<a class="headerlink" href="#display-tag-form" title="Permanent link">#</a></h3>
-<p>Enable the form based tag editor. Default: <em>on</em>.</p>
-<h3 id="display-labels-from-presets">Display labels from presets<a class="headerlink" href="#display-labels-from-presets" title="Permanent link">#</a></h3>
-<p>Display labels from presets in the tag form editor. Default: <em>on</em>.</p>
-<h3 id="show-camera-action">Show camera action<a class="headerlink" href="#show-camera-action" title="Permanent link">#</a></h3>
-<p>Show a camera button on the main display (if a camera app is present). Default: <em>on</em>.</p>
-<h3 id="camera-app">Camera app<a class="headerlink" href="#camera-app" title="Permanent link">#</a></h3>
-<p>Select the camera app to use. If your, installed, camera app is not listed, please report this and we will add it to the list. Unluckily google does not allow to automatically determine installed camera apps outside of pre-installed ones. Default: <em>System default</em>.</p>
-<h3 id="use-the-mediastore">Use the MediaStore<a class="headerlink" href="#use-the-mediastore" title="Permanent link">#</a></h3>
-<p>Additionally use Androids MediaStore for accessing photos. This will add all photographs in JPEG format found via the MediaStore that contain coordinates in their EXIF data to the phto layer. Default: <em>off</em>.</p>
-<h3 id="follow-location-button-layout">Follow location button layout<a class="headerlink" href="#follow-location-button-layout" title="Permanent link">#</a></h3>
-<p>Change the side of the display the "Follow location" button is positioned on or remove it completely. Default: <em>lefthand side</em>.</p>
-<h3 id="always-dim-non-downloaded-areas">Always dim non-downloaded areas<a class="headerlink" href="#always-dim-non-downloaded-areas" title="Permanent link">#</a></h3>
-<p>If on the non-downloaded areas will be dimmed when the screen is locked. Default: <em>off</em>.</p>
-<h3 id="fullscreen-mode">Fullscreen mode<a class="headerlink" href="#fullscreen-mode" title="Permanent link">#</a></h3>
-<p>On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not.  </p>
-<p>In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. <em>No statusbar</em> will additionally try to remove Androids status bar besides forcing full screen mode.</p>
-<p>On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. </p>
-<p>Default on Android 4.4 - 10:0: <em>Auto</em>, 4.0 - 4.3 and 11.0 and later: <em>Never</em>. </p>
-<p>You need to restart the app for changes to this setting to take effect.</p>
-<h3 id="map-screen-orientation">Map screen orientation<a class="headerlink" href="#map-screen-orientation" title="Permanent link">#</a></h3>
-<p>If set to any other value than <em>Auto</em> Vespucci will try to override your device settings for screen rotation.</p>
-<h3 id="show-tolerance">Show tolerance<a class="headerlink" href="#show-tolerance" title="Permanent link">#</a></h3>
-<p>Show halos indicating the size of the "touch areas" around elements. Default: <em>on</em>.</p>
-<h3 id="use-back-key-for-undo">Use back key for Undo<a class="headerlink" href="#use-back-key-for-undo" title="Permanent link">#</a></h3>
-<p>Use the back key for undo. Default: <em>off</em>.</p>
-<h3 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">#</a></h3>
-<p>Select the theme to use. <em>Follow system</em> will follow the setting in the system preferences as far as possible, <em>Light</em> and <em>Dark</em> will fix the setting on the respective theme. <em>Follow system</em> is only available on Android 10 and later. Default: <em>Follow system</em>. You need to restart the app for changes to this setting to take effect.</p>
-<h3 id="enable-split-action-bar">Enable split action bar<a class="headerlink" href="#enable-split-action-bar" title="Permanent link">#</a></h3>
-<p>Show the menu buttons at the bottom of the screen. Default: <em>on</em>. You need to restart the app for changes to this setting to take effect.</p>
-<h3 id="app-language">App language<a class="headerlink" href="#app-language" title="Permanent link">#</a></h3>
-<p>Select a language for the user interface that is different from the device default, setting the value to <em>Device language</em> will revert to using your preference for the whole device. On devices running Android 13 and later the app language can be changed in the system settings too. Preset translations can be disabled in the preset configurations. </p>
-<h3 id="max-number-of-inline-values">Max. number of inline values<a class="headerlink" href="#max-number-of-inline-values" title="Permanent link">#</a></h3>
-<p>Maximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: <em>4</em>.</p>
-<h3 id="long-string-limit">Long string limit<a class="headerlink" href="#long-string-limit" title="Permanent link">#</a></h3>
-<p>Limit from which, instead of an inline text field, a modal will be displayed will be used for text editing in the form based editor. The modal will be displayed if either the existing text is longer than the limit, or if the preset text field length attribute is longer than the limit. Default: <em>255</em>.</p>
-<h3 id="time-to-wait-before-auto-locking">Time to wait before auto-locking<a class="headerlink" href="#time-to-wait-before-auto-locking" title="Permanent link">#</a></h3>
-<p>How long to wait before auto-locking the map display, setting the value to 0 disables the auto-locking. Default <em>60 seconds</em>.</p>
-<h3 id="enable-anti-aliasing">Enable Anti-Aliasing<a class="headerlink" href="#enable-anti-aliasing" title="Permanent link">#</a></h3>
-<p>Use anto-aliasing when rendering OSM data. Default: <em>on</em>.</p>
-<h3 id="max-line-width">Max line width<a class="headerlink" href="#max-line-width" title="Permanent link">#</a></h3>
-<p>Maximum width lines will increase to when zooming in. Default: <em>16 pixels</em>.</p>
-<h3 id="pending-upload-ok-limit">Pending upload OK limit<a class="headerlink" href="#pending-upload-ok-limit" title="Permanent link">#</a></h3>
-<p>If the number of pending object uploads is below this limit the situation is considered unproblematic. Default: <em>50 objects</em>.</p>
-<h3 id="pending-upload-warning-limit">Pending upload warning limit<a class="headerlink" href="#pending-upload-warning-limit" title="Permanent link">#</a></h3>
-<p>If the number of pending object uploads is below this limit it will have warning status. A pending upload count above this will have danger status. Default: <em>200 objects</em>.</p>
-<h3 id="disable-feedback-activity">Disable feedback activity<a class="headerlink" href="#disable-feedback-activity" title="Permanent link">#</a></h3>
-<p>Disable the feedback activity and use an URL instead. Default: <em>false</em>.</p>
-<h3 id="upload-reminder-interval">Upload reminder interval<a class="headerlink" href="#upload-reminder-interval" title="Permanent link">#</a></h3>
-<p>Interval for reminders if you have unpublished changes. Default: <em>6 hours</em>.</p>
-<h3 id="too-much-data-warning">Too much data warning</string><a class="headerlink" href="#too-much-data-warning" title="Permanent link">#</a></h3>
-<p>Limit (in number of Nodes) at which we start warning about too much data being loaded. Default: <em>50'000 objects</em>.</p>
-<h3 id="beep-volume">Beep volume<a class="headerlink" href="#beep-volume" title="Permanent link">#</a></h3>
-<p>Set how load the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: <em>50</em>.</p>
-<h3 id="minimum-zoom-for-mapillary">Minimum zoom for Mapillary<a class="headerlink" href="#minimum-zoom-for-mapillary" title="Permanent link">#</a></h3>
-<p>Set the minimum zoom level for Mapillary data to be displayed. If set too low the application might crash in areas with very high density Mapillary data. Consider increasing the number if your display if very large or very high resolution. Default: <em>16</em></p>
-<h3 id="name-capitalization">Name capitalization<a class="headerlink" href="#name-capitalization" title="Permanent link">#</a></h3>
-<p>Set the capitalization mode for keyboard input for name-like tag. One of <em>No capitalization</em>, <em>Word capitalization</em> and <em>Sentence capitalization</em>. Default: <em>Word capitalization</em>.</p>
-<p>Note: this setting is only applicable when the current locale uses latin script.</p>
-<h3 id="use-volume-keys-for-zooming">Use volume keys for zooming<a class="headerlink" href="#use-volume-keys-for-zooming" title="Permanent link">#</a></h3>
-<p>Allow the use of the volume keys for zooming in and out. Default: <em>false</em>.</p>
-<h2 id="data-and-editing-settings">Data and Editing Settings<a class="headerlink" href="#data-and-editing-settings" title="Permanent link">#</a></h2>
-<p>Settings related to editing.</p>
-<h3 id="always-use-contextual-menu">Always use contextual menu<a class="headerlink" href="#always-use-contextual-menu" title="Permanent link">#</a></h3>
-<p>Always show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: <em>off</em>.</p>
-<h3 id="override-address-tag-default">Override address tag default<a class="headerlink" href="#override-address-tag-default" title="Permanent link">#</a></h3>
-<p>Use our address tag configuration over any region specific values that we may have found. Default: <em>off</em>.</p>
-<h3 id="address-tags">Address tags<a class="headerlink" href="#address-tags" title="Permanent link">#</a></h3>
-<p>When using address prediction only add the tags configured here.</p>
-<h3 id="enable-auto-apply-of-preset">Enable auto-apply of preset<a class="headerlink" href="#enable-auto-apply-of-preset" title="Permanent link">#</a></h3>
-<p>Automatically apply the best matching preset when the property editor is invoked. This will add keys for all non-optional tags. Default: <em>on</em>.</p>
-<h3 id="distance-between-neighbour-addresses">Distance between neighbour addresses<a class="headerlink" href="#distance-between-neighbour-addresses" title="Permanent link">#</a></h3>
-<p>The distance in meters up to which two addresses are considered to be potential neighbours, this is useful for fine tuning how the increment used for predicting addresses is calculated. Default: <em>50 meters</em>.</p>
-<h3 id="enable-name-suggestions">Enable name suggestions<a class="headerlink" href="#enable-name-suggestions" title="Permanent link">#</a></h3>
-<p>Support special handling of name tags with canonical name suggestions. Default: <em>on</em>.</p>
-<h3 id="enable-name-suggestion-presets">Enable name suggestion presets<a class="headerlink" href="#enable-name-suggestion-presets" title="Permanent link">#</a></h3>
-<p>When using name suggestions, automatically apply the best preset. Default: <em>on</em>.</p>
-<h3 id="generate-notifications">Generate notifications<a class="headerlink" href="#generate-notifications" title="Permanent link">#</a></h3>
-<p>Generate notifications for validator detected issues. Default: <em>on</em>.</p>
-<h3 id="group-alerts-only">Group alerts only<a class="headerlink" href="#group-alerts-only" title="Permanent link">#</a></h3>
-<p>Generate notifications (audio) only once per notification group. Default: <em>off</em>.</p>
-<h3 id="max-number-of-displayed-notifications">Max. number of displayed notifications<a class="headerlink" href="#max-number-of-displayed-notifications" title="Permanent link">#</a></h3>
-<p>Maximum number of notifications retained in the status bar: <em>5</em> (per type).</p>
-<h3 id="max-distances-for-notifications">Max distances for notifications<a class="headerlink" href="#max-distances-for-notifications" title="Permanent link">#</a></h3>
-<p>Maximum distance a validation issue or note/bug can be from the current positions to trigger a notification. Default: <em>100 meters</em>.</p>
-<h3 id="close-changesets">Close changesets<a class="headerlink" href="#close-changesets" title="Permanent link">#</a></h3>
-<p>Close the current open changeset after uploading edits. Default: <em>on</em>.</p>
-<h3 id="squaring-threshold">Squaring threshold<a class="headerlink" href="#squaring-threshold" title="Permanent link">#</a></h3>
-<p>The threshold in ° over which angles are ignored for squaring and straightening. Default: <em>15°</em>.</p>
-<h3 id="auto-format-phone-numbers">Auto-format phone numbers<a class="headerlink" href="#auto-format-phone-numbers" title="Permanent link">#</a></h3>
-<p>This allows to control if phone numbers should be auto-formatted. Default: <em>on</em>. </p>
-<h3 id="max-distance-for-stored-imagery-offsets">Max distance for stored imagery offsets<a class="headerlink" href="#max-distance-for-stored-imagery-offsets" title="Permanent link">#</a></h3>
-<p>The farthest distance a locally stored layer offset will be automatically be applied. Default: <em>100 meters</em>.</p>
-<h3 id="use-imperial-units-for-measuring">Use imperial units for measuring<a class="headerlink" href="#use-imperial-units-for-measuring" title="Permanent link">#</a></h3>
-<p>Use imperial units when measuring in countries that customarily use them. Default: <em>off</em>.</p>
-<h3 id="minimum-number-of-nodes-in-circle">Minimum number of nodes in circle<a class="headerlink" href="#minimum-number-of-nodes-in-circle" title="Permanent link">#</a></h3>
-<p>The target minimum number of nodes that should be aimed for in a circle. Default: <em>6</em>.</p>
-<h3 id="maximum-circle-segment-length">Maximum circle segment length<a class="headerlink" href="#maximum-circle-segment-length" title="Permanent link">#</a></h3>
-<p>Maximum distance between two circle nodes. Default: <em>2m</em>.</p>
-<h3 id="minimum-circle-segment-length">Minimum circle segment length<a class="headerlink" href="#minimum-circle-segment-length" title="Permanent link">#</a></h3>
-<p>Minimum distance between two circle nodes. Default: <em>0.5m</em>.</p>
-<h3 id="maximum-distance-to-move-tagged-node">Maximum distance to move tagged node<a class="headerlink" href="#maximum-distance-to-move-tagged-node" title="Permanent link">#</a></h3>
-<p>Maximum distance to move a tagged node when replacing way geometry. DEfault: <em>1.0m</em>.</p>
-<h2 id="auto-download-settings">Auto-download Settings<a class="headerlink" href="#auto-download-settings" title="Permanent link">#</a></h2>
-<h3 id="download-radius">Download radius<a class="headerlink" href="#download-radius" title="Permanent link">#</a></h3>
-<p>When auto-downloading, the radius of the area that is attempted to download around the current position. In pan and zoom auto-download mode, this is the minimum download size. Default: <em>50 meters</em>.</p>
-<h3 id="maximum-auto-download-speed">Maximum auto-download speed<a class="headerlink" href="#maximum-auto-download-speed" title="Permanent link">#</a></h3>
-<p>Maximum speed up to which auto-download is attempted. Default: <em>10 km/h</em>.</p>
-<h3 id="auto-prune-limit">Auto-prune limit<a class="headerlink" href="#auto-prune-limit" title="Permanent link">#</a></h3>
-<p>Limit at, when reached, an automatic prune of the data in memory is attempted. Default: <em>5000 Nodes</em>.</p>
-<h3 id="zoom-limit">Zoom limit<a class="headerlink" href="#zoom-limit" title="Permanent link">#</a></h3>
-<p>Minimum zoom for pan and zoom auto-download to work. In high data density areas this should be set to higher values to avoid loading very large amounts of data when zooming out. 
-This is used both for data and tasks. Default: <em>17</em>. </p>
-<h3 id="task-download-radius">Task download radius<a class="headerlink" href="#task-download-radius" title="Permanent link">#</a></h3>
-<p>When auto-downloading notes and bugs, the radius of the area that is attempted to download around the current position. Default: <em>200 meters</em>.</p>
-<h3 id="maximum-task-auto-download-speed">Maximum task auto-download speed<a class="headerlink" href="#maximum-task-auto-download-speed" title="Permanent link">#</a></h3>
-<p>Maximum speed up to which auto-download of notes and bugs is attempted. Default: <em>30 km/h</em>.</p>
-<h3 id="task-auto-prune-limit">Task auto-prune limit<a class="headerlink" href="#task-auto-prune-limit" title="Permanent link">#</a></h3>
-<p>Limit at, when reached, an automatic prune of the tasks in memory is attempted. Default: <em>10000 Tasks</em>.</p>
-<h2 id="location-settings">Location Settings<a class="headerlink" href="#location-settings" title="Permanent link">#</a></h2>
-<p>GPS and Network location settings.</p>
-<h3 id="gpsgnss-source">GPS/GNSS source<a class="headerlink" href="#gpsgnss-source" title="Permanent link">#</a></h3>
-<p>Source of GPS/GNSS location updates. </p>
-<p>Possible values:</p>
-<p><strong>Internal</strong> use the internal GNSS location provider.</p>
-<p><strong>Internal NMEA</strong> use the internal GNSS location provider with NMEA output, this is only useful for testing.</p>
-<p><strong>NMEA from TCP client</strong> connect to a source of NMEA sentences over TCP, if the source is gpsd, the client will attempt to switch it to NMEA output (from 14.0.11 on).</p>
-<p><strong>NMEA from TCP server</strong> this will start a server on a specified port and listen for a client providing NMEA sentences, this is mainly useful with rtklib.</p>
-<p>Default: <em>internal</em>.</p>
-<h3 id="nmea-network-source">NMEA network source<a class="headerlink" href="#nmea-network-source" title="Permanent link">#</a></h3>
-<p>If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is. In <strong>NMEA from TCP server</strong> mode the host part is currently ignored.</p>
-<h3 id="minimum-gpsgnss-interval">Minimum GPS/GNSS interval<a class="headerlink" href="#minimum-gpsgnss-interval" title="Permanent link">#</a></h3>
-<p>Minimum interval between updates for the internal GPS/GNSS source. Default: <em>1000 ms</em>.</p>
-<h3 id="minimum-gpsgnss-distance">Minimum GPS/GNSS-distance<a class="headerlink" href="#minimum-gpsgnss-distance" title="Permanent link">#</a></h3>
-<p>Minimum distance between updates for the internal GPS/GNSS source. Default: <em>5 meters</em>.</p>
-<h3 id="leave-gpsgnss-turned-off">Leave GPS/GNSS turned off<a class="headerlink" href="#leave-gpsgnss-turned-off" title="Permanent link">#</a></h3>
-<p>If GPS has been disabled by the user, don't ask to turn it on. Default: <em>off</em>.</p>
-<h3 id="fallback-to-network-location">Fallback to network location<a class="headerlink" href="#fallback-to-network-location" title="Permanent link">#</a></h3>
-<p>If the device is providing "Network" location data use it as a fallback if we haven't received a GPS location for a longer time. Default: <em>off</em>.</p>
-<h3 id="stale-location-after">Stale location after<a class="headerlink" href="#stale-location-after" title="Permanent link">#</a></h3>
-<p>Time, in seconds, after which a location will be considered stale. Default: <em>60 s</em></p>
-<h2 id="server-settings">Server Settings<a class="headerlink" href="#server-settings" title="Permanent link">#</a></h2>
-<p>OpenStreetMap API and other servers configuration.</p>
-<h3 id="osm-api-url">OSM API URL<a class="headerlink" href="#osm-api-url" title="Permanent link">#</a></h3>
-<p>Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024. These preferences can also be changed by selecting <em>Configure</em> for the OpenStreetMap Data layer in the layers modal.</p>
-<h3 id="user-account">User account<a class="headerlink" href="#user-account" title="Permanent link">#</a></h3>
-<p>Set a user and password for API authentication. This is only needed if the target API server does not support OAuth authentication, and in general should be avoided as unsafe.</p>
-<h3 id="offset-server">Offset server<a class="headerlink" href="#offset-server" title="Permanent link">#</a></h3>
-<p>API server for imagery offsets.</p>
-<h3 id="osmose-server">OSMOSE server<a class="headerlink" href="#osmose-server" title="Permanent link">#</a></h3>
-<p>OSMOSE QA API server configuration.</p>
-<h3 id="configure-geocoders">Configure geocoders<a class="headerlink" href="#configure-geocoders" title="Permanent link">#</a></h3>
-<p>Geocoding service providers. Currently Photon and Nominatim servers are supported.</p>
-<h3 id="taginfo-server">Taginfo server<a class="headerlink" href="#taginfo-server" title="Permanent link">#</a></h3>
-<p>Configure the taginfo server used for the "online" preset search/construction. </p>
-<h3 id="overpass-server">Overpass server<a class="headerlink" href="#overpass-server" title="Permanent link">#</a></h3>
-<p>Configure the overpass API server used online object search. </p>
-<h3 id="openaerialmap-server">OpenAerialMap server<a class="headerlink" href="#openaerialmap-server" title="Permanent link">#</a></h3>
-<p>Configure the OpenAerialMap server used for providing additional imagery for backgrounds.</p>
-<h2 id="layer-download-and-storage">Layer download and storage<a class="headerlink" href="#layer-download-and-storage" title="Permanent link">#</a></h2>
-<p>Download and storage configuration for the tiled imagery layers.</p>
-<h3 id="max-number-of-download-threads">Max. number of download threads<a class="headerlink" href="#max-number-of-download-threads" title="Permanent link">#</a></h3>
-<p>Maximum number of simultaneous download threads. Default: <em>4</em>.</p>
-<h3 id="tile-cache-size">Tile cache size<a class="headerlink" href="#tile-cache-size" title="Permanent link">#</a></h3>
-<p>Total on device size for caching imagery tiles. Default: <em>100MB</em>.</p>
-<h3 id="prefer-removable-storage">Prefer removable storage<a class="headerlink" href="#prefer-removable-storage" title="Permanent link">#</a></h3>
-<p>Prefer removable storage for storing tiles. Requires restart of app to take effect, you will need to manually remove the existing tile cache if you change this. Default: <em>true</em>.</p>
-<h3 id="mapillary-cache-size">Mapillary cache size<a class="headerlink" href="#mapillary-cache-size" title="Permanent link">#</a></h3>
-<p>Total on device size for caching Mapillary images. Default: <em>100MB</em>.</p>
-<h2 id="auto-save-configuration">Auto-save configuration<a class="headerlink" href="#auto-save-configuration" title="Permanent link">#</a></h2>
-<p>Settings for the automatic saving of edits.</p>
-<h3 id="save-state">Save state<a class="headerlink" href="#save-state" title="Permanent link">#</a></h3>
-<p>Save the complete state including unchanged data and undo information. This is used to restore the app to its previous state and is the same information saved as when the app is paused or stopped. The saved state is stored in an app private location and is not accessible by the end user. Default: <em>enabled</em>.</p>
-<h3 id="save-changes">Save changes<a class="headerlink" href="#save-changes" title="Permanent link">#</a></h3>
-<p>Save changes as OSC file. This saves the current changes as a .osc file in the "Autosave" directory in the public Vespucci directory. Default: <em>enabled</em>.</p>
-<h3 id="minimum-interval">Minimum interval<a class="headerlink" href="#minimum-interval" title="Permanent link">#</a></h3>
-<p>The minimum interval in minutes between saves. Default: <em>5 minutes</em>.</p>
-<h3 id="minimum-number-of-changes">Minimum number of changes<a class="headerlink" href="#minimum-number-of-changes" title="Permanent link">#</a></h3>
-<p>Minimum number of changes required for a save to occur. Default: <em>1</em>.</p>
-<h3 id="maximum-number-of-osc-files-to-retain">Maximum number of OSC files to retain<a class="headerlink" href="#maximum-number-of-osc-files-to-retain" title="Permanent link">#</a></h3>
-<p>The maximum number of OSC files the app will retain, when this limit is reached the oldest files will be deleted. Default: <em>5</em>.</p>
-<h3 id="minimum-gpx-saving-interval">Minimum GPX saving interval<a class="headerlink" href="#minimum-gpx-saving-interval" title="Permanent link">#</a></h3>
-<p>Minimum interval in minutes between saves of GPX recordings. Default: <em>5 minutes</em>.</p>
-<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
-<h3 id="report-app-crashes">Report app crashes<a class="headerlink" href="#report-app-crashes" title="Permanent link">#</a></h3>
-<p>Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to <em>off</em> the functionalitiy is completely disabled. Default: <em>on</em>.</p>
-<h3 id="show-stats">Show stats<a class="headerlink" href="#show-stats" title="Permanent link">#</a></h3>
-<p>Show some uninteresting stats on screen. Debugging use only. Default: <em>off</em>.</p>
-<h2 id="experimental">Experimental<a class="headerlink" href="#experimental" title="Permanent link">#</a></h2>
-<h3 id="enable-js-console">Enable JS Console<a class="headerlink" href="#enable-js-console" title="Permanent link">#</a></h3>
-<p>Turn on the JavaScript console. Default: <em>off</em>.</p>
-<h3 id="enable-voice-commands">Enable voice commands<a class="headerlink" href="#enable-voice-commands" title="Permanent link">#</a></h3>
-<p>Enable voice command support: Default: <em>off</em>.</p>
-<h3 id="enable-hardware-acceleration">Enable hardware acceleration<a class="headerlink" href="#enable-hardware-acceleration" title="Permanent link">#</a></h3>
-<p>Turn on use of hardware rendering on Android 10 and later. Default: <em>off</em></p>
-<h3 id="enable-split-window-property-editor">Enable split window property editor<a class="headerlink" href="#enable-split-window-property-editor" title="Permanent link">#</a></h3>
-<p>Enable displaying the property editor in a separate window if available. Default: <em>off</em></p>
-<h3 id="use-new-task-mode-for-property-editor">Use "new task" mode for property editor<a class="headerlink" href="#use-new-task-mode-for-property-editor" title="Permanent link">#</a></h3>
-<p>Set FLAG_ACTIVITY_NEW_TASK when starting the property editor, this may improve the behaviour of certain launchers when resuming the app. Default: <em>off</em></p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#advanced-preferences" class="nav-link">Advanced preferences</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#user-interface-settings" class="nav-link">User Interface Settings</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#data-and-editing-settings" class="nav-link">Data and Editing Settings</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#auto-download-settings" class="nav-link">Auto-download Settings</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#location-settings" class="nav-link">Location Settings</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#server-settings" class="nav-link">Server Settings</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#layer-download-and-storage" class="nav-link">Layer download and storage</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#auto-save-configuration" class="nav-link">Auto-save configuration</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#experimental" class="nav-link">Experimental</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="advanced-preferences">Advanced preferences<a class="headerlink" href="#advanced-preferences" title="Permanent link">#</a></h1>
 <p>The Advanced preferences page is split in to seven topical sections that can be access by clicking on the main entries. Depending on the Android version running on your device some settings may be not available for technical reasons.</p>
@@ -926,21 +644,20 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
 <p>Enable displaying the property editor in a separate window if available. Default: <em>off</em></p>
 <h3 id="use-new-task-mode-for-property-editor">Use "new task" mode for property editor<a class="headerlink" href="#use-new-task-mode-for-property-editor" title="Permanent link">#</a></h3>
 <p>Set FLAG_ACTIVITY_NEW_TASK when starting the property editor, this may improve the behaviour of certain launchers when resuming the app. Default: <em>off</em></p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

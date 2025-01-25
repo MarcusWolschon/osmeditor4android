@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>11.0.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../11.1.0%20Release%20notes/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../10.2.0%20Release%20notes/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -461,142 +442,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="vespucci-110-highlights">Vespucci 11.0 Highlights<a class="headerlink" href="#vespucci-110-highlights" title="Permanent link">#</a></h1>
-<p>2018-06-28</p>
-<h2 id="layer-control">Layer control<a class="headerlink" href="#layer-control" title="Permanent link">#</a></h2>
-<p>The most obvious visual difference in version 11 is the layer control on the main map view. </p>
-<p>Currently it is not possible to change the ordering or add more than one layer of a specific type, supported functionality:  </p>
-<ul>
-<li>Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.</li>
-<li>Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.</li>
-<li>Menu button.<ul>
-<li>Tile based layers: <ul>
-<li>Select imagery. Same contents as on the preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.</li>
-<li>Flush tile cache. Moved here from main menu.</li>
-<li>Background properties. Set contrast of layer, moved here from main menu.</li>
-</ul>
-</li>
-<li>GeoJSON layer. <ul>
-<li>Change style. Show the layer styling dialog.</li>
-<li>Discard. Delete the layer including any saved state.</li>
-</ul>
-</li>
-<li>GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.<ul>
-<li>Change style. Show the layer styling dialog.</li>
-</ul>
-</li>
-<li>Photo, Grid and Task layers.<ul>
-<li>Disable. Turn this layer off, needs to be re-enbled via preferences. For the tasks and photo layers this will free resources if the app is exited and re-started.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>"+" button: <ul>
-<li>Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.</li>
-<li>Map background. Shown if the background layer has been disabled, allows the same selection as from the preferences screen.</li>
-<li>Map overlay. Shown if the overlay layer has been disabled, allows the same selection as from the preferences screen.</li>
-</ul>
-</li>
-</ul>
-<h2 id="support-for-geojson-layers">Support for GeoJSON layers<a class="headerlink" href="#support-for-geojson-layers" title="Permanent link">#</a></h2>
-<p>A single (currently) GeoJSON based layer can be displayed on the map, individual elements are selectable. On loading the GeoJSON data from a file colour, stroke width and a tag for displaying a label can be selected.</p>
-<p>A typical use case would be to verify third party data in GeoJSON format on the ground and similar mapping activities. </p>
-<h2 id="re-arranged-preferences">Re-arranged Preferences<a class="headerlink" href="#re-arranged-preferences" title="Permanent link">#</a></h2>
-<p>The two preferences screens have been re-arranged with just the most important settings on the first screen and the "Advanced preference" screen split up in to multiple sub-screens.</p>
-<p>The Authors and Licence screen has been move to the main menu, just as the Debug screen has.</p>
-<h2 id="undoredo-of-individual-checkpoints">Undo/redo of individual checkpoints<a class="headerlink" href="#undoredo-of-individual-checkpoints" title="Permanent link">#</a></h2>
-<p>Previously selecting an undo or redo checkpoint from the undo menu (long press on the undo icon), always undid/redid all checkpoints back to that point in time. In Vespucci 11 a dialog is shown that allows you to select the previous behaviour or to undo/redo just the single selected checkpoint.</p>
-<p>While selecting just one checkpoint will result in consistent data, it may have unintended consequences as all elements changed in the checkpoint will be reinstated to the stored state when the checkpoint was created, except if elements are referenced, for example way nodes or relation members, that have been deleted in later edits. References to deleted objects will not be re-created, including relation memberships in later deleted relations.</p>
-<p>Example: as the first operation you split a way, as the second step you delete one of the two halves of the way. Undoing the first operation will only add way nodes back that were not removed in the second step.</p>
-<p>Simple tag changes in a checkpoint can in general be undone without negative consequences.</p>
-<h2 id="review-changes-before-upload">Review changes before upload<a class="headerlink" href="#review-changes-before-upload" title="Permanent link">#</a></h2>
-<p>Entries on the list of the created, changed and deleted elements can now be selected and the actual changes inspected. Elements that have failed the validator tests will have a red icon displayed. </p>
-<h2 id="auto-presets-from-taginfo">Auto-Presets from taginfo<a class="headerlink" href="#auto-presets-from-taginfo" title="Permanent link">#</a></h2>
-<p>The results in the preset search are now complemented by results from querying Jochen Topfs <a href="https://taginfo.openstreetmap.org/">taginfo service</a>, currently this requires network connectivity to work and will only return results for tags that have at least one wiki page. In general so generated presets should not be taken as gospel and the tagging will typically need some manual work. </p>
-<p>Selected search results from taginfo are added to a special preset file that is stored on device in the public Vespucci directory, this can be used as a starting point for creating a proper preset for the object in question. </p>
-<p>This feature can be turned off in the Advanced preferences "Data and Editing settings". </p>
-<h2 id="improved-country-specific-tagging">Improved country specific tagging<a class="headerlink" href="#improved-country-specific-tagging" title="Permanent link">#</a></h2>
-<p>It is now possible to add more country specific tagging rules. For now, besides the already existing check for use of imperial units in a territory, we support lists of speed limits for use in the property editor, if info is missing for your country you can provide them at <a href="https://github.com/simonpoole/geocontext">geocontext repository</a>. </p>
-<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
-<ul>
-<li>Support for icons in preset combos and multi-selects.</li>
-<li>The info display for selected elements will now show the original state of the element side by side with the current state if the element has been modified.</li>
-<li>Bugs and Notes that have been closed but not uploaded yet, have their own, not very distinctive, blue-green icon.</li>
-<li>Fields declared as phone or fax numbers in a preset will show the devices phone number keyboard.</li>
-<li>Free form preset text fields that neither have an existing value nor pre-defined values will have device text suggestions and spelling correction enabled (note this will not be the case for "name" tags).</li>
-<li>Implement the "values_from" attribute in presets including an extension to the JOSM implementation of passing the key as an argument if possible.</li>
-<li>Support for RTL scripts added, caveat the openinghours editor is not converted yet (as there are no such translations) and there may be minor inconsistencies.</li>
-</ul>
-<p>The full change log is available <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">here</a></p>
-<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#vespucci-110-highlights" class="nav-link">Vespucci 11.0 Highlights</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#layer-control" class="nav-link">Layer control</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#support-for-geojson-layers" class="nav-link">Support for GeoJSON layers</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#re-arranged-preferences" class="nav-link">Re-arranged Preferences</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#undoredo-of-individual-checkpoints" class="nav-link">Undo/redo of individual checkpoints</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#review-changes-before-upload" class="nav-link">Review changes before upload</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#auto-presets-from-taginfo" class="nav-link">Auto-Presets from taginfo</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#improved-country-specific-tagging" class="nav-link">Improved country specific tagging</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="vespucci-110-highlights">Vespucci 11.0 Highlights<a class="headerlink" href="#vespucci-110-highlights" title="Permanent link">#</a></h1>
 <p>2018-06-28</p>
@@ -670,21 +516,20 @@
 <ul>
 <li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

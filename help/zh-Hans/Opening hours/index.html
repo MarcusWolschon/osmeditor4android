@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>开放街图营业时间编辑器 - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -413,131 +394,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="_1">开放街图营业时间编辑器<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
-<p>OpenStreetMap 营业时间规范相当复杂，并不易于一个简单直观的使用者介面。</p>
-<p>然而大部分的时候，你应该只会用到一小部分的定义。编辑器尝试在选单中隐藏更加难懂的功能，来达成这一点，大部分的时候减少“路上”设定，尽可能用预先设定的模版，加以小量修改。</p>
-<p><em>本文档是早期文档，正在开发中</em></p>
-<h2 id="_2">使用开放街图编辑器<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<p>在一般的工作流程中，你编辑的物件一般已经有开放时间的标签 (opening_hour、service_times 和 colllection_times)，或是你可以重新设定物件的预设组合，用空白的开放时间栏位。如果你需要手动输入栏位，像是用 Vespucci，你可以在详情页面输入关键值，之后切换回栏位页签继续编辑。如果你相信开放时间标签必须多于预设组合的话，请在你的编辑器开启 issue。</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
-<p>当然，您可以从头开始构建营业时间的值，但我们建议使用现有的模板之一作为开始。</p>
-<p>如果已经有营业时间的数值则会载入，另外会自动修正以符合营业时间规范。如果无法修正，则会在大概的位置显示错误讯息，原始的营业时间数值，等待人工修正。开放街图资料库中有大约1/4的营业时间数值有问题，但只有少于10%的状况是无法修正。详见 <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a>，并且看有那些允许的规范变体。</p>
-<h3 id="_3">主菜单按键<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>添加规则</strong>：添加新规则。</li>
-<li><strong>为假期添加规则</strong>：当国家/地区改变时为假期添加新规则</li>
-<li><strong>为 24/7 增加规则</strong>：为总是开放的物件增加规则，开放时间规范不支持任何其他子值为24/7，但我们允许增加更高阶的选择器 (例如年份范围)。</li>
-<li><strong>Load template</strong>：加载现有模板。</li>
-<li><strong>保存到模板</strong>：将当前的营业时间值另存为模板，以作为备份为将来使用。</li>
-<li><strong>管理模板</strong>：编辑（例如更改名称）并删除现有模板。</li>
-<li><strong>刷新</strong>：重新加载营业时间值。</li>
-<li><strong>全部删除</strong>：删除所有规则</li>
-</ul>
-<h3 id="_4">规则<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
-<p>默认规则被添加为_normal_规则，这意味着它们将在同一天覆盖先前规则的值。在指定延长时间时中，可能会出现一个问题，通常您随后会希望通过_Show rule type_菜单项将规则切换为_additive_。</p>
-<h4 id="_5">规则菜单<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>添加修饰符/注释</strong>：更改此规则的效果并添加可选注释。</li>
-<li><strong>添加假期</strong>：为公共或学校假期添加选择器。</li>
-<li><strong>增加时间跨度...</strong><ul>
-<li><strong>时间-时间</strong>：同一天的开始时间到结束时间。</li>
-<li><strong>时间-延长时间</strong>：第二天的开始时间到结束时间（例如26:00是第二天的凌晨02:00）。</li>
-<li><strong>变化时间-时间</strong>：从开始可变时间（黎明，黄昏，日出和日落）到同一天的结束时间。</li>
-<li><strong>变化时间-延长时间</strong>：从开始变化时间到第二天的结束时间。</li>
-<li><strong>时间-变化时间</strong>：开始时间到结束变化时间。</li>
-<li><strong>变化时间-变化时间</strong>：从开始变化时间到结束变化时间。</li>
-<li><strong>时间</strong>：一个时间点。</li>
-<li><strong>开放时间</strong>：从某个时间点开始。</li>
-<li><strong>变化时间</strong>：特定的变化时间</li>
-<li><strong>变化时间 - 一直持续</strong>：从变化时间到一直持续</li>
-</ul>
-</li>
-<li><strong>增加工作日范围</strong>：添加基于工作日的选择器。</li>
-<li><strong>增加日期范围...</strong><ul>
-<li><strong>日期-日期</strong>：从开始日期（年，月，日）到结束日期。</li>
-<li><strong>变化日期-日期</strong>：从开变化变日期（当前规范仅定义_easter_）到结束日期。</li>
-<li><strong>日期-变化日期</strong>：从开始日期到变化日期</li>
-<li><strong>变化日期-变化日期</strong>：从开始变化日期到结束变化日期</li>
-<li><strong>每月发生-每月发生</strong>：一个月中从开始的周间是相同的。</li>
-<li><strong>日期- 每月发生</strong>：一个月中周间发生，到特定日期结束</li>
-<li><strong>日期-发生在月份</strong>：从开始日舒到一个月中的周间结束。</li>
-<li><strong>Occurrence in month - variable date</strong>: from a start weekday occurrence in a month to an end variable date.</li>
-<li><strong>Variable date - occurrence in month</strong>: from a start variable date to an end weekday occurrence in a month.</li>
-<li><strong>Date - open end</strong>: from a start date onwards.</li>
-<li><strong>Variable date - open end</strong>: from a start variable date onwards.</li>
-<li><strong>Occurrence in month - open end</strong>: from a start weekday occurrence in a month onwards.</li>
-<li><strong>With offsets...</strong>: the same entries as above however with offsets specified (this is rarely used).</li>
-</ul>
-</li>
-<li><strong>Add year range...</strong>    <ul>
-<li><strong>Add year range</strong>: add a year based selector.</li>
-<li><strong>Add starting year</strong>: add an open ended year range.</li>
-</ul>
-</li>
-<li><strong>Add week range</strong>: add a week number based selector.</li>
-<li><strong>Duplicate</strong>: create a copy of this rule and insert it after the current position.</li>
-<li><strong>Show rule type</strong>: display and allow changing of the rule type <em>normal</em>, <em>additive</em> and <em>fallback</em> (not available on the first rule).</li>
-<li><strong>Move up</strong>: move this rule up one position (not available on the first rule).</li>
-<li><strong>Move down</strong>: move this rule down one position.</li>
-<li><strong>Delete</strong>: delete this rule.</li>
-</ul>
-<h3 id="time-spans">Time spans<a class="headerlink" href="#time-spans" title="Permanent link">#</a></h3>
-<p>To make editing time spans as easy as possible, we try to choose an optimal time range and granularity for the range bars when loading existing values. For new time spans the bars start at 6:00 (am) and have 15 minute increments, this can be changed via the menu.</p>
-<p>Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.</p>
-<h4 id="time-span-menu">Time span menu<a class="headerlink" href="#time-span-menu" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>Display time picker</strong>: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.</li>
-<li><strong>Switch to 15 minute ticks</strong>: use 15 minute granularity for the range bar.</li>
-<li><strong>Switch to 5 minute ticks</strong>: use 5 minute granularity for the range bar.</li>
-<li><strong>Switch to 1 minute ticks</strong>: use 1 minute granularity for the range bar, very difficult to use on a phone.</li>
-<li><strong>Start at midnight</strong>: start the range bar at midnight.</li>
-<li><strong>Show interval</strong>: show the interval field for specifying an interval in minutes.</li>
-<li><strong>Delete</strong>: delete this time span.</li>
-</ul>
-<h3 id="manage-templates">Manage templates<a class="headerlink" href="#manage-templates" title="Permanent link">#</a></h3>
-<p>The template management dialog allows you to add, edit and delete templates.</p>
-<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
-<ul>
-<li><strong>Show all</strong>: display all templates in the database.</li>
-<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
-<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
-<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
-</ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
-<p>The dialog allows you to set</p>
-<ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">开放街图营业时间编辑器</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">使用开放街图编辑器</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="_1">开放街图营业时间编辑器<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
 <p>OpenStreetMap 营业时间规范相当复杂，并不易于一个简单直观的使用者介面。</p>
@@ -638,21 +495,20 @@
 <li><strong>Region</strong> the region the template is applicable to.</li>
 <li><strong>Object</strong> an application specific string to use for matching.</li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

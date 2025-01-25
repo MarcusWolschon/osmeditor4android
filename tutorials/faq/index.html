@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>FAQ - Vespucci</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem active">
-                                <a href="./" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem active">
-                                    
-                                        <a href="./" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">FAQ</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../screenshots/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../../help/en/Privacy/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -443,356 +424,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="frequently-asked-questions">Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">#</a></h1>
-<h2 id="general">General<a class="headerlink" href="#general" title="Permanent link">#</a></h2>
-<h3 id="what-is-vespucci">What is Vespucci?<a class="headerlink" href="#what-is-vespucci" title="Permanent link">#</a></h3>
-<p>Vespucci is the first <a href="http://www.openstreetmap.org/">OpenStreetMap</a> editor for Android.
-That means: it is a light-weight, easy-to-use mapping tool on mobile Android devices.</p>
-<h3 id="what-is-vespucci-not">What is Vespucci NOT?<a class="headerlink" href="#what-is-vespucci-not" title="Permanent link">#</a></h3>
-<ul>
-<li>Vespucci is not primarily a mobile map-viewer or map designer.</li>
-<li>Vespucci is not a mobile navigation solution. It does not feature any routing support.</li>
-<li>Vespucci is not a full replacement for JOSM or other desktop editors, but nearly. It strives for maximum usability on mobile devices which are limited in many regards. </li>
-</ul>
-<h3 id="i-am-already-familiar-with-osm-editor-xyz-why-should-i-use-vespucci">I am already familiar with OSM editor xyz. Why should I use Vespucci?<a class="headerlink" href="#i-am-already-familiar-with-osm-editor-xyz-why-should-i-use-vespucci" title="Permanent link">#</a></h3>
-<p>If you are mapping for OSM and already have an Android device (or planning for this) then Vespucci could help in your mapping work. Data is acquired "on site" and uploaded to the OSM server. By entering data in your mobile device "on the road" you can save time because you do not have to upload GPX tracks to your home PC and work your way again through these.
-Additionally, obscure OSM data can be verified easily and quickly "on site", data which is already available in OSM is not acquired again.</p>
-<h3 id="what-do-i-need-to-get-started-with-vespucci">What do I need to get started with Vespucci?<a class="headerlink" href="#what-do-i-need-to-get-started-with-vespucci" title="Permanent link">#</a></h3>
-<p>You need:</p>
-<ul>
-<li>An Android device (or the emulator), Vespucci version 20 supports Android starting with 4.1, version 20.1 starting with Android 5.</li>
-<li>The Vespucci APK file (available from Google Play and GitHub)</li>
-<li>Some familiarity with <a href="http://wiki.openstreetmap.org/wiki/Map_Features">OSM Map features</a></li>
-<li>An <a href="http://www.openstreetmap.org/user/new">OSM account</a></li>
-</ul>
-<h3 id="what-can-i-do-with-the-editor">What can I do with the editor?<a class="headerlink" href="#what-can-i-do-with-the-editor" title="Permanent link">#</a></h3>
-<p>Currently, you can:</p>
-<ul>
-<li>Add and move nodes, ways and relations</li>
-<li>Rotate ways</li>
-<li>Edit the tags of nodes, ways and relations</li>
-<li>Append nodes to existing ways</li>
-<li>Delete existing nodes, ways and relations</li>
-<li>Merge nodes</li>
-<li>Edit existing relation members and add new </li>
-<li>Add turn restrictions</li>
-<li>Download area around current location from OSM server</li>
-<li>Download user-specified areas from OSM server</li>
-<li>Create, save, upload and import GPX tracks</li>
-</ul>
-<p>... see <a href="../features/">Vespucci feature list</a> for more.</p>
-<h3 id="does-vespucci-support-osm-notes">Does Vespucci support OSM Notes?<a class="headerlink" href="#does-vespucci-support-osm-notes" title="Permanent link">#</a></h3>
-<p>Yes, Vespucci supports manual and automatic download of Notes and offline storage of them, further it supports displaying and editing warnings produced by the OSMOSE quality assurance system. OpenStreetBugs is no longer supported.</p>
-<h3 id="what-are-the-limits-of-vespucci">What are the limits of Vespucci?<a class="headerlink" href="#what-are-the-limits-of-vespucci" title="Permanent link">#</a></h3>
-<p>Some things missing at this point in time:</p>
-<ul>
-<li>No extensive validation (however in general Vespucci tries to stop you from shooting yourself in the foot)</li>
-<li>Property (tag) editor does not run concurrently with the main map and object display (note that there is the experimental <a href="../../help/en/Advanced%20preferences/">Enable split window property editor</a> setting that will support this, however this tends to work best on tablets and is quite cramped on phones).</li>
-</ul>
-<h3 id="which-languages-are-supported">Which languages are supported?<a class="headerlink" href="#which-languages-are-supported" title="Permanent link">#</a></h3>
-<p>The user interface is currently available in: English, German, Chinese (Taiwan), Spanish, Ukrainian, Russian, Turkish, French, Italian, Vietnamese, Chinese, Icelandic, Greek, Portuguese, Japanese, Hebrew, Hungarian, Polish and Czech. These translations are typically complete or only have a small number of terms missing.</p>
-<p>We also have partial translations for a number of other languages (please see link to Transifex below for the current status). If the translation for your language is incomplete or missing, please feel free to request the language on Transifex and start translating. Any help in this area would be gratefully received. Please see <a href="https://www.transifex.com/projects/p/vespucci/">Vespucci's Transifex page</a> to help.</p>
-<h3 id="what-is-the-status-of-vespucci-development">What is the status of Vespucci development?<a class="headerlink" href="#what-is-the-status-of-vespucci-development" title="Permanent link">#</a></h3>
-<p>We typically provide monthly updates to the released version (bug fixes, updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.</p>
-<h3 id="is-vespucci-available-for-other-mobile-platforms">Is Vespucci available for other mobile platforms?<a class="headerlink" href="#is-vespucci-available-for-other-mobile-platforms" title="Permanent link">#</a></h3>
-<p>No, with the exception of those that provide an Android compatible environment.</p>
-<h3 id="supported-devices">Supported devices<a class="headerlink" href="#supported-devices" title="Permanent link">#</a></h3>
-<p>Current Vespucci builds support Android 5.0 and later. Pre-release testing has been done on a limited number of physical devices, but with the exception of manufacturer specific quirks there is no reason to believe that it isn't compatible with all devices with a current Android version. </p>
-<p>Physical devices:</p>
-<pre><code>5.1.1 Amazon Fire (5th gen) tablet
-6.0 HTC One M8
-6.0.1 Samsung S5
-8.0 Samsung S7
-9.0 Samsung Note 8 
-11.0 Samsung A40
-11.0 Samsung S5e tablet
-14.0 Samsung S23 Ultra
-</code></pre>
-<p>Emulators:</p>
-<pre><code>4.1.2
-4.4.2
-7.1.1
-8.1 (full test suite)
-9.0 (full test suite)
-11.0 (full test suite)
-12.0 (full test suite)
-13.0
-</code></pre>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">#</a></h2>
-<h3 id="how-can-i-obtain-vespucci">How can I obtain Vespucci?<a class="headerlink" href="#how-can-i-obtain-vespucci" title="Permanent link">#</a></h3>
-<p>See <a href="/#obtaining-vespucci">Obtaining Vespucci</a>.</p>
-<h3 id="how-can-i-install-vespucci-on-my-android-device">How can I install Vespucci on my Android device?<a class="headerlink" href="#how-can-i-install-vespucci-on-my-android-device" title="Permanent link">#</a></h3>
-<p>Just download and install like any other app =)</p>
-<h3 id="which-special-permissions-does-vespucci-require">Which special permissions does Vespucci require?<a class="headerlink" href="#which-special-permissions-does-vespucci-require" title="Permanent link">#</a></h3>
-<ul>
-<li>fine location (GPS): to be able to pan the map to your current position and generate GPX format tracks</li>
-<li>write to external storage: background imagery tiles are stored, if present, on external storage, removing this permission will make the background process that downloads tiles non-functional</li>
-</ul>
-<h3 id="how-can-i-install-vespucci-on-the-android-emulator">How can I install Vespucci on the Android emulator?<a class="headerlink" href="#how-can-i-install-vespucci-on-the-android-emulator" title="Permanent link">#</a></h3>
-<p>Installation of the Vespucci APK is like any other APK.
-There are plenty of descriptions available (e.g. <a href="http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/">1 </a>, <a href="http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator">2 </a>, <a href="http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html">3 </a>, <a href="http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/">4 </a>)</p>
-<h3 id="using-third-party-builds-of-vespucci">Using third party builds of Vespucci<a class="headerlink" href="#using-third-party-builds-of-vespucci" title="Permanent link">#</a></h3>
-<p>If you have a third party build of Vespucci installed (for example from F-Droid), that is you haven't obtained the app from google, Amazon or directly from our github repository, you need to be aware that certain functionality will be disabled because of missing API keys, in particular:</p>
-<ul>
-<li>displaying Mapillary data,</li>
-<li>sending feedback to us via Github,</li>
-<li>and numerous background layers, for example Bing aerial imagery</li>
-</ul>
-<p>will not be available. If you obtain your own keys, you can install them via the <em>Load keys from file...</em> mechanism.</p>
-<h3 id="removing-the-bing-imagery-layer">Removing the Bing imagery layer<a class="headerlink" href="#removing-the-bing-imagery-layer" title="Permanent link">#</a></h3>
-<p>Due to an implementation detail, once per session a metadata call will be made to the Bing servers, potentially leaking some minimal information (IP address, and the fact that you are using Vespucci to edit OSM). You can remove the Bing API key which will disable the Bing source and the behaviour with the following steps:</p>
-<ul>
-<li>download and save <a href="../other/remove_bing_key.txt">remove_bing_key.txt</a></li>
-<li>in the tools menu select <em>Load keys from file...</em> and load the saved file</li>
-<li>update the imagery configuration from the <em>More imagery tools...</em> <em>Update configuration from ELI</em> (or if you are using the JOSM configuration from the other similar entry)</li>
-<li>restart the app</li>
-</ul>
-<p>Note that this can only be reversed by either you providing a new Bing API key, or completely removing Vespuccis data directory.</p>
-<h2 id="using-vespucci">Using Vespucci<a class="headerlink" href="#using-vespucci" title="Permanent link">#</a></h2>
-<h3 id="how-can-i-upload-newchanged-data-to-the-osm-server">How can I upload new/changed data to the OSM server?<a class="headerlink" href="#how-can-i-upload-newchanged-data-to-the-osm-server" title="Permanent link">#</a></h3>
-<p>Choose "Upload data to  OSM server" from the transfer menu.
-(With other words: Data is not automatically uploaded!)</p>
-<h3 id="which-user-account-is-used-when-uploading-data-to-the-osm-server">Which user account is used when uploading data to the OSM server?<a class="headerlink" href="#which-user-account-is-used-when-uploading-data-to-the-osm-server" title="Permanent link">#</a></h3>
-<p>Vespucci uses OAuth authorization by default for new installations. On your first upload you will be directed to an OSM page where you will need to grant Vespucci permission to use your OpenStreetMap account. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).</p>
-<p>Note: OAuth will work for both the OSMF-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration.</p>
-<h3 id="how-can-i-zoom-into-an-area">How can I zoom into an area?<a class="headerlink" href="#how-can-i-zoom-into-an-area" title="Permanent link">#</a></h3>
-<ul>
-<li>Use the pinch-to-zoom multi-touch gesture.</li>
-<li>Use the on-screen zoom controls.</li>
-<li>Use the volume buttons of your Android device.</li>
-</ul>
-<h3 id="how-can-i-add-a-custom-aerialsatellite-imagery-layer">How can I add a custom (aerial/satellite) imagery layer<a class="headerlink" href="#how-can-i-add-a-custom-aerialsatellite-imagery-layer" title="Permanent link">#</a></h3>
-<p>The preferred method is to add your imagery source to the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a> so that it can be used by all OpenStreetMap editors. </p>
-<p>From 10.1 on, the "Advanced preferences" contain an option to add custom imagery via a form, however adding to the <a href="https://github.com/osmlab/editor-layer-index">ELI</a> is still preferred. You can update the complete configuration at any time by selecting the corresponding menu entry in the <em>Tools/More imagery tools...</em> menu. Note if you prefer to use JOSMs imagery configuration you can update from that source in the same place.</p>
-<h3 id="conflict-resolution">Conflict resolution<a class="headerlink" href="#conflict-resolution" title="Permanent link">#</a></h3>
-<p>Vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osm file, open that with JOSM and use JOSM's conflict resolution capabilities.</p>
-<h2 id="support-and-help">Support and help<a class="headerlink" href="#support-and-help" title="Permanent link">#</a></h2>
-<h3 id="where-to-get-help">Where to get help<a class="headerlink" href="#where-to-get-help" title="Permanent link">#</a></h3>
-<p>Most content from this web site is available on your device. Many of the menus contain a <em>Help</em> entry that will display useful information for the current context. You can start the help browser stand alone (long press on the Vespucci icon in your launcher) and on modern Android versions use split-screen mode to display the contents in parallel with the editor.</p>
-<p>If you cannot find an answer in the help system, feel free to open an issue on our github repository via the <em>Provide feedback</em> item in the main menu.   </p>
-<h3 id="why-cant-you-provide-technical-support-on-the-google-play-store-review-section">Why can't you provide technical support on the google play store review section<a class="headerlink" href="#why-cant-you-provide-technical-support-on-the-google-play-store-review-section" title="Permanent link">#</a></h3>
-<p>The google play store allows only one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">github</a>, if you have questions or can't find how do a specific operation you can ask on the <a href="http://help.openstreetmap.org">OpenStreetMap help site</a> or one of the other OpenStreetMap communication channels. </p>
-<p>350 characters is 100 characters less than the text above.  </p>
-<h2 id="error-messages-and-other-issues">Error messages and other issues<a class="headerlink" href="#error-messages-and-other-issues" title="Permanent link">#</a></h2>
-<h3 id="oauth-10a-to-oauth-2-migration">OAuth 1.0a to OAuth 2 migration<a class="headerlink" href="#oauth-10a-to-oauth-2-migration" title="Permanent link">#</a></h3>
-<p>Starting June 2024 the "standard" OpenStreetMap API on openstreetmap.org stopped supporting Basic (login/password) and OAuth 1.0a authorization. When you upgrade from
-an older version than version 20, the "upgrade" modal will display a text explaining this and allow a "one click" migration of your configuration. Version 20.1 and later will force migrate the configuration.</p>
-<p>To do the same manually:</p>
-<ul>
-<li>go to the menu for <em>OpenStreetMap data</em> in the layer modal,</li>
-<li>select <em>Configure</em> and then <em>Edit</em> in the menu for the current API entry,</li>
-<li>switch 'Authentication' to 'OAuth 2' and save, return to the main map display,</li>
-<li>go to the tools menu and select 'Authorize OAuth', login to your account and allow the app access.</li>
-</ul>
-<h3 id="app-hangs">App hangs<a class="headerlink" href="#app-hangs" title="Permanent link">#</a></h3>
-<p>With better rendering support for OSM objects that have "sides", for example embankments and cliffs, there have been more reports of the app hanging on startup after the "Loading presets" message appears.</p>
-<p>In our analysis this is due to issues with <a href="https://skia.org/">Skia</a>, the low level graphics library that Android utilizes, on devices running Android 8 and older. It seems as if Skia
-creates persistent state when <a href="https://developer.android.com/reference/android/graphics/PathDashPathEffect">PathDashPathEffects</a> is used that is is some form corrupted when the app is forced
-closed. Starting Vespucci in such a situation will lead to the app hanging or crashing.</p>
-<p>As a workaround version 19.0.2 and later provide a shortcut that will start the app in "Safe" mode that will set the data rendering style to the minimal built-in style. In testing this allows startup to succeed and the style can then be (manually) changed back. As shortcuts are only available from Android 7.1.1 on, we've further added a data style that avoids the critical style elements that can be used on older devices.</p>
-<p>It should be noted that "force closing" any Android app is a bad idea and should only be done when absolutely necessary.</p>
-<h3 id="vespucci-warning-that-it-cannot-write-to-an-external-sd-card">Vespucci warning that it cannot write to an external SD card<a class="headerlink" href="#vespucci-warning-that-it-cannot-write-to-an-external-sd-card" title="Permanent link">#</a></h3>
-<p>Vespucci preferentially attempts to store aerial imagery data on an external SD card if present, this is slower but leaves expensive internal storage free. On some devices this seems to cause persistent issues that are not resolved by giving the app permissions to write to external storage. A potential workaround is to remove the SD card (if this works in your setup), and then run Vespucci. If that works and background imagery is displayed you can reinsert the SD card and Vespucci should continue to use the internal storage.</p>
-<h3 id="cant-download-data-from-openstreetmap-servers">Can't download data from OpenStreetMap servers<a class="headerlink" href="#cant-download-data-from-openstreetmap-servers" title="Permanent link">#</a></h3>
-<p>If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use HTTPS (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. </p>
-<p>Workaround: create a new non-HTTPS API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 and later versions already have such an entry, you only need to activate it. </p>
-<p>Note that the same issue may apply to certain background and overlay layers.</p>
-<h3 id="301-moved-permanently-error-when-trying-to-download">"301 Moved Permanently" error when trying to download<a class="headerlink" href="#301-moved-permanently-error-when-trying-to-download" title="Permanent link">#</a></h3>
-<p>The OpenStreetMap API server you are using is likely redirecting HTTP (non-encrypted) to HTTPS (encrypted) connections. Try changing the API configuration to use HTTPS.</p>
-<h3 id="ive-downloaded-data-but-the-screen-remains-blank">I've downloaded data, but the screen remains blank<a class="headerlink" href="#ive-downloaded-data-but-the-screen-remains-blank" title="Permanent link">#</a></h3>
-<p>There are a number of potential reasons for this, all of them harmless:</p>
-<ul>
-<li>preset or tag filter turned on, check the main 'overflow' menu (three dots).</li>
-<li>You are not in the "Normal" editing mode. A long press on the lock button will display the mode menu, switch to "Normal" mode and check if things are better.</li>
-<li>data layer disabled or hidden by an other layer, check the layer dialog ('hamburger' menu in the upper right corner). If this is the issue you can move the layers via the menu associated with each layer. Note that the Layer stack is as displayed in the dialog and that non-transparent layers will obscure any layer beneath them.</li>
-<li>API sandbox selected instead of normal API, check the configuration of the data layer in the layer dialog. The sandbox API has no data in most places, you would have to strike it very lucky to see something.</li>
-</ul>
-<h3 id="oauth-authorization-fails">OAuth authorization fails<a class="headerlink" href="#oauth-authorization-fails" title="Permanent link">#</a></h3>
-<p>If OAuth authorization fails, for example with a blank screen, you may need to disable any ad blocker you have installed during the authorization process. For example Blockada is known to cause issues, but any blocker that uses Easylist will likely have similar problems, see <a href="https://github.com/easylist/easylist/pull/906">discussion on Easylist repo</a> for some background.  </p>
-<h3 id="cant-enter-key-with-messageease">Can't enter key with MessageEase<a class="headerlink" href="#cant-enter-key-with-messageease" title="Permanent link">#</a></h3>
-<p>When word prediction is turned on in MessageEase it causes issues entering text for keys in the "Details" tab, disabling word prediction allows it to work.</p>
-<h3 id="why-do-i-have-to-have-gps-turned-on">Why do I have to have GPS turned on?<a class="headerlink" href="#why-do-i-have-to-have-gps-turned-on" title="Permanent link">#</a></h3>
-<p>You don't. You can return to the app and continue working by pressing the back button when the system asks you to turn on GPS (location based functions will not work). </p>
-<p>The reasoning behind this is that we assume that typical use is an on the ground survey and that you will want your current position to be displayed on the map. As a result the standard behaviour is to ask you (once) on start up of the app to turn GPS on, you can however disable this in the "Advanced Preferences" in the GPS section, by setting the "Leave GPS off" preference. </p>
-<h3 id="location-unstable">Location unstable<a class="headerlink" href="#location-unstable" title="Permanent link">#</a></h3>
-<p>Vespucci will generally prefer location information from satellite based position systems aka GPS or GNSS. If it hasn't received a location update for a longer time (20 x the <em>Minimum GPS interval</em> up to version 19.0, the <em>Stale location after</em> value from 19.1 onwards), it will fallback to a "network" location provider if one is enabled and <em>Fallback to network location</em> is turned on. As "network" services derived locations can differ substantially from GNSS derived ones this can lead to the impression of a jittery location if the the GNSS location is updated rarely, to avoid this turn <em>Fallback to network location</em> off. Track recording and similar functions in Vespucci all only work with positions from GNSS services. All location related settings can be found in the <em>Advanced preferences</em>/<em>Location Settings</em></p>
-<p>Note that any setting on your device that indicates better local accuracy typically uses network derived location services and leaks your position information to google. </p>
-<h3 id="the-translation-for-language-x-is-incomplete-or-wrong">The translation for language X is incomplete or wrong!<a class="headerlink" href="#the-translation-for-language-x-is-incomplete-or-wrong" title="Permanent link">#</a></h3>
-<p>Vespucci is a community developed, open source, project. While not everybody will be able to contribute to the code, everybody should be able to work on the translations on 
-<a href="https://www.transifex.com/openstreetmap/vespucci/">transifex</a>. Translations in the app are updated typically once a month.  </p>
-<h3 id="the-translation-for-the-presets-is-broken">The translation for the presets is broken!<a class="headerlink" href="#the-translation-for-the-presets-is-broken" title="Permanent link">#</a></h3>
-<p>The preset translations tend to be a work in progress and given that a large number (over 2'300) of terms have to be translated, many are incomplete. From Vespucci 12.0 on you can disable the use of translations per preset, a long-click on the respective preset entry in the preset preference screen will allow you to change the behaviour.</p>
-<h3 id="presets-for-military-objects-are-missing">Presets for military objects are missing!<a class="headerlink" href="#presets-for-military-objects-are-missing" title="Permanent link">#</a></h3>
-<p>Due to the touchy situation having pre-defined presets for military objects on device could create you need to download them and install them yourself. You can find a link at the bottom of the preset help page.</p>
-<h3 id="fullscreen-mode-doesnt-work-properly">Fullscreen mode doesn't work properly<a class="headerlink" href="#fullscreen-mode-doesnt-work-properly" title="Permanent link">#</a></h3>
-<p>Fullscreen mode on Android is a bit hit and miss (depending on Android version and device) as it is really designed for games and for apps without keyboard use. If the Android buttons are hidden, the standard Android way to show them, at least in recent Android versions, is a swipe from the bottom edge. </p>
-<p>If fullscreen mode is causing issues for you, the best solution is to simply turn it off in the <a href="../../help/en/Advanced%20preferences/">Advanced preferences</a>. </p>
-<h3 id="the-aerial-or-satellite-imagery-is-out-of-date">The aerial or satellite imagery is out of date<a class="headerlink" href="#the-aerial-or-satellite-imagery-is-out-of-date" title="Permanent link">#</a></h3>
-<p>Vespucci uses the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a> for configuring the available backgrounds. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should preferably update the ELI or open an issue there.</p>
-<h3 id="on-startup-vespucci-complains-that-it-cant-write-to-a-directory-or-reports-an-error">On startup Vespucci complains that it can't write to a directory or reports an error<a class="headerlink" href="#on-startup-vespucci-complains-that-it-cant-write-to-a-directory-or-reports-an-error" title="Permanent link">#</a></h3>
-<p>Vespucci stores downloaded background and overlay tiles in a database that it tries to create on removable storage if present, this to preserve space on your device at the expense of access potentially being a bit slower.</p>
-<p>If the app can't write to the database it will show a message and will not display any background layer. </p>
-<p>To recover from the directory containing the tile database not being writable you do not need to re-install Vespucci, simply clearing the apps data in your application manager is enough. If 
-the problem is related to access to a removable storages, disabling the "Prefer removable storage" in the <a href="../../help/en/Advanced%20preferences/">Advanced preferences</a> "Layer download and storage" section may help.</p>
-<h3 id="other-tile-database-related-issues">Other tile database related issues<a class="headerlink" href="#other-tile-database-related-issues" title="Permanent link">#</a></h3>
-<p>While rare, now and then the database holding the background tiles can become corrupted, for example by a sudden power loss. </p>
-<p>To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") in <code>Android/data/de.blau.android/files/databases/</code> remove <code>osmaptilefscache_db.db</code> and the accompanying journal file too.</p>
-<h3 id="background-imagery-cache">Background imagery cache<a class="headerlink" href="#background-imagery-cache" title="Permanent link">#</a></h3>
-<p>Background imagery tiles are cached on device in a fixed sized (configurable in the <a href="../../help/en/Advanced%20preferences/">Advanced preferences</a> cache for all sources, they remain there until they are either explicitly flushed or they are removed when the cache is full. </p>
-<p>Cached tiles are available offline with the exception of "Bing" imagery. Due to the way the "Bing" API works cached tiles currently can't be accessed without a network connection.</p>
-<h3 id="cant-save-maproulette-api-key">Can't save MapRoulette API Key<a class="headerlink" href="#cant-save-maproulette-api-key" title="Permanent link">#</a></h3>
-<p>If you have an existing Vespucci installation you may have to re-authorize the application by going to "Tools" - "Authorize OAuth" menu. This is due to a change in the OSM API that occured after the release of the support for MapRoulette. </p>
-<h3 id="navigation-gestures-on-android-9-and-later">Navigation gestures on Android 9 and later<a class="headerlink" href="#navigation-gestures-on-android-9-and-later" title="Permanent link">#</a></h3>
-<p>Android 9 introduced the option to replace the navigation bar at the bottom of the screen with gestures, these were further refined with the release of Android 10. If you have this enabled you will notice that this conflicts with the menu bar at the bottom of the screen used by Vespucci.</p>
-<p>There is no completely satisfactory solution to this, but if you don't want to disable the gestures the best setup is to change the following settings in the <a href="../../help/en/Advanced%20preferences/">Advanced preferences</a> user interface settings:</p>
-<ul>
-<li>turn off <strong>Enable split action bar</strong>, this will move the menu bar to the top of the screen.</li>
-<li>set <strong>Fullscreen mode</strong> to <em>never</em> in the <em>Advanced preferences</em> </li>
-</ul>
-<p>Vespucci 15.0 and higher will detect that gestures have been enabled and will try to configure itself appropriately.</p>
-<h3 id="long-press-on-undo-button-doesnt-do-anything">Long press on Undo button doesn't do anything<a class="headerlink" href="#long-press-on-undo-button-doesnt-do-anything" title="Permanent link">#</a></h3>
-<p>This most likely due to you having navigation gestures configured, but the app not being able to detect this. For example this has been the case with devices running the /e/ variant of Android. Switching <strong>Fullscreen mode</strong> to <em>never</em> in the <em>Advanced preferences</em> should allow the Undo button to work as intended.</p>
-<h3 id="cant-re-authenticate-tls-10-11-issues">Can't (re-)authenticate - TLS 1.0 / 1.1 issues<a class="headerlink" href="#cant-re-authenticate-tls-10-11-issues" title="Permanent link">#</a></h3>
-<p>Many sites have turned off support for TLS 1.0 / 1.1 secured connections, this includes the API on openstreetmap.org. This renders Vespucci on devices with an Android version older than 4.1 essentially useless. </p>
-<p>On Android versions between 4.1 and 4.4 the app can be used without issues, except that authorization with OAuth will potentially not work. If you are unable to use OAuth you can still simply authenticate with login and password. To enable this:</p>
-<ul>
-<li>go to <em>Preferences</em> -&gt; <em>Advanced preferences</em> -&gt; <em>Server settings</em> and set login and password under the <em>User account</em> entry.</li>
-<li>in the layer control select the <em>Configure</em> menu entry for the data layer entry, edit the active entry, and uncheck OAuth support.   </li>
-</ul>
-<h3 id="resuming-the-app-doesnt-bring-me-back-to-the-property-editor">Resuming the app doesn't bring me back to the property editor<a class="headerlink" href="#resuming-the-app-doesnt-bring-me-back-to-the-property-editor" title="Permanent link">#</a></h3>
-<p>Depending on the device, Android version and the phase of the moon, some Android launchers will restart the app instead of resuming it if you click on the icon in the app draw instead of selecting the app from the current application list. This will lead to any state/edit in the property editor being lost if you had navigated away from it, for example recent Samsung devices exhibit this behaviour. </p>
-<p>If you are experiencing this issue, setting <em>Use "new task" mode for property editor</em> in the experimental section of the <em>Advanced preferences</em> may help.</p>
-<h4 id="testing-on-selected-devices">Testing on selected devices<a class="headerlink" href="#testing-on-selected-devices" title="Permanent link">#</a></h4>
-<table>
-<thead>
-<tr>
-<th>OS and device</th>
-<th>Has issue</th>
-<th>Workaround works</th>
-<th>Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>5.1.1 Amazon Fire (5th gen) tablet</td>
-<td>Yes</td>
-<td>No</td>
-<td>With workaround enabled launches on top of resumed app</td>
-</tr>
-<tr>
-<td>6.0 HTC One M8</td>
-<td>No</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>6.0.1 Samsung S5</td>
-<td>No</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>8.0 Samsung S7</td>
-<td>No</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>9.0 Samsung Note 8</td>
-<td>No</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>11.0 Samsung A40</td>
-<td>No</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>11.0 Samsung S5e tablet</td>
-<td>No</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>14.0 Samsung S23 Ultra</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-</tr>
-<tr>
-<td>14.0 Motorola G73</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">#</a></h2>
-<h3 id="vespucci-is-getting-slower-and-slower">Vespucci is getting slower and slower<a class="headerlink" href="#vespucci-is-getting-slower-and-slower" title="Permanent link">#</a></h3>
-<p>Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. In current versions of Vespucci data downloaded by the auto-download facilities will be automatically pruned if possible, but particularly zooming far out will make this less effective. </p>
-<p>Recommended practice if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Clear and download current view" action, or manually (by using the corresponding entry in the menu for the data layer) start the prune process.</p>
-<h3 id="running-vespucci-on-old-and-small-devices">Running Vespucci on "old and small" devices<a class="headerlink" href="#running-vespucci-on-old-and-small-devices" title="Permanent link">#</a></h3>
-<p>Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.3 (2.2 was last supported in version 0.9.8) and later,
-however older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap (this can be as low as 16MB). If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints should be helpful (ordered in decreasing order of importance):</p>
-<ul>
-<li>turn off any map overlay</li>
-<li>only load small map areas and don't excessively use the incremental load facility</li>
-<li>turn off notes and photo overlay</li>
-<li>turn off name suggestions</li>
-<li>don't add large presets</li>
-<li>use the <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/blob/master/gen/vespucci_zip_no_translations.zip%3fraw=true&presetname=Default preset without translations">Default preset without translations</a> instead of the one packaged with the app.</li>
-</ul>
-<p>The location dependent tagging and validation feature is not available on such devices as it alone requires 4MB of heap. </p>
-<h3 id="rendering-is-very-slow">Rendering is very slow<a class="headerlink" href="#rendering-is-very-slow" title="Permanent link">#</a></h3>
-<p>Rendering multi-polygons is quite complex, and the default style for these is quite computationally expensive and will be slow on older devices. Try switching to the data style without multi-polygon to improve this. See <a href="../../help/en/Preferences/">preferences</a>.</p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#frequently-asked-questions" class="nav-link">Frequently Asked Questions</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#general" class="nav-link">General</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#installation" class="nav-link">Installation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#using-vespucci" class="nav-link">Using Vespucci</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#support-and-help" class="nav-link">Support and help</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#error-messages-and-other-issues" class="nav-link">Error messages and other issues</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#performance" class="nav-link">Performance</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="frequently-asked-questions">Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">#</a></h1>
 <h2 id="general">General<a class="headerlink" href="#general" title="Permanent link">#</a></h2>
@@ -1098,21 +730,20 @@ however older devices tend to have very limited memory and correspondingly the a
 <p>The location dependent tagging and validation feature is not available on such devices as it alone requires 4MB of heap. </p>
 <h3 id="rendering-is-very-slow">Rendering is very slow<a class="headerlink" href="#rendering-is-very-slow" title="Permanent link">#</a></h3>
 <p>Rendering multi-polygons is quite complex, and the default style for these is quite computationally expensive and will be slow on older devices. Try switching to the data style without multi-polygon to improve this. See <a href="../../help/en/Preferences/">preferences</a>.</p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../js/base.js" defer></script>
-        <script src="../../search/main.js" defer></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

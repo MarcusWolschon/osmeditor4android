@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>ویرایشگر ساعات کار برای اوپن‌استریت‌مپ - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../help/en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../help/en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -413,131 +394,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="_1">ویرایشگر ساعات کار برای اوپن‌استریت‌مپ<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
-<p>تعاریف فنی ساعت کاری در اوپن‌استریت‌مپ نسبتاً پیچیده است و ارائهٔ آن در قالب یک واسط کاربری سرراست و ساده چندان آسان و سهل نیست.</p>
-<p>البته بیشتر اوقات معمولاً فقط بخش کوچکی از تعاریف نیازتان می‌شود. این ویرایشگر با در نظر گرفتن همین موضوع، قابلیت‌های پیچیده‌تر را در منوها پنهان می‌کند و بیشتر وقت‌ها برای کاربردهای معمول به اندکی دستکاری در الگوهای ازپیش‌تعریف‌شده نیاز دارید.</p>
-<p><em>این سند مقدماتی است و در حال بهبود آن هستیم</em></p>
-<h2 id="_2">استفاده از ویرایشگر ساعت کاری<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<p>در یک گردش کاری معمولی ، شیءی که در حال ویرایش آن هستید یا دارای برچسب ساعات کاری (ساعات_باز کردن، زمانهای_سرویس و زمانهای_جمع آوری) است یا می توانید مجدداً از پیش تعیین شده برای شیء استفاده کنید تا فیلد ساعت خالی دریافت کند. اگر نیاز دارید که فیلد را به صورت دستی اضافه کنید و از وسپوچی استفاده می کنید، می توانید کلید را در صفحه جزئیات وارد کرده و سپس برای ویرایش به زبانه فرم برگردید. اگر معتقدید که برچسب ساعات کار باید بخشی از پیش تنظیم شده باشد ، لطفاً یک مسئله را برای ویرایشگر خود باز کنید.</p>
-<p>اگر یک الگوی پیش فرض تعریف کرده اید (این کار را از طریق آیتم منوی "مدیریت الگوها" انجام دهید) وقتی ویرایشگر با مقدار خالی شروع به کار می کند، به طور خودکار بارگیری می شود. با عملکرد "بارگیری الگو" می توانید هر الگوی ذخیره شده را بارگیری کنید و با منوی "ذخیره الگو" می توانید مقدار فعلی را به عنوان یک الگو ذخیره کنید. شما می توانید الگوها و پیش فرض های جداگانه ای را برای کلید خاصی تعریف کنید، به عنوان مثال "ساعتهای_باز" ، "زمانهای_جمع آوری" و "زمانهای_سرویس" یا مقادیر سفارشی. علاوه بر این، می توانید کاربرد یک الگو را در یک منطقه و یک شناسه خاص، معمولاً یک برچسب سطح بالا OSM (به عنوان مثال امکانات رفاهی = رستوران) محدود کنید.</p>
-<p>به طور طبیعی می توانید از ابتدا یک ساعت کار کنید، اما توصیه می کنیم از یکی از الگوهای موجود به عنوان نقطه شروع استفاده کنید.</p>
-<p>هنگامی که یک مقدار ساعت کاری موجود بار می‌شود، برای پیروی از تعاریف فنی ساعت کاری، تلاشی برای اصلاح خودکار آن انجام می‌شود. اگر اصلاح خودکار میسر نشود، مکان تقریبی رخداد خطا در قسمت نمایش خام ساعت کاری، مشخص می‌شود و می‌توانید به‌طور دستی آن را اصلاح نمایید. تقریباً یک چهارم مقادیر OH در پایگاه داده اوپن‌استریت‌مپ مشکل دارند، اما کمتر از 10% قابل تصحیح نیست،<a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> برای اطلاعات بیشتر در مورد اینکه چه انحرافی از مشخصات تحمل می شود.</p>
-<h3 id="_3">دکمهٔ منوی اصلی<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>افزودن قاعده</strong>: قاعدهٔ جدیدی اضافه کنید.</li>
-<li><strong>افزودن قاعده برای تعطیلات</strong>: برای تعطیلات و تغییر وضعیت آن قاعده‌ای اضافه کنید.</li>
-<li><strong>افزودن قانون برای 24/7</strong>: یک قانون برای یک شیء که همیشه باز است اضافه کنید، مشخصات ساعات کار هیچ ارزش فرعی دیگری را برای 24/7 پشتیبانی نمی کند، اما ما اجازه می دهیم انتخاب کننده های سطح بالاتر (به عنوان مثال محدوده سال) اضافه شوند.</li>
-<li><strong>بارکردن الگو</strong>: یک الگوی موجود را بار می‌کند.</li>
-<li><strong>ذخیره در الگو</strong>: مقدار کنونی ساعت کاری را به‌عنوان الگو برای استفاده در آینده ذخیره کنید.</li>
-<li><strong>مدیریت قالب ها</strong>: ویرایش، برای مثال تغییر نام، و حذف الگوهای موجود.</li>
-<li><strong>تازه‌سازی</strong>: تجزیه و بررسی دوبارهٔ مقدار ساعت کاری</li>
-<li><strong>حذف همه</strong>: همهٔ قواعد را حذف کنید.</li>
-</ul>
-<h3 id="_4">قواعد<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
-<p>قواعد پیشفرض به‌عنوان قاعدهٔ <em>عادی</em> اضافه می‌شوند که یعنی بر مقادیر قاعده‌های قبلی برای همان روزها چیرگی دارند. هنگام استفاده از زمان‌های گسترده باید به این نکته توجه داشت. در این مواقع معمولاً باید نوع قاعده را با استفاده از گزینهٔ <em>نمایش نوع قاعده</em> به <em>افزودنی</em> تغییر دهید.</p>
-<h4 id="_5">منوی قاعده<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>افزودن اصلاحگر/توضیح</strong>: تأثیر قاعده را تغییر دهید و توضیح اختیاری اضافه کنید.</li>
-<li><strong>افزودن تعطیلات</strong>: انتخابگر برای تعطیلات عمومی یا مدارس اضافه کنید.</li>
-<li><strong>افزودن بازهٔ زمان...</strong><ul>
-<li><strong>زمان - زمان</strong>: زمان آغاز تا زمان پایان برای یک روز.</li>
-<li>__ زمان - زمان طولانی__: زمان شروع تا پایان روز روز بعد (مثال 26:00 ساعت 02:00  (ق.ظ.) در روز بعد).</li>
-<li><strong>زمان متغیر - زمان</strong>: از زمان متغیر شروع (سپیده دم، غروب، طلوع خورشید و غروب آفتاب) تا زمان پایان در همان روز.</li>
-<li><strong>زمان متغیر - زمان گسترده</strong>: از زمان آغاز غیرثابت تا زمان پایان در روز بعد.</li>
-<li><strong>زمان - زمان متغیر</strong>: زمان آغاز تا زمان پایان غیرثابت.</li>
-<li><strong>زمان متغیر - زمان متغیر</strong>: زمان آغاز غیرثابت تا زمان پایان غیرثابت.</li>
-<li><strong>زمان</strong>: لحظه‌ای در زمان.</li>
-<li><strong>زمان-پایان باز</strong>: از یک لحظهٔ آغاز به بعد.</li>
-<li><strong>زمان متغیر</strong>: در زمان غیرثابت مشخص</li>
-<li><strong>زمان متغیر-پایان باز</strong>: از یک زمان آغاز غیرثابت به بعد</li>
-</ul>
-</li>
-<li><strong>افزودن بازهٔ روز هفته</strong>: انتخابگری بر اساس هفته اضافه کنید.</li>
-<li><strong>افزودن بازهٔ تاریخ...</strong><ul>
-<li><strong>تاریخ - تاریخ</strong>: از تاریخ آغاز (سال، ماه، روز) تا تاریخ پایان.</li>
-<li><strong>تاریخ متغیر - تاریخ</strong>: از تاریخ آغاز غیرثابت (فعلاً در تعارف فنی فقط <em>easter</em> آمده است) تا تاریخ پایان.</li>
-<li><strong>تاریخ - تاریخ متغیر</strong>: از تاریخ آغاز تا تاریخ غیرثابت.</li>
-<li><strong>تاریخ متغیر - تاریخ متغیر</strong>: از تاریخ آغاز غیرثابت تا تاریخ پایان غیرثابت.</li>
-<li><strong>وقوع در ماه - وقوع در ماه</strong>: از وقوع یک روز هفته در ماه تا همان روز.</li>
-<li><strong>وقوع در ماه - تاریخ</strong>: از وقوع یک روز هفته در ماه تا تاریخ پایان.</li>
-<li><strong>تاریخ - وقوع در ماه</strong>: از تاریخ آغاز تا وقوع یک روز هفته در ماه.</li>
-<li><strong>وقوع در ماه - تاریخ متغیر</strong>: از وقوع یک روز هفته در ماه تا تاریخ پایان غیرثابت.</li>
-<li><strong>تاریخ متغیر - وقوع در ماه</strong>: از تاریخ آغاز غیرثابت تا وقوع یک روز هفته در ماه.</li>
-<li><strong>تاریخ - پایان باز</strong>: از تاریخ آغاز به بعد.</li>
-<li><strong>تاریخ متغیر - پایان باز</strong>: از تاریخ آغاز غیرثابت به بعد.</li>
-<li><strong>وقوع در ماه - پایان باز</strong>: از وقوع یک روز هفته در ماه به بعد.</li>
-<li><strong>با آفست...</strong>: همان مدخل‌هایی که پیشتر گفته شد با مشخص‌کردن آفست (به‌ندرت استفاده می‌شود).</li>
-</ul>
-</li>
-<li><strong>افزودن محدوده سال ...</strong><ul>
-<li><strong>افزودن بازهٔ سال</strong>: انتخابگری بر اساس سال اضافه کنید.</li>
-<li><strong>افزایش سال شروع</strong>: محدوده سال پایان باز را اضافه کنید.</li>
-</ul>
-</li>
-<li><strong>افزودن بازهٔ هفته</strong>: انتخابگری بر اساس شمارهٔ هفته اضافه کنید.</li>
-<li><strong>تکرار</strong>: از این قاعده کپی بگیرید و پس از موقعیت کنونی درج کنید.</li>
-<li><strong>نمایش نوع قانون</strong>: نمایش و اجازه تغییر نوع قانون _ عادی_ ، <em>افزودنی</em> و <em>پاسخ</em> (در قانون اول موجود نیست).</li>
-<li><strong>برو بالا</strong>: این قاعده را یک پله بالا ببرید (برای قاعدهٔ اول امکان‌پذیر نیست).</li>
-<li><strong>برو پایین</strong>: این قاعده را یک پله پایین ببرید.</li>
-<li><strong>حذف</strong>: این قاعده را حذف کنید.</li>
-</ul>
-<h3 id="_6">بازه‌های زمان<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
-<p>برای سهولت هرچه بیشتر بازه های زمانی ویرایش، سعی می کنیم هنگام بارگذاری مقادیر موجود، محدوده زمانی مطلوب و جزئیات را برای نوارهای محدوده انتخاب کنیم. برای بازه های زمانی جدید، میله ها از ساعت 6 صبح (صبح) شروع می شوند و 15 دقیقه افزایش دارند، این را می توان از طریق منو تغییر داد.</p>
-<p>اگر استفادهٔ مستقیم از نوارها خیلی دشوار است، با زدن روی نوار زمان (نه روی دسته‌ها) زمان‌گزین بزرگ باز می‌شود. زمان‌گزین‌ها به روز بعد گسترش می‌یابند، بنابراین راه ساده‌ای برای گسترش بازهٔ زمان هستند بدون اینکه مجبور باشید بازه را حذف و دوباره اضافه کنید.</p>
-<h4 id="_7">منوی بازهٔ زمان<a class="headerlink" href="#_7" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>نمایش زمان گیر</strong>: برای انتخاب زمان آغاز و پایان یک کادر بزرگ نمایش می‌دهد. در نمایشگرهای خیلی کوچک روش مناسبی برای تغییر زمان است.</li>
-<li>__ تغییر به تیک های 15 دقیقه __: از دانه بندی 15 دقیقه ای برای نوار محدوده استفاده کنید.</li>
-<li>__ تغییر به خط‌نشان‌های 5 دقیقه__: از گام‌های 5 دقیقه ای برای نوار محدوده استفاده کنید.</li>
-<li><strong>پرش به خط‌نشان‌های ۱ دقیقه‌ای</strong>: استفاده از گام‌های ۱ دقیقه‌ای برای نوار بازه. استفاده روی گوشی خیلی راحت نیست.</li>
-<li><strong>آغاز از نیمه‌شب</strong>: نوار بازه از نیمه‌شب آغاز می‌شود.</li>
-<li><strong>نمایش دوره</strong>: برای مشخص‌کردن دوره به دقیقه خانهٔ دوره را نمایش می‌دهد.</li>
-<li><strong>حذف</strong>: این بازهٔ زمان را حذف کنید.</li>
-</ul>
-<h3 id="_8">مدیریت الگوها<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
-<p>گفتگوی مدیریت قالب به شما امکان می دهد قالب ها را اضافه، ویرایش و حذف کنید.</p>
-<p>در اندروید 4.4 و بالاتر قابلیت های زیر زیر از دکمه منو موجود است.</p>
-<ul>
-<li>__ نمایش همه __: نمایش همه قالب ها در پایگاه داده.</li>
-<li>__ ذخیره در فایل__: محتویات پایگاه داده قالب را در یک فایل بنویسید.</li>
-<li>__ بارگیری از فایل (جایگزینی) __: بارگذاری قالب ها از یک فایل که جایگزین محتویات فعلی پایگاه داده می شود.</li>
-<li>__ بارگیری از فایل__: بارگذاری قالب ها از یک فایل که محتویات فعلی را حفظ می کند.</li>
-</ul>
-<h4 id="_9">گفتگوهای قالب را ذخیره و ویرایش کنید<a class="headerlink" href="#_9" title="Permanent link">#</a></h4>
-<p>گفتگو به شما امکان می دهد تنظیم کنید</p>
-<ul>
-<li>__ نام__ نام توصیفی برای الگو.</li>
-<li>__ پیش فرض__ اگر علامت زده شود به عنوان یک الگوی پیش فرض در نظر گرفته می شود (معمولاً توسط سایر زمینه ها بیشتر محدود می شود).</li>
-<li>__ کلید__ کلیدی که این الگو برای آن مناسب است ، اگر روی <em>کلید پیشفرض</em> تنظیم شده باشد، می توانید یک مقدار غیر استاندارد را در قسمت زیر اضافه کنید. مقادیر کلیدی از کارت های wild SQL پشتیبانی می کند، یعنی <em>٪ _ با صفر یا بیشتر کاراکتر مطابقت دارد، * _ * با یک کاراکتر واحد مطابقت دارد. هر دو کاراکتر کارت وحشی را می توان با </em>\_ برای مطابقت واقعی فرار کرد.</li>
-<li><strong>منطقه</strong> منطقه ای که قالب برای آن قابل اجرا است.</li>
-<li><strong>شی</strong> یک رشته کاربردی خاص برای مطابقت. </li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">ویرایشگر ساعات کار برای اوپن‌استریت‌مپ</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">استفاده از ویرایشگر ساعت کاری</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="_1">ویرایشگر ساعات کار برای اوپن‌استریت‌مپ<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
 <p>تعاریف فنی ساعت کاری در اوپن‌استریت‌مپ نسبتاً پیچیده است و ارائهٔ آن در قالب یک واسط کاربری سرراست و ساده چندان آسان و سهل نیست.</p>
@@ -638,21 +495,20 @@
 <li><strong>منطقه</strong> منطقه ای که قالب برای آن قابل اجرا است.</li>
 <li><strong>شی</strong> یک رشته کاربردی خاص برای مطابقت. </li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

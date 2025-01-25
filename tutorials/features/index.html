@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Features - Vespucci</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../../help/en/Introduction/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../../help/en/20.2.0%20Release%20notes/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -419,641 +400,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h2 id="vespucci-features">Vespucci Features<a class="headerlink" href="#vespucci-features" title="Permanent link">#</a></h2>
-<p>This list is likely not really complete, but gives some idea of the supported functionality.</p>
-<table>
-<thead>
-<tr>
-<th>Category</th>
-<th>Feature</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Geometry</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Create Node</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Create Way</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Create Relation</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Create Route</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Create Multipolygon</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Delete Node</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Delete Way</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Delete Relation</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Move Node</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Move Way</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Merge Nodes</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Move Node to specific coordinates</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Create Node at current coordinates</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Add Node to Way</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Merge Ways</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Merge Polygons (closed ways)</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Append to Way</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Split Way at Node</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Split Way at marked position</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Split closed Way</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Split closed Way in to polygons</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Invert Way direction</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Rotate Way</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Improve Way geometry</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Orthogonalize Way(s)</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Circulize closed Way</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Intersect Ways</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Extract segment from way</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Select way nodes</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Extract Node from Way</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Move multiple elements (multi-select)</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Add element to Relation</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Remove element from Relation</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Add element to Route</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Tags</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Tag copy and paste</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Form and preset based editor</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Conventional key - value editor</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Auto-suggest for keys and values</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Change tags for multiple objects</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>OSM Data</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Up- and Download</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Load and save in JOSM compatible .OSM format</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Auto-Download around current position</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Auto-Download of current map view</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Save and apply changes in OSC format</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Configurable API servers</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Load data from PBF files</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Load data from tiled offline format</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Presets</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>JOSM Preset format support with extensions</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Custom presets</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Presets can be updated and installed from app online</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Preset search</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Auto-Presets from taginfo</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>JavaScript scripting support</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Create custom presets on the fly</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Backgrounds and Layers</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Supports the JOSM and Editor Layer Index Imagery Sources</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>On device tile caching</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Custom background and overlays</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>OpenAerialMap support</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>On device MBTiles (raster) support</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>GeoJSON layer support</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Imagery offset database support</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Grid / scale layer</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>WMS server support</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Tasks and bugs</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>OSM Notes</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>OSMOSE</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>MapRoulette tasks</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Custom tasks</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Auto-Download</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Save and load OSM Notes in OSN format files</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Load Notes in .osc files</td>
-<td>OsmAnd extension</td>
-</tr>
-<tr>
-<td></td>
-<td>Configurable API server</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Modes and Filters</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Tag editing only mode</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Indoor mode</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>C-Mode (display and edit objects with validation issues)</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Tag filter</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Preset filter</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Special editors</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Opening hours</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Conditional restrictions</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Turn restrictions</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Validation</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Missing tags (preset driven)</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Re-survey after n-days</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Missing street names</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>FIXMEs</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Unconnected ways</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Validation issues trigger notifications</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>GPS/GPX</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Support for external GPS sources</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>GPX track recording, loading and saving</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>GPX track upload</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>GPX waypoint support</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Street level imagery</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Mapillary support</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Misc</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Styleable data layer</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Turn restriction rendering</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Address prediction</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>JavaScript scripting support</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>GeoJSON Feature display</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Start camera app</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Display on device photos with location and orientation</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Undo- and redo functions</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>OLC support</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Validate URLs from property editor</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Search for objects in loaded data (JOSM syntax)</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Query the Overpass API</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Generate Overpass queries from JOSM search language</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Barometer support</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>On-device help</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Automatically save edits and GPX tracks at set intervals</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Display of nearby POIs</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Support for external measuring apps</td>
-<td></td>
-</tr>
-</tbody>
-</table></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="2"><a href="#vespucci-features" class="nav-link">Vespucci Features</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h2 id="vespucci-features">Vespucci Features<a class="headerlink" href="#vespucci-features" title="Permanent link">#</a></h2>
 <p>This list is likely not really complete, but gives some idea of the supported functionality.</p>
@@ -1668,21 +1015,20 @@
 </tr>
 </tbody>
 </table></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../js/base.js" defer></script>
-        <script src="../../search/main.js" defer></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

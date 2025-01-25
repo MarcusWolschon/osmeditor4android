@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>OpenStreetMapin aukioloaikamuokkain - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -413,131 +394,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="openstreetmapin-aukioloaikamuokkain">OpenStreetMapin aukioloaikamuokkain<a class="headerlink" href="#openstreetmapin-aukioloaikamuokkain" title="Permanent link">#</a></h1>
-<p>OpenStreetMapin aukiloaikojen määrittely on melko monimutkainen eikä se suoralta kädeltä taivu yksinkertaiseksi ja intuitiiviseksi käyttöliittymäksi.</p>
-<p>Toisaalta määrittelystä käytetään monesti vain pientä osaa. Muokkain ottaa tämän huomioon ja yrittää piilottaa oudoimmat piirteet valikoihin, jolloin tien päällä tarvitsee useimmiten tehdä vain pieniä muutoksia valmiisiin mallipohjiin.</p>
-<p><em>Tämä dokumentaatio on alustava ja työn alla.</em></p>
-<h2 id="aukioloaikamuokkaimen-kaytto">Aukioloaikamuokkaimen käyttö<a class="headerlink" href="#aukioloaikamuokkaimen-kaytto" title="Permanent link">#</a></h2>
-<p>Tyypillisessä tapauksessa muokattavana olevalla kohteella joko on jo aukioloaikatägi (opening_hours, service_times ja collection_times) tai siihen voi soveltaa uudelleen esivalinnan, joka lisää tyhjän aukioloaikakentän. Jos sinun täytyy lisätä kenttä käsin Vespuccia käyttäessäsi, niin voit lisätä avaimen yksityikohtasivulta ja palata sitten takaisin muokkaamaan lomakepohjaiselle välilehdelle. Jos esivalinnassa kuuluisi mielestäsi olla aukioloaikatägi, voit lähettää muutospyynnön käyttämäsi muokkaimen kehittäjille.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
-<p>Voit luonnollisesti rakentaa aukioloajan (aoa) tyhjästä, mutta suosittelemme jonkin valmiin mallineen käyttämistä pohjana.</p>
-<p>Kun muokkaimeen ladataan olemassa oleva arvo, se yritetään korjata automaattisesti aukioloaikamäärittelyn mukaiseksi. Jos tämä ei ole mahdollista, virheen summittainen paikka raa'assa aoa-arvossa korostetaan, ja voit yrittää korjata sen käsin. Suurinpiirtein neljänneksessä OpenStreetMapin tietokannan aoa-arvoista on ongelmia, ja alle kymmentä prosenttia ei voi korjata. Sivulla [OpeningHourParser] (https://github.com/simonpoole/OpeningHoursParser) kerrotaan tarkemmin mitä poikkeamia määrittelystä sallitaan.</p>
-<h3 id="paavalikkonappi">Päävalikkonappi<a class="headerlink" href="#paavalikkonappi" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>Lisää sääntö</strong>: lisää uusi sääntö.</li>
-<li><strong>Lisää sääntö juhlapäiville</strong>: lisää uusi sääntö juhlapäiville ja sen tilamuutos.</li>
-<li><strong>Lisää sääntö 24/7</strong>: lisää sääntö kohteelle, joka on aina auki; aukioloaikamäärittely ei tue alavalitsimien käyttämistä 24/7:n rinnalla, mutta tässä sallitaan korkeamman tason valitsimien lisääminen (esimerkiksi vuosijaksot).</li>
-<li><strong>Lataa malline</strong>: lataa valmis malline.</li>
-<li><strong>Tallenna mallineeksi</strong>: tallenna nykyinen aukioloaika-arvo mallineeksi tulevaa käyttöä varten.</li>
-<li><strong>Mallipohjien hallinta</strong>: muokkaa (esim. vaihda nimi) ja poista mallipohjia.</li>
-<li><strong>Päivitä</strong>: jäsennä aukioloaika-arvo uudelleen.</li>
-<li><strong>Poista kaikki</strong>: poista kaikki säännöt.</li>
-</ul>
-<h3 id="saannot">Säännöt<a class="headerlink" href="#saannot" title="Permanent link">#</a></h3>
-<p>Oletussäännöt lisätään <em>tavallisina</em> sääntöinä, mikä tarkoittaa sitä, että ne syrjäyttävät aiemmat samoille päiville osuvat säännöt. Tällä voi olla merkitystä, kun määritetään laajennettuja aikoja – tyypillisesti tällöin on syytä muuttaa säännöt <em>lisääviksi</em> valikkokohdasta <em>Näytä sääntötyyppi</em>.</p>
-<h4 id="saantovalikko">Sääntövalikko<a class="headerlink" href="#saantovalikko" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>Lisää määre/kommentti</strong>: muuta säännön vaikutusalaa, ja lisää valinnainen kommentti.</li>
-<li><strong>Lisää vapaapäivä</strong>: lisää valitsin yleiselle tai koulujen vapaapäivälle.</li>
-<li><strong>Lisää aikaväli...</strong><ul>
-<li><strong>Aika–aika</strong>: alkuaika ja loppuaika samana päivänä.</li>
-<li><strong>Aika–laajennettu aika</strong>: alkuaika ja loppuaika eri päivinä (esim. 26:00 on 02:00 seuraavana päivänä).</li>
-<li><strong>Vaiht. aika–aika</strong>: vaihteleva alkuaika (aamu- tai iltahämärä, auringonnousu tai -lasku) ja loppuaika samana päivänä.</li>
-<li><strong>Vaiht. aika–laajennettu aika</strong>: vaihteleva alkuaika ja loppuaika peräkkäisinä päivinä.</li>
-<li><strong>Aika–vaiht. aika</strong>: alkuaika ja vaihteleva loppuaika.</li>
-<li><strong>Vaiht. aika–vaiht. aika</strong>: vaihteleva alkuaika ja vaihteleva loppuaika.</li>
-<li><strong>Aika</strong>: tietty ajankohta.</li>
-<li><strong>Aika–avoin loppu</strong>: tietystä ajankohdasta eteenpäin.</li>
-<li><strong>Vaihteleva aika</strong>: vaihtelevana ajankohtana.</li>
-<li><strong>Vaihteleva aika–avoin loppu</strong>: vaihtelevasta ajankohdasta eteenpäin.</li>
-</ul>
-</li>
-<li><strong>Lisää viikonpäiväjakso</strong>: lisää viikonpäiviin perustuva valitsin.</li>
-<li><strong>Lisää päiväjakso...</strong><ul>
-<li><strong>Pvm–pvm</strong>: alku- ja loppupäivämäärä (vuosi, kk, päivä).</li>
-<li><strong>Vaihteleva pvm–pvm</strong>: vaihteleva alkupäivämäärä (määrittelyssä on toistaiseksi vain <em>pääsiäinen</em>) ja tietty loppupäivämäärä.</li>
-<li><strong>Pvm–vaihteleva pvm</strong>: alkupäivämäärä ja vaihteleva loppupäivämäärä.</li>
-<li><strong>Vaihteleva pvm–vaihteleva pvm</strong>: vaihteleva alku- ja loppupäivämäärä.</li>
-<li><strong>Esiintymiskerta kuussa–esiintymiskerta kuussa</strong>: alkaen viikonpäivän tietystä esiintymiskerrasta kuukauden aikana samaan esiintymäkertaan seuraavassa kuussa.</li>
-<li><strong>Esiintymiskerta kuussa–päivämäärä</strong>: alkaen viikonpäivän tietystä esiintymiskerrasta kuukauden aikana ja päättyen tiettyyn päivämäärään</li>
-<li><strong>Päivämäärä–esiintymiskerta kuussa</strong>: alkaen tietystä päivämäärästä ja päättyen viikonpäivän tiettyyn esiintymiskertaan kuukauden aikana.</li>
-<li><strong>Esiintymiskerta kuussa–vaihteleva päivämäärä</strong>: alkaen viikonpäivän tietystä esiintymiskerrasta kuukauden aikana ja päättyen vaihtelevaan päivämäärään.</li>
-<li><strong>Vaihteleva päivämäärä–esiintymiskerta kuussa</strong>: alkaen vaihtelevasta päivämäärästä ja päättyen viikonpäivän tiettyyn esiintymiskertaan kuukauden aikana.</li>
-<li><strong>Päivämäärä–avoin loppu</strong>: tietystä päivämäärästä eteenpäin.</li>
-<li><strong>Vaihteleva pvm–avoin loppu</strong>: vaihtelevasta päivämäärästä eteenpäin.</li>
-<li><strong>Esiintymiskerta kuussa–avoin loppu</strong>: viikonpäivän tietystä esiintymiskerrasta kuukauden aikana eteenpäin.</li>
-<li><strong>Poikkeama...</strong>: samat vaihtoehdot kuin edellä poikkeaman kanssa (harvoin käytetty).</li>
-</ul>
-</li>
-<li><strong>Add year range...</strong>    <ul>
-<li><strong>Lisää vuosijakso</strong>: lisää vuosiin perustuva valitsin.</li>
-<li><strong>Add starting year</strong>: add an open ended year range.</li>
-</ul>
-</li>
-<li><strong>Lisää viikkojakso</strong>: lisää viikkonumeroihin perustuva valitsin.</li>
-<li><strong>Kahdenna</strong>: tee kopio tästä säännöstä välittömästi sen perään.</li>
-<li><strong>Näytä sääntötyyppi</strong>: näytä säännön tyyppi ja/tai muuta sitä: <em>tavallinen</em>, <em>lisäävä</em> ja <em>vara</em> (ei ensimmäiselle säännölle).</li>
-<li><strong>Siirrä ylöspäin</strong>: siirrä sääntö yhtä paikkaa ylemmäs (ei ensimmäiselle säännölle)</li>
-<li><strong>Siirrä alaspäin</strong>: siirrä sääntö yhtä paikkaa alemmas.</li>
-<li><strong>Poista</strong>: poista sääntö.</li>
-</ul>
-<h3 id="ajanjaksot">Ajanjaksot<a class="headerlink" href="#ajanjaksot" title="Permanent link">#</a></h3>
-<p>Jotta ajanjaksojen muokkaaminen olisi mahdollisimman helppoa, valmiita arvoja ladattaessa säätöasteikolle koetetaan antaa paras mahdollinen laajuus ja jaottelu. Uusien ajanjaksojen säätimissä alkuaika on 6:00, ja niissä on 15 minuutin jaotus. Asetuksia voi muuttaa valikon kautta.</p>
-<p>Aikapalkin (ei jakomerkkien) klikkaaminen avaa ison aikavalitsimen, kun palkin käyttö suoraan on liian vaikeaa. Aikavalitsin ulottuu seuraavaan päivään, joten se on helppo tapa laajentaa aikaväliä tarvitsematta poistaa ja lisätä aikaväliä uudelleen.</p>
-<h4 id="ajanjaksovalikko">Ajanjaksovalikko<a class="headerlink" href="#ajanjaksovalikko" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>Näytä aikavalitsin</strong>: näytä iso valitsin, josta voi asettaa alku- ja loppuajan; pienille näytöille tämä on suositeltava tapa aikojen asettamiseen.</li>
-<li><strong>15 minuutin jaotus</strong>: käytä säätöpalkissa 15 minuutin tarkkuutta.</li>
-<li><strong>5 minuutin jaotus</strong>: käytä säätöpalkissa 5 minuutin tarkkuutta.</li>
-<li><strong>1 minuutin jaotus</strong>: käytä säätöpalkissa 1 minuutin tarkkuutta – todella vaikeaa puhelimessa.</li>
-<li><strong>Aloita keskiyöstä</strong>: aseta säätöpalkin alkuaika keskiyöhön.</li>
-<li><strong>Näytä aikaväli</strong>: näytä kenttä, johon asetetaan toistuva aikaväli minuutteina.</li>
-<li><strong>Poista</strong>: poista ajanjakso.</li>
-</ul>
-<h3 id="hallitse-mallineita">Hallitse mallineita<a class="headerlink" href="#hallitse-mallineita" title="Permanent link">#</a></h3>
-<p>The template management dialog allows you to add, edit and delete templates.</p>
-<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
-<ul>
-<li><strong>Show all</strong>: display all templates in the database.</li>
-<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
-<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
-<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
-</ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
-<p>The dialog allows you to set</p>
-<ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#openstreetmapin-aukioloaikamuokkain" class="nav-link">OpenStreetMapin aukioloaikamuokkain</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#aukioloaikamuokkaimen-kaytto" class="nav-link">Aukioloaikamuokkaimen käyttö</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="openstreetmapin-aukioloaikamuokkain">OpenStreetMapin aukioloaikamuokkain<a class="headerlink" href="#openstreetmapin-aukioloaikamuokkain" title="Permanent link">#</a></h1>
 <p>OpenStreetMapin aukiloaikojen määrittely on melko monimutkainen eikä se suoralta kädeltä taivu yksinkertaiseksi ja intuitiiviseksi käyttöliittymäksi.</p>
@@ -638,21 +495,20 @@
 <li><strong>Region</strong> the region the template is applicable to.</li>
 <li><strong>Object</strong> an application specific string to use for matching.</li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

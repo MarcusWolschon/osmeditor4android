@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Node selected - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../Creating%20new%20objects/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../Way%20selected/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -423,98 +404,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="node-selected">Node selected<a class="headerlink" href="#node-selected" title="Permanent link">#</a></h1>
-<p>Node selection is described in the <a href="../Introduction/">Introduction</a>. Selected nodes can be moved by dragging in the touch area, you can enable a large drag area in the preferences. You can edit tags for selected nodes.</p>
-<h2 id="actions">Actions<a class="headerlink" href="#actions" title="Permanent link">#</a></h2>
-<p>Note: some of these actions will only be visible if they can actually be executed on the selected node. For example you can only merge a node with a way or node if the selected node is in their tolerance zone.</p>
-<h3 id="undo"><img alt="Undo" src="../../images/undolist_undo.png" /> Undo<a class="headerlink" href="#undo" title="Permanent link">#</a></h3>
-<p>Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding "redo" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen. <em>Some operations consist of multiple simpler actions that will be listed as individual items.</em></p>
-<h3 id="properties"><img alt="Properties" src="../../images/tag_menu_tags.png" /> Properties<a class="headerlink" href="#properties" title="Permanent link">#</a></h3>
-<p>Starts the property editor on the current selection.</p>
-<h3 id="todos"><img alt="Todos" src="../../images/tag_menu_bug.png" /> Todos<a class="headerlink" href="#todos" title="Permanent link">#</a></h3>
-<p>If the selected element is associated either with a todo or osmose task this menu will be displayed.</p>
-<p>Available actions are</p>
-<h4 id="close-and-goto-next">Close and goto next<a class="headerlink" href="#close-and-goto-next" title="Permanent link">#</a></h4>
-<p>Close a todo associated with the element and goto the nearest open todo in the list. If the element is present in multiple todo list a modal will ask which one to choose.</p>
-<h4 id="skip-and-goto-next">Skip and goto next<a class="headerlink" href="#skip-and-goto-next" title="Permanent link">#</a></h4>
-<p>Skip a todo associated with the element and goto the nearest open todo in the list. If the element is present in multiple todo list a modal will ask which one to choose.</p>
-<h4 id="close-all">Close all<a class="headerlink" href="#close-all" title="Permanent link">#</a></h4>
-<p>Close all todos and osmose bugs associated with the element. </p>
-<h3 id="add-address-tags"><img alt="Address" src="../../images/address.png" /> Add address tags<a class="headerlink" href="#add-address-tags" title="Permanent link">#</a></h3>
-<p>Adds address tags with prediction. If the node is part of a building way it will further add "entrance=yes" if not present.</p>
-<h3 id="append"><img alt="Append" src="../../images/tag_menu_append.png" /> Append<a class="headerlink" href="#append" title="Permanent link">#</a></h3>
-<p>Add to the way this node is part of. The "Append" action is only available if the node in question is an end node of a way.</p>
-<h3 id="unjoin"><img alt="Unjoin" src="../../images/tag_menu_split.png" /> Unjoin<a class="headerlink" href="#unjoin" title="Permanent link">#</a></h3>
-<p>If a way node is selected that is a member of multiple ways this will create additional nodes at the location and use them instead of the original node in the ways. </p>
-<h3 id="merge"><img alt="Merge" src="../../images/tag_menu_merge.png" /> Merge<a class="headerlink" href="#merge" title="Permanent link">#</a></h3>
-<p>Merge the selected node with a way (as a new way node) or with an existing node. To make this tool appear in the toolbar, select a node and move it next to a way. If there are multiple possible target nodes or ways a disambiguation context menu will be shown.</p>
-<h3 id="extract-node"><img alt="Extract" src="../../images/extract_node.png" /> Extract node<a class="headerlink" href="#extract-node" title="Permanent link">#</a></h3>
-<p>Extract the selected node from all ways that it is a member of and replace it with a newly created one without any tags at all. The original node retains all tags and relation memberships and remains selected. After extracting, drag the original node to its new position.
-The above might seem very confusing but in the end the new mode is in the original place and the original node is in the new place!</p>
-<h3 id="add-turn-restriction"><img alt="TurnRestriction" src="../../images/no_left_turn_light.png" /> Add turn restriction<a class="headerlink" href="#add-turn-restriction" title="Permanent link">#</a></h3>
-<p>Start creating a turn restriction with this node as "via" member. This action is only available if the node in question is a potential via member, that is it is a member of at least two ways that have a "highway" tag. Ways will be split automatically during the process.</p>
-<h3 id="rotate"><img alt="Rotate" src="../../images/ic_menu_rotate.png" /> Rotate<a class="headerlink" href="#rotate" title="Permanent link">#</a></h3>
-<p>If the node has a direction tag with a degree value, rotate the node by dragging the display roughly in a circle.</p>
-<h3 id="copy"><img alt="Copy" src="../../images/ic_menu_copy_holo_light.png" /> Copy<a class="headerlink" href="#copy" title="Permanent link">#</a></h3>
-<p>Copy the node to the internal copy and paste buffer.</p>
-<h3 id="cut"><img alt="Cut" src="../../images/ic_menu_cut_holo_light.png" /> Cut<a class="headerlink" href="#cut" title="Permanent link">#</a></h3>
-<p>Move the node to the internal copy and paste buffer removing it from the data.</p>
-<h3 id="paste-tags">Paste tags<a class="headerlink" href="#paste-tags" title="Permanent link">#</a></h3>
-<p>Set tags from the tag clipboard and start the property editor.</p>
-<h3 id="delete"><img alt="Delete" src="../../images/tag_menu_delete.png" /> Delete<a class="headerlink" href="#delete" title="Permanent link">#</a></h3>
-<p>Remove the object from the data.</p>
-<h3 id="extend-selection"><img alt="Extend" src="../../images/extend_selection.png" /> Extend selection<a class="headerlink" href="#extend-selection" title="Permanent link">#</a></h3>
-<p>Start Multi-Select mode with the current selected element.</p>
-<h3 id="create-relation"><img alt="Relation" src="../../images/relation.png" /> Create relation<a class="headerlink" href="#create-relation" title="Permanent link">#</a></h3>
-<p>Create a relation and add this object as the first element. The relation type can be selected from a list generated from the available presets. Further objects can be added until the check button is clicked, then the tag editor will be started on the new relation. </p>
-<h3 id="add-to-relation">Add to relation<a class="headerlink" href="#add-to-relation" title="Permanent link">#</a></h3>
-<p>Select a relation and add this object as a member. Further objects can be added until the check button is clicked, then the tag editor will be started on the relation. </p>
-<h3 id="position"><img alt="Position" src="../../images/menu_gps.png" /> Position<a class="headerlink" href="#position" title="Permanent link">#</a></h3>
-<p>Manually set longitude and latitude values for the coordinates of this node.</p>
-<h3 id="info"><img alt="Info" src="../../images/tag_menu_mapfeatures.png" /> Info<a class="headerlink" href="#info" title="Permanent link">#</a></h3>
-<p>Show a screen with some detailed information on the selected object.</p>
-<h3 id="zoom-to-selection">Zoom to selection<a class="headerlink" href="#zoom-to-selection" title="Permanent link">#</a></h3>
-<p>Pan and zoom the map to the currently selected object.</p>
-<h3 id="search-for-objects">Search for objects<a class="headerlink" href="#search-for-objects" title="Permanent link">#</a></h3>
-<p>Search for OSM objects in the loaded data using JOSMs search expressions.</p>
-<h3 id="add-to-todo-list">Add to todo list<a class="headerlink" href="#add-to-todo-list" title="Permanent link">#</a></h3>
-<p>Add the current selection to an existing or new todo list.</p>
-<h3 id="replace-geometry">Replace geometry<a class="headerlink" href="#replace-geometry" title="Permanent link">#</a></h3>
-<p>Move the tags of current node to a (in a second step) selected way and merge the current node in to one of the target ways to preserve history.</p>
-<h3 id="upload-element">Upload element<a class="headerlink" href="#upload-element" title="Permanent link">#</a></h3>
-<p>Upload the selected element (only available for a new or modified element).</p>
-<h3 id="share-position">Share position<a class="headerlink" href="#share-position" title="Permanent link">#</a></h3>
-<p>Share the position of the selected object with other apps on the device.</p>
-<h3 id="preferences"><img alt="Preferences" src="../../images/menu_config.png" /> Preferences<a class="headerlink" href="#preferences" title="Permanent link">#</a></h3>
-<p>Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. </p>
-<h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help<a class="headerlink" href="#help" title="Permanent link">#</a></h3>
-<p>Start the Vespucci Help browser</p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#node-selected" class="nav-link">Node selected</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#actions" class="nav-link">Actions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="node-selected">Node selected<a class="headerlink" href="#node-selected" title="Permanent link">#</a></h1>
 <p>Node selection is described in the <a href="../Introduction/">Introduction</a>. Selected nodes can be moved by dragging in the touch area, you can enable a large drag area in the preferences. You can edit tags for selected nodes.</p>
@@ -582,21 +472,20 @@ The above might seem very confusing but in the end the new mode is in the origin
 <p>Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. </p>
 <h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help<a class="headerlink" href="#help" title="Permanent link">#</a></h3>
 <p>Start the Vespucci Help browser</p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

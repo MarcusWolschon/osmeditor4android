@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Going completely offline with Vespucci - Vespucci</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../object_search/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../offline_guide/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -419,44 +400,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="going-completely-offline-with-vespucci">Going completely offline with Vespucci<a class="headerlink" href="#going-completely-offline-with-vespucci" title="Permanent link">#</a></h1>
-<p><em>This is based on two OpenStreetMap diary posts from late 2018</em></p>
-<p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Caf%C3%A9_Wall_Illusion.svg/500px-Caf%C3%A9_Wall_Illusion.svg.png" />
-</p>
-
-<p>Vespucci has supported unconnected mapping since day one, more than a decade ago, and that has improved over the years with addition of support for reading and saving files in OSM and JOSM xml format (the JOSM format stores information on your changes).</p>
-<p>In version 10.1, in early 2018, we added support for MBTiles files for local on device background imagery sources, supporting building an imagery source while you are online on your desktop and avoiding having to download to the Vespucci imagery cache manually, a rather tiresome undertaking.</p>
-<p>But despite all of this, the main problem remained that you had to keep OSM data files on device reasonably small because the contents would be read in total in to memory and while such areas can be quite large on a modern phone, things do tend to get slow. And as we all know when you  make a selection in advance, Murphy comes in to play and you are surely are going to miss exactly the area that you suddenly stumbled in to. </p>
-<p>To get around all of that I've been investigating a compact, indexed in one way or the other, on device format for raw OSM data for quite a while, and now have a solution that works even better than originally envisioned.</p>
-<p>The format is a MBTiles format sqlite database containing tiled OSM data in PBF format. The format goes back to 2011 and the application <a href="https://github.com/simonpoole/mapsplit">mapsplit</a> created by well known OSMer Peter Barth, at the time used to prepare input for <a href="http://osm2world.org/">OSM2World</a>. The slight rework that I started in late 2018 adds support for producing output in MBTile format (instead of copying a couple of 100'000 or so files to your mobile), higher and variable maximum zoom level for the tiles and an optimisation pass. </p>
-<p>When generated from OSM source data that has referentially complete ways, the individual tiles are referentially complete too. That means a tile will contain all nodes referenced by ways included in the tile, and all relations that have members in the tile (but not all members of those relations). If input data contains metadata fields (that is OSM id, version and date) the resulting files can be used by OSM editors just as data from the API. Naturally the data will be at least a bit stale and that needs to be taken in to account when using it in an editor.</p>
-<p>Having all of Switzerland (not exactly an empty country in OSM) currently will use 1.1GB, which compares quite well to the original PBF file it was generated from (421MB). Some of the overhead is due to having to duplicate ways crossing tile boundaries and including relations in every tile that has a member element and tiles with little content not compressing well.</p>
-<p>To update the tiles it is currently necessary to re-tile the data (after either downloading a new extract or keeping the extract up to date from the diffs). This is not a big deal, generating the tiles for Switzerland from scratch only takes a couple of minutes, but naturally the holy grail is to update in situ on device, doing away with the need for a desktop completely. There are some hurdles that need to be taken before we are there, but it seems to be completely possible. Even if that turns out to be not practical there are some potentially interesting intermediate steps that I'm exploring, for example updating the tiles with the local edits (after they have been uploaded and received definitive IDs).</p>
-<p>While you can simply download the <a href="https://github.com/simonpoole/mapsplit/releases">current release</a> and generate files yourself, to make life easier for user that just want to quickly try things out, I'm generating some files for some regions on a daily basis on <a href="https://mapsplit.poole.ch/">https://mapsplit.poole.ch/</a>. Within reason I can add more if there is interest.</p>
-<p>To configure MapSplit files as a data source in Vespucci, see the <a href="http://vespucci.io/help/en/13.0.0%20Release%20notes/#add-support-for-mapsplit-tiled-osm-data">13.0 release notes</a>.</p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#going-completely-offline-with-vespucci" class="nav-link">Going completely offline with Vespucci</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="going-completely-offline-with-vespucci">Going completely offline with Vespucci<a class="headerlink" href="#going-completely-offline-with-vespucci" title="Permanent link">#</a></h1>
 <p><em>This is based on two OpenStreetMap diary posts from late 2018</em></p>
@@ -474,21 +418,20 @@
 <p>To update the tiles it is currently necessary to re-tile the data (after either downloading a new extract or keeping the extract up to date from the diffs). This is not a big deal, generating the tiles for Switzerland from scratch only takes a couple of minutes, but naturally the holy grail is to update in situ on device, doing away with the need for a desktop completely. There are some hurdles that need to be taken before we are there, but it seems to be completely possible. Even if that turns out to be not practical there are some potentially interesting intermediate steps that I'm exploring, for example updating the tiles with the local edits (after they have been uploaded and received definitive IDs).</p>
 <p>While you can simply download the <a href="https://github.com/simonpoole/mapsplit/releases">current release</a> and generate files yourself, to make life easier for user that just want to quickly try things out, I'm generating some files for some regions on a daily basis on <a href="https://mapsplit.poole.ch/">https://mapsplit.poole.ch/</a>. Within reason I can add more if there is interest.</p>
 <p>To configure MapSplit files as a data source in Vespucci, see the <a href="http://vespucci.io/help/en/13.0.0%20Release%20notes/#add-support-for-mapsplit-tiled-osm-data">13.0 release notes</a>.</p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../js/base.js" defer></script>
-        <script src="../../search/main.js" defer></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

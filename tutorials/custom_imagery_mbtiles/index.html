@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Generating MBTiles files with custom imagery - Vespucci</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../custom_imagery/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../name_suggestions/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -435,152 +416,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="generating-mbtiles-files-with-custom-imagery">Generating MBTiles files with custom imagery<a class="headerlink" href="#generating-mbtiles-files-with-custom-imagery" title="Permanent link">#</a></h1>
-<p><em>by Manfred Stock</em></p>
-<p>Current Vespucci versions <a href="../custom_imagery/">support the addition of custom imagery sources</a>, including <a href="../custom_imagery/#mbtiles">sources based on MBTiles</a>. This tutorial will show a few approaches to create your own <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> files that can then be used with Vespucci.</p>
-<p>All approaches support either regular WMS or tile servers as imagery sources, some of them also both or local files in e.g. GeoTIFF format. The <a href="https://josm.openstreetmap.de/wiki/Maps">JOSM Imagery Sources</a>, which is also used by several editors including Vespucci, provides many imagery sources that can be used for OpenStreetMap. The XML files in the <a href="https://josm.openstreetmap.de/wiki/Maps">Maps section of the JOSM wiki</a> usually contain all the information required to access these imagery sources.</p>
-<p>Other services that are useful in this context are the following:</p>
-<ul>
-<li><a href="https://wambachers-osm.website/boundaries/">OSM Admin Boundaries Map</a>: This allows to retrieve boundaries in various formats which can be useful to limit the extent of the resulting MBTiles file to e.g. a single town.</li>
-<li><a href="https://tools.geofabrik.de/calc/#type=geofabrik_standard&amp;tab=1&amp;proj=EPSG:4326&amp;places=4">Tile Calculator</a>: This allows you to select rectangular bounding boxes and get the coordinates, which is also useful to select a smaller area.</li>
-</ul>
-<p>Since MBTiles files are just regular <a href="https://sqlite.org/">SQLite</a> databases, they can be inspected and modified using e.g. the <code>sqlite3</code> command line tool and normal SQL commands like <a href="https://en.wikipedia.org/wiki/Select_(SQL)"><code>SELECT</code></a>, <a href="https://en.wikipedia.org/wiki/Insert_(SQL)"><code>INSERT</code></a> and <a href="https://en.wikipedia.org/wiki/Update_(SQL)"><code>UPDATE</code></a>. See the end of the <a href="#mapproxy">MapProxy</a> section for a simple example of this using <code>INSERT</code> commands.</p>
-<p><em>A word of warning</em>: Using these tools can result in a <em>large</em> number of requests to the services that provide the imagery, even for small areas (like smaller cities) when using the higher zoom levels (e.g. 19 and up). So please try to download only small areas, configure and/or use caching and don't run multiple instances of the tools in parallel. Otherwise, those who provide the services may block you or even consider to stop providing the public service if they for example think that it is being abused. Using smaller areas also results in smaller files so they will take up less space on your mobile phone or tablet.</p>
-<h2 id="mobile-atlas-creator">Mobile Atlas Creator<a class="headerlink" href="#mobile-atlas-creator" title="Permanent link">#</a></h2>
-<p><a href="https://mobac.sourceforge.io/">MOBAC</a> is a Java-based GUI application which can also generate MBTiles files. By default, it doesn't provide many pre-configured data sources (and those might not even be legal sources for OpenStreetMap), but one can add <a href="https://mobac.sourceforge.io/MOBAC/README.HTM#CustomMapSource">custom map sources</a> using XML files like regular <a href="https://mobac.sourceforge.io/wiki/index.php/Custom_XML_Map_Sources#Simple_custom_map_sources">tile</a> <a href="https://mobac.sourceforge.io/wiki/index.php/Custom_XML_Map_Sources#customMapSource">servers</a> and <a href="https://mobac.sourceforge.io/wiki/index.php/Custom_XML_Map_Sources#Custom_WMS_map_sources">WMS</a> <a href="https://mobac.sourceforge.io/wiki/index.php/Custom_XML_Map_Sources#customWmsMapSource">servers</a>. For example, the following XML file can be used to use the WMS of the canton of Zurich and is based on information from the <a href="https://josm.openstreetmap.de/wiki/Maps/Switzerland#KantonZrichOrthophoto201810cm">JOSM Imagery Sources</a>:</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
-&lt;customWmsMapSource&gt;
-    &lt;!-- Map source name as it appears in the map sources list --&gt;
-    &lt;name&gt;Kanton Zurich, Orthofoto ZH Sommer 2018 RGB 10cm&lt;/name&gt;
-    &lt;!-- Available zoom levels --&gt;
-    &lt;minZoom&gt;8&lt;/minZoom&gt;
-    &lt;maxZoom&gt;21&lt;/maxZoom&gt;
-    &lt;!-- Tile format (PNG, JPG or GIF) --&gt;
-    &lt;tileType&gt;PNG&lt;/tileType&gt;
-    &lt;!-- WMS version --&gt;
-    &lt;version&gt;1.1.1&lt;/version&gt;
-    &lt;!-- WMS layer parameter --&gt;
-    &lt;layers&gt;ortho&lt;/layers&gt;
-    &lt;!-- WMS base URL --&gt;
-    &lt;url&gt;http://wms.zh.ch/OGDOrthoZH?&lt;/url&gt;
-    &lt;!-- Currently only EPSG:4326 is supported --&gt;
-    &lt;coordinatesystem&gt;EPSG:4326&lt;/coordinatesystem&gt;
-    &lt;!-- Transparent background --&gt;
-    &lt;backgroundColor&gt;#000000&lt;/backgroundColor&gt;
-&lt;/customWmsMapSource&gt;
-</code></pre>
-<h2 id="gdal">GDAL<a class="headerlink" href="#gdal" title="Permanent link">#</a></h2>
-<p><a href="http://www.gdal.org/">GDAL (Geospatial Data Abstraction Library)</a> is a library for reading and writing geospatial data formats. In addition to processing local files in various formats, it can also directly access a WMS using the <a href="https://gdal.org/drivers/raster/wms.html">WMS raster driver</a>. In order to do this, a WMS service description XML file is required, which can for example be <a href="https://gdal.org/drivers/raster/wms.html#generation-of-wms-service-description-xml-file">generated</a> as follows:</p>
-<pre><code class="language-bash"># Fetch available subdatasets:
-gdalinfo &quot;WMS:http://wms.zh.ch/OGDOrthoZH&quot;
-# Generate description file (I left out the BBOX from the output of the
-# above command and changed the SRS to EPSG:4326 though, otherwise, I got
-# errors later):
-gdal_translate &quot;WMS:http://wms.zh.ch/OGDOrthoZH?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=ortho&amp;SRS=EPSG:4326&quot; wms.xml -of WMS
-# Generate MBTiles file (-projwin takes coordinates as &lt;ulx uly lrx lry&gt; in
-# the given SRS, so depending on where you got the BBOX from, you might
-# have to switch positions of some of the values):
-gdal_translate -of MBTILES wms.xml zurich-mainstation.mbtiles -projwin 8.5334 47.3807 8.5426 47.3763 -projwin_srs EPSG:4326 -co TILE_FORMAT=JPEG -co QUALITY=100 -co TYPE=baselayer
-# Build overview images for lower zoom levels:
-gdaladdo zurich-mainstation.mbtiles 2 4 8 16 32 64 128 256 512 1024
-</code></pre>
-<p>The <a href="https://gdal.org/drivers/raster/wms.html#xml-description-file">XML description file</a> supports various options that can be set, and it is likely a good idea to configure a <code>Cache</code> and to lower the <code>MaxConnections</code> since this should reduce the load on the WMS service. The <a href="https://gdal.org/drivers/raster/mbtiles.html">MBTiles</a> raster driver also supports other options in addition to the above <code>TILE_FORMAT=JPEG</code>, <code>QUALITY=100</code> and <code>TYPE=baselayer</code> which might be useful.</p>
-<p>A local file with geodata (like a GeoTIFF file) can also be used as input by replacing the <code>wms.xml</code> parameter in the second to last command (<code>-projwin</code> and <code>-projwin_srs</code> are then usually not required, except if only a part of the file should be extracted). If the data is split into multiple local files, then they can be combined to a single <a href="https://gdal.org/drivers/raster/vrt.html">VRT</a> file using <a href="https://gdal.org/programs/gdalbuildvrt.html"><code>gdalbuildvrt</code></a> which can then be used as input to <code>gdal_translate</code> (if the input files don't specify a reference system, then it should be provided using the <code>-a_srs</code> parameter of <code>gdalbuildvrt</code>).</p>
-<h2 id="mapproxy">MapProxy<a class="headerlink" href="#mapproxy" title="Permanent link">#</a></h2>
-<p><a href="http://mapproxy.org/">MapProxy</a> is an open source proxy for geospatial data. The <a href="https://mapproxy.org/docs/nightly/mapproxy_util.html#export"><code>export</code></a> subcommand of its <a href="https://mapproxy.org/docs/nightly/mapproxy_util.html"><code>mapproxy-util</code></a> command line tool also supports exports to the MBTiles format. This requires a working <a href="https://mapproxy.org/docs/nightly/configuration.html">MapProxy configuration</a>, but this allows you to reuse an existing MapProxy cache which will also be seeded with the additional data that is downloaded while creating a MBTiles export. A fairly minimal configuration for the WMS of the canton of Zurich may look as follows:</p>
-<pre><code class="language-yaml">---
-services:
-    wms:
-        md:
-            title: &quot;Mapproxy&quot;
-sources:
-    zh_wms_source:
-        type: wms
-        req:
-            url: http://wms.zh.ch/OGDOrthoZH?
-            layers: ortho
-            transparent: true
-layers:
-    - name: zh_wms_layer
-      title: Kanton Zurich, Orthofoto ZH Sommer 2018 RGB 10cm
-      sources: [zh_wms_cache]
-caches:
-    zh_wms_cache:
-        grids: [webmercator]
-        sources: [zh_wms_source]
-grids:
-    webmercator:
-        name: webmercator
-        base: GLOBAL_WEBMERCATOR
-        num_levels: 22
-    mercator:
-        name: mercator
-        base: GLOBAL_MERCATOR
-        num_levels: 22
-</code></pre>
-<p>Using this configuration, a command like the following can be used to generated a MBTiles file with imagery of Zurich mainstation:</p>
-<pre><code class="language-bash">mapproxy-util export -f mapproxy.yaml --grid mercator --source zh_wms_cache \
-    --dest ./zurich-mainstation.mbtiles --type mbtile --levels 8..20 \
-    --coverage 8.5334,47.3763,8.5426,47.3807 --srs EPSG:4326 --fetch-missing-tiles
-</code></pre>
-<p>The <code>--coverage</code> parameter <a href="https://mapproxy.org/docs/nightly/coverages.html">can also take e.g. a GeoJSON file</a>, but be sure to also specify the <code>--srs</code> parameter with a reference system that matches the <code>--coverage</code> data. Unfortunately, the <code>mapproxy-util export</code> command does not add any metadata to the MBTiles file, so this has to be done manually using e.g. the <code>sqlite3</code> command line tool:</p>
-<pre><code class="language-bash"># Open the MBTiles file:
-sqlite3 zurich-mainstation.mbtiles
-</code></pre>
-<pre><code class="language-sql">-- Add 'format', by default, this is 'png', but this depends on your cache format:
-INSERT INTO metadata ('name', 'value') VALUES ('format', 'png');
--- Add 'name', used as default for the layer name by Vespucci:
-INSERT INTO metadata ('name', 'value') VALUES ('name', 'Zurich Mainstation @ Kanton Zurich, Orthofoto ZH Sommer 2018 RGB 10cm');
--- Add zoom range
-INSERT INTO metadata ('name', 'value') VALUES ('maxzoom', (SELECT MAX(zoom_level) FROM tiles));
-INSERT INTO metadata ('name', 'value') VALUES ('minzoom', (SELECT MIN(zoom_level) FROM tiles));
-</code></pre>
-<h2 id="other-tools-and-resources">Other tools and resources<a class="headerlink" href="#other-tools-and-resources" title="Permanent link">#</a></h2>
-<ul>
-<li><a href="https://github.com/HumanitarianStuff/tilehuria">TileHuria</a> is a set of minimal utilities to download imagery and create MBtiles files.</li>
-<li><a href="https://github.com/ecometrica/gdal2mbtiles">gdal2mbtiles</a> can convert GDAL-readable datasets into an MBTiles file.</li>
-<li><a href="https://pvanb.wordpress.com/2017/03/06/raster2mbtiles/">Exporting rasters to Mbtiles using GDAL</a></li>
-<li><a href="https://osedok.wordpress.com/2015/02/25/creating-osm-offline-tiles-using-maperitive/">Creating OSM Offline tiles using Maperitive</a></li>
-<li><a href="https://github.com/hotosm/toolbox/wiki/4.5-Creating-.mbtiles">Creating .mbtiles (hotosm/toolbox)</a></li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#generating-mbtiles-files-with-custom-imagery" class="nav-link">Generating MBTiles files with custom imagery</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#mobile-atlas-creator" class="nav-link">Mobile Atlas Creator</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#gdal" class="nav-link">GDAL</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#mapproxy" class="nav-link">MapProxy</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#other-tools-and-resources" class="nav-link">Other tools and resources</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="generating-mbtiles-files-with-custom-imagery">Generating MBTiles files with custom imagery<a class="headerlink" href="#generating-mbtiles-files-with-custom-imagery" title="Permanent link">#</a></h1>
 <p><em>by Manfred Stock</em></p>
@@ -690,21 +526,20 @@ INSERT INTO metadata ('name', 'value') VALUES ('minzoom', (SELECT MIN(zoom_level
 <li><a href="https://osedok.wordpress.com/2015/02/25/creating-osm-offline-tiles-using-maperitive/">Creating OSM Offline tiles using Maperitive</a></li>
 <li><a href="https://github.com/hotosm/toolbox/wiki/4.5-Creating-.mbtiles">Creating .mbtiles (hotosm/toolbox)</a></li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../js/base.js" defer></script>
-        <script src="../../search/main.js" defer></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

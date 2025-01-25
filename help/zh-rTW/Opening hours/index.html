@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>開放街圖營業時間編輯器 - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -413,131 +394,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="_1">開放街圖營業時間編輯器<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
-<p>OpenStreetMap 營業時間規範相當複雜，並不易於一個簡單直觀的使用者介面。</p>
-<p>然而大部分的時候，你應該只會用到一小部分的定議。編輯器嘗試在選單中隱藏更加模糊的功能，來達成這一點，大部分的時候減少路上設定，儘可能用預先設定的模版，加以小量修改。</p>
-<p><em>這份文件是初步的並且正在進展</em></p>
-<h2 id="_2">使用營業時間編輯器<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<p>在一般的工作流程中，你編輯的物件一般已經有開放時間的標籤 (opening_hour、service_times 和 colllection_times)，或是你可以重新設定物件的預設組合，用空白的開放時間欄位。如果你需要手動輸入欄位，像是用 Vespucci，你可以在詳情頁面輸入鍵值，之後切換回欄位頁籤繼續編輯。如果你相信開放時間標籤必須扅於預設組合的話，請在你的編輯器開啟 issue。</p>
-<p>如果你有定義預設模版(透過「管理模版」選項物件)，編輯器啟動時空白值時將會自動載入。而用「載入模版」功能你可以載入任何儲存的模版，而用「儲存模版」選單則會儲存目前的值為模版。你可以定義分開的模版與為特定鍵設定為預設。例如說"opening_hours"，"collection_times" 與 "service_times" 或客製值。更進一步說你可以限制模版適用的區域與特定識別碼，特別是特定的 OSM 最高層級標籤 (例如 amenity=restaurant)。</p>
-<p>當然，您可以從頭開始構建營業時間的值，但我們建議使用現有的模板之一作為起點。</p>
-<p>如果已經有營業時間的數值則會載入，另外會自動修正以符合營業時間規範。如果無法修正，則會在大概的位置顯示錯誤訊息，原始的營業時間數值，等待人工修正。開放街圖資料庫中有大約1/4的營業時間數值有問題，但只有少於10%的狀況是無法修正。詳見 <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a>，並且看有那些允許的規範變體。</p>
-<h3 id="_3">主選單按鈕<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>增加規則</strong>：增加一個新規則。</li>
-<li><strong>增加假日規則</strong>：國家改變時，為假日增加新的規則。</li>
-<li><strong>為 24/7 增加規則</strong>：為總是開放的物件增加規則，開放時間規範不支持任何其他子值為24/7，但我們允許增加更高階的選擇器 (例如年份範圍)。</li>
-<li><strong>載入模板</strong>：載入先有的模板。</li>
-<li><strong>儲存至模板</strong>：將現有的營業時間數值儲存為模板留待日後使用。</li>
-<li><strong>管理模板</strong>：編輯（如變更名稱）或刪除現有模板</li>
-<li><strong>重新整理</strong>：重新解析營業時間的數值。</li>
-<li><strong>全部刪除</strong>：刪除全部規則。</li>
-</ul>
-<h3 id="_4">規則<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
-<p>預設規則會依 <em>normal</em> rules 增加，意味將直接套用並且覆寫同一天原先規則的數值。這可能會為套用延伸時間規則帶來困擾，特別是你希望透過 <em>顯示規則類別</em> 選單  <em>追加</em> 轉換規則。</p>
-<h4 id="_5">規則選單<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>增加修飾符/註釋</strong>：更改此規則的效果並增加可選擇的註釋。</li>
-<li><strong>增加假日</strong>：為公衆假期或學校假期增加選取器。</li>
-<li><strong>增加時間跨度 ...</strong><ul>
-<li><strong>時間 - 時間</strong>：同一天的開始時間到結束時間。</li>
-<li><strong>時間 - 延長時間</strong>：開始時間跨到隔天的結束時間 (例如 26:00 是隔天的 02:00 (am))。</li>
-<li><strong>變化時間 - 時間</strong>：從開始變化時間 (黎明，黃昏，日出和日落) 到同一天的結束時間。</li>
-<li><strong>變化時間 -  延長時間</strong>：從第二天起始變化時間到隔天的結束時間。</li>
-<li><strong>時間 - 變化時間</strong>：起啟時間到結束的變化時間</li>
-<li><strong>變化時間 - 變化時間</strong>：從起始變化時間到結束變化時間。</li>
-<li><strong>時間</strong>：特定的時間。</li>
-<li><strong>時間-一直持續</strong>：從起始時間一直持續。</li>
-<li><strong>變化時間</strong>：特定的變化時間</li>
-<li><strong>變化時間 - 一直持續</strong>：從變化時間到一直持續</li>
-</ul>
-</li>
-<li><strong>增加週間範圍</strong>：增加以週間為依據的選擇器。</li>
-<li><strong>增加日期範圍...</strong><ul>
-<li><strong>日期 - 日期</strong>：從開始日期 (年、月、日) 到結束日期。</li>
-<li><strong>變化日期 - 日期</strong>：從起始變化日期 (目前規範僅定義_復活節_) 到結束日期。</li>
-<li><strong>日期 - 變化日期</strong>：從開始日期到變化日期。</li>
-<li><strong>變化日期 - 變化日期</strong>：從起始變化日期到結束變化日期。</li>
-<li><strong>發生在月中-發生在月中</strong>：一個月中從開始的週間是相同的。</li>
-<li><strong>發生在月中 - 日期</strong>：一個月中週間發生，到特定結束日期。</li>
-<li><strong>日期 - 發生在月中</strong>：從開始日舒到一個月中的週間結束。</li>
-<li><strong>發生在月中 - 變動日期</strong>：從一個月開始週間發生，到變動日期。</li>
-<li><strong>變動日期 - 發生在月中</strong>：從開始的變動日期，到一個月中的週間。</li>
-<li><strong>日期 - 開放結束</strong>：從開始日期起。</li>
-<li><strong>日期變化 - 開端</strong>：從起始變化日期開始。</li>
-<li><strong>發生在月中 - 一直持續</strong>：從一個月中開始週間發生。</li>
-<li><strong>使用偏差量...</strong>：與上述相同的內容，但是指定了偏差量 (這很少使用)。</li>
-</ul>
-</li>
-<li><strong>增加年範圍...</strong>    <ul>
-<li><strong>增加年範圍</strong>：增加以年為依據的選擇器。</li>
-<li><strong>增加啟始年</strong>: 增加一整年範圍。</li>
-</ul>
-</li>
-<li><strong>增加週範圍</strong>：增加以週為依據的選擇器。</li>
-<li><strong>複製</strong>：複製此規則，並且插入目前位置之後。 </li>
-<li><strong>顯示規則類型</strong>：顯示並允許更改規則類型_正常_，<em>增加_和_倒退</em>(位於第一條規則中不可用)。</li>
-<li><strong>向上移動</strong>：將此規則向上移動一個位置(位於第一條規則時不可用)。</li>
-<li><strong>向下移動</strong>：將此規則向下移動一個位置。</li>
-<li><strong>刪除</strong>：刪除此一規則。</li>
-</ul>
-<h3 id="_6">時間跨度<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
-<p>要讓編輯時間刻度變得更簡單可行，我們嘗試選擇最佳時間範圍，加載現有值時範圍欄的刻度。對新的時間刻度來說，欄從6:00(am)開始，然後每15分鐘增加。上述的設定可以在選單更改。</p>
-<p>當你直接用時間軸太困難時，點 (不是在別針上) 在時間軸上，會打開比較大的時間檢取器。時間檢取器會延伸到下一天，所有簡單的方式延長時間區間，但不用刪除再加區間。</p>
-<h4 id="_7">時間跨度選單<a class="headerlink" href="#_7" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>顯示時間檢取器</strong>：顯示更大的時間檢取器來開始和結束時間，在非常小的裝置上，則有更好的方式改變時間。</li>
-<li><strong>切換到15分鐘刻度</strong>：對範圍欄使用15分鐘刻度。</li>
-<li><strong>切換到5分鐘刻度</strong>：對範圍欄使用5分鐘的刻度。</li>
-<li><strong>切換到1分鐘刻度</strong>：對範圍欄使用1分鐘的刻度，很難在手機上使用。</li>
-<li><strong>從午夜開始</strong>：午夜開始範圍欄。</li>
-<li><strong>顯示間隔</strong>：顯示指定間隔（以分鐘為單位）的間隔字段。</li>
-<li><strong>刪除</strong>：刪除此一時間跨度。</li>
-</ul>
-<h3 id="_8">管理模版<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
-<p>模版管理對話框允許你新增、編輯與刪除模版。</p>
-<p>在 Android 4.4 以及之後的版本 下列的新增功能都能從選單按鈕進去。</p>
-<ul>
-<li><strong>Show all</strong>: 顯示資料庫中所有的模版。</li>
-<li><strong>Save to file</strong>: 寫入模版資料庫的內容到檔案。</li>
-<li><strong>Load from file (replace)</strong>: 從檔案載入模版並且取代目前資料庫的內容。</li>
-<li><strong>Load from file</strong>: 從檔案載入模版並且保留目前的內容。</li>
-</ul>
-<h4 id="_9">儲存與編輯模版對話框<a class="headerlink" href="#_9" title="Permanent link">#</a></h4>
-<p>對話框允許設定</p>
-<ul>
-<li><strong>Name</strong> 模版描述性的名稱。</li>
-<li><strong>Default</strong> 如果選取的話則會設定為預設模版 (通常會被其他欄位限制)。</li>
-<li><strong>Key</strong> 鍵這模版如果設定 <em>Custom key</em>，則會與這個模版相關，你可以在以下的欄位新增非標準的值。鍵的值支援 SQL  wild cards，意味 <em>%</em> 符合零或更多字元，<em>_</em> 則符合單一字元。所有 wild card 字元都能用 <em>\</em> 來逃離字面的符合。</li>
-<li><strong>Region</strong> 模版適用的區域。</li>
-<li><strong>Object</strong> 用於符合的應用程式特定的字元。</li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">開放街圖營業時間編輯器</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">使用營業時間編輯器</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="_1">開放街圖營業時間編輯器<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
 <p>OpenStreetMap 營業時間規範相當複雜，並不易於一個簡單直觀的使用者介面。</p>
@@ -638,21 +495,20 @@
 <li><strong>Region</strong> 模版適用的區域。</li>
 <li><strong>Object</strong> 用於符合的應用程式特定的字元。</li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

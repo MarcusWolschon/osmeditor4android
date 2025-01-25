@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>19.1.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../19.2.0%20Release%20notes/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../19.0.0%20Release%20notes/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -433,87 +414,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="vespucci-191-highlights">Vespucci 19.1 Highlights<a class="headerlink" href="#vespucci-191-highlights" title="Permanent link">#</a></h1>
-<p>2023-07-04</p>
-<h3 id="new-disambiguation-menu">New disambiguation menu<a class="headerlink" href="#new-disambiguation-menu" title="Permanent link">#</a></h3>
-<p>Since March 2009 (Android was just half a year old then) we've been using the Android "context menu" to provide a way of disambiguating between different close together and geometry
-sharing elements. This has always had some annoying limitations, particularly in conjunction with accessibility settings (font size and magnification). We've now replaced the context menu with
-a custom modal that displays icons as a concise way of indicating the object type and allows horizontal scrolling to make the complete object description visible if necessary.</p>
-<h3 id="path-pattern-support-disabled-for-android-8-and-earlier">Path pattern support disabled for Android 8 and earlier<a class="headerlink" href="#path-pattern-support-disabled-for-android-8-and-earlier" title="Permanent link">#</a></h3>
-<p>On Android 8 and earlier the low level graphics library used by Android may stop Vespucci from start up if the data styling uses "path patterns", see vespucci.io/tutorials/faq/#error-messages-and-other-issues for more information. To avoid this from happening starting with 19.0.3 support for the patterns has been disabled on devices running Android 8 or older.</p>
-<p>To some what lessen the impact we've added an additional data style without path patterns that in the future will contain different styling for the affected elements.</p>
-<p>Further to provide a facility to recover from this and similar issues we've added a "safe" mode that the app can be started in via an Android shortcut. Currently this only protects against rendering issues, however it will be expanded in the future to cover more cases (data corruption and similar).</p>
-<h3 id="name-templates">Name templates<a class="headerlink" href="#name-templates" title="Permanent link">#</a></h3>
-<p>We now support JOSM style name templates in the presets and the default presets have been extended with these for nearly all route items. On matching objects without a name tag these will be used to generate a label for display purposes in the disambiguation menu and for nodes and closed ways. This removes the need for fake names for routes and allows to generate a descriptive label automatically, for example from "from" and "to" tags.</p>
-<p>Name templates are included in the translation files and can be localized. </p>
-<p>Note: JOSM does not implement a consistent grammar for name templates, for example it doesn't require that quotes are escaped when they are nested in some situations. 
-Our implementation will differ from JOSM for such reasons, however any template that works for Vespucci should work with JOSM too. </p>
-<h3 id="modal-for-entering-longer-text-in-tags">Modal for entering longer text in tags<a class="headerlink" href="#modal-for-entering-longer-text-in-tags" title="Permanent link">#</a></h3>
-<p>A small number of OSM tags can contain longer texts, for example <em>description</em> and <em>inscription</em> tags these are difficult to enter in the standard one line text field. To make this simpler
-for longer pieces of texts we've added a dedicated modal for text entry.</p>
-<p>The modal will be displayed if either</p>
-<ul>
-<li>the preset contains a length field set to a value equal or larger than the current setting of the <em>Long string limit</em> in the advanced preferences, or</li>
-<li>the length of the current value of the field is equal or larger than than <em>Long string limit</em>.</li>
-</ul>
-<p>The default value of <em>Long string limit</em> is 255, the maximum length (in characters) of an OSM tag value.</p>
-<h3 id="support-for-following-the-system-theme">Support for following the system theme<a class="headerlink" href="#support-for-following-the-system-theme" title="Permanent link">#</a></h3>
-<p>Vespucci has always had a "dark" mode, long before such a thing was even a concept with google. In June 2015 with version 0.9.6 we added a "light" mode, version 19.1 now adds a further setting <em>Follow system</em> for devices running Android 10 and later.</p>
-<h3 id="bookmark-layer">Bookmark layer<a class="headerlink" href="#bookmark-layer" title="Permanent link">#</a></h3>
-<p>Bookmarks now have their own layer that can be enabled via the layers modal, this simply displays the bookmark bounding box and the name. Additionally book mark names can now be edited.</p>
-<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
-<ul>
-<li>Add improve area order when rendering by sorting closed ways according to bounding box size</li>
-<li>Add support custom headers from imagery configuration</li>
-<li>Add improved property editor behaviour in split screen mode</li>
-<li>Add improved diagnostics for the tile downloader and testing facility in layer modal</li>
-<li>Add support for sharing an Mapillary image including its id</li>
-</ul>
-<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
-<ul>
-<li>As the saved state file has changed you should upload any pending changes before updating.</li>
-</ul>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>The documentation is out of date.</li>
-<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#vespucci-191-highlights" class="nav-link">Vespucci 19.1 Highlights</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="vespucci-191-highlights">Vespucci 19.1 Highlights<a class="headerlink" href="#vespucci-191-highlights" title="Permanent link">#</a></h1>
 <p>2023-07-04</p>
@@ -560,21 +461,20 @@ for longer pieces of texts we've added a dedicated modal for text entry.</p>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

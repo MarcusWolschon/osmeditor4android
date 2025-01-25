@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Introduction - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -441,273 +422,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
-<h1 id="vespucci-bevezetes">Vespucci bevezetés<a class="headerlink" href="#vespucci-bevezetes" title="Permanent link">#</a></h1>
-<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
-<h2 id="szerkesztes-a-vespuccival">Szerkesztés a Vespuccival<a class="headerlink" href="#szerkesztes-a-vespuccival" title="Permanent link">#</a></h2>
-<p>A képernyő méretétől és a készülék életkorától függően a szerkesztési műveletek a következő helyekről érhetők el: közvetlenül a felső sáv ikonjaiból, a felső sáv jobb oldalán található legördülő menüből, az alsó sávból (ha van) vagy a menügombból.</p>
-<p><a id="download"></a></p>
-<h3 id="osm-adatok-letoltese">OSM-adatok letöltése<a class="headerlink" href="#osm-adatok-letoltese" title="Permanent link">#</a></h3>
-<p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display eleven options:</p>
-<ul>
-<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Review changes...</strong> - review current changes</li>
-<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
-<li><strong>Clear and download current view</strong> - clear any data in memory, including pending changes, and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
-<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
-<li><strong>Clear data</strong> - remove any OSM data in memory, including pending changes.</li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
-<li><strong>Tasks...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
-</ul>
-<p>Az adatok eszközre töltésének legkönnyebb módja a szerkesztendő területre görgetés és nagyítás, aztán a „Jelenlegi nézet letöltése”. Gesztusokkal, a nagyítási gombokkal és a hangerőszabályzó gombokkal nagyíthat. A Vespucci aztán letölti a jelenlegi nézet adatait. Az adatok eszközre letöltéséhez nem szükséges hitelesítés.</p>
-<p>In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a> so that dimming is always active.</p>
-<p>If you need to use a non-standard OSM API entry, or use <a href="https://vespucci.io/tutorials/offline/">offline data</a> in <em>MapSplit</em> format you can add or change entries via the <em>Configure...</em> entry for the data layer in the layer control.</p>
-<h3 id="szerkesztes">Szerkesztés<a class="headerlink" href="#szerkesztes" title="Permanent link">#</a></h3>
-<p><a id="lock"></a></p>
-<h4 id="zarolas-feloldas-modvaltas">Zárolás, feloldás, módváltás<a class="headerlink" href="#zarolas-feloldas-modvaltas" title="Permanent link">#</a></h4>
-<p>A véletlen szerkesztések elkerülése miatt a Vespucci „zárolt” módban indul, olyan módban, amely csak a nagyítást és a térkép mozgatását engedélyezi. Koppintson a <img alt="Zárolt" src="../../images/locked.png" /> ikonra a képernyő feloldásához. </p>
-<p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
-<ul>
-<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
-<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.</li>
-<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../../en/Simple%20actions/">Simple mode</a> "+" button. White lock icon with an "A" is displayed.</li>
-<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an "I" is displayed.</li>
-<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
-</ul>
-<p>If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to <em>Address</em> and <em>Indoor</em> mode.</p>
-<h4 id="egyszeres-koppintas-dupla-koppintas-hosszu-nyomas">Egyszeres koppintás, dupla koppintás, hosszú nyomás<a class="headerlink" href="#egyszeres-koppintas-dupla-koppintas-hosszu-nyomas" title="Permanent link">#</a></h4>
-<p>Alapból a kiválasztható pontok és vonalak körül egy narancssárga terület van, amely azt jelzi, hol kell megérintenie az objektumot a kiválasztásához. Három lehetősége van:</p>
-<ul>
-<li>Egyszeres koppintás: Kiválasztja az objektumot. </li>
-<li>Egy izolált pont/út azonnal kiemelésre kerül. </li>
-<li>Viszont ha megpróbál kiválasztani egy objektumot, és a Vespucci úgy határoz, hogy több objektumra is gondolhatott, akkor egy választómenüt jelenít meg, így kiválaszthatja a megfelelő objektumot. </li>
-<li>A kiválasztott objektumok sárgával lesznek kiemelve. </li>
-<li>Tovább információkért lásd <a href="Node%20selected.md">Kiválasztott pont</a>, <a href="Way%20selected.md">Kiválasztott út</a> and <a href="Relation%20selected.md">Kiválasztott kapcsolat</a>.</li>
-<li>Dupla koppintás: <a href="Multiselect.md">Többszörös kiválasztási mód</a> indítása</li>
-<li>Hosszú nyomás: Létrehoz egy „célkeresztet”, amellyel új jegyzetet hozhat létre, lásd lent és itt: <a href="Creating%20new%20objects.md">Új objektumok létrehozása</a>. Ez csak akkor engedélyezett, ha az „Egyszerű mód” ki van kapcsolva.</li>
-</ul>
-<p>Jó stratégia ha belenagyít, ha nagy sűrűségű területet akar szerkeszteni.</p>
-<p>A Vespucci jó „visszavonás/mégis” rendszerrel rendelkezik, így ne féljen kísérletezni az eszközén, viszont kérjük ne töltsön fel tesztadatokat.</p>
-<h3 id="kivalasztas-kivalasztas-megszuntetese-egyetlen-koppintas-a-kivalasztas-menuben">Kiválasztás / kiválasztás megszüntetése (egyetlen koppintás a „kiválasztás menüben”)<a class="headerlink" href="#kivalasztas-kivalasztas-megszuntetese-egyetlen-koppintas-a-kivalasztas-menuben" title="Permanent link">#</a></h3>
-<p>Érintsen meg egy objektumot és emelje ki. A képernyő egy üres területének megérintése megszünteti a kijelölést. Ha már kiválasztott egy objektumot, és valami mást kell kiválasztania, akkor érintse meg a kérdéses objektumot, nem kell előtte megszüntetnie a kijelölést. Az objektumon történő dupla koppintás elindítja a <a href="Multiselect.md">Többszörös kiválasztás módot</a>.</p>
-<p>Ne feledje, hogy ha megpróbál kijelölni egy objektumot, és a Vespucci úgy dönt, hogy a kijelölés több objektumot jelent (például egy pont a vonalon, vagy egy másik átfedő objektumot), akkor egy kiválasztási menüt jelenít meg: Koppintson a kiválasztandó objektumra, és az kiválasztásra kerül. </p>
-<p>A kiválasztott objektumokat egy vékony sárga keret jelzi. A sárga keret a térképháttértől és a nagyítási szinttől függően nehezen észrevehető lehet. Ha kiválasztás történt, akkor értesítést kap a kiválasztás megerősítéséről.</p>
-<p>Amint a kiválasztás megtörtént, a kiválasztott objektum támogatott műveletei fognak megjelenni (gombként vagy menüelemként): További információkért lásd: <a href="Node%20selected.md">Kiválasztott pont</a>, <a href="Way%20selected.md">Kiválasztott vonal</a> és <a href="Relation%20selected.md">Kiválasztott kapcsolat</a>.</p>
-<h4 id="kivalasztott-objektumok-cimkek-szerkesztese">Kiválasztott objektumok: Címkék szerkesztése<a class="headerlink" href="#kivalasztott-objektumok-cimkek-szerkesztese" title="Permanent link">#</a></h4>
-<p>A kiválasztott objektum másodszori megérintése megnyitja a címkeszerkesztőt, és így szerkesztheti az objektumhoz rendelt címkéket.</p>
-<p>Ne feledje, hogy az átfedő objektumok esetén (mint a vonalon lévő pontok) a kiválasztási menü még egyszer megjelenik. Az ugyanazon objektum kiválasztása előhozza a címkeszerkesztőt; egy másik objektum kiválasztása egyszerűen kiválasztja a másik objektumot.</p>
-<h4 id="kijelolt-objektumok-pont-vagy-vonal-mozgatasa">Kijelölt objektumok: pont vagy vonal mozgatása<a class="headerlink" href="#kijelolt-objektumok-pont-vagy-vonal-mozgatasa" title="Permanent link">#</a></h4>
-<p>Amint kiválasztott egy objektumot, az mozgatható lesz. Ne feledje, hogy csak a kijelölt objektumok mozgathatóak. Egyszerűen húzza (a tolerancia zónán belül) a kiválasztott objektumot a mozgatáshoz. Ha nagy húzási területet választ ki a <a href="Preferences.md">beállításokban</a>, akkor nagy területet kap a kiválasztott pont körül, így könnyebben pozicionálhatja az objektumot. </p>
-<h4 id="uj-pont-vagy-vonal-letrehozasa">Új pont vagy vonal létrehozása<a class="headerlink" href="#uj-pont-vagy-vonal-letrehozasa" title="Permanent link">#</a></h4>
-<p>Az alkalmazás első indításakor „Egyszerű módban” indul, ez módosítható a főmenüben, a megfelelő jelölőmező kikapcsolásával.</p>
-<h5 id="egyszeru-mod">Egyszerű mód<a class="headerlink" href="#egyszeru-mod" title="Permanent link">#</a></h5>
-<p>A nagy zöld lebegő gomb a fő térképképernyőn egy menüt jelenít meg. Miután kiválasztotta az egyik elemet, arra lesz kérve, hogy koppintson a képernyő azon helyére, ahol létre akarja hozni az objektumot, a mozgás és a nagyítás továbbra is működik, ha igazítania kell a térképnézeten. </p>
-<p>See <a href="Simple%20actions.md">Creating new objects in simple actions mode</a> for more information. Simple mode os the default for new installs.</p>
-<h5 id="specialis-mod-hosszu-lenyomas">Speciális mód (hosszú lenyomás)<a class="headerlink" href="#specialis-mod-hosszu-lenyomas" title="Permanent link">#</a></h5>
-<p>Hosszan nyomja meg ott, ahol a pontot vagy a vonal kezdőpontját szeretné elhelyezni. Egy fekete „célkereszt” szimbólumot fog látni.
-* Ha új (objektumhoz nem kapcsolódó)pontot szeretne létrehozni, akkor a már meglévő objektumoktól távolabb koppintson a képernyőre.
-* Ha egy vonalat szeretne kiegészíteni, akkor a vonal „toleranciazónájára” (vagy a vonal egy pontjára) koppintson. A toleranciazónát a pont vagy vonal körüli terület jelzi.</p>
-<p>Ha látja a célkereszt szimbólumot, akkor ezek a lehetőségei:</p>
-<ul>
-<li><em>Normális nyomás ugyanott.</em></li>
-<li>Ha a célkereszt nincs egy pont közelében, akkor ugyanott újból megérintve új pont jön létre. Ha egy vonal közelében van (de nem egy pont közelében), akkor az új pont a vonalon lesz (és csatlakozni fog hozzá).</li>
-<li>Ha a célkereszt egy pont közelében van (azaz a pont toleranciazónáján belül), ugyanott újból megérintve kijelöljük a pontot (és megnyílik a címkeszerkesztő). Nem jön létre új pont. A művelet megegyezik a fenti kijelöléssel.</li>
-<li>_ Normál érintés egy másik helyen._ Egy másik hely megérintése (a célkereszt toleranciazónáján kívül) létrehoz egy vonalszakaszt az eredeti pozíciótól az aktuális pozícióig. Ha a célkereszt egy vonal vagy pont közelében volt, akkor az új szakasz kapcsolódik ahhoz a ponthoz vagy vonalhoz.</li>
-</ul>
-<p>Egyszerűen érintse meg a képernyőt ott, ahol a vonalhoz további pontokat szeretne hozzáadni. A befejezéshez érintse meg kétszer az utolsó pontot. Ha az utolsó pont egy vonalon vagy ponton található, akkor a szakasz automatikusan kapcsolódik ehhez a vonalhoz vagy ponthoz. </p>
-<p>Használhatja a menüelemet is: További információkért lásd: <a href="Creating%20new%20objects.md">Új objektumok létrehozása</a>.</p>
-<h4 id="terulet-letrehozasa">Terület létrehozása<a class="headerlink" href="#terulet-letrehozasa" title="Permanent link">#</a></h4>
-<p>Más geoadat rendszerekkel ellentétben, az OpenStreetMap jelenleg nem rendelkezik „terület” objektumtípussal. Az „iD” online szerkesztő megpróbál egy terület absztrakciót biztosítani az alacsonyabb szintű OSM elemekből, amely egyes esetekben jól működik, máskor nem. A Vespucci jelenleg meg sem próbál hasonlót, így valamennyit tudnia kell a területek ábrázolásáról:</p>
-<ul>
-<li><em>zárt vonal (sokszög)</em>: a legegyszerűbb és leggyakoribb területváltozat, olyan vonalak, amelyeknek közös első és utolsó csomópontja egy zárt „gyűrűt” alkot (például a legtöbb épület ilyen típusú). Ezeket nagyon könnyű létrehozni a Vespucciban: a terület megrajzolásának végén az utolsó pontot egyszerűen kössük vissza az első ponthoz. Megjegyzés: a zárt vonal értelmezése a címkézésétől függ: ha például egy zárt vonal épületként van címkézve, akkor területnek fog minősülni, ha viszont körforgalomként van címkézve, akkor nem. Bizonyos helyzetekben, amikor mindkét értelmezés érvényes lehet, a „terület” (area) címke tisztázhatja a rendeltetést.</li>
-<li><em>multipoligon</em>: egyes területek több részből, lyukakból és gyűrűkből állnak, amelyek nem ábrázolhatók egyetlen vonallal. Erre az OSM egy speciális kapcsolattípust használ, a multipoligont. (Ez egy általános célú objektum, amely az elemei közötti kapcsolatokat is képes modellezni.) Egy multipoligon egy vagy több „külső” és nulla, egy vagy több „belső” gyűrűből állhat. Egy gyűrű lehet egy zárt vonal, ahogyan azt fentebb leírtuk, vagy több egyedi vonal, amelyek közös végpontjaikkal kapcsolódnak egymáshoz. A nagy multi-poligonokat minden eszközzel nehéz kezelni, a kisebbeket viszont nem nehéz létrehozni a Vespucciban. </li>
-<li><em>partvonal</em>: a nagyon nagy objektumok, kontinensek és szigetek esetében még a multipoligonos modell sem működik kielégítően. A natural=coastline címkéjű vonalaknál irányfüggő szemantikát feltételezünk: a szárazföld a vonal bal oldalán van, a víz pedig a jobb oldalán. Ennek mellékhatása, hogy általában a partvonalként címkézett vonalak irányát általában nem szabad megfordítani. További információ az <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a> oldalon található.</li>
-</ul>
-<h4 id="vonalgeometria-javitasa">Vonalgeometria javítása<a class="headerlink" href="#vonalgeometria-javitasa" title="Permanent link">#</a></h4>
-<p>Ha eléggé ránagyít a kiválasztott vonalra, akkor egy kis „x”-et fog látni az elég hosszú vonalszakaszok közepén. Az „x” húzása új pontot hoz létre azon a helyen. Megjegyzés: próbálja elkerülni a pontok véletlen létrehozását, az érintési toleranciaterület elég kicsi ennél a műveletnél.</p>
-<h4 id="kivagas-masolas-es-beillesztes">Kivágás, másolás és beillesztés<a class="headerlink" href="#kivagas-masolas-es-beillesztes" title="Permanent link">#</a></h4>
-<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p>
-<h4 id="cimek-hatekony-hozzaadasa">Címek hatékony hozzáadása<a class="headerlink" href="#cimek-hatekony-hozzaadasa" title="Permanent link">#</a></h4>
-<p>A Vespucci támogat olyan funkciókat, amelyekkel hatékonyabban lehet a terepen címeket felmérni. Ez a házszámok előrejelzését (az utcák bal és jobb oldalán külön-külön) és – az utoljára használt érték és a közelség alapján – az <em>addr:street</em> vagy <em>addr:place</em> címkék automatikus hozzáadását jelenti. A legjobb esetben ezzel mindenféle gépelés nélkül is megadható egy cím.   </p>
-<p>A címkék hozzáadása a <a href="../../images/address.png">Address</a> ikonra koppintva indítható el: </p>
-<ul>
-<li>hosszú megnyomás után (csak nem egyszerű módban): A Vespucci létrehoz egy pontot az adott helyen, és a lehető legjobban kitalálja a házszámot az utóbbi időben használt címcímkék segítségével. Ha a pont egy épület körvonalán van, akkor automatikusan egy „entrance=yes” (bejárat) címkét hozzáad is a ponthoz. Megnyílik a címkeszerkesztő az adott objektumhoz, és így el lehet végezni a további szükséges módosításokat.</li>
-<li>a kijelölt pont/vonal módokban: A Vespucci a fentiek szerint adja hozzá a címcímkéket, és elindítja a címke szerkesztőt.</li>
-<li>a tulajdonságszerkesztőben.</li>
-</ul>
-<p>Az alapértelmezett „Egyszerű módban” egyedi címpont közvetlen létrehozásához válts a „Cím” szerkesztési módra (hosszan nyomd meg a lakatot), és ekkor a „Címpont hozzáadása” létrehoz egy címcsomópontot a helyen. Ha az egy épület körvonalán van, akkor a fentiek szerint egy egy bejárat címkét is létrehoz.</p>
-<p>A házszámok becslésének működéséhez jellemzően legalább két házszám szükséges az út két oldalán, minél több szám szerepel az adatokban, annál jobb.</p>
-<p>Fontolja meg ennek használatát az <a href="#donwload">automatikus letöltési</a> módok használatánál.  </p>
-<h4 id="kanyarodasi-korlatozasok-hozzaadasa">Kanyarodási korlátozások hozzáadása<a class="headerlink" href="#kanyarodasi-korlatozasok-hozzaadasa" title="Permanent link">#</a></h4>
-<p>A Vespucci rendelkezik egy gyors módszerrel a kanyarodási korlátozások hozzáadásához, ha szükséges, akkor automatikusan felosztja a vonalakat, és megkéri. hogy válassza ki újra az elemeket. </p>
-<ul>
-<li>válasszon ki egy „highway” címkéjű vonalat (kanyarodási korlátozások csak ezekhez adhatóak, ha más vonalaknál akarja használni, akkor használja az általános „kapcsolat létrehozása” módot)</li>
-<li>válassza ki a „Korlátozás hozzáadása” lehetőséget a menüből</li>
-<li>válassza ki a „via” pontot vagy vonalat (csak a lehetséges „via” elemeknél lesz megjelenítve az érintési terület)</li>
-<li>válassza ki a „to” vonalat (lehetséges visszalépni, és megadni a „to” elemet a „from” elemből, ekkor a Vespucci azt fogja feltételezni, hogy a „no_u_turn” korlátozást akarja hozzáadni)</li>
-<li>állítsa be a korlátozás típusát</li>
-</ul>
-<h3 id="vespucci-zarolt-modban">Vespucci „zárolt” módban<a class="headerlink" href="#vespucci-zarolt-modban" title="Permanent link">#</a></h3>
-<p>Ha a piros lakat látszik, akkor az összes nem szerkesztési művelet elérhető. Továbbá egy objektumon vagy a közelében történő hosszú nyomás megjeleníti a részletes információs képernyőt, ha az egy OSM objektum.</p>
-<h3 id="modositasok-mentese">Módosítások mentése<a class="headerlink" href="#modositasok-mentese" title="Permanent link">#</a></h3>
-<p><em>(hálózati kapcsolatot igényel)</em></p>
-<p>Válassza ugyanazt a gombot vagy menüelemet, melyet a letöltésnél használt, és most válassza az „Adatok feltöltése az OSM kiszolgálóra” lehetőséget.</p>
-<p>Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  </p>
-<p>Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p>
-<p>Ha menteni akarja a munkáját, és nincs internetkapcsolata, akkor elmentheti egy JOSM kompatibilis .osm fájlba, és felöltheti később a Vespuccival vagy a JOSM-mel. </p>
-<h4 id="utkozesek-feloldasa-feltolteskor">Ütközések feloldása feltöltéskor<a class="headerlink" href="#utkozesek-feloldasa-feltolteskor" title="Permanent link">#</a></h4>
-<p>A Vespucci rendelkezik egy egyszerű ütközésfeloldóval. Viszont ha azt gondolja, hogy komoly problémák vannak a szerkesztéseivel, akkor exportálja a módosításokat egy .osc fájlba („Exportálás” menüelem az „Átküldés” menüben), majd javítsa ki és töltse fel a JOSM-mel. Lásd a részletes súgót az <a href="Conflict%20resolution.md">ütközésfeloldásról</a>.  </p>
-<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
-<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. </p>
-<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
-<h2 id="gps-es-gpx-nyomvonalak-hasznalata">GPS és GPX nyomvonalak használata<a class="headerlink" href="#gps-es-gpx-nyomvonalak-hasznalata" title="Permanent link">#</a></h2>
-<p>A normál beállításokkal a Vespucci megpróbálja engedélyezni a GPS-t (és más műholdas navigációs rendszereket), és ha ez nem lehetséges, akkor a pozíciót az úgynevezett „hálózati helymeghatározás” segítségével határozza meg. Ez a viselkedés feltételezi, hogy normál használat esetén maga az Android készülék úgy van beállítva, hogy csak a GPX által generált helyeket használja (a nyomon követés elkerülése érdekében), azaz az eufemisztikusan „Helymeghatározási pontosság javítása” névre hallgató opció ki van kapcsolva. Ha engedélyezni szeretné az opciót, de el akarja kerülni, hogy a Vespucci visszaessen a „hálózati helymeghatározásra”, akkor kapcsolja ki a <a href="Advanced%20preferences.md">Speciális beállítások</a> megfelelő opcióját. </p>
-<p>Touching the <img alt="GPS" src="../../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
-<p>GPX-nyomvonal rögzítéséhez és a készüléken való megjelenítéséhez válassza a <img alt="GPS" src="../../images/menu_gps.png" /> menü „GPX-nyomvonal indítása” pontját. Ezáltal réteg kerül a kijelzőre az aktuálisan felvett nyomvonallal. A <a href="Main%20map%20display.md">rétegek</a> pontból feltölthet és exportálhat nyomvonalakat. További rétegek adhatók hozzá helyi GPX fájlokból és az OSM API-val letöltött nyomvonalakból.</p>
-<p>Megjegyzés: alapértelmezés szerint a Vespucci nem rögzít magassági adatokat a GPX nyomvonallal együtt, ez néhány Android-specifikus probléma miatt van. A magassági adatok rögzítésének engedélyezéséhez telepítsen egy gravitációs modellt, vagy egyszerűbben, menjen a <a href="Advanced%20preferences.md">Speciális beállítások</a> menüpontba, és konfigurálja az NMEA bemenetet.</p>
-<h3 id="how-to-export-a-gpx-track">How to export a GPX track?<a class="headerlink" href="#how-to-export-a-gpx-track" title="Permanent link">#</a></h3>
-<p>Open the layer menu, then click the 3-dots menu next to "GPX recording", then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
-<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos<a class="headerlink" href="#notes-bugs-and-todos" title="Permanent link">#</a></h2>
-<p>A Vespucci támogatja az OSM jegyzetek (régebben OSM hibák) letöltését, lezárását és a megjegyzések hozzáfűzését, valamint támogatja az <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE hibaellenőrző eszköz</a> „hibáit” is. Mind a kettőt vagy le kell tölteni direktben, vagy használhatja az automatikus letöltési lehetőséget, hogy elérje a közeli területen lévő elemeket. Ha már egyszer szerkesztette vagy lezárta őket, akkor egyesével vagy egyben is feltöltheti a hibákat vagy jegyzeteket. </p>
-<p>Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. </p>
-<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
-<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
-<h3 id="szures">Szűrés<a class="headerlink" href="#szures" title="Permanent link">#</a></h3>
-<p>A jegyzetek és hibák megjelenítésének globális bekapcsolása mellett beállítható egy durva szűrőt, hogy csökkentse a zsúfoltságot. A szűrő beállítási a feladatréteg bejegyzésből érhetők el a <a href="#layers">rétegvezérlésből</a>:</p>
-<ul>
-<li>Notes</li>
-<li>Osmose error</li>
-<li>Osmose warning</li>
-<li>Osmose minor issue</li>
-<li>Maproulette</li>
-<li>Todo</li>
-</ul>
-<p><a id="indoor"></a></p>
-<h2 id="belteri-mod">Beltéri mód<a class="headerlink" href="#belteri-mod" title="Permanent link">#</a></h2>
-<p>A beltéri térképezés kihívásokkal teli a sok egymást fedő objektum miatt. A Vespucci rendelkezik egy dedikált beltéri móddal, amellyel kiszűrheti az objektumokat, melyek nem ugyanazon a szinten vannak, és automatikusan hozzáadhatja a jelenlegi szintet az újonnan létrehozott objektumokhoz.</p>
-<p>A mód a zárolás gomb hosszú megnyomásával, és a megfelelő menüelem kiválasztásával engedélyezhető, lásd: <a href="#lock">Zárolás, feloldás, módváltás</a>.</p>
-<p><a id="c-mode"></a></p>
-<h2 id="c-mod">C-mód<a class="headerlink" href="#c-mod" title="Permanent link">#</a></h2>
-<p>C-módban csak azok az objektumok jelennek meg, melyeken figyelmeztetés jelző van, így könnyen kiszúrhatja azokat az objektumokat, melyekkel konkrét probléma van, vagy egyeznek a beállítható ellenőrzésekkel. Ha egy objektum kiválasztásra kerül és elindul a tulajdonságszerkesztő C-módban, akkor a legjobban illeszkedő előbeállítás automatikusan beállításra kerül.</p>
-<p>A mód a zárolás gomb hosszú megnyomásával, és a megfelelő menüelem kiválasztásával engedélyezhető, lásd: <a href="#lock">Zárolás, feloldás, módváltás</a>.</p>
-<h3 id="ellenorzesek-beallitasa">Ellenőrzések beállítása<a class="headerlink" href="#ellenorzesek-beallitasa" title="Permanent link">#</a></h3>
-<p>All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the <a href="Preferences.md">preferences</a>. </p>
-<p>The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
-<h4 id="ujboli-felmeresi-bejegyzesek">Újbóli felmérési bejegyzések<a class="headerlink" href="#ujboli-felmeresi-bejegyzesek" title="Permanent link">#</a></h4>
-<p>Az újbóli felmérési bejegyzések a következő tulajdonságokkal rendelkeznek:</p>
-<ul>
-<li><strong>Kulcs</strong> – Az érintett címke kulcsa.</li>
-<li><strong>Érték</strong> – Az érintett címke értéke, ha üres, a címke értéke figyelmen kívül marad.</li>
-<li><strong>Kor</strong> – legutóbbi módosítása után hány nappal kell megvizsgálni az elemet, ha van <em>check_date</em> címke. Különben az aktuális verzió létrehozásának dátuma. Az érték nullára állítása azt eredményezi, hogy az ellenőrzés egyszerűen megfelel a kulcsnak és az értéknek.</li>
-<li><strong>Reguláris kifejezés</strong> – ha be van jelölve, az <strong>érték</strong> JAVA reguláris kifejezésnek lesz tekintve.</li>
-</ul>
-<p>A <strong>Kulcs</strong> és az <strong>Érték</strong> a <em>meglévő</em> címkékkel lesz összehasonlítva a kérdéses objektumon.</p>
-<p>A standard előbeállításokban a <em>Magyarázó jegyzetek</em> csoport tartalmaz egy elemet, amely automatikusan hozzáad egy <em>check_date</em> címkét az aktuális dátummal.</p>
-<h4 id="bejegyzesek-ellenorzese">Bejegyzések ellenőrzése<a class="headerlink" href="#bejegyzesek-ellenorzese" title="Permanent link">#</a></h4>
-<p>Az elemek ellenőrzése a következő két tulajdonsággal rendelkezik:</p>
-<ul>
-<li><strong>Kulcs</strong> – Az a kulcs, amelynek a megfelelő előbeállítás szerint jelen kell lennie az objektumon.</li>
-<li><strong>Nem kötelező megkövetelése</strong> - A kulcs megkövetelése akkor is, ha a kulcs a megfelelő előbeállítás nem kötelező címkéi között szerepel.</li>
-</ul>
-<p>Ez az ellenőrzés úgy működik, hogy először meghatározza az illeszkedő előbeállítást, majd ellenőrzi, hogy a <strong>Kulcs</strong> egy „ajánlott” kulcs-e ennél az objektumnál, az előbeállítás szerint, a <strong>Nem kötelező elemek megkövetelése</strong> kiterjeszti az ellenőrzést azokra a címkékre is, melyek „nem kötelezőek” az objektumon. Megjegyzés: jelenleg a hivatkozott előbeállítások nem kerülnek ellenőrzésre.</p>
-<h2 id="szurok">Szűrők<a class="headerlink" href="#szurok" title="Permanent link">#</a></h2>
-<h3 id="cimkealapu-szuro">Címkealapú szűrő<a class="headerlink" href="#cimkealapu-szuro" title="Permanent link">#</a></h3>
-<p>A szűrő a főmenüből engedélyezhető, és a szűrő ikonra koppintva módosítható. További dokumentáció található itt: <a href="Tag%20filter.md">Címkeszűrő</a>.</p>
-<h3 id="elobeallitas-alapu-szuro">Előbeállítás-alapú szűrő<a class="headerlink" href="#elobeallitas-alapu-szuro" title="Permanent link">#</a></h3>
-<p>A fentiek alternatívájaként, az objektumok egyes előbeállítások vagy előbeállítás-csoportok alapján kerülnek szűrésre. A szűrő ikonra koppintva megjelenik egy előbeállítás-választó párbeszédablak, amely hasonlít a Vespucciban máshol előfordulókra. Az egyes előbeállítások normál koppintással válaszhatóak ki, az előbeállítás-csoportok pedig hosszú lenyomással (a normál koppintás belép a csoportba). További dokumentáció található itt: <a href="Preset%20filter.md">Előbeállítás-szűrő</a>.</p>
-<h2 id="a-vespucci-testreszabasa">A Vespucci testreszabása<a class="headerlink" href="#a-vespucci-testreszabasa" title="Permanent link">#</a></h2>
-<p>Az alkalmazás számos vonatkozása testreszabható. Ha valami konkrét dolgot keres, de nem találja meg, akkor a <a href="https://vespucci.io/">Vespucci webhely</a> kereshető, és további tájékoztatást ad mindarról, ami az eszközön elérhető.</p>
-<p><a id="layers"></a></p>
-<h3 id="retegbeallitasok">Rétegbeállítások<a class="headerlink" href="#retegbeallitasok" title="Permanent link">#</a></h3>
-<p>A rétegbeállítások a rétegvezérlőn keresztül módosíthatók (a jobb felső sarokban található „hamburgermenüben”), az összes többi beállítás a főmenübeállítások gombbal érhető el. A rétegeket lehet engedélyezni, letiltani és ideiglenesen elrejteni.</p>
-<p>Elérhető rétegtípusok</p>
-<ul>
-<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
-<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
-<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
-<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
-<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
-<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
-<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
-<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
-<li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
-</ul>
-<p>További információk találhatók a <a href="Main%20map%20display.md">térkép megjelenítéséről</a> szóló szakaszban.</p>
-<h4 id="beallitasok">Beállítások<a class="headerlink" href="#beallitasok" title="Permanent link">#</a></h4>
-<ul>
-<li>Kijelző bekapcsolva tartása. Alapértelmezés: kikapcsolva.</li>
-<li>Nagy ponthúzási terület. A pontok mozgatása érintéses bemenettel rendelkező eszközön nehézkes, mivel az ujjai eltakarják a kijelző aktuális helyzetét. Ennek bekapcsolása nagy területet biztosít, amely a középponton kívüli húzásra használható fel (a kijelölés és más műveletek továbbra is a normál érintéstűrési területet használják). Alapértelmezés: kikapcsolva.</li>
-</ul>
-<p>A teljes leírás megtalálható a <a href="Preferences.md">beállításoknál</a>.</p>
-<h4 id="specialis-beallitasok">Speciális beállítások<a class="headerlink" href="#specialis-beallitasok" title="Permanent link">#</a></h4>
-<ul>
-<li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.  </li>
-<li>Node icons. Default: <em>on</em>.</li>
-<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
-<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. </li>
-</ul>
-<p>A teljes leírás megtalálhat a <a href="Advanced%20preferences.md">speciális beállításoknál</a>.</p>
-<h2 id="reporting-and-resolving-issues">Reporting and Resolving Issues<a class="headerlink" href="#reporting-and-resolving-issues" title="Permanent link">#</a></h2>
-<p>Ha a Vespucci összeomlik vagy nem konzisztens állapotot észlel, akkor megkérjük, hogy küldje el az összeomlás-jelentésben. Tegyen így, ha ez történik, de helyzetenként csak egyszer. Ha további hozzáfűznivalója van, funkciókérés vagy hasonló okból akar jegyet nyitni, akkor itt tegye meg: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci hibakövető</a>. A főmenüben lévő „Visszajelzés küldése” funkció egy új hibajegyet nyit, és további gépelés nélkül beleteszi a releváns alkalmazás- és eszközinformációkat.</p>
-<p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
-<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#vespucci-bevezetes" class="nav-link">Vespucci bevezetés</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#szerkesztes-a-vespuccival" class="nav-link">Szerkesztés a Vespuccival</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#gps-es-gpx-nyomvonalak-hasznalata" class="nav-link">GPS és GPX nyomvonalak használata</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#belteri-mod" class="nav-link">Beltéri mód</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#c-mod" class="nav-link">C-mód</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#szurok" class="nav-link">Szűrők</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#a-vespucci-testreszabasa" class="nav-link">A Vespucci testreszabása</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
 <h1 id="vespucci-bevezetes">Vespucci bevezetés<a class="headerlink" href="#vespucci-bevezetes" title="Permanent link">#</a></h1>
@@ -922,21 +637,20 @@
 <p>Ha a Vespucci összeomlik vagy nem konzisztens állapotot észlel, akkor megkérjük, hogy küldje el az összeomlás-jelentésben. Tegyen így, ha ez történik, de helyzetenként csak egyszer. Ha további hozzáfűznivalója van, funkciókérés vagy hasonló okból akar jegyet nyitni, akkor itt tegye meg: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci hibakövető</a>. A főmenüben lévő „Visszajelzés küldése” funkció egy új hibajegyet nyit, és további gépelés nélkül beleteszi a releváns alkalmazás- és eszközinformációkat.</p>
 <p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
 <p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

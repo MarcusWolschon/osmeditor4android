@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Main map display - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../../../tutorials/old_release_notes/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../Simple%20actions/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -423,292 +404,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="main-vespucci-screen">Main Vespucci Screen<a class="headerlink" href="#main-vespucci-screen" title="Permanent link">#</a></h1>
-<p>The main Vespucci map screen is your normal starting point for interacting with the application. It can be in two modes</p>
-<h4 id="locked"><img alt="Locked" src="../../images/locked.png" /> locked<a class="headerlink" href="#locked" title="Permanent link">#</a></h4>
-<p>In this mode modifying the OpenStreetMap data is disabled, you can however use all the menus and other functions, for example down- or up-load data. The main reason to use this mode is to pan and zoom in high density areas, or to avoid accidental changes when pocketing your device. </p>
-<p>Tapping the lock icon will toggle the lock.</p>
-<h4 id="unlocked"><img alt="Unlocked" src="../../images/unlocked.png" /> unlocked<a class="headerlink" href="#unlocked" title="Permanent link">#</a></h4>
-<p>In this mode you can add and change the geometry and tags of OpenStreetMap data. <em>You will still need to zoom until editing is enabled.</em></p>
-<p>If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes, for mode switching purposes it dosen't matter if the display is "locked" or "unlocked".</p>
-<p>All the mode options are </p>
-<ul>
-<li><strong>Normal</strong> conventional editing mode.</li>
-<li><strong>Tag only</strong> selecting an object will immediately start the property editor. See <a href="../Tag%20only%20mode/">Tag only mode</a> </li>
-<li><strong>Address</strong> slightly simplified dedicated mode for surveying addresses. See <a href="../Address%20mode/">Address mode</a> </li>
-<li><strong>Indoor</strong> indoor editing with level selector. See <a href="../Indoor%20mode/">Indoor mode</a> </li>
-<li><strong>C-Mode</strong> "complete" mode, only objects with validation warnings will be shown.</li>
-</ul>
-<p>The lock icon will always be located in the upper left corner of your devices screen. The placement of the following controls will depend on the size, orientation and age of your device, and may be in the top or bottom bar, or in a menu. </p>
-<h3 id="map-and-data-display">Map and Data display<a class="headerlink" href="#map-and-data-display" title="Permanent link">#</a></h3>
-<p>Once you have downloaded some OSM data you will see it displayed over a background layer. The default background is the standard "Mapnik" style map provided by openstreetmap.org, however you can change the configuration by using the layer control. The styling of the OSM data displayed on top of the background layer can be fully customized, but the standard "Color round nodes" or for "Pen round nodes" should work for most situations, the later has smaller "touch areas" mainly for working with a pen.</p>
-<p>Note: the map images are cached on device and are only deleted if explicitly flushed. If you need to have background images available without network connectivity see <a href="http://vespucci.io/tutorials/custom_imagery_mbtiles/">custom imagery with MBtiles</a>.</p>
-<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
-<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up.</p>
-<p>The view will include a filtered view of all "POI"s displayed on the current map view. If no explicit filter is set this is limited to objects that have a key with one of
-<em>shop</em>, <em>amenity</em>, <em>leisure</em>, <em>tourism</em>, <em>craft</em>, <em>office</em> or <em>emergency</em>. If an explicit filter is set, that is a tag filter or a preset filter, or a mode (<em>Indoor</em> and <em>C</em>-mode) is selected that sets a filter the display will display objects that are allowed by the filter. For example if <em>Indoor</em> mode is selected, the display will only show POIs on the currently selected level. </p>
-<p>Tapping an entry in the display will center the map on the object and select it, tapping it a second time (just as on the map display) will start the property editor, in <em>Tag only</em> mode the property editor will start directly as expected. The POI entries are highlighted with the same validation indication as map icons, see <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/styles/Color-round.xml#L39">validation styling</a>.</p>
-<p><a id="layer_control"></a></p>
-<h3 id="layer-control">Layer control<a class="headerlink" href="#layer-control" title="Permanent link">#</a></h3>
-<p>Vespucci currently supports multiple tiled background imagery layers, multiple tiled overlay layers (both raster and Mapbox vector tiles), a grid/scale layer, a task layer, a photo layer, multiple GeoJSON layers, multiple GPX/GPS layers and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).</p>
-<p>The layer dialog supports the following actions on the layer entries: </p>
-<ul>
-<li>Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.</li>
-<li>Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.</li>
-<li>Drag layer to a new position in the layer stack by a long press and then dragging the layer.</li>
-<li>Menu button.<ul>
-<li>Tile based layers: <ul>
-<li><strong>Select imagery</strong> Show a imagery selection dialog, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. </li>
-<li><strong>Flush tile cache</strong> Flush the on device cache for this layer.</li>
-<li><strong>Background properties</strong> Set contrast of layer.</li>
-<li><strong>Info</strong> Display information on the currently selected imagery.</li>
-<li><strong>Align imagery...</strong> start the imagery alignment mode to adjust this layer. This can be done manually or by querying the "Imagery Offset" database.</li>
-<li><strong>Test...</strong> try to retrieve a tile from the current view and provide some diagnostics.</li>
-</ul>
-</li>
-<li>Custom imagery tile based layers (additionally to the above):<ul>
-<li><strong>Edit custom imagery configuration</strong> edit the configuration of the imagery, for example the URL.</li>
-</ul>
-</li>
-<li>Mapbox Vector Tile layers (additionally to <em>Tile based layers</em>):<ul>
-<li><strong>Change style</strong> Show the layer styling dialog (disabled if a style has been loaded).</li>
-<li><strong>Load style</strong> Load a mapbox-gl style.</li>
-<li><strong>Reset style</strong> Reset the style to the default.</li>
-</ul>
-</li>
-<li>Mapillary layer (additionally to <em>Mapbox Vector Tile layers</em>):<ul>
-<li><strong>Set date range ...</strong> Select start and end date to filter Mapillary data on. Note that this functionality depends on some specifics of the loaded Mapbox GL style.  </li>
-</ul>
-</li>
-<li>GeoJSON layers: <ul>
-<li><strong>Change style</strong> Show the layer styling dialog.</li>
-<li><strong>Info</strong> Display some information on the contents.</li>
-<li><strong>Create Todos from GeoJSON objects ...</strong> create Todos from the GeoJSON objects in the layer. The default conversion adds the GeoJSON properties as text to the Todo, Custom conversion allows you to select a script for the conversion, for example a script can include references to OSM elements in the Todos. <a href="http://vespucci.io/tutorials/other/conversion_exacmple.js">Example script</a></li>
-</ul>
-</li>
-<li>GPX layers:
-  Starting recording by the "Start GPX track" item in the GPS menu will add a layer for the recording. Layers for GPX files and downloaded tracks from the OSM API can be added via the <strong>+</strong> button, see below.  <ul>
-<li><strong>Change style</strong> Show the layer styling dialog.</li>
-<li><strong>Reset style</strong> Reset the style to the default.</li>
-<li><strong>Info</strong> Display some information on the contents.</li>
-<li><strong>Go to start of GPX track</strong> Center the display on the start of the track. <em>(not available on the recording layer)</em></li>
-<li><strong>Go to first waypoint</strong> Center the display on the first waypoint. <em>(not available on the recording layer)</em></li>
-<li><strong>Upload GPX track</strong> Upload the track to the OSM API. Note: the OSM API only accepts tracks with valid time stamps for each track point, if they are missing a time stamp corresponding to the UNIX epoch date will be added.</li>
-<li><strong>Export GPX track</strong> Export the track to a local file.</li>
-<li><strong>Start playback</strong> Playback the current file, this behaves similar to recording tracks, the display will be centered on the current track point, then the following on and so on. <em>(not available on the recording layer)</em></li>
-<li><strong>Pause playback</strong> Temporarily pause the playback. <em>(not available on the recording layer)</em></li>
-<li><strong>Stop playback</strong> Stop the playback. <em>(not available on the recording layer)</em></li>
-</ul>
-</li>
-<li>Photo layer:<ul>
-<li><strong>Reindex</strong> clear the current index data and reindex images on the device.</li>
-<li><strong>Discard</strong> Turn this layer off. This will free resources if the app is exited and re-started.</li>
-</ul>
-</li>
-<li>Grid and Task layers:<ul>
-<li><strong>Configure...</strong> Change layer settings</li>
-<li><strong>Discard</strong> Turn this layer off. For the task layer this will free resources if the app is exited and re-started.</li>
-</ul>
-</li>
-<li>Data layer:<ul>
-<li><strong>Configure...</strong> Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since July 2024.</li>
-</ul>
-</li>
-<li>Data and Tasks layers:<ul>
-<li><strong>Info</strong> Display some information on the contents.</li>
-<li><strong>Prune</strong> remove downloaded data from storage that is outside of the current screen and unmodified.</li>
-</ul>
-</li>
-<li>All layers:<ul>
-<li><strong>Discard</strong> Delete the layer including any saved state.</li>
-<li><strong>Up</strong> move the layer up, potentially obscuring data from lower layers.</li>
-<li><strong>Down</strong> move the layer down.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>+</strong> button:<ul>
-<li>for disabled layers that can only be displayed once it will show a corresponding "Enable ..." entry that will turn the layer on.</li>
-<li><strong>Add GeoJSON layer</strong> Loads a GeoJSON layer from a file in to a new GeoJSON layer.</li>
-<li><strong>Add background imagery layer</strong> Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
-<li><strong>Add overlay imagery layer</strong> As above but assumes that the layer is partially transparent.</li>
-<li><strong>Enable photo layer</strong> Enables the photo layer this will display clickable icons for photos that will start an internal or external viewer. Which photos can be displayed depends strongly on your Android version and settings <a href="../Advanced%20preferences/">Advanced preferences</a>.</li>
-<li><strong>Enable bookmark layer</strong> Enables a layer displaying saved bookmarks.</li>
-<li><strong>Enable Mapillary layer</strong> Enables the Mapillay layer.</li>
-<li><strong>Add layer from GPX file</strong> Adds a layer from a GPX file on device.</li>
-<li><strong>Download GPX track</strong> Download a GPX <a href="https://www.openstreetmap.org/traces/mine">track that you have previously uploaded to the OSM website</a>, and create a layer from it. Note that only GPX tracks with their starting point in the area currently displayed will be available for selection, this is a limitation of the current OSM API.</li>
-<li><strong>Add custom imagery</strong> Adds a custom imagery configuration, this can then be used just 
-  as any tile based imagery source, the entries can be managed in the <a href="../Preferences/">preferences</a>.</li>
-<li><strong>Add layer from MVT style</strong> Load a Mapbox-GL style file that has a "sources" section and create a layer. </li>
-<li><strong>Add imagery from OAM</strong> Add a layer from the OpenAerialMap catalogue. <em>(requires network connectivity)</em></li>
-<li><strong>Add imagery from WMS</strong> This allows you to add a specific layer from a WMS endpoint. <em>(requires network connectivity)</em></li>
-</ul>
-</li>
-</ul>
-<p>Custom tile layers, including on device MBTile containers can be added in the <a href="../Preferences/">preferences</a> 
-or as decribed above..</p>
-<h3 id="highlighting-of-data-issues">Highlighting of data issues<a class="headerlink" href="#highlighting-of-data-issues" title="Permanent link">#</a></h3>
-<p>The included map styles highlight certain data issues, these are</p>
-<ul>
-<li>objects with 'fixme' and 'todo' tags (case insensitive) <em>magenta</em></li>
-<li>ways with 'highway=road' <em>magenta</em></li>
-<li>ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag <em>magenta</em></li>
-<li>relations with no 'type' tag <em>magenta</em></li>
-<li>certain points of interest that haven't been edited or verified lately. Default time that must have past since the last edit is 1 year. <em>yellow</em></li>
-<li>untagged ways that are not a member of a relation <em>magenta</em></li>
-<li>unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted <em>magenta</em></li>
-</ul>
-<p>The colours can be changed in the <a href="http://vespucci.io/tutorials/data_styling/#validation-styling">data style</a>.</p>
-<h2 id="available-actions">Available Actions<a class="headerlink" href="#available-actions" title="Permanent link">#</a></h2>
-<h3 id="undo"><img alt="Undo" src="../../images/undolist_undo.png" /> Undo<a class="headerlink" href="#undo" title="Permanent link">#</a></h3>
-<p>Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding "redo" checkpoint will be displayed. <em>Some operations consist of multiple simpler actions that will be listed as individual items.</em></p>
-<h3 id="camera"><img alt="Camera" src="../../images/camera.png" /> Camera<a class="headerlink" href="#camera" title="Permanent link">#</a></h3>
-<p>Start a camera app, and add the resulting photograph to the photo layer if it is enabled. The photograph itself will be stored in the Vespucci/Pictures 
-directory, however if this works depends on the specific camera app.  Photographs may also be "shared" from other apps into Vespucci, these can be viewed, just as images taken via the camera button in Vespuccis image viewer.</p>
-<p>Notes 
-* Because of restrictions in recent versions of Android you will need to configure the target app in the preferences if you are not happy with the standard app on your device. See <a href="../16.1.0%20Release%20notes/">16.1 release notes</a>.
-* OpenStreetMap currently does not provide an upload/storage facility for large numbers of images (you can store individual images of interest in the OSM wiki).  </p>
-<h3 id="location"><img alt="Location" src="../../images/menu_gps.png" /> Location<a class="headerlink" href="#location" title="Permanent link">#</a></h3>
-<p>The "on-map" GPS button duplicates the function of the "Follow location" menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the <em>Show location</em> function will enable location updates from the system, just as the recording and similar options.
-To reposition or remove the "on-map" GPS button use the "Follow position button layout" Preference.</p>
-<ul>
-<li><strong>Show location</strong> - show arrow symbol at current position</li>
-<li><strong>Follow location</strong> - pan and center screen to follow the current position, will enable <em>Show location</em> too.</li>
-<li><strong>Bookmarks...</strong> - show current viewbox bookmarks</li>
-<li><strong>Add bookmark...</strong> - set a bookmark for the current viewbox</li>
-<li><strong>Go to the nearest todo...</strong> - go to the nearest open todo. If you are following the GPS position or it is in the current view this is relative to that position, otherwise it is relative to the center of the current view. If there are more than one active todo list you will be prompted to select one.</li>
-<li><strong>Go to current location</strong> - go to and zoom in to the current position. If location updates are not turned on, this will try to get a location without enabling continuous updates. Latitude, longitude, and height over the ellipsoid are shown, and you can create a new node at the coordinates including the height over the ellipsoid. You can also choose to share the position.</li>
-<li><strong>Go to coordinates...</strong> - go to and zoom in to coordinates (latitude longitude) or an open location code
-    Supported formats are the following, with dots or optionally a comma as the decimal marker, variations on the units also accepted e.g. °, d, º, g, o.   <ul>
-<li><code>43.63871944444445</code></li>
-<li><code>N43°38'19.39"</code></li>
-<li><code>43°38'19.39"N</code></li>
-<li><code>43°38.3232'N</code></li>
-<li><code>43d 38m 19.39s N</code></li>
-<li><code>43 38 19.39</code></li>
-<li><code>433819N</code></li>
-</ul>
-</li>
-<li><strong>Go to last edit</strong> - Pan and zoom to the bounding box of the top most undo checkpoint.</li>
-<li><strong>Start GPX track</strong> - start recording a GPX track and display a corresponding layer.</li>
-<li><strong>Resume GPX track</strong> - continue recording a GPX track.</li>
-<li><strong>Pause GPX track</strong> - pause recording the current GPX track</li>
-<li><strong>Clear GPX track</strong> - clear the current GPX track</li>
-</ul>
-<p><a id="transfer"></a></p>
-<h3 id="transfer"><img alt="Transfer" src="../../images/menu_transfer.png" /> Transfer<a class="headerlink" href="#transfer" title="Permanent link">#</a></h3>
-<p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display seven or eight options:</p>
-<ul>
-<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available. See <a href="../Uploading%20your%20changes/">Uploading your changes</a> for more information <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Review changes...</strong> - review current changes</li>
-<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
-<li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Query Overpass...</strong> - run a query against a Overpass API server, see <a href="#overpass_queries">Overpass queries</a>. <em>(requires network connectivity)</em></li>
-<li><strong>Close current changeset</strong> - manually close the current changeset <em>(only available if a changeset is open)</em></li>
-<li><strong>Location based auto download</strong> - download an area around the current location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
-<li><strong>Pan and zoom auto download</strong> - download the area shown in the current screen automatically <em>(requires network connectivity)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
-<li><strong>Clear data</strong> - remove any OSM data in memory</li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files. <a id="file"></a><ul>
-<li><strong>Export changes to OSC file</strong> - write a ".osc" format file containing the current edits</li>
-<li><strong>Apply changes from OSC file</strong> - read a ".osc" format file and apply its contents</li>
-<li><strong>Save to JOSM file...</strong> - save as a JOSM compatible XML format file</li>
-<li><strong>Read from JOSM file...</strong> - read a JOSM compatible XML format file, this supports JOSM, regular OSM and Overpass API (if metadata is included) format XML files. The files must be node-way-relation ordered.</li>
-<li><strong>Read from PBF file...</strong> - read OSM data from a PBF format file</li>
-<li><strong>Download data for offline use...</strong> - download and install a mapsplit format data extract <em>(requires network connectivity)</em></li>
-</ul>
-</li>
-<li><strong>Tasks...</strong> - down- and uploading tasks (Notes, OSMOSE bugs, Maproulette and custom tasks)<ul>
-<li><strong>Upload all</strong> - upload all new or modified tasks</li>
-<li><strong>Download tasks for current view</strong> - download Notes/Bugs for the area visible on the screen</li>
-<li><strong>Auto download</strong> - download tasks around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
-<li><strong>Clear</strong> - remove all tasks from storage</li>
-<li><strong>File...</strong> - save Notes/Bugs data to on device storage<ul>
-<li><strong>Save all notes...</strong> - write a ".osn" format file containing all downloaded notes (this is the format supported by JOSM)</li>
-<li><strong>Save new and changed notes...</strong> - write a ".osn" format file containing all new and changed notes</li>
-<li><strong>Load notes...</strong> - load a ".osn" format file containing Notes</li>
-<li><strong>Load todos...</strong> - read todos in a simple JSON format</li>
-<li><strong>Save todos...</strong> - save todos in a simple JSON format</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="preferences"><img alt="Preferences" src="../../images/menu_config.png" /> Preferences<a class="headerlink" href="#preferences" title="Permanent link">#</a></h3>
-<p>Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. </p>
-<p><a id="tools"></a></p>
-<h3 id="tools"><img alt="Tools" src="../../images/menu_tools.png" /> Tools…<a class="headerlink" href="#tools" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>Apply stored offset to imagery</strong> - apply stored offset, if it exists, for the current background layer </li>
-<li><strong>More imagery tools</strong><ul>
-<li><strong>Update configuration from JOSM</strong> - download a current version of the imagery layer configuration from the JOSM repository. Currently the default configuration is provided by the Editor Layer Index, not JOSM. <em>(requires network connectivity)</em></li>
-<li><strong>Update configuration from ELI</strong> - download a current version of the imagery layer configuration from the Editor Layer Index repository. <em>(requires network connectivity)</em></li>
-<li><strong>Flush all tile caches</strong> - empty all on device tile caches. </li>
-</ul>
-</li>
-<li><strong>Reset address prediction</strong> - reset the current address prediction data, will seeded from loaded data if possible.</li>
-<li><strong>Reset OAuth</strong> - reset the OAuth tokens, this will force re-authorisation the next time you upload.</li>
-<li><strong>Authorise OAuth</strong> - start authorisation process immediately. <em>(requires network connectivity)</em></li>
-<li><strong>Set MapRoulette API key</strong> - set the API key for modifying the status of MapRoulette tasks.</li>
-<li><strong>Clear clipboard</strong> - remove content from the internal OSM element clipboard.</li>
-<li><strong>Calibrate pressure sensor...</strong> - calibrate the conversion from barometric pressure to elevation.</li>
-<li><strong>Install EGM</strong> - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the "Advanced preferences".</li>
-<li><strong>Remove EGM</strong> - remove the EGM.</li>
-<li><strong>Import data style...</strong> - import an additional data style from an XML file or from a ZIP archive containing an XML file and icons. This overwrites existing style files with the same name.</li>
-<li><strong>Load keys from file...</strong> - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.</li>
-<li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be enabled in the "Advanced preferences".</li>
-</ul>
-<h3 id="find"><img alt="Find" src="../../images/ic_menu_search_holo_light.png" /> Find<a class="headerlink" href="#find" title="Permanent link">#</a></h3>
-<p>Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service <em>(requires network connectivity)</em></p>
-<h3 id="search-for-objects">Search for objects<a class="headerlink" href="#search-for-objects" title="Permanent link">#</a></h3>
-<p>Search for OSM objects in the loaded data using JOSMs search/filter expressions. See <a href="http://vespucci.io/tutorials/object_search/">JOSM filter documentation</a> for more information. Besides searching in the loaded data alternatively you can create a Overpass API query and use that to download data.</p>
-<p><a id="overpass_queries"></a></p>
-<h4 id="overpass-queries">Overpass queries<a class="headerlink" href="#overpass-queries" title="Permanent link">#</a></h4>
-<p>The queries will be run against the Overpass server set in the "Advanced preferences". The standard behaviour is to replace the current data with the results of the query, 
-if you have unsaved changes the query will not run except if you select the <em>Merge result</em> check box (this will merge the results of the query with the existing data). 
-If <em>Select result</em> is checked, any results (with the exception of way nodes) will be selected and the app will zoom to the data.</p>
-<p>Note: if you are generating the query from the JOSM query language you need to add an <em>inview</em> term otherwise the query will be executed for the whole world, if you are manually 
-creating a query you should add <em>({{bbox}})</em> terms for the same reason.</p>
-<h3 id="modes">Modes...<a class="headerlink" href="#modes" title="Permanent link">#</a></h3>
-<p>This menu allows mode selection as via the <em>lock button</em> and enabling/disabling of the <em>simple mode</em>.</p>
-<h3 id="tag-filter-checkbox">Tag-Filter <em>(checkbox)</em><a class="headerlink" href="#tag-filter-checkbox" title="Permanent link">#</a></h3>
-<p>Enable the tag based filter, the filter can be configured by tapping the filter button on the map display.</p>
-<h3 id="preset-filter-checkbox">Preset-Filter <em>(checkbox)</em><a class="headerlink" href="#preset-filter-checkbox" title="Permanent link">#</a></h3>
-<p>Enable the preset based filter, the filter can be configured by tapping the filter button on the map display.</p>
-<h3 id="share-position">Share position<a class="headerlink" href="#share-position" title="Permanent link">#</a></h3>
-<p>Share the current position (center of the displayed map) with other apps on the device.</p>
-<h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help<a class="headerlink" href="#help" title="Permanent link">#</a></h3>
-<p>Start the on device help browser.</p>
-<h3 id="authors-and-licenses">Authors and licenses<a class="headerlink" href="#authors-and-licenses" title="Permanent link">#</a></h3>
-<p>Some information on the licence of Vespucci itself, specific components and a list of all known contributors to the app.</p>
-<h3 id="debug">Debug<a class="headerlink" href="#debug" title="Permanent link">#</a></h3>
-<p>Internal information on the app and a button to force submission of a crash dump.</p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#main-vespucci-screen" class="nav-link">Main Vespucci Screen</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#available-actions" class="nav-link">Available Actions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="main-vespucci-screen">Main Vespucci Screen<a class="headerlink" href="#main-vespucci-screen" title="Permanent link">#</a></h1>
 <p>The main Vespucci map screen is your normal starting point for interacting with the application. It can be in two modes</p>
@@ -970,21 +666,20 @@ creating a query you should add <em>({{bbox}})</em> terms for the same reason.</
 <p>Some information on the licence of Vespucci itself, specific components and a list of all known contributors to the app.</p>
 <h3 id="debug">Debug<a class="headerlink" href="#debug" title="Permanent link">#</a></h3>
 <p>Internal information on the app and a button to force submission of a crash dump.</p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

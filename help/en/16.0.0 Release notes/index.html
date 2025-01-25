@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>16.0.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../16.1.0%20Release%20notes/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../15.2.0%20Release%20notes/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -433,88 +414,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="vespucci-160-highlights">Vespucci 16.0 Highlights<a class="headerlink" href="#vespucci-160-highlights" title="Permanent link">#</a></h1>
-<p>2021-09-21</p>
-<p>This was originally intended as a minor version step over 15.2, however both the scope of the changes and the time it has taken warrants to release this with a new major version. </p>
-<h3 id="changed-public-app-directory-for-android-11-compatibility">Changed public app directory for Android 11 compatibility<a class="headerlink" href="#changed-public-app-directory-for-android-11-compatibility" title="Permanent link">#</a></h3>
-<p>In November of this year we will have to start targeting Android 11 to ensure continued availability on googles play store, this forced change implies that we can no longer store any user accessible / selectable files in the traditional "Vespucci" directory, nor in the app specific directories in Android/data. There is no really satisfactory solution to where to store non-media content, however using "Download/Vespucci" has emerged as the best (or rather the least awlful) compromise.</p>
-<p>In preparation for targeting Android 11, on 1st startup of 16.0 your data will be copied to the new location, once you are sure that everything works as expected you can remove the old directory and contents. Note: if you have a larger number of photographs in 'Vespucci/Pictures' the migration may take a significant amount of time.</p>
-<p>If you have been using offline OSM data in mapsplit format, you may need to adjust the location of the MSF files in the API entries to the new location.</p>
-<h3 id="tile-download-moved-to-main-process">Tile download moved to main process<a class="headerlink" href="#tile-download-moved-to-main-process" title="Permanent link">#</a></h3>
-<p>Since 2010 when Marcus added background layer functionality to Vespucci the tile fetching and storing logic lived in a separate service that communicated with the main editing application via remote procedure calls. This served us well over more than the last decade, however always had an inherent issue due to an Android quirk, the buffer used for these calls has a fixed size of 1MB, shared by all transactions running in the same process. This now and then caused issues with very large tiles, but in general was manageable without direct impact on functionality. It did limit the size of images that could be retrieved from WMS servers and use of image formats without compression.</p>
-<p>However with support for Mapbox vector tiles this architecture has become untenable. This is obvious considering that, for example, Mapillary serves vector tiles that are around 10MB size in areas with high density data. </p>
-<p>The code has been reworked to run directly in the main process in this release, while due to this it is no longer quite as robust as previously, there are some performance gains outside of the ability to handle larger tiles that might be noticeable.</p>
-<h3 id="mapillary-v4-api">Mapillary V4 API<a class="headerlink" href="#mapillary-v4-api" title="Permanent link">#</a></h3>
-<p>In February of this year Mapillary announced that they were replacing their V3 API with a vector tile based implementation. While the original announcement communicated that a test API V4 implementation would be available in March and the cut over would be in May, both API and documentation for it were then eventually made available mid-June. As a result the current implementation has a number of rough edges, workarounds and other issues that cropped up in the short time available.</p>
-<p>In particular the zoom level 14 tiles containing image information can be in the order of magnitude of 10MB (a bitmap . Rendering a complete screen of so large tiles at zoom 14 can easily exceed the complete heap available to an Android app (on recent devices, not to mention older ones), to avoid issues caused by exhausting memory we currently limit Mapillary rendering to zoom level 16 and higher. The limit can be adjusted in the advanced preferences and likely should be set to a higher value on devices, such as tablets, with larger screens.</p>
-<p><em>Note for F-Droid users:</em> just as the previous support for Mapillary, this functionality is not available for third party builds, in particular for builds by F-Droid, as they do not support private API keys. You can naturally obtain a key from Mapillary and build the app yourself.</p>
-<h3 id="mapbox-vector-tile-and-styling-support">Mapbox vector tile and styling support<a class="headerlink" href="#mapbox-vector-tile-and-styling-support" title="Permanent link">#</a></h3>
-<p>Vespucci now has limited support for Mapbox Vector tiles and styling with a subset of Mapbox GL, this is mainly useful for quality assurance layers and other overlays. As currently neither of the imagery layer configurations support MVT sources, for now such sources have to be added via the custom imagery dialog. Rudimentary styles can be created interactively or you can load a Mapbox-GL style file from devices storage. </p>
-<p>More information can be found here <a href="http://vespucci.io/tutorials/mapbox-style/">Mapbox-GL Style Support</a>.  </p>
-<h3 id="bookmarks">Bookmarks<a class="headerlink" href="#bookmarks" title="Permanent link">#</a></h3>
-<p>You can now store the current location as a named bookmark and retrieve them to return back to the stored location at a later date. Thanks to https://github.com/Akaash7 for implementing this!</p>
-<h3 id="support-for-way-labels">Support for way labels<a class="headerlink" href="#support-for-way-labels" title="Permanent link">#</a></h3>
-<p>Data styling now supports rendering labels along ways.</p>
-<h3 id="gpx-layer-performance-improvement">GPX layer performance improvement<a class="headerlink" href="#gpx-layer-performance-improvement" title="Permanent link">#</a></h3>
-<p>Rendering a large number of GPX tracks at low zooms is now considerably faster due to some geometry simplification implemented by https://github.com/kai-morich Thanks!</p>
-<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
-<ul>
-<li>Preference for tile storage location</li>
-<li>Filter background layer by terrain in imagery selector. Thanks to https://github.com/zedlabs</li>
-<li>Add styling for icons on amenity, shop and tourist tags on closed ways</li>
-<li>Add layer info button in imagery selector. Thanks to https://github.com/zedlabs</li>
-<li>Name suggestion index V6 format support</li>
-<li>Updated opening hours editor with support for matching templates with wild cards</li>
-<li>Improved data styles that render much more icons on buildings</li>
-</ul>
-<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
-<ul>
-<li>As a safety measure, you should always upload any changes before updating.</li>
-<li>As mentioned above the default public directory used to store files has changed, please check that everything has been correctly migrated.</li>
-<li>The default tile size for requests from WMS servers has increased, old tiles stored in the on-device cache will have the wrong size and as a result will not be displayed properly, clear the tile cache to fix the issue.</li>
-<li>Potentially the mapillary layer will have the wrong style, discard the layer and then re-add it to address the problem.</li>
-</ul>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>The documentation is out of date.</li>
-<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#vespucci-160-highlights" class="nav-link">Vespucci 16.0 Highlights</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="vespucci-160-highlights">Vespucci 16.0 Highlights<a class="headerlink" href="#vespucci-160-highlights" title="Permanent link">#</a></h1>
 <p>2021-09-21</p>
@@ -562,21 +462,20 @@
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

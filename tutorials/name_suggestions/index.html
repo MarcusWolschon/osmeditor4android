@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Using name suggestions - Vespucci</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../custom_imagery_mbtiles/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../reporting_issues/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -427,85 +408,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="using-name-suggestions">Using Name Suggestions<a class="headerlink" href="#using-name-suggestions" title="Permanent link">#</a></h1>
-<p><em>by Simon Poole</em></p>
-<p>The iD editor has used the <a href="https://github.com/osmlab/name-suggestion-index">name suggestion index</a> for quite a while and it was something that I wanted to support in Vespucci in the upcoming release. The one thing you do want to reduce in a mobile app is typing.</p>
-<p>Basically the idea is to suggest correct spelling (and tagging) for some of the more prominent chains of restaurants and shops to the mapper. The way it works in Vespucci now is slightly different from the current implementation in iD and at least some aspects might be worthwhile supporting there too.</p>
-<p><em>The screen shots below are from version 0.9.4, while the layout changed in 0.9.6 and later, the functionality remains the same.</em></p>
-<h2 id="using-the-name-as-a-shortcut-for-tagging">Using the name as a shortcut for tagging<a class="headerlink" href="#using-the-name-as-a-shortcut-for-tagging" title="Permanent link">#</a></h2>
-<p>If you are creating a new object, or adding tags to an object that previously didn't have relevant tags, you can use the name as an "Ersatz"-preset (note Vespucci supports normal JOSM-style presets too and there is an "advanced preferences" to automatically apply the best JOSM preset):</p>
-<table>
-<thead>
-<tr>
-<th>Enter the name tag</th>
-<th>Start typing<br> and get the auto-complete list</th>
-<th>Further typing refines the list</th>
-<th>Selecting the correct item sets the<br>name and the corresponding tags</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><img alt=" " src="../images/Screenshot_2014-03-07-14-47-13.png" /></td>
-<td><img alt=" " src="../images/Screenshot_2014-03-07-14-48-08.png" /></td>
-<td><img alt=" " src="../images/Screenshot_2014-03-07-14-49-03.png" /></td>
-<td><img alt=" " src="../images/Screenshot_2014-03-07-14-49-28.png" /></td>
-</tr>
-</tbody>
-</table>
-<h2 id="adding-the-name-to-a-pre-tagged-object">Adding the name to a "pre-tagged" object<a class="headerlink" href="#adding-the-name-to-a-pre-tagged-object" title="Permanent link">#</a></h2>
-<p>In the example the building has already been pre-tagged with amenity=restaurant, which while not really wrong is not the best tagging for a fast food restaurant. </p>
-<table>
-<thead>
-<tr>
-<th>Enter the name tag</th>
-<th>Start typing<br>and get the auto-complete list</th>
-<th>Select the correct name<br>after further refinement</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><img alt=" " src="../images/Screenshot_2014-03-07-14-50-22.png" /></td>
-<td><img alt=" " src="../images/Screenshot_2014-03-07-14-50-42.png" /></td>
-<td><img alt=" " src="../images/Screenshot_2014-03-07-14-51-19.png" /></td>
-</tr>
-<tr>
-<td></td>
-<td>This includes suggestions not just for<br>amenity=restaurant but for<br>potentially further refined tagging.</td>
-<td>Vespucci now asks for confirmation<br>if the old tags should be replaced.</td>
-</tr>
-</tbody>
-</table>
-<p>This functionality is available in the 0.9.4 and later releases.</p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#using-name-suggestions" class="nav-link">Using Name Suggestions</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#using-the-name-as-a-shortcut-for-tagging" class="nav-link">Using the name as a shortcut for tagging</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#adding-the-name-to-a-pre-tagged-object" class="nav-link">Adding the name to a "pre-tagged" object</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="using-name-suggestions">Using Name Suggestions<a class="headerlink" href="#using-name-suggestions" title="Permanent link">#</a></h1>
 <p><em>by Simon Poole</em></p>
@@ -556,21 +459,20 @@
 </tbody>
 </table>
 <p>This functionality is available in the 0.9.4 and later releases.</p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../js/base.js" defer></script>
-        <script src="../../search/main.js" defer></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

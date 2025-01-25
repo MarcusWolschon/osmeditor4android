@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Object search - Vespucci</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../vespucci_intents/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../offline/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -427,389 +408,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="object-search">Object search<a class="headerlink" href="#object-search" title="Permanent link">#</a></h1>
-<p>Vespucci supports a large subset of JOSM search expressions, these can be used for locating and selecting specific objects in the in memory data, and for matching elements against roles in preset member_expression attributes.</p>
-<p>As there is essentially no documentation available from JOSM there is no guarantee that the behaviour is the same in all cases, known and deliberate differences are noted below. A reformatted and expanded version of what is available from JOSM is available here <a href="https://github.com/simonpoole/JosmFilterDoc/blob/master/filter.md">JOSM filter documentation</a>.</p>
-<h2 id="overpass-api-queries">Overpass API queries<a class="headerlink" href="#overpass-api-queries" title="Permanent link">#</a></h2>
-<p>We support generating Overpass queries from the JOSM search language very similar to how <em>JOSM</em> and <em>Overpass Turbo</em> does the same. The most important
-deviation is that <em>in</em> and <em>around</em> expressions are treated like normal predicates. In the case of boolean logical "and" combinations this doesn't make a difference</p>
-<pre><code>highway=residential type:way in Bergdietikon
-</code></pre>
-<p>will work as expected. However</p>
-<pre><code>highway=residential | highway=unclassified in Bergdietikon
-</code></pre>
-<p>will not. To get "normal" behaviour add brackets</p>
-<pre><code>(highway=residential | highway=unclassified) in Bergdietikon
-</code></pre>
-<p>Note that we do not automatically restrict the query extent to the current visible extent of the map, you need to explicitly
-add an <em>inview</em> predicate to do that.</p>
-<pre><code>highway=residential type:way
-</code></pre>
-<p>will try to retrieve residential streets for the whole world. However</p>
-<pre><code>highway=residential type:way inview
-</code></pre>
-<p>will restrict the query to the current map view.</p>
-<h2 id="supported-expressions">Supported expressions<a class="headerlink" href="#supported-expressions" title="Permanent link">#</a></h2>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Syntax</th>
-<th>Overpass</th>
-<th>Vespucci specific notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>✅</td>
-<td>Baker Street</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>"Baker Street"</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>key</em><strong>:</strong><em>valuefragment</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>-</strong><em>key</em><strong>:</strong><em>valuefragment</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>key</em><strong>:</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>key</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>key</em><strong>=</strong><em>value</em></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>key</em><strong>=*</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>key</em><strong>=</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td>__<em>=__</em>value*</td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>key</em><strong>&gt;</strong><em>reference</em></td>
-<td></td>
-<td>Compares the value associated with key to reference, if possible if will convert to numeric values first</td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>key</em><strong>&lt;</strong><em>reference</em></td>
-<td></td>
-<td>dito</td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>expr</em> <em>expr</em></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>expr</em> <strong>AND</strong> <em>expr</em></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>expr</em> <strong>&#124;</strong> <em>expr</em></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>expr</em> <strong>OR</strong> <em>expr</em></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><em>expr</em> <strong>XOR</strong> <em>expr</em></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>-</strong><em>expr</em></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>(</strong><em>expr</em><strong>)</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>type:node</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>type:way</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>type:relation</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>closed</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>untagged</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>preset:"__preset item path</strong>"__</td>
-<td></td>
-<td>Vespucci uses "&#124;" as preset path segment separator and only fixed tags are considered for matching</td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>preset:"__preset group path/*</strong>"__</td>
-<td></td>
-<td>The asterix is ignored, the relevant criteria is if the path references a preset group</td>
-</tr>
-<tr>
-<td></td>
-<td><strong>user:</strong></td>
-<td>✅</td>
-<td>Vespucci currently doesn't store this information</td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>id:</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>version:</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td><strong>changeset:</strong></td>
-<td></td>
-<td>Vespucci currently doesn't store this information</td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>timestamp:</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>nodes:</strong><em>range</em></td>
-<td></td>
-<td>All nodes are counted, for closed ways that implies that start and end node are counted separately</td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>ways:</strong><em>range</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>tags:</strong><em>range</em></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>role:</strong><em>role</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>areasize:</strong><em>range</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>waylength:</strong><em>range</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>modified</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>new</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>selected</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>incomplete</strong></td>
-<td></td>
-<td>Only used for relations</td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>deleted</strong></td>
-<td></td>
-<td>Selecting degenerate (empty) ways may lead to unexpected and undefined behaviour</td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>child</strong> <em>expr</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>parent</strong> <em>expr</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>hasRole:</strong><em>role</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td><strong>nth:</strong><em>number</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td><strong>nth%:</strong><em>number</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>inview</strong></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>allinview</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>indownloadedarea</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>✅</td>
-<td><strong>allindownloadedarea</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td><strong>in</strong> <em>place</em></td>
-<td>✅</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td><strong>around</strong> <em>place</em></td>
-<td>✅</td>
-<td></td>
-</tr>
-</tbody>
-</table></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#object-search" class="nav-link">Object search</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#overpass-api-queries" class="nav-link">Overpass API queries</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#supported-expressions" class="nav-link">Supported expressions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="object-search">Object search<a class="headerlink" href="#object-search" title="Permanent link">#</a></h1>
 <p>Vespucci supports a large subset of JOSM search expressions, these can be used for locating and selecting specific objects in the in memory data, and for matching elements against roles in preset member_expression attributes.</p>
@@ -1164,21 +763,20 @@ add an <em>inview</em> predicate to do that.</p>
 </tr>
 </tbody>
 </table></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../js/base.js" defer></script>
-        <script src="../../search/main.js" defer></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>0.9.6 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../0.9.7%20Release%20notes/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../../../tutorials/old_release_notes/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -424,75 +405,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h2 id="vespucci-096-highlights">Vespucci 0.9.6 Highlights<a class="headerlink" href="#vespucci-096-highlights" title="Permanent link">#</a></h2>
-<p>2015-06-23</p>
-<h4 id="multi-select-mode-currently-supports">Multi-Select mode, currently supports<a class="headerlink" href="#multi-select-mode-currently-supports" title="Permanent link">#</a></h4>
-<ul>
-<li>Deleting</li>
-<li>Moving</li>
-<li>Creating a relation from the selected elements</li>
-<li>Tag editing on multiple objects</li>
-<li>Merging multiple ways</li>
-</ul>
-<p>Multi-select mode can be entered either by double-tapping an element (or a 2nd element if one is already selected) or via a menu item. The mode can be exited by double-tapping an empty area or by the usual other ways of exiting an action mode.  </p>
-<h4 id="restyled-tag-editing-with-split-pane-layout-on-tablets">Restyled tag editing with split pane layout on tablets.<a class="headerlink" href="#restyled-tag-editing-with-split-pane-layout-on-tablets" title="Permanent link">#</a></h4>
-<ul>
-<li>Selective tag copy, cut and paste. Tag copy and paste copy to the system clipboard a multi-line textual representation. Paste from clipboard will either set tag values from a multi-line text clip (for example from a OCR app) or use the clip if in the same textual representation to create key-value tupels.  </li>
-</ul>
-<h4 id="relation-editing-improvements">Relation editing improvements<a class="headerlink" href="#relation-editing-improvements" title="Permanent link">#</a></h4>
-<ul>
-<li>Highlight elements of selected relations in a different color than selected elements</li>
-<li>Allow adding of relations to relations directly</li>
-<li>Select all members of a relation</li>
-</ul>
-<h4 id="other-improvements">Other improvements<a class="headerlink" href="#other-improvements" title="Permanent link">#</a></h4>
-<ul>
-<li>Support for user specified imagery</li>
-<li>Start camera app directly from vespucci,  recommened app: <a href="https://drive.google.com/folderview?id=0B9pKLmh8s1h8fml4V2pFUzJoLUkwZ3Y2LWFEaFZUTWozRm5yU2h0RFRyenFxUWgxMVBMS1U&amp;usp=sharing">OpenCamera version with patch that allows camera direction to be saved from vespucci</a>  </li>
-<li>View information on elements in “lock” mode with long press.</li>
-<li>Undo available in element selection modes.</li>
-<li>Shortcut to preset selection when creating new elements.</li>
-<li>Light theme that is substantially easier on the eyes.</li>
-<li>Split polygon into two polygons.</li>
-<li>Untagged node touch areas are now the same width as for ways, this may not make it into the release depending on feedback.</li>
-</ul>
-<p>The full change log is available here <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">https://github.com/MarcusWolschon/osmeditor4android/commits/master</a> </p>
-<h2 id="upgrading-from-previous-versions">Upgrading from previous Versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h2>
-<ul>
-<li>The saved editing state file format has changed, please complete any edits before upgrading.</li>
-<li>Two of the deprecated modes have been removed (“EDIT” and “APPEND”), if you still require them, do not upgrade. 0.9.5 will continue to receive bug fixes till at least the release of 0.9.6. </li>
-<li>The revert button in the property editor now no longer reverts all changes, but instead just those in the tab in question.</li>
-<li>The “repeat last tags” functionality has been replaced with the tag copy, cut and paste functions.</li>
-<li>The light theme is now the default for post Honeycomb devices.</li>
-</ul>
-<p>For known problems please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">https://github.com/MarcusWolschon/osmeditor4android/issues</a></p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="2"><a href="#vespucci-096-highlights" class="nav-link">Vespucci 0.9.6 Highlights</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="2"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous Versions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h2 id="vespucci-096-highlights">Vespucci 0.9.6 Highlights<a class="headerlink" href="#vespucci-096-highlights" title="Permanent link">#</a></h2>
 <p>2015-06-23</p>
@@ -536,21 +449,20 @@
 <li>The light theme is now the default for post Honeycomb devices.</li>
 </ul>
 <p>For known problems please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">https://github.com/MarcusWolschon/osmeditor4android/issues</a></p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

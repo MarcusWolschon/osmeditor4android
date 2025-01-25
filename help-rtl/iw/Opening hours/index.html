@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>עורך שעות הפתיחה של OpenStreetMap - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../help/en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../help/en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -413,131 +394,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="openstreetmap">עורך שעות הפתיחה של OpenStreetMap<a class="headerlink" href="#openstreetmap" title="Permanent link">#</a></h1>
-<p>מפרט שעות הפתיחה של OpenStreetMap הוא די מורכב ולא מסביר פנים בהיבט של מנשק משתמש פשוט וברור.</p>
-<p>עם זאת, סביר להניח שברוב הזמן יידרש לך רק חלק מצומצם מתוך המנגנון. העורך לוקח זאת בחשבון תוך הסתרת תכונות שאינן שימושיות בתפריטים וברוב המקרים מצמצם את השימוש השוטף להתאמות קטנות של תבניות מותאמות אישית.</p>
-<p><em>תיעוד זה הוא ראשוני בלבד וכרגע מתבצעות עליו עבודות עריכה נוספות</em></p>
-<h2 id="_1">שימוש בעורך שעות הפתיחה<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<p>במצב עבודה טיפוסי לפריט שבחרת לערוך כבר יש תגית שעות פתיחה (opening_hours,‏ service_times ו־collection_times) או שניתן להחיל מחדש את הערכה עבור הפריט כדי לקבל שדה שעות פתיחה ריק. אם יש לך צורך בהוספת השדה ידנית וניסית לעשות זאת דרך וספוצ׳י ניתן להקליד את שם המפתח בעמוד הפרטים ואז לחזור ללשונית מבוססת הטפסים לטובת עריכה. אם לדעתך תגית שעות הפתיחה אמורה להיות חלק מהערכה הראשונית, נא לדווח על תקלה כנגד העורך שלך.</p>
-<p>אם הגדרת תבנית בררת מחדל (אפשר לעשות את זה דרך הפריט „ניהול תבניות” בתפריט) היא תיטען אוטומטית עם הפעלת העורך עם ערך ריק. בעזרת הפונקציה „טעינת תבנית” אפשר לטעון כל תבנית שמורה שהיא ועם התפריט „שמירת תבנית” אפשר לשמור את הערך הנוכחי כתבנית. אפשר להגדיר תבניות נפרדות ובררות מחדל למפתח מסוים, למשל „opening_hours”,‏ „collection_times” ו־„service_times” או ערכים משלך. נוסף על כך, ניתן להגביל את היכולת להחיל תבנית על איזור ומזהה מסוים, בדרך כלל תגית ברמה עליונה של OSM (למשל amenity=restaurant).</p>
-<p>באופן טבעי ניתן להרכיב ערך שעות פתיחה מאפשר, אך אנו ממליצים להשתמש באחת מהתבניות הקיימות כנקודת התחלה.</p>
-<p>אם נטען ערך קיים של שעות פתיחה, מתבצע ניסיון לתקן אותו אוטומטית כדי להתאים למפרט שעות הפתיחה. אם פעולה כזו אינה אפשרית המיקום בקירוב בו התרחשה השגיאה יודגש בתצוגה של ערכי שעות הפתיחה הגולמיים ותהיה לך אפשרות לנסות ולתקן זאת ידנית. בערך ברבע מערכי שעות הפתיחה במסד הנתונים של OpenStreetMap יש תקלות אך פחות מ־10% אינן ניתנות לתיקון, יש לעיין בערך <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> (מנתח שעות פתיחה) לקבלת מידע נוסף על אילו סטיות מהמפרט נסבלות.</p>
-<h3 id="_2">כפתור תפריט ראשי<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>הוספת כלל</strong>: הוספת כלל חדש.</li>
-<li><strong>הוספת כלל לחגים</strong>: הוספת כלל חדש לחג יחד עם שינוי מצב.</li>
-<li><strong>הוספת כלל ל־24/7</strong>: הוספת כלל לפריט שתמיד פתוח, מפרט שעות הפתיחה לא תומך בערכים נגזרים עבור 24/7 עם זאת אנו מאפשרים הוספת בוררים ברמה גבוהה יותר (למשל: טווח שנים).</li>
-<li><strong>טעינת תבנית</strong>: טעינת תבנית קיימת.</li>
-<li><strong>שמירה לתבנית</strong>: שמירת ערך שעות הפתיחה הנוכחי כתבנית לשימוש עתידי.</li>
-<li><strong>ניהול תבניות</strong>: עריכה, למשל שינוי השם ומחיקה של תבניות קיימות.</li>
-<li><strong>רענון</strong>: פענוח ערך שעות הפתיחה מחדש.</li>
-<li><strong>מחיקת הכול</strong>: הסרת כל הכללים.</li>
-</ul>
-<h3 id="_3">כללים<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
-<p>כללי בררת המחדל נוספו ככללים מסוג <em>רגיל</em>, הגדרה זו מרמזת על כך שהם יידרסו על ידי הערכים של הכללים הקודמים עבור אותם ימים. מצב זה עשוי להדאיג בהגדרת זמנים מורחבים, במיוחד עקב החלפת כללים דרך רשומת התפריט <em>הצגת סוג כלל</em> לכלל <em>מתווסף</em>.</p>
-<h4 id="_4">תפריט כללים<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>הוספת מצב/תגובה</strong>: שינוי ההשפעה של הכלל הזה והוספת תגובה כרשות.</li>
-<li><strong>הוספת חג</strong>: הוספת בורר לחגים ציבוריים או חגי בית ספר.</li>
-<li><strong>הוספת טווח זמן…</strong><ul>
-<li><strong>שעה - שעה</strong>: שעת התחלה עד שעת סיום באותו היום.</li>
-<li><strong>שעה - שעה מורחבת</strong>: שעת התחלה עד שעת סיום ביום שלמחרת (למשל: 26:00 זה 02:00 לפנות בוקר ביום הבא).</li>
-<li><strong>שעה משתנה - שעה</strong>: משעת התחלה משתנה (שחר, דמדומים, זריחה ושקיעה) עד לשעת סיום באותו היום.</li>
-<li><strong>שעה משתנה - שעה מורחבת</strong>: משעת התחלה משתנה ועד לשעת סיום ביום שלמחרת.</li>
-<li><strong>שעה - שעה משתנה</strong>: שעת התחלה עד שעת סיום משתנה.</li>
-<li><strong>שעה משתנה - שעה משתנה</strong>: שעת התחלה משתנה עד שעת סיום משתנה.</li>
-<li><strong>שעה</strong>: נקודה בזמן.</li>
-<li><strong>שעה - הודעה חדשה</strong>: מנקודת התחלה בזמן ואילך.</li>
-<li><strong>שעה משתנה</strong>: בשעה משתנה</li>
-<li><strong>שעה משתנה - הודעה חדשה</strong>: משעת התחלה משתנה ואילך</li>
-</ul>
-</li>
-<li><strong>הוספת טווח ימים בשבוע</strong>: הוספת בורר על סמך ימים בשבוע.</li>
-<li><strong>הוספת טווח תאריכים…</strong><ul>
-<li><strong>תאריך - תאריך</strong>: מתאריך התחלה (שנה, חודש, יום) עד לתאריך סיום.</li>
-<li><strong>תאריך משתנה - תאריך</strong>: מתאריך התחלה משתנה (כרגע המפרט מגדיר רק את <em>פסחא</em>) עד לתאריך סיום.</li>
-<li><strong>תאריך - תאריך משתנה</strong>: מתאריך התחלה ועד תאריך משתנה.</li>
-<li><strong>תאריך משתנה - תאריך משתנה</strong>: מתאריך התחלה משתנה עד תאריך סיום משתנה.</li>
-<li><strong>פעם בחודש - פעם בחודש</strong>: החל ממופע של יום בשבוע מתוך חודש עד לאחד נוסף כזה.</li>
-<li><strong>פעם בחודש - תאריך</strong>: החל ממופע של יום בשבוע מתוך חודש עד לתאריך סיום.</li>
-<li><strong>תאריך - פעם בחודש</strong>: מתאריך התחלה עד מופע של יום בשבוע מתוך חודש.</li>
-<li><strong>פעם בחודש - תאריך משתנה</strong>: החל ממופע של יום בשבוע מתוך חודש עד לתאריך סיום משתנה.</li>
-<li><strong>תאריך משתנה - פעם בחודש</strong>: מתאריך התחלה משתנה עד מופע של יום בשבוע מתוך חודש.</li>
-<li><strong>שעה - הודעה חדשה</strong>: משעה מסוימת ואילך.</li>
-<li><strong>תאריך משתנה - הודעה חדשה</strong>: מתאריך התחלה משתנה ואילך.</li>
-<li><strong>פעם בחודש - הודעה חדשה</strong>: החל ממופע של יום בשבוע מתוך חודש ואילך.</li>
-<li><strong>עם איזונים…</strong>: אותן הרשומות כלעיל רק עם איזונים (בקושי בשימוש).</li>
-</ul>
-</li>
-<li><strong>הוספת טווח שנים…</strong>    <ul>
-<li><strong>הוספת טווח שנים</strong>: הוספת בורר לבחירת שנים.</li>
-<li><strong>הוספת שנת התחלה</strong>: הוספת טווח שנים עם סוף פתוח.</li>
-</ul>
-</li>
-<li><strong>הוספת טווח שבועות</strong>: הוספת בורר לבחירת מספרי שבועות.</li>
-<li><strong>שכפול</strong>: יצירת עותק של הכלל הזה והוספתו לאחר המיקום הנוכחי.</li>
-<li><strong>הצגת סוג כלל</strong>: להציג ולאפשר לשנות את סוג הכלל <em>רגיל</em>, <em>מתווסף</em> ו_עתודה_ (לא זמין בתור הכלל הראשון).</li>
-<li><strong>העברה למעלה</strong>: העלאת הכלל הזה בשורה אחת למעלה (לא זמין עבור הכלל הראשון).</li>
-<li><strong>העברה למטה</strong>: הורדת הכלל הזה בשורה אחת למטה.</li>
-<li><strong>מחיקה</strong>: מחיקת הכלל הזה.</li>
-</ul>
-<h3 id="_5">טווחי שעות<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
-<p>כדי להקל על עריכת טווי שעות עד כמה שניתן, אנו מנסים לבחור טווח שעות מיטבי ויכולת בחירה מוגדרת עבור סרגלי הטווח בעת טעינת ערכים קיימים. לטווחי שעות חדשים, הסרגלים מתחילים ב־6:00 בבוקר וניתן להגדיל ב־15 דקות בכל צעד, ניתן לשנות זאת דרך התפריט.</p>
-<p>לחיצה (לא על הנעצים) על סרגל הזמן פותחת את בורר הזמן הגדול, כאשר השימוש הישיר בסרגלים הוא מסובך מדי. בוררי הזמן מתרחבים ליום הבא, לכן הם מעניקים דרך פשוטה להרחיב טווח זמן מבלי למחוק ולהוסיף את הטווח מחדש.</p>
-<h4 id="_6">תפריט טווחי שעות<a class="headerlink" href="#_6" title="Permanent link">#</a></h4>
-<ul>
-<li><strong>הצגת בורר זמן</strong>: הצגת בורר זמן גדול לבחירת זמן התחלה וסיום, בתצוגות קטנות מאוד זו הדרך המועדפת לעריכת זמנים.</li>
-<li><strong>מעבר לפעימות של 15 דקות</strong>: להשתמש בדיוק של 15 דקות עבור סרגל הטווח.</li>
-<li><strong>מעבר לפעימות של 5 דקות</strong>: להשתמש בדיוק של 5 דקות עבור סרגל הטווח.</li>
-<li><strong>מעבר לפעימות של דקה</strong>: להשתמש בדיוק של דקה עבור סרגל הטווח, לא נוח לשימוש בטלפון.</li>
-<li><strong>התחלה בחצות</strong>: התחלת סרגל הטווח בחצות.</li>
-<li><strong>הצגת הפרש</strong>: הצגת שדה ההפרש לציון הפרש בדקות.</li>
-<li><strong>מחיקה</strong>: מחיקת טווח הזמן הזה.</li>
-</ul>
-<h3 id="_7">ניהול תבניות<a class="headerlink" href="#_7" title="Permanent link">#</a></h3>
-<p>חלונית ניהול התבניות הזאת מאפשרת לך להוסיף, לערוך ולמחוק תבניות.</p>
-<p>ב־Android 4.4 ומעלה היכולת הנוספת הבאה זמינה מכפתור התפריט.</p>
-<ul>
-<li><strong>הצגה של הכול</strong>: הצגת כל התבניות במסד הנתונים.</li>
-<li><strong>שמירה לקובץ</strong>: כתיבת תכני מסד נתוני התבניות לקובץ.</li>
-<li><strong>טעינה מקובץ (החלפה)</strong>: טעינת תבניות מקובץ שמחליפה את התוכן הנוכחי של מסד הנתונים.</li>
-<li><strong>טעינה מקובץ</strong>: טעינת תבניות מקובץ תוך שימור התכנים הנוכחיים.</li>
-</ul>
-<h4 id="_8">לשמור ולערוך חלוניות תבניות<a class="headerlink" href="#_8" title="Permanent link">#</a></h4>
-<p>החלונית מאפשרת לך להגדיר</p>
-<ul>
-<li><strong>שם</strong> שם ייצוגי לתבנית.</li>
-<li><strong>בררת מחדל</strong> אם מסומן, זאת תיחשב לתבנית בררת המחדל (בדרך כלל מקובע אף יותר על ידי השדות האחרים).</li>
-<li><strong>מפתח</strong> המפתח שהתבנית הזו מתאימה לו, אם מוגדר לכדי <em>מפתח אישי</em> אפשר להוסיף ערך מחוץ לתקן בשדה שלהלן. ערכי המפתח תומכים בתווים כוללניים של SQL, כאשר <em>%</em> לוכד אפס תווים או יותר, <em>_</em> לוכד תו יחיד. את שני התווים הכוללניים אפשר להחריג באמצעות <em>\</em> ללכידה כפי שהם.</li>
-<li><strong>אזור</strong> האזור עליו חלה התבנית.</li>
-<li><strong>פריט</strong> מחרוזת ייעודית ליישום לשימוש עבור התאמה.</li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#openstreetmap" class="nav-link">עורך שעות הפתיחה של OpenStreetMap</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#_1" class="nav-link">שימוש בעורך שעות הפתיחה</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="openstreetmap">עורך שעות הפתיחה של OpenStreetMap<a class="headerlink" href="#openstreetmap" title="Permanent link">#</a></h1>
 <p>מפרט שעות הפתיחה של OpenStreetMap הוא די מורכב ולא מסביר פנים בהיבט של מנשק משתמש פשוט וברור.</p>
@@ -638,21 +495,20 @@
 <li><strong>אזור</strong> האזור עליו חלה התבנית.</li>
 <li><strong>פריט</strong> מחרוזת ייעודית ליישום לשימוש עבור התאמה.</li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

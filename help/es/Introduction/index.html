@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Introduction - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -441,273 +422,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<p><em>Antes de empezar: la mayoría de las pantallas tienen enlaces en el menú al sistema de ayuda del dispositivo, lo que te da acceso directo a la información relevante para el contexto actual. También puedes volver fácilmente a este texto. Si tienes un dispositivo más grande, por ejemplo, una tableta, puedes abrir el sistema de ayuda en una ventana dividida separada. Todos los textos de ayuda y más (preguntas frecuentes, tutoriales) también se pueden encontrar en el <a href="https://vespucci.io/">sitio de documentación de Vespucci</a>. Además, puedes iniciar el visor de ayuda directamente en dispositivos que admiten accesos directos con una pulsación larga en el icono de la aplicación y seleccionando "Ayuda".</em></p>
-<h1 id="introduccion-a-vespucci">Introducción a Vespucci<a class="headerlink" href="#introduccion-a-vespucci" title="Permanent link">#</a></h1>
-<p>Vespucci es un editor de OpenStreetMap con todas las funciones que admite la mayoría de las operaciones que ofrecen los editores de escritorio. Se ha probado con éxito en Android de Google desde la versión 2.3 a la 14.0 (las versiones anteriores a la 4.1 ya no son compatibles) y en varias variantes basadas en AOSP. Una advertencia: si bien las capacidades de los dispositivos móviles se han puesto al día con las de sus rivales de escritorio, los dispositivos más antiguos, en particular, tienen una memoria muy limitada disponible y tienden a ser bastante lentos. Debes tener esto en cuenta al usar Vespucci y, por ejemplo, mantener las áreas que estás editando en un tamaño razonable.</p>
-<h2 id="editar-con-vespucci">Editar con Vespucci<a class="headerlink" href="#editar-con-vespucci" title="Permanent link">#</a></h2>
-<p>Dependiendo del tamaño de la pantalla y la antigüedad de tu dispositivo, puedes acceder a las acciones de edición directamente mediante los iconos de la barra superior, a través de un menú desplegable a la derecha de la barra superior, desde la barra inferior (si está presente) o mediante la tecla de menú.</p>
-<p><a id="download"></a></p>
-<h3 id="descargar-datos-de-osm">Descargar datos de OSM<a class="headerlink" href="#descargar-datos-de-osm" title="Permanent link">#</a></h3>
-<p>Selecciona el icono de transferencia <img alt="Transfer" src="../../images/menu_transfer.png" /> o el elemento del menú "Transferir". Esto mostrará once opciones:</p>
-<ul>
-<li><strong>Subir datos al servidor OSM...</strong> - revisa y sube los cambios a OpenStreetMap <em>(requiere autenticación)</em> <em>(requiere conexión a la red)</em></li>
-<li><strong>Revisar cambios...</strong> - revisa los cambios actuales</li>
-<li><strong>Descargar vista actual</strong> - descarga el área visible en la pantalla y combínala con los datos existentes <em>(requiere conexión a la red o fuente de datos sin conexión)</em></li>
-<li><strong>Borrar y descargar vista actual</strong> - borra cualquier dato en la memoria, incluidos los cambios pendientes, y luego descarga el área visible en la pantalla <em>(requiere conexión a la red)</em></li>
-<li><strong>Consulta Overpass...</strong> - ejecuta una consulta contra un servidor API de Overpass <em>(requiere conexión a la red)</em></li>
-<li><strong>Descarga automática basada en la ubicación</strong> - descarga automáticamente un área alrededor de la ubicación geográfica actual <em>(requiere conexión a la red o datos sin conexión)</em> <em>(requiere GPS)</em></li>
-<li><strong>Descarga automática al desplazar y hacer zoom</strong> - descarga automáticamente los datos del área del mapa que se muestra actualmente <em>(requiere conexión a la red o datos sin conexión)</em> <em>(requiere GPS)</em></li>
-<li><strong>Actualizar datos</strong> - vuelve a descargar los datos de todas las áreas y actualiza lo que está en la memoria <em>(requiere conexión a la red)</em></li>
-<li><strong>Borrar datos</strong> - elimina cualquier dato de OSM en la memoria, incluidos los cambios pendientes.</li>
-<li><strong>Archivo...</strong> - guardar y cargar datos de OSM en/desde archivos del dispositivo.</li>
-<li><strong>Tareas...</strong> - descarga (automática y manual) Notas de OSM y "Errores" de herramientas de control de calidad (actualmente OSMOSE) <em>(requiere conexión a la red)</em></li>
-</ul>
-<p>La manera más fácil de descargar datos al dispositivo es hacer zoom y desplazarte hasta la ubicación que quieres editar y luego seleccionar "Descargar vista actual". Puedes hacer zoom utilizando gestos, los botones de zoom o los botones de control de volumen del dispositivo. Vespucci debería descargar entonces los datos de la vista actual. No se requiere autenticación para descargar datos a tu dispositivo.</p>
-<p>En estado desbloqueado, cualquier área no descargada se atenuará en relación con las descargadas si has hecho suficiente zoom para habilitar la edición. Esto es para evitar agregar inadvertidamente objetos duplicados en áreas que no se están mostrando. En el estado bloqueado, la atenuación está desactivada, este comportamiento se puede cambiar en las <a href="Advanced%20preferences.md">Preferencias avanzadas</a> para que la atenuación esté siempre activa.</p>
-<p>Si necesitas usar una entrada de API OSM no estándar o usar <a href="https://vespucci.io/tutorials/offline/">datos sin conexión</a> en formato <em>MapSplit</em>, puedes agregar o cambiar entradas a través de la entrada <em>Configurar...</em> para la capa de datos en el control de capas.</p>
-<h3 id="editar">Editar<a class="headerlink" href="#editar" title="Permanent link">#</a></h3>
-<p><a id="lock"></a></p>
-<h4 id="bloquear-desbloquear-cambio-de-modo">Bloquear, desbloquear, cambio de modo<a class="headerlink" href="#bloquear-desbloquear-cambio-de-modo" title="Permanent link">#</a></h4>
-<p>Para evitar ediciones accidentales, Vespucci inicia en modo "bloqueado", un modo que solo permite hacer zoom y mover el mapa. Toca el ícono <img alt="Bloqueado" src="../../images/locked.png" /> para desbloquear la pantalla. </p>
-<p>Una pulsación larga en el icono de bloqueo o el menú <em>Modos</em> en el menú desplegable de la pantalla del mapa mostrará un menú que ofrece 5 opciones:</p>
-<ul>
-<li><strong>Normal</strong> - el modo de edición predeterminado, se pueden agregar nuevos objetos, editar, mover y eliminar los existentes. Se muestra un icono de candado blanco simple.</li>
-<li><strong>Solo etiqueta</strong> - al seleccionar un objeto existente se iniciará el Editor de propiedades, se pueden agregar nuevos objetos a través del botón verde "+", o pulsación larga, pero no se habilitan otras operaciones de geometría. Se muestra un icono de candado blanco con una "T".</li>
-<li><strong>Dirección</strong> - habilita el modo Dirección, un modo ligeramente simplificado con acciones específicas disponibles desde el botón "+" del <a href="../../en/Simple%20actions/">Modo simple</a>. Se muestra un icono de candado blanco con una "A".</li>
-<li><strong>Interiores</strong> - habilita el modo Interiores, consulta <a href="#indoor">Modo interiores</a>. Se muestra un icono de candado blanco con una "I".</li>
-<li><strong>Modo-C</strong> - habilita el Modo-C, solo se mostrarán los objetos que tengan un indicador de advertencia establecido, consulta <a href="#c-mode">Modo-C</a>. Se muestra un icono de candado blanco con una "C".</li>
-</ul>
-<p>Si estás usando Vespucci en un dispositivo Android que admite accesos directos (pulsación larga en el icono de la aplicación), puedes iniciar directamente en el modo <em>Dirección</em> e <em>Interiores</em>.</p>
-<h4 id="toque-simple-toque-doble-y-pulsacion-larga">Toque simple, toque doble y pulsación larga<a class="headerlink" href="#toque-simple-toque-doble-y-pulsacion-larga" title="Permanent link">#</a></h4>
-<p>De forma predeterminada, los nodos y vías seleccionables tienen un área naranja a su alrededor que indica aproximadamente dónde debes tocar para seleccionar un objeto. Tienes tres opciones:</p>
-<ul>
-<li>Toque simple: selecciona el objeto.</li>
-<li>Un nodo/vía aislado se resalta inmediatamente.</li>
-<li>Sin embargo, si intentas seleccionar un objeto y Vespucci determina que la selección podría referirse a varios objetos, presentará un menú de selección que te permitirá elegir el objeto que deseas seleccionar.</li>
-<li>Los objetos seleccionados se resaltan en amarillo.</li>
-<li>Para obtener más información, consulta <a href="Node%20selected.md">Nodo seleccionado</a>, <a href="Way%20selected.md">Vía seleccionada</a> y <a href="Relation%20selected.md">Relación seleccionada</a>.</li>
-<li>Toque doble: inicia el <a href="Multiselect.md">modo de selección múltiple</a>.</li>
-<li>Pulsación larga: crea una "cruz", que te permite agregar nodos; consulta a continuación y <a href="Creating%20new%20objects.md">Crear nuevos objetos</a>. Esto solo está habilitado si el "Modo simple" está desactivado.</li>
-</ul>
-<p>Es una buena estrategia acercar el zoom si intentas editar un área de alta densidad.</p>
-<p>Vespucci tiene un buen sistema de "deshacer/rehacer", así que no tengas miedo de experimentar en tu dispositivo. Sin embargo, no subas ni guardes datos de prueba puros.</p>
-<h4 id="seleccionar-deseleccionar-toque-simple-y-menu-de-seleccion">Seleccionar / Deseleccionar (toque simple y "menú de selección")<a class="headerlink" href="#seleccionar-deseleccionar-toque-simple-y-menu-de-seleccion" title="Permanent link">#</a></h4>
-<p>Toca un objeto para seleccionarlo y resaltarlo. Tocar la pantalla en una región vacía anulará la selección. Si has seleccionado un objeto y necesitas seleccionar otro, simplemente toca el objeto en cuestión; no es necesario deseleccionar primero. Un doble toque en un objeto iniciará el <a href="Multiselect.md">modo de selección múltiple</a>.</p>
-<p>Ten en cuenta que si intentas seleccionar un objeto y Vespucci determina que la selección podría referirse a varios objetos (como un nodo en una vía u otros objetos que se superponen), presentará un menú de selección: toca el objeto que deseas seleccionar y el objeto se seleccionará. </p>
-<p>Los objetos seleccionados se indican mediante un borde amarillo delgado. El borde amarillo puede ser difícil de detectar, dependiendo del fondo del mapa y el factor de zoom. Una vez realizada una selección, verás una notificación que confirma la selección.</p>
-<p>Una vez que se haya completado la selección, verás (ya sea como botones o como elementos del menú) una lista de operaciones compatibles para el objeto seleccionado. Para obtener más información, consulta <a href="Node%20selected.md">Nodo seleccionado</a>, <a href="Way%20selected.md">Vía seleccionada</a> y <a href="Relation%20selected.md">Relación seleccionada</a>.</p>
-<h4 id="objetos-seleccionados-editar-etiquetas">Objetos seleccionados: Editar etiquetas<a class="headerlink" href="#objetos-seleccionados-editar-etiquetas" title="Permanent link">#</a></h4>
-<p>Un segundo toque en el objeto seleccionado abre el editor de etiquetas y puedes editar las etiquetas asociadas al objeto.</p>
-<p>Ten en cuenta que para los objetos que se superponen (como un nodo en una vía), el menú de selección vuelve a aparecer por segunda vez. Seleccionar el mismo objeto abre el editor de etiquetas; seleccionar otro objeto simplemente selecciona el otro objeto.</p>
-<h4 id="objetos-seleccionados-mover-un-nodo-o-via">Objetos seleccionados: Mover un nodo o vía<a class="headerlink" href="#objetos-seleccionados-mover-un-nodo-o-via" title="Permanent link">#</a></h4>
-<p>Una vez que hayas seleccionado un objeto, puedes moverlo. Ten en cuenta que los objetos solo se pueden arrastrar/mover cuando están seleccionados. Simplemente arrastra cerca (es decir, dentro de la zona de tolerancia) del objeto seleccionado para moverlo. Si seleccionas el área de arrastre grande en las <a href="Preferences.md">preferencias</a>, obtendrás un área grande alrededor del nodo seleccionado que facilita la colocación del objeto. </p>
-<h4 id="agregar-un-nuevo-nodopunto-o-via">Agregar un nuevo nodo/punto o vía<a class="headerlink" href="#agregar-un-nuevo-nodopunto-o-via" title="Permanent link">#</a></h4>
-<p>Al iniciar la aplicación por primera vez, se inicia en "Modo simple". Esto se puede cambiar en el menú principal desmarcando la casilla correspondiente.</p>
-<h5 id="modo-simple">Modo simple<a class="headerlink" href="#modo-simple" title="Permanent link">#</a></h5>
-<p>Al tocar el botón flotante verde grande en la pantalla del mapa, se mostrará un menú. Después de que hayas seleccionado uno de los elementos, se te pedirá que toques la pantalla en la ubicación donde deseas crear el objeto. Desplazar y hacer zoom continúa funcionando si necesitas ajustar la vista del mapa. </p>
-<p>Consulta <a href="Simple%20actions.md">Crear nuevos objetos en el modo de acciones simples</a> para obtener más información. El modo simple es el predeterminado para las nuevas instalaciones.</p>
-<h5 id="modo-avanzado-pulsacion-larga">Modo avanzado (pulsación larga)<a class="headerlink" href="#modo-avanzado-pulsacion-larga" title="Permanent link">#</a></h5>
-<p>Mantén pulsado donde quieras que esté el nodo o donde quieras que comience la vía. Verás un símbolo de "cruz" negra.
-* Si quieres crear un nuevo nodo (no conectado a un objeto), toca lejos de los objetos existentes.
-* Si quieres extender una vía, toca dentro de la "zona de tolerancia" de la vía (o un nodo en la vía). La zona de tolerancia se indica mediante las áreas alrededor de un nodo o vía.</p>
-<p>Una vez que veas el símbolo de la cruz, tienes estas opciones:</p>
-<ul>
-<li><em>Pulsación normal en el mismo lugar</em>.</li>
-<li>Si la cruz no está cerca de un nodo, tocar la misma ubicación nuevamente crea un nuevo nodo. Si estás cerca de una vía (pero no cerca de un nodo), el nuevo nodo estará en la vía (y conectado a la vía).</li>
-<li>Si la cruz está cerca de un nodo (es decir, dentro de la zona de tolerancia del nodo), tocar la misma ubicación simplemente selecciona el nodo (y se abre el editor de etiquetas). No se crea ningún nodo nuevo. La acción es la misma que la selección anterior.</li>
-<li><em>Toque normal en otro lugar</em>. Tocar otra ubicación (fuera de la zona de tolerancia de la cruz) agrega un segmento de vía desde la posición original a la posición actual. Si la cruz estaba cerca de una vía o nodo, el nuevo segmento se conectará a ese nodo o vía.</li>
-</ul>
-<p>Simplemente toca la pantalla donde quieras agregar más nodos de la vía. Para terminar, toca el nodo final dos veces. Si el nodo final se encuentra en una vía o nodo, el segmento se conectará automáticamente a la vía o nodo. </p>
-<p>También puedes usar un elemento de menú: consulta <a href="Creating%20new%20objects.md">Crear nuevos objetos</a> para obtener más información.</p>
-<h4 id="agregar-un-area">Agregar un área<a class="headerlink" href="#agregar-un-area" title="Permanent link">#</a></h4>
-<p>OpenStreetMap actualmente no tiene un tipo de objeto "área" a diferencia de otros sistemas de geodatos. El editor en línea "iD" intenta crear una abstracción de área a partir de los elementos OSM subyacentes, lo que funciona bien en algunas circunstancias y no tan bien en otras. Actualmente, Vespucci no intenta hacer nada similar, por lo que necesitas saber un poco sobre cómo se representan las áreas:</p>
-<ul>
-<li><em>vías cerradas (polígonos)</em>: la variante de área más simple y común son las vías que comparten un primer y último nodo, formando un "anillo" cerrado (por ejemplo, la mayoría de los edificios son de este tipo). Son muy fáciles de crear en Vespucci, simplemente conéctate de nuevo al primer nodo cuando hayas terminado de dibujar el área. Nota: la interpretación de la vía cerrada depende de su etiquetado: por ejemplo, si una vía cerrada está etiquetada como un edificio, se considerará un área; si está etiquetada como una rotonda, no. En algunas situaciones en las que ambas interpretaciones pueden ser válidas, una etiqueta de "área" puede aclarar el uso previsto.</li>
-<li><em>multipolígonos</em>: algunas áreas tienen varias partes, agujeros y anillos que no se pueden representar con una sola vía. OSM utiliza un tipo específico de relación (nuestro objeto de propósito general que puede modelar relaciones entre elementos) para solucionar esto: un multipolígono. Un multipolígono puede tener varios anillos "externos" y varios anillos "internos". Cada anillo puede ser una vía cerrada como se describe anteriormente o varias vías individuales que tienen nodos finales comunes. Si bien los multipolígonos grandes son difíciles de manejar con cualquier herramienta, los pequeños no son difíciles de crear en Vespucci.</li>
-<li><em>líneas costeras</em>: para objetos muy grandes, continentes e islas, incluso el modelo de multipolígono no funciona de manera satisfactoria. Para las vías natural=línea costera, asumimos una semántica dependiente de la dirección: la tierra está en el lado izquierdo de la vía, el agua en el lado derecho. Un efecto secundario de esto es que, en general, no debes invertir la dirección de una vía con etiquetado de línea costera. Puedes encontrar más información en la <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">wiki de OSM</a>.</li>
-</ul>
-<h4 id="mejorar-la-geometria-de-la-via">Mejorar la geometría de la vía<a class="headerlink" href="#mejorar-la-geometria-de-la-via" title="Permanent link">#</a></h4>
-<p>Si acercas el zoom lo suficiente en una vía seleccionada, verás una pequeña "x" en el medio de los segmentos de la vía que son lo suficientemente largos. Arrastrar la "x" creará un nodo en la vía en esa ubicación. Nota: para evitar la creación accidental de nodos, el área de tolerancia táctil para esta operación es bastante pequeña.</p>
-<h4 id="cortar-copiar-y-pegar">Cortar, copiar y pegar<a class="headerlink" href="#cortar-copiar-y-pegar" title="Permanent link">#</a></h4>
-<p>Puedes copiar los nodos y vías seleccionados y luego pegarlos una o varias veces en una nueva ubicación. Cortar conservará el ID y la versión de OSM, por lo que solo se puede pegar una vez. Para pegar, mantén pulsada la ubicación donde deseas pegar (verás una cruz que marca la ubicación). Luego selecciona "Pegar" en el menú.</p>
-<h4 id="agregar-direcciones-de-forma-eficiente">Agregar direcciones de forma eficiente<a class="headerlink" href="#agregar-direcciones-de-forma-eficiente" title="Permanent link">#</a></h4>
-<p>Vespucci admite funciones que hacen que el levantamiento de direcciones sea más eficiente al predecir los números de casas (lados izquierdo y derecho de las calles por separado) y agregar automáticamente etiquetas <em>addr:street</em> o <em>addr:place</em> según el último valor utilizado y la proximidad. En el mejor de los casos, esto permite agregar una dirección sin necesidad de escribir nada.   </p>
-<p>Puedes activar la adición de etiquetas pulsando <img alt="Dirección" src="../../images/address.png" />: </p>
-<ul>
-<li>después de una pulsación larga (solo en modo no simple): Vespucci agregará un nodo en la ubicación, hará una mejor estimación del número de casa y agregará etiquetas de dirección que hayas estado usando últimamente. Si el nodo está en el contorno de un edificio, agregará automáticamente una etiqueta "entrance=yes" al nodo. El editor de etiquetas se abrirá para el objeto en cuestión y te permitirá realizar los cambios adicionales necesarios.</li>
-<li>en los modos de nodo/vía seleccionados: Vespucci agregará etiquetas de dirección como se indicó anteriormente e iniciará el editor de etiquetas.</li>
-<li>en el editor de propiedades.</li>
-</ul>
-<p>Para agregar nodos de dirección individuales directamente mientras estás en el "Modo simple" predeterminado, cambia al modo de edición "Dirección" (pulsación larga en el botón de bloqueo). "Agregar nodo de dirección" agregará un nodo de dirección en la ubicación y, si está en el contorno de un edificio, le agregará una etiqueta de entrada como se describe arriba.</p>
-<p>La predicción del número de casa generalmente requiere que se ingresen al menos dos números de casa a cada lado de la carretera para que funcione; cuantos más números haya en los datos, mejor.</p>
-<p>Considera usar esto con uno de los modos de <a href="#download">Descarga automática</a>.  </p>
-<h4 id="agregar-restricciones-de-giro">Agregar restricciones de giro<a class="headerlink" href="#agregar-restricciones-de-giro" title="Permanent link">#</a></h4>
-<p>Vespucci tiene una forma rápida de agregar restricciones de giro. Si es necesario, dividirá las vías automáticamente y te pedirá que vuelvas a seleccionar los elementos. </p>
-<ul>
-<li>Selecciona una vía con una etiqueta highway (las restricciones de giro solo se pueden agregar a carreteras; si necesitas hacer esto para otras vías, utiliza el modo genérico "crear relación").</li>
-<li>Selecciona "Agregar restricción" en el menú.</li>
-<li>Selecciona el nodo o vía "vía" (solo los elementos "vía" posibles mostrarán el área táctil).</li>
-<li>Selecciona la vía "a" (es posible retroceder y configurar el elemento "a" en el elemento "desde"; Vespucci asumirá que estás agregando una restricción no_u_turn).</li>
-<li>Establece el tipo de restricción.</li>
-</ul>
-<h3 id="vespucci-en-modo-bloqueado">Vespucci en modo "bloqueado"<a class="headerlink" href="#vespucci-en-modo-bloqueado" title="Permanent link">#</a></h3>
-<p>Cuando se muestra el candado rojo, todas las acciones que no son de edición están disponibles. Además, una pulsación larga en o cerca de un objeto mostrará la pantalla de información detallada si se trata de un objeto OSM.</p>
-<h3 id="guardar-los-cambios">Guardar los cambios<a class="headerlink" href="#guardar-los-cambios" title="Permanent link">#</a></h3>
-<p><em>(requiere conectividad de red)</em></p>
-<p>Selecciona el mismo botón o elemento de menú que usaste para la descarga y ahora selecciona "Subir datos al servidor OSM".</p>
-<p>Vespucci admite la autorización OAuth 2, OAuth 1.0a y el método clásico de nombre de usuario y contraseña. Desde el 1 de julio de 2024, la API estándar de OpenStreetMap solo admite OAuth 2 y otros métodos solo están disponibles en instalaciones privadas de la API u otros proyectos que han reutilizado el software de OSM.  </p>
-<p>Autorizar a Vespucci para acceder a tu cuenta en tu nombre requiere que inicies sesión una vez con tu nombre para mostrar y contraseña. Si tu instalación de Vespucci no está autorizada cuando intentas subir datos modificados, se te pedirá que inicies sesión en el sitio web de OSM (a través de una conexión cifrada). Después de haber iniciado sesión, se te pedirá que autorices a Vespucci para editar usando tu cuenta. Si deseas o necesitas autorizar el acceso OAuth a tu cuenta antes de editar, hay un elemento correspondiente en el menú "Herramientas".</p>
-<p>Si quieres guardar tu trabajo y no tienes acceso a Internet, puedes guardarlo en un archivo .osm compatible con JOSM y subirlo más tarde con Vespucci o con JOSM. </p>
-<h4 id="resolver-conflictos-en-las-subidas">Resolver conflictos en las subidas<a class="headerlink" href="#resolver-conflictos-en-las-subidas" title="Permanent link">#</a></h4>
-<p>Vespucci tiene un solucionador de conflictos simple. Sin embargo, si sospechas que hay problemas importantes con tus ediciones, exporta los cambios a un archivo .osc (elemento del menú "Exportar" en el menú "Transferir"), corrígelos y súbelos con JOSM. Consulta la ayuda detallada sobre <a href="Conflict%20resolution.md">resolución de conflictos</a>.  </p>
-<h3 id="visualizacion-de-puntos-de-interes-cercanos">Visualización de puntos de interés cercanos<a class="headerlink" href="#visualizacion-de-puntos-de-interes-cercanos" title="Permanent link">#</a></h3>
-<p>Se puede mostrar una visualización de puntos de interés cercanos tirando hacia arriba del controlador en el centro y la parte superior de la barra de menú inferior. </p>
-<p>Puedes encontrar más información sobre esta y otras funciones disponibles en la pantalla principal aquí <a href="Main%20map%display.md">Pantalla del mapa principal</a>.</p>
-<h2 id="usar-gps-y-trazas-gpx">Usar GPS y trazas GPX<a class="headerlink" href="#usar-gps-y-trazas-gpx" title="Permanent link">#</a></h2>
-<p>Con la configuración estándar, Vespucci intentará habilitar el GPS (y otros sistemas de navegación basados en satélites) y recurrirá a determinar la posición mediante la llamada "ubicación de red" si esto no es posible. Este comportamiento asume que, en el uso normal, tienes tu dispositivo Android configurado para usar solo ubicaciones generadas por GPX (para evitar el seguimiento), es decir, que tienes desactivada la opción eufemísticamente llamada "Mejorar la precisión de la ubicación". Si quieres habilitar la opción pero quieres evitar que Vespucci recurra a la "ubicación de red", debes desactivar la opción correspondiente en las <a href="Advanced%20preferences.md">Preferencias avanzadas</a>. </p>
-<p>Tocar el botón <img alt="GPS" src="../../images/menu_gps.png" /> (normalmente en el lado izquierdo de la pantalla del mapa) centrará la pantalla en la posición actual y, a medida que te muevas, la pantalla del mapa se desplazará para mantener esto. Mover la pantalla manualmente o editar hará que el modo "seguir GPS" se desactive y la flecha azul del GPS cambiará de un contorno a una flecha rellena. Para volver rápidamente al modo "seguir", simplemente toca el botón GPS o vuelve a marcar la opción de menú equivalente. Si el dispositivo no tiene una ubicación actual, el marcador/flecha de ubicación se mostrará en negro, si hay una ubicación actual disponible, el marcador será azul.</p>
-<p>Para grabar una traza GPS y mostrarla en tu dispositivo, selecciona el elemento "Iniciar traza GPS" en el menú <img alt="GPS" src="../../images/menu_gps.png" />. Esto agregará una capa a la pantalla con la traza grabada actual, puedes subir y exportar la traza desde la entrada en el <a href="Main%20map%20display.md">control de capas</a>. Se pueden agregar más capas desde archivos GPX locales y trazas descargadas de la API de OSM.</p>
-<p>Nota: de forma predeterminada, Vespucci no registrará datos de elevación con tu traza GPS, esto se debe a algunos problemas específicos de Android. Para habilitar el registro de elevación, instala un modelo gravitacional o, más simple, ve a las <a href="Advanced%20preferences.md">Preferencias avanzadas</a> y configura la entrada NMEA.</p>
-<h3 id="como-exportar-una-traza-gps">¿Cómo exportar una traza GPS?<a class="headerlink" href="#como-exportar-una-traza-gps" title="Permanent link">#</a></h3>
-<p>Abre el menú de capas, luego haz clic en el menú de 3 puntos junto a "Grabación GPX", luego selecciona <strong>Exportar traza GPS...</strong>. Elige en qué carpeta exportar la traza, luego asígnale un nombre con el sufijo <code>.gpx</code> (ejemplo: MiTraza.gpx).</p>
-<h2 id="notas-errores-y-tareas-pendientes">Notas, errores y tareas pendientes<a class="headerlink" href="#notas-errores-y-tareas-pendientes" title="Permanent link">#</a></h2>
-<p>Vespucci admite la descarga, los comentarios y el cierre de notas de OSM (anteriormente errores de OSM) y la funcionalidad equivalente para los "errores" producidos por la <a href="http://osmose.openstreetmap.fr/en/map/">herramienta de control de calidad OSMOSE</a>. Ambos tienen que descargarse explícitamente o puedes usar la función de descarga automática para acceder a los elementos en tu área inmediata. Una vez editados o cerrados, puedes subir el error o la nota inmediatamente o subir todo a la vez. </p>
-<p>Además, admitimos "Tareas pendientes" que se pueden crear a partir de elementos OSM, desde una capa GeoJSON o externamente a Vespucci. Estas proporcionan una forma conveniente de realizar un seguimiento del trabajo que deseas completar. </p>
-<p>En el mapa, las Notas y los errores se representan mediante un pequeño icono de error <img alt="Error" src="../../images/bug_open.png" />, los verdes están cerrados/resueltos, los azules los has creado o editado tú y el amarillo indica que todavía está activo y no se ha modificado. Las tareas pendientes usan un icono de casilla de verificación amarilla.</p>
-<p>La visualización de errores de OSMOSE y las tareas pendientes proporcionará un enlace al elemento afectado en azul (en el caso de las tareas pendientes, solo si un elemento OSM está asociado a él), al tocar el enlace se seleccionará el objeto, se centrará la pantalla en él y se descargará el área de antemano si es necesario. </p>
-<h3 id="filtrado">Filtrado<a class="headerlink" href="#filtrado" title="Permanent link">#</a></h3>
-<p>Además de habilitar globalmente la visualización de notas y errores, puedes configurar un filtro de visualización de grano grueso para reducir el desorden. Se puede acceder a la configuración del filtro desde la entrada de la capa de tareas en el <a href="#layers">control de capas</a>:</p>
-<ul>
-<li>Notas</li>
-<li>Error de Osmose</li>
-<li>Advertencia de Osmose</li>
-<li>Problema menor de Osmose</li>
-<li>Maproulette</li>
-<li>Tarea pendiente</li>
-</ul>
-<p><a id="indoor"></a></p>
-<h2 id="modo-de-interiores">Modo de interiores<a class="headerlink" href="#modo-de-interiores" title="Permanent link">#</a></h2>
-<p>Mapear en interiores es un desafío debido a la gran cantidad de objetos que, con mucha frecuencia, se superpondrán entre sí. Vespucci tiene un modo interior dedicado que te permite filtrar todos los objetos que no están en el mismo nivel y que agregará automáticamente el nivel actual a los nuevos objetos que se creen allí.</p>
-<p>Puedes habilitar el modo manteniendo pulsado el elemento de bloqueo; consulta <a href="#lock">Bloquear, desbloquear, cambio de modo</a> y seleccionando la entrada de menú correspondiente.</p>
-<p><a id="c-mode"></a></p>
-<h2 id="modo-c">Modo-C<a class="headerlink" href="#modo-c" title="Permanent link">#</a></h2>
-<p>En el Modo C, solo se muestran los objetos que tienen un indicador de advertencia establecido; esto facilita la detección de objetos que tienen problemas específicos o coinciden con comprobaciones configurables. Si se selecciona un objeto y se inicia el Editor de propiedades en Modo C, se aplicará automáticamente el preset que mejor coincida.</p>
-<p>Puedes habilitar el modo manteniendo pulsado el elemento de bloqueo; consulta <a href="#lock">Bloquear, desbloquear, cambio de modo</a> y seleccionando la entrada de menú correspondiente.</p>
-<h3 id="configurar-comprobaciones">Configurar comprobaciones<a class="headerlink" href="#configurar-comprobaciones" title="Permanent link">#</a></h3>
-<p>Todas las validaciones se pueden desactivar/activar en "Ajustes del validador/Validaciones habilitadas" en las <a href="Preferences.md">preferencias</a>. </p>
-<p>La configuración para las entradas "Volver a inspeccionar" te permite establecer un tiempo después del cual se debe volver a inspeccionar una combinación de etiquetas. Las entradas "Comprobar" son etiquetas que deben estar presentes en los objetos según lo determinado por los ajustes preestablecidos coincidentes. Las entradas se pueden editar haciéndoles clic, el botón verde del menú permite agregar entradas.</p>
-<h4 id="entradas-para-volver-a-inspeccionar">Entradas para volver a inspeccionar<a class="headerlink" href="#entradas-para-volver-a-inspeccionar" title="Permanent link">#</a></h4>
-<p>Las entradas para volver a inspeccionar tienen las siguientes propiedades:</p>
-<ul>
-<li><strong>Clave</strong>: clave de la etiqueta de interés.</li>
-<li><strong>Valor</strong>: valor que debe tener la etiqueta de interés; si está vacío, se ignorará el valor de la etiqueta.</li>
-<li><strong>Antigüedad</strong>: cuántos días después de la última modificación del elemento se debe revisar el elemento. Si hay una etiqueta <em>check_date</em> presente, se utilizará; de lo contrario, se utilizará la fecha en que se creó la versión actual. Si se establece el valor en cero, la comprobación simplemente coincidirá con la clave y el valor.</li>
-<li><strong>Expresión regular</strong>: si está marcada, se asume que <strong>Valor</strong> es una expresión regular de JAVA.</li>
-</ul>
-<p><strong>Clave</strong> y <strong>Valor</strong> se comparan con las etiquetas <em>existentes</em> del objeto en cuestión.</p>
-<p>El grupo <em>Anotaciones</em> en los preset estándar contiene un elemento que agregará automáticamente una etiqueta <em>check_date</em> con la fecha actual.</p>
-<h4 id="entradas-de-comprobacion">Entradas de comprobación<a class="headerlink" href="#entradas-de-comprobacion" title="Permanent link">#</a></h4>
-<p>Las entradas de comprobación tienen las siguientes dos propiedades:</p>
-<ul>
-<li><strong>Clave</strong>: clave que debe estar presente en el objeto según el preset coincidente.</li>
-<li><strong>Requerir opcional</strong>: requiere la clave incluso si la clave está en las etiquetas opcionales del preset coincidente.</li>
-</ul>
-<p>Esta comprobación funciona determinando primero el preset coincidente y luego comprobando si <strong>Clave</strong> es una clave "recomendada" para este objeto según el preset. <strong>Requerir opcional</strong> ampliará la comprobación a las etiquetas que son "opcionales" en el objeto. Nota: actualmente no se comprueban los presets enlazados.</p>
-<h2 id="filtros">Filtros<a class="headerlink" href="#filtros" title="Permanent link">#</a></h2>
-<h3 id="filtro-basado-en-etiquetas">Filtro basado en etiquetas<a class="headerlink" href="#filtro-basado-en-etiquetas" title="Permanent link">#</a></h3>
-<p>El filtro se puede habilitar desde el menú principal; luego se puede cambiar tocando el icono del filtro. Puedes encontrar más documentación aquí: <a href="Tag%20filter.md">Filtro de etiquetas</a>.</p>
-<h3 id="filtro-basado-en-presets">Filtro basado en presets<a class="headerlink" href="#filtro-basado-en-presets" title="Permanent link">#</a></h3>
-<p>Como alternativa a lo anterior, los objetos se filtran por presets individuales o por grupos de presets. Al tocar el icono del filtro, se mostrará un cuadro de diálogo de selección de presets similar al utilizado en otras partes de Vespucci. Se pueden seleccionar presets individuales con un clic normal, grupos de presets con un clic largo (un clic normal entra en el grupo). Puedes encontrar más documentación aquí: <a href="Preset%20filter.md">Filtro de presets</a>.</p>
-<h2 id="personalizar-vespucci">Personalizar Vespucci<a class="headerlink" href="#personalizar-vespucci" title="Permanent link">#</a></h2>
-<p>Muchos aspectos de la app se pueden personalizar; si buscas algo específico y no lo encuentras, el <a href="https://vespucci.io/">sitio web de Vespucci</a> se puede buscar y contiene información adicional sobre lo que está disponible en el dispositivo.</p>
-<p><a id="layers"></a></p>
-<h3 id="ajustes-de-capa">Ajustes de capa<a class="headerlink" href="#ajustes-de-capa" title="Permanent link">#</a></h3>
-<p>Puedes cambiar los ajustes de capa a través del control de capas (menú de "hamburguesa" en la esquina superior derecha); todos los demás ajustes se pueden acceder a través del botón de preferencias del menú principal. Se pueden habilitar, deshabilitar y ocultar temporalmente las capas.</p>
-<p>Tipos de capas disponibles:</p>
-<ul>
-<li>Capa de datos: esta es la capa en la que se cargan los datos de OpenStreetMap. En uso normal, no necesitas cambiar nada aquí. Predeterminado: activado.</li>
-<li>Capa de fondo: hay una amplia gama de imágenes aéreas y de satélite de fondo disponibles. El valor predeterminado para esto es el mapa de "estilo estándar" de openstreetmap.org.</li>
-<li>Capa de superposición: estas son capas semitransparentes con información adicional, por ejemplo, información de control de calidad. Agregar una superposición puede causar problemas con dispositivos antiguos y con poca memoria. Predeterminado: ninguna.</li>
-<li>Visualización de notas/errores: las notas y errores abiertos se mostrarán como un icono de error amarillo, los cerrados igual en verde. Predeterminado: activado.</li>
-<li>Capa de fotos: muestra fotografías georreferenciadas como iconos de cámara rojos; si hay información de dirección disponible, el icono girará. Predeterminado: desactivado.</li>
-<li>Capa Mapillary: muestra segmentos Mapillary con marcadores donde existen imágenes, al hacer clic en un marcador se mostrará la imagen. Predeterminado: desactivado.</li>
-<li>Capa GeoJSON: muestra el contenido de un archivo GeoJSON, se pueden agregar varias capas desde archivos. Predeterminado: ninguna.</li>
-<li>Capa GPX: muestra trazas y puntos de ruta GPX, se pueden agregar varias capas desde archivos, durante la grabación, la traza GPX generada se muestra en una propia. Predeterminado: ninguna.</li>
-<li>Cuadrícula: muestra una escala a los lados del mapa o una cuadrícula. Predeterminado: activado. </li>
-</ul>
-<p>Puedes encontrar más información en la sección sobre la <a href="Main%20map%20display.md">visualización del mapa</a>.</p>
-<h4 id="preferencias">Preferencias<a class="headerlink" href="#preferencias" title="Permanent link">#</a></h4>
-<ul>
-<li>Mantener la pantalla encendida. Predeterminado: desactivado.</li>
-<li>Área de arrastre de nodo grande. Mover nodos en un dispositivo con entrada táctil es problemático, ya que tus dedos oscurecerán la posición actual en la pantalla. Activar esto proporcionará un área grande que se puede usar para arrastrar fuera del centro (la selección y otras operaciones aún utilizan el área de tolerancia táctil normal). Predeterminado: desactivado.</li>
-</ul>
-<p>Puedes encontrar la descripción completa aquí: <a href="Preferences.md">Preferencias</a>.</p>
-<h4 id="preferencias-avanzadas">Preferencias avanzadas<a class="headerlink" href="#preferencias-avanzadas" title="Permanent link">#</a></h4>
-<ul>
-<li>Modo de pantalla completa. En dispositivos sin botones de hardware, Vespucci puede ejecutarse en modo de pantalla completa, lo que significa que los botones de navegación "virtuales" se ocultarán automáticamente mientras se muestra el mapa, proporcionando más espacio en la pantalla para el mapa. Dependiendo de tu dispositivo, esto puede funcionar bien o no. En el modo <em>Automático</em>, intentamos determinar automáticamente si el uso del modo de pantalla completa es sensato o no, configurarlo en <em>Forzar</em> o <em>Nunca</em> omite la comprobación automática y el modo de pantalla completa siempre se utilizará o nunca se utilizará, respectivamente. En dispositivos con Android 11 o superior, el modo <em>Automático</em> nunca activará el modo de pantalla completa, ya que la navegación por gestos de Android proporciona una alternativa viable. Predeterminado: <em>Automático</em>.</li>
-<li>Iconos de nodo. Predeterminado: <em>activado</em>.</li>
-<li>Mostrar siempre el menú contextual. Cuando está activado, cada proceso de selección mostrará el menú contextual; cuando está desactivado, el menú se muestra solo cuando no se puede determinar una selección inequívoca. Predeterminado: desactivado (solía estar activado).</li>
-<li>Habilitar tema claro. En los dispositivos modernos, esto está activado de forma predeterminada. Si bien puedes habilitarlo para versiones anteriores de Android, es probable que el estilo sea inconsistente. </li>
-</ul>
-<p>Puedes encontrar la descripción completa aquí: <a href="Advanced%20preferences.md">Preferencias avanzadas</a>.</p>
-<h2 id="informar-y-resolver-problemas">Informar y resolver problemas<a class="headerlink" href="#informar-y-resolver-problemas" title="Permanent link">#</a></h2>
-<p>Si Vespucci falla o detecta un estado inconsistente, se te pedirá que envíes el volcado de memoria. Hazlo si eso sucede, pero solo una vez por situación específica. Si quieres proporcionar más información o abrir un problema para una solicitud de función o similar, hazlo aquí: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Rastreador de problemas de Vespucci</a>. La función "Enviar comentarios" del menú principal abrirá un nuevo problema e incluirá la información relevante de la aplicación y el dispositivo sin necesidad de escribir más.</p>
-<p>Si tienes dificultades para iniciar la aplicación después de un fallo, puedes intentar iniciarla en modo <em>Seguro</em> en dispositivos que admiten accesos directos: mantén pulsado el icono de la aplicación y luego selecciona <em>Seguro</em> en el menú. </p>
-<p>Si deseas discutir algo relacionado con Vespucci, puedes iniciar una discusión en el <a href="https://community.openstreetmap.org">foro de OpenStreetMap</a>.</p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#introduccion-a-vespucci" class="nav-link">Introducción a Vespucci</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#editar-con-vespucci" class="nav-link">Editar con Vespucci</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#usar-gps-y-trazas-gpx" class="nav-link">Usar GPS y trazas GPX</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#notas-errores-y-tareas-pendientes" class="nav-link">Notas, errores y tareas pendientes</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#modo-de-interiores" class="nav-link">Modo de interiores</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#modo-c" class="nav-link">Modo-C</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#filtros" class="nav-link">Filtros</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#personalizar-vespucci" class="nav-link">Personalizar Vespucci</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#informar-y-resolver-problemas" class="nav-link">Informar y resolver problemas</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <p><em>Antes de empezar: la mayoría de las pantallas tienen enlaces en el menú al sistema de ayuda del dispositivo, lo que te da acceso directo a la información relevante para el contexto actual. También puedes volver fácilmente a este texto. Si tienes un dispositivo más grande, por ejemplo, una tableta, puedes abrir el sistema de ayuda en una ventana dividida separada. Todos los textos de ayuda y más (preguntas frecuentes, tutoriales) también se pueden encontrar en el <a href="https://vespucci.io/">sitio de documentación de Vespucci</a>. Además, puedes iniciar el visor de ayuda directamente en dispositivos que admiten accesos directos con una pulsación larga en el icono de la aplicación y seleccionando "Ayuda".</em></p>
 <h1 id="introduccion-a-vespucci">Introducción a Vespucci<a class="headerlink" href="#introduccion-a-vespucci" title="Permanent link">#</a></h1>
@@ -922,21 +637,20 @@
 <p>Si Vespucci falla o detecta un estado inconsistente, se te pedirá que envíes el volcado de memoria. Hazlo si eso sucede, pero solo una vez por situación específica. Si quieres proporcionar más información o abrir un problema para una solicitud de función o similar, hazlo aquí: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Rastreador de problemas de Vespucci</a>. La función "Enviar comentarios" del menú principal abrirá un nuevo problema e incluirá la información relevante de la aplicación y el dispositivo sin necesidad de escribir más.</p>
 <p>Si tienes dificultades para iniciar la aplicación después de un fallo, puedes intentar iniciarla en modo <em>Seguro</em> en dispositivos que admiten accesos directos: mantén pulsado el icono de la aplicación y luego selecciona <em>Seguro</em> en el menú. </p>
 <p>Si deseas discutir algo relacionado con Vespucci, puedes iniciar una discusión en el <a href="https://community.openstreetmap.org">foro de OpenStreetMap</a>.</p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

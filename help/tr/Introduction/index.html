@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Introduction - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../en/Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!-- -->
                     </ul>
                 </div>
             </div>
@@ -391,7 +372,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -441,273 +422,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
-<h1 id="vespucci-giris">Vespucci Giriş<a class="headerlink" href="#vespucci-giris" title="Permanent link">#</a></h1>
-<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
-<h2 id="vespucci-ile-duzenleme">Vespucci ile düzenleme<a class="headerlink" href="#vespucci-ile-duzenleme" title="Permanent link">#</a></h2>
-<p>Cihazınızın yaşına ve ekran boyutuna bağlı olarak düzenleme menüsüne üst bardaki simgelerden, üst barın sağındaki açılır menüden, (eğer varsa) alttaki bardan veya menü tuşundan erişebilirsiniz.</p>
-<p><a id="download"></a></p>
-<h3 id="osm-verisini-indirme">OSM Verisini indirme<a class="headerlink" href="#osm-verisini-indirme" title="Permanent link">#</a></h3>
-<p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display eleven options:</p>
-<ul>
-<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Review changes...</strong> - review current changes</li>
-<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
-<li><strong>Clear and download current view</strong> - clear any data in memory, including pending changes, and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
-<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
-<li><strong>Clear data</strong> - remove any OSM data in memory, including pending changes.</li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
-<li><strong>Tasks...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
-</ul>
-<p>Cihazınıza verileri indirmenin en kolay yolu, düzenlemek istediğiniz konumu yakınlaştırıp "Geçerli görüntüyü indir" i seçmektir. Jestleri, cihazınızdaki yakınlaştırma düğmelerini veya ses kontrol düğmelerini kullanarak yakınlaştırma yapabilirsiniz. Vespucci artık geçerli görüntü için veriyi indirebilir. Verileri cihazınıza indirmek için kimlik doğrulama gerekmemektedir.</p>
-<p>In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a> so that dimming is always active.</p>
-<p>If you need to use a non-standard OSM API entry, or use <a href="https://vespucci.io/tutorials/offline/">offline data</a> in <em>MapSplit</em> format you can add or change entries via the <em>Configure...</em> entry for the data layer in the layer control.</p>
-<h3 id="duzenleme">Düzenleme<a class="headerlink" href="#duzenleme" title="Permanent link">#</a></h3>
-<p><a id="lock"></a></p>
-<h4 id="kilitli-kilitsiz-kip-anahtarlama">Kilitli, kilitsiz, kip anahtarlama<a class="headerlink" href="#kilitli-kilitsiz-kip-anahtarlama" title="Permanent link">#</a></h4>
-<p>Kazara yapılan düzenlemeleri önlemek için Vespucci "kilitli" modda başlatılır, bu mod sadece yakınlaştırmaya ve haritayı hareket ettirmeye izin verir. Ekran kilidini açmak için  <img alt="Locked" src="../../images/locked.png" /> simgesine tıklatın. </p>
-<p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
-<ul>
-<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
-<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.</li>
-<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../../en/Simple%20actions/">Simple mode</a> "+" button. White lock icon with an "A" is displayed.</li>
-<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an "I" is displayed.</li>
-<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
-</ul>
-<p>If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to <em>Address</em> and <em>Indoor</em> mode.</p>
-<h4 id="tek-dokunus-cift-dokunus-ve-uzun-bass">Tek dokunuş, çift dokunuş, ve uzun basış<a class="headerlink" href="#tek-dokunus-cift-dokunus-ve-uzun-bass" title="Permanent link">#</a></h4>
-<p>Varsayılan olarak, seçilebilir düğümler ve yolların etrafında, bir nesneyi seçmek için kabaca nereye dokunmanız gerektiğini gösteren turuncu bir alan vardır. Üç seçeneğiniz var:</p>
-<ul>
-<li>Tek dokunuş: Nesneyi seçer.</li>
-<li>İzole edilmiş bir düğüm / yol hemen vurgulanır.</li>
-<li>Ancak, bir nesneyi seçmeye çalışırsanız ve Vespucci seçimin birden fazla nesne anlamına gelebileceğini belirlerse, bir seçim menüsü sunarak, seçmek istediğiniz nesneyi seçmenize olanak tanır.</li>
-<li>Seçilen nesneler sarı ile vurgulanır.</li>
-<li>Daha fazla bilgi için bkz. [Node selected] (Node% 20selected.md), [Way selected] (Way% 20selected.md) ve [Relation selected] (Relation% 20selected.md).</li>
-<li>Çift dokunma: Başlat [Çoklu seçim modu] (Multiselect.md)</li>
-<li>Uzun basış: Düğüm eklemenizi sağlayan bir "artı işareti" oluşturur, aşağıya bakın ve [Yeni nesneler oluşturma] (Oluşturma% 20new% 20objects.md). Bu, yalnızca "Basit mod" devre dışı bırakıldığında etkinleştirilir.</li>
-</ul>
-<p>Yüksek yoğunluklu bir yeri düzenlemek için yaklaştırmak iyi bir yoldur.</p>
-<p>Vespucci'nin iyi bir geri al/yinele sistemi vardır cihazınızda bunu denemekten korkmayın, ancak lütfen deneme verilerini kaydedip sunucuya yüklemeyin.</p>
-<h4 id="secme-secimi-kaldrma-tek-dokunus-ve-secim-menusu">Seçme / Seçimi kaldırma (tek dokunuş ve "seçim menüsü")<a class="headerlink" href="#secme-secimi-kaldrma-tek-dokunus-ve-secim-menusu" title="Permanent link">#</a></h4>
-<p>Seçmek ve vurgulamak için bir nesneye dokunun. Boş bir bölgedeki ekrana dokunduğunuzda seçim kaldırılacaktır. Bir nesne seçtiyseniz ve başka bir şey seçmeniz gerekiyorsa, söz konusu nesneye dokunmanız yeterlidir, önce seçimi kaldırmaya gerek yoktur. Bir nesneye çift dokunulduğunda [Çoklu seçim modu] (Multiselect.md) başlar.</p>
-<p>Eğer bir nesneyi seçmeye çalışıyorsanız ve Vespucci bu seçimin birden fazla nesne (yoldaki bir düğüm veya diğer üst üste gelen nesneler gibi) içerdiğini belirlerse size bir seçenekler menüsü gösterecektir: Seçmek istediğiniz nesneye tıklayın ve işte oldu. </p>
-<p>Seçilen nesneler ince sarı bir kenarlıkla belirtilir. Harita arka planına ve yakınlaştırma faktörüne bağlı olarak sarı sınırın fark edilmesi zor olabilir. Seçim yapıldıktan sonra, seçimi onaylayan bir bildirim göreceksiniz.</p>
-<p>Seçim tamamlandığında, seçilmiş öğeler için desteklenen işlemlerin listesini (düğme ya da menü öğesi olarak) göreceksiniz: Daha fazla bilgi için [Düğüm seçimi] (Node%20selected.md), [Yol seçimi] (Way%20selected.md) ve [İlişki seçimi] (Relation%20selected.md).</p>
-<h4 id="secilen-nesneler-yaftalar-duzenleme">Seçilen nesneler: Yaftaları düzenleme<a class="headerlink" href="#secilen-nesneler-yaftalar-duzenleme" title="Permanent link">#</a></h4>
-<p>Seçilen nesneye ikinci kez dokunulduğunda etiket düzenleyici açılır ve nesne ile ilişkili etiketleri düzenleyebilirsiniz.</p>
-<p>Çakışan nesneler için (bir yol üzerindeki düğüm gibi) seçim menüsünün ikinci kez geri geldiğini unutmayın. Aynı nesnenin seçilmesi etiket düzenleyiciyi getirir; başka bir nesnenin seçilmesi sadece diğer nesneyi seçer.</p>
-<h4 id="secilen-nesneler-bir-dugumu-veya-yolu-tasma">Seçilen nesneler: bir Düğümü veya Yolu Taşıma<a class="headerlink" href="#secilen-nesneler-bir-dugumu-veya-yolu-tasma" title="Permanent link">#</a></h4>
-<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
-<h4 id="yeni-bir-dugumnokta-veya-yol-ekleme">Yeni bir Düğüm/Nokta veya Yol ekleme<a class="headerlink" href="#yeni-bir-dugumnokta-veya-yol-ekleme" title="Permanent link">#</a></h4>
-<p>Uygulama ilk çalıştırılmasında "Basit mod" da başlatılır, bu ana menüdeki ilgili onay kutusunun işaretini kaldırarak değiştirilebilir.</p>
-<h5 id="basit-kip">Basit kip<a class="headerlink" href="#basit-kip" title="Permanent link">#</a></h5>
-<p>Harita ekranındaki büyük yeşil yüzen düğmeye dokunduğunuzda bir menü görüntülenir. Öğelerden birini seçtikten sonra, nesneyi oluşturmak istediğiniz konumda ekrana dokunmanız istenir, harita görünümünü ayarlamanız gerekirse kaydırma ve yakınlaştırma çalışmaya devam eder. </p>
-<p>See <a href="Simple%20actions.md">Creating new objects in simple actions mode</a> for more information. Simple mode os the default for new installs.</p>
-<h5 id="gelismis-uzun-basma-modu">Gelişmiş (uzun basma) modu<a class="headerlink" href="#gelismis-uzun-basma-modu" title="Permanent link">#</a></h5>
-<p>Düğümün olmasını istediğiniz yere veya başlama yoluna uzun basın. Siyah bir "artı" sembolü göreceksiniz.
-* Yeni bir düğüm oluşturmak istiyorsanız (bir nesneye bağlı olmayan), mevcut nesnelerden uzağa dokunun.
-* Bir yolu uzatmak istiyorsanız, yolun "tolerans bölgesi" içerisine (veya yoldaki bir düğüme) dokunun. Tolerans bölgesi, bir düğümün veya yolun etrafındaki alanlarla gösterilir.</p>
-<p>İnceartı gösterge simgesini gördüğünüzde, şu seçeneklere sahipsiniz:</p>
-<ul>
-<li><em>Aynı yerde normal basış.</em></li>
-<li>Artı işareti bir düğümün yakınında değilse, aynı konuma tekrar dokunmak yeni bir düğüm oluşturur. Bir yola yakınsanız (ancak bir düğümün yakınında değilseniz), yeni düğüm yolda olacak (ve yola bağlanacaktır).
-Artı işareti bir düğümün yakınındaysa (yani düğümün tolerans bölgesi içindeyse), aynı konuma dokunmak yalnızca düğümü seçer (ve etiket düzenleyici açılır. Yeni düğüm oluşturulmaz. Eylem, yukarıdaki seçimle aynıdır.</li>
-<li>_ Başka bir yerde normal dokunuş._ Başka bir konuma (artı işaretinin tolerans bölgesinin dışında) dokunmak, orijinal konumdan geçerli konuma bir yol parçası ekler. Artı işareti bir yola veya düğüme yakınsa, yeni bölüm bu düğüme veya yola bağlanacaktır.</li>
-</ul>
-<p>Yol üzerinde başka nereye düğüm eklemek istiyorsanız sadece ekrana dokunmanız yeterli. Bitirmek için son düğüme iki kez dokunun. Eğer son düğüm bir yol veya başka bir düğüm üzerine denk geliyorsa, bu bölüm o yola veya düğüme otomatik olarak bağlanacaktır. </p>
-<p>Bir menü öğesi de kullanabilirsiniz: Daha fazla bilgi için şunu seçin <a href="Creating%20new%20objects.md">Yeni nesne oluşturma</a> </p>
-<h4 id="alan-ekleme">Alan Ekleme<a class="headerlink" href="#alan-ekleme" title="Permanent link">#</a></h4>
-<p>OpenStreetMap şu anda diğer coğrafi veri sistemlerinden farklı olarak "alan" nesne türüne sahip değildir. Çevrimiçi düzenleyici "iD", temeldeki OSM öğelerinden bazı durumlarda iyi çalışan, bazılarında ise pek işe yaramayan bir alan soyutlaması oluşturmaya çalışır. Vespucci şu anda benzer bir şey yapmaya çalışmıyor, bu yüzden alanların temsil edilme şekli hakkında biraz bilgi sahibi olmanız gerekiyor:</p>
-<ul>
-<li><em>closed ways (*polygons")</em>: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.</li>
-<li><em>multi-polygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. </li>
-<li><em>coastlines</em>: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
-</ul>
-<h4 id="yolun-geometrisini-gelistirme">Yolun Geometrisini Geliştirme<a class="headerlink" href="#yolun-geometrisini-gelistirme" title="Permanent link">#</a></h4>
-<p>Seçilen bir yoldan yeterince yakınlaştırırsanız, yeterince uzun olan bölümlerin ortasında küçük bir "x" görürsünüz. "X" i sürüklemek, bu konumda yol üzerinde bir düğüm oluşturacaktır. Not: Yanlışlıkla düğüm oluşturmayı önlemek için, bu işlem için dokunma toleransı alanı oldukça küçüktür.</p>
-<h4 id="kes-kopyala-yapstr">Kes, Kopyala &amp; Yapıştır<a class="headerlink" href="#kes-kopyala-yapstr" title="Permanent link">#</a></h4>
-<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.</p>
-<h4 id="etkin-adresler-ekleme">Etkin Adresler Ekleme<a class="headerlink" href="#etkin-adresler-ekleme" title="Permanent link">#</a></h4>
-<p>Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding <em>addr:street</em> or <em>addr:place</em> tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   </p>
-<p>Adding the tags can be triggered by pressing <img alt="Address" src="../../images/address.png" />: </p>
-<ul>
-<li>after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
-<li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
-<li>in the property editor.</li>
-</ul>
-<p>To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.</p>
-<p>Ev numarası tahmini genelde en az 2 numara gerektirir çalışmaya yolun her iki tarafıda girilebilir, verilerde ne kadar çok numara olursa o kadar iyidir.</p>
-<p>Consider using this with one of the <a href="#download">Auto-download</a> modes.  </p>
-<h4 id="donus-kstlamalar-ekleme">Dönüş Kısıtlamaları Ekleme<a class="headerlink" href="#donus-kstlamalar-ekleme" title="Permanent link">#</a></h4>
-<p>Vespucci'nin dönüş kısıtlamaları eklemek için hızlı bir yolu var. Eğer gerekirse otomatik olarak yolları bölecek ve elemanları tekrar seçmek için size soracaktır. </p>
-<ul>
-<li>select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)</li>
-<li>select "Add restriction" from the menu</li>
-<li>select the "via" node or way (only possible "via" elements will have the touch area shown)</li>
-<li>select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)</li>
-<li>set the restriction type</li>
-</ul>
-<h3 id="vespucci-kilitli-kipte">Vespucci "kilitli" kipte<a class="headerlink" href="#vespucci-kilitli-kipte" title="Permanent link">#</a></h3>
-<p>Kırmızı kilit gözüktüğünde tüm düzenlenemez eylem uygun olur. Ek olarak, eğer bir OSM nesnesi ise, uzun bir basış ya da bir nesneye yakınlaşma ile detaylı bilgi gösterilir.</p>
-<h3 id="degisenleri-kaydetmek">Değişenleri Kaydetmek<a class="headerlink" href="#degisenleri-kaydetmek" title="Permanent link">#</a></h3>
-<p><em>(ağ bağlantısı gerekir)</em></p>
-<p>İndirmek için aynı butonu veya menüyü seçin ve ardından "Verileri OSM sunucusuna yükle"'yi seçin</p>
-<p>Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  </p>
-<p>Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p>
-<p>Eğer çalışmanızı kaydetmek istiyorsanız fakat internet erişiminiz yoksa, JOSM uyumlu .osm dosyasına kaydedebilir daha sonra Vespucci ile veya JOSM ile sunucuya yükleyebilirsiniz. </p>
-<h4 id="yuklemelerdeki-catsmalar-cozme">Yüklemelerdeki çatışmaları çözme<a class="headerlink" href="#yuklemelerdeki-catsmalar-cozme" title="Permanent link">#</a></h4>
-<p>Vespucci'nin basit bir sorun çözücüsü var. Ancak, düzenlemelerinizle ilgili büyük sorunlar olduğundan şüpheleniyorsanız, değişikliklerinizi bir .osc dosyasına aktarın ("Aktar" menüsünde "Dışa Aktar" menü öğesi) ve düzeltip JOSM ile yükleyin. [Conflict% 20resolution.md) ile ilgili ayrıntılı yardıma bakın.  </p>
-<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
-<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. </p>
-<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
-<h2 id="using-gps-and-gpx-tracks">Using GPS and GPX tracks<a class="headerlink" href="#using-gps-and-gpx-tracks" title="Permanent link">#</a></h2>
-<p>With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the <a href="Advanced%20preferences.md">Advanced preferences</a> off. </p>
-<p>Touching the <img alt="GPS" src="../../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
-<p>To record a GPX track and display it on your device select "Start GPX track" item in the <img alt="GPS" src="../../images/menu_gps.png" /> menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the <a href="Main%20map%20display.md">layer control</a>. Further layers can be added from local GPX files and tracks downloaded from the OSM API.</p>
-<p>Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the <a href="Advanced%20preferences.md">Advanced preferences</a> and configure NMEA input.</p>
-<h3 id="how-to-export-a-gpx-track">How to export a GPX track?<a class="headerlink" href="#how-to-export-a-gpx-track" title="Permanent link">#</a></h3>
-<p>Open the layer menu, then click the 3-dots menu next to "GPX recording", then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
-<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos<a class="headerlink" href="#notes-bugs-and-todos" title="Permanent link">#</a></h2>
-<p>Vespucci, OSM notlarının (eski adıyla OSM Hataları) indirilmesini, yorumlanmasını ve kapatılmasını ve [OSMOSE kalite güvence aracı] (http://osmose.openstreetmap.fr/en/map/) tarafından üretilen "Hatalar" için eşdeğer işlevselliği destekler. Her ikisinin de ya açıkça indirilmesi gerekir ya da yakın çevrenizdeki öğelere erişmek için otomatik indirme özelliğini kullanabilirsiniz. Düzenlendikten veya kapatıldıktan sonra, hatayı veya notu hemen yükleyebilir veya hepsini bir kerede yükleyebilirsiniz. </p>
-<p>Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. </p>
-<p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
-<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
-<h3 id="suzme">Süzme<a class="headerlink" href="#suzme" title="Permanent link">#</a></h3>
-<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
-<ul>
-<li>Notes</li>
-<li>Osmose error</li>
-<li>Osmose warning</li>
-<li>Osmose minor issue</li>
-<li>Maproulette</li>
-<li>Todo</li>
-</ul>
-<p><a id="indoor"></a></p>
-<h2 id="kapal-mekan-kipi">Kapalı mekan kipi<a class="headerlink" href="#kapal-mekan-kipi" title="Permanent link">#</a></h2>
-<p>İç mekanlarda haritalama, sıklıkla birbirini kaplayan çok sayıda nesne nedeniyle zordur. Vespucci, aynı seviyede olmayan tüm nesneleri filtrelemenize izin veren ve mevcut seviyeyi orada oluşturulan yeni nesnelere otomatik olarak ekleyen özel bir iç mekan moduna sahiptir.</p>
-<p>Bu mod, kilit öğesinin üzerine uzun basarak ve ilgili menü girdisini seçerek aktifleştirilebilir. Şuraya bakın <a href="#lock">Kilitle, kilidi aç, mod değiştir</a>.</p>
-<p><a id="c-mode"></a></p>
-<h2 id="c-modu">C-Modu<a class="headerlink" href="#c-modu" title="Permanent link">#</a></h2>
-<p>C-Modunda yalnızca bir uyarı bayrağı ayarlanmış nesneler görüntülenir, bu, belirli sorunları olan nesneleri bulmayı veya yapılandırılabilir kontrolleri eşleştirmeyi kolaylaştırır. Bir nesne seçilirse ve Özellik Düzenleyicisi C-Modunda başlatılırsa, en iyi eşleşen ön ayar otomatik olarak uygulanacaktır.</p>
-<p>Bu mod, kilit öğesinin üzerine uzun basarak ve ilgili menü girdisini seçerek aktifleştirilebilir. Şuraya bakın <a href="#lock">Kilitle, kilidi aç, mod değiştir</a>.</p>
-<h3 id="denetimleri-yaplandrma">Denetimleri yapılandırma<a class="headerlink" href="#denetimleri-yaplandrma" title="Permanent link">#</a></h3>
-<p>All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the <a href="Preferences.md">preferences</a>. </p>
-<p>The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
-<h4 id="re-survey-entries">Re-survey entries<a class="headerlink" href="#re-survey-entries" title="Permanent link">#</a></h4>
-<p>Re-survey entries have the following properties:</p>
-<ul>
-<li><strong>Key</strong> - Key of the tag of interest.</li>
-<li><strong>Value</strong> - Value the tag of interest should have, if empty the tag value will be ignored.</li>
-<li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a <em>check_date</em> tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
-<li><strong>Regular expression</strong> - if checked <strong>Value</strong> is assumed to be a JAVA regular expression.</li>
-</ul>
-<p>** Anahtar ** ve ** Değer **, söz konusu nesnenin _ mevcut _ etiketleriyle karşılaştırılır.</p>
-<p>Standart ön ayarlardaki <em>Annotations</em> grubu, geçerli tarihle otomatik olarak bir <em>check_date</em> etiketi ekleyen bir öğe içerir.</p>
-<h4 id="girdileri-denetle">Girdileri denetle<a class="headerlink" href="#girdileri-denetle" title="Permanent link">#</a></h4>
-<p>Girdilerin aşağıdaki iki özelliğe sahip olduğunu denetleyin:</p>
-<ul>
-<li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
-<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset.</li>
-</ul>
-<p>Bu kontrol, önce eşleşen ön ayarı belirleyerek ve ardından ** Anahtar ** ın ön ayara göre bu nesne için "önerilen" anahtar olup olmadığını kontrol ederek çalışır, ** İsteğe bağlı gerektirir **, denetimi nesne üzerinde "isteğe bağlı * olan etiketlere genişletir. Not: Şu anda bağlantılı ön ayarlar kontrol edilmemiştir.</p>
-<h2 id="suzgecler">Süzgeçler<a class="headerlink" href="#suzgecler" title="Permanent link">#</a></h2>
-<h3 id="etiket-temelli-suzme">Etiket temelli süzme<a class="headerlink" href="#etiket-temelli-suzme" title="Permanent link">#</a></h3>
-<p>Bu filtre ana menüden devreye sokulabilir, filtre simgesine dokunulduğunda değişir. Daha fazla doküman burada bulunabilir  <a href="Tag%20filter.md">Tag filter</a>.</p>
-<h3 id="onayar-temelli-suzme">Önayar temelli süzme<a class="headerlink" href="#onayar-temelli-suzme" title="Permanent link">#</a></h3>
-<p>Yukarıdakilere bir alternatif olarak, nesneler ayrı ön ayarlara veya ön ayar gruplarına göre filtrelenir. Filtre simgesine dokunduğunuzda, Vespucci'de başka yerlerde kullanılana benzer bir önceden ayarlanmış seçim diyaloğu görüntülenir. Ayrı ön ayarlar normal bir tıklama ile, önceden ayarlanmış gruplar uzun bir tıklama ile seçilebilir (normal tıklama gruba girer). Daha fazla dokümantasyonu burada [Preset filter] (Preset% 20filter.md) bulabilirsiniz.</p>
-<h2 id="vespucciyi-ozellestirme">Vespucci'yi Özelleştirme<a class="headerlink" href="#vespucciyi-ozellestirme" title="Permanent link">#</a></h2>
-<p>Bu uygulama bir çok yönden kişiselleştirilebilir.Belirli bir şey arıyorsanız ve bulamadıysanız, <a href="https://vespucci.io/">Vespucci'nin sitesi</a> aramaya uygundur ve cihaz için nelerin mümkün olabileceği hakkında ek bilgiyi içerir.</p>
-<p><a id="layers"></a></p>
-<h3 id="katman-ayarlar">Katman ayarları<a class="headerlink" href="#katman-ayarlar" title="Permanent link">#</a></h3>
-<p>Katman ayarları katman kontrolünden (sağ üst köşedeki "hamburger" menüsü) değiştirilebilir, diğer tüm ayarlara ana menü tercihleri butonu ile ulaşılabilir. Katmanlar etkinleştirilebilir, devre dışı bırakılabilir ve geçici olarak gizlenebilir.</p>
-<p>Uygun katman stilleri:</p>
-<ul>
-<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
-<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
-<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
-<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
-<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
-<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
-<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
-<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
-<li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
-</ul>
-<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
-<h4 id="tercihler">Tercihler<a class="headerlink" href="#tercihler" title="Permanent link">#</a></h4>
-<ul>
-<li>Ekranını açık tut. Varsayılan: kapalı.</li>
-<li>Büyük düğüm sürükleme alanı. Dokunmatik girişi olan bir cihazda düğümlerin taşınması sorunludur çünkü parmaklarınız ekrandaki mevcut konumu gizleyecektir. Bunu açmak, merkez dışı sürükleme için kullanılabilecek geniş bir alan sağlayacaktır (seçim ve diğer işlemler hala normal dokunma toleransı alanını kullanır). Varsayılan: kapalı.</li>
-</ul>
-<p>Tam kapsamlı açıklama burada bulunabilir: <a href="Preferences.md">Tercihler</a></p>
-<h4 id="gelismis-tercihler">Gelişmiş tercihler<a class="headerlink" href="#gelismis-tercihler" title="Permanent link">#</a></h4>
-<ul>
-<li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.  </li>
-<li>Node icons. Default: <em>on</em>.</li>
-<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
-<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. </li>
-</ul>
-<p>Tam kapsamlı açıklama burada bulunabilir <a href="Advanced%20preferences.md">Gelişmiş özellikler</a></p>
-<h2 id="reporting-and-resolving-issues">Reporting and Resolving Issues<a class="headerlink" href="#reporting-and-resolving-issues" title="Permanent link">#</a></h2>
-<p>Vespucci çöker ya da tutarsız bir durum tespit ederse, kilitlenme dökümünü göndermeniz istenecektir. Bu olursa lütfen, sadece -belirli bir durum için- bir kez bunu yapın. Eğer daha fazla veri ya da benzer bir sorun açmak istiyorsanız, buraya gidiniz: [Vespucci issue tracker] (https://github.com/MarcusWolschon/osmeditor4android/issues). Ana menüden "Geri Bildirim Sağla" özelliği yeni bir sürüm açacak ve ek yazım olmadan ilgili uygulama ve cihaz bilgilerini içerecektir.</p>
-<p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
-<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#vespucci-giris" class="nav-link">Vespucci Giriş</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#vespucci-ile-duzenleme" class="nav-link">Vespucci ile düzenleme</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#using-gps-and-gpx-tracks" class="nav-link">Using GPS and GPX tracks</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#notes-bugs-and-todos" class="nav-link">Notes, Bugs and Todos</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#kapal-mekan-kipi" class="nav-link">Kapalı mekan kipi</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#c-modu" class="nav-link">C-Modu</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#suzgecler" class="nav-link">Süzgeçler</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#vespucciyi-ozellestirme" class="nav-link">Vespucci'yi Özelleştirme</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#reporting-and-resolving-issues" class="nav-link">Reporting and Resolving Issues</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"</em></p>
 <h1 id="vespucci-giris">Vespucci Giriş<a class="headerlink" href="#vespucci-giris" title="Permanent link">#</a></h1>
@@ -922,21 +637,20 @@ Artı işareti bir düğümün yakınındaysa (yani düğümün tolerans bölges
 <p>Vespucci çöker ya da tutarsız bir durum tespit ederse, kilitlenme dökümünü göndermeniz istenecektir. Bu olursa lütfen, sadece -belirli bir durum için- bir kez bunu yapın. Eğer daha fazla veri ya da benzer bir sorun açmak istiyorsanız, buraya gidiniz: [Vespucci issue tracker] (https://github.com/MarcusWolschon/osmeditor4android/issues). Ana menüden "Geri Bildirim Sağla" özelliği yeni bir sürüm açacak ve ek yazım olmadan ilgili uygulama ve cihaz bilgilerini içerecektir.</p>
 <p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu. </p>
 <p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

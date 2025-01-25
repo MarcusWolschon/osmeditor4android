@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +10,23 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>15.1.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
-
-        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-<!--
-                <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                <a class="navbar-brand" href="../../..">Vespucci</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,15 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../.." class="nav-link">Vespucci</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Introduction</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -187,8 +182,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Editing</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -292,8 +287,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials and Posts</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -353,37 +348,23 @@
 </li>
                                 </ul>
                             </li>
-<!--                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
-                                </li>
-<!--                            <li class="navitem">
+                            </li>
+                            <li class="nav-item">
                                 <a href="../Privacy/" class="nav-link">Privacy</a>
-</li> -->
-                                <li class="navitem">
-                                    
-                                        <a href="../Privacy/" class="nav-link">Privacy</a>
-                                </li>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-
-<!--
                             <li class="nav-item">
                                 <a rel="prev" href="../15.2.0%20Release%20notes/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
@@ -393,7 +374,7 @@
                                 <a rel="next" href="../15.0.0%20Release%20notes/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li> -->
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -401,7 +382,7 @@
 
         <div class="container">
             <div class="row">
-<!--                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -433,85 +414,7 @@
         </ul>
     </div>
 </div></div>
-<div class="col-md-9" role="main">
-
-<h1 id="vespucci-151-highlights">Vespucci 15.1 Highlights<a class="headerlink" href="#vespucci-151-highlights" title="Permanent link">#</a></h1>
-<p>2020-12-11</p>
-<h3 id="user-interface-changes-and-additions">User interface changes and additions<a class="headerlink" href="#user-interface-changes-and-additions" title="Permanent link">#</a></h3>
-<p>Action modes that require multiple actions are now exited by touching on a floating action button with a check icon instead of via the back button. This effects the way creation mode, creating a relations members, editing a relation and the new create and add to route modes.</p>
-<p>All these modes will now further retain state over the Android activity lifecycle.</p>
-<h4 id="way-creation-mode">Way creation mode<a class="headerlink" href="#way-creation-mode" title="Permanent link">#</a></h4>
-<p>All additions are now encapsulated in one undo checkpoint, and can be completely undone by one undo operation once the way is created. The undo button visible in the mode will, as previously, remove the last added node, this will however not add extra checkpoints. Aborting the mode will currently retain the way and any created nodes.</p>
-<h4 id="create-relation-mode-add-to-relation-mode">Create relation mode / Add to relation mode<a class="headerlink" href="#create-relation-mode-add-to-relation-mode" title="Permanent link">#</a></h4>
-<p>Available from the element (node, way, relation) selection and multi-select modes. <em>Create relation</em> now asks you to select a relation type before proceeding and <em>Add to relation</em> asks you to select a relation type. Elements can be added and removed. Clickable elements are filtered, when available, by preset role filters. If a role filter matches exactly the role will be set for the member.</p>
-<h4 id="new-add-remove-member">NEW Add / remove member<a class="headerlink" href="#new-add-remove-member" title="Permanent link">#</a></h4>
-<p>Available in the <em>Relation selected</em> mode allows adding and removing members for the currently selected relation.</p>
-<h4 id="new-create-and-add-to-route-mode">NEW Create and add to route mode<a class="headerlink" href="#new-create-and-add-to-route-mode" title="Permanent link">#</a></h4>
-<p>Available from the Way selected mode. These are specialized modes for building route relations and support auto-splitting of ways. They currently do not support removing route members, that needs to be done via the <em>Relation selected</em> mode. Aborting the modes will not create or modify the relation, however ways that have been split will remain split (as this is done in per way undo checkpoints, individual way splits can be undone if necessary).</p>
-<h3 id="alternative-tagging-display">Alternative tagging display<a class="headerlink" href="#alternative-tagging-display" title="Permanent link">#</a></h3>
-<p>We've added a facility to display alternative tagging for an object that matches a specific preset with such information. Currently this is available via a menu entry in the property editor.</p>
-<h3 id="removed-help-launcher-icon">Removed Help launcher icon<a class="headerlink" href="#removed-help-launcher-icon" title="Permanent link">#</a></h3>
-<p>Instead of a launcher icon we now provide a shortcut (long press on the icon) to directly start the help viewer (available on Android 8 and higher. </p>
-<h3 id="better-reporting-and-display-of-tag-issues-when-merging-and-splitting-ways">Better reporting and display of tag issues when merging and splitting ways<a class="headerlink" href="#better-reporting-and-display-of-tag-issues-when-merging-and-splitting-ways" title="Permanent link">#</a></h3>
-<p>Issues occurring when a ways are merged or a way is split are now displayed in a dialog in detail, with the option to investigate them via the element information dialog and potentially fix them in the property editor. </p>
-<h3 id="feedback-form-behaviour-changes">Feedback form behaviour changes<a class="headerlink" href="#feedback-form-behaviour-changes" title="Permanent link">#</a></h3>
-<p>As github no longer supports logins with user name / password this has been removed as an option for the feedback form. If you have a github account you can change a preference to allow issue creation via the normal github web UI. This will be used automatically if you have the github app installed, however note that while the github app catches the URL it doesn't support documented github API for passing parameters (issue template to use and submitted information). Unluckily there is no reasonable way to submit bug reports to github to get this issue addressed.</p>
-<h3 id="accessibility-improvements">Accessibility improvements<a class="headerlink" href="#accessibility-improvements" title="Permanent link">#</a></h3>
-<p>A number of the layouts have been reworked to respond better to changes in font and other screen object scaling, obviously there are limits to what can reasonably be expected to still be functional in an application that. among other things, concerns itself with geographic detail. This is an ongoing activity.</p>
-<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
-<ul>
-<li>Display a warning if an imagery tile source is producing many errors. Note: Bing imagery has a tendency to do this in a spurious fashion, this can be ignored.</li>
-<li>Improve handling of preset file parsing issues.</li>
-<li>Custom presets can be deleted by long pressing the icon in the preset tab of the property editor.</li>
-<li>Issue detail and fixing information is now available for OSMOSE bugs. </li>
-<li>Improved performance in auto-download modes.</li>
-<li>Improved imagery attribution display.</li>
-<li>Colour and line width of the grid/scale display can now be styled. </li>
-<li>Beep volume can now be set in the Advanced preferences.</li>
-</ul>
-<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
-<ul>
-<li>The format of the saved state including data has changed, you should upload any changes before updating.</li>
-</ul>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>The documentation is out of date.</li>
-<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
-</ul></div> -->
-		    
-                    	<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#vespucci-151-highlights" class="nav-link">Vespucci 15.1 Highlights</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="vespucci-151-highlights">Vespucci 15.1 Highlights<a class="headerlink" href="#vespucci-151-highlights" title="Permanent link">#</a></h1>
 <p>2020-12-11</p>
@@ -556,21 +459,20 @@
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
-                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.2.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../../js/base.js" defer></script>
-        <script src="../../../search/main.js" defer></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
