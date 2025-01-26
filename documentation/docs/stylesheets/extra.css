@@ -1,0 +1,10 @@
+:root > * {
+  --md-typeset-a-color: 	       var(--md-primary-fg-color);
+
+// Footer color shades
+  --md-footer-fg-color:                hsla(0, 0%, 100%, 1);
+  --md-footer-fg-color--light:         hsla(0, 0%, 100%, 0.7);
+  --md-footer-fg-color--lighter:       hsla(0, 0%, 100%, 0.45);
+  --md-footer-bg-color:                hsla(0, 0%, 0%, 0.67);
+  --md-footer-bg-color--dark:          hsla(0, 0%, 0%, 0.32);
+}

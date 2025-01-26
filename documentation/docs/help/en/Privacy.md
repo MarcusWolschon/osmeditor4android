@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 # Privacy statement
 
 Vespucci is a collaboratively developed app for editing OpenStreetMap data via its editing API. The developers do not collect, store or otherwise process any personal data related to your usage of the app, you should however be aware of the following:
