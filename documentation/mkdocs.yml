@@ -1,22 +1,50 @@
 site_name: Vespucci 
 site_dir: /var/www/site
+site_url: http://172.16.2.51/
 site_description: 'Main site for Vespucci the Android OpenStreetMap Editor'
 theme:
-  name: flatly
-  custom_dir: flatly-custom
+  name: material
   favicon: favicon.ico
+  logo: vespucci_logo_small.png 
+  custom_dir: overrides
+  palette:
+    primary: blue grey
+    accent: deep orange
+  features:
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+
 markdown_extensions:
     - pymdownx.tilde
     - toc:
         permalink: "#"
         toc_depth: 4
+copyright: 'Generated for'
 extra:
-  version: 20.2.0
+  version: 20.2
   project: Vespucci
+    #  alternate:
+    #- name: English
+    #  link: /help/en/
+    #  lang: en
+    #- name: Deutsch
+    #  link: /help/de/
+    #  lang: de
+  social:
+    - icon: fontawesome/brands/mastodon
+      link: https://en.osm.town/@vespucci_editor
+      name: 'Vespucci on Mastodon'
+    - icon: fontawesome/brands/github
+      link: https://github.com/MarcusWolschon/osmeditor4android/
+      name: 'Vespucci on Github'
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:info@vespucci.io
+extra_css:
+  - stylesheets/extra.css
 exclude_docs: |
   !.well-known
 nav:
-- Vespucci: 'index.md'
 - Introduction: 
     - 'Introduction': 'help/en/Introduction.md'
     - 'Features': 'tutorials/features.md'

@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 # Videos
 
 ### Downloading and installing presets

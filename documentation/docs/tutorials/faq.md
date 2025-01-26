@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 
 # Frequently Asked Questions
 
