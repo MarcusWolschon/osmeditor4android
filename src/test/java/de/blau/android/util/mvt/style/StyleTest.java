@@ -66,7 +66,7 @@ public class StyleTest {
         bridgeHatching.onZoomChange(style, null, 14);
         assertEquals(0, bridgeHatching.getStrokeWidth(), 0.01);
         bridgeHatching.onZoomChange(style, null, 16);
-        double interpolated = Layer.interpolation(1.4, 15, 3, 20, 8, 16);
+        double interpolated = Layer.exponential.interpolate(1.4F, 15D, 3D, 20D, 8D, 16D);
         assertEquals(interpolated * density / 2, bridgeHatching.getStrokeWidth(), 0.01);
         bridgeHatching.onZoomChange(style, null, 20);
         assertEquals(8 * density / 2, bridgeHatching.getStrokeWidth(), 0.01);

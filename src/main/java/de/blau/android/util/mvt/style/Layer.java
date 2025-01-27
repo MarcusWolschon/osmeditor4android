@@ -77,6 +77,9 @@ public abstract class Layer implements Serializable {
     private static final long RGB_ONLY   = 0x00FFFFFFL;
     private static final long ALPHA_ONLY = 0xFF000000L;
 
+    static final Interpolation linear      = new Linear();
+    static final Interpolation exponential = new Exponential();
+
     public enum Type {
         FILL, LINE, SYMBOL, CIRCLE, HEATMAP, FILL_EXTRUSION, RASTER, HILLSHADE, BACKGROUD, SKY
     }
@@ -682,8 +685,11 @@ public abstract class Layer implements Serializable {
                 x = ((Number) o).doubleValue();
             }
         }
-        if (type == null || INTERPOLATION_TYPE_EXPONENTIAL.equals(type.getAsString())) {
-            float base = getExponentialBase(function);
+        final String interpolationType = type == null ? null : type.getAsString();
+        float base = getExponentialBase(function);
+        boolean isExponential = base != 1f || INTERPOLATION_TYPE_EXPONENTIAL.equals(interpolationType);
+        if (interpolationType == null || isExponential) {
+            Interpolation interpolation = isExponential ? exponential : linear;
             JsonArray stops = getInterpolationStops(function);
             if (stops != null) {
                 JsonArray start = (JsonArray) stops.get(0);
@@ -698,18 +704,17 @@ public abstract class Layer implements Serializable {
                     float nextX = next.get(0).getAsFloat();
                     float nextY = next.get(1).getAsFloat();
                     if (x <= nextX) {
-                        return interpolation(base, startX, startY, nextX, nextY, x);
+                        return interpolation.interpolate(base, startX, startY, nextX, nextY, x);
                     }
                     startX = nextX;
                     startY = nextY;
                 }
                 return startY;
             }
-        } else if (INTERPOLATION_TYPE_IDENTITY.equals(type.getAsString())) {
+        } else if (INTERPOLATION_TYPE_IDENTITY.equals(interpolationType)) {
             return x;
-        } else {
-            Log.e(DEBUG_TAG, "Unsupported interpolation function " + type);
         }
+        Log.e(DEBUG_TAG, "evalNumberFunction unsupported interpolation function " + type);
         return 0;
     }
 
@@ -723,35 +728,36 @@ public abstract class Layer implements Serializable {
      */
     protected static int evalColorFunction(@NonNull JsonObject function, @Nullable Feature feature, int x) {
         JsonElement type = function.get(INTERPOLATION_TYPE);
-        if (type == null || INTERPOLATION_TYPE_EXPONENTIAL.equals(type.getAsString())) {
-            float base = getExponentialBase(function);
-            JsonArray stops = getInterpolationStops(function);
-            if (stops != null) {
-                JsonArray start = (JsonArray) stops.get(0);
-                double startX = start.get(0).getAsFloat();
-                long startY = IntegerUtil.toUnsignedLong(Color.parseColor(start.get(1).getAsString()));
-                if (x <= startX) {
-                    return (int) startY;
-                }
-                long alpha = startY & ALPHA_ONLY;
-                startY = startY & RGB_ONLY;
-                final int stopsSize = stops.size();
-                for (int i = 1; i < stopsSize; i++) {
-                    JsonArray next = (JsonArray) stops.get(i);
-                    float nextX = next.get(0).getAsFloat();
-                    long nextY = IntegerUtil.toUnsignedLong(Color.parseColor(next.get(1).getAsString()));
-                    alpha = nextY & ALPHA_ONLY;
-                    nextY = nextY & RGB_ONLY;
-                    if (x <= nextX) {
-                        return (int) (Math.round(interpolation(base, startX, startY, nextX, nextY, x)) | alpha);
-                    }
-                    startX = nextX;
-                    startY = nextY;
-                }
-                return (int) (startY | alpha);
-            }
+        JsonArray stops = getInterpolationStops(function);
+        float base = getExponentialBase(function);
+        boolean isExponential = base != 1f || (type != null && INTERPOLATION_TYPE_EXPONENTIAL.equals(type.getAsString()));
+        if (stops == null || (type != null && !isExponential)) {
+            Log.e(DEBUG_TAG, "evalColorFunction unsupported interpolation function " + type);
+            return 0;
         }
-        return 0;
+        Interpolation interpolation = isExponential ? exponential : linear;
+        JsonArray start = (JsonArray) stops.get(0);
+        double startX = start.get(0).getAsFloat();
+        long startY = IntegerUtil.toUnsignedLong(Color.parseColor(start.get(1).getAsString()));
+        if (x <= startX) {
+            return (int) startY;
+        }
+        long alpha = startY & ALPHA_ONLY;
+        startY = startY & RGB_ONLY;
+        final int stopsSize = stops.size();
+        for (int i = 1; i < stopsSize; i++) {
+            JsonArray next = (JsonArray) stops.get(i);
+            float nextX = next.get(0).getAsFloat();
+            long nextY = IntegerUtil.toUnsignedLong(Color.parseColor(next.get(1).getAsString()));
+            alpha = nextY & ALPHA_ONLY;
+            nextY = nextY & RGB_ONLY;
+            if (x <= nextX) {
+                return (int) (Math.round(interpolation.interpolate(base, startX, startY, nextX, nextY, x)) | alpha);
+            }
+            startX = nextX;
+            startY = nextY;
+        }
+        return (int) (startY | alpha);
     }
 
     /**
@@ -765,35 +771,36 @@ public abstract class Layer implements Serializable {
     protected static JsonArray evalArrayFunction(@NonNull JsonObject function, @Nullable Feature feature, int x) {
         JsonElement type = function.get(INTERPOLATION_TYPE);
         JsonArray result = new JsonArray();
-        if (type == null || INTERPOLATION_TYPE_EXPONENTIAL.equals(type.getAsString())) {
-            float base = getExponentialBase(function);
-            JsonArray stops = getInterpolationStops(function);
-            if (stops != null) {
-                JsonArray start = (JsonArray) stops.get(0);
-                double startX = start.get(0).getAsFloat();
-                JsonArray startY = start.get(1).getAsJsonArray();
-                if (x <= startX) {
-                    return startY;
-                }
-                final int stopsSize = stops.size();
-                for (int i = 1; i < stopsSize; i++) {
-                    JsonArray next = (JsonArray) stops.get(i);
-                    float nextX = next.get(0).getAsFloat();
-                    JsonArray nextY = next.get(1).getAsJsonArray();
-                    if (x <= nextX) {
-                        // check that array elements are actually numbers?
-                        for (int j = 0; j < nextY.size(); j++) {
-                            result.add(new JsonPrimitive(interpolation(base, startX, startY.get(j).getAsDouble(), nextX, nextY.get(j).getAsDouble(), x)));
-                        }
-                        return result;
-                    }
-                    startX = nextX;
-                    startY = nextY;
-                }
-                return startY;
-            }
+        JsonArray stops = getInterpolationStops(function);
+        float base = getExponentialBase(function);
+        boolean isExponential = base != 1f || (type != null && INTERPOLATION_TYPE_EXPONENTIAL.equals(type.getAsString()));
+        if (stops == null || (type != null && !isExponential)) {
+            Log.e(DEBUG_TAG, "evalArrayFunction unsupported interpolation function " + type);
+            return result;
         }
-        return new JsonArray();
+        Interpolation interpolation = isExponential ? exponential : linear;
+        JsonArray start = (JsonArray) stops.get(0);
+        double startX = start.get(0).getAsFloat();
+        JsonArray startY = start.get(1).getAsJsonArray();
+        if (x <= startX) {
+            return startY;
+        }
+        final int stopsSize = stops.size();
+        for (int i = 1; i < stopsSize; i++) {
+            JsonArray next = (JsonArray) stops.get(i);
+            float nextX = next.get(0).getAsFloat();
+            JsonArray nextY = next.get(1).getAsJsonArray();
+            if (x <= nextX) {
+                // check that array elements are actually numbers?
+                for (int j = 0; j < nextY.size(); j++) {
+                    result.add(new JsonPrimitive(interpolation.interpolate(base, startX, startY.get(j).getAsDouble(), nextX, nextY.get(j).getAsDouble(), x)));
+                }
+                return result;
+            }
+            startX = nextX;
+            startY = nextY;
+        }
+        return startY;
     }
 
     /**
@@ -816,7 +823,7 @@ public abstract class Layer implements Serializable {
      */
     private static float getExponentialBase(JsonObject function) {
         JsonElement temp = function.get(INTERPOLATION_TYPE_EXPONENTIONAL_BASE);
-        float base = 1;
+        float base = 1f;
         if (temp != null && temp.isJsonPrimitive()) {
             base = temp.getAsFloat();
         }
@@ -857,42 +864,6 @@ public abstract class Layer implements Serializable {
             }
         }
         return null;
-    }
-
-    /**
-     * Return a interpolated value from a exponential or linear function
-     * 
-     * @param base the base if 1 we will use linear interpolation
-     * @param x1 x of first point
-     * @param y1 y of first point
-     * @param x2 x of 2nd point
-     * @param y2 y of 2nd point
-     * @param x the x value we want to interpolate for
-     * @return f(x)
-     */
-    static double interpolation(double base, double x1, double y1, double x2, double y2, double x) {
-        if (base == 1D) { // actually linear, problematic construct as we shouldn't be comparing FP numbers
-            final double a = (x2 * y1 - x1 * y2) / (x2 - x1);
-            final double s = (y2 - a) / x2;
-            return x * s + a;
-        }
-        final double dY = y1 - y2;
-        final double dX = Math.pow(base, x1) - Math.pow(base, x2);
-        double h = logBase(base, dX / dY);
-        double k = y1 - Math.pow(base, x1) * dY / dX;
-
-        return Math.pow(base, x - h) + k;
-    }
-
-    /**
-     * Calculate the log of x in the specified base
-     * 
-     * @param base the base
-     * @param x x
-     * @return log x
-     */
-    private static double logBase(double base, double x) {
-        return Math.log(x) / Math.log(base);
     }
 
     /**
