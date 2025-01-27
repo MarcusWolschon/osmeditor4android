@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.68.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.71.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -288,6 +288,7 @@
             <check key="embankment" text="Embankment" disable_off="true"/>
             <check key="lit" text="Lit" disable_off="true"/>
             <check key="toll" text="Toll" disable_off="true"/>
+            <check key="toll:hgv" text="HGV toll" disable_off="true"/>
             <check key="lane_markings" text="Lane markings"/>
             <check key="winter_road" text="Winter road" disable_off="true"/>
             <check key="ice_road" text="Ice road" disable_off="true"/>
@@ -1602,9 +1603,11 @@
         <preset_link preset_name="Address"/>
     </chunk>
     <chunk id="link_contact_address_payment">
+        <!-- this should likely be renamed to contact_commercial or similar -->
         <preset_link preset_name="Contact"/>
         <preset_link preset_name="Contact ('contact:*')"/>
         <preset_link preset_name="Address"/>
+        <text key="ref:vatin" text="VAT code (international)"/>
         <preset_link preset_name="Payment Methods"/>
         <preset_link preset_name="Cash withdrawal"/>
     </chunk>
@@ -1961,17 +1964,19 @@
     </chunk>
     <chunk id="fountain_type">
         <combo key="fountain" text="Fountain type">
+            <list_entry value="bottle_refill" display_value="Bottle refill"/>
             <list_entry value="bubbler" display_value="Bubbler"/>
             <list_entry value="nasone" display_value="Nasone"/>
             <list_entry value="nozzle" display_value="Nozzle"/>
-            <list_entry value="splash_pad" display_value="Splash pad"/>
-            <list_entry value="stone_block" display_value="Stone block"/>
-            <list_entry value="bottle_refill" display_value="Bottle refill"/>
-            <list_entry value="toret" display_value="Toret"/>
             <list_entry value="roman_wolf" display_value="Roman wolf"/>
             <list_entry value="sebilj" display_value="Sebilj"/>
+            <list_entry value="splash_pad" display_value="Splash pad"/>
+            <list_entry value="stone_block" display_value="Stone block"/>            
+            <list_entry value="toret" display_value="Toret"/>            
             <list_entry value="viktorija_zdenac" display_value="Viktorija zdenac"/>
             <list_entry value="wallace" display_value="Wallace"/>
+            <list_entry value="drinking" display_value="Generic drinking fountain"/>
+            <list_entry value="decorative" display_value="Generic decorative fountain"/>
         </combo>      
     </chunk>
     <chunk id="highchair">
@@ -2582,7 +2587,7 @@
             <preset_link preset_name="Circular junction" text="Similar but different tags:" alternative="true"/>
             <preset_link preset_name="Mini-Roundabout" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Roundabout -->
-        <item name="Circular junction" icon="icons/png/transport_empty.png" type="way,closedway" preset_name_label="true">
+        <item name="Circular junction" icon="icons/png/transport_circular_junction.png" type="way,closedway" preset_name_label="true">
             <link wiki="Tag:junction=circular"/>
             <space/>
             <key key="junction" value="circular"/>
@@ -4234,6 +4239,7 @@
                 <link wiki="Tag:waterway=waterfall"/>
                 <space/>
                 <key key="waterway" value="waterfall"/>
+                <check key="artificial" text="Artificial" disable_off="true"/>
                 <reference ref="name_wikipedia"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
             </item> <!-- Waterfall -->
@@ -4970,7 +4976,15 @@
                 <text key="operator" text="Operator"/>
                 <text key="railway:ref" text="Reference"/>
                 <combo key="railway:signal_box" text="Type" values="electric,electronic,mechanical,track_diagram" display_values="Electric,Electronic,Mechanical,Track diagram" values_context="railway"/>
-            </item> <!-- Train wash -->
+            </item> <!-- Signal box -->
+            <item name="Railway junction" icon="icons/png/transport_railway_junction.png" type="node" preset_name_label="true">
+                <key key="railway" value="junction"/>
+                <space/>
+                <label text="A junction where railways diverge or converge."/>
+                <space/>
+                <text key="operator" text="Operator"/>
+                <reference ref="name_ref"/>
+            </item> <!-- Railway junction -->
             <item name="Train wash" icon="icons/png/transport_train_wash.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="railway" value="train_wash"/>
                 <text key="operator" text="Operator"/>
@@ -10775,9 +10789,25 @@
         <item name="Street cabinet" icon="icons/png/man_made_empty.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=street_cabinet"/>
             <key key="man_made" value="street_cabinet"/>
+            <reference ref="utilities"/>
             <optional>
-                <combo key="street_cabinet" text="Type" values="cable_tv,gas,postal_service,power,street_lighting,telecom,traffic_control,traffic_monitoring,transport_management,waste,water,water_management" display_values="Cable tv,Gas,Postal service,Power,Street lighting,Telecom,Traffic control,Traffic monitoring,Transport management,Waste,Water,Water management"/>
-                <reference ref="ref_operator"/>
+                <combo key="street_cabinet" text="Type">
+                    <list_entry value="cable_tv" display_value="Cable tv" deprecated="true"/>
+                    <list_entry value="gas" display_value="Gas" deprecated="true"/>
+                    <list_entry value="postal_service" display_value="Postal service"/>
+                    <list_entry value="power" display_value="Power" deprecated="true"/>
+                    <list_entry value="street_lighting" display_value="Street lighting" deprecated="true"/>
+                    <list_entry value="telecom" display_value="Telecom" deprecated="true"/>
+                    <list_entry value="traffic_control" display_value="Traffic control"/>
+                    <list_entry value="traffic_monitoring" display_value="Traffic monitoring"/>
+                    <list_entry value="transport_management" display_value="Transport management"/>
+                    <list_entry value="waste" display_value="Waste"/>
+                    <list_entry value="water" display_value="Water" deprecated="true"/>
+                    <list_entry value="water_management" display_value="Water management" deprecated="true"/>
+                </combo>
+            </optional>
+            <reference ref="ref_operator"/>
+            <optional>    
                 <text key="manufacturer" text="Manufacturer"/>
                 <reference ref="colours"/>
             </optional>
@@ -13577,18 +13607,25 @@
             <reference ref="name_wikipedia"/>
             <text key="ele" text="Elevation (meters)" length="10"/>
             <optional>
-            <combo key="volcano:status" text="Current Status" values_context="volcano">
-                <list_entry value="active" display_value="Active"/>
-                <list_entry value="dormant" display_value="Dormant" short_description="Was active in historical times"/>
-                <list_entry value="extinct" display_value="Extinct" short_description="Not erupted in recorded history"/>
-            </combo>
-            <combo key="volcano:type" text="Type">
-                <list_entry value="scoria" display_value="Scoria (volcanic cone)"/>
-                <list_entry value="shield" display_value="Shield volcano (low profile)"/>
-                <list_entry value="stratovolcano" display_value="Stratovolcano (composite volcano)"/>
-            </combo>
-        </optional>
+                <combo key="volcano:status" text="Current Status" values_context="volcano">
+                    <list_entry value="active" display_value="Active"/>
+                    <list_entry value="dormant" display_value="Dormant" short_description="Was active in historical times"/>
+                    <list_entry value="extinct" display_value="Extinct" short_description="Not erupted in recorded history"/>
+                </combo>
+                <combo key="volcano:type" text="Type">
+                    <list_entry value="scoria" display_value="Scoria (volcanic cone)"/>
+                    <list_entry value="shield" display_value="Shield volcano (low profile)"/>
+                    <list_entry value="stratovolcano" display_value="Stratovolcano (composite volcano)"/>
+                </combo>
+            </optional>
         </item> <!-- Volcano -->
+        <item name="Hill" icon="icons/png/poi_hill.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:natural=hill"/>
+            <space/>
+            <key key="natural" value="hill"/>
+            <reference ref="name_wikipedia"/>
+            <text key="ele" text="Elevation (meters)" length="10"/>
+        </item> <!-- Hill -->
         <item name="Ar&#xEA;te" icon="icons/png/poi_arete_sp.png" type="way" preset_name_label="true">
             <link wiki="Tag:natural=arete"/>
             <space/>
@@ -13657,6 +13694,14 @@
             <reference ref="general_access"/>
             <reference ref="fee"/>
         </item> <!-- Cave Entrance -->
+        <item name="Arch" icon="icons/png/poi_arch.png" type="node,way,closedway,multipolygon" preset_name_label="true" name_context="natural">
+            <link wiki="Tag:natural=arch"/>
+            <space/>
+            <label text="A rock arch naturally formed by erosion, with an opening underneath."/>
+            <space/>
+            <key key="natural" value="arch"/>
+            <reference ref="optional_name_wikipedia"/>
+        </item> <!-- Arch -->
         <item name="Geyser" icon="icons/png/natural_fountain_12060.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:natural=geyser"/>
             <space/>
