@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +24,8 @@ import de.blau.android.util.collections.LongOsmElementMap;
  */
 public class Storage implements Serializable {
 
-    private static final String DEBUG_TAG = Storage.class.getSimpleName().substring(0, Math.min(23, Storage.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Storage.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Storage.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final long serialVersionUID = 3838107046050083566L;
 
@@ -379,8 +382,22 @@ public class Storage implements Serializable {
      * @return all bounding boxes
      */
     @NonNull
-    public synchronized List<BoundingBox> getBoundingBoxes() {
-        return Collections.unmodifiableList(bboxes);
+    public List<BoundingBox> getBoundingBoxes() {
+        synchronized (bboxes) {
+            return Collections.unmodifiableList(bboxes);
+        }
+    }
+
+    /**
+     * Fill a list of
+     * 
+     * @param boxes
+     */
+    public void getBoundingBoxes(List<BoundingBox> boxList) {
+        boxList.clear();
+        synchronized (bboxes) {
+            boxList.addAll(bboxes);
+        }
     }
 
     /**
@@ -388,9 +405,11 @@ public class Storage implements Serializable {
      * 
      * @param bbox bounding box to add
      */
-    synchronized void setBoundingBox(@NonNull final BoundingBox bbox) {
-        bboxes.clear();
-        bboxes.add(bbox);
+    void setBoundingBox(@NonNull final BoundingBox bbox) {
+        synchronized (bboxes) {
+            bboxes.clear();
+            bboxes.add(bbox);
+        }
     }
 
     /**
@@ -398,9 +417,11 @@ public class Storage implements Serializable {
      * 
      * @param bbox bounding box to add
      */
-    synchronized void addBoundingBox(@NonNull final BoundingBox bbox) {
-        if (!bboxes.contains(bbox)) {
-            bboxes.add(bbox);
+    void addBoundingBox(@NonNull final BoundingBox bbox) {
+        synchronized (bboxes) {
+            if (!bboxes.contains(bbox)) {
+                bboxes.add(bbox);
+            }
         }
     }
 
@@ -409,17 +430,21 @@ public class Storage implements Serializable {
      * 
      * @param box bounding box to remove
      */
-    public synchronized void deleteBoundingBox(@NonNull BoundingBox box) {
-        bboxes.remove(box);
+    public void deleteBoundingBox(@NonNull BoundingBox box) {
+        synchronized (bboxes) {
+            bboxes.remove(box);
+        }
     }
 
     /**
      * Null entries shouldn't exist, but if they do this will remove them
      */
-    public synchronized void removeNullBoundingboxes() {
+    public void removeNullBoundingboxes() {
         int count = 0;
-        while (bboxes.remove(null)) {
-            count++;
+        synchronized (bboxes) {
+            while (bboxes.remove(null)) {
+                count++;
+            }
         }
         Log.e(DEBUG_TAG, "Removed " + count + " null bounding boxes");
     }
@@ -430,10 +455,12 @@ public class Storage implements Serializable {
      * @return the last BoundingBox or one covering the whole mercator extent
      */
     @NonNull
-    synchronized BoundingBox getLastBox() {
-        int s = bboxes.size();
-        if (s > 0) {
-            return bboxes.get(s - 1);
+    BoundingBox getLastBox() {
+        synchronized (bboxes) {
+            int s = bboxes.size();
+            if (s > 0) {
+                return bboxes.get(s - 1);
+            }
         }
         Log.e(DEBUG_TAG, "Bounding box list empty");
         return ViewBox.getMaxMercatorExtent(); // full extent
@@ -442,8 +469,10 @@ public class Storage implements Serializable {
     /**
      * Clear bounding box list
      */
-    public synchronized void clearBoundingBoxList() {
-        bboxes.clear();
+    public void clearBoundingBoxList() {
+        synchronized (bboxes) {
+            bboxes.clear();
+        }
     }
 
     /**

@@ -315,13 +315,14 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     private float[][] coord = null;
 
     // allocate these just once
-    private final FloatPrimitiveList points          = new FloatPrimitiveList(FloatPrimitiveList.MEDIUM_DEFAULT);
-    private float[]                  offsettedCasing = new float[100];
-    private final List<Node>         nodesResult     = new LowAllocArrayList<>(1000);
-    private final List<Way>          waysResult      = new LowAllocArrayList<>(1000);
-    private final List<BoundingBox>  downloadedBoxes = new LowAllocArrayList<>();
-    private final ViewBox            viewBox         = new ViewBox();
-    private final Coordinates        centroid        = new Coordinates(0, 0);
+    private final FloatPrimitiveList points            = new FloatPrimitiveList(FloatPrimitiveList.MEDIUM_DEFAULT);
+    private float[]                  offsettedCasing   = new float[100];
+    private final List<Node>         nodesResult       = new LowAllocArrayList<>(1000);
+    private final List<Way>          waysResult        = new LowAllocArrayList<>(1000);
+    private final List<BoundingBox>  boundingBoxResult = new LowAllocArrayList<>();
+    private final List<BoundingBox>  downloadedBoxes   = new LowAllocArrayList<>();
+    private final ViewBox            viewBox           = new ViewBox();
+    private final Coordinates        centroid          = new Coordinates(0, 0);
 
     /**
      * Stuff for multipolygon support Instantiate these objects just once
@@ -469,9 +470,18 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
 
         inNodeIconZoomRange = zoomLevel > currentStyle.getIconZoomLimit();
 
-        downloadedBoxes.clear();
         viewBox.set(map.getViewBox());
-        for (BoundingBox box : delegator.getCurrentStorage().getBoundingBoxes()) {
+        try {
+            if (delegator.tryLock()) {
+                delegator.getCurrentStorage().getBoundingBoxes(boundingBoxResult);
+            } else {
+                Log.w(DEBUG_TAG, "BondigBoxes already locked, reusin existing data");
+            }
+        } finally {
+            delegator.unlock();
+        }
+        downloadedBoxes.clear();
+        for (BoundingBox box : boundingBoxResult) {
             if (box.intersects(viewBox)) {
                 downloadedBoxes.add(box);
             }
