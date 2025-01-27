@@ -1,5 +1,18 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.2.3:
+
+- Fix protect against potential crash in preset filter
+- Fix improve element selection from FeatureInfo modal
+- Fix wrong handling of way nodes when converting GeoJson
+- Fix don't use threads for rendering GPX tracks
+- Fix enable DialogRows and not TextRows
+- Add rendering for natural=sand and beach
+- Update default preset
+- Update imagery from ELI
+- Update translations
+- Update JosmFilterParser and OpeningHoursFragment dependencies
+
 20.2.2:
 
 - Fix don't assume that list of styles hasn't changed in length
