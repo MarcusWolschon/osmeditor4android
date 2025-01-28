@@ -82,11 +82,7 @@ public class MultiHashMap<K, V> implements Serializable {
      * @return true if the element was added, false if it was already in the set or null
      */
     public boolean add(@NonNull K key, @NonNull V item) {
-        Set<V> values = map.get(key);
-        if (values == null) {
-            values = (sorted ? new TreeSet<>() : new HashSet<>());
-            map.put(key, values);
-        }
+        Set<V> values = getSet(key);
         return values.add(item);
     }
 
@@ -94,15 +90,28 @@ public class MultiHashMap<K, V> implements Serializable {
      * Adds all items to the set of values associated with the key
      * 
      * @param key the key
-     * @param items an array containing the items
+     * @param items the items
      */
-    public void add(@NonNull K key, @NonNull V[] items) {
+    @SuppressWarnings("unchecked")
+    public void add(@NonNull K key, @NonNull V... items) {
+        Set<V> values = getSet(key);
+        values.addAll(Arrays.asList(items));
+    }
+
+    /**
+     * Get the Set containing the current values or allocated a new one
+     * 
+     * @param key the key
+     * @return a Set
+     */
+    @NonNull
+    private Set<V> getSet(@NonNull K key) {
         Set<V> values = map.get(key);
         if (values == null) {
             values = (sorted ? new TreeSet<>() : new HashSet<>());
             map.put(key, values);
         }
-        values.addAll(Arrays.asList(items));
+        return values;
     }
 
     /**
@@ -112,11 +121,7 @@ public class MultiHashMap<K, V> implements Serializable {
      * @param items a set containing the items
      */
     private void add(@NonNull K key, @NonNull Set<V> items) {
-        Set<V> values = map.get(key);
-        if (values == null) {
-            values = (sorted ? new TreeSet<>() : new HashSet<>());
-            map.put(key, values);
-        }
+        Set<V> values = getSet(key);
         values.addAll(items);
     }
 

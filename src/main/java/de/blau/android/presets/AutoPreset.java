@@ -1,5 +1,7 @@
 package de.blau.android.presets;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,7 +47,8 @@ import de.blau.android.util.collections.MultiHashMap;
 
 public class AutoPreset {
 
-    private static final String DEBUG_TAG = AutoPreset.class.getSimpleName().substring(0, Math.min(23, AutoPreset.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AutoPreset.class.getSimpleName().length());
+    private static final String DEBUG_TAG = AutoPreset.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String  ICON         = "auto-preset.png";
     private static final String PNG          = ".png";
@@ -186,7 +189,7 @@ public class AutoPreset {
                                     field.setMatchType(MatchType.NONE);
                                 } else {
                                     String[] s = key.split(":", 2);
-                                    if (Tags.I18N_NAME_KEYS.contains(key) || (s.length == 2 && Tags.I18N_NAME_KEYS.contains(s[0]))) {
+                                    if (Tags.I18N_KEYS.contains(key) || (s.length == 2 && Tags.I18N_KEYS.contains(s[0]))) {
                                         // if a name key add without value
                                         item.addTag(false, key, PresetKeyType.TEXT, null, MatchType.NONE);
                                     } else if (!item.hasKey(key)) {

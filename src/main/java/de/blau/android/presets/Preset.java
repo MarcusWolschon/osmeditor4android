@@ -17,9 +17,11 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -52,6 +54,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.search.Wrapper;
+import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
@@ -1585,18 +1588,32 @@ public class Preset implements Serializable {
                 outputStream.println("{\"description\":\"Automatically discarded\",\"key\":\"" + key + "\"},");
             }
             outputStream.println("{\"description\":\"Used for validation\",\"key\":\"check_date\"},");
+
+            Set<String> languages = new HashSet<>();
+            for (Properties properties : App.getGeoContext(ctx).allProperties()) {
+                String[] languagesArray = properties.getLanguages();
+                if (languagesArray != null) {
+                    languages.addAll(Arrays.asList(languagesArray));
+                }
+            }
+            for (String language : languages) {
+                for (String key : Tags.I18N_KEYS) {
+                    outputStream.println("{\"description\":\"Added in multi-lingual regions\",\"key\":\"" + key + ":" + language + "\"},");
+                }
+            }
             int presetsCount = presets.length;
             for (int i = 0; i < presetsCount; i++) {
-                if (presets[i] != null) {
-                    if (i != 0) {
-                        if (i != presetsCount - 1) {
-                            outputStream.print(",");
-                        }
-                        outputStream.println();
-                    }
-                    String json = presets[i].toJSON();
-                    outputStream.print(json);
+                if (presets[i] == null) {
+                    continue;
                 }
+                if (i != 0) {
+                    if (i != presetsCount - 1) {
+                        outputStream.print(",");
+                    }
+                    outputStream.println();
+                }
+                String json = presets[i].toJSON();
+                outputStream.print(json);
             }
             outputStream.println("]}");
         } catch (Exception e) {

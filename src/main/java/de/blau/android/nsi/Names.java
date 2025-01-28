@@ -341,7 +341,7 @@ public class Names {
         if (name != null && name.equals(brand)) {
             String amenity = tags.get(Tags.KEY_AMENITY);
             if (amenity != null && AMENITY_VALUES_TO_REMOVE.contains(amenity)) {
-                for (String nameTag : Tags.I18N_NAME_KEYS) {
+                for (String nameTag : Tags.I18N_KEYS) {
                     tags.remove(nameTag);
                 }
             }

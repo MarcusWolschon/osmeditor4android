@@ -127,7 +127,7 @@ public abstract class PresetTagField extends PresetField {
      * 
      * @param hint the hint to set
      */
-    void setHint(@Nullable String hint) {
+    public void setHint(@Nullable String hint) {
         this.hint = hint;
     }
 

@@ -450,7 +450,7 @@ public class PresetTest {
         }
         map.put(new PresetTextField("name:de"), "Deutsch");
         int size = map.size();
-        Util.groupI18nKeys(Tags.I18N_NAME_KEYS, map);
+        Util.groupI18nKeys(Tags.I18N_KEYS, map);
         Iterator<Entry<PresetField, String>> it = map.entrySet().iterator();
         boolean found = false;
         while (it.hasNext()) {
