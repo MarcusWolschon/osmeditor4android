@@ -264,7 +264,9 @@ public class ImageryAlignmentActionModeCallback implements Callback {
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         switch (item.getItemId()) {
         case MENUITEM_ZERO:
-            osmts.setOffset(map.getZoomLevel(), 0.0d, 0.0d);
+            final int zoomLevel = map.getZoomLevel();
+            osmts.setOffset(zoomLevel, 0.0d, 0.0d);
+            setOffset(zoomLevel, 0f, 0f);
             map.invalidate();
             break;
         case MENUITEM_RESET:
