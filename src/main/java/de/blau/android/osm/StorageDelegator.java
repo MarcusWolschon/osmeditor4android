@@ -2895,6 +2895,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     @NonNull
     public Storage getCurrentStorage() {
+        // this doesn't make a lot of sense and needs to be re-visted
         try {
             lock();
             return currentStorage;
