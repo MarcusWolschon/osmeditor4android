@@ -27,7 +27,9 @@ If alternative tagging is available for the main object, the alternative presets
 * Set _Apply with optional tags_, after setting this, optional tags will be added when you apply the preset to an object, the same behaviour as pressing the ![Apply preset with optional tags](../images/tag_menu_apply_preset.png), but this will work when auto-applying the best matching preset on startup of the property editor too.
 * _Remove_ remove the item from the MRU preset view. Note that the above settings are persistent and will remain in force even if the preset item is removed.  
 
-Further behaviour and menu items are similar or the same as for the _Details_ tab, the _Add language tags_ menu item will add local language variants of the name and similar keys to the preset if configured for the region (see [the GeoContext repository](https://github.com/simonpoole/geocontext)).
+The _Add language variants_ menu item will add local language variants of the name and similar keys to the form if configured for the region (see [the GeoContext repository](https://github.com/simonpoole/geocontext)).
+
+Further behaviour and menu items are similar or the same as for the _Details_ tab.
 
 ## Details Tab
  

@@ -39,6 +39,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import ch.poole.android.checkbox.IndeterminateCheckBox;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
@@ -87,6 +88,7 @@ import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.GeoContext.Properties;
+import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
@@ -465,9 +467,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
         menu.findItem(R.id.tag_menu_paste).setVisible(!App.getTagClipboard(getContext()).isEmpty());
         menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(tagListener.pasteFromClipboardIsPossible());
-
-        Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
-        menu.findItem(R.id.tag_menu_locale).setVisible(prop != null && prop.getLanguages() != null);
+        List<String> isoCodes = propertyEditorListener.getIsoCodes();
+        Log.i(DEBUG_TAG, "Country codes " + isoCodes);
+        Properties prop = App.getGeoContext(getContext()).getProperties(isoCodes);
+        menu.findItem(R.id.tag_menu_locale).setEnabled(prop != null && prop.getLanguages() != null);
     }
 
     @Override
@@ -533,36 +536,46 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             Address.resetLastAddresses(getActivity());
             return true;
         case R.id.tag_menu_locale:
-            // add locale to any name keys present
-            LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
-            LinkedHashMap<String, String> result = new LinkedHashMap<>();
-            Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
-            String[] languages = prop.getLanguages();
-            List<String> i18nKeys = getI18nKeys(tagListener.getBestPreset());
-            if (languages != null) {
-                for (Entry<String, String> e : allTags.entrySet()) {
-                    String key = e.getKey();
-                    result.put(key, e.getValue());
-                    if (i18nKeys.contains(key)) {
-                        for (String language : languages) {
-                            String languageKey = key + ":" + language;
-                            if (!allTags.containsKey(languageKey)) {
-                                result.put(languageKey, "");
-                            }
-                        }
-                    }
-                }
-            }
-            if (result.size() != allTags.size()) {
-                tagListener.updateTags(result, true);
-                update();
-            }
+            addI18nKeys();
             return true;
         case R.id.tag_menu_help:
             HelpViewer.start(getActivity(), R.string.help_propertyeditor);
             return true;
         default:
             return false;
+        }
+    }
+
+    /**
+     * Add any appropriate I18N keys
+     */
+    private void addI18nKeys() {
+        // add locale to any name keys present
+        LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
+        LinkedHashMap<String, String> result = new LinkedHashMap<>();
+        Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
+        String[] languages = prop.getLanguages();
+        if (languages == null) {
+            return;
+        }
+        final PresetItem bestPreset = tagListener.getBestPreset();
+        List<String> i18nKeys = getI18nKeys(bestPreset);
+        for (Entry<String, String> e : allTags.entrySet()) {
+            String key = e.getKey();
+            result.put(key, e.getValue());
+            if (!i18nKeys.contains(key)) {
+                continue;
+            }
+            for (String language : languages) {
+                String languageKey = key + Tags.NS_SEP + language;
+                if (!allTags.containsKey(languageKey)) {
+                    result.put(languageKey, "");
+                }
+            }
+        }
+        if (result.size() != allTags.size()) {
+            tagListener.updateTags(result, true);
+            update();
         }
     }
 
@@ -821,11 +834,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 String key = e.getKey();
                 String value = e.getValue();
                 // check if i18n version of a tag
-                boolean i18nFound = addI18nKeyToPreset(key, value, preset, editable, editableView);
-                if (i18nFound) {
+                if (addI18nKeysToPreset(key, value, preset, editable, editableView)) {
                     groupingRequired = true;
                     tagList.remove(key);
-                } else if (linkedPresets != null) { // check if tag is in a linked preset
+                    continue;
+                }
+                if (linkedPresets != null) { // check if tag is in a linked preset
                     for (PresetItem l : linkedPresets) {
                         if (l.getFixedTagCount() > 0) {
                             continue; // Presets with fixed tags should always get their own entry
@@ -858,8 +872,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             }
                         }
                         // check if i18n version of a name tag
-                        i18nFound = addI18nKeyToPreset(key, value, l, linkedTags, editableView);
-                        if (i18nFound) {
+                        if (addI18nKeysToPreset(key, value, l, linkedTags, editableView)) {
                             keyToLinkedPreset.put(key, l);
                             groupingRequired = true;
                             tagList.remove(key);
@@ -927,38 +940,43 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         if (preset != null) {
             i18nKeys.addAll(preset.getI18nKeys());
         }
-        i18nKeys.addAll(Tags.I18N_NAME_KEYS);
+        i18nKeys.addAll(Tags.I18N_KEYS);
         return i18nKeys;
     }
 
     /**
      * Add internationalized keys to preset and to their resp. maps so that the entries will match
      * 
-     * @param key base key
+     * @param key key
      * @param value value
      * @param preset current preset
      * @param editableMap target map containing the recommended tags
      * @param editableView out current layout
      * @return true if i18n variants were added
      */
-    private boolean addI18nKeyToPreset(@NonNull String key, String value, PresetItem preset, @NonNull Map<PresetField, String> editableMap,
+    private boolean addI18nKeysToPreset(@NonNull String key, String value, PresetItem preset, @NonNull Map<PresetField, String> editableMap,
             @NonNull EditableLayout editableView) {
-        if (preset != null) {
-            List<String> i18nKeys = getI18nKeys(preset);
-            for (String tag : i18nKeys) {
-                if (key.startsWith(tag + ":") && preset.hasKey(tag)) {
-                    String i18nPart = key.substring(tag.length() + 1);
-                    boolean optional = preset.isOptionalTag(tag);
-                    PresetTextField field = new PresetTextField(key);
-                    preset.addTag(optional, key, PresetKeyType.TEXT, null, MatchType.NONE);
-                    String hint = preset.getHint(tag);
-                    if (hint != null) {
-                        preset.setHint(key, getActivity().getString(R.string.internationalized_hint, hint, i18nPart));
-                    }
-                    editableMap.put(field, value);
-                    editableView.putTag(key, value);
-                    return true;
+        if (preset == null) {
+            return false;
+        }
+        final FragmentActivity activity = getActivity();
+        for (String i18nKey : getI18nKeys(preset)) {
+            if (key.startsWith(i18nKey + Tags.NS_SEP) && preset.hasKey(i18nKey)) {
+                int sepPos = key.lastIndexOf(Tags.NS_SEP);
+                String language = key.substring(sepPos + 1);
+                // validate that this is actually a language
+                if (!LocaleUtils.isLanguage(language)) {
+                    break;
                 }
+                boolean optional = preset.isOptionalTag(i18nKey);
+                PresetTextField field = (PresetTextField) preset.addTag(optional, key, PresetKeyType.TEXT, null, MatchType.NONE);
+                String hint = preset.getHint(i18nKey);
+                if (hint != null) {
+                    field.setHint(activity.getString(R.string.internationalized_hint, hint, language));
+                }
+                editableMap.put(field, value);
+                editableView.putTag(i18nKey, value);
+                return true;
             }
         }
         return false;

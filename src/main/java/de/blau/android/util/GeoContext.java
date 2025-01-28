@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -180,8 +181,7 @@ public class GeoContext {
     @NonNull
     private Map<String, Properties> getPropertiesMap(@NonNull AssetManager assetManager, @NonNull String fileName) {
         Map<String, Properties> result = new HashMap<>();
-        try (InputStream is = assetManager.open(fileName);
-             JsonReader reader = new JsonReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+        try (InputStream is = assetManager.open(fileName); JsonReader reader = new JsonReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             reader.beginObject();
             while (reader.hasNext()) {
                 String territory = reader.nextName();
@@ -510,5 +510,15 @@ public class GeoContext {
             Log.e(DEBUG_TAG, "getIsoCodes " + iaex + " for " + element + " " + element.getOsmId());
         }
         return null;
+    }
+
+    /**
+     * Get all properties
+     * 
+     * @return a Collection of Properties
+     */
+    @NonNull
+    public Collection<Properties> allProperties() {
+        return properties.values();
     }
 }

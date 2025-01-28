@@ -56,7 +56,15 @@ public class LocaleUtilsTest {
     public void latinScript() {
         Locale locale = Locale.forLanguageTag("de-CH");
         assertTrue(LocaleUtils.usesLatinScript(locale));
-        locale = Locale.forLanguageTag("cn");
+        locale = Locale.forLanguageTag("zh");
         assertFalse(LocaleUtils.usesLatinScript(locale));
+    }
+    
+    @Test
+    public void isLanguage() {
+        assertTrue(LocaleUtils.isLanguage("de_CH"));
+        assertTrue(LocaleUtils.isLanguage("de-Runr"));
+        assertTrue(LocaleUtils.isLanguage("de"));
+        assertFalse(LocaleUtils.isLanguage("xxxxxx"));
     }
 }
