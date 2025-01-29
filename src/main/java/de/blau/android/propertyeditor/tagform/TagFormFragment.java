@@ -5,6 +5,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -500,12 +501,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         case R.id.tag_menu_apply_preset:
         case R.id.tag_menu_apply_preset_with_optional:
             PresetItem pi = tagListener.getBestPreset();
-            if (pi != null) {
-                boolean withOptional = item.getItemId() == R.id.tag_menu_apply_preset_with_optional;
-                displayOptional.put(pi, withOptional);
-                presetSelectedListener.onPresetSelected(pi, withOptional, false,
-                        prefs.applyWithLastValues(getContext(), pi) ? Prefill.FORCE_LAST : Prefill.PRESET);
+            if (pi == null) {
+                return true;
             }
+            boolean withOptional = item.getItemId() == R.id.tag_menu_apply_preset_with_optional;
+            displayOptional.put(pi, withOptional);
+            presetSelectedListener.onPresetSelected(pi, withOptional, false, prefs.applyWithLastValues(getContext(), pi) ? Prefill.FORCE_LAST : Prefill.PRESET);
             return true;
         case R.id.tag_menu_revert:
             doRevert();
@@ -524,12 +525,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             Wiki.displayMapFeatures(getActivity(), prefs, tagListener.getBestPreset());
             return true;
         case R.id.tag_menu_resetMRU:
-            for (Preset p : propertyEditorListener.getPresets()) {
-                if (p != null) {
-                    p.resetRecentlyUsed();
-                }
-            }
-            propertyEditorListener.updateRecentPresets();
+            resetAllMru();
             return true;
         case R.id.tag_menu_reset_address_prediction:
             // simply overwrite with an empty file
@@ -544,6 +540,18 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         default:
             return false;
         }
+    }
+
+    /**
+     * Reset the MRUs for all presets
+     */
+    private void resetAllMru() {
+        for (Preset p : propertyEditorListener.getPresets()) {
+            if (p != null) {
+                p.resetRecentlyUsed();
+            }
+        }
+        propertyEditorListener.updateRecentPresets();
     }
 
     /**
@@ -1058,7 +1066,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 rowLayout.addView(LongTextDialogRow.getRow(this, inflater, rowLayout, preset, (PresetTextField) field, value, maxStringLength));
                 return;
             }
-            if (ValueType.INTEGER == valueType || ValueType.CARDINAL_DIRECTION == valueType) {
+            if (Arrays.asList(ValueType.INTEGER, ValueType.CARDINAL_DIRECTION, ValueType.DATE).contains(valueType)) {
                 rowLayout.addView(ValueWidgetRow.getRow(this, inflater, rowLayout, preset, field, value, values, allTags));
                 return;
             }

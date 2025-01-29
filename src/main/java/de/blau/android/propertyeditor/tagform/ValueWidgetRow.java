@@ -1,10 +1,13 @@
 package de.blau.android.propertyeditor.tagform;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,6 +22,9 @@ import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.util.StringWithDescription;
 
 public class ValueWidgetRow extends DialogRow implements TagChanged {
+
+    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, ValueWidgetRow.class.getSimpleName().length());
+    protected static final String DEBUG_TAG = ValueWidgetRow.class.getSimpleName().substring(0, TAG_LEN);
 
     private ValueType      valueType;
     private PresetTagField field;
@@ -75,14 +81,22 @@ public class ValueWidgetRow extends DialogRow implements TagChanged {
         row.setOnClickListener(v -> {
             final View finalView = v;
             finalView.setEnabled(false); // debounce
-            if (ValueType.INTEGER == row.valueType) {
+            switch (row.valueType) {
+            case INTEGER:
                 IntegerValueFragment.show(caller, hint, key, row.getValue(), values, preset, allTags);
-            }
-            if (ValueType.CARDINAL_DIRECTION == row.valueType) {
+                break;
+            case CARDINAL_DIRECTION:
                 DirectionValueFragment.show(caller, hint, key, row.getValue(), values, preset, allTags);
+                break;
+            case DATE:
+                DateValueFragment.show(caller, hint, key, row.getValue(), values, preset, allTags);
+                break;
+            default:
+                Log.e(DEBUG_TAG, "No widget for " + row.valueType);
             }
         });
         return row;
+
     }
 
     @Override

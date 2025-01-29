@@ -570,6 +570,7 @@
     <string name="compass_widget_usage_with_additional">Deselect any value above and then point your device in the direction you want to record, or drag the display to the value you want</string>
     <string name="compass_widget_usage">Point your device in the direction you want to record, or drag the display to the value you want</string>
     <string name="integer_widget_usage_with_additional">Deselect any value above to use the number picker</string>
+    <string name="date_widget_usage_with_additional">Deselect any value above to use the date picker</string>
     <!--  Feedback activity  -->
     <string name="feedback_with_displayname">Send with your OpenStreetMap display name</string>
     <string name="feedback_displayname_hint">OpenStreetMap display name not retrieved yet</string>

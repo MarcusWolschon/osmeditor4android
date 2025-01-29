@@ -104,7 +104,8 @@ public abstract class ValueWidgetFragment extends DialogFragment {
 
         widget = getWidget(activity, value, values);
 
-        layout.addView(widget.getWidgetView());
+        ViewGroup container = layout.findViewById(R.id.container);
+        container.addView(widget.getWidgetView());
 
         // filter 1
         List<String> filteredValues = filterValues(values);

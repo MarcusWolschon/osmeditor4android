@@ -958,11 +958,8 @@ public class PropertyEditorTest {
         mockServer.enqueue("download1");
         Logic logic = App.getLogic();
         logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
-        try {
-            signal.await(30, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            fail(e.getMessage());
-        }
+        TestUtils.findText(device, false, main.getString(R.string.progress_download_message), 2000);
+        TestUtils.textGone(device,main.getString(R.string.progress_download_message), 10000);
         main.getMap().getDataLayer().setVisible(true);
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 23);
@@ -992,6 +989,47 @@ public class PropertyEditorTest {
         assertTrue(w.hasTag("lanes", "0"));
     }
 
+    /**
+     * Select a node set date
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void startDate() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download4");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3720450D, 47.4163330D,8.371000D, 47.4160D), false, new SignalHandler(signal));
+        TestUtils.findText(device, false, main.getString(R.string.progress_download_message), 2000);
+        TestUtils.textGone(device,main.getString(R.string.progress_download_message), 10000);
+        main.getMap().getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 23);
+        TestUtils.clickAtCoordinates(device, main.getMap(), 8.3713863, 47.4162199, true);
+        TestUtils.clickAwayTip(device, context);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect), 5000));
+        Node n = App.getLogic().getSelectedNode();
+        assertNotNull(n);
+        assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
+        waitForPropertyEditor();
+        assertTrue(TestUtils.findText(device, false, "Bruno Weber"));
+        assertEquals("2025-12-31", n.getTagWithKey("start_date"));
+        UiObject2 startDate = null;
+        try {
+            startDate = getField(device, "Start date", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        startDate.click();
+  
+        assertTrue(TestUtils.clickText(device, false, "15", false, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true, false));
+        TestUtils.clickHome(device, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertTrue(n.hasTag("start_date", "2025-12-15"));
+    }
+
+    
     /**
      * Select a way and check if expected street name is there, change orientation re-check, change back re-check
      */
