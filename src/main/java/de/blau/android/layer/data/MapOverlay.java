@@ -597,7 +597,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
         // ways now
         for (Way w : waysToDraw) {
-            paintWay(canvas, w, displayHandles, drawTolerance);
+            paintWay(canvas, w, screenWidth, screenHeight, displayHandles, drawTolerance);
         }
 
         // Paint nodes
@@ -1429,10 +1429,13 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
      * 
      * @param canvas Canvas, where the node shall be painted on.
      * @param way way which shall be painted.
+     * @param screenWidth the width of the screen in pixels
+     * @param screenHeinght the height of the screen in pixels
      * @param displayHandles draw geometry improvement handles
      * @param drawTolerance if true draw the halo
      */
-    private void paintWay(@NonNull final Canvas canvas, @NonNull final Way way, final boolean displayHandles, boolean drawTolerance) {
+    private void paintWay(@NonNull final Canvas canvas, @NonNull final Way way, int screenWidth, int screenHeight, final boolean displayHandles,
+            boolean drawTolerance) {
 
         FeatureStyle style = styles.matchStyle(way);
 
@@ -1483,7 +1486,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             paint = selectedWayStyle.getPaint();
             paint.setStrokeWidth(style.getPaint().getStrokeWidth() * selectedWayStyle.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
-            drawWayArrows(canvas, linePoints, pointsSize, reversed, wayDirectionPaint, displayHandles && !tmpDrawingSelectedWays.isEmpty());
+            drawWayArrows(canvas, linePoints, pointsSize, screenWidth, screenHeight, reversed, wayDirectionPaint,
+                    displayHandles && !tmpDrawingSelectedWays.isEmpty());
             labelFontStyle = labelTextStyleNormalSelected;
             labelFontStyleSmall = labelTextStyleSmallSelected;
             // visual feedback if way nodes are draggable
@@ -1513,10 +1517,10 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             if (arrowStyle.checkOneway()) {
                 int onewayCode = way.getOneway();
                 if (onewayCode != 0) {
-                    drawWayArrows(canvas, linePoints, pointsSize, (onewayCode == -1), arrowStyle.getPaint(), false);
+                    drawWayArrows(canvas, linePoints, screenWidth, screenHeight, pointsSize, (onewayCode == -1), arrowStyle.getPaint(), false);
                 }
             } else {
-                drawWayArrows(canvas, linePoints, pointsSize, false, arrowStyle.getPaint(), false);
+                drawWayArrows(canvas, linePoints, screenWidth, screenHeight, pointsSize, false, arrowStyle.getPaint(), false);
             }
         }
 
@@ -1686,11 +1690,14 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
      * @param canvas the canvas on which to draw
      * @param linePoints line segment array in the format returned by {@link #pointListToLinePointsArray(Iterable)}.
      * @param linePointsSize number of valid entries in linePoints
+     * @param screenWidth the width of the screen in pixels
+     * @param screenHeinght the height of the screen in pixels
      * @param reverse if true, the arrows will be painted in the reverse direction
      * @param paint the paint to use for drawing the arrows
      * @param addHandles if true draw arrows at 1/4 and 3/4 of the length and save the middle pos. for drawing a handle
      */
-    private void drawWayArrows(@NonNull Canvas canvas, float[] linePoints, int linePointsSize, boolean reverse, @NonNull Paint paint, boolean addHandles) {
+    private void drawWayArrows(@NonNull Canvas canvas, float[] linePoints, int linePointsSize, int screenWidth, int screenHeight, boolean reverse,
+            @NonNull Paint paint, boolean addHandles) {
         double minLen = currentStyle.getMinLenForHandle();
         int ptr = 0;
         while (ptr < linePointsSize) {
@@ -1702,6 +1709,24 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
             float xDelta = x2 - x1;
             float yDelta = y2 - y1;
+
+            float angle = (float) (Math.atan2(yDelta, xDelta) * 180 / Math.PI);
+            angle = reverse ? angle - 180 : angle;
+
+            if (xDelta > screenWidth || yDelta > screenHeight) {
+                int buffer = (int) nodeTolerancePaint2.getStrokeWidth();
+                // long way segment add extra arrows at start and end
+                canvas.save();
+                canvas.translate(x1 + buffer, y1 + buffer);
+                canvas.rotate(angle);
+                canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
+                canvas.rotate(-angle);
+                buffer = buffer * 2;
+                canvas.translate(xDelta - buffer, yDelta - buffer);
+                canvas.rotate(angle);
+                canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
+                canvas.restore();
+            }
 
             boolean secondArrow = false;
             if (addHandles) {
@@ -1722,21 +1747,19 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
             float x = x1 + xDelta;
             float y = y1 + yDelta;
-            float angle = (float) (Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI);
 
             canvas.save();
             canvas.translate(x, y);
-            canvas.rotate(reverse ? angle - 180 : angle);
+            canvas.rotate(angle);
             canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
-            canvas.restore();
 
             if (secondArrow) {
-                canvas.save();
-                canvas.translate(x + 2 * xDelta, y + 2 * yDelta);
-                canvas.rotate(reverse ? angle - 180 : angle);
+                canvas.rotate(-angle);
+                canvas.translate(2 * xDelta, 2 * yDelta);
+                canvas.rotate(angle);
                 canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
-                canvas.restore();
             }
+            canvas.restore();
         }
     }
 
