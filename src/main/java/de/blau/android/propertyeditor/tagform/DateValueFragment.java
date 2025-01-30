@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.R;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
+import de.blau.android.R;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.ThemeUtils;
