@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public enum ValueType {
-    OPENING_HOURS, OPENING_HOURS_MIXED, DIMENSION_HORIZONTAL, DIMENSION_VERTICAL, INTEGER, WEBSITE, PHONE, WIKIPEDIA, WIKIDATA, CARDINAL_DIRECTION;
+    OPENING_HOURS, OPENING_HOURS_MIXED, DIMENSION_HORIZONTAL, DIMENSION_VERTICAL, INTEGER, WEBSITE, PHONE, WIKIPEDIA, WIKIDATA, CARDINAL_DIRECTION, DATE;
 
     /**
      * Get a ValueType corresponding to the input String
@@ -46,6 +46,9 @@ public enum ValueType {
             break;
         case "cardinal_direction":
             type = CARDINAL_DIRECTION;
+            break;
+        case "date":
+            type = DATE;
             break;
         default:
             Log.e(ValueType.class.getSimpleName(), "Unknown value type string " + typeString);

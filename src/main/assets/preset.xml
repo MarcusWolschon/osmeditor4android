@@ -7610,7 +7610,7 @@
             <text key="artwork_subject" text="Subject"/>
             <text key="artist_name" text="Artist Name"/>
             <combo key="material" text="Material" values="aluminium,brass,bronze,concrete,glass,granite,metal,plastic,steel,stone,wood" display_values="Aluminium,Brass,Bronze,Concrete,Glass,Granite,Metal,Plastic,Steel,Stone,Wood" values_context="material"/>
-            <text key="start_date" text="Start date"/>
+            <text key="start_date" text="Start date" value_type="date"/>
         </item> <!-- Artwork -->
         <item name="Studio" icon="icons/png/amenity_studio_12256.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=studio"/>

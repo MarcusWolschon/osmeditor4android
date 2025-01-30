@@ -209,6 +209,7 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
     * _wikipedia_ a wikipedia page
     * _wikidata_  a wikidata Q ref
     * _speed_ a speed value (reserved)
+    * _date_ a date in the format YYYY-MM-DD
 
 * _items\_sort_ this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.
 * _regions_ comma separated list of countries this preset group or item is applicable for. Note that from JOSM 18918 on the only difference is that we support the region related tags on combo, multiselect (and not just the values), and the formatting tags.
