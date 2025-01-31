@@ -83,6 +83,10 @@ Short cut for adding a source key, if a key is present in the current row source
 
 Invoke a web browser on the map features page in the OpenStreetMap wiki. *(requires network connectivity)* 
 
+### ![Info](../images/tag_menu_mapfeatures.png) Info
+
+Show a screen with some detailed information on the selected object.
+
 ### Reset address prediction
 
 Empty the current address cache and re-seed from downloaded OpenStreetMap data. 
