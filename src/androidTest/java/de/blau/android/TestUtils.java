@@ -1472,7 +1472,7 @@ public final class TestUtils {
     public static void scrollToEnd(boolean fail) {
         UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
         try {
-            appView.scrollToEnd(100);
+            appView.scrollToEnd(200);
         } catch (UiObjectNotFoundException e) {
             if (fail) {
                 Assert.fail("UiScrollable not found");
