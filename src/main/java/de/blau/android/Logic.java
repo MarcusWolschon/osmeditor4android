@@ -884,12 +884,12 @@ public class Logic {
      * Returns all ways within way tolerance from the given coordinates, and their distances from them.
      * 
      * @param includeClosed include closed ways in the result if true
-     * @param x x display coordinate
-     * @param y y display coordinate
+     * @param touchX x display coordinate
+     * @param touchY y display coordinate
      * @return a hash map mapping Ways to distances
      */
     @NonNull
-    private java.util.Map<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float x, final float y) {
+    private java.util.Map<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float touchX, final float touchY) {
         java.util.Map<Way, Double> result = new HashMap<>();
         boolean showWayIcons = prefs.getShowWayIcons();
         final DataStyle currentStyle = map.getDataStyle().getCurrent();
@@ -904,25 +904,18 @@ public class Logic {
             }
             boolean added = false;
 
-            double A = 0;
-            double Y = 0;
-            double X = 0;
-            float node1X = -Float.MAX_VALUE;
-            float node1Y = -Float.MAX_VALUE;
-            boolean firstNode = true;
-            // Iterate over all WayNodes, but not the last one.
+            double area = 0;
+            double aX = 0;
+            double aY = 0;
             Node node1 = wayNodes.get(0);
+            float node1X = lonE7ToX(node1.getLon());
+            float node1Y = latE7ToY(node1.getLat());
+            // Iterate over all WayNodes, but not the last one.
             for (int k = 0; k < wayNodesSize - 1; ++k) {
                 Node node2 = wayNodes.get(k + 1);
-                if (firstNode) {
-                    node1X = lonE7ToX(node1.getLon());
-                    node1Y = latE7ToY(node1.getLat());
-                    firstNode = false;
-                }
                 float node2X = lonE7ToX(node2.getLon());
                 float node2Y = latE7ToY(node2.getLat());
-
-                double distance = Geometry.isPositionOnLine(wayToleranceValue, x, y, node1X, node1Y, node2X, node2Y);
+                double distance = Geometry.isPositionOnLine(wayToleranceValue, touchX, touchY, node1X, node1Y, node2X, node2Y);
                 if (distance >= 0) {
                     result.put(way, distance);
                     added = true;
@@ -930,17 +923,16 @@ public class Logic {
                 }
                 // calculations for centroid
                 double d = node1X * node2Y - node2X * node1Y;
-                A = A + d;
-                X = X + (node1X + node2X) * d;
-                Y = Y + (node1Y + node2Y) * d;
-                node1 = node2;
+                area = area + d;
+                aX = aX + (node1X + node2X) * d;
+                aY = aY + (node1Y + node2Y) * d;
                 node1X = node2X;
                 node1Y = node2Y;
             }
-            if (Util.notZero(A) && showWayIcons && !added && areaHasIcon(way)) {
-                Y = Y / (3 * A); // NOSONAR nonZero tests for zero
-                X = X / (3 * A); // NOSONAR nonZero tests for zero
-                double distance = Math.hypot(x - X, y - Y);
+            if (Util.notZero(area) && showWayIcons && !added && areaHasIcon(way)) {
+                aY = aY / (3 * area); // NOSONAR nonZero tests for zero
+                aX = aX / (3 * area); // NOSONAR nonZero tests for zero
+                double distance = Math.hypot(touchX - aX, touchY - aY);
                 if (distance < nodeToleranceValue) {
                     result.put(way, distance);
                 }
@@ -1023,20 +1015,13 @@ public class Logic {
         }
         for (Way way : ways) {
             List<Node> wayNodes = way.getNodes();
-
-            float node1X = -Float.MAX_VALUE;
-            float node1Y = -Float.MAX_VALUE;
-            boolean firstNode = true;
             // Iterate over all WayNodes, but not the last one.
             int wayNodesSize = wayNodes.size();
             Node node1 = wayNodes.get(0);
+            float node1X = lonE7ToX(node1.getLon());
+            float node1Y = latE7ToY(node1.getLat());
             for (int k = 0; k < wayNodesSize - 1; ++k) {
                 Node node2 = wayNodes.get(k + 1);
-                if (firstNode) {
-                    node1X = lonE7ToX(node1.getLon());
-                    node1Y = latE7ToY(node1.getLat());
-                    firstNode = false;
-                }
                 float node2X = lonE7ToX(node2.getLon());
                 float node2Y = latE7ToY(node2.getLat());
                 float xDelta = node2X - node1X;
@@ -1048,7 +1033,6 @@ public class Logic {
                 float differenceX = Math.abs(handleX - x);
                 float differenceY = Math.abs(handleY - y);
 
-                node1 = node2;
                 node1X = node2X;
                 node1Y = node2Y;
 
@@ -2914,18 +2898,13 @@ public class Logic {
                 continue;
             }
             List<Node> wayNodes = way.getNodes();
-            float node1X = -Float.MAX_VALUE;
-            float node1Y = -Float.MAX_VALUE;
-            boolean firstNode = true;
             Node node1 = wayNodes.get(0);
+            float node1X = lonE7ToX(node1.getLon());
+            float node1Y = latE7ToY(node1.getLat());
+
             int wayNodesSize = wayNodes.size();
             for (int k = 1; k < wayNodesSize; ++k) {
                 Node node2 = wayNodes.get(k);
-                if (firstNode) {
-                    node1X = lonE7ToX(node1.getLon());
-                    node1Y = latE7ToY(node1.getLat());
-                    firstNode = false;
-                }
                 float node2X = lonE7ToX(node2.getLon());
                 float node2Y = latE7ToY(node2.getLat());
 
@@ -3877,17 +3856,17 @@ public class Logic {
                     osmParser.clearBoundingBoxes(); // this removes the default bounding box
                     try (final InputStream in = new BufferedInputStream(is)) {
                         osmParser.start(in);
-                        StorageDelegator sd = getDelegator();
-                        sd.reset(false);
-                        sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
-                        sd.fixupApiStorage();
-                        if (!add && sd.getBoundingBoxes().isEmpty()) {
-                            // ensure a valid bounding box
-                            sd.addBoundingBox(sd.getCurrentStorage().calcBoundingBoxFromData());
-                        }
-                        if (map != null) {
-                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
-                        }
+                    }
+                    StorageDelegator sd = getDelegator();
+                    sd.reset(false);
+                    sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
+                    sd.fixupApiStorage();
+                    if (!add && sd.getBoundingBoxes().isEmpty()) {
+                        // ensure a valid bounding box
+                        sd.addBoundingBox(sd.getCurrentStorage().calcBoundingBoxFromData());
+                    }
+                    if (map != null) {
+                        viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
                     }
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "Problem parsing ", e);
@@ -3995,20 +3974,20 @@ public class Logic {
                         Log.d(DEBUG_TAG, "writeOsmFile got " + e.getMessage());
                     }
                 }
-                if (result != 0) {
-                    if (result == ErrorCodes.OUT_OF_MEMORY && getDelegator().isDirty()) {
-                        result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
-                    }
-                    if (!activity.isFinishing()) {
-                        ErrorAlert.showDialog(activity, result);
-                    }
-                    if (postSaveHandler != null) {
-                        postSaveHandler.onError(null);
-                    }
-                } else {
+                if (result == 0) {
                     if (postSaveHandler != null) {
                         postSaveHandler.onSuccess();
                     }
+                    return;
+                }
+                if (result == ErrorCodes.OUT_OF_MEMORY && getDelegator().isDirty()) {
+                    result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
+                }
+                if (!activity.isFinishing()) {
+                    ErrorAlert.showDialog(activity, result);
+                }
+                if (postSaveHandler != null) {
+                    postSaveHandler.onError(null);
                 }
             }
         }.execute();
