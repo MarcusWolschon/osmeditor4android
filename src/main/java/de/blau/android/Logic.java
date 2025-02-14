@@ -479,7 +479,7 @@ public class Logic {
      */
     @Nullable
     public String undo() {
-        return undo(getDelegator(), getDelegator().getUndo().undo());
+        return postUndo(getDelegator(), getDelegator().getUndo().undo());
     }
 
     /**
@@ -490,18 +490,18 @@ public class Logic {
      */
     @Nullable
     public String undo(int checkpoint) {
-        return undo(getDelegator(), getDelegator().getUndo().undo(checkpoint));
+        return postUndo(getDelegator(), getDelegator().getUndo().undo(checkpoint));
     }
 
     /**
-     * Undo a checkpoint
+     * Post undo tasks
      * 
      * @param delegator the current StorageDelegator instance
-     * @param toUndo the Checkpoint to undo
+     * @param undone the undone Checkpoint
      * @return checkpoint name or null if none available
      */
-    private String undo(@NonNull final StorageDelegator delegator, @Nullable Checkpoint toUndo) {
-        Selection.Ids ids = toUndo != null ? toUndo.getSelection() : null;
+    private String postUndo(@NonNull final StorageDelegator delegator, @Nullable Checkpoint undone) {
+        Selection.Ids ids = undone != null ? undone.getSelection() : null;
         if (ids != null && map != null && map.getContext() instanceof Main) {
             Main main = (Main) map.getContext();
             final EasyEditManager easyEditManager = main.getEasyEditManager();
@@ -514,7 +514,7 @@ public class Logic {
         }
         checkClipboard(delegator);
         delegator.dirty();
-        return toUndo != null ? toUndo.getName() : null;
+        return undone != null ? undone.getName() : null;
     }
 
     /**
@@ -527,7 +527,7 @@ public class Logic {
     }
 
     /**
-     * Wrapper to ensure the dirty flag is set
+     * Redo wrapper to ensure the dirty flag is set
      * 
      * @return checkpoint name or null if none available
      */
@@ -539,7 +539,7 @@ public class Logic {
     }
 
     /**
-     * Wrapper to ensure the dirty flag is set
+     * Redo wrapper to ensure the dirty flag is set
      * 
      * @param checkpoint index of the checkpoint to redo
      * @return checkpoint name or null if none available
@@ -552,13 +552,10 @@ public class Logic {
     }
 
     /**
-     * Wrapper to ensure the dirty flag is set
-     * 
      * Undo without creating a redo checkpoint
      */
     public void rollback() {
-        getDelegator().getUndo().undo(false);
-        getDelegator().dirty();
+        postUndo(getDelegator(), getDelegator().getUndo().undo(false));
     }
 
     /**
