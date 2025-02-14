@@ -293,6 +293,39 @@ public abstract class ValueWidgetFragment extends DialogFragment {
         String getUsageText(@NonNull Context ctx, boolean hasAdditionalValues);
     }
 
+    abstract class BaseValueWidget implements ValueWidget {
+
+        protected final View picker;
+
+        protected BaseValueWidget(@NonNull View picker) {
+            this.picker = picker;
+        }
+
+        @Override
+        public void enable() {
+            picker.setEnabled(true);
+            picker.setFocusable(true);
+        }
+
+        @Override
+        public void disable() {
+            picker.setEnabled(false);
+            picker.setFocusable(false);
+        }
+
+        @Override
+        public void onDismiss() {
+            TagFormFragment caller = (TagFormFragment) getParentFragment();
+            caller.enableDialogRow(key);
+        }
+
+        @Override
+        @NonNull
+        public View getWidgetView() {
+            return picker;
+        }
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -70,9 +69,7 @@ public class DateValueFragment extends ValueWidgetFragment {
         int dayOfMonth;
     }
 
-    class DateWidget implements ValueWidget {
-
-        private final DatePicker picker;
+    class DateWidget extends BaseValueWidget {
 
         final Set<String> values = new HashSet<>();
 
@@ -84,10 +81,10 @@ public class DateValueFragment extends ValueWidgetFragment {
          * @param values any additional values from the preset or MRU
          */
         DateWidget(@NonNull FragmentActivity activity, @NonNull String value, @Nullable List<String> values) {
-            picker = new DatePicker(activity, null);
+            super(new DatePicker(activity, null));
             Date date = parseDate(value);
             if (date != null) {
-                picker.init(date.year, date.month, date.dayOfMonth, null);
+                ((DatePicker) picker).init(date.year, date.month, date.dayOfMonth, null);
             }
             picker.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.highlight_background, R.color.black));
             picker.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
@@ -133,7 +130,8 @@ public class DateValueFragment extends ValueWidgetFragment {
         @Override
         @NonNull
         public String getValue() {
-            return picker.getYear() + "-" + (picker.getMonth() + 1) + "-" + picker.getDayOfMonth();
+            DatePicker datePicker = (DatePicker) picker;
+            return datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
         }
 
         @Override
@@ -143,30 +141,6 @@ public class DateValueFragment extends ValueWidgetFragment {
             }
             // we want to drop all date values
             return parseDate(v) == null;
-        }
-
-        @Override
-        public void enable() {
-            picker.setEnabled(true);
-            picker.setFocusable(true);
-        }
-
-        @Override
-        public void disable() {
-            picker.setEnabled(false);
-            picker.setFocusable(false);
-        }
-
-        @Override
-        public void onDismiss() {
-            TagFormFragment caller = (TagFormFragment) getParentFragment();
-            caller.enableDialogRow(key);
-        }
-
-        @Override
-        @NonNull
-        public View getWidgetView() {
-            return picker;
         }
 
         @Override

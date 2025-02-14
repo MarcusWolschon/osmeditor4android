@@ -66,10 +66,8 @@ public class IntegerValueFragment extends ValueWidgetFragment {
         return new IntegerWidget(activity, value, values);
     }
 
-    class IntegerWidget implements ValueWidget {
+    class IntegerWidget extends BaseValueWidget {
         private static final int MAX_INT = 256;
-
-        private final NumberPicker picker;
 
         final Set<Integer> values = new HashSet<>();
 
@@ -81,7 +79,7 @@ public class IntegerValueFragment extends ValueWidgetFragment {
          * @param values any additional values from the preset or MRU
          */
         IntegerWidget(@NonNull FragmentActivity activity, @NonNull String value, @Nullable List<String> values) {
-            picker = new NumberPicker(activity, null);
+            super(new NumberPicker(activity, null));
             int v = 0;
             try {
                 v = Integer.parseInt(value);
@@ -112,16 +110,17 @@ public class IntegerValueFragment extends ValueWidgetFragment {
 
             boolean neg = fieldInts.isEmpty() || fieldInts.get(0) < 0;
             offset = neg ? MAX_INT : 0;
-            picker.setFormatter((int n) -> String.valueOf(n - offset));
-            picker.setMaxValue(neg ? MAX_INT + MAX_INT : MAX_INT);
-            picker.setMinValue(0);
-            picker.setValue(v + offset);
-            picker.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.highlight_background, R.color.black));
-            picker.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
-            
+            NumberPicker numberPicker = (NumberPicker) picker;
+            numberPicker.setFormatter((int n) -> String.valueOf(n - offset));
+            numberPicker.setMaxValue(neg ? MAX_INT + MAX_INT : MAX_INT);
+            numberPicker.setMinValue(0);
+            numberPicker.setValue(v + offset);
+            numberPicker.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.highlight_background, R.color.black));
+            numberPicker.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
+
             // see
             // https://stackoverflow.com/questions/17708325/android-numberpicker-with-formatter-doesnt-format-on-first-rendering
-            View editView = picker.getChildAt(0);
+            View editView = numberPicker.getChildAt(0);
             if (editView instanceof EditText) {
                 // Remove default input filter
                 ((EditText) editView).setFilters(new InputFilter[0]);
@@ -146,7 +145,7 @@ public class IntegerValueFragment extends ValueWidgetFragment {
         @Override
         @NonNull
         public String getValue() {
-            return Integer.toString(picker.getValue() - offset);
+            return Integer.toString(((NumberPicker) picker).getValue() - offset);
         }
 
         @Override
@@ -161,30 +160,6 @@ public class IntegerValueFragment extends ValueWidgetFragment {
                 // add
             }
             return true;
-        }
-
-        @Override
-        public void enable() {
-            picker.setEnabled(true);
-            picker.setFocusable(true);
-        }
-
-        @Override
-        public void disable() {
-            picker.setEnabled(false);
-            picker.setFocusable(false);
-        }
-
-        @Override
-        public void onDismiss() {
-            TagFormFragment caller = (TagFormFragment) getParentFragment();
-            caller.enableDialogRow(key);
-        }
-
-        @Override
-        @NonNull
-        public View getWidgetView() {
-            return picker;
         }
 
         @Override
