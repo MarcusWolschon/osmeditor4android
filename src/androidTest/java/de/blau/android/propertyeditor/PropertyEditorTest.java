@@ -176,6 +176,34 @@ public class PropertyEditorTest {
         TestUtils.clickHome(device, true);
         assertEquals(edited, n.getTagWithKey(Tags.KEY_NAME));
     }
+    
+    /**
+     * Show info on an existing node
+     */
+    @Test
+    public void showInfo() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        assertNotNull(n);
+
+        main.performTagEdit(n, null, false, false);
+        waitForPropertyEditor();
+        TestUtils.clickOverflowButton(device);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_information), true, false));
+        assertTrue(TestUtils.findText(device, false, "#101792984"));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.done), true, false));
+        TestUtils.clickHome(device, true);
+    }
+
 
     /**
      * Test that pressing back does the correct thing(s)
