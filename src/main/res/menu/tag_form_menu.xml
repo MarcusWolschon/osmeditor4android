@@ -43,6 +43,10 @@
         app:showAsAction="never"
         android:title="@string/tag_menu_i18n" />
     <item
+        android:id="@+id/tag_menu_info"
+        app:showAsAction="never"
+        android:title="@string/menu_information" />
+    <item
         android:id="@+id/tag_menu_reset_address_prediction"
         app:showAsAction="never"
         android:title="@string/tag_menu_reset_address_prediction" />

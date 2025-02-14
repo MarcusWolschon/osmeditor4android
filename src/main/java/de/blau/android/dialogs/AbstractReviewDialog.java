@@ -233,7 +233,7 @@ public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
                     boolean deleted = elemenState == OsmElement.STATE_DELETED;
                     final FragmentActivity fragmentActivity = (FragmentActivity) view.getContext();
                     if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
-                        ElementInfo.showDialog(fragmentActivity, 0, e, !deleted, parentTag);
+                        ElementInfo.showDialog(fragmentActivity, 0, e, !deleted, true, parentTag);
                     } else {
                         ElementInfo.showDialog(fragmentActivity, e, !deleted, parentTag);
                     }

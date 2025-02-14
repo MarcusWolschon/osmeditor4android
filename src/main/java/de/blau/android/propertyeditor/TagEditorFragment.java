@@ -51,6 +51,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.dialogs.ConsoleDialog;
+import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.nsi.Names;
@@ -2097,6 +2098,9 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
             return true;
         case R.id.tag_menu_select_all:
             selectAllRows();
+            return true;
+        case R.id.tag_menu_info:
+            ElementInfo.showDialog(getActivity(), propertyEditorListener.getElement(), false, false);
             return true;
         case R.id.tag_menu_help:
             HelpViewer.start(getActivity(), R.string.help_propertyeditor);

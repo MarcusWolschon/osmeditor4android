@@ -49,6 +49,7 @@ import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.address.Address;
+import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.measure.Length;
 import de.blau.android.measure.Measure;
 import de.blau.android.measure.Params;
@@ -81,10 +82,10 @@ import de.blau.android.propertyeditor.FormUpdate;
 import de.blau.android.propertyeditor.NameAdapters;
 import de.blau.android.propertyeditor.Prefill;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
-import de.blau.android.search.Wrapper;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
+import de.blau.android.search.Wrapper;
 import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ExtendedStringWithDescription;
@@ -524,18 +525,21 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         case R.id.tag_menu_mapfeatures:
             Wiki.displayMapFeatures(getActivity(), prefs, tagListener.getBestPreset());
             return true;
-        case R.id.tag_menu_resetMRU:
-            resetAllMru();
-            return true;
-        case R.id.tag_menu_reset_address_prediction:
-            // simply overwrite with an empty file
-            Address.resetLastAddresses(getActivity());
+        case R.id.tag_menu_info:
+            ElementInfo.showDialog(getActivity(), propertyEditorListener.getElement(), false, false);
             return true;
         case R.id.tag_menu_locale:
             addI18nKeys();
             return true;
         case R.id.tag_menu_help:
             HelpViewer.start(getActivity(), R.string.help_propertyeditor);
+            return true;
+        case R.id.tag_menu_resetMRU:
+            resetAllMru();
+            return true;
+        case R.id.tag_menu_reset_address_prediction:
+            // simply overwrite with an empty file
+            Address.resetLastAddresses(getActivity());
             return true;
         default:
             return false;

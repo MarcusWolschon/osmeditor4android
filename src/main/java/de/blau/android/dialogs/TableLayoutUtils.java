@@ -396,8 +396,12 @@ public final class TableLayoutUtils {
             cell.setText(cellText);
             cell.setMinEms(FIRST_CELL_WIDTH);
             boolean hasLink = Linkify.addLinks(cell, Linkify.WEB_URLS);
-            cell.setMovementMethod(LinkMovementMethod.getInstance());
-            cell.setTextIsSelectable(!isUrl && !hasLink);
+
+            // note order of the following seems to be relevant to enable both selecting and clicking the link
+            cell.setTextIsSelectable(true);
+            if (isUrl || hasLink) {
+                cell.setMovementMethod(LinkMovementMethod.getInstance());
+            }
 
             ViewCompat.setPaddingRelative(cell, 10, 0, 0, 0);
             cell.setEllipsize(TruncateAt.MARQUEE);
