@@ -3195,7 +3195,7 @@ public class Logic {
             }
         } catch (SAXException e) {
             Exception ce = e.getException();
-            if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
+            if (isOOMException(ce)) {
                 result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
             } else {
                 result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
@@ -3416,10 +3416,20 @@ public class Logic {
     @NonNull
     private OsmServerException checkSAXException(@NonNull SAXException ex) {
         Exception ce = ex.getException();
-        if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
+        if (isOOMException(ce)) {
             return new OsmServerException(ErrorCodes.OUT_OF_MEMORY, ce.getLocalizedMessage());
         }
         return new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
+    }
+
+    /**
+     * Check if this is actually an OOM
+     * 
+     * @param ce the exception
+     * @return true if it is a relayed OOM
+     */
+    private boolean isOOMException(@NonNull Exception ce) {
+        return (ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM;
     }
 
     /**
@@ -3639,7 +3649,7 @@ public class Logic {
         } catch (SAXException e) {
             Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
             Exception ce = e.getException();
-            if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
+            if (isOOMException(ce)) {
                 result = ErrorCodes.OUT_OF_MEMORY;
             } else {
                 result = ErrorCodes.INVALID_DATA_RECEIVED;
@@ -3723,8 +3733,7 @@ public class Logic {
                     return new AsyncResult(ErrorCodes.CORRUPTED_DATA);
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
-                    Exception ce = e.getException();
-                    if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
+                    if (isOOMException(e.getException())) {
                         return new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
                     }
                     return new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
@@ -3871,7 +3880,7 @@ public class Logic {
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "Problem parsing ", e);
                     Exception ce = e.getException();
-                    if (ce instanceof StorageException) {
+                    if (isOOMException(ce)) {
                         return new AsyncResult(ErrorCodes.OUT_OF_MEMORY, ce.getMessage());
                     }
                     return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
