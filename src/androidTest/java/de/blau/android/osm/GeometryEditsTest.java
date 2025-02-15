@@ -657,7 +657,7 @@ public class GeometryEditsTest {
             logic.setSelectedNode(null);
             logic.cutToClipboard(null, w1);
             assertEquals(OsmElement.STATE_DELETED, w1.getState());
-            logic.pasteFromClipboard(null, 500.0f, 500.0f);
+            logic.pasteFromClipboard(null, 0, 500.0f, 500.0f);
             assertEquals(OsmElement.STATE_CREATED, w1.getState());
 
             // w1 should now have both nodes in the same place
@@ -665,7 +665,7 @@ public class GeometryEditsTest {
 
             logic.cutToClipboard(null, w1);
             assertEquals(OsmElement.STATE_DELETED, w1.getState());
-            logic.pasteFromClipboard(null, 0.0f, 0.0f);
+            logic.pasteFromClipboard(null, 0, 0.0f, 0.0f);
             assertEquals(OsmElement.STATE_CREATED, w1.getState());
 
         } catch (Exception igit) {
@@ -694,7 +694,7 @@ public class GeometryEditsTest {
             logic.setSelectedNode(null);
             logic.cutToClipboard(null, w1);
             assertEquals(OsmElement.STATE_DELETED, w1.getState());
-            logic.pasteFromClipboard(null, 500.0f, 500.0f);
+            logic.pasteFromClipboard(null, 0, 500.0f, 500.0f);
             assertEquals(OsmElement.STATE_CREATED, w1.getState());
 
             // collapse the area
@@ -706,7 +706,7 @@ public class GeometryEditsTest {
 
             logic.cutToClipboard(null, w1);
             assertEquals(OsmElement.STATE_DELETED, w1.getState());
-            logic.pasteFromClipboard(null, 0.0f, 0.0f);
+            logic.pasteFromClipboard(null, 0, 0.0f, 0.0f);
             assertEquals(OsmElement.STATE_CREATED, w1.getState());
 
         } catch (Exception igit) {
