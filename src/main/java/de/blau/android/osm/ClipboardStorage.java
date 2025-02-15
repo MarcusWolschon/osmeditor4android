@@ -6,19 +6,27 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import de.blau.android.App;
+import de.blau.android.R;
 import de.blau.android.exception.StorageException;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.PresetItem;
+import de.blau.android.util.Density;
 
 public class ClipboardStorage implements Serializable {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ClipboardStorage.class.getSimpleName().length());
     private static final String DEBUG_TAG = ClipboardStorage.class.getSimpleName().substring(0, TAG_LEN);
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
+
+    public static final BitmapDrawable NO_ICON = new BitmapDrawable(); // NOSONAR
+    private transient BitmapDrawable   icon    = null;
 
     public enum Mode {
         COPY, CUT
@@ -73,7 +81,7 @@ public class ClipboardStorage implements Serializable {
     }
 
     /**
-     * Cut a List of OsmELement to the clipboard assumes that element will be deleted and any necessary objects cloned
+     * Cut a List of OsmElement to the clipboard assumes that element will be deleted and any necessary objects cloned
      * 
      * @param elements a List of OsmElement
      * @param latE7 the latitude in WGS84*1E7 coordinates
@@ -105,7 +113,7 @@ public class ClipboardStorage implements Serializable {
         List<Relation> relations = storage.getRelations();
         List<OsmElement> result = new ArrayList<>();
         if (mode == Mode.CUT) {
-            reset(); // can only paste a cut way once
+            mode = Mode.COPY; // can only paste the original element once
         }
         if (nodes != null) {
             for (Node n : nodes) {
@@ -179,5 +187,44 @@ public class ClipboardStorage implements Serializable {
             }
         }
         return true;
+    }
+
+    /**
+     * Get a suitable icon for the current clipboard
+     * 
+     * @param ctx an Android Context
+     * @return a BitmapDrawable
+     */
+    @NonNull
+    public BitmapDrawable getIcon(@NonNull Context ctx) {
+        if (icon != null) {
+            return icon;
+        }
+        int iconSize = Math.round(ctx.getResources().getDimension(R.dimen.button_preset_size));
+        for (OsmElement e : storage.getElements()) {
+            PresetItem item = Preset.findBestMatch(App.getCurrentPresets(ctx), e.getTags(), null, null);
+            if (item != null) {
+                Drawable tempIcon = item.getIcon(ctx, Density.dpToPx(ctx, iconSize));
+                if (tempIcon instanceof BitmapDrawable) {
+                    icon = (BitmapDrawable) tempIcon;
+                    break;
+                }
+            }
+        }
+        if (icon == null) {
+            icon = NO_ICON;
+        }
+        return icon;
+    }
+
+    /**
+     * Set the selection coordinates, used after pasting a cut clipboard
+     * 
+     * @param lon the selection longitude in WGS84*1E7
+     * @param lat the selection latitude in WGS84*1E7
+     */
+    public void setSelectionCoords(int lon, int lat) {
+        selectionLon = lon;
+        selectionLat = lat;
     }
 }

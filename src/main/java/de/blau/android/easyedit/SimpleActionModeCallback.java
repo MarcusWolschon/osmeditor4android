@@ -171,7 +171,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
          * Paste an object from the clipboard, without exiting the action mode
          */
         PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.menu_paste_multiple, R.string.simple_paste_multiple,
-                (main, manager, x, y) -> App.getLogic().pasteFromClipboard(main, x, y)) {
+                (main, manager, x, y) -> App.getLogic().pasteFromClipboard(main, 0, x, y)) {
             @Override
             public boolean isEnabled() {
                 return !App.getLogic().clipboardIsEmpty() && !App.getDelegator().clipboardContentWasCut();
@@ -337,7 +337,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
      * @param y screen y
      */
     public static void paste(@Nullable final Activity activity, @NonNull final EasyEditManager manager, final float x, final float y) {
-        List<OsmElement> elements = App.getLogic().pasteFromClipboard(activity, x, y);
+        List<OsmElement> elements = App.getLogic().pasteFromClipboard(activity, 0, x, y);
         if (elements != null && !elements.isEmpty()) {
             if (elements.size() > 1) {
                 manager.finish();

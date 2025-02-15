@@ -123,13 +123,12 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
         }
         BitmapDrawable icon = e.getFromCache(iconCache);
         if (icon == null) {
+            icon = NO_ICON;
             PresetItem item = Preset.findBestMatch(App.getCurrentPresets(ctx), e.getTags(), null, null);
             if (item != null) {
                 Drawable tempIcon = item.getIcon(ctx, ICON_SIZE);
                 if (tempIcon instanceof BitmapDrawable) {
                     icon = (BitmapDrawable) tempIcon;
-                } else {
-                    icon = NO_ICON;
                 }
                 e.addToCache(iconCache, icon);
             }
