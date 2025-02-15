@@ -1568,99 +1568,100 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     private List<Result> addSplitWayToRelations(@NonNull final Way way, boolean wasClosed, @NonNull Way newWay, @NonNull List<OsmElement> changedElements) {
         List<Result> result = new ArrayList<>();
         // check for relation membership
-        if (way.getParentRelations() != null) {
-            Set<Relation> relations = new HashSet<>(way.getParentRelations()); // copy and only unique relations!
-            dirty = true;
-            /*
-             * iterate through relations, for all except restrictions add the new way to the relation, for now simply
-             * after the old way
-             */
-            for (Relation r : relations) {
-                Log.d(DEBUG_TAG, "addSplitWayToRelations processing relation (#" + r.getOsmId() + "/" + relations.size() + ")");
-                List<RelationMember> members = r.getAllMembers(way);
-                if (members.isEmpty()) {
-                    Log.d(DEBUG_TAG, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
-                    ACRAHelper.nocrashReport(null, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
-                    continue;
-                }
-                undo.save(r);
-                String type = r.getTagWithKey(Tags.KEY_TYPE);
-                // determine if the relation is potentially like a restriction, as hasFromViaTo is fairly expensive
-                // avoid calling it if we are sure that it can't be restriction like
-                boolean isRoute = Tags.VALUE_ROUTE.equals(type);
-                boolean isRestrictionLike = Tags.VALUE_RESTRICTION.equals(type)
-                        || (!Tags.VALUE_MULTIPOLYGON.equals(type) && !Tags.VALUE_BOUNDARY.equals(type) && !isRoute && RelationUtils.hasFromViaTo(r));
-                for (RelationMember rm : members) {
-                    Log.d(DEBUG_TAG, "addSplitWayToRelations member " + rm);
-                    int memberPos = r.getPosition(rm);
-                    // attempt to handle turn restrictions correctly, if element is the via way, copying relation
-                    // membership to both is ok
-                    String role = rm.getRole();
-                    boolean isVia = Tags.isVia(type, role);
-                    if (isRestrictionLike && !isVia) {
-                        // check if the old way has a node in common with the via relation member, if no assume the
-                        // new way has
-                        List<RelationMember> rl = Tags.getVia(type, r);
-                        boolean foundVia = false;
-                        for (int j = 0; j < rl.size(); j++) {
-                            RelationMember viaRm = rl.get(j);
-                            OsmElement viaE = viaRm.getElement();
-                            if (viaE instanceof Node) {
-                                if (((Way) rm.getElement()).hasNode((Node) viaE)) {
-                                    foundVia = true;
-                                }
-                            } else if (viaE instanceof Way && ((Way) rm.getElement()).hasCommonNode((Way) viaE)) {
+        if (way.getParentRelations() == null) {
+            return result;
+        }
+        Set<Relation> relations = new HashSet<>(way.getParentRelations()); // copy and only unique relations!
+        dirty = true;
+        /*
+         * iterate through relations, for all except restrictions add the new way to the relation, for now simply after
+         * the old way
+         */
+        for (Relation r : relations) {
+            Log.d(DEBUG_TAG, "addSplitWayToRelations processing relation (#" + r.getOsmId() + "/" + relations.size() + ")");
+            List<RelationMember> members = r.getAllMembers(way);
+            if (members.isEmpty()) {
+                Log.d(DEBUG_TAG, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
+                ACRAHelper.nocrashReport(null, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
+                continue;
+            }
+            undo.save(r);
+            String type = r.getTagWithKey(Tags.KEY_TYPE);
+            // determine if the relation is potentially like a restriction, as hasFromViaTo is fairly expensive
+            // avoid calling it if we are sure that it can't be restriction like
+            boolean isRoute = Tags.VALUE_ROUTE.equals(type);
+            boolean isRestrictionLike = Tags.VALUE_RESTRICTION.equals(type)
+                    || (!Tags.VALUE_MULTIPOLYGON.equals(type) && !Tags.VALUE_BOUNDARY.equals(type) && !isRoute && RelationUtils.hasFromViaTo(r));
+            for (RelationMember rm : members) {
+                Log.d(DEBUG_TAG, "addSplitWayToRelations member " + rm);
+                int memberPos = r.getPosition(rm);
+                // attempt to handle turn restrictions correctly, if element is the via way, copying relation
+                // membership to both is ok
+                String role = rm.getRole();
+                boolean isVia = Tags.isVia(type, role);
+                if (isRestrictionLike && !isVia) {
+                    // check if the old way has a node in common with the via relation member, if no assume the
+                    // new way has
+                    List<RelationMember> rl = Tags.getVia(type, r);
+                    boolean foundVia = false;
+                    for (int j = 0; j < rl.size(); j++) {
+                        RelationMember viaRm = rl.get(j);
+                        OsmElement viaE = viaRm.getElement();
+                        if (viaE instanceof Node) {
+                            if (((Way) rm.getElement()).hasNode((Node) viaE)) {
                                 foundVia = true;
                             }
+                        } else if (viaE instanceof Way && ((Way) rm.getElement()).hasCommonNode((Way) viaE)) {
+                            foundVia = true;
                         }
-                        Log.d(DEBUG_TAG, "addSplitWayToRelations foundVia " + foundVia);
-                        if (!foundVia) {
+                    }
+                    Log.d(DEBUG_TAG, "addSplitWayToRelations foundVia " + foundVia);
+                    if (!foundVia) {
+                        replaceMemberWay(r, rm, way, newWay);
+                    }
+                } else if (isRestrictionLike && isVia && wasClosed) {
+                    // very rough check
+                    List<RelationMember> fromMembers = r.getMembersWithRole(Tags.ROLE_FROM);
+                    if (fromMembers != null && fromMembers.size() == 1) {
+                        OsmElement fromElement = fromMembers.get(0).getElement();
+                        if (fromElement instanceof Way && ((Way) fromElement).hasNode(newWay.getFirstNode())) { // swap
                             replaceMemberWay(r, rm, way, newWay);
                         }
-                    } else if (isRestrictionLike && isVia && wasClosed) {
-                        // very rough check
-                        List<RelationMember> fromMembers = r.getMembersWithRole(Tags.ROLE_FROM);
-                        if (fromMembers != null && fromMembers.size() == 1) {
-                            OsmElement fromElement = fromMembers.get(0).getElement();
-                            if (fromElement instanceof Way && ((Way) fromElement).hasNode(newWay.getFirstNode())) { // swap
-                                replaceMemberWay(r, rm, way, newWay);
-                            }
-                        }
-                    } else { // default handling of relations membership
-                        RelationMember newMember = new RelationMember(rm.getRole(), newWay); // use the same role
-                        RelationMember prevMember = r.getMemberAt(memberPos - 1);
-                        RelationMember nextMember = r.getMemberAt(memberPos + 1);
-                        /*
-                         * We need to determine if to insert the new way before or after the existing member If the new
-                         * way has a common node with the previous member or if the existing way has a common node with
-                         * the following member we insert before, otherwise we insert after the existing member.
-                         * 
-                         * FIXME To do this really properly we would have to download the previous and next elements for
-                         * routes
-                         */
-                        if (hasCommonNode(prevMember, newWay)) {
-                            r.addMemberBefore(rm, newMember);
-                        } else if (hasCommonNode(nextMember, way)) {
-                            r.addMemberBefore(rm, newMember);
-                        } else {
-                            r.addMemberAfter(rm, newMember);
-                            boolean hasPrev = prevMember != null;
-                            boolean hasNext = nextMember != null;
-                            if (isRoute && (hasPrev || hasNext) && (!hasPrev || !prevMember.downloaded()) && (!hasNext || !nextMember.downloaded())) {
-                                Log.w(DEBUG_TAG, "Incomplete route relation " + r.getOsmId() + " modified");
-                                Result relationResult = new Result();
-                                relationResult.setElement(r);
-                                relationResult.addIssue(SplitIssue.SPLIT_ROUTE_ORDERING);
-                                result.add(relationResult);
-                            }
-                        }
-                        newWay.addParentRelation(r);
                     }
+                } else { // default handling of relations membership
+                    RelationMember newMember = new RelationMember(rm.getRole(), newWay); // use the same role
+                    RelationMember prevMember = r.getMemberAt(memberPos - 1);
+                    RelationMember nextMember = r.getMemberAt(memberPos + 1);
+                    /*
+                     * We need to determine if to insert the new way before or after the existing member If the new way
+                     * has a common node with the previous member or if the existing way has a common node with the
+                     * following member we insert before, otherwise we insert after the existing member.
+                     * 
+                     * FIXME To do this really properly we would have to download the previous and next elements for
+                     * routes
+                     */
+                    if (hasCommonNode(prevMember, newWay)) {
+                        r.addMemberBefore(rm, newMember);
+                    } else if (hasCommonNode(nextMember, way)) {
+                        r.addMemberBefore(rm, newMember);
+                    } else {
+                        r.addMemberAfter(rm, newMember);
+                        boolean hasPrev = prevMember != null;
+                        boolean hasNext = nextMember != null;
+                        if (isRoute && (hasPrev || hasNext) && (!hasPrev || !prevMember.downloaded()) && (!hasNext || !nextMember.downloaded())) {
+                            Log.w(DEBUG_TAG, "Incomplete route relation " + r.getOsmId() + " modified");
+                            Result relationResult = new Result();
+                            relationResult.setElement(r);
+                            relationResult.addIssue(SplitIssue.SPLIT_ROUTE_ORDERING);
+                            result.add(relationResult);
+                        }
+                    }
+                    newWay.addParentRelation(r);
                 }
-                r.updateState(OsmElement.STATE_MODIFIED);
-                apiStorage.insertElementSafe(r);
-                changedElements.add(r);
             }
+            r.updateState(OsmElement.STATE_MODIFIED);
+            apiStorage.insertElementSafe(r);
+            changedElements.add(r);
         }
         return result;
     }
@@ -1801,16 +1802,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             List<Way> similarWays = new ArrayList<>();
             if (otherWays.size() > 1 && ignoreSimilar && primaryKey != null) {
                 for (Way other : otherWays) {
-                    if (!way.equals(other)) {
-                        Long otherId = Long.valueOf(other.getOsmId());
-                        Boolean isSimilar = keyMap.get(otherId);
-                        if (isSimilar == null) {
-                            isSimilar = other.hasTagKey(primaryKey);
-                            keyMap.put(otherId, isSimilar);
-                        }
-                        if (isSimilar) {
-                            similarWays.add(other);
-                        }
+                    if (way.equals(other)) {
+                        continue;
+                    }
+                    Long otherId = Long.valueOf(other.getOsmId());
+                    Boolean isSimilar = keyMap.get(otherId);
+                    if (isSimilar == null) {
+                        isSimilar = other.hasTagKey(primaryKey);
+                        keyMap.put(otherId, isSimilar);
+                    }
+                    if (isSimilar) {
+                        similarWays.add(other);
                     }
                 }
             }
@@ -3899,7 +3901,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         final String ABORTMESSAGE = "applyOsc aborting %s is unchanged/created";
 
         try {
-
             lock();
             // make temp copy of current storage (we may have to abort
             Storage tempCurrent = new Storage(currentStorage);
