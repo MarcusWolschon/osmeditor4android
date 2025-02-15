@@ -73,7 +73,7 @@ public class ClipboardStorage implements Serializable {
     }
 
     /**
-     * Cut a List of OsmELement to the clipboard assumes that element will be deleted and any necessary objects cloned
+     * Cut a List of OsmElement to the clipboard assumes that element will be deleted and any necessary objects cloned
      * 
      * @param elements a List of OsmElement
      * @param latE7 the latitude in WGS84*1E7 coordinates
@@ -105,7 +105,7 @@ public class ClipboardStorage implements Serializable {
         List<Relation> relations = storage.getRelations();
         List<OsmElement> result = new ArrayList<>();
         if (mode == Mode.CUT) {
-            reset(); // can only paste a cut way once
+            mode = Mode.COPY; // can only paste a cut way once
         }
         if (nodes != null) {
             for (Node n : nodes) {
