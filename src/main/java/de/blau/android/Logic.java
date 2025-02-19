@@ -2728,7 +2728,8 @@ public class Logic {
      * @param createCheckpoint normally true, only set to false in a multi-step operation, for which the checkpoint has
      *            already been created
      * @param snap if true existing nodes will be reused and new nodes created on nearby ways
-     * @throws OsmIllegalOperationException if the operation couldn't be performed
+     * @throws OsmIllegalOperationException if the operation couldn't be performed, note this will NOT rollback the
+     *             operation
      */
     public synchronized void performAppendAppend(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint, boolean snap)
             throws OsmIllegalOperationException {
@@ -2744,13 +2745,14 @@ public class Logic {
                 lSelectedNode = null;
                 lSelectedWay = null;
             } else if (lSelectedWay != null) { // may have been de-selected before we got here
+                getDelegator().validateWayNodeCount(lSelectedWay.nodeCount() + 1); // abort before adding a node
                 if (!snap || node == null) { // always create new node if join is false
                     node = addNode(activity, x, y);
                 }
                 getDelegator().appendNodeToWay(lSelectedNode, node, lSelectedWay);
                 lSelectedNode = node;
             }
-        } catch (OsmIllegalOperationException | StorageException e) {
+        } catch (StorageException e) {
             rollback();
             throw e;
         }
