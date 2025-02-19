@@ -686,13 +686,25 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @throws OsmIllegalOperationException if the count is larger than the maximum supported
      */
     public void validateWayNodeCount(final int newCount) {
+        if (newCount > getMaxWayNodes()) {
+            throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
+        }
+    }
+
+    /**
+     * Get the current max number of nodes in a way
+     * 
+     * @return the max number of nodes in a way, the default value if current is not available
+     */
+    public int getMaxWayNodes() {
         Logic logic = App.getLogic();
         if (logic != null) {
             Preferences prefs = logic.getPrefs();
-            if (prefs != null && newCount > prefs.getServer().getCachedCapabilities().getMaxWayNodes()) {
-                throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
+            if (prefs != null) {
+                return prefs.getServer().getCachedCapabilities().getMaxWayNodes();
             }
         }
+        return Capabilities.DEFAULT_MAX_WAY_NODES;
     }
 
     /**
@@ -856,7 +868,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         undo.save(way);
         final List<Node> nodes = way.getNodes();
         // Guarantee uniqueness by creating a set
-        List<Node> circleNodes = addNodesToCircle(new ArrayList<>(new LinkedHashSet<>(nodes)), minNodes, maxSegmentLength, minSegmentLength);
+        List<Node> circleNodes = addNodesToCircle(new ArrayList<>(new LinkedHashSet<>(nodes)), minNodes, maxSegmentLength, minSegmentLength, getMaxWayNodes());
         nodes.clear();
         nodes.addAll(circleNodes);
         way.updateState(OsmElement.STATE_MODIFIED);
@@ -878,7 +890,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     @NonNull
     public Way createCircle(@NonNull final de.blau.android.Map map, int minNodes, double maxSegmentLength, double minSegmentLength,
             @NonNull final List<Node> nodes) {
-        List<Node> circleNodes = addNodesToCircle(nodes, minNodes, maxSegmentLength, minSegmentLength);
+        List<Node> circleNodes = addNodesToCircle(nodes, minNodes, maxSegmentLength, minSegmentLength, getMaxWayNodes());
         Way circle = factory.createWayWithNewId();
         circle.addNodes(circleNodes, false);
         insertElementSafe(circle);
@@ -893,10 +905,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param minNodes minimum number of nodes the circle should have
      * @param maxSegmentLength max. segment length between two circle nodes
      * @param minSegmentLength min. segment length between two circle nodes
+     * @param maxWayNodes max. number of nodes in a way, the resulting circle will not have more nodes than this
      * @return a List of Nodes suitable for creating a Way with nodes arranged in a circle
      */
     @NonNull
-    private List<Node> addNodesToCircle(@NonNull final List<Node> nodes, int minNodes, double maxSegmentLength, double minSegmentLength) {
+    private List<Node> addNodesToCircle(@NonNull final List<Node> nodes, int minNodes, double maxSegmentLength, double minSegmentLength, int maxWayNodes) {
         if (nodes.size() < MIN_NODES_CIRCLE) {
             throw new OsmIllegalOperationException("Create circle called with less than 3 nodes");
         }
@@ -952,7 +965,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         final Node firstNode = nodes.get(0);
         double radiusLength = GeoMath.haversineDistance(firstNode.getLon() / 1E7D, firstNode.getLat() / 1E7D, center.x, GeoMath.mercatorToLat(center.y));
         // roughly every maxSegmentLength meters
-        int newCount = Math.max(minNodes, (int) ((Geometry.PI_2 * radiusLength) / maxSegmentLength));
+        int newCount = Math.min(Math.max(minNodes, (int) ((Geometry.PI_2 * radiusLength) / maxSegmentLength)), getMaxWayNodes() - existingLength);
         double angleDiff = Geometry.PI_2 / newCount;
 
         final double minDistance = GeoMath.convertMetersToGeoDistance(minSegmentLength);

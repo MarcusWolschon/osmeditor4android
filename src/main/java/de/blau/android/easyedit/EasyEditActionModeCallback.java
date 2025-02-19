@@ -88,7 +88,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         this.main = manager.getMain();
         this.logic = App.getLogic();
         this.manager = manager;
-        maxWayNodes = App.getPreferences(main).getServer().getCachedCapabilities().getMaxWayNodes();
+        maxWayNodes = App.getDelegator().getMaxWayNodes();
     }
 
     @Override
