@@ -156,6 +156,8 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return "alert_duplicate_tag_key";
         case ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE:
             return "alert_bounding_box_too_large";
+        case ErrorCodes.TOO_MANY_WAY_NODES:
+            return "alert_too_many_way_nodes";
         default:
             // nothing
         }
@@ -223,7 +225,9 @@ public class ErrorAlert extends ImmersiveDialogFragment {
         case ErrorCodes.DUPLICATE_TAG_KEY:
             return createNewInstance(R.string.duplicate_tag_key_title, R.string.duplicate_tag_key_message, msg);
         case ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE:
-            return createNewInstance(R.string.upload_bounding_box_too_large_title, R.string.upload_bounding_box_too_large_message, null);
+            return createNewInstance(R.string.upload_bounding_box_too_large_title, R.string.upload_bounding_box_too_large_message, msg);
+        case ErrorCodes.TOO_MANY_WAY_NODES:
+            return createNewInstance(R.string.attempt_to_add_too_many_way_nodes_title, R.string.attempt_to_add_too_many_way_nodes_message, msg);
         default:
             // ignore
         }

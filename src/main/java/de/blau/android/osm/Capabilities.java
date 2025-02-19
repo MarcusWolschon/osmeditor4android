@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -20,7 +22,8 @@ import androidx.annotation.NonNull;
  */
 public class Capabilities {
 
-    private static final String DEBUG_TAG = Capabilities.class.getSimpleName().substring(0, Math.min(23, Capabilities.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Capabilities.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Capabilities.class.getSimpleName().substring(0, TAG_LEN);
 
     public enum Status {
         // TODO add unknown status for when we haven't determined the status yet
@@ -47,19 +50,28 @@ public class Capabilities {
     static final String BLACKLIST_TAG        = "blacklist";
     static final String REGEX_KEY            = "regex";
 
-    public static final int DEFAULT_MAX_STRING_LENGTH = 255;
+    private static final int    DEFAULT_TIMEOUT                   = 300;
+    private static final int    DEFAULT_MAX_ELEMENTS_IN_CHANGESET = 10000;
+    private static final int    DEFAULT_MAX_RELATION_MEMBERS      = 32000;
+    public static final int     DEFAULT_MAX_WAY_NODES             = 2000;
+    private static final int    DEFAULT_MAX_TRACEPOINTS_PER_PAGE  = 5000;
+    private static final float  DEFAULT_MAX_NOTE_AREA             = 25f;
+    private static final float  DEFAULT_MAX_AREA                  = 0.25f;
+    private static final String DEFAULT_MIN_VERSION               = "0.6";
+    private static final String DEFAULT_MAX_VERSION               = "0.6";
+    public static final int     DEFAULT_MAX_STRING_LENGTH         = 255;
 
     // API related
-    private String minVersion             = "0.6";
-    private String maxVersion             = "0.6";
-    private float  maxArea                = 0.25f;
-    private float  maxNoteArea            = 25f;
-    private int    maxTracepointsPerPage  = 5000;
-    private int    maxWayNodes            = 2000;
-    private int    maxRelationMembers     = 32000;
-    private int    maxElementsInChangeset = 10000;
-    private int    maxStringLength        = DEFAULT_MAX_STRING_LENGTH; // this is not provided by the API yet
-    private int    timeout                = 300;
+    private String minVersion             = DEFAULT_MIN_VERSION;
+    private String maxVersion             = DEFAULT_MAX_VERSION;
+    private float  maxArea                = DEFAULT_MAX_AREA;
+    private float  maxNoteArea            = DEFAULT_MAX_NOTE_AREA;
+    private int    maxTracepointsPerPage  = DEFAULT_MAX_TRACEPOINTS_PER_PAGE;
+    private int    maxWayNodes            = DEFAULT_MAX_WAY_NODES;
+    private int    maxRelationMembers     = DEFAULT_MAX_RELATION_MEMBERS;
+    private int    maxElementsInChangeset = DEFAULT_MAX_ELEMENTS_IN_CHANGESET;
+    private int    maxStringLength        = DEFAULT_MAX_STRING_LENGTH;        // this is not provided by the API yet
+    private int    timeout                = DEFAULT_TIMEOUT;
     private Status dbStatus               = Status.OFFLINE;
     private Status apiStatus              = Status.OFFLINE;
     private Status gpxStatus              = Status.OFFLINE;

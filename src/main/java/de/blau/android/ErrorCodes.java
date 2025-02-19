@@ -42,4 +42,5 @@ public final class ErrorCodes {
     public static final int DUPLICATE_TAG_KEY             = 59;
     public static final int ALREADY_DELETED               = 60;
     public static final int UPLOAD_BOUNDING_BOX_TOO_LARGE = 61;
+    public static final int TOO_MANY_WAY_NODES            = 62;
 }

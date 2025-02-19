@@ -129,7 +129,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         updated |= setItemVisibility(!joinableElements.isEmpty(), joinItem, false);
 
         List<Way> ways = logic.getFilteredWaysForNode((Node) element);
-        appendableWays = findAppendableWays(ways, (Node) element);
+        appendableWays = findAppendableWays(ways, (Node) element, maxWayNodes);
         updated |= setItemVisibility(!appendableWays.isEmpty(), appendItem, false);
 
         int wayMembershipCount = ways.size();
@@ -160,10 +160,10 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      * @return true is an end node in any of them
      */
     @NonNull
-    private List<Way> findAppendableWays(@NonNull List<Way> ways, @NonNull Node node) {
+    private List<Way> findAppendableWays(@NonNull List<Way> ways, @NonNull Node node, int maxWayNodes) {
         List<Way> result = new ArrayList<>();
         for (Way w : ways) {
-            if (w.isEndNode(node)) {
+            if (w.isEndNode(node) && w.nodeCount() < maxWayNodes) {
                 result.add(w);
             }
         }
