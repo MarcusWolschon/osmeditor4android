@@ -101,6 +101,9 @@
     <string name="upload_bounding_box_too_large_message">The area covering the changes you are trying to upload is too large.
         &lt;br&gt;&lt;br&gt;Please split your changes in to multiple smaller changesets. 
         You can do this by selecting a subset of changed elements and uploading them separately.</string>
+    <string name="attempt_to_add_too_many_way_nodes_title">Attempt to add too many way nodes</string>
+    <string name="attempt_to_add_too_many_way_nodes_message">The operation would create a way that contains more than the maximum number of way nodes. Either add less nodes or split the way at a suitable position.</string>
+    <string name="too_many_way_nodes_details">Trying to add %1$d nodes that would lead to a total count of %2$d nodes which is larger than the limit of %3$d</string>
     <!--  -->
     <string name="select_file_picker_title">Select file picker</string>
     <!-- Newbie dialog -->

@@ -74,6 +74,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     private boolean                   created      = true;
     protected Map<OsmElement, Result> savedResults = new HashMap<>();
     private View                      close;
+    protected final int               maxWayNodes;
 
     public static final int GROUP_MODE = 0;
     public static final int GROUP_BASE = 1;
@@ -89,6 +90,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         this.main = manager.getMain();
         this.logic = App.getLogic();
         this.manager = manager;
+        maxWayNodes = App.getPreferences(main).getServer().getCachedCapabilities().getMaxWayNodes();
     }
 
     @Override
