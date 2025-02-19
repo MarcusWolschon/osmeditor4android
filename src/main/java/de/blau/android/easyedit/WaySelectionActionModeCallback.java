@@ -169,8 +169,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         updated |= setItemVisibility(size > 2, splitItem, false);
 
         updated |= setItemVisibility(!cachedMergeableWays.isEmpty(), mergeItem, false);
-
-        updated |= setItemVisibility(!cachedAppendableNodes.isEmpty(), appendItem, false);
+        
+        updated |= setItemVisibility(!(cachedAppendableNodes.isEmpty() || way.nodeCount() >= maxWayNodes), appendItem, false);
 
         updated |= setItemVisibility(way.getTagWithKey(Tags.KEY_HIGHWAY) != null && !cachedViaElements.isEmpty(), restrictionItem, false);
 

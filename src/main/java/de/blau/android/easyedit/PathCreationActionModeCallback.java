@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,9 +23,11 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import de.blau.android.App;
 import de.blau.android.DisambiguationMenu;
 import de.blau.android.DisambiguationMenu.Type;
+import de.blau.android.ErrorCodes;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.AddressInterpolationDialog;
+import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
@@ -45,8 +49,9 @@ import de.blau.android.util.Util;
  * This callback handles path creation.
  */
 public class PathCreationActionModeCallback extends BuilderActionModeCallback {
-    private static final String DEBUG_TAG = PathCreationActionModeCallback.class.getSimpleName().substring(0,
-            Math.min(23, PathCreationActionModeCallback.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PathCreationActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PathCreationActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     protected static final int MENUITEM_UNDO          = 1;
     private static final int   MENUITEM_SNAP          = 2;
@@ -224,6 +229,8 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             return true;
         });
         undo.setActionView(undoView);
+        undoView.setEnabled(wayToFollow == null);
+
         addSnapCheckBox(main, menu, snap, (CompoundButton buttonView, boolean isChecked) -> {
             snap = isChecked;
             logic.getPrefs().enableWaySnap(isChecked);
@@ -285,8 +292,11 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         }
         try {
             pathCreateNode(x, y);
-        } catch (OsmIllegalOperationException | StorageException e) {
-            ScreenMessage.barError(main, e.getLocalizedMessage());
+        } catch (StorageException e) {
+            ScreenMessage.toastTopError(main, e.getLocalizedMessage(), true);
+        } catch (OsmIllegalOperationException e) {
+            finishBuilding();
+            ScreenMessage.toastTopError(main, e.getLocalizedMessage(), true);
         }
         return true;
     }
@@ -300,6 +310,12 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         }
         List<Node> followNodes = wayToFollow.getNodes();
         List<Node> nodesToAdd = nodesFromFollow(followNodes, initialFollowNode, addedNodes.get(addedNodes.size() - 1), (Node) element, wayToFollow.isClosed());
+        final int totalCount = existingNodes.size() + addedNodes.size() + nodesToAdd.size();
+        if (totalCount > maxWayNodes) {
+            ErrorAlert.showDialog(main, ErrorCodes.TOO_MANY_WAY_NODES,
+                    main.getString(R.string.too_many_way_nodes_details, nodesToAdd.size(), totalCount, maxWayNodes));
+            return true;
+        }
         existingNodes.addAll(nodesToAdd);
         addedNodes.addAll(nodesToAdd);
         createdWay.getNodes().addAll(nodesToAdd); // nodes already all exist in storage
@@ -313,6 +329,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         logic.setSelectedNode((Node) element);
         mode.setTitle(savedTitle);
         mode.setSubtitle(R.string.add_way_node_instruction);
+        wayToFollow = null;
         mode.invalidate();
         main.invalidateMap();
         return true;
@@ -517,6 +534,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             return;
         }
         wayToFollow = follow;
+        mode.invalidate(); // disable undo
         List<Node> endNodesCandidates = new ArrayList<>(follow.getNodes()); // copy required!!
         // remove nodes that are not "in front of the current node"
         final Node current = addedNodes.get(size - 1);
