@@ -5900,16 +5900,17 @@ public class Logic {
      * Paste current contents of the clipboard
      * 
      * @param activity the activity we were called from
+     * @param index index of the clipboard to use
      * @param x screen x to position the object at
      * @param y screen y to position the object at
      * @return the pasted objects or null if the clipboard was empty
      */
     @Nullable
-    public List<OsmElement> pasteFromClipboard(@Nullable Activity activity, float x, float y) {
+    public List<OsmElement> pasteFromClipboard(@Nullable Activity activity, int index, float x, float y) {
         createCheckpoint(activity, R.string.undo_action_paste);
         int lat = yToLatE7(y);
         int lon = xToLonE7(x);
-        return getDelegator().pasteFromClipboard(lat, lon);
+        return getDelegator().pasteFromClipboard(index, lat, lon);
     }
 
     /**
