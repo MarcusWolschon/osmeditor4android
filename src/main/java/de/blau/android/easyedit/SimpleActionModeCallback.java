@@ -4,14 +4,21 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.CompoundButton;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.graphics.drawable.DrawableCompat;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -19,11 +26,14 @@ import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.layer.LayerType;
+import de.blau.android.osm.ClipboardStorage;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.tasks.NoteFragment;
+import de.blau.android.util.NumberDrawable;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.collections.MRUList;
 import de.blau.android.voice.Commands;
 
 public class SimpleActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
@@ -79,7 +89,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             }
 
             @Override
-            public void addMenuItems(Context ctx, Menu menu) {
+            public void addMenuItems(EasyEditManager manager, Context ctx, Menu menu) {
                 boolean snap = App.getLogic().getPrefs().isWaySnapEnabled();
                 PathCreationActionModeCallback.addSnapCheckBox(ctx, menu, snap,
                         (CompoundButton buttonView, boolean isChecked) -> App.getLogic().getPrefs().enableWaySnap(isChecked));
@@ -166,6 +176,12 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             public boolean isEnabled() {
                 return !App.getLogic().clipboardIsEmpty();
             }
+
+            @Override
+            public void addMenuItems(@NonNull EasyEditManager manager, @NonNull Context ctx, @NonNull Menu menu) {
+                setUpClipboardButtons(manager, ctx, menu);
+            }
+
         },
         /**
          * Paste an object from the clipboard, without exiting the action mode
@@ -174,7 +190,12 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
                 (main, manager, x, y) -> App.getLogic().pasteFromClipboard(main, 0, x, y)) {
             @Override
             public boolean isEnabled() {
-                return !App.getLogic().clipboardIsEmpty() && !App.getDelegator().clipboardContentWasCut();
+                return !App.getLogic().clipboardIsEmpty();
+            }
+
+            @Override
+            public void addMenuItems(@NonNull EasyEditManager manager, @NonNull Context ctx, @NonNull Menu menu) {
+                setUpClipboardButtons(manager, ctx, menu);
             }
         };
 
@@ -224,7 +245,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
          * @param x screen x coordinate
          * @param y screen y coordinate
          */
-        public void execute(final Main main, final EasyEditManager manager, final float x, final float y) {
+        public void execute(@NonNull final Main main, @NonNull final EasyEditManager manager, final float x, final float y) {
             actionCallback.action(main, manager, x, y);
         }
 
@@ -240,10 +261,11 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add one or more menu items to the initial menu
          * 
+         * @param manager the current EasyEditManager
          * @param ctx an Android Context
          * @param menu the Menu we append the items too
          */
-        public void addMenuItems(@NonNull Context ctx, @NonNull Menu menu) {
+        public void addMenuItems(@NonNull final EasyEditManager manager, @NonNull Context ctx, @NonNull Menu menu) {
             // nothing
         }
     }
@@ -259,6 +281,10 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
     public SimpleActionModeCallback(@NonNull EasyEditManager manager, @NonNull SimpleAction simpleMode) {
         super(manager);
         this.simpleAction = simpleMode;
+    }
+
+    public void invalidate() {
+        manager.invalidate();
     }
 
     @Override
@@ -280,7 +306,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         super.onPrepareActionMode(mode, menu);
         menu.clear();
         menuUtil.reset();
-        simpleAction.addMenuItems(main, menu);
+        simpleAction.addMenuItems(manager, main, menu);
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
         return true;
@@ -348,6 +374,68 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             }
         } else {
             manager.finish();
+        }
+    }
+
+    /**
+     * Set up the buttons representing clipboards
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param ctx an Android Context
+     * @param menu the Menu to add the buttons to
+     */
+    private static void setUpClipboardButtons(@NonNull EasyEditManager manager, @NonNull Context ctx, @NonNull Menu menu) {
+        final List<ClipboardStorage> clipboards = App.getDelegator().getClipboards();
+        final Drawable bgEmpty = AppCompatResources.getDrawable(ctx, R.drawable.clipboard_bg);
+        final Drawable bgOrange = AppCompatResources.getDrawable(ctx, R.drawable.clipboard_bg_orange);
+        int count = 0;
+        for (ClipboardStorage clipboard : clipboards) {
+            final int c = count;
+            MenuItem item = menu.add(Integer.toString(count + 1)).setOnMenuItemClickListener((MenuItem menuItem) -> {
+                for (int j = 0; j < clipboards.size(); j++) {
+                    MenuItem mi = menu.getItem(j);
+                    setIconBackground(mi, bgEmpty);
+                }
+                setIconBackground(menuItem, bgOrange);
+                ((MRUList<ClipboardStorage>) clipboards).push(clipboards.get(c));
+                manager.invalidate();
+                return true;
+            });
+            Drawable icon = clipboard.getIcon(ctx);
+            if (icon == ClipboardStorage.NO_ICON) {
+                icon = new NumberDrawable(ctx);
+                ((NumberDrawable) icon).setNumber(count + 1);
+            }
+            LayerDrawable layerDrawable = new LayerDrawable(new Drawable[] { bgEmpty });
+            layerDrawable.setId(0, 0);
+            layerDrawable.setLayerGravity(0, Gravity.CENTER);
+            layerDrawable.addLayer(icon);
+            layerDrawable.setLayerGravity(1, Gravity.CENTER);
+            layerDrawable.setLayerInsetLeft(1, 6);
+            layerDrawable.setLayerInsetRight(1, 6);
+            layerDrawable.setLayerInsetTop(1, 6);
+            layerDrawable.setLayerInsetBottom(1, 6);
+            item.setIcon(layerDrawable);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+            if (count == 0) {
+                setIconBackground(item, bgOrange);
+            }
+            count++;
+        }
+    }
+
+    /**
+     * Set the background image for a clipboard button
+     * 
+     * @param item the MenuItem
+     * @param bg the background Drawable
+     */
+    private static void setIconBackground(@NonNull MenuItem item, @NonNull Drawable bg) {
+        LayerDrawable drawable = (LayerDrawable) item.getIcon();
+        if (drawable != null) {
+            drawable.setDrawableByLayerId(0, bg);
+            drawable.invalidateSelf();
         }
     }
 }

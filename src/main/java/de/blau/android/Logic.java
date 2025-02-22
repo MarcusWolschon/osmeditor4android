@@ -5796,26 +5796,33 @@ public class Logic {
     /**
      * Copy element to clipboard
      * 
+     * @param activity optional activity we were called from
      * @param element element to copy
      */
-    public void copyToClipboard(@NonNull OsmElement element) {
+    public void copyToClipboard(@Nullable FragmentActivity activity, @NonNull OsmElement element) {
         List<OsmElement> list = new ArrayList<>();
         list.add(element);
-        copyToClipboard(list);
+        copyToClipboard(activity, list);
     }
 
     /**
      * Copy elements to clipboard
      * 
+     * @param activity optional activity we were called from
      * @param elements elements to copy
      */
-    public void copyToClipboard(@NonNull List<OsmElement> elements) {
+    public void copyToClipboard(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements) {
         int[] centroid = calcCentroid(elements);
         if (centroid.length != 2) {
             Log.e(DEBUG_TAG, "Unable to determine centroid");
             return;
         }
-        getDelegator().copyToClipboard(elements, centroid[0], centroid[1]);
+        try {
+            getDelegator().copyToClipboard(elements, centroid[0], centroid[1]);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            // don't rethrow
+        }
     }
 
     /**
@@ -5824,7 +5831,7 @@ public class Logic {
      * @param activity the activity we were called from
      * @param element element to cut
      */
-    public void cutToClipboard(@Nullable Activity activity, @NonNull OsmElement element) {
+    public void cutToClipboard(@Nullable FragmentActivity activity, @NonNull OsmElement element) {
         List<OsmElement> list = new ArrayList<>();
         list.add(element);
         cutToClipboard(activity, list);
@@ -5836,14 +5843,19 @@ public class Logic {
      * @param activity the activity we were called from
      * @param elements the elements to cut
      */
-    public void cutToClipboard(@Nullable Activity activity, @NonNull List<OsmElement> elements) {
+    public void cutToClipboard(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements) {
         createCheckpoint(activity, R.string.undo_action_cut);
         int[] centroid = calcCentroid(elements);
         if (centroid.length != 2) {
             Log.e(DEBUG_TAG, "Unable to determine centroid");
             return;
         }
-        getDelegator().cutToClipboard(elements, centroid[0], centroid[1]);
+        try {
+            getDelegator().cutToClipboard(elements, centroid[0], centroid[1]);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            // don't rethrow
+        }
         invalidateMap();
     }
 

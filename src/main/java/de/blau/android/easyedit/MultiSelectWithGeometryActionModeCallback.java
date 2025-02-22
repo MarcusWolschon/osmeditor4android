@@ -196,7 +196,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
             menuDelete(false);
             break;
         case ElementSelectionActionModeCallback.MENUITEM_COPY:
-            logic.copyToClipboard(selection);
+            logic.copyToClipboard(main, selection);
             mode.finish();
             break;
         case ElementSelectionActionModeCallback.MENUITEM_CUT:
@@ -457,7 +457,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
     @Override
     public boolean processShortcut(Character c) {
         if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
-            logic.copyToClipboard(selection);
+            logic.copyToClipboard(main, selection);
             manager.finish();
             return true;
         } else if (c == Util.getShortCut(main, R.string.shortcut_cut)) {

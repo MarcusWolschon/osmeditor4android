@@ -2583,26 +2583,27 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     throw new IllegalArgumentException("Cutting of Relations not supported");
                 }
                 toCut.add(e);
-                if (e instanceof Way) {
-                    undo.save(e);
-                    // clone all nodes that are members of other ways that are not being cut
-                    List<Node> nodes = new ArrayList<>(((Way) e).getNodes());
-                    for (Node nd : nodes) {
-                        List<Way> ways = currentStorage.getWays(nd);
-                        if (ways.size() <= 1) { // 1 is expected (our way will be deleted later)
-                            continue;
-                        }
-                        Node newNode = replacedNodes.get(nd.getOsmId());
-                        if (newNode == null) {
-                            // check if there is actually a Way we are not cutting
-                            for (Way w : ways) {
-                                if (!elements.contains(w)) {
-                                    newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
-                                    newNode.setTags(nd.getTags());
-                                    insertElementSafe(newNode);
-                                    replacedNodes.put(nd.getOsmId(), newNode);
-                                    break;
-                                }
+                if (!(e instanceof Way)) {
+                    continue;
+                }
+                undo.save(e);
+                // clone all nodes that are members of other ways that are not being cut
+                List<Node> nodes = new ArrayList<>(((Way) e).getNodes());
+                for (Node nd : nodes) {
+                    List<Way> ways = currentStorage.getWays(nd);
+                    if (ways.size() <= 1) { // 1 is expected (our way will be deleted later)
+                        continue;
+                    }
+                    Node newNode = replacedNodes.get(nd.getOsmId());
+                    if (newNode == null) {
+                        // check if there is actually a Way we are not cutting
+                        for (Way w : ways) {
+                            if (!elements.contains(w)) {
+                                newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
+                                newNode.setTags(nd.getTags());
+                                insertElementSafe(newNode);
+                                replacedNodes.put(nd.getOsmId(), newNode);
+                                break;
                             }
                         }
                     }
@@ -2892,16 +2893,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public boolean clipboardIsEmpty() {
         ClipboardStorage last = clipboards.last();
         return last == null || last.isEmpty();
-    }
-
-    /**
-     * Check if the content of the current clipboard was cut
-     * 
-     * @return true if the current clipboards content was cut
-     */
-    public boolean clipboardContentWasCut() {
-        ClipboardStorage last = clipboards.last();
-        return last != null && last.contentsWasCut();
     }
 
     /**
@@ -4252,6 +4243,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     @NonNull
     public BoundingBox getLastBox() {
         return currentStorage.getLastBox();
+    }
+
+    /**
+     * Get the list of clipboards
+     * 
+     * @return the clipboards
+     */
+    @NonNull
+    public List<ClipboardStorage> getClipboards() {
+        return clipboards;
     }
 
     /**

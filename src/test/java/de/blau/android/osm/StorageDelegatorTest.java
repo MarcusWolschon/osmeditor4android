@@ -103,7 +103,9 @@ public class StorageDelegatorTest {
         temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         assertTrue(!d.clipboardIsEmpty());
-        assertFalse(d.clipboardContentWasCut()); // after paste switch to copy
+        List<ClipboardStorage> clipboards = d.getClipboards();
+        assertNotNull(clipboards);
+        assertFalse(clipboards.get(0).contentsWasCut()); // after paste switch to copy
         double[] centroid2 = Geometry.centroidLonLat(temp);
         assertEquals(centroid[1] + 1, centroid2[1], 0.001);
         assertEquals(centroid[0] + 1, centroid2[0], 0.001);
@@ -123,7 +125,9 @@ public class StorageDelegatorTest {
         logic.cutToClipboard(null, Util.wrapInList(w));
         assertNull(d.getOsmElement(Way.NAME, w.getOsmId()));
         assertFalse(d.clipboardIsEmpty());
-        assertTrue(d.clipboardContentWasCut());
+        List<ClipboardStorage> clipboards = d.getClipboards();
+        assertNotNull(clipboards);
+        assertTrue(clipboards.get(0).contentsWasCut());
         // undo should empty clipboard
         logic.undo();
         assertTrue(d.clipboardIsEmpty());

@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -23,7 +21,7 @@ import de.blau.android.R;
  * @author simon
  *
  */
-public class BadgeDrawable extends Drawable {
+public class BadgeDrawable extends BaseDrawable {
 
     private static final int MAX      = 1000;
     private Paint            mBadgePaint;
@@ -120,21 +118,6 @@ public class BadgeDrawable extends Drawable {
         // Only draw a badge if there are notifications.
         mWillDraw = count > 0;
         invalidateSelf();
-    }
-
-    @Override
-    public void setAlpha(int alpha) {
-        // do nothing
-    }
-
-    @Override
-    public void setColorFilter(ColorFilter cf) {
-        // do nothing
-    }
-
-    @Override
-    public int getOpacity() {
-        return PixelFormat.UNKNOWN;
     }
 
     /**
