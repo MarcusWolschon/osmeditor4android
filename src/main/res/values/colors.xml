@@ -17,6 +17,9 @@
 	<color name="relation">#A8FF7D</color>
 	<color name="black">#000000</color>
 
+    <color name="button_dark">#99343434</color>
+    <color name="button_light">#FFFFFFFF</color>
+
 	<color name="bug_open">#F00</color>
 	<color name="bug_closed">#00F</color>
 	<!-- A light Holo shade of blue -->

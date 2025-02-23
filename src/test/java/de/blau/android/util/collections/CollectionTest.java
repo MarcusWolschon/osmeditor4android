@@ -199,7 +199,7 @@ public class CollectionTest {
         assertEquals(2, mru.size());
         assertEquals("bottom", mru.last());
 
-        assertFalse(mru.equals(new MRUList<String>(mru))); // the limit is different
+        assertTrue(mru.equals(new MRUList<String>(mru))); // capacity should be the same
         assertFalse(mru.equals(new MRUList<String>(11)));
 
         mru.pushAll(Arrays.asList("1", "2"));

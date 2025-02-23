@@ -342,7 +342,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             showHistory();
             break;
         case MENUITEM_COPY:
-            logic.copyToClipboard(element);
+            logic.copyToClipboard(main, element);
             mode.finish();
             break;
         case MENUITEM_CUT:
@@ -631,7 +631,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     @Override
     public boolean processShortcut(Character c) {
         if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
-            logic.copyToClipboard(element);
+            logic.copyToClipboard(main, element);
             manager.finish();
             return true;
         } else if (c == Util.getShortCut(main, R.string.shortcut_cut)) {

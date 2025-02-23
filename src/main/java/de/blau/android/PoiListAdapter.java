@@ -25,7 +25,6 @@ import de.blau.android.validation.Validator;
 
 public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewHolder> {
 
-    private static final int ICON_SIZE   = 36;
     static final int         ROW_MARGIN  = 20;
     private static final int ROW_PADDING = 5;
 
@@ -37,8 +36,9 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
 
     private int                   width;
     private final OnClickListener onClickListener;
-    private int                   defaultTextColor;
-    private int                   defaultBackgroundColor;
+    private final int             defaultTextColor;
+    private final int             defaultBackgroundColor;
+    private final int             iconSize;
 
     private static final BitmapDrawable NO_ICON = new BitmapDrawable(); // NOSONAR
 
@@ -74,6 +74,8 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
         defaultTextColor = ThemeUtils.getStyleAttribColorValue(ctx, R.attr.textColor, R.color.black);
         defaultBackgroundColor = ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorSecondary, R.color.ccc_white);
 
+        iconSize = Math.round(ctx.getResources().getDimension(R.dimen.poi_list_icon_size));
+
         onClickListener = clickedView -> {
             OsmElement element = (OsmElement) clickedView.getTag();
             ViewBox box = new ViewBox(element.getBounds());
@@ -100,7 +102,7 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
         tv.setPadding(ROW_PADDING, ROW_PADDING, ROW_PADDING, ROW_PADDING);
         tv.setMaxWidth(width);
         tv.setMinWidth(width);
-        tv.setMinHeight(ICON_SIZE + 2 * ROW_PADDING);
+        tv.setMinHeight(iconSize + 2 * ROW_PADDING);
         tv.setGravity(Gravity.CENTER_VERTICAL);
         tv.setCompoundDrawablePadding(ROW_MARGIN);
         tv.setOnClickListener(onClickListener);
@@ -121,19 +123,7 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
             holder.tv.setBackgroundColor(defaultBackgroundColor);
             holder.tv.setTextColor(defaultTextColor);
         }
-        BitmapDrawable icon = e.getFromCache(iconCache);
-        if (icon == null) {
-            PresetItem item = Preset.findBestMatch(App.getCurrentPresets(ctx), e.getTags(), null, null);
-            if (item != null) {
-                Drawable tempIcon = item.getIcon(ctx, ICON_SIZE);
-                if (tempIcon instanceof BitmapDrawable) {
-                    icon = (BitmapDrawable) tempIcon;
-                } else {
-                    icon = NO_ICON;
-                }
-                e.addToCache(iconCache, icon);
-            }
-        }
+        BitmapDrawable icon = getIcon(ctx, iconCache, iconSize, e);
         holder.tv.setCompoundDrawables(icon != NO_ICON ? icon : null, null, null, null);
 
         String description = e.getFromCache(descriptionCache);
@@ -142,6 +132,33 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
             e.addToCache(descriptionCache, description);
         }
         holder.tv.setText(description);
+    }
+
+    /**
+     * Get an icon for an element caching it if necessary
+     * 
+     * @param ctx an Android Context
+     * @param iconCache the cache
+     * @param iconSize the size of the icon
+     * @param e the OsmElement
+     * @return a BitmapDrawable
+     */
+    @NonNull
+    private static BitmapDrawable getIcon(@NonNull Context ctx, @NonNull java.util.Map<java.util.Map<String, String>, BitmapDrawable> iconCache, int iconSize,
+            @NonNull final OsmElement e) {
+        BitmapDrawable icon = e.getFromCache(iconCache);
+        if (icon == null) {
+            icon = NO_ICON;
+            PresetItem item = Preset.findBestMatch(App.getCurrentPresets(ctx), e.getTags(), null, null);
+            if (item != null) {
+                Drawable tempIcon = item.getIcon(ctx, iconSize);
+                if (tempIcon instanceof BitmapDrawable) {
+                    icon = (BitmapDrawable) tempIcon;
+                }
+                e.addToCache(iconCache, icon);
+            }
+        }
+        return icon;
     }
 
     @Override

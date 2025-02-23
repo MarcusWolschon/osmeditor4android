@@ -30,6 +30,16 @@ public class MRUList<T> extends ArrayList<T> {
     }
 
     /**
+     * Construct a new MRUList from an existing MRUList
+     * 
+     * @param other the MRUList to use for construction
+     */
+    public MRUList(@NonNull MRUList<T> other) {
+        super(other);
+        this.capacity = other.capacity;
+    }
+
+    /**
      * Construct a new MRUList from an existing Collection
      * 
      * @param collection the Collection to use for construction

@@ -76,7 +76,7 @@ public class StorageDelegatorTest {
         d.copyToClipboard(Util.wrapInList(w), toE7(centroid[1]), toE7(centroid[0]));
         assertNotNull((Way) d.getOsmElement(Way.NAME, w.getOsmId()));
         assertEquals(count, d.getApiElementCount()); // should not change
-        List<OsmElement> pasted = d.pasteFromClipboard(toE7(centroid[1] + 1), toE7(centroid[0] + 1));
+        List<OsmElement> pasted = d.pasteFromClipboard(0, toE7(centroid[1] + 1), toE7(centroid[0] + 1));
         assertEquals(1, pasted.size());
         temp = (Way) d.getOsmElement(Way.NAME, pasted.get(0).getOsmId());
         assertNotNull(temp);
@@ -98,11 +98,14 @@ public class StorageDelegatorTest {
         assertNotNull(temp);
         double[] centroid = Geometry.centroidLonLat(w);
         d.cutToClipboard(Util.wrapInList(w), toE7(centroid[1]), toE7(centroid[0]));
-        assertNull((Way) d.getOsmElement(Way.NAME, w.getOsmId()));
-        d.pasteFromClipboard(toE7(centroid[1] + 1), toE7(centroid[0] + 1));
+        assertNull(d.getOsmElement(Way.NAME, w.getOsmId()));
+        d.pasteFromClipboard(0, toE7(centroid[1] + 1), toE7(centroid[0] + 1));
         temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
-        assertTrue(d.clipboardIsEmpty());
+        assertTrue(!d.clipboardIsEmpty());
+        List<ClipboardStorage> clipboards = d.getClipboards();
+        assertNotNull(clipboards);
+        assertFalse(clipboards.get(0).contentsWasCut()); // after paste switch to copy
         double[] centroid2 = Geometry.centroidLonLat(temp);
         assertEquals(centroid[1] + 1, centroid2[1], 0.001);
         assertEquals(centroid[0] + 1, centroid2[0], 0.001);
@@ -122,7 +125,9 @@ public class StorageDelegatorTest {
         logic.cutToClipboard(null, Util.wrapInList(w));
         assertNull(d.getOsmElement(Way.NAME, w.getOsmId()));
         assertFalse(d.clipboardIsEmpty());
-        assertTrue(d.clipboardContentWasCut());
+        List<ClipboardStorage> clipboards = d.getClipboards();
+        assertNotNull(clipboards);
+        assertTrue(clipboards.get(0).contentsWasCut());
         // undo should empty clipboard
         logic.undo();
         assertTrue(d.clipboardIsEmpty());

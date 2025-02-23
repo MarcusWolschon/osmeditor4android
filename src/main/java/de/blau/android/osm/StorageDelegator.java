@@ -57,6 +57,7 @@ import de.blau.android.util.Util;
 import de.blau.android.util.Winding;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
+import de.blau.android.util.collections.MRUList;
 import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.validation.BaseValidator;
 
@@ -70,13 +71,19 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public static final int  MIN_NODES_CIRCLE            = 3;
     private static final int MINIMUN_NODES_FOR_WAY_SPLIT = 3;
 
+    private static final int MAX_CLIPBOARDS = 5;
+
+    private static final String LAST_STATE      = "lastActivity";
+    public static final String  FILENAME        = LAST_STATE + "." + FileExtensions.RES;
+    public static final String  BACKUP_FILENAME = FILENAME + ".backup";
+
     private Storage currentStorage;
 
     private Storage apiStorage;
 
     private UndoStorage undo;
 
-    private ClipboardStorage clipboard;
+    private MRUList<ClipboardStorage> clipboards;
 
     private List<String> imagery;
 
@@ -97,9 +104,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private transient boolean imageryRecorded = false;
 
-    public static final String FILENAME        = "lastActivity" + "." + FileExtensions.RES;
-    public static final String BACKUP_FILENAME = FILENAME + ".backup";
-
     private transient SavingHelper<StorageDelegator> savingHelper = new SavingHelper<>();
 
     /**
@@ -114,13 +118,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public StorageDelegator() {
         reset(false); // don't set dirty on instantiation
-        clipboard = new ClipboardStorage();
+        clipboards = new MRUList<>(MAX_CLIPBOARDS);
     }
 
     /**
      * Reset this instance to empty state
      * 
-     * This maintains the clipboard as the user may want to keep it over data relaoads etc
+     * This maintains the clipboard as the user may want to keep it over data reloads etc
      * 
      * @param dirty if true mark the (empty) contents as dirty (this is useful because if true old state files will be
      *            overwritten)
@@ -2552,7 +2556,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
             if (!toCopy.isEmpty()) {
+                ClipboardStorage clipboard = new ClipboardStorage();
                 clipboard.copyTo(toCopy, lat, lon);
+                clipboards.push(clipboard);
             }
         } finally {
             unlock();
@@ -2577,26 +2583,27 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     throw new IllegalArgumentException("Cutting of Relations not supported");
                 }
                 toCut.add(e);
-                if (e instanceof Way) {
-                    undo.save(e);
-                    // clone all nodes that are members of other ways that are not being cut
-                    List<Node> nodes = new ArrayList<>(((Way) e).getNodes());
-                    for (Node nd : nodes) {
-                        List<Way> ways = currentStorage.getWays(nd);
-                        if (ways.size() <= 1) { // 1 is expected (our way will be deleted later)
-                            continue;
-                        }
-                        Node newNode = replacedNodes.get(nd.getOsmId());
-                        if (newNode == null) {
-                            // check if there is actually a Way we are not cutting
-                            for (Way w : ways) {
-                                if (!elements.contains(w)) {
-                                    newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
-                                    newNode.setTags(nd.getTags());
-                                    insertElementSafe(newNode);
-                                    replacedNodes.put(nd.getOsmId(), newNode);
-                                    break;
-                                }
+                if (!(e instanceof Way)) {
+                    continue;
+                }
+                undo.save(e);
+                // clone all nodes that are members of other ways that are not being cut
+                List<Node> nodes = new ArrayList<>(((Way) e).getNodes());
+                for (Node nd : nodes) {
+                    List<Way> ways = currentStorage.getWays(nd);
+                    if (ways.size() <= 1) { // 1 is expected (our way will be deleted later)
+                        continue;
+                    }
+                    Node newNode = replacedNodes.get(nd.getOsmId());
+                    if (newNode == null) {
+                        // check if there is actually a Way we are not cutting
+                        for (Way w : ways) {
+                            if (!elements.contains(w)) {
+                                newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
+                                newNode.setTags(nd.getTags());
+                                insertElementSafe(newNode);
+                                replacedNodes.put(nd.getOsmId(), newNode);
+                                break;
                             }
                         }
                     }
@@ -2624,7 +2631,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             for (Node nd : wayNodes) {
                 removeNode(nd); //
             }
+            ClipboardStorage clipboard = new ClipboardStorage();
             clipboard.cutTo(toCut, lat, lon);
+            clipboards.push(clipboard);
         } finally {
             unlock();
         }
@@ -2635,19 +2644,29 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * If the content was copied to the clipboard new elements will be created.
      * 
+     * @param index index of the clipboard to use
      * @param lat latitude in WGS84*1E7 degrees
      * @param lon longitude in WGS84*1E7 degrees
      * @return the contents or null is the clipboard was empty
      */
     @Nullable
-    public List<OsmElement> pasteFromClipboard(int lat, int lon) {
+    public List<OsmElement> pasteFromClipboard(int index, int lat, int lon) {
+        if (index < 0 || index >= clipboards.size()) {
+            Log.e(DEBUG_TAG, "clipboard index out of range " + index);
+            return null;
+        }
+        ClipboardStorage clipboard = clipboards.get(index);
+        if (clipboard == null || clipboard.isEmpty()) {
+            Log.e(DEBUG_TAG, "clipboard is empty");
+            return null;
+        }
+        boolean copy = !clipboard.contentsWasCut();
         List<OsmElement> elements = clipboard.pasteFrom();
         if (elements.isEmpty()) {
             return null;
         }
         Collections.sort(elements, new NwrComparator()); // enforce NWR order
         List<OsmElement> result = new ArrayList<>();
-        boolean copy = !clipboard.isEmpty();
         int deltaLat = lat - clipboard.getSelectionLat();
         int deltaLon = lon - clipboard.getSelectionLon();
         Map<OsmElement, OsmElement> processed = new HashMap<>(); // every element only needs to be transformed once
@@ -2656,18 +2675,23 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             if (copy) { // paste from copy
                 result.add(createDuplicate(original, deltaLat, deltaLon, processed, true));
             } else { // paste from cut
-                OsmElement e = pasteFromCut(original, deltaLat, deltaLon, processed);
+                OsmElement e = pasteFromCut(clipboard, original, deltaLat, deltaLon, processed);
                 if (e != null) {
                     result.add(e);
                 }
             }
         }
+        if (!copy) { // elements will have changed their coords after pasting from cut
+            clipboard.setSelectionCoords(lon, lat);
+        }
+        clipboards.push(clipboard);
         return result;
     }
 
     /**
      * Re-create an OsmElement from a cut at a specific position
-     * 
+     *
+     * @param clipboard the clipboard to use
      * @param e the OsmElement to re-create
      * @param deltaLat delta latitude (WGS84*1E7)
      * @param deltaLon delta longitude (WGS84*1E7)
@@ -2675,7 +2699,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return the re-created OsmElement
      */
     @Nullable
-    private OsmElement pasteFromCut(@NonNull OsmElement e, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed) {
+    private OsmElement pasteFromCut(@NonNull ClipboardStorage clipboard, @NonNull OsmElement e, int deltaLat, int deltaLon,
+            @NonNull Map<OsmElement, OsmElement> processed) {
         if (currentStorage.contains(e)) {
             Log.e(DEBUG_TAG, "Attempt to paste from cut, but element is already present");
             clipboard.reset();
@@ -2866,16 +2891,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return true if the clipboard is empty
      */
     public boolean clipboardIsEmpty() {
-        return clipboard.isEmpty();
-    }
-
-    /**
-     * Check if the content of the clipboard was cut
-     * 
-     * @return true if the clipboards content was cut
-     */
-    public boolean clipboardContentWasCut() {
-        return clipboard.contentsWasCut();
+        ClipboardStorage last = clipboards.last();
+        return last == null || last.isEmpty();
     }
 
     /**
@@ -2886,18 +2903,24 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return true if the clipboard is ok
      */
     public boolean checkClipboard() {
-        if (!clipboard.check(this)) {
-            clearClipboard();
-            return false;
+        boolean result = true;
+        for (ClipboardStorage clipboard : clipboards) {
+            if (!clipboard.check(this)) {
+                clipboard.reset();
+                result = false;
+            }
         }
-        return true;
+        if (!result) {
+            dirty();
+        }
+        return result;
     }
 
     /**
      * Clear the clipboard and set the dirty flag
      */
     public void clearClipboard() {
-        clipboard.reset();
+        clipboards.clear();
         dirty();
     }
 
@@ -3160,7 +3183,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
                 apiStorage = newDelegator.apiStorage;
                 undo = newDelegator.undo;
-                clipboard = newDelegator.clipboard;
+                clipboards = new MRUList<>(newDelegator.clipboards);
                 factory = newDelegator.factory;
                 dirty = false; // data was just read, i.e. memory and file are in sync
                 return true;
@@ -4220,6 +4243,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     @NonNull
     public BoundingBox getLastBox() {
         return currentStorage.getLastBox();
+    }
+
+    /**
+     * Get the list of clipboards
+     * 
+     * @return the clipboards
+     */
+    @NonNull
+    public List<ClipboardStorage> getClipboards() {
+        return clipboards;
     }
 
     /**

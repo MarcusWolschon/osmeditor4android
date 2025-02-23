@@ -479,7 +479,18 @@ public class Logic {
      */
     @Nullable
     public String undo() {
-        return postUndo(getDelegator(), getDelegator().getUndo().undo());
+        return undo(true);
+    }
+
+    /**
+     * Undo the last checkpoint
+     * 
+     * @param updateUI update selection etc
+     * @return checkpoint name or null if none available
+     */
+    @Nullable
+    public String undo(boolean updateUI) {
+        return postUndo(getDelegator(), getDelegator().getUndo().undo(), updateUI);
     }
 
     /**
@@ -490,7 +501,7 @@ public class Logic {
      */
     @Nullable
     public String undo(int checkpoint) {
-        return postUndo(getDelegator(), getDelegator().getUndo().undo(checkpoint));
+        return postUndo(getDelegator(), getDelegator().getUndo().undo(checkpoint), true);
     }
 
     /**
@@ -498,11 +509,12 @@ public class Logic {
      * 
      * @param delegator the current StorageDelegator instance
      * @param undone the undone Checkpoint
+     * @param updateUI update selection etc
      * @return checkpoint name or null if none available
      */
-    private String postUndo(@NonNull final StorageDelegator delegator, @Nullable Checkpoint undone) {
+    private String postUndo(@NonNull final StorageDelegator delegator, @Nullable Checkpoint undone, boolean updateUI) {
         Selection.Ids ids = undone != null ? undone.getSelection() : null;
-        if (ids != null && map != null && map.getContext() instanceof Main) {
+        if (updateUI && ids != null && map != null && map.getContext() instanceof Main) {
             Main main = (Main) map.getContext();
             final EasyEditManager easyEditManager = main.getEasyEditManager();
             easyEditManager.finish();
@@ -555,7 +567,7 @@ public class Logic {
      * Undo without creating a redo checkpoint
      */
     public void rollback() {
-        postUndo(getDelegator(), getDelegator().getUndo().undo(false));
+        postUndo(getDelegator(), getDelegator().getUndo().undo(false), true);
     }
 
     /**
@@ -5796,26 +5808,33 @@ public class Logic {
     /**
      * Copy element to clipboard
      * 
+     * @param activity optional activity we were called from
      * @param element element to copy
      */
-    public void copyToClipboard(@NonNull OsmElement element) {
+    public void copyToClipboard(@Nullable FragmentActivity activity, @NonNull OsmElement element) {
         List<OsmElement> list = new ArrayList<>();
         list.add(element);
-        copyToClipboard(list);
+        copyToClipboard(activity, list);
     }
 
     /**
      * Copy elements to clipboard
      * 
+     * @param activity optional activity we were called from
      * @param elements elements to copy
      */
-    public void copyToClipboard(@NonNull List<OsmElement> elements) {
+    public void copyToClipboard(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements) {
         int[] centroid = calcCentroid(elements);
         if (centroid.length != 2) {
             Log.e(DEBUG_TAG, "Unable to determine centroid");
             return;
         }
-        getDelegator().copyToClipboard(elements, centroid[0], centroid[1]);
+        try {
+            getDelegator().copyToClipboard(elements, centroid[0], centroid[1]);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            // don't rethrow
+        }
     }
 
     /**
@@ -5824,7 +5843,7 @@ public class Logic {
      * @param activity the activity we were called from
      * @param element element to cut
      */
-    public void cutToClipboard(@Nullable Activity activity, @NonNull OsmElement element) {
+    public void cutToClipboard(@Nullable FragmentActivity activity, @NonNull OsmElement element) {
         List<OsmElement> list = new ArrayList<>();
         list.add(element);
         cutToClipboard(activity, list);
@@ -5836,14 +5855,19 @@ public class Logic {
      * @param activity the activity we were called from
      * @param elements the elements to cut
      */
-    public void cutToClipboard(@Nullable Activity activity, @NonNull List<OsmElement> elements) {
+    public void cutToClipboard(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements) {
         createCheckpoint(activity, R.string.undo_action_cut);
         int[] centroid = calcCentroid(elements);
         if (centroid.length != 2) {
             Log.e(DEBUG_TAG, "Unable to determine centroid");
             return;
         }
-        getDelegator().cutToClipboard(elements, centroid[0], centroid[1]);
+        try {
+            getDelegator().cutToClipboard(elements, centroid[0], centroid[1]);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            // don't rethrow
+        }
         invalidateMap();
     }
 
@@ -5900,16 +5924,17 @@ public class Logic {
      * Paste current contents of the clipboard
      * 
      * @param activity the activity we were called from
+     * @param index index of the clipboard to use
      * @param x screen x to position the object at
      * @param y screen y to position the object at
      * @return the pasted objects or null if the clipboard was empty
      */
     @Nullable
-    public List<OsmElement> pasteFromClipboard(@Nullable Activity activity, float x, float y) {
+    public List<OsmElement> pasteFromClipboard(@Nullable Activity activity, int index, float x, float y) {
         createCheckpoint(activity, R.string.undo_action_paste);
         int lat = yToLatE7(y);
         int lon = xToLonE7(x);
-        return getDelegator().pasteFromClipboard(lat, lon);
+        return getDelegator().pasteFromClipboard(index, lat, lon);
     }
 
     /**
