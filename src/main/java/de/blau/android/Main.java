@@ -3516,7 +3516,11 @@ public class Main extends FullScreenAppCompatActivity
         return super.dispatchKeyEvent(event);
     }
 
-    public class UndoListener implements OnClickListener, OnLongClickListener {
+    public interface UndoInterface {
+        void undo(@NonNull final Logic logic);
+    }
+
+    public class UndoListener implements UndoInterface, OnClickListener, OnLongClickListener {
 
         private static final String DEBUG_TAG = "UndoListener";
 
@@ -3543,10 +3547,11 @@ public class Main extends FullScreenAppCompatActivity
          * 
          * @param logic the current Logic instance
          */
-        void undo(@NonNull final Logic logic) {
+        @Override
+        public void undo(@NonNull final Logic logic) {
             String name = logic.undo();
             if (name != null) {
-                ScreenMessage.toastTopInfo(Main.this, getResources().getString(R.string.undo) + ": " + name);
+                ScreenMessage.toastTopInfo(Main.this, getString(R.string.undo_message, name));
             } else {
                 ScreenMessage.toastTopInfo(Main.this, R.string.undo_nothing);
             }

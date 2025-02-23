@@ -746,6 +746,7 @@
     <string name="toast_flus_all_caches">This will flush all tile caches!</string>
     <string name="toast_applied_offset">Image offset applied.</string>
     <string name="toast_unsupported_format">Unsupported format: %1$s</string>
+    <string name="toast_unsupported_operation">Unsupported operation</string>
     <string name="toast_returning_less_than_found">Returning %1$d of %2$d found entries</string>
     <string name="toast_not_mbtiles">Not a MBTiles or PMTiles format file</string>
     <string name="toast_using_network_location">Using network location</string>
@@ -1654,6 +1655,7 @@
     <string name="undo_action_remove_node_from_way">Remove node from way</string>
     <string name="undo_action_extract_segment">Extract segment</string>
     <string name="undo_action_replace_geometry">Replace geometry</string>
+    <string name="undo_message">Undo: %1$s</string>
     <!-- ACRA -->
     <string name="crash_dialog_text">Vespucci crashed or encountered a serious issue the last time it ran.\n\nPlease help by clicking by \'OK\' to send an error report.\n</string>
     <string name="crash_dialog_comment_prompt">Add any further info you believe might help and (optionally,) your OSM user name if you want feedback.\n\nThank you.</string>

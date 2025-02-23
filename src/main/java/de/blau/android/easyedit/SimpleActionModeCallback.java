@@ -9,16 +9,13 @@ import android.graphics.drawable.LayerDrawable;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.CompoundButton;
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.graphics.drawable.DrawableCompat;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -37,6 +34,9 @@ import de.blau.android.util.collections.MRUList;
 import de.blau.android.voice.Commands;
 
 public class SimpleActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
+
+    private static final int ICON_INSET = 6;
+    private static final int ICON_LAYER = 1;
 
     interface SimpleActionCallback {
         /**
@@ -181,13 +181,14 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             public void addMenuItems(@NonNull EasyEditManager manager, @NonNull Context ctx, @NonNull Menu menu) {
                 setUpClipboardButtons(manager, ctx, menu);
             }
-
         },
         /**
-         * Paste an object from the clipboard, without exiting the action mode
+         * Paste an object from the clipboard multiple times
          */
-        PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.menu_paste_multiple, R.string.simple_paste_multiple,
-                (main, manager, x, y) -> App.getLogic().pasteFromClipboard(main, 0, x, y)) {
+        PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.menu_paste_multiple, R.string.simple_paste_multiple, (main, manager, x, y) -> {
+            App.getLogic().pasteFromClipboard(main, 0, x, y);
+            main.startSupportActionMode(new PasteMultipleActionModeCallback(manager));
+        }) {
             @Override
             public boolean isEnabled() {
                 return !App.getLogic().clipboardIsEmpty();
@@ -384,7 +385,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
      * @param ctx an Android Context
      * @param menu the Menu to add the buttons to
      */
-    private static void setUpClipboardButtons(@NonNull EasyEditManager manager, @NonNull Context ctx, @NonNull Menu menu) {
+    static void setUpClipboardButtons(@NonNull EasyEditManager manager, @NonNull Context ctx, @NonNull Menu menu) {
         final List<ClipboardStorage> clipboards = App.getDelegator().getClipboards();
         final Drawable bgEmpty = AppCompatResources.getDrawable(ctx, R.drawable.clipboard_bg);
         final Drawable bgOrange = AppCompatResources.getDrawable(ctx, R.drawable.clipboard_bg_orange);
@@ -392,7 +393,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         for (ClipboardStorage clipboard : clipboards) {
             final int c = count;
             MenuItem item = menu.add(Integer.toString(count + 1)).setOnMenuItemClickListener((MenuItem menuItem) -> {
-                for (int j = 0; j < clipboards.size(); j++) {
+                for (int j = 0; j < menu.size(); j++) {
                     MenuItem mi = menu.getItem(j);
                     setIconBackground(mi, bgEmpty);
                 }
@@ -410,11 +411,11 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             layerDrawable.setId(0, 0);
             layerDrawable.setLayerGravity(0, Gravity.CENTER);
             layerDrawable.addLayer(icon);
-            layerDrawable.setLayerGravity(1, Gravity.CENTER);
-            layerDrawable.setLayerInsetLeft(1, 6);
-            layerDrawable.setLayerInsetRight(1, 6);
-            layerDrawable.setLayerInsetTop(1, 6);
-            layerDrawable.setLayerInsetBottom(1, 6);
+            layerDrawable.setLayerGravity(ICON_LAYER, Gravity.CENTER);
+            layerDrawable.setLayerInsetLeft(ICON_LAYER, ICON_INSET);
+            layerDrawable.setLayerInsetRight(ICON_LAYER, ICON_INSET);
+            layerDrawable.setLayerInsetTop(ICON_LAYER, ICON_INSET);
+            layerDrawable.setLayerInsetBottom(ICON_LAYER, ICON_INSET);
             item.setIcon(layerDrawable);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
@@ -432,9 +433,9 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
      * @param bg the background Drawable
      */
     private static void setIconBackground(@NonNull MenuItem item, @NonNull Drawable bg) {
-        LayerDrawable drawable = (LayerDrawable) item.getIcon();
-        if (drawable != null) {
-            drawable.setDrawableByLayerId(0, bg);
+        Drawable drawable = item.getIcon();
+        if (drawable instanceof LayerDrawable) {
+            ((LayerDrawable) drawable).setDrawableByLayerId(0, bg);
             drawable.invalidateSelf();
         }
     }

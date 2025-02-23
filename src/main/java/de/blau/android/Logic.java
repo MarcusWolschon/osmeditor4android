@@ -479,7 +479,18 @@ public class Logic {
      */
     @Nullable
     public String undo() {
-        return postUndo(getDelegator(), getDelegator().getUndo().undo());
+        return undo(true);
+    }
+
+    /**
+     * Undo the last checkpoint
+     * 
+     * @param updateUI update selection etc
+     * @return checkpoint name or null if none available
+     */
+    @Nullable
+    public String undo(boolean updateUI) {
+        return postUndo(getDelegator(), getDelegator().getUndo().undo(), updateUI);
     }
 
     /**
@@ -490,7 +501,7 @@ public class Logic {
      */
     @Nullable
     public String undo(int checkpoint) {
-        return postUndo(getDelegator(), getDelegator().getUndo().undo(checkpoint));
+        return postUndo(getDelegator(), getDelegator().getUndo().undo(checkpoint), true);
     }
 
     /**
@@ -498,11 +509,12 @@ public class Logic {
      * 
      * @param delegator the current StorageDelegator instance
      * @param undone the undone Checkpoint
+     * @param updateUI update selection etc
      * @return checkpoint name or null if none available
      */
-    private String postUndo(@NonNull final StorageDelegator delegator, @Nullable Checkpoint undone) {
+    private String postUndo(@NonNull final StorageDelegator delegator, @Nullable Checkpoint undone, boolean updateUI) {
         Selection.Ids ids = undone != null ? undone.getSelection() : null;
-        if (ids != null && map != null && map.getContext() instanceof Main) {
+        if (updateUI && ids != null && map != null && map.getContext() instanceof Main) {
             Main main = (Main) map.getContext();
             final EasyEditManager easyEditManager = main.getEasyEditManager();
             easyEditManager.finish();
@@ -555,7 +567,7 @@ public class Logic {
      * Undo without creating a redo checkpoint
      */
     public void rollback() {
-        postUndo(getDelegator(), getDelegator().getUndo().undo(false));
+        postUndo(getDelegator(), getDelegator().getUndo().undo(false), true);
     }
 
     /**
