@@ -51,11 +51,15 @@ Create a new untagged OSM Node at the tapped position, merging with nearby objec
 
 ### Paste object
 
-If an OSM object has been copied or cut to the clipboard paste it at the tapped position and then select it. This menu item will only be shown if there is something in the clipboard.
+If an OSM object has been copied or cut to the clipboard paste it at the tapped position and then select it. This menu item will only be shown if there is something in the clipboard. 
+
+There are a total of 5 clipboards that can be used, cutting or copying will create a new clipboard that will be used as the default. If the limit of 5 clipboards is reached, the "oldest" one will be deleted. If you want to use a previously created clipboard instead of the most recent one, clicking on the button in the menu will move it to the "top". If a preset can be determined for the items in the clipboard, an icon will be displayed instead of the clipboard number.
 
 ### Paste multiple times
 
-If an OSM object has been copied to the clipboard paste it at the tapped position and remain in the same mode allowing to be pasted repeatedly. The mode can then be exited by pressing the back button or the back arrow in the title bar. This menu item will only be shown if there is something in the clipboard. This item is not shown for cut items as they can only be pasted once.
+If an OSM object has been copied to the clipboard paste it at the tapped position and remain in the same mode allowing to be pasted repeatedly. The mode can then be exited by pressing the back button or the back arrow in the title bar. This menu item will only be shown if there is something in the clipboard. 
+
+See above for clipboard selection.
 
 ## In Address mode
 
