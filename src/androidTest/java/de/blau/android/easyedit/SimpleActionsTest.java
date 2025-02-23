@@ -43,8 +43,10 @@ import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.layer.LayerType;
+import de.blau.android.osm.ClipboardStorage;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -447,4 +449,70 @@ public class SimpleActionsTest {
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.tip_title)));
         TestUtils.clickAwayTip(device, main);
     }
+
+    /**
+     * Copy node and then paste it
+     */
+    @Test
+    public void copyPaste() {
+        copyNode();
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_paste_object), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_paste)));
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+
+        Node pastedNode = App.getLogic().getSelectedNode();
+        assertNotNull(pastedNode);
+        assertTrue(pastedNode.getOsmId() < 0);
+        assertTrue(pastedNode.hasTagWithValue(Tags.KEY_AMENITY, "toilets"));
+
+        TestUtils.clickUp(device);
+    }
+
+    /**
+     * Copy node then paste and undo the paste
+     */
+    @Test
+    public void copyPasteMultiple() {
+        copyNode();
+        StorageDelegator d = App.getDelegator();
+        int count = d.getApiElementCount();
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_paste_multiple), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_paste_multiple)));
+        assertFalse(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_paste_multiple)));
+        assertEquals(count + 1, d.getApiElementCount());
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_paste_multiple)));
+        assertEquals(count, d.getApiElementCount());
+        TestUtils.clickUp(device);
+    }
+
+    /**
+     * copy an existing node
+     */
+    private void copyNode() {
+        StorageDelegator d = App.getDelegator();
+        List<ClipboardStorage> clipboards = d.getClipboards();
+        assertTrue(clipboards.isEmpty());
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
+        TestUtils.clickAwayTip(device, context);
+        TestUtils.clickTextContains(device, "Toilets", true, 1000);
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(3465444349L, node.getOsmId());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        if (!TestUtils.clickMenuButton(device, context.getString(R.string.menu_copy), false, false)) {
+            TestUtils.clickOverflowButton(device);
+            TestUtils.scrollTo(context.getString(R.string.menu_copy), true);
+            assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_copy), false));
+        }
+        assertEquals(1, clipboards.size());
+    }
+
 }
