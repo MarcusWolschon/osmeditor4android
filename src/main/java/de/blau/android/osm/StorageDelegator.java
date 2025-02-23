@@ -2544,11 +2544,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             lock();
             for (OsmElement e : elements) {
                 if (e instanceof Node) {
-                    toCopy.add(duplicateNode((Node) e, 0, 0, processed));
+                    toCopy.add(duplicateNode((Node) e, 0, 0, processed, false));
                 } else if (e instanceof Way) {
-                    toCopy.add(duplicateWay((Way) e, 0, 0, processed, true));
+                    toCopy.add(duplicateWay((Way) e, 0, 0, processed, true, false));
                 } else if (e instanceof Relation) {
-                    toCopy.add(duplicateRelation((Relation) e, 0, 0, processed, true));
+                    toCopy.add(duplicateRelation((Relation) e, 0, 0, processed, true, false));
                 }
             }
             if (!toCopy.isEmpty()) {
@@ -2718,13 +2718,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     @NonNull
     private OsmElement createDuplicate(@NonNull OsmElement e, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed, boolean deep) {
         if (e instanceof Node) {
-            return duplicateNode((Node) e, deltaLat, deltaLon, processed);
+            return duplicateNode((Node) e, deltaLat, deltaLon, processed, true);
         }
         if (e instanceof Way) {
-            return duplicateWay((Way) e, deltaLat, deltaLon, processed, deep);
+            return duplicateWay((Way) e, deltaLat, deltaLon, processed, deep, true);
         }
         if (e instanceof Relation) {
-            return duplicateRelation((Relation) e, deltaLat, deltaLon, processed, deep);
+            return duplicateRelation((Relation) e, deltaLat, deltaLon, processed, deep, true);
         }
         throw new IllegalArgumentException("Unexpected element " + e);
     }
@@ -2737,10 +2737,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param deltaLon delta longitude (WGS84*1E7)
      * @param processed bookkeeping which elements have already been duplicated
      * @param deep duplicate child elements if true
+     * @param insert insert in to current storage
      * @return a duplicate of r
      */
     @NonNull
-    private Relation duplicateRelation(@NonNull Relation r, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed, boolean deep) {
+    private Relation duplicateRelation(@NonNull Relation r, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed, boolean deep,
+            boolean insert) {
         Relation newRelation = factory.createRelationWithNewId();
         undo.save(newRelation); // do this before we create and add members
         newRelation.setTags(r.getTags());
@@ -2754,13 +2756,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 if (!processed.containsKey(rm.getElement())) {
                     switch (rm.type) {
                     case Node.NAME:
-                        duplicateNode((Node) rm.getElement(), deltaLat, deltaLon, processed);
+                        duplicateNode((Node) rm.getElement(), deltaLat, deltaLon, processed, insert);
                         break;
                     case Way.NAME:
-                        duplicateWay((Way) rm.getElement(), deltaLat, deltaLon, processed, true);
+                        duplicateWay((Way) rm.getElement(), deltaLat, deltaLon, processed, true, insert);
                         break;
                     case Relation.NAME:
-                        duplicateRelation((Relation) rm.getElement(), deltaLat, deltaLon, processed, true);
+                        duplicateRelation((Relation) rm.getElement(), deltaLat, deltaLon, processed, true, insert);
                         break;
                     default:
                         throw new IllegalArgumentException("Unexpected member element " + rm);
@@ -2787,10 +2789,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param deltaLon delta longitude (WGS84*1E7)
      * @param processed bookkeeping which elements have already been duplicated
      * @param deep duplicate child elements if true
+     * @param insert insert in to current storage
      * @return a duplicate of way
      */
     @NonNull
-    private Way duplicateWay(@NonNull Way way, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed, boolean deep) {
+    private Way duplicateWay(@NonNull Way way, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed, boolean deep, boolean insert) {
         Way newWay = factory.createWayWithNewId();
         undo.save(newWay); // do this before we create and add nodes
         newWay.setTags(way.getTags());
@@ -2801,7 +2804,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Set<Node> nodes = new HashSet<>(nodeList);
             for (Node nd : nodes) {
                 if (!processed.containsKey(nd)) {
-                    duplicateNode(nd, deltaLat, deltaLon, processed);
+                    duplicateNode(nd, deltaLat, deltaLon, processed, insert);
                 }
             }
             // now add them to the new way
@@ -2811,7 +2814,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         } else {
             newWay.addNodes(nodeList, true);
         }
-        insertElementSafe(newWay);
+        if (insert) {
+            insertElementSafe(newWay);
+        }
         processed.put(way, newWay);
         return newWay;
     }
@@ -2823,13 +2828,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param deltaLat delta latitude (WGS84*1E7)
      * @param deltaLon delta longitude (WGS84*1E7)
      * @param processed bookkeeping which elements have already been duplicated
+     * @param insert insert in to current storage
      * @return a duplicate of node
      */
     @NonNull
-    private Node duplicateNode(@NonNull Node node, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed) {
+    private Node duplicateNode(@NonNull Node node, int deltaLat, int deltaLon, @NonNull Map<OsmElement, OsmElement> processed, boolean insert) {
         Node newNode = factory.createNodeWithNewId(node.getLat() + deltaLat, node.getLon() + deltaLon);
         newNode.setTags(node.getTags());
-        insertElementSafe(newNode);
+        if (insert) {
+            insertElementSafe(newNode);
+        }
         processed.put(node, newNode);
         return newNode;
     }

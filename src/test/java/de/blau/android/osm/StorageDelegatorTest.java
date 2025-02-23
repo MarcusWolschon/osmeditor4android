@@ -69,12 +69,13 @@ public class StorageDelegatorTest {
     public void copy() {
         StorageDelegator d = new StorageDelegator();
         Way w = DelegatorUtil.addWayToStorage(d, true);
-
+        int count = d.getApiElementCount();
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         double[] centroid = Geometry.centroidLonLat(w);
         d.copyToClipboard(Util.wrapInList(w), toE7(centroid[1]), toE7(centroid[0]));
         assertNotNull((Way) d.getOsmElement(Way.NAME, w.getOsmId()));
+        assertEquals(count, d.getApiElementCount()); // should not change
         List<OsmElement> pasted = d.pasteFromClipboard(toE7(centroid[1] + 1), toE7(centroid[0] + 1));
         assertEquals(1, pasted.size());
         temp = (Way) d.getOsmElement(Way.NAME, pasted.get(0).getOsmId());
