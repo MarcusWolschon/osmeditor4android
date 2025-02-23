@@ -9305,18 +9305,18 @@
                 <key key="leisure" value="golf_course"/>
                 <reference ref="name_oh_wheelchair"/>
             </item> <!-- Golf Course -->
-            <item name="Golf clubhouse" name_context="golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
+            <item name="Golf clubhouse" name_context="golf" icon="icons/png/sport_golf.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="clubhouse"/>
             </item> <!-- Golf clubhouse -->
             <separator/>
-            <item name="Tee" name_context="golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
+            <item name="Tee" name_context="golf" icon="icons/png/sport_golf.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="tee"/>
             </item> <!-- Tee -->
-            <item name="Hole" name_context="golf" icon="icons/png/sport_empty.png" type="way" preset_name_label="true">
+            <item name="Hole" name_context="golf" icon="icons/png/sport_golf.png" type="way" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="hole"/>
@@ -9327,55 +9327,55 @@
                     <combo key="handicap" text="Handicap rating" values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18" value_type="integer"/>
                 </optional>
             </item> <!-- Hole -->
-            <item name="Pin" name_context="golf" icon="icons/png/sport_empty.png" type="node" preset_name_label="true">
+            <item name="Pin" name_context="golf" icon="icons/png/sport_golf.png" type="node" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="pin"/>
                 <text key="ref" text="Reference"/>
             </item> <!-- Pin -->
             <separator/>
-            <item name="Bunker" name_context="golf" icon="icons/png/sport_empty.png" type="closedway" preset_name_label="true">
+            <item name="Bunker" name_context="golf" icon="icons/png/sport_golf.png" type="closedway" preset_name_label="true">
                 <link wiki="Tag:golf=bunker"/>
                 <space/>
                 <key key="golf" value="bunker"/>
                 <combo key="natural" text="Natural" text_context="golf" values="sand" display_values="Sand" default="sand"/>
             </item> <!-- Bunker -->
-            <item name="Frontal Water hazard" name_context="golf" icon="icons/png/sport_empty.png" type="closedway" preset_name_label="true">
+            <item name="Frontal Water hazard" name_context="golf" icon="icons/png/sport_golf.png" type="closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="water_hazard"/>
                 <key key="natural" value="water" match="keyvalue"/>
             </item> <!-- Frontal Water hazard -->
-            <item name="Lateral water hazard" name_context="golf" icon="icons/png/sport_empty.png" type="closedway" preset_name_label="true">
+            <item name="Lateral water hazard" name_context="golf" icon="icons/png/sport_golf.png" type="closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="lateral_water_hazard"/>
                 <key key="natural" value="water" match="keyvalue"/>
             </item> <!-- Lateral water hazard -->
             <separator/>
-            <item name="Green" name_context="golf" icon="icons/png/sport_empty.png" type="closedway,multipolygon" preset_name_label="true">
+            <item name="Green" name_context="golf" icon="icons/png/sport_golf.png" type="closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="green"/>
             </item> <!-- Green -->
-            <item name="Fairway" name_context="golf" icon="icons/png/sport_empty.png" type="closedway,multipolygon" preset_name_label="true">
+            <item name="Fairway" name_context="golf" icon="icons/png/sport_golf.png" type="closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:golf=fairway"/>
                 <space/>
                 <key key="golf" value="fairway"/>
                 <key key="surface" value="grass" match="keyvalue"/>
             </item> <!-- Fairway -->
-            <item name="Rough" name_context="golf" icon="icons/png/sport_empty.png" type="closedway,multipolygon" preset_name_label="true">
+            <item name="Rough" name_context="golf" icon="icons/png/sport_golf.png" type="closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="rough"/>
             </item> <!-- Rough -->
-            <item name="Golf cartpath" name_context="golf" icon="icons/png/sport_empty.png" type="way" preset_name_label="true" deprecated="true">
+            <item name="Golf cartpath" name_context="golf" icon="icons/png/sport_golf.png" type="way" preset_name_label="true" deprecated="true">
                 <link wiki="Tag:golf=cartpath"/>
                 <space/>
                 <key key="golf" value="cartpath"/>
             </item> <!-- Golf cartpath -->
             <separator/>
-            <item name="Golf path" name_context="golf" icon="icons/png/sport_empty.png" type="way" preset_name_label="true" deprecated="true">
+            <item name="Golf path" name_context="golf" icon="icons/png/sport_golf.png" type="way" preset_name_label="true" deprecated="true">
                 <link wiki="Tag:golf=path"/>
                 <space/>
                 <key key="golf" value="path"/>
