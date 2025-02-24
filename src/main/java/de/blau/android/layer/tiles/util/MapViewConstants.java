@@ -1,5 +1,5 @@
 // Created by plusminus on 18:00:24 - 25.09.2008
-package de.blau.android.views.util;
+package de.blau.android.layer.tiles.util;
 
 /**
  * 

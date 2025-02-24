@@ -28,11 +28,11 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.layer.LayerType;
+import de.blau.android.layer.tiles.MapTilesLayer;
+import de.blau.android.layer.tiles.MapTilesOverlayLayer;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.views.layers.MapTilesLayer;
-import de.blau.android.views.layers.MapTilesOverlayLayer;
 
 public class TileLayerDatabaseView extends ImmersiveDialogFragment implements OnUpdateListener {
     private static final String DEBUG_TAG = TileLayerDatabaseView.class.getSimpleName().substring(0, Math.min(23, TileLayerDatabaseView.class.getSimpleName().length()));

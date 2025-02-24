@@ -96,6 +96,8 @@ import de.blau.android.layer.StyleableInterface;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.layer.mvt.MapOverlay;
 import de.blau.android.layer.streetlevel.DateRangeInterface;
+import de.blau.android.layer.tiles.ImageryLayerInfo;
+import de.blau.android.layer.tiles.MapTilesLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GpxFile;
 import de.blau.android.osm.OsmGpxApi;
@@ -129,8 +131,6 @@ import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.mvt.style.Source;
 import de.blau.android.util.mvt.style.Style;
-import de.blau.android.views.layers.ImageryLayerInfo;
-import de.blau.android.views.layers.MapTilesLayer;
 
 /**
  * Layer dialog

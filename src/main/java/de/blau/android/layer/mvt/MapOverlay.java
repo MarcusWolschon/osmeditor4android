@@ -36,6 +36,8 @@ import de.blau.android.dialogs.FeatureInfo;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableInterface;
+import de.blau.android.layer.tiles.MapTilesOverlayLayer;
+import de.blau.android.layer.tiles.util.MapTileProvider;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
@@ -55,8 +57,6 @@ import de.blau.android.util.mvt.style.Layer;
 import de.blau.android.util.mvt.style.Layer.Type;
 import de.blau.android.util.mvt.style.Style;
 import de.blau.android.util.mvt.style.Symbol;
-import de.blau.android.views.layers.MapTilesOverlayLayer;
-import de.blau.android.views.util.MapTileProvider;
 
 public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<VectorTileDecoder.Feature>>>
         implements ClickableInterface<VectorTileDecoder.Feature>, StyleableInterface {

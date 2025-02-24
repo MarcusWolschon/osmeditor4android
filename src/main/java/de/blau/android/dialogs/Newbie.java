@@ -21,6 +21,7 @@ import de.blau.android.Authorize;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.layer.tiles.MapTilesLayer;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
@@ -30,7 +31,6 @@ import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.ExtendedViewPager;
-import de.blau.android.views.layers.MapTilesLayer;
 
 /**
  * Display a dialog giving new users minimal instructions

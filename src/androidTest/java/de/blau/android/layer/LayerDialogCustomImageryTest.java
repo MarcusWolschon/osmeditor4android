@@ -50,6 +50,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.TileDispatcher;
 import de.blau.android.gpx.GpxTest;
 import de.blau.android.layer.data.MapOverlay;
+import de.blau.android.layer.tiles.MapTilesLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
@@ -58,7 +59,6 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
-import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)

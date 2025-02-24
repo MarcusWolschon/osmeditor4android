@@ -25,6 +25,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.MockTileServer;
 import de.blau.android.PMTilesDispatcher;
+import de.blau.android.layer.tiles.util.MapTileProviderCallback;
 import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
@@ -32,7 +33,6 @@ import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Provider;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.util.Util;
-import de.blau.android.views.util.MapTileProviderCallback;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 

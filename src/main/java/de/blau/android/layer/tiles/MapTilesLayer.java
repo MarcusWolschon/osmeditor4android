@@ -1,4 +1,4 @@
-package de.blau.android.views.layers;
+package de.blau.android.layer.tiles;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
@@ -41,6 +41,8 @@ import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.NonSerializeableLayer;
+import de.blau.android.layer.tiles.util.MapTileProvider;
+import de.blau.android.layer.tiles.util.MapTileProvider.TileDecoder;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
@@ -54,8 +56,6 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.collections.MRUList;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.util.MapTileProvider;
-import de.blau.android.views.util.MapTileProvider.TileDecoder;
 
 /**
  * Overlay that draws downloaded tiles which may be displayed on top of an {@link IMapView}. To add an overlay, subclass

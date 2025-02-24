@@ -1,5 +1,5 @@
 // Created by plusminus on 22:13:10 - 28.09.2008
-package de.blau.android.views.util;
+package de.blau.android.layer.tiles.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

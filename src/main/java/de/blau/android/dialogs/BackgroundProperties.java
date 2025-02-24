@@ -16,11 +16,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.layer.tiles.MapTilesLayer;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.views.layers.MapTilesLayer;
 
 /**
  * Display a dialog allowing the user to change some properties of the current background
