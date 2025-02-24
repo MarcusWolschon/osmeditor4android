@@ -10,10 +10,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
+import de.blau.android.layer.tiles.util.MapTileProviderCallback;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.views.util.MapTileProviderCallback;
 
 public class MapTileTester {
     private static final String DEBUG_TAG = MapTileTester.class.getSimpleName().substring(0, Math.min(23, MapTileTester.class.getSimpleName().length()));

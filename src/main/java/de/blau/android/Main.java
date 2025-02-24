@@ -140,6 +140,7 @@ import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.geojson.MapOverlay;
 import de.blau.android.layer.streetlevel.NetworkImageLoader;
 import de.blau.android.layer.streetlevel.SelectImageInterface;
+import de.blau.android.layer.tiles.MapTilesLayer;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -205,7 +206,6 @@ import de.blau.android.util.Util;
 import de.blau.android.util.Version;
 import de.blau.android.views.SplitPaneLayout;
 import de.blau.android.views.ZoomControls;
-import de.blau.android.views.layers.MapTilesLayer;
 
 /**
  * This is the main Activity from where other Activities will be started.

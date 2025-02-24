@@ -1,4 +1,4 @@
-package de.blau.android.views.layers;
+package de.blau.android.layer.tiles;
 
 import android.graphics.Canvas;
 import androidx.annotation.NonNull;

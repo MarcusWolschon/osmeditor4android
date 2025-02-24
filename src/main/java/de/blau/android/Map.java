@@ -39,6 +39,8 @@ import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.LayerConfig;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.tiles.MapTilesLayer;
+import de.blau.android.layer.tiles.MapTilesOverlayLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
@@ -59,8 +61,6 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.mvt.VectorTileRenderer;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.layers.MapTilesLayer;
-import de.blau.android.views.layers.MapTilesOverlayLayer;
 
 /**
  * Orchestrate layer drawing, configuration and associated rendering
