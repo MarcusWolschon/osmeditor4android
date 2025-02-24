@@ -169,8 +169,6 @@ public class MapOverlay extends StyleableFileLayer
     private transient FloatPrimitiveList         points                = new FloatPrimitiveList(FloatPrimitiveList.MEDIUM_DEFAULT);
     private transient Collection<BoundedFeature> queryForDisplayResult = new ArrayList<>();
     private final transient Coordinates          centroid              = new Coordinates(0, 0);
-    /** Map this is an overlay of. */
-    private final transient Map                  map;
 
     /**
      * Styling parameters

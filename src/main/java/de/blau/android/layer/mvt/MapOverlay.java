@@ -66,8 +66,6 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
 
     private static final Type[] DEFAULT_STYLE_TYPES = new Type[] { Type.LINE, Type.FILL, Type.SYMBOL };
 
-    /** Map this is an overlay of. */
-    private final Map     map;
     private final boolean overlay;
 
     protected final TileRenderer<java.util.Map<String, List<VectorTileDecoder.Feature>>> tileRenderer;
@@ -84,7 +82,6 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
      */
     public MapOverlay(@NonNull final Map map, @NonNull TileRenderer<java.util.Map<String, List<VectorTileDecoder.Feature>>> aTileRenderer, boolean overlay) {
         super(map, aTileRenderer);
-        this.map = map;
         this.tileRenderer = aTileRenderer;
         this.overlay = overlay;
     }

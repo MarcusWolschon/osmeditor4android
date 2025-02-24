@@ -32,7 +32,7 @@ import de.blau.android.R;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.LayerType;
-import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.NonSerializeableLayer;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
@@ -53,7 +53,7 @@ import de.blau.android.views.IMapView;
  * @author simon
  *
  */
-public class MapOverlay extends MapViewLayer implements DiscardInterface, ClickableInterface<Photo> {
+public class MapOverlay extends NonSerializeableLayer implements DiscardInterface, ClickableInterface<Photo> {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
@@ -62,9 +62,6 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
 
     /** viewbox needs to be less wide than this for displaying photos, just to avoid querying the whole world */
     private static final int TOLERANCE_MAX_VIEWBOX_WIDTH = 40000 * 32;
-
-    /** Map this is an overlay of. */
-    private final Map map;
 
     /** Photos visible on the overlay. */
     private List<Photo> photos;
