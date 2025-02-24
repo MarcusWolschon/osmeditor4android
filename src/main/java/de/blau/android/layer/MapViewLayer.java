@@ -1,5 +1,7 @@
 package de.blau.android.layer;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 
 import android.annotation.SuppressLint;
@@ -28,10 +30,12 @@ import de.blau.android.views.IMapView;
  * @author Simon Poole
  */
 public abstract class MapViewLayer {
+
     /**
      * Tag used for Android-logging.
      */
-    private static final String DEBUG_TAG = MapViewLayer.class.getSimpleName().substring(0, Math.min(23, MapViewLayer.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapViewLayer.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapViewLayer.class.getSimpleName().substring(0, TAG_LEN);
 
     private int       index     = -1;
     protected boolean isVisible = true;
@@ -306,9 +310,10 @@ public abstract class MapViewLayer {
         // empty
     }
 
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
+    /**
+     * @param map the map instance to set
+     */
+    public abstract void setMapInstance(@NonNull Map map);
 
     /**
      * Interface definition for overlays that contain items that can be snapped to (for example, when the user invokes a

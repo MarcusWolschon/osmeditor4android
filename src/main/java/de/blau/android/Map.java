@@ -298,6 +298,7 @@ public class Map extends SurfaceView implements IMapView {
                     }
                 } else {
                     layer = existingLayers.get(0);
+                    layer.setMapInstance(this);
                 }
                 if (layer != null) {
                     tempLayers.add(layer);
@@ -417,6 +418,18 @@ public class Map extends SurfaceView implements IMapView {
     public List<MapViewLayer> getLayers() {
         synchronized (mLayers) {
             return new ArrayList<>(mLayers);
+        }
+    }
+
+    /**
+     * Set all Layers
+     * 
+     * @param layers
+     */
+    void setLayers(@NonNull List<MapViewLayer> layers) {
+        synchronized (mLayers) {
+            mLayers.clear();
+            mLayers.addAll(layers);
         }
     }
 

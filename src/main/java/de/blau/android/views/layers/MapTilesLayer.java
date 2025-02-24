@@ -40,7 +40,7 @@ import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
-import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.NonSerializeableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
@@ -68,7 +68,7 @@ import de.blau.android.views.util.MapTileProvider.TileDecoder;
  * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  * @author Simon Poole
  */
-public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, LayerInfoInterface, DiscardInterface, AttributionInterface {
+public class MapTilesLayer<T> extends NonSerializeableLayer implements ExtentInterface, LayerInfoInterface, DiscardInterface, AttributionInterface {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapTilesLayer.class.getSimpleName().length());
     private static final String DEBUG_TAG = MapTilesLayer.class.getSimpleName().substring(0, TAG_LEN);
@@ -90,10 +90,6 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     private final Rect tapArea  = new Rect();
     private final Rect logoRect = new Rect();
 
-    /**
-     * The view we are a part of.
-     */
-    private final Map         map;
     /**
      * The tile-server to load a rendered map from.
      */

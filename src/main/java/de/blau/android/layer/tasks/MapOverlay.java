@@ -35,7 +35,7 @@ import de.blau.android.layer.Downloader;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
-import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.NonSerializeableLayer;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
@@ -59,7 +59,7 @@ import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends MapViewLayer
+public class MapOverlay extends NonSerializeableLayer
         implements ExtentInterface, DiscardInterface, ClickableInterface<Task>, LayerInfoInterface, ConfigureInterface, PruneableInterface {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
@@ -74,9 +74,6 @@ public class MapOverlay extends MapViewLayer
 
     private static final long AUTOPRUNE_MIN_INTERVAL       = 10000L;
     public static final int   DEFAULT_AUTOPRUNE_TASK_LIMIT = 10000;
-
-    /** Map this is an overlay of. */
-    private Map map = null;
 
     /** Bugs visible on the overlay. */
     private TaskStorage tasks = App.getTaskStorage();
@@ -105,8 +102,6 @@ public class MapOverlay extends MapViewLayer
     private List<BoundingBox> boxes    = new ArrayList<>();
     private final ViewBox     bb       = new ViewBox();
 
-    private Context context = null;
-
     /**
      * Runnable for downloading data
      */
@@ -125,7 +120,7 @@ public class MapOverlay extends MapViewLayer
      */
     public MapOverlay(@NonNull final Map map) {
         this.map = map;
-        context = map.getContext();
+        Context context = map.getContext();
         Preferences prefs = map.getPrefs();
         setPrefs(prefs);
         download = new TaskDownloader(prefs.getServer());
@@ -165,7 +160,7 @@ public class MapOverlay extends MapViewLayer
                 tasks.addBoundingBox(b);
                 try {
                     downloadThreadPool.execute(() -> {
-                        TransferTasks.downloadBoxSync(context, server, b, true, App.getTaskStorage(), filter, TransferTasks.MAX_PER_REQUEST);
+                        TransferTasks.downloadBoxSync(map.getContext(), server, b, true, App.getTaskStorage(), filter, TransferTasks.MAX_PER_REQUEST);
                         map.postInvalidate();
                     });
                 } catch (RejectedExecutionException rjee) {
