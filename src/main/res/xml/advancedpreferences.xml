@@ -753,11 +753,6 @@
             android:title="@string/config_voiceCommandsEnabled_title" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
-            android:key="@string/config_enableHwAcceleration_key"
-            android:summary="@string/config_enableHwAcceleration_summary"
-            android:title="@string/config_enableHwAcceleration_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="false"
             android:key="@string/config_splitWindowForPropertyEditor_key"
             android:summary="@string/config_splitWindowForPropertyEditor_summary"
             android:title="@string/config_splitWindowForPropertyEditor_title" />

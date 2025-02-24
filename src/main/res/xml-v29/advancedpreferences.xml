@@ -742,6 +742,11 @@
             android:key="@string/config_showStats_key"
             android:summary="@string/config_showStats_summary"
             android:title="@string/config_showStats_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_enableHwAcceleration_key"
+            android:summary="@string/config_enableHwAcceleration_summary"
+            android:title="@string/config_enableHwAcceleration_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_experimental"
@@ -756,11 +761,6 @@
             android:key="@string/config_voiceCommandsEnabled_key"
             android:summary="@string/config_voiceCommandsEnabled_summary"
             android:title="@string/config_voiceCommandsEnabled_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/config_enableHwAcceleration_key"
-            android:summary="@string/config_enableHwAcceleration_summary"
-            android:title="@string/config_enableHwAcceleration_title" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_splitWindowForPropertyEditor_key"
