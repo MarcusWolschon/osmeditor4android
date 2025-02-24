@@ -1,4 +1,4 @@
-package de.blau.android.views.util;
+package de.blau.android.layer.tiles.util;
 
 import java.io.IOException;
 

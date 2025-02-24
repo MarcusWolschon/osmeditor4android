@@ -21,6 +21,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import de.blau.android.layer.LayerConfig;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.tiles.MapTilesLayer;
+import de.blau.android.layer.tiles.MapTilesOverlayLayer;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UserDetails;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -31,8 +33,6 @@ import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.views.layers.MapTilesLayer;
-import de.blau.android.views.layers.MapTilesOverlayLayer;
 
 public class DebugInformation extends ConfigurationChangeAwareActivity {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, DebugInformation.class.getSimpleName().length());

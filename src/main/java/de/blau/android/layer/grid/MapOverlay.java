@@ -54,9 +54,6 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
     private static final double METERS2FEET      = 3.28084;
     private static final double MILE2FEET        = 5280;
 
-    /** Map this is an overlay of. */
-    private final transient Map map;
-
     private transient Main main;
 
     private SerializableTextPaint labelH;
@@ -320,6 +317,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
         String mode = prefs.scaleLayer();
         splitActionBar = prefs.splitActionBarEnabled();
         Context ctx = map.getContext();
+        main = ctx instanceof Main ? (Main) map.getContext() : null;
         metric = ctx.getString(R.string.scale_metric).equals(mode) || ctx.getString(R.string.scale_grid_metric).equals(mode);
         grid = ctx.getString(R.string.scale_grid_metric).equals(mode) || ctx.getString(R.string.scale_grid_imperial).equals(mode);
     }
@@ -339,19 +337,18 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
     @Override
     public void resetStyling() {
         Log.d(DEBUG_TAG, "resetStyling");
-        main = map.getContext() instanceof Main ? (Main) map.getContext() : null;
         DataStyle styles = map.getDataStyle();
         paint = new SerializableTextPaint(styles.getInternal(DataStyle.CROSSHAIRS).getPaint());
         labelH = new SerializableTextPaint(styles.getInternal(DataStyle.LABELTEXT).getPaint());
         labelV = new SerializableTextPaint(labelH);
         labelV.setTextAlign(Paint.Align.RIGHT);
         textHeight = labelV.getTextSize();
-        distance2side = Density.dpToPx(map.getContext(), DISTANCE2SIDE_DP);
-        shortTicks = Density.dpToPx(map.getContext(), SHORTTICKS_DP);
-        longTicks = Density.dpToPx(map.getContext(), LONGTICKS_DP);
-        oneDP = Density.dpToPx(map.getContext(), 1);
-
-        actionBarHeight = ThemeUtils.getActionBarHeight(map.getContext());
+        final Context context = map.getContext();
+        distance2side = Density.dpToPx(context, DISTANCE2SIDE_DP);
+        shortTicks = Density.dpToPx(context, SHORTTICKS_DP);
+        longTicks = Density.dpToPx(context, LONGTICKS_DP);
+        oneDP = Density.dpToPx(context, 1);
+        actionBarHeight = ThemeUtils.getActionBarHeight(context);
     }
 
     @Override

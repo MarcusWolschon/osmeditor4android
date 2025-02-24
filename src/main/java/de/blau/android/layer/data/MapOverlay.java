@@ -55,7 +55,7 @@ import de.blau.android.layer.Downloader;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
-import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.NonSerializeableLayer;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.UpdateInterface;
 import de.blau.android.osm.BoundingBox;
@@ -98,7 +98,7 @@ import de.blau.android.views.IMapView;
  * @author Simon Poole
  */
 
-public class MapOverlay<O extends OsmElement> extends MapViewLayer
+public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         implements ExtentInterface, ConfigureInterface, LayerInfoInterface, PruneableInterface, UpdateInterface<O> {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
@@ -135,9 +135,8 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     private boolean wayNodeDragging;
 
     private final StorageDelegator delegator;
-    private final Context          context;
+    private Context                context;
     private final Validator        validator;
-    private final Map              map;
     private final DataStyle        styles;
 
     /**
@@ -405,6 +404,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
 
         @Override
         protected void download() {
+            Context ctx = map.getContext();
             List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
             box.scale(1.2); // make sides 20% larger
             box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
@@ -414,7 +414,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                 final Logic logic = App.getLogic();
                 try {
                     dataThreadPoolExecutor.execute(() -> {
-                        AsyncResult result = logic.download(context, prefs.getServer(), b, postMerge, () -> {
+                        AsyncResult result = logic.download(ctx, prefs.getServer(), b, postMerge, () -> {
                             logic.reselectRelationMembers();
                             map.postInvalidate();
                         }, true, true);
@@ -422,9 +422,9 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                         if (PAUSE_AUTO_DOWNLOAD.contains(code)) {
                             prefs.setPanAndZoomAutoDownload(false);
                             setPrefs(prefs);
-                            if (context instanceof FragmentActivity) {
-                                new Handler(context.getMainLooper()).post(() -> ErrorAlert.showDialog(((FragmentActivity) context), code,
-                                        context.getString(R.string.autodownload_has_been_paused)));
+                            if (ctx instanceof FragmentActivity) {
+                                new Handler(ctx.getMainLooper()).post(
+                                        () -> ErrorAlert.showDialog(((FragmentActivity) ctx), code, ctx.getString(R.string.autodownload_has_been_paused)));
                             }
                         }
                     });
@@ -475,7 +475,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             if (delegator.tryLock()) {
                 delegator.getCurrentStorage().getBoundingBoxes(boundingBoxResult);
             } else {
-                Log.w(DEBUG_TAG, "BondigBoxes already locked, reusin existing data");
+                Log.w(DEBUG_TAG, "BoundingBoxes already locked, reusing existing data");
             }
         } finally {
             delegator.unlock();
@@ -1771,6 +1771,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         wayNodeDragging = prefs.isWayNodeDraggingEnabled();
         iconCache.clear();
         areaIconCache.clear();
+        context = map.getContext(); // assuer that we have the correct context
     }
 
     /**

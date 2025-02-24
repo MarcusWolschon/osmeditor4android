@@ -1,4 +1,4 @@
-package de.blau.android.views.util;
+package de.blau.android.layer.tiles.util;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 

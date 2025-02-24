@@ -19,6 +19,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.layer.tiles.MapTilesLayer;
+import de.blau.android.layer.tiles.util.MapTileProvider.BitmapDecoder;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.TileLayerSource;
@@ -28,8 +30,6 @@ import de.blau.android.services.util.MapTileTester;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.views.layers.MapTilesLayer;
-import de.blau.android.views.util.MapTileProvider.BitmapDecoder;
 
 /**
  * Try to retrieve a tile for a layer

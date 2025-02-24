@@ -50,9 +50,6 @@ public abstract class AbstractImageOverlay extends de.blau.android.layer.mvt.Map
 
     protected int minZoom = DEFAULT_MIN_ZOOM;
 
-    /** Map this is an overlay of. */
-    protected Map map = null;
-
     /**
      * Download related stuff
      */

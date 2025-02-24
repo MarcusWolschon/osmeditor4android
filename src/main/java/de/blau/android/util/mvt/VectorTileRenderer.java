@@ -21,6 +21,8 @@ import android.graphics.Rect;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.layer.tiles.MapTilesLayer;
+import de.blau.android.layer.tiles.util.MapTileProvider.TileDecoder;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.mvt.style.Background;
 import de.blau.android.util.mvt.style.Fill;
@@ -28,8 +30,6 @@ import de.blau.android.util.mvt.style.Layer;
 import de.blau.android.util.mvt.style.Line;
 import de.blau.android.util.mvt.style.Style;
 import de.blau.android.util.mvt.style.Symbol;
-import de.blau.android.views.layers.MapTilesLayer;
-import de.blau.android.views.util.MapTileProvider.TileDecoder;
 
 /**
  * Very simple Mapbox Vector Tile renderer
