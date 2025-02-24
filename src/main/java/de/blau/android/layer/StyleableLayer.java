@@ -39,6 +39,8 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
 
     protected transient Path symbolPath;
 
+    protected transient Map map;
+
     /**
      * Name for this layer (typically the file name)
      */
@@ -180,5 +182,10 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
      */
     public void dirty() {
         saved = false;
+    }
+
+    @Override
+    public void setMapInstance(@NonNull Map map) {
+        this.map = map;
     }
 }

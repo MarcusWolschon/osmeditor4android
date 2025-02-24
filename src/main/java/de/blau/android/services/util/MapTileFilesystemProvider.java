@@ -23,13 +23,13 @@ import androidx.core.content.ContextCompat;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.exception.InvalidTileException;
+import de.blau.android.layer.tiles.util.MapTileProviderCallback;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.CustomDatabaseContext;
 import de.blau.android.util.Notifications;
 import de.blau.android.util.ScreenMessage;
-import de.blau.android.views.util.MapTileProviderCallback;
 
 /**
  * 

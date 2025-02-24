@@ -76,9 +76,6 @@ public class MapOverlay extends StyleableFileLayer
 
     private static final String FILENAME = "gpxlayer" + "." + FileExtensions.RES;
 
-    /** Map this is an overlay of. */
-    private final transient Map map;
-
     private final transient FloatPrimitiveList       linePoints   = new FloatPrimitiveList(FloatPrimitiveList.MEDIUM_DEFAULT);
     private final transient Path                     path         = new Path();
     private final transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();

@@ -1,5 +1,5 @@
 // Created by plusminus on 17:58:57 - 25.09.2008
-package de.blau.android.views.util;
+package de.blau.android.layer.tiles.util;
 
 import android.util.Log;
 import androidx.annotation.NonNull;

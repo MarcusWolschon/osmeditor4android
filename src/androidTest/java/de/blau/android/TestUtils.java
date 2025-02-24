@@ -47,13 +47,13 @@ import androidx.test.uiautomator.Until;
 import de.blau.android.filter.Filter;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.Offset;
+import de.blau.android.layer.tiles.MapTilesLayer;
 import de.blau.android.osm.TransferMenuTest;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
-import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.mockwebserver.MockResponse;
 import okio.Buffer;
 

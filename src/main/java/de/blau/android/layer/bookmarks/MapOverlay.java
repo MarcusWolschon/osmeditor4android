@@ -41,9 +41,6 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Labe
 
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
 
-    /** Map this is an overlay of. */
-    private final transient Map map;
-
     private int             labelMinZoom = SHOW_LABEL_LIMIT;
     private transient Paint labelPaint;
     transient Paint         labelBackground;

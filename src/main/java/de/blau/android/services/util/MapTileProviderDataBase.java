@@ -23,9 +23,9 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pools;
 import de.blau.android.App;
 import de.blau.android.exception.InvalidTileException;
+import de.blau.android.layer.tiles.util.MapViewConstants;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.views.util.MapViewConstants;
 
 /**
  * The OpenStreetMapTileProviderDataBase contains a table with info for the available renderers and one for the

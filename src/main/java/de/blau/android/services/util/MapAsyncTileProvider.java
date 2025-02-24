@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
-import de.blau.android.views.util.MapTileProviderCallback;
+import de.blau.android.layer.tiles.util.MapTileProviderCallback;
 
 /**
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be

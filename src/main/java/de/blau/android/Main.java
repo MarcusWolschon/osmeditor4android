@@ -140,6 +140,7 @@ import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.geojson.MapOverlay;
 import de.blau.android.layer.streetlevel.NetworkImageLoader;
 import de.blau.android.layer.streetlevel.SelectImageInterface;
+import de.blau.android.layer.tiles.MapTilesLayer;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -205,7 +206,6 @@ import de.blau.android.util.Util;
 import de.blau.android.util.Version;
 import de.blau.android.views.SplitPaneLayout;
 import de.blau.android.views.ZoomControls;
-import de.blau.android.views.layers.MapTilesLayer;
 
 /**
  * This is the main Activity from where other Activities will be started.
@@ -495,17 +495,13 @@ public class Main extends FullScreenAppCompatActivity
         mapLayout = (RelativeLayout) ml.findViewById(R.id.mainMap);
 
         Logic logic = App.getLogic(); // logic instance might still be around
-        map = logic != null ? logic.getMap() : null;
-        if (map == null) {
-            map = new Map(this);
-            map.setId(R.id.map_view);
-        } else {
-            ViewGroup parent = (ViewGroup) map.getParent();
-            if (parent != null) {
-                parent.removeView(map);
-            }
+        Map previousMap = logic != null ? logic.getMap() : null;
+        map = new Map(this);
+        map.setId(R.id.map_view);
+        if (previousMap != null) {
+            map.setLayers(previousMap.getLayers());
         }
-        // Register some Listener
+        // Register some Listeners
         mapTouchListener = new MapTouchListener();
         map.setOnTouchListener(mapTouchListener);
         map.setOnKeyListener(new MapKeyListener());
@@ -672,7 +668,7 @@ public class Main extends FullScreenAppCompatActivity
 
         App.getLogic().setPrefs(prefs);
 
-        // if we have been stopped delegator and viewbox will not be set if our
+        // if we have been stopped delegator and viewbox might not be set if our
         // original Logic instance is still around
         map.setDelegator(App.getDelegator());
         map.setViewBox(App.getLogic().getViewBox());
