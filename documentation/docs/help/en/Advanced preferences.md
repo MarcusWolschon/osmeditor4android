@@ -393,7 +393,13 @@ Minimum interval in minutes between saves of GPX recordings. Default: _5 minutes
 
 ### Report app crashes
 
-Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to _off_ the functionalitiy is completely disabled. Default: _on_.
+Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to _off_ the functionality is completely disabled. Default: _on_.
+
+### Enable hardware acceleration
+
+On Android 10 and later.
+
+Turn on use of hardware rendering on Android 10 and later. Default: _on_
 
 ### Show stats
 
@@ -408,10 +414,6 @@ Turn on the JavaScript console. Default: _off_.
 ### Enable voice commands
 
 Enable voice command support: Default: _off_.
-
-### Enable hardware acceleration
-
-Turn on use of hardware rendering on Android 10 and later. Default: _off_
 
 ### Enable split window property editor
 

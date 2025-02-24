@@ -307,7 +307,7 @@ public class Preferences {
 
         jsConsoleEnabled = prefs.getBoolean(r.getString(R.string.config_js_console_key), false);
 
-        hwAccelerationEnabled = prefs.getBoolean(r.getString(R.string.config_enableHwAcceleration_key), false);
+        hwAccelerationEnabled = prefs.getBoolean(r.getString(R.string.config_enableHwAcceleration_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q);
 
         connectedNodeTolerance = getIntPref(R.string.config_connectedNodeTolerance_key, 2);
 
