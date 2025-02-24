@@ -3421,10 +3421,23 @@ public class Main extends FullScreenAppCompatActivity
      * Start the PropertyEditor for the element in question, multiple element version
      * 
      * @param selection list of selected elements
-     * @param applyLastAddressTags add address tags to the object being edited.
+     * @param applyLastAddressTags add address tags to the object being edited
      * @param showPresets show the preset tab on start up.
      */
     public void performTagEdit(final List<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
+        performTagEdit(selection, applyLastAddressTags, null, showPresets);
+    }
+
+    /**
+     * Start the PropertyEditor for the element in question, multiple element version
+     * 
+     * @param selection list of selected elements
+     * @param applyLastAddressTags add address tags to the object being edited
+     * @param tags any existing tags to apply
+     * @param showPresets show the preset tab on start up.
+     */
+    public <M extends java.util.Map<String, String> & Serializable> void performTagEdit(final List<OsmElement> selection, boolean applyLastAddressTags,
+            @Nullable M tags, boolean showPresets) {
         descheduleAutoLock();
         unlock();
         List<PropertyEditorData> multiple = new ArrayList<>();
@@ -3439,7 +3452,7 @@ public class Main extends FullScreenAppCompatActivity
             return;
         }
         PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
-        PropertyEditorActivity.start(this, multipleArray, applyLastAddressTags, showPresets, null, null, REQUEST_EDIT_TAG);
+        PropertyEditorActivity.start(this, multipleArray, applyLastAddressTags, showPresets, tags, null, REQUEST_EDIT_TAG);
     }
 
     /**

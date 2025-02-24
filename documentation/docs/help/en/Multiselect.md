@@ -16,6 +16,10 @@ Starts the property editor on the current selection.
 
 Rotate the selection around its centroid by dragging the display roughly in a circle. The centroid position is marked with a cross.
 
+### Paste tags
+
+Set tags from the internal tag clipboard and start the property editor.
+
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
 Copy the selected objects  to the internal copy and paste buffer.

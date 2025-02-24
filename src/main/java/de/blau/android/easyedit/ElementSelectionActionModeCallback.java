@@ -98,7 +98,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     static final int           MENUITEM_DUPLICATE            = 7;
     static final int           MENUITEM_SHALLOW_DUPLICATE    = 8;
     static final int           MENUITEM_CUT                  = 9;
-    private static final int   MENUITEM_PASTE_TAGS           = 10;
+    static final int           MENUITEM_PASTE_TAGS           = 10;
     private static final int   MENUITEM_CREATE_RELATION      = 11;
     private static final int   MENUITEM_ADD_RELATION_MEMBERS = 12;
     private static final int   MENUITEM_EXTEND_SELECTION     = 13;

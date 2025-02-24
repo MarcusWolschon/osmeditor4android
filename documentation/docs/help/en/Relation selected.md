@@ -62,7 +62,7 @@ Remove the object from the data.
 
 ### Paste tags
 
-Set tags from the tag clipboard and start the property editor.
+Set tags from the internal tag clipboard and start the property editor.
 
 ### ![Extend](../images/extend_selection.png) Extend selection
 

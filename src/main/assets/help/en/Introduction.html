@@ -36,7 +36,7 @@
 <p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
 <ul>
 <li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
-<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, new objects can be added via the green &quot;+&quot; button, or long press, but no other geometry operations are enabled. White lock icon with a &quot;T&quot; is displayed.</li>
+<li><strong>Tag only</strong> - selecting an existing object will start the <a href="../en/Property%20editor.md">Property Editor</a>, new objects can be added via the green &quot;+&quot; button, or long press, but no other geometry operations are enabled. White lock icon with a &quot;T&quot; is displayed.</li>
 <li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../en/Simple%20actions.md">Simple mode</a> &quot;+&quot; button. White lock icon with an &quot;A&quot; is displayed.</li>
 <li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an &quot;I&quot; is displayed.</li>
 <li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a &quot;C&quot; is displayed.</li>
@@ -97,14 +97,16 @@
 <h4>Improving Way Geometry</h4>
 <p>If you zoom in far enough on a selected way you will see a small &quot;x&quot; in the middle of the way segments that are long enough. Dragging the &quot;x&quot; will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.</p>
 <h4>Cut, Copy &amp; Paste</h4>
-<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select &quot;Paste&quot; from the menu.</p>
+<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version for the first paste of the object.</p>
+<p>In simple mode you can start pasting by selecting &quot;Paste object&quot; or &quot;Paste multiple times&quot; and then clicking at the target location. If you are not using  simple mode long press the location you want to paste to (you will see a cross hair marking the location). Then select &quot;Paste&quot; from the menu.</p>
+<p>Separate from the object clipboards, the app maintains a single tag clipboard that can be filled either in the <a href="../en/Property%20editor.md">Property Editor</a> or from the GeoJSON object information modal. The content of tag clipboard can be pasted in the element and multi-select modes and in the <a href="../en/Property%20editor.md">Property Editor</a>.</p>
 <h4>Efficiently Adding Addresses</h4>
 <p>Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding <em>addr:street</em> or <em>addr:place</em> tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.</p>
 <p>Adding the tags can be triggered by pressing <img src="../images/address.png" alt="Address" />:</p>
 <ul>
 <li>after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an &quot;entrance=yes&quot; tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
 <li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
-<li>in the property editor.</li>
+<li>in the <a href="../en/Property%20editor.md">Property Editor</a>.</li>
 </ul>
 <p>To add individual address nodes directly while in the default &quot;Simple mode&quot; switch to &quot;Address&quot; editing mode (long press on the lock button), &quot;Add address node&quot; will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.</p>
 <p>House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.</p>
@@ -127,7 +129,7 @@
 <p>Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the &quot;Tools&quot; menu.</p>
 <p>If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM.</p>
 <h4>Resolving conflicts on uploads</h4>
-<p>Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file (&quot;Export&quot; menu item in the &quot;Transfer&quot; menu) and fix and upload them with JOSM. See the detailed help on <a href="Conflict%20resolution.md">conflict resolution</a>.</p>
+<p>Vespucci has a simple conflict resolver that will handle most common cases. If you suspect that there are major issues with your edits, export your changes to a .osc file (&quot;Export&quot; menu item in the &quot;Transfer&quot; menu), then import, fix and upload them with JOSM. See the detailed help on <a href="Conflict%20resolution.md">conflict resolution</a>.</p>
 <h3>Nearby point-of-interest display</h3>
 <p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up.</p>
 <p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
@@ -159,7 +161,7 @@
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <p><a id="c-mode"></a></p>
 <h2>C-Mode</h2>
-<p>In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.</p>
+<p>In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the <a href="../en/Property%20editor.md">Property Editor</a> started in C-Mode the best matching preset will automatically be applied.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <h3>Configuring checks</h3>
 <p>All validations can be disabled/enabled in the &quot;Validator settings/Enabled validations&quot; in the <a href="Preferences.md">preferences</a>.</p>
