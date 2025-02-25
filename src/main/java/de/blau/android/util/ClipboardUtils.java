@@ -67,43 +67,48 @@ public final class ClipboardUtils {
     @NonNull
     private static List<String> getTextLines(@NonNull Context ctx) {
         List<String> result = new ArrayList<>();
-        if (checkForText(ctx)) {
-            ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
-            // Gets the clipboard as text.
-            CharSequence cs = item.getText();
-            if (cs == null) { // item might be an URI
-                Uri pasteUri = item.getUri();
-                if (pasteUri != null) { // FIXME untested
-                    try {
-                        Log.d(DEBUG_TAG, "Clipboard contains an uri");
-                        ContentResolver cr = ctx.getContentResolver();
-                        String uriMimeType = cr.getType(pasteUri);
-                        // If the return value is not null, the Uri is a content Uri
-                        if (uriMimeType != null && uriMimeType.equals(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-                            // Does the content provider offer a MIME type that the current application can use?
-                            // Get the data from the content provider.
-                            Cursor pasteCursor = cr.query(pasteUri, null, null, null, null);
-                            // If the Cursor contains data, move to the first record
-                            if (pasteCursor != null) {
-                                if (pasteCursor.moveToFirst()) {
-                                    String pasteData = pasteCursor.getString(0);
-                                    result.addAll(Arrays.asList(pasteData.split(EOL)));
-                                }
-                                // close the Cursor
-                                pasteCursor.close();
-                            }
-                        }
-                    } catch (Exception e) { // catch all here
-                        Log.e(DEBUG_TAG, "Resolving URI failed " + e);
-                    }
+        if (!checkForText(ctx)) {
+            Log.e(DEBUG_TAG, "Clipboard contains an invalid data type");
+            return result;
+        }
+        ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
+        // Gets the clipboard as text.
+        CharSequence cs = item.getText();
+        if (cs == null) { // item might be an URI
+            Uri pasteUri = item.getUri();
+            if (pasteUri == null) {
+                Log.e(DEBUG_TAG, "Clipboard doesn't contain an URI");
+                return result;
+            }
+            // FIXME untested
+            try {
+                Log.d(DEBUG_TAG, "Clipboard contains an uri");
+                ContentResolver cr = ctx.getContentResolver();
+                String uriMimeType = cr.getType(pasteUri);
+                // If the return value is not null, the Uri is a content Uri
+                if (uriMimeType == null || !uriMimeType.equals(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+                    Log.e(DEBUG_TAG, "Clipboard URI doesn't refer to text");
+                    return result;
                 }
-            } else {
-                Log.d(DEBUG_TAG, "Clipboard contains text");
-                String pasteData = cs.toString();
-                result.addAll(Arrays.asList(pasteData.split(EOL)));
+                // Does the content provider offer a MIME type that the current application can use?
+                // Get the data from the content provider.
+                Cursor pasteCursor = cr.query(pasteUri, null, null, null, null);
+                // If the Cursor contains data, move to the first record
+                if (pasteCursor != null) {
+                    if (pasteCursor.moveToFirst()) {
+                        String pasteData = pasteCursor.getString(0);
+                        result.addAll(Arrays.asList(pasteData.split(EOL)));
+                    }
+                    // close the Cursor
+                    pasteCursor.close();
+                }
+            } catch (Exception e) { // catch all here
+                Log.e(DEBUG_TAG, "Resolving URI failed " + e);
             }
         } else {
-            Log.e(DEBUG_TAG, "Clipboard contains an invalid data type");
+            Log.d(DEBUG_TAG, "Clipboard contains text");
+            String pasteData = cs.toString();
+            result.addAll(Arrays.asList(pasteData.split(EOL)));
         }
         return result;
     }

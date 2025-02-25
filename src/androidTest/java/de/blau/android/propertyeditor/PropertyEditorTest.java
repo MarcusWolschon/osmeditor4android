@@ -176,7 +176,7 @@ public class PropertyEditorTest {
         TestUtils.clickHome(device, true);
         assertEquals(edited, n.getTagWithKey(Tags.KEY_NAME));
     }
-    
+
     /**
      * Show info on an existing node
      */
@@ -204,7 +204,6 @@ public class PropertyEditorTest {
         TestUtils.clickHome(device, true);
     }
 
-
     /**
      * Test that pressing back does the correct thing(s)
      */
@@ -222,7 +221,7 @@ public class PropertyEditorTest {
         }
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         assertNotNull(n);
-        java.util.Map<String,String> oTags = new HashMap<>(n.getTags());
+        java.util.Map<String, String> oTags = new HashMap<>(n.getTags());
         oTags.remove("openGeoDB:name");
         oTags.remove("openGeoDB:sort_name");
         logic.setTags(main, n, oTags);
@@ -248,7 +247,7 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.findText(device, false, edited));
 
         device.pressBack();
-       
+
         // click revert
         TestUtils.clickButton(device, "android:id/button2", true);
         assertTrue(TestUtils.findText(device, false, original));
@@ -345,8 +344,9 @@ public class PropertyEditorTest {
         UiObject2 p = TestUtils.findObjectWithText(device, true, getTranslatedPresetItemName(main, "Traffic sign"), 500, true);
         assertNotNull(p);
         p.click();
-       
-        // assertTrue(TestUtils.findText(device, false, getTranslatedPresetItemName(main, "Traffic sign (separate)"), 500));
+
+        // assertTrue(TestUtils.findText(device, false, getTranslatedPresetItemName(main, "Traffic sign (separate)"),
+        // 500));
         UiObject2 direction = null;
         try {
             direction = getField(device, "Facing", 1);
@@ -397,9 +397,10 @@ public class PropertyEditorTest {
         UiObject2 p = TestUtils.findObjectWithText(device, true, getTranslatedPresetItemName(main, "Traffic sign"), 500, true);
         assertNotNull(p);
         p.click();
-       
-        // assertTrue(TestUtils.findText(device, false, getTranslatedPresetItemName(main, "Traffic sign (separate)"), 500));
-        
+
+        // assertTrue(TestUtils.findText(device, false, getTranslatedPresetItemName(main, "Traffic sign (separate)"),
+        // 500));
+
         UiObject2 direction = null;
         try {
             direction = getField(device, "Facing", 1);
@@ -987,7 +988,7 @@ public class PropertyEditorTest {
         Logic logic = App.getLogic();
         logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
         TestUtils.findText(device, false, main.getString(R.string.progress_download_message), 2000);
-        TestUtils.textGone(device,main.getString(R.string.progress_download_message), 10000);
+        TestUtils.textGone(device, main.getString(R.string.progress_download_message), 10000);
         main.getMap().getDataLayer().setVisible(true);
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 23);
@@ -1027,9 +1028,9 @@ public class PropertyEditorTest {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("download4");
         Logic logic = App.getLogic();
-        logic.downloadBox(main, new BoundingBox(8.3720450D, 47.4163330D,8.371000D, 47.4160D), false, new SignalHandler(signal));
+        logic.downloadBox(main, new BoundingBox(8.3720450D, 47.4163330D, 8.371000D, 47.4160D), false, new SignalHandler(signal));
         TestUtils.findText(device, false, main.getString(R.string.progress_download_message), 2000);
-        TestUtils.textGone(device,main.getString(R.string.progress_download_message), 10000);
+        TestUtils.textGone(device, main.getString(R.string.progress_download_message), 10000);
         main.getMap().getDataLayer().setVisible(true);
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 23);
@@ -1049,7 +1050,7 @@ public class PropertyEditorTest {
             fail();
         }
         startDate.click();
-  
+
         assertTrue(TestUtils.clickText(device, false, "15", false, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true, false));
         TestUtils.clickHome(device, true);
@@ -1057,7 +1058,6 @@ public class PropertyEditorTest {
         assertTrue(n.hasTag("start_date", "2025-12-15"));
     }
 
-    
     /**
      * Select a way and check if expected street name is there, change orientation re-check, change back re-check
      */
@@ -2266,11 +2266,46 @@ public class PropertyEditorTest {
         assertEquals(2205498723L, node.getOsmId());
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, false));
         monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
-        assertTrue(TestUtils.clickOverflowButton(device));
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_paste_from_clipboard), false));
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_paste), false, false));
         assertTrue(TestUtils.clickHome(device, true));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         assertTrue(node.hasTag(Tags.KEY_NAME, "Bergdietikon"));
+    }
+
+    /**
+     * Copy tags paste to system clipboard
+     */
+    @Test
+    public void tagCopyPaste4() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        assertNotNull(n);
+
+        main.performTagEdit(n, null, false, false);
+        waitForPropertyEditor();
+        instrumentation.removeMonitor(monitor);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_details), false));
+
+        TestUtils.scrollTo(Tags.KEY_NAME, false);
+        BySelector bySelector = By.textStartsWith("Bergdietikon");
+        UiObject2 valueField = device.wait(Until.findObject(bySelector), 500);
+        UiObject2 linearLayout = valueField.getParent();
+        UiObject2 checkBox = linearLayout.getChildren().get(0);
+        checkBox.click();
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_action_tag_title)));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_menu_copy_system), false));
+        assertTrue(TestUtils.textGone(device, context.getString(R.string.tag_action_tag_title), 2000));
+        assertTrue(TestUtils.clickHome(device, true));
         List<KeyValue> tags = ClipboardUtils.getKeyValues(main);
         assertNotNull(tags);
         assertEquals(1, tags.size());

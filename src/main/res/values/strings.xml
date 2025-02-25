@@ -906,6 +906,7 @@
     <string name="tag_menu_reset_address_prediction">Reset address prediction</string>
     <string name="tag_menu_exit_no_save">Exit\nwithout saving</string>
     <string name="tag_menu_delete_unassociated_tags">Delete non-associated tags</string>
+    <string name="tag_menu_copy_system">Copy (system)</string>
     <string name="tag_menu_top">Scroll to top</string>
     <string name="tag_menu_bottom">Scroll to bottom</string>
     <string name="tag_value_hint">Type value</string>
