@@ -37,9 +37,10 @@ Display of the key - value attributes of the edited object.
 
 The following operations can be performed on selected tags
 
- * Delete - delete the tag from the current object
- * Copy - copy the tag to the internal clipboard and to the system clipboard in a text representation.
- * Cut - same as copy, but delete the tag from this object.
+ * Delete - delete the tag(s) from the current object
+ * Copy - copy the tag(s) to the internal tag clipboard.
+ * Cut - same as copy, but delete the tag(s) from this object.
+ * Copy (system) - copy the tag(s) to the system clipboard in a text representation.
  * Create custom preset - select the tags you want to include, then select "Create custom preset" from the menu and enter a name when you are prompted. The new preset can then be found in the "Auto-preset" group and will be added to the MRU list once applied. The function does not include the values for tags that have _name_ semantics, and will set the current value for combo and multi-select fields as the default value.
 
 

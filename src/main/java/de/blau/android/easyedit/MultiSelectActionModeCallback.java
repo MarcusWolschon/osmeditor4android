@@ -3,6 +3,7 @@ package de.blau.android.easyedit;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -13,6 +14,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
@@ -36,6 +38,7 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
     protected static final int MENUITEM_ZOOM_TO_SELECTION = ElementSelectionActionModeCallback.MENUITEM_ZOOM_TO_SELECTION;
     protected static final int MENUITEM_SEARCH_OBJECTS    = ElementSelectionActionModeCallback.MENUITEM_SEARCH_OBJECTS;
     protected static final int MENUITEM_ADD_TO_TODO       = ElementSelectionActionModeCallback.MENUITEM_ADD_TO_TODO;
+    protected static final int MENUITEM_PASTE_TAGS        = ElementSelectionActionModeCallback.MENUITEM_PASTE_TAGS;
 
     protected List<OsmElement> selection;
     protected List<OsmElement> sortedWays;
@@ -46,6 +49,7 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
 
     private MenuItem undoItem;
     private MenuItem uploadItem;
+    private MenuItem pasteItem;
 
     /**
      * Construct an Multi-Select actionmode from a List of OsmElements
@@ -175,6 +179,8 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
         menu.add(GROUP_BASE, MENUITEM_ADD_TO_TODO, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_to_todo);
 
+        pasteItem = menu.add(Menu.NONE, MENUITEM_PASTE_TAGS, Menu.CATEGORY_SECONDARY, R.string.menu_paste_tags);
+
         uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_elements);
 
         menu.add(GROUP_BASE, ElementSelectionActionModeCallback.MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
@@ -199,6 +205,8 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
             undoItem.setVisible(false);
             updated = true;
         }
+
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(!App.getTagClipboard(main).isEmpty(), pasteItem, true);
 
         boolean changedElementsSelected = false;
         for (OsmElement e : selection) {
@@ -238,6 +246,9 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
             break;
         case MENUITEM_ADD_TO_TODO:
             ElementSelectionActionModeCallback.addToTodoList(main, manager, selection);
+            break;
+        case MENUITEM_PASTE_TAGS:
+            main.performTagEdit(selection, false, new HashMap<>(App.getTagClipboard(main).paste()), false);
             break;
         case MENUITEM_UPLOAD:
             main.descheduleAutoLock();

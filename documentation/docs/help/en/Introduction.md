@@ -43,7 +43,7 @@ To avoid accidental edits Vespucci starts in "locked" mode, a mode that only all
 A long press on the lock icon or the _Modes_ menu in the map display overflow menu will display a menu offering 4 options:
 
 * **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.
+* **Tag only** - selecting an existing object will start the [Property Editor](../en/Property%20editor.md), new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.
 * **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
 * **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
 * **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
@@ -127,7 +127,11 @@ If you zoom in far enough on a selected way you will see a small "x" in the midd
 
 #### Cut, Copy & Paste
 
-You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version for the first paste of the object. 
+
+In simple mode you can start pasting by selecting "Paste object" or "Paste multiple times" and then clicking at the target location. If you are not using  simple mode long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+
+Separate from the object clipboards, the app maintains a single tag clipboard that can be filled either in the [Property Editor](../en/Property%20editor.md) or from the GeoJSON object information modal. The content of tag clipboard can be pasted in the element and multi-select modes and in the [Property Editor](../en/Property%20editor.md).
 
 #### Efficiently Adding Addresses
 
@@ -137,7 +141,7 @@ Adding the tags can be triggered by pressing ![Address](../images/address.png):
 
 * after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the property editor.
+* in the [Property Editor](../en/Property%20editor.md).
 
 To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
 
@@ -173,7 +177,7 @@ If you want to save your work and do not have Internet access, you can save to a
 
 #### Resolving conflicts on uploads
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
+Vespucci has a simple conflict resolver that will handle most common cases. If you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu), then import, fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
 
 ### Nearby point-of-interest display
 
@@ -228,7 +232,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 ## C-Mode
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the [Property Editor](../en/Property%20editor.md) started in C-Mode the best matching preset will automatically be applied.
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 

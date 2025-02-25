@@ -128,7 +128,7 @@ Move the way to the internal copy and paste buffer removing it from the data.
 
 ### Paste tags
 
-Set tags from the tag clipboard and start the property editor.
+Set tags from the internal tag clipboard and start the property editor.
 
 ### ![Delete](../images/tag_menu_delete.png) Delete
 
