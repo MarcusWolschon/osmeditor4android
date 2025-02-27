@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
+import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -25,6 +26,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -36,6 +38,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import de.blau.android.App;
 import de.blau.android.Authorize;
@@ -862,6 +866,26 @@ public class Server {
     }
 
     /**
+     * Retrieve the actual changes for a specific changeset
+     * 
+     * @param id id of the changeset
+     * @return a Storage object
+     */
+    @Nullable
+    public Storage getChanges(long id) {
+        try (Response response = openConnectionForAuthenticatedAccess(getChangesetDownloadUrl(changesetId), HTTP_GET, (RequestBody) null)) {
+            checkResponseCode(response);
+            OsmChangeParser oscParser = new OsmChangeParser();
+            oscParser.clearBoundingBoxes(); // this removes the default bounding box
+            oscParser.start(response.body().byteStream());
+            return oscParser.getStorage();
+        } catch (IOException | SAXException | ParserConfigurationException e) {
+            Log.d(DEBUG_TAG, "getChanges got " + e.getMessage());
+        }
+        return null;
+    }
+
+    /**
      * Check the response code from a HttpURLConnection and if not OK throw an exception
      * 
      * @param response response from the server connection
@@ -952,7 +976,6 @@ public class Server {
             Log.d(DEBUG_TAG, "Error code: " + code + " response: " + responseMessage + " message: " + message);
             throw new OsmServerException(code, message);
         }
-
         // success so update ids and versions
         Storage apiStorage = delegator.getApiStorage();
         boolean rehash = false; // if ids are changed we need to rehash storage
@@ -1154,6 +1177,17 @@ public class Server {
      */
     private URL getChangesetUrl(long changesetId) throws MalformedURLException {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId);
+    }
+
+    /**
+     * Get the URL for a changesets osmChange xml
+     * 
+     * @param changesetId the id of the changeset
+     * @return the URL
+     * @throws MalformedURLException if the URL we tried to create was malformed
+     */
+    private URL getChangesetDownloadUrl(long changesetId) throws MalformedURLException {
+        return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/download");
     }
 
     /**

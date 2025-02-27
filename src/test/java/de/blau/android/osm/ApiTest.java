@@ -40,6 +40,7 @@ import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.ShadowWorkManager;
 import de.blau.android.SignalUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.listener.UploadListener;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -49,7 +50,7 @@ import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class ApiTest {
 
@@ -464,7 +465,8 @@ public class ApiTest {
         mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
 
         final CountDownLatch signal2 = new CountDownLatch(1);
-        logic.upload(main, "TEST", "none", false, true, null, Util.wrapInList(n), new FailOnErrorHandler(signal2));
+        UploadListener.UploadArguments arguments = new UploadListener.UploadArguments("TEST", "none", false, true, null, Util.wrapInList(n));
+        logic.upload(main, arguments, new FailOnErrorHandler(signal2));
         runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
 

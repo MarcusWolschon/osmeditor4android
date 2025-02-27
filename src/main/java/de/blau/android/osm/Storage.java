@@ -231,6 +231,15 @@ public class Storage implements Serializable {
     }
 
     /**
+     * Get a count of all elements
+     * 
+     * @return the current element count
+     */
+    public int getElementCount() {
+        return nodes.size() + ways.size() + relations.size();
+    }
+
+    /**
      * Get a unmodifiable list of all elements
      * 
      * @return list containing all elements
