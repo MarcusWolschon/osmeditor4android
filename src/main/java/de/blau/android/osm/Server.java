@@ -1,21 +1,5 @@
 package de.blau.android.osm;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.database.sqlite.SQLiteException;
-import android.net.Uri;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-import org.xmlpull.v1.XmlSerializer;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,6 +9,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -37,6 +22,23 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlSerializer;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.database.sqlite.SQLiteException;
+import android.net.Uri;
+import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Authorize;
 import de.blau.android.ErrorCodes;
@@ -862,6 +864,26 @@ public class Server {
     }
 
     /**
+     * Retrieve the actual changes for a specific changeset
+     * 
+     * @param id id of the changeset
+     * @return a Storage object
+     */
+    @Nullable
+    public Storage getChanges(long id) {
+        try (Response response = openConnectionForAuthenticatedAccess(getChangesetDownloadUrl(changesetId), HTTP_GET, (RequestBody) null)) {
+            checkResponseCode(response);
+            OsmChangeParser oscParser = new OsmChangeParser();
+            oscParser.clearBoundingBoxes(); // this removes the default bounding box
+            oscParser.start(response.body().byteStream());
+            return oscParser.getStorage();
+        } catch (IOException | SAXException | ParserConfigurationException e) {
+            Log.d(DEBUG_TAG, "getChanges got " + e.getMessage());
+        }
+        return null;
+    }
+
+    /**
      * Check the response code from a HttpURLConnection and if not OK throw an exception
      * 
      * @param response response from the server connection
@@ -926,8 +948,8 @@ public class Server {
             try (Response response = openConnectionForAuthenticatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body)) {
                 processDiffUploadResult(delegator, response, xmlParserFactory.newPullParser());
             }
-        } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e1) {
-            throw new OsmException(e1.getMessage());
+        } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
+            throw new OsmException(e.getMessage());
         }
     }
 
@@ -952,7 +974,6 @@ public class Server {
             Log.d(DEBUG_TAG, "Error code: " + code + " response: " + responseMessage + " message: " + message);
             throw new OsmServerException(code, message);
         }
-
         // success so update ids and versions
         Storage apiStorage = delegator.getApiStorage();
         boolean rehash = false; // if ids are changed we need to rehash storage
@@ -961,70 +982,71 @@ public class Server {
             int eventType;
             boolean inResponse = false;
             while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                if (eventType == XmlPullParser.START_TAG) {
-                    String tagName = parser.getName();
-                    if (inResponse) {
-                        String oldIdStr = parser.getAttributeValue(null, OLD_ID_ATTR);
-                        if (oldIdStr == null) { // must always be present
-                            Log.e(DEBUG_TAG, "oldId missing! tag " + tagName);
+                if (eventType != XmlPullParser.START_TAG) {
+                    continue;
+                }
+                String tagName = parser.getName();
+                if (inResponse) {
+                    String oldIdStr = parser.getAttributeValue(null, OLD_ID_ATTR);
+                    if (oldIdStr == null) { // must always be present
+                        Log.e(DEBUG_TAG, "oldId missing! tag " + tagName);
+                        continue;
+                    }
+                    long oldId = Long.parseLong(oldIdStr);
+                    String newIdStr = parser.getAttributeValue(null, NEW_ID_ATTR);
+                    String newVersionStr = parser.getAttributeValue(null, NEW_VERSION_ATTR);
+                    if (Node.NAME.equals(tagName) || Way.NAME.equals(tagName) || Relation.NAME.equals(tagName)) {
+                        OsmElement e = apiStorage.getOsmElement(tagName, oldId);
+                        if (e == null) {
+                            // log crash or what
+                            Log.e(DEBUG_TAG, "" + oldIdStr + " not found in api storage! New id " + newIdStr + " new version " + newVersionStr);
                             continue;
                         }
-                        long oldId = Long.parseLong(oldIdStr);
-                        String newIdStr = parser.getAttributeValue(null, NEW_ID_ATTR);
-                        String newVersionStr = parser.getAttributeValue(null, NEW_VERSION_ATTR);
-                        if (Node.NAME.equals(tagName) || Way.NAME.equals(tagName) || Relation.NAME.equals(tagName)) {
-                            OsmElement e = apiStorage.getOsmElement(tagName, oldId);
-                            if (e == null) {
-                                // log crash or what
-                                Log.e(DEBUG_TAG, "" + oldIdStr + " not found in api storage! New id " + newIdStr + " new version " + newVersionStr);
-                                continue;
+                        if (e.getState() == OsmElement.STATE_DELETED && newIdStr == null && newVersionStr == null) {
+                            if (!apiStorage.removeElement(e)) {
+                                Log.e(DEBUG_TAG, "Deleted " + e + " was already removed from local storage!");
                             }
-                            if (e.getState() == OsmElement.STATE_DELETED && newIdStr == null && newVersionStr == null) {
+                            Log.w(DEBUG_TAG, e + " deleted in API");
+                            delegator.dirty();
+                        } else if (e.getState() == OsmElement.STATE_CREATED && oldId < 0 && newIdStr != null && newVersionStr != null) {
+                            long newId = Long.parseLong(newIdStr);
+                            long newVersion = Long.parseLong(newVersionStr);
+                            if (newId > 0) {
                                 if (!apiStorage.removeElement(e)) {
-                                    Log.e(DEBUG_TAG, "Deleted " + e + " was already removed from local storage!");
+                                    Log.e(DEBUG_TAG, "New " + e + " was already removed from api storage!");
                                 }
-                                Log.w(DEBUG_TAG, e + " deleted in API");
+                                Log.w(DEBUG_TAG, "New " + e + " added to API");
+                                e.setOsmId(newId); // id change requires rehash, so that removing works,
+                                                   // remove first then set id
+                                e.setOsmVersion(newVersion);
+                                e.setState(OsmElement.STATE_UNCHANGED);
                                 delegator.dirty();
-                            } else if (e.getState() == OsmElement.STATE_CREATED && oldId < 0 && newIdStr != null && newVersionStr != null) {
-                                long newId = Long.parseLong(newIdStr);
-                                long newVersion = Long.parseLong(newVersionStr);
-                                if (newId > 0) {
-                                    if (!apiStorage.removeElement(e)) {
-                                        Log.e(DEBUG_TAG, "New " + e + " was already removed from api storage!");
-                                    }
-                                    Log.w(DEBUG_TAG, "New " + e + " added to API");
-                                    e.setOsmId(newId); // id change requires rehash, so that removing works,
-                                                       // remove first then set id
-                                    e.setOsmVersion(newVersion);
-                                    e.setState(OsmElement.STATE_UNCHANGED);
-                                    delegator.dirty();
-                                    rehash = true;
-                                } else {
-                                    Log.d(DEBUG_TAG, "Didn't get new ID: " + newId + " version " + newVersionStr);
-                                }
-                            } else if (e.getState() == OsmElement.STATE_MODIFIED && oldId > 0 && newIdStr != null && newVersionStr != null) {
-                                long newId = Long.parseLong(newIdStr);
-                                long newVersion = Long.parseLong(newVersionStr);
-                                if (newId == oldId && newVersion > e.getOsmVersion()) {
-                                    if (!apiStorage.removeElement(e)) {
-                                        Log.e(DEBUG_TAG, "Updated " + e + " was already removed from api storage!");
-                                    }
-                                    e.setOsmVersion(newVersion);
-                                    Log.w(DEBUG_TAG, e + " updated in API");
-                                    e.setState(OsmElement.STATE_UNCHANGED);
-                                } else {
-                                    Log.d(DEBUG_TAG, "Didn't get new version: " + newVersion + " for " + newId);
-                                }
-                                delegator.dirty();
+                                rehash = true;
                             } else {
-                                Log.e(DEBUG_TAG, "Unknown state for " + e.getOsmId() + " " + e.getState());
+                                Log.d(DEBUG_TAG, "Didn't get new ID: " + newId + " version " + newVersionStr);
                             }
+                        } else if (e.getState() == OsmElement.STATE_MODIFIED && oldId > 0 && newIdStr != null && newVersionStr != null) {
+                            long newId = Long.parseLong(newIdStr);
+                            long newVersion = Long.parseLong(newVersionStr);
+                            if (newId == oldId && newVersion > e.getOsmVersion()) {
+                                if (!apiStorage.removeElement(e)) {
+                                    Log.e(DEBUG_TAG, "Updated " + e + " was already removed from api storage!");
+                                }
+                                e.setOsmVersion(newVersion);
+                                Log.w(DEBUG_TAG, e + " updated in API");
+                                e.setState(OsmElement.STATE_UNCHANGED);
+                            } else {
+                                Log.d(DEBUG_TAG, "Didn't get new version: " + newVersion + " for " + newId);
+                            }
+                            delegator.dirty();
+                        } else {
+                            Log.e(DEBUG_TAG, "Unknown state for " + e.getOsmId() + " " + e.getState());
                         }
-                    } else if (eventType == XmlPullParser.START_TAG && DIFF_RESULT_ELEMENT.equals(tagName)) {
-                        inResponse = true;
-                    } else {
-                        Log.e(DEBUG_TAG, "Unknown start tag: " + tagName);
                     }
+                } else if (eventType == XmlPullParser.START_TAG && DIFF_RESULT_ELEMENT.equals(tagName)) {
+                    inResponse = true;
+                } else {
+                    Log.e(DEBUG_TAG, "Unknown start tag: " + tagName);
                 }
             }
             if (rehash) {
@@ -1033,7 +1055,11 @@ public class Server {
                     apiStorage.rehash();
                 }
             }
-        } catch (XmlPullParserException | NumberFormatException | IOException e) {
+        } catch (XmlPullParserException | NumberFormatException e) {
+            if (e.getMessage().contains(SocketTimeoutException.class.getSimpleName())) {
+                // getCause is null, so hack around the issue
+                throw new SocketTimeoutException(e.getLocalizedMessage());
+            }
             throw new OsmException(e.toString());
         }
     }
@@ -1154,6 +1180,17 @@ public class Server {
      */
     private URL getChangesetUrl(long changesetId) throws MalformedURLException {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId);
+    }
+
+    /**
+     * Get the URL for a changesets osmChange xml
+     * 
+     * @param changesetId the id of the changeset
+     * @return the URL
+     * @throws MalformedURLException if the URL we tried to create was malformed
+     */
+    private URL getChangesetDownloadUrl(long changesetId) throws MalformedURLException {
+        return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/download");
     }
 
     /**

@@ -161,6 +161,21 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Replace the current and api Storage, including in undo
+     * 
+     * Note: caller is responsible for setting dirty and locking
+     * 
+     * @param currentStorage the new Storage object to set
+     * @param apiStorage the new Storage object to set
+     */
+    void setStorage(@NonNull final Storage currentStorage, @NonNull final Storage apiStorage) {
+        this.apiStorage = apiStorage;
+        this.currentStorage = currentStorage;
+        undo.setCurrentStorage(currentStorage);
+        undo.setApiStorage(apiStorage);
+    }
+
+    /**
      * Check if the Storage is dirty and needs to be saved
      * 
      * @return true if dirty
@@ -3069,7 +3084,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return the element count
      */
     public int getApiElementCount() {
-        return apiStorage.getRelationCount() + apiStorage.getWayCount() + apiStorage.getNodeCount();
+        return apiStorage.getElementCount();
     }
 
     /**

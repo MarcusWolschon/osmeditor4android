@@ -2311,16 +2311,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_transfer_export:
             descheduleAutoLock();
-            SelectFile.save(this, null, R.string.config_osmPreferredDir_key, new SaveFile() {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public boolean save(FragmentActivity currentActivity, Uri fileUri) {
-                    SavingHelper.asyncExport(currentActivity, delegator, fileUri);
-                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                    return true;
-                }
-            });
+            saveOscFile(this, delegator, prefs);
             return true;
         case R.id.menu_transfer_apply_osc_file:
             descheduleAutoLock();
@@ -2614,6 +2605,26 @@ public class Main extends FullScreenAppCompatActivity
             Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
         }
         return false;
+    }
+
+    /**
+     * Show the file picker and save current changes to an osmChanges file
+     * 
+     * @param activity a FragmentActivity
+     * @param delegator a StorageDelegator instance
+     * @param prefs current Preferences
+     */
+    public static void saveOscFile(@NonNull FragmentActivity activity, @NonNull StorageDelegator delegator, @NonNull Preferences prefs) {
+        SelectFile.save(activity, null, R.string.config_osmPreferredDir_key, new SaveFile() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                SavingHelper.asyncExport(currentActivity, delegator, fileUri);
+                SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                return true;
+            }
+        });
     }
 
     /**

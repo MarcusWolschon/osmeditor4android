@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osmChange version="0.6" generator="openstreetmap-cgimap 2.0.1 (4099477 faffy.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <create>
+  <node id="4355137544" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154" lat="47.4080422" lon="8.3732420"/>
+ </create>
+ <create>
+  <node id="4355137545" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154" lat="47.4064106" lon="8.3717497"/>
+ </create>
+ <create>
+  <node id="4355137546" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154" lat="47.4081429" lon="8.3713467"/>
+ </create>
+ <create>
+  <node id="4355137547" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154" lat="47.4077248" lon="8.3736500"/>
+ </create>
+ <create>
+  <node id="4355137548" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154" lat="47.4068766" lon="8.3722276"/>
+ </create>
+ <create>
+  <node id="4355137549" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154" lat="47.4064705" lon="8.3734045"/>
+ </create>
+ <create>
+  <way id="4307052792" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154">
+   <nd ref="4355137544"/>
+   <nd ref="4355137548"/>
+   <tag k="highway" v="primary"/>
+   <tag k="name" v="test"/>
+  </way>
+ </create>
+ <create>
+  <way id="4307052793" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154">
+   <nd ref="4355137549"/>
+   <nd ref="4355137547"/>
+   <tag k="highway" v="primary"/>
+   <tag k="name" v="test2"/>
+  </way>
+ </create>
+ <create>
+  <way id="4307052794" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154">
+   <nd ref="4355137545"/>
+   <nd ref="4355137549"/>
+   <tag k="highway" v="primary"/>
+   <tag k="name" v="test2"/>
+  </way>
+ </create>
+ <create>
+  <way id="4307052795" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154">
+   <nd ref="4355137546"/>
+   <nd ref="4355137544"/>
+   <tag k="highway" v="primary"/>
+   <tag k="name" v="test"/>
+  </way>
+ </create>
+ <create>
+  <relation id="4305224346" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154">
+   <member type="way" ref="4307052794" role="from"/>
+   <member type="node" ref="4355137549" role="via"/>
+   <member type="way" ref="4307052793" role="to"/>
+   <tag k="restriction" v="only_straight_on"/>
+   <tag k="type" v="restriction"/>
+  </relation>
+ </create>
+ <create>
+  <relation id="4305224347" visible="true" version="1" changeset="406120" timestamp="2025-03-01T13:21:36Z" user="SimonDev" uid="1154">
+   <member type="way" ref="4307052795" role="from"/>
+   <member type="node" ref="4355137544" role="via"/>
+   <member type="way" ref="4307052792" role="to"/>
+   <tag k="restriction" v="no_right_turn"/>
+   <tag k="type" v="restriction"/>
+  </relation>
+ </create>
+</osmChange>

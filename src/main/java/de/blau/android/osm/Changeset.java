@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
@@ -25,7 +27,9 @@ import de.blau.android.util.LocaleUtils;
  *
  */
 public class Changeset {
-    private static final String DEBUG_TAG = Changeset.class.getSimpleName().substring(0, Math.min(23, Changeset.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Changeset.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Changeset.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TRUE               = "true";
     private static final String ID_ATTR            = "id";
@@ -98,7 +102,7 @@ public class Changeset {
      * 
      * @return true is open
      */
-    boolean isOpen() {
+    public boolean isOpen() {
         return open;
     }
 
@@ -107,7 +111,7 @@ public class Changeset {
      * 
      * @return the number of changes
      */
-    int getChanges() {
+    public int getChanges() {
         return changes;
     }
 
@@ -160,10 +164,10 @@ public class Changeset {
                 result.tags.put(k, v);
                 break;
             default:
-                // nothing
+                Log.d(DEBUG_TAG, "Unknown element " + tagName);
             }
-            Log.d(DEBUG_TAG, "#" + result.osmId + " is " + (result.isOpen() ? "open" : "closed"));
         }
+        Log.d(DEBUG_TAG, "#" + result.osmId + " is " + (result.isOpen() ? "open" : "closed" + " " + result.changes + " changes"));
         return result;
     }
 

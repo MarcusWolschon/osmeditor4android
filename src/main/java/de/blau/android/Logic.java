@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,6 +67,7 @@ import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.dialogs.UploadConflict;
+import de.blau.android.dialogs.UploadRetry;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.ElementSelectionActionModeCallback;
 import de.blau.android.exception.DataConflictException;
@@ -79,6 +82,7 @@ import de.blau.android.gpx.Track;
 import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.data.MapOverlay;
+import de.blau.android.listener.UploadListener;
 import de.blau.android.osm.ApiResponse;
 import de.blau.android.osm.ApiResponse.Conflict;
 import de.blau.android.osm.BoundingBox;
@@ -4457,17 +4461,12 @@ public class Logic {
      * Uploads to the server in the background.
      * 
      * @param activity Activity this is called from
-     * @param comment Changeset comment.
-     * @param source The changeset source tag to add.
-     * @param closeOpenChangeset If true try to close any open changeset first
-     * @param closeChangeset Whether to close the changeset after upload or not.
-     * @param extraTags Additional tags to add to changeset
-     * @param elements List of OsmElement to upload if null all changed elements will be uploaded
+     * @param arguments most of the arguments required for this
      * @param postUploadHandler code to execute after an upload
      */
-    public void upload(@NonNull final FragmentActivity activity, @Nullable final String comment, @Nullable final String source, boolean closeOpenChangeset,
-            final boolean closeChangeset, @Nullable final java.util.Map<String, String> extraTags, @Nullable final List<OsmElement> elements,
+    public void upload(@NonNull final FragmentActivity activity, @NonNull UploadListener.UploadArguments arguments,
             @Nullable final PostAsyncActionHandler postUploadHandler) {
+
         final String PROGRESS_TAG = "data";
         final Server server = prefs.getServer();
         new ExecutorTask<Void, Void, UploadResult>(executorService, uiHandler) {
@@ -4475,8 +4474,8 @@ public class Logic {
             @Override
             protected void onPreExecute() {
                 Progress.showDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
-                pushComment(comment, false);
-                pushSource(source, false);
+                pushComment(arguments.comment, false);
+                pushSource(arguments.source, false);
             }
 
             @Override
@@ -4489,8 +4488,9 @@ public class Logic {
                         return result;
                     }
                     // set comment here if empty to avoid saving it
-                    getDelegator().uploadToServer(server, Util.isEmpty(comment) ? activity.getString(R.string.upload_auto_summary) : comment, source,
-                            closeOpenChangeset, closeChangeset, extraTags, elements);
+                    getDelegator().uploadToServer(server,
+                            Util.isEmpty(arguments.comment) ? activity.getString(R.string.upload_auto_summary) : arguments.comment, arguments.source,
+                            arguments.closeOpenChangeset, arguments.closeChangeset, arguments.extraTags, arguments.elements);
                 } catch (final OsmServerException e) {
                     int errorCode = e.getHttpErrorCode();
                     result.setHttpError(errorCode);
@@ -4498,13 +4498,13 @@ public class Logic {
                     switch (errorCode) {
                     case HttpURLConnection.HTTP_GONE:
                         result.setError(ErrorCodes.ALREADY_DELETED);
-                        result.setMessage(e.getMessage());
+                        result.setMessage(e.getLocalizedMessage());
                         break;
                     case HttpURLConnection.HTTP_CONFLICT:
                     case HttpURLConnection.HTTP_PRECON_FAILED:
                     case HttpURLConnection.HTTP_ENTITY_TOO_LARGE:
                         result.setError(ErrorCodes.UPLOAD_CONFLICT);
-                        result.setMessage(e.getMessage());
+                        result.setMessage(e.getLocalizedMessage());
                         break;
                     case HttpStatusCodes.HTTP_TOO_MANY_REQUESTS:
                         result.setError(ErrorCodes.UPLOAD_LIMIT_EXCEEDED);
@@ -4513,6 +4513,10 @@ public class Logic {
                     default:
                         mapErrorCode(errorCode, result);
                     }
+                } catch (final SocketTimeoutException | ProtocolException e) {
+                    Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
+                    result.setError(ErrorCodes.UPLOAD_INCOMPLETE);
+                    result.setMessage(e.getLocalizedMessage());
                 } catch (final IOException | NumberFormatException e) {
                     Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                     result.setError(ErrorCodes.UPLOAD_PROBLEM);
@@ -4532,10 +4536,10 @@ public class Logic {
                     final StorageDelegator delegator = getDelegator();
                     if (error == ErrorCodes.OK) {
                         ScreenMessage.barInfo(activity, R.string.toast_upload_success);
-                        if (elements == null) {
+                        if (arguments.elements == null) {
                             delegator.clearUndo(); // only clear on successful upload
                         } else {
-                            delegator.clearUndo(elements);
+                            delegator.clearUndo(arguments.elements);
                         }
                         // save now to avoid problems if it doesn't succeed later on, this currently writes
                         // sync and potentially cause ANRs
@@ -4556,7 +4560,7 @@ public class Logic {
                                 this.execute(); // restart new changeset will be opened automatically
                                 return;
                             } else if (conflict instanceof ApiResponse.BoundingBoxTooLargeError) {
-                                if (!closeOpenChangeset) {
+                                if (!arguments.closeOpenChangeset) {
                                     // we've potentially already uploaded something, so don't reuse this changeset
                                     server.resetChangeset();
                                 }
@@ -4564,8 +4568,11 @@ public class Logic {
                             } else if (conflict instanceof ApiResponse.ChangesetLocked) {
                                 ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_PROBLEM, result.getMessage());
                             } else {
-                                UploadConflict.showDialog(activity, conflict, elements);
+                                UploadConflict.showDialog(activity, conflict, arguments.elements);
                             }
+                            break;
+                        case ErrorCodes.UPLOAD_INCOMPLETE:
+                            UploadRetry.showDialog(activity, result, server.getOpenChangeset(), arguments);
                             break;
                         case ErrorCodes.INVALID_LOGIN:
                             InvalidLogin.showDialog(activity);
@@ -4576,8 +4583,8 @@ public class Logic {
                         case ErrorCodes.BAD_REQUEST:
                         case ErrorCodes.NOT_FOUND:
                         case ErrorCodes.UNKNOWN_ERROR:
-                        case ErrorCodes.UPLOAD_PROBLEM:
                         case ErrorCodes.UPLOAD_LIMIT_EXCEEDED:
+                        case ErrorCodes.UPLOAD_PROBLEM:
                             ErrorAlert.showDialog(activity, error, result.getMessage());
                             break;
                         case ErrorCodes.ALREADY_DELETED:
@@ -4585,8 +4592,8 @@ public class Logic {
                             if (conflict instanceof ApiResponse.AlreadyDeletedConflict) {
                                 final OsmElement deletedElement = delegator.getOsmElement(conflict.getElementType(), conflict.getElementId());
                                 delegator.removeFromUpload(deletedElement, OsmElement.STATE_DELETED);
-                                if (elements != null) {
-                                    elements.remove(deletedElement);
+                                if (arguments.elements != null) {
+                                    arguments.elements.remove(deletedElement);
                                 }
                                 ScreenMessage.toastTopWarning(activity,
                                         activity.getString(R.string.upload_conflict_message_already_deleted, deletedElement.getDescription(true)));

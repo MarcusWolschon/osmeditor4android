@@ -42,6 +42,8 @@ public class Progress extends ImmersiveDialogFragment {
     public static final int PROGRESS_IMPORTING_FILE            = 15;
     public static final int PROGRESS_DOWNLOAD_TASKS            = 16;
     public static final int PROGRESS_DOWNLOAD_SEQUENCE         = 17;
+    public static final int PROGRESS_DETERMINING_STATUS        = 18;
+    public static final int PROGRESS_UPDATING                  = 19;
 
     private int    dialogType;
     private String messageArg;
@@ -135,6 +137,8 @@ public class Progress extends ImmersiveDialogFragment {
         dismissDialog(activity, PROGRESS_IMPORTING_FILE);
         dismissDialog(activity, PROGRESS_DOWNLOAD_TASKS);
         dismissDialog(activity, PROGRESS_DOWNLOAD_SEQUENCE);
+        dismissDialog(activity, PROGRESS_DETERMINING_STATUS);
+        dismissDialog(activity, PROGRESS_UPDATING);
     }
 
     /**
@@ -180,6 +184,10 @@ public class Progress extends ImmersiveDialogFragment {
             return "dialog_progress_download_tasks";
         case PROGRESS_DOWNLOAD_SEQUENCE:
             return "dialog_progress_download_sequence";
+        case PROGRESS_DETERMINING_STATUS:
+            return "dialog_progress_determining_status";
+        case PROGRESS_UPDATING:
+            return "dialog_progress_updating";
         default:
             Log.w(DEBUG_TAG, "Unknown dialog type " + dialogType);
         }

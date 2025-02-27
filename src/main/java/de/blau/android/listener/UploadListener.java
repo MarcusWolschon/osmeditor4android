@@ -73,6 +73,26 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
 
     private boolean tagsShown = false;
 
+    public static class UploadArguments {
+
+        public final String                        comment;
+        public final String                        source;
+        public final boolean                       closeOpenChangeset;
+        public final boolean                       closeChangeset;
+        public final java.util.Map<String, String> extraTags;
+        public final List<OsmElement>              elements;
+
+        public UploadArguments(@Nullable final String comment, @Nullable final String source, boolean closeOpenChangeset, final boolean closeChangeset,
+                @Nullable final java.util.Map<String, String> extraTags, @Nullable final List<OsmElement> elements) {
+            this.comment = comment;
+            this.source = source;
+            this.closeOpenChangeset = closeOpenChangeset;
+            this.closeChangeset = closeChangeset;
+            this.extraTags = extraTags;
+            this.elements = elements;
+        }
+    }
+
     /**
      * Upload the current changes
      * 
@@ -144,9 +164,9 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
         boolean hasBugChanges = !App.getTaskStorage().isEmpty() && App.getTaskStorage().hasChanges();
         if (hasDataChanges || hasBugChanges) {
             if (hasDataChanges) {
-                logic.upload(caller, getTrimmedString(commentField), getTrimmedString(sourceField),
-                        closeOpenChangeset != null && closeOpenChangeset.isChecked(), closeChangeset.isChecked(), extraTags, elements,
-                        () -> logic.checkForMail(caller, server));
+                UploadArguments arguments = new UploadArguments(getTrimmedString(commentField), getTrimmedString(sourceField),
+                        closeOpenChangeset != null && closeOpenChangeset.isChecked(), closeChangeset.isChecked(), extraTags, elements);
+                logic.upload(caller, arguments, () -> logic.checkForMail(caller, server));
             }
             if (hasBugChanges) {
                 TransferTasks.upload(caller, server, null);

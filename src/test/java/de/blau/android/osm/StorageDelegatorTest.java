@@ -9,6 +9,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +18,17 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
 
+import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
@@ -34,6 +42,8 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = 33)
@@ -1558,7 +1568,7 @@ public class StorageDelegatorTest {
      */
     @Test
     public void replaceRelationMemberElement() {
-        StorageDelegator d = UnitTestUtils.loadTestData(this.getClass(), "replace_geometry4.osm");
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "replace_geometry4.osm");
         Relation r = (Relation) d.getOsmElement(Relation.NAME, -3L);
         Way w = (Way) d.getOsmElement(Way.NAME, -1L);
         Node n = (Node) d.getOsmElement(Node.NAME, -14L);
@@ -1582,4 +1592,42 @@ public class StorageDelegatorTest {
         assertEquals(1, members.size());
         assertEquals(w, members.get(0).getElement());
     }
+
+    @Test
+    public void updateDataFromChangesTest1() {
+        updateDataFromChanges("update-test-data.osm", "/update-test-changes.xml", 801);
+    }
+
+    @Test
+    public void updateDataFromChangesTest2() {
+        updateDataFromChanges("update-test-data-2.osm", "/update-test-changes-2.xml", 12);
+    }
+    
+    @Test
+    public void updateDataFromChangesTest3() {
+        updateDataFromChanges("update-test-data-3.osm", "/update-test-changes-3.xml", 16);
+    }
+
+    /**
+     * Update data from osmChanges file
+     * 
+     * @param dataFile the complete data with unsaved changes
+     * @param changesFile the changeset osmChanges file
+     * @param count number of changes
+     * 
+     */
+    public void updateDataFromChanges(String dataFile, String changesFile, int count) {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), dataFile);
+        try (InputStream input = getClass().getResourceAsStream(changesFile)) {
+            OsmChangeParser oscParser = new OsmChangeParser();
+            oscParser.clearBoundingBoxes(); // this removes the default bounding box
+            oscParser.start(input);
+            assertEquals(count, d.getApiElementCount());
+            assertTrue(UpdateFromChanges.update(d, oscParser.getStorage()));
+            assertEquals(0, d.getApiElementCount());
+        } catch (IOException | SAXException | ParserConfigurationException e) {
+            fail(e.getMessage());
+        }
+    }
+
 }
