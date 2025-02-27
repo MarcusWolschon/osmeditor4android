@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osmChange version="0.6" generator="openstreetmap-cgimap 2.0.1 (4099477 faffy.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <create>
+  <node id="4355135834" visible="true" version="1" changeset="404895" timestamp="2025-02-26T07:18:23Z" user="SimonDev" uid="1154" lat="47.3909220" lon="8.3891294"/>
+ </create>
+ <create>
+  <node id="4355135835" visible="true" version="1" changeset="404895" timestamp="2025-02-26T07:18:23Z" user="SimonDev" uid="1154" lat="47.3909957" lon="8.3892634"/>
+ </create>
+ <create>
+  <node id="4355135836" visible="true" version="1" changeset="404895" timestamp="2025-02-26T07:18:23Z" user="SimonDev" uid="1154" lat="47.3907426" lon="8.3890714"/>
+ </create>
+ <create>
+  <node id="4355135837" visible="true" version="1" changeset="404895" timestamp="2025-02-26T07:18:23Z" user="SimonDev" uid="1154" lat="47.3907633" lon="8.3892340"/>
+ </create>
+ <create>
+  <way id="4307052689" visible="true" version="1" changeset="404895" timestamp="2025-02-26T07:18:23Z" user="SimonDev" uid="1154">
+   <nd ref="4355135836"/>
+   <nd ref="4355135834"/>
+   <nd ref="4355135837"/>
+  </way>
+ </create>
+</osmChange>

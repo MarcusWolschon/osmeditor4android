@@ -3069,7 +3069,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return the element count
      */
     public int getApiElementCount() {
-        return apiStorage.getRelationCount() + apiStorage.getWayCount() + apiStorage.getNodeCount();
+        return apiStorage.getElementCount();
     }
 
     /**
@@ -3624,6 +3624,216 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
         }
         return true; // successful
+    }
+
+ 
+    public boolean updateDataFromChanges(@NonNull Storage changes) {
+
+        try {
+            lock();
+            // make temp copy of current storage (we may have to abort
+            Storage tempApi = new Storage(apiStorage);
+            Storage tempCurrent = new Storage(currentStorage);
+
+            LongOsmElementMap<Node> createdNodes = new LongOsmElementMap<>(Math.max(1, tempApi.getNodeCount()));
+            addCreated(createdNodes, tempApi.getNodes());
+
+            LongOsmElementMap<Way> createdWays = new LongOsmElementMap<>(Math.max(1, tempApi.getWayCount()));
+            addCreated(createdWays, tempApi.getWays());
+
+            LongOsmElementMap<Relation> createdRelations = new LongOsmElementMap<>(Math.max(1, tempApi.getRelationCount()));
+            addCreated(createdRelations, tempApi.getRelations());
+
+            List<Relation> haveForwardReferences = new ArrayList<>();
+
+            for (Node changedNode : changes.getNodes()) {
+                switch (changedNode.getState()) {
+                case OsmElement.STATE_DELETED:
+                    tempApi.removeElement(tempApi.getNode(changedNode.getOsmId()));
+                    break;
+                case OsmElement.STATE_CREATED:
+                    Node ourNode = null;
+                    for (Node n : createdNodes) {
+                        if (changedNode.getTags().equals(n.getTags()) && changedNode.getLon() == n.getLon() && changedNode.getLat() == n.getLat()) {
+                            ourNode = n;
+                            break;
+                        }
+                    }
+                    if (ourNode == null) {
+                        Log.e(DEBUG_TAG, "Not found Node " + changedNode.getDescription());
+                        return false;
+                    }
+                    createdNodes.remove(ourNode.getOsmId());
+                    updateElement(tempApi, changedNode, ourNode);
+                    break;
+                case OsmElement.STATE_MODIFIED:
+                    updateElement(tempApi, changedNode, tempApi.getNode(changedNode.getOsmId()));
+                    break;
+                default:
+                    Log.w(DEBUG_TAG, "Unchanged node " + changedNode.getDescription());
+                }
+            }
+            for (Way changedWay : changes.getWays()) {
+                switch (changedWay.getState()) {
+                case OsmElement.STATE_DELETED:
+                    tempApi.removeElement(tempApi.getWay(changedWay.getOsmId()));
+                    break;
+                case OsmElement.STATE_CREATED:
+                    Way ourWay = null;
+                    for (Way w : createdWays) {
+                        // all created nodes will already be updated
+                        if (wayEquals(changedWay, w)) {
+                            ourWay = w;
+                            break;
+                        }
+                    }
+                    if (ourWay == null) {
+                        Log.e(DEBUG_TAG, "Not found Way " + changedWay.getDescription());
+                        return false;
+                    }
+                    createdWays.remove(ourWay.getOsmId());
+                    updateElement(tempApi, changedWay, ourWay);
+                    break;
+                case OsmElement.STATE_MODIFIED:
+                    updateElement(tempApi, changedWay, tempApi.getWay(changedWay.getOsmId()));
+                    break;
+                default:
+                    Log.w(DEBUG_TAG, "Unchanged way " + changedWay.getDescription());
+                }
+            }
+            for (Relation changedRelation : changes.getRelations()) {
+                switch (changedRelation.getState()) {
+                case OsmElement.STATE_DELETED:
+                    tempApi.removeElement(tempApi.getRelation(changedRelation.getOsmId()));
+                    break;
+                case OsmElement.STATE_CREATED:
+                    Relation ourRelation = null;
+                    boolean hasForwardReferences = false;
+                    for (Relation r : createdRelations) {
+                        Boolean result = relationEquals(changedRelation, r, haveForwardReferences);
+                        if (Boolean.TRUE.equals(result)) {
+                            ourRelation = r;
+                            break;
+                        } else if (result == null) {
+                            hasForwardReferences = true;
+                        }
+                    }
+                    if (ourRelation == null) {
+                        Log.e(DEBUG_TAG, "Not found Relation " + changedRelation.getDescription());
+                        if (hasForwardReferences) {
+                            break; // need another pass
+                        }
+                        return false;
+                    }
+                    createdRelations.remove(ourRelation.getOsmId());
+                    updateElement(tempApi, changedRelation, ourRelation);
+                    break;
+                case OsmElement.STATE_MODIFIED:
+                    updateElement(tempApi, changedRelation, tempApi.getRelation(changedRelation.getOsmId()));
+                    break;
+                default:
+                    Log.w(DEBUG_TAG, "Unchanged relation " + changedRelation.getDescription());
+                }
+            }
+            if (!haveForwardReferences.isEmpty()) {
+                // 2nd pass on relations not implemented for now
+                Log.e(DEBUG_TAG, "Changes contain relations with forward references");
+                return false;
+            }
+            tempCurrent.rehash();
+            currentStorage = tempCurrent;
+            undo.setCurrentStorage(tempCurrent);
+            tempApi.rehash();
+            apiStorage = tempApi;
+
+            dirty();
+
+        } finally
+
+        {
+            unlock();
+        }
+        return true;
+    }
+
+    private <E extends OsmElement> void addCreated(LongOsmElementMap<E> map, List<E> elements) {
+        for (E e : elements) {
+            if (e.getState() == OsmElement.STATE_CREATED) {
+                map.put(e.getOsmId(), e);
+            }
+        }
+    }
+
+    /**
+     * @param changedWay
+     * @param w
+     * @return
+     */
+    private boolean wayEquals(Way changedWay, Way createdWay) {
+        int nodeCountChanged = changedWay.nodeCount();
+        int nodeCountCreated = createdWay.nodeCount();
+        if (nodeCountChanged != nodeCountCreated) {
+            return false;
+        }
+        if (!changedWay.getTags().equals(createdWay.getTags())) {
+            return false;
+        }
+        List<Node> changedWayNodes = changedWay.getNodes();
+        List<Node> createdWayNodes = createdWay.getNodes();
+        for (int i = 0; i < nodeCountChanged; i++) {
+            if (changedWayNodes.get(i).getOsmId() != createdWayNodes.get(i).getOsmId()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param temp
+     * @param changedRelation
+     * @param ourRelation
+     */
+    private <E extends OsmElement> void updateElement(Storage temp, E changedRelation, E ourRelation) {
+        temp.removeElement(ourRelation);
+        ourRelation.setOsmId(changedRelation.getOsmId());
+        ourRelation.setOsmVersion(changedRelation.getOsmVersion());
+        ourRelation.setState(OsmElement.STATE_UNCHANGED);
+    }
+
+    /**
+     * @param changedRelation
+     * @param createdRelation
+     * @param haveForwardReferences
+     *
+     */
+    private Boolean relationEquals(@NonNull Relation changedRelation, @NonNull Relation createdRelation, @NonNull List<Relation> haveForwardReferences) {
+        int memberCountChanged = changedRelation.getMemberCount();
+        int memberCountCreated = createdRelation.getMemberCount();
+        if (memberCountChanged != memberCountCreated) {
+            return false;
+        }
+        if (!changedRelation.getTags().equals(createdRelation.getTags())) {
+            return false;
+        }
+
+        List<RelationMember> membersChanged = changedRelation.getMembers();
+        List<RelationMember> membersCreated = createdRelation.getMembers();
+        for (int i = 0; i < memberCountChanged; i++) {
+            RelationMember createdMember = membersCreated.get(i);
+            RelationMember changedMember = membersChanged.get(i);
+            if (createdMember.getType().equals(changedMember.getType()) && changedMember.getRole().equals(createdMember.getRole())) {
+                long createdMemberId = createdMember.getElement().getOsmId();
+                if (createdMemberId != changedMember.getRef()) {
+                    if (createdMemberId < 0 && createdMember.getType().equals(Relation.NAME)) {
+                        // forward reference
+                        haveForwardReferences.add(createdRelation);
+                        return null;
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
