@@ -45,6 +45,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.util.Coordinates;
 import okhttp3.HttpUrl;
@@ -486,7 +487,7 @@ public class WayActionsTest {
         AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
         try {
             prefDB.deleteAPI("Test");
-            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
             prefDB.selectAPI("Test");
             Preferences prefs = new Preferences(context);
             LayerUtils.removeImageryLayers(context);
@@ -555,7 +556,7 @@ public class WayActionsTest {
         AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
         try {
             prefDB.deleteAPI("Test");
-            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
             prefDB.selectAPI("Test");
             Preferences prefs = new Preferences(context);
             LayerUtils.removeImageryLayers(context);

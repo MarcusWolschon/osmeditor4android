@@ -112,9 +112,9 @@ public class Server {
     private static final MediaType TEXTXML = MediaType.parse(MimeTypes.TEXTXML);
 
     /**
-     * Timeout for connections in milliseconds.
+     * Default timeout for connections in milliseconds.
      */
-    public static final int TIMEOUT = 45 * 1000;
+    public static final int DEFAULT_TIMEOUT = 45 * 1000;
 
     /**
      * Name of the API entry used for this instance
@@ -164,6 +164,11 @@ public class Server {
      * oauth access token secret
      */
     private final String accesstokensecret;
+
+    /**
+     * Timeout to use for server interaction in ms
+     */
+    private final int timeout;
 
     /**
      * display name of the user and other stuff
@@ -228,6 +233,7 @@ public class Server {
         this.generator = generator;
         this.accesstoken = api.accesstoken;
         this.accesstokensecret = api.accesstokensecret;
+        this.timeout = api.timeout;
 
         if (authentication == Auth.OAUTH1A) {
             oAuthConsumer = new OAuth1aHelper().getOkHttpConsumer(context, name);
@@ -452,7 +458,7 @@ public class Server {
      */
     private Capabilities getCapabilities(@NonNull URL capabilitiesURL) {
         //
-        try (InputStream is = openConnection(null, capabilitiesURL)) {
+        try (InputStream is = openConnection(null, capabilitiesURL, timeout, timeout)) {
             Log.d(DEBUG_TAG, "getCapabilities using " + capabilitiesURL.toString());
             return Capabilities.parse(xmlParserFactory.newPullParser(), is);
         } catch (XmlPullParserException e) {
@@ -511,7 +517,7 @@ public class Server {
     public InputStream getStreamForBox(@Nullable final Context context, @NonNull final BoundingBox box) throws IOException {
         Log.d(DEBUG_TAG, "getStreamForBox");
         URL url = new URL(getReadOnlyUrl() + "map?bbox=" + box.toApiString());
-        return openConnection(context, url);
+        return openConnection(context, url, timeout, timeout);
     }
 
     /**
@@ -529,7 +535,7 @@ public class Server {
             throws IOException {
         Log.d(DEBUG_TAG, "getStreamForElement");
         URL url = new URL((hasMapSplitSource() ? getReadWriteUrl() : getReadOnlyUrl()) + type + "/" + id + (mode != null ? "/" + mode : ""));
-        return openConnection(context, url);
+        return openConnection(context, url, timeout, timeout);
     }
 
     /**
@@ -559,7 +565,7 @@ public class Server {
             }
         }
         URL url = new URL(urlString.toString());
-        return openConnection(context, url);
+        return openConnection(context, url, timeout, timeout);
     }
 
     /**
@@ -574,7 +580,7 @@ public class Server {
      */
     @NonNull
     public static InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException {
-        return openConnection(context, url, TIMEOUT, TIMEOUT);
+        return openConnection(context, url, Server.DEFAULT_TIMEOUT, Server.DEFAULT_TIMEOUT);
     }
 
     /**
@@ -695,7 +701,7 @@ public class Server {
         }
         Request request = requestBuilder.build();
 
-        OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT,
+        OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(timeout, TimeUnit.MILLISECONDS).readTimeout(timeout,
                 TimeUnit.MILLISECONDS);
         switch (authentication) {
         case OAUTH1A:
@@ -1438,7 +1444,7 @@ public class Server {
     public Note getNote(long id) throws NumberFormatException, XmlPullParserException, IOException {
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
         Log.d(DEBUG_TAG, "getNote");
-        try (InputStream is = openConnection(null, getNoteUrl(Long.toString(id)))) {
+        try (InputStream is = openConnection(null, getNoteUrl(Long.toString(id)), timeout, timeout)) {
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             List<Note> result = Note.parseNotes(parser, null);
@@ -1458,7 +1464,7 @@ public class Server {
     public Collection<Note> getNotesForBox(@NonNull BoundingBox area, long limit) {
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
         Log.d(DEBUG_TAG, "getNotesForBox");
-        try (InputStream is = openConnection(null, getNotesForBox(limit, area))) {
+        try (InputStream is = openConnection(null, getNotesForBox(limit, area), timeout, timeout)) {
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             return Note.parseNotes(parser, null);

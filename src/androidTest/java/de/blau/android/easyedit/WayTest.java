@@ -39,6 +39,7 @@ import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.API.AuthParams;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -66,7 +67,7 @@ public class WayTest {
         main = mActivityRule.getActivity();
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", "", null, null, "user", "pass", API.Auth.BASIC);
+        prefDB.addAPI("Test", "Test", "", null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
         prefDB.selectAPI("Test");
         Preferences prefs = new Preferences(context);
         prefs.setAutolockDelay(300000L);
@@ -350,7 +351,7 @@ public class WayTest {
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false)); 
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(104148456L, way.getOsmId());

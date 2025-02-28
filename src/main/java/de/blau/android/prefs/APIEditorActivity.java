@@ -41,6 +41,7 @@ import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.DataLoss;
 import de.blau.android.prefs.API.Auth;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.FileUtil;
@@ -55,7 +56,8 @@ import de.blau.android.util.Util;
 /** Provides an activity for editing the API list */
 public class APIEditorActivity extends URLListEditActivity {
 
-    private static final String DEBUG_TAG = APIEditorActivity.class.getSimpleName().substring(0, Math.min(23, APIEditorActivity.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = APIEditorActivity.class.getSimpleName().substring(0,
+            Math.min(23, APIEditorActivity.class.getSimpleName().length()));
 
     private static final int MENU_COPY = 1;
 
@@ -141,7 +143,7 @@ public class APIEditorActivity extends URLListEditActivity {
 
     @Override
     protected void onItemCreated(ListEditItem item) {
-        db.addAPI(item.id, item.name, item.value, item.value2, item.value3, "", "", (Auth) item.object0);
+        db.addAPI(item.id, item.name, item.value, item.value2, item.value3, new AuthParams((Auth) item.object0, "", "", null, null));
     }
 
     @Override
@@ -174,7 +176,7 @@ public class APIEditorActivity extends URLListEditActivity {
         if (menuItemId == MENU_COPY) {
             ListEditItem item = new ListEditItem(getString(R.string.copy_of, clickedItem.name), clickedItem.value, clickedItem.value2, clickedItem.value3,
                     clickedItem.boolean0, Auth.BASIC);
-            db.addAPI(item.id, item.name, item.value, item.value2, item.value3, "", "", (Auth) item.object0);
+            db.addAPI(item.id, item.name, item.value, item.value2, item.value3, new AuthParams((Auth) item.object0, "", "", null, null));
             items.clear();
             onLoadList(items);
             updateAdapter();
