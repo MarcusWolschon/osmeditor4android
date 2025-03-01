@@ -52,7 +52,7 @@ public class OsmChangeParser extends OsmParser {
      * Construct a new instance of the parser
      */
     public OsmChangeParser() {
-        super();
+        super(true);
     }
 
     /**
