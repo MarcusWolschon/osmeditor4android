@@ -290,7 +290,6 @@ public class UploadConflictTest {
         logic.readOsmFile(main, is, false, new SignalHandler(signal));
         SignalUtils.signalAwait(signal, TIMEOUT);
 
-        mockServer.enqueue("capabilities1"); // for whatever reason this gets asked for twice
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("changeset1");
         mockServer.enqueue(conflictReponse);

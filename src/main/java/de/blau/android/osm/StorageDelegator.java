@@ -3305,7 +3305,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         boolean fullUpload = elements == null;
         int uploadElementCount = fullUpload ? getApiElementCount() : elements.size();
         int notUploadedElementCount = getApiElementCount() - uploadElementCount; // will be zero for normal uploads
-        boolean split = uploadElementCount > server.getCapabilities().getMaxElementsInChangeset();
+        boolean split = uploadElementCount > server.getCachedCapabilities().getMaxElementsInChangeset();
         int part = 1;
         int elementCount = uploadElementCount;
         while (elementCount > 0) {

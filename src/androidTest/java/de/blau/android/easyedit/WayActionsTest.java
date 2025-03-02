@@ -571,6 +571,7 @@ public class WayActionsTest {
             TestUtils.clickAtCoordinates(device, map, 8.3999683, 47.4002093, true);
             TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
             assertTrue(TestUtils.clickText(device, false, "↗ Primary", false, false));
+            assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect), 2000));
             Way way = App.getLogic().getSelectedWay();
             assertNotNull(way);
             assertEquals(4306402131L, way.getOsmId());
@@ -648,15 +649,15 @@ public class WayActionsTest {
         TestUtils.clickAtCoordinates(device, map, 8.3884403, 47.3884988, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         assertTrue(TestUtils.clickText(device, false, "↑ Bergstrasse", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect), 2000));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(119104094L, way.getOsmId());
         //
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        
         assertTrue(TestUtils.clickOverflowButton(device));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_start_end_way), true, false));
         if (TestUtils.clickText(device, false, context.getString(R.string.start), false, false))
-            ;
         {
             ViewBox vb = ((Main) main).getMap().getViewBox();
             assertEquals(47.3879811D, vb.getCenterLat(), 0.001D);
@@ -665,7 +666,6 @@ public class WayActionsTest {
         assertTrue(TestUtils.clickOverflowButton(device));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_start_end_way), true, false));
         if (TestUtils.clickText(device, false, context.getString(R.string.end), false, false))
-            ;
         {
             ViewBox vb = ((Main) main).getMap().getViewBox();
             assertEquals(47.3910674D, vb.getCenterLat(), 0.001D);

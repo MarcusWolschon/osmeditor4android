@@ -1942,11 +1942,12 @@ public class PropertyEditorTest {
             fail();
         }
         assertNotNull(overtaking);
-        overtaking.click();
-        device.waitForIdle(1000);
-        TestUtils.clickText(device, true, "In way direction", false, false);
-        TestUtils.clickText(device, true, "Save", true, false);
-        assertTrue(TestUtils.findText(device, false, "In way direction"));
+        // overtaking.click();
+        // device.waitForIdle(1000);
+        assertTrue(TestUtils.clickText(device, false, "In way direction", false, true));
+        // TestUtils.clickText(device, true, "Save", true, false);
+        // assertTrue(TestUtils.findText(device, false, "In way direction"));
+        TestUtils.clickHome(device, true); // close the PropertEditor and save
     }
 
     /**

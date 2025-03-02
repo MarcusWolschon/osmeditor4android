@@ -234,6 +234,7 @@ public class ApiErrorTest {
 
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         try {
+            s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
             fail("Should have failed");
         } catch (OsmServerException e) {

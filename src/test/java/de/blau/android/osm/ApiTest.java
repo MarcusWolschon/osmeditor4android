@@ -383,6 +383,7 @@ public class ApiTest {
 
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         try {
+            s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
         } catch (IOException e) {
             fail(e.getMessage());
@@ -422,6 +423,7 @@ public class ApiTest {
 
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         try {
+            s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, Util.wrapInList(n));
         } catch (IOException e) {
             fail(e.getMessage());
@@ -459,7 +461,6 @@ public class ApiTest {
         assertFalse(logic.getUndo().getUndoElements(n).isEmpty());
         assertEquals(OsmElement.STATE_MODIFIED, n.getState());
 
-        mockServer.enqueue(CAPABILITIES1_FIXTURE);
         mockServer.enqueue(CAPABILITIES1_FIXTURE);
         mockServer.enqueue(CHANGESET1_FIXTURE);
         mockServer.enqueue(PARTIALUPLOAD_FIXTURE);
@@ -506,6 +507,7 @@ public class ApiTest {
 
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         try {
+            s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
         } catch (IOException e) {
             fail(e.getMessage());
@@ -555,6 +557,7 @@ public class ApiTest {
 
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         try {
+            s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, false, null, null);
         } catch (IOException e) {
             fail(e.getMessage());

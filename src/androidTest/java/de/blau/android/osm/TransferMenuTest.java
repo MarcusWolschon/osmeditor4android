@@ -27,6 +27,7 @@ import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.app.Instrumentation;
 import android.content.Context;
+import android.util.Log;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -43,17 +44,23 @@ import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.SignalUtils;
 import de.blau.android.TestUtils;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.API.AuthParams;
 import okhttp3.HttpUrl;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.QueueDispatcher;
 import okhttp3.mockwebserver.RecordedRequest;
+import okhttp3.mockwebserver.SocketPolicy;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class TransferMenuTest {
+
+    private static final String DEBUG_TAG = TransferMenuTest.class.getSimpleName();
 
     private static final String DOWNLOAD1_FIXTURE     = "download1";
     private static final String CAPABILITIES1_FIXTURE = "capabilities1";
@@ -101,6 +108,7 @@ public class TransferMenuTest {
      */
     @After
     public void teardown() {
+        Log.d(DEBUG_TAG, "teardown");
         prefs.setPanAndZoomAutoDownload(false);
         try {
             mockServer.server().shutdown();
@@ -118,8 +126,7 @@ public class TransferMenuTest {
 
         loadTestData();
 
-        mockServer.enqueue("capabilities1"); // for whatever reason this gets asked for twice
-        mockServer.enqueue("capabilities1");
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
         mockServer.enqueue("changeset1");
         mockServer.enqueue("upload1");
         mockServer.enqueue("close_changeset");
@@ -153,7 +160,6 @@ public class TransferMenuTest {
         assertEquals(4L, r.getOsmVersion());
         // check that we actually sent what was expected
         try {
-            mockServer.takeRequest(); // capabilities query
             mockServer.takeRequest(); // capabilities query
             RecordedRequest recordedRequest = mockServer.takeRequest(); // changeset
             // this currently doesn't work
@@ -191,8 +197,7 @@ public class TransferMenuTest {
 
         loadTestData();
 
-        mockServer.enqueue("capabilities1"); // for whatever reason this gets asked for twice
-        mockServer.enqueue("capabilities1");
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
         mockServer.enqueue("changeset1");
         mockServer.enqueue("429");
 
@@ -214,6 +219,170 @@ public class TransferMenuTest {
         }
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_limit_title)));
         assertTrue(TestUtils.clickText(device, false, main.getString(android.R.string.ok), true));
+    }
+
+    final QueueDispatcher dispatcher = new QueueDispatcher() {
+
+        @Override
+        public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
+
+            if (request.getPath().contains("upload")) {
+                return TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/upload1.xml").throttleBody(10, 1000, TimeUnit.MILLISECONDS);
+            }
+            return super.dispatch(request);
+        }
+    };
+
+    /**
+     * Upload to changes (mock-)server and simulate a timeout, no changes uploaded
+     */
+    @Test
+    public void dataUploadTimeout() {
+        // change timeout for the current API
+        prefDB.setCurrentAPITimeout(1000);
+        prefs = new Preferences(context);
+        prefs.setPanAndZoomAutoDownload(false);
+        App.getLogic().setPrefs(prefs);
+        main.getMap().setPrefs(main, prefs);
+
+        loadTestData();
+
+        mockServer.setDispatcher(dispatcher);
+
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/capabilities1.xml"));
+        // fixture here provided by dispatcher
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/changeset1.txt"));
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/changeset-no-changes.xml"));
+
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
+
+        UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        UiObject button = device.findObject(uiSelector);
+        try {
+            button.click();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        TestUtils.sleep();
+        uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        button = device.findObject(uiSelector);
+        try {
+            button.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_retry_title), 50000));
+        assertTrue(TestUtils.findText(device, false, "No changes", 1000, true));
+    }
+
+    /**
+     * Upload to changes (mock-)server and simulate a timeout, all changes uploaded
+     */
+    @Test
+    public void dataUploadTimeout2() {
+        // change timeout for the current API
+        prefDB.setCurrentAPITimeout(1000);
+        prefs = new Preferences(context);
+        prefs.setPanAndZoomAutoDownload(false);
+        main.getMap().setPrefs(main, prefs);
+
+        final CountDownLatch signal = new CountDownLatch(1);
+        Logic logic = App.getLogic();
+
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream("update-test-data-2.osm");
+        logic.readOsmFile(main, is, false, new SignalHandler(signal));
+        SignalUtils.signalAwait(signal, TIMEOUT);
+
+        mockServer.setDispatcher(dispatcher);
+
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/capabilities1.xml"));
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/changeset1.txt"));
+        // fixture here provided by dispatcher
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/changeset-12-changes.xml"));
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "update-test-changes-2.xml"));
+
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
+
+        UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        UiObject button = device.findObject(uiSelector);
+        try {
+            button.click();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        TestUtils.sleep();
+        uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        button = device.findObject(uiSelector);
+        try {
+            button.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_retry_title), 20000));
+        assertTrue(TestUtils.findText(device, false, "However it seems as if all changes", 1000, true));
+    }
+
+    /**
+     * Upload to changes (mock-)server and simulate a timeout, all changes uploaded
+     */
+    @Test
+    public void dataUploadTimeout3() {
+        // change timeout for the current API
+        prefDB.setCurrentAPITimeout(1000);
+        prefs = new Preferences(context);
+        prefs.setPanAndZoomAutoDownload(false);
+        main.getMap().setPrefs(main, prefs);
+
+        final CountDownLatch signal = new CountDownLatch(1);
+        Logic logic = App.getLogic();
+
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream("update-test-data-2.osm");
+        logic.readOsmFile(main, is, false, new SignalHandler(signal));
+        SignalUtils.signalAwait(signal, TIMEOUT);
+
+        // add a random node
+        logic.performAdd(main, 100.0f, 100.0f);
+        assertNotNull(logic.getSelectedNode());
+        logic.deselectAll();
+
+        mockServer.setDispatcher(dispatcher);
+
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/capabilities1.xml"));
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/changeset1.txt"));
+        // fixture here provided by dispatcher
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/changeset-12-changes.xml"));
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "update-test-changes-2.xml"));
+
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
+
+        UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        UiObject button = device.findObject(uiSelector);
+        try {
+            button.click();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        TestUtils.sleep();
+        uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        button = device.findObject(uiSelector);
+        try {
+            button.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_retry_title), 20000));
+        assertTrue(TestUtils.findText(device, false, "but result was not received.", 1000, true));
+
+        // apply changes
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.update_data), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.progress_updating_message), 5000));
+        assertTrue(TestUtils.textGone(device, main.getString(R.string.progress_updating_message), 20000));
+        assertEquals(1, App.getDelegator().getApiStorage().getElementCount());
     }
 
     /**
