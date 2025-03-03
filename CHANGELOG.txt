@@ -1,5 +1,15 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.2.4:
+
+- Fix limit total number of nodes added to circle
+- Fix improve max way nodes handling handling when appending
+- Fix protect against NFEs when parsing mapbox-gl styles
+- Update default preset
+- Update imagery from ELI
+- Update geocontext
+- Update translations
+
 20.2.3:
 
 - Fix protect against potential crash in preset filter
