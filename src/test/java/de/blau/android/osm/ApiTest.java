@@ -41,6 +41,7 @@ import de.blau.android.ShadowWorkManager;
 import de.blau.android.SignalUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.listener.UploadListener;
+import de.blau.android.net.GzipRequestInterceptor;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -120,7 +121,7 @@ public class ApiTest {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         Logic logic = App.getLogic();
@@ -396,6 +397,45 @@ public class ApiTest {
         Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
         assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
         assertEquals(4L, r.getOsmVersion());
+    }
+
+    /**
+     * Upload to changes (mock-)server
+     */
+    @Test
+    public void dataUploadCompressed() {
+        prefDB.setAPICompressedUploads("Test", true);
+        final CountDownLatch signal = new CountDownLatch(1);
+        Logic logic = App.getLogic();
+
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream(TEST1_OSM_FIXTURE);
+        logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new FailOnErrorHandler(signal));
+        runLooper();
+        SignalUtils.signalAwait(signal, TIMEOUT);
+        assertEquals(33, App.getDelegator().getApiElementCount());
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        assertNotNull(n);
+        assertEquals(OsmElement.STATE_MODIFIED, n.getState());
+
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        mockServer.enqueue(CHANGESET1_FIXTURE);
+        mockServer.enqueue(UPLOAD1_FIXTURE);
+        mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
+
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        try {
+            s.getCapabilities();
+            App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
+
+            mockServer.takeRequest();
+            mockServer.takeRequest();
+            RecordedRequest upload = mockServer.takeRequest();
+            assertTrue(GzipRequestInterceptor.GZIP_ENCODING.equals(upload.getHeader(GzipRequestInterceptor.HEADER_CONTENT_ENCODING)));
+
+        } catch (IOException | InterruptedException e) {
+            fail(e.getMessage());
+        }
     }
 
     /**

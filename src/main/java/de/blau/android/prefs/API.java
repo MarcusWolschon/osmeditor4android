@@ -40,17 +40,18 @@ public class API {
         }
     }
 
-    public final String id;
-    public final String name;
-    public final String url;
-    public final String readonlyurl;
-    public final String notesurl;
-    public final Auth   auth;
-    public final String user;
-    public final String pass;
-    public final String accesstoken;
-    public final String accesstokensecret;
-    public final int    timeout;
+    public final String  id;
+    public final String  name;
+    public final String  url;
+    public final String  readonlyurl;
+    public final String  notesurl;
+    public final Auth    auth;
+    public final String  user;
+    public final String  pass;
+    public final String  accesstoken;
+    public final String  accesstokensecret;
+    public final int     timeout;
+    public final boolean compressedUploads;
 
     /**
      * Construct an new API instance
@@ -62,9 +63,10 @@ public class API {
      * @param notesurl the URL for notes
      * @param authParams authentication params
      * @param timeout timeout in seconds
+     * @param compressedUploads if true compress uploads
      */
     public API(@NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl, @Nullable String notesurl,
-            @NonNull AuthParams authParams, int timeout) {
+            @NonNull AuthParams authParams, int timeout, boolean compressedUploads) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -76,5 +78,6 @@ public class API {
         this.accesstoken = authParams.accesstoken;
         this.accesstokensecret = authParams.accesstokensecret;
         this.timeout = timeout;
+        this.compressedUploads = compressedUploads;
     }
 }

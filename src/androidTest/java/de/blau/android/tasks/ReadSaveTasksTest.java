@@ -153,7 +153,7 @@ public class ReadSaveTasksTest {
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
         prefDB.selectAPI("Test");
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("notesDownload1");

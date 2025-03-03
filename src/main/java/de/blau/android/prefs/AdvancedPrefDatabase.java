@@ -52,7 +52,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 18;
+    private static final int DATA_VERSION = 19;
 
     /** The ID string for the default API and the default Preset */
     public static final String ID_DEFAULT = "default";
@@ -83,6 +83,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private static final String PASS_COL              = "pass";
     private static final String USER_COL              = "user";
     private static final String TIMEOUT_COL           = "timeout";
+    private static final String COMPRESSEDUPLOADS_COL = "compresseduploads";
 
     private static final String LAYERS_TABLE   = "layers";
     private static final String VISIBLE_COL    = "visible";
@@ -129,7 +130,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     public synchronized void onCreate(SQLiteDatabase db) {
         db.execSQL(
                 "CREATE TABLE apis (id TEXT, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT, timeout INTEGER DEFAULT "
-                        + Server.DEFAULT_TIMEOUT + ")");
+                        + Server.DEFAULT_TIMEOUT + ", compresseduploads INTEGER DEFAULT 0)");
         db.execSQL(
                 "CREATE TABLE presets (id TEXT, name TEXT, url TEXT, version TEXT DEFAULT NULL, shortdescription TEXT DEFAULT NULL, description TEXT DEFAULT NULL, lastupdate TEXT, data TEXT, position INTEGER DEFAULT 0, active INTEGER DEFAULT 0, usetranslations INTEGER DEFAULT 1)");
         db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
@@ -239,6 +240,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         if (oldVersion <= 17 && newVersion >= 18) {
             db.execSQL("ALTER TABLE apis ADD COLUMN timeout INTEGER DEFAULT " + Server.DEFAULT_TIMEOUT);
         }
+        if (oldVersion <= 18 && newVersion >= 19) {
+            db.execSQL("ALTER TABLE apis ADD COLUMN compresseduploads INTEGER DEFAULT 0");
+            db.execSQL("UPDATE apis SET compresseduploads=1 WHERE id='" + ID_DEFAULT + "'");
+        }
     }
 
     @Override
@@ -263,6 +268,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         String pass = sharedPrefs.getString(r.getString(R.string.config_password_key), "");
         Log.d(DEBUG_TAG, "Adding default URL with user '" + user + "'");
         addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, null, new AuthParams(Auth.OAUTH2, user, pass, null, null));
+        setAPICompressedUploads(db, ID_DEFAULT, true);
         Log.d(DEBUG_TAG, "Adding default dev URL");
         addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, null, new AuthParams(Auth.OAUTH2, "", "", null, null));
         Log.d(DEBUG_TAG, "Selecting default API");
@@ -385,6 +391,32 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
+     * Sets name and URLs for a OSM API entry id
+     * 
+     * @param id the internal id for this entry
+     * @param compressedUploads if true API supports compressed uploads
+     */
+    public synchronized void setAPICompressedUploads(@NonNull String id, boolean compressedUploads) {
+        SQLiteDatabase db = getWritableDatabase();
+        setAPICompressedUploads(db, id, compressedUploads);
+        db.close();
+    }
+
+    /**
+     * Sets name and URLs for a OSM API entry id
+     * 
+     * @param db a writable SQLiteDatabase
+     * @param id the internal id for this entry
+     * @param compressedUploads if true API supports compressed uploads
+     */
+    public synchronized void setAPICompressedUploads(@NonNull SQLiteDatabase db, @NonNull String id, boolean compressedUploads) {
+        ContentValues values = new ContentValues();
+        values.put(COMPRESSEDUPLOADS_COL, compressedUploads ? 1 : 0);
+        db.update(APIS_TABLE, values, WHERE_ID, new String[] { id });
+        resetCurrentServer();
+    }
+
+    /**
      * Sets OAuth access token and secret of the API entries with the same URL and authentication method as the current
      * entry
      * 
@@ -444,11 +476,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param readonlyurl a read only url or null
      * @param notesurl a note url or null
      * @param authParams authentication parameters
+     * @param compressedUploads true if compressed uploads are supported
      */
     public synchronized void addAPI(@NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl, @Nullable String notesurl,
-            @NonNull AuthParams authParams) {
+            @NonNull AuthParams authParams, boolean compressedUploads) {
         SQLiteDatabase db = getWritableDatabase();
         addAPI(db, id, name, url, readonlyurl, notesurl, authParams);
+        setAPICompressedUploads(db, id, compressedUploads);
         db.close();
     }
 
@@ -517,9 +551,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      */
     @NonNull
     private synchronized API[] getAPIs(@NonNull SQLiteDatabase db, @Nullable String id) {
-        Cursor dbresult = db.query(
-                APIS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, READONLYURL_COL, NOTESURL_COL, USER_COL, PASS_COL, "preset", "showicon", AUTH_COL,
-                        ACCESSTOKEN_COL, ACCESSTOKENSECRET_COL, TIMEOUT_COL },
+        Cursor dbresult = db.query(APIS_TABLE,
+                new String[] { ID_COL, NAME_COL, URL_COL, READONLYURL_COL, NOTESURL_COL, USER_COL, PASS_COL, "preset", "showicon", AUTH_COL, ACCESSTOKEN_COL,
+                        ACCESSTOKENSECRET_COL, TIMEOUT_COL, COMPRESSEDUPLOADS_COL },
                 id == null ? null : WHERE_ID, id == null ? null : new String[] { id }, null, null, null, null);
         API[] result = new API[dbresult.getCount()];
         dbresult.moveToFirst();
@@ -532,7 +566,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             }
             AuthParams authParams = new AuthParams(auth, dbresult.getString(5), dbresult.getString(6), dbresult.getString(10), dbresult.getString(11));
             result[i] = new API(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4), authParams,
-                    dbresult.getInt(12));
+                    dbresult.getInt(12), dbresult.getInt(13) == 1);
             dbresult.moveToNext();
         }
         dbresult.close();

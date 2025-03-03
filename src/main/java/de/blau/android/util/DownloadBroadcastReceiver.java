@@ -115,7 +115,7 @@ public class DownloadBroadcastReceiver extends BroadcastReceiver {
             if (db.getReadOnlyApiId(filename) == null) {
                 API current = db.getCurrentAPI();
                 db.addAPI(java.util.UUID.randomUUID().toString(), filename, current.url, uri.toString(), current.notesurl,
-                        new AuthParams(current.auth, "", "", null, null));
+                        new AuthParams(current.auth, "", "", null, null), false);
                 ScreenMessage.toastTopInfo(ctxt, ctxt.getString(R.string.toast_added_api_entry_for, filename));
             } else {
                 ScreenMessage.toastTopInfo(ctxt, ctxt.getString(R.string.toast_updated, filename));

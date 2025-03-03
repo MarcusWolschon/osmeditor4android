@@ -59,7 +59,7 @@ public class KeyboardTest {
         main = mActivityRule.getActivity();
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", "", null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
+        prefDB.addAPI("Test", "Test", "", null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
         prefDB.selectAPI("Test");
         prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
