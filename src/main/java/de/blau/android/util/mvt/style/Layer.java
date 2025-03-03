@@ -746,7 +746,7 @@ public abstract class Layer implements Serializable {
     private static float getExponentialBase(JsonObject function) {
         JsonElement temp = function.get(INTERPOLATION_TYPE_EXPONENTIONAL_BASE);
         float base = 1;
-        if (temp != null && temp.isJsonPrimitive()) {
+        if (temp != null && temp.isJsonPrimitive() && temp.getAsJsonPrimitive().isNumber()) {
             base = temp.getAsFloat();
         }
         return base;

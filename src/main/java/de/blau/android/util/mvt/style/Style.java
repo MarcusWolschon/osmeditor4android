@@ -481,7 +481,7 @@ public class Style implements Serializable {
                     if (lineDashArray.isJsonArray()) {
                         List<Float> dashArray = new ArrayList<>();
                         for (JsonElement e : (JsonArray) lineDashArray) {
-                            if (e.isJsonPrimitive()) {
+                            if (e.isJsonPrimitive() && e.getAsJsonPrimitive().isNumber()) {
                                 dashArray.add(e.getAsFloat());
                             }
                         }

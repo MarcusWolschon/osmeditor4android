@@ -197,7 +197,7 @@ class MapillaryLoader extends ImageLoader {
             double lon = ((JsonArray) coords).get(0).getAsDouble();
             exif.setLatLong(lat, lon);
             JsonElement angleElement = meta.get(COMPUTED_COMPASS_ANGLE_FIELD);
-            if (angleElement instanceof JsonPrimitive) {
+            if (angleElement instanceof JsonPrimitive && angleElement.getAsJsonPrimitive().isNumber()) {
                 float angle = angleElement.getAsFloat();
                 exif.setAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION, Integer.toString((int) (angle * 100)) + "/100");
                 exif.setAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF, ExifInterface.GPS_DIRECTION_MAGNETIC);
