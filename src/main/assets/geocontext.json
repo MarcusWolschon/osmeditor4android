@@ -3,7 +3,15 @@
         "left-hand-traffic": true
     },
     "au": {
-        "left-hand-traffic": true
+        "left-hand-traffic": true,
+        "address-keys": [
+            "addr:unit",
+            "addr:housenumber",
+            "addr:street",
+            "addr:suburb",
+            "addr:state",
+            "addr:postcode"
+        ]
     },
     "at": {
         "speed-limits": [
@@ -109,6 +117,24 @@
     "dm": {
         "left-hand-traffic": true
     },
+    "es-ct": {
+        "languages": [
+            "ca",
+            "es"
+        ]
+    },
+    "es-ib": {
+        "languages": [
+            "ca",
+            "es"
+        ]
+    },
+    "fi": {
+        "languages": [
+            "fi",
+            "sv"
+        ]
+    },
     "fj": {
         "left-hand-traffic": true
     },
@@ -141,6 +167,31 @@
             "addr:suburb",
             "addr:city",
             "addr:postcode"
+        ]
+    },
+    "gb-wls": {
+        "distance": "imperial",
+        "left-hand-traffic": true,
+        "speed-limits": [
+            20,
+            30,
+            40,
+            50,
+            60,
+            70
+        ],
+        "address-keys": [
+            "addr:housenumber",
+            "addr:street",
+            "addr:place",
+            "addr:parentstreet",
+            "addr:suburb",
+            "addr:city",
+            "addr:postcode"
+        ],
+        "languages": [
+            "en",
+            "cy"
         ]
     },
     "gi": {
