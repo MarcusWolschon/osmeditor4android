@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.73.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.74.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -389,6 +389,7 @@
             <check key="cutting" text="Cutting" disable_off="true"/>
             <check key="embankment" text="Embankment" disable_off="true"/>
         </optional>
+        <check key="railway:preserved" text="Preserved" disable_off="true"/>
     </chunk>
     <chunk id="traffic_sign_direction">
         <combo key="direction" text="For traffic direction" values="forward,backward" display_values="Forward,Backward" values_sort="false" match="key"/>
@@ -4833,8 +4834,9 @@
                     <reference ref="railway_service"/>
                     <reference ref="railway_electrified"/>
                 </optional>
+                <reference ref="railway_base"/>
             </item> <!-- Monorail -->
-            <item name="Preserved" icon="icons/png/tourist_steam_train_30027.png" type="way" preset_name_label="true">
+            <item name="Preserved" icon="icons/png/tourist_steam_train_30027.png" type="way" preset_name_label="true" deprecated="true">
                 <link wiki="Tag:railway=preserved"/>
                 <key key="railway" value="preserved"/>
                 <optional>
@@ -4871,6 +4873,7 @@
                 <optional>
                     <reference ref="railway_service_gauge_electrified"/>
                 </optional>
+                <check key="railway:preserved" text="Preserved" disable_off="true"/>
             </item> <!-- Funicular -->
             <item name="Bus Guideway" icon="icons/png/transport_bus_stop.png" type="way" preset_name_label="true">
                 <link wiki="Tag:highway=bus_guideway"/>
@@ -10315,6 +10318,18 @@
             <reference ref="level"/>
             <combo key="conveying" text="Conveyor" values="yes,forward,backward,reversible" display_values="Yes,Forward,Backward,Reversible"/>
         </item>
+        <separator/>
+        <item name="Indoor beacon" icon="icons/png/indoor_beacon_22003.png" type="node" preset_name_label="true">
+            <link wiki="Tag:indoormark=beacon"/>
+            <key key="indoormark" value="beacon"/>
+            <reference ref="level"/>
+            <combo key="beacon:type" text="Type" values="bluetooth,nfc" display_values="Bluetooth,NFC"/>
+            <text key="beacon:uuid" text="UUID"/>
+            <optional>
+                <text key="beacon:minor" text="ibeacon minor number"/>
+                <text key="beacon:major" text="ibeacon major number"/>
+            </optional>
+        </item>
     </group> <!-- Indoor elements -->
     <group name="Man Made" icon="icons/png/man_made_works_22087.png">
       <group name="Man Made" icon="icons/png/man_made_works_22087.png">
@@ -11606,8 +11621,8 @@
             </optional>
         </item> <!-- Power Cable -->
     </group> <!-- Power -->
-    <group name="Telecom" icon="icons/png/man_made_empty.png">
-        <item name="Telecom Street Cabinet" icon="icons/png/man_made_empty.png" type="node" preset_name_label="true">
+    <group name="Telecom" icon="icons/png/man_made_telecommunication.png">
+        <item name="Telecom Street Cabinet" icon="icons/png/man_made_telecommunication.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=street_cabinet"/>
             <space/>
             <key key="man_made" value="street_cabinet"/>
@@ -11618,28 +11633,28 @@
                 <reference ref="colours"/>
             </optional>
         </item> <!-- Telecom Street Cabinet -->
-        <item name="Telephone Exchange" icon="icons/png/man_made_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Telephone Exchange" icon="icons/png/man_made_telecommunication.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:telecom=exchange"/>
             <space/>
             <key key="telecom" value="exchange"/>
             <reference ref="telecom_medium"/>
             <reference ref="ref_operator"/>
         </item> <!-- Telephone Exchange -->
-        <item name="Connection Point" icon="icons/png/man_made_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Connection Point" icon="icons/png/man_made_telecommunication.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:telecom=connection_point"/>
             <space/>
             <key key="telecom" value="connection_point"/>
             <reference ref="telecom_medium"/>
             <reference ref="ref_operator"/>
         </item> <!-- Connection Point -->
-        <item name="Service Device" icon="icons/png/man_made_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Service Device" icon="icons/png/man_made_telecommunication.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:telecom=service_device"/>
             <space/>
             <key key="telecom" value="service_device"/>
             <reference ref="telecom_medium"/>
             <reference ref="ref_operator"/>
         </item> <!-- Service Device -->
-        <item name="Data center" icon="icons/png/man_made_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Data center" icon="icons/png/man_made_telecommunication.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:telecom=data_center"/>
             <space/>
             <key key="telecom" value="data_center"/>
@@ -12310,13 +12325,23 @@
             <reference ref="name_oh_wheelchair_level_toilets"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Computer -->
-        <item name="Mobile Phone" icon="icons/png/shopping_mobile_phone.png" type="node,closedway" preset_name_label="true">
+        <item name="Mobile Phone" icon="icons/png/shopping_mobile_phone.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=mobile_phone"/>
             <space/>
             <key key="shop" value="mobile_phone"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <preset_link preset_name="Telecommunication" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Mobile Phone -->
+        <item name="Telecommunication" icon="icons/png/shopping_telecommunication.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:shop=telecommunication"/>
+            <space/>
+            <label text="Shop that sells more than just mobile phone related goods and services."/>
+            <key key="shop" value="telecommunication"/>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="link_contact_address_payment"/>
+            <preset_link preset_name="Mobile Phone" text="Similar but different tags:" alternative="true"/>
+        </item> <!-- Telecommunication -->
         <item name="Hifi" icon="icons/png/shopping_hifi.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=hifi"/>
             <space/>
