@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.71.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.74.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -9,6 +9,7 @@
     Format description: https://josm.openstreetmap.de/wiki/TaggingPresets and http://vespucci.io/tutorials/presets/
 -->
     <!-- Value chunks for use in combos and multiselects -->
+    
     
     
     
@@ -206,10 +207,24 @@
             <list_entry value="yes" display_value="In way direction"/><list_entry value="-1" display_value="Against way direction"/><list_entry value="no" display_value="Not oneway"/>
         </combo>
     </chunk>
+    <chunk id="highway_overtaking">
+        <combo key="overtaking" text="Overtaking" values_sort="false" values_context="overtaking" match="key">
+            <list_entry value="yes" display_value="Allowed"/><list_entry value="both" display_value="Both directions" deprecated="true"/><list_entry value="forward" display_value="In way direction"/><list_entry value="backward" display_value="Opposite to way direction"/><list_entry value="no" display_values="Not allowed"/>
+        </combo>
+        <optional>
+            <combo key="overtaking:hgv" text="HGV Overtaking" values_sort="false" values_context="overtaking" match="key">
+                <list_entry value="yes" display_value="Allowed"/><list_entry value="both" display_value="Both directions" deprecated="true"/><list_entry value="forward" display_value="In way direction"/><list_entry value="backward" display_value="Opposite to way direction"/><list_entry value="no" display_values="Not allowed"/>
+            </combo>
+            <combo key="overtaking:hgv:conditional" text="HGV Overtaking @" values_sort="false" values_context="overtaking" match="key">
+                <list_entry value="no @ weight&gt;7.5"/>
+                <list_entry value="no @ 06:00-19:00"/>
+            </combo>
+        </optional>
+    </chunk>
     <chunk id="highway_additional_oneway">  
         <reference ref="oneway"/> 
+        <reference ref="highway_overtaking"/>
         <reference ref="highway_additional"/>
-        <combo key="overtaking" text="Overtaking" values="yes,both,forward,backward,no" display_values="Yes,Both directions,In way direction,Opposite to way direction,No" values_sort="false" values_context="overtaking" match="key"/>
     </chunk>
     <chunk id="highway_additional_oneway_lit_width">
         <reference ref="highway_additional_oneway"/>
@@ -280,6 +295,7 @@
         <combo key="oneway" text="Oneway" default="yes" values_sort="false">
             <list_entry value="yes" display_value="In way direction"/><list_entry value="-1" display_value="Against way direction"/><list_entry value="no" display_value="Not oneway"/>
         </combo>
+        <reference ref="highway_overtaking"/>
         <checkgroup text="Additional attributes" columns="5">
             <check key="motorroad" text="Motorroad" disable_off="true"/>
             <check key="bridge" text="Bridge" disable_off="true"/>
@@ -373,6 +389,7 @@
             <check key="cutting" text="Cutting" disable_off="true"/>
             <check key="embankment" text="Embankment" disable_off="true"/>
         </optional>
+        <check key="railway:preserved" text="Preserved" disable_off="true"/>
     </chunk>
     <chunk id="traffic_sign_direction">
         <combo key="direction" text="For traffic direction" values="forward,backward" display_values="Forward,Backward" values_sort="false" match="key"/>
@@ -1286,7 +1303,7 @@
         <key key="power" value="generator"/>
         <reference ref="name_ref_operator"/>
         <text key="branch" text="Branch operator"/>
-        <text key="start_date" text="Start date"/>
+        <text key="start_date" text="Start date" value_type="date"/>
     </chunk>
     <chunk id="power_generator_optional_name_ref">
         <link wiki="Tag:power=generator"/>
@@ -1295,7 +1312,7 @@
         <optional>
             <reference ref="name_ref_operator"/>
             <text key="branch" text="Branch operator"/>
-            <text key="start_date" text="Start date"/>
+            <text key="start_date" text="Start date" value_type="date"/>
         </optional>
     </chunk>
     <chunk id="power_output">
@@ -1339,7 +1356,7 @@
     <chunk id="power_plant">
         <key key="power" value="plant"/>
         <reference ref="name_ref_operator"/>
-        <text key="start_date" text="Start date"/>
+        <text key="start_date" text="Start date" value_type="date"/>
         <optional text="Energy ouput:">
             <combo key="plant:output:electricity" text="Electricity" values="yes,2 W,3 kW,5 MW,7 GW"/>
             <combo key="plant:output:hot_water" text="Hot water" values="yes,2 W,3 kW,5 MW,7 GW"/>
@@ -4817,8 +4834,9 @@
                     <reference ref="railway_service"/>
                     <reference ref="railway_electrified"/>
                 </optional>
+                <reference ref="railway_base"/>
             </item> <!-- Monorail -->
-            <item name="Preserved" icon="icons/png/tourist_steam_train_30027.png" type="way" preset_name_label="true">
+            <item name="Preserved" icon="icons/png/tourist_steam_train_30027.png" type="way" preset_name_label="true" deprecated="true">
                 <link wiki="Tag:railway=preserved"/>
                 <key key="railway" value="preserved"/>
                 <optional>
@@ -4855,6 +4873,7 @@
                 <optional>
                     <reference ref="railway_service_gauge_electrified"/>
                 </optional>
+                <check key="railway:preserved" text="Preserved" disable_off="true"/>
             </item> <!-- Funicular -->
             <item name="Bus Guideway" icon="icons/png/transport_bus_stop.png" type="way" preset_name_label="true">
                 <link wiki="Tag:highway=bus_guideway"/>
@@ -7610,7 +7629,7 @@
             <text key="artwork_subject" text="Subject"/>
             <text key="artist_name" text="Artist Name"/>
             <combo key="material" text="Material" values="aluminium,brass,bronze,concrete,glass,granite,metal,plastic,steel,stone,wood" display_values="Aluminium,Brass,Bronze,Concrete,Glass,Granite,Metal,Plastic,Steel,Stone,Wood" values_context="material"/>
-            <text key="start_date" text="Start date"/>
+            <text key="start_date" text="Start date" value_type="date"/>
         </item> <!-- Artwork -->
         <item name="Studio" icon="icons/png/amenity_studio_12256.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=studio"/>
@@ -9305,18 +9324,18 @@
                 <key key="leisure" value="golf_course"/>
                 <reference ref="name_oh_wheelchair"/>
             </item> <!-- Golf Course -->
-            <item name="Golf clubhouse" name_context="golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
+            <item name="Golf clubhouse" name_context="golf" icon="icons/png/sport_golf.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="clubhouse"/>
             </item> <!-- Golf clubhouse -->
             <separator/>
-            <item name="Tee" name_context="golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
+            <item name="Tee" name_context="golf" icon="icons/png/sport_golf.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="tee"/>
             </item> <!-- Tee -->
-            <item name="Hole" name_context="golf" icon="icons/png/sport_empty.png" type="way" preset_name_label="true">
+            <item name="Hole" name_context="golf" icon="icons/png/sport_golf.png" type="way" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="hole"/>
@@ -9327,55 +9346,55 @@
                     <combo key="handicap" text="Handicap rating" values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18" value_type="integer"/>
                 </optional>
             </item> <!-- Hole -->
-            <item name="Pin" name_context="golf" icon="icons/png/sport_empty.png" type="node" preset_name_label="true">
+            <item name="Pin" name_context="golf" icon="icons/png/sport_golf.png" type="node" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="pin"/>
                 <text key="ref" text="Reference"/>
             </item> <!-- Pin -->
             <separator/>
-            <item name="Bunker" name_context="golf" icon="icons/png/sport_empty.png" type="closedway" preset_name_label="true">
+            <item name="Bunker" name_context="golf" icon="icons/png/sport_golf.png" type="closedway" preset_name_label="true">
                 <link wiki="Tag:golf=bunker"/>
                 <space/>
                 <key key="golf" value="bunker"/>
                 <combo key="natural" text="Natural" text_context="golf" values="sand" display_values="Sand" default="sand"/>
             </item> <!-- Bunker -->
-            <item name="Frontal Water hazard" name_context="golf" icon="icons/png/sport_empty.png" type="closedway" preset_name_label="true">
+            <item name="Frontal Water hazard" name_context="golf" icon="icons/png/sport_golf.png" type="closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="water_hazard"/>
                 <key key="natural" value="water" match="keyvalue"/>
             </item> <!-- Frontal Water hazard -->
-            <item name="Lateral water hazard" name_context="golf" icon="icons/png/sport_empty.png" type="closedway" preset_name_label="true">
+            <item name="Lateral water hazard" name_context="golf" icon="icons/png/sport_golf.png" type="closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="lateral_water_hazard"/>
                 <key key="natural" value="water" match="keyvalue"/>
             </item> <!-- Lateral water hazard -->
             <separator/>
-            <item name="Green" name_context="golf" icon="icons/png/sport_empty.png" type="closedway,multipolygon" preset_name_label="true">
+            <item name="Green" name_context="golf" icon="icons/png/sport_golf.png" type="closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="green"/>
             </item> <!-- Green -->
-            <item name="Fairway" name_context="golf" icon="icons/png/sport_empty.png" type="closedway,multipolygon" preset_name_label="true">
+            <item name="Fairway" name_context="golf" icon="icons/png/sport_golf.png" type="closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:golf=fairway"/>
                 <space/>
                 <key key="golf" value="fairway"/>
                 <key key="surface" value="grass" match="keyvalue"/>
             </item> <!-- Fairway -->
-            <item name="Rough" name_context="golf" icon="icons/png/sport_empty.png" type="closedway,multipolygon" preset_name_label="true">
+            <item name="Rough" name_context="golf" icon="icons/png/sport_golf.png" type="closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="rough"/>
             </item> <!-- Rough -->
-            <item name="Golf cartpath" name_context="golf" icon="icons/png/sport_empty.png" type="way" preset_name_label="true" deprecated="true">
+            <item name="Golf cartpath" name_context="golf" icon="icons/png/sport_golf.png" type="way" preset_name_label="true" deprecated="true">
                 <link wiki="Tag:golf=cartpath"/>
                 <space/>
                 <key key="golf" value="cartpath"/>
             </item> <!-- Golf cartpath -->
             <separator/>
-            <item name="Golf path" name_context="golf" icon="icons/png/sport_empty.png" type="way" preset_name_label="true" deprecated="true">
+            <item name="Golf path" name_context="golf" icon="icons/png/sport_golf.png" type="way" preset_name_label="true" deprecated="true">
                 <link wiki="Tag:golf=path"/>
                 <space/>
                 <key key="golf" value="path"/>
@@ -9395,12 +9414,12 @@
                 <reference ref="name_oh_wheelchair"/>
             </item> <!-- Disc golf course -->
             <separator/>
-            <item name="Tee" name_context="disc_golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
+            <item name="Tee" name_context="disc_golf" icon="icons/png/sport_disc_golf.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=disc_golf_course"/>
                 <space/>
                 <key key="disc_golf" value="tee"/>
             </item> <!-- Tee -->
-            <item name="Hole" name_context="disc_golf" icon="icons/png/sport_empty.png" type="way" preset_name_label="true">
+            <item name="Hole" name_context="disc_golf" icon="icons/png/sport_disc_golf.png" type="way" preset_name_label="true">
                 <link wiki="Tag:leisure=disc_golf_course"/>
                 <space/>
                 <key key="disc_golf" value="hole"/>
@@ -9408,12 +9427,36 @@
                     <text key="name" text="Name"/>
                 </optional>
             </item> <!-- Hole -->
-            <item name="Basket" name_context="disc_golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
+            <item name="Basket" name_context="disc_golf" icon="icons/png/sport_disc_golf.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=disc_golf_course"/>
                 <space/>
                 <key key="disc_golf" value="basket"/>
             </item> <!-- Basket -->
         </group> <!-- Disc golf -->
+        <group name="Free flying" icon="icons/png/sport_paragliding_21135.png">
+            <item name="Takeoff" icon="icons/png/sport_paragliding_21135.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:sport=free_flying"/>
+                <space/>
+                <key key="sport" value="free_flying"/>
+                <key key="free_flying:site" value="takeoff"/>
+                <check key="free_flying:paragliding" text="Paragliding"/>    
+                <check key="free_flying:hanggliding" text="Hang-gliding"/>
+                <combo key="direction" text="Facing" values="N,E,S,W,0,90,180,270" display_values="North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;" values_sort="false" match="key" value_type="cardinal_direction"/>
+                <text key="name" text="Name"/>
+                <reference ref="oh"/>
+            </item> <!-- Takeoff -->
+            <item name="Landing" icon="icons/png/sport_paragliding_21135.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:sport=free_flying"/>
+                <space/>
+                <key key="sport" value="free_flying"/>
+                <key key="free_flying:site" value="landing"/>
+                <check key="free_flying:paragliding" text="Paragliding"/>    
+                <check key="free_flying:hanggliding" text="Hang-gliding"/>
+                <combo key="direction" text="Facing" values="N,E,S,W,0,90,180,270" display_values="North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;" values_sort="false" match="key" value_type="cardinal_direction"/>
+                <text key="name" text="Name"/>
+                <reference ref="oh"/>
+            </item> <!-- Landing -->
+        </group> <!-- Free flying -->
         <item name="Miniature Golf" icon="icons/png/sport_minature_golf.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=miniature_golf"/>
             <space/>
@@ -10274,6 +10317,18 @@
             <key key="highway" value="corridor"/>
             <reference ref="level"/>
             <combo key="conveying" text="Conveyor" values="yes,forward,backward,reversible" display_values="Yes,Forward,Backward,Reversible"/>
+        </item>
+        <separator/>
+        <item name="Indoor beacon" icon="icons/png/indoor_beacon_22003.png" type="node" preset_name_label="true">
+            <link wiki="Tag:indoormark=beacon"/>
+            <key key="indoormark" value="beacon"/>
+            <reference ref="level"/>
+            <combo key="beacon:type" text="Type" values="bluetooth,nfc" display_values="Bluetooth,NFC"/>
+            <text key="beacon:uuid" text="UUID"/>
+            <optional>
+                <text key="beacon:minor" text="ibeacon minor number"/>
+                <text key="beacon:major" text="ibeacon major number"/>
+            </optional>
         </item>
     </group> <!-- Indoor elements -->
     <group name="Man Made" icon="icons/png/man_made_works_22087.png">
@@ -11324,7 +11379,7 @@
                 <key key="power" value="heliostat"/>
                 <optional>
                     <text key="ref" text="Reference"/>
-                    <text key="start_date" text="Start date"/>
+                    <text key="start_date" text="Start date" value_type="date"/>
                     <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
                     <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
                 </optional>
@@ -11342,7 +11397,7 @@
             <reference ref="ref_operator"/>
             <optional>
                 <combo key="rating" text="Power rating (kVA/MVA)" values="2700 kVA,12500 kVA,15 MVA,50 MVA,100 MVA"/>
-                <text key="start_date" text="Start date"/>
+                <text key="start_date" text="Start date" value_type="date"/>
                 <check key="gas_insulated" text="Gas insulated" disable_off="true"/>
             </optional>
         </item> <!-- Power Substation -->
@@ -11566,8 +11621,8 @@
             </optional>
         </item> <!-- Power Cable -->
     </group> <!-- Power -->
-    <group name="Telecom" icon="icons/png/man_made_empty.png">
-        <item name="Telecom Street Cabinet" icon="icons/png/man_made_empty.png" type="node" preset_name_label="true">
+    <group name="Telecom" icon="icons/png/man_made_telecommunication.png">
+        <item name="Telecom Street Cabinet" icon="icons/png/man_made_telecommunication.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=street_cabinet"/>
             <space/>
             <key key="man_made" value="street_cabinet"/>
@@ -11578,28 +11633,28 @@
                 <reference ref="colours"/>
             </optional>
         </item> <!-- Telecom Street Cabinet -->
-        <item name="Telephone Exchange" icon="icons/png/man_made_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Telephone Exchange" icon="icons/png/man_made_telecommunication.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:telecom=exchange"/>
             <space/>
             <key key="telecom" value="exchange"/>
             <reference ref="telecom_medium"/>
             <reference ref="ref_operator"/>
         </item> <!-- Telephone Exchange -->
-        <item name="Connection Point" icon="icons/png/man_made_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Connection Point" icon="icons/png/man_made_telecommunication.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:telecom=connection_point"/>
             <space/>
             <key key="telecom" value="connection_point"/>
             <reference ref="telecom_medium"/>
             <reference ref="ref_operator"/>
         </item> <!-- Connection Point -->
-        <item name="Service Device" icon="icons/png/man_made_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Service Device" icon="icons/png/man_made_telecommunication.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:telecom=service_device"/>
             <space/>
             <key key="telecom" value="service_device"/>
             <reference ref="telecom_medium"/>
             <reference ref="ref_operator"/>
         </item> <!-- Service Device -->
-        <item name="Data center" icon="icons/png/man_made_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Data center" icon="icons/png/man_made_telecommunication.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:telecom=data_center"/>
             <space/>
             <key key="telecom" value="data_center"/>
@@ -11826,7 +11881,7 @@
             <optional>
                 <text key="inscription" text="Inscription" multiline="true" length="255"/>
                 <text key="artist_name" text="Artist Name"/>
-                <text key="start_date" text="Start date"/>
+                <text key="start_date" text="Start date" value_type="date"/>
                 <reference ref="material"/>
                 <reference ref="wikipedia_wikidata_images"/>
             </optional>
@@ -11838,7 +11893,7 @@
             <key key="historic" value="wayside_cross"/>
             <reference ref="optional_name"/>
             <reference ref="religious_catholic_christian"/>
-            <text key="start_date" text="Start date"/>
+            <text key="start_date" text="Start date" value_type="date"/>
             <text key="inscription" text="Inscription" multiline="true" length="255"/>
             <reference ref="material"/>
             <reference ref="historic_optional"/>
@@ -11851,7 +11906,7 @@
             <reference ref="religious_catholic_christian"/>
             <check key="amenity" text="Place of worship" value_on="place_of_worship" disable_off="true"/>
             <check key="building" value_on="wayside_shrine" text="Wayside shrine building" values_context="building" disable_off="true" values_searchable="true" match="keyvalue"/>
-            <text key="start_date" text="Start date"/>
+            <text key="start_date" text="Start date" value_type="date"/>
             <text key="inscription" text="Inscription" multiline="true" length="255"/>
             <reference ref="historic_optional"/>
             <optional>
@@ -12270,13 +12325,23 @@
             <reference ref="name_oh_wheelchair_level_toilets"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Computer -->
-        <item name="Mobile Phone" icon="icons/png/shopping_mobile_phone.png" type="node,closedway" preset_name_label="true">
+        <item name="Mobile Phone" icon="icons/png/shopping_mobile_phone.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=mobile_phone"/>
             <space/>
             <key key="shop" value="mobile_phone"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <preset_link preset_name="Telecommunication" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Mobile Phone -->
+        <item name="Telecommunication" icon="icons/png/shopping_telecommunication.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:shop=telecommunication"/>
+            <space/>
+            <label text="Shop that sells more than just mobile phone related goods and services."/>
+            <key key="shop" value="telecommunication"/>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="link_contact_address_payment"/>
+            <preset_link preset_name="Mobile Phone" text="Similar but different tags:" alternative="true"/>
+        </item> <!-- Telecommunication -->
         <item name="Hifi" icon="icons/png/shopping_hifi.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=hifi"/>
             <space/>
@@ -13398,7 +13463,7 @@
                 <reference ref="name_operator"/>
                 <reference ref="oh"/>
                 <reference ref="wikipedia_wikidata_images"/>
-                <text key="start_date" text="Start date"/>
+                <text key="start_date" text="Start date" value_type="date"/>
             </optional>
         </item> <!-- Protected Area -->
         <item name="Hazardous Area" icon="icons/png/ISO_7010_W001.png" type="closedway,relation" preset_name_label="true">
@@ -13802,7 +13867,7 @@
             <optional>
                 <text key="height" text="Height (m)" length="7" value_type="dimension_vertical"/>
                 <text key="width" text="Width (m)" length="7" value_type="dimension_horizontal"/>
-                <text key="start_date" text="Start date"/>
+                <text key="start_date" text="Start date" value_type="date"/>
             </optional>
              <preset_link preset_name="Shrubbery" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Shrub -->
