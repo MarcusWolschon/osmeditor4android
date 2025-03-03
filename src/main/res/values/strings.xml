@@ -1769,6 +1769,7 @@
     <string name="unexpected_tile_format">Unexpected format\nURL:%1$s %2$s</string>
     <string name="unexpected_tile_format_subtype">Unexpected format subtype %1$s\nURL: %2$s</string>
     <string name="diagnostics_for_tile">Diagnostics for %1$s</string>
+    <string name="tile_status">Status: %1$s</string>
     <string name="tile_spec">zoom %1$d x %2$d y %3$d</string>
     <string name="tile_input_error">Tile input error: %1$s\nURL: %2$s</string>
     <string name="tile_data_received">Successfully received %1$d bytes</string>
@@ -1776,4 +1777,8 @@
     <string name="tile_decoding_failed">Tile decoding failed</string>
     <string name="tile_success">Success</string>
     <string name="tile_fail">Fail</string>
+    <string name="tile_doesnt_exist">Tile doesn\'t exist</string>
+    <string name="tile_io_error">IO error</string>
+    <string name="tile_no_network">No network</string>
+    <string name="tile_unknown_error">Unknown error</string>
 </resources>

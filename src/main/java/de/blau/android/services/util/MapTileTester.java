@@ -46,12 +46,34 @@ public class MapTileTester {
 
             @Override
             public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason, String message) throws IOException {
+                output.append(ctx.getString(R.string.tile_status, status2string(reason)));
+                eol();
                 TileLayerSource renderer = TileLayerSource.get(ctx, rendererID, false);
                 if (renderer != null) {
                     String url = MapTileDownloader.buildURL(renderer, new MapTile(rendererID, zoomLevel, tileX, tileY));
                     output.append(ctx.getString(R.string.tile_input_error, message, url));
                 }
                 eol();
+            }
+
+            /**
+             * Map internal status code to text
+             * 
+             * @param reason the code
+             * @return a string
+             */
+            @NonNull
+            private String status2string(int reason) {
+                switch (reason) {
+                case MapAsyncTileProvider.IOERR:
+                    return ctx.getString(R.string.tile_io_error);
+                case MapAsyncTileProvider.DOESNOTEXIST:
+                    return ctx.getString(R.string.tile_doesnt_exist);
+                case MapAsyncTileProvider.NONETWORK:
+                    return ctx.getString(R.string.tile_no_network);
+                default: // fall through
+                }
+                return ctx.getString(R.string.tile_unknown_error);
             }
         };
 
