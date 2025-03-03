@@ -147,7 +147,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="progress_title">Načítám</string>
   <string name="progress_message">Načítam data do paměti…</string>
   <string name="progress_download_message">Stahuji data ze serveru…</string>
-  <string name="progress_download_tasks_message">Stahování úkolů se serverů...</string>
+  <string name="progress_download_tasks_message">Stahování úkolů ze serverů...</string>
   <string name="progress_general_title">Čekejte prosím</string>
   <string name="progress_deleting_message">Mazání...</string>
   <string name="progress_searching_message">Prohledávání…</string>
@@ -181,6 +181,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="upload_request_review_label">Požádat o kontrolu:</string>
   <string name="upload_validation_error_empty_comment">Komentář by neměl být prázdný</string>
   <string name="upload_validation_error_empty_source">Zdroj by neměl být prázdný</string>
+  <string name="upload_empty_comment_warning_label">Varovat, pokud je komentář prázdný</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">Zkontrolovat změny</string>
   <!--Upload GPX-->
@@ -626,10 +627,10 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="toast_export_failed">Export selhal</string>
   <string name="toast_export_success">Exportováno do %1$s</string>
   <plurals name="toast_preset_removed_or_replaced_tags">
-    <item quantity="one">Přepsat nebo odstranit 1 značku</item>
-    <item quantity="few">Přepsat nebo odstranit %1$d značky</item>
-    <item quantity="many">Přepsat nebo odstranit %1$d značek</item>
-    <item quantity="other">Přepsat nebo odstranit %1$d značek</item>
+    <item quantity="one">Přepsána nebo odstraněna 1 značka</item>
+    <item quantity="few">Přepsány nebo odstraněny %1$d značky</item>
+    <item quantity="many">Přepsáno nebo odstraněno %1$d značky</item>
+    <item quantity="other">Přepsáno nebo odstraněno %1$d značek</item>
   </plurals>
   <string name="toast_merge_overwrote_tags">Pozn. - operace přepsala tag(y)</string>
   <string name="toast_cant_autoapply_preset">Toto přednastavení nelze použít automaticky</string>
@@ -848,7 +849,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="ignore">Ignorovat</string>
   <string name="select">Výběr</string>
   <string name="skip">Přeskočit</string>
-  <string name="deprecated">%1$s (zastaralých)</string>
+  <string name="deprecated">%1$s (zastaralé)</string>
   <string name="more_information">Více informací</string>
   <string name="osm_tags">Tagy OSM</string>
   <!--Read a file-->
@@ -1139,7 +1140,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="menu_tools_apply_local_offset">Použít uložený ofset na snímky</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Resetovat OAuth</string>
-  <string name="menu_tools_oauth_authorisation">Autorizace OAuth</string>
+  <string name="menu_tools_oauth_authorisation">Autorizovat OAuth</string>
   <string name="menu_enable_tagfilter">Filtr tagů</string>
   <string name="menu_enable_presetfilter">Filtr předvoleb</string>
   <string name="preset_menu_waynodes">Zahrnout uzly cest</string>
