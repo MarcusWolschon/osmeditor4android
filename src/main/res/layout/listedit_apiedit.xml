@@ -85,4 +85,23 @@
             android:layout_alignParentEnd="true"
             android:layout_alignBaseline="@id/listedit_label_auth" />
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+        <TextView
+            android:id="@+id/listedit_label_compressed_uploads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/listedit_supports_compressed_uploads" />
+        <CheckBox
+            android:id="@+id/listedit_compressed_uploads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBaseline="@id/listedit_label_compressed_uploads" />
+    </RelativeLayout>
 </LinearLayout>

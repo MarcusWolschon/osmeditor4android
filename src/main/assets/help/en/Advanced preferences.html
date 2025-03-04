@@ -159,7 +159,10 @@
 <h2>Server Settings</h2>
 <p>OpenStreetMap API and other servers configuration.</p>
 <h3>OSM API URL</h3>
-<p>Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024. These preferences can also be changed by selecting <em>Configure</em> for the OpenStreetMap Data layer in the layers modal.</p>
+<p>This lists all the configured OSM API instances, allows adding further ones and editing the configuration of existing entries. The default configuration contains an entry for the regular openstreetmap.org API and the sandbox API for development and experimentation.</p>
+<p>Select <em>Edit</em> from the overflow menu to configure the URLs including read-only sources and authentication method for a specific entry. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024.</p>
+<p>For API instances that support uploading compressed bodies in POST requests, <em>Support compressed uploads</em> can be set. By default this is only enabled for the openstreetmap.org API instance.</p>
+<p>These preferences can also be accessed by selecting <em>Configure</em> for the OpenStreetMap Data layer in the layers modal.</p>
 <h3>User account</h3>
 <p>Set a user and password for API authentication. This is only needed if the target API server does not support OAuth authentication, and in general should be avoided as unsafe.</p>
 <h3>Offset server</h3>

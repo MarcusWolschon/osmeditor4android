@@ -53,7 +53,7 @@ public class GpxApiTest {
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         prefDB = new AdvancedPrefDatabase(ApplicationProvider.getApplicationContext());
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         Logic logic = App.newLogic();

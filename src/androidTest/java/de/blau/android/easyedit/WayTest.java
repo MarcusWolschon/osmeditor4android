@@ -67,7 +67,7 @@ public class WayTest {
         main = mActivityRule.getActivity();
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", "", null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
+        prefDB.addAPI("Test", "Test", "", null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
         prefDB.selectAPI("Test");
         Preferences prefs = new Preferences(context);
         prefs.setAutolockDelay(300000L);

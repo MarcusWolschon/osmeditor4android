@@ -51,6 +51,7 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.net.GzipRequestInterceptor;
 import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.net.OAuth2Interceptor;
 import de.blau.android.prefs.API;
@@ -171,6 +172,11 @@ public class Server {
     private final int timeout;
 
     /**
+     * If compressed uploads are supported
+     */
+    private final boolean compressedUploads;
+
+    /**
      * display name of the user and other stuff
      */
     private UserDetails cachedUserDetails;
@@ -234,6 +240,7 @@ public class Server {
         this.accesstoken = api.accesstoken;
         this.accesstokensecret = api.accesstokensecret;
         this.timeout = api.timeout;
+        this.compressedUploads = api.compressedUploads;
 
         if (authentication == Auth.OAUTH1A) {
             oAuthConsumer = new OAuth1aHelper().getOkHttpConsumer(context, name);
@@ -712,6 +719,10 @@ public class Server {
             break;
         case BASIC:
             builder.addInterceptor(new BasicAuthInterceptor(username, password));
+        }
+        // if support compressed uploads are supported
+        if (HTTP_POST.equals(requestMethod) && compressedUploads) {
+            builder.addInterceptor(new GzipRequestInterceptor());
         }
 
         return builder.build().newCall(request).execute();

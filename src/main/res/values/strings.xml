@@ -1585,6 +1585,7 @@
     <string name="manage_presets">Manage presets</string>
     <string name="listedit_use_translations">Use translations</string>
     <string name="manage_geocoders">Manage geocoders</string>
+    <string name="listedit_supports_compressed_uploads">Supports compressed uploads</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset downloaded</string>

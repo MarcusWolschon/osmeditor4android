@@ -59,7 +59,7 @@ public class OAuth2Test {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null,  new AuthParams(API.Auth.OAUTH2, null, null, null, null));
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null,  new AuthParams(API.Auth.OAUTH2, null, null, null, null), false);
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

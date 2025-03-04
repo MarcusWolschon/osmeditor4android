@@ -91,7 +91,7 @@ public class TransferMenuTest {
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
         prefDB.selectAPI("Test");
         prefs = new Preferences(context);
         prefs.setPanAndZoomAutoDownload(false);

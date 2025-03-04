@@ -111,7 +111,7 @@ public class ApiErrorTest {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         prefs = new Preferences(main);

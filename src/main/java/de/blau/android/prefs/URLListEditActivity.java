@@ -53,7 +53,8 @@ import de.blau.android.util.ThemeUtils;
  */
 public abstract class URLListEditActivity extends ListActivity
         implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
-    private static final String DEBUG_TAG = URLListEditActivity.class.getSimpleName().substring(0, Math.min(23, URLListEditActivity.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = URLListEditActivity.class.getSimpleName().substring(0,
+            Math.min(23, URLListEditActivity.class.getSimpleName().length()));
 
     static final String ACTION_NEW   = "new";
     static final String EXTRA_NAME   = "name";
@@ -479,11 +480,12 @@ public abstract class URLListEditActivity extends ListActivity
          * @param value2 further value 2
          * @param value3 further value 3
          * @param object0 a Serializable object
+         * @param boolean0 a boolean
          * @param active true if this entry should be active
          */
         public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3,
-                @NonNull Serializable object0, boolean active) {
-            this(id, name, value, value2, value3, false, active);
+                @NonNull Serializable object0, boolean boolean0, boolean active) {
+            this(id, name, value, value2, value3, boolean0, active);
             this.object0 = object0;
 
         }

@@ -97,7 +97,7 @@ public class AutoPresetTest {
         System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
         prefDB.selectAPI("Test");
         prefDB.resetCurrentServer();
         prefs = new Preferences(context);

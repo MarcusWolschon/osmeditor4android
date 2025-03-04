@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -25,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -56,8 +59,8 @@ import de.blau.android.util.Util;
 /** Provides an activity for editing the API list */
 public class APIEditorActivity extends URLListEditActivity {
 
-    private static final String DEBUG_TAG = APIEditorActivity.class.getSimpleName().substring(0,
-            Math.min(23, APIEditorActivity.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, APIEditorActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = APIEditorActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MENU_COPY = 1;
 
@@ -122,7 +125,7 @@ public class APIEditorActivity extends URLListEditActivity {
         API[] apis = db.getAPIs();
         API current = db.getCurrentAPI();
         for (API api : apis) {
-            items.add(new ListEditItem(api.id, api.name, api.url, api.readonlyurl, api.notesurl, api.auth, current.id.equals(api.id)));
+            items.add(new ListEditItem(api.id, api.name, api.url, api.readonlyurl, api.notesurl, api.auth, api.compressedUploads, current.id.equals(api.id)));
         }
     }
 
@@ -143,12 +146,13 @@ public class APIEditorActivity extends URLListEditActivity {
 
     @Override
     protected void onItemCreated(ListEditItem item) {
-        db.addAPI(item.id, item.name, item.value, item.value2, item.value3, new AuthParams((Auth) item.object0, "", "", null, null));
+        db.addAPI(item.id, item.name, item.value, item.value2, item.value3, new AuthParams((Auth) item.object0, "", "", null, null), item.boolean0);
     }
 
     @Override
     protected void onItemEdited(ListEditItem item) {
         db.setAPIDescriptors(item.id, item.name, item.value, item.value2, item.value3, (Auth) item.object0);
+        db.setAPICompressedUploads(item.id, item.boolean0);
     }
 
     @Override
@@ -176,7 +180,7 @@ public class APIEditorActivity extends URLListEditActivity {
         if (menuItemId == MENU_COPY) {
             ListEditItem item = new ListEditItem(getString(R.string.copy_of, clickedItem.name), clickedItem.value, clickedItem.value2, clickedItem.value3,
                     clickedItem.boolean0, Auth.BASIC);
-            db.addAPI(item.id, item.name, item.value, item.value2, item.value3, new AuthParams((Auth) item.object0, "", "", null, null));
+            db.addAPI(item.id, item.name, item.value, item.value2, item.value3, new AuthParams((Auth) item.object0, "", "", null, null), item.boolean0);
             items.clear();
             onLoadList(items);
             updateAdapter();
@@ -221,6 +225,7 @@ public class APIEditorActivity extends URLListEditActivity {
             AuthenticationAdapter adapter = new AuthenticationAdapter(getContext(), android.R.layout.simple_spinner_item, Auth.values(),
                     getResources().getStringArray(R.array.authentication_entries));
             auth.setAdapter(adapter);
+            final CheckBox checkbox = (CheckBox) mainView.findViewById(R.id.listedit_compressed_uploads);
 
             final ImageButton fileButton = (ImageButton) mainView.findViewById(R.id.listedit_file_button);
 
@@ -231,12 +236,14 @@ public class APIEditorActivity extends URLListEditActivity {
                 editValue2.setText(item.value2);
                 editValue3.setText(item.value3);
                 auth.setSelection(((Auth) item.object0).ordinal());
+                checkbox.setChecked(item.boolean0);
             } else if (activity.isAddingViaIntent()) {
                 String tmpName = activity.getIntent().getExtras().getString(EXTRA_NAME);
                 String tmpValue = activity.getIntent().getExtras().getString(EXTRA_VALUE);
                 editName.setText(tmpName == null ? "" : tmpName);
                 editValue.setText(tmpValue == null ? "" : tmpValue);
                 auth.setSelection(Auth.BASIC.ordinal());
+                checkbox.setChecked(false);
             }
             if (item != null && item.id.equals(LISTITEM_ID_DEFAULT)) {
                 // name and value are not editable
@@ -246,6 +253,7 @@ public class APIEditorActivity extends URLListEditActivity {
                 editValue.setInputType(InputType.TYPE_NULL);
                 editValue2.setEnabled(true);
                 editValue3.setEnabled(false);
+                checkbox.setEnabled(true);
             }
 
             activity.setViewAndButtons(builder, mainView);
@@ -325,6 +333,7 @@ public class APIEditorActivity extends URLListEditActivity {
                     String readOnlyAPIURL = editValue2.getText().toString().trim();
                     String notesAPIURL = editValue3.getText().toString().trim();
                     Auth authentication = Auth.values()[auth.getSelectedItemPosition()];
+                    boolean compressedUploads = checkbox.isChecked();
 
                     // (re-)set to black
                     changeBackgroundColor(editValue, VALID_COLOR);
@@ -346,18 +355,18 @@ public class APIEditorActivity extends URLListEditActivity {
 
                     // save or display toast
                     if (validAPIURL && validNotesAPIURL && validReadOnlyAPIURL) { // check if fields valid, optional
-                                                                                  // ones
-                                                                                  // checked if values entered
+                                                                                  // ones checked if values entered
                         if (!"".equals(apiURL)) {
                             if (item == null) {
                                 // new item
-                                activity.finishCreateItem(new ListEditItem(name, apiURL, readOnlyAPIURL, notesAPIURL, false, authentication));
+                                activity.finishCreateItem(new ListEditItem(name, apiURL, readOnlyAPIURL, notesAPIURL, compressedUploads, authentication));
                             } else {
                                 item.name = name;
                                 item.value = apiURL;
                                 item.value2 = readOnlyAPIURL;
                                 item.value3 = notesAPIURL;
                                 item.object0 = authentication;
+                                item.boolean0 = compressedUploads;
                                 activity.finishEditItem(item);
                             }
                         }
