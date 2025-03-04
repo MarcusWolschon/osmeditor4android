@@ -35,6 +35,8 @@
   <string name="deleting_references_on_server">... en supprimant les références sur le serveur</string>
   <string name="unable_to_download_server_version">Impossible de télécharger la version du serveur %1$s%2$d</string>
   <string name="delete_locally">Supprimer\nlocalement</string>
+  <!--Upload retry-->
+  <string name="save_changes">Enregistrer les modifications</string>
   <!---->
   <string name="no_login_data_title">Erreur d\'authentification</string>
   <string name="no_login_data_message">Si vous utilisez OAuth, ceci est probablement un bogue, merci de rapporter le problème. Si vous utilisez un login et un mot de passe (non recommandé) vérifiez que vous les avez renseigné correctement.</string>
@@ -125,7 +127,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="progress_loading_preset_message">Chargement des modèles d\'attributs...</string>
   <string name="progress_importing_file_message">Importation du fichier...</string>
   <string name="progress_running_message">Lancement…</string>
-  <string name="progress_oauth">Chargement de votre compte sur openstreetmap.org pour autorisation OAuth…</string>
   <string name="progress_building_imagery_database">Construction de la base de données des imageries…</string>
   <string name="progress_query_oam">Demande à OAM…</string>
   <string name="progress_pruning">Élagage...</string>
@@ -426,6 +427,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">Grille</string>
   <string name="layer_bookmarks">Marque-pages</string>
   <string name="layer_gpx">GPX</string>
@@ -825,7 +827,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="menu_deselect_all">Tout désélectionner</string>
   <string name="menu_preset_help">Aide du modèle d\'attributs</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">Ajouter un attribut de langue</string>
   <string name="tag_restriction_header">Valeur</string>
   <string name="tag_restriction_when">Quand</string>
   <string name="tag_restriction_and">et</string>
@@ -966,6 +967,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="menu_join">Fusionner</string>
   <string name="menu_unjoin">Séparer</string>
   <string name="menu_copy">Copier</string>
+  <string name="menu_duplicate">Dupliquer</string>
   <string name="menu_cut">Couper</string>
   <string name="menu_paste">Coller</string>
   <string name="menu_paste_tags">Coller les attributs</string>
@@ -1036,8 +1038,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <!---->
   <string name="menu_tools_apply_local_offset">Appliquer le décalage enregistré à l\'imagerie</string>
   <string name="menu_tools_background_contrast">Contraste</string>
-  <string name="menu_tools_oauth_reset">Réinitialiser OAuth</string>
-  <string name="menu_tools_oauth_authorisation">Autoriser OAuth</string>
   <string name="menu_enable_tagfilter">Filtre d\'attributs</string>
   <string name="menu_enable_presetfilter">Filtre de modèles d\'attributs</string>
   <string name="preset_menu_waynodes">Inclure les nœuds des voies</string>
@@ -1125,6 +1125,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="simple_paste">Appuyez sur l\'écran à la position souhaitée</string>
   <string name="menu_paste_multiple">Coller plusieurs fois</string>
   <string name="simple_paste_multiple">Appuyez sur l\'écran à la position souhaitée</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Fond de carte</string>
   <string name="config_backgroundLayer_summary">Le fond de carte sous forme de tuiles.</string>
@@ -1407,6 +1408,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="preset_download_parse_failed">Le modèles d\'attributs est invalide. Il ne sera pas pris en compte.</string>
   <string name="preset_download_missing_images">Le fichier de modèles a été téléchargé. Cependant, le téléchargement de certaines icônes a échoué.</string>
   <string name="preset_download_title">Gestionnaire de téléchargement des modèles</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Ajouter un modèle d\'attributs</string>
   <string name="urldialog_preset_exists">Ce modèle d\'attributs existe déjà</string>
@@ -1469,6 +1471,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="undo_action_update_relations">Mise à jour d\'une relation</string>
   <string name="undo_action_cut">Couper</string>
   <string name="undo_action_paste">Coller</string>
+  <string name="undo_action_duplicate">Dupliquer</string>
   <string name="undo_action_rotate">Pivoter</string>
   <string name="undo_action_orthogonalize">Chemin rendu orthogonal</string>
   <string name="undo_action_circulize">Placer en cercle</string>
@@ -1571,4 +1574,5 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <!--Tile downloader diagnostics-->
   <string name="tile_success">Réussite</string>
   <string name="tile_fail">Échec</string>
+  <string name="tile_unknown_error">Erreur inconnue</string>
 </resources>

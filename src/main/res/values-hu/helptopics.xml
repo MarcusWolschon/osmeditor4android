@@ -20,6 +20,7 @@
     <string name="help_advanced_preferences">Speciális beállítások</string>
     <string name="help_custom_imagery">Egyéni légifelvétel</string>
     <string name="help_presets">Előbeállítások</string>
+    <string name="help_uploading">Módosításaid feltöltése</string>
     <string name="help_conflictresolution">Ütközés feloldása</string>
     <string name="help_gpssources">GPS-források</string>
     <string name="help_keyboard">Billentyűzet</string>
@@ -29,7 +30,11 @@
     <string name="help_newnoteselection">Új jegyzet kijelölése</string>
     <string name="help_voice_commands">Hangutasítások</string>
     <string name="help_add_route_segment">Útvonalszakasz hozzáadása</string>
-    <string name="help_upgrade_210">20.1 kiadási megjegyzések</string>
+    <string name="help_tag_only_mode">Csak címkézés mód</string>
+    <string name="help_indoor_mode">Beltéri mód</string>
+    <string name="help_address_mode">Cím mód</string>
+    <string name="help_upgrade_202">20.2 kiadási megjegyzések</string>
+    <string name="help_upgrade_201">20.1 kiadási megjegyzések</string>
     <string name="help_upgrade_200">20.0 kiadási megjegyzések</string>
     <string name="help_upgrade_193">19.3 kiadási megjegyzések</string>
     <string name="help_upgrade_192">19.2 kiadási megjegyzések</string>
@@ -92,7 +97,8 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
-        <item>@string/help_upgrade_210</item>
+        <item>@string/help_upgrade_202</item>
+        <item>@string/help_upgrade_201</item>
         <item>@string/help_upgrade_200</item>
         <item>@string/help_upgrade_193</item>
         <item>@string/help_upgrade_192</item>
@@ -156,6 +162,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>21.0.0 Release notes</item>
         <item>20.2.0 Release notes</item>
         <item>20.1.0 Release notes</item>
         <item>20.0.0 Release notes</item>

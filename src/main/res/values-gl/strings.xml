@@ -19,6 +19,8 @@
   <string name="upload_conflict_title">Conflito na subida</string>
   <string name="upload_conflict_message_version">Conflito de versión</string>
   <string name="upload_conflict_message_deleted">%1$s \nten unha versión en local %2$d \ne foi eliminado no servidor</string>
+  <!--Upload retry-->
+  <string name="save_changes">Gardar as modificacións</string>
   <!---->
   <string name="no_login_data_title">Non se puido autenticar</string>
   <string name="no_login_data_message">Se estás a empregar o OAuth é probábel que sexa un erro, por favor envía un informe do problema. Se estás a empregar un nome de usuario e contrasinal (non recomendado), por favor, comproba que se inseriron de xeito correcto.</string>
@@ -73,7 +75,6 @@
   <string name="progress_uploading_message">Estase a subir...</string>
   <string name="progress_preset_message">Estase a baixar o predefenido...</string>
   <string name="progress_running_message">Estase a executar...</string>
-  <string name="progress_oauth">Estase a carrega-la súa conta no openstreetmap.org para a autorización do OAuth...</string>
   <string name="progress_building_imagery_database">Estase a construír a base de datos das imaxes...</string>
   <string name="progress_query_oam">Estase a consultar o OAM…</string>
   <!--Confirm upload dialog-->
@@ -523,7 +524,6 @@
   <string name="menu_deselect_all">Non seleccionar ningún</string>
   <string name="menu_preset_help">Axuda dos predefinidos</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">Engadir etiquetas de lingua</string>
   <string name="tag_restriction_header">Valor</string>
   <string name="tag_restriction_when">cando</string>
   <string name="tag_restriction_and">e</string>
@@ -624,6 +624,7 @@
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
   <string name="menu_copy">Copiar</string>
+  <string name="menu_duplicate">Duplicar</string>
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Pegar</string>
   <string name="menu_paste_tags">Pegar etiquetas</string>
@@ -663,8 +664,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar desprazamento almacenado ás imaxes</string>
   <string name="menu_tools_background_contrast">Contraste</string>
-  <string name="menu_tools_oauth_reset">Reiniciar OAuth</string>
-  <string name="menu_tools_oauth_authorisation">Autentificación OAuth</string>
   <string name="menu_enable_tagfilter">Filtro de etiquetas</string>
   <string name="menu_enable_presetfilter">Filtro predefinido</string>
   <string name="preset_menu_waynodes">Incluí-los nós da vía</string>
@@ -724,6 +723,7 @@
   <string name="simple_paste">Preme na posición da pantalla</string>
   <string name="menu_paste_multiple">Pegar moitas veces</string>
   <string name="simple_paste_multiple">Preme na posición da pantalla</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Fondo de mapa</string>
   <string name="config_backgroundLayer_summary">O fondo do mapa está baseado en teselas</string>
@@ -841,6 +841,7 @@
   <string name="preset_download_successful">Predefinido baixado</string>
   <string name="preset_download_parse_failed">O ficheiro do predefinido non é válido. O predefinido non funcionará.</string>
   <string name="preset_download_title">Descargas de predefinidos</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Engadir predefinido</string>
   <string name="urldialog_preset_exists">Este predefinido xa existe</string>
@@ -883,6 +884,7 @@
   <string name="undo_action_update_relations">Actualización da relación</string>
   <string name="undo_action_cut">Cortar</string>
   <string name="undo_action_paste">Pegar</string>
+  <string name="undo_action_duplicate">Duplicar</string>
   <string name="undo_action_orthogonalize">Vía encadrada</string>
   <string name="undo_action_circulize">Organizar nun círculo</string>
   <string name="undo_action_fix_conflict">Resolución de conflito</string>
@@ -957,4 +959,5 @@
   <string name="element_type_relation">relación</string>
   <!--Element names with id-->
   <!--Tile downloader diagnostics-->
+  <string name="tile_unknown_error">Erro descoñecido</string>
 </resources>

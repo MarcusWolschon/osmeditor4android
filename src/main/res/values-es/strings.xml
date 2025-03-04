@@ -46,6 +46,8 @@
   <string name="still_in_use_by_elements">Todavía en uso por elementos</string>
   <string name="delete_locally">Eliminar\nlocalmente</string>
   <string name="undelete_on_server">Restaurar\nen el servidor</string>
+  <!--Upload retry-->
+  <string name="save_changes">Guardar cambios</string>
   <!---->
   <string name="no_login_data_title">No se pudo autenticar</string>
   <string name="no_login_data_message">Si estás usando OAuth, es probable que se trate de un error; envía un informe del problema. Si estás usando usuario y contraseña (no recomendado), verifica que se hayan ingresado correctamente.</string>
@@ -157,7 +159,6 @@
   <string name="progress_loading_preset_message">Cargando preset…</string>
   <string name="progress_importing_file_message">Importando archivo…</string>
   <string name="progress_running_message">Ejecutando…</string>
-  <string name="progress_oauth">Cargando tu cuenta en openstreetmap.org para la autorización de OAuth…</string>
   <string name="progress_building_imagery_database">Construyendo base de datos de imágenes…</string>
   <string name="progress_query_oam">Consultando OAM…</string>
   <string name="progress_pruning">Podando…</string>
@@ -438,6 +439,7 @@
   <string name="altitude">Altitud</string>
   <string name="create_osm_object">Crear objeto OSM</string>
   <string name="create_osm_object_search">Crear objeto OSM desde la búsqueda de presets</string>
+  <string name="waypoint_link">Enlace</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Imágenes personalizadas</string>
   <string name="oam_layer_title">Imágenes OAM</string>
@@ -474,6 +476,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">Cuadrícula</string>
   <string name="layer_bookmarks">Marcadores</string>
   <string name="layer_gpx">GPX</string>
@@ -541,7 +544,6 @@
   <string name="tag_conflict_title">Propiedades modificadas</string>
   <string name="tag_conflict_message">La operación requirió cambiar las propiedades de los elementos involucrados.</string>
   <string name="replace_geometry_issue_title">Elemento cambiado</string>
-  <string name="replace_geometry_issue_message">La operación requería cambiar la posición o pertenencia de un elemento.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">No hay relaciones adecuadas en los datos descargados.</string>
   <string name="select_route_title">Seleccionar ruta</string>
@@ -924,7 +926,6 @@
   <string name="menu_deselect_all">Deseleccionar todo</string>
   <string name="menu_preset_help">Ayuda de preset</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">Añadir etiquetas de idioma</string>
   <string name="tag_restriction_header">Valor</string>
   <string name="tag_restriction_when">cuándo</string>
   <string name="tag_restriction_and">y</string>
@@ -1069,6 +1070,7 @@
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
   <string name="menu_copy">Copiar</string>
+  <string name="menu_duplicate">Duplicar</string>
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Pegar</string>
   <string name="menu_paste_tags">Pegar etiquetas</string>
@@ -1149,8 +1151,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar desplazamiento almacenado a las imágenes</string>
   <string name="menu_tools_background_contrast">Contraste</string>
-  <string name="menu_tools_oauth_reset">Reiniciar OAuth</string>
-  <string name="menu_tools_oauth_authorisation">Autorizar OAuth</string>
   <string name="menu_enable_tagfilter">Filtro de etiquetas</string>
   <string name="menu_enable_presetfilter">Filtro de presets</string>
   <string name="preset_menu_waynodes">Incluir nodos de vía</string>
@@ -1244,6 +1244,7 @@
   <string name="simple_paste">Pulsa en la posición de la pantalla</string>
   <string name="menu_paste_multiple">Pegar varias veces</string>
   <string name="simple_paste_multiple">Pulsa en la posición de la pantalla</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Fondo del mapa</string>
   <string name="config_backgroundLayer_summary">El fondo del mapa basado en teselas.</string>
@@ -1554,6 +1555,7 @@
   <string name="preset_download_parse_failed">El archivo de preset no es válido. El preset no funcionará.</string>
   <string name="preset_download_missing_images">Archivo de preset descargado. Sin embargo, faltaban algunos iconos.</string>
   <string name="preset_download_title">Descargador de presets</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Añadir preset</string>
   <string name="urldialog_preset_exists">Este preset ya existe</string>
@@ -1622,6 +1624,7 @@
   <string name="undo_action_move_tags">Mover etiquetas a la relación</string>
   <string name="undo_action_cut">Cortar</string>
   <string name="undo_action_paste">Pegar</string>
+  <string name="undo_action_duplicate">Duplicar</string>
   <string name="undo_action_rotate">Rotar</string>
   <string name="undo_action_orthogonalize">Cuadrar vía</string>
   <string name="undo_action_circulize">Disponer en círculo</string>
@@ -1753,4 +1756,5 @@
   <string name="tile_decoding_failed">Error al decodificar la tesela</string>
   <string name="tile_success">Éxito</string>
   <string name="tile_fail">Fallo</string>
+  <string name="tile_unknown_error">Error desconocido</string>
 </resources>

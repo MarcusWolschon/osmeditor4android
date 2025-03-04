@@ -36,6 +36,8 @@
   <string name="use_server_version">...użyciem wersji serwera</string>
   <string name="undoing_local_delete">...cofnięciem usunięcia w wersji lokalnej</string>
   <string name="deleting_references_on_server">...usunięciem odniesień na serwerze</string>
+  <!--Upload retry-->
+  <string name="save_changes">Zapisz zmiany</string>
   <!---->
   <string name="no_login_data_title">Nie można uwierzytelnić</string>
   <string name="no_login_data_message">Jeśli używasz OAuth oznacza to, że wystąpił błąd. Prześlij raport o błędach, jednak jeśli używasz loginu i hasła (niepolecane) sprawdź, czy wprowadzono je poprawnie.</string>
@@ -110,7 +112,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="progress_loading_preset_message">Ładowanie szablonu...</string>
   <string name="progress_importing_file_message">Importowanie pliku...</string>
   <string name="progress_running_message">Wykonywanie poleceń...</string>
-  <string name="progress_oauth">Wczytywanie danych konta na openstreetmap.org w celu uwierzytelnienia OAuth...</string>
   <string name="progress_building_imagery_database">Tworzenie bazy danych podkładów…</string>
   <string name="progress_query_oam">Wysyłanie zapytania do OAM…</string>
   <string name="progress_pruning">Sprzątanie...</string>
@@ -348,6 +349,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="altitude">Wysokość</string>
   <string name="create_osm_object">Utwórz obiekt OSM</string>
   <string name="create_osm_object_search">Utwórz obiekt OSM z wyszukanych szablonów</string>
+  <string name="waypoint_link">Połączenie logiczne</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Dostosowany podkład</string>
   <string name="oam_layer_title">Zdjęcia OAM</string>
@@ -379,6 +381,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">Siatka</string>
   <string name="layer_bookmarks">Zakładki</string>
   <string name="layer_gpx">GPX</string>
@@ -693,7 +696,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="menu_deselect_all">Odznacz wszystko</string>
   <string name="menu_preset_help">Pomoc szablonu</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">Dodaj znaczniki języka</string>
   <string name="tag_restriction_header">Wartość</string>
   <string name="tag_restriction_when">kiedy</string>
   <string name="tag_restriction_and">i</string>
@@ -821,6 +823,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="menu_join">Połącz</string>
   <string name="menu_unjoin">Rozłącz</string>
   <string name="menu_copy">Skopiuj</string>
+  <string name="menu_duplicate">Duplikuj</string>
   <string name="menu_cut">Wytnij</string>
   <string name="menu_paste">Wklej</string>
   <string name="menu_paste_tags">Wklej znaczniki</string>
@@ -871,8 +874,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <!---->
   <string name="menu_tools_apply_local_offset">Zastosuj zapamiętaną poprawkę położenia tła</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
-  <string name="menu_tools_oauth_reset">Zresetuj OAuth</string>
-  <string name="menu_tools_oauth_authorisation">Uwierzytelnij przez OAuth</string>
   <string name="menu_enable_tagfilter">Filtr znaczników</string>
   <string name="menu_enable_presetfilter">Filtr szablonu</string>
   <string name="preset_menu_waynodes">Uwzględnij węzły drogi</string>
@@ -940,6 +941,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="simple_paste">Dotknij pozycję na ekranie</string>
   <string name="menu_paste_multiple">Wklej wielokrotnie</string>
   <string name="simple_paste_multiple">Dotknij pozycję na ekranie</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Podkład mapy</string>
   <string name="config_backgroundLayer_summary">Tło mapy bazujące na kafelkach.</string>
@@ -1150,6 +1152,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="preset_download_parse_failed">Plik szablonu jest nieprawidłowy. Szablon nie będzie działać.</string>
   <string name="preset_download_missing_images">Pobrano plik szablonu. Jednak nie pobrano kilku brakujących ikon.</string>
   <string name="preset_download_title">Pobieracz szablonów</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Dodaj szablon</string>
   <string name="urldialog_preset_exists">Szablon już istnieje</string>
@@ -1211,6 +1214,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="undo_action_update_relations">Zaktualizowanie relacji</string>
   <string name="undo_action_cut">Wytnij</string>
   <string name="undo_action_paste">Wklej</string>
+  <string name="undo_action_duplicate">Duplikuj</string>
   <string name="undo_action_orthogonalize">Poprawienie prost. linii</string>
   <string name="undo_action_circulize">Ułóż w koło</string>
   <string name="undo_action_fix_conflict">Rozwiązanie konfliktu</string>
@@ -1312,4 +1316,5 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <!--Element names with id-->
   <!--Tile downloader diagnostics-->
   <string name="tile_success">Sukces</string>
+  <string name="tile_unknown_error">Nieznany błąd</string>
 </resources>

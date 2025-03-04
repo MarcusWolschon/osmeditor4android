@@ -46,6 +46,8 @@
   <string name="still_in_use_by_elements">Stále používán prvky</string>
   <string name="delete_locally">Smazat\nlokálně</string>
   <string name="undelete_on_server">Obnovit\nna serveru</string>
+  <!--Upload retry-->
+  <string name="save_changes">Uložit změny</string>
   <!---->
   <string name="no_login_data_title">Nelze ověřit</string>
   <string name="no_login_data_message">Pokud používáte OAuth, je to pravděpodobně chyba, pošlete prosím zprávu o problému, pokud používáte přihlašovací jméno a heslo (nedoporučujeme), zkontrolujte, zda jsou zadány správně.</string>
@@ -147,7 +149,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="progress_title">Načítám</string>
   <string name="progress_message">Načítam data do paměti…</string>
   <string name="progress_download_message">Stahuji data ze serveru…</string>
-  <string name="progress_download_tasks_message">Stahování úkolů se serverů...</string>
+  <string name="progress_download_tasks_message">Stahování úkolů ze serverů...</string>
   <string name="progress_general_title">Čekejte prosím</string>
   <string name="progress_deleting_message">Mazání...</string>
   <string name="progress_searching_message">Prohledávání…</string>
@@ -157,7 +159,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="progress_loading_preset_message">Načítání předvolby…</string>
   <string name="progress_importing_file_message">Importování souboru…</string>
   <string name="progress_running_message">Běží...</string>
-  <string name="progress_oauth">Načítání vašeho účtu na openstreetmap.org pro OAuth autorizaci...</string>
   <string name="progress_building_imagery_database">Vytvářím databázi snímků…</string>
   <string name="progress_query_oam">Dotazování OAM…</string>
   <string name="progress_pruning">Ořezávání...</string>
@@ -181,6 +182,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="upload_request_review_label">Požádat o kontrolu:</string>
   <string name="upload_validation_error_empty_comment">Komentář by neměl být prázdný</string>
   <string name="upload_validation_error_empty_source">Zdroj by neměl být prázdný</string>
+  <string name="upload_empty_comment_warning_label">Varovat, pokud je komentář prázdný</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">Zkontrolovat změny</string>
   <!--Upload GPX-->
@@ -430,6 +432,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="altitude">Výška</string>
   <string name="create_osm_object">Vytvořit OSM objekt</string>
   <string name="create_osm_object_search">Vytvořit OSM objekt vyhledáním předvolby</string>
+  <string name="waypoint_link">Odkaz</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Vlastní snímky</string>
   <string name="oam_layer_title">Snímky OAM</string>
@@ -466,6 +469,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">Mřížka</string>
   <string name="layer_bookmarks">Záložky</string>
   <string name="layer_gpx">GPX</string>
@@ -626,10 +630,10 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="toast_export_failed">Export selhal</string>
   <string name="toast_export_success">Exportováno do %1$s</string>
   <plurals name="toast_preset_removed_or_replaced_tags">
-    <item quantity="one">Přepsat nebo odstranit 1 značku</item>
-    <item quantity="few">Přepsat nebo odstranit %1$d značky</item>
-    <item quantity="many">Přepsat nebo odstranit %1$d značek</item>
-    <item quantity="other">Přepsat nebo odstranit %1$d značek</item>
+    <item quantity="one">Přepsána nebo odstraněna 1 značka</item>
+    <item quantity="few">Přepsány nebo odstraněny %1$d značky</item>
+    <item quantity="many">Přepsáno nebo odstraněno %1$d značky</item>
+    <item quantity="other">Přepsáno nebo odstraněno %1$d značek</item>
   </plurals>
   <string name="toast_merge_overwrote_tags">Pozn. - operace přepsala tag(y)</string>
   <string name="toast_cant_autoapply_preset">Toto přednastavení nelze použít automaticky</string>
@@ -848,7 +852,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="ignore">Ignorovat</string>
   <string name="select">Výběr</string>
   <string name="skip">Přeskočit</string>
-  <string name="deprecated">%1$s (zastaralých)</string>
+  <string name="deprecated">%1$s (zastaralé)</string>
   <string name="more_information">Více informací</string>
   <string name="osm_tags">Tagy OSM</string>
   <!--Read a file-->
@@ -915,7 +919,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="menu_deselect_all">Zrušit výběr</string>
   <string name="menu_preset_help">Nápověda k předvolbám</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">Přidat značky jazyka</string>
   <string name="tag_restriction_header">Hodnota</string>
   <string name="tag_restriction_when">když</string>
   <string name="tag_restriction_and">a</string>
@@ -1059,6 +1062,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="menu_join">Spojit</string>
   <string name="menu_unjoin">Rozpojit</string>
   <string name="menu_copy">Kopírovat</string>
+  <string name="menu_duplicate">Duplikovat</string>
   <string name="menu_cut">Vyjmout</string>
   <string name="menu_paste">Vložit</string>
   <string name="menu_paste_tags">Vložit tagy</string>
@@ -1138,8 +1142,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <!---->
   <string name="menu_tools_apply_local_offset">Použít uložený ofset na snímky</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
-  <string name="menu_tools_oauth_reset">Resetovat OAuth</string>
-  <string name="menu_tools_oauth_authorisation">Autorizace OAuth</string>
   <string name="menu_enable_tagfilter">Filtr tagů</string>
   <string name="menu_enable_presetfilter">Filtr předvoleb</string>
   <string name="preset_menu_waynodes">Zahrnout uzly cest</string>
@@ -1233,6 +1235,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="simple_paste">Zvolte pozici na mapě</string>
   <string name="menu_paste_multiple">Vložit vícekrát</string>
   <string name="simple_paste_multiple">Zvolte pozici na mapě</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Pozadí mapy</string>
   <string name="config_backgroundLayer_summary">Dlaždicové pozadí mapy.</string>
@@ -1540,6 +1543,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="preset_download_parse_failed">Neplatný soubor předvoleb. Předvolby nebudou fungovat.</string>
   <string name="preset_download_missing_images">Soubor předvoleb stažen. Některé ikony nebyly staženy a chybí.</string>
   <string name="preset_download_title">Přednastavený downloader</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předvolbu</string>
   <string name="urldialog_preset_exists">Tato předvolba již existuje</string>
@@ -1608,6 +1612,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="undo_action_move_tags">Přesunout tagy do relace</string>
   <string name="undo_action_cut">Vyjmout</string>
   <string name="undo_action_paste">Vložit</string>
+  <string name="undo_action_duplicate">Duplikovat</string>
   <string name="undo_action_rotate">Otáčení</string>
   <string name="undo_action_orthogonalize">Narovnání cesty</string>
   <string name="undo_action_circulize">Uspořádat do kruhu</string>
@@ -1742,4 +1747,5 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="tile_decoding_failed">Dekódování dlaždice selhalo</string>
   <string name="tile_success">Úspěch</string>
   <string name="tile_fail">Selhání</string>
+  <string name="tile_unknown_error">Neznámá chyba</string>
 </resources>

@@ -16,6 +16,7 @@
   <string name="transfer_download_current_download">Annulla modifiche e scarica</string>
   <string name="transfer_download_current_back">Indietro (non fare niente)</string>
   <string name="upload_problem_title">Caricamento fallito</string>
+  <string name="upload_problem_message">Alcuni o tutti i dati non sono stati caricati. Prova di nuovo più tardi.</string>
   <string name="bad_request_message">Le API hanno risposto con un errore. Salva i tuoi i dati e segnala il problema:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Conflitto di caricamento</string>
@@ -37,7 +38,16 @@
   <string name="use_server_version">…usando la versione server</string>
   <string name="undoing_local_delete">..annullando l’eliminazione locale</string>
   <string name="deleting_references_on_server">…eliminando i riferimenti sul server</string>
+  <string name="unable_to_download_referring_element">Impossibile scaricare l’elemento che fa riferimento a %1$s %2$d</string>
   <string name="unable_to_download_referring_element_for_deletion">Non riesco a scaricare l\'elemento di riferimento a causa dell\'eliminazione %1$s %2$d</string>
+  <string name="unable_to_download_server_version">Impossibile scaricare la versione %1$s %2$d sul server</string>
+  <string name="unexpected_conflict_type">Conflitto di tipo non previsto</string>
+  <string name="missing_referenced_elements">Elementi riferiti mancanti</string>
+  <string name="still_in_use_by_elements">È ancora usato da degli elementi</string>
+  <string name="delete_locally">Elimina\nlocalmente</string>
+  <string name="undelete_on_server">Ripristina\ndal server</string>
+  <!--Upload retry-->
+  <string name="save_changes">Salva le modifiche</string>
   <!---->
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth questo è probabilmente un bug; per favore invia un report. Se stai usando nome utente e password (sconsigliato), controlla di averli inseriti correttamente.</string>
@@ -64,6 +74,8 @@
   <string name="invalid_bounding_box_title">Riquadro di selezione non valido</string>
   <string name="invalid_bounding_box_message">L’area selezionata non rispetta i limiti dell’API, scegli un’area differente.</string>
   <string name="bounding_box_too_large_title">Area da scaricare troppo grande</string>
+  <string name="bounding_box_too_large_message">L’area che stai tentando di scaricare è troppo grande o contiene troppi dati.
+  &lt;br&gt;&lt;br&gt;Ingrandisci ancora e prova di nuovo.</string>
   <string name="api_offline_title">API non in linea</string>
   <string name="api_offline_message">L’API non è al momento in linea, non è possibile ottenere o scrivere alcun dato.</string>
   <string name="out_of_memory_title">Memoria esaurita</string>
@@ -84,6 +96,7 @@
   <string name="duplicate_tag_key_title">Chiavi duplicate</string>
   <string name="duplicate_tag_key_message">Hai aggiunto la seguente chiave più di una volta, ciò deve essere risolto prima di procedere:</string>
   <string name="autodownload_has_been_paused">Il caricamento automatico è stato sospeso.</string>
+  <string name="upload_bounding_box_too_large_title">Area troppo grande per il caricamento</string>
   <!---->
   <string name="select_file_picker_title">Scegli file</string>
   <!--Newbie dialog-->
@@ -93,6 +106,7 @@
   <!---->
   <string name="upgrade_title">Questa è una nuova versione di Vespucci</string>
   <string name="upgrade_message">Le nuove funzionalità e come agiscono sono dettagliate nelle note di rilascio.</string>
+  <string name="migrate_now">Migra configurazione adesso</string>
   <string name="read_upgrade">Scopri la nuova versione</string>
   <string name="progress_title">Caricamento</string>
   <string name="progress_message">Caricamento dati in memoria…</string>
@@ -107,7 +121,6 @@
   <string name="progress_loading_preset_message">Caricamento della impostazioni predefinite...</string>
   <string name="progress_importing_file_message">Importazione del file…</string>
   <string name="progress_running_message">In esecuzione...</string>
-  <string name="progress_oauth">Caricamento del tuo account da openstreetmap.org per l\'autorizzazione OAuth...</string>
   <string name="progress_building_imagery_database">Generazione del database delle immagini…</string>
   <string name="progress_query_oam">Richiesta OAM inviata…</string>
   <string name="progress_pruning">Riduzione…</string>
@@ -130,6 +143,15 @@
   <string name="upload_request_review_label">Richiedi revisione:</string>
   <string name="upload_validation_error_empty_comment">Il commento non dovrebbe essere vuoto</string>
   <string name="upload_validation_error_empty_source">La fonte dei dati non dovrebbe essere vuota</string>
+  <string name="upload_empty_comment_warning_label">Segnala se il commento è vuoto</string>
+  <string name="upload_auto_summary">Sommario generato automaticamente</string>
+  <string name="untagged_node">node senza etichette</string>
+  <string name="untagged_way">percorso senza etichette</string>
+  <string name="untagged_relation">relazione senza etichette</string>
+  <string name="changed_preset">%1$s a %2$s</string>
+  <string name="changed_tags">%1$s etichette modificate</string>
+  <string name="moved">%1$s spostato</string>
+  <string name="unknown_object">oggetto sconosciuto</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">Controlla le modifiche</string>
   <!--Upload GPX-->
@@ -194,6 +216,7 @@
   <string name="toast_todo_already_in_list">L\'elemento è già presente nella lista di cose da fare</string>
   <string name="toast_no_open_todos">nessuna lista di cose da fare attiva</string>
   <string name="toast_no_todos_in_list">Nessun elemento nella lista selezionata</string>
+  <string name="save_changes_title">Salvare cambiamenti?</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Se procedi, le tue modifiche non salvate verranno scartate.</string>
@@ -403,6 +426,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">Griglia</string>
   <string name="layer_bookmarks">Segnalibri</string>
   <string name="layer_gpx">GPX</string>
@@ -803,7 +827,6 @@
   <string name="menu_deselect_all">Deseleziona tutto</string>
   <string name="menu_preset_help">Guida preset</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">Aggiungi etichette della lingua</string>
   <string name="tag_restriction_header">Valore</string>
   <string name="tag_restriction_when">quando</string>
   <string name="tag_restriction_and">e</string>
@@ -946,6 +969,7 @@
   <string name="menu_join">Unisci</string>
   <string name="menu_unjoin">Separa</string>
   <string name="menu_copy">Copia</string>
+  <string name="menu_duplicate">Duplica</string>
   <string name="menu_cut">Taglia</string>
   <string name="menu_paste">Incolla</string>
   <string name="menu_paste_tags">Incolla etichette</string>
@@ -1015,8 +1039,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">Applica lo scostamento memorizzato alle immagini</string>
   <string name="menu_tools_background_contrast">Contrasto</string>
-  <string name="menu_tools_oauth_reset">Resetta OAuth</string>
-  <string name="menu_tools_oauth_authorisation">Autorizza OAuth</string>
   <string name="menu_enable_tagfilter">Filtro etichette</string>
   <string name="menu_enable_presetfilter">Filtro predefiniti</string>
   <string name="preset_menu_waynodes">Includi i nodi del percorso</string>
@@ -1104,6 +1126,7 @@
   <string name="simple_paste">Premi sul punto dello schermo</string>
   <string name="menu_paste_multiple">Incolla più volte</string>
   <string name="simple_paste_multiple">Premi sul punto dello schermo</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Sfondo della mappa</string>
   <string name="config_backgroundLayer_summary">Lo sfondo della mappa fatto di tasselli.</string>
@@ -1377,6 +1400,7 @@
   <string name="preset_download_parse_failed">Il file dei predefiniti non è valido. I predefiniti non funzioneranno.</string>
   <string name="preset_download_missing_images">File del preset scaricati. Tuttavia, alcune icone mancanti non sono state scaricate.</string>
   <string name="preset_download_title">Scaricatore dei predefiniti</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aggiungi predefinito</string>
   <string name="urldialog_preset_exists">Questo predefinito esiste già</string>
@@ -1445,6 +1469,8 @@
   <string name="undo_action_move_tags">Sposta le etichette sulla relazione</string>
   <string name="undo_action_cut">Taglia</string>
   <string name="undo_action_paste">Incolla</string>
+  <string name="undo_action_duplicate">Duplica</string>
+  <string name="undo_action_rotate">Rotazione</string>
   <string name="undo_action_orthogonalize">Squadratura del percorso</string>
   <string name="undo_action_circulize">Disponi in cerchio</string>
   <string name="undo_action_fix_conflict">Risoluzione conflitti</string>
@@ -1452,6 +1478,7 @@
   <string name="undo_action_apply_osc">Applica file OSC</string>
   <string name="undo_action_remove_node_from_way">Rimuovi nodo dalla linea</string>
   <string name="undo_action_extract_segment">Estrai segmento</string>
+  <string name="undo_action_replace_geometry">Sostituisci geometria</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci si è interrotto o ha incontrato un problema serio l\'ultima volta.\n\nPer favore aiutaci cliccando \'Ok\' per inviare un resoconto dell\'errore.\n</string>
   <string name="crash_dialog_comment_prompt">Aggiungi qualsiasi altra informazione credi possa servire e (facoltativamente) il tuo nome utente su OSM nel caso tu voglia ricevere delle risposte.\n\nGrazie!</string>
@@ -1497,6 +1524,7 @@
   <string name="issue_shared_node">Condiviso con un altro percorso</string>
   <string name="issue_tags_reversed">Etichette invertite</string>
   <string name="issue_role_reversed">Ruoli invertiti</string>
+  <string name="issue_oneway_direction_reversed">Direzione del senso unico invertita</string>
   <string name="issue_role_conflict">Conflitto di ruolo</string>
   <string name="issue_merged_tags">Etichette unite</string>
   <string name="issue_same_object">Stesso oggetto</string>
@@ -1504,6 +1532,7 @@
   <string name="issue_split_metric">È stato diviso un valore che dipende dalla lunghezza</string>
   <string name="issue_split_route_ordering">Il percorso potrebbe richiedere un riordino manuale</string>
   <string name="issue_precondition_relation_member_count">Conteggio dei membri della relazione superato</string>
+  <string name="issue_replace_extracted_node">Nodo con etichette estratto dal percorso</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 giorno</item>
@@ -1538,6 +1567,8 @@
   <!--Help system-->
   <string name="toast_nohelp">Nessun aiuto disponibile.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark_title">Aggiungi segnalibro</string>
+  <string name="edit_bookmark_title">Modifica segnalibro</string>
   <string name="bookmarks_desc">Nome</string>
   <string name="show_bookmarks">Segnalibri…</string>
   <string name="_dots">⋮</string>
@@ -1554,8 +1585,21 @@
   <string name="way_id">via %1$d</string>
   <string name="relation_id">relazione %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="layer_diag_title">Diagnostica del livello</string>
+  <string name="no_tile_header">Header \"No tile\" %1$s</string>
+  <string name="no_tile_mvt_tile">tassello %1$s MVT \"no tile\"</string>
   <string name="empty_tile">Mattonella vuota</string>
   <string name="tile_error">Codice di errore della mattonella: %1$d\n\n%2$s</string>
+  <string name="tile_error_message">Messaggio di errore del tassello:\n\n%1$s\n\n%2$s</string>
+  <string name="unexpected_tile_format">Formato inaspettato\nURL:%1$s %2$s</string>
+  <string name="unexpected_tile_format_subtype">Formato del sottotipo inaspettato %1$s\nURL: %2$s</string>
+  <string name="diagnostics_for_tile">Diagnostica per %1$s</string>
+  <string name="tile_spec">zoom %1$d x %2$d y %3$d</string>
+  <string name="tile_input_error">Errore di input del tassello: %1$s\nURL: %2$s</string>
+  <string name="tile_data_received">Ricevuti con successo %1$d byte</string>
+  <string name="tile_mark_invalid">Segnalato il tassello come non valido</string>
+  <string name="tile_decoding_failed">Decodifica del tassello fallita</string>
   <string name="tile_success">Successo</string>
   <string name="tile_fail">Fallimento</string>
+  <string name="tile_unknown_error">Errore sconosciuto</string>
 </resources>

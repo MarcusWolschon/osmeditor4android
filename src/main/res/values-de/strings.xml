@@ -46,6 +46,8 @@
   <string name="still_in_use_by_elements">Immer noch in Verwendung von Elementen</string>
   <string name="delete_locally">Lokales\nlöschen</string>
   <string name="undelete_on_server">Auf dem Server\nwiederherstellen</string>
+  <!--Upload retry-->
+  <string name="save_changes">Speichern der Änderungen</string>
   <!---->
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="no_login_data_message">Falls OAuth verwendet wird, ist dies wahrscheinlich ein Fehler, der gemeldet werden sollte. Falls Login und Passwort verwendet werden (nicht empfohlen), sollte überprüft werden, ob sie korrekt eingegeben wurden.</string>
@@ -148,7 +150,6 @@
   <string name="progress_loading_preset_message">Vorlage laden...</string>
   <string name="progress_importing_file_message">Datei wird importiert…</string>
   <string name="progress_running_message">Wird ausgeführt…</string>
-  <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth-Autorisierung…</string>
   <string name="progress_building_imagery_database">Hintergrundbilderdatenbank wird erstellt…</string>
   <string name="progress_query_oam">Abfrage von OAM…</string>
   <string name="progress_pruning">Zurückschneiden…</string>
@@ -427,6 +428,7 @@
   <string name="altitude">Höhe</string>
   <string name="create_osm_object">OSM-Objekt erstellen</string>
   <string name="create_osm_object_search">OSM-Objekt aus Vorlagensuche erstellen</string>
+  <string name="waypoint_link">Verbindung</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Benutzerdefinierter Hintergrund</string>
   <string name="oam_layer_title">Hintergründe von OAM</string>
@@ -463,6 +465,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">Gitternetz</string>
   <string name="layer_bookmarks">Lesezeichen…</string>
   <string name="layer_gpx">GPX</string>
@@ -530,7 +533,6 @@
   <string name="tag_conflict_title">Eigenschaften geändert</string>
   <string name="tag_conflict_message">Die Operation musste Eigenschaften der beteiligten Objekte ändern.</string>
   <string name="replace_geometry_issue_title">Element geändert</string>
-  <string name="replace_geometry_issue_message">Der Vorgang erforderte eine Änderung der Position oder der Mitgliedschaft eines Elements.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Keine geeigneten Relationen in den heruntergeladenen Daten gefunden</string>
   <string name="select_route_title">Route auswählen</string>
@@ -909,7 +911,7 @@
   <string name="menu_deselect_all">Alles abwählen</string>
   <string name="menu_preset_help">Hilfe zu Vorlagen</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">Sprachspezifische Tags hinzufügen</string>
+  <string name="tag_menu_i18n">Sprachvarianten hinzufügen</string>
   <string name="tag_restriction_header">Wert</string>
   <string name="tag_restriction_when">falls</string>
   <string name="tag_restriction_and">und</string>
@@ -1053,6 +1055,7 @@
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
   <string name="menu_copy">Kopieren</string>
+  <string name="menu_duplicate">Verdoppeln</string>
   <string name="menu_cut">Ausschneiden</string>
   <string name="menu_paste">Einfügen</string>
   <string name="menu_paste_tags">Tags einfügen</string>
@@ -1121,6 +1124,7 @@
   <string name="menu_layers_add_grid">Gitter/Skala anzeigen</string>
   <string name="menu_layers_add_photolayer">Foto-Ebene anzeigen</string>
   <string name="menu_layers_enable_mapillary_layer">Mapillary-Ebene anzeigen</string>
+  <string name="menu_layers_enable_panoramax_layer">Panoramax-Ebene anzeigen</string>
   <string name="menu_layers_enable_bookmarkslayer">Lesezeichenebene aktivieren</string>
   <string name="menu_layers_configure">Konfigurieren…</string>
   <string name="menu_layers_background_align">Bildmaterial justieren…</string>
@@ -1133,8 +1137,7 @@
   <!---->
   <string name="menu_tools_apply_local_offset">Gespeicherten Hintergrundversatz anwenden</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
-  <string name="menu_tools_oauth_reset">OAuth zurücksetzen</string>
-  <string name="menu_tools_oauth_authorisation">OAuth-Zugriff autorisieren</string>
+  <string name="menu_tools_oauth_authorisation">Mit OAuth autorisieren…</string>
   <string name="menu_enable_tagfilter">Tag-Filter</string>
   <string name="menu_enable_presetfilter">Vorlagenfilter</string>
   <string name="preset_menu_waynodes">Wegknoten zurückgeben</string>
@@ -1227,6 +1230,7 @@
   <string name="simple_paste">Bildschirmposition antippen</string>
   <string name="menu_paste_multiple">Objekt mehrfach einfügen</string>
   <string name="simple_paste_multiple">Bildschirmposition antippen</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>
   <string name="config_backgroundLayer_summary">Auswahl des Bildmaterials für den Hintergrund.</string>
@@ -1537,6 +1541,7 @@
   <string name="preset_download_parse_failed">Die Vorlagendatei ist ungültig. Die Vorlage wird nicht funktionieren.</string>
   <string name="preset_download_missing_images">Die Vorlagendatei wurde heruntergeladen. Einige Symbole fehlen allerdings.</string>
   <string name="preset_download_title">Vorlagen-Download</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Vorlage hinzufügen</string>
   <string name="urldialog_preset_exists">Diese Vorlage existiert bereits.</string>
@@ -1605,6 +1610,7 @@
   <string name="undo_action_move_tags">Eigenschaften zur Relation verschieben</string>
   <string name="undo_action_cut">Ausschneiden</string>
   <string name="undo_action_paste">Einfügen</string>
+  <string name="undo_action_duplicate">Verdoppeln</string>
   <string name="undo_action_rotate">Drehung</string>
   <string name="undo_action_orthogonalize">Weg rechtwinklig machen</string>
   <string name="undo_action_circulize">Im Kreis anordnen</string>
@@ -1731,4 +1737,5 @@ in %1$d m %2$s</string>
   <string name="tile_decoding_failed">Entschlüsselung der Kachel fehlgeschlagen</string>
   <string name="tile_success">Erfolg</string>
   <string name="tile_fail">Fehlschlag</string>
+  <string name="tile_unknown_error">Unbekannter Fehler</string>
 </resources>

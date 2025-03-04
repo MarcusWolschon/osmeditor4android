@@ -95,7 +95,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
-        <item>@string/help_upgrade_210</item>
+        <item>@string/help_upgrade_201</item>
         <item>@string/help_upgrade_200</item>
         <item>@string/help_upgrade_193</item>
         <item>@string/help_upgrade_192</item>

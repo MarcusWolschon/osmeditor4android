@@ -21,6 +21,8 @@
   <string name="upload_conflict_title">סתירת העלאה</string>
   <string name="upload_conflict_message_version">סתירת גרסאות</string>
   <string name="upload_conflict_message_deleted">ל־%1$s \nיש גרסה מקומית %2$d \nוהוא נמחק מהשרת</string>
+  <!--Upload retry-->
+  <string name="save_changes">שמירת השינויים</string>
   <!---->
   <string name="no_login_data_title">לא ניתן לאמת</string>
   <string name="no_login_data_message">אם השתמשת ב־OAuth כנראה מדובר בתקלה, נא לשלוח דיווח על בעיה, אם השתמשת בשם כניסה וססמה (לא מומלץ) נא לבדוק שהקלדת אותם כראוי.</string>
@@ -91,7 +93,6 @@
   <string name="progress_loading_preset_message">הערכה נטענת…</string>
   <string name="progress_importing_file_message">קובץ מיובא…</string>
   <string name="progress_running_message">מתבצעת הרצה…</string>
-  <string name="progress_oauth">החשבון שלך ב־openstreetmap.org נטען לטובת אימות עם OAuth…</string>
   <string name="progress_building_imagery_database">מסד נתוני תמונות הרקע נבנה כעת…</string>
   <string name="progress_query_oam">OAM מתושאל…</string>
   <string name="progress_pruning">מתבצע קיצוץ…</string>
@@ -390,6 +391,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">רשת</string>
   <string name="layer_bookmarks">סימניות</string>
   <string name="layer_gpx">GPX</string>
@@ -771,7 +773,6 @@
   <string name="menu_deselect_all">לבטל את הבחירה</string>
   <string name="menu_preset_help">עזרה עם ערכות מוגדרות</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">הוספת תגיות שפה</string>
   <string name="tag_restriction_header">ערך</string>
   <string name="tag_restriction_when">מתי</string>
   <string name="tag_restriction_and">וגם</string>
@@ -908,6 +909,7 @@
   <string name="menu_join">צירוף</string>
   <string name="menu_unjoin">הפרדה</string>
   <string name="menu_copy">העתקה</string>
+  <string name="menu_duplicate">שכפול</string>
   <string name="menu_cut">גזירה</string>
   <string name="menu_paste">הדבקה</string>
   <string name="menu_paste_tags">הדבקת תגיות</string>
@@ -973,8 +975,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">החלת היסט מאוחסן לתמונת הרקע</string>
   <string name="menu_tools_background_contrast">ניגוד</string>
-  <string name="menu_tools_oauth_reset">איפוס OAuth</string>
-  <string name="menu_tools_oauth_authorisation">אימות OAuth</string>
   <string name="menu_enable_tagfilter">מסנן תגיות</string>
   <string name="menu_enable_presetfilter">מסנן ערכות מוגדרות</string>
   <string name="preset_menu_waynodes">הכללת מפרקי דרך</string>
@@ -1046,6 +1046,7 @@
   <string name="simple_paste">יש לגעת במיקום במסך</string>
   <string name="menu_paste_multiple">להדביק מספר פעמים</string>
   <string name="simple_paste_multiple">יש לגעת במיקום במסך</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">רקע מפה</string>
   <string name="config_backgroundLayer_summary">רקע המפה מבוססת האריחים.</string>
@@ -1274,6 +1275,7 @@
   <string name="preset_download_parse_failed">הערכה המוגדרת שגויה והיא לא תפעל.</string>
   <string name="preset_download_missing_images">התקבל קובץ ערכה מוגדרת. עם זאת, חלק מהסמלים החסרים לא התקבלו.</string>
   <string name="preset_download_title">מוריד ערכות מוגדרות</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">הוספת ערכה מוגדרת</string>
   <string name="urldialog_preset_exists">ערכת מוגדרת זו כבר קיימת</string>
@@ -1337,6 +1339,7 @@
   <string name="undo_action_move_tags">העברת תגיות ליחס</string>
   <string name="undo_action_cut">גזירה</string>
   <string name="undo_action_paste">הדבקה</string>
+  <string name="undo_action_duplicate">שכפול</string>
   <string name="undo_action_orthogonalize">ריבוע דרך</string>
   <string name="undo_action_circulize">סידור במעגל</string>
   <string name="undo_action_fix_conflict">פתרון סתירות</string>
@@ -1430,4 +1433,5 @@
   <string name="element_type_relation">יחס</string>
   <!--Element names with id-->
   <!--Tile downloader diagnostics-->
+  <string name="tile_unknown_error">שגיאה לא ידועה</string>
 </resources>

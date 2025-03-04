@@ -46,6 +46,8 @@
   <string name="still_in_use_by_elements">仍然被元素使用</string>
   <string name="delete_locally">本地\n刪除</string>
   <string name="undelete_on_server">非伺服器\n復原已刪除</string>
+  <!--Upload retry-->
+  <string name="save_changes">儲存變更</string>
   <!---->
   <string name="no_login_data_title">驗証失敗</string>
   <string name="no_login_data_message">如果您正在使用 OAuth 這可能是一項錯誤，請發送錯誤問題報告。如果用密碼登入 (不推薦)，請檢查是否輸入正確。</string>
@@ -154,7 +156,6 @@
   <string name="progress_loading_preset_message">載入預置…</string>
   <string name="progress_importing_file_message">匯入檔案…</string>
   <string name="progress_running_message">運作中...</string>
-  <string name="progress_oauth">在 openstreetmap.org 載入您的帳號，為 OAuth 授權...</string>
   <string name="progress_building_imagery_database">建構圖像資料庫...</string>
   <string name="progress_query_oam">正在查詢 OAM ...</string>
   <string name="progress_pruning">剪裁中...</string>
@@ -467,6 +468,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">網格</string>
   <string name="layer_bookmarks">書籤</string>
   <string name="layer_gpx">GPX</string>
@@ -534,7 +536,6 @@
   <string name="tag_conflict_title">屬性已經變動了</string>
   <string name="tag_conflict_message">這個操作需要改變涉入元愫的屬性。</string>
   <string name="replace_geometry_issue_title">元素已經改變</string>
-  <string name="replace_geometry_issue_message">這次操作需要改變元素位置或是成員身份。</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">下載資料沒有適當的關聯</string>
   <string name="select_route_title">選擇路線</string>
@@ -909,7 +910,6 @@
   <string name="menu_deselect_all">取消選取全部</string>
   <string name="menu_preset_help">預置幫助</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">所有語言標籤</string>
   <string name="tag_restriction_header">數值</string>
   <string name="tag_restriction_when">當</string>
   <string name="tag_restriction_and">和</string>
@@ -1054,6 +1054,7 @@
   <string name="menu_join">加入</string>
   <string name="menu_unjoin">不加入</string>
   <string name="menu_copy">複製</string>
+  <string name="menu_duplicate">重覆</string>
   <string name="menu_cut">剪下</string>
   <string name="menu_paste">貼上</string>
   <string name="menu_paste_tags">貼上標籤</string>
@@ -1134,8 +1135,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">套用儲存的影像偏移值</string>
   <string name="menu_tools_background_contrast">對比</string>
-  <string name="menu_tools_oauth_reset">重置 OAuth</string>
-  <string name="menu_tools_oauth_authorisation">授權 OAuth</string>
   <string name="menu_enable_tagfilter">標籤篩選</string>
   <string name="menu_enable_presetfilter">預置篩選</string>
   <string name="preset_menu_waynodes">包括路徑節點</string>
@@ -1227,6 +1226,7 @@
   <string name="simple_paste">點螢幕位置</string>
   <string name="menu_paste_multiple">貼上多次時間</string>
   <string name="simple_paste_multiple">點螢幕位置</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">地圖背景</string>
   <string name="config_backgroundLayer_summary">圖層為基礎的地圖背景。</string>
@@ -1537,6 +1537,7 @@
   <string name="preset_download_parse_failed">預置檔案無效。預置將無法工作。</string>
   <string name="preset_download_missing_images">預載檔案已經下載，然後遺失的的圖示還未下載。</string>
   <string name="preset_download_title">預置下載器</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">增加預置</string>
   <string name="urldialog_preset_exists">此預置已存在</string>
@@ -1605,6 +1606,7 @@
   <string name="undo_action_move_tags">移動標籤到關聯</string>
   <string name="undo_action_cut">剪下</string>
   <string name="undo_action_paste">貼上</string>
+  <string name="undo_action_duplicate">重覆</string>
   <string name="undo_action_rotate">旋轉</string>
   <string name="undo_action_orthogonalize">直角化路徑</string>
   <string name="undo_action_circulize">在圓週排列</string>
@@ -1724,4 +1726,5 @@
   <string name="tile_decoding_failed">圖磚解析失敗</string>
   <string name="tile_success">成功</string>
   <string name="tile_fail">失敗</string>
+  <string name="tile_unknown_error">未知的錯誤</string>
 </resources>

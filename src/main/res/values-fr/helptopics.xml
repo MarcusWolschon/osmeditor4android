@@ -29,7 +29,7 @@
     <string name="help_newnoteselection">Sélection d\'une nouvelle note</string>
     <string name="help_voice_commands">Commandes vocales</string>
     <string name="help_add_route_segment">Ajout de segment de route</string>
-    <string name="help_upgrade_210">Notes de la version 20.1</string>
+    <string name="help_upgrade_201">Notes de la version 20.1</string>
     <string name="help_upgrade_200">Notes de la version 20.0</string>
     <string name="help_upgrade_193">Notes de la version 19.3</string>
     <string name="help_upgrade_192">Notes de la version 19.2</string>
@@ -92,7 +92,8 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
-        <item>@string/help_upgrade_210</item>
+        <item>@string/help_upgrade_202</item>
+        <item>@string/help_upgrade_201</item>
         <item>@string/help_upgrade_200</item>
         <item>@string/help_upgrade_193</item>
         <item>@string/help_upgrade_192</item>
@@ -156,6 +157,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>21.0.0 Release notes</item>
         <item>20.2.0 Release notes</item>
         <item>20.1.0 Release notes</item>
         <item>20.0.0 Release notes</item>

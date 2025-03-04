@@ -27,6 +27,8 @@
   <string name="upload_conflict_message_changeset_closed">变更集意外关闭了，正在重试</string>
   <string name="server_side_object">服务器版本</string>
   <string name="local_object">本地版本</string>
+  <!--Upload retry-->
+  <string name="save_changes">保存更改</string>
   <!---->
   <string name="no_login_data_title">验证失败</string>
   <string name="no_login_data_message">如果您正在使用 OAuth，请重新进行身份验证然后重试，如果您使用密码登录（不推荐），请检查是否输入正确。</string>
@@ -100,7 +102,6 @@
   <string name="progress_loading_preset_message">正在加载预设…</string>
   <string name="progress_importing_file_message">导入文件...</string>
   <string name="progress_running_message">正在运行…</string>
-  <string name="progress_oauth">加载您的 openstreetmap.org 账号用于 OAuth 验证…</string>
   <string name="progress_building_imagery_database">建立影像数据库…</string>
   <string name="progress_query_oam">正在查询 OAM …</string>
   <string name="progress_pruning">正在修剪…</string>
@@ -388,6 +389,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax 全景</string>
   <string name="layer_grid">网格</string>
   <string name="layer_bookmarks">书签</string>
   <string name="layer_gpx">GPX</string>
@@ -788,7 +790,6 @@
   <string name="menu_deselect_all">取消选择全部</string>
   <string name="menu_preset_help">预设帮助</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">添加语言标签</string>
   <string name="tag_restriction_header">值</string>
   <string name="tag_restriction_when">当</string>
   <string name="tag_restriction_and">且</string>
@@ -996,8 +997,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">应用保存的影像偏移</string>
   <string name="menu_tools_background_contrast">对比度</string>
-  <string name="menu_tools_oauth_reset">重置 OAuth</string>
-  <string name="menu_tools_oauth_authorisation">授权 OAuth</string>
   <string name="menu_enable_tagfilter">标签筛选器</string>
   <string name="menu_enable_presetfilter">预设筛选器</string>
   <string name="preset_menu_waynodes">包括路径节点</string>
@@ -1076,6 +1075,7 @@
   <string name="simple_paste">点击屏幕位置</string>
   <string name="menu_paste_multiple">粘贴多次</string>
   <string name="simple_paste_multiple">点击屏幕位置</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">地图背景</string>
   <string name="config_backgroundLayer_summary">基于瓦片的地图背景。</string>
@@ -1347,6 +1347,7 @@
   <string name="preset_download_parse_failed">预设文件无效，预设将无法正常工作。</string>
   <string name="preset_download_missing_images">预设文件已下载，然而缺失的图标还未下载。</string>
   <string name="preset_download_title">预设下载器</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">添加预设</string>
   <string name="urldialog_preset_exists">此预设已存在</string>
@@ -1515,4 +1516,5 @@
   <string name="tile_decoding_failed">瓦片解码失败</string>
   <string name="tile_success">成功</string>
   <string name="tile_fail">失败</string>
+  <string name="tile_unknown_error">未知错误</string>
 </resources>

@@ -16,12 +16,16 @@
   <string name="transfer_download_current_download">دور بریز و بارگیری کن</string>
   <string name="transfer_download_current_back">برگشت (کاری نکن)</string>
   <string name="upload_problem_title">نمی‌توان بارگذاری کرد</string>
+  <string name="upload_problem_message">برخی یا همه داده ها آپلود نشدند.  بعداً دوباره امتحان کنید.</string>
   <string name="bad_request_message">‏API با خطا پاسخ داد. لطفاً دادهٔ خود را ذخیره کنید و این مسئله را گزارش دهید:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">تداخل در بارگذاری</string>
   <string name="upload_conflict_message_version">تداخل نسخه</string>
   <string name="upload_conflict_message_deleted">%1$s \nروی دستگاه شما نسخهٔ %2$d است \nو روی کارساز حذف شده است</string>
+  <string name="upload_conflict_message_referential">عنصر به صورت محلی حذف شده است اما دارای منابع در سرور است</string>
   <string name="upload_conflict_message_unknown">%1$s \nتداخل بارگذاری ناشناخته ایجاد شد \n%2$s</string>
+  <!--Upload retry-->
+  <string name="save_changes">ذخیره‌کردن تغییرات</string>
   <!---->
   <string name="no_login_data_title">احراز هویت ناموفق بود</string>
   <string name="no_login_data_message">اگر از OAuth استفاده می‌کنید احتمالاً با یک اشکال در برنامه مواجه شده‌اید؛ لطفاً یک گزارش مشکل ارسال کنید. اگر از نام کاربری و گذرواژه استفاده می‌کنید (توصیه نمی‌شود)، لطفاً بررسی کنید که آنها به درستی وارد شده‌اند.</string>
@@ -90,7 +94,6 @@
   <string name="progress_loading_preset_message">در حال بارگیری از پیش‌تنظیم‌شده...</string>
   <string name="progress_importing_file_message">در حال وارد کردن فایل…</string>
   <string name="progress_running_message">در حال اجرا…</string>
-  <string name="progress_oauth">در حال باز کردن حساب شما در openstreetmap.org برای احراز هویت OAuth…</string>
   <string name="progress_building_imagery_database">در حال ایجاد پایگاه دادهٔ تصاویر…</string>
   <string name="progress_query_oam">در حال پرس‌وجو از OAM...</string>
   <string name="progress_pruning">در حال هرس...</string>
@@ -389,6 +392,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">مپیلاری</string>
+  <string name="layer_panoramax">سراسر‌نما</string>
   <string name="layer_grid">شبکه</string>
   <string name="layer_bookmarks">نشانک‌ها</string>
   <string name="layer_gpx">GPX</string>
@@ -810,7 +814,6 @@
   <string name="menu_deselect_all">انتخاب هیچ</string>
   <string name="menu_preset_help">راهنمای پیش‌تنظیم</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">افزودن برچسب‌های زبان</string>
   <string name="tag_restriction_header">مقدار</string>
   <string name="tag_restriction_when">چه زمانی</string>
   <string name="tag_restriction_and">و</string>
@@ -952,6 +955,7 @@
   <string name="menu_join">پیوند</string>
   <string name="menu_unjoin">جداسازی</string>
   <string name="menu_copy">کپی</string>
+  <string name="menu_duplicate">تکرار</string>
   <string name="menu_cut">برش</string>
   <string name="menu_paste">درج</string>
   <string name="menu_paste_tags">درج برچسب‌ها</string>
@@ -1022,8 +1026,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">به‌کارگیری آفست ذخیره‌شده بر تصویر</string>
   <string name="menu_tools_background_contrast">پادنمایی</string>
-  <string name="menu_tools_oauth_reset">بازنشانی OAuth</string>
-  <string name="menu_tools_oauth_authorisation">احراز هویت OAuth</string>
   <string name="menu_enable_tagfilter">پالایهٔ برچسب</string>
   <string name="menu_enable_presetfilter">پالایهٔ پیش‌تنظیم</string>
   <string name="preset_menu_waynodes">شامل گره‌های راه</string>
@@ -1111,6 +1113,7 @@
   <string name="simple_paste">موقعیت موردنظر از صفحه را لمس کنید</string>
   <string name="menu_paste_multiple">درج چندین‌باره</string>
   <string name="simple_paste_multiple">موقعیت موردنظر از صفحه را لمس کنید</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">پس‌زمینهٔ نقشه</string>
   <string name="config_backgroundLayer_summary">پس‌زمینهٔ کاشی-پایهٔ نقشه</string>
@@ -1401,6 +1404,7 @@
   <string name="preset_download_parse_failed">پروندهٔ پیش‌تنظیم نامعتبر است. پیش‌تنظیم کار نخواهد کرد.</string>
   <string name="preset_download_missing_images">پروندهٔ پیش‌تنظیم بارگیری شد. البته چند شکلک ناموجود بارگیری نشد.</string>
   <string name="preset_download_title">بارگیری کنندهٔ پیش‌تنظیم</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">افزودن پیش‌تنظیم</string>
   <string name="urldialog_preset_exists">این پیش‌تنظیم از قبل وجود دارد</string>
@@ -1469,6 +1473,7 @@
   <string name="undo_action_move_tags">انتقال برچسب‌ها به رابطه</string>
   <string name="undo_action_cut">برش</string>
   <string name="undo_action_paste">درج</string>
+  <string name="undo_action_duplicate">تکرار</string>
   <string name="undo_action_orthogonalize">قائمه‌کردن راه</string>
   <string name="undo_action_circulize">چیدن روی دایره</string>
   <string name="undo_action_fix_conflict">حل تداخل</string>
@@ -1590,4 +1595,5 @@
   <string name="tile_decoding_failed">رمزگشایی کاشی انجام نشد</string>
   <string name="tile_success">موفقیت</string>
   <string name="tile_fail">شکست</string>
+  <string name="tile_unknown_error">خطای ناشناخته</string>
 </resources>

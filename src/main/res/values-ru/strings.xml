@@ -36,6 +36,8 @@
   <string name="unexpected_conflict_type">Неожиданный тип конфликта</string>
   <string name="delete_locally">Удалить\nлокально</string>
   <string name="undelete_on_server">Восстановить\nна сервере</string>
+  <!--Upload retry-->
+  <string name="save_changes">Сохранить изменения</string>
   <!---->
   <string name="no_login_data_title">Не удалось войти</string>
   <string name="no_login_data_message">Если вы используете OAuth, то это, вероятно, ошибка, пожалуйста, отправьте отчёт. Если вы используете логин и пароль (не рекомендуется), проверьте, что они введены корректно.</string>
@@ -107,7 +109,6 @@
   <string name="progress_loading_preset_message">Загрузка заготовки...</string>
   <string name="progress_importing_file_message">Импорт файла…</string>
   <string name="progress_running_message">В процессе...</string>
-  <string name="progress_oauth">Загружаю вашу учётную запись на openstreetmap.org для авторизации через OAuth...</string>
   <string name="progress_building_imagery_database">Подготовка базы снимков...</string>
   <string name="progress_query_oam">Выполняется запрос к OAM...</string>
   <string name="progress_pruning">Очистка...</string>
@@ -395,6 +396,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">Сетка</string>
   <string name="layer_bookmarks">Закладки</string>
   <string name="layer_gpx">GPX</string>
@@ -797,7 +799,6 @@
   <string name="menu_deselect_all">Снять выделение</string>
   <string name="menu_preset_help">Справка по заготовке</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">Добавить теги для разных языков</string>
   <string name="tag_restriction_header">Значение</string>
   <string name="tag_restriction_when">когда</string>
   <string name="tag_restriction_and">и</string>
@@ -934,6 +935,7 @@
   <string name="menu_join">Объединить</string>
   <string name="menu_unjoin">Разъединить</string>
   <string name="menu_copy">Копировать</string>
+  <string name="menu_duplicate">Продублировать</string>
   <string name="menu_cut">Вырезать</string>
   <string name="menu_paste">Вставить</string>
   <string name="menu_paste_tags">Вставить теги</string>
@@ -1003,8 +1005,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">Применить смещение к снимкам</string>
   <string name="menu_tools_background_contrast">Контраст</string>
-  <string name="menu_tools_oauth_reset">Сбросить OAuth</string>
-  <string name="menu_tools_oauth_authorisation">Авторизоваться через OAuth</string>
   <string name="menu_enable_tagfilter">Фильтр тегов</string>
   <string name="menu_enable_presetfilter">Фильтр заготовок</string>
   <string name="preset_menu_waynodes">Добавить точки линии </string>
@@ -1091,6 +1091,7 @@
   <string name="simple_paste">Нажмите на экран в нужном месте</string>
   <string name="menu_paste_multiple">Вставить несколько раз</string>
   <string name="simple_paste_multiple">Нажмите на экран в нужном месте</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Фоновая карта</string>
   <string name="config_backgroundLayer_summary">Растровая фоновая карта</string>
@@ -1358,6 +1359,7 @@
   <string name="preset_download_parse_failed">Некорректный файл заготовки. Заготовка не будет работать.</string>
   <string name="preset_download_missing_images">Заготовка загружена, но без некоторых значков.</string>
   <string name="preset_download_title">Загрузка заготовки</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Добавить заготовку</string>
   <string name="urldialog_preset_exists">Эта заготовка уже существует</string>
@@ -1422,6 +1424,7 @@
   <string name="undo_action_move_tags">Переместить тэги на отношение</string>
   <string name="undo_action_cut">Вырезать</string>
   <string name="undo_action_paste">Вставить</string>
+  <string name="undo_action_duplicate">Продублировать</string>
   <string name="undo_action_rotate">Поворот</string>
   <string name="undo_action_orthogonalize">Ортогонализация линии</string>
   <string name="undo_action_circulize">Выстроить в круг</string>
@@ -1531,4 +1534,5 @@
   <string name="relation_id">отношение %1$d</string>
   <!--Tile downloader diagnostics-->
   <string name="tile_success">Успех</string>
+  <string name="tile_unknown_error">Неизвестная ошибка</string>
 </resources>

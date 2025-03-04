@@ -35,6 +35,8 @@
   <string name="still_in_use_by_elements">Används fortfarande av element</string>
   <string name="delete_locally">Radera\nlokalt</string>
   <string name="undelete_on_server">Återskapa\npå server</string>
+  <!--Upload retry-->
+  <string name="save_changes">Spara ändringar</string>
   <!---->
   <string name="no_login_data_title">Kunde inte autentisera</string>
   <string name="no_login_data_message">Om du använder OAuth detta är sannolikt ett fel, skicka en felrapport, om du använder inloggning och lösenord (rekommenderas inte), kontrollera att de är korrekt inmatade.</string>
@@ -321,6 +323,7 @@
   <string name="created">Skapad</string>
   <string name="altitude">Höjd</string>
   <string name="create_osm_object">Skapa OSM-föremål</string>
+  <string name="waypoint_link">Anslutning</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Egen bild</string>
   <string name="select_layer_title">Välj lager</string>
@@ -344,6 +347,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">Rutnät</string>
   <string name="layer_bookmarks">Bokmärken</string>
   <string name="layer_gpx">GPX</string>
@@ -726,6 +730,7 @@
   <string name="menu_join">Anslut</string>
   <string name="menu_unjoin">Koppla loss</string>
   <string name="menu_copy">Kopiera</string>
+  <string name="menu_duplicate">Duplicera</string>
   <string name="menu_cut">Klipp ut</string>
   <string name="menu_paste">Klistra in</string>
   <string name="menu_paste_tags">Klistra in taggar</string>
@@ -775,8 +780,6 @@
   <string name="wms_hint">%1$s [wms]</string>
   <!---->
   <string name="menu_tools_background_contrast">Kontrast</string>
-  <string name="menu_tools_oauth_reset">Återställ OAuth</string>
-  <string name="menu_tools_oauth_authorisation">Bevilja OAuth</string>
   <string name="menu_enable_tagfilter">Taggfilter</string>
   <string name="menu_enable_presetfilter">Förinställt filter</string>
   <string name="preset_menu_waynodes">Inkludera väg-noder</string>
@@ -840,6 +843,7 @@
   <string name="menu_paste_object">Klistra in föremål</string>
   <string name="simple_paste">Tryck på skärmens position</string>
   <string name="simple_paste_multiple">Tryck på skärmens position</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kartans bakgrund</string>
   <string name="config_overlayLayer_title">Kartöverdrag</string>
@@ -993,6 +997,7 @@
   <string name="preset_download_failed">Det gick inte att hämta förinställd fil. Förinställningen fungerar inte.</string>
   <string name="preset_download_parse_failed">Den förinställda filen är ogiltig. Förinställningen fungerar inte.</string>
   <string name="preset_download_missing_images">Förinställd fil hämtad. Men några saknade ikoner hämtades inte.</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Lägg till förinställd</string>
   <string name="urldialog_preset_exists">Förinställningen existerar redan</string>
@@ -1047,6 +1052,7 @@
   <string name="undo_action_unjoin_ways">Vägseparering</string>
   <string name="undo_action_cut">Klipp ut</string>
   <string name="undo_action_paste">Klistra in</string>
+  <string name="undo_action_duplicate">Duplicera</string>
   <string name="undo_action_rotate">Rotering</string>
   <string name="undo_action_orthogonalize">Gör vinkelrät</string>
   <string name="undo_action_circulize">Arrangera i cirkel</string>
@@ -1141,4 +1147,5 @@
   <!--Tile downloader diagnostics-->
   <string name="tile_success">Lyckat</string>
   <string name="tile_fail">Misslyckat</string>
+  <string name="tile_unknown_error">Okänt fel</string>
 </resources>

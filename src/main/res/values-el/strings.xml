@@ -45,6 +45,8 @@
   <string name="still_in_use_by_elements">Ακόμη σε χρήση από στοιχεία</string>
   <string name="delete_locally">Διαγραφή\nτοπικά</string>
   <string name="undelete_on_server">Αναίρεση διαγραφής\nστο διακομιστή</string>
+  <!--Upload retry-->
+  <string name="save_changes">Αποθήκευση αλλαγών</string>
   <!---->
   <string name="no_login_data_title">Δεν ήταν δυνατή η πιστοποίηση</string>
   <string name="no_connection_title">Δεν υπάρχει σύνδεση με το διακομιστή</string>
@@ -84,7 +86,6 @@
   <string name="progress_preset_message">Προεπιλεγμένη λήψη...</string>
   <string name="progress_importing_file_message">Γίνεται εισαγωγή αρχείου...</string>
   <string name="progress_running_message">Λειτουργία...</string>
-  <string name="progress_oauth">Φόρτωση του λογαριασμού σας στο openstreetmap.org για εξουσιοδότηση του OAuth...</string>
   <string name="progress_building_imagery_database">Κατασκευή εικονικής βάσης δεδομένων...</string>
   <string name="progress_pruning">Κλάδεμα...</string>
   <!--Confirm upload dialog-->
@@ -288,6 +289,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">Πλέγμα</string>
   <string name="layer_bookmarks">Σελιδοδείκτες</string>
   <string name="layer_gpx">GPX</string>
@@ -680,8 +682,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">Εφαρμογή αποθηκευμένης μετατόπισης στις εικόνες</string>
   <string name="menu_tools_background_contrast">Αντίθεση</string>
-  <string name="menu_tools_oauth_reset">Επαναφορά του OAuth</string>
-  <string name="menu_tools_oauth_authorisation">Εξουσιοδότηση του OAuth</string>
   <string name="menu_enable_tagfilter">Φίλτρο ετικέτας</string>
   <string name="menu_enable_presetfilter">Προρυθμισμένο φίλτρο</string>
   <string name="preset_menu_waynodes">Συμπεριλάβετε κόμβους διαδρομών</string>
@@ -730,6 +730,7 @@
   <string name="menu_add_map_note">Προσθήκη σημείωσης χάρτη</string>
   <string name="menu_paste_object">Επικόλληση αντικειμένου</string>
   <string name="menu_paste_multiple">Επιικόλληση πολλαπλές φορές</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Παρασκήνιο χάρτη</string>
   <string name="config_backgroundLayer_summary">Φόντο χάρτη με βάση τα πλακίδια</string>
@@ -864,6 +865,7 @@
   <string name="preset_update">Ενημέρωση προκαθορισμένων</string>
   <string name="preset_download_parse_failed">Το προκαθορισμένο αρχείο δεν είναι έγκυρο. Το προκαθορισμένο δεν θα λειτουργήσει.</string>
   <string name="preset_download_title">Προκαθορισμένο πρόγραμμα λήψης</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Προσθήκη Προκαθορισμένου</string>
   <string name="urldialog_preset_exists">Αυτή η προκαθορισμένη ρύθμιση υπάρχει ήδη</string>
@@ -1013,4 +1015,5 @@
   <string name="diagnostics_for_tile">Διαγνωστικά για %1$s</string>
   <string name="tile_success">Επιτυχία</string>
   <string name="tile_fail">Αποτυχία</string>
+  <string name="tile_unknown_error">Άγνωστο σφάλμα</string>
 </resources>

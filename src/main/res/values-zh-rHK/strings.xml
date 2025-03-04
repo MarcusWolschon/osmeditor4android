@@ -19,6 +19,8 @@
   <string name="upload_conflict_title">上傳衝突</string>
   <string name="upload_conflict_message_version">版本衝突</string>
   <string name="upload_conflict_message_deleted">%1$s \n持有的本機版本 %2$d \n且在伺服器上已被刪除</string>
+  <!--Upload retry-->
+  <string name="save_changes">儲存變更</string>
   <!---->
   <string name="no_login_data_title">驗証失敗</string>
   <string name="no_login_data_message">如果您正在使用 OAuth 這可能是一項錯誤，請發送錯誤問題報告。如果用密碼登入 (不推薦)，請檢查是否輸入正確。</string>
@@ -71,7 +73,6 @@
   <string name="progress_uploading_message">上傳中...</string>
   <string name="progress_preset_message">下載預設組合</string>
   <string name="progress_running_message">運作中...</string>
-  <string name="progress_oauth">在 openstreetmap.org 載入您的帳號，為 OAuth 授權...</string>
   <string name="progress_building_imagery_database">建構圖像資料庫...</string>
   <string name="progress_query_oam">正在查詢 OAM ...</string>
   <!--Confirm upload dialog-->
@@ -260,6 +261,7 @@
   <string name="json_array_not_displayed">JSON 陣列 (未顯示)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_panoramax">Panoramax 全景</string>
   <string name="layer_grid">網格</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">照片</string>
@@ -624,8 +626,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">套用儲存的影像偏移值</string>
   <string name="menu_tools_background_contrast">對比</string>
-  <string name="menu_tools_oauth_reset">重置 OAuth</string>
-  <string name="menu_tools_oauth_authorisation">授權 OAuth</string>
   <string name="menu_enable_tagfilter">標籤篩選</string>
   <string name="menu_enable_presetfilter">預置篩選</string>
   <string name="preset_menu_waynodes">包括路徑節點</string>
@@ -679,6 +679,7 @@
   <string name="simple_paste">點螢幕位置</string>
   <string name="menu_paste_multiple">貼上多次時間</string>
   <string name="simple_paste_multiple">點螢幕位置</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">地圖背景</string>
   <string name="config_backgroundLayer_summary">圖層為基礎的地圖背景。</string>
@@ -862,6 +863,7 @@
   <string name="preset_download_parse_failed">預置檔案無效。預置將無法工作。</string>
   <string name="preset_download_missing_images">預載檔案已經下載，然後遺失的的圖示還未下載。</string>
   <string name="preset_download_title">預置下載器</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">增加預置</string>
   <string name="urldialog_preset_exists">此預置已存在</string>
@@ -994,4 +996,5 @@
   <string name="element_type_relation">關係</string>
   <!--Element names with id-->
   <!--Tile downloader diagnostics-->
+  <string name="tile_unknown_error">未知的錯誤</string>
 </resources>

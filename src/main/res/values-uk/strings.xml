@@ -46,6 +46,8 @@
   <string name="still_in_use_by_elements">Ще використовується елементами</string>
   <string name="delete_locally">Видалити\nлокально</string>
   <string name="undelete_on_server">Відновити\nна сервері</string>
+  <!--Upload retry-->
+  <string name="save_changes">Зберегти зміни</string>
   <!---->
   <string name="no_login_data_title">Не вдалося перевірити автентичність</string>
   <string name="no_login_data_message">Якщо Ви використовуєте OAuth, то це ймовірно помилка, будь ласка, відправте звіт про помилку.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
@@ -145,7 +147,6 @@
   <string name="progress_loading_preset_message">Завантаження заготовки…</string>
   <string name="progress_importing_file_message">Імпортується файл…</string>
   <string name="progress_running_message">Запуск…</string>
-  <string name="progress_oauth">Завантаження вашого облікового запису з osm.org для OAuth-авторизації…</string>
   <string name="progress_building_imagery_database">Створення бази даних фонів…</string>
   <string name="progress_query_oam">Отримання даних з OAM…</string>
   <string name="progress_pruning">Обрізка…</string>
@@ -365,7 +366,7 @@
   <string name="console_output_hint">Результат показуватиметься тут</string>
   <string name="save_code">Зберегти код...</string>
   <string name="load_code">Завантажити код...</string>
-  <string name="share_code">Поділіться кодом...</string>
+  <string name="share_code">Поділитись кодом...</string>
   <!--Overpass console-->
   <string name="run">Старт</string>
   <string name="overpass_result">Завантажено %1$d точок, %2$d ліній та %3$d зв\'язків.</string>
@@ -458,6 +459,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">Сітка</string>
   <string name="layer_bookmarks">Закладки</string>
   <string name="layer_gpx">GPX</string>
@@ -524,7 +526,6 @@
   <string name="tag_conflict_title">Властивості змінено</string>
   <string name="tag_conflict_message">Операція вимагала зміни властивостей у залучених елементів.</string>
   <string name="replace_geometry_issue_title">Елемент змінено</string>
-  <string name="replace_geometry_issue_message">Операція вимагала зміни позиції або приналежності елементів.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Немає відповідних зв\'язків у завантажених даних</string>
   <string name="select_route_title">Обрати маршрут</string>
@@ -911,7 +912,6 @@
   <string name="menu_deselect_all">Скинути виділення</string>
   <string name="menu_preset_help">Довідка заготовки</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">Додати мовні теги</string>
   <string name="tag_restriction_header">Значення</string>
   <string name="tag_restriction_when">коли</string>
   <string name="tag_restriction_and">та</string>
@@ -1055,6 +1055,7 @@
   <string name="menu_join">Об\'єднати</string>
   <string name="menu_unjoin">Роз\'єднати</string>
   <string name="menu_copy">Копіювати</string>
+  <string name="menu_duplicate">Дублювати</string>
   <string name="menu_cut">Вирізати</string>
   <string name="menu_paste">Вставити</string>
   <string name="menu_paste_tags">Вставити теґи</string>
@@ -1134,8 +1135,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">Застосувати збережене зміщення</string>
   <string name="menu_tools_background_contrast">Контраст</string>
-  <string name="menu_tools_oauth_reset">Скинути OAuth</string>
-  <string name="menu_tools_oauth_authorisation">Авторизувати OAuth</string>
   <string name="menu_enable_tagfilter">Фільтр теґів</string>
   <string name="menu_enable_presetfilter">Фільтр заготовок</string>
   <string name="preset_menu_waynodes">Включіти точки лінії</string>
@@ -1228,6 +1227,7 @@
   <string name="simple_paste">Торкніться екрана</string>
   <string name="menu_paste_multiple">Вставити кілька разів</string>
   <string name="simple_paste_multiple">Торкніться екрана</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Фон мапи</string>
   <string name="config_backgroundLayer_summary">Растрова фонова мапа.</string>
@@ -1314,6 +1314,7 @@
   <string name="config_maxInlineValues_current">%1$d значення</string>
   <string name="config_autoLockDelay_title">Час очікування перед автоблокуванням</string>
   <string name="config_autoLockDelay_summary">Кількість секунд для очікування перед автоблокуванням, 0 вимикає його.</string>
+  <string name="config_autoLockDelay_current">%1$d с</string>
   <string name="config_enableAntiAliasing_title">Увімкнути згладжування</string>
   <string name="config_enableAntiAliasing_summary">Згладжує лінії.</string>
   <string name="config_enableHwAcceleration_title">Увімкнути апаратне прискорення</string>
@@ -1354,6 +1355,7 @@
   <string name="config_address_tags_summary">Теґи, що використовуються для пропонування адрес</string>
   <string name="config_neighbourDistance_title">Відстань між сусідніми адресами</string>
   <string name="config_neighbourDistance_summary">Відстань, на якій дві адреси вважаються потенційними сусідами</string>
+  <string name="config_neighbourDistance_current">%1$d метрів</string>
   <string name="config_enableNameSuggestions_title">Дозволити пропозиції назв</string>
   <string name="config_enableNameSuggestions_summary">Включити пропозицію для теґа назви</string>
   <string name="config_enableNameSuggestionsPresets_title">Увімкнути пресети пропозицій імен</string>
@@ -1363,11 +1365,13 @@
   <string name="config_generateAlerts_title">Створювати повідомлення</string>
   <string name="config_generateAlerts_summary">Повідомляти про проблемні дані чи нотатки</string>
   <string name="config_groupAlertsOnly_title">Лише групові сповіщення</string>
+  <string name="config_groupAlertsOnly_summary">Створюйте сповіщення (аудіо) для груп сповіщень лише один раз</string>
   <string name="config_notificationCacheSize_title">Макс.  кількість відображених сповіщень</string>
   <string name="config_notificationCacheSize_summary">Максимальна кількість відображених сповіщень за типом (мін. 1).</string>
   <string name="config_notificationCacheSize_current">%1$d Сповіщення</string>
   <string name="config_maxAlertDistance_title">Максимальна відстань для повідомлень</string>
   <string name="config_maxAlertDistance_summary">Максимальна відстань до проблеми або нотатки від поточного місця для створення повідомлення</string>
+  <string name="config_maxAlertDistance_current">%1$d метрів</string>
   <string name="config_closeChangesetOnSave_title">Закривати набори змін</string>
   <string name="config_closeChangesetOnSave_summary">Типово закривати набори змін під час збереження</string>
   <string name="config_enableAutoPresets_title">Увімкнути автоматичне створення пресетів</string>
@@ -1378,27 +1382,35 @@
   <string name="config_autoformatPhoneNumbers_summary">Увімкнути автоматичне форматування телефонних номерів</string>
   <string name="config_maxOffsetDistance_title">Максимальна відстань для збережених зсувів зображень</string>
   <string name="config_maxOffsetDistance_summary">Буде автоматично застосовано найвіддаленішу відстань, на яку буде зміщено шар, що зберігається локально.</string>
+  <string name="config_maxOffsetDistance_current">%1$d метрів</string>
   <string name="config_useImperialUnits_title">Використовувати імперські одиниці для вимірювання</string>
   <string name="config_useImperialUnits_summary">Використовувати імперські одиниці для вимірювання в країнах, де вони зазвичай використовуються.</string>
   <string name="config_minCircleNodes_title">Мінімальна кількість точок у колі</string>
   <string name="config_minCircleNodes_summary">Мінімальна кількість точок, до яких слід прагнути в колі.</string>
+  <string name="config_minCircleNodes_current">%1$d точок</string>
   <string name="config_maxCircleSegment_title">Максимальна довжина сегмента кола</string>
   <string name="config_maxCircleSegment_summary">Максимальна відстань між двома точками кола.</string>
+  <string name="config_maxCircleSegment_current">%1$d метрів</string>
   <string name="config_minCircleSegment_title">Мінімальна довжина сегмента кола</string>
   <string name="config_minCircleSegment_summary">Мінімальна відстань між двома точками кола.</string>
+  <string name="config_minCircleSegment_current">%1$d метрів</string>
   <string name="config_replaceTolerance_title">Максимальна відстань до переміщення тегованої точки</string>
   <string name="config_replaceTolerance_summary">Максимальна відстань, на яку потрібно перемістити теговану точку під час заміни геометрії лінії.</string>
+  <string name="config_replaceTolerance_current">%1$d метрів</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Налаштування автозавантаження</string>
   <string name="config_category_auto_download_summary">Налаштування автоматичного завантаження даних і завдань</string>
   <string name="config_extTriggeredDownloadRadius_title">Радіус завантаження</string>
   <string name="config_extTriggeredDownloadRadius_summary">Радіус (м)  для розширення ділянки завантаження, 0 - центр мапи.</string>
+  <string name="config_downloadRadius_current">%1$d метрів</string>
   <string name="config_maxDownloadSpeed_title">Максимальна швидкість авто-завантаження</string>
   <string name="config_maxDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження призупиняється</string>
+  <string name="config_downloadSpeed_current">%1$d км/г</string>
   <string name="config_autoPruneNodeLimit_title">Ліміт автоматичного скорочення</string>
   <string name="config_autoPruneNodeLimit_summary">Кількість Точок у пам’яті, досягнення якої ініціює видалення.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d Точки</string>
   <string name="config_autoPruneBoundingBoxLimit_title">Автопідбір ліміту обмежувальних рамок</string>
+  <string name="config_autoPruneBoundingBoxLimit_summary">Кількість обмежувальних рамок у пам\'яті, досягнення яких спричинить обрізання.</string>
   <string name="config_panAndZoomLimit_title">Обмеження масштабу</string>
   <string name="config_panAndZoomLimit_summary">Мінімальний рівень масштабування для панорамування та автозавантаження.</string>
   <string name="config_bugFilter_title">Фільтр завдань</string>
@@ -1409,6 +1421,7 @@
   <string name="config_maxBugDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження нотаток/помилок призупиняеться</string>
   <string name="config_autoPruneTaskLimit_title">Ліміт автозапуску завдань</string>
   <string name="config_autoPruneTaskLimit_summary">Кількість завдань у пам\'яті, при досягненні якої спрацьовує обрізка.</string>
+  <string name="config_autoPruneTaskLimit_current">%1$d Завдань</string>
   <!--Location Settings-->
   <string name="config_category_gps">Налаштування розташування</string>
   <string name="config_category_gps_summary">Параметри GPS/GNSS та інші постачальники даних про місцезнаходження.</string>
@@ -1420,16 +1433,21 @@
   <string name="config_gps_interval_summary">Мінімальний інтервал часу для сповіщень про місцезнаходження GPS/GNSS у мілісекундах.  Нижчі значення споживають більше акумулятора.</string>
   <string name="config_gps_distance_title">Мінімальна відстань GPS/GNSS</string>
   <string name="config_gps_distance_summary">Мінімальна відстань для сповіщень GPS/GNSS у метрах.  Нижчі значення споживають більше акумулятора.</string>
+  <string name="config_gps_distance_current">%1$d метрів</string>
   <string name="config_leaveGpsDisabled_title">Залишити GPS вимкненим</string>
   <string name="config_leaveGpsDisabled_summary">Не пропонувати включати GPS, коли він відключений</string>
   <string name="config_gps_network_title">Повернення до мережевого розташування</string>
   <string name="config_gps_network_summary">Якщо позиціонування GPS/GNSS відсутнє або ввімкнено, зверніться до постачальника мережі.</string>
+  <string name="config_gnssTimeToStale_title">Застаріле розташування після</string>
   <string name="config_gnssTimeToStale_summary">Час (у секундах), за який місцезнаходження має вважатися застарілим.</string>
+  <string name="config_gnssTimeToStale_current">%1$d с</string>
+  <string name="config_useBarometricHeight_title">Використовувати барометричну висоту</string>
   <string name="config_useBarometricHeight_summary">Використовувати значення висоти в треку з датчика тиску повітря, якщо є в наявності</string>
   <!--Server Settings-->
   <string name="config_category_server">Налаштування сервера</string>
   <string name="config_category_server_summary">OSM API та налаштування інших серверів.</string>
   <string name="config_apibutton_title">URL для API OpenStreetMap</string>
+  <string name="config_apibutton_summary">Налаштувати URL-адресу та метод автентифікації для OSM API, який ви використовуєте</string>
   <string name="config_loginbutton_title">Обліковий запис</string>
   <string name="config_username_summary">Вам потрібна лише конфігурація для завантаження даних OSM, якщо ви не використовуєте OAuth.  Отримайте обліковий запис на https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">Сервер зміщень</string>
@@ -1438,8 +1456,15 @@
   <string name="config_osmoseServer_summary">URL для сервера OSMOSE.</string>
   <string name="config_geocoderbutton_title">Налаштувати геокодери</string>
   <string name="config_geocoderbutton_summary">Додавайте, редагуйте, видаляйте геокодери для функціональності пошуку.</string>
+  <string name="config_taginfoServer_title">Сервер Taginfo</string>
+  <string name="config_taginfoServer_summary">Сервер Taginfo для генерації пресетів</string>
+  <string name="config_overpassServer_title">Overpass сервер</string>
+  <string name="config_overpassServer_summary">Сервер Overpass, що використовується для запитів</string>
+  <string name="config_oamServer_title">Сервер OpenAerialMap</string>
+  <string name="config_oamServer_summary">Сервер OpenAerialMap, що використовується для надання зображень</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Завантаження та зберігання шарів</string>
+  <string name="config_category_layers_summary">Завантаження та зберігання фонових зображень на основі плиток.</string>
   <string name="config_maxTileDownloadThreads_title">Макс.  кількість потоків завантаження</string>
   <string name="config_maxTileDownloadThreads_summary">Максимальна кількість потоків для завантаження тайлів</string>
   <string name="config_tileCacheSize_title">Розмір кешу</string>
@@ -1465,7 +1490,7 @@
   <string name="config_showStats_title">Показати статистику</string>
   <string name="config_showStats_summary">Відображати статистику даних і FPS в нижньому лівому куті.</string>
   <!--Experimental-->
-  <string name="config_category_experimental">Експериментальний</string>
+  <string name="config_category_experimental">Експериментальні</string>
   <string name="config_js_console_title">Відкрити JS консоль</string>
   <string name="config_js_console_summary">Зробіть JS-консоль доступною в режимі \"live\"</string>
   <string name="config_voiceCommandsEnabled_title">Задіяти голосові команди</string>
@@ -1486,6 +1511,7 @@
   <string name="preset_download_parse_failed">Заготовка пошкоджена. Вона не працюватиме.</string>
   <string name="preset_download_missing_images">Файл заготовки успішно завантажено. Але, деякі значки неможливо завантажити і вони не будуть показані.</string>
   <string name="preset_download_title">Завантажувач заготовок</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Додати заготовку</string>
   <string name="urldialog_preset_exists">Ця заготовка вже існує</string>
@@ -1548,6 +1574,7 @@
   <string name="undo_action_move_tags">Перемістити теги до Зв\'язку</string>
   <string name="undo_action_cut">Вирізати</string>
   <string name="undo_action_paste">Вставити</string>
+  <string name="undo_action_duplicate">Дублювати</string>
   <string name="undo_action_orthogonalize">Ортогоналізувати лінію</string>
   <string name="undo_action_circulize">Вирівняти по колу</string>
   <string name="undo_action_fix_conflict">Розвʼязання конфліктів</string>
@@ -1645,4 +1672,5 @@
   <!--Element names with id-->
   <string name="relation_id">зв\'язок %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="tile_unknown_error">Невідома помилка</string>
 </resources>

@@ -21,6 +21,8 @@
   <string name="upload_conflict_message_version">تعارض الإصدار</string>
   <string name="upload_conflict_message_deleted">%1$s\nيحتوي على إصدار محلي%2$d \n وهو محذوف على الخادم</string>
   <string name="upload_conflict_message_unknown">%1$s \nوهذا تسبب في تعارض رفع غير معروف \n%2$s</string>
+  <!--Upload retry-->
+  <string name="save_changes">حفظ التغييرات</string>
   <!---->
   <string name="no_login_data_title">تعذرت المصادقة</string>
   <string name="no_login_data_message">إذا كنت تستخدم OAuth، فمن المحتمل أن يكون هذا خطأ، فالرجاء إرسال تقرير بهذه المشكلة، وإذا كنت تستخدم تسجيل الدخول وكلمة المرور (غير مستحسن)، فيرجى التحقق من إدخالهما بشكل صحيح.</string>
@@ -84,7 +86,6 @@
   <string name="progress_loading_preset_message">جارٍ تحميل قوالب الوسوم...</string>
   <string name="progress_importing_file_message">جارٍ استيراد الملف ...</string>
   <string name="progress_running_message">تشغيل...</string>
-  <string name="progress_oauth">تحميل حسابك على openstreetmap.org للحصول على تفويض OAuth...</string>
   <string name="progress_building_imagery_database">إنشاء قاعدة بيانات الصور...</string>
   <string name="progress_query_oam">يتم الآن الاستعلام عن OAM...</string>
   <string name="progress_pruning">جارٍ التقليم …</string>
@@ -367,6 +368,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">بانوراماكس</string>
   <string name="layer_grid">المسطرة</string>
   <string name="layer_bookmarks">المفضلات</string>
   <string name="layer_gpx">GPX</string>
@@ -785,7 +787,6 @@
   <string name="menu_deselect_all">الغاء تحديد الكل</string>
   <string name="menu_preset_help">مساعدة للإعدادات القالب</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">أضف الوسوم الخاصة باللغة</string>
   <string name="tag_restriction_header">قيمة</string>
   <string name="tag_restriction_when">متي</string>
   <string name="tag_restriction_and">و</string>
@@ -990,8 +991,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">تطبيق الإزاحة المخزنة على الصور</string>
   <string name="menu_tools_background_contrast">التباين</string>
-  <string name="menu_tools_oauth_reset">إعادة تعيين OAuth</string>
-  <string name="menu_tools_oauth_authorisation">تفويض OAuth</string>
   <string name="menu_enable_tagfilter">تصفية الوسوم</string>
   <string name="menu_enable_presetfilter">تصفية حسب القالب</string>
   <string name="preset_menu_waynodes">تضمين عقد الطريق</string>
@@ -1080,6 +1079,7 @@
   <string name="simple_paste">اضغط على موضع الشاشة</string>
   <string name="menu_paste_multiple">الصق عناصر متعددة</string>
   <string name="simple_paste_multiple">انقر على موضع الشاشة</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">خلفية الخريطة</string>
   <string name="config_backgroundLayer_summary">خلفية الخريطة المستندة إلى صور متجانبة.</string>
@@ -1346,6 +1346,7 @@
   <string name="preset_download_parse_failed">ملف القالب غير صالح.  لن يعمل القالب.</string>
   <string name="preset_download_missing_images">تم تنزيل ملف القالب  ومع ذلك بعض الرموز لم يتم إنزالها.</string>
   <string name="preset_download_title">أداة تنزيل القالب</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">أضف القالب</string>
   <string name="urldialog_preset_exists">هذا القالب موجود بالفعل</string>
@@ -1537,4 +1538,5 @@
   <string name="way_id">الخط %1$d</string>
   <string name="relation_id">العلاقة %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="tile_unknown_error">خطأ غير معروف</string>
 </resources>

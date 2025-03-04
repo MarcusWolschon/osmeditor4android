@@ -24,6 +24,8 @@
   <string name="server_side_object">Sunucu sürümü</string>
   <string name="local_object">Yerel sürümü</string>
   <string name="resolve">Çöz</string>
+  <!--Upload retry-->
+  <string name="save_changes">Değişiklikleri kaydet</string>
   <!---->
   <string name="no_login_data_title">Doğrulanamadı</string>
   <string name="no_login_data_message">Eğer OAuth kullanıyorsanız, bu muhtemelen bir hatadır, lütfen bir sorun raporu gönderin, giriş ve şifre kullanıyorsanız (önerilmez), lütfen bunların doğru girilip girilmediğini kontrol edin.</string>
@@ -82,7 +84,6 @@
   <string name="progress_uploading_message">Yükleniyor...</string>
   <string name="progress_preset_message">Ön ayarları indiriliyor...</string>
   <string name="progress_running_message">Çalıştırılıyor...</string>
-  <string name="progress_oauth">OAuth yetkilendirmesi için hesabınız openstreetmap.org\'a yükleniyor…</string>
   <string name="progress_building_imagery_database">Görüntü veritabanı oluşturuluyor…</string>
   <string name="progress_query_oam">OAM sorgulanıyor</string>
   <string name="progress_pruning">Budanıyor...</string>
@@ -638,7 +639,6 @@
   <string name="menu_deselect_all">Hepsinden seçimi kaldır</string>
   <string name="menu_preset_help">Öntanımlı yardımı</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">Dil etiketleri ekle</string>
   <string name="tag_restriction_header">Değer</string>
   <string name="tag_restriction_when">ne zaman</string>
   <string name="tag_restriction_and">ve</string>
@@ -763,6 +763,7 @@
   <string name="menu_join">Katıl</string>
   <string name="menu_unjoin">Ayrıl</string>
   <string name="menu_copy">Kopyala</string>
+  <string name="menu_duplicate">Tıpkısı</string>
   <string name="menu_cut">Kes</string>
   <string name="menu_paste">Yapıştır</string>
   <string name="menu_paste_tags">Etiketleri yapıştır</string>
@@ -815,8 +816,6 @@
   <!---->
   <string name="menu_tools_apply_local_offset">Kaydedilmiş ofseti görüntülere uygulayın</string>
   <string name="menu_tools_background_contrast">Karşıtlık</string>
-  <string name="menu_tools_oauth_reset">OAuth\'u sıfırla</string>
-  <string name="menu_tools_oauth_authorisation">OAuth\'u yetkilendir</string>
   <string name="menu_enable_tagfilter">Etiket süzgeci</string>
   <string name="menu_enable_presetfilter">Önayar filtresi</string>
   <string name="preset_menu_waynodes">Yol düğümlerini dahil et</string>
@@ -883,6 +882,7 @@
   <string name="simple_paste">Ekran konumuna dokunun</string>
   <string name="menu_paste_multiple">Birden fazla yapıştırın</string>
   <string name="simple_paste_multiple">Ekran konumuna dokunun</string>
+  <!---->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Harita arkaplanı</string>
   <string name="config_backgroundLayer_summary">Döşeme tabanlı harita arka planı.</string>
@@ -1101,6 +1101,7 @@
   <string name="preset_download_parse_failed">Öntanımlı dosya geçersiz. Öntanımlı çalışmayabilir.</string>
   <string name="preset_download_missing_images">Önayar dosyası indirildi. Ancak, bazı eksik simgeler yoktu.</string>
   <string name="preset_download_title">Önayar indirici</string>
+  <!--preset management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Önayar ekle</string>
   <string name="urldialog_preset_exists">Önayar zaten var</string>
@@ -1162,6 +1163,7 @@
   <string name="undo_action_update_relations">İlişki güncelleme</string>
   <string name="undo_action_cut">Kes</string>
   <string name="undo_action_paste">Yapıştır</string>
+  <string name="undo_action_duplicate">Tıpkısı</string>
   <string name="undo_action_orthogonalize">Yol kareleniyor</string>
   <string name="undo_action_circulize">Daire içinde düzenle</string>
   <string name="undo_action_fix_conflict">Çözünürlük çatışması</string>
@@ -1251,4 +1253,5 @@
   <string name="element_type_relation">küme</string>
   <!--Element names with id-->
   <!--Tile downloader diagnostics-->
+  <string name="tile_unknown_error">Bilinmeyen hata</string>
 </resources>
