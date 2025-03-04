@@ -1,5 +1,63 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.0.0-1:
+
+- Fix protect against NFEs when parsing mapbox-gl styles
+- Fix limit total number of nodes added to circle
+- Fix improve max way nodes handling handling when appending
+- Fix update offset display after zeroing offset
+- Fix never deadlock in onDraw
+- Fix improve interpolation in mapbox-gl styles
+- Fix improve element selection from FeatureInfo modal
+- Fix wrong handling of way nodes when converting GeoJson
+- Fix don't use threads for rendering
+- Fix enable DialogRows and not TextRows
+- Fix don't show background properties and background align entries for MVT
+- Fix don't allow deleting a preset if it is the sole active one
+- Fix avoid potential TTLE in ReviewAndUpload modal
+- Fix if everything else is the same, select older element as merge target
+- Fix remove all cookies stored by WebView after authorization this forces a relogin
+- Fix when replacing a node with a way, replace relation memberships too
+- Fix we were not recording imagery in two (minor) places
+- Add support compressed uploads on API instances that support it
+- Add allow empty ways in osmChange
+- Add make the timeout a per API entry value
+- Add if uploading fails determine status and offer a sensible action
+- Add display of the internal status to diagnostics for failed tiles
+- Add support pasting tags in multi-select mode
+- Add support undoing last paste in multiple paste mode
+- Add UI to select clipboard when pasting
+- Add support for multiple clipboards
+- Add allow both selecting the link text and clicking it in element info modal
+- Add support displaying the element info dialog in the property editor
+- Add support value_type="date" and a widget for entering them
+- Add multilingual variants for more tags, make menu item more prominent
+- Add automatically add an extension to files when saving if it is missing
+- Add rendering for natural=sand and beach
+- Add use area tags to improve type result from presets for validation
+- Add render symbol paths to a bitmap and cache that
+- Add support for a Panoramax layer
+- Add support selecting and uploading individual changes from the review modal
+- Add support converting a CSV file with coordinates to GeoJSON
+- Add support geo Uris as coordinate input format
+- Add support for "duplicate" function
+- Add store currently selected elements in undo checkpoint
+- Add railway=subway
+- Add improve railway=* rendering
+- Add don't force recreating layers if still available
+- Add display the actual host we are trying authorize with OAuth
+- Add show a different colour icon for skipped todos
+- Add support for Link elements in Waypoints
+- Add support displaying a warning when splitting an implied or explicit area
+- Add support extracting a segment from closed ways
+- Add support extracting way segments between two nodes
+- Add a preference to completely disable auto-pruning
+- Change separate copying tags to the internal and system clipboard
+- Change the default for hw acceleration on for Android 10 and later
+- Update default preset
+- Update translations
+- Update geocontext
+
 20.2.0:
 
 - Fix better detection of MVT layers from URL
