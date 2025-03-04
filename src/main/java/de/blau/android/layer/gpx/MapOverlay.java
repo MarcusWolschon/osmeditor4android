@@ -454,7 +454,7 @@ public class MapOverlay extends StyleableFileLayer
                         return ERROR;
                     }
                 }
-            }.execute().get(Server.TIMEOUT, TimeUnit.SECONDS) == OK; // result is not going to be null
+            }.execute().get(Server.DEFAULT_TIMEOUT, TimeUnit.SECONDS) == OK; // result is not going to be null
         } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR
             Log.e(DEBUG_TAG, e.getMessage());
             return false;

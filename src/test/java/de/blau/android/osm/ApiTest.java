@@ -40,16 +40,18 @@ import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.ShadowWorkManager;
 import de.blau.android.SignalUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.listener.UploadListener;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class ApiTest {
 
@@ -118,7 +120,7 @@ public class ApiTest {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         Logic logic = App.getLogic();
@@ -381,6 +383,7 @@ public class ApiTest {
 
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         try {
+            s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
         } catch (IOException e) {
             fail(e.getMessage());
@@ -420,6 +423,7 @@ public class ApiTest {
 
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         try {
+            s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, Util.wrapInList(n));
         } catch (IOException e) {
             fail(e.getMessage());
@@ -458,13 +462,13 @@ public class ApiTest {
         assertEquals(OsmElement.STATE_MODIFIED, n.getState());
 
         mockServer.enqueue(CAPABILITIES1_FIXTURE);
-        mockServer.enqueue(CAPABILITIES1_FIXTURE);
         mockServer.enqueue(CHANGESET1_FIXTURE);
         mockServer.enqueue(PARTIALUPLOAD_FIXTURE);
         mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
 
         final CountDownLatch signal2 = new CountDownLatch(1);
-        logic.upload(main, "TEST", "none", false, true, null, Util.wrapInList(n), new FailOnErrorHandler(signal2));
+        UploadListener.UploadArguments arguments = new UploadListener.UploadArguments("TEST", "none", false, true, null, Util.wrapInList(n));
+        logic.upload(main, arguments, new FailOnErrorHandler(signal2));
         runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
 
@@ -503,6 +507,7 @@ public class ApiTest {
 
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         try {
+            s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
         } catch (IOException e) {
             fail(e.getMessage());
@@ -552,6 +557,7 @@ public class ApiTest {
 
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         try {
+            s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, false, null, null);
         } catch (IOException e) {
             fail(e.getMessage());

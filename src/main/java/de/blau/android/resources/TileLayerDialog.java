@@ -487,8 +487,8 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 @Override
                 protected Void doInBackground(Void input) throws Exception {
                     // try to get info from network source
-                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                            .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
+                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                            .readTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS).build();
                     reader = new Reader(new OkHttpFileChannel(client, tileUrl));
                     json = reader.getMetadata();
                     return null;

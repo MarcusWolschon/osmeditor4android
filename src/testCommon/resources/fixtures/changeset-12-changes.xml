@@ -1,0 +1,12 @@
+<osm version="0.6" generator="CGImap 0.8.6 (2945667 spike-08.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+    <changeset id="120631739" created_at="2022-05-06T13:30:32Z" closed_at="2022-05-06T13:30:33Z" open="true" user="SimonPoole" uid="92387" min_lat="47.0623552" min_lon="7.2887929" max_lat="47.0760361" max_lon="7.2965233" comments_count="1" changes_count="12">
+        <tag k="changesets_count" v="0"/>
+        <tag k="warnings:crossing_ways:highway-waterway" v="1"/>
+        <tag k="imagery_used" v="swisstopo SWISSIMAGE;Mapillary Images;KartaView Images"/>
+        <tag k="source" v="streetlevel imagery;mapillary;aerial imagery"/>
+        <tag k="locale" v="en"/>
+        <tag k="host" v="https://www.openstreetmap.org/edit"/>
+        <tag k="created_by" v="iD 2.20.4"/>
+        <tag k="comment" v="Changed parking lot to pitch, fixed geometry a bit"/>
+    </changeset>
+</osm>

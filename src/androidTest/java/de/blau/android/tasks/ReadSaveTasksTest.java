@@ -46,6 +46,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.API.AuthParams;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -152,7 +153,7 @@ public class ReadSaveTasksTest {
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
         prefDB.selectAPI("Test");
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("notesDownload1");

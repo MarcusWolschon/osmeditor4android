@@ -16,6 +16,7 @@ import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Urls;
 import de.blau.android.prefs.API;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 
@@ -27,7 +28,8 @@ import de.blau.android.prefs.Preferences;
  */
 public class DownloadBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String DEBUG_TAG = DownloadBroadcastReceiver.class.getSimpleName().substring(0, Math.min(23, DownloadBroadcastReceiver.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = DownloadBroadcastReceiver.class.getSimpleName().substring(0,
+            Math.min(23, DownloadBroadcastReceiver.class.getSimpleName().length()));
 
     @Override
     public void onReceive(Context ctxt, Intent intent) {
@@ -48,7 +50,7 @@ public class DownloadBroadcastReceiver extends BroadcastReceiver {
                         processDownload(ctxt, queryCursor.getString(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI)));
                     }
                 }
-            } catch (Exception  ex) { // NOSONAR catch all errors here, see
+            } catch (Exception ex) { // NOSONAR catch all errors here, see
                 Log.e(DEBUG_TAG, ex.getMessage());
                 ScreenMessage.toastTopError(ctxt, ex.getMessage());
             }
@@ -112,7 +114,8 @@ public class DownloadBroadcastReceiver extends BroadcastReceiver {
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ctxt)) {
             if (db.getReadOnlyApiId(filename) == null) {
                 API current = db.getCurrentAPI();
-                db.addAPI(java.util.UUID.randomUUID().toString(), filename, current.url, uri.toString(), current.notesurl, "", "", current.auth);
+                db.addAPI(java.util.UUID.randomUUID().toString(), filename, current.url, uri.toString(), current.notesurl,
+                        new AuthParams(current.auth, "", "", null, null));
                 ScreenMessage.toastTopInfo(ctxt, ctxt.getString(R.string.toast_added_api_entry_for, filename));
             } else {
                 ScreenMessage.toastTopInfo(ctxt, ctxt.getString(R.string.toast_updated, filename));

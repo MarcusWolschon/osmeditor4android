@@ -35,6 +35,7 @@ import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.resources.TileLayerDatabase;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockWebServer;
@@ -72,7 +73,7 @@ public class GpxUploadTest {
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
         prefDB.selectAPI("Test");
         tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         prefs = new Preferences(main);

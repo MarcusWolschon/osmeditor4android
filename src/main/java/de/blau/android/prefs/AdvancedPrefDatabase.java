@@ -27,6 +27,7 @@ import de.blau.android.layer.LayerConfig;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.API.Auth;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
 import de.blau.android.propertyeditor.CustomPreset;
@@ -51,7 +52,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 17;
+    private static final int DATA_VERSION = 18;
 
     /** The ID string for the default API and the default Preset */
     public static final String ID_DEFAULT = "default";
@@ -81,6 +82,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private static final String READONLYURL_COL       = "readonlyurl";
     private static final String PASS_COL              = "pass";
     private static final String USER_COL              = "user";
+    private static final String TIMEOUT_COL           = "timeout";
 
     private static final String LAYERS_TABLE   = "layers";
     private static final String VISIBLE_COL    = "visible";
@@ -126,7 +128,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     @Override
     public synchronized void onCreate(SQLiteDatabase db) {
         db.execSQL(
-                "CREATE TABLE apis (id TEXT, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT)");
+                "CREATE TABLE apis (id TEXT, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT, timeout INTEGER DEFAULT "
+                        + Server.DEFAULT_TIMEOUT + ")");
         db.execSQL(
                 "CREATE TABLE presets (id TEXT, name TEXT, url TEXT, version TEXT DEFAULT NULL, shortdescription TEXT DEFAULT NULL, description TEXT DEFAULT NULL, lastupdate TEXT, data TEXT, position INTEGER DEFAULT 0, active INTEGER DEFAULT 0, usetranslations INTEGER DEFAULT 1)");
         db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
@@ -171,7 +174,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER, true);
         }
         if (oldVersion <= 8 && newVersion >= 9) {
-            addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, "", "", ID_SANDBOX, Auth.OAUTH1A);
+            addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, null, new AuthParams(Auth.OAUTH1A, "", "", null, null));
         }
         if (oldVersion <= 9 && newVersion >= 10) {
             db.execSQL("ALTER TABLE presets ADD COLUMN position INTEGER DEFAULT 0");
@@ -233,6 +236,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             db.execSQL("UPDATE apis SET oauth=" + oauth2 + ", accesstokensecret=NULL, accesstoken=NULL WHERE id='" + ID_DEFAULT + "' AND NOT oauth=" + oauth2);
             db.execSQL("UPDATE apis SET oauth=" + oauth2 + ", accesstokensecret=NULL, accesstoken=NULL WHERE id='" + ID_SANDBOX + "' AND NOT oauth=" + oauth2);
         }
+        if (oldVersion <= 17 && newVersion >= 18) {
+            db.execSQL("ALTER TABLE apis ADD COLUMN timeout INTEGER DEFAULT " + Server.DEFAULT_TIMEOUT);
+        }
     }
 
     @Override
@@ -256,9 +262,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         String user = sharedPrefs.getString(r.getString(R.string.config_username_key), "");
         String pass = sharedPrefs.getString(r.getString(R.string.config_password_key), "");
         Log.d(DEBUG_TAG, "Adding default URL with user '" + user + "'");
-        addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, user, pass, ID_DEFAULT, Auth.OAUTH2);
+        addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, null, new AuthParams(Auth.OAUTH2, user, pass, null, null));
         Log.d(DEBUG_TAG, "Adding default dev URL");
-        addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, "", "", ID_SANDBOX, Auth.OAUTH2);
+        addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, null, new AuthParams(Auth.OAUTH2, "", "", null, null));
         Log.d(DEBUG_TAG, "Selecting default API");
         selectAPI(db, ID_DEFAULT);
         Log.d(DEBUG_TAG, "Deleting old user/pass settings");
@@ -416,6 +422,20 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
+     * Sets timeout for the current API
+     * 
+     * @param timeout timeout in ms
+     */
+    public synchronized void setCurrentAPITimeout(int timeout) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TIMEOUT_COL, timeout);
+        db.update(APIS_TABLE, values, WHERE_ID, new String[] { currentAPI });
+        db.close();
+        resetCurrentServer();
+    }
+
+    /**
      * Add a new API with the given values to the API database
      * 
      * @param id the internal id for this entry
@@ -423,14 +443,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param url the read / write url
      * @param readonlyurl a read only url or null
      * @param notesurl a note url or null
-     * @param user OSM display name
-     * @param pass OSM password
-     * @param auth authentication method
+     * @param authParams authentication parameters
      */
     public synchronized void addAPI(@NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl, @Nullable String notesurl,
-            @Nullable String user, @Nullable String pass, @NonNull Auth auth) {
+            @NonNull AuthParams authParams) {
         SQLiteDatabase db = getWritableDatabase();
-        addAPI(db, id, name, url, readonlyurl, notesurl, user, pass, auth);
+        addAPI(db, id, name, url, readonlyurl, notesurl, authParams);
         db.close();
     }
 
@@ -443,21 +461,19 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param url the read / write url
      * @param readonlyurl a read only url or null
      * @param notesurl a note url or null
-     * @param user OSM display name
-     * @param pass OSM password
-     * @param auth authentication method
+     * @param authParams authentication parameters
      */
     private synchronized void addAPI(@NonNull SQLiteDatabase db, @NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl,
-            @Nullable String notesurl, @Nullable String user, @Nullable String pass, @NonNull Auth auth) {
+            @Nullable String notesurl, @NonNull AuthParams authParams) {
         ContentValues values = new ContentValues();
         values.put(ID_COL, id);
         values.put(NAME_COL, name);
         values.put(URL_COL, url);
         values.put(READONLYURL_COL, readonlyurl);
         values.put(NOTESURL_COL, notesurl);
-        values.put(USER_COL, user);
-        values.put(PASS_COL, pass);
-        values.put(AUTH_COL, auth.ordinal());
+        values.put(USER_COL, authParams.user);
+        values.put(PASS_COL, authParams.pass);
+        values.put(AUTH_COL, authParams.auth.ordinal());
         db.insert(APIS_TABLE, null, values);
     }
 
@@ -503,7 +519,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private synchronized API[] getAPIs(@NonNull SQLiteDatabase db, @Nullable String id) {
         Cursor dbresult = db.query(
                 APIS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, READONLYURL_COL, NOTESURL_COL, USER_COL, PASS_COL, "preset", "showicon", AUTH_COL,
-                        ACCESSTOKEN_COL, ACCESSTOKENSECRET_COL },
+                        ACCESSTOKEN_COL, ACCESSTOKENSECRET_COL, TIMEOUT_COL },
                 id == null ? null : WHERE_ID, id == null ? null : new String[] { id }, null, null, null, null);
         API[] result = new API[dbresult.getCount()];
         dbresult.moveToFirst();
@@ -514,8 +530,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             } catch (IndexOutOfBoundsException ex) {
                 Log.e(DEBUG_TAG, "No auth method for " + dbresult.getInt(9));
             }
-            result[i] = new API(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4),
-                    dbresult.getString(5), dbresult.getString(6), auth, dbresult.getString(10), dbresult.getString(11));
+            AuthParams authParams = new AuthParams(auth, dbresult.getString(5), dbresult.getString(6), dbresult.getString(10), dbresult.getString(11));
+            result[i] = new API(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4), authParams,
+                    dbresult.getInt(12));
             dbresult.moveToNext();
         }
         dbresult.close();

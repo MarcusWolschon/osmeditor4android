@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -26,7 +28,9 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public final class PresetLoader {
-    private static final String DEBUG_TAG = PresetLoader.class.getSimpleName().substring(0, Math.min(23, PresetLoader.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetLoader.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PresetLoader.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String FILE_NAME_TEMPORARY_ARCHIVE = "temp.zip";
 
@@ -52,8 +56,8 @@ public final class PresetLoader {
     public static int download(@NonNull String url, @NonNull File presetDir, @NonNull String filename) {
         Log.d(DEBUG_TAG, "Downloading " + url + " to " + presetDir + "/" + filename);
         Request request = new Request.Builder().url(url).build();
-        OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
+        OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                .readTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS).build();
         Call presetCall = client.newCall(request);
         try (Response presetCallResponse = presetCall.execute()) {
             if (presetCallResponse.isSuccessful()) {

@@ -35,10 +35,11 @@ import de.blau.android.exception.OsmServerException;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.API.AuthParams;
 import okhttp3.HttpUrl;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class ApiErrorTest {
 
@@ -110,9 +111,9 @@ public class ApiErrorTest {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
         prefDB.selectAPI("Test");
-        System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR        
+        System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         prefs = new Preferences(main);
         Logic logic = App.getLogic();
         logic.setPrefs(prefs);
@@ -233,6 +234,7 @@ public class ApiErrorTest {
 
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         try {
+            s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
             fail("Should have failed");
         } catch (OsmServerException e) {

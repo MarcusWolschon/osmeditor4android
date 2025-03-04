@@ -527,8 +527,8 @@ public class ImageryAlignmentActionModeCallback implements Callback {
                 Log.d(DEBUG_TAG, "urlString " + urlString);
 
                 Request request = new Request.Builder().url(urlString).build();
-                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
+                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                        .readTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS).build();
                 Call offsetListCall = client.newCall(request);
                 Response offestListCallResponse = offsetListCall.execute();
                 if (offestListCallResponse.isSuccessful()) {
@@ -646,8 +646,8 @@ public class ImageryAlignmentActionModeCallback implements Callback {
                 Log.d(DEBUG_TAG, "urlString " + urlString);
                 RequestBody reqbody = RequestBody.create(null, "");
                 Request request = new Request.Builder().url(urlString).post(reqbody).build();
-                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
+                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                        .readTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS).build();
                 Call offsetListCall = client.newCall(request);
                 Response offestListCallResponse = offsetListCall.execute();
                 if (!offestListCallResponse.isSuccessful()) {

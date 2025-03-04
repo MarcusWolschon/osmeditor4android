@@ -47,6 +47,7 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.API.AuthParams;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -80,7 +81,7 @@ public class NotesTest {
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
         prefDB.selectAPI("Test");
         prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
@@ -224,7 +225,7 @@ public class NotesTest {
 
         assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/openstreetbug_state", true));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.closed), true));
-        
+
         mockServer.enqueue("410"); // hidden note
         assertTrue(TestUtils.clickText(device, true, context.getString(R.string.transfer_download_current_upload), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_commit_ok), 5000));

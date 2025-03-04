@@ -39,6 +39,7 @@ import de.blau.android.osm.ApiTest.FailOnErrorHandler;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
 import de.blau.android.tasks.Task;
@@ -46,7 +47,7 @@ import de.blau.android.tasks.TransferTasks;
 import okhttp3.HttpUrl;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class NotesApiTest {
 
@@ -69,7 +70,7 @@ public class NotesApiTest {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         Logic logic = App.getLogic();
@@ -171,11 +172,11 @@ public class NotesApiTest {
             fail(e.getMessage());
         }
     }
-    
+
     /**
      * Add a comment to an existing note
      * 
-     * https://master.apis.dev.openstreetmap.org/api/0.6/notes/1/comment?text=New+comment 
+     * https://master.apis.dev.openstreetmap.org/api/0.6/notes/1/comment?text=New+comment
      */
     @Test
     public void addComment() {
@@ -200,7 +201,7 @@ public class NotesApiTest {
             fail(e.getMessage());
         }
     }
-    
+
     /**
      * Add a comment to an existing but closed note
      * 

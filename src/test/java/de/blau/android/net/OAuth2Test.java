@@ -31,6 +31,7 @@ import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.VespucciURLActivity;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import okhttp3.HttpUrl;
@@ -58,7 +59,7 @@ public class OAuth2Test {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, null, null, API.Auth.OAUTH2);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null,  new AuthParams(API.Auth.OAUTH2, null, null, null, null));
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

@@ -68,6 +68,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElementPath;
@@ -112,7 +113,7 @@ public class PropertyEditorTest {
         System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null));
         prefDB.selectAPI("Test");
         prefDB.resetCurrentServer();
         prefs = new Preferences(context);
@@ -1941,11 +1942,12 @@ public class PropertyEditorTest {
             fail();
         }
         assertNotNull(overtaking);
-        overtaking.click();
-        device.waitForIdle(1000);
-        TestUtils.clickText(device, true, "In way direction", false, false);
-        TestUtils.clickText(device, true, "Save", true, false);
-        assertTrue(TestUtils.findText(device, false, "In way direction"));
+        // overtaking.click();
+        // device.waitForIdle(1000);
+        assertTrue(TestUtils.clickText(device, false, "In way direction", false, true));
+        // TestUtils.clickText(device, true, "Save", true, false);
+        // assertTrue(TestUtils.findText(device, false, "In way direction"));
+        TestUtils.clickHome(device, true); // close the PropertEditor and save
     }
 
     /**

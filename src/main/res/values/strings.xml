@@ -49,6 +49,20 @@
     <string name="still_in_use_by_elements">Still in use by elements</string>
     <string name="delete_locally">Delete\nlocally</string>
     <string name="undelete_on_server">Undelete\non server</string>
+    <!-- Upload retry -->
+    <string name="upload_retry_title">Upload failed</string>
+    <string name="upload_retry_message_no_open_changeset">No open changeset. This shouldn\'t happen.</string>
+    <string name="upload_retry_message_unexpected_error">Unexpected error trying to determine status of changeset %1%d.</string>
+    <string name="upload_retry_message_no_changeset_status">Unable to determine status of changeset %1$d.\n\nWe suggest saving your changes as an OCS file and determining what to do when you have better reception.</string>
+    <string name="upload_retry_message_nothing_uploaded">No changes have been uploaded in changeset %1$d.\n\nIt is safe to retry.</string>
+    <string name="upload_retry_message_all_uploaded">Changes were uploaded sucessfully in changeset %1$d, but result was not received.\n\nHowever it seems as if all changes were uploaded, so you can safely discard you local changes and re-download.</string>
+    <string name="upload_retry_message_partial_upload">Changes were uploaded sucessfully in changeset %1$d, but result was not received.</string>
+    <string name="upload_retry_message_update_failed_title">Update failed</string>
+    <string name="upload_retry_message_update_failed">Unable to update data. We suggest saving your changes to a file for later use.</string>
+    <string name="redownload">Re-download (can\'t be undone)</string>
+    <string name="update_data">Update local data (can\'t be undone)</string>
+    <string name="save_changes">Save changes</string>
+    <string name="upload_retry_issue">Issue: %1$s</string>
     <!--  -->
     <string name="no_login_data_title">Could not authenticate</string>
     <string name="no_login_data_message">If you are using OAuth this is likely a bug, please send a problem report, if you are using login and password (not recommended), please check that they are entered correctly.</string>
@@ -169,6 +183,8 @@
     <string name="progress_query_oam">Querying OAM…</string>
     <string name="progress_pruning">Pruning…</string>
     <string name="progress_migration">Migrating…</string>
+    <string name="progress_determining_status_message">Determining status…</string>
+    <string name="progress_updating_message">Updating…</string>
     <!-- Confirm upload dialog -->
     <string name="changes_deleted">"%1$s" deleted</string>
     <string name="changes_changed">"%1$s" changed</string>

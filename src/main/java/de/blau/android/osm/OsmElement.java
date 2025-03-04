@@ -121,6 +121,8 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
     /**
      * Set the OSM id for this element
      * 
+     * This updates any relation member object that refer to this element
+     * 
      * @param osmId the id as a long
      */
     void setOsmId(final long osmId) {
