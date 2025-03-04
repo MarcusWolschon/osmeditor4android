@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="http://172.16.2.51/help/en/13.1.0%20Release%20notes/">
+        <link rel="canonical" href="http://172.16.2.51/help/en/21.0.0%20Release%20notes/">
       
       
-        <link rel="prev" href="../14.0.0%20Release%20notes/">
+        <link rel="prev" href="../../../tutorials/features/">
       
       
-        <link rel="next" href="../13.0.0%20Release%20notes/">
+        <link rel="next" href="../20.2.0%20Release%20notes/">
       
       
       <link rel="icon" href="../../../favicon.ico">
@@ -24,7 +24,7 @@
     
     
       
-        <title>13.1.0 Release notes - Vespucci</title>
+        <title>21.0.0 Release notes - Vespucci</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#vespucci-131-highlights" class="md-skip">
+        <a href="#vespucci-210-beta-highlights" class="md-skip">
           Skip to content
         </a>
       
@@ -233,7 +233,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              13.1.0 Release notes
+              21.0.0 Release notes
             
           </span>
         </div>
@@ -406,10 +406,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../21.0.0%20Release%20notes/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    21.0.0 Release notes
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -418,6 +438,248 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#panoramax-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panoramax support
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#improved-locking-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      Improved locking behaviour
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retry-a-failed-upload-and-support-for-compressed-uploads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retry a failed upload and support for compressed uploads
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-osm-element-clipboards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple OSM element clipboards
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#duplicate-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Duplicate elements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-selective-upload-from-review-modal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support selective upload from review modal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extract-segment-from-way-between-two-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extract segment from way between two nodes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-behaviour-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other behaviour changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Other behaviour changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-hardware-rendering-on-android-10-and-later" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use hardware rendering on Android 10 and later
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copying-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copying tags
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paste-tags-in-multi-select-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Paste tags in multi-select mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#element-info-modal-available-in-the-property-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Element info modal available in the property editor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-tags-with-multi-lingual-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      More tags with multi-lingual variants
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatically-add-an-appropriate-extension-when-saving-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automatically add an appropriate extension when saving files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improve-validation-for-area-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Improve validation for area objects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-state-stored-in-undo-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selection state stored in undo checkpoints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#splitting-an-explicit-or-implied-area-shows-a-warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Splitting an explicit or implied area shows a warning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completely-disable-auto-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completely disable auto-pruning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-csv-file-to-geojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convert CSV file to GeoJSON
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpx-waypoints-support-for-link-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPX waypoints support for link objects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#different-colour-icon-for-skipped-todos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Different colour icon for skipped todos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-to-render-gpx-tracks-with-multiple-threads-removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code to render GPX tracks with multiple threads removed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-value-type-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset value type date
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscellaneous" class="md-nav__link">
+    <span class="md-ellipsis">
+      Miscellaneous
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -805,30 +1067,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    13.1.0 Release notes
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../13.1.0%20Release%20notes/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -837,116 +1079,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#updated-opening-hours-editor" class="md-nav__link">
-    <span class="md-ellipsis">
-      Updated opening hours editor
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#use-of-saf-file-picker-for-android-kitkat-and-later" class="md-nav__link">
-    <span class="md-ellipsis">
-      Use of SAF file picker for Android KitKat and later
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#download-offline-data-directly-with-automatic-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Download offline data directly with automatic configuration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#support-for-multi-line-comments-and-source-in-the-upload-dialog-and-multi-line-text-fields-in-the-form-tag-editing-ui" class="md-nav__link">
-    <span class="md-ellipsis">
-      Support for multi-line comments and source in the upload dialog, and multi-line text fields in the form tag editing UI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#improvements-js-support" class="md-nav__link">
-    <span class="md-ellipsis">
-      Improvements JS support
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gpx-and-geojson-files-can-be-loaded-via-intent" class="md-nav__link">
-    <span class="md-ellipsis">
-      GPX and GeoJson files can be loaded via Intent
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#go-to-coordinates-function-and-olc-support" class="md-nav__link">
-    <span class="md-ellipsis">
-      Go to coordinates function and OLC support
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#improvements-josm-style-remote-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      Improvements JOSM style remote control
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#preset-search-now-uses-the-name-suggestion-index-nsi-as-an-additional-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      Preset search now uses the name suggestion index (NSI) as an additional source
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#miscellaneous" class="md-nav__link">
-    <span class="md-ellipsis">
-      Miscellaneous
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2249,83 +2381,215 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#updated-opening-hours-editor" class="md-nav__link">
+  <a href="#panoramax-support" class="md-nav__link">
     <span class="md-ellipsis">
-      Updated opening hours editor
+      Panoramax support
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#use-of-saf-file-picker-for-android-kitkat-and-later" class="md-nav__link">
+  <a href="#improved-locking-behaviour" class="md-nav__link">
     <span class="md-ellipsis">
-      Use of SAF file picker for Android KitKat and later
+      Improved locking behaviour
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#download-offline-data-directly-with-automatic-configuration" class="md-nav__link">
+  <a href="#retry-a-failed-upload-and-support-for-compressed-uploads" class="md-nav__link">
     <span class="md-ellipsis">
-      Download offline data directly with automatic configuration
+      Retry a failed upload and support for compressed uploads
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#support-for-multi-line-comments-and-source-in-the-upload-dialog-and-multi-line-text-fields-in-the-form-tag-editing-ui" class="md-nav__link">
+  <a href="#multiple-osm-element-clipboards" class="md-nav__link">
     <span class="md-ellipsis">
-      Support for multi-line comments and source in the upload dialog, and multi-line text fields in the form tag editing UI
+      Multiple OSM element clipboards
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#improvements-js-support" class="md-nav__link">
+  <a href="#duplicate-elements" class="md-nav__link">
     <span class="md-ellipsis">
-      Improvements JS support
+      Duplicate elements
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#gpx-and-geojson-files-can-be-loaded-via-intent" class="md-nav__link">
+  <a href="#support-selective-upload-from-review-modal" class="md-nav__link">
     <span class="md-ellipsis">
-      GPX and GeoJson files can be loaded via Intent
+      Support selective upload from review modal
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#go-to-coordinates-function-and-olc-support" class="md-nav__link">
+  <a href="#extract-segment-from-way-between-two-nodes" class="md-nav__link">
     <span class="md-ellipsis">
-      Go to coordinates function and OLC support
+      Extract segment from way between two nodes
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#improvements-josm-style-remote-control" class="md-nav__link">
+  <a href="#other-behaviour-changes" class="md-nav__link">
     <span class="md-ellipsis">
-      Improvements JOSM style remote control
+      Other behaviour changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Other behaviour changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-hardware-rendering-on-android-10-and-later" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use hardware rendering on Android 10 and later
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#preset-search-now-uses-the-name-suggestion-index-nsi-as-an-additional-source" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#copying-tags" class="md-nav__link">
     <span class="md-ellipsis">
-      Preset search now uses the name suggestion index (NSI) as an additional source
+      Copying tags
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paste-tags-in-multi-select-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Paste tags in multi-select mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#element-info-modal-available-in-the-property-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Element info modal available in the property editor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-tags-with-multi-lingual-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      More tags with multi-lingual variants
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatically-add-an-appropriate-extension-when-saving-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automatically add an appropriate extension when saving files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improve-validation-for-area-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Improve validation for area objects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-state-stored-in-undo-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selection state stored in undo checkpoints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#splitting-an-explicit-or-implied-area-shows-a-warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Splitting an explicit or implied area shows a warning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completely-disable-auto-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completely disable auto-pruning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-csv-file-to-geojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convert CSV file to GeoJSON
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpx-waypoints-support-for-link-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPX waypoints support for link objects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#different-colour-icon-for-skipped-todos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Different colour icon for skipped todos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-to-render-gpx-tracks-with-multiple-threads-removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code to render GPX tracks with multiple threads removed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-value-type-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset value type date
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2353,49 +2617,67 @@
                   
 
 
-<h1 id="vespucci-131-highlights">Vespucci 13.1 Highlights<a class="headerlink" href="#vespucci-131-highlights" title="Permanent link">#</a></h1>
-<p>2019-06-30</p>
-<p>This is a minor release consisting mainly of UI improvements.</p>
-<h3 id="updated-opening-hours-editor">Updated opening hours editor<a class="headerlink" href="#updated-opening-hours-editor" title="Permanent link">#</a></h3>
-<p>The opening hours editor (a separate project found <a href="https://github.com/simonpoole/OpeningHoursFragment">here</a>) has received a number of updates, including</p>
-<ul>
-<li>tapping the time bars will start a large time picker, this was previously only available via the menu.</li>
-<li>ability to load and save templates to on device files.</li>
-<li>support for region and object type specific templates.</li>
-</ul>
-<h3 id="use-of-saf-file-picker-for-android-kitkat-and-later">Use of SAF file picker for Android KitKat and later<a class="headerlink" href="#use-of-saf-file-picker-for-android-kitkat-and-later" title="Permanent link">#</a></h3>
-<p>Previously, to give a consistent look and feel over as many different Android version as possible, we were using a third party file picker/selector for those operations that require a file to be selected for input or output. Unluckily in recent Android versions removable "SD card" storage has become unavailable due to this.</p>
-<p>To work around this we are now using the system SAF (Storage Access Framework) file picker for Android KitKat (19) and later. This does have the advantage that cloud-based storage location are usable for operations that don't need direct file access.</p>
-<h3 id="download-offline-data-directly-with-automatic-configuration">Download offline data directly with automatic configuration<a class="headerlink" href="#download-offline-data-directly-with-automatic-configuration" title="Permanent link">#</a></h3>
-<p>To make using offline OSM data in <a href="https://www.openstreetmap.org/user/SimonPoole/diary/193235">MSF format</a> easier we've added a small UI that will display the available files, download them with the Android download manager and configure a new API entry if necessary.</p>
-<h3 id="support-for-multi-line-comments-and-source-in-the-upload-dialog-and-multi-line-text-fields-in-the-form-tag-editing-ui">Support for multi-line comments and source in the upload dialog, and multi-line text fields in the form tag editing UI<a class="headerlink" href="#support-for-multi-line-comments-and-source-in-the-upload-dialog-and-multi-line-text-fields-in-the-form-tag-editing-ui" title="Permanent link">#</a></h3>
-<p>Comment and source field are now multi-line making adding longer texts far easier. Further multi-line input fields are supported in the form based tag editor, depending on the "length" attribute in the presets. </p>
-<h3 id="improvements-js-support">Improvements JS support<a class="headerlink" href="#improvements-js-support" title="Permanent link">#</a></h3>
-<p>The layout of the JS console has been improved and scripts from preset fields are now evaluated after all fields have been set, allowing for order independent consistent behaviour. Further the key - preset mapping is now visible to scripts.  </p>
-<h3 id="gpx-and-geojson-files-can-be-loaded-via-intent">GPX and GeoJson files can be loaded via Intent<a class="headerlink" href="#gpx-and-geojson-files-can-be-loaded-via-intent" title="Permanent link">#</a></h3>
-<p>Clicking a GPS or GeoJson/Json file in a file manager should now show Vespucci as an app that can read the files.</p>
-<h3 id="go-to-coordinates-function-and-olc-support">Go to coordinates function and OLC support<a class="headerlink" href="#go-to-coordinates-function-and-olc-support" title="Permanent link">#</a></h3>
-<p>The "GPS" menu now features an item "Go to coordinates" that will display an input field that will accept coordinates in a wide range of formats and Open Location Codes. Further, the element information dialog will display the OLC equivalent of the coordinates for Nodes.</p>
-<h3 id="improvements-josm-style-remote-control">Improvements JOSM style remote control<a class="headerlink" href="#improvements-josm-style-remote-control" title="Permanent link">#</a></h3>
-<p>We now support imagery configuration and draft comment and source tags, see <a href="http://vespucci.io/tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>. </p>
-<h3 id="preset-search-now-uses-the-name-suggestion-index-nsi-as-an-additional-source">Preset search now uses the name suggestion index (NSI) as an additional source<a class="headerlink" href="#preset-search-now-uses-the-name-suggestion-index-nsi-as-an-additional-source" title="Permanent link">#</a></h3>
-<p>The preset search will now create temporary presets from matches of the search term with the name suggestion index. This resolves the issue of the NSI search dialog not being accessible in <em>simple mode</em>.</p>
-<p>For example searching for <em>mcd</em> will show a preset entry for a McDonald's as one of the first results. The results are filtered by country/region, if you are seeing results that are not applicable to where you are mapping this is likely due to missing country values in the NSI. Use of the NSI for name tags remains as is.</p>
-<p>Issues with the NSI should be reported on the <a href="https://github.com/osmlab/name-suggestion-index">NSI repo</a>.</p>
+<h1 id="vespucci-210-beta-highlights">Vespucci 21.0 BETA Highlights<a class="headerlink" href="#vespucci-210-beta-highlights" title="Permanent link">#</a></h1>
+<p>2025-03-05</p>
+<p><strong>The state file of this version is incompatible with that of previous builds, please upload or save any changes before you update.</strong></p>
+<h3 id="panoramax-support">Panoramax support<a class="headerlink" href="#panoramax-support" title="Permanent link">#</a></h3>
+<p>The release adds support for a Panoramax layer similar to the existing Mapillary one. Currently it renders vector tiles from panoramax.xyz and uses that as the default API instance. </p>
+<p>Note that we currently display the imagery in the normal photo viewer and not a 360° specific one. Further some Panoramax sequences are extremely long which can cause issues with fetching the sequence data.</p>
+<h3 id="improved-locking-behaviour">Improved locking behaviour<a class="headerlink" href="#improved-locking-behaviour" title="Permanent link">#</a></h3>
+<p>Many actions can happen concurrently in Vespucci, for example you might be moving a way at the same time that additional data is being downloaded, superfluous data is being pruned and all of it is being displayed on the screen. For this release we've simplified and rearranged the code that locks some critical sections against concurrent access and in particular do not wait to obtain locks in the rendering code. This should avoid the infrequent but annoying deadlocks that could cause the UI to lock up.    </p>
+<h3 id="retry-a-failed-upload-and-support-for-compressed-uploads">Retry a failed upload and support for compressed uploads<a class="headerlink" href="#retry-a-failed-upload-and-support-for-compressed-uploads" title="Permanent link">#</a></h3>
+<p>If you are mapping in a region that has questionable Internet connectivity you have may have experienced the problem that if a upload fails it is unclear if you can retry and if you can't you are left a bit stuck. See <a href="https://www.openstreetmap.org/user/SimonPoole/diary/406218">diary post on handling failed uploads</a>.</p>
+<p>Vespucci 21 will try to determine the state of your upload if it fails and suggest the best course of action. If necessary it now supports updating the edits in the device from the data successfully uploaded changes (Vespucci has supported updating from a osmChange file since early 2019, this is different as for newly created elements 
+we need to use some heuristics to find the correct ids).</p>
+<p>To help avoid failed uploads in the first place we now also support compressed uploads for API instances that allow them, in particular for the <em>openstreetmap.org</em> instance (this can be enabled and disabled in the API configuration).</p>
+<h3 id="multiple-osm-element-clipboards">Multiple OSM element clipboards<a class="headerlink" href="#multiple-osm-element-clipboards" title="Permanent link">#</a></h3>
+<p>We now support multiple (5) clipboards for OSM elements, utilized in a most recently used stack fashion. In normal use there are no changes, simply cut or copy an object and it will be used for the next paste, you can however by clicking on one of the clipboard buttons in the menu bar before clicking on the map to determine the paste location, move that clipboard to the top and paste from that. The buttons will if available show the preset icon for the pasted element or a number in dicating the position in the stack.</p>
+<p>Additionally, in <em>Paste multiple</em> mode, you can now directly undo the last paste. Further you can paste a <em>Cut</em> element more than once, the first <em>Paste</em> retaing the original id and version, the following ones behaving as if the element had been copied. </p>
+<h3 id="duplicate-elements">Duplicate elements<a class="headerlink" href="#duplicate-elements" title="Permanent link">#</a></h3>
+<p>You can now duplicate an OSM element directly without having to copy and paste. </p>
+<h3 id="support-selective-upload-from-review-modal">Support selective upload from review modal<a class="headerlink" href="#support-selective-upload-from-review-modal" title="Permanent link">#</a></h3>
+<p>You can now select individual changes from the <em>Review changes</em> modal for uploading directly from the dialog.</p>
+<h3 id="extract-segment-from-way-between-two-nodes">Extract segment from way between two nodes<a class="headerlink" href="#extract-segment-from-way-between-two-nodes" title="Permanent link">#</a></h3>
+<p>The extract segment function has been expanded to support extracting be tween two nodes on the same way and from closed ways.</p>
+<h3 id="other-behaviour-changes">Other behaviour changes<a class="headerlink" href="#other-behaviour-changes" title="Permanent link">#</a></h3>
+<h4 id="use-hardware-rendering-on-android-10-and-later">Use hardware rendering on Android 10 and later<a class="headerlink" href="#use-hardware-rendering-on-android-10-and-later" title="Permanent link">#</a></h4>
+<p>Hardware rendering is now the default on devices with Android 10 or later. The preference for for this has been removed on older devices and its location has been moved to the miscellaneous category of the <em>Advanced preferences</em>.</p>
+<h4 id="copying-tags">Copying tags<a class="headerlink" href="#copying-tags" title="Permanent link">#</a></h4>
+<p>Copy tags in the <em>Property editor</em> now behaves (again) the same for both <em>Properties</em> and <em>Details</em> tabs. Previously copying in the later copied the tags both to the internal and the system clipboard, this has been changed to only copy to the internal tag clipboard and provide separate function to copy to the system clipboard.</p>
+<h4 id="paste-tags-in-multi-select-mode">Paste tags in multi-select mode<a class="headerlink" href="#paste-tags-in-multi-select-mode" title="Permanent link">#</a></h4>
+<p>You can now paste tags from the tag internal clipboard to multiple elements at the same time. It goes to say that this functionality should be used carefully.</p>
+<h4 id="element-info-modal-available-in-the-property-editor">Element info modal available in the property editor<a class="headerlink" href="#element-info-modal-available-in-the-property-editor" title="Permanent link">#</a></h4>
+<p>You can now display the element info modal in the property editor providing detailed information on the edited element.</p>
+<h4 id="more-tags-with-multi-lingual-variants">More tags with multi-lingual variants<a class="headerlink" href="#more-tags-with-multi-lingual-variants" title="Permanent link">#</a></h4>
+<p>The <em>Add language variants</em> function in the property editors <em>Properties</em> tab now supports more tags, for example if an <em>addr:street</em> tag is present it will add fields for the appropriate languages for the country the object is in. </p>
+<h4 id="automatically-add-an-appropriate-extension-when-saving-files">Automatically add an appropriate extension when saving files<a class="headerlink" href="#automatically-add-an-appropriate-extension-when-saving-files" title="Permanent link">#</a></h4>
+<p>If you save a file without an extension the app will now attempt to add an appropriate one.</p>
+<h4 id="improve-validation-for-area-objects">Improve validation for area objects<a class="headerlink" href="#improve-validation-for-area-objects" title="Permanent link">#</a></h4>
+<p>We now use the tags from https://github.com/simonpoole/osm-area-tags to improve validation.</p>
+<h4 id="selection-state-stored-in-undo-checkpoints">Selection state stored in undo checkpoints<a class="headerlink" href="#selection-state-stored-in-undo-checkpoints" title="Permanent link">#</a></h4>
+<p>Selection state is now stored in undo checkpoints allowing us to reselect elements after an undo in most cases.</p>
+<h4 id="splitting-an-explicit-or-implied-area-shows-a-warning">Splitting an explicit or implied area shows a warning<a class="headerlink" href="#splitting-an-explicit-or-implied-area-shows-a-warning" title="Permanent link">#</a></h4>
+<p>If you split an area a warning will be displayed, as you might want to turn it in to a multi-polygon.</p>
+<h4 id="completely-disable-auto-pruning">Completely disable auto-pruning<a class="headerlink" href="#completely-disable-auto-pruning" title="Permanent link">#</a></h4>
+<p>In some situations, for example when working on large relations, auto-pruning can be counter productive. We now provide a preference to turn it completely off.</p>
+<h4 id="convert-csv-file-to-geojson">Convert CSV file to GeoJSON<a class="headerlink" href="#convert-csv-file-to-geojson" title="Permanent link">#</a></h4>
+<p>A CSV file with <em>lat</em> and <em>lon</em> columns with WGS94 coordinates can be used to create a GeoJSON layer (the converted file will be stored locally).</p>
+<h4 id="gpx-waypoints-support-for-link-objects">GPX waypoints support for <em>link</em> objects<a class="headerlink" href="#gpx-waypoints-support-for-link-objects" title="Permanent link">#</a></h4>
+<p><em>link</em> objects in GPX waypoints are now displayed in the object modal and can be clicked (for example to play back a voice note).</p>
+<h4 id="different-colour-icon-for-skipped-todos">Different colour icon for skipped todos<a class="headerlink" href="#different-colour-icon-for-skipped-todos" title="Permanent link">#</a></h4>
+<p>Skipped todos are now displayed with a blue icon differentiating them from open and closed ones.</p>
+<h4 id="code-to-render-gpx-tracks-with-multiple-threads-removed">Code to render GPX tracks with multiple threads removed<a class="headerlink" href="#code-to-render-gpx-tracks-with-multiple-threads-removed" title="Permanent link">#</a></h4>
+<p>For very long GPX tracks we were using multiple threads to render them, however as none of Androids canvas rendering framework is actually thread safe this could lead
+to random crashed.</p>
+<h4 id="preset-value-type-date">Preset value type <em>date</em><a class="headerlink" href="#preset-value-type-date" title="Permanent link">#</a></h4>
+<p>We now support a preset value type of date that will cause a date selector to be displayed in the property editor.</p>
 <h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
-<ul>
-<li>Data style configuration provided that doesn't render multi-polygons, this may help performance on slow devices.</li>
-<li>Lots of stability improvements.</li>
-<li>Support reading Overpass API generated OSM XML data from files.</li>
-</ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
-<ul>
-<li>currently no special actions are required.</li>
-</ul>
+<p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one. </p>
 <h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
 <ul>
-<li>the documentation is out of date.</li>
-<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul>
 
 

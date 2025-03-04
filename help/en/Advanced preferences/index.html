@@ -404,6 +404,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../21.0.0%20Release%20notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21.0.0 Release notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../20.2.0%20Release%20notes/" class="md-nav__link">
         
   
@@ -2544,6 +2565,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#enable-hardware-acceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable hardware acceleration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#show-stats" class="md-nav__link">
     <span class="md-ellipsis">
       Show stats
@@ -2580,15 +2610,6 @@
   <a href="#enable-voice-commands" class="md-nav__link">
     <span class="md-ellipsis">
       Enable voice commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enable-hardware-acceleration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Enable hardware acceleration
     </span>
   </a>
   
@@ -3990,6 +4011,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#enable-hardware-acceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable hardware acceleration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#show-stats" class="md-nav__link">
     <span class="md-ellipsis">
       Show stats
@@ -4026,15 +4056,6 @@
   <a href="#enable-voice-commands" class="md-nav__link">
     <span class="md-ellipsis">
       Enable voice commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enable-hardware-acceleration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Enable hardware acceleration
     </span>
   </a>
   
@@ -4233,7 +4254,10 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
 <h2 id="server-settings">Server Settings<a class="headerlink" href="#server-settings" title="Permanent link">#</a></h2>
 <p>OpenStreetMap API and other servers configuration.</p>
 <h3 id="osm-api-url">OSM API URL<a class="headerlink" href="#osm-api-url" title="Permanent link">#</a></h3>
-<p>Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024. These preferences can also be changed by selecting <em>Configure</em> for the OpenStreetMap Data layer in the layers modal.</p>
+<p>This lists all the configured OSM API instances, allows adding further ones and editing the configuration of existing entries. The default configuration contains an entry for the regular openstreetmap.org API and the sandbox API for development and experimentation.</p>
+<p>Select <em>Edit</em> from the overflow menu to configure the URLs including read-only sources and authentication method for a specific entry. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024. </p>
+<p>For API instances that support uploading compressed bodies in POST requests, <em>Support compressed uploads</em> can be set. By default this is only enabled for the openstreetmap.org API instance.</p>
+<p>These preferences can also be accessed by selecting <em>Configure</em> for the OpenStreetMap Data layer in the layers modal.</p>
 <h3 id="user-account">User account<a class="headerlink" href="#user-account" title="Permanent link">#</a></h3>
 <p>Set a user and password for API authentication. This is only needed if the target API server does not support OAuth authentication, and in general should be avoided as unsafe.</p>
 <h3 id="offset-server">Offset server<a class="headerlink" href="#offset-server" title="Permanent link">#</a></h3>
@@ -4276,7 +4300,10 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
 <p>Minimum interval in minutes between saves of GPX recordings. Default: <em>5 minutes</em>.</p>
 <h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
 <h3 id="report-app-crashes">Report app crashes<a class="headerlink" href="#report-app-crashes" title="Permanent link">#</a></h3>
-<p>Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to <em>off</em> the functionalitiy is completely disabled. Default: <em>on</em>.</p>
+<p>Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to <em>off</em> the functionality is completely disabled. Default: <em>on</em>.</p>
+<h3 id="enable-hardware-acceleration">Enable hardware acceleration<a class="headerlink" href="#enable-hardware-acceleration" title="Permanent link">#</a></h3>
+<p>On Android 10 and later.</p>
+<p>Turn on use of hardware rendering on Android 10 and later. Default: <em>on</em></p>
 <h3 id="show-stats">Show stats<a class="headerlink" href="#show-stats" title="Permanent link">#</a></h3>
 <p>Show some uninteresting stats on screen. Debugging use only. Default: <em>off</em>.</p>
 <h2 id="experimental">Experimental<a class="headerlink" href="#experimental" title="Permanent link">#</a></h2>
@@ -4284,8 +4311,6 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
 <p>Turn on the JavaScript console. Default: <em>off</em>.</p>
 <h3 id="enable-voice-commands">Enable voice commands<a class="headerlink" href="#enable-voice-commands" title="Permanent link">#</a></h3>
 <p>Enable voice command support: Default: <em>off</em>.</p>
-<h3 id="enable-hardware-acceleration">Enable hardware acceleration<a class="headerlink" href="#enable-hardware-acceleration" title="Permanent link">#</a></h3>
-<p>Turn on use of hardware rendering on Android 10 and later. Default: <em>off</em></p>
 <h3 id="enable-split-window-property-editor">Enable split window property editor<a class="headerlink" href="#enable-split-window-property-editor" title="Permanent link">#</a></h3>
 <p>Enable displaying the property editor in a separate window if available. Default: <em>off</em></p>
 <h3 id="use-new-task-mode-for-property-editor">Use "new task" mode for property editor<a class="headerlink" href="#use-new-task-mode-for-property-editor" title="Permanent link">#</a></h3>
@@ -4319,7 +4344,7 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-	    Generated for Vespucci 20.2
+	    Generated for Vespucci 21.0
     </div>
   
   
@@ -4370,7 +4395,7 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 20.2}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 21.0}</script>
     
     
       <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
