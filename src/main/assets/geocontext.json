@@ -3,7 +3,15 @@
         "left-hand-traffic": true
     },
     "au": {
-        "left-hand-traffic": true
+        "left-hand-traffic": true,
+        "address-keys": [
+            "addr:unit",
+            "addr:housenumber",
+            "addr:street",
+            "addr:suburb",
+            "addr:state",
+            "addr:postcode"
+        ]
     },
     "at": {
         "speed-limits": [
