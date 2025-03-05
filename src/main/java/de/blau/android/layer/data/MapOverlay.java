@@ -6,6 +6,7 @@ import static de.blau.android.util.Winding.COUNTERCLOCKWISE;
 import static de.blau.android.util.Winding.winding;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -1337,15 +1338,14 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             return iconDrawable;
         }
         String iconDirPath = currentStyle.getIconDirPath();
-        if (iconDirPath != null) {
-            try (FileInputStream stream = new FileInputStream(iconPath)) {
-                iconDrawable = PresetIconManager.bitmapDrawableFromStream(context, ICON_SIZE_DP, stream, PresetIconManager.isSvg(iconPath));
-                customIconCache.put(iconPath, iconDrawable);
-                return iconDrawable;
-            } catch (Exception e) {
-                Log.w(DEBUG_TAG, "Icon " + iconPath + " not found or can't be parsed " + e.getMessage());
-            }
+        try (InputStream stream = (iconDirPath != null ? new FileInputStream(iconPath) : context.getAssets().open(iconPath))) {
+            iconDrawable = PresetIconManager.bitmapDrawableFromStream(context, ICON_SIZE_DP, stream, PresetIconManager.isSvg(iconPath));
+            customIconCache.put(iconPath, iconDrawable);
+            return iconDrawable;
+        } catch (Exception e) {
+            Log.w(DEBUG_TAG, "Icon " + iconPath + " not found or can't be parsed " + e.getMessage());
         }
+
         // search in all presets
         for (Preset preset : App.getCurrentPresets(context)) {
             if (preset != null) {
