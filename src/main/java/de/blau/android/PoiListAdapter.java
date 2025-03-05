@@ -20,6 +20,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.util.Density;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.Validator;
 
@@ -74,7 +75,8 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
         defaultTextColor = ThemeUtils.getStyleAttribColorValue(ctx, R.attr.textColor, R.color.black);
         defaultBackgroundColor = ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorSecondary, R.color.ccc_white);
 
-        iconSize = Math.round(ctx.getResources().getDimension(R.dimen.poi_list_icon_size));
+        // note currently the rendering code assumes that the dimensions are in DP not PX
+        iconSize = Density.pxToDp(ctx, Math.round(ctx.getResources().getDimension(R.dimen.poi_list_icon_size)));
 
         onClickListener = clickedView -> {
             OsmElement element = (OsmElement) clickedView.getTag();
