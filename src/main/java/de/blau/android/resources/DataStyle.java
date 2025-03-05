@@ -2124,7 +2124,7 @@ public final class DataStyle extends DefaultHandler {
         try (FileOutputStream fout = new FileOutputStream(output); PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout))) {
             Preset.tagInfoHeader(outputStream, "Vespucci map style",
                     "https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo-style.json",
-                    "Default map style for Vespucci. Nodes are rendered with the icons from the matching preset item.");
+                    "Default map style for Vespucci. The default rendering for Nodes is to use the icon from the matching preset item.");
             outputStream.println("\"tags\":[");
             boolean firstTag = true;
             for (String tag : tagMap.getKeys()) {
