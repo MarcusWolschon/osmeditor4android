@@ -17,6 +17,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
+import android.os.Build;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.Rect;
@@ -610,7 +611,7 @@ public class Symbol extends Layer {
             Canvas c = new Canvas(symbol);
             c.translate(bounds.width() / 2, bounds.height() / 2);
             c.drawPath(symbolPath, paint);
-            if (canvas.isHardwareAccelerated()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && canvas.isHardwareAccelerated()) {
                 Bitmap temp = symbol;
                 symbol = temp.copy(Bitmap.Config.HARDWARE, false);
                 temp.recycle();

@@ -1227,7 +1227,7 @@ public class Preferences {
      */
     public void setAutolockDelay(long delay) {
         autoLockDelay = (int) (delay / 1000);
-        prefs.edit().putInt(r.getString(R.string.config_autoLockDelay_key), autoLockDelay);
+        prefs.edit().putInt(r.getString(R.string.config_autoLockDelay_key), autoLockDelay).commit();
     }
 
     /**

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -407,15 +408,13 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
                 icon = new NumberDrawable(ctx);
                 ((NumberDrawable) icon).setNumber(count + 1);
             }
-            LayerDrawable layerDrawable = new LayerDrawable(new Drawable[] { bgEmpty });
+            LayerDrawable layerDrawable = new LayerDrawable(new Drawable[] { bgEmpty, icon });
             layerDrawable.setId(0, 0);
-            layerDrawable.setLayerGravity(0, Gravity.CENTER);
-            layerDrawable.addLayer(icon);
-            layerDrawable.setLayerGravity(ICON_LAYER, Gravity.CENTER);
-            layerDrawable.setLayerInsetLeft(ICON_LAYER, ICON_INSET);
-            layerDrawable.setLayerInsetRight(ICON_LAYER, ICON_INSET);
-            layerDrawable.setLayerInsetTop(ICON_LAYER, ICON_INSET);
-            layerDrawable.setLayerInsetBottom(ICON_LAYER, ICON_INSET);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                layerDrawable.setLayerGravity(0, Gravity.CENTER);
+                layerDrawable.setLayerGravity(ICON_LAYER, Gravity.CENTER);
+            }
+            layerDrawable.setLayerInset(ICON_LAYER, ICON_INSET, ICON_INSET, ICON_INSET, ICON_INSET);
             item.setIcon(layerDrawable);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
