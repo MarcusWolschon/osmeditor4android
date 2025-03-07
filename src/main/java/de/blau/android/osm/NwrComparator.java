@@ -10,7 +10,7 @@ import java.util.Comparator;
  * @author simon
  *
  */
-final class NwrComparator implements Comparator<OsmElement> {
+public final class NwrComparator implements Comparator<OsmElement> {
     
     @Override
     public int compare(OsmElement o1, OsmElement o2) {

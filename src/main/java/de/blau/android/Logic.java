@@ -91,6 +91,7 @@ import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.MapSplitSource;
 import de.blau.android.osm.MergeAction;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.NwrComparator;
 import de.blau.android.osm.OsmChangeParser;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmGpxApi;
@@ -867,32 +868,48 @@ public class Logic {
     /**
      * Return all the Relations the OsmElements are a member of and parent relations
      * 
-     * @param elements the OsmELements to check
+     * @param elements the OsmElements to check
      * @return a List of OsmElement
      */
     @NonNull
     private List<Relation> getParentRelations(@NonNull List<OsmElement> elements) {
+        // NWR sorting of the elements ensures that the parents of relations
+        // are last in the list, for example subarea members in boundaries
+        List<OsmElement> toSort = new ArrayList<>(elements);
+        Collections.sort(toSort, new NwrComparator());
         List<Relation> relations = new ArrayList<>();
-        for (OsmElement e : elements) {
-            getParentRelations(e, relations);
-        }
+        getParentRelations(toSort, relations);
         return relations;
     }
 
     /**
      * Recursively add parent relations, every relation will only be added once
      * 
-     * @param e the OsmElement to get the parent Relations of
+     * Tries to sort in an unsurprising fashion
+     * 
+     * @param elements the OsmElements to get the parent Relations of
      * @param relations the List of Relations
      */
-    private void getParentRelations(@NonNull OsmElement e, @NonNull List<Relation> relations) {
-        if (e.getParentRelations() != null) {
-            for (Relation r : e.getParentRelations()) {
-                if (!relations.contains(r)) { // not very efficient, could use a set
+    private void getParentRelations(@NonNull List<OsmElement> elements, @NonNull List<Relation> relations) {
+        List<OsmElement> nextLevel = new ArrayList<>();
+        for (OsmElement e : elements) {
+            final List<Relation> parentRelations = e.getParentRelations();
+            if (parentRelations == null) {
+                continue;
+            }
+            List<Relation> sortedParents = new ArrayList<>(parentRelations);
+            // a better thing to sort on would be the area the relation covers, but number of members is probably
+            // a reasonable proxy
+            Collections.sort(sortedParents, (Relation r1, Relation r2) -> Integer.compare(r1.getMemberCount(), r2.getMemberCount()));
+            for (Relation r : sortedParents) {
+                if (!relations.contains(r)) { // using a set is likely slower
                     relations.add(r);
-                    getParentRelations(r, relations);
+                    nextLevel.add(r);
                 }
             }
+        }
+        if (!nextLevel.isEmpty()) {
+            getParentRelations(nextLevel, relations);
         }
     }
 
