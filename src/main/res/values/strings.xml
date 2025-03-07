@@ -1189,8 +1189,8 @@
     <!-- ELement entry in context menu -->
     <string name="element_for_menu">%1$s</string>
     <string name="element_for_menu_with_direction">%1$s %2$s</string>
-    <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
-    <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
+    <string name="element_for_menu_with_parents">%1$s [%2$s]</string>
+    <string name="element_for_menu_with_parents_with_direction">%1$s %2$s [%3$s]</string>
     <!-- Text should be as short as possible -->
     <string name="start_end_way_description">Go to the Start or the End of the Way</string>
     <string name="menu_history">History</string>
