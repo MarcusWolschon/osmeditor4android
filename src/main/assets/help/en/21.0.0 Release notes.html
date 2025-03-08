@@ -14,14 +14,14 @@
 <h3>Improved locking behaviour</h3>
 <p>Many actions can happen concurrently in Vespucci, for example you might be moving a way at the same time that additional data is being downloaded, superfluous data is being pruned and all of it is being displayed on the screen. For this release we've simplified and rearranged the code that locks some critical sections against concurrent access and in particular do not wait to obtain locks in the rendering code. This should avoid the infrequent but annoying deadlocks that could cause the UI to lock up.</p>
 <h3>Retry a failed upload and support for compressed uploads</h3>
-<p>If you are mapping in a region that has questionable Internet connectivity you have may have experienced the problem that if a upload fails it is unclear if you can retry and if you can't you are left a bit stuck. See <a href="https://www.openstreetmap.org/user/SimonPoole/diary/406218">diary post on handling failed uploads</a>.</p>
-<p>Vespucci 21 will try to determine the state of your upload if it fails and suggest the best course of action. If necessary it now supports updating the edits in the device from the data successfully uploaded changes (Vespucci has supported updating from a osmChange file since early 2019, this is different as for newly created elements we need to use some heuristics to find the correct ids).</p>
+<p>If you are mapping in a region that has questionable Internet connectivity you may have experienced the problem that if a upload fails it is unclear if you can retry and if you can't you are left a bit stuck. See <a href="https://www.openstreetmap.org/user/SimonPoole/diary/406218">diary post on handling failed uploads</a>.</p>
+<p>Vespucci 21 will try to determine the state of your upload if it fails and suggest the best course of action. If necessary it now supports updating the edits in the device from the data successfully uploaded changes. (Vespucci has supported updating from a osmChange file since early 2019, this is different as for newly created elements we need to use some heuristics to find the correct ids.)</p>
 <p>To help avoid failed uploads in the first place we now also support compressed uploads for API instances that allow them, in particular for the <em>openstreetmap.org</em> instance (this can be enabled and disabled in the API configuration).</p>
 <h3>Multiple OSM element clipboards</h3>
 <p>We now support multiple (5) clipboards for OSM elements, utilized in a most recently used stack fashion. In normal use there are no changes, simply cut or copy an object and it will be used for the next paste, you can however by clicking on one of the clipboard buttons in the menu bar before clicking on the map to determine the paste location, move that clipboard to the top and paste from that. The buttons will if available show the preset icon for the pasted element or a number in dicating the position in the stack.</p>
 <p>Additionally, in <em>Paste multiple</em> mode, you can now directly undo the last paste. Further you can paste a <em>Cut</em> element more than once, the first <em>Paste</em> retaing the original id and version, the following ones behaving as if the element had been copied.</p>
 <h3>Duplicate elements</h3>
-<p>You can now duplicate an OSM element directly without having to copy and paste.</p>
+<p>You can now duplicate an OSM element directly without having to copy and paste. For ways you can choose between <em>Duplicate</em>, that is duplicate both the way and all nodes that construct it, and <em>Shallow duplicate</em> that will duplicate the way but keep the references to the original nodes. Relations can only be duplicated with <em>Shallow duplicate</em>, that is, juat as with ways, a duplicate of the relation maintaining the references to the original members.</p>
 <h3>Support selective upload from review modal</h3>
 <p>You can now select individual changes from the <em>Review changes</em> modal for uploading directly from the dialog.</p>
 <h3>Extract segment from way between two nodes</h3>
@@ -48,13 +48,13 @@
 <h4>Completely disable auto-pruning</h4>
 <p>In some situations, for example when working on large relations, auto-pruning can be counter productive. We now provide a preference to turn it completely off.</p>
 <h4>Convert CSV file to GeoJSON</h4>
-<p>A CSV file with <em>lat</em> and <em>lon</em> columns with WGS94 coordinates can be used to create a GeoJSON layer (the converted file will be stored locally).</p>
+<p>A CSV file with <em>lat</em> and <em>lon</em> columns with WGS 84 coordinates can be used to create a GeoJSON layer (the converted file will be stored locally).</p>
 <h4>GPX waypoints support for <em>link</em> objects</h4>
 <p><em>link</em> objects in GPX waypoints are now displayed in the object modal and can be clicked (for example to play back a voice note).</p>
 <h4>Different colour icon for skipped todos</h4>
 <p>Skipped todos are now displayed with a blue icon differentiating them from open and closed ones.</p>
 <h4>Code to render GPX tracks with multiple threads removed</h4>
-<p>For very long GPX tracks we were using multiple threads to render them, however as none of Androids canvas rendering framework is actually thread safe this could lead to random crashed.</p>
+<p>For very long GPX tracks we were using multiple threads to render them, however as none of Androids canvas rendering framework is actually thread safe this could lead to random crashes.</p>
 <h4>Preset value type <em>date</em></h4>
 <p>We now support a preset value type of date that will cause a date selector to be displayed in the property editor.</p>
 <h2>Miscellaneous</h2>
