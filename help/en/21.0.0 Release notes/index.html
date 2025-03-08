@@ -2626,9 +2626,9 @@
 <h3 id="improved-locking-behaviour">Improved locking behaviour<a class="headerlink" href="#improved-locking-behaviour" title="Permanent link">#</a></h3>
 <p>Many actions can happen concurrently in Vespucci, for example you might be moving a way at the same time that additional data is being downloaded, superfluous data is being pruned and all of it is being displayed on the screen. For this release we've simplified and rearranged the code that locks some critical sections against concurrent access and in particular do not wait to obtain locks in the rendering code. This should avoid the infrequent but annoying deadlocks that could cause the UI to lock up.    </p>
 <h3 id="retry-a-failed-upload-and-support-for-compressed-uploads">Retry a failed upload and support for compressed uploads<a class="headerlink" href="#retry-a-failed-upload-and-support-for-compressed-uploads" title="Permanent link">#</a></h3>
-<p>If you are mapping in a region that has questionable Internet connectivity you have may have experienced the problem that if a upload fails it is unclear if you can retry and if you can't you are left a bit stuck. See <a href="https://www.openstreetmap.org/user/SimonPoole/diary/406218">diary post on handling failed uploads</a>.</p>
-<p>Vespucci 21 will try to determine the state of your upload if it fails and suggest the best course of action. If necessary it now supports updating the edits in the device from the data successfully uploaded changes (Vespucci has supported updating from a osmChange file since early 2019, this is different as for newly created elements 
-we need to use some heuristics to find the correct ids).</p>
+<p>If you are mapping in a region that has questionable Internet connectivity you may have experienced the problem that if a upload fails it is unclear if you can retry and if you can't you are left a bit stuck. See <a href="https://www.openstreetmap.org/user/SimonPoole/diary/406218">diary post on handling failed uploads</a>.</p>
+<p>Vespucci 21 will try to determine the state of your upload if it fails and suggest the best course of action. If necessary it now supports updating the edits in the device from the data successfully uploaded changes. (Vespucci has supported updating from a osmChange file since early 2019, this is different as for newly created elements 
+we need to use some heuristics to find the correct ids.)</p>
 <p>To help avoid failed uploads in the first place we now also support compressed uploads for API instances that allow them, in particular for the <em>openstreetmap.org</em> instance (this can be enabled and disabled in the API configuration).</p>
 <h3 id="multiple-osm-element-clipboards">Multiple OSM element clipboards<a class="headerlink" href="#multiple-osm-element-clipboards" title="Permanent link">#</a></h3>
 <p>We now support multiple (5) clipboards for OSM elements, utilized in a most recently used stack fashion. In normal use there are no changes, simply cut or copy an object and it will be used for the next paste, you can however by clicking on one of the clipboard buttons in the menu bar before clicking on the map to determine the paste location, move that clipboard to the top and paste from that. The buttons will if available show the preset icon for the pasted element or a number in dicating the position in the stack.</p>
@@ -2661,14 +2661,14 @@ we need to use some heuristics to find the correct ids).</p>
 <h4 id="completely-disable-auto-pruning">Completely disable auto-pruning<a class="headerlink" href="#completely-disable-auto-pruning" title="Permanent link">#</a></h4>
 <p>In some situations, for example when working on large relations, auto-pruning can be counter productive. We now provide a preference to turn it completely off.</p>
 <h4 id="convert-csv-file-to-geojson">Convert CSV file to GeoJSON<a class="headerlink" href="#convert-csv-file-to-geojson" title="Permanent link">#</a></h4>
-<p>A CSV file with <em>lat</em> and <em>lon</em> columns with WGS94 coordinates can be used to create a GeoJSON layer (the converted file will be stored locally).</p>
+<p>A CSV file with <em>lat</em> and <em>lon</em> columns with WGS 84 coordinates can be used to create a GeoJSON layer (the converted file will be stored locally).</p>
 <h4 id="gpx-waypoints-support-for-link-objects">GPX waypoints support for <em>link</em> objects<a class="headerlink" href="#gpx-waypoints-support-for-link-objects" title="Permanent link">#</a></h4>
 <p><em>link</em> objects in GPX waypoints are now displayed in the object modal and can be clicked (for example to play back a voice note).</p>
 <h4 id="different-colour-icon-for-skipped-todos">Different colour icon for skipped todos<a class="headerlink" href="#different-colour-icon-for-skipped-todos" title="Permanent link">#</a></h4>
 <p>Skipped todos are now displayed with a blue icon differentiating them from open and closed ones.</p>
 <h4 id="code-to-render-gpx-tracks-with-multiple-threads-removed">Code to render GPX tracks with multiple threads removed<a class="headerlink" href="#code-to-render-gpx-tracks-with-multiple-threads-removed" title="Permanent link">#</a></h4>
 <p>For very long GPX tracks we were using multiple threads to render them, however as none of Androids canvas rendering framework is actually thread safe this could lead
-to random crashed.</p>
+to random crashes.</p>
 <h4 id="preset-value-type-date">Preset value type <em>date</em><a class="headerlink" href="#preset-value-type-date" title="Permanent link">#</a></h4>
 <p>We now support a preset value type of date that will cause a date selector to be displayed in the property editor.</p>
 <h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
