@@ -1490,7 +1490,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
                     displayHandles && !tmpDrawingSelectedWays.isEmpty());
             labelFontStyle = labelTextStyleNormalSelected;
             labelFontStyleSmall = labelTextStyleSmallSelected;
-            // visual feedback if way nodes are draggable
+            // visual feedback if way nodes are dragable
             if (wayNodeDragging && context instanceof Main && ((Main) context).getEasyEditManager().inWaySelectedMode()) {
                 for (int i = 0; i < pointsSize; i += 4) {
                     canvas.drawCircle(linePoints[i], linePoints[i + 1], nodeToleranceRadius, nodeDragRadiusPaint);
@@ -1517,10 +1517,10 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             if (arrowStyle.checkOneway()) {
                 int onewayCode = way.getOneway();
                 if (onewayCode != 0) {
-                    drawWayArrows(canvas, linePoints, screenWidth, screenHeight, pointsSize, (onewayCode == -1), arrowStyle.getPaint(), false);
+                    drawWayArrows(canvas, linePoints, pointsSize, screenWidth, screenHeight, (onewayCode == -1), arrowStyle.getPaint(), false);
                 }
             } else {
-                drawWayArrows(canvas, linePoints, screenWidth, screenHeight, pointsSize, false, arrowStyle.getPaint(), false);
+                drawWayArrows(canvas, linePoints, pointsSize, screenWidth, screenHeight, false, arrowStyle.getPaint(), false);
             }
         }
 
@@ -1699,6 +1699,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     private void drawWayArrows(@NonNull Canvas canvas, float[] linePoints, int linePointsSize, int screenWidth, int screenHeight, boolean reverse,
             @NonNull Paint paint, boolean addHandles) {
         double minLen = currentStyle.getMinLenForHandle();
+        final float nodeToleranceValue = currentStyle.getNodeToleranceValue();
         int ptr = 0;
         while (ptr < linePointsSize) {
 
@@ -1710,56 +1711,86 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             float xDelta = x2 - x1;
             float yDelta = y2 - y1;
 
-            float angle = (float) (Math.atan2(yDelta, xDelta) * 180 / Math.PI);
-            angle = reverse ? angle - 180 : angle;
+            float xDelta2 = xDelta / 2;
+            float yDelta2 = yDelta / 2;
 
-            if (xDelta > screenWidth || yDelta > screenHeight) {
-                int buffer = (int) nodeTolerancePaint2.getStrokeWidth();
-                // long way segment add extra arrows at start and end
+            float x = x1 + xDelta2;
+            float y = y1 + yDelta2;
+
+            boolean inViewbox = x > 0 && x < screenWidth && y > 0 && y < screenHeight;
+
+            boolean secondArrow = false;
+            if (inViewbox) {
+                if (addHandles) {
+                    double len = Math.hypot(xDelta, yDelta);
+                    if (len > minLen) {
+                        handles.put(((long) (Float.floatToRawIntBits(x)) << 32) + Float.floatToRawIntBits(y));
+                        // add arrows at 1/4 and 3/4 along the segment
+                        secondArrow = true;
+                        xDelta2 = xDelta2 / 2;
+                        yDelta2 = yDelta2 / 2;
+                    }
+                }
+            } else {
+                // clip to box and draw arrow on remaining part
+                // extracting this in to a method would require allocating an array,
+                // doesn't make sense
+                float a = yDelta / xDelta;
+                float m = y1 - x1 * a;
+                if (y1 < 0) {
+                    x1 = -m / a;
+                    y1 = 0;
+                } else if (y1 > screenHeight) {
+                    y1 = screenHeight;
+                    x1 = (y1 - m) / a;
+                }
+                if (y2 < 0) {
+                    x2 = -m / a;
+                    y2 = 0;
+                } else if (y2 > screenHeight) {
+                    y2 = screenHeight;
+                    x2 = (y2 - m) / a;
+                }
+                if (x1 < 0) {
+                    y1 = m;
+                    x1 = 0;
+                } else if (x1 > screenWidth) {
+                    x1 = screenWidth;
+                    y1 = m + a * x1;
+                }
+                if (x2 < 0) {
+                    y2 = m;
+                    x2 = 0;
+                } else if (x2 > screenWidth) {
+                    x2 = screenWidth;
+                    y2 = m + a * x2;
+                }
+                //
+                xDelta = x2 - x1;
+                yDelta = y2 - y1;
+                double len = Math.hypot(xDelta, yDelta);
+                if (len < nodeToleranceValue) {
+                    continue;
+                }
+                xDelta2 = xDelta / 2;
+                yDelta2 = yDelta / 2;
+            }
+            x = x1 + xDelta2;
+            y = y1 + yDelta2;
+
+            float angle = (float) (Math.atan2(yDelta, xDelta) * 180 / Math.PI);
+            canvas.save();
+            canvas.translate(x, y);
+            canvas.rotate(reverse ? angle - 180 : angle);
+            canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
+            canvas.restore();
+            if (secondArrow) {
                 canvas.save();
-                canvas.translate(x1 + buffer, y1 + buffer);
-                canvas.rotate(angle);
-                canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
-                canvas.rotate(-angle);
-                buffer = buffer * 2;
-                canvas.translate(xDelta - buffer, yDelta - buffer);
-                canvas.rotate(angle);
+                canvas.translate(x + 2 * xDelta2, y + 2 * yDelta2);
+                canvas.rotate(reverse ? angle - 180 : angle);
                 canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
                 canvas.restore();
             }
-
-            boolean secondArrow = false;
-            if (addHandles) {
-                double len = Math.hypot(xDelta, yDelta);
-                if (len > minLen) {
-                    handles.put(((long) (Float.floatToRawIntBits(x1 + xDelta / 2)) << 32) + Float.floatToRawIntBits(y1 + yDelta / 2));
-                    xDelta = xDelta / 4;
-                    yDelta = yDelta / 4;
-                    secondArrow = true;
-                } else {
-                    xDelta = xDelta / 2;
-                    yDelta = yDelta / 2;
-                }
-            } else {
-                xDelta = xDelta / 2;
-                yDelta = yDelta / 2;
-            }
-
-            float x = x1 + xDelta;
-            float y = y1 + yDelta;
-
-            canvas.save();
-            canvas.translate(x, y);
-            canvas.rotate(angle);
-            canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
-
-            if (secondArrow) {
-                canvas.rotate(-angle);
-                canvas.translate(2 * xDelta, 2 * yDelta);
-                canvas.rotate(angle);
-                canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
-            }
-            canvas.restore();
         }
     }
 
