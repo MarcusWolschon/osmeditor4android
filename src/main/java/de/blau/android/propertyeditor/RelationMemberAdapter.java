@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -22,18 +23,17 @@ import de.blau.android.util.AfterTextChangedWatcher;
 
 public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAdapter.MemberRowViewHolder> {
 
-    private android.widget.RadioGroup.OnCheckedChangeListener groupChangeListener = null;
-
     private final LayoutInflater inflater;
     private final Context        ctx;
     private final TextWatcher    watcher;
 
     private List<MemberEntry> entries;
 
-    private int selected = -1;
-
     private OnCheckedChangeListener       listener;
     private final RelationMembersFragment owner;
+
+    private final int selectableColor;
+    private final int notSelectableColor;
 
     public static class MemberRowViewHolder extends RecyclerView.ViewHolder {
         RelationMemberRow row;
@@ -67,16 +67,9 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
         this.entries = entries;
         this.listener = listener;
         this.watcher = new SanitizeTextWatcher(ctx, maxStringLength);
+        selectableColor = ContextCompat.getColor(ctx, R.color.holo_blue_light);
+        notSelectableColor = ContextCompat.getColor(ctx, R.color.dark_grey);
     }
-
-    final OnCheckedChangeListener onCheckedChangeListener = (buttonView, isChecked) -> {
-        Integer position = (Integer) buttonView.getTag();
-        if (position != null) {
-            RelationMemberAdapter.this.notifyItemChanged(selected);
-            selected = position;
-            groupChangeListener.onCheckedChanged(null, position);
-        }
-    };
 
     @Override
     public RelationMemberAdapter.MemberRowViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -102,6 +95,11 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
         OnCheckedChangeListener realListener = (CompoundButton buttonView, boolean isChecked) -> {
             memberEntry.selected = isChecked;
             listener.onCheckedChanged(buttonView, isChecked);
+            if (isChecked) {
+                holder.row.elementView.setTextColor(notSelectableColor);
+            } else {
+                holder.row.elementView.setTextColor(selectableColor);
+            }
         };
         holder.row.setOnCheckedChangeListener(realListener);
 
@@ -117,8 +115,10 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
                     ((ControlListener) owner.getActivity()).addPropertyEditor(element);
                 }
             });
+            holder.row.elementView.setTextColor(selectableColor);
         } else {
             holder.row.elementView.setOnClickListener(null);
+            holder.row.elementView.setTextColor(notSelectableColor);
         }
     }
 
