@@ -392,7 +392,8 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             removeMembers.removeKey(osmId);
         } else if (((relationWays != null && relationWays.contains(element)) || (relationNodes != null && relationNodes.contains(element))
                 || (relationRelations != null && relationRelations.contains(element)))) {
-            new AlertDialog.Builder(main).setTitle(R.string.duplicate_relation_member_title).setMessage(R.string.duplicate_relation_member_message)
+            new AlertDialog.Builder(main).setTitle(R.string.duplicate_relation_member_title)
+                    .setMessage(main.getString(R.string.duplicate_relation_member_message, element.getDescription(main, true)))
                     .setPositiveButton(R.string.duplicate_route_segment_button, (dialog, which) -> addElement(element))
                     .setNegativeButton(R.string.duplicate_relation_member_remove_button, (dialog, which) -> removeElement(element))
                     .setNeutralButton(R.string.cancel, null).show();
@@ -432,24 +433,33 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         Map<String, Condition> conditionCache = new HashMap<>();
         for (OsmElement e : elements) {
             for (PresetRole role : roles) {
-                if (role.appliesTo(e.getType())) {
-                    String memberExpression = role.getMemberExpression();
-                    if (memberExpression == null) {
-                        clickable.add(e);
-                        break;
-                    }
-                    memberExpression = memberExpression.trim();
-                    wrapper.setElement(e);
-                    Condition condition = de.blau.android.search.Util.getCondition(conditionCache, memberExpression);
-                    if (condition != null && condition.eval(Wrapper.toJosmFilterType(e), wrapper, e.getTags())) {
-                        clickable.add(e);
-                        break;
-                    }
+                if (role.appliesTo(e.getType()) && checkMemberExpression(role.getMemberExpression(), wrapper, conditionCache, e)) {
+                    clickable.add(e);
+                    break;
                 }
             }
         }
         logic.setClickableElements(clickable);
+    }
 
+    /**
+     * Check if we have a null or compatible member expression for e
+     * 
+     * @param memberExpression the member expression or null
+     * @param wrapper search Wrapper
+     * @param conditionCache cache of any Condition from memberExpression
+     * @param e the OsmElement
+     * @return true if the memberExpression if compatible with e
+     */
+    private boolean checkMemberExpression(@Nullable String memberExpression, @NonNull Wrapper wrapper, @NonNull Map<String, Condition> conditionCache,
+            @NonNull OsmElement e) {
+        if (memberExpression == null) {
+            return true;
+        }
+        memberExpression = memberExpression.trim();
+        wrapper.setElement(e);
+        Condition condition = de.blau.android.search.Util.getCondition(conditionCache, memberExpression);
+        return condition != null && condition.eval(Wrapper.toJosmFilterType(e), wrapper, e.getTags());
     }
 
     /**

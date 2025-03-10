@@ -371,7 +371,7 @@
     <string name="duplicate_route_segment_button">Add anyway</string>
     <!-- Duplicate relation element dialog -->
     <string name="duplicate_relation_member_title">Add relation member</string>
-    <string name="duplicate_relation_member_message">This element is already a member of the relation.</string>
+    <string name="duplicate_relation_member_message">%1$s\n\nis already a member of the relation.</string>
     <string name="duplicate_relation_member_remove_button">Remove member</string>
     <!-- Move multi-polygon outer element tags to relation -->
     <string name="move_outer_tags_title">Move tags from outer rings to multi-polygon</string>
