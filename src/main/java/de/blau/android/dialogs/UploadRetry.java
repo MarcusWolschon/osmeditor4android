@@ -276,21 +276,23 @@ public class UploadRetry extends ImmersiveDialogFragment {
                     return;
                 }
                 final Button negative = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-                if (result == NO_CHANGES_UPLOADED) {
+                switch (result) {
+                case NO_CHANGES_UPLOADED:
                     retryMessage.setText(getString(R.string.upload_retry_message_nothing_uploaded, changesetId));
                     UploadListener.UploadArguments arguments = new UploadListener.UploadArguments(comment, source, false, false, extraTags, elements);
                     setupButton(negative, R.string.retry, (View v) -> logic.upload(getActivity(), arguments, null));
                     return;
-                }
-                if (result == ALL_CHANGES_UPLOADED) {
+                case ALL_CHANGES_UPLOADED:
                     retryMessage.setText(getString(R.string.upload_retry_message_all_uploaded, changesetId));
                     setupButton(negative, R.string.update_data, (View v) -> updateData(delegator, storage));
                     setupButton(dialog.getButton(DialogInterface.BUTTON_POSITIVE), R.string.redownload, null);
                     return;
-                }
-                if (result == CHANGES_PARTIALLY_UPLOADED) {
+                case CHANGES_PARTIALLY_UPLOADED:
                     retryMessage.setText(getString(R.string.upload_retry_message_partial_upload, changesetId));
                     setupButton(negative, R.string.update_data, (View v) -> updateData(delegator, storage));
+                    return;
+                default:
+                    Log.e(DEBUG_TAG, "Unexpected result vale " + result);
                 }
             }
 
