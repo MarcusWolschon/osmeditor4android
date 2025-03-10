@@ -105,8 +105,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
-    public static final List<Integer> PAUSE_AUTO_DOWNLOAD = Arrays.asList(ErrorCodes.CORRUPTED_DATA, ErrorCodes.DATA_CONFLICT, ErrorCodes.OUT_OF_MEMORY,
-            ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED);
+    public static final List<Integer> PAUSE_AUTO_DOWNLOAD = Collections
+            .unmodifiableList(Arrays.asList(ErrorCodes.CORRUPTED_DATA, ErrorCodes.DATA_CONFLICT, ErrorCodes.OUT_OF_MEMORY, ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED));
 
     private static final int THREAD_POOL_SIZE = 2;
 
@@ -1779,15 +1779,16 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             y = y1 + yDelta2;
 
             float angle = (float) (Math.atan2(yDelta, xDelta) * 180 / Math.PI);
+            angle = reverse ? angle - 180 : angle;
             canvas.save();
             canvas.translate(x, y);
-            canvas.rotate(reverse ? angle - 180 : angle);
+            canvas.rotate(angle);
             canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
             canvas.restore();
             if (secondArrow) {
                 canvas.save();
                 canvas.translate(x + 2 * xDelta2, y + 2 * yDelta2);
-                canvas.rotate(reverse ? angle - 180 : angle);
+                canvas.rotate(angle);
                 canvas.drawPath(DataStyle.WAY_DIRECTION_PATH, paint);
                 canvas.restore();
             }
