@@ -347,7 +347,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * @return a List of Nodes
      */
     @NonNull
-    private List<Node> nodesFromFollow(@NonNull List<Node> followNodes, @NonNull Node initialNode, @NonNull Node startNode, @NonNull Node endNode,
+    static List<Node> nodesFromFollow(@NonNull List<Node> followNodes, @NonNull Node initialNode, @NonNull Node startNode, @NonNull Node endNode,
             boolean closed) {
         int posStart = followNodes.indexOf(startNode); // positions in the way we are copying
         int posEnd = followNodes.indexOf(endNode);
