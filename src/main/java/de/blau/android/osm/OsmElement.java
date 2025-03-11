@@ -719,15 +719,16 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
                 return result;
             }
         }
-        if (ctx != null) {
-            Preset[] presets = App.getCurrentPresets(ctx);
-            for (Preset preset : presets) {
-                if (preset != null) {
-                    for (String key : preset.getObjectKeys()) {
-                        result = getTagValueString(key);
-                        if (result != null) {
-                            return result;
-                        }
+        if (ctx == null) {
+            return null;
+        }
+        Preset[] presets = App.getCurrentPresets(ctx);
+        for (Preset preset : presets) {
+            if (preset != null) {
+                for (String key : preset.getObjectKeys()) {
+                    result = getTagValueString(key);
+                    if (result != null) {
+                        return result;
                     }
                 }
             }
