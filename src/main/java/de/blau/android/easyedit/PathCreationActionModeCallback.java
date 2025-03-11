@@ -363,9 +363,9 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         List<Node> result = new ArrayList<>();
         int count = followNodes.size();
 
-        final int lastNodePos = count - 2; // -2 to skip the closing node
+        final int lastNodePos = count - 1; // the closing node
         // determine in which direction we are traversing the nodes of the way we are following
-        int inc = (posStart > posInitial && posInitial != 0 && posStart != lastNodePos) || (posInitial == lastNodePos && posStart == 0)
+        int inc = (posStart > posInitial && posInitial != 0 && posStart != lastNodePos) || (posInitial == lastNodePos - 1 && posStart == 0)
                 || (posInitial == 0 && posStart == 1) ? 1 : -1;
 
         for (int i = MathUtil.floorMod(posStart + inc, count); i != MathUtil.floorMod(posEnd + inc, count); i = MathUtil.floorMod(i + inc, count)) {
