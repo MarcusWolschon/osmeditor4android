@@ -1751,16 +1751,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             List<Way> similarWays = new ArrayList<>();
             if (otherWays.size() > 1 && ignoreSimilar && primaryKey != null) {
                 for (Way other : otherWays) {
-                    if (!way.equals(other)) {
-                        Long otherId = Long.valueOf(other.getOsmId());
-                        Boolean isSimilar = keyMap.get(otherId);
-                        if (isSimilar == null) {
-                            isSimilar = other.hasTagKey(primaryKey);
-                            keyMap.put(otherId, isSimilar);
-                        }
-                        if (isSimilar) {
-                            similarWays.add(other);
-                        }
+                    if (way.equals(other)) {
+                        continue;
+                    }
+                    Long otherId = Long.valueOf(other.getOsmId());
+                    Boolean isSimilar = keyMap.get(otherId);
+                    if (isSimilar == null) {
+                        isSimilar = other.hasTagKey(primaryKey);
+                        keyMap.put(otherId, isSimilar);
+                    }
+                    if (isSimilar) {
+                        similarWays.add(other);
                     }
                 }
             }
