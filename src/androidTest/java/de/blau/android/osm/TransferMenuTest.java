@@ -98,6 +98,7 @@ public class TransferMenuTest {
         LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
+        App.getDelegator().reset(true);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         TestUtils.stopEasyEdit(main);
@@ -418,6 +419,8 @@ public class TransferMenuTest {
 
         TestUtils.clickAwayTip(device, context);
         ViewBox viewBox = main.getMap().getViewBox();
+        viewBox.moveTo(main.getMap(), 0, 0);
+        main.getMap().invalidate();
         TestUtils.drag(device, main.getMap(), viewBox.getCenter()[0] / 1E7D, viewBox.getCenter()[1] / 1E7D, viewBox.getCenter()[0] / 1E7D + 0.001,
                 viewBox.getCenter()[1] / 1E7D + 0.0001, false, 10);
 
@@ -448,9 +451,12 @@ public class TransferMenuTest {
         TestUtils.clickText(device, false, main.getString(R.string.menu_enable_pan_and_zoom_auto_download), true, false);
 
         TestUtils.clickAwayTip(device, context);
+        
         ViewBox viewBox = main.getMap().getViewBox();
-        TestUtils.drag(device, main.getMap(), viewBox.getCenter()[0] / 1E7D, viewBox.getCenter()[1] / 1E7D, viewBox.getCenter()[0] / 1E7D + 0.001,
-                viewBox.getCenter()[1] / 1E7D + 0.0001, false, 10);
+        viewBox.moveTo(main.getMap(), 0, 0);
+        main.getMap().invalidate();
+        TestUtils.drag(device, main.getMap(), viewBox.getCenter()[0] / 1E7D, viewBox.getCenter()[1] / 1E7D, viewBox.getCenter()[0] / 1E7D + 0.0001,
+                viewBox.getCenter()[1] / 1E7D + 0.0001, true, 10);
 
         try {
             mockServer.server().takeRequest(10, TimeUnit.SECONDS);
