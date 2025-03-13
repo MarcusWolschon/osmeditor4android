@@ -194,7 +194,7 @@ public class Preferences {
         preferRemovableStorage = prefs.getBoolean(r.getString(R.string.config_preferRemovableStorage_key), true);
         mapillaryCacheSize = getIntPref(R.string.config_mapillaryCacheSize_key, AbstractImageOverlay.DEFAULT_CACHE_SIZE);
 
-        downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, 50);
+        downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, de.blau.android.layer.data.MapOverlay.DEFAULT_AUTO_DOWNLOAD_RADIUS);
         maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 10);
         autoPrune = prefs.getBoolean(r.getString(R.string.config_autoPrune_key), true);
         autoPruneBoundingBoxLimit = getIntPref(R.string.config_autoPruneBoundingBoxLimit_key, de.blau.android.layer.data.MapOverlay.DEFAULT_DOWNLOADBOX_LIMIT);

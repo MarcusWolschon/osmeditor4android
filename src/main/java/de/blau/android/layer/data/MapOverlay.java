@@ -119,6 +119,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
                                                                     // autoprunes
     public static final int   DEFAULT_AUTOPRUNE_NODE_LIMIT = 5000;
     public static final int   DEFAULT_DOWNLOADBOX_LIMIT    = 100;
+    public static final int   DEFAULT_AUTO_DOWNLOAD_RADIUS = 50;
     public static final int   PAN_AND_ZOOM_LIMIT           = 17;
     private static final int  MP_SIZE_LIMIT                = 1000;  // max size of MP to render as
 
@@ -168,7 +169,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     /**
      * Minimum side length for auto-download boxes
      */
-    private int minDownloadSize = 50;
+    private int minDownloadSize = DEFAULT_AUTO_DOWNLOAD_RADIUS * 2;
 
     /**
      * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
