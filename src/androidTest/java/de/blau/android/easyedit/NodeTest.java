@@ -57,6 +57,7 @@ public class NodeTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
+        prefs.setAutolockDelay(300000L);
         LayerUtils.removeImageryLayers(context);
         map = main.getMap();
         map.setPrefs(main, prefs);
@@ -132,6 +133,7 @@ public class NodeTest {
 
         TestUtils.drag(device, map, 8.38782, 47.390339, 8.388, 47.391, true, 30);
 
+        TestUtils.clickUp(device);
         assertEquals(OsmElement.STATE_MODIFIED, node.getState());
 
         assertEquals(8.388, node.getLon() / 1E7D, 0.001);

@@ -105,7 +105,8 @@ public class ExtendedSelectionTest {
         // double clicking doesn't currently work reliably in tests TestUtils.doubleClickAtCoordinates(device, map,
         // 8.3877977, 47.3897371, true); // NOSONAR
         TestUtils.clickAtCoordinates(device, map, 8.3877977, 47.3897371, true);
-        assertTrue(TestUtils.clickTextContains(device, false, " Excrement", false));
+        assertTrue(TestUtils.clickTextContains(device, false, " Excrement", true));
+        assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 2, 2), 5000));
         assertEquals(2, logic.getSelectedNodes().size());
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.drag(device, map, 8.3877977, 47.3897371, 8.3879, 47.38967, true, 100);

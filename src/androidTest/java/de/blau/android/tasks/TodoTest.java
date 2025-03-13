@@ -77,6 +77,7 @@ public class TodoTest {
         map.getViewBox().fitToBoundingBox(map, map.getDataLayer().getExtent());
         logic.updateStyle();
         map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 20);
         map.invalidate();
         device.waitForWindowUpdate(null, 2000);
     }
@@ -97,10 +98,12 @@ public class TodoTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void addAndCloseTodo() {
-        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
+        Node node = (Node) App.getDelegator().getOsmElement(Node.NAME, 3465444349L);
+        assertNotNull(node);
+        TestUtils.clickAtCoordinates(device, map, node.getLon(), node.getLat(), true);
+        TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.clickTextContains(device, " Toilets", true, 5000));
-        Node node = App.getLogic().getSelectedNode();
+        node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(3465444349L, node.getOsmId());
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
@@ -120,11 +123,12 @@ public class TodoTest {
         List<Todo> todos = App.getTaskStorage().getTodosForElement(node);
         assertEquals(1, todos.size());
         dismissKeyboard();
-        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, node.getLon(), node.getLat(), true);
         assertTrue(TestUtils.clickText(device, false, "Todo", true, false, 5000));
         TestUtils.sleep();
-        assertTrue(TestUtils.clickResource(device, false, "android:id/button3", false));
+        assertTrue(TestUtils.clickResource(device, false, "android:id/button3", true));
+        TestUtils.clickAtCoordinates(device, map, node.getLon(), node.getLat(), true);
+        assertTrue(TestUtils.clickTextContains(device, " Toilets", true, 5000));
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_todo), false, false));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_todo_close_and_next), true, false));
         assertTrue(todos.get(0).isClosed());
@@ -140,10 +144,12 @@ public class TodoTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void addAndCloseTodo2() {
-        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
+        Node node = (Node) App.getDelegator().getOsmElement(Node.NAME, 3465444349L);
+        assertNotNull(node);
+        TestUtils.clickAtCoordinates(device, map, node.getLon(), node.getLat(), true);
+        TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.clickTextContains(device, " Toilets", true, 5000));
-        Node node = App.getLogic().getSelectedNode();
+        node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(3465444349L, node.getOsmId());
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));

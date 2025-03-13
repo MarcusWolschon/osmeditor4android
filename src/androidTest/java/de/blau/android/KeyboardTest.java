@@ -210,7 +210,7 @@ public class KeyboardTest {
         way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(104148456L, way.getOsmId());
-        assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
+        assertTrue(TestUtils.findText(device, false, WAY_SELECTED, 2000));
 
         device.pressKeyCode(KeyEvent.KEYCODE_C, KeyEvent.META_CTRL_ON);
         TestUtils.sleep();
