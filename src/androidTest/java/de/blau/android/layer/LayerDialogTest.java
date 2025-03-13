@@ -320,7 +320,7 @@ public class LayerDialogTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         assertNull(map.getGeojsonLayer());
     }
-    
+
     /**
      * Load cvs
      */
@@ -340,7 +340,7 @@ public class LayerDialogTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
         TestUtils.unlock(device);
         TestUtils.clickAtCoordinates(device, map, 8.06783179982675, 47.399875769847, true);
-        
+
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.feature_information), 5000));
         assertTrue(TestUtils.findText(device, false, "Beulen Werke AG"));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
@@ -611,7 +611,8 @@ public class LayerDialogTest {
     public void wmsEndpoint() {
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
-        TestUtils.scrollToEnd(false);
+        // TestUtils.scrollToEnd(false);
+        TestUtils.scrollToStartsWith(device, main.getString(R.string.add_imagery_from_wms_endpoint), 500, true);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.add_imagery_from_wms_endpoint), true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.wms_endpoints_title)));
 
