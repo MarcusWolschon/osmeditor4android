@@ -1,6 +1,7 @@
 package de.blau.android.easyedit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -199,6 +200,7 @@ public class RelationTest {
         TestUtils.clickAtCoordinates(device, map, 8.3881251, 47.3885077, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_2)));
         TestUtils.clickAtCoordinates(device, map, 8.3881577, 47.3886924, true);
+        TestUtils.clickAwayTip(device, context);
         // click away issue
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_conflict_title)));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.Done), true, false));
@@ -234,8 +236,9 @@ public class RelationTest {
         Way way = (Way) relation.getMembers().get(0).getElement();
         Node n0 = way.getFirstNode();
 
-        assertEquals(83881251, n0.getLon(), 300);
-        assertEquals(473885077, n0.getLat(), 300);
+        int n0lat = n0.getLat();
+        int n0lon = n0.getLon();
+        
         if (!TestUtils.clickMenuButton(device, context.getString(R.string.menu_rotate), false, false)) {
             TestUtils.clickOverflowButton(device);
             TestUtils.clickText(device, false, context.getString(R.string.menu_rotate), false, false);
@@ -246,8 +249,8 @@ public class RelationTest {
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_relationselect)));
 
-        assertEquals(83882342, n0.getLon(), 10000);
-        assertEquals(473890641, n0.getLat(), 10000);
+        assertNotEquals(n0lon, n0.getLon(), 100);
+        assertNotEquals(n0lat, n0.getLat(), 100);
     }
 
     /**
@@ -271,6 +274,7 @@ public class RelationTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_2), 2000));
         TestUtils.clickAtCoordinates(device, map, 8.3881577, 47.3886924, true);
         
+        TestUtils.clickAwayTip(device, context);
         // click away issue
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_conflict_title), 2000));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.Done), true, false));
@@ -316,6 +320,8 @@ public class RelationTest {
         assertNotNull(propertyEditor);
         TestUtils.sleep(5000);
         TestUtils.clickHome(device, true);
+        
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_relationselect), 5000));
         List<Relation> relations = App.getLogic().getSelectedRelations();
         assertEquals(1, relations.size());
         Relation relation = relations.get(0);

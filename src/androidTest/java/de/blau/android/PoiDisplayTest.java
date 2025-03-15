@@ -72,8 +72,8 @@ public class PoiDisplayTest {
      */
     @Test
     public void locked() {
-        TestUtils.lock(device);
         map.getDataLayer().setVisible(true);
+        TestUtils.lock(device);
 
         View mainMap = main.findViewById(R.id.mainMap);
         int[] pos = new int[2];
@@ -84,7 +84,6 @@ public class PoiDisplayTest {
         final int startY = pos[1] + h;
         TestUtils.longClickAt(device, startX, startY);
         TestUtils.drag(device, startX, startY, startX, startY - 200, 100);
-        TestUtils.unlock(device);
         assertTrue(TestUtils.clickText(device, false, "Excrement bags", true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.element_information)));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true));
