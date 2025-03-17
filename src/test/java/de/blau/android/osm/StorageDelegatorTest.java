@@ -126,6 +126,32 @@ public class StorageDelegatorTest {
         logic.undo();
         assertTrue(d.clipboardIsEmpty());
     }
+    
+    /**
+     * Test that just changing the role adds the parent relation to api storage
+     */
+    @Test
+    public void updateParentRelation() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+
+        final Relation r = w.getParentRelations().get(0);
+        d.getApiStorage().removeElement(r);
+        assertFalse(d.getApiStorage().contains(r));
+        assertTrue(r.getMembersWithRole("test2").isEmpty());
+        List<RelationMemberPosition> members = r.getAllMembersWithPosition(w);
+
+        assertEquals(1, members.size());
+        RelationMemberPosition newMember = RelationMemberPosition.copyWithoutElement(members.get(0));
+        newMember.setRole("test2");
+        MultiHashMap<Long, RelationMemberPosition> parents = new MultiHashMap<>();
+        parents.add(r.getOsmId(), newMember);
+        d.updateParentRelations(w, parents);
+
+        assertFalse(r.getMembersWithRole("test2").isEmpty());
+        assertTrue(d.getApiStorage().contains(r));
+        assertEquals(OsmElement.STATE_CREATED, r.getState());
+    }
 
     /**
      * Load some data modify a way and a node, then prune
