@@ -25,6 +25,7 @@ import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationUtils;
+import de.blau.android.osm.RelationUtils.WaysConnected;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.propertyeditor.RelationMembersFragment.MemberEntry;
@@ -209,13 +210,25 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             return true;
         case MENU_ITEM_SORT:
             List<Map<String, String>> tags = ((RelationMembersFragment) caller).propertyEditorListener.getUpdatedTags();
-            boolean lineLike = false; // this needs a better name
-            if (tags != null && tags.size() == 1) {
-                String type = tags.get(0).get(Tags.KEY_TYPE);
-                lineLike = Tags.VALUE_MULTIPOLYGON.equals(type) || Tags.VALUE_BOUNDARY.equals(type);
+
+            if (tags == null || tags.size() != 1 || tags.get(0).get(Tags.KEY_TYPE) == null) {
+                return true;
             }
-            List<MemberEntry> temp = RelationUtils.sortRelationMembers(selected, new LinkedList<>(),
-                    lineLike ? RelationUtils::haveEndConnection : RelationUtils::haveCommonNode);
+
+            WaysConnected connectionCheck = RelationUtils::haveCommonNode;
+            switch (tags.get(0).get(Tags.KEY_TYPE)) {
+            case Tags.VALUE_MULTIPOLYGON:
+            case Tags.VALUE_BOUNDARY:
+                connectionCheck = RelationUtils::haveEndConnection;
+                break;
+            case Tags.VALUE_ROUTE:
+                connectionCheck = RelationUtils::haveRouteConnection;
+                break;
+            default:
+                connectionCheck = RelationUtils::haveCommonNode;
+            }
+
+            List<MemberEntry> temp = RelationUtils.sortRelationMembers(selected, new LinkedList<>(), connectionCheck);
             int top = members.indexOf(temp.get(0));
             for (MemberEntry entry : temp) {
                 if (members.contains(entry)) {

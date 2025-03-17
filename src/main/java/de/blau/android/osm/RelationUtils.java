@@ -445,10 +445,12 @@ public final class RelationUtils {
          * Determine if two ways are connected in some form
          * 
          * @param way1 first Way
+         * @param role1 optional role of way1
          * @param way2 second Way
+         * @param role2 optional role of way2
          * @return true if the ways are connected
          */
-        public boolean connected(@Nullable Way way1, @Nullable Way way2);
+        public boolean connected(@Nullable Way way1, @Nullable String role1, @Nullable Way way2, @Nullable String role2);
     }
 
     /**
@@ -485,14 +487,17 @@ public final class RelationUtils {
                 }
 
                 Way startWay = (Way) start.getElement().getElement();
+                String startRole = start.getElement().getRole();
                 Way endWay = (Way) end.getElement().getElement();
+                String endRole = end.getElement().getRole();
                 Way currentWay = (Way) rmd.getElement();
+                String currentRole = rmd.getRole();
 
-                if (c.connected(endWay, currentWay)) {
+                if (c.connected(endWay, endRole, currentWay, currentRole)) {
                     end = temp.addAfter(end, rmd);
                     unconnected.set(i, null);
                     i = restart; // NOSONAR
-                } else if (c.connected(startWay, currentWay)) {
+                } else if (c.connected(startWay, startRole, currentWay, currentRole)) {
                     start = temp.addBefore(start, rmd);
                     unconnected.set(i, null);
                     i = restart; // NOSONAR
@@ -516,10 +521,12 @@ public final class RelationUtils {
      * Note should be moved to the Way class
      * 
      * @param way1 first Way
+     * @param role1 ignored
      * @param way2 second Way
+     * @param role2 ignored
      * @return true if the have a common Node
      */
-    public static boolean haveEndConnection(@Nullable Way way1, @Nullable Way way2) {
+    public static boolean haveEndConnection(@Nullable Way way1, @Nullable String role1, @Nullable Way way2, @Nullable String role2) {
         if (way1 != null && way2 != null) {
             final List<Node> way1Nodes = way1.getNodes();
             final List<Node> way2Nodes = way2.getNodes();
@@ -540,10 +547,12 @@ public final class RelationUtils {
      * Note should be moved to the Way class
      * 
      * @param way1 first Way
+     * @param role1 ignored
      * @param way2 second Way
+     * @param role2 ignored
      * @return true if the have a common Node
      */
-    public static boolean haveCommonNode(@Nullable Way way1, @Nullable Way way2) {
+    public static boolean haveCommonNode(@Nullable Way way1, @Nullable String role1, @Nullable Way way2, @Nullable String role2) {
         if (way1 != null && way2 != null) {
             final List<Node> way1Nodes = way1.getNodes();
             final int size1 = way1Nodes.size();
@@ -561,6 +570,41 @@ public final class RelationUtils {
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    /**
+     * Test if two ways have a connection in a route
+     * 
+     * @param way1 first Way
+     * @param role1 optional role of way1
+     * @param way2 second Way
+     * @param role2 optional role of way2
+     * @return true if the have a common Node
+     */
+    public static boolean haveRouteConnection(@Nullable Way way1, @Nullable String role1, @Nullable Way way2, @Nullable String role2) {
+        if (role1 == null || role2 == null) {
+            haveCommonNode(way1, null, way2, null);
+        }
+        if (way1 != null && way2 != null) {
+
+            final List<Node> way1Nodes = way1.getNodes();
+            final int size1 = way1Nodes.size();
+
+            final Node firstNode1 = Tags.ROLE_FORWARD.equals(role1) ? way1Nodes.get(0) : way1Nodes.get(size1 - 1);
+
+            final List<Node> way2Nodes = way2.getNodes();
+            final int size2 = way2Nodes.size();
+
+            final Node firstNode2 = Tags.ROLE_FORWARD.equals(role2) ? way2Nodes.get(0) : way2Nodes.get(size2 - 1);
+
+            // either the last (in the direction of the role) node of way1 needs to be firstNode2 or the last node
+            // (in the direction of the role) of way2 needs to be firstNode1
+            Node lastNode1 = Tags.ROLE_FORWARD.equals(role1) ? way1Nodes.get(size1 - 1) : way1Nodes.get(0);
+            Node lastNode2 = Tags.ROLE_FORWARD.equals(role2) ? way2Nodes.get(size2 - 1) : way2Nodes.get(0);
+            return lastNode1.equals(firstNode2) || lastNode2.equals(firstNode1);
+
         }
         return false;
     }
