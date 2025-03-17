@@ -456,7 +456,7 @@ public final class RelationUtils {
     /**
      * Sort a list of relation members in the order they are connected
      * 
-     * Note: there is likely a far better algorithm than this, ignores way direction.
+     * Note: there is likely a far better algorithm than this.
      * 
      * @param list List of relation members
      * @param temp List of relation members used for processing in the method

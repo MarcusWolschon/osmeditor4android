@@ -215,7 +215,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
                 return true;
             }
 
-            WaysConnected connectionCheck = RelationUtils::haveCommonNode;
+            WaysConnected connectionCheck;
             switch (tags.get(0).get(Tags.KEY_TYPE)) {
             case Tags.VALUE_MULTIPOLYGON:
             case Tags.VALUE_BOUNDARY:
