@@ -42,6 +42,7 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.MultiHashMap;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
@@ -187,6 +188,32 @@ public class StorageDelegatorTest {
         for (int i = 0; i < w.nodeCount(); i++) {
             assertEquals(originalNodes.get(i), dupNodes.get(i));
         }
+    }
+
+    /**
+     * Test that just changing the role adds the parent relation to api storage
+     */
+    @Test
+    public void updateParentRelation() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+
+        final Relation r = w.getParentRelations().get(0);
+        d.getApiStorage().removeElement(r);
+        assertFalse(d.getApiStorage().contains(r));
+        assertTrue(r.getMembersWithRole("test2").isEmpty());
+        List<RelationMemberPosition> members = r.getAllMembersWithPosition(w);
+
+        assertEquals(1, members.size());
+        RelationMemberPosition newMember = RelationMemberPosition.copyWithoutElement(members.get(0));
+        newMember.setRole("test2");
+        MultiHashMap<Long, RelationMemberPosition> parents = new MultiHashMap<>();
+        parents.add(r.getOsmId(), newMember);
+        d.updateParentRelations(w, parents);
+
+        assertFalse(r.getMembersWithRole("test2").isEmpty());
+        assertTrue(d.getApiStorage().contains(r));
+        assertEquals(OsmElement.STATE_CREATED, r.getState());
     }
 
     /**
@@ -1602,7 +1629,7 @@ public class StorageDelegatorTest {
     public void updateDataFromChangesTest2() {
         updateDataFromChanges("update-test-data-2.osm", "/update-test-changes-2.xml", 12);
     }
-    
+
     @Test
     public void updateDataFromChangesTest3() {
         updateDataFromChanges("update-test-data-3.osm", "/update-test-changes-3.xml", 16);

@@ -2311,15 +2311,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void updateParentRelations(@NonNull final OsmElement e, @NonNull final MultiHashMap<Long, RelationMemberPosition> parents) {
         Log.d(DEBUG_TAG, "updateParentRelations new parents size " + parents.size());
         List<Relation> origParents = e.getParentRelations() != null ? new ArrayList<>(e.getParentRelations()) : new ArrayList<>();
-
-        for (Relation o : origParents) { // find changes to existing memberships
-            if (!parents.containsKey(o.getOsmId())) {
-                removeElementFromRelation(e, o); // saves undo state
-                continue;
-            }
-            if (parents.containsKey(o.getOsmId())) {
-                List<RelationMemberPosition> newMembers = new ArrayList<>(parents.get(o.getOsmId()));
-                List<RelationMemberPosition> members = o.getAllMembersWithPosition(e);
+        try {
+            lock();
+            for (Relation origParent : origParents) { // find changes to existing memberships
+                if (!parents.containsKey(origParent.getOsmId())) {
+                    removeElementFromRelation(e, origParent); // saves undo state
+                    continue;
+                }
+                List<RelationMemberPosition> newMembers = new ArrayList<>(parents.get(origParent.getOsmId()));
+                List<RelationMemberPosition> members = origParent.getAllMembersWithPosition(e);
                 List<RelationMemberPosition> leftOvers = new ArrayList<>(members);
                 for (RelationMemberPosition existing : members) {
                     if (newMembers.contains(existing)) {
@@ -2331,38 +2331,44 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 // newMembers members that we didn't find
                 if (!newMembers.isEmpty() || !leftOvers.isEmpty()) {
                     dirty = true;
-                    undo.save(o);
+                    undo.save(origParent);
                     for (RelationMemberPosition newMember : newMembers) {
                         if (!leftOvers.isEmpty()) {
                             RelationMemberPosition member = leftOvers.get(0);
-                            if (!member.getRole().equals(newMember.getRole())) {
-                                apiStorage.insertElementSafe(o);
+                            String oldRole = member.getRole();
+                            String newRole = newMember.getRole();
+                            if ((oldRole == null && newRole != null) || (oldRole != null && !oldRole.equals(newRole))) {
+                                origParent.updateState(OsmElement.STATE_MODIFIED);
+                                apiStorage.insertElementSafe(origParent);
                             }
-                            member.setRole(newMember.getRole());
+                            member.setRole(newRole);
                             leftOvers.remove(member);
                         } else {
-                            addElementToRelation(e, -1, newMember.getRole(), o);
+                            addElementToRelation(e, -1, newMember.getRole(), origParent);
                         }
                     }
                     for (RelationMemberPosition rmp : leftOvers) { // these are no longer needed
-                        o.removeMember(rmp.getRelationMember());
-                        apiStorage.insertElementSafe(o);
+                        origParent.removeMember(rmp.getRelationMember());
+                        origParent.updateState(OsmElement.STATE_MODIFIED);
+                        apiStorage.insertElementSafe(origParent);
                     }
                 }
             }
-        }
-        // add as new member to relation
-        for (Long l : parents.getKeys()) {
-            Log.d(DEBUG_TAG, "updateParentRelations new parent " + l);
-            if (l != -1) { //
-                Relation r = currentStorage.getRelation(l);
-                if (!origParents.contains(r)) {
-                    for (RelationMemberPosition rmp : parents.get(l)) {
-                        Log.d(DEBUG_TAG, "updateParentRelations adding " + e.getDescription() + " to " + r.getDescription());
-                        addElementToRelation(e, -1, rmp.getRole(), r); // append for now only
+            // add as new member to relation
+            for (Long l : parents.getKeys()) {
+                Log.d(DEBUG_TAG, "updateParentRelations new parent " + l);
+                if (l != -1) { //
+                    Relation r = currentStorage.getRelation(l);
+                    if (!origParents.contains(r)) {
+                        for (RelationMemberPosition rmp : parents.get(l)) {
+                            Log.d(DEBUG_TAG, "updateParentRelations adding " + e.getDescription() + " to " + r.getDescription());
+                            addElementToRelation(e, -1, rmp.getRole(), r); // append for now only
+                        }
                     }
                 }
             }
+        } finally {
+            unlock();
         }
     }
 
