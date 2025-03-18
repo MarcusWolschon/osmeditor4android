@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.75.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.76.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -821,6 +821,7 @@
             <list_entry value="donut" display_value="Donut"/>
             <list_entry value="dumplings" display_value="Dumplings"/>
             <list_entry value="ethiopian" display_value="Ethiopian"/>
+            <list_entry value="falafel" display_value="Falafel"/>
             <list_entry value="filipino" display_value="Filipino"/>
             <list_entry value="fish" display_value="Fish"/>
             <list_entry value="fish_and_chips" display_value="Fish and chips"/>
@@ -3481,7 +3482,7 @@
             <link wiki="Tag:highway=milestone"/>
             <key key="highway" value="milestone"/>
             <text key="distance" text="Distance (kilometers)"/>
-            <text key="ref" text="Reference"/>
+            <reference ref="highway_ref"/>
             <optional>
                 <combo key="direction" text="For direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
             </optional>
@@ -13452,8 +13453,8 @@
         <reference ref="name_oh_wheelchair_level"/>
         <reference ref="link_contact_address_payment"/>
     </item> <!-- Money lender -->
-    </group> <!-- Money -->
-    <group name="Geography" icon="icons/png/poi_peak2.png">
+ </group> <!-- Money -->
+ <group name="Geography" icon="icons/png/poi_peak2.png">
     <group name="Boundaries" icon="icons/png/poi_boundary_administrative.png" items_sort="false">
         <item name="Administrative" icon="icons/png/poi_boundary_administrative.png" type="way,closedway,relation,multipolygon" preset_name_label="true">
             <link wiki="Tag:boundary=administrative"/>
@@ -13745,6 +13746,14 @@
             <key key="natural" value="valley"/>
             <reference ref="name_wikipedia"/>
         </item> <!-- Valley -->
+        <item name="Mountain range" icon="icons/png/poi_mountain_range.png" type="way" preset_name_label="true">
+            <link wiki="Tag:natural=mountain_range"/>
+            <space/>
+            <label text="A series of high ridges and mountain peaks ranged in a line and connected by high ground."/>
+            <space/>
+            <key key="natural" value="mountain_range"/>
+            <reference ref="name_wikipedia"/>
+        </item> <!-- Mountain range -->
         <item name="Cliff" icon="icons/png/poi_cliff.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=cliff"/>
             <space/>
@@ -13835,8 +13844,8 @@
             <combo key="reef" text="Type" values="coral,oyster,rock,sand" display_values="Coral,Oyster,Rock,Sand"/>
         </item> <!-- Reef -->
     </group> <!-- Geography -->
-    </group> <!-- Geography -->
-    <group name="Land use and nature" icon="icons/png/landuse_coniferous_and_deciduous.png">
+</group> <!-- Geography -->
+<group name="Land use and nature" icon="icons/png/landuse_coniferous_and_deciduous.png">
     <group name="Nature" icon="icons/png/landuse_coniferous_and_deciduous.png">
         <item name="Tree" icon="icons/png/natural_tree_24020.png" type="node" preset_name_label="true">
             <space/>
@@ -14196,6 +14205,12 @@
             <reference ref="optional_name"/>
             <reference ref="dog"/>
         </item> <!-- Recreation Ground -->
+        <item name="Winter sports" icon="icons/png/landuse_skiing_downhill.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:landuse=winter_sports"/>
+            <space/>
+            <key key="landuse" value="winter_sports"/>
+            <reference ref="optional_name"/>
+        </item> <!-- Winter sports -->
         <separator/>
         <item name="Religious" icon="icons/png/landuse_religous.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=religious"/>
