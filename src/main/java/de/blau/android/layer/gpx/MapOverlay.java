@@ -475,7 +475,7 @@ public class MapOverlay extends StyleableFileLayer
     @Override
     public synchronized StyleableLayer load(@NonNull Context context) {
         Log.d(DEBUG_TAG, "Loading state from " + stateFileName);
-        MapOverlay restoredOverlay = savingHelper.load(context, stateFileName, true);
+        MapOverlay restoredOverlay = savingHelper.load(context, stateFileName, true, true, false);
         if (restoredOverlay != null) {
             Log.d(DEBUG_TAG, "read saved state");
             wayPointPaint = restoredOverlay.wayPointPaint;
