@@ -81,7 +81,7 @@
     		<interval length="3.0" />
     	</dash>
     </feature>
-    <feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" offset="0.50">
+    <feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="2.0" color="88999933" style="STROKE" cap="BUTT" join="MITER" offset="0.50">
         <feature type="way" tags="landuse=construction" color="88996633" style="FILL_AND_STROKE" pathPattern="" />
         <feature type="way" tags="landuse=residential" minVisibleZoom="10" color="88888888" />
         <feature type="way" tags="landuse=quarry" color="88d8a2a2" />
@@ -90,6 +90,7 @@
         <feature type="way" tags="landuse=industrial" minVisibleZoom="10" color="88A3709A" />
         <feature type="way" tags="landuse=commercial" minVisibleZoom="10" color="88A3709A" />
         <feature type="way" tags="landuse=railway" minVisibleZoom="10" color="88A3709A" />
+        <feature type="way" tags="landuse=winter_sports" minVisibleZoom="10" color="88fafaf5" />
     </feature>
     
     <feature type="way" tags="leisure=pitch" updateWidth="true" widthFactor="1.0" color="8839AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
@@ -101,10 +102,12 @@
     <feature type="tree_row_casing" updateWidth="true" widthFactor="0.2" color="ff037100" style="STROKE" cap="BUTT" join="MITER" />
     
     <feature type="way" tags="natural" updateWidth="true" widthFactor="0.5" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER"> 
-        <feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" />
-        <feature type="way" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" />
+        <feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" />
+        <feature type="way" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" />
+        <feature type="way" tags="natural=mountain_range" widthFactor="2.0" minVisibleZoom="10" color="ff555555" />
+        <feature type="way" tags="natural=valley" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" />
         <feature type="way" tags="natural=tree_row" widthFactor="2.5" color="ff146824" cap="ROUND" join="ROUND" casingStyle="tree_row_casing" labelZoomLimit="20">
-        <dash phase="1.0">
+            <dash phase="1.0">
                 <interval length="0.05" />
                 <interval length="2.0" />
             </dash>

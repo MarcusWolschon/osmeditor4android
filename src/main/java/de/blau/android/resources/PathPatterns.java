@@ -189,6 +189,24 @@ class BorderRight extends Border {
     }
 }
 
+class Wiggle implements PathPattern {
+    static final String NAME = "wiggle";
+
+    Path path = new Path();
+
+    @Override
+    public Path draw(float size) {
+        path.rewind();
+        float half = size / 2;
+        float quarter = half / 2;
+        path.moveTo(-half, 0);
+        path.lineTo(-quarter, half);
+        path.lineTo(quarter, -half);
+        path.lineTo(half, 0);
+        return path;
+    }
+}
+
 final class PathPatterns {
 
     /**
@@ -208,6 +226,7 @@ final class PathPatterns {
         patterns.put(SquareBoth.NAME, new SquareBoth());
         patterns.put(BorderLeft.NAME, new BorderLeft());
         patterns.put(BorderRight.NAME, new BorderRight());
+        patterns.put(Wiggle.NAME, new Wiggle());
     }
 
     /**
