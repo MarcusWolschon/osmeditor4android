@@ -1,7 +1,9 @@
 package de.blau.android.services.util;
 
-import java.util.HashMap;
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -22,7 +24,9 @@ import de.blau.android.layer.tiles.util.MapTileProviderCallback;
  *
  */
 public abstract class MapAsyncTileProvider {
-    private static final String DEBUG_TAG = MapAsyncTileProvider.class.getSimpleName().substring(0, Math.min(23, MapAsyncTileProvider.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapAsyncTileProvider.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapAsyncTileProvider.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final int IOERR        = 1;
     public static final int DOESNOTEXIST = 2;
@@ -31,8 +35,28 @@ public abstract class MapAsyncTileProvider {
 
     public static final int ALLZOOMS = -1;
 
-    ThreadPoolExecutor                  mThreadPool;
-    private final Map<String, Runnable> mPending = new HashMap<>();
+    private static final int MAX_PENDING = 1000; // maximum number of requests that can be pending
+
+    ThreadPoolExecutor mThreadPool;
+
+    private final Map<String, Runnable> mPending = new LinkedHashMap<String, Runnable>() {
+        private static final long serialVersionUID = 1L;
+
+        private boolean logged;
+
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<String, Runnable> eldest) {
+            if (size() > MAX_PENDING) {
+                // only log once
+                if (!logged) {
+                    Log.w(DEBUG_TAG, "Maximum number of pending tile requests exceeded for " + eldest.getKey());
+                    logged = true;
+                }
+                return true;
+            }
+            return false;
+        }
+    };
 
     /**
      * Queue a tile for loading, if it is already in the queue this returns without doing anything

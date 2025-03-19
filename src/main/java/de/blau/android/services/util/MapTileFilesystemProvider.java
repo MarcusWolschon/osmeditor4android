@@ -1,5 +1,7 @@
 package de.blau.android.services.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -44,8 +46,8 @@ import de.blau.android.util.ScreenMessage;
  */
 public class MapTileFilesystemProvider extends MapAsyncTileProvider implements MapTileSaver {
 
-    static final String DEBUG_TAG = MapTileFilesystemProvider.class.getSimpleName().substring(0,
-            Math.min(23, MapTileFilesystemProvider.class.getSimpleName().length()));
+    private static final int TAG_LEN   = Math.min(LOG_TAG_LEN, MapTileFilesystemProvider.class.getSimpleName().length());
+    static final String      DEBUG_TAG = MapTileFilesystemProvider.class.getSimpleName().substring(0, TAG_LEN);
 
     private final Context                 mCtx;
     private final MapTileProviderDataBase tileCache;
@@ -311,9 +313,9 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
      * @param displayed a set to track if we have already messaged
      * @param sourceId the source id
      * @param msg a string resource with the message
-     * @param e the Exception we caught
+     * @param e the Throwable we caught
      */
-    static void displayError(Context ctx, Set<String> displayed, final String sourceId, int msg, Exception e) {
+    static void displayError(Context ctx, Set<String> displayed, final String sourceId, int msg, Throwable e) {
         if (!displayed.contains(sourceId)) {
             // something is seriously wrong with the database or source file, show a toast once
             final String localizedMessage = e.getLocalizedMessage();
