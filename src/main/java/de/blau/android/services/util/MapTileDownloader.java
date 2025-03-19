@@ -1,6 +1,8 @@
 // Created by plusminus on 21:31:36 - 25.09.2008
 package de.blau.android.services.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -85,7 +87,8 @@ public class MapTileDownloader extends MapAsyncTileProvider {
         }
     }
 
-    private static final String DEBUG_TAG = MapTileDownloader.class.getSimpleName().substring(0, Math.min(23, MapTileDownloader.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapTileDownloader.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapTileDownloader.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final long TIMEOUT = 5000;
 
@@ -152,10 +155,10 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         mCallback.mapTileFailed(sourceId, mTile.zoomLevel, mTile.x, mTile.y, IOERR, ioe.getMessage());
                     }
                 }
-            } catch (NullPointerException | IllegalArgumentException | IOException | UnsupportedOperationException e) {
-                Log.e(DEBUG_TAG, "Error for MapTile, disabling source: " + sourceId + " exception: " + e);
+            } catch (NullPointerException | IllegalArgumentException | IOException | UnsupportedOperationException | OutOfMemoryError t) {
+                Log.e(DEBUG_TAG, "Error for MapTile, disabling source: " + sourceId + " cause: " + t);
                 // disable source temporarily to avoid hitting source time and time again
-                MapTileFilesystemProvider.displayError(mCtx, disabled, sourceId, R.string.toast_tile_source_issue, e);
+                MapTileFilesystemProvider.displayError(mCtx, disabled, sourceId, R.string.toast_tile_source_issue, t);
             } finally {
                 /*
                  * What to do when downloading tile caused an error? Also remove it from the mPending? Not doing so
