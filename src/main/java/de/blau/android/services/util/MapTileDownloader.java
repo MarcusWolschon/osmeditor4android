@@ -66,7 +66,7 @@ import okhttp3.ResponseBody;
  */
 public class MapTileDownloader extends MapAsyncTileProvider {
 
-    private static class ReaderCache<K, V> extends LinkedHashMap<K, V> { // NOSONAR
+    private final static class ReaderCache<K, V> extends LinkedHashMap<K, V> { // NOSONAR
         private static final long serialVersionUID = 1L;
 
         private static final int DEFAULT_CACHE_SIZE = 5;

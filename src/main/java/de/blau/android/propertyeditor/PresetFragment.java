@@ -148,7 +148,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         editorUpdate = (EditorUpdate) parent;
     }
 
-    private class SearchResultsDisplay implements Runnable {
+    private final class SearchResultsDisplay implements Runnable {
 
         private ExecutorTask<Void, Void, ArrayList<PresetElement>> searchTask;
 

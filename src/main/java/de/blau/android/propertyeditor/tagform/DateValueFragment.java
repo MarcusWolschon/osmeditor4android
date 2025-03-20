@@ -63,7 +63,7 @@ public class DateValueFragment extends ValueWidgetFragment {
         return new DateWidget(activity, value, values);
     }
 
-    private static class Date {
+    private final static class Date {
         int year;
         int month;
         int dayOfMonth;

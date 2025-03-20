@@ -38,7 +38,7 @@ public class FilterlessArrayAdapter<T> extends ArrayAdapter<T> {
         items = objects;
     }
 
-    private class NoFilter extends Filter {
+    private final class NoFilter extends Filter {
 
         @Override
         protected FilterResults performFiltering(CharSequence arg0) {

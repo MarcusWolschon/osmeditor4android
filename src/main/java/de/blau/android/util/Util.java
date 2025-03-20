@@ -419,7 +419,7 @@ public final class Util {
         }
     }
 
-    private static class UlTagHandler implements Html.TagHandler {
+    private final static class UlTagHandler implements Html.TagHandler {
         @Override
         public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
             if ("ul".equals(tag) && !opening) {

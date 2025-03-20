@@ -654,19 +654,17 @@ public class WayActionsTest {
         assertNotNull(way);
         assertEquals(119104094L, way.getOsmId());
         //
-        
+
         assertTrue(TestUtils.clickOverflowButton(device));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_start_end_way), true, false));
-        if (TestUtils.clickText(device, false, context.getString(R.string.start), false, false))
-        {
+        if (TestUtils.clickText(device, false, context.getString(R.string.start), false, false)) {
             ViewBox vb = ((Main) main).getMap().getViewBox();
             assertEquals(47.3879811D, vb.getCenterLat(), 0.001D);
             assertEquals(8.3881322D, ((vb.getRight() - vb.getLeft()) / 2 + vb.getLeft()) / 1E7D, 0.001D);
         }
         assertTrue(TestUtils.clickOverflowButton(device));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_start_end_way), true, false));
-        if (TestUtils.clickText(device, false, context.getString(R.string.end), false, false))
-        {
+        if (TestUtils.clickText(device, false, context.getString(R.string.end), false, false)) {
             ViewBox vb = ((Main) main).getMap().getViewBox();
             assertEquals(47.3910674D, vb.getCenterLat(), 0.001D);
             assertEquals(8.3895455D, ((vb.getRight() - vb.getLeft()) / 2 + vb.getLeft()) / 1E7D, 0.001D);

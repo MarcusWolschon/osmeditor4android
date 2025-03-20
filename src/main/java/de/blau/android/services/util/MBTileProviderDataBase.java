@@ -59,7 +59,7 @@ public class MBTileProviderDataBase implements LocalTileContainer {
 
     private final Pools.SynchronizedPool<SQLiteStatement> getStatements;
 
-    private static class BufferWrapper {
+    private final static class BufferWrapper {
         byte[] buffer = new byte[BUFFER_SIZE];
     }
 

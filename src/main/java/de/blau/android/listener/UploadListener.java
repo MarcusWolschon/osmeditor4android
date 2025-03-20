@@ -179,7 +179,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
     /**
      * Container for actions, currently simply strings
      */
-    private class Actions {
+    private final class Actions {
         List<String> created          = new ArrayList<>();
         List<String> modified         = new ArrayList<>();
         List<String> geometryModified = new ArrayList<>();

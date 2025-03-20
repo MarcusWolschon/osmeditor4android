@@ -278,7 +278,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     private static final int MIN_AZIMUT_CHANGE = 5;
 
-    private class ConnectivityChangedReceiver extends BroadcastReceiver {
+    private final class ConnectivityChangedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
@@ -410,7 +410,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Status of permissions
      */
-    private class PermissionStatus {
+    private final class PermissionStatus {
         boolean granted = false;
         boolean asked   = false;
     }
@@ -3615,7 +3615,7 @@ public class Main extends FullScreenAppCompatActivity
      * @author mb
      * @author simon
      */
-    private class MapTouchListener implements OnTouchListener, VersionedGestureDetector.OnGestureListener, DisambiguationMenu.OnMenuItemClickListener {
+    private final class MapTouchListener implements OnTouchListener, VersionedGestureDetector.OnGestureListener, DisambiguationMenu.OnMenuItemClickListener {
 
         private List<OsmElement> clickedNodesAndWays;
 
@@ -4232,7 +4232,7 @@ public class Main extends FullScreenAppCompatActivity
      *
      */
     @SuppressLint("NewApi")
-    private class MotionEventListener implements OnGenericMotionListener {
+    private final class MotionEventListener implements OnGenericMotionListener {
         @SuppressLint("NewApi")
         @Override
         public boolean onGenericMotion(View arg0, MotionEvent event) {
