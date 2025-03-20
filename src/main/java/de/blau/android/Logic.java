@@ -5286,7 +5286,7 @@ public class Logic {
     }
 
     /** Helper class for ordering nodes/ways by distance from a click */
-    private final static class DistanceSorter<O extends OsmElement, T extends O> {
+    private static final class DistanceSorter<O extends OsmElement, T extends O> {
         private Comparator<Entry<T, Double>> comparator = (lhs, rhs) -> {
             if (lhs == rhs) {
                 return 0;

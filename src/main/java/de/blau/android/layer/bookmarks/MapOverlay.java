@@ -164,7 +164,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Labe
     @Override
     protected synchronized StyleableLayer load(@NonNull Context context) {
         Log.d(DEBUG_TAG, "Loading state from " + FILENAME);
-        MapOverlay restored = savingHelper.load(context, FILENAME, true);
+        MapOverlay restored = savingHelper.load(context, FILENAME, true, true, false);
         if (restored != null) {
             labelMinZoom = restored.labelMinZoom;
         }

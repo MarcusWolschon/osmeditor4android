@@ -566,7 +566,7 @@ public class MapOverlay extends StyleableFileLayer
     @Override
     protected synchronized StyleableLayer load(@NonNull Context context) {
         Log.d(DEBUG_TAG, "Loading state from " + stateFileName);
-        MapOverlay restoredOverlay = savingHelper.load(context, stateFileName, true);
+        MapOverlay restoredOverlay = savingHelper.load(context, stateFileName, true, true, false);
         if (restoredOverlay != null) {
             labelKey = restoredOverlay.labelKey;
             labelMinZoom = restoredOverlay.labelMinZoom;
