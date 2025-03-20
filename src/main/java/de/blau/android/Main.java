@@ -1159,23 +1159,23 @@ public class Main extends FullScreenAppCompatActivity
         final StorageDelegator delegator = App.getDelegator();
         List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
         BoundingBox loadBox = data.getBox();
-        final PostAsyncActionHandler postLoadHandler = () -> {
-            synchronized (newIntentsLock) {
-                rcDataEdit(data);
-            }
-        };
         if (data.load() || data.select()) { // download
             if (loadBox != null) {
                 List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox);
                 if (!bboxes.isEmpty() || delegator.isEmpty()) {
                     // only download if we haven't yet
-                    logic.downloadBox(this, data.getBox(), true, postLoadHandler);
+                    logic.downloadBox(this, data.getBox(), true, () -> {
+                        rcDataEdit(data);
+                        logic.saveEditingState(Main.this);
+                    });
                     return;
                 }
             }
             Log.d(DEBUG_TAG, "RC box is null");
             rcDataEdit(data);
-        } else if (data.hasObjects()) {
+            return;
+        }
+        if (data.hasObjects()) {
             final List<Long> notes = data.getNotes();
             if (!notes.isEmpty()) {
                 displayNote(this, logic, notes.get(0));
@@ -1185,14 +1185,20 @@ public class Main extends FullScreenAppCompatActivity
                     Util.filterForDownload(delegator, Way.NAME, data.getWays()), Util.filterForDownload(delegator, Relation.NAME, data.getRelations()), () -> {
                         if (data != null) {
                             data.setSelect(true);
-                            postLoadHandler.onSuccess();
+                            rcDataEdit(data);
                             zoomTo(logic.getSelectedElements());
                             invalidateMap();
+                            logic.saveEditingState(this);
                         }
                     });
-        } else if (loadBox != null) { // zoom only
-            map.getViewBox().fitToBoundingBox(getMap(), loadBox);
-            map.invalidate();
+            return;
+        }
+        if (loadBox != null) { // zoom only
+            synchronized (logic) {
+                map.getViewBox().fitToBoundingBox(getMap(), loadBox);
+                map.invalidate();
+                logic.saveEditingState(this);
+            }
         }
     }
 
@@ -1236,7 +1242,7 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param geoData the data from the intent
      */
-    void processGeoIntent(@NonNull final GeoUriData geoData) {
+    private void processGeoIntent(@NonNull final GeoUriData geoData) {
         final Logic logic = App.getLogic();
         final ViewBox viewBox = logic.getViewBox();
         final double lon = geoData.getLon();
@@ -1246,13 +1252,11 @@ public class Main extends FullScreenAppCompatActivity
         final boolean hasZoom = geoData.hasZoom();
         final int zoom = geoData.getZoom() + 1; // in practical terms this works better
         Log.d(DEBUG_TAG, "got position from geo: url " + geoData + " storage dirty is " + App.getDelegator().isDirty());
-
         final int downloadRadius = prefs.getDownloadRadius();
         if (downloadRadius != 0) { // download
             try {
                 BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(lat, lon, downloadRadius);
                 List<BoundingBox> bboxes = BoundingBox.newBoxes(new ArrayList<>(App.getDelegator().getBoundingBoxes()), bbox);
-
                 PostAsyncActionHandler handler = () -> {
                     if (hasZoom) {
                         viewBox.setZoom(getMap(), zoom);
@@ -1261,6 +1265,7 @@ public class Main extends FullScreenAppCompatActivity
                         viewBox.fitToBoundingBox(map, bbox);
                     }
                     map.invalidate();
+                    logic.saveEditingState(Main.this);
                 };
                 if (!bboxes.isEmpty()) { // we should really loop over bboxes here
                     logic.downloadBox(this, bbox, true, handler);
@@ -1282,6 +1287,7 @@ public class Main extends FullScreenAppCompatActivity
         }
         viewBox.moveTo(getMap(), lonE7, latE7);
         map.invalidate();
+        logic.saveEditingState(this);
     }
 
     /**
