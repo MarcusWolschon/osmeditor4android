@@ -390,7 +390,7 @@ public class HelpViewer extends WebViewActivity {
         mDrawerToggle.syncState();
     }
 
-    private class DrawerItemClickListener implements AdapterView.OnItemClickListener {
+    private final class DrawerItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             HelpItem helpItem = tocAdapter.getItem(position);
@@ -413,7 +413,7 @@ public class HelpViewer extends WebViewActivity {
         getSupportActionBar().setTitle(getString(R.string.help_title, topic));
     }
 
-    private class HelpViewWebViewClient extends UpdatedWebViewClient {
+    private final class HelpViewWebViewClient extends UpdatedWebViewClient {
 
         @Override
         public boolean handleLoading(@NonNull WebView view, @NonNull Uri uri) { // NOSONAR we have to handle all urls

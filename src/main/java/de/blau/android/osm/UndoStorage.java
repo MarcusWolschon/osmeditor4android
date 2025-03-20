@@ -460,7 +460,7 @@ public class UndoStorage implements Serializable {
      * 
      * The checkpoint can later be restored using {@link #restore(Checkpoint)}.
      */
-    public class Checkpoint implements Serializable {
+    public final class Checkpoint implements Serializable {
         private static final long serialVersionUID = 3L;
 
         private final Map<OsmElement, UndoElement> elements = new HashMap<>();
@@ -471,7 +471,7 @@ public class UndoStorage implements Serializable {
          * Construct a new checkpoint
          * 
          * @param name name of the checkpoint
-         * @param selection2
+         * @param selection ids of the selected elements
          */
         private Checkpoint(@NonNull String name, @Nullable Ids selection) {
             this.name = name;

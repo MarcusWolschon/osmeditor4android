@@ -67,7 +67,7 @@ public class TagFilterActivity extends ListActivity {
     private Cursor                  tagFilterCursor = null;
     private TagFilterAdapter        filterAdapter;
 
-    private class ViewHolder {
+    private final class ViewHolder {
         int      id;
         boolean  modified;
         CheckBox active;

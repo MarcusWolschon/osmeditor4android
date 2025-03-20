@@ -491,7 +491,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
     /**
      * Move from text field to text field
      */
-    private class MyKeyListener implements OnKeyListener {
+    private final class MyKeyListener implements OnKeyListener {
         @Override
         public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
             if (keyEvent.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {

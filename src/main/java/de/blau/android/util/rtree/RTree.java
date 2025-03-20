@@ -139,7 +139,7 @@ public class RTree<T extends BoundedObject & Serializable> implements Serializab
         }
     }
 
-    private class QuadraticNodeSplitter<S extends BoundedObject & Serializable> implements Serializable {
+    private final class QuadraticNodeSplitter<S extends BoundedObject & Serializable> implements Serializable {
         private static final long serialVersionUID = 1L;
 
         /**

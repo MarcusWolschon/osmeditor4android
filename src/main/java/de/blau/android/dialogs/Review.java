@@ -130,7 +130,7 @@ public class Review extends AbstractReviewDialog {
         listView.getAdapter().registerDataSetObserver(new ListObserver());
     }
 
-    private class ListObserver extends DataSetObserver {
+    private final class ListObserver extends DataSetObserver {
         @Override
         public void onChanged() {
             boolean somethingSelected = false;

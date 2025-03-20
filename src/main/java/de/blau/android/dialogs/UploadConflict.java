@@ -472,7 +472,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
         }
     }
 
-    private static class MissingReferenceAction {
+    private final static class MissingReferenceAction {
         long    id;
         boolean deleteLocally;
     }

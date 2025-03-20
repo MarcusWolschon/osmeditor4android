@@ -844,7 +844,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         }
     }
 
-    private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
+    private final class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
         @Override
         public void onPageSelected(int page) {
             if (page != tagEditorFragmentPosition && !validateTags()) {
@@ -1133,7 +1133,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
      * 
      * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
      */
-    private static class MyKeyListener implements OnKeyListener {
+    private final static class MyKeyListener implements OnKeyListener {
         @Override
         public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
             if (keyEvent.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {

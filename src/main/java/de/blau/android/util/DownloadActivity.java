@@ -66,7 +66,7 @@ public class DownloadActivity extends WebViewActivity {
         activity.startActivity(intent);
     }
 
-    private class DownloadWebViewClient extends UpdatedWebViewClient {
+    private final class DownloadWebViewClient extends UpdatedWebViewClient {
 
         private static final String FAVICON = "favicon.ico";
 
