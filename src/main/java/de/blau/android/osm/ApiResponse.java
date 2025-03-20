@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.util.regex.Matcher;
@@ -13,7 +15,8 @@ import androidx.annotation.NonNull;
  * 
  */
 public final class ApiResponse {
-    private static final String DEBUG_TAG = ApiResponse.class.getSimpleName().substring(0, Math.min(23, ApiResponse.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ApiResponse.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ApiResponse.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * These patterns are fairly, to very, unforgiving, hopefully API 0.7 will give the error codes back in a more
@@ -30,7 +33,7 @@ public final class ApiResponse {
     private static final Pattern ERROR_MESSAGE_PRECONDITION_REQUIRED_RELATION_MEMBERS = Pattern.compile(
             "(?i)(?:Precondition failed: )?Relation (-?[0-9]+) requires the (nodes|ways|relations) with id in (([0-9]+,?)+) which either do not exist, or are not visible.");
     private static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION         = Pattern
-            .compile("(?i)(?:Precondition failed: )?The relation ([0-9]+) is used in relation ([0-9]+).");
+            .compile("(?i)(?:Precondition failed: )?The relation ([0-9]+) is used in relation[s]? ([0-9]+).");
     private static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET                       = Pattern.compile("(?i)The changeset ([0-9]+) was closed at.*");
     private static final Pattern ERROR_MESSAGE_CHANGESET_LOCKED                       = Pattern
             .compile("(?i)Changeset ([0-9]+) is currently locked by another process.");
@@ -43,6 +46,12 @@ public final class ApiResponse {
         private final String elementType;
         private final long   elementId;
 
+        /**
+         * Construct a new Conflict object
+         * 
+         * @param type object type
+         * @param id object id
+         */
         protected Conflict(@NonNull String type, long id) {
             elementType = type;
             elementId = id;
