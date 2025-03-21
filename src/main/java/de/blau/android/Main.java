@@ -1550,6 +1550,11 @@ public class Main extends FullScreenAppCompatActivity
         triggerMenuInvalidation(); // update menus
     }
 
+    /**
+     * Check if a permission has been granted
+     * 
+     * @param permission the permission to check
+     */
     private void permissionGranted(@NonNull String permission) {
         PermissionStatus permissionStatus = permissions.get(permission);
         if (permissionStatus != null) {
@@ -1720,12 +1725,14 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * @param l
-     * @param item
-     * @param lock
-     * @param newMode
+     * Set up the listener that will change to a specific mode
+     * 
+     * @param l the current Logic instance
+     * @param item the MenuItem that the listener is for
+     * @param lock the lock button
+     * @param newMode the mode to switch to
      */
-    private void setModeMenuListener(final Logic l, MenuItem item, final FloatingActionButton lock, final Mode newMode) {
+    private void setModeMenuListener(@NonNull final Logic l, @NonNull MenuItem item, @NonNull final FloatingActionButton lock, @NonNull final Mode newMode) {
         item.setOnMenuItemClickListener(menuitem -> {
             l.setMode(Main.this, newMode);
             lock.setTag(newMode.tag());
@@ -3808,56 +3815,66 @@ public class Main extends FullScreenAppCompatActivity
          * @param x the click-position on the display.
          * @param y the click-position on the display.
          */
-        public void performEdit(Mode mode, final View v, final float x, final float y) {
-            if (!getEasyEditManager().actionModeHandledClick(x, y)) {
-                Logic logic = App.getLogic();
-                clickedNodesAndWays = getClickedOsmElements(logic, x, y);
-                Filter filter = logic.getFilter();
-                if (filter != null) { // filter elements
-                    clickedNodesAndWays = filterElements(clickedNodesAndWays);
+        private void performEdit(Mode mode, final View v, final float x, final float y) {
+            final EasyEditManager easyEditMgr = getEasyEditManager();
+            if (easyEditMgr.actionModeHandledClick(x, y)) {
+                return;
+            }
+            Logic logic = App.getLogic();
+            clickedNodesAndWays = getClickedOsmElements(logic, x, y);
+            Filter filter = logic.getFilter();
+            if (filter != null) { // filter elements
+                clickedNodesAndWays = filterElements(clickedNodesAndWays);
+            }
+            int elementCount = clickedNodesAndWays.size();
+            int clickedObjectsCount = clickedObjects.size();
+            int itemCount = elementCount + clickedObjectsCount;
+            boolean inEasyEditMode = mode.elementsGeomEditable();
+            switch (itemCount) {
+            case 0:
+                // no elements were touched
+                if (inEasyEditMode) {
+                    easyEditMgr.nothingTouched(false);
                 }
-                int elementCount = clickedNodesAndWays.size();
-                int clickedObjectsCount = clickedObjects.size();
-                int itemCount = elementCount + clickedObjectsCount;
-                boolean inEasyEditMode = logic.getMode().elementsGeomEditable();
-                switch (itemCount) {
-                case 0:
-                    // no elements were touched
-                    if (inEasyEditMode) {
-                        getEasyEditManager().nothingTouched(false);
-                    }
-                    break;
-                case 1:
-                    // exactly one element touched
-                    if (clickedObjects.size() == 1) {
-                        descheduleAutoLock();
-                        clickedObjects.get(0).onSelected(Main.this);
-                    } else if (clickedNodesAndWays.size() == 1) {
-                        if (inEasyEditMode || getEasyEditManager().inMultiSelectMode()) {
-                            getEasyEditManager().editElement(clickedNodesAndWays.get(0));
-                        } else {
-                            performTagEdit(clickedNodesAndWays.get(0), null, false, false);
-                        }
-                    } else {
-                        String debugString = "performEdit can't find what was clicked " + filter;
-                        Log.e(DEBUG_TAG, debugString);
-                        ACRAHelper.nocrashReport(null, debugString);
-                    }
-                    break;
-                default:
-                    // multiple possible elements touched - show menu
-                    if (menuRequired()) {
-                        showDisambiguationMenu(v, x, y);
-                    } else {
-                        // menuRequired tells us it's ok to just take the first one
-                        if (inEasyEditMode) {
-                            getEasyEditManager().editElement(clickedNodesAndWays.get(0));
-                        } else {
-                            performTagEdit(clickedNodesAndWays.get(0), null, false, false);
-                        }
-                    }
-                    break;
+                break;
+            case 1:
+                // exactly one element touched
+                if (clickedObjects.size() == 1) {
+                    descheduleAutoLock();
+                    clickedObjects.get(0).onSelected(Main.this);
+                    return;
                 }
+                if (clickedNodesAndWays.size() == 1) {
+                    editClickedOsmElement(easyEditMgr, inEasyEditMode);
+                    return;
+                }
+                String debugString = "performEdit can't find what was clicked " + filter;
+                Log.e(DEBUG_TAG, debugString);
+                ACRAHelper.nocrashReport(null, debugString);
+                break;
+            default:
+                // multiple possible elements touched - show menu
+                if (menuRequired()) {
+                    showDisambiguationMenu(v, x, y);
+                    return;
+                }
+                editClickedOsmElement(easyEditMgr, inEasyEditMode);
+                break;
+            }
+        }
+
+        /**
+         * Edit the clicked element
+         * 
+         * @param easyEditMgr the EasyEditManger instance
+         * @param inEasyEditMode if in an easy edit mode
+         */
+        public void editClickedOsmElement(final EasyEditManager easyEditMgr, boolean inEasyEditMode) {
+            final OsmElement element = clickedNodesAndWays.get(0);
+            if (inEasyEditMode) {
+                easyEditMgr.editElement(element);
+            } else {
+                performTagEdit(element, null, false, false);
             }
         }
 
