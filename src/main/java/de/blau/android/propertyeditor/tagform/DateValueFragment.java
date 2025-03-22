@@ -3,6 +3,7 @@ package de.blau.android.propertyeditor.tagform;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.util.HashSet;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,6 +36,10 @@ public class DateValueFragment extends ValueWidgetFragment {
     private static final Pattern DATE_FULL_PATTERN       = Pattern.compile("^([12][0-9][0-9][0-9])\\-(1?[0-9])\\-([1-3]?[0-9])$");
     private static final Pattern DATE_YEAR_MONTH_PATTERN = Pattern.compile("^([12][0-9][0-9][0-9])\\-(1?[0-9])$");
     private static final Pattern DATE_YEAR_PATTERN       = Pattern.compile("^([12][0-9][0-9][0-9])$");
+
+    private static final String DATE_FULL       = "%04d-%02d-%02d";
+    private static final String DATE_YEAR_MONTH = "%04d-%02d";
+    private static final String DATE_YEAR       = "%04d";
 
     /**
      * Show a dialog for adding/editing an integer value
@@ -131,7 +136,13 @@ public class DateValueFragment extends ValueWidgetFragment {
         @NonNull
         public String getValue() {
             DatePicker datePicker = (DatePicker) picker;
-            return datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
+            try {
+                return String.format(DATE_FULL, datePicker.getYear(), (datePicker.getMonth() + 1), datePicker.getDayOfMonth());
+            } catch (IllegalFormatException ifex) {
+                String output = datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
+                Log.e(DEBUG_TAG, "Output formating failed for " + output);
+                return output;
+            }
         }
 
         @Override
