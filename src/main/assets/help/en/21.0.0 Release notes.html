@@ -56,7 +56,9 @@
 <h4>Code to render GPX tracks with multiple threads removed</h4>
 <p>For very long GPX tracks we were using multiple threads to render them, however as none of Androids canvas rendering framework is actually thread safe this could lead to random crashes.</p>
 <h4>Preset value type <em>date</em></h4>
-<p>We now support a preset value type of date that will cause a date selector to be displayed in the property editor.</p>
+<p>We now support a preset value type of date that will cause a date selector to be displayed in the property editor. This currently only supports single dates and not date ranges.</p>
+<h4>Improve way direction arrows rendering</h4>
+<p>Improves the rendering of way arrows, particularly for long ways so that there will nearly always be one visible on the map display.</p>
 <h2>Miscellaneous</h2>
 <h1>Upgrading from previous versions</h1>
 <p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one.</p>
