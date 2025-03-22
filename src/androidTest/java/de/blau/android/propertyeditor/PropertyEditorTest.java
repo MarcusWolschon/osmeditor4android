@@ -1051,12 +1051,27 @@ public class PropertyEditorTest {
             fail();
         }
         startDate.click();
-
-        assertTrue(TestUtils.clickText(device, false, "15", false, false));
+        assertTrue(TestUtils.findText(device, false, "Start date", 5000));
+        UiObject o = TestUtils.findObjectWithResourceId(device, false,  device.getCurrentPackageName() + ":id/startMonth");
+        try {
+            Rect r = o.getVisibleBounds();
+            TestUtils.clickAt(device, r.centerX(), r.top + 20);
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        o = TestUtils.findObjectWithResourceId(device, false,  device.getCurrentPackageName() + ":id/startDay");
+        try {
+            Rect r = o.getVisibleBounds();
+            TestUtils.clickAt(device, r.centerX(), r.top + 20);
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        
+        // assertTrue(TestUtils.clickText(device, false, "Oct", false, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true, false));
         TestUtils.clickHome(device, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
-        assertTrue(n.hasTag("start_date", "2025-12-15"));
+        assertTrue(n.hasTag("start_date", "2025-10-29"));
     }
 
     /**

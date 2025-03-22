@@ -83,9 +83,13 @@ public class LayerDialogTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
-        instrumentation.getTargetContext().deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        instrumentation.getTargetContext().deleteDatabase(TileLayerDatabase.DATABASE_NAME);      
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        AdvancedPrefDatabase prefDb = new AdvancedPrefDatabase(instrumentation.getTargetContext());
+        prefDb.deleteLayer(LayerType.GEOJSON, null);
+        prefDb.deleteLayer(LayerType.GPX, null);
         main = mActivityRule.getActivity();
+        
         TestUtils.grantPermissons(device);
         try (TileLayerDatabase db = new TileLayerDatabase(main)) {
             TileLayerSource.createOrUpdateFromAssetsSource(main, db.getWritableDatabase(), true, false);
