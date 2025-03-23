@@ -2,7 +2,9 @@ package de.blau.android.propertyeditor.tagform;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import java.util.Calendar;
 import java.util.HashSet;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +14,6 @@ import java.util.regex.Pattern;
 import android.content.Context;
 import android.util.Log;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ import de.blau.android.R;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.views.DateRangePicker;
 
 public class DateValueFragment extends ValueWidgetFragment {
 
@@ -32,9 +34,13 @@ public class DateValueFragment extends ValueWidgetFragment {
 
     private static final String TAG = "DATE_FRAGMENT";
 
-    private static final Pattern DATE_FULL_PATTERN       = Pattern.compile("^([12][0-9][0-9][0-9])\\-(1?[0-9])\\-([1-3]?[0-9])$");
-    private static final Pattern DATE_YEAR_MONTH_PATTERN = Pattern.compile("^([12][0-9][0-9][0-9])\\-(1?[0-9])$");
-    private static final Pattern DATE_YEAR_PATTERN       = Pattern.compile("^([12][0-9][0-9][0-9])$");
+    private static final Pattern DATE_FULL_PATTERN       = Pattern.compile("^([012][0-9][0-9][0-9])\\-([01]?[0-9])\\-([0-3]?[0-9])$");
+    private static final Pattern DATE_YEAR_MONTH_PATTERN = Pattern.compile("^([012][0-9][0-9][0-9])\\-([01]?[0-9])$");
+    private static final Pattern DATE_YEAR_PATTERN       = Pattern.compile("^([012][0-9][0-9][0-9])$");
+
+    private static final String DATE_FULL       = "%04d-%02d-%02d";
+    private static final String DATE_YEAR_MONTH = "%04d-%02d";
+    private static final String DATE_YEAR       = "%04d";
 
     /**
      * Show a dialog for adding/editing an integer value
@@ -81,11 +87,12 @@ public class DateValueFragment extends ValueWidgetFragment {
          * @param values any additional values from the preset or MRU
          */
         DateWidget(@NonNull FragmentActivity activity, @NonNull String value, @Nullable List<String> values) {
-            super(new DatePicker(activity, null));
+            super(activity.getLayoutInflater().inflate(R.layout.daterangepicker, null));
             Date date = parseDate(value);
-            if (date != null) {
-                ((DatePicker) picker).init(date.year, date.month, date.dayOfMonth, null);
-            }
+            final Calendar calendar = Calendar.getInstance();
+            ((DateRangePicker) picker).init(true, date != null ? date.year : calendar.get(Calendar.YEAR), date != null ? date.month : 0,
+                    date != null ? date.dayOfMonth : 0, 0, 0, 0);
+
             picker.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.highlight_background, R.color.black));
             picker.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
         }
@@ -103,22 +110,22 @@ public class DateValueFragment extends ValueWidgetFragment {
                 Matcher m = DATE_FULL_PATTERN.matcher(value);
                 if (m.find()) {
                     date.year = Integer.parseInt(m.group(1));
-                    date.month = Integer.parseInt(m.group(2)) - 1;
+                    date.month = Integer.parseInt(m.group(2));
                     date.dayOfMonth = Integer.parseInt(m.group(3));
                     return date;
                 }
                 m = DATE_YEAR_MONTH_PATTERN.matcher(value);
                 if (m.find()) {
                     date.year = Integer.parseInt(m.group(1));
-                    date.month = Integer.parseInt(m.group(2)) - 1;
-                    date.dayOfMonth = 1;
+                    date.month = Integer.parseInt(m.group(2));
+                    date.dayOfMonth = 0;
                     return date;
                 }
                 m = DATE_YEAR_PATTERN.matcher(value);
                 if (m.find()) {
                     date.year = Integer.parseInt(m.group(1));
                     date.month = 0;
-                    date.dayOfMonth = 1;
+                    date.dayOfMonth = 0;
                     return date;
                 }
             } catch (NumberFormatException nfex) {
@@ -130,8 +137,23 @@ public class DateValueFragment extends ValueWidgetFragment {
         @Override
         @NonNull
         public String getValue() {
-            DatePicker datePicker = (DatePicker) picker;
-            return datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
+            DateRangePicker datePicker = (DateRangePicker) picker;
+            final int startYear = datePicker.getStartYear();
+            final int startMonth = datePicker.getStartMonth();
+            final int startDay = datePicker.getStartDayOfMonth();
+            try {
+                if (startMonth != 0 && startDay != 0) {
+                    return String.format(DATE_FULL, startYear, startMonth, startDay);
+                }
+                if (startMonth != 0) {
+                    return String.format(DATE_YEAR_MONTH, startYear, startMonth);
+                }
+                return String.format(DATE_YEAR, startYear);
+            } catch (IllegalFormatException ifex) {
+                String output = startYear + "-" + startMonth + "-" + startDay;
+                Log.e(DEBUG_TAG, "Output formating failed for " + output);
+                return output;
+            }
         }
 
         @Override
