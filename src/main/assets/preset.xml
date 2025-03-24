@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.76.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.77.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -9,6 +9,7 @@
     Format description: https://josm.openstreetmap.de/wiki/TaggingPresets and http://vespucci.io/tutorials/presets/
 -->
     <!-- Value chunks for use in combos and multiselects -->
+    
     
     
     
@@ -352,6 +353,7 @@
             <list_entry value="island" short_description="Island" icon="" deprecated="true"/>
         </multiselect>
         <check key="crossing:island" text="With island"/>
+        <check key="crossing:signals" text="With signals"/>
         <optional>
             <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" display_values="Zebra,Pelican,Toucan,Puffin,Pegasus,Tiger" values_searchable="true" values_context="crossing:markings" regions="GB"/>
         </optional>
@@ -5192,6 +5194,7 @@
                     <list_entry value="parent" display_value="Parent"/>
                     <list_entry value="motorcycle" display_value="Motorcycle"/>
                     <list_entry value="delivery" display_value="Delivery"/>
+                    <list_entry value="women" display_value="Women"/>
                 </combo>
                 <reference ref="parking_name_type_ref"/>
                 <text key="capacity" text="Capacity" value_type="integer"/>
@@ -5833,6 +5836,12 @@
                 </checkgroup>
                 <text key="ref" text="Reference"/>
             </item> <!-- Railway platform -->
+            <item name="Railway platform edge" icon="icons/png/transport_railyway_platform_edge.png" type="way" preset_name_label="true">
+                <link wiki="Tag:railway=platform_edge"/>
+                <space/>
+                <key key="railway" value="platform_edge"/>
+                <text key="ref" text="Reference (track number)"/>
+            </item> <!-- Railway platform edge -->
             <item name="Subway station" name_context="railway" type="node,closedway,multipolygon" icon="icons/png/transport_subway.png" preset_name_label="true">
                 <reference ref="station"/>
                 <checkgroup text="Transportation type" columns="3">
@@ -13463,6 +13472,7 @@
             <text key="name" text="Name"/>
             <combo key="admin_level" text="Administrative level" values="1,2,3,4,5,6,7,8,9,10,11" value_type="integer"/>
             <check key="maritime" text="Maritime" disable_off="true"/>
+            <reference ref="wikipedia_wikidata"/>
         </item> <!-- Administrative -->
         <item name="Political" icon="icons/png/poi_boundary_administrative.png" type="closedway,relation,multipolygon" preset_name_label="true">
             <link wiki="Tag:boundary=political"/>
@@ -13470,6 +13480,7 @@
             <key key="boundary" value="political"/>
             <combo key="political_division" text="Division" values="canton,linguistic_community,ward" display_values="Canton,Linguistic community,Ward"/>
             <text key="name" text="Name"/>
+            <reference ref="wikipedia_wikidata"/>
         </item> <!-- Political -->
         <item name="Postal Code" icon="icons/png/poi_boundary_administrative.png" type="way,closedway,relation,multipolygon" preset_name_label="true">
             <link wiki="Tag:boundary=postal_code"/>
@@ -13482,6 +13493,7 @@
             <space/>
             <key key="boundary" value="national_park"/>
             <text key="name" text="Name"/>
+            <reference ref="wikipedia_wikidata_images"/>
         </item> <!-- National Park -->
         <item name="Protected Area" icon="presets/boundaries.png" type="closedway,relation,multipolygon" preset_name_label="true">
             <link wiki="Tag:boundary=protected_area"/>
@@ -14544,15 +14556,18 @@
             <space/>
             <key key="type" value="boundary"/>
             <text key="name" text="Name"/>
-            <combo key="boundary" text="Boundary type" values="administrative,maritime,national_park,political,postal_code,protected_area" display_values="Administrative,Maritime,National park,Political,Postal code,Protected area" sort_values="false" values_searchable="true"/>
+            <combo key="boundary" text="Boundary type" values="administrative,maritime,national_park,place,political,postal_code,protected_area" display_values="Administrative,Maritime,National park,Place,Political,Postal code,Protected area" sort_values="false" values_searchable="true"/>
             <optional>
-                <combo key="admin_level" text="Administrative level" values="1,2,3,4,5,6,7,8,9,10,11" sort_values="false"/>
+                <combo key="admin_level" text="Administrative level" values="1,2,3,4,5,6,7,8,9,10,11" sort_values="false" match_expression="boundary=administrative"/>     
+                <combo key="place" text="Place type" match_expression="boundary=place">
+                    <list_entry value="city" display_value="City"/><list_entry value="town" display_value="Town"/><list_entry value="village" display_value="Village"/><list_entry value="hamlet" display_value="Hamlet"/><list_entry value="isolated_dwelling" display_value="Isolated dwelling"/><list_entry value="suburb" display_value="Suburb"/><list_entry value="quarter" display_value="Quarter"/><list_entry value="neighbourhood" display_value="Neighbourhood"/><list_entry value="city_block" display_value="City block"/><list_entry value="farm" display_value="Farm"/><list_entry value="locality" display_value="Locality"/><list_entry value="square" display_value="Square"/>
+                </combo>
             </optional>
             <roles>
                 <role key="outer" text="outer segment" requisite="required" type="way,closedway"/>
                 <role key="inner" text="inner segment" requisite="optional" type="way,closedway"/>
                 <role key="subarea" text="Sub area" requisite="optional" type="relation"/>
-                <role key="admin_centre" text="Administration centre" requisite="optional" type="node" count="1"/>
+                <role key="admin_centre" text="Administration centre" requisite="optional" type="node" count="1" member_expression="boundary=administrative"/>
                 <role key="label" text="Label point" requisite="optional" type="node" count="1"/>
             </roles>
         </item> <!-- Boundary -->
