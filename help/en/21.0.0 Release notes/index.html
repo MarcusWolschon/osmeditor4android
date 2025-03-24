@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#vespucci-210-beta-highlights" class="md-skip">
+        <a href="#vespucci-210-highlights" class="md-skip">
           Skip to content
         </a>
       
@@ -657,6 +657,33 @@
   <a href="#preset-value-type-date" class="md-nav__link">
     <span class="md-ellipsis">
       Preset value type date
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improve-way-direction-arrows-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Improve way direction arrows rendering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-rendering-for-crossingunmarked" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom rendering for crossing=unmarked
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disambiguation-menu-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disambiguation menu changes
     </span>
   </a>
   
@@ -2588,6 +2615,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#improve-way-direction-arrows-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Improve way direction arrows rendering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-rendering-for-crossingunmarked" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom rendering for crossing=unmarked
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disambiguation-menu-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disambiguation menu changes
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2617,7 +2671,7 @@
                   
 
 
-<h1 id="vespucci-210-beta-highlights">Vespucci 21.0 BETA Highlights<a class="headerlink" href="#vespucci-210-beta-highlights" title="Permanent link">#</a></h1>
+<h1 id="vespucci-210-highlights">Vespucci 21.0 Highlights<a class="headerlink" href="#vespucci-210-highlights" title="Permanent link">#</a></h1>
 <p>2025-03-05</p>
 <p><strong>The state file of this version is incompatible with that of previous builds, please upload or save any changes before you update.</strong></p>
 <h3 id="panoramax-support">Panoramax support<a class="headerlink" href="#panoramax-support" title="Permanent link">#</a></h3>
@@ -2670,7 +2724,13 @@ we need to use some heuristics to find the correct ids.)</p>
 <p>For very long GPX tracks we were using multiple threads to render them, however as none of Androids canvas rendering framework is actually thread safe this could lead
 to random crashes.</p>
 <h4 id="preset-value-type-date">Preset value type <em>date</em><a class="headerlink" href="#preset-value-type-date" title="Permanent link">#</a></h4>
-<p>We now support a preset value type of date that will cause a date selector to be displayed in the property editor.</p>
+<p>We now support a preset value type of date that will cause a date selector to be displayed in the property editor. This currently only supports single dates and not date ranges.</p>
+<h4 id="improve-way-direction-arrows-rendering">Improve way direction arrows rendering<a class="headerlink" href="#improve-way-direction-arrows-rendering" title="Permanent link">#</a></h4>
+<p>Improves the rendering of way arrows, particularly for long ways so that there will nearly always be one visible on the map display.</p>
+<h4 id="custom-rendering-for-crossingunmarked">Custom rendering for crossing=unmarked<a class="headerlink" href="#custom-rendering-for-crossingunmarked" title="Permanent link">#</a></h4>
+<p>Instead of displaying the preset pedestrian crossing icon, we now render a small red square for nodes with crossing unmarked and support directly referencing images in the assets folder from style files.</p>
+<h4 id="disambiguation-menu-changes">Disambiguation menu changes<a class="headerlink" href="#disambiguation-menu-changes" title="Permanent link">#</a></h4>
+<p>Parent ways and relations are now enclosed in square brackets. Instead of ordering relations depth first, immediate parents of the clicked objects are listed before, parents of the parent relations and so on.</p>
 <h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
 <p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one. </p>
