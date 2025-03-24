@@ -167,7 +167,7 @@ Select the same button or menu item you did for the download and now select "Upl
 
 Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  
 
-Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+Авторизація Vespucci для доступу до вашого облікового запису від вашого імені вимагає від вас одноразового входу з вашим ім'ям користувача та паролем. Якщо ваша інсталяція Vespucci не авторизована при спробі завантажити змінені дані, вам буде запропоновано увійти на сайт OSM (через зашифроване з'єднання). Після входу вам буде запропоновано авторизувати Vespucci для редагування за допомогою вашого облікового запису. Якщо ви хочете або вам необхідно авторизувати OAuth доступ до вашого облікового запису перед редагуванням, в меню "Інструменти" є відповідний пункт.
 
 Якщо ви хочете зберегти свою роботу і не маєте доступу до Інтернету, ви можете зберегти у JOSM-сумісний файл .osm і завантажити пізніше за допомогою Vespucci або JOSM. 
 
@@ -292,30 +292,30 @@ Available layer types:
 * GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
 
-More information can be found in the section on the [map display](Main%20map%20display.md).
+Більше інформації можна знайти в розділі [відображення карти](Main%20map%20display.md).
 
 #### Уподобання
 
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
-The full description can be found here [Preferences](Preferences.md)
+Повний опис можна знайти тут [Налаштування] (Preferences.md)
 
-#### Advanced preferences
+#### Розширені налаштування
 
 * Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In _Auto_ mode we try to determine automatically if using full screen mode is sensible or not, setting it to _Force_ or _Never_ skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the _Auto_ mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: _Auto_.  
 * Node icons. Default: _on_.
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
 * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
 
-The full description can be found here [Advanced preferences](Advanced%20preferences.md)
+Повний опис можна знайти тут [Розширені налаштування](Advanced%20preferences.md)
 
-## Reporting and Resolving Issues
+## Звітування та вирішення проблем
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
 
-If you are experiencing difficulties starting the app after a crash, you can try to start it in _Safe_ mode on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
+Якщо у вас виникли труднощі із запуском програми після збою, ви можете спробувати запустити її в Безпечному режимі на пристроях, які підтримують швидкі клавіші: довго натисніть на іконку програми, а потім виберіть _Безпечний режим_ в меню. 
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [OpenStreetMap forum](https://community.openstreetmap.org).
+Якщо ви хочете обговорити щось, пов'язане з Vespucci, ви можете розпочати дискусію на [OpenStreetMap форумі](https://community.openstreetmap.org).
 
 

@@ -10,7 +10,7 @@ Afhankelijk van de schermgrootte en de leeftijd van je apparaat, kunnen acties d
 
 <a id="download"></a>
 
-### Downloaden van OSM Data
+### Downloaden van OSM gegevens
 
 Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display eleven options:
 
@@ -40,7 +40,7 @@ If you need to use a non-standard OSM API entry, or use [offline data](https://v
 
 Om onbedoelde veranderingen te voorkomen, start Vespucci in "vergendelde" modus, waarmee je alleen kan slepen en zoomen met de kaart. tik op het ![Vergrendeld](../images/locked.png) icoon om het scherm te ontgrendelen. 
 
-A long press on the lock icon or the _Modes_ menu in the map display overflow menu will display a menu offering 4 options:
+Een lange klik op het slot-icoon of het _Modes_ menu in het uitklapmenu in de kaartweergave, toont het menu met 4 opties:
 
 * **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
 * **Tag only** - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.
@@ -48,7 +48,7 @@ A long press on the lock icon or the _Modes_ menu in the map display overflow me
 * **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
 * **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
-If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to _Address_ and _Indoor_ mode.
+Als je Vespucci gebruikt op een Android apparaat dat shortcuts ondersteunt (druk lang op het app icoon), kan je direct starten in _Adres_ en _Binnen_ modus.
 
 #### Enkele tik, dubbele tik en lange tik
 
@@ -94,7 +94,7 @@ De eerste keer start de app in "Simpele modus". Dat kan worden gewijzigd in het 
 
 Het klikken op de grote groene kop op het kaartscherm toont een menu. Als je een van de items hebt geselecteerd, wordt gevraagd om het scherm te klikken op de locatie waar je het object wilt maken. Slepen en zoomen blijft werken als je de kaartweergave wilt aanpassen. 
 
-See [Creating new objects in simple actions mode](Simple%20actions.md) for more information. Simple mode os the default for new installs.
+Zie [Nieuwe objecten maken in simpele actiemodus](Simple%20actions.md) voor meer informatie. Simpele modus is standaard voor nieuwe installaties.
 
 ##### Geavanceerde (lange klik) modus
  
@@ -127,7 +127,7 @@ Als je ver genoeg inzoomt op een geselecteerde weg dan zie je een kleine "x" in 
 
 #### Knippen, Kopiëren & Plakken
 
-You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+Je kan geselecteerde knopen en wegen kopiëren en één of meerdere keren plakken op een nieuwe locatie. Knippen onthoudt de OSM identificatie en versie, en kan dus maar eenmalig worden geplakt. Om te plakken, druk lang op de locatie waar je wilt plakken (je ziet een doel dat de locatie markeert). Selecteer dan "Plakken" in het menu.
 
 #### Efficiënt Adressen Toevoegen
 
@@ -165,7 +165,7 @@ Als het rode slot wordt weergegeven dan zijn alle acties die niets wijzigen besc
 
 Selecteer dezelfde knop of menu item als om te downloaden en selecteer "Upload data naar OSM server".
 
-Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  
+Vespucci ondersteunt OAuth 2, OAuth 1.0a authorizatie, en de klassieke gebruikersnaam en wachtwoord methode. Sinds 1 juli 2024 ondersteunt de standaard OpenStreetMap API alleen OAuth 2 en andere methodes zijn alleen beschikbaar op privé-installaties van de API of andere projecten die OSM software hebben aangepast.  
 
 Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
 
@@ -175,11 +175,11 @@ Om je werk op te slaan zonder internettoegang, kan je naar een JOSM compatible .
 
 Vespucci heeft een simpele conflict-oplosser. Bij een vermoeden van grote problemen men je bewerkingen, exporteer je wijzigingen naar een .osc file ("Exporteren" menu item in het "Overbrengen" menu) en repareer en upload ze met JOSM. Zie de gedetaileerde hulp bij [conflicten oplossen](Conflict%20resolution.md).  
 
-### Nearby point-of-interest display
+### Weergave van interessante objecten in de omgeving 
 
-A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. 
+De weergave van interessante objecten in de omgeving kan worden getoond door de balk middenin de onderbalk omhoog te slepen. 
 
-More information on this and other available functionality on the main display can be found here [Main map display](Main%20map%display.md).
+Meer informatie hierover en andere functionaliteit op het hoofdscherm kan worden gevonden in [Hoofdscherm weergave](Main%20map%display.md).
 
 ## Het gebruik van GPS en GPX routes
 
@@ -191,30 +191,30 @@ Om een GPX-route op te nemen en hem op het apparaat weer te geven, selecteer "St
 
 Let op: standaard zal Vecpucci geen hoogtegegevens opnemen in de GPX-route, wegens Android-specifieke problemen. Om hoogtegegevens toch op te nemen kan een zwaartekrachtmodel worden geïnstalleerd, of simpeler: ga naar de [Geavanceerde instellingen](Advanced%20preferences.md) en configureer NMEA invoer.
 
-### How to export a GPX track?
+### Hoe exporteer ik een GPX track?
 
-Open the layer menu, then click the 3-dots menu next to "GPX recording", then select **Export GPX track...**. Choose in which folder to export the track, then give it a name suffixed with `.gpx` (example: MyTrack.gpx).
+Open het lagen menu, klik op het 3-punten menu naast "GPX opnemen", en selecteer **Exporteer GPX track...**. Kies in welke map de track moet worden opgeslagen, en geef het een naam die eindigt met `.gpx` (bijvoorbeeld: MijnTrack.gpx).
 
-## Notes, Bugs and Todos
+## Notities, Problemen en Taken
 
 Vespucci ondersteunt het downloaden, commentaar geven en sluiten van OSM Notes (voorheen OSM Bugs) en de equivalente functionaliteit voor "Bugs" die worden gemaakt door de [OSMOSE kwaliteitsgarantie tool](http://osmose.openstreetmap.fr/en/map/). Beide moeten expliciet worden gedownload of er kan gebruik worden gemaakt van de automatische download functionaliteit om items te vinden in je directe omgeving. Na het aangepassen of sluiten van een Bug of Notitie kan het direct worden geüpload of alles in een keer. 
 
-Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. 
+Verder ondersteunen we "Taken" die kunnen worden aangemaakt van OSM objecten, vanuit een GeoJSON laag of van buiten Vecpucci. Deze taken geven een gemakkelijke manier om werk bij te houden. 
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.
+Op de kaart worden Notities en Problemen voorgesteld door een klein insect (bug) icoon ![Bug](../images/bug_open.png). Groene zijn opgelost, blauwe zijn door jou aangemaakt of aangepast, en geel geeft aan dat het probleem nog steeds actief en onaangepast is. Taken gebruiken een geel vinkje als icoon.
 
-The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+De OSMOSE fouten en taken weergave, toont een link naar het element in blauw (voor taken alleen als er een OSM element is gekoppeld). Klikken op de link zal het object selecteren, de kaart centreren en de gegevens in de omgeving van te voren zo nodig downloaden. 
 
 ### Filteren
 
 Behalve het globaal activeren van de weergave van Notities en Bugs, kan je een grove weergavefilter instellen om rommel te voorkomen. De filterconfiguratie kan worden gevonden van de takenlaag [laag configuratie](#layers):
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* Notities
+* Osmose fout
+* Osmose waarschuwing
+* Osmose klein probleem
 * Maproulette
-* Todo
+* Taak
 
 <a id="indoor"></a>
 
@@ -234,7 +234,7 @@ De modus kan worden aangezet door lang te klikken op de slot knop, zie [Vergende
 
 ### Configureren van controles
 
-All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the [preferences](Preferences.md). 
+Alle validaties kunnen worden aan of uitgezet in de "Validator instellingen/Ingeschakelde validaties" in de [instellingen](Preferences.md). 
 
 The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.
 
@@ -310,12 +310,12 @@ De volledige beschrijving kan worden gevonden in [Instellingen](Preferences.md)
 
 De volledige beschrijving kan worden gevonden in [Geavanceerde instellingen](Advanced%20preferences.md)
 
-## Reporting and Resolving Issues
+## Problemen rapporteren en oplossen
 
 Als Vespucci crasht, of een inconsitente staat detecteert, dan kan je worden gevraagd om een crash dump te versturen. Doe dat graag, maar maximaal één keer per specifieke situatie. Als je verdere toelichting wilt geven, of een probleemmelding wilt openen voor een vraag of opmerking dan kan dat hier: [Vespucci problemendatabank](https://github.com/MarcusWolschon/osmeditor4android/issues). De "Geef feedback" functie van het hoofdmenu opent een nieuwe probleemelding en voegt automatisch relevante app- en systeeminformatie toe zonder extra typwerk.
 
-If you are experiencing difficulties starting the app after a crash, you can try to start it in _Safe_ mode on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
+Als je problemen hebt om de app op te starten na een crash, kan je proberen hem op te starten in _Veilige_ modus op apparaten die shortcuts ondersteunen: druk lang op het app icoon, en selecteer _Veilig_ in het menu. 
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [OpenStreetMap forum](https://community.openstreetmap.org).
+Als je iets wilt discussiëren dat aan Vespucci gerelateerd is, kan je een discussie starten op het [OpenStreetMap forum](https://community.openstreetmap.org).
 
 

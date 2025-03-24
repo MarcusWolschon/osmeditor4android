@@ -47,7 +47,19 @@
   <string name="delete_locally">Lokales\nlöschen</string>
   <string name="undelete_on_server">Auf dem Server\nwiederherstellen</string>
   <!--Upload retry-->
+  <string name="upload_retry_title">Hochladen fehlgeschlagen</string>
+  <string name="upload_retry_message_no_open_changeset">Kein offener Changeset. Das sollte nicht passieren.</string>
+  <string name="upload_retry_message_unexpected_error">Unerwarteter Fehler beim Versuch den Status von Changeset %1$d zu bestimmen.</string>
+  <string name="upload_retry_message_no_changeset_status">Status von Changeset %1$dkann nicht bestimmt werden.\n\nWir schlagen vor, deine Änderungen als OCS-Datei zu speichern und darüber zu entscheiden, was zu tun ist, wenn du besseren Empfang hast.</string>
+  <string name="upload_retry_message_nothing_uploaded">Für Changeset %1$dwurden keine Änderungen hochgeladen.\n\nEin erneuter Versuch ist unbedenklich.</string>
+  <string name="upload_retry_message_all_uploaded">Für Changeset %1$dwurden die Änderungen erfolgreich hochgeladen, aber kein Ergebnis empfangen.\n\nAllerdings scheint es, da alle Änderungen hochgeladen wurden, sicher zu sein, deine lokalen Änderungen zu verwerfen und sie erneut herunter zu laden.</string>
+  <string name="upload_retry_message_partial_upload">Für Changeset %1$dwurden die Änderungen erfolgreich hochgeladen, aber kein Ergebnis empfangen.</string>
+  <string name="upload_retry_message_update_failed_title">Hochladen fehlgeschlagen</string>
+  <string name="upload_retry_message_update_failed">Daten konnten nicht hochgeladen werden. Wir empfehlen dir, deine Änderungen für eine spätere Verwendung in einer lokalen Datei zu speichern.</string>
+  <string name="redownload">Erneut herunterladen (kann nicht rückgängig gemacht werden)</string>
+  <string name="update_data">Lokale Daten aktualisieren (kann nicht rückgängig gemacht werden)</string>
   <string name="save_changes">Speichern der Änderungen</string>
+  <string name="upload_retry_issue">Problem: %1$s</string>
   <!---->
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="no_login_data_message">Falls OAuth verwendet wird, ist dies wahrscheinlich ein Fehler, der gemeldet werden sollte. Falls Login und Passwort verwendet werden (nicht empfohlen), sollte überprüft werden, ob sie korrekt eingegeben wurden.</string>
@@ -100,6 +112,9 @@
   <string name="upload_bounding_box_too_large_message">Der Bereich, der die Änderungen abdeckt, die du hochladen möchtest, ist zu groß.
  &lt;br&gt;&lt;br&gt;Bitte teile deine Änderungen in mehrere kleinere Änderungssets auf. 
  Du kannst dies tun, indem du eine Teilmenge der geänderten Elemente auswählst und sie separat hochlädst.</string>
+  <string name="attempt_to_add_too_many_way_nodes_title">Versuch zu viele Weg-Knoten einzufügen</string>
+  <string name="attempt_to_add_too_many_way_nodes_message">Der Vorgang würde einen Weg erstellen, der mehr als die Höchstzahl von Weg-Knoten enthielte. Entweder weniger Knoten hinzufügen oder den Weg an geeigneter Stelle aufteilen.</string>
+  <string name="too_many_way_nodes_details">Versuch %1$d Knoten hinzuzufügen, was zu einer Gesamtzahl von %2$d Knoten führen würde, oberhalb der Grenze von %3$d</string>
   <!---->
   <string name="select_file_picker_title">Dateiauswahl-App auswählen</string>
   <!--Newbie dialog-->
@@ -141,6 +156,7 @@
   <string name="progress_message">Daten in den Speicher laden…</string>
   <string name="progress_download_message">Daten vom Server herunterladen…</string>
   <string name="progress_download_tasks_message">Aufgaben vom Server herunterladen...</string>
+  <string name="progress_download_sequence_message">Lade Sequenz vom Server...</string>
   <string name="progress_general_title">Bitte warten</string>
   <string name="progress_deleting_message">Löschen…</string>
   <string name="progress_searching_message">Suchen…</string>
@@ -150,10 +166,13 @@
   <string name="progress_loading_preset_message">Vorlage laden...</string>
   <string name="progress_importing_file_message">Datei wird importiert…</string>
   <string name="progress_running_message">Wird ausgeführt…</string>
+  <string name="progress_oauth">Lade Konto auf\n%1$s\nfür OAuth-Autorisierung…</string>
   <string name="progress_building_imagery_database">Hintergrundbilderdatenbank wird erstellt…</string>
   <string name="progress_query_oam">Abfrage von OAM…</string>
   <string name="progress_pruning">Zurückschneiden…</string>
   <string name="progress_migration">Migrieren…</string>
+  <string name="progress_determining_status_message">Der Status wird bestimmt...</string>
+  <string name="progress_updating_message">Aktualisieren...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">„%1$s“ gelöscht</string>
   <string name="changes_changed">„%1$s“ verändert</string>
@@ -182,6 +201,7 @@
   <string name="unknown_object">unbekanntes Objekt</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">Änderungen überprüfen</string>
+  <string name="review_upload_selected">Hochladen ausgewählt</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">GPX-Track hochladen</string>
   <string name="upload_gpx_description_label">Beschreibung</string>
@@ -304,7 +324,7 @@
   <string name="toast_element_not_found_on_restore">Element bei Wiederherstellung nicht gefunden</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON-Feature-Information</string>
-  <string name="vt_feature_information">Infos zur Vektorkachelfunktion</string>
+  <string name="vt_feature_information">Infos zum Vektor-Kachel-Feature</string>
   <string name="vt_layer">Vektor-Kachel-Ebene</string>
   <string name="copy_properties">Eigenschaften kopieren</string>
   <string name="create_osm_element">OSM-Objekt erstellen</string>
@@ -339,7 +359,7 @@
   <string name="duplicate_route_segment_button">Trotzdem hinzufügen</string>
   <!--Duplicate relation element dialog-->
   <string name="duplicate_relation_member_title">Relationsmitglied hinzufügen</string>
-  <string name="duplicate_relation_member_message">Dieses Element ist bereits ein Mitglied der Relation.</string>
+  <string name="duplicate_relation_member_message">%1$s\n\nist bereits ein Mitglied der Relation.</string>
   <string name="duplicate_relation_member_remove_button">Relationsmitglied entfernen</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Eigenschaften von äußeren Ringen auf das Multipolygon verschieben</string>
@@ -442,7 +462,7 @@
   <string name="coverage_left">Links</string>
   <string name="coverage_right">Rechts</string>
   <string name="coverage_bottom">Unten</string>
-  <string name="tile_size">Kartenkachelgrösse</string>
+  <string name="tile_size">Karten-Kachel-Größe</string>
   <string name="toast_invalid_box">Ungültiges oder unvollständiges Begrenzungsrechteck</string>
   <string name="delete_layer">Hintergrundeintrag löschen?</string>
   <string name="delete_endpoint">Server löschen?</string>
@@ -475,7 +495,7 @@
   <string name="layer_tasks">Aufgaben</string>
   <string name="layer_data">OSM-Daten</string>
   <string name="layer_data_name">%1$s Daten</string>
-  <string name="layer_flush_tile_cache">Tile-Cache bereinigen</string>
+  <string name="layer_flush_tile_cache">Kachel-Cache bereinigen</string>
   <string name="layer_change_style">Stil ändern…</string>
   <string name="layer_load_style">Stil laden…</string>
   <string name="layer_reset_style">Stil zurücksetzen</string>
@@ -533,6 +553,7 @@
   <string name="tag_conflict_title">Eigenschaften geändert</string>
   <string name="tag_conflict_message">Die Operation musste Eigenschaften der beteiligten Objekte ändern.</string>
   <string name="replace_geometry_issue_title">Element geändert</string>
+  <string name="replace_geometry_issue_message">Der Vorgang erforderte eine Änderung der Position, der Mitgliedschaft oder der Merkmale eines Elements.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Keine geeigneten Relationen in den heruntergeladenen Daten gefunden</string>
   <string name="select_route_title">Route auswählen</string>
@@ -556,6 +577,7 @@
   <string name="compass_widget_usage_with_additional">Hebe die Markierung eines beliebigen Wertes oben auf und richte dein Gerät dann in die Richtung, die du aufzeichnen möchtest, oder ziehe die Anzeige auf den gewünschten Wert</string>
   <string name="compass_widget_usage">Richte dein Gerät in die Richtung, die du aufzeichnen willst, oder ziehe die Anzeige auf den gewünschten Wert</string>
   <string name="integer_widget_usage_with_additional">Hebe die Markierung eines beliebigen Wertes auf, um den Nummernpicker zu verwenden</string>
+  <string name="date_widget_usage_with_additional">Hebe die Markierung eines beliebigen Wertes auf, um den Datumspicker zu verwenden</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Mit OpenStreetMap-Benutzernamen senden</string>
   <string name="feedback_displayname_hint">OpenStreetMap-Benutzername noch nicht abgerufen</string>
@@ -572,6 +594,7 @@
   <string name="tip_undo">Ein langer Druck auf den \"Rückgängig\"-Knopf zeigt alle Sicherungspunkte, die rückgängig gemacht und wiederhergestellt werden können.</string>
   <string name="tip_imagery_privacy">Hintergrund- und Überlagerungsebenen werden von Drittanbietern bereitgestellt. Bei der Verwendung eines Layers werden Ihre Netzwerkadresse und eine ungefähre Angabe des Bereichs, den Sie betrachten, an den Anbieter übertragen. Wenn der Anbieter Informationen zum Datenschutz bereitgestellt hat, können Sie diese über den Menüpunkt \"Info\" im Ebenendialog anzeigen.</string>
   <string name="tip_mapillary_privacy">Mapillary ist ein Dienst der Mapillary AB, Schweden, einer Tochtergesellschaft von Facebook. Bei Nutzung des Dienstes werden Ihre IP-Adresse und Informationen, welche Bilder betrachtet wurden, an die Firma übermittelt.</string>
+  <string name="tip_panoramax_privacy">Panoramax ist ein von einem Drittanbieter bereitgestellter Dienst, der Standard-Server wird von OpenStreetMap Frankreich betrieben, du kannst allerdings den Server in den Einstellungen ändern. Bei Nutzung des Dienstes werden deine Netzwerkadresse und Informationen, welche Bilder von dir angesehen werden, an den Betreiber übermittelt.</string>
   <string name="tip_pan_and_zoom_auto_download">Der automatische Download von Schwenks und Zooms sollte mit Vorsicht verwendet werden, da er sowohl die OpenStreetMap-APIs als auch Ihr Gerät stark belasten kann. Die Belastung der API-Server kann durch die Verwendung einer Offline-Datenquelle vermieden werden.</string>
   <string name="tip_locked_mode">Im gesperrten Zustand kann nicht editiert werden, aber ein langer Klick auf ein Objekt zeigt Detailinformationen an.</string>
   <string name="tip_longpress_simple_mode">Im einfachen Modus hat ein langer Klick keine Funktion. Schalten Sie den einfachen Modus ab, wenn Sie mit langem Klick Objekte erstellen wollen.</string>
@@ -613,7 +636,7 @@
   <string name="toast_url_empty">URL darf nicht leer sein</string>
   <string name="toast_url_config_file_placeholders">{proj} und {wkid} Platzhalter werden nur in Konfigurationsdateien unterstützt</string>
   <string name="toast_min_zoom">Minimaler Zoom muss kleiner sein als der maximale Zoom</string>
-  <string name="toast_tile_layer_exists">Quelle %1$s hat die gleich URL</string>
+  <string name="toast_tile_layer_exists">Kachel-Quelle %1$s hat die gleich URL</string>
   <string name="toast_styleable_layer_exists">Ebene für %1$s existiert schon</string>
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_jpeg_not_transparent">JPEG-Kacheln sind nicht transparent und können nicht als Overlay verwendet werden</string>
@@ -682,7 +705,7 @@
   <string name="toast_camera_error">Fehler beim Starten der Kamera-App: %1$s</string>
   <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
   <string name="toast_storage_error">%1$s ist nicht von Vespucci beschreibbar.\nDies könnte ein Rechteproblem oder ein technisches Problem mit dem Gerät sein.</string>
-  <string name="toast_no_suitable_storage">Das Betriebssystem hat keinen verwendbaren Speicherort für die Datenbank zurückgegeben.</string>
+  <string name="toast_no_suitable_storage">Das Betriebssystem hat keinen verwendbaren Speicherort für die Kachel-Datenbank zurückgegeben.</string>
   <string name="toast_min_one_preset">Mindestens 1 Vorlagensatz muss ausgewählt sein!</string>
   <string name="toast_min_one_geocoder">Mindestens 1 Geocoder muss ausgewählt sein!</string>
   <string name="toast_used_backup">Beschädigte Zustandsdatei, Backup verwendet!</string>
@@ -691,7 +714,7 @@
   <string name="toast_split_via">„via“-Weg aufgetrennt</string>
   <string name="toast_split_from_and_via">„from“- und „via“-Wege aufgetrennt</string>
   <string name="toast_split_to">„to“-Weg aufgetrennt</string>
-  <string name="toast_tile_database_issue_short">Problem mit den Hintergrundkacheln</string>
+  <string name="toast_tile_database_issue_short">Problem mit der Kachel-Datenbank</string>
   <string name="toast_tile_database_issue">Ernster Fehler mit der Speicherung der Hintergrundkacheln\n„%1$s“\nMehr Informationen unter FAQ auf https://vespucci.io/</string>
   <string name="toast_tile_source_issue">Ernsthaftes Problem mit einer Kartenkachelquelle, temporär abgeschaltet\n\"%1$s\"</string>
   <string name="toast_tile_container_issue">Kartenkacheldatei \"%1$s\" existiert nicht oder kann nicht geöffnet werden </string>
@@ -727,6 +750,7 @@
   <string name="toast_flus_all_caches">Dies wird alle gespeicherten Hintergrundbilder löschen!</string>
   <string name="toast_applied_offset">Hintergrundversatzkorrektur automatisch angewendet</string>
   <string name="toast_unsupported_format">Nicht unterstütztes Format: %1$s</string>
+  <string name="toast_unsupported_operation">Vorgang wird nicht unterstützt</string>
   <string name="toast_returning_less_than_found">Anzeige von %1$d von %2$d total gefundenen Einträgen</string>
   <string name="toast_not_mbtiles">Keine Datei in MBTiles oder PMTiles-Format</string>
   <string name="toast_using_network_location">Netzwerkstandort</string>
@@ -751,6 +775,7 @@
   <string name="toast_file_already_exists">Datei %1$s existiert bereits.</string>
   <string name="toast_file_error_for">Dateifehler für %1$s</string>
   <string name="toast_error_reading">Fehler beim Lesen von %1$s</string>
+  <string name="toast_error_converting">Fehler beim Konvertieren von %1$s</string>
   <string name="toast_read_successfully">Datei erfolgreich gelesen</string>
   <string name="toast_error_writing">Schreibfehler %1$s</string>
   <string name="toast_successfully_written">Datei %1$s erfolgreich geschrieben</string>
@@ -811,6 +836,8 @@
   <string name="toast_no_roles_found">Keine Rollen gefunden, alle Elemente können ausgewählt werden</string>
   <string name="toast_no_preset_found">Keine passende Voreinstellung gefunden, alle Elemente können ausgewählt werden</string>
   <string name="toast_undeleting_all_members">Aufheben aller Beziehungselemente mit diesem Element</string>
+  <string name="toast_panoramax_sequence_error">Fehler beim Laden von Panoramax-Sequenz %1$s ID %2$s</string>
+  <string name="toast_panoramax_image_not_in_sequence_error">Bild mit ID %1$skann in der Sequenz nicht gefunden werden </string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -883,6 +910,7 @@
   <string name="tag_menu_reset_address_prediction">Adressvorhersage zurücksetzen</string>
   <string name="tag_menu_exit_no_save">Ohne Speichern\nverlassen</string>
   <string name="tag_menu_delete_unassociated_tags">Nicht assoziierte Tags löschen</string>
+  <string name="tag_menu_copy_system">Kopieren (System)</string>
   <string name="tag_menu_top">An den Anfang scrollen</string>
   <string name="tag_menu_bottom">Ans Ende scrollen</string>
   <string name="tag_value_hint">Wert eingeben</string>
@@ -1056,6 +1084,7 @@
   <string name="menu_unjoin">Trennen</string>
   <string name="menu_copy">Kopieren</string>
   <string name="menu_duplicate">Verdoppeln</string>
+  <string name="menu_shallow_duplicate">Flaches Duplikat</string>
   <string name="menu_cut">Ausschneiden</string>
   <string name="menu_paste">Einfügen</string>
   <string name="menu_paste_tags">Tags einfügen</string>
@@ -1086,7 +1115,7 @@
   <string name="menu_tools">Werkzeuge…</string>
   <string name="menu_tools_imagery">Mehr Hintergrundtools…</string>
   <string name="menu_tools_add_imagery_from_oam">Hintergrund von OAM hinzufügen</string>
-  <string name="menu_tools_flush_all_tile_caches">Alle Tile-Caches leeren</string>
+  <string name="menu_tools_flush_all_tile_caches">Alle Kachel-Caches leeren</string>
   <string name="menu_tools_background_properties">Hintergrundeigenschaften…</string>
   <string name="menu_tools_update_imagery_configuration">Konfiguration aus JOSM aktualisieren</string>
   <string name="menu_tools_update_imagery_configuration_eli">Konfiguration von ELI aktualisieren</string>
@@ -1137,6 +1166,7 @@
   <!---->
   <string name="menu_tools_apply_local_offset">Gespeicherten Hintergrundversatz anwenden</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
+  <string name="menu_tools_oauth_reset">Authorisierung zurücksetzen</string>
   <string name="menu_tools_oauth_authorisation">Mit OAuth autorisieren…</string>
   <string name="menu_enable_tagfilter">Tag-Filter</string>
   <string name="menu_enable_presetfilter">Vorlagenfilter</string>
@@ -1147,8 +1177,8 @@
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
-  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
+  <string name="element_for_menu_with_parents">%1$s [%2$s]</string>
+  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s [%3$s]</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Gehe zum Start oder Ende des Weges</string>
   <string name="menu_history">Chronik</string>
@@ -1214,6 +1244,7 @@
   <string name="menu_snap">Einrasten</string>
   <string name="menu_follow_way">Weg folgen</string>
   <string name="select_follow_way">Weg zum Folgen auswählen</string>
+  <string name="select_way_to_extract_from">Wähle die Art und Weise, wie das Segment extrahiert werden soll</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Knoten hinzufügen</string>
   <string name="simple_add_node">Bildschirmposition antippen</string>
@@ -1231,6 +1262,7 @@
   <string name="menu_paste_multiple">Objekt mehrfach einfügen</string>
   <string name="simple_paste_multiple">Bildschirmposition antippen</string>
   <!---->
+  <string name="duplicated_name_template">Duplikat von %1$s</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>
   <string name="config_backgroundLayer_summary">Auswahl des Bildmaterials für den Hintergrund.</string>
@@ -1417,6 +1449,8 @@
   <string name="config_maxDownloadSpeed_title">Höchstgeschwindigkeit für Auto-Download</string>
   <string name="config_maxDownloadSpeed_summary">Geschwindigkeit (in km/h), über der der Auto-Download pausiert wird.</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_autoPrune_title">Automatisches Beschneiden</string>
+  <string name="config_autoPrune_summary">Aktiviere/deaktiviere das automatische Bereinigen von Speicherdaten und Aufgaben</string>
   <string name="config_autoPruneNodeLimit_title">Grenzwert automatisches Beschneiden</string>
   <string name="config_autoPruneNodeLimit_summary">Anzahl der Knoten im Speicher, die ein Beschneiden auslöst.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d Knoten</string>
@@ -1476,13 +1510,15 @@
   <string name="config_overpassServer_summary">Für Abfragen verwendeter Overpass-Server </string>
   <string name="config_oamServer_title">OpenAerialMap-Server</string>
   <string name="config_oamServer_summary">OpenAerialMap-Server, der als Quelle für Hintergrundbilder verwendet wird</string>
+  <string name="config_panoramaxApiUrl_title">Panoramax URL</string>
+  <string name="config_panoramaxApiUrl_summary">Die Basis-URL für eine Panoramax-Instanz ohne angehängtes \"/api\"</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Hintergrundbilder laden und speichern</string>
   <string name="config_category_layers_summary">Download und Speicherung der auf Kacheln basierenden Hintergrundbilder</string>
   <string name="config_maxTileDownloadThreads_title">Max. Anzahl von Download-Threads</string>
   <string name="config_maxTileDownloadThreads_summary">Maximale Anzahl an Threads zum Herunterladen der Kartenkacheln.</string>
   <string name="config_downLoadThreads_current">%1$d Threads</string>
-  <string name="config_tileCacheSize_title">Größe des Tile-Caches</string>
+  <string name="config_tileCacheSize_title">Größe des Kachel-Caches</string>
   <string name="config_tileCacheSize_summary">Gesamtgröße des Caches für Kartenkacheln in MB</string>
   <string name="config_preferRemovableStorage_title">Entfernbare Speichermedien bevorzugen</string>
   <string name="config_preferRemovableStorage_summary">Entfernbare Speichermedien für Kachel-Cache bevorzugen</string>
@@ -1534,6 +1570,7 @@
   <string name="manage_presets">Vorlagen verwalten</string>
   <string name="listedit_use_translations">Übersetzungen benutzen</string>
   <string name="manage_geocoders">Geocoder verwalten</string>
+  <string name="listedit_supports_compressed_uploads">Unterstützt komprimierte Uploads</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlage erfolgreich heruntergeladen!</string>
@@ -1542,6 +1579,7 @@
   <string name="preset_download_missing_images">Die Vorlagendatei wurde heruntergeladen. Einige Symbole fehlen allerdings.</string>
   <string name="preset_download_title">Vorlagen-Download</string>
   <!--preset management-->
+  <string name="preset_management_delete">Vorlage wirklich löschen?</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Vorlage hinzufügen</string>
   <string name="urldialog_preset_exists">Diese Vorlage existiert bereits.</string>
@@ -1620,6 +1658,7 @@
   <string name="undo_action_remove_node_from_way">Knoten aus Weg entfernen</string>
   <string name="undo_action_extract_segment">Segment extrahieren</string>
   <string name="undo_action_replace_geometry">Geometrie ersetzen</string>
+  <string name="undo_message">Rückgängig: %1$s</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci ist abgestürzt oder auf ein ernsthaftes Problem gestoßen.\n\nUnterstützen Sie uns mit einem Fehlerreport, einfach \'OK\' drücken.\n</string>
   <string name="crash_dialog_comment_prompt">Fügen Sie weitere hilfreiche Informationen hinzu und (optional) Ihren OSM-Namen, wenn Sie ein Feedback wünschen.\n\nDanke.</string>
@@ -1673,8 +1712,10 @@ in %1$d m %2$s</string>
   <string name="issue_merged_metric">Längenabhängiger Wert wurde zusammengeführt</string>
   <string name="issue_split_metric">Längenabhängiger Wert wurde geteilt</string>
   <string name="issue_split_route_ordering">Die Route muss eventuell händisch geordnet werden</string>
+  <string name="issue_split_area">Fläche wurde aufgeteilt und muss möglicherweise in ein Multipolygon konvertiert werden</string>
   <string name="issue_precondition_relation_member_count">Anzahl der Mitglieder in der Relation überschritten</string>
   <string name="issue_replace_extracted_node">Markierter Knoten aus Weg extrahiert</string>
+  <string name="issue_replace_member_element_replaced">Mitgliedselement ersetzt</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 Tag</item>
@@ -1730,6 +1771,7 @@ in %1$d m %2$s</string>
   <string name="unexpected_tile_format">Unerwartetes Format\nURL:%1$s %2$s</string>
   <string name="unexpected_tile_format_subtype">Unerwartetes Format-Unterformat %1$s\nURL: %2$s</string>
   <string name="diagnostics_for_tile">Diagnose für %1$s</string>
+  <string name="tile_status">Status: %1$s</string>
   <string name="tile_spec">Zoom %1$d x %2$d y %3$d</string>
   <string name="tile_input_error">Kacheleingabefehler: %1$s\nURL: %2$s</string>
   <string name="tile_data_received">Erfolgreich empfangen: %1$d Bytes</string>
@@ -1737,5 +1779,8 @@ in %1$d m %2$s</string>
   <string name="tile_decoding_failed">Entschlüsselung der Kachel fehlgeschlagen</string>
   <string name="tile_success">Erfolg</string>
   <string name="tile_fail">Fehlschlag</string>
+  <string name="tile_doesnt_exist">Kachel existiert nicht</string>
+  <string name="tile_io_error">IO-Fehler</string>
+  <string name="tile_no_network">Kein Netz</string>
   <string name="tile_unknown_error">Unbekannter Fehler</string>
 </resources>

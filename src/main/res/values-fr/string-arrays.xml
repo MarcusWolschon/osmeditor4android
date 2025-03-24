@@ -31,25 +31,30 @@
         <item>Déjà corrigé</item>
         <item>Trop difficile</item>
     </string-array>
+    <string-array name="todo_state">
+        <item>Ouverte</item>
+        <item>Fermé</item>
+        <item>Ignoré</item> 
+    </string-array>
     <string-array name="followGPSbutton_entries">
-        <item>Gauche</item>
-        <item>Droite</item>
+        <item>À gauche</item>
+        <item>À droite</item>
         <item>Aucun</item>
     </string-array>
     <string-array name="full_screen_preference_entries">
         <item>Auto</item>
         <item>Jamais</item>
-        <item>Forcer</item>
+        <item>Toujours</item>
         <item>Pas de barre de statut</item>
     </string-array>
     <string-array name="full_screen_preference_no_auto_entries">
         <item>Jamais</item>
-        <item>Forcer</item>
+        <item>Toujours</item>
         <item>Pas de barre de statut</item>
     </string-array>
     <string-array name="map_orientation_entries">
         <item>Auto</item>
-        <item>Verrouillé</item>
+        <item>Verrouillée</item>
         <item>Portrait</item>
         <item>Paysage</item>
     </string-array>
@@ -76,4 +81,10 @@
         <item>Majuscule à chaque mot</item>
         <item>Majuscule en début de phrase</item>
     </string-array>
+    <string name="theme_follow_entry">Selon le système</string>
+    <string name="theme_light_entry">Clair</string>
+    <string name="theme_dark_entry">Sombre</string>
+    <string name="authentication_basic_entry">Identifiant — Mot de passe</string>
+    <string name="authentication_oauth1a_entry">OAuth 1a</string>
+    <string name="authentication_oauth2_entry">OAuth 2</string>
     </resources>
