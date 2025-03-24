@@ -189,9 +189,9 @@
             message="Declaration with array size (54)"/>
         <location
             file="src/main/res/values-uk/helptopics.xml"
-            line="61"
+            line="66"
             column="5"
-            message="Declaration with array size (54)"/>
+            message="Declaration with array size (63)"/>
         <location
             file="src/main/res/values-vi/helptopics.xml"
             line="53"
@@ -396,9 +396,9 @@
             message="Declaration with array size (54)"/>
         <location
             file="src/main/res/values-uk/helptopics.xml"
-            line="118"
+            line="132"
             column="5"
-            message="Declaration with array size (54)"/>
+            message="Declaration with array size (63)"/>
         <location
             file="src/main/res/values-vi/helptopics.xml"
             line="110"
@@ -1241,7 +1241,7 @@
         errorLine2="                             ~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/osm/ApiResponse.java"
-            line="329"
+            line="338"
             column="30"/>
     </issue>
 
@@ -1254,6 +1254,39 @@
             file="src/main/java/de/blau/android/Authorize.java"
             line="108"
             column="38"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        errorLine1="                    return String.format(DATE_FULL, startYear, startMonth, startDay);"
+        errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/de/blau/android/propertyeditor/tagform/DateValueFragment.java"
+            line="146"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        errorLine1="                    return String.format(DATE_YEAR_MONTH, startYear, startMonth);"
+        errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/de/blau/android/propertyeditor/tagform/DateValueFragment.java"
+            line="149"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        errorLine1="                return String.format(DATE_YEAR, startYear);"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/de/blau/android/propertyeditor/tagform/DateValueFragment.java"
+            line="151"
+            column="24"/>
     </issue>
 
     <issue
@@ -1296,7 +1329,7 @@
         errorLine2="                                                         ~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/services/util/MapTileDownloader.java"
-            line="286"
+            line="289"
             column="58"/>
     </issue>
 
@@ -1461,7 +1494,7 @@
         errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="1535"
+            line="1541"
             column="35"/>
     </issue>
 
@@ -1871,6 +1904,17 @@
     <issue
         id="InflateParams"
         message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="            super(activity.getLayoutInflater().inflate(R.layout.daterangepicker, null));"
+        errorLine2="                                                                                 ~~~~">
+        <location
+            file="src/main/java/de/blau/android/propertyeditor/tagform/DateValueFragment.java"
+            line="90"
+            column="82"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
         errorLine1="        header = inflator.inflate(R.layout.disambiguation_menu_header, null);"
         errorLine2="                                                                       ~~~~">
         <location
@@ -2238,7 +2282,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2013"
+            line="2026"
             column="14"/>
     </issue>
 
@@ -2249,7 +2293,7 @@
         errorLine2="             ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2016"
+            line="2029"
             column="14"/>
     </issue>
 
@@ -2260,7 +2304,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2020"
+            line="2033"
             column="14"/>
     </issue>
 
@@ -2271,7 +2315,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2024"
+            line="2037"
             column="14"/>
     </issue>
 
@@ -2282,7 +2326,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2028"
+            line="2041"
             column="18"/>
     </issue>
 
@@ -2293,7 +2337,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2041"
+            line="2054"
             column="18"/>
     </issue>
 
@@ -2304,7 +2348,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2075"
+            line="2088"
             column="14"/>
     </issue>
 
@@ -2315,7 +2359,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2086"
+            line="2099"
             column="14"/>
     </issue>
 
@@ -2326,7 +2370,7 @@
         errorLine2="             ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2090"
+            line="2103"
             column="14"/>
     </issue>
 
@@ -2337,7 +2381,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2093"
+            line="2106"
             column="14"/>
     </issue>
 
@@ -2348,7 +2392,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2116"
+            line="2129"
             column="14"/>
     </issue>
 
@@ -2359,7 +2403,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2119"
+            line="2132"
             column="14"/>
     </issue>
 
@@ -2370,7 +2414,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2122"
+            line="2135"
             column="14"/>
     </issue>
 
@@ -2381,7 +2425,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2140"
+            line="2153"
             column="14"/>
     </issue>
 
@@ -2392,7 +2436,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2143"
+            line="2156"
             column="14"/>
     </issue>
 
@@ -2403,7 +2447,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2146"
+            line="2159"
             column="14"/>
     </issue>
 
@@ -2414,7 +2458,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2149"
+            line="2162"
             column="14"/>
     </issue>
 
@@ -2425,7 +2469,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2169"
+            line="2182"
             column="14"/>
     </issue>
 
@@ -2436,7 +2480,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2183"
+            line="2196"
             column="14"/>
     </issue>
 
@@ -2447,7 +2491,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2187"
+            line="2200"
             column="14"/>
     </issue>
 
@@ -2458,7 +2502,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2206"
+            line="2219"
             column="14"/>
     </issue>
 
@@ -2469,7 +2513,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2212"
+            line="2225"
             column="14"/>
     </issue>
 
@@ -2480,7 +2524,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2230"
+            line="2243"
             column="14"/>
     </issue>
 
@@ -2491,7 +2535,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2244"
+            line="2257"
             column="14"/>
     </issue>
 
@@ -2502,7 +2546,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2259"
+            line="2272"
             column="14"/>
     </issue>
 
@@ -2513,7 +2557,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2262"
+            line="2275"
             column="14"/>
     </issue>
 
@@ -2524,7 +2568,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2265"
+            line="2278"
             column="14"/>
     </issue>
 
@@ -2535,7 +2579,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2269"
+            line="2282"
             column="14"/>
     </issue>
 
@@ -2546,7 +2590,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2272"
+            line="2285"
             column="14"/>
     </issue>
 
@@ -2557,7 +2601,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2275"
+            line="2288"
             column="14"/>
     </issue>
 
@@ -2568,7 +2612,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2278"
+            line="2291"
             column="14"/>
     </issue>
 
@@ -2579,7 +2623,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2290"
+            line="2303"
             column="14"/>
     </issue>
 
@@ -2590,7 +2634,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2312"
+            line="2325"
             column="14"/>
     </issue>
 
@@ -2601,7 +2645,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2316"
+            line="2329"
             column="14"/>
     </issue>
 
@@ -2612,7 +2656,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2334"
+            line="2347"
             column="14"/>
     </issue>
 
@@ -2623,7 +2667,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2362"
+            line="2375"
             column="14"/>
     </issue>
 
@@ -2634,7 +2678,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2383"
+            line="2396"
             column="14"/>
     </issue>
 
@@ -2645,7 +2689,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2387"
+            line="2400"
             column="14"/>
     </issue>
 
@@ -2656,7 +2700,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2390"
+            line="2403"
             column="14"/>
     </issue>
 
@@ -2667,7 +2711,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2398"
+            line="2411"
             column="14"/>
     </issue>
 
@@ -2678,7 +2722,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2410"
+            line="2423"
             column="14"/>
     </issue>
 
@@ -2689,7 +2733,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2414"
+            line="2427"
             column="14"/>
     </issue>
 
@@ -2700,7 +2744,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2435"
+            line="2448"
             column="14"/>
     </issue>
 
@@ -2711,7 +2755,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2449"
+            line="2462"
             column="14"/>
     </issue>
 
@@ -2722,7 +2766,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2463"
+            line="2476"
             column="14"/>
     </issue>
 
@@ -2733,7 +2777,7 @@
         errorLine2="             ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2473"
+            line="2486"
             column="14"/>
     </issue>
 
@@ -2744,7 +2788,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2477"
+            line="2490"
             column="14"/>
     </issue>
 
@@ -2755,7 +2799,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2486"
+            line="2499"
             column="14"/>
     </issue>
 
@@ -2766,7 +2810,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2492"
+            line="2505"
             column="14"/>
     </issue>
 
@@ -2777,7 +2821,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2495"
+            line="2508"
             column="14"/>
     </issue>
 
@@ -2788,7 +2832,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2498"
+            line="2511"
             column="14"/>
     </issue>
 
@@ -2799,7 +2843,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2507"
+            line="2520"
             column="14"/>
     </issue>
 
@@ -2810,7 +2854,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2517"
+            line="2530"
             column="14"/>
     </issue>
 
@@ -2821,7 +2865,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2534"
+            line="2547"
             column="14"/>
     </issue>
 
@@ -2832,7 +2876,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2560"
+            line="2573"
             column="14"/>
     </issue>
 
@@ -2843,7 +2887,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2563"
+            line="2576"
             column="14"/>
     </issue>
 
@@ -2854,7 +2898,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2572"
+            line="2585"
             column="14"/>
     </issue>
 
@@ -2865,7 +2909,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2580"
+            line="2593"
             column="14"/>
     </issue>
 
@@ -2876,7 +2920,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2583"
+            line="2596"
             column="14"/>
     </issue>
 
@@ -2887,7 +2931,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2586"
+            line="2599"
             column="14"/>
     </issue>
 
@@ -2898,7 +2942,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2589"
+            line="2602"
             column="14"/>
     </issue>
 
@@ -2909,7 +2953,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2592"
+            line="2605"
             column="14"/>
     </issue>
 
@@ -2920,7 +2964,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2595"
+            line="2608"
             column="14"/>
     </issue>
 
@@ -2931,7 +2975,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2598"
+            line="2611"
             column="14"/>
     </issue>
 
@@ -2942,7 +2986,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="2601"
+            line="2614"
             column="14"/>
     </issue>
 
@@ -4939,6 +4983,22 @@
 
     <issue
         id="StringFormatInvalid"
+        message="Format string &apos;`duplicate_relation_member_message`&apos; is not a valid format string so it should not be passed to `String.format`"
+        errorLine1="                    .setMessage(main.getString(R.string.duplicate_relation_member_message, element.getDescription(main, true)))"
+        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/de/blau/android/easyedit/EditRelationMembersActionModeCallback.java"
+            line="396"
+            column="33"/>
+        <location
+            file="src/main/res/values-zh-rTW/strings.xml"
+            line="346"
+            column="3"
+            message="This definition does not require arguments"/>
+    </issue>
+
+    <issue
+        id="StringFormatInvalid"
         message="Format string &apos;`toast_successfully_written`&apos; is not a valid format string so it should not be passed to `String.format`"
         errorLine1="        ScreenMessage.toastTopInfo(context, context.getString(R.string.toast_successfully_written, fileName));"
         errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -4963,9 +5023,9 @@
             line="139"
             column="39"/>
         <location
-            file="src/main/res/values/strings.xml"
-            line="187"
-            column="5"
+            file="src/main/res/values-de/strings.xml"
+            line="175"
+            column="3"
             message="This definition does not require arguments"/>
     </issue>
 
@@ -5212,7 +5272,7 @@
         errorLine2="                                                                                 ^">
         <location
             file="src/main/res/values-de/strings.xml"
-            line="1418"
+            line="1450"
             column="82"/>
     </issue>
 
@@ -5223,7 +5283,7 @@
         errorLine2="                                                                                    ^">
         <location
             file="src/main/res/values-de/strings.xml"
-            line="1434"
+            line="1468"
             column="85"/>
     </issue>
 
@@ -6355,6 +6415,22 @@
 
     <issue
         id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `duplicate_relation_member_message`; found both 1 here and 0 in values-zh-rTW\strings.xml"
+        errorLine1="    &lt;string name=&quot;duplicate_relation_member_message&quot;>%1$s\n\nis already a member of the relation.&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="374"
+            column="5"/>
+        <location
+            file="src/main/res/values-zh-rTW/strings.xml"
+            line="346"
+            column="3"
+            message="Conflicting number of arguments (0) here"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
         message="Inconsistent number of arguments in formatting string `toast_successfully_written`; found both 1 here and 0 in values-vi\strings.xml"
         errorLine1="    &lt;string name=&quot;toast_successfully_written&quot;>%1$s successfully written&lt;/string>"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -7135,7 +7211,7 @@
         errorLine2="                                                             ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Logic.java"
-            line="4094"
+            line="4111"
             column="62"/>
     </issue>
 
@@ -7148,6 +7224,72 @@
             file="src/main/res/layout/console.xml"
             line="55"
             column="21"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLayoutParam"
+        message="Invalid layout param in a `LinearLayout`: `layout_centerHorizontal`"
+        errorLine1="            android:layout_centerHorizontal=&quot;true&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/daterangepicker.xml"
+            line="20"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLayoutParam"
+        message="Invalid layout param in a `LinearLayout`: `layout_centerHorizontal`"
+        errorLine1="            android:layout_centerHorizontal=&quot;true&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/daterangepicker.xml"
+            line="32"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLayoutParam"
+        message="Invalid layout param in a `LinearLayout`: `layout_centerHorizontal`"
+        errorLine1="            android:layout_centerHorizontal=&quot;true&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/daterangepicker.xml"
+            line="45"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLayoutParam"
+        message="Invalid layout param in a `LinearLayout`: `layout_centerHorizontal`"
+        errorLine1="            android:layout_centerHorizontal=&quot;true&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/daterangepicker.xml"
+            line="58"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLayoutParam"
+        message="Invalid layout param in a `LinearLayout`: `layout_centerHorizontal`"
+        errorLine1="            android:layout_centerHorizontal=&quot;true&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/daterangepicker.xml"
+            line="72"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLayoutParam"
+        message="Invalid layout param in a `LinearLayout`: `layout_centerHorizontal`"
+        errorLine1="            android:layout_centerHorizontal=&quot;true&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/daterangepicker.xml"
+            line="85"
+            column="13"/>
     </issue>
 
     <issue
@@ -11907,17 +12049,6 @@
     <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;progress_download_tasks_message&quot;>Aufgaben vom Server herunterladen...&lt;/string>"
-        errorLine2="                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="143"
-            column="50"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
         errorLine1="  &lt;string name=&quot;progress_message&quot;>Gegevens in geheugen laden...&lt;/string>"
         errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -11978,17 +12109,6 @@
         <location
             file="src/main/res/values-zh-rTW/strings.xml"
             line="149"
-            column="50"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;progress_loading_preset_message&quot;>Vorlage laden...&lt;/string>"
-        errorLine2="                                                 ~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="150"
             column="50"/>
     </issue>
 
@@ -12127,6 +12247,17 @@
     <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;progress_download_tasks_message&quot;>Aufgaben vom Server herunterladen...&lt;/string>"
+        errorLine2="                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="158"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
         errorLine1="  &lt;string name=&quot;progress_migration&quot;>Migreren...&lt;/string>"
         errorLine2="                                    ~~~~~~~~~~~">
         <location
@@ -12144,6 +12275,17 @@
             file="src/main/res/values-zh-rTW/strings.xml"
             line="158"
             column="43"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;progress_download_sequence_message&quot;>Lade Sequenz vom Server...&lt;/string>"
+        errorLine2="                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="159"
+            column="53"/>
     </issue>
 
     <issue
@@ -12265,6 +12407,39 @@
             file="src/main/res/values-cs-rCZ/strings.xml"
             line="165"
             column="37"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;progress_loading_preset_message&quot;>Vorlage laden...&lt;/string>"
+        errorLine2="                                                 ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="166"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;progress_determining_status_message&quot;>Der Status wird bestimmt...&lt;/string>"
+        errorLine2="                                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="174"
+            column="54"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;progress_updating_message&quot;>Aktualisieren...&lt;/string>"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="175"
+            column="44"/>
     </issue>
 
     <issue
@@ -13139,17 +13314,6 @@
     <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;layer_set_date_range&quot;>Datumsbereich setzen...&lt;/string>"
-        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="482"
-            column="39"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
         errorLine1="  &lt;string name=&quot;layer_add_layer_from_mvt_style&quot;>Voeg laag van MVT stijl toe...&lt;/string>"
         errorLine2="                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -13211,6 +13375,17 @@
             file="src/main/res/values-zh-rTW/strings.xml"
             line="487"
             column="29"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;layer_set_date_range&quot;>Datumsbereich setzen...&lt;/string>"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="502"
+            column="39"/>
     </issue>
 
     <issue
@@ -13920,45 +14095,12 @@
     <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;toast_updating_tags&quot;>Tags aktualisieren...&lt;/string>"
-        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="803"
-            column="38"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;toast_updating_parents&quot;>Aktualisierung der Elternelemente...&lt;/string>"
-        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="804"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
         errorLine1="  &lt;string name=&quot;toast_updating_tags&quot;>Оновлення тегів...&lt;/string>"
         errorLine2="                                     ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-uk/strings.xml"
             line="804"
             column="38"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;toast_updating_members&quot;>Mitglieder aktualisieren...&lt;/string>"
-        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="805"
-            column="41"/>
     </issue>
 
     <issue
@@ -14113,6 +14255,39 @@
             file="src/main/res/values-pl/strings.xml"
             line="821"
             column="43"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;toast_updating_tags&quot;>Tags aktualisieren...&lt;/string>"
+        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="828"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;toast_updating_parents&quot;>Aktualisierung der Elternelemente...&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="829"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;toast_updating_members&quot;>Mitglieder aktualisieren...&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="830"
+            column="41"/>
     </issue>
 
     <issue
@@ -15713,17 +15888,6 @@
     <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;menu_gps_goto_nearest_todo&quot;>Zur nächsten Aufgabe gehen...&lt;/string>"
-        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="1008"
-            column="45"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
         errorLine1="  &lt;string name=&quot;menu_tools_load_keys&quot;>Charger les clés depuis un fichier...&lt;/string>"
         errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -16120,6 +16284,17 @@
     <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;menu_gps_goto_nearest_todo&quot;>Zur nächsten Aufgabe gehen...&lt;/string>"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="1036"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
         errorLine1="  &lt;string name=&quot;merge_context_title&quot;>Sulauta ...&lt;/string>"
         errorLine2="                                     ~~~~~~~~~~~">
         <location
@@ -16296,28 +16471,6 @@
     <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;menu_transfer_read_todos&quot;>Aufgaben laden...&lt;/string>"
-        errorLine2="                                          ~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="1052"
-            column="43"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;menu_transfer_write_todos&quot;>Aufgaben speichern...&lt;/string>"
-        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="1053"
-            column="44"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
         errorLine1="  &lt;string name=&quot;split_context_title&quot;>دو نیم کردن...&lt;/string>"
         errorLine2="                                     ~~~~~~~~~~~~~~">
         <location
@@ -16461,12 +16614,23 @@
     <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;menu_todo&quot;>Aufgabe...&lt;/string>"
-        errorLine2="                           ~~~~~~~~~~">
+        errorLine1="  &lt;string name=&quot;menu_transfer_read_todos&quot;>Aufgaben laden...&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-de/strings.xml"
             line="1080"
-            column="28"/>
+            column="43"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;menu_transfer_write_todos&quot;>Aufgaben speichern...&lt;/string>"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="1081"
+            column="44"/>
     </issue>
 
     <issue
@@ -16489,17 +16653,6 @@
             file="src/main/res/values-nl/strings.xml"
             line="1083"
             column="39"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;menu_add_to_todo&quot;>Zur Aufgabenliste hinzufügen...&lt;/string>"
-        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="1084"
-            column="35"/>
     </issue>
 
     <issue
@@ -16670,6 +16823,17 @@
     <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;menu_todo&quot;>Aufgabe...&lt;/string>"
+        errorLine2="                           ~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="1109"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
         errorLine1="  &lt;string name=&quot;menu_tools_background_align_save_db&quot;>儲存至資料庫...&lt;/string>"
         errorLine2="                                                     ~~~~~~~~~">
         <location
@@ -16687,6 +16851,17 @@
             file="src/main/res/values-nl/strings.xml"
             line="1112"
             column="40"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;menu_add_to_todo&quot;>Zur Aufgabenliste hinzufügen...&lt;/string>"
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="1113"
+            column="35"/>
     </issue>
 
     <issue
@@ -16846,33 +17021,11 @@
     <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;menu_layers_convert_geojson_todo&quot;>Todos aus GeoJSON-Objekten erstellen...&lt;/string>"
-        errorLine2="                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="1132"
-            column="51"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
         errorLine1="  &lt;string name=&quot;geojson_todo_custom_conversion&quot;>Конвертація на замовлення...&lt;/string>"
         errorLine2="                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-uk/strings.xml"
             line="1133"
-            column="49"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="  &lt;string name=&quot;geojson_todo_custom_conversion&quot;>Individuelle Konvertierung...&lt;/string>"
-        errorLine2="                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="1135"
             column="49"/>
     </issue>
 
@@ -16962,6 +17115,28 @@
             file="src/main/res/values-nl/strings.xml"
             line="1157"
             column="39"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;menu_layers_convert_geojson_todo&quot;>Todos aus GeoJSON-Objekten erstellen...&lt;/string>"
+        errorLine2="                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="1161"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="  &lt;string name=&quot;geojson_todo_custom_conversion&quot;>Individuelle Konvertierung...&lt;/string>"
+        errorLine2="                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="1164"
+            column="49"/>
     </issue>
 
     <issue
@@ -17654,7 +17829,7 @@
         errorLine2="                       ~~~~~~~">
         <location
             file="src/main/java/de/blau/android/Main.java"
-            line="3628"
+            line="3641"
             column="24"/>
     </issue>
 
@@ -18771,6 +18946,50 @@
 
     <issue
         id="HardcodedText"
+        message="Hardcoded string &quot;test_number_picker_view&quot;, should use `@string` resource"
+        errorLine1="            android:contentDescription=&quot;test_number_picker_view&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/daterangepicker.xml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;test_number_picker_view&quot;, should use `@string` resource"
+        errorLine1="            android:contentDescription=&quot;test_number_picker_view&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/daterangepicker.xml"
+            line="46"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;test_number_picker_view&quot;, should use `@string` resource"
+        errorLine1="            android:contentDescription=&quot;test_number_picker_view&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/daterangepicker.xml"
+            line="73"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;test_number_picker_view&quot;, should use `@string` resource"
+        errorLine1="            android:contentDescription=&quot;test_number_picker_view&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/daterangepicker.xml"
+            line="86"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
         message="Hardcoded string &quot;*&quot;, should use `@string` resource"
         errorLine1="          android:text=&quot;*&quot;"
         errorLine2="          ~~~~~~~~~~~~~~~~">
@@ -19647,6 +19866,17 @@
             file="src/main/res/layout/customautocomplete.xml"
             line="7"
             column="5"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        message="Redundant attribute `layout_marginLeft`; already defining `layout_marginStart` with `targetSdkVersion` 21"
+        errorLine1="            android:layout_marginLeft=&quot;10dp&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/daterangepicker.xml"
+            line="59"
+            column="13"/>
     </issue>
 
     <issue
