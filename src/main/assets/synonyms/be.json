@@ -1,3 +1,32 @@
 {
-
+"address":[
+"Адрас"
+],
+"amenity/atm":[
+"Банкамат"
+],
+"area":[
+"Мясцовасць"
+],
+"line":[
+"Лінія"
+],
+"place/city":[
+"Горад"
+],
+"place/square":[
+"Выраўняць вуглы"
+],
+"playground":[
+"Абсталяванне дзіцячай пляцоўкі"
+],
+"point":[
+"Пункт"
+],
+"tourism/information":[
+"Інфармацыя"
+],
+"tourism/information/map":[
+"Мапа"
+]
 }

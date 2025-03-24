@@ -303,6 +303,9 @@
 "amenity/community_centre":[
 "커뮤니티 센터"
 ],
+"amenity/community_centre/cultural_centre":[
+"문화 센터"
+],
 "amenity/community_centre/lgbtq":[
 "lgbtq+ 커뮤니티 센터",
 "LGBTQ+ 커뮤니티 센터"
@@ -1032,9 +1035,6 @@
 "뮤지컬",
 "극장",
 "공연"
-],
-"amenity/theatre/type/amphi":[
-"원형극장"
 ],
 "amenity/ticket_validator":[
 "티켓 검사기"
@@ -1990,6 +1990,12 @@
 "entrance/main":[
 "정문"
 ],
+"entrance/shop":[
+"점포 입구",
+"가게 출입구",
+"가게 문",
+"점포 출입구"
+],
 "entrance/staircase":[
 "계단 입구"
 ],
@@ -2083,8 +2089,10 @@
 "healthcare/birthing_center":[
 "아기",
 "임신",
+"조산소",
 "진통",
 "산원",
+"조산원",
 "출산",
 "분만"
 ],
@@ -2154,30 +2162,38 @@
 "도로 지물"
 ],
 "highway/bridleway":[
-"승마 도로"
+"승마 도로",
+"마로",
+"마도",
+"승마로"
 ],
 "highway/bus_guideway":[
-"버스 가이드웨이"
+"버스 가이드웨이",
+"버스 안내로",
+"버스 전용 안내로"
 ],
 "highway/bus_stop":[
-"버스 정류소"
+"버스 정류장"
 ],
 "highway/busway":[
+"분리된 버스 전용 도로",
+"버스전용차로",
 "brt",
 "간선급행버스체계",
-"분리된 버스 전용로",
 "버스전용도로"
 ],
 "highway/construction":[
 "공사 중인 도로"
 ],
 "highway/corridor":[
+"건물 복도",
 "복도",
 "실내 복도"
 ],
 "highway/crossing":[
 "횡단보도",
-"횡단도"
+"횡단도",
+"횡단로"
 ],
 "highway/crossing/traffic_signals":[
 "보행자 신호등이 있는 횡단보도"
@@ -2194,35 +2210,52 @@
 "자전거 전용차로"
 ],
 "highway/cycleway/bicycle_foot":[
-"자전거 & 보행자 도로",
-"자전거 & 보행자 겸용도로"
+"자전거 및 보행자 도로",
+"자전거 및 보행자 겸용 도로"
 ],
 "highway/cycleway/crossing":[
-"자전거 횡단도"
+"자전거 횡단로"
 ],
 "highway/cycleway/crossing/bicycle_foot":[
-"자전거 & 보행자 횡단보도",
-"자전거 & 보행자 횡단도"
+"자전거 및 보행자 횡단도",
+"자전거 및 보행자 횡단보도",
+"자전거 및 보행자 겸용 횡단보도",
+"자전거 보행자 겸용 횡단보도"
 ],
 "highway/cycleway/crossing/traffic_signals":[
 "신호가 있는 자전거 횡단도",
+"신호등이 있는 자전거 횡단로",
 "신호등이 있는 자전거 횡단도"
 ],
 "highway/cycleway/crossing/uncontrolled":[
+"표시가 있는 자전거 횡단로",
 "표시 있는 자전거 횡단도",
 "표시가 있는 자전거 횡단도"
 ],
 "highway/cycleway/crossing/unmarked":[
 "표시가 없는 자전거 횡단도",
+"표시가 없는 자전거 횡단로",
 "표시 없는 자전거 횡단도"
 ],
 "highway/cycleway/moped_link-NL":[
-"모페드 도로"
+"모페드 도로",
+"원동기장치자전거 전용 도로",
+"원동기장치자전거 전용로",
+"원동기장치자전거 전용 차도"
+],
+"highway/cycleway/traffic_island":[
+"자전거 대기섬",
+"자전거 대기 공간",
+"자전거 교통섬"
+],
+"highway/cycleway/traffic_island_shared":[
+"자전거 및 보행자 교통섬",
+"자전거 및 보행자 대기섬"
 ],
 "highway/cyclist_waiting_aid":[
-"사이클리스트 대기 받침대",
-"사이클리스트 발 받침대",
-"사이클리스트 손 받침대"
+"자전거 운전자 대기 받침대",
+"자전거 대기 보조대",
+"자전거 대기 받침대"
 ],
 "highway/elevator":[
 "승강기",
@@ -2230,30 +2263,40 @@
 ],
 "highway/elevator_line":[
 "경사형 승강기",
+"경사 엘리베이터",
 "경사형 엘리베이터"
 ],
 "highway/emergency_access_point":[
 "비상 신고 지점",
-"비상 전화 지점"
+"비상 전화 지점",
+"비상 접근 지점",
+"비상 구조 지점"
 ],
 "highway/emergency_bay":[
+"긴급 정차 지점",
 "비상 정차대",
-"비상 대피 구역"
+"비상 대피 구역",
+"긴급 정차 공간"
 ],
 "highway/escape":[
+"비상제동시설",
 "비상 트럭 경사로",
+"긴급제동시설",
 "폭주 트럭 경사로"
 ],
 "highway/footway":[
-"보도"
+"보도",
+"보행로"
 ],
 "highway/footway/access_aisle":[
+"주차장 접근 통로",
 "주차장 보행자 통로",
 "주차장 출입 통로"
 ],
 "highway/footway/conveying":[
 "무빙워크",
-"이동 보행로"
+"이동 보행로",
+"자동 보행로"
 ],
 "highway/footway/crossing":[
 "보행자 횡단보도",
@@ -2272,14 +2315,14 @@
 "표시되지않은 횡단보도"
 ],
 "highway/footway/informal":[
-"비공식 보행로"
+"임시 보행로"
 ],
 "highway/footway/sidewalk":[
-"인도",
-"보도",
-"보행로"
+"인도"
 ],
 "highway/footway/traffic_island":[
+"보행자 대기섬",
+"보행섬",
 "보행자 교통섬"
 ],
 "highway/give_way":[
@@ -2291,16 +2334,18 @@
 ],
 "highway/living_street":[
 "생활도로",
-"이면도로",
-"주택가 거리"
+"주택가 거리",
+"보행자 우선도로"
 ],
 "highway/milestone":[
+"거리 이정표",
 "도로 거리표"
 ],
 "highway/mini_roundabout":[
 "소형 회전교차로"
 ],
 "highway/motorway":[
+"고속국도",
 "고속도로"
 ],
 "highway/motorway_junction":[
@@ -2308,34 +2353,57 @@
 "고속도로 ic / jc"
 ],
 "highway/motorway_link":[
-"고속도로 연결로"
+"고속도로 연결로",
+"고속국도 연결로"
 ],
 "highway/passing_place":[
+"교행 공간",
 "통행을 위한 여분 공간",
-"대피소"
+"통행 대피 공간"
 ],
 "highway/path":[
 "경로"
 ],
 "highway/path/boardwalk":[
+"목조 데크길",
 "보드워크"
 ],
+"highway/path/crossing":[
+"자전거 및 보행자 겸용 횡단보도"
+],
+"highway/path/crossing/traffic_signals":[
+"신호가 있는 자전거 및 보행자 겸용 횡단보도"
+],
+"highway/path/crossing/uncontrolled":[
+"표시가 있는 자전거 및 보행자 횡단보도"
+],
+"highway/path/crossing/unmarked":[
+"표시가 없는 자전거 및 보행자 횡단보도"
+],
 "highway/path/informal":[
+"비공식 경로",
+"임시 경로",
 "비공식 도로"
 ],
 "highway/pedestrian_area":[
 "보행구역",
 "보행지역",
+"보행자 전용 구역",
 "보행자 지역"
 ],
 "highway/pedestrian_line":[
 "보행자 거리",
-"보행로"
+"보행로",
+"보행자 전용 거리"
 ],
 "highway/primary":[
-"국도(1차 도로)"
+"국도",
+"1차 도로",
+"주요 도로",
+"주간선도로"
 ],
 "highway/primary_link":[
+"주요 도로 연결로",
 "1차 도로 연결로"
 ],
 "highway/raceway":[
@@ -2366,13 +2434,19 @@
 "미확인 도로의 다리"
 ],
 "highway/secondary":[
-"지방도(2차 도로)"
+"지방도",
+"보조간선도로",
+"2차 도로",
+"보조 도로"
 ],
 "highway/secondary_link":[
-"2차 도로 연결로"
+"2차 도로 연결로",
+"보조 도로 연결로"
 ],
 "highway/service":[
-"서비스 도로"
+"서비스 도로",
+"접근로",
+"접근 도로"
 ],
 "highway/service/alley":[
 "골목"
@@ -2421,7 +2495,12 @@
 "가로등"
 ],
 "highway/tertiary":[
-"시·군·구도(3차 도로)"
+"시도",
+"집산도로",
+"3차 도로",
+"군도",
+"구도",
+"시·군·구도"
 ],
 "highway/tertiary_link":[
 "3차 도로 연결로"
@@ -2461,9 +2540,11 @@
 "루프선 (교통섬)"
 ],
 "highway/unclassified":[
-"미분류 도로(4차 도로)",
 "미등급 도로",
 "4차 도로",
+"분류되지 않은 도로",
+"비주요/미분류 도로",
+"국지도로",
 "미분류 도로"
 ],
 "historic":[
@@ -2569,7 +2650,10 @@
 "사거리",
 "교차로",
 "삼거리",
-"오거리"
+"육거리",
+"오거리",
+"세거리",
+"네거리"
 ],
 "landuse":[
 "토지 이용 지물"
@@ -2658,7 +2742,6 @@
 "산업 지역"
 ],
 "landuse/industrial/depot":[
-"창고",
 "차고지"
 ],
 "landuse/industrial/scrap_yard":[
@@ -3097,6 +3180,14 @@
 ],
 "leisure/sports_centre/horse_racing":[
 "경마 경주로"
+],
+"leisure/sports_centre/karting":[
+"레이스",
+"고카트 시설",
+"고카트",
+"경주",
+"카트 레이싱",
+"카트"
 ],
 "leisure/sports_centre/shooting":[
 "사격장 시설"
@@ -4015,9 +4106,6 @@
 "piste/nordic":[
 "크로스 컨트리 스키"
 ],
-"piste/piste":[
-"스노우 스포츠 트레일 / 피스트"
-],
 "piste/skitour":[
 "스키 관광"
 ],
@@ -4073,8 +4161,10 @@
 "자치구 / 교외"
 ],
 "place/town":[
-"읍·면·동·로동자구",
-"마을"
+"면",
+"읍·면",
+"마을",
+"읍"
 ],
 "place/village":[
 "리·통",

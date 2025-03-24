@@ -649,6 +649,9 @@
 "disused/shop":[
 "Winkel in onbruik"
 ],
+"embankment":[
+"Dyk"
+],
 "emergency":[
 "Noodgevalbaken"
 ],
@@ -749,6 +752,9 @@
 ],
 "highway/footway":[
 "Voetpad"
+],
+"highway/footway/crossing/unmarked":[
+"Nie gemerk kruis"
 ],
 "highway/give_way":[
 "Toegeeteken"
@@ -1014,6 +1020,9 @@
 "Boord",
 "boord"
 ],
+"landuse/pond":[
+"Dammetjie"
+],
 "landuse/quarry":[
 "Kwarrie",
 "groef",
@@ -1140,6 +1149,12 @@
 ],
 "man_made/cutline":[
 "snylyn"
+],
+"man_made/embankment":[
+"Dyk"
+],
+"man_made/fuel_pump":[
+"Gaspomp"
 ],
 "man_made/lighthouse":[
 "lugtoring",
@@ -1499,7 +1514,8 @@
 "Kragpaal"
 ],
 "power/substation":[
-"Substasie"
+"Substasie",
+"substasie"
 ],
 "power/tower":[
 "Hoogspanningstoring"
@@ -1963,6 +1979,9 @@
 ],
 "tourism/zoo":[
 "Dieretuin"
+],
+"traffic_sign":[
+"Verkeersteken"
 ],
 "type/boundary":[
 "Grens"

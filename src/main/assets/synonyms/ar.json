@@ -283,6 +283,9 @@
 "amenity/clinic/abortion":[
 "عيادة الإجهاض"
 ],
+"amenity/clinic/dialysis":[
+"غسيل كلى"
+],
 "amenity/clinic/fertility":[
 "عيادة الخصوبة"
 ],
@@ -336,6 +339,10 @@
 ],
 "amenity/doctors":[
 "طبيب"
+],
+"amenity/doctors/podiatry":[
+"طبيب الأقدام; الأرجل",
+"طبيب الأقدام"
 ],
 "amenity/dojo":[
 "دوجو",
@@ -855,9 +862,6 @@
 "amenity/theatre":[
 "مسرح"
 ],
-"amenity/theatre/type/amphi":[
-"مسرح روماني"
-],
 "amenity/ticket_validator":[
 "مدقق التذاكر"
 ],
@@ -964,6 +968,9 @@
 "amenity/vending_machine/food":[
 "آلة بيع مواد غذائية"
 ],
+"amenity/vending_machine/food/snacks":[
+"آلة بيع الوجبات الخفيفة"
+],
 "amenity/vending_machine/ice_cream":[
 "آلة بيع مثلجات",
 "آلة بيع آيس كريم"
@@ -1039,6 +1046,9 @@
 "attraction/animal":[
 "حظيرة حيوانات،محجر حيوانات،حوش حيوانات،حوز حيوانات،ضميمة حيوانات",
 "حظيرة حيوانات"
+],
+"attraction/big_wheel":[
+"عجلة فيريس"
 ],
 "attraction/bumper_car":[
 "Bumper Cars"
@@ -1267,6 +1277,9 @@
 ],
 "boundary/administrative":[
 "حدود إدارية"
+],
+"boundary/hazard":[
+"منطقة خطرة"
 ],
 "bridge/support":[
 "صبات حاملة للجسر",
@@ -2168,7 +2181,9 @@
 "ممر داخل مبنى"
 ],
 "highway/crossing":[
-"معبر/خط مشاة"
+"معبر/خط مشاة",
+"معبر",
+"تقاطع"
 ],
 "highway/crossing/traffic_signals":[
 "معبر مشاة بإشارات"
@@ -2189,6 +2204,9 @@
 ],
 "highway/cycleway/crossing/bicycle_foot":[
 "معبر مشاة ودراجات هوائية"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"معبر دراجات هوائية بعلامات مرورية"
 ],
 "highway/cycleway/crossing/unmarked":[
 "معبر دراجات هوائية بدون علامات مرورية"
@@ -2234,6 +2252,12 @@
 "highway/footway/crossing":[
 "معبر مشاة"
 ],
+"highway/footway/crossing/traffic_signals":[
+"معبر مشاة بإشارات"
+],
+"highway/footway/crossing/unmarked":[
+"معبر مشاة بدون علامات أو إشارة مرورية"
+],
 "highway/footway/informal":[
 "مسار للمشاة غير رسمي"
 ],
@@ -2242,11 +2266,17 @@
 "رصيف المشاة",
 "رصيف مشاة"
 ],
+"highway/footway/traffic_island":[
+"جزيرة مشاة بين طريقين"
+],
 "highway/give_way":[
 "علامة \"أعط الأفضلية\"",
 "علامة \"أعط أفضلية المرور لمن هم في الطريق السريع\"",
 "علامة \"أفضلية المرور لمن هم في الدور\"",
 "علامة \"أعط أفضلية المرور لمن هم في الطريق الآخر\""
+],
+"highway/ladder":[
+"سلم"
 ],
 "highway/living_street":[
 "شارع معيشة",
@@ -2294,6 +2324,9 @@
 "درب خشبي",
 "ممر خشبي",
 "مسار على ألواح خشب"
+],
+"highway/path/crossing":[
+"معبر مشاة ودراجات هوائية"
 ],
 "highway/path/informal":[
 "مسار غير رسمي"
@@ -3074,6 +3107,9 @@
 "leisure/track":[
 "مضمار السباق (غير رياضة السيارات)"
 ],
+"leisure/track/athletics/running":[
+"مسار جري"
+],
 "leisure/track/cycling":[
 "مسار دراجات هوائية"
 ],
@@ -3158,6 +3194,9 @@
 "رافعة ثابتة",
 "رافعة"
 ],
+"man_made/crane/portal_crane":[
+"رافعة جسرية"
+],
 "man_made/cross":[
 "Cross"
 ],
@@ -3182,6 +3221,13 @@
 ],
 "man_made/flagpole":[
 "سارية العلم"
+],
+"man_made/fuel_pump":[
+"مضخة بترول",
+"مضخة جاز",
+"مضخة غاز",
+"مضخة وقود",
+"مضخة سولار"
 ],
 "man_made/gasometer":[
 "خزان غاز كبير فوق الأرض",
@@ -3518,6 +3564,9 @@
 "natural/shrub":[
 "شجيرة"
 ],
+"natural/sinkhole":[
+"دِحل/خفس/هبوط أرضي"
+],
 "natural/spring":[
 "منبع",
 "عيون",
@@ -3528,6 +3577,9 @@
 ],
 "natural/stone":[
 "صخرة كبيرة غير متصلة بالأرض"
+],
+"natural/strait":[
+"مضيق"
 ],
 "natural/tree":[
 "شجرة"
@@ -3849,6 +3901,12 @@
 "office/yes":[
 "مكتب (نوع غير محدد)"
 ],
+"pipeline/substation":[
+"محطة فرعية لخطوط الأنابيب"
+],
+"pipeline/valve":[
+"صمام خط أنابيب"
+],
 "piste/downhill":[
 "سباق التزلج على المنحدرات"
 ],
@@ -3863,9 +3921,6 @@
 ],
 "piste/nordic":[
 "مسار تزلج عبر الريف"
-],
-"piste/piste":[
-"ممر رياضة الثلوج / الزحلقة"
 ],
 "piste/skitour":[
 "مسار للتزلج على الجليد"
@@ -5050,6 +5105,7 @@
 "كفرات"
 ],
 "shop/vacant":[
+"محل فاضي",
 "محل شاغر"
 ],
 "shop/vacuum_cleaner":[

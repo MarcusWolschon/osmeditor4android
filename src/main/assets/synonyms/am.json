@@ -2,6 +2,9 @@
 "aeroway/aerodrome":[
 "አየር ማረፊያ"
 ],
+"amenity/atm":[
+"ፈጣን የገንዘብ ማሽን"
+],
 "amenity/bank":[
 "ባንክ"
 ],
@@ -125,6 +128,9 @@
 "amenity/veterinary":[
 "የእንስሳት መድሃኒት ቤት"
 ],
+"building":[
+"ህንፃ"
+],
 "building/apartments":[
 "የመኖሪያ ቤት"
 ],
@@ -145,6 +151,9 @@
 ],
 "building/warehouse":[
 "የዕቃ ቤት"
+],
+"building_point":[
+"ህንፃ"
 ],
 "highway/primary":[
 "ዋና መንገድ"
@@ -190,6 +199,9 @@
 ],
 "office/company":[
 "ኩባንያ"
+],
+"office/diplomatic/embassy":[
+"ኤምባሲ"
 ],
 "office/educational_institution":[
 "የትምህርት ተቋም"
@@ -241,6 +253,9 @@
 ],
 "place/suburb":[
 "አካባቢ"
+],
+"public_transport/station_bus":[
+"አውቶቡስ መናኃሪያ"
 ],
 "shop/beauty":[
 "ውበት / ስፓ"
@@ -304,6 +319,9 @@
 ],
 "shop/supermarket":[
 "የገበያ ማዕከል"
+],
+"shop/travel_agency":[
+"የጉዞ ወኪል"
 ],
 "shop/video":[
 "ቪዲዮ"

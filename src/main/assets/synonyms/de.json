@@ -2067,6 +2067,8 @@
 ],
 "amenity/theatre/type/amphi":[
 "Amphitheater",
+"rundbau",
+"naturtheater",
 "amphitheater"
 ],
 "amenity/ticket_validator":[
@@ -2301,6 +2303,13 @@
 "tierarzt",
 "tierärztin",
 "tierarztpraxis"
+],
+"amenity/veterinary_pharmacy":[
+"veterinär-apotheke",
+"tierärztliche apotheke",
+"veterinärapotheke",
+"apotheke für tierarzneimittel",
+"Tierapotheke"
 ],
 "amenity/waste/dog_excrement":[
 "hundekotbeutelspender",
@@ -3183,7 +3192,7 @@
 "pfadfinderabteilung",
 "pfadfindergruppe",
 "pfadfinderstamm",
-"Pfadfinder"
+"Pfadfinderstamm"
 ],
 "club/sport":[
 "sportklub",
@@ -3717,13 +3726,14 @@
 "schlauchkupplung",
 "blindkupplung",
 "übergangsstück",
-"Feuerwehrkupplung",
 "druckkupplung",
 "festkupplung",
+"feuerwehrkupplung",
 "storz-kupplung",
 "saugkupplung",
 "feuerwehranschluss",
-"einspeisung"
+"einspeisung",
+"Löschwassereinspeisung"
 ],
 "emergency/first_aid_kit":[
 "erste-hilfe-koffer",
@@ -3847,6 +3857,12 @@
 "eingangstür",
 "tür",
 "eingang",
+"zugang"
+],
+"entrance/shop":[
+"Ladeneingang",
+"eingangsbereich",
+"eingangstür",
 "zugang"
 ],
 "entrance/staircase":[
@@ -4164,7 +4180,7 @@
 "fußgängerübergang",
 "radübergang",
 "fußgängerampel",
-"Kreuzung mit Fußgängerampel"
+"Überweg mit Ampelregelung"
 ],
 "highway/crossing/uncontrolled":[
 "Gehweg-Querung mit Fahrbahnmarkierung",
@@ -4227,6 +4243,27 @@
 "highway/cycleway/moped_link-NL":[
 "mopedstraße",
 "Mopedstraße"
+],
+"highway/cycleway/traffic_island":[
+"radfahrerschutzinsel",
+"schutzinsel für radfahrer",
+"radfahrerüberquerungshilfe",
+"radweginsel",
+"verkehrsinsel",
+"Radfahrerschutzinsel",
+"radverkehrsinsel",
+"fahrradwartemöglichkeit"
+],
+"highway/cycleway/traffic_island_shared":[
+"gemeinsame schutzinsel",
+"rad- und fußverkehrsinsel",
+"fahrrad- und fußgängerinsel",
+"rad- und fußgängerschutzinsel",
+"schutzinsel für radfahrer und fußgänger",
+"überquerungshilfe für radfahrer und fußgänger",
+"verkehrsinsel für radfahrer und fußgänger",
+"multifunktionsschutzinsel",
+"Rad- und Fußgängerschutzinsel"
 ],
 "highway/cyclist_waiting_aid":[
 "Wartehilfe für Radfahrer",
@@ -4437,6 +4474,18 @@
 "holzweg",
 "prügelweg",
 "holzsteg"
+],
+"highway/path/crossing":[
+"Rad- und Gehwegquerung"
+],
+"highway/path/crossing/traffic_signals":[
+"Rad- und Gehwegquerung mit Ampelregelung"
+],
+"highway/path/crossing/uncontrolled":[
+"Rad- und Gehwegquerung mit Straßenmarkierung"
+],
+"highway/path/crossing/unmarked":[
+"Rad- und Gehwegquerung ohne Straßenmarkierung"
 ],
 "highway/path/informal":[
 "Trampelpfad",
@@ -5168,6 +5217,30 @@
 "almweide",
 "landwirtschaftlich genutzte wiese oder weide",
 "Wiese / Weide"
+],
+"landuse/meadow_orchard/meadow":[
+"bitz",
+"bungert",
+"streuobstbau",
+"baumgarten",
+"bangert",
+"bongert",
+"obstbau",
+"obstwiese",
+"obstgarten",
+"Streuobstwiese (vereinzelte Obstbäume)"
+],
+"landuse/meadow_orchard/orchard":[
+"bitz",
+"bungert",
+"streuobstbau",
+"baumgarten",
+"bangert",
+"bongert",
+"obstbau",
+"Streuobstwiese (zahlreiche Obstbäume)",
+"obstwiese",
+"obstgarten"
 ],
 "landuse/orchard":[
 "streuobstwiese",
@@ -6831,6 +6904,17 @@ schuhreinigungsstation",
 "natural":[
 "Natürliches..."
 ],
+"natural/arch":[
+"natursteinbogen",
+"Natursteinbogen",
+"natürlicher bogen",
+"steinbogen",
+"steinbrücke",
+"felstor",
+"felsdurchbruch",
+"felsbogen",
+"naturbrücke"
+],
 "natural/bare_rock":[
 "blanker fels",
 "nackter felsen",
@@ -7608,6 +7692,18 @@ schuhreinigungsstation",
 "therapeut",
 "Therapeut"
 ],
+"office/translator":[
+"übersetzungsdienste",
+"sprachmittler",
+"übersetzungsdienst",
+"sprachdienstleister",
+"übersetzungsdienstleister",
+"Übersetzer",
+"lektorat",
+"übersetzungsagentur",
+"dolmetscher",
+"übersetzungsbüro"
+],
 "office/travel_agent":[
 "Reisebüro"
 ],
@@ -7631,11 +7727,11 @@ schuhreinigungsstation",
 ],
 "pipeline/substation":[
 "unterstation",
-"Unterstation"
+"Pipeline-Unterstation"
 ],
 "pipeline/valve":[
-"Durchlussregelung",
-"durchflussregelung"
+"durchflussregelung",
+"Durchflussregelung"
 ],
 "piste/downhill":[
 "piste",
@@ -7671,22 +7767,7 @@ schuhreinigungsstation",
 "loipe"
 ],
 "piste/piste":[
-"skiwanderweg",
-"winterwandern",
-"alpin",
-"wintersport",
-"skiwanderung",
-"abfahrt",
-"piste",
-"eisbahn",
-"Wintersport Piste / Strecke",
-"skisport",
-"schneeschuh",
-"schneesport",
-"schlittenhund",
-"eislauf",
-"schlitten",
-"loipe"
+"Schneesportstrecke / Piste (nicht spezifizierter Typ)"
 ],
 "piste/ski_jump":[
 "skisprungschanze",
@@ -8832,6 +8913,13 @@ schuhreinigungsstation",
 "badezimmereinrichtungsgeschäft",
 "Badeinrichtungsgeschäft"
 ],
+"shop/bbq":[
+"barbecue shop",
+"grillladen",
+"grill-shop",
+"bbq-shop",
+"Grillgeschäft"
+],
 "shop/beauty":[
 "Schönheitssalon",
 "schönheits-salon",
@@ -9313,12 +9401,30 @@ schuhreinigungsstation",
 "geschenkehandlung",
 "geschenkeladen"
 ],
+"shop/gold_buyer":[
+"goldhändler",
+"schmuckankauf",
+"goldbörse",
+"altgoldankauf",
+"goldankaufstelle",
+"Goldankauf",
+"goldhandel",
+"edelmetallhandel"
+],
 "shop/greengrocer":[
 "obsthandlung",
 "obst- und gemüsehandlung",
 "gemüsehändler",
 "gemüsehandlung",
 "Obst- und Gemüseladen"
+],
+"shop/groundskeeping":[
+"baumarkt für gartengeräte",
+"Geschäft für Gartengeräte",
+"rasen- und gartengeräte-geschäft",
+"geschäft für rasen- und gartenbedarf",
+"geschäft für rasen- und gartengeräte",
+"gartenfachgeschäft"
 ],
 "shop/hairdresser":[
 "frisör",
@@ -10084,9 +10190,17 @@ herrenfriseur"
 "scoutcampingplatz"
 ],
 "tourism/caravan_site":[
+"reisemobilstellplatz",
+"Wohnmobil-Stellplatz",
+"reisemobilpark",
+"reisemobilplatz",
+"wohnmobilstellplatz",
 "wohnwagenpark",
 "wohnmobil-stellplätze",
-"Wohnwagen-Campingplatz"
+"reisemobilhafen",
+"wohnmobilhafen",
+"wohnmobilpark",
+"wohnmobil-campingplatz"
 ],
 "tourism/chalet":[
 "Ferienhaus",

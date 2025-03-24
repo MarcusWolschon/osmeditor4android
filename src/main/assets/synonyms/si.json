@@ -2,6 +2,15 @@
 "amenity/drinking_water":[
 "බොනවතුර"
 ],
+"area":[
+"ප්‍රදේශය"
+],
+"golf/water_hazard":[
+"ජල අනතුරු"
+],
+"line":[
+"රේඛාව"
+],
 "man_made/water_tower":[
 "ජල කුලුන"
 ],
@@ -11,7 +20,19 @@
 "natural/water":[
 "ජලය"
 ],
+"place/square":[
+"හතරැස් කොටුව"
+],
+"point":[
+"ලක්ෂ්‍යයක්"
+],
+"relation":[
+"සම්බන්දතාවය"
+],
 "shop/water_sports":[
 "ජල ක්‍රීඩා/ පිහිනුම් තටාකය"
+],
+"type/waterway":[
+"ජල මාර්ගය"
 ]
 }

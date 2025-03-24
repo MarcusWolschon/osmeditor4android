@@ -216,6 +216,9 @@
 "amenity/school":[
 "பள்ளி மைதானம்"
 ],
+"amenity/shelter":[
+"புகலிடம்"
+],
 "amenity/social_facility/food_bank":[
 "உணவு வங்கி"
 ],
@@ -267,6 +270,9 @@
 ],
 "barrier/wall":[
 "சுவர்"
+],
+"boundary":[
+"எல்லை"
 ],
 "building":[
 "கட்டடம்"
@@ -331,6 +337,9 @@
 "building/university":[
 "பல்கலைக்கழக கட்டிடம்"
 ],
+"building_point":[
+"கட்டிடம்"
+],
 "craft/carpenter":[
 "தச்சர்"
 ],
@@ -376,6 +385,12 @@
 "emergency/water_tank":[
 "அவசர நீர் தொட்டி"
 ],
+"ford":[
+"ஆற்றின் ஆழப்பகுதி"
+],
+"ford_line":[
+"ஆற்றின் ஆழப்பகுதி"
+],
 "healthcare/alternative":[
 "மாற்று மருத்துவம்"
 ],
@@ -406,6 +421,9 @@
 "historic/castle":[
 "கோட்டை"
 ],
+"historic/castle/palace":[
+"கோட்டை"
+],
 "historic/memorial":[
 "நினைவகம்"
 ],
@@ -432,6 +450,12 @@
 ],
 "landuse/landfill":[
 "கழிவு"
+],
+"landuse/pond":[
+"குளம்"
+],
+"landuse/reservoir":[
+"நீர்த் தேக்கம்"
 ],
 "leisure/common":[
 "பொதுவான"
@@ -523,6 +547,9 @@
 "natural/grassland":[
 "புல்வெளிகள்"
 ],
+"natural/hot_spring":[
+"வெந்நீர் ஊற்று"
+],
 "natural/mud":[
 "சேறு"
 ],
@@ -571,6 +598,9 @@
 "office/advertising_agency":[
 "விளம்பர முகவர்"
 ],
+"office/diplomatic/embassy":[
+"தூதரகம்"
+],
 "office/employment_agency":[
 "வேலைவாய்ப்பு முகவர்"
 ],
@@ -591,6 +621,9 @@
 ],
 "office/newspaper":[
 "செய்தித்தாள் அலுவலகம்"
+],
+"office/notary":[
+"ஆயத்துறை எழுத்துபதிவாளர் அலுவலகம்"
 ],
 "office/physician":[
 "மருத்துவர்"
@@ -618,6 +651,9 @@
 ],
 "place/farm":[
 "பண்ணை"
+],
+"place/hamlet":[
+"குக்கிராமம்"
 ],
 "place/island":[
 "தீவு"
@@ -654,6 +690,18 @@
 ],
 "power/tower":[
 "அதிக-மின்னழுத்தக் கோபுரம்"
+],
+"public_transport/platform/light_rail_point":[
+"இலகு இரயில் நிறுத்தம் / நடைமேடை"
+],
+"public_transport/platform/train_point":[
+"தொடருந்து நிறுத்தம் / நடைமேடை"
+],
+"public_transport/platform/tram_point":[
+"டிராம் நிறுத்தம் / நடைமேடை"
+],
+"public_transport/station_bus":[
+"பேருந்து நிலையம் / முனையம்"
 ],
 "public_transport/station_light_rail":[
 "இலகு இரயில் நிலையம்"
@@ -801,6 +849,9 @@
 ],
 "traffic_calming/hump":[
 "வேகத்தடை"
+],
+"traffic_sign":[
+"போக்குவரவு இயக்கச் சுட்டுக்குறி"
 ],
 "type/boundary":[
 "எல்லை"

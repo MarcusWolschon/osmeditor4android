@@ -35,11 +35,17 @@
 "amenity/restaurant":[
 "రెస్టారెంట్"
 ],
+"area":[
+"ప్రాంతం"
+],
 "barrier/fence":[
 "కంచె"
 ],
 "barrier/wall":[
 "గోడ"
+],
+"boundary/administrative":[
+"పరిపాలనా సరిహద్దు"
 ],
 "building":[
 "కట్టడం"
@@ -49,6 +55,9 @@
 ],
 "building/hut":[
 "గుడిసె"
+],
+"building_point":[
+"కట్టడం"
 ],
 "highway/footway":[
 "కాల్దారి"
@@ -70,6 +79,9 @@
 ],
 "landuse/grass":[
 "పచ్చిక"
+],
+"landuse/pond":[
+"సరస్సు"
 ],
 "leisure/garden":[
 "తోట"
@@ -109,6 +121,9 @@
 ],
 "place/city":[
 "నగరం"
+],
+"place/square":[
+"చతురస్రం"
 ],
 "place/town":[
 "పట్టణం"

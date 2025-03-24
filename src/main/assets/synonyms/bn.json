@@ -86,6 +86,9 @@
 "amenity/restaurant":[
 "রেস্তোরাঁ"
 ],
+"amenity/shelter":[
+"ছাউনি"
+],
 "amenity/telephone":[
 "টেলিফোন"
 ],
@@ -109,6 +112,9 @@
 ],
 "barrier/wall":[
 "দেয়াল"
+],
+"boundary":[
+"সীমানা"
 ],
 "boundary/administrative":[
 "প্রশাসনিক সীমানা"
@@ -134,8 +140,14 @@
 "building/residential":[
 "আবাসিক ভবন"
 ],
+"building_point":[
+"দালান"
+],
 "emergency/phone":[
 "জরুরি ফোন"
+],
+"highway/crossing":[
+"ক্রসিং"
 ],
 "highway/cycleway":[
 "সাইকেলের রাস্তা"
@@ -209,8 +221,14 @@
 "landuse/orchard":[
 "ফলের বাগান"
 ],
+"landuse/pond":[
+"পুকুর"
+],
 "landuse/quarry":[
 "খনি"
+],
+"landuse/reservoir":[
+"জলাধার"
 ],
 "landuse/vineyard":[
 "আঙুরখেত"
@@ -311,6 +329,9 @@
 "office":[
 "কার্যালয়"
 ],
+"office/diplomatic/embassy":[
+"দুতাবাস"
+],
 "office/ngo":[
 "এনজিও অফিস"
 ],
@@ -331,6 +352,9 @@
 ],
 "place/locality":[
 "অঞ্চল"
+],
+"place/square":[
+"বর্গাকৃতি"
 ],
 "place/town":[
 "উপনগর"
@@ -460,6 +484,9 @@
 ],
 "type/boundary/administrative":[
 "প্রশাসনিক সীমানা"
+],
+"type/waterway":[
+"পানিপথ"
 ],
 "waterway/canal":[
 "খাল"

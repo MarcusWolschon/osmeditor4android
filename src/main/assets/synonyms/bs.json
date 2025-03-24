@@ -110,6 +110,11 @@
 "Zubar",
 "zubar"
 ],
+"amenity/doctors":[
+"doktor",
+"ljekar",
+"Doktor"
+],
 "amenity/drinking_water":[
 "voda za piće",
 "pitka voda",
@@ -224,6 +229,13 @@
 "Gradska vijećnica",
 "gradska vijećnica"
 ],
+"amenity/vending_machine":[
+"Automat",
+"automat za prodaju pića",
+"automat",
+"automat sa pićem",
+"automat sa slatkišima"
+],
 "area":[
 "zona",
 "Područje",
@@ -303,6 +315,9 @@
 "zidić",
 "bedem"
 ],
+"boundary":[
+"Granica"
+],
 "boundary/administrative":[
 "administrativna granica",
 "Admninistrativna granica",
@@ -313,6 +328,9 @@
 "kuća",
 "građevina",
 "Građevina"
+],
+"building/bunker":[
+"Bunker"
 ],
 "building/commercial":[
 "Poslovna zgrada",
@@ -342,6 +360,9 @@
 "Stambena zgrada",
 "stambena zgrada",
 "zgrada za stanovanje"
+],
+"building_point":[
+"Građevina"
 ],
 "craft/beekeeper":[
 "Pčelar"
@@ -442,6 +463,11 @@
 "rupa za golf loptice",
 "Rupa za golf"
 ],
+"golf/lateral_water_hazard":[
+"opasnost of vode sa strane",
+"voda sa strane",
+"Vodena opasnost sa strane"
+],
 "golf/rough":[
 "područje \"divlje\" trave van igre",
 "trava van golf terena",
@@ -452,11 +478,21 @@
 "\"tee\" kutija",
 "Tee Box"
 ],
+"golf/water_hazard":[
+"opasnost od vode",
+"vodena opasnost",
+"Vodena opasnost"
+],
 "highway/bridleway":[
 "konjička staza",
 "konjska staza",
 "konjski trag",
 "Konjska staza"
+],
+"highway/crossing":[
+"pješački prelaz",
+"prelaz",
+"Prelaz"
 ],
 "highway/cycleway":[
 "biciklistička staza",
@@ -468,6 +504,10 @@
 "pješačka staza",
 "staza",
 "ugažena staza"
+],
+"highway/footway/sidewalk":[
+"trotoar",
+"Trotoar"
 ],
 "highway/living_street":[
 "Stambena ulica",
@@ -669,10 +709,16 @@
 "voćnjak",
 "Voćnjak"
 ],
+"landuse/pond":[
+"Ribnjak"
+],
 "landuse/quarry":[
 "Rudnik",
 "kamenolom",
 "vađenje kamena"
+],
+"landuse/reservoir":[
+"Rezervoar"
 ],
 "landuse/vineyard":[
 "uzgoj grožđa",
@@ -783,6 +829,7 @@
 "prosjek kroz šumu"
 ],
 "man_made/embankment":[
+"nasip",
 "Nasip"
 ],
 "man_made/flagpole":[
@@ -814,6 +861,14 @@
 "toranj",
 "kula",
 "Toranj"
+],
+"man_made/tower/observation":[
+"toranj za turiste",
+"Osmatračnica",
+"toranj za osmatranje",
+"osmatračnica",
+"protupožarni toranj",
+"platforma za osmatranje"
 ],
 "man_made/wastewater_plant":[
 "postrojenje za obradu otpadnih voda",
@@ -904,6 +959,11 @@
 "voda",
 "Voda"
 ],
+"natural/water/basin":[
+"Sliv",
+"sliv",
+"bazen"
+],
 "natural/water/lake":[
 "jezero",
 "Jezero",
@@ -933,6 +993,12 @@
 ],
 "office/administrative":[
 "Administrativni ured"
+],
+"office/diplomatic/embassy":[
+"ambasada",
+"predstavništvo strane zemlje",
+"Ambasada",
+"konzulat"
 ],
 "office/educational_institution":[
 "institucija za obrazovanje",
@@ -1024,6 +1090,9 @@
 "lokalitet",
 "Lokalitet"
 ],
+"place/square":[
+"Kvadrat"
+],
 "place/town":[
 "Gradić",
 "manje urbano područje",
@@ -1060,6 +1129,11 @@
 "Naponski stub",
 "naponski stub"
 ],
+"power/substation":[
+"trafo stanica",
+"Trafo stanica",
+"trafo"
+],
 "power/tower":[
 "visokonaponski toranj",
 "Visokonaponski dalekovod",
@@ -1069,6 +1143,10 @@
 "transformator",
 "Transformator",
 "transformator el. energije"
+],
+"public_transport/platform/bus_point":[
+"autobuska stanica",
+"autobusko stajalište"
 ],
 "railway/abandoned":[
 "napuštena željeznička pruga",
@@ -1294,6 +1372,9 @@
 "prodaja robe široke potrošnje",
 "Supermarket"
 ],
+"shop/tailor":[
+"Krojač"
+],
 "shop/toys":[
 "radnja za prodaju igračaka",
 "prodavnica igračaka",
@@ -1310,7 +1391,9 @@
 "Prodavnica guma"
 ],
 "shop/vacant":[
-"Prodavnica za iznajmljivanje"
+"prodavnica za najam",
+"Prodavnica za iznajmljivanje",
+"prodavnica za iznajmljivanje"
 ],
 "shop/video":[
 "videoteka",
@@ -1394,7 +1477,9 @@
 "administrativna linija"
 ],
 "type/multipolygon":[
-"Multipoligon"
+"Multipoligon",
+"multipoligon",
+"mnogougaonik"
 ],
 "type/restriction":[
 "zabrana za vozila",
@@ -1458,6 +1543,11 @@
 "Informacije o rutama",
 "informacije o trasama",
 "informacije o rutama"
+],
+"type/waterway":[
+"vodotok",
+"vodeni tok",
+"Vodotok"
 ],
 "waterway/canal":[
 "kanal",

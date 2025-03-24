@@ -955,9 +955,6 @@
 "tiyatro",
 "Tiyatro"
 ],
-"amenity/theatre/type/amphi":[
-"Amfitiyatro"
-],
 "amenity/ticket_validator":[
 "Ticket Validator"
 ],
@@ -1045,6 +1042,10 @@
 ],
 "amenity/vending_machine/food":[
 "Yemek Otomatı"
+],
+"amenity/vending_machine/food/snacks":[
+"Yiyecek Otomatı",
+"yiyecek otomatı"
 ],
 "amenity/vending_machine/ice_cream":[
 "Dondurma Otomatı"
@@ -2251,6 +2252,9 @@
 "highway/path/boardwalk":[
 "Kaldırım"
 ],
+"highway/path/crossing":[
+"Bisiklet ve Yaya Geçidi"
+],
 "highway/path/informal":[
 "Gayri Resmi Yol"
 ],
@@ -3184,6 +3188,9 @@ beşe beş futbol"
 "bayrak direği",
 "Bayrak Direği"
 ],
+"man_made/fuel_pump":[
+"Gaz Pompası"
+],
 "man_made/gantry":[
 "Gantry"
 ],
@@ -3874,9 +3881,6 @@ beşe beş futbol"
 ],
 "piste/nordic":[
 "Kros-Kayağı Kayak Patikası"
-],
-"piste/piste":[
-"Kar Sporları Yolu / Piste"
 ],
 "piste/skitour":[
 "Kayak Turu Yolu"

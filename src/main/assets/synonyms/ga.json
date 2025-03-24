@@ -44,11 +44,29 @@
 "amenity/cinema":[
 "Pictiúrlann"
 ],
+"amenity/clinic":[
+"Clinic"
+],
+"amenity/clock/sundial":[
+"Clog Gréine"
+],
 "amenity/community_centre":[
 "Ionad Pobail"
 ],
 "amenity/courthouse":[
 "Teach Cúirte"
+],
+"amenity/dentist":[
+"Fiaclóir"
+],
+"amenity/doctors":[
+"Doctúir"
+],
+"amenity/doctors/podiatry":[
+"Coslia"
+],
+"amenity/drinking_water":[
+"Uisce Óil"
 ],
 "amenity/embassy":[
 "Ambasáid"
@@ -64,6 +82,9 @@
 ],
 "amenity/marketplace":[
 "Margadh"
+],
+"amenity/parking":[
+"Carrchlós"
 ],
 "amenity/parking_entrance":[
 "Slí Isteach/Amach Garáiste Páirceála"
@@ -107,6 +128,18 @@
 "barrier/bollard":[
 "Mullard"
 ],
+"barrier/cattle_grid":[
+"Greille Eallaigh"
+],
+"barrier/chain":[
+"Slabhra"
+],
+"barrier/city_wall":[
+"Balla na Cathrach"
+],
+"barrier/cycle_barrier":[
+"Bacainn Rothar"
+],
 "barrier/ditch":[
 "Díog"
 ],
@@ -119,11 +152,23 @@
 "barrier/gate":[
 "Geata"
 ],
+"barrier/guard_rail":[
+"Ráille Cosanta"
+],
 "barrier/hedge":[
 "Fál"
 ],
+"barrier/height_restrictor":[
+"Srian Airde"
+],
+"barrier/kerb":[
+"Colbha"
+],
 "barrier/stile":[
 "Dreapa"
+],
+"barrier/swing_gate":[
+"Geata Luscadh"
 ],
 "barrier/toll_booth":[
 "Both Dola"
@@ -131,23 +176,182 @@
 "barrier/wall":[
 "Balla"
 ],
+"boundary":[
+"Teorainn"
+],
 "building":[
 "Foirgneamh"
+],
+"building/barn":[
+"Scioból"
+],
+"building/boathouse":[
+"Teach Bád"
+],
+"building/bungalow":[
+"Bungaló"
+],
+"building/cathedral":[
+"Foirgneamh Ardeaglais"
+],
+"building/chapel":[
+"Foirgneamh Séipéal"
+],
+"building/church":[
+"Foirgneamh Eaglais"
+],
+"building/college":[
+"Foirgneamh Choláiste"
+],
+"building/construction":[
+"Foirgneamh á tógáil"
+],
+"building/cowshed":[
+"Bóitheach"
+],
+"building/detached":[
+"Teach Scoite"
+],
+"building/dormitory":[
+"Dórtúr"
 ],
 "building/entrance":[
 "Slí Isteach/Amach"
 ],
+"building/farm":[
+"Teach Feirme"
+],
+"building/farm_auxiliary":[
+"Foirgneamh Feirme"
+],
+"building/fire_station":[
+"Foirgneamh Stáisiún Dóiteáin"
+],
 "building/garage":[
 "Garáiste"
 ],
+"building/garages":[
+"Garáistí"
+],
+"building/greenhouse":[
+"Teach Gloine"
+],
+"building/hangar":[
+"Foirgneamh Haingear"
+],
+"building/hospital":[
+"Foirgneamh Ospidéal"
+],
+"building/hotel":[
+"Foirgneamh Óstán"
+],
+"building/house":[
+"Teach"
+],
+"building/houseboat":[
+"Teach Bád"
+],
+"building/hut":[
+"Bothán"
+],
+"building/industrial":[
+"Foirgneamh Tionsclaíochta"
+],
+"building/kindergarten":[
+"Foirgneamh Naíonra"
+],
+"building/mosque":[
+"Foirgneamh Mosc"
+],
+"building/office":[
+"Foirgneamh Oifig"
+],
+"building/public":[
+"Foirgneamh Poiblí"
+],
+"building/residential":[
+"Foirgneamh Cónaithe"
+],
+"building/roof":[
+"Díon"
+],
 "building/school":[
 "Foirgneamh Scoile"
+],
+"building/semidetached_house":[
+"Teach Leathscoite"
+],
+"building/service":[
+"Foirgneamh Seirbhíse"
+],
+"building/shed":[
+"Seid"
+],
+"building/stable":[
+"Stábla"
+],
+"building/stadium":[
+"Foirgneamh Staid"
+],
+"building/static_caravan":[
+"Teach Soghluaiste"
+],
+"building/sty":[
+"Cró Muc"
+],
+"building/synagogue":[
+"Foirgneamh Sionagóg"
+],
+"building/temple":[
+"Foirgneamh Teampall"
 ],
 "building/train_station":[
 "Foirgneamh Stáisiún Traenach"
 ],
 "building/university":[
 "Foirgneamh Ollscoile"
+],
+"building/warehouse":[
+"Trádstóras"
+],
+"building_point":[
+"Foirgneamh"
+],
+"embankment":[
+"Claífort"
+],
+"entrance/emergency":[
+"Bealach Éalaithe"
+],
+"ford":[
+"Áth"
+],
+"ford_line":[
+"Áth"
+],
+"healthcare/audiologist":[
+"Éisteolaí"
+],
+"healthcare/hospice":[
+"Ospís"
+],
+"healthcare/midwife":[
+"Cnáimhseach"
+],
+"healthcare/optometrist":[
+"Optaiméadraí"
+],
+"healthcare/physiotherapist":[
+"Fisiteiripeoir"
+],
+"healthcare/podiatrist":[
+"Coslia"
+],
+"healthcare/psychotherapist":[
+"Síciteiripeoir"
+],
+"healthcare/speech_therapist":[
+"Teiripeoir Urlabhra"
 ],
 "highway/bus_stop":[
 "Stad bus"
@@ -160,6 +364,9 @@
 ],
 "highway/footway/crossing/traffic_signals":[
 "Crosaire le soilse coisithe"
+],
+"highway/footway/sidewalk":[
+"Cosán"
 ],
 "highway/give_way":[
 "Comhartha Géill Slí"
@@ -175,6 +382,9 @@
 ],
 "highway/path":[
 "Cosán"
+],
+"highway/path/boardwalk":[
+"Clárchosán"
 ],
 "highway/pedestrian_line":[
 "Sráid Choisithe"
@@ -197,8 +407,20 @@
 "highway/street_lamp":[
 "Solas sráide"
 ],
+"historic/archaeological_site":[
+"Láithreán Seandálaíochta"
+],
+"historic/boundary_stone":[
+"Cloch Theorann"
+],
+"historic/building":[
+"Foirgneamh Stairiúil"
+],
 "historic/castle":[
 "Caisleán"
+],
+"historic/city_gate":[
+"Geata Cathrach"
 ],
 "historic/memorial":[
 "Leacht Cuimhneacháin"
@@ -209,10 +431,22 @@
 "historic/ruins":[
 "Fothrach"
 ],
+"historic/tomb":[
+"Tuama"
+],
+"historic/wreck":[
+"Long Bhriste"
+],
+"junction":[
+"Acomhal"
+],
 "landuse/cemetery":[
 "Reilig"
 ],
 "landuse/farm":[
+"Talamh Feirme"
+],
+"landuse/farmland":[
 "Talamh Feirme"
 ],
 "landuse/farmyard":[
@@ -227,8 +461,14 @@
 "landuse/orchard":[
 "Úllord"
 ],
+"landuse/pond":[
+"Lochán"
+],
 "landuse/quarry":[
 "Cairéal"
+],
+"landuse/reservoir":[
+"Taiscumar"
 ],
 "landuse/vineyard":[
 "Fíonghort"
@@ -256,6 +496,9 @@
 ],
 "line":[
 "Líne"
+],
+"man_made/embankment":[
+"Claífort"
 ],
 "man_made/lighthouse":[
 "Teach Solais"
@@ -293,6 +536,9 @@
 "natural/peak":[
 "Binn"
 ],
+"natural/sand":[
+"Gaineamh"
+],
 "natural/spring":[
 "Tobar"
 ],
@@ -316,6 +562,12 @@
 ],
 "office":[
 "Oifig"
+],
+"office/diplomatic/consulate":[
+"Consalacht"
+],
+"office/diplomatic/embassy":[
+"Ambasáid"
 ],
 "place":[
 "Áit"
@@ -361,6 +613,9 @@
 ],
 "public_transport/platform/trolleybus_point":[
 "Stad bus tralaí"
+],
+"public_transport/station_bus":[
+"Stáisiún / Críochfort Bus"
 ],
 "public_transport/station_subway":[
 "Stáisiún Meitreo"
@@ -467,6 +722,9 @@
 "tourism/artwork":[
 "Obair Ealaíne"
 ],
+"tourism/artwork/statue":[
+"Dealbh"
+],
 "tourism/hostel":[
 "Brú"
 ],
@@ -490,6 +748,27 @@
 ],
 "tourism/zoo":[
 "Zú"
+],
+"traffic_calming/bump":[
+"Uchtóg Mhoillithe"
+],
+"traffic_calming/chicane":[
+"Siceán Tráchta"
+],
+"traffic_calming/cushion":[
+"Tulóg Mhoillithe"
+],
+"traffic_calming/dip":[
+"Log"
+],
+"traffic_calming/hump":[
+"Uchtóg Mhoillithe"
+],
+"traffic_calming/mini_bumps":[
+"Uchtóga Mhoillithe Beaga"
+],
+"traffic_calming/rumble_strip":[
+"Stiall Tormáin"
 ],
 "traffic_sign":[
 "Comhartha Bóthair"

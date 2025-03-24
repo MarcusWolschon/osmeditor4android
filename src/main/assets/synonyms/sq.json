@@ -1,9 +1,30 @@
 {
+"address":[
+"Adresa"
+],
+"amenity/atm":[
+"Bankomat"
+],
+"amenity/bench":[
+"Stol"
+],
 "amenity/bus_station":[
 "Stacioni i Autobusave"
 ],
+"area":[
+"Sipërfaqja"
+],
+"boundary/administrative":[
+"Kufi Administrativ"
+],
+"building":[
+"Ndërtesa"
+],
 "building/college":[
 "Ndërtesa e Kollegjit"
+],
+"building_point":[
+"Ndërtesa"
 ],
 "highway/cycleway":[
 "Rrugë biçikletash"
@@ -17,14 +38,32 @@
 "highway/secondary":[
 "Rrugë Dytësore"
 ],
+"line":[
+"Vijë"
+],
+"natural/water":[
+"Ujë"
+],
 "place/city":[
 "Qytet"
+],
+"place/square":[
+"Katror"
+],
+"point":[
+"Pikë"
 ],
 "power/transformer":[
 "Transformator"
 ],
+"public_transport/station_bus":[
+"Stacioni i Autobusave"
+],
 "railway/abandoned":[
 "Hekurudhë E Braktisur"
+],
+"relation":[
+"Lidhje"
 ],
 "shop":[
 "Dyqan"

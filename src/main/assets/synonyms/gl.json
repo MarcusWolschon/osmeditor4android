@@ -619,6 +619,9 @@
 "clínica",
 "médico"
 ],
+"amenity/doctors/podiatry":[
+"Podólogo"
+],
 "amenity/dojo":[
 "kung fu",
 "academia",
@@ -878,6 +881,14 @@
 "xogos en rede",
 "ciber",
 "internet"
+],
+"amenity/karaoke_box":[
+"clube de karaoke",
+"club de karaoke",
+"Caixa de karaoke",
+"sala de karaoke",
+"televisión karaoke",
+"ktv"
 ],
 "amenity/kindergarten":[
 "area",
@@ -1426,6 +1437,9 @@
 "amenity/restaurant/japanese":[
 "Restaurante xaponés"
 ],
+"amenity/restaurant/korean":[
+"Restaurante coreano"
+],
 "amenity/restaurant/mexican":[
 "Restaurante mexicano"
 ],
@@ -1703,16 +1717,6 @@
 "espectáculo",
 "arte"
 ],
-"amenity/theatre/type/amphi":[
-"anfiteatro",
-"grego",
-"Anfiteatro",
-"ao aire libre",
-"ampi",
-"aire libre",
-"anfi",
-"ar libre"
-],
 "amenity/toilets/disposal/flush":[
 "urinario",
 "baños",
@@ -1827,6 +1831,9 @@
 ],
 "amenity/vending_machine/food":[
 "Expendedora de comida"
+],
+"amenity/vending_machine/food/snacks":[
+"Expendedora de Snacks"
 ],
 "amenity/vending_machine/ice_cream":[
 "Expendedora de xeados"
@@ -2061,6 +2068,12 @@
 "alfándega",
 "aduana"
 ],
+"barrier/bump_gate":[
+"Bump Gate"
+],
+"barrier/bus_trap":[
+"Trampa de autobús"
+],
 "barrier/cattle_grid":[
 "Reixa de Retención",
 "paso canadiense"
@@ -2139,6 +2152,9 @@
 "quitamedos",
 "barreira"
 ],
+"barrier/handrail":[
+"Pasamáns"
+],
 "barrier/hedge":[
 "sebe",
 "cobertura",
@@ -2149,6 +2165,9 @@
 "Restrinxente de altura",
 "redutor de altura",
 "restrinxente de altura"
+],
+"barrier/jersey_barrier":[
+"Barreira Jersey"
 ],
 "barrier/kerb":[
 "beirarrúa",
@@ -3011,6 +3030,9 @@
 "saida",
 "porta"
 ],
+"entrance/emergency":[
+"Saída de emerxencia"
+],
 "ford":[
 "cruce",
 "vado",
@@ -3265,7 +3287,10 @@
 "Corredor interior"
 ],
 "highway/crossing":[
-"Paso de peóns"
+"paso peonil",
+"Paso de peóns",
+"paso de cebra",
+"paso peatonal"
 ],
 "highway/crossing/unmarked":[
 "peonil",
@@ -3305,6 +3330,15 @@
 "peonal",
 "ciclismo"
 ],
+"highway/cycleway/crossing/uncontrolled":[
+"cruzamento de senda ciclista",
+"paso de bicicleta",
+"cruzamento de bicicleta",
+"cruzamento de ciclovía",
+"cruzamento de bici",
+"Paso de bicicletas marcado",
+"cruzamento de carril bici"
+],
 "highway/cycleway/crossing/unmarked":[
 "cruzamento de senda ciclista",
 "cruzamento de bicicleta",
@@ -3318,6 +3352,9 @@
 "Ascensor",
 "ascensor",
 "montacargas"
+],
+"highway/emergency_access_point":[
+"Punto de acceso de emerxencia"
 ],
 "highway/emergency_bay":[
 "autovía",
@@ -3367,11 +3404,20 @@
 "highway/footway/crossing":[
 "Paso de peóns"
 ],
+"highway/footway/crossing/unmarked":[
+"peonil",
+"Paso peonil sen marcar",
+"peonal",
+"paso de peóns sen marcar"
+],
 "highway/footway/sidewalk":[
 "Beirarrúa",
 "paseo",
 "berma",
 "calzada"
+],
+"highway/footway/traffic_island":[
+"Refuxio para peóns"
 ],
 "highway/give_way":[
 "Ceda o paso"
@@ -3473,6 +3519,9 @@
 "paseo marítimo elevado",
 "pasarela",
 "Paseo marítimo elevado"
+],
+"highway/path/crossing":[
+"Paso de peóns e de pista de ciclismo"
 ],
 "highway/path/informal":[
 "Camiño informal"
@@ -3727,6 +3776,9 @@
 "pedra",
 "mouteira"
 ],
+"historic/building":[
+"Edificio histórico"
+],
 "historic/castle":[
 "Castelo"
 ],
@@ -3816,6 +3868,8 @@
 "interior"
 ],
 "indoor/corridor":[
+"corredor",
+"pasillo",
 "Corredor interior"
 ],
 "indoor/corridor_line":[
@@ -4341,7 +4395,12 @@
 "Xardín botánico"
 ],
 "leisure/garden/community":[
-"Xardín comunitario"
+"horta",
+"urbano",
+"horto",
+"Xardín comunitario",
+"comunitario",
+"xardín"
 ],
 "leisure/golf_course":[
 "Campo de golf"
@@ -4614,6 +4673,9 @@
 "leisure/track":[
 "Pista de competición (non motorizada)"
 ],
+"leisure/track/athletics/running":[
+"Pista de carreiras"
+],
 "leisure/track/cycling":[
 "Circuíto de ciclismo"
 ],
@@ -4644,6 +4706,9 @@
 ],
 "man_made/antenna":[
 "Antena"
+],
+"man_made/beacon":[
+"Faro"
 ],
 "man_made/beehive":[
 "apiario",
@@ -4718,6 +4783,9 @@
 "trucha",
 "Guindastre"
 ],
+"man_made/crane/portal_crane":[
+"Guindastre portal"
+],
 "man_made/cross":[
 "Cruz"
 ],
@@ -4737,6 +4805,9 @@
 "Mastro de bandeira",
 "bandeira",
 "mastro"
+],
+"man_made/fuel_pump":[
+"Surtidor de combustíbel"
 ],
 "man_made/gasometer":[
 "gas",
@@ -4774,7 +4845,30 @@
 "furaco"
 ],
 "man_made/manhole/drain":[
-"Tapa de sumidoiro"
+"pozo",
+"pluviais",
+"resumidero",
+"desacougadoiro",
+"alcantarillado",
+"tapa",
+"augas",
+"Tapa de sumidoiro",
+"alcantarilla",
+"desagüe",
+"sumideiro",
+"sumidero",
+"drenaxe",
+"sumidoiro",
+"cuberta",
+"buraco",
+"choiva",
+"tormenta",
+"acougadoiro",
+"alcantarillado pluvial",
+"boca de tormenta",
+"burato",
+"chuvia",
+"chuva"
 ],
 "man_made/manhole/gas":[
 "pozo",
@@ -5024,7 +5118,14 @@
 "vixiar"
 ],
 "man_made/surveillance/camera":[
-"Cámara de vixilancia"
+"cámara",
+"webcam",
+"Cámara de vixilancia",
+"vixilancia",
+"vídeo",
+"seguridade",
+"cctv",
+"gravación"
 ],
 "man_made/survey_point":[
 "Vértice xeodésico",
@@ -5517,6 +5618,8 @@
 "poza de auga"
 ],
 "natural/water/basin":[
+"cunca",
+"auga",
 "Cunca"
 ],
 "natural/water/canal":[
@@ -5613,6 +5716,9 @@
 "lameiro",
 "pantano"
 ],
+"natural/wetland/bog":[
+"Pantano"
+],
 "natural/wood":[
 "madeira natural",
 "Bosque natural",
@@ -5648,6 +5754,9 @@
 "office/association":[
 "Oficina de asociación"
 ],
+"office/bail_bond_agent-US-PH":[
+"Axente de fianzas"
+],
 "office/charity":[
 "Oficina da caridade",
 "caridade",
@@ -5679,7 +5788,10 @@
 "cónsul"
 ],
 "office/diplomatic/embassy":[
-"Embaixada"
+"embaixada",
+"Embaixada",
+"consulado",
+"consul"
 ],
 "office/diplomatic/liaison":[
 "Oficina de ligazóns"
@@ -5756,7 +5868,9 @@
 "Oficina ONG"
 ],
 "office/notary":[
-"Notaría"
+"Notaría",
+"notario",
+"notaría"
 ],
 "office/physician":[
 "Médico"
@@ -5811,6 +5925,16 @@
 "publico",
 "agua"
 ],
+"pipeline/valve":[
+"auga",
+"pluviais",
+"augas residuais",
+"Válvula de tubaxe",
+"alcantarillado",
+"petróleo",
+"gas natural",
+"oleoduto"
+],
 "piste/downhill":[
 "Pista de esquí de velocidade"
 ],
@@ -5833,9 +5957,6 @@
 ],
 "piste/nordic":[
 "Pista de esquí de fondo"
-],
-"piste/piste":[
-"Pista de deportes de neve"
 ],
 "piste/skitour":[
 "Pista de esquí de travesía"
@@ -5931,6 +6052,15 @@
 "playground":[
 "Equipamento de parque infantil"
 ],
+"playground/balancebeam":[
+"Barra de equilibrio de xogos"
+],
+"playground/basketrotator":[
+"Cesta xiratoria"
+],
+"playground/basketswing":[
+"Cesta da randeeira"
+],
 "playground/cushion":[
 "Colchón saltón"
 ],
@@ -5966,6 +6096,19 @@
 "resbaladilla",
 "rodadeiro",
 "escorregadoiro"
+],
+"playground/springy":[
+"mecedoiro",
+"Berce elástico",
+"cabalo",
+"mecedor elástico",
+"berce",
+"mecedeiro",
+"cabaliñ",
+"berce elástico",
+"vaquiña",
+"vaca",
+"mecedor"
 ],
 "playground/structure":[
 "Estrutura de parque infantil"
@@ -6070,6 +6213,9 @@
 ],
 "power/plant/source/gas":[
 "Planta de enerxía a gas"
+],
+"power/plant/source/method/photovoltaic":[
+"Planta de enerxía solar"
 ],
 "power/plant/source/nuclear":[
 "Planta de enerxía nuclear"
@@ -7704,7 +7850,12 @@
 "fronteira"
 ],
 "type/boundary/administrative":[
-"Límite administrativo"
+"termo",
+"Límite administrativo",
+"fronteira",
+"termo municipal",
+"término municipal",
+"límite administrativo"
 ],
 "type/connectivity":[
 "Conexión vial"
@@ -7738,6 +7889,9 @@
 ],
 "type/route":[
 "Ruta"
+],
+"type/route/bicycle":[
+"Ruta ciclista"
 ],
 "type/route/bus":[
 "Liña de bus"

@@ -3364,13 +3364,6 @@
 "san khau",
 "nha hat"
 ],
-"amenity/theatre/type/amphi":[
-"Đài vòng",
-"đài vòng",
-"san khau ngoai troi",
-"sân khấu ngoài trời",
-"dai vong"
-],
 "amenity/ticket_validator":[
 "may bam ve",
 "bam ve",
@@ -11433,23 +11426,6 @@
 "điểm neo tàu",
 "nơi thả neo",
 "phao neo tau"
-],
-"shop":[
-"nhà buôn bán",
-"tiệm",
-"cua hang",
-"cua hieu",
-"nha buon ban",
-"tiem",
-"nha ban hang",
-"cửa buôn bán",
-"nơi bán hàng",
-"cửa hiệu",
-"Tiệm",
-"nhà bán hàng",
-"cửa hàng",
-"cua buon ban",
-"noi ban hang"
 ],
 "shop/agrarian":[
 "tiệm nông nghiệp",

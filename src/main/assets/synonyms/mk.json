@@ -1004,6 +1004,9 @@
 "amenity/veterinary":[
 "Ветеринар"
 ],
+"amenity/veterinary_pharmacy":[
+"Ветеринарна аптека"
+],
 "amenity/waste/dog_excrement":[
 "Корпа за кучешки измет"
 ],
@@ -1383,7 +1386,7 @@
 "Станбена градба"
 ],
 "building/retail":[
-"Проджен објект"
+"Продажен објект"
 ],
 "building/riding_hall":[
 "одделени со запирки]",
@@ -1749,6 +1752,9 @@
 "entrance/main":[
 "Главен влез"
 ],
+"entrance/shop":[
+"Влез во дуќан"
+],
 "entrance/staircase":[
 "Влез кон скали"
 ],
@@ -1931,6 +1937,12 @@
 "highway/cycleway/moped_link-NL":[
 "Мопедска патека"
 ],
+"highway/cycleway/traffic_island":[
+"Велосипедски остров"
+],
+"highway/cycleway/traffic_island_shared":[
+"Велосипедско-пешачки остров"
+],
 "highway/cyclist_waiting_aid":[
 "Семафорски потпирач за велосипедисти"
 ],
@@ -2011,6 +2023,18 @@
 ],
 "highway/path/boardwalk":[
 "Патека од даски"
+],
+"highway/path/crossing":[
+"Велосипедско-пешачки премин"
+],
+"highway/path/crossing/traffic_signals":[
+"Велосипедско-пешачки премин со пешачки семафор"
+],
+"highway/path/crossing/uncontrolled":[
+"Обележан велосипедско-пешачки премин"
+],
+"highway/path/crossing/unmarked":[
+"Необележан велосипедско-пешачки премин"
 ],
 "highway/path/informal":[
 "Неформална патека"
@@ -2308,6 +2332,12 @@
 ],
 "landuse/meadow":[
 "Ливада"
+],
+"landuse/meadow_orchard/meadow":[
+"Ливада со овошни дрва"
+],
+"landuse/meadow_orchard/orchard":[
+"Овоштарник насаден на ливада"
 ],
 "landuse/orchard":[
 "Овоштарник"
@@ -3075,6 +3105,9 @@
 "natural":[
 "Природен елемент"
 ],
+"natural/arch":[
+"Природен лак"
+],
 "natural/bare_rock":[
 "Гола карпа"
 ],
@@ -3106,7 +3139,7 @@
 "Ледник"
 ],
 "natural/grassland":[
-"Пасиште"
+"Тревиште"
 ],
 "natural/heath":[
 "Вресиште"
@@ -3142,7 +3175,7 @@
 "Сип"
 ],
 "natural/scrub":[
-"Честак"
+"Шикара"
 ],
 "natural/shingle":[
 "Чакал"
@@ -3262,7 +3295,7 @@
 "Влажна ливада"
 ],
 "natural/wood":[
-"Природно дрво"
+"Природна шума"
 ],
 "network/type/node_network-DE-NL-BE-LU":[
 "Јазол за рекреативни мрежи"
@@ -3423,6 +3456,9 @@
 "office/therapist":[
 "Терапевт"
 ],
+"office/translator":[
+"Биро за преводи"
+],
 "office/travel_agent":[
 "Туристичка агенција"
 ],
@@ -3460,7 +3496,7 @@
 "Патека за норидско скијање"
 ],
 "piste/piste":[
-"Патека / писта за зимски спортови"
+"Патека / писта за зимски спортови (неукажан вид)"
 ],
 "piste/ski_jump":[
 "Писта на скијачка скокалница"
@@ -4011,6 +4047,9 @@
 "shop/bathroom_furnishing":[
 "Продавница за санитарии"
 ],
+"shop/bbq":[
+"Скараџилница"
+],
 "shop/beauty":[
 "Салон за убавина"
 ],
@@ -4224,8 +4263,14 @@
 "shop/gift":[
 "Продавница за подароци"
 ],
+"shop/gold_buyer":[
+"Откупувач на злато"
+],
 "shop/greengrocer":[
 "Пилјарница"
+],
+"shop/groundskeeping":[
+"Продавница за градинарска опрема"
 ],
 "shop/hairdresser":[
 "Фризерски салон"

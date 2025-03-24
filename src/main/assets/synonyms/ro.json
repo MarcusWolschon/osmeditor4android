@@ -5,6 +5,9 @@
 "advertising/billboard":[
 "Billboard"
 ],
+"advertising/board":[
+"Avizier"
+],
 "aerialway/mixed_lift":[
 "Lift Mixat"
 ],
@@ -97,6 +100,9 @@
 ],
 "amenity/fast_food":[
 "Fast Food"
+],
+"amenity/ferry_terminal":[
+"Terminal de Bac"
 ],
 "amenity/fire_station":[
 "Pompieri"
@@ -197,6 +203,9 @@
 "amenity/school":[
 "Școală"
 ],
+"amenity/shelter":[
+"Adăpost"
+],
 "amenity/social_facility":[
 "Facilitate Socială"
 ],
@@ -227,11 +236,35 @@
 "area":[
 "Suprafață"
 ],
+"attraction/animal":[
+"Țarc animale"
+],
+"attraction/bungee_jumping":[
+"Sărituri cu coarda elastică"
+],
+"attraction/carousel":[
+"Carusel"
+],
+"attraction/maze":[
+"Labirint"
+],
+"attraction/roller_coaster":[
+"Roller coaster"
+],
+"attraction/water_slide":[
+"Tobogan cu apă"
+],
 "barrier":[
 "Barieră"
 ],
 "barrier/block":[
 "Blocaj"
+],
+"barrier/bollard":[
+"Bolard"
+],
+"barrier/chain":[
+"Lanț"
 ],
 "barrier/city_wall":[
 "Zid de Oraș"
@@ -245,8 +278,29 @@
 "barrier/gate":[
 "Poartă"
 ],
+"barrier/guard_rail":[
+"Parapet"
+],
+"barrier/hedge":[
+"Gard viu"
+],
+"barrier/height_restrictor":[
+"Limitator de înălțime"
+],
+"barrier/kerb":[
+"Bordură"
+],
+"barrier/stile":[
+"Pârleaz"
+],
+"barrier/turnstile":[
+"Turnichet"
+],
 "barrier/wall":[
 "Zid"
+],
+"boundary":[
+"Graniță"
 ],
 "boundary/administrative":[
 "Graniță Administrativă"
@@ -275,6 +329,9 @@
 "building/church":[
 "Biserică"
 ],
+"building/civic":[
+"Clădire civică"
+],
 "building/college":[
 "Colegiu"
 ],
@@ -283,6 +340,9 @@
 ],
 "building/construction":[
 "Clădire în Construcție"
+],
+"building/cowshed":[
+"Grajd"
 ],
 "building/detached":[
 "Casă Detașată"
@@ -293,14 +353,32 @@
 "building/entrance":[
 "Intrare/Ieșire"
 ],
+"building/farm":[
+"Casă la fermă"
+],
+"building/farm_auxiliary":[
+"Clădire a fermei"
+],
+"building/fire_station":[
+"Stație pompieri"
+],
 "building/garage":[
 "Garaj"
 ],
 "building/garages":[
 "Garaje"
 ],
+"building/ger":[
+"Iurtă"
+],
+"building/grandstand":[
+"Tribună"
+],
 "building/greenhouse":[
 "Seră"
+],
+"building/hangar":[
+"Hangar"
 ],
 "building/hospital":[
 "Spital"
@@ -311,11 +389,20 @@
 "building/house":[
 "Casă"
 ],
+"building/houseboat":[
+"Casă plutitoare"
+],
 "building/hut":[
 "Colibă"
 ],
 "building/industrial":[
 "Clădire Industrială"
+],
+"building/mosque":[
+"Clădire moschee"
+],
+"building/office":[
+"Clădire birouri"
 ],
 "building/public":[
 "Clădire Publică"
@@ -335,11 +422,26 @@
 "building/semidetached_house":[
 "Casă Semi-detașată"
 ],
+"building/sty":[
+"Cocină"
+],
+"building/synagogue":[
+"Clădire sinagogă"
+],
+"building/temple":[
+"Clădire templu"
+],
 "building/university":[
 "Universitate"
 ],
 "building/warehouse":[
 "Depozit"
+],
+"building_part":[
+"Parte de clădire"
+],
+"building_point":[
+"Clădire"
 ],
 "club":[
 "Club"
@@ -389,6 +491,9 @@
 "ford":[
 "Vad"
 ],
+"ford_line":[
+"Vad"
+],
 "golf/fairway":[
 "Drum Maritim"
 ],
@@ -410,6 +515,9 @@
 "highway/footway":[
 "Potecă"
 ],
+"highway/footway/sidewalk":[
+"Drum de Pietoni"
+],
 "highway/motorway":[
 "Autostradă"
 ],
@@ -421,6 +529,9 @@
 ],
 "highway/path":[
 "Potecă"
+],
+"highway/pedestrian_line":[
+"Drum Pietonal"
 ],
 "highway/primary":[
 "Drum principal"
@@ -512,6 +623,12 @@
 "historic/tomb":[
 "Mormânt"
 ],
+"indoor/corridor":[
+"Coridor Interior"
+],
+"indoor/corridor_line":[
+"Coridor Interior"
+],
 "junction":[
 "Juncție"
 ],
@@ -551,6 +668,12 @@
 "landuse/meadow":[
 "Pajiște"
 ],
+"landuse/pond":[
+"Iaz"
+],
+"landuse/reservoir":[
+"Rezervor"
+],
 "landuse/residential":[
 "Zonă Rezidențială"
 ],
@@ -583,6 +706,9 @@
 ],
 "leisure/garden":[
 "Grădină"
+],
+"leisure/garden/community":[
+"Grădină Comunitară"
 ],
 "leisure/golf_course":[
 "Curs de Golf"
@@ -683,8 +809,14 @@
 "man_made/surveillance":[
 "Supraveghere"
 ],
+"man_made/surveillance/camera":[
+"Cameră de Supraveghere"
+],
 "man_made/tower":[
 "Turn"
+],
+"man_made/tower/observation":[
+"Turn de Observație"
 ],
 "man_made/wastewater_plant":[
 "Sta'ie de Epurare"
@@ -731,6 +863,9 @@
 "natural/heath":[
 "Landă"
 ],
+"natural/hot_spring":[
+"Izvor termal"
+],
 "natural/peak":[
 "Vârf"
 ],
@@ -752,6 +887,9 @@
 "natural/water":[
 "Apă"
 ],
+"natural/water/basin":[
+"Bazin"
+],
 "natural/water/lake":[
 "Lac"
 ],
@@ -772,6 +910,9 @@
 ],
 "office/administrative":[
 "Oficiu Administrativ"
+],
+"office/diplomatic/embassy":[
+"Ambasadă"
 ],
 "office/educational_institution":[
 "Instituție Educațională"
@@ -802,6 +943,9 @@
 ],
 "office/ngo":[
 "Oficiu NGO"
+],
+"office/notary":[
+"Notar"
 ],
 "office/physician":[
 "Fizician"
@@ -851,11 +995,20 @@
 "place/village":[
 "Sat"
 ],
+"playground":[
+"Echipament de loc de joacă"
+],
 "point":[
 "Punct"
 ],
 "power/generator":[
 "Generator de Energie"
+],
+"power/generator/source/nuclear":[
+"Reactor Nuclear"
+],
+"power/generator/source/wind":[
+"Turbină de Vânt"
 ],
 "power/line":[
 "Linie de Alimentare"
@@ -874,6 +1027,9 @@
 ],
 "power/transformer":[
 "Transformator"
+],
+"public_transport/station_ferry":[
+"Terminal de Bac"
 ],
 "railway/abandoned":[
 "Cale Ferată Abandonată"
@@ -1162,6 +1318,18 @@
 "tourism/aquarium":[
 "Acvariu"
 ],
+"tourism/artwork/bust":[
+"Bust"
+],
+"tourism/artwork/graffiti":[
+"Grafitti"
+],
+"tourism/artwork/sculpture":[
+"Sculptură"
+],
+"tourism/artwork/statue":[
+"Statuie"
+],
 "tourism/attraction":[
 "Atracție Turistică"
 ],
@@ -1267,6 +1435,9 @@
 "type/site":[
 "Sit"
 ],
+"type/waterway":[
+"Drum Marin"
+],
 "waterway/boatyard":[
 "Curte de Bărci"
 ],
@@ -1275,6 +1446,9 @@
 ],
 "waterway/dam":[
 "Baraj"
+],
+"waterway/ditch":[
+"Șanț"
 ],
 "waterway/drain":[
 "Pârâu"

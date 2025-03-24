@@ -38,6 +38,9 @@
 "amenity/school":[
 "Goobaha Dugsiyada"
 ],
+"area":[
+"Aagga"
+],
 "barrier":[
 "Xannibaadaha"
 ],
@@ -71,7 +74,13 @@
 "building/stadium":[
 "Dhismo Garoon"
 ],
+"building_point":[
+"Dhismo"
+],
 "ford":[
+"Tog"
+],
+"ford_line":[
 "Tog"
 ],
 "highway/path":[
@@ -115,6 +124,9 @@
 ],
 "landuse/landfill":[
 "Qashin-qub"
+],
+"landuse/pond":[
+"Balli"
 ],
 "landuse/residential":[
 "Aag Degaan"
@@ -187,6 +199,9 @@
 ],
 "place/town":[
 "Magaalo"
+],
+"point":[
+"Bar"
 ],
 "power/line":[
 "Khadka Korantada"

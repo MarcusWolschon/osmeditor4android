@@ -802,12 +802,116 @@
 "bystuga",
 "evenemang"
 ],
+"amenity/community_centre/club_home":[
+"klubbgård",
+"klubblokal",
+"klubbens hem",
+"klubbcenter",
+"klubbhus",
+"klubbmötesplats",
+"samlingslokal",
+"föreningscenter",
+"föreningshus",
+"föreningshem",
+"klubbanläggning",
+"föreningslokal",
+"klubbens högkvarter",
+"Föreningslokal, klubbstuga",
+"klubbstuga",
+"klubbens samlingsplats",
+"klubbens mötesplats"
+],
+"amenity/community_centre/community_hall":[
+"allmän möteslokal",
+"bygdegård",
+"samlingslokal",
+"gemenskapslokal",
+"samhällslokal",
+"allmän samlingsplats",
+"lokal för gemenskap",
+"Medborgarhus, folkets hus",
+"allmänn lokal",
+"möteslokal",
+"föreningslokal",
+"allaktivitetshus",
+"bystuga",
+"gemenskapscenter"
+],
+"amenity/community_centre/cultural_centre":[
+"kulturcenter",
+"kulturellt centrum",
+"kulturens mötesplats",
+"kulturinstitution",
+"kulturanläggning",
+"kulturhus",
+"kulturmötesplats",
+"kulturlokal",
+"kulturens hus",
+"Kulturcenter",
+"kulturbyggnad",
+"kulturellt center",
+"kulturcentrum"
+],
+"amenity/community_centre/family_centre":[
+"familjecenter",
+"Familjecenter",
+"familjeservice",
+"familjehus",
+"familjens samlingsplats",
+"familjecentrum",
+"center för familjer",
+"familjegård",
+"familjeanläggning",
+"familjeverksamhet",
+"familjelokal",
+"familjemötesplats",
+"familjeaktivitetshus"
+],
 "amenity/community_centre/lgbtq":[
 "hbtq-festlokal",
 "hbtq-samlingslokal",
 "hbtq--evenemang",
 "hbtq",
 "HBTQ-samlingslokal"
+],
+"amenity/community_centre/parish_hall":[
+"församlingsgård",
+"kyrkhem",
+"kyrklokal",
+"församlingshem",
+"församlingslokal",
+"kyrkans möteslokal",
+"kyrkligt center",
+"sockengård",
+"kyrkcentrum",
+"kyrkobyggnad",
+"Församlingshem",
+"församlingsanläggning",
+"kyrkans samlingsplats",
+"församlingshall",
+"kyrkstuga",
+"församlingscentrum",
+"sockenhus",
+"kyrkans hus",
+"sockenstuga"
+],
+"amenity/community_centre/village_hall":[
+"byns kulturhus",
+"byns samlingslokal",
+"bygdegård",
+"byalagshus",
+"bycentrum",
+"byns mötesplats",
+"bynsgård",
+"bygdecenter",
+"byhus",
+"landsbygdslokal",
+"landsbygdens samlingsplats",
+"byns allaktivitetshus",
+"byns föreningslokal",
+"Bygdegård",
+"bystuga",
+"bylokal"
 ],
 "amenity/community_centre/youth_centre":[
 "fritidshem",
@@ -1333,6 +1437,26 @@
 "kyckling",
 "drive-in",
 "grill"
+],
+"amenity/fast_food/chinese":[
+"mat",
+"lunch",
+"gatukök",
+"restaurang",
+"takeaway",
+"bukfylla",
+"junk-food",
+"Snabbmat – Kinesiskt",
+"skräpmat",
+"gatuköksmat",
+"hämtmat",
+"äta",
+"wok",
+"kinesiskt",
+"asiatisk mat",
+"snabbmat",
+"drive-in",
+"dim sum"
 ],
 "amenity/fast_food/donut":[
 "mat",
@@ -3711,6 +3835,20 @@
 "video",
 "filmproduktion"
 ],
+"amenity/swingerclub":[
+"swingers",
+"livsstilsklubb",
+"temaklubb",
+"nattklubb",
+"Swingerklubb",
+"sexklubb",
+"swingerklubb",
+"strippklubb",
+"parklubb",
+"vuxenklubb",
+"porrklubb",
+"erotikklubb"
+],
 "amenity/taxi":[
 "taxificka",
 "taxistation",
@@ -3779,14 +3917,22 @@
 "teater"
 ],
 "amenity/theatre/type/amphi":[
-"utomhus",
-"utomhusteater",
-"läktare",
+"uteteater",
+"historisk teater",
+"ampi",
+"antik teater",
+"arena",
 "amfiteater",
 "scen",
+"amfiscen",
+"öppen teater",
+"utescen",
+"utomhusscen",
+"grekisk teater",
+"utomhusteater",
+"läktare",
 "teater",
-"Amfiteater",
-"utescen"
+"Amfiteater"
 ],
 "amenity/ticket_validator":[
 "biljettregistrering",
@@ -6461,6 +6607,30 @@
 "vattenpost",
 "brandslang"
 ],
+"emergency/fire_hydrant/pillar":[
+"pelartyp brandpost",
+"Pelarbrandpost",
+"brandsläckning",
+"pelarbrandpost",
+"brandpost",
+"pelarhydrant",
+"brandpelare",
+"hydrantpelare",
+"vattenpost",
+"brandslang",
+"brandpost - pelare",
+"fire plug"
+],
+"emergency/fire_hydrant/underground":[
+"nedgrävd brandpost",
+"brandpost under mark",
+"markpost",
+"underjordisk brandpost",
+"Markbrandpost",
+"markbrandpost",
+"brandvattenbrunn",
+"markhydrant"
+],
 "emergency/fire_service_inlet":[
 "brandbekämpning",
 "fdc",
@@ -6628,6 +6798,19 @@
 "port",
 "utgång",
 "inträde"
+],
+"entrance/shop":[
+"dörr",
+"entré till butik",
+"butiksdörr",
+"ingång till affär",
+"butiksentré",
+"butiksingång",
+"butikens entrédörr",
+"affärsdörr",
+"Butiksentré",
+"butikens ingång",
+"entré till affär"
 ],
 "entrance/staircase":[
 "trapphus",
@@ -7204,6 +7387,34 @@
 "mopedlänk",
 "mopedväg"
 ],
+"highway/cycleway/traffic_island":[
+"refug",
+"cykelö",
+"trafikö",
+"ö mittrefug",
+"refugö",
+"refug för cyklister",
+"ö för cykelväg",
+"cykelrefug",
+"cykelvägsrefug",
+"cykeltrafikö",
+"Cykelrefug",
+"korsningsö"
+],
+"highway/cycleway/traffic_island_shared":[
+"refug för cyklister och fotgängare",
+"gångrefug",
+"trafikö",
+"ö mittrefug",
+"cykel- och gångrefug",
+"refugö",
+"Cykel- och gångrefug",
+"cykelrefug",
+"cykelvägsrefug",
+"cykel- och gångö",
+"kombinerad refug",
+"korsningsö"
+],
 "highway/cyclist_waiting_aid":[
 "greppstång",
 "hållstång",
@@ -7361,7 +7572,17 @@
 "företräde"
 ],
 "highway/ladder":[
-"Stege"
+"klätterstege",
+"Stege",
+"tillträdesstege",
+"steganordning",
+"nödsituationstege",
+"stege",
+"byggnadsstege",
+"trappstege",
+"vertikal stege",
+"räddningsstege",
+"fast stege"
 ],
 "highway/living_street":[
 "torg",
@@ -7436,6 +7657,18 @@
 "spång",
 "plankstig",
 "brädväg"
+],
+"highway/path/crossing":[
+"Cykel- och gångkorsning"
+],
+"highway/path/crossing/traffic_signals":[
+"Cykel- och gångövergång med signaler"
+],
+"highway/path/crossing/uncontrolled":[
+"Markerad cykel- och gångövergång"
+],
+"highway/path/crossing/unmarked":[
+"Omarkerad cykel- och gångövergång"
 ],
 "highway/path/informal":[
 "Informell stig",
@@ -8303,7 +8536,21 @@
 "industricentrum"
 ],
 "landuse/industrial/depot":[
-"Depå"
+"busstation",
+"bussdepå",
+"lastbilsparkering",
+"verkstadsområde",
+"garageområde",
+"fordonslager",
+"parkeringsområde",
+"lastbilsdepå",
+"lagerdepå",
+"lagringsområde",
+"Depå",
+"depå",
+"fordonsgård",
+"fordonsdepå",
+"transportdepå"
 ],
 "landuse/industrial/scrap_yard":[
 "metall",
@@ -8354,6 +8601,30 @@
 "slåttermark",
 "äng",
 "Äng"
+],
+"landuse/meadow_orchard/meadow":[
+"frukt",
+"fruktträdäng",
+"ängsodling",
+"fruktträd",
+"betesäng med fruktträd",
+"äng med fruktträd",
+"fruktträdbevuxen äng",
+"fruktäng",
+"Äng med fruktträd",
+"fruktodlingsäng",
+"betesmark med fruktträd"
+],
+"landuse/meadow_orchard/orchard":[
+"fruktplantering i äng",
+"Fruktodling i äng",
+"fruktträdgård i betesäng",
+"ängsodling med fruktträd",
+"odling av fruktträd i äng",
+"ängsplanterad fruktträdgård",
+"fruktäng",
+"fruktträdgård på äng",
+"fruktodling i äng"
 ],
 "landuse/orchard":[
 "fruktträd",
@@ -8561,6 +8832,23 @@
 "scen",
 "Musikestrad",
 "orkester"
+],
+"leisure/bathing_place":[
+"simhål",
+"brygga",
+"badstege",
+"badområde",
+"badvatten",
+"simområde",
+"badhål",
+"badplats",
+"simställe",
+"badbrygga",
+"Badplats",
+"vattenställe",
+"badställe",
+"vildbadplats",
+"vattenbrygga"
 ],
 "leisure/beach_resort":[
 "semesteranläggning",
@@ -9020,6 +9308,21 @@
 "gästhamn",
 "Marina"
 ],
+"leisure/marina_no_facilities":[
+"brygga",
+"Båtplatser",
+"yachtplatser",
+"förtöjningsplatser",
+"hamn",
+"båtplatser",
+"förtöjning för yachter",
+"småbåtshamn",
+"marina",
+"kajplatser",
+"yachtbrygga",
+"båthamn hamnbrygga",
+"båtförtöjningar"
+],
 "leisure/miniature_golf":[
 "minigolf",
 "miniatyrgolf",
@@ -9283,6 +9586,31 @@
 "Cricketplan",
 "cricketplan",
 "kricketplan"
+],
+"leisure/pitch/equestrian":[
+"manege",
+"hästpolo",
+"Ridbana",
+"ring",
+"rundbana",
+"ridning",
+"rodeo",
+"dressyr",
+"dressyrbana",
+"longering",
+"dressyrring",
+"ridring",
+"rodeoarena",
+"hästsport",
+"hästridningsring",
+"hästridning",
+"hästbana",
+"hoppring",
+"ridbana",
+"hoppbana",
+"hästsportarena",
+"ridarena",
+"rundkorall"
 ],
 "leisure/pitch/field_hockey":[
 "landhockey",
@@ -9562,7 +9890,19 @@
 "bergsklättring"
 ],
 "leisure/sports_centre/climbing_adventure":[
-"Äventyrspark"
+"höghöjdsbana",
+"äventyrspark",
+"äventyrsanläggning",
+"linbana",
+"klätterbana",
+"klätterpark",
+"repklättring",
+"aktivitetspark",
+"Äventyrspark",
+"hinderbana",
+"utmaningsbana",
+"zipline",
+"äventyrsbana"
 ],
 "leisure/sports_centre/horse_racing":[
 "kapplöpning",
@@ -9573,6 +9913,21 @@
 "hästkapplöpningsbana",
 "hästkapplöpning",
 "häst"
+],
+"leisure/sports_centre/karting":[
+"gokartrace",
+"go cart",
+"kartingcenter",
+"gokartanläggning",
+"Gokartanläggning",
+"gokart",
+"racingbana",
+"kartingbana",
+"karting",
+"kart racing",
+"gokartbana",
+"kartbana",
+"gokartcenter"
 ],
 "leisure/sports_centre/shooting":[
 "skytteklubb",
@@ -9695,10 +10050,28 @@
 "Löparbana"
 ],
 "leisure/track/athletics/sprint":[
-"Sprintbana"
+"sprintlöparbana",
+"sprinting",
+"sprintbana",
+"Sprintbana",
+"snabbhetsbana",
+"sprinterbana",
+"kortdistansbana",
+"sprinttrack",
+"löparbana",
+"löparbana för sprint"
 ],
 "leisure/track/athletics/steeplechase":[
-"Hinderlöpningsbana"
+"steeplechasebana",
+"Hinderlöpningsbana",
+"hinderbana",
+"hinderbana för löpning",
+"banhinderlöpning",
+"steeplechase track",
+"hinderlöparbana",
+"löparbana med hinder",
+"hinderlöp",
+"hinderlöpning"
 ],
 "leisure/track/athletics/triple_jump":[
 "trestegsgrop",
@@ -10021,6 +10394,39 @@
 "Flaggstång",
 "flaggstång",
 "flagga"
+],
+"man_made/flare":[
+"gasbränning",
+"avfacklingstorn",
+"flaretorn",
+"gasfackla",
+"fackla",
+"brännare",
+"överskottsbrännare",
+"facklingsanläggning",
+"olje- och gasfackla",
+"gasbrännare",
+"eldflamma",
+"brännartorn",
+"flare stack",
+"Gasfackla"
+],
+"man_made/footwear_decontamination-AU-NZ":[
+"rengöringsstation för skor",
+"stövelrengöring",
+"skorrengöring",
+"Skorengöringsstation",
+"kontaminationsstation",
+"skotvätt",
+"dekontaminationsstation",
+"skodekontaminationsstation",
+"skodesinfektion",
+"skodusch",
+"skotvättstation",
+"stöveldusch",
+"stöveltvätt",
+"skorengöringsstation",
+"stövelförvaring med rengöring"
 ],
 "man_made/fuel_pump":[
 "Bränslepump",
@@ -10471,6 +10877,21 @@
 "djurfoder",
 "spannmålslagring"
 ],
+"man_made/ski_jump":[
+"skidbacketorn",
+"hoppbackestruktur",
+"hoppbacketorn för skidåkning",
+"skidhoppningsbacke",
+"hoppbacke",
+"skidbacke för hoppning",
+"hoppbacketorn",
+"skidhoppstorn för inrun",
+"inrun-torn",
+"skidhopp",
+"Skidhoppstorn",
+"skidhoppstorn",
+"skidhopptorn"
+],
 "man_made/storage_tank":[
 "reservoar",
 "vattentorn",
@@ -10513,6 +10934,62 @@
 "postutdelning",
 "postutdelningsbox",
 "Postfördelningslåda"
+],
+"man_made/street_cabinet/traffic_control":[
+"automationsskåp för trafik",
+"trafikljusskåp",
+"vägnätskontrollskåp",
+"Trafikstyrningsskåp",
+"styrskåp för trafik",
+"trafikljusstyrning",
+"trafikstyrningsautomation",
+"trafikljusautomationsskåp",
+"trafikskåp",
+"trafikstyrningsskåp",
+"signalstyrningsskåp"
+],
+"man_made/street_cabinet/traffic_monitoring":[
+"övervakningsskåp för trafik",
+"fordonövervakningsskåp",
+"trafikövervakningsskåp",
+"fordonräkningsskåp",
+"vägövervakningsskåp",
+"trafikräkningsskåp",
+"trafikmonitoreringsskåp",
+"trafikmätarskåp",
+"trafikskåp för övervakning",
+"Trafikövervakningsskåp"
+],
+"man_made/street_cabinet/transport_management":[
+"transporthanteringsskåp",
+"transportsystemskåp",
+"transportsystemhantering",
+"trafiknätverkshanteringsskåp",
+"kollektivtrafikskåp",
+"offentlig transportautomation",
+"vägnätsstyrning",
+"transportskåp",
+"kollektivtrafikstyrning",
+"trafikstyrningsskåp",
+"transportstyrningsskåp",
+"Transporthanteringsskåp"
+],
+"man_made/street_cabinet/waste":[
+"sopskåp",
+"avfallsinsamling",
+"skräpinsamling",
+"skåp för avfallsinsamling",
+"skräpkabinett",
+"soptunnor",
+"skåp för privat avfall",
+"Privat avfallshanteringsskåp",
+"privat avfallsskåp",
+"somskåp",
+"avfallshanteringsskåp",
+"hushållsavfallsskåp",
+"avfallsstation",
+"sopor",
+"soptunna"
 ],
 "man_made/surveillance":[
 "övervakningsutrustning",
@@ -10879,6 +11356,18 @@
 "natural":[
 "Naturobjekt"
 ],
+"natural/arch":[
+"naturlig bro",
+"naturbro",
+"bergbåge",
+"klippbåge",
+"naturlig stenbro",
+"stenbåge",
+"rockbåge",
+"båge",
+"naturlig båge",
+"Naturlig båge"
+],
 "natural/bare_rock":[
 "Kala klippor",
 "klippor",
@@ -11128,7 +11617,20 @@
 "buskar"
 ],
 "natural/sinkhole":[
-"Slukhål"
+"svallhål",
+"cenote",
+"underjordiskt hål",
+"markkollaps",
+"svältande hål",
+"shakehole",
+"sänka",
+"kollapskälla",
+"dolin",
+"Slukhål",
+"svällande hål",
+"svälthål",
+"slukhål",
+"snake hole"
 ],
 "natural/spring":[
 "källsprång",
@@ -11185,13 +11687,31 @@
 "Lövträd (lövfällande)"
 ],
 "natural/tree/broadleaved/evergreen":[
-"Lövträd (städsegrön)"
+"broadleaf-träd",
+"bredbladigt träd",
+"lövträd",
+"hårdvedsträd",
+"ständigt grönt träd",
+"vintergrönt träd",
+"barrfria träd",
+"Lövträd (städsegrön)",
+"lövskogsträd",
+"eviggrönt träd"
 ],
 "natural/tree/needleleaved":[
 "Barrträd"
 ],
 "natural/tree/needleleaved/deciduous":[
-"Barrträd (barrfällande)"
+"lövfällande barrträd",
+"nålved",
+"lövfällande konifer",
+"barrträd",
+"barrträd (lövfällande)",
+"lövfallande barrträd",
+"Barrträd (barrfällande)",
+"nålkapslade träd",
+"barrvedsträd",
+"mjukvedsträd"
 ],
 "natural/tree/needleleaved/evergreen":[
 "Barrträd (städsegrön)",
@@ -12056,6 +12576,18 @@
 "arbetsterapi",
 "kbt"
 ],
+"office/translator":[
+"översättarkontor",
+"översättarbyrå",
+"översättningsagentur",
+"översättningsbyrå",
+"översättarfirma",
+"översättningstjänst",
+"översättarservice",
+"Översättningsbyrå",
+"översättningsföretag",
+"översättningsoffice"
+],
 "office/travel_agent":[
 "Resebyrå"
 ],
@@ -12163,30 +12695,17 @@
 "Längdskidspår"
 ],
 "piste/piste":[
-"längdskidspår",
-"isåkning",
-"off-pist",
-"vintervandring",
-"skridsko",
-"alpin",
-"skidor",
-"utför",
-"skidtur",
-"släde",
-"alpint",
-"skida",
-"is",
-"utförsåkning",
-"pist",
-"häst",
-"längdskidor",
-"skidåkning",
-"Vintersportspår / Pist",
-"vintersportspår",
-"snöskor",
-"skridskoåkning",
-"offpist",
-"snowboard"
+"Snösportled / Pist (ospecificerad)"
+],
+"piste/ski_jump":[
+"skidbacke för hoppning",
+"skidhoppsbacke",
+"skidhoppningspist",
+"skidbacke",
+"Hoppbacke",
+"skidhoppningsbacke",
+"hoppbana",
+"hoppbacke"
 ],
 "piste/skitour":[
 "skidturåkning",
@@ -12221,6 +12740,20 @@
 "pist",
 "häst",
 "hästsläde"
+],
+"piste/take_off":[
+"hoppbord",
+"skidhoppsinrullning",
+"Skidhoppstart",
+"skidhoppstart",
+"takeoff",
+"skidhoppsbackens start",
+"hoppstart",
+"take-off",
+"upphoppningsbord",
+"skidhoppbord",
+"skidhoppsbord",
+"skidhoppsupphoppning"
 ],
 "place":[
 "Plats"
@@ -12911,6 +13444,19 @@
 "frånskiljare",
 "Frånskiljare",
 "strömbrytare"
+],
+"power/switchgear":[
+"Ställverk",
+"omkopplingsutrustning",
+"elställverk",
+"omkopplingsstation",
+"kraftställverk",
+"brytarstation",
+"växlarutrustning",
+"elbrytare",
+"ställverk",
+"distributionsställverk",
+"strömställare"
 ],
 "power/tower":[
 "mast",
@@ -14753,6 +15299,18 @@
 "gåvor",
 "souvenir"
 ],
+"shop/gold_buyer":[
+"guldköpare",
+"återköp av guld",
+"guldhandlare",
+"guldshop",
+"butik för guldinköp",
+"guldåterköpare",
+"guldbyrå",
+"Guldköpare",
+"guldinköpare",
+"guldutköp"
+],
 "shop/greengrocer":[
 "frukt",
 "frukthandlare",
@@ -14780,6 +15338,22 @@
 "hårtvätt",
 "hårfärgning",
 "Hårfrisör"
+],
+"shop/hairdresser/barber":[
+"mustaschfrisör",
+"rakfrisör",
+"Barberare",
+"herrfrisör",
+"rakningssalong",
+"skäggtrimning",
+"hårklippning",
+"barberare",
+"rakning",
+"frisör",
+"rakstuga",
+"frisör för män",
+"skäggfrisör",
+"skäggvård"
 ],
 "shop/hairdresser_supply":[
 "schampo",

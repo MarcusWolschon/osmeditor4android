@@ -185,6 +185,9 @@
 "amenity/clinic/abortion":[
 "Abortklinikk"
 ],
+"amenity/clinic/dialysis":[
+"Dialyse-senter"
+],
 "amenity/clinic/fertility":[
 "Fertilitetsklinikk"
 ],
@@ -620,9 +623,6 @@
 "amenity/theatre":[
 "Teater"
 ],
-"amenity/theatre/type/amphi":[
-"Amfiteater"
-],
 "amenity/ticket_validator":[
 "Billettautomat"
 ],
@@ -670,6 +670,9 @@
 ],
 "amenity/vending_machine/food":[
 "Matautomat"
+],
+"amenity/vending_machine/food/snacks":[
+"Godteriautomat"
 ],
 "amenity/vending_machine/ice_cream":[
 "Iskremautomat"
@@ -744,6 +747,9 @@
 "attraction/maze":[
 "Labyrint"
 ],
+"attraction/pirate_ship":[
+"Sjørøverskipattraksjon"
+],
 "attraction/river_rafting":[
 "Vannbane"
 ],
@@ -810,11 +816,17 @@
 "barrier/guard_rail":[
 "Autovern"
 ],
+"barrier/handrail":[
+"Gelender"
+],
 "barrier/hedge":[
 "Hekk"
 ],
 "barrier/height_restrictor":[
 "Høydebegrenser"
+],
+"barrier/jersey_barrier":[
+"Fenderstein"
 ],
 "barrier/kerb":[
 "Kantstein"
@@ -915,6 +927,9 @@
 "building/construction":[
 "Bygning under oppføring"
 ],
+"building/cowshed":[
+"Fjøs"
+],
 "building/detached":[
 "Anneks"
 ],
@@ -938,6 +953,9 @@
 ],
 "building/garages":[
 "Garasjer"
+],
+"building/ger":[
+"Jurt"
 ],
 "building/grandstand":[
 "Tribune"
@@ -978,6 +996,9 @@
 "building/office":[
 "Kontorbygg"
 ],
+"building/outbuilding":[
+"Uthus"
+],
 "building/pavilion":[
 "Paviljongbygning"
 ],
@@ -998,6 +1019,9 @@
 ],
 "building/school":[
 "Skole"
+],
+"building/semidetached_house":[
+"Tomannsbolig"
 ],
 "building/service":[
 "Servicebygning"
@@ -1293,6 +1317,9 @@
 "ford":[
 "Vadested"
 ],
+"ford_line":[
+"Vadested"
+],
 "golf/bunker":[
 "Bunkers"
 ],
@@ -1314,6 +1341,9 @@
 "golf/hole":[
 "Golfbanehull"
 ],
+"golf/lateral_water_hazard":[
+"Sidevannhinder"
+],
 "golf/path":[
 "Gangvei i golfbane"
 ],
@@ -1323,6 +1353,9 @@
 "golf/tee":[
 "Utslagssted"
 ],
+"golf/water_hazard":[
+"Vannhinder"
+],
 "healthcare/alternative":[
 "Alternativ medisin"
 ],
@@ -1331,6 +1364,9 @@
 ],
 "healthcare/audiologist":[
 "Audiolog"
+],
+"healthcare/birthing_center":[
+"Fødestue"
 ],
 "healthcare/blood_donation":[
 "Blodgiversentral"
@@ -1422,6 +1458,9 @@
 "highway/footway/crossing":[
 "Fotgjengerovergang"
 ],
+"highway/footway/crossing/traffic_signals":[
+"Fotgjengerovergang med fotgjengersignal"
+],
 "highway/footway/crossing/uncontrolled":[
 "Gangfelt"
 ],
@@ -1463,6 +1502,9 @@
 "turvei",
 "Sti",
 "tursti"
+],
+"highway/path/crossing":[
+"Sykkel- og fotgjengerovergang"
 ],
 "highway/path/informal":[
 "Uformell sti"
@@ -1614,6 +1656,9 @@
 ],
 "historic/fort":[
 "Historisk fort"
+],
+"historic/manor":[
+"Herregård"
 ],
 "historic/memorial":[
 "Minnesmerke"
@@ -1828,6 +1873,9 @@
 "leisure/hackerspace":[
 "Hackerspace"
 ],
+"leisure/horse_riding":[
+"Ridesenter"
+],
 "leisure/ice_rink":[
 "Skøytebane"
 ],
@@ -1948,6 +1996,9 @@
 "leisure/track":[
 "Racerbane (Ikke motorsport)"
 ],
+"leisure/track/athletics/running":[
+"Løpebane"
+],
 "leisure/track/cycling":[
 "Sykkelbane"
 ],
@@ -1975,6 +2026,9 @@
 "man_made/antenna":[
 "Antenne"
 ],
+"man_made/beacon":[
+"Trigonometrisk punkt"
+],
 "man_made/beehive":[
 "Bikube"
 ],
@@ -1983,6 +2037,9 @@
 ],
 "man_made/bridge":[
 "Bruområde"
+],
+"man_made/cairn":[
+"Varde"
 ],
 "man_made/chimney":[
 "Pipe"
@@ -1998,6 +2055,12 @@
 ],
 "man_made/crane":[
 "Kran"
+],
+"man_made/crane/gantry_crane":[
+"Brokran"
+],
+"man_made/crane/portal_crane":[
+"Traverskran"
 ],
 "man_made/cross":[
 "Kors"
@@ -2191,6 +2254,9 @@
 "natural/heath":[
 "Hei"
 ],
+"natural/hot_spring":[
+"Varm kilde"
+],
 "natural/mud":[
 "Gjørme"
 ],
@@ -2373,6 +2439,9 @@
 "offentlig kontor",
 "Myndighetskontor"
 ],
+"office/government/register_office":[
+"Registrer Kontor"
+],
 "office/government/tax":[
 "Skattekontor"
 ],
@@ -2430,6 +2499,9 @@
 "office/yes":[
 "Kontor (uspesifisert type)"
 ],
+"pipeline/valve":[
+"Rørledningsventil"
+],
 "piste/downhill":[
 "Utforløype"
 ],
@@ -2444,9 +2516,6 @@
 ],
 "piste/nordic":[
 "Langrennsløype"
-],
-"piste/piste":[
-"Snøsportsti/ Piste"
 ],
 "piste/skitour":[
 "Skitursti"
@@ -2492,6 +2561,12 @@
 ],
 "place/village":[
 "Landsby"
+],
+"playground":[
+"Lekeplassutstyr"
+],
+"playground/balancebeam":[
+"Leke Balansebjelke"
 ],
 "playground/basketswing":[
 "Kurvhuske"
@@ -2762,6 +2837,9 @@
 ],
 "railway/funicular":[
 "Kabelbanespor"
+],
+"railway/halt":[
+"Togstasjon (holdeplass)"
 ],
 "railway/level_crossing":[
 "Planovergang"
@@ -3343,6 +3421,9 @@
 "tourism/information/board":[
 "Informasjonstavle"
 ],
+"tourism/information/board/welcome_sign":[
+"Velkomstskilt"
+],
 "tourism/information/map":[
 "Kart"
 ],
@@ -3556,6 +3637,9 @@
 ],
 "type/site":[
 "Sted"
+],
+"type/waterway":[
+"Vannvei"
 ],
 "waterway/boatyard":[
 "Skipsverft"

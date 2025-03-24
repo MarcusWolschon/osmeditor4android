@@ -1,9 +1,15 @@
 {
+"addr/interpolation":[
+"Víxluð húsnúmer"
+],
 "address":[
 "Heimilisfang"
 ],
 "advertising/billboard":[
 "Auglýsingaspjald"
+],
+"advertising/column":[
+"Auglýsingasúl"
 ],
 "aerialway/cable_car":[
 "Kláfur"
@@ -32,6 +38,9 @@
 "aerialway/rope_tow":[
 "Kaðallyfta"
 ],
+"aerialway/zip_line":[
+"Sviflína"
+],
 "aeroway/aerodrome":[
 "Flugvöllur"
 ],
@@ -48,6 +57,9 @@
 "aeroway/runway":[
 "Flugbraut"
 ],
+"aeroway/spaceport":[
+"Geimflaugastöð"
+],
 "aeroway/taxiway":[
 "flugrein",
 "Akbraut flugvéla",
@@ -55,6 +67,9 @@
 ],
 "aeroway/terminal":[
 "Flugstöð"
+],
+"aeroway/windsock":[
+"Vindpoki"
 ],
 "allotments/plot":[
 "Samfélagsgarðskikar"
@@ -149,6 +164,9 @@
 "amenity/clock":[
 "Klukka"
 ],
+"amenity/clock/sundial":[
+"Sólúr"
+],
 "amenity/college":[
 "Framhaldskólalóð"
 ],
@@ -175,6 +193,9 @@
 ],
 "amenity/doctors":[
 "Læknir"
+],
+"amenity/doctors/podiatry":[
+"Fótaaðgerðafræðingur"
 ],
 "amenity/dojo":[
 "Dojo / Bardagaíþróttir"
@@ -209,6 +230,9 @@
 "amenity/fast_food/sandwich":[
 "Skyndibiti, samlokur"
 ],
+"amenity/ferry_terminal":[
+"Ferjustöð"
+],
 "amenity/fire_station":[
 "Slökkvistöð"
 ],
@@ -242,8 +266,14 @@
 "amenity/language_school":[
 "Tungumálaskóli"
 ],
+"amenity/lavoir":[
+"Þvottaþró (þvottaaðstaða)"
+],
 "amenity/library":[
 "Bókasafn"
+],
+"amenity/lounger":[
+"Hægindastóll"
 ],
 "amenity/love_hotel":[
 "Ástarhótel"
@@ -265,6 +295,9 @@
 ],
 "amenity/nursing_home":[
 "Hjúkrunarheimili"
+],
+"amenity/parcel_locker":[
+"Bögglaskápur"
 ],
 "amenity/parking":[
 "Bílastæðasvæði"
@@ -412,6 +445,9 @@
 "amenity/social_facility":[
 "Félagsþjónusta"
 ],
+"amenity/social_facility/ambulatory_care":[
+"Heimahlynning"
+],
 "amenity/social_facility/food_bank":[
 "Mataraðstoð"
 ],
@@ -435,6 +471,9 @@
 ],
 "amenity/theatre":[
 "Leikhús"
+],
+"amenity/ticket_validator":[
+"Miðastimplari"
 ],
 "amenity/townhall":[
 "Ráðhús"
@@ -472,6 +511,9 @@
 "amenity/vending_machine/food":[
 "Matarsjálfsali"
 ],
+"amenity/vending_machine/food/snacks":[
+"Snakksjálfsali"
+],
 "amenity/vending_machine/ice_cream":[
 "Íssjálfsali"
 ],
@@ -507,6 +549,9 @@
 ],
 "area":[
 "Svæði"
+],
+"attraction":[
+"Aðdráttarafl"
 ],
 "attraction/amusement_ride":[
 "Skemmtitæki"
@@ -544,8 +589,17 @@
 "barrier/border_control":[
 "Landamæraeftirlit"
 ],
+"barrier/bump_gate":[
+"Rúlluhlið"
+],
+"barrier/bus_trap":[
+"Hindrunargryfja"
+],
 "barrier/cattle_grid":[
 "Vegrist"
+],
+"barrier/chain":[
+"Keðja"
 ],
 "barrier/city_wall":[
 "Borgarmúrar"
@@ -562,11 +616,23 @@
 "barrier/fence":[
 "Girðing"
 ],
+"barrier/full-height_turnstile":[
+"Snúningshlið í fullri stærð"
+],
 "barrier/gate":[
 "Hlið"
 ],
+"barrier/guard_rail":[
+"Vegrið"
+],
+"barrier/handrail":[
+"Handrið"
+],
 "barrier/hedge":[
 "Limgerði"
+],
+"barrier/jersey_barrier":[
+"Hindrun með steypublokkum"
 ],
 "barrier/kerb":[
 "Kantsteinn"
@@ -577,17 +643,32 @@
 "barrier/kissing_gate":[
 "Sjálflokandi hlið"
 ],
+"barrier/motorcycle_barrier":[
+"Mótorhjólahindrun"
+],
 "barrier/retaining_wall":[
 "Hallaveggur"
+],
+"barrier/sally_port":[
+"Virkishlið"
 ],
 "barrier/stile":[
 "Príla"
 ],
+"barrier/swing_gate":[
+"Sveifluhlið"
+],
 "barrier/toll_booth":[
 "Gjaldhlið"
 ],
+"barrier/turnstile":[
+"Snúningshlið"
+],
 "barrier/wall":[
 "Veggur"
+],
+"boundary":[
+"Svæðismörk"
 ],
 "boundary/administrative":[
 "Stjórnsýslumörk"
@@ -733,6 +814,9 @@
 "building_point":[
 "Bygging"
 ],
+"cemetery/grave":[
+"Gröf"
+],
 "club":[
 "Klúbbur"
 ],
@@ -787,6 +871,9 @@
 "craft/electronics_repair":[
 "Rafeindatækjaverkstæði"
 ],
+"craft/floorer":[
+"Gólflagnafyrirtæki"
+],
 "craft/gardener":[
 "Garðyrkjumaður"
 ],
@@ -795,6 +882,9 @@
 ],
 "craft/insulator":[
 "Einangrun"
+],
+"craft/joiner":[
+"Trésmíði"
 ],
 "craft/key_cutter":[
 "Lyklaþjónusta"
@@ -883,6 +973,9 @@
 "emergency/fire_extinguisher":[
 "Slökkvitæki"
 ],
+"emergency/fire_hose":[
+"Brunaslanga"
+],
 "emergency/fire_hydrant":[
 "Brunahani"
 ],
@@ -891,6 +984,12 @@
 ],
 "emergency/life_ring":[
 "Bjarghringur"
+],
+"emergency/lifeguard":[
+"Öryggisvörður"
+],
+"emergency/mountain_rescue":[
+"Fjallabjörgun"
 ],
 "emergency/no":[
 "Ekki neyðaraðgangur"
@@ -916,6 +1015,9 @@
 "ford":[
 "Vað"
 ],
+"ford_line":[
+"Vað"
+],
 "golf/bunker":[
 "Glompa"
 ],
@@ -928,11 +1030,17 @@
 "golf/hole":[
 "Golfhola"
 ],
+"golf/lateral_water_hazard":[
+"Vatnsgryfja til hliðar"
+],
 "golf/rough":[
 "Kargi"
 ],
 "golf/tee":[
 "Teigur"
+],
+"golf/water_hazard":[
+"Vatnsgryfja"
 ],
 "healthcare":[
 "Heilsugæsluaðstaða"
@@ -991,6 +1099,9 @@
 "highway/corridor":[
 "Gangur innanhúss"
 ],
+"highway/crossing":[
+"Þverun"
+],
 "highway/crossing/unmarked":[
 "Ómerkt gangbraut"
 ],
@@ -1000,14 +1111,26 @@
 "highway/elevator":[
 "Lyfta"
 ],
+"highway/emergency_access_point":[
+"Neyðaraðgangur"
+],
 "highway/footway":[
 "Göngustígur"
+],
+"highway/footway/crossing":[
+"Gangbraut"
+],
+"highway/footway/crossing/unmarked":[
+"Ómerkt gangbraut"
 ],
 "highway/footway/sidewalk":[
 "Gangstétt"
 ],
 "highway/give_way":[
 "Biðskyldumerki"
+],
+"highway/ladder":[
+"Stigi"
 ],
 "highway/living_street":[
 "Vistgata"
@@ -1115,6 +1238,9 @@
 "highway/traffic_signals":[
 "Umferðarljós"
 ],
+"highway/trailhead":[
+"Upphaf slóða"
+],
 "highway/trunk":[
 "Umferðaræð"
 ],
@@ -1139,6 +1265,9 @@
 "historic/boundary_stone":[
 "Landamerkjasteinn"
 ],
+"historic/cannon":[
+"Fallbyssa"
+],
 "historic/castle":[
 "Kastali"
 ],
@@ -1162,6 +1291,12 @@
 ],
 "historic/wreck":[
 "Skipsflak"
+],
+"indoor/corridor":[
+"Gangur innanhúss"
+],
+"indoor/corridor_line":[
+"Gangur innanhúss"
 ],
 "indoor/room":[
 "Herbergi"
@@ -1198,6 +1333,9 @@
 ],
 "landuse/farmyard":[
 "Bóndabýli"
+],
+"landuse/flowerbed":[
+"Blómabeð"
 ],
 "landuse/garages":[
 "Landnotkun fyrir verkstæði"
@@ -1277,6 +1415,9 @@
 "leisure/bird_hide":[
 "Fuglaskoðunarskýli"
 ],
+"leisure/bleachers":[
+"Áhorfendapallar"
+],
 "leisure/bowling_alley":[
 "Keiluhöll"
 ],
@@ -1339,6 +1480,9 @@
 ],
 "leisure/garden":[
 "Garður"
+],
+"leisure/garden/community":[
+"Samfélagsgarður"
 ],
 "leisure/golf_course":[
 "Golfvöllur"
@@ -1448,6 +1592,9 @@
 "leisure/track":[
 "Keppnisbraut (ekki mótorsport)"
 ],
+"leisure/track/athletics/running":[
+"Hlaupabraut"
+],
 "leisure/track/cycling":[
 "Hjólreiðabraut"
 ],
@@ -1469,11 +1616,23 @@
 "man_made/breakwater":[
 "Sjóvarnargarður"
 ],
+"man_made/bunker_silo":[
+"Gryfjusíló"
+],
+"man_made/cairn":[
+"Varða"
+],
 "man_made/chimney":[
 "Skorsteinn"
 ],
 "man_made/crane":[
 "Krani"
+],
+"man_made/crane/portal_crane":[
+"Hegri"
+],
+"man_made/cross":[
+"Kross"
 ],
 "man_made/cutline":[
 "Cut line"
@@ -1484,11 +1643,23 @@
 "man_made/flagpole":[
 "Fánastöng"
 ],
+"man_made/fuel_pump":[
+"Eldsneytisdæla"
+],
+"man_made/gantry":[
+"Tollhlið"
+],
 "man_made/gasometer":[
 "Gasmælir"
 ],
 "man_made/lighthouse":[
 "Viti"
+],
+"man_made/manhole":[
+"Mannop"
+],
+"man_made/manhole/drain":[
+"Yfirfall"
 ],
 "man_made/mast":[
 "Mastur"
@@ -1505,8 +1676,14 @@
 "man_made/mast/communication/television":[
 "Sjónvarpsmastur"
 ],
+"man_made/mineshaft":[
+"Námugöng"
+],
 "man_made/monitoring_station":[
 "Vöktunarstöð"
+],
+"man_made/obelisk":[
+"Bautasteinn"
 ],
 "man_made/observatory":[
 "Skoðunarstöð"
@@ -1523,14 +1700,23 @@
 "man_made/pipeline":[
 "Röraleiðsla"
 ],
+"man_made/planter":[
+"Gróðurílát"
+],
 "man_made/pumping_station":[
 "Dælustöð"
+],
+"man_made/reservoir_covered":[
+"Yfirbyggt vatnsforðabúr"
 ],
 "man_made/silo":[
 "Síló"
 ],
 "man_made/storage_tank":[
 "Geymslutankur"
+],
+"man_made/storage_tank/water":[
+"Vatnstankur"
 ],
 "man_made/surveillance":[
 "Eftirlit"
@@ -1549,6 +1735,9 @@
 ],
 "man_made/tower/communication":[
 "Samkiptaturn"
+],
+"man_made/tower/observation":[
+"Varðturn"
 ],
 "man_made/wastewater_plant":[
 "Skólphreinsistöð"
@@ -1571,6 +1760,9 @@
 "man_made/works":[
 "Verksmiðja"
 ],
+"marker":[
+"Vísir"
+],
 "natural/bare_rock":[
 "Berar klappir"
 ],
@@ -1579,6 +1771,9 @@
 ],
 "natural/beach":[
 "Strönd"
+],
+"natural/cape":[
+"Höfði"
 ],
 "natural/cave_entrance":[
 "skýli",
@@ -1595,6 +1790,9 @@
 "natural/fell":[
 "Fell"
 ],
+"natural/geyser":[
+"Goshver"
+],
 "natural/glacier":[
 "Jökull"
 ],
@@ -1603,6 +1801,9 @@
 ],
 "natural/heath":[
 "Mói"
+],
+"natural/hot_spring":[
+"Heit uppspretta"
 ],
 "natural/mud":[
 "Leðja"
@@ -1628,8 +1829,20 @@
 "natural/scrub":[
 "Kjarr"
 ],
+"natural/shingle":[
+"Möl"
+],
+"natural/shrub":[
+"Runni"
+],
+"natural/sinkhole":[
+"Jarðfall"
+],
 "natural/spring":[
 "Uppspretta"
+],
+"natural/strait":[
+"Sund"
 ],
 "natural/tree":[
 "Tré"
@@ -1637,11 +1850,20 @@
 "natural/tree_row":[
 "Trjáröð"
 ],
+"natural/tree_stump":[
+"Trjástúfur"
+],
+"natural/valley":[
+"Dalur"
+],
 "natural/volcano":[
 "Eldstöð"
 ],
 "natural/water":[
 "Vatn"
+],
+"natural/water/basin":[
+"Lægð"
 ],
 "natural/water/lake":[
 "Stöðuvatn"
@@ -1654,6 +1876,21 @@
 ],
 "natural/wetland":[
 "Votlendi"
+],
+"natural/wetland/bog":[
+"Fen"
+],
+"natural/wetland/fen":[
+"Starmýri"
+],
+"natural/wetland/mangrove":[
+"Leiruviðarskógur"
+],
+"natural/wetland/marsh":[
+"Votlendi"
+],
+"natural/wetland/swamp":[
+"Skógmýri"
 ],
 "noexit/yes":[
 "Enginn útgangur"
@@ -1687,6 +1924,12 @@
 ],
 "office/coworking":[
 "Sameiginlegt vinnurými"
+],
+"office/diplomatic/consulate":[
+"Ræðismaður"
+],
+"office/diplomatic/embassy":[
+"Sendiráð"
 ],
 "office/educational_institution":[
 "Menntastofnun"
@@ -1775,6 +2018,9 @@
 "office/water_utility":[
 "Skrifstofa vatnsveitu"
 ],
+"pipeline/valve":[
+"Leiðsluventill"
+],
 "piste/skitour":[
 "Ferðaskíðaleið"
 ],
@@ -1826,6 +2072,15 @@
 "place/village":[
 "Þorp"
 ],
+"playground/balancebeam":[
+"Jafnvægisslá"
+],
+"playground/basketrotator":[
+"Körfuhringróla"
+],
+"playground/basketswing":[
+"Körfuróla"
+],
 "playground/cushion":[
 "Hoppkoddi"
 ],
@@ -1841,6 +2096,9 @@
 "playground/slide":[
 "Rennibraut"
 ],
+"playground/springy":[
+"Rugguhestur"
+],
 "playground/structure":[
 "Leikjagrind"
 ],
@@ -1850,6 +2108,9 @@
 "point":[
 "Punktur"
 ],
+"power/cable":[
+"Aflkapall"
+],
 "power/cable/underground":[
 "Jarðstrengur"
 ],
@@ -1858,6 +2119,9 @@
 ],
 "power/generator/method/photovoltaic":[
 "Sólarpanell"
+],
+"power/generator/source/hydro":[
+"Vatnstúrbína"
 ],
 "power/generator/source/nuclear":[
 "Kjarnaofn"
@@ -1874,6 +2138,12 @@
 "power/plant":[
 "Orkuverslóð"
 ],
+"power/plant/source/nuclear":[
+"Kjarnorkuver"
+],
+"power/plant/source/solar":[
+"Sólorkuknúin aflstöð"
+],
 "power/pole":[
 "Rafmagnsstaur"
 ],
@@ -1889,8 +2159,39 @@
 "power/transformer":[
 "Straumbreytir"
 ],
+"public_transport/platform/aerialway_point":[
+"Lyftustöð / Biðsvæði"
+],
+"public_transport/platform/bus":[
+"Strætisvagnabiðpallur"
+],
 "public_transport/platform/bus_point":[
 "Strætó stoppistöð"
+],
+"public_transport/platform/ferry_point":[
+"Ferjustöð / Biðsvæði"
+],
+"public_transport/platform/light_rail_point":[
+"Léttlestarstoppistöð / Biðsvæði"
+],
+"public_transport/platform/monorail_point":[
+"Einteinungsstoppistöð / Biðsvæði"
+],
+"public_transport/platform/subway_point":[
+"Neðanjarðarlestarpallur"
+],
+"public_transport/platform/train_point":[
+"Lestarpallur"
+],
+"public_transport/platform/tram_point":[
+"Sporvagnastoppistöð / Biðsvæði"
+],
+"public_transport/platform_point":[
+"Biðstöð / Biðsvæði",
+"strætó",
+"almenningssamgöngur",
+"samgöngur",
+"stoppistöð"
 ],
 "public_transport/station":[
 "Umferðarmiðstöð",
@@ -1905,6 +2206,9 @@
 ],
 "public_transport/station_bus":[
 "Strætisvagnastöð / Umferðarmiðstöð"
+],
+"public_transport/station_ferry":[
+"Ferjustöð"
 ],
 "public_transport/station_light_rail":[
 "Léttlestarstöð"
@@ -2382,6 +2686,12 @@
 "tourism/artwork":[
 "Listaverk"
 ],
+"tourism/artwork/bust":[
+"Brjóstmynd"
+],
+"tourism/artwork/graffiti":[
+"Veggjakrot"
+],
 "tourism/artwork/mural":[
 "Veggmynd"
 ],
@@ -2393,6 +2703,9 @@
 ],
 "tourism/attraction":[
 "Ferðamannagildra"
+],
+"tourism/camp_pitch":[
+"Tjaldstæðishólf"
 ],
 "tourism/camp_site":[
 "Tjaldsvæði"
@@ -2426,6 +2739,9 @@
 ],
 "tourism/information/map":[
 "Kort"
+],
+"tourism/information/terminal":[
+"Upplýsingaskjár"
 ],
 "tourism/motel":[
 "Mótel"
@@ -2481,11 +2797,17 @@
 "traffic_sign/city_limit":[
 "Þéttbýlis skilti"
 ],
+"traffic_sign/maxspeed":[
+"Skilti fyrir hraðatakmörk"
+],
 "type/boundary":[
 "Svæðamörk"
 ],
 "type/boundary/administrative":[
 "Stjórnsýslumörk"
+],
+"type/destination_sign":[
+"Skilti með áfangastað"
 ],
 "type/multipolygon":[
 "Fjölhyrningur"
@@ -2502,6 +2824,9 @@
 "type/route":[
 "Leið"
 ],
+"type/route/bicycle":[
+"Hjólaleið"
+],
 "type/route/bus":[
 "Strætóleið"
 ],
@@ -2511,11 +2836,17 @@
 "type/route/ferry":[
 "Ferjuleið"
 ],
+"type/route/foot":[
+"Gönguleið"
+],
 "type/route/hiking":[
 "Gönguleið"
 ],
 "type/route/light_rail":[
 "Léttlestarleið"
+],
+"type/route/mtb":[
+"Fjallahjólaleið"
 ],
 "type/route/pipeline":[
 "Röraleið"
@@ -2525,6 +2856,9 @@
 ],
 "type/route/power":[
 "Orkuflutningsleið"
+],
+"type/route/railway":[
+"Lestarleið"
 ],
 "type/route/road":[
 "Vegaleið"
@@ -2567,6 +2901,9 @@
 ],
 "waterway/fuel":[
 "Eldsneytisstöð fyrir báta"
+],
+"waterway/lock_gate":[
+"Skipastigi"
 ],
 "waterway/river":[
 "Á"

@@ -10,7 +10,13 @@
 "ban"
 ],
 "advertising":[
-"Système publicitaire"
+"kakémono",
+"enseigne lumineuse",
+"panneau publicitaire",
+"flamme",
+"Système publicitaire",
+"drapeau",
+"néon"
 ],
 "advertising/billboard":[
 "affiche",
@@ -435,10 +441,17 @@
 "magasin de vélos",
 "atelier de réparation de vélos",
 "bicycle repair station",
-"Stand d'outils de réparation de vélos"
+"Station de réparation de vélos"
 ],
 "amenity/bicycle_wash":[
-"Lavage de vélo"
+"bicyclette",
+"nettoyage vélo",
+"nettoyage bicyclettes",
+"rincer vélos",
+"cyclisme",
+"cycle",
+"Lavage de vélo",
+"vélo"
 ],
 "amenity/biergarten":[
 "brasserie en plein air",
@@ -671,22 +684,51 @@
 "Centre communautaire",
 "centre d'animation"
 ],
+"amenity/community_centre/club_home":[
+"local associatif",
+"Salle de club"
+],
+"amenity/community_centre/community_hall":[
+"centre communal",
+"salle des fêtes",
+"salle communale",
+"Salle polyvalente"
+],
+"amenity/community_centre/cultural_centre":[
+"Centre culturel",
+"exposition"
+],
+"amenity/community_centre/family_centre":[
+"planning familial",
+"Centre familial",
+"aide sociale",
+"centre social"
+],
 "amenity/community_centre/lgbtq":[
 "maison des associations",
 "lgbtq",
 "salle festive",
 "salle des fetes",
 "salle polyvalente",
-"Salle polyvalente LGBTQ+",
 "community centre",
 "salle des associations",
 "salle des fètes",
 "lesbien",
+"Centre communataire LGBTQ+",
 "salle des fêtes",
 "centre communautaire",
 "maison de quartier",
 "gay",
 "centre d'animation"
+],
+"amenity/community_centre/parish_hall":[
+"salle religieuse",
+"Salle de réunion religieuse"
+],
+"amenity/community_centre/village_hall":[
+"Salle des fêtes",
+"salle des fêtes",
+"salle du village"
 ],
 "amenity/community_centre/youth_centre":[
 "jeunesse",
@@ -697,8 +739,9 @@
 "centre"
 ],
 "amenity/compressed_air":[
+"Station de gonflage",
 "compressed air",
-"Air comprimé",
+"station de gonflage",
 "air comprimé"
 ],
 "amenity/conference_centre":[
@@ -1096,6 +1139,12 @@
 "poulet",
 "kfc"
 ],
+"amenity/fast_food/chinese":[
+"chinois",
+"nems",
+"Fast food chinois",
+"dim sum"
+],
 "amenity/fast_food/donut":[
 "vente à emporter",
 "fast food",
@@ -1254,7 +1303,12 @@
 "pompe à carburant"
 ],
 "amenity/funeral_hall":[
-"Salle de service funéraire"
+"Salle de service funéraire",
+"funérarium",
+"maison funéraire",
+"morgue",
+"services d’arrangements funéraires",
+"croquemort"
 ],
 "amenity/gambling":[
 "black jack",
@@ -1302,9 +1356,8 @@
 "Bar à chicha"
 ],
 "amenity/hospital":[
-"hôpital",
-"terrains d'hôpital",
-"Terrains hospitaliers"
+"Centre hospitalier",
+"hôpital"
 ],
 "amenity/hunting_stand":[
 "Mirador de chasse",
@@ -1334,6 +1387,7 @@
 "amenity/kindergarten":[
 "kindergarten",
 "nurserie",
+"Crèche, garderie, jardin d'enfants (terrain)",
 "créche",
 "crêche",
 "childcare",
@@ -1342,7 +1396,6 @@
 "halte-garderie",
 "enfant",
 "jardin d'enfants",
-"Crèche, garderie",
 "creche"
 ],
 "amenity/kneipp_water_cure":[
@@ -1378,7 +1431,10 @@
 "médiathèque"
 ],
 "amenity/library_dropoff":[
-"Boîte de retour de livres"
+"Boîte de retour de livres",
+"bibliothèque",
+"boîtes de retour des prêtes",
+"médiathèque"
 ],
 "amenity/loading_dock":[
 "embarcadère",
@@ -1461,7 +1517,7 @@
 "gay"
 ],
 "amenity/nursing_home":[
-"Maison de repos"
+"Maison de soin, handicapé,longue durée"
 ],
 "amenity/parcel_locker":[
 "paquets",
@@ -1490,12 +1546,12 @@
 ],
 "amenity/parking/street-side":[
 "parking",
-"Stationnement de rue",
 "rue",
 "zone",
 "aire",
 "stationnement",
-"chaussée"
+"chaussée",
+"Parking en bordure de voie"
 ],
 "amenity/parking/underground":[
 "sous-terrain",
@@ -1666,8 +1722,8 @@
 "élections"
 ],
 "amenity/post_box":[
-"boîte aux lettres",
-"boite aux lettres",
+"boîte aux lettres d'expédition",
+"boîte aux lettres (envoi)",
 "Boîte aux lettres (envoi)"
 ],
 "amenity/post_depot":[
@@ -1731,7 +1787,7 @@
 ],
 "amenity/public_bookcase":[
 "armoire à livres",
-"Microbibliothèque",
+"Boîte à livres",
 "boîte à livres",
 "bibliothèque en libre service",
 "micro-bibliothèque"
@@ -1796,6 +1852,7 @@
 "recherche et développement"
 ],
 "amenity/restaurant":[
+"auberge",
 "Restaurant",
 "restaurant",
 "brasserie"
@@ -2030,8 +2087,8 @@
 "Abri de pique-nique"
 ],
 "amenity/shelter/public_transport":[
-"arrêt de bus",
-"zone d'attente",
+"zone d'attente abritée voyageur",
+"abri de transport en commun",
 "Abri de transport en commun"
 ],
 "amenity/shower":[
@@ -2055,9 +2112,9 @@
 "centre social"
 ],
 "amenity/social_facility":[
-"assistance sociale",
-"services sociaux",
-"Établissement de services sociaux"
+"structure sociale",
+"Structure sociale",
+"etablissement de services sociaux"
 ],
 "amenity/social_facility/ambulatory_care":[
 "Soins ambulatoires",
@@ -2080,11 +2137,10 @@
 "Foyer pour sans-abri"
 ],
 "amenity/social_facility/nursing_home":[
-"ehpad",
-"Maison de repos",
-"maison de repos",
-"maison de convalescence",
-"maison de retraite médicalisée"
+"médicalisé",
+"maison de retraite médicalisée",
+"EHPAD",
+"personnes âgées"
 ],
 "amenity/stripclub":[
 "strip-tease",
@@ -2136,9 +2192,28 @@
 "tournage",
 "Studio de cinéma"
 ],
+"amenity/swingerclub":[
+"strip",
+"adulte",
+"sauna",
+"club libertin",
+"sexe",
+"boîte de nuit échangiste",
+"Club échangiste",
+"porn"
+],
 "amenity/taxi":[
 "station de taxi",
 "Station de taxi"
+],
+"amenity/taxi/auto_rickshaw":[
+"cyclo-pousse",
+"station de pousse-pousse",
+"Station de Tuk-tuk"
+],
+"amenity/taxi/cycle_rickshaw":[
+"Station de vélo-taxi",
+"station de velhop"
 ],
 "amenity/taxi/motorcycle_taxi":[
 "station de moto-taxi",
@@ -2155,9 +2230,8 @@
 "théâtre"
 ],
 "amenity/theatre/type/amphi":[
-"grecque",
-"extérieur",
-"plein air",
+"auditoire",
+"amphithéâtre",
 "Amphithéâtre",
 "amphi"
 ],
@@ -2234,12 +2308,12 @@
 "amenity/university":[
 "college",
 "post bac",
+"Université, établissement d'enseignement supérieur, campus (terrain)",
 "haute école",
 "campus",
 "university",
 "ecole superieure",
 "universitaire",
-"Université, enseignement supérieur universitaire - institution ou campus (terrain)",
 "école supérieure",
 "institut",
 "école",
@@ -2634,6 +2708,7 @@
 "espace",
 "surface",
 "closed way",
+"Zone",
 "chemin fermé",
 "carré",
 "surface polygonale",
@@ -2648,7 +2723,6 @@
 "cercle",
 "rectangle",
 "terrain",
-"Polygone",
 "lieu",
 "territoire"
 ],
@@ -2668,6 +2742,15 @@
 "chaussée",
 "area highway",
 "Route - tracé surfacique"
+],
+"area/highway/traffic_island":[
+"îlot refuge",
+"deux temps",
+"2 temps",
+"îlot de sécurité",
+"îlot de protection",
+"traversée",
+"Îlot central"
 ],
 "attraction":[
 "Attraction touristique"
@@ -3124,8 +3207,8 @@
 "bord",
 "relèvement de trottoir",
 "trottoir",
-"Bordure de trottoir relevée",
-"trottoir relevé"
+"trottoir surélevé",
+"Bordure de trottoir surélevée"
 ],
 "barrier/kerb/rolled":[
 "gouttière",
@@ -3536,7 +3619,9 @@
 "destruction"
 ],
 "building/cowshed":[
-"etable",
+"bétail",
+"vache",
+"stabulation",
 "Étable",
 "étable"
 ],
@@ -3687,9 +3772,9 @@
 "Bâtiment industriel"
 ],
 "building/kindergarten":[
+"Bâtiment de crèche, garderie, jardin d'enfants",
 "école maternelle",
 "crèche",
-"Bâtiment de crèche, garderie",
 "halte-garderie"
 ],
 "building/manufacture":[
@@ -3772,21 +3857,21 @@
 "maison avec mur mitoyen",
 "pavillon mitoyen",
 "semidetached house",
-"Maison jumelée",
 "semi detached house",
 "maisons mitoyennes",
 "pavillons mitoyens",
 "building semidetached house",
 "maisons jumelles",
 "maisons jumelées",
+"Maison mitoyenne",
 "maisons avec mur mitoyen",
 "maison jumelée",
 "maison mitoyenne"
 ],
 "building/service":[
 "bâtiment de services",
+"Bâtiment de service (technique)",
 "batiment de services",
-"Bâtiment de services",
 "services"
 ],
 "building/shed":[
@@ -3796,7 +3881,10 @@
 "resserre"
 ],
 "building/stable":[
-"Étable",
+"équestre",
+"cheval",
+"chevaux",
+"Écurie",
 "étable"
 ],
 "building/stadium":[
@@ -3837,7 +3925,7 @@
 "Rangée de maisons de ville"
 ],
 "building/train_station":[
-"Gare ferroviaire"
+"Gare ferroviaire (bâtiment)"
 ],
 "building/transportation":[
 "transports publics",
@@ -4252,7 +4340,7 @@
 "Équipement ferroviaire désaffecté"
 ],
 "disused/shop":[
-"Magasin désaffectée"
+"Magasin désaffecté"
 ],
 "embankment":[
 "Terre-plein"
@@ -4282,6 +4370,15 @@
 "emergency/destination":[
 "Accessible aux services d'urgences"
 ],
+"emergency/disaster_response":[
+"centre d'intervention d'urgence",
+"ercc",
+"centre de coordination de la réaction d'urgence",
+"centre de réponse à la catastrophe",
+"centre de réaction d'urgence",
+"echo",
+"Centre de réponse d'urgence"
+],
 "emergency/fire_alarm":[
 "alarme",
 "incendie",
@@ -4306,17 +4403,36 @@
 ],
 "emergency/fire_hydrant":[
 "hydrant",
+"Borne d'incendie",
 "point d'eau incendie",
 "borne-fontaine",
 "bouche d'incendie",
 "borne incendie",
 "fire hydrant",
 "poteau incendie",
-"Borne incendie",
 "borne fontaine"
 ],
 "emergency/fire_hydrant/pillar":[
-"Borne d'incendie"
+"hydrant",
+"point d'eau incendie",
+"borne-fontaine",
+"bouche d'incendie",
+"borne incendie",
+"Poteau incendie",
+"fire hydrant",
+"poteau incendie",
+"borne fontaine"
+],
+"emergency/fire_hydrant/underground":[
+"hydrant",
+"Borne d'incendie souterraine",
+"borne-fontaine souterraine",
+"borne incendie souterraine",
+"point d'eau incendie",
+"bouche d'incendie souterraine",
+"fire hydrant",
+"borne fontaine souterraine",
+"poteau incendie souterrain"
 ],
 "emergency/fire_service_inlet":[
 "Colonne sèche",
@@ -4451,6 +4567,9 @@
 "accès",
 "porte",
 "entrée"
+],
+"entrance/shop":[
+"Entrée de commerce"
 ],
 "entrance/staircase":[
 "accès d'escalier",
@@ -4706,7 +4825,8 @@
 ],
 "highway/construction":[
 "route en travaux",
-"Route en travaux"
+"Route en travaux",
+"route en construction"
 ],
 "highway/corridor":[
 "Couloir intérieur",
@@ -4765,9 +4885,9 @@
 ],
 "highway/cycleway/crossing/uncontrolled":[
 "passage clouté",
-"Passage cycliste marqué",
 "passage piéton",
-"passage cycliste"
+"passage cycliste",
+"Passage cycliste non protégé"
 ],
 "highway/cycleway/crossing/unmarked":[
 "Passage cycliste non marqué",
@@ -4783,6 +4903,18 @@
 "chemin",
 "liaison",
 "vélomoteur"
+],
+"highway/cycleway/traffic_island":[
+"Îlot central"
+],
+"highway/cycleway/traffic_island_shared":[
+"Îlot central"
+],
+"highway/cyclist_waiting_aid":[
+"sas à vélo",
+"Support d'attente cycliste",
+"sas pour vélo",
+"sas cycliste"
 ],
 "highway/elevator":[
 "monte-charge",
@@ -4836,8 +4968,9 @@
 "acces"
 ],
 "highway/footway/conveying":[
-"Tapis roulant",
-"tapis roulant"
+"Tapis roulant marchable",
+"trottoir roulant",
+"tapis roulant marchable"
 ],
 "highway/footway/crossing":[
 "passage piéton",
@@ -4882,7 +5015,8 @@
 "Cédez-le-passage"
 ],
 "highway/ladder":[
-"Échelle"
+"Échelle",
+"escabeau"
 ],
 "highway/living_street":[
 "zone de rencontre",
@@ -4933,6 +5067,18 @@
 "passerelle",
 "caillebotis"
 ],
+"highway/path/crossing":[
+"Traversée piétonne et cycliste"
+],
+"highway/path/crossing/traffic_signals":[
+"Traversée piétonne et cycliste avec feux piétons"
+],
+"highway/path/crossing/uncontrolled":[
+"Traversée piétonne et cycliste marquée"
+],
+"highway/path/crossing/unmarked":[
+"Traversée piétonne et cycliste non marquée"
+],
 "highway/path/informal":[
 "chemin spontané",
 "Chemin informel",
@@ -4945,7 +5091,7 @@
 "piétonnier",
 "zone piétonne",
 "zone piétonnière",
-"Zone piétonne"
+"Aire piétonne"
 ],
 "highway/pedestrian_line":[
 "rue piétonne",
@@ -5117,7 +5263,7 @@
 "route forestière",
 "piste agricole",
 "chemin non entretenu",
-"Piste agricole ou forestière",
+"Piste agricole, forestière, accès à une terre",
 "piste pare-feu",
 "chemin carrossable",
 "chemin d'exploitation"
@@ -5128,9 +5274,10 @@
 ],
 "highway/traffic_signals":[
 "feux rouges",
-"Feux tricolores",
+"Feux de signalisation routière",
 "feux tricolores",
-"feux de circulation"
+"feux de circulation",
+"feux de signalisation"
 ],
 "highway/trailhead":[
 "début",
@@ -5156,7 +5303,7 @@
 ],
 "highway/turning_circle":[
 "Zone de manœuvre",
-"point de retournement"
+"point de retournement;zone de manœuvre"
 ],
 "highway/turning_loop":[
 "boucle de manœuvre (îlot central)",
@@ -5398,10 +5545,9 @@
 "Bassin"
 ],
 "landuse/brownfield":[
-"squat",
-"friche",
-"abandonné",
-"Terrain en friche"
+"Terrain en friche",
+"terrain en friche",
+"terrain abandonné"
 ],
 "landuse/cemetery":[
 "cimetière",
@@ -5411,10 +5557,10 @@
 "Terrain entourant une église"
 ],
 "landuse/commercial":[
+"Zone tertiaire",
 "cité administrative",
 "zone de bureaux",
-"zone d'activités",
-"Zone de bureaux"
+"zone tertiaire"
 ],
 "landuse/construction":[
 "zone de construction",
@@ -5491,7 +5637,9 @@
 ],
 "landuse/industrial":[
 "Zone industrielle",
-"usines"
+"manufacture",
+"usine",
+"zone industrielle"
 ],
 "landuse/industrial/depot":[
 "Dépôt",
@@ -5514,6 +5662,12 @@
 "landuse/meadow":[
 "Prairie",
 "prairie"
+],
+"landuse/meadow_orchard/meadow":[
+"Prairie avec arbres fruitiers"
+],
+"landuse/meadow_orchard/orchard":[
+"Verger planté dans une prairie"
 ],
 "landuse/orchard":[
 "verger",
@@ -5619,6 +5773,11 @@
 "kiosque à musique",
 "Kiosque à musique",
 "kioske à musique"
+],
+"leisure/bathing_place":[
+"Endroit de baignade",
+"lieu de baignade",
+"aire de baignade"
 ],
 "leisure/beach_resort":[
 "plage.",
@@ -5834,7 +5993,7 @@
 "Patinoire"
 ],
 "leisure/indoor_play":[
-"Centre de jeux en intérieur",
+"Salle de jeux intérieur",
 "intérieur",
 "centre",
 "enfants",
@@ -5974,8 +6133,8 @@
 ],
 "leisure/pitch/boules":[
 "bocce",
+"pétanque",
 "lyonnaise",
-"terrain de pétanque",
 "Terrain de boules (Pétanque, Bocce...)"
 ],
 "leisure/pitch/bowls":[
@@ -6219,6 +6378,9 @@
 "galop",
 "pari"
 ],
+"leisure/sports_centre/karting":[
+"Karting"
+],
 "leisure/sports_centre/shooting":[
 "complexe",
 "cible",
@@ -6389,6 +6551,12 @@
 "cheminée",
 "Cheminée"
 ],
+"man_made/clarifier":[
+"clarificateur d'eaux usées",
+"clarificateur",
+"décanteur",
+"Clarificateur d'eaux usées"
+],
 "man_made/clearcut":[
 "bucheron",
 "arbres coupés",
@@ -6457,6 +6625,17 @@
 "mât de drapeau",
 "hampe",
 "drapeau"
+],
+"man_made/flare":[
+"gaz",
+"feu",
+"pétrole",
+"Torchère",
+"torchère à gaz",
+"brûleur"
+],
+"man_made/footwear_decontamination-AU-NZ":[
+"Station de décontamination des chaussures"
 ],
 "man_made/fuel_pump":[
 "Pompe à essence",
@@ -6714,6 +6893,9 @@
 "emplacement de stockage",
 "réservoir",
 "Silo"
+],
+"man_made/ski_jump":[
+"Tour de saut à ski"
 ],
 "man_made/storage_tank":[
 "silo de stockage",
@@ -7009,6 +7191,9 @@
 "natural":[
 "Élément naturel"
 ],
+"natural/arch":[
+"Arche Naturelle"
+],
 "natural/bare_rock":[
 "rochers",
 "Zone Rocheuse",
@@ -7063,6 +7248,7 @@
 "glacier"
 ],
 "natural/grassland":[
+"zone naturelle à dominance herbacée",
 "prairie",
 "Prairie naturelle"
 ],
@@ -7185,6 +7371,7 @@
 ],
 "natural/tree/broadleaved/deciduous":[
 "arbres feuillus (décidus)",
+"chêne",
 "Arbres feuillus (décidus)"
 ],
 "natural/tree/broadleaved/evergreen":[
@@ -7198,7 +7385,10 @@
 ],
 "natural/tree/needleleaved/evergreen":[
 "arbres à aiguilles (à l'année)",
-"Arbres à aiguilles (à l'année)"
+"pin",
+"sapin",
+"Arbres à aiguilles (à l'année)",
+"épicéa"
 ],
 "natural/tree_row":[
 "arbres alignés",
@@ -7261,8 +7451,8 @@
 "natural/water/reservoir":[
 "lac artificiel",
 "réservoir",
-"Bassin de retenue",
-"bassin de retenue"
+"bassin de retenue",
+"Bassin de rétention"
 ],
 "natural/water/river":[
 "rivière",
@@ -7660,6 +7850,9 @@
 "utiliser healthcare=doctor ou alternative à la place",
 "obsolète"
 ],
+"office/translator":[
+"Bureau de traduction"
+],
 "office/travel_agent":[
 "Agence de voyage"
 ],
@@ -7727,20 +7920,10 @@
 "Piste de ski de fond"
 ],
 "piste/piste":[
-"piste alpine",
-"sentier nordique",
-"piste de snowboard",
-"piste de luge",
-"piste de patins à glace",
-"sentier de ski de randonnée",
-"piste de chiens de traineau",
-"piste de ski",
-"Type de piste / sentier hivernal",
-"piste de ski de fond",
-"piste de traîneau à cheval",
-"piste de descente",
-"sentier hivernal",
-"sentier de raquette"
+"piste de sports d'hiver (type non spécifié)"
+],
+"piste/ski_jump":[
+"Piste de saut à ski"
 ],
 "piste/skitour":[
 "ski",
@@ -7764,12 +7947,16 @@
 "traineau",
 "Piste de traîneau"
 ],
+"piste/take_off":[
+"rampe de saut à ski",
+"Tremplin de saut à ski"
+],
 "place":[
 "Lieu"
 ],
 "place/city":[
 "ville",
-"Grande ville (plus de 100 000 habitants)"
+"Ville"
 ],
 "place/city_block":[
 "bloc",
@@ -7783,8 +7970,8 @@
 "place/hamlet":[
 "lieu-dit",
 "hameau",
-"lieu dit",
-"Lieu-dit ou hameau"
+"Hameau ou lieu-dit habité",
+"lieu dit"
 ],
 "place/island":[
 "île",
@@ -7804,19 +7991,19 @@
 "Lieu-dit non habité"
 ],
 "place/neighbourhood":[
-"environs",
-"voisinage",
+"faubourg (sous-division d'un quartier)",
 "cité",
-"quartier",
-"Quartier de voisinage"
+"Cité, résidence, faubourg (sous-division d'un quartier)",
+"résidence"
 ],
 "place/plot":[
 "terrains",
 "Parcelle"
 ],
 "place/quarter":[
-"quartier",
-"Quartier"
+"banlieue)",
+"quartier (sous-division d'un grand quartier",
+"Quartier (sous-division d'un grand quartier, banlieue)"
 ],
 "place/square":[
 "square",
@@ -7825,16 +8012,17 @@
 "Place"
 ],
 "place/suburb":[
-"Banlieue",
+"grand quartier",
+"Grand quartier, banlieue",
 "banlieue"
 ],
 "place/town":[
 "ville",
-"Ville (de 10 000 à 100 000 habitants)"
+"Petite ville ou ville moyenne"
 ],
 "place/village":[
-"village",
-"Village (de 100 à 10 000 habitants)"
+"Village",
+"village"
 ],
 "playground":[
 "Module de jeux pour enfants"
@@ -8054,11 +8242,11 @@
 ],
 "power/catenary_mast":[
 "tramway",
-"Caténaire",
 "caténaire",
 "câble",
 "éléctrique",
 "alimentation",
+"Mât de caténaire",
 "train",
 "trolley"
 ],
@@ -8257,6 +8445,7 @@
 "bus",
 "station de bus",
 "stop",
+"Quai d'arrêt de bus",
 "car",
 "gare de bus",
 "arrêt",
@@ -8264,8 +8453,7 @@
 "arrêt de bus",
 "quai de bus",
 "gare",
-"attente voyageur",
-"Arrêt de bus"
+"attente voyageur"
 ],
 "public_transport/platform/bus_point":[
 "bus",
@@ -8506,7 +8694,7 @@
 "gare ferroviaire",
 "station ferroviaire",
 "stop",
-"Gare ferroviaire",
+"Gare ferroviaire (zone d'ensemble ou point central)",
 "arrêt",
 "station",
 "gare",
@@ -8514,8 +8702,8 @@
 ],
 "public_transport/station_train_halt":[
 "gare ferroviaire",
+"Halte ferroviaire (zone d'ensemble ou point central)",
 "stop",
-"Gare ferroviaire (arrêt à la demande)",
 "arrêt",
 "station ferorviaire",
 "station",
@@ -8663,7 +8851,7 @@
 "Rail pour funiculaire"
 ],
 "railway/halt":[
-"Gare ferroviaire (arrêt à la demande)"
+"Halte ferroviaire"
 ],
 "railway/level_crossing":[
 "Passage à niveau (route)",
@@ -8727,9 +8915,9 @@
 "croisement à niveau de voies ferrées"
 ],
 "railway/signal":[
-"signalisation ferroviaire",
-"feux tricolores ferroviaires",
-"Feux tricolores ferroviaires"
+"feux ferroviaires",
+"Feux de signalisation ferroviaire",
+"feux de signalisation ferroviaire"
 ],
 "railway/station":[
 "Gare ferroviaire"
@@ -8793,6 +8981,14 @@
 "relation":[
 "Relation",
 "relation"
+],
+"roller_coaster/station":[
+"station de grand huit",
+"Station de montagnes russes"
+],
+"roller_coaster/support":[
+"Support de montagnes russes",
+"support de grand huit"
 ],
 "roller_coaster/track":[
 "Voie de montagnes russes",
@@ -9389,11 +9585,14 @@
 "boutique de souvenirs",
 "Boutique de cadeaux"
 ],
+"shop/gold_buyer":[
+"Acheteur d'or"
+],
 "shop/greengrocer":[
 "primeur",
 "marchand de fruits et légumes",
 "maraîcher",
-"Marchand de fruits et légumes",
+"Primeur",
 "fruiterie",
 "maraicher"
 ],
@@ -9401,6 +9600,11 @@
 "Salon de coiffure",
 "coiffeur",
 "barbier"
+],
+"shop/hairdresser/barber":[
+"Barbier",
+"barbe",
+"coiffeur"
 ],
 "shop/hairdresser_supply":[
 "shampoings",
@@ -9584,8 +9788,11 @@
 "Réparateur de motos"
 ],
 "shop/music":[
-"magasin de musique",
-"Magasin de musique"
+"cd",
+"disques",
+"disque vinyle",
+"Disquaire",
+"cassettes"
 ],
 "shop/musical_instrument":[
 "magasin d'instruments de musique",
@@ -9594,11 +9801,11 @@
 "shop/newsagent":[
 "kiosque",
 "presse",
-"Kiosque à journaux",
 "journaux",
 "magazines",
-"magasin",
-"échoppe"
+"marchand",
+"Marchand de journaux",
+"maison de la presse"
 ],
 "shop/nutrition_supplements":[
 "compléments alimentaires;compléments nutritionnels",
@@ -9891,8 +10098,8 @@
 ],
 "shop/vacant":[
 "lot vacant",
-"Commerce désaffecté",
-"espace vacant"
+"espace vacant",
+"Commerce vacant"
 ],
 "shop/vacuum_cleaner":[
 "aspirateur",
@@ -10197,8 +10404,8 @@
 "refuge de bivouac"
 ],
 "tourism/zoo":[
-"Parc zoologique",
-"zoo"
+"zoo",
+"Zoo"
 ],
 "tourism/zoo/petting":[
 "ménagerie",
@@ -10255,6 +10462,12 @@
 "gendarme couché"
 ],
 "traffic_calming/island":[
+"îlot refuge",
+"deux temps",
+"2 temps",
+"îlot de sécurité",
+"îlot de protection",
+"traversée",
 "Îlot d'apaisement du trafic"
 ],
 "traffic_calming/mini_bumps":[

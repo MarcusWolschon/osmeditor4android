@@ -189,6 +189,9 @@
 "tribunal",
 "audiencia"
 ],
+"amenity/coworking_space":[
+"Espaciu de trabayu compartíu"
+],
 "amenity/crematorium":[
 "Crematoriu"
 ],
@@ -201,6 +204,9 @@
 "médicu",
 "especialista",
 "Doctor"
+],
+"amenity/doctors/podiatry":[
+"Pediatra"
 ],
 "amenity/dojo":[
 "Dojo / Academia d'artes marciales",
@@ -281,6 +287,9 @@
 "disco",
 "baille",
 "Discoteca"
+],
+"amenity/parking":[
+"Aparcamientu"
 ],
 "amenity/parking_space":[
 "Espaciu d'aparcamientu"
@@ -411,7 +420,9 @@
 "Campus universitariu"
 ],
 "amenity/vending_machine":[
-"Máquina de venta automática"
+"máquina",
+"Máquina de venta automática",
+"autoventa"
 ],
 "amenity/vending_machine/cigarettes":[
 "Máquina de venta de tabacu"
@@ -433,6 +444,9 @@
 "tampón",
 "Máquina de venta d'hixénicos femeninos",
 "máquina"
+],
+"amenity/vending_machine/food/snacks":[
+"Máquina de venta de llambionaes"
 ],
 "amenity/vending_machine/newspapers":[
 "revistes",
@@ -532,6 +546,9 @@
 "barrier/gate":[
 "Puerta"
 ],
+"barrier/handrail":[
+"Pasamanes"
+],
 "barrier/hedge":[
 "Sebe"
 ],
@@ -549,6 +566,9 @@
 ],
 "barrier/wall":[
 "Muria"
+],
+"boundary":[
+"Llende"
 ],
 "boundary/administrative":[
 "Llende alministrativa"
@@ -665,6 +685,9 @@
 "building/warehouse":[
 "nave d'almacenamientu",
 "Almacén"
+],
+"building_point":[
+"Edificiu"
 ],
 "craft":[
 "Oficiu",
@@ -855,6 +878,9 @@
 "ford":[
 "Vau"
 ],
+"ford_line":[
+"Vau"
+],
 "golf/bunker":[
 "Trampa de sable",
 "areneru",
@@ -870,11 +896,17 @@
 "golf/hole":[
 "Furacu de golf"
 ],
+"golf/lateral_water_hazard":[
+"Llagu d'agua llateral en golf"
+],
 "golf/rough":[
 "Rough de golf"
 ],
 "golf/tee":[
 "Salida de percorríu"
+],
+"golf/water_hazard":[
+"Llagu de golf"
 ],
 "healthcare":[
 "Instalación sanitaria"
@@ -922,6 +954,11 @@
 "highway/corridor":[
 "Pasiellu d'edificiu"
 ],
+"highway/crossing":[
+"cruce de víes",
+"Pasu de peatones",
+"pasu"
+],
 "highway/cycleway":[
 "Camín ciclista"
 ],
@@ -933,6 +970,9 @@
 "Camín peatonal",
 "senderu",
 "sienda"
+],
+"highway/footway/sidewalk":[
+"Cera"
 ],
 "highway/give_way":[
 "Señal de dexar pasu"
@@ -1105,6 +1145,12 @@
 "historic/wayside_shrine":[
 "Capiella de camín"
 ],
+"indoor/corridor":[
+"Pasiellu d'edificiu"
+],
+"indoor/corridor_line":[
+"Pasiellu d'edificiu"
+],
 "junction":[
 "Crucie"
 ],
@@ -1165,8 +1211,14 @@
 "landuse/plant_nursery":[
 "Viveru"
 ],
+"landuse/pond":[
+"Estanque"
+],
 "landuse/quarry":[
 "Cantera"
+],
+"landuse/reservoir":[
+"Embalse"
 ],
 "landuse/residential":[
 "Área de viviendes"
@@ -1206,6 +1258,9 @@
 ],
 "leisure/garden":[
 "Xardín"
+],
+"leisure/garden/community":[
+"Xardín acomuñáu"
 ],
 "leisure/golf_course":[
 "Campu de golf"
@@ -1300,6 +1355,14 @@
 "leisure/track":[
 "Circuitu (Deportes sin motor)"
 ],
+"leisure/track/athletics/running":[
+"Pista d'atletismu"
+],
+"leisure/track/running":[
+"Pista d'atletismu",
+"circuitu",
+"pista"
+],
 "leisure/water_park":[
 "Parque acuáticu"
 ],
@@ -1319,11 +1382,15 @@
 "man_made/crane":[
 "Grúa"
 ],
+"man_made/crane/portal_crane":[
+"Pórticu"
+],
 "man_made/cutline":[
 "Cortafuéu"
 ],
 "man_made/embankment":[
-"Terremplén"
+"Terremplén",
+"rellenu"
 ],
 "man_made/flagpole":[
 "Mástil",
@@ -1335,6 +1402,9 @@
 ],
 "man_made/lighthouse":[
 "Faru"
+],
+"man_made/manhole":[
+"Tapa d'alcantariella"
 ],
 "man_made/mast":[
 "Mástil"
@@ -1363,11 +1433,19 @@
 "man_made/surveillance":[
 "Vixilancia"
 ],
+"man_made/surveillance/camera":[
+"Cámara de vixilancia"
+],
 "man_made/survey_point":[
 "Vértiz xeodésicu"
 ],
 "man_made/tower":[
 "Torre"
+],
+"man_made/tower/observation":[
+"observatoriu",
+"torre d'observación",
+"Torre de vixilancia"
 ],
 "man_made/wastewater_plant":[
 "depuradora",
@@ -1426,6 +1504,9 @@
 "natural/heath":[
 "Escobal"
 ],
+"natural/hot_spring":[
+"Fonte caliente"
+],
 "natural/peak":[
 "vértiz",
 "monte",
@@ -1455,6 +1536,9 @@
 ],
 "natural/water":[
 "Agua"
+],
+"natural/water/basin":[
+"Acumulación d'agües"
 ],
 "natural/water/lake":[
 "Llagu"
@@ -1487,6 +1571,15 @@
 "office/association":[
 "Oficina d'ONG"
 ],
+"office/coworking":[
+"Espaciu de trabayu compartíu"
+],
+"office/diplomatic/embassy":[
+"consuláu",
+"representación diplomática",
+"embaxada",
+"Embaxada"
+],
 "office/educational_institution":[
 "Institución educativa"
 ],
@@ -1517,6 +1610,11 @@
 "delegación",
 "gobiernu"
 ],
+"office/government/register_office":[
+"rexistru",
+"almisión",
+"Oficina de rexistru"
+],
 "office/insurance":[
 "Oficina de seguros",
 "riesgu",
@@ -1525,6 +1623,9 @@
 ],
 "office/lawyer":[
 "Despachu d'abogaos"
+],
+"office/lawyer/notary":[
+"Notaría"
 ],
 "office/newspaper":[
 "Redacción de periódicu"
@@ -1590,6 +1691,12 @@
 "central eléctrica",
 "Xenerador d'enerxía"
 ],
+"power/generator/source/nuclear":[
+"Reactor nuclear"
+],
+"power/generator/source/wind":[
+"Turbina de vientu"
+],
 "power/line":[
 "Llinia eléctrica"
 ],
@@ -1610,8 +1717,35 @@
 "power/transformer":[
 "Tresformador"
 ],
+"public_transport/platform/aerialway_point":[
+"Andén / Parada de remonte"
+],
+"public_transport/platform/ferry_point":[
+"Andén / Parada de ferry"
+],
+"public_transport/platform/light_rail_point":[
+"Andén / Parada de tren llixeru"
+],
+"public_transport/platform/monorail_point":[
+"Andén / Parada de monocarril"
+],
+"public_transport/platform/subway_point":[
+"Andén / Parada de metro"
+],
+"public_transport/platform/train_point":[
+"Andén / Parada de tren"
+],
+"public_transport/platform/tram_point":[
+"Andén / Parada de trolebús"
+],
+"public_transport/platform_point":[
+"Andén / Parada de tresporte"
+],
 "public_transport/station":[
 "Estación d'intercambiu"
+],
+"public_transport/station_aerialway":[
+"Estación de remonte"
 ],
 "public_transport/station_bus":[
 "Estación / Terminal d'autobuses"
@@ -1626,6 +1760,7 @@
 "Estación de metro"
 ],
 "public_transport/station_train":[
+"terminal ferroviaria",
 "Estación de tren"
 ],
 "railway/abandoned":[

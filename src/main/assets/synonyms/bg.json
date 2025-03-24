@@ -72,6 +72,9 @@
 "зъб",
 "зъболекар"
 ],
+"amenity/doctors/podiatry":[
+"Ортопед"
+],
 "amenity/drinking_water":[
 "Чешма"
 ],
@@ -123,6 +126,9 @@
 ],
 "amenity/music_school":[
 "Музикално училище"
+],
+"amenity/nursing_home":[
+"Старчески дом"
 ],
 "amenity/parking":[
 "Паркинг"
@@ -230,6 +236,9 @@
 "amenity/school":[
 "Училище"
 ],
+"amenity/shelter":[
+"Навес"
+],
 "amenity/shelter/gazebo":[
 "Беседка"
 ],
@@ -261,9 +270,6 @@
 ],
 "amenity/theatre":[
 "Театър"
-],
-"amenity/theatre/type/amphi":[
-"Амфитеатър"
 ],
 "amenity/townhall":[
 "Кметство"
@@ -366,6 +372,9 @@
 ],
 "barrier/wall/noise_barrier":[
 "Шумоизолираща преграда"
+],
+"boundary":[
+"Граница"
 ],
 "boundary/administrative":[
 "Административна граница"
@@ -516,6 +525,9 @@
 "demolished/building":[
 "Наскоро разрушена сграда"
 ],
+"embankment":[
+"Насип"
+],
 "emergency/defibrillator":[
 "Дефибрилатор"
 ],
@@ -552,6 +564,11 @@
 "entrance/main":[
 "основен вход",
 "Главен вход"
+],
+"entrance/shop":[
+"вход към търговски обект",
+"Вход към магазин",
+"врата"
 ],
 "healthcare/alternative":[
 "Алтернативна медицина"
@@ -599,7 +616,8 @@
 "Маркирана пешеходна пътека"
 ],
 "highway/crossing/unmarked":[
-"Немаркирана пешеходна пътека"
+"Немаркирана пешеходна пътека",
+"продължение на тротоар"
 ],
 "highway/cycleway":[
 "Велоалея"
@@ -637,7 +655,7 @@
 "Пешеходен остров"
 ],
 "highway/living_street":[
-"Улица в жилищна зона"
+"Улица в жилищна зона (обозначена със пътен знак Д15)"
 ],
 "highway/mini_roundabout":[
 "Малко кръгово кръстовище"
@@ -844,11 +862,17 @@
 "landuse/plant_nursery":[
 "Разсадник"
 ],
+"landuse/pond":[
+"Резервоар"
+],
 "landuse/quarry":[
 "Кариера"
 ],
 "landuse/railway":[
 "Железопътен коридор"
+],
+"landuse/reservoir":[
+"Язовир"
 ],
 "landuse/residential":[
 "Жилищна зона"
@@ -933,6 +957,12 @@
 "leisure/pitch/soccer":[
 "Футболно игрище"
 ],
+"leisure/pitch/table_soccer":[
+"маса за фусбол",
+"фусбол",
+"футбол на маса",
+"Маса за джаги"
+],
 "leisure/pitch/table_tennis":[
 "тенис на маса",
 "пинг понг",
@@ -979,6 +1009,9 @@
 ],
 "man_made/cutline":[
 "Просека"
+],
+"man_made/embankment":[
+"Насип"
 ],
 "man_made/lighthouse":[
 "Морски фар"
@@ -1040,11 +1073,17 @@
 "natural/heath":[
 "Малки храсти"
 ],
+"natural/hot_spring":[
+"Горещ минерален извор"
+],
 "natural/peak":[
 "Връх"
 ],
 "natural/reef":[
 "Риф"
+],
+"natural/sand":[
+"Пясък"
 ],
 "natural/scrub":[
 "Шубрак"
@@ -1065,6 +1104,9 @@
 ],
 "natural/water":[
 "Водна площ"
+],
+"natural/water/basin":[
+"Басейн"
 ],
 "natural/water/canal":[
 "Канал"
@@ -1119,6 +1161,9 @@
 "office/lawyer/notary":[
 "Нотариус"
 ],
+"office/notary":[
+"Нотариус"
+],
 "office/travel_agent":[
 "Туристическа агенция"
 ],
@@ -1143,11 +1188,17 @@
 "place/neighbourhood":[
 "Квартал"
 ],
+"place/square":[
+"Квадрат"
+],
 "place/town":[
 "Град под 100 000"
 ],
 "place/village":[
 "Село"
+],
+"playground":[
+"Оборудване за детски площадки"
 ],
 "playground/sandpit":[
 "Пясъчник"
@@ -1275,6 +1326,9 @@
 "public_transport/platform/trolleybus_point":[
 "Тролейбусна спирка"
 ],
+"public_transport/station_bus":[
+"Автостанция / терминал"
+],
 "public_transport/station_subway":[
 "Метростанция"
 ],
@@ -1291,6 +1345,9 @@
 ],
 "railway/disused":[
 "Закрита железопътна линия"
+],
+"railway/halt":[
+"Железопътна спирка (по желание)"
 ],
 "railway/level_crossing":[
 "железопътен прелез",
@@ -1322,10 +1379,12 @@
 "Релация"
 ],
 "route/ferry":[
-"Фериботна връзка"
+"Фериботна връзка",
+"фериботен маршрут"
 ],
 "shop":[
-"Магазин"
+"Магазин",
+"търговски обект"
 ],
 "shop/alcohol":[
 "Магазин за алкохол"
@@ -1380,6 +1439,10 @@
 ],
 "shop/butcher":[
 "Колбаси"
+],
+"shop/candles":[
+"восък",
+"Магазин за свещи"
 ],
 "shop/car":[
 "Автокъща",
@@ -1451,6 +1514,11 @@
 ],
 "shop/dry_cleaning":[
 "Химическо чистене"
+],
+"shop/e-cigarette":[
+"вейп",
+"Магазин за електронни цигари",
+"vape"
 ],
 "shop/electronics":[
 "Магазин за електроника"
@@ -1568,6 +1636,9 @@
 "shop/supermarket":[
 "Супермаркет"
 ],
+"shop/tailor":[
+"Шивач"
+],
 "shop/toys":[
 "Магазин за играчки"
 ],
@@ -1578,14 +1649,25 @@
 "Магазин за автомобилни гуми"
 ],
 "shop/vacant":[
+"вакантен магазин",
 "Свободна търговска площ"
 ],
 "shop/video":[
 "Видеотека"
 ],
+"shop/wigs":[
+"Магазин за перуки"
+],
 "shop/window_blind":[
 "Магазин за щори",
 "ролетни щори"
+],
+"shop/wine":[
+"Магазин за вино",
+"изба"
+],
+"shop/yes":[
+"Магазин (неуточнен тип)"
 ],
 "telecom/data_center":[
 "Център за данни"
@@ -1778,6 +1860,9 @@
 ],
 "type/route_master":[
 "Маршрутна схема"
+],
+"type/waterway":[
+"Води"
 ],
 "waterway/canal":[
 "Канал"

@@ -608,6 +608,16 @@
 "doktoro",
 "sanigejo"
 ],
+"amenity/doctors/gynaecology":[
+"Obstetrikisto/Ginekologo"
+],
+"amenity/doctors/podiatry":[
+"piedisto",
+"Pied-kuracisto"
+],
+"amenity/doctors/urology":[
+"Urologisto"
+],
 "amenity/dojo":[
 "batalarto",
 "luktarto",
@@ -1549,11 +1559,6 @@
 "Teatrejo",
 "teatro"
 ],
-"amenity/theatre/type/amphi":[
-"spektejo",
-"teatro",
-"Amfiteatro"
-],
 "amenity/ticket_validator":[
 "validigilo.bilettruilo",
 "biletkontrolilo",
@@ -1701,6 +1706,15 @@
 "mangxajxo",
 "manghajho",
 "Vendilo de manĝaĵo"
+],
+"amenity/vending_machine/food/snacks":[
+"dolchajhoj",
+"dolcxajxoj",
+"sukeraĵoj",
+"dolĉaĵoj",
+"sukerajhoj",
+"sukerajxoj",
+"Vendilo de dolĉaĵoj"
 ],
 "amenity/vending_machine/ice_cream":[
 "Vendilo de glaciaĵoj",
@@ -2019,6 +2033,9 @@
 "apogrelo",
 "bariero",
 "barilo"
+],
+"barrier/handrail":[
+"Apogrelo"
 ],
 "barrier/hedge":[
 "kreskaĵbarilo",
@@ -3274,6 +3291,16 @@
 "highway/crossing":[
 "Stratpasejo"
 ],
+"highway/crossing/traffic_signals":[
+"trafiklumoj",
+"pasejo",
+"Stratpasejo kun trafiklumoj",
+"zebrostria pasejo",
+"piedira transpasejo",
+"transpasejo",
+"trairejo",
+"stripasejo"
+],
 "highway/crossing/unmarked":[
 "pasejo",
 "Stratpasejo nemarkita",
@@ -3302,6 +3329,13 @@
 "transirejo",
 "biciklovojo",
 "Stratpasejo por biciklistoj k piedirantoj",
+"biciklvojo"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"zebro",
+"pasejo",
+"biciklovojo",
+"Stratpasejo bicikla (markita)",
 "biciklvojo"
 ],
 "highway/cycleway/crossing/unmarked":[
@@ -3358,9 +3392,30 @@
 "highway/footway/crossing":[
 "Stratpasejo"
 ],
+"highway/footway/crossing/traffic_signals":[
+"trafiklumoj",
+"pasejo",
+"Stratpasejo kun trafiklumoj",
+"zebrostria pasejo",
+"piedira transpasejo",
+"transpasejo",
+"trairejo",
+"stripasejo"
+],
+"highway/footway/crossing/unmarked":[
+"pasejo",
+"Stratpasejo nemarkita",
+"piedira transirejo",
+"transpasejo",
+"irejo",
+"trairejo"
+],
 "highway/footway/sidewalk":[
 "Trotuaro (ĉestrata)",
 "irejo"
+],
+"highway/footway/traffic_island":[
+"Trafik-insuleto"
 ],
 "highway/give_way":[
 "cedi traveturon",
@@ -3427,6 +3482,9 @@
 "tabula irejo",
 "tramalsekejo",
 "irejo"
+],
+"highway/path/crossing":[
+"Stratpasejo por biciklistoj k piedirantoj"
 ],
 "highway/path/informal":[
 "Vojeto (piedpremita)",
@@ -4650,6 +4708,9 @@
 "areno",
 "Kurejo/biciklejo/konkursejo (nemotora)"
 ],
+"leisure/track/athletics/running":[
+"Kurejo"
+],
 "leisure/track/cycling":[
 "biciklkonkursejo",
 "biciklado",
@@ -4758,6 +4819,9 @@
 "gruo",
 "Gruo"
 ],
+"man_made/crane/portal_crane":[
+"Rulponta"
+],
 "man_made/cross":[
 "Kruco (nereligia)",
 "montopinto",
@@ -4797,6 +4861,15 @@
 "masto",
 "flagmasto",
 "Flago"
+],
+"man_made/fuel_pump":[
+"benzinstacio",
+"lpg",
+"biodisel",
+"benzino",
+"Vendilo de benzino",
+"brulaĵo",
+"diseloleo"
 ],
 "man_made/gasometer":[
 "gasometro",
@@ -5839,6 +5912,10 @@
 "office/yes":[
 "Oficejo (nekonata speco)"
 ],
+"pipeline/valve":[
+"Valvo de konduktubo",
+"klapo"
+],
 "piste/downhill":[
 "skitrako",
 "alpa skiado",
@@ -5870,15 +5947,6 @@
 "skitrako",
 "skiado",
 "Skivojo nordia (skikurada)"
-],
-"piste/piste":[
-"skitrako",
-"Skivojo",
-"neĝtabulado",
-"skiado",
-"skikurso",
-"sketado",
-"vintrosportoj"
 ],
 "piste/skitour":[
 "bastonmarŝado",
@@ -6187,6 +6255,16 @@
 "centralo",
 "elektrejo",
 "akvobarilo"
+],
+"power/plant/source/method/photovoltaic":[
+"sunĉelo",
+"Sunenergia elektrocentralo",
+"sunpanelo",
+"centralo",
+"elektrejo",
+"suncentralo",
+"sunkolektroro",
+"fotovoltaiko"
 ],
 "power/plant/source/nuclear":[
 "atomkerna",

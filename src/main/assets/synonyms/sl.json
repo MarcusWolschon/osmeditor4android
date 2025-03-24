@@ -595,9 +595,6 @@
 "gledališka dvorana",
 "Gledališče"
 ],
-"amenity/theatre/type/amphi":[
-"Amfiteater"
-],
 "amenity/townhall":[
 "magistrat",
 "Mestna hiša",
@@ -610,7 +607,10 @@
 "univerza"
 ],
 "amenity/vending_machine":[
-"Prodajni avtomat"
+"Prodajni avtomat",
+"kavomat",
+"mlekomat",
+"avtomat"
 ],
 "amenity/vending_machine/cigarettes":[
 "Avtomat za cigarete"
@@ -624,6 +624,9 @@
 ],
 "amenity/vending_machine/drinks":[
 "Avtomat za pijače"
+],
+"amenity/vending_machine/food/snacks":[
+"Avtomat za prigrizke"
 ],
 "amenity/vending_machine/newspapers":[
 "Avtomat za časopis"
@@ -726,10 +729,16 @@
 "Vrata",
 "prehod"
 ],
+"barrier/handrail":[
+"Ograja"
+],
 "barrier/hedge":[
 "živica",
 "Živa meja",
 "grmovje"
+],
+"barrier/kerb":[
+"Cestni robnik"
 ],
 "barrier/kissing_gate":[
 "vrata ki skozi ograjo spustijo le po eno osebo naenkrat",
@@ -754,6 +763,9 @@
 "barrier/wall":[
 "Zid",
 "stena"
+],
+"boundary":[
+"Meja"
 ],
 "boundary/administrative":[
 "Upravne meje",
@@ -911,6 +923,9 @@
 "building/warehouse":[
 "Skladišče",
 "depo"
+],
+"building_point":[
+"Zgradba"
 ],
 "club":[
 "druženje",
@@ -1180,6 +1195,9 @@
 "brod",
 "brodenje"
 ],
+"ford_line":[
+"Plitvina"
+],
 "golf/bunker":[
 "bunker",
 "Peščena ovira",
@@ -1199,6 +1217,11 @@
 "Luknja",
 "golf luknja"
 ],
+"golf/lateral_water_hazard":[
+"Bočne vodne ovire",
+"golf",
+"vodne ovire"
+],
 "golf/rough":[
 "območje ob čistini in ovirah in zelenici z visoko košeno ali nepokošeno travo",
 "jasa",
@@ -1209,6 +1232,11 @@
 "podstavek",
 "golf",
 "Podstavek za žogico"
+],
+"golf/water_hazard":[
+"golf",
+"vodne ovire",
+"Vodne ovire"
 ],
 "healthcare":[
 "Zdravstvo",
@@ -1247,6 +1275,10 @@
 "highway/corridor":[
 "Notranji hodnik"
 ],
+"highway/crossing":[
+"zebra",
+"Prehod za pešce"
+],
 "highway/cycleway":[
 "Kolesarska steza",
 "kolesarska pot",
@@ -1259,6 +1291,10 @@
 "highway/footway":[
 "pot za pešce",
 "Pešpot"
+],
+"highway/footway/sidewalk":[
+"Pločnik",
+"pločnik"
 ],
 "highway/give_way":[
 "Znak križišče s prednostno cesto"
@@ -1482,6 +1518,12 @@
 "Kapelica",
 "kapelica"
 ],
+"indoor/corridor":[
+"Notranji hodnik"
+],
+"indoor/corridor_line":[
+"Notranji hodnik"
+],
 "junction":[
 "Križišče"
 ],
@@ -1570,6 +1612,9 @@
 "vrtnarija",
 "sadike"
 ],
+"landuse/pond":[
+"Črpališče iz ribnika"
+],
 "landuse/quarry":[
 "peskokop",
 "Kamnolom"
@@ -1583,6 +1628,9 @@
 "Rekreacijsko igrišče",
 "igrišče",
 "orodja"
+],
+"landuse/reservoir":[
+"Vodni zbiralnik"
 ],
 "landuse/residential":[
 "stanovanjsko območje",
@@ -1768,6 +1816,12 @@
 "hipodrom",
 "kasaška steza"
 ],
+"leisure/track/athletics/running":[
+"Tekaška steza"
+],
+"leisure/track/running":[
+"Tekaška steza"
+],
 "leisure/water_park":[
 "Vodni park"
 ],
@@ -1805,12 +1859,16 @@
 "man_made/chimney":[
 "Dimnik"
 ],
+"man_made/crane/portal_crane":[
+"Tirni žerjav"
+],
 "man_made/cutline":[
 "Poseka",
 "mejna poseka",
 "požarna poseka"
 ],
 "man_made/embankment":[
+"bran",
 "Nasip"
 ],
 "man_made/flagpole":[
@@ -1824,6 +1882,19 @@
 "man_made/lighthouse":[
 "svetilničar",
 "Svetilnik"
+],
+"man_made/manhole":[
+"vhodna odprtina",
+"cestni jašek",
+"telekom",
+"Jašek",
+"elektro",
+"jašek",
+"vodovod",
+"kanalizacija"
+],
+"man_made/manhole/drain":[
+"Odtočni kanal"
 ],
 "man_made/mast":[
 "Nosilni drog",
@@ -1858,6 +1929,9 @@
 "man_made/surveillance":[
 "Nadzor"
 ],
+"man_made/surveillance/camera":[
+"Nadzorna kamera"
+],
 "man_made/survey_point":[
 "triangulacijska točka",
 "Geodetska točka"
@@ -1867,6 +1941,11 @@
 "Stolp",
 "stolpič",
 "zvonik"
+],
+"man_made/tower/observation":[
+"opazovalnica",
+"opazovalni stolp",
+"Razgledni stolp"
 ],
 "man_made/wastewater_plant":[
 "Čistilna naprava",
@@ -1952,6 +2031,9 @@
 "grmovje",
 "Ruševje"
 ],
+"natural/hot_spring":[
+"Vrelec"
+],
 "natural/peak":[
 "špica",
 "Vrh"
@@ -2022,6 +2104,10 @@
 "vodno telo",
 "Voda"
 ],
+"natural/water/basin":[
+"usedalnik",
+"Kotanja"
+],
 "natural/water/lake":[
 "presihajoče jezero",
 "umetno jezero",
@@ -2056,6 +2142,11 @@
 "office/coworking":[
 "Prostor za sodelo"
 ],
+"office/diplomatic/embassy":[
+"ambasada",
+"Veleposlaništvo",
+"konzulat"
+],
 "office/educational_institution":[
 "Izobraževalna ustanova",
 "izobraževalna inštitucija"
@@ -2078,6 +2169,9 @@
 "vladni urad",
 "Vladna agencija"
 ],
+"office/government/register_office":[
+"Prijavi urad"
+],
 "office/insurance":[
 "zavarovalni agent",
 "zavarovalniški agent",
@@ -2096,6 +2190,9 @@
 "office/ngo":[
 "Sedež nevladne organizacije",
 "nevladna organizacija"
+],
+"office/notary":[
+"Notarska pisarna"
 ],
 "office/physician":[
 "Ambulanta"
@@ -2174,6 +2271,12 @@
 "električni generator",
 "Elektrarna"
 ],
+"power/generator/source/nuclear":[
+"Jedrski reaktor"
+],
+"power/generator/source/wind":[
+"Vetrna turbina"
+],
 "power/line":[
 "Daljnovod (stolpi)",
 "električni vod"
@@ -2198,7 +2301,11 @@
 "kandelaber"
 ],
 "power/substation":[
-"Razdelilna transformatorska postaja"
+"transformator",
+"razdelilna postaja",
+"Razdelilna transformatorska postaja",
+"stikališče",
+"rtp"
 ],
 "power/tower":[
 "kandelaber",
@@ -2209,8 +2316,20 @@
 "pretvornik",
 "Transformator"
 ],
+"public_transport/platform/bus_point":[
+"avtobusna postaja"
+],
+"public_transport/station_aerialway":[
+"Postaja žičnice",
+"postaja gondole",
+"žičniška postaja"
+],
 "public_transport/station_bus":[
 "Avtobusna postaja / Terminal"
+],
+"public_transport/station_train":[
+"kolodvor",
+"Železniška postaja"
 ],
 "railway/abandoned":[
 "odstranjena železnica",
@@ -2641,6 +2760,9 @@
 "Prodaja pnevmatik"
 ],
 "shop/vacant":[
+"zapuščena trgovina",
+"zaprta trgovina",
+"nezasedena trgovina",
 "Nedelujoča trgovina"
 ],
 "shop/vacuum_cleaner":[
@@ -2685,6 +2807,16 @@
 "privlačno za turiste",
 "turistična točka",
 "Turistična znamenitost"
+],
+"tourism/camp_pitch":[
+"prikolišče",
+"Kampirno mesto",
+"elektrika",
+"plac",
+"kamp plac",
+"prikolica",
+"šotorišče",
+"postavitev"
 ],
 "tourism/camp_site":[
 "Kamp",
@@ -2798,7 +2930,9 @@
 "administrativna meja"
 ],
 "type/multipolygon":[
-"Več mnogokotnikov"
+"zbirka poligonov",
+"Več mnogokotnikov",
+"zbirka mnogokotnikov"
 ],
 "type/restriction":[
 "prepovedano",
@@ -2866,6 +3000,13 @@
 "type/route_master":[
 "omrežje javnega prometa",
 "Mreža javnega prometa"
+],
+"type/waterway":[
+"voda",
+"veletok",
+"Vodotok",
+"reka",
+"potok"
 ],
 "waterway/boatyard":[
 "jahte",

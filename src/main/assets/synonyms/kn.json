@@ -92,6 +92,9 @@
 "barrier/gate":[
 "ಹೊರಬಾಗಿಲು"
 ],
+"barrier/handrail":[
+"‍ಕಂಬಿ"
+],
 "barrier/wall":[
 "‍ಗೋಡೆ"
 ],
@@ -141,6 +144,9 @@
 "ಗೋದಾಮು",
 "ದಾಸ್ತಾನು ಕಟ್ಟಡ"
 ],
+"building_point":[
+"‍ಕಟ್ಟಡ"
+],
 "craft":[
 "ಕುಶಲ ಕಲೆ"
 ],
@@ -168,7 +174,13 @@
 "craft/tailor":[
 "ದರ್ಜಿ"
 ],
+"embankment":[
+"ಏರಿ"
+],
 "ford":[
+"‍ಕಾಲ್ಗಡ"
+],
+"ford_line":[
 "‍ಕಾಲ್ಗಡ"
 ],
 "highway/steps":[
@@ -186,6 +198,9 @@
 "landuse/orchard":[
 "ತೋಟ"
 ],
+"landuse/pond":[
+"ಕೊಳ"
+],
 "landuse/recreation_ground":[
 "ಆಟದ ಮೈದಾನ"
 ],
@@ -195,14 +210,26 @@
 "leisure/park":[
 "ಉದ್ಯಾನವನ"
 ],
+"leisure/playground":[
+"ಆಟದ ಮೈದಾನ"
+],
 "leisure/stadium":[
 "ಕ್ರೀಡಾಂಗಣ"
 ],
 "leisure/swimming_pool":[
 "ಈಜುಕೊಳ"
 ],
+"line":[
+"ಗೆರೆ"
+],
+"man_made/embankment":[
+"ಏರಿ"
+],
 "man_made/petroleum_well":[
 "ತೈಲ ಬಾವಿ"
+],
+"man_made/tower/observation":[
+"ವೀಕ್ಷಣಾ ಗೋಪುರ"
 ],
 "natural/beach":[
 "ಕಡಲ ತೀರ"
@@ -231,6 +258,9 @@
 "office":[
 "ಕಚೇರಿ"
 ],
+"office/diplomatic/embassy":[
+"ರಾಯಭಾರ"
+],
 "office/physician":[
 "ವೈದ್ಯ"
 ],
@@ -246,17 +276,29 @@
 "place/farm":[
 "ತೋಟ"
 ],
+"place/hamlet":[
+"ಕೊಪ್ಪಲು"
+],
 "place/island":[
 "ದ್ವೀಪ"
 ],
 "place/locality":[
 "ಸ್ಥಳ"
 ],
+"place/square":[
+"ಚೌಕ"
+],
 "place/town":[
 "ಪಟ್ಟಣ"
 ],
 "place/village":[
 "ಹಳ್ಳಿ"
+],
+"point":[
+"ಬಿಂದು"
+],
+"relation":[
+"ಸಂಬಂಧ"
 ],
 "shop":[
 "ಅಂಗಡಿ"
@@ -308,6 +350,9 @@
 ],
 "tourism/museum":[
 "ಒಡವೆಮನೆ"
+],
+"type/route":[
+"ಮಾರ್ಗ"
 ],
 "type/route/bus":[
 "ಬಸ್ ಮಾರ್ಗ"

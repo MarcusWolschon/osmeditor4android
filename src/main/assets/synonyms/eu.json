@@ -2,6 +2,9 @@
 "address":[
 "Helbidea"
 ],
+"advertising/board":[
+"Ohar-taula"
+],
 "advertising/column":[
 "Publizitaterako zutabea"
 ],
@@ -21,7 +24,10 @@
 "Arte Zentro"
 ],
 "amenity/atm":[
-"ATM"
+"kajeroa",
+"kutxazaina",
+"automatikoa",
+"Kutxazain automatikoa"
 ],
 "amenity/bank":[
 "Bankua"
@@ -33,13 +39,16 @@
 "Barbakoa/Parrila"
 ],
 "amenity/bench":[
-"Banku"
+"Bankua",
+"banku",
+"aulki",
+"eserleku"
 ],
 "amenity/bicycle_parking":[
-"Bizikletentzako Aparkalekua"
+"Bizikletentzako aparkalekua"
 ],
 "amenity/bicycle_rental":[
-"Bizikleten Alokairua"
+"Bizikleten alokairua"
 ],
 "amenity/bicycle_repair_station":[
 "Bizikleta konpontzeko tresneriaren postua"
@@ -78,7 +87,7 @@
 "Zinema"
 ],
 "amenity/clinic":[
-"Erietxe"
+"Erietxea"
 ],
 "amenity/clinic/abortion":[
 "Abortu klinika"
@@ -93,13 +102,13 @@
 "Unibertsitate Eremu"
 ],
 "amenity/community_centre":[
-"Gizarte Etxe"
+"Gizarte-etxea"
 ],
 "amenity/compressed_air":[
 "Aire konpromitua"
 ],
 "amenity/courthouse":[
-"Epaitegi"
+"Epaitegia"
 ],
 "amenity/coworking_space":[
 "Coworking espazioa"
@@ -119,7 +128,11 @@
 "bestuario"
 ],
 "amenity/drinking_water":[
-"Ur edangarria"
+"iturria",
+"ura",
+"edangarria",
+"txorrota",
+"Edateko ur iturria"
 ],
 "amenity/driving_school":[
 "Auto-eskola"
@@ -131,13 +144,17 @@
 "Janari azkarra"
 ],
 "amenity/fire_station":[
-"Suhiltzaile-etxe"
+"Suhiltzaile-etxea"
 ],
 "amenity/food_court":[
 "Bazkaltzeko eremua"
 ],
 "amenity/fountain":[
-"Iturri"
+"iturria",
+"ura",
+"Ur iturri monumentala",
+"fontana",
+"monumentua"
 ],
 "amenity/fuel":[
 "Gasolindegi"
@@ -161,7 +178,10 @@
 "Internet kafetegi"
 ],
 "amenity/language_school":[
-"Hizkuntz eskola"
+"hizkuntz",
+"Hizkuntza-eskola",
+"hizkuntza-eskola",
+"akademia"
 ],
 "amenity/library":[
 "Liburutegi"
@@ -181,8 +201,17 @@
 "amenity/nightclub":[
 "Klub"
 ],
+"amenity/nursing_home":[
+"Zahar-egoitza"
+],
+"amenity/parking":[
+"Aparkalekua"
+],
 "amenity/parking/multi-storey":[
 "Maila anitzeko aparkaleku"
+],
+"amenity/parking/underground":[
+"Lurpeko aparkalekua"
 ],
 "amenity/parking_space":[
 "Aparkatzeko lekua"
@@ -217,10 +246,17 @@
 "Polizia"
 ],
 "amenity/post_office":[
-"Postetxe"
+"postetxea",
+"correos",
+"posta bulegoa",
+"laposte",
+"poste",
+"Postetxea",
+"la poste",
+"posta"
 ],
 "amenity/prison":[
-"Espetxe"
+"Espetxea"
 ],
 "amenity/pub":[
 "Pub"
@@ -241,13 +277,31 @@
 "Birziklatze zentrua"
 ],
 "amenity/restaurant":[
-"Jatetxe"
+"Jatetxea",
+"jatetxe",
+"afari",
+"kantina",
+"restaurante",
+"erretegi",
+"taberna",
+"bazkari",
+"jantoki"
+],
+"amenity/restaurant/american":[
+"Jatetxe amerikarra"
+],
+"amenity/restaurant/seafood":[
+"itsaskiak",
+"arraina",
+"itxaskiak",
+"mariskoa",
+"Arraina eta itsaski jatetxea"
 ],
 "amenity/school":[
 "Eskola eremu"
 ],
 "amenity/shelter":[
-"Aterpetxe"
+"Aterpetxea"
 ],
 "amenity/shelter/gazebo":[
 "Begiratoki"
@@ -274,10 +328,10 @@
 "Elikagai-banku"
 ],
 "amenity/social_facility/group_home":[
-"Zahar-etxe"
+"Zahar-etxea"
 ],
 "amenity/social_facility/homeless_shelter":[
-"Etxegabeentzako aterpetxe"
+"Etxegabeentzako aterpetxea"
 ],
 "amenity/social_facility/nursing_home":[
 "Zahar-egoitza"
@@ -300,13 +354,21 @@
 "telefonoa"
 ],
 "amenity/theatre":[
-"Antzoki"
+"zinema",
+"Antzokia",
+"areto",
+"antzerki",
+"teatroa",
+"antzokia"
 ],
 "amenity/theatre/type/amphi":[
-"Anfiteatro"
+"antzoki",
+"teatroa",
+"Anfiteatroa",
+"anfiteatroa"
 ],
 "amenity/townhall":[
-"Udaletxe"
+"Udaletxea"
 ],
 "amenity/university":[
 "Unibertsitatearen eremua"
@@ -331,6 +393,9 @@
 ],
 "amenity/vending_machine/elongated_coin":[
 "Txanpon-makina"
+],
+"amenity/vending_machine/excrement_bags":[
+"Txakur-kaka poltsak"
 ],
 "amenity/vending_machine/feminine_hygiene":[
 "Emakumezkoentzako higiene produktuen makina saltzaile"
@@ -368,11 +433,47 @@
 "barrier/gate":[
 "Ate"
 ],
+"barrier/handrail":[
+"Baranda"
+],
+"barrier/kerb":[
+"Frenatu"
+],
 "barrier/wall":[
 "Pareta"
 ],
+"boundary":[
+"Muga"
+],
+"building":[
+"Eraikina"
+],
+"building/allotment_house":[
+"Baratze-eraikina"
+],
 "building/apartments":[
 "Apartamentu-blokea"
+],
+"building/cathedral":[
+"Katedral-erainika"
+],
+"building/chapel":[
+"Kapera-eraikina"
+],
+"building/church":[
+"Eliza-eraikina"
+],
+"building/civic":[
+"Eraikin zibila"
+],
+"building/commercial":[
+"Eraikin komertziala"
+],
+"building/construction":[
+"Eraikitzen"
+],
+"building/cowshed":[
+"Ukuilua"
 ],
 "building/dormitory":[
 "Erresidentzia"
@@ -386,14 +487,47 @@
 "baserria",
 "basarria"
 ],
+"building/farm_auxiliary":[
+"Baserri alboko eraikina"
+],
+"building/fire_station":[
+"Suhiltzaileen eraikina"
+],
 "building/garage":[
 "Garaje"
 ],
 "building/garages":[
 "Garajeak"
 ],
+"building/ger":[
+"Yurta"
+],
+"building/greenhouse":[
+"Negutegia"
+],
+"building/hangar":[
+"Hangar-eraikina"
+],
+"building/hospital":[
+"Ospitale-eraikina"
+],
+"building/hotel":[
+"Hotel-eraikina"
+],
 "building/house":[
-"Etxe"
+"Etxea"
+],
+"building/industrial":[
+"Industria-eraikina"
+],
+"building/manufacture":[
+"Industria-produkziorako eraikina"
+],
+"building/mosque":[
+"Meskita-eraikina"
+],
+"building/office":[
+"Bulego-eraikina"
 ],
 "building/residential":[
 "Bizitegi-eraikina"
@@ -401,8 +535,23 @@
 "building/roof":[
 "Teilatu"
 ],
+"building/school":[
+"Eskola-eraikina"
+],
 "building/stable":[
 "Ukuilu"
+],
+"building/transportation":[
+"Garraio-eraikina"
+],
+"building/university":[
+"Unibertsitate-eraikina"
+],
+"building/warehouse":[
+"Biltegia"
+],
+"building_point":[
+"Eraikina"
 ],
 "club":[
 "Klub"
@@ -421,7 +570,7 @@
 "Lorezain"
 ],
 "craft/locksmith":[
-"Sarrailagilea"
+"Sarrailagintza"
 ],
 "craft/painter":[
 "Margolari"
@@ -436,10 +585,29 @@
 "Argazki laborategi"
 ],
 "craft/plumber":[
-"Iturgin"
+"iturgina",
+"ojalateroa",
+"hojalateroa",
+"Iturgina",
+"fontaneroa"
 ],
 "craft/rigger":[
 "Aparejadore"
+],
+"craft/shoemaker":[
+"Zapataria"
+],
+"craft/window_construction":[
+"Leiho-eraikitzailea"
+],
+"entrance":[
+"Sarrera/Irteera"
+],
+"entrance/main":[
+"Sarrera nagusia"
+],
+"entrance/shop":[
+"Dendarako sarrera"
 ],
 "healthcare/physiotherapist":[
 "Fisioterapeuta",
@@ -448,11 +616,23 @@
 "fisioterapeuta",
 "masajea"
 ],
+"highway/bus_stop":[
+"Autobus geltokia"
+],
+"highway/busway":[
+"Autobusen bidea"
+],
 "highway/cycleway/bicycle_foot":[
 "Bizikleta eta oinezko-bidea"
 ],
 "highway/cycleway/crossing/bicycle_foot":[
 "Bizikleta eta oinezkoen pasabidea"
+],
+"highway/elevator":[
+"Igogailua",
+"igogailua",
+"aszensorea",
+"eskailera"
 ],
 "highway/footway":[
 "Oinezkoen bidea"
@@ -460,11 +640,23 @@
 "highway/footway/informal":[
 "Oinezkoen bide informala"
 ],
+"highway/footway/sidewalk":[
+"Espaloian"
+],
+"highway/path/crossing":[
+"Bizikleta eta oinezkoen pasabidea"
+],
 "highway/residential":[
 "Bizitegi-kalea"
 ],
+"highway/service/drive-through":[
+"Auto-zerbitzua"
+],
 "highway/service/driveway":[
 "Sarrera-bidea"
+],
+"highway/service/parking_aisle":[
+"Aparkaleku barruko bidea"
 ],
 "highway/steps":[
 "Eskailerak"
@@ -475,11 +667,22 @@
 "historic/pillory":[
 "Urkabe historikoa"
 ],
+"landuse/industrial/scrap_yard":[
+"Txatarra metaketa"
+],
+"landuse/pond":[
+"Urmael"
+],
 "landuse/residential":[
 "Bizitegi-eremua"
 ],
 "landuse/residential/apartments":[
 "Apartamentu-konplexua"
+],
+"leisure/garden/kitchen":[
+"ortua",
+"baratze",
+"Baratzea"
 ],
 "leisure/pitch/table_tennis":[
 "ping-pong mahai"
@@ -491,7 +694,13 @@
 "boleibol-zelaia"
 ],
 "leisure/playground":[
-"Jolastoki"
+"plaza",
+"kolunpioak",
+"columpio",
+"Jolastokia",
+"jolaslekua",
+"jolastokia",
+"parkea"
 ],
 "leisure/resort":[
 "opor-leku"
@@ -529,6 +738,12 @@
 "man_made/chimney":[
 "Tximinia"
 ],
+"man_made/crane/portal_crane":[
+"Lehorpe Garabia"
+],
+"man_made/fuel_pump":[
+"Gas hornigailu"
+],
 "man_made/manhole/telecom":[
 "Telekomunikazioko erregistro-tapa"
 ],
@@ -536,23 +751,114 @@
 "Iturburu termala"
 ],
 "natural/spring":[
-"Iturburua"
+"iturburua",
+"iturria",
+"ura",
+"Ur iturburu naturala"
+],
+"natural/water/pond":[
+"Urmael"
 ],
 "office/architect":[
 "arkitektura bulegoa",
 "arkitekto bulegoa",
 "Arkitektura bulegoa"
 ],
+"office/coworking":[
+"Coworking espazioa"
+],
+"office/diplomatic/embassy":[
+"Enbaxada"
+],
+"office/estate_agent":[
+"inmobiliaria",
+"etxeak",
+"etxe-salmenta",
+"higiezinen",
+"Inmobiliaria bulegoa",
+"etxe agentzia",
+"alokairuak"
+],
+"office/government":[
+"ofiziala",
+"Gobernuaren bulegoa",
+"gobernuaren bulegoa",
+"erakunde",
+"udal",
+"gobernu"
+],
+"office/government/register_office":[
+"Erregistro bulegoa"
+],
+"office/lawyer/notary":[
+"Notario bulegoa"
+],
+"office/ngo":[
+"elkartea",
+"gobernuz kanpoko erakundea",
+"gke bulegoa",
+"GKE bulegoa"
+],
+"office/notary":[
+"Notario bulegoa"
+],
 "office/political_party":[
 "hauteskunde",
 "alderdia",
+"Alderdi politikoaren bulegoa",
 "alderdi politikoa"
+],
+"office/property_management":[
+"administrazioa",
+"finkak",
+"etxaldeen administrazioa",
+"kudeaketa",
+"aholkularitza",
+"Etxaldeen administrazioa / Etxe-alokairu bulegoa"
+],
+"office/telecommunication":[
+"Telekomunikazio bulegoa"
+],
+"office/travel_agent":[
+"Bidai-agentzia"
+],
+"place":[
+"Leku"
+],
+"place/city":[
+"Hiria"
 ],
 "place/farm":[
 "Baserria"
 ],
+"place/hamlet":[
+"Herrixka"
+],
 "place/locality":[
 "Aurkintza"
+],
+"place/square":[
+"plaza",
+"enparantza",
+"Plaza"
+],
+"playground":[
+"Jolastokiko ekipamendua"
+],
+"point":[
+"Puntua"
+],
+"public_transport/platform/bus_point":[
+"Autobus geltokia"
+],
+"public_transport/platform/bus_tram_point":[
+"Tranbia eta autobus geltokia"
+],
+"public_transport/station_bus":[
+"Autobus geltoki / Terminal"
+],
+"public_transport/stop_position_bus":[
+"Autobusa gelditzen den puntua"
 ],
 "relation":[
 "Erlazioa",
@@ -576,12 +882,83 @@
 "Okindegia",
 "okina"
 ],
+"shop/bathroom_furnishing":[
+"bainera",
+"dutxa",
+"komun",
+"Bainugela diseinu-denda",
+"bainugela"
+],
+"shop/beauty":[
+"estetika",
+"estetizien",
+"spa",
+"Estetika zentroa",
+"depilazio",
+"beltzarantze",
+"brontzeatu"
+],
+"shop/clothes/wedding":[
+"Eztei-jantzien denda",
+"ezkontza",
+"nobio",
+"soineko",
+"nobia",
+"botique",
+"ezkongai"
+],
+"shop/coffee":[
+"Kafe-denda"
+],
 "shop/confectionery":[
 "azukrea",
 "gozodenda",
 "goxokiak",
 "Gozodenda",
 "txutxeak"
+],
+"shop/convenience":[
+"Komenentziako denda",
+"denda-txikia",
+"supermerkatu",
+"ultramarino"
+],
+"shop/fashion":[
+"Arropa-denda"
+],
+"shop/fashion_accessories":[
+"betaurreko",
+"kapela",
+"kolonia",
+"aterki",
+"poltsa",
+"gerriko",
+"bitxi",
+"sonbreru",
+"konplementu",
+"moda",
+"Arropa-lagungarrien denda",
+"perfume"
+],
+"shop/fuel":[
+"diesel",
+"surtidorea",
+"gasolinera",
+"gasolina",
+"erregaia",
+"Gasolindegia",
+"gasolindegia"
+],
+"shop/furniture":[
+"sukalde",
+"Altzari-denda",
+"mahai",
+"sofa",
+"altzari",
+"armairu",
+"barne-diseinu",
+"silloi",
+"aulki"
 ],
 "shop/greengrocer":[
 "entsalada",
@@ -592,21 +969,79 @@
 "frutak"
 ],
 "shop/hairdresser":[
+"pelukeria",
+"ile-apaintzaile",
+"barberia",
 "Ile-apaintzailea"
 ],
 "shop/hairdresser_supply":[
-"Ile-apaindegiko hornidura-denda"
+"Ile-apaindegiko hornidura-denda",
+"bizar",
+"laka",
+"depilazio",
+"txanpu"
+],
+"shop/herbalist":[
+"belarrak",
+"infusioak",
+"Belar-denda",
+"fitomedizina",
+"dietetika"
+],
+"shop/interior_decoration":[
+"dekoradorea",
+"dekorazioa",
+"etxe-diseinua",
+"diseinatzailea",
+"Barne-dekorazio denda"
+],
+"shop/kitchen":[
+"sukaldeak",
+"sukalde dekorazio",
+"sukalde armairu",
+"Sukalde diseinu denda"
 ],
 "shop/locksmith":[
 "sarrailak",
-"sarrailagilea",
-"Sarrailagilea"
+"Sarrailagintza",
+"giltzak",
+"sarrailagilea"
+],
+"shop/mall":[
+"merkataritza-zentrua",
+"dendak",
+"Merkatal-zentrua",
+"zentru komertziala",
+"merkatal-zentrua"
 ],
 "shop/medical_supply":[
 "Ortopedia eta medikuntzako-hornidura denda"
 ],
+"shop/optician":[
+"Optikari"
+],
+"shop/pastry":[
+"opilgintza",
+"Gozo-denda",
+"gozogintza",
+"azukre",
+"tartak",
+"opilak",
+"pastelak",
+"txokolate",
+"gozotegia",
+"gozoak"
+],
 "shop/photo":[
 "Argazkilaritza denda"
+],
+"shop/seafood":[
+"arraindegi",
+"itsaskiak",
+"itxaskiak",
+"mariskoa",
+"Arrandegia",
+"arrandegi"
 ],
 "shop/shoe_repair":[
 "Oinetako-konponketak",
@@ -625,8 +1060,45 @@
 "shop/stationery":[
 "Paperdenda"
 ],
+"shop/tobacco":[
+"tabako-denda",
+"estankua",
+"Tabako-denda",
+"tabakoa",
+"estankoa"
+],
+"shop/travel_agency":[
+"Bidai-agentzia"
+],
 "shop/vacant":[
 "Denda-lokal hutsa"
+],
+"shop/window_blind":[
+"Kurtina-denda",
+"pertsiana",
+"estore",
+"kurtina"
+],
+"tourism/artwork/bust":[
+"Bustua"
+],
+"tourism/artwork/mural":[
+"Murala (muralen)"
+],
+"tourism/artwork/sculpture":[
+"Eskultura"
+],
+"tourism/artwork/statue":[
+"Estatua"
+],
+"tourism/information":[
+"Informazioa"
+],
+"tourism/information/board/welcome_sign":[
+"Ongietorri seinalea"
+],
+"traffic_sign":[
+"Trafiko seinalea"
 ],
 "type/boundary":[
 "Muga"

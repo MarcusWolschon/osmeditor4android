@@ -716,6 +716,16 @@
 "Centro comunitário",
 "community center"
 ],
+"amenity/community_centre/cultural_centre":[
+"atividades",
+"cultura",
+"comunitário",
+"center",
+"centre",
+"comunidade",
+"actividades",
+"culturais"
+],
 "amenity/community_centre/lgbtq":[
 "Centro comunitário LGBTQ+",
 "homossexual",
@@ -725,6 +735,13 @@
 "homosexual",
 "gay",
 "lgbt"
+],
+"amenity/community_centre/parish_hall":[
+"religião",
+"paróquia",
+"igreja",
+"parish",
+"Centro paroquial"
 ],
 "amenity/community_centre/youth_centre":[
 "crianças",
@@ -1233,6 +1250,16 @@
 "sanduíche",
 "mcdonald's"
 ],
+"amenity/fast_food/bagel":[
+"beigel",
+"lox",
+"fast food",
+"comida rápida",
+"comer",
+"Loja de bagels",
+"beygl",
+"beiguel"
+],
 "amenity/fast_food/burger":[
 "hamburguer",
 "fast food",
@@ -1256,6 +1283,13 @@
 "Frango Assado",
 "galinha",
 "churrascaria"
+],
+"amenity/fast_food/chinese":[
+"chinese",
+"china",
+"fast food",
+"Comida rápida chinesa",
+"dim sum"
 ],
 "amenity/fast_food/donut":[
 "donut fast food",
@@ -1338,6 +1372,15 @@
 "sanduiche",
 "sanduíxe",
 "sanduíche"
+],
+"amenity/fast_food/wings":[
+"Comida rápida asas de frango",
+"chicken",
+"lunch",
+"fast",
+"comer",
+"galinha",
+"food"
 ],
 "amenity/ferry_terminal":[
 "Terminal de ferry"
@@ -2210,6 +2253,17 @@
 "asiática",
 "comida asiática"
 ],
+"amenity/restaurant/barbecue":[
+"bbq",
+"Restaurante de churrasco",
+"barbecue",
+"comer",
+"comida",
+"carne",
+"assado",
+"grelhado",
+"grill"
+],
 "amenity/restaurant/chinese":[
 "Restaurante chinês",
 "chinesa",
@@ -2685,8 +2739,14 @@
 "palco"
 ],
 "amenity/theatre/type/amphi":[
+"theatre",
+"externo",
 "Anfiteatro",
-"anfiteatros"
+"ar-livre",
+"exterior",
+"ar livre",
+"amphitheater",
+"teatro"
 ],
 "amenity/ticket_validator":[
 "tickets",
@@ -2719,7 +2779,7 @@
 "retrete de descarga",
 "flush toilets",
 "descarga de água",
-"Autoclismo"
+"Casa de banho com autoclismo"
 ],
 "amenity/toilets/disposal/pitlatrine":[
 "retrete de fosso",
@@ -2748,7 +2808,8 @@
 "capital de região"
 ],
 "amenity/townhall/barangay-PH":[
-"Barangay"
+"Barangay",
+"barangay"
 ],
 "amenity/townhall/city":[
 "sede da câmara",
@@ -3037,6 +3098,19 @@
 "médica",
 "Veterinário",
 "médico"
+],
+"amenity/veterinary_pharmacy":[
+"medicação",
+"Farmácia veterinária",
+"gado",
+"animais",
+"remédios",
+"veterinário",
+"animais de estimação",
+"animal",
+"estimação",
+"pet",
+"medicamentos"
 ],
 "amenity/waste/dog_excrement":[
 "saqueta",
@@ -5110,6 +5184,9 @@
 "portão",
 "porta"
 ],
+"entrance/shop":[
+"Entrada de loja"
+],
 "entrance/staircase":[
 "rolante",
 "Entrada de escada rolante",
@@ -5458,6 +5535,14 @@
 "highway/bus_stop":[
 "Paragem de autocarro"
 ],
+"highway/busway":[
+"bus",
+"Estrada exclusiva p/autocarros",
+"transportes públicos",
+"reservada",
+"ônibus",
+"busway"
+],
 "highway/construction":[
 "fechada",
 "trânsito",
@@ -5550,7 +5635,7 @@
 "velocípede"
 ],
 "highway/cycleway/crossing":[
-"Passadeira para bicicletas"
+"Passadeira para ciclistas"
 ],
 "highway/cycleway/crossing/bicycle_foot":[
 "pedestres",
@@ -5560,8 +5645,8 @@
 "faixa de segurança",
 "ciclistas",
 "passadeira",
-"Passadeira p/bicicletas e peões",
-"travessia"
+"travessia",
+"Passadeira p/ciclistas e peões"
 ],
 "highway/cycleway/crossing/traffic_signals":[
 "bina",
@@ -5593,10 +5678,10 @@
 "highway/cycleway/crossing/unmarked":[
 "atravessamento de ciclista",
 "atravessamento para ciclista",
+"Travessia de ciclistas",
 "atravessamento de bicicletas",
 "bicicletas",
 "ciclistas",
-"Passadeira para bicicletas não marcada",
 "atravessamento para bicicletas",
 "passadeira",
 "travessia"
@@ -5606,6 +5691,38 @@
 "Via para ciclomotores",
 "moped",
 "motorizada"
+],
+"highway/cycleway/traffic_island":[
+"rodoviária",
+"bina",
+"bicycle",
+"bicicletas",
+"island",
+"bicla",
+"parada",
+"Travessia de refúgio p/ciclistas",
+"ciclistas",
+"ilha",
+"crossing",
+"travessia"
+],
+"highway/cycleway/traffic_island_shared":[
+"Travessia de refúgio p/ciclistas e peões",
+"bicycle",
+"island",
+"bicla",
+"ciclistas",
+"ilha",
+"crossing",
+"travessia",
+"passeio",
+"rodoviária",
+"bina",
+"bicicletas",
+"peões",
+"ciclovia",
+"parada",
+"caminho"
 ],
 "highway/cyclist_waiting_aid":[
 "foot rail",
@@ -5753,6 +5870,9 @@
 "passadeira",
 "travessia"
 ],
+"highway/footway/informal":[
+"Caminho pedonal informal"
+],
 "highway/footway/sidewalk":[
 "berma",
 "passeios",
@@ -5885,6 +6005,18 @@
 "passadisso",
 "pedestre",
 "Passadiço"
+],
+"highway/path/crossing":[
+"Passadeira p/ciclistas e peões"
+],
+"highway/path/crossing/traffic_signals":[
+"Passadeira p/ ciclistas e peões c/ semáforos"
+],
+"highway/path/crossing/uncontrolled":[
+"Passadeira marcada p/ ciclistas e peões"
+],
+"highway/path/crossing/unmarked":[
+"Travessia p/ ciclistas e peões"
 ],
 "highway/path/informal":[
 "trilho de animais",
@@ -6039,11 +6171,13 @@
 ],
 "highway/service/alley":[
 "beco",
-"traseiras",
 "estrada estreita",
+"Acesso a traseiras/arrumos",
+"depósitos",
 "quelha",
 "caminho estreito",
-"Viela"
+"viela",
+"garagens"
 ],
 "highway/service/drive-through":[
 "Serviço ao volante",
@@ -6075,6 +6209,9 @@
 "estrada",
 "pista de estacionamento",
 "parqueamento"
+],
+"highway/service_area":[
+"Área de serviço para manobras"
 ],
 "highway/services":[
 "Área de serviço",
@@ -6824,6 +6961,36 @@
 "forragem",
 "feno"
 ],
+"landuse/meadow_orchard/meadow":[
+"frutos",
+"fruta",
+"pasto",
+"área",
+"fruit",
+"tree",
+"pastagem",
+"campo",
+"frutíferas",
+"zona",
+"frutas",
+"Prado com árvores de fruto",
+"terreno"
+],
+"landuse/meadow_orchard/orchard":[
+"frutos",
+"fruta",
+"pasto",
+"área",
+"fruit",
+"tree",
+"pastagem",
+"campo",
+"Árvores de fruto em prado",
+"frutíferas",
+"zona",
+"frutas",
+"terreno"
+],
 "landuse/orchard":[
 "árvores",
 "oliveira",
@@ -7041,6 +7208,26 @@
 "coreto",
 "Coreto",
 "banda"
+],
+"leisure/bathing_place":[
+"banho",
+"natural",
+"swimming hole",
+"dipping",
+"water",
+"banhar",
+"lago",
+"swimming",
+"pier",
+"mergulhar",
+"bathing",
+"ladder",
+"água",
+"nadar",
+"rio",
+"lagoa",
+"Local de banhos informal",
+"selvagem"
 ],
 "leisure/beach_resort":[
 "verão",
@@ -9102,6 +9289,18 @@
 "cevada",
 "Silo"
 ],
+"man_made/ski_jump":[
+"in-run",
+"esqui",
+"Torre de saltos de esqui",
+"neve",
+"esquiar",
+"desporto",
+"inrun",
+"ski jump",
+"jump",
+"tower"
+],
 "man_made/storage_tank":[
 "estrutura",
 "armazenagem",
@@ -9579,6 +9778,16 @@
 ],
 "natural":[
 "Elemento natural"
+],
+"natural/arch":[
+"archway",
+"arqueado",
+"rocha",
+"geologia",
+"pedra",
+"geológico",
+"arch",
+"Arco natural"
 ],
 "natural/bare_rock":[
 "zona",
@@ -10745,6 +10954,18 @@
 "therapist",
 "fala"
 ],
+"office/translator":[
+"gabinete",
+"Escritório de tradução",
+"agência",
+"traduções",
+"translation",
+"transcrição",
+"tradutora",
+"tradutores",
+"tradutor",
+"localização"
+],
 "office/travel_agent":[
 "Agência de viagens"
 ],
@@ -10856,26 +11077,19 @@
 "clássico"
 ],
 "piste/piste":[
-"husky",
-"raquetes",
-"Pistas de desportos de inverno",
-"crosscountry",
-"pedestre",
-"inverno",
+"Tipo de pista"
+],
+"piste/ski_jump":[
+"saltar",
 "ski",
-"cavalo",
-"gelo",
-"patinagem no gelo",
-"esqui",
-"nórdicos",
-"trenó",
+"jumping",
 "neve",
-"caminhadas",
-"alpina",
-"downhill",
-"descida",
-"cross country",
-"snowboard"
+"deslizar",
+"esquiar",
+"Pista de saltos de esqui",
+"desporto",
+"salto",
+"esquis"
 ],
 "piste/skitour":[
 "ski",
@@ -10907,6 +11121,19 @@
 "renas",
 "cavalos",
 "inverno"
+],
+"piste/take_off":[
+"saltar",
+"ski",
+"jumping",
+"Largada de saltos de esqui",
+"neve",
+"deslizar",
+"esquiar",
+"desporto",
+"rampa",
+"salto",
+"esquis"
 ],
 "place":[
 "Localidade"
@@ -12614,7 +12841,9 @@
 "shop":[
 "venda",
 "vendedor",
+"shop",
 "estabelecimento",
+"store",
 "grossista",
 "Loja"
 ],
@@ -12722,6 +12951,13 @@
 "casa de banho",
 "Loja de assessórios para casas de banho",
 "wc"
+],
+"shop/bbq":[
+"bbq",
+"barbecue",
+"Loja de material para churrasco",
+"barbeque",
+"grill"
 ],
 "shop/beauty":[
 "loja de beleza",
@@ -13481,6 +13717,14 @@
 "souvenirs",
 "souvenir"
 ],
+"shop/gold_buyer":[
+"gold",
+"venda",
+"prata",
+"metal precioso",
+"comprar",
+"Loja de compra de ouro"
+],
 "shop/greengrocer":[
 "verduras",
 "hortícolas",
@@ -13491,6 +13735,16 @@
 "frutas",
 "Loja de frutas e verduras",
 "vegetais"
+],
+"shop/groundskeeping":[
+"corte",
+"manutenção",
+"ferramentas",
+"abate",
+"relvados",
+"gramados",
+"limpeza",
+"Loja de material para pisos"
 ],
 "shop/hairdresser":[
 "cabelo",

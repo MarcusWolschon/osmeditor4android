@@ -134,6 +134,9 @@
 "attraction/train":[
 "شەمەندەفەری گەشتیاریی"
 ],
+"barrier/chain":[
+"زنجیر"
+],
 "barrier/city_wall":[
 "دیواری شار"
 ],
@@ -173,7 +176,13 @@
 "building/cowshed":[
 "تەویلە"
 ],
+"building/fire_station":[
+"باڵەخانەی ئاگرکوژێنەوە"
+],
 "building/garage":[
+"گەراج"
+],
+"building/garages":[
 "گەراج"
 ],
 "building/ger":[
@@ -202,6 +211,9 @@
 ],
 "building/industrial":[
 "باڵەخانەی پیشەسازی"
+],
+"building/kindergarten":[
+"باڵەخانەی دایەنگە و باخچەی ساوایان"
 ],
 "building/mosque":[
 "باڵەخانەی مزگەوت"
@@ -247,6 +259,9 @@
 ],
 "building/warehouse":[
 "باڵەخانەی کۆگا"
+],
+"building_part":[
+"بەشێکی باڵەخانە"
 ],
 "building_point":[
 "باڵەخانە"
@@ -353,6 +368,18 @@
 "emergency/phone":[
 "تەلەفۆنی تەنگەتاوی"
 ],
+"entrance/emergency":[
+"دەرچەی تەنگەتاوی"
+],
+"healthcare/counselling":[
+"ناوەندی ڕاوێژکاری"
+],
+"healthcare/laboratory":[
+"تاقیگەی پزیشکی"
+],
+"healthcare/midwife":[
+"مامان"
+],
 "highway/construction":[
 "ڕێگە لە چاککردندایە"
 ],
@@ -361,6 +388,9 @@
 ],
 "highway/footway":[
 "پیادەڕۆ"
+],
+"highway/footway/informal":[
+"پیادەڕۆی نافەرمی"
 ],
 "highway/living_street":[
 "کۆڵانی تەنگەبەر"
@@ -431,8 +461,17 @@
 "historic":[
 "جێگەی مێژوویی"
 ],
+"historic/building":[
+"باڵەخانەی مێژوویی"
+],
 "historic/castle":[
 "قەڵا"
+],
+"historic/city_gate":[
+"دەروازەی شار"
+],
+"historic/monument":[
+"مۆنۆمێنت"
 ],
 "junction":[
 "یەکتربڕ"
@@ -455,6 +494,9 @@
 "landuse/meadow":[
 "Meadow"
 ],
+"landuse/pond":[
+"گۆم"
+],
 "landuse/religious":[
 "مەڵبەندی ئایینی"
 ],
@@ -463,6 +505,9 @@
 ],
 "landuse/retail":[
 "گۆڕەپانی تاکفرۆشی"
+],
+"landuse/vineyard":[
+"ڕەز"
 ],
 "landuse/winter_sports":[
 "گۆڕەپانی وەرزشی زستانە"
@@ -476,17 +521,53 @@
 "leisure/garden":[
 "باخچە"
 ],
+"leisure/pitch/american_football":[
+"یاریگای تۆپانێی ئەمریکایی"
+],
+"leisure/pitch/australian_football":[
+"یاریگای تۆپانێی ئوسترالیایی"
+],
+"leisure/playground":[
+"هەوشەنگ"
+],
 "leisure/swimming_area":[
 "پانتایی مەلەی سروشتی"
+],
+"leisure/swimming_pool":[
+"حەزی مەلەوانی"
+],
+"line":[
+"هێڵ"
 ],
 "man_made/bridge":[
 "پانتایی پرد"
 ],
+"man_made/embankment":[
+"لاگیرە"
+],
+"man_made/storage_tank/water":[
+"تانکی ئاو"
+],
 "man_made/tunnel":[
 "پانتایی تونێل"
 ],
+"natural/hot_spring":[
+"گڕاو"
+],
+"natural/sand":[
+"لم"
+],
+"natural/water":[
+"ئاو"
+],
 "natural/water/canal":[
 "پانتایی کارێز"
+],
+"natural/water/lake":[
+"دەریاچە"
+],
+"natural/water/pond":[
+"گۆم"
 ],
 "natural/water/river":[
 "پانتایی ڕووبار"
@@ -497,6 +578,24 @@
 "natural/wood":[
 "دارستان"
 ],
+"office/diplomatic/consulate":[
+"کونسوڵخانە"
+],
+"place":[
+"شوێن"
+],
+"place/city":[
+"شار"
+],
+"place/square":[
+"چوارگۆشە"
+],
+"playground":[
+"هەوشەنگ"
+],
+"point":[
+"خاڵ"
+],
 "railway/level_crossing":[
 "یەکتربڕی هێڵی ئاسنی"
 ],
@@ -506,10 +605,40 @@
 "shop/hairdresser_supply":[
 "فرۆشگای کەلوپەلی تراشین"
 ],
+"shop/locksmith":[
+"کلیلساز"
+],
+"shop/tailor":[
+"بەرگدوور"
+],
+"tourism/artwork/bust":[
+"نیوەپەیکەر"
+],
+"tourism/artwork/sculpture":[
+"کۆتەڵ"
+],
+"tourism/artwork/statue":[
+"پەیکەر"
+],
+"tourism/information":[
+"زانیاری"
+],
+"tourism/information/board/welcome_sign":[
+"نیشانی_بەخێرهاتن"
+],
+"traffic_calming/bump":[
+"تاسە"
+],
+"traffic_sign":[
+"هێمای هاتوچۆ"
+],
 "waterway/dam":[
 "بەنداو"
 ],
 "waterway/river":[
 "ڕووبار"
+],
+"waterway/stream":[
+"چەم"
 ]
 }

@@ -2917,12 +2917,12 @@
 ],
 "amenity/theatre/type/amphi":[
 "anfiteatro",
+"teatro al aire libre",
+"recinto exterior",
 "Anfiteatro",
-"al aire libre",
-"griego",
-"ampi",
-"aire libre",
-"anfi"
+"auditorio abierto",
+"arena",
+"espacio escénico al aire libre"
 ],
 "amenity/ticket_validator":[
 "pasaje",
@@ -3285,6 +3285,12 @@
 "Veterinario",
 "veterinaria",
 "albéitar"
+],
+"amenity/veterinary_pharmacy":[
+"farmacia para animales",
+"botica veterinaria",
+"tienda de medicamentos veterinarios",
+"Farmacia veterinaria"
 ],
 "amenity/waste/dog_excrement":[
 "recipiente",
@@ -5455,6 +5461,12 @@
 "vestíbulo",
 "portón"
 ],
+"entrance/shop":[
+"entrada de tienda",
+"acceso comercial",
+"Entrada de tienda",
+"entrada de comercio."
+],
 "entrance/staircase":[
 "puerta",
 "Escalera de entrada",
@@ -5975,6 +5987,18 @@
 "motocicleta",
 "moto"
 ],
+"highway/cycleway/traffic_island":[
+"área de descanso para bicicletas",
+"isla de refugio para ciclistas",
+"refugio para bicicletas",
+"Isla de refugio para ciclistas"
+],
+"highway/cycleway/traffic_island_shared":[
+"área de descanso para bicicletas y peatones",
+"isla de refugio para ciclistas y peatones",
+"Isla de refugio para ciclistas y peatones",
+"refugio para bicis y caminantes"
+],
 "highway/cyclist_waiting_aid":[
 "señal de espera para ciclistas",
 "barandilla para pies",
@@ -6212,6 +6236,18 @@
 "pasarela de tablones",
 "sendero elevado de madera",
 "tablas"
+],
+"highway/path/crossing":[
+"Cruce para ciclistas y peatones"
+],
+"highway/path/crossing/traffic_signals":[
+"Cruce para ciclistas y peatones con señales peatonales"
+],
+"highway/path/crossing/uncontrolled":[
+"Cruce marcado para ciclistas y peatones"
+],
+"highway/path/crossing/unmarked":[
+"Cruce no marcado para ciclistas y peatones"
 ],
 "highway/path/informal":[
 "camino de cerdos",
@@ -7132,6 +7168,22 @@
 "mies",
 "braña",
 "campo"
+],
+"landuse/meadow_orchard/meadow":[
+"Prado con árboles frutales",
+"campo con árboles frutales",
+"área verde con frutales",
+"prado con árboles frutales",
+"campo frutal",
+"área verde con árboles de frutas"
+],
+"landuse/meadow_orchard/orchard":[
+"plantación de frutales en pradera",
+"Huerto en pradera",
+"plantación de frutales en campo",
+"frutales en campo",
+"frutales en campo abierto",
+"huerto en pradera"
 ],
 "landuse/orchard":[
 "terreno de frutas",
@@ -9229,6 +9281,12 @@
 "natural":[
 "Elemento natural"
 ],
+"natural/arch":[
+"formación rocosa arqueada.",
+"arco natural",
+"puente de roca",
+"Arco natural"
+],
 "natural/bare_rock":[
 "roca desnuda",
 "roca descubierta",
@@ -9397,12 +9455,12 @@
 "ensillada",
 "portillo",
 "paso de montaña",
+"Collado / Abra",
 "collado",
 "depresión",
 "punto de silla",
 "abra",
-"cañada",
-"Collado"
+"cañada"
 ],
 "natural/sand":[
 "desierto. duna",
@@ -10189,6 +10247,13 @@
 "terapia",
 "Oficina de terapeuta"
 ],
+"office/translator":[
+"servicio de traducción",
+"centro de traducción",
+"agencia de traducción",
+"Oficina de traducción",
+"oficina de traducción"
+],
 "office/travel_agent":[
 "Agencia de viajes"
 ],
@@ -10283,26 +10348,7 @@
 "Pista de esquí de fondo"
 ],
 "piste/piste":[
-"husky",
-"de fondo",
-"cuesta abajo",
-"trineo",
-"crosscountry",
-"skitour",
-"alpino",
-"esquí de travesía",
-"raquetas de nieve",
-"hielo",
-"nordico",
-"senderismo de invierno",
-"esqui",
-"nórdico",
-"caballo",
-"Pista / Sendero de deportes de nieve",
-"luge",
-"patinaje",
-"esquí",
-"snowboard"
+"Sendero / Pista de deportes de nieve (tipo no especificado)"
 ],
 "piste/ski_jump":[
 "Pista de salto en esquí",
@@ -10620,11 +10666,13 @@
 "playground/teenshelter":[
 "abrigo",
 "amparo",
+"juegos",
 "albergue",
 "joven",
 "adolescente",
+"Refugio para jugar",
 "refugio",
-"Refugio para jóvenes"
+"juvenil"
 ],
 "playground/tetherball":[
 "tether tenis",
@@ -11211,10 +11259,10 @@
 "estación",
 "transporte",
 "silbato",
-"Estación de tren (Alto / A pedido)",
 "alto",
 "vía",
 "parada a silbato",
+"Apeadero",
 "tren",
 "a pedido",
 "ferrocarril",
@@ -11818,6 +11866,12 @@
 "lavabo",
 "Tienda de muebles de baño",
 "muebles"
+],
+"shop/bbq":[
+"tienda de barbacoas",
+"tienda de parrillas",
+"Tienda de parrillas",
+"tienda de asadores"
 ],
 "shop/beauty":[
 "Salón de belleza",
@@ -12452,17 +12506,29 @@
 "regaleria",
 "souvenir"
 ],
+"shop/gold_buyer":[
+"casa de empeño",
+"Comprador de oro",
+"adquisición de metales preciosos",
+"comprador de oro"
+],
 "shop/greengrocer":[
 "vegetal",
-"Verdulería / Frutería",
 "fruta",
 "legumbre",
+"Tienda de frutas y verduras",
 "verdulero",
 "frutería",
 "frutero",
 "hortaliza",
 "verdura",
 "verdulería"
+],
+"shop/groundskeeping":[
+"Tienda de equipos para jardín y césped",
+"tienda de herramientas de jardinería",
+"tienda de equipos para exteriores",
+"tienda de insumos para jardinería"
 ],
 "shop/hairdresser":[
 "corte",
@@ -13043,10 +13109,10 @@
 ],
 "shop/stationery":[
 "material de escritorio",
+"artículos de papelería y oficina",
 "escritorio",
 "material de papelería",
 "artículos de oficina",
-"Artículos de papelería y oficina",
 "libreria",
 "papelera",
 "artículos de papelería",
@@ -13055,6 +13121,7 @@
 "oficina",
 "artículos escolares",
 "papel de escribir",
+"Papelería/Librería",
 "papel"
 ],
 "shop/storage_rental":[

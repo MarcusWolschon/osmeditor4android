@@ -38,6 +38,9 @@
 "amenity/fast_food/donut":[
 "ڈونٹ والا"
 ],
+"amenity/ferry_terminal":[
+"فیری روٹ"
+],
 "amenity/language_school":[
 "بولی دا سکول"
 ],
@@ -67,6 +70,9 @@
 ],
 "area":[
 "کھیتر"
+],
+"barrier/kerb":[
+"کرب"
 ],
 "barrier/yes":[
 "ہاں"

@@ -59,6 +59,9 @@
 "building/residential":[
 "މީީހުން ދިރިއުޅޭ ޢިމާރާތްތައް"
 ],
+"building_point":[
+"އިމާރާތް"
+],
 "highway/path":[
 "ދުވާރު"
 ],
@@ -101,6 +104,9 @@
 "landuse/landfill":[
 "ކުނި އުކާލާ ސަރަޙައްދު"
 ],
+"landuse/pond":[
+"ފެންގަނޑު"
+],
 "landuse/residential":[
 "މީހުން ދިރިއުޅޭ ސަރަޙައްދު"
 ],
@@ -121,6 +127,9 @@
 ],
 "leisure/stadium":[
 "ސްޓޭޑިއަމް"
+],
+"line":[
+"ރޮނގު"
 ],
 "man_made/pier":[
 "ބަނދަރު"
@@ -199,6 +208,9 @@
 ],
 "type/route/ferry":[
 "ފެރީއަށްދާ މަގުތައް"
+],
+"type/waterway":[
+"ކަނޑުމަގު"
 ],
 "waterway/canal":[
 "ކެނެލް"

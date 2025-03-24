@@ -479,6 +479,7 @@
 "zoz",
 "nzoz",
 "Przychodnia/poliklinika",
+"klinika",
 "nocna opieka lekarska",
 "poliklinika",
 "przychodnia zdrowia"
@@ -2192,6 +2193,12 @@
 "klinika weterynaryjna",
 "leczenie"
 ],
+"amenity/veterinary_pharmacy":[
+"apteka weterynaryjna",
+"sklep weterynaryjny",
+"Apteka weterynaryjna",
+"apteka dla zwierząt"
+],
 "amenity/waste/dog_excrement":[
 "kosz na psie odchody",
 "Kosz na psie odchody"
@@ -2642,7 +2649,7 @@
 "barrier/wicket_gate":[
 "furtka",
 "furta",
-"Furtka (towarzysząca głównej bramie)"
+"Furtka"
 ],
 "barrier/yes":[
 "Bariera (nieokreślona)"
@@ -3035,13 +3042,16 @@
 "Budynek dworca kolejowego"
 ],
 "building/transportation":[
-"dworzec kolejowy",
+"budynek stacji",
 "dworzec",
-"budynek stacji kolejowej",
+"Budynek transportu publicznego",
+"budynek węzła przesiadkowego",
+"centrum przesiadkowe",
+"budynek dworca",
 "stacja",
-"budynek dworca kolejowego",
+"węzeł przesiadkowy",
 "transport",
-"Budynek dworca kolejowego"
+"budynek centrum przesiadkowego"
 ],
 "building/university":[
 "uczelnia",
@@ -3803,6 +3813,13 @@
 "drzwi",
 "wejście główne"
 ],
+"entrance/shop":[
+"Wejście do sklepu",
+"wejście do lokalu usługowego",
+"sklep",
+"lokal usługowy",
+"wejście do sklepu"
+],
 "entrance/staircase":[
 "Wejście do klatki schodowej",
 "wejście do klatki schodowej",
@@ -4113,6 +4130,16 @@
 "Łącznik dla motorowerów",
 "łącznik dla motorowerów"
 ],
+"highway/cycleway/traffic_island":[
+"Droga rowerowa na wyspie azylu",
+"wyspa azylu",
+"droga rowerowa na wyspie azylu"
+],
+"highway/cycleway/traffic_island_shared":[
+"ciąg pieszo-rowerowy na wyspie azylu",
+"wyspa azylu",
+"Ciąg pieszo-rowerowy na wyspie azylu"
+],
 "highway/cyclist_waiting_aid":[
 "podpórka dla rowerzystów",
 "spocznik dla rowerzystów",
@@ -4245,6 +4272,7 @@
 ],
 "highway/motorway":[
 "droga autostradowa",
+"dwujezdniowa droga ekspresowa",
 "Droga autostradowa"
 ],
 "highway/motorway_junction":[
@@ -4280,6 +4308,18 @@
 "mostek dla pieszych",
 "pomost",
 "ścieżka dla pieszych"
+],
+"highway/path/crossing":[
+"Przejazd pieszo-rowerowy"
+],
+"highway/path/crossing/traffic_signals":[
+"Przejazd pieszo-rowerowy z sygnalizacją świetlną"
+],
+"highway/path/crossing/uncontrolled":[
+"Oznakowany przejazd pieszo-rowerowy"
+],
+"highway/path/crossing/unmarked":[
+"Nieoznakowany przejazd pieszo-rowerowy"
 ],
 "highway/path/informal":[
 "nieformalna ścieżka",
@@ -4628,9 +4668,9 @@
 "grobowiec",
 "tumulus",
 "kurhan",
+"Grobowiec",
 "piramida",
 "sarkofag",
-"Grób",
 "grób",
 "mauzoleum",
 "kolumbarium",
@@ -4931,6 +4971,16 @@
 "pole",
 "Łąka/pastwisko",
 "łąka"
+],
+"landuse/meadow_orchard/meadow":[
+"streuobstwiese",
+"łąka z drzewami owocowymi",
+"Łąka z drzewami owocowymi"
+],
+"landuse/meadow_orchard/orchard":[
+"sad w obrębie łąki",
+"streuobstwiese",
+"Sad w obrębie łąki"
 ],
 "landuse/orchard":[
 "sad",
@@ -6219,7 +6269,7 @@
 "bzbwi",
 "rozdzielnica elektryczna",
 "szafka instalacyjna",
-"Skrzynka elektryczna",
+"Skrzynka uliczna",
 "szafka elektryczna",
 "szafka uliczna"
 ],
@@ -6356,8 +6406,9 @@
 "Pagoda"
 ],
 "man_made/tunnel":[
-"Tunel",
 "podziemna",
+"Obszar tunelu",
+"obszar tunelu",
 "podziemne",
 "tunel",
 "podziemny"
@@ -6458,6 +6509,11 @@
 ],
 "natural":[
 "Obiekt geograficzny"
+],
+"natural/arch":[
+"Most skalny",
+"łuk skalny",
+"most skalny"
 ],
 "natural/bare_rock":[
 "skały",
@@ -6651,6 +6707,7 @@
 "Źródło"
 ],
 "natural/stone":[
+"głaz narzutowy",
 "kamień",
 "Kamień",
 "głaz"
@@ -7229,6 +7286,11 @@
 "Terapeuta",
 "fizjoterapeuta"
 ],
+"office/translator":[
+"Tłumacz",
+"biuro tłumaczeniowe",
+"tłumacz"
+],
 "office/travel_agent":[
 "Biuro podróży"
 ],
@@ -7315,27 +7377,7 @@
 "przełajowe"
 ],
 "piste/piste":[
-"zimowa wspinaczka",
-"koń",
-"szlaki sportów zimowych",
-"husky",
-"skijöring",
-"saneczki",
-"wycieczki narciarskie",
-"łyżwiarstwo",
-"alpejskie",
-"trasa sportów zimowych",
-"kulig",
-"Szlak sportów zimowych",
-"downhill",
-"sanki",
-"lód",
-"sanie",
-"rakiety śniegowe",
-"narty",
-"klasyczne",
-"przełajowe",
-"snowboard"
+"Trasa do sportów zimowych (nieokreślonych)"
 ],
 "piste/ski_jump":[
 "Skocznia narciarska (najazd/zeskok)",
@@ -7977,7 +8019,9 @@
 "transport publiczny",
 "dworzec",
 "przewozy",
+"centrum przesiadkowe",
 "stacja",
+"węzeł przesiadkowy",
 "Dworzec",
 "terminal",
 "transport"
@@ -8573,6 +8617,11 @@
 "umywalki",
 "wyposażenie łazienek",
 "zlewy"
+],
+"shop/bbq":[
+"Sklep z grillami",
+"sklep z akcesoriami do grillowania",
+"sklep z grillami"
 ],
 "shop/beauty":[
 "zakład kosmetyczny",
@@ -9223,6 +9272,10 @@
 "prezenty",
 "gadżety"
 ],
+"shop/gold_buyer":[
+"Skup złota",
+"skup złota"
+],
 "shop/greengrocer":[
 "sklep z warzywami",
 "sklep z owocami",
@@ -9234,6 +9287,10 @@
 "warzywniak",
 "zieleniak",
 "stragan z warzywami"
+],
+"shop/groundskeeping":[
+"sklep ze sprzętem do utrzymywania terenów zieleni",
+"Sklep ze sprzętem do utrzymywania terenów zieleni"
 ],
 "shop/hairdresser":[
 "Fryzjer",
@@ -10263,7 +10320,8 @@
 ],
 "tourism/information/guidepost":[
 "Drogowskaz",
-"drogowskaz"
+"drogowskaz",
+"kierunkowskaz"
 ],
 "tourism/information/map":[
 "Mapa",

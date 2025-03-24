@@ -148,7 +148,10 @@
 "odontologas"
 ],
 "amenity/doctors":[
-"Daktaras"
+"daktaras",
+"medikas",
+"Daktaras",
+"gydytojas"
 ],
 "amenity/drinking_water":[
 "geriamas vanduo",
@@ -396,9 +399,15 @@
 "Vartai",
 "vartai"
 ],
+"barrier/handrail":[
+"Turėklai"
+],
 "barrier/hedge":[
 "gyvatvorė",
 "Gyvatvorė"
+],
+"barrier/kerb":[
+"Bordiūras"
 ],
 "barrier/kissing_gate":[
 "Atsidarantys varteliai"
@@ -586,6 +595,9 @@
 "Sandėlis",
 "sandėlys"
 ],
+"building_point":[
+"Pastatas"
+],
 "club":[
 "Klubas"
 ],
@@ -739,6 +751,9 @@
 "brasta",
 "Brasta"
 ],
+"ford_line":[
+"Brasta"
+],
 "golf/hole":[
 "duobutė",
 "Golfo skylė",
@@ -755,6 +770,11 @@
 "Žirgų kelias",
 "arklių takas"
 ],
+"highway/crossing":[
+"perėja",
+"Sankryža",
+"pervaža"
+],
 "highway/cycleway":[
 "dviračių takas",
 "Dviračių takas"
@@ -762,6 +782,10 @@
 "highway/footway":[
 "Pėsčiųjų takas",
 "pėsčiųjų takas"
+],
+"highway/footway/sidewalk":[
+"šaligatvis",
+"Šaligatvis"
 ],
 "highway/give_way":[
 "Duoti kelią ženklas"
@@ -784,6 +808,9 @@
 "highway/path":[
 "takas",
 "Takas"
+],
+"highway/pedestrian_line":[
+"Pėsčiųjų gatvė"
 ],
 "highway/primary":[
 "pagrindinis",
@@ -992,9 +1019,15 @@
 "sodas",
 "vaisių sodas"
 ],
+"landuse/pond":[
+"Kūdra"
+],
 "landuse/quarry":[
 "karjeras",
 "Karjeras"
+],
+"landuse/reservoir":[
+"Rezervuaras"
 ],
 "landuse/residential":[
 "gyvenamoji zona",
@@ -1029,6 +1062,9 @@
 "leisure/garden":[
 "sodas",
 "Sodas"
+],
+"leisure/garden/community":[
+"Bendruomenės sodas"
 ],
 "leisure/golf_course":[
 "Golfo aikštynas"
@@ -1100,6 +1136,13 @@
 "maudymosi baseinas",
 "Baseinas"
 ],
+"leisure/track/athletics/running":[
+"Bėgimo takelis"
+],
+"leisure/track/running":[
+"bėgimo takelis",
+"Bėgimo takelis"
+],
 "leisure/water_park":[
 "Vandens parkas"
 ],
@@ -1162,6 +1205,10 @@
 "bokštas",
 "Bokštas"
 ],
+"man_made/tower/observation":[
+"Stebėjimo bokštas",
+"stebėjimo bokštas"
+],
 "man_made/wastewater_plant":[
 "Nuotekų valymo įmonė",
 "vandens valymo įrenginiai"
@@ -1212,6 +1259,9 @@
 "natural/grassland":[
 "Pieva"
 ],
+"natural/hot_spring":[
+"Karštas šaltinis"
+],
 "natural/mud":[
 "Purvas"
 ],
@@ -1244,6 +1294,12 @@
 "natural/water":[
 "Vanduo",
 "vanduo"
+],
+"natural/water/basin":[
+"Vandens telkinys",
+"baseinas",
+"prūdas",
+"kūdra"
 ],
 "natural/water/lake":[
 "ežeras",
@@ -1287,6 +1343,11 @@
 "office/company":[
 "Korporacijos biuras"
 ],
+"office/diplomatic/embassy":[
+"ambasada",
+"atstovybė",
+"Ambasada"
+],
 "office/educational_institution":[
 "mokslo institutas",
 "Edukacinis institutas",
@@ -1305,6 +1366,9 @@
 "office/government":[
 "Vyriausybės biuras",
 "valdžios biuras"
+],
+"office/government/register_office":[
+"Registravimo biūras"
 ],
 "office/insurance":[
 "draudimo kontora",
@@ -1357,6 +1421,9 @@
 "Kaiminystė",
 "apylinkė"
 ],
+"place/square":[
+"Statūs kampai"
+],
 "place/town":[
 "miestas",
 "Miestelis"
@@ -1398,6 +1465,15 @@
 "Transformatorius",
 "transformatorius"
 ],
+"public_transport/platform/bus_point":[
+"autobusų stotelė",
+"troleibusų stotelė",
+"stotelė"
+],
+"public_transport/station_train":[
+"geležinkleio stotis",
+"Traukinių stotis"
+],
 "railway/abandoned":[
 "apleistas gelžkelis",
 "Apleistas geležinkelis",
@@ -1425,6 +1501,9 @@
 "route/ferry":[
 "Kelto maršrutas",
 "kelto maršrutas"
+],
+"seamark":[
+"Plūduras"
 ],
 "shop":[
 "parduotuvė",
@@ -1610,6 +1689,7 @@
 "odos dirbinių parduotuvė"
 ],
 "shop/locksmith":[
+"šaltkalvis",
 "Raktininkas"
 ],
 "shop/lottery":[
@@ -1646,7 +1726,8 @@
 "Muzikos instrumentų parduotuvė"
 ],
 "shop/optician":[
-"Optika"
+"Optika",
+"okulistas"
 ],
 "shop/outdoor":[
 "Laisvalaikio parduotuvė"
@@ -1693,6 +1774,10 @@
 "shop/supermarket":[
 "prekybos centras",
 "Prekybos centras"
+],
+"shop/tailor":[
+"siuvėjas",
+"Siuvėjas"
 ],
 "shop/tattoo":[
 "Tatuiruočių salonas"
@@ -1815,6 +1900,9 @@
 "traffic_calming/hump":[
 "Dideli greičio slopinimo kalneliai"
 ],
+"traffic_sign":[
+"Eismo ženklas"
+],
 "type/boundary":[
 "Riba",
 "riba",
@@ -1827,6 +1915,7 @@
 "siena"
 ],
 "type/multipolygon":[
+"multipoligonas",
 "Multipoligonas"
 ],
 "type/restriction":[
@@ -1853,7 +1942,8 @@
 "Apvažiavimo maršrutas"
 ],
 "type/route/ferry":[
-"Kelto maršrutas"
+"Kelto maršrutas",
+"kelto maršrutas"
 ],
 "type/route/hiking":[
 "Žygių maršrutas"

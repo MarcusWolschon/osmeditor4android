@@ -11,14 +11,23 @@
 "amenity/atm":[
 "ATM"
 ],
+"amenity/bench":[
+"Bangku"
+],
 "amenity/cafe":[
 "Kafe"
+],
+"amenity/clinic":[
+"Klinik"
 ],
 "amenity/clinic/dialysis":[
 "Pusat Dialisis"
 ],
 "amenity/conference_centre":[
 "Pusat Konvensyen"
+],
+"amenity/doctors":[
+"Doktor"
 ],
 "amenity/driving_school":[
 "Sekolah Memandu"
@@ -59,6 +68,9 @@
 ],
 "amenity/nightclub":[
 "Kelab Malam"
+],
+"amenity/parking":[
+"Tempat Letak Kereta"
 ],
 "amenity/parking_space":[
 "Ruang Letak Kenderaan"
@@ -123,6 +135,9 @@
 "amenity/school":[
 "Kawasan Sekolah"
 ],
+"amenity/shelter":[
+"Tempat Berlindung"
+],
 "amenity/studio":[
 "Studio"
 ],
@@ -153,6 +168,12 @@
 ],
 "barrier/gate":[
 "Pintu"
+],
+"barrier/handrail":[
+"Rel Tangan"
+],
+"barrier/kerb":[
+"Sekatan"
 ],
 "barrier/toll_booth":[
 "plaza tol",
@@ -243,17 +264,35 @@
 "building/temple":[
 "Bangunan Kuil"
 ],
+"building/transportation":[
+"Bangunan Pengangkutan"
+],
 "building/university":[
 "Bangunan Universiti"
 ],
 "building/warehouse":[
 "Gudang"
 ],
+"building_point":[
+"Bangunan"
+],
 "club":[
 "Kelab"
 ],
+"craft/tailor":[
+"Kedai Tukang Jahit"
+],
+"embankment":[
+"Tambak"
+],
 "emergency/ambulance_station":[
 "Stesen Ambulans"
+],
+"ford":[
+"Harungan"
+],
+"ford_line":[
+"Harungan"
 ],
 "highway/primary":[
 "Jalan Utama"
@@ -270,6 +309,9 @@
 "highway/service":[
 "Jalan Perkhidmatan"
 ],
+"highway/service/drive-through":[
+"Pandu-Lalu"
+],
 "highway/tertiary":[
 "Jalan Tertiari"
 ],
@@ -278,6 +320,15 @@
 ],
 "highway/unclassified":[
 "Jalan Kecil/Tidak Dikelaskan"
+],
+"historic/castle/palace":[
+"Istana"
+],
+"historic/tomb":[
+"Makam"
+],
+"landuse/pond":[
+"Kolam"
 ],
 "leisure/picnic_table/chess":[
 "Meja Catur"
@@ -288,14 +339,32 @@
 "leisure/pitch/soccer":[
 "Padang Bola Sepak"
 ],
+"leisure/playground":[
+"Taman Permainan"
+],
 "leisure/stadium":[
 "Stadium"
+],
+"leisure/swimming_pool":[
+"Kolam Renang"
+],
+"line":[
+"Garis"
+],
+"man_made/embankment":[
+"Tambak"
+],
+"natural/hot_spring":[
+"Mata air panas"
 ],
 "natural/peninsula":[
 "Semenanjung"
 ],
 "natural/water/lake":[
 "Tasik"
+],
+"natural/water/pond":[
+"Kolam"
 ],
 "office":[
 "Pejabat"
@@ -320,6 +389,9 @@
 ],
 "office/charity":[
 "Pejabat Kebajikan"
+],
+"office/diplomatic/embassy":[
+"Kedutaan Besar"
 ],
 "office/educational_institution":[
 "Institusi Pendidikan"
@@ -384,11 +456,17 @@
 "office/physician":[
 "Pakar Perubatan"
 ],
+"office/political_party":[
+"Pejabat Parti Politik"
+],
 "office/private_investigator":[
 "Pejabat Penyiasat Peribadi"
 ],
 "office/quango":[
 "Pejabat Separa NGO"
+],
+"office/religion":[
+"Pejabat Agama"
 ],
 "office/research":[
 "Pejabat Penyelidikan"
@@ -444,6 +522,9 @@
 "place/plot":[
 "Plot"
 ],
+"place/square":[
+"Bucu sudut tepat"
+],
 "place/town":[
 "Bandar"
 ],
@@ -456,8 +537,17 @@
 "playground/slide":[
 "Gelongsor"
 ],
+"point":[
+"Titik"
+],
 "power/generator":[
 "Penjana Tenaga Elektrik"
+],
+"power/generator/source/nuclear":[
+"Reaktor Nuklear"
+],
+"power/generator/source/wind":[
+"Turbin Angin"
 ],
 "power/line":[
 "Talian Elektrik"
@@ -474,8 +564,29 @@
 "power/transformer":[
 "Transformer"
 ],
+"public_transport/platform/ferry_point":[
+"Hentian Feri / Platform"
+],
+"public_transport/platform/light_rail_point":[
+"Hentian Rel Ringan / Platform"
+],
+"public_transport/platform/monorail_point":[
+"Hentian Monorel / Platform"
+],
+"public_transport/platform/subway_point":[
+"Hentian Laluan Bawah Tanah / Platform"
+],
+"public_transport/platform/train_point":[
+"Hentian Kereta Api / Platform"
+],
+"public_transport/platform/tram_point":[
+"Hentian Tram / Platform"
+],
 "public_transport/station":[
 "Stesen Transit"
+],
+"public_transport/station_train":[
+"Stesen Kereta Api"
 ],
 "railway/abandoned":[
 "Jalan Kereta Api Terbiar"
@@ -488,6 +599,9 @@
 ],
 "railway/station":[
 "Stesen Kereta Api"
+],
+"relation":[
+"Hubungan"
 ],
 "shop":[
 "Kedai"
@@ -587,6 +701,9 @@
 "shop/toys":[
 "Kedai Permainan"
 ],
+"shop/travel_agency":[
+"Agensi Pelancongan"
+],
 "shop/trophy":[
 "Kedai Piala"
 ],
@@ -599,14 +716,23 @@
 "tourism/hotel":[
 "Hotel"
 ],
+"tourism/information":[
+"Maklumat"
+],
 "tourism/information/board":[
 "Papan Maklumat"
 ],
 "tourism/picnic_site":[
 "Tapak Perkelahan"
 ],
+"type/boundary/administrative":[
+"Sempadan Pentadbiran"
+],
 "type/route/road":[
 "Laluan Jalan"
+],
+"type/waterway":[
+"Jalan Air"
 ],
 "waterway/canal":[
 "Terusan"

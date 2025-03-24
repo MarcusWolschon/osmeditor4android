@@ -1,4 +1,7 @@
 {
+"address":[
+"ठेगाना"
+],
 "amenity/bank":[
 "बैंक"
 ],
@@ -20,6 +23,9 @@
 "amenity/restaurant":[
 "रेस्टुरेन्ट"
 ],
+"area":[
+"क्षेत्र"
+],
 "building/house":[
 "घर"
 ],
@@ -28,6 +34,15 @@
 ],
 "leisure/park":[
 "पार्क"
+],
+"line":[
+"लाइन"
+],
+"place/city":[
+"शहर"
+],
+"place/square":[
+"वर्गाकार"
 ],
 "point":[
 "पोइन्ट"
