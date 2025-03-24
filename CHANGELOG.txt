@@ -1,5 +1,29 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.0.0:
+
+- Fix replace android DatePicker with custom picker
+- Fix correctly format returned date value
+- Fix save edit state immediately after (geo and josm) intent is processed
+- Fix delete layer style state if corrupted
+- Fix cater for inconsistency between Rails API and CGIMAP in conflict response
+- Fix limit the number of pending tile requests per source
+- Fix ensure that modifying the role of a parent sets the relation modified
+- Fix case when we followed a closed path in the wrong direction
+- Fix redo dark theme duplicate icon
+- Add rendering for landuse=winter_sport, natural=valley and mountain_range
+- Add give better feedback which element is being added/deleted to relation
+- Add change colour of selected relation members in relation members tab
+- Add improve rendering of way direction arrows
+- Add improve relation ordering in the disambiguation menu
+- Add use square brackets for relation list in disambiguation menu
+- Add show a simple square for crossing=unmarked
+- Update translations
+- Update synonyms
+- Update NSI
+- Update imagery from ELI
+- Update default preset
+
 21.0.0-1:
 
 - Fix protect against NFEs when parsing mapbox-gl styles
