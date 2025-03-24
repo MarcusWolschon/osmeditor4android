@@ -363,7 +363,7 @@ public class DateRangePicker extends LinearLayout {
          */
         private SavedState(@NonNull Parcel in) {
             super(in);
-            startOnly = in.readBoolean();
+            startOnly = 1 == in.readInt();
             startYear = in.readInt();
             startMonth = in.readInt();
             startDayOfMonth = in.readInt();
@@ -375,7 +375,7 @@ public class DateRangePicker extends LinearLayout {
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
-            out.writeBoolean(startOnly);
+            out.writeInt(startOnly ? 1 : 0);
             out.writeInt(startYear);
             out.writeInt(startMonth);
             out.writeInt(startDayOfMonth);
