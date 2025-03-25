@@ -48,7 +48,7 @@
     </queries>
 
     <application
-        android:name="de.blau.android.App"
+        android:name=".App"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup"
         android:icon="@mipmap/vespucci_logo"
@@ -169,7 +169,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.blau.android.GeoUrlActivity"
+            android:name=".GeoUrlActivity"
             android:exported="true"
             tools:ignore="ExportedActivity" >
             <intent-filter>
@@ -182,7 +182,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.blau.android.ShareOnOpenStreetMap"
+            android:name=".ShareOnOpenStreetMap"
             android:exported="true"
             android:icon="@drawable/osm_logo"
             android:label="@string/share_on_openstreetmap"
@@ -197,7 +197,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.blau.android.RemoteControlUrlActivity"
+            android:name=".RemoteControlUrlActivity"
             android:exported="true"
             tools:ignore="ExportedActivity" >
             <intent-filter>
@@ -227,7 +227,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.blau.android.OsmWebsiteUrlActivity"
+            android:name=".OsmWebsiteUrlActivity"
             android:exported="true"
             tools:ignore="ExportedActivity" >
             <intent-filter>
