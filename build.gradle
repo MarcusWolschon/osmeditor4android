@@ -21,7 +21,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:8.13.0'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.6'
         classpath 'org.jacoco:org.jacoco.core:0.8.13'    
-        classpath "ch.poole:preset-utils:0.26.0"
+        classpath "ch.poole:preset-utils:0.44.0"
         classpath 'ch.poole.misc:gradle-eclipse-aar-plugin:0.1.0'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.1'
@@ -261,8 +261,9 @@ android {
  
     defaultConfig {
         applicationId "de.blau.android"
-        versionCode project.getVersionCode()
-        versionName "${project.getVersionName()}"
+        versionCode 3401
+        versionName "22.0.0.0"
+        resValue "string", "app_version", versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     
@@ -272,7 +273,6 @@ android {
         }
         release {
             minifyEnabled true       
-            // proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
         }
         fakeRelease {
@@ -286,16 +286,28 @@ android {
     compileSdkVersion 35
 
     // Specifies one flavor dimension.
-    flavorDimensions "api"
+    flavorDimensions = ['applicationId'] 
     productFlavors {
         current {
-            dimension "api"
+            dimension "applicationId"
             multiDexEnabled true
             minSdkVersion 21
             targetSdkVersion 35
             applicationIdSuffix ""
             versionNameSuffix ""
+            resValue "string", "app_name", "Vespucci"
             resValue "string", "content_provider", "de.blau.android.provider"
+        }
+        vespucciIo {
+            applicationId "io.vespucci"
+            dimension "applicationId"
+            multiDexEnabled true
+            minSdkVersion 21
+            targetSdkVersion 35
+            applicationIdSuffix ""
+            versionNameSuffix ""
+            resValue "string", "app_name", "vespucci.io"
+            resValue "string", "content_provider", "io.vespucci.provider"
         }
     }
 
@@ -354,6 +366,10 @@ android {
     androidResources {
         generateLocaleConfig false
     }
+}
+
+base {
+    archivesName = "${android.defaultConfig.applicationId}-${android.defaultConfig.versionName}"
 }
 
 ext {
@@ -717,28 +733,6 @@ dependencies {
     }
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
     androidTestImplementation "androidx.work:work-testing:$work_version"
-}
-
-int getVersionCode() {
-    def xml = getXmlFromFile("${android.sourceSets.main.manifest.srcFile}")
-    return xml.@'android:versionCode'.toInteger()
-}
-
-String getVersionName() {
-    def xml = getXmlFromFile("${android.sourceSets.main.res.srcDirs[0]}/values/appname.xml")
-    def versionName = xml.string.find { it.@name == 'app_version' }.toString()
-    if (versionName == null || versionName.length() == 0) {
-        throw new NullPointerException("Failure extracting version name.")
-    }
-    return versionName
-}
-
-def getXmlFromFile(String xmlFilePath) {
-    def xml = new XmlSlurper().parse(new File(xmlFilePath))
-    if (xml == null) {
-        throw new NullPointerException("Failure reading from " + xmlFilePath)
-    }
-    return xml;
 }
 
 def coverageSourceDirs = ['src/main/java']

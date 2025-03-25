@@ -108,7 +108,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX lonidx ON " + PHOTOS_TABLE + " (lon)");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + SOURCES_TABLE + " (dir VARCHAR, last_scan int8, tag VARCHAR DEFAULT NULL);");
         initSource(db, DCIM, null);
-        initSource(db, Paths.DIRECTORY_PATH_VESPUCCI, null);
+        initSource(db, App.getAppName(), null);
         initSource(db, OSMTRACKER, null);
         initSource(db, MEDIA_STORE, "");
     }

@@ -93,7 +93,7 @@ public class DebugInformation extends ConfigurationChangeAwareActivity {
     String getDebugText(@NonNull String eol) {
         StringBuilder builder = new StringBuilder();
 
-        builder.append(getString(R.string.app_name_version) + eol);
+        builder.append(getString(R.string.app_name) + " " + getString(R.string.app_version) + eol);
         builder.append("Flavor: " + BuildConfig.FLAVOR + eol);
         ApplicationInfo appInfo = getApplicationContext().getApplicationInfo();
         builder.append("Target SDK: " + appInfo.targetSdkVersion + eol);
