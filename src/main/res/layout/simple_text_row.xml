@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- inner classes must be specified using <view class="classname" /> due to dollar sign -->
-<view class="de.blau.android.views.SimpleTextRow" xmlns:android="http://schemas.android.com/apk/res/android"
+<view class="io.vespucci.views.SimpleTextRow" xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -27,7 +27,7 @@
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
 	        android:maxLines="3" />	    
-	    <de.blau.android.views.CustomAutoCompleteTextView
+	    <io.vespucci.views.CustomAutoCompleteTextView
 	        android:id="@+id/textValue"
 	        android:saveEnabled="false"
 	        android:layout_width="fill_parent"

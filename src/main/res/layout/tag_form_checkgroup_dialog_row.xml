@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    class="de.blau.android.propertyeditor.tagform.CheckGroupDialogRow"
+    class="io.vespucci.propertyeditor.tagform.CheckGroupDialogRow"
     android:orientation="horizontal">
     <LinearLayout
         style="?attr/Layout"

@@ -7,8 +7,8 @@
     android:shortcutLongLabel="@string/help_app_description" >   
     <intent
       android:action="android.intent.action.MAIN"
-      android:targetPackage="de.blau.android"
-      android:targetClass="de.blau.android.HelpViewer" />
+      android:targetPackage="io.vespucci"
+      android:targetClass="io.vespucci.HelpViewer" />
     <categories android:name="android.shortcut.conversation" />
   </shortcut>
   <shortcut
@@ -19,8 +19,8 @@
     android:shortcutLongLabel="@string/shortcut_safe" >   
     <intent
       android:action="android.intent.action.MAIN"
-      android:targetPackage="de.blau.android"
-      android:targetClass="de.blau.android.Splash">
+      android:targetPackage="io.vespucci"
+      android:targetClass="io.vespucci.Splash">
         <extra android:name="safe" android:value="true" />
     </intent>
     <categories android:name="android.shortcut.conversation" />
@@ -33,8 +33,8 @@
     android:shortcutLongLabel="@string/mode_tag_only" >   
     <intent
       android:action="android.intent.action.MAIN"
-      android:targetPackage="de.blau.android"
-      android:targetClass="de.blau.android.Splash">
+      android:targetPackage="io.vespucci"
+      android:targetClass="io.vespucci.Splash">
         <extra android:name="mode" android:value="MODE_TAG_EDIT" />
     </intent>
     <categories android:name="android.shortcut.conversation" />
@@ -47,8 +47,8 @@
     android:shortcutLongLabel="@string/mode_address" >   
     <intent
       android:action="android.intent.action.MAIN"
-      android:targetPackage="de.blau.android"
-      android:targetClass="de.blau.android.Splash">
+      android:targetPackage="io.vespucci"
+      android:targetClass="io.vespucci.Splash">
         <extra android:name="mode" android:value="MODE_ADDRESS" />
     </intent>
     <categories android:name="android.shortcut.conversation" />
@@ -61,8 +61,8 @@
     android:shortcutLongLabel="@string/mode_indoor" >   
     <intent
       android:action="android.intent.action.MAIN"
-      android:targetPackage="de.blau.android"
-      android:targetClass="de.blau.android.Splash">
+      android:targetPackage="io.vespucci"
+      android:targetClass="io.vespucci.Splash">
         <extra android:name="mode" android:value="MODE_INDOOR" />
     </intent>
     <categories android:name="android.shortcut.conversation" />

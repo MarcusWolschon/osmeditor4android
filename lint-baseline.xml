@@ -4665,7 +4665,7 @@
     <issue
         id="DiscouragedApi"
         message="Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(&quot;bar&quot;, &quot;foo&quot;, null)`)."
-        errorLine1="                        int resid = ctx.getResources().getIdentifier(brandLogoUri.substring(10), &quot;drawable&quot;, &quot;de.blau.android&quot;);"
+        errorLine1="                        int resid = ctx.getResources().getIdentifier(brandLogoUri.substring(10), &quot;drawable&quot;, &quot;io.vespucci&quot;);"
         errorLine2="                                                       ~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/resources/bing/Bing.java"
@@ -4698,7 +4698,7 @@
     <issue
         id="DiscouragedApi"
         message="Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(&quot;bar&quot;, &quot;foo&quot;, null)`)."
-        errorLine1="            int resid = r.getIdentifier(metadataUrl.substring(5), &quot;raw&quot;, &quot;de.blau.android&quot;);"
+        errorLine1="            int resid = r.getIdentifier(metadataUrl.substring(5), &quot;raw&quot;, &quot;io.vespucci&quot;);"
         errorLine2="                          ~~~~~~~~~~~~~">
         <location
             file="src/main/java/de/blau/android/resources/TileLayerSource.java"
@@ -7448,7 +7448,7 @@
 
     <issue
         id="HandlerLeak"
-        message="This `Handler` class should be static or leaks might occur (de.blau.android.layer.tiles.MapTilesLayer.SimpleInvalidationHandler)"
+        message="This `Handler` class should be static or leaks might occur (io.vespucci.layer.tiles.MapTilesLayer.SimpleInvalidationHandler)"
         errorLine1="    private class SimpleInvalidationHandler extends Handler {"
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -7459,7 +7459,7 @@
 
     <issue
         id="HandlerLeak"
-        message="This `Handler` class should be static or leaks might occur (de.blau.android.services.TrackerService.MessageHandler)"
+        message="This `Handler` class should be static or leaks might occur (io.vespucci.services.TrackerService.MessageHandler)"
         errorLine1="    class MessageHandler extends Handler {"
         errorLine2="          ~~~~~~~~~~~~~~">
         <location
@@ -7742,7 +7742,7 @@
     <issue
         id="UnusedResources"
         message="The resource `R.layout.customautocomplete` appears to be unused"
-        errorLine1="&lt;de.blau.android.views.CustomAutoCompleteTextView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine1="&lt;io.vespucci.views.CustomAutoCompleteTextView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
         errorLine2="^">
         <location
             file="src/main/res/layout/customautocomplete.xml"

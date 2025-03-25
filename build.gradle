@@ -244,7 +244,7 @@ sonarqube {
 }
     
 android {
-    namespace "de.blau.android"
+    namespace "io.vespucci"
  
     defaultConfig {
         applicationId "io.vespucci"

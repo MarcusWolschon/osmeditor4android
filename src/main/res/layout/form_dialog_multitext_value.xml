@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.blau.android.views.CustomAutoCompleteTextView
+<io.vespucci.views.CustomAutoCompleteTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/textValue"
     android:layout_width="fill_parent"

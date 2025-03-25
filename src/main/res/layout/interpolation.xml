@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/other" />
         </RadioGroup>
-        <de.blau.android.views.CustomAutoCompleteTextView
+        <io.vespucci.views.CustomAutoCompleteTextView
             android:id="@+id/other_edit"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/interpolationGroup"

@@ -3,7 +3,7 @@
 <view xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    class="de.blau.android.propertyeditor.tagform.DialogRow"
+    class="io.vespucci.propertyeditor.tagform.DialogRow"
     android:orientation="horizontal" >
 
     <LinearLayout

@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:paddingLeft="?attr/dialogPreferredPadding"
     android:paddingRight="?attr/dialogPreferredPadding">
-    <de.blau.android.views.SplitPaneLayout
+    <io.vespucci.views.SplitPaneLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
@@ -60,7 +60,7 @@
                     android:hint="@string/console_output_hint" />
             </HorizontalScrollView>
         </ScrollView>
-    </de.blau.android.views.SplitPaneLayout>
+    </io.vespucci.views.SplitPaneLayout>
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/checkbox1"
         android:layout_width="wrap_content"

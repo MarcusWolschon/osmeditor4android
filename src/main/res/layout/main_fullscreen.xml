@@ -18,7 +18,7 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize">
     </androidx.appcompat.widget.Toolbar>
-    <de.blau.android.views.SplitPaneLayout
+    <io.vespucci.views.SplitPaneLayout
         android:id="@+id/pane_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -71,7 +71,7 @@
                 app:backgroundTint="?attr/colorControlNormal"
                 app:fabSize="mini"
                 app:useCompatPadding="true" />
-            <de.blau.android.views.ZoomControls
+            <io.vespucci.views.ZoomControls
                 android:id="@+id/zoom_controls"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
             android:id="@+id/pane2"
             android:layout_width="fill_parent"
             android:layout_height="0dp" />
-    </de.blau.android.views.SplitPaneLayout>
+    </io.vespucci.views.SplitPaneLayout>
     <FrameLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"

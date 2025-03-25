@@ -3,7 +3,7 @@
 <view xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    class="de.blau.android.propertyeditor.tagform.CheckRow"
+    class="io.vespucci.propertyeditor.tagform.CheckRow"
     android:orientation="horizontal" >
 
     <LinearLayout
@@ -31,7 +31,7 @@
             android:saveEnabled="false"
            	android:maxLines="3" />
 
-        <de.blau.android.views.TriStateCheckBox
+        <io.vespucci.views.TriStateCheckBox
             android:id="@+id/valueSelected"
             style="?attr/RadioGroup"
             android:layout_width="fill_parent"

@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <de.blau.android.views.ExtendedViewPager
+    <io.vespucci.views.ExtendedViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <de.blau.android.views.ExtendedPagerTabStrip
+        <io.vespucci.views.ExtendedPagerTabStrip
             android:id="@+id/pager_header"
             style="?attr/PagerTabStrip"
             android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                 android:layout_weight="2">
             </ListView>
         </LinearLayout>
-    </de.blau.android.views.ExtendedViewPager>
+    </io.vespucci.views.ExtendedViewPager>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add"
         android:layout_width="wrap_content"

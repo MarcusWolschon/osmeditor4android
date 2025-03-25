@@ -14,7 +14,7 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize">
     </androidx.appcompat.widget.Toolbar>
-    <de.blau.android.views.SplitPaneLayout
+    <io.vespucci.views.SplitPaneLayout
         android:id="@+id/pane_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -24,14 +24,14 @@
         spl:handleDraggingBackground="@drawable/splitter_handle_dragging_v"
         spl:splitterPosition="66%"
         spl:splitterSize="5dip">
-        <de.blau.android.views.ExtendedViewPager
+        <io.vespucci.views.ExtendedViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:paddingRight="5dp"
             android:paddingEnd="5dp">
-            <de.blau.android.views.ExtendedPagerTabStrip
+            <io.vespucci.views.ExtendedPagerTabStrip
                 android:id="@+id/pager_header"
                 style="?attr/PagerTabStrip"
                 android:layout_width="match_parent"
@@ -39,8 +39,8 @@
                 android:layout_gravity="top"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp" />
-        </de.blau.android.views.ExtendedViewPager>
-        <de.blau.android.views.SplitPaneLayout
+        </io.vespucci.views.ExtendedViewPager>
+        <io.vespucci.views.SplitPaneLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:paddingLeft="5dp"
@@ -80,6 +80,6 @@
                 android:layout_height="0dp"
                 android:orientation="vertical"
                 android:paddingTop="4dp" />
-        </de.blau.android.views.SplitPaneLayout>
-    </de.blau.android.views.SplitPaneLayout>
+        </io.vespucci.views.SplitPaneLayout>
+    </io.vespucci.views.SplitPaneLayout>
 </LinearLayout>

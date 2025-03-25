@@ -2,7 +2,7 @@
 <!-- inner classes must be specified using <view class="classname" /> due 
     to dollar sign -->
 <view
-    class="de.blau.android.propertyeditor.RelationMembershipFragment$RelationMembershipRow"
+    class="io.vespucci.propertyeditor.RelationMembershipFragment$RelationMembershipRow"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

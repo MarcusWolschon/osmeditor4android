@@ -21,8 +21,8 @@
         android:name="androidx.test.runner.AndroidJUnitRunner"
         android:functionalTest="false"
         android:handleProfiling="false"
-        android:label="Tests for de.blau.android"
-        android:targetPackage="de.blau.android" />
+        android:label="Tests for io.vespucci"
+        android:targetPackage="io.vespucci" />
 
     <application android:requestLegacyExternalStorage="true">
         <uses-library android:name="android.test.runner" />

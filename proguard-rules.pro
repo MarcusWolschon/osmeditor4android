@@ -54,7 +54,7 @@
 -keep class * implements org.acra.plugins.Plugin {*;}
 -keep enum org.acra.** {*;}
 
--keep,includedescriptorclasses class de.blau.android.BuildConfig
+-keep,includedescriptorclasses class io.vespucci.BuildConfig
 -keep,includedescriptorclasses class de.blau.android.osm.ViewBox
 -keep,includedescriptorclasses class de.blau.android.presets.Preset$PresetItem
 -keep,includedescriptorclasses class de.blau.android.util.StringWithDescription

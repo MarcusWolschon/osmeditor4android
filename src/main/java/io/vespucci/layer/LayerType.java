@@ -1,0 +1,5 @@
+package io.vespucci.layer;
+
+public enum LayerType {
+    OSMDATA, IMAGERY, OVERLAYIMAGERY, GPX, GEOJSON, PHOTO, TASKS, MAPILLARY, SCALE, MVT, BOOKMARKS, PANORAMAX
+}
