@@ -247,7 +247,7 @@ android {
     namespace "de.blau.android"
  
     defaultConfig {
-        applicationId "de.blau.android"
+        applicationId "io.vespucci"
         versionCode project.getVersionCode()
         versionName "${project.getVersionName()}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -279,7 +279,8 @@ android {
     // Specifies one flavor dimension.
     flavorDimensions "api"
     productFlavors {
-        current {
+        playstore {
+            applicationId "de.blau.android"
             dimension "api"
             multiDexEnabled true
             minSdkVersion 21
@@ -287,6 +288,15 @@ android {
             applicationIdSuffix ""
             versionNameSuffix ""
             resValue "string", "content_provider", "de.blau.android.provider"
+        }
+        current {
+            dimension "api"
+            multiDexEnabled true
+            minSdkVersion 21
+            targetSdkVersion 34
+            applicationIdSuffix ""
+            versionNameSuffix ""
+            resValue "string", "content_provider", "io.vespucci.provider"
         }
     }
 
