@@ -47,7 +47,7 @@ If you're interested in this project, you're welcome to help improving it. We ne
 
 #### Legal 
 
-__OpenStreetMap__ and the magnifying glass logo are trademarks of the OpenStreetMap Foundation. The Vespucci app is not endorsed by or affiliated with the OpenStreetMap Foundation. 
+__OpenStreetMap__ and the magnifying glass logo are trademarks of the [OpenStreetMap Foundation](https://osmfoundation.org/). The Vespucci app is not endorsed by or affiliated with the OpenStreetMap Foundation. 
 
 __Mapillary__ is a trademark of Mapillary AB, Sweden. The Vespucci app is not endorsed by or affiliated with Mapillary AB.
 
