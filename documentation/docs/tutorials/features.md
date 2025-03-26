@@ -4,8 +4,7 @@ This list is likely not really complete, but gives some idea of the supported fu
 
 |Category                   | Feature                                                  | Notes
 |---------------------------|----------------------------------------------------------|----------------------------------------------------------------
-|__Geometry__               |                                                          |         
-|                           | Create Node                                              |
+|__Geometry__               | Create Node                                              |
 |                           | Create Way                                               | 
 |                           | Create Relation                                          |
 |                           | Create Route                                             |
@@ -39,14 +38,17 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Add element to Relation                                  |
 |                           | Remove element from Relation                             |
 |                           | Add element to Route                                     |
-|__Tags__                   |                                                          |
-|                           | Tag copy and paste                                       |
+|                           | Copy, cut and paste Nodes and Ways                       |
+|                           | Duplicate Nodes and Ways                                 |
+|                           | Shallow duplicate Ways and Relations                     |
+|                           | Replace geometry for Nodes and Ways                      |
+|__Tags__                   | Tag copy and paste                                       |
 |                           | Form and preset based editor                             |
 |                           | Conventional key - value editor                          |
 |                           | Auto-suggest for keys and values                         |
 |                           | Change tags for multiple objects                         |
-|__OSM Data__               |                                                          |
-|                           | Up- and Download                                         |
+|                           | Paste tags to multiple objects                           |
+|__OSM Data__               | Up- and Download                                         |
 |                           | Load and save in JOSM compatible .OSM format             |
 |                           | Auto-Download around current position                    |
 |                           | Auto-Download of current map view                        |
@@ -54,16 +56,14 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Configurable API servers                                 |
 |                           | Load data from PBF files                                 |
 |                           | Load data from tiled offline format                      |
-|__Presets__                |                                                          |
-|                           | JOSM Preset format support with extensions               |
+|__Presets__                | JOSM Preset format support with extensions               |
 |                           | Custom presets                                           |
 |                           | Presets can be updated and installed from app online     |
 |                           | Preset search                                            |
 |                           | Auto-Presets from taginfo                                |
 |                           | JavaScript scripting support                             |
 |                           | Create custom presets on the fly                         |
-|__Backgrounds and Layers__ |                                                          |
-|                           | Supports the JOSM and Editor Layer Index Imagery Sources |
+|__Backgrounds and Layers__ | Supports the JOSM and Editor Layer Index Imagery Sources |
 |                           | On device tile caching                                   | 
 |                           | Custom background and overlays                           |
 |                           | OpenAerialMap support                                    |
@@ -72,42 +72,36 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Imagery offset database support                          |
 |                           | Grid / scale layer                                       |
 |                           | WMS server support                                       |
-|__Tasks and bugs__         |                                                          |
-|                           | OSM Notes                                                |
+|__Tasks and bugs__         | OSM Notes                                                |
 |                           | OSMOSE                                                   |
 |                           | MapRoulette tasks                                        |
-|                           | Custom tasks                                             |
+|                           | Todos                                                    |
 |                           | Auto-Download                                            |
 |                           | Save and load OSM Notes in OSN format files              |
 |                           | Load Notes in .osc files                                 | OsmAnd extension
 |                           | Configurable API server                                  |
-|__Modes and Filters__      |                                                          |
-|                           | Tag editing only mode                                    |
+|__Modes and Filters__      | Tag editing only mode                                    |
 |                           | Indoor mode                                              |
+|                           | Address adding mode                                      |                          
 |                           | C-Mode (display and edit objects with validation issues) |
 |                           | Tag filter                                               |
 |                           | Preset filter                                            |
-|__Special editors__        |                                                          |
-|                           | Opening hours                                            |
+|__Special editors__        | Opening hours                                            |
 |                           | Conditional restrictions                                 |
 |                           | Turn restrictions                                        |
-|__Validation__             |                                                          |
-|                           | Missing tags (preset driven)                             |
+|__Validation__             | Missing tags (preset driven)                             |
 |                           | Re-survey after n-days                                   |
 |                           | Missing street names                                     |
 |                           | FIXMEs                                                   |
 |                           | Unconnected ways                                         |
 |                           | Validation issues trigger notifications                  | 
-|__GPS/GPX__                |                                                          |
-|                           | Support for external GPS sources                         |
+|__GPS/GPX__                | Support for external GPS sources                         |
 |                           | GPX track recording, loading and saving                  |
 |                           | GPX track upload                                         |
 |                           | GPX waypoint support                                     |
-|__Street level imagery__   |                                                          |
-|                           | Mapillary   
-|                           | Panoramax                                     |  
-|__Misc__                   |                                                          |
-|                           | Styleable data layer                                     |
+|__Street level imagery__   | Mapillary                                                |
+|                           | Panoramax                                                |  
+|__Misc__                   | Styleable data layer                                     |
 |                           | Turn restriction rendering                               |
 |                           | Address prediction                                       |
 |                           | JavaScript scripting support                             |
