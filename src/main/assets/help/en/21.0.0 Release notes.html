@@ -12,7 +12,7 @@
 <p>The release adds support for a Panoramax layer similar to the existing Mapillary one. Currently it renders vector tiles from panoramax.xyz and uses that as the default API instance.</p>
 <p>Note that we currently display the imagery in the normal photo viewer and not a 360° specific one. Further some Panoramax sequences are extremely long which can cause issues with fetching the sequence data.</p>
 <h3>Improved locking behaviour</h3>
-<p>Many actions can happen concurrently in Vespucci, for example you might be moving a way at the same time that additional data is being downloaded, superfluous data is being pruned and all of it is being displayed on the screen. For this release we've simplified and rearranged the code that locks some critical sections against concurrent access and in particular do not wait to obtain locks in the rendering code. This should avoid the infrequent but annoying deadlocks that could cause the UI to lock up.</p>
+<p>Many actions can happen concurrently in Vespucci, for example you might be moving a way at the same time that additional data is being downloaded, superfluous data is being pruned and all of it is being displayed on the screen. For this release we've simplified and rearranged the code that locks some critical sections against concurrent access and in particular do not wait to obtain locks in the rendering code. This should avoid the infrequent, but annoying, situations that could cause the UI to lock up.</p>
 <h3>Retry a failed upload and support for compressed uploads</h3>
 <p>If you are mapping in a region that has questionable Internet connectivity you may have experienced the problem that if a upload fails it is unclear if you can retry and if you can't you are left a bit stuck. See <a href="https://www.openstreetmap.org/user/SimonPoole/diary/406218">diary post on handling failed uploads</a>.</p>
 <p>Vespucci 21 will try to determine the state of your upload if it fails and suggest the best course of action. If necessary it now supports updating the edits in the device from the data successfully uploaded changes. (Vespucci has supported updating from a osmChange file since early 2019, this is different as for newly created elements we need to use some heuristics to find the correct ids.)</p>
@@ -30,7 +30,7 @@
 <h4>Use hardware rendering on Android 10 and later</h4>
 <p>Hardware rendering is now the default on devices with Android 10 or later. The preference for this has been removed on older devices and its location has been moved to the miscellaneous category of the <em>Advanced preferences</em>.</p>
 <h4>Copying tags</h4>
-<p>Copy tags in the <em>Property editor</em> now behaves (again) the same for both <em>Properties</em> and <em>Details</em> tabs. Previously copying in the later copied the tags both to the internal and the system clipboard, this has been changed to only copy to the internal tag clipboard and provide separate function to copy to the system clipboard.</p>
+<p><em>Copy tags</em> in the <em>Property editor</em> now behaves (again) the same for both <em>Properties</em> and <em>Details</em> tabs. Previously copying in the later copied the tags both to the internal and the system clipboard, this has been changed to only copy to the internal tag clipboard and provide separate function to copy to the system clipboard.</p>
 <h4>Paste tags in multi-select mode</h4>
 <p>You can now paste tags from the tag internal clipboard to multiple elements at the same time. It goes to say that this functionality should be used carefully.</p>
 <h4>Element info modal available in the property editor</h4>
@@ -40,7 +40,7 @@
 <h4>Automatically add an appropriate extension when saving files</h4>
 <p>If you save a file without an extension the app will now attempt to add an appropriate one.</p>
 <h4>Improve validation for area objects</h4>
-<p>We now use the tags from https://github.com/simonpoole/osm-area-tags to improve validation.</p>
+<p>We now use [osm-area-tags](from https://github.com/simonpoole/osm-area-tags) to improve validation.</p>
 <h4>Selection state stored in undo checkpoints</h4>
 <p>Selection state is now stored in undo checkpoints allowing us to reselect elements after an undo in most cases.</p>
 <h4>Splitting an explicit or implied area shows a warning</h4>
@@ -52,17 +52,17 @@
 <h4>GPX waypoints support for <em>link</em> objects</h4>
 <p><em>link</em> objects in GPX waypoints are now displayed in the object modal and can be clicked (for example to play back a voice note).</p>
 <h4>Different colour icon for skipped todos</h4>
-<p>Skipped todos are now displayed with a blue icon differentiating them from open and closed ones.</p>
+<p>Skipped <em>todos</em> are now displayed with a blue icon differentiating them from open and closed ones.</p>
 <h4>Code to render GPX tracks with multiple threads removed</h4>
-<p>For very long GPX tracks we were using multiple threads to render them, however as none of Androids canvas rendering framework is actually thread safe this could lead to random crashes.</p>
+<p>For very long GPX tracks we were using multiple threads to render them, however as Androids canvas rendering framework is not actually thread safe this could lead to random crashes.</p>
 <h4>Preset value type <em>date</em></h4>
 <p>We now support a preset value type of date that will cause a date selector to be displayed in the property editor. This currently only supports single dates and not date ranges.</p>
 <h4>Improve way direction arrows rendering</h4>
 <p>Improves the rendering of way arrows, particularly for long ways so that there will nearly always be one visible on the map display.</p>
-<h4>Custom rendering for crossing=unmarked</h4>
+<h4>Custom rendering for <em>crossing=unmarked</em></h4>
 <p>Instead of displaying the preset pedestrian crossing icon, we now render a small red square for nodes with crossing unmarked and support directly referencing images in the assets folder from style files.</p>
 <h4>Disambiguation menu changes</h4>
-<p>Parent ways and relations are now enclosed in square brackets. Instead of ordering relations depth first, immediate parents of the clicked objects are listed before, parents of the parent relations and so on.</p>
+<p>Parent ways and relations are now enclosed in square brackets. Instead of ordering relations depth first, immediate parents of the clicked objects are listed before parents of the parent relations and so on.</p>
 <h2>Miscellaneous</h2>
 <h1>Upgrading from previous versions</h1>
 <p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one.</p>
