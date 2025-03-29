@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.Random;
 
 import android.graphics.Bitmap;
@@ -39,8 +41,8 @@ import de.blau.android.util.ThemeUtils;
  */
 public class TileSourceDiagnostics extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = TileSourceDiagnostics.class.getSimpleName().substring(0,
-            Math.min(23, TileSourceDiagnostics.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TileSourceDiagnostics.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TileSourceDiagnostics.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_tile_source_diag";
 
