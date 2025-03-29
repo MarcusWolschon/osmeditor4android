@@ -237,96 +237,94 @@ public class MapTileDownloader extends MapAsyncTileProvider {
          */
         private byte[] downloadTile(@NonNull TileLayerSource source, @NonNull MapTile mTile) throws IOException {
             final String tileURLString = buildURL(source, mTile);
-            Builder builder = new Request.Builder().url(tileURLString);
-            addCustomHeaders(source, builder);
-            Request request = builder.addHeader(HTTP_HEADER_ACCEPT_ENCODING, GZIP).build();
+            Builder builder = new Request.Builder().url(tileURLString).header(HTTP_HEADER_ACCEPT_ENCODING, GZIP);
+            setCustomHeaders(source, builder);
+            Request request = builder.build();
             Call tileCall = client.newCall(request);
             try (Response tileCallResponse = tileCall.execute()) {
                 final ResponseBody responseBody = tileCallResponse.body();
                 final MediaType format = responseBody.contentType();
-                if (tileCallResponse.isSuccessful()) {
-                    InputStream inputStream = responseBody.byteStream();
-                    String noTileHeader = source.getNoTileHeader();
-                    if (noTileHeader != null) {
-                        String headerValue = tileCallResponse.header(noTileHeader);
-                        if (headerValue != null) {
-                            String[] noTileValues = source.getNoTileValues();
-                            if (noTileValues != null) {
-                                for (String v : noTileValues) {
-                                    if (headerValue.equals(v)) {
-                                        throw new FileNotFoundException(mCtx.getString(R.string.no_tile_header, v));
-                                    }
-                                }
-                            } else {
-                                throw new FileNotFoundException(mCtx.getString(R.string.no_tile_header, headerValue));
-                            }
-                        }
-                    }
-                    try (final InputStream in = new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE);
-                            final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
-                            final OutputStream out = new BufferedOutputStream(dataStream, StreamUtils.IO_BUFFER_SIZE)) {
-                        StreamUtils.copy(in, out);
-                        out.flush();
-
-                        byte[] data = dataStream.toByteArray();
-                        if (data.length == 0) {
-                            throw new FileNotFoundException(mCtx.getString(R.string.empty_tile));
-                        }
-                        // check format
-                        if (format != null) {
-                            String formatType = format.type().toLowerCase(Locale.US);
-                            switch (formatType) {
-                            case MimeTypes.IMAGE_TYPE:
-                                if (MimeTypes.BMP_SUBTYPE.equalsIgnoreCase(format.subtype())) {
-                                    // if tile is in BMP format, compress
-                                    data = compressBitmap(CompressFormat.PNG, dataStream, data);
-                                }
-                                break;
-                            case MimeTypes.TEXT_TYPE:
-                                // this can't be a tile and is likely an error message
-                                throw new FileNotFoundException(mCtx.getString(R.string.tile_error_message, tileURLString, responseBody.string()));
-                            case MimeTypes.APPLICATION_TYPE: // WMS errors, MVT tiles
-                                switch (format.subtype().toLowerCase()) {
-                                case MimeTypes.WMS_EXCEPTION_XML_SUBTYPE:
-                                case MimeTypes.JSON_SUBTYPE:
-                                    throw new FileNotFoundException(mCtx.getString(R.string.tile_error_message, tileURLString, responseBody.string()));
-                                case MimeTypes.MVT_SUBTYPE:
-                                case MimeTypes.X_PROTOBUF_SUBTYPE:
-                                    byte[] noTileTile = source.getNoTileTile();
-                                    if (noTileTile != null && data.length == noTileTile.length && Arrays.equals(data, noTileTile)) {
-                                        throw new FileNotFoundException(mCtx.getString(R.string.no_tile_mvt_tile, tileURLString));
-                                    }
-                                    break;
-                                default:
-                                    throw new InvalidTileException(mCtx.getString(R.string.unexpected_tile_format_subtype, format.subtype(), tileURLString));
-                                }
-                                break;
-                            default:
-                                throw new InvalidTileException(mCtx.getString(R.string.unexpected_tile_format, format, tileURLString));
-                            }
-                        }
-                        return data;
-                    }
-                } else {
+                if (!tileCallResponse.isSuccessful()) {
                     int code = tileCallResponse.code();
                     Charset charset = format != null && format.charset() != null ? format.charset() : Charset.defaultCharset();
                     String message = mCtx.getString(R.string.tile_error, code, new String(MapTileProvider.unGZip(responseBody.bytes()), charset));
                     if (code == HttpURLConnection.HTTP_NOT_FOUND) {
                         throw new FileNotFoundException(message);
-                    } else {
-                        throw new IOException(message);
                     }
+                    throw new IOException(message);
+                }
+                InputStream inputStream = responseBody.byteStream();
+                String noTileHeader = source.getNoTileHeader();
+                if (noTileHeader != null) {
+                    String headerValue = tileCallResponse.header(noTileHeader);
+                    if (headerValue != null) {
+                        String[] noTileValues = source.getNoTileValues();
+                        if (noTileValues != null) {
+                            for (String v : noTileValues) {
+                                if (headerValue.equals(v)) {
+                                    throw new FileNotFoundException(mCtx.getString(R.string.no_tile_header, v));
+                                }
+                            }
+                        } else {
+                            throw new FileNotFoundException(mCtx.getString(R.string.no_tile_header, headerValue));
+                        }
+                    }
+                }
+                try (final InputStream in = new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE);
+                        final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
+                        final OutputStream out = new BufferedOutputStream(dataStream, StreamUtils.IO_BUFFER_SIZE)) {
+                    StreamUtils.copy(in, out);
+                    out.flush();
+
+                    byte[] data = dataStream.toByteArray();
+                    if (data.length == 0) {
+                        throw new FileNotFoundException(mCtx.getString(R.string.empty_tile));
+                    }
+                    // check format
+                    if (format != null) {
+                        String formatType = format.type().toLowerCase(Locale.US);
+                        switch (formatType) {
+                        case MimeTypes.IMAGE_TYPE:
+                            if (MimeTypes.BMP_SUBTYPE.equalsIgnoreCase(format.subtype())) {
+                                // if tile is in BMP format, compress
+                                data = compressBitmap(CompressFormat.PNG, dataStream, data);
+                            }
+                            break;
+                        case MimeTypes.TEXT_TYPE:
+                            // this can't be a tile and is likely an error message
+                            throw new FileNotFoundException(mCtx.getString(R.string.tile_error_message, tileURLString, responseBody.string()));
+                        case MimeTypes.APPLICATION_TYPE: // WMS errors, MVT tiles
+                            switch (format.subtype().toLowerCase()) {
+                            case MimeTypes.WMS_EXCEPTION_XML_SUBTYPE:
+                            case MimeTypes.JSON_SUBTYPE:
+                                throw new FileNotFoundException(mCtx.getString(R.string.tile_error_message, tileURLString, responseBody.string()));
+                            case MimeTypes.MVT_SUBTYPE:
+                            case MimeTypes.X_PROTOBUF_SUBTYPE:
+                                byte[] noTileTile = source.getNoTileTile();
+                                if (noTileTile != null && data.length == noTileTile.length && Arrays.equals(data, noTileTile)) {
+                                    throw new FileNotFoundException(mCtx.getString(R.string.no_tile_mvt_tile, tileURLString));
+                                }
+                                break;
+                            default:
+                                throw new InvalidTileException(mCtx.getString(R.string.unexpected_tile_format_subtype, format.subtype(), tileURLString));
+                            }
+                            break;
+                        default:
+                            throw new InvalidTileException(mCtx.getString(R.string.unexpected_tile_format, format, tileURLString));
+                        }
+                    }
+                    return data;
                 }
             }
         }
 
         /**
-         * Add custom headers from configuration to the request
+         * Set custom headers from configuration to the request
          * 
          * @param tileLayerSource source config
          * @param builder the request builder
          */
-        private void addCustomHeaders(@NonNull TileLayerSource tileLayerSource, @NonNull Builder builder) {
+        private void setCustomHeaders(@NonNull TileLayerSource tileLayerSource, @NonNull Builder builder) {
             List<Header> headers = tileLayerSource.getHeaders();
             if (headers != null) {
                 for (Header h : headers) {

@@ -46,11 +46,12 @@ public class MapTileProvider<T> {
     // Constants
     // ===========================================================
 
+    private static final int    UNZIP_BUFFER_SIZE = 4096;
     /**
      * Tag used in debug log-entries.
      */
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapTileProvider.class.getSimpleName().length());
-    private static final String DEBUG_TAG = MapTileProvider.class.getSimpleName().substring(0, TAG_LEN);
+    private static final int    TAG_LEN           = Math.min(LOG_TAG_LEN, MapTileProvider.class.getSimpleName().length());
+    private static final String DEBUG_TAG         = MapTileProvider.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MVT_CACHE_SIZE = 128;
 
@@ -217,35 +218,35 @@ public class MapTileProvider<T> {
      *            all zooms
      */
     public void flushQueue(String rendererId, int zoomLevel) {
-        if (mapTileFilesystemProvider != null) {
-            try {
-                mThreadPool.execute(() -> {
-                    mapTileFilesystemProvider.flushQueue(rendererId, zoomLevel);
-                    // remove the same from pending
-                    Set<String> keys;
-                    synchronized (pending) {
-                        keys = new HashSet<>(pending.keySet());
-                        if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
-                            String id = Integer.toString(zoomLevel) + rendererId;
-                            for (String key : keys) {
-                                if (key.startsWith(id)) {
-                                    pending.remove(key);
-                                }
-                            }
-                        } else {
-                            for (String key : keys) {
-                                if (key.contains(rendererId)) {
-                                    pending.remove(key);
-                                }
+        if (mapTileFilesystemProvider == null) {
+            return;
+        }
+        try {
+            mThreadPool.execute(() -> {
+                mapTileFilesystemProvider.flushQueue(rendererId, zoomLevel);
+                // remove the same from pending
+                synchronized (pending) {
+                    Set<String> keys = new HashSet<>(pending.keySet());
+                    if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
+                        String id = Integer.toString(zoomLevel) + rendererId;
+                        for (String key : keys) {
+                            if (key.startsWith(id)) {
+                                pending.remove(key);
                             }
                         }
+                        return;
                     }
-                });
-            } catch (RejectedExecutionException rjee) {
-                Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
-            } catch (Exception e) {
-                Log.e(DEBUG_TAG, "Exception in flushQueue()", e);
-            }
+                    for (String key : keys) {
+                        if (key.contains(rendererId)) {
+                            pending.remove(key);
+                        }
+                    }
+                }
+            });
+        } catch (RejectedExecutionException rjee) {
+            Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
+        } catch (Exception e) {
+            Log.e(DEBUG_TAG, "Exception in flushQueue()", e);
         }
     }
 
@@ -355,7 +356,7 @@ public class MapTileProvider<T> {
             try (ByteArrayInputStream in = new ByteArrayInputStream(data);
                     GZIPInputStream gis = new GZIPInputStream(in);
                     ByteArrayOutputStream os = new ByteArrayOutputStream()) {
-                byte[] buffer = new byte[4096];
+                byte[] buffer = new byte[UNZIP_BUFFER_SIZE];
                 int len;
                 while ((len = gis.read(buffer)) != -1) {
                     os.write(buffer, 0, len);

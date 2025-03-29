@@ -1,5 +1,7 @@
 package de.blau.android.services.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -16,7 +18,9 @@ import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.util.ExecutorTask;
 
 public class MapTileTester {
-    private static final String DEBUG_TAG = MapTileTester.class.getSimpleName().substring(0, Math.min(23, MapTileTester.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapTileTester.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapTileTester.class.getSimpleName().substring(0, TAG_LEN);
 
     private final Runnable      testTileLoader;
     private final StringBuilder output    = new StringBuilder();
@@ -50,7 +54,10 @@ public class MapTileTester {
                 eol();
                 TileLayerSource renderer = TileLayerSource.get(ctx, rendererID, false);
                 if (renderer != null) {
-                    String url = MapTileDownloader.buildURL(renderer, new MapTile(rendererID, zoomLevel, tileX, tileY));
+                    // if we've replaced an api key place holder show the original url
+                    final String originalTileUrl = renderer.getOriginalTileUrl();
+                    String url = TileLayerSource.APIKEY_PATTERN.matcher(originalTileUrl).matches() ? originalTileUrl
+                            : MapTileDownloader.buildURL(renderer, new MapTile(rendererID, zoomLevel, tileX, tileY));
                     output.append(ctx.getString(R.string.tile_input_error, message, url));
                 }
                 eol();

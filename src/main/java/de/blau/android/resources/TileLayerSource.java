@@ -2465,7 +2465,7 @@ public class TileLayerSource implements Serializable {
         return EPSG_3857_COMPATIBLE.contains(proj) || isLatLon(proj);
     }
 
-    private static final Pattern APIKEY_PATTERN = Pattern.compile(".*\\{" + APIKEY_PLACEHOLDER + "\\}.*", Pattern.CASE_INSENSITIVE);
+    public static final Pattern APIKEY_PATTERN = Pattern.compile(".*\\{" + APIKEY_PLACEHOLDER + "\\}.*", Pattern.CASE_INSENSITIVE);
 
     /**
      * Replace any apikey placeholder if possible
