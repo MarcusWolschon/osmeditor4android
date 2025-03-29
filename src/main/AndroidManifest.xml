@@ -64,7 +64,7 @@
             android:name=".Splash"
             android:exported="true"
             android:theme="@style/SplashTheme" 
-            android:alwaysRetainTaskState="true">"
+            android:alwaysRetainTaskState="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
