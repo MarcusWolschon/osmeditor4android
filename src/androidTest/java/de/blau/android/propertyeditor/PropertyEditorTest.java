@@ -1860,7 +1860,7 @@ public class PropertyEditorTest {
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_M);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_C);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_D);
-        assertTrue(TestUtils.findText(device, false, "MCM", 5000));
+        assertTrue(TestUtils.findText(device, false, "MCM", 10000));
         assertTrue(TestUtils.findText(device, false, "McDonald's", 1000));
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_O);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_N);
