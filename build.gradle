@@ -117,7 +117,7 @@ task generateImageryTranslations () {
 task updateImageryFromJosm(type: Download) {
     acceptAnyCertificate true
     src 'https://josm.openstreetmap.de/maps?format=geojson'
-    dest new File(projectDir.getPath() + '/src/main/assets/imagery.geojson')
+    dest new File(imagery_assets_dir)
 }
 updateImageryFromJosm.group = 'vespucci'
 updateImageryFromJosm.description = 'Update the background layer configuration from https://josm.openstreetmap.de/wiki/Maps'
@@ -125,7 +125,7 @@ updateImageryFromJosm.description = 'Update the background layer configuration f
 task updateImageryFromELI(type: Download) {
     acceptAnyCertificate true
     src 'https://osmlab.github.io/editor-layer-index/imagery.geojson'
-    dest new File(projectDir.getPath() + '/src/main/assets/imagery.geojson')
+    dest new File(imagery_assets_dir)
 }
 updateImageryFromELI.group = 'vespucci'
 updateImageryFromELI.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/imagery.geojson'
