@@ -143,7 +143,7 @@ public class AutoPreset {
                                 item.setAppliesToRelation();
                             }
                             Log.d(DEBUG_TAG, "adding " + resultKey + " " + sr.getValue());
-                            item.addTag(resultKey, PresetKeyType.TEXT, sr.getValue(), null, null);
+                            item.addFixedTag(resultKey, sr.getValue(), null, null);
 
                             List<String> combinationsFromTaginfo = TaginfoServer.tagCombinations(context, server, resultKey, sr.getValue(), getAppliesTo(item),
                                     10);
