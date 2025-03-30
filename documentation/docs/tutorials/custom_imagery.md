@@ -1,5 +1,5 @@
 # Custom imagery
-_by Simon Poole, updated 2021-08-30_
+_by Simon Poole, updated 2025-03-30_
 
 For Vespucci 10.1 we've added four long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
 OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci versions support EPSG:4326 for WMS servers too), support for layers from [OAM](https://openaerialmap.org/) and support for imagery layers in [MBTiles](https://github.com/mapbox/mbtiles-spec) format.
@@ -64,6 +64,12 @@ WMS server example:
 
     https://geodienste.sachsen.de/wms_geosn_dop-rgb/guest?FORMAT=image/jpeg&VERSION=1.1.1&SERVICE=WMS&REQUEST=GetMap&LAYERS=sn_dop_020&STYLES=&SRS=EPSG:3857&WIDTH={width}&HEIGHT={height}&BBOX={bbox}
     
+## Adding custom imagery sources configuration from a file
+
+You can add imagery source configurations that require more flexibility than provided by the UI from a file in the same format as the [Editor Layer Index](https://github.com/osmlab/editor-layer-index). For example if you need to modify an existing ELI entry you can simply copy it to a file name _imagery.geojson_ modify it and save it to the Vespucci directory on your device, it will then be read on app startup.
+
+Note that the file needs to be in the correct format, see [example](https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/imagery/imagery_vespucci.geojson). 
+
 ## OAM
 
 You can query the OAM catalog by going to _Tools_ and selecting _Add imagery from OAM_, this will query the OAM servers for layers in the current view:
