@@ -1838,6 +1838,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#adding-custom-imagery-sources-configuration-from-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding custom imagery sources configuration from a file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#oam" class="md-nav__link">
     <span class="md-ellipsis">
       OAM
@@ -2243,6 +2252,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#adding-custom-imagery-sources-configuration-from-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding custom imagery sources configuration from a file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#oam" class="md-nav__link">
     <span class="md-ellipsis">
       OAM
@@ -2276,7 +2294,7 @@
 
 
 <h1 id="custom-imagery">Custom imagery<a class="headerlink" href="#custom-imagery" title="Permanent link">#</a></h1>
-<p><em>by Simon Poole, updated 2021-08-30</em></p>
+<p><em>by Simon Poole, updated 2025-03-30</em></p>
 <p>For Vespucci 10.1 we've added four long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
 OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci versions support EPSG:4326 for WMS servers too), support for layers from <a href="https://openaerialmap.org/">OAM</a> and support for imagery layers in <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> format.</p>
 <p><strong>NOTE</strong> even though the URLs may look similar to those for a WMS layer, we do not support requesting data from ESRI MapServer with their native protocol.</p>
@@ -2318,6 +2336,9 @@ OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci vers
 <p>WMS server example:</p>
 <pre><code>https://geodienste.sachsen.de/wms_geosn_dop-rgb/guest?FORMAT=image/jpeg&amp;VERSION=1.1.1&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;LAYERS=sn_dop_020&amp;STYLES=&amp;SRS=EPSG:3857&amp;WIDTH={width}&amp;HEIGHT={height}&amp;BBOX={bbox}
 </code></pre>
+<h2 id="adding-custom-imagery-sources-configuration-from-a-file">Adding custom imagery sources configuration from a file<a class="headerlink" href="#adding-custom-imagery-sources-configuration-from-a-file" title="Permanent link">#</a></h2>
+<p>You can add imagery source configurations that require more flexibility than provided by the UI from a file in the same format as the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a>. For example if you need to modify an existing ELI entry you can simply copy it to a file name <em>imagery.geojson</em> modify it and save it to the Vespucci directory on your device, it will then be read on app startup.</p>
+<p>Note that the file needs to be in the correct format, see <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/imagery/imagery_vespucci.geojson">example</a>. </p>
 <h2 id="oam">OAM<a class="headerlink" href="#oam" title="Permanent link">#</a></h2>
 <p>You can query the OAM catalog by going to <em>Tools</em> and selecting <em>Add imagery from OAM</em>, this will query the OAM servers for layers in the current view:</p>
 <p><img alt="oam imagery form" src="../images/custom_imagery_oam.png" /> </p>
