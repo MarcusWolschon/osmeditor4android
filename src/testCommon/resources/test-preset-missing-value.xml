@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<presets version="0.0.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0"
+        shortdescription="Testing preset"
+        object_keys="imaginary2">
+    <group name="Test Group">
+        <item name="Test Item" type="node,way,closedway,multipolygon">
+            <key key="key" />
+        </item> <!-- -->
+    </group>
+</presets>

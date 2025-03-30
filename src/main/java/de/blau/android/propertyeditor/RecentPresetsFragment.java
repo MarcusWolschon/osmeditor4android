@@ -206,6 +206,7 @@ public class RecentPresetsFragment extends BaseFragment {
      */
     private void recreateRecentPresetView(@NonNull LinearLayout presetLayout) {
         Log.d(DEBUG_TAG, "recreateRecentPresetView");
+        presets = App.getCurrentPresets(getActivity());
         presetLayout.removeAllViews();
         View v = getRecentPresetsView(presetLayout, element, presets);
         if (v != null) {

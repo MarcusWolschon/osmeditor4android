@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,12 +29,13 @@ import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetItem;
-import de.blau.android.presets.PresetKeyType;
 import de.blau.android.presets.PresetTagField;
 import de.blau.android.util.collections.MultiHashMap;
 
 public final class SearchIndexUtils {
-    private static final String DEBUG_TAG = SearchIndexUtils.class.getSimpleName().substring(0, Math.min(23, SearchIndexUtils.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, SearchIndexUtils.class.getSimpleName().length());
+    private static final String DEBUG_TAG = SearchIndexUtils.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final Pattern DEACCENT_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
 
@@ -227,7 +230,7 @@ public final class SearchIndexUtils {
                             PresetItem namePi = new PresetItem(preset, null, nat.getName(), pi == null ? null : pi.getIconpath(), null);
 
                             for (Entry<String, String> entry : tags.entrySet()) {
-                                namePi.addTag(entry.getKey(), PresetKeyType.TEXT, entry.getValue(), null, null);
+                                namePi.addFixedTag(entry.getKey(), entry.getValue(), null, null);
                             }
                             if (pi != null) {
                                 Map<String, PresetField> fields = pi.getFields();

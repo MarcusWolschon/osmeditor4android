@@ -1,5 +1,7 @@
 package de.blau.android.presets;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +33,8 @@ import de.blau.android.util.StringWithDescriptionAndIcon;
 
 public class PresetParser {
 
-    private static final String DEBUG_TAG = PresetParser.class.getSimpleName().substring(0, Math.min(23, PresetParser.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetParser.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PresetParser.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String ALTERNATIVE           = "alternative";
     private static final String USE_LAST_AS_DEFAULT   = "use_last_as_default";
@@ -183,8 +186,9 @@ public class PresetParser {
                         if (chunk.getListValues() == null) {
                             parseItem(name, attr);
                         } else {
-                            Log.w(DEBUG_TAG, "chunk can only contain a sequence LIST_ENTRY or normal ITEM elements: " + name);
-                            throw new SAXException("chunk can only contain a sequence LIST_ENTRY or normal ITEM elements: " + name);
+                            final String msg = "chunk can only contain a sequence LIST_ENTRY or normal ITEM elements: " + name;
+                            Log.w(DEBUG_TAG, msg);
+                            throw new SAXException(msg);
                         }
                     }
                     break;
@@ -237,8 +241,9 @@ public class PresetParser {
                         throw new SAXException("Nested items are not allowed");
                     }
                     if (inOptionalSection) {
-                        Log.e(DEBUG_TAG, ITEM + " " + attr.getValue(NAME) + " optional must be nested");
-                        throw new SAXException("optional must be nested");
+                        final String msg = ITEM + " " + attr.getValue(NAME) + " optional must be nested";
+                        Log.e(DEBUG_TAG, msg);
+                        throw new SAXException(msg);
                     }
                     parent = groupstack.peek();
                     String type = attr.getValue(TYPE);
@@ -278,8 +283,9 @@ public class PresetParser {
                         throw new SAXException("Nested chunks are not allowed");
                     }
                     if (inOptionalSection) {
-                        Log.e(DEBUG_TAG, "Chunk " + attr.getValue(ID) + " optional must be nested");  // NOSONAR
-                        throw new SAXException("optional must be nested");
+                        final String msg = "Chunk " + attr.getValue(ID) + " optional must be nested"; // NOSONAR
+                        Log.e(DEBUG_TAG, msg);
+                        throw new SAXException(msg);
                     }
                     type = attr.getValue(TYPE);
                     if (type == null) {
@@ -312,20 +318,26 @@ public class PresetParser {
                     currentLabel = addLabelField(supportLabels, attr);
                     break;
                 case KEY_ATTR:
-                    String key = attr.getValue(KEY_ATTR);
+                    String key = getKey(name, attr);
+                    String value = attr.getValue(VALUE);
+                    if (value == null) {
+                        final String msg = ITEM + " " + attr.getValue(NAME) + " value must be present in key field";
+                        Log.e(DEBUG_TAG, msg);
+                        throw new SAXException(msg);
+                    }
                     String match = attr.getValue(MATCH);
                     String textContext = attr.getValue(TEXT_CONTEXT);
                     String isObjectString = attr.getValue(OBJECT);
                     PresetTagField field = null;
                     if (!inOptionalSection) {
                         if (NONE.equals(match)) {// don't include in fixed tags if not used for matching
-                            field = currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue(VALUE), MatchType.fromString(match));
+                            field = currentItem.addTag(false, key, PresetKeyType.TEXT, value, MatchType.fromString(match));
                         } else {
-                            field = currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue(VALUE), attr.getValue(TEXT), textContext);
+                            field = currentItem.addFixedTag(key, value, attr.getValue(TEXT), textContext);
                         }
                     } else {
                         // Optional fixed tags should not happen, their values will NOT be automatically inserted.
-                        field = currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue(VALUE), MatchType.fromString(match));
+                        field = currentItem.addTag(true, key, PresetKeyType.TEXT, value, MatchType.fromString(match));
                         field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED))); // fixed fields can't be deprecated
                     }
                     if (match != null) {
@@ -341,11 +353,7 @@ public class PresetParser {
                     field.setMatchExpression(attr.getValue(MATCH_EXPRESSION));
                     break;
                 case TEXT_FIELD:
-                    key = attr.getValue(KEY_ATTR);
-                    if (key == null) {
-                        Log.e(DEBUG_TAG, ITEM + " " + attr.getValue(NAME) + " key must be present  in text field");
-                        throw new SAXException("key must be present in text field");
-                    }
+                    key = getKey(name, attr);
                     match = attr.getValue(MATCH);
                     field = currentItem.addTag(inOptionalSection, key, PresetKeyType.TEXT, (String) null, match == null ? null : MatchType.fromString(match));
                     if (!(field instanceof PresetTextField)) {
@@ -424,7 +432,7 @@ public class PresetParser {
                     setRegions(attr, checkGroup);
                     break;
                 case CHECK_FIELD:
-                    key = attr.getValue(KEY_ATTR);
+                    key = getKey(name, attr);
                     String valueOnAttr = attr.getValue(VALUE_ON) == null ? YES : attr.getValue(VALUE_ON);
                     String valueOffAttr = attr.getValue(VALUE_OFF) == null ? NO : attr.getValue(VALUE_OFF);
                     String disableOffAttr = attr.getValue(DISABLE_OFF);
@@ -435,9 +443,9 @@ public class PresetParser {
                         valueOff = new StringWithDescription(valueOffAttr, de.blau.android.util.Util.capitalize(valueOffAttr));
                         checkField.setOffValue(valueOff);
                     }
-                    defaultValue = attr.getValue(DEFAULT) == null ? null : (ON.equals(attr.getValue(DEFAULT)) ? valueOnAttr : valueOffAttr);
+                    defaultValue = attr.getValue(DEFAULT);
                     if (defaultValue != null) {
-                        checkField.setDefaultValue(defaultValue);
+                        checkField.setDefaultValue(ON.equals(defaultValue) ? valueOnAttr : valueOffAttr);
                     }
                     text = attr.getValue(TEXT);
                     if (text != null) {
@@ -469,11 +477,7 @@ public class PresetParser {
                 case COMBO_FIELD:
                 case MULTISELECT_FIELD:
                     boolean multiselect = MULTISELECT_FIELD.equals(name);
-                    key = attr.getValue(KEY_ATTR);
-                    if (key == null) {
-                        Log.e(DEBUG_TAG, ITEM + " " + attr.getValue(NAME) + " key must be present  in text field");
-                        throw new SAXException("key must be present in combo/multiselect field");
-                    }
+                    key = getKey(name, attr);
                     String delimiter = attr.getValue(DELIMITER);
                     if (delimiter == null) {
                         delimiter = multiselect ? Preset.MULTISELECT_DELIMITER : Preset.COMBO_DELIMITER;
@@ -571,8 +575,9 @@ public class PresetParser {
                     currentItem.addRole(role);
                     break;
                 case REFERENCE:
-                    PresetChunk chunk = chunks.get(attr.getValue(REF)); // note this assumes that there are no
-                                                                        // forward references
+                    String chunkRef = attr.getValue(REF);
+                    PresetChunk chunk = chunks.get(chunkRef); // note this assumes that there are no
+                                                              // forward references
                     if (chunk == null) {
                         Log.e(DEBUG_TAG, "Chunk " + attr.getValue(REF) + " not found"); // NOSONAR
                         break;
@@ -581,15 +586,16 @@ public class PresetParser {
                         if (listValues != null) {
                             listValues.addAll(chunk.getListValues());
                         } else {
-                            Log.d(DEBUG_TAG, "chunk with LIST_ENTRY sequence referenced outside of COMBO/MULTISELECT");
-                            throw new SAXException("chunk with LIST_ENTRY sequence referenced outside of COMBO/MULTISELECT");
+                            String msg = "chunk " + chunkRef + " with LIST_ENTRY sequence referenced outside of COMBO/MULTISELECT";
+                            Log.d(DEBUG_TAG, msg);
+                            throw new SAXException(msg);
                         }
                     } else {
                         if (inOptionalSection) {
                             // fixed tags don't make sense in an optional section, and doesn't seem to happen in
                             // practice
                             if (chunk.getFixedTagCount() > 0) {
-                                Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section");  // NOSONAR
+                                Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section"); // NOSONAR
                             }
                             for (PresetField f : chunk.getFields().values()) {
                                 if (f instanceof PresetTagField) {
@@ -655,6 +661,25 @@ public class PresetParser {
                 } else {
                     addedLabel = false;
                 }
+            }
+
+            /**
+             * Get the key from attributes
+             * 
+             * @param name current field name
+             * @param attr the attribtues
+             * @return the key
+             * @throws SAXException if no key was found
+             */
+            @NonNull
+            public String getKey(@NonNull String name, @NonNull Attributes attr) throws SAXException {
+                String key = attr.getValue(KEY_ATTR);
+                if (key == null) {
+                    final String msg = ITEM + " " + attr.getValue(NAME) + " key must be present in " + name + " field";
+                    Log.e(DEBUG_TAG, msg);
+                    throw new SAXException(msg);
+                }
+                return key;
             }
 
             /**
