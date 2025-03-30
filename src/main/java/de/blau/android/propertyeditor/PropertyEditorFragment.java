@@ -459,7 +459,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             return true;
         }
         if (item.getItemId() == R.id.menu_config) {
-            PrefEditor.start(getActivity(), PREFERENCES_CODE);
+            PrefEditor.start(this, PREFERENCES_CODE);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -478,6 +478,8 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             // Preferences may have been changed
             prefs = new Preferences(getContext());
             App.getLogic().setPrefs(prefs);
+            updatePresets();
+            updateRecentPresets();
         }
     }
 
