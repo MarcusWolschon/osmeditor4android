@@ -96,9 +96,9 @@ public class PresetIconManager implements Serializable {
                 Context extCtx = context.createPackageContext(assetPackage, 0);
                 return extCtx.getAssets();
             } catch (NameNotFoundException e) {
-                Log.e(DEBUG_TAG, "Asset package not found" + assetPackage);
+                Log.e(DEBUG_TAG, "Asset package not found " + assetPackage);
             } catch (Exception e) {
-                Log.e(DEBUG_TAG, "Exception while loading  asset package " + assetPackage, e);
+                Log.e(DEBUG_TAG, "Exception while loading asset package " + assetPackage, e);
             }
         }
         return null;

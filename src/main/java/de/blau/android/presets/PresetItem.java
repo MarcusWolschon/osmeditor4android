@@ -307,20 +307,13 @@ public class PresetItem extends PresetElement {
      * Adds a fixed tag to the item
      * 
      * @param key key name of the tag
-     * @param type PresetType
      * @param value value of the tag
      * @param text description of the tag return the allocated PresetField
      * @param textContext a translation context
      * @return the allocated PresetField
      */
     @NonNull
-    public PresetTagField addTag(final String key, final PresetKeyType type, @Nullable String value, @Nullable String text, @Nullable String textContext) {
-        if (key == null) {
-            throw new NullPointerException("null key not supported");
-        }
-        if (value == null) {
-            value = "";
-        }
+    public PresetTagField addFixedTag(@NonNull final String key, @NonNull String value, @Nullable String text, @Nullable String textContext) {
         if (text != null) {
             text = preset.translate(text, textContext);
         }
