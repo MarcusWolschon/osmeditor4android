@@ -218,11 +218,7 @@ Vespucci preferentially attempts to store aerial imagery data on an external SD 
 
 ### Can't download data from OpenStreetMap servers 
 
-If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use HTTPS (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. 
-
-Workaround: create a new non-HTTPS API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 and later versions already have such an entry, you only need to activate it. 
-
-Note that the same issue may apply to certain background and overlay layers.
+If you are getting an _Unknown error_ when you try to download data from OpenStreetMap and the displayed message seems to be gibberish (that is HTML and CSS code), you are likely being blocked by Cloudflare anti-misuse measures. There is currently no way to circumvent these in the app and you are essentially stuck. If the issue persists over multiple days please open an issue.
 
 ### "301 Moved Permanently" error when trying to download
 

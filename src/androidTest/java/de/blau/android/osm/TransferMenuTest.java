@@ -9,6 +9,7 @@ import static org.junit.Assert.fail;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -45,6 +46,7 @@ import de.blau.android.SignalHandler;
 import de.blau.android.SignalUtils;
 import de.blau.android.TestUtils;
 import de.blau.android.contract.MimeTypes;
+import de.blau.android.layer.LayerType;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -93,7 +95,8 @@ public class TransferMenuTest {
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
         prefDB.selectAPI("Test");
-        prefs = new Preferences(context);
+        prefDB.deleteLayer(LayerType.TASKS, null);
+        prefs = new Preferences(context);     
         prefs.setPanAndZoomAutoDownload(false);
         LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
@@ -451,7 +454,7 @@ public class TransferMenuTest {
         TestUtils.clickText(device, false, main.getString(R.string.menu_enable_pan_and_zoom_auto_download), true, false);
 
         TestUtils.clickAwayTip(device, context);
-        
+
         ViewBox viewBox = main.getMap().getViewBox();
         viewBox.moveTo(main.getMap(), 0, 0);
         main.getMap().invalidate();
@@ -467,6 +470,35 @@ public class TransferMenuTest {
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.download_limit_title), 10000));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true));
         assertFalse(App.getPreferences(main).getAutoDownload());
+    }
+
+    /**
+     * Download something
+     */
+    @Test
+    public void download() {
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        mockServer.enqueue(DOWNLOAD1_FIXTURE);
+        App.getDelegator().reset(true);
+        main.getMap().invalidate();
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_download_current), true, false);
+        TestUtils.textGone(device, main.getString(R.string.progress_download_message), 20000);
+        assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
+    }
+
+    /**
+     * Download something with unknown error
+     */
+    @Test
+    public void downloadUnknownError() {
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        mockServer.enqueue("999");
+        App.getDelegator().reset(true);
+        main.getMap().invalidate();
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_download_current), true, false);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.unknown_error_title), 10000));
     }
 
     /**

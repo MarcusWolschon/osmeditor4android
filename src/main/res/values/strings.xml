@@ -77,6 +77,7 @@
     <string name="not_found_message">The API couldn\'t find an existing element or changeset with the specified id.&lt;br&gt;&lt;br&gt;</string>
     <string name="unknown_error_title">Unknown error</string>
     <string name="unknown_error_message">The error code returned from the API or the message could not be processed.&lt;br&gt;&lt;br&gt;</string>
+    <string name="unknown_http_code_message">HTTP error code: %1$d&lt;br&gt;Error message:&lt;br&gt;&lt;br&gt;%1$s</string>
     <string name="no_data_title">No data</string>
     <string name="no_data_message">The configured data source has no coverage here.</string>
     <string name="required_feature_missing_title">Missing or disabled component</string> 
