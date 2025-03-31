@@ -4242,6 +4242,7 @@ public class Logic {
             if (setViewBox) {
                 editState.setViewBox(this, main.getMap());
             }
+            editState.restartActionMode(main);
             File editStateFile = main.getFileStreamPath(EDITSTATE_FILENAME);
             if (System.currentTimeMillis() - editStateFile.lastModified() > ONE_DAY_MS) {
                 Log.w(DEBUG_TAG, "App hasn't been run in a long time, locking");
@@ -4327,10 +4328,7 @@ public class Logic {
                     }
                     mainMap.getDataStyle().updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not
                                                                                               // done in
-                    // loadEiditngState
-                    synchronized (Logic.this) {
-                        loadEditingState((Main) activity, true);
-                    }
+                    loadEditingState((Main) activity, true);
                 } else {
                     Log.e(DEBUG_TAG, "loadFromFile map is null");
                 }

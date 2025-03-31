@@ -125,6 +125,14 @@ public class EditState implements Serializable {
             }
             logic.setSelectionStack(selectionStack);
         }
+    }
+
+    /**
+     * Restart saved action mode
+     * 
+     * @param main the current instance of Main
+     */
+    public void restartActionMode(@NonNull Main main) {
         main.getEasyEditManager().setRestartActionModeCallbackName(savedEasyEditActionModeCallback);
     }
 
