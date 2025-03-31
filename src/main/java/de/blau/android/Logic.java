@@ -3253,7 +3253,7 @@ public class Logic {
                 result = new AsyncResult(ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED);
                 break;
             default:
-                result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
+                result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, ctx.getString(R.string.unknown_http_code_message, e.getHttpErrorCode(), e.getMessage()));
             }
         } catch (StorageException sex) {
             result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
