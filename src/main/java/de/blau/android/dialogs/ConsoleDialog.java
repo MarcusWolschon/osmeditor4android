@@ -57,14 +57,26 @@ public class ConsoleDialog extends DialogFragment {
 
     private static final String TAG                = "consoledialog";
     private static final String TITLE_KEY          = "title";
-    private static final String INITIAL_TEXT_KEY   = "initial_text";
-    private static final String INITIAL_OUTPUT_KEY = "initial_output";
+    private static final String INPUT_TEXT_KEY     = "initial_text";
+    private static final String OUTPUT_TEXT_KEY    = "initial_output";
     private static final String CALLBACK_KEY       = "callback";
+    private static final String CALLBACK_SAVE_FILE = "console_callback.res";
     private static final String CHECKBOX1_KEY      = "checkbox1";
     private static final String CHECKBOX2_KEY      = "checkbox2";
     private static final String DISMISS_ON_RUN_KEY = "dismiss_on_run";
 
-    private EditText input;
+    private SavingHelper<EvalCallback> savingHelper = new SavingHelper<>();
+
+    private EditText     input;
+    private TextView     output;
+    private int          titleResource;
+    private EvalCallback callback;
+    private int          checkbox1Resource;
+    private int          checkbox2Resource;
+    private boolean      dismissOnRun;
+    private String       initialText;
+    private String       inputText;
+    private String       outputText;
 
     /**
      * Show an info dialog for the supplied OsmElement
@@ -121,8 +133,8 @@ public class ConsoleDialog extends DialogFragment {
         args.putInt(TITLE_KEY, titleResource);
         args.putInt(CHECKBOX1_KEY, checkbox1Resource);
         args.putInt(CHECKBOX2_KEY, checkbox2Resource);
-        args.putString(INITIAL_TEXT_KEY, initialText);
-        args.putString(INITIAL_OUTPUT_KEY, initialOutput);
+        args.putString(INPUT_TEXT_KEY, initialText);
+        args.putString(OUTPUT_TEXT_KEY, initialOutput);
         args.putSerializable(CALLBACK_KEY, callback);
         args.putBoolean(DISMISS_ON_RUN_KEY, dismissOnRun);
 
@@ -137,13 +149,16 @@ public class ConsoleDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         Builder builder = new AlertDialog.Builder(getActivity());
-        int titleResource = getArguments().getInt(TITLE_KEY);
-        EvalCallback callback = Util.getSerializeable(getArguments(), CALLBACK_KEY, EvalCallback.class);
-        int checkbox1Resource = getArguments().getInt(CHECKBOX1_KEY);
-        int checkbox2Resource = getArguments().getInt(CHECKBOX2_KEY);
-        String initialText = getArguments().getString(INITIAL_TEXT_KEY);
-        String initialOutput = getArguments().getString(INITIAL_OUTPUT_KEY);
-        final boolean dismissOnRun = getArguments().getBoolean(DISMISS_ON_RUN_KEY, false);
+        if (savedInstanceState != null) {
+            getState(savedInstanceState);
+            callback = savingHelper.load(getContext(), CALLBACK_SAVE_FILE, true);
+        } else {
+            final Bundle arguments = getArguments();
+            getState(arguments);
+            callback = Util.getSerializeable(arguments, CALLBACK_KEY, EvalCallback.class);
+
+            arguments.clear();
+        }
 
         // Create some useful objects
         final FragmentActivity activity = getActivity();
@@ -153,18 +168,18 @@ public class ConsoleDialog extends DialogFragment {
 
         View v = inflater.inflate(R.layout.console, null);
         input = (EditText) v.findViewById(R.id.input);
-        final TextView output = (TextView) v.findViewById(R.id.output);
+        output = (TextView) v.findViewById(R.id.output);
         final CheckBox checkbox1 = (CheckBox) v.findViewById(R.id.checkbox1);
         final CheckBox checkbox2 = (CheckBox) v.findViewById(R.id.checkbox2);
 
         setUpCheckBox(checkbox1Resource, checkbox1);
         setUpCheckBox(checkbox2Resource, checkbox2);
 
-        if (initialText != null) {
-            input.setText(initialText);
+        if (inputText != null) {
+            input.setText(inputText);
         }
-        if (initialOutput != null) {
-            setOutput(output, initialOutput);
+        if (outputText != null) {
+            setOutput(output, outputText);
         }
 
         builder.setTitle(titleResource);
@@ -188,6 +203,20 @@ public class ConsoleDialog extends DialogFragment {
             });
         });
         return dialog;
+    }
+
+    /**
+     * Set our state from a Bundle
+     * 
+     * @param bundle the bundle
+     */
+    public void getState(final Bundle bundle) {
+        titleResource = bundle.getInt(TITLE_KEY);
+        checkbox1Resource = bundle.getInt(CHECKBOX1_KEY);
+        checkbox2Resource = bundle.getInt(CHECKBOX2_KEY);
+        dismissOnRun = bundle.getBoolean(DISMISS_ON_RUN_KEY, false);
+        inputText = bundle.getString(INPUT_TEXT_KEY);
+        outputText = bundle.getString(OUTPUT_TEXT_KEY);
     }
 
     /**
@@ -423,5 +452,19 @@ public class ConsoleDialog extends DialogFragment {
                 }
             }
         }.execute();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(DEBUG_TAG, "onSaveInstanceState");
+        outState.putInt(TITLE_KEY, titleResource);
+        outState.putInt(CHECKBOX1_KEY, checkbox1Resource);
+        outState.putInt(CHECKBOX2_KEY, checkbox2Resource);
+        outState.putString(INPUT_TEXT_KEY, initialText);
+        outState.putBoolean(DISMISS_ON_RUN_KEY, dismissOnRun);
+        outState.putString(INPUT_TEXT_KEY, input.getText().toString());
+        outState.putString(OUTPUT_TEXT_KEY, output.getText().toString());
+        savingHelper.save(getContext(), CALLBACK_SAVE_FILE, callback, true, false);
     }
 }
