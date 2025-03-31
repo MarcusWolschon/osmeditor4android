@@ -52,6 +52,7 @@ import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.dialogs.ConsoleDialog;
 import de.blau.android.dialogs.ElementInfo;
+import de.blau.android.dialogs.EvalCallback;
 import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.nsi.Names;
@@ -2041,6 +2042,38 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
         menu.findItem(R.id.tag_menu_paste_from_clipboard).setEnabled(pasteFromClipboardIsPossible());
     }
 
+    /**
+     * Using a lambda pulls in the fragment when serializing in the console
+     */
+    private static class PresetJSEvalCallback implements EvalCallback {
+
+        private static final long serialVersionUID = 1L;
+
+        private final Map<String, List<String>> originalTags;
+        private final Map<String, List<String>> tags;
+        private final Map<String, PresetItem>   key2PresetItem;
+
+        /**
+         * Construct a new callback
+         * 
+         * @param originalTags original tags the property editor was called with
+         * @param tags the current tags
+         * @param key2PresetItem map from key to PresetItem
+         */
+        PresetJSEvalCallback(@NonNull Map<String, List<String>> originalTags, @NonNull Map<String, List<String>> tags,
+                @NonNull Map<String, PresetItem> key2PresetItem) {
+            this.originalTags = originalTags;
+            this.tags = tags;
+            this.key2PresetItem = key2PresetItem;
+        }
+
+        @Override
+        public String eval(Context context, String input, boolean flag1, boolean flag2) {
+            return de.blau.android.javascript.Utils.evalString(context, "JS Preset Test", input, originalTags, tags, "test", key2PresetItem,
+                    App.getCurrentPresets(context));
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         final int itemId = item.getItemId();
@@ -2092,9 +2125,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
             return true;
         case R.id.tag_menu_js_console:
             ConsoleDialog.showDialog(getActivity(), R.string.tag_menu_js_console, -1, -1, null, null,
-                    (context, input, flag1, flag2) -> de.blau.android.javascript.Utils.evalString(context, "JS Preset Test", input, getTagsInEditForm(),
-                            getKeyValueMap(true), "test", tags2Preset, App.getCurrentPresets(context)),
-                    false);
+                    new PresetJSEvalCallback(getTagsInEditForm(), getKeyValueMap(true), tags2Preset), false);
             return true;
         case R.id.tag_menu_select_all:
             selectAllRows();
