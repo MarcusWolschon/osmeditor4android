@@ -152,22 +152,24 @@ public class MapOverlay extends NonSerializeableLayer
 
         @Override
         protected void download() {
-            ViewBox box = new ViewBox(map.getViewBox());
-            box.scale(1.2); // make sides 20% larger
-            box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
-            List<BoundingBox> bboxes = BoundingBox.newBoxes(tasks.getBoundingBoxes(boxes), box);
-            for (BoundingBox b : bboxes) {
-                tasks.addBoundingBox(b);
-                try {
-                    downloadThreadPool.execute(() -> {
-                        TransferTasks.downloadBoxSync(map.getContext(), server, b, true, App.getTaskStorage(), filter, TransferTasks.MAX_PER_REQUEST);
-                        map.postInvalidate();
-                    });
-                } catch (RejectedExecutionException rjee) {
-                    Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
-                    tasks.deleteBoundingBox(b);
+            downloadThreadPool.execute(() -> {
+                ViewBox box = new ViewBox(map.getViewBox());
+                box.scale(1.2); // make sides 20% larger
+                box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
+                List<BoundingBox> bboxes = BoundingBox.newBoxes(tasks.getBoundingBoxes(boxes), box);
+                for (BoundingBox b : bboxes) {
+                    tasks.addBoundingBox(b);
+                    try {
+                        downloadThreadPool.execute(() -> {
+                            TransferTasks.downloadBoxSync(map.getContext(), server, b, true, App.getTaskStorage(), filter, TransferTasks.MAX_PER_REQUEST);
+                            map.postInvalidate();
+                        });
+                    } catch (RejectedExecutionException rjee) {
+                        Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
+                        tasks.deleteBoundingBox(b);
+                    }
                 }
-            }
+            });
             // check interval first as tasks.count traverses the whole R-Tree
             if (autoPruneEnabled && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL
                     && tasks.reachedPruneLimits(autoPruneTaskLimit, autoDownloadBoxLimit)) {

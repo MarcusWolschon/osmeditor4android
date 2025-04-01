@@ -406,35 +406,37 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
         @Override
         protected void download() {
-            Context ctx = map.getContext();
-            List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
-            box.scale(1.2); // make sides 20% larger
-            box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
-            List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
-            for (BoundingBox b : bboxes) {
-                delegator.addBoundingBox(b);
+            dataThreadPoolExecutor.execute(() -> {
+                Context ctx = map.getContext();
+                List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
+                box.scale(1.2); // make sides 20% larger
+                box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
+                List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
                 final Logic logic = App.getLogic();
-                try {
-                    dataThreadPoolExecutor.execute(() -> {
-                        AsyncResult result = logic.download(ctx, prefs.getServer(), b, postMerge, () -> {
-                            logic.reselectRelationMembers();
-                            map.postInvalidate();
-                        }, true, true);
-                        final int code = result.getCode();
-                        if (PAUSE_AUTO_DOWNLOAD.contains(code)) {
-                            prefs.setPanAndZoomAutoDownload(false);
-                            setPrefs(prefs);
-                            if (ctx instanceof FragmentActivity) {
-                                new Handler(ctx.getMainLooper()).post(
-                                        () -> ErrorAlert.showDialog(((FragmentActivity) ctx), code, ctx.getString(R.string.autodownload_has_been_paused)));
+                for (BoundingBox b : bboxes) {
+                    try {
+                        dataThreadPoolExecutor.execute(() -> {
+                            delegator.addBoundingBox(b);
+                            AsyncResult result = logic.download(ctx, prefs.getServer(), b, postMerge, () -> {
+                                logic.reselectRelationMembers();
+                                map.postInvalidate();
+                            }, true, true);
+                            final int code = result.getCode();
+                            if (PAUSE_AUTO_DOWNLOAD.contains(code)) {
+                                prefs.setPanAndZoomAutoDownload(false);
+                                setPrefs(prefs);
+                                if (ctx instanceof FragmentActivity) {
+                                    new Handler(ctx.getMainLooper()).post(
+                                            () -> ErrorAlert.showDialog(((FragmentActivity) ctx), code, ctx.getString(R.string.autodownload_has_been_paused)));
+                                }
                             }
-                        }
-                    });
-                } catch (RejectedExecutionException rjee) {
-                    Log.e(DEBUG_TAG, "Download execution rejected " + rjee.getMessage());
-                    logic.removeBoundingBox(b);
+                        });
+                    } catch (RejectedExecutionException rjee) {
+                        Log.e(DEBUG_TAG, "Download execution rejected " + rjee.getMessage());
+                        logic.removeBoundingBox(b);
+                    }
                 }
-            }
+            });
             if (autoPruneEnabled && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL
                     && delegator.reachedPruneLimits(autoPruneNodeLimit, autoDownloadBoxLimit)) {
                 try {
