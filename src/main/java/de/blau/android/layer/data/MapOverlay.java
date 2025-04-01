@@ -407,37 +407,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
         @Override
         protected void download() {
-            dataThreadPoolExecutor.execute(() -> {
-                Context ctx = map.getContext();
-                List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
-                box.scale(1.2); // make sides 20% larger
-                box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
-                List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
-                final Logic logic = App.getLogic();
-                for (BoundingBox b : bboxes) {
-                    try {
-                        dataThreadPoolExecutor.execute(() -> {
-                            delegator.addBoundingBox(b);
-                            AsyncResult result = logic.download(ctx, prefs.getServer(), b, postMerge, () -> {
-                                logic.reselectRelationMembers();
-                                map.postInvalidate();
-                            }, true, true);
-                            final int code = result.getCode();
-                            if (PAUSE_AUTO_DOWNLOAD.contains(code)) {
-                                prefs.setPanAndZoomAutoDownload(false);
-                                setPrefs(prefs);
-                                if (ctx instanceof FragmentActivity) {
-                                    new Handler(ctx.getMainLooper()).post(
-                                            () -> ErrorAlert.showDialog(((FragmentActivity) ctx), code, ctx.getString(R.string.autodownload_has_been_paused)));
-                                }
-                            }
-                        });
-                    } catch (RejectedExecutionException rjee) {
-                        Log.e(DEBUG_TAG, "Download execution rejected " + rjee.getMessage());
-                        logic.removeBoundingBox(b);
-                    }
-                }
-            });
+            dataThreadPoolExecutor.execute(() -> queueDownloadTasks());
             if (autoPruneEnabled && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL
                     && delegator.reachedPruneLimits(autoPruneNodeLimit, autoDownloadBoxLimit)) {
                 try {
@@ -445,6 +415,41 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
                     lastAutoPrune = System.currentTimeMillis();
                 } catch (RejectedExecutionException rjee) {
                     Log.e(DEBUG_TAG, "Prune execution rejected " + rjee.getMessage());
+                }
+            }
+        }
+
+        /**
+         * Determine the bounding boxes to download and queue the download tasks
+         */
+        private void queueDownloadTasks() {
+            Context ctx = map.getContext();
+            List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
+            box.scale(1.2); // make sides 20% larger
+            box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
+            List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
+            final Logic logic = App.getLogic();
+            for (BoundingBox b : bboxes) {
+                try {
+                    dataThreadPoolExecutor.execute(() -> {
+                        delegator.addBoundingBox(b);
+                        AsyncResult result = logic.download(ctx, prefs.getServer(), b, postMerge, () -> {
+                            logic.reselectRelationMembers();
+                            map.postInvalidate();
+                        }, true, true);
+                        final int code = result.getCode();
+                        if (PAUSE_AUTO_DOWNLOAD.contains(code)) {
+                            prefs.setPanAndZoomAutoDownload(false);
+                            setPrefs(prefs);
+                            if (ctx instanceof FragmentActivity) {
+                                new Handler(ctx.getMainLooper()).post(
+                                        () -> ErrorAlert.showDialog(((FragmentActivity) ctx), code, ctx.getString(R.string.autodownload_has_been_paused)));
+                            }
+                        }
+                    });
+                } catch (RejectedExecutionException rjee) {
+                    Log.e(DEBUG_TAG, "Download execution rejected " + rjee.getMessage());
+                    logic.removeBoundingBox(b);
                 }
             }
         }
