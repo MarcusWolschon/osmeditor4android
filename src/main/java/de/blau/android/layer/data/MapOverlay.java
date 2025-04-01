@@ -108,7 +108,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     public static final List<Integer> PAUSE_AUTO_DOWNLOAD = Collections
             .unmodifiableList(Arrays.asList(ErrorCodes.CORRUPTED_DATA, ErrorCodes.DATA_CONFLICT, ErrorCodes.OUT_OF_MEMORY, ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED));
 
-    private static final int THREAD_POOL_SIZE = 2;
+    private static final int ICON_THREAD_POOL_SIZE = 2;
+    private static final int DATA_THREAD_POOL_SIZE = 3;
 
     public static final int  ICON_SIZE_DP         = 20;
     private static final int HOUSE_NUMBER_RADIUS  = 10;
@@ -346,8 +347,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
      */
     private final Downloader download;
 
-    private final ThreadPoolExecutor dataThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-    private final ThreadPoolExecutor iconThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    private final ThreadPoolExecutor dataThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(DATA_THREAD_POOL_SIZE);
+    private final ThreadPoolExecutor iconThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(ICON_THREAD_POOL_SIZE);
 
     /**
      * Construct a new OSM data layer
