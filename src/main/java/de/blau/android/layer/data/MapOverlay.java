@@ -407,7 +407,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
         @Override
         protected void download() {
-            dataThreadPoolExecutor.execute(() -> queueDownloadTasks());
+            dataThreadPoolExecutor.execute(this::queueDownloadTasks);
             if (autoPruneEnabled && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL
                     && delegator.reachedPruneLimits(autoPruneNodeLimit, autoDownloadBoxLimit)) {
                 try {
