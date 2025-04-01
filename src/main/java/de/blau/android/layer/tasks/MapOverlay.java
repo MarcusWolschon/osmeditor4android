@@ -99,7 +99,6 @@ public class MapOverlay extends NonSerializeableLayer
     private ThreadPoolExecutor pruneThreadPool    = (ThreadPoolExecutor) Executors.newFixedThreadPool(PRUNE_THREAD_POOL_SIZE);
 
     private List<Task>        taskList = new ArrayList<>();
-    private List<BoundingBox> boxes    = new ArrayList<>();
     private final ViewBox     bb       = new ViewBox();
 
     /**
@@ -156,7 +155,7 @@ public class MapOverlay extends NonSerializeableLayer
                 ViewBox box = new ViewBox(map.getViewBox());
                 box.scale(1.2); // make sides 20% larger
                 box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
-                List<BoundingBox> bboxes = BoundingBox.newBoxes(tasks.getBoundingBoxes(boxes), box);
+                List<BoundingBox> bboxes = BoundingBox.newBoxes(tasks.getBoundingBoxes(), box);
                 for (BoundingBox b : bboxes) {
                     tasks.addBoundingBox(b);
                     try {
