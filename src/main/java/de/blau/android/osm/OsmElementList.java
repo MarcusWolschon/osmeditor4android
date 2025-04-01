@@ -1,14 +1,22 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class OsmElementList<T extends OsmElement> {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OsmElementList.class.getSimpleName().length());
+    private static final String DEBUG_TAG = OsmElementList.class.getSimpleName().substring(0, TAG_LEN);
+
     /**
-     * The user-selected node.
+     * Our list of elements
      */
     private List<T> elements;
 
@@ -123,14 +131,49 @@ public class OsmElementList<T extends OsmElement> {
      * @param ids the ids
      */
     public void fromIds(@NonNull StorageDelegator delegator, @NonNull String type, @Nullable long[] ids) {
-        if (ids != null) {
-            for (long id : ids) {
-                @SuppressWarnings("unchecked")
-                T inStorage = (T) delegator.getOsmElement(type, id);
-                if (inStorage != null) {
-                    add(inStorage);
-                }
+        if (ids == null) {
+            return;
+        }
+        Storage apiStorage = delegator.getApiStorage();
+        Storage currentStorage = delegator.getCurrentStorage();
+        switch (type) {
+        case Node.NAME:
+            addElements(ids, apiStorage::getNode, currentStorage::getNode);
+            return;
+        case Way.NAME:
+            addElements(ids, apiStorage::getWay, currentStorage::getWay);
+            return;
+        case Relation.NAME:
+            addElements(ids, apiStorage::getRelation, currentStorage::getRelation);
+            return;
+        default:
+            Log.e(DEBUG_TAG, "Unknown element type " + type);
+        }
+    }
+
+    interface Get {
+        OsmElement get(long id);
+    }
+
+    /**
+     * Add actual OsmElement references from an array of ids
+     * 
+     * @param ids array of ids
+     * @param api function to retrieve an element from API storage
+     * @param current function to retrieve an element from current storage
+     */
+    @SuppressWarnings("unchecked")
+    private void addElements(long[] ids, Get api, Get current) {
+        LinkedHashSet<T> set = new LinkedHashSet<>(ids.length);
+        for (long id : ids) {
+            T e = (T) api.get(id);
+            if (e == null) {
+                e = (T) current.get(id);
+            }
+            if (e != null) {
+                set.add(e);
             }
         }
+        elements = new LinkedList<>(set);
     }
 }
