@@ -47,7 +47,19 @@
   <string name="delete_locally">端末内で削除</string>
   <string name="undelete_on_server">サーバー上で\n復元</string>
   <!--Upload retry-->
+  <string name="upload_retry_title">アップロード失敗</string>
+  <string name="upload_retry_message_no_open_changeset">開かれた変更セットがありません。これは問題ではありせん。</string>
+  <string name="upload_retry_message_unexpected_error">変更セット %1$d の状態の特定を試行中に、予期しないエラーが発生しました。</string>
+  <string name="upload_retry_message_no_changeset_status">変更セット %1$d の状態の特定ができませんでした。\n\nOCSファイルとして変更を保存して、良いものを受信したときに何をすべきかを判断することを推奨します。</string>
+  <string name="upload_retry_message_nothing_uploaded">変更セット %1$d 内に、アップロードされたものはありません。\n\n安全に再試行できます。</string>
+  <string name="upload_retry_message_all_uploaded">変更セット %1$d のアップロードが成功しましたが、結果を受信しませんでした。\n\nしかしながら、全変更がアップロードされように見えるならば、あなたの端末内の変更と再ダウンロードについては安全に無視できます。</string>
+  <string name="upload_retry_message_partial_upload">変更セット %1$d のアップロードが成功しましたが、結果を受信しませんでした。</string>
+  <string name="upload_retry_message_update_failed_title">更新失敗</string>
+  <string name="upload_retry_message_update_failed">データを更新できません。後で使用するために、ファイルへ変更の保存を推奨します。</string>
+  <string name="redownload">再ダウンロード (取り消せません)</string>
+  <string name="update_data">端末内のデータを更新 (取り消せません)</string>
   <string name="save_changes">編集結果を保存</string>
+  <string name="upload_retry_issue">問題: %1$s</string>
   <!---->
   <string name="no_login_data_title">認証できませんでした</string>
   <string name="no_login_data_message">OAuthを使用中で、これがバグでありそうならば、問題の報告を送信してください。（非推奨である）パスワードでログインを使用中ならば、現在入力されたそれらを確認してください。</string>
@@ -100,7 +112,11 @@
   <string name="upload_bounding_box_too_large_message">アップデートによって変更を試みている領域が大きすぎます。
 　&lt;br&gt;&lt;br&gt;変更点を分割して、複数の小さな変更セットにしてください。
 　これを行うには、変更する要素の部分集合を選択してから、それらを分割してアップロードします。</string>
+  <string name="attempt_to_add_too_many_way_nodes_title">多すぎるウェイノードを追加する試み</string>
+  <string name="attempt_to_add_too_many_way_nodes_message">その操作は、ウェイノードを最大個数以上含むウェイを作成します。少ない個数のノードを追加するか、都合が良い位置でウェイを区切ってください。</string>
+  <string name="too_many_way_nodes_details">合計ノード個数上限 %2$d 個より %3$d 個多い %1$d 個のノード追加を試みています。</string>
   <!---->
+  <string name="select_file_picker_title">ファイル選択ソフトを選択</string>
   <!--Newbie dialog-->
   <string name="welcome_title">ようこそ</string>
   <string name="welcome_message">Vespucciをインストールしていただきありがとうございます。VespucciはOpenStreetMapを編集するための強力な道具です。
@@ -140,6 +156,7 @@
   <string name="progress_message">データをメモリにロード中…</string>
   <string name="progress_download_message">サーバーからデータをダウンロード中…</string>
   <string name="progress_download_tasks_message">サーバーからダウンロード作業中…</string>
+  <string name="progress_download_sequence_message">サーバーから連続ダウンロード中…</string>
   <string name="progress_general_title">しばらくお待ちください</string>
   <string name="progress_deleting_message">削除...</string>
   <string name="progress_searching_message">検索中...</string>
@@ -149,10 +166,13 @@
   <string name="progress_loading_preset_message">プリセットを読み込み中…</string>
   <string name="progress_importing_file_message">ファイルを取り込み中</string>
   <string name="progress_running_message">実行中…</string>
+  <string name="progress_oauth">OAuth認証のために\n%1$s\nでアカウントを読み込んでいます…</string>
   <string name="progress_building_imagery_database">画像データベースを構築中…</string>
   <string name="progress_query_oam">OAMに問い合わせ中…</string>
   <string name="progress_pruning">節減中…</string>
   <string name="progress_migration">移行中…</string>
+  <string name="progress_determining_status_message">状態特定中…</string>
+  <string name="progress_updating_message">更新中…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" の削除</string>
   <string name="changes_changed">\"%1$s\" の変更</string>
@@ -164,6 +184,7 @@
   <string name="confirm_upload_edits_page">変更</string>
   <string name="upload_comment_label">コメント:</string>
   <string name="upload_source_label">情報源:</string>
+  <string name="upload_close_open_changeset_label">最初に、開かれた変更セットを閉じてください:</string>
   <string name="upload_close_changeset_label">変更セットを閉じる：</string>
   <string name="upload_request_review_label">レビューを依頼:</string>
   <string name="upload_validation_error_empty_comment">コメントは空にできません</string>
@@ -176,6 +197,7 @@
   <string name="unknown_object">未知の物体</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">変更点を確認</string>
+  <string name="review_upload_selected">選択したものをアップロード</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">GPX経路をアップロード</string>
   <string name="upload_gpx_description_label">説明</string>
@@ -286,7 +308,7 @@
   <string name="duplicate_route_segment_message">このウェイは既にルートのメンバーです。</string>
   <string name="duplicate_route_segment_button">とにかく追加</string>
   <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_message">この要素は既にリレーションのメンバーです。</string>
+  <string name="duplicate_relation_member_message">%1$s\n\nは既にリレーションのメンバーです。</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_message">物体に定義するタグはマルチポリゴン上だけに存在するべきです。この動作は、外枠からマルチポリゴンへ共通のタグを移動します。</string>
   <string name="move">表示位置の移動</string>
@@ -467,6 +489,7 @@
   <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">ご存知でしょうか</string>
+  <string name="tip_check_label">これ以上の助言の表示を停止</string>
   <string name="tip_undo">元に戻すボタンを長押しすると、全ての「元に戻す」と「やり直し」の チェック項目が表示されます。</string>
   <string name="tip_imagery_privacy">背景とオーバーレイのレイヤーは第三者から提供されています。送信されるレイヤーを使用すると、あなたのネットワークアドレスと、閲覧している領域を大まかに示す情報が、提供元に送信されます。&lt;p&gt;提供元が個人情報保護方針の情報を提供している場合は、レイヤーのダイアログ内の「情報」メニューで表示できます。</string>
   <string name="tip_mapillary_privacy">MapillaryはFacebook傘下のスウェーデン企業Mapillary ABによって提供されています。このサービスを使用すると、あなたが閲覧する画像に加えて、あなたのネットワークのアドレスと情報がこの企業に伝わります。</string>
@@ -523,7 +546,7 @@
   <string name="toast_unsurveyed_road">未調査の道</string>
   <string name="toast_noname">名称または参照番号が欠落した道</string>
   <string name="toast_notype">リレーション種別がありません</string>
-  <string name="toast_untagged_element">タグの無い要素</string>
+  <string name="toast_untagged_element">タグがない要素</string>
   <!---->
   <string name="toast_oauth_retry">OSMアカウントにOAuthアクセスを許可してから、再びアップロードを試行してください。</string>
   <string name="toast_oauth">ご自分のOSMアカウントに対してOAuth認証を許可してください。</string>
@@ -570,6 +593,7 @@
   <string name="toast_flus_all_caches">この操作は全てのキャッシュをクリアします！</string>
   <string name="toast_applied_offset">画像オフセットを適用しました。</string>
   <string name="toast_unsupported_format">サポート対象外の形式: %1$s</string>
+  <string name="toast_unsupported_operation">非対応の操作</string>
   <string name="toast_returning_less_than_found">見つかったエントリー中 %1$d / %2$d を返しています</string>
   <string name="toast_using_network_location">ネットワークの位置を使用</string>
   <string name="toast_using_gps_location">GPS/GNSSの位置を使用</string>
@@ -588,6 +612,7 @@
   <string name="toast_file_already_exists">ファイル %1$s は既に存在します</string>
   <string name="toast_file_error_for">ファイル %1$s でエラー</string>
   <string name="toast_error_reading">%1$s の読み込み中にエラー</string>
+  <string name="toast_error_converting">%1$s を変換中にエラー</string>
   <string name="toast_read_successfully">ファイルの読み込みに成功しました</string>
   <string name="toast_error_writing">%1$s の書き込み中にエラー</string>
   <string name="toast_successfully_written">%1$s の書き込みに成功しました</string>
@@ -716,6 +741,7 @@
   <string name="menu_deselect_all">全て選択解除</string>
   <string name="menu_preset_help">プリセットのヘルプ</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">異なる言語を追加</string>
   <string name="tag_restriction_header">値</string>
   <string name="tag_restriction_and">かつ</string>
   <string name="tag_restriction_add_restriction">制限を追加</string>
@@ -862,6 +888,7 @@
   <string name="menu_tools_imagery">更なる画像ツール…</string>
   <string name="menu_tools_add_imagery_from_oam">OAMから画像を追加</string>
   <string name="menu_tools_flush_all_tile_caches">全タイルのキャッシュをクリア</string>
+  <string name="menu_tools_background_properties">背景画像プロパティ…</string>
   <string name="menu_tools_update_imagery_configuration">JOSMから設定を更新</string>
   <string name="menu_tools_update_imagery_configuration_eli">ELIから設定を更新</string>
   <string name="menu_tools_zoom_to_layer_extent">背景レイヤ拡張に拡大</string>
@@ -901,7 +928,9 @@
   <string name="menu_layers_background_align">空中写真…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">保存されたオフセットを画像に適用</string>
-  <string name="menu_tools_background_contrast">比較</string>
+  <string name="menu_tools_background_contrast">彩度</string>
+  <string name="menu_tools_oauth_reset">認証をリセット</string>
+  <string name="menu_tools_oauth_authorisation">OAuthで認証…</string>
   <string name="menu_enable_tagfilter">タグフィルター</string>
   <string name="menu_enable_presetfilter">リセットフィルター</string>
   <string name="preset_menu_waynodes">ウェイノードを含む</string>
@@ -910,7 +939,6 @@
   <string name="menu_tags">プロパティ</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">ウェイの開始点か終了点に行く</string>
   <string name="menu_history">履歴</string>
@@ -975,6 +1003,7 @@
   <string name="config_overlayLayer_title">地図オーバーレイ</string>
   <string name="config_overlayLayer_summary">タイルベースの地図オーバーレイ。</string>
   <string name="config_customlayers_title">カスタムレイヤ</string>
+  <string name="config_customlayers_summary">初期設定内にはないレイヤーを管理します。</string>
   <string name="config_scale_title">目盛り表示</string>
   <string name="config_scale_summary">地図上に表示する目盛りの種別。</string>
   <string name="config_mapProfile_title">データの様式</string>
@@ -1068,6 +1097,8 @@
   <string name="config_longStringLimit_current">%1$d</string>
   <string name="config_zoomWithKeys_title">拡大縮小に音量キーを使用</string>
   <string name="config_zoomWithKeys_summary">拡大と縮小用に音量キーの使用を有効にします。</string>
+  <string name="config_poi_keys_title">付近のPOIを表示</string>
+  <string name="config_poi_keys_summary">付近のPOI(関心地点)を表示するために使用されるキーを設定します。</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">データと編集の設定</string>
   <string name="config_category_editing_summary">自動ダウンロード、保存、通知の設定。</string>
@@ -1101,6 +1132,8 @@
   <string name="config_maxOffsetDistance_current">%1$d メートル</string>
   <string name="config_maxCircleSegment_current">%1$d メートル</string>
   <string name="config_minCircleSegment_current">%1$d メートル</string>
+  <string name="config_replaceTolerance_title">タグ付きノードを移動する際の最大距離</string>
+  <string name="config_replaceTolerance_summary">ウェイの配置を変えてタグ付きノードを移動する際の最大距離</string>
   <string name="config_replaceTolerance_current">%1$d メートル</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動ダウンロード設定</string>
@@ -1109,6 +1142,8 @@
   <string name="config_maxDownloadSpeed_title">最大自動ダウンロード速度</string>
   <string name="config_maxDownloadSpeed_summary">自動ダウンロードを一時停止させるための上限速度(km/h、キロメートル毎時)</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_autoPrune_title">自動節減</string>
+  <string name="config_autoPrune_summary">メモリ内とタスクの自動節減を有効化または無効化</string>
   <string name="config_autoPruneNodeLimit_title">自動節減の上限</string>
   <string name="config_autoPruneNodeLimit_summary">メモリ内でこのノード数に到達したとき、節減が発動します。</string>
   <string name="config_autoPruneNodeLimit_current">%1$d 個のノード</string>
@@ -1214,7 +1249,9 @@
   <string name="config_password_title">OSMパスワード</string>
   <string name="config_password_summary">wikiのパスワードと間違えないでください。注意: プレーンテキストで保管・送信されます！</string>
   <string name="manage_presets">プリセットの管理</string>
+  <string name="listedit_use_translations">翻訳を使用</string>
   <string name="manage_geocoders">ジオコーダーの管理</string>
+  <string name="listedit_supports_compressed_uploads">アップロードに対応する圧縮</string>
   <!--preset downloader messages-->
   <string name="preset_update">プリセットを更新</string>
   <string name="preset_download_successful">プリセットをダウンロードしました</string>
@@ -1223,6 +1260,7 @@
   <string name="preset_download_missing_images">プリセットファイルをダウンロードしました。ただし、一部の欠落しているアイコンはダウンロードしませんでした。</string>
   <string name="preset_download_title">プリセットのダウンローダー</string>
   <!--preset management-->
+  <string name="preset_management_delete">本当にプリセットを削除しますか?</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">プリセットを追加</string>
   <string name="urldialog_preset_exists">プリセットは既に存在しています</string>
@@ -1286,8 +1324,11 @@
   <string name="undo_action_cut">切り取り</string>
   <string name="undo_action_paste">貼り付け</string>
   <string name="undo_action_duplicate">複製</string>
+  <string name="undo_action_rotate">回転</string>
+  <string name="undo_action_orthogonalize">ウェイの直角化</string>
   <string name="undo_action_circulize">円状に配置する</string>
   <string name="undo_action_fix_conflict">競合解決</string>
+  <string name="undo_action_extract_node">ノードの抽出</string>
   <string name="undo_action_apply_osc">OSCファイルを適応</string>
   <string name="undo_action_remove_node_from_way">ウェイからノードを削除</string>
   <!--ACRA-->
@@ -1373,5 +1414,8 @@
   <string name="tile_decoding_failed">タイルのデコードに失敗</string>
   <string name="tile_success">成功</string>
   <string name="tile_fail">失敗</string>
+  <string name="tile_doesnt_exist">タイルが存在しません</string>
+  <string name="tile_io_error">入出力エラー</string>
+  <string name="tile_no_network">ネットワークなし</string>
   <string name="tile_unknown_error">未知のエラー</string>
 </resources>

@@ -2328,7 +2328,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14036(item:name|group:Nature|preset:Bare_Rock)
 msgid "Bare Rock"
-msgstr ""
+msgstr "Bar klippe"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14018(label:text|group:Nature|preset:Heath)
 msgid ""
@@ -14328,7 +14328,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14046(item:name|group:Nature|preset:Rock)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4824(list_entry:display_value|group:Shipping|preset:Seamark|value:rock)
 msgid "Rock"
-msgstr "Sten"
+msgstr "Klippesten"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1878(combo:text|key:climbing:rock)
 msgid "Rock type"
@@ -19740,7 +19740,7 @@ msgstr "Ral"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:86(list_entry:short_description|value:rock)
 msgctxt "surface"
 msgid "Rock"
-msgstr "Sten"
+msgstr "Klippesten"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:242(list_entry:short_description|value:rubber)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:246(list_entry:short_description|value:rubber)
@@ -22251,7 +22251,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2937(list_entry:short_description|preset:Street_parking_left-hand_side|value:rock)
 msgctxt "parking"
 msgid "Rock"
-msgstr "Sten"
+msgstr "Klippesten"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1111(list_entry:display_value|value:rooftop)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5216(list_entry:display_value|group:Car|preset:Parking_Entrance/Exit|value:rooftop)
@@ -25198,7 +25198,7 @@ msgstr "Vejbump"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3546(list_entry:short_description|preset:Traffic_Hazard|value:falling_rocks)
 msgctxt "hazard"
 msgid "Falling rocks"
-msgstr ""
+msgstr "Faldende sten"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3547(list_entry:short_description|preset:Traffic_Hazard|value:frail_pedestrians)
 msgctxt "hazard"
