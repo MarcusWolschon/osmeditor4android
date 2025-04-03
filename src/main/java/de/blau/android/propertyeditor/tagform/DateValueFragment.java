@@ -87,7 +87,7 @@ public class DateValueFragment extends ValueWidgetFragment {
          * @param values any additional values from the preset or MRU
          */
         DateWidget(@NonNull FragmentActivity activity, @NonNull String value, @Nullable List<String> values) {
-            super(activity.getLayoutInflater().inflate(R.layout.daterangepicker, null));
+            super(activity.getLayoutInflater().inflate(R.layout.editor_daterangepicker, null));
             Date date = parseDate(value);
             final Calendar calendar = Calendar.getInstance();
             ((DateRangePicker) picker).init(true, date != null ? date.year : calendar.get(Calendar.YEAR), date != null ? date.month : 0,
