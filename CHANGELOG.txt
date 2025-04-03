@@ -1,5 +1,21 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.0.1:
+
+- Fix layout naming conflict (fixes crash editing OH dates)
+- Fix run beeping in a thread
+- Fix replace OsmElementList.fromIds with a non-O(N^2) version
+- Fix avoid CME in task downloader
+- Fix run download thread creation in thread
+- Fix serialization crash in ConsoleDialog
+- Fix improve display for unknown/not handled error codes from downloads
+- Fix start pref activity with fragment context
+- Fix update ELI to correct location during build
+- Fix move adding accept-encoding header so that it can be overridden
+- Add improve tile diagnostics and some code clean up
+- Update translations
+- Update default preset
+
 21.0.0:
 
 - Fix replace android DatePicker with custom picker
