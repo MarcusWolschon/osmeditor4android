@@ -51,7 +51,7 @@
     <string name="undelete_on_server">Undelete\non server</string>
     <!-- Upload retry -->
     <string name="upload_retry_title">Upload failed</string>
-    <string name="upload_retry_message_no_open_changeset">No open changeset. This shouldn\'t happen.</string>
+    <string name="upload_retry_message_no_open_changeset">Opening changeset failed.\n\nIt is safe to retry.</string>
     <string name="upload_retry_message_unexpected_error">Unexpected error trying to determine status of changeset %1$d.</string>
     <string name="upload_retry_message_no_changeset_status">Unable to determine status of changeset %1$d.\n\nWe suggest saving your changes as an OCS file and determining what to do when you have better reception.</string>
     <string name="upload_retry_message_nothing_uploaded">No changes have been uploaded in changeset %1$d.\n\nIt is safe to retry.</string>

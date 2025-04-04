@@ -56,7 +56,6 @@ import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.QueueDispatcher;
 import okhttp3.mockwebserver.RecordedRequest;
-import okhttp3.mockwebserver.SocketPolicy;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -389,6 +388,58 @@ public class TransferMenuTest {
         assertEquals(1, App.getDelegator().getApiStorage().getElementCount());
     }
 
+    /**
+     * Upload to changes (mock-)server and simulate a timeout during opening a changeset
+     */
+    @Test
+    public void dataUploadTimeout4() {
+        // change timeout for the current API
+        prefDB.setCurrentAPITimeout(500);
+        prefs = new Preferences(context);
+        prefs.setPanAndZoomAutoDownload(false);
+        App.getLogic().setPrefs(prefs);
+        main.getMap().setPrefs(main, prefs);
+
+        loadTestData();
+
+        mockServer.setDispatcher(new QueueDispatcher() {
+            boolean seen;
+            
+            @Override
+            public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
+
+                if (!seen && request.getPath().contains("changeset/create")) {
+                    seen = true;
+                    return TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/changeset1.txt").throttleBody(1, 1000, TimeUnit.MILLISECONDS);
+                }
+                return super.dispatch(request);
+            }
+        });
+
+        dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/capabilities1.xml"));
+        
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
+
+        UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        UiObject button = device.findObject(uiSelector);
+        try {
+            button.click();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        TestUtils.sleep();
+        uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        button = device.findObject(uiSelector);
+        try {
+            button.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_retry_title), 50000));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_retry_message_no_open_changeset), 1000, true));        
+    }
+    
     /**
      * Clear data
      */
