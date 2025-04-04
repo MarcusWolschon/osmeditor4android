@@ -807,7 +807,8 @@ public class Server {
         checkResponseCode(response);
 
         try (InputStream in = response.body().byteStream()) {
-            String line = readLine(in);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in), 9);
+            String line = reader.readLine();
             if (line != null) {
                 changesetId = Long.parseLong(line);
             } else {
@@ -1102,25 +1103,6 @@ public class Server {
             }
         }
         return res.toString();
-    }
-
-    /**
-     * Read a single line from an InputStream
-     * 
-     * @param in the InputStream
-     * @return a String containing the line without the EOL or null
-     */
-    @Nullable
-    private static String readLine(@NonNull final InputStream in) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in), 9);
-        String res = null;
-        try {
-            res = reader.readLine();
-        } catch (IOException e) {
-            Log.e(DEBUG_TAG, "Problem reading", e);
-        }
-
-        return res;
     }
 
     /**

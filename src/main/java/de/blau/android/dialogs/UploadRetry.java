@@ -186,18 +186,20 @@ public class UploadRetry extends ImmersiveDialogFragment {
             builder.setView(layout);
             AlertDialog dialog = builder.create();
 
-            if (changesetId != -1) {
-                determineStatus(App.getPreferences(getActivity()), App.getLogic(), changesetId, dialog);
-            } else {
-                String message = getString(R.string.upload_retry_message_no_open_changeset);
-                retryMessage.setText(message);
-                ACRAHelper.nocrashReport(null, message);
+            final Logic logic = App.getLogic();
+            if (changesetId == -1) {
+                retryMessage.setText(getString(R.string.upload_retry_message_no_open_changeset));
+                final UploadListener.UploadArguments arguments = new UploadListener.UploadArguments(comment, source, false, false, extraTags, elements);
+                dialog.setOnShowListener((DialogInterface d) -> {
+                    dialog.getButton(DialogInterface.BUTTON_POSITIVE).setVisibility(View.GONE);
+                    setupButton(dialog.getButton(DialogInterface.BUTTON_NEGATIVE), R.string.retry, (View v) -> logic.upload(getActivity(), arguments, null));
+                });
+                return dialog;
             }
+            determineStatus(App.getPreferences(getActivity()), logic, changesetId, dialog);
             dialog.setOnShowListener((DialogInterface d) -> {
-                final Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                positive.setVisibility(View.GONE);
-                final Button negative = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-                negative.setVisibility(View.GONE);
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setVisibility(View.GONE);
+                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setVisibility(View.GONE);
             });
             return dialog;
         } catch (Exception e) {
@@ -295,21 +297,20 @@ public class UploadRetry extends ImmersiveDialogFragment {
                     Log.e(DEBUG_TAG, "Unexpected result vale " + result);
                 }
             }
-
-            /**
-             * Make a button visible, set text and listener
-             * 
-             * @param button the button
-             * @param text the text displayed on the button
-             * @param listener the listener that is called when the button is clicked
-             */
-            private void setupButton(@NonNull final Button button, final int textRes, @Nullable final View.OnClickListener listener) {
-                button.setVisibility(View.VISIBLE);
-                button.setText(textRes);
-                button.setOnClickListener(listener);
-            }
-
         }.execute(changesetId);
+    }
+
+    /**
+     * Make a button visible, set text and listener
+     * 
+     * @param button the button
+     * @param text the text displayed on the button
+     * @param listener the listener that is called when the button is clicked
+     */
+    private void setupButton(@NonNull final Button button, final int textRes, @Nullable final View.OnClickListener listener) {
+        button.setVisibility(View.VISIBLE);
+        button.setText(textRes);
+        button.setOnClickListener(listener);
     }
 
     /**
