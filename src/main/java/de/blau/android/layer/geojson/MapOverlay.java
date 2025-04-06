@@ -200,6 +200,7 @@ public class MapOverlay extends StyleableFileLayer
                 prefs.getGeoJsonSynbol());
         setColor(ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GEOJSON), 9,
                 map.getDataStyle().getInternal(DataStyle.GEOJSON_DEFAULT).getPaint().getColor()));
+        uri = contentId;
     }
 
     @Override

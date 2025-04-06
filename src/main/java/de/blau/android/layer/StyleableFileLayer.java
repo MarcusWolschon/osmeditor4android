@@ -54,7 +54,7 @@ public abstract class StyleableFileLayer extends StyleableLayer {
      * 
      * @param baseName the base name for this specific instance
      */
-    protected void setStateFileName(@NonNull String baseName) {
+    public void setStateFileName(@NonNull String baseName) {
         stateFileName = Hash.sha256(baseName) + "." + FileExtensions.RES;
     }
 }

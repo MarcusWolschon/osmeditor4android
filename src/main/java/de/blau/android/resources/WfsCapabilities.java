@@ -93,8 +93,8 @@ public class WfsCapabilities {
                 throw new IllegalStateException("GetFeature configuration missing");
             }
             return de.blau.android.util.Util.appendQuery(getFeature.url,
-                    String.format("outputFormat=%s&VERSION=%s&SERVICE=WFS&typeName=%s&REQUEST=GetFeature&BBOX={bbox},%s&srsName=%s",
-                            MimeTypes.APPLICATION_TYPE + "/" + MimeTypes.JSON_SUBTYPE, "1.1.1", name, TileLayerSource.EPSG_4326, TileLayerSource.EPSG_4326));
+                    String.format("outputFormat=%s&VERSION=%s&SERVICE=WFS&typeName=%s&REQUEST=GetFeature&BBOX={bbox}&srsName=%s",
+                            MimeTypes.APPLICATION_TYPE + "/" + MimeTypes.JSON_SUBTYPE, "1.1.1", name, TileLayerSource.EPSG_4326));
         }
 
         @Override

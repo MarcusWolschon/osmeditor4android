@@ -31,6 +31,10 @@ public final class Util {
         // don't allow instantiating of this class
     }
 
+    public interface Sink {
+        void consume(InputStream input) throws IOException;
+    }
+
     /**
      * Download a file
      * 
@@ -40,7 +44,16 @@ public final class Util {
      * @throws IOException
      */
     public static void download(@NonNull String url, @NonNull File dir, @NonNull String filename) throws IOException {
-        Log.d(DEBUG_TAG, "Downloading " + url + " to " + dir + "/" + filename);
+        download(url, (InputStream stream) -> {
+            Log.d(DEBUG_TAG, "... to " + dir + "/" + filename);
+            try (OutputStream outputStream = new FileOutputStream(new File(dir, filename))) {
+                StreamUtils.copy(stream, outputStream);
+            }
+        });
+    }
+
+    public static void download(@NonNull String url, @NonNull Sink sink) throws IOException {
+        Log.d(DEBUG_TAG, "Downloading " + url);
         Request request = new Request.Builder().url(url).build();
         OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .readTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS).build();
@@ -52,10 +65,7 @@ public final class Util {
             }
             ResponseBody responseBody = callResponse.body();
             InputStream downloadStream = responseBody.byteStream();
-            final File destinationFile = new File(dir, filename);
-            try (OutputStream fileStream = new FileOutputStream(destinationFile)) {
-                StreamUtils.copy(downloadStream, fileStream);
-            }
+            sink.consume(downloadStream);
         }
     }
 }

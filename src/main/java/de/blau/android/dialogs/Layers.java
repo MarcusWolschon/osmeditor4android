@@ -4,10 +4,12 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,6 +100,7 @@ import de.blau.android.layer.mvt.MapOverlay;
 import de.blau.android.layer.streetlevel.DateRangeInterface;
 import de.blau.android.layer.tiles.ImageryLayerInfo;
 import de.blau.android.layer.tiles.MapTilesLayer;
+import de.blau.android.net.Util.Sink;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GpxFile;
 import de.blau.android.osm.OsmGpxApi;
@@ -206,30 +209,6 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             MenuItem item = popup.getMenu().add(R.string.menu_layers_load_geojson);
             item.setOnMenuItemClickListener(unused -> {
                 addStyleableLayerFromFile(activity, prefs, map, LayerType.GEOJSON);
-                return false;
-            });
-
-            item = popup.getMenu().add("Load Geojson from server");
-            item.setOnMenuItemClickListener(unused -> {
-                TextLineDialog.get(activity, R.string.menu_layers_load_geojson, 0, null, (EditText input, boolean check) -> {
-                    
-                    ExecutorTask<String, Void, Uri> downloadTask = new ExecutorTask<String, Void, Uri>() {
-
-                        @Override
-                        protected Uri doInBackground(String url) throws Exception {
-                            final String fileName = Hash.sha256(Uri.parse(url).getEncodedPath());
-                            de.blau.android.net.Util.download(de.blau.android.resources.Util.replaceWfsPlaceholders(url, null, map.getViewBox()), FileUtil.getPublicDirectory(), fileName);
-                            return Uri.fromFile(new File(FileUtil.getPublicDirectory(), fileName));
-                        }
-
-                        @Override
-                        protected void onPostExecute(Uri fileUri) {
-                            addStyleableLayerFromUri(activity, prefs, map, LayerType.GEOJSON, fileUri, true);
-                        }
-                    };
-                    downloadTask.execute(input.getText().toString());
-                }).show();
-
                 return false;
             });
 
@@ -346,7 +325,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                 WmsEndpointDatabaseView.showDialog(this);
                 return true;
             });
-            
+
             item = popup.getMenu().add("Add layer from WFS endpoint");
             item.setOnMenuItemClickListener(unused -> {
                 WfsEndpointDatabaseView.showDialog(this);
@@ -1298,6 +1277,34 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     dismissDialog();
                     return true;
                 });
+                item = menu.add("Load Geojson from server");
+                item.setOnMenuItemClickListener(unused -> {
+                    ExecutorTask<String, Void, Void> downloadTask = new ExecutorTask<String, Void, Void>() {
+
+                        @Override
+                        protected Void doInBackground(String url) throws Exception {
+                            if (url == null) {
+                                Log.e(DEBUG_TAG, "Null url for download");
+                                return null;
+                            }
+                             de.blau.android.net.Util.download(de.blau.android.resources.Util.replaceWfsPlaceholders(url, null, map.getViewBox()),
+                                    (InputStream input) -> {
+                                        ((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(activity, input, false);
+                                    });
+                             ((de.blau.android.layer.geojson.MapOverlay) layer).dirty();
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void v) {
+                            // layer.loadGeoJsonFile(activity, @NonNull InputStream is, boolean fromState)
+                            // addStyleableLayerFromUri(activity, prefs, map, LayerType.GEOJSON, fileUri, true);
+                        }
+                    };
+                    downloadTask.execute(((de.blau.android.layer.geojson.MapOverlay) layer).getContentId());
+                    return true;
+                });
+
             }
 
             if (layer instanceof PruneableInterface) {
