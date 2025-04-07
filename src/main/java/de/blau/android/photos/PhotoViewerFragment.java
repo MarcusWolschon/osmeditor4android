@@ -5,24 +5,29 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import android.app.Dialog;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap.Config;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.activity.result.IntentSenderRequest;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -41,6 +46,7 @@ import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Ui;
 import de.blau.android.dialogs.ImageInfo;
 import de.blau.android.listener.DoNothingListener;
+import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ImageLoader;
 import de.blau.android.util.ImagePagerAdapter;
 import de.blau.android.util.OnPageSelectedListener;
@@ -242,63 +248,113 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImm
         }
 
         @Override
-        public void delete(@NonNull Context context, @NonNull String uri) {
+        public void delete(@NonNull final Context context, @NonNull final String uri) {
+            if (viewPager == null) {
+                return;
+            }
+            int position = getCurrentPosition();
+            final int size = photoList.size();
+            if (position < 0 || position > size) { // avoid crashes from bouncing
+                return;
+            }
+            ContentResolver resolver = context.getContentResolver();
+            Uri photoUri = getUri(position);
+            Log.d(DEBUG_TAG, "deleting original uri " + photoUri);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && deleteImageViaMediaStore(context, resolver, photoUri)) {
+                // rest is handled in calling activity
+                return;
+            }
             new AlertDialog.Builder(getContext()).setTitle(R.string.photo_viewer_delete_title)
                     .setPositiveButton(R.string.photo_viewer_delete_button, (dialog, which) -> {
-                        if (viewPager == null) {
-                            return;
-                        }
-                        int position = getCurrentPosition();
-                        final int size = photoList.size();
-                        if (position >= 0 && position < size) { // avoid crashes from bouncing
-                            Uri photoUri = getUri(position);
-                            try {
-                                if (getShowsDialog()) {
-                                    // delete from in memory and on device index
-                                    try (PhotoIndex index = new PhotoIndex(getContext())) {
-                                        index.deletePhoto(getContext(), photoUri);
-                                    }
-                                    Map map = (context instanceof Main) ? ((Main) context).getMap() : null;
-                                    final de.blau.android.layer.photos.MapOverlay overlay = map != null ? map.getPhotoLayer() : null;
-                                    if (overlay != null) {
-                                        // as the Photo was selected before calling this it will still have a
-                                        // reference in the layer
-                                        overlay.deselectObjects();
-                                        overlay.invalidate();
-                                    }
-                                } else {
-                                    Intent intent = new Intent(getContext(), Main.class);
-                                    intent.setAction(Main.ACTION_DELETE_PHOTO);
-                                    intent.setData(photoUri);
-                                    getContext().startActivity(intent);
-                                }
-                                // actually delete
-                                if (getContext().getContentResolver().delete(photoUri, null, null) >= 1) {
-                                    photoList.remove(position);
-                                    position = Math.min(position, size - 1); // this will set pos to -1 if
-                                                                             // empty,
-                                    // but we will exit in that case in any case
-                                    if (getShowsDialog() && photoList.isEmpty()) {
-                                        // in fragment mode we want to stay around
-                                        getDialog().dismiss();
-                                    } else {
-                                        photoPagerAdapter.notifyDataSetChanged();
-                                        viewPager.setCurrentItem(position);
-                                        if (size == 1 && itemBackward != null && itemForward != null) {
-                                            itemBackward.setEnabled(false);
-                                            itemForward.setEnabled(false);
-                                        }
-                                    }
-                                }
-                            } catch (java.lang.SecurityException sex) {
-                                Log.e(DEBUG_TAG, "Error deleting: " + sex.getMessage() + " " + sex.getClass().getName());
-                                ScreenMessage.toastTopError(getContext(), getString(R.string.toast_permission_denied, sex.getMessage()));
+                        try {
+                            if (resolver.delete(photoUri, null, null) >= 1) {
+                                removeCurrentImage();
+                            } else {
+                                // didn't delete
+                                Log.e(DEBUG_TAG, "... deleting failed");
+                                return;
                             }
+                        } catch (java.lang.SecurityException sex) {
+                            Log.e(DEBUG_TAG, "Error deleting: " + sex.getMessage() + " " + sex.getClass().getName());
+                            ScreenMessage.toastTopError(context, getString(R.string.toast_permission_denied, sex.getMessage()));
                         }
                     }).setNeutralButton(R.string.cancel, null).show();
         }
 
+        /**
+         * Delete the current image, this will show a modal for us
+         * 
+         * @param context an Android Context
+         * @param resolver a ContentResolver
+         * @param photoUri the Uri of the image
+         * @return true if we were able to start the deletion process
+         */
+        @SuppressWarnings("unchecked")
+        public boolean deleteImageViaMediaStore(@NonNull final Context context, ContentResolver resolver, Uri photoUri) {
+            try {
+                if (!MediaStore.AUTHORITY.equals(photoUri.getAuthority())) {
+                    long mediaId = ContentResolverUtil.imageFilePathToMediaID(resolver, photoUri.toString());
+                    if (mediaId == 0) {
+                        Log.e(DEBUG_TAG, "Can't convert " + photoUri + " to media Uri");
+                        return false;
+                    }
+                    photoUri = ContentUris.withAppendedId(MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL), mediaId);
+                }
+                Log.d(DEBUG_TAG, "deleting " + photoUri);
+                IntentSenderRequest.Builder builder = new IntentSenderRequest.Builder(MediaStore.createDeleteRequest(resolver, Arrays.asList(photoUri)));
+                ((PhotoViewerActivity) getActivity()).getDeleteRequestLauncher().launch(builder.build());
+
+            } catch (java.lang.SecurityException sex) {
+                Log.e(DEBUG_TAG, "Error deleting: " + sex.getMessage() + " " + sex.getClass().getName());
+                ScreenMessage.toastTopError(context, getString(R.string.toast_permission_denied, sex.getMessage()));
+                return false;
+            }
+            return true;
+        }
+
     };
+
+    /**
+     * Remove image from the pager, index etc
+     */
+    public void removeCurrentImage() {
+        int position = getCurrentPosition();
+        final int size = photoList.size();
+        Uri uri = getUri(position);
+        photoList.remove(position);
+        position = Math.min(position, size - 1); // this will set pos to -1 if empty,
+        // but we will exit in that case in any case
+        Context context = getContext();
+        if (getShowsDialog()) {
+            // delete from in memory and on device index
+            try (PhotoIndex index = new PhotoIndex(context)) {
+                index.deletePhoto(context, uri);
+            }
+            Map map = (context instanceof Main) ? ((Main) context).getMap() : null;
+            final de.blau.android.layer.photos.MapOverlay overlay = map != null ? map.getPhotoLayer() : null;
+            if (overlay != null) {
+                // as the Photo was selected before calling this it will still have a
+                // reference in the layer
+                overlay.deselectObjects();
+                overlay.invalidate();
+            }
+            if (photoList.isEmpty()) {
+                // in fragment mode we want to stay around
+                getDialog().dismiss();
+            }
+        } else {
+            photoPagerAdapter.notifyDataSetChanged();
+            viewPager.setCurrentItem(position);
+            if (size == 1 && itemBackward != null && itemForward != null) {
+                itemBackward.setEnabled(false);
+                itemForward.setEnabled(false);
+            }
+            Intent intent = new Intent(context, Main.class);
+            intent.setAction(Main.ACTION_DELETE_PHOTO);
+            intent.setData(uri);
+            context.startActivity(intent);
+        }
+    }
 
     /**
      * Get the URI in String format for the item
@@ -373,8 +429,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImm
             menu.add(Menu.NONE, MENUITEM_INFO, Menu.NONE, R.string.menu_information).setIcon(R.drawable.outline_info_white_48dp)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
-        if (photoLoader.supportsDelete() && getString(R.string.content_provider).equals(getUri(startPos).getAuthority())) {
-            // we can only delete stuff that is provided by our provider, currently this is a bit of a hack
+        if (photoLoader.supportsDelete()) {
             menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }

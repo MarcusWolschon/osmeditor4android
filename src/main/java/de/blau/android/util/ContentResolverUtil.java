@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.BaseColumns;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -284,5 +286,32 @@ public final class ContentResolverUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * Convert a file path to a content uri with media id
+     * 
+     * @param cr a ContentResolver
+     * @param path the path
+     * @return the media id, 0 if not found
+     */
+    public static long imageFilePathToMediaID(@NonNull ContentResolver cr, @NonNull String path) {
+        long id = 0;
+
+        Uri uri = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL);
+        String selection = MediaStore.MediaColumns.DATA;
+        String[] selectionArgs = { path };
+        String[] projection = { BaseColumns._ID };
+
+        Cursor cursor = cr.query(uri, projection, selection + "=?", selectionArgs, null);
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                int idIndex = cursor.getColumnIndex(BaseColumns._ID);
+                id = Long.parseLong(cursor.getString(idIndex));
+            }
+        }
+
+        return id;
     }
 }
