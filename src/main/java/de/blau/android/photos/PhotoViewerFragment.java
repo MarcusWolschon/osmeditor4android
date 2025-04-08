@@ -301,7 +301,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImm
                     photoUri = ContentUris.withAppendedId(MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL), mediaId);
                 }
                 Log.d(DEBUG_TAG, "deleting " + photoUri);
-                IntentSenderRequest.Builder builder = new IntentSenderRequest.Builder(MediaStore.createDeleteRequest(resolver, Arrays.asList(photoUri)));
+                IntentSenderRequest.Builder builder = new IntentSenderRequest.Builder(MediaStore.createTrashRequest(resolver, Arrays.asList(photoUri), true));
                 ((PhotoViewerActivity) getActivity()).getDeleteRequestLauncher().launch(builder.build());
 
             } catch (java.lang.SecurityException sex) {
