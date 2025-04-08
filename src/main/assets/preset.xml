@@ -1733,7 +1733,11 @@
     <chunk id="roof_orientation">
         <combo key="roof:orientation" text="Roof orientation" default="along" editable="false">
             <list_entry value="along" display_value="Along"/>
-            <list_entry value="across" display_value="Across"/>
+            <list_entry value="across" display_value="Across">
+                <linked_keys>
+                    <key name="roof:colour"/>
+                </linked_keys>
+            </list_entry>
         </combo>
     </chunk>
     <chunk id="obm_building_tags">

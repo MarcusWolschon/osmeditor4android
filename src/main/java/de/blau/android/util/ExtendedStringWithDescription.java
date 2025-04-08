@@ -109,7 +109,7 @@ public class ExtendedStringWithDescription extends StringWithDescription impleme
         if (!super.equals(obj)) {
             return false;
         }
-        if (!(obj instanceof ExtendedStringWithDescription)) {
+        if (!(obj instanceof ExtendedStringWithDescription)) { //Q- if (getClass() != obj.getClass()) return false;
             return false;
         }
         ExtendedStringWithDescription other = (ExtendedStringWithDescription) obj;
