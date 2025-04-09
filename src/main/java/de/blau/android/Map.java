@@ -30,7 +30,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import de.blau.android.exception.OsmException;
 import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
@@ -193,8 +192,7 @@ public class Map extends SurfaceView implements IMapView {
         setFocusable(true);
         setFocusableInTouchMode(true);
 
-        // Style me
-        setBackgroundColor(ContextCompat.getColor(context, R.color.ccc_white));
+        setBackgroundColor(styles.getInternal(DataStyle.MAP_BACKGROUND).getPaint().getColor());
 
         iconRadius = Density.dpToPx(context, ICON_SIZE_DP / 2);
 
@@ -1118,13 +1116,14 @@ public class Map extends SurfaceView implements IMapView {
      */
     public void updateStyle() {
         // changes when profile changes
-        labelBackground = getDataStyle().getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
-        gpsPosFollowPaint = getDataStyle().getInternal(DataStyle.GPS_POS_FOLLOW).getPaint();
-        gpsPosPaint = getDataStyle().getInternal(DataStyle.GPS_POS).getPaint();
-        gpsPosFollowPaintStale = getDataStyle().getInternal(DataStyle.GPS_POS_FOLLOW_STALE).getPaint();
-        gpsPosPaintStale = getDataStyle().getInternal(DataStyle.GPS_POS_STALE).getPaint();
-        gpsAccuracyPaint = getDataStyle().getInternal(DataStyle.GPS_ACCURACY).getPaint();
-        boxPaint = getDataStyle().getInternal(DataStyle.VIEWBOX).getPaint();
+        labelBackground = styles.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        gpsPosFollowPaint = styles.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint();
+        gpsPosPaint = styles.getInternal(DataStyle.GPS_POS).getPaint();
+        gpsPosFollowPaintStale = styles.getInternal(DataStyle.GPS_POS_FOLLOW_STALE).getPaint();
+        gpsPosPaintStale = styles.getInternal(DataStyle.GPS_POS_STALE).getPaint();
+        gpsAccuracyPaint = styles.getInternal(DataStyle.GPS_ACCURACY).getPaint();
+        boxPaint = styles.getInternal(DataStyle.VIEWBOX).getPaint();
+        setBackgroundColor(styles.getInternal(DataStyle.MAP_BACKGROUND).getPaint().getColor());
         for (MapViewLayer layer : getLayers(LayerType.OSMDATA, null)) {
             ((de.blau.android.layer.data.MapOverlay<?>) layer).updateStyle();
         }
