@@ -10,8 +10,10 @@ import java.util.List;
 import java.util.Locale;
 
 import org.acra.ACRA;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -36,6 +38,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ContentResolverUtil;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Util;
 import de.blau.android.util.rtree.RTree;
@@ -492,6 +495,22 @@ public class PhotoIndex extends SQLiteOpenHelper {
     /**
      * Check if we have already indexed the photo
      * 
+     * @param uri the Uri as a String for the photo
+     * @return true if already present
+     */
+    public boolean isIndexed(@NonNull String uri) {
+        SQLiteDatabase db = null;
+        try {
+            db = getReadableDatabase();
+            return isIndexed(db, uri);
+        } finally {
+            SavingHelper.close(db);
+        }
+    }
+
+    /**
+     * Check if we have already indexed the photo
+     * 
      * @param db a readable database
      * @param uri the Uri for the photo
      * @return true if already present
@@ -701,5 +720,33 @@ public class PhotoIndex extends SQLiteOpenHelper {
         List<Photo> queryResult = new ArrayList<>();
         index.query(queryResult, box.getBounds());
         return queryResult;
+    }
+
+    /**
+     * Add an image to the media store
+     * 
+     * @param filePath the path of the image
+     */
+    public static void addImageToMediaStore(@NonNull ContentResolver cr, String filePath) {
+        new ExecutorTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void v) throws NumberFormatException, XmlPullParserException, IOException {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.MediaColumns.DATE_ADDED, System.currentTimeMillis());
+                values.put(MediaStore.MediaColumns.DATE_TAKEN, System.currentTimeMillis());
+                values.put(MediaStore.MediaColumns.DATA, filePath);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    values.put(MediaStore.MediaColumns.RELATIVE_PATH, (String) null);
+                    values.put(MediaStore.MediaColumns.IS_PENDING, 1);
+                    Uri uri = cr.insert(MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL), values);
+                    values.clear();
+                    values.put(MediaStore.MediaColumns.IS_PENDING, 0);
+                    cr.update(uri, values, null, null);
+                } else {
+                    cr.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                }
+                return null;
+            }
+        }.execute();
     }
 }

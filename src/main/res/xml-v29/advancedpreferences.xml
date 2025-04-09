@@ -49,6 +49,11 @@
             android:key="@string/config_indexMediaStore_key"
             android:summary="@string/config_indexMediaStore_summary"
             android:title="@string/config_indexMediaStore_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_addToMediaStore_key"
+            android:summary="@string/config_addToMediaStore_summary"
+            android:title="@string/config_addToMediaStore_title" />
         <androidx.preference.ListPreference
             android:defaultValue="@string/follow_GPS_left"
             android:entries="@array/followGPSbutton_entries"

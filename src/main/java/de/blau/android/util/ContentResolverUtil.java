@@ -89,6 +89,9 @@ public final class ContentResolverUtil {
                 Log.e(DEBUG_TAG, "getPath " + e.getMessage());
                 return null;
             }
+        } else if (Schemes.CONTENT.equals(scheme)) {
+            Log.i(DEBUG_TAG, "content scheme");
+            return getDataColumn(context, uri, null, null);
         } else if (Schemes.FILE.equals(scheme)) {
             return uri.getPath();
         }
@@ -175,7 +178,7 @@ public final class ContentResolverUtil {
         try {
             return DocumentsContract.renameDocument(context.getContentResolver(), uri, newName);
         } catch (FileNotFoundException e) {
-            Log.e(DEBUG_TAG, e.getMessage());
+            Log.e(DEBUG_TAG, "rename " + e.getMessage());
         }
         return null;
     }
@@ -243,7 +246,7 @@ public final class ContentResolverUtil {
                 return cursor.getString(column_index);
             }
         } catch (Exception ex) {
-            Log.e(DEBUG_TAG, ex.getMessage());
+            Log.e(DEBUG_TAG, "getColumn " + ex.getMessage());
         }
         return null;
     }
