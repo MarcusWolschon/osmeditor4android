@@ -206,6 +206,6 @@ public abstract class NetworkImageLoader extends ImageLoader {
     @Override
     public void info(@NonNull FragmentActivity activity, @NonNull String uri) {
         Uri f = FileProvider.getUriForFile(activity, activity.getString(R.string.content_provider), new File(cacheDir, uri + JPG));
-        ImageInfo.showDialog(activity, f.toString());
+        ImageInfo.showDialog(activity, f.toString(), false);
     }
 }

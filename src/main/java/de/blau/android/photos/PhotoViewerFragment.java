@@ -239,7 +239,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImm
 
         @Override
         public void info(@NonNull FragmentActivity activity, @NonNull String uri) {
-            ImageInfo.showDialog(activity, uri);
+            ImageInfo.showDialog(activity, uri, true);
         }
 
         @Override

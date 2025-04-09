@@ -1622,6 +1622,8 @@
     <string name="regular_expression">Regular expression</string>
     <string name="state">State</string>
     <string name="Continue">Continue</string>
+    <string name="File">File</string>
+    <string name="URI">URI</string>
     <!--   -->
     <string name="empty_list">No entries</string>
     <string name="geocoder_type">Geocoder type</string>

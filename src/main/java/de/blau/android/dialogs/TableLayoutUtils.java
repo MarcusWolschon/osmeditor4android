@@ -205,7 +205,6 @@ public final class TableLayoutUtils {
         TextView cell = new TextView(context);
         cell.setSingleLine();
         cell.setMinEms(FIRST_CELL_WIDTH);
-        cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
 
         SpannableString span = new SpannableString(cell1);
         SpannableString span2 = null;
@@ -225,6 +224,7 @@ public final class TableLayoutUtils {
             ThemeUtils.setSpanColor(context, span, highlightColorAttr, highlightColorFallback);
             ThemeUtils.setSpanColor(context, span2, highlightColorAttr, highlightColorFallback);
             ThemeUtils.setSpanColor(context, span3, highlightColorAttr, highlightColorFallback);
+            cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
         }
         cell.setText(span);
         cell.setEllipsize(TruncateAt.MARQUEE);
