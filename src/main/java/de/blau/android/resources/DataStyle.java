@@ -138,6 +138,7 @@ public final class DataStyle extends DefaultHandler {
     public static final String DONTRENDER_WAY                = "dontrender_way";
     public static final String MIN_HANDLE_LEN                = "min_handle_length";
     public static final String ICON_ZOOM_LIMIT               = "icon_zoom_limit";
+    public static final String MAP_BACKGROUND                = "map_background";
 
     // XML elements for the config files
     private static final String INTERVAL_ELEMENT      = "interval";
@@ -1200,6 +1201,12 @@ public final class DataStyle extends DefaultHandler {
         fp.setWidthFactor(1f);
         fp.setDontRender(true);
         internalStyles.put(DONTRENDER_WAY, fp);
+
+        fp = new FeatureStyle(MAP_BACKGROUND);
+        fp.setColor(ContextCompat.getColor(ctx, R.color.ccc_white));
+        fp.setUpdateWidth(false);
+        fp.getPaint().setStyle(Style.FILL);
+        internalStyles.put(MAP_BACKGROUND, fp);
 
         // dummy styles for ways and relations
         fp = new FeatureStyle("", standardPath);

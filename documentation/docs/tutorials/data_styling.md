@@ -1,5 +1,5 @@
 ## Vespucci Data Styling
-_Documentation for Vespucci 20.2 Style file format version 0.3.1_
+_Documentation for Vespucci 21.1 Style file format version 0.3.2_
 
 The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.
 
@@ -115,6 +115,7 @@ labeltext_small_problem       |
 labeltext_background          | 
 geojson_default               | Default style for the geojson layer
 bookmark_default              | Default style for the bookmark layer
+map_background                | Holds the map background colour (from 21.1 on)
 
 ### Validation styling
 
