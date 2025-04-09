@@ -307,6 +307,9 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
         List<Photo> temp = new ArrayList<>(photos);
         GeoMath.sortGeoPoint(photo, temp, new ViewBox(bb), map.getWidth(), map.getHeight());
         ArrayList<Photo> shortList = new ArrayList<>(temp.subList(0, Math.min(temp.size(), VIEWER_MAX)));
+        // ensure that the clicked phto is actually in the list and the first one
+        shortList.remove(photo);
+        shortList.add(0, photo);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             PhotoViewerFragment.showDialog(activity, shortList, 0, null);
         } else {
