@@ -30,7 +30,11 @@ Select the camera app to use. If your, installed, camera app is not listed, plea
 
 ### Use the MediaStore
 
-Additionally use Androids MediaStore for accessing photos. This will add all photographs in JPEG format found via the MediaStore that contain coordinates in their EXIF data to the phto layer. Default: _off_.
+Additionally use Androids MediaStore for accessing photos. This will add all photographs in JPEG format found via the MediaStore that contain coordinates in their EXIF data to the photo layer. Default: _off_.
+
+### Add images to the MediaStore
+
+Add images recorded via the camera button (see above) to Androids MediaStore. This potentially makes managing the images from an external app easier. Default: _off_.
 
 ### Follow location button layout
 

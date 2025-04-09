@@ -262,13 +262,13 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
     @Nullable
     public Uri getRefUri(@NonNull Context context) {
         try {
-            Log.d(DEBUG_TAG, "getRef ref is " + ref);
+            Log.d(DEBUG_TAG, "getRefUri ref is " + ref);
             if (ref.startsWith("content:")) {
                 return Uri.parse(ref);
             }
             return FileProvider.getUriForFile(context, context.getString(R.string.content_provider), new File(ref));
         } catch (Exception ex) {
-            Log.d(DEBUG_TAG, "getRef Problem with Uri for ref " + ref + " " + ex);
+            Log.d(DEBUG_TAG, "getRefUri Problem with Uri for ref " + ref + " " + ex);
             return null;
         }
     }

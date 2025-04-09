@@ -72,6 +72,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -230,11 +232,6 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Requests an activity-result.
      */
-    private static final int REQUEST_IMAGE_CAPTURE = 2;
-
-    /**
-     * Requests an activity-result.
-     */
     public static final int REQUEST_PREFERENCES = 5;
 
     /**
@@ -293,6 +290,26 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     private ConnectivityChangedReceiver connectivityChangedReceiver;
+
+    private static class TakePicture extends ActivityResultContracts.TakePicture {
+        private final Preferences prefs;
+
+        public TakePicture(@NonNull Preferences prefs) {
+            this.prefs = prefs;
+        }
+
+        @NonNull
+        @Override
+        public Intent createIntent(@NonNull Context context, @NonNull Uri input) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, input)
+                    .setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            String cameraApp = prefs.getCameraApp();
+            if (!"".equals(cameraApp)) {
+                intent.setPackage(cameraApp);
+            }
+            return intent;
+        }
+    }
 
     /**
      * our map layout
@@ -425,7 +442,8 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * file we asked the camera app to create (ugly)
      */
-    private File imageFile = null;
+    private File                        imageFile = null;
+    private ActivityResultLauncher<Uri> takePictureRequestLauncher;
 
     // flag to ensure that we only check once per activity life cycle
     private boolean gpsChecked = false;
@@ -685,6 +703,8 @@ public class Main extends FullScreenAppCompatActivity
         showActionBar();
 
         Util.clearCaches(this, App.getConfiguration(), getResources().getConfiguration());
+
+        takePictureRequestLauncher = registerForActivityResult(new TakePicture(prefs), this::indexImage);
     }
 
     @Override
@@ -2099,23 +2119,15 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_share:
             Util.sharePosition(this, map.getViewBox().getCenter(), map.getZoomLevel());
             return true;
-
         case R.id.menu_help:
             HelpViewer.start(this, R.string.help_main);
             return true;
         case R.id.menu_camera:
-            Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             try {
-                String cameraApp = prefs.getCameraApp();
-                if (!"".equals(cameraApp)) {
-                    startCamera.setPackage(cameraApp);
-                }
                 imageFile = getImageFile();
                 Uri photoUri = FileProvider.getUriForFile(this, getString(R.string.content_provider), imageFile);
-                if (photoUri != null) {
-                    startCamera.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    startCamera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                    startActivityForResult(startCamera, REQUEST_IMAGE_CAPTURE);
+                if (photoUri != null && takePictureRequestLauncher != null) {
+                    takePictureRequestLauncher.launch(photoUri);
                 }
             } catch (Exception ex) {
                 try {
@@ -2895,29 +2907,34 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param resultCode the result code from the intent
      */
-    private void indexImage(final int resultCode) {
-        if (imageFile != null) {
-            try {
-                if (resultCode == RESULT_OK || imageFile.length() > 0L) {
-                    try (PhotoIndex pi = new PhotoIndex(this)) {
-                        if (pi.addPhoto(imageFile) == null) {
-                            Log.e(DEBUG_TAG, "No image available");
-                            ScreenMessage.toastTopError(this, R.string.toast_photo_failed);
-                        }
-                    }
-                    if (map.getPhotoLayer() != null) {
-                        map.invalidate();
-                    }
-                } else if (resultCode == RESULT_CANCELED) {
-                    Log.e(DEBUG_TAG, "image capture canceled, deleting image");
-                    imageFile.delete(); // NOSONAR
-                }
-            } catch (SecurityException e) {
-                Log.e(DEBUG_TAG, "access denied for delete to " + imageFile.getAbsolutePath());
-            }
-            imageFile = null; // reset
-        } else {
+    private void indexImage(final boolean result) {
+        if (imageFile == null) {
             Log.e(DEBUG_TAG, "unexpected state imageFile == null");
+            return;
+        }
+        try {
+            if (result || imageFile.length() > 0L) {
+                try (PhotoIndex pi = new PhotoIndex(this)) {
+                    if (pi.addPhoto(imageFile) == null) {
+                        Log.e(DEBUG_TAG, "No image available");
+                        ScreenMessage.toastTopError(this, R.string.toast_photo_failed);
+                        return;
+                    }
+                }
+                if (prefs.addToMediaStore()) {
+                    PhotoIndex.addImageToMediaStore(getContentResolver(), imageFile.getAbsolutePath());
+                }
+                if (map.getPhotoLayer() != null) {
+                    map.invalidate();
+                }
+            } else {
+                Log.e(DEBUG_TAG, "image capture canceled, deleting image");
+                imageFile.delete(); // NOSONAR
+            }
+        } catch (SecurityException e) {
+            Log.e(DEBUG_TAG, "access denied for delete to " + imageFile.getAbsolutePath());
+        } finally {
+            imageFile = null; // reset
         }
     }
 
@@ -3135,9 +3152,7 @@ public class Main extends FullScreenAppCompatActivity
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         Log.d(DEBUG_TAG, "onActivityResult code " + requestCode + " result " + resultCode + " data " + data);
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE) {
-            indexImage(resultCode);
-        } else if (data != null) {
+        if (data != null) {
             if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK) {
                 handlePropertyEditorResult();
             } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.SAVE_FILE) && resultCode == RESULT_OK) {

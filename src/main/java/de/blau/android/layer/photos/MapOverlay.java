@@ -3,9 +3,11 @@ package de.blau.android.layer.photos;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.ContentObserver;
@@ -29,6 +31,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.contract.Schemes;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.LayerType;
@@ -92,8 +95,8 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
     /** last selected photo, may not be still displayed */
     private Photo selected = null;
 
-    private PhotoIndexer  indexer;
-    private PhotoObserver observer;
+    private PhotoIndexer    indexer;
+    private ContentObserver observer;
 
     /**
      * Update the photo index
@@ -124,7 +127,8 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
                 indexing = false;
                 indexed = true;
                 if (map.getPrefs().scanMediaStore()) {
-                    observer = new PhotoObserver(new Handler(Looper.getMainLooper()));
+                    observer = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ? new PhotoObserver30(new Handler(Looper.getMainLooper()))
+                            : new PhotoObserver(new Handler(Looper.getMainLooper()));
                     map.getContext().getContentResolver().registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true, observer);
                 }
             }
@@ -307,6 +311,9 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
         List<Photo> temp = new ArrayList<>(photos);
         GeoMath.sortGeoPoint(photo, temp, new ViewBox(bb), map.getWidth(), map.getHeight());
         ArrayList<Photo> shortList = new ArrayList<>(temp.subList(0, Math.min(temp.size(), VIEWER_MAX)));
+        // ensure that the clicked phto is actually in the list and the first one
+        shortList.remove(photo);
+        shortList.add(0, photo);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             PhotoViewerFragment.showDialog(activity, shortList, 0, null);
         } else {
@@ -387,6 +394,52 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
         onDestroy();
     }
 
+    /**
+     * Process an onChange callback
+     * 
+     * @param uris affected Uris
+     * @param flags optional flags
+     */
+    private void processOnChange(Collection<Uri> uris, int flags) {
+        Log.d(DEBUG_TAG, "onChange flags " + flags);
+        final Context context = map.getContext();
+        for (Uri uri : uris) {
+            Log.d(DEBUG_TAG, "onChange uri " + uri);
+            if ((flags & ContentResolver.NOTIFY_DELETE) != 0) {
+                Log.i(DEBUG_TAG, "Removed " + uri + " from index as deleted");
+                pi.deletePhoto(context, uri);
+            } else if ((flags & ContentResolver.NOTIFY_INSERT) != 0 || flags == 0) {
+                if (Schemes.CONTENT.equals(uri.getScheme())) {
+                    // check if we have already indexed this
+                    String path = ContentResolverUtil.getDataColumn(context, uri, null, null);
+                    if (path != null && pi.isIndexed(path)) {
+                        Log.i(DEBUG_TAG, "Removed " + path + " from index as duplicate");
+                        pi.deletePhoto(context, path);
+                    }
+                }
+                PhotoIndex.addToIndex(pi.addPhoto(context, uri, ContentResolverUtil.getDisplaynameColumn(context, uri)));
+            }
+        }
+        MapOverlay.this.invalidate();
+    }
+
+    class PhotoObserver30 extends ContentObserver {
+
+        /**
+         * Construct a new Observer for Android API 30 and later
+         * 
+         * @param handler the Handler to use
+         */
+        public PhotoObserver30(@NonNull Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Collection<Uri> uris, int flags) {
+            processOnChange(uris, flags);
+        }
+    }
+
     class PhotoObserver extends ContentObserver {
 
         /**
@@ -402,12 +455,8 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
         public void onChange(boolean selfChange, Uri uri) {
             Log.d(DEBUG_TAG, "onChange " + uri);
             final Context context = map.getContext();
-            if (!pi.isIndexed(uri)) {
-                PhotoIndex.addToIndex(pi.addPhoto(context, uri, ContentResolverUtil.getDisplaynameColumn(context, uri)));
-            } else {
-                pi.deletePhoto(context, uri);
-            }
-            MapOverlay.this.invalidate();
+            String path = ContentResolverUtil.getDataColumn(context, uri, null, null);
+            processOnChange(Util.wrapInList(uri), path == null ? ContentResolver.NOTIFY_DELETE : 0);
         }
     }
 }

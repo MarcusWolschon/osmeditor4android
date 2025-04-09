@@ -1340,6 +1340,8 @@
     <string name="config_useInternalPhotoViewer_summary">Use the builtin photo view, if not checked an external viewer will be used.</string>    
     <string name="config_indexMediaStore_summary">Additionally use the MediaStore for accessing photos</string>
     <string name="config_indexMediaStore_title">Use the MediaStore</string>
+    <string name="config_addToMediaStore_summary">Add images recorded with the camera button to the MediaStore</string>
+    <string name="config_addToMediaStore_title">Add images to the MediaStore</string>
     <string name="config_followGPSbutton_title">Follow location button layout</string>
     <string name="config_followGPSbutton_summary">Where the "Follow location" button will be positioned.</string>
     <string name="config_alwaysDrawBoundingBoxes_title">Always dim non-downloaded areas</string>
@@ -1620,6 +1622,8 @@
     <string name="regular_expression">Regular expression</string>
     <string name="state">State</string>
     <string name="Continue">Continue</string>
+    <string name="File">File</string>
+    <string name="URI">URI</string>
     <!--   -->
     <string name="empty_list">No entries</string>
     <string name="geocoder_type">Geocoder type</string>

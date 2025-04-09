@@ -5,11 +5,15 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -30,10 +34,12 @@ public class PhotoViewerActivity<T extends Serializable> extends ConfigurationCh
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PhotoViewerActivity.class.getSimpleName().length());
     private static final String DEBUG_TAG = PhotoViewerActivity.class.getSimpleName().substring(0, TAG_LEN);
 
-    ArrayList<T> photoList   = null;
-    int          startPos    = 0;
-    ImageLoader  photoLoader = null;
-    boolean      wrap        = true;
+    private ArrayList<T>                                photoList   = null;
+    private int                                         startPos    = 0;
+    private ImageLoader                                 photoLoader = null;
+    private boolean                                     wrap        = true;
+    private PhotoViewerFragment<T>                      photoViewerFragment;
+    private ActivityResultLauncher<IntentSenderRequest> deleteRequestLauncher;
 
     /**
      * Start a new activity with the PhotoViewer as the contents
@@ -94,11 +100,25 @@ public class PhotoViewerActivity<T extends Serializable> extends ConfigurationCh
             wrap = savedInstanceState.getBoolean(PhotoViewerFragment.WRAP_KEY);
         }
         String tag = PhotoViewerFragment.class.getName() + this.getClass().getName();
-        Fragment f = getSupportFragmentManager().findFragmentByTag(tag);
-        if (f == null) {
-            f = PhotoViewerFragment.newInstance(photoList, startPos, photoLoader, wrap);
-            getSupportFragmentManager().beginTransaction().replace(android.R.id.content, f, tag).commit();
+        photoViewerFragment = (PhotoViewerFragment<T>) getSupportFragmentManager().findFragmentByTag(tag);
+        if (photoViewerFragment == null) {
+            photoViewerFragment = PhotoViewerFragment.newInstance(photoList, startPos, photoLoader, wrap);
+            getSupportFragmentManager().beginTransaction().replace(android.R.id.content, photoViewerFragment, tag).commit();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d(DEBUG_TAG, "onStart");
+        super.onStart();
+        deleteRequestLauncher = registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(), result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Log.d("deleteResultLauncher", "deleted " + result.getData());
+                photoViewerFragment.removeCurrentImage();
+                return;
+            }
+            Log.e("deleteResultLauncher", "deleting failed " + result.getData());
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -137,5 +157,12 @@ public class PhotoViewerActivity<T extends Serializable> extends ConfigurationCh
         outState.putInt(PhotoViewerFragment.START_POS_KEY, f != null ? ((PhotoViewerFragment<T>) f).getCurrentPosition() : startPos);
         outState.putSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY, photoLoader);
         outState.putBoolean(PhotoViewerFragment.WRAP_KEY, wrap);
+    }
+
+    /**
+     * @return the deleteRequestLauncher
+     */
+    public ActivityResultLauncher<IntentSenderRequest> getDeleteRequestLauncher() {
+        return deleteRequestLauncher;
     }
 }
