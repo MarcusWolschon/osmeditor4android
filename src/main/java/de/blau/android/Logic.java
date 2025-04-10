@@ -1630,7 +1630,7 @@ public class Logic {
             }
         }
         List<Node> selectedNodes = selection.getNodes();
-        if (selectedNodes != null) {
+        if (Util.notEmpty(selectedNodes)) {
             if (selection.count() == 1) {
                 updateDirection(activity, (float) Math.toDegrees(angle), direction, selectedNodes.get(0));
                 return;
