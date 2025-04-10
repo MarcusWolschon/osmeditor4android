@@ -1916,7 +1916,8 @@ public class Main extends FullScreenAppCompatActivity
 
         LayerDrawable transfer = (LayerDrawable) menu.findItem(R.id.menu_transfer).getIcon();
         final StorageDelegator delegator = App.getDelegator();
-        BadgeDrawable.setBadgeWithCount(this, transfer, delegator.getApiElementCount(), prefs.getUploadOkLimit(), prefs.getUploadWarnLimit());
+        final int apiElementCount = delegator.getApiElementCount();
+        BadgeDrawable.setBadgeWithCount(this, transfer, apiElementCount, prefs.getUploadOkLimit(), prefs.getUploadWarnLimit());
 
         menu.findItem(R.id.menu_transfer_close_changeset).setVisible(server.hasOpenChangeset());
 
@@ -1929,10 +1930,10 @@ public class Main extends FullScreenAppCompatActivity
         }
         // note: isDirty is not a good indicator of if if there is really
         // something to upload
-        final boolean hasChanges = !delegator.getApiStorage().isEmpty();
+        final boolean hasChanges = apiElementCount > 0;
         menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && hasChanges);
         menu.findItem(R.id.menu_transfer_review).setEnabled(hasChanges);
-        final boolean hasData = !delegator.getCurrentStorage().isEmpty();
+        final boolean hasData = delegator.getCurrentElementCount() > 0;
         menu.findItem(R.id.menu_transfer_update).setEnabled(networkConnected && !hasMapSplitSource && hasData);
         menu.findItem(R.id.menu_transfer_data_clear).setEnabled(hasData);
 
