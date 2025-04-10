@@ -32,6 +32,7 @@ import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.CustomDatabaseContext;
 import de.blau.android.util.Notifications;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Util;
 
 /**
  * 
@@ -391,7 +392,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
             }
         }
         if (mountPoint == null) {
-            ScreenMessage.toastTopError(ctx, R.string.toast_no_suitable_storage);
+            Util.runOnUiThread(ctx, () -> ScreenMessage.toastTopError(ctx, R.string.toast_no_suitable_storage));
             return null;
         }
 

@@ -125,7 +125,7 @@ public class Splash extends AppCompatActivity {
             // read Presets here to avoid reading them on UI thread on startup of Main
             Progress.showDialog(Splash.this, Progress.PROGRESS_LOADING_PRESET);
             // migration has already happened, so we can use prefs here, this avoids lazy loading on the start of the
-            // PropertyEditor, we don't have to wait on this so can run it separately 
+            // PropertyEditor, we don't have to wait on this so can run it separately
             if (App.getPreferences(Splash.this).nameSuggestionPresetsEnabled()) {
                 new ExecutorTask<Void, Void, Void>() {
                     @Override
@@ -136,17 +136,27 @@ public class Splash extends AppCompatActivity {
                 }.execute();
             }
             // and another config loading thread
+            // this will not take as long as reading the
+            // presets so start first
             new ExecutorTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void param) {
                     App.getDataStyle(Splash.this);
+
+                    Log.d(DEBUG_TAG, "Create/get tile cache");
+                    App.getMapTileFilesystemProvider(Splash.this);
+                    Log.d(DEBUG_TAG, "Create/get tile cache finished");
+
+                    Log.d(DEBUG_TAG, "Init geocontext");
+                    App.initGeoContext(Splash.this);
+                    Log.d(DEBUG_TAG, "Init geocontext finished");
                     return null;
                 }
             }.execute();
             Log.d(DEBUG_TAG, "Initial preset load");
             App.getCurrentPresets(Splash.this);
-
             Log.d(DEBUG_TAG, "Preset load finished");
+
             //
             Intent intent = new Intent(Splash.this, Main.class);
             intent.putExtra(SHORTCUT_EXTRAS_KEY, shortcutExtras);
@@ -162,8 +172,6 @@ public class Splash extends AppCompatActivity {
         }
     };
 
-    @SuppressWarnings("deprecation")
-    @SuppressLint("NewApi")
     @Override
     protected void onResume() {
         super.onResume();
