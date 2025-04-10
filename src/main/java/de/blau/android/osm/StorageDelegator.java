@@ -3092,6 +3092,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public int getApiElementCount() {
         return apiStorage.getElementCount();
     }
+    
+    /**
+     * Get the total number of elements in current storage
+     * 
+     * @return the element count
+     */
+    public int getCurrentElementCount() {
+        return currentStorage.getElementCount();
+    }
 
     /**
      * Retrieve an OsmElement from Storage This will check the API Storage first (because of deleted objects) and then
