@@ -1865,8 +1865,8 @@ public class Main extends FullScreenAppCompatActivity
             } else {
                 inflater.inflate(R.menu.main_menu, menu);
             }
+            MenuCompat.setGroupDividerEnabled(menu, true);
         }
-        MenuCompat.setGroupDividerEnabled(menu, true);
 
         boolean networkConnected = isConnected();
         boolean locationPermissionGranted = isLocationPermissionGranted();
