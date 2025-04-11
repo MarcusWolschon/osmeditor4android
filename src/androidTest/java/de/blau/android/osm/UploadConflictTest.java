@@ -173,6 +173,61 @@ public class UploadConflictTest {
         assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
         assertNull(App.getDelegator().getApiStorage().getNode(101792984L));
     }
+    
+    /**
+     * Version conflict use the server element, downloading fails
+     */
+    @Test
+    public void versionConflictUseServerFail() {
+        conflict("conflict1", new String[] { "conflictdownload1" }, false, R.string.upload_conflict_message_version);
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
+        assertNotNull(n);
+        assertEquals(6, n.getOsmVersion()); // version should now be server and not in the API
+        assertTrue(n.hasTagKey(Tags.KEY_IS_IN));
+        assertEquals(OsmElement.STATE_MODIFIED, n.getState());
+        assertNotNull(App.getDelegator().getApiStorage().getNode(101792984L));
+        mockServer.enqueue("509");
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.resolve), true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.use_server_version), true));
+        TestUtils.sleep();
+        n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
+        assertEquals(6, n.getOsmVersion()); // all should be unchanged
+        assertTrue(n.hasTagKey(Tags.KEY_IS_IN));
+        assertEquals(OsmElement.STATE_MODIFIED, n.getState());
+        assertNotNull(App.getDelegator().getApiStorage().getNode(101792984L));
+    }
+    
+    /**
+     * Version conflict use the server element but local is deleted
+     */
+    @Test
+    public void versionConflictUseServerLocalDeleted() {
+        loadDataAndFixtures("conflict1", new String[] { "conflictdownload1" }, false);
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
+        assertNotNull(n);
+        App.getLogic().performEraseNode(main, n, true);   
+        assertEquals(OsmElement.STATE_DELETED, n.getState());
+        assertNotNull(App.getDelegator().getApiStorage().getNode(101792984L));
+        
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
+
+        uploadDialog(R.string.upload_conflict_message_version, device);
+
+      
+        mockServer.enqueue("conflictdownload1");
+        mockServer.enqueue("empty");
+        mockServer.enqueue("empty");
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.resolve), true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.use_server_version), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 20000));
+        n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
+        assertEquals(7, n.getOsmVersion()); // version should now be server and not in the API
+        assertFalse(n.hasTagKey(Tags.KEY_IS_IN));
+        assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
+        assertNull(App.getDelegator().getApiStorage().getNode(101792984L));
+    }
 
     /**
      * Server side element is already deleted
