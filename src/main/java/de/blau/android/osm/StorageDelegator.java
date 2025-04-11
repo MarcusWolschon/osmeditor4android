@@ -3092,7 +3092,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public int getApiElementCount() {
         return apiStorage.getElementCount();
     }
-    
+
     /**
      * Get the total number of elements in current storage
      * 
@@ -4204,6 +4204,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void removeFromUpload(@NonNull OsmElement element, byte state) {
         undo.save(element);
         apiStorage.removeElement(element);
+        if (OsmElement.STATE_DELETED == element.getState() && state != OsmElement.STATE_DELETED) {
+            currentStorage.insertElementSafe(element);
+        }
         element.setState(state);
     }
 
