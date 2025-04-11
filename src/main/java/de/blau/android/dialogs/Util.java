@@ -5,6 +5,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -14,8 +15,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import de.blau.android.App;
+import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ScreenMessage;
 
 public final class Util {
 
@@ -95,7 +99,7 @@ public final class Util {
      * @return return a List of elements or null
      */
     @Nullable
-    static List<OsmElement> getElementsFromBundle(@NonNull Bundle bundle) {
+    private static List<OsmElement> getElementsFromBundle(@NonNull Bundle bundle) {
         List<OsmElement> result = new ArrayList<>();
         List<Long> ids = de.blau.android.util.Util.getSerializeableArrayList(bundle, ELEMENT_IDS_KEY, Long.class);
         List<String> types = bundle.getStringArrayList(ELEMENT_TYPES_KEY);
@@ -116,5 +120,22 @@ public final class Util {
             return result;
         }
         return null;
+    }
+
+    /**
+     * Get elements from references in a bundle
+     * 
+     * @param context an Android context
+     * @param bundle the Bundle
+     */
+    static List<OsmElement> getElements(@NonNull Context context, @NonNull Bundle bundle) {
+        try {
+            return de.blau.android.dialogs.Util.getElementsFromBundle(bundle);
+        } catch (IllegalStateException ise) {
+            ScreenMessage.toastTopError(context, R.string.toast_inconsistent_state);
+            Log.e(DEBUG_TAG, "Inconsistent state because " + ise.getMessage());
+            ACRAHelper.nocrashReport(ise, ise.getMessage());
+            return new ArrayList<>();
+        }
     }
 }

@@ -164,10 +164,10 @@ public class UploadConflict extends ImmersiveDialogFragment {
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "restoring from saved state");
             conflict = de.blau.android.util.Util.getSerializeable(savedInstanceState, CONFLICT_KEY, Conflict.class);
-            elements = de.blau.android.dialogs.Util.getElementsFromBundle(savedInstanceState);
+            elements = de.blau.android.dialogs.Util.getElements(getContext(), savedInstanceState);
         } else {
             conflict = de.blau.android.util.Util.getSerializeable(getArguments(), CONFLICT_KEY, Conflict.class);
-            elements = de.blau.android.dialogs.Util.getElementsFromBundle(getArguments());
+            elements = de.blau.android.dialogs.Util.getElements(getContext(), getArguments());
         }
     }
 
