@@ -831,7 +831,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             }
             // hack to recreate the form ui when restoring as there is no callback that
             // runs after the references here have been recreated
-            if (restoring & (!formEnabled || tagFormFragment != null) && tagEditorFragment != null) {
+            if (restoring && (!formEnabled || tagFormFragment != null) && tagEditorFragment != null) {
                 tagsUpdated();
                 // run any pending actions
                 while (!restoreQueue.isEmpty()) {
