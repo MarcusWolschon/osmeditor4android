@@ -5,7 +5,6 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.io.File;
 import java.io.IOException;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
