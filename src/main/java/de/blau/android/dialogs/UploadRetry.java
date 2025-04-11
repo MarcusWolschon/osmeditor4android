@@ -162,7 +162,7 @@ public class UploadRetry extends ImmersiveDialogFragment {
         comment = bundle.getString(COMMENT_KEY);
         source = bundle.getString(SOURCE_KEY);
         extraTags = de.blau.android.util.Util.getSerializeable(bundle, EXTRA_TAGS_KEY, HashMap.class);
-        elements = de.blau.android.dialogs.Util.getElementsFromBundle(bundle);
+        elements = de.blau.android.dialogs.Util.getElements(getContext(), bundle);
     }
 
     @NonNull

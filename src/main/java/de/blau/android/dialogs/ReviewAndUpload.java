@@ -122,11 +122,12 @@ public class ReviewAndUpload extends AbstractReviewDialog {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         Log.d(DEBUG_TAG, "onCreateDialog");
+
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "restoring from saved state");
-            elements = de.blau.android.dialogs.Util.getElementsFromBundle(savedInstanceState);
+            de.blau.android.dialogs.Util.getElements(getContext(), savedInstanceState);
         } else {
-            elements = de.blau.android.dialogs.Util.getElementsFromBundle(getArguments());
+            elements = de.blau.android.dialogs.Util.getElements(getContext(), getArguments());
         }
 
         FragmentActivity activity = getActivity();
