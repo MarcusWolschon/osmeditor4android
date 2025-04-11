@@ -3850,7 +3850,19 @@ public class Logic {
     public synchronized void replaceElement(@Nullable Activity activity, @NonNull OsmElement e, @Nullable PostAsyncActionHandler postLoad) {
         createCheckpoint(activity, R.string.undo_action_fix_conflict);
         getDelegator().removeFromUpload(e, OsmElement.STATE_UNCHANGED); // this will allow merging to replace it
-        downloadElement(activity, e.getName(), e.getOsmId(), false, true, postLoad);
+        downloadElement(activity, e.getName(), e.getOsmId(), false, true, new PostAsyncActionHandler() {
+
+            @Override
+            public void onSuccess() {
+                postLoad.onSuccess();
+            }
+
+            @Override
+            public void onError(AsyncResult result) {
+                postLoad.onError(result);
+                rollback();
+            }
+        });
     }
 
     /**
