@@ -3,7 +3,9 @@ package de.blau.android.propertyeditor;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.Serializable;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -177,6 +179,11 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     private ControlListener    controlListener;
     private PageChangeListener pageChangeListener;
     private Capabilities       capabilities;
+
+    /**
+     * Run these actions when we everything is restored
+     */
+    private Deque<Runnable> restoreQueue = new ArrayDeque<>();
 
     /**
      * Build the intent to start the PropertyEditor
@@ -475,11 +482,20 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.SAVE_FILE) && resultCode == Activity.RESULT_OK) {
             SelectFile.handleResult(getActivity(), requestCode, data);
         } else if (requestCode == PREFERENCES_CODE) {
-            // Preferences may have been changed
-            prefs = new Preferences(getContext());
-            App.getLogic().setPrefs(prefs);
-            updatePresets();
-            updateRecentPresets();
+            // child fragments might not be around yet
+            Runnable r = () -> {
+                Log.d(DEBUG_TAG, "Updating presets");
+                // Preferences may have been changed
+                prefs = new Preferences(getContext());
+                App.getLogic().setPrefs(prefs);
+                updatePresets();
+                updateRecentPresets();
+            };
+            if ((formEnabled && tagFormFragment == null) || tagEditorFragment == null) {
+                restoreQueue.add(r);
+            } else {
+                r.run();
+            }
         }
     }
 
@@ -815,8 +831,12 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             }
             // hack to recreate the form ui when restoring as there is no callback that
             // runs after the references here have been recreated
-            if (restoring && tagFormFragment != null && tagEditorFragment != null) {
+            if (restoring & (!formEnabled || tagFormFragment != null) && tagEditorFragment != null) {
                 tagsUpdated();
+                // run any pending actions
+                while (!restoreQueue.isEmpty()) {
+                    restoreQueue.pop().run();
+                }
             }
             return fragment;
         }
@@ -875,8 +895,11 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         } else {
             if (tagFormFragment != null) {
                 fm = tagFormFragment.getChildFragmentManager();
-            } else {
+            } else if (tagEditorFragment != null) {
                 fm = tagEditorFragment.getChildFragmentManager();
+            } else {
+                Log.e(DEBUG_TAG, "Neither TagFormFragment or TagEditorFragment exist");
+                return null;
             }
         }
         return (RecentPresetsFragment) fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
