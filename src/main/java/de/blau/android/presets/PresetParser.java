@@ -122,7 +122,9 @@ public class PresetParser {
     private static final String VERSION_ATTR          = "version";
     private static final String BACKGROUND            = "background";
     private static final String MATCH_EXPRESSION      = "match_expression";
-
+    private static final String LINKED_KEYS_ELEMENT = "linked_keys";
+    private static final String KEY_ELEMENT = "key";
+    private static final String NAME_ATTR = "name";
     private enum PARSE_STATE {
         TOP, ITEM, CHUNK
     }
@@ -162,7 +164,9 @@ public class PresetParser {
             /** */
             private String                      currentLabel      = null;
             private boolean                     addedLabel        = false;
-
+            private StringWithDescription       currentListEntrySwd = null;
+            private boolean                     isInLinkedKeys    = false;
+            private List<String>                collectedLinkedKeys = null;
             /**
              * ${@inheritDoc}.
              */
@@ -173,26 +177,121 @@ public class PresetParser {
                     parseTop(name, attr);
                     break;
                 case ITEM:
-                    parseItem(name, attr);
+                    parseItemOrNestedField(name, attr);
                     break;
                 case CHUNK:
-                    PresetChunk chunk = ((PresetChunk) currentItem);
-                    if (LIST_ENTRY.equals(name) && chunk.getFields().isEmpty()) {
-                        if (chunk.getListValues() == null) {
-                            chunk.setListValues(new ArrayList<>());
-                        }
-                        addListEntry(chunk.getListValues(), attr);
-                    } else {
-                        if (chunk.getListValues() == null) {
-                            parseItem(name, attr);
+                    PresetChunk currentChunk = (PresetChunk) currentItem;
+                    if (currentChunk.getFields().isEmpty() && currentChunk.getListValues() == null) {
+                        if (LIST_ENTRY.equals(name)) {
+                            Log.v(DEBUG_TAG, "Chunk '" + currentChunk.getName() + "' identified as LIST based.");
+                            currentChunk.setListValues(new ArrayList<>());
+                            startListEntry(attr, currentChunk.getListValues());
                         } else {
-                            final String msg = "chunk can only contain a sequence LIST_ENTRY or normal ITEM elements: " + name;
-                            Log.w(DEBUG_TAG, msg);
-                            throw new SAXException(msg);
+                            Log.v(DEBUG_TAG, "Chunk '" + currentChunk.getName() + "' identified as FIELD based.");
+                            parseItemOrNestedField(name, attr);
+                        }
+                    }
+                    else {
+                        if (currentChunk.getListValues() != null) {
+                            if (LIST_ENTRY.equals(name)) {
+                                startListEntry(attr, currentChunk.getListValues());
+                            } else {
+                                throw new SAXException("Chunk '" + currentChunk.getName() + "' expects only <" + LIST_ENTRY + "> but found <" + name + ">.");
+                            }
+                        }
+                        else {
+                            parseItemOrNestedField(name, attr);
                         }
                     }
                     break;
                 }
+            }
+            private void parseItemOrNestedField(String name, Attributes attr) throws SAXException {
+                // Are we inside a list_entry (parsing its children like linked_keys)?
+                if (currentListEntrySwd != null) {
+                    parseListEntrySubElement(name, attr);
+                }
+                // Is this the start of a list_entry *within a combo/multi context*?
+                else if (LIST_ENTRY.equals(name)) {
+                    if (listValues != null) { // Is a combo/multi active?
+                        startListEntry(attr, listValues); // adding to the active combo's list
+                    } else {
+                        throw new SAXException("<" + LIST_ENTRY + "> found outside of expected <combo>/<multiselect> context.");
+                    }
+                }
+                // a standard field definition or container (<optional>, <text>, <combo> etc.)
+                else {
+                    parseItem(name, attr);
+                }
+            }
+            private void parseListEntrySubElement(String name, Attributes attr) throws SAXException {
+                if (LINKED_KEYS_ELEMENT.equals(name)) {
+                    if (isInLinkedKeys) {
+                        throw new SAXException("Nested <" + LINKED_KEYS_ELEMENT + "> elements are not allowed.");
+                    }
+                    isInLinkedKeys = true;
+                    collectedLinkedKeys = new ArrayList<>();
+                    Log.v(DEBUG_TAG, "Entered <" + LINKED_KEYS_ELEMENT + ">");
+                } else if (KEY_ELEMENT.equals(name)) {
+                    if (!isInLinkedKeys) {
+                        Log.w(DEBUG_TAG, "<" + KEY_ELEMENT + "> found outside of <" + LINKED_KEYS_ELEMENT + "> context. Ignoring.");
+                        return;
+                    }
+                    String keyName = attr.getValue(NAME_ATTR);
+                    if (keyName != null && !keyName.trim().isEmpty()) {
+                        if (collectedLinkedKeys == null) {
+                            collectedLinkedKeys = new ArrayList<>();
+                        }
+                        collectedLinkedKeys.add(keyName.trim());
+                        Log.v(DEBUG_TAG, "Added linked key: " + keyName.trim());
+                    } else {
+                        Log.w(DEBUG_TAG, "<" + KEY_ELEMENT + "> element is missing required '" + NAME_ATTR + "' attribute. Ignoring.");
+                    }
+                } else {
+                    throw new SAXException("Unexpected element <" + name + "> inside <" + LIST_ENTRY + ">.");
+                }
+            }
+
+            /** Handles start of a <list_entry> element. */
+            private void startListEntry(@NonNull Attributes attr, @NonNull List<StringWithDescription> listValues) throws SAXException {
+                if (listValues == null) {
+                    throw new SAXException("<list_entry> encountered outside of a combo/multiselect or list chunk context.");
+                }
+
+                String value = attr.getValue(VALUE);
+                if (value == null) {
+                    currentListEntrySwd = null;
+                    return;
+                }
+                Log.v(DEBUG_TAG, "Starting list_entry: value=" + value);
+                String displayValue = attr.getValue(DISPLAY_VALUE);
+                String listShortDescription = attr.getValue(SHORT_DESCRIPTION);
+                String listDescription = displayValue != null ? displayValue : listShortDescription;
+                String iconPath = attr.getValue(ICON);
+                String imagePathAttr = attr.getValue(IMAGE);
+                String imagePath = null;
+                if (imagePathAttr != null) {
+                    imagePath = getImagePath(preset, imagePathAttr);
+                    imageCount++;
+                }
+                if (iconPath == null && imagePath == null) {
+                    currentListEntrySwd = new ExtendedStringWithDescription(value, listDescription);
+                } else {
+                    currentListEntrySwd = new StringWithDescriptionAndIcon(value, listDescription, iconPath, imagePath);
+                }
+                boolean deprecated = TRUE.equals(attr.getValue(DEPRECATED));
+                if (currentListEntrySwd instanceof ExtendedStringWithDescription) {
+                    ((ExtendedStringWithDescription) currentListEntrySwd).setDeprecated(deprecated);
+                    if (displayValue != null && listShortDescription != null) ((ExtendedStringWithDescription) currentListEntrySwd).setLongDescription(listShortDescription); // Store original short desc if display value used
+                } else if (currentListEntrySwd instanceof StringWithDescriptionAndIcon) {
+                    ((StringWithDescriptionAndIcon) currentListEntrySwd).setDeprecated(deprecated);
+                }
+                setRegions(attr, currentListEntrySwd);
+                listValues.add(currentListEntrySwd);
+                isInLinkedKeys = false;
+                collectedLinkedKeys = null;
+
+                Log.v(DEBUG_TAG, "Started list_entry: value=" + value + ", desc=" + listDescription);
             }
 
             /**
@@ -299,8 +398,8 @@ public class PresetParser {
                     new PresetSeparator(preset, groupstack.peek());
                     break;
                 default:
-                    Log.w(DEBUG_TAG, name + " unexpected");
-                    throw new SAXException(name + " unexpected");
+                    Log.w(DEBUG_TAG, "Unexpected top-level element: " + name);
+                    throw new SAXException("Unexpected top-level element: " + name);
                 }
             }
 
@@ -620,9 +719,6 @@ public class PresetParser {
                         currentItem.addAllAlternativePresetItems(chunk.getAlternativePresetItems());
                     }
                     break;
-                case LIST_ENTRY:
-                    addListEntry(listValues, attr);
-                    break;
                 case PRESET_LINK:
                     String presetName = attr.getValue(PRESET_NAME);
                     if (presetName != null) {
@@ -773,37 +869,6 @@ public class PresetParser {
             }
 
             /**
-             * Add a LIST_ENTRY element
-             * 
-             * @param list the target list to add it to
-             * @param attr the XML attributes
-             */
-            private void addListEntry(@Nullable List<StringWithDescription> list, @NonNull Attributes attr) {
-                if (list != null) {
-                    String v = attr.getValue(VALUE);
-                    if (v != null) {
-                        String displayValue = attr.getValue(DISPLAY_VALUE);
-                        String listShortDescription = attr.getValue(SHORT_DESCRIPTION);
-                        String listDescription = displayValue != null ? displayValue : listShortDescription;
-                        String iconPath = attr.getValue(ICON);
-                        String imagePath = attr.getValue(IMAGE);
-                        if (imagePath != null) {
-                            imagePath = getImagePath(preset, imagePath);
-                            imageCount++;
-                        }
-                        ExtendedStringWithDescription swd = iconPath == null && imagePath == null ? new ExtendedStringWithDescription(v, listDescription)
-                                : new StringWithDescriptionAndIcon(v, listDescription, iconPath, imagePath);
-                        swd.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
-                        setRegions(attr, swd);
-                        if (displayValue != null) { // short description is potentially unused
-                            swd.setLongDescription(listShortDescription);
-                        }
-                        list.add(swd);
-                    }
-                }
-            }
-
-            /**
              * Set values by calling a method
              * 
              * As this might take longer and include network calls it needs to be done async, however on the other hand
@@ -845,58 +910,147 @@ public class PresetParser {
 
             @Override
             public void endElement(String uri, String localName, String name) throws SAXException {
-                switch (name) {
-                case PRESETS:
-                    chunks = null; // we're finished
-                    break;
-                case GROUP:
-                    groupstack.pop();
-                    break;
-                case OPTIONAL:
-                    inOptionalSection = false;
-                    break;
-                case ITEM:
-                    preset.addToIndices(currentItem);
-                    if (!currentItem.isDeprecated()) {
-                        currentItem.buildSearchIndex();
-                    }
-                    preset.translateItem(currentItem);
-                    currentItem = null;
-                    listKey = null;
-                    listValues = null;
-                    state = PARSE_STATE.TOP;
-                    break;
-                case CHUNK:
-                    chunks.put(currentItem.getName(), (PresetChunk) currentItem);
-                    currentItem = null;
-                    listKey = null;
-                    listValues = null;
-                    state = PARSE_STATE.TOP;
-                    break;
-                case COMBO_FIELD:
-                case MULTISELECT_FIELD:
-                    if (listKey != null && listValues != null) {
-                        StringWithDescription[] v = new StringWithDescription[listValues.size()];
-                        PresetComboField field = (PresetComboField) currentItem.getField(listKey);
-                        if (field != null) {
-                            field.setValues(listValues.toArray(v));
-                            field.setUseImages(imageCount > 0);
+                Log.v(DEBUG_TAG, "End Element: </" + name + "> State: " + state + " InOptional: " + inOptionalSection);
+                if (LINKED_KEYS_ELEMENT.equals(name)) {
+                    if (!isInLinkedKeys) {
+                        Log.w(DEBUG_TAG, "End tag </" + LINKED_KEYS_ELEMENT + "> found outside of expected context. Ignoring.");
+
+                    } else {
+                        if (currentListEntrySwd != null && collectedLinkedKeys != null && !collectedLinkedKeys.isEmpty()) {
+                            try {
+                                if (currentListEntrySwd instanceof ExtendedStringWithDescription) {
+                                    ((ExtendedStringWithDescription) currentListEntrySwd).setLinkedKeys(collectedLinkedKeys);
+                                } else if (currentListEntrySwd instanceof StringWithDescriptionAndIcon) {
+                                    ((StringWithDescriptionAndIcon) currentListEntrySwd).setLinkedKeys(collectedLinkedKeys);
+                                }else {
+                                    Log.w(DEBUG_TAG, "Cannot set linked keys on list entry '" + currentListEntrySwd.getValue() + "' of type " + currentListEntrySwd.getClass().getSimpleName());
+                                }
+                                Log.v(DEBUG_TAG, "Attached linked keys to list entry '" + currentListEntrySwd.getValue() + "': " + collectedLinkedKeys);
+                            } catch (ClassCastException e) {
+                                Log.e(DEBUG_TAG,"Error casting StringWithDescription subtype to set linked keys", e);
+                            } catch (Exception e) {
+                                Log.e(DEBUG_TAG,"Error setting linked keys on " + currentListEntrySwd.getClass().getSimpleName(), e);
+                            }
+                        } else {
+                            Log.v(DEBUG_TAG, "Closing " + LINKED_KEYS_ELEMENT + " with no keys to attach or no active list entry.");
                         }
+                        isInLinkedKeys = false;
+                        collectedLinkedKeys = null;
                     }
-                    listKey = null;
-                    listValues = null;
-                    break;
-                case CHECKGROUP:
-                    currentItem.addField(checkGroup);
-                    checkGroup = null;
-                    checkGroupCounter++;
-                    break;
-                case SEPARATOR:
-                    break;
-                default:
-                    if (currentItem == null) {
-                        Log.w(DEBUG_TAG, "Unknown end tag " + name);
+                    return;
+                }
+
+                if (LIST_ENTRY.equals(name)) {
+                    currentListEntrySwd = null;
+                    isInLinkedKeys = false;
+                    collectedLinkedKeys = null;
+                    Log.v(DEBUG_TAG, "Finished scope for list_entry.");
+                    return;
+                }
+
+                if (OPTIONAL.equals(name)) {
+                    if (!inOptionalSection) {
+                        Log.w(DEBUG_TAG, "Mismatched </optional> tag encountered.");
                     }
+                    inOptionalSection = false;
+                    return;
+                }
+                switch (name) {
+                    case PRESETS:
+                        chunks = null;
+                        groupstack.clear();
+                        state = null;
+                        Log.i(DEBUG_TAG, "Finished parsing presets.");
+                        break;
+
+                    case GROUP:
+                        if (!groupstack.isEmpty()) {
+                            groupstack.pop();
+                        } else {
+                            Log.w(DEBUG_TAG,"Mismatched </group> tag encountered.");
+                        }
+                        break;
+
+                    case ITEM:
+                        if (state != PARSE_STATE.ITEM) Log.e(DEBUG_TAG,"</item> tag encountered but state is " + state);
+                        if (currentItem instanceof PresetItem) {
+                            preset.addToIndices((PresetItem)currentItem);
+                            if (!currentItem.isDeprecated()) ((PresetItem)currentItem).buildSearchIndex();
+                            preset.translateItem((PresetItem)currentItem);
+                        }
+                        currentItem = null;
+                        listKey = null;
+                        listValues = null;
+                        imageCount = 0;
+                        checkGroup = null;
+                        currentLabel = null;
+                        addedLabel = false;
+                        inOptionalSection = false;
+                        state = PARSE_STATE.TOP;
+                        Log.v(DEBUG_TAG,"Reset major state, returning to TOP");
+                        break;
+
+                    case CHUNK:
+                        if (state != PARSE_STATE.CHUNK) Log.e(DEBUG_TAG,"</chunk> tag encountered but state is " + state);
+                        if (currentItem instanceof PresetChunk) {
+                            chunks.put(currentItem.getName(), (PresetChunk) currentItem);
+                            Log.v(DEBUG_TAG, "Stored chunk: " + currentItem.getName());
+                        }
+                        currentItem = null;
+                        listKey = null;
+                        listValues = null;
+                        imageCount = 0;
+                        checkGroup = null;
+                        currentLabel = null;
+                        addedLabel = false;
+                        inOptionalSection = false;
+                        state = PARSE_STATE.TOP;
+                        Log.v(DEBUG_TAG,"Reset major state, returning to TOP");
+                        break;
+
+                    case COMBO_FIELD:
+                    case MULTISELECT_FIELD:
+                        if (listKey != null && listValues != null && currentItem != null) {
+                            Log.d(DEBUG_TAG, "End combo/multi: listKey=" + listKey + ", listValues size=" + listValues.size() + ", currentItem=" + currentItem.getName());
+                            PresetComboField field = null;
+                            PresetField potentialField = currentItem.getField(listKey);
+                            if (potentialField instanceof PresetComboField) {
+                                field = (PresetComboField) potentialField;
+                            } else if (potentialField != null){
+                                Log.w(DEBUG_TAG, "Field for key '"+listKey+"' is not a PresetComboField, type: " + potentialField.getClass().getSimpleName());
+                            }
+
+                            if (field != null) {
+                                StringWithDescription[] valueArray = listValues.toArray(new StringWithDescription[0]);
+                                field.setValues(valueArray);
+                                field.setUseImages(imageCount > 0);
+                                Log.d(DEBUG_TAG, "SUCCESS: Attached " + valueArray.length + " list entries to field '" + listKey + "'.");
+                            } else {
+                                Log.e(DEBUG_TAG, "ERROR: Could not find PresetComboField for key '" + listKey + "' in item '" + currentItem.getName() + "' to attach list entries.");
+                            }
+                        } else {
+                            Log.v(DEBUG_TAG, "Skipping list_entry attachment for combo/multi end: listKey=" + listKey + ", listValues=" + (listValues != null) + ", currentItem=" + (currentItem != null));
+                        }
+                        listKey = null;
+                        listValues = null;
+                        imageCount = 0;
+                        break;
+                    case CHECKGROUP:
+                        if (checkGroup != null && currentItem != null) {
+                            currentItem.addField(checkGroup);
+                        }
+                        checkGroup = null;
+                        checkGroupCounter++;
+                        break;
+
+                    case SEPARATOR:
+
+                        break;
+
+                    default:
+                        if (state == PARSE_STATE.TOP && !PRESETS.equals(name) && !GROUP.equals(name)) {
+                            Log.w(DEBUG_TAG, "Unknown or unexpected end tag </" + name + "> at TOP level.");
+                        }
                 }
             }
 
