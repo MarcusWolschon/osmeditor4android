@@ -1051,8 +1051,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             featureStyleTagged = nodeFeatureStyleTaggedSelected;
             featureStyleFont = labelTextStyleNormalSelected;
             featureStyleFontSmall = labelTextStyleSmallSelected;
-
-            if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditable()) {
+            if (tmpDrawingSelectedNodes.size() == 1 && Util.isEmpty(tmpDrawingSelectedWays) && prefs.largeDragArea()
+                    && tmpDrawingEditMode.elementsGeomEditable()) {
                 // don't draw large areas in multi-select mode
                 canvas.drawCircle(x, y, currentStyle.getLargDragToleranceRadius(), nodeDragRadiusPaint);
             } else {
