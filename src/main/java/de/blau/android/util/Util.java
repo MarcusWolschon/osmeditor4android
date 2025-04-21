@@ -127,7 +127,7 @@ public final class Util {
 
         OsmElement e = unconnected.get(0);
         unconnected.remove(0);
-        if (!e.getName().equals(Way.NAME)) {
+        if (!Way.NAME.equals(e.getName())) {
             return null; // not all are ways
         }
         result.add(e);
@@ -730,6 +730,16 @@ public final class Util {
      */
     public static <T extends Object> boolean notEmpty(@Nullable final Collection<T> collection) {
         return collection != null && !collection.isEmpty();
+    }
+
+    /**
+     * Check if a Collection is empty
+     * 
+     * @param collection the input Collection
+     * @return true if text is either null or empty
+     */
+    public static <T extends Object> boolean isEmpty(@Nullable final Collection<T> collection) {
+        return collection == null || collection.isEmpty();
     }
 
     /**
