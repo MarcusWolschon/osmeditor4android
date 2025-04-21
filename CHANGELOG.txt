@@ -1,5 +1,28 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.1.0-1:
+
+- Fix check correctly for enabled large drag area (regression)
+- Fix improve error handling if OsmELements can not be restored
+- Fix rollback changes if we are unable to download server version
+- Fix delay updating presets and associated fragments
+- Fix avoid index out of bound if selected nodes isn't null
+- Fix avoid locking in onCreateOptionsMenu
+- Fix improve messaging if opening changeset times out
+- Fix layout naming conflict (fixes crash editing OH dates)
+- Fix run beeping in a thread
+- Fix replace OsmElementList.fromIds with a non-O(N^2) version
+- Fix run download thread creation in thread
+- Fix serialization crash in ConsoleDialog
+- Fix improve display for unknown/not handled error codes from downloads
+- Fix start pref activity with fragment context
+- Fix update ELI to correct location during build
+- Fix move adding accept-encoding header so that it can be overridden
+- Add make map background configurable
+- Add slightly improve display of image information
+- Add use MediaStore.createTrashRequest to delete images
+- Add improve tile diagnostics and some code clean up
+
 21.0.0:
 
 - Fix replace android DatePicker with custom picker
