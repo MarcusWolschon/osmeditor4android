@@ -27,7 +27,7 @@ public final class Urls {
     public static final String DEFAULT_TAGINFO_SERVER     = "https://taginfo.openstreetmap.org/";
     public static final String DEFAULT_OVERPASS_SERVER    = "https://overpass-api.de/api/interpreter";
     public static final String DEFAULT_OAM_SERVER         = "https://api.openaerialmap.org/";
-    public static final String DEFAULT_PANORAMAX_API_URL  = "https://panoramax.xyz/";
+    public static final String DEFAULT_PANORAMAX_API_URL  = "https://api.panoramax.xyz/";
 
     // these are only configurable for testing
     public static final String DEFAULT_MAPILLARY_IMAGES_V4        = "https://graph.mapillary.com/%s?access_token=%s&fields=thumb_2048_url,computed_geometry,computed_compass_angle,captured_at";
