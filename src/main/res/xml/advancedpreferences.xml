@@ -615,7 +615,7 @@
             android:dialogMessage="@string/config_oamServer_summary"
             android:title="@string/config_oamServer_title" />
         <androidx.preference.EditTextPreference
-            android:defaultValue="https://panoramax.xyz/"
+            android:defaultValue="https://api.panoramax.xyz/"
             android:key="@string/config_panoramaxApiUrl_key"
             android:summary="@string/config_panoramaxApiUrl_summary"
             android:dialogMessage="@string/config_panoramaxApiUrl_summary"
