@@ -991,8 +991,21 @@ public class Logic {
      * @return a List of Ways
      */
     @NonNull
-    List<Way> getClickableWays() {
-        return filter != null ? filter.getVisibleWays() : getWays(map.getViewBox());
+    private List<Way> getClickableWays() {
+        List<Way> ways = getWays(map.getViewBox());
+        if (filter == null) {
+            return ways;
+        }
+        List<Way> filteredWays = new ArrayList<>();
+        for (Way w : ways) {
+            if (filter.include(w, false)) {
+                filteredWays.add(w);
+            }
+        }
+        if (getSelectedWays() != null) {
+            filteredWays.addAll(getSelectedWays());
+        }
+        return filteredWays;
     }
 
     /**
@@ -1152,18 +1165,21 @@ public class Logic {
      * @return a List of Nodes
      */
     @NonNull
-    List<Node> getClickableNodes() {
-        List<Node> nodes;
-        if (filter != null) {
-            nodes = filter.getVisibleNodes();
-            if (getSelectedNodes() != null) { // selected Nodes are always visible if a filter is
-                // applied
-                nodes.addAll(getSelectedNodes());
-            }
-        } else {
-            nodes = getDelegator().getCurrentStorage().getNodes(map.getViewBox());
+    private List<Node> getClickableNodes() {
+        List<Node> nodes = getNodes(map.getViewBox());
+        if (filter == null) {
+            return nodes;
         }
-        return nodes;
+        List<Node> filteredNodes = new ArrayList<>();
+        for (Node n : nodes) {
+            if (filter.include(n, false)) {
+                filteredNodes.add(n);
+            }
+        }
+        if (getSelectedNodes() != null) {
+            filteredNodes.addAll(getSelectedNodes());
+        }
+        return filteredNodes;
     }
 
     /**
