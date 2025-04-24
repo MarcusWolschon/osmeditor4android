@@ -143,7 +143,7 @@ public class MapillaryOverlay extends AbstractImageOverlay {
                         Thread t = new Thread(null, new MapillarySequenceFetcher(activity, mapillarySequencesUrl, sequenceId, id, apiKey),
                                 "Mapillary Sequence");
                         t.start();
-                    } catch (SecurityException | IllegalThreadStateException e) {
+                    } catch (SecurityException | IllegalThreadStateException | IllegalStateException e) {
                         Log.e(DEBUG_TAG, "Unable to run SequenceFetcher " + e.getMessage());
                         return;
                     }
