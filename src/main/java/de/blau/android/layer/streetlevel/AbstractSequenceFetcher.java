@@ -16,7 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
+import de.blau.android.contract.MimeTypes;
 import okhttp3.Call;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -58,6 +60,7 @@ public abstract class AbstractSequenceFetcher implements Runnable {
             saveIdsAndUpdate(ids);
         } catch (IOException ex) {
             Log.e(DEBUG_TAG, "query sequence failed with " + ex.getMessage());
+            throw new IllegalStateException(ex);
         }
     }
 
@@ -77,6 +80,11 @@ public abstract class AbstractSequenceFetcher implements Runnable {
             return null;
         }
         ResponseBody responseBody = callResponse.body();
+        final MediaType contentType = responseBody.contentType();
+        if (contentType != null && !contentType.toString().contains(MimeTypes.JSON_SUBTYPE)) {
+            // testing can cause a null content type
+            throw new IOException("unexpected response content type " + contentType);
+        }
         try (InputStream inputStream = responseBody.byteStream()) {
             if (inputStream == null) {
                 throw new IOException("null InputStream");

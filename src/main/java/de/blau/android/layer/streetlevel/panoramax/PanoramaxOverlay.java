@@ -199,6 +199,12 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
                     protected void onPostExecute(Void result) {
                         Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD_SEQUENCE);
                     }
+
+                    @Override
+                    protected void onBackgroundError(Exception e) {
+                        Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD_SEQUENCE);
+                        ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_panoramax_sequence_exception, e.getMessage()));
+                    }
                 }.execute();
             } else {
                 showImages(activity, id, keys);
