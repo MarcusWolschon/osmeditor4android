@@ -120,6 +120,48 @@ public class ExtendedSelectionTest {
     }
 
     /**
+     * Select node, select way, delete
+     */
+    @Test
+    public void deleteMultiple() {
+        TestUtils.loadTestData(main, "test2.osm");
+        TestUtils.zoomToLevel(device, main, 18); // if we are zoomed in too far we might not get the selection popups
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.sleep(2000);
+        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
+        device.waitForWindowUpdate(null, 1000);
+        TestUtils.clickAwayTip(device, context);
+        TestUtils.findText(device, false, " Toilets", 10000, true);
+        assertTrue(TestUtils.clickTextContains(device, false, " Toilets", true));
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(3465444349L, node.getOsmId());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_extend_selection), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        device.waitForWindowUpdate(null, 1000);
+        TestUtils.clickAwayTip(device, context);
+        assertTrue(TestUtils.clickTextContains(device, false, " Path", true));
+        assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 2, 2), 5000));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(104148456L, way.getOsmId());
+        assertTrue(TestUtils.clickOverflowButton(device));
+        TestUtils.scrollTo(context.getString(R.string.delete), false);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.delete), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.delete), 1000, false));
+        assertTrue(TestUtils.clickResource(device, false, "android:id/button1", true));
+        assertTrue(TestUtils.textGone(device, context.getString(R.string.actionmode_multiselect), 1000));
+        assertEquals(OsmElement.STATE_DELETED, node.getState());
+        assertEquals(OsmElement.STATE_DELETED, way.getState());
+        TestUtils.clickUp(device);
+    }
+
+    /**
      * Select two ways then merge
      */
     @Test
@@ -272,7 +314,8 @@ public class ExtendedSelectionTest {
 
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.undo_location_undo_anyway), true));
         TestUtils.clickText(device, false, context.getString(R.string.okay), true); // click away tip
-        //assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 1, 2)));
+        // assertTrue(TestUtils.findText(device, false,
+        // context.getResources().getQuantityString(R.plurals.actionmode_object_count, 1, 2)));
     }
 
     /**
