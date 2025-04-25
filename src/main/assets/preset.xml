@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.77.1" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.78.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -730,6 +730,13 @@
         </optional>
         <preset_link preset_name="No name"/>
     </chunk>
+    <chunk id="optional_name_ref">
+        <optional>
+            <text key="name" text="Name"/>
+            <text key="ref" text="Reference"/>
+        </optional>
+        <preset_link preset_name="No name"/>
+    </chunk>
     <chunk id="optional_name_operator">
         <optional>
             <text key="name" text="Name"/>
@@ -1245,7 +1252,10 @@
         <combo key="religion" text="Religion" values="bahai,caodaism,confucian,jain,sikh,spiritualist,taoist,tenrikyo,unitarian_universalist,zoroastrian" display_values="Bahai,Caodaism,Confucian,Jain,Sikh,Spiritualist,Taoist,Tenrikyo,Unitarian universalist,Zoroastrian" match="keyvalue!" values_searchable="true"/>
     </chunk>
     <chunk id="christian_denominations"> <!-- christian denominations -->
-        <combo key="denomination" text="Denomination" values="anglican,baptist,catholic,church_of_scotland,evangelical,greek_catholic,greek_orthodox,iglesia_ni_cristo,jehovahs_witness,lutheran,methodist,mormon,new_apostolic,nondenominational,old_catholic,orthodox,pentecostal,presbyterian,protestant,quaker,reformed,roman_catholic,romanian_orthodox,russian_orthodox,serbian_orthodox,seventh_day_adventist,spiritist,united,united_methodist" display_values="Anglican,Baptist,Catholic,Church of Scotland,Evangelical,Greek catholic,Greek orthodox,Iglesia ni cristo,Jehovahs witness,Lutheran,Methodist,Mormon,New apostolic,Nondenominational,Old catholic,Orthodox,Pentecostal,Presbyterian,Protestant,Quaker,Reformed,Roman catholic,Romanian orthodox,Russian orthodox,Serbian orthodox,Seventh day adventist,Spiritist,United,United methodist" values_searchable="true"/>
+        <combo key="denomination" text="Denomination" values="anglican,baptist,catholic,church_of_scotland,evangelical,greek_catholic,greek_orthodox,lutheran,methodist,new_apostolic,nondenominational,old_catholic,orthodox,pentecostal,presbyterian,protestant,quaker,reformed,roman_catholic,romanian_orthodox,russian_orthodox,serbian_orthodox,seventh_day_adventist,spiritist,united,united_methodist" display_values="Anglican,Baptist,Catholic,Church of Scotland,Evangelical,Greek catholic,Greek orthodox,Lutheran,Methodist,New apostolic,Nondenominational,Old catholic,Orthodox,Pentecostal,Presbyterian,Protestant,Quaker,Reformed,Roman catholic,Romanian orthodox,Russian orthodox,Serbian orthodox,Seventh day adventist,Spiritist,United,United methodist" values_searchable="true"/>
+    </chunk>
+   <chunk id="nontrinitarian_denominations"> <!--nontrinitarian denominations -->
+        <combo key="denomination" text="Denomination" values="iglesia_ni_cristo,jehovahs_witness,mormon" display_values="Iglesia ni cristo,Jehovahs witness,Mormon" values_searchable="true"/>
     </chunk>
     <chunk id="muslim_denominations"> <!-- muslim denominations -->
         <combo key="denomination" text="Denomination" values="ibadi,nondenominational,shia,sunni" display_values="Ibadi,Nondenominational,Shia,Sunni" values_searchable="true"/>
@@ -2218,7 +2228,7 @@
         <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no" display_values="Available,Public,Customers,Not available" match="none"/>
     </chunk>
     <chunk id="licence_classes">
-        <combo key="license_classes" text="License Classes" values="A;A1;B;BE;C,A;A1;B;B1;C;C1;D;D1;BE;CE;C1E;DE;D1E"/>
+        <multiselect key="license_classes" text="License Classes" values="A;A1;B;BE;C,A;A1;B;B1;C;C1;D;D1;BE;CE;C1E;DE;D1E" values_sort="false" values_no_i18n="true"/>
     </chunk>
     <chunk id="school_common">
         <combo key="school:gender" values="mixed,male,female,separated" display_values="Mixed,Male,Female,Separated" values_context="gender" text="Student gender"/>
@@ -5548,7 +5558,7 @@
                     <list_entry value="cargo_bike" display_value="Cargo bike"/>
                     <list_entry value="e-bike" display_value="E-Bike"/>
                 </multiselect>
-                <reference ref="optional_name"/>
+                <reference ref="optional_name_ref"/>
                 <optional>
                     <text key="network" text="Network"/>
                     <reference ref="brand"/>
@@ -7759,6 +7769,18 @@
             <reference ref="oh_wheelchair"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Gurudwara -->
+        <item name="Nontrinitarian Church" icon="icons/png/place_of_worship_unknown.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=place_of_worship"/>
+            <space/>
+            <key key="amenity" value="place_of_worship"/>
+            <key key="religion" value="christian"/>
+            <text key="name" text="Name"/>
+            <combo key="building" text="Building type" values="basilica,cathedral,chapel,church,temple" display_values="Basilica,Cathedral,Chapel,Church,Temple" values_searchable="true" match="none"/>
+            <reference ref="nontrinitarian_denominations"/>
+            <reference ref="service_times"/>
+            <reference ref="oh_wheelchair"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Church -->
         <item name="Other Place of Worship" icon="icons/png/place_of_worship_unknown.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=place_of_worship"/>
             <space/>
@@ -11535,7 +11557,7 @@
             <reference ref="ref_operator"/>
             <preset_link preset_name="Power Substation"/>
         </item> <!-- Transformer Tower -->
-        <item name="Terminal" icon="presets/power/terminal.svg" type="node" preset_name_label="true">
+        <item name="Terminal" icon="presets/power/terminal.svg" type="node" preset_name_label="true" name_context="power">
             <link wiki="Tag:power=terminal"/>
             <space/>
             <key key="power" value="terminal"/>
@@ -13229,9 +13251,8 @@
             <link wiki="Tag:shop=vacant"/>
             <space/>
             <key key="shop" value="vacant"/>
-            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="level"/>
             <reference ref="link_contact_address"/>
-            <preset_link preset_name="Shop disused" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Vacant -->
     </group> <!-- Other -->
     <separator/>
@@ -14318,6 +14339,22 @@
             <key key="landuse" value="railway"/>
             <reference ref="optional_name"/>
         </item> <!-- Railway Land -->
+        <item name="Port" icon="icons/png/landuse_ferry_terminal_12048.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
+            <link wiki="Tag:industrial=port"/>
+            <space/>
+            <key key="landuse" value="industrial"/>
+            <key key="industrial" value="port"/>
+            <reference ref="optional_name"/>
+            <multiselect key="port" text="Port type" values="cargo;container;fishing;passenger;roro" display_values="Cargo;Container;Fishing;Passenger;Roll-on roll-off" values_context="industrial" match="key"/>
+            <preset_link preset_name="Harbour area" text="Similar tags but different tagging schema:" text_context="landuse" alternative="true"/>
+        </item> <!-- Port -->
+        <item name="Harbour area" icon="icons/png/landuse_marina.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
+            <link wiki="Tag:landuse=harbour"/>
+            <space/>
+            <key key="landuse" value="harbour"/>
+            <reference ref="optional_name"/>
+            <preset_link preset_name="Port" text="Similar tags but different tagging schema:" text_context="landuse" alternative="true"/>
+        </item> <!-- Harbour area -->
         <item name="Military" icon="icons/png/landuse_military.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link wiki="Tag:landuse=military"/>
             <space/>
@@ -15980,7 +16017,7 @@
             <link wiki="Tag:office=vacant"/>
             <space/>
             <key key="office" value="vacant"/>
-            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Vacant -->
     </group> <!-- Offices -->
