@@ -14,5 +14,4 @@ public abstract class CancelableDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         setCancelable(true);
     }
-
 }
