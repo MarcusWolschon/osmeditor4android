@@ -274,7 +274,7 @@ android {
     }
 
     // this, unluckily, cannot be set per flavour
-    compileSdkVersion 34
+    compileSdkVersion 35
 
     // Specifies one flavor dimension.
     flavorDimensions "api"
@@ -283,7 +283,7 @@ android {
             dimension "api"
             multiDexEnabled true
             minSdkVersion 21
-            targetSdkVersion 34
+            targetSdkVersion 35
             applicationIdSuffix ""
             versionNameSuffix ""
             resValue "string", "content_provider", "de.blau.android.provider"
