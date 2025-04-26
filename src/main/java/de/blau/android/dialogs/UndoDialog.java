@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +35,14 @@ import de.blau.android.R;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Density;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.ExtendedViewPager;
 
-public class UndoDialog extends ImmersiveDialogFragment {
+public class UndoDialog extends CancelableDialogFragment {
 
-    private static final String DEBUG_TAG = UndoDialog.class.getSimpleName().substring(0, Math.min(23, UndoDialog.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UndoDialog.class.getSimpleName().length());
+    private static final String DEBUG_TAG = UndoDialog.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String TAG = "fragment_undo";
 

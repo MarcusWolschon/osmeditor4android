@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
@@ -44,12 +47,22 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
             setTheme(R.style.Theme_AppCompatPrefsLight);
         }
         super.onCreate(savedInstanceState);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setCustomView(R.layout.actionbar_title_layout);
         titleView = findViewById(R.id.actionbar_title);
+
+        setContentView(R.layout.pref_activity);
+        ExtendedPreferenceFragment f = newEditorFragment();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.pref_content, f).commit();
+        View content = findViewById(android.R.id.content);
+        if (content == null) {
+            Log.e(DEBUG_TAG, "Didn't find content view, not setting insets listener");
+            return;
+        }
+        ViewGroupCompat.installCompatInsetsDispatch(content);
     }
 
     /**
@@ -112,7 +125,7 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
         // Defining the sub screen as new root for the subscreen
         args.putString(PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, preferenceScreen.getKey());
         fragment.setArguments(args);
-        ft.replace(android.R.id.content, fragment, preferenceScreen.getKey());
+        ft.replace(R.id.pref_content, fragment, preferenceScreen.getKey());
         ft.addToBackStack(null);
         ft.commit();
         return true;

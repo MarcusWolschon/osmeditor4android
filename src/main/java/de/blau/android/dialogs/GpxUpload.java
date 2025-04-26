@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +22,7 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.layer.gpx.MapOverlay;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.GpxUploadListener;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.FormValidation;
 import de.blau.android.validation.NotEmptyValidator;
@@ -29,8 +31,11 @@ import de.blau.android.validation.NotEmptyValidator;
  * Display a dialog to select a file to upload
  *
  */
-public class GpxUpload extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = GpxUpload.class.getSimpleName().substring(0, Math.min(23, GpxUpload.class.getSimpleName().length()));
+public class GpxUpload extends CancelableDialogFragment {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, GpxUpload.class.getSimpleName().length());
+    private static final String DEBUG_TAG = GpxUpload.class.getSimpleName().substring(0, TAG_LEN);
+
     private static final String TAG       = "fragment_gpx_upload";
     private static final String TRACK_KEY = "track";
 

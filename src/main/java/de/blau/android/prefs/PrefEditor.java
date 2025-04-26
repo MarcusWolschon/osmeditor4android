@@ -1,12 +1,8 @@
 package de.blau.android.prefs;
 
-import static de.blau.android.contract.Constants.LOG_TAG_LEN;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import de.blau.android.R;
@@ -17,9 +13,6 @@ import de.blau.android.R;
  * @author mb
  */
 public class PrefEditor extends PrefEditorActivity {
-
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PrefEditor.class.getSimpleName().length());
-    private static final String DEBUG_TAG = PrefEditor.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * Start the PrefEditor activity
@@ -51,16 +44,6 @@ public class PrefEditor extends PrefEditorActivity {
     public static void start(@NonNull Fragment fragment, int requestCode) {
         Intent intent = new Intent(fragment.getContext(), PrefEditor.class);
         fragment.startActivityForResult(intent, requestCode);
-    }
-
-    @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-        Log.d(DEBUG_TAG, "onCreate");
-        super.onCreate(savedInstanceState);
-
-        ExtendedPreferenceFragment f = newEditorFragment();
-
-        getSupportFragmentManager().beginTransaction().replace(android.R.id.content, f).commit();
     }
 
     @Override

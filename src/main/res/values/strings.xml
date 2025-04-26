@@ -133,7 +133,6 @@
         &lt;/li&gt;&lt;/ul&gt;
         On the next page you can set some initial preferences that will make your journey with Vespucci more pleasant. 
     </string>
-    <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Your device has \"soft keys\" that are hidden from view. Swipe from the bottom to show them again.</string>
     <string name="welcome_settings_tab_text">To improve your initial experience we can configure some options right now,
         you can skip this step and set individual preferences later if you want to.
     </string>
@@ -1347,8 +1346,6 @@
     <string name="config_followGPSbutton_summary">Where the "Follow location" button will be positioned.</string>
     <string name="config_alwaysDrawBoundingBoxes_title">Always dim non-downloaded areas</string>
     <string name="config_alwaysDrawBoundingBoxes_summary">Dims non-downloaded areas in locked mode.</string>
-    <string name="config_fullscreenMode_title">Fullscreen mode</string>
-    <string name="config_fullscreenMode_summary">Behaviour on devices with "soft" keys.</string>   
     <string name="config_map_orientation_title">Map screen orientation</string>
     <string name="config_map_orientation_summary">Behaviour of the map screen on device orientation changes.</string>   
     <string name="config_showTolerance_title">Show tolerance</string>

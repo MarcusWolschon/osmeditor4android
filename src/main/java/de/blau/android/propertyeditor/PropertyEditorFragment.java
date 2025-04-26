@@ -34,6 +34,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -307,7 +308,8 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             currentItem = savedInstanceState.getInt(CURRENTITEM, -1);
         }
 
-        ViewGroup layout = (ViewGroup) inflater.inflate(usePaneLayout ? R.layout.pane_view : R.layout.tab_view, null);
+        View layout = inflater.inflate(usePaneLayout ? R.layout.pane_view : R.layout.tab_view, null);
+        ViewGroupCompat.installCompatInsetsDispatch(layout);
 
         // Find the toolbar view inside the activity layout
         Toolbar toolbar = (Toolbar) layout.findViewById(R.id.propertyEditorBar);

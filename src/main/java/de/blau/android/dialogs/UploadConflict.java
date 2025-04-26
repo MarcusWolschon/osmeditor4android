@@ -53,7 +53,7 @@ import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
@@ -64,7 +64,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class UploadConflict extends ImmersiveDialogFragment {
+public class UploadConflict extends CancelableDialogFragment {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UploadConflict.class.getSimpleName().length());
     private static final String DEBUG_TAG = UploadConflict.class.getSimpleName().substring(0, TAG_LEN);
 

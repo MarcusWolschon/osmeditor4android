@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +22,7 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
 import de.blau.android.services.TrackerService;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
@@ -28,8 +30,10 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog for calibrating the pressure sensor
  *
  */
-public class BarometerCalibration extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = BarometerCalibration.class.getSimpleName().substring(0, Math.min(23, BarometerCalibration.class.getSimpleName().length()));
+public class BarometerCalibration extends CancelableDialogFragment {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, BarometerCalibration.class.getSimpleName().length());
+    private static final String DEBUG_TAG = BarometerCalibration.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_calibration_form";
 

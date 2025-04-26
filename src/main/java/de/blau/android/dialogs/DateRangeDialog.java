@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -23,16 +25,17 @@ import de.blau.android.layer.streetlevel.DateRangeInterface;
 import de.blau.android.layer.tiles.MapTilesLayer;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog allowing the user to change some properties of the current background
  *
  */
-public class DateRangeDialog extends ImmersiveDialogFragment {
+public class DateRangeDialog extends CancelableDialogFragment {
 
-    private static final String DEBUG_TAG = DateRangeDialog.class.getSimpleName().substring(0, Math.min(23, DateRangeDialog.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, DateRangeDialog.class.getSimpleName().length());
+    private static final String DEBUG_TAG = DateRangeDialog.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_daterange";
 

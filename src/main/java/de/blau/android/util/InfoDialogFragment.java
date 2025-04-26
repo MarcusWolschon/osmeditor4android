@@ -14,8 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
 
-public abstract class InfoDialogFragment extends ImmersiveDialogFragment {
-    
+public abstract class InfoDialogFragment extends CancelableDialogFragment {
+
     @Override
     public void onStart() {
         super.onStart();
@@ -32,7 +32,7 @@ public abstract class InfoDialogFragment extends ImmersiveDialogFragment {
         }
         return null;
     }
-    
+
     /**
      * Create the view we want to display
      * 
@@ -40,7 +40,7 @@ public abstract class InfoDialogFragment extends ImmersiveDialogFragment {
      * @return the View
      */
     protected abstract View createView(@Nullable ViewGroup container);
-    
+
     /**
      * Create the view we want to display
      * 
@@ -54,7 +54,7 @@ public abstract class InfoDialogFragment extends ImmersiveDialogFragment {
         LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         return (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
     }
-    
+
     /**
      * Setup the table layout params
      * 
@@ -66,7 +66,7 @@ public abstract class InfoDialogFragment extends ImmersiveDialogFragment {
         tp.setMargins(10, 2, 10, 2);
         return tp;
     }
-    
+
     /**
      * Get the string resource formated as an italic string
      * 

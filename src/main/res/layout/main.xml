@@ -6,6 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <de.blau.android.views.TopInset
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0" />
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/mainToolbar"
         android:layout_width="match_parent"
@@ -93,4 +97,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
     </FrameLayout>
+    <de.blau.android.views.BottomInset
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0" />
 </LinearLayout>

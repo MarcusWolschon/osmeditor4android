@@ -49,7 +49,7 @@ import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FragmentUtil;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
@@ -205,7 +205,7 @@ public class APIEditorActivity extends URLListEditActivity {
         f.show(fm, ApiItemEditDialog.ITEM_EDIT_DIALOG_TAG);
     }
 
-    public static class ApiItemEditDialog extends ImmersiveDialogFragment {
+    public static class ApiItemEditDialog extends CancelableDialogFragment {
 
         private static final String ITEM_EDIT_DIALOG_TAG = "api_item_edit_dialog";
         static final String         ITEM_KEY             = "item";

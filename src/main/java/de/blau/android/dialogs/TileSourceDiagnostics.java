@@ -30,7 +30,7 @@ import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.services.util.MapTileTester;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -39,7 +39,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class TileSourceDiagnostics extends ImmersiveDialogFragment {
+public class TileSourceDiagnostics extends CancelableDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TileSourceDiagnostics.class.getSimpleName().length());
     private static final String DEBUG_TAG = TileSourceDiagnostics.class.getSimpleName().substring(0, TAG_LEN);
