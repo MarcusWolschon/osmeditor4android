@@ -103,6 +103,7 @@ public final class TestUtils {
         }
         if (findText(device, false, ctx.getResources().getString(R.string.welcome_title))) {
             clickText(device, true, ctx.getResources().getString(R.string.next), true, false);
+            scrollToEnd(false);
             clickResource(device, false, device.getCurrentPackageName() + ":id/authorize", false);
             clickText(device, true, ctx.getResources().getString(R.string.welcome_start), true, false);
         }
