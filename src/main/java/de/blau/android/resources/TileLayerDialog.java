@@ -62,7 +62,7 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FragmentUtil;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.OkHttpFileChannel;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.ScreenMessage;
@@ -70,7 +70,7 @@ import de.blau.android.util.SelectFile;
 import de.blau.android.util.Util;
 import okhttp3.OkHttpClient;
 
-public class TileLayerDialog extends ImmersiveDialogFragment {
+public class TileLayerDialog extends CancelableDialogFragment {
 
     private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, TileLayerDialog.class.getSimpleName().length());
     protected static final String DEBUG_TAG = TileLayerDialog.class.getSimpleName().substring(0, TAG_LEN);

@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 
 /**
  * ProgressDialog can't be styled, this rolls its own.
@@ -17,7 +17,7 @@ import de.blau.android.util.ImmersiveDialogFragment;
  * @author simon
  *
  */
-public class Progress extends ImmersiveDialogFragment {
+public class Progress extends CancelableDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Progress.class.getSimpleName().length());
     private static final String DEBUG_TAG = Progress.class.getSimpleName().substring(0, TAG_LEN);

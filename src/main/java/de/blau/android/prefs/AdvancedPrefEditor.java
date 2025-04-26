@@ -1,7 +1,5 @@
 package de.blau.android.prefs;
 
-import android.os.Bundle;
-import androidx.annotation.Nullable;
 import de.blau.android.R;
 
 /**
@@ -10,12 +8,6 @@ import de.blau.android.R;
  *
  */
 public class AdvancedPrefEditor extends PrefEditorActivity {
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getSupportFragmentManager().beginTransaction().replace(android.R.id.content, newEditorFragment()).commit();
-    }
 
     @Override
     ExtendedPreferenceFragment newEditorFragment() {

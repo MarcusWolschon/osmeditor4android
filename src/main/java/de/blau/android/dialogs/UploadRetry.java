@@ -41,7 +41,7 @@ import de.blau.android.osm.UpdateFromChanges;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -50,7 +50,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class UploadRetry extends ImmersiveDialogFragment {
+public class UploadRetry extends CancelableDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UploadRetry.class.getSimpleName().length());
     private static final String DEBUG_TAG = UploadRetry.class.getSimpleName().substring(0, TAG_LEN);

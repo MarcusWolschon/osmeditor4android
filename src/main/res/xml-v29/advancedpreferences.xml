@@ -67,13 +67,6 @@
             android:summary="@string/config_alwaysDrawBoundingBoxes_summary"
             android:title="@string/config_alwaysDrawBoundingBoxes_title" />
         <androidx.preference.ListPreference
-            android:defaultValue="@string/full_screen_auto"
-            android:entries="@array/full_screen_preference_entries"
-            android:entryValues="@array/full_screen_preference_values"
-            android:key="@string/config_fullscreenMode_key"
-            android:summary="@string/config_fullscreenMode_summary"
-            android:title="@string/config_fullscreenMode_title" />
-        <androidx.preference.ListPreference
             android:defaultValue="@string/map_orientation_auto"
             android:entries="@array/map_orientation_entries"
             android:entryValues="@array/map_orientation_values"

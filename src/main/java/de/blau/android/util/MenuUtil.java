@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.ActionMenuView;
-import de.blau.android.R;
 
 public class MenuUtil {
 
@@ -81,22 +80,13 @@ public class MenuUtil {
      * 
      * @param activity the calling Activity
      * @param bar the bar to use
-     * @param fullScreen true if we are in fullscreen mode
-     * @param light true if we are using the light theme
      */
-    public static void setupBottomBar(@NonNull Activity activity, @NonNull ActionMenuView bar, boolean fullScreen, boolean light) {
+    public static void setupBottomBar(@NonNull Activity activity, @NonNull ActionMenuView bar) {
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         if (Screen.isLarge(activity)) {
             params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             params.gravity = Gravity.END;
         }
         bar.setLayoutParams(params);
-        if (fullScreen) {
-            if (light) {
-                bar.setPopupTheme(R.style.Theme_noOverlapMenu_Light);
-            } else {
-                bar.setPopupTheme(R.style.Theme_noOverlapMenu);
-            }
-        }
     }
 }

@@ -25,11 +25,11 @@ import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetItemLink;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
+public class AlternativePresetItemsFragment extends CancelableDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AlternativePresetItemsFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = AlternativePresetItemsFragment.class.getSimpleName().substring(0, TAG_LEN);

@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.List;
 
 import android.os.Bundle;
@@ -16,7 +18,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Relation;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -25,9 +27,10 @@ import de.blau.android.util.Util;
  * some members.
  *
  */
-public class EmptyRelation extends ImmersiveDialogFragment {
+public class EmptyRelation extends CancelableDialogFragment {
 
-    private static final String DEBUG_TAG = EmptyRelation.class.getSimpleName().substring(0, Math.min(23, EmptyRelation.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, EmptyRelation.class.getSimpleName().length());
+    private static final String DEBUG_TAG = EmptyRelation.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG               = "fragment_empty_relation";
     private static final String RELATION_IDS_KEY  = "relations";

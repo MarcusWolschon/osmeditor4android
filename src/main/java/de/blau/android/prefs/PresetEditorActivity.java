@@ -46,7 +46,7 @@ import de.blau.android.presets.PresetIconManager;
 import de.blau.android.presets.PresetParser;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FragmentUtil;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
@@ -378,7 +378,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         f.show(fm, PresetItemEditDialog.ITEM_EDIT_DIALOG_TAG);
     }
 
-    public static class PresetItemEditDialog extends ImmersiveDialogFragment {
+    public static class PresetItemEditDialog extends CancelableDialogFragment {
 
         private static final String ITEM_EDIT_DIALOG_TAG = "preset_item_edit_dialog";
         static final String         ITEM_KEY             = "item";

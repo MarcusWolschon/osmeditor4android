@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -12,16 +14,17 @@ import de.blau.android.App;
 import de.blau.android.Authorize;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog reporting that the login credentials don't work
  *
  */
-public class InvalidLogin extends ImmersiveDialogFragment {
+public class InvalidLogin extends CancelableDialogFragment {
 
-    private static final String DEBUG_TAG = InvalidLogin.class.getSimpleName().substring(0, Math.min(23, InvalidLogin.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, InvalidLogin.class.getSimpleName().length());
+    private static final String DEBUG_TAG = InvalidLogin.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_invalid_login";
 
