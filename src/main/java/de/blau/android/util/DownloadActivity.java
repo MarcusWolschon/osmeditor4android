@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 
@@ -20,6 +22,8 @@ import android.webkit.WebView;
 import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
@@ -41,7 +45,8 @@ import de.blau.android.prefs.Preferences;
  */
 public class DownloadActivity extends WebViewActivity {
 
-    private static final String DEBUG_TAG = DownloadActivity.class.getSimpleName().substring(0, Math.min(23, DownloadActivity.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, DownloadActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = DownloadActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     static final String DOWNLOAD_SITE_KEY = "downloadSite";
 
@@ -209,6 +214,8 @@ public class DownloadActivity extends WebViewActivity {
 
         setContentView(R.layout.download);
         webView = (WebView) findViewById(R.id.downloadSiteWebView);
+        ViewGroupCompat.installCompatInsetsDispatch(webView);
+        ViewCompat.setOnApplyWindowInsetsListener(webView, onApplyWindowInsetslistener);
 
         CheckBox networks = (CheckBox) findViewById(R.id.allowAllNetworks);
         networks.setOnCheckedChangeListener((buttonView, isChecked) -> {

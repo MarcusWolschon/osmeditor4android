@@ -19,16 +19,16 @@ import de.blau.android.R;
 import de.blau.android.layer.tiles.MapTilesLayer;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog allowing the user to change some properties of the current background
  *
  */
-public class BackgroundProperties extends ImmersiveDialogFragment {
+public class BackgroundProperties extends CancelableDialogFragment {
 
-    private static final int TAG_LEN = Math.min(23, BackgroundProperties.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(23, BackgroundProperties.class.getSimpleName().length());
     private static final String DEBUG_TAG = BackgroundProperties.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_background_properties";

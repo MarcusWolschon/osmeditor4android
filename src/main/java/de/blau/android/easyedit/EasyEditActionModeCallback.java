@@ -111,7 +111,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
                 stub.setLayoutResource(R.layout.toolbar);
                 stub.setInflatedId(R.id.cab_stub);
                 cabBottomBar = (ActionMenuView) stub.inflate();
-                MenuUtil.setupBottomBar(main, cabBottomBar, main.isFullScreen(), App.getPreferences(main).lightThemeEnabled());
+                MenuUtil.setupBottomBar(main, cabBottomBar);
             } else if (v instanceof ActionMenuView) {
                 cabBottomBar = (ActionMenuView) v;
                 cabBottomBar.setVisibility(View.VISIBLE);

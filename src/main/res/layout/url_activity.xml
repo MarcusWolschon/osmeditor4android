@@ -1,65 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <de.blau.android.views.TopInset
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="0" />
+    <ScrollView
+        android:id="@+id/ScrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
         <LinearLayout
-            android:id="@+id/urldialog_layoutPreset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/urldialog_layoutPreset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preset"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/urldialog_textPresetName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp" />
+                <TextView
+                    android:id="@+id/urldialog_textPresetURL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp" />
+                <TextView
+                    android:id="@+id/urldialog_textPresetExists"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/urldialog_preset_exists" />
+                <TextView
+                    android:id="@+id/urldialog_textPresetSuccessful"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/urldialog_preset_download_successful" />
+                <CheckBox
+                    android:id="@+id/urldialog_checkboxEnable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/enable"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                <Button
+                    android:id="@+id/urldialog_buttonAddPreset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/urldialog_add_preset" />
+            </LinearLayout>
             <TextView
+                android:id="@+id/urldialog_nodata"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/preset"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-            <TextView
-                android:id="@+id/urldialog_textPresetName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingStart="20dp" />
-            <TextView
-                android:id="@+id/urldialog_textPresetURL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="italic"
-                android:paddingLeft="20dp"
-                android:paddingStart="20dp" />
-            <TextView
-                android:id="@+id/urldialog_textPresetExists"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/urldialog_preset_exists" />
-            <TextView
-                android:id="@+id/urldialog_textPresetSuccessful"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/urldialog_preset_download_successful" />
-            <CheckBox
-                android:id="@+id/urldialog_checkboxEnable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/enable"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-            <Button
-                android:id="@+id/urldialog_buttonAddPreset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/urldialog_add_preset" />
+                android:padding="10dp"
+                android:text="@string/urldialog_nodata_text" />
         </LinearLayout>
-        <TextView
-            android:id="@+id/urldialog_nodata"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/urldialog_nodata_text" />
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+    <de.blau.android.views.BottomInset
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0" />
+</LinearLayout>

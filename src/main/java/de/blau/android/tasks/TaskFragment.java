@@ -44,7 +44,7 @@ import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.IssueAlert;
 import de.blau.android.util.Util;
 
@@ -56,7 +56,7 @@ import de.blau.android.util.Util;
  * @author Simon
  *
  */
-public abstract class TaskFragment extends ImmersiveDialogFragment {
+public abstract class TaskFragment extends CancelableDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TaskFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = TaskFragment.class.getSimpleName().substring(0, TAG_LEN);

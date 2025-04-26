@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.tagform.TextRow;
 import de.blau.android.util.ElementSearch;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.ThemeUtils;
@@ -58,8 +60,10 @@ import de.blau.android.views.SimpleTextRow;
  * checkpoint
  * 
  */
-public class AddressInterpolationDialog extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = AddressInterpolationDialog.class.getSimpleName().substring(0, Math.min(23, AddressInterpolationDialog.class.getSimpleName().length()));
+public class AddressInterpolationDialog extends CancelableDialogFragment {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AddressInterpolationDialog.class.getSimpleName().length());
+    private static final String DEBUG_TAG = AddressInterpolationDialog.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_address_interpolation";
 

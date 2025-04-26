@@ -266,12 +266,6 @@ The preset translations tend to be a work in progress and given that a large num
 
 Due to the touchy situation having pre-defined presets for military objects on device could create you need to download them and install them yourself. You can find a link at the bottom of the preset help page.
 
-### Fullscreen mode doesn't work properly
-
-Fullscreen mode on Android is a bit hit and miss (depending on Android version and device) as it is really designed for games and for apps without keyboard use. If the Android buttons are hidden, the standard Android way to show them, at least in recent Android versions, is a swipe from the bottom edge. 
-
-If fullscreen mode is causing issues for you, the best solution is to simply turn it off in the [Advanced preferences](../help/en/Advanced%20preferences.md). 
-
 ### The aerial or satellite imagery is out of date
 
 Vespucci uses the [Editor Layer Index](https://github.com/osmlab/editor-layer-index) for configuring the available backgrounds. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should preferably update the ELI or open an issue there.
@@ -308,7 +302,6 @@ Android 9 introduced the option to replace the navigation bar at the bottom of t
 There is no completely satisfactory solution to this, but if you don't want to disable the gestures the best setup is to change the following settings in the [Advanced preferences](../help/en/Advanced%20preferences.md) user interface settings:
 
 * turn off __Enable split action bar__, this will move the menu bar to the top of the screen.
-* set __Fullscreen mode__ to _never_ in the _Advanced preferences_ 
 
 Vespucci 15.0 and higher will detect that gestures have been enabled and will try to configure itself appropriately.
 
