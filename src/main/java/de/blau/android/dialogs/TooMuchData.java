@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -15,16 +17,17 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog asking for confirmation before starting an activity that might result in data loss.
  *
  */
-public class TooMuchData extends ImmersiveDialogFragment {
+public class TooMuchData extends CancelableDialogFragment {
 
-    private static final String DEBUG_TAG = TooMuchData.class.getSimpleName().substring(0, Math.min(23, TooMuchData.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TooMuchData.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TooMuchData.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG           = "fragment_too_much_data";
     private static final String NODECOUNT_KEY = "nodeCount";

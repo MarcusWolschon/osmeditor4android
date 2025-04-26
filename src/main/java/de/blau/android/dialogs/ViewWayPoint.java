@@ -43,7 +43,7 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.ThemeUtils;
@@ -54,7 +54,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class ViewWayPoint extends ImmersiveDialogFragment {
+public class ViewWayPoint extends CancelableDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ViewWayPoint.class.getSimpleName().length());
     private static final String DEBUG_TAG = ViewWayPoint.class.getSimpleName().substring(0, TAG_LEN);
@@ -177,9 +177,8 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
             for (WayPoint.Link link : links) {
                 final String description = link.getDescription();
                 TableRow row = TableLayoutUtils.createRow(activity, getString(R.string.waypoint_link),
-                        de.blau.android.util.Util
-                                .notEmpty(description) ? description : link.getUrl(), false,
-                        (View v) -> playLinkUri(activity, gpxUri, link), tp);
+                        de.blau.android.util.Util.notEmpty(description) ? description : link.getUrl(), false, (View v) -> playLinkUri(activity, gpxUri, link),
+                        tp);
                 tl.addView(row);
                 row.requestFocus();
             }

@@ -86,6 +86,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.view.MenuCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
@@ -182,12 +184,12 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BadgeDrawable;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.DownloadActivity;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
-import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.GeoUriData;
 import de.blau.android.util.Geometry;
@@ -215,7 +217,7 @@ import de.blau.android.views.ZoomControls;
  * @author mb
  * @author Simon Poole
  */
-public class Main extends FullScreenAppCompatActivity
+public class Main extends ConfigurationChangeAwareActivity
         implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler {
 
     /**
@@ -486,15 +488,9 @@ public class Main extends FullScreenAppCompatActivity
         updatePrefs(new Preferences(this));
 
         int layout = R.layout.main;
-        if (useFullScreen(prefs) && !statusBarHidden()) {
-            Log.d(DEBUG_TAG, "using full screen layout");
-            layout = R.layout.main_fullscreen;
-        }
         if (prefs.lightThemeEnabled()) {
-            setTheme(statusBarHidden() ? R.style.Theme_customMain_Light_FullScreen : R.style.Theme_customMain_Light);
-        } else if (statusBarHidden()) {
-            setTheme(R.style.Theme_customMain_FullScreen);
-        }
+            setTheme(R.style.Theme_customMain_Light);
+        } 
 
         super.onCreate(savedInstanceState);
 
@@ -509,6 +505,9 @@ public class Main extends FullScreenAppCompatActivity
         }
 
         LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(layout, null);
+        
+        ViewGroupCompat.installCompatInsetsDispatch(ml);
+
         mapLayout = (RelativeLayout) ml.findViewById(R.id.mainMap);
 
         Logic logic = App.getLogic(); // logic instance might still be around
@@ -4601,7 +4600,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param bottomBar the bottomToolbar to set
      */
     private void setBottomBar(androidx.appcompat.widget.ActionMenuView bottomBar) {
-        MenuUtil.setupBottomBar(this, bottomBar, isFullScreen(), prefs.lightThemeEnabled());
+        MenuUtil.setupBottomBar(this, bottomBar);
         this.bottomBar = bottomBar;
     }
 
