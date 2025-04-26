@@ -309,15 +309,6 @@ Vespucci 15.0 and higher will detect that gestures have been enabled and will tr
 
 This most likely due to you having navigation gestures configured, but the app not being able to detect this. For example this has been the case with devices running the /e/ variant of Android. Switching __Fullscreen mode__ to _never_ in the _Advanced preferences_ should allow the Undo button to work as intended.
 
-### Can't (re-)authenticate - TLS 1.0 / 1.1 issues
-
-Many sites have turned off support for TLS 1.0 / 1.1 secured connections, this includes the API on openstreetmap.org. This renders Vespucci on devices with an Android version older than 4.1 essentially useless. 
-
-On Android versions between 4.1 and 4.4 the app can be used without issues, except that authorization with OAuth will potentially not work. If you are unable to use OAuth you can still simply authenticate with login and password. To enable this:
-
-* go to _Preferences_ -> _Advanced preferences_ -> _Server settings_ and set login and password under the _User account_ entry.
-* in the layer control select the _Configure_ menu entry for the data layer entry, edit the active entry, and uncheck OAuth support.   
-
 ### Resuming the app doesn't bring me back to the property editor
 
 Depending on the device, Android version and the phase of the moon, some Android launchers will restart the app instead of resuming it if you click on the icon in the app draw instead of selecting the app from the current application list. This will lead to any state/edit in the property editor being lost if you had navigated away from it, for example recent Samsung devices exhibit this behaviour. 
