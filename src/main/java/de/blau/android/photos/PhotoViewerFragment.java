@@ -11,6 +11,7 @@ import java.util.List;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -260,7 +261,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImm
             ContentResolver resolver = context.getContentResolver();
             Uri photoUri = getUri(position);
             Log.d(DEBUG_TAG, "deleting original uri " + photoUri);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && deleteImageViaMediaStore(context, resolver, photoUri)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && deleteImageViaMediaStore(context, resolver, photoUri)) {
                 // rest is handled in calling activity
                 return;
             }
@@ -290,6 +291,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImm
          * @return true if we were able to start the deletion process
          */
         @SuppressWarnings("unchecked")
+        @TargetApi(30)
         public boolean deleteImageViaMediaStore(@NonNull final Context context, ContentResolver resolver, Uri photoUri) {
             try {
                 if (!MediaStore.AUTHORITY.equals(photoUri.getAuthority())) {
@@ -298,12 +300,11 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImm
                         Log.e(DEBUG_TAG, "Can't convert " + photoUri + " to media Uri");
                         return false;
                     }
-                    photoUri = ContentUris.withAppendedId(MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL), mediaId);
+                    photoUri = ContentUris.withAppendedId(MediaStore.Images.Media.getContentUri(ContentResolverUtil.VOLUME_EXTERNAL), mediaId);
                 }
                 Log.d(DEBUG_TAG, "deleting " + photoUri);
                 IntentSenderRequest.Builder builder = new IntentSenderRequest.Builder(MediaStore.createTrashRequest(resolver, Arrays.asList(photoUri), true));
-                ((PhotoViewerActivity) getActivity()).getDeleteRequestLauncher().launch(builder.build());
-
+                ((PhotoViewerActivity<T>) getActivity()).getDeleteRequestLauncher().launch(builder.build());
             } catch (java.lang.SecurityException sex) {
                 Log.e(DEBUG_TAG, "Error deleting: " + sex.getMessage() + " " + sex.getClass().getName());
                 ScreenMessage.toastTopError(context, getString(R.string.toast_permission_denied, sex.getMessage()));

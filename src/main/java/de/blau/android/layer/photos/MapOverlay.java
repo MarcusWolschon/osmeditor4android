@@ -61,6 +61,9 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
+    private static final int NOTIFY_DELETE = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ? ContentResolver.NOTIFY_DELETE : 0;
+    private static final int NOTIFY_INSERT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ? ContentResolver.NOTIFY_DELETE : 0;
+
     private static final int VIEWER_MAX = 100;
 
     /** viewbox needs to be less wide than this for displaying photos, just to avoid querying the whole world */
@@ -405,10 +408,10 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
         final Context context = map.getContext();
         for (Uri uri : uris) {
             Log.d(DEBUG_TAG, "onChange uri " + uri);
-            if ((flags & ContentResolver.NOTIFY_DELETE) != 0) {
+            if ((flags & NOTIFY_DELETE) != 0) {
                 Log.i(DEBUG_TAG, "Removed " + uri + " from index as deleted");
                 pi.deletePhoto(context, uri);
-            } else if ((flags & ContentResolver.NOTIFY_INSERT) != 0 || flags == 0) {
+            } else if ((flags & NOTIFY_INSERT) != 0 || flags == 0) {
                 if (Schemes.CONTENT.equals(uri.getScheme())) {
                     // check if we have already indexed this
                     String path = ContentResolverUtil.getDataColumn(context, uri, null, null);
@@ -456,7 +459,7 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
             Log.d(DEBUG_TAG, "onChange " + uri);
             final Context context = map.getContext();
             String path = ContentResolverUtil.getDataColumn(context, uri, null, null);
-            processOnChange(Util.wrapInList(uri), path == null ? ContentResolver.NOTIFY_DELETE : 0);
+            processOnChange(Util.wrapInList(uri), path == null ? NOTIFY_DELETE : 0);
         }
     }
 }

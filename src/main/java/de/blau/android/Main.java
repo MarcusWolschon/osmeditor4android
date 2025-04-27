@@ -301,8 +301,7 @@ public class Main extends FullScreenAppCompatActivity
         @NonNull
         @Override
         public Intent createIntent(@NonNull Context context, @NonNull Uri input) {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, input)
-                    .setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            Intent intent = super.createIntent(context, input).putExtra(MediaStore.EXTRA_OUTPUT, input).setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             String cameraApp = prefs.getCameraApp();
             if (!"".equals(cameraApp)) {
                 intent.setPackage(cameraApp);

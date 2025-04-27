@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.BaseColumns;
 import android.provider.DocumentsContract;
@@ -37,6 +38,8 @@ public final class ContentResolverUtil {
     private static final String RAW_PREFIX                = Schemes.RAW + ":";
     private static final String DOWNLOADS_DOCUMENTS       = "com.android.providers.downloads.documents";
     private static final String EXTERNALSTORAGE_DOCUMENTS = "com.android.externalstorage.documents";
+    public static final String  VOLUME_EXTERNAL           = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? MediaStore.VOLUME_EXTERNAL : "external";
+
     // see filepaths.xml
     private static final String ROOT            = "root";
     private static final String PICTURES_CAMERA = "Pictures Camera";
@@ -301,7 +304,7 @@ public final class ContentResolverUtil {
     public static long imageFilePathToMediaID(@NonNull ContentResolver cr, @NonNull String path) {
         long id = 0;
 
-        Uri uri = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL);
+        Uri uri = MediaStore.Files.getContentUri(VOLUME_EXTERNAL);
         String selection = MediaStore.MediaColumns.DATA;
         String[] selectionArgs = { path };
         String[] projection = { BaseColumns._ID };
@@ -309,12 +312,15 @@ public final class ContentResolverUtil {
         Cursor cursor = cr.query(uri, projection, selection + "=?", selectionArgs, null);
 
         if (cursor != null) {
-            while (cursor.moveToNext()) {
-                int idIndex = cursor.getColumnIndex(BaseColumns._ID);
-                id = Long.parseLong(cursor.getString(idIndex));
+            try {
+                while (cursor.moveToNext()) {
+                    int idIndex = cursor.getColumnIndex(BaseColumns._ID);
+                    id = Long.parseLong(cursor.getString(idIndex));
+                }
+            } finally {
+                cursor.close();
             }
         }
-
         return id;
     }
 }
