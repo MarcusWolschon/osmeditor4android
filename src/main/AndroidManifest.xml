@@ -314,7 +314,7 @@
             tools:replace="android:process" />
         <activity
             android:name="Feedback"
-            android:theme="@style/Theme.IssueReporter" />
+            android:theme="@style/Theme.IssueReporterModified" />
         <activity
             android:name=".util.DownloadActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
