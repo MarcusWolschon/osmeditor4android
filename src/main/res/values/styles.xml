@@ -832,4 +832,7 @@
         <item name="spinBars">true</item>
         <item name="color">@android:color/black</item>
     </style>
+    <style name="Theme.IssueReporterModified" parent="Theme.IssueReporter">
+         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
 </resources>
