@@ -34,7 +34,7 @@ public abstract class Inset extends View {
         super(context, attrs);
         int color = getInsetColor(context, attrs, R.styleable.Inset, R.styleable.Inset_insetColor);
         ViewCompat.setOnApplyWindowInsetsListener(this, (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.ime());
             v.setLayoutParams(getLayoutParams(v, insets));
             v.setBackgroundColor(color);
             return WindowInsetsCompat.CONSUMED;
