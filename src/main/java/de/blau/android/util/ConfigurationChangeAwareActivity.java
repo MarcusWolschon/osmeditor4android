@@ -33,7 +33,7 @@ public abstract class ConfigurationChangeAwareActivity extends AppCompatActivity
      * Standard insets listener
      */
     public static final OnApplyWindowInsetsListener onApplyWindowInsetslistener = (v, windowInsets) -> {
-        Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+        Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.ime());
         MarginLayoutParams mlp = (MarginLayoutParams) v.getLayoutParams();
         mlp.leftMargin = insets.left;
         mlp.bottomMargin = insets.bottom;
