@@ -17,7 +17,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.Util;
 
-public class WaySelectPartActionModeCallback extends NonSimpleActionModeCallback {
+public class WaySelectPartActionModeCallback extends AbortableWayActionModeCallback {
 
     private final Way  way;
     private final Node node;

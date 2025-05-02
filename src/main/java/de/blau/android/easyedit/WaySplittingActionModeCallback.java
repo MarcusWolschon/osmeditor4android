@@ -20,7 +20,7 @@ import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.Util;
 
-public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback {
+public class WaySplittingActionModeCallback extends AbortableWayActionModeCallback {
 
     private static final String CREATE_POLYGONS_KEY = "create polygons";
 
