@@ -1,5 +1,26 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.0.2:
+
+- Fix protect against possible crash after pasting
+- Fix restart way selection mode if splitting is aborted
+- Fix use explicit lock instead of synchronize, lock when getting boxes for tasks
+- Fix explicitly filter elements for clicking
+- Fix check that we actually are getting JSON in response from panoramax api
+- Fix update default panoramax api url again
+- Fix check correctly that there are no selected ways
+- Fix delay updating presets and associated fragments
+- Fix improve error handling if OsmElements can not be restored
+- Fix rollback changes if we are unable to download server version during conflict resolutions
+- Fix avoid index out of bound if selected nodes isn't null
+- Fix avoid locking in onCreateOptionsMenu
+- Fix fix image selection in photo layer
+- Fix improve messaging if opening changeset times out
+- Change move some more setup to Splash
+- Update translations
+- Update default preset
+- Update imagery from ELI
+
 21.0.1:
 
 - Fix layout naming conflict (fixes crash editing OH dates)
