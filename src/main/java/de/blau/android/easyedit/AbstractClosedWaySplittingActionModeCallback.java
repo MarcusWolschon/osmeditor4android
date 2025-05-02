@@ -15,7 +15,7 @@ import de.blau.android.osm.OsmElement;
  * @author simon
  *
  */
-public abstract class AbstractClosedWaySplittingActionModeCallback extends NonSimpleActionModeCallback {
+public abstract class AbstractClosedWaySplittingActionModeCallback extends AbortableWayActionModeCallback {
 
     protected final Set<OsmElement> nodes = new HashSet<>(); // nodes that we can use for splitting
 
