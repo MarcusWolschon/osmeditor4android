@@ -28,6 +28,7 @@ import de.blau.android.osm.Result;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
@@ -93,8 +94,14 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
      */
     private void findConnectedWays(@NonNull Way way) {
         if (way.nodeCount() == 0) {
-            ScreenMessage.toastTopError(main, main.getString(R.string.toast_degenerate_way_with_info, way.getDescription(main)), true);
+            final String errorMsg = main.getString(R.string.toast_degenerate_way_with_info, way.getDescription(main));
+            ScreenMessage.toastTopError(main, errorMsg, true);
             manager.finish();
+            // on prepare action mode might run any way, so protect against crash
+            cachedMergeableWays = new HashSet<>();
+            cachedAppendableNodes = new HashSet<>();
+            cachedViaElements = new HashSet<>();
+            ACRAHelper.nocrashReport(null, errorMsg);
             return;
         }
         cachedMergeableWays = findMergeableWays(way);
@@ -169,7 +176,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         updated |= setItemVisibility(size > 2, splitItem, false);
 
         updated |= setItemVisibility(!cachedMergeableWays.isEmpty(), mergeItem, false);
-        
+
         updated |= setItemVisibility(!(cachedAppendableNodes.isEmpty() || way.nodeCount() >= maxWayNodes), appendItem, false);
 
         updated |= setItemVisibility(way.getTagWithKey(Tags.KEY_HIGHWAY) != null && !cachedViaElements.isEmpty(), restrictionItem, false);
