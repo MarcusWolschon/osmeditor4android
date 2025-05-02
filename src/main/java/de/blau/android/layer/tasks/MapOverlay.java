@@ -39,7 +39,6 @@ import de.blau.android.layer.NonSerializeableLayer;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
-import de.blau.android.osm.Storage;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
