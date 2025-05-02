@@ -8,14 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0" />
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/propertyEditorBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_weight="0"
         android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize" >
-    </androidx.appcompat.widget.Toolbar>
+        android:minHeight="?attr/actionBarSize"
+        android:paddingBottom="0dp" />
     <de.blau.android.views.ExtendedViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"

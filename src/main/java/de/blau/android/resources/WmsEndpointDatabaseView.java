@@ -12,8 +12,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,6 +25,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ListView;
@@ -30,6 +34,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.fragment.app.Fragment;
@@ -45,7 +53,9 @@ import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.resources.WmsCapabilities.Layer;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.OnTextChangedWatcher;
+import de.blau.android.util.Screen;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -119,6 +129,18 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
         View endpointListView = LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.wms_endpoints_title);
         alertDialog.setView(endpointListView);
+//        ViewGroupCompat.installCompatInsetsDispatch(endpointListView);
+        ViewCompat.setOnApplyWindowInsetsListener(endpointListView, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.ime());
+//            MarginLayoutParams mlp = (MarginLayoutParams) v.getLayoutParams();
+//            mlp.leftMargin = insets.left;
+//            mlp.bottomMargin = insets.bottom;
+//            mlp.rightMargin = insets.right;
+//            mlp.topMargin = insets.top;
+//            v.setLayoutParams(mlp);
+            System.out.println("listeern called");
+            return WindowInsetsCompat.CONSUMED;
+        });
         final TileLayerDatabase tlDb = new TileLayerDatabase(activity); // NOSONAR will be closed when dismissed
         writableDb = tlDb.getWritableDatabase();
         ListView endpointList = (ListView) endpointListView.findViewById(R.id.listViewLayer);
@@ -140,6 +162,22 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
         final FloatingActionButton fab = (FloatingActionButton) endpointListView.findViewById(R.id.add);
         fab.setOnClickListener(v -> WmsEndpointDialog.showDialog(activity, -1, () -> newLayerCursor(writableDb)));
         return alertDialog.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        Dialog dialog = getDialog();
+//        if (dialog != null) {     
+//            int maxDialogHeight = (int) ((Screen.isLandscape(getActivity()) ? Screen.getScreenSmallDimension(getActivity())
+//                    : Screen.getScreenLargeDimension(getActivity())) * 0.7);
+//            System.out.println("current height " + dialog.getWindow().getDecorView().getHeight() + " max " + maxDialogHeight);
+//            final Window window = dialog.getWindow();
+//            if (window.getDecorView().getHeight() > maxDialogHeight) {
+//                window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, maxDialogHeight);
+//            }           
+//        }
+        
     }
 
     private class EndpointAdapter extends CursorAdapter {

@@ -277,7 +277,7 @@
         parent="@style/Widget.AppCompat.ActionButton" />
     <style
         name="Theme.customMain.Light"
-        parent="@style/Theme.AppCompat.Light.NoActionBar">
+        parent="@style/Theme.Material3.Light.NoActionBar">
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
@@ -342,6 +342,7 @@
         <!-- styles -->
         <item name="ActionButton">@style/ActionButtonLight</item>
         <item name="EditText">@style/EditTextLight</item>
+        <item name="popupMenuStyle">@style/popupMenuStyleLight</item>
         <!-- colors -->
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
@@ -354,6 +355,9 @@
         <item name="SplitterBGH">@drawable/splitter_bg_h_light</item>
         <item name="SplitterHandleV">@drawable/splitter_handle_v_light</item>
         <item name="SplitterHandleH">@drawable/splitter_handle_h_light</item>
+    </style>
+    <style name="popupMenuStyleLight" parent="@style/Widget.AppCompat.Light.PopupMenu">
+        <item name="overlapAnchor">true</item>
     </style>
     <style
         name="Theme.customMain.Light.FullScreen"
@@ -635,7 +639,7 @@
     <!-- Light for PropertyEditor -->
     <style
         name="Theme.customTagEditor.Light"
-        parent="@style/Theme.AppCompat.Light.NoActionBar">
+        parent="@style/Theme.Material3.Light.NoActionBar">
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>

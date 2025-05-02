@@ -54,4 +54,19 @@ public final class Screen {
         }
         return size.height();
     }
+    
+    /**
+     * Get the size of the larger side of the screen
+     * 
+     * @param activity the calling Activity
+     * @return the smaller side in px
+     */
+    public static int getScreenLargeDimension(@NonNull Activity activity) {
+        WindowMetrics metrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(activity);
+        Rect size = metrics.getBounds();
+        if (size.width() > size.height()) {
+            return size.width();
+        }
+        return size.height();
+    }
 }
