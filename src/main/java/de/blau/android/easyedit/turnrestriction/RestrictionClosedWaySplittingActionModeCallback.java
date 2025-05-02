@@ -88,4 +88,10 @@ public class RestrictionClosedWaySplittingActionModeCallback extends AbstractClo
         Log.d(DEBUG_TAG, "split failed at element " + (element != null ? element : "null"));
         return true;
     }
+
+    @Override
+    public boolean onBackPressed() {
+        manager.finish();
+        return false;
+    }
 }
