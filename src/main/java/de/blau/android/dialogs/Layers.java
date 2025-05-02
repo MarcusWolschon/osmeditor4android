@@ -16,6 +16,7 @@ import java.util.Map.Entry;
 
 import org.mozilla.javascript.RhinoException;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
@@ -61,7 +62,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.PopupMenu;
@@ -188,8 +188,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         // potentially the imagery layer lists don't exist yet, force create them now
         loadTileLayerSources();
-
-        AppCompatDialog dialog = new AppCompatDialog(getActivity());
+        
         View layout = createView(null);
         // ideally the following code would be included in the layer classes, but no brilliant ideas on how to do this
         // right now
@@ -327,7 +326,9 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         Button done = (Button) layout.findViewById(R.id.done);
         done.setOnClickListener(v -> dismissDialog());
 
-        dialog.setContentView(layout);
+        AppCompatDialog dialog = new MaterialAlertDialogBuilder(getActivity()).setView(layout).create(); // new AppCompatDialog(getActivity());
+        
+        // dialog.setContentView(layout);
         ViewCompat.setClipBounds(layout, null);
         // Android 9 clips the popupmenus just above the dialog
         // moving it to the top forces the menu to the bottom which

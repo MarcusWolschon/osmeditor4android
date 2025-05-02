@@ -10,14 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0" />
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/mainToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_weight="0"
         android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize">
-    </androidx.appcompat.widget.Toolbar>
+        android:minHeight="?attr/actionBarSize"/>
     <de.blau.android.views.SplitPaneLayout
         android:id="@+id/pane_layout"
         android:layout_width="fill_parent"
