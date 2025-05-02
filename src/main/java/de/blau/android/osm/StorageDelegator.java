@@ -90,7 +90,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * when reading state lockout writing/reading
      */
-    private transient ReentrantLock readingLock = new ReentrantLock();
+    private transient ReentrantLock lock = new ReentrantLock();
 
     /**
      * Indicates whether changes have been made since the last save to disk. Since a newly created storage is not saved,
@@ -3153,7 +3153,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.i(DEBUG_TAG, "storage delegator not dirty, skipping save");
             return;
         }
-        if (readingLock.tryLock()) {
+        if (lock.tryLock()) {
             if (savingHelper.save(ctx, FILENAME, this, true)) {
                 dirty = false;
             } else {
@@ -3172,7 +3172,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 SavingHelper.export(ctx, this); // ctx == null is checked in method
                 Log.d(DEBUG_TAG, "save of state file failed, written emergency change file");
             }
-            readingLock.unlock();
+            lock.unlock();
         } else {
             Log.i(DEBUG_TAG, "storage delegator state being read, skipping save");
         }
@@ -4303,22 +4303,22 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * Try to set the reading lock
      */
     public boolean tryLock() {
-        return readingLock.tryLock();
+        return lock.tryLock();
     }
 
     /**
      * Set the reading lock
      */
     public void lock() {
-        readingLock.lock();
+        lock.lock();
     }
 
     /**
      * Free the reading lock checking if it is currently held
      */
     public void unlock() {
-        if (readingLock.isHeldByCurrentThread()) {
-            readingLock.unlock();
+        if (lock.isHeldByCurrentThread()) {
+            lock.unlock();
         }
     }
 }
