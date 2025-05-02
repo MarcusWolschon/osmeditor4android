@@ -39,6 +39,7 @@ import de.blau.android.layer.NonSerializeableLayer;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
@@ -98,8 +99,8 @@ public class MapOverlay extends NonSerializeableLayer
     private ThreadPoolExecutor downloadThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(DOWNLOAD_THREAD_POOL_SIZE);
     private ThreadPoolExecutor pruneThreadPool    = (ThreadPoolExecutor) Executors.newFixedThreadPool(PRUNE_THREAD_POOL_SIZE);
 
-    private List<Task>        taskList = new ArrayList<>();
-    private final ViewBox     bb       = new ViewBox();
+    private List<Task>    taskList = new ArrayList<>();
+    private final ViewBox bb       = new ViewBox();
 
     /**
      * Runnable for downloading data
@@ -202,9 +203,19 @@ public class MapOverlay extends NonSerializeableLayer
         int w = map.getWidth();
         int h = map.getHeight();
 
-        for (Task t : tasks.getTasks(bb, taskList)) {
+        try {
+            if (tasks.tryLock()) {
+                tasks.getTasks(bb, taskList);
+            } else {
+                Log.w(DEBUG_TAG, "Task storage already locked, rerendering existing data");
+            }
+        } finally {
+            tasks.unlock();
+        }
+
+        for (Task t : taskList) {
             // filter
-            if (!filter.contains(t.bugFilterKey())) {
+            if (t == null || !filter.contains(t.bugFilterKey())) {
                 continue;
             }
             float x = GeoMath.lonE7ToX(w, bb, t.getLon());
