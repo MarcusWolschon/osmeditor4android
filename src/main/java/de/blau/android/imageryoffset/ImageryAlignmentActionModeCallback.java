@@ -241,7 +241,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
         if (cabBottomBar != null) {
             menu = cabBottomBar.getMenu();
             cabBottomBar.setOnMenuItemClickListener(item -> onActionItemClicked(actionMode, item));
-            MenuUtil.setupBottomBar(main, cabBottomBar, main.isFullScreen(), prefs.lightThemeEnabled());
+            MenuUtil.setupBottomBar(main, cabBottomBar);
         }
         menu.clear();
         menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db)

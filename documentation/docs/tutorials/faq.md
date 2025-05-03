@@ -266,12 +266,6 @@ The preset translations tend to be a work in progress and given that a large num
 
 Due to the touchy situation having pre-defined presets for military objects on device could create you need to download them and install them yourself. You can find a link at the bottom of the preset help page.
 
-### Fullscreen mode doesn't work properly
-
-Fullscreen mode on Android is a bit hit and miss (depending on Android version and device) as it is really designed for games and for apps without keyboard use. If the Android buttons are hidden, the standard Android way to show them, at least in recent Android versions, is a swipe from the bottom edge. 
-
-If fullscreen mode is causing issues for you, the best solution is to simply turn it off in the [Advanced preferences](../help/en/Advanced%20preferences.md). 
-
 ### The aerial or satellite imagery is out of date
 
 Vespucci uses the [Editor Layer Index](https://github.com/osmlab/editor-layer-index) for configuring the available backgrounds. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should preferably update the ELI or open an issue there.
@@ -308,22 +302,12 @@ Android 9 introduced the option to replace the navigation bar at the bottom of t
 There is no completely satisfactory solution to this, but if you don't want to disable the gestures the best setup is to change the following settings in the [Advanced preferences](../help/en/Advanced%20preferences.md) user interface settings:
 
 * turn off __Enable split action bar__, this will move the menu bar to the top of the screen.
-* set __Fullscreen mode__ to _never_ in the _Advanced preferences_ 
 
 Vespucci 15.0 and higher will detect that gestures have been enabled and will try to configure itself appropriately.
 
 ### Long press on Undo button doesn't do anything
 
 This most likely due to you having navigation gestures configured, but the app not being able to detect this. For example this has been the case with devices running the /e/ variant of Android. Switching __Fullscreen mode__ to _never_ in the _Advanced preferences_ should allow the Undo button to work as intended.
-
-### Can't (re-)authenticate - TLS 1.0 / 1.1 issues
-
-Many sites have turned off support for TLS 1.0 / 1.1 secured connections, this includes the API on openstreetmap.org. This renders Vespucci on devices with an Android version older than 4.1 essentially useless. 
-
-On Android versions between 4.1 and 4.4 the app can be used without issues, except that authorization with OAuth will potentially not work. If you are unable to use OAuth you can still simply authenticate with login and password. To enable this:
-
-* go to _Preferences_ -> _Advanced preferences_ -> _Server settings_ and set login and password under the _User account_ entry.
-* in the layer control select the _Configure_ menu entry for the data layer entry, edit the active entry, and uncheck OAuth support.   
 
 ### Resuming the app doesn't bring me back to the property editor
 
