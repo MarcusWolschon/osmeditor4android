@@ -29,7 +29,6 @@
             android:hint="@string/preset_search_hint"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:background="?attr/colorPrimary"
             android:maxLines="1" 
             android:saveEnabled="false" />
 

@@ -343,6 +343,7 @@
         <item name="ActionButton">@style/ActionButtonLight</item>
         <item name="EditText">@style/EditTextLight</item>
         <item name="popupMenuStyle">@style/popupMenuStyleLight</item>
+        <item name="floatingActionButtonStyle">@style/RoundFab</item>
         <!-- colors -->
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
@@ -350,13 +351,63 @@
         <item name="error">@color/material_red</item>
         <item name="drag_target">@color/material_red</item>
         <item name="button_color">@color/button_dark</item>
+        <!--  -->
+        
+        <item name="colorPrimary">@color/md_theme_primary_highContrast</item>
+        <item name="colorOnPrimary">@color/md_theme_onPrimary_highContrast</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer_highContrast</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer_highContrast</item>
+        <item name="colorSecondary">@color/md_theme_secondary_highContrast</item>
+        <item name="colorOnSecondary">@color/md_theme_onSecondary_highContrast</item>
+        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer_highContrast</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer_highContrast</item>
+        <item name="colorTertiary">@color/md_theme_tertiary_highContrast</item>
+        <item name="colorOnTertiary">@color/md_theme_onTertiary_highContrast</item>
+        <item name="colorTertiaryContainer">@color/md_theme_tertiaryContainer_highContrast</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_onTertiaryContainer_highContrast</item>
+        <item name="colorError">@color/md_theme_error_highContrast</item>
+        <item name="colorOnError">@color/md_theme_onError_highContrast</item>
+        <item name="colorErrorContainer">@color/md_theme_errorContainer_highContrast</item>
+        <item name="colorOnErrorContainer">@color/md_theme_onErrorContainer_highContrast</item>
+        <item name="android:colorBackground">@color/md_theme_background_highContrast</item>
+        <item name="colorOnBackground">@color/md_theme_onBackground_highContrast</item>
+        <item name="colorSurface">@color/md_theme_surface_highContrast</item>
+        <item name="colorOnSurface">@color/md_theme_onSurface_highContrast</item>
+        <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant_highContrast</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant_highContrast</item>
+        <item name="colorOutline">@color/md_theme_outline_highContrast</item>
+        <item name="colorOutlineVariant">@color/md_theme_outlineVariant_highContrast</item>
+        <item name="colorSurfaceInverse">@color/md_theme_inverseSurface_highContrast</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface_highContrast</item>
+        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary_highContrast</item>
+        <item name="colorPrimaryFixed">@color/md_theme_primaryFixed_highContrast</item>
+        <item name="colorOnPrimaryFixed">@color/md_theme_onPrimaryFixed_highContrast</item>
+        <item name="colorPrimaryFixedDim">@color/md_theme_primaryFixedDim_highContrast</item>
+        <item name="colorOnPrimaryFixedVariant">@color/md_theme_onPrimaryFixedVariant_highContrast</item>
+        <item name="colorSecondaryFixed">@color/md_theme_secondaryFixed_highContrast</item>
+        <item name="colorOnSecondaryFixed">@color/md_theme_onSecondaryFixed_highContrast</item>
+        <item name="colorSecondaryFixedDim">@color/md_theme_secondaryFixedDim_highContrast</item>
+        <item name="colorOnSecondaryFixedVariant">@color/md_theme_onSecondaryFixedVariant_highContrast</item>
+        <item name="colorTertiaryFixed">@color/md_theme_tertiaryFixed_highContrast</item>
+        <item name="colorOnTertiaryFixed">@color/md_theme_onTertiaryFixed_highContrast</item>
+        <item name="colorTertiaryFixedDim">@color/md_theme_tertiaryFixedDim_highContrast</item>
+        <item name="colorOnTertiaryFixedVariant">@color/md_theme_onTertiaryFixedVariant_highContrast</item>
+        <item name="colorSurfaceDim">@color/md_theme_surfaceDim_highContrast</item>
+        <item name="colorSurfaceBright">@color/md_theme_surfaceBright_highContrast</item>
+        <item name="colorSurfaceContainerLowest">@color/md_theme_surfaceContainerLowest_highContrast</item>
+        <item name="colorSurfaceContainerLow">@color/md_theme_surfaceContainerLow_highContrast</item>
+        <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer_highContrast</item>
+        <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh_highContrast</item>
+        <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest_highContrast</item>
         <!-- splitter -->
         <item name="SplitterBGV">@drawable/splitter_bg_v_light</item>
         <item name="SplitterBGH">@drawable/splitter_bg_h_light</item>
         <item name="SplitterHandleV">@drawable/splitter_handle_v_light</item>
         <item name="SplitterHandleH">@drawable/splitter_handle_h_light</item>
     </style>
-    <style name="popupMenuStyleLight" parent="@style/Widget.AppCompat.Light.PopupMenu">
+    <style
+        name="popupMenuStyleLight"
+        parent="@style/Widget.AppCompat.Light.PopupMenu">
         <item name="overlapAnchor">true</item>
     </style>
     <style
@@ -663,6 +714,7 @@
         <item name="SplitterBGH">@drawable/splitter_bg_h_light</item>
         <item name="SplitterHandleV">@drawable/splitter_handle_v_light</item>
         <item name="SplitterHandleH">@drawable/splitter_handle_h_light</item>
+        <item name="floatingActionButtonStyle">@style/RoundFab</item>
         <!-- icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_light</item>
         <item name="menu_undo">@drawable/ic_action_undo_holo_light</item>
@@ -713,6 +765,52 @@
         <item name="text_disabled">@color/primary_text_disabled_material_light</item>
         <item name="text_normal">@color/primary_text_default_material_light</item>
         <item name="highlight_background">@color/light_grey</item>
+        <item name="colorPrimary">@color/md_theme_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_error</item>
+        <item name="colorOnError">@color/md_theme_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_background</item>
+        <item name="colorOnBackground">@color/md_theme_onBackground</item>
+        <item name="colorSurface">@color/md_theme_surface</item>
+        <item name="colorOnSurface">@color/md_theme_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_outline</item>
+        <item name="colorOutlineVariant">@color/md_theme_outlineVariant</item>
+        <item name="colorSurfaceInverse">@color/md_theme_inverseSurface</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
+        <item name="colorPrimaryFixed">@color/md_theme_primaryFixed</item>
+        <item name="colorOnPrimaryFixed">@color/md_theme_onPrimaryFixed</item>
+        <item name="colorPrimaryFixedDim">@color/md_theme_primaryFixedDim</item>
+        <item name="colorOnPrimaryFixedVariant">@color/md_theme_onPrimaryFixedVariant</item>
+        <item name="colorSecondaryFixed">@color/md_theme_secondaryFixed</item>
+        <item name="colorOnSecondaryFixed">@color/md_theme_onSecondaryFixed</item>
+        <item name="colorSecondaryFixedDim">@color/md_theme_secondaryFixedDim</item>
+        <item name="colorOnSecondaryFixedVariant">@color/md_theme_onSecondaryFixedVariant</item>
+        <item name="colorTertiaryFixed">@color/md_theme_tertiaryFixed</item>
+        <item name="colorOnTertiaryFixed">@color/md_theme_onTertiaryFixed</item>
+        <item name="colorTertiaryFixedDim">@color/md_theme_tertiaryFixedDim</item>
+        <item name="colorOnTertiaryFixedVariant">@color/md_theme_onTertiaryFixedVariant</item>
+        <item name="colorSurfaceDim">@color/md_theme_surfaceDim</item>
+        <item name="colorSurfaceBright">@color/md_theme_surfaceBright</item>
+        <item name="colorSurfaceContainerLowest">@color/md_theme_surfaceContainerLowest</item>
+        <item name="colorSurfaceContainerLow">@color/md_theme_surfaceContainerLow</item>
+        <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
+        <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
+        <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
     </style>
     <style
         name="Theme.customActionBar.Light"
@@ -747,38 +845,38 @@
     <style
         name="TextViewLight"
         parent="android:Widget.TextView">
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">?attr/colorSurface</item>
     </style>
     <style
         name="EditTextLight"
         parent="@style/Widget.AppCompat.Light.AutoCompleteTextView">
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:background">?attr/colorSurface</item>
     </style>
     <style
         name="AutoCompleteTextViewLight"
         parent="@style/Widget.AppCompat.Light.AutoCompleteTextView">
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">?attr/colorSurface</item>
     </style>
     <style
         name="CheckBoxLight"
         parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">?attr/colorSurface</item>
     </style>
     <style
         name="SpinnerStyleLight"
         parent="@style/Widget.AppCompat.Spinner">
-        <item name="android:background">@android:color/white</item>
-        <item name="android:popupBackground">@android:color/white</item>
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="android:popupBackground">?attr/colorSurface</item>
     </style>
     <style name="RadioGroupStyleLight">
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">?attr/colorSurface</item>
     </style>
     <style name="TableHeaderLight">
-        <item name="android:background">@color/light_grey</item>
+        <item name="android:background">?attr/colorSurfaceDim</item>
     </style>
     <style name="PagerTabStripLight">
-        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:background">?attr/colorPrimary</item>
     </style>
     <style name="LayoutLight">
@@ -787,8 +885,8 @@
     <style
         name="ListPopupWindowStyleLight"
         parent="android:Widget.DropDownItem.Spinner">
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:background">?attr/colorSurface</item>
     </style>
     <style name="SpinnerItemStyleLight">
         <item name="android:textAppearance">@style/TextAppearanceSpinnerItemLight</item>
@@ -796,7 +894,7 @@
     <style
         name="TextAppearanceSpinnerItemLight"
         parent="android:TextAppearance.Widget.TextView.SpinnerItem">
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
     <style
         name="DownloadedMemberLight"
@@ -843,7 +941,7 @@
     </style>
     <style
         name="Theme.customHelpViewer.Light"
-        parent="@style/Theme.AppCompat.Light">
+        parent="@style/Theme.Material3.Light">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
@@ -860,7 +958,17 @@
         <item name="spinBars">true</item>
         <item name="color">@android:color/black</item>
     </style>
-    <style name="Theme.IssueReporterModified" parent="Theme.IssueReporter">
-         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    <style
+        name="Theme.IssueReporterModified"
+        parent="Theme.IssueReporter">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
+    <style name="fab_circular">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="RoundFab" parent="@style/Widget.MaterialComponents.FloatingActionButton">
+       <item name="backgroundTint">?attr/colorTertiaryContainer</item>
+       <item name="shapeAppearanceOverlay">@style/fab_circular</item>
+   </style>
 </resources>

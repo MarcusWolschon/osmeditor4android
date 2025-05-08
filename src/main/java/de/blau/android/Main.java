@@ -3344,18 +3344,14 @@ public class Main extends ConfigurationChangeAwareActivity
      * Enable the simple actions button and change color to the normal value
      */
     public void enableSimpleActionsButton() {
-        if (simpleActionsButton != null) {
-            changeSimpleActionsButtonState(true, ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorAccent)));
-        }
+        changeSimpleActionsButtonState(true, ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorTertiary)));
     }
 
     /**
      * Disable the simple actions button and change color
      */
     public void disableSimpleActionsButton() {
-        if (simpleActionsButton != null) {
-            changeSimpleActionsButtonState(false, ContextCompat.getColorStateList(Main.this, R.color.dark_grey));
-        }
+        changeSimpleActionsButtonState(false, ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorOutline)));
     }
 
     /**
@@ -3364,15 +3360,17 @@ public class Main extends ConfigurationChangeAwareActivity
      * @param enabled the new state
      * @param stateList the ColorStateList
      */
-    private void changeSimpleActionsButtonState(boolean enabled, @NonNull ColorStateList stateList) {
-        simpleActionsButton.setEnabled(enabled);
-        simpleActionsButton.setBackgroundTintList(stateList);
-        simpleActionsButton.setCompatElevation(LARGE_FAB_ELEVATION);
-        ViewGroup.LayoutParams lp = simpleActionsButton.getLayoutParams();
-        if (enabled) {
-            ((RelativeLayout.LayoutParams) lp).setMargins(0, 0, 0, 0);
-        } else {
-            ((RelativeLayout.LayoutParams) lp).setMargins((int) LARGE_FAB_ELEVATION, 0, (int) LARGE_FAB_ELEVATION, (int) LARGE_FAB_ELEVATION);
+    private void changeSimpleActionsButtonState(boolean enabled, @Nullable ColorStateList stateList) {
+        if (simpleActionsButton != null && stateList != null) {
+            simpleActionsButton.setEnabled(enabled);
+            simpleActionsButton.setBackgroundTintList(stateList);
+            simpleActionsButton.setCompatElevation(LARGE_FAB_ELEVATION);
+            ViewGroup.LayoutParams lp = simpleActionsButton.getLayoutParams();
+            if (enabled) {
+                ((RelativeLayout.LayoutParams) lp).setMargins(0, 0, 0, 0);
+            } else {
+                ((RelativeLayout.LayoutParams) lp).setMargins((int) LARGE_FAB_ELEVATION, 0, (int) LARGE_FAB_ELEVATION, (int) LARGE_FAB_ELEVATION);
+            }
         }
     }
 

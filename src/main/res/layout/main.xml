@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_weight="0"
-        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"/>
     <de.blau.android.views.SplitPaneLayout
         android:id="@+id/pane_layout"
@@ -41,7 +40,6 @@
                 android:layout_margin="8dp"
                 android:clickable="true"
                 android:src="@drawable/lock_bi_state"
-                app:backgroundTint="?attr/colorAccent"
                 app:fabSize="mini"
                 app:useCompatPadding="true" />
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -53,8 +51,6 @@
                 android:layout_margin="0dp"
                 android:clickable="true"
                 android:src="@drawable/ic_view_headline_black_36dp"
-                android:theme="@style/Theme.customMain"
-                app:backgroundTint="?attr/colorControlNormal"
                 app:fabSize="mini"
                 app:useCompatPadding="true" />
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -66,8 +62,7 @@
                 android:layout_gravity="top"
                 android:clickable="true"
                 android:src="@drawable/ic_gps_fixed_black_36dp"
-                android:theme="@style/Theme.customMain"
-                app:backgroundTint="?attr/colorControlNormal"
+                app:backgroundTint="?attr/colorSurface"
                 app:fabSize="mini"
                 app:useCompatPadding="true" />
             <de.blau.android.views.ZoomControls
@@ -86,8 +81,7 @@
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_weight="0"
-        android:background="?attr/colorPrimary">
+        android:layout_weight="0">
         <include
             android:id="@+id/bottomToolbar"
             layout="@layout/toolbar" />

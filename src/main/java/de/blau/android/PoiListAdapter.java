@@ -72,8 +72,8 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
         int spans = ((GridLayoutManager) layout.getLayoutManager()).getSpanCount();
         width = (layout.getWidth() - ROW_MARGIN) / spans - ROW_MARGIN;
 
-        defaultTextColor = ThemeUtils.getStyleAttribColorValue(ctx, R.attr.textColor, R.color.black);
-        defaultBackgroundColor = ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorSecondary, R.color.ccc_white);
+        defaultTextColor = ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorOnTertiaryContainer, R.color.black);
+        defaultBackgroundColor = ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorTertiaryContainer, R.color.ccc_white);
 
         // note currently the rendering code assumes that the dimensions are in DP not PX
         iconSize = Density.pxToDp(ctx, Math.round(ctx.getResources().getDimension(R.dimen.poi_list_icon_size)));
