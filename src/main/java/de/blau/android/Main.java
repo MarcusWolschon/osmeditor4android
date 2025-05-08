@@ -3344,18 +3344,14 @@ public class Main extends ConfigurationChangeAwareActivity
      * Enable the simple actions button and change color to the normal value
      */
     public void enableSimpleActionsButton() {
-        if (simpleActionsButton != null) {
-            changeSimpleActionsButtonState(true, ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorAccent)));
-        }
+        changeSimpleActionsButtonState(true, ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorTertiary)));
     }
 
     /**
      * Disable the simple actions button and change color
      */
     public void disableSimpleActionsButton() {
-        if (simpleActionsButton != null) {
-            changeSimpleActionsButtonState(false, ContextCompat.getColorStateList(Main.this, R.color.dark_grey));
-        }
+        changeSimpleActionsButtonState(false, ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorOutline)));
     }
 
     /**

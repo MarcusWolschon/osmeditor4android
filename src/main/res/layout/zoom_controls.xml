@@ -12,8 +12,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:src="?attr/remove"
-        android:theme="@style/Theme.customMain"
-        app:backgroundTint="?attr/colorControlNormal"
+        app:backgroundTint="?attr/colorSurface"
         app:fabSize="mini"
         app:useCompatPadding="true" />
     
@@ -23,8 +22,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:src="?attr/add"
-        android:theme="@style/Theme.customMain"
-        app:backgroundTint="?attr/colorControlNormal"
+        app:backgroundTint="?attr/colorSurface"
         app:fabSize="mini" 
         app:useCompatPadding="true" />
 

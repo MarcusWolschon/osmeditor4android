@@ -12,8 +12,7 @@
         android:id="@+id/propertyEditorBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_weight="0"
-        android:background="?attr/colorPrimary"
+        android:layout_weight="0"   
         android:minHeight="?attr/actionBarSize"
         android:paddingBottom="0dp" />
     <de.blau.android.views.ExtendedViewPager
