@@ -38,6 +38,8 @@ public final class ApiResponse {
     private static final Pattern ERROR_MESSAGE_CHANGESET_LOCKED                       = Pattern
             .compile("(?i)Changeset ([0-9]+) is currently locked by another process.");
     private static final Pattern ERROR_MESSAGE_BOUNDING_BOX_TOO_LARGE                 = Pattern.compile("(?i)Changeset bounding box size limit exceeded.");
+    private static final Pattern ERROR_MESSAGE_WAY_NEEDS_ONE_NODE                     = Pattern
+            .compile("(?i)(?:Precondition failed: )?Way (-?[0-9]+) must have at least one node");
 
     public abstract static class Conflict implements Serializable {
 
@@ -251,6 +253,20 @@ public final class ApiResponse {
         }
     }
 
+    public static class NoNodesWayError extends Conflict implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Degenerate way, it shouldn't be possible for us to generate these
+         * 
+         * @param id the way id
+         */
+        public NoNodesWayError(long id) {
+            super(Way.NAME, id);
+        }
+    }
+
     /**
      * Private constructor
      */
@@ -311,6 +327,10 @@ public final class ApiResponse {
             m = ERROR_MESSAGE_PRECONDITION_RELATION_RELATION.matcher(message);
             if (m.matches()) {
                 return new StillUsedConflict(Relation.NAME, Long.parseLong(m.group(1)), Relation.NAME, parseIdList(m.group(2)));
+            }
+            m = ERROR_MESSAGE_WAY_NEEDS_ONE_NODE.matcher(message);
+            if (m.matches()) {
+                return new NoNodesWayError(Long.parseLong(m.group(1)));
             }
             break;
         case HttpURLConnection.HTTP_ENTITY_TOO_LARGE:
