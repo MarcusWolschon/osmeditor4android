@@ -44,4 +44,5 @@ public final class ErrorCodes {
     public static final int ALREADY_DELETED               = 60;
     public static final int UPLOAD_BOUNDING_BOX_TOO_LARGE = 61;
     public static final int TOO_MANY_WAY_NODES            = 62;
+    public static final int UPLOAD_WAY_NEEDS_ONE_NODE     = 63;
 }

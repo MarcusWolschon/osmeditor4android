@@ -158,6 +158,8 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return "alert_bounding_box_too_large";
         case ErrorCodes.TOO_MANY_WAY_NODES:
             return "alert_too_many_way_nodes";
+        case ErrorCodes.UPLOAD_WAY_NEEDS_ONE_NODE:
+            return "alert_way_needs_one_node";
         default:
             // nothing
         }
@@ -228,6 +230,8 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return createNewInstance(R.string.upload_bounding_box_too_large_title, R.string.upload_bounding_box_too_large_message, msg);
         case ErrorCodes.TOO_MANY_WAY_NODES:
             return createNewInstance(R.string.attempt_to_add_too_many_way_nodes_title, R.string.attempt_to_add_too_many_way_nodes_message, msg);
+        case ErrorCodes.UPLOAD_WAY_NEEDS_ONE_NODE:
+            return createNewInstance(R.string.upload_way_needs_one_node_title, R.string.upload_way_needs_one_node_message, msg);
         default:
             // ignore
         }
