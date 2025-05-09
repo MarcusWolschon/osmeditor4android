@@ -3,6 +3,7 @@ package de.blau.android.osm;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -54,6 +56,7 @@ import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.QueueDispatcher;
 import okhttp3.mockwebserver.RecordedRequest;
+import okio.Buffer;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -92,8 +95,10 @@ public class TransferMenuTest {
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
         prefDB.selectAPI("Test");
+        prefDB.deleteLayer(LayerType.TASKS, null);
         prefs = new Preferences(context);
         prefs.setPanAndZoomAutoDownload(false);
+        prefs.enableAcra(false);
         LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
@@ -219,6 +224,47 @@ public class TransferMenuTest {
         }
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_limit_title)));
         assertTrue(TestUtils.clickText(device, false, main.getString(android.R.string.ok), true));
+    }
+
+    /**
+     * Upload to changes (mock-)server get a 412 response
+     */
+    @Test
+    public void degenWayUploadError() {
+
+        StorageDelegator delegator = App.getDelegator();
+        App.getLogic().createCheckpoint(main, R.string.undo_action_add);
+        Way way = delegator.getFactory().createWayWithNewId();
+        delegator.insertElementSafe(way);
+        main.invalidateOptionsMenu();
+        TestUtils.sleep();
+
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        mockServer.enqueue("changeset1");
+        MockResponse response = new MockResponse();
+        response.setHeader("Content-type", MimeTypes.TEXTXML);
+        response.setResponseCode(412);
+        response.setBody("Precondition failed: Way " + way.getOsmId() + " must have at least one node");
+        mockServer.enqueue(response);
+
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
+
+        UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        UiObject button = device.findObject(uiSelector);
+        try {
+            button.click();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        UploadConflictTest.fillCommentAndSource(instrumentation, device);
+        try {
+            button.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_way_needs_one_node_title)));
+        assertNull(delegator.getOsmElement(Way.NAME, way.getOsmId())); // node is deleted
     }
 
     final QueueDispatcher dispatcher = new QueueDispatcher() {
@@ -401,7 +447,7 @@ public class TransferMenuTest {
 
         mockServer.setDispatcher(new QueueDispatcher() {
             boolean seen;
-            
+
             @Override
             public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
 
@@ -414,7 +460,7 @@ public class TransferMenuTest {
         });
 
         dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/capabilities1.xml"));
-        
+
         TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
         TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
 
@@ -434,9 +480,9 @@ public class TransferMenuTest {
             fail(e1.getMessage());
         }
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_retry_title), 50000));
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_retry_message_no_open_changeset), 1000, true));        
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_retry_message_no_open_changeset), 1000, true));
     }
-    
+
     /**
      * Clear data
      */

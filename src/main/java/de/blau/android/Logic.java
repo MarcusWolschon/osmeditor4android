@@ -4610,6 +4610,17 @@ public class Logic {
                                     server.resetChangeset();
                                 }
                                 ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE, result.getMessage());
+                            } else if (conflict instanceof ApiResponse.NoNodesWayError) {
+                                ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_WAY_NEEDS_ONE_NODE, result.getMessage());
+                                ACRAHelper.nocrashReport(null, result.getMessage());
+                                long degenId = conflict.getElementId();
+                                Way degenWay = (Way) delegator.getOsmElement(Way.NAME, degenId);
+                                Log.e(DEBUG_TAG, "Upload of way " + degenId + " with no nodes");
+                                if (degenWay != null) {
+                                    Log.e(DEBUG_TAG, "Deleting way " + degenWay.toString());
+                                    createCheckpoint(activity, R.string.undo_action_deleteway); // separate checkpoint
+                                    delegator.removeWay(degenWay);
+                                }
                             } else if (conflict instanceof ApiResponse.ChangesetLocked) {
                                 ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_PROBLEM, result.getMessage());
                             } else {

@@ -183,9 +183,7 @@ public class Preferences {
         }
         // we *are* using acra.enable
         if (!prefs.contains(ACRA_ENABLE)) {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(ACRA_ENABLE, true);
-            editor.commit();
+            enableAcra(true);
         }
 
         maxStrokeWidth = getIntPref(R.string.config_maxStrokeWidth_key, 16);
@@ -354,6 +352,18 @@ public class Preferences {
         poiKeys = prefs.getStringSet(r.getString(R.string.config_poi_keys_key), new HashSet<>(Arrays.asList(r.getStringArray(R.array.poi_keys_defaults))));
 
         replaceTolerance = getFloatFromStringPref(R.string.config_replaceTolerance_key, 1.0f);
+    }
+
+    /**
+     * Enable/disable acra
+     * 
+     * @param b if true anable acra
+     * 
+     */
+    public void enableAcra(boolean b) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(ACRA_ENABLE, b);
+        editor.commit();
     }
 
     /**

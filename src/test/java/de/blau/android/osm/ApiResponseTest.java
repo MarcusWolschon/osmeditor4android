@@ -14,7 +14,7 @@ import org.robolectric.annotation.Config;
 import androidx.test.filters.LargeTest;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(sdk = 33)
 @LargeTest
 public class ApiResponseTest {
 
@@ -38,6 +38,8 @@ public class ApiResponseTest {
     private static final String ERROR_MESSAGE_PRECONDITION_REQUIRED_WAY_NODE      = "Precondition failed: Way 12345 requires the nodes with id in 56789 which either do not exist, or are not visible.";
     private static final String ERROR_MESSAGE_PRECONDITION_REQUIRED_WAY_NODES     = "Precondition failed: Way 12345 requires the nodes with id in 56789,54321 which either do not exist, or are not visible.";
 
+    private static final String ERROR_MESSAGE_PRECONDITION_REQUIRED_ONE_WAY_NODE = "Precondition failed: Way -522 must have at least one node";
+
     private static final String ERROR_MESSAGE_PRECONDITION_REQUIRED_RELATION_MEMBERS_NODE_NEG  = "Precondition failed: Relation -2 requires the nodes with id in 56789 which either do not exist, or are not visible.";
     private static final String ERROR_MESSAGE_PRECONDITION_REQUIRED_RELATION_MEMBERS_NODES_NEG = "Precondition failed: Relation -2 requires the nodes with id in 56789,54321 which either do not exist, or are not visible.";
     private static final String ERROR_MESSAGE_PRECONDITION_REQUIRED_RELATION_MEMBERS_NODE      = "Precondition failed: Relation 12345 requires the nodes with id in 56789 which either do not exist, or are not visible.";
@@ -47,13 +49,13 @@ public class ApiResponseTest {
     private static final String ERROR_MESSAGE_PRECONDITION_REQUIRED_RELATION_MEMBERS_RELATION  = "Precondition failed: Relation 12345 requires the relations with id in 56789 which either do not exist, or are not visible.";
     private static final String ERROR_MESSAGE_PRECONDITION_REQUIRED_RELATION_MEMBERS_RELATIONS = "Precondition failed: Relation 12345 requires the relations with id in 56789,54321 which either do not exist, or are not visible.";
 
-    private static final String ERROR_MESSAGE_PRECONDITION_RELATION_RELATION = "Precondition failed: The relation 12345 is used in relation 6789.";
+    private static final String ERROR_MESSAGE_PRECONDITION_RELATION_RELATION        = "Precondition failed: The relation 12345 is used in relation 6789.";
     private static final String ERROR_MESSAGE_PRECONDITION_RELATION_RELATION_CGIMAP = "Precondition failed: The relation 12345 is used in relations 6789.";
 
     private static final String ERROR_MESSAGE_CLOSED_CHANGESET = "The changeset 123456 was closed at 2022-01-12T06:06:08.";
-    
+
     private static final String ERROR_MESSAGE_BOUNDING_BOX_TOO_LARGE = "Changeset bounding box size limit exceeded.";
-    
+
     private static final String ERROR_MESSAGE_CHANGESET_LOCKED = "Changeset 123456 is currently locked by another process.";
 
     /**
@@ -180,6 +182,17 @@ public class ApiResponseTest {
     /**
      */
     @Test
+    public void oneWayNodeRequired() {
+        ApiResponse.Conflict conflict = ApiResponse.parseConflictResponse(HttpURLConnection.HTTP_PRECON_FAILED,
+                ERROR_MESSAGE_PRECONDITION_REQUIRED_ONE_WAY_NODE);
+        assertTrue(conflict instanceof ApiResponse.NoNodesWayError);
+        assertEquals(Way.NAME, conflict.getElementType());
+        assertEquals(-522L, conflict.getElementId());
+    }
+    
+    /**
+     */
+    @Test
     public void relationMemberRequired() {
         ApiResponse.Conflict conflict = ApiResponse.parseConflictResponse(HttpURLConnection.HTTP_PRECON_FAILED,
                 ERROR_MESSAGE_PRECONDITION_REQUIRED_RELATION_MEMBERS_NODE_NEG);
@@ -255,14 +268,15 @@ public class ApiResponseTest {
      */
     @Test
     public void relationRelationMemberStillUsedCgiMap() {
-        ApiResponse.Conflict conflict = ApiResponse.parseConflictResponse(HttpURLConnection.HTTP_PRECON_FAILED, ERROR_MESSAGE_PRECONDITION_RELATION_RELATION_CGIMAP);
+        ApiResponse.Conflict conflict = ApiResponse.parseConflictResponse(HttpURLConnection.HTTP_PRECON_FAILED,
+                ERROR_MESSAGE_PRECONDITION_RELATION_RELATION_CGIMAP);
         assertTrue(conflict instanceof ApiResponse.StillUsedConflict);
         assertEquals(Relation.NAME, conflict.getElementType());
         assertEquals(12345L, conflict.getElementId());
         assertEquals(Relation.NAME, ((ApiResponse.StillUsedConflict) conflict).getUsedByElementType());
         assertArrayEquals(new long[] { 6789 }, ((ApiResponse.StillUsedConflict) conflict).getUsedByElementIds());
     }
-    
+
     /**
      */
     @Test
@@ -271,7 +285,7 @@ public class ApiResponseTest {
         assertTrue(conflict instanceof ApiResponse.ClosedChangesetConflict);
         assertEquals(123456L, conflict.getElementId());
     }
-    
+
     /**
      */
     @Test
@@ -280,7 +294,7 @@ public class ApiResponseTest {
         assertTrue(conflict instanceof ApiResponse.ChangesetLocked);
         assertEquals(123456L, conflict.getElementId());
     }
-    
+
     /**
      */
     @Test
