@@ -27,7 +27,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13613(text:text|group:Nature|preset:Shrubbery|key:height)
 msgid "(Average) height"
-msgstr ""
+msgstr "Hauteur (moyenne)"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11171(label:text|preset:Power_Switchgear)
 msgid ""
@@ -66,11 +66,11 @@ msgstr "*****"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1495(combo:display_values|key:stars)
 msgid "******"
-msgstr ""
+msgstr "******"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1495(combo:display_values|key:stars)
 msgid "*******"
-msgstr ""
+msgstr "*******"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:64(combo:display_values|key:incline)
 msgid "-10%"
@@ -3412,7 +3412,7 @@ msgstr "Cannabis"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11432(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:cannon)
 msgid "Cannon"
-msgstr "Cannon"
+msgstr "Canon"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9438(item:name|preset:Canoeing/Kayaking)
 msgid "Canoeing/Kayaking"
@@ -3530,7 +3530,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:753(list_entry:display_value|value:caribbean)
 msgid "Caribbean"
-msgstr "Caraïbes"
+msgstr "Caribéenne/Antillaise"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14836(item:name|group:Crafts|preset:Carpenter)
 msgid "Carpenter"
@@ -3581,7 +3581,7 @@ msgstr "Château"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3754(list_entry:display_value|group:Barriers|preset:Wall|value:castle_wall)
 msgid "Castle wall"
-msgstr "Mur de chateau"
+msgstr "Mur de château"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11479(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Castrum"
@@ -3640,11 +3640,11 @@ msgstr "Entrée de caverne"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11434(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:cemetery)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13910(item:name|group:Cemetery_and_graves|preset:Cemetery)
 msgid "Cemetery"
-msgstr "Cimetiere"
+msgstr "Cimetière"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13902(group:name|group:Cemetery_and_graves)
 msgid "Cemetery and graves"
-msgstr ""
+msgstr "Cimetière et tombes"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13924(item:name|group:Cemetery_and_graves|preset:Cemetery_sector)
 msgid "Cemetery sector"
@@ -4141,7 +4141,7 @@ msgstr "Couleur de fond"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14703(text:text|preset:Destination_Sign|key:colour:arrow)
 msgid "Colour of border/arrow"
-msgstr "Couleur du bord ou de la flêche"
+msgstr "Couleur du bord ou de la flèche"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14702(text:text|preset:Destination_Sign|key:colour:text)
 msgid "Colour of text"
@@ -4318,7 +4318,7 @@ msgstr "Centre de conférences"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1177(combo:display_values|key:religion)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1181(combo:display_values|key:religion)
 msgid "Confucian"
-msgstr "Confusianisme"
+msgstr "Confucianisme"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11396(item:name|group:Telecom|preset:Connection_Point)
 msgid "Connection Point"
@@ -4496,7 +4496,7 @@ msgstr "Comté"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8142(text:text|group:Emergency|preset:Fire_Hydrant|key:couplings:diameters)
 msgid "Coupling diameters (separated by ;)"
-msgstr "Diamètre des raccords (séparés par des point-virgules)"
+msgstr "Diamètre des raccords (séparés par des points-virgules)"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8141(combo:text|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Coupling standard"
@@ -4765,11 +4765,11 @@ msgstr "Barrage"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6968(item:name|group:Leisure|preset:Dance)
 msgid "Dance"
-msgstr "Dance"
+msgstr "Danse"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7853(item:name|group:Education|preset:Dancing_school)
 msgid "Dancing school"
-msgstr ""
+msgstr "École de danse"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1778(multiselect:display_values|key:language)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:759(list_entry:display_value|value:danish)
@@ -6305,7 +6305,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6912(combo:text|group:Leisure|preset:Fitness_Station|key:fitness_station)
 msgid "Fitness station"
-msgstr "Équipement tde fitness"
+msgstr "Équipement de fitness"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14655(list_entry:display_value|preset:Generic_route|value:fitness_trail)
 msgid "Fitness trail"
@@ -6363,7 +6363,7 @@ msgstr "Mur anti-crue"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1397(combo:display_values|key:tunnel)
 msgid "Flooded"
-msgstr "Innondé"
+msgstr "Inondé"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3120(check:text|group:Waypoints|preset:Traffic_Signal|key:traffic_signals:floor_vibration)
 msgid "Floor vibration"
@@ -6476,7 +6476,7 @@ msgstr "Pour les groupes"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:397(combo:long_text|key:level)
 msgid "For indoor mapping, level 0 is the ground floor"
-msgstr "Pour la cartographie en intérieur, le niveau 0 est le rez-de-chaussé"
+msgstr "Pour la cartographie en intérieur, le niveau 0 est le rez-de-chaussée"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3128(label:text|group:Waypoints|preset:Traffic_Signal)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3129(checkgroup:text|group:Waypoints|preset:Traffic_Signal)
@@ -6671,7 +6671,7 @@ msgstr "Yaourt glacé"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6424(combo:text|group:Food+Drinks|preset:Diet|key:diet:fruitarian)
 msgid "Fruitarian"
-msgstr "Fruitariste"
+msgstr "Fruitarien"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12673(item:name|group:Other|preset:Fuel)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12972(list_entry:short_description|preset:Vending_Machine|value:fuel)
@@ -6796,7 +6796,7 @@ msgstr "Signaux Galileo"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10084(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Gallery"
-msgstr "Gallerie"
+msgstr "Galerie"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7281(item:name|preset:Gambling)
 msgid "Gambling"
@@ -6864,7 +6864,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11154(check:text|preset:Power_Substation|key:gas_insulated)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11177(check:text|preset:Power_Switchgear|key:gas_insulated)
 msgid "Gas insulated"
-msgstr "Isolation au gas"
+msgstr "À isolation gazeuse (GIS)"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10930(combo:display_values|group:Power_Generator|preset:Biofuel_Power_Generator|key:generator:type)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10972(combo:display_values|group:Power_Generator|preset:Gas_Power_Generator|key:generator:type)
@@ -7308,7 +7308,7 @@ msgstr "Poids-lourds"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3973(combo:text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:hgv:conditional)
 msgid "HGV @"
-msgstr "Poids-lourds conditionnel"
+msgstr "Poids-lourds conditionnels"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2572(multiselect:text|group:Lane_attributes|preset:Single_direction_roads|key:hgv:lanes)
 msgid "HGV lane access"
@@ -8214,7 +8214,7 @@ msgstr "Frais d'accès à Internet"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1536(combo:text|key:interval)
 msgid "Interval (M, MM, HH:MM, or HH:MM:SS)"
-msgstr "Interval (M, MM, HH:MM ou HH:MM:SS)"
+msgstr "Intervalle (M, MM, HH:MM ou HH:MM:SS)"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1920(combo:display_values|key:resource)
 msgid "Iron ore"
@@ -8452,7 +8452,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7745(check:text|group:Education|preset:Childcare|key:kindergarten)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7753(item:name|group:Education|preset:Kindergarten)
 msgid "Kindergarten"
-msgstr "Ecole maternelle"
+msgstr "École maternelle"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11740(item:name|group:Food|preset:Kiosk)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5082(combo:display_values|group:Car|preset:Fuel|key:shop)
@@ -8744,7 +8744,7 @@ msgstr "Types d'arrêts obsolètes"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:15325(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Legislative"
-msgstr "Legistlatif"
+msgstr "Législatif"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6636(group:name|group:Leisure)
 msgid "Leisure"
@@ -8891,11 +8891,11 @@ msgstr "Limité"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4321(label:text|group:Water|preset:Coastline)
 msgid ""
 "Line between the sea and land (with the water on the right side of the way)."
-msgstr "Ligne entre la mer et la terre (l'eau doit être du côté droit de la line)."
+msgstr "Ligne entre la mer et la terre (l'eau doit être du côté droit de la ligne)."
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11353(combo:text|preset:Power_Line|key:power)
 msgid "Line type"
-msgstr "Type de line"
+msgstr "Type de ligne"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13183(combo:display_values|group:Boundaries|preset:Political|key:political_division)
 msgid "Linguistic community"
@@ -9970,7 +9970,7 @@ msgstr "Mosquée"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6045(item:name|group:Accommodation|preset:Motel)
 msgid "Motel"
-msgstr "Môtel"
+msgstr "Motel"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9810(item:name|group:Motorsport|preset:Motocross)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9846(multiselect:display_values|group:Motorsport|preset:Raceway|key:sport)
@@ -10018,7 +10018,7 @@ msgstr "Automobiles"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3930(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcar:conditional)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3949(combo:text|group:Access_Restrictions|preset:Motorcar|key:motorcar:conditional)
 msgid "Motorcar @"
-msgstr "Automobiles conditonnel"
+msgstr "Automobiles conditionnels"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3923(item:name|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH))
 msgid "Motorcar and -cycle (CH)"
@@ -11573,7 +11573,7 @@ msgstr "Bœuf"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4307(list_entry:display_value|group:Water|preset:Other_waterbodies|value:oxbow)
 msgid "Oxbow"
-msgstr "Bras-mort"
+msgstr "Méandre"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1861(check:text|key:scuba_diving:oxygen_filling)
 msgid "Oxygen"
@@ -12238,12 +12238,12 @@ msgstr "Site de pique-nique"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7170(item:name|preset:Picnic_Table)
 msgid "Picnic Table"
-msgstr "Table de pique-nic"
+msgstr "Table de pique-nique"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3105(check:text|group:Waypoints|preset:Rest_Area|key:picnic_table)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9603(check:text|preset:Chess|key:leisure)
 msgid "Picnic table"
-msgstr "Table de pique-nic"
+msgstr "Table de pique-nique"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4515(item:name|group:Shipping|preset:Pier)
 msgid "Pier"
@@ -15946,7 +15946,7 @@ msgstr "Attributs de l'appareil de connexion :"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1114(text:text|key:symbol)
 msgid "Symbol description"
-msgstr "Symbol"
+msgstr "Description du symbole"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2135(combo:display_values|key:trailblazed)
 msgid "Symbols"
@@ -17127,7 +17127,7 @@ msgstr "Type de contrôle"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7967(combo:text|group:Health|preset:Other_healthcare_facilities|key:healthcare)
 msgid "Type of facility"
-msgstr "Type d'étabilissement"
+msgstr "Type d'établissement"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7955(combo:text|group:Health|preset:Physiotherapist|key:healthcare:speciality)
 msgid "Type of physiotherapy"
@@ -18013,7 +18013,7 @@ msgstr "À roues : vélo de ville, fauteuil roulant, voiture avec faible garde 
 msgid ""
 "Where vegetation is dominated by grasses (Poaceae) and other herbaceous "
 "(non-woody) plants. Excludes cultivated areas and wetlands."
-msgstr "Où la végétation est dominée par des herbes (Poaceae) et autres plantes herbacées (non ligneuses). Ceci exclu les terrains cultivés et les zones humides."
+msgstr "Où la végétation est dominée par des herbes (Poaceae) et autres plantes herbacées (non ligneuses). Ceci exclut les terrains cultivés et les zones humides."
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1658(combo:display_values|key:roof:colour)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1684(combo:display_values|key:building:colour)
@@ -18888,7 +18888,7 @@ msgstr "Pôle"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3711(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Railing"
-msgstr "grade-fou"
+msgstr "garde-fou"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:70(combo:display_values|key:material)
 msgctxt "material"
@@ -19290,7 +19290,7 @@ msgstr "Des deux côtés"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2879(list_entry:short_description|preset:Sidewalk_left-hand_side|value:separate)
 msgctxt "sidewalk"
 msgid "Mapped separately"
-msgstr "Cartographiés séparéments"
+msgstr "Cartographiés séparément"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:213(list_entry:short_description|value:no)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2866(list_entry:short_description|preset:Sidewalk_right-hand_side|value:no)
@@ -19800,7 +19800,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:343(combo:text|key:electrified)
 msgctxt "electrified"
 msgid "Electrified"
-msgstr "Electrifié"
+msgstr "Électrifié"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:343(combo:display_values|key:electrified)
 msgctxt "electrified"
@@ -20038,7 +20038,7 @@ msgstr "Sous-vêtements"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:839(list_entry:short_description|value:wedding)
 msgctxt "clothes"
 msgid "Wedding"
-msgstr "Marriage"
+msgstr "Mariage"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:840(list_entry:short_description|value:women)
 msgctxt "clothes"
