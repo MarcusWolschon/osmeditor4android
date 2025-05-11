@@ -122,7 +122,7 @@ Limit (in number of Nodes) at which we start warning about too much data being l
 
 ### Beep volume
 
-Set how load the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: _50_.
+Set how loud the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: _50_.
 
 ### Minimum zoom for Mapillary
 
