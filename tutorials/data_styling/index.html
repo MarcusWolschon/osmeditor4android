@@ -2338,7 +2338,7 @@
   <h1>Vespucci data styling</h1>
 
 <h2 id="vespucci-data-styling">Vespucci Data Styling<a class="headerlink" href="#vespucci-data-styling" title="Permanent link">#</a></h2>
-<p><em>Documentation for Vespucci 20.2 Style file format version 0.3.1</em></p>
+<p><em>Documentation for Vespucci 21.1 Style file format version 0.3.2</em></p>
 <p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
 <h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci<a class="headerlink" href="#using-custom-style-files-in-vespucci" title="Permanent link">#</a></h3>
 <p>Files need to need have an unique <em>name</em> attribute and the <em>.xml</em> extension and reside in a <em>styles</em> directory in an app specific files directory (for example <em>Android/data/de.blau.android/files/styles/test.xml</em> ). Currently the legacy storage format and location continues to work: unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and stored in the <em>Vespucci</em> directory, this is the only location that will work for devices with Android version older than 4.4. </p>
@@ -2807,6 +2807,10 @@
 <tr>
 <td>bookmark_default</td>
 <td>Default style for the bookmark layer</td>
+</tr>
+<tr>
+<td>map_background</td>
+<td>Holds the map background colour (from 21.1 on)</td>
 </tr>
 </tbody>
 </table>
