@@ -170,11 +170,14 @@ public class MapOverlay extends NonSerializeableLayer
                 }
             });
             // check interval first as tasks.count traverses the whole R-Tree
-            if (autoPruneEnabled && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL
-                    && tasks.reachedPruneLimits(autoPruneTaskLimit, autoDownloadBoxLimit)) {
+            if (autoPruneEnabled && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL) {
                 try {
-                    pruneThreadPool.execute(MapOverlay.this::prune);
-                    lastAutoPrune = System.currentTimeMillis();
+                    pruneThreadPool.execute(() -> {
+                        if (tasks.reachedPruneLimits(autoPruneTaskLimit, autoDownloadBoxLimit)) {
+                            MapOverlay.this.prune();
+                            lastAutoPrune = System.currentTimeMillis();
+                        }
+                    });
                 } catch (RejectedExecutionException rjee) {
                     Log.e(DEBUG_TAG, "Prune execution rejected " + rjee.getMessage());
                 }
