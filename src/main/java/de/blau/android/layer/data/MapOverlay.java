@@ -109,7 +109,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             .unmodifiableList(Arrays.asList(ErrorCodes.CORRUPTED_DATA, ErrorCodes.DATA_CONFLICT, ErrorCodes.OUT_OF_MEMORY, ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED));
 
     private static final int ICON_THREAD_POOL_SIZE = 2;
-    private static final int DATA_THREAD_POOL_SIZE = 3;
+    public static final int  DATA_THREAD_POOL_SIZE = 3;
 
     public static final int  ICON_SIZE_DP         = 20;
     private static final int HOUSE_NUMBER_RADIUS  = 10;
@@ -408,11 +408,14 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         @Override
         protected void download() {
             dataThreadPoolExecutor.execute(this::queueDownloadTasks);
-            if (autoPruneEnabled && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL
-                    && delegator.reachedPruneLimits(autoPruneNodeLimit, autoDownloadBoxLimit)) {
+            if (autoPruneEnabled && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL) {
                 try {
-                    dataThreadPoolExecutor.execute(MapOverlay.this::prune);
-                    lastAutoPrune = System.currentTimeMillis();
+                    dataThreadPoolExecutor.execute(() -> {
+                        if (delegator.reachedPruneLimits(autoPruneNodeLimit, autoDownloadBoxLimit)) {
+                            MapOverlay.this.prune();
+                            lastAutoPrune = System.currentTimeMillis();
+                        }
+                    });
                 } catch (RejectedExecutionException rjee) {
                     Log.e(DEBUG_TAG, "Prune execution rejected " + rjee.getMessage());
                 }

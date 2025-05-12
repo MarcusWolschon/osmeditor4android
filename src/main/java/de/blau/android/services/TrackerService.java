@@ -7,8 +7,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
@@ -72,6 +75,7 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Notifications;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Util;
 import de.blau.android.util.egm96.EGM96;
 import de.blau.android.validation.Validator;
 
@@ -141,6 +145,9 @@ public class TrackerService extends Service {
 
     private ScheduledThreadPoolExecutor autosaveExecutor = new ScheduledThreadPoolExecutor(1);
     private ScheduledFuture<?>          autosaveFuture   = null;
+
+    private final ThreadPoolExecutor downloadThreadPoolExecutor = (ThreadPoolExecutor) Executors
+            .newFixedThreadPool(de.blau.android.layer.data.MapOverlay.DATA_THREAD_POOL_SIZE);
 
     /**
      * For no apparent sane reason google has deprecated the NmeaListener interface
@@ -244,6 +251,7 @@ public class TrackerService extends Service {
         if (temperatureListener != null) {
             sensorManager.unregisterListener(temperatureListener, temperature);
         }
+        Util.shutDownThreadPool(downloadThreadPoolExecutor);
         super.onDestroy();
     }
 
@@ -886,9 +894,9 @@ public class TrackerService extends Service {
      * @param location the current Location
      * @param validator a Validator to use for any new data
      */
-    private void autoDownload(@NonNull Location location, @NonNull Validator validator) {
+    private void dataAutoDownload(@NonNull Location location, @NonNull Validator validator) {
         final StorageDelegator delegator = App.getDelegator();
-        autoDownload(location, previousLocation, prefs.getDownloadRadius(), prefs.getMaxDownloadSpeed(), delegator.getBoundingBoxes(), new DownloadBox() {
+        download(location, previousLocation, prefs.getDownloadRadius(), prefs.getMaxDownloadSpeed(), delegator.getBoundingBoxes(), new DownloadBox() {
 
             @Override
             public void download(BoundingBox box) {
@@ -1024,9 +1032,9 @@ public class TrackerService extends Service {
      * 
      * @param location the current Location
      */
-    private void bugAutoDownload(@NonNull Location location) {
+    private void taskAutoDownload(@NonNull Location location) {
         final TaskStorage taskStorage = App.getTaskStorage();
-        autoDownload(location, previousBugLocation, prefs.getBugDownloadRadius(), prefs.getMaxBugDownloadSpeed(), taskStorage.getBoundingBoxes(),
+        download(location, previousBugLocation, prefs.getBugDownloadRadius(), prefs.getMaxBugDownloadSpeed(), taskStorage.getBoundingBoxes(),
                 new DownloadBox() {
 
                     @Override
@@ -1074,26 +1082,32 @@ public class TrackerService extends Service {
      * @param boxes current list of coverage bounding boxes
      * @param downloadBox callback to do the actual downloading
      */
-    public static void autoDownload(@NonNull Location location, @Nullable Location prevLocation, int radius, float maxSpeed, @NonNull List<BoundingBox> boxes,
+    private void download(@NonNull Location location, @Nullable Location prevLocation, int radius, float maxSpeed, @NonNull List<BoundingBox> boxes,
             @NonNull DownloadBox downloadBox) {
         // some heuristics for now to keep downloading to a minimum
-        if ((location.getSpeed() < maxSpeed / 3.6f) && (prevLocation == null || location.distanceTo(prevLocation) > radius / 8)) {
-            List<BoundingBox> bbList = new ArrayList<>(boxes);
-            BoundingBox newBox = getNextBox(bbList, prevLocation, location, radius);
-            if (newBox == null) {
-                return;
-            }
-            if (radius != 0) { // download
-                List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox);
-                for (BoundingBox b : bboxes) {
-                    if (b.getWidth() > 1 && b.getHeight() > 1) {
+        if ((location.getSpeed() > maxSpeed / 3.6f) || (prevLocation != null && location.distanceTo(prevLocation) < radius / 8)) {
+            return;
+        }
+        List<BoundingBox> bbList = new ArrayList<>(boxes);
+        BoundingBox newBox = getNextBox(bbList, prevLocation, location, radius);
+        if (newBox == null) {
+            return;
+        }
+        if (radius != 0) { // download
+            List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox);
+            for (BoundingBox b : bboxes) {
+                if (b.getWidth() > 1 && b.getHeight() > 1) {
+                    try {
                         // ignore super small bb likely due to rounding errors
-                        downloadBox.download(b);
+                        downloadThreadPoolExecutor.execute(() -> downloadBox.download(b));
+                    } catch (RejectedExecutionException rjee) {
+                        Log.e(DEBUG_TAG, "Download execution rejected " + rjee.getMessage());
+                        App.getLogic().removeBoundingBox(b);
                     }
                 }
             }
-            downloadBox.saveLocation(location);
         }
+        downloadBox.saveLocation(location);
     }
 
     /**
@@ -1115,7 +1129,7 @@ public class TrackerService extends Service {
         if (location == null) {
             return;
         }
-        autoLoadDataAndBugs(location);
+        autoLoadDataAndTasks(location);
         Log.d(DEBUG_TAG, "calling onLocationChanged " + location + " " + externalListener);
         if (externalListener != null) {
             externalListener.onLocationChanged(location);
@@ -1124,19 +1138,19 @@ public class TrackerService extends Service {
     }
 
     /**
-     * Call the download/load methods for both data and bugs for the specified location
+     * Call the download/load methods for both data and tasks for the specified location
      * 
      * @param location the Location instance
      */
-    private void autoLoadDataAndBugs(@NonNull Location location) {
+    private void autoLoadDataAndTasks(@NonNull Location location) {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         // only attempt to download if we have a network or a mapsplit source
         boolean activeNetwork = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
         if (downloading && (prefs.getServer().hasMapSplitSource() || activeNetwork)) {
-            autoDownload(location, validator);
+            downloadThreadPoolExecutor.execute(() -> dataAutoDownload(location, validator));
         }
         if (downloadingBugs && activeNetwork) {
-            bugAutoDownload(location);
+            downloadThreadPoolExecutor.execute(() -> taskAutoDownload(location));
         }
     }
 
@@ -1161,7 +1175,7 @@ public class TrackerService extends Service {
                 }
                 track.addTrackPoint(loc);
             }
-            autoLoadDataAndBugs(new Location(loc));
+            autoLoadDataAndTasks(new Location(loc));
             lastLocation = loc;
         }
     }
