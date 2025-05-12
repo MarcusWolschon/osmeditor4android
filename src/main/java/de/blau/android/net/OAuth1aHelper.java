@@ -1,5 +1,7 @@
 package de.blau.android.net;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -11,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.PostAsyncActionHandler;
+import de.blau.android.exception.NoOAuthConfigurationException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.prefs.API.Auth;
 import de.blau.android.resources.KeyDatabaseHelper;
@@ -30,7 +33,9 @@ import se.akerfeldt.okhttp.signpost.OkHttpOAuthProvider;
  * 
  */
 public class OAuth1aHelper extends OAuthHelper {
-    private static final String DEBUG_TAG = OAuth1aHelper.class.getSimpleName().substring(0, Math.min(23, OAuth1aHelper.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OAuth1aHelper.class.getSimpleName().length());
+    private static final String DEBUG_TAG = OAuth1aHelper.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String CALLBACK_URL       = "vespucci:/oauth/";
     private static final String AUTHORIZE_PATH     = "oauth/authorize";
@@ -52,7 +57,7 @@ public class OAuth1aHelper extends OAuthHelper {
      * 
      * @throws OsmException if no configuration could be found for the API instance
      */
-    public OAuth1aHelper(@NonNull Context context, @NonNull String apiName) throws OsmException {
+    public OAuth1aHelper(@NonNull Context context, @NonNull String apiName) throws NoOAuthConfigurationException {
         try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(context)) {
             OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), apiName, Auth.OAUTH1A);
             if (configuration != null) {
@@ -60,7 +65,7 @@ public class OAuth1aHelper extends OAuthHelper {
                 return;
             }
             logMissingApi(apiName);
-            throw new OsmException("No matching OAuth configuration found for API " + apiName);
+            throw new NoOAuthConfigurationException("No matching OAuth configuration found for API " + apiName);
         }
     }
 
