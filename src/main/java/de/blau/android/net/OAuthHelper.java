@@ -30,9 +30,22 @@ public abstract class OAuthHelper {
     protected static final int TIMEOUT = 10;
 
     public static class OAuthConfiguration {
-        private String key;
-        private String secret;
-        private String oauthUrl;
+        private final String name;
+        private String       key;
+        private String       secret;
+        private String       oauthUrl;
+
+        public OAuthConfiguration(@NonNull String name) {
+            this.name = name;
+        }
+
+        /**
+         * @return the name
+         */
+        @Nullable
+        public String getName() {
+            return name;
+        }
 
         /**
          * @param key the key to set

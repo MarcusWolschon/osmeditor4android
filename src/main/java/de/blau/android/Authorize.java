@@ -3,29 +3,39 @@ package de.blau.android;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.exception.NoOAuthConfigurationException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.net.OAuth2Helper;
 import de.blau.android.net.OAuthHelper;
+import de.blau.android.net.OAuthHelper.OAuthConfiguration;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.API.Auth;
+import de.blau.android.resources.KeyDatabaseHelper;
+import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.ScreenMessage;
@@ -168,19 +178,35 @@ public class Authorize extends WebViewActivity {
         String apiName = server.getApiName();
         Auth auth = server.getAuthentication();
         Log.d(DEBUG_TAG, "oauth auth for " + apiName + " " + auth);
-
-        String authUrl = null;
         String errorMessage = null;
         try {
-            if (auth == Auth.OAUTH1A) {
-                OAuth1aHelper oa = new OAuth1aHelper(this, apiName);
-                authUrl = oa.getRequestToken();
-            } else if (auth == Auth.OAUTH2) {
-                OAuth2Helper oa = new OAuth2Helper(this, apiName);
-                authUrl = oa.getAuthorisationUrl(this);
+            openWebView(savedInstanceState, server, apiName, auth);
+        } catch (NoOAuthConfigurationException nex) {
+            try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(this)) {
+                // get list of possible configs
+                List<String> configNames = new ArrayList<>();
+                for (OAuthConfiguration configuration : KeyDatabaseHelper.getOAuthConfigurations(keyDatabase.getReadableDatabase(), auth)) {
+                    configNames.add(configuration.getName());
+                }
+                new AlertDialog.Builder(this).setTitle(R.string.choose_oauth_config)
+                        .setItems(configNames.toArray(new String[0]), (DialogInterface dialog, int which) -> {
+                            try (KeyDatabaseHelper keyDatabase2 = new KeyDatabaseHelper(this)) {
+                                KeyDatabaseHelper.copyKey(keyDatabase2.getWritableDatabase(), configNames.get(which),
+                                        auth == Auth.OAUTH1A ? EntryType.API_OAUTH1_KEY : EntryType.API_OAUTH2_KEY, apiName);
+                            }
+                            try {
+                                openWebView(savedInstanceState, server, apiName, auth);
+                            } catch (OsmException | NoOAuthConfigurationException | OAuthException | TimeoutException | ExecutionException e) {
+                                String message = getString(R.string.toast_no_oauth, apiName);
+                                Log.e(DEBUG_TAG, "still no config found " + message);
+                                new Handler(Looper.getMainLooper()).post(() -> ScreenMessage.barError(Authorize.this, message));
+                                finish();
+                            }
+                        }).setNegativeButton(R.string.abort, (DialogInterface dialog, int which) -> finish()).create().show();
+                return;
             }
+
         } catch (OsmException oe) {
-            server.setOAuth(Auth.BASIC); // ups something went wrong turn oauth off
             errorMessage = getString(R.string.toast_no_oauth, apiName);
         } catch (OAuthException e) {
             errorMessage = OAuthHelper.getErrorMessage(this, e);
@@ -189,12 +215,37 @@ public class Authorize extends WebViewActivity {
         } catch (TimeoutException e) {
             errorMessage = getString(R.string.toast_oauth_timeout);
         }
+        Log.e(DEBUG_TAG, "onCreate error " + errorMessage);
+        if (errorMessage != null) {
+            ScreenMessage.barError(this, errorMessage);
+            finish();
+        }
+    }
+
+    /**
+     * Open the webview
+     * 
+     * @param savedInstanceState sany saved state
+     * @param server the Server instance
+     * @param auth Auth type
+     * @throws OsmException
+     * @throws OAuthException
+     * @throws TimeoutException
+     * @throws ExecutionException
+     * @throws NoOAuthConfigurationException
+     */
+    private void openWebView(@Nullable final Bundle savedInstanceState, @NonNull Server server, @NonNull String apiName, @NonNull Auth auth)
+            throws OsmException, OAuthException, TimeoutException, ExecutionException, NoOAuthConfigurationException {
+        String authUrl = null;
+        if (auth == Auth.OAUTH1A) {
+            OAuth1aHelper oa = new OAuth1aHelper(this, apiName);
+            authUrl = oa.getRequestToken();
+        } else if (auth == Auth.OAUTH2) {
+            OAuth2Helper oa = new OAuth2Helper(this, apiName);
+            authUrl = oa.getAuthorisationUrl(this);
+        }
         if (authUrl == null) {
-            Log.e(DEBUG_TAG, "onCreate error " + errorMessage);
-            if (errorMessage != null) {
-                ScreenMessage.barError(this, errorMessage);
-            }
-            return;
+            throw new OsmException("authUrl is null");
         }
         Log.d(DEBUG_TAG, "authURl " + authUrl);
         synchronized (webViewLock) {

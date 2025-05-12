@@ -699,7 +699,7 @@
     <!--  -->
     <string name="toast_oauth_retry">Try uploading again after allowing OAuth access to your OSM account.</string>
     <string name="toast_oauth">Please allow OAuth access to your OSM account.</string>
-    <string name="toast_no_oauth">No OAuth configuration available for API \"%1$s\", please set login and password.</string>
+    <string name="toast_no_oauth">No OAuth configuration available for API \"%1$s\", please set login and password if supported.</string>
     <string name="toast_oauth_not_enabled">OAuth is not enabled for the current API.</string>
     <string name="toast_oauth_timeout">Timeout during authentication handshake, please try again.</string>
     <string name="toast_oauth_communication">Communication error during authentication handshake, please try again.</string>
@@ -1613,6 +1613,7 @@
     <string name="readonly_url">Read-only API URL (optional)</string>
     <string name="notes_url">Notes API URL (optional)</string>
     <string name="copy_of">Copy of %1$s</string>
+    <string name="choose_oauth_config">Choose OAuth configuration</string>
     <!-- common terms -->
     <string name="add">Add</string>
     <string name="edit">Edit</string>
