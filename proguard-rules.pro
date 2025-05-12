@@ -1,4 +1,3 @@
--printusage build/tmp/usage.txt 
 
 -dontwarn okio.**
 -dontwarn javax.annotation.Nullable
@@ -59,6 +58,14 @@
 -keep,includedescriptorclasses class de.blau.android.presets.Preset$PresetItem
 -keep,includedescriptorclasses class de.blau.android.util.StringWithDescription
 -keep,includedescriptorclasses class de.blau.android.views.CustomAutoCompleteTextView$Tokenizer
+
+-keepclassmembers class androidx.appcompat.view.StandaloneActionMode {    
+    private androidx.appcompat.widget.ActionBarContextView mContextView;
+ }
+ 
+-keepclassmembers class androidx.appcompat.widget.ActionBarContextView {    
+    private android.view.View mClose;
+}
 
 -keep class de.blau.android.services.*
 
