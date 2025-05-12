@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,7 +28,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -36,8 +38,10 @@ import de.blau.android.views.ExtendedViewPager;
  * Display a dialog giving new users minimal instructions
  *
  */
-public class Newbie extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = Newbie.class.getSimpleName().substring(0, Math.min(23, Newbie.class.getSimpleName().length()));
+public class Newbie extends CancelableDialogFragment {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Newbie.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Newbie.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_newbie";
 
@@ -170,9 +174,6 @@ public class Newbie extends ImmersiveDialogFragment {
         });
 
         String message = getString(R.string.welcome_message);
-        if (((Main) activity).isFullScreen()) {
-            message = message + getString(R.string.welcome_message_fullscreen);
-        }
         ((TextView) layout.findViewById(R.id.welcome_message)).setText(Util.fromHtml(message));
         builder.setView(layout);
 

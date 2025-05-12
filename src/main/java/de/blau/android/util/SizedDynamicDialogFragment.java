@@ -4,9 +4,9 @@ import android.app.Dialog;
 import android.view.ViewGroup;
 
 /**
- * Fixed width version of ImmersiveDialogFragment
+ * Non-fixed width version of DialogFragment
  */
-public abstract class SizedDynamicImmersiveDialogFragment extends ImmersiveDialogFragment {
+public abstract class SizedDynamicDialogFragment extends CancelableDialogFragment {
 
     @Override
     public void onStart() {

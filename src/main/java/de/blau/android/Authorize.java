@@ -16,6 +16,8 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
@@ -204,6 +206,8 @@ public class Authorize extends WebViewActivity {
             Uri uri = Uri.parse(server.getWebsiteBaseUrl());
             webView.setWebViewClient(new OAuthWebViewClient(uri.getHost()));
             loadUrlOrRestore(savedInstanceState, authUrl);
+            ViewGroupCompat.installCompatInsetsDispatch(webView);
+            ViewCompat.setOnApplyWindowInsetsListener(webView, onApplyWindowInsetslistener);
         }
     }
 

@@ -1,5 +1,7 @@
 package de.blau.android.resources;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -42,7 +44,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.resources.WmsCapabilities.Layer;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.OnTextChangedWatcher;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
@@ -51,9 +53,10 @@ import de.blau.android.util.WidestItemArrayAdapter;
 /**
  * WMS endpoint management UI
  */
-public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements OnUpdateListener {
-    private static final String DEBUG_TAG = WmsEndpointDatabaseView.class.getSimpleName().substring(0,
-            Math.min(23, WmsEndpointDatabaseView.class.getSimpleName().length()));
+public class WmsEndpointDatabaseView extends CancelableDialogFragment implements OnUpdateListener {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, WmsEndpointDatabaseView.class.getSimpleName().length());
+    private static final String DEBUG_TAG = WmsEndpointDatabaseView.class.getSimpleName().substring(0, TAG_LEN);
 
     private EndpointAdapter endpointAdapter;
 

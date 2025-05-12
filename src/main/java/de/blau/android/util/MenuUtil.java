@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -11,16 +13,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.ActionMenuView;
-import de.blau.android.R;
 
 public class MenuUtil {
 
-    private static final String DEBUG_TAG = MenuUtil.class.getSimpleName().substring(0, Math.min(23, MenuUtil.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MenuUtil.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MenuUtil.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MIN_WIDTH_DP = 64; // this is hardwired in ActionMenuView!!!
 
-    private int       maxItems = 0;
-    private final int screenWidth;
+    private int maxItems = 0;
 
     /**
      * Utility class for menu arrangement
@@ -31,7 +32,6 @@ public class MenuUtil {
         // hardcoded calculation of how many icons we want to display
         // TODO de-hardcode
         DisplayMetrics metrics = ctx.getResources().getDisplayMetrics();
-        screenWidth = metrics.widthPixels;
         float widthDp = metrics.widthPixels / metrics.density;
 
         maxItems = (int) (widthDp / MIN_WIDTH_DP);
@@ -83,22 +83,13 @@ public class MenuUtil {
      * 
      * @param activity the calling Activity
      * @param bar the bar to use
-     * @param fullScreen true if we are in fullscreen mode
-     * @param light true if we are using the light theme
      */
-    public static void setupBottomBar(@NonNull Activity activity, @NonNull ActionMenuView bar, boolean fullScreen, boolean light) {
+    public static void setupBottomBar(@NonNull Activity activity, @NonNull ActionMenuView bar) {
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         if (Screen.isLarge(activity)) {
             params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             params.gravity = Gravity.END;
         }
         bar.setLayoutParams(params);
-        if (fullScreen) {
-            if (light) {
-                bar.setPopupTheme(R.style.Theme_noOverlapMenu_Light);
-            } else {
-                bar.setPopupTheme(R.style.Theme_noOverlapMenu);
-            }
-        }
     }
 }

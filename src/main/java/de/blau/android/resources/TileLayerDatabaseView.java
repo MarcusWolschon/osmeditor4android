@@ -1,5 +1,7 @@
 package de.blau.android.resources;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,10 +34,12 @@ import de.blau.android.layer.tiles.MapTilesLayer;
 import de.blau.android.layer.tiles.MapTilesOverlayLayer;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 
-public class TileLayerDatabaseView extends ImmersiveDialogFragment implements OnUpdateListener {
-    private static final String DEBUG_TAG = TileLayerDatabaseView.class.getSimpleName().substring(0, Math.min(23, TileLayerDatabaseView.class.getSimpleName().length()));
+public class TileLayerDatabaseView extends CancelableDialogFragment implements OnUpdateListener {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TileLayerDatabaseView.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TileLayerDatabaseView.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_layer_database_view";
 

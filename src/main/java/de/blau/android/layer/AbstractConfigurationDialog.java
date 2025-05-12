@@ -1,5 +1,7 @@
 package de.blau.android.layer;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -8,7 +10,7 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.SizedFixedImmersiveDialogFragment;
+import de.blau.android.util.SizedFixedDialogFragment;
 
 /**
  * Configuration dialog that replicates the settings in the Preferences
@@ -16,9 +18,10 @@ import de.blau.android.util.SizedFixedImmersiveDialogFragment;
  * @author Simon Poole
  *
  */
-public abstract class AbstractConfigurationDialog extends SizedFixedImmersiveDialogFragment {
+public abstract class AbstractConfigurationDialog extends SizedFixedDialogFragment {
 
-    private static final String DEBUG_TAG = AbstractConfigurationDialog.class.getSimpleName().substring(0, Math.min(23, AbstractConfigurationDialog.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AbstractConfigurationDialog.class.getSimpleName().length());
+    private static final String DEBUG_TAG = AbstractConfigurationDialog.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * Display a dialog allowing the user to change some properties of the current layer
