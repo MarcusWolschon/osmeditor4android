@@ -1,5 +1,7 @@
 package de.blau.android.net;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,6 +30,7 @@ import de.blau.android.App;
 import de.blau.android.AsyncResult;
 import de.blau.android.ErrorCodes;
 import de.blau.android.PostAsyncActionHandler;
+import de.blau.android.exception.NoOAuthConfigurationException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.API;
@@ -51,7 +54,8 @@ import okhttp3.Response;
  */
 public class OAuth2Helper extends OAuthHelper {
 
-    private static final String DEBUG_TAG = OAuth2Helper.class.getSimpleName().substring(0, Math.min(23, OAuth2Helper.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OAuth2Helper.class.getSimpleName().length());
+    private static final String DEBUG_TAG = OAuth2Helper.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String REDIRECT_URI = "vespucci:/oauth2/";
     // instead of hardwiring these we could extract them from
@@ -94,7 +98,7 @@ public class OAuth2Helper extends OAuthHelper {
      * 
      * @throws OsmException if no configuration could be found for the API instance
      */
-    public OAuth2Helper(@NonNull Context context, @NonNull String apiName) throws OsmException {
+    public OAuth2Helper(@NonNull Context context, @NonNull String apiName) throws NoOAuthConfigurationException {
         try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(context)) {
             configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), apiName, Auth.OAUTH2);
             if (configuration != null) {
@@ -105,7 +109,7 @@ public class OAuth2Helper extends OAuthHelper {
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, e.getMessage());
         }
-        throw new OsmException("No matching OAuth 2 configuration found for API " + apiName);
+        throw new NoOAuthConfigurationException("No matching OAuth 2 configuration found for API " + apiName);
     }
 
     /**

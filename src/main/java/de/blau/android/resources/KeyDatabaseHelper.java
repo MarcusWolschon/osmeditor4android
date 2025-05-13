@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import android.content.ContentValues;
@@ -29,10 +31,10 @@ import de.blau.android.util.ScreenMessage;
  */
 public class KeyDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int TAG_LEN = Math.min(23, KeyDatabaseHelper.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(23, KeyDatabaseHelper.class.getSimpleName().length());
     private static final String DEBUG_TAG = KeyDatabaseHelper.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String DATABASE_NAME    = "keys";
+    static final String         DATABASE_NAME    = "keys";
     private static final int    DATABASE_VERSION = 4;
     private static final int    FIELD_COUNT      = 4;
     private static final String AND              = " AND ";
@@ -157,7 +159,30 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Retrieve the OAuth2 configuration for an API
+     * Duplicate key identified by its name
+     * 
+     * @param db readable SQLiteDatabase
+     * @param name the key name
+     * @param type type of the entry
+     * @param newName the name of the duplicated entry
+     */
+    @Nullable
+    public static void copyKey(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull EntryType type, @NonNull String newName) {
+        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { KEY_FIELD, ADD1_FIELD, ADD2_FIELD }, NAME_FIELD + "=?  AND " + TYPE_FIELD + "=?",
+                new String[] { name, type.toString() }, null, null, null)) {
+            if (dbresult.getCount() == 1) {
+                boolean haveEntry = dbresult.moveToFirst();
+                if (haveEntry) {
+                    replaceOrDeleteKey(db, newName, type, dbresult.getString(0), true, false, dbresult.getString(1), dbresult.getString(2));
+                    return;
+                }
+            }
+        }
+        Log.d(DEBUG_TAG, "copying key " + name + " " + type + " to " + newName + " failed");
+    }
+
+    /**
+     * Retrieve the OAuth configuration for an API
      * 
      * @param db readable SQLiteDatabase
      * @param name the API name
@@ -174,13 +199,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
                 boolean haveEntry = dbresult.moveToFirst();
                 if (haveEntry) {
                     try {
-                        OAuthConfiguration result = new OAuthConfiguration();
-                        result.setKey(dbresult.getString(dbresult.getColumnIndexOrThrow(KEY_FIELD)));
-                        if (oAuth1a) {
-                            result.setSecret(dbresult.getString(dbresult.getColumnIndexOrThrow(ADD1_FIELD)));
-                        }
-                        result.setOauthUrl(dbresult.getString(dbresult.getColumnIndexOrThrow(ADD2_FIELD)));
-                        return result;
+                        return getOAuthConfigurationFromCursor(oAuth1a, dbresult, name);
                     } catch (IllegalArgumentException iaex) {
                         Log.e(DEBUG_TAG, "error in entry for " + name);
                     }
@@ -188,6 +207,49 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
             }
             return null;
         }
+    }
+
+    /**
+     * Retrieve the OAuth configurations for a specific OAuth variant
+     * 
+     * @param db readable SQLiteDatabase
+     * @param auth current Authentication type
+     * @return a List of configurations (potentially empty)
+     */
+    @NonNull
+    public static List<OAuthConfiguration> getOAuthConfigurations(@NonNull SQLiteDatabase db, @NonNull Auth auth) {
+        final boolean oAuth1a = auth == Auth.OAUTH1A;
+        List<OAuthConfiguration> configurations = new ArrayList<>();
+        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { NAME_FIELD, KEY_FIELD, ADD1_FIELD, ADD2_FIELD },
+                TYPE_FIELD + "='" + (oAuth1a ? EntryType.API_OAUTH1_KEY : EntryType.API_OAUTH2_KEY) + "'", null, null, null, null)) {
+            if (dbresult.getCount() >= 1) {
+                boolean haveEntry = dbresult.moveToFirst();
+                while (haveEntry) {
+                    configurations.add(getOAuthConfigurationFromCursor(oAuth1a, dbresult, dbresult.getString(dbresult.getColumnIndexOrThrow(NAME_FIELD))));
+                    haveEntry = dbresult.moveToNext();
+                }
+            }
+        }
+        return configurations;
+    }
+
+    /**
+     * Get an OAuthConfiguration from a Cursor
+     * 
+     * @param oAuth1a true if it should be an OAuth1a config
+     * @param dbresult the Cursor
+     * @param name the name to use
+     * @return the config
+     */
+    @NonNull
+    private static OAuthConfiguration getOAuthConfigurationFromCursor(final boolean oAuth1a, @NonNull Cursor dbresult, @NonNull String name) {
+        OAuthConfiguration result = new OAuthConfiguration(name);
+        result.setKey(dbresult.getString(dbresult.getColumnIndexOrThrow(KEY_FIELD)));
+        if (oAuth1a) {
+            result.setSecret(dbresult.getString(dbresult.getColumnIndexOrThrow(ADD1_FIELD)));
+        }
+        result.setOauthUrl(dbresult.getString(dbresult.getColumnIndexOrThrow(ADD2_FIELD)));
+        return result;
     }
 
     /**

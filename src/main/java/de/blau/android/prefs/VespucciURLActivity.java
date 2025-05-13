@@ -20,7 +20,7 @@ import de.blau.android.AsyncResult;
 import de.blau.android.Authorize;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
-import de.blau.android.exception.OsmException;
+import de.blau.android.exception.NoOAuthConfigurationException;
 import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.net.OAuth2Helper;
 import de.blau.android.net.OAuthHelper;
@@ -38,7 +38,8 @@ import de.blau.android.util.Util;
  *
  */
 public class VespucciURLActivity extends AppCompatActivity implements OnClickListener {
-    private static final String DEBUG_TAG = VespucciURLActivity.class.getSimpleName().substring(0, Math.min(23, VespucciURLActivity.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = VespucciURLActivity.class.getSimpleName().substring(0,
+            Math.min(23, VespucciURLActivity.class.getSimpleName().length()));
 
     private static final int    REQUEST_PRESETEDIT   = 0;
     private static final String OAUTH1A_PATH         = "oauth";
@@ -113,7 +114,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
                 ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_communication));
             } catch (TimeoutException e) {
                 ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_timeout));
-            } catch (OsmException e) {
+            } catch (NoOAuthConfigurationException e) {
                 ScreenMessage.toastTopError(this, getString(R.string.toast_no_oauth, apiName));
             } catch (IllegalArgumentException e) {
                 ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_handshake_failed, e.getMessage()));

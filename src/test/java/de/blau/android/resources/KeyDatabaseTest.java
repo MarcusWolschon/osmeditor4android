@@ -8,11 +8,13 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import android.util.Log;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.contract.Files;
@@ -21,9 +23,17 @@ import de.blau.android.prefs.API.Auth;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(sdk = 33)
 @LargeTest
 public class KeyDatabaseTest {
+
+    /**
+     * Post-test teardown
+     */
+    @After
+    public void teardown() {
+        ApplicationProvider.getApplicationContext().deleteDatabase(KeyDatabaseHelper.DATABASE_NAME);
+    }
 
     /**
      * Get OAuth1a keys
@@ -74,6 +84,20 @@ public class KeyDatabaseTest {
             KeyDatabaseHelper.deleteKey(keyDatabase.getWritableDatabase(), "OpenStreetMap", EntryType.API_OAUTH1_KEY);
             configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), "OpenStreetMap", Auth.OAUTH1A);
             assertNull(configuration);
+        }
+    }
+
+    /**
+     * Check if copying works as expected
+     */
+    @Test
+    public void copyTest() {
+        try (KeyDatabaseHelper keys = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext())) {
+            keys.keysFromStream(ApplicationProvider.getApplicationContext(), getClass().getResourceAsStream("/" + Files.FILE_NAME_KEYS_V2));
+        }
+        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext())) {
+            KeyDatabaseHelper.copyKey(keyDatabase.getWritableDatabase(), "OpenStreetMap", EntryType.API_OAUTH1_KEY, "Test");
+            assertEquals("1212121212", KeyDatabaseHelper.getKey(keyDatabase.getReadableDatabase(), "Test", EntryType.API_OAUTH1_KEY));
         }
     }
 }

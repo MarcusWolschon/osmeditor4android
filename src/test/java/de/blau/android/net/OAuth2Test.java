@@ -26,6 +26,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.ShadowWorkManager;
+import de.blau.android.exception.NoOAuthConfigurationException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -101,7 +102,7 @@ public class OAuth2Test {
             assertEquals("1212121212", parsed.getQueryParameter("client_id"));
             String codeChallenge = parsed.getQueryParameter("code_challenge");
             assertNotNull(codeChallenge);
-        } catch (OsmException e) {
+        } catch (OsmException | NoOAuthConfigurationException e) {
             fail(e.getMessage());
         }
     }
