@@ -34,7 +34,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private static final int    TAG_LEN   = Math.min(23, KeyDatabaseHelper.class.getSimpleName().length());
     private static final String DEBUG_TAG = KeyDatabaseHelper.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String DATABASE_NAME    = "keys";
+    static final String         DATABASE_NAME    = "keys";
     private static final int    DATABASE_VERSION = 4;
     private static final int    FIELD_COUNT      = 4;
     private static final String AND              = " AND ";

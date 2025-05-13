@@ -1,5 +1,5 @@
 #
-# This file hold the OAuth1 and OAuth2 authentication keys as a courtesy for private builds and F_droid, they are not the same as those used for our distribution
+# This file holds the OAuth1 and OAuth2 authentication keys as a courtesy for private builds and F_droid, they are not the same as those used for our distribution
 #
 # File format, tab separated fields  
 # <name> <key type>  <key>   <overwrite> <additional 1>  <additional 2>
