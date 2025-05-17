@@ -1,5 +1,7 @@
 package de.blau.android.imageryoffset;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,12 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 public class ImageryOffsetDatabase extends SQLiteOpenHelper {
-    private static final String DEBUG_TAG        = ImageryOffsetDatabase.class.getSimpleName().substring(0, Math.min(23, ImageryOffsetDatabase.class.getSimpleName().length()));
-    public static final String  DATABASE_NAME    = "offsets";
-    private static final int    DATABASE_VERSION = 1;
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ImageryOffsetDatabase.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ImageryOffsetDatabase.class.getSimpleName().substring(0, TAG_LEN);
+
+    public static final String DATABASE_NAME    = "offsets";
+    private static final int   DATABASE_VERSION = 1;
 
     private static final String OFFSETS_TABLE     = "offsets";
     private static final String IMAGERY_ID_FIELD  = "imagery_id";
@@ -97,8 +102,7 @@ public class ImageryOffsetDatabase extends SQLiteOpenHelper {
      */
     public static List<ImageryOffset> getOffsets(@NonNull SQLiteDatabase db, @NonNull String id) {
         List<ImageryOffset> result = new ArrayList<>();
-        Cursor dbresult = db.query(OFFSETS_TABLE, null, IMAGERY_ID_FIELD + "='" + id + "'", null, null, null, null);
-
+        Cursor dbresult = db.query(OFFSETS_TABLE, null, IMAGERY_ID_FIELD + "=?", new String[] { id }, null, null, null);
         if (dbresult.getCount() >= 1) {
             boolean haveEntry = dbresult.moveToFirst();
             while (haveEntry) {
