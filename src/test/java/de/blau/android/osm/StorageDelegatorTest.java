@@ -12,6 +12,7 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,7 @@ import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
+import kotlin.collections.jdk8.CollectionsJDK8Kt;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
@@ -1437,6 +1439,78 @@ public class StorageDelegatorTest {
         Way fromWay = (Way) froms.get(0).getElement();
         assertTrue(fromWay.getLastNode().equals(n) || fromWay.getFirstNode().equals(n));
         assertTrue(fromWay.hasCommonNode(newWay));
+    }
+
+    /**
+     * Split a lollipop with loop at the end of the way
+     */
+    @Test
+    public void splitLollipop1() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "lollipop.osm");
+        Way lollipop = (Way) d.getOsmElement(Way.NAME, -1L);
+        Node junction = (Node) d.getOsmElement(Node.NAME, -2L);
+        List<Result> splitResult = d.splitAtNode(lollipop, junction, true);
+        assertNotNull(splitResult);
+        assertEquals(1, splitResult.size());
+        Way closedBit = (Way) splitResult.get(0).getElement();
+        assertTrue(closedBit.isClosed());
+        assertEquals(2, Collections.frequency(closedBit.getNodes(), junction));
+        assertFalse(lollipop.isClosed());
+        assertEquals(1, Collections.frequency(lollipop.getNodes(), junction));
+    }
+
+    /**
+     * Split a lollipop with loop at the end of the way
+     */
+    @Test
+    public void splitLollipop2() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "lollipop.osm");
+        Way lollipop = (Way) d.getOsmElement(Way.NAME, -1L);
+        Node junction = (Node) d.getOsmElement(Node.NAME, -2L);
+        List<Result> splitResult = d.splitAtNode(lollipop, junction, false);
+        assertNotNull(splitResult);
+        assertEquals(1, splitResult.size());
+        Way stick = (Way) splitResult.get(0).getElement();
+        assertFalse(stick.isClosed());
+        assertEquals(1, Collections.frequency(stick.getNodes(), junction));
+        assertTrue(lollipop.isClosed());
+        assertEquals(2, Collections.frequency(lollipop.getNodes(), junction));
+    }
+
+    /**
+     * Split a lollipop with loop at the beginning of the way
+     */
+    @Test
+    public void splitLollipop3() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "lollipop.osm");
+        Way lollipop = (Way) d.getOsmElement(Way.NAME, -2L);
+        Node junction = (Node) d.getOsmElement(Node.NAME, -6L);
+        List<Result> splitResult = d.splitAtNode(lollipop, junction, true);
+        assertNotNull(splitResult);
+        assertEquals(1, splitResult.size());
+        Way stick = (Way) splitResult.get(0).getElement();
+        assertFalse(stick.isClosed());
+        assertEquals(1, Collections.frequency(stick.getNodes(), junction));
+        assertTrue(lollipop.isClosed());
+        assertEquals(2, Collections.frequency(lollipop.getNodes(), junction));
+    }
+
+    /**
+     * Split a lollipop with loop at the beginning of the way
+     */
+    @Test
+    public void splitLollipop4() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "lollipop.osm");
+        Way lollipop = (Way) d.getOsmElement(Way.NAME, -2L);
+        Node junction = (Node) d.getOsmElement(Node.NAME, -6L);
+        List<Result> splitResult = d.splitAtNode(lollipop, junction, false);
+        assertNotNull(splitResult);
+        assertEquals(1, splitResult.size());
+        Way closedBit = (Way) splitResult.get(0).getElement();
+        assertTrue(closedBit.isClosed());
+        assertEquals(2, Collections.frequency(closedBit.getNodes(), junction));
+        assertFalse(lollipop.isClosed());
+        assertEquals(1, Collections.frequency(lollipop.getNodes(), junction));
     }
 
     /**
