@@ -1456,10 +1456,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         undo.save(way);
 
         List<Node> nodes = way.getNodes();
-        int occurances = Collections.frequency(way.getNodes(), node);
+        int occurrences = Collections.frequency(way.getNodes(), node);
         // the following condition is fairly obscure and should likely be replaced by checking for position of the node
         // in the way
-        if (nodes.size() < 3 || (way.isEndNode(node) && (way.isClosed() ? occurances == 2 : occurances == 1))) {
+        if (nodes.size() < 3 || (way.isEndNode(node) && (way.isClosed() ? occurrences == 2 : occurrences == 1))) {
             // protect against producing single node ways
             logAndThrow("splitAtNode can't split " + nodes.size() + " node long way at this node");
         }
@@ -1468,7 +1468,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<String> metricKeys = getMetricKeys(way);
         double originalLength = getWayLength(way, metricKeys);
 
-        // we assume this node is only contained in the way once.
+        // we assume this node is only contained in the way once (with the exception of loops at one end of the way).
         // else the user needs to split the remaining way again.
         List<Node> nodesForNewWay = splitOffNodes(way, node, fromEnd);
         if (nodesForNewWay.size() <= 1) {
@@ -1550,7 +1550,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         boolean first = true; // node to split at can't be the first one
         for (Iterator<Node> it = way.getNodeIterator(); it.hasNext();) {
             Node wayNode = it.next();
-            if (wayNode.getOsmId() == node.getOsmId() && !first) {
+            if (wayNode.getOsmId() == node.getOsmId() && !first && !found) {
                 found = true;
                 nodesForNewWay.add(wayNode);
             } else if (found == fromEnd) {
