@@ -3425,6 +3425,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 if (!nodeIndex.containsKey(n.getOsmId()) && apiNode == null) { // new node no problem
                     temp.insertNodeUnsafe(n);
                     newElements.add(n);
+                    n.clearParentRelations();
                 } else {
                     if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
                         if (apiNode.getOsmVersion() >= n.getOsmVersion()) {
@@ -3459,6 +3460,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 if (!wayIndex.containsKey(w.getOsmId()) && apiWay == null) { // new way no problem
                     temp.insertWayUnsafe(w);
                     newElements.add(w);
+                    w.clearParentRelations();
                 } else {
                     if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
                         if (apiWay.getOsmVersion() >= w.getOsmVersion()) {
@@ -3530,6 +3532,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 if (!relationIndex.containsKey(r.getOsmId()) && apiRelation == null) { // new relation no problem
                     temp.insertRelationUnsafe(r);
                     newElements.add(r);
+                    r.clearParentRelations();
                 } else {
                     if (apiRelation != null && apiRelation.getState() == OsmElement.STATE_DELETED) {
                         if (apiRelation.getOsmVersion() >= r.getOsmVersion()) {

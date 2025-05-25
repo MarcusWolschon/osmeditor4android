@@ -26,10 +26,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParserException;
 
-import android.util.Log;
-import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
@@ -44,9 +41,6 @@ import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
-import kotlin.collections.jdk8.CollectionsJDK8Kt;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = 33)
@@ -419,6 +413,86 @@ public class StorageDelegatorTest {
         assertNotNull(d.getOsmElement(Node.NAME, 761534749L));
         assertEquals(nodeCount + 4L, d.getCurrentStorage().getNodeCount());
         assertEquals(wayCount + 1L, d.getCurrentStorage().getWayCount());
+    }
+
+    /**
+     * Load some data remove way from relation, prune data, merge again
+     */
+    @Test
+    public void mergeData2() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "lady_moon_lake.osm");
+        InputStream input = getClass().getResourceAsStream("/lady_moon_lake.osm");
+        OsmParser parser = new OsmParser();
+        Storage orig = null;
+        try {
+            parser.start(input);
+            orig = parser.getStorage();
+        } catch (SAXException | IOException | ParserConfigurationException | IllegalArgumentException | IllegalStateException e) {
+            fail(e.getMessage());
+        }
+
+        Way w = (Way) d.getOsmElement(Way.NAME, 353593072L);
+        assertNotNull(w);
+        Relation r = (Relation) d.getOsmElement(Relation.NAME, 19172024L);
+        assertNotNull(r);
+        RelationMember rm = r.getMember(w);
+        assertNotNull(rm);
+
+        d.getUndo().createCheckpoint("remove way from relation", null);
+        d.removeRelationMembersFromRelation(r, Util.wrapInList(rm));
+
+        assertNull(r.getMember(w));
+
+        d.pruneAll();
+
+        assertNotNull(d.getOsmElement(Relation.NAME, 19172024L));
+        assertNull(d.getOsmElement(Way.NAME, 353593072L));
+        assertEquals(1, d.getCurrentElementCount());
+
+        assertNotNull(orig.getWay(353593072L));
+        try {
+            d.mergeData(orig, null);
+        } catch (DataConflictException e) {
+            fail(e.getMessage());
+        }
+
+        w = (Way) d.getOsmElement(Way.NAME, 353593072L);
+        assertNotNull(w);
+        assertNull(w.getParentRelations());
+        rm = r.getMember(w);
+        assertNull(rm);
+    }
+    
+    /**
+     * Merge some data into empty delegator to make sure that backlinks are re-created properly
+     */
+    @Test
+    public void mergeData3() {
+        StorageDelegator d = App.getDelegator();
+        d.reset(true);
+        InputStream input = getClass().getResourceAsStream("/lady_moon_lake.osm");
+        OsmParser parser = new OsmParser();
+        Storage orig = null;
+        try {
+            parser.start(input);
+            orig = parser.getStorage();
+        } catch (SAXException | IOException | ParserConfigurationException | IllegalArgumentException | IllegalStateException e) {
+            fail(e.getMessage());
+        }
+
+        try {
+            d.mergeData(orig, null);
+        } catch (DataConflictException e) {
+            fail(e.getMessage());
+        }
+        
+        Way w = (Way) d.getOsmElement(Way.NAME, 353593072L);
+        assertNotNull(w);
+        Relation r = (Relation) d.getOsmElement(Relation.NAME, 19172024L);
+        assertNotNull(r);
+        RelationMember rm = r.getMember(w);
+        assertNotNull(rm);
+        assertTrue(w.getParentRelations().contains(r));
     }
 
     /**
