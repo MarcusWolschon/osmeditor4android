@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import android.text.SpannableString;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -65,6 +67,8 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
 
     private final List<RelationMember>               newMembers     = new ArrayList<>();
     private final MultiHashMap<Long, RelationMember> removeMembers  = new MultiHashMap<>();
+    private final Wrapper                            wrapper;
+    private final Map<String, Condition>             conditionCache = new HashMap<>();
     private Relation                                 relation       = null;
     private MenuItem                                 revertItem     = null;
     private PresetElementPath                        presetPath     = null;
@@ -78,6 +82,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
         super(manager);
+        wrapper = new Wrapper(main);
         StorageDelegator delegator = App.getDelegator();
         List<RelationMember> savedNewMembers = state.getList(NEW_MEMBERS_KEY);
         if (savedNewMembers != null) {
@@ -111,6 +116,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @Nullable PresetElementPath presetPath,
             @NonNull List<OsmElement> selection) {
         super(manager);
+        wrapper = new Wrapper(main);
         this.presetPath = presetPath;
         for (OsmElement e : selection) {
             addElement(e);
@@ -126,6 +132,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @Nullable PresetElementPath presetPath, @NonNull OsmElement element) {
         super(manager);
+        wrapper = new Wrapper(main);
         this.presetPath = presetPath;
         addElement(element);
     }
@@ -140,6 +147,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @NonNull Relation relation, @Nullable OsmElement element) {
         super(manager);
+        wrapper = new Wrapper(main);
         this.relation = relation;
         if (element != null) {
             addElement(element);
@@ -156,6 +164,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @NonNull Relation relation, @NonNull List<OsmElement> selection) {
         super(manager);
+        wrapper = new Wrapper(main);
         this.relation = relation;
         for (OsmElement e : selection) {
             addElement(e);
@@ -392,8 +401,14 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             removeMembers.removeKey(osmId);
         } else if (((relationWays != null && relationWays.contains(element)) || (relationNodes != null && relationNodes.contains(element))
                 || (relationRelations != null && relationRelations.contains(element)))) {
-            new AlertDialog.Builder(main).setTitle(R.string.duplicate_relation_member_title)
-                    .setMessage(main.getString(R.string.duplicate_relation_member_message, element.getDescription(main, true)))
+            CharSequence message = new SpannableString(main.getString(R.string.duplicate_relation_member_message, element.getDescription(main, true)));
+            List<PresetRole> roles = getRoles();
+            if (roles != null && !checkRole(roles, element)) {
+                SpannableString warning = new SpannableString(main.getString(R.string.relation_member_no_match_warning));
+                ThemeUtils.setSpanColor(main, warning, R.attr.error, R.color.material_red);
+                message = TextUtils.concat(message, warning);
+            }
+            new AlertDialog.Builder(main).setTitle(R.string.duplicate_relation_member_title).setMessage(message)
                     .setPositiveButton(R.string.duplicate_route_segment_button, (dialog, which) -> addElement(element))
                     .setNegativeButton(R.string.duplicate_relation_member_remove_button, (dialog, which) -> removeElement(element))
                     .setNeutralButton(R.string.cancel, null).show();
@@ -429,17 +444,33 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         elements.addAll(currentStorage.getWays(viewBox));
         elements.addAll(currentStorage.getRelations());
         Set<OsmElement> clickable = new HashSet<>();
-        Wrapper wrapper = new Wrapper(main);
-        Map<String, Condition> conditionCache = new HashMap<>();
+        List<OsmElement> memberElements = relation != null ? relation.getMemberElements() : new ArrayList<>();
         for (OsmElement e : elements) {
-            for (PresetRole role : roles) {
-                if (role.appliesTo(e.getType()) && checkMemberExpression(role.getMemberExpression(), wrapper, conditionCache, e)) {
-                    clickable.add(e);
-                    break;
-                }
+            if (memberElements.contains(e)) {
+                clickable.add(e);
+                continue;
+            }
+            if (checkRole(roles, e)) {
+                clickable.add(e);
             }
         }
         logic.setClickableElements(clickable);
+    }
+
+    /**
+     * Check a potential member against roles and their member_expressions
+     * 
+     * @param roles a List of Roles
+     * @param e the OsmElement
+     * @return true if the element is a potential member
+     */
+    private boolean checkRole(@NonNull List<PresetRole> roles, @NonNull OsmElement e) {
+        for (PresetRole role : roles) {
+            if (role.appliesTo(e.getType()) && checkMemberExpression(role.getMemberExpression(), wrapper, conditionCache, e)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
