@@ -379,6 +379,8 @@
     <string name="remove_relation_member_message">%1$s</string>
     <string name="relation_member_no_match_warning">\n\nWarning:\n\nThe element does not match the preset defined member filters for this type of relation.</string>
     <string name="duplicate_relation_member_remove_button">Remove member</string>
+    <string name="choose_role_title">Choose role</string>
+    <string name="leave_role_empty">Leave role empty</string>
     <!-- Move multi-polygon outer element tags to relation -->
     <string name="move_outer_tags_title">Move tags from outer rings to multi-polygon</string>
     <string name="move_outer_tags_message">Object defining tags should only be present on the multi-polygon. This action will move common tags from the outer rings to the multi-polygon.</string>
@@ -1652,6 +1654,9 @@
     <string name="description_type_id">%1$s %2$s #%3$s</string>
     <string name="only_id">#%1$s</string>
     <string name="type_id">%1$s #%2$s</string>
+    <!--  preset stuff -->
+    <string name="preset_role">%1$s - %2$s</string>
+    <string name="preset_empty_role">Empty role</string>
     <!-- undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname" -->
     <string name="undo_action_movenode">Node moved</string>
     <string name="undo_action_moveway">Way moved</string>
