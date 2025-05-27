@@ -300,7 +300,13 @@ public class PresetRole extends Regionalizable implements Comparable<PresetRole>
 
     @Override
     public String toString() {
-        return role + (hint != null ? (role == null || "".equals(role) ? "" : " - ") + hint : "");
+        if (de.blau.android.util.Util.isEmpty(role)) {
+            return hint != null ? hint : "";
+        }
+        if (hint != null) {
+            return role + " - " + hint;
+        }
+        return role;
     }
 
     @Override
@@ -310,7 +316,8 @@ public class PresetRole extends Regionalizable implements Comparable<PresetRole>
 
     @Override
     public int hashCode() {
-        return Objects.hash(role);
+        return Objects.hash(appliesToArea, appliesToClosedWay, appliesToNode, appliesToRelation, appliesToWay, count, deprecated, hint, memberExpression,
+                regexp, requisite, role);
     }
 
     @Override
@@ -322,6 +329,9 @@ public class PresetRole extends Regionalizable implements Comparable<PresetRole>
             return false;
         }
         PresetRole other = (PresetRole) obj;
-        return Objects.equals(role, other.role);
+        return appliesToArea == other.appliesToArea && appliesToClosedWay == other.appliesToClosedWay && appliesToNode == other.appliesToNode
+                && appliesToRelation == other.appliesToRelation && appliesToWay == other.appliesToWay && count == other.count && deprecated == other.deprecated
+                && Objects.equals(hint, other.hint) && Objects.equals(memberExpression, other.memberExpression) && regexp == other.regexp
+                && requisite == other.requisite && Objects.equals(role, other.role);
     }
 }
