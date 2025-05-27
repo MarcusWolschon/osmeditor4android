@@ -421,6 +421,29 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         return true;
     }
 
+    @Override
+    public boolean handleElementLongClick(@NonNull OsmElement element) {
+        super.handleElementLongClick(element);
+        List<PresetRole> roles = getRoles();
+        if (roles != null && !checkRole(roles, element)) {
+            CharSequence message = main.getString(R.string.remove_relation_member_message, element.getDescription(main, true));
+            SpannableString warning = new SpannableString(main.getString(R.string.relation_member_no_match_warning));
+            ThemeUtils.setSpanColor(main, warning, R.attr.error, R.color.material_red);
+            message = TextUtils.concat(message, warning);
+            new AlertDialog.Builder(main).setTitle(R.string.remove_relation_member_title).setMessage(message)
+                    .setNegativeButton(R.string.duplicate_relation_member_remove_button, (dialog, which) -> removeElement(element))
+                    .setNeutralButton(R.string.cancel, null).show();
+        } else {
+            removeElement(element);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean usesLongClick() {
+        return true;
+    }
+
     /**
      * Calculate and set the elements the user can click
      */

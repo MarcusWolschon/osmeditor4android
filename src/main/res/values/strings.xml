@@ -372,9 +372,11 @@
     <string name="duplicate_route_segment_title">Add route segment</string>
     <string name="duplicate_route_segment_message">This way is already a member of the route.</string>
     <string name="duplicate_route_segment_button">Add anyway</string>
-    <!-- Duplicate relation element dialog -->
+    <!-- Relation editing dialog -->
     <string name="duplicate_relation_member_title">Add or remove relation member</string>
     <string name="duplicate_relation_member_message">%1$s\n\nis already a member of the relation.</string>
+    <string name="remove_relation_member_title">Remove relation member</string>
+    <string name="remove_relation_member_message">%1$s</string>
     <string name="relation_member_no_match_warning">\n\nWarning:\n\nThe element does not match the preset defined member filters for this type of relation.</string>
     <string name="duplicate_relation_member_remove_button">Remove member</string>
     <!-- Move multi-polygon outer element tags to relation -->
