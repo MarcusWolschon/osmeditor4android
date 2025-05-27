@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import android.content.DialogInterface;
+import android.text.SpannableString;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -65,6 +68,8 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
 
     private final List<RelationMember>               newMembers     = new ArrayList<>();
     private final MultiHashMap<Long, RelationMember> removeMembers  = new MultiHashMap<>();
+    private final Wrapper                            wrapper;
+    private final Map<String, Condition>             conditionCache = new HashMap<>();
     private Relation                                 relation       = null;
     private MenuItem                                 revertItem     = null;
     private PresetElementPath                        presetPath     = null;
@@ -78,6 +83,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
         super(manager);
+        wrapper = new Wrapper(main);
         StorageDelegator delegator = App.getDelegator();
         List<RelationMember> savedNewMembers = state.getList(NEW_MEMBERS_KEY);
         if (savedNewMembers != null) {
@@ -111,6 +117,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @Nullable PresetElementPath presetPath,
             @NonNull List<OsmElement> selection) {
         super(manager);
+        wrapper = new Wrapper(main);
         this.presetPath = presetPath;
         for (OsmElement e : selection) {
             addElement(e);
@@ -126,6 +133,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @Nullable PresetElementPath presetPath, @NonNull OsmElement element) {
         super(manager);
+        wrapper = new Wrapper(main);
         this.presetPath = presetPath;
         addElement(element);
     }
@@ -140,6 +148,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @NonNull Relation relation, @Nullable OsmElement element) {
         super(manager);
+        wrapper = new Wrapper(main);
         this.relation = relation;
         if (element != null) {
             addElement(element);
@@ -156,6 +165,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @NonNull Relation relation, @NonNull List<OsmElement> selection) {
         super(manager);
+        wrapper = new Wrapper(main);
         this.relation = relation;
         for (OsmElement e : selection) {
             addElement(e);
@@ -177,21 +187,39 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                 return;
             }
         }
-        RelationMember member = new RelationMember("", element);
+        final RelationMember member = new RelationMember("", element);
         if (relationPreset != null) {
             GeoContext geoContext = App.getGeoContext(main);
             List<PresetRole> roles = relationPreset.getRoles(main, element, null, geoContext != null ? geoContext.getIsoCodes(element) : null);
             if (!roles.isEmpty()) {
-                if (roles.size() == 1) {
+                final int rolesSize = roles.size();
+                if (rolesSize == 1) {
                     // exactly one match
                     member.setRole(roles.get(0).getRole());
                 } else {
-                    // TODO maybe ask user
+                    new AlertDialog.Builder(main).setTitle(R.string.choose_role_title)
+                            .setItems(getRoleDescriptions(roles), (DialogInterface dialog, int which) -> member.setRole(roles.get(which).getRole()))
+                            .setNegativeButton(R.string.leave_role_empty, null).create().show();
                 }
             }
         }
         newMembers.add(member);
         highlight(element);
+    }
+
+    /**
+     * Get role descriptions
+     * 
+     * @param roles a list of PresetRole
+     * @return an array holding the descriptions
+     */
+    @NonNull
+    private String[] getRoleDescriptions(@NonNull List<PresetRole> roles) {
+        List<String> roleNames = new ArrayList<>();
+        for (PresetRole role : roles) {
+            roleNames.add(role.toString(main));
+        }
+        return roleNames.toArray(new String[0]);
     }
 
     /**
@@ -392,8 +420,14 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             removeMembers.removeKey(osmId);
         } else if (((relationWays != null && relationWays.contains(element)) || (relationNodes != null && relationNodes.contains(element))
                 || (relationRelations != null && relationRelations.contains(element)))) {
-            new AlertDialog.Builder(main).setTitle(R.string.duplicate_relation_member_title)
-                    .setMessage(main.getString(R.string.duplicate_relation_member_message, element.getDescription(main, true)))
+            CharSequence message = new SpannableString(main.getString(R.string.duplicate_relation_member_message, element.getDescription(main, true)));
+            List<PresetRole> roles = getRoles();
+            if (roles != null && !checkRole(roles, element)) {
+                SpannableString warning = new SpannableString(main.getString(R.string.relation_member_no_match_warning));
+                ThemeUtils.setSpanColor(main, warning, R.attr.error, R.color.material_red);
+                message = TextUtils.concat(message, warning);
+            }
+            new AlertDialog.Builder(main).setTitle(R.string.duplicate_relation_member_title).setMessage(message)
                     .setPositiveButton(R.string.duplicate_route_segment_button, (dialog, which) -> addElement(element))
                     .setNegativeButton(R.string.duplicate_relation_member_remove_button, (dialog, which) -> removeElement(element))
                     .setNeutralButton(R.string.cancel, null).show();
@@ -403,6 +437,29 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         }
         mode.invalidate();
         main.invalidateMap();
+        return true;
+    }
+
+    @Override
+    public boolean handleElementLongClick(@NonNull OsmElement element) {
+        super.handleElementLongClick(element);
+        List<PresetRole> roles = getRoles();
+        if (roles != null && !checkRole(roles, element)) {
+            CharSequence message = main.getString(R.string.remove_relation_member_message, element.getDescription(main, true));
+            SpannableString warning = new SpannableString(main.getString(R.string.relation_member_no_match_warning));
+            ThemeUtils.setSpanColor(main, warning, R.attr.error, R.color.material_red);
+            message = TextUtils.concat(message, warning);
+            new AlertDialog.Builder(main).setTitle(R.string.remove_relation_member_title).setMessage(message)
+                    .setNegativeButton(R.string.duplicate_relation_member_remove_button, (dialog, which) -> removeElement(element))
+                    .setNeutralButton(R.string.cancel, null).show();
+        } else {
+            removeElement(element);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean usesLongClick() {
         return true;
     }
 
@@ -429,17 +486,33 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         elements.addAll(currentStorage.getWays(viewBox));
         elements.addAll(currentStorage.getRelations());
         Set<OsmElement> clickable = new HashSet<>();
-        Wrapper wrapper = new Wrapper(main);
-        Map<String, Condition> conditionCache = new HashMap<>();
+        List<OsmElement> memberElements = relation != null ? relation.getMemberElements() : new ArrayList<>();
         for (OsmElement e : elements) {
-            for (PresetRole role : roles) {
-                if (role.appliesTo(e.getType()) && checkMemberExpression(role.getMemberExpression(), wrapper, conditionCache, e)) {
-                    clickable.add(e);
-                    break;
-                }
+            if (memberElements.contains(e)) {
+                clickable.add(e);
+                continue;
+            }
+            if (checkRole(roles, e)) {
+                clickable.add(e);
             }
         }
         logic.setClickableElements(clickable);
+    }
+
+    /**
+     * Check a potential member against roles and their member_expressions
+     * 
+     * @param roles a List of Roles
+     * @param e the OsmElement
+     * @return true if the element is a potential member
+     */
+    private boolean checkRole(@NonNull List<PresetRole> roles, @NonNull OsmElement e) {
+        for (PresetRole role : roles) {
+            if (role.appliesTo(e.getType()) && checkMemberExpression(role.getMemberExpression(), wrapper, conditionCache, e)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -486,56 +559,68 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
 
     @Override
     public void finishBuilding() {
-        if (!newMembers.isEmpty() || !removeMembers.isEmpty()) { // something was actually added
-            try {
-                if (relation == null) {
-                    if (relationPreset != null && (relationPreset.hasKeyValue(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON)
-                            || relationPreset.hasKeyValue(Tags.KEY_TYPE, Tags.VALUE_BOUNDARY))) {
-                        List<RelationMember> multipolygonMembers = RelationUtils.setMultipolygonRoles(main, newMembers, true);
-                        newMembers.clear();
-                        newMembers.addAll(multipolygonMembers);
-                        Map<String, String> tags = outersHaveSameTags(newMembers);
-                        if (tags != null) {
-                            moveOuterTags(tags);
-                            return;
-                        } else {
-                            ScreenMessage.toastTopWarning(main, R.string.toast_outer_rings_differing_tags);
-                        }
-                    }
-                    relation = logic.createRelationFromMembers(main, null, newMembers);
-                    // the preset will add the relation type tag
-                    main.performTagEdit(relation, presetPath, null, false);
-                } else {
-                    // determine the actual members in the relation we need to delete
-                    List<RelationMember> toRemove = new ArrayList<>();
-                    for (RelationMember member : relation.getMembers()) {
-                        if (contains(removeMembers.getValues(), member)) {
-                            toRemove.add(member);
-                        }
-                    }
-                    logic.updateRelationMembers(main, relation, toRemove, newMembers);
-                    if (relation.hasTagWithValue(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) || relation.hasTagWithValue(Tags.KEY_TYPE, Tags.VALUE_BOUNDARY)) {
-                        final List<RelationMember> members = relation.getMembers();
-                        RelationUtils.setMultipolygonRoles(main, members, false); // update roles
-                        if (outersHaveTags(relation.getTags(), members)) {
-                            removeTagsFromMembers(relation.getTags(), relation.getMembersWithRole(Tags.ROLE_OUTER));
-                            return;
-                        }
-                    }
-                    main.performTagEdit(relation, null, false, false);
-                }
-            } catch (OsmIllegalOperationException | StorageException ex) {
-                // logic will have toasted
+        Runnable finishMode = () -> {
+            if (relation != null) {
+                main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, relation));
+            } else {
                 manager.finish();
             }
-        } else {
+        };
+        if (newMembers.isEmpty() && removeMembers.isEmpty()) { // nothing actually changed
             ScreenMessage.toastTopWarning(main, R.string.toast_nothing_changed);
+            finishMode.run();
+            return;
         }
-        if (relation != null) {
-            main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, relation));
-        } else {
+        try {
+            if (relation == null) { // new relation
+                createRelation();
+                return;
+            }
+            // determine the actual members in the relation we need to delete
+            List<RelationMember> toRemove = new ArrayList<>();
+            for (RelationMember member : relation.getMembers()) {
+                if (contains(removeMembers.getValues(), member)) {
+                    toRemove.add(member);
+                }
+            }
+            logic.updateRelationMembers(main, relation, toRemove, newMembers);
+            if (relation.hasTagWithValue(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) || relation.hasTagWithValue(Tags.KEY_TYPE, Tags.VALUE_BOUNDARY)) {
+                final List<RelationMember> members = relation.getMembers();
+                RelationUtils.setMultipolygonRoles(main, members, false); // update roles
+                if (outersHaveTags(relation.getTags(), members)) {
+                    removeTagsFromMembers(relation.getTags(), relation.getMembersWithRole(Tags.ROLE_OUTER));
+                    return;
+                }
+            }
+            main.performTagEdit(relation, null, false, false);
+            finishMode.run();
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            // logic will have toasted
             manager.finish();
         }
+    }
+
+    /**
+     * Create a new relation from the selected members
+     */
+    private void createRelation() {
+        if (relationPreset != null
+                && (relationPreset.hasKeyValue(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) || relationPreset.hasKeyValue(Tags.KEY_TYPE, Tags.VALUE_BOUNDARY))) {
+            List<RelationMember> multipolygonMembers = RelationUtils.setMultipolygonRoles(main, newMembers, true);
+            newMembers.clear();
+            newMembers.addAll(multipolygonMembers);
+            Map<String, String> tags = outersHaveSameTags(newMembers);
+            if (tags != null) {
+                moveOuterTags(tags);
+                return;
+            } else {
+                ScreenMessage.toastTopWarning(main, R.string.toast_outer_rings_differing_tags);
+            }
+        }
+        relation = logic.createRelationFromMembers(main, null, newMembers);
+        // the preset will add the relation type tag
+        main.performTagEdit(relation, presetPath, null, false);
+        main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, relation));
     }
 
     /**

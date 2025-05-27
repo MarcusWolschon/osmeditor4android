@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.Objects;
 
+import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
@@ -300,7 +302,30 @@ public class PresetRole extends Regionalizable implements Comparable<PresetRole>
 
     @Override
     public String toString() {
-        return role + (hint != null ? (role == null || "".equals(role) ? "" : " - ") + hint : "");
+        if (de.blau.android.util.Util.isEmpty(role)) {
+            return hint != null ? hint : "";
+        }
+        if (hint != null) {
+            return role + " - " + hint;
+        }
+        return role;
+    }
+
+    /**
+     * Same as above but use a resource for formating
+     * 
+     * @param context an Android Context
+     * @return a string representation of the role
+     */
+    @NonNull
+    public String toString(@NonNull Context context) {
+        if (de.blau.android.util.Util.isEmpty(role)) {
+            return hint != null ? hint : context.getString(R.string.preset_empty_role);
+        }
+        if (hint != null) {
+            return context.getString(R.string.preset_role, role, hint);
+        }
+        return role;
     }
 
     @Override
@@ -310,7 +335,8 @@ public class PresetRole extends Regionalizable implements Comparable<PresetRole>
 
     @Override
     public int hashCode() {
-        return Objects.hash(role);
+        return Objects.hash(appliesToArea, appliesToClosedWay, appliesToNode, appliesToRelation, appliesToWay, count, deprecated, hint, memberExpression,
+                regexp, requisite, role);
     }
 
     @Override
@@ -322,6 +348,9 @@ public class PresetRole extends Regionalizable implements Comparable<PresetRole>
             return false;
         }
         PresetRole other = (PresetRole) obj;
-        return Objects.equals(role, other.role);
+        return appliesToArea == other.appliesToArea && appliesToClosedWay == other.appliesToClosedWay && appliesToNode == other.appliesToNode
+                && appliesToRelation == other.appliesToRelation && appliesToWay == other.appliesToWay && count == other.count && deprecated == other.deprecated
+                && Objects.equals(hint, other.hint) && Objects.equals(memberExpression, other.memberExpression) && regexp == other.regexp
+                && requisite == other.requisite && Objects.equals(role, other.role);
     }
 }
