@@ -1,5 +1,7 @@
 package de.blau.android.services.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -39,8 +41,9 @@ import de.blau.android.util.ACRAHelper;
  * @author Simon Poole
  */
 public class MapTileProviderDataBase {
-    private static final String DEBUG_TAG = MapTileProviderDataBase.class.getSimpleName().substring(0,
-            Math.min(23, MapTileProviderDataBase.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapTileProviderDataBase.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapTileProviderDataBase.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String DATABASE_NAME    = "osmaptilefscache_db";
     private static final int    DATABASE_VERSION = 8;
@@ -63,15 +66,19 @@ public class MapTileProviderDataBase {
     private static final String T_RENDERER_ZOOM_MAX      = "zoom_max";
     private static final String T_RENDERER_TILE_SIZE_LOG = "tile_size_log";
 
+    private static final String INTEGER_NOT_NULL = " INTEGER NOT NULL,";
+    private static final String WHERE            = " WHERE ";
+    private static final String FROM             = " FROM ";
+    private static final String SELECT           = "SELECT ";
+
     private static final String T_FSCACHE_CREATE_COMMAND = "CREATE TABLE IF NOT EXISTS " + T_FSCACHE + " (" + T_FSCACHE_RENDERER_ID + " VARCHAR(255) NOT NULL,"
-            + T_FSCACHE_ZOOM_LEVEL + " INTEGER NOT NULL," + T_FSCACHE_TILE_X + " INTEGER NOT NULL," + T_FSCACHE_TILE_Y + " INTEGER NOT NULL,"
-            + T_FSCACHE_TIMESTAMP + " INTEGER NOT NULL," + T_FSCACHE_USAGECOUNT + " INTEGER NOT NULL DEFAULT 1," + T_FSCACHE_FILESIZE + " INTEGER NOT NULL,"
-            + T_FSCACHE_DATA + " BLOB," + " PRIMARY KEY(" + T_FSCACHE_RENDERER_ID + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y
-            + ")" + ");";
+            + T_FSCACHE_ZOOM_LEVEL + INTEGER_NOT_NULL + T_FSCACHE_TILE_X + INTEGER_NOT_NULL + T_FSCACHE_TILE_Y + INTEGER_NOT_NULL + T_FSCACHE_TIMESTAMP
+            + INTEGER_NOT_NULL + T_FSCACHE_USAGECOUNT + " INTEGER NOT NULL DEFAULT 1," + T_FSCACHE_FILESIZE + INTEGER_NOT_NULL + T_FSCACHE_DATA + " BLOB,"
+            + " PRIMARY KEY(" + T_FSCACHE_RENDERER_ID + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + ")" + ");";
 
     private static final String T_RENDERER_CREATE_COMMAND = "CREATE TABLE IF NOT EXISTS " + T_RENDERER + " (" + T_RENDERER_ID + " VARCHAR(255) PRIMARY KEY,"
-            + T_RENDERER_NAME + " VARCHAR(255)," + T_RENDERER_BASE_URL + " VARCHAR(255)," + T_RENDERER_ZOOM_MIN + " INTEGER NOT NULL," + T_RENDERER_ZOOM_MAX
-            + " INTEGER NOT NULL," + T_RENDERER_TILE_SIZE_LOG + " INTEGER NOT NULL" + ");";
+            + T_RENDERER_NAME + " VARCHAR(255)," + T_RENDERER_BASE_URL + " VARCHAR(255)," + T_RENDERER_ZOOM_MIN + INTEGER_NOT_NULL + T_RENDERER_ZOOM_MAX
+            + INTEGER_NOT_NULL + T_RENDERER_TILE_SIZE_LOG + " INTEGER NOT NULL" + ");";
 
     private static final String SQL_ARG = "=?";
     private static final String AND     = " AND ";
@@ -85,11 +92,10 @@ public class MapTileProviderDataBase {
     static final String T_FSCACHE_WHERE_NOT_INVALID = T_FSCACHE_RENDERER_ID + SQL_ARG + AND + T_FSCACHE_ZOOM_LEVEL + SQL_ARG + AND + T_FSCACHE_TILE_X + SQL_ARG
             + AND + T_FSCACHE_TILE_Y + SQL_ARG + AND + T_FSCACHE_FILESIZE + ">0";
 
-    private static final String T_FSCACHE_SELECT_OLDEST = "SELECT " + T_FSCACHE_RENDERER_ID + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + ","
-            + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_FILESIZE + " > 0 ORDER BY " + T_FSCACHE_TIMESTAMP
-            + " ASC";
+    private static final String T_FSCACHE_SELECT_OLDEST = SELECT + T_FSCACHE_RENDERER_ID + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + ","
+            + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + FROM + T_FSCACHE + WHERE + T_FSCACHE_FILESIZE + " > 0 ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC";
 
-    private static final String T_FSCACHE_GET = "SELECT " + T_FSCACHE_DATA + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_WHERE;
+    private static final String T_FSCACHE_GET = SELECT + T_FSCACHE_DATA + FROM + T_FSCACHE + WHERE + T_FSCACHE_WHERE;
 
     static final String TILE_MARKED_INVALID_IN_DATABASE = "Tile marked invalid in database";
 
@@ -343,11 +349,8 @@ public class MapTileProviderDataBase {
                 mDatabase.execSQL("DELETE FROM " + T_FSCACHE);
             } else {
                 Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Flushing cache for " + rendererID);
-                final Cursor c = mDatabase
-                        .rawQuery(
-                                "SELECT " + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM "
-                                        + T_FSCACHE + " WHERE " + T_FSCACHE_RENDERER_ID + "='" + rendererID + "' ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC",
-                                null);
+                final Cursor c = mDatabase.rawQuery(SELECT + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE
+                        + FROM + T_FSCACHE + WHERE + T_FSCACHE_RENDERER_ID + "='" + rendererID + "' ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC", null);
                 final ArrayList<MapTile> deleteFromDB = new ArrayList<>();
                 long sizeGained = 0;
                 if (c != null) {
@@ -396,7 +399,7 @@ public class MapTileProviderDataBase {
     public int getCurrentFSCacheByteSize() {
         int ret = 0;
         if (mDatabase.isOpen()) {
-            final Cursor c = mDatabase.rawQuery("SELECT SUM(" + T_FSCACHE_FILESIZE + ") AS " + TMP_COLUMN + " FROM " + T_FSCACHE, null);
+            final Cursor c = mDatabase.rawQuery("SELECT SUM(" + T_FSCACHE_FILESIZE + ") AS " + TMP_COLUMN + FROM + T_FSCACHE, null);
             if (c != null) {
                 if (c.moveToFirst()) {
                     ret = c.getInt(c.getColumnIndexOrThrow(TMP_COLUMN));

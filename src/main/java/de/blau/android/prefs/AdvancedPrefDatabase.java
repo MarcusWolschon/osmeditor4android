@@ -146,45 +146,45 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     @Override
     public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(DEBUG_TAG, "Upgrading Preferences DB");
-        if (oldVersion <= 1 && newVersion >= 2) {
+        if (oldVersion <= 1) {
             db.execSQL("ALTER TABLE apis ADD COLUMN showicon INTEGER DEFAULT 0");
         }
-        if (oldVersion <= 2 && newVersion >= 3) {
+        if (oldVersion <= 2) {
             db.execSQL("ALTER TABLE apis ADD COLUMN oauth INTEGER DEFAULT 0");
             db.execSQL("ALTER TABLE apis ADD COLUMN accesstoken TEXT DEFAULT NULL");
             db.execSQL("ALTER TABLE apis ADD COLUMN accesstokensecret TEXT DEFAULT NULL");
             db.execSQL("UPDATE apis SET url='" + Urls.DEFAULT_API + "' WHERE id='" + ID_DEFAULT + "'");
         }
-        if (oldVersion <= 3 && newVersion >= 4) {
+        if (oldVersion <= 3) {
             db.execSQL("ALTER TABLE presets ADD COLUMN active INTEGER DEFAULT 0");
             db.execSQL("UPDATE presets SET active=1 WHERE id='default'");
         }
-        if (oldVersion <= 4 && newVersion >= 5) {
+        if (oldVersion <= 4) {
             db.execSQL("UPDATE apis SET url='" + Urls.DEFAULT_API + "' WHERE id='" + ID_DEFAULT + "'");
         }
-        if (oldVersion <= 5 && newVersion >= 6) {
+        if (oldVersion <= 5) {
             db.execSQL("ALTER TABLE apis ADD COLUMN readonlyurl TEXT DEFAULT NULL");
             db.execSQL("ALTER TABLE apis ADD COLUMN notesurl TEXT DEFAULT NULL");
         }
-        if (oldVersion <= 6 && newVersion >= 7) {
+        if (oldVersion <= 6) {
             // this used to add a non-https version of the API, however this no longer works
         }
-        if (oldVersion <= 7 && newVersion >= 8) {
+        if (oldVersion <= 7) {
             db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
             addGeocoder(db, ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.DEFAULT_NOMINATIM_SERVER, true);
             addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER, true);
         }
-        if (oldVersion <= 8 && newVersion >= 9) {
+        if (oldVersion <= 8) {
             addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, null, new AuthParams(Auth.OAUTH1A, "", "", null, null));
         }
-        if (oldVersion <= 9 && newVersion >= 10) {
+        if (oldVersion <= 9) {
             db.execSQL("ALTER TABLE presets ADD COLUMN position INTEGER DEFAULT 0");
             renumberPresets(db);
         }
-        if (oldVersion <= 10 && newVersion >= 11) {
+        if (oldVersion <= 10) {
             db.execSQL("ALTER TABLE presets ADD COLUMN usetranslations INTEGER DEFAULT 1");
         }
-        if (oldVersion <= 11 && newVersion >= 12) {
+        if (oldVersion <= 11) {
             try {
                 FileUtil.copyFileFromAssets(context, "images/" + CustomPreset.ICON,
                         FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), CustomPreset.ICON);
@@ -192,7 +192,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
                 Log.e(DEBUG_TAG, "Unable to copy custom preset icon");
             }
         }
-        if (oldVersion <= 12 && newVersion >= 13) {
+        if (oldVersion <= 12) {
             db.execSQL("CREATE TABLE layers (type TEXT, position INTEGER DEFAULT -1, visible INTEGER DEFAULT 1, content_id TEXT)");
             int position = 0;
             String backgroundLayer = sharedPrefs.getString(r.getString(R.string.config_backgroundLayer_key), TileLayerSource.LAYER_NONE);
@@ -214,10 +214,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
                 addLayer(db, position, LayerType.TASKS);
             }
         }
-        if (oldVersion <= 13 && newVersion >= 14) {
+        if (oldVersion <= 13) {
             db.execSQL("UPDATE geocoders SET url='" + Urls.DEFAULT_PHOTON_SERVER + "' WHERE url='https://photon.komoot.de/'");
         }
-        if (oldVersion <= 14 && newVersion >= 15) {
+        if (oldVersion <= 14) {
             // hack to fix offset server preference
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             String offsetServerKey = r.getString(R.string.config_offsetServer_key);
@@ -226,21 +226,21 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
                 prefs.edit().putString(offsetServerKey, Urls.DEFAULT_OFFSET_SERVER).commit();
             }
         }
-        if (oldVersion <= 15 && newVersion >= 16) {
+        if (oldVersion <= 15) {
             db.execSQL("ALTER TABLE presets ADD COLUMN version TEXT DEFAULT NULL");
             db.execSQL("ALTER TABLE presets ADD COLUMN shortdescription TEXT DEFAULT NULL");
             db.execSQL("ALTER TABLE presets ADD COLUMN description TEXT DEFAULT NULL");
         }
-        if (oldVersion <= 16 && newVersion >= 17) {
+        if (oldVersion <= 16) {
             // force migrate the default API entries as now the old ones will definitely not work any more
             final int oauth2 = Auth.OAUTH2.ordinal();
             db.execSQL("UPDATE apis SET oauth=" + oauth2 + ", accesstokensecret=NULL, accesstoken=NULL WHERE id='" + ID_DEFAULT + "' AND NOT oauth=" + oauth2);
             db.execSQL("UPDATE apis SET oauth=" + oauth2 + ", accesstokensecret=NULL, accesstoken=NULL WHERE id='" + ID_SANDBOX + "' AND NOT oauth=" + oauth2);
         }
-        if (oldVersion <= 17 && newVersion >= 18) {
+        if (oldVersion <= 17) {
             db.execSQL("ALTER TABLE apis ADD COLUMN timeout INTEGER DEFAULT " + Server.DEFAULT_TIMEOUT);
         }
-        if (oldVersion <= 18 && newVersion >= 19) {
+        if (oldVersion <= 18) {
             db.execSQL("ALTER TABLE apis ADD COLUMN compresseduploads INTEGER DEFAULT 0");
             db.execSQL("UPDATE apis SET compresseduploads=1 WHERE id='" + ID_DEFAULT + "'");
         }
@@ -739,9 +739,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     @NonNull
     private synchronized PresetInfo[] getPresets(@Nullable String value, boolean byURL) {
         SQLiteDatabase db = getReadableDatabase();
+        String query = byURL ? "url = ?" : WHERE_ID;
         Cursor dbresult = db.query(PRESETS_TABLE,
                 new String[] { ID_COL, NAME_COL, VERSION_COL, SHORTDESCRIPTION_COL, DESCRIPTION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
-                value == null ? null : (byURL ? "url = ?" : WHERE_ID), value == null ? null : new String[] { value }, null, null, POSITION_COL);
+                value == null ? null : query, value == null ? null : new String[] { value }, null, null, POSITION_COL);
         PresetInfo[] result = new PresetInfo[dbresult.getCount()];
         dbresult.moveToFirst();
         for (int i = 0; i < result.length; i++) {

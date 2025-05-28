@@ -9,7 +9,8 @@ import androidx.annotation.NonNull;
 import de.blau.android.osm.Tags;
 
 public class ValidatorRulesDatabaseHelper extends SQLiteOpenHelper {
-    private static final String DEBUG_TAG = ValidatorRulesDatabaseHelper.class.getSimpleName().substring(0, Math.min(23, ValidatorRulesDatabaseHelper.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = ValidatorRulesDatabaseHelper.class.getSimpleName().substring(0,
+            Math.min(23, ValidatorRulesDatabaseHelper.class.getSimpleName().length()));
 
     private static final String DATABASE_NAME    = "validator_rules";
     private static final int    DATABASE_VERSION = 3;
@@ -56,10 +57,10 @@ public class ValidatorRulesDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(DEBUG_TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
-        if (oldVersion <= 1 && newVersion >= 2) {
+        if (oldVersion <= 1) {
             db.execSQL("ALTER TABLE resurveytags ADD COLUMN is_regexp INTEGER DEFAULT 0");
         }
-        if (oldVersion <= 2 && newVersion >= 3) {
+        if (oldVersion <= 2) {
             db.execSQL("UPDATE checktags SET key='name|ref' WHERE key='name'");
         }
     }

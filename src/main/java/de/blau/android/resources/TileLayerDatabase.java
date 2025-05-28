@@ -124,30 +124,30 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(DEBUG_TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
-        if (oldVersion <= 1 && newVersion >= 2) {
+        if (oldVersion <= 1) {
             addSource(db, SOURCE_MANUAL);
         }
-        if (oldVersion <= 2 && newVersion >= 3) {
+        if (oldVersion <= 2) {
             db.execSQL("ALTER TABLE layers ADD COLUMN no_tile_header TEXT DEFAULT NULL");
             db.execSQL("ALTER TABLE layers ADD COLUMN no_tile_value TEXT DEFAULT NULL");
         }
-        if (oldVersion <= 3 && newVersion >= 4) {
+        if (oldVersion <= 3) {
             db.execSQL("ALTER TABLE layers ADD COLUMN description TEXT DEFAULT NULL");
             db.execSQL("ALTER TABLE layers ADD COLUMN privacy_policy_url TEXT DEFAULT NULL");
         }
-        if (oldVersion <= 4 && newVersion >= 5) {
+        if (oldVersion <= 4) {
             db.execSQL("ALTER TABLE layers ADD COLUMN category TEXT DEFAULT NULL");
         }
-        if (oldVersion <= 5 && newVersion >= 6) {
+        if (oldVersion <= 5) {
             db.execSQL("ALTER TABLE layers ADD COLUMN attribution_url TEXT DEFAULT NULL");
         }
-        if (oldVersion <= 6 && newVersion >= 7) {
+        if (oldVersion <= 6) {
             db.execSQL("ALTER TABLE layers ADD COLUMN no_tile_tile BLOB DEFAULT NULL");
         }
-        if (oldVersion <= 7 && newVersion >= 8) {
+        if (oldVersion <= 7) {
             db.execSQL("ALTER TABLE layers ADD COLUMN tile_type TEXT DEFAULT NULL");
         }
-        if (oldVersion <= 8 && newVersion >= 9) {
+        if (oldVersion <= 8) {
             createHeadersTable(db);
         }
     }
@@ -367,9 +367,10 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     @Nullable
     public static TileLayerSource getLayer(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull String id) {
         TileLayerSource layer = null;
-        try (Cursor providerCursor = db.query(COVERAGES_TABLE, null, ID_FIELD + "='" + id + "'", null, null, null, null)) {
+        String[] queryParams = new String[] { id };
+        try (Cursor providerCursor = db.query(COVERAGES_TABLE, null, ID_FIELD + "=?", queryParams, null, null, null)) {
             Provider provider = getProviderFromCursor(providerCursor);
-            try (Cursor layerCursor = db.query(LAYERS_TABLE, null, ID_FIELD + "='" + id + "'", null, null, null, null)) {
+            try (Cursor layerCursor = db.query(LAYERS_TABLE, null, ID_FIELD + "=?", queryParams, null, null, null)) {
                 if (layerCursor.getCount() >= 1) {
                     boolean haveEntry = layerCursor.moveToFirst();
                     if (haveEntry) {
@@ -390,7 +391,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param layer the layer
      */
     private static void setHeadersForLayer(SQLiteDatabase db, TileLayerSource layer) {
-        try (Cursor headerCursor = db.query(HEADERS_TABLE, null, ID_FIELD + "='" + layer.getId() + "'", null, null, null, null)) {
+        try (Cursor headerCursor = db.query(HEADERS_TABLE, null, ID_FIELD + "=?", new String[] { layer.getId() }, null, null, null)) {
             initHeaderFieldIndices(headerCursor);
             List<Header> headers = getHeadersFromCursor(headerCursor);
             if (!headers.isEmpty()) {
@@ -411,16 +412,13 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     public static TileLayerSource getLayerWithUrl(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull String url) {
         TileLayerSource layer = null;
         try (Cursor layerCursor = db.query(LAYERS_TABLE, null, TILE_URL_FIELD + "=?", new String[] { url }, null, null, null)) {
-            if (layerCursor.getCount() >= 1) {
-                boolean haveEntry = layerCursor.moveToFirst();
-                if (haveEntry) {
-                    initLayerFieldIndices(layerCursor);
-                    String id = layerCursor.getString(idLayerFieldIndex);
-                    try (Cursor providerCursor = db.query(COVERAGES_TABLE, null, ID_FIELD + "='" + id + "'", null, null, null, null)) {
-                        Provider provider = getProviderFromCursor(providerCursor);
-                        layer = getLayerFromCursor(context, provider, layerCursor);
-                        setHeadersForLayer(db, layer);
-                    }
+            if (layerCursor.getCount() >= 1 && layerCursor.moveToFirst()) {
+                initLayerFieldIndices(layerCursor);
+                String id = layerCursor.getString(idLayerFieldIndex);
+                try (Cursor providerCursor = db.query(COVERAGES_TABLE, null, ID_FIELD + "=?", new String[] { id }, null, null, null)) {
+                    Provider provider = getProviderFromCursor(providerCursor);
+                    layer = getLayerFromCursor(context, provider, layerCursor);
+                    setHeadersForLayer(db, layer);
                 }
             }
         }
@@ -436,11 +434,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      */
     public static long getLayerRowId(@NonNull SQLiteDatabase db, @NonNull String id) throws IllegalArgumentException {
         try (Cursor layerCursor = db.query(LAYERS_TABLE, new String[] { "rowid" }, ID_FIELD + "='" + id + "'", null, null, null, null)) {
-            if (layerCursor.getCount() >= 1) {
-                boolean haveEntry = layerCursor.moveToFirst();
-                if (haveEntry) {
-                    return layerCursor.getLong(layerCursor.getColumnIndexOrThrow("rowid"));
-                }
+            if (layerCursor.getCount() >= 1 && layerCursor.moveToFirst()) {
+                return layerCursor.getLong(layerCursor.getColumnIndexOrThrow("rowid"));
             }
         }
         return -1;
@@ -461,13 +456,10 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                 new String[] { Long.toString(rowId) })) {
             Provider provider = getProviderFromCursor(providerCursor);
             try (Cursor layerCursor = db.rawQuery(QUERY_LAYER_BY_ROWID, new String[] { Long.toString(rowId) })) {
-                if (layerCursor.getCount() >= 1) {
-                    boolean haveEntry = layerCursor.moveToFirst();
-                    if (haveEntry) {
-                        initLayerFieldIndices(layerCursor);
-                        layer = getLayerFromCursor(context, provider, layerCursor);
-                        setHeadersForLayer(db, layer);
-                    }
+                if (layerCursor.getCount() >= 1 && layerCursor.moveToFirst()) {
+                    initLayerFieldIndices(layerCursor);
+                    layer = getLayerFromCursor(context, provider, layerCursor);
+                    setHeadersForLayer(db, layer);
                 }
             } catch (IllegalArgumentException iaex) {
                 Log.e(DEBUG_TAG, "retrieving layer failed " + iaex.getMessage());
