@@ -77,11 +77,11 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(DEBUG_TAG, "Upgrade from " + oldVersion + " to " + newVersion);
-        if (oldVersion <= 2 && newVersion >= 3) {
+        if (oldVersion <= 2) {
             db.execSQL("DROP TABLE " + KEYS_TABLE);
             onCreate(db);
         }
-        if (oldVersion <= 3 && newVersion >= 4) {
+        if (oldVersion <= 3) {
             db.execSQL("DROP INDEX idx_keys");
             db.execSQL("CREATE UNIQUE INDEX idx_keys ON keys (name, type)");
         }
