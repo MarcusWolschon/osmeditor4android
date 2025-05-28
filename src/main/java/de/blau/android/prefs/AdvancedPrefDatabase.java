@@ -739,9 +739,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     @NonNull
     private synchronized PresetInfo[] getPresets(@Nullable String value, boolean byURL) {
         SQLiteDatabase db = getReadableDatabase();
+        String query = byURL ? "url = ?" : WHERE_ID;
         Cursor dbresult = db.query(PRESETS_TABLE,
                 new String[] { ID_COL, NAME_COL, VERSION_COL, SHORTDESCRIPTION_COL, DESCRIPTION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
-                value == null ? null : (byURL ? "url = ?" : WHERE_ID), value == null ? null : new String[] { value }, null, null, POSITION_COL);
+                value == null ? null : query, value == null ? null : new String[] { value }, null, null, POSITION_COL);
         PresetInfo[] result = new PresetInfo[dbresult.getCount()];
         dbresult.moveToFirst();
         for (int i = 0; i < result.length; i++) {
