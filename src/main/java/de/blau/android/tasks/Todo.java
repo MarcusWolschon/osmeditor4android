@@ -116,11 +116,11 @@ public final class Todo extends Bug implements Serializable {
     }
 
     /**
-     * Parse a single todo object
+     * Parse a single todo object //NOSONAR
      * 
      * @param reader the current JsonReader
      * @param listName optional list name
-     * @return a new Todo
+     * @return a new Todo //NOSONAR
      * @throws IOException on errors reading the JSON
      */
     private static Todo parseTodo(@NonNull JsonReader reader, @Nullable String listName) throws IOException {

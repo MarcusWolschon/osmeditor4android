@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -73,7 +75,7 @@ import de.blau.android.resources.TileLayerSource;
 
 public final class Util {
 
-    private static final int    TAG_LEN   = Math.min(23, Util.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Util.class.getSimpleName().length());
     private static final String DEBUG_TAG = Util.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
@@ -174,7 +176,7 @@ public final class Util {
      */
     public static char getShortCut(@NonNull Context ctx, int res) {
         String s = ctx.getString(res);
-        if (s != null && s.length() >= 1) {
+        if (s.length() >= 1) {
             return s.charAt(0);
         } else {
             return 0;

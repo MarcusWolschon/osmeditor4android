@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -15,12 +17,12 @@ import de.blau.android.R;
 
 public class MenuUtil {
 
-    private static final String DEBUG_TAG = MenuUtil.class.getSimpleName().substring(0, Math.min(23, MenuUtil.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MenuUtil.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MenuUtil.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MIN_WIDTH_DP = 64; // this is hardwired in ActionMenuView!!!
 
-    private int       maxItems = 0;
-    private final int screenWidth;
+    private int maxItems = 0;
 
     /**
      * Utility class for menu arrangement
@@ -28,12 +30,8 @@ public class MenuUtil {
      * @param ctx an Android Context
      */
     public MenuUtil(@NonNull Context ctx) {
-        // hardcoded calculation of how many icons we want to display
-        // TODO de-hardcode
         DisplayMetrics metrics = ctx.getResources().getDisplayMetrics();
-        screenWidth = metrics.widthPixels;
         float widthDp = metrics.widthPixels / metrics.density;
-
         maxItems = (int) (widthDp / MIN_WIDTH_DP);
         Log.d(DEBUG_TAG, "pixel width " + metrics.widthPixels + " DP width " + widthDp + " maxItems " + maxItems);
     }
