@@ -178,9 +178,8 @@ public final class Util {
         String s = ctx.getString(res);
         if (s.length() >= 1) {
             return s.charAt(0);
-        } else {
-            return 0;
         }
+        return 0;
     }
 
     /**
