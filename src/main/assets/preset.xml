@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.78.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.79.1" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -55,6 +55,8 @@
     
     
     
+    
+     
     <!-- Item chunks -->
     <chunk id="optional_speech_output">
         <optional>
@@ -843,6 +845,7 @@
             <list_entry value="greek" display_value="Greek"/>
             <list_entry value="heuriger" display_value="Heuriger"/>
             <list_entry value="hot_dog" display_value="Hot dog"/>
+            <list_entry value="hotpot" display_value="Hot pot"/>
             <list_entry value="ice_cream" display_value="Ice cream"/>
             <list_entry value="indian" display_value="Indian"/>
             <list_entry value="indonesian" display_value="Indonesian"/>
@@ -878,6 +881,7 @@
             <list_entry value="spanish" display_value="Spanish"/>
             <list_entry value="steak_house" display_value="Steak house"/>
             <list_entry value="sushi" display_value="Sushi"/>
+            <list_entry value="syrian" display_value="Syrian"/>
             <list_entry value="taiwanese" display_value="Taiwanese"/>
             <list_entry value="tapas" display_value="Tapas"/>
             <list_entry value="tex-mex" display_value="Tex-mex"/>
@@ -1251,11 +1255,15 @@
     <chunk id="other_religions"> <!-- religions which don't have an own preset -->
         <combo key="religion" text="Religion" values="bahai,caodaism,confucian,jain,sikh,spiritualist,taoist,tenrikyo,unitarian_universalist,zoroastrian" display_values="Bahai,Caodaism,Confucian,Jain,Sikh,Spiritualist,Taoist,Tenrikyo,Unitarian universalist,Zoroastrian" match="keyvalue!" values_searchable="true"/>
     </chunk>
-    <chunk id="christian_denominations"> <!-- christian denominations -->
-        <combo key="denomination" text="Denomination" values="anglican,baptist,catholic,church_of_scotland,evangelical,greek_catholic,greek_orthodox,lutheran,methodist,new_apostolic,nondenominational,old_catholic,orthodox,pentecostal,presbyterian,protestant,quaker,reformed,roman_catholic,romanian_orthodox,russian_orthodox,serbian_orthodox,seventh_day_adventist,spiritist,united,united_methodist" display_values="Anglican,Baptist,Catholic,Church of Scotland,Evangelical,Greek catholic,Greek orthodox,Lutheran,Methodist,New apostolic,Nondenominational,Old catholic,Orthodox,Pentecostal,Presbyterian,Protestant,Quaker,Reformed,Roman catholic,Romanian orthodox,Russian orthodox,Serbian orthodox,Seventh day adventist,Spiritist,United,United methodist" values_searchable="true"/>
-    </chunk>
+        <chunk id="christian_denominations"> <!-- christian denominations -->
+        <combo key="denomination" text="Denomination" values_searchable="true">
+            <list_entry value="anglican" display_value="Anglican"/><list_entry value="baptist" display_value="Baptist"/><list_entry value="catholic" display_value="Catholic"/><list_entry value="church_of_scotland" display_value="Church of Scotland"/><list_entry value="evangelical" display_value="Evangelical"/><list_entry value="greek_catholic" display_value="Greek Catholic"/><list_entry value="greek_orthodox" display_value="Greek Orthodox"/><list_entry value="lutheran" display_value="Lutheran"/><list_entry value="methodist" display_value="Methodist"/><list_entry value="new_apostolic" display_value="New Apostolic"/><list_entry value="nondenominational" display_value="Nondenominational"/><list_entry value="old_catholic" display_value="Old Catholic"/><list_entry value="orthodox" display_value="Orthodox"/><list_entry value="pentecostal" display_value="Pentecostal"/><list_entry value="presbyterian" display_value="Presbyterian"/><list_entry value="protestant" display_value="Protestant"/><list_entry value="quaker" display_value="Quaker"/><list_entry value="reformed" display_value="Reformed"/><list_entry value="roman_catholic" display_value="Roman Catholic"/><list_entry value="romanian_orthodox" display_value="Romanian Orthodox"/><list_entry value="russian_orthodox" display_value="Russian Orthodox"/><list_entry value="serbian_orthodox" display_value="Serbian Orthodox"/><list_entry value="seventh_day_adventist" display_value="Seventh-day Adventist"/><list_entry value="spiritist" display_value="Spiritist"/><list_entry value="united" display_value="United"/><list_entry value="united_methodist" display_value="United Methodist"/>
+        </combo>
+   </chunk>
    <chunk id="nontrinitarian_denominations"> <!--nontrinitarian denominations -->
-        <combo key="denomination" text="Denomination" values="iglesia_ni_cristo,jehovahs_witness,mormon" display_values="Iglesia ni cristo,Jehovahs witness,Mormon" values_searchable="true"/>
+        <combo key="denomination" text="Denomination" default="mormon" values_searchable="true" match="keyvalue!">
+            <list_entry value="iglesia_ni_cristo" display_value="Iglesia ni Cristo"/><list_entry value="jehovahs_witness" display_value="Jehovah's Witnesses"/><list_entry value="mormon" display_value="Mormon"/>
+        </combo>
     </chunk>
     <chunk id="muslim_denominations"> <!-- muslim denominations -->
         <combo key="denomination" text="Denomination" values="ibadi,nondenominational,shia,sunni" display_values="Ibadi,Nondenominational,Shia,Sunni" values_searchable="true"/>
@@ -1625,7 +1633,7 @@
     <chunk id="walking_routes_roles">
         <roles>
             <role key="" text="Route segment" requisite="required" type="way,closedway" member_expression="highway|route=ferry"/>
-             <role key="alternative" text="alternative segment" requisite="optional" type="way,closedway,relation" member_expression="highway|route=ferry"/>
+            <role key="alternative" text="alternative segment" requisite="optional" type="way,closedway,relation" member_expression="highway|route=ferry"/>
             <role key="approach" text="Approach segment" requisite="optional" type="way,closedway,relation" member_expression="highway|route=ferry"/>
             <role key="excursion" text="Excursion segment" requisite="optional" type="way,closedway,relation" member_expression="highway|route=ferry"/>
             <role key="connection" text="Connection segment" requisite="optional" type="way,closedway,relation" member_expression="highway|route=ferry"/>
@@ -2253,6 +2261,19 @@
             <space/>
             <label text="... other transportation modes possible"/>
         </optional>
+    </chunk>
+    <chunk id="recording_and_display">
+        <label text="Recording:"/>
+        <checkgroup text="Recording" columns="3">
+            <check key="recording:automated" text="Automated" disable_off="true"/>
+            <check key="recording:manually" text="Manually" disable_off="true"/>
+            <check key="recording:remote" text="Remote" disable_off="true"/>
+        </checkgroup>
+        <label text="Display:"/>
+        <checkgroup text="Display" columns="2">
+            <check key="display:analog" text="Analog" disable_off="true"/>
+            <check key="display:digital" text="Digital" disable_off="true"/>
+        </checkgroup>
     </chunk>
     <!-- Groups -->
     <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -10928,7 +10949,7 @@
                 <reference ref="colours"/>
             </optional>
         </item> <!-- Street cabinet -->
-        <item name="Monitoring Station" icon="icons/png/man_made_monitoring_station_22042.png" type="node,closedway" preset_name_label="true">
+        <item name="Monitoring Station" icon="icons/png/man_made_monitoring_station_22042.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:man_made=monitoring_station"/>
             <space/>
             <key key="man_made" value="monitoring_station"/>
@@ -10950,18 +10971,45 @@
                 <check key="monitoring:radiation" text="Radiation" disable_off="true"/>
                 <check key="monitoring:seismic_activity" text="Seismic Activity" disable_off="true"/>
             </checkgroup>
-            <label text="Recording:"/>
-            <checkgroup text="Recording" columns="3">
-                <check key="recording:automated" text="Automated" disable_off="true"/>
-                <check key="recording:manually" text="Manually" disable_off="true"/>
-                <check key="recording:remote" text="Remote" disable_off="true"/>
-            </checkgroup>
-            <label text="Display:"/>
-            <checkgroup text="Display" columns="2">
-                <check key="display:analog" text="Analog" disable_off="true"/>
-                <check key="display:digital" text="Digital" disable_off="true"/>
-            </checkgroup>
+            <reference ref="recording_and_display"/>
         </item> <!-- Monitoring Station -->
+        <item name="Weather Station" icon="icons/png/man_made_weather_station.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:monitoring:weather"/>
+            <space/>
+            <key key="man_made" value="monitoring_station"/>
+            <key key="monitoring:weather" value="yes"/>
+            <reference ref="optional_name_operator"/>
+            <text key="ele" text="Elevation (meters)" length="10"/>
+            <text key="ref:wmo" text="WMO reference"/>
+            <text key="ref:wigos" text="WIGOS reference"/>
+            <text key="ref:icao" text="ICAO reference (airports)"/>
+            <checkgroup text="Instruments" columns="4" text_context="man_made">                
+                <check key="weather:anemometer" text="Anemometer - wind speed and direction" disable_off="true"/>
+                <check key="weather:wind_vane" text="Wind vane - wind direction" disable_off="true"/>
+                <check key="weather:barometer" text="Barometer - atmospheric pressure" disable_off="true"/>
+                <check key="weather:thermometer" text="Thermometer - air temperature" disable_off="true"/>
+                <check key="weather:soil_thermometer" text="Soil thermometer - soil temperature" disable_off="true"/>
+                <check key="weather:grass_minimum_thermometer" text="Grass minimum thermometer - ground temperature" disable_off="true"/>
+                <check key="weather:rain_gauge" text="Rain gauge - rainfall " disable_off="true"/>
+                <check key="weather:ombrometer" text="Ombrometer - rain fall" disable_off="true" deprecated="true"/>
+                <check key="weather:radar" text="Weather radar" disable_off="true"/>
+                <check key="weather:snow_height_sensor" text="Snow height sensor" disable_off="true"/>
+                <check key="weather:ultrasonic_snow_depth" text="Ultrasonic snow depth" disable_off="true" deprecated="true"/>
+                <check key="weather:snow_stick" text="Snow stick" disable_off="true" deprecated="true"/>
+                <check key="weather:precipitation_indicator" text="Precipitation indicator" disable_off="true"/>
+                <check key="weather:humidity_sensor" text="Humidity sensor" disable_off="true"/>
+                <check key="weather:hygrometer" text="Hygrometer - relative humidity" disable_off="true"/>
+                <check key="weather:psychrometer" text="Psychrometer - relative humidity" disable_off="true"/>
+                <check key="weather:sunshine_recorder" text="Sunshine recorder" disable_off="true"/>
+                <check key="weather:pyranometer" text="Pyranometer - short wave length sun radiation" disable_off="true"/>
+                <check key="weather:pyrheliometer" text="Pyrheliometer - sun radiation" disable_off="true"/>
+                <check key="weather:ceilometer" text="Ceilometer - height of cloud base" disable_off="true"/>
+                <check key="weather:lightning_detector" text="Lightning detector" disable_off="true"/>
+                <check key="weather:radiosonde" text="Radiosonde - warather balloon" disable_off="true"/>
+                <check key="weather:forward_scatter_sensor" text="Forward scatter sensor - visibility" disable_off="true"/>
+            </checkgroup>
+            <reference ref="recording_and_display"/>
+        </item> <!-- Weather Station -->
         <item name="Survey Point" icon="icons/png/man_made_survey_point.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=survey_point"/>
             <space/>
@@ -13635,7 +13683,7 @@
             <reference ref="name_wikipedia"/>
             <reference ref="population_postcode_website"/>
         </item> <!-- Hamlet -->
-        <item name="Isolated Dwelling" icon="icons/png/poi_empty.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
+        <item name="Isolated Dwelling" icon="icons/png/poi_house_sp.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Tag:place=isolated_dwelling"/>
             <space/>
             <key key="place" value="isolated_dwelling"/>
