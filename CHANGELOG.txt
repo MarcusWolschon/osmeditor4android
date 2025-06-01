@@ -1,5 +1,19 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.0.3:
+
+- Fix show a persisted error message if saving a custom preset fails
+- Fix actually support text_context for checkgroups
+- Fix use complete hashCode and equals for PresetRole
+- Fix re-downloading former rel. member would lead to inconsistent back links
+- Fix always remove node to split from original way except the 1st occurrence
+- Fix don't rely on ImageryOffsetId to generate safe ids
+- Fix force proguard to keep some action mode related fields
+- Fix handle empty way API message
+- Add allow user to select OAuth client key if no match with API name found
+- Update default preset
+- Update imagery from ELI
+ 
 21.0.2:
 
 - Fix protect against possible crash after pasting
