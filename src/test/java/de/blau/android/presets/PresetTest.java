@@ -40,6 +40,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.util.Base64;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
@@ -515,7 +516,7 @@ public class PresetTest {
         PresetItem sign = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, n, false);
         assertEquals("Stop sign (separate)", sign.getName());
     }
-    
+
     /**
      * Iteratively match until we only have address tags left
      */
@@ -523,19 +524,49 @@ public class PresetTest {
     public void matchAddresses() {
         StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "test2.osm");
         Way w = (Way) d.getOsmElement(Way.NAME, 96291973L);
-        Map<String,String> tags = new HashMap<>(w.getTags());
+        Map<String, String> tags = new HashMap<>(w.getTags());
         PresetItem match = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, null, true);
         assertTrue(match.hasKeyValue(Tags.KEY_AMENITY, "townhall"));
-        for (String key:match.getFields().keySet()) {
+        for (String key : match.getFields().keySet()) {
             tags.remove(key);
         }
         match = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, null, true);
         assertTrue(match.hasKey(Tags.KEY_BUILDING));
-        for (String key:match.getFields().keySet()) {
+        for (String key : match.getFields().keySet()) {
             tags.remove(key);
         }
         match = Preset.findBestMatch(ApplicationProvider.getApplicationContext(), presets, tags, null, null, true);
         assertTrue(match.hasKey(Tags.KEY_ADDR_STREET));
     }
-    
+
+    /**
+     * Check that a simple checkgroup is created properly
+     */
+    @Test
+    public void checkgroup() {
+        PresetItem item = presets[0].getItemByName("Weather Station", null);
+        assertNotNull(item);
+        PresetField field = getFieldByHint(item, "Instruments");
+        assertTrue(field instanceof PresetCheckGroupField);
+        PresetCheckField check = ((PresetCheckGroupField) field).getCheckField("weather:thermometer");
+        assertNotNull(check);
+        assertEquals("man_made", ((PresetCheckGroupField) field).getTextContext());
+    }
+
+    /**
+     * Get a field with the hint field
+     * 
+     * @param item the PresetItem holding the field
+     * @param hint the hint
+     * @return a field or null
+     */
+    @Nullable
+    private PresetField getFieldByHint(@NonNull PresetItem item, @NonNull String hint) {
+        for (PresetField field : item.getFields().values()) {
+            if (field instanceof PresetTagField && hint.equals(((PresetTagField) field).getHint())) {
+                return field;
+            }
+        }
+        return null;
+    }
 }
