@@ -33,6 +33,7 @@
     <string name="help_tag_only_mode">Modo solo etiquetas</string>
     <string name="help_indoor_mode">Modo interiores</string>
     <string name="help_address_mode">Modo de direcciones</string>
+    <string name="help_upgrade">Versión 21.0 - Notas de la versión</string>
     <string name="help_upgrade_202">Versión 20.2 - Notas de la versión</string>
     <string name="help_upgrade_201">Versión 20.1 - Notas de la versión</string>
     <string name="help_upgrade_200">Versión 20.0 - Notas de la versión</string>
