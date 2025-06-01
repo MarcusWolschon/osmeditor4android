@@ -312,6 +312,9 @@ public class PresetParser {
              * @throws SAXException if there is a parsing error
              */
             private void parseItem(@NonNull String name, @NonNull Attributes attr) throws SAXException {
+                // a number of fields use these, always try to retrieve them
+                String text = attr.getValue(TEXT);
+                String textContext = attr.getValue(TEXT_CONTEXT);
                 switch (name) {
                 case OPTIONAL:
                     inOptionalSection = true;
@@ -326,7 +329,7 @@ public class PresetParser {
                         throw new SAXException(msg);
                     }
                     String match = attr.getValue(MATCH);
-                    String textContext = attr.getValue(TEXT_CONTEXT);
+
                     String isObjectString = attr.getValue(OBJECT);
                     PresetTagField field = null;
                     if (!inOptionalSection) {
@@ -363,11 +366,9 @@ public class PresetParser {
                     if (defaultValue != null) {
                         field.setDefaultValue(defaultValue);
                     }
-                    String text = attr.getValue(TEXT);
                     if (text != null) {
                         field.setHint(text);
                     }
-                    textContext = attr.getValue(TEXT_CONTEXT);
                     if (textContext != null) {
                         field.setTextContext(textContext);
                     }
@@ -426,6 +427,10 @@ public class PresetParser {
                     } else if (currentLabel != null && !supportLabels) {
                         checkGroup.setHint(currentLabel);
                     }
+                    textContext = attr.getValue(TEXT_CONTEXT);
+                    if (textContext != null) {
+                        checkGroup.setTextContext(textContext);
+                    }
                     checkGroup.setOptional(inOptionalSection);
                     checkGroup.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                     setBackground(attr, checkGroup);
@@ -447,11 +452,9 @@ public class PresetParser {
                     if (defaultValue != null) {
                         checkField.setDefaultValue(ON.equals(defaultValue) ? valueOnAttr : valueOffAttr);
                     }
-                    text = attr.getValue(TEXT);
                     if (text != null) {
                         checkField.setHint(text);
                     }
-                    textContext = attr.getValue(TEXT_CONTEXT);
                     if (textContext != null) {
                         checkField.setTextContext(textContext);
                     }
@@ -504,21 +507,17 @@ public class PresetParser {
                     if (!(field instanceof PresetComboField)) {
                         break;
                     }
-
                     defaultValue = attr.getValue(DEFAULT);
                     if (defaultValue != null) {
                         field.setDefaultValue(defaultValue);
                     }
-                    text = attr.getValue(TEXT);
                     if (text != null) {
                         field.setHint(text);
                         removeDuplicatedLabel(text);
                     }
-                    textContext = attr.getValue(TEXT_CONTEXT);
                     if (textContext != null) {
                         field.setTextContext(textContext);
                     }
-
                     String valuesContext = attr.getValue(VALUES_CONTEXT);
                     ((PresetComboField) field).setValuesContext(valuesContext);
                     if (textContext == null && valuesContext != null) {
