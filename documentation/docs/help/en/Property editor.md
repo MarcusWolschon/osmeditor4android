@@ -41,8 +41,7 @@ The following operations can be performed on selected tags
  * Copy - copy the tag(s) to the internal tag clipboard.
  * Cut - same as copy, but delete the tag(s) from this object.
  * Copy (system) - copy the tag(s) to the system clipboard in a text representation.
- * Create custom preset - select the tags you want to include, then select "Create custom preset" from the menu and enter a name when you are prompted. The new preset can then be found in the "Auto-preset" group and will be added to the MRU list once applied. The function does not include the values for tags that have _name_ semantics, and will set the current value for combo and multi-select fields as the default value.
-
+ * Create custom preset - select the tags you want to include, then select "Create custom preset" from the menu and enter a name when you are prompted. The new preset can then be found in the "Auto-preset" group and will be added to the MRU list once applied. The function does not include the values for tags that have _name_ semantics, and will set the current value for combo and multi-select fields as the default value. Note that preset matching will not change if you add a tag with a specific value and matching for that tag is set to only match on the key, or not at all.
 
 #### Special auto complete behaviour
 
