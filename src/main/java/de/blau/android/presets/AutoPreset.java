@@ -42,6 +42,7 @@ import de.blau.android.taginfo.TaginfoServer.SearchResult;
 import de.blau.android.taginfo.TaginfoServer.WikiPageResult;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.collections.MultiHashMap;
 
@@ -50,9 +51,10 @@ public class AutoPreset {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AutoPreset.class.getSimpleName().length());
     private static final String DEBUG_TAG = AutoPreset.class.getSimpleName().substring(0, TAG_LEN);
 
-    public static final String  ICON         = "auto-preset.png";
-    private static final String PNG          = ".png";
-    private static final String RAILWAY_ICON = "auto-preset-railway.png";
+    private static final String INDENT_OUTPUT = "http://xmlpull.org/v1/doc/features.html#indent-output";
+    public static final String  ICON          = "auto-preset.png";
+    private static final String PNG           = ".png";
+    private static final String RAILWAY_ICON  = "auto-preset-railway.png";
 
     private static final MultiHashMap<String, StringWithDescription> HARDWIRED_KEYS = new MultiHashMap<>();
     static {
@@ -317,29 +319,28 @@ public class AutoPreset {
      * @param context Android Context
      * @param preset the Preset to save
      */
-    public static void save(@NonNull Context context, @NonNull final Preset preset) {
+    public static void save(@NonNull final Context context, @NonNull final Preset preset) {
         Logic logic = App.getLogic();
         ExecutorTask<Void, Void, Void> save = new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected Void doInBackground(Void param) {
-                try {
-                    File outfile = FileUtil.openFileForWriting(context,
-                            FileUtil.getPublicDirectory() + "/" + Paths.DIRECTORY_PATH_AUTOPRESET + "/" + Files.FILE_NAME_AUTOPRESET);
-                    try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream out = new BufferedOutputStream(fout);) { // NOSONAR
-                        Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-                        XmlSerializer s = XmlPullParserFactory.newInstance().newSerializer();
-                        s.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
-                        s.setOutput(out, OsmXml.UTF_8);
-                        preset.toXml(s);
-                        s.flush();
-                    } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
-                        Log.e(DEBUG_TAG, "Parsing failed with " + e.getMessage());
-                    }
-                } catch (IOException ioex) {
-                    Log.e(DEBUG_TAG, "Saving failed with " + ioex.getMessage());
+            protected Void doInBackground(Void param) throws IOException, XmlPullParserException {
+                File outfile = FileUtil.openFileForWriting(context,
+                        FileUtil.getPublicDirectory() + "/" + Paths.DIRECTORY_PATH_AUTOPRESET + "/" + Files.FILE_NAME_AUTOPRESET);
+                try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream out = new BufferedOutputStream(fout);) { // NOSONAR
+                    Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
+                    XmlSerializer s = XmlPullParserFactory.newInstance().newSerializer();
+                    s.setFeature(INDENT_OUTPUT, true);
+                    s.setOutput(out, OsmXml.UTF_8);
+                    preset.toXml(s);
+                    s.flush();
                 }
-
                 return null;
+            }
+
+            @Override
+            protected void onBackgroundError(Exception e) {
+                Log.e(DEBUG_TAG, "Preset saving failed with " + e.getMessage());
+                ScreenMessage.toastTopError(context, context.getString(R.string.saving_preset_failed, e.getLocalizedMessage()));
             }
         };
         save.execute();
@@ -365,11 +366,7 @@ public class AutoPreset {
             File autoIcon = new File(autoPresetDir, AutoPreset.ICON);
             if (!autoIcon.exists()) {
                 for (int i = 0; i < ICONS.length; i++) {
-                    try {
-                        FileUtil.copyFileFromAssets(context, "images/" + ICONS[i], autoPresetDir, ICONSDEST[i]);
-                    } catch (IOException e) {
-                        Log.e(DEBUG_TAG, "Icon not found " + ICONS[i] + " " + e.getMessage());
-                    }
+                    copyIcon(context, autoPresetDir, i);
                 }
                 // add .nomedia file to stop the directory being indexed
                 (new File(autoPresetDir, ".nomedia")).createNewFile(); // NOSONAR
@@ -384,6 +381,21 @@ public class AutoPreset {
         PresetGroup group = autopreset.getGroupByName(autopresetGroupName);
         if (group == null) {
             new PresetGroup(autopreset, autopreset.getRootGroup(), autopresetGroupName, AutoPreset.ICON);
+        }
+    }
+
+    /**
+     * Copy icon at position i
+     * 
+     * @param context an Android Context
+     * @param autoPresetDir the destination directory
+     * @param i the icon position
+     */
+    private static void copyIcon(@NonNull Context context, @NonNull File autoPresetDir, int i) {
+        try {
+            FileUtil.copyFileFromAssets(context, "images/" + ICONS[i], autoPresetDir, ICONSDEST[i]);
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Icon not found " + ICONS[i] + " " + e.getMessage());
         }
     }
 

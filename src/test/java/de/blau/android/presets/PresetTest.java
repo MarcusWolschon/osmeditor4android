@@ -48,7 +48,6 @@ import de.blau.android.JavaResources;
 import de.blau.android.UnitTestUtils;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.osm.RelationUtilTest;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;

@@ -979,6 +979,7 @@
     <string name="tag_menu_create_preset">Create custom preset</string>
     <string name="create_preset_title">Custom preset name</string>
     <string name="create_preset_default_name">Custom %1$s</string>
+    <string name="saving_preset_failed">Saving prest failed with\n\n%1$s</string>
     <!-- Strings in Box/LocationPicker -->
     <string name="location_choose_radius">Choose radius:</string>
     <string name="location_default_radius">300m</string>¨
