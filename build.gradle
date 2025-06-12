@@ -16,7 +16,7 @@ buildscript {
         }
         
         classpath 'com.android.tools.build:gradle:8.1.1'
-        classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.5'
+        classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.6'
         classpath 'org.jacoco:org.jacoco.core:0.8.9'
         classpath "ch.poole:preset-utils:0.26.0"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
@@ -67,14 +67,16 @@ markdownToHtml {
     outputDir = new File(help_assets_dir)
     outputEncoding = "utf8"
     configuration.template = projectDir.getPath() + "/documentation/html_template.tpl"
+    configuration.headerIds = true
 }
 
 task markdownToHtmlRtl(type: ch.poole.gradle.markdown.MarkdownToHtmlTask) {
-    sourceDir =  new File(projectDir.getPath() + '/documentation/docs/help-rtl')
+    sourceDir = new File(projectDir.getPath() + '/documentation/docs/help-rtl')
     inputEncoding ="utf8"
     outputDir = new File(help_assets_dir)
     outputEncoding = "utf8"
     configuration.template = projectDir.getPath() + "/documentation/html_template_rtl.tpl"
+    configuration.headerIds = true
 }
 markdownToHtml.dependsOn markdownToHtmlRtl
 
