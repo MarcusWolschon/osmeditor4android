@@ -329,7 +329,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
                     }
 
                     File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
-                    boolean success = load();
+                    boolean success = load(loaded);
                     if (!success || loaded.isEmpty()) {
                         Log.i(DEBUG_TAG, "Deleting broken or empty save file");
                         deleteSaveFile();
@@ -366,61 +366,62 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
                 }
             }
 
-            /**
-             * Loads a track from the file to the "loaded" ArrayList.
-             * 
-             * @return true if the file was loaded without problems, false if some problem occurred and the file needs
-             *         to be rewritten
-             */
-            private boolean load() {
-                try (FileInputStream fileInput = ctx.openFileInput(SAVEFILE); DataInputStream in = new DataInputStream(new BufferedInputStream(fileInput));) {
-                    long size = fileInput.getChannel().size();
-                    // if you manage to record over 32 GB of track data (in RAM) on a mobile device,
-                    // which means non-stop recording over many many years,
-                    // you deserve the problem you are going to get when the integer overflows in the next line.
-                    int records = (int) ((size - 4) / TrackPoint.RECORD_SIZE);
-
-                    loaded.ensureCapacity(records);
-                    if (in.readInt() != TrackPoint.FORMAT_VERSION) {
-                        Log.e(DEBUG_TAG, "cannot load track, incompatible data format");
-                        return false;
-                    }
-
-                    for (int i = 0; i < records; i++) {
-                        loaded.add(TrackPoint.fromStream(in));
-                    }
-
-                    if ((size - 4) % TrackPoint.RECORD_SIZE != 0) {
-                        Log.e(DEBUG_TAG, "track file contains partial record");
-                        return false;
-                    }
-
-                    return true;
-                } catch (FileNotFoundException e) {
-                    Log.i(DEBUG_TAG, "No saved track");
-                    return false;
-                } catch (Exception e) {
-                    Log.e(DEBUG_TAG, "failed to (completely) load track", e);
-                    return false;
-                }
-            }
-
-            /**
-             * Saves the given data to disk, overwriting anything already saved
-             */
-            private void rewriteSaveFile(Iterable<TrackPoint> data) {
-                try (FileOutputStream fileOutput = ctx.openFileOutput(SAVEFILE, Context.MODE_PRIVATE);
-                        DataOutputStream out = new DataOutputStream(new BufferedOutputStream(fileOutput));) {
-                    out.writeInt(TrackPoint.FORMAT_VERSION);
-                    for (TrackPoint point : data) {
-                        point.toStream(out);
-                    }
-                } catch (Exception e) {
-                    markSavingBroken("Failed to rewrite broken save file", e);
-                }
-            }
-
         }.execute();
+    }
+
+    /**
+     * Loads a track from the file to the "loaded" ArrayList.
+     * 
+     * @param loaded the ArrayList
+     * @return true if the file was loaded without problems, false if some problem occurred and the file needs to be
+     *         rewritten
+     */
+    private boolean load(@NonNull ArrayList<TrackPoint> loaded) {
+        try (FileInputStream fileInput = ctx.openFileInput(SAVEFILE); DataInputStream in = new DataInputStream(new BufferedInputStream(fileInput));) {
+            long size = fileInput.getChannel().size();
+            // if you manage to record over 32 GB of track data (in RAM) on a mobile device,
+            // which means non-stop recording over many many years,
+            // you deserve the problem you are going to get when the integer overflows in the next line.
+            int records = (int) ((size - 4) / TrackPoint.RECORD_SIZE);
+
+            loaded.ensureCapacity(records);
+            if (in.readInt() != TrackPoint.FORMAT_VERSION) {
+                Log.e(DEBUG_TAG, "cannot load track, incompatible data format");
+                return false;
+            }
+
+            for (int i = 0; i < records; i++) {
+                loaded.add(TrackPoint.fromStream(in));
+            }
+
+            if ((size - 4) % TrackPoint.RECORD_SIZE != 0) {
+                Log.e(DEBUG_TAG, "track file contains partial record");
+                return false;
+            }
+
+            return true;
+        } catch (FileNotFoundException e) {
+            Log.i(DEBUG_TAG, "No saved track");
+            return false;
+        } catch (Exception e) {
+            Log.e(DEBUG_TAG, "failed to (completely) load track", e);
+            return false;
+        }
+    }
+
+    /**
+     * Saves the given data to disk, overwriting anything already saved
+     */
+    private void rewriteSaveFile(Iterable<TrackPoint> data) {
+        try (FileOutputStream fileOutput = ctx.openFileOutput(SAVEFILE, Context.MODE_PRIVATE);
+                DataOutputStream out = new DataOutputStream(new BufferedOutputStream(fileOutput));) {
+            out.writeInt(TrackPoint.FORMAT_VERSION);
+            for (TrackPoint point : data) {
+                point.toStream(out);
+            }
+        } catch (Exception e) {
+            markSavingBroken("Failed to rewrite broken save file", e);
+        }
     }
 
     /**
