@@ -154,6 +154,7 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
      * @param context an Android Context
      * @return a StyleableLayer
      */
+    @Nullable
     protected abstract StyleableLayer load(@NonNull Context context);
 
     @Override
