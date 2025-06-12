@@ -109,7 +109,7 @@ public class MapOverlay extends StyleableFileLayer
         // this is slightly annoying as we need to protect against overwriting already saved state
         initStyling(!hasStateFile(context), prefs.getGpxStrokeWidth(), prefs.getGpxLabelSource(), prefs.getGpxLabelMinZoom(), prefs.getGpxSynbol());
         DataStyle styles = map.getDataStyle();
-        paint.setColor(ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GPX), 9, styles.getInternal(DataStyle.GPS_TRACK).getPaint().getColor()));
+        setColor(ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GPX), 9, styles.getInternal(DataStyle.GPS_TRACK).getPaint().getColor()));
 
         // the following can only be changed in the DataStyle
         FeatureStyle fs = styles.getInternal(DataStyle.LABELTEXT_NORMAL);
@@ -476,16 +476,17 @@ public class MapOverlay extends StyleableFileLayer
     public synchronized StyleableLayer load(@NonNull Context context) {
         Log.d(DEBUG_TAG, "Loading state from " + stateFileName);
         MapOverlay restoredOverlay = savingHelper.load(context, stateFileName, true, true, false);
-        if (restoredOverlay != null) {
-            Log.d(DEBUG_TAG, "read saved state");
-            wayPointPaint = restoredOverlay.wayPointPaint;
-            labelKey = restoredOverlay.labelKey;
-            labelMinZoom = restoredOverlay.labelMinZoom;
-            if (playbackTask == null && restoredOverlay.pausedPoint != null) {
-                // restart playback
-                playbackTask = new GpxPlayback();
-                playbackTask.execute(restoredOverlay.pausedPoint);
-            }
+        if (restoredOverlay == null) {
+            return null;
+        }
+        Log.d(DEBUG_TAG, "read saved state");
+        wayPointPaint = restoredOverlay.wayPointPaint;
+        labelKey = restoredOverlay.labelKey;
+        labelMinZoom = restoredOverlay.labelMinZoom;
+        if (playbackTask == null && restoredOverlay.pausedPoint != null) {
+            // restart playback
+            playbackTask = new GpxPlayback();
+            playbackTask.execute(restoredOverlay.pausedPoint);
         }
         return restoredOverlay;
     }

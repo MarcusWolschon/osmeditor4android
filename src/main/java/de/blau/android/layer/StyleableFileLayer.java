@@ -3,7 +3,6 @@ package de.blau.android.layer;
 import java.io.InputStream;
 
 import android.content.Context;
-import android.net.Uri;
 import androidx.annotation.NonNull;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.util.Hash;
@@ -37,7 +36,9 @@ public abstract class StyleableFileLayer extends StyleableLayer {
      * @return true if a state file exists
      */
     protected boolean hasStateFile(@NonNull Context context) {
-        setStateFileName(Uri.parse(contentId).getEncodedPath());
+        if (stateFileName == null) {
+            return false;
+        }
         try (InputStream stream = context.openFileInput(stateFileName)) {
             return true;
         } catch (Exception ex) {
