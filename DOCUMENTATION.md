@@ -6,13 +6,16 @@ The files are found in the documentation directory, layout:
 
     documentation			top level documentation directory
     	/docs			contains markdown source files and images
-    		/help
-    			/de			language specific files for on device help and website
+    		/help                   language specific files for on device help and website
+    			/de			
     			/en
     			/es 
     			/fr
     			/images		images, mainly icons for the above
     			.....
+    	   /help-rtl                rtl scripts specific files for on device help and website
+    	      /ar
+    	      .....  
     		/tutorials		texts and images not included on device for size reasons
     			/images
     			....
@@ -20,14 +23,15 @@ The files are found in the documentation directory, layout:
     	    /playstore              text for the playstore listing
     		CNAME			domain this appears under for github pages
     		index.md		top level page for vespucci.io
-    	/flatly-custom		slightly customized mkdocs theme
+        html_template.tpl           template for on device html
+    	html_template_rtl.tpl       rtl template for on device html
     	mkdocs.yml			mkdocs configuration file
 
 ## vespucci.io website
 
-The static website is produced with [mkdocs](http://mkdocs.org) (requires version 1.0.x).
+The static website is produced with [mkdocs](http://mkdocs.org) (requires version 1.6.x).
 
-You can serve a local version on your machine by running (you will need to install the [bootswatch themes](https://github.com/mkdocs/mkdocs-bootswatch)):
+You can serve a local version on your machine by running (you will need to install the [material theme](https://squidfunk.github.io/mkdocs-material/)):
 
     mkdocs serve
 
@@ -43,8 +47,6 @@ Note: any manual changes to the GitHub Pages will be lost!
 The source for the help files is in the language specific directories, these need to be converted to html format and copied to the Android assets directory for on device use by running the `markdownToHtml` task. This is only necessary if you have changed something, to keep the build process simple the current generated html files are stored in our source code repository too. 
 
 The help files need to be named the same as in the resource file "helptopics.xml". The names of the files can be translated, but the actual help files then need to be renamed too (note in practice this currently doesn't work due to limitations of Android file names), you can however leave the default versions in if you have not translated all files. 
-
-Help with automating the build process would be welcome.
 
 ## Generating HTML for inclusion in the APK
 

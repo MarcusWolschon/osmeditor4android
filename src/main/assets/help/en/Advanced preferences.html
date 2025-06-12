@@ -5,140 +5,140 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Advanced preferences</h1>
+<h1 id="advanced-preferences">Advanced preferences</h1>
 <p>The Advanced preferences page is split in to seven topical sections that can be access by clicking on the main entries. Depending on the Android version running on your device some settings may be not available for technical reasons.</p>
-<h2>User Interface Settings</h2>
-<h3>Show node icons</h3>
+<h2 id="user-interface-settings">User Interface Settings</h2>
+<h3 id="show-node-icons">Show node icons</h3>
 <p>Show icons on nodes if they can be matched with a preset. Default: <em>on</em>.</p>
-<h3>Show POI icons on buildings</h3>
+<h3 id="show-poi-icons-on-buildings">Show POI icons on buildings</h3>
 <p>Show icons on buildings if the tags on the building can be matched with a preset. Default: <em>on</em>.</p>
-<h3>Display tag form</h3>
+<h3 id="display-tag-form">Display tag form</h3>
 <p>Enable the form based tag editor. Default: <em>on</em>.</p>
-<h3>Display labels from presets</h3>
+<h3 id="display-labels-from-presets">Display labels from presets</h3>
 <p>Display labels from presets in the tag form editor. Default: <em>on</em>.</p>
-<h3>Show camera action</h3>
+<h3 id="show-camera-action">Show camera action</h3>
 <p>Show a camera button on the main display (if a camera app is present). Default: <em>on</em>.</p>
-<h3>Camera app</h3>
+<h3 id="camera-app">Camera app</h3>
 <p>Select the camera app to use. If your, installed, camera app is not listed, please report this and we will add it to the list. Unluckily google does not allow to automatically determine installed camera apps outside of pre-installed ones. Default: <em>System default</em>.</p>
-<h3>Use the MediaStore</h3>
+<h3 id="use-the-mediastore">Use the MediaStore</h3>
 <p>Additionally use Androids MediaStore for accessing photos. This will add all photographs in JPEG format found via the MediaStore that contain coordinates in their EXIF data to the photo layer. Default: <em>off</em>.</p>
-<h3>Add images to the MediaStore</h3>
+<h3 id="add-images-to-the-mediastore">Add images to the MediaStore</h3>
 <p>Add images recorded via the camera button (see above) to Androids MediaStore. This potentially makes managing the images from an external app easier. Default: <em>off</em>.</p>
-<h3>Follow location button layout</h3>
+<h3 id="follow-location-button-layout">Follow location button layout</h3>
 <p>Change the side of the display the &quot;Follow location&quot; button is positioned on or remove it completely. Default: <em>lefthand side</em>.</p>
-<h3>Always dim non-downloaded areas</h3>
+<h3 id="always-dim-non-downloaded-areas">Always dim non-downloaded areas</h3>
 <p>If on the non-downloaded areas will be dimmed when the screen is locked. Default: <em>off</em>.</p>
-<h3>Fullscreen mode</h3>
+<h3 id="fullscreen-mode">Fullscreen mode</h3>
 <p>On devices without hardware buttons Vespucci can run in full screen mode, that means that &quot;virtual&quot; navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not.</p>
 <p>In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. <em>No statusbar</em> will additionally try to remove Androids status bar besides forcing full screen mode.</p>
 <p>On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it.</p>
 <p>Default on Android 4.4 - 10:0: <em>Auto</em>, 4.0 - 4.3 and 11.0 and later: <em>Never</em>.</p>
 <p>You need to restart the app for changes to this setting to take effect.</p>
-<h3>Map screen orientation</h3>
+<h3 id="map-screen-orientation">Map screen orientation</h3>
 <p>If set to any other value than <em>Auto</em> Vespucci will try to override your device settings for screen rotation.</p>
-<h3>Show tolerance</h3>
+<h3 id="show-tolerance">Show tolerance</h3>
 <p>Show halos indicating the size of the &quot;touch areas&quot; around elements. Default: <em>on</em>.</p>
-<h3>Use back key for Undo</h3>
+<h3 id="use-back-key-for-undo">Use back key for Undo</h3>
 <p>Use the back key for undo. Default: <em>off</em>.</p>
-<h3>Theme</h3>
+<h3 id="theme">Theme</h3>
 <p>Select the theme to use. <em>Follow system</em> will follow the setting in the system preferences as far as possible, <em>Light</em> and <em>Dark</em> will fix the setting on the respective theme. <em>Follow system</em> is only available on Android 10 and later. Default: <em>Follow system</em>. You need to restart the app for changes to this setting to take effect.</p>
-<h3>Enable split action bar</h3>
+<h3 id="enable-split-action-bar">Enable split action bar</h3>
 <p>Show the menu buttons at the bottom of the screen. Default: <em>on</em>. You need to restart the app for changes to this setting to take effect.</p>
-<h3>App language</h3>
+<h3 id="app-language">App language</h3>
 <p>Select a language for the user interface that is different from the device default, setting the value to <em>Device language</em> will revert to using your preference for the whole device. On devices running Android 13 and later the app language can be changed in the system settings too. Preset translations can be disabled in the preset configurations.</p>
-<h3>Max. number of inline values</h3>
+<h3 id="max-number-of-inline-values">Max. number of inline values</h3>
 <p>Maximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: <em>4</em>.</p>
-<h3>Long string limit</h3>
+<h3 id="long-string-limit">Long string limit</h3>
 <p>Limit from which, instead of an inline text field, a modal will be displayed will be used for text editing in the form based editor. The modal will be displayed if either the existing text is longer than the limit, or if the preset text field length attribute is longer than the limit. Default: <em>255</em>.</p>
-<h3>Time to wait before auto-locking</h3>
+<h3 id="time-to-wait-before-auto-locking">Time to wait before auto-locking</h3>
 <p>How long to wait before auto-locking the map display, setting the value to 0 disables the auto-locking. Default <em>60 seconds</em>.</p>
-<h3>Enable Anti-Aliasing</h3>
+<h3 id="enable-anti-aliasing">Enable Anti-Aliasing</h3>
 <p>Use anto-aliasing when rendering OSM data. Default: <em>on</em>.</p>
-<h3>Max line width</h3>
+<h3 id="max-line-width">Max line width</h3>
 <p>Maximum width lines will increase to when zooming in. Default: <em>16 pixels</em>.</p>
-<h3>Pending upload OK limit</h3>
+<h3 id="pending-upload-ok-limit">Pending upload OK limit</h3>
 <p>If the number of pending object uploads is below this limit the situation is considered unproblematic. Default: <em>50 objects</em>.</p>
-<h3>Pending upload warning limit</h3>
+<h3 id="pending-upload-warning-limit">Pending upload warning limit</h3>
 <p>If the number of pending object uploads is below this limit it will have warning status. A pending upload count above this will have danger status. Default: <em>200 objects</em>.</p>
-<h3>Disable feedback activity</h3>
+<h3 id="disable-feedback-activity">Disable feedback activity</h3>
 <p>Disable the feedback activity and use an URL instead. Default: <em>false</em>.</p>
-<h3>Upload reminder interval</h3>
+<h3 id="upload-reminder-interval">Upload reminder interval</h3>
 <p>Interval for reminders if you have unpublished changes. Default: <em>6 hours</em>.</p>
-<h3>Too much data warning</string></h3>
+<h3 id="too-much-data-warning">Too much data warning</string></h3>
 <p>Limit (in number of Nodes) at which we start warning about too much data being loaded. Default: <em>50'000 objects</em>.</p>
-<h3>Beep volume</h3>
+<h3 id="beep-volume">Beep volume</h3>
 <p>Set how loud the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: <em>50</em>.</p>
-<h3>Minimum zoom for Mapillary</h3>
+<h3 id="minimum-zoom-for-mapillary">Minimum zoom for Mapillary</h3>
 <p>Set the minimum zoom level for Mapillary data to be displayed. If set too low the application might crash in areas with very high density Mapillary data. Consider increasing the number if your display if very large or very high resolution. Default: <em>16</em></p>
-<h3>Name capitalization</h3>
+<h3 id="name-capitalization">Name capitalization</h3>
 <p>Set the capitalization mode for keyboard input for name-like tag. One of <em>No capitalization</em>, <em>Word capitalization</em> and <em>Sentence capitalization</em>. Default: <em>Word capitalization</em>.</p>
 <p>Note: this setting is only applicable when the current locale uses latin script.</p>
-<h3>Use volume keys for zooming</h3>
+<h3 id="use-volume-keys-for-zooming">Use volume keys for zooming</h3>
 <p>Allow the use of the volume keys for zooming in and out. Default: <em>false</em>.</p>
-<h2>Data and Editing Settings</h2>
+<h2 id="data-and-editing-settings">Data and Editing Settings</h2>
 <p>Settings related to editing.</p>
-<h3>Always use contextual menu</h3>
+<h3 id="always-use-contextual-menu">Always use contextual menu</h3>
 <p>Always show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: <em>off</em>.</p>
-<h3>Override address tag default</h3>
+<h3 id="override-address-tag-default">Override address tag default</h3>
 <p>Use our address tag configuration over any region specific values that we may have found. Default: <em>off</em>.</p>
-<h3>Address tags</h3>
+<h3 id="address-tags">Address tags</h3>
 <p>When using address prediction only add the tags configured here.</p>
-<h3>Enable auto-apply of preset</h3>
+<h3 id="enable-auto-apply-of-preset">Enable auto-apply of preset</h3>
 <p>Automatically apply the best matching preset when the property editor is invoked. This will add keys for all non-optional tags. Default: <em>on</em>.</p>
-<h3>Distance between neighbour addresses</h3>
+<h3 id="distance-between-neighbour-addresses">Distance between neighbour addresses</h3>
 <p>The distance in meters up to which two addresses are considered to be potential neighbours, this is useful for fine tuning how the increment used for predicting addresses is calculated. Default: <em>50 meters</em>.</p>
-<h3>Enable name suggestions</h3>
+<h3 id="enable-name-suggestions">Enable name suggestions</h3>
 <p>Support special handling of name tags with canonical name suggestions. Default: <em>on</em>.</p>
-<h3>Enable name suggestion presets</h3>
+<h3 id="enable-name-suggestion-presets">Enable name suggestion presets</h3>
 <p>When using name suggestions, automatically apply the best preset. Default: <em>on</em>.</p>
-<h3>Generate notifications</h3>
+<h3 id="generate-notifications">Generate notifications</h3>
 <p>Generate notifications for validator detected issues. Default: <em>on</em>.</p>
-<h3>Group alerts only</h3>
+<h3 id="group-alerts-only">Group alerts only</h3>
 <p>Generate notifications (audio) only once per notification group. Default: <em>off</em>.</p>
-<h3>Max. number of displayed notifications</h3>
+<h3 id="max-number-of-displayed-notifications">Max. number of displayed notifications</h3>
 <p>Maximum number of notifications retained in the status bar: <em>5</em> (per type).</p>
-<h3>Max distances for notifications</h3>
+<h3 id="max-distances-for-notifications">Max distances for notifications</h3>
 <p>Maximum distance a validation issue or note/bug can be from the current positions to trigger a notification. Default: <em>100 meters</em>.</p>
-<h3>Close changesets</h3>
+<h3 id="close-changesets">Close changesets</h3>
 <p>Close the current open changeset after uploading edits. Default: <em>on</em>.</p>
-<h3>Squaring threshold</h3>
+<h3 id="squaring-threshold">Squaring threshold</h3>
 <p>The threshold in ° over which angles are ignored for squaring and straightening. Default: <em>15°</em>.</p>
-<h3>Auto-format phone numbers</h3>
+<h3 id="auto-format-phone-numbers">Auto-format phone numbers</h3>
 <p>This allows to control if phone numbers should be auto-formatted. Default: <em>on</em>.</p>
-<h3>Max distance for stored imagery offsets</h3>
+<h3 id="max-distance-for-stored-imagery-offsets">Max distance for stored imagery offsets</h3>
 <p>The farthest distance a locally stored layer offset will be automatically be applied. Default: <em>100 meters</em>.</p>
-<h3>Use imperial units for measuring</h3>
+<h3 id="use-imperial-units-for-measuring">Use imperial units for measuring</h3>
 <p>Use imperial units when measuring in countries that customarily use them. Default: <em>off</em>.</p>
-<h3>Minimum number of nodes in circle</h3>
+<h3 id="minimum-number-of-nodes-in-circle">Minimum number of nodes in circle</h3>
 <p>The target minimum number of nodes that should be aimed for in a circle. Default: <em>6</em>.</p>
-<h3>Maximum circle segment length</h3>
+<h3 id="maximum-circle-segment-length">Maximum circle segment length</h3>
 <p>Maximum distance between two circle nodes. Default: <em>2m</em>.</p>
-<h3>Minimum circle segment length</h3>
+<h3 id="minimum-circle-segment-length">Minimum circle segment length</h3>
 <p>Minimum distance between two circle nodes. Default: <em>0.5m</em>.</p>
-<h3>Maximum distance to move tagged node</h3>
+<h3 id="maximum-distance-to-move-tagged-node">Maximum distance to move tagged node</h3>
 <p>Maximum distance to move a tagged node when replacing way geometry. DEfault: <em>1.0m</em>.</p>
-<h2>Auto-download Settings</h2>
-<h3>Download radius</h3>
+<h2 id="auto-download-settings">Auto-download Settings</h2>
+<h3 id="download-radius">Download radius</h3>
 <p>When auto-downloading, the radius of the area that is attempted to download around the current position. In pan and zoom auto-download mode, this is the minimum download size. Default: <em>50 meters</em>.</p>
-<h3>Maximum auto-download speed</h3>
+<h3 id="maximum-auto-download-speed">Maximum auto-download speed</h3>
 <p>Maximum speed up to which auto-download is attempted. Default: <em>10 km/h</em>.</p>
-<h3>Auto-prune</h3>
+<h3 id="auto-prune">Auto-prune</h3>
 <p>Enable/disable automatically pruning in memory data and tasks. Default: <em>on</em>.</p>
-<h3>Auto-prune limit</h3>
+<h3 id="auto-prune-limit">Auto-prune limit</h3>
 <p>Limit at, when reached, an automatic prune of the data in memory is attempted. Requires <em>Auto prune</em> to be on. Default: <em>5000 Nodes</em>.</p>
-<h3>Auto-prune Bounding Boxes limit</h3>
+<h3 id="auto-prune-bounding-boxes-limit">Auto-prune Bounding Boxes limit</h3>
 <p>Number of Bounding Boxes in memory that when reached will trigger a prune. Requires <em>Auto prune</em> to be on. Default: <em>100 Bounding boxes</em>.</p>
-<h3>Zoom limit</h3>
+<h3 id="zoom-limit">Zoom limit</h3>
 <p>Minimum zoom for pan and zoom auto-download to work. In high data density areas this should be set to higher values to avoid loading very large amounts of data when zooming out. This is used both for data and tasks. Default: <em>17</em>.</p>
-<h3>Task download radius</h3>
+<h3 id="task-download-radius">Task download radius</h3>
 <p>When auto-downloading notes and bugs, the radius of the area that is attempted to download around the current position. Default: <em>200 meters</em>.</p>
-<h3>Maximum task auto-download speed</h3>
+<h3 id="maximum-task-auto-download-speed">Maximum task auto-download speed</h3>
 <p>Maximum speed up to which auto-download of notes and bugs is attempted. Default: <em>30 km/h</em>.</p>
-<h3>Task auto-prune limit</h3>
+<h3 id="task-auto-prune-limit">Task auto-prune limit</h3>
 <p>Limit at, when reached, an automatic prune of the tasks in memory is attempted. Requires <em>Auto prune</em> to be on. Default: <em>10000 Tasks</em>.</p>
-<h2>Location Settings</h2>
+<h2 id="location-settings">Location Settings</h2>
 <p>GPS and Network location settings.</p>
-<h3>GPS/GNSS source</h3>
+<h3 id="gpsgnss-source">GPS/GNSS source</h3>
 <p>Source of GPS/GNSS location updates.</p>
 <p>Possible values:</p>
 <p><strong>Internal</strong> use the internal GNSS location provider.</p>
@@ -146,81 +146,81 @@
 <p><strong>NMEA from TCP client</strong> connect to a source of NMEA sentences over TCP, if the source is gpsd, the client will attempt to switch it to NMEA output (from 14.0.11 on).</p>
 <p><strong>NMEA from TCP server</strong> this will start a server on a specified port and listen for a client providing NMEA sentences, this is mainly useful with rtklib.</p>
 <p>Default: <em>internal</em>.</p>
-<h3>NMEA network source</h3>
+<h3 id="nmea-network-source">NMEA network source</h3>
 <p>If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is. In <strong>NMEA from TCP server</strong> mode the host part is currently ignored.</p>
-<h3>Minimum GPS/GNSS interval</h3>
+<h3 id="minimum-gpsgnss-interval">Minimum GPS/GNSS interval</h3>
 <p>Minimum interval between updates for the internal GPS/GNSS source. Default: <em>1000 ms</em>.</p>
-<h3>Minimum GPS/GNSS-distance</h3>
+<h3 id="minimum-gpsgnss-distance">Minimum GPS/GNSS-distance</h3>
 <p>Minimum distance between updates for the internal GPS/GNSS source. Default: <em>5 meters</em>.</p>
-<h3>Leave GPS/GNSS turned off</h3>
+<h3 id="leave-gpsgnss-turned-off">Leave GPS/GNSS turned off</h3>
 <p>If GPS has been disabled by the user, don't ask to turn it on. Default: <em>off</em>.</p>
-<h3>Fallback to network location</h3>
+<h3 id="fallback-to-network-location">Fallback to network location</h3>
 <p>If the device is providing &quot;Network&quot; location data use it as a fallback if we haven't received a GPS location for a longer time. Default: <em>off</em>.</p>
-<h3>Stale location after</h3>
+<h3 id="stale-location-after">Stale location after</h3>
 <p>Time, in seconds, after which a location will be considered stale. Default: <em>60 s</em></p>
-<h2>Server Settings</h2>
+<h2 id="server-settings">Server Settings</h2>
 <p>OpenStreetMap API and other servers configuration.</p>
-<h3>OSM API URL</h3>
+<h3 id="osm-api-url">OSM API URL</h3>
 <p>This lists all the configured OSM API instances, allows adding further ones and editing the configuration of existing entries. The default configuration contains an entry for the regular openstreetmap.org API and the sandbox API for development and experimentation.</p>
 <p>Select <em>Edit</em> from the overflow menu to configure the URLs including read-only sources and authentication method for a specific entry. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024.</p>
 <p>For API instances that support uploading compressed bodies in POST requests, <em>Support compressed uploads</em> can be set. By default this is only enabled for the openstreetmap.org API instance.</p>
 <p>These preferences can also be accessed by selecting <em>Configure</em> for the OpenStreetMap Data layer in the layers modal.</p>
-<h3>User account</h3>
+<h3 id="user-account">User account</h3>
 <p>Set a user and password for API authentication. This is only needed if the target API server does not support OAuth authentication, and in general should be avoided as unsafe.</p>
-<h3>Offset server</h3>
+<h3 id="offset-server">Offset server</h3>
 <p>API server for imagery offsets.</p>
-<h3>OSMOSE server</h3>
+<h3 id="osmose-server">OSMOSE server</h3>
 <p>OSMOSE QA API server configuration.</p>
-<h3>Configure geocoders</h3>
+<h3 id="configure-geocoders">Configure geocoders</h3>
 <p>Geocoding service providers. Currently Photon and Nominatim servers are supported.</p>
-<h3>Taginfo server</h3>
+<h3 id="taginfo-server">Taginfo server</h3>
 <p>Configure the taginfo server used for the &quot;online&quot; preset search/construction.</p>
-<h3>Overpass server</h3>
+<h3 id="overpass-server">Overpass server</h3>
 <p>Configure the overpass API server used online object search.</p>
-<h3>OpenAerialMap server</h3>
+<h3 id="openaerialmap-server">OpenAerialMap server</h3>
 <p>Configure the OpenAerialMap server used for providing additional imagery for backgrounds.</p>
-<h3>Panoramax URL</h3>
+<h3 id="panoramax-url">Panoramax URL</h3>
 <p>The base URL for a Panoramax instance without the appended &quot;/api&quot;.</p>
-<h2>Layer download and storage</h2>
+<h2 id="layer-download-and-storage">Layer download and storage</h2>
 <p>Download and storage configuration for the tiled imagery layers.</p>
-<h3>Max. number of download threads</h3>
+<h3 id="max-number-of-download-threads">Max. number of download threads</h3>
 <p>Maximum number of simultaneous download threads. Default: <em>4</em>.</p>
-<h3>Tile cache size</h3>
+<h3 id="tile-cache-size">Tile cache size</h3>
 <p>Total on device size for caching imagery tiles. Default: <em>100MB</em>.</p>
-<h3>Prefer removable storage</h3>
+<h3 id="prefer-removable-storage">Prefer removable storage</h3>
 <p>Prefer removable storage for storing tiles. Requires restart of app to take effect, you will need to manually remove the existing tile cache if you change this. Default: <em>true</em>.</p>
-<h3>Mapillary cache size</h3>
+<h3 id="mapillary-cache-size">Mapillary cache size</h3>
 <p>Total on device size for caching Mapillary images. Default: <em>100MB</em>.</p>
-<h2>Auto-save configuration</h2>
+<h2 id="auto-save-configuration">Auto-save configuration</h2>
 <p>Settings for the automatic saving of edits.</p>
-<h3>Save state</h3>
+<h3 id="save-state">Save state</h3>
 <p>Save the complete state including unchanged data and undo information. This is used to restore the app to its previous state and is the same information saved as when the app is paused or stopped. The saved state is stored in an app private location and is not accessible by the end user. Default: <em>enabled</em>.</p>
-<h3>Save changes</h3>
+<h3 id="save-changes">Save changes</h3>
 <p>Save changes as OSC file. This saves the current changes as a .osc file in the &quot;Autosave&quot; directory in the public Vespucci directory. Default: <em>enabled</em>.</p>
-<h3>Minimum interval</h3>
+<h3 id="minimum-interval">Minimum interval</h3>
 <p>The minimum interval in minutes between saves. Default: <em>5 minutes</em>.</p>
-<h3>Minimum number of changes</h3>
+<h3 id="minimum-number-of-changes">Minimum number of changes</h3>
 <p>Minimum number of changes required for a save to occur. Default: <em>1</em>.</p>
-<h3>Maximum number of OSC files to retain</h3>
+<h3 id="maximum-number-of-osc-files-to-retain">Maximum number of OSC files to retain</h3>
 <p>The maximum number of OSC files the app will retain, when this limit is reached the oldest files will be deleted. Default: <em>5</em>.</p>
-<h3>Minimum GPX saving interval</h3>
+<h3 id="minimum-gpx-saving-interval">Minimum GPX saving interval</h3>
 <p>Minimum interval in minutes between saves of GPX recordings. Default: <em>5 minutes</em>.</p>
-<h2>Miscellaneous</h2>
-<h3>Report app crashes</h3>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<h3 id="report-app-crashes">Report app crashes</h3>
 <p>Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to <em>off</em> the functionality is completely disabled. Default: <em>on</em>.</p>
-<h3>Enable hardware acceleration</h3>
+<h3 id="enable-hardware-acceleration">Enable hardware acceleration</h3>
 <p>On Android 10 and later.</p>
 <p>Turn on use of hardware rendering on Android 10 and later. Default: <em>on</em></p>
-<h3>Show stats</h3>
+<h3 id="show-stats">Show stats</h3>
 <p>Show some uninteresting stats on screen. Debugging use only. Default: <em>off</em>.</p>
-<h2>Experimental</h2>
-<h3>Enable JS Console</h3>
+<h2 id="experimental">Experimental</h2>
+<h3 id="enable-js-console">Enable JS Console</h3>
 <p>Turn on the JavaScript console. Default: <em>off</em>.</p>
-<h3>Enable voice commands</h3>
+<h3 id="enable-voice-commands">Enable voice commands</h3>
 <p>Enable voice command support: Default: <em>off</em>.</p>
-<h3>Enable split window property editor</h3>
+<h3 id="enable-split-window-property-editor">Enable split window property editor</h3>
 <p>Enable displaying the property editor in a separate window if available. Default: <em>off</em></p>
-<h3>Use &quot;new task&quot; mode for property editor</h3>
+<h3 id="use-new-task-mode-for-property-editor">Use &quot;new task&quot; mode for property editor</h3>
 <p>Set FLAG_ACTIVITY_NEW_TASK when starting the property editor, this may improve the behaviour of certain launchers when resuming the app. Default: <em>off</em></p>
 
 </body>

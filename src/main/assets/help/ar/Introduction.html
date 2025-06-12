@@ -6,12 +6,12 @@
 </head>
 <body>
 <p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting &quot;Help&quot;</em></p>
-<h1>مقدمة فسبوتشي</h1>
+<h1 id="مقدمة-فسبوتشي">مقدمة فسبوتشي</h1>
 <p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
-<h2>التحرير باستخدام فسبوتشي Vespucci</h2>
+<h2 id="التحرير-باستخدام-فسبوتشي-vespucci">التحرير باستخدام فسبوتشي Vespucci</h2>
 <p>اعتمادًا على حجم الشاشة وعمر إجراءات التحرير الخاصة بجهازك ، يمكن الوصول إليها إما مباشرة عبر الرموز الموجودة في الشريط العلوي ، أو عبر قائمة منسدلة على يمين الشريط العلوي ، أو من الشريط السفلي (إن وجد) أو عبر زر القائمة.</p>
 <p><a id="download"></a></p>
-<h3>تنزيل بيانات خريطة الشارع المفتوحة</h3>
+<h3 id="تنزيل-بيانات-خريطة-الشارع-المفتوحة">تنزيل بيانات خريطة الشارع المفتوحة</h3>
 <p>Select either the transfer icon <img src="../images/menu_transfer.png" alt="Transfer" /> or the &quot;Transfer&quot; menu item. This will display eleven options:</p>
 <ul>
 <li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
@@ -29,9 +29,9 @@
 <p>أسهل طريقة لتنزيل البيانات على الجهاز هي التكبير والتحريك إلى الموقع الذي تريد تعديله ثم تحديد &quot;تنزيل العرض الحالي&quot;. يمكنك التكبير باستخدام الإيماءات أو أزرار التكبير أو أزرار التحكم في مستوى الصوت على جهازك. سيقوم برنامج فسبوتشي بعد ذلك بتنزيل البيانات للعرض الحالي. لا يلزم المصادقة وتسجيل الدخول بحساب لتنزيل البيانات على جهازك.</p>
 <p>In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a> so that dimming is always active.</p>
 <p>If you need to use a non-standard OSM API entry, or use <a href="https://vespucci.io/tutorials/offline/">offline data</a> in <em>MapSplit</em> format you can add or change entries via the <em>Configure...</em> entry for the data layer in the layer control.</p>
-<h3>التحرير</h3>
+<h3 id="التحرير">التحرير</h3>
 <p><a id="lock"></a></p>
-<h4>وضع القفل ، الفتح ، تبديل الوضع</h4>
+<h4 id="وضع-القفل-الفتح-تبديل-الوضع">وضع القفل ، الفتح ، تبديل الوضع</h4>
 <p>لتجنب التعديلات غير المقصودة ، يبدأ فسبوتشي في وضع &quot;القفل&quot; ، وهو وضع يسمح فقط بتكبير الخريطة وتحريكها. اضغط على أيقونة! <a href="../images/locked.png">مغلق</a> لفتح الشاشة.</p>
 <p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
 <ul>
@@ -42,7 +42,7 @@
 <li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a &quot;C&quot; is displayed.</li>
 </ul>
 <p>If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to <em>Address</em> and <em>Indoor</em> mode.</p>
-<h4>نقرة واحدة أو نقرتين مزدوجة أو ضغطة طويلة</h4>
+<h4 id="نقرة-واحدة-أو-نقرتين-مزدوجة-أو-ضغطة-طويلة">نقرة واحدة أو نقرتين مزدوجة أو ضغطة طويلة</h4>
 <p>بشكل افتراضي ، تحتوي العقد/النقاط والطرق/الخطوط القابلة للتحديد على منطقة برتقالية حولها تشير تقريبًا إلى المكان الذي يجب أن تلمسه لتحديدها. ولديك ثلاثة خيارات:</p>
 <ul>
 <li>نقرة واحدة: لتحديد العنصر.</li>
@@ -55,22 +55,22 @@
 </ul>
 <p>إذا حاولت تحرير منطقة كثافة عالية من البيانات فمن المفضل أن تقوم بالتكبير قدر الأمكان لضمان عدم نفاذ ذاكرة الجهاز.</p>
 <p>يحتوي تطبيق فسبوتشي على نظام &quot;تراجع / إعادة الفعل&quot; بشكل جيد ، لذا لا تخف من إجراء التجارب على جهازك ، ولكن يُرجى عدم رفع وحفظ بيانات الاختبار والتجارب.</p>
-<h4>التحديد / إلغاء التحديد (نقرة واحدة و &quot;قائمة الاختيار&quot;)</h4>
+<h4 id="التحديد-إلغاء-التحديد-نقرة-واحدة-و-قائمة-الاختيار">التحديد / إلغاء التحديد (نقرة واحدة و &quot;قائمة الاختيار&quot;)</h4>
 <p>المس عنصراً لتحديده وتمييزه. سيؤدي لمس الشاشة في منطقة فارغة إلى إلغاء التحديد. إذا قمت بتحديد عنصر وتحتاج إلى تحديد شيء آخر ، فما عليك سوى لمس العنصر المعني ، فلا داعي لإلغاء التحديد أولاً. سيبدأ النقر المزدوج العنصر في <a href="Multiselect.md">Multiselect mode</a>.</p>
 <p>لاحظ أنه إذا حاولت تحديد عنصر ولاحظ تطبيق فسبوتشي أن التحديد يمكن أن يعني عناصر متعددة (مثل عقدة على طريقة أو عناصر أخرى متداخلة) فسيقدم قائمة لتختار منها: انقر فوق العنصر الذي ترغب في تحديده وسيكون هو العنصر المحدد.</p>
 <p>يشار إلى العناصر المحددة من خلال حد أصفر رفيع. قد يكون من الصعب تحديد الحد الأصفر ، اعتمادًا على خلفية الخريطة وعامل التكبير / التصغير. بمجرد إجراء التحديد ، سترى تنبيها يؤكد الاختيار.</p>
 <p>بمجرد اكتمال التحديد ، سترى (إما كأزرار أو كعناصر قائمة) قائمة بالعمليات المدعومة للعنصر المحدد: لمزيد من المعلومات ، راجع <a href="Node%20selected.md">Node selected</a>, <a href="Way%20selected.md">Way selected</a> and <a href="Relation%20selected.md">Relation selected</a>.</p>
-<h4>العناصر المحددة: تحرير الوسوم</h4>
+<h4 id="العناصر-المحددة-تحرير-الوسوم">العناصر المحددة: تحرير الوسوم</h4>
 <p>لمسة ثانية على العنصر المحدد ستفتح لك محرر الوسوم ويمكنك تحرير الوسوم المرتبطة بالعنصر.</p>
 <p>لاحظ أنه بالنسبة للعناصر المتداخلة (مثل عقدة ما في طريق ما) ، فإن قائمة التحديد ستظهر لك مرة أخرى عند تحديد نفس العنصر وسيظهر محرر الوسوم؛ وتحديد عنصر آخر سيؤدي لاختيار العنصر الآخر بكل بساطة.</p>
-<h4>العناصر المحددة: تحريك عقدة أو طريق</h4>
+<h4 id="العناصر-المحددة-تحريك-عقدة-أو-طريق">العناصر المحددة: تحريك عقدة أو طريق</h4>
 <p>بمجرد تحديد عنصر، يمكن نقله. لاحظ أنه يمكن سحب/نقل العناصر فقط عند تحديدها، ما عليك سوى السحب بالقرب من (أي مكان من داخل منطقة التسامح) للعنصر المحدد لتحريكه. إذا قمت بتحديد مساحة السحب الكبيرة في <a href="Preferences.md">preferences</a>, فستحصل على مساحة كبيرة حول العقدة المحددة مما يسهل عليك إعادة تموضع اي عنصر.</p>
-<h4>إضافة عقدة/ نقطة جديدة أو طريق جديد</h4>
+<h4 id="إضافة-عقدة-نقطة-جديدة-أو-طريق-جديد">إضافة عقدة/ نقطة جديدة أو طريق جديد</h4>
 <p>عند بدء تشغيل التطبيق لأول مرة في &quot;الوضع البسيط&quot; ، يمكن تغيير ذلك في القائمة الرئيسية عن طريق إلغاء تحديد مربع الاختيار المقابل.</p>
-<h5>الوضع البسيط</h5>
+<h5 id="الوضع-البسيط">الوضع البسيط</h5>
 <p>سيؤدي النقر فوق الزر العائم الأخضر الكبير على شاشة الخريطة إلى إظهار قائمة. بعد تحديد أحد العناصر، سيُطلب منك النقر على الشاشة في الموقع الذي تريد إنشاء العنصر فيه ، ويستمر التحريك والتكبير / التصغير في العمل إذا كنت بحاجة إلى ضبط عرض الخريطة.</p>
 <p>See <a href="Simple%20actions.md">Creating new objects in simple actions mode</a> for more information. Simple mode os the default for new installs.</p>
-<h5>الوضع المتقدم (الضغط لفترة طويلة)</h5>
+<h5 id="الوضع-المتقدم-الضغط-لفترة-طويلة">الوضع المتقدم (الضغط لفترة طويلة)</h5>
 <p>اضغط لفترة طويلة حيث تريد أن تكون العقدة أو بداية الطريق. سترى رمز &quot;علامة التقاطع&quot; سوداء. * إذا كنت تريد إنشاء عقدة جديدة (غير متصلة بعنصر) ، فالمس بعيدًا عن العناصر الموجودة. * إذا كنت تريد تمديد طريق ، فالمس داخل &quot;منطقة التغيير&quot; الخاصة بالطريق (أو على عقدة في الطريق). يشار إلى منطقة التغيير بالمناطق المحيطة بالعقدة أو الطريق.</p>
 <p>بمجرد أن ترى رمز التقاطع ، لديك هذه الخيارات:</p>
 <ul>
@@ -81,18 +81,18 @@
 </ul>
 <p>ما عليك سوى لمس الشاشة حيث تريد إضافة المزيد من العقد على الطريق. للإنهاء ، المس العقدة الأخيرة مرتين. إذا كانت العقدة النهائية موجودة في طريق أو عقدة ، فسيتم توصيل المقطع بالطريق أو العقدة تلقائيًا.</p>
 <p>يمكنك أيضًا استخدام عنصر قائمة: انظر إنشاء عناصر جديدة <a href="Creating%20new%20objects.md">Creating new objects</a>  للمزيد من المعلومات.</p>
-<h4>إضافة مساحة شيء ما</h4>
+<h4 id="إضافة-مساحة-شيء-ما">إضافة مساحة شيء ما</h4>
 <p>لا تحتوي خرائط الشارع المفتوحة حاليًا على نوع عنصر&quot;مساحة&quot; بخلاف أنظمة البيانات الجغرافية الأخرى. يحاول محرر &quot;iD&quot; الذي يعمل على الإنترنت &quot;iD&quot; إنشاء تجريد مساحة من عناصر OSM الأساسية وهذا التجريد يعمل بشكل جيد في بعض الظروف، وفي حالات أخرى لا تكون كذلك. لا يحاول محرر فسبوتشي حاليًا القيام بأي شيء مماثل، لذلك عليك أن تعرف القليل عن الطريقة التي يتم بها تمثيل المساحات في هذا البرنامج:</p>
 <ul>
 <li>_ الطرق المغلقة (* المضلعات &quot;) _: أبسط وأشهر الأشكال التي تمثل مساحة شيء ما، والطرق المغلقة هلي التي تكون العقدة الأولى والأخيرة مشتركة مشكلة&quot;حلقة&quot;مغلقة حيث يلتقي أول الخط بآخره (على سبيل المثال ، معظم المباني في الخريطة من هذا النوع). من السهل جدًا القيام بذلك الإنشاء على تطبيق فسبوتشي، ما عليك سوى توصيل العقدة الأخيرة بأول عقدة في الخط عند الانتهاء من رسم المساحة. ملاحظة: يعتمد تفسير ماهية الطريق المغلق على الوسوم التي عليه: على سبيل المثال ، إذا تم وضع وسم على الطريق المغلق كمبنى ، فسيتم اعتباره مساحة لمنطقة معينة، و لكن إذا تم تمييزه على أنه تقاطع دائري فلن يعتبر مساحة لمنطقة معينة، كما أنه في بعض الحالات التي قد يكون فيها كلا التفسيرين صحيحة عند ذلك يمكن أن يوضح الوسم &quot;area&quot; الاستخدام المقصود.</li>
 <li><em>المضلعات المتداخلة</em>: تحتوي بعض المساحات على أجزاء متعددة وثقوب وحلقات لا يمكن تمثيلها بطريقة واحدة فقط. لذا ففي خرائط الشارع المفتوحة يتم استخدام نوعًا محددًا من العناصر يدعى بالعلاقة (وهي عنصر الغرض العام منه هو تمكين نمذجة العلاقات بين العناصر المختلفة وربطها مع بعضها) للالتفاف حول هذا ، فإن المضلعات المتعددة يمكن أن يحتوي المضلع المتعدد على أطراف &quot;خارجية&quot; متعددة وأطراف &quot;داخلية&quot; متعددة. يمكن أن تكون كل حلقة إما طريقاً مغلقاً كما هو موضح أعلاه ، أو طرق فردية متعددة لها عقد نهاية مشتركة. بينما يصعب التعامل مع المضلعات الكبيرة المتعددة باستخدام أي أداة ، إلا أنه ليس من الصعب إنشاء المضلعات الصغيرة في فسبوتشي.</li>
 <li>_ الخطوط الساحلية_: بالنسبة للأجسام الكبيرة جدًا والقارات والجزر ، حتى نموذج المضلعات المتعددة لا يعمل بطريقة مرضية. بالنسبة للسواحل natural=coastline، نفترض دلالات تعتمد على الاتجاه: الأرض على الجانب الأيسر من الطريق ، والمياه على الجانب الأيمن. أحد الآثار الجانبية لذلك ، بشكل عام ، أنه لا يجب عليك عكس اتجاه طريق ما باستخدام وسوم الخط الساحلي. يمكن العثور على مزيد من المعلومات على <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
 </ul>
-<h4>تحسين هندسة وشكل الطرق</h4>
+<h4 id="تحسين-هندسة-وشكل-الطرق">تحسين هندسة وشكل الطرق</h4>
 <p>إذا قمت بالتكبير بشكل كافٍ للطريق المحدد ، فسترى &quot;x&quot; صغيرًا في منتصف الطريق وفي أجزائه الطويلة بما يكفي. سيؤدي سحب &quot;x&quot; إلى إنشاء عقدة في الطريق في ذلك الموقع. ملاحظة: لتجنب إنشاء العقد عن طريق الخطأ ، تكون منطقة التغيير باللمس لهذه العملية صغيرة إلى حد ما.</p>
-<h4>قص ونسخ ولصق</h4>
+<h4 id="قص-ونسخ-ولصق">قص ونسخ ولصق</h4>
 <p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select &quot;Paste&quot; from the menu.</p>
-<h4>إضافة العناوين بكفاءة</h4>
+<h4 id="إضافة-العناوين-بكفاءة">إضافة العناوين بكفاءة</h4>
 <p>يدعم فسبوتشي الوظائف التي تجعل عناوين المسح أكثر كفاءة من خلال التنبؤ بأرقام المنازل (الجانبين الأيسر والأيمن للشوارع بشكل منفصل) وإضافة وسوم <em>addr:street</em> أو <em>addr:place</em> بناءً على آخر قيمة مستخدمة والقرب في أفضل الأحوال، وهذا يسمح بإضافة العنوان بدون الحاجة لكتابة أي شيء على الإطلاق.</p>
 <p>يمكن بدء إضافة الوسوم بالضغط على <img src="../images/address.png" alt="Address" />:</p>
 <ul>
@@ -103,7 +103,7 @@
 <p>لإضافة عقد عنوان فردية مباشرةً أثناء التواجد في الوضع الافتراضي &quot;الوضع البسيط&quot; ، قم بالتبديل إلى وضع تحرير &quot;العنوان&quot; (عبر الضغط لفترة طويلة على زر القفل) ، ستضيف &quot;إضافة عقدة العنوان&quot; بعد ذلك عقدة عنوان في الموقع وإذا كانت في وضع مخطط المبنى أضف وسم دخول إليه كما هو موضح أعلاه.</p>
 <p>يتطلب التنبؤ برقم المنزل عادةً إدخال رقمين للمنزل على الأقل على كل جانب من الطريق للعمل ، وكلما زاد عدد الأرقام الموجودة في البيانات كان ذلك أفضل.</p>
 <p>ضع في اعتبارك استخدام هذا مع أحد أوضاع التنزيل التلقائي <a href="#download">Auto-download</a>.</p>
-<h4>إضافة قيود الدوران والالتفاف المروري</h4>
+<h4 id="إضافة-قيود-الدوران-والالتفاف-المروري">إضافة قيود الدوران والالتفاف المروري</h4>
 <p>لدى فسبوتشي طريقة سريعة لإضافة قيود الانعطاف المرورية. إذا لزم الأمر ، فسيقوم بتقسيم الطرق تلقائيًا ويطلب منك إعادة تحديد العناصر.</p>
 <ul>
 <li>حدد الطريق الموسوم بوسم الطريق السريع highway (لا يمكن إضافة قيود الانعطاف المروري إلا على الطرق السريعة)، وإذا كنت تريد القيام بذلك على الطرق الأخرى، فيرجى استخدام الوضع العام لـ &quot;إنشاء علاقة&quot;</li>
@@ -112,32 +112,32 @@
 <li>حدد &quot;إلى&quot; الطريق (من الممكن التكرار مرة أخرى وتعيين عنصر &quot;إلى&quot; على العنصر &quot;من&quot; ، وسيفترض تطبيق فسبوتشي أنك تضيف قيد عدم دوران no_u_turn)</li>
 <li>اضبط نوع القيد</li>
 </ul>
-<h3>فسبوتشي في وضع &quot;مغلق&quot;</h3>
+<h3 id="فسبوتشي-في-وضع-مغلق">فسبوتشي في وضع &quot;مغلق&quot;</h3>
 <p>عند يكون القفل أعلى الشاشة باللون الأحمر، فلن تتوفر الإجراءات المتعلقة بالتحرير،كما أن الضغط لفترة طويلة على العنصر أو بالقرب منه يؤدي إلى عرض شاشة معلومات تفاصيل العنصر إذا كان عنصراً من عناصر خريطة الشارع المفتوحة.</p>
-<h3>حفظ التغييرات الخاصة بك</h3>
+<h3 id="حفظ-التغييرات-الخاصة-بك">حفظ التغييرات الخاصة بك</h3>
 <p><em>(لابد من وجود اتصال بالشبكة)</em></p>
 <p>اضغط نفس الزر أو على عنصر القائمة الذي قمت به للتنزيل وحدد الآن &quot;رفع البيانات إلى خادم خريطة الشارع المفتوحة&quot;.</p>
 <p>Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.</p>
 <p>Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the &quot;Tools&quot; menu.</p>
 <p>إذا كنت تريد حفظ عملك وليس لديك اتصال بالإنترنت، فيمكنك حفظ تعديلاتك على ملف بصيغة .osm وهو متوافق مع محرر JOSM ومن ثم يمكنك رفعه لاحقًا باستخدام تطبيق فسبوتشي أو باستخدام JOSM.</p>
-<h4>حل التعارضات عند قيامك بالرفع</h4>
+<h4 id="حل-التعارضات-عند-قيامك-بالرفع">حل التعارضات عند قيامك بالرفع</h4>
 <p>لدى تطبيق فسبوتشي أداة حل تعارضات بسيطة، ومع ذلك ،إذا كنت تشك في وجود مشكلات كبيرة في تعديلاتك، فقم بتصدير التغييرات إلى ملف بصيغة .osc (اختر من القائمة &quot;تصدير&quot; في قائمة &quot;نقل&quot;) وقم بإصلاحها ورفعها باستخدام JOSM. راجع المساعدة التفصيلية حول حل التعارض <a href="Conflict%20resolution.md">conflict resolution</a>.</p>
-<h3>Nearby point-of-interest display</h3>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display</h3>
 <p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up.</p>
 <p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
-<h2>استخدام مسارات GPS و GPX</h2>
+<h2 id="استخدام-مسارات-gps-و-gpx">استخدام مسارات GPS و GPX</h2>
 <p>من خلال الإعدادات القياسية، سيحاول فسبوتشي تمكين خدمة GPS (وأنظمة الملاحة الأخرى المعتمدة على الأقمار الصناعية) وسيعود إلى تحديد الموقع عبر ما يسمى &quot;موقع الشبكة&quot; إذا لم يكن ذلك ممكنًا. يفترض هذا السلوك أنه في الاستخدام العادي سيكون جهاز أندرويد الخاص بك قد تم تكوينه لاستخدام المواقع التي تم إنشاؤها بواسطة GPX فقط (لتجنب التعقب)، وهذا يعني أنه تم إيقاف تشغيل خيار &quot;تحسين دقة الموقع&quot; المسمى بشكل ملطف، فإذا كنت تريد تمكين الخيار ولكنك تريد تجنب عودة فسبوتشي إلى &quot;موقع الشبكة&quot; ، فيجب عليك إيقاف تشغيل الخيار المقابل في الإعدادات المتقدمة <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
 <p>Touching the <img src="../images/menu_gps.png" alt="GPS" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the &quot;follow GPS&quot; mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the &quot;follow&quot; mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
 <p>لتسجيل مسار GPX وعرضه على جهازك ، حدد عنصر &quot;بدء مسار GPX&quot; في قائمة <img src="../images/menu_gps.png" alt="GPS" />، كما أن ذلك سيؤدي إلى إضافة طبقة إلى شاشة العرض تتضمن المسار الحالي المسجل، كما يمكنك تحميل وتصدير المسار من الإدخال عبر التحكم في الطبقة <a href="Main%20map%20display.md">layer control</a>، كما يمكن إضافة طبقات أخرى من ملفات GPX المحلية والمسارات التي تم تنزيلها من الواجهة البرمجية لـOSM.</p>
 <p>ملاحظة: افتراضيًا ، لن يقوم محرر فسبوتشي بتسجيل بيانات الارتفاع باستخدام مسار GPX الخاص بك ، ويرجع ذلك إلى بعض المشكلات الخاصة بنظام أندرويد، ولتمكين تسجيل الارتفاع قم بتثبيت نموذج جاذبية أو بشكل أبسط انتقل إلى الإعدادات المتقدمة <a href="Advanced%20preferences.md">Advanced preferences</a> ثم قم بتكوين إعدادات NMEA.</p>
-<h3>How to export a GPX track?</h3>
+<h3 id="how-to-export-a-gpx-track">How to export a GPX track?</h3>
 <p>Open the layer menu, then click the 3-dots menu next to &quot;GPX recording&quot;, then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
-<h2>Notes, Bugs and Todos</h2>
+<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos</h2>
 <p>يدعم تطبيق فسبوتشي تنزيل ملاحظات خريطة الشارع المفتوحة OSM Notes والتعليق عليها وإغلاقها (المعروفة سابقًا باسم OSM Bugs) والوظائف المكافئة لـ &quot;Bugs&quot; التي تنتجها <a href="http://osmose.openstreetmap.fr/en/map/">أداة ضمان جودة OSMOSE</a>. كلاهما يجب أن يتم تنزيلهما بشكل صريح أو يمكنك استخدام مرفق التنزيل التلقائي للوصول إلى العناصر الموجودة في منطقتك الحالية. بمجرد التحرير أو الإغلاق ، يمكنك إما رفع تعديلات الخطأ أو الملاحظة على الفور أو رفع الكل مرة واحدة.</p>
 <p>Further we support &quot;Todos&quot; that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete.</p>
 <p>On the map the Notes and bugs are represented by a small bug icon <img src="../images/bug_open.png" alt="Bug" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
 <p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary.</p>
-<h3>الفلتره والتصفية</h3>
+<h3 id="الفلتره-والتصفية">الفلتره والتصفية</h3>
 <p>إلى جانب التمكين العام لعرض الملاحظات والمشاكل، يمكنك تحديد مصفي لعرض الحبوب الخشنة لتقليل الفوضى. يمكن الوصول إلى تكوين المصفي من إدخال طبقة المهمة في <a href="#layers">التحكم في الطبقة</a>:</p>
 <ul>
 <li>Notes</li>
@@ -148,17 +148,17 @@
 <li>Todo</li>
 </ul>
 <p><a id="indoor"></a></p>
-<h2>الوضع الداخلي</h2>
+<h2 id="الوضع-الداخلي">الوضع الداخلي</h2>
 <p>يمثل رسم الخرائط للعناصر التي داخل المباني تحديًا نظرًا للعدد الكبير من العناصر التي غالبًا ما تتراكب مع بعضها البعض، لذا فإن تطبيق فسبوتشي يحتوي على وضع داخلي مخصص يسمح لك بتصفية جميع الكائنات التي ليست على نفس المستوى والتي ستضيف وبشكل تلقائي المستوى الحالي إلى العناصر الجديدة التي تم إنشاؤها.</p>
 <p>يمكن تمكين الوضع من خلال الضغط لفترة طويلة على رمز القفل ، راجع <a href="#lock">وضع القفل ، الفتح ، تبديل الوضع</a> واختيار إدخال القائمة المقابل.</p>
 <p><a id="c-mode"></a></p>
-<h2>وضع الاكمال</h2>
+<h2 id="وضع-الاكمال">وضع الاكمال</h2>
 <p>في وضع الاكمال يتم عرض العناصر التي يوجد عليها علامة تحذير، وهذا يسهل عليك تحديد العناصر التي بها مشاكل محددة أو تطابق أشكال المشاكل المعينة التي قمت بإعدادها لتظهر لك. إذا تم تحديد عنصر وبدأ محرر الخصائص في وضع الاكمال، فسيتم تطبيق أفضل قالب مطابق بشكل تلقائي.</p>
 <p>يمكن تمكين الوضع من خلال الضغط لفترة طويلة على رمز القفل ، راجع <a href="#lock">وضع القفل ، الفتح ، تبديل الوضع</a> واختيار إدخال القائمة المقابل.</p>
-<h3>إعداد الفحوصات</h3>
+<h3 id="إعداد-الفحوصات">إعداد الفحوصات</h3>
 <p>All validations can be disabled/enabled in the &quot;Validator settings/Enabled validations&quot; in the <a href="Preferences.md">preferences</a>.</p>
 <p>The configuration for &quot;Re-survey&quot; entries allows you to set a time after which a tag combination should be re-surveyed. &quot;Check&quot; entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
-<h4>مدخلات إعادة الدراسة والاستطلاع</h4>
+<h4 id="مدخلات-إعادة-الدراسة-والاستطلاع">مدخلات إعادة الدراسة والاستطلاع</h4>
 <p>تحتوي مدخلات إعادة الدراسة والاستطلاع على الخصائص التالية:</p>
 <ul>
 <li><strong>المفتاح</strong> - مفتاح الوسوم التي تهتم لها.</li>
@@ -168,22 +168,22 @@
 </ul>
 <p>يتم فحص <strong>المفتاح</strong> و <strong>القيمة</strong> مقابل الوسوم <em>الموجودة</em> للعنصر المعني.</p>
 <p>تحتوي مجموعة <em>Annotations</em> في القوالب القياسية على عنصر سيضيف تلقائيًا وسم <em>check_date</em> بالتاريخ الحالي.</p>
-<h4>تدقيق وفحص الإدخالات</h4>
+<h4 id="تدقيق-وفحص-الإدخالات">تدقيق وفحص الإدخالات</h4>
 <p>ميزة تدقيق الإدخالات لها الخاصيتان التاليتان:</p>
 <ul>
 <li><strong>مفتاح</strong> - المفتاح الذي يجب أن يكون موجودًا على العنصر وفقًا للقالب المطابق.</li>
 <li><strong>متطلب اختياري</strong> - اطلب المفتاح حتى إذا كان المفتاح موجودًا في الوسوم الاختيارية للقالب المطابق.</li>
 </ul>
 <p>يعمل هذا الفحص عن طريق تحديد القالب المطابق أولاً ثم التحقق مما إذا كان <strong>المفتاح</strong> هو مفتاح &quot;موصى به&quot; لهذا العنصر وفقًا للقالب، أما ما هو <strong>مطلوب اختياريًا</strong> فإن إدخاله سيؤدي إلى توسيع نطاق التحقق ليشمل الوسوم &quot;الاختيارية* في العنصر. ملاحظة: لم يتم فحص القوالب المرتبطة حاليًا..</p>
-<h2>الفلاتر والمصفيات</h2>
-<h3>التصفية بناءاً على الوسم</h3>
+<h2 id="الفلاتر-والمصفيات">الفلاتر والمصفيات</h2>
+<h3 id="التصفية-بناءا-على-الوسم">التصفية بناءاً على الوسم</h3>
 <p>يمكن تمكين فلتر الوسوم من القائمة الرئيسية، ويمكن بعد ذلك تغييره من خلال النقر على أيقونة الفلتر في الشاشة الرئيسية. يمكن العثور على المزيد من الوثائق هنا فلتر الوسوم <a href="Tag%20filter.md">Tag filter</a>.</p>
-<h3>الفلترة بناءاً على القالب</h3>
+<h3 id="الفلترة-بناءا-على-القالب">الفلترة بناءاً على القالب</h3>
 <p>كبديل لما ورد أعلاه، يتم تصفية العناصر إما حسب القوالب الفردية أو على مجموعات قوالب. سيؤدي النقر فوق أيقونة المصفي/الفلتر إلى عرض نافذة للاختيار بين العناصر المتعارف عليها في أماكن أخرى في تطبيق فسبوتشي. كما يمكن تحديد القوالب بشكل فردي بنقرة عادية، ولتحديد مجموعات منها اضغط ضغطة مطولة عليها (النقر العادي يدخل المجموعة). يمكن العثور على المزيد من الوثائق هنا فلتر القوالب <a href="Preset%20filter.md">Preset filter</a>.</p>
-<h2>تخصيص فسبوتشي</h2>
+<h2 id="تخصيص-فسبوتشي">تخصيص فسبوتشي</h2>
 <p>يمكن تخصيص العديد من جوانب التطبيق ، إذا كنت تبحث عن شيء محدد ولا يمكنك العثور عليه ، فإنه يمكنك البحث في <a href="https://vespucci.io/">موقع Vespucci</a> كما أنه يحتوي على معلومات إضافية حول ما هو متاح على الجهاز.</p>
 <p><a id="layers"></a></p>
-<h3>إعدادات الطبقات</h3>
+<h3 id="إعدادات-الطبقات">إعدادات الطبقات</h3>
 <p>يمكن تغيير إعدادات الطبقات عن طريق التحكم في الطبقة (قائمة &quot;hamburger&quot; في الزاوية العليا على اليمين) ، ويمكن الوصول إلى جميع الإعدادات الأخرى عبر زر تفضيلات القائمة الرئيسية. كما يمكن تمكين الطبقات وتعطيلها وإخفائها مؤقتًا.</p>
 <p>أنواع الطبقات المتاحة:</p>
 <ul>
@@ -198,13 +198,13 @@
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
 </ul>
 <p>يمكن العثور على مزيد من المعلومات في القسم الموجود على عرض الخريطة <a href="Main%20map%20display.md">map display</a>.</p>
-<h4>التفضيلات</h4>
+<h4 id="التفضيلات">التفضيلات</h4>
 <ul>
 <li>حافظ على الشاشة قيد التشغيل. وهو خيار معطل بشكل افتراضي.</li>
 <li>منطقة سحب عقدة كبيرة. يعد تحريك العقد على جهاز يتم التحكم فيه عن طريق اللمس مشكلة نظرًا لأن أصابعك ستحجب الموضع الحالي على الشاشة. سيؤدي تشغيل هذا إلى توفير مساحة كبيرة يمكن استخدامها للسحب خارج مركز الشاشة (لا يزال التحديد والعمليات الأخرى تستخدم منطقة تحمل اللمس العادية). وهو خيار معطل بشكل افتراضي.</li>
 </ul>
 <p>يمكن العثور على الشرح الكامل هنا في التفضيلات <a href="Preferences.md">Preferences</a></p>
-<h4>التفضيلات المتقدمة</h4>
+<h4 id="التفضيلات-المتقدمة">التفضيلات المتقدمة</h4>
 <ul>
 <li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that &quot;virtual&quot; navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.</li>
 <li>Node icons. Default: <em>on</em>.</li>
@@ -212,7 +212,7 @@
 <li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.</li>
 </ul>
 <p>يمكن العثور على الشرح الكامل هنا في شرح التفضيلات المتقدمة <a href="Advanced%20preferences.md">Advanced preferences</a></p>
-<h2>Reporting and Resolving Issues</h2>
+<h2 id="reporting-and-resolving-issues">Reporting and Resolving Issues</h2>
 <p>في حال تعطل تطبيق فسبوتشي Vespucci، أو اكتشاف حالة غير متناسقة ، سيُطلب منك إرسال ملف سجل الأعطال، يرجى القيام بذلك إذا حدث ذلك ، ولكن من فضلك قم بذلك مرة واحدة فقط لكل مشكلة محددة. إذا كنت ترغب في تقديم المزيد من المدخلات أو فتح مشكلة لطلب ميزة أو ما شابه ، فالرجاء القيام بذلك هنا: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. ستؤدي وظيفة &quot;تقديم التعليقات&quot; من القائمة الرئيسية إلى فتح مشكلة جديدة وتضمين المعلومات ذات الصلة ومعلومات الجهاز دون الحاجة إلى كتابة بيانات إضافية.</p>
 <p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu.</p>
 <p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://community.openstreetmap.org">OpenStreetMap forum</a>.</p>

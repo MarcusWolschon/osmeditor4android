@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci Property Editor</h1>
+<h1 id="vespucci-property-editor">Vespucci Property Editor</h1>
 <p>The property editor screen is the central place for changing object attributes and relation memberships. To exit and save your changes tap the check mark icon in the upper left hand corner, pressing the device back button will give you the option of exiting without saving. Tags with empty value fields will not be saved.</p>
 <p>Many of the fields use context sensitive auto complete provided by the active presets and previously used tags. Clicking twice (with a short pause) will re-display the auto complete menu.</p>
 <p>Depending on size and orientation of your device the layout will change to make maximum use of the space available.</p>
@@ -16,7 +16,7 @@
 <p>If the property editor is started with multiple elements selected only the <em>Details</em> and <em>Presets</em> tabs will be available. Tabs can be changed by swiping or by tapping the header.</p>
 <p>If the <em>Display tag form</em> preference in the <em><a href="Advanced%20preferences.md">Advanced preferences</a></em> has been disabled pre-0.9.8 behaviour is enabled and the <em>Details</em> tab will have the heading <em>Properties</em>.</p>
 <p>In the tabs tapping the checkbox in the header row will select/de-select all elements.</p>
-<h2>Properties Tab</h2>
+<h2 id="properties-tab">Properties Tab</h2>
 <p>This tab gives a simplified, preset-driven, editing screen for the tags for the selected object. Instead of displaying the raw keys, they are represented by their description, which, if available will be translated. To remove individual attributes you can simply remove or reset the value (or delete them in the <em>Details</em> tab).</p>
 <p>Fields are added by applying presets, either via the <em>Preset</em> tab or via the <img src="../images/preset.png" alt="Apply preset" /> <em>Apply best preset</em> or <img src="../images/tag_menu_apply_preset.png" alt="Apply preset with optional tags" /> <em>Apply best preset with optional tags</em> buttons. The later will add fields for any optional tags that are present in the preset.</p>
 <p>If alternative tagging is available for the main object, the alternative presets will be displayed before those in the most recently used list. Long pressing on an item in the MRU preset view will display a menu allowing to</p>
@@ -27,7 +27,7 @@
 </ul>
 <p>The <em>Add language variants</em> menu item will add local language variants of the name and similar keys to the form if configured for the region (see <a href="https://github.com/simonpoole/geocontext">the GeoContext repository</a>).</p>
 <p>Further behaviour and menu items are similar or the same as for the <em>Details</em> tab.</p>
-<h2>Details Tab</h2>
+<h2 id="details-tab">Details Tab</h2>
 <p>Display of the key - value attributes of the edited object.</p>
 <p>The following operations can be performed on selected tags</p>
 <ul>
@@ -37,47 +37,47 @@
 <li>Copy (system) - copy the tag(s) to the system clipboard in a text representation.</li>
 <li>Create custom preset - select the tags you want to include, then select &quot;Create custom preset&quot; from the menu and enter a name when you are prompted. The new preset can then be found in the &quot;Auto-preset&quot; group and will be added to the MRU list once applied. The function does not include the values for tags that have <em>name</em> semantics, and will set the current value for combo and multi-select fields as the default value. Note that preset matching will not change if you add a tag with a specific value and matching for that tag is set to only match on the key, or not at all.</li>
 </ul>
-<h4>Special auto complete behaviour</h4>
+<h4 id="special-auto-complete-behaviour">Special auto complete behaviour</h4>
 <p>If the key of a field is &quot;addr:street&quot; a list of the nearest roads in the downloaded data will be provided.</p>
 <p>If the key is &quot;name&quot;, selection of a value from the auto complete list will add corresponding tags and if enabled in the settings, apply an appropriate preset. Typical use case: add a name key and start typing &quot;mcd&quot;, select &quot;McDonalds's&quot; from the auto completion list and an amenity with the correct tags and name spelling will be added.</p>
 <p>If multiple objects with different values for the same tags are being edited, such value fields will display 'Multiple values' and the auto-complete list will contain the existing values with a count. Setting the value to a specific value will set it for all objects, an empty value will leave the values untouched.</p>
-<h3><img src="../images/address.png" alt="Address" /> Add address tags</h3>
+<h3 id="address-add-address-tags"><img src="../images/address.png" alt="Address" /> Add address tags</h3>
 <p>Add address tags for the object. This function will try to predict the house number to suggest. It works best along straight roads with regular numbering schemes.</p>
-<h3><img src="../images/preset.png" alt="Apply preset" /> Apply best preset</h3>
+<h3 id="apply-preset-apply-best-preset"><img src="../images/preset.png" alt="Apply preset" /> Apply best preset</h3>
 <p>Apply the best matching preset to the existing tags.</p>
-<h3><img src="../images/tag_menu_apply_preset.png" alt="Apply preset with optional tags" /> Apply best preset with optional tags</h3>
+<h3 id="apply-preset-with-optional-tags-apply-best-preset-with-optional-tags"><img src="../images/tag_menu_apply_preset.png" alt="Apply preset with optional tags" /> Apply best preset with optional tags</h3>
 <p>Will locate the best matching preset to the existing tags and apply the preset adding further suggested / optional fields.</p>
-<h3><img src="../images/ic_menu_paste_holo_light.png" alt="Paste" /> Paste</h3>
+<h3 id="paste-paste"><img src="../images/ic_menu_paste_holo_light.png" alt="Paste" /> Paste</h3>
 <p>Paste and merge the tags from the internal clipboard.</p>
-<h3><img src="../images/undolist_undo.png" alt="Revert" /> Revert</h3>
+<h3 id="revert-revert"><img src="../images/undolist_undo.png" alt="Revert" /> Revert</h3>
 <p>Tapping the icon once will reset the tags to the values as they were when the property editor was started.</p>
-<h3>Paste from clipboard</h3>
+<h3 id="paste-from-clipboard">Paste from clipboard</h3>
 <p>Paste and merge multi-line text from the system clipboard. If the lines have the form <em>key</em>=<em>value</em> the lines will be split at the = and pasted in to key and values fields, otherwise the complete lines will be copied to the value field. This function can be used for example with OCR apps.</p>
-<h3><img src="../images/tag_menu_sourcesurvey.png" alt="Surveyed" /> Surveyed</h3>
+<h3 id="surveyed-surveyed"><img src="../images/tag_menu_sourcesurvey.png" alt="Surveyed" /> Surveyed</h3>
 <p>Short cut for adding a source key, if a key is present in the current row source:<em>key</em>=survey will be added, otherwise source=survey to the object. Such tags are in general deprecated the normal place to add source tags is in the corresponding field on the upload form. The action is only available on the <em>Details</em> tab.</p>
-<h3><img src="../images/tag_menu_mapfeatures.png" alt="Wiki" /> Map Features Wiki</h3>
+<h3 id="wiki-map-features-wiki"><img src="../images/tag_menu_mapfeatures.png" alt="Wiki" /> Map Features Wiki</h3>
 <p>Invoke a web browser on the map features page in the OpenStreetMap wiki. <em>(requires network connectivity)</em></p>
-<h3><img src="../images/tag_menu_mapfeatures.png" alt="Info" /> Info</h3>
+<h3 id="info-info"><img src="../images/tag_menu_mapfeatures.png" alt="Info" /> Info</h3>
 <p>Show a screen with some detailed information on the selected object.</p>
-<h3>Reset address prediction</h3>
+<h3 id="reset-address-prediction">Reset address prediction</h3>
 <p>Empty the current address cache and re-seed from downloaded OpenStreetMap data.</p>
-<h3>Reset Presets</h3>
+<h3 id="reset-presets">Reset Presets</h3>
 <p>Reset the most recently used preset list and remove short cuts from the tag editor screen.</p>
-<h3><img src="../images/menu_help.png" alt="Help" /> Help</h3>
+<h3 id="help-help"><img src="../images/menu_help.png" alt="Help" /> Help</h3>
 <p>Start the on device help browser.</p>
-<h2>Relations Tab</h2>
+<h2 id="relations-tab">Relations Tab</h2>
 <p>Display of the relations the edited object is a member of and the role in the relation.</p>
 <p>The following operation can be performed on selected relations.</p>
 <ul>
 <li>Delete - remove the edited object from this relation.</li>
 </ul>
-<h3><img src="../images/undolist_undo.png" alt="Revert" /> Revert</h3>
+<h3 id="revert-revert"><img src="../images/undolist_undo.png" alt="Revert" /> Revert</h3>
 <p>Tapping the icon once will reset the relations to the values as they were when the property editor was started.</p>
-<h3>Add to relation</h3>
+<h3 id="add-to-relation">Add to relation</h3>
 <p>Add the current object to a existing relation in the download.</p>
-<h3><img src="../images/menu_help.png" alt="Help" /> Help</h3>
+<h3 id="help-help"><img src="../images/menu_help.png" alt="Help" /> Help</h3>
 <p>Start the on device help browser.</p>
-<h2>Members Tab</h2>
+<h2 id="members-tab">Members Tab</h2>
 <p>This tab will only be displayed if you are editing a relation, it displays entries for all the members of the relation.</p>
 <p>Members with a dark object field and only a numeric id displayed have not been downloaded, member highlighted in blue can be clicked on and a new property editor will be opened for the element. Note: during such a drill down operation the property editors are stacked, if you close a stacked property editor you will be returned to the previous one and so on.</p>
 <p>Individual member entries can be moved by <em>drag and drop</em> (long press followed by dragging).</p>
@@ -92,24 +92,24 @@
 <li><em>Move to bottom</em> - move the member to the bottom of the list.</li>
 <li><em>Download</em> - download the selected members.  if all members are selected the members will be downloaded including ways that are parents of nodes that are a relation member, otherwise the individual members are downloaded and for nodes the parent ways are <strong>not</strong> downloaded.</li>
 </ul>
-<h3><img src="../images/undolist_undo.png" alt="Revert" /> Revert</h3>
+<h3 id="revert-revert"><img src="../images/undolist_undo.png" alt="Revert" /> Revert</h3>
 <p>Tapping the icon once will reset the members to the values as they were when the property editor was started.</p>
-<h3>Scroll to Top</h3>
+<h3 id="scroll-to-top">Scroll to Top</h3>
 <p>Scroll the screen to the top.</p>
-<h3>Scroll to Bottom</h3>
+<h3 id="scroll-to-bottom">Scroll to Bottom</h3>
 <p>Scroll the screen to the bottom.</p>
-<h3><img src="../images/menu_help.png" alt="Help" /> Help</h3>
+<h3 id="help-help"><img src="../images/menu_help.png" alt="Help" /> Help</h3>
 <p>Start the on device help browser.</p>
-<h2>Preset tab</h2>
+<h2 id="preset-tab">Preset tab</h2>
 <p>Find, select and apply a <a href="Presets.md">preset</a>. Groups of presets have a light background, presets a dark one. The on device presets can be searched for terms, if enabled and network connectivity is available you can try and construct additional presets by querying the Taginfo service, when the results from the internal search are displayed.</p>
 <p>Presets in the &quot;Auto-presets&quot; group, that is such generated from taginfo or custom presets, can be removed from the configuration by long-pressing the respective icon.</p>
-<h3>Top</h3>
+<h3 id="top">Top</h3>
 <p>Go to the top of the preset hierarchy.</p>
-<h3>Up</h3>
+<h3 id="up">Up</h3>
 <p>Go up one level.</p>
-<h3><img src="../images/menu_help.png" alt="Help" /> Help</h3>
+<h3 id="help-help"><img src="../images/menu_help.png" alt="Help" /> Help</h3>
 <p>Start the on device help browser.</p>
-<h2>Split window mode</h2>
+<h2 id="split-window-mode">Split window mode</h2>
 <p>On devices running Android 7 and later you can enable an <strong>experimental</strong> split window mode in the <a href="Advanced%20preferences.md">Experimental</a> section of the preferences. When this is enabled and the screen is split (on Android 12 and later this will happen automatically), the property editor will be displayed in parallel with the map display. If you click on a relation member in the <em>Member Tab</em> the element will be selected and the map display will zoom to it. While this will work both on phones and tablets, the usefulness on the former is limited.</p>
 <p>Changes to the data made in the map display will be reflected as far as possible in the property editor, for example changes if relation membership, deletions and so on, note however that currently later changes will override changes made in earlier property editor instances.</p>
 

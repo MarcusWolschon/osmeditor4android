@@ -5,16 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Editor de horário de abertura do OpenStreetMap</h1>
+<h1 id="editor-de-horário-de-abertura-do-openstreetmap">Editor de horário de abertura do OpenStreetMap</h1>
 <p>A especificação dos horários de aberturas no OpenStreetMap é bastante complexa e não permite uma utilização simples e intuitiva.</p>
 <p>No entanto, na maioria das vezes só se usa uma pequena parte da especificação. O editor tem isto em conta e tenta simplificar não mostrando outras opções avançadas nos menus, assim como mostrar pequenos modelos de preenchimento úteis em levantamentos no terreno.</p>
 <p><em>Esta documentação é temporária e encontra-se em desenvolvimento</em></p>
-<h2>Usar o editor de horário de abertura</h2>
+<h2 id="usar-o-editor-de-horário-de-abertura">Usar o editor de horário de abertura</h2>
 <p>Num processo normal, o objeto que está a editar irá ter uma etiqueta de horário de abertura (opening_hours, service_times e collection_times) ou então poderá tornar a aplicar o modelo de etiquetas ao objeto para obter um campo de horário de abertura limpo. Se necessitar de adicionar o campo manualmente e estiver a usar o Vespucci, pode introduzir a chave na página de detalhes e então mudar para a aba baseada em formulário para editá-la. Se acreditar que a etiqueta de horário de abertura devia fazer parte do modelo de etiquetas, por favor abra um relatório para o seu editor.</p>
 <p>Se tiver definido um modelo predefinido (faça-o através do item de menu &quot;Gerir modelos&quot;), este será carregado automaticamente quando o editor for iniciado com um valor vazio. Com a função &quot;Carregar modelo&quot; pode carregar qualquer modelo guardado e com o menu &quot;Guardar modelo&quot; pode guardar o valor atual como um modelo. Pode definir modelos separados e predefinições para chaves específicas, por exemplo, &quot;opening_hours&quot;, &quot;collection_times&quot; e &quot;service_times&quot; ou valores personalizados. Além disso, pode limitar a aplicabilidade de um modelo a uma região e a um identificador específico, normalmente uma etiqueta de nível superior do OSM (por exemplo, amenity=restaurant).</p>
 <p>Claro que pode construir um valor de abertura a partir do nada, mas recomendamos usar um dos modelos existentes como ponto de partida.</p>
 <p>Se for carregado um valor de horário de abertura existente, é feita uma tentativa para corrigir automaticamente para estar conforme a especificação do horário de abertura. Se isso não for possível, a localização onde o erro se encontra é destacada e poderá corrigir manualmente. Certa de um quarto de todos os valores de horários de abertura no OpenStreetMap têm problemas, mas menos de 10% não podem ser corrigidos. Veja <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para mais informação sobre que desvios da especificação são tolerados.</p>
-<h3>Botão do menu principal</h3>
+<h3 id="botão-do-menu-principal">Botão do menu principal</h3>
 <ul>
 <li><strong>Adicionar regra</strong>: adiciona uma nova regra.</li>
 <li><strong>Adicionar regra para feriado</strong>: adiciona uma nova regra para feriado junto com um alteração de estado.</li>
@@ -25,9 +25,9 @@
 <li><strong>Atualizar</strong>: torna a processar os valores das horas.</li>
 <li><strong>Eliminar tudo</strong>: elimina todas as regras.</li>
 </ul>
-<h3>Regras</h3>
+<h3 id="regras">Regras</h3>
 <p>As regras padrão são adicionadas como regras <em>normais</em>, isto implica que elas irão gravar por cima que quaisquer valores existentes para os mesmo dias. Isto pode ser um problema ao especificar horas expandidas, normalmente irá querer mudar as regras através do menu <em>Mostrar tipo de regra</em> para <em>aditivo</em>.</p>
-<h4>Menu de regras</h4>
+<h4 id="menu-de-regras">Menu de regras</h4>
 <ul>
 <li><strong>Adicionar estado/comentário</strong>: altera o efeito desta regra e permite adicionar um comentário opcional.</li>
 <li><strong>Adicionar feriado</strong>: adiciona um seletor para feriados civis ou escolares.</li>
@@ -76,10 +76,10 @@
 <li><strong>Mover para baixo</strong>: move uma posição para baixo a regra atual</li>
 <li><strong>Eliminar</strong>: elimina a regra atual.</li>
 </ul>
-<h3>Segmentos de tempo</h3>
+<h3 id="segmentos-de-tempo">Segmentos de tempo</h3>
 <p>Para tornar a edição de segmentos de tempo o mais fácil possível, tentamos escolher o melhor intervalo de tempo e granularidade para as barras de intervalo ao carregar valores existentes. Para novos segmentos de tempo novos, as barras começam às 6:00 e têm incrementos de  minutos. Isto pode ser alterado no menu.</p>
 <p>Clicar (não nos pinos) na barra de tempo abrirá o grande seletor de tempo, quando a utilização direta das barras for demasiado difícil. Os seletores de tempo prolongam-se até ao dia seguinte, pelo que são uma forma simples de prolongar um intervalo de tempo sem ter de apagar e voltar a adicionar o intervalo.</p>
-<h4>Menu de segmento de tempo</h4>
+<h4 id="menu-de-segmento-de-tempo">Menu de segmento de tempo</h4>
 <ul>
 <li><strong>Mostrar seletor de hora</strong>: mostra um seletor de hora grande para selecionar a hora de início e de fim, em ecrãs muito pequenos esta é a forma preferida de mudar as horas.</li>
 <li><strong>Mudar para intervalos de 15 minutos</strong>: usa intervalos de 15 minutos na barra de intervalo.</li>
@@ -89,7 +89,7 @@
 <li><strong>Mostrar intervalo</strong>: mostra o campo de intervalo para especificar um intervalo em minutos.</li>
 <li><strong>Eliminar</strong>: eliminar este segmento de tempo.</li>
 </ul>
-<h3>Gerir modelos</h3>
+<h3 id="gerir-modelos">Gerir modelos</h3>
 <p>A caixa de diálogo de gestão de modelos permite-lhe adicionar, editar e eliminar modelos.</p>
 <p>No Android 4.4 e posterior, a seguinte funcionalidade adicional está disponível a partir do botão de menu.</p>
 <ul>
@@ -98,7 +98,7 @@
 <li><strong>Carregar de ficheiro (substituir)</strong>: carrega modelos de um ficheiro substituindo o conteúdo atual da base de dados.</li>
 <li><strong>Carregar do ficheiro</strong>: carrega modelos de um ficheiro mantendo o conteúdo atual.</li>
 </ul>
-<h4>Diálogos para guardar e editar modelos</h4>
+<h4 id="diálogos-para-guardar-e-editar-modelos">Diálogos para guardar e editar modelos</h4>
 <p>O diálogo permite-lhe definir</p>
 <ul>
 <li><strong>Nome</strong> um nome descritivo para o modelo.</li>

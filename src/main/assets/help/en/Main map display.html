@@ -5,12 +5,12 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Main Vespucci Screen</h1>
+<h1 id="main-vespucci-screen">Main Vespucci Screen</h1>
 <p>The main Vespucci map screen is your normal starting point for interacting with the application. It can be in two modes</p>
-<h4><img src="../images/locked.png" alt="Locked" /> locked</h4>
+<h4 id="locked-locked"><img src="../images/locked.png" alt="Locked" /> locked</h4>
 <p>In this mode modifying the OpenStreetMap data is disabled, you can however use all the menus and other functions, for example down- or up-load data. The main reason to use this mode is to pan and zoom in high density areas, or to avoid accidental changes when pocketing your device.</p>
 <p>Tapping the lock icon will toggle the lock.</p>
-<h4><img src="../images/unlocked.png" alt="Unlocked" /> unlocked</h4>
+<h4 id="unlocked-unlocked"><img src="../images/unlocked.png" alt="Unlocked" /> unlocked</h4>
 <p>In this mode you can add and change the geometry and tags of OpenStreetMap data. <em>You will still need to zoom until editing is enabled.</em></p>
 <p>If a small &quot;T&quot; is displayed on the lock icon you are in &quot;Tag editing only&quot; mode and will not be able to change geometries, a small &quot;I&quot; indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes, for mode switching purposes it dosen't matter if the display is &quot;locked&quot; or &quot;unlocked&quot;.</p>
 <p>All the mode options are</p>
@@ -22,15 +22,15 @@
 <li><strong>C-Mode</strong> &quot;complete&quot; mode, only objects with validation warnings will be shown.</li>
 </ul>
 <p>The lock icon will always be located in the upper left corner of your devices screen. The placement of the following controls will depend on the size, orientation and age of your device, and may be in the top or bottom bar, or in a menu.</p>
-<h3>Map and Data display</h3>
+<h3 id="map-and-data-display">Map and Data display</h3>
 <p>Once you have downloaded some OSM data you will see it displayed over a background layer. The default background is the standard &quot;Mapnik&quot; style map provided by openstreetmap.org, however you can change the configuration by using the layer control. The styling of the OSM data displayed on top of the background layer can be fully customized, but the standard &quot;Color round nodes&quot; or for &quot;Pen round nodes&quot; should work for most situations, the later has smaller &quot;touch areas&quot; mainly for working with a pen.</p>
 <p>Note: the map images are cached on device and are only deleted if explicitly flushed. If you need to have background images available without network connectivity see <a href="http://vespucci.io/tutorials/custom_imagery_mbtiles/">custom imagery with MBtiles</a>.</p>
-<h3>Nearby point-of-interest display</h3>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display</h3>
 <p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up.</p>
 <p>The view will include a filtered view of all &quot;POI&quot;s displayed on the current map view. If no explicit filter is set this is limited to objects that have a key with one of <em>shop</em>, <em>amenity</em>, <em>leisure</em>, <em>tourism</em>, <em>craft</em>, <em>office</em> or <em>emergency</em>. If an explicit filter is set, that is a tag filter or a preset filter, or a mode (<em>Indoor</em> and <em>C</em>-mode) is selected that sets a filter the display will display objects that are allowed by the filter. For example if <em>Indoor</em> mode is selected, the display will only show POIs on the currently selected level.</p>
 <p>Tapping an entry in the display will center the map on the object and select it, tapping it a second time (just as on the map display) will start the property editor, in <em>Tag only</em> mode the property editor will start directly as expected. The POI entries are highlighted with the same validation indication as map icons, see <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/styles/Color-round.xml#L39">validation styling</a>.</p>
 <p><a id="layer_control"></a></p>
-<h3>Layer control</h3>
+<h3 id="layer-control">Layer control</h3>
 <p>Vespucci currently supports multiple tiled background imagery layers, multiple tiled overlay layers (both raster and Mapbox vector tiles), a grid/scale layer, a task layer, a photo layer, multiple GeoJSON layers, multiple GPX/GPS layers and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).</p>
 <p>The layer dialog supports the following actions on the layer entries:</p>
 <ul>
@@ -139,8 +139,8 @@
 </li>
 </ul>
 <p>Custom tile layers, including on device MBTile containers can be added in the <a href="Preferences.md">preferences</a> or as decribed above..</p>
-<h3>Layer specific information</h3>
-<h4>Highlighting of issues on the data layer</h4>
+<h3 id="layer-specific-information">Layer specific information</h3>
+<h4 id="highlighting-of-issues-on-the-data-layer">Highlighting of issues on the data layer</h4>
 <p>The included map styles highlight certain data issues, these are</p>
 <ul>
 <li>objects with 'fixme' and 'todo' tags (case insensitive) <em>magenta</em></li>
@@ -152,16 +152,16 @@
 <li>unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted <em>magenta</em></li>
 </ul>
 <p>The colours can be changed in the <a href="http://vespucci.io/tutorials/data_styling/#validation-styling">data style</a>.</p>
-<h4>GeoJSON layer</h4>
+<h4 id="geojson-layer">GeoJSON layer</h4>
 <p>Clicked GeoJSON objects will display a modal with its details. Further you can copy the attributes from the object to the clipboard and paste them as tags in to an OSM element, or you can directly create an OSM element from the object.</p>
 <p><em>Note</em> GeoJSON Polygon objects that consist of a single ring will be converted to a OSM closed way if the ring has less than 2000 vertices (the limit for an OSM way element), all other Polygons and Multipolygons will be converted to OSM multipolygon relations. Nodes in GeoJSON GeometryCollections will not be merged with the vertices of linear and area elements in OSM. You might want to do the later manually.</p>
-<h2>Available Actions</h2>
-<h3><img src="../images/undolist_undo.png" alt="Undo" /> Undo</h3>
+<h2 id="available-actions">Available Actions</h2>
+<h3 id="undo-undo"><img src="../images/undolist_undo.png" alt="Undo" /> Undo</h3>
 <p>Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding &quot;redo&quot; checkpoint will be displayed. <em>Some operations consist of multiple simpler actions that will be listed as individual items.</em></p>
-<h3><img src="../images/camera.png" alt="Camera" /> Camera</h3>
+<h3 id="camera-camera"><img src="../images/camera.png" alt="Camera" /> Camera</h3>
 <p>Start a camera app, and add the resulting photograph to the photo layer if it is enabled. The photograph itself will be stored in the Vespucci/Pictures directory, however if this works depends on the specific camera app.  Photographs may also be &quot;shared&quot; from other apps into Vespucci, these can be viewed, just as images taken via the camera button in Vespuccis image viewer.</p>
 <p>Notes * Because of restrictions in recent versions of Android you will need to configure the target app in the preferences if you are not happy with the standard app on your device. See [16.1 release notes](16.1.0 Release notes.md). * OpenStreetMap currently does not provide an upload/storage facility for large numbers of images (you can store individual images of interest in the OSM wiki).</p>
-<h3><img src="../images/menu_gps.png" alt="Location" /> Location</h3>
+<h3 id="location-location"><img src="../images/menu_gps.png" alt="Location" /> Location</h3>
 <p>The &quot;on-map&quot; GPS button duplicates the function of the &quot;Follow location&quot; menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the <em>Show location</em> function will enable location updates from the system, just as the recording and similar options. To reposition or remove the &quot;on-map&quot; GPS button use the &quot;Follow position button layout&quot; Preference.</p>
 <ul>
 <li><strong>Show location</strong> - show arrow symbol at current position</li>
@@ -188,7 +188,7 @@
 <li><strong>Clear GPX track</strong> - clear the current GPX track</li>
 </ul>
 <p><a id="transfer"></a></p>
-<h3><img src="../images/menu_transfer.png" alt="Transfer" /> Transfer</h3>
+<h3 id="transfer-transfer"><img src="../images/menu_transfer.png" alt="Transfer" /> Transfer</h3>
 <p>Select either the transfer icon <img src="../images/menu_transfer.png" alt="Transfer" /> or the &quot;Transfer&quot; menu item. This will display seven or eight options:</p>
 <ul>
 <li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available. See <a href="Uploading%20your%20changes.md">Uploading your changes</a> for more information <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
@@ -229,10 +229,10 @@
 </ul>
 </li>
 </ul>
-<h3><img src="../images/menu_config.png" alt="Preferences" /> Preferences</h3>
+<h3 id="preferences-preferences"><img src="../images/menu_config.png" alt="Preferences" /> Preferences</h3>
 <p>Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the &quot;Advanced preferences&quot; contains the less used ones.</p>
 <p><a id="tools"></a></p>
-<h3><img src="../images/menu_tools.png" alt="Tools" /> Tools…</h3>
+<h3 id="tools-tools"><img src="../images/menu_tools.png" alt="Tools" /> Tools…</h3>
 <ul>
 <li><strong>Apply stored offset to imagery</strong> - apply stored offset, if it exists, for the current background layer</li>
 <li><strong>More imagery tools</strong>
@@ -254,27 +254,27 @@
 <li><strong>Load keys from file...</strong> - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.</li>
 <li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be enabled in the &quot;Advanced preferences&quot;.</li>
 </ul>
-<h3><img src="../images/ic_menu_search_holo_light.png" alt="Find" /> Find</h3>
+<h3 id="find-find"><img src="../images/ic_menu_search_holo_light.png" alt="Find" /> Find</h3>
 <p>Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service <em>(requires network connectivity)</em></p>
-<h3>Search for objects</h3>
+<h3 id="search-for-objects">Search for objects</h3>
 <p>Search for OSM objects in the loaded data using JOSMs search/filter expressions. See <a href="http://vespucci.io/tutorials/object_search/">JOSM filter documentation</a> for more information. Besides searching in the loaded data alternatively you can create a Overpass API query and use that to download data.</p>
 <p><a id="overpass_queries"></a></p>
-<h4>Overpass queries</h4>
+<h4 id="overpass-queries">Overpass queries</h4>
 <p>The queries will be run against the Overpass server set in the &quot;Advanced preferences&quot;. The standard behaviour is to replace the current data with the results of the query, if you have unsaved changes the query will not run except if you select the <em>Merge result</em> check box (this will merge the results of the query with the existing data). If <em>Select result</em> is checked, any results (with the exception of way nodes) will be selected and the app will zoom to the data.</p>
 <p>Note: if you are generating the query from the JOSM query language you need to add an <em>inview</em> term otherwise the query will be executed for the whole world, if you are manually creating a query you should add <em>({{bbox}})</em> terms for the same reason.</p>
-<h3>Modes...</h3>
+<h3 id="modes">Modes...</h3>
 <p>This menu allows mode selection as via the <em>lock button</em> and enabling/disabling of the <em>simple mode</em>.</p>
-<h3>Tag-Filter <em>(checkbox)</em></h3>
+<h3 id="tag-filter-checkbox">Tag-Filter <em>(checkbox)</em></h3>
 <p>Enable the tag based filter, the filter can be configured by tapping the filter button on the map display.</p>
-<h3>Preset-Filter <em>(checkbox)</em></h3>
+<h3 id="preset-filter-checkbox">Preset-Filter <em>(checkbox)</em></h3>
 <p>Enable the preset based filter, the filter can be configured by tapping the filter button on the map display.</p>
-<h3>Share position</h3>
+<h3 id="share-position">Share position</h3>
 <p>Share the current position (center of the displayed map) with other apps on the device.</p>
-<h3><img src="../images/menu_help.png" alt="Help" /> Help</h3>
+<h3 id="help-help"><img src="../images/menu_help.png" alt="Help" /> Help</h3>
 <p>Start the on device help browser.</p>
-<h3>Authors and licenses</h3>
+<h3 id="authors-and-licenses">Authors and licenses</h3>
 <p>Some information on the licence of Vespucci itself, specific components and a list of all known contributors to the app.</p>
-<h3>Debug</h3>
+<h3 id="debug">Debug</h3>
 <p>Internal information on the app and a button to force submission of a crash dump.</p>
 
 </body>

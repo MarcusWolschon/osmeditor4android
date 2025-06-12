@@ -5,46 +5,46 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 20.1 Highlights</h1>
+<h1 id="vespucci-201-highlights">Vespucci 20.1 Highlights</h1>
 <p>2024-07-01</p>
-<h3>End of support for Android 4.1 to 4.4</h3>
+<h3 id="end-of-support-for-android-41-to-44">End of support for Android 4.1 to 4.4</h3>
 <p>This version removes support for Android 4.1 to 4.4. While we aspire to maintain backwards compatibility as long as reasonably possible, 4.4 was released in October 2013 and is now more than a decade old, these versions have issues with support of more recent TLS variants and certificates and in practical terms were likely only to work on private instances of the OSM API. This has allowed us to remove some version specific code and the <em>legacy</em> build for pre-Android 5 devices.</p>
-<h3>Android 14/API 34</h3>
+<h3 id="android-14api-34">Android 14/API 34</h3>
 <p>As per google requirements, version 20.1 targets Android 14/API 34. For new installs on Android 14 and later devices this will add a further option to the Android permissions modal for photo and video access: &quot;Select photos and videos&quot;. This allows users to limit which media is access by an app, and will work with Vespucci too, but will only have an effect if you are including images outside of the ones directly recorded by Vespucci by enabling the <a href="http://vespucci.io/help/en/Advanced%20preferences/#use-the-mediastore"><em>Use the mediastore</em></a> preference.</p>
-<h3>Workaround issues with sites using Letsencrypt certificates on Android 7 and earlier</h3>
+<h3 id="workaround-issues-with-sites-using-letsencrypt-certificates-on-android-7-and-earlier">Workaround issues with sites using Letsencrypt certificates on Android 7 and earlier</h3>
 <p>Android devices running Android 7 and earlier do not trust the root certificates used to sign new or re-issued Letsencrypt certificates since earlier this year, leading to failures to down-/upload data to the OpenStreetMap API and to authenticate with the OpenStreetMap site since the beginning of June. The later being particular annoying as google decided to simply show a blank screen in webviews for SSL errors due to untrusted certificates instead of displaying an error message.</p>
 <p>Version 20.1 contains workarounds for both issues (and displays an error message if this happens again in the future for any of the usages of webviews in the app).</p>
 <p>Note that both submitting crash dumps and the feedback mechanism currently don't work on pre-Android 7 devices as they are provided by 3rd party libraries, we may be able to address this for the production release.</p>
 <p><em>Both workarounds were backported to 20.0</em></p>
-<h3>Workaround issues with certain launchers restarting instead of resuming the app</h3>
+<h3 id="workaround-issues-with-certain-launchers-restarting-instead-of-resuming-the-app">Workaround issues with certain launchers restarting instead of resuming the app</h3>
 <p>On certain devices and Android versions if you switch to a different app while in Vespuccis <em>Property Editor</em> and then return to Vespucci by clicking the app icon in the launcher, the app will be restarted instead of being resumed losing any unsaved changes made in the <em>Property Editor</em> in the process. Selecting Vespucci from the <em>recent apps</em> will in our experience always resume the app, but to avoid the issue on affected devices we've added a workaround that you can enable in the <a href="http://vespucci.io/help/en/Advanced%20preferences/#experimental"><em>Experimental</em> section of the preferences</a>.</p>
 <p>Enabling this option starts the <em>Property Editor</em> in the same mode we use for split-window support and <strong>experimentally</strong> seems to avoid the issues on some of the devices that are affected by the issue. As this uses a different method to communicate back to the main map display than previously (the same as we use in split-window mode) we haven't made this the default at this point in time and would like have some more feedback from our users before doing so.</p>
 <p>It should be noted that this and similar issues have been an ongoing problem with Android since Android API 1 and are totally outside of our control.</p>
 <p>For some indication if your device could be affected see <a href="http://vespucci.io/tutorials/faq/#resuming-the-app-doesnt-bring-me-back-to-the-property-editor">testing on selected devices</a>.</p>
 <p><em>This workaround was backported to 20.0</em></p>
-<h3>Forced configuration change to OAuth 2</h3>
+<h3 id="forced-configuration-change-to-oauth-2">Forced configuration change to OAuth 2</h3>
 <p>As the OpenStreetMap API on openstreetmap.org no longer supports any other authorization mechanism than OAuth 2, the corresponding API configurations (default and sandbox) are now forced migrated to OAuth 2. As a consequence you will need to have the login and password for your OSM account available the next time you want to upload, or you can naturally execute <a href="http://vespucci.io/help/en/Main%20map%20display/#tools">Authorize OAuth</a> from the <em>Tools</em> menu at any time before that.</p>
-<h3>UI changes</h3>
-<h4>Re-arrange entries in the layer modal with drag and drop</h4>
+<h3 id="ui-changes">UI changes</h3>
+<h4 id="re-arrange-entries-in-the-layer-modal-with-drag-and-drop">Re-arrange entries in the layer modal with drag and drop</h4>
 <p>Entries in the layer modal can be moved by long pressing and then dragging the entry to its new position. You will get a visual cue when you have pressed long enough by a dimmed image of the entry appearing.</p>
-<h4>Re-arrange relation members with drag and drop</h4>
+<h4 id="re-arrange-relation-members-with-drag-and-drop">Re-arrange relation members with drag and drop</h4>
 <p>In the <em>Members</em> tab in the <em>Property Editor</em> (present when you are editing a <em>Relation</em>) you can now re-arrange member entries per drag and drop. As above you can start the process with a long press, however you will not be shown an image before you actually start dragging (that is Android for you).</p>
-<h4>Default set of keys used for the nearby POI display configurable</h4>
+<h4 id="default-set-of-keys-used-for-the-nearby-poi-display-configurable">Default set of keys used for the nearby POI display configurable</h4>
 <p>In the absence of a filter being set the <em>nearby POI display</em> uses a default set of keys for which it will display entries. This makes sense as you typically don't want to display entries for all objects on the screen, just for those that have <em>POI</em> character, but work flows differ and to accommodate a wide range of uses we've now made the set of keys configurable in the <em>Preferences</em> in <em>Nearby POI display</em>.</p>
-<h4>Validation styling highlights instead of replacing normal styling</h4>
+<h4 id="validation-styling-highlights-instead-of-replacing-normal-styling">Validation styling highlights instead of replacing normal styling</h4>
 <p>Previously the colors returned by the <a href="http://vespucci.io/tutorials/data_styling/#validation-styling">validation styling</a> replaced the normal styling of an object, in some cases making affected objects difficult to manipulate. We have changed this to use the colors as a highlight &quot;behind&quot; the normal element rendering which seems to work better.</p>
-<h4>Value selectors for direction and integers</h4>
+<h4 id="value-selectors-for-direction-and-integers">Value selectors for direction and integers</h4>
 <p>Providing dedicated selector UIs for values in OpenStreetMap is not straight forward as there is no formal typing system and a value can have literally any value representable by an UTF-8 string.</p>
 <p>For example a selector for the value of the the <em>layer</em> tag needs to equally be able to deal with numbers as with the string <em>I don't like integers</em> . The approach we have taken in the past and intend to continue in the future is to provide UI support for the selection of existing and preset derived values and provide free form input via the <em>Details</em> tab. For this release we've added two dedicated modals for entering <em>integer</em> and <em>direction</em> values (this can be set in the presets) replacing previous text only entry.</p>
-<h5>Direction values</h5>
+<h5 id="direction-values">Direction values</h5>
 <p>This provides input either of tag specific values via a conventional single choice radio button selector or via a compass direction display below it, besides using any built in magnetic compass to determine the value or you can simply drag the display to the correct value.</p>
-<h5>Integer values</h5>
+<h5 id="integer-values">Integer values</h5>
 <p>This provides input of tag specific values  as above, or selection of a whole number via a number picker.</p>
-<h4>Rendering of direction values</h4>
+<h4 id="rendering-of-direction-values">Rendering of direction values</h4>
 <p>Elements with a direction tag that contains a degree value are now rendered with a pointer in the the direction.</p>
-<h4>Support for rotating nodes with a direction tag and multiple elements and relations</h4>
+<h4 id="support-for-rotating-nodes-with-a-direction-tag-and-multiple-elements-and-relations">Support for rotating nodes with a direction tag and multiple elements and relations</h4>
 <p>Selected nodes with a direction tag, multiple elements and relations now support rotation just a previously available for ways.</p>
-<h4>Per-preset item support for pre-filling tags with default values</h4>
+<h4 id="per-preset-item-support-for-pre-filling-tags-with-default-values">Per-preset item support for pre-filling tags with default values</h4>
 <p>We now support setting a preferred behaviour on how to handle pre-filling tag values with either the previously used or the default value.</p>
 <p>This is again a case of one size doesn't fit all, so you can now turn on pre-filling on a per preset item base. In the <em>most recently used</em> display a long press will display three options (instead of previously simply removing the item from the display):</p>
 <ul>
@@ -53,25 +53,25 @@
 <li><em>Remove</em> remove item from MRU display</li>
 </ul>
 <p>Note that pre-filling will only have an effect on tags without a value.</p>
-<h3>Improved <em>Todo</em> support</h3>
+<h3 id="improved-todo-support">Improved <em>Todo</em> support</h3>
 <p>The <em>Todo</em> support has been re-factored to support</p>
 <ul>
 <li>editing of the comment field</li>
 <li>easier skipping of todos (both in the modal as in the menu associated with any references OSM element)</li>
 </ul>
 <p>To make skipping a bit more useful the sorting to determine the nearest <em>Todo</em> to display with sort open items before skipped ones.</p>
-<h4>Facility to create Todos from the objects in a GeoJSON layer</h4>
+<h4 id="facility-to-create-todos-from-the-objects-in-a-geojson-layer">Facility to create Todos from the objects in a GeoJSON layer</h4>
 <p>In some situations it is useful to work through a set of GeoJSON objects in the manner of todos, we now support creation of <em>Todos</em> from objects in a GeoJSON layer. You can either use a built in conversion that will create a <em>Todo</em> with a comment containing the GeoJSON properties, or use JavaScript to run a custom conversion. The later is particularly useful if the GeoJSON has references to OSM objects and you want to create Todos that will directly references these.</p>
 <p>See <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/documentation/docs/tutorials/other/conversion-example.js">sample conversion script</a>.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Add support for multi-line preference titles</li>
 <li>Add support for labels for all GeoJSON geometries</li>
 <li>Indicate in the taginfo project file if an entry is &quot;not recommended&quot; (aka deprecated)</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one.</p>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>

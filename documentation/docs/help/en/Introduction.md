@@ -2,13 +2,11 @@ _Before we start: most screens have links in the menu to the on-device help syst
 
 # Vespucci Introduction
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 5.0 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
 
 ## Editing with Vespucci
 
 Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
-
-<a id="download"></a>
 
 ### Downloading OSM Data
 
@@ -28,13 +26,11 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
 
 The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
 
-In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md) so that dimming is always active.
+In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md#always-dim-non-downloaded-areas) so that dimming is always active.
 
 If you need to use a non-standard OSM API entry, or use [offline data](https://vespucci.io/tutorials/offline/) in _MapSplit_ format you can add or change entries via the _Configure..._ entry for the data layer in the layer control.
 
 ### Editing
-
-<a id="lock"></a>
 
 #### Lock, unlock, mode switching
 
@@ -45,7 +41,7 @@ A long press on the lock icon or the _Modes_ menu in the map display overflow me
 * **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
 * **Tag only** - selecting an existing object will start the [Property Editor](../en/Property%20editor.md), new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.
 * **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor-mode). White lock icon with an "I" is displayed.
 * **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to _Address_ and _Indoor_ mode.
@@ -84,7 +80,7 @@ Note that for overlapping objects (such as a node on a way) the selection menu c
 
 #### Selected objects: Moving a Node or Way
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md#large-node-drag-area), you get a large area around the selected node that makes it easier to position the object. 
 
 #### Adding a new Node/Point or Way 
 
@@ -115,7 +111,7 @@ You can also use a menu item: See [Creating new objects](Creating%20new%20object
 
 #### Adding an Area
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+OpenStreetMap doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
 * _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
 * _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
@@ -147,7 +143,7 @@ To add individual address nodes directly while in the default "Simple mode" swit
 
 House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
 
-Consider using this with one of the [Auto-download](#download) modes.  
+Consider using this with one of the [Auto-download](#downloading-osm-data) modes.  
 
 #### Adding Turn Restrictions
 
@@ -187,13 +183,13 @@ More information on this and other available functionality on the main display c
 
 ## Using GPS and GPX tracks
 
-With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
+With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md#fallback-to-network-location) off. 
 
 Touching the ![GPS](../images/menu_gps.png) button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
 
 To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
 
-Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
+Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md#location-settings) and configure NMEA input.
 
 ### How to export a GPX track?
 
@@ -211,7 +207,7 @@ The OSMOSE bug and Todos display will provide a link to the affected element in 
 
 ### Filtering
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layer-settings):
 
 * Notes
 * Osmose error
@@ -220,21 +216,17 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 * Maproulette
 * Todo
 
-<a id="indoor"></a>
-
 ## Indoor mode
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
-
-<a id="c-mode"></a>
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock-unlock-mode-switching) and selecting the corresponding menu entry.
 
 ## C-Mode
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the [Property Editor](../en/Property%20editor.md) started in C-Mode the best matching preset will automatically be applied.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock-unlock-mode-switching) and selecting the corresponding menu entry.
 
 ### Configuring checks
 
@@ -278,8 +270,6 @@ An alternative to the above, objects are filtered either on individual presets o
 
 Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
-<a id="layers"></a>
-
 ### Layer settings
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -296,14 +286,14 @@ Available layer types:
 * GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
 
-More information can be found in the section on the [map display](Main%20map%20display.md).
+More information can be found in the section on the [map display](Main%20map%20display.md#layer-control).
 
 #### Preferences
 
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
-The full description can be found here [Preferences](Preferences.md)
+The full descriptions can be found here [Preferences](Preferences.md)
 
 #### Advanced preferences
 
@@ -312,14 +302,14 @@ The full description can be found here [Preferences](Preferences.md)
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
 * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
 
-The full description can be found here [Advanced preferences](Advanced%20preferences.md)
+The full descriptions can be found here [Advanced preferences](Advanced%20preferences.md)
 
 ## Reporting and Resolving Issues
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
 
-If you are experiencing difficulties starting the app after a crash, you can try to start it in _Safe_ mode on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
+If you are experiencing difficulties starting the app after a crash, you can try to start it in [_Safe_ mode](Safe%20mode.md) on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [OpenStreetMap forum](https://community.openstreetmap.org).
+If you want to discuss something related to Vespucci, you can start a discussion on the [OpenStreetMap forum](https://community.openstreetmap.org).
 
 
