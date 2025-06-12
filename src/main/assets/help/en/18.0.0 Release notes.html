@@ -5,26 +5,26 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 18.0 Highlights</h1>
+<h1 id="vespucci-180-highlights">Vespucci 18.0 Highlights</h1>
 <p>2022-09-02</p>
-<h3>Minimum supported Android version change</h3>
+<h3 id="minimum-supported-android-version-change">Minimum supported Android version change</h3>
 <p>Android versions prior to 4.1 / API 16 are no longer supported. This means that Vespucci will no longer run on Android 4.0.1 to 4.0.4 that were published in 2011.</p>
-<h3>Android 12 compatibility</h3>
+<h3 id="android-12-compatibility">Android 12 compatibility</h3>
 <p>Vespucci now targets Android 12 / API 31 as required by google. This has resulted in many smaller changes including the way the splash screen is displayed on devices with Android 5 and higher.</p>
-<h3>Layer state file name change</h3>
+<h3 id="layer-state-file-name-change">Layer state file name change</h3>
 <p>The mechanism that saves the current state (color, stroke width etc) of a layer displaying the contents of a file, for example GPX and GeoJSON layers, used a filename derived from the original filename and path. This could lead to filenames for the state file that exceeded Androids maximum filename length, particularly with files loaded from cloud services. The mechanism now use shorter names, however this is not backwards compatible and will require you to restyle any such layers.</p>
-<h3>Improvements to app startup</h3>
+<h3 id="improvements-to-app-startup">Improvements to app startup</h3>
 <p>In the past we have used lazy loading for many configurations, that is we've read the configurations when they were 1st needed (if at all). However both the imagery and preset configuration have grown so much that this is no longer practical for these, besides not being obvious to the user what was going on, this had a tendency to cause <em>ANR</em> (App Not Responding) messages on startup, that while harmless, were very annoying. We now force loading during display of the splash screen which avoids both the messages and provides feedback to the user.</p>
-<h3>Property editor changes</h3>
+<h3 id="property-editor-changes">Property editor changes</h3>
 <p>The property editor has been substantially reworked internally to support more flexible use. Currently user visible changes are limited to the ability to drill down to relation members and experimental support for displaying the property editor in a separate window when the device has split windows enabled. The later functionality needs to be explicitly enabled in the <em>Advanced preference</em> in the <em>Experimental</em> section.</p>
 <p>Further changes are expected in upcoming versions.</p>
-<h3>Auto-save support</h3>
+<h3 id="auto-save-support">Auto-save support</h3>
 <p>Android apps can be paused and resumed at any time by the operating system and need to be able to save and restore their state so that they can seamlessly continue when a user returns to the app. In particular in Vespucci starting the property editor would always force such a state save, reducing the need for any kind of auto-save functionality as protection against crashes and other unforeseen mishaps. With the re-architecturing of the property editor in this release such forced saves are potentially less frequent and we have added an auto-save mechanism to compensate for that.</p>
 <p>See the <em>Advanced preferences</em> documentation for more information.</p>
-<h3>Way geometry editing changes</h3>
+<h3 id="way-geometry-editing-changes">Way geometry editing changes</h3>
 <p>The nodes of selected ways can now be moved without selecting the individual nodes, this make editing with a pen or a mouse substantially faster. As this may be problematic on small screen devices and when editing with fingers, this is by default turned off, but can be enabled directly in the 1st preferences screen.</p>
 <p>If two ways overlap and share the same nodes for a segment and both are selected, dragging the geometry improvement handle will add a node to both ways.</p>
-<h3>Improved OSMOSE and Todo support</h3>
+<h3 id="improved-osmose-and-todo-support">Improved OSMOSE and Todo support</h3>
 <p><em>Custom Bugs</em> have been renamed to <em>Todos</em> and support for directly creating them from selections is now supported. For example results of an object search could be added as individual todos to a specific todo list. Todo lists can be read and saved.</p>
 <p>If an OSM object is selected that has an associated Todo or an OSMOSE bug, a new menu item will be displayed that offers two items:</p>
 <ul>
@@ -32,9 +32,9 @@
 <li><em>Close all tasks</em> - close any Todos and OSMOSE bugs associated with the object.</li>
 </ul>
 <p>OSMOSE 0.3 API is now fully supported</p>
-<h3>Improved Maproulette support</h3>
+<h3 id="improved-maproulette-support">Improved Maproulette support</h3>
 <p>Display of Maproulette tasks now supports moustache placeholders and other text replacements from the challenge configuration.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Add bridge casing to *_link highway objects</li>
 <li>Add use the floating button to exit rotation mode</li>
@@ -42,11 +42,11 @@
 <li>Add addr:parenstreet to address tags</li>
 <li>Add support a handle for changing the size of the panes in landscape mode on tablets</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>As the saved state file has changed you should upload any pending changes before updating.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>

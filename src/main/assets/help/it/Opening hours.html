@@ -5,16 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Editor degli orari di apertura</h1>
+<h1 id="editor-degli-orari-di-apertura">Editor degli orari di apertura</h1>
 <p>Le specifiche sugli orari di apertura di OpenStreetMap sono piuttosto articolate e non sono facilmente rappresentabili tramite un’interfaccia utente intuitiva.</p>
 <p>Comunque sia il più delle volte solo una piccola parte della definizione viene realmente usata. L’editor considera questo aspetto omettendo gli elementi più oscuri dai menù e riducendo spesso e volentieri la libertà di azione dell’utente a piccole personalizzazioni di modelli predefiniti.</p>
 <p><em>Questa documentazione è in continuo sviluppo</em></p>
-<h2>Utilizzare l'editor degli orari di apertura</h2>
+<h2 id="utilizzare-leditor-degli-orari-di-apertura">Utilizzare l'editor degli orari di apertura</h2>
 <p>Nello scenario tipico, l’oggetto che stai modificando può sia avere già un’etichetta per gli orari di apertura (opening_hours, service_times e collection_times) oppure puoi riapplicare il valore predefinito all’oggetto per avere il campo degli orari di apertura vuoto. Se senti la necessità di inserire il valore manualmente e stai usando Vespucci, puoi modificare il campo nella pagina dettagli e poi tornare alla scheda per le modifiche. Se pensi che l’etichetta per gli orari di apertura debba far parte delle preimpostazioni, segnala il problema agli sviluppatori del tuo editor.</p>
 <p>If you have defined a default template (do this via the &quot;Manage templates&quot; menu item) it will be loaded automatically when the editor is started with an empty value. With the &quot;Load template&quot; function you can load any saved template and with the &quot;Save template&quot; menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example &quot;opening_hours&quot;, &quot;collection_times&quot; and &quot;service_times&quot; or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant).</p>
 <p>Chiaramente puoi anche decidere di scrivere di tuo pugno un valore per gli orari di apertura, ma è consigliato partire da un modello preesistente.</p>
 <p>Quando viene caricato un valore esistente per gli orari di apertura, il programma cerca di renderlo conforme alle specifiche degli orari di apertura. Qualora non fosse possibile, la posizione approssimativa dell’errore verrà evidenziata nella stringa grezza degli orari di apertura così che tu possa provare a correggerla manualmente. Circa un quarto dei valori degli orari di apertura nel database di OpenStreetMap hanno qualche problema, di questi meno del 10% può essere corretto, vedi <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> per ulteriori dettagli su quali deviazioni dalle specifiche sono tollerate.</p>
-<h3>Bottone menù principale</h3>
+<h3 id="bottone-menù-principale">Bottone menù principale</h3>
 <ul>
 <li><strong>Aggiungi regola</strong>: aggiunge una nuova regola.</li>
 <li><strong>Aggiungi regola per le festività</strong>: aggiunge una nuova regola per i giorni festivi insieme ad un cambiamento di stato.</li>
@@ -25,9 +25,9 @@
 <li><strong>Aggiorna</strong>: ricontrolla il valore degli orari di apertura.</li>
 <li><strong>Elimina tutto</strong>: elimina tutte le regole.</li>
 </ul>
-<h3>Regole</h3>
+<h3 id="regole">Regole</h3>
 <p>Le regole predefinite sono aggiunte come <em>normali</em> regole, ciò implica che esse sostituiscono i valori delle regole precedenti per gli stessi giorni. Questo potrebbe dare problemi quando si specifica orari estesi, in questi casi probabilmente dovrai impostare il tipo di regola nel menù <em>Mostra tipo di regola</em> su <em>additivo</em>.</p>
-<h4>Menù regole</h4>
+<h4 id="menù-regole">Menù regole</h4>
 <ul>
 <li><strong>Aggiungi modificatore/commento</strong>: modifica l’effetto di questa regola e aggiungi un commento facoltativo.</li>
 <li><strong>Aggiungi festività</strong>: aggiungi un selettore per festività pubbliche o scolastiche.</li>
@@ -76,10 +76,10 @@
 <li><strong>Sposta giù</strong>: sposta questa regola di una posizione in basso.</li>
 <li><strong>Elimina</strong>: elimina questa regola.</li>
 </ul>
-<h3>Intervalli di tempo</h3>
+<h3 id="intervalli-di-tempo">Intervalli di tempo</h3>
 <p>Per rendere la modifica degli intervalli di tempo più semplice possibile, quando vengono caricati valori già esistenti scegliamo un intervallo di tempo ed una granularità per le barre di intervallo che riteniamo ottimali. Per gli intervalli temporali nuovi le barre iniziano alle 6 del mattino e hanno incrementi di 15 minuti, questo può essere modificato attraverso il menù.</p>
 <p>Cliccando sulla barra del tempo (non sui pin) si aprirà il selezionatore di tempo grande, più pratico quando usare direttamente le barre è troppo difficile. I selezionatori di tempo si estendono fino al giorno successivo, quindi sono un modo semplice per estendere un intervallo di tempo senza dover cancellare e riaggiungere l'intervallo.</p>
-<h4>Menù intervalli di tempo</h4>
+<h4 id="menù-intervalli-di-tempo">Menù intervalli di tempo</h4>
 <ul>
 <li><strong>Display time picker</strong>: mostra un selezionatore di tempo grande per selezionare l'ora di inizio e di fine, su display molto piccoli questo è il modo preferito di cambiare i tempi.</li>
 <li><strong>Passa a scatti di 15 minuti</strong>: utilizza una granularità di 15 minuti per la barra dell’intervallo.</li>
@@ -89,7 +89,7 @@
 <li><strong>Mostra intervallo</strong>: visualizza il campo dell’intervallo per specificare un intervallo in minuti.</li>
 <li><strong>Elimina</strong>: elimina questo intervallo di tempo.</li>
 </ul>
-<h3>Gestisci modelli</h3>
+<h3 id="gestisci-modelli">Gestisci modelli</h3>
 <p>The template management dialog allows you to add, edit and delete templates.</p>
 <p>In Android 4.4 and later the following additional functionality is available from the menu button.</p>
 <ul>
@@ -98,7 +98,7 @@
 <li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
 <li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul>
-<h4>Save and edit template dialogs</h4>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
 <p>The dialog allows you to set</p>
 <ul>
 <li><strong>Name</strong> a descriptive name for the template.</li>

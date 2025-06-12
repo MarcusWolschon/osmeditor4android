@@ -5,16 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>OpenStreetMap åpningstid-redigerer</h1>
+<h1 id="openstreetmap-åpningstid-redigerer">OpenStreetMap åpningstid-redigerer</h1>
 <p>OpenStreetMap-åpningstidenes spesifikasjoner er ganske kompliserte og gir seg ikke lett til et enkelt og intuitivt brukergrensesnitt.</p>
 <p>Men for det meste bruker du sannsynligvis bare en liten del av definisjonen. Redaktøren tar dette med i betraktningen ved å prøve å skjule de mer obskure funksjonene i menyer, og mesteparten av tiden reduserer bruken &quot;på veien&quot; til små tilpasninger av forhåndsdefinerte maler.</p>
 <p><em>Denne dokumentasjonen er foreløpig og et arbeid som pågår</em></p>
-<h2>Bruker åpningstid redigerer</h2>
+<h2 id="bruker-åpningstid-redigerer">Bruker åpningstid redigerer</h2>
 <p>I en typisk arbeidsflyt vil objektet du redigerer enten allerede ha en åpningstidsmerke (åpnings_tider, service_tider and hente_tider) , eller du kan bruke forhåndsinnstillingen på nytt for objektet for å få et tomme åpningstidsfelt. Hvis du trenger å legge til feltet manuelt og du bruker Vespucci, kan du skrive inn nøkkelen på informasjonssiden og deretter bytte tilbake til den skjemabaserte fanen for å redigere. Hvis du mener at åpningskoden burde vært en del av forhåndsinnstillingen, kan du åpne et problem for redaktøren.</p>
 <p>Hvis du har definert en standardmal (gjør dette via menypunktet &quot;Administrer maler&quot;) vil den lastes automatisk når editoren startes med en tom verdi. Med funksjonen &quot;Last inn mal&quot; kan du laste inn hvilken som helst lagret mal og med menyen &quot;Lagre mal&quot; kan du lagre gjeldende verdi som en mal. Du kan definere separate maler og standardinnstillinger for spesifikke nøkkel, for eksempel &quot;opening_hours&quot;, &quot;collection_times&quot; og &quot;service_times&quot; eller egendefinerte verdier. Videre kan du begrense anvendeligheten av en mal til en region og en spesifikk identifikator, vanligvis en OSM-tag på toppnivå (for eksempel amenity=restaurant).</p>
 <p>Naturligvis kan du bygge en åpningstidsverdi fra bunnen av, men vi anbefaler at du bruker en av de eksisterende malene som utgangspunkt.</p>
 <p>Hvis en eksisterende åpningstidsverdi lastes inn, blir det forsøkt å korrigere den automatisk for å være i samsvar med spesifikasjonen for åpningstider. Hvis dette ikke er mulig, blir den grove plasseringen der feilen oppstod, uthevet i visningen av den rå OH-verdien, og du kan prøve å rette den manuelt. Omtrent en fjerdedel av OH-verdiene i OpenStreetMap-databasen har problemer, men mindre enn 10% kan ikke korrigeres. Se <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> for mer informasjon om hvilke avvik fra spesifikasjon tolereres. </p>
-<h3>Hovedmenyknapp</h3>
+<h3 id="hovedmenyknapp">Hovedmenyknapp</h3>
 <ul>
 <li><strong>Legg til regel</strong>: legg til en ny regel.</li>
 <li><strong>Legg til regel for helligdager</strong>: legg til en ny regel for en ferie sammen med en statlig endring.</li>
@@ -25,9 +25,9 @@
 <li><strong>Refresh</strong>: parse åpningstidsverdien på nytt.</li>
 <li><strong>Slette alle</strong>: fjern alle regler.</li>
 </ul>
-<h3>Regler</h3>
+<h3 id="regler">Regler</h3>
 <p>Standard regel er lagt til som <em>normal</em> regel, dette innebærer at de vil overstyre verdiene til tidligere regler for de samme dagene. Det kan være en bekymring når du spesifiserer lengre tider, vanligvis vil du da bytte regler via <em>Vis regel type</em> meny innlegg til <em>additiv</em>.</p>
-<h4>Regelmeny</h4>
+<h4 id="regelmeny">Regelmeny</h4>
 <ul>
 <li><strong>Legg til modifikasjon / kommentar</strong>: endre effekten av denne regelen og legg til en valgfri kommentar.</li>
 <li><strong>Legg til ferie</strong>: legg til en velger for helligdager eller skoleferier.</li>
@@ -76,10 +76,10 @@
 <li><strong>Flytt ned</strong>: flytt denne regelen ned en posisjon.</li>
 <li><strong>Delete</strong>: slett denne regelen.</li>
 </ul>
-<h3>Tidsrom</h3>
+<h3 id="tidsrom">Tidsrom</h3>
 <p>For å gjøre redigeringstiden så enkel som mulig, vi prøver å velge et optimalt tidsområde og granularitet for områdelinjene når vi laster inn eksisterende verdier.  For nye tidsperioder begynner stolpene klokka 6:00 (am) og har trinn på 15 minutter, dette kan endres via menyen.</p>
 <p>Ved å klikke (ikke på pinnene) åpner tidslinjen den store tidsvelgeren, når det er vanskelig å bruke linjene direkte. Tidsvelgerne utvides til neste dag, så de er en enkel måte å utvide et tidsintervall uten å måtte slette og legge til området på nytt.</p>
-<h4>Tidsrom meny</h4>
+<h4 id="tidsrom-meny">Tidsrom meny</h4>
 <ul>
 <li>__VIs tidsvelger __: vis  en stor tidsvelger for valg av start og sluttid, på en veldig liten skjermer dette er den foretrukne måten av skiftende tider.</li>
 <li><strong>Bryt til 15 minutters tikk</strong>: bruk 15 minutters granularitet for rekkevidde linjen.</li>
@@ -89,7 +89,7 @@
 <li><strong>Vis intervall</strong>: vis intervallfeltet for å spesifisere et intervall i minutter.</li>
 <li><strong>Delete</strong>: slett dette tidsrommet.</li>
 </ul>
-<h3>Administrer maler</h3>
+<h3 id="administrer-maler">Administrer maler</h3>
 <p>Malbehandlingsdialoggen lar deg legge til, redigere og slette maler.</p>
 <p>I Android 4.4 og nyere er følgende tilleggsfunksjonalitet tilgjengelig fra menyknappen.</p>
 <ul>
@@ -98,7 +98,7 @@
 <li><strong>Last fra fil (erstatt)</strong>: last inn maler fra en fil som erstatter gjeldende innhold i databasen.</li>
 <li><strong>Last fra fil</strong>: last inn maler fra en fil som beholder det gjeldende innholdet.</li>
 </ul>
-<h4>Lagre og rediger maldialogger</h4>
+<h4 id="lagre-og-rediger-maldialogger">Lagre og rediger maldialogger</h4>
 <p>Dialogen lar deg stille inn</p>
 <ul>
 <li><strong>Navn</strong> et beskrivende navn for malen.</li>

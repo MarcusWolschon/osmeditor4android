@@ -5,8 +5,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Custom imagery</h1>
-<h2>Supported layer types</h2>
+<h1 id="custom-imagery">Custom imagery</h1>
+<h2 id="supported-layer-types">Supported layer types</h2>
 <ul>
 <li>google/OSM type tile servers (raster tiles and to a limited extent Mapbox Vector Tiles)</li>
 <li>imagery layers in <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> and <a href="https://github.com/protomaps/PMTiles/blob/main/spec/v3/spec.md">PMtiles V3</a> format on device</li>
@@ -14,7 +14,7 @@
 </ul>
 <p>Besides manually adding layers you can add WMS layers by querying a WMS server for a list of supported layers see <a href="Main%20map%20display.md#layer_control">layer control</a>, or by querying the Open Aerial Map (OAM) service.</p>
 <p><strong>NOTE</strong> even though the URLs may look similar to those for a WMS layer, we do not support requesting data from ESRI MapServer with their native protocol.</p>
-<h2>Adding a custom imagery source</h2>
+<h2 id="adding-a-custom-imagery-source">Adding a custom imagery source</h2>
 <p>To add a custom layer goto the <em>Preferences</em> screen and select <em>Custom imagery</em>, press the <em>+</em> button to add a new layer, or you can select the same from the layer control, &quot;+&quot; menu. In the form you can set</p>
 <ul>
 <li>a <strong>Name</strong> this is what is displayed in the <em>Layer control</em> background or overlay selection form. This field is <em>required</em>.</li>
@@ -25,9 +25,9 @@
 <li><strong>Tile size</strong> side length in pixels for the tiles, default 256. <em>Available from version 16.0 and later</em></li>
 </ul>
 <p>Selecting the <em>Save</em> button will add the source to the configuration, <em>Save and set</em> will additionally add the source to the active layers as the current background for background imagery sources.</p>
-<h3>Remote PMTiles source</h3>
+<h3 id="remote-pmtiles-source">Remote PMTiles source</h3>
 <p>To add a remote PMTiles source add the URL and then select <em>Save</em>. Vespucci will attempt to retrieve all necessary information for the entry from the remote source if the URL ends with <em>.pmtiles</em>.</p>
-<h3>Supported place holders</h3>
+<h3 id="supported-place-holders">Supported place holders</h3>
 <p>Place holders are replaced when the application retrieves imagery files from the source and are replaced by calculated values. There are some variants even between applications that in principle use the same system, which are noted for completeness sake below.</p>
 <p>The place holders have the general format of <strong>{</strong> <em>place holder name</em> <strong>}</strong>.</p>
 <p><strong>{apikey}</strong> api key for sources that require it. <em>JOSM</em>, <em>iD</em>, <em>Vespucci (only in configuration files)</em> see <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/keys2-default.txt">key configuration example</a> for more information.</p>
@@ -44,13 +44,13 @@
 <p><strong>{height}</strong> tile height for WMS servers. <em>JOSM</em>, <em>Vespucci</em></p>
 <p><strong>{bbox}</strong> bounding box in <em>proj</em> coordinates for WMS servers. <em>JOSM</em>, <em>Vespucci</em></p>
 <p><strong>{subdomain}</strong> reserved, used internally by <em>Vespucci</em></p>
-<h5>Required placeholders</h5>
+<h5 id="required-placeholders">Required placeholders</h5>
 <p>Note: remote PMTiles sources do not require any placeholders.</p>
 <ul>
 <li>A valid normal (non-Bing) URL for a tile server must contain at least at least <strong>{zoom}</strong>, <strong>{x}</strong> and one of <strong>{y}</strong>, <strong>{-y}</strong> or <strong>{ty}</strong>.</li>
 <li>A valid WMS entry must be a legal WMS URL for a layer containing at least <strong>{width}</strong>, <strong>{height}</strong> and <strong>{bbox}</strong> place holders. Note: do not add a <strong>{proj}</strong> place holder when adding such a layer in the &quot;Custom imagery&quot; form in Vespucci (it is supported in the configuration files), simply leave the SRS or CRS attribute in the URL as is with the desired projection value.</li>
 </ul>
-<h3>Examples</h3>
+<h3 id="examples">Examples</h3>
 <p>Tile server example:</p>
 <pre><code>http://tiles.poole.ch/AGIS/OF2011/{zoom}/{x}/{y}.png
 </code></pre>
@@ -60,7 +60,7 @@
 <p>PMTiles example:</p>
 <pre><code>https://r2-public.protomaps.com/protomaps-sample-datasets/overture-pois.pmtiles
 </code></pre>
-<h2>MBTiles and PMTiles</h2>
+<h2 id="mbtiles-and-pmtiles">MBTiles and PMTiles</h2>
 <p>To add a MBTiles or PMTIles layer, down/upload the file to your device, then go to the <em>Custom imagery</em> form as described above. Tap the <em>SD card</em> icon, navigate to the folder where you saved the file and select it. The form should now be filled out with all necessary values.</p>
 <p>Notes:</p>
 <ul>

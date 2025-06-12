@@ -5,26 +5,26 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 19.0 Highlights</h1>
+<h1 id="vespucci-190-highlights">Vespucci 19.0 Highlights</h1>
 <p>2023-04-23</p>
-<h3>&quot;nearby POI&quot; display</h3>
+<h3 id="nearby-poi-display">&quot;nearby POI&quot; display</h3>
 <p>The main map display now supports a &quot;nearby POI&quot; display that can be dragged in to view with a handle in the middle of the bottom menu bar.</p>
 <p>The view will include a filtered view of all &quot;POI&quot;s displayed on the current map view. If no explicit filter is set this is limited to objects that have a key with one of <em>shop</em>, <em>amenity</em>, <em>leisure</em>, <em>tourism</em>, <em>craft</em>, <em>office</em> or <em>emergency</em>. If an explicit filter is set, that is a tag filter or a preset filter, or a mode (<em>Indoor</em> and <em>C</em>-mode) is selected that sets a filter the display will display objects that are allowed by the filter. For example if <em>Indoor</em> mode is selected, the display will only show POIs on the currently selected level.</p>
 <p>Tapping an entry in the display will center the map on the object and select it, tapping it a second time (just as on the map display) will start the property editor, in <em>Tag only</em> mode the property editor will start directly as expected. The POI entries are highlighted with the same validation indication as map icons, see <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/styles/Color-round.xml#L39">validation styling</a>.</p>
 <p>If the Vespucci display is <em>locked</em> tapping an icon in the POI display will start the <em>info</em> modal.</p>
 <p>Tip: on devices with small screens dragging the divider up might be a bit tricky as multiple areas that respond to touch input overlap in the closed position, try temporarily hiding the background layer to make this easier.</p>
-<h3>Overpass API support</h3>
+<h3 id="overpass-api-support">Overpass API support</h3>
 <p>We now support directly querying an Overpass API server (a non-standard instance can be set in the <em>Advanced preferences</em>). Note that to be valid OSM data that Vespucci can use for editing you need to include object meta data and all nodes referenced by ways.</p>
 <p>To make this easier to use, similar to Overpass Turbo, you can generate Overpass queries from JOSM filter/search language. See <a href="http://vespucci.io/tutorials/object_search/">Object search</a>.</p>
-<h3>Support for external measurement apps</h3>
+<h3 id="support-for-external-measurement-apps">Support for external measurement apps</h3>
 <p>We now support external measuring apps for setting the values of suitable fields in the property editor. For example if you have <em>StreetMeasure</em> installed it will be started automatically if you click on a corresponding field, for example <em>Width</em>, and the measurements will be added as values.</p>
 <p>Originally we had intended to add support for Bosch laser range finders for this release, however Bosch licenses its SDK for these devices on very restrictive terms that do not allow public distribution of apps that utilize it, even if the functionality is encapsulated in a closed source interface app. As Bosch was not willing to even consider changing these terms, adding support isn't possible for now.</p>
 <p>If you have, or believe you can produce, a clean room reverse engineered specification of the Bosch protocol please feel free to get in contact with us.</p>
-<h3>Support for displaying preset label fields</h3>
+<h3 id="support-for-displaying-preset-label-fields">Support for displaying preset label fields</h3>
 <p>We now support text labels from the presets, this is helpful to explain details or give a context to fields. As these can be annoyingly large on devices with smaller screens, support can be turned off in the <em>Advanced preferences</em>.</p>
-<h3>Imagery alignment function moved to layer dialog</h3>
+<h3 id="imagery-alignment-function-moved-to-layer-dialog">Imagery alignment function moved to layer dialog</h3>
 <p>The imagery alignment for a layer is now started from the respective entry in the layer modal. This allows all types of tile based imagery layers to be adjusted, not just the top background layer. The mode has been changed to be more in line with our current UI: clicking the back button will abort the process, click the checkbox will apply the current alignment changes.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Add render natural=glacier</li>
 <li>Add function to go to start/end of selected way</li>
@@ -39,11 +39,11 @@
 <li>Add support selection of segment for the new way when splitting in all modes</li>
 <li>Add removing the text from an not uploaded note will now remove the comment</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>As the saved state file has changed you should upload any pending changes before updating.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>

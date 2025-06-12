@@ -5,33 +5,33 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Preferences</h1>
+<h1 id="preferences">Preferences</h1>
 <p>The settings for Vespucci are split over two screens: standard and advanced preferences. The more commonly used settings should in general be in the first screen.</p>
-<h2>Data style</h2>
+<h2 id="data-style">Data style</h2>
 <p>The style that is used to render OpenStreetmap data. Additional styles can be added by including corresponding files in the Vespucci directory. Documentation on the style file format can be found online here <a href="http://vespucci.io/tutorials/data_styling/">Vespucci Data Styling</a>.</p>
-<h2>Custom layers</h2>
+<h2 id="custom-layers">Custom layers</h2>
 <p>Manage custom imagery layers not included in the standard configuration. This supports configuring both remote tile sources with a URL or on device MBTiles.</p>
 <p>See <a href="Custom%20imagery.md">custom imagery help</a> for more information.</p>
-<h2>Keep screen on</h2>
+<h2 id="keep-screen-on">Keep screen on</h2>
 <p>Disable the Android automatic screen lock.</p>
-<h2>Large node drag area</h2>
+<h2 id="large-node-drag-area">Large node drag area</h2>
 <p>Display a large ring around selected nodes making draging and positioning nodes easier.</p>
-<h2>Enable way node dragging</h2>
+<h2 id="enable-way-node-dragging">Enable way node dragging</h2>
 <p>Enables dragging of individual way nodes of a selected way without selecting the node first, this can make geometry editing substantially faster in some circumstances.</p>
-<h2>Presets</h2>
+<h2 id="presets">Presets</h2>
 <p>Start preset management screen. Vespucci supports JOSM style presets that can be downloaded and added from this screen.</p>
-<h2>Validator settings</h2>
-<h3>Validator settings</h3>
+<h2 id="validator-settings">Validator settings</h2>
+<h3 id="validator-settings">Validator settings</h3>
 <p>Configure the standard validator.</p>
 <p>There are currently two configurable checks: a check for missing keys and an age based one for re-surveying.</p>
-<h4>Re-survey check</h4>
+<h4 id="re-survey-check">Re-survey check</h4>
 <p>For objects with the configured tags the validator will check if they have been modified in the number of days set in the rule and if they have not, highlight the objects. <em>check_date</em> and <em>check_date:...</em> keys with last modified dates are taken in to consideration if they are older than the modification date of the object.</p>
-<h4>Missing tags check</h4>
+<h4 id="missing-tags-check">Missing tags check</h4>
 <p>The missing tag check works on the combination of the keys that should be checked and the preset for element.</p>
 <p>Example: the default configuration checks that a <em>name</em> tag is present on a object if the matching preset contains a <em>name</em> field in the non-optional tags (the check rules can be configured to require &quot;optional&quot; tags).</p>
 <p>Alternative tags can be indicated by separating them with a vertical bar &quot;|&quot;.</p>
 <p>Example: &quot;name|ref&quot; will fail only if neither a <em>name</em> or a <em>ref</em> tag is present. Note that is a tag is present that leads to the absence of a tag being ignored (currently supported: <em>noname=yes</em>, <em>validate:no_name=yes</em>, <em>noref=yes</em> for <em>name</em> and <em>ref</em> tags), the check will terminate with the corresponding missing tag.</p>
-<h4>Enabled validations</h4>
+<h4 id="enabled-validations">Enabled validations</h4>
 <p>By default all validations are enabled, if you want to disable individual checks, you can do that here.</p>
 <ul>
 <li><strong>Object age</strong> re-survey validation</li>
@@ -49,13 +49,13 @@
 <li><strong>Relation loop</strong> relations that refer to eachother in a loop</li>
 <li><strong>Non-standard element type</strong> report if the element type of an object isn't one of the preset required ones</li>
 </ul>
-<h3>Connected node tolerance</h3>
+<h3 id="connected-node-tolerance">Connected node tolerance</h3>
 <p>Configure how far away from a highway a highway end node must be to not be highlighted as an error.</p>
-<h2>Opening hours templates</h2>
+<h2 id="opening-hours-templates">Opening hours templates</h2>
 <p>The dialog displayed allows to edit the meta-data for individual templates or delete them, save the current templates and load templates from files.</p>
-<h2>Nearby POI display</h2>
+<h2 id="nearby-poi-display">Nearby POI display</h2>
 <p>Configure the keys used for the nearby POI display.</p>
-<h2>Advanced preferences</h2>
+<h2 id="advanced-preferences">Advanced preferences</h2>
 <p>Starts the advanced preferences editor.</p>
 
 </body>

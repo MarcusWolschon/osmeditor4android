@@ -425,7 +425,6 @@ public class HelpViewer extends WebViewActivity {
             if (Schemes.FILE.equals(uri.getScheme())) {
                 Log.d(DEBUG_TAG, "orig " + uri);
                 setTitle(getTopic(path));
-
                 if (path.indexOf(MD_SUFFIX) > 0) { // on device we have pre-generated html
                     uri = uri.buildUpon().path(path.replace(MD_SUFFIX, HTML_SUFFIX)).build();
                     Log.d(DEBUG_TAG, "new " + uri.toString());
@@ -463,7 +462,6 @@ public class HelpViewer extends WebViewActivity {
                     return;
                 }
                 String anchor = url.substring(anchorPos + 1);
-                System.out.println("anchor " + anchor);
                 view.evaluateJavascript(
                 // @formatter:off
                         "(function() { " +

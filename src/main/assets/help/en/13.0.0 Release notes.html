@@ -5,9 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 13.0 Highlights</h1>
+<h1 id="vespucci-130-highlights">Vespucci 13.0 Highlights</h1>
 <p>2019-04-04</p>
-<h3>Support for multi-polygon, improved area and turn restriction rendering and improved styling configuration</h3>
+<h3 id="support-for-multi-polygon-improved-area-and-turn-restriction-rendering-and-improved-styling-configuration">Support for multi-polygon, improved area and turn restriction rendering and improved styling configuration</h3>
 <p>Vespucci will now render multipolygons, the standard style for this and some common area types is to have a thick border on the inside of the polygons similar to other editors. In principle it is possible to use a fill style, however particularly large multipolygons will typically have some non-downloaded members which will lead to rendering artifacts.</p>
 <p>Turn-restrictions will be indicated with an icon near the via node or way.</p>
 <p>The style configuration has been substantially revamped to allow cascading styles (and by that requiring less typing) and matching on arbitrary tags or tag combinations, further some previously hard wired constants are now exposed for configuration, for example the maximum zoom level at which icons are still displayed.</p>
@@ -17,9 +17,9 @@
 <li>Add casing support for ways.</li>
 </ul>
 <p>As previously the style format remains undocumented outside of the source code and the <a href="https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/src/main/assets/Color-round-profile.xml">configuration files themselves</a></p>
-<h3>Support applying osmChange format files</h3>
+<h3 id="support-applying-osmchange-format-files">Support applying osmChange format files</h3>
 <p>osmChange format files can now be applied to loaded data. This makes the functionality to save such files much more useful, for example potential problems can be inspected and fixed in the saved files and then re-applied without having to use JOSM.</p>
-<h3>Add support for MapSplit tiled OSM data</h3>
+<h3 id="add-support-for-mapsplit-tiled-osm-data">Add support for MapSplit tiled OSM data</h3>
 <p>MapSplit sources contain original OSM data in PBF format tiles. These files can be configured as read-only data sources and be used for editing on the go when there is no expectation of network coverage or there is only slow Internet connectivity available. While it was previously possible to simply load larger areas directly in to memory, this has a large impact on performance that is avoided by being able to load data for smaller areas on demand.</p>
 <p>MapSplit sources can be configured in the via the &quot;Configuration&quot; menu item for the data layer in the layer control, edit or add an entry, and click the folder icon on the &quot;Read.only API URL&quot;.</p>
 <p>Notes:</p>
@@ -29,9 +29,9 @@
 <li>currently the sources are completely static on device, so your edits will not be reflected, there is some work under way to changes this.</li>
 <li>offline background imagery can be used in Vespucci in MBTiles format.</li>
 </ul>
-<h3>Support reading PBF format OSM data files</h3>
+<h3 id="support-reading-pbf-format-osm-data-files">Support reading PBF format OSM data files</h3>
 <p>Vespucci can now read OSM data from files in PBF format, the most popular binary format for OSM data.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Add preference for map screen orientation.</li>
 <li>Support filtering name suggestions by country/region.</li>
@@ -46,12 +46,12 @@
 <li>Support for reading presets from on-device files.</li>
 <li>MapRoulette tasks are now disabled by default on new installs to stop users without MapRoulette accounts from fixing them &quot;by accident&quot; and then not knowing what to do.</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>As the saved state file format changed for version 13.0, please complete any edits before upgrading if your current version is older.</li>
 <li>As the format of the style configuration has changed you will need to adapt any custom styles you have produced.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>the documentation is out of date.</li>
 <li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>

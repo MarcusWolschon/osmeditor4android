@@ -5,30 +5,30 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 15.1 Highlights</h1>
+<h1 id="vespucci-151-highlights">Vespucci 15.1 Highlights</h1>
 <p>2020-12-11</p>
-<h3>User interface changes and additions</h3>
+<h3 id="user-interface-changes-and-additions">User interface changes and additions</h3>
 <p>Action modes that require multiple actions are now exited by touching on a floating action button with a check icon instead of via the back button. This effects the way creation mode, creating a relations members, editing a relation and the new create and add to route modes.</p>
 <p>All these modes will now further retain state over the Android activity lifecycle.</p>
-<h4>Way creation mode</h4>
+<h4 id="way-creation-mode">Way creation mode</h4>
 <p>All additions are now encapsulated in one undo checkpoint, and can be completely undone by one undo operation once the way is created. The undo button visible in the mode will, as previously, remove the last added node, this will however not add extra checkpoints. Aborting the mode will currently retain the way and any created nodes.</p>
-<h4>Create relation mode / Add to relation mode</h4>
+<h4 id="create-relation-mode-add-to-relation-mode">Create relation mode / Add to relation mode</h4>
 <p>Available from the element (node, way, relation) selection and multi-select modes. <em>Create relation</em> now asks you to select a relation type before proceeding and <em>Add to relation</em> asks you to select a relation type. Elements can be added and removed. Clickable elements are filtered, when available, by preset role filters. If a role filter matches exactly the role will be set for the member.</p>
-<h4>NEW Add / remove member</h4>
+<h4 id="new-add-remove-member">NEW Add / remove member</h4>
 <p>Available in the <em>Relation selected</em> mode allows adding and removing members for the currently selected relation.</p>
-<h4>NEW Create and add to route mode</h4>
+<h4 id="new-create-and-add-to-route-mode">NEW Create and add to route mode</h4>
 <p>Available from the Way selected mode. These are specialized modes for building route relations and support auto-splitting of ways. They currently do not support removing route members, that needs to be done via the <em>Relation selected</em> mode. Aborting the modes will not create or modify the relation, however ways that have been split will remain split (as this is done in per way undo checkpoints, individual way splits can be undone if necessary).</p>
-<h3>Alternative tagging display</h3>
+<h3 id="alternative-tagging-display">Alternative tagging display</h3>
 <p>We've added a facility to display alternative tagging for an object that matches a specific preset with such information. Currently this is available via a menu entry in the property editor.</p>
-<h3>Removed Help launcher icon</h3>
+<h3 id="removed-help-launcher-icon">Removed Help launcher icon</h3>
 <p>Instead of a launcher icon we now provide a shortcut (long press on the icon) to directly start the help viewer (available on Android 8 and higher.</p>
-<h3>Better reporting and display of tag issues when merging and splitting ways</h3>
+<h3 id="better-reporting-and-display-of-tag-issues-when-merging-and-splitting-ways">Better reporting and display of tag issues when merging and splitting ways</h3>
 <p>Issues occurring when a ways are merged or a way is split are now displayed in a dialog in detail, with the option to investigate them via the element information dialog and potentially fix them in the property editor.</p>
-<h3>Feedback form behaviour changes</h3>
+<h3 id="feedback-form-behaviour-changes">Feedback form behaviour changes</h3>
 <p>As github no longer supports logins with user name / password this has been removed as an option for the feedback form. If you have a github account you can change a preference to allow issue creation via the normal github web UI. This will be used automatically if you have the github app installed, however note that while the github app catches the URL it doesn't support documented github API for passing parameters (issue template to use and submitted information). Unluckily there is no reasonable way to submit bug reports to github to get this issue addressed.</p>
-<h3>Accessibility improvements</h3>
+<h3 id="accessibility-improvements">Accessibility improvements</h3>
 <p>A number of the layouts have been reworked to respond better to changes in font and other screen object scaling, obviously there are limits to what can reasonably be expected to still be functional in an application that. among other things, concerns itself with geographic detail. This is an ongoing activity.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Display a warning if an imagery tile source is producing many errors. Note: Bing imagery has a tendency to do this in a spurious fashion, this can be ignored.</li>
 <li>Improve handling of preset file parsing issues.</li>
@@ -39,11 +39,11 @@
 <li>Colour and line width of the grid/scale display can now be styled.</li>
 <li>Beep volume can now be set in the Advanced preferences.</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>The format of the saved state including data has changed, you should upload any changes before updating.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>

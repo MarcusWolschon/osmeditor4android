@@ -5,19 +5,19 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 19.1 Highlights</h1>
+<h1 id="vespucci-191-highlights">Vespucci 19.1 Highlights</h1>
 <p>2023-07-04</p>
-<h3>New disambiguation menu</h3>
+<h3 id="new-disambiguation-menu">New disambiguation menu</h3>
 <p>Since March 2009 (Android was just half a year old then) we've been using the Android &quot;context menu&quot; to provide a way of disambiguating between different close together and geometry sharing elements. This has always had some annoying limitations, particularly in conjunction with accessibility settings (font size and magnification). We've now replaced the context menu with a custom modal that displays icons as a concise way of indicating the object type and allows horizontal scrolling to make the complete object description visible if necessary.</p>
-<h3>Path pattern support disabled for Android 8 and earlier</h3>
+<h3 id="path-pattern-support-disabled-for-android-8-and-earlier">Path pattern support disabled for Android 8 and earlier</h3>
 <p>On Android 8 and earlier the low level graphics library used by Android may stop Vespucci from start up if the data styling uses &quot;path patterns&quot;, see vespucci.io/tutorials/faq/#error-messages-and-other-issues for more information. To avoid this from happening starting with 19.0.3 support for the patterns has been disabled on devices running Android 8 or older.</p>
 <p>To some what lessen the impact we've added an additional data style without path patterns that in the future will contain different styling for the affected elements.</p>
 <p>Further to provide a facility to recover from this and similar issues we've added a &quot;safe&quot; mode that the app can be started in via an Android shortcut. Currently this only protects against rendering issues, however it will be expanded in the future to cover more cases (data corruption and similar).</p>
-<h3>Name templates</h3>
+<h3 id="name-templates">Name templates</h3>
 <p>We now support JOSM style name templates in the presets and the default presets have been extended with these for nearly all route items. On matching objects without a name tag these will be used to generate a label for display purposes in the disambiguation menu and for nodes and closed ways. This removes the need for fake names for routes and allows to generate a descriptive label automatically, for example from &quot;from&quot; and &quot;to&quot; tags.</p>
 <p>Name templates are included in the translation files and can be localized.</p>
 <p>Note: JOSM does not implement a consistent grammar for name templates, for example it doesn't require that quotes are escaped when they are nested in some situations. Our implementation will differ from JOSM for such reasons, however any template that works for Vespucci should work with JOSM too.</p>
-<h3>Modal for entering longer text in tags</h3>
+<h3 id="modal-for-entering-longer-text-in-tags">Modal for entering longer text in tags</h3>
 <p>A small number of OSM tags can contain longer texts, for example <em>description</em> and <em>inscription</em> tags these are difficult to enter in the standard one line text field. To make this simpler for longer pieces of texts we've added a dedicated modal for text entry.</p>
 <p>The modal will be displayed if either</p>
 <ul>
@@ -25,11 +25,11 @@
 <li>the length of the current value of the field is equal or larger than than <em>Long string limit</em>.</li>
 </ul>
 <p>The default value of <em>Long string limit</em> is 255, the maximum length (in characters) of an OSM tag value.</p>
-<h3>Support for following the system theme</h3>
+<h3 id="support-for-following-the-system-theme">Support for following the system theme</h3>
 <p>Vespucci has always had a &quot;dark&quot; mode, long before such a thing was even a concept with google. In June 2015 with version 0.9.6 we added a &quot;light&quot; mode, version 19.1 now adds a further setting <em>Follow system</em> for devices running Android 10 and later.</p>
-<h3>Bookmark layer</h3>
+<h3 id="bookmark-layer">Bookmark layer</h3>
 <p>Bookmarks now have their own layer that can be enabled via the layers modal, this simply displays the bookmark bounding box and the name. Additionally book mark names can now be edited.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Add improve area order when rendering by sorting closed ways according to bounding box size</li>
 <li>Add support custom headers from imagery configuration</li>
@@ -37,11 +37,11 @@
 <li>Add improved diagnostics for the tile downloader and testing facility in layer modal</li>
 <li>Add support for sharing an Mapillary image including its id</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>As the saved state file has changed you should upload any pending changes before updating.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>

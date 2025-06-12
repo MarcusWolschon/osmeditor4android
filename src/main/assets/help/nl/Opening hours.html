@@ -5,16 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>OpenStreetMap openingstijden-bewerker</h1>
+<h1 id="openstreetmap-openingstijden-bewerker">OpenStreetMap openingstijden-bewerker</h1>
 <p>De OpenStreetMap openingstijden-bewerker is redelijk complex en leent zich niet voor een simpele en intuïtieve gebruikersinterface.</p>
 <p>Toch zal je meestal maar een klein deel van de definitie gebruiken. De bewerker helpt hiermee door de obscure onderdelen te verbergen in menus en het gebruik &quot;op de straat&quot; meestal te beperken tot kleine aanpassingen van voorgedefinieerde sjablonen.</p>
 <p><em>Deze documentatie is voorlopig en een werk in uitvoering</em></p>
-<h2>Gebruik van de openingstijden-bewerker</h2>
+<h2 id="gebruik-van-de-openingstijden-bewerker">Gebruik van de openingstijden-bewerker</h2>
 <p>In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker.</p>
 <p>Als je een standaardsjabloon hebt gedefinieerd (doe dit via het &quot;Beheer sjablonen&quot; menu item) zal het sjabloon automatisch worden geladen als de bewerker wordt geladen met een lege waarde. Met de &quot;Laad sjabloon&quot; kan je een ander opgeslagen sjabloon laden en met het &quot;Sjabloon opslaan&quot; menu kan de huidige waarde als een sjabloon worden opgeslagen. Er kunnen verschillende standaardsjablonen worden gedefinieerd voor de &quot;opening_hours&quot;, &quot;collection_times&quot; en &quot;service_times&quot; of voor zelfgekozen tags. Ook kan toepasbaarheid van een sjabloon worden beperkt per regio of per specifieke identificatie, meestal een OSM-tag (bijvoorbeeld amenity=restaurant).</p>
 <p>Natuurlijk kan je een openingstijden met de hand maken, maar we raden aan om een van de bestaande sjablonen als een startpunt te gebruiken.</p>
 <p>Als een bestaande openingstijden waarde is geladen, wordt geprobeerd om het automatisch te corrigeren naar de openingstijden specificatie. Als dat niet mogelijk is zal de locatie van de found worden getoond op de plek in de rauwe OT waarde, en kan worden geprobeerd om het handmatig te herstellen. Ongeveer een kwart van de OT waarden in de OpenStreetMap gegevensbank heeft problemen, maar minder dan 10% kan niet automatisch worden gecorrigeerd, zie <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> voor meer informatie over de afwijkingen in de specificatie die worden getolereerd.</p>
-<h3>Hoofdmenu knop</h3>
+<h3 id="hoofdmenu-knop">Hoofdmenu knop</h3>
 <ul>
 <li><strong>Voeg regel toe</strong>: voeg een nieuwe regel toe.</li>
 <li><strong>Voeg regel toe voor vakanties</strong>: voeg een nieuwe regel toe voor vakanties samen met een staatwijziging.</li>
@@ -25,9 +25,9 @@
 <li><strong>Ververs</strong>: lees opnieuw de openingstijden waarde in.</li>
 <li><strong>Verwijder alles</strong>: verwijder alle regels.</li>
 </ul>
-<h3>Regels</h3>
+<h3 id="regels">Regels</h3>
 <p>Standaard regels worden toegevoegd als <em>normale</em> rules, dat betekent dat ze waarden van voorgaande regels zullen overschrijven voor dezelfde dagen. Dat kan een probleem zijn als je uitgebreide tijden specificeert, over het algemeen wil je dan de regels wisselen via <em>Toon regeltype</em> menu item naar <em>additief</em>.</p>
-<h4>Regel menu</h4>
+<h4 id="regel-menu">Regel menu</h4>
 <ul>
 <li><strong>Voeg bewerker/commentaar toe</strong>: verander het effect van deze regel en voeg optioneel commentaar toe.</li>
 <li><strong>Voeg vakantie toe</strong>: voeg een selector toe voor feestdagen of schoolvakanties.</li>
@@ -76,10 +76,10 @@
 <li><strong>Beweeg naar beneden</strong>: beweeg deze regel een positie naar beneden.</li>
 <li><strong>Verwijder</strong>: verwijder deze regel.</li>
 </ul>
-<h3>Tijdsbereiken</h3>
+<h3 id="tijdsbereiken">Tijdsbereiken</h3>
 <p>Om het wijzigen van tijdbereiken zo gemakkelijk mogelijk te maken, proberen we een optimaal tijdsbereik en granulariteit te selecteren voor de balken wanneer bestaande waarden worden geladen. Voor nieuwe tijdsbereiken beginnen de balken om 6:00 (AM) en hebben ze staggen van 15 minuten, dit kan via het menu worden aangepast.</p>
 <p>Klikken (niet op de bolletjes) op de tijdsbalk opent een groter tijdskeuzescherm, want de balken direct gebruiken is te moeilijk. De tijdkeuze gaat door tot de volgende dag, dus het is een gemakkelijke manier om een tijd te verlengen zonder het bereik te hoeven verwijderen en opnieuw toe te voegen.</p>
-<h4>Tijdsbereik menu</h4>
+<h4 id="tijdsbereik-menu">Tijdsbereik menu</h4>
 <ul>
 <li><strong>Toon tijdskeuze</strong>: toont een groot scherm om start- en einttijd te kiezen, op kleine schermen is dit de voorkeursmanier om tijden te wijzigen.</li>
 <li><strong>Wissel naar stappen van 15 minuten</strong>: gebruik een granulariteit van 15 minuten voor de balk.</li>
@@ -89,7 +89,7 @@
 <li><strong>Toon interval</strong>: toont het interval veld om een interval in minuten op te geven.</li>
 <li><strong>Verwijder</strong>: verwijder dit tijdsbereik.</li>
 </ul>
-<h3>Beheer sjablonen</h3>
+<h3 id="beheer-sjablonen">Beheer sjablonen</h3>
 <p>Met sjabloonbeheer dialoog kunnen sjablonen worden toegevoegd, gewijzigd en verwijderd.</p>
 <p>In Android 4.4 en later is de volgende extra functionaliteit beschikbaar via de menuknop.</p>
 <ul>
@@ -98,7 +98,7 @@
 <li><strong>Laad van bestand (vervangen)</strong>: laad sjablonen uit een bestand waarmee de huidige inhoud van de databank wordt vervangen.</li>
 <li><strong>Laad van bestand</strong>: laad sjablonen uit een bestand met behoud van de huidige inhoud.</li>
 </ul>
-<h4>Sla op en wijzig sjabloondialogen</h4>
+<h4 id="sla-op-en-wijzig-sjabloondialogen">Sla op en wijzig sjabloondialogen</h4>
 <p>Met dit dialoog kan je het volgende instellen</p>
 <ul>
 <li><strong>Naam</strong> een beschrijvende naam voor het sjabloon.</li>

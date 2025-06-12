@@ -5,16 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Editor de horario de apertura de OpenStreetMap</h1>
+<h1 id="editor-de-horario-de-apertura-de-openstreetmap">Editor de horario de apertura de OpenStreetMap</h1>
 <p>La especificación de horario de apertura en OpenStreetMap es bastante compleja y no se presta fácilmente a una interfaz de usuario simple e intuitiva.</p>
 <p>Sin embargo, la mayoría de las veces probablemente solo usarás una pequeña parte de la definición. El editor tiene esto en cuenta al intentar ocultar las funciones más confusas en los menús y, la mayoría de las veces, reduce el uso &quot;en la calle&quot; a pequeñas personalizaciones de plantillas predefinidas.</p>
 <p><em>Esta documentación es preliminar y un trabajo en progreso.</em></p>
-<h2>Uso del editor de horario de apertura</h2>
+<h2 id="uso-del-editor-de-horario-de-apertura">Uso del editor de horario de apertura</h2>
 <p>En un flujo de trabajo típico, el objeto que estás editando ya tendrá una etiqueta de horario de apertura (<code>opening_hours</code>, <code>service_times</code> y <code>collection_times</code>) o puedes volver a aplicar el preajuste para el objeto y obtener un campo de horario de apertura vacío. Si necesitas agregar el campo manualmente y estás usando Vespucci, puedes ingresar la clave en la página de detalles y luego volver a la pestaña basada en formulario para editar. Si crees que la etiqueta de horario de apertura debería haber sido parte del preajuste, abre un reporte de error para tu editor.</p>
 <p>Si has definido una plantilla predeterminada (hazlo a través del elemento del menú &quot;Administrar plantillas&quot;), se cargará automáticamente cuando se inicie el editor con un valor vacío. Con la función &quot;Cargar plantilla&quot; puedes cargar cualquier plantilla guardada y con el menú &quot;Guardar plantilla&quot; puedes guardar el valor actual como plantilla. Puedes definir plantillas separadas y valores predeterminados para claves específicas, por ejemplo, &quot;opening_hours&quot;, &quot;collection_times&quot; y &quot;service_times&quot; o valores personalizados. Además, puedes limitar la aplicabilidad de una plantilla a una región y un identificador específico, generalmente una etiqueta de nivel superior de OSM (por ejemplo, <code>amenity=restaurant</code>).</p>
 <p>Naturalmente, puedes crear un valor de horario de apertura desde cero, pero recomendamos usar una de las plantillas existentes como punto de partida.</p>
 <p>Si se carga un valor de horario de apertura existente, se intentará corregirlo automáticamente para que se ajuste a la especificación de horario de apertura. Si eso no es posible, se resaltará la ubicación aproximada donde se produjo el error en la visualización del valor bruto del horario de apertura, y puedes intentar corregirlo manualmente. Aproximadamente una cuarta parte de los valores de horario de apertura en la base de datos de OpenStreetMap tienen problemas, pero menos del 10 % no se pueden corregir; consulta <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para obtener más información sobre qué desviaciones de la especificación se toleran.</p>
-<h3>Botón del menú principal</h3>
+<h3 id="botón-del-menú-principal">Botón del menú principal</h3>
 <ul>
 <li><strong>Añadir regla</strong>: añade una nueva regla.</li>
 <li><strong>Añadir regla para días festivos</strong>: añade una nueva regla para un día festivo junto con un cambio de estado.</li>
@@ -25,9 +25,9 @@
 <li><strong>Actualizar</strong>: vuelve a analizar el valor del horario de apertura.</li>
 <li><strong>Eliminar todo</strong>: elimina todas las reglas.</li>
 </ul>
-<h3>Reglas</h3>
+<h3 id="reglas">Reglas</h3>
 <p>Las reglas predeterminadas se añaden como reglas <em>normales</em>; esto implica que anularán los valores de las reglas anteriores para los mismos días. Esto puede ser un problema al especificar horarios extendidos; por lo general, en ese caso querrás cambiar las reglas a <em>aditivas</em> a través de la entrada del menú <em>Mostrar tipo de regla</em>.</p>
-<h4>Menú Regla</h4>
+<h4 id="menú-regla">Menú Regla</h4>
 <ul>
 <li><strong>Añadir modificador/comentario</strong>: cambia el efecto de esta regla y añade un comentario opcional.</li>
 <li><strong>Añadir día festivo</strong>: añade un selector para días festivos o vacaciones escolares.</li>
@@ -76,10 +76,10 @@
 <li><strong>Bajar</strong>: baja esta regla una posición.</li>
 <li><strong>Eliminar</strong>: elimina esta regla.</li>
 </ul>
-<h3>Intervalos de tiempo</h3>
+<h3 id="intervalos-de-tiempo">Intervalos de tiempo</h3>
 <p>Para que la edición de intervalos de tiempo sea lo más sencilla posible, intentamos elegir un rango de tiempo y una granularidad óptimos para las barras de rango al cargar valores existentes. Para intervalos de tiempo nuevos, las barras comienzan a las 6:00 (a. m.) y tienen incrementos de 15 minutos; esto se puede cambiar a través del menú.</p>
 <p>Al hacer clic en la barra de tiempo (no en los marcadores), se abrirá el selector de tiempo grande, cuando el uso directo de las barras sea demasiado difícil. Los selectores de tiempo se extienden hasta el día siguiente, por lo que son una forma sencilla de extender un rango de tiempo sin tener que eliminar y volver a agregar el rango.</p>
-<h4>Menú de intervalo de tiempo</h4>
+<h4 id="menú-de-intervalo-de-tiempo">Menú de intervalo de tiempo</h4>
 <ul>
 <li><strong>Mostrar selector de tiempo</strong>: muestra un selector de tiempo grande para seleccionar la hora de inicio y finalización; en pantallas muy pequeñas, esta es la forma preferida de cambiar las horas.</li>
 <li><strong>Cambiar a intervalos de 15 minutos</strong>: usa una granularidad de 15 minutos para la barra de rango.</li>
@@ -89,7 +89,7 @@
 <li><strong>Mostrar intervalo</strong>: muestra el campo de intervalo para especificar un intervalo en minutos.</li>
 <li><strong>Eliminar</strong>: elimina este intervalo de tiempo.</li>
 </ul>
-<h3>Administrar plantillas</h3>
+<h3 id="administrar-plantillas">Administrar plantillas</h3>
 <p>El cuadro de diálogo de administración de plantillas te permite agregar, editar y eliminar plantillas.</p>
 <p>En Android 4.4 y versiones posteriores, la siguiente funcionalidad adicional está disponible en el botón de menú.</p>
 <ul>
@@ -98,7 +98,7 @@
 <li><strong>Cargar desde archivo (reemplazar)</strong>: carga plantillas desde un archivo reemplazando el contenido actual de la base de datos.</li>
 <li><strong>Cargar desde archivo</strong>: carga plantillas desde un archivo conservando el contenido actual.</li>
 </ul>
-<h4>Cuadros de diálogo para guardar y editar plantillas</h4>
+<h4 id="cuadros-de-diálogo-para-guardar-y-editar-plantillas">Cuadros de diálogo para guardar y editar plantillas</h4>
 <p>El cuadro de diálogo te permite configurar:</p>
 <ul>
 <li><strong>Nombre</strong>: un nombre descriptivo para la plantilla.</li>

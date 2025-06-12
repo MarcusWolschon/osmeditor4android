@@ -5,21 +5,21 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 18.1 Highlights</h1>
+<h1 id="vespucci-181-highlights">Vespucci 18.1 Highlights</h1>
 <p>2023-01-04</p>
-<h3>Rearranged &quot;upload/download&quot; menu</h3>
+<h3 id="rearranged-uploaddownload-menu">Rearranged &quot;upload/download&quot; menu</h3>
 <p>The menu entries have been rearranged, in particular the <strong>Upload to OSM server...</strong> entry has been moved to the top and the other entries grouped slightly differently. A <strong>Clear OSM data</strong>  function has been added and <strong>Review changes..</strong> will display all currently edited objects without requiring a network connection or already authenticated access.</p>
-<h3>Support for selecting which part of a split way gets a new id</h3>
+<h3 id="support-for-selecting-which-part-of-a-split-way-gets-a-new-id">Support for selecting which part of a split way gets a new id</h3>
 <p>Long pressing on the node you want to split at will allow you to select which side should get the new id, and as a consequence lose its history when you are splitting a way. Note that this only works for non-closed ways.</p>
-<h3>Data style changes</h3>
+<h3 id="data-style-changes">Data style changes</h3>
 <p>The built-in style has been renamed from <em>Default</em> to <em>Built-in (minimal)</em> as it hasn't been the actual default style for many years.</p>
 <p>Custom styles can now be imported with <strong>Import data style...</strong> function in the <strong>Tools</strong> menu. This ia a workaround of an Android 12 and later issue with accessing custom style files.</p>
-<h3>Support for SVG icons in presets</h3>
+<h3 id="support-for-svg-icons-in-presets">Support for SVG icons in presets</h3>
 <p>Android has no &quot;built-in&quot; support for SVG images. We have now added third party support for SVG rendering, this allows us to support SVG icons in presets and makes using &quot;JOSM-only&quot; presets much more practical.</p>
-<h3>Work around Android issues with multiple installed file pickers/selectors</h3>
+<h3 id="work-around-android-issues-with-multiple-installed-file-pickersselectors">Work around Android issues with multiple installed file pickers/selectors</h3>
 <p>Prior to Android 11 if more than one installed app supported the ACTION_OPEN_DOCUMENT or ACTION_CREATE_DOCUMENT intents and none of them was selected as default, the system target chooser would be shown to allow app selection. While then selecting the app and then selecting a file would seem to work, the system does not return the selected file and the behaviour is indistinguishable from the user simply not selecting a file and canceling the operation. Android 11 and later seem to always display the system file picker and are not affected by the issue.</p>
 <p>On systems that had this issue you were not able to select files at all. As a workaround we now try to detect if such apps are installed and display a modal/dialog for selection.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>&quot;import&quot;, that is make a copy, of MBT files on API 29 and higher, as the file needs to be owned by Vespucci for random file access. Note that this will double the required space on your device.</li>
 <li>If latin script is being used, use sentence caps for comment and source field in the upload dialog.</li>
@@ -29,11 +29,11 @@
 <li>Allow limited tuning of address prediction by adjusting how near neighboring addresses need to be.</li>
 <li>Many documentation updates and fixes, thanks to Dan Jacobson.</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>As the saved state file may have changed you should upload any pending changes before updating.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>

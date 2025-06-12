@@ -5,68 +5,68 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 21.0 Highlights</h1>
+<h1 id="vespucci-210-highlights">Vespucci 21.0 Highlights</h1>
 <p>2025-03-05</p>
 <p><strong>The state file of this version is incompatible with that of previous builds, please upload or save any changes before you update.</strong></p>
-<h3>Panoramax support</h3>
+<h3 id="panoramax-support">Panoramax support</h3>
 <p>The release adds support for a Panoramax layer similar to the existing Mapillary one. Currently it renders vector tiles from panoramax.xyz and uses that as the default API instance.</p>
 <p>Note that we currently display the imagery in the normal photo viewer and not a 360° specific one. Further some Panoramax sequences are extremely long which can cause issues with fetching the sequence data.</p>
-<h3>Improved locking behaviour</h3>
+<h3 id="improved-locking-behaviour">Improved locking behaviour</h3>
 <p>Many actions can happen concurrently in Vespucci, for example you might be moving a way at the same time that additional data is being downloaded, superfluous data is being pruned and all of it is being displayed on the screen. For this release we've simplified and rearranged the code that locks some critical sections against concurrent access and in particular do not wait to obtain locks in the rendering code. This should avoid the infrequent, but annoying, situations that could cause the UI to lock up.</p>
-<h3>Retry a failed upload and support for compressed uploads</h3>
+<h3 id="retry-a-failed-upload-and-support-for-compressed-uploads">Retry a failed upload and support for compressed uploads</h3>
 <p>If you are mapping in a region that has questionable Internet connectivity you may have experienced the problem that if a upload fails it is unclear if you can retry and if you can't you are left a bit stuck. See <a href="https://www.openstreetmap.org/user/SimonPoole/diary/406218">diary post on handling failed uploads</a>.</p>
 <p>Vespucci 21 will try to determine the state of your upload if it fails and suggest the best course of action. If necessary it now supports updating the edits in the device from the data successfully uploaded changes. (Vespucci has supported updating from a osmChange file since early 2019, this is different as for newly created elements we need to use some heuristics to find the correct ids.)</p>
 <p>To help avoid failed uploads in the first place we now also support compressed uploads for API instances that allow them, in particular for the <em>openstreetmap.org</em> instance (this can be enabled and disabled in the API configuration).</p>
-<h3>Multiple OSM element clipboards</h3>
+<h3 id="multiple-osm-element-clipboards">Multiple OSM element clipboards</h3>
 <p>We now support multiple (5) clipboards for OSM elements, utilized in a most recently used stack fashion. In normal use there are no changes, simply cut or copy an object and it will be used for the next paste, you can however by clicking on one of the clipboard buttons in the menu bar before clicking on the map to determine the paste location, move that clipboard to the top and paste from that. The buttons will if available show the preset icon for the pasted element or a number in dicating the position in the stack.</p>
 <p>Additionally, in <em>Paste multiple</em> mode, you can now directly undo the last paste. Further you can paste a <em>Cut</em> element more than once, the first <em>Paste</em> retaining the original id and version, the following ones behaving as if the element had been copied.</p>
-<h3>Duplicate elements</h3>
+<h3 id="duplicate-elements">Duplicate elements</h3>
 <p>You can now duplicate an OSM element directly without having to copy and paste. For ways you can choose between <em>Duplicate</em>, that is duplicate both the way and all nodes that construct it, and <em>Shallow duplicate</em> that will duplicate the way but keep the references to the original nodes. Relations can only be duplicated with <em>Shallow duplicate</em>, that is, just as with ways, a duplicate of the relation maintaining the references to the original members.</p>
-<h3>Support selective upload from review modal</h3>
+<h3 id="support-selective-upload-from-review-modal">Support selective upload from review modal</h3>
 <p>You can now select individual changes from the <em>Review changes</em> modal for uploading directly from the dialog.</p>
-<h3>Extract segment from way between two nodes</h3>
+<h3 id="extract-segment-from-way-between-two-nodes">Extract segment from way between two nodes</h3>
 <p>The extract segment function has been expanded to support extracting between two nodes on the same way and from closed ways.</p>
-<h3>Other behaviour changes</h3>
-<h4>Use hardware rendering on Android 10 and later</h4>
+<h3 id="other-behaviour-changes">Other behaviour changes</h3>
+<h4 id="use-hardware-rendering-on-android-10-and-later">Use hardware rendering on Android 10 and later</h4>
 <p>Hardware rendering is now the default on devices with Android 10 or later. The preference for this has been removed on older devices and its location has been moved to the miscellaneous category of the <em>Advanced preferences</em>.</p>
-<h4>Copying tags</h4>
+<h4 id="copying-tags">Copying tags</h4>
 <p><em>Copy tags</em> in the <em>Property editor</em> now behaves (again) the same for both <em>Properties</em> and <em>Details</em> tabs. Previously copying in the later copied the tags both to the internal and the system clipboard, this has been changed to only copy to the internal tag clipboard and provide separate function to copy to the system clipboard.</p>
-<h4>Paste tags in multi-select mode</h4>
+<h4 id="paste-tags-in-multi-select-mode">Paste tags in multi-select mode</h4>
 <p>You can now paste tags from the tag internal clipboard to multiple elements at the same time. It goes to say that this functionality should be used carefully.</p>
-<h4>Element info modal available in the property editor</h4>
+<h4 id="element-info-modal-available-in-the-property-editor">Element info modal available in the property editor</h4>
 <p>You can now display the element info modal in the property editor providing detailed information on the edited element.</p>
-<h4>More tags with multi-lingual variants</h4>
+<h4 id="more-tags-with-multi-lingual-variants">More tags with multi-lingual variants</h4>
 <p>The <em>Add language variants</em> function in the property editors <em>Properties</em> tab now supports more tags, for example if an <em>addr:street</em> tag is present it will add fields for the appropriate languages for the country the object is in.</p>
-<h4>Automatically add an appropriate extension when saving files</h4>
+<h4 id="automatically-add-an-appropriate-extension-when-saving-files">Automatically add an appropriate extension when saving files</h4>
 <p>If you save a file without an extension the app will now attempt to add an appropriate one.</p>
-<h4>Improve validation for area objects</h4>
-<p>We now use [osm-area-tags](from https://github.com/simonpoole/osm-area-tags) to improve validation.</p>
-<h4>Selection state stored in undo checkpoints</h4>
+<h4 id="improve-validation-for-area-objects">Improve validation for area objects</h4>
+<p>We now use <a href="https://github.com/simonpoole/osm-area-tags">osm-area-tags</a> to improve validation.</p>
+<h4 id="selection-state-stored-in-undo-checkpoints">Selection state stored in undo checkpoints</h4>
 <p>Selection state is now stored in undo checkpoints allowing us to reselect elements after an undo in most cases.</p>
-<h4>Splitting an explicit or implied area shows a warning</h4>
+<h4 id="splitting-an-explicit-or-implied-area-shows-a-warning">Splitting an explicit or implied area shows a warning</h4>
 <p>If you split an area a warning will be displayed, as you might want to turn it in to a multi-polygon.</p>
-<h4>Completely disable auto-pruning</h4>
+<h4 id="completely-disable-auto-pruning">Completely disable auto-pruning</h4>
 <p>In some situations, for example when working on large relations, auto-pruning can be counter productive. We now provide a preference to turn it completely off.</p>
-<h4>Convert CSV file to GeoJSON</h4>
+<h4 id="convert-csv-file-to-geojson">Convert CSV file to GeoJSON</h4>
 <p>A CSV file with <em>lat</em> and <em>lon</em> columns with WGS 84 coordinates can be used to create a GeoJSON layer (the converted file will be stored locally).</p>
-<h4>GPX waypoints support for <em>link</em> objects</h4>
+<h4 id="gpx-waypoints-support-for-link-objects">GPX waypoints support for <em>link</em> objects</h4>
 <p><em>link</em> objects in GPX waypoints are now displayed in the object modal and can be clicked (for example to play back a voice note).</p>
-<h4>Different colour icon for skipped todos</h4>
+<h4 id="different-colour-icon-for-skipped-todos">Different colour icon for skipped todos</h4>
 <p>Skipped <em>todos</em> are now displayed with a blue icon differentiating them from open and closed ones.</p>
-<h4>Code to render GPX tracks with multiple threads removed</h4>
+<h4 id="code-to-render-gpx-tracks-with-multiple-threads-removed">Code to render GPX tracks with multiple threads removed</h4>
 <p>For very long GPX tracks we were using multiple threads to render them, however as Androids canvas rendering framework is not actually thread safe this could lead to random crashes.</p>
-<h4>Preset value type <em>date</em></h4>
+<h4 id="preset-value-type-date">Preset value type <em>date</em></h4>
 <p>We now support a preset value type of date that will cause a date selector to be displayed in the property editor. This currently only supports single dates and not date ranges.</p>
-<h4>Improve way direction arrows rendering</h4>
+<h4 id="improve-way-direction-arrows-rendering">Improve way direction arrows rendering</h4>
 <p>Improves the rendering of way arrows, particularly for long ways so that there will nearly always be one visible on the map display.</p>
-<h4>Custom rendering for <em>crossing=unmarked</em></h4>
+<h4 id="custom-rendering-for-crossingunmarked">Custom rendering for <em>crossing=unmarked</em></h4>
 <p>Instead of displaying the preset pedestrian crossing icon, we now render a small red square for nodes with crossing unmarked and support directly referencing images in the assets folder from style files.</p>
-<h4>Disambiguation menu changes</h4>
+<h4 id="disambiguation-menu-changes">Disambiguation menu changes</h4>
 <p>Parent ways and relations are now enclosed in square brackets. Instead of ordering relations depth first, immediate parents of the clicked objects are listed before parents of the parent relations and so on.</p>
-<h2>Miscellaneous</h2>
-<h1>Upgrading from previous versions</h1>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one.</p>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>

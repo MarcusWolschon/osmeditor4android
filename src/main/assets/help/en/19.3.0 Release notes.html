@@ -5,21 +5,21 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 19.3 Highlights</h1>
+<h1 id="vespucci-193-highlights">Vespucci 19.3 Highlights</h1>
 <p>2023-10-27</p>
-<h3>End of support for Android 4.1 to 4.4 in 2024 announcement</h3>
+<h3 id="end-of-support-for-android-41-to-44-in-2024-announcement">End of support for Android 4.1 to 4.4 in 2024 announcement</h3>
 <p>For version 20 that will likely be released early next year, we intend to drop support for Android version prior to Android 5, this will effect devices running 4.1 to 4.4. These Android versions are at this point more than a decade old and have become difficult to support going forward and as you know we already have to distribute a separate build now.</p>
 <p>If this causes a significant issue for you, please open an issue on the Vespucci github repository.</p>
-<h3>Improvements layer styling</h3>
+<h3 id="improvements-layer-styling">Improvements layer styling</h3>
 <p>Layers that can have multiple instances and can be styled via the UI (GPX, GeoJSON, MVT) are now automatically assigned varying colours when they are created, the same applies to feature layers in MVT layers that do not have a Mapbox GL style loaded.</p>
 <p>For GPX and GeoJSON certain style setting (marker type, stroke width, label source) are now initialized to the last used value.</p>
-<h3>Mapillary date filter</h3>
+<h3 id="mapillary-date-filter">Mapillary date filter</h3>
 <p>Both sequences and images on the Mapillary layer can now be filtered by a date range. Select the overflow/hamburger menu for the layer and select &quot;Set date range...&quot;.</p>
-<h3>PMTiles support</h3>
+<h3 id="pmtiles-support">PMTiles support</h3>
 <p>PMTiles is a &quot;cloud native&quot; container format for map tiles from Brandon Liu that for certain use cases offers advantages over the widely in use MBTiles format. We support PMTiles both as local and remote custom imagery sources. See <a href="Custom%20imagery.md">custom imagery help</a>.</p>
-<h3>OSM element location indication in disambiguation menu</h3>
+<h3 id="osm-element-location-indication-in-disambiguation-menu">OSM element location indication in disambiguation menu</h3>
 <p>In some situations, particularly when multiple similar OSM elements without differentiating features are close to each other, it may be difficult to select the correct element. We've now added arrows indicating the location relative to the touch location to the disambiguation menu that can potentially help. Note that in general we recommend to zoom in more as a better way to  resolve such issues.</p>
-<h3>'Safe' mode improvements</h3>
+<h3 id="safe-mode-improvements">'Safe' mode improvements</h3>
 <p>In 19.1 we added an initial &quot;Safe&quot; mode to support recovering from some error states on startup of the app without having to delete the apps data, we've expanded it now to include three options</p>
 <ul>
 <li>Set data style to minimal (default on)</li>
@@ -28,7 +28,7 @@
 </ul>
 <p>The 1st two options are non-destructive and can be easily undone once the app has started, this is typically useful if a specific layer is causing an issue. The last option will remove the saved OSM data state including all edits, this is mainly useful if the data has become corrupted or for example if you are running out of memory. While this will delete any pending edits, you should still be able to retrieve them via the auto-save feature.</p>
 <p>To start the app in Safe mode in launchers that support short cuts, long press the app icon and select <em>Safe</em>.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Add include relations with appropriate level tags in indoor mode</li>
 <li>Improve diagnostics when GetCapabilties fails</li>
@@ -38,11 +38,11 @@
 <li>If a custom icon is specified include preset icons in search</li>
 <li>Support queuing for toasts</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>As the saved state file may have changed you should upload any pending changes before updating.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
