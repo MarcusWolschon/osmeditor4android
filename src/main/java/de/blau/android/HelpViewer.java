@@ -44,7 +44,6 @@ import androidx.core.graphics.BlendModeCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.contract.FileExtensions;
-import de.blau.android.contract.Files;
 import de.blau.android.contract.Schemes;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.VespucciURLActivity;
@@ -425,7 +424,7 @@ public class HelpViewer extends WebViewActivity {
             if (Schemes.FILE.equals(uri.getScheme())) {
                 Log.d(DEBUG_TAG, "orig " + uri);
                 setTitle(getTopic(path));
-                if (path.indexOf(MD_SUFFIX) > 0) { // on device we have pre-generated html
+                if (path.indexOf(MD_SUFFIX) >= 0) { // on device we have pre-generated html
                     uri = uri.buildUpon().path(path.replace(MD_SUFFIX, HTML_SUFFIX)).build();
                     Log.d(DEBUG_TAG, "new " + uri.toString());
                 }
