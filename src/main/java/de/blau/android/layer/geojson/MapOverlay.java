@@ -198,7 +198,7 @@ public class MapOverlay extends StyleableFileLayer
         final Preferences prefs = map.getPrefs();
         initStyling(!hasStateFile(map.getContext()), prefs.getGeoJsonStrokeWidth(), prefs.getGeoJsonLabelSource(), prefs.getGeoJsonLabelMinZoom(),
                 prefs.getGeoJsonSynbol());
-        paint.setColor(ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GEOJSON), 9,
+        setColor(ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GEOJSON), 9,
                 map.getDataStyle().getInternal(DataStyle.GEOJSON_DEFAULT).getPaint().getColor()));
     }
 
