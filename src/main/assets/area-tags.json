@@ -131,7 +131,7 @@
             "default": true
         },
         "junction": {
-            "default": true
+            "default": false
         },
         "landuse": {
             "default": true
