@@ -394,7 +394,6 @@ public class Logic {
      * clears the way cache.
      */
     public void updateStyle() {
-
         // zap the cached style for all ways
         for (Way w : getWays()) {
             w.setStyle(null);
@@ -3949,10 +3948,7 @@ public class Logic {
                     return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                 } catch (StorageException sex) {
                     return new AsyncResult(ErrorCodes.OUT_OF_MEMORY, sex.getMessage());
-                } catch (ParserConfigurationException e) {
-                    Log.e(DEBUG_TAG, "Problem parsing", e);
-                    return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
-                } catch (IOException e) {
+                } catch (ParserConfigurationException | IOException e) {
                     Log.e(DEBUG_TAG, "Problem reading", e);
                     return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                 }
@@ -4242,6 +4238,7 @@ public class Logic {
             if (setViewBox) {
                 editState.setViewBox(this, main.getMap());
             }
+            editState.restartActionMode(main);
             File editStateFile = main.getFileStreamPath(EDITSTATE_FILENAME);
             if (System.currentTimeMillis() - editStateFile.lastModified() > ONE_DAY_MS) {
                 Log.w(DEBUG_TAG, "App hasn't been run in a long time, locking");
@@ -4290,17 +4287,6 @@ public class Logic {
                 return READ_FAILED;
             }
 
-            /**
-             * Set the size of the ViewBox
-             * 
-             * @param map the Map instance
-             */
-            private void setBorders(@Nullable final Map map) {
-                if (map != null) {
-                    viewBox.setBorders(map, getDelegator().getLastBox());
-                }
-            }
-
             @Override
             protected void onPostExecute(Integer result) {
                 Log.d(DEBUG_TAG, "loadFromFile onPostExecute");
@@ -4327,10 +4313,7 @@ public class Logic {
                     }
                     mainMap.getDataStyle().updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not
                                                                                               // done in
-                    // loadEiditngState
-                    synchronized (Logic.this) {
-                        loadEditingState((Main) activity, true);
-                    }
+                    loadEditingState((Main) activity, true);
                 } else {
                     Log.e(DEBUG_TAG, "loadFromFile map is null");
                 }
@@ -4349,6 +4332,17 @@ public class Logic {
             }
         };
         loader.execute();
+    }
+
+    /**
+     * Set the size of the ViewBox
+     * 
+     * @param map the Map instance
+     */
+    private void setBorders(@Nullable final Map map) {
+        if (map != null) {
+            viewBox.setBorders(map, getDelegator().getLastBox());
+        }
     }
 
     /**
@@ -4471,20 +4465,17 @@ public class Logic {
         int result = READ_FAILED;
 
         Map mainMap = activity instanceof Main ? ((Main) activity).getMap() : null;
-        final boolean hasMap = mainMap != null;
         Progress.showDialog(activity, Progress.PROGRESS_LOADING);
 
         if (getDelegator().readFromFile(activity)) {
-            if (hasMap) {
-                viewBox.setBorders(mainMap, getDelegator().getLastBox());
-            }
+            setBorders(mainMap);
             result = READ_OK;
         }
 
         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
         if (result != READ_FAILED) {
             Log.d(DEBUG_TAG, "syncLoadfromFile: File read correctly");
-            if (hasMap) {
+            if (mainMap != null) {
                 try {
                     viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
                 } catch (Exception e) {
