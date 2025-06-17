@@ -40,6 +40,7 @@
                 android:layout_margin="8dp"
                 android:clickable="true"
                 android:src="@drawable/lock_bi_state"
+                app:tint="@null"
                 app:fabSize="mini"
                 app:useCompatPadding="true" />
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -51,6 +52,8 @@
                 android:layout_margin="0dp"
                 android:clickable="true"
                 android:src="@drawable/ic_view_headline_black_36dp"
+                app:tint="@null"
+                app:backgroundTint="?attr/colorFabOnMap"
                 app:fabSize="mini"
                 app:useCompatPadding="true" />
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -60,9 +63,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="top"
+                android:layout_margin="8dp"
                 android:clickable="true"
                 android:src="@drawable/ic_gps_fixed_black_36dp"
-                app:backgroundTint="?attr/colorSurface"
+                app:tint="@null"
+                app:backgroundTint="?attr/colorFabOnMap"
                 app:fabSize="mini"
                 app:useCompatPadding="true" />
             <de.blau.android.views.ZoomControls

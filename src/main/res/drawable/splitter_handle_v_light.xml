@@ -10,7 +10,7 @@
             <shape android:shape="line">
                 <stroke
                     android:width="2dip"
-                    android:color="@color/material_deep_teal_500" />
+                    android:color="?attr/colorPrimary" />
                 <size
                     android:width="64dip"
                     android:height="24dip" />
@@ -21,7 +21,7 @@
             <shape android:shape="line">
                 <stroke
                     android:width="2dip"
-                    android:color="@color/material_deep_teal_500" />
+                    android:color="?attr/colorPrimary" />
                 <size
                     android:width="64dip"
                     android:height="24dip" />

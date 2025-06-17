@@ -3048,15 +3048,7 @@ public class Main extends ConfigurationChangeAwareActivity
         if (followButton != null) {
             Location mapLocation = map.getLocation();
             boolean onScreen = mapLocation != null && map.getViewBox().contains(mapLocation.getLongitude(), mapLocation.getLatitude());
-            if (!follow || !onScreen) {
-                followButton.setEnabled(true);
-            } else {
-                // this is hack around the elevation vanishing when disabled
-                // order is important here
-                float elevation = followButton.getCompatElevation();
-                followButton.setEnabled(false);
-                followButton.setCompatElevation(elevation);
-            }
+            enableFAB(followButton, !follow || !onScreen);
         }
         if (follow && lastLocation != null) { // update if we are returning from
                                               // pause/stop
@@ -3351,7 +3343,8 @@ public class Main extends ConfigurationChangeAwareActivity
      * Disable the simple actions button and change color
      */
     public void disableSimpleActionsButton() {
-        changeSimpleActionsButtonState(false, ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorOutline)));
+        changeSimpleActionsButtonState(false,
+                ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorOutlineVariant)));
     }
 
     /**
@@ -3362,16 +3355,23 @@ public class Main extends ConfigurationChangeAwareActivity
      */
     private void changeSimpleActionsButtonState(boolean enabled, @Nullable ColorStateList stateList) {
         if (simpleActionsButton != null && stateList != null) {
-            simpleActionsButton.setEnabled(enabled);
+            enableFAB(simpleActionsButton, enabled);
             simpleActionsButton.setBackgroundTintList(stateList);
-            simpleActionsButton.setCompatElevation(LARGE_FAB_ELEVATION);
             ViewGroup.LayoutParams lp = simpleActionsButton.getLayoutParams();
-            if (enabled) {
-                ((RelativeLayout.LayoutParams) lp).setMargins(0, 0, 0, 0);
-            } else {
-                ((RelativeLayout.LayoutParams) lp).setMargins((int) LARGE_FAB_ELEVATION, 0, (int) LARGE_FAB_ELEVATION, (int) LARGE_FAB_ELEVATION);
-            }
+            ((RelativeLayout.LayoutParams) lp).setMargins((int) LARGE_FAB_ELEVATION, 0, (int) LARGE_FAB_ELEVATION, (int) LARGE_FAB_ELEVATION);
         }
+    }
+
+    /**
+     * Enable/disable a FAB maintaining the elevation
+     * 
+     * @param fab the button
+     * @param enabled the state to set
+     */
+    private void enableFAB(@NonNull FloatingActionButton fab, boolean enabled) {
+        float elevation = fab.getElevation();
+        fab.setEnabled(enabled);
+        fab.setElevation(elevation);
     }
 
     /**

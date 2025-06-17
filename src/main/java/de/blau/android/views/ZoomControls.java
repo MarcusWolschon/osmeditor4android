@@ -49,8 +49,7 @@ public class ZoomControls extends LinearLayout {
         super(context, attrs);
         this.context = context;
         setFocusable(false);
-        LayoutInflater inflater = (LayoutInflater) (new ContextThemeWrapper(context, R.style.Theme_AppCompat_Light)
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.zoom_controls, this, true);
         zoomIn = (FloatingActionButton) findViewById(R.id.zoom_in);
         zoomOut = (FloatingActionButton) findViewById(R.id.zoom_out);
@@ -122,7 +121,7 @@ public class ZoomControls extends LinearLayout {
      */
     private void setEnabled(@NonNull FloatingActionButton fab, boolean isEnabled) {
         fab.setEnabled(isEnabled);
-        fab.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(context, isEnabled ? R.attr.colorControlNormal : R.attr.colorPrimary, R.color.dark_grey));
+        fab.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(context, isEnabled ? R.attr.colorSurface : R.attr.colorOutlineVariant, R.color.dark_grey));
     }
 
     @Override
