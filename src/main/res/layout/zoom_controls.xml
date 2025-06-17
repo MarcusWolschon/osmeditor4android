@@ -11,8 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:src="?attr/remove"
-        app:backgroundTint="?attr/colorSurface"
+        android:src="@drawable/ic_remove_black_36dp"
+        app:tint="@null"
+        app:backgroundTint="?attr/colorFabOnMap"
         app:fabSize="mini"
         app:useCompatPadding="true" />
     
@@ -21,8 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:src="?attr/add"
-        app:backgroundTint="?attr/colorSurface"
+        android:src="@drawable/ic_add_black_36dp"
+        app:tint="@null"
+        app:backgroundTint="?attr/colorFabOnMap"
         app:fabSize="mini" 
         app:useCompatPadding="true" />
 

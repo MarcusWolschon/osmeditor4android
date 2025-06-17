@@ -10,5 +10,5 @@
     android:layout_gravity="bottom"
     android:clickable="true"
     android:src="@drawable/ic_action_new_holo_dark"
-    app:backgroundTint="?attr/colorAccent"
+    app:tint="@null"
     app:useCompatPadding="true" />

@@ -13,8 +13,9 @@
         android:layout_margin="0dp"
         android:clickable="true"
         android:src="@drawable/ic_filter_list_black_36dp"
+        app:tint="@null"
         android:theme="@style/Theme.customMain"
-        app:backgroundTint="?attr/colorControlNormal"
+        app:backgroundTint="?attr/colorFabOnMap"
         app:fabSize="mini"
         app:useCompatPadding="true" />
  </RelativeLayout>

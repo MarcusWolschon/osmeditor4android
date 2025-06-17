@@ -140,7 +140,7 @@ public final class ProgressDialog {
         ProgressBar progressBar = (ProgressBar) layout.findViewById(R.id.progressBar);
         if (progressBar.getIndeterminateDrawable() != null) {
             progressBar.getIndeterminateDrawable().setColorFilter(BlendModeColorFilterCompat
-                    .createBlendModeColorFilterCompat(ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorAccent, 0), BlendModeCompat.SRC_IN));
+                    .createBlendModeColorFilterCompat(ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorPrimary, 0), BlendModeCompat.SRC_IN));
         }
         builder.setView(layout);
         return builder.create();
