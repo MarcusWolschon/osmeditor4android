@@ -74,16 +74,58 @@ public class HelpViewer extends WebViewActivity {
     private static final String JOSM_WIKI_PRESETS   = "/wiki/Presets";
     private static final String JOSM_WIKI_HOST      = "josm.openstreetmap.de";
 
-    class HelpItem {
-        boolean displayLanguage = false;
-        String  language;
-        int     order;
-        String  topic;
-        String  fileName;
+    private static class HelpItem {
+        private final boolean displayLanguage;
+        private final String  language;
+        private final int     order;
+        private final String  topic;
+        private final String  fileName;
+
+        /**
+         * Construct a new item
+         * 
+         * @param position position the item is at
+         * @param language the language of the item
+         * @param displayLanguage if to display the language
+         * @param tocRes the android resource for the item
+         * @param fileName the file name of the contents
+         */
+        HelpItem(int position, @NonNull String language, boolean displayLanguage, @NonNull TypedArray tocRes, @NonNull String fileName) {
+            this.language = language;
+            this.displayLanguage = displayLanguage;
+            topic = tocRes.getString(position);
+            order = position;
+            this.fileName = fileName;
+        }
 
         @Override
         public String toString() {
             return topic + (displayLanguage ? " (" + language + ")" : "");
+        }
+
+        /**
+         * Sort a list of HelpItem
+         * 
+         * @param items the List
+         */
+        public static void sort(@NonNull List<HelpItem> items) {
+            Collections.sort(items, (one, two) -> {
+                if (one.order < Integer.MAX_VALUE) {
+                    if (one.order > two.order) {
+                        return 1;
+                    } else if (one.order < two.order) {
+                        return -1;
+                    }
+                }
+                if (one.topic == null) {
+                    if (two.topic == null) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+                return one.topic.compareTo(two.topic); // sort the rest alphabetically
+            });
         }
     }
 
@@ -188,47 +230,16 @@ public class HelpViewer extends WebViewActivity {
             for (int i = 0; i < tocRes.length(); i++) {
                 String fileName = fileRes.getString(i);
                 if (defaultList.contains(fileName + HTML_SUFFIX)) {
-                    HelpItem h = new HelpItem();
-                    h.language = defaultLanguage;
-                    h.topic = tocRes.getString(i);
-                    h.order = i;
-                    h.fileName = fileName;
-                    if (!tocList.containsKey(h.topic)) {
-                        tocList.put(h.topic, h);
-                    }
+                    addHelpItem(i, defaultLanguage, false, tocRes, fileName);
                 } else if (enList.contains(fileName + HTML_SUFFIX)) {
-                    HelpItem h = new HelpItem();
-                    h.language = "en";
-                    h.displayLanguage = true;
-                    h.topic = tocRes.getString(i);
-                    h.order = i;
-                    h.fileName = fileName;
-                    if (!tocList.containsKey(h.topic)) {
-                        tocList.put(h.topic, h);
-                    }
+                    addHelpItem(i, "en", true, tocRes, fileName);
                 }
             }
             tocRes.recycle();
             fileRes.recycle();
 
             List<HelpItem> items = new ArrayList<>(tocList.values());
-            Collections.sort(items, (one, two) -> {
-                if (one.order < Integer.MAX_VALUE) {
-                    if (one.order > two.order) {
-                        return 1;
-                    } else if (one.order < two.order) {
-                        return -1;
-                    }
-                }
-                if (one.topic == null) {
-                    if (two.topic == null) {
-                        return 0;
-                    } else {
-                        return -1;
-                    }
-                }
-                return one.topic.compareTo(two.topic); // sort the rest alphabetically
-            });
+            HelpItem.sort(items);
             toc = new HelpItem[items.size()];
             items.toArray(toc);
 
@@ -246,6 +257,22 @@ public class HelpViewer extends WebViewActivity {
     }
 
     /**
+     * Add a HelpItem to the TOC
+     * 
+     * @param position position the item is at
+     * @param language the language of the item
+     * @param displayLanguage if to display the language
+     * @param tocRes the android resource for the item
+     * @param fileName the file name of the contents
+     */
+    private void addHelpItem(int position, @NonNull String language, boolean displayLanguage, @NonNull TypedArray tocRes, @NonNull String fileName) {
+        HelpItem h = new HelpItem(position, language, displayLanguage, tocRes, fileName);
+        if (!tocList.containsKey(h.topic)) {
+            tocList.put(h.topic, h);
+        }
+    }
+
+    /**
      * Get the actual HTML help file
      * 
      * @param topic the topic
@@ -254,7 +281,7 @@ public class HelpViewer extends WebViewActivity {
      * @param toc the table of contents as a array of HelpItems
      * @return the path to the help file
      */
-    String getHelpFile(@NonNull String topic, @NonNull List<String> defaultList, @NonNull List<String> enList, @NonNull HelpItem[] toc) {
+    private String getHelpFile(@NonNull String topic, @NonNull List<String> defaultList, @NonNull List<String> enList, @NonNull HelpItem[] toc) {
         String topicFile = "no_help";
         HelpItem tempTopic = tocList.get(topic);
         if (tempTopic != null) {

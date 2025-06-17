@@ -1729,14 +1729,15 @@ public class Main extends FullScreenAppCompatActivity
             List<Mode> allModes = new ArrayList<>(Arrays.asList(Mode.values()));
             // add menu entries for all proper modes
             for (final Mode newMode : allModes) {
-                if (newMode.isSubModeOf() == null && newMode.isEnabled()) {
-                    SpannableString s = new SpannableString(newMode.getName(Main.this));
-                    if (m == newMode) {
-                        s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)), 0, s.length(), 0);
-                    }
-                    MenuItem item = popup.getMenu().add(s);
-                    setModeMenuListener(l, item, lock, newMode);
+                if (newMode.isSubModeOf() != null || !newMode.isEnabled()) {
+                    continue;
                 }
+                SpannableString s = new SpannableString(newMode.getName(Main.this));
+                if (m == newMode) {
+                    s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)), 0, s.length(), 0);
+                }
+                MenuItem item = popup.getMenu().add(s);
+                setModeMenuListener(l, item, lock, newMode);
             }
             popup.show();
             return true;
@@ -1994,13 +1995,14 @@ public class Main extends FullScreenAppCompatActivity
         Menu modesMenu = noSubMenus ? menu : menu.findItem(R.id.menu_modes).getSubMenu();
         modesMenu.removeGroup(R.id.menu_mode_group);
         for (final Mode newMode : allModes) {
-            if (newMode.isSubModeOf() == null && newMode.isEnabled()) {
-                MenuItem modeItem = modesMenu.add(R.id.menu_mode_group, Menu.NONE, Menu.NONE, newMode.getName(Main.this));
-                modeItem.setCheckable(true);
-                setModeMenuListener(logic, modeItem, lock, newMode);
-                if (mode == newMode) {
-                    modeItem.setChecked(true);
-                }
+            if (newMode.isSubModeOf() != null || !newMode.isEnabled()) {
+                continue;
+            }
+            MenuItem modeItem = modesMenu.add(R.id.menu_mode_group, Menu.NONE, Menu.NONE, newMode.getName(Main.this));
+            modeItem.setCheckable(true);
+            setModeMenuListener(logic, modeItem, lock, newMode);
+            if (mode == newMode) {
+                modeItem.setChecked(true);
             }
         }
         return true;

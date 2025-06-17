@@ -302,16 +302,7 @@ public class OsmParser extends DefaultHandler {
 
             String action = atts.getValue(OsmElement.JOSM_ACTION);
             if (action != null) {
-                if (action.equalsIgnoreCase(OsmElement.JOSM_MODIFY)) {
-                    status = OsmElement.STATE_MODIFIED;
-                    if (osmId < 0) {
-                        status = OsmElement.STATE_CREATED;
-                    }
-                } else if (action.equalsIgnoreCase(OsmElement.JOSM_DELETE)) {
-                    status = OsmElement.STATE_DELETED;
-                } else {
-                    throw new OsmParseException("Unknown action " + action);
-                }
+                status = josmActionToStatus(osmId, action);
             }
 
             switch (name) {
@@ -345,6 +336,23 @@ public class OsmParser extends DefaultHandler {
         } catch (NumberFormatException | NullPointerException e) {
             throw new OsmParseException("Element unparsable " + atts.toString());
         }
+    }
+
+    /**
+     * Convert the JOSM status attribute to an element status
+     *
+     * @param osmId the OSM id
+     * @param action the action string
+     * @return the status
+     * @throws OsmParseException for unknown action values
+     */
+    private byte josmActionToStatus(long osmId, @NonNull String action) throws OsmParseException {
+        if (action.equalsIgnoreCase(OsmElement.JOSM_MODIFY)) {
+            return osmId < 0 ? OsmElement.STATE_CREATED : OsmElement.STATE_MODIFIED;
+        } else if (action.equalsIgnoreCase(OsmElement.JOSM_DELETE)) {
+            return OsmElement.STATE_DELETED;
+        }
+        throw new OsmParseException("Unknown action " + action);
     }
 
     /**

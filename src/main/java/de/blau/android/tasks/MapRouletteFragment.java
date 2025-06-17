@@ -356,19 +356,19 @@ public class MapRouletteFragment extends TaskFragment {
                 } else {
                     Log.w(DEBUG_TAG, "unhandled shortcode " + shortcode);
                 }
-            } else {
-                Matcher elementMatcher = ELEMENT_PATTERN.matcher(match);
-                int elementPos = 0;
-                while (elementMatcher.find(elementPos)) {
-                    try {
-                        String elementType = normalizeType(elementMatcher.group(1));
-                        long elementId = Long.parseLong(elementMatcher.group(2));
-                        layout.addView(createElementLink(ctx, elementType, elementId));
-                    } catch (IllegalArgumentException ex) {
-                        Log.e(DEBUG_TAG, ex.getMessage());
-                    }
-                    elementPos = elementMatcher.end();
+                continue;
+            }
+            Matcher elementMatcher = ELEMENT_PATTERN.matcher(match);
+            int elementPos = 0;
+            while (elementMatcher.find(elementPos)) {
+                try {
+                    String elementType = normalizeType(elementMatcher.group(1));
+                    long elementId = Long.parseLong(elementMatcher.group(2));
+                    layout.addView(createElementLink(ctx, elementType, elementId));
+                } catch (IllegalArgumentException ex) {
+                    Log.e(DEBUG_TAG, ex.getMessage());
                 }
+                elementPos = elementMatcher.end();
             }
         }
         layout.addView(getTextView(ctx, pos > 0 ? input.subSequence(pos, input.length()) : input));
@@ -403,36 +403,40 @@ public class MapRouletteFragment extends TaskFragment {
     private TextView createElementLink(@NonNull final Context ctx, @NonNull final String elementType, @NonNull final long elementId) {
         TextView tv = new TextView(ctx);
         final OsmElement element = App.getDelegator().getOsmElement(elementType, elementId);
-        if (ctx instanceof Main) { // only make clickable if in Main
-            tv.setClickable(true);
-            tv.setOnClickListener(unused -> {
-                final Task task = getTask();
-                dismiss();
-                final int lonE7 = task.getLon();
-                final int latE7 = task.getLat();
-                final FragmentActivity activity = getActivity();
-                if (activity instanceof Main) { // activity may have vanished so re-check
-                    final PostAsyncActionHandler editElement = () -> {
-                        OsmElement e = App.getDelegator().getOsmElement(elementType, elementId);
-                        if (e != null) {
-                            ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
-                        }
-                    };
-                    if (element == null) { // download
-                        try {
-                            BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50);
-                            App.getLogic().downloadBox(activity, b, true, editElement);
-                        } catch (OsmException e1) {
-                            Log.e(DEBUG_TAG, "setupView got " + e1.getMessage());
-                        }
-                    } else {
-                        editElement.onSuccess();
-                    }
-                }
-            });
-        }
         tv.setTextColor(lightBlue);
         tv.setText(element != null ? element.getDescription(ctx) : Util.elementTypeId(ctx, elementType, elementId));
+        if (!(ctx instanceof Main)) { // only make clickable if in Main
+            return tv;
+        }
+        tv.setClickable(true);
+        tv.setOnClickListener(unused -> {
+            dismiss();
+            final FragmentActivity activity = getActivity();
+            if (!(activity instanceof Main)) { // activity may have vanished so re-check
+                return;
+            }
+            final Task task = getTask();
+            final int lonE7 = task.getLon();
+            final int latE7 = task.getLat();
+            final PostAsyncActionHandler editElement = () -> {
+                OsmElement e = App.getDelegator().getOsmElement(elementType, elementId);
+                if (e != null) {
+                    ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
+                }
+            };
+            if (element == null) { // download
+                try {
+                    BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50);
+                    App.getLogic().downloadBox(activity, b, true, editElement);
+                } catch (OsmException e1) {
+                    Log.e(DEBUG_TAG, "setupView got " + e1.getMessage());
+                }
+            } else {
+                editElement.onSuccess();
+            }
+
+        });
+
         return tv;
     }
 
