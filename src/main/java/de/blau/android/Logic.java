@@ -1655,12 +1655,13 @@ public class Logic {
         List<Relation> relations = selection.getRelations();
         if (relations != null) {
             for (Relation r : relations) {
-                if (r.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) && r.allDownloaded()) {
-                    for (RelationMember m : r.getMembers(Way.NAME)) {
-                        OsmElement e = m.getElement();
-                        if (e instanceof Way) {
-                            nodes.addAll(((Way) e).getNodes());
-                        }
+                if (!r.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) || !r.allDownloaded()) {
+                    continue;
+                }
+                for (RelationMember m : r.getMembers(Way.NAME)) {
+                    OsmElement e = m.getElement();
+                    if (e instanceof Way) { // have to test for null in any case
+                        nodes.addAll(((Way) e).getNodes());
                     }
                 }
             }

@@ -826,31 +826,32 @@ public final class Address implements Serializable {
         LongOsmElementMap<Way> wayCache = new LongOsmElementMap<>();
         SortedMap<Integer, Address> result = new TreeMap<>(); // list sorted by house numbers
         for (Address a : addresses) {
-            if (a != null && a.tags != null) {
-                String addrStreetValue = a.tags.get(Tags.KEY_ADDR_STREET);
-                String addrPlaceValue = a.tags.get(Tags.KEY_ADDR_PLACE);
-                String addrHousenumberValue = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
-                if (((addrStreetValue != null && addrStreetValue.equals(street)) || (addrPlaceValue != null && addrPlaceValue.equals(street)))
-                        && !isEmpty(addrHousenumberValue)) {
-                    final boolean sidesDiffer = a.getSide() != side;
-                    if (currentStreetId != a.streetId) {
-                        try {
-                            Way current = getWay(currentStreetId, wayCache);
-                            Way addressStreet = getWay(a.streetId, wayCache);
-                            final Node currentLast = current.getLastNode();
-                            final Node currentFirst = current.getFirstNode();
-                            final Node addressFirst = addressStreet.getFirstNode();
-                            final Node addressLast = addressStreet.getLastNode();
-                            if (current.hasCommonNode(addressStreet) && ((currentLast == addressFirst || currentFirst == addressLast) && !sidesDiffer)
-                                    || ((currentLast == addressLast || currentFirst == addressFirst) && sidesDiffer)) {
-                                addToResult(result, a, addrHousenumberValue);
-                            }
-                        } catch (IllegalStateException isex) {
-                            // already logged
+            if (a == null || a.tags == null) {
+                continue;
+            }
+            String addrStreetValue = a.tags.get(Tags.KEY_ADDR_STREET);
+            String addrPlaceValue = a.tags.get(Tags.KEY_ADDR_PLACE);
+            String addrHousenumberValue = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
+            if (((addrStreetValue != null && addrStreetValue.equals(street)) || (addrPlaceValue != null && addrPlaceValue.equals(street)))
+                    && !isEmpty(addrHousenumberValue)) {
+                final boolean sidesDiffer = a.getSide() != side;
+                if (currentStreetId != a.streetId) {
+                    try {
+                        Way current = getWay(currentStreetId, wayCache);
+                        Way addressStreet = getWay(a.streetId, wayCache);
+                        final Node currentLast = current.getLastNode();
+                        final Node currentFirst = current.getFirstNode();
+                        final Node addressFirst = addressStreet.getFirstNode();
+                        final Node addressLast = addressStreet.getLastNode();
+                        if (current.hasCommonNode(addressStreet) && ((currentLast == addressFirst || currentFirst == addressLast) && !sidesDiffer)
+                                || ((currentLast == addressLast || currentFirst == addressFirst) && sidesDiffer)) {
+                            addToResult(result, a, addrHousenumberValue);
                         }
-                    } else if (!sidesDiffer) {
-                        addToResult(result, a, addrHousenumberValue);
+                    } catch (IllegalStateException isex) {
+                        // already logged
                     }
+                } else if (!sidesDiffer) {
+                    addToResult(result, a, addrHousenumberValue);
                 }
             }
         }

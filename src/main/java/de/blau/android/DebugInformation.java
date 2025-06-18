@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import de.blau.android.layer.LayerConfig;
@@ -89,7 +90,7 @@ public class DebugInformation extends ConfigurationChangeAwareActivity {
      * @param eol what to use as end of line
      * @return a String containing the text
      */
-    String getDebugText(String eol) {
+    String getDebugText(@NonNull String eol) {
         StringBuilder builder = new StringBuilder();
 
         builder.append(getString(R.string.app_name_version) + eol);
@@ -102,27 +103,8 @@ public class DebugInformation extends ConfigurationChangeAwareActivity {
         builder.append("Native memory usage " + Debug.getNativeHeapAllocatedSize() + eol);
         Logic logic = App.getLogic();
         if (logic != null) {
-            Map map = logic.getMap();
-            if (map != null) {
-                for (MapViewLayer ov : map.getLayers()) {
-                    if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
-                        TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) ov).getTileLayerConfiguration();
-                        if (tileLayerConfiguration != null) {
-                            builder.append("In memory Tile Cache " + tileLayerConfiguration.getId() + " type " + tileLayerConfiguration.getType() + " tiles "
-                                    + tileLayerConfiguration.getTileType() + " usage " + ((MapTilesLayer<?>) ov).getTileProvider().getCacheUsageInfo() + eol);
-                        }
-                    }
-                }
-            } else {
-                builder.append("Map not available, this is a seriously curious state, please report a bug!" + eol);
-            }
-
-            builder.append("Selection stack" + eol);
-            int pos = 0;
-            for (Selection s : logic.getSelectionStack()) {
-                builder.append("Selection " + pos + " " + s.nodeCount() + " nodes " + s.wayCount() + " ways " + s.relationCount() + " relations" + eol);
-                pos++;
-            }
+            appendLayers(eol, builder, logic);
+            appendSelection(eol, builder, logic);
         } else {
             builder.append("Logic not available, this is a seriously curious state, please report a bug!" + eol);
         }
@@ -168,5 +150,45 @@ public class DebugInformation extends ConfigurationChangeAwareActivity {
         }
 
         return builder.toString();
+    }
+
+    /**
+     * Append selection information
+     * 
+     * @param eol ELO string
+     * @param builder the StringBuilder
+     * @param logic the Logic instance
+     */
+    private void appendSelection(String eol, StringBuilder builder, Logic logic) {
+        builder.append("Selection stack" + eol);
+        int pos = 0;
+        for (Selection s : logic.getSelectionStack()) {
+            builder.append("Selection " + pos + " " + s.nodeCount() + " nodes " + s.wayCount() + " ways " + s.relationCount() + " relations" + eol);
+            pos++;
+        }
+    }
+
+    /**
+     * Append layer information
+     * 
+     * @param eol ELO string
+     * @param builder the StringBuilder
+     * @param logic the Logic instance
+     */
+    private void appendLayers(@NonNull String eol, @NonNull StringBuilder builder, @NonNull Logic logic) {
+        Map map = logic.getMap();
+        if (map != null) {
+            for (MapViewLayer ov : map.getLayers()) {
+                if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
+                    TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) ov).getTileLayerConfiguration();
+                    if (tileLayerConfiguration != null) {
+                        builder.append("In memory Tile Cache " + tileLayerConfiguration.getId() + " type " + tileLayerConfiguration.getType() + " tiles "
+                                + tileLayerConfiguration.getTileType() + " usage " + ((MapTilesLayer<?>) ov).getTileProvider().getCacheUsageInfo() + eol);
+                    }
+                }
+            }
+        } else {
+            builder.append("Map not available, this is a seriously curious state, please report a bug!" + eol);
+        }
     }
 }

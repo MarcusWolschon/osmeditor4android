@@ -525,39 +525,38 @@ public class ImageryAlignmentActionModeCallback implements Callback {
             List<ImageryOffset> result = new ArrayList<>();
             try {
                 Log.d(DEBUG_TAG, "urlString " + urlString);
-
                 Request request = new Request.Builder().url(urlString).build();
                 OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                         .readTimeout(Server.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS).build();
                 Call offsetListCall = client.newCall(request);
                 Response offestListCallResponse = offsetListCall.execute();
-                if (offestListCallResponse.isSuccessful()) {
-                    try (ResponseBody responseBody = offestListCallResponse.body();
-                            JsonReader reader = new JsonReader(new InputStreamReader(responseBody.byteStream()))) {
-                        JsonToken token = reader.peek();
-                        if (token.equals(JsonToken.BEGIN_ARRAY)) {
-                            reader.beginArray();
-                            while (reader.hasNext()) {
-                                ImageryOffset imOffset = readOffset(reader);
-                                if (imOffset != null && imOffset.deprecated == null) { // deprecated offsets are ignored
-                                    result.add(imOffset);
-                                }
-                            }
-                            reader.endArray();
-                        } else if (token.equals(JsonToken.BEGIN_OBJECT)) {
-                            reader.beginObject();
-                            while (reader.hasNext()) {
-                                String jsonName = reader.nextName();
-                                if (ERROR_FIELD.equals(jsonName)) {
-                                    error = reader.nextString();
-                                } else {
-                                    reader.skipValue();
-                                }
-                            }
-                        } // can't happen ?
-                    }
-                } else {
+                if (!offestListCallResponse.isSuccessful()) {
                     Server.throwOsmServerException(offestListCallResponse);
+                }
+                try (ResponseBody responseBody = offestListCallResponse.body();
+                        JsonReader reader = new JsonReader(new InputStreamReader(responseBody.byteStream()))) {
+                    JsonToken token = reader.peek();
+                    if (token.equals(JsonToken.BEGIN_ARRAY)) {
+                        reader.beginArray();
+                        while (reader.hasNext()) {
+                            ImageryOffset imOffset = readOffset(reader);
+                            if (imOffset != null && imOffset.deprecated == null) { // deprecated offsets are ignored
+                                result.add(imOffset);
+                            }
+                        }
+                        reader.endArray();
+                    } else if (token.equals(JsonToken.BEGIN_OBJECT)) {
+                        reader.beginObject();
+                        while (reader.hasNext()) {
+                            String jsonName = reader.nextName();
+                            if (ERROR_FIELD.equals(jsonName)) {
+                                error = reader.nextString();
+                            } else {
+                                reader.skipValue();
+                            }
+                        }
+                        reader.endObject();
+                    } // can't happen ?
                 }
             } catch (IOException | IllegalStateException e) {
                 error = e.getMessage();
