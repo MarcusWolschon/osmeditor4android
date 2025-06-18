@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content" 
 	android:paddingTop="?attr/dialogPreferredPadding">
@@ -14,17 +15,21 @@
 		android:layout_alignParentTop="true"
 		android:textAppearance="?android:attr/textAppearanceMedium" 
 		android:text="@string/Key"/>
-		
-	<EditText 
+
+	<AutoCompleteTextView
 		android:id="@+id/resurvey_key"
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
-		android:layout_marginRight="?attr/dialogPreferredPadding"
-        android:layout_marginEnd="?attr/dialogPreferredPadding"
 		android:layout_below="@id/resurvey_key_legend"
+		android:layout_alignStart="@id/resurvey_key_legend"
 		android:layout_alignLeft="@id/resurvey_key_legend"
-        android:layout_alignStart="@id/resurvey_key_legend"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
+		android:layout_marginEnd="?attr/dialogPreferredPadding"
+		android:layout_marginRight="?attr/dialogPreferredPadding"
+		android:completionThreshold="1"
+		android:dropDownWidth="wrap_content"
+		android:dropDownHeight="300dp"
+		android:inputType="textNoSuggestions"
+		android:saveEnabled="false" />
 		
 	<TextView
 		android:id="@+id/resurvey_value_legend"
@@ -36,16 +41,30 @@
 		android:layout_below="@id/resurvey_key"
 		android:textAppearance="?android:attr/textAppearanceMedium" 
 		android:text="@string/Value"/>
-		
-	<EditText 
+
+	<AutoCompleteTextView
 		android:id="@+id/resurvey_value"
-		android:layout_width="fill_parent" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/resurvey_value_legend"
+		android:layout_alignStart="@id/resurvey_value_legend"
+		android:layout_alignLeft="@id/resurvey_value_legend"
+		android:layout_marginEnd="?attr/dialogPreferredPadding"
+		android:layout_marginRight="?attr/dialogPreferredPadding"
+		android:dropDownWidth="wrap_content"
+		android:dropDownHeight="215dp"
+		android:inputType="textNoSuggestions"
+		android:completionThreshold="1"
+		android:saveEnabled="false" />
+	<LinearLayout
+		android:id="@+id/checkbox_container"
+		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginRight="?attr/dialogPreferredPadding"
         android:layout_marginEnd="?attr/dialogPreferredPadding"
 		android:layout_below="@id/resurvey_value_legend"
-		android:layout_alignLeft="@id/resurvey_value_legend"
-        android:layout_alignStart="@id/resurvey_value_legend"
+		android:layout_alignLeft="@id/resurvey_value"
+		android:layout_alignStart="@id/resurvey_value"
 		android:textAppearance="?android:attr/textAppearanceMedium" />
         
     <TextView
