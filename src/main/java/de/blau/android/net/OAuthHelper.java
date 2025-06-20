@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase;

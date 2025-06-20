@@ -1,15 +1,14 @@
 package de.blau.android.net;
 
-import android.annotation.SuppressLint;
-
-import androidx.annotation.NonNull;
-
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.annotation.SuppressLint;
+import androidx.annotation.NonNull;
 
 /*
  * Copyright 2002-2020 the original author or authors.

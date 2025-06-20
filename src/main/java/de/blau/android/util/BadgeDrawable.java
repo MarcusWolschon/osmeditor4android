@@ -52,16 +52,16 @@ public class BadgeDrawable extends BaseDrawable {
 
         float mTextSize = context.getResources().getDimension(R.dimen.badge_text_size);
 
-        okColor = ContextCompat.getColor(context.getApplicationContext(), R.color.osm_green);
+        okColor = ContextCompat.getColor(context.getApplicationContext(), ThemeUtils.getResIdFromAttribute(context, R.attr.colorPrimaryContainer));
         warnColor = ContextCompat.getColor(context.getApplicationContext(), ThemeUtils.getResIdFromAttribute(context, R.attr.snack_warning));
-        errorColor = ContextCompat.getColor(context.getApplicationContext(), ThemeUtils.getResIdFromAttribute(context, R.attr.colorError));
+        errorColor = ContextCompat.getColor(context.getApplicationContext(), ThemeUtils.getResIdFromAttribute(context, R.attr.colorErrorContainer));
 
         mBadgePaint = new Paint();
         mBadgePaint.setColor(errorColor);
         mBadgePaint.setAntiAlias(true);
         mBadgePaint.setStyle(Paint.Style.FILL);
         mBadgePaint1 = new Paint();
-        mBadgePaint1.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.colorLightGray));
+        mBadgePaint1.setColor(ContextCompat.getColor(context.getApplicationContext(), ThemeUtils.getResIdFromAttribute(context, R.attr.colorOutline)));
         mBadgePaint1.setAntiAlias(true);
         mBadgePaint1.setStyle(Paint.Style.FILL);
 

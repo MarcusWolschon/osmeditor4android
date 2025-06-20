@@ -34,8 +34,8 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.Density;
 import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.Density;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.ExtendedViewPager;
 

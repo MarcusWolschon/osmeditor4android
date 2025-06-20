@@ -109,6 +109,7 @@
     <attr name="drag_target" format="reference|color" />
     <attr name="button_color" format="reference|color" />
     <attr name="colorFabOnMap" format="reference|color" />
+    <attr name="dialogBackgroundTint" format="reference|color" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

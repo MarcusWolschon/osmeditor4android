@@ -28,7 +28,7 @@
     </style>
     <style
         name="SplashTheme2"
-        parent="Theme.AppCompat.NoActionBar">
+        parent="@style/Theme.Material3.Dark.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowBackground">@color/osm_green</item>
@@ -36,7 +36,7 @@
     </style>
     <style
         name="SplashThemeLight2"
-        parent="@style/Theme.AppCompat.Light.NoActionBar">
+        parent="@style/Theme.Material3.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowBackground">@color/osm_green</item>
@@ -45,14 +45,14 @@
     </style>
     <style
         name="SplashThemePre21"
-        parent="Theme.AppCompat.NoActionBar">
+        parent="@style/Theme.Material3.Dark.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
         <item name="colorPrimary">@color/md_theme_primary_highContrast</item>
         <item name="error">@color/material_red</item>
     </style>
     <style
         name="SplashThemeLightPre21"
-        parent="@style/Theme.AppCompat.Light.NoActionBar">
+        parent="@style/Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
         <item name="error">@color/material_red</item>
     </style>
@@ -88,17 +88,17 @@
     </style>
     <style
         name="Theme.AppCompatPrefs"
-        parent="@style/Theme.AppCompat">
+        parent="@style/Theme.Material3.Dark">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- -->
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <!-- colors -->
-        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_info">@color/md_theme_dark_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
-        <item name="error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_dark_errorContainer_highContrast</item>
+        <item name="error">@color/md_theme_dark_errorContainer_highContrast</item>
         <!-- icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
         <item name="check">@drawable/baseline_check_white_18</item>
@@ -106,17 +106,17 @@
     </style>
     <style
         name="Theme.AppCompatPrefsLight"
-        parent="@style/Theme.AppCompat.Light">
+        parent="@style/Theme.Material3.Light">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- -->
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <!-- colors -->
-        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_info">@color/md_theme_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
-        <item name="error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_errorContainer_highContrast</item>
+        <item name="error">@color/md_theme_errorContainer_highContrast</item>
         <!-- icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_light</item>
         <item name="check">@drawable/baseline_check_black_18</item>
@@ -124,15 +124,15 @@
     </style>
     <style
         name="Theme.custom"
-        parent="@style/Theme.AppCompat">
+        parent="@style/Theme.Material3.Dark">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- colors -->
-        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_info">@color/md_theme_dark_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
-        <item name="error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_dark_errorContainer_highContrast</item>
+        <item name="error">@color/md_theme_dark_errorContainer_highContrast</item>
         <!-- icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
         <item name="more_small">@drawable/ic_more_vert_white_24dp</item>
@@ -140,15 +140,15 @@
     </style>
     <style
         name="Theme.customLight"
-        parent="@style/Theme.AppCompat.Light">
+        parent="@style/Theme.Material3.Light">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- colors -->
-        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_info">@color/md_theme_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
-        <item name="error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_errorContainer_highContrast</item>
+        <item name="error">@color/md_theme_errorContainer_highContrast</item>
         <!-- icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_light</item>
         <item name="more_small">@drawable/ic_more_vert_black_24dp</item>
@@ -192,7 +192,7 @@
     </style>
     <style
         name="Theme.customMain"
-        parent="@style/Theme.AppCompat.NoActionBar">
+        parent="@style/Theme.Material3.Dark.NoActionBar">
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
@@ -258,14 +258,14 @@
         <item name="ActionButton">@style/ActionButtonDark</item>
         <item name="EditText">@style/EditTextDark</item>
         <!-- colours -->
-        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_info">@color/md_theme_dark_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
-        <item name="error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_dark_errorContainer_highContrast</item>
+        <item name="error">@color/md_theme_dark_errorContainer_highContrast</item>
         <item name="drag_target">@color/material_red</item>
         <item name="button_color">@color/button_light</item>
         <item name="colorFabOnMap">@color/md_theme_surface</item>
-        <!--  -->
+        <!-- -->
         <item name="colorPrimary">@color/md_theme_dark_primary_highContrast</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary_highContrast</item>
         <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer_highContrast</item>
@@ -396,14 +396,14 @@
         <item name="popupMenuStyle">@style/popupMenuStyleLight</item>
         <item name="floatingActionButtonStyle">@style/RoundFab</item>
         <!-- colors -->
-        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_info">@color/md_theme_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
-        <item name="error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_errorContainer_highContrast</item>
+        <item name="error">@color/md_theme_errorContainer_highContrast</item>
         <item name="drag_target">@color/material_red</item>
         <item name="button_color">@color/button_dark</item>
         <item name="colorFabOnMap">@color/md_theme_surface</item>
-        <!--  -->
+        <!-- -->
         <item name="colorPrimary">@color/md_theme_primary_highContrast</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary_highContrast</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer_highContrast</item>
@@ -477,7 +477,7 @@
     </style>
     <style
         name="Theme.DialogDark"
-        parent="@style/Theme.AppCompat.Dialog">
+        parent="@style/Theme.Material3.Dark">
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <item name="android:windowNoTitle">false</item>
         <item name="alert_dialog">@drawable/ic_action_warning_holo_dark</item>
@@ -488,11 +488,15 @@
         <item name="StaticText">@style/DialogStaticText</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
+        <item name="floatingActionButtonStyle">@style/RoundFab</item>
         <!-- colors -->
-        <item name="snack_info">@color/material_teal</item>
+        <item name="colorPrimary">@color/md_theme_dark_primary_highContrast</item>
+        <item name="colorSecondary">@color/md_theme_dark_secondary_highContrast</item>
+        <item name="colorTertiary">@color/md_theme_dark_tertiary_highContrast</item>
+        <item name="snack_info">@color/md_theme_dark_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
-        <item name="error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_dark_errorContainer_highContrast</item>
+        <item name="error">@color/md_theme_dark_errorContainer_highContrast</item>
         <item name="drag_target">@color/material_red</item>
     </style>
     <style
@@ -507,7 +511,7 @@
     </style>
     <style
         name="Theme.DialogLight"
-        parent="@style/Theme.AppCompat.Light.Dialog">
+        parent="@style/Theme.Material3.Light">
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <item name="android:windowNoTitle">false</item>
         <item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>
@@ -518,12 +522,15 @@
         <item name="StaticText">@style/StaticTextLight</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.Light.AutoCompleteTextView</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
+        <item name="floatingActionButtonStyle">@style/RoundFab</item>
         <!-- colors -->
         <item name="colorPrimary">@color/md_theme_primary_highContrast</item>
-        <item name="snack_info">@color/material_teal</item>
+        <item name="colorSecondary">@color/md_theme_secondary_highContrast</item>
+        <item name="colorTertiary">@color/md_theme_tertiary_highContrast</item>
+        <item name="snack_info">@color/md_theme_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
-        <item name="error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_errorContainer_highContrast</item>
+        <item name="error">@color/md_theme_errorContainer_highContrast</item>
         <item name="drag_target">@color/material_red</item>
     </style>
     <style
@@ -538,7 +545,7 @@
     <!-- Dark for PropertyEditor -->
     <style
         name="Theme.customTagEditor"
-        parent="@style/Theme.AppCompat.NoActionBar">
+        parent="@style/Theme.Material3.Dark.NoActionBar">
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
@@ -565,6 +572,7 @@
         <item name="SplitterBGH">@drawable/splitter_bg_h_dark</item>
         <item name="SplitterHandleV">@drawable/splitter_handle_v_dark</item>
         <item name="SplitterHandleH">@drawable/splitter_handle_h_dark</item>
+        <item name="floatingActionButtonStyle">@style/RoundFab</item>
         <!-- icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
         <item name="menu_undo">@drawable/ic_action_undo_holo_dark</item>
@@ -608,64 +616,64 @@
         <item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
         <item name="propertyeditor_done">@drawable/ic_action_accept_holo_dark</item>
         <!-- colors -->
-        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_info">@color/md_theme_dark_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
-        <item name="error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_dark_errorContainer_highContrast</item>
+        <item name="error">@color/md_theme_dark_errorContainer_highContrast</item>
         <item name="text_disabled">@color/primary_text_disabled_material_dark</item>
         <item name="text_normal">@color/primary_text_default_material_dark</item>
         <item name="highlight_background">@color/dark_grey</item>
-        <!--  -->
-        <item name="colorPrimary">@color/md_theme_primary</item>
-        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
-        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
-        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
-        <item name="colorSecondary">@color/md_theme_secondary</item>
-        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
-        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
-        <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
-        <item name="colorTertiary">@color/md_theme_tertiary</item>
-        <item name="colorOnTertiary">@color/md_theme_onTertiary</item>
-        <item name="colorTertiaryContainer">@color/md_theme_tertiaryContainer</item>
-        <item name="colorOnTertiaryContainer">@color/md_theme_onTertiaryContainer</item>
-        <item name="colorError">@color/md_theme_error</item>
-        <item name="colorOnError">@color/md_theme_onError</item>
-        <item name="colorErrorContainer">@color/md_theme_errorContainer</item>
-        <item name="colorOnErrorContainer">@color/md_theme_onErrorContainer</item>
-        <item name="android:colorBackground">@color/md_theme_background</item>
-        <item name="colorOnBackground">@color/md_theme_onBackground</item>
-        <item name="colorSurface">@color/md_theme_surface</item>
-        <item name="colorOnSurface">@color/md_theme_onSurface</item>
-        <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant</item>
-        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
-        <item name="colorOutline">@color/md_theme_outline</item>
-        <item name="colorOutlineVariant">@color/md_theme_outlineVariant</item>
-        <item name="colorSurfaceInverse">@color/md_theme_inverseSurface</item>
-        <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface</item>
-        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
-        <item name="colorPrimaryFixed">@color/md_theme_primaryFixed</item>
-        <item name="colorOnPrimaryFixed">@color/md_theme_onPrimaryFixed</item>
-        <item name="colorPrimaryFixedDim">@color/md_theme_primaryFixedDim</item>
-        <item name="colorOnPrimaryFixedVariant">@color/md_theme_onPrimaryFixedVariant</item>
-        <item name="colorSecondaryFixed">@color/md_theme_secondaryFixed</item>
-        <item name="colorOnSecondaryFixed">@color/md_theme_onSecondaryFixed</item>
-        <item name="colorSecondaryFixedDim">@color/md_theme_secondaryFixedDim</item>
-        <item name="colorOnSecondaryFixedVariant">@color/md_theme_onSecondaryFixedVariant</item>
-        <item name="colorTertiaryFixed">@color/md_theme_tertiaryFixed</item>
-        <item name="colorOnTertiaryFixed">@color/md_theme_onTertiaryFixed</item>
-        <item name="colorTertiaryFixedDim">@color/md_theme_tertiaryFixedDim</item>
-        <item name="colorOnTertiaryFixedVariant">@color/md_theme_onTertiaryFixedVariant</item>
-        <item name="colorSurfaceDim">@color/md_theme_surfaceDim</item>
-        <item name="colorSurfaceBright">@color/md_theme_surfaceBright</item>
-        <item name="colorSurfaceContainerLowest">@color/md_theme_surfaceContainerLowest</item>
-        <item name="colorSurfaceContainerLow">@color/md_theme_surfaceContainerLow</item>
-        <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
-        <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
-        <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+        <!-- -->
+        <item name="colorPrimary">@color/md_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_dark_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_dark_error</item>
+        <item name="colorOnError">@color/md_theme_dark_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_dark_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_dark_background</item>
+        <item name="colorOnBackground">@color/md_theme_dark_onBackground</item>
+        <item name="colorSurface">@color/md_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_dark_outline</item>
+        <item name="colorOutlineVariant">@color/md_theme_dark_outlineVariant</item>
+        <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+        <item name="colorPrimaryFixed">@color/md_theme_dark_primaryFixed</item>
+        <item name="colorOnPrimaryFixed">@color/md_theme_dark_onPrimaryFixed</item>
+        <item name="colorPrimaryFixedDim">@color/md_theme_dark_primaryFixedDim</item>
+        <item name="colorOnPrimaryFixedVariant">@color/md_theme_dark_onPrimaryFixedVariant</item>
+        <item name="colorSecondaryFixed">@color/md_theme_dark_secondaryFixed</item>
+        <item name="colorOnSecondaryFixed">@color/md_theme_dark_onSecondaryFixed</item>
+        <item name="colorSecondaryFixedDim">@color/md_theme_dark_secondaryFixedDim</item>
+        <item name="colorOnSecondaryFixedVariant">@color/md_theme_dark_onSecondaryFixedVariant</item>
+        <item name="colorTertiaryFixed">@color/md_theme_dark_tertiaryFixed</item>
+        <item name="colorOnTertiaryFixed">@color/md_theme_dark_onTertiaryFixed</item>
+        <item name="colorTertiaryFixedDim">@color/md_theme_dark_tertiaryFixedDim</item>
+        <item name="colorOnTertiaryFixedVariant">@color/md_theme_dark_onTertiaryFixedVariant</item>
+        <item name="colorSurfaceDim">@color/md_theme_dark_surfaceDim</item>
+        <item name="colorSurfaceBright">@color/md_theme_dark_surfaceBright</item>
+        <item name="colorSurfaceContainerLowest">@color/md_theme_dark_surfaceContainerLowest</item>
+        <item name="colorSurfaceContainerLow">@color/md_theme_dark_surfaceContainerLow</item>
+        <item name="colorSurfaceContainer">@color/md_theme_dark_surfaceContainer</item>
+        <item name="colorSurfaceContainerHigh">@color/md_theme_dark_surfaceContainerHigh</item>
+        <item name="colorSurfaceContainerHighest">@color/md_theme_dark_surfaceContainerHighest</item>
     </style>
     <style
         name="Theme.customActionBar"
-        parent="@style/Theme.AppCompat">
+        parent="@style/Theme.Material3.Dark">
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <item name="actionBarStyle">@style/TagEditorActionBar</item>
@@ -678,6 +686,7 @@
         <item name="TableHeader">@style/TableHeader</item>
         <item name="Layout">@style/Layout</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
+        <item name="floatingActionButtonStyle">@style/RoundFab</item>
         <!-- icons -->
         <item name="menu_delete">@drawable/ic_action_discard_holo_dark</item>
         <item name="menu_preset_up">@drawable/preset_up_dark</item>
@@ -685,9 +694,9 @@
         <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
         <item name="add">@drawable/ic_add_black_36dp</item>
         <!-- colors -->
-        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_info">@color/md_theme_dark_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_dark_errorContainer_highContrast</item>
     </style>
     <style
         name="Theme.customTagEditorActionBar"
@@ -857,14 +866,14 @@
         <item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
         <item name="propertyeditor_done">@drawable/ic_action_accept_holo_light</item>
         <!-- colors -->
-        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_info">@color/md_theme_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
-        <item name="error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_errorContainer_highContrast</item>
+        <item name="error">@color/md_theme_errorContainer_highContrast</item>
         <item name="text_disabled">@color/primary_text_disabled_material_light</item>
         <item name="text_normal">@color/primary_text_default_material_light</item>
         <item name="highlight_background">@color/light_grey</item>
-        <!--  -->
+        <!-- -->
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -914,7 +923,7 @@
     </style>
     <style
         name="Theme.customActionBar.Light"
-        parent="@style/Theme.AppCompat.Light">
+        parent="@style/Theme.Material3.Light">
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <item name="actionBarStyle">@style/TagEditorActionBarLight</item>
@@ -928,6 +937,7 @@
         <item name="PagerTabStrip">@style/PagerTabStripLight</item>
         <item name="Layout">@style/LayoutLight</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
+        <item name="floatingActionButtonStyle">@style/RoundFab</item>
         <!-- icons -->
         <item name="menu_delete">@drawable/ic_action_discard_holo_light</item>
         <item name="menu_preset_up">@drawable/preset_up_light</item>
@@ -935,9 +945,10 @@
         <item name="menu_help">@drawable/ic_action_help_holo_light</item>
         <item name="add">@drawable/ic_add_white_36dp</item>
         <!-- colors -->
-        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_info">@color/md_theme_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
-        <item name="snack_error">@color/material_red</item>
+        <item name="snack_error">@color/md_theme_errorContainer_highContrast</item>
+        <item name="error">@color/md_theme_errorContainer_highContrast</item>
     </style>
     <style
         name="TagEditorActionBarLight"
@@ -1022,10 +1033,11 @@
     <!-- Help Viewer -->
     <style
         name="Theme.customHelpViewer"
-        parent="@style/Theme.AppCompat">
+        parent="@style/Theme.Material3.Dark">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
+        <item name="floatingActionButtonStyle">@style/RoundFab</item>
         <!-- -->
         <item name="menu_back">@drawable/ic_action_back_holo_dark</item>
         <item name="menu_forward">@drawable/ic_action_forward_holo_dark</item>
@@ -1045,6 +1057,7 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
+        <item name="floatingActionButtonStyle">@style/RoundFab</item>
         <!-- -->
         <item name="menu_back">@drawable/ic_action_back_holo_light</item>
         <item name="menu_forward">@drawable/ic_action_forward_holo_light</item>
@@ -1067,8 +1080,10 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
-    <style name="RoundFab" parent="@style/Widget.MaterialComponents.FloatingActionButton">
-       <item name="backgroundTint">?attr/colorTertiaryContainer</item>
-       <item name="shapeAppearanceOverlay">@style/fab_circular</item>
-   </style>
+    <style
+        name="RoundFab"
+        parent="@style/Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">?attr/colorTertiaryContainer</item>
+        <item name="shapeAppearanceOverlay">@style/fab_circular</item>
+    </style>
 </resources>

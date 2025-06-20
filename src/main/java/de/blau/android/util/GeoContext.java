@@ -1,15 +1,5 @@
 package de.blau.android.util;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.gson.stream.JsonReader;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,6 +11,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.google.gson.stream.JsonReader;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.contract.Files;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
