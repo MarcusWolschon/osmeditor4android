@@ -41,6 +41,7 @@
                 android:clickable="true"
                 android:src="@drawable/lock_bi_state"
                 app:tint="@null"
+                app:backgroundTint="?attr/colorPrimaryContainer"
                 app:fabSize="mini"
                 app:useCompatPadding="true" />
             <com.google.android.material.floatingactionbutton.FloatingActionButton

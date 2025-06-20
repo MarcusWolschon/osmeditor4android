@@ -40,8 +40,8 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UpdateFromChanges;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ThemeUtils;
 
 /**

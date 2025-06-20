@@ -1,14 +1,5 @@
 package de.blau.android.osm;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.google.gson.stream.JsonReader;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,6 +9,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
+import com.google.gson.stream.JsonReader;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.util.Log;
+import androidx.annotation.NonNull;
 
 /**
  * Tags that we want to remove before saving to server. List is in discarded.json from the iD repository
