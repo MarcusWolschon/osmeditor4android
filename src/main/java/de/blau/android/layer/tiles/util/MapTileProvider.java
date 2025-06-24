@@ -55,6 +55,8 @@ public class MapTileProvider<T> {
 
     private static final int MVT_CACHE_SIZE = 128;
 
+    private static final byte[] GZIP_HEADER = { 0x1F, (byte) 0x8B, 0x08 };
+
     // ===========================================================
     // Fields
     // ===========================================================
@@ -226,27 +228,37 @@ public class MapTileProvider<T> {
                 mapTileFilesystemProvider.flushQueue(rendererId, zoomLevel);
                 // remove the same from pending
                 synchronized (pending) {
-                    Set<String> keys = new HashSet<>(pending.keySet());
-                    if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
-                        String id = Integer.toString(zoomLevel) + rendererId;
-                        for (String key : keys) {
-                            if (key.startsWith(id)) {
-                                pending.remove(key);
-                            }
-                        }
-                        return;
-                    }
-                    for (String key : keys) {
-                        if (key.contains(rendererId)) {
-                            pending.remove(key);
-                        }
-                    }
+                    flushPendingRequests(rendererId, zoomLevel);
                 }
             });
         } catch (RejectedExecutionException rjee) {
             Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Exception in flushQueue()", e);
+        }
+    }
+
+    /**
+     * Flush pending requests
+     * 
+     * @param rendererId tile source
+     * @param zoomLevel zoom level
+     */
+    private void flushPendingRequests(@NonNull String rendererId, int zoomLevel) {
+        Set<String> keys = new HashSet<>(pending.keySet());
+        if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
+            String id = Integer.toString(zoomLevel) + rendererId;
+            for (String key : keys) {
+                if (key.startsWith(id)) {
+                    pending.remove(key);
+                }
+            }
+            return;
+        }
+        for (String key : keys) {
+            if (key.contains(rendererId)) {
+                pending.remove(key);
+            }
         }
     }
 
@@ -351,7 +363,7 @@ public class MapTileProvider<T> {
     @NonNull
     public static byte[] unGZip(@NonNull byte[] data) {
         // check magic number
-        if (data.length > 3 && data[0] == (byte) 0x1F && data[1] == (byte) 0x8B && data[2] == (byte) 0x08) {
+        if (data.length > GZIP_HEADER.length && data[0] == GZIP_HEADER[0] && data[1] == GZIP_HEADER[1] && data[2] == GZIP_HEADER[2]) {
             // nearly all the objects allocated here could be reused
             try (ByteArrayInputStream in = new ByteArrayInputStream(data);
                     GZIPInputStream gis = new GZIPInputStream(in);
