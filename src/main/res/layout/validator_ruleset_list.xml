@@ -32,6 +32,14 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="1dp"
                 android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/header_enabled"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:saveEnabled="false"
+                    android:text=""/>
                 <TextView
                     android:id="@+id/key_title"
                     android:layout_width="0dp"
