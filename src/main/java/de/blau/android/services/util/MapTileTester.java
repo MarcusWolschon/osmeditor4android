@@ -12,6 +12,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
+import de.blau.android.layer.tiles.util.MapTileProvider;
 import de.blau.android.layer.tiles.util.MapTileProviderCallback;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.TileType;
@@ -37,10 +38,28 @@ public class MapTileTester {
 
         MapTileProviderCallback callback = new MapTileProviderCallback() {
 
+            /**
+             * Get the tile url used except if it has an apikey
+             * 
+             * @param renderer the tile source object
+             * @param zoomLevel the zoom level
+             * @param tileX tile x coord
+             * @param tileY tile y coord
+             * @return the url
+             * @throws IOException
+             */
+            @NonNull
+            String getSanitizedUrl(@NonNull TileLayerSource renderer, int zoomLevel, int tileX, int tileY) throws IOException {
+                final String originalTileUrl = renderer.getOriginalTileUrl();
+                return TileLayerSource.APIKEY_PATTERN.matcher(originalTileUrl).matches() ? originalTileUrl
+                        : MapTileDownloader.buildURL(renderer, new MapTile(renderer.getId(), zoomLevel, tileX, tileY));
+            }
+
             @Override
             public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] data) throws IOException {
                 TileLayerSource renderer = TileLayerSource.get(ctx, rendererID, false);
                 if (renderer != null) {
+                    Log.d(DEBUG_TAG, "Tested: " + getSanitizedUrl(renderer, zoomLevel, tileX, tileY));
                     tileType = renderer.getTileType();
                 }
                 output.append(ctx.getString(R.string.tile_data_received, data.length));
@@ -54,11 +73,7 @@ public class MapTileTester {
                 eol();
                 TileLayerSource renderer = TileLayerSource.get(ctx, rendererID, false);
                 if (renderer != null) {
-                    // if we've replaced an api key place holder show the original url
-                    final String originalTileUrl = renderer.getOriginalTileUrl();
-                    String url = TileLayerSource.APIKEY_PATTERN.matcher(originalTileUrl).matches() ? originalTileUrl
-                            : MapTileDownloader.buildURL(renderer, new MapTile(rendererID, zoomLevel, tileX, tileY));
-                    output.append(ctx.getString(R.string.tile_input_error, message, url));
+                    output.append(ctx.getString(R.string.tile_input_error, message, getSanitizedUrl(renderer, zoomLevel, tileX, tileY)));
                 }
                 eol();
             }
@@ -150,7 +165,7 @@ public class MapTileTester {
      */
     @Nullable
     public byte[] getTile() {
-        return tileData;
+        return MapTileProvider.unGZip(tileData);
     }
 
     /**
