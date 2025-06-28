@@ -647,7 +647,8 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp-tls:$okHttpVersion"
     
     // other 3rd party dependencies
-    implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
+    implementation 'com.github.AAkira:ExpandableLayout:v1.4.3'
+    implementation ('com.heinrichreimersoftware:android-issue-reporter:1.4') { exclude group: 'com.github.aakira' }
     implementation "oauth.signpost:signpost-core:$signpostVersion"
     implementation ('com.faendir.rhino:rhino-android:1.6.0') { exclude group: 'org.mozilla' }
     implementation "org.mozilla:rhino:1.7.13"
