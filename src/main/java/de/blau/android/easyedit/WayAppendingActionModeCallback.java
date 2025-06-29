@@ -10,7 +10,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 
-public class WayAppendingActionModeCallback extends NonSimpleActionModeCallback {
+public class WayAppendingActionModeCallback extends AbortableWayActionModeCallback {
     private final Way             way;
     private final Set<OsmElement> nodes;
 

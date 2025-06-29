@@ -287,6 +287,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                     manager.invalidate();
                     break;
                 case MENUITEM_SPLIT_POLYGON:
+                    deselect = false;
                     main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, true));
                     break;
                 case MENUITEM_ADDRESS:

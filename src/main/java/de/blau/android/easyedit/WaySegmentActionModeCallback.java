@@ -16,7 +16,7 @@ import de.blau.android.util.Geometry;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.Util;
 
-public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
+public class WaySegmentActionModeCallback extends AbortableWayActionModeCallback {
 
     private final Way way;
     private float     x = -Float.MAX_VALUE;
