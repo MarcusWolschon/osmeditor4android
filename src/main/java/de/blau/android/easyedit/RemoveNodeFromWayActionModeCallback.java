@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,8 +18,10 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.util.ScreenMessage;
 
-public class RemoveNodeFromWayActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String DEBUG_TAG = RemoveNodeFromWayActionModeCallback.class.getSimpleName().substring(0, Math.min(23, RemoveNodeFromWayActionModeCallback.class.getSimpleName().length()));
+public class RemoveNodeFromWayActionModeCallback extends AbortableWayActionModeCallback {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RemoveNodeFromWayActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = RemoveNodeFromWayActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     private final Way        way;
     private List<OsmElement> nodes = new ArrayList<>();
