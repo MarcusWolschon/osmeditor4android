@@ -388,9 +388,10 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
     public int getOneway() {
         String oneway = getTagWithKey(Tags.KEY_ONEWAY);
         if (oneway != null) {
-            if (Tags.VALUE_YES.equalsIgnoreCase(oneway) || Tags.VALUE_TRUE.equalsIgnoreCase(oneway) || "1".equals(oneway)) {
+            if (Tags.VALUE_YES.equalsIgnoreCase(oneway) || Tags.VALUE_TRUE.equalsIgnoreCase(oneway) || Tags.VALUE_ONE.equals(oneway)) {
                 return 1;
-            } else if ("-1".equals(oneway) || Tags.VALUE_REVERSE.equalsIgnoreCase(oneway)) {
+            }
+            if (Tags.VALUE_MINUS_ONE.equals(oneway) || Tags.VALUE_REVERSE.equalsIgnoreCase(oneway)) {
                 return -1;
             }
         }
