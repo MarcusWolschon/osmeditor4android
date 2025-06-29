@@ -44,8 +44,11 @@ final class Reverse {
     private static final String PERCENT          = "%";
     private static final String DEGREE           = "°";
 
+    /**
+     * Direction dependent key, note oneway is handled specially
+     */
     private static final Set<String> directionDependentKeys   = Collections
-            .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.KEY_ONEWAY, Tags.KEY_INCLINE, Tags.KEY_DIRECTION, Tags.KEY_CONVEYING, Tags.KEY_PRIORITY)));
+            .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.KEY_INCLINE, Tags.KEY_DIRECTION, Tags.KEY_CONVEYING, Tags.KEY_PRIORITY)));
     private static final Set<String> directionDependentValues = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.VALUE_RIGHT, Tags.VALUE_LEFT, Tags.VALUE_FORWARD, Tags.VALUE_BACKWARD)));
 
@@ -80,14 +83,36 @@ final class Reverse {
         for (Entry<String, String> entry : tags.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            if (((Tags.KEY_HIGHWAY.equals(key) && (Tags.VALUE_MOTORWAY.equals(value) || Tags.VALUE_MOTORWAY_LINK.equals(value)))
-                    || directionDependentKeys.contains(key) || key.endsWith(LEFT_POSTFIX) || key.endsWith(RIGHT_POSTFIX) || key.endsWith(BACKWARD_POSTFIX)
-                    || key.endsWith(FORWARD_POSTFIX) || key.contains(FORWARD_INFIX) || key.contains(BACKWARD_INFIX) || key.contains(RIGHT_INFIX)
-                    || key.contains(LEFT_INFIX) || directionDependentValues.contains(value)) && !matchExceptions(e, key)) {
+            // @formatter:off
+            if ((implicitOneway(key, value)
+                    || directionDependentKeys.contains(key) 
+                    || (e instanceof Way && ((Way)e).getOneway() != 0)
+                    || key.endsWith(LEFT_POSTFIX) 
+                    || key.endsWith(RIGHT_POSTFIX) 
+                    || key.endsWith(BACKWARD_POSTFIX)
+                    || key.endsWith(FORWARD_POSTFIX) 
+                    || key.contains(FORWARD_INFIX) 
+                    || key.contains(BACKWARD_INFIX) 
+                    || key.contains(RIGHT_INFIX)
+                    || key.contains(LEFT_INFIX) 
+                    || directionDependentValues.contains(value)) 
+                    && !matchExceptions(e, key)) {
                 result.put(key, value);
             }
+         // @formatter:on
         }
         return result;
+    }
+
+    /**
+     * Check that this is an implicit one way
+     * 
+     * @param key tag key
+     * @param value tag value
+     * @return true if oneway
+     */
+    private static boolean implicitOneway(@NonNull String key, @NonNull String value) {
+        return Tags.KEY_HIGHWAY.equals(key) && (Tags.VALUE_MOTORWAY.equals(value) || Tags.VALUE_MOTORWAY_LINK.equals(value));
     }
 
     /**
