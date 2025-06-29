@@ -52,6 +52,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationInterface;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
@@ -70,6 +71,8 @@ import de.blau.android.validation.Validator;
  *
  */
 public class ElementInfo extends InfoDialogFragment {
+    private static final int NO_PRIOR_STATE = -1;
+
     private static final String DEBUG_TAG = ElementInfo.class.getSimpleName().substring(0, Math.min(23, ElementInfo.class.getSimpleName().length()));
 
     private static final int    DISPLAY_LIMIT         = 10;
@@ -92,7 +95,7 @@ public class ElementInfo extends InfoDialogFragment {
 
     private OsmElement          element;
     private OsmElementInterface ue;
-    private int                 ueIndex = -1;
+    private int                 ueIndex = NO_PRIOR_STATE;
     private String              parentTag;
 
     /**
@@ -102,7 +105,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @param e the OsmElement
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e) {
-        showDialog(activity, -1, e, false, true, null);
+        showDialog(activity, NO_PRIOR_STATE, e, false, true, null);
     }
 
     /**
@@ -114,7 +117,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @param showEditTags display button to edit tags
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e, boolean showJumpTo, boolean showEditTags) {
-        showDialog(activity, -1, e, showJumpTo, showEditTags, null);
+        showDialog(activity, NO_PRIOR_STATE, e, showJumpTo, showEditTags, null);
     }
 
     /**
@@ -126,7 +129,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @param parentTag tag of any parent dialog
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e, boolean showJumpTo, @Nullable String parentTag) {
-        showDialog(activity, -1, e, showJumpTo, true, parentTag);
+        showDialog(activity, NO_PRIOR_STATE, e, showJumpTo, true, parentTag);
     }
 
     /**
@@ -212,12 +215,12 @@ public class ElementInfo extends InfoDialogFragment {
             Log.d(DEBUG_TAG, "Restoring from saved state");
             // this will only work if the saved data is already loaded
             element = App.getDelegator().getOsmElement(savedInstanceState.getString(ELEMENT_TYPE_KEY), savedInstanceState.getLong(ELEMENT_ID_KEY));
-            ueIndex = savedInstanceState.getInt(UNDOELEMENT_INDEX_KEY, -1);
+            ueIndex = savedInstanceState.getInt(UNDOELEMENT_INDEX_KEY, NO_PRIOR_STATE);
             parentTag = savedInstanceState.getString(PARENT_TAG_KEY);
         } else {
             // always do this first
             element = Util.getSerializeable(getArguments(), ELEMENT_KEY, OsmElement.class);
-            ueIndex = getArguments().getInt(UNDOELEMENT_INDEX_KEY, -1);
+            ueIndex = getArguments().getInt(UNDOELEMENT_INDEX_KEY, NO_PRIOR_STATE);
             parentTag = getArguments().getString(PARENT_TAG_KEY);
             /*
              * Saving the arguments (done by the FragmentManager) can exceed the 1MB transaction size limit and cause a
@@ -231,13 +234,19 @@ public class ElementInfo extends InfoDialogFragment {
             ScreenMessage.toastTopError(getContext(), R.string.toast_element_not_found_on_restore);
             return; // dialog will come up empty
         }
-        if (ueIndex >= 0) {
+
+        if (ueIndex >= UndoStorage.ORIGINAL_ELEMENT_INDEX) {
             List<UndoElement> undoElements = App.getDelegator().getUndo().getUndoElements(element);
             if (undoElements.size() > ueIndex) {
                 UndoElement temp = undoElements.get(ueIndex);
                 // suppress display of pre-creation state
                 ue = !temp.wasInCurrentStorage() && ueIndex == 0 ? null : temp;
             }
+        }
+
+        if (ue == null && (OsmElement.STATE_DELETED == element.getState() || OsmElement.STATE_MODIFIED == element.getState())) {
+            Log.e(DEBUG_TAG, "element " + element.getDescription() + " is modified but no prior state available");
+            ScreenMessage.toastTopWarning(getContext(), R.string.toast_element_no_prior_state);
         }
     }
 
@@ -833,7 +842,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @return the count as a String
      */
     private static String nodeCountString(int count, boolean isClosed) {
-        return Integer.toString(count + (isClosed && count != 1 ? -1 : 0));
+        return Integer.toString(count + (isClosed && count != 1 ? NO_PRIOR_STATE : 0));
     }
 
     @Override

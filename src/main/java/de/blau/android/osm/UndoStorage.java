@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +51,10 @@ import de.blau.android.util.Util;
 public class UndoStorage implements Serializable {
     private static final long serialVersionUID = 3L;
 
-    private static final String DEBUG_TAG = UndoStorage.class.getSimpleName().substring(0, Math.min(23, UndoStorage.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UndoStorage.class.getSimpleName().length());
+    private static final String DEBUG_TAG = UndoStorage.class.getSimpleName().substring(0, TAG_LEN);
+
+    public static final int ORIGINAL_ELEMENT_INDEX = 0;
 
     // Original storages for "contains" checks and restoration
     private Storage currentStorage;
