@@ -52,6 +52,7 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
@@ -389,7 +390,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             main.descheduleAutoLock();
             // as we want to display relation membership changes too
             // we can't rely on the element status
-            ElementInfo.showDialog(main, 0, element, false);
+            ElementInfo.showDialog(main, UndoStorage.ORIGINAL_ELEMENT_INDEX, element, false);
             break;
         case MENUITEM_UPLOAD:
             main.descheduleAutoLock();

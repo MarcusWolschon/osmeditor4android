@@ -31,6 +31,7 @@ import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
@@ -233,7 +234,7 @@ public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
                     boolean deleted = elemenState == OsmElement.STATE_DELETED;
                     final FragmentActivity fragmentActivity = (FragmentActivity) view.getContext();
                     if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
-                        ElementInfo.showDialog(fragmentActivity, 0, e, !deleted, true, parentTag);
+                        ElementInfo.showDialog(fragmentActivity, UndoStorage.ORIGINAL_ELEMENT_INDEX, e, !deleted, true, parentTag);
                     } else {
                         ElementInfo.showDialog(fragmentActivity, e, !deleted, parentTag);
                     }
