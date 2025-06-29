@@ -337,6 +337,7 @@
     <string name="goto_element">Go to element</string>
     <string name="edit_properties">Edit Tags</string>
     <string name="toast_element_not_found_on_restore">Could not find element on restore</string>
+    <string name="toast_element_no_prior_state">Element has been modified, but there is no local prior state to compare to.</string>
     <!--  GeoJSON feature display dialog -->
     <string name="feature_information">GeoJSON feature info</string>
     <string name="vt_feature_information">Vector tile feature info</string>
