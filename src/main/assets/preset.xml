@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.79.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.80.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
 <!--
     Icons have been derived from mainly from
   
@@ -55,6 +55,8 @@
     
     
     
+    
+     
     <!-- Item chunks -->
     <chunk id="optional_speech_output">
         <optional>
@@ -1253,11 +1255,15 @@
     <chunk id="other_religions"> <!-- religions which don't have an own preset -->
         <combo key="religion" text="Religion" values="bahai,caodaism,confucian,jain,sikh,spiritualist,taoist,tenrikyo,unitarian_universalist,zoroastrian" display_values="Bahai,Caodaism,Confucian,Jain,Sikh,Spiritualist,Taoist,Tenrikyo,Unitarian universalist,Zoroastrian" match="keyvalue!" values_searchable="true"/>
     </chunk>
-    <chunk id="christian_denominations"> <!-- christian denominations -->
-        <combo key="denomination" text="Denomination" values="anglican,baptist,catholic,church_of_scotland,evangelical,greek_catholic,greek_orthodox,lutheran,methodist,new_apostolic,nondenominational,old_catholic,orthodox,pentecostal,presbyterian,protestant,quaker,reformed,roman_catholic,romanian_orthodox,russian_orthodox,serbian_orthodox,seventh_day_adventist,spiritist,united,united_methodist" display_values="Anglican,Baptist,Catholic,Church of Scotland,Evangelical,Greek catholic,Greek orthodox,Lutheran,Methodist,New apostolic,Nondenominational,Old catholic,Orthodox,Pentecostal,Presbyterian,Protestant,Quaker,Reformed,Roman catholic,Romanian orthodox,Russian orthodox,Serbian orthodox,Seventh day adventist,Spiritist,United,United methodist" values_searchable="true"/>
-    </chunk>
+        <chunk id="christian_denominations"> <!-- christian denominations -->
+        <combo key="denomination" text="Denomination" values_searchable="true">
+            <list_entry value="anglican" display_value="Anglican"/><list_entry value="baptist" display_value="Baptist"/><list_entry value="catholic" display_value="Catholic"/><list_entry value="church_of_scotland" display_value="Church of Scotland"/><list_entry value="evangelical" display_value="Evangelical"/><list_entry value="greek_catholic" display_value="Greek Catholic"/><list_entry value="greek_orthodox" display_value="Greek Orthodox"/><list_entry value="lutheran" display_value="Lutheran"/><list_entry value="methodist" display_value="Methodist"/><list_entry value="new_apostolic" display_value="New Apostolic"/><list_entry value="nondenominational" display_value="Nondenominational"/><list_entry value="old_catholic" display_value="Old Catholic"/><list_entry value="orthodox" display_value="Orthodox"/><list_entry value="pentecostal" display_value="Pentecostal"/><list_entry value="presbyterian" display_value="Presbyterian"/><list_entry value="protestant" display_value="Protestant"/><list_entry value="quaker" display_value="Quaker"/><list_entry value="reformed" display_value="Reformed"/><list_entry value="roman_catholic" display_value="Roman Catholic"/><list_entry value="romanian_orthodox" display_value="Romanian Orthodox"/><list_entry value="russian_orthodox" display_value="Russian Orthodox"/><list_entry value="serbian_orthodox" display_value="Serbian Orthodox"/><list_entry value="seventh_day_adventist" display_value="Seventh-day Adventist"/><list_entry value="spiritist" display_value="Spiritist"/><list_entry value="united" display_value="United"/><list_entry value="united_methodist" display_value="United Methodist"/>
+        </combo>
+   </chunk>
    <chunk id="nontrinitarian_denominations"> <!--nontrinitarian denominations -->
-        <combo key="denomination" text="Denomination" values="iglesia_ni_cristo,jehovahs_witness,mormon" display_values="Iglesia ni cristo,Jehovahs witness,Mormon" values_searchable="true"/>
+        <combo key="denomination" text="Denomination" default="mormon" values_searchable="true" match="keyvalue!">
+            <list_entry value="iglesia_ni_cristo" display_value="Iglesia ni Cristo"/><list_entry value="jehovahs_witness" display_value="Jehovah's Witnesses"/><list_entry value="mormon" display_value="Mormon"/>
+        </combo>
     </chunk>
     <chunk id="muslim_denominations"> <!-- muslim denominations -->
         <combo key="denomination" text="Denomination" values="ibadi,nondenominational,shia,sunni" display_values="Ibadi,Nondenominational,Shia,Sunni" values_searchable="true"/>
@@ -2191,7 +2197,7 @@
         <combo key="socket:type3" text="Type 3 (SCAME)" values="1,2,3,4,5,6" value_type="integer"/>
         <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6" value_type="integer"/>
         <text key="socket:chademo:output" text="CHAdeMO output (kW)"/> 
-        <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6" value_type="integer"/>
+        <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6" value_type="integer" deprecated="true"/>       
         <combo key="socket:schuko" text="Schuko" values="1,2,3,4,5,6" value_type="integer"/>
         <combo key="socket:cee_blue" text="CEE blue" values="1,2,3,4,5,6" value_type="integer"/>
         <combo key="socket:cee_red_16a" text="CEE red 16A" values="1,2,3,4,5,6" value_type="integer"/>
@@ -2205,7 +2211,9 @@
         <text key="socket:type1_combo:output" text="CCS - Type 1 output (kW)"/>       
         <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6" value_type="integer"/>
         <text key="socket:chademo:output" text="CHAdeMO output (kW)"/> 
-        <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6" value_type="integer"/>
+        <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6" value_type="integer" deprecated="true"/>
+        <combo key="socket:nacs" text="NACS" values="1,2,3,4,5,6" value_type="integer"/>
+        <text key="socket:nacs:output" text="NACS output (kW)"/> 
         <combo key="socket:nema_5_15" text="NEMA 5-15" values="1,2,3,4,5,6" value_type="integer"/>
         <combo key="socket:nema_5_20" text="NEMA 5-20" values="1,2,3,4,5,6" value_type="integer"/>
     </chunk>
@@ -8937,6 +8945,21 @@
             <text key="ref" text="Reference number"/>
             <reference ref="essential_wheelchair"/>
         </item> <!-- Post Depot -->
+        <item name="Letter box" icon="icons/png/amenity_letter_box.png" type="node,way" preset_name_label="true">
+            <link wiki="Tag:amenity=letter_box"/>
+            <space/>
+            <key key="amenity" value="letter_box"/>
+            <optional>
+                <text key="post:housenumber" text="House number" match="key"/>
+                <text key="post:flats" text="Flats" match="key"/>
+                <text key="post:unit" text="Unit" match="key"/>
+                <text key="post:street" text="Street" match="key"/>
+                <text key="post:postcode" text="Post code" match="key"/>
+                <text key="post:city" text="City" match="key"/>
+                <text key="post:state" text="State" match="key"/>
+            </optional>
+            <preset_link preset_name="Post Box" text="Similar but different tags:" alternative="true"/>
+        </item> <!-- Letter box -->
         <item name="Telephone" icon="icons/png/amenity_telephone.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=telephone"/>
             <space/>
@@ -8949,31 +8972,6 @@
             <check key="payment:telephone_cards" text="Telephone cards" disable_off="true"/>
             <preset_link preset_name="Payment Methods"/>
         </item> <!-- Telephone -->
-        <item name="Coworking space" icon="icons/png/amenity_coworking.png" type="node,closedway,multipolygon">
-            <link wiki="Tag:amenity=coworking_space"/>
-            <space/>
-            <key key="amenity" value="coworking_space"/>
-            <reference ref="name_operator_oh_wheelchair_level"/>
-            <reference ref="fee"/>
-            <reference ref="link_contact_address"/>
-        </item> <!-- Coworking space -->
-        <item name="Events venue" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon">
-            <link wiki="Tag:amenity=events_venue"/>
-            <space/>
-            <key key="amenity" value="events_venue"/>
-            <reference ref="name_operator_oh_wheelchair_level"/>
-            <reference ref="link_contact_address"/>
-            <reference ref="baby_feeding"/>
-            <reference ref="kids_area"/>
-            <preset_link preset_name="Building"/>
-        </item> <!-- Events venue -->
-        <item name="Internet Cafe" icon="icons/png/amenity_internet_cafe.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=internet_cafe"/>
-            <space/>
-            <key key="amenity" value="internet_cafe"/>
-            <reference ref="name_operator_oh_wheelchair_level"/>
-            <reference ref="link_contact_address_payment"/>
-        </item> <!-- Internet Cafe -->
         <item name="Internet Access" icon="icons/png/amenity_internet.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:internet_access"/>
             <space/>
@@ -9082,6 +9080,15 @@
             <key key="amenity" value="lavoir"/>
             <reference ref="facility_access"/>
         </item> <!-- Lavoir -->
+        <item name="Vacuum cleaner station" icon="icons/png/amenity_vacuum_station.png" type="node" preset_name_label="true">
+            <link wiki="Tag:amenity=vacuum_cleaner"/>
+            <space/>
+            <key key="amenity" value="vacuum_cleaner"/>
+            <optional>
+                <reference ref="name_ref_operator"/>
+            </optional>
+            <reference ref="fee"/>
+        </item> <!-- Vacuum cleaner station -->
         <separator/>
         <item name="Bench" icon="icons/png/amenity_bench.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:amenity=bench"/>
@@ -9207,17 +9214,28 @@
             <reference ref="fee"/>
             <multiselect key="valves" text="Valves" values="dunlop;schrader;sclaverand;regina" display_values="Dunlop (Woods);Schrader;Sclaverand (Presta);Regina" rows="4" values_searchable="true"/>
         </item> <!-- Compressed Air -->
-        <item name="Vacuum cleaner station" icon="icons/png/amenity_vacuum_station.png" type="node" preset_name_label="true">
-            <link wiki="Tag:amenity=vacuum_cleaner"/>
+        <item name="Device Charging Station" icon="icons/png/amenity_generator_26005.png" type="node" preset_name_label="true">
+            <link wiki="Tag:amenity=device_charging_station"/>
             <space/>
-            <key key="amenity" value="vacuum_cleaner"/>
+            <key key="amenity" value="device_charging_station"/>
             <optional>
-                <reference ref="name_ref_operator"/>
+                <reference ref="ref_operator"/>
+                <reference ref="oh"/>
+                <combo key="capacity" text="Capacity" values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" editable="true" value_type="integer"/>
+                <check key="lockable" text="Lockable"/>
+                <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
+                <reference ref="facility_access"/>
             </optional>
             <reference ref="fee"/>
-        </item> <!-- Vacuum cleaner station -->
+            <combo key="socket:device:USB-A" text="USB-A socket" values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" value_type="integer"/>         
+            <combo key="socket:device:micro-b" text="USB-B micro connector cable" values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" value_type="integer"/>
+            <combo key="socket:device:USB-C" text="USB-C socket" values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" value_type="integer"/>
+            <combo key="socket:device:USB-C_cable" text="USB-C cable" values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" value_type="integer"/> 
+            <combo key="socket:device:lightning" text="Apple Lightning socket" values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" value_type="integer"/>
+            <combo key="socket:device:qi-wireless" text="QI wireless pad" values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" value_type="integer"/>
+            <preset_link preset_name="Payment Methods"/>
+        </item> <!-- Device Charging Station -->
         <separator/>
- 
         <item name="Excrement Bags" icon="icons/png/amenity_vending_excrement_bags_12290.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=vending_machine%3Dexcrement_bags"/>
             <space/>
@@ -9235,21 +9253,32 @@
             <key key="amenity" value="weighbridge"/>
             <text key="operator" text="Operator"/>
         </item> <!-- Weighbridge -->
-        <item name="Letter box" icon="icons/png/amenity_letter_box.png" type="node,way" preset_name_label="true">
-            <link wiki="Tag:amenity=letter_box"/>
+        <separator/>
+        <item name="Coworking space" icon="icons/png/amenity_coworking.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:amenity=coworking_space"/>
             <space/>
-            <key key="amenity" value="letter_box"/>
-            <optional>
-                <text key="post:housenumber" text="House number" match="key"/>
-                <text key="post:flats" text="Flats" match="key"/>
-                <text key="post:unit" text="Unit" match="key"/>
-                <text key="post:street" text="Street" match="key"/>
-                <text key="post:postcode" text="Post code" match="key"/>
-                <text key="post:city" text="City" match="key"/>
-                <text key="post:state" text="State" match="key"/>
-            </optional>
-            <preset_link preset_name="Post Box" text="Similar but different tags:" alternative="true"/>
-        </item> <!-- Letter box -->
+            <key key="amenity" value="coworking_space"/>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="fee"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Coworking space -->
+        <item name="Events venue" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:amenity=events_venue"/>
+            <space/>
+            <key key="amenity" value="events_venue"/>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+            <reference ref="baby_feeding"/>
+            <reference ref="kids_area"/>
+            <preset_link preset_name="Building"/>
+        </item> <!-- Events venue -->
+        <item name="Internet Cafe" icon="icons/png/amenity_internet_cafe.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=internet_cafe"/>
+            <space/>
+            <key key="amenity" value="internet_cafe"/>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Internet Cafe -->
         <item name="Research institute" icon="icons/png/amenity_research.png" type="node,closedway,multipolygon">
             <link wiki="Tag:amenity=research_institute"/>
             <space/>
