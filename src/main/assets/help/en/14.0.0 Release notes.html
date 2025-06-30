@@ -5,39 +5,39 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 14.0 Highlights</h1>
+<h1 id="vespucci-140-highlights">Vespucci 14.0 Highlights</h1>
 <p>2019-10-20</p>
-<h3>Changes in download menu</h3>
+<h3 id="changes-in-download-menu">Changes in download menu</h3>
 <p>We've now removed the &quot;Download at other location&quot; as the functionality can just as well be obtained by using the find function and then downloading. The <em>Download current view</em> function now merges data, to replace the data in memory you will need to selec <em>Clear and download current view</em>.</p>
 <p>These changes makes the behaviour more similar to JOSM and reduces some unnecessary clutter.</p>
-<h3>Automatically apply preset when property editor is invoked</h3>
+<h3 id="automatically-apply-preset-when-property-editor-is-invoked">Automatically apply preset when property editor is invoked</h3>
 <p>This is a significant behaviour change relative to earlier versions. When the property editor is invoked the best preset will be applied (without optional tags), in other words fields will be shown with empty values for such tags.</p>
 <p>Automatically applying the preset has some dangers as, depending on the preset, existing values could be overwritten, if that happens a warning will be shown.</p>
 <p>The feature can be turned off in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
-<h3>Pan and zoom auto downloading</h3>
+<h3 id="pan-and-zoom-auto-downloading">Pan and zoom auto downloading</h3>
 <p>This release adds support for downloading data and tasks in a more conventional way by retrieving the data covered by the current screen. To keep the amount of data in memory in check a manual facility to prune the data in storage to the screen contents (plus a tolerance) is available via the layer dialog entries for the data and task layers. Additionally the data layer will try to &quot;auto-prune&quot; the stored data once it has reached a configurable number of Nodes in memory  <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
 <p>The auto-download speed limit preferences will be observed both for data and tasks.</p>
 <p>IMPORTANT: this facility should only be used with caution as it has the potential to severely tax both the OpenStreetMap APIs and your device. The former can be reduced by using an offline data source.</p>
 <p>CAVEAT: if you are using an offline data source you should complete all your edits in the area before uploading, as uploading makes new or modified data eligible for pruning and re-visiting the same area before updating the read-only source would give you stale data. Instead of uploading regularly you can save your changes either as a JOSM style OSM file or as in OSC format.</p>
-<h3>Internal photo viewer</h3>
+<h3 id="internal-photo-viewer">Internal photo viewer</h3>
 <p>The internal viewer is used be default in place of trying to start an external on device gallery or viewer app, it allows deleting and &quot;sharing&quot; of photos directly from Vespucci. When started via a click on a photo icon it will load references to all photos currently in view.</p>
 <p>In the current version the photo is shown in a dialog, however we intend to integrate it in a split window view in the future.</p>
 <p>The feature can be turned off in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
-<h3>Incremental preset search</h3>
+<h3 id="incremental-preset-search">Incremental preset search</h3>
 <p>THe preset search will now search while you are typing and display the results directly in the preset display. As we integrated the name suggestion index in to the same search in 13.1, the separately available name search dialog in non-simple mode has been removed.</p>
-<h3>On-the-fly custom presets</h3>
+<h3 id="on-the-fly-custom-presets">On-the-fly custom presets</h3>
 <p><em>This is an experimental feature.</em></p>
 <p>A custom preset can be built from existing tags in the &quot;Details&quot; view in the property editor. Select the tags you want to include, then select &quot;Create custom preset&quot; from the menu and then enter a name when you are prompted. The new preset can then be found in the &quot;Auto-preset&quot; group.</p>
 <p>The function tries to do the &quot;right thing&quot; by not including the values for tags that have &quot;name&quot; semantics, and setting the current value for combo and multi-select fields as the default value.</p>
-<h3>&quot;Tip&quot; display function</h3>
+<h3 id="tip-display-function">&quot;Tip&quot; display function</h3>
 <p>A function has been added to display tips on certain functions. Every tip will be displayed only once, optional ones can be suppressed by setting an option in the display itself, non-optional ones will always be displayed once.</p>
-<h3>Support for multi-valued but editable tags</h3>
+<h3 id="support-for-multi-valued-but-editable-tags">Support for multi-valued but editable tags</h3>
 <p>Some tags, for example phone numbers, lane values, allow multiple values that can't be or are difficult to edit with the previously available forms. 14.0 adds a view for phone numbers and for editable multi-select fields that will display multiple vertically arranged text fields that can be individually edited, and in the case of multi-select fields will have individual drop downs.</p>
 <p>Buttons to apply the preset without optional tags have been added too.</p>
-<h3>Automatic phone number formatting</h3>
+<h3 id="automatic-phone-number-formatting">Automatic phone number formatting</h3>
 <p><em>This is an experimental feature.</em></p>
 <p>When entering a new phone number the number is automatically formated correctly for the country the object is in. Further the same formating is applied when invoking the property editor, a warning will be displayed if this actually happens.</p>
-<h3>Unjoin way</h3>
+<h3 id="unjoin-way">Unjoin way</h3>
 <p>Previously unjoining a way required selecting a node at where you wanted to unjoin ways and resulted in all ways except one receiving new nodes. This makes sense for example when you are trying to rewire a junction, however not so much if you want to &quot;unglue&quot; landuse joined to a road and similar constructs. While this wasn't a classical use case for Vespucci, but as the app gets used more and more for nearly everything, we've now added support for more classical unjoin options.</p>
 <p>There are two option when you have selected a way that has shared nodes with other ways:</p>
 <ul>
@@ -45,7 +45,7 @@
 <li><strong>Unjoin dissimilar</strong> this will replace nodes as above, but additionally replace nodes in similar ways if necessary to maintain connections.</li>
 </ul>
 <p>An example of the later function: assume you have landuse glued to a way from both sides and additionally other roads connecting to to it. If you use the basic <strong>Unjoin</strong> option the way will be disconnected form the lanuse but also from all the roads connecting to it, if you use <strong>Unjoin dissimilar</strong> the connections to the roads will be maintained.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Selection of OAM imagery has been moved to the layer dialog and imagery configuration removed the preferences with the exception of adding custom imagery.</li>
 <li>Allow Vespucci to consume intents to show photos from other apps. Note: due to the ongoing changes in the way Android controls access to files this may or not may work reasonably.</li>
@@ -60,11 +60,11 @@
 <li>The presets now include some entries for disused:* objects.</li>
 <li>Lots of stability improvements.</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>As the saved state file format changed for version 14.0, please complete any edits before upgrading if your current version is older.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>

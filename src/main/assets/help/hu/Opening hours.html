@@ -5,16 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>OpenStreetMap nyitvatartás-szerkesztő</h1>
+<h1 id="openstreetmap-nyitvatartás-szerkesztő">OpenStreetMap nyitvatartás-szerkesztő</h1>
 <p>Az OpenStreetMapben a nyitvatartási idők megadása meglehetősen bonyolult, ezért nem könnyű egyszerű és intuitív felhasználói felületet készíteni hozzá.</p>
 <p>Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkciókat, és az esetek többségében az előre definiált sablonok testreszabására csökkenteni a mindennapos használatot.</p>
 <p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p>
-<h2>A nyitvatartás-szerkesztő használata</h2>
+<h2 id="a-nyitvatartás-szerkesztő-használata">A nyitvatartás-szerkesztő használata</h2>
 <p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p>
 <p>Ha meghatározott egy alapértelmezett sablont (ezt a „Sablonok kezelése” menüpontban teheti meg), akkor az automatikusan be fog töltődni, amikor a szerkesztő egy üres értékkel indul. A „Sablon betöltése” funkcióval bármilyen sablont betölthet, a „Sablon mentése” menüvel pedig sablonként elmentheti az adott értéket. Például külön sablonokat és alapértelmezéseket határozhat meg az „opening_hours”, a „collection_times” és a „service_times” kulcsokra. Továbbá a sablon alkalmazhatóságát korlátozhatja egy régióra és egy adott azonosítóra, jellemzően egy felső szintű OSM-címkére (például amenity=restaurant).</p>
 <p>Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.</p>
 <p>Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatikus javítási kísérlet, hogy megfeleljen a nyitva tartási idők specifikációjának. Ha ez nem lehetséges, akkor a hiba körülbelüli helye kiemelődik a nyers nyitva tartás kijelzőjén, és megpróbálhatod kézzel kijavítani. Az OpenStreetMap adatbázisában a nyitva tartási értékek mintegy negyede hibás, azonban csak kevesebb mint 10% -uk nem javítható. A specifikációtól való megtűrt eltérések: <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a></p>
-<h3>Főmenü gomb</h3>
+<h3 id="főmenü-gomb">Főmenü gomb</h3>
 <ul>
 <li><strong>Szabály hozzáadása</strong>: új szabály hozzáadása.</li>
 <li><strong>Szabály hozzáadása szünnapokra</strong>: hozzáad egy szabályt munkaszüneti napokra és egy állapotváltozást.</li>
@@ -25,9 +25,9 @@
 <li><strong>Frissítés</strong>: a nyitvatartási idő értékének újraelemzése.</li>
 <li><strong>Összes törlése</strong>: az összes szabály eltávolítása</li>
 </ul>
-<h3>Szabályok</h3>
+<h3 id="szabályok">Szabályok</h3>
 <p>Az alapértelmezett szabályok <em>rendes</em> szabályként jelennek meg. Ez azzal jár, hogy felülírják az adott napra vonatkozó korábbi szabályok értékeit. Ez aggasztó lehet, ha kiterjesztett időket szeretnénk megadni. Ilyenkor tipikusan érdemes átkapcsolni a szabályokat a <em>Szabálytípus mutatása</em> menüpontban _összeadó_ra.</p>
-<h4>Szabály menü</h4>
+<h4 id="szabály-menü">Szabály menü</h4>
 <ul>
 <li><strong>Módosító/megjegyzés hozzáadása</strong>: módosítja a szabály hatását és opcionális megjegyzést ad hozzá.</li>
 <li><strong>Szünnap hozzáadása</strong>: hozzáad egy választót, amellyel munkaszüneti napokat vagy tanítási szünetet választhatunk.</li>
@@ -76,10 +76,10 @@
 <li><strong>Mozgatás lefelé</strong>: eggyel lejjebb tolja a szabályt.</li>
 <li><strong>Törlés</strong>: törli a szabályt.</li>
 </ul>
-<h3>Időtartamok</h3>
+<h3 id="időtartamok">Időtartamok</h3>
 <p>Szeretnénk a lehető legkönnyebbé tenni az időtartamok szerkesztését. A meglévő értékek betöltésénél ezért megpróbáltuk kiválasztani az optimális időtartamot és a tartománysáv finomságát. Új időtartam megadásánál a tartománysáv reggel 6:00 órakor indul és 15 perces a lépésköze. Ez menüben változtatható.</p>
 <p>Az idősáv használata olykor túl nehézkes. Ha ilyenkor az idősávra (nem a kijelölőkre) kattintunk, akkor megjelenik egy nagy időválasztó. Az időválasztók a következő napra is kiterjednek, így egyszerűen kiterjeszthető az időtartam anélkül, hogy törölni kellene majd újra megadni.</p>
-<h4>Időtartam menü</h4>
+<h4 id="időtartam-menü">Időtartam menü</h4>
 <ul>
 <li><strong>Időválasztó megjelenítése</strong>: megjelenít egy nagy időválasztót a kezdő és záró időpontok kijelöléséhez. Nagyon kicsi kijelzőkön ez az idő módosításának előnyben részesített módja.</li>
 <li><strong>Váltás 15 perces lépésközre</strong>: 15 perces finomságúra változtatja a tartománysávot.</li>
@@ -89,7 +89,7 @@
 <li><strong>Intervallum megjelenítése</strong>: megjeleníti az intervallummezőt, ahol percben megadható, hogy milyen időközönként történik valami.</li>
 <li><strong>Törlés</strong>: ennek az időtartamnak a törlése.</li>
 </ul>
-<h3>Sablonok kezelése</h3>
+<h3 id="sablonok-kezelése">Sablonok kezelése</h3>
 <p>A sablonkezelő párbeszédablakkal hozzáadhat, szerkeszthet és törölhet sablonokat.</p>
 <p>Az Android 4.4 és újabb verziókban a következő további funkciók állnak rendelkezésre a menügombon keresztül.</p>
 <ul>
@@ -98,7 +98,7 @@
 <li><strong>Betöltés fájlból (csere)</strong>: egy fájlból betölti a sablonokat, és ezzel lecseréli az adatbázis jelenlegi tartalmát.</li>
 <li><strong>Betöltés fájlból</strong>: egy fájlból betölti a sablonokat miközben a jelenlegi tartalom is megmarad.</li>
 </ul>
-<h4>Sablonpárbeszédek mentése és szerkesztése</h4>
+<h4 id="sablonpárbeszédek-mentése-és-szerkesztése">Sablonpárbeszédek mentése és szerkesztése</h4>
 <p>A párbeszéddel beállíthatja a következőket:</p>
 <ul>
 <li><strong>Név</strong>: a sablon leíró neve.</li>

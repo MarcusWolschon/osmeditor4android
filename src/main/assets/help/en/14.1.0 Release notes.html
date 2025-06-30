@@ -5,38 +5,38 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 14.1 Highlights</h1>
+<h1 id="vespucci-141-highlights">Vespucci 14.1 Highlights</h1>
 <p>2020-03-15</p>
 <p>This is a minor release with many small improvements. 14.1 is the last release that will support devices with Android versions older than 4.0 / API 14, if you have been using the &quot;current&quot; releases from F-Droid or the google play store nothing will change for you, if you have been using the &quot;legacy&quot; build, you will either need a new device or try to upgrade the Android version on your existing one.</p>
-<h3>Drag &quot;ring&quot; around selected nodes</h3>
+<h3 id="drag-ring-around-selected-nodes">Drag &quot;ring&quot; around selected nodes</h3>
 <p>To make selection status clearer selected nodes now have a small ring around them indicating the area that can be used for dragging. This is the same principle as the &quot;large drag area&quot; that has been available for many years.</p>
-<h3>Add and check website tags with dialog</h3>
+<h3 id="add-and-check-website-tags-with-dialog">Add and check website tags with dialog</h3>
 <p>This replaces the prior pre-filled in <em>http://</em> prefix in the text fields with a dialog that allows checking the domain on the fly, and adding the correct protocol automatically. This requires network connectivity to work.</p>
-<h3>Preset matching improvements</h3>
+<h3 id="preset-matching-improvements">Preset matching improvements</h3>
 <p>We now support a <em>min_match</em> preset item attribute that can be used to set how many fixed value tags need to match before the preset is considered for further scoring. Prior behaviour, and the default, is that all fixed tags need to match. This allows for better matching and handling of objects that currently have widespread use of two independent top level tags, for example <em>amenity=doctors</em> together with <em>healthcare=doctor</em>.</p>
-<h3>Data rendering</h3>
+<h3 id="data-rendering">Data rendering</h3>
 <p>Simple closed-way based areas can now be rendered separately from a non-closed way with the same tags. Some initial incomplete documentation on the styling system has been added to the tutorials section.</p>
-<h3>Improved external location sources support</h3>
+<h3 id="improved-external-location-sources-support">Improved external location sources support</h3>
 <p>This release fixes a regression that stopped external location sources (for example Rtklib) working for devices with Android N and later. Additionally stability of the system when using such sources has been improved, including better messaging.</p>
-<h3>Support for filtering background / overlay imagery by category</h3>
+<h3 id="support-for-filtering-background-overlay-imagery-by-category">Support for filtering background / overlay imagery by category</h3>
 <p>Imagery layers now have a <em>category</em> attribute that can be used to filter the layers in the selection dialogs. Currently the UI just offers <em>All</em> and <em>Aerial imagery</em> (that is current/recent aerial and satellite imagery), but if there is interest this can be refined further.</p>
-<h3>Use location to determine appropriate language specific tags</h3>
+<h3 id="use-location-to-determine-appropriate-language-specific-tags">Use location to determine appropriate language specific tags</h3>
 <p>This replaces the facility that added language specific tags based on the device language. <em>Add language tags</em> will now add language tags based on the location and the corresponding configuration from  <a href="https://github.com/simonpoole/geocontext/">https://github.com/simonpoole/geocontext/</a>.</p>
 <p>Example: adding a restaurant in Switzerland and then selecting <em>Add language tags</em> in the property editor will add <em>name:de</em>, <em>name:fr</em>, <em>name:it</em>, <em>name:rm</em> and <em>name:gsw</em> tags.</p>
-<h3>Object search</h3>
+<h3 id="object-search">Object search</h3>
 <p>Vespucci now supports most of JOSMs object search &quot;language&quot;. This can be used from the main menu and from the element selection modes. As the JOSM documentation on the feature is near non-existent it is completely possible that there are subtle behaviour differences. Currently found objects will always replace the selection of any previously selected objects and the screen will be automatically be zoomed to the bounding box of the found elements.</p>
 <p>When editing elements in the property editor, relation roles will be filtered by the member_expression attribute value if present, this uses the same language.</p>
-<h3>Indication of stale location</h3>
+<h3 id="indication-of-stale-location">Indication of stale location</h3>
 <p>The location indicator will change to black (styleable) after a user configurable time (default 60 seconds) to indicate that the position is stale. This function only works for android 4.2 (API 17) and later.</p>
-<h3>Private api keys support</h3>
+<h3 id="private-api-keys-support">Private api keys support</h3>
 <p>Open source projects are always in a bit of conundrum with respect to api keys, on the one hand by definition these should be private, on the other hand when core functionality depends on them we can't simply not store them with the code if they are needed at build time for 3rd parties.</p>
 <p>For example so that users of the F-Droid build can actually log in securely with OAuth without having to store their login credentials on the device, we need to include the OAuth client keys as F-Droid has no provision for keeping keys private (this does create the vulnerability that an app could masquerade as Vespucci, but the impacts of that are very limited).</p>
 <p>For keys that are used solely to access services that are not critical the situation is different. The main use of these today is to access imagery sources, starting with this release, private imagery keys are provided at build time and are no longer stored in the source code repository with the exception of the Bing key that will remain for now. As a consequence the Thunderforest maps and the MAXAR aerial imagery will no longer be available in the F-Droid build.</p>
 <p>In the current implementation there is no way to set your own keys or otherwise manage them, for imagery keys this is not an issue as you can simply add a custom imagery entry that directly contains the key. In the future we might provide such a management facility.</p>
 <p>From a formal security point of view all of this is naturally a bit of snake oil as for example imagery apikeys that are used in urls are trivial to snoop, but at least that implies putting some effort in to finding the keys over simply scraping github repositories.</p>
-<h3>Help viewer</h3>
+<h3 id="help-viewer">Help viewer</h3>
 <p>The help viewer can now be accessed without starting the full app first, this has the added advantage that the viewer can be used in split window mode on devices that support it, or at least be used without restarting the activity.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Improvements custom imagery, OAM support and imagery layer info</li>
 <li>Add mechanism to filter out bad OAM entries</li>
@@ -52,11 +52,11 @@
 <li>Files that were downloaded with Firefox mobile couldn't be accessed, this has been resolved.</li>
 <li>Re-factored undo and OSC code.</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>The format of the saved editing state (not of the saved data) has changed, you should still upload any changes before updating.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>When editing multi-valued text fields, specifically <em>destination:lanes</em>, an empty final value will result in the trailing separator to be removed, see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/1072">issue 1072</a> and <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/1073">issue 1073</a>.</li>
 <li>The documentation is out of date.</li>

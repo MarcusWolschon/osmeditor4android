@@ -5,36 +5,36 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 17.1 Highlights</h1>
+<h1 id="vespucci-171-highlights">Vespucci 17.1 Highlights</h1>
 <p>2022-06-01</p>
-<h3>Bing imagery no longer available for 3rd-party builds</h3>
+<h3 id="bing-imagery-no-longer-available-for-3rd-party-builds">Bing imagery no longer available for 3rd-party builds</h3>
 <p>Since we added Bing support over a decade ago, the API key to access the service has been included with the source code for third parties to use, most notably F-Droid as a courtesy. Starting with this version this is no longer the case as allowing access to a wide range of sources is considered an anti-feature by the operators of F-Droid, see <a href="https://f-droid.org/en/packages/de.blau.android/">Vespucci on F-Droid</a>.</p>
 <p>With other words starting with version 17.1 Bing imagery will no longer be available for F-Droid users. If you have your own key, you can load it via the <a href="http://vespucci.io/help/en/Main%20map%20display/#available-actions"><em>Tools</em> menu</a>, just as any other key. See the <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/keys2-default.txt">default key file</a> and <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/test/resources/keys2.txt">test key file</a> for the format and an example.</p>
 <p>It should be noted that the other claims by F-Droid in this context are incorrect, neither Mapillary support or Github access has ever been available in 3rd-party builds of Vespucci.</p>
-<h3>Updated privacy policy / ability to remove API keys</h3>
+<h3 id="updated-privacy-policy-ability-to-remove-api-keys">Updated privacy policy / ability to remove API keys</h3>
 <p>Using Bing imagery requires querying a Bing API to obtain some meta data prior to use, as this is very slow we have always done this asynchronously and independent of the user actually using the specific source. We've updated the privacy policy to note this and have provided a way to completely disable the Bing source, see <a href="http://vespucci.io/tutorials/faq/#installation">Installation FAQ</a>.</p>
 <p>It should be further noted that a number of the layer configurations from the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a> reference (via Url) icons that are stored in the ELI repository. This implies that using such layers doesn't just provide a certain amount of personal information to the operator of the source, but that a small amount of PI is leaked to github and its owner (Microsoft).</p>
-<h3><em>Auto</em> full screen mode on Android 11 and later behaviour change</h3>
+<h3 id="auto-full-screen-mode-on-android-11-and-later-behaviour-change"><em>Auto</em> full screen mode on Android 11 and later behaviour change</h3>
 <p>On Android 11 and later the default <em>Auto</em> mode for the full screen mode preference will never enable full screen mode as navigation gestures provide a viable alternative and googles and subcontractors full screen support has become even less predictable than on earlier versions.</p>
 <p>If you are using a device that previously had full screen mode automatically turned on and that is now disabled, you can force the use of full screen mode by setting the preference to <em>Force</em>.</p>
-<h3>Improved GPX layer support</h3>
+<h3 id="improved-gpx-layer-support">Improved GPX layer support</h3>
 <p>The GPX layer has been reworked to allow multiple individual layers that can be created by either loading a GPX file from device or downloading from the OSM website. Some additional functionality has been implemented per layer, see <a href="http://vespucci.io/help/en/Main%20map%20display/#layer-control">layer control</a> and some more styling options have been added.</p>
-<h3>Preset improvements</h3>
+<h3 id="preset-improvements">Preset improvements</h3>
 <p>Previously Vespucci assumed a single level hierarchy of keys to match as &quot;real-life&quot; objects, for example all &quot;highway&quot; keys were assumed to define an object. Unluckily in real life this doesn't always lead to satisfactory results, for example <em>cycleway=asl</em>.  This version adds a further attribute to the preset configuration that allows to define exceptions to the hierarchy, for more information see the <a href="http://vespucci.io/tutorials/presets/#extensions">preset documentation</a>.</p>
 <p>Preset items and tags that have the &quot;deprecated&quot; attribute are now automatically indicated. This removes the need to add this to the text of the items or tags. To make this work preset items can now have the same name, this doesn't just work for deprecated items, but for example for country specific presets.</p>
 <p>In version 15.1 we added a menu item in the property editor to display a modal with alternative tagging suggestions for the current object, this has been replaced with a display of the alternative preset items (if any exist) above the <em>most recently used</em> preset list.</p>
 <p>Version 17.1 further adds support for <a href="https://twitter.com/vespucci_editor/status/1505931569139265539">large images in presets</a> this can make selection of a specific tag value easier by supply visual examples. An example preset <a href="http://vespucci.io/help/en/Presets/#useful-presets-for-download"><em>bicycle parking</em></a> with large images is available for download.</p>
 <p>To make adding presets from the JOSM preset list even easier we now re-write urls from that page in the <em>Preset help</em> on device to auto-download an install Uris.</p>
-<h3>Way rendering improvements</h3>
+<h3 id="way-rendering-improvements">Way rendering improvements</h3>
 <p>Previously area rendering (both simple and multi-polygons) utilized offset patterns to indicate the &quot;inside&quot; of the object. This has now been replaced in most cases by an offset of the line, this reduces artifacts and avoids some of the performance issues the previous solution had.</p>
 <p>The offset functionality has the additional benefit that it allows offset casing of ways, an example of this can be found in the rendering of <em>highway=residential</em> that now indicates if sidewalk have been tagged (left, right or on both sides).</p>
-<h3>Upload reminder</h3>
+<h3 id="upload-reminder">Upload reminder</h3>
 <p>If you exit the app with unpublished changes you will receive a reminder notification in regular intervals. THe default interval is 6 hours, but this can be set to very high values essentially disabling it for practical purposes. See <a href="http://vespucci.io/help/en/Advanced%20preferences/#user-interface-settings">user interface settings</a>.</p>
-<h3>Include Androids MediaStore in scan for images</h3>
+<h3 id="include-androids-mediastore-in-scan-for-images">Include Androids MediaStore in scan for images</h3>
 <p>You can now optionally scan the MediaStore for images. This is mainly useful on Android 10 and higher which doesn't allow direct access to images owned by other apps any more. As this will include <em>all</em> images in the MediaStore that contain location information this is turned off by default. See See <a href="http://vespucci.io/help/en/Advanced%20preferences/#user-interface-settings">user interface settings</a>.</p>
-<h3>Automatic capitalization of name tags</h3>
+<h3 id="automatic-capitalization-of-name-tags">Automatic capitalization of name tags</h3>
 <p>We now automatically capitalize <em>name</em> tags on input for latin script. The setting for this can be changed to one off <em>No capitalization</em> , <em>Word capitalization</em> and <em>Sentence capitalization</em> . The default is <em>Word capitalization</em> .</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Expand the &quot;screenshot&quot; page on vespucci.io to include videos.</li>
 <li>Support for version, short description and description in presets.</li>
@@ -46,11 +46,11 @@
 <li>Handle error conditions due to the new relation member limit for the OSM API being reached.</li>
 <li>Add function to select way nodes.</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>As the saved state file has changed you should upload any pending changes before updating.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>

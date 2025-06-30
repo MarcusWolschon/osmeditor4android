@@ -5,9 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 15.2 Highlights</h1>
+<h1 id="vespucci-152-highlights">Vespucci 15.2 Highlights</h1>
 <p>2021-03-14</p>
-<h3>Dedicated address mode and address handling improvements</h3>
+<h3 id="dedicated-address-mode-and-address-handling-improvements">Dedicated address mode and address handling improvements</h3>
 <p>When we introduced the &quot;simple mode&quot; in Vespucci 12 in 2019 there was no way to directly add address nodes without switching to the old element creation mode via long press (you could however add a node and then predict the address in the property editor). To make this a bit easier 15.2 introduces a dedicated &quot;Address&quot; mode that switches the &quot;plus&quot;-button to allow adding</p>
 <ul>
 <li>an address node (including automatically adding an entrance tag if the node is on a building outline)</li>
@@ -15,22 +15,22 @@
 <li>a map note</li>
 </ul>
 <p>Further improvements include support for addr:block, addr:conscriptionnumber and addr:block_number in the address tags preference, and the use of information from <a href="https://github.com/simonpoole/geocontext">geocontext project</a> for region specific default address tags.</p>
-<h3>Support mode specific launcher shortcuts</h3>
+<h3 id="support-mode-specific-launcher-shortcuts">Support mode specific launcher shortcuts</h3>
 <p>After adding a short cut for the &quot;help&quot; system in 15.1, we've added further short cuts for specific modes: Indoor, Tag-only and Address.</p>
 <p>In launchers that support the functionality short cuts can be accessed by a long press on the app icon, and dragged to create short cut links for direct access.</p>
-<h3>Support merging closed ways/polygons</h3>
+<h3 id="support-merging-closed-wayspolygons">Support merging closed ways/polygons</h3>
 <p>Basic support for merging two closed ways/polygons has been added to the multi-select mode. If their are no common nodes, or if the function dedects inner rings this will create a multi-polygon, otherwise a single closed way.</p>
 <p>If a multi-polygon is created common tags from the outers will be moved to the multi-polygon relation, this is done in a separate undo changeset and can be reverted without undoing the polygon merge.</p>
-<h3>Better detection and handling of empty relations</h3>
+<h3 id="better-detection-and-handling-of-empty-relations">Better detection and handling of empty relations</h3>
 <p>Creating empty relation objects is a harmless, but sometimes annoying side effect of other operations. Vespucci has detected these in a number of places prior to this release, 15.2 expands this to cover everywhere this can happen indirectly. Contrary to other editing apps behaviour we do not delete empty relations automatically (for example you may have just emptied one for re-use in a next step), but will prompt you for how to treat them.</p>
 <p>To prevent accidental upload of empty relations they are now highlighted by the validator in the upload dialog. Additionally we've added an extension to our object search support that allows searching for relations with a specific number of members, see <a href="https://github.com/simonpoole/JosmFilterParser">JOSM filter expression parser project</a>.</p>
-<h3>Support for creating OSM objects from GeoJson Features</h3>
+<h3 id="support-for-creating-osm-objects-from-geojson-features">Support for creating OSM objects from GeoJson Features</h3>
 <p>Individual geometries in a GeoJSON layer can now be directly converted to OSM elements in the OSM data layer. Attributes of the geometries will be mapped to OSM tags.</p>
 <p>Don't forget that any source used in this way needs to have compatible licence terms and, if you are planning on importing larger number of objects, you need to follow the <a href="https://wiki.openstreetmap.org/wiki/Import/Guidelines">OSM import guidelines</a>.</p>
-<h3>Support node icons and flexible labeling in data styling</h3>
+<h3 id="support-node-icons-and-flexible-labeling-in-data-styling">Support node icons and flexible labeling in data styling</h3>
 <p>Previously the icon used to display a tagged node was retrieved from the best matching preset (if any), in 15.2 this can be overridden in the data style, just as the key that is used to label an object (default is the <em>name</em> key). This allows more flexible icon and label selection using the data style hierarchical matching. Any other styling parameters for nodes is ignored outside of the internal node style values that can be set in the style. See <a href="http://vespucci.io/tutorials/data_styling/">Vespucci data styling</a>.</p>
 <p>Further icons on closed ways are no longer hardwired but can be configured  just as above too.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Show a disambiguation menu when multiple ways could be appended to</li>
 <li>Add preference UI for taginfo server URL</li>
@@ -47,11 +47,11 @@
 <li>Render tunnel=* for waterways</li>
 <li>Add option for changing extracted footway or similar segment to steps</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>As a safety measure, you should always upload any changes before updating.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>

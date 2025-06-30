@@ -5,16 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>OpenStreetMapin aukioloaikamuokkain</h1>
+<h1 id="openstreetmapin-aukioloaikamuokkain">OpenStreetMapin aukioloaikamuokkain</h1>
 <p>OpenStreetMapin aukiloaikojen määrittely on melko monimutkainen eikä se suoralta kädeltä taivu yksinkertaiseksi ja intuitiiviseksi käyttöliittymäksi.</p>
 <p>Toisaalta määrittelystä käytetään monesti vain pientä osaa. Muokkain ottaa tämän huomioon ja yrittää piilottaa oudoimmat piirteet valikoihin, jolloin tien päällä tarvitsee useimmiten tehdä vain pieniä muutoksia valmiisiin mallipohjiin.</p>
 <p><em>Tämä dokumentaatio on alustava ja työn alla.</em></p>
-<h2>Aukioloaikamuokkaimen käyttö</h2>
+<h2 id="aukioloaikamuokkaimen-käyttö">Aukioloaikamuokkaimen käyttö</h2>
 <p>Tyypillisessä tapauksessa muokattavana olevalla kohteella joko on jo aukioloaikatägi (opening_hours, service_times ja collection_times) tai siihen voi soveltaa uudelleen esivalinnan, joka lisää tyhjän aukioloaikakentän. Jos sinun täytyy lisätä kenttä käsin Vespuccia käyttäessäsi, niin voit lisätä avaimen yksityikohtasivulta ja palata sitten takaisin muokkaamaan lomakepohjaiselle välilehdelle. Jos esivalinnassa kuuluisi mielestäsi olla aukioloaikatägi, voit lähettää muutospyynnön käyttämäsi muokkaimen kehittäjille.</p>
 <p>If you have defined a default template (do this via the &quot;Manage templates&quot; menu item) it will be loaded automatically when the editor is started with an empty value. With the &quot;Load template&quot; function you can load any saved template and with the &quot;Save template&quot; menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example &quot;opening_hours&quot;, &quot;collection_times&quot; and &quot;service_times&quot; or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant).</p>
 <p>Voit luonnollisesti rakentaa aukioloajan (aoa) tyhjästä, mutta suosittelemme jonkin valmiin mallineen käyttämistä pohjana.</p>
 <p>Kun muokkaimeen ladataan olemassa oleva arvo, se yritetään korjata automaattisesti aukioloaikamäärittelyn mukaiseksi. Jos tämä ei ole mahdollista, virheen summittainen paikka raa'assa aoa-arvossa korostetaan, ja voit yrittää korjata sen käsin. Suurinpiirtein neljänneksessä OpenStreetMapin tietokannan aoa-arvoista on ongelmia, ja alle kymmentä prosenttia ei voi korjata. Sivulla <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHourParser</a> kerrotaan tarkemmin mitä poikkeamia määrittelystä sallitaan.</p>
-<h3>Päävalikkonappi</h3>
+<h3 id="päävalikkonappi">Päävalikkonappi</h3>
 <ul>
 <li><strong>Lisää sääntö</strong>: lisää uusi sääntö.</li>
 <li><strong>Lisää sääntö juhlapäiville</strong>: lisää uusi sääntö juhlapäiville ja sen tilamuutos.</li>
@@ -25,9 +25,9 @@
 <li><strong>Päivitä</strong>: jäsennä aukioloaika-arvo uudelleen.</li>
 <li><strong>Poista kaikki</strong>: poista kaikki säännöt.</li>
 </ul>
-<h3>Säännöt</h3>
+<h3 id="säännöt">Säännöt</h3>
 <p>Oletussäännöt lisätään <em>tavallisina</em> sääntöinä, mikä tarkoittaa sitä, että ne syrjäyttävät aiemmat samoille päiville osuvat säännöt. Tällä voi olla merkitystä, kun määritetään laajennettuja aikoja – tyypillisesti tällöin on syytä muuttaa säännöt <em>lisääviksi</em> valikkokohdasta <em>Näytä sääntötyyppi</em>.</p>
-<h4>Sääntövalikko</h4>
+<h4 id="sääntövalikko">Sääntövalikko</h4>
 <ul>
 <li><strong>Lisää määre/kommentti</strong>: muuta säännön vaikutusalaa, ja lisää valinnainen kommentti.</li>
 <li><strong>Lisää vapaapäivä</strong>: lisää valitsin yleiselle tai koulujen vapaapäivälle.</li>
@@ -76,10 +76,10 @@
 <li><strong>Siirrä alaspäin</strong>: siirrä sääntö yhtä paikkaa alemmas.</li>
 <li><strong>Poista</strong>: poista sääntö.</li>
 </ul>
-<h3>Ajanjaksot</h3>
+<h3 id="ajanjaksot">Ajanjaksot</h3>
 <p>Jotta ajanjaksojen muokkaaminen olisi mahdollisimman helppoa, valmiita arvoja ladattaessa säätöasteikolle koetetaan antaa paras mahdollinen laajuus ja jaottelu. Uusien ajanjaksojen säätimissä alkuaika on 6:00, ja niissä on 15 minuutin jaotus. Asetuksia voi muuttaa valikon kautta.</p>
 <p>Aikapalkin (ei jakomerkkien) klikkaaminen avaa ison aikavalitsimen, kun palkin käyttö suoraan on liian vaikeaa. Aikavalitsin ulottuu seuraavaan päivään, joten se on helppo tapa laajentaa aikaväliä tarvitsematta poistaa ja lisätä aikaväliä uudelleen.</p>
-<h4>Ajanjaksovalikko</h4>
+<h4 id="ajanjaksovalikko">Ajanjaksovalikko</h4>
 <ul>
 <li><strong>Näytä aikavalitsin</strong>: näytä iso valitsin, josta voi asettaa alku- ja loppuajan; pienille näytöille tämä on suositeltava tapa aikojen asettamiseen.</li>
 <li><strong>15 minuutin jaotus</strong>: käytä säätöpalkissa 15 minuutin tarkkuutta.</li>
@@ -89,7 +89,7 @@
 <li><strong>Näytä aikaväli</strong>: näytä kenttä, johon asetetaan toistuva aikaväli minuutteina.</li>
 <li><strong>Poista</strong>: poista ajanjakso.</li>
 </ul>
-<h3>Hallitse mallineita</h3>
+<h3 id="hallitse-mallineita">Hallitse mallineita</h3>
 <p>The template management dialog allows you to add, edit and delete templates.</p>
 <p>In Android 4.4 and later the following additional functionality is available from the menu button.</p>
 <ul>
@@ -98,7 +98,7 @@
 <li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
 <li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul>
-<h4>Save and edit template dialogs</h4>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
 <p>The dialog allows you to set</p>
 <ul>
 <li><strong>Name</strong> a descriptive name for the template.</li>

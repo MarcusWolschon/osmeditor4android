@@ -6,12 +6,12 @@
 </head>
 <body>
 <p><em>Bevor wir anfangen: Die meisten Bildschirme haben im Menü Links zum integrierten Hilfesystem, das dir direkten Zugang zu relevanten Informationen für den aktuellen Kontext gibt. Du kannst auch leicht zu diesem Text zurücknavigieren. Wenn du ein größeres Gerät wie ein Tablet hast, kannst du das Hilfesystem in einem separaten geteilten Fenster öffnen. Alle Hilfetexte und mehr (FAQs, Tutorials) findest du auch auf der <a href="https://vespucci.io/">Vespucci-Dokumentationsseite</a>. Auf Geräten, die Shortcuts unterstützen, kannst du den Hilfe-Viewer auch direkt starten, indem du das App-Symbol lange drückst und &quot;Hilfe&quot; auswählst.</em></p>
-<h1>Einführung in Vespucci</h1>
+<h1 id="einführung-in-vespucci">Einführung in Vespucci</h1>
 <p>Vespucci ist ein voll ausgestatteter OpenStreetMap-Editor, der die meisten Funktionen bietet, die auch Desktop-Editoren unterstützen. Er wurde erfolgreich auf Googles Android-Versionen 2.3 bis 14.0 getestet (Versionen vor 4.1 werden nicht mehr unterstützt) sowie auf verschiedenen AOSP-basierten Varianten. Ein Wort der Vorsicht: Auch wenn mobile Geräte inzwischen mit ihren Desktop-Pendants mithalten können, haben insbesondere ältere Geräte nur begrenzt Speicher zur Verfügung und neigen dazu, eher langsam zu sein. Das solltest du bei der Nutzung von Vespucci berücksichtigen und beispielsweise die Größe der Bereiche, die du bearbeitest, in einem vernünftigen Rahmen halten.</p>
-<h2>Mit Vespucci OSM-Daten bearbeiten</h2>
+<h2 id="mit-vespucci-osm-daten-bearbeiten">Mit Vespucci OSM-Daten bearbeiten</h2>
 <p>Abhängig von Bildschirmgröße und Alter des Gerätes sind die Bearbeitungsfunktionen entweder über Icons in einer Leiste am Oberrand, über ein Dropdown-Menü rechts in dieser Leiste, über eine Menüleiste am Unterrand (falls vorhanden) oder über die Menütaste zugänglich.</p>
 <p><a id="download"></a></p>
-<h3>OSM-Daten herunterladen</h3>
+<h3 id="osm-daten-herunterladen">OSM-Daten herunterladen</h3>
 <p>Wähle entweder das Übertragungssymbol <img src="../images/menu_transfer.png" alt="Übertragung" /> oder den Menüpunkt &quot;Übertragung&quot;. Dadurch werden elf Optionen angezeigt:</p>
 <ul>
 <li><strong>Daten auf OSM-Server hochladen...</strong> - Änderungen überprüfen und auf OpenStreetMap hochladen <em>(erfordert Authentifizierung)</em> <em>(erfordert Netzwerkverbindung)</em></li>
@@ -29,9 +29,9 @@
 <p>Um Daten auf dem Gerät zu öffnen, ist es am einfachsten, mit Gesten den Bildschirm auf das gewünschte Gebiet zu zentrieren und dann im Menü &quot;Aktuelle Ansicht herunterladen&quot; anzuwählen. Der Zoom kann mit Gesten, den Zoom-Schaltflächen oder den Lautstärketasten bedient werden. Vespucci sollte dann das Gebiet herunterladen. Um Daten herunterzuladen, muss man nicht angemeldet sein.</p>
 <p>Im entsperrten Zustand werden alle nicht heruntergeladenen Bereiche im Vergleich zu den heruntergeladenen Bereichen abgeblendet, wenn Du weit genug hineingezoomt hast, um das Bearbeiten zu ermöglichen. Dies dient dazu, das versehentliche Hinzufügen doppelter Objekte in Bereichen zu vermeiden, die nicht angezeigt werden. Im gesperrten Zustand ist das Abblenden deaktiviert. Dieses Verhalten kann in den <a href="Advanced%20preferences.md">Erweiterten Einstellungen</a> so geändert werden, dass das Abblenden immer aktiv ist.</p>
 <p>Falls Du einen nicht standardmäßigen OSM-API-Eintrag verwenden oder <a href="https://vespucci.io/tutorials/offline/">Offline-Daten</a> im <em>MapSplit</em>-Format nutzen musst, kannst Du Einträge über den Eintrag <em>Konfigurieren...</em> für die Datenebene in der Ebenensteuerung hinzufügen oder ändern.</p>
-<h3>Bearbeiten</h3>
+<h3 id="bearbeiten">Bearbeiten</h3>
 <p><a id="lock"></a></p>
-<h4>Sperren, entsperren, Modus wechseln</h4>
+<h4 id="sperren-entsperren-modus-wechseln">Sperren, entsperren, Modus wechseln</h4>
 <p>Um versehentliche Änderungen zu verhindern, startet Vespucci im &quot;gesperrten&quot; Modus, einem Modus, der nur das Zoomen und Verschieben der Karte erlaubt. Um den Schirm zu entsperren, auf das <img src="../images/locked.png" alt="Schloss" />-Icon tippen.</p>
 <p>Ein langer Druck auf das Sperrsymbol oder das <em>Modi</em>-Menü im Überlaufmenü der Kartenanzeige zeigt ein Menü mit 4 Optionen an:</p>
 <ul>
@@ -42,7 +42,7 @@
 <li><strong>C-Modus</strong> – aktiviert den C-Modus, nur Objekte mit einem Warnhinweis werden angezeigt, siehe <a href="#c-mode">C-Modus</a>. Weißes Sperrsymbol mit einem „C“ wird angezeigt.</li>
 </ul>
 <p>Wenn Du Vespucci auf einem Android-Gerät verwendest, das Kurzbefehle unterstützt (langes Drücken auf das App-Symbol), kannst Du direkt im <em>Adress</em>- und <em>Indoor</em>-Modus starten.</p>
-<h4>Einfacher Klick, Doppelklick und langer Klick</h4>
+<h4 id="einfacher-klick-doppelklick-und-langer-klick">Einfacher Klick, Doppelklick und langer Klick</h4>
 <p>In der Standardeinstellung wird um auswählbare Knoten und Wege ein oranger Bereich angezeigt, der angibt, in welchen Bereich man auf den Bildschirm tippen kann, um ein Objekt anzuwählen. Die drei Möglichkeiten sind:</p>
 <ul>
 <li>Einfacher Klick: Objekte auswählen.
@@ -58,22 +58,22 @@
 </ul>
 <p>In einem Gebiet, in dem die OSM-Daten sehr dicht sind, empfiehlt es sich, zum Bearbeiten eine hohe Vergrößerungsstufe zu wählen.</p>
 <p>Vespucci hat eine gute Unterstützung von &quot;Undo&quot; und &quot;Redo&quot;, weshalb man ohne Bedenken auf seinem Gerät experimentieren kann, bitte aber keine reinen Testdaten auf OSM-Server speichern.</p>
-<h4>Auswählen / Abwählen (einfacher Klick und &quot;Auswahlmenü&quot;)</h4>
+<h4 id="auswählen-abwählen-einfacher-klick-und-auswahlmenü">Auswählen / Abwählen (einfacher Klick und &quot;Auswahlmenü&quot;)</h4>
 <p>Um ein Objekt anzuwählen und hervorzuheben, tippt man darauf. Ist ein Objekt markiert, kann es durch Tippen in einen leeren Bereich abgewählt werden. Wurde ein Objekt markiert und soll ein anderes ausgewählt werden, tippt man einfach auf das in Frage kommende Element. Es ist nicht nötig, zuerst das aktuell markierte abzuwählen. Ein &quot;Doppeltipp&quot; startet den <a href="../en/Multiselect.md">Mehrfachauswahl-Modus</a>.</p>
 <p>Hinweis: falls Vespucci nicht eindeutig feststellen kann, welches Objekt markiert werden soll (zum Beispiel ein Punkt auf einem Weg oder andere sich überlappende Objekte), wird ein Auswahlmenü angezeigt. Dort den Eintrag für das gesuchte Objekt auswählen, worauf es markiert wird.</p>
 <p>Ausgewählte Objekte werden durch einen dünnen, gelben Rand hervorgehoben. Nach der Auswahl erscheint eine Meldung mit einer kurzen Beschreibung des Objekts, die die Auswahl bestätigt.</p>
 <p>Sobald die Auswahl stattgefunden hat, werden, entweder als Schaltfläche oder als Menüeintrag, die verfügbaren Operationen für das ausgewählte Objekt angezeigt: Weitere Informationen hierzu unter <a href="../en/Node%20selected.md">Knoten ausgewählt</a>, <a href="../en/Way%20selected.md">Weg ausgewählt</a> und <a href="../en/Relation%20selected.md">Relation ausgewählt</a>.</p>
-<h4>Ausgewählte Objekte: Tags (Eigenschaften) bearbeiten</h4>
+<h4 id="ausgewählte-objekte-tags-eigenschaften-bearbeiten">Ausgewählte Objekte: Tags (Eigenschaften) bearbeiten</h4>
 <p>Ein zweites Antippen des Objekts öffnet den &quot;Tag-Editor&quot;, in dem die mit dem Objekt verknüpften Eigenschaften bearbeitet werden können.</p>
 <p>Hinweis: für sich überlappende Objekte (z. B. ein Punkt auf einem Weg) erscheint das Auswahlmenü ein weiteres Mal. Wählt man das schon ausgewählte Objekt nochmals, wird der Tag-Editor gestartet, wählt man ein anderes Objekt, so wird dieses ausgewählt.</p>
-<h4>Ausgewählte Objekte: Einen Knoten oder Weg verschieben</h4>
+<h4 id="ausgewählte-objekte-einen-knoten-oder-weg-verschieben">Ausgewählte Objekte: Einen Knoten oder Weg verschieben</h4>
 <p>Ist ein Objekt ausgewählt, kann es verschoben werden. Hinweis: Objekte können erst verschoben werden, nachdem sie ausgewählt wurden. Durch Ziehen an der Umgebung (d. h. innerhalb der Toleranzzone) des Objekts, kann es dann bewegt werden. In den Einstellungen lässt sich ein größerer Bereich rund um den markierten Knoten einschalten, der die Verschiebung eines Objekts erleichtert.</p>
-<h4>Hinzufügen eines Knotens/Punkts oder Weges</h4>
+<h4 id="hinzufügen-eines-knotenspunkts-oder-weges">Hinzufügen eines Knotens/Punkts oder Weges</h4>
 <p>Beim ersten Start der App ist der &quot;Einfache Modus&quot; aktiviert. Dies kann im Hauptmenü geändert werden, indem die entsprechende Auswahlbox deaktiviert wird.</p>
-<h5>Einfacher Modus</h5>
+<h5 id="einfacher-modus">Einfacher Modus</h5>
 <p>Drücken des großen grünen Knopfes auf dem Bildschirm zeigt ein Menü an. Nach der Auswahl eines Befehls wird man aufgefordert, auf dem Bildschirm die Position anzutippen, an der das Objekt erstellt werden soll. Verschieben und Zoomen funktionieren weiterhin, falls der Bildschirmausschnitt angepasst werden muss.</p>
 <p>Siehe <a href="Simple%20actions.md">Erstellen neuer Objekte im Einfach-Modus</a> für mehr Informationen. Der Einfach-Modus ist die Voreinstellung bei neuen Installationen.</p>
-<h5>Erweiterter Modus (Tippen und halten)</h5>
+<h5 id="erweiterter-modus-tippen-und-halten">Erweiterter Modus (Tippen und halten)</h5>
 <p>Durch langes Drücken an der Stelle, wo ein Knoten oder Weg erstellt werden soll, wird ein schwarzes &quot;Fadenkreuz&quot; angezeigt. * Wenn man einen neuen (nicht mit einem Objekt verbundenen) Knoten erstellen will, klickt man neben bereits vorhandene Objekte. * Soll ein vorhandener Weg erweitert werden, klickt man in die Toleranzzone des Weges (oder eines Knotens des Weges). Die Toleranzzone ist der Bereich um einen Knoten oder Weg herum.</p>
 <p>Sobald das Positionskreuz erscheint, gibt es die folgenden Möglichkeiten:</p>
 <ul>
@@ -87,18 +87,18 @@
 </ul>
 <p>Einfach den Bildschirm dort antippen, wo Wegpunkte ergänzt werden sollen. Den Endpunkt doppelt antippen, um den Weg fertigzustellen. Falls der Endpunkt auf einem anderen Weg oder Punkt liegt, wird er automatisch in diesen integriert.</p>
 <p>Man kann auch einen Menüpunkt dafür verwenden: Weitere Informationen dazu unter <a href="Creating%20new%20objects.md">Erstellen neuer Objekte</a>.</p>
-<h4>Flächen hinzufügen</h4>
+<h4 id="flächen-hinzufügen">Flächen hinzufügen</h4>
 <p>Aktuell hat OpenStreetMap keinen eigenen Objekttyp für Flächen im Gegensatz zu anderen Geo-Datensystemen. Der Online-Editor &quot;iD&quot; versucht, aus den zugrundeliegenden OSM-Elementen eine Abstraktion der Flächen zu erstellen, was in bestimmten Fällen gut, in anderen nicht richtig funktioniert. Vespucci versucht das in der vorliegenden Version nicht, deshalb hier einige Informationen dazu wie in OSM Flächen abgebildet werden:</p>
 <ul>
 <li><em>geschlossene Wege (*Polygone&quot;)</em>: die einfachste und häufigste Flächenvariante sind Wege, die einen gemeinsamen ersten und letzten Knoten haben, der einen geschlossenen &quot;Ring&quot; bildet (zum Beispiel sind die meisten Gebäude von diesem Typ). Diese sind in Vespucci sehr einfach zu erstellen, indem man einfach eine Verbindung zum ersten Knotenpunkt herstellt, wenn man mit dem Zeichnen der Fläche fertig ist. Hinweis: Die Interpretation des geschlossenen Weges hängt vom Tag ab: Wenn ein geschlossener Weg beispielsweise als Gebäude gekennzeichnet ist, wird er als Fläche interpretiert, wenn er als Kreisverkehr gekennzeichnet ist, nicht. In einigen Situationen, in denen beide Interpretationen gültig sein können, kann ein &quot;area&quot; Tag die vorgesehene Verwendung klären.</li>
 <li><em>Multipolygone</em>: Einige Flächen bestehen aus mehreren Teilstücken, Löchern und Ringen, die nicht mit nur einem Weg dargestellt werden können. OSM verwendet eine spezielle Art von Relation (unser Allzweckobjekt, das Beziehungen zwischen Elementen modellieren kann), um dies zu umgehen, ein Multipolygon. Ein Multipolygon kann mehrere &quot;äußere&quot; Ringe und mehrere &quot;innere&quot; Ringe haben. Jeder Ring kann entweder ein geschlossener Weg sein, wie oben beschrieben, oder mehrere individuelle Wege, die gemeinsame Endknoten haben. Während große Multipolygone mit jedem Werkzeug schwer zu handhaben sind, lassen sich kleine in Vespucci problemlos erstellen.</li>
 <li><em>Küstenlinien</em>: für sehr große Objekte, Kontinente und Inseln, funktioniert selbst das Multipolygon-Modell nicht zufriedenstellend. Für Küstenwege natural=coastline nehmen wir eine richtungsabhängige Semantik an: das Land ist auf der linken Seite des Weges, das Wasser auf der rechten Seite. Ein Nebeneffekt davon ist, dass man im Allgemeinen die Richtung eines Weges mit Küstenlinien-Tagging nicht umkehren sollte. Weitere Informationen hierzu im <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM Wiki</a>.</li>
 </ul>
-<h4>Die Geometrie eines Weges verbessern</h4>
+<h4 id="die-geometrie-eines-weges-verbessern">Die Geometrie eines Weges verbessern</h4>
 <p>Zoomt man genügend nah an ein ausgewähltes Wegsegment, wird ein kleines &quot;x&quot; sichtbar. Zieht man daran, wird ein Knoten im Weg erstellt. Hinweis: um das versehentliche Erstellen solcher Punkte zu verhindern, ist der empfindliche Bereich um das &quot;x&quot; ziemlich klein.</p>
-<h4>Kopieren, Ausschneiden &amp; Einfügen</h4>
+<h4 id="kopieren-ausschneiden-einfügen">Kopieren, Ausschneiden &amp; Einfügen</h4>
 <p>Sie können ausgewählte Knoten und Wege kopieren und dann einmal oder mehrmals an einer neuen Stelle einfügen. Beim Ausschneiden bleiben die Osm-ID und die Version erhalten, so dass sie nur einmal eingefügt werden können. Zum Einfügen drücken Sie lange auf die Stelle, an der Sie einfügen möchten (Sie sehen ein Fadenkreuz, das die Stelle markiert). Wählen Sie dann „Einfügen“ aus dem Menü.</p>
-<h4>Effizient Adressen eintragen</h4>
+<h4 id="effizient-adressen-eintragen">Effizient Adressen eintragen</h4>
 <p>Vespucci unterstützt Funktionen, die die Erfassung von Adressen effizienter machen, indem sie Hausnummern vorhersagen (linke und rechte Straßenseite getrennt) und automatisch <em>addr:street</em> oder <em>addr:place</em> Tags auf Grundlage vom zuletzt verwendeten Wert und der Nähe hinzufügen. Im besten Fall ermöglicht dies das Hinzufügen einer Adresse, ohne dass überhaupt etwas eingegeben werden muss.</p>
 <p>Das Hinzufügen der Tags kann durch Drücken von <img src="../images/address.png" alt="Adresse" /> ausgelöst werden:</p>
 <ul>
@@ -109,7 +109,7 @@
 <p>Um einzelne Adressknoten im voreingestellten &quot;Einfachen Modus&quot; direkt hinzuzufügen, wechseln Sie in den Bearbeitungsmodus &quot;Adresse&quot; (drücken Sie lange auf die Schlosstaste), &quot;Adressknoten hinzufügen&quot; fügt dann an der Position einen Adressknoten und, wenn dieser sich auf einer Gebäudekontur befindet, auch ein Tag für den Eingang hinzu, wie oben beschrieben.</p>
 <p>Die Hausnummernvorhersage benötigt typischerweise mindestens die Eingabe von je 2 Hausnummern auf jeder Seite der Straße, je mehr Nummern in den Daten vorhanden sind desto besser funktioniert die Vorhersage.</p>
 <p>Diese Funktion kann mit einem der <a href="#download">Auto-Download</a> Modi verwendet werden.</p>
-<h4>Abbiegebeschränkungen eintragen</h4>
+<h4 id="abbiegebeschränkungen-eintragen">Abbiegebeschränkungen eintragen</h4>
 <p>Vespucci erlaubt es schnell Abbiegebeschränkungen hinzuzufügen. Falls dazu Wege aufgetrennt werden müssen, geschieht dies automatisch und gegebenenfalls wird der Benutzer aufgefordert, die Elemente neu auszuwählen.</p>
 <ul>
 <li>einen Weg mit einem Straßen-Tag (&quot;highway&quot;) auswählen (Abbiegebeschränkungen können nur für solche Wege erstellt werden, für andere Wege kann dies mit der allgemeineren Funktion &quot;Relation erstellen&quot; gemacht werden)</li>
@@ -118,33 +118,33 @@
 <li>den Zielweg (&quot;to&quot;) auswählen (es ist auch möglich den ursprünglichen &quot;from&quot; Weg auszuwählen. Vespucci nimmt dann an, dass eine &quot;no_u_turn&quot; Beschränkung erstellt werden soll)</li>
 <li>den Typ der Abbiegebeschränkung festlegen</li>
 </ul>
-<h3>Vespucci im &quot;gesperrten&quot; Modus</h3>
+<h3 id="vespucci-im-gesperrten-modus">Vespucci im &quot;gesperrten&quot; Modus</h3>
 <p>Während Vespucci &quot;gesperrt&quot; ist, sind alle Funktionen verfügbar, die nicht die Geometrie oder Eigenschaften von Objekten verändern. Zusätzlich können nach einem langen Druck auf oder neben ein Objekt dessen Detailinformationen angezeigt werden, wenn es sich um ein OSM-Objekt handelt.</p>
-<h3>Die Bearbeitungen abspeichern</h3>
+<h3 id="die-bearbeitungen-abspeichern">Die Bearbeitungen abspeichern</h3>
 <p>*(benötigt Netzwerkzugang)</p>
 <p>Über denselben Knopf oder Menüeintrag, der für das Herunterladen verwendet wurde, kann &quot;Daten zum OSM-Server hochladen&quot; ausgewählt werden.</p>
 <p>Vespucci unterstützt OAuth 2, OAuth 1.0a Autorisierung und die klassische Methode mit Benutzername und Passwort. Seit dem 1. Juli 2024 unterstützt die Standard-OpenStreetMap-API nur noch OAuth 2, und andere Methoden sind nur noch bei privaten Installationen der API oder bei anderen Projekten verfügbar, die OSM-Software weiterverwendet haben.</p>
 <p>Um Vespucci zu autorisieren, in Ihrem Namen auf Ihr Konto zuzugreifen, müssen Sie sich einmalig mit Ihrem Anzeigenamen und Passwort anmelden. Wenn Ihre Vespucci-Installation nicht autorisiert ist und Sie versuchen, geänderte Daten hochzuladen, werden Sie aufgefordert, sich auf der OSM-Website einzuloggen (über eine verschlüsselte Verbindung). Nachdem Sie sich eingeloggt haben, werden Sie aufgefordert, Vespucci für die Bearbeitung mit Ihrem Konto zu autorisieren. Wenn Sie den OAuth-Zugriff auf Ihr Konto vor der Bearbeitung autorisieren wollen oder müssen, gibt es einen entsprechenden Punkt im Menü „Tools“.</p>
 <p>Übersetzt mit DeepL.com (kostenlose Version)</p>
 <p>Sollen die Änderungen gespeichert werden und es ist kein Internetzugang verfügbar, können sie in einer mit JOSM kompatiblen .osm-Datei gespeichert werden und später entweder mit Vespucci oder mit JOSM hochgeladen werden.</p>
-<h4>Konfliktbehebung beim Upload</h4>
+<h4 id="konfliktbehebung-beim-upload">Konfliktbehebung beim Upload</h4>
 <p>Vespucci hat einen einfachen Konfliktbehebungsmechanismus eingebaut. Sind größere Probleme mit den Änderungen zu erwarten, empfehlen wir, sie in eine .osc-Datei zu speichern (&quot;Transfer&quot; Menü, &quot;Datei...,&quot;  &quot;Änderungen exportieren&quot;) und die Konflikte dann mit JOSM zu beheben. Für Details siehe Hilfetext zur <a href="../en/Conflict%20resolution.md">Konfliktauflösung</a>.</p>
-<h3>Anzeige eines nahegelegenen Point-of-Interest</h3>
+<h3 id="anzeige-eines-nahegelegenen-point-of-interest">Anzeige eines nahegelegenen Point-of-Interest</h3>
 <p>Ein nahegelegenes Point-of-Interest-Display kann angezeigt werden, indem der Griff in der Mitte und oben in der unteren Menüleiste nach oben gezogen wird.</p>
 <p>Weitere Informationen zu dieser und anderen verfügbaren Funktionen der Hauptanzeige finden Sie hier <a href="Main%20map%display.md">Hauptkartenanzeige</a>.</p>
-<h2>Nutzung von GPS und GPX-Tracks</h2>
+<h2 id="nutzung-von-gps-und-gpx-tracks">Nutzung von GPS und GPX-Tracks</h2>
 <p>Mit Standardeinstellungen wird Vespucci versuchen, das GPS (und andere satellitenbasierte Navigstionssysteme) zu aktivieren, und, falls dies nicht möglich ist, auf die Positionsbestimmung über den sogenannten &quot;Netzwerkstandort&quot; zurückgreifen. Dieses Verhalten lässt vermuten, dass Sie für den normalen Gebrauch Ihr Android-Gerät selbst so konfiguriert haben, dass es nur GPX-generierte Standorte verwenden soll (um Tracking zu vermeiden), das heißt, Sie haben die euphemistisch mit &quot;Verbesserte Standortgenauigkeit&quot; bezeichnete Option ausgeschaltet. Wenn Sie die Option aktivieren möchten aber Vespucci daran hindern wollen, auf den &quot;Netzwerkstandort&quot; zurückzugreifen, sollten Sie die dazugehörige Option in den <a href="Advanced%20preferences.md">Erweiterten Einstellungen</a> ausschalten.</p>
 <p>Durch Berühren der Schaltfläche <img src="../images/menu_gps.png" alt="GPS" /> (normalerweise auf der linken Seite der Kartenanzeige) wird der Bildschirm auf die aktuelle Position zentriert, und wenn Sie sich bewegen, wird die Kartenanzeige geschwenkt, um dies beizubehalten. Wenn Sie den Bildschirm manuell verschieben oder bearbeiten, wird der Modus „GPS folgen“ deaktiviert und der blaue GPS-Pfeil ändert sich von einem Umriss zu einem ausgefüllten Pfeil. Um schnell zum „Follow“-Modus zurückzukehren, berühren Sie einfach die GPS-Taste oder aktivieren Sie die entsprechende Menüoption erneut. Wenn das Gerät keinen aktuellen Standort hat, wird die Standortmarkierung/der Pfeil schwarz angezeigt, wenn ein aktueller Standort verfügbar ist, ist die Markierung blau.</p>
 <p>Um einen GPX-Track aufzuzeichnen und auf Ihrem Gerät anzuzeigen, wählen Sie &quot;GPX-Track starten&quot; im Menü <img src="../images/menu_gps.png" alt="GPS" />. Dies fügt der Anzeige einen Layer mit dem aktuell aufgezeichneten Track hinzu. Sie können den Track über den Eintrag in der <a href="Main%20map%20display.md">Ebenenkontrolle</a> hochladen und exportieren. Weitere Ebenen können aus lokalen GPX-Dateien und von heruntergeladenen Tracks der OSM-API hinzugefügt werden.</p>
 <p>Hinweis: Vespucci zeichnet standardmäßig keine Höhendaten mit Ihrem GPX-Track auf, dies ist auf einige Android-spezifische Probleme zurückzuführen. Um die Höhenaufzeichnung zu aktivieren, installieren Sie entweder ein Gravitationsmodell oder, einfacher, gehen Sie zu den <a href="Advanced%20preferences.md">Erweiterten Voreinstellungen</a> und konfigurieren Sie den NMEA-Eingang.</p>
-<h3>Wie exportiert man einen GPX-Track?</h3>
+<h3 id="wie-exportiert-man-einen-gpx-track">Wie exportiert man einen GPX-Track?</h3>
 <p>Öffnen Sie das Ebenenmenü, klicken Sie dann auf das 3-Punkte-Menü neben „GPX-Aufzeichnung“ und wählen Sie <strong>GPX-Track exportieren...</strong>. Wählen Sie aus, in welchen Ordner Sie den Track exportieren möchten, und geben Sie ihm einen Namen mit der Endung <code>.gpx</code> (Beispiel: MeinTrack.gpx).</p>
-<h2>Notizen, Bugs und Todos</h2>
+<h2 id="notizen-bugs-und-todos">Notizen, Bugs und Todos</h2>
 <p>Vespucci unterstützt das Herunterladen, Kommentieren und Schließen von OSM-Notizen (vormals OSM Bugs) und die entsprechende Funktionalität für &quot;Fehler&quot; die vom <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE Qualitätssicherungswerkzeug</a> gemeldet werden. Beide müssen entweder explizit heruntergeladen werden oder die Notizen und Fehler in der Nähe können automatisch geladen werden. Geänderte oder geschlossene Notizen und Fehler können entweder sofort hochgeladen werden oder gespeichert und alle zusammen später hochgeladen werden.</p>
 <p>Außerdem unterstützen wir „Todos“, die entweder aus OSM-Elementen, aus einer GeoJSON-Ebene oder extern in Vespucci erstellt werden können. Diese bieten eine bequeme Möglichkeit, den Überblick über die Arbeit zu behalten, die Sie erledigen möchten.</p>
 <p>Auf der Karte werden die Notizen und Fehler durch ein kleines Fehlersymbol <img src="../images/bug_open.png" alt="Bug" /> dargestellt, grüne sind geschlossen/gelöst, blaue wurden von Ihnen erstellt oder bearbeitet, und gelb zeigt an, dass sie noch aktiv sind und nicht geändert wurden. Todos verwenden ein gelbes Kästchensymbol.</p>
 <p>Die OSMOSE-Fehler- und Todos-Anzeige zeigt einen blauen Link zu dem betroffenen Element an (im Fall von Todos nur, wenn ein OSM-Element damit verknüpft ist); durch Berühren des Links wird das Objekt ausgewählt, der Bildschirm darauf zentriert und der Bereich gegebenenfalls vorher heruntergeladen.</p>
-<h3>Anzeigefilter</h3>
+<h3 id="anzeigefilter">Anzeigefilter</h3>
 <p>Zusätzlich zum Freischalten der Notiz- und Fehleranzeige kann eine grobe Auswahl der angezeigten Objekte eingestellt werden. In den &quot;Erweiterten Einstellungen&quot; kann folgendes ausgewählt werden:</p>
 <ul>
 <li>Anmerkungen</li>
@@ -155,17 +155,17 @@
 <li>Todo</li>
 </ul>
 <p><a id="indoor"></a></p>
-<h2>Innenraum-Modus</h2>
+<h2 id="innenraum-modus">Innenraum-Modus</h2>
 <p>In Innenräumen Daten zu erfassen ist anspruchsvoll aufgrund der grossen Anzahl von Objekten, die sich häufig überlappen. Vespucci hat einen speziellen Innenraum-Modus, der es ermöglicht, alle Objekte, die nicht auf der gleichen Etage sind, auszufiltern, und der bei neu erstellten Objekten automatisch die richtige Etage in den Objekteigenschaften einträgt.</p>
 <p>In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werden, siehe auch <a href="#lock">Sperren, entsperren, Modus wechseln</a>.</p>
 <p><a id="c-mode"></a></p>
-<h2>C-Modus</h2>
+<h2 id="c-modus">C-Modus</h2>
 <p>Im C-Modus werden nur Objekte angezeigt, die ein Problem haben, was das Finden von Objekten, die spezifische Probleme haben oder zu  konfigurierbaren Qualitätsprüfungen passen, erleichtert. Wird ein solches Objekt angewählt, startet der Eigenschaftseditor und die am besten passende Vorlage wird automatisch angewandt.</p>
 <p>In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werden, siehe auch <a href="#lock">Sperren, entsperren, Modus wechseln</a>.</p>
-<h3>Prüfungen konfigurieren</h3>
+<h3 id="prüfungen-konfigurieren">Prüfungen konfigurieren</h3>
 <p>Alle Validierungen können unter &quot;Validator Einstellungen/Aktivierte Validierungen&quot; in den <a href="Preferences.md">preferences</a> deaktiviert/aktiviert werden.</p>
 <p>In der Konfiguration für „Re-survey“-Einträge können Sie eine Zeit festlegen, nach der eine Tag-Kombination erneut erfasst werden soll. „Check&quot;-Einträge sind Markierungen, die auf Objekten vorhanden sein sollten, wie durch übereinstimmende Voreinstellungen bestimmt. Einträge können durch Anklicken bearbeitet werden, die grüne Menüschaltfläche ermöglicht das Hinzufügen von Einträgen.</p>
-<h4>Einträge für Elemente die überprüft werden sollten</h4>
+<h4 id="einträge-für-elemente-die-überprüft-werden-sollten">Einträge für Elemente die überprüft werden sollten</h4>
 <p>Überprüfungstest-Einträge haben die folgenden Eigenschaften:</p>
 <ul>
 <li><strong>Schlüssel</strong> - Schlüssel des Tags.</li>
@@ -175,22 +175,22 @@
 </ul>
 <p>&quot;Schlüssel&quot; und &quot;Wert&quot; werden mit den <em>existierenden</em> Tags des Objektes verglichen.</p>
 <p>Die <em>Annotations</em>-Gruppe in der Standard-Vorbelegung beinhaltet ein Element, das automatisch einen &quot;<em>check_date</em>&quot;-Tag mit dem aktuellen Datum hinzufügen wird.</p>
-<h4>Tests auf fehlende Tags</h4>
+<h4 id="tests-auf-fehlende-tags">Tests auf fehlende Tags</h4>
 <p>Prüfungen auf fehlende Tag-Einträge haben die folgenden zwei Eigenschaften:</p>
 <ul>
 <li><strong>Schlüssel</strong> - Schlüssel, der gemäß der passenden Vorlage auf dem Objekt vorhanden sein sollte.</li>
 <li><strong>Optional anfordern</strong> - Den Schlüssel auch dann anfordern, wenn er nur als optionaler Schlüssel in der passenden Vorlage enthalten ist.</li>
 </ul>
 <p>Diese Prüfung funktioniert, indem zuerst die zugehörige Voreinstellung bestimmt und dann geprüft wird, ob <strong>Schlüssel</strong> ein gemäß den Voreinstellungen &quot;empfohlener&quot; Schlüssel für dieses Objekt ist. **<strong>Optional erforderlich</strong> erweitert die Prüfung auf Tags, die &quot;optional&quot; für das Objekt sind. Hinweis: aktuell verlinkte Vorlagen werden nicht geprüft.</p>
-<h2>Filter</h2>
-<h3>Auf Tags basierende Filter</h3>
+<h2 id="filter">Filter</h2>
+<h3 id="auf-tags-basierende-filter">Auf Tags basierende Filter</h3>
 <p>Der Filter kann vom Hauptmenü aus eingeschaltet werden, durch Tippen auf die Filter-Schaltfläche kann er dann bearbeitet werden. Mehr Informationen findet man unter <a href="../en/Tag%20filter.md">Tag-Filter</a>.</p>
-<h3>Auf Vorlagen basierende Filter</h3>
+<h3 id="auf-vorlagen-basierende-filter">Auf Vorlagen basierende Filter</h3>
 <p>Eine Alternative zu obigem. Objekte werden entweder durch Einzelvorlagen oder Vorlagengruppen gefiltert. Nach einem Tipp auf die Filter-Schaltfläche wird ein Dialog zur  Vorlagenauswahl angezeigt, ähnlich wie er an anderer Stelle in Vespucci benutzt wird. Einzelne Vorlagen können durch einen normalen Klick ausgewählt werden, Vorlagengruppen durch einen langen Klick (normaler Klick öffnet die Gruppe). Mehr Informationen unter <a href="../en/Preset%20filter.md">Vorlagenfilter</a>.</p>
-<h2>Vespucci individuell anpassen</h2>
+<h2 id="vespucci-individuell-anpassen">Vespucci individuell anpassen</h2>
 <p>Viele Gesichtspunkte der App können angepasst werden. Wenn man nach etwas Bestimmtem sucht und es nicht findet, ist die <a href="https://vespucci.io/">Vespucci-Website</a> durchsuchbar und enthält zusätzliche Informationen, was auf dem Gerät möglich ist.</p>
 <p><a id="layers"></a></p>
-<h3>Ebeneneigenschaften</h3>
+<h3 id="ebeneneigenschaften">Ebeneneigenschaften</h3>
 <p>Die Ebeneneigenschaften können über den Ebenen-Schalter (obere rechte Ecke) geändert werden, alle anderen Festlegungen sind über die Einstellungen im Hauptmenü zugänglich.</p>
 <p>Verfügbare Ebenen:</p>
 <ul>
@@ -205,7 +205,7 @@
 <li>Gitter – zeigt eine Skala entlang der Kartenränder oder ein Gitter an. Standard: ein.</li>
 </ul>
 <p>Mehr Informationen sind in der Karte verfügbar <a href="Main%20map%20display.md">map display</a>.</p>
-<h4>Einstellungen</h4>
+<h4 id="einstellungen">Einstellungen</h4>
 <ul>
 <li>Bildschirm eingeschaltet lassen. Standard: aus.</li>
 <li>Große Knoten-Verschiebefläche. Das Bewegen von Knoten auf einem Gerät mit Touchscreen ist problematisch, da die Finger die aktuelle Position auf dem Display verdecken. Nach Einschalten dieser Funktion steht eine größere Fläche rund um den Knoten zur Verfügung, an der er außerhalb der Mitte angefasst und gezogen werden kann (Die Objektauswahl und andere Operationen verwenden weiterhin den normalen Toleranzbereich für Berührungen). Standard: aus.</li>
@@ -219,7 +219,7 @@
 <li>Helles Design aktivieren. Auf modernen Geräten ist dies standardmäßig aktiviert. Während Du es auch für ältere Android-Versionen aktivieren kannst, ist der Stil möglicherweise uneinheitlich.</li>
 </ul>
 <p>Die vollständige Beschreibung findet man hier <a href="Advanced%20Preferences.md">Erweiterte Einstellungen</a></p>
-<h2>Melden und Lösen von Problemen</h2>
+<h2 id="melden-und-lösen-von-problemen">Melden und Lösen von Problemen</h2>
 <p>Wenn Vespucci abstürzt oder einen internen Fehler feststellt, fordert die App dazu auf einen Fehlerbericht einzusenden. Dies sollte man in diesen Fällen tun, aber bitte nur ein Mal für jede spezifische Situation. Will man Informationen ergänzen, eine Funktion vorschlagen oder Ähnliches, kann das hier geschehen: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci-Fehlerberichte</a>. Der &quot;Informationen zur Problembehebung&quot;-Button im Debug-Menü erstellt einen neuen Fehlerbericht und fügt die relevanten App- und Geräteinformationen hinzu - ohne extra Tipparbeit.</p>
 <p>Wenn du Schwierigkeiten hast, die App nach einem Absturz zu starten, kannst du versuchen, sie im <em>Sicheren Modus</em> zu öffnen, sofern dein Gerät Shortcuts unterstützt: Halte das App-Symbol lange gedrückt und wähle dann <em>Sicherer Modus</em> aus dem Menü.</p>
 <p>Wenn du etwas im Zusammenhang mit Vespucci besprechen möchtest, kannst du eine Diskussion im <a href="https://community.openstreetmap.org">OpenStreetMap-Forum</a> starten.</p>

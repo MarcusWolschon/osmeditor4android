@@ -23,6 +23,7 @@
   <string name="upload_conflict_message_version">Conflit de version</string>
   <string name="upload_conflict_message_deleted">%1$s \na pour version locale %2$d \net a été supprimé du serveur</string>
   <string name="upload_conflict_message_referential">Élément supprimé localement mais disposant de références sur le serveur.</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \na déjà été supprimé sur le serveur, réessayez</string>
   <string name="upload_conflict_message_missing_references">Des éléments locaux font référence à des objets supprimés sur le serveur</string>
   <string name="upload_conflict_message_unknown">%1$s \na causé un conflit de chargement \n%2$s</string>
   <string name="upload_conflict_message_changeset_closed">Groupe de modifications fermé inopinément, nouvel essai</string>
@@ -30,9 +31,15 @@
   <string name="local_object">Version locale</string>
   <string name="resolve_by">Résoudre le conflit en…</string>
   <string name="resolve">Résoudre</string>
+  <string name="delete_refering_element">… en supprimant l’élément de référence</string>
   <string name="use_local_version">... en utilisant la version locale</string>
+  <string name="merge_tags_in_to_local">… fusionner les attributs dans la version locale</string>
+  <string name="merge_tags_in_to_server">… fusionner les attributs dans la version serveur</string>
   <string name="use_server_version">... en utilisant la version du serveur</string>
+  <string name="undoing_local_delete">… annuler la suppression locale</string>
   <string name="deleting_references_on_server">... en supprimant les références sur le serveur</string>
+  <string name="unable_to_download_referring_element">Impossible de télécharger l\'élément de référence %1$s %2$d</string>
+  <string name="unable_to_download_referring_element_for_deletion">Impossible de télécharger l\'élément de référence pour suppression %1$s %2$d</string>
   <string name="unable_to_download_server_version">Impossible de télécharger la version du serveur %1$s%2$d</string>
   <string name="delete_locally">Supprimer\nlocalement</string>
   <!--Upload retry-->
@@ -307,7 +314,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="duplicate_route_segment_button">Ajouter quand même</string>
   <!--Duplicate relation element dialog-->
   <string name="duplicate_relation_member_title">Ajouter un membre de la relation</string>
-  <string name="duplicate_relation_member_message">Cet élément est déjà un membre de la relation.</string>
   <string name="duplicate_relation_member_remove_button">Supprimer un membre</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Changer les tags des chemins extérieurs au multi-polygone</string>
@@ -1047,7 +1053,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Aller au Début ou à la Fin du Chemin</string>
   <string name="menu_history">Historique</string>

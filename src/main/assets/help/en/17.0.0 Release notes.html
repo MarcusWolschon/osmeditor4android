@@ -5,17 +5,17 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 17.0 Highlights</h1>
+<h1 id="vespucci-170-highlights">Vespucci 17.0 Highlights</h1>
 <p>2022-01-28</p>
-<h3>Improved key handling and new OAuth 1.0a keys</h3>
+<h3 id="improved-key-handling-and-new-oauth-10a-keys">Improved key handling and new OAuth 1.0a keys</h3>
 <p>This release consolidates nearly all key handling and provides a facility to load your own keys from a file, be it for additional OSM API instances or to add api keys for imagery providers.</p>
 <p>As a further change we have added new client keys for Vespucci that are different from the ones distributed with the source code. This means you will have to re-authorize the app either on the first upload or manually via the function in the <em>Tools</em> menu (spanner button) if you are using our official release and not a build from a third party or yourself. The new authorisation entry in your OpenStreetMap account will identify as <em>Vespucci 2022</em></p>
-<h3>Improved relation handling when splitting ways</h3>
+<h3 id="improved-relation-handling-when-splitting-ways">Improved relation handling when splitting ways</h3>
 <p>This release adds further functionality to the relation handling when splitting ways. Prior releases did this correctly when at least one neighbouring relation member was present and the relation was ordered, but did not warn if this prerequisite was not fulfilled.</p>
 <p>Now you will get a choice of downloading missing relation members before splitting a way and, if that was not possible, a warning indicating which relations were potentially affected by the splitting.</p>
-<h3>Support for deprecated tags, roles and values in presets</h3>
+<h3 id="support-for-deprecated-tags-roles-and-values-in-presets">Support for deprecated tags, roles and values in presets</h3>
 <p>Support for indicating deprecated tags, roles and list_entry values in presets has been added. Just as with complete preset items if the <em>deprecated</em> attribute is set they will not be actively offered as a choce, but will be visible and using for matching if already present.</p>
-<h3>Usability improvements property editor</h3>
+<h3 id="usability-improvements-property-editor">Usability improvements property editor</h3>
 <p>As a first step in improving the property editor that will continue over the next couple of releases we have:</p>
 <ul>
 <li>improved the performance and memory use of the members tab for relations. Displaying and editing multiple 1000s of members should be no problem now. Note however that at roughly 20'000 members the fixed size Android internal rpc buffer will be too small and editing the relation will fail. One of the planned future changes is to rework how parameters are passed to the property editor to avoid this limitation.</li>
@@ -23,16 +23,16 @@
 <li>In the <em>Details</em> tab the width of the dropdown for the values has been increased.</li>
 <li>The most recently used values will only be added for longer lists for which having them at the top is actually useful. If MRU values are added, a thin ruler will indicate where the regular values start.</li>
 </ul>
-<h3>Way creation and appending modes changes</h3>
+<h3 id="way-creation-and-appending-modes-changes">Way creation and appending modes changes</h3>
 <p>Due to an oversight it was possible to drag a way while adding nodes to it. As this cannot be handled conistently in the current undo framework it has been disabled for now. For more infomation see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/1493">multi-level undo</a>.</p>
 <p>Often it would be easier to create new ways without newly added nodes snapping to exist nodes or ways. This release adds a toggle in the mode that will change the behaviour on the fly.</p>
 <p>Note: if you are creating a closed way you will need to either enable the snapping mode or merge the last node manually.</p>
-<h3>Way intersection function</h3>
+<h3 id="way-intersection-function">Way intersection function</h3>
 <p>If two intersecting ways are selected in Multi-Select mode you can now add a new node at the intersection. If there are multiple intersections only one will be created per operation.</p>
-<h3>Additional valdiations and upload dialog changes</h3>
+<h3 id="additional-valdiations-and-upload-dialog-changes">Additional valdiations and upload dialog changes</h3>
 <p>This release adds detection of untagged orphan nodes, missing required relation member roles (for example missing <em>outer</em> and <em>inner</em> rols on multi polygon members), and relation loops. As detecting these condiditions can be quite expensive they are only run when you decide to upload. Highlighting of the issues will remain if you exit the upload dialog, but will vanish if you then edit the object.</p>
 <p>To make the review of objects pre-upload easier they are now sorted at the top of the upload dialog.</p>
-<h3>Updated voice input support (experimental)</h3>
+<h3 id="updated-voice-input-support-experimental">Updated voice input support (experimental)</h3>
 <p>The support of voice input has been simplified and moved to an editing mode.</p>
 <p>To activate:</p>
 <ul>
@@ -46,7 +46,7 @@
 </ul>
 <p>The previous existing support for adding addresses via voice input of the house number is currently not supported.</p>
 <p>The purpose of this functionality is to explore how future support of alternative input source should work, ideas and feedback is welcome.</p>
-<h2>Miscellaneous</h2>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Add refactor GPX and OSC exports to use a normal file selector</li>
 <li>Add support for task autoprune</li>
@@ -58,11 +58,11 @@
 <li>Add ElementHistoryDialog from 2021 GSOC project</li>
 <li>Fix MapRoulette key management</li>
 </ul>
-<h1>Upgrading from previous versions</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
 <li>As the saved state file has changed you should upload any pending changes before updating.</li>
 </ul>
-<h1>Known problems</h1>
+<h1 id="known-problems">Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
