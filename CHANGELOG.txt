@@ -1,5 +1,21 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.0.4:
+
+- Fix selection after operation has been aborted for more action modes
+- Fix show a warning if there is no prior state available in element info
+- Fix ignore oneway=no when reversing a way
+- Fix de-compress gzip compressed tiles for display in the tile test modal
+- Fix expandable-layout dependency issue
+- Fix error in StyleableFileLayer.hasStateFile
+- Fix re-factor GPX parser to accumulate strings correctly
+- Fix support anchors properly in HelpViewer
+- Update default preset
+- Update imagery from ELI
+- Update translations
+- Update area tags
+- Update NSI
+
 21.0.3:
 
 - Fix show a persisted error message if saving a custom preset fails
