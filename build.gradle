@@ -19,7 +19,7 @@ buildscript {
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.6'
         classpath 'org.jacoco:org.jacoco.core:0.8.9'
         classpath "ch.poole:preset-utils:0.26.0"
-        classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
+        classpath 'ch.poole.misc:gradle-eclipse-aar-plugin:0.1.0'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.1'
         classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.9.0'
