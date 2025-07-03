@@ -493,6 +493,8 @@
         <item name="colorPrimary">@color/md_theme_dark_primary_highContrast</item>
         <item name="colorSecondary">@color/md_theme_dark_secondary_highContrast</item>
         <item name="colorTertiary">@color/md_theme_dark_tertiary_highContrast</item>
+        <item name="colorSurface">@color/md_theme_dark_surface_highContrast</item>
+        <item name="colorOnSurface">@color/md_theme_dark_onSurface_highContrast</item>
         <item name="snack_info">@color/md_theme_dark_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/md_theme_dark_errorContainer_highContrast</item>
@@ -527,6 +529,8 @@
         <item name="colorPrimary">@color/md_theme_primary_highContrast</item>
         <item name="colorSecondary">@color/md_theme_secondary_highContrast</item>
         <item name="colorTertiary">@color/md_theme_tertiary_highContrast</item>
+        <item name="colorSurface">@color/md_theme_surface_highContrast</item>
+        <item name="colorOnSurface">@color/md_theme_onSurface_highContrast</item>
         <item name="snack_info">@color/md_theme_primaryContainer_highContrast</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/md_theme_errorContainer_highContrast</item>
