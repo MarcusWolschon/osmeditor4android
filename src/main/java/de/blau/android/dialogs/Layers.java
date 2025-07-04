@@ -123,6 +123,7 @@ import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoJson;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
@@ -196,7 +197,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         add.setOnClickListener(v -> {
             final FragmentActivity activity = getActivity();
             final Preferences prefs = App.getLogic().getPrefs();
-            PopupMenu popup = new PopupMenu(getActivity(), add);
+            PopupMenu popup = new InsetAwarePopupMenu(getActivity(), add);
             final Map map = App.getLogic().getMap();
 
             // menu items for adding layers
@@ -927,7 +928,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         @Override
         public void onClick(View arg0) {
             final FragmentActivity activity = getActivity();
-            PopupMenu popup = new PopupMenu(activity, button);
+            PopupMenu popup = new InsetAwarePopupMenu(activity, button);
             Menu menu = popup.getMenu();
             final Map map = App.getLogic().getMap();
 

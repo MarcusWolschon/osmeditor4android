@@ -25,6 +25,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.ViewPagerAdapter;
 import de.blau.android.filter.Filter;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.ExtendedViewPager;
 
@@ -75,7 +76,7 @@ public class ValidatorRulesUI {
         });
         final FloatingActionButton fab = (FloatingActionButton) rulesetView.findViewById(R.id.add);
         fab.setOnClickListener(v -> {
-            PopupMenu popup = new PopupMenu(context, fab);
+            PopupMenu popup = new InsetAwarePopupMenu(context, fab);
 
             // menu items for adding rules
             MenuItem addResurveyEntry = popup.getMenu().add(R.string.add_resurvey_entry);
