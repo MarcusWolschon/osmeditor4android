@@ -55,6 +55,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.InfoDialogFragment;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
@@ -386,7 +387,7 @@ public class UploadConflict extends CancelableDialogFragment {
                     return;
                 }
                 neutral.setOnClickListener((View v) -> {
-                    PopupMenu popup = new PopupMenu(getActivity(), neutral);
+                    PopupMenu popup = new InsetAwarePopupMenu(getActivity(), neutral);
                     for (Entry<String, Runnable> action : resolveActions.entrySet()) {
                         MenuItem item = popup.getMenu().add(action.getKey());
                         item.setOnMenuItemClickListener(unused -> {
