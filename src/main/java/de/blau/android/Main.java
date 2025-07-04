@@ -86,7 +86,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.view.MenuCompat;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -193,6 +192,7 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.GeoUriData;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.LatLon;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
@@ -490,7 +490,7 @@ public class Main extends ConfigurationChangeAwareActivity
         int layout = R.layout.main;
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customMain_Light);
-        } 
+        }
 
         super.onCreate(savedInstanceState);
 
@@ -505,7 +505,7 @@ public class Main extends ConfigurationChangeAwareActivity
         }
 
         LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(layout, null);
-        
+
         ViewGroupCompat.installCompatInsetsDispatch(ml);
 
         mapLayout = (RelativeLayout) ml.findViewById(R.id.mainMap);
@@ -1722,7 +1722,7 @@ public class Main extends ConfigurationChangeAwareActivity
 
             Mode m = l.getMode();
 
-            PopupMenu popup = new PopupMenu(Main.this, lock);
+            PopupMenu popup = new InsetAwarePopupMenu(Main.this, lock);
 
             // per mode menu items
             List<Mode> allModes = new ArrayList<>(Arrays.asList(Mode.values()));
