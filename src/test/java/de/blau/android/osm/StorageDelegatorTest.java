@@ -462,7 +462,7 @@ public class StorageDelegatorTest {
         rm = r.getMember(w);
         assertNull(rm);
     }
-    
+
     /**
      * Merge some data into empty delegator to make sure that backlinks are re-created properly
      */
@@ -485,7 +485,7 @@ public class StorageDelegatorTest {
         } catch (DataConflictException e) {
             fail(e.getMessage());
         }
-        
+
         Way w = (Way) d.getOsmElement(Way.NAME, 353593072L);
         assertNotNull(w);
         Relation r = (Relation) d.getOsmElement(Relation.NAME, 19172024L);
@@ -860,6 +860,52 @@ public class StorageDelegatorTest {
         assertEquals(2, result.size());
         assertEquals(1, result.get(1).getIssues().size());
         assertTrue(result.get(1).getIssues().contains(MergeIssue.ROLECONFLICT));
+    }
+
+    /**
+     * Way with doubled-backed end
+     * 
+     * Node numbering is relevant
+     * 
+     * See https://github.com/MarcusWolschon/osmeditor4android/issues/2907#issuecomment-3044160080
+     */
+    @Test
+    public void mergeNodes7() {
+        // StorageDelegator d = new StorageDelegator();
+        // // create two ways with common node
+        // Way w = DelegatorUtil.addWayToStorage(d, false);
+        // List<Node> nodes = w.getNodes();
+        // for (int i = 0; i < w.nodeCount(); i++) { // use proper ids!
+        // nodes.get(i).setOsmId(i);
+        // }
+        // d.getCurrentStorage().rehash();
+
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "node-merge-test.osm");
+        Way w = (Way) d.getOsmElement(Way.NAME, 4307255231L);
+        assertNotNull(w);
+        assertEquals(4, w.nodeCount());
+        List<Node> nodes = w.getNodes();
+        Node lastNode = w.getLastNode();
+
+        Node secondLastNode = nodes.get(w.nodeCount() - 2);
+
+        // assertNotEquals(secondLastNode, lastNode);
+        // w.addNode(secondLastNode);
+        // d.insertElementSafe(w);
+        // assertEquals(5, w.nodeCount());
+        for (Node n : w.getNodes()) {
+            System.out.println(n.getDescription(false));
+        }
+
+        MergeAction action = new MergeAction(d, lastNode, secondLastNode, true, null);
+        List<Result> result = action.mergeNodes();
+        for (Node n : w.getNodes()) {
+            System.out.println(n.getDescription(false));
+        }
+        assertEquals(2, w.nodeCount());
+        assertEquals(1, result.size());
+        assertEquals(lastNode, w.getLastNode());
+        assertNotEquals(lastNode, w.getNodes().get(w.nodeCount() - 2));
     }
 
     /**
