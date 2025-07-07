@@ -337,11 +337,12 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
             nodes.set(idx, newNode);
             // check for duplicates
             if (idx > 0 && nodes.get(idx - 1).equals(newNode)) {
-                Log.i(DEBUG_TAG, "replaceNode node would duplicate preceeding node");
+                Log.w(DEBUG_TAG, "replaceNode node would duplicate preceeding node");
                 nodes.remove(idx);
+                idx = idx - 1; // correct index for following check
             }
             if (idx >= 0 && idx < nodes.size() - 1 && nodes.get(idx + 1).equals(newNode)) {
-                Log.i(DEBUG_TAG, "replaceNode node would duplicate following node");
+                Log.w(DEBUG_TAG, "replaceNode node would duplicate following node");
                 nodes.remove(idx);
             }
         }
