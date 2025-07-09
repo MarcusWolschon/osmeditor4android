@@ -88,7 +88,7 @@
         parent="@style/Theme.AppCompat">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- -->
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <!-- colors -->
@@ -106,7 +106,7 @@
         parent="@style/Theme.AppCompat.Light">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- -->
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <!-- colors -->
@@ -124,7 +124,7 @@
         parent="@style/Theme.AppCompat">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- colors -->
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
@@ -140,7 +140,7 @@
         parent="@style/Theme.AppCompat.Light">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- colors -->
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
@@ -193,7 +193,7 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- icons -->
         <item name="menu_gps">@drawable/ic_action_location_found_holo_dark</item>
         <item name="menu_config">@drawable/ic_action_settings_holo_dark</item>
@@ -281,7 +281,7 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- icons -->
         <item name="menu_gps">@drawable/ic_action_location_found_holo_light</item>
         <item name="menu_config">@drawable/ic_action_settings_holo_light</item>
@@ -391,7 +391,7 @@
     <style
         name="Theme.DialogLight"
         parent="@style/Theme.AppCompat.Light.Dialog">
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <item name="android:windowNoTitle">false</item>
         <item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_black</item>
@@ -424,7 +424,7 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- -->
         <item name="actionBarStyle">@style/TagEditorActionBar</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
@@ -502,7 +502,7 @@
         name="Theme.customActionBar"
         parent="@style/Theme.AppCompat">
         <item name="windowActionModeOverlay">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <item name="actionBarStyle">@style/TagEditorActionBar</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
         <item name="editTextStyle">@style/EditTextDark</item>
@@ -628,7 +628,7 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- -->
         <item name="actionBarStyle">@style/TagEditorActionBarLight</item>
         <item name="autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
@@ -703,7 +703,7 @@
         name="Theme.customActionBar.Light"
         parent="@style/Theme.AppCompat.Light">
         <item name="windowActionModeOverlay">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <item name="actionBarStyle">@style/TagEditorActionBarLight</item>
         <item name="autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
         <item name="editTextStyle">@style/EditTextLight</item>
@@ -812,7 +812,7 @@
         parent="@style/Theme.AppCompat">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- -->
         <item name="menu_back">@drawable/ic_action_back_holo_dark</item>
         <item name="menu_forward">@drawable/ic_action_forward_holo_dark</item>
@@ -831,7 +831,7 @@
         parent="@style/Theme.AppCompat.Light">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- -->
         <item name="menu_back">@drawable/ic_action_back_holo_light</item>
         <item name="menu_forward">@drawable/ic_action_forward_holo_light</item>
