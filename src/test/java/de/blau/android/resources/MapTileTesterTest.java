@@ -25,6 +25,7 @@ import de.blau.android.services.util.MapTile;
 import de.blau.android.services.util.MapTileTester;
 import de.blau.android.services.util.ShadowSQLiteCloseable;
 import de.blau.android.services.util.ShadowSQLiteProgram;
+import de.blau.android.services.util.ShadowSQLiteQuery;
 import de.blau.android.services.util.ShadowSQLiteStatement;
 import okhttp3.mockwebserver.MockWebServer;
 
@@ -35,7 +36,7 @@ import okhttp3.mockwebserver.MockWebServer;
  *
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class, ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class, ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class, ShadowSQLiteQuery.class }, sdk=33)
 @LargeTest
 public class MapTileTesterTest {
 

@@ -30,7 +30,7 @@ import de.blau.android.util.FileUtil;
 import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class }, sdk=33)
+@Config(shadows = { ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class, ShadowSQLiteQuery.class }, sdk=33)
 @LargeTest
 public class MBTMapTileFilesystemProviderTest {
 

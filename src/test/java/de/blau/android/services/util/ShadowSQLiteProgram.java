@@ -9,6 +9,8 @@ import org.robolectric.annotation.RealObject;
 import org.robolectric.shadow.api.Shadow;
 import org.robolectric.util.ReflectionHelpers.ClassParameter;
 import org.robolectric.util.reflector.Direct;
+import org.robolectric.util.reflector.ForType;
+import org.robolectric.util.reflector.Reflector;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteProgram;
@@ -19,6 +21,15 @@ public class ShadowSQLiteProgram extends ShadowSQLiteCloseable {
 
     @RealObject
     private SQLiteProgram realProgram;
+
+    @ForType(SQLiteProgram.class)
+    interface SQLiteProgramReflector {
+        @Direct
+        void bindLong(int index, long value);
+
+        @Direct
+        void bindString(int index, String value);
+    }
 
     protected Map<Integer, Long>   longMap   = new HashMap<>();
     protected Map<Integer, String> stringMap = new HashMap<>();
@@ -48,8 +59,8 @@ public class ShadowSQLiteProgram extends ShadowSQLiteCloseable {
      */
     @Implementation
     protected void bindLong(int index, long value) {
-        realProgram.bindLong(index, value);
-        longMap.put(index, value);
+        Reflector.reflector(SQLiteProgramReflector.class, realProgram).bindLong(index, value);
+        longMap.put(index, value);  
     }
 
     /**
@@ -60,7 +71,7 @@ public class ShadowSQLiteProgram extends ShadowSQLiteCloseable {
      */
     @Implementation
     protected void bindString(int index, String value) {
-        realProgram.bindString(index, value);
+        Reflector.reflector(SQLiteProgramReflector.class, realProgram).bindString(index, value);
         stringMap.put(index, value);
     }
 }
