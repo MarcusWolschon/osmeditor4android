@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -84,7 +83,7 @@ public abstract class BuilderActionModeCallback extends EasyEditActionModeCallba
     @Override
     public boolean onBackPressed() {
         if (hasData()) {
-            new AlertDialog.Builder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> super.onBackPressed())
+            ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> super.onBackPressed())
                     .setNeutralButton(R.string.cancel, null).show();
             return false;
         }

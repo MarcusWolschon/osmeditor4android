@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -86,7 +85,7 @@ public class GpxUpload extends CancelableDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setTitle(R.string.upload_gpx_title);
         DoNothingListener doNothingListener = new DoNothingListener();
         View layout = inflater.inflate(R.layout.upload_gpx, null);

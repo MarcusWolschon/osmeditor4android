@@ -159,7 +159,7 @@ public class ElementIssueDialog extends CancelableDialogFragment {
         }
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         View layout = inflater.inflate(R.layout.tag_conflict, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(getContext());
         builder.setTitle(titleRes);
 
         // setMessage doesn't erally work with custom layouts, so DIY here

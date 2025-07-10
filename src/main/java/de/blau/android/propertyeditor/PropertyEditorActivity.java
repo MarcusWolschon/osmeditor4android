@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -36,6 +35,7 @@ import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**
@@ -284,7 +284,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
             Log.d(DEBUG_TAG, "onBackPressed");
             PropertyEditorFragment<M, L, T> top = peekBackStack(getSupportFragmentManager());
             if (top != null && top.hasChanges()) {
-                new AlertDialog.Builder(PropertyEditorActivity.this).setNeutralButton(R.string.cancel, null)
+                ThemeUtils.getAlertDialogBuilder(PropertyEditorActivity.this).setNeutralButton(R.string.cancel, null)
                         .setNegativeButton(R.string.tag_menu_revert, (dialog, which) -> top.doRevert())
                         .setPositiveButton(R.string.tag_menu_exit_no_save, (dialog, which) -> finished(null)).create().show();
                 return;

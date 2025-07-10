@@ -96,7 +96,7 @@ public class Review extends AbstractReviewDialog {
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
 
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setTitle(R.string.review_changes_title);
 
         final View layout = inflater.inflate(R.layout.review, null);

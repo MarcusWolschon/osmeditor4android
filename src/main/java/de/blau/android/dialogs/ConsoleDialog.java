@@ -149,7 +149,7 @@ public class ConsoleDialog extends DialogFragment {
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         if (savedInstanceState != null) {
             getState(savedInstanceState);
             callback = savingHelper.load(getContext(), CALLBACK_SAVE_FILE, true);

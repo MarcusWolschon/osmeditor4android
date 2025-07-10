@@ -361,7 +361,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             @Override
             protected void onPostExecute(List<GpxFile> result) {
                 if (!result.isEmpty()) {
-                    Builder builder = new AlertDialog.Builder(activity);
+                    Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
                     builder.setTitle(R.string.layer_available_tracks);
                     builder.setAdapter(new GpxFileAdapter(activity, result), (DialogInterface dialog, int which) -> {
                         final long id = result.get(which).getId();
@@ -1238,7 +1238,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             if (layer instanceof de.blau.android.layer.geojson.MapOverlay) {
                 MenuItem item = menu.add(R.string.menu_layers_convert_geojson_todo);
                 item.setOnMenuItemClickListener(unused -> {
-                    Builder builder = new AlertDialog.Builder(activity);
+                    Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
                     builder.setTitle(R.string.geojson_todo_title);
                     builder.setPositiveButton(R.string.geojson_todo_default_conversion,
                             (d, pos) -> convertTodos(activity, map, (de.blau.android.layer.geojson.MapOverlay) layer, null));
@@ -1401,7 +1401,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         final FragmentActivity activity = getActivity();
         final Preferences prefs = App.getLogic().getPrefs();
 
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity, prefs);
 
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(getActivity());
 

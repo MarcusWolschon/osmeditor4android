@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -16,8 +15,8 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -94,7 +93,7 @@ public class TooMuchData extends CancelableDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         final FragmentActivity activity = getActivity();
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setIcon(ThemeUtils.getResIdFromAttribute(activity, R.attr.alert_dialog));
         builder.setTitle(R.string.too_much_data_title);
         builder.setMessage(getString(R.string.too_much_data_message, nodeCount));

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -128,7 +127,7 @@ public class EmptyRelation extends CancelableDialogFragment {
         final Logic logic = App.getLogic();
         final Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationIds[index]);
         final FragmentActivity activity = requireActivity();
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setIcon(ThemeUtils.getResIdFromAttribute(activity, R.attr.alert_dialog));
         builder.setTitle(R.string.empty_relation_title);
         builder.setMessage(getString(R.string.empty_relation_message, r != null ? r.getDescription() : Long.toString(relationIds[index])));

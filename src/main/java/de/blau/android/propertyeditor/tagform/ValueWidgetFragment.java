@@ -96,7 +96,7 @@ public abstract class ValueWidgetFragment extends DialogFragment {
 
         preset = presetPath != null ? (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetPath) : null;
         final FragmentActivity activity = getActivity();
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setTitle(hint);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
 

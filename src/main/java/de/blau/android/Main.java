@@ -77,7 +77,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.PopupMenu;
@@ -2245,7 +2244,7 @@ public class Main extends ConfigurationChangeAwareActivity
                     invalidateOptionsMenu();
                 };
                 if (!getTracker().isEmpty()) {
-                    new AlertDialog.Builder(this).setTitle(R.string.menu_gps_clear).setMessage(R.string.clear_track_description)
+                    ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.menu_gps_clear).setMessage(R.string.clear_track_description)
                             .setPositiveButton(R.string.clear_anyway, (dialog, which) -> stopAndClearTracking.run()).setNeutralButton(R.string.cancel, null)
                             .show();
                 } else {
@@ -3520,7 +3519,7 @@ public class Main extends ConfigurationChangeAwareActivity
      * pop up a dialog asking for confirmation and if confirmed exit
      */
     private void exit() {
-        new AlertDialog.Builder(this).setTitle(R.string.exit_title)
+        ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.exit_title)
                 .setMessage(getTracker() != null && getTracker().isTracking() ? R.string.pause_exit_text : R.string.exit_text)
                 .setNegativeButton(R.string.no, null).setPositiveButton(R.string.yes, (dialog, which) -> {
                     // if we actually exit, stop the auto downloads, for now
@@ -3580,7 +3579,7 @@ public class Main extends ConfigurationChangeAwareActivity
             BoundingBox undoBox = logic.getUndo().getLastBounds();
             if (undoBox != null && !map.getViewBox().intersects(undoBox)) {
                 // undo location is not in view
-                new AlertDialog.Builder(Main.this).setTitle(R.string.undo_location_title).setMessage(R.string.undo_location_text)
+                ThemeUtils.getAlertDialogBuilder(Main.this).setTitle(R.string.undo_location_title).setMessage(R.string.undo_location_text)
                         .setNeutralButton(R.string.cancel, null).setNegativeButton(R.string.undo_location_undo_anyway, (dialog, which) -> undo(logic))
                         .setPositiveButton(R.string.undo_location_zoom, (dialog, which) -> {
                             map.getViewBox().fitToBoundingBox(map, undoBox);

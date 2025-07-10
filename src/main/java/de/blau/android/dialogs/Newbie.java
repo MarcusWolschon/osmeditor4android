@@ -107,7 +107,7 @@ public class Newbie extends CancelableDialogFragment {
         if (!(activity instanceof Main)) {
             throw new ClassCastException(activity.toString() + " can only be called from Main");
         }
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setIcon(null);
         builder.setTitle(R.string.welcome_title);
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);

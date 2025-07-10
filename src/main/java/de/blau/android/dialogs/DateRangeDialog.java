@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -102,7 +101,7 @@ public class DateRangeDialog extends CancelableDialogFragment {
     @SuppressLint("InflateParams")
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setTitle(R.string.date_range_title);
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();

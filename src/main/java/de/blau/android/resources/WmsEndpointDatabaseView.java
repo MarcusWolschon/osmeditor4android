@@ -47,6 +47,7 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.OnTextChangedWatcher;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.WidestItemArrayAdapter;
 
@@ -114,7 +115,7 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+        AlertDialog.Builder alertDialog = ThemeUtils.getAlertDialogBuilder(activity);
         View endpointListView = LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.wms_endpoints_title);
         alertDialog.setView(endpointListView);
@@ -210,7 +211,7 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
                             ScreenMessage.toastTopError(activity, R.string.toast_nothing_found);
                             return;
                         }
-                        Builder builder = new AlertDialog.Builder(activity);
+                        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
                         builder.setTitle(R.string.select_layer_title);
                         builder.setNeutralButton(R.string.Done, null);
                         View layerListView = LayoutInflater.from(activity).inflate(R.layout.wms_layer_list, null);

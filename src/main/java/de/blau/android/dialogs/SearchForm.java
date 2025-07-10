@@ -125,7 +125,7 @@ public class SearchForm extends CancelableDialogFragment {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.query_entry, null);
 
-        Builder searchBuilder = new AlertDialog.Builder(getActivity());
+        Builder searchBuilder = ThemeUtils.getAlertDialogBuilder(getActivity());
         searchBuilder.setTitle(R.string.menu_find);
         searchBuilder.setMessage(R.string.find_message);
         searchBuilder.setView(searchLayout);

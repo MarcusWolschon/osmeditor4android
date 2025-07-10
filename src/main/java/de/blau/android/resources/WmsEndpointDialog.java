@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.R;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.ThemeUtils;
 
 public final class WmsEndpointDialog {
 
@@ -48,7 +49,7 @@ public final class WmsEndpointDialog {
      */
     static void showDialog(@NonNull final FragmentActivity activity, final int id, @Nullable final OnUpdateListener onUpdate) {
         final boolean existing = id > 0;
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         final View templateView = LayoutInflater.from(activity).inflate(R.layout.wms_endpoint_item, null);
         builder.setView(templateView);
 

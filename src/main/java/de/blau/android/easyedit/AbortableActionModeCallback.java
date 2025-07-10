@@ -1,7 +1,7 @@
 package de.blau.android.easyedit;
 
-import androidx.appcompat.app.AlertDialog;
 import de.blau.android.R;
+import de.blau.android.util.ThemeUtils;
 
 public abstract class AbortableActionModeCallback extends NonSimpleActionModeCallback {
 
@@ -21,7 +21,7 @@ public abstract class AbortableActionModeCallback extends NonSimpleActionModeCal
 
     @Override
     public boolean onBackPressed() {
-        new AlertDialog.Builder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> {
+        ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> {
             logic.rollback();
             super.onBackPressed();
         }).setNeutralButton(R.string.cancel, null).show();

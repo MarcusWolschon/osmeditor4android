@@ -4,13 +4,13 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceManager;
 import de.blau.android.R;
 import de.blau.android.layer.AbstractConfigurationDialog;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * Configuration dialog that replicates the settings in the Preferences
@@ -60,7 +60,7 @@ public class ConfigurationDialog extends AbstractConfigurationDialog {
             }
         }
 
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setTitle(R.string.config_scale_title);
 
         builder.setSingleChoiceItems(R.array.scale_entries, selected[0], (dialog, which) -> selected[0] = which);

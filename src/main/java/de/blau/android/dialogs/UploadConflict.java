@@ -176,7 +176,7 @@ public class UploadConflict extends CancelableDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         Log.i(DEBUG_TAG, conflict.getClass().getCanonicalName() + (elements != null ? elements.size() + " elements" : ""));
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
         builder.setTitle(R.string.upload_conflict_title);
         builder.setNegativeButton(R.string.cancel, null); // set early in case of exceptions

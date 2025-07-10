@@ -118,7 +118,7 @@ public class GeocoderEditorActivity extends URLListEditActivity {
      */
     @Override
     protected void itemEditDialog(final ListEditItem item) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        final AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(ctx);
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
         final View mainView = inflater.inflate(R.layout.listedit_geocoderedit, null);
         final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);

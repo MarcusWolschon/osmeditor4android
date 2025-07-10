@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.DialogFragment;
@@ -23,7 +22,8 @@ import de.blau.android.util.ThemeUtils;
  */
 public class AttachedObjectWarning extends DialogFragment {
 
-    private static final String DEBUG_TAG = AttachedObjectWarning.class.getSimpleName().substring(0, Math.min(23, AttachedObjectWarning.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = AttachedObjectWarning.class.getSimpleName().substring(0,
+            Math.min(23, AttachedObjectWarning.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_attached_object_activity";
 
@@ -88,7 +88,7 @@ public class AttachedObjectWarning extends DialogFragment {
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
         builder.setTitle(R.string.attached_object_warning_title);
         builder.setMessage(R.string.attached_object_warning_message);

@@ -31,7 +31,6 @@ import android.view.ViewGroup;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
@@ -150,7 +149,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         builder.setView(createView(savedInstanceState));
@@ -266,7 +265,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
                 // rest is handled in calling activity
                 return;
             }
-            new AlertDialog.Builder(getContext()).setTitle(R.string.photo_viewer_delete_title)
+            ThemeUtils.getAlertDialogBuilder(getContext()).setTitle(R.string.photo_viewer_delete_title)
                     .setPositiveButton(R.string.photo_viewer_delete_button, (dialog, which) -> {
                         try {
                             if (resolver.delete(photoUri, null, null) >= 1) {

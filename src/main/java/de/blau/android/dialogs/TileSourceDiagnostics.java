@@ -14,7 +14,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -29,8 +28,8 @@ import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.services.util.MapTileTester;
-import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -133,7 +132,7 @@ public class TileSourceDiagnostics extends CancelableDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         Log.d(DEBUG_TAG, "onCreateDialog " + tile);
-        final Builder builder = new AlertDialog.Builder(getActivity());
+        final Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
 

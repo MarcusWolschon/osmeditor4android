@@ -46,6 +46,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
 import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.IssueAlert;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**
@@ -86,7 +87,7 @@ public abstract class TaskFragment extends CancelableDialogFragment {
         } else {
             task = Util.getSerializeable(getArguments(), BUG_KEY, Task.class);
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         // Get the layout inflater
         inflater = getActivity().getLayoutInflater();
 
@@ -288,7 +289,7 @@ public abstract class TaskFragment extends CancelableDialogFragment {
                 layout.addView(ruler);
             }
         }
-        Builder b = new AlertDialog.Builder(context);
+        Builder b = ThemeUtils.getAlertDialogBuilder(context);
         b.setView(scrollView);
         b.setPositiveButton(R.string.dismiss, null);
         b.show();

@@ -131,7 +131,7 @@ public final class ProgressDialog {
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
 
-        Builder builder = new AlertDialog.Builder(ctx);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(ctx);
         builder.setTitle(titleId);
 
         View layout = inflater.inflate(R.layout.progress, null);

@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
@@ -83,7 +82,7 @@ public class BarometerCalibration extends CancelableDialogFragment {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.calibration, null);
 
-        Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        Builder dialogBuilder = ThemeUtils.getAlertDialogBuilder(getActivity());
         dialogBuilder.setTitle(R.string.menu_tools_calibrate_height);
 
         dialogBuilder.setView(layout);
