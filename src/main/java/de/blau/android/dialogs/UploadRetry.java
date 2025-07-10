@@ -169,7 +169,7 @@ public class UploadRetry extends CancelableDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
 
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
         builder.setTitle(R.string.upload_retry_title);
         builder.setNeutralButton(R.string.cancel, null); // set early in case of exceptions
@@ -337,7 +337,7 @@ public class UploadRetry extends CancelableDialogFragment {
         task.execute();
         try {
             if (!Boolean.TRUE.equals(task.get(30, TimeUnit.SECONDS))) {
-                new AlertDialog.Builder(getActivity()).setTitle(R.string.upload_retry_message_update_failed_title)
+                ThemeUtils.getAlertDialogBuilder(getActivity()).setTitle(R.string.upload_retry_message_update_failed_title)
                         .setMessage(R.string.upload_retry_message_update_failed).setNeutralButton(R.string.cancel, null)
                         .setNegativeButton(R.string.save_changes,
                                 (dialog, which) -> Main.saveOscFile(getActivity(), App.getDelegator(), App.getPreferences(getContext())))

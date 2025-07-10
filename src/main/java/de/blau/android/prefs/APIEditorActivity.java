@@ -214,7 +214,7 @@ public class APIEditorActivity extends URLListEditActivity {
         public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
             ListEditItem item = Util.getSerializeable(getArguments(), ITEM_KEY, ListEditItem.class);
 
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            final AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(getContext());
             final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getContext());
             final View mainView = inflater.inflate(R.layout.listedit_apiedit, null);
             final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);

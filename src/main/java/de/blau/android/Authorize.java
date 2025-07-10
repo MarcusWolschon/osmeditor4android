@@ -21,7 +21,6 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -36,11 +35,12 @@ import de.blau.android.net.OAuthHelper;
 import de.blau.android.net.OAuthHelper.OAuthConfiguration;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.API.Auth;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.UpdatedWebViewClient;
 import de.blau.android.util.WebViewActivity;
 import oauth.signpost.exception.OAuthException;
@@ -190,7 +190,7 @@ public class Authorize extends WebViewActivity {
                 for (OAuthConfiguration configuration : KeyDatabaseHelper.getOAuthConfigurations(keyDatabase.getReadableDatabase(), auth)) {
                     configNames.add(configuration.getName());
                 }
-                new AlertDialog.Builder(this).setTitle(R.string.choose_oauth_config)
+                ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.choose_oauth_config)
                         .setItems(configNames.toArray(new String[0]), (DialogInterface dialog, int which) -> {
                             try (KeyDatabaseHelper keyDatabase2 = new KeyDatabaseHelper(this)) {
                                 KeyDatabaseHelper.copyKey(keyDatabase2.getWritableDatabase(), configNames.get(which),

@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
@@ -121,7 +120,7 @@ public class SelectByImageFragment extends SizedDynamicDialogFragment implements
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setNeutralButton(R.string.done, doNothingListener);
         builder.setPositiveButton(R.string.select, (DialogInterface dialog, int which) -> imageLoader.onSelected(getCurrentPosition()));

@@ -15,7 +15,6 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -26,6 +25,7 @@ import de.blau.android.photos.Photo;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.InfoDialogFragment;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * Very simple dialog fragment to display some info on an image
@@ -103,7 +103,7 @@ public class ImageInfo extends InfoDialogFragment {
             Log.e(DEBUG_TAG, "Unable to parse uri " + uriString);
         }
         showUri = getArguments().getBoolean(SHOW_URI_KEY, true);
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         builder.setTitle(R.string.image_information_title);

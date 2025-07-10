@@ -364,9 +364,15 @@
         name="ActionButtonLight"
         parent="@style/Widget.AppCompat.Light.ActionButton" />
     <!-- Style for custom views in alert dialogs -->
+    <style 
+        name="Theme.AlertDialog"
+        parent ="@style/Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
     <style
         name="Theme.DialogDark"
         parent="@style/Theme.AppCompat.Dialog">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <item name="android:windowNoTitle">false</item>
         <item name="alert_dialog">@drawable/ic_action_warning_holo_dark</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_white</item>
@@ -387,6 +393,11 @@
         name="DialogStaticText"
         parent="android:Widget.TextView">
         <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style 
+        name="Theme.AlertDialogLight"
+        parent ="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
     <style
         name="Theme.DialogLight"

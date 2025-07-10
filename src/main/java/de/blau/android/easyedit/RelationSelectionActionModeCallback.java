@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.dialogs.EmptyRelation;
@@ -151,7 +150,7 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
     protected void menuDelete(final ActionMode mode) {
         final Relation r = (Relation) element;
         if (r.hasParentRelations()) {
-            new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleterelation_relation_description)
+            ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.deleterelation_relation_description)
                     .setPositiveButton(R.string.deleterelation, (dialog, which) -> deleteRelation(mode, r)).show();
         } else {
             deleteRelation(mode, r);

@@ -5,7 +5,6 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -13,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**
@@ -67,7 +67,7 @@ public class NewVersion extends CancelableDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         final FragmentActivity activity = getActivity();
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setTitle(R.string.upgrade_title);
         String message = getString(R.string.upgrade_message);
         builder.setMessage(Util.fromHtml(message));

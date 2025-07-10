@@ -28,7 +28,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -57,6 +56,7 @@ import de.blau.android.util.OnTextChangedWatcher;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Sound;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
@@ -430,18 +430,19 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             Preset preset = item.getPreset();
             Preset[] presets = propertyEditorListener.getPresets();
             if (preset.equals(presets[presets.length - 1])) {
-                new AlertDialog.Builder(getContext()).setTitle(R.string.delete_custom_preset_title).setPositiveButton(R.string.Delete, (dialog, which) -> {
-                    preset.deleteItem(item);
-                    AutoPreset.save(getActivity(), preset);
-                    editorUpdate.updatePresets();
-                    propertyEditorListener.updateRecentPresets();
-                    ScrollView scrollView = (ScrollView) getOurView();
-                    if (scrollView != null) {
-                        currentGroup.getGroupView(getActivity(), scrollView, this, type, propertyEditorListener.getElement(), null,
-                                propertyEditorListener.getIsoCodes());
-                        scrollView.invalidate();
-                    }
-                }).setNeutralButton(R.string.cancel, null).show();
+                ThemeUtils.getAlertDialogBuilder(getContext()).setTitle(R.string.delete_custom_preset_title)
+                        .setPositiveButton(R.string.Delete, (dialog, which) -> {
+                            preset.deleteItem(item);
+                            AutoPreset.save(getActivity(), preset);
+                            editorUpdate.updatePresets();
+                            propertyEditorListener.updateRecentPresets();
+                            ScrollView scrollView = (ScrollView) getOurView();
+                            if (scrollView != null) {
+                                currentGroup.getGroupView(getActivity(), scrollView, this, type, propertyEditorListener.getElement(), null,
+                                        propertyEditorListener.getIsoCodes());
+                                scrollView.invalidate();
+                            }
+                        }).setNeutralButton(R.string.cancel, null).show();
             } else {
                 Sound.beep();
             }

@@ -9,7 +9,6 @@ import java.util.List;
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -17,6 +16,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.ThemeUtils;
 
 public class RemoveNodeFromWayActionModeCallback extends AbortableWayActionModeCallback {
 
@@ -60,7 +60,7 @@ public class RemoveNodeFromWayActionModeCallback extends AbortableWayActionModeC
         Node node = (Node) element;
         if (node.hasParentRelations() && !node.hasTags() && logic.getWaysForNode(node).size() <= 1) {
             // node will be deleted
-            new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deletenode_relation_description)
+            ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.deletenode_relation_description)
                     .setNegativeButton(R.string.cancel, null).setPositiveButton(R.string.deletenode, (dialog, which) -> remove(node)).show();
         } else {
             remove(node);

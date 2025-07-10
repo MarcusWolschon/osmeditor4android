@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -110,7 +109,7 @@ public class DataLoss extends CancelableDialogFragment {
      * @return the dialog
      */
     public static AppCompatDialog createDialog(@NonNull Context context, @NonNull DialogInterface.OnClickListener listener) {
-        Builder builder = new AlertDialog.Builder(context);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(context);
         builder.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.alert_dialog));
         builder.setTitle(R.string.unsaved_data_title);
         builder.setMessage(R.string.unsaved_data_message);

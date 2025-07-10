@@ -67,6 +67,7 @@ import de.blau.android.util.OkHttpFileChannel;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import okhttp3.OkHttpClient;
 
@@ -564,7 +565,7 @@ public class TileLayerDialog extends CancelableDialogFragment {
 
         activity = getActivity();
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+        AlertDialog.Builder alertDialog = ThemeUtils.getAlertDialogBuilder(activity);
         View templateView = LayoutInflater.from(activity).inflate(R.layout.layer_item, null);
         alertDialog.setView(templateView);
 

@@ -29,6 +29,7 @@ import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public final class OAMCatalogView extends CancelableDialogFragment implements OnUpdateListener {
@@ -114,7 +115,7 @@ public final class OAMCatalogView extends CancelableDialogFragment implements On
         BoundingBox box = Util.getSerializeable(bundle, BOUNDING_BOX_KEY, BoundingBox.class);
 
         FragmentActivity activity = getActivity();
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder dialogBuilder = ThemeUtils.getAlertDialogBuilder(activity);
         View layerListView = LayoutInflater.from(activity).inflate(R.layout.oam_layer_list, null);
         dialogBuilder.setTitle(R.string.oam_layer_title);
         dialogBuilder.setView(layerListView);

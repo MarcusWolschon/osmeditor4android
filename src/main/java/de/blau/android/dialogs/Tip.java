@@ -174,7 +174,7 @@ public class Tip extends CancelableDialogFragment {
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.tip, null);
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.lightbulb_dialog));
         builder.setTitle(R.string.tip_title);
         builder.setView(layout);

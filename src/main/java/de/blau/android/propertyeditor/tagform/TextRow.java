@@ -330,7 +330,7 @@ public class TextRow extends LinearLayout implements KeyValueRow, TagChanged {
     private static AlertDialog buildMeasureDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key,
             @Nullable ArrayAdapter<?> adapter, @NonNull final TextRow row, @NonNull final ValueType valueType, boolean imperial) {
         String value = row.getValue();
-        Builder builder = new AlertDialog.Builder(caller.getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(caller.getActivity());
         builder.setTitle(hint);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(caller.getActivity());
 

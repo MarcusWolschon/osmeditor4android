@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -28,6 +28,7 @@ import de.blau.android.osm.Result;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * Callback for replacing geometry for nodes and ways
@@ -102,7 +103,7 @@ public class ReplaceGeometryActionModeCallback extends NonSimpleActionModeCallba
         try {
             if (target instanceof Way) {
                 final List<Result> result = logic.performReplaceGeometry(main, (Way) target, ((Way) element).getNodes());
-                AlertDialog.Builder builder = new AlertDialog.Builder(main);
+                AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(main);
                 builder.setTitle(R.string.remove_geometry_source);
                 builder.setPositiveButton(R.string.Yes, (dialog, id) -> logic.performEraseWay(main, ((Way) element), true, false));
                 builder.setNegativeButton(R.string.No, null);

@@ -3,12 +3,17 @@ package de.blau.android.propertyeditor.tagform;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnShowListener;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,7 +21,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
+import androidx.core.view.WindowInsetsCompat;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.presets.Preset;
@@ -174,7 +185,7 @@ public class MultiselectDialogRow extends DialogRow {
      */
     private static AlertDialog buildMultiselectDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key,
             @Nullable ArrayAdapter<?> adapter, @NonNull final MultiselectDialogRow row, @NonNull final PresetItem preset) {
-        Builder builder = new AlertDialog.Builder(caller.getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(caller.getActivity());
         builder.setTitle(hint);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(caller.getActivity());
 

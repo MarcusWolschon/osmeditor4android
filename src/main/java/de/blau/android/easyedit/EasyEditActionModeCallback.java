@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.ViewStub;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.ActionMenuView;
@@ -45,6 +44,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableState;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**
@@ -533,7 +533,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             missing.addAll(RelationUtils.checkForNeighbours(way));
         }
         if (!missing.isEmpty() && main.isConnectedOrConnecting()) {
-            Builder builder = new AlertDialog.Builder(main);
+            Builder builder = ThemeUtils.getAlertDialogBuilder(main);
             builder.setTitle(R.string.split_safe_title);
             builder.setMessage(R.string.split_safe_message);
             builder.setPositiveButton(R.string.download,

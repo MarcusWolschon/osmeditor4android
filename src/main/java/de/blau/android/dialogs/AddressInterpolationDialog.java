@@ -26,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
@@ -44,8 +43,8 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.tagform.TextRow;
-import de.blau.android.util.ElementSearch;
 import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.ElementSearch;
 import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.ThemeUtils;
@@ -221,7 +220,7 @@ public class AddressInterpolationDialog extends CancelableDialogFragment {
                 tagLayout.addView(SimpleTextRow.getRow(context, inflater, tagLayout, presetItem, presetField, entry.getValue(), adapter));
             }
         }
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setTitle(R.string.address_interpolation_title);
         builder.setNegativeButton(R.string.cancel, null);
         builder.setPositiveButton(R.string.okay, (DialogInterface dialog, int which) -> {

@@ -5,7 +5,6 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -14,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -25,6 +25,7 @@ import de.blau.android.R;
 import de.blau.android.osm.Server;
 import de.blau.android.tasks.Task.State;
 import de.blau.android.util.AfterTextChangedWatcher;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**
@@ -124,7 +125,7 @@ public class TodoFragment extends BugFragment {
                 commentText = "";
             }
             if (pos2state(state.getSelectedItemPosition()) != task.getState() || changed) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(getContext());
                 builder.setTitle(R.string.save_changes_title);
                 builder.setPositiveButton(R.string.Yes, (dialog, id) -> {
                     saveTask(v, task);

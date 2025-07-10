@@ -35,6 +35,7 @@ import de.blau.android.layer.tiles.MapTilesOverlayLayer;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.ThemeUtils;
 
 public class TileLayerDatabaseView extends CancelableDialogFragment implements OnUpdateListener {
 
@@ -92,7 +93,7 @@ public class TileLayerDatabaseView extends CancelableDialogFragment implements O
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+        AlertDialog.Builder alertDialog = ThemeUtils.getAlertDialogBuilder(activity);
         View layerListView = LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.custom_layer_title);
         alertDialog.setView(layerListView);
@@ -111,7 +112,7 @@ public class TileLayerDatabaseView extends CancelableDialogFragment implements O
 
         layerList.setOnItemLongClickListener((parent, view, position, unused) -> {
             final Integer id = (Integer) view.getTag();
-            AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+            AlertDialog.Builder dialog = ThemeUtils.getAlertDialogBuilder(activity);
             dialog.setTitle(R.string.delete_layer);
             dialog.setNeutralButton(R.string.cancel, null);
             dialog.setPositiveButton(R.string.delete, (d, which) -> {
