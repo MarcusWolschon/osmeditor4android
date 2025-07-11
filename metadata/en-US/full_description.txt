@@ -1,0 +1,23 @@
+Functionality:
+* Create and edit new Nodes and Ways
+* Move and rotate Ways
+* Append Nodes to existing Ways
+* Delete Nodes
+* Create, edit and delete Tags
+* Edit relations and create new turn restrictions
+* JOSM presets support
+* Download and Upload to OSM-Server
+* Saving and reading of JOSM format OSM data files
+* Highlight unnamed highways, and ways/nodes with todos or fixmes
+* Add, comment and close OSM Notes and Osmose bugs
+* Use a variety of background tile layers as reference
+* Show the users GPS-Track with accuracy
+* Upload to OSM and local saving of GPS tracks
+* Display the raw data
+* Display geo-referenced photographs
+.... and lots more.
+
+Vespucci is not a map viewer or routing-application
+
+
+Help and instructions are available on device and on the Vespucci website https://vespucci.io.
