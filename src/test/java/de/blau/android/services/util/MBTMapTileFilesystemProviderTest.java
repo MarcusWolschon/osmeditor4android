@@ -13,9 +13,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -30,7 +32,7 @@ import de.blau.android.util.FileUtil;
 import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class, ShadowSQLiteQuery.class }, sdk=33)
+@Config(shadows = { ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class, ShadowSQLiteQuery.class }, sdk = 33)
 @LargeTest
 public class MBTMapTileFilesystemProviderTest {
 
@@ -43,23 +45,23 @@ public class MBTMapTileFilesystemProviderTest {
     @Before
     public void setup() {
         ShadowLog.setupLogging();
-        provider = new MapTileFilesystemProvider(ApplicationProvider.getApplicationContext(), new File("."), 1000000);
+        Context context = RuntimeEnvironment.getApplication().getApplicationContext();
+        provider = new MapTileFilesystemProvider(context, new File("."), 1000000);
         try {
-            JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "ersatz_background.mbt", null, "/");
+            JavaResources.copyFileFromResources(context, "ersatz_background.mbt", null, "/");
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
+        try (TileLayerDatabase db = new TileLayerDatabase(context)) {
             File mbtFile = new File(FileUtil.getPublicDirectory(), "ersatz_background.mbt");
-            TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), MockTileServer.MOCK_TILE_SOURCE, null,
-                    -1, -1, "Vespucci Test", new Provider(), Category.other, null, null, 0, 19, TileLayerSource.DEFAULT_TILE_SIZE, false,
-                    "file://" + (System.getProperty("os.name").toLowerCase().contains("windows") ? "\\" : "") + mbtFile.getAbsolutePath());
+            TileLayerSource.addOrUpdateCustomLayer(context, db.getWritableDatabase(), MockTileServer.MOCK_TILE_SOURCE, null, -1, -1, "Vespucci Test",
+                    new Provider(), Category.other, null, null, 0, 19, TileLayerSource.DEFAULT_TILE_SIZE, false, "file://" + mbtFile.getAbsolutePath());
         } catch (IOException e) {
             fail(e.getMessage());
         }
         // force update of tile sources
-        try (TileLayerDatabase tlDb = new TileLayerDatabase(ApplicationProvider.getApplicationContext()); SQLiteDatabase db = tlDb.getReadableDatabase()) {
-            TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db, false);
+        try (TileLayerDatabase tlDb = new TileLayerDatabase(context); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+            TileLayerSource.getListsLocked(context, db, false);
         }
     }
 
