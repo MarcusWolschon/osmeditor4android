@@ -134,7 +134,8 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         if (openingHoursPref != null) {
             openingHoursPref.setOnPreferenceClickListener(preference -> {
                 Log.d(DEBUG_TAG, "onPreferenceClick opening hours");
-                TemplateMangementDialog.showDialog(PrefEditorFragment.this, true, null, null, null, "");
+                TemplateMangementDialog.showDialog(PrefEditorFragment.this, true, null, null, null, "",
+                        App.getPreferences(getContext()).lightThemeEnabled() ? R.style.Theme_AlertDialogLight : R.style.Theme_AlertDialog);
                 return true;
             });
         }
