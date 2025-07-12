@@ -1,12 +1,13 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -14,7 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -24,9 +25,10 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public class ForbiddenLogin extends ImmersiveDialogFragment {
+public class ForbiddenLogin extends CancelableDialogFragment {
 
-    private static final String DEBUG_TAG = ForbiddenLogin.class.getSimpleName().substring(0, Math.min(23, ForbiddenLogin.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ForbiddenLogin.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ForbiddenLogin.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String FRAGMENT_TAG = "forbidden_alert";
 
@@ -89,7 +91,7 @@ public class ForbiddenLogin extends ImmersiveDialogFragment {
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
         builder.setTitle(R.string.forbidden_login_title);
         if (message != null) {

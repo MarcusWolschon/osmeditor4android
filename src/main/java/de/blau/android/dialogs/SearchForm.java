@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,15 +34,17 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog asking for a search string that is then found with nominatim
  *
  */
-public class SearchForm extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = SearchForm.class.getSimpleName().substring(0, Math.min(23, SearchForm.class.getSimpleName().length()));
+public class SearchForm extends CancelableDialogFragment {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, SearchForm.class.getSimpleName().length());
+    private static final String DEBUG_TAG = SearchForm.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String BBOX_KEY = "bbox";
 
@@ -121,7 +125,7 @@ public class SearchForm extends ImmersiveDialogFragment {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.query_entry, null);
 
-        Builder searchBuilder = new AlertDialog.Builder(getActivity());
+        Builder searchBuilder = ThemeUtils.getAlertDialogBuilder(getActivity());
         searchBuilder.setTitle(R.string.menu_find);
         searchBuilder.setMessage(R.string.find_message);
         searchBuilder.setView(searchLayout);

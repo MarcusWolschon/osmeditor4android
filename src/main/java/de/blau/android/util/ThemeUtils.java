@@ -13,8 +13,10 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 
@@ -184,5 +186,37 @@ public final class ThemeUtils {
         if (span != null) {
             span.setSpan(new ForegroundColorSpan(getStyleAttribColorValue(context, colorAttr, colorFallback)), 0, span.length(), 0);
         }
+    }
+
+    /**
+     * Get a correctly themed AlerDialog.Builder
+     * 
+     * @param context an Android Context
+     * @return a AlerDialog.Builder
+     */
+    public static AlertDialog.Builder getAlertDialogBuilder(@NonNull Context context) {
+        return getAlertDialogBuilder(context, App.getPreferences(context));
+    }
+
+    /**
+     * Get a correctly themed AlerDialog.Builder
+     * 
+     * @param context an Android Context
+     * @param prefs the current Preferences
+     * @return a AlerDialog.Builder
+     */
+    public static AlertDialog.Builder getAlertDialogBuilder(@NonNull Context context, @NonNull Preferences prefs) {
+        return getAlertDialogBuilder(context, prefs.lightThemeEnabled());
+    }
+
+    /**
+     * Get a correctly themed AlerDialog.Builder
+     * 
+     * @param context an Android Context
+     * @param lightTheme use the lightTheme
+     * @return a AlerDialog.Builder
+     */
+    public static AlertDialog.Builder getAlertDialogBuilder(@NonNull Context context, boolean lightTheme) {
+        return new AlertDialog.Builder(new ContextThemeWrapper(context, lightTheme ? R.style.Theme_AlertDialogLight : R.style.Theme_AlertDialog));
     }
 }

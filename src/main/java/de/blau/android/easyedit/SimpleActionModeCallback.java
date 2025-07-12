@@ -28,6 +28,7 @@ import de.blau.android.osm.ClipboardStorage;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.tasks.NoteFragment;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.NumberDrawable;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
@@ -343,7 +344,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
      */
     @NonNull
     public static PopupMenu getMenu(@NonNull Main main, @NonNull View anchor) {
-        PopupMenu popup = new PopupMenu(main, anchor);
+        PopupMenu popup = new InsetAwarePopupMenu(main, anchor);
         for (SimpleAction simpleMode : SimpleAction.values()) {
             if (simpleMode.isEnabled()) {
                 MenuItem item = popup.getMenu().add(simpleMode.getMenuTextId());

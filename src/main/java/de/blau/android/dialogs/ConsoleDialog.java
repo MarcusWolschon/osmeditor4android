@@ -43,6 +43,7 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
@@ -148,7 +149,7 @@ public class ConsoleDialog extends DialogFragment {
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         if (savedInstanceState != null) {
             getState(savedInstanceState);
             callback = savingHelper.load(getContext(), CALLBACK_SAVE_FILE, true);
@@ -196,7 +197,7 @@ public class ConsoleDialog extends DialogFragment {
             positive.setCompoundDrawablesWithIntrinsicBounds(null, null, more, null);
             positive.setText("");
             positive.setOnClickListener(view -> {
-                PopupMenu popupMenu = new PopupMenu(activity, view);
+                PopupMenu popupMenu = new InsetAwarePopupMenu(activity, view);
                 popupMenu.inflate(R.menu.console_popup);
                 popupMenu.setOnMenuItemClickListener(getOnItemClickListener(prefs, input));
                 popupMenu.show();

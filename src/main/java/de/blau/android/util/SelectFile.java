@@ -157,7 +157,7 @@ public final class SelectFile {
      */
     private static void selectFileSelectorActivity(@NonNull final Activity activity, @NonNull PackageManager pm,
             @NonNull final List<ResolveInfo> resolvedActivities, @NonNull final Intent intent, int code) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity).setTitle(R.string.select_file_picker_title);
+        AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(activity).setTitle(R.string.select_file_picker_title);
         builder.setAdapter(new ResolveInfoAdapter(activity, pm, resolvedActivities), (DialogInterface dialog, int which) -> {
             intent.setPackage(resolvedActivities.get(which).activityInfo.packageName);
             activity.startActivityForResult(intent, code);

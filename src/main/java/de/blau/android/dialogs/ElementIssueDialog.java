@@ -32,11 +32,12 @@ import de.blau.android.R;
 import de.blau.android.osm.Issue;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class ElementIssueDialog extends ImmersiveDialogFragment {
+public class ElementIssueDialog extends CancelableDialogFragment {
+    
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ElementIssueDialog.class.getSimpleName().length());
     private static final String DEBUG_TAG = ElementIssueDialog.class.getSimpleName().substring(0, TAG_LEN);
 
@@ -158,7 +159,7 @@ public class ElementIssueDialog extends ImmersiveDialogFragment {
         }
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         View layout = inflater.inflate(R.layout.tag_conflict, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(getContext());
         builder.setTitle(titleRes);
 
         // setMessage doesn't erally work with custom layouts, so DIY here

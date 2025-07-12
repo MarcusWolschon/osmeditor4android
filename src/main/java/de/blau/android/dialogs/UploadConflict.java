@@ -53,8 +53,9 @@ import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.InfoDialogFragment;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
@@ -64,7 +65,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class UploadConflict extends ImmersiveDialogFragment {
+public class UploadConflict extends CancelableDialogFragment {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UploadConflict.class.getSimpleName().length());
     private static final String DEBUG_TAG = UploadConflict.class.getSimpleName().substring(0, TAG_LEN);
 
@@ -175,7 +176,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         Log.i(DEBUG_TAG, conflict.getClass().getCanonicalName() + (elements != null ? elements.size() + " elements" : ""));
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
         builder.setTitle(R.string.upload_conflict_title);
         builder.setNegativeButton(R.string.cancel, null); // set early in case of exceptions
@@ -386,7 +387,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     return;
                 }
                 neutral.setOnClickListener((View v) -> {
-                    PopupMenu popup = new PopupMenu(getActivity(), neutral);
+                    PopupMenu popup = new InsetAwarePopupMenu(getActivity(), neutral);
                     for (Entry<String, Runnable> action : resolveActions.entrySet()) {
                         MenuItem item = popup.getMenu().add(action.getKey());
                         item.setOnMenuItemClickListener(unused -> {

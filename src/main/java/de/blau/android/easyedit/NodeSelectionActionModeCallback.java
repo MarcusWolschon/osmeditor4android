@@ -303,7 +303,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     @Override
     protected void menuDelete(final ActionMode mode) {
         if (element.hasParentRelations()) {
-            new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deletenode_relation_description)
+            ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.deletenode_relation_description)
                     .setPositiveButton(R.string.deletenode, (dialog, which) -> deleteNode(mode)).show();
         } else {
             deleteNode(mode);
@@ -371,7 +371,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     @SuppressLint("InflateParams")
     private AppCompatDialog createSetPositionDialog(int lonE7, int latE7) {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
-        Builder builder = new AlertDialog.Builder(main);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(main);
         builder.setTitle(R.string.menu_set_position);
 
         View layout = inflater.inflate(R.layout.set_position, null);

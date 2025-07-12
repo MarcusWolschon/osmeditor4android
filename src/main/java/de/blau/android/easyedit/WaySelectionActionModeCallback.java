@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -247,7 +246,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                     break;
                 case MENUITEM_REVERSE:
                     if (way.notReversable()) {
-                        new AlertDialog.Builder(main).setTitle(R.string.menu_reverse).setMessage(R.string.notreversable_description)
+                        ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.menu_reverse).setMessage(R.string.notreversable_description)
                                 .setPositiveButton(R.string.reverse_anyway, (dialog, which) -> reverseWay(way)).show();
                     } else {
                         reverseWay(way);
@@ -314,7 +313,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                     main.startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(manager, new ArrayList<>(new HashSet<>(way.getNodes()))));
                     break;
                 case MENUITEM_START_END_OF_WAY:
-                    new AlertDialog.Builder(main).setMessage(R.string.start_end_way_description).setPositiveButton(R.string.end, (dialog, which) -> {
+                    ThemeUtils.getAlertDialogBuilder(main).setMessage(R.string.start_end_way_description).setPositiveButton(R.string.end, (dialog, which) -> {
                         main.zoomTo(way.getLastNode());
                         main.invalidateMap();
                     }).setNegativeButton(R.string.start, (dialog, which) -> {
@@ -338,13 +337,13 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         boolean allNodesDownloaded = logic.isInDownload((Way) element);
         if (allNodesDownloaded) {
             if (isRelationMember) {
-                new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleteway_relation_description)
+                ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.deleteway_relation_description)
                         .setPositiveButton(R.string.deleteway_wayandnodes, (dialog, which) -> deleteWay(mode)).setNeutralButton(R.string.cancel, null).show();
             } else {
                 deleteWay(mode);
             }
         } else {
-            new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleteway_nodesnotdownloaded_description)
+            ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.deleteway_nodesnotdownloaded_description)
                     .setPositiveButton(R.string.okay, null).show();
         }
     }

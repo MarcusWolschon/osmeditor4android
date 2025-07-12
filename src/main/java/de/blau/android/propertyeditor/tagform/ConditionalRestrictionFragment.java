@@ -70,6 +70,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.util.AfterTextChangedWatcher;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
@@ -172,7 +173,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            final Window window = dialog.getWindow();
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, window.getAttributes().height);
         }
     }
 
@@ -339,7 +341,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             sv.removeAllViews();
             final FloatingActionButton fab = (FloatingActionButton) conditionalRestrictionLayout.findViewById(R.id.add);
             fab.setOnClickListener(v -> {
-                PopupMenu popup = new PopupMenu(v.getContext(), fab);
+                PopupMenu popup = new InsetAwarePopupMenu(v.getContext(), fab);
 
                 // menu items for adding rules
                 MenuItem addRestriction = popup.getMenu().add(R.string.tag_restriction_add_restriction);

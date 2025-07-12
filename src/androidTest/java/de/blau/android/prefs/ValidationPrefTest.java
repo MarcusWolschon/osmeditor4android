@@ -13,12 +13,15 @@ import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
+import android.content.pm.verify.domain.DomainVerificationManager;
 import android.view.View;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
@@ -99,9 +102,13 @@ public class ValidationPrefTest {
         }
 
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_validatorprefs_title), true));
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.config_validatorprefs_title)));
+        UiObject title = TestUtils.findObjectWithResourceId(device, false, device.getCurrentPackageName() + ":id/alertTitle");
+        try {
+            assertEquals(main.getString(R.string.validator_title, main.getString(R.string.default_)), title.getText());
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
 
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_validatorprefs_summary), true, false));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.resurvey_entries)));
 
         assertTrue(TestUtils.clickText(device, false, "toilets", true, true));
@@ -132,9 +139,13 @@ public class ValidationPrefTest {
         }
 
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_validatorprefs_title), true));
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.config_validatorprefs_title)));
+        UiObject title = TestUtils.findObjectWithResourceId(device, false, device.getCurrentPackageName() + ":id/alertTitle");
+        try {
+            assertEquals(main.getString(R.string.validator_title, main.getString(R.string.default_)), title.getText());
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
 
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_validatorprefs_summary), true, false));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.resurvey_entries)));
 
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.check_entries), true, true));

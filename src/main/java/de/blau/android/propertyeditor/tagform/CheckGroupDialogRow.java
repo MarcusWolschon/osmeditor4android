@@ -263,7 +263,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
      */
     private static AlertDialog buildCheckGroupDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key,
             @NonNull final CheckGroupDialogRow row, @NonNull final PresetItem preset) {
-        Builder builder = new AlertDialog.Builder(caller.getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(caller.getActivity());
         builder.setTitle(hint);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(caller.getActivity());
 

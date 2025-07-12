@@ -197,7 +197,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                     // exactly one match
                     member.setRole(roles.get(0).getRole());
                 } else {
-                    new AlertDialog.Builder(main).setTitle(R.string.choose_role_title)
+                    ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.choose_role_title)
                             .setItems(getRoleDescriptions(roles), (DialogInterface dialog, int which) -> member.setRole(roles.get(which).getRole()))
                             .setNegativeButton(R.string.leave_role_empty, null).create().show();
                 }
@@ -427,7 +427,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                 ThemeUtils.setSpanColor(main, warning, R.attr.error, R.color.material_red);
                 message = TextUtils.concat(message, warning);
             }
-            new AlertDialog.Builder(main).setTitle(R.string.duplicate_relation_member_title).setMessage(message)
+            ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.duplicate_relation_member_title).setMessage(message)
                     .setPositiveButton(R.string.duplicate_route_segment_button, (dialog, which) -> addElement(element))
                     .setNegativeButton(R.string.duplicate_relation_member_remove_button, (dialog, which) -> removeElement(element))
                     .setNeutralButton(R.string.cancel, null).show();
@@ -449,7 +449,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             SpannableString warning = new SpannableString(main.getString(R.string.relation_member_no_match_warning));
             ThemeUtils.setSpanColor(main, warning, R.attr.error, R.color.material_red);
             message = TextUtils.concat(message, warning);
-            new AlertDialog.Builder(main).setTitle(R.string.remove_relation_member_title).setMessage(message)
+            ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.remove_relation_member_title).setMessage(message)
                     .setNegativeButton(R.string.duplicate_relation_member_remove_button, (dialog, which) -> removeElement(element))
                     .setNeutralButton(R.string.cancel, null).show();
         } else {
@@ -634,7 +634,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, relation));
         };
         if (!tags.isEmpty()) {
-            AlertDialog alertDialog = new AlertDialog.Builder(main).setTitle(R.string.move_outer_tags_title).setMessage(R.string.move_outer_tags_message)
+            AlertDialog alertDialog = ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.move_outer_tags_title).setMessage(R.string.move_outer_tags_message)
                     .setPositiveButton(R.string.move, (dialog, which) -> {
                         logic.createCheckpoint(main, R.string.undo_action_move_tags);
                         RelationUtils.moveOuterTags(App.getDelegator(), relation);
@@ -653,7 +653,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      * @param outers list of outer rings
      */
     private void removeTagsFromMembers(@NonNull Map<String, String> tags, @NonNull List<RelationMember> outers) {
-        AlertDialog alertDialog = new AlertDialog.Builder(main).setTitle(R.string.remove_duplicate_outer_tags_title)
+        AlertDialog alertDialog = ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.remove_duplicate_outer_tags_title)
                 .setMessage(R.string.remove_duplicate_outer_tags_message).setPositiveButton(R.string.remove, (dialog, which) -> {
                     for (RelationMember outer : outers) {
                         if (outer.downloaded()) {

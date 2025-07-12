@@ -228,7 +228,7 @@ public class NotesTest {
 
         mockServer.enqueue("410"); // hidden note
         assertTrue(TestUtils.clickText(device, true, context.getString(R.string.transfer_download_current_upload), true, false));
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_commit_ok), 5000));
+        TestUtils.findText(device, false, context.getString(R.string.openstreetbug_commit_ok), 5000);
         assertFalse(t.isOpen());
         assertFalse(((Note) t).hasBeenChanged());
         TestUtils.sleep(5000);

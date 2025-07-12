@@ -56,7 +56,7 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
     @NonNull
     private AlertDialog bookmarkSelectDialog(@NonNull Activity activity, @NonNull List<Bookmark> bookmarksStorages) {
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        final AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
         final View layout = themedInflater.inflate(R.layout.bookmark_dialog, null);
 

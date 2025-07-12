@@ -129,7 +129,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         Log.d(DEBUG_TAG, "onCreateDialog");
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setTitle(R.string.search_results_title);
 
         final View container = getResultsView(presetsLayout, presets, true);

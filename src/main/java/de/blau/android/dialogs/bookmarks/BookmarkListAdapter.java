@@ -13,6 +13,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.R;
 import de.blau.android.bookmarks.Bookmark;
+import de.blau.android.util.InsetAwarePopupMenu;
 
 /**
  * Recyclerview adapter for displaying bookmarks
@@ -90,7 +91,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
          * @param view the item view
          */
         private void showOptions(@NonNull View view) {
-            PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+            PopupMenu popupMenu = new InsetAwarePopupMenu(view.getContext(), view);
             popupMenu.inflate(R.menu.bookmark_popup);
             popupMenu.setOnMenuItemClickListener(this);
             popupMenu.show();

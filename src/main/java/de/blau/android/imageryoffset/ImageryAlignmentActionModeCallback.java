@@ -241,7 +241,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
         if (cabBottomBar != null) {
             menu = cabBottomBar.getMenu();
             cabBottomBar.setOnMenuItemClickListener(item -> onActionItemClicked(actionMode, item));
-            MenuUtil.setupBottomBar(main, cabBottomBar, main.isFullScreen(), prefs.lightThemeEnabled());
+            MenuUtil.setupBottomBar(main, cabBottomBar);
         }
         menu.clear();
         menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db)
@@ -334,7 +334,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
     public void close() {
         Log.d(DEBUG_TAG, "close");
         if (!Arrays.equals(osmts.getOffsets(), oldOffsets)) {
-            new AlertDialog.Builder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> {
+            ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> {
                 reset();
                 actionMode.finish();
             }).setNeutralButton(R.string.cancel, null).show();
@@ -769,7 +769,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
      */
     private void displayError(@Nullable String error) {
         if (error != null) { // try to avoid code dup
-            AlertDialog.Builder builder = new AlertDialog.Builder(main);
+            AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(main);
             builder.setMessage(error).setTitle(R.string.imagery_offset_title);
             builder.setPositiveButton(R.string.okay, null);
             AlertDialog dialog = builder.create();
@@ -788,7 +788,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
     @NonNull
     private AppCompatDialog createSaveOffsetDialog(final int index, @NonNull final List<ImageryOffset> saveOffsetList) {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
-        Builder dialog = new AlertDialog.Builder(main);
+        Builder dialog = ThemeUtils.getAlertDialogBuilder(main);
         dialog.setTitle(R.string.imagery_offset_title);
         final ImageryOffset offset = saveOffsetList.get(index);
         View layout = inflater.inflate(R.layout.save_imagery_offset, null);
@@ -883,7 +883,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
         final ViewBox bbox = map.getViewBox();
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
 
-        Builder dialog = new AlertDialog.Builder(main);
+        Builder dialog = ThemeUtils.getAlertDialogBuilder(main);
         dialog.setTitle(R.string.imagery_offset_title);
         final ImageryOffset offset = offsetList.get(index);
         View layout = inflater.inflate(R.layout.imagery_offset, null);

@@ -41,7 +41,7 @@ import de.blau.android.osm.UpdateFromChanges;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -50,7 +50,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class UploadRetry extends ImmersiveDialogFragment {
+public class UploadRetry extends CancelableDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UploadRetry.class.getSimpleName().length());
     private static final String DEBUG_TAG = UploadRetry.class.getSimpleName().substring(0, TAG_LEN);
@@ -169,7 +169,7 @@ public class UploadRetry extends ImmersiveDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
 
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
         builder.setTitle(R.string.upload_retry_title);
         builder.setNeutralButton(R.string.cancel, null); // set early in case of exceptions
@@ -337,7 +337,7 @@ public class UploadRetry extends ImmersiveDialogFragment {
         task.execute();
         try {
             if (!Boolean.TRUE.equals(task.get(30, TimeUnit.SECONDS))) {
-                new AlertDialog.Builder(getActivity()).setTitle(R.string.upload_retry_message_update_failed_title)
+                ThemeUtils.getAlertDialogBuilder(getActivity()).setTitle(R.string.upload_retry_message_update_failed_title)
                         .setMessage(R.string.upload_retry_message_update_failed).setNeutralButton(R.string.cancel, null)
                         .setNegativeButton(R.string.save_changes,
                                 (dialog, which) -> Main.saveOscFile(getActivity(), App.getDelegator(), App.getPreferences(getContext())))

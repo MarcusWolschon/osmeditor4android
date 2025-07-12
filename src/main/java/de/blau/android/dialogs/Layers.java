@@ -123,6 +123,7 @@ import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoJson;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
@@ -196,7 +197,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         add.setOnClickListener(v -> {
             final FragmentActivity activity = getActivity();
             final Preferences prefs = App.getLogic().getPrefs();
-            PopupMenu popup = new PopupMenu(getActivity(), add);
+            PopupMenu popup = new InsetAwarePopupMenu(getActivity(), add);
             final Map map = App.getLogic().getMap();
 
             // menu items for adding layers
@@ -360,7 +361,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             @Override
             protected void onPostExecute(List<GpxFile> result) {
                 if (!result.isEmpty()) {
-                    Builder builder = new AlertDialog.Builder(activity);
+                    Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
                     builder.setTitle(R.string.layer_available_tracks);
                     builder.setAdapter(new GpxFileAdapter(activity, result), (DialogInterface dialog, int which) -> {
                         final long id = result.get(which).getId();
@@ -927,7 +928,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         @Override
         public void onClick(View arg0) {
             final FragmentActivity activity = getActivity();
-            PopupMenu popup = new PopupMenu(activity, button);
+            PopupMenu popup = new InsetAwarePopupMenu(activity, button);
             Menu menu = popup.getMenu();
             final Map map = App.getLogic().getMap();
 
@@ -1237,7 +1238,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             if (layer instanceof de.blau.android.layer.geojson.MapOverlay) {
                 MenuItem item = menu.add(R.string.menu_layers_convert_geojson_todo);
                 item.setOnMenuItemClickListener(unused -> {
-                    Builder builder = new AlertDialog.Builder(activity);
+                    Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
                     builder.setTitle(R.string.geojson_todo_title);
                     builder.setPositiveButton(R.string.geojson_todo_default_conversion,
                             (d, pos) -> convertTodos(activity, map, (de.blau.android.layer.geojson.MapOverlay) layer, null));
@@ -1400,7 +1401,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         final FragmentActivity activity = getActivity();
         final Preferences prefs = App.getLogic().getPrefs();
 
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity, prefs);
 
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(getActivity());
 
