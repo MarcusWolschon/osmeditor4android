@@ -165,7 +165,7 @@ public class MapTileTester {
      */
     @Nullable
     public byte[] getTile() {
-        return MapTileProvider.unGZip(tileData);
+        return tileData != null ? MapTileProvider.unGZip(tileData) : null;
     }
 
     /**
