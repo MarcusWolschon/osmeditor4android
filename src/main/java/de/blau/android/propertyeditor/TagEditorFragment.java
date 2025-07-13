@@ -41,7 +41,6 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -92,6 +91,7 @@ import de.blau.android.util.Screen;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.Value;
 import de.blau.android.views.CustomAutoCompleteTextView;
@@ -1572,7 +1572,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
             }
         }
         if (replacedValue) {
-            Builder dialog = new AlertDialog.Builder(getActivity());
+            Builder dialog = ThemeUtils.getAlertDialogBuilder(getActivity());
             dialog.setTitle(R.string.tag_editor_name_suggestion);
             dialog.setMessage(R.string.tag_editor_name_suggestion_overwrite_message);
             dialog.setPositiveButton(R.string.replace, (d, which) -> {

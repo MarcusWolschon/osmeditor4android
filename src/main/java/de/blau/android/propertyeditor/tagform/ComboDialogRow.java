@@ -165,7 +165,7 @@ public class ComboDialogRow extends DialogRow {
     private static AlertDialog buildComboDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key,
             @Nullable final ArrayAdapter<?> adapter, @NonNull final DialogRow row, @NonNull final PresetItem preset) {
         String value = row.getValue();
-        Builder builder = new AlertDialog.Builder(caller.getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(caller.getActivity());
         builder.setTitle(hint);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(caller.getActivity());
         final View layout = themedInflater.inflate(R.layout.form_combo_dialog, null);

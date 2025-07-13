@@ -18,7 +18,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
@@ -175,7 +174,7 @@ public class Search {
     @SuppressLint("InflateParams")
     private AppCompatDialog createSearchResultsDialog(@NonNull final List<SearchResult> searchResults, int itemLayout) {
         //
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setTitle(R.string.search_results_title);
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
         View layout = inflater.inflate(R.layout.search_results, null);

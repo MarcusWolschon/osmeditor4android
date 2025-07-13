@@ -31,7 +31,7 @@ import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.util.FileUtil;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class }, sdk=33)
+@Config(shadows = { ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class, ShadowSQLiteQuery.class }, sdk = 33)
 @LargeTest
 public class MapTileFilesystemProviderLocalTest {
 
@@ -53,14 +53,13 @@ public class MapTileFilesystemProviderLocalTest {
         }
         try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
             File mbtFile = new File(FileUtil.getPublicDirectory(), "ersatz_background.mbt");
-            final String windowsRoot = "file://" + (System.getProperty("os.name").toLowerCase().contains("windows") ? "\\" : "");
             TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), MockTileServer.MOCK_TILE_SOURCE, null,
                     -1, -1, "Vespucci Test", new Provider(), Category.other, null, null, 0, 19, TileLayerSource.DEFAULT_TILE_SIZE, false,
-                    windowsRoot + mbtFile.getAbsolutePath());
+                    "file://" + mbtFile.getAbsolutePath());
             File pmTilesFile = new File(FileUtil.getPublicDirectory(), "protomaps(vector)ODbL_firenze.pmtiles");
             TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), FIRENZE, null, -1, -1, "Firenze",
                     new Provider(), Category.other, TileLayerSource.TYPE_PMT_3, TileType.MVT, 0, 15, TileLayerSource.DEFAULT_TILE_SIZE, false,
-                    windowsRoot + pmTilesFile.getAbsolutePath());
+                    "file://" + pmTilesFile.getAbsolutePath());
         } catch (IOException e) {
             fail(e.getMessage());
         }

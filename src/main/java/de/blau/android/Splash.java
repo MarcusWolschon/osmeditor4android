@@ -58,12 +58,13 @@ public class Splash extends AppCompatActivity {
     private Bundle  shortcutExtras;
     private Object  startedLock = new Object();
     private boolean started     = false;
+    private boolean lightTheme  = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         // don't use Preferences here as this will create the Vespucci directory which is bad for migration
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final boolean lightTheme = sharedPrefs.getBoolean(getString(R.string.config_enableLightTheme_key), true);
+        lightTheme = sharedPrefs.getBoolean(getString(R.string.config_enableLightTheme_key), true);
         setTheme(lightTheme ? R.style.SplashThemeLight : R.style.SplashTheme);
         SplashScreen.Companion.installSplashScreen(this);
         super.onCreate(savedInstanceState);
@@ -200,7 +201,7 @@ public class Splash extends AppCompatActivity {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(this);
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.safe_mode, null);
 
-        Builder builder = new AlertDialog.Builder(this);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(this, lightTheme);
         builder.setTitle(R.string.safe_mode_dialog_title);
         builder.setView(layout);
 
@@ -231,7 +232,7 @@ public class Splash extends AppCompatActivity {
                     }
                 }
                 if (state.isChecked()) {
-                    Builder reallyBuilder = new AlertDialog.Builder(this);
+                    Builder reallyBuilder = ThemeUtils.getAlertDialogBuilder(this, lightTheme);
                     reallyBuilder.setTitle(R.string.safe_delete_state_title);
                     reallyBuilder.setPositiveButton(R.string.safe_delete_state_text, (DialogInterface dialog2, int which2) -> {
                         Log.e(DEBUG_TAG, "Removing state files");

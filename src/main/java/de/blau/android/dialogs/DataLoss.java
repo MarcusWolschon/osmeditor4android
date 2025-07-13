@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,22 +9,22 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog asking for confirmation before starting an activity that might result in data loss.
  *
  */
-public class DataLoss extends ImmersiveDialogFragment {
+public class DataLoss extends CancelableDialogFragment {
 
-    private static final String DEBUG_TAG = DataLoss.class.getSimpleName().substring(0, Math.min(23, DataLoss.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, DataLoss.class.getSimpleName().length());
+    private static final String DEBUG_TAG = DataLoss.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG             = "fragment_dataloss";
     private static final String INTENT_KEY      = "intent";
@@ -107,7 +109,7 @@ public class DataLoss extends ImmersiveDialogFragment {
      * @return the dialog
      */
     public static AppCompatDialog createDialog(@NonNull Context context, @NonNull DialogInterface.OnClickListener listener) {
-        Builder builder = new AlertDialog.Builder(context);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(context);
         builder.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.alert_dialog));
         builder.setTitle(R.string.unsaved_data_title);
         builder.setMessage(R.string.unsaved_data_message);

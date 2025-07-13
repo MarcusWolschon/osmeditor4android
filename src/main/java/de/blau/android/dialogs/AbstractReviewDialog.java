@@ -33,7 +33,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.MaxHeightDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.ExtendedValidator;
 import de.blau.android.validation.Validator;
@@ -41,7 +41,7 @@ import de.blau.android.validation.Validator;
 /**
  * Common methods for review of changes
  */
-public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
+public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AbstractReviewDialog.class.getSimpleName().length());
     private static final String DEBUG_TAG = AbstractReviewDialog.class.getSimpleName().substring(0, TAG_LEN);

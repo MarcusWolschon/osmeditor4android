@@ -187,7 +187,7 @@ public final class Notifications {
      * @param intent the Intent
      * @return a PendingIntent
      */
-    @NonNull
+    @Nullable
     public static PendingIntent createPendingIntent(@NonNull Context context, @NonNull Class<?> sourceActivityClass, @NonNull Intent intent) {
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         // Adds the back stack for the Intent (but not the Intent itself)

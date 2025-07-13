@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -197,7 +196,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         super.handleElementClick(element);
         List<Way> relationWays = logic.getSelectedRelationWays();
         if (relationWays != null && relationWays.contains(element)) {
-            new AlertDialog.Builder(main).setTitle(R.string.duplicate_route_segment_title).setMessage(R.string.duplicate_route_segment_message)
+            ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.duplicate_route_segment_title).setMessage(R.string.duplicate_route_segment_message)
                     .setPositiveButton(R.string.duplicate_route_segment_button, (dialog, which) -> addSegment(element)).setNeutralButton(R.string.cancel, null)
                     .show();
         } else {

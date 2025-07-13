@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -15,7 +14,7 @@ import de.blau.android.AsyncResult;
 import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -25,7 +24,7 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public class ErrorAlert extends ImmersiveDialogFragment {
+public class ErrorAlert extends CancelableDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ErrorAlert.class.getSimpleName().length());
     private static final String DEBUG_TAG = ErrorAlert.class.getSimpleName().substring(0, TAG_LEN);
@@ -274,7 +273,7 @@ public class ErrorAlert extends ImmersiveDialogFragment {
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
         builder.setTitle(titleId);
         if (messageId != 0) {

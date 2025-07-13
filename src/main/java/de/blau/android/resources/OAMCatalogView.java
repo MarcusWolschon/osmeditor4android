@@ -1,5 +1,7 @@
 package de.blau.android.resources;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -24,13 +26,16 @@ import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public final class OAMCatalogView extends ImmersiveDialogFragment implements OnUpdateListener {
-    private static final String DEBUG_TAG = OAMCatalogView.class.getSimpleName().substring(0, Math.min(23, OAMCatalogView.class.getSimpleName().length()));
+public final class OAMCatalogView extends CancelableDialogFragment implements OnUpdateListener {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OAMCatalogView.class.getSimpleName().length());
+    private static final String DEBUG_TAG = OAMCatalogView.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String BOUNDING_BOX_KEY = "boundingbox";
 
@@ -110,7 +115,7 @@ public final class OAMCatalogView extends ImmersiveDialogFragment implements OnU
         BoundingBox box = Util.getSerializeable(bundle, BOUNDING_BOX_KEY, BoundingBox.class);
 
         FragmentActivity activity = getActivity();
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder dialogBuilder = ThemeUtils.getAlertDialogBuilder(activity);
         View layerListView = LayoutInflater.from(activity).inflate(R.layout.oam_layer_list, null);
         dialogBuilder.setTitle(R.string.oam_layer_title);
         dialogBuilder.setView(layerListView);

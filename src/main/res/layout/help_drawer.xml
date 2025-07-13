@@ -1,27 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/help_drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <de.blau.android.views.TopInset
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0" />
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/help_drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-    <!-- The main content view -->
-    <FrameLayout
-        android:id="@+id/content_frame"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- The main content view -->
+            <FrameLayout
+                android:id="@+id/content_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <!-- The navigation drawer -->
+        <ListView
+            android:id="@+id/help_left_drawer"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+    <de.blau.android.views.BottomInset
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    </LinearLayout>
-    <!-- The navigation drawer -->
-    <ListView android:id="@+id/help_left_drawer"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-     />
-</androidx.drawerlayout.widget.DrawerLayout>
+        android:layout_height="0dp"
+        android:layout_weight="0" />
+</LinearLayout>

@@ -26,6 +26,7 @@ import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.Util;
 
 public class RecentPresetsFragment extends BaseFragment {
@@ -153,7 +154,7 @@ public class RecentPresetsFragment extends BaseFragment {
      * @param item the associated PresetItem
      */
     private void showPopupMenu(@NonNull final LinearLayout presetLayout, @NonNull View view, @NonNull PresetItem item) {
-        final PopupMenu popup = new PopupMenu(getActivity(), view);
+        final PopupMenu popup = new InsetAwarePopupMenu(getActivity(), view);
         final Menu menu = popup.getMenu();
         final Preferences prefs = App.getPreferences(getContext());
         menu.add(R.string.apply_with_last_values).setCheckable(true).setChecked(prefs.applyWithLastValues(getContext(), item))

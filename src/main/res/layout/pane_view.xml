@@ -6,6 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <de.blau.android.views.TopInset
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0" />
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/propertyEditorBar"
         android:layout_width="match_parent"
@@ -18,6 +22,7 @@
         android:id="@+id/pane_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_weight="1"
         spl:orientation="horizontal"
         spl:splitterBackground="?attr/SplitterBGH"
         spl:handleBackground="?attr/SplitterHandleV"
@@ -82,4 +87,8 @@
                 android:paddingTop="4dp" />
         </de.blau.android.views.SplitPaneLayout>
     </de.blau.android.views.SplitPaneLayout>
+    <de.blau.android.views.BottomInset
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0" />
 </LinearLayout>

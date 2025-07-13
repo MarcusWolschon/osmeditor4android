@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -142,7 +143,7 @@ public final class IssueAlert {
             Uri rc = builder.build();
             Log.d(DEBUG_TAG, rc.toString());
             resultIntent.setData(rc);
-            mBuilder.setContentIntent(Notifications.createPendingIntent(context, Main.class, resultIntent));
+            setContentIntent(context, mBuilder, resultIntent);
 
             NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
             addGroupNotification(context, QA_CHANNEL, GROUP_DATA, GROUP_DATA_ID, title, mNotificationManager);
@@ -152,6 +153,22 @@ public final class IssueAlert {
             App.getOsmDataNotifications(context).save(mNotificationManager, id(e));
         } catch (OsmException e1) {
             Log.d(DEBUG_TAG, "Illegal BB created from lat " + eLat + " lon " + eLon + " r " + prefs.getDownloadRadius());
+        }
+    }
+
+    /**
+     * Safely set the ContentIntent
+     * 
+     * @param context an Android Context
+     * @param mBuilder the Notification.Builder
+     * @param resultIntent the Intent
+     */
+    private static void setContentIntent(@NonNull Context context, @NonNull NotificationCompat.Builder mBuilder, @NonNull Intent resultIntent) {
+        PendingIntent pendingIntent = Notifications.createPendingIntent(context, Main.class, resultIntent);
+        if (pendingIntent == null) {
+            mBuilder.setContentIntent(pendingIntent);
+        } else {
+            Log.e(DEBUG_TAG, "Pending Intent null");
         }
     }
 
@@ -220,7 +237,7 @@ public final class IssueAlert {
         }
         Intent resultIntent = new Intent(Intent.ACTION_VIEW);
         resultIntent.setData(Uri.fromParts(Schemes.GEO, eLat + "," + eLon, null));
-        mBuilder.setContentIntent(Notifications.createPendingIntent(context, Main.class, resultIntent));
+        setContentIntent(context, mBuilder, resultIntent);
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         if (b instanceof Note) {

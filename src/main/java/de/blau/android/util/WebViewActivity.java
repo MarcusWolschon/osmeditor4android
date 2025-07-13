@@ -24,7 +24,7 @@ import de.blau.android.dialogs.ErrorAlert;
  * @author simon
  *
  */
-public abstract class WebViewActivity extends FullScreenAppCompatActivity implements OnKeyListener {
+public abstract class WebViewActivity extends ConfigurationChangeAwareActivity implements OnKeyListener {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, WebViewActivity.class.getSimpleName().length());
     private static final String DEBUG_TAG = WebViewActivity.class.getSimpleName().substring(0, TAG_LEN);

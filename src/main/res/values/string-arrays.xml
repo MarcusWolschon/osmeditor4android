@@ -89,32 +89,6 @@
         <item>@string/follow_GPS_right</item>
         <item>@string/follow_GPS_none</item>
     </string-array>
-    <string-array name="full_screen_preference_entries">
-        <item>Auto</item>
-        <item>Never</item>
-        <item>Force</item>
-        <item>No statusbar</item>
-    </string-array>
-    <string name="full_screen_auto" translatable="false">AUTO</string>
-    <string name="full_screen_never" translatable="false">NEVER</string>
-    <string name="full_screen_force" translatable="false">FORCE</string>
-    <string name="full_screen_no_statusbar" translatable="false">NOSTATUSBAR</string>
-    <string-array translatable="false" name="full_screen_preference_values">
-        <item>@string/full_screen_auto</item>
-        <item>@string/full_screen_never</item>
-        <item>@string/full_screen_force</item>
-        <item>@string/full_screen_no_statusbar</item>
-    </string-array>
-    <string-array name="full_screen_preference_no_auto_entries">
-        <item>Never</item>
-        <item>Force</item>
-        <item>No statusbar</item>
-    </string-array>
-    <string-array translatable="false" name="full_screen_preference_no_auto_values">
-        <item>@string/full_screen_never</item>
-        <item>@string/full_screen_force</item>
-        <item>@string/full_screen_no_statusbar</item>
-    </string-array>
     <string-array name="map_orientation_entries">
         <item>Auto</item>
         <item>Locked</item>

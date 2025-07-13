@@ -98,7 +98,7 @@ public class UrlDialogRow extends DialogRow {
         final AlertDialog progress = ProgressDialog.get(caller.getActivity(), Progress.PROGRESS_SEARCHING);
 
         String value = row.getValue();
-        Builder builder = new AlertDialog.Builder(caller.getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(caller.getActivity());
         builder.setTitle(hint);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(caller.getActivity());
 

@@ -174,7 +174,7 @@ public class MultiselectDialogRow extends DialogRow {
      */
     private static AlertDialog buildMultiselectDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key,
             @Nullable ArrayAdapter<?> adapter, @NonNull final MultiselectDialogRow row, @NonNull final PresetItem preset) {
-        Builder builder = new AlertDialog.Builder(caller.getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(caller.getActivity());
         builder.setTitle(hint);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(caller.getActivity());
 

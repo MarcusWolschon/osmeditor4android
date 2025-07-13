@@ -29,7 +29,6 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.symbols.TriangleDown;
-import de.blau.android.util.BrokenAndroid;
 import de.blau.android.util.Sound;
 
 /**
@@ -61,7 +60,6 @@ public class Preferences {
     private String            scaleLayer;
     private String            mapProfile;
     private final String      followGPSbutton;
-    private String            fullscreenMode;
     private final String      mapOrientation;
     private int               gpsInterval;
     private float             gpsDistance;
@@ -283,15 +281,6 @@ public class Preferences {
         showWayIcons = prefs.getBoolean(r.getString(R.string.config_showWayIcons_key), true);
 
         followGPSbutton = prefs.getString(r.getString(R.string.config_followGPSbutton_key), r.getString(R.string.follow_GPS_left));
-
-        // this is slightly complex, but only needs to be done once
-        String fullscreenModeKey = r.getString(R.string.config_fullscreenMode_key);
-        fullscreenMode = prefs.getString(fullscreenModeKey, null);
-        if (fullscreenMode == null) { // was never set, determine value
-            BrokenAndroid brokenAndroid = new BrokenAndroid(ctx);
-            fullscreenMode = !brokenAndroid.isFullScreenBroken() ? r.getString(R.string.full_screen_auto) : r.getString(R.string.full_screen_never);
-            prefs.edit().putString(fullscreenModeKey, fullscreenMode).commit();
-        }
 
         mapOrientation = prefs.getString(r.getString(R.string.config_mapOrientation_key), r.getString(R.string.map_orientation_auto));
 
@@ -1177,15 +1166,6 @@ public class Preferences {
      */
     public String followGPSbuttonPosition() {
         return followGPSbutton;
-    }
-
-    /**
-     * Get the fullscreen mode
-     * 
-     * @return one of AUTO, NEVER, FORCE and NOSTATUSBAR
-     */
-    public String getFullscreenMode() {
-        return fullscreenMode;
     }
 
     /**

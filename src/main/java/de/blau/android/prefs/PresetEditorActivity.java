@@ -44,9 +44,9 @@ import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.presets.PresetParser;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FragmentUtil;
-import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
@@ -210,7 +210,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         if (!activePresetEnsured(item)) {
             return;
         }
-        new AlertDialog.Builder(this).setTitle(R.string.delete).setMessage(R.string.preset_management_delete)
+        ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.delete).setMessage(R.string.preset_management_delete)
                 .setPositiveButton(R.string.Yes, (dialog, which) -> {
                     db.deletePreset(item.id);
                     App.resetPresets();
@@ -344,7 +344,7 @@ public class PresetEditorActivity extends URLListEditActivity {
              * @param msgResID string resource id of message
              */
             private void msgbox(int msgResID) {
-                AlertDialog.Builder box = new AlertDialog.Builder(activity);
+                AlertDialog.Builder box = ThemeUtils.getAlertDialogBuilder(activity);
                 box.setMessage(activity.getResources().getString(msgResID));
                 box.setOnCancelListener(dialog -> activity.sendResultIfApplicable(item));
                 box.setPositiveButton(R.string.okay, (dialog, which) -> {
@@ -378,7 +378,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         f.show(fm, PresetItemEditDialog.ITEM_EDIT_DIALOG_TAG);
     }
 
-    public static class PresetItemEditDialog extends ImmersiveDialogFragment {
+    public static class PresetItemEditDialog extends CancelableDialogFragment {
 
         private static final String ITEM_EDIT_DIALOG_TAG = "preset_item_edit_dialog";
         static final String         ITEM_KEY             = "item";
@@ -386,7 +386,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         @Override
         public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
             ListEditItem item = Util.getSerializeable(getArguments(), ITEM_KEY, ListEditItem.class);
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            final AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(getContext());
             final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getContext());
             final View mainView = inflater.inflate(R.layout.listedit_presetedit, null);
             final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);

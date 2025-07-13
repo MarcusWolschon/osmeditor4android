@@ -37,7 +37,6 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -94,6 +93,7 @@ import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
@@ -1443,7 +1443,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 ScreenMessage.toastTopInfo(getContext(), R.string.toast_tags_cut);
             });
             deleteButton.setOnClickListener(v -> {
-                Builder builder = new AlertDialog.Builder(v.getContext());
+                Builder builder = ThemeUtils.getAlertDialogBuilder(v.getContext());
                 builder.setMessage(v.getContext().getString(R.string.delete_tags, headerTitleView.getText()));
                 builder.setNegativeButton(R.string.cancel, null);
                 builder.setPositiveButton(R.string.okay, (dialog, which) -> {

@@ -1,10 +1,11 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -14,17 +15,18 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog asking for confirmation before starting an activity that might result in data loss.
  *
  */
-public class TooMuchData extends ImmersiveDialogFragment {
+public class TooMuchData extends CancelableDialogFragment {
 
-    private static final String DEBUG_TAG = TooMuchData.class.getSimpleName().substring(0, Math.min(23, TooMuchData.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TooMuchData.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TooMuchData.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG           = "fragment_too_much_data";
     private static final String NODECOUNT_KEY = "nodeCount";
@@ -91,7 +93,7 @@ public class TooMuchData extends ImmersiveDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         final FragmentActivity activity = getActivity();
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setIcon(ThemeUtils.getResIdFromAttribute(activity, R.attr.alert_dialog));
         builder.setTitle(R.string.too_much_data_title);
         builder.setMessage(getString(R.string.too_much_data_message, nodeCount));

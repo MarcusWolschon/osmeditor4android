@@ -31,7 +31,6 @@ import android.view.ViewGroup;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
@@ -52,7 +51,7 @@ import de.blau.android.util.ImageLoader;
 import de.blau.android.util.ImagePagerAdapter;
 import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.ScreenMessage;
-import de.blau.android.util.SizedDynamicImmersiveDialogFragment;
+import de.blau.android.util.SizedDynamicDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -62,7 +61,8 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImmersiveDialogFragment implements OnMenuItemClickListener {
+public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDialogFragment implements OnMenuItemClickListener {
+
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PhotoViewerFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = PhotoViewerFragment.class.getSimpleName().substring(0, TAG_LEN);
 
@@ -149,7 +149,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImm
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         builder.setView(createView(savedInstanceState));
@@ -265,7 +265,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicImm
                 // rest is handled in calling activity
                 return;
             }
-            new AlertDialog.Builder(getContext()).setTitle(R.string.photo_viewer_delete_title)
+            ThemeUtils.getAlertDialogBuilder(getContext()).setTitle(R.string.photo_viewer_delete_title)
                     .setPositiveButton(R.string.photo_viewer_delete_button, (dialog, which) -> {
                         try {
                             if (resolver.delete(photoUri, null, null) >= 1) {

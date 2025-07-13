@@ -26,7 +26,6 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -107,7 +106,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
             layerIndex = getArguments().getInt(LAYER_INDEX_KEY);
         }
         map = App.getLogic().getMap();
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setTitle(R.string.layer_style_title);
 
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());

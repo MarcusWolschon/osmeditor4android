@@ -41,6 +41,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
+import androidx.core.view.ViewGroupCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.contract.FileExtensions;
@@ -207,6 +208,7 @@ public class HelpViewer extends WebViewActivity {
         helpSettings.setBuiltInZoomControls(true);
         helpSettings.setDisplayZoomControls(false); // don't display +-
         webView.setWebViewClient(new HelpViewWebViewClient());
+        ViewGroupCompat.installCompatInsetsDispatch(webView);
         fl.addView(webView);
 
         // set up the drawer

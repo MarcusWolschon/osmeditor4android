@@ -468,7 +468,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      */
     public static void selectTodoList(@NonNull Context context, @NonNull List<StringWithDescription> todoLists,
             @NonNull DialogInterface.OnClickListener listener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(context);
         builder.setTitle(R.string.select_todo_list);
         ArrayAdapter<StringWithDescription> adapter = new ArrayAdapter<>(context, R.layout.dialog_list_item, todoLists);
         builder.setAdapter(adapter, listener);
@@ -488,7 +488,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         final StringWithDescription listName = todo.getListName(main);
         List<Todo> todoList = taskStorage.getTodos(listName.getValue(), false);
         if (todoList.isEmpty()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(main);
+            AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(main);
             builder.setTitle(R.string.all_todos_done_title);
             builder.setMessage(main.getString(R.string.all_todos_done_message, listName.toString()));
             builder.setNegativeButton(R.string.cancel, null);
@@ -519,7 +519,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * @param elements a List of OsmElement
      */
     public static void addToTodoList(@NonNull FragmentActivity activity, @NonNull EasyEditManager manager, @NonNull List<OsmElement> elements) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setTitle(activity.getResources().getQuantityString(R.plurals.add_todo_title, elements.size()));
         View layout = activity.getLayoutInflater().inflate(R.layout.add_todo, null);
         final CustomAutoCompleteTextView todoList = layout.findViewById(R.id.todoList);
@@ -732,7 +732,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     @NonNull
     static AlertDialog buildRelationSelectDialog(@NonNull Context context, @NonNull OnRelationSelectedListener onRelationSelectedListener, long currentId,
             int titleId, @Nullable String filterKey, @Nullable String filterValue, @NonNull List<OsmElement> selection) {
-        Builder builder = new AlertDialog.Builder(context);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(context);
 
         final View layout = ThemeUtils.getLayoutInflater(context).inflate(R.layout.relation_selection_dialog, null);
 
@@ -829,7 +829,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     @NonNull
     static AlertDialog buildPresetSelectDialog(@NonNull Context context, @NonNull final OnPresetSelectedListener onPresetSelectedListener, ElementType type,
             int titleId, @Nullable String filterKey, @Nullable String filterValue) {
-        Builder builder = new AlertDialog.Builder(context);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(context);
 
         builder.setTitle(titleId);
         builder.setNegativeButton(R.string.cancel, null);

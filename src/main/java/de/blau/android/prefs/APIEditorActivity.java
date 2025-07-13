@@ -49,7 +49,7 @@ import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FragmentUtil;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
@@ -205,7 +205,7 @@ public class APIEditorActivity extends URLListEditActivity {
         f.show(fm, ApiItemEditDialog.ITEM_EDIT_DIALOG_TAG);
     }
 
-    public static class ApiItemEditDialog extends ImmersiveDialogFragment {
+    public static class ApiItemEditDialog extends CancelableDialogFragment {
 
         private static final String ITEM_EDIT_DIALOG_TAG = "api_item_edit_dialog";
         static final String         ITEM_KEY             = "item";
@@ -214,7 +214,7 @@ public class APIEditorActivity extends URLListEditActivity {
         public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
             ListEditItem item = Util.getSerializeable(getArguments(), ITEM_KEY, ListEditItem.class);
 
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            final AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(getContext());
             final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getContext());
             final View mainView = inflater.inflate(R.layout.listedit_apiedit, null);
             final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);

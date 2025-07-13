@@ -139,4 +139,7 @@
         <attr name="SplitterHandleV" format="reference" />
         <attr name="SplitterHandleH" format="reference" />
 	</declare-styleable>
+    <declare-styleable name="Inset">
+        <attr name="insetColor" format="reference|color" />
+    </declare-styleable>
 </resources>

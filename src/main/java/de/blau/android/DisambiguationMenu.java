@@ -78,7 +78,8 @@ public class DisambiguationMenu {
     public DisambiguationMenu(@NonNull View anchor) {
         this.anchor = anchor;
         rtl = Util.isRtlScript(anchor.getContext());
-        monospaceSpan = new TypefaceSpanCompat(ResourcesCompat.getFont(anchor.getContext(), R.font.b612mono));
+        // getFont throws an exception if the font is not found
+        monospaceSpan = new TypefaceSpanCompat(ResourcesCompat.getFont(anchor.getContext(), R.font.b612mono)); // NOSONAR 
     }
 
     /**

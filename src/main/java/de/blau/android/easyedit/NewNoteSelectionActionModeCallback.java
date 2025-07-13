@@ -5,13 +5,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.layer.tasks.MapOverlay;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteFragment;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallback {
@@ -83,7 +83,7 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
      * Delete the Note after showing a Dialog fr confirmation
      */
     private void menuDelete() {
-        new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.delete_note_description)
+        ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.delete_note_description)
                 .setPositiveButton(R.string.delete_note, (dialog, which) -> {
                     App.getTaskStorage().delete(note);
                     main.getMap().invalidate();

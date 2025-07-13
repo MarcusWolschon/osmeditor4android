@@ -11,13 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.DisambiguationMenu;
+import de.blau.android.DisambiguationMenu.Type;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.DisambiguationMenu.Type;
 import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
@@ -423,7 +422,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         // check ways are actually downloaded this will abort so should be before the relation check
         for (OsmElement e : selection) {
             if (e instanceof Way && !logic.isInDownload((Way) e)) {
-                new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleteways_nodesnotdownloaded_description)
+                ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.deleteways_nodesnotdownloaded_description)
                         .setPositiveButton(R.string.okay, null).show();
                 return;
             }
@@ -433,7 +432,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         if (!deleteFromRelations) {
             for (OsmElement e : selection) {
                 if (e.hasParentRelations()) {
-                    new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.delete_elements_from_relation_description)
+                    ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.delete_elements_from_relation_description)
                             .setPositiveButton(R.string.delete, (dialog, which) -> menuDelete(true)).show();
                     return;
                 }

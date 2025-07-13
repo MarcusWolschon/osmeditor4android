@@ -22,7 +22,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.DialogFragment;
@@ -41,9 +40,9 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.ThemeUtils;
@@ -54,7 +53,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class ViewWayPoint extends ImmersiveDialogFragment {
+public class ViewWayPoint extends CancelableDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ViewWayPoint.class.getSimpleName().length());
     private static final String DEBUG_TAG = ViewWayPoint.class.getSimpleName().substring(0, TAG_LEN);
@@ -135,7 +134,7 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
         }
 
         FragmentActivity activity = getActivity();
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
 
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
@@ -177,9 +176,8 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
             for (WayPoint.Link link : links) {
                 final String description = link.getDescription();
                 TableRow row = TableLayoutUtils.createRow(activity, getString(R.string.waypoint_link),
-                        de.blau.android.util.Util
-                                .notEmpty(description) ? description : link.getUrl(), false,
-                        (View v) -> playLinkUri(activity, gpxUri, link), tp);
+                        de.blau.android.util.Util.notEmpty(description) ? description : link.getUrl(), false, (View v) -> playLinkUri(activity, gpxUri, link),
+                        tp);
                 tl.addView(row);
                 row.requestFocus();
             }

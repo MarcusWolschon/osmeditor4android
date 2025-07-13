@@ -1,5 +1,7 @@
 package de.blau.android.resources;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,10 +34,13 @@ import de.blau.android.layer.tiles.MapTilesLayer;
 import de.blau.android.layer.tiles.MapTilesOverlayLayer;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.ThemeUtils;
 
-public class TileLayerDatabaseView extends ImmersiveDialogFragment implements OnUpdateListener {
-    private static final String DEBUG_TAG = TileLayerDatabaseView.class.getSimpleName().substring(0, Math.min(23, TileLayerDatabaseView.class.getSimpleName().length()));
+public class TileLayerDatabaseView extends CancelableDialogFragment implements OnUpdateListener {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TileLayerDatabaseView.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TileLayerDatabaseView.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_layer_database_view";
 
@@ -88,7 +93,7 @@ public class TileLayerDatabaseView extends ImmersiveDialogFragment implements On
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+        AlertDialog.Builder alertDialog = ThemeUtils.getAlertDialogBuilder(activity);
         View layerListView = LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.custom_layer_title);
         alertDialog.setView(layerListView);
@@ -107,7 +112,7 @@ public class TileLayerDatabaseView extends ImmersiveDialogFragment implements On
 
         layerList.setOnItemLongClickListener((parent, view, position, unused) -> {
             final Integer id = (Integer) view.getTag();
-            AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+            AlertDialog.Builder dialog = ThemeUtils.getAlertDialogBuilder(activity);
             dialog.setTitle(R.string.delete_layer);
             dialog.setNeutralButton(R.string.cancel, null);
             dialog.setPositiveButton(R.string.delete, (d, which) -> {

@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 import de.blau.android.R;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -33,9 +35,10 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public class Tip extends ImmersiveDialogFragment {
+public class Tip extends CancelableDialogFragment {
 
-    private static final String DEBUG_TAG = Tip.class.getSimpleName().substring(0, Math.min(23, Tip.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Tip.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Tip.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "tip";
 
@@ -171,7 +174,7 @@ public class Tip extends ImmersiveDialogFragment {
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.tip, null);
-        Builder builder = new AlertDialog.Builder(getActivity());
+        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.lightbulb_dialog));
         builder.setTitle(R.string.tip_title);
         builder.setView(layout);

@@ -25,6 +25,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.ViewPagerAdapter;
 import de.blau.android.filter.Filter;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.ExtendedViewPager;
 
@@ -44,7 +45,7 @@ public class ValidatorRulesUI {
      * @param context Android context
      */
     public void manageRulesetContents(@NonNull final Context context) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialog = ThemeUtils.getAlertDialogBuilder(context);
         View rulesetView = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list, null);
         ExtendedViewPager pager = (ExtendedViewPager) rulesetView.findViewById(R.id.pager);
         PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_header);
@@ -75,7 +76,7 @@ public class ValidatorRulesUI {
         });
         final FloatingActionButton fab = (FloatingActionButton) rulesetView.findViewById(R.id.add);
         fab.setOnClickListener(v -> {
-            PopupMenu popup = new PopupMenu(context, fab);
+            PopupMenu popup = new InsetAwarePopupMenu(context, fab);
 
             // menu items for adding rules
             MenuItem addResurveyEntry = popup.getMenu().add(R.string.add_resurvey_entry);
@@ -157,7 +158,7 @@ public class ValidatorRulesUI {
      * @param id the rowid of the resurvey entry in the database or -1 if not saved yet
      */
     private void showResurveyDialog(@NonNull final Context context, @NonNull final SQLiteDatabase db, final boolean existing, final int id) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialog = ThemeUtils.getAlertDialogBuilder(context);
         View templateView = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_resurvey_item, null);
         alertDialog.setView(templateView);
 
@@ -284,7 +285,7 @@ public class ValidatorRulesUI {
      * @param id the rowid of the check entry in the database or -1 if not saved yet
      */
     private void showCheckDialog(@NonNull final Context context, @NonNull final SQLiteDatabase db, final boolean existing, final int id) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialog = ThemeUtils.getAlertDialogBuilder(context);
         View templateView = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_check_item, null);
         alertDialog.setView(templateView);
 

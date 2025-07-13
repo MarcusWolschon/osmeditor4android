@@ -77,7 +77,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.PopupMenu;
@@ -86,6 +85,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.view.MenuCompat;
+import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
@@ -182,15 +182,16 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BadgeDrawable;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.DownloadActivity;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
-import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.GeoUriData;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.LatLon;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
@@ -215,7 +216,7 @@ import de.blau.android.views.ZoomControls;
  * @author mb
  * @author Simon Poole
  */
-public class Main extends FullScreenAppCompatActivity
+public class Main extends ConfigurationChangeAwareActivity
         implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler {
 
     /**
@@ -486,14 +487,8 @@ public class Main extends FullScreenAppCompatActivity
         updatePrefs(new Preferences(this));
 
         int layout = R.layout.main;
-        if (useFullScreen(prefs) && !statusBarHidden()) {
-            Log.d(DEBUG_TAG, "using full screen layout");
-            layout = R.layout.main_fullscreen;
-        }
         if (prefs.lightThemeEnabled()) {
-            setTheme(statusBarHidden() ? R.style.Theme_customMain_Light_FullScreen : R.style.Theme_customMain_Light);
-        } else if (statusBarHidden()) {
-            setTheme(R.style.Theme_customMain_FullScreen);
+            setTheme(R.style.Theme_customMain_Light);
         }
 
         super.onCreate(savedInstanceState);
@@ -509,6 +504,9 @@ public class Main extends FullScreenAppCompatActivity
         }
 
         LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(layout, null);
+
+        ViewGroupCompat.installCompatInsetsDispatch(ml);
+
         mapLayout = (RelativeLayout) ml.findViewById(R.id.mainMap);
 
         Logic logic = App.getLogic(); // logic instance might still be around
@@ -1723,7 +1721,7 @@ public class Main extends FullScreenAppCompatActivity
 
             Mode m = l.getMode();
 
-            PopupMenu popup = new PopupMenu(Main.this, lock);
+            PopupMenu popup = new InsetAwarePopupMenu(Main.this, lock);
 
             // per mode menu items
             List<Mode> allModes = new ArrayList<>(Arrays.asList(Mode.values()));
@@ -2246,7 +2244,7 @@ public class Main extends FullScreenAppCompatActivity
                     invalidateOptionsMenu();
                 };
                 if (!getTracker().isEmpty()) {
-                    new AlertDialog.Builder(this).setTitle(R.string.menu_gps_clear).setMessage(R.string.clear_track_description)
+                    ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.menu_gps_clear).setMessage(R.string.clear_track_description)
                             .setPositiveButton(R.string.clear_anyway, (dialog, which) -> stopAndClearTracking.run()).setNeutralButton(R.string.cancel, null)
                             .show();
                 } else {
@@ -3366,9 +3364,11 @@ public class Main extends FullScreenAppCompatActivity
      * @param enabled the new state
      * @param stateList the ColorStateList
      */
-    private void changeSimpleActionsButtonState(boolean enabled, @NonNull ColorStateList stateList) {
+    private void changeSimpleActionsButtonState(boolean enabled, @Nullable ColorStateList stateList) {
         simpleActionsButton.setEnabled(enabled);
-        simpleActionsButton.setBackgroundTintList(stateList);
+        if (stateList != null) {
+            simpleActionsButton.setBackgroundTintList(stateList);
+        }
         simpleActionsButton.setCompatElevation(LARGE_FAB_ELEVATION);
         ViewGroup.LayoutParams lp = simpleActionsButton.getLayoutParams();
         if (enabled) {
@@ -3521,7 +3521,7 @@ public class Main extends FullScreenAppCompatActivity
      * pop up a dialog asking for confirmation and if confirmed exit
      */
     private void exit() {
-        new AlertDialog.Builder(this).setTitle(R.string.exit_title)
+        ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.exit_title)
                 .setMessage(getTracker() != null && getTracker().isTracking() ? R.string.pause_exit_text : R.string.exit_text)
                 .setNegativeButton(R.string.no, null).setPositiveButton(R.string.yes, (dialog, which) -> {
                     // if we actually exit, stop the auto downloads, for now
@@ -3581,7 +3581,7 @@ public class Main extends FullScreenAppCompatActivity
             BoundingBox undoBox = logic.getUndo().getLastBounds();
             if (undoBox != null && !map.getViewBox().intersects(undoBox)) {
                 // undo location is not in view
-                new AlertDialog.Builder(Main.this).setTitle(R.string.undo_location_title).setMessage(R.string.undo_location_text)
+                ThemeUtils.getAlertDialogBuilder(Main.this).setTitle(R.string.undo_location_title).setMessage(R.string.undo_location_text)
                         .setNeutralButton(R.string.cancel, null).setNegativeButton(R.string.undo_location_undo_anyway, (dialog, which) -> undo(logic))
                         .setPositiveButton(R.string.undo_location_zoom, (dialog, which) -> {
                             map.getViewBox().fitToBoundingBox(map, undoBox);
@@ -4601,7 +4601,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param bottomBar the bottomToolbar to set
      */
     private void setBottomBar(androidx.appcompat.widget.ActionMenuView bottomBar) {
-        MenuUtil.setupBottomBar(this, bottomBar, isFullScreen(), prefs.lightThemeEnabled());
+        MenuUtil.setupBottomBar(this, bottomBar);
         this.bottomBar = bottomBar;
     }
 

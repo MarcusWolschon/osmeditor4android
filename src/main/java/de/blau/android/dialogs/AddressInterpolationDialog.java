@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
@@ -42,8 +43,8 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.tagform.TextRow;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ElementSearch;
-import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.ThemeUtils;
@@ -58,8 +59,10 @@ import de.blau.android.views.SimpleTextRow;
  * checkpoint
  * 
  */
-public class AddressInterpolationDialog extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = AddressInterpolationDialog.class.getSimpleName().substring(0, Math.min(23, AddressInterpolationDialog.class.getSimpleName().length()));
+public class AddressInterpolationDialog extends CancelableDialogFragment {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AddressInterpolationDialog.class.getSimpleName().length());
+    private static final String DEBUG_TAG = AddressInterpolationDialog.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_address_interpolation";
 
@@ -217,7 +220,7 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
                 tagLayout.addView(SimpleTextRow.getRow(context, inflater, tagLayout, presetItem, presetField, entry.getValue(), adapter));
             }
         }
-        Builder builder = new AlertDialog.Builder(activity);
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setTitle(R.string.address_interpolation_title);
         builder.setNegativeButton(R.string.cancel, null);
         builder.setPositiveButton(R.string.okay, (DialogInterface dialog, int which) -> {
