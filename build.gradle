@@ -657,7 +657,7 @@ dependencies {
     implementation 'com.github.Kunzisoft:AndroidClearChroma:2.6'
     implementation 'de.westnordost:countryboundaries:2.1'
     implementation 'de.ruedigermoeller:fst:2.57'
-    implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.48.3'
+    implementation 'org.openstreetmap.pbf:osmpbf:1.5.0'
     implementation 'com.zaxxer:SparseBitSet:1.3'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'io.michaelrocks:libphonenumber-android:9.0.32'

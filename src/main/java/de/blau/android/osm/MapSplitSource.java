@@ -3,10 +3,9 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.openstreetmap.osmosis.osmbinary.file.BlockInputStream;
-
 import android.content.Context;
 import androidx.annotation.NonNull;
+import crosby.binary.file.BlockInputStream;
 import de.blau.android.R;
 import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.services.util.MBTileProviderDataBase;
@@ -34,6 +33,7 @@ public final class MapSplitSource {
      * @return a Storage instance containing the OSM objects
      * @throws IOException if reading the data caused issues
      */
+    @NonNull
     public static Storage readBox(@NonNull Context context, @NonNull MBTileProviderDataBase mbTiles, @NonNull BoundingBox box) throws IOException {
 
         final double lonLeft = box.getLeft() / 1E7d;
@@ -71,8 +71,7 @@ public final class MapSplitSource {
                 mapTile.y = y;
                 InputStream is = mbTiles.getTileStream(mapTile);
                 if (is != null) {
-                    OsmPbfParser parser = new OsmPbfParser(context, storage, box);
-                    new BlockInputStream(is, parser).process();
+                    parseTiles(context, box, storage, is);
                 } else {
                     // tile doesn't exist try ones further out
                     // assumption there will only always be one tile that
@@ -84,8 +83,7 @@ public final class MapSplitSource {
                         --mapTile.zoomLevel;
                         is = mbTiles.getTileStream(mapTile);
                         if (is != null) {
-                            OsmPbfParser parser = new OsmPbfParser(context, storage, box);
-                            new BlockInputStream(is, parser).process();
+                            parseTiles(context, box, storage, is);
                             // mark smaller tiles as seen
                             int zoomDiff = maxZoom - mapTile.zoomLevel;
                             int originX = mapTile.x << zoomDiff;
@@ -107,6 +105,22 @@ public final class MapSplitSource {
             storage.removeUnreferencedNodes(box);
         }
         return storage;
+    }
+
+    /**
+     * Parse tiles covered by box and add the data to storage
+     * 
+     * @param context an Android Context
+     * @param box the BoundingBox
+     * @param storage the target Storage
+     * @param is the InputStream
+     * @throws IOException if parsing goes wrong
+     */
+    private static void parseTiles(@NonNull Context context, @NonNull BoundingBox box, @NonNull Storage storage, @NonNull InputStream is) throws IOException {
+        OsmPbfParser parser = new OsmPbfParser(context, storage, box);
+        try (BlockInputStream bis = new BlockInputStream(is, parser)) {
+            bis.process();
+        }
     }
 
     /**
