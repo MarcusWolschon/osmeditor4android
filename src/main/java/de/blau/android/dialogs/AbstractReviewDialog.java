@@ -33,7 +33,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
-import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.MaxHeightDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.ExtendedValidator;

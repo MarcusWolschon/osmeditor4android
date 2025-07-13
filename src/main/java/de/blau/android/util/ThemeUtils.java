@@ -156,6 +156,9 @@ public final class ThemeUtils {
     @NonNull
     public static Drawable getTintedDrawable(@NonNull Context ctx, int resource, int attr) {
         Drawable drawable = ContextCompat.getDrawable(ctx, resource);
+        if (drawable == null) {
+            throw new IllegalArgumentException("Drawable missing for resource " + resource);
+        }
         return getTintedDrawable(ctx, drawable, attr);
     }
 

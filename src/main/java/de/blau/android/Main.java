@@ -3364,9 +3364,11 @@ public class Main extends ConfigurationChangeAwareActivity
      * @param enabled the new state
      * @param stateList the ColorStateList
      */
-    private void changeSimpleActionsButtonState(boolean enabled, @NonNull ColorStateList stateList) {
+    private void changeSimpleActionsButtonState(boolean enabled, @Nullable ColorStateList stateList) {
         simpleActionsButton.setEnabled(enabled);
-        simpleActionsButton.setBackgroundTintList(stateList);
+        if (stateList != null) {
+            simpleActionsButton.setBackgroundTintList(stateList);
+        }
         simpleActionsButton.setCompatElevation(LARGE_FAB_ELEVATION);
         ViewGroup.LayoutParams lp = simpleActionsButton.getLayoutParams();
         if (enabled) {
