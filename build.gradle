@@ -15,6 +15,9 @@ buildscript {
             }
         }
         
+        // see https://community.sonarsource.com/t/sonarqube-gradle-plugin-6-0-breaks-android-tasks/130863
+        classpath 'org.bouncycastle:bcutil-jdk18on:1.79'
+        
         classpath 'com.android.tools.build:gradle:8.6.1'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.6'
         classpath 'org.jacoco:org.jacoco.core:0.8.11'
