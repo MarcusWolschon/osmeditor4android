@@ -17,19 +17,19 @@ buildscript {
         
         classpath 'com.android.tools.build:gradle:8.6.1'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.6'
-        classpath 'org.jacoco:org.jacoco.core:0.8.9'
+        classpath 'org.jacoco:org.jacoco.core:0.8.11'
         classpath "ch.poole:preset-utils:0.26.0"
         classpath 'ch.poole.misc:gradle-eclipse-aar-plugin:0.1.0'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.1'
-        classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.9.0'
+        classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.10.1'
         classpath 'org.apache.groovy:groovy-yaml:5.0.0-alpha-3'
     }
 }
 
 plugins {
     id "de.undercouch.download" version "4.1.2"
-    id "org.sonarqube" version "3.3"
+    id "org.sonarqube" version "6.2.0.5505"
     id "com.github.ben-manes.versions" version "0.39.0"
 }
 import de.undercouch.gradle.tasks.download.Download
@@ -240,7 +240,7 @@ sonarqube {
     properties {
         property "sonar.java.source","1.8"
         property "sonar.sourceEncoding","UTF-8"
-        property "sonar.java.binaries", "build/intermediates/compile_app_classes_jar/currentDebug/classes.jar"
+        property "sonar.java.binaries", "build/intermediates/compile_app_classes_jar/currentDebug/bundleCurrentDebugClassesToCompileJar/classes.jar"
         property "sonar.coverage.jacoco.xmlReportPaths","build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
     }
 }
@@ -754,7 +754,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
     description = "Generate Jacoco coverage reports"
 
     classDirectories.from = fileTree(
-            dir: 'build/intermediates/javac/currentDebug/classes/',
+            dir: 'build/intermediates/javac/currentDebug/compileCurrentDebugJavaWithJavac/classes/',
             excludes: ['**/R.class', '**/R$*.class', '**/*$ViewInjector*.*', '**/BuildConfig.*', '**/Manifest*.*', '**/vector_tile/**'])
 
     additionalSourceDirs.from = files(coverageSourceDirs)
