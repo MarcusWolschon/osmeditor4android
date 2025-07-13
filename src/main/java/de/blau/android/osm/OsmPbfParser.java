@@ -1,19 +1,20 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.openstreetmap.osmosis.osmbinary.BinaryParser;
-import org.openstreetmap.osmosis.osmbinary.Osmformat;
-import org.openstreetmap.osmosis.osmbinary.Osmformat.DenseInfo;
-import org.openstreetmap.osmosis.osmbinary.Osmformat.DenseNodes;
-
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import crosby.binary.BinaryParser;
+import crosby.binary.Osmformat;
+import crosby.binary.Osmformat.DenseInfo;
+import crosby.binary.Osmformat.DenseNodes;
 import de.blau.android.R;
 import de.blau.android.exception.UnsupportedFormatException;
 
@@ -21,7 +22,9 @@ import de.blau.android.exception.UnsupportedFormatException;
  * Parse OSM data in PBF format
  */
 public class OsmPbfParser extends BinaryParser {
-    private static final String DEBUG_TAG = OsmPbfParser.class.getSimpleName().substring(0, Math.min(23, OsmPbfParser.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OsmPbfParser.class.getSimpleName().length());
+    private static final String DEBUG_TAG = OsmPbfParser.class.getSimpleName().substring(0, TAG_LEN);
 
     final Context     context;
     final Storage     storage;
