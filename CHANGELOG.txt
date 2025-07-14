@@ -1,5 +1,13 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.0.5:
+
+- Fix check that tile data isn't null before unzipping in tile tester
+- Fix if preceeding node is a dup. check with correct index for following one
+- Update gradle-eclipse-aar-plugin version
+- Update translations
+- Update imagery from ELI
+
 21.0.4:
 
 - Fix selection after operation has been aborted for more action modes
