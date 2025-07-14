@@ -25,6 +25,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.search.Search;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -59,12 +60,19 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
      */
     public MultiSelectActionModeCallback(@NonNull EasyEditManager manager, @NonNull List<OsmElement> elements) {
         super(manager);
-        selection = new ArrayList<>();
-        for (OsmElement e : elements) {
-            if (e != null) {
-                addOrRemoveElement(e);
+        selection = new ArrayList<>(elements);
+        new ExecutorTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void params) {
+                logic.setSelection(elements);
+                return null;
             }
-        }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                updateMode();
+            }
+        }.execute();
         undoListener = main.new UndoListener();
     }
 
@@ -80,6 +88,7 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
         selection = new ArrayList<>();
         if (element != null) {
             addOrRemoveElement(element);
+            updateMode();
         }
         undoListener = main.new UndoListener();
     }
@@ -130,6 +139,12 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
         } catch (OsmException osmex) {
             Log.e(DEBUG_TAG, "Unkown element type " + osmex.getMessage());
         }
+    }
+
+    /**
+     * Update tile and some other selection dependent stuff
+     */
+    private void updateMode() {
         if (selection.isEmpty()) {
             // nothing selected more .... stop
             manager.finish();
@@ -292,7 +307,7 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
         // due to clickableElements, only valid elements can be clicked
         Log.d(DEBUG_TAG, "Multi-Select add/remove " + element);
         addOrRemoveElement(element);
-        main.invalidateMap();
+        updateMode();
         return true;
     }
 
