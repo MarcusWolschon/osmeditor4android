@@ -165,11 +165,11 @@ public final class IssueAlert {
      */
     private static void setContentIntent(@NonNull Context context, @NonNull NotificationCompat.Builder mBuilder, @NonNull Intent resultIntent) {
         PendingIntent pendingIntent = Notifications.createPendingIntent(context, Main.class, resultIntent);
-        if (pendingIntent == null) {
+        if (pendingIntent != null) {
             mBuilder.setContentIntent(pendingIntent);
-        } else {
-            Log.e(DEBUG_TAG, "Pending Intent null");
+            return;
         }
+        Log.e(DEBUG_TAG, "Pending Intent null");
     }
 
     /**
