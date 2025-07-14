@@ -218,7 +218,7 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 <a id="indoor"></a>
 
-## 室内モード
+## 屋内モード
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
 
