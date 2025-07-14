@@ -96,7 +96,7 @@ Available if the way shares nodes with other ways. This function replaces all sh
 
 ### Unjoin dissimilar
 
-As __Unjoin__ with the difference that nodes that are shared with ways that have the same "top level" key will be replaced in those ways effectively maintaining the connections to similar ways.
+As __Unjoin__ with the difference that nodes that are shared with ways that have the same "top level" or "primary" key will be replaced in those ways effectively maintaining the connections to similar ways. If the way is tagged with multiple "primary" keys you will be asked to select which one to use for the comparison. 
 
 ### Extract segment
 

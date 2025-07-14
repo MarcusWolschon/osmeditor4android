@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -734,6 +736,33 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
             }
         }
         return null;
+    }
+
+    /**
+     * Get all "important" keys for this element
+     * 
+     * @param ctx Android context
+     * @return get the object keys this element uses
+     */
+    @NonNull
+    public List<String> getObjectKeys(@Nullable Context ctx) {
+        Set<String> result = new HashSet<>();
+        for (String key : Tags.IMPORTANT_TAGS) {
+            if (tags.containsKey(key)) {
+                result.add(key);
+            }
+        }
+        if (ctx != null) {
+            Preset[] presets = App.getCurrentPresets(ctx);
+            for (Preset preset : presets) {
+                if (preset != null) {
+                    Set<String> tagSet = new HashSet<>(tags.keySet());
+                    tagSet.retainAll(preset.getObjectKeys());
+                    result.addAll(tagSet);
+                }
+            }
+        }
+        return new ArrayList<>(result);
     }
 
     /**

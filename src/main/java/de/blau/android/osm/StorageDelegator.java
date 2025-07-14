@@ -1816,23 +1816,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param ctx Android Context
      * @param way the Way to unjoin
-     * @param ignoreSimilar don't unjoin from ways with the same primary key if true, but replace the node in them too
+     * @param primaryKey don't unjoin from ways with the same primary key if not null, but replace the node in them too
      */
-    public void unjoinWay(@Nullable Context ctx, @NonNull final Way way, boolean ignoreSimilar) {
+    public void unjoinWay(@Nullable Context ctx, @NonNull final Way way, @Nullable String primaryKey) {
         Set<Node> wayNodes = new HashSet<>(way.getNodes()); // only do every node once
         Map<Long, Boolean> keyMap = new HashMap<>();
-        String primaryTag = way.getPrimaryTag(ctx);
-        String primaryKey = null;
-        if (primaryTag != null) {
-            String[] t = primaryTag.split("=");
-            if (t.length == 2) {
-                primaryKey = t[0];
-            }
-        }
         for (Node nd : wayNodes) {
             List<Way> otherWays = getCurrentStorage().getWays(nd);
             List<Way> similarWays = new ArrayList<>();
-            if (otherWays.size() > 1 && ignoreSimilar && primaryKey != null) {
+            if (otherWays.size() > 1 && primaryKey != null) {
                 for (Way other : otherWays) {
                     if (way.equals(other)) {
                         continue;
