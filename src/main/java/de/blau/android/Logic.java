@@ -2718,13 +2718,13 @@ public class Logic {
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param way the Way to unjoin
-     * @param ignoreSimilar don't unjoin from ways with the same primary key if true, but replace the node in them too
+     * @param primaryKey don't unjoin from ways with the same primary key, but replace the node in them too
      */
-    public synchronized void performUnjoinWay(@Nullable FragmentActivity activity, @NonNull Way way, boolean ignoreSimilar) {
+    public synchronized void performUnjoinWay(@Nullable FragmentActivity activity, @NonNull Way way, @Nullable String primaryKey) {
         try {
             createCheckpoint(activity, R.string.undo_action_unjoin_ways);
             displayAttachedObjectWarning(activity, way); // needs to be done before unjoin
-            getDelegator().unjoinWay(activity, way, ignoreSimilar);
+            getDelegator().unjoinWay(activity, way, primaryKey);
             invalidateMap();
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);

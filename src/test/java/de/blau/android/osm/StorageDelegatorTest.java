@@ -1198,7 +1198,7 @@ public class StorageDelegatorTest {
 
         assertEquals(2, d.getApiWayCount());
         assertEquals(w.nodeCount(), d.getApiNodeCount());
-        d.unjoinWay(null, w2, false);
+        d.unjoinWay(null, w2, null);
         assertNotEquals(n1, w2.getFirstNode());
         final Node lastNode = w2.getLastNode();
         assertNotEquals(n2, lastNode);
@@ -1226,7 +1226,7 @@ public class StorageDelegatorTest {
         tags.put(Tags.KEY_HIGHWAY, "service");
         w.setTags(tags);
         w2.setTags(tags);
-        d.unjoinWay(null, w2, true);
+        d.unjoinWay(null, w2, Tags.KEY_HIGHWAY);
         assertEquals(n1, w2.getFirstNode());
         final Node lastNode = w2.getLastNode();
         assertEquals(n2, lastNode);
@@ -1236,7 +1236,7 @@ public class StorageDelegatorTest {
         tags.clear();
         tags.put(Tags.KEY_WATERWAY, "wet");
         w2.setTags(tags);
-        d.unjoinWay(null, w2, true);
+        d.unjoinWay(null, w2, Tags.KEY_WATERWAY);
         assertNotEquals(n1, w2.getFirstNode());
         assertNotEquals(n2, w2.getLastNode());
         assertEquals(2, d.getApiWayCount());
@@ -1261,7 +1261,7 @@ public class StorageDelegatorTest {
         assertEquals(w.nodeCount(), d.getApiNodeCount());
         assertTrue(w2.isClosed());
 
-        d.unjoinWay(null, w2, false);
+        d.unjoinWay(null, w2, null);
         assertNotEquals(n1, w2.getFirstNode());
         assertNotEquals(n2, w2.getNodes().get(1));
         assertNotEquals(n3, w2.getNodes().get(3));

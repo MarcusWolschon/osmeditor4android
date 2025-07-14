@@ -7,12 +7,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementIssueDialog;
@@ -297,8 +299,10 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                     main.startSupportActionMode(new RemoveNodeFromWayActionModeCallback(manager, way));
                     break;
                 case MENUITEM_UNJOIN:
+                    logic.performUnjoinWay(main, way, null);
+                    break;
                 case MENUITEM_UNJOIN_DISSIMILAR:
-                    logic.performUnjoinWay(main, way, MENUITEM_UNJOIN_DISSIMILAR == item.getItemId());
+                    unjonDissimilar(main, way);
                     break;
                 case MENUITEM_SHARE_POSITION:
                     Util.sharePosition(main, Geometry.centroidLonLat(way), main.getMap().getZoomLevel());
@@ -329,6 +333,29 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
             }
         }
         return true;
+    }
+
+    /**
+     * Unjoin way from "dissimilar" other ways
+     * 
+     * @param activity the current Activity
+     * @param way the Way
+     */
+    private void unjonDissimilar(@NonNull FragmentActivity activity, @NonNull Way way) {
+        List<String> primaryKeys = way.getObjectKeys(activity);
+        final int keyCount = primaryKeys.size();
+        if (keyCount <= 1) {
+            logic.performUnjoinWay(activity, way, keyCount == 1 ? primaryKeys.get(0) : null);
+            return;
+        }
+        ThemeUtils.getAlertDialogBuilder(activity).setTitle(R.string.select_primary_key)
+                .setItems(primaryKeys.toArray(new String[0]), (DialogInterface dialog, int which) -> {
+                    try {
+                        logic.performUnjoinWay(activity, way, primaryKeys.get(which));
+                    } catch (OsmIllegalOperationException | StorageException ex) {
+                        // already toasted
+                    }
+                }).setNegativeButton(R.string.cancel, null).show();
     }
 
     @Override
