@@ -296,7 +296,6 @@ android {
     }
 
     compileOptions {
-        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -619,9 +618,6 @@ dependencies {
     implementation "ch.acra:acra-http:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
     
-    // desugaring
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
-    
     // android support 
     implementation "androidx.activity:activity:1.8.2"
     implementation "androidx.fragment:fragment:1.3.6"
@@ -664,7 +660,7 @@ dependencies {
     implementation 'com.github.Kunzisoft:AndroidClearChroma:2.4'
     implementation 'de.westnordost:countryboundaries:2.1'
     implementation 'de.ruedigermoeller:fst:2.57'
-    implementation 'org.openstreetmap.pbf:osmpbf:1.5.0'
+    implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.48.3'
     implementation 'com.zaxxer:SparseBitSet:1.2'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'io.michaelrocks:libphonenumber-android:8.12.39'

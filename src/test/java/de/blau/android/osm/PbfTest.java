@@ -13,10 +13,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import org.junit.Test;
-
+import org.openstreetmap.osmosis.osmbinary.file.BlockInputStream;
+import org.openstreetmap.osmosis.osmbinary.file.BlockReaderAdapter;
 import org.xmlpull.v1.XmlPullParserException;
 
-import crosby.binary.file.BlockInputStream;
 import de.blau.android.util.Hash;
 
 public class PbfTest {
@@ -55,9 +55,9 @@ public class PbfTest {
     public static Storage read() {
         InputStream input = PbfTest.class.getResourceAsStream("/liechtenstein-latest.osm.pbf");
         Storage storage = new Storage();
-        OsmPbfParser brad = new OsmPbfParser(storage);
-        try (BlockInputStream bis = new BlockInputStream(input, brad)) {
-            bis.process();
+        BlockReaderAdapter brad = new OsmPbfParser(storage);
+        try {
+            new BlockInputStream(input, brad).process();
         } catch (IOException e) {
             fail(e.getMessage());
         }
