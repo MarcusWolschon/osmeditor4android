@@ -1013,7 +1013,7 @@
 "Pysäköintiluola"
 ],
 "amenity/parking_entrance":[
-"Pysäköintihallin ajoramppi"
+"Pysäköintihallin sisäänajo"
 ],
 "amenity/parking_space":[
 "parkkipaikka",
@@ -1929,13 +1929,13 @@
 "Tasoon upotettu reunakivi"
 ],
 "barrier/kerb/lowered":[
-"Madallettu reunakivi"
+"Matala reunakivi"
 ],
 "barrier/kerb/raised":[
-"Korotettu reunakivi"
+"Korkea reunakivi"
 ],
 "barrier/kerb/rolled":[
-"Aallonmuotoiseksi pyöristetty reunakivi"
+"Pyöristetty korkea reunakivi"
 ],
 "barrier/kissing_gate":[
 "Karjarajoitin"
@@ -2019,13 +2019,13 @@
 "Kerrostalo"
 ],
 "building/barn":[
-"Lato"
+"Lato/navetta"
 ],
 "building/boathouse":[
 "Venevaja"
 ],
 "building/bungalow":[
-"Kesämökki"
+"Bungalow"
 ],
 "building/bunker":[
 "Bunkkeri"
@@ -2097,9 +2097,9 @@
 "building/garages":[
 "joukkoautotalli",
 "autotalli",
-"Suuri autotalli",
 "ryhmätalli",
 "joukkotalli",
+"Autotallirivistö",
 "ryhmäautotalli"
 ],
 "building/ger":[
@@ -2177,7 +2177,7 @@
 "Ulkorakennus"
 ],
 "building/pavilion":[
-"Urheilurakennus"
+"Urheilukentän pukuhuone"
 ],
 "building/public":[
 "Julkinen rakennus"
@@ -2913,10 +2913,10 @@
 "Valo-ohjattu suojatie"
 ],
 "highway/crossing/uncontrolled":[
-"Merkitty suojatie"
+"Suojatie"
 ],
 "highway/crossing/unmarked":[
-"Merkitsemätön suojatie"
+"Ylityspaikka"
 ],
 "highway/cycleway":[
 "Pyörätie"
@@ -3011,7 +3011,7 @@
 "Suojatie (merkitty)"
 ],
 "highway/footway/crossing/unmarked":[
-"Suojatie (merkitsemätön)"
+"Ylityspaikka"
 ],
 "highway/footway/informal":[
 "Epävirallinen kävelypolku"
@@ -3109,10 +3109,25 @@
 "kävely"
 ],
 "highway/primary":[
-"Kantatie/pääkatu"
+"tie",
+"pää",
+"kanta",
+"katu",
+"päätie",
+"Kantatie/pääkatu",
+"pääkatu",
+"kokoojakatu"
 ],
 "highway/primary_link":[
-"Kantatien ramppi"
+"tie",
+"kanta",
+"katu",
+"päätie",
+"liittymä",
+"ramppi",
+"risteys",
+"Kantatien ramppi",
+"eritaso"
 ],
 "highway/raceway":[
 "Moottorirata"
@@ -3127,7 +3142,7 @@
 "Asuinkatu"
 ],
 "highway/rest_area":[
-"Lepoalue"
+"Levähdysalue"
 ],
 "highway/road":[
 "Tuntematon tie"
@@ -3136,10 +3151,25 @@
 "Tuntematon tiesilta"
 ],
 "highway/secondary":[
+"tie",
+"kokooja",
+"katu",
+"alueellinen",
+"kokoojakatu",
 "Seututie/alueellinen kokoojakatu"
 ],
 "highway/secondary_link":[
-"Seututien ramppi"
+"seutu",
+"tie",
+"kokooja",
+"katu",
+"liittymä",
+"ramppi",
+"risteys",
+"alueellinen",
+"Seututien ramppi",
+"eritaso",
+"kokoojakatu"
 ],
 "highway/service":[
 "Huoltotie"

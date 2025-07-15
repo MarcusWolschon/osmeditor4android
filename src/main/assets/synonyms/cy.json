@@ -303,7 +303,16 @@
 "Amwynder"
 ],
 "amenity/animal_breeding":[
-"Cyfleuster Bridio Anifeiliaid"
+"buwch",
+"da byw",
+"ci",
+"Cyfleuster Bridio Anifeiliaid",
+"cathod",
+"ceffyl",
+"cath",
+"cŵn",
+"ardal fridio",
+"march"
 ],
 "amenity/animal_shelter":[
 "Cysgod Anifeiliaid"
@@ -631,6 +640,9 @@
 "ifainc",
 "phobl ifanc",
 "ifanc"
+],
+"amenity/compressed_air":[
+"Aer Cywasgedig"
 ],
 "amenity/conference_centre":[
 "Canolfan Gynadleddau"
@@ -2567,9 +2579,11 @@
 "area/footway":[
 "palmant",
 "troedffordd",
+"llwybr troed",
 "llwybr",
 "Ardal Droedffordd",
 "troed",
+"cerdded",
 "troetffordd"
 ],
 "area/highway":[
@@ -2655,7 +2669,8 @@
 "Trên Twristiaid"
 ],
 "attraction/water_slide":[
-"Llithryn Dŵr"
+"Llithryn Dŵr",
+"llithren"
 ],
 "barrier":[
 "Rhwystr"
@@ -2757,12 +2772,14 @@
 "Gwarchodfa Llaw"
 ],
 "barrier/hedge":[
-"Perth",
+"wrych",
+"perth",
 "llwyn",
 "perthen",
 "prysglwyn",
 "clawdd",
 "ddraenlwyn",
+"Gwrychoedd",
 "lwyn",
 "dryslwyn",
 "ddryslwyn",
@@ -2772,6 +2789,7 @@
 "draenllwyn",
 "brysglwyn",
 "draenen",
+"wrychoedd",
 "pherth"
 ],
 "barrier/height_restrictor":[
@@ -2798,7 +2816,10 @@
 "clwyd"
 ],
 "barrier/retaining_wall":[
-"Wal Gynnal"
+"chynnal",
+"Wal Gynnal",
+"mur",
+"cynnal"
 ],
 "barrier/spikes":[
 "ystribyn",
@@ -2940,7 +2961,7 @@
 "Adeilad Masnachol"
 ],
 "building/construction":[
-"Adeilad yn cael ei Adeiladu"
+"Adeilad sy'n cael ei Adeiladu"
 ],
 "building/cowshed":[
 "buwch",
@@ -3474,13 +3495,13 @@
 "Ti Golff Disg"
 ],
 "disused/amenity":[
-"Amwynder Segur"
+"Amwynder Nas Defnyddir"
 ],
 "disused/railway":[
-"Nodwedd Rheilffordd Segur"
+"Nodwedd Rheilffordd Nas Defnyddir"
 ],
 "disused/shop":[
-"Siop Segur"
+"Siop Nas Defnyddir"
 ],
 "embankment":[
 "Arglawdd"
@@ -3793,7 +3814,7 @@
 "Ffordd Bws"
 ],
 "highway/construction":[
-"Heol yn cael ei Adeiladu"
+"Ffordd sy'n cael ei Hadeiladu"
 ],
 "highway/corridor":[
 "Coridor Dan-do"
@@ -3816,7 +3837,7 @@
 "Llwybr Seiclo"
 ],
 "highway/cycleway/bicycle_foot":[
-"Ffordd Beiciau & Troed"
+"Ffordd Feiciau a Throed"
 ],
 "highway/cycleway/crossing":[
 "Croesfan Seiclo"
@@ -3856,8 +3877,10 @@
 "palmant",
 "Troedffordd",
 "troedffordd",
+"llwybr troed",
 "llwybr",
 "troed",
+"cerdded",
 "troetffordd"
 ],
 "highway/footway/conveying":[
@@ -4243,7 +4266,11 @@
 "grist"
 ],
 "historic/wreck":[
-"Llongddrylliad"
+"Llongddrylliad",
+"hwylio",
+"cwch",
+"nofio",
+"llong"
 ],
 "indoor":[
 "Nodwedd Dan-do"
@@ -4393,13 +4420,18 @@
 "planhigyn"
 ],
 "landuse/forest":[
-"rheoliadol",
 "goedwig",
-"rheolaeth",
-"torri",
 "choedwig",
 "rheoli",
 "Coedwig Dan Reolaeth",
+"choetir",
+"goetir",
+"wedi'i reoli",
+"choedlan",
+"rheolaeth",
+"goedlan",
+"torri",
+"wedi'i rheoli",
 "coedlan",
 "pren"
 ],
@@ -4414,6 +4446,7 @@
 "lawn"
 ],
 "landuse/greenfield":[
+"man gwyrdd",
 "Safle Maes Glas"
 ],
 "landuse/harbour":[
@@ -4451,18 +4484,26 @@
 "landuse/meadow":[
 "Gwaun"
 ],
+"landuse/meadow_orchard/orchard":[
+"dol",
+"ffrwyth",
+"waun",
+"Perllan wedi'i phlannu mewn Gwaun",
+"gwaun",
+"dôl"
+],
 "landuse/orchard":[
 "ffrwyth",
 "Perllan"
 ],
 "landuse/plant_nursery":[
+"Magwrfa",
 "tyfu",
 "blodau",
 "planhigion",
 "blodyn",
 "vivero",
-"planhigyn",
-"Meithrinfa Blanhigion"
+"planhigyn"
 ],
 "landuse/pond":[
 "Pwll"
@@ -4628,10 +4669,12 @@
 "dŵr",
 "rhoden",
 "mor",
+"Pysgodfa",
 "dalfa",
+"safle pysgota",
+"pysgodfeydd",
 "gwialen",
 "môr",
-"Safle Pysgota",
 "dal",
 "pysgod",
 "morwr"
@@ -4725,6 +4768,14 @@
 "jacwsi"
 ],
 "leisure/marina":[
+"harbwr",
+"llongau",
+"phorthladd",
+"borthladd",
+"cwch",
+"cychod",
+"porthladd",
+"llong",
 "Marina"
 ],
 "leisure/miniature_golf":[
@@ -4769,10 +4820,18 @@
 "Cae Chwaraeon"
 ],
 "leisure/pitch/american_football":[
-"Cae Pêl-droed Americanaidd"
+"gridiron",
+"Cae Pêl-droed Americanaidd",
+"uda",
+"nfl",
+"america"
 ],
 "leisure/pitch/australian_football":[
-"Cae Pêl-droed Awstralaidd"
+"awstralia",
+"pel-droed",
+"afl",
+"Cae Pêl-droed Awstralaidd",
+"rules"
 ],
 "leisure/pitch/badminton":[
 "Cwrt Badminton"
@@ -5134,7 +5193,12 @@
 "Mast Golau"
 ],
 "man_made/mineshaft":[
-"Siafft Mwyngloddio"
+"Siafft Mwyngloddio",
+"safft",
+"ogof",
+"siafft",
+"siaft",
+"dan ddaear"
 ],
 "man_made/obelisk":[
 "Obelisg"
@@ -5319,7 +5383,7 @@
 "Marciwr Iwtiliti"
 ],
 "marker/utility/power":[
-"Marciwr Pŵer"
+"Marciwr Ynni"
 ],
 "natural":[
 "Nodwedd Naturiol"
@@ -5355,10 +5419,10 @@
 "Rhewlif"
 ],
 "natural/grassland":[
-"Glaswellt",
 "gwyrdd",
 "glaswellt",
-"gwair"
+"gwair",
+"Glaswelltir"
 ],
 "natural/heath":[
 "Rhos"
@@ -5396,7 +5460,10 @@
 "Sgri"
 ],
 "natural/scrub":[
-"Prysgoed"
+"Prysgwydd",
+"coediog",
+"llwyn",
+"prysgoed"
 ],
 "natural/shingle":[
 "traeth",
@@ -5407,6 +5474,15 @@
 "carreg"
 ],
 "natural/shrub":[
+"clawdd",
+"bwsh",
+"prysg",
+"coed",
+"goed",
+"llwyni",
+"glawdd",
+"chlawdd",
+"choed",
 "Llwyn"
 ],
 "natural/sinkhole":[
@@ -5547,7 +5623,16 @@
 "dwr"
 ],
 "natural/wetland":[
-"Gwlyptir"
+"fflatiau",
+"fflat",
+"gwlypdiroedd",
+"gwlyptiroedd",
+"Gwlypdir",
+"gwlyptir",
+"llanw",
+"morfa",
+"wlyptir",
+"wlypdir"
 ],
 "natural/wetland/bog":[
 "Bog"
@@ -5559,13 +5644,16 @@
 "Mangrof"
 ],
 "natural/wetland/marsh":[
-"Morfa"
+"Morfeydd",
+"morfa"
 ],
 "natural/wetland/reedbed":[
 "Corsle"
 ],
 "natural/wetland/saltmarsh":[
-"Morfa Heli Arfordirol"
+"Morfeydd Heli",
+"halen",
+"morfa"
 ],
 "natural/wetland/string_bog":[
 "Cors Llinyn"
@@ -5580,9 +5668,16 @@
 "Gwaun Wlyb"
 ],
 "natural/wood":[
+"Coetir Naturiol",
+"goedwig",
+"coed",
+"choedwig",
 "coedwig",
+"choetir",
 "coeden",
-"Coedlan Naturiol"
+"coedlan",
+"coetir",
+"goetir"
 ],
 "noexit/yes":[
 "Dim Allanfa"
@@ -5670,7 +5765,11 @@
 "Ymgynghorydd Ariannol"
 ],
 "office/forestry":[
-"Swyddfa Goedwigaeth"
+"Swyddfa Goedwigaeth",
+"coedwigaeth"
+],
+"office/foundation":[
+"Swyddfa Sefydliad"
 ],
 "office/government":[
 "Swyddfa Lywodraeth"
@@ -5904,11 +6003,18 @@
 "power":[
 "Nodwedd Pŵer"
 ],
+"power/cable/underground":[
+"Cebl Ynni Dan Ddaear"
+],
 "power/generator/method/photovoltaic":[
+"golau haul",
+"modiwl pv",
 "Panel Solar"
 ],
 "power/generator/method/photovoltaic/building/roof":[
-"Panel Solar Canopi"
+"ganopi",
+"chanopi",
+"Canopi Panel Solar"
 ],
 "power/generator/method/photovoltaic/location/roof":[
 "Panel Solar ar y To"
@@ -5937,8 +6043,9 @@
 "power/plant/source/method/photovoltaic":[
 "haul",
 "parc solar",
-"Ffarm Solar",
+"ffarm",
 "ynni",
+"Fferm Solar",
 "solar",
 "heulwen",
 "paneli solar",
@@ -5967,8 +6074,14 @@
 "fferm",
 "felin"
 ],
+"power/pole":[
+"Polyn Ynni"
+],
 "power/substation":[
 "Is-orsaf"
+],
+"power/switch":[
+"Switsh Ynni"
 ],
 "power/transformer":[
 "Trawsnewidydd"
@@ -6171,7 +6284,8 @@
 "Stop Byffer"
 ],
 "railway/disused":[
-"Rheilffordd Segur"
+"Rheilffordd Nas Defnyddir",
+"segur"
 ],
 "railway/halt":[
 "Gorsaf Drên (Ar gais)"
@@ -6213,7 +6327,12 @@
 "Croesfan Dramffordd"
 ],
 "relation":[
-"Perthynas"
+"cysylltu",
+"cyswllt",
+"Cydberthynas",
+"berthnasau",
+"perthynas",
+"cysylltiad"
 ],
 "roller_coaster/station":[
 "tren",
@@ -6531,7 +6650,20 @@
 "Siop Siwtiau"
 ],
 "shop/clothes/underwear":[
-"Siop Iswisg"
+"lingerie",
+"boutique",
+"iswisg",
+"dillad isaf",
+"bra",
+"Siop Ddillad Isaf",
+"boxers",
+"is-wisg",
+"sanau",
+"hosiery",
+"ffasiwn",
+"stockings",
+"bocsers",
+"dessous"
 ],
 "shop/clothes/wedding":[
 "Siop Ddillad Priodas"
@@ -6602,6 +6734,14 @@
 "Siop Len"
 ],
 "shop/dairy":[
+"llefrith",
+"wŷ",
+"llaeth",
+"wy",
+"caws",
+"ŵy",
+"gaws",
+"chaws",
 "Siop Laeth"
 ],
 "shop/deli":[
@@ -8009,7 +8149,8 @@
 "Draen"
 ],
 "waterway/fish_pass":[
-"Bwlch Pysgod"
+"bwlch pysgod",
+"Ysgol Bysgod"
 ],
 "waterway/fuel":[
 "Gorsaf Danwydd Forol"

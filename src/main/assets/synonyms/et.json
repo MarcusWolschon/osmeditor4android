@@ -585,6 +585,8 @@
 "Kiirtoitlustus"
 ],
 "amenity/fast_food/bagel":[
+"sarvesai",
+"soolakringel",
 "soolakringlikohvik"
 ],
 "amenity/fast_food/burger":[
@@ -783,7 +785,8 @@
 "motikaparkla"
 ],
 "amenity/motorcycle_rental":[
-"Mootorratta rent"
+"Mootorratta rent",
+"motikarent"
 ],
 "amenity/music_school":[
 "muusika huvikool",
@@ -946,7 +949,10 @@
 "pubi"
 ],
 "amenity/pub/irish":[
-"Iiri pubi"
+"iiri baar",
+"Iiri pubi",
+"viski",
+"iiri kohv"
 ],
 "amenity/pub/lgbtq":[
 "LGBTQ+ kõrts"
@@ -1325,7 +1331,10 @@
 "Toidu müügiautomaat"
 ],
 "amenity/vending_machine/food/snacks":[
-"Näkside müügiautomaat"
+"Näkside müügiautomaat",
+"batoon",
+"kommid",
+"maiustus"
 ],
 "amenity/vending_machine/fuel":[
 "kütuseautomaat",
@@ -1357,7 +1366,9 @@
 "Postmarkide müügiautomaat"
 ],
 "amenity/vending_machine/sweets":[
-"Kommiautomaat"
+"maiustused",
+"Kommiautomaat",
+"kommid"
 ],
 "amenity/veterinary":[
 "loomakliinik",
@@ -1850,7 +1861,11 @@
 "Tootmishoone"
 ],
 "building/mosque":[
-"Mošeehoone"
+"islami pühakoda",
+"muhameedlaste pühakoda",
+"minarett",
+"Mošeehoone",
+"mulla"
 ],
 "building/office":[
 "ärihoone",
@@ -1922,6 +1937,8 @@
 "Paikne haagismaja"
 ],
 "building/sty":[
+"seapesa",
+"seasulg",
 "Sigala"
 ],
 "building/synagogue":[
@@ -2055,7 +2072,10 @@
 "Põrandameister"
 ],
 "craft/gardener":[
-"Aednik"
+"kunstkärner",
+"Aednik",
+"kärner",
+"iluaednik"
 ],
 "craft/glaziery":[
 "klaasimeister",
@@ -2373,7 +2393,11 @@
 "Ajurveeda teenus"
 ],
 "healthcare/alternative/chiropractic":[
-"Kiropraktik"
+"luutasuja",
+"Kiropraktik",
+"manuaalterapeut",
+"osteopaat",
+"kondiväänaja"
 ],
 "healthcare/alternative/homeopathy":[
 "Homöopaat"
@@ -2403,6 +2427,9 @@
 "Raviteenuste nõustamiskeskus"
 ],
 "healthcare/dentist/orthodontics":[
+"hambakorrastusõpetus",
+"hambakorrastusarst",
+"erihambaarst",
 "Ortodont"
 ],
 "healthcare/hospice":[
@@ -2487,6 +2514,9 @@
 "ülekäigukoht",
 "Ülekäigurada",
 "vöötrada"
+],
+"highway/crossing/informal":[
+"Mitteametlik ülekäigurada"
 ],
 "highway/crossing/traffic_signals":[
 "Fooridega juhitud ülekäigurada jalakäijatele",
@@ -3417,6 +3447,9 @@
 "Austraalia jalgpalli väljak"
 ],
 "leisure/pitch/badminton":[
+"sulkaplats",
+"bädminton",
+"sulka",
 "Sulgpalliväljak"
 ],
 "leisure/pitch/baseball":[
@@ -4527,13 +4560,19 @@
 "Arhitektuuribüroo"
 ],
 "office/association":[
-"MTÜ kontor"
+"MTÜ kontor",
+"mtü",
+"ngo"
 ],
 "office/bail_bond_agent-US-PH":[
 "Kautsjoniagent"
 ],
 "office/charity":[
-"Heategevusasutuse büroo"
+"annetus",
+"heategevusasutuse",
+"heategevusühing",
+"Heategevusühingu büroo",
+"annetamine"
 ],
 "office/company":[
 "Ettevõtte kontor",
@@ -4584,7 +4623,9 @@
 "Rahandusnõustaja büroo"
 ],
 "office/forestry":[
-"Metsaamet"
+"Metsaamet",
+"metsandus",
+"metsamajandus"
 ],
 "office/foundation":[
 "Sihtasutuse büroo"
@@ -5016,7 +5057,8 @@
 "public_transport/platform/subway":[
 "metroo platvorm",
 "metrooplatvorm",
-"Metroo ooteplatvorm"
+"Metroo ooteplatvorm",
+"allmaaraudteeplatvorm"
 ],
 "public_transport/platform/subway_point":[
 "Metroopeatus"
@@ -5069,7 +5111,8 @@
 "Monorelsstee jaam"
 ],
 "public_transport/station_subway":[
-"Metroojaam"
+"Metroojaam",
+"allmaaraudteejaam"
 ],
 "public_transport/station_train":[
 "Raudteejaam"
@@ -5205,6 +5248,7 @@
 ],
 "railway/subway":[
 "Metrootee",
+"allmaaraudtee",
 "maaalune raudtee"
 ],
 "railway/subway_entrance":[
@@ -5972,6 +6016,13 @@
 "rentimine",
 "Renditeenuse büroo"
 ],
+"shop/repair":[
+"pisiparandus",
+"kott",
+"vihmavari",
+"kingad",
+"Parandustöökoda"
+],
 "shop/rice":[
 "pikateraline riis",
 "Riisipood",
@@ -6596,7 +6647,8 @@
 "Teemarsruut"
 ],
 "type/route/subway":[
-"Metroomarsruut"
+"Metroomarsruut",
+"allmaaraudteeliin"
 ],
 "type/route/train":[
 "Rongimarsruut"

@@ -19,7 +19,7 @@
 "Летателна писта"
 ],
 "aeroway/taxiway":[
-"Рольожка"
+"Рульожка"
 ],
 "amenity":[
 "Услуги"
@@ -492,6 +492,9 @@
 "craft/gardener":[
 "Градинар"
 ],
+"craft/key_cutter":[
+"Изработка на ключове"
+],
 "craft/locksmith":[
 "Ключар"
 ],
@@ -612,6 +615,9 @@
 "highway/crossing":[
 "Пешеходна пътека"
 ],
+"highway/crossing/traffic_signals":[
+"Пешеходно пресичане със светофар"
+],
 "highway/crossing/uncontrolled":[
 "Маркирана пешеходна пътека"
 ],
@@ -641,6 +647,9 @@
 "highway/footway/crossing":[
 "Пешеходна пътека"
 ],
+"highway/footway/crossing/traffic_signals":[
+"Пешеходно пресичане със светофар"
+],
 "highway/footway/crossing/uncontrolled":[
 "Маркирана пешеходна пътека"
 ],
@@ -668,6 +677,12 @@
 ],
 "highway/path":[
 "Пътека"
+],
+"highway/path/informal":[
+"пътечка",
+"кална пътека",
+"Неформална пътека",
+"неофициална пътека"
 ],
 "highway/pedestrian_line":[
 "Пешеходна улица"
@@ -1189,7 +1204,7 @@
 "Квартал"
 ],
 "place/square":[
-"Квадрат"
+"Площад"
 ],
 "place/town":[
 "Град под 100 000"
@@ -1346,6 +1361,9 @@
 "railway/disused":[
 "Закрита железопътна линия"
 ],
+"railway/funicular":[
+"Релсов път на фуникуляр"
+],
 "railway/halt":[
 "Железопътна спирка (по желание)"
 ],
@@ -1353,11 +1371,26 @@
 "железопътен прелез",
 "ЖП прелез"
 ],
+"railway/monorail":[
+"Монорелсов път"
+],
+"railway/monorail/hanging":[
+"Окачен монорелсов път"
+],
+"railway/narrow_gauge":[
+"Теснолиниеен железопътен път"
+],
 "railway/platform":[
 "Перон"
 ],
+"railway/preserved":[
+"Историческа железопътна линия"
+],
 "railway/rail":[
-"ЖП линия"
+"Железопътна линия"
+],
+"railway/rail/highspeed":[
+"Релсов път за високоскоростни влакове"
 ],
 "railway/signal":[
 "Светофор",
@@ -1366,6 +1399,9 @@
 "railway/station":[
 "Гара"
 ],
+"railway/subway":[
+"Релсов път на метрото"
+],
 "railway/subway_entrance":[
 "Вход на метростанция"
 ],
@@ -1373,7 +1409,9 @@
 "Железопътна стрелка"
 ],
 "railway/tram":[
-"Трамвайни релси"
+"трамвайни релси",
+"Трамваен релсов път",
+"трамвайно трасе"
 ],
 "relation":[
 "Релация"

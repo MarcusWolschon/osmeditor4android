@@ -4178,6 +4178,9 @@
 "übergang",
 "Bahnübergang (Fußgänger)"
 ],
+"highway/crossing/informal":[
+"Informeller Übergang"
+],
 "highway/crossing/traffic_signals":[
 "fußgängergang",
 "fahrradüberweg (ampel)",

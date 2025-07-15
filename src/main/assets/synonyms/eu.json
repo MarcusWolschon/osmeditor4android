@@ -603,6 +603,9 @@
 "entrance":[
 "Sarrera/Irteera"
 ],
+"entrance/emergency":[
+"Larrialdi-irteera"
+],
 "entrance/main":[
 "Sarrera nagusia"
 ],
@@ -637,6 +640,9 @@
 "highway/footway":[
 "Oinezkoen bidea"
 ],
+"highway/footway/crossing":[
+"Oinezkoen pasabidea"
+],
 "highway/footway/informal":[
 "Oinezkoen bide informala"
 ],
@@ -645,6 +651,14 @@
 ],
 "highway/path/crossing":[
 "Bizikleta eta oinezkoen pasabidea"
+],
+"highway/pedestrian_area":[
+"Oinezkoen eremua"
+],
+"highway/pedestrian_line":[
+"oinezko",
+"Oinezkoen kalea",
+"peatonal"
 ],
 "highway/residential":[
 "Bizitegi-kalea"

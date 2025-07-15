@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Adresseinterpolasjon"
+],
 "address":[
 "Adresse",
 "gateadresse",
@@ -6,6 +9,9 @@
 "adresse",
 "gate",
 "adresser"
+],
+"advertising":[
+"Reklameenhet"
 ],
 "advertising/billboard":[
 "Plakattavle"
@@ -22,8 +28,11 @@
 "advertising/totem":[
 "Reklametårn"
 ],
+"aerialway":[
+"Taubane Egenskap"
+],
 "aerialway/cable_car":[
-"Gondolheis"
+"Taubane"
 ],
 "aerialway/chair_lift":[
 "Stolheis"
@@ -2569,7 +2578,7 @@
 "Leke Balansebjelke"
 ],
 "playground/basketswing":[
-"Kurvhuske"
+"Redehuske"
 ],
 "playground/bridge":[
 "Lekebru"
@@ -2928,8 +2937,23 @@
 "seamark":[
 "Sjømerke"
 ],
+"seamark/buoy_lateral":[
+"Kanalbøye"
+],
+"seamark/buoy_lateral/green":[
+"Grønn Bøye"
+],
+"seamark/buoy_lateral/red":[
+"Rød Bøye"
+],
+"seamark/mooring":[
+"Fortøyning"
+],
 "shop":[
 "Butikk"
+],
+"shop/agrarian":[
+"Landbruksbutikk"
 ],
 "shop/alcohol":[
 "Vinutsalg"
@@ -2958,6 +2982,9 @@
 "shop/bathroom_furnishing":[
 "Baderomsbutikk"
 ],
+"shop/bbq":[
+"Grillbutikk"
+],
 "shop/beauty":[
 "Skjønnhetsbutikk"
 ],
@@ -2976,6 +3003,9 @@
 "shop/bicycle":[
 "Sykkelbutikk"
 ],
+"shop/boat":[
+"Båtbutikk"
+],
 "shop/bookmaker":[
 "Bookmaker"
 ],
@@ -2984,6 +3014,9 @@
 ],
 "shop/boutique":[
 "Klesbutikk"
+],
+"shop/brewing_supplies":[
+"Butikk for bryggeutstyr"
 ],
 "shop/butcher":[
 "Slakter"
@@ -3015,6 +3048,9 @@
 "shop/carpet":[
 "Teppehandler"
 ],
+"shop/charity":[
+"Veldedighetsbutikk"
+],
 "shop/cheese":[
 "Ostebutikk"
 ],
@@ -3030,11 +3066,17 @@
 "shop/clothes/second_hand":[
 "Brukt klesbutikk"
 ],
+"shop/clothes/suits":[
+"Dressbutikk"
+],
 "shop/clothes/underwear":[
 "Undertøybutikk"
 ],
 "shop/clothes/wedding":[
 "Bryllupsklesbutikk"
+],
+"shop/clothes/workwear":[
+"Arbeidsklærbutikk"
 ],
 "shop/coffee":[
 "Kaffebutikk"
@@ -3106,17 +3148,26 @@
 "shop/fashion":[
 "Motebutikk"
 ],
+"shop/fashion_accessories":[
+"Motetilbehørsbutikk"
+],
 "shop/fireplace":[
 "Peisbutikk"
 ],
 "shop/fishing":[
 "Fiskebutikk"
 ],
+"shop/flooring":[
+"Gulvbutikk"
+],
 "shop/florist":[
 "Blomsterbutikk"
 ],
 "shop/frame":[
 "Innrammingsbutikk"
+],
+"shop/frozen_food":[
+"Frysevarebutikk"
 ],
 "shop/fuel":[
 "Drivstoffbuttikk"
@@ -3133,17 +3184,32 @@
 "shop/garden_centre":[
 "Gartneri"
 ],
+"shop/gas":[
+"Gassflaskebutikk"
+],
 "shop/general":[
 "Landhandel"
 ],
 "shop/gift":[
 "Gavebutikk"
 ],
+"shop/gold_buyer":[
+"Gullkjøper"
+],
 "shop/greengrocer":[
 "Grønnsakshandler"
 ],
+"shop/groundskeeping":[
+"Plen- og hageutstyrsbutikk"
+],
 "shop/hairdresser":[
 "Frisør"
+],
+"shop/hairdresser/barber":[
+"Barber"
+],
+"shop/hairdresser_supply":[
+"Frisørutstyrsbutikk"
 ],
 "shop/hardware":[
 "Jernvarehandel"
@@ -3214,8 +3280,14 @@
 "shop/medical_supply":[
 "Medisinsk utstyrsbutikk"
 ],
+"shop/military_surplus":[
+"Militær Overskuddsbutikk"
+],
 "shop/mobile_phone":[
 "Mobiltelefonforhandler"
+],
+"shop/model":[
+"Modellbutikk"
 ],
 "shop/money_lender":[
 "Pengeutlåner"
@@ -3235,6 +3307,9 @@
 "shop/newsagent":[
 "Aviskiosk"
 ],
+"shop/nuts":[
+"Nøttebutikk"
+],
 "shop/optician":[
 "Optiker"
 ],
@@ -3247,8 +3322,17 @@
 "shop/paint":[
 "Malingsbutikk"
 ],
+"shop/party":[
+"Festutstyrsbutikk"
+],
+"shop/pasta":[
+"Pastabutikk"
+],
 "shop/pastry":[
 "Bakeri"
+],
+"shop/pawnbroker":[
+"Pantelåner"
 ],
 "shop/perfumery":[
 "Parfymeri"
@@ -3256,8 +3340,20 @@
 "shop/pet":[
 "Dyrebutikk"
 ],
+"shop/pet_grooming":[
+"Kjæledyrfrisør"
+],
 "shop/photo":[
 "Fotobutikk"
+],
+"shop/pottery":[
+"Keramikkbutikk"
+],
+"shop/printer_ink":[
+"Printerblekkbutikk"
+],
+"shop/psychic":[
+"Synsk"
 ],
 "shop/pyrotechnics":[
 "Fyrverkerihandel"
@@ -3273,6 +3369,9 @@
 ],
 "shop/repair":[
 "Verksted / Reperatør"
+],
+"shop/rice":[
+"Risbutikk"
 ],
 "shop/scuba_diving":[
 "Dykkerutstyrsbutikk"
@@ -3291,6 +3390,9 @@
 ],
 "shop/shoes":[
 "Skobutikk"
+],
+"shop/spices":[
+"Krydderbutikk"
 ],
 "shop/sports":[
 "Sportsbutikk"
@@ -3331,14 +3433,26 @@
 "shop/toys":[
 "Lekebutikk"
 ],
+"shop/trade":[
+"Byttebutikk"
+],
 "shop/travel_agency":[
 "Reisebyrå"
+],
+"shop/trophy":[
+"Trofébutikk"
 ],
 "shop/tyres":[
 "Dekkutsalg"
 ],
+"shop/vacant":[
+"Ledig Butikk"
+],
 "shop/vacuum_cleaner":[
 "Støvsugerbutikk"
+],
+"shop/variety_store":[
+"Billigbutikk"
 ],
 "shop/video":[
 "Videoforhandler"
@@ -3349,6 +3463,9 @@
 "shop/watches":[
 "Urmaker"
 ],
+"shop/water":[
+"Drikkevannbutikk"
+],
 "shop/water_sports":[
 "Vannsport/Svømmebutikk"
 ],
@@ -3357,6 +3474,9 @@
 ],
 "shop/wholesale":[
 "Grossisthandel"
+],
+"shop/wigs":[
+"Parykkbutikk"
 ],
 "shop/window_blind":[
 "Persiennebutikk"
@@ -3367,8 +3487,20 @@
 "shop/yes":[
 "Butikk (uspesifisert type)"
 ],
+"telecom":[
+"Telekomegenskap"
+],
 "telecom/data_center":[
 "Datasenter"
+],
+"telecom/exchange":[
+"Telefonsentral"
+],
+"tourism":[
+"Turismeegenskap"
+],
+"tourism/alpine_hut":[
+"Turisthytte"
 ],
 "tourism/aquarium":[
 "Akvarium"
@@ -3397,11 +3529,20 @@
 "tourism/attraction":[
 "Turistattraksjon"
 ],
+"tourism/camp_pitch":[
+"Leirplass"
+],
 "tourism/camp_site":[
 "Campingplass"
 ],
+"tourism/camp_site/group_only":[
+"Gruppecampingområde"
+],
 "tourism/caravan_site":[
 "Bobilpark"
+],
+"tourism/chalet":[
+"Feriehytte"
 ],
 "tourism/gallery":[
 "Kunstgalleri"
@@ -3423,6 +3564,9 @@
 ],
 "tourism/information/board/welcome_sign":[
 "Velkomstskilt"
+],
+"tourism/information/guidepost":[
+"Guidestolpe"
 ],
 "tourism/information/map":[
 "Kart"
@@ -3489,6 +3633,9 @@
 ],
 "traffic_calming/hump":[
 "Fartshump"
+],
+"traffic_calming/island":[
+"Midtdeler"
 ],
 "traffic_calming/mini_bumps":[
 "Mini-fartshump"
@@ -3575,6 +3722,9 @@
 "type/route":[
 "Rute"
 ],
+"type/route/aerialway":[
+"Aerial Route"
+],
 "type/route/bicycle":[
 "Sykkelrute"
 ],
@@ -3600,6 +3750,9 @@
 ],
 "type/route/light_rail":[
 "Bybanelinje"
+],
+"type/route/monorail":[
+"Énskinnebanerute"
 ],
 "type/route/mtb":[
 "Rute for stisykling"
@@ -3641,6 +3794,9 @@
 "type/waterway":[
 "Vannvei"
 ],
+"waterway":[
+"Vannveiegenskap"
+],
 "waterway/boatyard":[
 "Skipsverft"
 ],
@@ -3656,11 +3812,17 @@
 "waterway/ditch":[
 "Grøft"
 ],
+"waterway/dock":[
+"Tørrdokk / Tørrdokk"
+],
 "waterway/drain":[
 "Avløp/drenering"
 ],
 "waterway/fish_pass":[
 "Fiskekort"
+],
+"waterway/fuel":[
+"Bunkerstasjon"
 ],
 "waterway/lock_gate":[
 "Sluseport"

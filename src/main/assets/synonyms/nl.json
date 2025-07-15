@@ -2047,6 +2047,9 @@
 "veearts",
 "Dierenarts"
 ],
+"amenity/veterinary_pharmacy":[
+"Dierenapotheek"
+],
 "amenity/waste/dog_excrement":[
 "hondenstront",
 "hondenpoepbuis",
@@ -2194,7 +2197,8 @@
 "Achtbaan"
 ],
 "attraction/summer_toboggan":[
-"Zomerrodelbaan"
+"Zomerrodelbaan",
+"rodelbaan"
 ],
 "attraction/swing_carousel":[
 "draaimolen",
@@ -4264,7 +4268,9 @@
 ],
 "historic/memorial":[
 "gedenkteken",
-"Herdenkingsmonument"
+"herdenkingsmonument",
+"Gedenkteken",
+"gedenkplaats"
 ],
 "historic/memorial/plaque":[
 "bord",
@@ -4275,10 +4281,13 @@
 "plakkaat"
 ],
 "historic/memorial/stolperstein-EU":[
-"Stolpersteine"
+"Stolpersteine",
+"struikelsteen"
 ],
 "historic/monument":[
-"Monument",
+"gedenkteken",
+"herdenkingsmonument",
+"Monumentaal groot gedenkteken",
 "gedenkplaats"
 ],
 "historic/pillory":[
@@ -7223,6 +7232,9 @@
 "shop/bathroom_furnishing":[
 "Badkamermeubelwinkel",
 "sanitairwinkel"
+],
+"shop/bbq":[
+"BBQ Winkel"
 ],
 "shop/beauty":[
 "schoonheidswinkel",

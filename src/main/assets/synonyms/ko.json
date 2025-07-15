@@ -2478,7 +2478,8 @@
 "단속 카메라"
 ],
 "highway/speed_display":[
-"가변속도표출기"
+"가변속도표출기",
+"가변 속도 표출기"
 ],
 "highway/steps":[
 "계단"
@@ -2534,10 +2535,13 @@
 "고속화도로 연결로"
 ],
 "highway/turning_circle":[
-"선회권"
+"쿨데삭 (컬드색)",
+"컬드색",
+"쿨데삭"
 ],
 "highway/turning_loop":[
-"루프선 (교통섬)"
+"루프선 (교통섬)",
+"회차 루프 (교통섬)"
 ],
 "highway/unclassified":[
 "미등급 도로",
@@ -2828,6 +2832,10 @@
 ],
 "leisure/bandstand":[
 "연주 무대"
+],
+"leisure/bathing_place":[
+"욕장",
+"수욕장"
 ],
 "leisure/beach_resort":[
 "해변 리조트"

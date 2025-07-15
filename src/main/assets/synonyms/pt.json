@@ -2045,16 +2045,19 @@
 "amenity/prep_school":[
 "escola de preparação",
 "trabalhos de casa",
-"escola",
-"Centro de explicações",
 "matemática",
 "tpc",
+"tutoring",
+"estudar",
+"explicações",
+"exames",
+"escola",
+"estudos",
+"Centro de explicações",
 "testes",
 "leitura",
-"tutoring",
-"explicações",
 "ensino",
-"exames"
+"estudo"
 ],
 "amenity/prison":[
 "Prisão",
@@ -4034,7 +4037,7 @@
 "habitação",
 "terrace",
 "townhome",
-"Casa geminada",
+"Casa em banda",
 "residência"
 ],
 "building/houseboat":[
@@ -4176,8 +4179,7 @@
 "casa",
 "edifício",
 "habitação",
-"destacada",
-"Casa semi-isolada",
+"Casa geminada",
 "semi-detached house",
 "residência"
 ],
@@ -4254,7 +4256,7 @@
 "brownstone",
 "casa",
 "geminada",
-"Fileira de casas geminadas",
+"Fileira de casas em banda",
 "habitação",
 "dwelling",
 "linha de casas",
@@ -5580,6 +5582,9 @@
 "Passadeira",
 "crossing",
 "travessia"
+],
+"highway/crossing/informal":[
+"Travessia informal"
 ],
 "highway/crossing/traffic_signals":[
 "luminoso",

@@ -5897,6 +5897,9 @@
 "paso de cebra",
 "paso peatonal"
 ],
+"highway/crossing/informal":[
+"Cruce informal"
+],
 "highway/crossing/traffic_signals":[
 "paso de bicicletas",
 "Cruce semaforizado para peatones",

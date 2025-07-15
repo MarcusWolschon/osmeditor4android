@@ -3246,6 +3246,9 @@
 "過路處",
 "crossing"
 ],
+"highway/crossing/informal":[
+"非正式行人穿越道"
+],
 "highway/crossing/traffic_signals":[
 "有號誌的行人穿越道"
 ],

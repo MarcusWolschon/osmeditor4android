@@ -1004,6 +1004,9 @@
 "Postage Vending Machine"
 ],
 "amenity/vending_machine/sweets":[
+"candy",
+"sweets",
+"lollies",
 "Sweets Vending Machine"
 ],
 "amenity/veterinary":[
@@ -1536,7 +1539,10 @@
 "Clockmaker"
 ],
 "craft/confectionery":[
-"Candy Maker"
+"candy",
+"sweets",
+"Candy Maker",
+"lollies"
 ],
 "craft/distillery":[
 "Distillery"
@@ -4140,7 +4146,10 @@
 "Computer Shop"
 ],
 "shop/confectionery":[
-"Sweet Shop"
+"Sweet Shop",
+"candy",
+"sweets",
+"lollies"
 ],
 "shop/convenience":[
 "superette",

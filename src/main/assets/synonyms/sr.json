@@ -882,6 +882,9 @@
 "amenity/toilets/disposal/pitlatrine":[
 "Пољски тоалет"
 ],
+"amenity/toilets/portable":[
+"Мобилни тоалет"
+],
 "amenity/townhall":[
 "Градска кућа"
 ],
@@ -1713,6 +1716,9 @@
 "emergency/fire_hydrant":[
 "Хидрант"
 ],
+"emergency/fire_hydrant/underground":[
+"Подземни хидрант"
+],
 "emergency/fire_service_inlet":[
 "Ватрогасни прикључак"
 ],
@@ -2354,6 +2360,12 @@
 "landuse/meadow":[
 "Ливада"
 ],
+"landuse/meadow_orchard/meadow":[
+"Ливада са воћкама"
+],
+"landuse/meadow_orchard/orchard":[
+"Воћњак засађен на ливади"
+],
 "landuse/orchard":[
 "Воћњак"
 ],
@@ -2875,6 +2887,9 @@
 "Гасно складиште",
 "гасно складиште",
 "гасометар"
+],
+"man_made/goods_conveyor":[
+"Транспортна трака"
 ],
 "man_made/insect_hotel":[
 "Хотел за инсекте"

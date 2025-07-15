@@ -33,14 +33,20 @@
 "告示欄"
 ],
 "advertising/column":[
+"advertising column",
 "廣告柱",
+"column",
 "廣告圓柱"
 ],
 "advertising/poster_box":[
-"廣告燈箱"
+"box",
+"廣告燈箱",
+"poster box"
 ],
 "advertising/totem":[
-"廣告立牌"
+"advertising totem",
+"廣告立牌",
+"totem"
 ],
 "aerialway":[
 "索道"
@@ -59,15 +65,22 @@
 "牽引式索道"
 ],
 "aerialway/gondola":[
-"小車廂纜車"
+"小車廂纜車",
+"吊船",
+"gondola lift",
+"lift"
 ],
 "aerialway/goods":[
 "流籠",
+"aerialway",
+"吊車",
 "載貨流籠",
-"貨運纜車"
+"貨運纜車",
+"goods aerialway"
 ],
 "aerialway/j-bar":[
 "J 型桿牽引索道",
+"j-bar lift",
 "j 型桿牽引索道"
 ],
 "aerialway/magic_carpet":[
@@ -75,6 +88,7 @@
 "magic carpet lift"
 ],
 "aerialway/mixed_lift":[
+"mixed lift",
 "小型車廂&吊椅混合纜車",
 "混合纜車"
 ],
@@ -88,11 +102,13 @@
 "areialway pylon"
 ],
 "aerialway/rope_tow":[
-"抓繩牽引索道"
+"抓繩牽引索道",
+"rope tow lift'"
 ],
 "aerialway/t-bar":[
 "t 型桿牽引索道",
-"T 型桿牽引索道"
+"T 型桿牽引索道",
+"t-bar lift"
 ],
 "aerialway/zip_line":[
 "zip line",
@@ -110,10 +126,13 @@
 "airport"
 ],
 "aeroway/apron":[
+"apron",
 "機場停機坪",
+"airport apron",
 "停機坪"
 ],
 "aeroway/gate":[
+"airport gate",
 "登機門",
 "登機閘",
 "機場登機門"
@@ -248,8 +267,14 @@
 "自行車停放處"
 ],
 "amenity/bicycle_parking/building":[
+"bicycle parking garage",
 "腳踏車庫",
 "泊單車庫",
+"cycle parking",
+"multi-storey bike park",
+"multi-storey bicycle park",
+"bike parking station",
+"cycling",
 "自行車庫"
 ],
 "amenity/bicycle_parking/lockers":[
@@ -1121,7 +1146,9 @@
 "地底停車場"
 ],
 "amenity/parking_entrance":[
+"exit",
 "parking garage entrance / exit",
+"entrance",
 "停車場出入口",
 "停車場入口 / 出口"
 ],
@@ -1155,10 +1182,9 @@
 ],
 "amenity/pharmacy":[
 "藥店",
-"pharmacy counter'",
+"pharmacy counter",
 "藥房",
-"藥局",
-"藥房櫃檯"
+"藥局"
 ],
 "amenity/photo_booth":[
 "護照",
@@ -1301,17 +1327,31 @@
 "永久投票站"
 ],
 "amenity/post_box":[
-"郵件",
-"投遞",
+"mail dropoff",
+"postbox",
 "支柱箱",
-"信箱",
-"郵件投遞箱",
-"郵政",
-"投遞箱",
-"信件",
+"post box",
 "郵箱",
+"letter box",
+"mail drop",
 "包裹",
-"郵筒"
+"投遞",
+"pillarbox",
+"letter drop",
+"mail box",
+"package drop",
+"投遞箱",
+"郵筒",
+"郵件",
+"mailbox",
+"dropbox",
+"mail collection box",
+"postal box",
+"信箱",
+"drop box",
+"pillar box",
+"郵政",
+"信件"
 ],
 "amenity/post_depot":[
 "post sorting office",
@@ -1994,7 +2034,6 @@
 "動物藥房",
 "動物用藥店",
 "獸醫藥房",
-"獸醫藥局",
 "veterinary pharmacy"
 ],
 "amenity/waste/dog_excrement":[
@@ -2518,8 +2557,9 @@
 ],
 "building/church":[
 "教堂建築",
+"教堂屋宇",
 "教堂",
-"教堂建筑"
+"church building"
 ],
 "building/civic":[
 "公共建築",
@@ -2560,18 +2600,20 @@
 "學寮"
 ],
 "building/entrance":[
-"入口／出口"
+"出入口"
 ],
 "building/farm":[
-"农家",
-"农庄",
-"农家房",
-"农舍"
+"farm house",
+"農家",
+"農莊",
+"農舍",
+"農家房"
 ],
 "building/farm_auxiliary":[
-"农场",
-"農用設施",
-"农业建筑"
+"農場",
+"農業建築",
+"farm building",
+"農用屋宇"
 ],
 "building/fire_station":[
 "消防局大樓",
@@ -2582,6 +2624,7 @@
 "garage"
 ],
 "building/garages":[
+"garages",
 "集合車庫"
 ],
 "building/ger":[
@@ -2772,10 +2815,12 @@
 "俱樂部"
 ],
 "club/scout":[
+"童軍旅",
+"童子軍團",
 "童子",
-"童子军",
-"童子军团",
-"军团"
+"軍團",
+"scout group",
+"旅部"
 ],
 "club/sport":[
 "體育會",
@@ -2810,7 +2855,12 @@
 "小艇工廠"
 ],
 "craft/bookbinder":[
-"書籍裝訂匠"
+"書籍裝訂匠",
+"釘書",
+"訂",
+"釘裝",
+"裝",
+"bookbinder"
 ],
 "craft/brewery":[
 "地方小釀造廠"
@@ -3111,10 +3161,22 @@
 "警報"
 ],
 "emergency/water_reservoir":[
-"消防儲水池"
+"emergency water reservoir",
+"消防水缸",
+"消防儲水池",
+"firefighting",
+"basin",
+"reservoir",
+"extinguishing"
 ],
 "emergency/water_reservoir_covered":[
-"消防儲水池 (地下)"
+"消防儲水池 (地下)",
+"地底消防水缸",
+"cistern",
+"firefighting",
+"reservoir",
+"extinguishing",
+"emergency water reservoir (underground)"
 ],
 "emergency/water_tank":[
 "消防儲水槽"
@@ -3123,30 +3185,38 @@
 "緊急通行使用"
 ],
 "entrance":[
-"入口 / 出口"
+"exit",
+"出口",
+"入口",
+"出入口",
+"entrance"
 ],
 "entrance/emergency":[
+"門",
+"應急出口",
+"緊急出口",
 "消防",
-"门",
-"逃离",
 "非常口",
-"应急出口",
-"避难",
-"紧急出口",
-"紧急",
-"消防门",
+"逃離",
+"應急",
+"撤離",
+"緊急",
+"避難",
+"emergency exit",
 "火情",
-"应急",
 "疏散",
 "消防出口",
-"撤离",
-"火灾",
+"消防門",
+"火災",
 "安全出口"
 ],
 "entrance/emergency_ward_entrance":[
-"急診入口"
+"急症室入口",
+"急診入口",
+"emergency room entrance"
 ],
 "entrance/main":[
+"main entrance",
 "出口",
 "入口",
 "出入口",
@@ -3154,10 +3224,14 @@
 "主要"
 ],
 "entrance/shop":[
+"舖入口",
+"shop entrance",
 "商店入口"
 ],
 "entrance/staircase":[
-"樓梯間入口"
+"樓梯入口",
+"樓梯間入口",
+"staircase entrance"
 ],
 "ford":[
 "碇步",
@@ -3180,16 +3254,18 @@
 "沙坑"
 ],
 "golf/cartpath":[
+"golf cartpath",
 "高爾夫球車通道"
 ],
 "golf/clubhouse":[
 "高爾夫球俱樂部",
-"高爾夫俱樂部"
+"高爾夫俱樂部",
+"golf clubhouse"
 ],
 "golf/driving_range":[
 "高爾夫球練習場",
-"高爾夫練習場",
-"高尔夫练习场"
+"driving range",
+"高爾夫練習場"
 ],
 "golf/fairway":[
 "fairway",
@@ -3226,47 +3302,48 @@
 "water hazard"
 ],
 "healthcare":[
-"医学",
-"中医院",
+"機構",
+"醫院",
 "病",
-"机构",
+"醫生",
+"療養",
 "替代",
-"急诊",
-"卫生院",
-"疗养",
-"诊室",
-"医务",
-"医院",
-"医生",
-"卫生室",
-"安养",
-"卫生",
+"關懷",
+"衛生室",
+"診所",
+"healthcare facility",
+"醫務",
 "保健",
-"针灸",
-"诊所",
-"关怀",
+"醫療設施",
+"醫療",
+"門診",
 "正骨",
+"針灸",
+"治療",
+"安養",
 "健身",
-"卫生机构",
-"门诊",
 "外科",
 "拔罐",
-"治疗",
-"医疗",
+"衛生院",
+"中醫院",
+"衛生",
 "健康",
-"整骨"
+"整骨",
+"急診",
+"診室",
+"醫學"
 ],
 "healthcare/alternative":[
-"替代醫學",
+"alternative medicine",
 "替代療法"
 ],
 "healthcare/alternative/acupuncture":[
-"治疗",
-"针灸",
-"针灸师",
-"针灸治疗",
-"针灸治疗师",
-"针灸馆"
+"針灸治療",
+"針灸師",
+"acupuncture practitioner",
+"針灸",
+"治療",
+"針灸館"
 ],
 "healthcare/alternative/ayurveda":[
 "疗法",
@@ -3530,6 +3607,9 @@
 "過路處",
 "crossing"
 ],
+"highway/crossing/informal":[
+"非正式行人穿越道"
+],
 "highway/crossing/traffic_signals":[
 "有號誌的行人穿越道"
 ],
@@ -3718,7 +3798,7 @@
 "motorway"
 ],
 "highway/motorway_junction":[
-"車道路口／出口",
+"車道路口出口",
 "高速公路交流道 / 出口",
 "motorway junction / exit"
 ],
@@ -3924,9 +4004,15 @@
 ],
 "highway/street_lamp":[
 "街燈",
+"street light",
 "道燈",
 "street lamp",
-"路燈"
+"light",
+"燈柱",
+"路燈",
+"lamp",
+"gaslight",
+"streetlight"
 ],
 "highway/tertiary":[
 "細路",
@@ -3992,8 +4078,13 @@
 "環形迴轉道"
 ],
 "highway/unclassified":[
+"road",
+"street",
 "一般/未分級道路",
-"道仔無類道"
+"minor/unclassified road",
+"道仔無類道",
+"unclassified road",
+"小道"
 ],
 "historic":[
 "歷史遺跡",
@@ -4014,16 +4105,20 @@
 "界樁"
 ],
 "historic/building":[
-"历史建筑",
-"历史性建筑",
+"historic building",
+"歷史建築",
 "古蹟建築"
 ],
 "historic/cannon":[
+"大砲",
 "速射炮",
-"榴弹炮",
 "臼炮",
-"加农",
-"舊火砲"
+"榴彈炮",
+"cannon",
+"舊火砲",
+"加農",
+"火砲",
+"礮"
 ],
 "historic/castle":[
 "castle",
@@ -4033,53 +4128,71 @@
 "historic/castle/fortress":[
 "古",
 "古代",
-"历史",
-"旧",
+"歷史",
 "古堡",
-"堡垒",
+"舊",
+"military",
 "古要塞",
-"要塞"
+"堡壘",
+"要塞",
+"citadel"
 ],
 "historic/castle/palace":[
+"palace",
+"皇家",
 "宮殿",
+"故宫",
+"宫",
+"皇室居所",
+"城",
+"殿",
 "宫殿"
 ],
 "historic/castle/stately":[
 "法式宫城",
 "château",
-"法国",
 "法式",
-"宫城",
 "城堡",
-"chateau",
-"宫殿"
+"宮殿",
+"法國",
+"宮城",
+"chateau"
 ],
 "historic/city_gate":[
-"城门",
-"大门",
+"大門",
+"city gate",
+"城門",
+"gate",
 "城"
 ],
 "historic/fort":[
-"军营",
 "老",
+"historic fort",
+"軍營",
 "古",
 "古代",
-"营盘.堡垒",
-"营区",
-"旧",
-"据点",
-"军事",
-"古营盘"
+"據點",
+"舊",
+"military",
+"營盤.堡壘",
+"古寨",
+"營區",
+"軍事"
 ],
 "historic/manor":[
-"别墅",
 "房屋",
+"nobility",
 "老",
-"庄园",
 "古",
+"estate",
+"別墅",
+"舊",
+"gentry",
+"manor house",
 "古代",
-"古代庄园住宅",
-"旧",
+"莊園",
+"莊園大宅",
+"mansion",
 "住宅"
 ],
 "historic/memorial":[
@@ -4308,14 +4421,15 @@
 ],
 "landuse/farmland":[
 "田",
-"农场",
+"莊稼地",
+"農場",
 "耕地",
 "耕田",
-"麦地",
-"麦田",
-"庄稼地",
-"农田",
-"田地"
+"麥地",
+"麥田",
+"田地",
+"farmland",
+"農田"
 ],
 "landuse/farmyard":[
 "farmyard",
@@ -4336,7 +4450,8 @@
 ],
 "landuse/garages":[
 "車庫用地",
-"车库用地"
+"garage landuse",
+"車庫地"
 ],
 "landuse/grass":[
 "grass",
@@ -4663,8 +4778,7 @@
 ],
 "leisure/fitness_station/parallel_bars":[
 "parallel bars",
-"雙槓",
-"双杠"
+"雙槓"
 ],
 "leisure/fitness_station/push-up":[
 "架子",
@@ -5532,28 +5646,100 @@
 "自來水設施人孔"
 ],
 "man_made/mast":[
-"桅杆"
+"antenna",
+"radio tower",
+"communication tower",
+"mast",
+"cell phone tower",
+"桅杆",
+"transmission tower",
+"transmission mast",
+"broadcast tower",
+"tv tower",
+"cell tower",
+"mobile phone tower",
+"guyed tower",
+"television tower",
+"天綫杆",
+"radio mast",
+"communication mast"
 ],
 "man_made/mast/communication":[
+"antenna",
+"radio tower",
+"communication tower",
+"cell phone tower",
+"通信天綫杆",
+"transmission tower",
+"transmission mast",
+"broadcast tower",
+"tv tower",
 "通訊天線",
-"通信塔"
+"cell tower",
+"mobile phone tower",
+"guyed tower",
+"television tower",
+"radio mast",
+"communication mast"
 ],
 "man_made/mast/communication/mobile_phone":[
-"行動電話基地台",
+"antenna",
+"communication tower",
+"cell phone tower",
 "手機基地台",
 "行動電話天線",
-"基地台"
+"transmission tower",
+"transmission mast",
+"基地台",
+"mobile phone mast",
+"行動電話基地台",
+"cell phone mast",
+"cell tower",
+"mobile phone tower",
+"流動電話天綫杆",
+"guyed tower",
+"cell mast",
+"communication mast"
 ],
 "man_made/mast/communication/radio":[
-"广播塔",
+"antenna",
+"broadcast tower",
+"radio tower",
+"communication tower",
+"guyed tower",
 "廣播天線",
-"廣播訊號天線"
+"radio mast",
+"transmission tower",
+"廣播訊號天線",
+"communication mast",
+"transmission mast",
+"電臺天綫杆"
 ],
 "man_made/mast/communication/television":[
-"電視訊號天線"
+"antenna",
+"communication tower",
+"電視天線杆",
+"television mast",
+"transmission tower",
+"television broadcast mast",
+"transmission mast",
+"broadcast tower",
+"tv tower",
+"電視訊號天線",
+"guyed tower",
+"television tower",
+"tv mast",
+"communication mast"
 ],
 "man_made/mast/lighting":[
-"燈柱"
+"flood light",
+"燈柱",
+"stadium lights",
+"headligh",
+"lighting mast",
+"照明杆",
+"lighting",
+"stadium lighting"
 ],
 "man_made/milk_churn_stand":[
 "牛奶桶放置台"
@@ -5590,27 +5776,36 @@
 ],
 "man_made/pipeline/underground":[
 "地下管線",
+"underground pipeline",
 "地下管道",
 "地下管路"
 ],
 "man_made/planter":[
-"花盆"
+"花盆",
+"planter"
 ],
 "man_made/pumping_station":[
 "抽水站",
 "加壓站",
+"pumping station",
 "泵浦站"
 ],
 "man_made/quay":[
 "碼頭"
 ],
 "man_made/reservoir_covered":[
-"加蓋水庫/大型蓄水池",
+"有蓋水塘",
+"water tank",
 "加蓋大型蓄水池",
-"加蓋水庫"
+"水塘",
+"underground reservoir",
+"加蓋水庫",
+"covered reservoir"
 ],
 "man_made/satellite_dish":[
-"衛星天線"
+"衛星天線",
+"衞星天線",
+"satellite dish"
 ],
 "man_made/silo":[
 "筒倉"
@@ -5686,10 +5881,9 @@
 "望远镜"
 ],
 "man_made/torii":[
-"寺庙",
-"鸟居",
-"日式大门",
-"神社"
+"torii",
+"鳥居",
+"鸟居"
 ],
 "man_made/tower":[
 "塔",
@@ -5800,10 +5994,10 @@
 "人造設施 (未註明類型)"
 ],
 "marker":[
-"标记",
-"记号",
-"标记物",
-"标志"
+"標記",
+"記號",
+"marker",
+"標誌"
 ],
 "marker/utility":[
 "公共管線標記"
@@ -5841,7 +6035,8 @@
 "入口",
 "洞口",
 "洞穴",
-"洞窟"
+"洞窟",
+"cave entrance"
 ],
 "natural/cliff":[
 "懸崖",
@@ -5912,6 +6107,8 @@
 "峯"
 ],
 "natural/peninsula":[
+"peninsula",
+"半島",
 "半岛"
 ],
 "natural/reef":[
@@ -6168,8 +6365,10 @@
 ],
 "noexit/yes":[
 "死巷",
-"路终点",
+"exit",
 "沒有出口",
+"no exit",
+"無出口",
 "死路"
 ],
 "office":[
@@ -6264,9 +6463,14 @@
 "工程服务"
 ],
 "office/estate_agent":[
+"agent",
+"經紀",
 "管業處",
 "地產代理",
-"real estate office"
+"地產經紀",
+"estate agent",
+"real estate office",
+"real estate agent"
 ],
 "office/financial":[
 "financial office",
@@ -6557,7 +6761,6 @@
 "空中旋轉輪"
 ],
 "playground/balancebeam":[
-"平衡木 (儿童游乐)",
 "平衡木"
 ],
 "playground/basketrotator":[
@@ -6584,30 +6787,33 @@
 "漏斗球漏斗"
 ],
 "playground/hopscotch":[
-"跳房子"
+"跳飛機",
+"跳房子",
+"hopscotch"
 ],
 "playground/horizontal_bar":[
-"单杠",
-"操场",
-"铁棒",
-"高低杠",
-"游乐场",
-"游乐设施",
-"儿童乐园",
-"运动",
-"儿童",
-"竞技",
+"擺蕩",
+"橫槓",
+"競技",
+"遊樂",
+"體操",
+"操場",
+"horizontal bar",
+"play horizontal bar",
 "單槓",
+"鐵棒",
+"槓子",
+"遊樂園",
 "小孩",
-"游乐园",
-"体操",
-"乐园",
-"游乐",
-"转体",
-"摆荡",
-"横杠",
-"回环",
-"杠子"
+"高低槓",
+"兒童樂園",
+"遊樂場",
+"回環",
+"兒童",
+"轉體",
+"運動",
+"樂園",
+"遊樂設施"
 ],
 "playground/map":[
 "地圖彩繪"
@@ -6616,7 +6822,12 @@
 "遊戲小屋"
 ],
 "playground/roundabout":[
-"旋轉盤"
+"merry-go-round",
+"play roundabout",
+"旋轉盤",
+"氹氹轉",
+"carousel",
+"roundabout"
 ],
 "playground/sandpit":[
 "沙堆",
@@ -6635,17 +6846,24 @@
 "瀡滑梯"
 ],
 "playground/splash_pad":[
-"戲水區"
+"戲水區",
+"play splash pad"
 ],
 "playground/springy":[
+"spring rider",
 "彈簧椅",
-"弹簧摇马"
+"騎馬仔"
 ],
 "playground/structure":[
-"組合遊樂設施"
+"組合遊樂設施",
+"play structure",
+"structure"
 ],
 "playground/swing":[
-"鞦韆"
+"鞦韆",
+"韆鞦",
+"千秋",
+"swing"
 ],
 "playground/teenshelter":[
 "孩童看護亭"
@@ -6654,7 +6872,10 @@
 "梨球固定桿"
 ],
 "playground/trampoline":[
-"彈跳床"
+"彈牀",
+"彈網",
+"彈跳床",
+"trampoline"
 ],
 "playground/tunnel_tube":[
 "play tunnel",
@@ -6663,10 +6884,18 @@
 "隧道"
 ],
 "playground/water":[
-"戲水設施"
+"嬉水設施",
+"水",
+"戲水設施",
+"玩",
+"play water pump/screw"
 ],
 "playground/zipwire":[
-"滑降台"
+"zip",
+"滑降台",
+"line",
+"玩滑索",
+"play zip line"
 ],
 "point":[
 "point",
@@ -6692,6 +6921,7 @@
 ],
 "power/catenary_mast":[
 "電車線架",
+"catenary pole",
 "電車線桿"
 ],
 "power/generator":[
@@ -6956,6 +7186,7 @@
 "地鐵站"
 ],
 "public_transport/station_train":[
+"train station",
 "鐵路車站",
 "火車站"
 ],
@@ -7069,6 +7300,7 @@
 "輕軌電車軌道"
 ],
 "railway/milestone":[
+"railway milestone",
 "鐵路里程標"
 ],
 "railway/miniature":[
@@ -7092,7 +7324,7 @@
 "窄軌"
 ],
 "railway/platform":[
-"鐵路月台"
+"火車月臺"
 ],
 "railway/preserved":[
 "保存路線",
@@ -7140,8 +7372,10 @@
 "railway/subway_entrance":[
 "subway entrance",
 "地鐵口",
+"mtr",
 "地下鐵路入口",
-"地鐵入口"
+"地鐵入口",
+"entrance"
 ],
 "railway/switch":[
 "鐵路道岔"
@@ -7215,19 +7449,26 @@
 "航道信標"
 ],
 "seamark/buoy_lateral":[
+"channel buoy",
 "航道浮標",
-"航道浮标"
+"buoy"
 ],
 "seamark/buoy_lateral/green":[
-"绿色浮标",
+"green buoy",
+"buoy",
+"綠浮標",
 "綠色浮標"
 ],
 "seamark/buoy_lateral/red":[
-"Red Buoy",
-"紅色浮標"
+"紅浮標",
+"buoy",
+"紅色浮標",
+"red buoy"
 ],
 "seamark/mooring":[
-"停泊處"
+"停泊處",
+"泊船處",
+"mooring"
 ],
 "shop":[
 "shop",
@@ -7235,6 +7476,8 @@
 "商店"
 ],
 "shop/agrarian":[
+"農具舖",
+"farm supply shop'",
 "農業用品店",
 "農業設備行"
 ],
@@ -7245,24 +7488,36 @@
 "酒莊"
 ],
 "shop/anime":[
-"動畫 / 漫畫店"
+"動畫漫畫舖",
+"動畫 / 漫畫店",
+"manga shop",
+"anime"
 ],
 "shop/antiques":[
-"古董店"
+"古董店",
+"antique shop",
+"古董舖"
 ],
 "shop/appliance":[
+"appliance store",
 "家電行",
 "電器行"
 ],
 "shop/art":[
 "藝術品店",
+"art store",
 "藝品行"
 ],
 "shop/baby_goods":[
-"嬰兒用品店"
+"嬰兒用品舖",
+"嬰兒用品店",
+"baby goods store"
 ],
 "shop/bag":[
-"包包/行李箱店"
+"包包/行李箱店",
+"袋篋舖",
+"bag",
+"luggage store"
 ],
 "shop/bakery":[
 "餅店",
@@ -7278,13 +7533,15 @@
 "麵飽店"
 ],
 "shop/bathroom_furnishing":[
-"浴室配件店",
+"bathroom furnishing store",
+"浴具舖",
 "衛浴用品店"
 ],
 "shop/bbq":[
 "烤肉店",
+"barbecue shop",
 "燒肉店",
-"燒烤店"
+"燒烤舖"
 ],
 "shop/beauty":[
 "理容院",
@@ -7296,16 +7553,21 @@
 "護膚中心"
 ],
 "shop/beauty/nails":[
-"美甲店"
+"nail salon",
+"美甲店",
+"美甲舖"
 ],
 "shop/beauty/tanning":[
 "美黑",
-"日曬沙龍",
-"日光浴沙龙"
+"tanning salon",
+"日光浴舖",
+"日曬沙龍"
 ],
 "shop/bed":[
+"寢具/牀褥舖",
 "床具/寐具店",
-"寢具/床褥店"
+"bedding",
+"mattress store"
 ],
 "shop/beverages":[
 "飲品店",
@@ -7319,48 +7581,57 @@
 "單車舖"
 ],
 "shop/boat":[
+"boat store",
 "船艇行"
 ],
 "shop/bookmaker":[
+"bookmaker",
 "投注站",
 "簽注站",
 "下注站"
 ],
 "shop/books":[
-"书城",
-"图书商店",
-"书店"
+"bookstore",
+"書店",
+"書局"
 ],
 "shop/boutique":[
-"時裝店"
+"時裝舖"
 ],
 "shop/brewing_supplies":[
-"酿酒用品店",
+"釀酒用品舖",
+"brewing supply store",
 "釀酒用品店"
 ],
 "shop/butcher":[
 "肉販",
 "肉鋪",
 "butcher",
+"肉檯",
 "肉舖"
 ],
 "shop/camera":[
-"攝影器材行"
+"攝影器材行",
+"camera equipment store"
 ],
 "shop/candles":[
-"蠟燭專賣店"
+"蠟燭舖",
+"蠟燭專賣店",
+"candle shop"
 ],
 "shop/cannabis":[
-"大麻店",
-"娛樂用大麻店"
+"大麻舖",
+"娛樂用大麻店",
+"cannabis shop"
 ],
 "shop/car":[
 "車行",
 "car dealership"
 ],
 "shop/car/second_hand":[
-"二手車經銷商",
-"二手车售卖"
+"二手車行",
+"used car dealership",
+"二手車經銷商"
 ],
 "shop/car_parts":[
 "car parts store",
@@ -7375,26 +7646,41 @@
 "汽車維修店"
 ],
 "shop/caravan":[
-"露營車經銷商"
+"露營車經銷商",
+"露營車行",
+"rv dealership"
 ],
 "shop/carpet":[
+"carpet store",
+"地氊舖",
 "地毯店"
 ],
 "shop/catalogue":[
+"目錄舖",
+"catalog shop",
 "目錄商店"
 ],
 "shop/charity":[
+"慈善舖",
 "公益商店",
 "慈善商店",
-"義賣店"
+"義賣店",
+"charity store"
 ],
 "shop/cheese":[
-"起司專賣店"
+"芝士舖",
+"起司專賣店",
+"cheese store"
 ],
 "shop/chemist":[
-"药妆店"
+"西藥舖",
+"drugstore",
+"藥房",
+"藥妝店"
 ],
 "shop/chocolate":[
+"chocolate store",
+"朱古力舖",
 "巧克力專賣店"
 ],
 "shop/clothes":[
@@ -7405,39 +7691,51 @@
 ],
 "shop/clothes/second_hand":[
 "二手服飾店",
+"secondhand clothing store",
+"故衣舖",
 "二手服裝店",
 "二手衣物店"
 ],
 "shop/clothes/suits":[
-"中山装",
-"正装店",
 "燕尾服",
-"晨礼服",
-"西装",
+"禮服舖",
+"古裝",
+"正裝",
+"中山裝",
+"晨禮服",
 "衣服",
-"古装",
-"服饰",
-"正装"
+"服飾",
+"suits store",
+"西裝"
 ],
 "shop/clothes/underwear":[
+"內褲",
 "胸罩",
-"内衣",
-"内裤",
-"贴身",
-"內衣店",
-"内衬"
+"內襯",
+"底衫舖",
+"內衣",
+"underwear store",
+"貼身"
 ],
 "shop/clothes/wedding":[
+"wedding clothes store",
+"結婚禮服舖",
 "婚禮服裝店"
 ],
 "shop/clothes/workwear":[
-"工作服裝店"
+"工衣舖",
+"工作服裝店",
+"workwear store"
 ],
 "shop/coffee":[
+"咖啡舖",
+"coffee store",
 "咖啡豆專賣店"
 ],
 "shop/collector":[
-"收藏品專賣店"
+"collectibles shop",
+"收藏品專賣店",
+"收藏品舖"
 ],
 "shop/computer":[
 "computer store",
@@ -7446,6 +7744,7 @@
 ],
 "shop/confectionery":[
 "糖果店",
+"糖果舖",
 "candy store",
 "sweet"
 ],
@@ -7454,33 +7753,39 @@
 "convenience store"
 ],
 "shop/copyshop":[
+"影印舖",
 "copy store",
 "複印行"
 ],
 "shop/cosmetics":[
 "化妝品店",
+"化妝品舖",
 "保養品店",
 "cosmetics store"
 ],
 "shop/country_store":[
 "鄉居用品店",
+"鄉品舖",
 "rural supplies store"
 ],
 "shop/craft":[
 "手工藝用品店",
-"arts & crafts store"
+"arts & crafts store",
+"勞作舖"
 ],
 "shop/curtain":[
 "curtain store",
-"窗簾店",
+"窗簾舖",
 "窗廉店"
 ],
 "shop/dairy":[
 "dairy story",
+"奶品舖",
 "乳製品店"
 ],
 "shop/deli":[
 "delicatessen",
+"高級食材舖",
 "高級食材店"
 ],
 "shop/department_store":[
@@ -7499,21 +7804,23 @@
 ],
 "shop/dry_cleaning":[
 "dry cleaner",
+"乾洗舖",
 "乾洗店"
 ],
 "shop/e-cigarette":[
 "電子菸專賣店",
+"電子煙舖",
 "vape",
 "e-cigarette shop"
 ],
 "shop/electrical":[
+"電力器材行",
 "電纜",
 "electrical equipment store",
 "燈",
 "led",
 "電",
-"電線",
-"电气设备店"
+"電線"
 ],
 "shop/electronics":[
 "electronics store",
@@ -7530,10 +7837,10 @@
 "erotic store"
 ],
 "shop/erotic/lgbtq":[
-"性少数群体成人用品店",
 "色情",
 "lgbtq+ erotic store",
-"性"
+"性",
+"性向情趣用品店"
 ],
 "shop/fabric":[
 "fabric store",
@@ -7551,17 +7858,21 @@
 ],
 "shop/fashion_accessories":[
 "fashion accessories store",
-"流行飾品店"
+"流行飾品店",
+"流行飾品舖"
 ],
 "shop/fireplace":[
 "壁爐店",
-"fireplace store'"
+"fireplace store'",
+"壁爐舖"
 ],
 "shop/fishing":[
 "fishing shop",
+"釣具舖",
 "釣具店"
 ],
 "shop/flooring":[
+"地板舖",
 "地板專賣店",
 "flooring supply shop"
 ],
@@ -7574,9 +7885,11 @@
 "相框店",
 "框",
 "framing shop",
-"裱框店"
+"裱框店",
+"裱框舖"
 ],
 "shop/frozen_food":[
+"冷藏食品舖",
 "frozen food store",
 "冷凍食品店"
 ],
@@ -7597,8 +7910,8 @@
 "shop/games":[
 "桌遊店",
 "game",
-"tabletop game store",
-"桌游店"
+"檯上游戲行",
+"tabletop game store"
 ],
 "shop/garden_centre":[
 "園藝中心",
@@ -7609,7 +7922,8 @@
 "shop/gas":[
 "瓦斯行",
 "bottled gas shop",
-"石油氣"
+"石油氣",
+"石油氣行"
 ],
 "shop/general":[
 "一般商店",
@@ -7633,30 +7947,32 @@
 "菜檔"
 ],
 "shop/groundskeeping":[
-"除草與花園設備商店",
 "花圃設備店",
 "除草與花園設備店",
 "garden",
+"草地花園設備行",
 "除草與花園設備商家",
 "lawn & garden equipment store"
 ],
 "shop/hairdresser":[
 "hairdresser",
 "飛髮舖",
+"美髮舖",
 "理髮店"
 ],
 "shop/hairdresser/barber":[
 "美髮",
-"理发店",
 "快剪",
 "洗剪吹",
 "理髮",
 "剪發",
+"剪髮舖",
 "美髮沙龍",
 "barber",
 "髮藝"
 ],
 "shop/hairdresser_supply":[
+"髮具舖",
 "美容美髮用品店",
 "hairdresser supply store"
 ],
@@ -7667,12 +7983,13 @@
 ],
 "shop/health_food":[
 "health food store",
+"健康食品舖",
 "健康食品店"
 ],
 "shop/hearing_aids":[
 "hearing aids store",
 "耳聾機",
-"听觉恢复用品店",
+"助聽器行",
 "助聽器商店",
 "聽覺恢復用品店"
 ],
@@ -7687,47 +8004,52 @@
 "音響舖"
 ],
 "shop/hobby":[
-"嗜好品專賣店"
+"嗜好用品舖"
 ],
 "shop/honey":[
 "蜂蜜專賣店",
+"蜂蜜舖",
 "蜜糖",
 "honey store"
 ],
 "shop/household_linen":[
 "household linen shop",
+"毛冷舖",
 "家用織物店"
 ],
 "shop/houseware":[
 "houseware store",
 "居家用品店",
+"居家用品舖",
 "家品店"
 ],
 "shop/hunting":[
 "hunting shop",
 "打獵用品店",
 "獵",
-"狩猎店"
+"打獵舖"
 ],
 "shop/interior_decoration":[
 "室內擺飾店",
-"interior decoration store"
+"interior decoration store",
+"室內擺飾舖"
 ],
 "shop/jewelry":[
 "jewelry store",
+"珠寶行",
 "珠寶飾品行"
 ],
 "shop/kiosk":[
 "販售亭",
 "售貨亭",
 "書報攤",
-"kiosk"
+"kiosk",
+"小賣部"
 ],
 "shop/kitchen":[
 "廚房用品店",
 "kitchen design store",
-"廚房設計行",
-"厨房用品店"
+"廚房設計行"
 ],
 "shop/laundry":[
 "洗衣舖",
@@ -7742,20 +8064,21 @@
 "投幣洗衣",
 "洗衣服",
 "self-service laundry",
-"自助洗衣店",
+"自助洗衣舖",
 "洗衣間",
 "自助"
 ],
 "shop/leather":[
 "leather store",
+"皮革舖",
 "皮草製品店"
 ],
 "shop/lighting":[
 "照明",
 "光",
 "燈具店",
-"lighting store",
-"灯饰店"
+"燈飾舖",
+"lighting store"
 ],
 "shop/locksmith":[
 "locksmith",
@@ -7765,20 +8088,22 @@
 ],
 "shop/lottery":[
 "lottery shop",
+"奬券行",
 "彩券行"
 ],
 "shop/mall":[
 "商場",
 "mall",
+"shopping centre",
 "大商場"
 ],
 "shop/massage":[
+"按摩舖",
 "按摩店",
 "massage shop"
 ],
 "shop/medical_supply":[
 "醫療器材行",
-"医疗用品店",
 "medical supply store"
 ],
 "shop/military_surplus":[
@@ -7876,17 +8201,18 @@
 ],
 "shop/party":[
 "party supply store",
-"派對用品店"
+"派對用品店",
+"宴品舖"
 ],
 "shop/pasta":[
 "義大利麵專賣店",
 "麵",
 "意粉",
 "意大利",
+"意大利粉舖",
 "粉",
 "麪",
-"pasta stor",
-"意大利粉專賣舖"
+"pasta stor"
 ],
 "shop/pastry":[
 "餅",
@@ -7925,9 +8251,11 @@
 ],
 "shop/pottery":[
 "pottery store",
+"缸瓦舖",
 "陶瓷器店"
 ],
 "shop/printer_ink":[
+"打印機墨水舖",
 "印表機墨水專賣店",
 "printer ink store"
 ],
@@ -7965,7 +8293,6 @@
 "租賃舖"
 ],
 "shop/repair":[
-"維修舖",
 "維修店",
 "維修行",
 "repair shop"
@@ -7993,11 +8320,12 @@
 "二手商品店"
 ],
 "shop/sewing":[
-"缝纫用品商店",
+"縫紉用品舖",
 "縫紉用品店",
 "sewing supply shop"
 ],
 "shop/shoe_repair":[
+"補鞋舖",
 "修鞋店",
 "shoe repair shop"
 ],
@@ -8042,12 +8370,13 @@
 ],
 "shop/tailor":[
 "裁縫師",
-"tailor"
+"tailor",
+"裁縫"
 ],
 "shop/tattoo":[
+"紋身舖",
 "tattoo parlor",
 "刺青店",
-"纹身店",
 "紋身"
 ],
 "shop/tea":[
@@ -8067,15 +8396,16 @@
 "ticket seller"
 ],
 "shop/tiles":[
-"瓷磚專賣店",
 "tile shop",
+"磁磚舖",
 "磁磚專賣店"
 ],
 "shop/tobacco":[
 "tobacco shop",
 "烟草",
 "菸品專賣店",
-"煙草"
+"煙草",
+"煙草舖"
 ],
 "shop/tool_hire":[
 "tool rental'",
@@ -8090,7 +8420,6 @@
 "shop/trade":[
 "材料行",
 "trade shop",
-"批发市场",
 "供應商",
 "貿易商"
 ],
@@ -8100,7 +8429,8 @@
 ],
 "shop/trophy":[
 "trophy shop",
-"獎盃店"
+"獎盃店",
+"獎盃舖"
 ],
 "shop/tyres":[
 "tire store",
@@ -8115,25 +8445,27 @@
 "空置鋪位"
 ],
 "shop/vacuum_cleaner":[
-"吸尘器店",
 "吸塵器店",
+"吸塵機舖",
 "vacuum cleaner store"
 ],
 "shop/variety_store":[
 "折扣商店",
-"discount store"
+"discount store",
+"特價舖"
 ],
 "shop/video":[
 "影視店",
+"影視舖",
 "video store",
 "影像店",
 "影碟店"
 ],
 "shop/video_games":[
-"电子游戏店",
 "電玩遊戲店",
 "電子遊戲店",
-"video game store"
+"video game store",
+"電子遊戲舖"
 ],
 "shop/watches":[
 "鐘錶行",
@@ -8144,6 +8476,7 @@
 "飲用水供應店",
 "水",
 "食水",
+"食水舖",
 "樽裝水",
 "drinking water shop"
 ],
@@ -8151,13 +8484,14 @@
 "水上運動/泳裝店",
 "watersport/swim shop",
 "泳",
-"水上活動/游泳用品店",
+"水上活動/游泳用品舖",
 "swim"
 ],
 "shop/weapons":[
 "刀",
 "weapon shop",
 "武器店",
+"武器舖",
 "槍"
 ],
 "shop/wholesale":[
@@ -8165,50 +8499,51 @@
 "商城",
 "商場",
 "wholesale store",
-"仓储超市",
 "市場",
+"批發行",
 "批發"
 ],
 "shop/wigs":[
 "wig shop",
-"假发店",
-"假髮專賣店"
+"假髮專賣店",
+"假髮舖"
 ],
 "shop/window_blind":[
 "window blind store",
 "blind",
 "venetian",
-"百葉窗店"
+"百葉窗店",
+"百葉窗舖"
 ],
 "shop/wine":[
 "酒舖",
 "wine shop"
 ],
 "shop/yes":[
-"商店 (未註明類型)"
+"未指明舖"
 ],
 "telecom":[
-"電信"
+"電訊地貌"
 ],
 "telecom/data_center":[
 "服務器",
 "data center",
+"資料",
 "電信",
 "計算機",
 "通信",
 "電腦",
+"電腦機樓",
 "數據",
 "電腦系統存儲",
 "計算機科學",
-"雲端",
-"数据中心"
+"雲端"
 ],
 "telecom/exchange":[
 "電訊交換機機房",
 "電訊交換機",
 "telecom exchange",
-"電話機樓",
-"电信交换机机房"
+"電話機樓"
 ],
 "tourism":[
 "觀光地貌"
@@ -8245,7 +8580,6 @@
 "tourism/artwork/installation":[
 "art installation",
 "裝置藝術",
-"装置艺术",
 "互動藝術",
 "現代藝術",
 "藝術品",
@@ -8292,8 +8626,8 @@
 ],
 "tourism/camp_site/group_only":[
 "團體露營區",
+"團體露營地",
 "camping",
-"Group Camping Area",
 "group camping area"
 ],
 "tourism/caravan_site":[
@@ -8337,9 +8671,9 @@
 "information board",
 "資訊看版",
 "資訊告示牌",
-"資訊看板",
 "告示牌",
-"看板"
+"看板",
+"資訊板"
 ],
 "tourism/information/board/welcome_sign":[
 "歡迎標示",
@@ -8347,6 +8681,7 @@
 "歡迎標誌"
 ],
 "tourism/information/guidepost":[
+"指路牌",
 "guidepost",
 "方向標",
 "路標",
@@ -8403,7 +8738,8 @@
 "tourism/picnic_site":[
 "野餐地點",
 "郊遊地點",
-"picnic site"
+"picnic site",
+"野餐地"
 ],
 "tourism/theme_park":[
 "theme park",
@@ -8436,6 +8772,7 @@
 "tourism/zoo/petting":[
 "可愛動物園",
 "petting zoo",
+"寵物園",
 "寵物"
 ],
 "tourism/zoo/safari":[
@@ -8443,7 +8780,8 @@
 "猛獸",
 "野生動物園",
 "免下車",
-"safari park"
+"safari park",
+"野生動物遊園"
 ],
 "tourism/zoo/wildlife":[
 "土著",
@@ -8453,19 +8791,23 @@
 ],
 "traffic_calming":[
 "道路減速設施",
+"減速位",
 "calming",
 "traffic calming"
 ],
 "traffic_calming/bump":[
-"speed bump'",
-"小型減速丘"
+"小型減速丘",
+"減速壆",
+"speed bump"
 ],
 "traffic_calming/chicane":[
 "減速彎",
+"減速彎位",
 "traffic chicane"
 ],
 "traffic_calming/choker":[
 "traffic choker'",
+"減速窄位",
 "路寬縮減"
 ],
 "traffic_calming/cushion":[
@@ -8475,8 +8817,7 @@
 "speed cushion",
 "減速",
 "減速墊",
-"減速帶",
-"减速垫"
+"減速帶"
 ],
 "traffic_calming/dip":[
 "減速坡",
@@ -8486,17 +8827,20 @@
 ],
 "traffic_calming/hump":[
 "hump",
+"減速拱",
 "speed hump",
 "減速丘"
 ],
 "traffic_calming/island":[
 "traffic calming island",
+"減速洲",
 "calming island",
 "island",
 "減速",
 "分隔島"
 ],
 "traffic_calming/mini_bumps":[
+"細減速壆",
 "迷你減速丘",
 "mini speed bumps"
 ],
@@ -8507,11 +8851,11 @@
 "traffic_calming/table":[
 "減速台",
 "減速平台",
-"speed table",
-"減速平臺"
+"減速臺",
+"speed table"
 ],
 "traffic_calming/yes":[
-"道路減速設施 (未註明類型)"
+"未指明減速設施"
 ],
 "traffic_sign":[
 "交通標誌",
@@ -8520,12 +8864,14 @@
 "traffic_sign/city_limit":[
 "city limit sign",
 "地名標示",
-"地名"
+"地名",
+"市界標誌"
 ],
 "traffic_sign/maxspeed":[
 "速限標誌",
 "速限",
-"speed limit sign"
+"speed limit sign",
+"速度標誌"
 ],
 "traffic_sign/variable_message":[
 "variable message sign",
@@ -8549,6 +8895,7 @@
 ],
 "type/destination_sign":[
 "目的地標示",
+"目的地標誌",
 "destination sign"
 ],
 "type/enforcement":[
@@ -8676,19 +9023,21 @@
 "hiking route"
 ],
 "type/route/horse":[
-"騎馬路綫",
 "騎馬路線",
 "route",
+"馳馬路綫",
 "horseback riding route"
 ],
 "type/route/light_rail":[
 "route",
+"輕軌電車路綫",
 "輕軌電車路線",
 "lrt route",
 "light rail route"
 ],
 "type/route/monorail":[
 "route",
+"單軌電車路綫",
 "單軌電車路線",
 "monorail route"
 ],
@@ -8800,6 +9149,7 @@
 "canal"
 ],
 "waterway/canal/lock":[
+"水道閘",
 "canal lock",
 "水閘",
 "運河",
@@ -8807,7 +9157,6 @@
 "lock",
 "閘門",
 "閘室",
-"闸室",
 "船閘"
 ],
 "waterway/dam":[
@@ -8826,8 +9175,8 @@
 "濕塢",
 "dry dock",
 "乾船塢",
-"干船坞/湿船坞",
 "wet dock",
+"濕塢乾塢",
 "dock",
 "濕船塢",
 "乾塢"
@@ -8841,7 +9190,6 @@
 ],
 "waterway/fish_pass":[
 "fish pass",
-"鱼道",
 "魚梯",
 "魚道"
 ],
@@ -8852,8 +9200,8 @@
 "fuel"
 ],
 "waterway/lock_gate":[
+"船閘閘門",
 "lock gate",
-"船闸闸门",
 "水閘",
 "運河",
 "閘門",
@@ -8874,6 +9222,7 @@
 "江"
 ],
 "waterway/sanitary_dump_station":[
+"航船卸廁污站",
 "船舶污水排放站",
 "marine toilet disposal"
 ],
@@ -8902,7 +9251,8 @@
 ],
 "waterway/water_point":[
 "marine drinking water",
-"船舶飲用水供應處"
+"船舶飲用水供應處",
+"船舶食水處"
 ],
 "waterway/waterfall":[
 "湰",

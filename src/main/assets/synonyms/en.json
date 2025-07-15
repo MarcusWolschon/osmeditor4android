@@ -2000,7 +2000,8 @@
 "Shop (Unspecified Type)"
 ],
 "shop/vacant":[
-"Vacant Shop"
+"Vacant Shop",
+"empty"
 ],
 "shop/hobby":[
 "Hobby Shop"
@@ -6699,6 +6700,9 @@
 "pedestrian crossing (lights)",
 "pedestrian traffic signals",
 "crosswalk (lights)"
+],
+"highway/crossing/informal":[
+"Informal Crossing"
 ],
 "healthcare/speech_therapist":[
 "voice",

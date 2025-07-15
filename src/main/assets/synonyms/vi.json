@@ -901,6 +901,18 @@
 "văn phòng bác sỹ",
 "van phong thay thuoc"
 ],
+"amenity/doctors/podiatry":[
+"bác sĩ chữa chân",
+"bac sy chua chan",
+"bac sy bo khoa",
+"bac si bo khoa",
+"bac si chua chan",
+"thầy thuốc chữa chân",
+"thay thuoc chua chan",
+"bác sỹ chữa chân",
+"bác sĩ bộ khoa",
+"bác sỹ bộ khoa"
+],
 "amenity/dojo":[
 "vo thuat",
 "Võ đường",
@@ -3725,6 +3737,11 @@
 "gum",
 "máy bán đồ ăn tự động"
 ],
+"amenity/vending_machine/food/snacks":[
+"may ban keo",
+"máy bán kẹo",
+"Máy Bán Kẹo"
+],
 "amenity/vending_machine/ice_cream":[
 "kem que",
 "máy bán kem tự động",
@@ -5895,6 +5912,19 @@
 "điểm phát bóng",
 "vi tri phat bong"
 ],
+"golf/water_hazard":[
+"ao ho",
+"ao nuoc",
+"bay nuoc",
+"chuong ngai nuoc",
+"ao hồ",
+"hồ nước",
+"chướng ngại nước",
+"ao nước",
+"Bẫy Nước",
+"ho nuoc",
+"bẫy nước"
+],
 "healthcare":[
 "Trung tâm Y tế",
 "thầy thuốc",
@@ -6300,6 +6330,9 @@
 "he",
 "duong di bo"
 ],
+"highway/footway/traffic_island":[
+"Đảo An toàn"
+],
 "highway/give_way":[
 "bảng nhường đường",
 "Bảng Nhường đường",
@@ -6420,6 +6453,9 @@
 "Lối đi Lót Ván",
 "lối đi lót ván",
 "loi di lot van"
+],
+"highway/path/crossing":[
+"Lối Đi bộ & Xe đạp Qua đường"
 ],
 "highway/path/informal":[
 "Đường mòn Không chính thức",
@@ -7057,6 +7093,9 @@
 "toa nha lich su",
 "Tòa nhà Lịch sử"
 ],
+"historic/cannon":[
+"Súng thần công"
+],
 "historic/castle":[
 "lâu đài",
 "lau dai",
@@ -7101,6 +7140,9 @@
 "cong su lich su",
 "pháo đài lịch sử",
 "Pháo đài Lịch sử"
+],
+"historic/manor":[
+"Ngôi nhà Trang viên"
 ],
 "historic/memorial":[
 "tượng kỷ niệm",
@@ -8518,6 +8560,9 @@
 "duong dua",
 "truong dua"
 ],
+"leisure/track/athletics/running":[
+"Đường Chạy"
+],
 "leisure/track/cycling":[
 "dua xe dap",
 "duong dua xe dap",
@@ -8605,6 +8650,9 @@
 "tivi",
 "anten tivi"
 ],
+"man_made/beacon":[
+"Mốc hiệu"
+],
 "man_made/beehive":[
 "tổ ong",
 "Tổ ong",
@@ -8632,6 +8680,9 @@
 "xi-lo boong ke",
 "xi-lô boong ke",
 "Xilô Boong ke"
+],
+"man_made/cairn":[
+"Ụ đá"
 ],
 "man_made/carpet_hanger":[
 "gia treo tham",
@@ -8679,6 +8730,9 @@
 "cau bay",
 "cần cẩu"
 ],
+"man_made/crane/portal_crane":[
+"Cầu Chạy Cổng trục"
+],
 "man_made/cross":[
 "Thánh Giá",
 "thanh gia",
@@ -8717,6 +8771,34 @@
 "ky dai",
 "kỳ đài",
 "kì đài"
+],
+"man_made/fuel_pump":[
+"tru bom xang dau",
+"diesel",
+"cay xang",
+"nhien lieu",
+"khi hoa long",
+"khi gas long",
+"khí ga lỏng",
+"nhiên liệu",
+"khi thien nhien long",
+"khi ga long",
+"khí hóa lỏng",
+"ét-xăng",
+"xang et xang",
+"cột xăng",
+"gazole",
+"khí gas lỏng",
+"trụ bơm xăng dầu",
+"trụ bơm xăng",
+"xăng ét xăng",
+"cây xăng",
+"Trụ Bơm Xăng",
+"khí hoá lỏng",
+"khí thiên nhiên lỏng",
+"cot xang",
+"et-xang",
+"tru bom xang"
 ],
 "man_made/gasometer":[
 "bể chứa khí",
@@ -8769,6 +8851,13 @@
 "lo cong",
 "vien thong",
 "ho ga"
+],
+"man_made/manhole/drain":[
+"Cống Thoát Nước",
+"cống nước mưa",
+"cong thoat nuoc mua",
+"cong nuoc mua",
+"cống thoát nước mưa"
 ],
 "man_made/manhole/telecom":[
 "lỗ cáp viễn thông",
@@ -10635,6 +10724,17 @@
 "nha may thuy dien",
 "Nhà máy Thủy điện"
 ],
+"power/plant/source/method/photovoltaic":[
+"tấm quang năng",
+"trai quang nang",
+"trang trại điện mặt trời",
+"trang trai dien mat troi",
+"trang trai dien nang luong mat troi",
+"trại quang năng",
+"trang trại điện năng lượng mặt trời",
+"tam quang nang",
+"Trang trại Điện Mặt trời"
+],
 "power/plant/source/nuclear":[
 "Nhà máy Điện Hạt nhân",
 "nha may dien hat nhan",
@@ -11426,6 +11526,23 @@
 "điểm neo tàu",
 "nơi thả neo",
 "phao neo tau"
+],
+"shop":[
+"nhà buôn bán",
+"tiệm",
+"cua hang",
+"cua hieu",
+"nha buon ban",
+"tiem",
+"nha ban hang",
+"cửa buôn bán",
+"nơi bán hàng",
+"cửa hiệu",
+"Tiệm",
+"nhà bán hàng",
+"cửa hàng",
+"cua buon ban",
+"noi ban hang"
 ],
 "shop/agrarian":[
 "tiệm nông nghiệp",
@@ -13785,7 +13902,29 @@
 "cửa hiệu lốp xe"
 ],
 "shop/vacant":[
-"Tiệm Trống"
+"cua hieu chua mo cua",
+"tiem chuan bi khai truong",
+"cho chua mo cua",
+"tiệm chuẩn bị khai trương",
+"Tiệm Trống",
+"chỗ chưa mở cửa",
+"tiem chua co hang",
+"cua hang chua mo cua",
+"cửa hiệu chưa mở cửa",
+"cua hang dong cua",
+"tiệm đóng cửa",
+"cho dong cua",
+"cua hieu dong cua",
+"tiem chua mo cua",
+"cửa hàng chưa mở cửa",
+"tiem dong cua",
+"quầy chưa có hàng",
+"chỗ đóng cửa",
+"tiệm chưa có hàng",
+"cửa hàng đóng cửa",
+"tiệm chưa mở cửa",
+"cửa hiệu đóng cửa",
+"quay chua co hang"
 ],
 "shop/vacuum_cleaner":[
 "cửa hàng máy hút bụi",
@@ -14067,6 +14206,13 @@
 "chỗ thu hút khách du lịch",
 "noi thu hut khach du lich",
 "khu vực thu hút khách du lịch"
+],
+"tourism/camp_pitch":[
+"lều",
+"lều cắm trại",
+"Lều Cắm trại",
+"leu",
+"leu cam trai"
 ],
 "tourism/camp_site":[
 "khu cắm trại",

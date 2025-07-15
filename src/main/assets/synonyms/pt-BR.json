@@ -4183,6 +4183,9 @@
 "Travessia",
 "faixa de pedestres"
 ],
+"highway/crossing/informal":[
+"Travessia informal"
+],
 "highway/crossing/traffic_signals":[
 "travessia de bicicletas com sinal",
 "travessia de pedestres com sinal",
@@ -4627,15 +4630,15 @@
 "via de estacionamento"
 ],
 "highway/service_area":[
-"Área de Serviço Pavimentada"
+"Área de serviço pavimentada"
 ],
 "highway/services":[
-"Posto de Serviços",
 "área de serviço",
 "borracharia",
 "posto de gasolina",
 "lava jato",
 "posto de combustíveis",
+"Posto de serviços",
 "loja de conveniências",
 "combustíveis",
 "serviços"

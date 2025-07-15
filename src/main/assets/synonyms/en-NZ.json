@@ -482,9 +482,6 @@
 "amenity/karaoke_box":[
 "Karaoke Box"
 ],
-"amenity/kindergarten":[
-"Preschool / Nursery Grounds"
-],
 "amenity/kneipp_water_cure":[
 "Kneipp Facility"
 ],
@@ -808,7 +805,7 @@
 "Smoking Area"
 ],
 "amenity/social_centre":[
-"Payment Centre"
+"Social Centre"
 ],
 "amenity/social_facility":[
 "Social Facility"
@@ -911,7 +908,7 @@
 "University Grounds"
 ],
 "amenity/vacuum_cleaner":[
-"Car Hoover Service"
+"Vehicle Vacuum Cleaning Station"
 ],
 "amenity/vehicle_inspection":[
 "Vehicle Inspection",
@@ -1004,7 +1001,10 @@
 "Postage Vending Machine"
 ],
 "amenity/vending_machine/sweets":[
-"Sweets Vending Machine"
+"candy",
+"Lolly Vending Machine",
+"sweets",
+"lollies"
 ],
 "amenity/veterinary":[
 "Veterinary"
@@ -1016,7 +1016,7 @@
 "Rubbish bin"
 ],
 "amenity/waste_disposal":[
-"Skip Bin"
+"Garbage Dumpster / Skip"
 ],
 "amenity/waste_transfer_station":[
 "Waste Transfer Station"
@@ -1384,9 +1384,6 @@
 "building/industrial":[
 "Industrial Building"
 ],
-"building/kindergarten":[
-"Preschool / Nursery Building"
-],
 "building/manufacture":[
 "Industrial Production Building"
 ],
@@ -1536,7 +1533,10 @@
 "Clockmaker"
 ],
 "craft/confectionery":[
-"Candy Maker"
+"candy",
+"Lolly Maker",
+"sweets",
+"lollies"
 ],
 "craft/distillery":[
 "Distillery"
@@ -1987,9 +1987,6 @@
 "highway/emergency_bay":[
 "Emergency Stopping Place"
 ],
-"highway/escape":[
-"Escape Lane"
-],
 "highway/footway":[
 "path",
 "trail",
@@ -2052,12 +2049,6 @@
 ],
 "highway/ladder":[
 "Ladder"
-],
-"highway/living_street":[
-"Shared Zone Road"
-],
-"highway/milestone":[
-"Road Milestone"
 ],
 "highway/mini_roundabout":[
 "Mini-Roundabout"
@@ -2417,9 +2408,6 @@
 "landuse/residential":[
 "Residential Area"
 ],
-"landuse/residential/apartments":[
-"Flat Complex"
-],
 "landuse/residential/trailer_park":[
 "Mobile Home Park"
 ],
@@ -2453,9 +2441,6 @@
 ],
 "leisure/bird_hide":[
 "Bird Hide"
-],
-"leisure/bleachers":[
-"Stands"
 ],
 "leisure/bowling_alley":[
 "Bowling Alley"
@@ -2644,7 +2629,7 @@
 "Cricket Field"
 ],
 "leisure/pitch/equestrian":[
-"Horse Riding / Rodeo Arena"
+"Horse Riding Arena"
 ],
 "leisure/pitch/four_square":[
 "Four Square Court"
@@ -3364,7 +3349,7 @@
 "Engineering Office"
 ],
 "office/estate_agent":[
-"Estate Agent"
+"Real Estate Agent"
 ],
 "office/financial":[
 "Financial Office"
@@ -4000,10 +3985,11 @@
 ],
 "shop/alcohol":[
 "alcohol",
-"Off licence (Alcohol shop)",
+"bottle shop",
 "booze",
+"off-license",
 "off licence",
-"off license",
+"bottle-o",
 "beer",
 "wine"
 ],
@@ -4041,7 +4027,7 @@
 "Tanning Salon"
 ],
 "shop/bed":[
-"Bed Shop"
+"Bedding/Mattress Shop"
 ],
 "shop/beverages":[
 "Beverages Shop"
@@ -4140,7 +4126,10 @@
 "Computer Shop"
 ],
 "shop/confectionery":[
-"Sweet Shop"
+"candy",
+"sweets",
+"lollies",
+"Lolly Shop"
 ],
 "shop/convenience":[
 "superette",
@@ -4328,7 +4317,6 @@
 "Lottery Shop"
 ],
 "shop/mall":[
-"Shopping Centre",
 "shopping center",
 "mall"
 ],
@@ -4510,13 +4498,13 @@
 "Trophy Shop"
 ],
 "shop/tyres":[
-"Tyre Store"
+"Tyre Shop"
 ],
 "shop/vacant":[
 "Vacant Shop"
 ],
 "shop/vacuum_cleaner":[
-"Hoover Shop"
+"Vacuum Cleaner Shop"
 ],
 "shop/variety_store":[
 "Discount shop"
@@ -4538,9 +4526,6 @@
 ],
 "shop/weapons":[
 "Weapon Shop"
-],
-"shop/wholesale":[
-"Wholesale Shop / Cash & Carry"
 ],
 "shop/wigs":[
 "Wig Shop"
@@ -4769,9 +4754,6 @@
 "type/restriction/no_right_turn":[
 "No Right Turn"
 ],
-"type/restriction/no_straight_on":[
-"No Straight On"
-],
 "type/restriction/no_u_turn":[
 "No U-Turn"
 ],
@@ -4780,9 +4762,6 @@
 ],
 "type/restriction/only_right_turn":[
 "Right Turn Only"
-],
-"type/restriction/only_straight_on":[
-"Straight On Only"
 ],
 "type/restriction/only_u_turn":[
 "U-Turn Only"

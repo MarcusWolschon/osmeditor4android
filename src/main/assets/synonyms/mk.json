@@ -1902,6 +1902,9 @@
 "highway/crossing":[
 "Премин"
 ],
+"highway/crossing/informal":[
+"Неформален премин"
+],
 "highway/crossing/traffic_signals":[
 "Премин со пешачки сигнали"
 ],

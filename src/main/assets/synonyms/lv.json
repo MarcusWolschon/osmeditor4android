@@ -135,6 +135,9 @@
 "amenity/clock":[
 "Pulkstenis"
 ],
+"amenity/clock/sundial":[
+"Saules pulkstenis"
+],
 "amenity/community_centre":[
 "Kopienas centrs"
 ],
@@ -559,8 +562,14 @@
 "area":[
 "Apgabals"
 ],
+"area/footway":[
+"Gājēju ceļa laukums"
+],
 "area/highway":[
 "Ceļa teritorija"
+],
+"area/highway/traffic_island":[
+"Satiksmes sadalošā sala"
 ],
 "attraction/bungee_jumping":[
 "lekšana",
@@ -656,6 +665,9 @@
 ],
 "barrier/kerb/flush":[
 "Vienlīmeņa apmale"
+],
+"barrier/kerb/lowered":[
+"Pazemināta apmale"
 ],
 "barrier/kerb/raised":[
 "Paaugstināta apmale"
@@ -785,9 +797,9 @@
 "building/school":[
 "augstskola",
 "vidusskola",
-"Skolas Ēka",
 "sākumskola",
 "pamatskola",
+"Skolas ēka",
 "koledža"
 ],
 "building/shed":[
@@ -812,7 +824,7 @@
 "Dzelzceļa stacijas ēka"
 ],
 "building/university":[
-"Universitātes Ēka"
+"Universitātes ēka"
 ],
 "building/warehouse":[
 "Noliktava"
@@ -915,6 +927,9 @@
 ],
 "craft/winery":[
 "Vīna darītava"
+],
+"disused/amenity":[
+"Neizmantots pakalpojums"
 ],
 "disused/shop":[
 "Neizmantots veikals"
@@ -1049,6 +1064,9 @@
 "highway/footway/sidewalk":[
 "Ietve"
 ],
+"highway/footway/traffic_island":[
+"Drošības sala"
+],
 "highway/give_way":[
 "Dodiet ceļu zīme"
 ],
@@ -1115,6 +1133,9 @@
 "highway/service/parking_aisle":[
 "Stāvvietas ceļš"
 ],
+"highway/service_area":[
+"Bruģēta apkalpošanas zona"
+],
 "highway/speed_camera":[
 "Fotoradars"
 ],
@@ -1128,7 +1149,7 @@
 "Stop Zīme"
 ],
 "highway/street_lamp":[
-"Ielu Gaisma"
+"Ielas lampa"
 ],
 "highway/tertiary":[
 "Trešās šķiras ceļš"
@@ -1354,6 +1375,9 @@
 ],
 "leisure/swimming_pool":[
 "Peldbaseins"
+],
+"leisure/track":[
+"Sacensību trase (ne-motorsportam)"
 ],
 "leisure/water_park":[
 "Akvaparks"
@@ -1628,6 +1652,9 @@
 ],
 "place/village":[
 "Ciems"
+],
+"playground":[
+"Rotaļu laukuma aprīkojums"
 ],
 "playground/slide":[
 "Slidkalniņš"
@@ -1920,6 +1947,9 @@
 "shop/furniture":[
 "Mēbeļu veikals"
 ],
+"shop/games":[
+"Galda spēļu veikals"
+],
 "shop/garden_centre":[
 "Dārzkopības veikals"
 ],
@@ -2070,7 +2100,7 @@
 "Videospēļu veikals"
 ],
 "shop/watches":[
-"Pulksteņu Veikals"
+"Pulksteņu veikals"
 ],
 "shop/weapons":[
 "Ieroču Veikals"
@@ -2162,6 +2192,9 @@
 "Zooloģiskais dārzs",
 "dzīvnieki",
 "zoo"
+],
+"traffic_calming":[
+"Satiksmes mierināšana"
 ],
 "traffic_calming/bump":[
 "Guļošais Policists"

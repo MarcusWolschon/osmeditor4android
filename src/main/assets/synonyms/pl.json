@@ -4073,6 +4073,9 @@
 "Przejście dla pieszych",
 "przejście"
 ],
+"highway/crossing/informal":[
+"Nieformalne przejście przez jezdnię"
+],
 "highway/crossing/traffic_signals":[
 "przejście dla pieszych ze światłami",
 "Przejście dla pieszych z sygnalizacją świetlną",
@@ -4090,7 +4093,9 @@
 ],
 "highway/crossing/unmarked":[
 "nieoznakowane przejście dla pieszych",
-"Nieoznakowane przejście dla pieszych"
+"sugerowane przejście dla pieszych",
+"Nieoznakowane przejście dla pieszych",
+"przejście sugerowane"
 ],
 "highway/cycleway":[
 "droga rowerowa",

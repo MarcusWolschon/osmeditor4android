@@ -47,6 +47,12 @@
 "amenity/recycling":[
 "Hangarua"
 ],
+"amenity/recycling_centre":[
+"Taupuni Hangarua"
+],
+"amenity/recycling_container":[
+"Ipu Hangarua"
+],
 "amenity/school":[
 "Kura"
 ],
@@ -63,7 +69,8 @@
 "Whare Wānanga"
 ],
 "amenity/waste_basket":[
-"Rapihi"
+"ipu para",
+"rāpihi"
 ],
 "area":[
 "Pae"
@@ -139,6 +146,9 @@
 ],
 "landuse/industrial":[
 "Papa ahumahi"
+],
+"landuse/landfill":[
+"maunga para"
 ],
 "landuse/retail":[
 "Ngā Toa"

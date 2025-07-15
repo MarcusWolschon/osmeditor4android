@@ -1452,6 +1452,9 @@
 "Àrea",
 "àrea"
 ],
+"area/highway":[
+"Àrea de la carretera"
+],
 "attraction":[
 "Atracció"
 ],
@@ -1719,7 +1722,9 @@
 "Mur de contenció"
 ],
 "barrier/stile":[
-"esgraons",
+"tanca amb esgraons",
+"tanca amb esglaons",
+"Tanca amb escalons",
 "escala de tanca"
 ],
 "barrier/swing_gate":[
@@ -1734,7 +1739,8 @@
 "peatge"
 ],
 "barrier/turnstile":[
-"Torniquet"
+"Torniquet d'accés",
+"molinet"
 ],
 "barrier/wall":[
 "paret",
@@ -3631,6 +3637,14 @@
 "pluja",
 "forat"
 ],
+"man_made/manhole/sewer":[
+"arqueta de claveguera",
+"aigües residuals",
+"aigües brutes",
+"Tapa de claveguera",
+"claveguera",
+"forat"
+],
 "man_made/monitoring_station":[
 "Estació de seguiment"
 ],
@@ -3876,6 +3890,9 @@
 "natural/shrub":[
 "Arbust"
 ],
+"natural/sinkhole":[
+"Dolina"
+],
 "natural/spring":[
 "brollador",
 "deu",
@@ -3919,6 +3936,9 @@
 ],
 "natural/water/moat":[
 "Fossat"
+],
+"natural/water/oxbow":[
+"Braç mort"
 ],
 "natural/water/pond":[
 "bassa",
@@ -4264,6 +4284,9 @@
 "teràpia",
 "Oficina de terapeuta"
 ],
+"office/translator":[
+"Oficina de traducció"
+],
 "office/travel_agent":[
 "Agència de viatges"
 ],
@@ -4294,6 +4317,9 @@
 ],
 "piste/nordic":[
 "Camí per esquí de muntanya"
+],
+"piste/sleigh":[
+"Camí per a trineus"
 ],
 "place":[
 "Lloc"
@@ -6275,12 +6301,12 @@
 "sèquia",
 "séquia",
 "torrent",
-"Séquia",
 "conducció d'aigua",
 "rara",
 "canal",
 "aqüífer",
-"rierol"
+"rierol",
+"Cuneta"
 ],
 "waterway/dock":[
 "Moll humit / Moll sec",

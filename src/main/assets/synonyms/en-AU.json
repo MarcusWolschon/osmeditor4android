@@ -913,7 +913,7 @@
 "University Grounds"
 ],
 "amenity/vacuum_cleaner":[
-"Car Hoover Service"
+"Vehicle Vacuum Cleaning Station"
 ],
 "amenity/vehicle_inspection":[
 "Vehicle Inspection",
@@ -1006,6 +1006,9 @@
 "Postage Vending Machine"
 ],
 "amenity/vending_machine/sweets":[
+"candy",
+"sweets",
+"lollies",
 "Sweets Vending Machine"
 ],
 "amenity/veterinary":[
@@ -1538,7 +1541,10 @@
 "Clockmaker"
 ],
 "craft/confectionery":[
-"Candy Maker"
+"candy",
+"sweets",
+"Candy Maker",
+"lollies"
 ],
 "craft/distillery":[
 "Distillery"
@@ -2682,7 +2688,7 @@
 "Skate Park"
 ],
 "leisure/pitch/soccer":[
-"Football Pitch"
+"Soccer Field"
 ],
 "leisure/pitch/softball":[
 "Softball Field"
@@ -3366,7 +3372,7 @@
 "Engineering Office"
 ],
 "office/estate_agent":[
-"Estate Agent"
+"Real Estate Agent"
 ],
 "office/financial":[
 "Financial Office"
@@ -4142,7 +4148,10 @@
 "Computer Shop"
 ],
 "shop/confectionery":[
-"Sweet Shop"
+"Sweet Shop",
+"candy",
+"sweets",
+"lollies"
 ],
 "shop/convenience":[
 "Convenience Store",
@@ -4518,7 +4527,7 @@
 "Vacant Shop"
 ],
 "shop/vacuum_cleaner":[
-"Hoover Shop"
+"Vacuum Cleaner Shop"
 ],
 "shop/variety_store":[
 "Discount shop"

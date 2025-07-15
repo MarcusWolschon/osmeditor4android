@@ -43,7 +43,7 @@
 "Terminal Bandar Udara,Terminal Bandara"
 ],
 "amenity":[
-"Keramahan"
+"Fasilitas"
 ],
 "amenity/animal_shelter":[
 "penampungan kucing",
@@ -81,8 +81,11 @@
 "amenity/bicycle_parking/lockers":[
 "Loker Sepeda"
 ],
+"amenity/bicycle_parking/shed":[
+"Parkir Sepeda Teduh"
+],
 "amenity/bicycle_rental":[
-"penyewaan sepeda",
+"sewa sepeda",
 "Penyewaan Sepeda"
 ],
 "amenity/bicycle_wash":[
@@ -115,6 +118,9 @@
 "bistro",
 "jamu",
 "kopi"
+],
+"amenity/cafe/coffee_shop":[
+"Kedai Kopi"
 ],
 "amenity/car_rental":[
 "penyewaan mobil",
@@ -376,7 +382,8 @@
 "rumah tuhan"
 ],
 "amenity/place_of_worship/hindu":[
-"Pura"
+"Pura",
+"candi"
 ],
 "amenity/place_of_worship/jewish":[
 "sinagog",
@@ -437,6 +444,13 @@
 "tempat les",
 "les",
 "tutor"
+],
+"amenity/prison":[
+"lapas",
+"Rutan",
+"rumah tahanan",
+"lembaga pemasyarakatan",
+"penjara"
 ],
 "amenity/pub":[
 "holy wing",
@@ -590,7 +604,7 @@
 "telepon"
 ],
 "amenity/theatre":[
-"Teater",
+"Teater / Taman Budaya",
 "teater"
 ],
 "amenity/toilets":[
@@ -642,6 +656,9 @@
 "kawasan",
 "wilayah",
 "poligon"
+],
+"area/footway":[
+"Area Gang"
 ],
 "area/highway/traffic_island":[
 "Pulau Jalan"
@@ -1235,6 +1252,11 @@
 "highway/crossing":[
 "Penyebrangan"
 ],
+"highway/crossing/traffic_signals":[
+"Tempat Penyebrangan dengan Lalin",
+"pelican cross",
+"zebra cross"
+],
 "highway/crossing/uncontrolled":[
 "Tempat Penyebrangan / Zebra Kros"
 ],
@@ -1263,13 +1285,22 @@
 "jalur penyelamat"
 ],
 "highway/footway":[
+"gang sempit",
+"gang",
 "jogging track",
 "pejalan kaki",
 "joging trek",
 "Jalur Pejalan Kaki Terpisah"
 ],
 "highway/footway/crossing":[
-"Tempat Penyebrangan"
+"pelican cross",
+"Tempat Penyebrangan",
+"zebra cross"
+],
+"highway/footway/crossing/traffic_signals":[
+"Tempat Penyebrangan dengan Lalin",
+"pelican cross",
+"zebra cross"
 ],
 "highway/footway/crossing/uncontrolled":[
 "Tempat Penyebrangan / Zebra Kros"
@@ -1298,14 +1329,23 @@
 "simpang susun / jalan keluar"
 ],
 "highway/motorway_link":[
-"Jalan Tol",
+"Jalan Penghubung Tol",
 "jalan penghubung bebas hambatan"
 ],
 "highway/path":[
 "Jalur"
 ],
+"highway/pedestrian_area":[
+"square",
+"Area Pejalan Kaki",
+"pedestrian",
+"alun-alun"
+],
 "highway/pedestrian_line":[
-"Jalan Hanya Khusus Pejalan Kaki"
+"jalan alun-alun",
+"Jalan Hanya Khusus Pejalan Kaki",
+"jalan pedestrian",
+"jalan square"
 ],
 "highway/primary":[
 "Jalan Provinsi",
@@ -1553,6 +1593,24 @@
 ],
 "landuse/allotments":[
 "Bidang Tanah Kebun Komunitas"
+],
+"landuse/aquaculture":[
+"Budidaya Air",
+"kolam",
+"lobster",
+"alga",
+"mussel",
+"bandeng",
+"kepiting",
+"tambak",
+"ikan laut",
+"udang",
+"peternakan laut",
+"aquafarming",
+"krustasea",
+"marikultur",
+"tiram",
+"algaculture"
 ],
 "landuse/basin":[
 "Cekungan"
@@ -1904,6 +1962,10 @@
 "man_made/chimney":[
 "Cerobong"
 ],
+"man_made/clarifier":[
+"air limbah",
+"Tangki Clarifier"
+],
 "man_made/crane/portal_crane":[
 "Derek portal"
 ],
@@ -2029,7 +2091,11 @@
 "perigi"
 ],
 "man_made/water_works":[
-"Instalasi Penyedia Air Minum"
+"pdam",
+"Instalasi Penyedia Air Minum",
+"air minum",
+"spam",
+"pam"
 ],
 "man_made/watermill":[
 "Kincir Air Penggilingan"
@@ -2188,8 +2254,10 @@
 "meander"
 ],
 "natural/water/pond":[
-"Empang",
-"air"
+"Kolam",
+"kolam",
+"air",
+"empang"
 ],
 "natural/water/reservoir":[
 "Waduk",
@@ -2204,6 +2272,10 @@
 "natural/water/stream":[
 "tubuh air",
 "Badan Air"
+],
+"natural/water/wastewater":[
+"Kolam Air Limbah",
+"air limbah"
 ],
 "natural/wetland":[
 "Lahan Basah"
@@ -2419,8 +2491,10 @@
 "Kantor Buruh"
 ],
 "office/water_utility":[
+"kantor spam",
 "kantor air minum",
 "Kantor PAM",
+"kantor pam",
 "kantor pdam"
 ],
 "pipeline":[
@@ -2465,7 +2539,6 @@
 ],
 "place/suburb":[
 "dusun",
-"Desa / Kelurahan",
 "nagari",
 "jorong",
 "dukuh"
@@ -2474,7 +2547,7 @@
 "Kota"
 ],
 "place/village":[
-"Desa"
+"Kelurahan/Desa/Dusun"
 ],
 "playground":[
 "Wahana Taman Bermain"
@@ -2498,7 +2571,7 @@
 "Fitur Daya"
 ],
 "power/generator":[
-"Generator Listrik"
+"Pembangkit Listrik"
 ],
 "power/generator/method/photovoltaic/location/roof":[
 "Sel Surya Atap Bangunan"
@@ -2557,7 +2630,13 @@
 "Tiang Listrik"
 ],
 "power/substation":[
-"Terminal"
+"gardu",
+"substation",
+"transformer",
+"terminal",
+"trafo",
+"Jaringan Distribusi Listrik",
+"listrik"
 ],
 "power/tower":[
 "Menara Tegangan Tinggi"
@@ -2572,7 +2651,10 @@
 "Halte Bis dan Tram"
 ],
 "public_transport/platform/train":[
-"Platform Kereta"
+"Peron Kereta"
+],
+"public_transport/platform/tram":[
+"Peron Tram"
 ],
 "public_transport/platform/trolleybus":[
 "Peron Bis Troli"
@@ -2595,6 +2677,9 @@
 "railway/abandoned":[
 "Rel Terhapus"
 ],
+"railway/buffer_stop":[
+"Sepur Badug / Rel Buntu"
+],
 "railway/construction":[
 "railway under construction",
 "bangun",
@@ -2607,7 +2692,7 @@
 "railway/level_crossing":[
 "penyeberangan",
 "penyebrangan",
-"Penyeberangan Jalan-Rel",
+"Perlintasan Sebidang",
 "zebra cross",
 "crossing"
 ],
@@ -2625,7 +2710,7 @@
 "Sepur Sempit"
 ],
 "railway/platform":[
-"Platform Kereta"
+"Peron Kereta"
 ],
 "railway/preserved":[
 "Rel Bersejarah"
@@ -2646,6 +2731,9 @@
 "railway/subway_entrance":[
 "Pintu Terowongan"
 ],
+"railway/switch":[
+"Wesel"
+],
 "railway/tram":[
 "lajur rel listrik",
 "rel listrik jalan",
@@ -2664,6 +2752,11 @@
 "kapal",
 "laut",
 "Rute Feri"
+],
+"seamark/mooring":[
+"berlabuh",
+"buoy",
+"Bersandar"
 ],
 "shop":[
 "Toko"
@@ -3106,7 +3199,13 @@
 "Taman RV"
 ],
 "tourism/chalet":[
-"Vila Liburan"
+"penginapan",
+"kabin liburan",
+"akomodasi semalam",
+"rumah liburan",
+"Vila Liburan",
+"vila",
+"pondok"
 ],
 "tourism/gallery":[
 "Museum Kesenian"

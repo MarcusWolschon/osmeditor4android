@@ -1108,8 +1108,15 @@
 "offentligt bad"
 ],
 "amenity/public_bookcase":[
-"Offentlig bogkasse",
-"bogkasse"
+"bytteboks",
+"Bogbytteskab",
+"bogsøjle",
+"genbrugsbøger",
+"little library",
+"delebøger",
+"bogbørs",
+"bogkasse",
+"bogbytteskab"
 ],
 "amenity/ranger_station":[
 "rangerstation",
@@ -1327,6 +1334,7 @@
 "daghospital"
 ],
 "amenity/social_facility/assisted_living":[
+"beskyttet bolig",
 "ældrebolig",
 "Ældrebolig",
 "plejebolig",
@@ -1464,9 +1472,9 @@
 "amenity/vending_machine/bottle_return":[
 "pant",
 "pantautomat",
-"retur",
 "flaskeautomat",
-"Pantautomat"
+"retur",
+"Flaskeautomat"
 ],
 "amenity/vending_machine/bread":[
 "brød",
@@ -1735,8 +1743,13 @@
 "Bussluse"
 ],
 "barrier/cattle_grid":[
+"kirkerist",
 "kreaturrist",
-"Kreaturrist"
+"færist",
+"dyrerist",
+"Kreaturrist",
+"kvægrist",
+"rist"
 ],
 "barrier/chain":[
 "Kæde"
@@ -1746,6 +1759,7 @@
 "bymur"
 ],
 "barrier/cycle_barrier":[
+"cykelchikane",
 "Cykelbarriere",
 "cykelbarriere"
 ],
@@ -3755,7 +3769,9 @@
 ],
 "leisure/dog_park":[
 "hundepark",
+"fritløbsområde",
 "hundeskov",
+"hundehegn",
 "Hundeskov"
 ],
 "leisure/firepit":[
@@ -4637,6 +4653,7 @@
 ],
 "man_made/tower/observation":[
 "udsigtstårn",
+"udkigstårn",
 "Observationstårn",
 "observationstårn",
 "fugletårn",
@@ -4723,9 +4740,11 @@
 "Naturligt element"
 ],
 "natural/bare_rock":[
-"Klippe",
 "klippe",
-"klippeområde"
+"bjerg",
+"bar klippe",
+"klippeområde",
+"Bar klippe"
 ],
 "natural/bay":[
 "bugt",
@@ -5553,8 +5572,10 @@
 "atomreaktor"
 ],
 "power/generator/source/wind":[
+"vindturbine",
 "mølle",
 "Vindturbine",
+"vindmølle",
 "strøm",
 "vind"
 ],
@@ -7366,8 +7387,12 @@
 "campingtoilet"
 ],
 "waterway/stream":[
+"kanal",
+"å",
 "bæk",
-"Bæk"
+"Bæk",
+"vandløb",
+"flod"
 ],
 "waterway/stream_intermittent":[
 "Sporadisk bæk"

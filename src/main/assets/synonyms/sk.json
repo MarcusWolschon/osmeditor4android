@@ -902,12 +902,15 @@
 "nemocnicny areal"
 ],
 "amenity/hunting_stand":[
+"poľovnícka postriežka",
 "polovnicka postriezka",
+"Poľovnícky posed",
 "ukryt",
-"Poľovnícka postriežka",
 "úkryt",
 "skrýša",
-"skrysa"
+"skrysa",
+"posed",
+"polovnicky posed"
 ],
 "amenity/ice_cream":[
 "zmrzlina",
@@ -1464,7 +1467,8 @@
 "pristresok"
 ],
 "amenity/shelter/picnic_shelter":[
-"Piknikový prístrešok"
+"Piknikový prístrešok",
+"piknikovy pristresok"
 ],
 "amenity/shelter/public_transport":[
 "zastávka",
@@ -2065,7 +2069,14 @@
 "Znížený obrubník"
 ],
 "barrier/kerb/raised":[
+"zvyseny obrubnik",
 "Zvýšený obrubník"
+],
+"barrier/kerb/rolled":[
+"obly obrugnik",
+"oblý obrubník",
+"Zaguľatený obrubník",
+"zagulateny obrubník"
 ],
 "barrier/kissing_gate":[
 "zabrana pre dobytok",
@@ -2236,10 +2247,12 @@
 "Bunker"
 ],
 "building/cabin":[
-"Búda",
-"chatka",
+"Chatka",
+"búda",
+"chata",
 "drevenica",
-"zrub"
+"zrub",
+"buda"
 ],
 "building/carport":[
 "pristresok pre auto",
@@ -2730,8 +2743,12 @@
 "komody"
 ],
 "craft/key_cutter":[
+"kľúčová služba",
+"duplikáty kľúčov",
+"duplikaty klucov",
 "vyroba klucov",
-"Výroba kľúčov"
+"Výroba kľúčov",
+"klucova sluzba"
 ],
 "craft/locksmith":[
 "Montáž a oprava zámkov"
@@ -4150,7 +4167,11 @@
 "Pozorovateľňa vtáctva"
 ],
 "leisure/bleachers":[
-"Tribúny"
+"tribuna",
+"hladisko",
+"tribuny",
+"Tribúna / hľadisko",
+"tribúny"
 ],
 "leisure/bowling_alley":[
 "Bowlingová hala",
@@ -4761,7 +4782,10 @@
 "Plocha mosta"
 ],
 "man_made/bunker_silo":[
-"Silážna jama"
+"silazna jama",
+"Silážna jama",
+"silážny žľab",
+"silazny zlab"
 ],
 "man_made/cairn":[
 "Kamenný mužík"
@@ -5239,7 +5263,9 @@
 "tovaren"
 ],
 "man_made/works/brewery":[
-"Pivovar"
+"priemyselný pivovar",
+"Pivovar (priemyselný závod)",
+"priemyselny pivovar"
 ],
 "man_made/yes":[
 "Objekt vytvorený človekom (nešpecifikovaný typ)"
@@ -5435,6 +5461,9 @@
 "natural/tree/needleleaved/deciduous":[
 "Ihličnatý strom (opadavý)"
 ],
+"natural/tree/needleleaved/evergreen":[
+"Ihličnatý strom (neopadavý)"
+],
 "natural/tree_row":[
 "vetrolam",
 "alej",
@@ -5569,9 +5598,11 @@
 "Administratívny úrad"
 ],
 "office/adoption_agency":[
-"Adopčná agentúra"
+"Adopčná agentúra",
+"adopcna agentura"
 ],
 "office/advertising_agency":[
+"reklamna agentura",
 "Reklamná agentúra"
 ],
 "office/architect":[
@@ -5626,8 +5657,10 @@
 "urad vzdelavacej organizacie"
 ],
 "office/employment_agency":[
-"zamestnavatelska agentura",
-"Zamestnávateľská agentúra"
+"urad prace",
+"pracovná agentúra",
+"pracovna agentura",
+"Úrad práce / Pracovná agentúra"
 ],
 "office/energy_supplier":[
 "Dodávateľ energie"
@@ -5927,10 +5960,19 @@
 "Most pre deti"
 ],
 "playground/climbingframe":[
-"Lezecké zariadenie pre deti"
+"preliezacka",
+"lanova pyramida",
+"lanova siet",
+"preliezka",
+"lanová sieť",
+"lanová pyramída",
+"Preliezačka"
 ],
 "playground/climbingwall":[
-"Lezecká stena pre deti"
+"Lezecká stena pre deti",
+"lezecka stena",
+"detská lezecká stena",
+"detska lezecka stena"
 ],
 "playground/cushion":[
 "Skákací vankúš"
@@ -5984,7 +6026,14 @@
 "Hojdačka"
 ],
 "playground/teenshelter":[
-"Prístrešok pre tínedžerov"
+"Prístrešok pre deti",
+"detský prístrešok",
+"detsky pristresok",
+"prístrešok pre teenagerov",
+"pristresok pre tinedzerov",
+"prístrešok pre tínedžerov",
+"prisresok pre teenagerov",
+"pristresok pre deti"
 ],
 "playground/tetherball":[
 "Ihrisko pre tetherball"
@@ -6390,7 +6439,15 @@
 "Točňa"
 ],
 "railway/yard":[
-"Koľajisko"
+"zriadovacia stanica",
+"zoradovacia stanica",
+"zriaďovacia stanica",
+"spádovisko",
+"nakladna stanica",
+"zoraďovacia stanica",
+"nákladná stanica",
+"spadovisko",
+"Zoraďovacia / nákladná stanica"
 ],
 "relation":[
 "Relácia",
@@ -6448,6 +6505,8 @@
 "Obchod s potrebami/technikou pre poľnohospodárov"
 ],
 "shop/alcohol":[
+"alkoholicke napoje",
+"alkoholické nápoje",
 "alkohol",
 "Obchod s alkoholom"
 ],
@@ -7034,7 +7093,12 @@
 "domace potreby"
 ],
 "shop/hunting":[
-"Obchod s poľovníckymi potrebami"
+"obchod s polovnickymi potrebami",
+"poľovnícke potreby",
+"poľovníctvo",
+"Obchod s poľovníckymi potrebami",
+"polovnictvo",
+"polovnicke potreby"
 ],
 "shop/interior_decoration":[
 "intrierove dekoracie",
@@ -7102,10 +7166,11 @@
 "kluce",
 "zamky",
 "zamocnictvo",
-"Kľúčová služba (obchod)",
+"zámočníctvo",
 "zamok",
 "kľúče",
 "zámočník",
+"Obchod so zámkami",
 "zámky",
 "zámok"
 ],
@@ -7421,16 +7486,29 @@
 "čajový ochod"
 ],
 "shop/telecommunication":[
-"Obchod s telekomunikačnými službami"
+"Obchod s telekomunikačnými službami",
+"mobilný operátor",
+"obchod s telekomunikacnymi sluzbami",
+"telekomunikačné služby",
+"poskytovatel internetoveho pripojenia",
+"telekomunikacne sluzby",
+"mobilny operator",
+"poskytovateľ internetového pripojenia",
+"káblová televízia",
+"kablova televizia"
 ],
 "shop/ticket":[
 "predajna vstupeniek",
 "predajna listkov",
 "listok",
 "lístok",
+"predajňa cestovných lístkov",
 "vstupenka",
-"vstupenky",
-"Predajňa vstupeniek"
+"cestovny listok",
+"predajna cestovnych listkov",
+"Predajňa vstupeniek / cestovných lístkov",
+"cestovný lístok",
+"vstupenky"
 ],
 "shop/tiles":[
 "kachličky",
@@ -7465,6 +7543,8 @@
 ],
 "shop/travel_agency":[
 "Cestovná agentúra",
+"cestovna kancelaria",
+"cestovná kancelária",
 "cestovanie",
 "cestovna agentura",
 "cestovka",

@@ -2587,6 +2587,9 @@
 "Vétérinaire",
 "vétérinaire"
 ],
+"amenity/veterinary_pharmacy":[
+"Pharmacie véterinaire"
+],
 "amenity/waste/dog_excrement":[
 "déchets",
 "Bac à excrément de chien",
@@ -4836,6 +4839,9 @@
 "highway/crossing":[
 "passage piéton",
 "Passage"
+],
+"highway/crossing/informal":[
+"Passage piéton informel"
 ],
 "highway/crossing/traffic_signals":[
 "Passage piéton avec feux de signalisation",
@@ -9151,6 +9157,9 @@
 "Fournitures pour salles de bain",
 "fournitures pour salles de bain"
 ],
+"shop/bbq":[
+"Magasin pour barbecues"
+],
 "shop/beauty":[
 "salon de beauté",
 "institut de beauté",
@@ -9593,6 +9602,9 @@
 "Primeur",
 "fruiterie",
 "maraicher"
+],
+"shop/groundskeeping":[
+"Magasin d'entretien du jardin"
 ],
 "shop/hairdresser":[
 "Salon de coiffure",

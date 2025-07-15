@@ -4355,6 +4355,22 @@
 "djursjukhus",
 "Veterinär"
 ],
+"amenity/veterinary_pharmacy":[
+"husdjurspreparat",
+"apotek för djur",
+"husdjurmedicin",
+"djurapotek",
+"veterinärmedicin",
+"husdjurspotek",
+"veterinärklinik",
+"veterinärapotek",
+"veterinärmediciner",
+"djurmedicin",
+"veterinärprodukter",
+"apotek för husdjur",
+"apotek",
+"Veterinärapotek"
+],
 "amenity/waste/dog_excrement":[
 "hund",
 "sopkärl",
@@ -7274,6 +7290,9 @@
 "korsning",
 "övergångsställe",
 "Övergångsställe"
+],
+"highway/crossing/informal":[
+"Informell korsning"
 ],
 "highway/crossing/traffic_signals":[
 "trafiksignaler för fotgängare",
@@ -14552,6 +14571,19 @@
 "badrum",
 "badrumsinredning"
 ],
+"shop/bbq":[
+"grillshop",
+"grillaffär",
+"bbq-affär",
+"Grillaffär",
+"barbequebutik",
+"barbecueaffär",
+"barbecuebutik",
+"bbq-shop",
+"grillbutik",
+"bbq-butik",
+"grillning"
+],
 "shop/beauty":[
 "Skönhetssalong",
 "nagelsalong",
@@ -15319,6 +15351,22 @@
 "grönsakshandlare",
 "Grönsakshandlare",
 "vegetabiliskt"
+],
+"shop/groundskeeping":[
+"gräsmattebutik",
+"snöblåsarebutik",
+"Affär för gräsmatte- och trädgårdsutrustning",
+"trädgårdsverktygsaffär",
+"gräsklipparebutik",
+"butik för gräsmatte- och trädgårdsutrustning",
+"trädgårdsverktyg",
+"trädgårdsredskap",
+"maskinbutik för trädgård",
+"jordfräsbutik",
+"trädgårdsutrustningsbutik",
+"trädgårdsmaskiner",
+"trimmerbutik",
+"motorsågbutik"
 ],
 "shop/hairdresser":[
 "hårfrisör",
