@@ -13,7 +13,9 @@
 <ul>
 <li>element history modal overlaps navigation bar (this is fixed but waiting the the maintainer of the modal source to publish the adapted version).</li>
 <li>the app colour scheme doesn't really work together with the inset colours, particularly in dark mode (part of the work for the migration included an overall restyling that didn't make it in to this release because of the above mentioned time constraints).</li>
+<li>on at least one Android 5 device we've seen the behaviour that the inset for the keyboard will not be correctly removed if the keyboard is shown in the property editor and the keyboard is not dismissed before exiting the property editor, tapping on the map display once will then remove the inset. If you have a device that shows this behaviour, please report it.</li>
 </ul>
+<p>In general if you experience any issues with menu entries, buttons etc overlapping the navigation bar or interfering with navigation gestures in a way that stops you from beable to select one or the other, please use the &quot;Feedback&quot; modal to open an issue, or do the same directly on <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">github</a>.</p>
 <h3 id="other-behaviour-changes">Other behaviour changes</h3>
 <h4 id="ask-which-primary-key-to-use-for-unjoin-dissimilar">Ask which &quot;primary&quot; key to use for <em>Unjoin dissimilar</em></h4>
 <p>If the way you want to unjoin is tagged with more than one &quot;primary&quot; key a modal will display asking for you to choose the one to use for the unjoin operation.</p>
