@@ -2,6 +2,39 @@
 
 21.1.0-1:
 
+- Fix improve multi-select startup time for multi-element constructor
+- Fix check that tile data isn't null before unzipping in tile tester
+- Fix if preceeding node is a dup. check with correct index for following one
+- Fix selection after operation has been aborted for more action modes
+- Fix show a warning if there is no prior state available in element info
+- Fix ignore oneway=no when reversing a way
+- Fix de-compress gzip compressed tiles for display in the tile test modal
+- Fix expandable-layout dependency issue
+- Fix error in StyleableFileLayer.hasStateFile
+- Fix re-factor GPX parser to accumulate strings correctly
+- Fix support anchors properly in HelpViewer
+- Fix show a persisted error message if saving a custom preset fails
+- Fix actually support text_context for checkgroups
+- Fix use complete hashCode and equals for PresetRole
+- Fix re-downloading former rel. member would lead to inconsistent back links
+- Fix always remove node to split from original way except the 1st occurrence
+- Fix don't rely on ImageryOffsetId to generate safe ids
+- Fix force proguard to keep some action mode related fields
+- Fix handle empty way API message
+- Fix protect against possible crash after pasting
+- Fix restart way selection mode if splitting is aborted
+- Fix use explicit lock instead of synchronize, lock when getting boxes for tasks
+- Fix explicitly filter elements for clicking
+- Fix check that we actually are getting JSON in response from panoramax api
+- Fix update default panoramax api url again
+- Fix check correctly that there are no selected ways
+- Fix delay updating presets and associated fragments
+- Fix improve error handling if OsmElements can not be restored
+- Fix rollback changes if we are unable to download server version during conflict resolutions
+- Fix avoid index out of bound if selected nodes isn't null
+- Fix avoid locking in onCreateOptionsMenu
+- Fix fix image selection in photo layer
+- Fix improve messaging if opening changeset times out
 - Fix check correctly for enabled large drag area (regression)
 - Fix improve error handling if OsmELements can not be restored
 - Fix rollback changes if we are unable to download server version
@@ -18,10 +51,22 @@
 - Fix start pref activity with fragment context
 - Fix update ELI to correct location during build
 - Fix move adding accept-encoding header so that it can be overridden
+- Change target Android 15/API 35
+- Change remove full screen mode settings
+- Change move some more setup to Splash
+- Add if multiple primary keys could be used for unjoining ask which one
+- Add allow user to select OAuth client key if no match with API name found
 - Add make map background configurable
 - Add slightly improve display of image information
 - Add use MediaStore.createTrashRequest to delete images
-- Add improve tile diagnostics and some code clean up
+- Add preference to change behaviour to add images to the Mediastore
+- Add improved tile diagnostics and some code clean up
+- Update translations
+- Update imagery from ELI
+- Update default preset
+- Update NSI
+- Update synonyms
+- Update geocontext
 
 21.0.0:
 
