@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>非公開</item>
+        <item>公開</item>
+        <item>追跡可能</item>
+        <item>識別可能</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>内蔵</item>
+        <item>内蔵NMEA</item>
+        <item>TCPクライアントからのNMEA</item>
+        <item>TCPサーバからのNMEA</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>オープン</item>
+        <item>クローズ済</item>
+        <item>誤検知</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>オープン</item>
+        <item>クローズ済</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>オープン</item>
+        <item>クローズ済</item>
+        <item>誤検知</item>
+        <item>スキップ済</item> 
+        <item>削除済</item>
+        <item>修正済</item>
+        <item>対応困難</item>
+    </string-array>
+    <string-array name="todo_state">
+        <item>オープン</item>
+        <item>クローズ済</item>
+        <item>スキップ済</item> 
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>左</item>
+        <item>右</item>
+        <item>なし</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>自動</item>
+        <item>無効</item>
+        <item>強制</item>
+        <item>ステータスバー非表示</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>無効</item>
+        <item>強制</item>
+        <item>ステータスバー非表示</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>自動</item>
+        <item>固定</item>
+        <item>ポートレート</item>
+        <item>ランドスケープ</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>すべて</item>
+        <item>ノード</item>
+        <item>ウェイ</item>
+        <item>ウェイ+</item>
+        <item>リレーション</item>
+        <item>リレーション+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>ドメインが存在しません</item>
+        <item>ドメインが到達不能です</item>
+        <item>URLの形式が不正です</item>
+        <item>引数が不正です</item>
+    </string-array>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>大文字化しない</item>
+        <item>単語ごとに大文字化する</item>
+        <item>文ごとに大文字化する</item>
+    </string-array>
+    <string name="theme_follow_entry">システム設定に従う</string>
+    <string name="theme_light_entry">ライト</string>
+    <string name="theme_dark_entry">ダーク</string>
+    <string name="authentication_basic_entry">ユーザ名とパスワード</string>
+    <string name="authentication_oauth1a_entry">OAuth 1a</string>
+    <string name="authentication_oauth2_entry">OAuth 2</string>
+    </resources>

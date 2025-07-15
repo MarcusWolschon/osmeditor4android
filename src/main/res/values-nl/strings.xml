@@ -107,7 +107,6 @@
         &lt;/li&gt;&lt;/ul&gt;
         Op de volgende pagina kan je een aantal instellingen configureren om het werken met Vespucci aangenamer te maken. 
     </string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Je apparaat heeft \"verborgen toetsen\". Sleep van de onderkant om ze te tonen.</string>
   <string name="welcome_settings_tab_text">Om de eerste ervaring te verbeteren kunnen we een aantal opties nu configureren.
         Deze stap kan indien gewenst worden overgeslagen en later worden uitgevoerd.
     </string>
@@ -330,9 +329,8 @@
   <string name="duplicate_route_segment_title">Voeg routesegment toe</string>
   <string name="duplicate_route_segment_message">Deze weg is al een lid van de route.</string>
   <string name="duplicate_route_segment_button">Voeg alsnog toe</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Voeg lid toe aan relatie</string>
-  <string name="duplicate_relation_member_message">Dit element is al lid van de relatie.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Verwijder lid</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Verplaats tags van buitenste ringen naar multipolygoon</string>
@@ -647,7 +645,6 @@
   <!---->
   <string name="toast_oauth_retry">Probeer nogmaals te uploaden na OAuth toegang tot je OSM accout te hebben gegeven.</string>
   <string name="toast_oauth">Geef OAuth toegang tot je OSM account.</string>
-  <string name="toast_no_oauth">Er is geen OAuth configuratie beschikbaar voor API \"%1$s\". Stel gebruikersnaam en wachtwoord in.</string>
   <string name="toast_oauth_not_enabled">OAuth is niet geactiveerd voor de huidige API.</string>
   <string name="toast_oauth_timeout">Time-out tijdens authenticatie communicatie, probeer nogmaals.</string>
   <string name="toast_oauth_communication">Communicatiefout tijdens authenticatie, probeer nogmaals.</string>
@@ -1129,8 +1126,6 @@
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
-  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Naar Begin of Eind van Weg</string>
   <string name="menu_history">Geschiedenis</string>
@@ -1280,8 +1275,6 @@
   <string name="config_followGPSbutton_summary">Waar de \"volg locatie\" knop wordt neergezet.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Toon altijd niet-gedownloade gebieden donker</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Toont niet gedownloade gebieden donker in vergrendelde modus.</string>
-  <string name="config_fullscreenMode_title">Volledig scherm-modus</string>
-  <string name="config_fullscreenMode_summary">Gedrag op apparaten met \"zachte\" knoppen</string>
   <string name="config_map_orientation_title">Kaartscherm oriëntatie</string>
   <string name="config_map_orientation_summary">Gedrag van het kaartscherm als apparaatoriëntatie wijzigt.</string>
   <string name="config_showTolerance_title">Toon tolerantie</string>
@@ -1564,6 +1557,9 @@
   <string name="description_type_id">%1$s %2$s #%3$s</string>
   <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Lege rol</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Knoop verplaatst</string>
   <string name="undo_action_moveway">Weg verplaatst</string>

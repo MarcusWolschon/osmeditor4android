@@ -63,7 +63,6 @@
   <!---->
   <!--Newbie dialog-->
   <string name="welcome_title">欢迎</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;你的设备有\"虚拟键\"并且已经隐藏。从底部滑动会再次显示。</string>
   <string name="read_introduction">阅读介绍</string>
   <!---->
   <string name="upgrade_title">这是新版本的 Vespucci</string>
@@ -213,9 +212,8 @@
   <string name="duplicate_route_segment_title">添加路线区段</string>
   <string name="duplicate_route_segment_message">这条路径已经是路线的成员了。</string>
   <string name="duplicate_route_segment_button">仍然添加</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">添加关系成员</string>
-  <string name="duplicate_relation_member_message">这个要素已经是关系的成员了。</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">移除成员</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">将外环的标签移动到复合多边形</string>
@@ -833,7 +831,6 @@
   <string name="menu_tags">属性</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">历史</string>
   <string name="menu_merge">加入</string>
@@ -953,8 +950,6 @@
   <string name="config_useInternalPhotoViewer_summary">使用内置图片浏览器，如果没有勾选则使用外部图片浏览器。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">始终使未下载区域变暗</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">在锁定模式下使未下载区域变暗。</string>
-  <string name="config_fullscreenMode_title">全屏模式</string>
-  <string name="config_fullscreenMode_summary">有\"软键盘\"的设备行为。</string>
   <string name="config_map_orientation_title">地图屏幕方向</string>
   <string name="config_map_orientation_summary">设备旋转方向改变时地图屏幕的行为。</string>
   <string name="config_showTolerance_title">显示容限</string>
@@ -1169,6 +1164,9 @@
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>
   <string name="address_housenumber_street">地址 %1$s %2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">空角色</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">节点已移动</string>
   <string name="undo_action_moveway">路径已移动</string>

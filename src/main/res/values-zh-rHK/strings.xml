@@ -57,7 +57,6 @@
   <!---->
   <!--Newbie dialog-->
   <string name="welcome_title">歡迎</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;你的裝置有\"虛擬鍵\"而且已經隱藏，從底部滑動會再次顯示。</string>
   <string name="read_introduction">閱讀介紹</string>
   <!---->
   <string name="upgrade_title">歡迎使用 Vespucci 的新版本！</string>
@@ -182,7 +181,7 @@
   <string name="upload_data_now">上傳變動</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
-  <!--Duplicate relation element dialog-->
+  <!--Relation editing dialog-->
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move">移動</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -634,7 +633,6 @@
   <string name="menu_tags">屬性</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu_with_direction">%1$s%2$s</string>
-  <string name="element_for_menu_with_parents">%1$s(%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">歷史</string>
   <string name="menu_merge">加入</string>
@@ -727,8 +725,6 @@
   <string name="config_showCameraAction_summary">在動作列上顯示相機圖示。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">總是模糊無法下載的區域</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">鎖定模式下模糊無法下載的區域。</string>
-  <string name="config_fullscreenMode_title">全螢幕模式</string>
-  <string name="config_fullscreenMode_summary">有\"soft\"鍵裝置程式行為</string>
   <string name="config_map_orientation_title">地圖螢幕方向</string>
   <string name="config_map_orientation_summary">裝置螢幕方向改變時的地圖行為。</string>
   <string name="config_showTolerance_title">顯示選取誤差</string>
@@ -904,6 +900,9 @@
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>
   <string name="address_housenumber_street">地址 %1$s%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">空白角色</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">節點已移動</string>
   <string name="undo_action_moveway">路徑已移動</string>

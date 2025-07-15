@@ -114,7 +114,6 @@ Az eszközön vagy online található súgóoldalak a legtöbb kérdésre válas
 &lt;/li&gt;&lt;/ul&gt;
 A következő oldalon megadhatsz néhány kezdő beállítást, amelyek kellemesebbé teszik az utazást a Vespuccival.
 </string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Az eszköze rendelkezik „szoftveres gombokkal”, melyek nem láthatóak. Húzza fel őket lentről a megjelenítésükhöz.</string>
   <string name="welcome_settings_tab_text">A kezdeti élmény javítása érdekében néhány opciót már most beállíthatsz, 
 ezt a lépést kihagyhatod, és ha szeretnéd, később is megadhatod az egyéni beállításokat.</string>
   <string name="welcome_use_imagery_text">Légifelvételek megjelenítése\a jelenlegi tartózkodási helyről</string>
@@ -335,9 +334,8 @@ ezt a lépést kihagyhatod, és ha szeretnéd, később is megadhatod az egyéni
   <string name="duplicate_route_segment_title">Útvonalszakasz hozzáadása</string>
   <string name="duplicate_route_segment_message">Ez a vonal már része az útvonalnak.</string>
   <string name="duplicate_route_segment_button">Hozzáadás mindenképpen</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Kapcsolattag hozzáadása</string>
-  <string name="duplicate_relation_member_message">Ez az elem már tagja a kapcsolatnak.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Tag eltávolítása</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Címkék áthelyezése a külső körvonalról a multipoligonra</string>
@@ -660,7 +658,6 @@ elemek megkövetelése</string>
   <!---->
   <string name="toast_oauth_retry">Próbálja meg újból a feltöltést, miután engedélyezte az OAuth hozzáférést az OSM fiókjához.</string>
   <string name="toast_oauth">Engedélyezze az OAuth hozzáférést az OSM fiókjához.</string>
-  <string name="toast_no_oauth">Nem áll rendelkezésre OAuth configuárció ehhez: „%1$s” API. Kérjük, adjon meg egy bejelentkezési nevet és egy jelszót.</string>
   <string name="toast_oauth_not_enabled">Az OAuth nem engedélyezett a jelenlegi API-hoz.</string>
   <string name="toast_oauth_timeout">Időtúllépés a hitelesítési kézfogás közben, próbálja újra.</string>
   <string name="toast_oauth_communication">Kommunikációs hiba történt a hitelesítési kézfogás közben, próbálja újra.</string>
@@ -1143,8 +1140,6 @@ elemek megkövetelése</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
-  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Ugrás a vonal elejéhez vagy végéhez</string>
   <string name="menu_history">Előzmények</string>
@@ -1295,8 +1290,6 @@ elemek megkövetelése</string>
   <string name="config_followGPSbutton_summary">Hol legyen a képernyőn a „Hely követése” gomb?</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Mindig sötétítse el a nem letöltött területeket</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Zárolt módban elsötétíti a nem letöltött területeket.</string>
-  <string name="config_fullscreenMode_title">Teljes képernyős mód</string>
-  <string name="config_fullscreenMode_summary">Viselkedés a szoftveres gombokkal rendelkező eszközökön.</string>
   <string name="config_map_orientation_title">Térképképernyő tájolása</string>
   <string name="config_map_orientation_summary">A térképképernyő viselkedése az eszköz tájolásának változásakor.</string>
   <string name="config_showTolerance_title">Tolerancia megjelenítése</string>
@@ -1583,6 +1576,9 @@ elemek megkövetelése</string>
   <string name="description_type_id">%1$s %2$s #%3$s</string>
   <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Üres szerep</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Pont elmozgatva</string>
   <string name="undo_action_moveway">Vonal elmozgatva</string>

@@ -48,7 +48,7 @@
   <string name="undelete_on_server">Auf dem Server\nwiederherstellen</string>
   <!--Upload retry-->
   <string name="upload_retry_title">Hochladen fehlgeschlagen</string>
-  <string name="upload_retry_message_no_open_changeset">Kein offener Changeset. Das sollte nicht passieren.</string>
+  <string name="upload_retry_message_no_open_changeset">Das Changeset konnte nicht erstellt werden.\n\nEin erneuter Versuch ist unbedenklich.</string>
   <string name="upload_retry_message_unexpected_error">Unerwarteter Fehler beim Versuch den Status von Changeset %1$d zu bestimmen.</string>
   <string name="upload_retry_message_no_changeset_status">Status von Changeset %1$dkann nicht bestimmt werden.\n\nWir schlagen vor, deine Änderungen als OCS-Datei zu speichern und darüber zu entscheiden, was zu tun ist, wenn du besseren Empfang hast.</string>
   <string name="upload_retry_message_nothing_uploaded">Für Changeset %1$dwurden keine Änderungen hochgeladen.\n\nEin erneuter Versuch ist unbedenklich.</string>
@@ -74,6 +74,7 @@
   <string name="not_found_message">Die API konnte kein bestehendes Objekt oder Changeset mit der ID finden.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Unbekannter Fehler</string>
   <string name="unknown_error_message">Der Fehlercode von der API oder die Mitteilung konnte nicht verarbeitet werden.&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_http_code_message">HTTP Fehlerkode: %1$d&lt;br&gt;Fehlermeldung:&lt;br&gt;&lt;br&gt;%2$s</string>
   <string name="no_data_title">Keine Daten</string>
   <string name="no_data_message">Die konfigurierte Datenquelle hat hier keine Abdeckung.</string>
   <string name="required_feature_missing_title">Fehlende oder abgeschaltete Komponente</string>
@@ -112,6 +113,8 @@
   <string name="upload_bounding_box_too_large_message">Der Bereich, der die Änderungen abdeckt, die du hochladen möchtest, ist zu groß.
  &lt;br&gt;&lt;br&gt;Bitte teile deine Änderungen in mehrere kleinere Änderungssets auf. 
  Du kannst dies tun, indem du eine Teilmenge der geänderten Elemente auswählst und sie separat hochlädst.</string>
+  <string name="upload_way_needs_one_node_title">Ein OSM Way benötigt mindestens einen Knoten</string>
+  <string name="upload_way_needs_one_node_message">Ein OSM Weg der hochgeladen wurde hatte keine Wegknoten. Dies sollte nicht vorkommen und der Weg wurde jetzt gelöscht so dass ein weiterer Versuch möglich ist. Bitte eine Fehlermeldung mit dem Feedback-Formular erstellen und auch einen Crashdump einschicken.</string>
   <string name="attempt_to_add_too_many_way_nodes_title">Versuch zu viele Weg-Knoten einzufügen</string>
   <string name="attempt_to_add_too_many_way_nodes_message">Der Vorgang würde einen Weg erstellen, der mehr als die Höchstzahl von Weg-Knoten enthielte. Entweder weniger Knoten hinzufügen oder den Weg an geeigneter Stelle aufteilen.</string>
   <string name="too_many_way_nodes_details">Versuch %1$d Knoten hinzuzufügen, was zu einer Gesamtzahl von %2$d Knoten führen würde, oberhalb der Grenze von %3$d</string>
@@ -129,7 +132,6 @@
         &lt;/li&gt;&lt;/ul&gt;
         Auf der nächsten Seite kannst du einige anfängliche Präferenzen festlegen, die deine Reise mit Vespucci angenehmer machen werden. 
     </string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Das Gerät besitzt „Bildschirmtasten“, die ausgeblendet sind. Ein Wisch von der unteren Kante blendet sie wieder ein.</string>
   <string name="welcome_settings_tab_text">Um dein anfängliches Erlebnis zu verbessern, können wir jetzt einige Optionen konfigurieren.
         Du kannst diesen Schritt überspringen und individuelle Präferenzen später festlegen, wenn du möchtest.
     </string>
@@ -322,6 +324,7 @@
   <string name="goto_element">Zu Element wechseln</string>
   <string name="edit_properties">Tags bearbeiten</string>
   <string name="toast_element_not_found_on_restore">Element bei Wiederherstellung nicht gefunden</string>
+  <string name="toast_element_no_prior_state">Das Element wurde geändert, aber es gibt keinen lokal gespeicherten vorherigen Zustand für den Vergleich.</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON-Feature-Information</string>
   <string name="vt_feature_information">Infos zum Vektor-Kachel-Feature</string>
@@ -357,10 +360,15 @@
   <string name="duplicate_route_segment_title">Routenteil hinzufügen</string>
   <string name="duplicate_route_segment_message">Dieser Weg ist bereits ein Teil der Route.</string>
   <string name="duplicate_route_segment_button">Trotzdem hinzufügen</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Relationsmitglied hinzufügen</string>
+  <!--Relation editing dialog-->
+  <string name="duplicate_relation_member_title">Relationsmitglied hinzufügen / entfernen</string>
   <string name="duplicate_relation_member_message">%1$s\n\nist bereits ein Mitglied der Relation.</string>
+  <string name="remove_relation_member_title">Relationsmitglied entfernen</string>
+  <string name="remove_relation_member_message">%1$s</string>
+  <string name="relation_member_no_match_warning">\n\nWarnung:\n\nDas Element entspricht nicht den von der Vorlage definierten Filter für diese Art von Relation.</string>
   <string name="duplicate_relation_member_remove_button">Relationsmitglied entfernen</string>
+  <string name="choose_role_title">Rolle auswählen</string>
+  <string name="leave_role_empty">Rolle leer lassen</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Eigenschaften von äußeren Ringen auf das Multipolygon verschieben</string>
   <string name="move_outer_tags_message">Objekt-definierende Eigenschaften sollten sich nur auf dem Multipolygon befinden. Diese Aktion wird gemeinsame Eigenschaften von den äußeren Ringen auf das Multipolygon verschieben.</string>
@@ -684,7 +692,7 @@
   <!---->
   <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM-Konto erlauben und dann nochmals versuchen.</string>
   <string name="toast_oauth">Bitte OAuth-Zugang zum OSM-Konto erlauben.</string>
-  <string name="toast_no_oauth">Für den aktuell konfigurierten API \"%1$s\" ist keine OAuth-Konfiguration verfügbar, bitte Benutzernamen und Passwort festlegen.</string>
+  <string name="toast_no_oauth">Für den aktuell konfigurierten API \"%1$s\" ist keine OAuth-Konfiguration verfügbar, falls unterstützt bitte Benutzernamen und Passwort festlegen.</string>
   <string name="toast_oauth_not_enabled">OAuth ist für die aktuelle API nicht eingeschaltet.</string>
   <string name="toast_oauth_timeout">Timeout während der Authentifizierung, bitte nochmals versuchen.</string>
   <string name="toast_oauth_communication">Kommunikationsfehler während der Authentifizierung, bitte nochmals versuchen.</string>
@@ -838,6 +846,7 @@
   <string name="toast_undeleting_all_members">Aufheben aller Beziehungselemente mit diesem Element</string>
   <string name="toast_panoramax_sequence_error">Fehler beim Laden von Panoramax-Sequenz %1$s ID %2$s</string>
   <string name="toast_panoramax_image_not_in_sequence_error">Bild mit ID %1$skann in der Sequenz nicht gefunden werden </string>
+  <string name="toast_panoramax_sequence_exception">Auf die Panoramax Sequenz kann nicht zugegriffen werden\n%1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -958,6 +967,7 @@
   <string name="tag_menu_create_preset">Benutzerdefinierte Vorlage erstellen</string>
   <string name="create_preset_title">Benutzerdefinierter Vorlagenname</string>
   <string name="create_preset_default_name">Benutzerdefiniert %1$s</string>
+  <string name="saving_preset_failed">Speichern der Vorlage schlug fehl mit\n\n%1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Radius auswählen:</string>
   <string name="location_default_radius">300m</string>
@@ -1245,6 +1255,7 @@
   <string name="menu_follow_way">Weg folgen</string>
   <string name="select_follow_way">Weg zum Folgen auswählen</string>
   <string name="select_way_to_extract_from">Wähle die Art und Weise, wie das Segment extrahiert werden soll</string>
+  <string name="select_primary_key">Hauptschlüssel auswählen</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Knoten hinzufügen</string>
   <string name="simple_add_node">Bildschirmposition antippen</string>
@@ -1327,12 +1338,12 @@
   <string name="config_useInternalPhotoViewer_summary">Die eingebaute Bildanzeige verwenden, ansonsten eine externe App verwenden.</string>
   <string name="config_indexMediaStore_summary">Zusätzlich den Medienspeicher für Zugriff auf Bilder nutzen</string>
   <string name="config_indexMediaStore_title">Medienspeicher benutzen</string>
+  <string name="config_addToMediaStore_summary">Füge Photos die mit dem Kamera-Button aufgenommen wurde zum MediaStore hinzu</string>
+  <string name="config_addToMediaStore_title">Photos dem MediaStore hinzufügen</string>
   <string name="config_followGPSbutton_title">Anordnung des Knopfes „Position folgen“</string>
   <string name="config_followGPSbutton_summary">Wo der „Position folgen“-Knopf angezeigt wird</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Abdunkeln nicht heruntergeladener Gebiete</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Nicht heruntergeladene Gebiete sind immer abgedunkelt</string>
-  <string name="config_fullscreenMode_title">Vollbild-Modus</string>
-  <string name="config_fullscreenMode_summary">Einstellungen für Geräte mit „Bildschirmtasten“</string>
   <string name="config_map_orientation_title">Ausrichtung des Karten-Bildschirms</string>
   <string name="config_map_orientation_summary">Verhalten des Karten-Bildschirms bei Ausrichtungswechsel des Geräts.</string>
   <string name="config_showTolerance_title">Toleranz einblenden</string>
@@ -1594,6 +1605,7 @@
   <string name="readonly_url">API-Adresse mit Lesezugriff (optional)</string>
   <string name="notes_url">API-Adresse für Notizen (optional)</string>
   <string name="copy_of">Kopie von %1$s</string>
+  <string name="choose_oauth_config">OAuth Konfiguration auswählen </string>
   <!--common terms-->
   <string name="add">Hinzufügen</string>
   <string name="edit">Bearbeiten</string>
@@ -1604,6 +1616,8 @@
   <string name="regular_expression">Regulärer Ausdruck</string>
   <string name="state">Status</string>
   <string name="Continue">Fortsetzen</string>
+  <string name="File">Datei</string>
+  <string name="URI">URI</string>
   <!---->
   <string name="empty_list">Keine Einträge</string>
   <string name="geocoder_type">Geocodertyp</string>
@@ -1625,6 +1639,9 @@
   <string name="description_type_id">%1$s %2$s #%3$s</string>
   <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Leere Rolle</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Knoten verschoben</string>
   <string name="undo_action_moveway">Weg verschoben</string>

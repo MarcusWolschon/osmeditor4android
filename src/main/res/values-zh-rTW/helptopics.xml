@@ -6,7 +6,6 @@
     <string name="help_introduction">簡介</string>
     <string name="help_main">主地圖顯示</string>
     <string name="help_simple_actions">一般操作</string>
-    <string name="help_addrelationmember">已選擇關聯</string>
     <string name="help_multiselect">多重選擇</string>
     <string name="help_longclick">建立物件</string>
     <string name="help_nodeselection">已選取節點</string>
@@ -33,6 +32,7 @@
     <string name="help_tag_only_mode">只有標籤模式</string>
     <string name="help_indoor_mode">室內模式</string>
     <string name="help_address_mode">地址模式</string>
+    <string name="help_upgrade_210">21.0 發佈通知</string>
     <string name="help_upgrade_202">20.2 發佈通知</string>
     <string name="help_upgrade_201">20.1 發佈通知</string>
     <string name="help_upgrade_200">20.0 發佈通知</string>
@@ -68,12 +68,14 @@
     <string name="help_privacy">隱私</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
+        <item>@string/help_safe_mode</item>
         <item>@string/help_main</item>
         <item>@string/help_simple_actions</item>
         <item>@string/help_propertyeditor</item>
         <item>@string/help_nodeselection</item>
     	<item>@string/help_wayselection</item>
     	<item>@string/help_relationselection</item>
+        <item>@string/help_addrelationmember</item>
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
         <item>@string/help_pathcreation</item>
@@ -97,6 +99,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_210</item>
         <item>@string/help_upgrade_202</item>
         <item>@string/help_upgrade_201</item>
         <item>@string/help_upgrade_200</item>
@@ -134,12 +137,14 @@
 <!--    The following array needs to mirror the positions in the above one -->
     <array translatable="false" name="help_files">
         <item>Introduction</item>
+        <item>Safe mode</item>
         <item>Main map display</item>
         <item>Simple actions</item>
         <item>Property editor</item>
         <item>Node selected</item>
     	<item>Way selected</item>
     	<item>Relation selected</item>
+        <item>Edit relation members</item>
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
         <item>Adding way nodes</item>
@@ -162,6 +167,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>21.1.0 Release notes</item>
         <item>21.0.0 Release notes</item>
         <item>20.2.0 Release notes</item>
         <item>20.1.0 Release notes</item>

@@ -23,6 +23,7 @@
   <string name="upload_conflict_message_version">Conflit de version</string>
   <string name="upload_conflict_message_deleted">%1$s \na pour version locale %2$d \net a été supprimé du serveur</string>
   <string name="upload_conflict_message_referential">Élément supprimé localement mais disposant de références sur le serveur.</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \na déjà été supprimé sur le serveur, réessayez</string>
   <string name="upload_conflict_message_missing_references">Des éléments locaux font référence à des objets supprimés sur le serveur</string>
   <string name="upload_conflict_message_unknown">%1$s \na causé un conflit de chargement \n%2$s</string>
   <string name="upload_conflict_message_changeset_closed">Groupe de modifications fermé inopinément, nouvel essai</string>
@@ -30,9 +31,15 @@
   <string name="local_object">Version locale</string>
   <string name="resolve_by">Résoudre le conflit en…</string>
   <string name="resolve">Résoudre</string>
+  <string name="delete_refering_element">… en supprimant l’élément de référence</string>
   <string name="use_local_version">... en utilisant la version locale</string>
+  <string name="merge_tags_in_to_local">… fusionner les attributs dans la version locale</string>
+  <string name="merge_tags_in_to_server">… fusionner les attributs dans la version serveur</string>
   <string name="use_server_version">... en utilisant la version du serveur</string>
+  <string name="undoing_local_delete">… annuler la suppression locale</string>
   <string name="deleting_references_on_server">... en supprimant les références sur le serveur</string>
+  <string name="unable_to_download_referring_element">Impossible de télécharger l\'élément de référence %1$s %2$d</string>
+  <string name="unable_to_download_referring_element_for_deletion">Impossible de télécharger l\'élément de référence pour suppression %1$s %2$d</string>
   <string name="unable_to_download_server_version">Impossible de télécharger la version du serveur %1$s%2$d</string>
   <string name="delete_locally">Supprimer\nlocalement</string>
   <!--Upload retry-->
@@ -100,7 +107,6 @@ Vous pouvez sélectionner une partie des éléments modifiés et les envoyer sé
 &lt;/li&gt;&lt;li&gt;Pour ouvrir la fenêtre des POIs proches, faites glisser vers le haut la petite barre bleu clair au-dessus du menu en bas de l\'écran.
 &lt;/li&gt;&lt;/ul&gt;
 Sur la page suivante vous pouvez définir quelques préférences qui rendront votre voyage avec Vespucci plus agréable.</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Votre appareil utilise des « touches logicielles » qui ont été cachées. Glissez vers le haut depuis le bas de l\'écran pour les afficher.</string>
   <string name="welcome_settings_tab_text">Pour améliorer votre première expérience vous pouvez configurer quelques options dès maintenant.
 Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</string>
   <string name="welcome_use_imagery_text">Afficher l\'image aérienne\npour la position actuelle</string>
@@ -305,9 +311,8 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="duplicate_route_segment_title">Ajout de segment de route</string>
   <string name="duplicate_route_segment_message">Ce chemin est déjà membre de la route.</string>
   <string name="duplicate_route_segment_button">Ajouter quand même</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Ajouter un membre de la relation</string>
-  <string name="duplicate_relation_member_message">Cet élément est déjà un membre de la relation.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Supprimer un membre</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Changer les tags des chemins extérieurs au multi-polygone</string>
@@ -610,7 +615,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <!---->
   <string name="toast_oauth_retry">Envoyez les données de nouveau après avoir accepté l\'accès OAuth à votre compte OSM.</string>
   <string name="toast_oauth">Veuillez autoriser l\'accès à votre compte OSM via OAuth</string>
-  <string name="toast_no_oauth">OAuth n\'est pas disponible pour l\'API \"%1$s\", merci de saisir votre identifiant et votre mot de passe.</string>
   <string name="toast_oauth_not_enabled">OAuth n\'est pas activé pour l\'API actuelle.</string>
   <string name="toast_oauth_timeout">Délai d\'attente dépassé pendant la phase d\'authentification, réessayez.</string>
   <string name="toast_oauth_communication">Erreur de communication pendant la phase d\'authentification, réessayez.</string>
@@ -1047,7 +1051,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Aller au Début ou à la Fin du Chemin</string>
   <string name="menu_history">Historique</string>
@@ -1193,8 +1196,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="config_followGPSbutton_summary">Positionner le bouton « recentrer sur ma position »</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Toujours assombrir les zones non téléchargées</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Si cette option est cochée, les zones non téléchargées seront assombries en mode verrouillé.</string>
-  <string name="config_fullscreenMode_title">Mode plein écran</string>
-  <string name="config_fullscreenMode_summary">Comportement sur des appareils avec des touches « logiciels »</string>
   <string name="config_map_orientation_title">Orientation de l\'écran de la carte</string>
   <string name="config_map_orientation_summary">Comportement de la carte au moment du changement d\'orientation de l\'appareil.</string>
   <string name="config_showTolerance_title">Afficher les zones interactives</string>
@@ -1450,6 +1451,9 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <!--element description-->
   <string name="address_housenumber">Adresse%1$s</string>
   <string name="address_housenumber_street">Adresse %1$s%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Rôle vide</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Déplacement d\'un nœud</string>
   <string name="undo_action_moveway">Déplacement d\'un chemin</string>

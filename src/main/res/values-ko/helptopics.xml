@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">도움말</string>
+    <string name="help_app_description">Vespucci 도움말 보기</string>
+    <string name="help_title">도움말: %1$s</string>
     <string name="help_introduction">소개</string>
     <string name="help_main">주 지도 표시</string>
-    <string name="help_addrelationmember">관계 선택됨</string>
     <string name="help_multiselect">여러선택</string>
     <string name="help_longclick">새 개체 만들기</string>
     <string name="help_nodeselection">노드 선택됨</string>
+    <string name="help_pathcreation">길에 노드 추가</string>
     <string name="help_relationselection">관계 선택됨</string>
     <string name="help_wayselection">길 선택됨</string>
-    <string name="help_aligningbackgroundiamgery">배경 영상 정렬</string>
+    <string name="help_aligningbackgroundiamgery">배경 이미지 정렬</string>
     <string name="help_propertyeditor">속성 편집기</string>
     <string name="help_preferences">환경 설정</string>
     <string name="help_advanced_preferences">고급 환경 설정</string>
+    <string name="help_custom_imagery">사용자 정의 이미지</string>
     <string name="help_presets">프리셋</string>
+    <string name="help_uploading">변경 사항 저장하기</string>
     <string name="help_conflictresolution">충돌 해결</string>
     <string name="help_gpssources">GPS 자료</string>
     <string name="help_keyboard">키보드</string>
@@ -21,22 +25,62 @@
     <string name="help_presetfilter">프리셋 필터</string>
     <string name="help_opening_hours">여는 시간</string>
     <string name="help_voice_commands">음성 명령</string>
+    <string name="help_tag_only_mode">태그 편집 모드</string>
+    <string name="help_indoor_mode">실내 모드</string>
+    <string name="help_address_mode">주소 모드</string>
+    <string name="help_upgrade_210">21.0 릴리즈 노트</string>
+    <string name="help_upgrade_202">20.2 릴리즈 노트</string>
+    <string name="help_upgrade_201">20.1 릴리즈 노트</string>
+    <string name="help_upgrade_200">20.0 릴리즈 노트</string>
+    <string name="help_upgrade_193">19.3 릴리즈 노트</string>
+    <string name="help_upgrade_192">19.2 릴리즈 노트</string>
+    <string name="help_upgrade_191">19.1 릴리즈 노트</string>
+    <string name="help_upgrade_190">19.0 릴리즈 노트</string>
+    <string name="help_upgrade_181">18.1 릴리즈 노트</string>
+    <string name="help_upgrade_180">18.0 릴리즈 노트</string>
+    <string name="help_upgrade_171">17.1 릴리즈 노트</string>
+    <string name="help_upgrade_170">17.0 릴리즈 노트</string>
+    <string name="help_upgrade_161">16.1 릴리즈 노트</string>
+    <string name="help_upgrade_160">16.0 릴리즈 노트</string>
+    <string name="help_upgrade_152">15.2 릴리즈 노트</string>
+    <string name="help_upgrade_151">15.1 릴리즈 노트</string>
+    <string name="help_upgrade_150">15.0 릴리즈 노트</string>
+    <string name="help_upgrade_141">14.1 릴리즈 노트</string>
+    <string name="help_upgrade_140">14.0 릴리즈 노트</string>
+    <string name="help_upgrade_131">13.1 릴리즈 노트</string>
+    <string name="help_upgrade_130">13.0 릴리즈 노트</string>
+    <string name="help_upgrade_121">12.1 릴리즈 노트</string>
+    <string name="help_upgrade_120">12.0 릴리즈 노트</string>
+    <string name="help_upgrade_112">11.2 릴리즈 노트</string>
+    <string name="help_upgrade_111">11.1 릴리즈 노트</string>
+    <string name="help_upgrade_110">11.0 릴리즈 노트</string>
+    <string name="help_upgrade_102">10.2 릴리즈 노트</string>
+    <string name="help_upgrade_101">10.1 릴리즈 노트</string>
+    <string name="help_upgrade_100">10.0 릴리즈 노트</string>
+    <string name="help_upgrade_099">0.9.9 릴리즈 노트</string>
+    <string name="help_upgrade_098">0.9.8 릴리즈 노트</string>
+    <string name="help_upgrade_097">0.9.7 릴리즈 노트</string>
+    <string name="help_upgrade_096">0.9.6 릴리즈 노트</string>
     <string name="help_privacy">개인정보</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
+        <item>@string/help_safe_mode</item>
         <item>@string/help_main</item>
         <item>@string/help_simple_actions</item>
         <item>@string/help_propertyeditor</item>
         <item>@string/help_nodeselection</item>
     	<item>@string/help_wayselection</item>
     	<item>@string/help_relationselection</item>
+        <item>@string/help_addrelationmember</item>
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
         <item>@string/help_pathcreation</item>
+        <item>@string/help_uploading</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
         <item>@string/help_custom_imagery</item>
     	<item>@string/help_presets</item>	
+        <item>@string/help_rotate</item>
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
     	<item>@string/help_gpssources</item>
@@ -45,9 +89,17 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
         <item>@string/help_newnoteselection</item>
+        <item>@string/help_tag_only_mode</item>
+        <item>@string/help_indoor_mode</item>
+        <item>@string/help_address_mode</item>
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_210</item>
+        <item>@string/help_upgrade_202</item>
+        <item>@string/help_upgrade_201</item>
+        <item>@string/help_upgrade_200</item>
+        <item>@string/help_upgrade_193</item>
         <item>@string/help_upgrade_192</item>
         <item>@string/help_upgrade_191</item>
         <item>@string/help_upgrade_190</item>
@@ -81,19 +133,23 @@
 <!--    The following array needs to mirror the positions in the above one -->
     <array translatable="false" name="help_files">
         <item>Introduction</item>
+        <item>Safe mode</item>
         <item>Main map display</item>
         <item>Simple actions</item>
         <item>Property editor</item>
         <item>Node selected</item>
     	<item>Way selected</item>
     	<item>Relation selected</item>
+        <item>Edit relation members</item>
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
         <item>Adding way nodes</item>
+        <item>Uploading your changes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
         <item>Custom imagery</item>
     	<item>Presets</item>	
+        <item>Rotating elements</item>
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
     	<item>GPS sources</item>
@@ -102,8 +158,16 @@
     	<item>Preset filter</item>
     	<item>Opening hours</item>
         <item>New Note selected</item>
+        <item>Tag only mode</item>
+        <item>Indoor mode</item>
+        <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>21.1.0 Release notes</item>
+        <item>21.0.0 Release notes</item>
+        <item>20.2.0 Release notes</item>
+        <item>20.1.0 Release notes</item>
+        <item>20.0.0 Release notes</item>
         <item>19.3.0 Release notes</item>
         <item>19.2.0 Release notes</item>
         <item>19.1.0 Release notes</item>

@@ -78,7 +78,6 @@
   <string name="select_file_picker_title">选择文件读取器</string>
   <!--Newbie dialog-->
   <string name="welcome_title">欢迎</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;你的设备有\"虚拟键\"并且已经隐藏。从底部滑动会再次显示。</string>
   <string name="welcome_use_imagery_text">显示当前位置的航拍图像</string>
   <string name="welcome_auto_download_text">自动下载数据</string>
   <string name="welcome_auto_download_explanation">自动下载OpenStreetMap数据可能会消耗大量的流量
@@ -269,9 +268,8 @@
   <string name="duplicate_route_segment_title">添加路线区段</string>
   <string name="duplicate_route_segment_message">这条路径已经是路线的成员了。</string>
   <string name="duplicate_route_segment_button">仍然添加</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">添加关系成员</string>
-  <string name="duplicate_relation_member_message">这个要素已经是关系的成员了。</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">移除成员</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">将外环的标签移动到复合多边形</string>
@@ -564,7 +562,6 @@
   <!---->
   <string name="toast_oauth_retry">在允许 OAuth 访问您的 OSM 帐户后再次尝试上传。</string>
   <string name="toast_oauth">请允许 OAuth 访问您的 OSM 账号。</string>
-  <string name="toast_no_oauth">API“%1$s”的 OAuth 配置用不了，请先设置好登录的帐号和密码。</string>
   <string name="toast_oauth_not_enabled">当前 API 未启用 OAuth。</string>
   <string name="toast_oauth_timeout">握手验证超时，请重试。</string>
   <string name="toast_oauth_communication">握手验证时通信错误，请重试。</string>
@@ -1005,7 +1002,6 @@
   <string name="menu_tags">属性</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">历史</string>
   <string name="menu_history_web">历史（跳转网页）</string>
@@ -1142,8 +1138,6 @@
   <string name="config_followGPSbutton_summary">“跟随位置”按钮的位置。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">始终使未下载区域变暗</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">在锁定模式下使未下载区域变暗。</string>
-  <string name="config_fullscreenMode_title">全屏模式</string>
-  <string name="config_fullscreenMode_summary">有\"软键盘\"的设备行为。</string>
   <string name="config_map_orientation_title">地图屏幕方向</string>
   <string name="config_map_orientation_summary">设备旋转方向改变时地图屏幕的行为。</string>
   <string name="config_showTolerance_title">显示容限</string>
@@ -1389,6 +1383,9 @@
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>
   <string name="address_housenumber_street">地址 %1$s %2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">空角色</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">节点已移动</string>
   <string name="undo_action_moveway">路径已移动</string>

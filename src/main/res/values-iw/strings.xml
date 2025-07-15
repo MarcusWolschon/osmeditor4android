@@ -73,7 +73,6 @@
   <string name="select_file_picker_title">בחירת בורר קבצים</string>
   <!--Newbie dialog-->
   <string name="welcome_title">ברוך בואך</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;למכשיר שלך יש „מקשי תכנה” שמוסתרים בתצוגה. יש להחליק מתחת המסך כדי להציג אותם שוב.</string>
   <string name="welcome_pen_setup_text">הגדר לשימוש בעט או עכבר</string>
   <string name="read_introduction">הצגת ההקדמה</string>
   <!---->
@@ -268,9 +267,8 @@
   <string name="duplicate_route_segment_title">הוספת מקטע מסלול</string>
   <string name="duplicate_route_segment_message">דרך זאת כבר חברה במסלול.</string>
   <string name="duplicate_route_segment_button">להוסיף בכל זאת</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">הוספת חבר ליחס</string>
-  <string name="duplicate_relation_member_message">רכיב זה כבר חלק מהיחס.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">הסרת חבר</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">העברת תגיות מטבעות חיצוניות לרבי מצולעים</string>
@@ -984,7 +982,6 @@
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">היסטוריה</string>
   <string name="menu_history_web">היסטוריה (אינטרנט)</string>
@@ -1102,8 +1099,6 @@
   <string name="config_useInternalPhotoViewer_summary">להשתמש במציג התמונות המובנה, אם לא סומן ייעשה שימוש במציג תמונות חיצוני.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">תמיד להחשיך אזורים שלא התקבלו</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">עמעום של אזורים שלא התקבלו במצב נעול.</string>
-  <string name="config_fullscreenMode_title">מצב מסך מלא</string>
-  <string name="config_fullscreenMode_summary">התנהגות בהתקנים עם מקשים „רכים”</string>
   <string name="config_map_orientation_title">כיוון מסך המפה</string>
   <string name="config_map_orientation_summary">התנהגות מסך המפה עם שינויי כיוון התצוגה במכשיר.</string>
   <string name="config_showTolerance_title">הצגת סבילות</string>
@@ -1316,6 +1311,9 @@
   <!--element description-->
   <string name="address_housenumber">כתובת %1$s</string>
   <string name="address_housenumber_street">כתובת %1$s %2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">כלל ריק</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">מפרק הועבר</string>
   <string name="undo_action_moveway">דרך הועברה</string>

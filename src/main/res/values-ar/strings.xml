@@ -68,7 +68,6 @@
   <string name="select_file_picker_title">تحديد مستعرض الملفات</string>
   <!--Newbie dialog-->
   <string name="welcome_title">مرحبا بك</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;يحتوي جهازك على \"مفاتيح ناعمة\" مخفية عن العرض. اسحب من الأسفل لإظهارها مرة أخرى.</string>
   <string name="read_introduction">اقرأ المقدمة</string>
   <!---->
   <string name="upgrade_title">هذا هو إصدار جديد لفيسبوتشي</string>
@@ -258,9 +257,8 @@
   <string name="duplicate_route_segment_title">أضف جزء المسار</string>
   <string name="duplicate_route_segment_message">هذا الطريق هي بالفعل عضو في المسار.</string>
   <string name="duplicate_route_segment_button">أضف على أي حال</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">إضافة عضو العلاقة</string>
-  <string name="duplicate_relation_member_message">هذا العنصر هو بالفعل عضو في العلاقة.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">إزالة العضو</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">انقل الوسوم من الحلقات الخارجية إلى علاقة المضلعات المتعددة</string>
@@ -559,7 +557,6 @@
   <!---->
   <string name="toast_oauth_retry">حاول التحميل مرة أخرى بعد السماح بوصول OAuth إلى حساب OSM الخاص بك.</string>
   <string name="toast_oauth">يُرجى السماح بالوصول عبر OAuth لحساب OSM الخاص بك.</string>
-  <string name="toast_no_oauth">لم تقم بضبط إعدادات OAuth للدخول عبر الـAPI \"%1$s\" ، لذا نرجوا منك إدخال المعرف الخاص بك وكلمة المرور.</string>
   <string name="toast_oauth_not_enabled">لم يتم تمكين OAuth لواجهة برمجة التطبيقات الحالية.</string>
   <string name="toast_oauth_timeout">انتهت المهلة الزمنية أثناء اتصال المصادقة، يرجى المحاولة مرة أخرى.</string>
   <string name="toast_oauth_communication">حدث خطأ في الاتصال أثناء اتصال المصادقة، يرجى المحاولة مرة أخرى.</string>
@@ -999,7 +996,6 @@
   <string name="menu_tags">خصائص</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">السجل التاريخي</string>
   <string name="menu_history_web">السجل التاريخي للعنصر (ويب)</string>
@@ -1146,8 +1142,6 @@
   <string name="config_followGPSbutton_summary">حيث سيتم وضع زر \"تتبع الموقع\".</string>
   <string name="config_alwaysDrawBoundingBoxes_title">قم دائمًا بتعتيم المناطق التي لم يتم تنزيلها</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">جعل المناطق التي لم يتم تنزيلها خافته في وضع القفل.</string>
-  <string name="config_fullscreenMode_title">وضع ملء الشاشة</string>
-  <string name="config_fullscreenMode_summary">السلوك على الأجهزة ذات المفاتيح \"الناعمة\".</string>
   <string name="config_map_orientation_title">اتجاه شاشة الخريطة</string>
   <string name="config_map_orientation_summary">تغيير اتجاه شاشة الخريطة عند تغيير اتجاه الجهاز.</string>
   <string name="config_showTolerance_title">إظهار منطقة التغيير</string>
@@ -1388,6 +1382,9 @@
   <!--element description-->
   <string name="address_housenumber">عنوان %1$s</string>
   <string name="address_housenumber_street">عنوان %1$s %2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">دور غير مدخل</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">عقدة/نقطة تم تحريكها</string>
   <string name="undo_action_moveway">طرق تم تحريكها</string>

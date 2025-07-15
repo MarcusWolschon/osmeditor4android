@@ -47,6 +47,7 @@
   <string name="undelete_on_server">Αναίρεση διαγραφής\nστο διακομιστή</string>
   <!--Upload retry-->
   <string name="save_changes">Αποθήκευση αλλαγών</string>
+  <string name="upload_retry_issue">Ζήτημα: %1$s</string>
   <!---->
   <string name="no_login_data_title">Δεν ήταν δυνατή η πιστοποίηση</string>
   <string name="no_connection_title">Δεν υπάρχει σύνδεση με το διακομιστή</string>
@@ -156,6 +157,7 @@
   </plurals>
   <string name="all_todos_done_title">Όλες οι εκκρεμότητες στη λίστα υλοποιήθηκαν</string>
   <string name="todo_comment_legend">Σχόλιο</string>
+  <string name="save_changes_title">Αποθήκευση αλλαγών;</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Προσοχή!</string>
   <string name="unsaved_data_message">Οι μη αποθηκευμένες αλλαγές θα απορριφθούν εάν προχωρήσετε.</string>
@@ -198,31 +200,45 @@
   <string name="version">Έκδοση</string>
   <string name="length_m">Μήκος (μ)</string>
   <string name="not_downloaded">Δεν κατέβηκε</string>
+  <string name="empty_role">Κενός ρόλος</string>
   <string name="last_edited">Τελευταία επεξεργασία</string>
   <string name="original">Πρωτότυπο</string>
+  <string name="previous">Προηγούμενο</string>
   <string name="current">Τωρινό</string>
+  <string name="goto_element">Πήγαινε στο στοιχείο</string>
+  <string name="edit_properties">Επεξεργασία ετικετών</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Αντιγραφή ιδιοτήτων</string>
   <!--API/Data layer info dialog-->
+  <string name="data_in_memory">Δεδομένα στη μνήμη</string>
+  <string name="total">Συνολικά</string>
+  <string name="changed">Αλλαγμένα</string>
   <string name="ways">Γραμμές</string>
   <!--Tile layer info dialog-->
   <!--GPX info dialog-->
   <!--Image information dialog-->
+  <string name="created_by">Δημιουργήθηκε από</string>
+  <string name="capture_date">Ημερομηνία λήψης</string>
   <string name="direction">Κατεύθυνση</string>
   <string name="file_size">Μέγεθος</string>
   <string name="file_size_kB">%1$d kB</string>
   <!--Too much data dialog-->
+  <string name="too_much_data_title">Φορτώθηκαν πάρα πολλά δεδομένα!</string>
   <string name="upload_data_now">Μεταφόρτωση αλλαγών</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
   <string name="duplicate_route_segment_title">Προσθήκη τμήματος διαδρομής</string>
-  <!--Duplicate relation element dialog-->
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
+  <string name="duplicate_relation_member_remove_button">Αφαίρεση μέλους</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move">Μετακίνηση</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
   <string name="remove">Αφαίρεση</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">Ματαίωση ενέργειας</string>
   <!--Address interpoation dialog-->
+  <string name="start">Εκκίνηση</string>
   <string name="end">End</string>
   <string name="even">Άρτιος</string>
   <string name="odd">Περιττός</string>
@@ -233,6 +249,7 @@
   <string name="js_console_msg_live">Ζωντανή λειτουργία!</string>
   <string name="js_console_msg_debug">Λειτουργία αποσφαλμάτωσης!</string>
   <!--Overpass console-->
+  <string name="run">Εκτέλεση</string>
   <!---->
   <string name="error">Σφάλμα</string>
   <string name="warning">Προειδοποίηση</string>
@@ -266,6 +283,7 @@
   <string name="description">Περιγραφή</string>
   <string name="created">Δημιουργήθηκε</string>
   <string name="altitude">Υψόμετρο</string>
+  <string name="waypoint_link">Σύνδεσμος</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Προσαρμοσμένες εικόνες</string>
   <string name="oam_layer_title">Εικόνες ΟΑΜ</string>
@@ -277,15 +295,21 @@
   <string name="coverage_left">Αριστερά</string>
   <string name="coverage_right">Δεξιά</string>
   <string name="coverage_bottom">Κάτω</string>
+  <string name="tile_size">Μέγεθος πλακιδίου</string>
   <string name="toast_invalid_box">Άκυρο ή ατελές πλαίσιο οριοθέτησης</string>
   <string name="delete_layer">Διαγραφή επιπέδου;</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Στυλ επιπέδου</string>
   <string name="layer_style_stroke_width">Πλάτος γραμμής</string>
   <string name="layer_style_color">Χρώμα</string>
+  <string name="layer_style_layer">Υποεπίπεδο</string>
   <string name="layer_style_label">Επιγραφή</string>
+  <string name="layer_style_symbol">Σύμβολο</string>
   <string name="json_object_not_displayed">Αντικείμενο JSON (δεν εμφανίζεται)</string>
   <string name="json_array_not_displayed">Σειρά JSON (δεν εμφανίζεται)</string>
+  <string name="gpx_name">Όνομα GPX</string>
+  <string name="gpx_description">Περιγραφή GPX</string>
+  <string name="gpx_type">Τύπος GPX</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
@@ -293,17 +317,24 @@
   <string name="layer_grid">Πλέγμα</string>
   <string name="layer_bookmarks">Σελιδοδείκτες</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">Καταγραφή GPX</string>
   <string name="layer_photos">Φωτογραφίες</string>
   <string name="layer_tasks">Καθήκοντα</string>
   <string name="layer_data">Δεδομένα OSM</string>
   <string name="layer_data_name">%1$s δεδομένα</string>
   <string name="layer_flush_tile_cache">Ξέπλυμα πλακιδίων μνήμης</string>
+  <string name="layer_change_style">Αλλαγή στυλ…</string>
+  <string name="layer_load_style">Φόρτωμα στυλ…</string>
+  <string name="layer_reset_style">Επαναφορά στυλ</string>
+  <string name="layer_test">Τεστ…</string>
   <string name="layer_category_all">\'Ολα</string>
   <string name="layer_category_map">Χάρτης</string>
   <string name="layer_category_other">Άλλο</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Ελάχιστη εστίαση</string>
   <string name="layer_info_max_zoom">Ανώτερη εστίαση</string>
+  <string name="layer_info_terms">Όροι</string>
+  <string name="layer_info_privacy_policy">Πολιτική απορρήτου</string>
   <string name="errors">Σφάλματα</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
@@ -313,7 +344,10 @@
   <!--Element issue dialog-->
   <string name="replace_geometry_issue_title">Στοιχείο άλλαξε</string>
   <!--Relation selection dialog-->
+  <string name="select_route_title">Επιλογή διαδρομής</string>
+  <string name="select_relation_title">Επιλογή σχέσης</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">Επιλογή είδους σχέσης</string>
   <string name="select_relation_type_other">Άλλο</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Σημεία ελέγχου</string>
@@ -691,8 +725,6 @@
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
-  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Ιστορικό</string>
   <string name="menu_history_web">Ιστορικό (Ιστός)</string>
@@ -769,7 +801,6 @@
   <string name="config_fv5_lite">FV5 lite</string>
   <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Πάντα θολές οι μη ληφθέντες περιοχές</string>
-  <string name="config_fullscreenMode_summary">Συμπεριφορά σε συσκευές με \"μαλακά\" πλήκτρα.</string>
   <string name="config_showTolerance_title">Εμφάνιση ανεκτικότητας</string>
   <string name="config_theme_title">Θέμα</string>
   <string name="config_splitActionBarEnabled_title">Ενεργοποίηση γραμμής διαίρεσης δράσης</string>
@@ -908,6 +939,9 @@
   <string name="description_type_id">%1$s %2$s #%3$s</string>
   <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Κενός ρόλος</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Κόμβος μετακινήθηκε</string>
   <string name="undo_action_moveway">Γραμμή μετακινήθηκε</string>

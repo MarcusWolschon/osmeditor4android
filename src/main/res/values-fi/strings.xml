@@ -16,12 +16,28 @@
   <string name="transfer_download_current_download">Hylkää &amp; lataa</string>
   <string name="transfer_download_current_back">Takaisin (älä tee mitään)</string>
   <string name="upload_problem_title">Lähetys epäonnistui</string>
+  <string name="upload_problem_message">Ainakin osaa muutoksista ei ole lähetetty. Yritä myöhemmin uudestaan.</string>
   <string name="bad_request_message">API palautti virheen. Tallenna muokkauksesi ja ilmoita virheestä:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Ristiriita lähetyksessä</string>
   <string name="upload_conflict_message_version">Ristiriita versioissa</string>
   <string name="upload_conflict_message_deleted">%1$s \npaikallinen versio %2$d \npalvelimen versio on poistettu</string>
+  <string name="upload_conflict_message_referential">Elementti poistettiin paikallisesti, mutta siihen viitataan palvelimella</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \noli jo poistettu palvelimelta; yritetään uudelleen</string>
+  <string name="upload_conflict_message_missing_references">Paikallinen elementti viittaa kohteisiin, jotka on poistettu palvelimelta</string>
   <string name="upload_conflict_message_unknown">%1$s \naiheutti lähetyksessä tuntemattoman ristiriidan \n%2$s</string>
+  <string name="upload_conflict_message_changeset_closed">Muutoskokoelma sulkeutui yllättäen; yritetään uudelleen</string>
+  <string name="server_side_object">Palvelimen versio</string>
+  <string name="local_object">Paikallinen versio</string>
+  <string name="resolve_by">Ratkaise ristiriita…</string>
+  <string name="resolve">Ratkaise</string>
+  <string name="use_local_version">…käyttämällä paikallista versiota</string>
+  <string name="merge_tags_in_to_local">…yhdistämällä tagit paikalliseen versioon</string>
+  <string name="merge_tags_in_to_server">…yhdistämällä tagit palvelimen versioon</string>
+  <string name="use_server_version">…käyttämällä palvelimen versiota</string>
+  <string name="undoing_local_delete">…kumoamalla paikallinen poisto</string>
+  <string name="deleting_references_on_server">…poistamalla viittaukset palvelimelta</string>
+  <string name="unexpected_conflict_type">Odottamaton ristiriidan tyyppi</string>
   <!--Upload retry-->
   <string name="save_changes">Tallenna muutokset</string>
   <!---->
@@ -69,7 +85,6 @@
   <string name="select_file_picker_title">Valitse tiedostoselain</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Tervetuloa!</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Laitteessasi on \"pehmonäppäimiä\", jotka on piilotettu. Pyyhkäise alhaalta, niin saat ne taas näkyviin.</string>
   <string name="read_introduction">Lue esittely</string>
   <!---->
   <string name="upgrade_title">Tämä on Vespuccin uusi versio</string>
@@ -258,9 +273,8 @@
   <string name="duplicate_route_segment_title">Lisätäänkö reittisegmentti?</string>
   <string name="duplicate_route_segment_message">Tämä viiva on jo osa reittiä.</string>
   <string name="duplicate_route_segment_button">Lisää silti</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Lisätäänkö relaatiojäsen?</string>
-  <string name="duplicate_relation_member_message">Elementti on jo tämän relaation jäsen.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Poista jäsen</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Siirrä ulkokehien tägit moni-monikulmioon.</string>
@@ -560,7 +574,6 @@
   <!---->
   <string name="toast_oauth_retry">Anna OAuthille lupa päästä OSM-tilillesi, ja yritä sitten lähettää uudestaan.</string>
   <string name="toast_oauth">Anna OAuthille lupa päästä OSM-tilillesi.</string>
-  <string name="toast_no_oauth">OAuth-asetuksia ei ole saatavilla API:lle \"%1$s\"; aseta käyttäjätunnus ja salasana.</string>
   <string name="toast_oauth_not_enabled">OAuth ei ole käytössä nykyisessä APIssa.</string>
   <string name="toast_oauth_timeout">Todennuskättelyn aikaraja umpeutui. Yritä uudestaan.</string>
   <string name="toast_oauth_communication">Tiedonsiirtovirhe todennuskättelyn aikana. Yritä uudestaan.</string>
@@ -972,6 +985,7 @@
   <string name="menu_tools_import_data_style">Lataa datatyyli...</string>
   <string name="menu_tools_load_keys">Lataa avaimet tiedostosta...</string>
   <!---->
+  <string name="menu_modes">Tilat…</string>
   <string name="menu_simple_actions">Perustila</string>
   <string name="menu_feedback">Lähetä palautetta</string>
   <string name="menu_preset_feedback">Anna palautetta esivalinnasta</string>
@@ -1012,7 +1026,6 @@
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Siirry viivan alkuun tai loppuun</string>
   <string name="menu_history">Historia</string>
@@ -1158,8 +1171,6 @@
   <string name="config_followGPSbutton_summary">Missä kohdassa \"Seuraa sijaintia\" -nappi näytetään.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Himmennä aina lataamattomat alueet</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Himmennä lataamattomat alueet lukkotilassa.</string>
-  <string name="config_fullscreenMode_title">Kokoruututila</string>
-  <string name="config_fullscreenMode_summary">Käytös laitteilla joissa on softanappeja.</string>
   <string name="config_map_orientation_title">Karttanäytön suuntaus</string>
   <string name="config_map_orientation_summary">Karttanäytön käyttäytyminen, kun laitteen suuntaus muuttuu.</string>
   <string name="config_showTolerance_title">Näytä toleranssialue</string>
@@ -1420,6 +1431,9 @@
   <string name="description_type_id">%1$s %2$s #%3$s</string>
   <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Tyhjä rooli</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Piste siirretty</string>
   <string name="undo_action_moveway">Viiva siirretty</string>

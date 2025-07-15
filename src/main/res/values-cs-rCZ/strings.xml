@@ -47,7 +47,10 @@
   <string name="delete_locally">Smazat\nlokálně</string>
   <string name="undelete_on_server">Obnovit\nna serveru</string>
   <!--Upload retry-->
+  <string name="upload_retry_title">Nahrání se nezdařilo</string>
+  <string name="upload_retry_message_nothing_uploaded">Žádné změny nebyly nahrány v rámci sady změn %1$d.\n\nJe bezpečné zkusit to znovu.</string>
   <string name="save_changes">Uložit změny</string>
+  <string name="upload_retry_issue">Problém: %1$s</string>
   <!---->
   <string name="no_login_data_title">Nelze ověřit</string>
   <string name="no_login_data_message">Pokud používáte OAuth, je to pravděpodobně chyba, pošlete prosím zprávu o problému, pokud používáte přihlašovací jméno a heslo (nedoporučujeme), zkontrolujte, zda jsou zadány správně.</string>
@@ -114,7 +117,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
         &lt;/li&gt;&lt;/ul&gt;
         Na další stránce můžete nastavit některé počáteční preference, které vám cestu s Vespucci zpříjemní.
     </string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Používáte zařízení se skrytými softwarovými tlačítky. Zobrazíte je gestem od spodního okraje.</string>
   <string name="welcome_settings_tab_text">Abychom zlepšili vaši počáteční zkušenost, můžeme hned teď nakonfigurovat některé možnosti,
         pokud chcete, můžete tento krok přeskočit a nastavit individuální preference později.
     </string>
@@ -183,6 +185,9 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="upload_validation_error_empty_comment">Komentář by neměl být prázdný</string>
   <string name="upload_validation_error_empty_source">Zdroj by neměl být prázdný</string>
   <string name="upload_empty_comment_warning_label">Varovat, pokud je komentář prázdný</string>
+  <string name="untagged_way">neoznačená cesta</string>
+  <string name="untagged_relation">neoznačená relace</string>
+  <string name="changed_tags">%1$s změněných značek</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">Zkontrolovat změny</string>
   <!--Upload GPX-->
@@ -342,9 +347,8 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="duplicate_route_segment_title">Přidat úsek trasy</string>
   <string name="duplicate_route_segment_message">Tato cesta již je členem trasy</string>
   <string name="duplicate_route_segment_button">Přesto přidat</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Přidat člena relace</string>
-  <string name="duplicate_relation_member_message">Tento prvek již je členem relace.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Odebrat člena</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Přesunout tagy z vnějších cest na multipolygon</string>
@@ -667,7 +671,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <!---->
   <string name="toast_oauth_retry">Nahrávání zkuste zopakovat poté, co povolíte OAuth přístup k vašemu OSM účtu.</string>
   <string name="toast_oauth">Povolte prosím OAuth přístup k vašemu OSM účtu.</string>
-  <string name="toast_no_oauth">Pro rozhraní API \"%1$s\" není k dispozici žádná konfigurace OAuth, nastavte prosím přihlašovací jméno a heslo.</string>
   <string name="toast_oauth_not_enabled">OAuth není povolen pro současné API.</string>
   <string name="toast_oauth_timeout">Vypršel časový limit pro navázání spojení, zkuste to prosím znovu.</string>
   <string name="toast_oauth_communication">Chyba komunikace během navazování spojení, zkuste to prosím znovu.</string>
@@ -733,6 +736,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="toast_flus_all_caches">Vyčistí veškerou mezipaměť dlaždic!</string>
   <string name="toast_applied_offset">Zarovnání snímků použito.</string>
   <string name="toast_unsupported_format">Nepodporovaný formát: %1$s</string>
+  <string name="toast_unsupported_operation">Nepodporovaná operace</string>
   <string name="toast_returning_less_than_found">Zobrazuji %1$d z %2$d nalezených záznamů.</string>
   <string name="toast_not_mbtiles">Nejedná se o soubor ve formátu MBTiles nebo PMTiles</string>
   <string name="toast_using_network_location">Použita poloha ze sítě</string>
@@ -919,6 +923,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="menu_deselect_all">Zrušit výběr</string>
   <string name="menu_preset_help">Nápověda k předvolbám</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">Přidat jazykové varianty</string>
   <string name="tag_restriction_header">Hodnota</string>
   <string name="tag_restriction_when">když</string>
   <string name="tag_restriction_and">a</string>
@@ -1083,6 +1088,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="menu_voice_commands">Hlasové příkazy</string>
   <string name="menu_upload_element">Nahrát prvek</string>
   <string name="menu_upload_elements">Nahrát prvky</string>
+  <string name="menu_replace_geometry">Nahradit geometrii...</string>
   <string name="menu_todo">Úkol…</string>
   <string name="menu_todo_close_and_next">Zavřít a přejít na další</string>
   <string name="menu_todo_skip_and_next">Přeskočit a přejít na další</string>
@@ -1151,8 +1157,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
-  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Přejít na začátek nebo konec cesty</string>
   <string name="menu_history">Historie</string>
@@ -1304,8 +1308,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="config_followGPSbutton_summary">Kde bude tlačítko „Následovat pozici“ umístěno.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Vždy ztmavit nestažené oblasti</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Ztmavit nestažené oblasti v Uzamčeném režimu.</string>
-  <string name="config_fullscreenMode_title">Celá obrazovka</string>
-  <string name="config_fullscreenMode_summary">Chování v zařízeních se softwarovými tlačítky.</string>
   <string name="config_map_orientation_title">Orientace obrazovky s mapou</string>
   <string name="config_map_orientation_summary">Chování obrazovky s mapou při změně orientace zařízení.</string>
   <string name="config_showTolerance_title">Zobrazit toleranci</string>
@@ -1589,6 +1591,9 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="description_type_id">%1$s %2$s #%3$s</string>
   <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Neuvedená role</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Posunut uzel</string>
   <string name="undo_action_moveway">Posunuta cesta</string>
@@ -1740,6 +1745,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="unexpected_tile_format">Neočekávaný formát\nURL: %1$s %2$s</string>
   <string name="unexpected_tile_format_subtype">Neočekávaný formát podtypu %1$s\nURL: %2$s</string>
   <string name="diagnostics_for_tile">Diagnostika pro %1$s</string>
+  <string name="tile_status">Stav: %1$s</string>
   <string name="tile_spec">přiblížení %1$d x %2$d y %3$d</string>
   <string name="tile_input_error">Vstupní chyba dlaždice: %1$s\nURL: %2$s</string>
   <string name="tile_data_received">Úspěšně přijato %1$d bajtů</string>
@@ -1747,5 +1753,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="tile_decoding_failed">Dekódování dlaždice selhalo</string>
   <string name="tile_success">Úspěch</string>
   <string name="tile_fail">Selhání</string>
+  <string name="tile_no_network">Žádná síť</string>
   <string name="tile_unknown_error">Neznámá chyba</string>
 </resources>

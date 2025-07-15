@@ -26,7 +26,7 @@
   <string name="upload_conflict_message_already_deleted">%1$s \nera già eliminato sul server, nuovo tentativo in corso</string>
   <string name="upload_conflict_message_missing_references">L’elemento locale fa riferimento a oggetti che sono eliminati sul server</string>
   <string name="upload_conflict_message_unknown">%1$s \nha causato un conflitto di caricamento sconosciuto \n%2$s</string>
-  <string name="upload_conflict_message_changeset_closed">Gruppo di modifica chiuso inaspettatamente, nuovo tentativo in corso</string>
+  <string name="upload_conflict_message_changeset_closed">Gruppo di modifiche chiuso inaspettatamente, nuovo tentativo in corso</string>
   <string name="server_side_object">Versione server</string>
   <string name="local_object">Versione locale</string>
   <string name="resolve_by">Risolvi conflitto…</string>
@@ -47,6 +47,11 @@
   <string name="delete_locally">Elimina\nlocalmente</string>
   <string name="undelete_on_server">Ripristina\ndal server</string>
   <!--Upload retry-->
+  <string name="upload_retry_title">Caricamento fallito</string>
+  <string name="upload_retry_message_no_changeset_status">Impossibile determinare lo stato del gruppo di modifiche %1$d.\n\nTi consigliamo di salvare le tue modifiche in un file OCS e scegliere cosa fare quando avrai una ricezione migliore.</string>
+  <string name="upload_retry_message_nothing_uploaded">Nessuna modifica è stata caricata nel gruppo di modifiche %1$d.\n\nPuoi riprovare in tutta sicurezza.</string>
+  <string name="upload_retry_message_all_uploaded">Le modifiche sono state caricate con successo nel gruppo di modifiche %1$d ma non è stato ricevuto il risultato.\n\nSembra comunque che le modifiche siano state caricate, pertanto puoi tranquillamente scartare le tue modifiche locali e scaricare di nuovo i dati.</string>
+  <string name="upload_retry_message_partial_upload">Le modifiche sono state caricate con successo nel gruppo di modifiche %1$d ma non è stato ricevuto il risultato.</string>
   <string name="save_changes">Salva le modifiche</string>
   <!---->
   <string name="no_login_data_title">Autenticazione fallita</string>
@@ -97,11 +102,13 @@
   <string name="duplicate_tag_key_message">Hai aggiunto la seguente chiave più di una volta, ciò deve essere risolto prima di procedere:</string>
   <string name="autodownload_has_been_paused">Il caricamento automatico è stato sospeso.</string>
   <string name="upload_bounding_box_too_large_title">Area troppo grande per il caricamento</string>
+  <string name="upload_bounding_box_too_large_message">L’area delle modifiche che stai cercando di caricare è troppo estesa.
+ &lt;br&gt;&lt;br&gt;Suddividi le tue modifiche in gruppi di modifiche più piccoli.
+      Puoi farlo selezionando un sottoinsieme degli elementi modificati che potranno essere caricati separatamente.</string>
   <!---->
   <string name="select_file_picker_title">Scegli file</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Benvenuti</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Il tuo dispositivo ha i “tasti virtuali” che vengono nascosti alla vista. Trascina dal fondo per vederli nuovamente.</string>
   <string name="read_introduction">Leggi l\'introduzione</string>
   <!---->
   <string name="upgrade_title">Questa è una nuova versione di Vespucci</string>
@@ -285,6 +292,7 @@
   <string name="total">Totale</string>
   <string name="changed">Modificato</string>
   <string name="ways">Percorsi</string>
+  <string name="bounding_boxes">Riquadri di selezione</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Attribuzione</string>
   <!--GPX info dialog-->
@@ -307,9 +315,8 @@
   <string name="duplicate_route_segment_title">Aggiungi segmento di ‘route’</string>
   <string name="duplicate_route_segment_message">Questo percorso è già un membro della ‘route’.</string>
   <string name="duplicate_route_segment_button">Aggiungi comunque</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Aggiungi membro della relazione</string>
-  <string name="duplicate_relation_member_message">Questo elemento è già membro della relazione.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Rimuovi membro</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Sposta le etichette dalle aree perimetrali al multi-poligono</string>
@@ -526,6 +533,7 @@
   <string name="tip_undo">Premendo a lungo il tasto annulla vengono mostrati tutti i punti di controllo per annulla e rifai.</string>
   <string name="tip_imagery_privacy">Lo strato di sfondo e quello sovrapposto sono forniti da terze parti. Utilizzando uno strato viene trasmesso al provider il proprio indirizzo di rete e un\'indicazione approssimativa dell\'area che si sta osservando. Se il provider ha fornito informazioni sulla privacy, è possibile visualizzarle con la voce di menu \"Info\" nella finestra di dialogo dello strato.</string>
   <string name="tip_mapillary_privacy">Mapillary è un servizio fornito da Mapillary AB, Svezia, una filiale di Facebook. L\'utilizzo del servizio trasmette alla società il vostro indirizzo di rete e le informazioni sulle immagini che avete visualizzato.</string>
+  <string name="tip_panoramax_privacy">Panoramax è un serivizio fornito da terzi, il server predefinito è gestito da OpenStreetMap France, è possibile modificarlo nelle preferenze. Quando usi il servizio, al gestore vengono trasmessi il tuo indirizzo di rete e le informazioni sulle immagini che hai visionato.</string>
   <string name="tip_locked_mode">In modalità bloccata non puoi modificare nulla ma tenendo premuto su un oggetto si aprirà una schermata con le sue dettagli.</string>
   <string name="tip_longpress_simple_mode">In modalità semplice tenendo premuto non succederà niente. Disabilita la modalità semplice nel menù principale se vuoi tenere premuto per creare oggetti.</string>
   <string name="tip_gpx_no_elevation">A partire dalla versione 15, le tracce GPX inizialmente non contengono le informazioni di elevazione.&lt;p&gt;Per abilitare la registrazione dell’elevazione installa un modello di geoide con &lt;i&gt;Installa EGM&lt;/i&gt; dal menù Strumenti oppure commuta su input NMEA.</string>
@@ -602,7 +610,6 @@
   <!---->
   <string name="toast_oauth_retry">Prova a caricare di nuovo dopo aver concesso l’accesso OAuth alla tua utenza OSM.</string>
   <string name="toast_oauth">Abilita l\'accesso OAuth del tuo account OSM.</string>
-  <string name="toast_no_oauth">Nessuna configurazione OAuth disponibile per l\'API \"%1$s\", , impostare login e password.</string>
   <string name="toast_oauth_not_enabled">OAuth non è disponibile con le API attuali.</string>
   <string name="toast_oauth_timeout">Timeout durante processo di autenticazione, prova di nuovo.</string>
   <string name="toast_oauth_communication">Errore di comunicazione durante il processo di autenticazione, prova di nuovo.</string>
@@ -728,6 +735,7 @@
   <string name="toast_element_has_been_deleted">L’elemento è stato cancellato</string>
   <string name="toast_updating_tags">Aggiornamento dei tag…</string>
   <string name="toast_updating_members">Aggiornamento dei membri…</string>
+  <string name="toast_panoramax_sequence_error">Impossibile recuperare la sequenza Panoramax ID %1$s ID %2$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Le sorgenti MapSplit devono avere un valore di zoom massimo e minimo</string>
   <string name="error_pbf_no_version">Informazione sulla versione mancante nel file PBF</string>
@@ -1030,10 +1038,12 @@
   <string name="menu_layers_load_geojson">Aggiungi strato GeoJSON…</string>
   <string name="menu_layers_add_backgroundlayer">Aggiungi strato immagini di sfondo…</string>
   <string name="menu_layers_add_overlaylayer">Aggiungi strato immagini sovrimpresso…</string>
-  <string name="menu_layers_add_tasklayer">Abilita lo strato compiti</string>
+  <string name="menu_layers_add_tasklayer">Abilita strato compiti</string>
   <string name="menu_layers_add_grid">Abilita griglia</string>
-  <string name="menu_layers_add_photolayer">Abilita lo strato foto</string>
+  <string name="menu_layers_add_photolayer">Abilita strato foto</string>
   <string name="menu_layers_enable_mapillary_layer">Abilita strato Mapillary</string>
+  <string name="menu_layers_enable_panoramax_layer">Abilita strato Panoramax</string>
+  <string name="menu_layers_enable_bookmarkslayer">Abilita strato segnalibri</string>
   <string name="menu_layers_configure">Configura...</string>
   <string name="menu_layers_background_align">Allinea immagini…</string>
   <!---->
@@ -1048,7 +1058,6 @@
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Vai all’inizio o alla fine del percorso</string>
   <string name="menu_history">Cronologia</string>
@@ -1194,8 +1203,6 @@
   <string name="config_followGPSbutton_summary">Il punto in cui verrà posizionato il pulsante “Segui la posizione”</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Scurisci sempre le aree non scaricate</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Scurisce le aree non scaricate in modalità bloccata.</string>
-  <string name="config_fullscreenMode_title">Modalità a schermo intero</string>
-  <string name="config_fullscreenMode_summary">Comportamento con i dispositivi provvisti di tasti \"soft\"</string>
   <string name="config_map_orientation_title">Orientamento dello schermo</string>
   <string name="config_map_orientation_summary">Comportamento della mappa quando cambia la rotazione dello schermo.</string>
   <string name="config_showTolerance_title">Mostra tolleranza</string>
@@ -1284,9 +1291,12 @@
   <string name="config_maxDownloadSpeed_title">Max velocità per scaricamento automatico</string>
   <string name="config_maxDownloadSpeed_summary">Limite (in km/h) oltre il quale lo scaricamento automatico è sospeso.</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_autoPrune_title">Riduzione automatica</string>
   <string name="config_autoPruneNodeLimit_title">Limite di riduzione automatica</string>
   <string name="config_autoPruneNodeLimit_summary">Numero di nodi in memoria oltre al quale verrà effettuata una riduzione automatica.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d Nodi</string>
+  <string name="config_autoPruneBoundingBoxLimit_title">Limite dei riquadri di selezione per la riduzione automatica</string>
+  <string name="config_autoPruneBoundingBoxLimit_summary">Numero di riquadri di selezione in memoria che quando raggiunti innescano la riduzione.</string>
   <string name="config_panAndZoomLimit_title">Limite zoom</string>
   <string name="config_panAndZoomLimit_summary">Ingrandimento minimo per lo scaricamento automatico dopo zoom e spostamento schermata.</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
@@ -1337,6 +1347,8 @@
   <string name="config_taginfoServer_summary">Server Taginfo per la generazione dei predefiniti</string>
   <string name="config_overpassServer_title">Server Overpass</string>
   <string name="config_overpassServer_summary">Il server Overpass usato per le richieste</string>
+  <string name="config_panoramaxApiUrl_title">URL Panoramax</string>
+  <string name="config_panoramaxApiUrl_summary">L’URL base per un’istanza Panoramax senza il suffisso \"/api\"</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Scarico e salvataggio degli strati</string>
   <string name="config_category_layers_summary">Scaricamento e stoccaggio delle immagini di sfondo con tasselli</string>
@@ -1446,6 +1458,9 @@
   <string name="description_type_id">%1$s %2$s #%3$s</string>
   <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Ruolo non solezionato</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Spostato nodo</string>
   <string name="undo_action_moveway">Spostata linea</string>

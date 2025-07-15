@@ -92,7 +92,6 @@ Strony z pomocą na urządzeniu lub online odpowiedzą na większość pytań, j
 &lt;/li&gt;&lt;li&gt;by wyświetlić pobliskie punkty zainteresowania, przeciągnij uchwyt nad dolnym paskiem menu w górę.
 &lt;/li&gt;&lt;/ul&gt;
 Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry, które spawią, że Twoja podróż z Vespucci stanie się przyjemną.</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Twoje urządzenie ma \"dotykowe przyciski\", które są ukryte. Przesuń od dołu ekranu, aby je pokazać ponownie.</string>
   <string name="welcome_auto_download_text">Automatycznie pobieraj dane</string>
   <string name="read_introduction">Przeczytaj wprowadzenie</string>
   <!---->
@@ -278,9 +277,8 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="duplicate_route_segment_title">Dodaj odcinek drogi</string>
   <string name="duplicate_route_segment_message">Ta linia jest już częścią drogi.</string>
   <string name="duplicate_route_segment_button">Dodaj mimo wszystko</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Dodaj człon relacji</string>
-  <string name="duplicate_relation_member_message">Ten element jest już członem relacji.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Usuń człon</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Przenieś znaczniki z zewnętrznych granic na multipolygon</string>
@@ -882,7 +880,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="menu_tags">Właściwości</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historia</string>
   <string name="menu_merge">Połącz</string>
@@ -992,8 +989,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="config_useInternalPhotoViewer_title">Użyj wbudowanej przeglądarki zdjęć</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Przyciemnianie niepobranych obszarów</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Przyciemnia niepobrane obszary po zablokowaniu modyfikowania.</string>
-  <string name="config_fullscreenMode_title">Tryb pełnoekranowy</string>
-  <string name="config_fullscreenMode_summary">Konfiguruje zachowanie na urządzeniach z klawiszami programowymi.</string>
   <string name="config_map_orientation_title">Orientacja ekranu mapy</string>
   <string name="config_map_orientation_summary">Zachowanie ekranu mapy przy zmianach orientacji ekranu.</string>
   <string name="config_showTolerance_title">Wyświetlanie tolerancji</string>
@@ -1193,6 +1188,9 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <!--element description-->
   <string name="address_housenumber">Adres%1$s</string>
   <string name="address_housenumber_street">Adres %1$s %2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Pusta rola</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Przesunięcie węzła</string>
   <string name="undo_action_moveway">Przesunięcie linii</string>

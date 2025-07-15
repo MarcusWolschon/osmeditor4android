@@ -75,7 +75,6 @@
   <string name="select_file_picker_title">انتخابگر فایل را انتخاب کنید</string>
   <!--Newbie dialog-->
   <string name="welcome_title">خوش آمدید</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;دستگاه شما «کلیدهای نرم‌افزاری» دارد که از دید پنهان هستند. برای نمایش دوباره آنها، صفحه را از پایین بکشید.</string>
   <string name="read_introduction">خواندن مقدمه</string>
   <!---->
   <string name="upgrade_title">این نسخهٔ جدید وسپوچی است</string>
@@ -266,9 +265,8 @@
   <string name="duplicate_route_segment_title">افزودن پارهٔ مسیر</string>
   <string name="duplicate_route_segment_message">این راه هم‌اکنون عضوی از همین مسیر است.</string>
   <string name="duplicate_route_segment_button">به هر حال اضافه کنید</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">افزودن عضو رابطه</string>
-  <string name="duplicate_relation_member_message">این عنصر هم‌اکنون عضوی از همین رابطه است.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">حذف عضو</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">برچسب‌ها از حلقه‌های بیرونی به رابطهٔ چند ضلعی منتقل شود</string>
@@ -576,7 +574,6 @@
   <!---->
   <string name="toast_oauth_retry">پس از اینکه اجازه دادید OAuth به حساب کاربری OSMتان دسترسی داشته باشد دوباره برای بارگذاری تلاش کنید.</string>
   <string name="toast_oauth">لطفاً دسترسی به حساب OSM خود را برای OAuth مجاز کنید.</string>
-  <string name="toast_no_oauth">هیچ پیکربندی OAuth برای API \"%1$s\" موجود نیست. لطفاً نام کاربری و گذرواژه تنظیم کنید.</string>
   <string name="toast_oauth_not_enabled">‏OAuth برای API کنونی فعال نشده است.</string>
   <string name="toast_oauth_timeout">هنگام دست‌دهی برای احراز هویت، مهلت پایان یافت. لطفاً مجدداً تلاش کنید.</string>
   <string name="toast_oauth_communication">هنگام دست‌دهی برای احراز هویت، خطای ارتباطی رخ داد. لطفاً مجدداً تلاش کنید.</string>
@@ -1035,8 +1032,6 @@
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
-  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">به ابتدای راه یا انتهای راه بروید</string>
   <string name="menu_history">تاریخچه</string>
@@ -1182,8 +1177,6 @@
   <string name="config_followGPSbutton_summary">جایی که دکمه «دنبال کردن مکان» در آن قرار می‌گیرد.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">همیشه محدوده‌های بارگیری نشده را تاریک کن</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">در حالت قفل، محدوده‌های بارگیری نشده را تاریک می‌کند.</string>
-  <string name="config_fullscreenMode_title">حالت تمام‌صفحه</string>
-  <string name="config_fullscreenMode_summary">رفتار در دستگاه‌های دارای کلیدهای «نرم».</string>
   <string name="config_map_orientation_title">جهت صفحهٔ نقشه</string>
   <string name="config_map_orientation_summary">رفتار صفحهٔ نقشه با تغییرکردن جهت دستگاه.</string>
   <string name="config_showTolerance_title">نمایش هاله</string>
@@ -1450,6 +1443,9 @@
   <string name="description_type_id">%1$s %2$s #%3$s</string>
   <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">نقش خالی</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">گره جابه‌جا شد</string>
   <string name="undo_action_moveway">راه جابه‌جا شد</string>

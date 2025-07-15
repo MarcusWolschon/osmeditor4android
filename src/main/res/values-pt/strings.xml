@@ -113,7 +113,6 @@ As páginas de ajuda no dispositivo ou online responderão à maioria das quest�
 &lt;/li&gt;&lt;li&gt;para abrir o ecrã de pontos de interesse próximos arraste a pega acima da barra de menu inferior para cima.
 &lt;/li&gt;&lt;/ul&gt;
 Na página seguinte, pode definir algumas preferências iniciais que tornarão a utilização do Vespucci mais agradável. </string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;O seu dispositivo tem uma \"barra de navegação\" que está oculta. Deslize a partir do fundo para a mostrar novamente.</string>
   <string name="welcome_settings_tab_text">Para melhorar a sua experiência inicial, podemos configurar algumas opções agora mesmo,
         pode saltar este passo e definir as preferências individuais mais tarde, se assim o desejar.
     </string>
@@ -347,9 +346,8 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="duplicate_route_segment_title">Adicionar segmento de rota</string>
   <string name="duplicate_route_segment_message">Esta via já é membro da rota.</string>
   <string name="duplicate_route_segment_button">Adicionar na mesma</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Adicionar membro da relação</string>
-  <string name="duplicate_relation_member_message">Este elemento já é um membro da relação.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Remover membro</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Mover etiquetas dos anéis exteriores para o multipolígono</string>
@@ -674,7 +672,6 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <!---->
   <string name="toast_oauth_retry">Tente enviar novamente após autorizar o acesso OAuth à sua conta no OpenStreetMap.</string>
   <string name="toast_oauth">Por favor autorize o Vespucci no OAuth para poder aceder à sua conta no OpenStreetMap.</string>
-  <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API \"%1$s\", defina o nome de utilizador e a palavra-passe.</string>
   <string name="toast_oauth_not_enabled">O OAuth não está ativado para a API atual.</string>
   <string name="toast_oauth_timeout">Tempo esgotado do handshake da autenticação, por favor tente de novo.</string>
   <string name="toast_oauth_communication">Erro de comunicação durante o handshake da autenticação, por favor tente de novo.</string>
@@ -1163,8 +1160,6 @@ há %3$s %4$s</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
-  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Ir para o início ou para o fim da linha</string>
   <string name="menu_history">Histórico</string>
@@ -1317,8 +1312,6 @@ há %3$s %4$s</string>
   <string name="config_followGPSbutton_summary">Onde será posicionado o botão \"Seguir localização\".</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Escurecer p/descarregar</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Escurece as áreas não descarregadas no modo bloqueado.</string>
-  <string name="config_fullscreenMode_title">Modo ecrã total</string>
-  <string name="config_fullscreenMode_summary">Comportamento em dispositivos com barra de navegação oculta.</string>
   <string name="config_map_orientation_title">Orientação do ecrã do mapa</string>
   <string name="config_map_orientation_summary">Comportamento do ecrã do mapa nas alterações da orientação do dispositivo.</string>
   <string name="config_showTolerance_title">Ver tolerância</string>
@@ -1605,6 +1598,9 @@ há %3$s %4$s</string>
   <string name="description_type_id">%1$s %2$s #%3$s</string>
   <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Função vazia</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Nó movido</string>
   <string name="undo_action_moveway">Linha movida</string>

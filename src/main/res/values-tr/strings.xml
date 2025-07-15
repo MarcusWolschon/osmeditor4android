@@ -68,7 +68,6 @@
   <!---->
   <!--Newbie dialog-->
   <string name="welcome_title">Hoş geldin</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Cihazın görüntüden gizlenmiş \'\'yazılım tuşları\'\'na sahip. Aşağıya kaydırarak onları tekrardan görüntüle.</string>
   <string name="read_introduction">Tanıtımı okuyun</string>
   <!---->
   <string name="upgrade_title">Bu yeni bir Vespucci sürümü</string>
@@ -218,9 +217,8 @@
   <string name="duplicate_route_segment_title">Rota bölümü ekle</string>
   <string name="duplicate_route_segment_message">Bu yol zaten rotaya dahil.</string>
   <string name="duplicate_route_segment_button">Yine de ekle</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">İlişki üyesi ekle</string>
-  <string name="duplicate_relation_member_message">Bu element zaten ilişkiye dahil.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Üyeyi kaldır</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Etiketleri dış halkalardan çoklu çokgene taşı</string>
@@ -319,6 +317,7 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">Izgara</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Fotoğraflar</string>
@@ -824,7 +823,6 @@
   <string name="menu_tags">Özellikler</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Geçmiş</string>
   <string name="menu_merge">Katıl</string>
@@ -934,8 +932,6 @@
   <string name="config_useInternalPhotoViewer_summary">Dahili fotoğraf görünümünü kullanın, kontrol edilmezse harici bir görüntüleyici kullanılacaktır.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">İndirilmemiş alanları her zaman karartın</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">İndirilmemiş alanları kilitli modda karartır.</string>
-  <string name="config_fullscreenMode_title">Tam ekran kipi</string>
-  <string name="config_fullscreenMode_summary">\"Yumuşak\" tuşlara sahip cihazlarda davranış.</string>
   <string name="config_map_orientation_title">Harita ekranı yönü</string>
   <string name="config_map_orientation_summary">Cihaz yönü değişikliklerinde harita ekranının davranışı.</string>
   <string name="config_showTolerance_title">Toleransı göster</string>
@@ -1142,6 +1138,9 @@
   <!--element description-->
   <string name="address_housenumber">Adres %1$s</string>
   <string name="address_housenumber_street">Adres %1$s%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Boş rol</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Düğüm taşındı</string>
   <string name="undo_action_moveway">Yol taşındı</string>

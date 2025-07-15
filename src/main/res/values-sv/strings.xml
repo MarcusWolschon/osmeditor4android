@@ -257,9 +257,8 @@
   <string name="duplicate_route_segment_title">Lägg till ruttsegment</string>
   <string name="duplicate_route_segment_message">Den här sträckan är redan medlem av rutten.</string>
   <string name="duplicate_route_segment_button">Lägg till ändå</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Lägg till relationsmedlem</string>
-  <string name="duplicate_relation_member_message">Det här elementet är redan medlem av relationen.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Ta bort medlem</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Flytta taggar från ytterkonturen till multipolygonen</string>
@@ -789,8 +788,6 @@
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
-  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Gå till Början eller Slutet av vägen</string>
   <string name="menu_history">Historik</string>
@@ -878,7 +875,6 @@
   <string name="config_showWayIcons_summary">Visa ikonen för bäst matchande förinställningar över byggnader.</string>
   <string name="config_showCameraAction_title">Visa kamera knapp</string>
   <string name="config_showCameraAction_summary">Visa kameraikonen i åtgärdsfältet.</string>
-  <string name="config_fullscreenMode_title">Fullskärmsläge</string>
   <string name="config_showTolerance_title">Visa tolerans</string>
   <string name="config_showTolerance_summary">Visar område där ett element kan väljas.</string>
   <string name="config_use_back_for_undo_title">Använd ← knappen för att ångra</string>
@@ -1038,6 +1034,9 @@
   <string name="description_type_id">%1$s %2$s #%3$s</string>
   <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Tom roll</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Noden flyttad</string>
   <string name="undo_action_moveway">Vägen flyttades</string>

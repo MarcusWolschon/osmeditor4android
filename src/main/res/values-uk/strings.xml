@@ -47,6 +47,14 @@
   <string name="delete_locally">Видалити\nлокально</string>
   <string name="undelete_on_server">Відновити\nна сервері</string>
   <!--Upload retry-->
+  <string name="upload_retry_title">Помилка завантаження</string>
+  <string name="upload_retry_message_no_changeset_status">Не вдається визначити стан набору змін %1$d.\n\nМи рекомендуємо зберегти ваші зміни у вигляді OCS-файлу і визначити, що робити, коли у вас буде кращий прийом.</string>
+  <string name="upload_retry_message_nothing_uploaded">Жодних змін не було завантажено в набір змін %1$d.\n\nБезпечно повторити спробу.</string>
+  <string name="upload_retry_message_all_uploaded">Зміни успішно завантажено в набір змін %1$d, але результат не отримано.\n\nОднак виглядає так, ніби всі зміни було завантажено, тож ви можете сміливо відхилити локальні зміни та повторно завантажити.</string>
+  <string name="upload_retry_message_partial_upload">Зміни успішно завантажено в набір змін %1$d, але результат не отримано.</string>
+  <string name="upload_retry_message_update_failed_title">Не вдалося оновити</string>
+  <string name="upload_retry_message_update_failed">Не вдалося оновити дані. Рекомендуємо зберегти зміни у файл для подальшого використання.</string>
+  <string name="redownload">Повторне завантаження (не можна скасувати)</string>
   <string name="save_changes">Зберегти зміни</string>
   <!---->
   <string name="no_login_data_title">Не вдалося перевірити автентичність</string>
@@ -113,7 +121,6 @@
 &lt;/li&gt;&lt;li&gt;щоб відкрити відображення найближчих цікавих місць, перетягніть ручку вгору над нижнім рядком меню.
 &lt;/li&gt;&lt;/ul&gt;
 На наступній сторінці ви можете встановити деякі початкові налаштування, які зроблять вашу подорож з Vespucci приємнішою.</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Ваш пристрій має віртуальні кнопки, що не показуються зараз на екрані, проведіть пальцем вгору від нижнього краю екрану, щоб побачити їх.</string>
   <string name="welcome_settings_tab_text">Щоб покращити ваш початковий досвід, ми можемо налаштувати деякі параметри просто зараз, 
 ви можете пропустити цей крок і встановити індивідуальні налаштування пізніше, якщо захочете.</string>
   <string name="welcome_use_imagery_text">Показати аерофотознімки\nдля вашого поточного місцезнаходження</string>
@@ -333,9 +340,7 @@
   <string name="duplicate_route_segment_title">Додавання відрізків маршруту</string>
   <string name="duplicate_route_segment_message">Цей відрізок вже є членом маршрута.</string>
   <string name="duplicate_route_segment_button">Все одно додати</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Додати члена зв\'язку</string>
-  <string name="duplicate_relation_member_message">Цей елемент вже є членом зв\'язку.</string>
+  <!--Relation editing dialog-->
   <string name="duplicate_relation_member_remove_button">Вилучити члена</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Перенести теґи з зовнішнього контуру на мультиполігон</string>
@@ -565,6 +570,7 @@
   <string name="tip_undo">Довге натискання на кнопку Скасувати покаже всі контрольні точки для скасування - повернення</string>
   <string name="tip_imagery_privacy">Фонові та допоміжні шари постачаються сторонніми постачальниками. Їх використання призводить до передачі вашої мережевої адреси та інформації про ділянки, які ви переглядаєте, постачальнику.&lt;p&gt;Якщо у постачальника є відповідні правила, задля переконання щодо дотримання приватності, ви можете ознайомитись з ними в розділі \"Інфо\" відповідного шару.</string>
   <string name="tip_mapillary_privacy">Mapillary – це послуга, яку надає Mapillary AB, Швеція, дочірня компанія Facebook. Використання послуги потребує передачі компанії вашої мережевої адреси та інформації про те, які зображення ви переглядали.</string>
+  <string name="tip_panoramax_privacy">Panoramax - це сервіс, що надається третіми особами, за замовчуванням сервером керує OpenStreetMap France, однак ви можете змінити сервер у налаштуваннях. Використання сервісу передає оператору вашу мережеву адресу та інформацію про те, які зображення ви переглянули.</string>
   <string name="tip_pan_and_zoom_auto_download">Пересування та масштабування мапою з увімкненим автоматичним завантаженням даних може стати причиною додаткових витрат, як з вашого боку, так і з боку API OpenStreetMap.&lt;p&gt;Надлишкового навантаження на сервери можна уникнути використовуючи дані в режимі офлайн.</string>
   <string name="tip_locked_mode">В захищеному режимі ви не можете редагувати, але довге натискання на об\'єкті покаже вам докладну інформацію про нього.</string>
   <string name="tip_longpress_simple_mode">В спрощеному режимі довге натискання не працює. Відключить спрощений режим в головному меню, якщо ви бажаєте додавати об\'єкти довгим натисканням.</string>
@@ -660,7 +666,6 @@
   <!---->
   <string name="toast_oauth_retry">Спробуйте надіслати дані ще раз після надання доступу до ваших облікових даних OSM через  OAuth.</string>
   <string name="toast_oauth">Дозвольте OAuth-доступ до свого облікового запису OSM.</string>
-  <string name="toast_no_oauth">Немає доступної конфігурації OAuth для поточного API\"%1$s\", вкажіть логін і пароль.</string>
   <string name="toast_oauth_not_enabled">OAuth не включений у поточному API.</string>
   <string name="toast_oauth_timeout">Перевищено час очікування відповіді, спробуйте автентифікуватись ще раз.</string>
   <string name="toast_oauth_communication">Помилка з\'єднання під час автентифікації, спробуйте ще раз.</string>
@@ -1056,6 +1061,7 @@
   <string name="menu_unjoin">Роз\'єднати</string>
   <string name="menu_copy">Копіювати</string>
   <string name="menu_duplicate">Дублювати</string>
+  <string name="menu_shallow_duplicate">Поверхневий дублікат</string>
   <string name="menu_cut">Вирізати</string>
   <string name="menu_paste">Вставити</string>
   <string name="menu_paste_tags">Вставити теґи</string>
@@ -1135,6 +1141,8 @@
   <!---->
   <string name="menu_tools_apply_local_offset">Застосувати збережене зміщення</string>
   <string name="menu_tools_background_contrast">Контраст</string>
+  <string name="menu_tools_oauth_reset">Скасувати авторизацію</string>
+  <string name="menu_tools_oauth_authorisation">Авторизація з OAuth...</string>
   <string name="menu_enable_tagfilter">Фільтр теґів</string>
   <string name="menu_enable_presetfilter">Фільтр заготовок</string>
   <string name="preset_menu_waynodes">Включіти точки лінії</string>
@@ -1143,7 +1151,6 @@
   <string name="menu_tags">Властивості</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Перейти на початок або кінець шляху</string>
   <string name="menu_history">Історія</string>
@@ -1290,12 +1297,10 @@
   <string name="config_useInternalPhotoViewer_summary">Використовуйте вбудований перегляд фотографій, якщо не позначено, використовуватиметься зовнішній переглядач.</string>
   <string name="config_indexMediaStore_summary">Додатково використовувати MediaStore для доступу до фотографій</string>
   <string name="config_indexMediaStore_title">Використовувати MediaStore</string>
-  <string name="config_followGPSbutton_title">Дотримуйтесь розташування кнопок місцезнаходження</string>
+  <string name="config_followGPSbutton_title">Розташування кнопки місцезнаходження</string>
   <string name="config_followGPSbutton_summary">Де буде розташована кнопка «Відстежити позицію».</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Завжди затінювати незавантажені області</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">У заблокованому режимі затемнює незавантажені області.</string>
-  <string name="config_fullscreenMode_title">Повноекранний режим</string>
-  <string name="config_fullscreenMode_summary">Поведінка на пристроях з програмними кнопками.</string>
   <string name="config_map_orientation_title">Орієнтація карти</string>
   <string name="config_map_orientation_summary">Поведінка екрана карти при зміні орієнтації пристрою.</string>
   <string name="config_showTolerance_title">Показати чутливість</string>
@@ -1495,6 +1500,10 @@
   <string name="config_js_console_summary">Зробіть JS-консоль доступною в режимі \"live\"</string>
   <string name="config_voiceCommandsEnabled_title">Задіяти голосові команди</string>
   <string name="config_voiceCommandsEnabled_summary">Задіяти підтримку голосових команд</string>
+  <string name="config_splitWindowForPropertyEditor_summary">Увімкнути відображення редактора властивостей в окремому вікні, якщо це можливо</string>
+  <string name="config_splitWindowForPropertyEditor_title">Увімкнути редактор властивостей у розділеному вікні</string>
+  <string name="config_newTaskForPropertyEditor_summary">Встановити FLAG_ACTIVITY_NEW_TASK під час запуску редактора властивостей, це може покращити поведінку певних засобів запуску під час відновлення програми.</string>
+  <string name="config_newTaskForPropertyEditor_title">Використовувати режим \"нове завдання\" для редактора властивостей</string>
   <!---->
   <string name="config_api_url_title">URL для API</string>
   <string name="config_api_oauth_title">Використовувати OAuth</string>
@@ -1552,6 +1561,9 @@
   <!--element description-->
   <string name="address_housenumber">Адреса %1$s</string>
   <string name="address_housenumber_street">Адреса %1$s %2$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Порожня роль</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Переміщення точки</string>
   <string name="undo_action_moveway">Переміщення лінії</string>

@@ -86,7 +86,6 @@
   <string name="select_file_picker_title">Выберите файл</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Добро пожаловать</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Ваше устройство имеет настраиваемые кнопки (\"soft keys\"), которые пока скрыты. Пролистывание от нижнего края покажет их снова. </string>
   <string name="welcome_auto_download_text">Автоматически скачивать данные</string>
   <string name="welcome_authorize_text">Авторизоваться сейчас</string>
   <string name="read_introduction">Прочесть введение</string>
@@ -274,9 +273,8 @@
   <string name="duplicate_route_segment_title">Добавить участника в маршрут</string>
   <string name="duplicate_route_segment_message">Эта линия уже участвует в этом маршруте.</string>
   <string name="duplicate_route_segment_button">Всё равно добавить</string>
-  <!--Duplicate relation element dialog-->
-  <string name="duplicate_relation_member_title">Добавить участника в отношение</string>
-  <string name="duplicate_relation_member_message">Элемент уже участвует в отношении.</string>
+  <!--Relation editing dialog-->
+  <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Удалить участника</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Перенесите теги на полигон</string>
@@ -571,7 +569,6 @@
   <!---->
   <string name="toast_oauth_retry">Повторите передачу после разрешения OAuth-доступа в вашем профиле OSM.</string>
   <string name="toast_oauth">Разрешите OAuth-доступ к своему OSM-аккаунту.</string>
-  <string name="toast_no_oauth">Конфигурация OAuth для API \"%1$s\" недоступна. Задайте логин и пароль.</string>
   <string name="toast_oauth_not_enabled">Для текущего API не включён OAuth.</string>
   <string name="toast_oauth_timeout">Превышено время ожидания идентификации, повторите попытку.</string>
   <string name="toast_oauth_communication">Ошибка соединения во время идентификации, повторите попытку.</string>
@@ -1014,7 +1011,6 @@
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
-  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">История</string>
   <string name="menu_history_web">История (сайт)</string>
@@ -1156,8 +1152,6 @@
   <string name="config_indexMediaStore_title">Использовать MediaStore</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Затенять незагруженные области</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Затемнять незагруженные области в заблокированном режиме. </string>
-  <string name="config_fullscreenMode_title">Полноэкранный режим</string>
-  <string name="config_fullscreenMode_summary">Поведение на устройствах с виртуальными клавишами.</string>
   <string name="config_map_orientation_title">Ориентация экрана карты</string>
   <string name="config_map_orientation_summary">Поведение экрана карты при изменении ориентации устройства.</string>
   <string name="config_showTolerance_title">Область выбора</string>
@@ -1401,6 +1395,9 @@
   <!--element description-->
   <string name="address_housenumber">Адрес %1$s</string>
   <string name="address_housenumber_street">Адрес %2$s, %1$s</string>
+  <!--preset stuff-->
+  <string name="preset_role">%1$s - %2$s</string>
+  <string name="preset_empty_role">Пустая роль</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Перемещение точки</string>
   <string name="undo_action_moveway">Перемещение линии</string>
