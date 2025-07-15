@@ -148,6 +148,7 @@ public class IntentsTest2 {
         startViaUrl("https://www.openstreetmap.org/node/1#12345");
         TestUtils.selectIntentRecipient(device);
         TestUtils.clickAwayTip(device, context);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect), 5000));
         Node n = App.getLogic().getSelectedNode();
         assertNotNull(n);
         assertEquals(1L, n.getOsmId());
@@ -161,8 +162,9 @@ public class IntentsTest2 {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("way-100");
         startViaUrl("https://www.openstreetmap.org/way/100");
-
+        TestUtils.selectIntentRecipient(device);
         TestUtils.clickAwayTip(device, context);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_wayselect), 5000));
         Way w = App.getLogic().getSelectedWay();
         assertNotNull(w);
         assertEquals(100L, w.getOsmId());
@@ -176,7 +178,7 @@ public class IntentsTest2 {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("note-100");
         startViaUrl("https://www.openstreetmap.org/note/100");
-
+        TestUtils.selectIntentRecipient(device);
         TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.openstreetbug_edit_title)));
     }
