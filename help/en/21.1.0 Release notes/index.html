@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="http://172.16.2.51/help/en/Node%20selected/">
+        <link rel="canonical" href="http://172.16.2.51/help/en/21.1.0%20Release%20notes/">
       
       
-        <link rel="prev" href="../Creating%20new%20objects/">
+        <link rel="prev" href="../../../tutorials/features/">
       
       
-        <link rel="next" href="../Way%20selected/">
+        <link rel="next" href="../21.0.0%20Release%20notes/">
       
       
       <link rel="icon" href="../../../favicon.ico">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Node selected - Vespucci</title>
+        <title>21.1.0 Release notes - Vespucci</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#node-selected" class="md-skip">
+        <a href="#vespucci-211-highlights-beta" class="md-skip">
           Skip to content
         </a>
       
@@ -119,10 +119,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../Introduction/" class="md-tabs__link">
           
   
@@ -137,12 +139,10 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../Main%20map%20display/" class="md-tabs__link">
           
   
@@ -233,7 +233,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Node selected
+              21.1.0 Release notes
             
           </span>
         </div>
@@ -321,23 +321,28 @@
       
   
   
+    
   
   
+  
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
         
           
-          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -348,7 +353,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
             Introduction
@@ -422,10 +427,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../21.1.0%20Release%20notes/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    21.1.0 Release notes
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -434,6 +459,113 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#android-15api-35" class="md-nav__link">
+    <span class="md-ellipsis">
+      Android 15/API 35
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-behaviour-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other behaviour changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Other behaviour changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ask-which-primary-key-to-use-for-unjoin-dissimilar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ask which "primary" key to use for Unjoin dissimilar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ask-which-role-to-use-if-multiple-are-possible-when-adding-elements-to-a-relation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ask which role to use if multiple are possible when adding elements to a relation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-long-click-to-delete-member-when-editing-a-relation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add long click to delete member when editing a relation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make-map-background-configurable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make map background configurable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-preference-to-change-behaviour-to-add-images-to-the-mediastore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add preference to change behaviour to add images to the Mediastore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-full-screen-mode-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove full screen mode settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscellaneous" class="md-nav__link">
+    <span class="md-ellipsis">
+      Miscellaneous
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1164,28 +1296,23 @@
       
   
   
-    
   
   
-  
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1196,7 +1323,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Editing
@@ -1270,30 +1397,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Node selected
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../Node%20selected/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1302,326 +1409,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#actions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Actions
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Actions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#undo" class="md-nav__link">
-    <span class="md-ellipsis">
-      Undo
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    <span class="md-ellipsis">
-      Properties
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#todos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Todos
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Todos">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#close-and-goto-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      Close and goto next
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#skip-and-goto-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skip and goto next
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#close-all" class="md-nav__link">
-    <span class="md-ellipsis">
-      Close all
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#add-address-tags" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add address tags
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#append" class="md-nav__link">
-    <span class="md-ellipsis">
-      Append
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unjoin" class="md-nav__link">
-    <span class="md-ellipsis">
-      Unjoin
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#merge" class="md-nav__link">
-    <span class="md-ellipsis">
-      Merge
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#extract-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      Extract node
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#add-turn-restriction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add turn restriction
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rotate" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rotate
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#copy" class="md-nav__link">
-    <span class="md-ellipsis">
-      Copy
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#duplicate" class="md-nav__link">
-    <span class="md-ellipsis">
-      Duplicate
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cut" class="md-nav__link">
-    <span class="md-ellipsis">
-      Cut
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#paste-tags" class="md-nav__link">
-    <span class="md-ellipsis">
-      Paste tags
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#delete" class="md-nav__link">
-    <span class="md-ellipsis">
-      Delete
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#extend-selection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Extend selection
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-relation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Create relation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#add-to-relation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add to relation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#position" class="md-nav__link">
-    <span class="md-ellipsis">
-      Position
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#info" class="md-nav__link">
-    <span class="md-ellipsis">
-      Info
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zoom-to-selection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Zoom to selection
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#search-for-objects" class="md-nav__link">
-    <span class="md-ellipsis">
-      Search for objects
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#add-to-todo-list" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add to todo list
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#replace-geometry" class="md-nav__link">
-    <span class="md-ellipsis">
-      Replace geometry
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#upload-element" class="md-nav__link">
-    <span class="md-ellipsis">
-      Upload element
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#share-position" class="md-nav__link">
-    <span class="md-ellipsis">
-      Share position
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#preferences" class="md-nav__link">
-    <span class="md-ellipsis">
-      Preferences
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#help" class="md-nav__link">
-    <span class="md-ellipsis">
-      Help
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2501,65 +2288,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#actions" class="md-nav__link">
+  <a href="#android-15api-35" class="md-nav__link">
     <span class="md-ellipsis">
-      Actions
+      Android 15/API 35
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Actions">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-behaviour-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other behaviour changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Other behaviour changes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#undo" class="md-nav__link">
+  <a href="#ask-which-primary-key-to-use-for-unjoin-dissimilar" class="md-nav__link">
     <span class="md-ellipsis">
-      Undo
+      Ask which "primary" key to use for Unjoin dissimilar
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
+  <a href="#ask-which-role-to-use-if-multiple-are-possible-when-adding-elements-to-a-relation" class="md-nav__link">
     <span class="md-ellipsis">
-      Properties
+      Ask which role to use if multiple are possible when adding elements to a relation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#todos" class="md-nav__link">
+  <a href="#add-long-click-to-delete-member-when-editing-a-relation" class="md-nav__link">
     <span class="md-ellipsis">
-      Todos
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Todos">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#close-and-goto-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      Close and goto next
+      Add long click to delete member when editing a relation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#skip-and-goto-next" class="md-nav__link">
+  <a href="#make-map-background-configurable" class="md-nav__link">
     <span class="md-ellipsis">
-      Skip and goto next
+      Make map background configurable
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#close-all" class="md-nav__link">
+  <a href="#add-preference-to-change-behaviour-to-add-images-to-the-mediastore" class="md-nav__link">
     <span class="md-ellipsis">
-      Close all
+      Add preference to change behaviour to add images to the Mediastore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-full-screen-mode-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove full screen mode settings
     </span>
   </a>
   
@@ -2569,234 +2364,13 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#add-address-tags" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#miscellaneous" class="md-nav__link">
     <span class="md-ellipsis">
-      Add address tags
+      Miscellaneous
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#append" class="md-nav__link">
-    <span class="md-ellipsis">
-      Append
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unjoin" class="md-nav__link">
-    <span class="md-ellipsis">
-      Unjoin
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#merge" class="md-nav__link">
-    <span class="md-ellipsis">
-      Merge
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#extract-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      Extract node
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#add-turn-restriction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add turn restriction
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rotate" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rotate
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#copy" class="md-nav__link">
-    <span class="md-ellipsis">
-      Copy
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#duplicate" class="md-nav__link">
-    <span class="md-ellipsis">
-      Duplicate
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cut" class="md-nav__link">
-    <span class="md-ellipsis">
-      Cut
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#paste-tags" class="md-nav__link">
-    <span class="md-ellipsis">
-      Paste tags
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#delete" class="md-nav__link">
-    <span class="md-ellipsis">
-      Delete
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#extend-selection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Extend selection
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-relation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Create relation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#add-to-relation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add to relation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#position" class="md-nav__link">
-    <span class="md-ellipsis">
-      Position
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#info" class="md-nav__link">
-    <span class="md-ellipsis">
-      Info
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zoom-to-selection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Zoom to selection
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#search-for-objects" class="md-nav__link">
-    <span class="md-ellipsis">
-      Search for objects
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#add-to-todo-list" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add to todo list
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#replace-geometry" class="md-nav__link">
-    <span class="md-ellipsis">
-      Replace geometry
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#upload-element" class="md-nav__link">
-    <span class="md-ellipsis">
-      Upload element
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#share-position" class="md-nav__link">
-    <span class="md-ellipsis">
-      Share position
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#preferences" class="md-nav__link">
-    <span class="md-ellipsis">
-      Preferences
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#help" class="md-nav__link">
-    <span class="md-ellipsis">
-      Help
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2815,74 +2389,38 @@
                   
 
 
-<h1 id="node-selected">Node selected<a class="headerlink" href="#node-selected" title="Permanent link">#</a></h1>
-<p>Node selection is described in the <a href="../Introduction/">Introduction</a>. Selected nodes can be moved by dragging in the touch area, you can enable a large drag area in the preferences. You can edit tags for selected nodes.</p>
-<h2 id="actions">Actions<a class="headerlink" href="#actions" title="Permanent link">#</a></h2>
-<p>Note: some of these actions will only be visible if they can actually be executed on the selected node. For example you can only merge a node with a way or node if the selected node is in their tolerance zone.</p>
-<h3 id="undo"><img alt="Undo" src="../../images/undolist_undo.png" /> Undo<a class="headerlink" href="#undo" title="Permanent link">#</a></h3>
-<p>Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding "redo" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen. <em>Some operations consist of multiple simpler actions that will be listed as individual items.</em></p>
-<h3 id="properties"><img alt="Properties" src="../../images/tag_menu_tags.png" /> Properties<a class="headerlink" href="#properties" title="Permanent link">#</a></h3>
-<p>Starts the property editor on the current selection.</p>
-<h3 id="todos"><img alt="Todos" src="../../images/tag_menu_bug.png" /> Todos<a class="headerlink" href="#todos" title="Permanent link">#</a></h3>
-<p>If the selected element is associated either with a todo or osmose task this menu will be displayed.</p>
-<p>Available actions are</p>
-<h4 id="close-and-goto-next">Close and goto next<a class="headerlink" href="#close-and-goto-next" title="Permanent link">#</a></h4>
-<p>Close a todo associated with the element and goto the nearest open todo in the list. If the element is present in multiple todo list a modal will ask which one to choose.</p>
-<h4 id="skip-and-goto-next">Skip and goto next<a class="headerlink" href="#skip-and-goto-next" title="Permanent link">#</a></h4>
-<p>Skip a todo associated with the element and goto the nearest open todo in the list. If the element is present in multiple todo list a modal will ask which one to choose.</p>
-<h4 id="close-all">Close all<a class="headerlink" href="#close-all" title="Permanent link">#</a></h4>
-<p>Close all todos and osmose bugs associated with the element. </p>
-<h3 id="add-address-tags"><img alt="Address" src="../../images/address.png" /> Add address tags<a class="headerlink" href="#add-address-tags" title="Permanent link">#</a></h3>
-<p>Adds address tags with prediction. If the node is part of a building way it will further add "entrance=yes" if not present.</p>
-<h3 id="append"><img alt="Append" src="../../images/tag_menu_append.png" /> Append<a class="headerlink" href="#append" title="Permanent link">#</a></h3>
-<p>Add to the way this node is part of. The "Append" action is only available if the node in question is an end node of a way.</p>
-<h3 id="unjoin"><img alt="Unjoin" src="../../images/tag_menu_split.png" /> Unjoin<a class="headerlink" href="#unjoin" title="Permanent link">#</a></h3>
-<p>If a way node is selected that is a member of multiple ways this will create additional nodes at the location and use them instead of the original node in the ways. </p>
-<h3 id="merge"><img alt="Merge" src="../../images/tag_menu_merge.png" /> Merge<a class="headerlink" href="#merge" title="Permanent link">#</a></h3>
-<p>Merge the selected node with a way (as a new way node) or with an existing node. To make this tool appear in the toolbar, select a node and move it next to a way. If there are multiple possible target nodes or ways a disambiguation context menu will be shown.</p>
-<h3 id="extract-node"><img alt="Extract" src="../../images/extract_node.png" /> Extract node<a class="headerlink" href="#extract-node" title="Permanent link">#</a></h3>
-<p>Extract the selected node from all ways that it is a member of and replace it with a newly created one without any tags at all. The original node retains all tags and relation memberships and remains selected. After extracting, drag the original node to its new position.
-The above might seem very confusing but in the end the new mode is in the original place and the original node is in the new place!</p>
-<h3 id="add-turn-restriction"><img alt="TurnRestriction" src="../../images/no_left_turn_light.png" /> Add turn restriction<a class="headerlink" href="#add-turn-restriction" title="Permanent link">#</a></h3>
-<p>Start creating a turn restriction with this node as "via" member. This action is only available if the node in question is a potential via member, that is it is a member of at least two ways that have a "highway" tag. Ways will be split automatically during the process.</p>
-<h3 id="rotate"><img alt="Rotate" src="../../images/ic_menu_rotate.png" /> Rotate<a class="headerlink" href="#rotate" title="Permanent link">#</a></h3>
-<p>If the node has a direction tag with a degree value, rotate the node by dragging the display roughly in a circle.</p>
-<h3 id="copy"><img alt="Copy" src="../../images/ic_menu_copy_holo_light.png" /> Copy<a class="headerlink" href="#copy" title="Permanent link">#</a></h3>
-<p>Copy the node to the internal copy and paste buffer.</p>
-<h3 id="duplicate"><img alt="Duplicate" src="../../images/content_duplicate_light.png" /> Duplicate<a class="headerlink" href="#duplicate" title="Permanent link">#</a></h3>
-<p>Create a copy of the selected node in the same location. This does not utilize the copy and paste buffer.</p>
-<h3 id="cut"><img alt="Cut" src="../../images/ic_menu_cut_holo_light.png" /> Cut<a class="headerlink" href="#cut" title="Permanent link">#</a></h3>
-<p>Move the node to the internal copy and paste buffer removing it from the data.</p>
-<h3 id="paste-tags">Paste tags<a class="headerlink" href="#paste-tags" title="Permanent link">#</a></h3>
-<p>Set tags from the internal tag clipboard and start the property editor.</p>
-<h3 id="delete"><img alt="Delete" src="../../images/tag_menu_delete.png" /> Delete<a class="headerlink" href="#delete" title="Permanent link">#</a></h3>
-<p>Remove the object from the data.</p>
-<h3 id="extend-selection"><img alt="Extend" src="../../images/extend_selection.png" /> Extend selection<a class="headerlink" href="#extend-selection" title="Permanent link">#</a></h3>
-<p>Start Multi-Select mode with the current selected element.</p>
-<h3 id="create-relation"><img alt="Relation" src="../../images/relation.png" /> Create relation<a class="headerlink" href="#create-relation" title="Permanent link">#</a></h3>
-<p>Create a relation and add this object as the first element. The relation type can be selected from a list generated from the available presets. Further objects can be added until the check button is clicked, then the tag editor will be started on the new relation. </p>
-<h3 id="add-to-relation">Add to relation<a class="headerlink" href="#add-to-relation" title="Permanent link">#</a></h3>
-<p>Select a relation and add this object as a member. Further objects can be added until the check button is clicked, then the tag editor will be started on the relation. </p>
-<h3 id="position"><img alt="Position" src="../../images/menu_gps.png" /> Position<a class="headerlink" href="#position" title="Permanent link">#</a></h3>
-<p>Manually set longitude and latitude values for the coordinates of this node.</p>
-<h3 id="info"><img alt="Info" src="../../images/tag_menu_mapfeatures.png" /> Info<a class="headerlink" href="#info" title="Permanent link">#</a></h3>
-<p>Show a screen with some detailed information on the selected object.</p>
-<h3 id="zoom-to-selection">Zoom to selection<a class="headerlink" href="#zoom-to-selection" title="Permanent link">#</a></h3>
-<p>Pan and zoom the map to the currently selected object.</p>
-<h3 id="search-for-objects">Search for objects<a class="headerlink" href="#search-for-objects" title="Permanent link">#</a></h3>
-<p>Search for OSM objects in the loaded data using JOSMs search expressions.</p>
-<h3 id="add-to-todo-list">Add to todo list<a class="headerlink" href="#add-to-todo-list" title="Permanent link">#</a></h3>
-<p>Add the current selection to an existing or new todo list.</p>
-<h3 id="replace-geometry">Replace geometry<a class="headerlink" href="#replace-geometry" title="Permanent link">#</a></h3>
-<p>Move the tags of current node to a (in a second step) selected way and merge the current node in to one of the target ways to preserve history.</p>
-<h3 id="upload-element">Upload element<a class="headerlink" href="#upload-element" title="Permanent link">#</a></h3>
-<p>Upload the selected element (only available for a new or modified element).</p>
-<h3 id="share-position">Share position<a class="headerlink" href="#share-position" title="Permanent link">#</a></h3>
-<p>Share the position of the selected object with other apps on the device.</p>
-<h3 id="preferences"><img alt="Preferences" src="../../images/menu_config.png" /> Preferences<a class="headerlink" href="#preferences" title="Permanent link">#</a></h3>
-<p>Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. </p>
-<h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help<a class="headerlink" href="#help" title="Permanent link">#</a></h3>
-<p>Start the Vespucci Help browser</p>
+<h1 id="vespucci-211-highlights-beta">Vespucci 21.1 Highlights BETA<a class="headerlink" href="#vespucci-211-highlights-beta" title="Permanent link">#</a></h1>
+<p>2025-07-15</p>
+<h3 id="android-15api-35">Android 15/API 35<a class="headerlink" href="#android-15api-35" title="Permanent link">#</a></h3>
+<p>As per google requirements, version 21.1 targets Android 15/API 35. Contrary to the last two years the changes this time around required a significant amount of work, not to mention a number of slightly hackish workarounds as googles own libraries are not completely compatible with the changes introduced in this Android version. </p>
+<p>Because of time constraints, the production version needs to be deployed on googles play store by the end of August, there are a number of remaining issues that might or might not be resolved for the release:</p>
+<ul>
+<li>element history modal overlaps navigation bar (this is fixed but waiting the the maintainer of the modal source to publish the adapted version). </li>
+<li>the app colour scheme doesn't really work together with the inset colours, particularly in dark mode (part of the work for the migration included an overall restyling that didn't make it in to this release because of the above mentioned time constraints). </li>
+<li>on at least one Android 5 device we've seen the behaviour that the inset for the keyboard will not be correctly removed if the keyboard is shown in the property editor and the keyboard is not dismissed before exiting the property editor, tapping on the map display once will then remove the inset. If you have a device that shows this behaviour, please report it.</li>
+</ul>
+<p>In general if you experience any issues with menu entries, buttons etc overlapping the navigation bar or interfering with navigation gestures in a way that stops you from beable to select one or the other, please use the "Feedback" modal to open an issue, or do the same directly on <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">github</a>. </p>
+<h3 id="other-behaviour-changes">Other behaviour changes<a class="headerlink" href="#other-behaviour-changes" title="Permanent link">#</a></h3>
+<h4 id="ask-which-primary-key-to-use-for-unjoin-dissimilar">Ask which "primary" key to use for <em>Unjoin dissimilar</em><a class="headerlink" href="#ask-which-primary-key-to-use-for-unjoin-dissimilar" title="Permanent link">#</a></h4>
+<p>If the way you want to unjoin is tagged with more than one "primary" key a modal will display asking for you to choose the one to use for the unjoin operation.</p>
+<h4 id="ask-which-role-to-use-if-multiple-are-possible-when-adding-elements-to-a-relation">Ask which role to use if multiple are possible when adding elements to a relation<a class="headerlink" href="#ask-which-role-to-use-if-multiple-are-possible-when-adding-elements-to-a-relation" title="Permanent link">#</a></h4>
+<p>Previously if multiple roles were possible when adding a new member to a relation the role would be left empty, now a modal will be displayed with a choice.</p>
+<h4 id="add-long-click-to-delete-member-when-editing-a-relation">Add long click to delete member when editing a relation<a class="headerlink" href="#add-long-click-to-delete-member-when-editing-a-relation" title="Permanent link">#</a></h4>
+<p>This adds long click as a short cut for deleting a relation member in the interactive relation editing mode. </p>
+<h4 id="make-map-background-configurable">Make map background configurable<a class="headerlink" href="#make-map-background-configurable" title="Permanent link">#</a></h4>
+<p>The default (aka when no imagery background or similar is displayed) map background colour can be configured in the map styles.</p>
+<h4 id="add-preference-to-change-behaviour-to-add-images-to-the-mediastore">Add preference to change behaviour to add images to the Mediastore<a class="headerlink" href="#add-preference-to-change-behaviour-to-add-images-to-the-mediastore" title="Permanent link">#</a></h4>
+<p>This potentially can allow an external app to delete images taken through Vespucci.</p>
+<h4 id="remove-full-screen-mode-settings">Remove full screen mode settings<a class="headerlink" href="#remove-full-screen-mode-settings" title="Permanent link">#</a></h4>
+<p>This has been replaced by inset based code to avoid overlapping status and navigation bars.</p>
+<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
+<p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one. </p>
+<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul>
 
 
 
