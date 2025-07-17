@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.0.1 (951157 spike-08.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <way id="170730124" visible="true" version="5" changeset="142588777" timestamp="2023-10-14T18:49:22Z" user="Raymond" uid="16478">
+  <nd ref="1818789169"/>
+  <nd ref="1818789170"/>
+  <nd ref="1818789171"/>
+  <nd ref="1569410923"/>
+  <nd ref="11263172736"/>
+  <tag k="highway" v="service"/>
+  <tag k="layer" v="-1"/>
+  <tag k="maxheight" v="1.85"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="surface" v="concrete"/>
+  <tag k="tunnel" v="yes"/>
+ </way>
+</osm>

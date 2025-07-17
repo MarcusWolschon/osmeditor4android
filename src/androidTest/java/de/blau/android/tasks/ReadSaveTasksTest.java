@@ -28,6 +28,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -100,21 +102,7 @@ public class ReadSaveTasksTest {
      */
     @Test
     public void readAndSaveTodos() {
-        final CountDownLatch signal1 = new CountDownLatch(1);
-
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("todos.json");
-        assertNotNull(is);
-        TransferTasks.readTodos(main, is, false, new SignalHandler(signal1));
-        try {
-            signal1.await(TransferMenuTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            fail(e.getMessage());
-        }
-        try {
-            is.close();
-        } catch (IOException e1) {
-        }
+        readTodos(main, "todos.json");
         List<Task> tasks = ts.getTasks();
         assertEquals(2, tasks.size());
         assertTrue(tasks.get(0) instanceof Todo);
@@ -141,6 +129,27 @@ public class ReadSaveTasksTest {
             assertTrue(tasks.get(0) instanceof Todo);
         } finally {
             TestUtils.deleteFile(main, TEST_JSON);
+        }
+    }
+
+    /**
+     * Read some todos from a file
+     */
+    static void readTodos(@NonNull FragmentActivity activity, @NonNull String fileName) {
+        final CountDownLatch signal1 = new CountDownLatch(1);
+
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream(fileName);
+        assertNotNull(is);
+        TransferTasks.readTodos(activity, is, false, new SignalHandler(signal1));
+        try {
+            signal1.await(TransferMenuTest.TIMEOUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        try {
+            is.close();
+        } catch (IOException e1) {
         }
     }
 

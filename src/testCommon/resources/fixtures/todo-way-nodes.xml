@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.0.1 (2703691 spike-06.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <node id="1569410923" visible="true" version="5" changeset="142588777" timestamp="2023-10-14T18:49:22Z" user="Raymond" uid="16478" lat="50.7320651" lon="7.0921332">
+  <tag k="access" v="yes"/>
+  <tag k="amenity" v="parking"/>
+  <tag k="fee" v="yes"/>
+  <tag k="layer" v="-1"/>
+  <tag k="parking" v="underground"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="1818789169" visible="true" version="4" changeset="167632542" timestamp="2025-06-15T00:04:59Z" user="aleph_null" uid="11590344" lat="50.7318680" lon="7.0922195"/>
+ <node id="1818789170" visible="true" version="1" changeset="12160689" timestamp="2012-07-09T11:16:16Z" user="dachefte" uid="133419" lat="50.7318810" lon="7.0920973"/>
+ <node id="1818789171" visible="true" version="1" changeset="12160689" timestamp="2012-07-09T11:16:16Z" user="dachefte" uid="133419" lat="50.7320294" lon="7.0920114"/>
+ <node id="11263172736" visible="true" version="1" changeset="142588777" timestamp="2023-10-14T18:49:22Z" user="Raymond" uid="16478" lat="50.7320789" lon="7.0921906"/>
+</osm>
