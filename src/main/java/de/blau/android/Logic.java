@@ -3425,26 +3425,7 @@ public class Logic {
         ExecutorTask<Void, Void, OsmElement> loader = new ExecutorTask<Void, Void, OsmElement>(executorService, uiHandler) {
             @Override
             protected OsmElement doInBackground(Void arg) throws SAXException, IOException, ParserConfigurationException {
-                try {
-                    final Server server = getPrefs().getServer();
-                    final OsmParser osmParser = new OsmParser(true);
-                    final Storage storage = multiFetch(ctx, server, osmParser, type, new long[] { id });
-                    OsmElement result = storage.getOsmElement(type, id);
-                    if (!Way.NAME.equals(type)) {
-                        return result;
-                    }
-                    downloadMissingWayNodes(ctx, server, osmParser, result);
-                    return result;
-                } catch (SAXException ex) {
-                    Log.e(DEBUG_TAG, "getElementWithDeleted problem parsing", ex);
-                    throw checkSAXException(ex);
-                } catch (ParserConfigurationException ex) {
-                    Log.e(DEBUG_TAG, "getElementWithDeleted problem with parser", ex);
-                    throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
-                } catch (IOException ex) {
-                    Log.e(DEBUG_TAG, "getElementWithDeleted no connection", ex);
-                    throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
-                }
+                return getElementWithDeletedSync(ctx, type, id);
             }
         };
         loader.execute();
@@ -3455,6 +3436,41 @@ public class Logic {
             // cancel does interrupt the thread in question
             loader.cancel();
             throw new OsmServerException(ErrorCodes.NO_CONNECTION, e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Return a single, possibly deleted, element from the API, does not merge into storage, synchronous version
+     * 
+     * Note: currently doesn't check if the API is available or not
+     * 
+     * @param ctx an Android Context
+     * @param type type of the element
+     * @param id id of the element
+     * @return element if successful, null if not
+     * @throws OsmServerException if something goes wrong
+     */
+    @Nullable
+    public OsmElement getElementWithDeletedSync(final Context ctx, final String type, final long id) throws OsmServerException {
+        try {
+            final Server server = getPrefs().getServer();
+            final OsmParser osmParser = new OsmParser(true);
+            final Storage storage = multiFetch(ctx, server, osmParser, type, new long[] { id });
+            OsmElement result = storage.getOsmElement(type, id);
+            if (!Way.NAME.equals(type)) {
+                return result;
+            }
+            downloadMissingWayNodes(ctx, server, osmParser, result);
+            return result;
+        } catch (SAXException ex) {
+            Log.e(DEBUG_TAG, "getElementWithDeleted problem parsing", ex);
+            throw checkSAXException(ex);
+        } catch (ParserConfigurationException ex) {
+            Log.e(DEBUG_TAG, "getElementWithDeleted problem with parser", ex);
+            throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
+        } catch (IOException ex) {
+            Log.e(DEBUG_TAG, "getElementWithDeleted no connection", ex);
+            throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
         }
     }
 

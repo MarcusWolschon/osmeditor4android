@@ -2,7 +2,12 @@ package de.blau.android.tasks;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import android.content.Context;
 import android.text.SpannableString;
@@ -16,12 +21,15 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmServerException;
+import de.blau.android.layer.data.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ScreenMessage;
 import io.noties.markwon.Markwon;
@@ -82,7 +90,7 @@ public abstract class BugFragment extends TaskFragment {
     }
 
     /**
-     * Goto the location of an OsmELement and start editing
+     * Goto the location of an OsmElement and start editing
      * 
      * @param main an instance of Main
      * @param storageDelegator the current StorageDelegator
@@ -93,21 +101,53 @@ public abstract class BugFragment extends TaskFragment {
     public static void gotoAndEditElement(@NonNull final Main main, @NonNull final StorageDelegator storageDelegator, @NonNull final OsmElement e,
             final int lonE7, final int latE7) {
         main.unlock();
-        if (e.getOsmVersion() < 0) { // fake element
-            try {
-                BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50);
-                App.getLogic().downloadBox(main, b, true, () -> {
-                    OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
+        if (e.getOsmVersion() >= 0) { // real element
+            main.zoomToAndEdit(lonE7, latE7, e);
+            return;
+        }
+        // fake element, real element has to be downloaded
+        new ExecutorTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void arg) throws SAXException, IOException, ParserConfigurationException {
+                final Logic logic = App.getLogic();
+                final String elementName = e.getName();
+                final long osmId = e.getOsmId();
+                BoundingBox issueBox = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, MapOverlay.DEFAULT_AUTO_DOWNLOAD_RADIUS);
+                OsmElement element = logic.getElementWithDeletedSync(main, elementName, osmId);
+                if (element.getState() != OsmElement.STATE_DELETED) {
+                    BoundingBox b = element.getBounds();
+                    if (b != null && !(b.contains(issueBox) || b.intersects(issueBox))) {
+                        // warning that element has been moved
+                        issueBox = b;
+                        main.runOnUiThread(() -> ScreenMessage.toastTopWarning(main, R.string.toast_element_may_have_been_moved));
+                    }
+                } else {
+                    // warning that element has been deleted
+                    main.runOnUiThread(() -> ScreenMessage.toastTopWarning(main, R.string.toast_element_has_been_deleted));
+                }
+                logic.downloadBox(main, issueBox, true, () -> {
+                    OsmElement osm = storageDelegator.getOsmElement(elementName, osmId);
                     if (osm != null) {
                         main.zoomToAndEdit(lonE7, latE7, osm);
+                    } else {
+                        Log.e(DEBUG_TAG, "Element " + elementName + osmId + " not found in downloaded data");
                     }
                 });
-            } catch (OsmException e1) {
-                Log.e(DEBUG_TAG, "setupView got " + e1.getMessage());
+                return null;
             }
-        } else { // real
-            main.zoomToAndEdit(lonE7, latE7, e);
-        }
+
+            @Override
+            protected void onBackgroundError(Exception e) {
+                Log.e(DEBUG_TAG, e.getMessage());
+                if (e instanceof OsmServerException) {
+                    main.runOnUiThread(() -> ScreenMessage.toastTopWarning(main,
+                            main.getString(R.string.toast_download_failed, ((OsmServerException) e).getHttpErrorCode(), e.getLocalizedMessage())));
+                    return;
+                }
+                main.runOnUiThread(() -> ScreenMessage.toastTopWarning(main, e.getLocalizedMessage()));
+            }
+        }.execute();
+
     }
 
     /**

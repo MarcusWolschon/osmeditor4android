@@ -2,9 +2,11 @@ package de.blau.android.tasks;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +15,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.content.Context;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -29,9 +33,14 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
+import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.Way;
+import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.API.AuthParams;
+import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -198,6 +207,84 @@ public class TodoTest {
         assertTrue(todos.get(0).isClosed());
         todos = App.getTaskStorage().getTodos(TEST_TO_DO_LIST, false);
         assertEquals(1, todos.size());
+    }
+    
+    @Test
+    public void downloadElement() {
+        MockWebServerPlus mockServer = null;
+        AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
+        try {
+            mockServer = new MockWebServerPlus();
+            HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
+            prefDB.deleteAPI("Test");
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
+            prefDB.selectAPI("Test");
+            Preferences prefs = new Preferences(context);
+            main.getMap().setPrefs(main, prefs);
+            System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
+            App.getDelegator().reset(true);
+            mockServer.enqueue("todo-way");
+            mockServer.enqueue("todo-way-nodes");
+            mockServer.enqueue("capabilities1");
+            mockServer.enqueue("todo_test_boundingbox_data");
+            ReadSaveTasksTest.readTodos(main, "test2.todo");
+            
+            TestUtils.clickAtCoordinates(device, map, 7.0920928, 50.7319719, true);
+            TestUtils.clickAwayTip(device, context);
+            assertTrue(TestUtils.findText(device, false, "download test", 5000, true));
+            assertTrue(TestUtils.clickText(device, false, "way (not downloaded) #170730124", false));
+            assertTrue(TestUtils.textGone(device, main.getString(R.string.progress_download_message), 5000));
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_wayselect), 5000, true));
+            Way w = App.getLogic().getSelectedWay();
+            assertNotNull(w);
+            assertEquals(170730124L, w.getOsmId());
+        } finally {
+            try {
+                if (mockServer != null) {
+                    mockServer.server().shutdown();
+                }
+            } catch (IOException ioex) {
+                System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
+            }
+            prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+        }
+    }
+
+    @Test
+    public void deletedElement() {
+        MockWebServerPlus mockServer = null;
+        AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
+        try {
+            mockServer = new MockWebServerPlus();
+            HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
+            prefDB.deleteAPI("Test");
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
+            prefDB.selectAPI("Test");
+            Preferences prefs = new Preferences(context);
+            main.getMap().setPrefs(main, prefs);
+            System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
+            App.getDelegator().reset(true);
+            mockServer.enqueue("deleted_todo_way");
+            mockServer.enqueue("capabilities1");
+            mockServer.enqueue("todo_test_boundingbox_data");
+            ReadSaveTasksTest.readTodos(main, "test.todo");
+            
+            TestUtils.clickAtCoordinates(device, map, 7.0920928, 50.7319719, true);
+            TestUtils.clickAwayTip(device, context);
+            assertTrue(TestUtils.findText(device, false, "missing download test", 5000, true));
+            assertTrue(TestUtils.clickText(device, false, "way (not downloaded) #1215624706", false));
+            assertTrue(TestUtils.textGone(device, main.getString(R.string.progress_download_message), 5000));
+            assertNull(App.getLogic().getSelectedWays());
+        } finally {
+            try {
+                if (mockServer != null) {
+                    mockServer.server().shutdown();
+                }
+            } catch (IOException ioex) {
+                System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
+            }
+            prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+        }
     }
 
     /**
