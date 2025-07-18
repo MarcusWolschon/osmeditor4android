@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +14,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
+import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.util.Log;
@@ -652,7 +655,7 @@ public class UndoStorage implements Serializable {
      * 
      * @author Jan
      */
-    public abstract class UndoElement implements OsmElementInterface, Serializable {
+    public abstract class UndoElement implements OsmElementInterface, Serializable, AugmentedXmlSerializable {
         private static final long serialVersionUID = 2L;
 
         final OsmElement element;
@@ -837,6 +840,17 @@ public class UndoStorage implements Serializable {
         public boolean wasInCurrentStorage() {
             return inCurrentStorage;
         }
+
+        /**
+         * Serialize the attributes to XML
+         * 
+         * @param s the Serializer
+         * @throws IOException
+         */
+        protected void attributesToXml(@NonNull final XmlSerializer s) throws IOException {
+            s.attribute("", OsmElement.ID_ATTR, Long.toString(osmId));
+            s.attribute("", OsmElement.VERSION_ATTR, Long.toString(osmVersion));
+        }
     }
 
     /**
@@ -890,6 +904,15 @@ public class UndoStorage implements Serializable {
         @Override
         public BoundingBox getBounds(Checkpoint checkpoint) {
             return new BoundingBox(getLon(), getLat());
+        }
+
+        @Override
+        public void toAugmentedXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+            s.startTag("", Node.NAME);
+            attributesToXml(s);
+            Node.coordToXmlAttr(s, lat, lon);
+            OsmElement.tagsToXml(s, getTags());
+            s.endTag("", Node.NAME);
         }
     }
 
@@ -985,6 +1008,35 @@ public class UndoStorage implements Serializable {
         public BoundingBox getBounds(Checkpoint checkpoint) {
             return UndoStorage.getBounds(checkpoint, nodes);
         }
+
+        @Override
+        public void toAugmentedXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+            s.startTag("", Way.NAME);
+            attributesToXml(s);
+            UndoStorage.this.getBounds(nodes).toXml(s, null);
+            wayNodesToAugmentedXml(s);
+            OsmElement.tagsToXml(s, getTags());
+            s.endTag("", Way.NAME);
+
+        }
+
+        /**
+         * @param s
+         * @throws IOException
+         */
+        public void wayNodesToAugmentedXml(XmlSerializer s) throws IOException {
+            for (Node node : nodes) {
+                s.startTag("", Way.NODE);
+                s.attribute("", Way.REF, Long.toString(node.getOsmId()));
+                UndoNode undoNode = (UndoNode) UndoStorage.this.getOriginal(node);
+                if (undoNode == null) {
+                    Node.coordToXmlAttr(s, node.getLat(), node.getLon());
+                } else {
+                    Node.coordToXmlAttr(s, undoNode.getLat(), undoNode.getLon());
+                }
+                s.endTag("", Way.NODE);
+            }
+        }
     }
 
     /**
@@ -1071,6 +1123,38 @@ public class UndoStorage implements Serializable {
         public BoundingBox getBounds(Checkpoint checkpoint) {
             return UndoStorage.getBounds(checkpoint, getMembers(), 1);
         }
+
+        @Override
+        public void toAugmentedXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+            s.startTag("", "rel");
+            attributesToXml(s);
+            UndoStorage.this.getBounds(members, 1).toXml(s, null);
+            for (RelationMember member : members) {
+                s.startTag("", Relation.MEMBER_ATTR);
+                s.attribute("", Relation.MEMBER_TYPE_ATTR, member.getType());
+                s.attribute("", Relation.MEMBER_REF_ATTR, Long.toString(member.getRef()));
+                s.attribute("", Relation.MEMBER_ROLE_ATTR, member.getRole());
+                OsmElement e = member.getElement();
+                UndoElement undoElement = UndoStorage.this.getOriginal(member.getType(), member.getRef());
+                if (Node.NAME.equals(member.getType())) {
+                    if (undoElement != null) {
+                        Node.coordToXmlAttr(s, ((UndoNode) undoElement).getLat(), ((UndoNode) undoElement).getLon());
+                    } else if (e != null) {// member has to be downloaded
+                        Node.coordToXmlAttr(s, ((Node) e).getLat(), ((Node) e).getLon());
+                    }
+                } else if (Way.NAME.equals(member.getType())) {
+                    if (undoElement != null) {
+                        ((UndoWay) undoElement).wayNodesToAugmentedXml(s);
+                    } else if (e != null) {// member has to be downloaded
+                        ((Way) e).wayNodesToAugmentedXml(s);
+                    }
+                }
+                s.endTag("", Relation.MEMBER_ATTR);
+            }
+            OsmElement.tagsToXml(s, getTags());
+            s.endTag("", "rel");
+
+        }
     }
 
     /**
@@ -1133,6 +1217,15 @@ public class UndoStorage implements Serializable {
         return null;
     }
 
+    @Nullable
+    public UndoElement getOriginal(@NonNull String elementName, long osmId) {
+        List<UndoElement> undoElements = getElements(undoCheckpoints, elementName, osmId);
+        if (!undoElements.isEmpty()) {
+            return undoElements.get(0);
+        }
+        return null;
+    }
+
     /**
      * Get a list of all UndoElements for a specific element
      * 
@@ -1170,6 +1263,27 @@ public class UndoStorage implements Serializable {
         for (Checkpoint checkpoint : checkpoints) {
             for (UndoElement undoElement : checkpoint.elements.values()) {
                 if (undoElement.element.getName().equals(name) && undoElement.osmId == osmId) {
+                    result.add(undoElement);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get a list of all UndoElements for a specific element
+     * 
+     * @param checkpoints list of checkpoints
+     * @param element the element
+     * @return a list of UndoElements empty if nothing found
+     */
+    @NonNull
+    private List<UndoElement> getElements(@NonNull LinkedList<Checkpoint> checkpoints, @NonNull String elementName, long osmId) {
+        List<UndoElement> result = new ArrayList<>();
+        for (Checkpoint checkpoint : checkpoints) {
+            for (UndoElement undoElement : checkpoint.elements.values()) {
+                if (undoElement.element.getName().equals(elementName) && undoElement.osmId == osmId) {
                     result.add(undoElement);
                     break;
                 }
@@ -1279,7 +1393,55 @@ public class UndoStorage implements Serializable {
     }
 
     /**
-     * Return a bounding box covering a way
+     * Return a bounding box covering the relation with loop protection
+     * 
+     * This will stop when depth > MAX_DEPTH, the method attempts to use the original version of the members
+     * 
+     * @param checkpoint the current Checkpoint holding the element
+     * @param members the relation members
+     * @param depth current depth in the tree we are at
+     * @return the BoundingBox or null if it cannot be determined
+     */
+    @Nullable
+    private BoundingBox getBounds(@NonNull List<RelationMember> members, int depth) {
+        // NOTE this will only return a bb covering the downloaded elements
+        BoundingBox result = null;
+        if (depth <= Relation.MAX_DEPTH) {
+            for (RelationMember rm : members) {
+                OsmElement e = rm.getElement();
+                UndoElement ue = getOriginal(rm.getType(), rm.getRef());
+                BoundingBox box = null;
+                if (ue != null) {
+                    if (ue instanceof UndoRelation) {
+                        box = getBounds(((UndoRelation) ue).getMembers(), depth + 1);
+                    } else if (ue instanceof UndoWay) {
+                        box = getBounds(((UndoWay) ue).nodes);
+                    }
+                } else if (e != null) {
+                    if (e instanceof Relation) {
+                        box = getBounds(((Relation) e).getMembers(), depth + 1);
+                    } else if (e instanceof Way) {
+                        box = getBounds(((Way) e).getNodes());
+                    }
+                }
+                if (box != null) {
+                    if (result == null) {
+                        result = box;
+                    } else {
+                        if (box != null) {
+                            result.union(box);
+                        }
+                    }
+                }
+            }
+        } else {
+            Log.e(DEBUG_TAG, "getBounds relation nested too deep");
+        }
+        return result;
+    }
+
+    /**
+     * Return a bounding box covering a list of nodes
      * 
      * The method tries to use any node that is contained in the Checkpoint, if this is not the top checkpoint and the
      * way contains nodes that were changed in later checkpoints the result will be incorrect.
@@ -1293,6 +1455,37 @@ public class UndoStorage implements Serializable {
         BoundingBox result = null;
         for (Node n : nodes) {
             UndoNode un = (UndoNode) checkpoint.elements.get(n);
+            if (un == null) {
+                if (result == null) {
+                    result = new BoundingBox(n.getLon(), n.getLat());
+                } else {
+                    result.union(n.getLon(), n.getLat());
+                }
+            } else {
+                if (result == null) {
+                    result = new BoundingBox(un.getLon(), un.getLat());
+                } else {
+                    result.union(un.getLon(), un.getLat());
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Return a bounding box covering a list of nodes
+     * 
+     * The method uses the original nodes
+     * 
+     * @param checkpoint the current Checkpoint holding the way
+     * @param nodes the list of way nodes
+     * @return the BoundingBox or null (for a degenerate Way with no nodes)
+     */
+    @Nullable
+    public BoundingBox getBounds(@NonNull List<Node> nodes) {
+        BoundingBox result = null;
+        for (Node n : nodes) {
+            UndoNode un = (UndoNode) getOriginal(n);
             if (un == null) {
                 if (result == null) {
                     result = new BoundingBox(n.getLon(), n.getLat());
