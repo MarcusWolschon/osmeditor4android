@@ -313,7 +313,7 @@ public class Logic {
     /**
      * Screen locked or not
      */
-    private boolean locked;
+    private boolean uiLocked;
 
     /**
      * The viewBox for the map. All changes on this Object are made in here or in {@link Tracker}.
@@ -364,7 +364,7 @@ public class Logic {
     Logic() {
         viewBox = new ViewBox(getDelegator().getLastBox());
         mode = Mode.MODE_EASYEDIT;
-        setLocked(true);
+        setUiLocked(true);
         executorService = Executors.newFixedThreadPool(EXECUTOR_THREADS);
         uiHandler = new Handler(Looper.getMainLooper());
         selectionStack = new ArrayDeque<>();
@@ -416,15 +416,15 @@ public class Logic {
     /**
      * @return locked status
      */
-    public boolean isLocked() {
-        return locked;
+    public boolean isUiLocked() {
+        return uiLocked;
     }
 
     /**
      * @param locked set locked status
      */
-    public void setLocked(boolean locked) {
-        this.locked = locked;
+    public void setUiLocked(boolean locked) {
+        this.uiLocked = locked;
     }
 
     /**
@@ -1372,7 +1372,7 @@ public class Logic {
         draggingHandle = false;
         draggingNote = false;
         draggedNode = null;
-        if (!isLocked() && isInEditZoomRange() && mode.elementsGeomEditable()) {
+        if (!isUiLocked() && isInEditZoomRange() && mode.elementsGeomEditable()) {
             if (activity instanceof Main && !((Main) activity).getEasyEditManager().draggingEnabled()) {
                 // dragging is currently only supported in element selection modes
                 return;
