@@ -477,7 +477,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         tmpDrawingSelectedRelationWays = logic.getSelectedRelationWays();
         tmpDrawingSelectedRelationNodes = logic.getSelectedRelationNodes();
         tmpPresets = App.getCurrentPresets(context);
-        tmpLocked = logic.isLocked();
+        tmpLocked = logic.isUiLocked();
 
         currentStyle = styles.getCurrent();
 
