@@ -1780,7 +1780,7 @@ public class Logic {
      * @param y screen-coordinate
      * @throws OsmIllegalOperationException if the operation coudn't be performed
      */
-    public synchronized void performAdd(@Nullable final FragmentActivity activity, final float x, final float y) throws OsmIllegalOperationException {
+    public void performAdd(@Nullable final FragmentActivity activity, final float x, final float y) throws OsmIllegalOperationException {
         performAdd(activity, x, y, true, true);
     }
 
@@ -3631,8 +3631,8 @@ public class Logic {
      * @param postLoadHandler callback to execute after download completes if null method waits for download to finish
      * @return an error code, 0 for success
      */
-    public synchronized int downloadElement(@Nullable final Context ctx, @NonNull final String type, final long id, final boolean relationFull,
-            final boolean withParents, @Nullable final PostAsyncActionHandler postLoadHandler) {
+    public int downloadElement(@Nullable final Context ctx, @NonNull final String type, final long id, final boolean relationFull, final boolean withParents,
+            @Nullable final PostAsyncActionHandler postLoadHandler) {
         ExecutorTask<Void, Void, Integer> loader = new ExecutorTask<Void, Void, Integer>() {
 
             @Override
@@ -3761,7 +3761,7 @@ public class Logic {
      * @param postLoadHandler callback to execute after download completes if null method waits for download to finish
      * @return a ReadAsyncResult
      */
-    public synchronized AsyncResult downloadElements(@NonNull final Context ctx, @Nullable final List<Long> nodes, @Nullable final List<Long> ways,
+    public AsyncResult downloadElements(@NonNull final Context ctx, @Nullable final List<Long> nodes, @Nullable final List<Long> ways,
             @Nullable final List<Long> relations, @Nullable final PostAsyncActionHandler postLoadHandler) {
 
         class DownLoadElementsTask extends ExecutorTask<Void, Void, AsyncResult> {
@@ -3858,18 +3858,24 @@ public class Logic {
      * @param e element to delete
      * @param createCheckpoint create an undo checkpoint if true
      */
-    public synchronized void updateToDeleted(@Nullable Activity activity, @NonNull OsmElement e, boolean createCheckpoint) {
+    public void updateToDeleted(@Nullable Activity activity, @NonNull OsmElement e, boolean createCheckpoint) {
         if (createCheckpoint) {
             createCheckpoint(activity, R.string.undo_action_fix_conflict);
         }
-        if (e.getName().equals(Node.NAME)) {
-            getDelegator().removeNode((Node) e);
-        } else if (e.getName().equals(Way.NAME)) {
-            getDelegator().removeWay((Way) e);
-        } else if (e.getName().equals(Relation.NAME)) {
-            getDelegator().removeRelation((Relation) e);
+        final StorageDelegator delegator = getDelegator();
+        try {
+            delegator.lock();
+            if (e.getName().equals(Node.NAME)) {
+                delegator.removeNode((Node) e);
+            } else if (e.getName().equals(Way.NAME)) {
+                delegator.removeWay((Way) e);
+            } else if (e.getName().equals(Relation.NAME)) {
+                delegator.removeRelation((Relation) e);
+            }
+            delegator.removeFromUpload(e, OsmElement.STATE_DELETED);
+        } finally {
+            delegator.unlock();
         }
-        getDelegator().removeFromUpload(e, OsmElement.STATE_DELETED);
     }
 
     /**
@@ -3879,9 +3885,15 @@ public class Logic {
      * @param e the element to replace
      * @param postLoad code to run once we've finished
      */
-    public synchronized void replaceElement(@Nullable Activity activity, @NonNull OsmElement e, @Nullable PostAsyncActionHandler postLoad) {
+    public void replaceElement(@Nullable Activity activity, @NonNull OsmElement e, @Nullable PostAsyncActionHandler postLoad) {
         createCheckpoint(activity, R.string.undo_action_fix_conflict);
-        getDelegator().removeFromUpload(e, OsmElement.STATE_UNCHANGED); // this will allow merging to replace it
+        final StorageDelegator delegator = getDelegator();
+        try {
+            delegator.lock();
+            getDelegator().removeFromUpload(e, OsmElement.STATE_UNCHANGED); // this will allow merging to replace it
+        } finally {
+            delegator.unlock();
+        }
         downloadElement(activity, e.getName(), e.getOsmId(), false, true, new PostAsyncActionHandler() {
 
             @Override
@@ -4101,38 +4113,37 @@ public class Logic {
      *            ones)
      * @param postLoad callback to execute once stream has been loaded
      */
-    private synchronized void readPbfFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
+    private void readPbfFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
 
         new ReadAsyncClass(executorService, uiHandler, activity, is, add, postLoad) {
             @Override
             protected AsyncResult doInBackground(Boolean arg) {
-                synchronized (Logic.this) {
+                try {
+                    Storage storage = new Storage();
                     try {
-                        Storage storage = new Storage();
-                        try {
-                            BlockReaderAdapter opp = new OsmPbfParser(storage);
-                            new BlockInputStream(is, opp).process();
-                            StorageDelegator sd = getDelegator();
-                            sd.reset(false);
-                            sd.setCurrentStorage(storage); // this sets dirty flag
-                            sd.fixupApiStorage();
-                            if (map != null) {
-                                viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
-                            }
-                        } finally {
-                            SavingHelper.close(is);
+                        BlockReaderAdapter opp = new OsmPbfParser(storage);
+                        new BlockInputStream(is, opp).process();
+                        StorageDelegator sd = getDelegator();
+                        sd.reset(false);
+                        sd.setCurrentStorage(storage); // this sets dirty flag
+                        sd.fixupApiStorage();
+                        if (map != null) {
+                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
                         }
-                    } catch (StorageException sex) {
-                        Log.e(DEBUG_TAG, "Problem reading PBF " + sex.getMessage());
-                        return new AsyncResult(ErrorCodes.OUT_OF_MEMORY, sex.getMessage());
-                    } catch (IOException | RuntimeException e) {
-                        Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
-                        return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                    } finally {
+                        SavingHelper.close(is);
                     }
-                    return new AsyncResult(ErrorCodes.OK, null);
+                } catch (StorageException sex) {
+                    Log.e(DEBUG_TAG, "Problem reading PBF " + sex.getMessage());
+                    return new AsyncResult(ErrorCodes.OUT_OF_MEMORY, sex.getMessage());
+                } catch (IOException | RuntimeException e) {
+                    Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
+                    return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                 }
+                return new AsyncResult(ErrorCodes.OK, null);
             }
+
         }.execute(add);
     }
 
@@ -4195,12 +4206,14 @@ public class Logic {
      * 
      * @param context an Android Context
      */
-    synchronized void save(@NonNull final Context context) {
+    void save(@NonNull final Context context) {
         try {
             getDelegator().writeToFile(context);
-            App.getTaskStorage().writeToFile(context);
-            if (map != null) {
-                map.saveLayerState(context);
+            synchronized (this) {
+                App.getTaskStorage().writeToFile(context);
+                if (map != null) {
+                    map.saveLayerState(context);
+                }
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem saving", e);
