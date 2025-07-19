@@ -86,7 +86,7 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
             map.getViewBox().moveTo(map, (int) (elementCenter[0] * 1E7D), (int) (elementCenter[1] * 1E7D));
             if (ctx instanceof Main) {
                 final Main main = (Main) ctx;
-                if (App.getLogic().isLocked()) {
+                if (App.getLogic().isUiLocked()) {
                     map.invalidate();
                     ElementInfo.showDialog(main, element);
                 } else {

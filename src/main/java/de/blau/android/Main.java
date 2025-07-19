@@ -1392,7 +1392,7 @@ public class Main extends ConfigurationChangeAwareActivity
             selectElements(logic, storageDelegator, Way.NAME, rcData.getWays());
             selectElements(logic, storageDelegator, Relation.NAME, rcData.getRelations());
             FloatingActionButton lock = getLock();
-            if (logic.isLocked() && lock != null) {
+            if (logic.isUiLocked() && lock != null) {
                 lock.performClick();
             }
             if (easyEditManager != null) {
@@ -1703,10 +1703,10 @@ public class Main extends ConfigurationChangeAwareActivity
             if (drawableState.length == 0 || drawableState[0] != android.R.attr.state_pressed) {
                 logic.setMode(Main.this, Mode.modeForTag((String) b.getTag()));
                 ((FloatingActionButton) b).setImageState(new int[] { android.R.attr.state_pressed }, false);
-                logic.setLocked(false);
+                logic.setUiLocked(false);
                 enableSimpleActionsButton();
             } else {
-                logic.setLocked(true);
+                logic.setUiLocked(true);
                 ((FloatingActionButton) b).setImageState(new int[] { 0 }, false);
                 disableSimpleActionsButton();
             }
@@ -1760,7 +1760,7 @@ public class Main extends ConfigurationChangeAwareActivity
             lock.setImageDrawable(mStates);
             lock.hide(); // workaround https://issuetracker.google.com/issues/117476935
             lock.show();
-            if (l.isLocked()) {
+            if (l.isUiLocked()) {
                 lock.setImageState(new int[] { 0 }, false);
             } else {
                 lock.setImageState(new int[] { android.R.attr.state_pressed }, false);
@@ -1774,7 +1774,7 @@ public class Main extends ConfigurationChangeAwareActivity
      * Unlock the main display
      */
     public void unlock() {
-        if (App.getLogic().isLocked()) {
+        if (App.getLogic().isUiLocked()) {
             getLock().performClick();
         }
     }
@@ -1803,7 +1803,7 @@ public class Main extends ConfigurationChangeAwareActivity
             return null;
         }
         Logic logic = App.getLogic();
-        if (logic.isLocked()) {
+        if (logic.isUiLocked()) {
             lock.setImageState(new int[] { 0 }, false);
             disableSimpleActionsButton();
         } else {
@@ -1903,7 +1903,7 @@ public class Main extends ConfigurationChangeAwareActivity
         final Logic logic = App.getLogic();
         MenuItem undo = menu.findItem(R.id.menu_undo);
         UndoStorage undoStorage = logic.getUndo();
-        undo.setVisible(!logic.isLocked() && (undoStorage.canUndo() || undoStorage.canRedo()));
+        undo.setVisible(!logic.isUiLocked() && (undoStorage.canUndo() || undoStorage.canRedo()));
         View undoView = undo.getActionView();
         undoView.setOnClickListener(undoListener);
         undoView.setOnLongClickListener(undoListener);
@@ -1947,7 +1947,7 @@ public class Main extends ConfigurationChangeAwareActivity
         menu.findItem(R.id.menu_transfer_save_notes_new_and_changed).setEnabled(storagePermissionGranted);
 
         // main menu items
-        menu.findItem(R.id.menu_search_objects).setEnabled(!logic.isLocked());
+        menu.findItem(R.id.menu_search_objects).setEnabled(!logic.isUiLocked());
 
         Filter filter = logic.getFilter();
         if (filter instanceof TagFilter && !prefs.getEnableTagFilter()) {
@@ -3688,7 +3688,7 @@ public class Main extends ConfigurationChangeAwareActivity
             boolean isInEditZoomRange = logic.isInEditZoomRange();
 
             if (isInEditZoomRange) {
-                if (logic.isLocked()) {
+                if (logic.isUiLocked()) {
                     ScreenMessage.toastTopInfo(Main.this, R.string.toast_unlock_to_edit);
                     Tip.showOptionalDialog(Main.this, R.string.tip_locked_mode_key, R.string.tip_locked_mode);
                 } else {
@@ -3700,7 +3700,7 @@ public class Main extends ConfigurationChangeAwareActivity
             } else {
                 switch (clickedObjects.size()) {
                 case 0:
-                    if (!logic.isLocked()) {
+                    if (!logic.isUiLocked()) {
                         ScreenMessage.toastTopInfo(Main.this, R.string.toast_not_in_edit_range);
                     }
                     break;
@@ -3727,7 +3727,7 @@ public class Main extends ConfigurationChangeAwareActivity
             final Logic logic = App.getLogic();
             clickedNodesAndWays = getClickedOsmElements(logic, x, y);
             int elementCount = clickedNodesAndWays.size();
-            if (logic.isLocked()) {
+            if (logic.isUiLocked()) {
                 // display context menu
                 getClickedObjects(x, y);
                 int clickedObjectsCount = clickedObjects.size();
@@ -4008,7 +4008,7 @@ public class Main extends ConfigurationChangeAwareActivity
                 return;
             }
             final OsmElement element = clickedNodesAndWays.get(itemId);
-            if (App.getLogic().isLocked()) {
+            if (App.getLogic().isUiLocked()) {
                 ElementInfo.showDialog(Main.this, element);
                 return;
             }
@@ -4036,7 +4036,7 @@ public class Main extends ConfigurationChangeAwareActivity
         @Override
         public void onDoubleTap(View v, float x, float y) {
             final Logic logic = App.getLogic();
-            if (logic.isLocked()) {
+            if (logic.isUiLocked()) {
                 ScreenMessage.toastTopInfo(Main.this, R.string.toast_unlock_to_edit);
                 return;
             }
@@ -4648,7 +4648,7 @@ public class Main extends ConfigurationChangeAwareActivity
      * Lock screen if we are in a mode in which that can reasonably be done
      */
     public void lock() {
-        if (App.getLogic().isLocked()) {
+        if (App.getLogic().isUiLocked()) {
             return;
         }
         EasyEditManager manager = getEasyEditManager();
