@@ -33,6 +33,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
 
 import javax.net.ssl.SSLProtocolException;
@@ -223,6 +224,11 @@ public class Logic {
     private static final long ONE_DAY_MS = 24 * 3600 * 1000L;
 
     /**
+     * This is used instead of synchronized
+     */
+    private ReentrantLock lock = new ReentrantLock();
+
+    /**
      * Stores the {@link Preferences} as soon as they are available.
      */
     private Preferences prefs;
@@ -355,7 +361,8 @@ public class Logic {
     private ExecutorService executorService;
     private Handler         uiHandler;
 
-    private boolean editingStateRead = false; // set to true after we have read the editing state
+    private boolean editingStateRead = false; // set to true after we have read the
+                                              // editing state
 
     /**
      * Initiate all needed values. Starts Tracker and delegate the first values for the map.
@@ -769,16 +776,20 @@ public class Logic {
      * @param createCheckpoint create a checkpoint, except in composite operations this should always be true
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public synchronized void setTags(@Nullable Activity activity, @Nullable OsmElement osmElement, @Nullable final java.util.Map<String, String> tags,
+    public void setTags(@Nullable Activity activity, @Nullable OsmElement osmElement, @Nullable final java.util.Map<String, String> tags,
             boolean createCheckpoint) throws OsmIllegalOperationException {
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element");
             throw new OsmIllegalOperationException("Element not in storage");
-        } else {
+        }
+        try {
+            lock();
             if (createCheckpoint) {
                 createCheckpoint(activity, R.string.undo_action_set_tags);
             }
             getDelegator().setTags(osmElement, tags);
+        } finally {
+            unlock();
         }
     }
 
@@ -791,25 +802,27 @@ public class Logic {
      * @param parents new parent relations
      * @return false if no element exists for the given osmId/type.
      */
-    public synchronized boolean updateParentRelations(@Nullable FragmentActivity activity, final String type, final long osmId,
+    public boolean updateParentRelations(@Nullable FragmentActivity activity, final String type, final long osmId,
             final MultiHashMap<Long, RelationMemberPosition> parents) {
         OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");
             return false;
-        } else {
+        }
+        try {
+            lock();
             List<Relation> originalParents = osmElement.hasParentRelations() ? new ArrayList<>(osmElement.getParentRelations()) : null;
             createCheckpoint(activity, R.string.undo_action_update_relations);
-            try {
-                getDelegator().updateParentRelations(osmElement, parents);
-                if (activity != null) {
-                    ElementSelectionActionModeCallback.checkEmptyRelations(activity, originalParents);
-                }
-                return true;
-            } catch (OsmIllegalOperationException | StorageException ex) {
-                handleDelegatorException(activity, ex);
-                throw ex; // rethrow
+            getDelegator().updateParentRelations(osmElement, parents);
+            if (activity != null) {
+                ElementSelectionActionModeCallback.checkEmptyRelations(activity, originalParents);
             }
+            return true;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        } finally {
+            unlock();
         }
     }
 
@@ -821,21 +834,24 @@ public class Logic {
      * @param members The new list of members to set for the given relation.
      * @return true if the members was updated
      */
-    public synchronized boolean updateRelation(@Nullable FragmentActivity activity, long osmId, List<RelationMemberDescription> members) {
+    public boolean updateRelation(@Nullable FragmentActivity activity, long osmId, List<RelationMemberDescription> members) {
         OsmElement osmElement = getDelegator().getOsmElement(Relation.NAME, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to update non-existing relation #" + osmId);
             return false;
-        } else {
-            try {
-                createCheckpoint(activity, R.string.undo_action_update_relations);
-                getDelegator().updateRelation((Relation) osmElement, members);
-                return true;
-            } catch (OsmIllegalOperationException | StorageException ex) {
-                handleDelegatorException(activity, ex);
-                throw ex; // rethrow
-            }
         }
+        try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_update_relations);
+            getDelegator().updateRelation((Relation) osmElement, members);
+            return true;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        } finally {
+            unlock();
+        }
+
     }
 
     /**
@@ -1046,7 +1062,7 @@ public class Logic {
      * @return a Handle object or null
      */
     @Nullable
-    private synchronized Handle getClickedWayHandleWithDistances(final float x, final float y) {
+    private Handle getClickedWayHandleWithDistances(final float x, final float y) {
 
         Handle result = null;
         double bestDistance = Double.MAX_VALUE;
@@ -1054,43 +1070,48 @@ public class Logic {
         float wayToleranceValue = wayToleranceForTouch(currentStyle);
         float minLenForHandle = currentStyle.getMinLenForHandle();
 
-        List<Way> ways = getSelectedWays();
-        if (ways == null) {
-            return null;
-        }
-        for (Way way : ways) {
-            List<Node> wayNodes = way.getNodes();
-            // Iterate over all WayNodes, but not the last one.
-            int wayNodesSize = wayNodes.size();
-            Node node1 = wayNodes.get(0);
-            float node1X = lonE7ToX(node1.getLon());
-            float node1Y = latE7ToY(node1.getLat());
-            for (int k = 0; k < wayNodesSize - 1; ++k) {
-                Node node2 = wayNodes.get(k + 1);
-                float node2X = lonE7ToX(node2.getLon());
-                float node2Y = latE7ToY(node2.getLat());
-                float xDelta = node2X - node1X;
-                float yDelta = node2Y - node1Y;
+        try {
+            lock();
+            List<Way> ways = getSelectedWays();
+            if (ways == null) {
+                return null;
+            }
+            for (Way way : ways) {
+                List<Node> wayNodes = way.getNodes();
+                // Iterate over all WayNodes, but not the last one.
+                int wayNodesSize = wayNodes.size();
+                Node node1 = wayNodes.get(0);
+                float node1X = lonE7ToX(node1.getLon());
+                float node1Y = latE7ToY(node1.getLat());
+                for (int k = 0; k < wayNodesSize - 1; ++k) {
+                    Node node2 = wayNodes.get(k + 1);
+                    float node2X = lonE7ToX(node2.getLon());
+                    float node2Y = latE7ToY(node2.getLat());
+                    float xDelta = node2X - node1X;
+                    float yDelta = node2Y - node1Y;
 
-                float handleX = node1X + xDelta / 2;
-                float handleY = node1Y + yDelta / 2;
+                    float handleX = node1X + xDelta / 2;
+                    float handleY = node1Y + yDelta / 2;
 
-                float differenceX = Math.abs(handleX - x);
-                float differenceY = Math.abs(handleY - y);
+                    float differenceX = Math.abs(handleX - x);
+                    float differenceY = Math.abs(handleY - y);
 
-                node1X = node2X;
-                node1Y = node2Y;
+                    node1X = node2X;
+                    node1Y = node2Y;
 
-                if (((differenceX > wayToleranceValue) && (differenceY > wayToleranceValue)) || Math.hypot(xDelta, yDelta) <= minLenForHandle) {
-                    continue;
-                }
+                    if (((differenceX > wayToleranceValue) && (differenceY > wayToleranceValue)) || Math.hypot(xDelta, yDelta) <= minLenForHandle) {
+                        continue;
+                    }
 
-                double dist = Math.hypot(differenceX, differenceY);
-                if ((dist <= wayToleranceValue) && (dist < bestDistance)) {
-                    bestDistance = dist;
-                    result = new Handle(handleX, handleY);
+                    double dist = Math.hypot(differenceX, differenceY);
+                    if ((dist <= wayToleranceValue) && (dist < bestDistance)) {
+                        bestDistance = dist;
+                        result = new Handle(handleX, handleY);
+                    }
                 }
             }
+        } finally {
+            unlock();
         }
         return result;
     }
@@ -1365,7 +1386,7 @@ public class Logic {
      * @param x display-coord.
      * @param y display-coord.
      */
-    synchronized void handleTouchEventDown(@NonNull Activity activity, final float x, final float y) {
+    void handleTouchEventDown(@NonNull Activity activity, final float x, final float y) {
         boolean draggingMultiselect = false;
         draggingNode = false;
         draggingWay = false;
@@ -1377,97 +1398,108 @@ public class Logic {
                 // dragging is currently only supported in element selection modes
                 return;
             }
-            Task selectedTask = null;
-            de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
-            if (taskLayer != null) {
-                selectedTask = taskLayer.getSelected();
-            }
-            final boolean largeDragArea = prefs.largeDragArea();
-            final Selection currentSelection = selectionStack.getFirst();
-            final int selectedWayCount = currentSelection.wayCount();
-            final int selectedNodeCount = currentSelection.nodeCount();
-            if (rotating) {
-                startX = x;
-                startY = y;
-            } else if ((selectedNodeCount == 1 || selectedTask != null) && selectedWayCount == 0) { // single node or
-                                                                                                    // task dragging
-                DataStyle currentStyle = map.getDataStyle().getCurrent();
-                float tolerance = largeDragArea ? currentStyle.getLargDragToleranceRadius() : currentStyle.getNodeToleranceValue();
-                GeoPoint point = selectedTask != null ? selectedTask : currentSelection.getNode();
-                if (clickDistance(point, x, y, tolerance) != null) {
-                    draggingNode = selectedTask == null;
-                    draggingNote = selectedTask != null;
-                    if (largeDragArea) {
-                        startX = lonE7ToX(point.getLon());
-                        startY = latE7ToY(point.getLat());
-                    }
+            try {
+                lock();
+                Task selectedTask = null;
+                de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
+                if (taskLayer != null) {
+                    selectedTask = taskLayer.getSelected();
                 }
-            } else {
-                Handle handle = getClickedWayHandleWithDistances(x, y);
-                if (handle != null) {
-                    Log.d(DEBUG_TAG, "start handle drag");
-                    selectedHandle = handle;
-                    draggingHandle = true;
-                } else if (selectedWayCount == 1 && selectedNodeCount == 0) {
-                    // single way, way handle or way node dragging or way rotation
-                    List<Way> clickedWays = getClickedWays(true, x, y);
-                    if (!clickedWays.isEmpty()) {
-                        List<OsmElement> clickedNodes = getClickedNodes(x, y);
-                        final Way selectedWay = currentSelection.getWay();
-                        draggedNode = getCommonNode(selectedWay, clickedNodes);
-                        if (prefs.isWayNodeDraggingEnabled() && draggedNode != null) {
-                            draggingNode = true;
-                            if (largeDragArea) {
-                                startX = lonE7ToX(draggedNode.getLon());
-                                startY = latE7ToY(draggedNode.getLat());
-                            }
-                        } else if (clickedWays.contains(selectedWay)) {
-                            startLat = yToLatE7(y);
-                            startLon = xToLonE7(x);
-                            draggingWay = true;
+                final boolean largeDragArea = prefs.largeDragArea();
+                final Selection currentSelection = selectionStack.getFirst();
+                final int selectedWayCount = currentSelection.wayCount();
+                final int selectedNodeCount = currentSelection.nodeCount();
+                if (rotating) {
+                    startX = x;
+                    startY = y;
+                } else if ((selectedNodeCount == 1 || selectedTask != null) && selectedWayCount == 0) { // single node
+                                                                                                        // or
+                                                                                                        // task dragging
+                    DataStyle currentStyle = map.getDataStyle().getCurrent();
+                    float tolerance = largeDragArea ? currentStyle.getLargDragToleranceRadius() : currentStyle.getNodeToleranceValue();
+                    GeoPoint point = selectedTask != null ? selectedTask : currentSelection.getNode();
+                    if (clickDistance(point, x, y, tolerance) != null) {
+                        draggingNode = selectedTask == null;
+                        draggingNote = selectedTask != null;
+                        if (largeDragArea) {
+                            startX = lonE7ToX(point.getLon());
+                            startY = latE7ToY(point.getLat());
                         }
                     }
                 } else {
-                    // check for multi-select
-                    if ((selectedWayCount > 1 || selectedNodeCount > 1) || (selectedWayCount > 0 && selectedNodeCount > 0)) {
-                        Log.d(DEBUG_TAG, "Multi select detected");
-                        boolean foundSelected = false;
-                        if (selectedWayCount > 0) {
-                            List<Way> clickedWays = getClickedWays(x, y);
-                            for (Way w : clickedWays) {
-                                if (currentSelection.contains(w)) {
-                                    foundSelected = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (!foundSelected && selectedNodeCount > 0) {
+                    Handle handle = getClickedWayHandleWithDistances(x, y);
+                    if (handle != null) {
+                        Log.d(DEBUG_TAG, "start handle drag");
+                        selectedHandle = handle;
+                        draggingHandle = true;
+                    } else if (selectedWayCount == 1 && selectedNodeCount == 0) {
+                        // single way, way handle or way node dragging or way rotation
+                        List<Way> clickedWays = getClickedWays(true, x, y);
+                        if (!clickedWays.isEmpty()) {
                             List<OsmElement> clickedNodes = getClickedNodes(x, y);
-                            for (OsmElement n : clickedNodes) {
-                                if (currentSelection.contains(n)) {
-                                    foundSelected = true;
-                                    break;
+                            final Way selectedWay = currentSelection.getWay();
+                            draggedNode = getCommonNode(selectedWay, clickedNodes);
+                            if (prefs.isWayNodeDraggingEnabled() && draggedNode != null) {
+                                draggingNode = true;
+                                if (largeDragArea) {
+                                    startX = lonE7ToX(draggedNode.getLon());
+                                    startY = latE7ToY(draggedNode.getLat());
                                 }
+                            } else if (clickedWays.contains(selectedWay)) {
+                                startLat = yToLatE7(y);
+                                startLon = xToLonE7(x);
+                                draggingWay = true;
                             }
                         }
-                        if (foundSelected) {
-                            startLat = yToLatE7(y);
-                            startLon = xToLonE7(x);
-                            startX = x;
-                            startY = y;
-                            draggingMultiselect = true;
-                            draggingWay = true;
+                    } else {
+                        // check for multi-select
+                        if ((selectedWayCount > 1 || selectedNodeCount > 1) || (selectedWayCount > 0 && selectedNodeCount > 0)) {
+                            Log.d(DEBUG_TAG, "Multi select detected");
+                            boolean foundSelected = false;
+                            if (selectedWayCount > 0) {
+                                List<Way> clickedWays = getClickedWays(x, y);
+                                for (Way w : clickedWays) {
+                                    if (currentSelection.contains(w)) {
+                                        foundSelected = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!foundSelected && selectedNodeCount > 0) {
+                                List<OsmElement> clickedNodes = getClickedNodes(x, y);
+                                for (OsmElement n : clickedNodes) {
+                                    if (currentSelection.contains(n)) {
+                                        foundSelected = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (foundSelected) {
+                                startLat = yToLatE7(y);
+                                startLon = xToLonE7(x);
+                                startX = x;
+                                startY = y;
+                                draggingMultiselect = true;
+                                draggingWay = true;
+                            }
                         }
                     }
                 }
+            } finally {
+                unlock();
             }
         }
         Log.d(DEBUG_TAG, "handleTouchEventDown creating checkpoints");
         if ((draggingNode || draggingWay)) {
-            if (draggingMultiselect) {
-                createCheckpoint(activity, R.string.undo_action_moveobjects);
-            } else {
-                createCheckpoint(activity, draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
+            try {
+                lock();
+                if (draggingMultiselect) {
+                    createCheckpoint(activity, R.string.undo_action_moveobjects);
+                } else {
+                    createCheckpoint(activity, draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
+                }
+            } finally {
+                unlock();
             }
         }
     }
@@ -1495,22 +1527,32 @@ public class Logic {
      * @param x screen x
      * @param y screen y
      */
-    synchronized void handleTouchEventUp(final float x, final float y) {
-        handleNode = null;
-        draggingHandle = false;
+    void handleTouchEventUp(final float x, final float y) {
+        try {
+            lock();
+            handleNode = null;
+            draggingHandle = false;
+        } finally {
+            unlock();
+        }
     }
 
     /**
      * Calculates the coordinates for the center of the selected objects and displays a crosshair there.
      */
-    public synchronized void showCrosshairsForCentroid() {
-        int[] coords = calcCentroid(selectionStack.getFirst().getAll());
-        if (coords.length == 2) {
-            centroidX = lonE7ToX(coords[1]);
-            centroidY = latE7ToY(coords[0]);
-            showCrosshairs(centroidX, centroidY);
-        } else {
-            Log.e(DEBUG_TAG, "Unable to calcualte centroid for selection");
+    public void showCrosshairsForCentroid() {
+        try {
+            lock();
+            int[] coords = calcCentroid(selectionStack.getFirst().getAll());
+            if (coords.length == 2) {
+                centroidX = lonE7ToX(coords[1]);
+                centroidY = latE7ToY(coords[0]);
+                showCrosshairs(centroidX, centroidY);
+            } else {
+                Log.e(DEBUG_TAG, "Unable to calcualte centroid for selection");
+            }
+        } finally {
+            unlock();
         }
     }
 
@@ -1526,9 +1568,11 @@ public class Logic {
      * @param relativeY The difference to the last absolute display-coordinate.
      * @throws OsmIllegalOperationException if one of the operations triggered went wrong
      */
-    synchronized void handleTouchEventMove(@NonNull Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
-        final Selection currentSelection = selectionStack.getFirst();
+    void handleTouchEventMove(@NonNull Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
         try {
+            lock();
+            final Selection currentSelection = selectionStack.getFirst();
+
             if (draggingNode || draggingWay || draggingHandle || draggingNote) {
                 int lat = yToLatE7(absoluteY);
                 int lon = xToLonE7(absoluteX);
@@ -1620,6 +1664,8 @@ public class Logic {
             handleDelegatorException(main, e);
         } catch (IllegalOperationException e) { // generated by moving a note
             ScreenMessage.barError(main, e.getMessage());
+        } finally {
+            unlock();
         }
         invalidateMap();
     }
@@ -1797,17 +1843,17 @@ public class Logic {
      * @param snap if true existing nodes will be reused and new nodes created on nearby ways
      * @throws OsmIllegalOperationException if the operation coudn't be performed
      */
-    public synchronized void performAdd(@Nullable final FragmentActivity activity, final float x, final float y, boolean createCheckpoint, boolean snap)
+    public void performAdd(@Nullable final FragmentActivity activity, final float x, final float y, boolean createCheckpoint, boolean snap)
             throws OsmIllegalOperationException {
         Log.d(DEBUG_TAG, "performAdd");
-        if (createCheckpoint) {
-            createCheckpoint(activity, R.string.undo_action_add);
-        }
-        Node nextNode;
-        Node lSelectedNode = getSelectedNode();
-        Way lSelectedWay = getSelectedWay();
-
         try {
+            lock();
+            if (createCheckpoint) {
+                createCheckpoint(activity, R.string.undo_action_add);
+            }
+            Node nextNode;
+            Node lSelectedNode = getSelectedNode();
+            Way lSelectedWay = getSelectedWay();
             nextNode = snap ? getClickedNodeOrCreatedWayNode(x, y) : getClickedNode(x, y);
             if (lSelectedNode == null) {
                 // This will be the first node.
@@ -1848,12 +1894,14 @@ public class Logic {
                     }
                 }
             }
+            setSelectedNode(lSelectedNode);
+            setSelectedWay(lSelectedWay);
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
+        } finally {
+            unlock();
         }
-        setSelectedNode(lSelectedNode);
-        setSelectedWay(lSelectedWay);
     }
 
     /**
@@ -1953,14 +2001,19 @@ public class Logic {
      * @return the created node
      */
     @NonNull
-    public synchronized Node performAddNode(@Nullable final Activity activity, int lonE7, int latE7) {
+    public Node performAddNode(@Nullable final Activity activity, int lonE7, int latE7) {
         Log.d(DEBUG_TAG, "performAddNode");
-        createCheckpoint(activity, R.string.undo_action_add);
-        Node newNode = getDelegator().getFactory().createNodeWithNewId(latE7, lonE7);
-        getDelegator().insertElementSafe(newNode);
-        outsideOfDownload(activity, lonE7, latE7);
-        setSelectedNode(newNode);
-        return newNode;
+        try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_add);
+            Node newNode = getDelegator().getFactory().createNodeWithNewId(latE7, lonE7);
+            getDelegator().insertElementSafe(newNode);
+            outsideOfDownload(activity, lonE7, latE7);
+            setSelectedNode(newNode);
+            return newNode;
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -1977,16 +2030,21 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation would create an illegal state
      */
     @Nullable
-    public synchronized Node performAddOnWay(@Nullable Activity activity, @Nullable List<Way> ways, final float x, final float y, boolean forceNew)
+    public Node performAddOnWay(@Nullable Activity activity, @Nullable List<Way> ways, final float x, final float y, boolean forceNew)
             throws OsmIllegalOperationException {
-        Node savedSelectedNode = getSelectedNode();
-        Node newSelectedNode = addOnWay(activity, ways, x, y, forceNew);
-        if (newSelectedNode == null) {
-            setSelectedNode(savedSelectedNode);
-            return null;
+        try {
+            lock();
+            Node savedSelectedNode = getSelectedNode();
+            Node newSelectedNode = addOnWay(activity, ways, x, y, forceNew);
+            if (newSelectedNode == null) {
+                setSelectedNode(savedSelectedNode);
+                return null;
+            }
+            setSelectedNode(newSelectedNode);
+            return newSelectedNode;
+        } finally {
+            unlock();
         }
-        setSelectedNode(newSelectedNode);
-        return newSelectedNode;
     }
 
     /**
@@ -2018,14 +2076,19 @@ public class Logic {
      * @param node Node to delete
      * @param createCheckpoint create an Undo checkpoint
      */
-    public synchronized void performEraseNode(@Nullable final FragmentActivity activity, @NonNull final Node node, boolean createCheckpoint) {
-        if (createCheckpoint) {
-            createCheckpoint(activity, R.string.undo_action_deletenode);
+    public void performEraseNode(@Nullable final FragmentActivity activity, @NonNull final Node node, boolean createCheckpoint) {
+        try {
+            lock();
+            if (createCheckpoint) {
+                createCheckpoint(activity, R.string.undo_action_deletenode);
+            }
+            displayAttachedObjectWarning(activity, node); // needs to be done before removal
+            getDelegator().removeNode(node);
+            invalidateMap();
+            outsideOfDownload(activity, node.getLon(), node.getLat());
+        } finally {
+            unlock();
         }
-        displayAttachedObjectWarning(activity, node); // needs to be done before removal
-        getDelegator().removeNode(node);
-        invalidateMap();
-        outsideOfDownload(activity, node.getLon(), node.getLat());
     }
 
     /**
@@ -2076,21 +2139,26 @@ public class Logic {
      *            activity is not null tags that would be discarded are ignored too
      * @param createCheckpoint if true create an undo checkpoint
      */
-    public synchronized void performEraseWay(@Nullable final FragmentActivity activity, @NonNull final Way way, final boolean deleteOrphanNodes,
-            boolean createCheckpoint) {
-        if (createCheckpoint) {
-            createCheckpoint(activity, R.string.undo_action_deleteway);
-        }
-        displayAttachedObjectWarning(activity, way); // needs to be done before removal
-        HashSet<Node> nodes = deleteOrphanNodes ? new HashSet<>(way.getNodes()) : null; // HashSet guarantees uniqueness
-        getDelegator().removeWay(way);
-        if (deleteOrphanNodes) {
-            DiscardedTags discardedTags = activity != null ? App.getDiscardedTags(activity) : null;
-            for (Node node : nodes) {
-                if (getWaysForNode(node).isEmpty() && (node.getTags().isEmpty() || (discardedTags != null && discardedTags.only(node)))) {
-                    getDelegator().removeNode(node);
+    public void performEraseWay(@Nullable final FragmentActivity activity, @NonNull final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
+        try {
+            lock();
+            if (createCheckpoint) {
+                createCheckpoint(activity, R.string.undo_action_deleteway);
+            }
+            displayAttachedObjectWarning(activity, way); // needs to be done before removal
+            HashSet<Node> nodes = deleteOrphanNodes ? new HashSet<>(way.getNodes()) : null; // HashSet guarantees
+                                                                                            // uniqueness
+            getDelegator().removeWay(way);
+            if (deleteOrphanNodes) {
+                DiscardedTags discardedTags = activity != null ? App.getDiscardedTags(activity) : null;
+                for (Node node : nodes) {
+                    if (getWaysForNode(node).isEmpty() && (node.getTags().isEmpty() || (discardedTags != null && discardedTags.only(node)))) {
+                        getDelegator().removeNode(node);
+                    }
                 }
             }
+        } finally {
+            unlock();
         }
         invalidateMap();
     }
@@ -2102,12 +2170,17 @@ public class Logic {
      * @param relation Relation to delete
      * @param createCheckpoint create an Undo checkpoint
      */
-    public synchronized void performEraseRelation(@Nullable final FragmentActivity activity, @NonNull final Relation relation, boolean createCheckpoint) {
-        if (createCheckpoint) {
-            createCheckpoint(activity, R.string.undo_action_delete_relation);
+    public void performEraseRelation(@Nullable final FragmentActivity activity, @NonNull final Relation relation, boolean createCheckpoint) {
+        try {
+            lock();
+            if (createCheckpoint) {
+                createCheckpoint(activity, R.string.undo_action_delete_relation);
+            }
+            displayAttachedObjectWarning(activity, relation); // needs to be done before removal
+            getDelegator().removeRelation(relation);
+        } finally {
+            unlock();
         }
-        displayAttachedObjectWarning(activity, relation); // needs to be done before removal
-        getDelegator().removeRelation(relation);
         invalidateMap();
     }
 
@@ -2119,24 +2192,29 @@ public class Logic {
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param selection objects to delete
      */
-    public synchronized void performEraseMultipleObjects(@Nullable final FragmentActivity activity, @NonNull List<OsmElement> selection) {
-        // need to make three passes
-        createCheckpoint(activity, R.string.undo_action_delete_objects);
-        displayAttachedObjectWarning(activity, selection); // needs to be done before removal
-        for (OsmElement e : selection) {
-            if (e instanceof Relation && e.getState() != OsmElement.STATE_DELETED) {
-                performEraseRelation(activity, (Relation) e, false);
+    public void performEraseMultipleObjects(@Nullable final FragmentActivity activity, @NonNull List<OsmElement> selection) {
+        try {
+            lock();
+            // need to make three passes
+            createCheckpoint(activity, R.string.undo_action_delete_objects);
+            displayAttachedObjectWarning(activity, selection); // needs to be done before removal
+            for (OsmElement e : selection) {
+                if (e instanceof Relation && e.getState() != OsmElement.STATE_DELETED) {
+                    performEraseRelation(activity, (Relation) e, false);
+                }
             }
-        }
-        for (OsmElement e : selection) {
-            if (e instanceof Way && e.getState() != OsmElement.STATE_DELETED) {
-                performEraseWay(activity, (Way) e, true, false);
+            for (OsmElement e : selection) {
+                if (e instanceof Way && e.getState() != OsmElement.STATE_DELETED) {
+                    performEraseWay(activity, (Way) e, true, false);
+                }
             }
-        }
-        for (OsmElement e : selection) {
-            if (e instanceof Node && e.getState() != OsmElement.STATE_DELETED) {
-                performEraseNode(activity, (Node) e, false);
+            for (OsmElement e : selection) {
+                if (e instanceof Node && e.getState() != OsmElement.STATE_DELETED) {
+                    performEraseNode(activity, (Node) e, false);
+                }
             }
+        } finally {
+            unlock();
         }
     }
 
@@ -2173,16 +2251,18 @@ public class Logic {
      * @throws StorageException if we ran out of memory
      */
     @NonNull
-    public synchronized List<Result> performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node,
-            boolean fromEnd) {
-        createCheckpoint(activity, R.string.undo_action_split_way);
+    public List<Result> performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node, boolean fromEnd) {
         try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_split_way);
             List<Result> result = getDelegator().splitAtNode(way, node, fromEnd);
             invalidateMap();
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
+        } finally {
+            unlock();
         }
     }
 
@@ -2200,10 +2280,11 @@ public class Logic {
      * @throws StorageException if we ran out of memory
      */
     @NonNull
-    public synchronized List<Result> performClosedWaySplit(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2,
+    public List<Result> performClosedWaySplit(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2,
             boolean createPolygons) {
-        createCheckpoint(activity, R.string.undo_action_split_way);
         try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_split_way);
             displayAttachedObjectWarning(activity, way);
             List<Result> results = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
             if (!createPolygons) {
@@ -2214,6 +2295,8 @@ public class Logic {
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
+        } finally {
+            unlock();
         }
     }
 
@@ -2227,9 +2310,10 @@ public class Logic {
      * @return the segment in the 1st Result if successful, otherwise the results contain issues
      */
     @NonNull
-    public synchronized List<Result> performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
-        createCheckpoint(activity, R.string.undo_action_extract_segment);
+    public List<Result> performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
         try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_extract_segment);
             displayAttachedObjectWarning(activity, way);
             List<Result> result = null;
             if (way.isClosed()) {
@@ -2256,6 +2340,8 @@ public class Logic {
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex;
+        } finally {
+            unlock();
         }
     }
 
@@ -2298,10 +2384,15 @@ public class Logic {
      * @param way the Way
      * @param node the Node
      */
-    public synchronized void performRemoveNodeFromWay(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node) {
-        createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
-        displayAttachedObjectWarning(activity, node);
-        getDelegator().removeNodeFromWay(way, node);
+    public void performRemoveNodeFromWay(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node) {
+        try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
+            displayAttachedObjectWarning(activity, node);
+            getDelegator().removeNodeFromWay(way, node);
+        } finally {
+            unlock();
+        }
         invalidateMap();
     }
 
@@ -2315,13 +2406,18 @@ public class Logic {
      * @param deleteNode delete the Node after removing it
      * @param createCheckPoint if true create an undo checkpoint
      */
-    public synchronized void performRemoveEndNodeFromWay(@Nullable FragmentActivity activity, boolean fromEnd, @NonNull Way way, boolean deleteNode,
+    public void performRemoveEndNodeFromWay(@Nullable FragmentActivity activity, boolean fromEnd, @NonNull Way way, boolean deleteNode,
             boolean createCheckPoint) {
-        if (createCheckPoint) {
-            createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
+        try {
+            lock();
+            if (createCheckPoint) {
+                createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
+            }
+            displayAttachedObjectWarning(activity, way.getLastNode());
+            getDelegator().removeEndNodeFromWay(fromEnd, way, deleteNode);
+        } finally {
+            unlock();
         }
-        displayAttachedObjectWarning(activity, way.getLastNode());
-        getDelegator().removeEndNodeFromWay(fromEnd, way, deleteNode);
         invalidateMap();
     }
 
@@ -2335,17 +2431,20 @@ public class Logic {
      * @return a List of Result with the merged OsmElement and a list of issues if any
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
-    public synchronized List<Result> performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom) {
+    public List<Result> performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom) {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
         try {
+            lock();
             displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
             MergeAction action = new MergeAction(getDelegator(), mergeInto, mergeFrom, getSelectedIds());
             List<Result> result = action.mergeWays();
-            invalidateMap();
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
+        } finally {
+            unlock();
+            invalidateMap();
         }
     }
 
@@ -2357,18 +2456,19 @@ public class Logic {
      * @return a List of Result, includes merged way and anything else of interest
      */
     @NonNull
-    public synchronized List<Result> performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays) {
-        createCheckpoint(activity, R.string.undo_action_merge_ways);
-        displayAttachedObjectWarning(activity, sortedWays, true); // needs to be done before merge
-        if (sortedWays.isEmpty()) {
-            throw new OsmIllegalOperationException("No ways to merge");
-        }
-        for (OsmElement e : sortedWays) {
-            if (!(e instanceof Way)) {
-                throw new OsmIllegalOperationException("Only ways can be merged");
-            }
-        }
+    public List<Result> performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays) {
         try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_merge_ways);
+            displayAttachedObjectWarning(activity, sortedWays, true); // needs to be done before merge
+            if (sortedWays.isEmpty()) {
+                throw new OsmIllegalOperationException("No ways to merge");
+            }
+            for (OsmElement e : sortedWays) {
+                if (!(e instanceof Way)) {
+                    throw new OsmIllegalOperationException("Only ways can be merged");
+                }
+            }
             List<Result> overallResult = new ArrayList<>();
             Result result = new Result();
             overallResult.add(result);
@@ -2396,6 +2496,8 @@ public class Logic {
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
+        } finally {
+            unlock();
         }
     }
 
@@ -2406,18 +2508,21 @@ public class Logic {
      * @param ways list of ways to be merged
      * @return a List of Result, includes merged way and anything else of interest
      */
-    public synchronized List<Result> performPolygonMerge(@Nullable FragmentActivity activity, @NonNull List<Way> ways) {
-        createCheckpoint(activity, R.string.undo_action_merge_polygons);
-        displayAttachedObjectWarning(activity, ways, true); // needs to be done before merge
-        if (!(ways.size() == 2 && ways.get(0).isClosed() && ways.get(1).isClosed())) {
-            throw new OsmIllegalOperationException("No mergeable polygons");
-        }
+    public List<Result> performPolygonMerge(@Nullable FragmentActivity activity, @NonNull List<Way> ways) {
         try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_merge_polygons);
+            displayAttachedObjectWarning(activity, ways, true); // needs to be done before merge
+            if (!(ways.size() == 2 && ways.get(0).isClosed() && ways.get(1).isClosed())) {
+                throw new OsmIllegalOperationException("No mergeable polygons");
+            }
             MergeAction action = new MergeAction(getDelegator(), ways.get(0), ways.get(1), getSelectedIds());
             return action.mergeSimplePolygons(map);
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
+        } finally {
+            unlock();
         }
     }
 
@@ -2494,20 +2599,23 @@ public class Logic {
      * @return the new way node or null if the node was not a way node
      */
     @Nullable
-    public synchronized Node performExtract(@Nullable FragmentActivity activity, final Node node) {
-        if (node != null) {
-            try {
-                createCheckpoint(activity, R.string.undo_action_extract_node);
-                displayAttachedObjectWarning(activity, node); // this needs to be done -before- we replace the node
-                Node newNode = getDelegator().replaceNode(node);
-                invalidateMap();
-                return newNode;
-            } catch (OsmIllegalOperationException | StorageException ex) {
-                handleDelegatorException(activity, ex);
-                throw ex; // rethrow
-            }
+    public Node performExtract(@Nullable FragmentActivity activity, final Node node) {
+        if (node == null) {
+            return null;
         }
-        return null;
+        try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_extract_node);
+            displayAttachedObjectWarning(activity, node); // this needs to be done -before- we replace the node
+            Node newNode = getDelegator().replaceNode(node);
+            invalidateMap();
+            return newNode;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -2569,39 +2677,44 @@ public class Logic {
      * @return a List of MergeResult objects containing the result of the merge
      */
     @NonNull
-    public synchronized List<Result> performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin) {
+    public List<Result> performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin) {
         Log.d(DEBUG_TAG, "performMergeNodes " + nodeToJoin.getOsmId() + " " + elements.size() + " targets");
         List<Result> overallResult = new ArrayList<>();
         if (elements.isEmpty()) {
             return overallResult;
         }
-        createCheckpoint(activity, R.string.undo_action_join);
-        Result result = null;
-        for (OsmElement element : elements) {
-            nodeToJoin = (Node) (!overallResult.isEmpty() ? overallResult.get(0).getElement() : nodeToJoin);
-            if (element.equals(nodeToJoin)) {
-                throw new OsmIllegalOperationException("Trying to join node to itself");
-            }
-            displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
-            MergeAction action = new MergeAction(getDelegator(), element, nodeToJoin, getSelectedIds());
-            try {
-                List<Result> tempResult = action.mergeNodes();
-                if (overallResult.isEmpty()) {
-                    overallResult = tempResult;
-                    result = overallResult.get(0);
-                } else {
-                    final Result newMergeResult = tempResult.get(0);
-                    result.setElement(newMergeResult.getElement()); // NOSONAR potential new result element
-                    result.addAllIssues(newMergeResult.getIssues());
-                    overallResult.addAll(tempResult.subList(1, tempResult.size()));
+        try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_join);
+            Result result = null;
+            for (OsmElement element : elements) {
+                nodeToJoin = (Node) (!overallResult.isEmpty() ? overallResult.get(0).getElement() : nodeToJoin);
+                if (element.equals(nodeToJoin)) {
+                    throw new OsmIllegalOperationException("Trying to join node to itself");
                 }
-            } catch (OsmIllegalOperationException | StorageException ex) {
-                handleDelegatorException(activity, ex);
-                throw ex; // rethrow
+                displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
+                MergeAction action = new MergeAction(getDelegator(), element, nodeToJoin, getSelectedIds());
+                try {
+                    List<Result> tempResult = action.mergeNodes();
+                    if (overallResult.isEmpty()) {
+                        overallResult = tempResult;
+                        result = overallResult.get(0);
+                    } else {
+                        final Result newMergeResult = tempResult.get(0);
+                        result.setElement(newMergeResult.getElement()); // NOSONAR potential new result element
+                        result.addAllIssues(newMergeResult.getIssues());
+                        overallResult.addAll(tempResult.subList(1, tempResult.size()));
+                    }
+                } catch (OsmIllegalOperationException | StorageException ex) {
+                    handleDelegatorException(activity, ex);
+                    throw ex; // rethrow
+                }
+                if (!(result.getElement() instanceof Node)) {
+                    throw new IllegalStateException("mergeNodes didn't return a Node");
+                }
             }
-            if (!(result.getElement() instanceof Node)) {
-                throw new IllegalStateException("mergeNodes didn't return a Node");
-            }
+        } finally {
+            unlock();
         }
         invalidateMap();
         return overallResult;
@@ -2616,80 +2729,86 @@ public class Logic {
      * @return a List of Results object containing the result of the merge and if the result was successful
      */
     @NonNull
-    public synchronized List<Result> performJoinNodeToWays(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin) {
+    public List<Result> performJoinNodeToWays(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin) {
         if (elements.isEmpty()) {
             return new ArrayList<>();
         }
         List<Result> result = null;
         final float tolerance = map.getDataStyle().getCurrent().getWayToleranceValue() / 2f;
-        createCheckpoint(activity, R.string.undo_action_join);
-        for (OsmElement element : elements) {
-            if (!(element instanceof Way)) {
-                // Note if no ways are in elements this will create an empty checkpoint
-                continue;
-            }
-            nodeToJoin = (Node) (result != null ? result.get(0).getElement() : nodeToJoin);
-            Way way = (Way) element;
-            List<Node> wayNodes = way.getNodes();
-            if (wayNodes.contains(nodeToJoin)) {
-                throw new OsmIllegalOperationException("Trying to join node to itself in way");
-            }
-            List<Result> tempResult = null;
-            float x = lonE7ToX(nodeToJoin.getLon());
-            float y = latE7ToY(nodeToJoin.getLat());
-            Node node1 = wayNodes.get(0);
-            float node1X = lonE7ToX(node1.getLon());
-            float node1Y = latE7ToY(node1.getLat());
-            for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
-                Node node2 = wayNodes.get(i);
-                float node2X = lonE7ToX(node2.getLon());
-                float node2Y = latE7ToY(node2.getLat());
-                double distance = Geometry.isPositionOnLine(tolerance, x, y, node1X, node1Y, node2X, node2Y);
-                if (distance >= 0) {
-                    float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
-                    int lat = yToLatE7(p[1]);
-                    int lon = xToLonE7(p[0]);
-                    Node node = null;
-                    if (node == null && lat == node1.getLat() && lon == node1.getLon()) {
-                        node = node1;
-                    }
-                    if (node == null && lat == node2.getLat() && lon == node2.getLon()) {
-                        node = node2;
-                    }
-                    try {
-                        if (node == null) {
-                            displayAttachedObjectWarning(activity, way, nodeToJoin); // needs to be done before join
-                            // move the existing node onto the way and insert it into the way
-                            getDelegator().moveNode(nodeToJoin, lat, lon);
-                            getDelegator().addNodeToWayAfter(i - 1, nodeToJoin, way);
-                            tempResult = Util.wrapInList(new Result(nodeToJoin));
-                        } else {
-                            displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
-                            // merge node into target Node
-                            MergeAction action = new MergeAction(getDelegator(), node, nodeToJoin, getSelectedIds());
-                            tempResult = action.mergeNodes();
+        try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_join);
+            for (OsmElement element : elements) {
+                if (!(element instanceof Way)) {
+                    // Note if no ways are in elements this will create an empty checkpoint
+                    continue;
+                }
+                nodeToJoin = (Node) (result != null ? result.get(0).getElement() : nodeToJoin);
+                Way way = (Way) element;
+                List<Node> wayNodes = way.getNodes();
+                if (wayNodes.contains(nodeToJoin)) {
+                    throw new OsmIllegalOperationException("Trying to join node to itself in way");
+                }
+                List<Result> tempResult = null;
+                float x = lonE7ToX(nodeToJoin.getLon());
+                float y = latE7ToY(nodeToJoin.getLat());
+                Node node1 = wayNodes.get(0);
+                float node1X = lonE7ToX(node1.getLon());
+                float node1Y = latE7ToY(node1.getLat());
+                for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
+                    Node node2 = wayNodes.get(i);
+                    float node2X = lonE7ToX(node2.getLon());
+                    float node2Y = latE7ToY(node2.getLat());
+                    double distance = Geometry.isPositionOnLine(tolerance, x, y, node1X, node1Y, node2X, node2Y);
+                    if (distance >= 0) {
+                        float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
+                        int lat = yToLatE7(p[1]);
+                        int lon = xToLonE7(p[0]);
+                        Node node = null;
+                        if (node == null && lat == node1.getLat() && lon == node1.getLon()) {
+                            node = node1;
                         }
-                    } catch (OsmIllegalOperationException | StorageException ex) {
-                        handleDelegatorException(activity, ex);
-                        throw ex; // rethrow
+                        if (node == null && lat == node2.getLat() && lon == node2.getLon()) {
+                            node = node2;
+                        }
+                        try {
+                            if (node == null) {
+                                displayAttachedObjectWarning(activity, way, nodeToJoin); // needs to be done before join
+                                // move the existing node onto the way and insert it into the way
+                                getDelegator().moveNode(nodeToJoin, lat, lon);
+                                getDelegator().addNodeToWayAfter(i - 1, nodeToJoin, way);
+                                tempResult = Util.wrapInList(new Result(nodeToJoin));
+                            } else {
+                                displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before
+                                                                                          // join
+                                // merge node into target Node
+                                MergeAction action = new MergeAction(getDelegator(), node, nodeToJoin, getSelectedIds());
+                                tempResult = action.mergeNodes();
+                            }
+                        } catch (OsmIllegalOperationException | StorageException ex) {
+                            handleDelegatorException(activity, ex);
+                            throw ex; // rethrow
+                        }
+                        break; // need to leave loop !!!
                     }
-                    break; // need to leave loop !!!
+                    node1 = node2;
+                    node1X = node2X;
+                    node1Y = node2Y;
                 }
-                node1 = node2;
-                node1X = node2X;
-                node1Y = node2Y;
-            }
-            if (result == null) {
-                result = tempResult;
-            } else if (tempResult != null && !tempResult.isEmpty()) { // if null we didn't actually merge anything
-                final Result newMergeResult = tempResult.get(0);
-                final Result mergeResult = result.get(0);
-                mergeResult.setElement(newMergeResult.getElement());
-                if (newMergeResult.hasIssue()) {
-                    mergeResult.addAllIssues(newMergeResult.getIssues());
+                if (result == null) {
+                    result = tempResult;
+                } else if (tempResult != null && !tempResult.isEmpty()) { // if null we didn't actually merge anything
+                    final Result newMergeResult = tempResult.get(0);
+                    final Result mergeResult = result.get(0);
+                    mergeResult.setElement(newMergeResult.getElement());
+                    if (newMergeResult.hasIssue()) {
+                        mergeResult.addAllIssues(newMergeResult.getIssues());
+                    }
+                    result.addAll(tempResult.subList(1, tempResult.size()));
                 }
-                result.addAll(tempResult.subList(1, tempResult.size()));
             }
+        } finally {
+            unlock();
         }
         invalidateMap();
         return result;
@@ -2701,15 +2820,18 @@ public class Logic {
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param node Node that is joining the ways to be unjoined.
      */
-    public synchronized void performUnjoinWays(@Nullable FragmentActivity activity, @NonNull Node node) {
+    public void performUnjoinWays(@Nullable FragmentActivity activity, @NonNull Node node) {
         try {
+            lock();
             createCheckpoint(activity, R.string.undo_action_unjoin_ways);
             displayAttachedObjectWarning(activity, node); // needs to be done before unjoin
             getDelegator().unjoinWays(node);
-            invalidateMap();
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
+        } finally {
+            unlock();
+            invalidateMap();
         }
     }
 
@@ -2720,15 +2842,18 @@ public class Logic {
      * @param way the Way to unjoin
      * @param primaryKey don't unjoin from ways with the same primary key, but replace the node in them too
      */
-    public synchronized void performUnjoinWay(@Nullable FragmentActivity activity, @NonNull Way way, @Nullable String primaryKey) {
+    public void performUnjoinWay(@Nullable FragmentActivity activity, @NonNull Way way, @Nullable String primaryKey) {
         try {
+            lock();
             createCheckpoint(activity, R.string.undo_action_unjoin_ways);
             displayAttachedObjectWarning(activity, way); // needs to be done before unjoin
             getDelegator().unjoinWay(activity, way, primaryKey);
-            invalidateMap();
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
+        } finally {
+            unlock();
+            invalidateMap();
         }
     }
 
@@ -2743,15 +2868,18 @@ public class Logic {
      * @return true if reverseWay returned true, implying that tags had to be reversed
      */
     @NonNull
-    public synchronized List<Result> performReverse(@Nullable FragmentActivity activity, @NonNull Way way) {
+    public List<Result> performReverse(@Nullable FragmentActivity activity, @NonNull Way way) {
         try {
+            lock();
             createCheckpoint(activity, R.string.undo_action_reverse_way);
             List<Result> result = getDelegator().reverseWay(way);
-            invalidateMap();
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
+        } finally {
+            unlock();
+            invalidateMap();
         }
     }
 
@@ -2761,9 +2889,14 @@ public class Logic {
      * @param way the Way we are going to append to
      * @param node the Node we're starting at
      */
-    public synchronized void performAppendStart(@Nullable Way way, @Nullable Node node) {
-        setSelectedNode(node);
-        setSelectedWay(way);
+    public void performAppendStart(@Nullable Way way, @Nullable Node node) {
+        try {
+            lock();
+            setSelectedNode(node);
+            setSelectedWay(way);
+        } finally {
+            unlock();
+        }
         invalidateMap();
     }
 
@@ -2780,15 +2913,16 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation couldn't be performed, note this will NOT rollback the
      *             operation
      */
-    public synchronized void performAppendAppend(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint, boolean snap)
+    public void performAppendAppend(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint, boolean snap)
             throws OsmIllegalOperationException {
         Log.d(DEBUG_TAG, "performAppendAppend");
-        if (createCheckpoint) {
-            createCheckpoint(activity, R.string.undo_action_append);
-        }
-        Node lSelectedNode = getSelectedNode();
-        Way lSelectedWay = getSelectedWay();
         try {
+            lock();
+            if (createCheckpoint) {
+                createCheckpoint(activity, R.string.undo_action_append);
+            }
+            Node lSelectedNode = getSelectedNode();
+            Way lSelectedWay = getSelectedWay();
             Node node = snap ? getClickedNodeOrCreatedWayNode(x, y) : getClickedNode(x, y);
             if (node == lSelectedNode) {
                 lSelectedNode = null;
@@ -2801,12 +2935,14 @@ public class Logic {
                 getDelegator().appendNodeToWay(lSelectedNode, node, lSelectedWay);
                 lSelectedNode = node;
             }
+            setSelectedNode(lSelectedNode);
+            setSelectedWay(lSelectedWay);
         } catch (StorageException e) {
             rollback();
             throw e;
+        } finally {
+            unlock();
         }
-        setSelectedNode(lSelectedNode);
-        setSelectedWay(lSelectedWay);
         invalidateMap();
     }
 
@@ -2819,12 +2955,12 @@ public class Logic {
      * @return a List of Result elements
      */
     @NonNull
-    public synchronized <T extends GeoPoint> List<Result> performReplaceGeometry(@Nullable final FragmentActivity activity, @NonNull Way target,
-            @NonNull List<T> geometry) {
+    public <T extends GeoPoint> List<Result> performReplaceGeometry(@Nullable final FragmentActivity activity, @NonNull Way target, @NonNull List<T> geometry) {
         StorageDelegator delegator = getDelegator();
-        createCheckpoint(activity, R.string.undo_action_replace_geometry);
-        final int geometrySize = geometry.size();
         try {
+            lock();
+            createCheckpoint(activity, R.string.undo_action_replace_geometry);
+            final int geometrySize = geometry.size();
             delegator.validateWayNodeCount(geometrySize);
             boolean sourceClosed = geometry.get(0).equals(geometry.get(geometrySize - 1));
             int sourceNodeCount = geometrySize - (sourceClosed ? 1 : 0);
@@ -2865,6 +3001,8 @@ public class Logic {
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
+        } finally {
+            unlock();
         }
     }
 
@@ -2909,7 +3047,7 @@ public class Logic {
      * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
-    private synchronized Node getClickedNodeOrCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
+    private Node getClickedNodeOrCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
         return getClickedNodeOrCreatedWayNode(null, x, y, false);
     }
 
@@ -2925,69 +3063,73 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
     @Nullable
-    private synchronized Node getClickedNodeOrCreatedWayNode(@Nullable List<Way> ways, final float x, final float y, boolean forceNew)
-            throws OsmIllegalOperationException {
+    private Node getClickedNodeOrCreatedWayNode(@Nullable List<Way> ways, final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
         Node node = null;
-        if (!forceNew) {
-            node = getClickedNode(x, y);
-            if (node != null) {
-                return node;
+        try {
+            lock();
+            if (!forceNew) {
+                node = getClickedNode(x, y);
+                if (node != null) {
+                    return node;
+                }
             }
-        }
-        if (ways == null) {
-            ways = getDelegator().getCurrentStorage().getWays(map.getViewBox());
-        }
-        Node savedNode1 = null;
-        Node savedNode2 = null;
-        List<Way> savedWays = new ArrayList<>();
-        List<Integer> savedWaysNodeIndex = new ArrayList<>();
-        double savedDistance = Double.MAX_VALUE;
-        final float tolerance = wayToleranceForTouch(map.getDataStyle().getCurrent());
-        // create a new node on a way
-        for (Way way : ways) {
-            if (filter != null && !filter.include(way, isSelected(way))) {
-                continue;
+            if (ways == null) {
+                ways = getDelegator().getCurrentStorage().getWays(map.getViewBox());
             }
-            List<Node> wayNodes = way.getNodes();
-            Node node1 = wayNodes.get(0);
-            float node1X = lonE7ToX(node1.getLon());
-            float node1Y = latE7ToY(node1.getLat());
+            Node savedNode1 = null;
+            Node savedNode2 = null;
+            List<Way> savedWays = new ArrayList<>();
+            List<Integer> savedWaysNodeIndex = new ArrayList<>();
+            double savedDistance = Double.MAX_VALUE;
+            final float tolerance = wayToleranceForTouch(map.getDataStyle().getCurrent());
+            // create a new node on a way
+            for (Way way : ways) {
+                if (filter != null && !filter.include(way, isSelected(way))) {
+                    continue;
+                }
+                List<Node> wayNodes = way.getNodes();
+                Node node1 = wayNodes.get(0);
+                float node1X = lonE7ToX(node1.getLon());
+                float node1Y = latE7ToY(node1.getLat());
 
-            int wayNodesSize = wayNodes.size();
-            for (int k = 1; k < wayNodesSize; ++k) {
-                Node node2 = wayNodes.get(k);
-                float node2X = lonE7ToX(node2.getLon());
-                float node2Y = latE7ToY(node2.getLat());
+                int wayNodesSize = wayNodes.size();
+                for (int k = 1; k < wayNodesSize; ++k) {
+                    Node node2 = wayNodes.get(k);
+                    float node2X = lonE7ToX(node2.getLon());
+                    float node2Y = latE7ToY(node2.getLat());
 
-                double distance = Geometry.isPositionOnLine(tolerance, x, y, node1X, node1Y, node2X, node2Y);
-                if (distance >= 0) {
-                    if ((savedNode1 == null && savedNode2 == null) || distance < savedDistance) {
-                        savedNode1 = node1;
-                        savedNode2 = node2;
-                        savedDistance = distance;
-                        savedWays.clear();
-                        savedWays.add(way);
-                        savedWaysNodeIndex.clear();
-                        savedWaysNodeIndex.add(k - 1);
-                    } else if ((node1 == savedNode1 && node2 == savedNode2) || (node1 == savedNode2 && node2 == savedNode1)) {
-                        savedWays.add(way);
-                        savedWaysNodeIndex.add(k - 1);
+                    double distance = Geometry.isPositionOnLine(tolerance, x, y, node1X, node1Y, node2X, node2Y);
+                    if (distance >= 0) {
+                        if ((savedNode1 == null && savedNode2 == null) || distance < savedDistance) {
+                            savedNode1 = node1;
+                            savedNode2 = node2;
+                            savedDistance = distance;
+                            savedWays.clear();
+                            savedWays.add(way);
+                            savedWaysNodeIndex.clear();
+                            savedWaysNodeIndex.add(k - 1);
+                        } else if ((node1 == savedNode1 && node2 == savedNode2) || (node1 == savedNode2 && node2 == savedNode1)) {
+                            savedWays.add(way);
+                            savedWaysNodeIndex.add(k - 1);
+                        }
+                    }
+                    node1 = node2;
+                    node1X = node2X;
+                    node1Y = node2Y;
+                }
+            }
+            // way(s) found in tolerance range
+            if (savedNode1 != null && savedNode2 != null) {
+                node = createNodeOnWay(savedNode1, savedNode2, x, y);
+                if (node != null) {
+                    getDelegator().insertElementSafe(node);
+                    for (int i = 0; i < savedWays.size(); i++) {
+                        getDelegator().addNodeToWayAfter(savedWaysNodeIndex.get(i), node, savedWays.get(i));
                     }
                 }
-                node1 = node2;
-                node1X = node2X;
-                node1Y = node2Y;
             }
-        }
-        // way(s) found in tolerance range
-        if (savedNode1 != null && savedNode2 != null) {
-            node = createNodeOnWay(savedNode1, savedNode2, x, y);
-            if (node != null) {
-                getDelegator().insertElementSafe(node);
-                for (int i = 0; i < savedWays.size(); i++) {
-                    getDelegator().addNodeToWayAfter(savedWaysNodeIndex.get(i), node, savedWays.get(i));
-                }
-            }
+        } finally {
+            unlock();
         }
         return node;
     }
@@ -3003,7 +3145,7 @@ public class Logic {
      * @return a new created node at lon/lat corresponding to x,y. When x,y does not lay on the line between node1 and
      *         node2 it will return null.
      */
-    private synchronized Node createNodeOnWay(final Node node1, final Node node2, final float x, final float y) {
+    private Node createNodeOnWay(final Node node1, final Node node2, final float x, final float y) {
         // Nodes have to be converted to screen-coordinates, due to a better tolerance-check.
         float node1X = lonE7ToX(node1.getLon());
         float node1Y = latE7ToY(node1.getLat());
@@ -3054,7 +3196,7 @@ public class Logic {
      * @param add if true add this data to existing
      * @param postLoadHandler handler to execute after successful download
      */
-    public synchronized void downloadBox(@NonNull final Context context, @NonNull final BoundingBox mapBox, final boolean add,
+    public void downloadBox(@NonNull final Context context, @NonNull final BoundingBox mapBox, final boolean add,
             @Nullable final PostAsyncActionHandler postLoadHandler) {
         final Validator validator = App.getDefaultValidator(context);
 
@@ -3179,7 +3321,7 @@ public class Logic {
      * @param server the API Server configuration
      * @param mapBox the BoundingBox
      * @param postMerge handler to call after merging
-     * @param handler handler to call when everything is finished
+     * @param handler handler to call when everything is finished Logic will be locked during execution
      * @param merge if true merge the data with existing data, if false replace
      * @param background this is being called in the background and shouldn't do any thing that effects the UI
      * @return a ReadAsyncResult with detailed result information
@@ -3233,6 +3375,8 @@ public class Logic {
                     getDelegator().setOriginalBox(mapBox);
                 }
             }
+            // don't have to lock before we are here
+            lock();
             if (!background) {
                 // Main maybe not available and by extension there may be no valid Map object
                 Map currentMap = ctx instanceof Main ? ((Main) ctx).getMap() : null;
@@ -3283,6 +3427,8 @@ public class Logic {
             result = new AsyncResult(ErrorCodes.CORRUPTED_DATA);
         } catch (Exception e) {
             result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
+        } finally {
+            unlock();
         }
         if (result.getCode() != ErrorCodes.OK) {
             removeBoundingBox(mapBox);
@@ -4165,38 +4311,38 @@ public class Logic {
         new ReadAsyncClass(executorService, uiHandler, activity, is, false, postLoad) {
             @Override
             protected AsyncResult doInBackground(Boolean arg) {
-                synchronized (Logic.this) {
-                    StorageDelegator sd = getDelegator();
-                    try (final InputStream in = new BufferedInputStream(is)) {
-                        OsmChangeParser oscParser = new OsmChangeParser();
-                        oscParser.clearBoundingBoxes(); // this removes the default bounding box
-                        oscParser.start(in);
-                        createCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc);
-                        if (!sd.applyOsc(oscParser.getStorage(), null)) {
-                            removeCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc, true);
-                            return new AsyncResult(ErrorCodes.APPLYING_OSC_FAILED);
-                        }
-                        if (map != null) {
-                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
-                        }
-                        // support for OSMAND extension
-                        List<Note> notes = oscParser.getNotes();
-                        if (!notes.isEmpty()) {
-                            TransferTasks.merge(context, App.getTaskStorage(), notes);
-                            TransferTasks.addBoundingBoxFromData(App.getTaskStorage(), notes);
-                        }
-                    } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
-                        Log.e(DEBUG_TAG, "Problem parsing OSC ", e);
-                        return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
-                    } catch (IllegalStateException iex) {
-                        return new AsyncResult(ErrorCodes.CORRUPTED_DATA);
-                    } catch (StorageException sex) {
-                        return new AsyncResult(sd.isDirty() ? ErrorCodes.OUT_OF_MEMORY_DIRTY : ErrorCodes.OUT_OF_MEMORY);
-                    } finally {
-                        SavingHelper.close(is);
+                StorageDelegator sd = getDelegator();
+                try (final InputStream in = new BufferedInputStream(is)) {
+                    OsmChangeParser oscParser = new OsmChangeParser();
+                    oscParser.clearBoundingBoxes(); // this removes the default bounding box
+                    oscParser.start(in);
+                    lock();
+                    createCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc);
+                    if (!sd.applyOsc(oscParser.getStorage(), null)) {
+                        removeCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc, true);
+                        return new AsyncResult(ErrorCodes.APPLYING_OSC_FAILED);
                     }
-                    return new AsyncResult(ErrorCodes.OK, null);
+                    if (map != null) {
+                        viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
+                    }
+                    // support for OSMAND extension
+                    List<Note> notes = oscParser.getNotes();
+                    if (!notes.isEmpty()) {
+                        TransferTasks.merge(context, App.getTaskStorage(), notes);
+                        TransferTasks.addBoundingBoxFromData(App.getTaskStorage(), notes);
+                    }
+                } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
+                    Log.e(DEBUG_TAG, "Problem parsing OSC ", e);
+                    return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                } catch (IllegalStateException iex) {
+                    return new AsyncResult(ErrorCodes.CORRUPTED_DATA);
+                } catch (StorageException sex) {
+                    return new AsyncResult(sd.isDirty() ? ErrorCodes.OUT_OF_MEMORY_DIRTY : ErrorCodes.OUT_OF_MEMORY);
+                } finally {
+                    SavingHelper.close(is);
+                    unlock();
                 }
+                return new AsyncResult(ErrorCodes.OK, null);
             }
         }.execute();
     }
@@ -4209,14 +4355,15 @@ public class Logic {
     void save(@NonNull final Context context) {
         try {
             getDelegator().writeToFile(context);
-            synchronized (this) {
-                App.getTaskStorage().writeToFile(context);
-                if (map != null) {
-                    map.saveLayerState(context);
-                }
+            lock();
+            App.getTaskStorage().writeToFile(context);
+            if (map != null) {
+                map.saveLayerState(context);
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem saving", e);
+        } finally {
+            unlock();
         }
     }
 
@@ -4244,13 +4391,18 @@ public class Logic {
      * 
      * @param main the current Main instance
      */
-    synchronized void saveEditingState(@NonNull Main main) {
-        if (editingStateRead) {
-            EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS(), prefs.getServer().getOpenChangeset());
-            new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false, true);
-            main.getEasyEditManager().saveState();
-        } else {
-            Log.w(DEBUG_TAG, "EditingState not loaded skipping save");
+    void saveEditingState(@NonNull Main main) {
+        try {
+            lock();
+            if (editingStateRead) {
+                EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS(), prefs.getServer().getOpenChangeset());
+                new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false, true);
+                main.getEasyEditManager().saveState();
+            } else {
+                Log.w(DEBUG_TAG, "EditingState not loaded skipping save");
+            }
+        } finally {
+            unlock();
         }
     }
 
@@ -4272,7 +4424,7 @@ public class Logic {
             File editStateFile = main.getFileStreamPath(EDITSTATE_FILENAME);
             if (System.currentTimeMillis() - editStateFile.lastModified() > ONE_DAY_MS) {
                 Log.w(DEBUG_TAG, "App hasn't been run in a long time, locking");
-                main.lock();
+                main.uiLock();
             }
         }
         editingStateRead = true;
@@ -4861,10 +5013,15 @@ public class Logic {
      * 
      * @param selectedNode node to select
      */
-    public synchronized void setSelectedNode(@Nullable final Node selectedNode) {
-        selectionStack.getFirst().setNode(selectedNode);
-        map.setSelectedNodes(selectionStack.getFirst().getNodes());
-        resetFilterCache();
+    public void setSelectedNode(@Nullable final Node selectedNode) {
+        try {
+            lock();
+            selectionStack.getFirst().setNode(selectedNode);
+            map.setSelectedNodes(selectionStack.getFirst().getNodes());
+            resetFilterCache();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -4872,17 +5029,27 @@ public class Logic {
      * 
      * @param selectedNode node to add to selection
      */
-    public synchronized void addSelectedNode(@NonNull final Node selectedNode) {
-        selectionStack.getFirst().add(selectedNode);
-        resetFilterCache();
+    public void addSelectedNode(@NonNull final Node selectedNode) {
+        try {
+            lock();
+            selectionStack.getFirst().add(selectedNode);
+            resetFilterCache();
+        } finally {
+            unlock();
+        }
     }
 
     /**
      * @return the selectedNode (currently simply the first in the list)
      */
     @Nullable
-    public final synchronized Node getSelectedNode() {
-        return selectionStack.getFirst().getNode();
+    public final Node getSelectedNode() {
+        try {
+            lock();
+            return selectionStack.getFirst().getNode();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -4892,7 +5059,12 @@ public class Logic {
      */
     @Nullable
     public List<Node> getSelectedNodes() {
-        return selectionStack.getFirst().getNodes();
+        try {
+            lock();
+            return selectionStack.getFirst().getNodes();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -4901,7 +5073,12 @@ public class Logic {
      * @return a count of the selected Nodes
      */
     public int selectedNodesCount() {
-        return selectionStack.getFirst().nodeCount();
+        try {
+            lock();
+            return selectionStack.getFirst().nodeCount();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -4909,9 +5086,14 @@ public class Logic {
      * 
      * @param node node to remove from selection
      */
-    public synchronized void removeSelectedNode(@NonNull Node node) {
-        if (selectionStack.getFirst().remove(node)) {
-            resetFilterCache();
+    public void removeSelectedNode(@NonNull Node node) {
+        try {
+            lock();
+            if (selectionStack.getFirst().remove(node)) {
+                resetFilterCache();
+            }
+        } finally {
+            unlock();
         }
     }
 
@@ -4920,10 +5102,15 @@ public class Logic {
      * 
      * @param selectedWay way to select
      */
-    public synchronized void setSelectedWay(@Nullable final Way selectedWay) {
-        selectionStack.getFirst().setWay(selectedWay);
-        map.setSelectedWays(selectionStack.getFirst().getWays());
-        resetFilterCache();
+    public void setSelectedWay(@Nullable final Way selectedWay) {
+        try {
+            lock();
+            selectionStack.getFirst().setWay(selectedWay);
+            map.setSelectedWays(selectionStack.getFirst().getWays());
+            resetFilterCache();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -4931,17 +5118,27 @@ public class Logic {
      * 
      * @param selectedWay way to add to selection
      */
-    public synchronized void addSelectedWay(@NonNull final Way selectedWay) {
-        selectionStack.getFirst().add(selectedWay);
-        resetFilterCache();
+    public void addSelectedWay(@NonNull final Way selectedWay) {
+        try {
+            lock();
+            selectionStack.getFirst().add(selectedWay);
+            resetFilterCache();
+        } finally {
+            unlock();
+        }
     }
 
     /**
      * @return the selectedWay (currently simply the first in the list)
      */
     @Nullable
-    public final synchronized Way getSelectedWay() {
-        return selectionStack.getFirst().getWay();
+    public final Way getSelectedWay() {
+        try {
+            lock();
+            return selectionStack.getFirst().getWay();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -4951,7 +5148,12 @@ public class Logic {
      */
     @Nullable
     public List<Way> getSelectedWays() {
-        return selectionStack.getFirst().getWays();
+        try {
+            lock();
+            return selectionStack.getFirst().getWays();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -4960,7 +5162,12 @@ public class Logic {
      * @return a count of the selected Ways
      */
     public int selectedWaysCount() {
-        return selectionStack.getFirst().wayCount();
+        try {
+            lock();
+            return selectionStack.getFirst().wayCount();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -4968,9 +5175,14 @@ public class Logic {
      * 
      * @param way way to de-select
      */
-    public synchronized void removeSelectedWay(@NonNull Way way) {
-        if (selectionStack.getFirst().remove(way)) {
-            resetFilterCache();
+    public void removeSelectedWay(@NonNull Way way) {
+        try {
+            lock();
+            if (selectionStack.getFirst().remove(way)) {
+                resetFilterCache();
+            }
+        } finally {
+            unlock();
         }
     }
 
@@ -4979,12 +5191,18 @@ public class Logic {
      * 
      * @param selectedRelation relation to select
      */
-    public synchronized void setSelectedRelation(@Nullable final Relation selectedRelation) {
-        selectionStack.getFirst().setRelation(selectedRelation);
-        if (selectedRelation != null) {
-            setSelectedRelationMembers(selectedRelation);
+
+    public void setSelectedRelation(@Nullable final Relation selectedRelation) {
+        try {
+            lock();
+            selectionStack.getFirst().setRelation(selectedRelation);
+            if (selectedRelation != null) {
+                setSelectedRelationMembers(selectedRelation);
+            }
+            resetFilterCache();
+        } finally {
+            unlock();
         }
-        resetFilterCache();
     }
 
     /**
@@ -4992,17 +5210,22 @@ public class Logic {
      * 
      * @param relation relation to remove from selection
      */
-    public synchronized void removeSelectedRelation(@NonNull Relation relation) {
-        if (selectionStack.getFirst().remove(relation)) {
-            setSelectedRelationNodes(null); // de-select all
-            setSelectedRelationWays(null);
-            setSelectedRelationRelations(null);
-            if (selectionStack.getFirst().relationCount() > 0) {
-                for (Relation r : getSelectedRelations()) { // re-select
-                    setSelectedRelationMembers(r);
+    public void removeSelectedRelation(@NonNull Relation relation) {
+        try {
+            lock();
+            if (selectionStack.getFirst().remove(relation)) {
+                setSelectedRelationNodes(null); // de-select all
+                setSelectedRelationWays(null);
+                setSelectedRelationRelations(null);
+                if (selectionStack.getFirst().relationCount() > 0) {
+                    for (Relation r : getSelectedRelations()) { // re-select
+                        setSelectedRelationMembers(r);
+                    }
                 }
+                resetFilterCache();
             }
-            resetFilterCache();
+        } finally {
+            unlock();
         }
     }
 
@@ -5011,10 +5234,15 @@ public class Logic {
      * 
      * @param selectedRelation relation to add to selection
      */
-    public synchronized void addSelectedRelation(@NonNull final Relation selectedRelation) {
-        selectionStack.getFirst().add(selectedRelation);
-        setSelectedRelationMembers(selectedRelation);
-        resetFilterCache();
+    public void addSelectedRelation(@NonNull final Relation selectedRelation) {
+        try {
+            lock();
+            selectionStack.getFirst().add(selectedRelation);
+            setSelectedRelationMembers(selectedRelation);
+            resetFilterCache();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -5024,7 +5252,12 @@ public class Logic {
      */
     @Nullable
     public List<Relation> getSelectedRelations() {
-        return selectionStack.getFirst().getRelations();
+        try {
+            lock();
+            return selectionStack.getFirst().getRelations();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -5033,7 +5266,12 @@ public class Logic {
      * @return a count of the selected Relations
      */
     public int selectedRelationsCount() {
-        return selectionStack.getFirst().relationCount();
+        try {
+            lock();
+            return selectionStack.getFirst().relationCount();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -5041,12 +5279,17 @@ public class Logic {
      * 
      * @param elements a List of OsmElement to select
      */
-    public synchronized void setSelection(@NonNull List<OsmElement> elements) {
-        Selection currentSelection = selectionStack.getFirst();
-        for (OsmElement e : elements) {
-            currentSelection.add(e);
+    public void setSelection(@NonNull List<OsmElement> elements) {
+        try {
+            lock();
+            Selection currentSelection = selectionStack.getFirst();
+            for (OsmElement e : elements) {
+                currentSelection.add(e);
+            }
+            resetFilterCache();
+        } finally {
+            unlock();
         }
-        resetFilterCache();
     }
 
     /**
@@ -5064,22 +5307,27 @@ public class Logic {
      * @return a List, potentially empty, containing all seleced elemetns
      */
     @NonNull
-    public synchronized List<OsmElement> getSelectedElements() {
-        List<OsmElement> result = new ArrayList<>();
-        final Selection currentSelection = selectionStack.getFirst();
-        List<Node> selectedNodes = currentSelection.getNodes();
-        if (selectedNodes != null) {
-            result.addAll(selectedNodes);
+    public List<OsmElement> getSelectedElements() {
+        try {
+            lock();
+            List<OsmElement> result = new ArrayList<>();
+            final Selection currentSelection = selectionStack.getFirst();
+            List<Node> selectedNodes = currentSelection.getNodes();
+            if (selectedNodes != null) {
+                result.addAll(selectedNodes);
+            }
+            List<Way> selectedWays = currentSelection.getWays();
+            if (selectedWays != null) {
+                result.addAll(selectedWays);
+            }
+            List<Relation> selectedRelations = currentSelection.getRelations();
+            if (selectedRelations != null) {
+                result.addAll(selectedRelations);
+            }
+            return result;
+        } finally {
+            unlock();
         }
-        List<Way> selectedWays = currentSelection.getWays();
-        if (selectedWays != null) {
-            result.addAll(selectedWays);
-        }
-        List<Relation> selectedRelations = currentSelection.getRelations();
-        if (selectedRelations != null) {
-            result.addAll(selectedRelations);
-        }
-        return result;
     }
 
     /**
@@ -5088,7 +5336,12 @@ public class Logic {
      * @return an Selection.Ids object containing the ids of currently selected objects
      */
     public Ids getSelectedIds() {
-        return selectionStack.getFirst().getIds();
+        try {
+            lock();
+            return selectionStack.getFirst().getIds();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -5136,8 +5389,13 @@ public class Logic {
      * @param e the OsmElement to check
      * @return true is e is selected
      */
-    public synchronized boolean isSelected(@Nullable OsmElement e) {
-        return e != null && selectionStack.getFirst().contains(e);
+    public boolean isSelected(@Nullable OsmElement e) {
+        try {
+            lock();
+            return e != null && selectionStack.getFirst().contains(e);
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -5275,8 +5533,13 @@ public class Logic {
     /**
      * @return a list of all pending changes to upload
      */
-    public synchronized List<OsmElement> getPendingChangedElements() {
-        return getDelegator().listChangedElements();
+    public List<OsmElement> getPendingChangedElements() {
+        try {
+            lock();
+            return getDelegator().listChangedElements();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -5290,8 +5553,13 @@ public class Logic {
      * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
      */
     @SuppressWarnings("unchecked")
-    public synchronized <T extends OsmElement> void setClickableElements(Set<T> clickable) {
-        clickableElements = (Set<OsmElement>) clickable;
+    public <T extends OsmElement> void setClickableElements(Set<T> clickable) {
+        try {
+            lock();
+            clickableElements = (Set<OsmElement>) clickable;
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -5300,8 +5568,13 @@ public class Logic {
      * @return the list of clickable elements. May be null, meaning no restrictions on clickable elements
      */
     @Nullable
-    public synchronized Set<OsmElement> getClickableElements() {
-        return clickableElements;
+    public Set<OsmElement> getClickableElements() {
+        try {
+            lock();
+            return clickableElements;
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -5591,30 +5864,35 @@ public class Logic {
      * @param r the Relation holding the members
      * @param depth current recursion depth
      */
-    private synchronized void setSelectedRelationMembers(@Nullable Relation r, int depth) {
+    private void setSelectedRelationMembers(@Nullable Relation r, int depth) {
         if (r == null) {
             return;
         }
-        for (RelationMember rm : r.getMembers()) {
-            OsmElement e = rm.getElement();
-            if (e != null) {
-                switch (e.getName()) {
-                case Way.NAME:
-                    addSelectedRelationWay((Way) e);
-                    break;
-                case Node.NAME:
-                    addSelectedRelationNode((Node) e);
-                    break;
-                case Relation.NAME:
-                    // break recursion if already selected or max depth exceeded
-                    if ((selectedRelationRelations == null || !selectedRelationRelations.contains(e)) && depth <= MAX_RELATION_SELECTION_DEPTH) {
-                        addSelectedRelationRelation((Relation) e, depth);
+        try {
+            lock();
+            for (RelationMember rm : r.getMembers()) {
+                OsmElement e = rm.getElement();
+                if (e != null) {
+                    switch (e.getName()) {
+                    case Way.NAME:
+                        addSelectedRelationWay((Way) e);
+                        break;
+                    case Node.NAME:
+                        addSelectedRelationNode((Node) e);
+                        break;
+                    case Relation.NAME:
+                        // break recursion if already selected or max depth exceeded
+                        if ((selectedRelationRelations == null || !selectedRelationRelations.contains(e)) && depth <= MAX_RELATION_SELECTION_DEPTH) {
+                            addSelectedRelationRelation((Relation) e, depth);
+                        }
+                        break;
+                    default:
+                        Log.e(DEBUG_TAG, "Unknown relation member " + e.getName());
                     }
-                    break;
-                default:
-                    Log.e(DEBUG_TAG, "Unknown relation member " + e.getName());
                 }
             }
+        } finally {
+            unlock();
         }
     }
 
@@ -5667,12 +5945,17 @@ public class Logic {
      * 
      * @param relations set of elements to which highlighting should be limited, or null to remove the limitation
      */
-    public synchronized void setSelectedRelationRelations(List<Relation> relations) {
-        selectedRelationRelations = relations;
-        if (selectedRelationRelations != null) {
-            for (Relation r : selectedRelationRelations) {
-                setSelectedRelationMembers(r);
+    public void setSelectedRelationRelations(List<Relation> relations) {
+        try {
+            lock();
+            selectedRelationRelations = relations;
+            if (selectedRelationRelations != null) {
+                for (Relation r : selectedRelationRelations) {
+                    setSelectedRelationMembers(r);
+                }
             }
+        } finally {
+            unlock();
         }
     }
 
@@ -5691,12 +5974,17 @@ public class Logic {
      * @param relation the Relation to add
      * @param depth current recursion depth
      */
-    private synchronized void addSelectedRelationRelation(@NonNull Relation relation, int depth) {
-        if (selectedRelationRelations == null) {
-            selectedRelationRelations = new LinkedList<>();
+    private void addSelectedRelationRelation(@NonNull Relation relation, int depth) {
+        try {
+            lock();
+            if (selectedRelationRelations == null) {
+                selectedRelationRelations = new LinkedList<>();
+            }
+            selectedRelationRelations.add(relation);
+            setSelectedRelationMembers(relation, depth);
+        } finally {
+            unlock();
         }
-        selectedRelationRelations.add(relation);
-        setSelectedRelationMembers(relation, depth);
     }
 
     /**
@@ -5704,9 +5992,14 @@ public class Logic {
      * 
      * @param relation the Relation to de-select
      */
-    public synchronized void removeSelectedRelationRelation(@NonNull Relation relation) {
-        if (selectedRelationRelations != null) {
-            selectedRelationRelations.remove(relation);
+    public void removeSelectedRelationRelation(@NonNull Relation relation) {
+        try {
+            lock();
+            if (selectedRelationRelations != null) {
+                selectedRelationRelations.remove(relation);
+            }
+        } finally {
+            unlock();
         }
     }
 
@@ -5716,28 +6009,38 @@ public class Logic {
      * @return the List or null if none
      */
     @Nullable
-    public synchronized List<Relation> getSelectedRelationRelations() {
-        return selectedRelationRelations;
+    public List<Relation> getSelectedRelationRelations() {
+        try {
+            lock();
+            return selectedRelationRelations;
+        } finally {
+            unlock();
+        }
     }
 
     /**
      * If currently Relations are selected we may need to update the member highlighting
      */
-    public synchronized void reselectRelationMembers() {
-        List<Relation> selected = getSelectedRelations();
-        if (selected != null && !selected.isEmpty()) {
-            if (selectedRelationNodes != null) {
-                selectedRelationNodes.clear();
+    public void reselectRelationMembers() {
+        try {
+            lock();
+            List<Relation> selected = getSelectedRelations();
+            if (selected != null && !selected.isEmpty()) {
+                if (selectedRelationNodes != null) {
+                    selectedRelationNodes.clear();
+                }
+                if (selectedRelationWays != null) {
+                    selectedRelationWays.clear();
+                }
+                if (selectedRelationRelations != null) {
+                    selectedRelationRelations.clear();
+                }
+                for (Relation r : selected) {
+                    setSelectedRelationMembers(r);
+                }
             }
-            if (selectedRelationWays != null) {
-                selectedRelationWays.clear();
-            }
-            if (selectedRelationRelations != null) {
-                selectedRelationRelations.clear();
-            }
-            for (Relation r : selected) {
-                setSelectedRelationMembers(r);
-            }
+        } finally {
+            unlock();
         }
     }
 
@@ -5761,8 +6064,13 @@ public class Logic {
      * @return the selection stack
      */
     @NonNull
-    public synchronized Deque<Selection> getSelectionStack() {
-        return selectionStack;
+    public Deque<Selection> getSelectionStack() {
+        try {
+            lock();
+            return selectionStack;
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -5770,13 +6078,18 @@ public class Logic {
      * 
      * @param stack the stack we want to set
      */
-    public synchronized void setSelectionStack(@NonNull Deque<Selection> stack) {
-        if (!stack.isEmpty()) { // the stack needs to have at least one element
-            selectionStack.clear();
-            selectionStack.addAll(stack);
-            selectFromTop();
-        } else {
-            Log.e(DEBUG_TAG, "Attempt to set empty selection stack");
+    public void setSelectionStack(@NonNull Deque<Selection> stack) {
+        try {
+            lock();
+            if (!stack.isEmpty()) { // the stack needs to have at least one element
+                selectionStack.clear();
+                selectionStack.addAll(stack);
+                selectFromTop();
+            } else {
+                Log.e(DEBUG_TAG, "Attempt to set empty selection stack");
+            }
+        } finally {
+            unlock();
         }
     }
 
@@ -5784,30 +6097,45 @@ public class Logic {
      * Do map and filter setup from current top of selection stack
      */
     private void selectFromTop() {
-        final Selection currentSelection = selectionStack.getFirst();
-        map.setSelectedNodes(currentSelection.getNodes());
-        map.setSelectedWays(currentSelection.getWays());
-        reselectRelationMembers();
-        resetFilterCache();
+        try {
+            lock();
+            final Selection currentSelection = selectionStack.getFirst();
+            map.setSelectedNodes(currentSelection.getNodes());
+            map.setSelectedWays(currentSelection.getWays());
+            reselectRelationMembers();
+            resetFilterCache();
+        } finally {
+            unlock();
+        }
     }
 
     /**
      * Pop the current selection from the stack and select everything from the new top
      */
-    public synchronized void popSelection() {
-        if (selectionStack.size() > 1) {
-            selectionStack.pop();
-            selectFromTop();
-        } else {
-            Log.e(DEBUG_TAG, "Attempt to pop last selection from stack");
+    public void popSelection() {
+        try {
+            lock();
+            if (selectionStack.size() > 1) {
+                selectionStack.pop();
+                selectFromTop();
+            } else {
+                Log.e(DEBUG_TAG, "Attempt to pop last selection from stack");
+            }
+        } finally {
+            unlock();
         }
     }
 
     /**
      * Push a new empty Selection and reset everything
      */
-    public synchronized void pushSelection() {
-        pushSelection(new Selection());
+    public void pushSelection() {
+        try {
+            lock();
+            pushSelection(new Selection());
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -5815,9 +6143,14 @@ public class Logic {
      *
      * @param selection the Selection to use
      */
-    public synchronized void pushSelection(@NonNull Selection selection) {
-        selectionStack.push(selection);
-        selectFromTop();
+    public void pushSelection(@NonNull Selection selection) {
+        try {
+            lock();
+            selectionStack.push(selection);
+            selectFromTop();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -6528,5 +6861,28 @@ public class Logic {
     @NonNull
     public Handler getHandler() {
         return uiHandler;
+    }
+
+    /**
+     * Try to set the reading lock
+     */
+    public boolean tryLock() {
+        return lock.tryLock();
+    }
+
+    /**
+     * Set the reading lock
+     */
+    void lock() {
+        lock.lock();
+    }
+
+    /**
+     * Free the reading lock checking if it is currently held
+     */
+    public void unlock() {
+        if (lock.isHeldByCurrentThread()) {
+            lock.unlock();
+        }
     }
 }

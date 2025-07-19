@@ -410,7 +410,8 @@ public class Main extends ConfigurationChangeAwareActivity
 
     private final CompassEventListener compassEventListener = new CompassEventListener((float azimut) -> {
         map.setOrientation(azimut);
-        // Repaint map only if orientation changed by at least MIN_AZIMUT_CHANGE
+        // Repaint map only if orientation changed by at least
+        // MIN_AZIMUT_CHANGE
         // degrees since last repaint
         if (Math.abs(azimut - lastAzimut) > MIN_AZIMUT_CHANGE) {
             ViewBox viewBox = map.getViewBox();
@@ -1211,10 +1212,13 @@ public class Main extends ConfigurationChangeAwareActivity
             return;
         }
         if (loadBox != null) { // zoom only
-            synchronized (logic) {
+            try {
+                logic.lock();
                 map.getViewBox().fitToBoundingBox(getMap(), loadBox);
                 map.invalidate();
                 logic.saveEditingState(this);
+            } finally {
+                logic.unlock();
             }
         }
     }
@@ -3805,7 +3809,8 @@ public class Main extends ConfigurationChangeAwareActivity
             int focusLon = GeoMath.xToLonE7(map.getWidth(), viewBox, focusX);
             int focusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
             Logic logic = App.getLogic();
-            synchronized (logic) {
+            try {
+                logic.lock();
                 viewBox.zoom(Math.max(0.8f, Math.min(1.2f, scaleFactor)) - 1.0f);
                 int newfocusLon = GeoMath.xToLonE7(map.getWidth(), viewBox, focusX);
                 int newfocusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
@@ -3814,6 +3819,8 @@ public class Main extends ConfigurationChangeAwareActivity
                 } catch (OsmException e) {
                     // ignored
                 }
+            } finally {
+                logic.unlock();
             }
             map.getDataStyle().updateStrokes(logic.strokeWidth(viewBox.getWidth()));
             if (logic.isRotationMode()) {
@@ -4642,12 +4649,12 @@ public class Main extends ConfigurationChangeAwareActivity
     /**
      * Runnable for locking
      */
-    private Runnable autoLock = () -> lock();
+    private Runnable autoLock = () -> uiLock();
 
     /**
      * Lock screen if we are in a mode in which that can reasonably be done
      */
-    public void lock() {
+    public void uiLock() {
         if (App.getLogic().isUiLocked()) {
             return;
         }
