@@ -68,7 +68,7 @@ public class SavingHelper<T extends Serializable> {
      *            ignored
      * @return true if successful, false if saving failed for some reason
      */
-    public synchronized boolean save(@NonNull Context context, @NonNull String filename, @NonNull T object, boolean compress) {
+    public boolean save(@NonNull Context context, @NonNull String filename, @NonNull T object, boolean compress) {
         return save(context, filename, object, compress, false);
     }
 

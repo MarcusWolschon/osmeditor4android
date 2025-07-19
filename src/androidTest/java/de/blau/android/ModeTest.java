@@ -75,7 +75,7 @@ public class ModeTest {
     public void lock() {
         UiObject lock = TestUtils.getLock(device);
 
-        logic.setLocked(true);
+        logic.setUiLocked(true);
         logic.setZoom(main.getMap(), 20);
         main.getMap().invalidate();
         main.runOnUiThread(new Runnable() {
@@ -88,7 +88,7 @@ public class ModeTest {
         device.waitForIdle();
         UiObject map = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/map_view"));
         assertTrue(map.exists());
-        assertTrue(logic.isLocked());
+        assertTrue(logic.isUiLocked());
         try {
             assertTrue(!lock.isSelected());
         } catch (UiObjectNotFoundException e1) {
@@ -113,7 +113,7 @@ public class ModeTest {
         } catch (UiObjectNotFoundException e) {
             fail(e.getMessage());
         }
-        assertTrue(!logic.isLocked());
+        assertTrue(!logic.isUiLocked());
 
         assertEquals(Mode.MODE_EASYEDIT, logic.getMode()); // start with this and cycle through the modes
 

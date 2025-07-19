@@ -471,13 +471,19 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         final Logic logic = App.getLogic();
         tmpDrawingEditMode = logic.getMode();
         tmpFilter = logic.getFilter();
-        tmpDrawingSelectedNodes = logic.getSelectedNodes();
-        tmpDrawingSelectedWays = logic.getSelectedWays();
-        tmpClickableElements = logic.getClickableElements();
-        tmpDrawingSelectedRelationWays = logic.getSelectedRelationWays();
-        tmpDrawingSelectedRelationNodes = logic.getSelectedRelationNodes();
+        try {
+            if (logic.tryLock()) {
+                tmpDrawingSelectedNodes = logic.getSelectedNodes();
+                tmpDrawingSelectedWays = logic.getSelectedWays();
+                tmpClickableElements = logic.getClickableElements();
+                tmpDrawingSelectedRelationWays = logic.getSelectedRelationWays();
+                tmpDrawingSelectedRelationNodes = logic.getSelectedRelationNodes();
+            }
+        } finally {
+            logic.unlock();
+        }
         tmpPresets = App.getCurrentPresets(context);
-        tmpLocked = logic.isLocked();
+        tmpLocked = logic.isUiLocked();
 
         currentStyle = styles.getCurrent();
 
