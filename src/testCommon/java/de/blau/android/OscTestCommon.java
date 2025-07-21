@@ -28,16 +28,22 @@ public final class OscTestCommon {
         Relation r = (Relation) delegator.getOsmElement(Relation.NAME, 1638705L);
         // check new data state
         Assert.assertNotNull(delegator.getApiStorage().getOsmElement(Way.NAME, 210558043L));
+        Assert.assertNull(delegator.getCurrentStorage().getOsmElement(Way.NAME, 210558043L));
         Assert.assertEquals(OsmElement.STATE_DELETED, delegator.getApiStorage().getOsmElement(Way.NAME, 210558043L).getState());
         Assert.assertNotNull(delegator.getApiStorage().getOsmElement(Node.NAME, 2206392996L));
+        Assert.assertNull(delegator.getCurrentStorage().getOsmElement(Node.NAME, 2206392996L));
         Assert.assertEquals(OsmElement.STATE_DELETED, delegator.getApiStorage().getOsmElement(Node.NAME, 2206392996L).getState());
         Assert.assertNotNull(delegator.getApiStorage().getOsmElement(Node.NAME, 2206392994L));
+        Assert.assertNull(delegator.getCurrentStorage().getOsmElement(Node.NAME, 2206392996L));
         Assert.assertEquals(OsmElement.STATE_DELETED, delegator.getApiStorage().getOsmElement(Node.NAME, 2206392994L).getState());
         Assert.assertNotNull(delegator.getApiStorage().getOsmElement(Node.NAME, 2206392992L));
+        Assert.assertNull(delegator.getCurrentStorage().getOsmElement(Node.NAME, 2206392992L));
         Assert.assertEquals(OsmElement.STATE_DELETED, delegator.getApiStorage().getOsmElement(Node.NAME, 2206392992L).getState());
         Assert.assertNotNull(delegator.getApiStorage().getOsmElement(Node.NAME, 2206392993L));
+        Assert.assertNull(delegator.getCurrentStorage().getOsmElement(Node.NAME, 2206392993L));
         Assert.assertEquals(OsmElement.STATE_DELETED, delegator.getApiStorage().getOsmElement(Node.NAME, 2206392993L).getState());
         Assert.assertNotNull(delegator.getApiStorage().getOsmElement(Node.NAME, 2206392996L));
+        Assert.assertNull(delegator.getCurrentStorage().getOsmElement(Node.NAME, 2206392993L));
         Assert.assertEquals(OsmElement.STATE_DELETED, delegator.getApiStorage().getOsmElement(Node.NAME, 2206392996L).getState());
 
         // placeholder ids are renumbered on input so we need to find the Way some other way

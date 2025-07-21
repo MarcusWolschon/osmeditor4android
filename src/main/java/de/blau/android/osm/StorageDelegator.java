@@ -63,55 +63,53 @@ import de.blau.android.validation.BaseValidator;
 
 public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, StorageDelegator.class.getSimpleName().length());
-    private static final String DEBUG_TAG = StorageDelegator.class.getSimpleName().substring(0, TAG_LEN);
+    private static final int                         TAG_LEN                     = Math.min(LOG_TAG_LEN, StorageDelegator.class.getSimpleName().length());
+    private static final String                      DEBUG_TAG                   = StorageDelegator.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final long serialVersionUID = 11L;
+    private static final long                        serialVersionUID            = 11L;
 
-    public static final int  MIN_NODES_CIRCLE            = 3;
-    private static final int MINIMUN_NODES_FOR_WAY_SPLIT = 3;
+    public static final int                          MIN_NODES_CIRCLE            = 3;
+    private static final int                         MINIMUN_NODES_FOR_WAY_SPLIT = 3;
 
-    private static final int MAX_CLIPBOARDS = 5;
+    private static final int                         MAX_CLIPBOARDS              = 5;
 
-    private static final String LAST_STATE      = "lastActivity";
-    public static final String  FILENAME        = LAST_STATE + "." + FileExtensions.RES;
-    public static final String  BACKUP_FILENAME = FILENAME + ".backup";
+    private static final String                      LAST_STATE                  = "lastActivity";
+    public static final String                       FILENAME                    = LAST_STATE + "." + FileExtensions.RES;
+    public static final String                       BACKUP_FILENAME             = FILENAME + ".backup";
 
-    private Storage currentStorage;
+    private Storage                                  currentStorage;
 
-    private Storage apiStorage;
+    private Storage                                  apiStorage;
 
-    private UndoStorage undo;
+    private UndoStorage                              undo;
 
-    private MRUList<ClipboardStorage> clipboards;
+    private MRUList<ClipboardStorage>                clipboards;
 
-    private List<String> imagery;
+    private List<String>                             imagery;
 
     /**
      * when reading state lockout writing/reading
      */
-    private transient ReentrantLock lock = new ReentrantLock();
+    private transient ReentrantLock                  lock                        = new ReentrantLock();
 
     /**
-     * Indicates whether changes have been made since the last save to disk. Since a newly created storage is not saved,
-     * the constructor sets it to true. After a successful save or load, it is set to false. If it is false, save does
-     * nothing.
+     * Indicates whether changes have been made since the last save to disk. Since a newly created storage is not saved, the constructor sets it to true. After
+     * a successful save or load, it is set to false. If it is false, save does nothing.
      */
-    private transient boolean dirty;
+    private transient boolean                        dirty;
 
     /**
      * if false we need to check if the current imagery has been recorded
      */
-    private transient boolean imageryRecorded = false;
+    private transient boolean                        imageryRecorded             = false;
 
-    private transient SavingHelper<StorageDelegator> savingHelper = new SavingHelper<>();
+    private transient SavingHelper<StorageDelegator> savingHelper                = new SavingHelper<>();
 
     /**
-     * A OsmElementFactory that is used to create new elements. Needs to be persisted together with
-     * currentStorage/apiStorage to avoid duplicate IDs when the application is restarted after some elements have been
-     * created.
+     * A OsmElementFactory that is used to create new elements. Needs to be persisted together with currentStorage/apiStorage to avoid duplicate IDs when the
+     * application is restarted after some elements have been created.
      */
-    private OsmElementFactory factory;
+    private OsmElementFactory                        factory;
 
     /**
      * Construct a new empty instance
@@ -126,8 +124,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * This maintains the clipboard as the user may want to keep it over data reloads etc
      * 
-     * @param dirty if true mark the (empty) contents as dirty (this is useful because if true old state files will be
-     *            overwritten)
+     * @param dirty if true mark the (empty) contents as dirty (this is useful because if true old state files will be overwritten)
      */
     public void reset(boolean dirty) {
         try {
@@ -219,7 +216,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void clearUndo(@NonNull List<OsmElement> elements) {
         try {
             lock();
-            for (OsmElement element : elements) {
+            for (OsmElement element:elements) {
                 undo.removeFromAll(element);
             }
         } finally {
@@ -228,8 +225,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Get the current OsmElementFactory instance used by this delegator. Use only the factory returned by this to
-     * create new element IDs for insertion into this delegator! For immediate use only - DO NOT CACHE THIS.
+     * Get the current OsmElementFactory instance used by this delegator. Use only the factory returned by this to create new element IDs for insertion into
+     * this delegator! For immediate use only - DO NOT CACHE THIS.
      * 
      * @return the OsmElementFactory for creating nodes/ways with new IDs
      */
@@ -342,7 +339,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     <T extends OsmElement> void onElementChanged(@Nullable List<T> pre, @Nullable List<T> post) {
         if (post != null) {
             BoundingBox changed = null;
-            for (OsmElement e : post) {
+            for (OsmElement e:post) {
                 e.stamp();
                 e.resetHasProblem();
                 if (e instanceof Way) {
@@ -356,7 +353,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
             if (changed != null) {
-                for (Way w : currentStorage.getWays(changed)) {
+                for (Way w:currentStorage.getWays(changed)) {
                     w.invalidateBoundingBox();
                     w.resetHasProblem();
                 }
@@ -374,14 +371,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Called after an element has been changed
      * 
-     * As it may be fairly expensive to determine all changes pre and/or post may be null Don't call this if just the
-     * node positions have changed
+     * As it may be fairly expensive to determine all changes pre and/or post may be null Don't call this if just the node positions have changed
      * 
      * @param pre changed element before the operation or null
      * @param post changed element after the operation or null
      */
     void onElementChanged(@Nullable OsmElement pre, @Nullable OsmElement post) {
-        List<OsmElement> preList = null;
+        List<OsmElement> preList  = null;
         List<OsmElement> postList = null;
 
         if (pre != null) {
@@ -407,15 +403,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // This way of doing it collects all candidate ways
         // first and then invalidates each of them max. once.
         if (!nodes.isEmpty()) {
-            Iterator<Node> it = nodes.iterator();
-            Node n = it.next();
-            ViewBox box = new ViewBox(n.lon, n.lat);
+            Iterator<Node> it  = nodes.iterator();
+            Node           n   = it.next();
+            ViewBox        box = new ViewBox(n.lon, n.lat);
             while (it.hasNext()) {
                 n = it.next();
                 box.union(n.lon, n.lat);
             }
             List<Way> ways = currentStorage.getWays(box);
-            for (Way w : ways) {
+            for (Way w:ways) {
                 box.union(w.getBounds());
             }
             box.expand(BaseValidator.MAX_CONNECTION_TOLERANCE);
@@ -424,7 +420,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 Way w = ways.get(0);
                 invalidateWay(w);
             } else {
-                for (Way w : new HashSet<>(ways)) {
+                for (Way w:new HashSet<>(ways)) {
                     invalidateWay(w);
                 }
             }
@@ -465,7 +461,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             try {
                 if (map != null) { // currently we only modify data when the map exists
                     List<String> currentImagery = map.getImageryNames();
-                    for (String i : currentImagery) {
+                    for (String i:currentImagery) {
                         if (!imagery.contains(i) && !"None".equalsIgnoreCase(i)) {
                             imagery.add(i);
                         }
@@ -491,26 +487,26 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * Reset the cached "problems" for all OsmElements
      */
     public void resetProblems() {
-        for (OsmElement e : currentStorage.getElements()) {
+        for (OsmElement e:currentStorage.getElements()) {
             e.resetHasProblem();
         }
-        for (OsmElement e : apiStorage.getElements()) {
+        for (OsmElement e:apiStorage.getElements()) {
             e.resetHasProblem();
         }
     }
 
     /**
-     * Create apiStorage (aka the changes to the original data) based on state field of the elements. Assumes that
-     * apiStorage is empty. As a side effect it updates the id sequences for the creation of new elements.
+     * Create apiStorage (aka the changes to the original data) based on state field of the elements. Assumes that apiStorage is empty. As a side effect it
+     * updates the id sequences for the creation of new elements.
      */
     public void fixupApiStorage() {
-        long minNodeId = 0;
-        long minWayId = 0;
+        long minNodeId     = 0;
+        long minWayId      = 0;
         long minRelationId = 0;
         try {
             lock();
             List<Node> nl = new ArrayList<>(currentStorage.getNodes());
-            for (Node n : nl) {
+            for (Node n:nl) {
                 if (n.getState() != OsmElement.STATE_UNCHANGED) {
                     apiStorage.insertElementUnsafe(n);
                     if (n.getOsmId() < minNodeId) {
@@ -522,7 +518,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
             List<Way> wl = new ArrayList<>(currentStorage.getWays());
-            for (Way w : wl) {
+            for (Way w:wl) {
                 if (w.getState() != OsmElement.STATE_UNCHANGED) {
                     apiStorage.insertElementUnsafe(w);
                     if (w.getOsmId() < minWayId) {
@@ -534,7 +530,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
             List<Relation> rl = new ArrayList<>(currentStorage.getRelations());
-            for (Relation r : rl) {
+            for (Relation r:rl) {
                 if (r.getState() != OsmElement.STATE_UNCHANGED) {
                     apiStorage.insertElementUnsafe(r);
                     if (r.getOsmId() < minRelationId) {
@@ -566,7 +562,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             lock();
             insertElementUnsafe(relation);
             if (members != null) {
-                for (OsmElement e : members) {
+                for (OsmElement e:members) {
                     undo.save(e);
                     RelationMember rm = new RelationMember("", e);
                     relation.addMember(rm);
@@ -594,7 +590,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         try {
             lock();
             insertElementUnsafe(relation);
-            for (RelationMember member : members) {
+            for (RelationMember member:members) {
                 if (member.downloaded()) {
                     OsmElement e = member.getElement();
                     undo.save(e);
@@ -636,8 +632,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param node the node to add
      * @param way the way to add the node to
-     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
-     *             constraint
+     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific constraint
      */
     public void addNodeToWay(@NonNull final Node node, @NonNull final Way way) {
         dirty = true;
@@ -659,8 +654,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param nodes the nodes to add
      * @param way the way to add the node to
-     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
-     *             constraint
+     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific constraint
      */
     public void addNodesToWay(@NonNull final List<Node> nodes, @NonNull final Way way) {
         dirty = true;
@@ -682,8 +676,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param nodes the new nodes
      * @param way the way to add the node to
-     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
-     *             constraint
+     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific constraint
      */
     public void replaceWayNodes(@NonNull final List<Node> nodes, @NonNull final Way way) {
         dirty = true;
@@ -735,8 +728,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param nodeBeforeIndex index of existing way node the new node is to be added after
      * @param newNode the new way node
      * @param way the way to perform the operation on
-     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
-     *             constraint
+     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific constraint
      */
     public void addNodeToWayAfter(final int nodeBeforeIndex, @NonNull final Node newNode, @NonNull final Way way) throws OsmIllegalOperationException {
         dirty = true;
@@ -759,8 +751,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param refNode last or first way node
      * @param nextNode the new node to add
      * @param way the way to perform the operation on
-     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
-     *             constraint
+     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific constraint
      */
     public void appendNodeToWay(@NonNull final Node refNode, @NonNull final Node nextNode, @NonNull final Way way) throws OsmIllegalOperationException {
         dirty = true;
@@ -813,8 +804,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Move all nodes in a way, since the nodes keep their ids, the way itself doesn't change and doesn't need to be
-     * saved apply translation only once to every node
+     * Move all nodes in a way, since the nodes keep their ids, the way itself doesn't change and doesn't need to be saved apply translation only once to every
+     * node
      * 
      * @param way way containing the nodes
      * @param deltaLatE7 the delta to move the latitude (E7)
@@ -866,11 +857,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
         Set<Node> nodes = new HashSet<>(allNodes); // Guarantee uniqueness
         // check that all coordinates are valid before moving
-        for (Node nd : nodes) {
+        for (Node nd:nodes) {
             validateCoordinates(nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
         }
         invalidateWayBoundingBox(nodes);
-        for (Node nd : nodes) {
+        for (Node nd:nodes) {
             undo.save(nd);
             updateLatLon(nd, nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
         }
@@ -888,9 +879,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void circulizeWay(@NonNull final de.blau.android.Map map, int minNodes, double maxSegmentLength, double minSegmentLength, @NonNull final Way way) {
         undo.save(way);
-        final List<Node> nodes = way.getNodes();
+        final List<Node> nodes       = way.getNodes();
         // Guarantee uniqueness by creating a set
-        List<Node> circleNodes = addNodesToCircle(new ArrayList<>(new LinkedHashSet<>(nodes)), minNodes, maxSegmentLength, minSegmentLength, getMaxWayNodes());
+        List<Node>       circleNodes = addNodesToCircle(new ArrayList<>(new LinkedHashSet<>(nodes)), minNodes, maxSegmentLength, minSegmentLength,
+                getMaxWayNodes());
         nodes.clear();
         nodes.addAll(circleNodes);
         way.updateState(OsmElement.STATE_MODIFIED);
@@ -913,7 +905,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public Way createCircle(@NonNull final de.blau.android.Map map, int minNodes, double maxSegmentLength, double minSegmentLength,
             @NonNull final List<Node> nodes) {
         List<Node> circleNodes = addNodesToCircle(nodes, minNodes, maxSegmentLength, minSegmentLength, getMaxWayNodes());
-        Way circle = factory.createWayWithNewId();
+        Way        circle      = factory.createWayWithNewId();
         circle.addNodes(circleNodes, false);
         insertElementSafe(circle);
         onElementChanged(null, nodes);
@@ -943,7 +935,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         final boolean counterClockwise = w == COUNTERCLOCKWISE;
 
         // save nodes for undo
-        for (Node nd : nodes) {
+        for (Node nd:nodes) {
             undo.save(nd);
         }
 
@@ -954,13 +946,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         if (counterClockwise) {
             Collections.reverse(nodes);
         }
-        Coordinates[] coords = Coordinates.nodeListToMercatorCoordinateArray(new ArrayList<>(nodes));
+        Coordinates[] coords         = Coordinates.nodeListToMercatorCoordinateArray(new ArrayList<>(nodes));
 
-        Circle c = Geometry.calculateCircle(coords);
-        Coordinates center = c.center;
-        double radius = c.radius;
+        Circle        c              = Geometry.calculateCircle(coords);
+        Coordinates   center         = c.center;
+        double        radius         = c.radius;
         // move existing nodes
-        final int existingLength = coords.length;
+        final int     existingLength = coords.length;
         for (int i = 0; i < existingLength; i++) {
             Coordinates p = coords[i];
             // translate so that the center is in 0,0 first
@@ -972,9 +964,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             // undo translation here
             updateLatLon(nodes.get(i), GeoMath.mercatorToLatE7(p.y + center.y), (int) ((p.x + center.x) * 1E7D));
         }
-        Coordinates t = coords[0];
+        Coordinates t              = coords[0];
 
-        double[] existingAngles = new double[existingLength];
+        double[]    existingAngles = new double[existingLength];
         for (int i = 1; i < existingLength; i++) {
             existingAngles[i] = -Coordinates.angle(t, coords[i]);
             if (existingAngles[i] < 0) {
@@ -984,25 +976,25 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
         // calc additional node positions
         // calc radius in m
-        final Node firstNode = nodes.get(0);
-        double radiusLength = GeoMath.haversineDistance(firstNode.getLon() / 1E7D, firstNode.getLat() / 1E7D, center.x, GeoMath.mercatorToLat(center.y));
+        final Node   firstNode    = nodes.get(0);
+        double       radiusLength = GeoMath.haversineDistance(firstNode.getLon() / 1E7D, firstNode.getLat() / 1E7D, center.x, GeoMath.mercatorToLat(center.y));
         // roughly every maxSegmentLength meters
-        int newCount = Math.min(Math.max(minNodes, (int) ((Geometry.PI_2 * radiusLength) / maxSegmentLength)), getMaxWayNodes() - existingLength);
-        double angleDiff = Geometry.PI_2 / newCount;
+        int          newCount     = Math.min(Math.max(minNodes, (int) ((Geometry.PI_2 * radiusLength) / maxSegmentLength)), getMaxWayNodes() - existingLength);
+        double       angleDiff    = Geometry.PI_2 / newCount;
 
-        final double minDistance = GeoMath.convertMetersToGeoDistance(minSegmentLength);
-        int nextPos = 1;
-        List<Node> circleNodes = new ArrayList<>(newCount);
+        final double minDistance  = GeoMath.convertMetersToGeoDistance(minSegmentLength);
+        int          nextPos      = 1;
+        List<Node>   circleNodes  = new ArrayList<>(newCount);
         circleNodes.add(firstNode);
-        double angle = 0;
+        double      angle        = 0;
         Coordinates prevExisting = t;
         Coordinates nextExisting = coords[nextPos];
         for (int i = 1; i <= newCount; i++) {
             angle += angleDiff;
-            final double cosAngle = Math.cos(angle);
-            final double sinAngle = Math.sin(angle);
-            Coordinates n = new Coordinates(t.x * cosAngle + t.y * sinAngle, -t.x * sinAngle + t.y * cosAngle);
-            double existingAngle = existingAngles[nextPos];
+            final double cosAngle      = Math.cos(angle);
+            final double sinAngle      = Math.sin(angle);
+            Coordinates  n             = new Coordinates(t.x * cosAngle + t.y * sinAngle, -t.x * sinAngle + t.y * cosAngle);
+            double       existingAngle = existingAngles[nextPos];
             while (existingAngle <= angle && existingAngle != 0) {
                 circleNodes.add(nodes.get(nextPos));
                 nextPos = (nextPos + 1) % existingLength;
@@ -1037,17 +1029,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     @NonNull
     private List<List<Way>> groupWays(@NonNull List<Way> ways) {
-        List<List<Way>> groups = new ArrayList<>();
-        int group = 0;
-        int index = 0;
-        int groupIndex = 1;
+        List<List<Way>> groups     = new ArrayList<>();
+        int             group      = 0;
+        int             index      = 0;
+        int             groupIndex = 1;
         groups.add(new ArrayList<>());
         Way startWay = ways.get(index);
         groups.get(group).add(startWay);
         do {
             do {
-                for (Node nd : startWay.getNodes()) {
-                    for (Way w : ways) {
+                for (Node nd:startWay.getNodes()) {
+                    for (Way w:ways) {
                         if (w.getNodes().contains(nd) && !groups.get(group).contains(w)) {
                             groups.get(group).add(w);
                         }
@@ -1062,9 +1054,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
             // find the next way that is not in a group and start a new one
             for (; index < ways.size(); index++) {
-                Way w = ways.get(index);
+                Way     w     = ways.get(index);
                 boolean found = false;
-                for (List<Way> list : groups) {
+                for (List<Way> list:groups) {
                     found = found || list.contains(w);
                 }
                 if (!found) {
@@ -1082,9 +1074,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * "square" a way/polygon, based on the algorithm used by iD and before that by P2, originally written by Matt Amos
-     * If multiple ways are selected the ways are grouped in groups that share nodes and the groups individually
-     * squared.
+     * "square" a way/polygon, based on the algorithm used by iD and before that by P2, originally written by Matt Amos If multiple ways are selected the ways
+     * are grouped in groups that share nodes and the groups individually squared.
      * 
      * This function converts to and then operates on screen coordinates.
      * 
@@ -1094,39 +1085,39 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void orthogonalizeWay(@NonNull List<Way> ways, final int threshold) {
         final double lowerThreshold = Math.cos((90 - threshold) * Math.PI / 180);
         final double upperThreshold = Math.cos(threshold * Math.PI / 180);
-        final double epsilon = 1e-5;
+        final double epsilon        = 1e-5;
 
         dirty = true;
         // save nodes for undo
         // adding to a Set first removes duplication
         Set<Node> save = new HashSet<>();
-        for (Way way : ways) {
+        for (Way way:ways) {
             if (way.getNodes() != null) {
                 save.addAll(way.getNodes());
             }
         }
-        for (Node nd : save) {
+        for (Node nd:save) {
             undo.save(nd);
         }
         invalidateWayBoundingBox(save);
-        List<List<Way>> groups = groupWays(ways);
+        List<List<Way>>     groups      = groupWays(ways);
 
         List<Coordinates[]> coordsArray = new ArrayList<>();
 
-        for (List<Way> wayList : groups) {
+        for (List<Way> wayList:groups) {
             coordsArray.clear();
 
             int totalNodes = 0;
-            for (Way w : wayList) {
+            for (Way w:wayList) {
                 coordsArray.add(Coordinates.nodeListToMercatorCoordinateArray(w.getNodes()));
                 totalNodes += w.getNodes().size();
             }
-            int coordsArraySize = coordsArray.size();
-            double lonOffset = coordsArray.get(0)[0].x;
-            double latOffset = coordsArray.get(0)[0].y;
+            int    coordsArraySize = coordsArray.size();
+            double lonOffset       = coordsArray.get(0)[0].x;
+            double latOffset       = coordsArray.get(0)[0].y;
             for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
                 Coordinates[] coords = coordsArray.get(coordIndex);
-                for (Coordinates c : coords) {
+                for (Coordinates c:coords) {
                     c.x -= lonOffset;
                     c.y -= latOffset;
                 }
@@ -1138,17 +1129,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Coordinates p;
             Coordinates q;
 
-            double loopEpsilon = epsilon * (totalNodes / 4D); // NOTE the original algorithm didn't take the number
-                                                              // of corners in to account
+            double      loopEpsilon = epsilon * (totalNodes / 4D); // NOTE the original algorithm didn't take the number
+                                                                   // of corners in to account
             // iterate until score is low enough
             for (int iteration = 0; iteration < 1000; iteration++) {
                 // calculate position changes and score
                 double score = 0.0;
                 for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
                     Coordinates[] coords = coordsArray.get(coordIndex);
-                    int length = coords.length;
-                    int start = 0;
-                    int end = length;
+                    int           length = coords.length;
+                    int           start  = 0;
+                    int           end    = length;
                     if (!wayList.get(coordIndex).isClosed()) {
                         start = 1;
                         end = end - 1;
@@ -1191,7 +1182,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             try {
                 lock();
                 for (int wayIndex = 0; wayIndex < wayList.size(); wayIndex++) {
-                    List<Node> nodes = wayList.get(wayIndex).getNodes();
+                    List<Node>    nodes  = wayList.get(wayIndex).getNodes();
                     Coordinates[] coords = coordsArray.get(wayIndex);
                     for (int i = 0; i < nodes.size(); i++) {
                         Node nd = nodes.get(i);
@@ -1236,16 +1227,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             return;
         }
         dirty = true;
-        double cos = Math.cos(angle);
-        double sin = Math.sin(angle);
+        double    cos         = Math.cos(angle);
+        double    sin         = Math.sin(angle);
         Set<Node> uniqueNodes = new HashSet<>(nodes); // Guarantee uniqueness
         invalidateWayBoundingBox(uniqueNodes);
-        for (Node nd : uniqueNodes) {
+        for (Node nd:uniqueNodes) {
             undo.save(nd);
             double nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
             double nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());
-            double newX = pivotX + (nodeX - pivotX) * cos - direction * (nodeY - pivotY) * sin;
-            double newY = pivotY + direction * (nodeX - pivotX) * sin + (nodeY - pivotY) * cos;
+            double newX  = pivotX + (nodeX - pivotX) * cos - direction * (nodeY - pivotY) * sin;
+            double newY  = pivotY + direction * (nodeX - pivotX) * sin + (nodeY - pivotY) * cos;
             updateLatLon(nd, GeoMath.yToLatE7(h, w, v, (float) newY), GeoMath.xToLonE7(w, v, (float) newX));
         }
         // Don't call onElementChanged(null, new ArrayList<>(nodes)); NOSONAR
@@ -1254,8 +1245,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Delete a node
      * 
-     * The operation will remove it from any ways and relations relations it is a member of, ways that contain just 1 or
-     * less nodes after the deletion will be deleted too
+     * The operation will remove it from any ways and relations relations it is a member of, ways that contain just 1 or less nodes after the deletion will be
+     * deleted too
      * 
      * @param node the node to remove
      */
@@ -1297,7 +1288,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public List<Result> splitAtNodes(@NonNull Way way, @NonNull Node node1, @NonNull Node node2, boolean createPolygons) {
         Log.d(DEBUG_TAG, "splitAtNodes way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
         Result resultOrig = new Result();
-        Result resultNew = new Result();
+        Result resultNew  = new Result();
         // undo - old way is saved here, new way is saved at insert
         dirty = true;
         undo.save(way);
@@ -1308,26 +1299,25 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
 
         int winding = Winding.winding(nodes);
-        int pos1 = nodes.indexOf(node1);
-        int pos2 = nodes.indexOf(node2);
+        int pos1    = nodes.indexOf(node1);
+        int pos2    = nodes.indexOf(node2);
 
         validateRelationMemberCount(way.getParentRelations(), 1);
 
-        List<String> metricKeys = getMetricKeys(way);
-        double originalLength = getWayLength(way, metricKeys);
+        List<String> metricKeys     = getMetricKeys(way);
+        double       originalLength = getWayLength(way, metricKeys);
 
         /*
-         * convention iterate over list, copy everything between first split node found and 2nd split node found if 2nd
-         * split node found first the same
+         * convention iterate over list, copy everything between first split node found and 2nd split node found if 2nd split node found first the same
          */
-        List<Node> nodesExtracted = new LinkedList<>();
-        List<Node> nodesEnd1 = new LinkedList<>();
-        List<Node> nodesEnd2 = new LinkedList<>();
-        boolean found1 = false;
-        boolean found2 = false;
-        final long node1Id = node1.getOsmId();
-        final long node2Id = node2.getOsmId();
-        for (Node wayNode : nodes) {
+        List<Node>   nodesExtracted = new LinkedList<>();
+        List<Node>   nodesEnd1      = new LinkedList<>();
+        List<Node>   nodesEnd2      = new LinkedList<>();
+        boolean      found1         = false;
+        boolean      found2         = false;
+        final long   node1Id        = node1.getOsmId();
+        final long   node2Id        = node2.getOsmId();
+        for (Node wayNode:nodes) {
             if (!found1 && wayNode.getOsmId() == node1Id) {
                 found1 = true;
                 nodesExtracted.add(wayNode);
@@ -1386,7 +1376,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         if (!metricKeys.isEmpty() && originalLength != 0) {
             resultOrig.addIssue(SplitIssue.SPLIT_METRIC);
             resultNew.addIssue(SplitIssue.SPLIT_METRIC);
-            for (String key : metricKeys) {
+            for (String key:metricKeys) {
                 distributeMetric(key, originalLength, way);
                 distributeMetric(key, originalLength, newWay);
             }
@@ -1455,8 +1445,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         undo.save(way);
 
-        List<Node> nodes = way.getNodes();
-        int occurrences = Collections.frequency(way.getNodes(), node);
+        List<Node> nodes       = way.getNodes();
+        int        occurrences = Collections.frequency(way.getNodes(), node);
         // the following condition is fairly obscure and should likely be replaced by checking for position of the node
         // in the way
         if (nodes.size() < 3 || (way.isEndNode(node) && (way.isClosed() ? occurrences == 2 : occurrences == 1))) {
@@ -1465,12 +1455,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         validateRelationMemberCount(way.getParentRelations(), 1);
 
-        List<String> metricKeys = getMetricKeys(way);
-        double originalLength = getWayLength(way, metricKeys);
+        List<String> metricKeys     = getMetricKeys(way);
+        double       originalLength = getWayLength(way, metricKeys);
 
         // we assume this node is only contained in the way once (with the exception of loops at one end of the way).
         // else the user needs to split the remaining way again.
-        List<Node> nodesForNewWay = splitOffNodes(way, node, fromEnd);
+        List<Node>   nodesForNewWay = splitOffNodes(way, node, fromEnd);
         if (nodesForNewWay.size() <= 1) {
             logAndThrow("splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)");
         }
@@ -1488,7 +1478,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
         if (!metricKeys.isEmpty() && originalLength != 0) {
             result.addIssue(SplitIssue.SPLIT_METRIC);
-            for (String key : metricKeys) {
+            for (String key:metricKeys) {
                 distributeMetric(key, originalLength, way);
                 distributeMetric(key, originalLength, newWay);
             }
@@ -1528,7 +1518,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     private List<String> getMetricKeys(@NonNull final Way way) {
         // check tags for problematic keys
         List<String> metricKeys = new ArrayList<>();
-        for (String key : way.getTags().keySet()) {
+        for (String key:way.getTags().keySet()) {
             if (Tags.isWayMetric(key)) {
                 metricKeys.add(key);
             }
@@ -1546,8 +1536,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private List<Node> splitOffNodes(@NonNull final Way way, @NonNull final Node node, boolean fromEnd) {
         List<Node> nodesForNewWay = new LinkedList<>();
-        boolean found = false;
-        boolean first = true; // node to split at can't be the first one
+        boolean    found          = false;
+        boolean    first          = true;              // node to split at can't be the first one
         for (Iterator<Node> it = way.getNodeIterator(); it.hasNext();) {
             Node wayNode = it.next();
             if (wayNode.getOsmId() == node.getOsmId() && !first && !found) {
@@ -1573,10 +1563,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         String value = way.getTagWithKey(key);
         if (value != null && !"".equals(value)) {
             try {
-                int metric = Tags.KEY_DURATION.equals(key) ? Duration.parse(value) : Integer.parseInt(value);
-                double newLength = way.length();
-                int newMetric = (int) Math.round(metric * newLength / originalLength);
-                Map<String, String> tags = new TreeMap<>(way.getTags());
+                int                 metric    = Tags.KEY_DURATION.equals(key) ? Duration.parse(value) : Integer.parseInt(value);
+                double              newLength = way.length();
+                int                 newMetric = (int) Math.round(metric * newLength / originalLength);
+                Map<String, String> tags      = new TreeMap<>(way.getTags());
                 tags.put(key, Tags.KEY_DURATION.equals(key) ? Duration.toString(newMetric) : Integer.toString(newMetric));
                 way.setTags(tags);
             } catch (NumberFormatException nfex) {
@@ -1606,10 +1596,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         Set<Relation> relations = new HashSet<>(way.getParentRelations()); // copy and only unique relations!
         dirty = true;
         /*
-         * iterate through relations, for all except restrictions add the new way to the relation, for now simply after
-         * the old way
+         * iterate through relations, for all except restrictions add the new way to the relation, for now simply after the old way
          */
-        for (Relation r : relations) {
+        for (Relation r:relations) {
             Log.d(DEBUG_TAG, "addSplitWayToRelations processing relation (#" + r.getOsmId() + "/" + relations.size() + ")");
             List<RelationMember> members = r.getAllMembers(way);
             if (members.isEmpty()) {
@@ -1618,27 +1607,27 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 continue;
             }
             undo.save(r);
-            String type = r.getTagWithKey(Tags.KEY_TYPE);
+            String  type              = r.getTagWithKey(Tags.KEY_TYPE);
             // determine if the relation is potentially like a restriction, as hasFromViaTo is fairly expensive
             // avoid calling it if we are sure that it can't be restriction like
-            boolean isRoute = Tags.VALUE_ROUTE.equals(type);
+            boolean isRoute           = Tags.VALUE_ROUTE.equals(type);
             boolean isRestrictionLike = Tags.VALUE_RESTRICTION.equals(type)
                     || (!Tags.VALUE_MULTIPOLYGON.equals(type) && !Tags.VALUE_BOUNDARY.equals(type) && !isRoute && RelationUtils.hasFromViaTo(r));
-            for (RelationMember rm : members) {
+            for (RelationMember rm:members) {
                 Log.d(DEBUG_TAG, "addSplitWayToRelations member " + rm);
-                int memberPos = r.getPosition(rm);
+                int     memberPos = r.getPosition(rm);
                 // attempt to handle turn restrictions correctly, if element is the via way, copying relation
                 // membership to both is ok
-                String role = rm.getRole();
-                boolean isVia = Tags.isVia(type, role);
+                String  role      = rm.getRole();
+                boolean isVia     = Tags.isVia(type, role);
                 if (isRestrictionLike && !isVia) {
                     // check if the old way has a node in common with the via relation member, if no assume the
                     // new way has
-                    List<RelationMember> rl = Tags.getVia(type, r);
-                    boolean foundVia = false;
+                    List<RelationMember> rl       = Tags.getVia(type, r);
+                    boolean              foundVia = false;
                     for (int j = 0; j < rl.size(); j++) {
                         RelationMember viaRm = rl.get(j);
-                        OsmElement viaE = viaRm.getElement();
+                        OsmElement     viaE  = viaRm.getElement();
                         if (viaE instanceof Node) {
                             if (((Way) rm.getElement()).hasNode((Node) viaE)) {
                                 foundVia = true;
@@ -1661,16 +1650,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         }
                     }
                 } else { // default handling of relations membership
-                    RelationMember newMember = new RelationMember(rm.getRole(), newWay); // use the same role
+                    RelationMember newMember  = new RelationMember(rm.getRole(), newWay); // use the same role
                     RelationMember prevMember = r.getMemberAt(memberPos - 1);
                     RelationMember nextMember = r.getMemberAt(memberPos + 1);
                     /*
-                     * We need to determine if to insert the new way before or after the existing member If the new way
-                     * has a common node with the previous member or if the existing way has a common node with the
-                     * following member we insert before, otherwise we insert after the existing member.
+                     * We need to determine if to insert the new way before or after the existing member If the new way has a common node with the previous
+                     * member or if the existing way has a common node with the following member we insert before, otherwise we insert after the existing
+                     * member.
                      * 
-                     * FIXME To do this really properly we would have to download the previous and next elements for
-                     * routes
+                     * FIXME To do this really properly we would have to download the previous and next elements for routes
                      */
                     if (hasCommonNode(prevMember, newWay)) {
                         r.addMemberBefore(rm, newMember);
@@ -1728,17 +1716,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Remove node from specified way
      * 
-     * If the node is untagged and not a member of any other way it will be deleted. If the way is closed and the end
-     * node is being removed it will try to re-close.
+     * If the node is untagged and not a member of any other way it will be deleted. If the way is closed and the end node is being removed it will try to
+     * re-close.
      * 
      * @param way the Way
      * @param node the Node
      */
     public void removeNodeFromWay(@NonNull Way way, @NonNull Node node) {
-        boolean closed = way.isClosed();
-        int size = way.getNodes().size();
-        int occurences = way.count(node);
-        int targetSize = size - occurences;
+        boolean closed     = way.isClosed();
+        int     size       = way.getNodes().size();
+        int     occurences = way.count(node);
+        int     targetSize = size - occurences;
         if (targetSize < Way.MINIMUM_NODES_IN_WAY || (closed && targetSize < Way.MINIMUM_NODES_IN_CLOSED_WAY)) {
             throw new OsmIllegalOperationException("No Nodes can be removed from this Way. This is a bug.");
         }
@@ -1762,8 +1750,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Remove last node from specified way
      * 
-     * If the node is untagged and not a member of any other node it will be deleted. If the result Way has less than 2
-     * Nodes it will be deleted.
+     * If the node is untagged and not a member of any other node it will be deleted. If the result Way has less than 2 Nodes it will be deleted.
      * 
      * @param fromEnd if true remove last node else first
      * @param way the Way
@@ -1772,10 +1759,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void removeEndNodeFromWay(boolean fromEnd, @NonNull Way way, boolean deleteNode) {
         dirty = true;
         undo.save(way);
-        List<Node> nodes = way.getNodes();
-        int size = nodes.size();
-        final int endNodeIndex = fromEnd ? size - 1 : 0;
-        Node node = nodes.get(endNodeIndex);
+        List<Node> nodes        = way.getNodes();
+        int        size         = nodes.size();
+        final int  endNodeIndex = fromEnd ? size - 1 : 0;
+        Node       node         = nodes.get(endNodeIndex);
         if (size <= Way.MINIMUM_NODES_IN_WAY) {
             Log.w(DEBUG_TAG, "removeWayNode removing degenerate way " + way.getOsmId());
             removeWay(way);
@@ -1799,7 +1786,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<Way> ways = currentStorage.getWays(node);
         if (ways.size() > 1) {
             boolean first = true;
-            for (Way way : ways) {
+            for (Way way:ways) {
                 if (first) {
                     // first way doesn't need to be changed
                     first = false;
@@ -1819,17 +1806,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param primaryKey don't unjoin from ways with the same primary key if not null, but replace the node in them too
      */
     public void unjoinWay(@Nullable Context ctx, @NonNull final Way way, @Nullable String primaryKey) {
-        Set<Node> wayNodes = new HashSet<>(way.getNodes()); // only do every node once
-        Map<Long, Boolean> keyMap = new HashMap<>();
-        for (Node nd : wayNodes) {
-            List<Way> otherWays = getCurrentStorage().getWays(nd);
+        Set<Node>          wayNodes = new HashSet<>(way.getNodes()); // only do every node once
+        Map<Long, Boolean> keyMap   = new HashMap<>();
+        for (Node nd:wayNodes) {
+            List<Way> otherWays   = getCurrentStorage().getWays(nd);
             List<Way> similarWays = new ArrayList<>();
             if (otherWays.size() > 1 && primaryKey != null) {
-                for (Way other : otherWays) {
+                for (Way other:otherWays) {
                     if (way.equals(other)) {
                         continue;
                     }
-                    Long otherId = Long.valueOf(other.getOsmId());
+                    Long    otherId   = Long.valueOf(other.getOsmId());
                     Boolean isSimilar = keyMap.get(otherId);
                     if (isSimilar == null) {
                         isSimilar = other.hasTagKey(primaryKey);
@@ -1842,7 +1829,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
             if (similarWays.size() < otherWays.size() - 1) { // if all are the same no need to replace
                 Node newNode = replaceWayNode(nd, way);
-                for (Way similar : similarWays) {
+                for (Way similar:similarWays) {
                     replaceNodeInWay(nd, newNode, similar);
                 }
             }
@@ -1886,10 +1873,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         if (node.hasParentRelations()) {
             List<Relation> relations = node.getParentRelations();
             /*
-             * iterate through relations, for all except restrictions add the new node to the relation, for now simply
-             * after the old node
+             * iterate through relations, for all except restrictions add the new node to the relation, for now simply after the old node
              */
-            for (Relation r : relations) {
+            for (Relation r:relations) {
                 RelationMember rm = r.getMember(node);
                 undo.save(r);
                 String type = r.getTagWithKey(Tags.KEY_TYPE);
@@ -1929,7 +1915,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
             insertElementUnsafe(newNode);
             dirty = true;
-            for (Way way : ways) {
+            for (Way way:ways) {
                 replaceNodeInWay(node, newNode, way);
             }
             return newNode;
@@ -1969,7 +1955,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<Relation> dirRelations = Reverse.getRelationsWithDirectionDependentRoles(way);
         if (!dirRelations.isEmpty()) {
             Reverse.reverseRoleDirection(way, dirRelations);
-            for (Relation r : dirRelations) {
+            for (Relation r:dirRelations) {
                 Result relationResult = new Result();
                 relationResult.setElement(r);
                 relationResult.addIssue(ReverseIssue.ROLEREVERSED);
@@ -1993,7 +1979,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     @NonNull
     List<Result> reverseWayNodeTags(List<Node> nodes) {
         List<Result> result = new ArrayList<>();
-        for (Node n : nodes) {
+        for (Node n:nodes) {
             Map<String, String> nodeDirTags = Reverse.getDirectionDependentTags(n);
             if (!nodeDirTags.isEmpty()) {
                 undo.save(n);
@@ -2046,10 +2032,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     private int removeWayNode(@NonNull final Node node) {
         // undo - node is not changed, affected way(s) are stored below
         dirty = true;
-        int deleted = 0;
-        List<Way> ways = currentStorage.getWays(node);
+        int              deleted         = 0;
+        List<Way>        ways            = currentStorage.getWays(node);
         List<OsmElement> changedElements = new ArrayList<>();
-        for (Way way : ways) {
+        for (Way way:ways) {
             undo.save(way);
             if (way.isClosed() && way.isEndNode(node) && way.getNodes().size() > 1) { // note protection against
                                                                                       // degenerate closed ways
@@ -2143,7 +2129,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param relation to remove from members
      */
     private void removeRelationFromMembers(@NonNull final Relation relation) {
-        for (RelationMember rm : relation.getMembers()) {
+        for (RelationMember rm:relation.getMembers()) {
             OsmElement e = rm.getElement();
             if (e != null) { // if null the element wasn't downloaded
                 undo.save(e);
@@ -2156,17 +2142,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Remove downloaded element from any relations it is a member of
      * 
-     * Note the element does not need to have its state changed or be stored in the API storage since the parent
-     * relation back link is just internal.
+     * Note the element does not need to have its state changed or be stored in the API storage since the parent relation back link is just internal.
      * 
      * @param element to remove from any relations it is a member of
      */
     private void removeElementFromRelations(@NonNull final OsmElement element) {
         if (element.hasParentRelations()) {
             Log.i(DEBUG_TAG, "removing " + element.getDescription(true) + " from parent relations");
-            List<Relation> relations = new ArrayList<>(element.getParentRelations()); // need copy!
+            List<Relation>   relations       = new ArrayList<>(element.getParentRelations()); // need copy!
             List<OsmElement> changedElements = new ArrayList<>();
-            for (Relation r : relations) {
+            for (Relation r:relations) {
 
                 dirty = true;
                 undo.save(r);
@@ -2185,8 +2170,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Remove members from a relation
      * 
-     * Note the potentially present elements do not need to have their state changed or be stored in the API storage
-     * since the parent relation back link is just internal.
+     * Note the potentially present elements do not need to have their state changed or be stored in the API storage since the parent relation back link is just
+     * internal.
      * 
      * @param members members to remove
      * @param r relation to remove the element from
@@ -2195,7 +2180,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         Log.i(DEBUG_TAG, "removing members from relation " + r.getDescription(true));
         dirty = true;
         undo.save(r);
-        for (RelationMember member : members) {
+        for (RelationMember member:members) {
             Log.i(DEBUG_TAG, "removing " + member.getType() + " #" + member.getRef() + " from relation #" + r.getOsmId());
             r.removeMember(member);
             if (member.downloaded()) {
@@ -2213,8 +2198,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Remove downloaded element from a relation
      * 
-     * Note the element does not need to have its state changed or be stored in the API storage since the parent
-     * relation back link is just internal.
+     * Note the element does not need to have its state changed or be stored in the API storage since the parent relation back link is just internal.
      * 
      * @param element element to remove
      * @param r relation to remove the element from
@@ -2305,15 +2289,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<Relation> origParents = e.getParentRelations() != null ? new ArrayList<>(e.getParentRelations()) : new ArrayList<>();
         try {
             lock();
-            for (Relation origParent : origParents) { // find changes to existing memberships
+            for (Relation origParent:origParents) { // find changes to existing memberships
                 if (!parents.containsKey(origParent.getOsmId())) {
                     removeElementFromRelation(e, origParent); // saves undo state
                     continue;
                 }
                 List<RelationMemberPosition> newMembers = new ArrayList<>(parents.get(origParent.getOsmId()));
-                List<RelationMemberPosition> members = origParent.getAllMembersWithPosition(e);
-                List<RelationMemberPosition> leftOvers = new ArrayList<>(members);
-                for (RelationMemberPosition existing : members) {
+                List<RelationMemberPosition> members    = origParent.getAllMembersWithPosition(e);
+                List<RelationMemberPosition> leftOvers  = new ArrayList<>(members);
+                for (RelationMemberPosition existing:members) {
                     if (newMembers.contains(existing)) {
                         newMembers.remove(existing);
                         leftOvers.remove(existing);
@@ -2324,11 +2308,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 if (!newMembers.isEmpty() || !leftOvers.isEmpty()) {
                     dirty = true;
                     undo.save(origParent);
-                    for (RelationMemberPosition newMember : newMembers) {
+                    for (RelationMemberPosition newMember:newMembers) {
                         if (!leftOvers.isEmpty()) {
-                            RelationMemberPosition member = leftOvers.get(0);
-                            String oldRole = member.getRole();
-                            String newRole = newMember.getRole();
+                            RelationMemberPosition member  = leftOvers.get(0);
+                            String                 oldRole = member.getRole();
+                            String                 newRole = newMember.getRole();
                             if ((oldRole == null && newRole != null) || (oldRole != null && !oldRole.equals(newRole))) {
                                 origParent.updateState(OsmElement.STATE_MODIFIED);
                                 apiStorage.insertElementSafe(origParent);
@@ -2339,7 +2323,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                             addElementToRelation(e, -1, newMember.getRole(), origParent);
                         }
                     }
-                    for (RelationMemberPosition rmp : leftOvers) { // these are no longer needed
+                    for (RelationMemberPosition rmp:leftOvers) { // these are no longer needed
                         origParent.removeMember(rmp.getRelationMember());
                         origParent.updateState(OsmElement.STATE_MODIFIED);
                         apiStorage.insertElementSafe(origParent);
@@ -2347,12 +2331,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
             // add as new member to relation
-            for (Long l : parents.getKeys()) {
+            for (Long l:parents.getKeys()) {
                 Log.d(DEBUG_TAG, "updateParentRelations new parent " + l);
                 if (l != -1) { //
                     Relation r = currentStorage.getRelation(l);
                     if (!origParents.contains(r)) {
-                        for (RelationMemberPosition rmp : parents.get(l)) {
+                        for (RelationMemberPosition rmp:parents.get(l)) {
                             Log.d(DEBUG_TAG, "updateParentRelations adding " + e.getDescription() + " to " + r.getDescription());
                             addElementToRelation(e, -1, rmp.getRole(), r); // append for now only
                         }
@@ -2374,19 +2358,19 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         undo.save(r);
         validateRelationMemberCount(r, members.size() - r.getMemberCount());
-        boolean changed = false;
-        List<RelationMember> origMembers = new ArrayList<>(r.getMembers());
+        boolean                               changed     = false;
+        List<RelationMember>                  origMembers = new ArrayList<>(r.getMembers());
         LinkedHashMap<String, RelationMember> membersHash = new LinkedHashMap<>();
-        for (RelationMember rm : r.getMembers()) {
+        for (RelationMember rm:r.getMembers()) {
             membersHash.put(rm.getType() + "-" + rm.getRef(), rm);
         }
         List<RelationMember> newMembers = new ArrayList<>();
         for (int i = 0; i < members.size(); i++) {
             RelationMemberDescription rmd = members.get(i);
-            String key = rmd.getType() + "-" + rmd.getRef();
-            RelationMember rm = membersHash.get(key);
+            String                    key = rmd.getType() + "-" + rmd.getRef();
+            RelationMember            rm  = membersHash.get(key);
             if (rm != null) {
-                int origPos = origMembers.indexOf(rm);
+                int    origPos = origMembers.indexOf(rm);
                 String newRole = rmd.getRole();
                 if (!rm.getRole().equals(newRole)) {
                     changed = true;
@@ -2401,7 +2385,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             } else { // new member
                 changed = true;
                 RelationMember newMember = null;
-                OsmElement e = rmd.getElement();
+                OsmElement     e         = rmd.getElement();
                 if (e != null) { // downloaded
                     newMember = new RelationMember(rmd.getRole(), e);
                 } else {
@@ -2410,7 +2394,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 newMembers.add(newMember);
             }
         }
-        for (RelationMember rm : membersHash.values()) {
+        for (RelationMember rm:membersHash.values()) {
             changed = true;
             OsmElement e = rm.getElement();
             if (e != null) {
@@ -2439,7 +2423,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         undo.save(relation);
         validateRelationMemberCount(relation, members.size());
-        for (OsmElement e : members) {
+        for (OsmElement e:members) {
             undo.save(e);
             RelationMember rm = new RelationMember("", e);
             relation.addMember(rm);
@@ -2460,7 +2444,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         undo.save(relation);
         validateRelationMemberCount(relation, members.size());
-        for (RelationMember member : members) {
+        for (RelationMember member:members) {
             if (member.downloaded()) {
                 OsmElement e = member.getElement();
                 undo.save(e);
@@ -2489,7 +2473,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         undo.save(newElement);
         try {
             lock();
-            for (RelationMember rm : relation.getAllMembers(origElement)) {
+            for (RelationMember rm:relation.getAllMembers(origElement)) {
                 rm.setElement(newElement);
             }
             newElement.addParentRelation(relation);
@@ -2535,7 +2519,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 Preferences prefs = logic.getPrefs();
                 if (prefs != null) {
                     int limit = prefs.getServer().getCachedCapabilities().getMaxRelationMembers();
-                    for (Relation r : relations) {
+                    for (Relation r:relations) {
                         if (r.getMemberCount() + increment > limit) {
                             throw new OsmIllegalOperationException(PreconditionIssue.RELATION_MEMBER_COUNT, r,
                                     App.resources().getString(R.string.exception_too_many_members, r.getDescription()));
@@ -2555,11 +2539,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void copyToClipboard(@NonNull List<OsmElement> elements, int lat, int lon) {
         dirty = true; // otherwise clipboard will not get saved without other changes
-        List<OsmElement> toCopy = new ArrayList<>();
+        List<OsmElement>            toCopy    = new ArrayList<>();
         Map<OsmElement, OsmElement> processed = new HashMap<>();
         try {
             lock();
-            for (OsmElement e : elements) {
+            for (OsmElement e:elements) {
                 if (e instanceof Node) {
                     toCopy.add(duplicateNode((Node) e, 0, 0, processed, false));
                 } else if (e instanceof Way) {
@@ -2587,11 +2571,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void cutToClipboard(@NonNull List<OsmElement> elements, int lat, int lon) {
         dirty = true; // otherwise clipboard will not get saved without other changes
-        List<OsmElement> toCut = new ArrayList<>();
-        Map<Long, Node> replacedNodes = new HashMap<>();
+        List<OsmElement> toCut         = new ArrayList<>();
+        Map<Long, Node>  replacedNodes = new HashMap<>();
         try {
             lock();
-            for (OsmElement e : elements) {
+            for (OsmElement e:elements) {
                 if (e instanceof Relation) {
                     throw new IllegalArgumentException("Cutting of Relations not supported");
                 }
@@ -2602,7 +2586,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 undo.save(e);
                 // clone all nodes that are members of other ways that are not being cut
                 List<Node> nodes = new ArrayList<>(((Way) e).getNodes());
-                for (Node nd : nodes) {
+                for (Node nd:nodes) {
                     List<Way> ways = currentStorage.getWays(nd);
                     if (ways.size() <= 1) { // 1 is expected (our way will be deleted later)
                         continue;
@@ -2610,7 +2594,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     Node newNode = replacedNodes.get(nd.getOsmId());
                     if (newNode == null) {
                         // check if there is actually a Way we are not cutting
-                        for (Way w : ways) {
+                        for (Way w:ways) {
                             if (!elements.contains(w)) {
                                 newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
                                 newNode.setTags(nd.getTags());
@@ -2623,14 +2607,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
             Set<Node> wayNodes = new HashSet<>();
-            for (OsmElement removeElement : toCut) {
+            for (OsmElement removeElement:toCut) {
                 if (removeElement instanceof Node) {
                     removeNode((Node) removeElement);
                 } else if (removeElement instanceof Way) {
                     // we replace nodes here since we are iterating over the ways anyway
                     // and we have to collect all replacements first above
                     List<Node> nodes = new ArrayList<>(((Way) removeElement).getNodes());
-                    for (Node nd : nodes) {
+                    for (Node nd:nodes) {
                         Node replacement = replacedNodes.get(nd.getOsmId());
                         if (replacement != null) {
                             ((Way) removeElement).replaceNode(nd, replacement);
@@ -2641,7 +2625,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
             // way nodes have to wait till we have removed all the ways
-            for (Node nd : wayNodes) {
+            for (Node nd:wayNodes) {
                 removeNode(nd); //
             }
             ClipboardStorage clipboard = new ClipboardStorage();
@@ -2673,17 +2657,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.e(DEBUG_TAG, "clipboard is empty");
             return null;
         }
-        boolean copy = !clipboard.contentsWasCut();
+        boolean          copy     = !clipboard.contentsWasCut();
         List<OsmElement> elements = clipboard.pasteFrom();
         if (elements.isEmpty()) {
             return null;
         }
         Collections.sort(elements, new NwrComparator()); // enforce NWR order
-        List<OsmElement> result = new ArrayList<>();
-        int deltaLat = lat - clipboard.getSelectionLat();
-        int deltaLon = lon - clipboard.getSelectionLon();
-        Map<OsmElement, OsmElement> processed = new HashMap<>(); // every element only needs to be transformed once
-        for (OsmElement original : elements) {
+        List<OsmElement>            result    = new ArrayList<>();
+        int                         deltaLat  = lat - clipboard.getSelectionLat();
+        int                         deltaLon  = lon - clipboard.getSelectionLon();
+        Map<OsmElement, OsmElement> processed = new HashMap<>();                  // every element only needs to be transformed once
+        for (OsmElement original:elements) {
             // if the clipboard isn't empty now we need to clone the element
             if (copy) { // paste from copy
                 result.add(createDuplicate(original, deltaLat, deltaLon, processed, true));
@@ -2726,7 +2710,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             processed.put(e, null);
         } else if (e instanceof Way) {
             Set<Node> nodes = new HashSet<>(((Way) e).getNodes());
-            for (Node nd : nodes) {
+            for (Node nd:nodes) {
                 if (!processed.containsKey(nd)) {
                     undo.save(nd);
                     nd.setLat(nd.getLat() + deltaLat);
@@ -2790,7 +2774,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 throw new IllegalArgumentException("Relation members not downloaded");
             }
             Set<RelationMember> members = new HashSet<>(memberList);
-            for (RelationMember rm : members) {
+            for (RelationMember rm:members) {
                 if (!processed.containsKey(rm.getElement())) {
                     switch (rm.type) {
                     case Node.NAME:
@@ -2807,7 +2791,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     }
                 }
             }
-            for (RelationMember rm : memberList) {
+            for (RelationMember rm:memberList) {
                 final OsmElement memberElement = processed.get(rm.getElement());
                 newRelation.addMember(new RelationMember(rm.getRole(), memberElement));
                 memberElement.addParentRelation(newRelation);
@@ -2840,13 +2824,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             // this is slightly complicated because we need to handle cases with potentially broken geometry
             // allocate and set the position of the new nodes
             Set<Node> nodes = new HashSet<>(nodeList);
-            for (Node nd : nodes) {
+            for (Node nd:nodes) {
                 if (!processed.containsKey(nd)) {
                     duplicateNode(nd, deltaLat, deltaLon, processed, insert);
                 }
             }
             // now add them to the new way
-            for (Node nd : nodeList) {
+            for (Node nd:nodeList) {
                 newWay.addNode((Node) processed.get(nd));
             }
         } else {
@@ -2890,9 +2874,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     @NonNull
     public List<OsmElement> duplicate(@NonNull List<OsmElement> elements, boolean deep) {
         Collections.sort(elements, new NwrComparator()); // enforce NWR order
-        List<OsmElement> result = new ArrayList<>();
+        List<OsmElement>            result    = new ArrayList<>();
         Map<OsmElement, OsmElement> processed = new HashMap<>();
-        for (OsmElement original : elements) {
+        for (OsmElement original:elements) {
             result.add(createDuplicate(original, 0, 0, processed, deep));
         }
         return result;
@@ -2917,7 +2901,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public boolean checkClipboard() {
         boolean result = true;
-        for (ClipboardStorage clipboard : clipboards) {
+        for (ClipboardStorage clipboard:clipboards) {
             if (!clipboard.check(this)) {
                 clipboard.reset();
                 result = false;
@@ -3018,8 +3002,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Merge a BoundingBox for a downloaded area in to the list
      * 
-     * BoundingBoxes that the new box contains will be removed, if the new box on the other hand is contained in an
-     * existing box it will not be added
+     * BoundingBoxes that the new box contains will be removed, if the new box on the other hand is contained in an existing box it will not be added
      * 
      * @param box the additional BoundingBox
      */
@@ -3029,7 +3012,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         try {
             lock();
             List<BoundingBox> bbs = new ArrayList<>(currentStorage.getBoundingBoxes());
-            for (BoundingBox bb : bbs) {
+            for (BoundingBox bb:bbs) {
                 if (bb != null) {
                     if (box.contains(bb)) {
                         currentStorage.deleteBoundingBox(bb);
@@ -3095,8 +3078,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Retrieve an OsmElement from Storage This will check the API Storage first (because of deleted objects) and then
-     * the regular version
+     * Retrieve an OsmElement from Storage This will check the API Storage first (because of deleted objects) and then the regular version
      * 
      * @param type the type of object as a String (NODE, WAY, RELATION)
      * @param osmId the id
@@ -3227,15 +3209,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public List<String> listChanges(final Resources aResources) {
         List<String> retval = new ArrayList<>();
 
-        for (Node node : new ArrayList<>(apiStorage.getNodes())) {
+        for (Node node:new ArrayList<>(apiStorage.getNodes())) {
             retval.add(node.getStateDescription(aResources));
         }
 
-        for (Way way : new ArrayList<>(apiStorage.getWays())) {
+        for (Way way:new ArrayList<>(apiStorage.getWays())) {
             retval.add(way.getStateDescription(aResources));
         }
 
-        for (Relation relation : new ArrayList<>(apiStorage.getRelations())) {
+        for (Relation relation:new ArrayList<>(apiStorage.getRelations())) {
             retval.add(relation.getStateDescription(aResources));
         }
         return retval;
@@ -3260,21 +3242,21 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * This shouldn't be necessary and indicates that there is something which doesn't correctly remove elements.
      */
     private void removeUnchanged() {
-        for (Node node : new ArrayList<>(apiStorage.getNodes())) {
+        for (Node node:new ArrayList<>(apiStorage.getNodes())) {
             if (node.getState() == OsmElement.STATE_UNCHANGED) {
                 apiStorage.removeNode(node);
                 logUnchanged(node);
             }
         }
 
-        for (Way way : new ArrayList<>(apiStorage.getWays())) {
+        for (Way way:new ArrayList<>(apiStorage.getWays())) {
             if (way.getState() == OsmElement.STATE_UNCHANGED) {
                 apiStorage.removeWay(way);
                 logUnchanged(way);
             }
         }
 
-        for (Relation relation : new ArrayList<>(apiStorage.getRelations())) {
+        for (Relation relation:new ArrayList<>(apiStorage.getRelations())) {
             if (relation.getState() == OsmElement.STATE_UNCHANGED) {
                 apiStorage.removeRelation(relation);
                 logUnchanged(relation);
@@ -3309,12 +3291,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
         removeUnchanged();
         // upload methods set dirty flag too, in case the file is saved during an upload
-        boolean fullUpload = elements == null;
-        int uploadElementCount = fullUpload ? getApiElementCount() : elements.size();
-        int notUploadedElementCount = getApiElementCount() - uploadElementCount; // will be zero for normal uploads
-        boolean split = uploadElementCount > server.getCachedCapabilities().getMaxElementsInChangeset();
-        int part = 1;
-        int elementCount = uploadElementCount;
+        boolean fullUpload              = elements == null;
+        int     uploadElementCount      = fullUpload ? getApiElementCount() : elements.size();
+        int     notUploadedElementCount = getApiElementCount() - uploadElementCount;                                      // will be zero for normal uploads
+        boolean split                   = uploadElementCount > server.getCachedCapabilities().getMaxElementsInChangeset();
+        int     part                    = 1;
+        int     elementCount            = uploadElementCount;
         while (elementCount > 0) {
             String tmpSource = source;
             if (split) {
@@ -3402,17 +3384,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             lock();
 
             // make temp copy of current storage (we may have to abort
-            Storage temp = new Storage(currentStorage);
+            Storage                     temp          = new Storage(currentStorage);
 
             // retrieve the maps
-            LongOsmElementMap<Node> nodeIndex = temp.getNodeIndex();
-            LongOsmElementMap<Way> wayIndex = temp.getWayIndex();
+            LongOsmElementMap<Node>     nodeIndex     = temp.getNodeIndex();
+            LongOsmElementMap<Way>      wayIndex      = temp.getWayIndex();
             LongOsmElementMap<Relation> relationIndex = temp.getRelationIndex();
 
             Log.d(DEBUG_TAG, "mergeData finished init");
 
             // add nodes
-            for (Node n : storage.getNodes()) {
+            for (Node n:storage.getNodes()) {
                 Node apiNode = apiStorage.getNode(n.getOsmId()); // can contain deleted elements
                 if (!nodeIndex.containsKey(n.getOsmId()) && apiNode == null) { // new node no problem
                     temp.insertNodeUnsafe(n);
@@ -3447,7 +3429,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.d(DEBUG_TAG, "mergeData added nodes");
 
             // add ways
-            for (Way w : storage.getWays()) {
+            for (Way w:storage.getWays()) {
                 Way apiWay = apiStorage.getWay(w.getOsmId()); // can contain deleted elements
                 if (!wayIndex.containsKey(w.getOsmId()) && apiWay == null) { // new way no problem
                     temp.insertWayUnsafe(w);
@@ -3483,12 +3465,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
             // fix up way nodes
             // all nodes should be in storage now, however new ways will have references to copies not in storage
-            for (Way w : wayIndex) {
+            for (Way w:wayIndex) {
                 List<Node> nodes = w.getNodes();
                 for (int i = 0; i < nodes.size(); i++) {
-                    Node wayNode = nodes.get(i);
+                    Node wayNode   = nodes.get(i);
                     long wayNodeId = wayNode.getOsmId();
-                    Node n = nodeIndex.get(wayNodeId);
+                    Node n         = nodeIndex.get(wayNodeId);
                     if (n != null) {
                         nodes.set(i, n);
                     } else {
@@ -3519,7 +3501,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.d(DEBUG_TAG, "mergeData fixuped way nodes nodes");
 
             // add relations
-            for (Relation r : storage.getRelations()) {
+            for (Relation r:storage.getRelations()) {
                 Relation apiRelation = apiStorage.getRelation(r.getOsmId()); // can contain deleted elements
                 if (!relationIndex.containsKey(r.getOsmId()) && apiRelation == null) { // new relation no problem
                     temp.insertRelationUnsafe(r);
@@ -3569,7 +3551,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         // no need to do this in the locked block
         if (postMerge != null) {
-            for (OsmElement e : newElements) {
+            for (OsmElement e:newElements) {
                 postMerge.handler(e);
             }
         }
@@ -3609,13 +3591,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     private boolean redoBacklinks(@NonNull Storage tempCurrent, @NonNull LongOsmElementMap<Node> nodeIndex, @NonNull LongOsmElementMap<Way> wayIndex,
             @NonNull LongOsmElementMap<Relation> relationIndex) {
         // zap all existing backlinks for our "old" relations
-        for (Relation r : currentStorage.getRelations()) {
+        for (Relation r:currentStorage.getRelations()) {
             final List<RelationMember> members = r.getMembers();
             if (members == null) {
                 Log.e(DEBUG_TAG, "Existing relation has no members " + r.getOsmId());
                 continue;
             }
-            for (RelationMember rm : members) {
+            for (RelationMember rm:members) {
                 checkMember(r.getOsmId(), rm);
                 OsmElement e = elementFromIndex(r, rm.getType(), rm.getRef(), nodeIndex, wayIndex, relationIndex);
                 if (e != null) {
@@ -3625,17 +3607,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
 
         // add backlinks for all "new" relations
-        for (Relation r : tempCurrent.getRelations()) {
+        for (Relation r:tempCurrent.getRelations()) {
             final List<RelationMember> members = r.getMembers();
             if (members == null) {
                 Log.e(DEBUG_TAG, "New relation has no members " + r.getOsmId());
                 continue;
             }
-            for (RelationMember rm : members) {
+            for (RelationMember rm:members) {
                 checkMember(r.getOsmId(), rm);
-                final long ref = rm.getRef();
+                final long   ref  = rm.getRef();
                 final String type = rm.getType();
-                OsmElement e = elementFromIndex(r, type, ref, nodeIndex, wayIndex, relationIndex);
+                OsmElement   e    = elementFromIndex(r, type, ref, nodeIndex, wayIndex, relationIndex);
                 if (e != null) {
                     rm.setElement(e);
                     e.addParentRelation(r);
@@ -3713,21 +3695,21 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     void fixupBacklinks() {
         // first zap all, really all, as referenced relations may have been deleted
         // a possible alternative would be to check undostorage for any relations
-        for (OsmElement e : currentStorage.getElements()) {
+        for (OsmElement e:currentStorage.getElements()) {
             if (e != null) {
                 e.clearParentRelations();
             }
         }
         // then add them back
-        for (Relation r : currentStorage.getRelations()) {
+        for (Relation r:currentStorage.getRelations()) {
             final List<RelationMember> members = r.getMembers();
             if (members == null) {
                 continue;
             }
-            for (RelationMember rm : r.getMembers()) {
-                OsmElement e = null;
+            for (RelationMember rm:r.getMembers()) {
+                OsmElement   e    = null;
                 final String type = rm.getType();
-                final long ref = rm.getRef();
+                final long   ref  = rm.getRef();
                 switch (type) {
                 case Node.NAME:
                     e = currentStorage.getNode(ref);
@@ -3781,12 +3763,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param box the BoundingBox
      */
     protected void prune(@Nullable Logic logic, @NonNull BoundingBox box) {
-        LongHashSet keepNodes = new LongHashSet();
-        LongHashSet keepWays = new LongHashSet();
+        LongHashSet keepNodes     = new LongHashSet();
+        LongHashSet keepWays      = new LongHashSet();
         LongHashSet keepRelations = new LongHashSet();
         if (logic != null) {
             // prefill with selected objects
-            for (Selection s : logic.getSelectionStack()) {
+            for (Selection s:logic.getSelectionStack()) {
                 Selection.Ids ids = s.getIds();
                 keepNodes.putAll(ids.getNodes());
                 keepWays.putAll(ids.getWays());
@@ -3795,19 +3777,19 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         try {
             lock();
-            for (Way w : currentStorage.getWays()) {
+            for (Way w:currentStorage.getWays()) {
                 final long wayId = w.getOsmId();
                 if (apiStorage.getWay(wayId) == null && !box.intersects(w.getBounds()) && !keepWays.contains(wayId) && !hasModifiedNodes(w)
                         && !inIdSet(w.getParentRelations(), keepRelations)) {
                     currentStorage.removeWay(w);
                     removeReferenceFromParents(logic, w);
                 } else { // keeping so we need to keep the nodes
-                    for (Node n : w.getNodes()) {
+                    for (Node n:w.getNodes()) {
                         keepNodes.put(n.getOsmId());
                     }
                 }
             }
-            for (Node n : currentStorage.getNodes()) {
+            for (Node n:currentStorage.getNodes()) {
                 long nodeId = n.getOsmId();
                 if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)
                         && !inIdSet(n.getParentRelations(), keepRelations)) {
@@ -3815,7 +3797,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     removeReferenceFromParents(logic, n);
                 }
             }
-            for (Relation r : currentStorage.getRelations()) {
+            for (Relation r:currentStorage.getRelations()) {
                 long relationId = r.getOsmId();
                 if (apiStorage.getRelation(relationId) == null && !keepRelations.contains(relationId) && !r.hasDownloadedMembers()
                         && !inIdSet(r.getParentRelations(), keepRelations)) {
@@ -3842,7 +3824,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private boolean inIdSet(List<Relation> relations, LongHashSet ids) {
         if (relations != null) {
-            for (Relation r : relations) {
+            for (Relation r:relations) {
                 if (ids.contains(r.getOsmId())) {
                     return true;
                 }
@@ -3858,7 +3840,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return true if a way node has been changed
      */
     private boolean hasModifiedNodes(@NonNull Way w) {
-        for (Node n : w.getNodes()) {
+        for (Node n:w.getNodes()) {
             if (!n.isUnchanged()) {
                 return true;
             }
@@ -3869,16 +3851,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Remove the references to downloaded elements from parent Relations
      * 
-     * @param logic the current Logic instance or null, this is required because elements may be members of selected
-     *            relations
+     * @param logic the current Logic instance or null, this is required because elements may be members of selected relations
      * @param e the OsmElement we want to remove references for
      */
     private void removeReferenceFromParents(@Nullable Logic logic, @NonNull OsmElement e) {
         List<Relation> parents = e.getParentRelations();
         if (parents != null) {
-            for (Relation parent : parents) { // remove link from parent relations
+            for (Relation parent:parents) { // remove link from parent relations
                 List<RelationMember> members = parent.getAllMembers(e);
-                for (RelationMember member : members) {
+                for (RelationMember member:members) {
                     member.setElement(null);
                 }
             }
@@ -3894,21 +3875,21 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * Note this doesn't handle selected elements and should only be called when nothing is selected
      */
     public void pruneAll() {
-        LongHashSet keepNodes = new LongHashSet();
+        LongHashSet keepNodes     = new LongHashSet();
         LongHashSet keepRelations = new LongHashSet();
         try {
             lock();
-            for (Way w : currentStorage.getWays()) {
+            for (Way w:currentStorage.getWays()) {
                 if (apiStorage.getWay(w.getOsmId()) == null) {
                     currentStorage.removeWay(w);
                 } else { // keeping so we need to keep the nodes
-                    for (Node n : w.getNodes()) {
+                    for (Node n:w.getNodes()) {
                         keepNodes.put(n.getOsmId());
                     }
                     keepParents(keepRelations, w);
                 }
             }
-            for (Node n : currentStorage.getNodes()) {
+            for (Node n:currentStorage.getNodes()) {
                 long nodeId = n.getOsmId();
                 if (apiStorage.getNode(nodeId) == null && !keepNodes.contains(nodeId)) {
                     currentStorage.removeNode(n);
@@ -3917,14 +3898,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     keepParents(keepRelations, n);
                 }
             }
-            for (Relation r : currentStorage.getRelations()) {
+            for (Relation r:currentStorage.getRelations()) {
                 long relationId = r.getOsmId();
                 if (apiStorage.getRelation(relationId) != null) {
                     keepRelations.put(relationId);
                     keepParents(keepRelations, r);
                 }
             }
-            for (Relation r : currentStorage.getRelations()) {
+            for (Relation r:currentStorage.getRelations()) {
                 if (!keepRelations.contains(r.getOsmId())) {
                     currentStorage.removeRelation(r);
                 }
@@ -3945,7 +3926,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     void keepParents(@NonNull LongHashSet keepRelations, @NonNull OsmElement e) {
         List<Relation> parents = e.getParentRelations();
         if (parents != null) {
-            for (Relation r : parents) {
+            for (Relation r:parents) {
                 long relationId = r.getOsmId();
                 if (!keepRelations.contains(relationId)) {
                     keepRelations.put(relationId);
@@ -3958,8 +3939,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Merge additional data with existing, copy to a new storage because this may fail
      * 
-     * If this is aborted the contents of the undo checkpoint need to be removed, this may throw an
-     * IllegalStateException if existing data was inconsistent
+     * If this is aborted the contents of the undo checkpoint need to be removed, this may throw an IllegalStateException if existing data was inconsistent
      * 
      * @param osc storage containing data to merge
      * @param postMerge handler to run after merging
@@ -3972,19 +3952,19 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         try {
             lock();
             // make temp copy of current storage (we may have to abort
-            Storage tempCurrent = new Storage(currentStorage);
-            Storage tempApi = new Storage(apiStorage);
-            UndoStorage tempUndo = new UndoStorage(undo, tempCurrent, tempApi);
+            Storage                     tempCurrent   = new Storage(currentStorage);
+            Storage                     tempApi       = new Storage(apiStorage);
+            UndoStorage                 tempUndo      = new UndoStorage(undo, tempCurrent, tempApi);
 
             // retrieve the maps
-            LongOsmElementMap<Node> nodeIndex = tempCurrent.getNodeIndex();
-            LongOsmElementMap<Way> wayIndex = tempCurrent.getWayIndex();
+            LongOsmElementMap<Node>     nodeIndex     = tempCurrent.getNodeIndex();
+            LongOsmElementMap<Way>      wayIndex      = tempCurrent.getWayIndex();
             LongOsmElementMap<Relation> relationIndex = tempCurrent.getRelationIndex();
 
             Log.d(DEBUG_TAG, "applyOsc finished init");
 
             // add nodes
-            for (Node n : osc.getNodes()) {
+            for (Node n:osc.getNodes()) {
                 byte state = n.getState();
                 if (n.getOsmId() < 0) {
                     // place holder, need to get a valid placeholder and renumber
@@ -4021,7 +4001,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                             // so that we can abort cleanly, we actually need to replace the current element
                             tempUndo.save(existingNode, true, false);
                             tempApi.insertNodeUnsafe(n);
-                            tempCurrent.insertElementUnsafe(n);
+                            if (state == OsmElement.STATE_DELETED) {
+                                tempCurrent.removeElement(existingNode);
+                            } else {
+                                tempCurrent.insertElementUnsafe(n);
+                            }
                             if (postMerge != null) {
                                 postMerge.handler(n);
                             }
@@ -4038,7 +4022,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.d(DEBUG_TAG, "applyOsc done nodes");
 
             // add ways
-            for (Way w : osc.getWays()) {
+            for (Way w:osc.getWays()) {
                 byte state = w.getState();
                 if (w.getOsmId() < 0) {
                     // place holder, need to get a valid placeholder and renumber
@@ -4074,7 +4058,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         if (existingWay.getOsmVersion() <= w.getOsmVersion()) {
                             tempUndo.save(existingWay, true, false);
                             tempApi.insertWayUnsafe(w);
-                            tempCurrent.insertElementUnsafe(w);
+                            if (state == OsmElement.STATE_DELETED) {
+                                tempCurrent.removeElement(existingWay);
+                            } else {
+                                tempCurrent.insertElementUnsafe(w);
+                            }
                             if (postMerge != null) {
                                 postMerge.handler(w);
                             }
@@ -4093,11 +4081,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             // fix up way nodes
             // all nodes should be in storage now, however new ways will have references to copies not in storage
             // this conveniently deals with references that are not in the osmChange file but should be in storage
-            for (Way w : wayIndex) {
+            for (Way w:wayIndex) {
                 List<Node> nodes = w.getNodes();
                 for (int i = 0; i < nodes.size(); i++) {
                     Node wayNode = nodes.get(i);
-                    Node n = nodeIndex.get(wayNode.getOsmId());
+                    Node n       = nodeIndex.get(wayNode.getOsmId());
                     if (n != null) {
                         nodes.set(i, n);
                     } else {
@@ -4110,7 +4098,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.d(DEBUG_TAG, "applyOsc done fixup way nodes nodes");
 
             // add relations
-            for (Relation r : osc.getRelations()) {
+            for (Relation r:osc.getRelations()) {
                 byte state = r.getState();
                 if (r.getOsmId() < 0) {
                     // place holder, need to get a valid placeholder and renumber
@@ -4145,7 +4133,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     if (existingRelation != null && existingRelation.getOsmVersion() <= r.getOsmVersion()) {
                         tempUndo.save(existingRelation, true, false);
                         tempApi.insertRelationUnsafe(r);
-                        tempCurrent.insertElementUnsafe(r);
+                        if (state == OsmElement.STATE_DELETED) {
+                            tempCurrent.removeElement(existingRelation);
+                        } else {
+                            tempCurrent.insertElementUnsafe(r);
+                        }
                         if (postMerge != null) {
                             postMerge.handler(r);
                         }
@@ -4214,7 +4206,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<de.blau.android.osm.UndoStorage.Checkpoint> checkpoints = undo.getUndoCheckpoints(element);
         if (!checkpoints.isEmpty()) {
             final Checkpoint checkpoint = checkpoints.get(0);
-            for (OsmElement e : checkpoint.getSavedElements()) {
+            for (OsmElement e:checkpoint.getSavedElements()) {
                 OsmElement current = getOsmElement(e.getName(), e.getOsmId());
                 if (current != null) {
                     undo.save(current);
@@ -4255,7 +4247,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return true if the coordinates are in one of the bounding boxes
      */
     public boolean isInDownload(int lonE7, int latE7) {
-        for (BoundingBox bb : new ArrayList<>(currentStorage.getBoundingBoxes())) { // make shallow copy
+        for (BoundingBox bb:new ArrayList<>(currentStorage.getBoundingBoxes())) { // make shallow copy
             if (bb != null && bb.isIn(lonE7, latE7)) {
                 return true;
             }
