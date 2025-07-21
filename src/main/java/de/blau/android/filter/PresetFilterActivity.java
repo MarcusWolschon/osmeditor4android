@@ -14,6 +14,8 @@ import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -88,6 +90,9 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setDisplayHomeAsUpEnabled(true);
+
+        ViewGroupCompat.installCompatInsetsDispatch(presetView);
+        ViewCompat.setOnApplyWindowInsetsListener(presetView, onApplyWindowInsetslistener);
     }
 
     /**
