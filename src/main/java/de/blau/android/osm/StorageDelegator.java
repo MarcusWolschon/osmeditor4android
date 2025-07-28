@@ -3344,6 +3344,80 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Add any required referenced elements to upload
+     * 
+     * @param context and Android Context
+     * @param elements the List of elements
+     * @return the List of elements for convenience
+     */
+    public List<OsmElement> addRequiredElements(@NonNull final Context context, @NonNull final List<OsmElement> elements) {
+        Set<OsmElement> additionalElements = new HashSet<>();
+        // add parent elements containing new elements that have been selected for upload
+        for (OsmElement e : elements) {
+            if (!e.isNew()) {
+                continue;
+            }
+            if (e instanceof Node) {
+                additionalElements.addAll(apiStorage.getWays((Node) e));
+            }
+            List<Relation> parentRelations = e.getParentRelations();
+            if (parentRelations != null) {
+                additionalElements.addAll(parentRelations);
+            }
+        }
+
+        // add newly created child elements of elements that have been selected for upload
+        List<OsmElement> tempElements = new ArrayList<>(elements);
+        tempElements.addAll(additionalElements);
+        for (OsmElement e : tempElements) {
+            if (e instanceof Relation) {
+                addRelationMembersToUpload(additionalElements, (Relation) e);
+            }
+        }
+
+        // this needs to be done in a 2nd step as the above might have added new ways
+        tempElements.clear();
+        tempElements.addAll(elements);
+        tempElements.addAll(additionalElements);
+        for (OsmElement e : tempElements) {
+            if (!(e instanceof Way)) {
+                continue;
+            }
+            for (Node n : ((Way) e).getNodes()) {
+                if (!n.isNew()) {
+                    continue;
+                }
+                additionalElements.add(n);
+            }
+        }
+        int added = additionalElements.size();
+        if (added > 0) {
+            // upload will sort elements correctly
+            elements.addAll(additionalElements);
+            ScreenMessage.toastTopWarning(context, context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
+        }
+        return elements;
+    }
+
+    /**
+     * Recursively add newly created relation members to upload
+     * 
+     * @param uploadElements elements to upload
+     * @param r the Relation
+     */
+    private static void addRelationMembersToUpload(@NonNull Set<OsmElement> uploadElements, @NonNull Relation r) {
+        for (RelationMember rm : r.getMembers()) {
+            if (rm.getRef() < 0) { // neg id == new element
+                OsmElement member = rm.getElement();
+                if (member instanceof Relation && !uploadElements.contains(member)) {
+                    addRelationMembersToUpload(uploadElements, r);
+                }
+                uploadElements.add(member);
+            }
+        }
+    }
+
+    /**
      * Exports changes as a OsmChange file.
      */
     @Override

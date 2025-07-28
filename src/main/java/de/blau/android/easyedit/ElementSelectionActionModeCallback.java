@@ -394,7 +394,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             break;
         case MENUITEM_UPLOAD:
             main.descheduleAutoLock();
-            main.confirmUpload(addRequiredElements(main, Util.wrapInList(element)));
+            main.confirmUpload(App.getDelegator().addRequiredElements(main, Util.wrapInList(element)));
             break;
         case MENUITEM_PREFERENCES:
             PrefEditor.start(main, Main.REQUEST_PREFERENCES);
@@ -675,37 +675,6 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         result.add(way.getFirstNode());
         result.add(way.getLastNode());
         return result;
-    }
-
-    /**
-     * Add any required referenced elements to upload
-     * 
-     * @param context and Android Context
-     * @param elements the List of elements
-     * @return the List of elements for convenience
-     */
-    static List<OsmElement> addRequiredElements(@NonNull final Context context, @NonNull final List<OsmElement> elements) {
-        int originalSize = elements.size();
-        for (OsmElement e : new ArrayList<>(elements)) {
-            if (e instanceof Way) {
-                for (Node n : ((Way) e).getNodes()) {
-                    if (n.getOsmId() < 0 && !elements.contains(n)) {
-                        elements.add(n);
-                    }
-                }
-            } else if (e instanceof Relation) {
-                for (RelationMember rm : ((Relation) e).getMembers()) {
-                    if (rm.getRef() < 0 && !elements.contains(rm.getElement())) {
-                        elements.add(rm.getElement());
-                    }
-                }
-            }
-        }
-        int added = elements.size() - originalSize;
-        if (added > 0) {
-            ScreenMessage.toastTopWarning(context, context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
-        }
-        return elements;
     }
 
     interface OnRelationSelectedListener {

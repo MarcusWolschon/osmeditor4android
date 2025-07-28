@@ -1851,4 +1851,50 @@ public class StorageDelegatorTest {
         }
     }
 
+    /**
+     * Newly created way node upload should force upload of way
+     */
+    @Test
+    public void uploadNewWayNodeTest() {
+        StorageDelegator sd = UnitTestUtils.loadTestData(getClass(), "selective-upload1.osm");
+        Node newNode = (Node) sd.getOsmElement(Node.NAME, -1L);
+        assertNotNull(newNode);
+        List<OsmElement> toUpload = new ArrayList<>();
+        toUpload.add(newNode);
+        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        assertTrue(toUpload.contains(newNode));
+        assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, 28075087L)));
+    }
+    
+    /**
+     * Upload of modified way needs to include newly created node
+     */
+    @Test
+    public void uploadModifiedWayTest() {
+        StorageDelegator sd = UnitTestUtils.loadTestData(getClass(), "selective-upload1.osm");
+        Way modifiedWay = (Way) sd.getOsmElement(Way.NAME, 28075087L);
+        assertNotNull(modifiedWay);
+        List<OsmElement> toUpload = new ArrayList<>();
+        toUpload.add(modifiedWay);
+        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        assertTrue(toUpload.contains(modifiedWay));
+        assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -1L)));
+    }
+    
+    /**
+     * Upload of modified relation needs to include newly created way
+     */
+    @Test
+    public void uploadModifiedRelationTest() {
+        StorageDelegator sd = UnitTestUtils.loadTestData(getClass(), "selective-upload2.osm");
+        Relation modifiedRelation = (Relation) sd.getOsmElement(Relation.NAME, 29169L);
+        assertNotNull(modifiedRelation);
+        List<OsmElement> toUpload = new ArrayList<>();
+        toUpload.add(modifiedRelation);
+        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        assertTrue(toUpload.contains(modifiedRelation));
+        assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, -1L)));
+        assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -2L)));
+        assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -3L)));
+    }
 }
