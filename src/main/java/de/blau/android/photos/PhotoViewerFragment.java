@@ -34,6 +34,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
 import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -46,6 +48,7 @@ import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Ui;
 import de.blau.android.dialogs.ImageInfo;
 import de.blau.android.listener.DoNothingListener;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ImageLoader;
 import de.blau.android.util.ImagePagerAdapter;
@@ -438,6 +441,8 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
         itemForward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menuView.setOnMenuItemClickListener(this);
         prepareMenu();
+        ViewGroupCompat.installCompatInsetsDispatch(layout);
+        ViewCompat.setOnApplyWindowInsetsListener(layout, ConfigurationChangeAwareActivity.onApplyWindowInsetslistener);
         return layout;
     }
 
