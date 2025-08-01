@@ -1026,7 +1026,7 @@ public class Server {
                             }
                             Log.w(DEBUG_TAG, e + " deleted in API");
                             delegator.dirty();
-                        } else if (e.getState() == OsmElement.STATE_CREATED && oldId < 0 && newIdStr != null && newVersionStr != null) {
+                        } else if (e.isNew() && oldId < 0 && newIdStr != null && newVersionStr != null) {
                             long newId = Long.parseLong(newIdStr);
                             long newVersion = Long.parseLong(newVersionStr);
                             if (newId > 0) {

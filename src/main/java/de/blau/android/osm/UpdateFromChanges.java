@@ -216,7 +216,7 @@ public final class UpdateFromChanges {
      */
     private static <E extends OsmElement> void addCreated(LongOsmElementMap<E> map, List<E> elements) {
         for (E e : elements) {
-            if (e.getState() == OsmElement.STATE_CREATED) {
+            if (e.isNew()) {
                 map.put(e.getOsmId(), e);
             }
         }
@@ -257,7 +257,7 @@ public final class UpdateFromChanges {
      */
     private static <E extends OsmElement> void updateElement(@NonNull Storage apiStorage, @NonNull E changedElement, @NonNull E ourElement) {
         apiStorage.removeElement(ourElement);
-        if (ourElement.getState() == OsmElement.STATE_CREATED) {
+        if (ourElement.isNew()) {
             ourElement.setOsmId(changedElement.getOsmId());
         }
         ourElement.setOsmVersion(changedElement.getOsmVersion());

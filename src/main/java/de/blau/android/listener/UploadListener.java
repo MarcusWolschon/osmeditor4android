@@ -240,7 +240,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
         final String currentPresetName = getPresetName(matchCurrent);
         final boolean currentHasMatch = matchCurrent != null;
 
-        if (OsmElement.STATE_CREATED == element.getState()) {
+        if (element.isNew()) {
             // created
             if (hasTags) {
                 actions.created.add(currentPresetName);

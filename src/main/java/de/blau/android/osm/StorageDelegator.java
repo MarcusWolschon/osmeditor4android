@@ -1259,7 +1259,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         undo.save(node);
         try {
-            if (node.state == OsmElement.STATE_CREATED) {
+            if (node.isNew()) {
                 apiStorage.removeElement(node);
             } else {
                 apiStorage.insertElementSafe(node);
@@ -2080,7 +2080,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         try {
             currentStorage.removeWay(way);
             if (apiStorage.contains(way)) {
-                if (way.getState() == OsmElement.STATE_CREATED) {
+                if (way.isNew()) {
                     apiStorage.removeElement(way);
                 }
             } else {
@@ -2107,7 +2107,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         undo.save(relation);
         try {
-            if (relation.state == OsmElement.STATE_CREATED) {
+            if (relation.isNew()) {
                 apiStorage.removeElement(relation);
             } else {
                 apiStorage.insertElementSafe(relation);
