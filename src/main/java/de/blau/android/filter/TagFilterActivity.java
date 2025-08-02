@@ -59,7 +59,7 @@ public class TagFilterActivity extends ListActivity {
     static final String ACTIVE_COLUMN       = "active";
     static final String FILTER_COLUMN       = "filter";
 
-    private static final String QUERY = "SELECT rowid as _id, active, include, type, key, value FROM filterentries WHERE filter = '";
+    private static final String QUERY = "SELECT rowid as _id, active, include, type, key, value FROM filterentries WHERE filter = ?";
 
     private String                  filter          = null;
     private TagFilterDatabaseHelper tfDb;
@@ -109,7 +109,7 @@ public class TagFilterActivity extends ListActivity {
         filter = filterParam;
         tfDb = new TagFilterDatabaseHelper(this);
         db = tfDb.getWritableDatabase();
-        tagFilterCursor = db.rawQuery(QUERY + filter + "'", null); // NOSONAR filter isn't actually user generated
+        tagFilterCursor = getTagFilterCursor();
         filterAdapter = new TagFilterAdapter(this, tagFilterCursor);
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
@@ -117,8 +117,7 @@ public class TagFilterActivity extends ListActivity {
             add.setOnClickListener(v -> {
                 updateDatabaseFromList();
                 insertRow(filter, true, true, 0, "", "");
-                tagFilterCursor = db.rawQuery(QUERY + filter + "'", null); // NOSONAR filter isn't actually user
-                                                                           // generated
+                tagFilterCursor = getTagFilterCursor();
                 Cursor oldCursor = filterAdapter.swapCursor(tagFilterCursor);
                 oldCursor.close();
                 filterAdapter.notifyDataSetChanged();
@@ -146,9 +145,16 @@ public class TagFilterActivity extends ListActivity {
     public void onResume() {
         super.onResume();
         if (tagFilterCursor == null || tagFilterCursor.isClosed()) {
-            tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
+            tagFilterCursor = getTagFilterCursor();
             ((TagFilterAdapter) getListView().getAdapter()).swapCursor(tagFilterCursor);
         }
+    }
+
+    /**
+     * @return a new cursor
+     */
+    private Cursor getTagFilterCursor() {
+        return db.rawQuery(QUERY, new String[] { filter });
     }
 
     @Override
@@ -323,7 +329,7 @@ public class TagFilterActivity extends ListActivity {
             final ViewHolder vh = (ViewHolder) view.getTag();
             if (vh.modified) { // very hackish
                 update(vh);
-                Cursor newCursor = db.rawQuery(QUERY + filter + "'", null);
+                Cursor newCursor = getTagFilterCursor();
                 Cursor oldCursor = this.swapCursor(newCursor);
                 oldCursor.close();
                 this.notifyDataSetChanged();
@@ -394,7 +400,7 @@ public class TagFilterActivity extends ListActivity {
          * Swao the cursor for a new one
          */
         private void newCursor() {
-            Cursor newCursor = db.rawQuery(QUERY + filter + "'", null);
+            Cursor newCursor = getTagFilterCursor();
             Cursor oldCursor = filterAdapter.swapCursor(newCursor);
             oldCursor.close();
         }
