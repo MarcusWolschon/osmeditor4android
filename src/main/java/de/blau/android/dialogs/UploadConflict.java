@@ -190,8 +190,7 @@ public class UploadConflict extends CancelableDialogFragment {
             final String conflictElementType = conflict.getElementType();
             final long conflictElementId = conflict.getElementId();
             final OsmElement elementLocal = delegator.getOsmElement(conflictElementType, conflictElementId);
-            final OsmElement elementOnServer = elementLocal.getState() == OsmElement.STATE_CREATED ? null
-                    : getServerElement(logic, conflictElementType, conflictElementId);
+            final OsmElement elementOnServer = elementLocal.isNew() ? null : getServerElement(logic, conflictElementType, conflictElementId);
 
             LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
             final LayoutParams tp = InfoDialogFragment.getTableLayoutParams();

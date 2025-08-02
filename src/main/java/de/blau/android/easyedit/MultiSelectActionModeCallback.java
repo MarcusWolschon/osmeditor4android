@@ -267,7 +267,7 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
             break;
         case MENUITEM_UPLOAD:
             main.descheduleAutoLock();
-            main.confirmUpload(ElementSelectionActionModeCallback.addRequiredElements(main, new ArrayList<>(selection)));
+            main.confirmUpload(App.getDelegator().addRequiredElements(main, new ArrayList<>(selection)));
             break;
         case ElementSelectionActionModeCallback.MENUITEM_PREFERENCES:
             PrefEditor.start(main);

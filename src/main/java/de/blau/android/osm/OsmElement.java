@@ -430,6 +430,15 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
     public boolean isUnchanged() {
         return state == STATE_UNCHANGED;
     }
+    
+    /**
+     * Check if this element has been created
+     * 
+     * @return true has been created / is new
+     */
+    public boolean isNew() {
+        return state == STATE_CREATED;
+    }
 
     /**
      * Add reference to parent relation Does not check id to avoid dupes!

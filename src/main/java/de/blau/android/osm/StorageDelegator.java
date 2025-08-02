@@ -1259,7 +1259,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         undo.save(node);
         try {
-            if (node.state == OsmElement.STATE_CREATED) {
+            if (node.isNew()) {
                 apiStorage.removeElement(node);
             } else {
                 apiStorage.insertElementSafe(node);
@@ -2080,7 +2080,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         try {
             currentStorage.removeWay(way);
             if (apiStorage.contains(way)) {
-                if (way.getState() == OsmElement.STATE_CREATED) {
+                if (way.isNew()) {
                     apiStorage.removeElement(way);
                 }
             } else {
@@ -2107,7 +2107,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         undo.save(relation);
         try {
-            if (relation.state == OsmElement.STATE_CREATED) {
+            if (relation.isNew()) {
                 apiStorage.removeElement(relation);
             } else {
                 apiStorage.insertElementSafe(relation);
@@ -3340,6 +3340,80 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         imagery = new ArrayList<>();
         if (fullUpload) {
             setImageryRecorded(false);
+        }
+    }
+
+    /**
+     * Add any required referenced elements to upload
+     * 
+     * @param context and Android Context
+     * @param elements the List of elements
+     * @return the List of elements for convenience
+     */
+    public List<OsmElement> addRequiredElements(@NonNull final Context context, @NonNull final List<OsmElement> elements) {
+        Set<OsmElement> additionalElements = new HashSet<>();
+        // add parent elements containing new elements that have been selected for upload
+        for (OsmElement e : elements) {
+            if (!e.isNew()) {
+                continue;
+            }
+            if (e instanceof Node) {
+                additionalElements.addAll(apiStorage.getWays((Node) e));
+            }
+            List<Relation> parentRelations = e.getParentRelations();
+            if (parentRelations != null) {
+                additionalElements.addAll(parentRelations);
+            }
+        }
+
+        // add newly created child elements of elements that have been selected for upload
+        List<OsmElement> tempElements = new ArrayList<>(elements);
+        tempElements.addAll(additionalElements);
+        for (OsmElement e : tempElements) {
+            if (e instanceof Relation) {
+                addRelationMembersToUpload(additionalElements, (Relation) e);
+            }
+        }
+
+        // this needs to be done in a 2nd step as the above might have added new ways
+        tempElements.clear();
+        tempElements.addAll(elements);
+        tempElements.addAll(additionalElements);
+        for (OsmElement e : tempElements) {
+            if (!(e instanceof Way)) {
+                continue;
+            }
+            for (Node n : ((Way) e).getNodes()) {
+                if (!n.isNew()) {
+                    continue;
+                }
+                additionalElements.add(n);
+            }
+        }
+        int added = additionalElements.size();
+        if (added > 0) {
+            // upload will sort elements correctly
+            elements.addAll(additionalElements);
+            ScreenMessage.toastTopWarning(context, context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
+        }
+        return elements;
+    }
+
+    /**
+     * Recursively add newly created relation members to upload
+     * 
+     * @param uploadElements elements to upload
+     * @param r the Relation
+     */
+    private static void addRelationMembersToUpload(@NonNull Set<OsmElement> uploadElements, @NonNull Relation r) {
+        for (RelationMember rm : r.getMembers()) {
+            if (rm.getRef() < 0) { // neg id == new element
+                OsmElement member = rm.getElement();
+                if (member instanceof Relation && !uploadElements.contains(member)) {
+                    addRelationMembersToUpload(uploadElements, r);
+                }
+                uploadElements.add(member);
+            }
         }
     }
 
