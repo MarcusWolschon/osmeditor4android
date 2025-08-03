@@ -25,7 +25,8 @@ It is considered best practice to provide meaningful information for other mappe
 
 ## Upload options
 
-- _Close changeset_ close the changeset after the upload. If this is unchecked, changesets will be left open and further uploads will be appended. Note that the changeset may be automatically closed by the API, this is detected on upload and a new changeset will be created. The default setting for this is enabled.
+- _Close changeset_ close the changeset after the upload. If this is unchecked, changesets will be left open and further uploads will be appended. Note that the changeset may be automatically closed by the API, this is detected on upload and a new changeset will be created. The default setting for this is enabled. _Note_ that currently only the last upload to an open changeset
+will have an automatically generated summary.
 - _Close open changeset_ only displayed if an open changeset has been detected (that is _Close changeset_ must be disabled). Close the current changeset after upload. This setting only applies to the current upload. The default setting for this is disabled.
 - _Request review_ add a tag asking for a review of the changes. Note this does not stop your changes from being immediately available after you have completed the upload, it is 
 simply an indication to other contributors and they might or might not actually review your edits. The default setting for this is disabled.
