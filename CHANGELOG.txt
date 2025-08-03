@@ -1,5 +1,19 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.1.0.0:
+
+- Fix protect against null extra tags
+- Fix workaround bogus IME insets on Android 5
+- Fix force white nav bar icons in light theme
+- Fix point out that change summary tags are currently not cumulative
+- Fix add parent elements of newly created elements to upload
+- Fix add inset handling code to photo fragment
+- Fix remove existing deleted elements from current storage when applying changes from OSC file
+- Fix top margin on Android 15 in preset filter activity
+- Fix improve diagnostics when downloading individual elements in tasks
+- Update translations
+- Update imagery from ELI
+
 21.1.0-1:
 
 - Fix improve multi-select startup time for multi-element constructor
