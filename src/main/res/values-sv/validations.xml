@@ -10,6 +10,7 @@
         <item>Felaktigt objekt</item>
         <item>Otaggat objekt</item>
         <item>Ej kopplad slutnod</item>
+        <item>Degenererad väg</item>
         <item>Tom relation</item>
         <item>Saknad roll för relationsmedlem</item>
         <item>Relationsloop</item>

@@ -103,6 +103,7 @@
   <string name="upload_bounding_box_too_large_message">Oblast pokrývající změny, které se snažíte nahrát, je příliš velká.
 &lt;br&gt;&lt;br&gt;Rozdělte prosím své změny do více menších sad změn. 
 Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajete je samostatně.</string>
+  <string name="upload_way_needs_one_node_title">Cesta vyžaduje alespoň jeden uzel</string>
   <!---->
   <string name="select_file_picker_title">Vyberte soubor pro výběr</string>
   <!--Newbie dialog-->
@@ -185,6 +186,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="upload_validation_error_empty_comment">Komentář by neměl být prázdný</string>
   <string name="upload_validation_error_empty_source">Zdroj by neměl být prázdný</string>
   <string name="upload_empty_comment_warning_label">Varovat, pokud je komentář prázdný</string>
+  <string name="untagged_node">neoznačený uzel</string>
   <string name="untagged_way">neoznačená cesta</string>
   <string name="untagged_relation">neoznačená relace</string>
   <string name="changed_tags">%1$s změněných značek</string>
@@ -382,7 +384,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="share_code">Sdílet kód…</string>
   <!--Overpass console-->
   <string name="run">Spustit</string>
-  <string name="overpass_result">Staženo %1$d bod(ů), %2$d cest(a) a %3$d relace(í).</string>
+  <string name="overpass_result">Staženo %1$d uzel(ů), %2$d cest(a) a %3$d relace(í).</string>
   <string name="overpass_console">Konzole Overpass</string>
   <string name="select_result">Vybrat výsledek</string>
   <string name="merge_result">Spojit výsledek</string>

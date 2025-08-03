@@ -982,6 +982,7 @@
   <string name="tag_menu_create_preset">Crear preset personalizado</string>
   <string name="create_preset_title">Nombre del preset personalizado</string>
   <string name="create_preset_default_name">%1$s personalizado</string>
+  <string name="saving_preset_failed">Error al guardar el ajuste preestablecido\n\n%1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Elegir radio:</string>
   <string name="location_default_radius">300m</string>

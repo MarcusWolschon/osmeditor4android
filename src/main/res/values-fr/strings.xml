@@ -112,7 +112,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="welcome_use_imagery_text">Afficher l\'image aérienne\npour la position actuelle</string>
   <string name="welcome_auto_download_text">Télécharger les données automatiquement</string>
   <string name="welcome_pen_setup_text">Configurer l\'utilisation avec un stylet ou une souris</string>
-  <string name="welcome_pen_setup_explanation">Si vous utilisez un styles, une souris ou un autre appareil de pointage, sélectionner cette option facilitera l\'édition.</string>
+  <string name="welcome_pen_setup_explanation">Si vous utilisez un stylet, une souris ou un autre appareil de pointage, sélectionner cette option facilitera l\'édition.</string>
   <string name="welcome_authorize_text">Autoriser maintenant</string>
   <string name="read_introduction">Lire l\'introduction</string>
   <string name="welcome_start">Démarrer !</string>

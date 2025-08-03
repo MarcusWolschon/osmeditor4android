@@ -84,4 +84,7 @@
     <string name="theme_follow_entry">כמו המערכת</string>
     <string name="theme_light_entry">בהיר</string>
     <string name="theme_dark_entry">כהה</string>
+    <string name="authentication_basic_entry">שם משתמש - סיסמה</string>
+    <string name="authentication_oauth1a_entry">OAuth 1a</string>
+    <string name="authentication_oauth2_entry">OAuth 2</string>
     </resources>

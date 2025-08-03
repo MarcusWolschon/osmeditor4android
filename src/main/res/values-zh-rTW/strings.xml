@@ -48,6 +48,7 @@
   <string name="undelete_on_server">非伺服器\n復原已刪除</string>
   <!--Upload retry-->
   <string name="upload_retry_title">上傳失敗</string>
+  <string name="upload_retry_message_no_open_changeset">無法開啟變更集。\n\n如今可以再次嘗試。</string>
   <string name="upload_retry_message_unexpected_error">非預期的錯誤發現，目前嘗試瞭解變更集%1$d的狀態。</string>
   <string name="upload_retry_message_no_changeset_status">無法瞭解變更集%1$d的狀態。\n\n我們建議將你的變動儲存為 OCS 檔案，之後狀況排除後決定怎麼處理。</string>
   <string name="upload_retry_message_nothing_uploaded">變更集%1$d還沒有變動上傳。\n\n可以安全重試。</string>
@@ -73,6 +74,7 @@
   <string name="not_found_message">透過 API 無法找到既有的元件或是特定的 id 的編輯變動。&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">未知的錯誤</string>
   <string name="unknown_error_message">無法處理從 API 或是訊息回傳的錯誤代碼。&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_http_code_message">HTTP 錯誤代碼：%1$d&lt;br&gt;錯誤訊息：&lt;br&gt;&lt;br&gt;%2$s</string>
   <string name="no_data_title">沒有資料</string>
   <string name="no_data_message">這裡設定資料來源沒有覆蓋</string>
   <string name="required_feature_missing_title">遺失或是失效的元件</string>
@@ -111,6 +113,8 @@
   <string name="upload_bounding_box_too_large_message">你變動包括的區域太大了。
 &lt;br&gt;&lt;br&gt;請分割你的變動為多個較小的變動。
 你可以藉由選擇變動元素的子集並分開上傳。</string>
+  <string name="upload_way_needs_one_node_title">一個路徑至少需要一個節點</string>
+  <string name="upload_way_needs_one_node_message">你嘗試上傳的路徑沒有節點，這不應該發生，如今路徑已經被刪除，所以你可以再嘗試一次。請透過回饋表單來反應問題，以及另行獨立遞交當機報告。</string>
   <string name="attempt_to_add_too_many_way_nodes_title">嘗試新增太多路徑節點</string>
   <string name="attempt_to_add_too_many_way_nodes_message">這次操作新增的路徑會含有超過最大容許的路徑節點，你可以不要加那麼點或是在適當的位置分割路徑。</string>
   <string name="too_many_way_nodes_details">嘗試新增%1$d節點導致全部有%2$d節點，將會超過%3$d個節點</string>
@@ -324,6 +328,7 @@
   <string name="goto_element">到元素</string>
   <string name="edit_properties">編輯標籤</string>
   <string name="toast_element_not_found_on_restore">在儲存沒有找到元素</string>
+  <string name="toast_element_no_prior_state">元素已經變動，但沒有本地端先前的狀態能比對。</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON 圖徵資訊 </string>
   <string name="vt_feature_information">向量圖磚特徵資訊</string>
@@ -360,9 +365,14 @@
   <string name="duplicate_route_segment_message">這個路徑已經是路線的成員了。</string>
   <string name="duplicate_route_segment_button">新增任何路徑</string>
   <!--Relation editing dialog-->
+  <string name="duplicate_relation_member_title">新增或移除關聯成員</string>
   <string name="duplicate_relation_member_message">%1$s\n\n 已經是關聯的成員之一</string>
+  <string name="remove_relation_member_title">移除關聯成員</string>
   <string name="remove_relation_member_message">%1$s</string>
+  <string name="relation_member_no_match_warning">\n\n警告：\n\n元素沒有吻合這類關聯類型的預置定義的成員篩選。</string>
   <string name="duplicate_relation_member_remove_button">移除成員</string>
+  <string name="choose_role_title">選擇角色</string>
+  <string name="leave_role_empty">維持角色空白</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">從外環移動標籤到多重多邊形</string>
   <string name="move_outer_tags_message">物件定議的標籤只應該在多重多邊形上面，這個動作將會移動原先在外圈的一般標籤移到多重多邊形。</string>
@@ -683,6 +693,7 @@
   <!---->
   <string name="toast_oauth_retry">在允許 OAuth 存取你的 OSM 帳號後再上傳一次。</string>
   <string name="toast_oauth">請允許 OAuth 進入您的 OSM 帳號。</string>
+  <string name="toast_no_oauth">API \"%1$s\" 沒有 OAuth 設定能夠使用，請設定登入與密碼後使用。</string>
   <string name="toast_oauth_not_enabled">OAuth 未啟用目前的 API。</string>
   <string name="toast_oauth_timeout">握手驗証時逾時，請重試。</string>
   <string name="toast_oauth_communication">交握驗証時發生通信錯誤，請重試。</string>
@@ -835,6 +846,7 @@
   <string name="toast_undeleting_all_members">取消刪除有這個元件的所有關聯成員</string>
   <string name="toast_panoramax_sequence_error">無法截取 panorama 序列編號%1$s編號%2$s</string>
   <string name="toast_panoramax_image_not_in_sequence_error">無法在序列當中找到影像編號%1$s</string>
+  <string name="toast_panoramax_sequence_exception">無法取得 panoramax 序列\n%1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -955,6 +967,7 @@
   <string name="tag_menu_create_preset">創建客製預置</string>
   <string name="create_preset_title">客製預置名稱</string>
   <string name="create_preset_default_name">自訂 %1$s</string>
+  <string name="saving_preset_failed">儲存有\n\n%1$s的d預置失敗</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">選取半徑：</string>
   <string name="location_default_radius">300m</string>
@@ -1242,6 +1255,7 @@
   <string name="menu_follow_way">跟隨的路線</string>
   <string name="select_follow_way">選擇跟隨的路線</string>
   <string name="select_way_to_extract_from">選擇路徑來從截取片段</string>
+  <string name="select_primary_key">選擇要使用的主要鍵</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">增加節點</string>
   <string name="simple_add_node">點螢幕位置</string>
@@ -1324,6 +1338,8 @@
   <string name="config_useInternalPhotoViewer_summary">使用內建照片檢視器，如果沒有勾選則會用外部檢視器。</string>
   <string name="config_indexMediaStore_summary">額外使用 MediaStore 來截取照片</string>
   <string name="config_indexMediaStore_title">使用 MediaStore</string>
+  <string name="config_addToMediaStore_summary">新增用照相機按鈕的影像記錄到 MediaStore</string>
+  <string name="config_addToMediaStore_title">新增影像到 MediaStore</string>
   <string name="config_followGPSbutton_title">跟隨位置按鈕樣式</string>
   <string name="config_followGPSbutton_summary">「跟隨位置」按鈕的出現位置。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">總是模糊無法下載的區域</string>
@@ -1589,6 +1605,7 @@
   <string name="readonly_url">唯讀API網址 (選擇)</string>
   <string name="notes_url">註解API網址 (選擇)</string>
   <string name="copy_of">%1$s的複製物</string>
+  <string name="choose_oauth_config">選擇 OAuth 設定</string>
   <!--common terms-->
   <string name="add">增加</string>
   <string name="edit">編輯</string>
@@ -1599,6 +1616,8 @@
   <string name="regular_expression">正規表示式</string>
   <string name="state">狀態</string>
   <string name="Continue">繼續</string>
+  <string name="File">檔案</string>
+  <string name="URI">網址</string>
   <!---->
   <string name="empty_list">無輸入</string>
   <string name="geocoder_type">geocoder 類型</string>

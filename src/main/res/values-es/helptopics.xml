@@ -4,8 +4,10 @@
     <string name="help_app_description">Visor de ayuda de Vespucci</string>
     <string name="help_title">Ayuda: %1$s</string>
     <string name="help_introduction">Introducción</string>
+    <string name="help_safe_mode">Modo seguro</string>
     <string name="help_main">Pantalla principal del mapa</string>
     <string name="help_simple_actions">Acciones sencillas</string>
+    <string name="help_addrelationmember">Editar miembros de la relación</string>
     <string name="help_multiselect">Selección múltiple</string>
     <string name="help_longclick">Crear nuevos objetos</string>
     <string name="help_nodeselection">Nodo seleccionado</string>
@@ -32,6 +34,7 @@
     <string name="help_tag_only_mode">Modo solo etiquetas</string>
     <string name="help_indoor_mode">Modo interiores</string>
     <string name="help_address_mode">Modo de direcciones</string>
+    <string name="help_upgrade">Notas de la versión 21.1</string>
     <string name="help_upgrade_210">Versión 21.0 - Notas de la versión</string>
     <string name="help_upgrade_202">Versión 20.2 - Notas de la versión</string>
     <string name="help_upgrade_201">Versión 20.1 - Notas de la versión</string>

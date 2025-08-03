@@ -7,8 +7,8 @@
     <string name="help_main">주 지도 표시</string>
     <string name="help_multiselect">여러선택</string>
     <string name="help_longclick">새 개체 만들기</string>
-    <string name="help_nodeselection">노드 선택됨</string>
-    <string name="help_pathcreation">길에 노드 추가</string>
+    <string name="help_nodeselection">점 선택됨</string>
+    <string name="help_pathcreation">길에 점 추가</string>
     <string name="help_relationselection">관계 선택됨</string>
     <string name="help_wayselection">길 선택됨</string>
     <string name="help_aligningbackgroundiamgery">배경 이미지 정렬</string>

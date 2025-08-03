@@ -48,6 +48,7 @@
   <string name="undelete_on_server">サーバー上で\n復元</string>
   <!--Upload retry-->
   <string name="upload_retry_title">アップロード失敗</string>
+  <string name="upload_retry_message_no_open_changeset">変更セットを開くのに失敗しました。\n\n再試行は安全です。</string>
   <string name="upload_retry_message_unexpected_error">変更セット %1$d の状態の特定を試行中に、予期しないエラーが発生しました。</string>
   <string name="upload_retry_message_no_changeset_status">変更セット %1$d の状態の特定ができませんでした。\n\nOCSファイルとして変更を保存して、良いものを受信したときに何をすべきかを判断することを推奨します。</string>
   <string name="upload_retry_message_nothing_uploaded">変更セット %1$d 内に、アップロードされたものはありません。\n\n安全に再試行できます。</string>
@@ -73,6 +74,7 @@
   <string name="not_found_message">APIは指定されたid id.&lt;br&gt;&lt;br&gt; で存在する要素または変更セットを発見できませんでした</string>
   <string name="unknown_error_title">未知のエラー</string>
   <string name="unknown_error_message">APIまたは処理できなかったメッセージから返されたエラーコード。&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_http_code_message">HTTPエラーコード: %1$d&lt;br&gt;エラーメッセージ:&lt;br&gt;&lt;br&gt;%2$s</string>
   <string name="no_data_title">データなし</string>
   <string name="no_data_message">設定されたデータ源はここの範囲にデータを持ちませんでした。</string>
   <string name="required_feature_missing_title">欠落または無効化された部分</string>
@@ -111,6 +113,8 @@
   <string name="upload_bounding_box_too_large_message">アップデートによって変更を試みている領域が大きすぎます。
 　&lt;br&gt;&lt;br&gt;変更点を分割して、複数の小さな変更セットにしてください。
 　これを行うには、変更する要素の部分集合を選択してから、それらを分割してアップロードします。</string>
+  <string name="upload_way_needs_one_node_title">ウェイには少なくとも１つのノードが必要</string>
+  <string name="upload_way_needs_one_node_message">アップロードを試みたウェイにはノードがありません。これはあってはならないことで、ウェイは今削除されるので、再試行できます。フィードバックと共にissueを開いて、単独のクラッシュダンプを提出してください。</string>
   <string name="attempt_to_add_too_many_way_nodes_title">多すぎるウェイノードを追加する試み</string>
   <string name="attempt_to_add_too_many_way_nodes_message">その操作は、ウェイノードを最大個数以上含むウェイを作成します。少ない個数のノードを追加するか、都合が良い位置でウェイを区切ってください。</string>
   <string name="too_many_way_nodes_details">合計ノード個数上限 %2$d 個より %3$d 個多い %1$d 個のノード追加を試みています。</string>
@@ -318,7 +322,9 @@
   <string name="duplicate_route_segment_message">このウェイは既にルートのメンバーです。</string>
   <string name="duplicate_route_segment_button">とにかく追加</string>
   <!--Relation editing dialog-->
+  <string name="duplicate_relation_member_title">リレーションのメンバーを追加または除外</string>
   <string name="duplicate_relation_member_message">%1$s\n\nは既にリレーションのメンバーです。</string>
+  <string name="remove_relation_member_title">リレーションのメンバーを除外</string>
   <string name="remove_relation_member_message">%1$s 個</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">外周からマルチポリゴンにタグを移す</string>
@@ -584,6 +590,7 @@
   <!---->
   <string name="toast_oauth_retry">OSMアカウントにOAuthアクセスを許可してから、再びアップロードを試行してください。</string>
   <string name="toast_oauth">ご自分のOSMアカウントに対してOAuth認証を許可してください。</string>
+  <string name="toast_no_oauth">API「%1$s」でOAuth設定が利用できません。もし対応しているなら、ログイン名とパスワードを利用してください。</string>
   <string name="toast_oauth_not_enabled">現在のAPI用にはOAuthは有効化されていません。</string>
   <string name="coordinates_out_of_range">経度の値は -180°/+180° 以内です。緯度は -85°/85° です。</string>
   <string name="toast_nothing_found">検索結果なし</string>
@@ -797,6 +804,7 @@
   <string name="tag_menu_create_preset">任意プリセットを作成</string>
   <string name="create_preset_title">任意プリセット名</string>
   <string name="create_preset_default_name">任意 %1$s</string>
+  <string name="saving_preset_failed">プリセットの保存に失敗\n\n%1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">半径を選択:</string>
   <string name="location_default_radius">300m</string>
@@ -1128,6 +1136,8 @@
   <string name="config_useInternalPhotoViewer_summary">組み込みの写真ビューワーを使用します。チェックがついていない場合は、外部のビューワーが使用されます。</string>
   <string name="config_indexMediaStore_summary">写真を利用するために、追加でMediaStoreを使用します</string>
   <string name="config_indexMediaStore_title">MediaStoreを使用</string>
+  <string name="config_addToMediaStore_summary">MediaStoreへ、記録した画像を追加するカメラボタン</string>
+  <string name="config_addToMediaStore_title">MediaStoreへ画像を追加</string>
   <string name="config_alwaysDrawBoundingBoxes_title">ダウンロードされていない領域を常に暗くする</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">鍵状態中にダウンロードされていない領域を暗くします。</string>
   <string name="config_map_orientation_title">地図画面の向き</string>
@@ -1354,6 +1364,7 @@
   <string name="readonly_url">読込専用APIのURL (任意)</string>
   <string name="notes_url">メモ API URL (任意)</string>
   <string name="copy_of">%1$sのコピー</string>
+  <string name="choose_oauth_config">OAuth設定を選択</string>
   <!--common terms-->
   <string name="add">追加</string>
   <string name="edit">編集</string>
@@ -1364,6 +1375,8 @@
   <string name="regular_expression">正規表現</string>
   <string name="state">統計情報</string>
   <string name="Continue">延長</string>
+  <string name="File">ファイル</string>
+  <string name="URI">URI</string>
   <!---->
   <string name="empty_list">エントリーなし</string>
   <string name="geocoder_type">ジオコーダーの種別</string>

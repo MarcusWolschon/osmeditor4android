@@ -8,6 +8,7 @@
   <string name="mode_address">Adress</string>
   <string name="mode_voice">Röst</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">Säker</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Försiktig!</string>
   <string name="transfer_download_current_dialog_message">Du har gjort ändringar. Vill du ladda upp istället för att kassera dem?</string>
@@ -36,6 +37,8 @@
   <string name="delete_locally">Radera\nlokalt</string>
   <string name="undelete_on_server">Återskapa\npå server</string>
   <!--Upload retry-->
+  <string name="upload_retry_title">Misslyckades att ladda upp</string>
+  <string name="upload_retry_message_update_failed_title">Uppdatering misslyckades</string>
   <string name="save_changes">Spara ändringar</string>
   <!---->
   <string name="no_login_data_title">Kunde inte autentisera</string>
@@ -70,6 +73,8 @@
   <string name="duplicate_tag_key_message">Du har lagt till följande nyckel mer än en gång, detta behöver åtgärdas innan du kan fortsätta:</string>
   <string name="autodownload_has_been_paused">Automatisk nerladdning har pausats.</string>
   <string name="upload_bounding_box_too_large_title">Området är för stort för uppladdning</string>
+  <string name="upload_way_needs_one_node_title">Väg behöver minst en nod</string>
+  <string name="attempt_to_add_too_many_way_nodes_title">Försök att lägga till för många noder</string>
   <!---->
   <string name="select_file_picker_title">Välj filväljare</string>
   <!--Newbie dialog-->
@@ -84,6 +89,7 @@
         &lt;/li&gt;&lt;/ul&gt;
         På nästa sida kan du göra några grundläggande inställningar som gör din tid med Vespucci enklare. 
     </string>
+  <string name="welcome_auto_download_text">Ladda ner data automatiskt</string>
   <string name="welcome_authorize_text">Auktorisera nu</string>
   <string name="read_introduction">Läs introduktionen</string>
   <string name="welcome_start">Starta!</string>
@@ -106,6 +112,8 @@
   <string name="progress_running_message">Kör...</string>
   <string name="progress_building_imagery_database">Bygger bild-databas...</string>
   <string name="progress_migration">Migrerar...</string>
+  <string name="progress_determining_status_message">Undersöker status…</string>
+  <string name="progress_updating_message">Uppdaterar…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" raderad</string>
   <string name="changes_changed">\"%1$s\" ändrad</string>
@@ -202,6 +210,9 @@
   <string name="geocoder_limit_label">i vyn</string>
   <!--Search objects dialog-->
   <string name="search_objects_title">Sök efter objekt</string>
+  <string name="search_objects_use_regexps">Använd regular expressions</string>
+  <string name="search_objects_unsupported">Expression som inte hanteras \"%1$s\"</string>
+  <string name="search_objects_query_overpass">Fråga Overpass</string>
   <!---->
   <string name="preset_search_hint">Förinställda söksträngar</string>
   <string name="preset_autopreset">Förinställning</string>
@@ -231,6 +242,7 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON funktioninformation</string>
   <string name="copy_properties">Kopiera egenskaper</string>
+  <string name="create_osm_element">Skapa OSM element</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">Data i minne</string>
   <string name="total">Totalt</string>
@@ -260,6 +272,8 @@
   <!--Relation editing dialog-->
   <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Ta bort medlem</string>
+  <string name="choose_role_title">Välj roll</string>
+  <string name="leave_role_empty">Lämna roll tom</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Flytta taggar från ytterkonturen till multipolygonen</string>
   <string name="move">Flytta</string>
@@ -278,6 +292,7 @@
   <string name="odd">Udda</string>
   <string name="other">Annan</string>
   <!--Safe split dialog-->
+  <string name="split_safe_title">Medlemmar i relationen saknas</string>
   <!--JS console dialog-->
   <string name="evaluate">Utvärdera</string>
   <string name="js_console_msg_live">Live-läge!</string>
@@ -310,6 +325,8 @@
   <string name="max_age">Max. ålder</string>
   <string name="age">Ålder</string>
   <!--Safe mode dialog-->
+  <string name="safe_mode_dialog_title">Inställningar för säkert läge</string>
+  <string name="safe_layer_label">Visa alla lager</string>
   <string name="safe_delete_state_text">Ja (kan inte ångras)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Tom relation</string>
@@ -325,6 +342,8 @@
   <string name="waypoint_link">Anslutning</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Egen bild</string>
+  <string name="edit_layer_title">Redigera lager</string>
+  <string name="add_layer_title">Lägg till lager</string>
   <string name="select_layer_title">Välj lager</string>
   <string name="coverage">Täckning</string>
   <string name="coverage_top">Överst</string>
@@ -355,6 +374,7 @@
   <string name="layer_tasks">Uppgifter</string>
   <string name="layer_data">OSM data</string>
   <string name="layer_data_name">%1$s data</string>
+  <string name="layer_flush_tile_cache">Rensa tile cache</string>
   <string name="layer_reset_style">Återställ stil</string>
   <string name="layer_set_date_range">Ange datumintervall…</string>
   <string name="layer_test">Test…</string>
@@ -461,6 +481,7 @@
   <string name="toast_noname">Väg saknar namn eller ref</string>
   <string name="toast_notype">Relation saknar typ</string>
   <string name="toast_untagged_element">Otaggat element</string>
+  <string name="toast_degenerate_way">Degenererad väg</string>
   <!---->
   <string name="toast_oauth_handshake_failed">Kunde inte utföra OAuth-handskakning: %1$s</string>
   <string name="coordinates_out_of_range">Longitud måste vara mellan -180°/+180°, latitud mellan -85°/85°</string>
@@ -503,8 +524,12 @@
   <string name="toast_download_started">Nerladdning av %1$s påbörjad</string>
   <string name="toast_phone_number_reformatted">Telefonnummer omformaterat</string>
   <string name="toast_members_not_downloaded">Några medlemmar i relationer har inte hämtats</string>
+  <string name="toast_restart_required">Du behöver starta om Vespucci för att ändringen ska gälla</string>
   <string name="toast_no_usable_location">Ingen användbar plats</string>
   <string name="toast_out_of_memory">SLUT PÅ MINNE!</string>
+  <string name="toast_nothing_changed">Inget ändrat</string>
+  <string name="toast_error_saving_bookmark">Kunde inte spara bokmärke</string>
+  <string name="toast_no_intersection_found">Ingen skärningspunkt hittades</string>
   <string name="toast_no_track_points">Inga spårpunkter</string>
   <string name="toast_no_way_points">Inga vägpunkter</string>
   <string name="toast_url_check">%1$s %2$d</string>
@@ -545,6 +570,7 @@
   <string name="select">Markera</string>
   <string name="skip">Avstå</string>
   <string name="more_information">Mer information</string>
+  <string name="osm_tags">OSM Taggar</string>
   <!--Read a file-->
   <string name="read">Läs</string>
   <string name="load">Läs in</string>
@@ -578,6 +604,7 @@
   <string name="tag_menu_reset_address_prediction">Nollställ förutsagd adress</string>
   <string name="tag_menu_exit_no_save">Avsluta\n utan att spara</string>
   <string name="tag_menu_delete_unassociated_tags">Radera icke-associerade taggar</string>
+  <string name="tag_menu_copy_system">Kopiera (system)</string>
   <string name="tag_menu_top">Skrolla till toppen</string>
   <string name="tag_menu_bottom">Skrolla till botten</string>
   <string name="tag_value_hint">Ange värde</string>
@@ -605,6 +632,7 @@
   <string name="menu_deselect_all">Avmarkera alla</string>
   <string name="menu_preset_help">Hjälp av förinställning</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">Lägg till språkvarianter</string>
   <string name="tag_restriction_header">Värde</string>
   <string name="tag_restriction_when">när</string>
   <string name="tag_restriction_and">och</string>
@@ -644,12 +672,14 @@
   <string name="barometer_calibration_gps">GNSS</string>
   <string name="barometer_calibration_calibrate">Kalibrera</string>
   <!--Strings in postition info-->
+  <string name="position_info_title">Info om nuvarande position</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">Höjd</string>
   <string name="position_info_geoid_height">Höjd över\ngeoid</string>
   <string name="position_info_barometric_height">Barometrisk höjd</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Hämta filer</string>
+  <string name="allow_all_networks">Tillåt alla nätverk</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Gå till koordinater</string>
   <!--Menu-->
@@ -689,6 +719,7 @@
   <string name="menu_gps_resume">Återuppta GPX spår</string>
   <string name="menu_gps_pause">Pausa GPX-spårning</string>
   <string name="menu_gps_clear">Rensa GPX-spår och dess vägpunkter</string>
+  <string name="menu_gps_track_managment">Hantering av GPX spår…</string>
   <string name="menu_gps_upload">Ladda upp GPX spår…</string>
   <string name="menu_gps_export">Exportera GPX spår…</string>
   <string name="menu_gps_import">Importera GPX spår…</string>
@@ -701,6 +732,8 @@
   <string name="menu_transfer_download_current">Hämta nuvarande vy</string>
   <string name="menu_transfer_download_replace">Rensa och ladda ner nuvarande vy</string>
   <string name="menu_transfer_load_current">Ladda nuvarande vy</string>
+  <string name="menu_transfer_load_replace">Rensa och ladda nuvarande vy</string>
+  <string name="menu_transfer_query_overpass">Fråga Overpass…</string>
   <string name="menu_transfer_upload">Ladda upp data till OSM server…</string>
   <string name="menu_transfer_review">Kontrollera ändringar…</string>
   <string name="menu_transfer_update">Uppdatera data</string>
@@ -730,6 +763,7 @@
   <string name="menu_unjoin">Koppla loss</string>
   <string name="menu_copy">Kopiera</string>
   <string name="menu_duplicate">Duplicera</string>
+  <string name="menu_shallow_duplicate">Duplicera</string>
   <string name="menu_cut">Klipp ut</string>
   <string name="menu_paste">Klistra in</string>
   <string name="menu_paste_tags">Klistra in taggar</string>
@@ -742,6 +776,7 @@
   <string name="menu_create_circle">Skapa cirkel</string>
   <string name="menu_split_polygon">Dela upp i polygoner</string>
   <string name="menu_extract_segment">Extrahera segment</string>
+  <string name="menu_select_way_nodes">Välj vägens noder</string>
   <string name="menu_newnode_gps">Ny nod vid GPS-position</string>
   <string name="menu_extend_selection">Utöka markering</string>
   <string name="menu_information">Info…</string>
@@ -793,6 +828,7 @@
   <string name="menu_history">Historik</string>
   <string name="menu_history_web">Historik (Webb)</string>
   <string name="menu_merge">Anslut</string>
+  <string name="menu_add_node_at_intersection">Lägg till nod vid skärningspunkt</string>
   <string name="menu_reverse">Omvänd</string>
   <string name="reverse_anyway">Omvänd ändå</string>
   <string name="deleteway_wayonly">Radera endast väg</string>
@@ -822,6 +858,7 @@
   <string name="actionmode_split_way_node_selection">Välj nod</string>
   <string name="actionmode_restriction">Lägg till svängrestriktion</string>
   <string name="actionmode_restriction_to">Lägg till i segment</string>
+  <string name="actionmode_extract_segment_set_tags">Sätt taggar</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 föremål</item>
     <item quantity="other">%1$d föremål</item>
@@ -886,6 +923,7 @@
   <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_enableAntiAliasing_title">Aktivera anti-aliasing</string>
   <string name="config_enableAntiAliasing_summary">Gör linjerna jämnare.</string>
+  <string name="config_enableHwAcceleration_title">Aktivera hårdvaruacceleration</string>
   <string name="config_maxStrokeWidth_title">Max linjebredd</string>
   <string name="config_maxStrokeWidth_summary">Rita inte en väg tjockare än detta.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -950,12 +988,19 @@
   <string name="config_loginbutton_title">Användarkonto</string>
   <string name="config_username_summary">Du behöver endast konfiguration för att skicka OSM-data om du inte använder OAuth. Få ett konto på https://www.openstreetmap.org/user/new</string>
   <string name="config_osmoseServer_title">OSMOSE-server</string>
+  <string name="config_taginfoServer_title">Taginfo server</string>
+  <string name="config_overpassServer_title">Overpass server</string>
+  <string name="config_overpassServer_summary">Overpass server för frågor</string>
+  <string name="config_oamServer_title">OpenAerialMap server</string>
+  <string name="config_oamServer_summary">OpenAerialMap server för bakgrundsbilder</string>
+  <string name="config_panoramaxApiUrl_title">Panoramax URL</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Nerladdning och lagring av lager</string>
   <string name="config_maxTileDownloadThreads_title">Maximalt antal av nedladdningstrådar</string>
   <string name="config_downLoadThreads_current">%1$d trådar</string>
   <string name="config_tileCacheSize_title">Tile cache storlek</string>
   <string name="config_tileCache_current">%1$d MB</string>
+  <string name="config_mapillaryCacheSize_title">Mapillary cache storlek</string>
   <!--Auto-save-->
   <string name="config_category_autosave">Spara automatiskt</string>
   <string name="config_autosaveSaveChanges_title">Spara ändringar</string>
@@ -979,6 +1024,7 @@
   <string name="config_voiceCommandsEnabled_title">Aktivera röstkommandon</string>
   <string name="config_voiceCommandsEnabled_summary">Aktivera röstkommando stöd.</string>
   <!---->
+  <string name="manage_apis">Hantera APIer</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Använd OAuth</string>
   <string name="listedit_auth">Autentisering</string>
@@ -987,6 +1033,7 @@
   <string name="config_password_summary">Förväxla inte det för wiki-lösenordet. Kom ihåg: det lagras och överförs i klartext!</string>
   <string name="manage_presets">Hantera förinställningar</string>
   <string name="listedit_use_translations">Använd översättningar</string>
+  <string name="manage_geocoders">Hantera geocoders</string>
   <!--preset downloader messages-->
   <string name="preset_update">Uppdatera förinställningar</string>
   <string name="preset_download_successful">Förinställd hämtad</string>
@@ -1006,6 +1053,7 @@
   <string name="api_name">API-namn</string>
   <string name="api_url">API URL</string>
   <string name="readonly_url">Läs bara API URL (frivillig)</string>
+  <string name="choose_oauth_config">Välj OAuth inställning</string>
   <!--common terms-->
   <string name="add">Lägg till</string>
   <string name="edit">Redigera</string>
@@ -1013,8 +1061,11 @@
   <string name="name">Namn</string>
   <string name="url">URL</string>
   <string name="default_">Standard</string>
+  <string name="regular_expression">Regular expression</string>
   <string name="state">Stat</string>
   <string name="Continue">Fortsätt</string>
+  <string name="File">Fil</string>
+  <string name="URI">URI</string>
   <!---->
   <string name="empty_list">Inga poster</string>
   <string name="geocoder_type">Geocoder typ</string>
@@ -1041,14 +1092,23 @@
   <string name="undo_action_movenode">Noden flyttad</string>
   <string name="undo_action_moveway">Vägen flyttades</string>
   <string name="undo_action_moveobjects">Föremål flyttades</string>
+  <string name="undo_action_add">Lägg till</string>
+  <string name="undo_action_append">Lägg till väg</string>
   <string name="undo_action_deletenode">Noden borttagning</string>
+  <string name="undo_action_deleteway">Radera väg</string>
   <string name="undo_action_delete_objects">Föremål borttagna</string>
   <string name="undo_action_split_ways">Dela vägar</string>
   <string name="undo_action_split_way">Dela väg</string>
   <string name="undo_action_merge_ways">Slå samman vägar</string>
   <string name="undo_action_reverse_way">Ändra riktning på väg</string>
   <string name="undo_action_set_tags">Taggning</string>
+  <string name="undo_action_join">Sammanfoga</string>
   <string name="undo_action_unjoin_ways">Vägseparering</string>
+  <string name="undo_action_merge_polygons">Sammanfoga Polygon</string>
+  <string name="undo_action_create_relation">Skapa Relation</string>
+  <string name="undo_action_delete_relation">Ta bort Relation</string>
+  <string name="undo_action_update_relations">Uppdatera Relation</string>
+  <string name="undo_action_move_tags">Flytta taggar till Relation</string>
   <string name="undo_action_cut">Klipp ut</string>
   <string name="undo_action_paste">Klistra in</string>
   <string name="undo_action_duplicate">Duplicera</string>
@@ -1056,8 +1116,10 @@
   <string name="undo_action_orthogonalize">Gör vinkelrät</string>
   <string name="undo_action_circulize">Arrangera i cirkel</string>
   <string name="undo_action_fix_conflict">Lösa konflikter</string>
+  <string name="undo_action_extract_node">Extrahera nod</string>
   <string name="undo_action_remove_node_from_way">Ta bort nod från väg</string>
   <string name="undo_action_extract_segment">Extrahera segment</string>
+  <string name="undo_message">Ångra: %1$s</string>
   <!--ACRA-->
   <string name="report_success">Rapporterat.</string>
   <!--Exceptions messages-->

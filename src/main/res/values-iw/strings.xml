@@ -549,6 +549,7 @@
   <string name="toast_missing_role">חבר ביחס בלי התפקיד הנחוץ</string>
   <string name="toast_untagged_element">רכיב ללא תיוג</string>
   <string name="toast_unconnected_end_node">המפרק הוא ליד רכיב שאין לו אפשרות להתחבר אליו</string>
+  <string name="toast_degenerate_way">ניוון דרך</string>
   <!---->
   <string name="toast_oauth_retry">כדאי לנסות להעלות שוב לאחר מתן גישה ל־OAuth לחשבון שלך ב־OSM.</string>
   <string name="toast_oauth">נא לאפשר גישה עם OAuth לחשבון שלך ב־OSM.</string>

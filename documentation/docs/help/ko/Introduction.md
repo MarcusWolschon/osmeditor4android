@@ -2,7 +2,7 @@ _Before we start: most screens have links in the menu to the on-device help syst
 
 # Vespucci 소개
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
+Vespucci는 여러 데스크톱 편집기에서 제공하는 대부분의 작업을 지원하는 완전한 기능의 OpenStreetMap 편집기입니다. 이것은 성공적으로 구글의 안드로이드 버전 2.3에서 14.0까지(4.1 이전 버전은 더 이상 지원되지 않습니다.) 그리고 다양한 AOSP 기반 OS에서 테스트 되었습니다. 주의해야 할 점은 모바일 장치 기능이 데스크톱 경쟁자를 따라 잡았지만, 특히 구형 장치들은 사용 가능한 메모리가 매우 제한되어 있고 비교적 느린 경향이 있다는 점입니다. Vespucci를 사용할 때는 이것을 고려해야 합니다. 예를 들어 편집하려는 영역의 크기를 적절한 크기로 유지해야 합니다.
 
 ## Vespucci로 편집하기
 
@@ -36,7 +36,7 @@ If you need to use a non-standard OSM API entry, or use [offline data](https://v
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### 잠금, 잠금 해제, 모드 변경
 
 실수로 편집하는 것을 막기 위해서 Vespucci가 "잠금"모드를 활성화 하였습니다. 확대 및 축소와 지도를 움직이는 것만 허용됩니다. ![Locked](../images/locked.png) 아이콘을 누르면 잠금해제를 할 수 있습니다. 
 
@@ -82,11 +82,11 @@ A second touch on the selected object opens the tag editor and you can edit the 
 
 Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
 
-#### 선택된 개체: 노드 또는 길 이동하기
+#### 선택된 개체: 점 또는 길 이동하기
 
 Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
-#### 새 노드/점 또는 길 추가하기 
+#### 새 점/점 또는 길 추가하기 
 
 On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
 
@@ -159,9 +159,9 @@ Vespucci has a fast way to add turn restrictions. if necessary it will split way
 
 When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
-### 변경사항 저장하기
+### 변경 사항 저장하기
 
-*(requires network connectivity)*
+*(네트워크 연결이 필요합니다.)*
 
 Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 
@@ -181,7 +181,7 @@ A nearby point-of-interest display can be shown by pulling the handle in the mid
 
 More information on this and other available functionality on the main display can be found here [Main map display](Main%20map%display.md).
 
-## Using GPS and GPX tracks
+## GPS와 GPX 경로 사용
 
 With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
 
@@ -191,7 +191,7 @@ To record a GPX track and display it on your device select "Start GPX track" ite
 
 Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
 
-### How to export a GPX track?
+### GPX 경로를 내보내기
 
 Open the layer menu, then click the 3-dots menu next to "GPX recording", then select **Export GPX track...**. Choose in which folder to export the track, then give it a name suffixed with `.gpx` (example: MyTrack.gpx).
 
@@ -218,7 +218,7 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 <a id="indoor"></a>
 
-## Indoor mode
+## 실내 모드
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
 
@@ -276,11 +276,11 @@ Many aspects of the app can be customized, if you are looking for something spec
 
 <a id="layers"></a>
 
-### Layer settings
+### 레이어 설정
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
 
-Available layer types:
+가능한 레이어 타입:
 
 * Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
 * Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
@@ -294,7 +294,7 @@ Available layer types:
 
 More information can be found in the section on the [map display](Main%20map%20display.md).
 
-#### Preferences
+#### 환경 설정
 
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
@@ -310,7 +310,7 @@ The full description can be found here [Preferences](Preferences.md)
 
 The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
-## Reporting and Resolving Issues
+## 문제 보고와 해결
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
 

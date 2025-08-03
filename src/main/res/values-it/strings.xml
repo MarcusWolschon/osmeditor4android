@@ -48,11 +48,18 @@
   <string name="undelete_on_server">Ripristina\ndal server</string>
   <!--Upload retry-->
   <string name="upload_retry_title">Caricamento fallito</string>
+  <string name="upload_retry_message_no_open_changeset">Errore durante l’apertura del gruppo di modifiche.\n\nPuoi riprovare in tutta sicurezza.</string>
+  <string name="upload_retry_message_unexpected_error">Errore inatteso durante la determinazione dello stato del gruppo di modifiche %1$d.</string>
   <string name="upload_retry_message_no_changeset_status">Impossibile determinare lo stato del gruppo di modifiche %1$d.\n\nTi consigliamo di salvare le tue modifiche in un file OCS e scegliere cosa fare quando avrai una ricezione migliore.</string>
   <string name="upload_retry_message_nothing_uploaded">Nessuna modifica è stata caricata nel gruppo di modifiche %1$d.\n\nPuoi riprovare in tutta sicurezza.</string>
   <string name="upload_retry_message_all_uploaded">Le modifiche sono state caricate con successo nel gruppo di modifiche %1$d ma non è stato ricevuto il risultato.\n\nSembra comunque che le modifiche siano state caricate, pertanto puoi tranquillamente scartare le tue modifiche locali e scaricare di nuovo i dati.</string>
   <string name="upload_retry_message_partial_upload">Le modifiche sono state caricate con successo nel gruppo di modifiche %1$d ma non è stato ricevuto il risultato.</string>
+  <string name="upload_retry_message_update_failed_title">Aggiornamento fallito</string>
+  <string name="upload_retry_message_update_failed">Impossibile aggiornare i dati. Si consiglia di salvare le proprie modifiche in un file da usare successivamente.</string>
+  <string name="redownload">Ri-scarica (non può essere annullato)</string>
+  <string name="update_data">Aggiorna i dati locali (non può essere annullato)</string>
   <string name="save_changes">Salva le modifiche</string>
+  <string name="upload_retry_issue">Problema: %1$s</string>
   <!---->
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth questo è probabilmente un bug; per favore invia un report. Se stai usando nome utente e password (sconsigliato), controlla di averli inseriti correttamente.</string>
@@ -105,11 +112,19 @@
   <string name="upload_bounding_box_too_large_message">L’area delle modifiche che stai cercando di caricare è troppo estesa.
  &lt;br&gt;&lt;br&gt;Suddividi le tue modifiche in gruppi di modifiche più piccoli.
       Puoi farlo selezionando un sottoinsieme degli elementi modificati che potranno essere caricati separatamente.</string>
+  <string name="upload_way_needs_one_node_title">Un percorso richiede almeno un nodo</string>
+  <string name="upload_way_needs_one_node_message">Un percorso che hai cercato di caricare non ha alcun nodo. Ciò non dovrebbe accadere e il percorso è stato eliminato per permetterti di riprovare. Segnala un problema con il modulo di feedback e invia in maniera indipendente il dump arresto anomalo.</string>
+  <string name="attempt_to_add_too_many_way_nodes_title">Tentativo di aggiungere troppi nodi al percorso</string>
+  <string name="attempt_to_add_too_many_way_nodes_message">L’operazione creerebbe un percorso con un numero di nodi superiore al massimo consentito. Aggiungi meno nodi oppure dividi il percorso in un punto idoneo.</string>
+  <string name="too_many_way_nodes_details">Si è tentato di aggiungere %1$d nodi per un totale di %2$d nodi che è maggiore del limite di %3$d</string>
   <!---->
   <string name="select_file_picker_title">Scegli file</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Benvenuti</string>
+  <string name="welcome_auto_download_text">Scarica automaticamente i dati</string>
+  <string name="welcome_authorize_text">Autorizza adesso</string>
   <string name="read_introduction">Leggi l\'introduzione</string>
+  <string name="welcome_start">Iniziamo!</string>
   <!---->
   <string name="upgrade_title">Questa è una nuova versione di Vespucci</string>
   <string name="upgrade_message">Le nuove funzionalità e come agiscono sono dettagliate nelle note di rilascio.</string>
@@ -119,6 +134,7 @@
   <string name="progress_message">Caricamento dati in memoria…</string>
   <string name="progress_download_message">Scaricamento dati dal server…</string>
   <string name="progress_download_tasks_message">Scaricamento dei compiti dai server…</string>
+  <string name="progress_download_sequence_message">Scaricamento della sequenza dal server…</string>
   <string name="progress_general_title">Attendi</string>
   <string name="progress_deleting_message">Sto eliminando...</string>
   <string name="progress_searching_message">Sto cercando...</string>
@@ -132,6 +148,8 @@
   <string name="progress_query_oam">Richiesta OAM inviata…</string>
   <string name="progress_pruning">Riduzione…</string>
   <string name="progress_migration">Migrazione…</string>
+  <string name="progress_determining_status_message">Determinazione dello stato…</string>
+  <string name="progress_updating_message">Caricamento sul server…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" cancellato</string>
   <string name="changes_changed">\"%1$s\" modificato</string>
@@ -152,7 +170,7 @@
   <string name="upload_validation_error_empty_source">La fonte dei dati non dovrebbe essere vuota</string>
   <string name="upload_empty_comment_warning_label">Segnala se il commento è vuoto</string>
   <string name="upload_auto_summary">Sommario generato automaticamente</string>
-  <string name="untagged_node">node senza etichette</string>
+  <string name="untagged_node">nodo senza etichette</string>
   <string name="untagged_way">percorso senza etichette</string>
   <string name="untagged_relation">relazione senza etichette</string>
   <string name="changed_preset">%1$s a %2$s</string>
@@ -161,6 +179,7 @@
   <string name="unknown_object">oggetto sconosciuto</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">Controlla le modifiche</string>
+  <string name="review_upload_selected">Caricamento selezionato</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Carica la traccia GPX sul server</string>
   <string name="upload_gpx_description_label">Descrizione</string>
@@ -636,6 +655,7 @@
   <string name="toast_split_to">Percorso \"verso\" diviso</string>
   <string name="toast_tile_database_issue_short">Problema nel database dei tasselli</string>
   <string name="toast_tile_database_issue">Problema serio con il database dei tasselli per la mappa\n%1$s\nConsultare le nostre FAQ su https://vespucci.io/</string>
+  <string name="toast_tile_source_issue">È accaduto un problema serio con la fonte dei tasselli della mappa, verrà disabilitato temporaneamente\n“%1$s”</string>
   <string name="toast_invalid_apiurl">URL dell\'API non valida</string>
   <string name="toast_invalid_readonlyurl">URL invalido per le API in sola lettura</string>
   <string name="toast_invalid_notesurl">Indirizzo delle API per le note non valido</string>
@@ -1279,6 +1299,7 @@
   <string name="config_maxOffsetDistance_title">Distanza max per gli offset locali delle immagini</string>
   <string name="config_maxOffsetDistance_summary">La distanza più lontana a cui l’offset di uno strato salvato localmente sarà applicato automaticamente.</string>
   <string name="config_maxOffsetDistance_current">%1$d metro(i)</string>
+  <string name="config_minCircleNodes_current">%1$d nodi</string>
   <string name="config_maxCircleSegment_current">%1$d metro(i)</string>
   <string name="config_minCircleSegment_current">%1$d metro(i)</string>
   <string name="config_replaceTolerance_current">%1$d metro(i)</string>

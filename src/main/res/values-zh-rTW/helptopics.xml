@@ -4,8 +4,10 @@
     <string name="help_app_description">Vespucci 幫助</string>
     <string name="help_title">幫助：%1$s</string>
     <string name="help_introduction">簡介</string>
+    <string name="help_safe_mode">安全模式</string>
     <string name="help_main">主地圖顯示</string>
     <string name="help_simple_actions">一般操作</string>
+    <string name="help_addrelationmember">編輯關聯成員</string>
     <string name="help_multiselect">多重選擇</string>
     <string name="help_longclick">建立物件</string>
     <string name="help_nodeselection">已選取節點</string>
@@ -32,6 +34,7 @@
     <string name="help_tag_only_mode">只有標籤模式</string>
     <string name="help_indoor_mode">室內模式</string>
     <string name="help_address_mode">地址模式</string>
+    <string name="help_upgrade">21.1 發佈通知</string>
     <string name="help_upgrade_210">21.0 發佈通知</string>
     <string name="help_upgrade_202">20.2 發佈通知</string>
     <string name="help_upgrade_201">20.1 發佈通知</string>
