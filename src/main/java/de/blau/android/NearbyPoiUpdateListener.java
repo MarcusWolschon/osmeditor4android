@@ -15,6 +15,7 @@ import de.blau.android.layer.UpdateInterface;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Screen;
 import de.blau.android.util.collections.LowAllocArrayList;
@@ -64,18 +65,23 @@ public class NearbyPoiUpdateListener<E> implements UpdateInterface.OnUpdateListe
         withoutFilter = (OsmElement e, Filter filter) -> e.hasTagKey(defaultKeys);
 
         display = () -> {
-            all.clear();
-            final Filter filter = App.getLogic().getFilter();
-            filterElements(all, nodes, filter);
-            filterElements(all, ways, filter != null);
-            filterElements(all, relations, filter != null);
-            final double[] center = map.getViewBox().getCenter();
-            final int[] loc = new int[] { (int) (center[1] * 1E7), (int) (center[0] * 1E7) };
-            synchronized (App.getDelegator()) {
-                Collections.sort(all, (OsmElement e1, OsmElement e2) -> Double.compare(e1.getMinDistance(loc), e2.getMinDistance(loc)));
+            StorageDelegator delegator = App.getDelegator();
+            try {
+                if (delegator.tryLock()) {
+                    all.clear();
+                    final Filter filter = App.getLogic().getFilter();
+                    filterElements(all, nodes, filter);
+                    filterElements(all, ways, filter != null);
+                    filterElements(all, relations, filter != null);
+                    final double[] center = map.getViewBox().getCenter();
+                    final int[] loc = new int[] { (int) (center[1] * 1E7), (int) (center[0] * 1E7) };
+                    Collections.sort(all, (OsmElement e1, OsmElement e2) -> Double.compare(e1.getMinDistance(loc), e2.getMinDistance(loc)));
+                    layout.getAdapter().notifyDataSetChanged();
+                    updates = 0;
+                }
+            } finally {
+                delegator.unlock();
             }
-            layout.getAdapter().notifyDataSetChanged();
-            updates = 0;
         };
     }
 
