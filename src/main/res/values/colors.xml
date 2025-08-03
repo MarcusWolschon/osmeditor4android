@@ -31,6 +31,9 @@
 	<color name="material_orange">#FF9800</color>
 	<!-- OSM -->
 	<color name="osm_green">#ff9fd385</color>
+    <!-- for insets -->
+    <color name="osm_green_dark">#ff9fd385</color>
+    <color name="osm_green_light">#ff9fd385</color>
     <!-- splitter -->
     <color name="splitter_dragging">#88FFFFFF</color>
 </resources>

@@ -14,16 +14,19 @@
         <item name="windowSplashScreenBackground">@color/osm_green</item>
         <item name="postSplashScreenTheme">@style/SplashTheme2</item>
         <item name="error">@color/material_red</item>
+        <item name="insetColor">@color/osm_green_dark</item>
     </style>
     <style
         name="SplashThemeLight"
         parent="@style/Theme.SplashScreen">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/vespucci_splash</item>
         <item name="windowSplashScreenBackground">@color/osm_green</item>
         <item name="postSplashScreenTheme">@style/SplashThemeLight2</item>
         <item name="error">@color/material_red</item>
+        <item name="insetColor">@color/osm_green_light</item>
     </style>
     <style
         name="SplashTheme2"
@@ -32,26 +35,32 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowBackground">@color/osm_green</item>
         <item name="error">@color/material_red</item>
+        <item name="insetColor">@color/osm_green_dark</item>
     </style>
     <style
         name="SplashThemeLight2"
         parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowBackground">@color/osm_green</item>
         <item name="error">@color/material_red</item>
+        <item name="insetColor">@color/osm_green_light</item>
     </style>
     <style
         name="SplashThemePre21"
         parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
         <item name="error">@color/material_red</item>
+        <item name="insetColor">@color/osm_green_dark</item>
     </style>
     <style
         name="SplashThemeLightPre21"
         parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="error">@color/material_red</item>
+        <item name="insetColor">@color/osm_green_light</item>
     </style>
     <style
         name="SliderStyle"
@@ -92,6 +101,7 @@
         <!-- -->
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <!-- colors -->
+        <item name="insetColor">@color/osm_green_dark</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -106,10 +116,12 @@
         parent="@style/Theme.AppCompat.Light">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- -->
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <!-- colors -->
+        <item name="insetColor">@color/osm_green_light</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -126,6 +138,7 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- colors -->
+        <item name="insetColor">@color/osm_green_dark</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -140,8 +153,10 @@
         parent="@style/Theme.AppCompat.Light">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- colors -->
+        <item name="insetColor">@color/osm_green_light</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -255,6 +270,7 @@
         <item name="ActionButton">@style/ActionButtonDark</item>
         <item name="EditText">@style/EditTextDark</item>
         <!-- colours -->
+        <item name="insetColor">@color/osm_green_dark</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -268,11 +284,6 @@
         <item name="SplitterHandleH">@drawable/splitter_handle_h_dark</item>
     </style>
     <style
-        name="Theme.customMain.FullScreen"
-        parent="Theme.customMain">
-        <item name="android:windowFullscreen">true</item>
-    </style>
-    <style
         name="ActionButtonDark"
         parent="@style/Widget.AppCompat.ActionButton" />
     <style
@@ -281,6 +292,7 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- icons -->
         <item name="menu_gps">@drawable/ic_action_location_found_holo_light</item>
@@ -343,6 +355,7 @@
         <item name="ActionButton">@style/ActionButtonLight</item>
         <item name="EditText">@style/EditTextLight</item>
         <!-- colors -->
+        <item name="insetColor">@color/osm_green_light</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -354,11 +367,6 @@
         <item name="SplitterBGH">@drawable/splitter_bg_h_light</item>
         <item name="SplitterHandleV">@drawable/splitter_handle_v_light</item>
         <item name="SplitterHandleH">@drawable/splitter_handle_h_light</item>
-    </style>
-    <style
-        name="Theme.customMain.Light.FullScreen"
-        parent="Theme.customMain.Light">
-        <item name="android:windowFullscreen">true</item>
     </style>
     <style
         name="ActionButtonLight"
@@ -383,6 +391,7 @@
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
         <!-- colors -->
+        <item name="insetColor">@color/osm_green_dark</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -413,6 +422,7 @@
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.Light.AutoCompleteTextView</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
         <!-- colors -->
+        <item name="insetColor">@color/osm_green_light</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -501,6 +511,7 @@
         <item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
         <item name="propertyeditor_done">@drawable/ic_action_accept_holo_dark</item>
         <!-- colors -->
+        <item name="insetColor">@color/osm_green_dark</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -531,6 +542,7 @@
         <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
         <item name="add">@drawable/ic_add_black_36dp</item>
         <!-- colors -->
+        <item name="insetColor">@color/osm_green_dark</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -639,6 +651,7 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- -->
         <item name="actionBarStyle">@style/TagEditorActionBarLight</item>
@@ -702,6 +715,7 @@
         <item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
         <item name="propertyeditor_done">@drawable/ic_action_accept_holo_light</item>
         <!-- colors -->
+        <item name="insetColor">@color/osm_green_light</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -733,6 +747,7 @@
         <item name="menu_help">@drawable/ic_action_help_holo_light</item>
         <item name="add">@drawable/ic_add_white_36dp</item>
         <!-- colors -->
+        <item name="insetColor">@color/osm_green_light</item>
         <item name="snack_info">@color/material_teal</item>
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
@@ -830,6 +845,7 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="selected_item_background">@color/ccc_darkred</item>
         <item name="unselected_item_background">@color/dark_grey</item>
+        <item name="insetColor">@color/osm_green_dark</item>
     </style>
     <style
         name="DrawerArrowStyle"
@@ -842,6 +858,7 @@
         parent="@style/Theme.AppCompat.Light">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <!-- -->
         <item name="menu_back">@drawable/ic_action_back_holo_light</item>
@@ -849,6 +866,7 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyleLight</item>
         <item name="selected_item_background">@color/dark_grey</item>
         <item name="unselected_item_background">@color/light_grey</item>
+        <item name="insetColor">@color/osm_green_light</item>
     </style>
     <style
         name="DrawerArrowStyleLight"
