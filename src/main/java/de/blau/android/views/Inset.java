@@ -2,9 +2,11 @@ package de.blau.android.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -34,7 +36,10 @@ public abstract class Inset extends View {
         super(context, attrs);
         int color = getInsetColor(context, attrs, R.styleable.Inset, R.styleable.Inset_insetColor);
         ViewCompat.setOnApplyWindowInsetsListener(this, (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.ime());
+            // Android 5 returns IME insets even when the soft keyboard is no longer showing
+            boolean getImeInset = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    | ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE)).isAcceptingText();
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | (getImeInset ? WindowInsetsCompat.Type.ime() : 0));
             v.setLayoutParams(getLayoutParams(v, insets));
             v.setBackgroundColor(color);
             return WindowInsetsCompat.CONSUMED;
