@@ -6011,26 +6011,32 @@ public class Logic {
     /**
      * Duplicate a list of elements
      * 
-     * If the the duplicated objects have a name tag, a compositie name will be generated
+     * If the the duplicated objects have a name tag, a composite name will be generated
      * 
      * @param activity the activity we were called from
      * @param elements the List of OsmElement
      * @param deep duplicate child elements if true
      * @return the duplicated objects
      */
-    @Nullable
-    public List<OsmElement> duplicate(@Nullable Activity activity, @NonNull List<OsmElement> elements, boolean deep) {
+    @NonNull
+    public List<OsmElement> duplicate(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, boolean deep) {
         createCheckpoint(activity, R.string.undo_action_duplicate);
-        List<OsmElement> duplicated = getDelegator().duplicate(elements, deep);
-        for (OsmElement d : duplicated) {
-            String nameTag = d.getTagWithKey(Tags.KEY_NAME);
-            if (nameTag != null && activity != null) {
-                SortedMap<String, String> tags = new TreeMap<>(d.getTags());
-                tags.put(Tags.KEY_NAME, activity.getString(R.string.duplicated_name_template, nameTag));
-                setTags(activity, d, tags, false);
+        try {
+            List<OsmElement> duplicated = getDelegator().duplicate(elements, deep);
+            for (OsmElement d : duplicated) {
+                String nameTag = d.getTagWithKey(Tags.KEY_NAME);
+                if (nameTag != null && activity != null) {
+                    SortedMap<String, String> tags = new TreeMap<>(d.getTags());
+                    tags.put(Tags.KEY_NAME, activity.getString(R.string.duplicated_name_template, nameTag));
+                    setTags(activity, d, tags, false);
+                }
             }
+            return duplicated;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            // don't rethrow
         }
-        return duplicated;
+        return new ArrayList<>();
     }
 
     /**
