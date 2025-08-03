@@ -129,7 +129,9 @@ public class UploadRetry extends CancelableDialogFragment {
         args.putBoolean(CLOSE_CHANGESET_KEY, arguments.closeChangeset);
         args.putString(COMMENT_KEY, arguments.comment);
         args.putString(SOURCE_KEY, arguments.source);
-        args.putSerializable(EXTRA_TAGS_KEY, new HashMap<>(arguments.extraTags));
+        if (arguments.extraTags != null) {
+            args.putSerializable(EXTRA_TAGS_KEY, new HashMap<>(arguments.extraTags));
+        }
         if (arguments.elements != null) {
             Util.putElementsInBundle(arguments.elements, args);
         }
