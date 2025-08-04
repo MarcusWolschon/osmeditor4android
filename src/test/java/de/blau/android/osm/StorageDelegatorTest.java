@@ -241,6 +241,25 @@ public class StorageDelegatorTest {
             assertEquals(originalNodes.get(i).getLon(), dupNodes.get(i).getLon());
         }
     }
+    
+    /**
+     * Test duplication with missing member, should throw an exception
+     */
+    @Test
+    public void duplicateRelation2() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+        final Relation r = w.getParentRelations().get(0);
+        r.addMember(new RelationMember(Way.NAME, -11111, ""));
+        d.insertElementSafe(r);
+        try {
+            d.duplicate(Util.wrapInList(r), true);
+        } catch (OsmIllegalOperationException ex ) {
+            // expected
+            return;
+        }
+        fail("should have thrown an exception");
+    }
 
     /**
      * Test shallow duplication

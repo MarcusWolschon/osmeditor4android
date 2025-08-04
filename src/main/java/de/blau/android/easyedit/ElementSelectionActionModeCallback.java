@@ -181,7 +181,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
         menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
         final boolean isRelation = element instanceof Relation;
-        if (!isRelation || element.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON)) {
+        if (!isRelation || (element.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) && ((Relation) element).allDownloaded())) {
             menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
             menu.add(Menu.NONE, MENUITEM_DUPLICATE, Menu.CATEGORY_SECONDARY, R.string.menu_duplicate)
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_duplicate));
