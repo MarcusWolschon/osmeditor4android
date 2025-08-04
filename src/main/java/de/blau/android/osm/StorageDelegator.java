@@ -3838,12 +3838,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     @Override
     public void prune(@NonNull BoundingBox box) {
-        try {
-            lock();
-            prune(App.getLogic(), box);
-        } finally {
-            unlock();
-        }
+        prune(App.getLogic(), box);
     }
 
     /**
