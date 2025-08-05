@@ -3661,13 +3661,14 @@ public class Main extends ConfigurationChangeAwareActivity
         @Override
         public boolean onTouch(final View v, final MotionEvent m) {
             descheduleAutoLock();
+            final Logic logic = App.getLogic();
             if (m.getAction() == MotionEvent.ACTION_DOWN) {
                 clickedObjects.clear();
                 clickedNodesAndWays = null;
-                App.getLogic().handleTouchEventDown(Main.this, m.getX(), m.getY());
+                logic.handleTouchEventDown(Main.this, m.getX(), m.getY());
             }
             if (m.getAction() == MotionEvent.ACTION_UP) {
-                App.getLogic().handleTouchEventUp(m.getX(), m.getY());
+                logic.handleTouchEventUp(m.getX(), m.getY());
                 scheduleAutoLock();
             }
             if (!v.onTouchEvent(m)) { // give any layer specific handlers a chance
@@ -3683,11 +3684,11 @@ public class Main extends ConfigurationChangeAwareActivity
 
         @Override
         public void onClick(View v, float x, float y) {
-            if (App.getLogic().getClickableElements() == null && !getEasyEditManager().elementsOnly()) {
+            final Logic logic = App.getLogic();
+            if (logic.getClickableElements() == null && !getEasyEditManager().elementsOnly()) {
                 getClickedObjects(x, y);
             }
 
-            final Logic logic = App.getLogic();
             Mode mode = logic.getMode();
             boolean isInEditZoomRange = logic.isInEditZoomRange();
 

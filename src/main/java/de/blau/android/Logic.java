@@ -692,7 +692,7 @@ public class Logic {
      * @param stringId the resource id of the string representing the checkpoint name
      */
     public void createCheckpoint(@Nullable Activity activity, int stringId) {
-        Resources r = activity != null ? activity.getResources() : App.resources();
+        Resources r = getResources(activity);
         final UndoStorage undo = getDelegator().getUndo();
         boolean firstCheckpoint = !undo.canUndo();
         undo.createCheckpoint(r.getString(stringId), getSelectedIds());
@@ -700,6 +700,16 @@ public class Logic {
         if (firstCheckpoint && activity instanceof AppCompatActivity) {
             ((AppCompatActivity) activity).invalidateOptionsMenu();
         }
+    }
+
+    /**
+     * Get resources for this app
+     * 
+     * @param context a potentially null Android context
+     * @return Resrources
+     */
+    private Resources getResources(@Nullable Context context) {
+        return context != null ? context.getResources() : App.resources();
     }
 
     /**
@@ -720,7 +730,7 @@ public class Logic {
      * @param force if true remove even if not empty
      */
     public void removeCheckpoint(@Nullable Activity activity, int stringId, boolean force) {
-        Resources r = activity != null ? activity.getResources() : App.resources();
+        Resources r = getResources(activity);
         getDelegator().getUndo().removeCheckpoint(r.getString(stringId), force);
     }
 
@@ -1572,7 +1582,6 @@ public class Logic {
         try {
             lock();
             final Selection currentSelection = selectionStack.getFirst();
-
             if (draggingNode || draggingWay || draggingHandle || draggingNote) {
                 int lat = yToLatE7(absoluteY);
                 int lon = xToLonE7(absoluteX);
