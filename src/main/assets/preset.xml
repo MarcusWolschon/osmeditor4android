@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.80.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop,">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.80.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -33,7 +33,7 @@
     
     
     
-    
+           
     
     
     
@@ -57,6 +57,8 @@
     
     
      
+    
+    
     <!-- Item chunks -->
     <chunk id="optional_speech_output">
         <optional>
@@ -1588,13 +1590,13 @@
         <multiselect key="brand" text="Motorcycle brand" values="Aprilia;BMW;Ducati;Gilera;Harley-Davidson;Honda;Kawasaki;KTM;Kymco;Moto Guzzi;Peugeot;Piaggio;Suzuki;Triumph;Vespa;Yamaha" match="key"/>
     </chunk>
     <chunk id="kerb">
-        <combo key="kerb" text="Kerb" match="key" values_sort="false">
+        <combo key="kerb" text="Kerb" match="key" values_sort="false" values_context="highway">
             <list_entry value="yes" display_value="Present"/><list_entry value="lowered" display_value="Lowered"/><list_entry value="raised" display_value="Raised"/><list_entry value="flush" display_value="Flush"/><list_entry value="rolled" display_value="Rolled"/><list_entry value="no" display_value="None"/>    
         </combo>
-        <combo key="kerb:left" text="Kerb (left)" match="key" values_sort="false">
+        <combo key="kerb:left" text="Kerb (left)" match="key" values_sort="false" values_context="highway">
             <list_entry value="yes" display_value="Present"/><list_entry value="lowered" display_value="Lowered"/><list_entry value="raised" display_value="Raised"/><list_entry value="flush" display_value="Flush"/><list_entry value="rolled" display_value="Rolled"/><list_entry value="no" display_value="None"/> 
         </combo>
-        <combo key="kerb:right" text="Kerb (right)" match="key" values_sort="false">
+        <combo key="kerb:right" text="Kerb (right)" match="key" values_sort="false" values_context="highway">
             <list_entry value="yes" display_value="Present"/><list_entry value="lowered" display_value="Lowered"/><list_entry value="raised" display_value="Raised"/><list_entry value="flush" display_value="Flush"/><list_entry value="rolled" display_value="Rolled"/><list_entry value="no" display_value="None"/> 
         </combo>
     </chunk>
@@ -1865,6 +1867,19 @@
     <chunk id="language">
         <!--  this uses a simple multiselect to specify one or more languages and doesn't use the wikifiddled languagexx scheme -->
         <multiselect key="language" text="Language" values="af;sq;am;ar;hy;as;az;eu;be;bn;bs;bg;my;ca;zh;hr;cs;da;dv;nl;en;et;mk;fo;fa;fi;fr;gd;gl;ka;de;el;gn;gu;he;hi;hu;is;id;it;ja;kn;ks;kk;km;ko;lo;la;lv;lt;ms;ml;mt;mi;mr;mn;ne;nb;nn;or;pl;pt;pa;rm;ro;ru;sa;sr;tn;sd;si;sk;sl;so;sb;es;sw;sv;tg;ta;tt;te;th;bo;ts;tr;tk;uk;ur;uz;vi;cy;xh;yi;zu" display_values="Afrikaans;Albanian;Amharic;Arabic;Armenian;Assamese;Azeri;Basque;Belarusian;Bengali;Bosnian;Bulgarian;Burmese;Catalan;Chinese;Croatian;Czech;Danish;Divehi;Dutch;English;Estonian;Macedonian;Faroese;Farsi;Finnish;French;Gaelic;Galician;Georgian;German;Greek;Guarani;Gujarati;Hebrew;Hindi;Hungarian;Icelandic;Indonesian;Italian;Japanese;Kannada;Kashmiri;Kazakh;Khmer;Korean;Lao;Latin;Latvian;Lithuanian;Malay;Malayalam;Maltese;Maori;Marathi;Mongolian;Nepali;Norwegian - Bokml;Norwegian - Nynorsk;Oriya;Polish;Portuguese;Punjabi;Raeto-Romance;Romanian;Russian;Sanskrit;Serbian;Setsuana;Sindhi;Sinhala;Slovak;Slovenian;Somali;Sorbian;Spanish;Swahili;Swedish;Tajik;Tamil;Tatar;Telugu;Thai;Tibetan;Tsonga;Turkish;Turkmen;Ukrainian;Urdu;Uzbek;Vietnamese;Welsh;Xhosa;Yiddish;Zulu" values_searchable="true" match="key"/>
+    </chunk>
+    <chunk id="turn_restrictions">
+        <combo key="restriction" text="Restriction" values_searchable="true" values_sort="false" values_context="restriction">
+            <list_entry value="no_left_turn" display_value="No left turn" icon="icons/png/no_left_turn.png"/>
+            <list_entry value="no_right_turn" display_value="No right turn" icon="icons/png/no_right_turn.png"/>
+            <list_entry value="no_u_turn" display_value="No u-turn" icon="icons/png/no_u_turn.png"/>
+            <list_entry value="only_right_turn" display_value="Only right turn" icon="icons/png/only_right_turn.png"/>
+            <list_entry value="only_left_turn" display_value="Only left turn" icon="icons/png/only_left_turn.png"/>
+            <list_entry value="only_straight_on" display_value="Only straight on" icon="icons/png/only_straight_on.png"/>
+            <list_entry value="no_straight_on" display_value="No straight on" icon="icons/png/no_straight_on.png"/>
+            <list_entry value="no_entry" display_value="No entry" icon="icons/png/no_entry.png"/>
+            <list_entry value="no_exit" display_value="No exit" icon="icons/png/no_entry.png"/>
+        </combo>
     </chunk>
     <chunk id="turn_restriction_roles">
         <roles>
@@ -3460,7 +3475,7 @@
             <link wiki="Key:traffic_sign"/>
             <space/>
             <combo key="traffic_sign" text="Traffic sign" match="key" editable="true">
-                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="variable_message" display_value="Variable message"/><list_entry value="yield_ahead" display_value="Yield ahead"/>
+                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="yield_ahead" display_value="Yield ahead"/><list_entry value="variable_message" display_value="Variable message"/>
             </combo>
             <reference ref="traffic_sign_direction"/>
         </item> <!-- Traffic sign -->
@@ -3468,7 +3483,7 @@
             <link wiki="Key:traffic_sign"/>
             <space/>
             <combo key="traffic_sign" text="Traffic sign" match="key" editable="true">
-                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="variable_message" display_value="Variable message"/><list_entry value="yield_ahead" display_value="Yield ahead"/>
+                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="yield_ahead" display_value="Yield ahead"/><list_entry value="variable_message" display_value="Variable message"/>
             </combo>
             <reference ref="traffic_sign_direction_standalone"/>
         </item> <!-- Traffic sign (separate)-->
@@ -3477,7 +3492,7 @@
             <space/>
             <combo key="traffic_sign:forward" match="key" editable="true">
                 <list_entry value="maxspeed" display_value="Max. speed" icon="icons/png/speed_limit.png"/>
-                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="variable_message" display_value="Variable message"/><list_entry value="yield_ahead" display_value="Yield ahead"/>
+                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="yield_ahead" display_value="Yield ahead"/><list_entry value="variable_message" display_value="Variable message"/>
             </combo>
         </item> <!-- Traffic Sign Forward -->
         <item name="Traffic Sign Backward" text="Traffic sign backward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
@@ -3485,7 +3500,7 @@
             <space/>
             <combo key="traffic_sign:backward" match="key" editable="true">
                 <list_entry value="maxspeed" display_value="Max. speed" icon="icons/png/speed_limit.png"/>
-                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="variable_message" display_value="Variable message"/><list_entry value="yield_ahead" display_value="Yield ahead"/>
+                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="yield_ahead" display_value="Yield ahead"/><list_entry value="variable_message" display_value="Variable message"/>
             </combo>
         </item> <!-- Traffic Sign Forward -->
         <item name="Speed Camera" icon="icons/png/highway_speed_camera_18025.png" type="node" preset_name_label="true">
@@ -4224,12 +4239,139 @@
             <combo key="4wd_only" text="4WD only" values="yes,recommended,no" display_values="Yes,Recommended,No" values_context="access" match="key" values_sort="false"/>
         </item> <!-- Other mode restrictions -->
     </group>  <!-- access restrictions -->
-    <item name="Street area" icon="icons/png/street_area.png" type="closedway,multipolygon" preset_name_label="true">
-        <link wiki="Key:area:highway"/>
-        <combo key="area:highway" text="Street type" match="key" values_context="Highway" values="bus_stop,crossing,cycleway,footway,junction,living_street,motorway,motorway_link,parking_space,parking_lane,pedestrian,primary,primary_link,residential,secondary,secondary_link,service,steps,tertiary,tertiary_link,traffic_island,trunk,trunk_link,unclassified,yes" display_values="Bus stop,Crossing,Cycleway,Footway,Junction,Living street,Motorway,Motorway link,Parking space,Parking lane,Pedestrian,Primary,Primary link,Residential,Secondary,Secondary link,Service,Steps,Tertiary,Tertiary link,Traffic island,Trunk,Trunk link,Unclassified,Yes"/>
-        <reference ref="surface"/>
-        <reference ref="road_access_restrictions"/>
-    </item> <!-- Street area -->
+        <item name="Street area" icon="icons/png/street_area.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:area:highway"/>
+            <combo key="area:highway" text="Street type" match="key" values_context="Highway" values="bus_stop,crossing,cycleway,footway,junction,living_street,motorway,motorway_link,parking_space,parking_lane,pedestrian,primary,primary_link,residential,secondary,secondary_link,service,steps,tertiary,tertiary_link,traffic_island,trunk,trunk_link,unclassified,yes" display_values="Bus stop,Crossing,Cycleway,Footway,Junction,Living street,Motorway,Motorway link,Parking space,Parking lane,Pedestrian,Primary,Primary link,Residential,Secondary,Secondary link,Service,Steps,Tertiary,Tertiary link,Traffic island,Trunk,Trunk link,Unclassified,Yes"/>
+            <reference ref="surface"/>
+            <reference ref="road_access_restrictions"/>
+        </item> <!-- Street area -->
+        <group name="Road markings" icon="icons/png/CH-Markierung-604-Doppellinie.png">
+            <item name="Stop line" icon="icons/png/CH-Markierung-610-Haltelinie-611-Stop-612-Ununterbrochene-L&#xC3;&#xA4;ngslinie.png" type="way" preset_name_label="true">
+                <link wiki="Key:road_marking"/>
+                <key key="road_marking" value="stop_line"/>
+                <combo key="colour" text="Color " values_context="colour" default="white" match="none">
+                    <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
+                </combo>
+                <combo key="stroke" text="Stroke">
+                    <list_entry value="solid" display_value="Solid"/><list_entry value="dashed" display_value="Dashed"/>
+                    <list_entry value="double_solid" display_value="Double solid"/><list_entry value="double_dashed" display_value="Double dashed"/><list_entry value="sharks_teeth" display_value="Sharks teeth"/><list_entry value="zigzag" display_value="Zigzag"/>
+                </combo>
+                <text key="width" text="Width of line (meters)" value_type="dimension_horizontal"/>
+            </item> <!-- Stop line -->
+            <item name="Lane divider" icon="icons/png/CH-Markierung-604-Doppellinie.png" type="way" preset_name_label="true">
+                <link wiki="Key:road_marking"/>
+                <key key="road_marking" value="lane_divider"/>
+                <combo key="colour" text="Color " values_context="colour" default="white" match="none">
+                    <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
+                </combo>
+                <combo key="stroke" text="Stroke">
+                    <list_entry value="solid" display_value="Solid"/><list_entry value="dashed" display_value="Dashed"/>
+                    <list_entry value="double_solid" display_value="Double solid"/><list_entry value="double_dashed" display_value="Double dashed"/><list_entry value="sharks_teeth" display_value="Sharks teeth"/><list_entry value="zigzag" display_value="Zigzag"/>
+                </combo>
+                <label text="Asymmetric stroke (sides in way direction)"/>
+                <combo key="stroke:left" text="Left">
+                    <list_entry value="solid" display_value="Solid"/><list_entry value="dashed" display_value="Dashed"/>
+                </combo>
+                <combo key="stroke:right" text="Right">
+                    <list_entry value="solid" display_value="Solid"/><list_entry value="dashed" display_value="Dashed"/>
+                </combo>
+                <text key="width" text="Width of line (meters)" value_type="dimension_horizontal"/>
+            </item> <!-- Lane divider -->
+            <item name="Edge line" icon="icons/png/CH-Markierung-625-Halteverbotslinie.png" type="way" preset_name_label="true">
+                <link wiki="Key:road_marking"/>
+                <key key="road_marking" value="edge_line"/>
+                <combo key="colour" text="Color" values_context="colour" default="white" match="none">
+                    <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
+                </combo>
+                <combo key="stroke" text="Stroke">
+                    <list_entry value="solid" display_value="Solid"/><list_entry value="dashed" display_value="Dashed"/>
+                    <list_entry value="double_solid" display_value="Double solid"/><list_entry value="double_dashed" display_value="Double dashed"/><list_entry value="sharks_teeth" display_value="Sharks teeth"/><list_entry value="zigzag" display_value="Zigzag"/>
+                </combo>
+                <text key="width" text="Width of line (meters)" value_type="dimension_horizontal"/>
+            </item> <!-- Edge line -->
+            <item name="Crossing edge" icon="icons/png/CH-Markierung-619-L&#xC3;&#xA4;ngsstreifen-f&#xC3;&#xBC;r-Fussg&#xC3;&#xA4;nger.png" type="way" preset_name_label="true">
+                <link wiki="Key:road_marking"/>
+                <key key="road_marking" value="crossing_edge"/>
+                <combo key="colour" text="Color" values_context="colour" default="white" match="none">
+                    <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
+                </combo>
+                <combo key="stroke" text="Stroke" match="none">
+                    <list_entry value="solid" display_value="Solid"/><list_entry value="dashed" display_value="Dashed"/>
+                    <list_entry value="double_solid" display_value="Double solid"/><list_entry value="double_dashed" display_value="Double dashed"/><list_entry value="sharks_teeth" display_value="Sharks teeth"/><list_entry value="zigzag" display_value="Zigzag"/>
+                </combo>
+                <text key="width" text="Width of line (meters)" value_type="dimension_horizontal"/>
+            </item> <!-- Crossing edge -->
+            <item name="Restriction" icon="icons/png/street_area.png" type="closedway,multipolygon" preset_name_label="true">
+                <link wiki="Key:road_marking"/>
+                <key key="road_marking" value="restriction"/>
+                <combo key="colour" text="Color" values_context="colour" default="white" match="none">
+                    <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
+                </combo>
+                <combo key="reason" text="Reason" match="none">
+                    <list_entry value="crossing" display_value="Crossing"/>
+                    <list_entry value="bus_stop" display_value="Bus stop"/>
+                    <list_entry value="junction" display_value="Junction"/>
+                    <list_entry value="loading_zone" display_value="Loading zone"/>
+                    <list_entry value="driveway" display_value="Driveway"/>
+                    <list_entry value="no_parking" display_value="No parking"/>
+                    <list_entry value="no_stopping" display_value="No stopping"/>
+                    <list_entry value="fire_lane" display_value="Fire lane"/>
+                </combo>
+                <combo key="pattern" text="Pattern" match="none">
+                    <list_entry value="stripes" display_value="Stripes"/>
+                    <list_entry value="crosshatch" display_value="Crosshatch"/>
+                    <list_entry value="chevron" display_value="Chevron"/>
+                    <list_entry value="zigzag" display_value="Zigzag"/>
+                    <list_entry value="chessboard" display_value="Chessboard"/>
+                    <list_entry value="solid" display_value="Solid"/>
+                </combo>
+            </item> <!-- Restriction -->
+            <item name="Arrow" icon="icons/png/spurpfeile_horizontal.png" type="way" preset_name_label="true">
+                <link wiki="Key:road_marking"/>
+                <key key="road_marking" value="arrow"/>
+                <combo key="colour" text="Color" values_context="colour" default="white" match="none">
+                    <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
+                </combo>
+                <label text="Use either arrow or restriction type"/>
+                <multiselect key="arrow" text="Arrow" match="none">
+                    <list_entry value="left" display_value="Left"/>
+                    <list_entry value="right" display_value="Right"/>
+                    <list_entry value="through" display_value="Through"/>
+                </multiselect>
+                <reference ref="turn_restrictions"/> 
+            </item> <!-- Arrow -->
+            <item name="Traffic sign" icon="icons/png/speed_limit.png" type="node" preset_name_label="true">
+                <link wiki="Key:road_marking"/>
+                <key key="road_marking" value="traffic_sign"/>
+                <combo key="traffic_sign" text="Traffic sign" match="none">
+                    <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="yield_ahead" display_value="Yield ahead"/><list_entry value="variable_message" display_value="Variable message"/>
+                </combo>
+                <reference ref="traffic_sign_direction_standalone"/>
+            </item> <!-- Traffic sign -->
+            <item name="Text" icon="" type="node" preset_name_label="true">
+                <link wiki="Key:road_marking"/>
+                <key key="road_marking" value="text"/>
+                <combo key="colour" text="Color" values_context="colour" default="white" match="none">
+                    <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
+                </combo>
+                <text key="inscription" text="Text"/>
+                <reference ref="traffic_sign_direction_standalone"/>
+            </item> <!-- Text -->
+            <item name="Symbol" icon="icons/png/CH-Zusatztafel-Fussg&#xC3;&#xA4;nger.png" type="node" preset_name_label="true">
+                <link wiki="Key:road_marking"/>
+                <key key="road_marking" value="symbol"/>
+                <combo key="colour" text="Color" values_context="colour" default="white" match="none">
+                    <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
+                </combo>
+                <combo key="symbol" text="Symbol" match="none">
+                    <list_entry value="bicycle" display_value="Bicycle"/>
+                    <list_entry value="wheelchair" display_value="Wheelchair"/>
+                    <list_entry value="pedestrian" display_value="Pedestrian"/>
+                    <list_entry value="airport" display_value="Airport" icon="icons/png/airport.png"/><list_entry value="bus_station" display_value="Bus station" icon="icons/png/bus_station.png"/><list_entry value="cable_car" display_value="Cable car" icon="icons/png/cable_car.png"/><list_entry value="camp_site" display_value="Camp site" icon="icons/png/camp_site.png"/><list_entry value="caravan_site" display_value="Caravan site" icon="icons/png/caravan_site.png"/><list_entry value="castle" display_value="Castle" icon="icons/png/castle.png"/><list_entry value="centre" display_value="Centre" icon=""/><list_entry value="church" display_value="Church" icon="icons/png/church.png"/><list_entry value="ferry" display_value="Ferry" icon="icons/png/ferry.png"/><list_entry value="food" display_value="Food" icon="icons/png/food.png"/><list_entry value="fuel" display_value="Fuel" icon="icons/png/fuel.png"/><list_entry value="harbour" display_value="Harbour" icon="icons/png/harbour.png"/><list_entry value="hospital" display_value="Hospital" icon="icons/png/hospital.png"/><list_entry value="industrial" display_value="Industrial" icon="icons/png/industrial.png"/><list_entry value="info" display_value="Info" icon="icons/png/info.png"/><list_entry value="lodging" display_value="Lodging" icon="icons/png/lodging.png"/><list_entry value="motorroad" display_value="Motorroad" icon="icons/png/motorroad.png"/><list_entry value="motorway" display_value="Motorway" icon="icons/png/motorway.png"/><list_entry value="parking" display_value="Parking" icon="icons/png/parking.png"/><list_entry value="police" display_value="Police" icon="icons/png/police.png"/><list_entry value="rest_area" display_value="Rest area" icon=""/><list_entry value="stadium" display_value="Stadium" icon="icons/png/stadium.png"/><list_entry value="toilets" display_value="Toilets" icon="icons/png/toilets.png"/><list_entry value="toll" display_value="Toll" icon=""/><list_entry value="train_station" display_value="Train station" icon="${destination_symbol_train_Station}"/><list_entry value="tunnel" display_value="Tunnel" icon=""/><list_entry value="viewpoint" display_value="Viewpoint" icon="icons/png/viewpoint.png"/>
+                </combo>
+                <reference ref="traffic_sign_direction_standalone"/>
+            </item> <!-- Symbol -->
+        </group> <!-- Road markings -->
     </group> <!-- Highways -->
     <group name="Water" icon="icons/png/water_water_24008.png">
         <group name="Water" icon="icons/png/water_water_24008.png">
@@ -8805,7 +8947,7 @@
                     <check key="male" text="Male" text_context="restroom" disable_off="true"/>
                     <check key="unisex" text="Unisex" text_context="restroom" disable_off="true"/>
                 </checkgroup>
-                <combo key="toilets:disposal" text="Type" values="flush,pitlatrine,chemical,bucket" display_values="Flush,Pit latrine,Chemical,Bucket"/>
+                <combo key="toilets:disposal" text="Type" values="flush,pitlatrine,chemical,bucket" display_values="Flush,Pit latrine,Chemical,Bucket" values_context="restroom"/>
                 <text key="description" text="Description" length="255"/>
                 <reference ref="fee"/>
                 <reference ref="changing_table"/>
@@ -13458,7 +13600,8 @@
             <check key="payment:huawei_pay" text="Huawei Pay" match="keyvalue" disable_off="true"/>
             <check key="payment:samsung_pay" text="Samsung Pay" match="keyvalue" disable_off="true"/>
             <check key="payment:satispay" text="Satispay" match="keyvalue" disable_off="true"/>
-            <check key="payment:twint" text="TWINT" match="keyvalue" disable_off="true"/>
+            <check key="payment:twint" text="TWINT" match="keyvalue" disable_off="true" regions="CH,LI"/>
+            <check key="payment:upi" text="UPI" match="keyvalue" disable_off="true" regions="IN"/>
             <check key="payment:wechat" text="WeChat" match="keyvalue" disable_off="true"/>
         </checkgroup>
         <space/>
@@ -14711,17 +14854,7 @@
                 <link wiki="Relation:restriction"/>
                 <space/>
                 <key key="type" value="restriction"/>
-                <combo key="restriction" text="Restriction" values_searchable="true" values_sort="false" values_context="restriction">
-                    <list_entry value="no_left_turn" display_value="No left turn" icon="icons/png/no_left_turn.png"/>
-                    <list_entry value="no_right_turn" display_value="No right turn" icon="icons/png/no_right_turn.png"/>
-                    <list_entry value="no_u_turn" display_value="No u-turn" icon="icons/png/no_u_turn.png"/>
-                    <list_entry value="only_right_turn" display_value="Only right turn" icon="icons/png/only_right_turn.png"/>
-                    <list_entry value="only_left_turn" display_value="Only left turn" icon="icons/png/only_left_turn.png"/>
-                    <list_entry value="only_straight_on" display_value="Only straight on" icon="icons/png/only_straight_on.png"/>
-                    <list_entry value="no_straight_on" display_value="No straight on" icon="icons/png/no_straight_on.png"/>
-                    <list_entry value="no_entry" display_value="No entry" icon="icons/png/no_entry.png"/>
-                    <list_entry value="no_exit" display_value="No exit" icon="icons/png/no_entry.png"/>
-                </combo>
+                <reference ref="turn_restrictions"/> 
                 <reference ref="turn_restriction_exceptions"/>  
                 <reference ref="turn_restriction_roles"/>
             </item> <!-- Turn Restriction -->
