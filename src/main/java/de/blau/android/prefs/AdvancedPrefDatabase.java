@@ -52,11 +52,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 19;
+    private static final int DATA_VERSION = 20;
 
     /** The ID string for the default API and the default Preset */
     public static final String ID_DEFAULT = "default";
     public static final String ID_SANDBOX = "sandbox";
+    public static final String ID_OHM     = "ohm-default";
 
     private static final String GEOCODERS_TABLE               = "geocoders";
     private static final String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
@@ -244,6 +245,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             db.execSQL("ALTER TABLE apis ADD COLUMN compresseduploads INTEGER DEFAULT 0");
             db.execSQL("UPDATE apis SET compresseduploads=1 WHERE id='" + ID_DEFAULT + "'");
         }
+        if (oldVersion <= 19) {
+            addAPI(db, ID_OHM, Urls.DEFAULT_OHM_API_NAME, Urls.DEFAULT_OHM_API, null, null, new AuthParams(Auth.OAUTH2, "", "", null, null));
+        }
     }
 
     @Override
@@ -271,6 +275,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         setAPICompressedUploads(db, ID_DEFAULT, true);
         Log.d(DEBUG_TAG, "Adding default dev URL");
         addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, null, new AuthParams(Auth.OAUTH2, "", "", null, null));
+        Log.d(DEBUG_TAG, "Adding OHM URL");
+        addAPI(db, ID_OHM, Urls.DEFAULT_OHM_API_NAME, Urls.DEFAULT_OHM_API, null, null, new AuthParams(Auth.OAUTH2, "", "", null, null));
+        setAPICompressedUploads(db, ID_OHM, true);
         Log.d(DEBUG_TAG, "Selecting default API");
         selectAPI(db, ID_DEFAULT);
         Log.d(DEBUG_TAG, "Deleting old user/pass settings");
