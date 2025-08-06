@@ -19,3 +19,4 @@ OpenStreetMap	api_oauth1_key	nmWBEJd7LS0ld8HR4JlAngJeJ8nopMngJSDE8Wx9	false	KXtz
 OpenStreetMap	api_oauth2_key	261CdAzHBI1HXgFEuhxmL_xXCiJY5JxTlhOs2pKVjb0	false	empty	https://www.openstreetmap.org/
 OpenStreetMap sandbox	api_oauth1_key	FeYBebYwwnkCWuMlyddoGeiqegHnW3yGKqJXTnJO	false	Mtngq8q1fTWp06Fzw4Aq2QRI6V16EOeNJVrOEHvu	https://master.apis.dev.openstreetmap.org/
 OpenStreetMap sandbox	api_oauth2_key	9PXQP5nBAWTWueYVvKwxXwHATPsfrOnFM4ecsr4RGcQ	false	empty	https://master.apis.dev.openstreetmap.org/
+OpenHistoricalMap	api_oauth2_key	0W_eIQVTrkvi5rhvXo9VfU07M4OjHFi8dPOBdH9s9W8	false	empty	https://www.openhistoricalmap.org/

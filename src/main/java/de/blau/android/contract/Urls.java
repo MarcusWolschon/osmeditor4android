@@ -18,6 +18,8 @@ public final class Urls {
     public static final String DEFAULT_API_NO_HTTPS_NAME = "OpenStreetMap no https";
     public static final String DEFAULT_SANDBOX_API       = "https://master.apis.dev.openstreetmap.org/api/0.6/";
     public static final String DEFAULT_SANDBOX_API_NAME  = "OpenStreetMap sandbox";
+    public static final String DEFAULT_OHM_API           = "https://api.openhistoricalmap.org/api/0.6/";
+    public static final String DEFAULT_OHM_API_NAME      = "OpenHistoricalMap";
 
     public static final String DEFAULT_NOMINATIM_SERVER   = "https://nominatim.openstreetmap.org/";
     public static final String DEFAULT_PHOTON_SERVER      = "https://photon.komoot.io/";
