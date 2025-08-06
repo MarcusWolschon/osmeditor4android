@@ -64,7 +64,7 @@ public class EditState implements Serializable {
      * @param changesetId the current changeset id (or -1)
      */
     public EditState(@NonNull Main main, @NonNull Logic logic, @Nullable String imageFileName, @NonNull BoundingBox box, boolean followGPS, long changesetId) {
-        savedLocked = logic.isLocked();
+        savedLocked = logic.isUiLocked();
         savedMode = logic.getMode();
         savedSelection = new ArrayList<>();
         for (Selection selection : logic.getSelectionStack()) {
@@ -112,7 +112,7 @@ public class EditState implements Serializable {
      * @param logic the current Logic instance
      */
     public void setSelected(@NonNull Main main, @NonNull Logic logic) {
-        logic.setLocked(savedLocked);
+        logic.setUiLocked(savedLocked);
         logic.setMode(main, savedMode);
         Log.d(DEBUG_TAG, "savedMode " + savedMode);
         Deque<Selection> selectionStack = new ArrayDeque<>();

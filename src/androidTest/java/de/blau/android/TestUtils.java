@@ -567,7 +567,7 @@ public final class TestUtils {
      * @param device the UiDevice
      */
     public static void unlock(@NonNull UiDevice device) {
-        if (App.getLogic().isLocked()) {
+        if (App.getLogic().isUiLocked()) {
             clickOnLock(device);
         }
     }
@@ -594,7 +594,7 @@ public final class TestUtils {
      * @param device the UiDevice
      */
     public static void lock(@NonNull UiDevice device) {
-        if (!App.getLogic().isLocked()) {
+        if (!App.getLogic().isUiLocked()) {
             clickOnLock(device);
         }
     }
