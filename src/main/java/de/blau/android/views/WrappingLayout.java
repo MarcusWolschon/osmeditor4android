@@ -223,8 +223,6 @@ public class WrappingLayout extends LinearLayout {
 
         private static final String DEBUG_TAG = LayoutWrapper.class.getSimpleName().substring(0, Math.min(23, LayoutWrapper.class.getSimpleName().length()));
 
-        private static final String LOGTAG = LayoutWrapper.class.getSimpleName();
-
         private Context context;
 
         private int     rowGravity;
@@ -232,9 +230,6 @@ public class WrappingLayout extends LinearLayout {
 
         private int hspace = 0;
         private int vspace = 0;
-
-        private boolean widthAdjustmentDone = false;
-        private int     newWidth            = 0;
 
         private static final int MEASURE_SPEC_UNSPECIFIED = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
 
@@ -312,11 +307,11 @@ public class WrappingLayout extends LinearLayout {
             final int availableSpace = container.getWidth() - container.getPaddingLeft() - container.getPaddingRight();
             int usedSpace = 0;
 
-            if (!children.isEmpty() && !widthAdjustmentDone) {
+            int newWidth = 0;
+            if (!children.isEmpty()) { // this assumes the view are all equally wide
                 int childWidth = getViewWidth(children.get(0));
                 int times = (int) Math.max(1, (availableSpace - hspace) / (float) (childWidth + hspace));
                 newWidth = (availableSpace - ((times + 1) * hspace)) / times;
-                widthAdjustmentDone = true;
             }
 
             LinearLayout inner = new LinearLayout(context);
@@ -324,34 +319,33 @@ public class WrappingLayout extends LinearLayout {
             inner.setOrientation(LinearLayout.HORIZONTAL);
             // not only For new rows, set margin
             innerLayoutParams.topMargin = vspace;
-            inner.setSaveEnabled(container.isSaveEnabled());
+            final boolean saveEnabled = container.isSaveEnabled();
+            inner.setSaveEnabled(saveEnabled);
             container.addView(inner, new LayoutParams((android.view.ViewGroup.MarginLayoutParams) innerLayoutParams));
 
             if (availableSpace == 0) {
-                Log.e(LOGTAG, "No width information - read documentation!");
+                Log.e(DEBUG_TAG, "No width information - read documentation!");
             }
-
+            final int hspace2 = hspace + hspace;
             for (View child : children) {
                 int childWidth = getViewWidth(child);
-                if (newWidth > childWidth && child instanceof TextView) { // TODO this will fail with non square
-                                                                          // children views
+                // if the views need to be wider to fit, set it here
+                if (newWidth > childWidth && child instanceof TextView) {
                     android.view.ViewGroup.LayoutParams childLayout = child.getLayoutParams();
                     if (childLayout != null) {
                         childLayout.width = newWidth;
-                        childLayout.height = newWidth;
+                        childLayout.height = childLayout.height * newWidth / childWidth;
                         child.setLayoutParams(childLayout);
-                    } else {
-                        Log.e(DEBUG_TAG, "child view layout params null");
                     }
+                    childWidth = getViewWidth(child);
                 }
-                childWidth = getViewWidth(child);
 
-                if ((usedSpace + hspace + childWidth) > availableSpace) {
+                if ((usedSpace + hspace2 + childWidth) >= availableSpace) {
                     // did not fit, create new row
                     inner = new LinearLayout(context);
                     inner.setOrientation(LinearLayout.HORIZONTAL);
                     inner.setGravity(rowGravity);
-                    inner.setSaveEnabled(container.isSaveEnabled());
+                    inner.setSaveEnabled(saveEnabled);
                     container.addView(inner, new LayoutParams((android.view.ViewGroup.MarginLayoutParams) innerLayoutParams));
                     usedSpace = 0;
                 }
@@ -359,22 +353,28 @@ public class WrappingLayout extends LinearLayout {
                 // add horizontal spacing if necessary
                 if (hspace > 0) {
                     SpacerView spacer = new SpacerView(context, hspace, 0);
-                    spacer.setSaveEnabled(container.isSaveEnabled());
-                    if (rightToLeft) {
-                        inner.addView(spacer, 0);
-                    } else {
-                        inner.addView(spacer);
-                    }
+                    spacer.setSaveEnabled(saveEnabled);
+                    addView(inner, spacer);
                     usedSpace += hspace;
                 }
 
                 // add to whatever is the current row now
-                if (rightToLeft) {
-                    inner.addView(child, 0);
-                } else {
-                    inner.addView(child);
-                }
+                addView(inner, child);
                 usedSpace += childWidth;
+            }
+        }
+
+        /**
+         * add a view to a container taking the rightToLeft flag in to account
+         * 
+         * @param container the container
+         * @param view the view
+         */
+        private void addView(@NonNull LinearLayout container, @NonNull View view) {
+            if (rightToLeft) {
+                container.addView(view, 0);
+            } else {
+                container.addView(view);
             }
         }
 
