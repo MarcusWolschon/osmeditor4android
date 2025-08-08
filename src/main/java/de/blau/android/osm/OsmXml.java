@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -48,11 +51,12 @@ public final class OsmXml {
     public static final String VERSION     = "version";
     public static final String GENERATOR   = "generator";
     // augmented diff constants
-    private static final String OSM_AUGMENTED_DIFF = "osmAugmentedDiff";
-    private static final String NEW                = "new";
-    private static final String OLD                = "old";
-    private static final String TYPE               = "type";
-    private static final String ACTION             = "action";
+    private static final String OSM_ADIFF         = "osm-adiff";
+    private static final String OSM_ADIFF_VERSION = "1.0";
+    private static final String NEW               = "new";
+    private static final String OLD               = "old";
+    private static final String TYPE              = "type";
+    private static final String ACTION            = "action";
 
     /**
      * Try to order relations so that parent relations come later
@@ -316,7 +320,8 @@ public final class OsmXml {
         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
         serializer.setOutput(outputStream, UTF_8);
         serializer.startDocument(UTF_8, null);
-        serializer.startTag(null, OSM_AUGMENTED_DIFF);
+        serializer.startTag(null, OSM_ADIFF);
+        serializer.attribute(null, VERSION, OSM_ADIFF_VERSION);
         serializer.attribute(null, GENERATOR, generator);
 
         List<Node> createdNodes = new ArrayList<>();
@@ -336,12 +341,17 @@ public final class OsmXml {
         List<Relation> deletedRelations = new ArrayList<>();
 
         fillAugmentedLists(storage.getNodes(), undo, createdNodes, oldModifiedNodes, modifiedNodes, oldDeletedNodes, deletedNodes);
-        // if we want to propagate changes upwards to parents, do that here
+     
         fillAugmentedLists(storage.getWays(), undo, createdWays, oldModifiedWays, modifiedWays, oldDeletedWays, deletedWays);
-        // if we want to propagate changes upwards to parents, do that here
-        fillAugmentedLists(storage.getRelations(), undo, createdRelations, oldModifiedRelations, modifiedRelations, oldDeletedRelations, deletedRelations);
-        // if we want to propagate changes upwards to parents, do that here
+        Set<Way> tempWays = new HashSet<>(modifiedWays);
+        for (Node n:modifiedNodes) { //created and deleted nodes modified any parent ways
+            tempWays.addAll(storage.getWays(n));
+        }
+        modifiedWays = new ArrayList<>(tempWays);
         
+        fillAugmentedLists(storage.getRelations(), undo, createdRelations, oldModifiedRelations, modifiedRelations, oldDeletedRelations, deletedRelations);
+        Set<Relation> tempRelations = new HashSet<>(modifiedRelations);
+
         sortRelations(createdRelations, modifiedRelations, deletedRelations);
 
         augmentedSerializeElements(serializer, CREATE, null, createdNodes);
@@ -359,7 +369,7 @@ public final class OsmXml {
         augmentedSerializeElements(serializer, DELETE, oldDeletedWays, deletedWays);
         augmentedSerializeElements(serializer, DELETE, oldDeletedNodes, deletedNodes);
 
-        serializer.endTag(null, OSM_AUGMENTED_DIFF);
+        serializer.endTag(null, OSM_ADIFF);
         serializer.endDocument();
     }
 
@@ -408,7 +418,7 @@ public final class OsmXml {
             @NonNull List<E> created, @NonNull Map<Long, U> oldModified, @NonNull List<E> modified, @NonNull Map<Long, U> oldDeleted,
             @NonNull List<E> deleted) {
         for (E elem : elements) {
-            Log.d(DEBUG_TAG, "node added to list for upload, id " + elem.getOsmId());
+            Log.d(DEBUG_TAG, "element added to list for upload, id " + elem.getOsmId());
             switch (elem.state) {
             case OsmElement.STATE_CREATED:
                 created.add(elem);
