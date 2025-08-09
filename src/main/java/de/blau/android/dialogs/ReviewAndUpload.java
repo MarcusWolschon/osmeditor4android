@@ -102,6 +102,7 @@ public class ReviewAndUpload extends AbstractReviewDialog {
 
     private LayoutInflater inflater;
     private int            maxStringLength;
+    private boolean        saveTransient = true;
 
     /**
      * Instantiate and show the dialog
@@ -361,9 +362,8 @@ public class ReviewAndUpload extends AbstractReviewDialog {
      */
     public void removeTransientCustomTags() {
         // cleanup transient tags
-        transientCustomTagLayout.removeAllViews();
         getContext().deleteFile(ReviewAndUpload.TEMPCUSTOMCHANGESETTAGS);
-
+        saveTransient = false;
     }
 
     /**
@@ -381,9 +381,11 @@ public class ReviewAndUpload extends AbstractReviewDialog {
         HashMap<String, String> tags = new HashMap<>();
         UploadListener.addCustomTags(persitentTagLayout, tags);
         customTagSaver.save(getContext(), SAVEDCUSTOMCHANGESETTAGS, tags, false);
-        tags.clear();
-        UploadListener.addCustomTags(transientTagLayout, tags);
-        customTagSaver.save(getContext(), TEMPCUSTOMCHANGESETTAGS, tags, false);
+        if (saveTransient) {
+            tags.clear();
+            UploadListener.addCustomTags(transientTagLayout, tags);
+            customTagSaver.save(getContext(), TEMPCUSTOMCHANGESETTAGS, tags, false);
+        }
     }
 
     /**
