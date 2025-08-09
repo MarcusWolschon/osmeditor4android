@@ -38,7 +38,7 @@ public abstract class Inset extends View {
         ViewCompat.setOnApplyWindowInsetsListener(this, (v, windowInsets) -> {
             // Android 5 returns IME insets even when the soft keyboard is no longer showing
             boolean getImeInset = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                    | ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE)).isAcceptingText();
+                    || ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE)).isAcceptingText();
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | (getImeInset ? WindowInsetsCompat.Type.ime() : 0));
             v.setLayoutParams(getLayoutParams(v, insets));
             v.setBackgroundColor(color);
