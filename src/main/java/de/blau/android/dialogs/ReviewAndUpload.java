@@ -26,7 +26,6 @@ import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -489,35 +488,6 @@ public class ReviewAndUpload extends AbstractReviewDialog {
 
             delete = (ImageButton) findViewById(R.id.delete);
             delete.setOnClickListener((View v) -> deleteRow(CustomTagRow.this));
-
-            OnClickListener autocompleteOnClick = v -> {
-                if (v.hasFocus()) {
-                    ((AutoCompleteTextView) v).showDropDown();
-                }
-            };
-            // set an empty adapter on both views to be on the safe side
-            ArrayAdapter<String> empty = new ArrayAdapter<>(getContext(), R.layout.autocomplete_row, new String[0]);
-            keyEdit.setAdapter(empty);
-            valueEdit.setAdapter(empty);
-            keyEdit.setOnClickListener(autocompleteOnClick);
-            valueEdit.setOnClickListener(autocompleteOnClick);
-        }
-
-        @Override
-        public void onSizeChanged(int w, int h, int oldw, int oldh) {
-            super.onSizeChanged(w, h, oldw, oldh);
-
-            if (w == 0 && h == 0) {
-                return;
-            }
-
-            // this is not really satisfactory
-            keyEdit.setDropDownAnchor(valueEdit.getId());
-            // note wrap_content does not actually wrap the contents of the drop
-            // down, instead in makes it the same width as the AutoCompleteTextView
-            valueEdit.setDropDownWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
-            valueEdit.setParentWidth(w);
-            //
         }
 
         /**

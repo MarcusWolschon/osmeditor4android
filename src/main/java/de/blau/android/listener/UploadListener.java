@@ -49,7 +49,6 @@ import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.tasks.TransferTasks;
-import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.validation.FormValidation;
 import de.blau.android.validation.NotEmptyValidator;
