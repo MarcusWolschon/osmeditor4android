@@ -20,7 +20,7 @@ buildscript {
         
         classpath 'com.android.tools.build:gradle:8.6.1'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.6'
-        classpath 'org.jacoco:org.jacoco.core:0.8.11'
+        classpath 'org.jacoco:org.jacoco.core:0.8.13'
         classpath "ch.poole:preset-utils:0.26.0"
         classpath 'ch.poole.misc:gradle-eclipse-aar-plugin:0.1.0'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
