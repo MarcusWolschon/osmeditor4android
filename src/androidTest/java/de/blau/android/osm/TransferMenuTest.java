@@ -35,10 +35,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
+import androidx.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
@@ -70,6 +72,11 @@ public class TransferMenuTest {
     private static final String CAPABILITIES1_FIXTURE = "capabilities1";
 
     public static final int TIMEOUT = 90;
+
+    private static final String TRANSIENT_VALUE  = "transient value";
+    private static final String TRANSIENT        = "transient";
+    private static final String PERSISTENT_VALUE = "persistent value";
+    private static final String PERSISTENT       = "persistent";
 
     MockWebServerPlus       mockServer = null;
     Context                 context    = null;
@@ -139,19 +146,10 @@ public class TransferMenuTest {
         mockServer.enqueue("close_changeset");
         mockServer.enqueue("userdetails");
 
-        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
-        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
-
+        clickUploadMenuItem();
+        UploadConflictTest.fillCommentAndSource(instrumentation, device);
         UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
         UiObject button = device.findObject(uiSelector);
-        try {
-            button.click();
-        } catch (UiObjectNotFoundException e1) {
-            fail(e1.getMessage());
-        }
-        UploadConflictTest.fillCommentAndSource(instrumentation, device);
-        uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
-        button = device.findObject(uiSelector);
         try {
             button.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e1) {
@@ -192,6 +190,98 @@ public class TransferMenuTest {
             assertNotNull(w);
             assertEquals(OsmElement.STATE_DELETED, w.getState());
         } catch (InterruptedException | SAXException | IOException | ParserConfigurationException | XmlPullParserException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Upload to changes (mock-)server
+     */
+    @Test
+    public void dataUploadCustomTags() {
+
+        loadTestData();
+
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        mockServer.enqueue("changeset1");
+        mockServer.enqueue("upload1");
+        mockServer.enqueue("close_changeset");
+        mockServer.enqueue("userdetails");
+
+        clickUploadMenuItem();
+        UploadConflictTest.fillCommentAndSource(instrumentation, device);
+
+        assertTrue(TestUtils.clickText(device, false, "Custom", true, false));
+
+        device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editKey")), 500);
+        setCustomTag(PERSISTENT, PERSISTENT_VALUE, 0);
+        TestUtils.sleep(1000);
+        setCustomTag(TRANSIENT, TRANSIENT_VALUE, 2);
+
+        UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        UiObject button = device.findObject(uiSelector);
+        try {
+            button.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        TestUtils.sleep(10000);
+
+        // check that we actually sent what was expected
+        try {
+            mockServer.takeRequest(); // capabilities query
+            RecordedRequest recordedRequest = mockServer.takeRequest(); // changeset
+            byte[] request = recordedRequest.getBody().readByteArray();
+            Changeset changeset = Changeset.parse(XmlPullParserFactory.newInstance().newPullParser(), new ByteArrayInputStream(request));
+            assertEquals(PERSISTENT_VALUE, changeset.getTags().get(PERSISTENT));
+            assertEquals(TRANSIENT_VALUE, changeset.getTags().get(TRANSIENT));
+        } catch (InterruptedException | IOException | XmlPullParserException e) {
+            fail(e.getMessage());
+        }
+
+        // now check that the tags behave as expected
+
+        loadTestData();
+
+        clickUploadMenuItem();
+        UploadConflictTest.fillCommentAndSource(instrumentation, device);
+
+        assertTrue(TestUtils.clickText(device, false, "Custom", true, false));
+        assertTrue(TestUtils.findText(device, false, PERSISTENT, 2000));
+        assertTrue(TestUtils.findText(device, false, PERSISTENT_VALUE));
+        assertTrue(TestUtils.textGone(device, TRANSIENT, 1000));
+    }
+
+    /**
+     * Click the upload menu item
+     */
+    private void clickUploadMenuItem() {
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
+
+        UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        UiObject button = device.findObject(uiSelector);
+        try {
+            button.click();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+    }
+
+    /**
+     * Set tag
+     */
+    private void setCustomTag(String key, String value, int instance) {
+        UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editKey").instance(instance));
+        try {
+            editText.setText(key);
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editValue").instance(instance));
+        try {
+            editText.setText(value);
+        } catch (UiObjectNotFoundException e) {
             fail(e.getMessage());
         }
     }
@@ -302,19 +392,10 @@ public class TransferMenuTest {
         dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/changeset1.txt"));
         dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/changeset-no-changes.xml"));
 
-        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
-        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
-
+        clickUploadMenuItem();
+        TestUtils.sleep();
         UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
         UiObject button = device.findObject(uiSelector);
-        try {
-            button.click();
-        } catch (UiObjectNotFoundException e1) {
-            fail(e1.getMessage());
-        }
-        TestUtils.sleep();
-        uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
-        button = device.findObject(uiSelector);
         try {
             button.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e1) {
@@ -351,19 +432,10 @@ public class TransferMenuTest {
         dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/changeset-12-changes.xml"));
         dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "update-test-changes-2.xml"));
 
-        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
-        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
-
+        clickUploadMenuItem();
+        TestUtils.sleep();
         UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
         UiObject button = device.findObject(uiSelector);
-        try {
-            button.click();
-        } catch (UiObjectNotFoundException e1) {
-            fail(e1.getMessage());
-        }
-        TestUtils.sleep();
-        uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
-        button = device.findObject(uiSelector);
         try {
             button.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e1) {
@@ -405,19 +477,10 @@ public class TransferMenuTest {
         dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/changeset-12-changes.xml"));
         dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "update-test-changes-2.xml"));
 
-        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
-        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
-
+        clickUploadMenuItem();
+        TestUtils.sleep();
         UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
         UiObject button = device.findObject(uiSelector);
-        try {
-            button.click();
-        } catch (UiObjectNotFoundException e1) {
-            fail(e1.getMessage());
-        }
-        TestUtils.sleep();
-        uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
-        button = device.findObject(uiSelector);
         try {
             button.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e1) {
@@ -463,19 +526,10 @@ public class TransferMenuTest {
 
         dispatcher.enqueueResponse(TestUtils.createBinaryReponse(MimeTypes.TEXTXML, "fixtures/capabilities1.xml"));
 
-        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
-        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
-
+        clickUploadMenuItem();
+        TestUtils.sleep();
         UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
         UiObject button = device.findObject(uiSelector);
-        try {
-            button.click();
-        } catch (UiObjectNotFoundException e1) {
-            fail(e1.getMessage());
-        }
-        TestUtils.sleep();
-        uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
-        button = device.findObject(uiSelector);
         try {
             button.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e1) {
