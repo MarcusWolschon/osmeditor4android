@@ -1,5 +1,7 @@
 package de.blau.android.listener;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,20 +15,25 @@ import java.util.Set;
 
 import android.content.DialogInterface;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.ReviewAndUpload;
+import de.blau.android.dialogs.ReviewAndUpload.CustomTagRow;
 import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -42,6 +49,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.tasks.TransferTasks;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.validation.FormValidation;
 import de.blau.android.validation.NotEmptyValidator;
@@ -52,6 +60,9 @@ import de.blau.android.validation.NotEmptyValidator;
  */
 public class UploadListener implements DialogInterface.OnShowListener, View.OnClickListener {
 
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UploadListener.class.getSimpleName().length());
+    private static final String DEBUG_TAG = UploadListener.class.getSimpleName().substring(0, TAG_LEN);
+
     // auto summary tags
     public static final String V_DELETED           = "v:deleted";
     public static final String V_MODIFIED_MEMBERS  = "v:modified_members";
@@ -61,12 +72,15 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
 
     private static final long DEBOUNCE_TIME = 1000;
 
-    private final FragmentActivity     caller;
-    private final EditText             commentField;
-    private final EditText             sourceField;
-    private final CheckBox             closeOpenChangeset;
-    private final CheckBox             closeChangeset;
-    private final CheckBox             requestReview;
+    private final FragmentActivity caller;
+    private final EditText         commentField;
+    private final EditText         sourceField;
+    private final CheckBox         closeOpenChangeset;
+    private final CheckBox         closeChangeset;
+    private final CheckBox         requestReview;
+    private LinearLayout           persistentCustomTagLayout;
+    private LinearLayout           transientCustomTagLayout;
+
     private final List<FormValidation> validations;
     private final List<OsmElement>     elements;
     private Long                       lastClickTime = null;
@@ -136,6 +150,11 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             validateFields();
         }
         if (!emptyCommentWarning || tagsShown || ReviewAndUpload.getPage(caller) == ReviewAndUpload.TAGS_PAGE) {
+            FragmentManager fm = caller.getSupportFragmentManager();
+            Fragment fragment = fm.findFragmentByTag(ReviewAndUpload.TAG);
+            if (fragment instanceof ReviewAndUpload) {
+                ((ReviewAndUpload) fragment).removeTransientCustomTags();
+            }
             ReviewAndUpload.dismissDialog(caller);
             upload();
         } else {
@@ -152,6 +171,12 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
         Map<String, String> extraTags = new LinkedHashMap<>();
         if (requestReview.isChecked()) {
             extraTags.put(Tags.KEY_REVIEW_REQUESTED, Tags.VALUE_YES);
+        }
+        if (persistentCustomTagLayout != null) {
+            addCustomTags(persistentCustomTagLayout, extraTags);
+        }
+        if (transientCustomTagLayout != null) {
+            addCustomTags(transientCustomTagLayout, extraTags);
         }
         extraTags.putAll(generateAutoSummary(elements != null ? elements : App.getDelegator().listChangedElements()));
         final Logic logic = App.getLogic();
@@ -173,6 +198,29 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             }
         } else {
             ScreenMessage.barInfo(caller, R.string.toast_no_changes);
+        }
+    }
+
+    /**
+     * Extract tags from a LinearLayout holding CustomTagRow and store them in a Map
+     * 
+     * @param customTagLayout the LinearLayout
+     * @param tags the Map holding the tags
+     */
+    public static void addCustomTags(@Nullable LinearLayout customTagLayout, @NonNull Map<String, String> tags) {
+        if (customTagLayout == null) {
+            Log.e(DEBUG_TAG, "Null custom tag layout");
+            return;
+        }
+        for (int i = 0; i < customTagLayout.getChildCount(); i++) {
+            View v = customTagLayout.getChildAt(i);
+            if (v instanceof CustomTagRow) {
+                String key = ((CustomTagRow) v).getKey();
+                String value = ((CustomTagRow) v).getValue();
+                if (!"".equals(key) && !"".equals(value)) {
+                    tags.put(key, value);
+                }
+            }
         }
     }
 
@@ -416,5 +464,13 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
         for (FormValidation validation : validations) {
             validation.validate();
         }
+    }
+
+    public void setPersistentTagContainer(@Nullable LinearLayout persistentCustomTagLayout) {
+        this.persistentCustomTagLayout = persistentCustomTagLayout;
+    }
+
+    public void setTransientTagContainer(@Nullable LinearLayout transientCustomTagLayout) {
+        this.transientCustomTagLayout = transientCustomTagLayout;
     }
 }

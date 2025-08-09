@@ -1,12 +1,19 @@
 package de.blau.android.dialogs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 public class ViewPagerAdapter extends PagerAdapter {
+    
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ViewPagerAdapter.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ViewPagerAdapter.class.getSimpleName().substring(0, TAG_LEN);
+    
     final Context context;
     final View    layout;
     final int[]   pageRes;
@@ -57,5 +64,11 @@ public class ViewPagerAdapter extends PagerAdapter {
         } else {
             throw new IllegalArgumentException("position needs to be between 0 and " + pageRes.length);
         }
+    }
+    
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        // of this isn't overridden the default we throw a runtime exception
+        Log.e(DEBUG_TAG, "destroyItem unexpectedly called for position " + position);
     }
 }

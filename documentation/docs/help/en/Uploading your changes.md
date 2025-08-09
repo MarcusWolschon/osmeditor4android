@@ -17,9 +17,10 @@ If you have pending edits and for whatever reason cannot authorize, Vespucci rel
 
 To upload your edits you can either select _Upload data to OSM server_ from the [Transfer menu](Main%20map%20display.md#transfer), or select _Upload element_ from the overflow menu in any of the element selection modes or multi-select. The later will only upload the selected elements.
 
-The _Upload changes_ dialog display two tabs _Changes_ and _Properties_. The _Changes_ tab displays a list of all the OSM elements that will be affected by the upload, the type of change and an information button that allows you to view further information on the element and jump to it to make corrections. The _Properties_ tab allows you to set a _comment_
+The _Upload changes_ dialog displays three tabs _Changes_, _Properties_ and _Custom tags_. The _Changes_ tab displays a list of all the OSM elements that will be affected by the upload, the type of change and an information button that allows you to view further information on the element and jump to it to make corrections. The _Properties_ tab allows you to set a _comment_
 for this upload and document that _source_ that was used to create the changes (for example _survey_ if you were personally present at the location in question). Prior entries in both
-fields are retained and can be used when appropriate.
+fields are retained and can be used when appropriate. The _Custom tags_ tab allows to add bespoke tags to a changeset, the tags in the _Persistent_ section will remain until deleted, the tags
+in the _Transient_ section will only be used for the current upload (note: if you are not closing the changeset only the transient tags of the last upload to the changeset will survive).
 
 It is considered best practice to provide meaningful information for other mappers in these fields. However Vespucci will automatically include a summary of your changes (starting with version 20.2) and a list of all imagery layers used for the current set of changes. If you leave the comment field empty it will include text pointing to the automatically generated summary.
 

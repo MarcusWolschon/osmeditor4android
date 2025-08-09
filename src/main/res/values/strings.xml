@@ -205,6 +205,7 @@
     <string name="upload_validation_error_empty_comment">Comment should not be empty</string>
     <string name="upload_validation_error_empty_source">Source should not be empty</string>
     <string name="upload_empty_comment_warning_label">Warn if comment is empty</string>
+    <string name="confirm_upload_custom_tags_page">Custom tags</string>
     <string name="upload_auto_summary">Automatically generated summary</string>
     <string name="untagged_node">untagged node</string>
     <string name="untagged_way">untagged way</string>
