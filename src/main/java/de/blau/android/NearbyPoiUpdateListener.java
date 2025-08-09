@@ -15,7 +15,6 @@ import de.blau.android.layer.UpdateInterface;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
-import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Screen;
 import de.blau.android.util.collections.LowAllocArrayList;

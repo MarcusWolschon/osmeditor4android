@@ -2446,8 +2446,7 @@ public class Logic {
             lock();
             displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
             MergeAction action = new MergeAction(getDelegator(), mergeInto, mergeFrom, getSelectedIds());
-            List<Result> result = action.mergeWays();
-            return result;
+            return action.mergeWays();
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
@@ -2881,8 +2880,7 @@ public class Logic {
         try {
             lock();
             createCheckpoint(activity, R.string.undo_action_reverse_way);
-            List<Result> result = getDelegator().reverseWay(way);
-            return result;
+            return getDelegator().reverseWay(way);
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow
