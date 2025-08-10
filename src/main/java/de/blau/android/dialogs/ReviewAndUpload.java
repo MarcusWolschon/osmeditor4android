@@ -293,7 +293,7 @@ public class ReviewAndUpload extends AbstractReviewDialog {
      * @param customTagLayout the target layout
      * @param customTags the tags
      */
-    private void addCustomTags(@NonNull LinearLayout customTagLayout, @NonNull Map<String, String> customTags) {
+    private void addCustomTags(@NonNull LinearLayout customTagLayout, @Nullable Map<String, String> customTags) {
         if (customTags != null) {
             for (Entry<String, String> customTag : customTags.entrySet()) {
                 addNewCustomTagRow(customTagLayout, customTag.getKey(), customTag.getValue());
@@ -640,24 +640,7 @@ public class ReviewAndUpload extends AbstractReviewDialog {
         };
         row.keyEdit.addTextChangedListener(textWatcher);
 
-        final TextWatcher valueTextWatcher = new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                textWatcher.beforeTextChanged(s, start, count, after);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textWatcher.onTextChanged(s, start, before, count);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                textWatcher.afterTextChanged(s);
-            }
-        };
-        row.valueEdit.addTextChangedListener(valueTextWatcher);
+        row.valueEdit.addTextChangedListener(textWatcher);
 
         row.setKeyAndValue(tagKey, tagValue);
 
