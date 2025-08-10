@@ -212,9 +212,10 @@ public class ReviewAndUpload extends AbstractReviewDialog {
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
         TextView closeOpenChangesetLabel = (TextView) layout.findViewById(R.id.upload_close_open_changeset_label);
-        closeOpenChangesetLabel.setVisibility(openChangeset ? View.VISIBLE : View.GONE);
+        final int closeVisibility = openChangeset ? View.VISIBLE : View.GONE;
+        closeOpenChangesetLabel.setVisibility(closeVisibility);
         closeOpenChangesetCheck = (CheckBox) layout.findViewById(R.id.upload_close_open_changeset);
-        closeOpenChangesetCheck.setVisibility(openChangeset ? View.VISIBLE : View.GONE);
+        closeOpenChangesetCheck.setVisibility(closeVisibility);
         closeOpenChangesetCheck.setChecked(closeOpenChangeset);
 
         closeChangesetCheck = (CheckBox) layout.findViewById(R.id.upload_close_changeset);
@@ -268,19 +269,9 @@ public class ReviewAndUpload extends AbstractReviewDialog {
 
         // custom tag tab
         persistentCustomTagLayout = (LinearLayout) layout.findViewById(R.id.persistent_custom_tag_row_layout);
-        if (persistentCustomTags != null) {
-            for (Entry<String, String> customTag : persistentCustomTags.entrySet()) {
-                addNewCustomTagRow(persistentCustomTagLayout, customTag.getKey(), customTag.getValue());
-            }
-        }
-        ensureEmptyRow(persistentCustomTagLayout);
+        addCustomTags(persistentCustomTagLayout, persistentCustomTags);
         transientCustomTagLayout = (LinearLayout) layout.findViewById(R.id.transient_custom_tag_row_layout);
-        if (transientCustomTags != null) {
-            for (Entry<String, String> tempTag : transientCustomTags.entrySet()) {
-                addNewCustomTagRow(transientCustomTagLayout, tempTag.getKey(), tempTag.getValue());
-            }
-        }
-        ensureEmptyRow(transientCustomTagLayout);
+        addCustomTags(transientCustomTagLayout, transientCustomTags);
 
         builder.setPositiveButton(R.string.transfer_download_current_upload, null);
 
@@ -294,6 +285,21 @@ public class ReviewAndUpload extends AbstractReviewDialog {
         dialog.setOnShowListener(listener);
 
         return dialog;
+    }
+
+    /**
+     * Add tags from a list to a layout
+     * 
+     * @param customTagLayout the target layout
+     * @param customTags the tags
+     */
+    private void addCustomTags(@NonNull LinearLayout customTagLayout, @NonNull Map<String, String> customTags) {
+        if (customTags != null) {
+            for (Entry<String, String> customTag : customTags.entrySet()) {
+                addNewCustomTagRow(customTagLayout, customTag.getKey(), customTag.getValue());
+            }
+        }
+        ensureEmptyRow(customTagLayout);
     }
 
     /**
