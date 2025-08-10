@@ -471,21 +471,15 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         ActionMenuView menuView = (ActionMenuView) getView().findViewById(R.id.preset_menu);
-        // the library providing the Feedback UI is not supported under SDK 15
-        boolean enablePresetFeedback = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && BuildConfig.FLAVOR.equals(Flavors.CURRENT);
         if (paneMode) {
             menuView.setVisibility(View.VISIBLE);
             getActivity().getMenuInflater().inflate(R.menu.preset_nav_menu, menuView.getMenu());
             menuView.setOnMenuItemClickListener(this::onOptionsItemSelected);
-            if (enablePresetFeedback) {
-                // this adds the item as the last one
-                menu.add(Menu.NONE, R.id.menu_preset_feedback, 20, R.string.menu_preset_feedback).setEnabled(propertyEditorListener.isConnected());
-            }
+            // this adds the item as the last one
+            menu.add(Menu.NONE, R.id.menu_preset_feedback, 20, R.string.menu_preset_feedback).setEnabled(propertyEditorListener.isConnected());
         } else {
             inflater.inflate(R.menu.preset_menu, menu);
-            if (enablePresetFeedback) {
-                menu.findItem(R.id.menu_preset_feedback).setVisible(true).setEnabled(propertyEditorListener.isConnected());
-            }
+            menu.findItem(R.id.menu_preset_feedback).setVisible(true).setEnabled(propertyEditorListener.isConnected());
         }
     }
 
