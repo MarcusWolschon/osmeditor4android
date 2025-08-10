@@ -14,6 +14,7 @@ package de.blau.android.net;
 
 import java.io.IOException;
 
+import androidx.annotation.NonNull;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -32,16 +33,23 @@ public class GzipRequestInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
-        if (originalRequest.body() == null || originalRequest.header(HEADER_CONTENT_ENCODING) != null) {
+        final RequestBody body = originalRequest.body();
+        if (body == null || body.contentLength() == 0 || originalRequest.header(HEADER_CONTENT_ENCODING) != null) {
             return chain.proceed(originalRequest);
         }
 
-        Request compressedRequest = originalRequest.newBuilder().header(HEADER_CONTENT_ENCODING, GZIP_ENCODING)
-                .method(originalRequest.method(), gzip(originalRequest.body())).build();
+        Request compressedRequest = originalRequest.newBuilder().header(HEADER_CONTENT_ENCODING, GZIP_ENCODING).method(originalRequest.method(), gzip(body))
+                .build();
         return chain.proceed(compressedRequest);
     }
 
-    private RequestBody gzip(final RequestBody body) {
+    /**
+     * Gzip the body
+     * 
+     * @param body the uncompressed body
+     * @return a body with compressed contents
+     */
+    private RequestBody gzip(@NonNull final RequestBody body) {
         return new RequestBody() {
             @Override
             public MediaType contentType() {
