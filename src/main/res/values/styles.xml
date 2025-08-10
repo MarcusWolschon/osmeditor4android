@@ -528,6 +528,8 @@
         name="Theme.customActionBar"
         parent="@style/Theme.AppCompat">
         <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <item name="actionBarStyle">@style/TagEditorActionBar</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
@@ -733,6 +735,8 @@
         name="Theme.customActionBar.Light"
         parent="@style/Theme.AppCompat.Light">
         <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
         <item name="actionBarStyle">@style/TagEditorActionBarLight</item>
         <item name="autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>

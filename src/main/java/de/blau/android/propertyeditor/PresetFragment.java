@@ -10,7 +10,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -34,12 +33,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import de.blau.android.App;
-import de.blau.android.BuildConfig;
 import de.blau.android.Feedback;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.R;
-import de.blau.android.contract.Flavors;
 import de.blau.android.contract.Github;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -471,21 +468,15 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         ActionMenuView menuView = (ActionMenuView) getView().findViewById(R.id.preset_menu);
-        // the library providing the Feedback UI is not supported under SDK 15
-        boolean enablePresetFeedback = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && BuildConfig.FLAVOR.equals(Flavors.CURRENT);
         if (paneMode) {
             menuView.setVisibility(View.VISIBLE);
             getActivity().getMenuInflater().inflate(R.menu.preset_nav_menu, menuView.getMenu());
             menuView.setOnMenuItemClickListener(this::onOptionsItemSelected);
-            if (enablePresetFeedback) {
-                // this adds the item as the last one
-                menu.add(Menu.NONE, R.id.menu_preset_feedback, 20, R.string.menu_preset_feedback).setEnabled(propertyEditorListener.isConnected());
-            }
+            // this adds the item as the last one
+            menu.add(Menu.NONE, R.id.menu_preset_feedback, 20, R.string.menu_preset_feedback).setEnabled(propertyEditorListener.isConnected());
         } else {
             inflater.inflate(R.menu.preset_menu, menu);
-            if (enablePresetFeedback) {
-                menu.findItem(R.id.menu_preset_feedback).setVisible(true).setEnabled(propertyEditorListener.isConnected());
-            }
+            menu.findItem(R.id.menu_preset_feedback).setVisible(true).setEnabled(propertyEditorListener.isConnected());
         }
     }
 
