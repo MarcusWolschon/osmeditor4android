@@ -98,7 +98,8 @@ public class GeocoderPrefTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_geocoderbutton_title), true, false));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.manage_geocoders)));
 
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_geocoder), true, false));
+        // assertTrue(TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_geocoder), true, false));
+        TestUtils.clickMenuButton(device, main.getString(R.string.urldialog_add_geocoder), false, true);
         UiObject name = TestUtils.findObjectWithResourceId(device, false, device.getCurrentPackageName() + ":id/listedit_editName");
         UiObject url = TestUtils.findObjectWithResourceId(device, false, device.getCurrentPackageName() + ":id/listedit_editValue_2");
         try {

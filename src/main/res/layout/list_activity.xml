@@ -3,47 +3,46 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent" android:orientation="vertical">
     <de.blau.android.views.TopInset
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="match_parent" android:layout_height="0dp"
         android:layout_weight="0" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:layout_weight="1">
-        <ListView
-            android:id="@android:id/list"
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="match_parent" android:paddingLeft="8dp"
+        android:paddingRight="8dp" android:layout_weight="1">
+        <ListView android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
-            android:drawSelectorOnTop="false" />
-        <TextView
-            android:id="@android:id/empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
-            android:text="@string/empty_list"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:drawSelectorOnTop="false" 
+            android:layout_marginBottom="64dp"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/more"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_alignParentBottom="true"
+            android:clickable="true" 
+            android:src="?attr/add"
+            app:backgroundTint="?attr/colorAccent" 
+            app:fabSize="mini"
+            app:useCompatPadding="true" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/more" 
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:clickable="true"
-            android:src="?attr/add"
-            app:backgroundTint="?attr/colorAccent"
+            android:clickable="true" 
+            android:src="?attr/more"
+            app:backgroundTint="?attr/colorAccent" 
             app:fabSize="mini"
             app:useCompatPadding="true" />
     </RelativeLayout>
     <de.blau.android.views.BottomInset
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="match_parent" android:layout_height="0dp"
         android:layout_weight="0" />
 </LinearLayout>

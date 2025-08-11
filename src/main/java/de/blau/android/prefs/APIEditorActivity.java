@@ -12,6 +12,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Build;
@@ -165,6 +166,7 @@ public class APIEditorActivity extends URLListEditActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         selectedItem = (ListEditItem) getListView().getItemAtPosition(info.position);
         if (selectedItem != null) {
+            Resources r = getResources();
             menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(R.string.edit)).setOnMenuItemClickListener(this);
             if (!selectedItem.id.equals(LISTITEM_ID_DEFAULT)) {
                 menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);

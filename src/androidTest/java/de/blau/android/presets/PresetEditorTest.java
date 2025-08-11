@@ -109,7 +109,8 @@ public class PresetEditorTest {
         mockServer = new MockWebServerPlus();
         HttpUrl url = mockServer.server().url("military.zip");
         mockServer.server().enqueue(TestUtils.createBinaryReponse("application/zip", "fixtures/military.zip"));
-        TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false, false);
+        //TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false, false);
+        TestUtils.clickMenuButton(device, main.getString(R.string.urldialog_add_preset), false, true);
         device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/listedit_editName")), 500);
         UiObject name = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_editName"));
         try {
@@ -217,7 +218,8 @@ public class PresetEditorTest {
         try {
             File preset = JavaResources.copyFileFromResources(main, "military2.zip", "fixtures/", "/");
             try {
-                TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false, false);
+                // TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false, false);
+                TestUtils.clickMenuButton(device, main.getString(R.string.urldialog_add_preset), false, true);
                 device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/listedit_editName")), 500);
                 UiObject name = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_editName"));
                 try {
