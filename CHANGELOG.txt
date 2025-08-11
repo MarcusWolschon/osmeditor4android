@@ -1,5 +1,18 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.1.1.0:
+
+- Fix don't compress empty request bodies (fixes Notes API issue)
+- Fix make system bars translucent for filter activities
+- Fix ensure that we have enough space to add a further view in WrappingLayout
+- Fix rework locking of Logic 
+- Fix only allow deep duplication of MP if all elements are downloaded
+- Update imagery from ELI
+- Update default preset
+- Update translations
+- Add configuration for OHM
+- Add support compressed request bodies for HTTP PUT
+
 21.1.0.0:
 
 - Fix protect against null extra tags
