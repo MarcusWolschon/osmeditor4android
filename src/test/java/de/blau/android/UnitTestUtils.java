@@ -1,5 +1,6 @@
 package de.blau.android;
 import static org.junit.Assert.fail;
+import static org.robolectric.Shadows.shadowOf;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import android.os.Looper;
 import androidx.annotation.NonNull;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Storage;
@@ -70,5 +72,17 @@ public final class UnitTestUtils {
             fail(e.getMessage());
         }
         return d;
+    }
+    
+    /**
+     * Super ugly hack to get the looper to run
+     */
+    public static void runLooper() {
+        try {
+            Thread.sleep(3000); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
+            // Ignore
+        }
+        shadowOf(Looper.getMainLooper()).idle();
     }
 }
