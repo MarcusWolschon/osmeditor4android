@@ -720,8 +720,8 @@ public class Server {
         case BASIC:
             builder.addInterceptor(new BasicAuthInterceptor(username, password));
         }
-        // if support compressed uploads are supported
-        if (HTTP_POST.equals(requestMethod) && compressedUploads) {
+        // if compressed uploads are supported and compression interceptor
+        if ((HTTP_POST.equals(requestMethod) || HTTP_PUT.equals(requestMethod)) && compressedUploads) {
             builder.addInterceptor(new GzipRequestInterceptor());
         }
 
