@@ -1,23 +1,23 @@
 # 
 # Translators:
-# Stenive <stenive@gmail.com>, 2020
 # anodern, 2021
+# Y, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-04-25 11:28+0200\n"
 "PO-Revision-Date: 2020-05-21 07:54+0000\n"
-"Last-Translator: anodern, 2021\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/openstreetmap/teams/26285/zh_CN/)\n"
+"Last-Translator: Y, 2025\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/openstreetmap/teams/26285/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Default"
-msgstr "默认"
+msgid "Built-in (minimal)"
+msgstr "预设（最基本）"
 
 msgid "Color Round Nodes"
 msgstr "彩色圆形节点"

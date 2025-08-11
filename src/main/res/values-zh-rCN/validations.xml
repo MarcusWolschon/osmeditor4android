@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>物件年龄</item>
+        <item>FIXME标签</item>
+        <item>缺少标签</item>
+        <item>公路道路</item>
+        <item>没有关系类型</item>
+        <item>缺少英制单位</item>
+        <item>无效的物件</item>
+        <item>没有标签的物件</item>
+        <item>未被连接的结束节点</item>
+        <item>退化的路径</item>
+        <item>空关系</item>
+        <item>缺少关系成员角色</item>
+        <item>关系环形</item>
+        <item>非标准元素类型</item>
+    </string-array>
+    </resources>

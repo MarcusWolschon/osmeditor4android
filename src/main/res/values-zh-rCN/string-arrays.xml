@@ -31,6 +31,11 @@
         <item>已修复</item>
         <item>太困难了</item>
     </string-array>
+    <string-array name="todo_state">
+        <item>开放</item>
+        <item>关闭</item>
+        <item>跳过</item> 
+    </string-array>
     <string-array name="followGPSbutton_entries">
         <item>左边</item>
         <item>右边</item>
@@ -76,4 +81,10 @@
         <item>词语大写</item>
         <item>句子大写</item>
     </string-array>
+    <string name="theme_follow_entry">跟随系统</string>
+    <string name="theme_light_entry">浅色</string>
+    <string name="theme_dark_entry">深色</string>
+    <string name="authentication_basic_entry">登录 - 密码</string>
+    <string name="authentication_oauth1a_entry">OAuth 1a</string>
+    <string name="authentication_oauth2_entry">OAuth 2</string>
     </resources>

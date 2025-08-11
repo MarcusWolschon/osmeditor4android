@@ -8,16 +8,16 @@
   <string name="addr_country">País (addr:country)</string>
   <string name="addr_full">Dirección completa (addr:full)</string>
   <string name="addr_place">Lugar (addr:place)</string>
-  <string name="addr_block">Manzana / Cuadra (addr:block)</string>
-  <string name="addr_block_number">Número de manzana / cuadra (addr:block_number)</string>
+  <string name="addr_block">Manzana/Cuadra (addr:block)</string>
+  <string name="addr_block_number">Número de manzana/Cuadra (addr:block_number)</string>
   <string name="addr_parentstreet">Información adicional de localización (addr:parenstreet)</string>
-  <string name="addr_hamlet">Aldea / Caserío (addr:hamlet)</string>
-  <string name="addr_suburb">Barrio residencial / Suburbio (addr:suburb)</string>
+  <string name="addr_hamlet">Aldea/Caserío (addr:hamlet)</string>
+  <string name="addr_suburb">Barrio residencial/Suburbio (addr:suburb)</string>
   <string name="addr_subdistrict">Subdistrito (addr:subdistrict)</string>
   <string name="addr_district">Distrito (addr:district)</string>
   <string name="addr_province">Provincia (addr:province)</string>
   <string name="addr_state">Estado (addr:state)</string>
-  <string name="addr_flats">Pisos / Departamentos (addr:flats)</string>
+  <string name="addr_flats">Pisos/Departamentos (addr:flats)</string>
   <string name="addr_door">Puerta (addr:door)</string>
   <string name="addr_unit">Unidad (addr:unit)</string>
 </resources>
