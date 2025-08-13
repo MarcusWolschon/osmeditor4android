@@ -15,18 +15,25 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * Filter plus UI for filtering on tags NOTE: the relevant ways should be processed before nodes
@@ -123,7 +130,7 @@ public class TagFilter extends CommonFilter {
         }
     }
 
-    private List<FilterEntry> filter = new ArrayList<>();
+    private List<FilterEntry> filterList = new ArrayList<>();
 
     /**
      * 
@@ -143,9 +150,10 @@ public class TagFilter extends CommonFilter {
 
     @Override
     public void init(Context context) {
+        clear(); // zap caches
         try (TagFilterDatabaseHelper tfDb = new TagFilterDatabaseHelper(context); SQLiteDatabase mDatabase = tfDb.getReadableDatabase()) {
             //
-            filter.clear();
+            filterList.clear();
             String filterName = TagFilterDatabaseHelper.getCurrent(mDatabase);
             Cursor dbresult = mDatabase.query(TagFilterDatabaseHelper.FILTERENTRIES_TABLE,
                     new String[] { TagFilterActivity.INCLUDE_COLUMN, TagFilterActivity.TYPE_COLUMN, TagFilterActivity.KEY_COLUMN,
@@ -154,7 +162,7 @@ public class TagFilter extends CommonFilter {
             dbresult.moveToFirst();
             for (int i = 0; i < dbresult.getCount(); i++) {
                 try {
-                    filter.add(new FilterEntry(dbresult.getInt(0) == 1, dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
+                    filterList.add(new FilterEntry(dbresult.getInt(0) == 1, dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
                             dbresult.getInt(4) == 1));
                 } catch (PatternSyntaxException psex) {
                     Log.e(DEBUG_TAG, "exception getting FilterEntry " + psex.getMessage());
@@ -173,42 +181,68 @@ public class TagFilter extends CommonFilter {
     protected Include filter(OsmElement e) {
         Include include = Include.DONT;
         String type = e.getName();
-        for (FilterEntry f : filter) {
-            if (f.active) {
-                Include match = Include.DONT;
-                SortedMap<String, String> tags = e.getTags();
-                if (tags != null && tags.size() > 0) {
-                    for (Entry<String, String> t : tags.entrySet()) {
-                        if (f.match(type, t.getKey(), t.getValue())) {
-                            match = f.withWayNodes ? Include.INCLUDE_WITH_WAYNODES : Include.INCLUDE;
-                            break;
-                        }
+        for (FilterEntry f : getActiveEntries(filterList)) {
+            Include match = Include.DONT;
+            SortedMap<String, String> tags = e.getTags();
+            if (tags.size() > 0) {
+                for (Entry<String, String> t : tags.entrySet()) {
+                    if (f.match(type, t.getKey(), t.getValue())) {
+                        match = withWayNodes(f);
+                        break;
                     }
-                } else {
-                    match = f.match(type, null, null) ? (f.withWayNodes ? Include.INCLUDE_WITH_WAYNODES : Include.INCLUDE) : Include.DONT;
                 }
-                if (match != Include.DONT) {
-                    // we have a match
-                    include = f.include ? match : Include.DONT; // FIXME should relation membership be able to override
-                                                                // this?
-                    break;
-                }
+            } else {
+                match = f.match(type, null, null) ? withWayNodes(f) : Include.DONT;
+            }
+            if (match != Include.DONT) {
+                // we have a match
+                include = f.include ? match : Include.DONT; // FIXME should relation membership be able to override
+                                                            // this?
+                break;
             }
         }
 
         if (include == Include.DONT) {
             // check if it is a relation member
             List<Relation> parents = e.getParentRelations();
-            if (parents != null) {
-                for (Relation r : new ArrayList<>(parents)) { // protect against ccm
-                    Include relationInclude = testRelation(r, false);
-                    if (relationInclude != null && relationInclude != Include.DONT) {
-                        return relationInclude; // inherit include status from relation
-                    }
+            if (parents == null) {
+                return include;
+            }
+            for (Relation r : new ArrayList<>(parents)) { // protect against ccm
+                Include relationInclude = testRelation(r, false);
+                if (relationInclude != null && relationInclude != Include.DONT) {
+                    return relationInclude; // inherit include status from relation
                 }
             }
         }
         return include;
+    }
+
+    /**
+     * Return the correct Include value if withWayNodes is set on a FilterEntry
+     * 
+     * @param f the FilterEntry
+     * @return the correct Include value
+     */
+    private Include withWayNodes(FilterEntry f) {
+        return f.withWayNodes ? Include.INCLUDE_WITH_WAYNODES : Include.INCLUDE;
+    }
+
+    /**
+     * Get the active FilterEntry instances
+     * 
+     * @param entries all FilterEntrys
+     * @return only the active ones
+     */
+    @NonNull
+    private List<FilterEntry> getActiveEntries(@NonNull List<FilterEntry> entries) {
+        List<FilterEntry> activeEntries = new ArrayList<>();
+        for (FilterEntry entry : entries) {
+            if (entry.active) {
+                activeEntries.add(entry);
+            }
+        }
+        return activeEntries;
     }
 
     /**
@@ -238,8 +272,50 @@ public class TagFilter extends CommonFilter {
 
         tagFilterButton.setClickable(true);
         tagFilterButton.setOnClickListener(b -> TagFilterActivity.start(context));
+        tagFilterButton.setLongClickable(true);
+        tagFilterButton.setOnLongClickListener((View v) -> {
+            PopupMenu popup = new InsetAwarePopupMenu(context, tagFilterButton);
+            try (TagFilterDatabaseHelper tfDb = new TagFilterDatabaseHelper(context); SQLiteDatabase db = tfDb.getWritableDatabase()) {
+                final String[] names = TagFilterDatabaseHelper.getFilterNames(context, db);
+                final String current = TagFilterDatabaseHelper.getCurrent(db);
+                for (final String filterName : names) {
+                    SpannableString s = new SpannableString(TagFilterActivity.getFilterName(context, filterName));
+                    final boolean selected = current.equals(filterName);
+                    if (selected) {
+                        s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(context, R.attr.colorAccent, 0)), 0, s.length(), 0);
+                    }
+                    MenuItem item = popup.getMenu().add(s);
+                    item.setOnMenuItemClickListener((MenuItem menuItem) -> {
+                        if (selected) {
+                            return true;
+                        }
+                        switchFilter(context, new TagFilterDatabaseHelper(context), filterName, update);
+                        return true;
+                    });
+                }
+                popup.show();
+            }
+            return true;
+        });
         tagFilterButton.setAlpha(Main.FABALPHA);
         setupControls(false);
+    }
+
+    /**
+     * 
+     * 
+     * @param context
+     * @param tfDb
+     * @param filterName
+     * @param update
+     */
+    private void switchFilter(@NonNull final Context context, @NonNull final TagFilterDatabaseHelper tfDb, @NonNull final String filterName,
+            @NonNull final Update update) {
+        try (SQLiteDatabase db2 = tfDb.getWritableDatabase()) {
+            TagFilterDatabaseHelper.setCurrent(db2, filterName);
+            init(context);
+            update.execute();
+        }
     }
 
     /**
