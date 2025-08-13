@@ -146,8 +146,11 @@ public class TagFilter extends CommonFilter {
         try (TagFilterDatabaseHelper tfDb = new TagFilterDatabaseHelper(context); SQLiteDatabase mDatabase = tfDb.getReadableDatabase()) {
             //
             filter.clear();
-            Cursor dbresult = mDatabase.query("filterentries", new String[] { "include", "type", "key", "value", "active" }, "filter = ?",
-                    new String[] { DEFAULT_FILTER }, null, null, null);
+            String filterName = TagFilterDatabaseHelper.getCurrent(mDatabase);
+            Cursor dbresult = mDatabase.query(TagFilterDatabaseHelper.FILTERENTRIES_TABLE,
+                    new String[] { TagFilterActivity.INCLUDE_COLUMN, TagFilterActivity.TYPE_COLUMN, TagFilterActivity.KEY_COLUMN,
+                            TagFilterActivity.VALUE_COLUMN, TagFilterActivity.ACTIVE_COLUMN },
+                    TagFilterDatabaseHelper.FILTER_COLUMN + " = ?", new String[] { filterName }, null, null, null);
             dbresult.moveToFirst();
             for (int i = 0; i < dbresult.getCount(); i++) {
                 try {
@@ -234,7 +237,7 @@ public class TagFilter extends CommonFilter {
         }
 
         tagFilterButton.setClickable(true);
-        tagFilterButton.setOnClickListener(b -> TagFilterActivity.start(context, DEFAULT_FILTER));
+        tagFilterButton.setOnClickListener(b -> TagFilterActivity.start(context));
         tagFilterButton.setAlpha(Main.FABALPHA);
         setupControls(false);
     }

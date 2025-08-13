@@ -6,6 +6,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -31,12 +33,16 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.cursoradapter.widget.CursorAdapter;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.prefs.ListActivity;
 import de.blau.android.util.AfterTextChangedWatcher;
+import de.blau.android.util.InsetAwarePopupMenu;
 
 /**
  * Activity for editing filter entries. Due to the difficulties in using a ListView for editable items, this is a rather
@@ -47,21 +53,17 @@ import de.blau.android.util.AfterTextChangedWatcher;
  */
 public class TagFilterActivity extends ListActivity {
 
-    private static final int    TAG_LEN    = Math.min(LOG_TAG_LEN, TagFilterActivity.class.getSimpleName().length());
-    private static final String DEBUG_TAG  = TagFilterActivity.class.getSimpleName().substring(0, TAG_LEN);
-    private static final String FILTER_KEY = "FILTER";
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TagFilterActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TagFilterActivity.class.getSimpleName().substring(0, TAG_LEN);
 
-    static final String FILTERENTRIES_TABLE = "filterentries";
-    static final String VALUE_COLUMN        = "value";
-    static final String KEY_COLUMN          = "key";
-    static final String TYPE_COLUMN         = "type";
-    static final String INCLUDE_COLUMN      = "include";
-    static final String ACTIVE_COLUMN       = "active";
-    static final String FILTER_COLUMN       = "filter";
+    public static final String VALUE_COLUMN   = "value";
+    public static final String KEY_COLUMN     = "key";
+    public static final String TYPE_COLUMN    = "type";
+    public static final String INCLUDE_COLUMN = "include";
+    public static final String ACTIVE_COLUMN  = "active";
 
     private static final String QUERY = "SELECT rowid as _id, active, include, type, key, value FROM filterentries WHERE filter = ?";
 
-    private String                  filter          = null;
     private TagFilterDatabaseHelper tfDb;
     private SQLiteDatabase          db;
     private Cursor                  tagFilterCursor = null;
@@ -83,9 +85,8 @@ public class TagFilterActivity extends ListActivity {
      * @param context an Android Context
      * @param filter the name of the TagFilter
      */
-    public static void start(@NonNull Context context, String filter) {
+    public static void start(@NonNull Context context) {
         Intent intent = new Intent(context, TagFilterActivity.class);
-        intent.putExtra(FILTER_KEY, filter);
         context.startActivity(intent);
     }
 
@@ -100,31 +101,79 @@ public class TagFilterActivity extends ListActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setDisplayHomeAsUpEnabled(true);
-        final String filterParam;
-        if (savedInstanceState == null) {
-            filterParam = getIntent().getStringExtra(FILTER_KEY);
-        } else {
-            filterParam = savedInstanceState.getString(FILTER_KEY);
-        }
-        filter = filterParam;
+        actionbar.setDisplayShowTitleEnabled(true);
+
         tfDb = new TagFilterDatabaseHelper(this);
         db = tfDb.getWritableDatabase();
-        tagFilterCursor = getTagFilterCursor();
-        filterAdapter = new TagFilterAdapter(this, tagFilterCursor);
+
+        String initialFilter = TagFilterDatabaseHelper.getCurrent(db);
+        setTitle(actionbar, initialFilter);
+
+        tagFilterCursor = getTagFilterCursor(initialFilter);
+        filterAdapter = new TagFilterAdapter(this, initialFilter, tagFilterCursor);
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
-        if (add != null) {
-            add.setOnClickListener(v -> {
-                updateDatabaseFromList();
-                insertRow(filter, true, true, 0, "", "");
-                tagFilterCursor = getTagFilterCursor();
-                Cursor oldCursor = filterAdapter.swapCursor(tagFilterCursor);
-                oldCursor.close();
-                filterAdapter.notifyDataSetChanged();
-                Log.d(DEBUG_TAG, "button clicked");
+        add.setOnClickListener(v -> {
+            String filter = TagFilterDatabaseHelper.getCurrent(db);
+            updateDatabaseFromList();
+            insertRow(filter, true, true, 0, "", "");
+            updateAdapter(filter);
+            Log.d(DEBUG_TAG, "button clicked");
+        });
+        add.show();
+
+        FloatingActionButton more = (FloatingActionButton) findViewById(R.id.more);
+        more.setOnClickListener(v -> {
+            PopupMenu popup = new InsetAwarePopupMenu(this, add);
+            MenuItem item = popup.getMenu().add(R.string.tag_filter_load);
+            item.setOnMenuItemClickListener(unused -> {
+                final String[] names = TagFilterDatabaseHelper.getFilterNames(TagFilterActivity.this, db);
+                new AlertDialog.Builder(this).setItems(names, (DialogInterface d, int which) -> {
+                    updateDatabaseFromList(); // write all changes
+                    switchFilter(names[which]);
+                }).show();
+
+                return false;
             });
-            add.show();
-        }
+            item = popup.getMenu().add(R.string.tag_filter_new);
+            item.setOnMenuItemClickListener(unused -> {
+                TextLineDialog.get(this, R.string.tag_filter_name, R.string.tag_filter_name, null, (EditText input, boolean check) -> {
+                    // add new name
+                    String filter = input.getText().toString();
+                    TagFilterDatabaseHelper.addFilterName(db, filter);
+                    updateDatabaseFromList(); // write all changes
+                    switchFilter(filter);
+                }).show();
+                return false;
+            });
+            item = popup.getMenu().add(R.string.clear);
+            item.setOnMenuItemClickListener(unused -> {
+                new AlertDialog.Builder(this).setTitle(R.string.tag_filter_clear_confirmation)
+                        .setPositiveButton(R.string.yes, (DialogInterface d, int which) -> {
+                            String filter = TagFilterDatabaseHelper.getCurrent(db);
+                            db.delete(TagFilterDatabaseHelper.FILTERENTRIES_TABLE, TagFilterDatabaseHelper.FILTER_COLUMN + " =?", new String[] { filter });
+                            setUnmodified();
+                            updateAdapter(filter);
+                        }).setNeutralButton(R.string.cancel, null).show();
+                return false;
+            });
+            item = popup.getMenu().add(R.string.delete);
+            item.setEnabled(!TagFilter.DEFAULT_FILTER.equals(TagFilterDatabaseHelper.getCurrent(db)));
+            item.setOnMenuItemClickListener(unused -> {
+                new AlertDialog.Builder(this).setTitle(R.string.tag_filter_delete_confirmation)
+                        .setPositiveButton(R.string.yes, (DialogInterface d, int which) -> {
+                            String filter = TagFilterDatabaseHelper.getCurrent(db);
+                            db.delete(TagFilterDatabaseHelper.FILTERENTRIES_TABLE, TagFilterDatabaseHelper.FILTER_COLUMN + "=?", new String[] { filter });
+                            db.delete(TagFilterDatabaseHelper.FILTER_NAME_TABLE, TagFilterDatabaseHelper.NAME_COLUMN + "=?", new String[] { filter });
+                            setUnmodified();
+                            switchFilter(TagFilter.DEFAULT_FILTER);
+                        }).setNeutralButton(R.string.cancel, null).show();
+                return false;
+            });
+            popup.show();
+        });
+        more.show();
+
         // this makes fields in the items focusable
         getListView().setFocusable(false);
         getListView().setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
@@ -133,6 +182,52 @@ public class TagFilterActivity extends ListActivity {
         getListView().setAdapter(filterAdapter);
 
         getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+    }
+
+    /**
+     * Switch the filter
+     * 
+     * @param filterName the name of the filter
+     */
+    private void switchFilter(@NonNull String filterName) {
+        Log.d(DEBUG_TAG, "Prev. filter " + TagFilterDatabaseHelper.getCurrent(db) + " switching to " + filterName);
+        setTitle(getSupportActionBar(), filterName);
+        TagFilterDatabaseHelper.setCurrent(db, filterName);
+        updateAdapter(filterName);
+    }
+
+    /**
+     * Set the title to the provided filter name
+     * 
+     * @param actionbar the ActionBar
+     * @param filterName the filterName
+     */
+    private void setTitle(@NonNull ActionBar actionbar, @NonNull String filterName) {
+        actionbar.setTitle(getString(R.string.tag_filter_title, getFilterName(this, filterName)));
+    }
+
+    /**
+     * Replace the filter name with the translated version if it is the default
+     * 
+     * @param context an Android context
+     * @param filterName the filter name
+     * @return the translated string if the default otherwise sinly the argument
+     */
+    static String getFilterName(@NonNull Context context, @NonNull String filterName) {
+        return TagFilter.DEFAULT_FILTER.equals(filterName) ? context.getString(R.string.default_) : filterName;
+    }
+
+    /**
+     * Update the adapter
+     * 
+     * @param filterName the name of the filter
+     * 
+     */
+    private void updateAdapter(@NonNull String filterName) {
+        tagFilterCursor = getTagFilterCursor(filterName);
+        Cursor oldCursor = filterAdapter.swapCursor(tagFilterCursor);
+        oldCursor.close();
+        filterAdapter.notifyDataSetChanged(filterName);
     }
 
     @Override
@@ -145,15 +240,20 @@ public class TagFilterActivity extends ListActivity {
     public void onResume() {
         super.onResume();
         if (tagFilterCursor == null || tagFilterCursor.isClosed()) {
-            tagFilterCursor = getTagFilterCursor();
+            tagFilterCursor = getTagFilterCursor(TagFilterDatabaseHelper.getCurrent(db));
             ((TagFilterAdapter) getListView().getAdapter()).swapCursor(tagFilterCursor);
         }
     }
 
     /**
+     * Get a Cursor for entries for filter
+     * 
+     * @param filter the name of the filter to use
+     * 
      * @return a new cursor
      */
-    private Cursor getTagFilterCursor() {
+    @NonNull
+    private Cursor getTagFilterCursor(@NonNull String filter) {
         return db.rawQuery(QUERY, new String[] { filter });
     }
 
@@ -178,19 +278,13 @@ public class TagFilterActivity extends ListActivity {
      * @param key key of tag
      * @param value value of tag
      */
-    private void insertRow(String filter, boolean active, boolean include, int type, @Nullable String key, @Nullable String value) {
-        ContentValues values = new ContentValues();
-        values.put(FILTER_COLUMN, filter);
-        values.put(ACTIVE_COLUMN, active ? 1 : 0);
-        values.put(INCLUDE_COLUMN, include ? 1 : 0);
-        values.put(TYPE_COLUMN, getTypeValue(type));
-        values.put(KEY_COLUMN, key);
-        values.put(VALUE_COLUMN, value);
-        db.insert(FILTERENTRIES_TABLE, null, values);
+    private void insertRow(@NonNull String filter, boolean active, boolean include, int type, @Nullable String key, @Nullable String value) {
+        ContentValues values = getContentValues(filter, active, include, type, key, value);
+        db.insert(TagFilterDatabaseHelper.FILTERENTRIES_TABLE, null, values);
     }
 
     /**
-     * Update an existing medicine
+     * Update an existing entry
      * 
      * @param id of the entry
      * @param filter name of the filter
@@ -200,16 +294,33 @@ public class TagFilterActivity extends ListActivity {
      * @param key key of tag
      * @param value value of tag
      */
-    private void updateRow(int id, String filter, boolean active, boolean include, int type, @Nullable String key, @Nullable String value) {
+    private void updateRow(int id, @NonNull String filter, boolean active, boolean include, int type, @Nullable String key, @Nullable String value) {
+        ContentValues values = getContentValues(filter, active, include, type, key, value);
+        Log.d(DEBUG_TAG, "updating " + id + " " + values);
+        db.update(TagFilterDatabaseHelper.FILTERENTRIES_TABLE, values, "rowid=" + id, null);
+    }
+
+    /**
+     * Get the ContentValue object for updates etc
+     * 
+     * @param filter name of the filter
+     * @param active if true this entry is active, otherwise it will be ignored
+     * @param include Include value for this entry
+     * @param type OSM object type
+     * @param key key of tag
+     * @param value value of tag
+     * @return a ContentValues instance
+     */
+    @NonNull
+    private ContentValues getContentValues(@NonNull String filter, boolean active, boolean include, int type, @Nullable String key, @Nullable String value) {
         ContentValues values = new ContentValues();
-        values.put(FILTER_COLUMN, filter);
+        values.put(TagFilterDatabaseHelper.FILTER_COLUMN, filter);
         values.put(ACTIVE_COLUMN, active ? 1 : 0);
         values.put(INCLUDE_COLUMN, include ? 1 : 0);
         values.put(TYPE_COLUMN, getTypeValue(type));
         values.put(KEY_COLUMN, key);
         values.put(VALUE_COLUMN, value);
-        Log.d(DEBUG_TAG, "updating " + id + " " + values);
-        db.update(FILTERENTRIES_TABLE, values, "rowid=" + id, null);
+        return values;
     }
 
     @Override
@@ -217,7 +328,6 @@ public class TagFilterActivity extends ListActivity {
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         super.onSaveInstanceState(outState);
         updateDatabaseFromList();
-        outState.putString(FILTER_KEY, filter);
     }
 
     @Override
@@ -263,12 +373,32 @@ public class TagFilterActivity extends ListActivity {
     private void updateDatabaseFromList() {
         Log.d(DEBUG_TAG, "update DB");
         ListView lv = getListView();
+        String filter = TagFilterDatabaseHelper.getCurrent(db);
         for (int i = 0; i < lv.getCount(); i++) {
             View view = lv.getChildAt(i);
             if (view != null) {
                 ViewHolder vh = (ViewHolder) view.getTag();
                 if (vh != null && vh.modified) {
-                    update(vh);
+                    update(filter, vh);
+                }
+            } else {
+                Log.e(DEBUG_TAG, "view for index " + i + " is null");
+            }
+        }
+    }
+
+    /**
+     * Set all ViewHolders in use to not modified to prevent saving contents
+     */
+    private void setUnmodified() {
+        Log.d(DEBUG_TAG, "setUnmodified");
+        ListView lv = getListView();
+        for (int i = 0; i < lv.getCount(); i++) {
+            View view = lv.getChildAt(i);
+            if (view != null) {
+                ViewHolder vh = (ViewHolder) view.getTag();
+                if (vh != null) {
+                    vh.modified = false;
                 }
             } else {
                 Log.e(DEBUG_TAG, "view for index " + i + " is null");
@@ -279,11 +409,13 @@ public class TagFilterActivity extends ListActivity {
     /**
      * Update a an entry from a ViewHolder
      * 
+     * @param filterName the name of the filter
      * @param vh the ViewHolder
      */
-    private void update(@NonNull ViewHolder vh) {
+    private void update(@NonNull String filterName, @NonNull ViewHolder vh) {
         Log.d(DEBUG_TAG, "saving contents for id " + vh.id);
-        updateRow(vh.id, filter, vh.active.isChecked(), "+".equals(vh.mode.getSelectedItem()), vh.type.getSelectedItemPosition(),
+        vh.modified = false;
+        updateRow(vh.id, filterName, vh.active.isChecked(), "+".equals(vh.mode.getSelectedItem()), vh.type.getSelectedItemPosition(),
                 vh.keyView.getText().toString(), vh.valueView.getText().toString());
     }
 
@@ -298,14 +430,23 @@ public class TagFilterActivity extends ListActivity {
      */
     private class TagFilterAdapter extends CursorAdapter {
 
+        private String filter;
+
         /**
          * Construct a new adapter
          * 
          * @param context an Android Context
          * @param cursor a database cursor
          */
-        public TagFilterAdapter(@NonNull Context context, @NonNull Cursor cursor) {
+        public TagFilterAdapter(@NonNull Context context, @NonNull String filter, @NonNull Cursor cursor) {
             super(context, cursor, 0);
+            this.filter = filter;
+        }
+
+        public void notifyDataSetChanged(@NonNull String filter) {
+            this.filter = filter;
+            notifyDataSetChanged();
+
         }
 
         @Override
@@ -328,8 +469,8 @@ public class TagFilterActivity extends ListActivity {
             Log.d(DEBUG_TAG, "bindView");
             final ViewHolder vh = (ViewHolder) view.getTag();
             if (vh.modified) { // very hackish
-                update(vh);
-                Cursor newCursor = getTagFilterCursor();
+                update(filter, vh);
+                Cursor newCursor = getTagFilterCursor(filter);
                 Cursor oldCursor = this.swapCursor(newCursor);
                 oldCursor.close();
                 this.notifyDataSetChanged();
@@ -373,8 +514,8 @@ public class TagFilterActivity extends ListActivity {
             ImageButton delete = (ImageButton) view.findViewById(R.id.delete);
             delete.setOnClickListener(v -> {
                 updateDatabaseFromList();
-                db.delete(FILTERENTRIES_TABLE, "rowid=" + id, null);
-                newCursor();
+                db.delete(TagFilterDatabaseHelper.FILTERENTRIES_TABLE, "rowid=" + id, null);
+                newCursor(filter);
                 Log.d(DEBUG_TAG, "delete clicked");
             });
         }
@@ -398,9 +539,11 @@ public class TagFilterActivity extends ListActivity {
 
         /**
          * Swao the cursor for a new one
+         * 
+         * @param filter the name of the filter to use
          */
-        private void newCursor() {
-            Cursor newCursor = getTagFilterCursor();
+        private void newCursor(@NonNull String filter) {
+            Cursor newCursor = getTagFilterCursor(filter);
             Cursor oldCursor = filterAdapter.swapCursor(newCursor);
             oldCursor.close();
         }
