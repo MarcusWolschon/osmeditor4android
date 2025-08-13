@@ -1,10 +1,14 @@
 package de.blau.android.filter;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +19,7 @@ import org.robolectric.annotation.Config;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
@@ -35,7 +40,7 @@ import de.blau.android.osm.Way;
  *
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class TagFilterTest {
 
@@ -66,31 +71,42 @@ public class TagFilterTest {
     @Test
     public void tagFilterNode() {
         try (TagFilterDatabaseHelper helper = new TagFilterDatabaseHelper(context); SQLiteDatabase db = helper.getWritableDatabase()) {
-            TreeMap<String, String> tags = new TreeMap<>();
-            tags.put(Tags.KEY_BARRIER, Tags.VALUE_KERB);
-            Logic logic = App.getLogic();
-
-            logic.performAdd(null, 100.0f, 100.0f);
-
-            Node n1 = logic.getSelectedNode();
-
-            logic.setSelectedNode(null);
-            logic.setSelectedWay(null);
-            logic.setTags(null, n1, tags);
+            Node n1 = addNode();
 
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "node", Tags.KEY_BUILDING, null);
 
             TagFilter f = new TagFilter(context);
-            Assert.assertTrue(!f.include(n1, false));
+            assertTrue(!f.include(n1, false));
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "node", "b.*", null);
             f = new TagFilter(context);
-            Assert.assertTrue(f.include(n1, false));
+            assertTrue(f.include(n1, false));
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "node", null, ".*l");
             f = new TagFilter(context);
-            Assert.assertTrue(f.include(n1, false));
+            assertTrue(f.include(n1, false));
         } catch (OsmIllegalOperationException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
+    }
+
+    /**
+     * Add a node for testing purposes
+     * 
+     * @return a Node
+     */
+    @NonNull
+    private Node addNode() {
+        TreeMap<String, String> tags = new TreeMap<>();
+        tags.put(Tags.KEY_BARRIER, Tags.VALUE_KERB);
+        Logic logic = App.getLogic();
+
+        logic.performAdd(null, 100.0f, 100.0f);
+
+        Node n1 = logic.getSelectedNode();
+
+        logic.setSelectedNode(null);
+        logic.setSelectedWay(null);
+        logic.setTags(null, n1, tags);
+        return n1;
     }
 
     /**
@@ -116,11 +132,11 @@ public class TagFilterTest {
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "way", Tags.KEY_BUILDING, null);
 
             TagFilter f = new TagFilter(context);
-            Assert.assertTrue(f.include(w, false));
-            Assert.assertTrue(!f.include(n1, false));
-            Assert.assertTrue(!f.include(n2, false));
+            assertTrue(f.include(w, false));
+            assertTrue(!f.include(n1, false));
+            assertTrue(!f.include(n2, false));
         } catch (OsmIllegalOperationException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
     }
 
@@ -147,11 +163,11 @@ public class TagFilterTest {
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "way+", Tags.KEY_BUILDING, null);
 
             TagFilter f = new TagFilter(context);
-            Assert.assertTrue(f.include(w, false));
-            Assert.assertTrue(f.include(n1, false));
-            Assert.assertTrue(f.include(n2, false));
+            assertTrue(f.include(w, false));
+            assertTrue(f.include(n1, false));
+            assertTrue(f.include(n2, false));
         } catch (OsmIllegalOperationException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
     }
 
@@ -183,11 +199,11 @@ public class TagFilterTest {
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, Relation.NAME, Tags.KEY_BUILDING, null);
 
             TagFilter f = new TagFilter(context);
-            Assert.assertTrue(f.include(w, false));
-            Assert.assertTrue(!f.include(n1, false));
-            Assert.assertTrue(!f.include(n2, false));
+            assertTrue(f.include(w, false));
+            assertTrue(!f.include(n1, false));
+            assertTrue(!f.include(n2, false));
         } catch (OsmIllegalOperationException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
     }
 
@@ -219,11 +235,33 @@ public class TagFilterTest {
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "relation+", Tags.KEY_BUILDING, null);
 
             TagFilter f = new TagFilter(context);
-            Assert.assertTrue(f.include(w, false));
-            Assert.assertTrue(f.include(n1, false));
-            Assert.assertTrue(f.include(n2, false));
+            assertTrue(f.include(w, false));
+            assertTrue(f.include(n1, false));
+            assertTrue(f.include(n2, false));
         } catch (OsmIllegalOperationException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Create an additional filter and switch to it
+     */
+    @Test
+    public void newFilter() {
+        try (TagFilterDatabaseHelper helper = new TagFilterDatabaseHelper(context); SQLiteDatabase db = helper.getWritableDatabase()) {
+            TagFilterDatabaseHelper.addFilterName(db, "test");
+            insertTagFilterRow(db, "test", true, true, "node", Tags.KEY_BARRIER, null);
+            
+            TagFilter f = new TagFilter(context);
+            Node n1 = addNode();
+            // default filter is active, shouldn't match
+            assertFalse(f.include(n1, false));
+            // switch to test
+            TagFilterDatabaseHelper.setCurrent(db, "test");
+            assertEquals("test", TagFilterDatabaseHelper.getCurrent(db));
+            
+            f.init(context);
+            assertTrue(f.include(n1, false));
         }
     }
 
