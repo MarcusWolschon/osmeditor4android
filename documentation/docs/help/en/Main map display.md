@@ -265,7 +265,7 @@ This menu allows mode selection as via the _lock button_ and enabling/disabling 
 
 ### Tag-Filter *(checkbox)*
 
-Enable the tag based filter, the filter can be configured by tapping the filter button on the map display.
+Enable the [tag based filter](Tag%20filter.md), the filter can be configured by tapping the filter button on the map display. If you have more than one filter configuration, a long press on the filter icon will display a popup menu with corresponding entries that can be used to switch the active configuration.
 
 ### Preset-Filter *(checkbox)*
 
