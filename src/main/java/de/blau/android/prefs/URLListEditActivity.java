@@ -6,10 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -37,7 +38,6 @@ import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
 import de.blau.android.R;
 import de.blau.android.util.SelectFile;
-import de.blau.android.util.ThemeUtils;
 
 /**
  * This activity allows the user to edit a list of URLs. Each entry consists of a unique ID, a name and a URL. The user
@@ -65,9 +65,6 @@ public abstract class URLListEditActivity extends ListActivity
     static final int ERROR_COLOR = R.color.ccc_red;
     static final int VALID_COLOR = R.color.black;
 
-    Resources     r;
-    final Context ctx;
-
     static final int MENUITEM_EDIT              = 0;
     static final int MENUITEM_DELETE            = 1;
     static final int MENUITEM_ADDITIONAL_OFFSET = 1000;
@@ -84,8 +81,7 @@ public abstract class URLListEditActivity extends ListActivity
      * Construct a new Activity with empty contents
      */
     URLListEditActivity() {
-        ctx = this;
-        items = new ArrayList<>();
+        this(new ArrayList<>());
     }
 
     /**
@@ -94,7 +90,7 @@ public abstract class URLListEditActivity extends ListActivity
      * @param items a List of ListEditItems to display
      */
     protected URLListEditActivity(@NonNull List<ListEditItem> items) {
-        ctx = this;
+        super();
         this.items = items;
     }
 
@@ -105,15 +101,18 @@ public abstract class URLListEditActivity extends ListActivity
             setTheme(R.style.Theme_customLight);
         }
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.list_activity);
-        r = getResources();
-        TextView v = (TextView) View.inflate(ctx, android.R.layout.simple_list_item_1, null);
-        v.setText(r.getString(getAddTextResId()));
-        v.setTextColor(ContextCompat.getColor(ctx, android.R.color.darker_gray));
-        v.setTypeface(null, Typeface.ITALIC);
-        int padding = ThemeUtils.getDimensionFromAttribute(this, R.attr.dialogPreferredPadding);
-        v.setPadding(padding, v.getPaddingTop(), padding, v.getPaddingBottom());
-        getListView().addFooterView(v);
+
+        FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
+        if (add != null) {
+            add.setOnClickListener(v -> {
+                Log.d(DEBUG_TAG, "button clicked");
+                itemEditDialog(null);
+            });
+            add.show();
+            add.setContentDescription(getString(getAddTextResId()));
+        }
 
         getListView().setOnItemClickListener(this);
         getListView().setOnCreateContextMenuListener(this);
@@ -167,34 +166,30 @@ public abstract class URLListEditActivity extends ListActivity
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (!super.onOptionsItemSelected(item)) {
-            switch (item.getItemId()) {
-            case android.R.id.home:
+            if (item.getItemId() == android.R.id.home) {
                 finish();
-                break;
-            default:
-                return false;
+                return true;
             }
+            return false;
         }
         return true;
     }
 
     /** refreshes the data adapter (list content) */
     void updateAdapter() {
-        setListAdapter(new ListEditAdapter(ctx, items));
+        setListAdapter(new ListEditAdapter(this, items));
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
         Object item = parent.getItemAtPosition(pos);
         if (item == null) {
-            // clicked on "new" button
-            itemEditDialog(null);
-        } else {
-            Log.d(DEBUG_TAG, "Item clicked");
-            ListItem listItem = (ListItem) view;
-            listItem.setChecked(!listItem.isChecked());
-            onItemClicked((ListEditItem) item);
+            return;
         }
+        Log.d(DEBUG_TAG, "Item clicked");
+        ListItem listItem = (ListItem) view;
+        listItem.setChecked(!listItem.isChecked());
+        onItemClicked((ListEditItem) item);
     }
 
     @Override
@@ -202,6 +197,7 @@ public abstract class URLListEditActivity extends ListActivity
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         selectedItem = (ListEditItem) getListView().getItemAtPosition(info.position);
         if (selectedItem != null && !selectedItem.id.equals(LISTITEM_ID_DEFAULT)) {
+            Resources r = getResources();
             menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(R.string.edit)).setOnMenuItemClickListener(this);
             menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
             for (Entry<Integer, Integer> entry : additionalMenuItems.entrySet()) {
@@ -543,7 +539,7 @@ public abstract class URLListEditActivity extends ListActivity
             if (convertView instanceof ListItem) {
                 v = (ListItem) convertView;
             } else {
-                v = (ListItem) View.inflate(ctx, R.layout.list_item, null);
+                v = (ListItem) View.inflate(URLListEditActivity.this, R.layout.list_item, null);
             }
             v.setText1(getItem(position).name);
             v.setText2(getItem(position).value);

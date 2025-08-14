@@ -260,7 +260,8 @@ This check works by first determining the matching preset and then checking if *
 
 ### Tag based filter
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
+The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. If you have more than one filter configuration, a long press on the filter icon will display
+a popup menu with corresponding entries that can be used to switch the active configuration. More documentation can be found here [Tag filter](Tag%20filter.md).
 
 ### Preset based filter
 

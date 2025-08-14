@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,12 +16,15 @@ import org.junit.runner.RunWith;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.view.View;
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObject2;
+import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
@@ -101,7 +105,7 @@ public class TagFilterTest {
         instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
         instrumentation.removeMonitor(monitor);
 
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.empty_list), 5000));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.tag_filter_title, main.getString(R.string.default_)), 5000));
 
         // add empty entry
         assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/add", true));
@@ -127,12 +131,90 @@ public class TagFilterTest {
         instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
         instrumentation.removeMonitor(monitor);
 
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.tag_filter_title, main.getString(R.string.default_)), 5000));
+        assertTrue(TestUtils.findText(device, false, "amenity", 5000));
+
         assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/delete", false));
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.empty_list), 5000));
+        assertTrue(TestUtils.textGone(device, "amenity", 5000));
 
         // exit config activity
         TestUtils.clickHome(device, false);
         TestUtils.sleep(5000); // android 9 needs this
+
+        // clicking now should select nothing
+        TestUtils.clickAtCoordinates(device, map, t.getLon() / 1E7D, t.getLat() / 1E7D, true);
+        assertFalse(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect), 2000));
+
+        // disable tag filter
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_enable_tagfilter), false));
+    }
+
+    /**
+     * Enable tagfilter, add filter, click object, remove filter etc
+     */
+    @Test
+    public void additionalFilterTest() {
+        TestUtils.unlock(device);
+        Node t = (Node) App.getDelegator().getOsmElement(Node.NAME, 3465444349L);
+        assertNotNull(t);
+        assertTrue(t.hasTag("amenity", "toilets"));
+
+        // enable tag filter
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_enable_tagfilter), false));
+
+        // start filter config activity
+        monitor = instrumentation.addMonitor(TagFilterActivity.class.getName(), null, false);
+        assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/tagFilterButton", true));
+        instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
+        instrumentation.removeMonitor(monitor);
+
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.tag_filter_title, main.getString(R.string.default_)), 5000));
+
+        assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/more", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_filter_new), true));
+
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.tag_filter_name), 1000));
+
+        UiObject filterName = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
+        try {
+            filterName.click();
+            filterName.setText("Test");
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+        TestUtils.clickButton(device, "android:id/button1", true);
+
+        // add empty entry
+        assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/add", true));
+
+        UiObject2 key = TestUtils.findObjectWithText(device, false, main.getString(R.string.key), 500, false);
+        key.setText("amenity");
+        UiObject2 value = TestUtils.findObjectWithText(device, false, main.getString(R.string.value), 500, false);
+        value.setText("toilets");
+
+        // exit config activity
+        TestUtils.clickHome(device, false);
+        TestUtils.sleep(5000); // android 9 needs this
+
+        TestUtils.clickAtCoordinates(device, map, t.getLon() / 1E7D, t.getLat() / 1E7D, true);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect), 5000));
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(3465444349L, node.getOsmId());
+        
+        TestUtils.clickUp(device); // deselect
+
+        // Long click filter button
+        try {
+            TestUtils.longClick(device, TestUtils.findObjectWithResourceId(device, false, device.getCurrentPackageName() + ":id/tagFilterButton"));
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.default_), 5000));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.default_), true));
 
         // clicking now should select nothing
         TestUtils.clickAtCoordinates(device, map, t.getLon() / 1E7D, t.getLat() / 1E7D, true);

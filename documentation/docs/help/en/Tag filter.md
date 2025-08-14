@@ -10,9 +10,29 @@ The preset filter is enabled by selecting the corresponding menu entry in the me
 
 Add a new filter entry.
 
+### ![More](../images/menu_more.png) More
+
+Display a menu with additional actions:
+
+#### Load...
+
+Load filter entries from a different configuration. 
+
+#### New...
+
+Specify a name for a new configuration and switch to it.
+
+#### Clear
+
+Remove all entries from the current configuration.
+
+#### Delete
+
+Delete a configuration completely. Note that the _Default_ configuration cannot be deleted currently. 
+
 ### ![Help](../images/menu_help.png) Help
 
-Start the Vespucci Help browser
+Start the Vespucci Help browser on this page.
 
 ## Filter entries
 

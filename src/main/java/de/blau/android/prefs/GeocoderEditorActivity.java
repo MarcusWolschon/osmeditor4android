@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -101,6 +102,7 @@ public class GeocoderEditorActivity extends URLListEditActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         selectedItem = (ListEditItem) getListView().getItemAtPosition(info.position);
         if (selectedItem != null) {
+            Resources r = getResources();
             menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(R.string.edit)).setOnMenuItemClickListener(this);
             if (db.getActiveGeocoders().length > 1) {
                 menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
@@ -118,8 +120,8 @@ public class GeocoderEditorActivity extends URLListEditActivity {
      */
     @Override
     protected void itemEditDialog(final ListEditItem item) {
-        final AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(ctx);
-        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
+        final AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(this);
+        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(this);
         final View mainView = inflater.inflate(R.layout.listedit_geocoderedit, null);
         final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
         final Spinner geocoderType = (Spinner) mainView.findViewById(R.id.geocoder_type);
