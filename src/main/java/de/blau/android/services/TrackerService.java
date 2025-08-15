@@ -1096,9 +1096,9 @@ public class TrackerService extends Service {
         if (radius != 0) { // download
             List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox);
             for (BoundingBox b : bboxes) {
+                // ignore super small bb likely due to rounding errors
                 if (b.getWidth() > 1 && b.getHeight() > 1) {
                     try {
-                        // ignore super small bb likely due to rounding errors
                         downloadThreadPoolExecutor.execute(() -> downloadBox.download(b));
                     } catch (RejectedExecutionException rjee) {
                         Log.e(DEBUG_TAG, "Download execution rejected " + rjee.getMessage());
@@ -1146,11 +1146,15 @@ public class TrackerService extends Service {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         // only attempt to download if we have a network or a mapsplit source
         boolean activeNetwork = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
-        if (downloading && (prefs.getServer().hasMapSplitSource() || activeNetwork)) {
-            downloadThreadPoolExecutor.execute(() -> dataAutoDownload(location, validator));
-        }
-        if (downloadingBugs && activeNetwork) {
-            downloadThreadPoolExecutor.execute(() -> taskAutoDownload(location));
+        try {
+            if (downloading && (prefs.getServer().hasMapSplitSource() || activeNetwork)) {
+                downloadThreadPoolExecutor.execute(() -> dataAutoDownload(location, validator));
+            }
+            if (downloadingBugs && activeNetwork) {
+                downloadThreadPoolExecutor.execute(() -> taskAutoDownload(location));
+            }
+        } catch (RejectedExecutionException rjee) {
+            Log.e(DEBUG_TAG, "autoLoadDataAndTasks download execution rejected " + rjee.getMessage());
         }
     }
 
