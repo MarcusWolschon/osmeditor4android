@@ -2820,7 +2820,7 @@ public class Logic {
             unlock();
         }
         invalidateMap();
-        return result;
+        return result != null ? result : new ArrayList<>();
     }
 
     /**
