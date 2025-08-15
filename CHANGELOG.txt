@@ -1,5 +1,11 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.1.2.0:
+
+- Fix catch exception in onInterceptTouchEvent in ExtendedViewPager
+- Fix make sure that perfoemJoinNodeToWays doesn't return null
+- Fix catch RejectedExecutionException everywhere it could be thrown in TrackerService
+
 21.1.1.0:
 
 - Fix don't compress empty request bodies (fixes Notes API issue)
