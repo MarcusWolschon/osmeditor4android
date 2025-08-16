@@ -6,8 +6,8 @@
 </head>
 <body>
 <h1 id="tag-filter">Tag filter</h1>
-<p>Vespucci provides a simple mechanism to filter displayed and editable objects based on selecting keys and values with regular expressions. Elements that are not selectable and visible will be drawn with light grey lines. All edits and additions to the filter entries are immediately stored on your device.</p>
-<p>The preset filter is enabled by selecting the corresponding menu entry in the menu on the main map display.</p>
+<p>Vespucci provides a simple mechanism to filter displayed and editable objects based on selecting keys and values with regular expressions. Ways that are not selectable and visible will be drawn with light grey lines. All edits and additions to the filter entries are immediately stored on your device.</p>
+<p>The tag filter is enabled by selecting the corresponding menu entry in the overflow menu on the main map display. Once the filter is active the configuration can be changed by touching the filter button (either on the right or left side in the vertical middle of the map display), a long press will show a short cut menu that will allow selection of a filter configuration.</p>
 <h2 id="actions">Actions</h2>
 <h3 id="add">+ Add</h3>
 <p>Add a new filter entry.</p>
@@ -22,11 +22,14 @@
 <h4 id="delete">Delete</h4>
 <p>Delete a configuration completely. Note that the <em>Default</em> configuration cannot be deleted currently.</p>
 <h3 id="help-help"><img src="../images/menu_help.png" alt="Help" /> Help</h3>
-<p>Start the Vespucci Help browser on this page.</p>
+<p>Start the Vespucci Help browser with this content.</p>
 <h2 id="filter-entries">Filter entries</h2>
-<p>Default, no entries state, is to not include any objects. Each entry can be enabled/disabled with the checkbox and are applied in the top-down order as they are displayed. Selecting the &quot;+&quot; node will include objects that match, &quot;-&quot; will exclude objects. OSM object type can be either <em>All</em>, <em>Nodes</em>, <em>Ways</em>. <em>Ways+</em> (automatically include way nodes of matched ways), <em>Relations</em> and <em>Relations+</em> (automatically include way nodes of matched ways). Included ways and relations will include their member objects.</p>
+<p>Default, no entries state, is to not include any objects. Each entry can be enabled/disabled with the checkbox and are applied in the top-down order as they are displayed.</p>
+<p>Selecting the &quot;+&quot; mode will include objects that match, &quot;-&quot; will exclude* objects.</p>
+<p>OSM object type can be either <em>All</em>, <em>Nodes</em>, <em>Ways</em>. <em>Ways+</em> (automatically include way nodes of matched ways), <em>Relations</em> and <em>Relations+</em> (automatically include way nodes of matched ways). Included relations will include their member node and way objects, relations will not be automatically included.</p>
 <p>Regular expressions can be entered in the Key and Value text fields, an empty field will match all strings. Combination of tags is currently not supported.</p>
-<p>Clicking the trash can icon will delete the entry.</p>
+<p>Clicking the trash can icon will delete a entry.</p>
+<p>*<strong>Limitations:</strong> currently an entry for a relation that <em>excludes</em> the object will not exclude its members. Excluding a way with <em>Ways+</em> set will exclude the way nodes, except if they are tagged (then the relevant filter rules will apply) or if it is a member of other ways that are not excluded with <em>Ways+</em>. In the later case the behaviour depends on the order of way processing and cannot be determined in advance.</p>
 
 </body>
 </html>
