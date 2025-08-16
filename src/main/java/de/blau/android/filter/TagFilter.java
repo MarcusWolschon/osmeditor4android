@@ -26,6 +26,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Way;
 import de.blau.android.util.ScreenMessage;
 
 /**
@@ -123,7 +124,7 @@ public class TagFilter extends CommonFilter {
         }
     }
 
-    private List<FilterEntry> filter = new ArrayList<>();
+    private List<FilterEntry> filterList = new ArrayList<>();
 
     /**
      * 
@@ -143,15 +144,16 @@ public class TagFilter extends CommonFilter {
 
     @Override
     public void init(Context context) {
+        clear(); // zap caches
         try (TagFilterDatabaseHelper tfDb = new TagFilterDatabaseHelper(context); SQLiteDatabase mDatabase = tfDb.getReadableDatabase()) {
             //
-            filter.clear();
+            filterList.clear();
             Cursor dbresult = mDatabase.query("filterentries", new String[] { "include", "type", "key", "value", "active" }, "filter = ?",
                     new String[] { DEFAULT_FILTER }, null, null, null);
             dbresult.moveToFirst();
             for (int i = 0; i < dbresult.getCount(); i++) {
                 try {
-                    filter.add(new FilterEntry(dbresult.getInt(0) == 1, dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
+                    filterList.add(new FilterEntry(dbresult.getInt(0) == 1, dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
                             dbresult.getInt(4) == 1));
                 } catch (PatternSyntaxException psex) {
                     Log.e(DEBUG_TAG, "exception getting FilterEntry " + psex.getMessage());
@@ -170,42 +172,74 @@ public class TagFilter extends CommonFilter {
     protected Include filter(OsmElement e) {
         Include include = Include.DONT;
         String type = e.getName();
-        for (FilterEntry f : filter) {
-            if (f.active) {
-                Include match = Include.DONT;
-                SortedMap<String, String> tags = e.getTags();
-                if (tags != null && tags.size() > 0) {
-                    for (Entry<String, String> t : tags.entrySet()) {
-                        if (f.match(type, t.getKey(), t.getValue())) {
-                            match = f.withWayNodes ? Include.INCLUDE_WITH_WAYNODES : Include.INCLUDE;
-                            break;
-                        }
+        for (FilterEntry f : getActiveEntries(filterList)) {
+            Include match = Include.DONT;
+            SortedMap<String, String> tags = e.getTags();
+            if (tags.size() > 0) {
+                for (Entry<String, String> t : tags.entrySet()) {
+                    if (f.match(type, t.getKey(), t.getValue())) {
+                        match = withWayNodes(f);
+                        break;
                     }
-                } else {
-                    match = f.match(type, null, null) ? (f.withWayNodes ? Include.INCLUDE_WITH_WAYNODES : Include.INCLUDE) : Include.DONT;
                 }
-                if (match != Include.DONT) {
-                    // we have a match
-                    include = f.include ? match : Include.DONT; // FIXME should relation membership be able to override
-                                                                // this?
-                    break;
+            } else {
+                match = f.match(type, null, null) ? withWayNodes(f) : Include.DONT;
+            }
+            if (match != Include.DONT) {
+                // we have a match
+
+                // as we need to potentially invert the way nodes too, we need to add/not add them here
+                if (e instanceof Way && match == Include.INCLUDE_WITH_WAYNODES) {
+                    includeWayNodes((Way) e, !f.include);
                 }
+
+                // if f.include is false invert
+                include = f.include ? match : Include.DONT;
+                break;
             }
         }
 
         if (include == Include.DONT) {
             // check if it is a relation member
             List<Relation> parents = e.getParentRelations();
-            if (parents != null) {
-                for (Relation r : new ArrayList<>(parents)) { // protect against ccm
-                    Include relationInclude = testRelation(r, false);
-                    if (relationInclude != null && relationInclude != Include.DONT) {
-                        return relationInclude; // inherit include status from relation
-                    }
+            if (parents == null) {
+                return include;
+            }
+            for (Relation r : new ArrayList<>(parents)) { // protect against ccm
+                Include relationInclude = testRelation(r, false);
+                if (relationInclude != null && relationInclude != Include.DONT) {
+                    return relationInclude; // inherit include status from relation
                 }
             }
         }
         return include;
+    }
+
+    /**
+     * Return the correct Include value if withWayNodes is set on a FilterEntry
+     * 
+     * @param f the FilterEntry
+     * @return the correct Include value
+     */
+    private Include withWayNodes(FilterEntry f) {
+        return f.withWayNodes ? Include.INCLUDE_WITH_WAYNODES : Include.INCLUDE;
+    }
+
+    /**
+     * Get the active FilterEntry instances
+     * 
+     * @param entries all FilterEntrys
+     * @return only the active ones
+     */
+    @NonNull
+    private List<FilterEntry> getActiveEntries(@NonNull List<FilterEntry> entries) {
+        List<FilterEntry> activeEntries = new ArrayList<>();
+        for (FilterEntry entry : entries) {
+            if (entry.active) {
+                activeEntries.add(entry);
+            }
+        }
+        return activeEntries;
     }
 
     /**

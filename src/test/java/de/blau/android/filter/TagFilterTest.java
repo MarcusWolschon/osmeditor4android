@@ -1,5 +1,9 @@
 package de.blau.android.filter;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -152,6 +156,42 @@ public class TagFilterTest {
             Assert.assertTrue(f.include(n2, false));
         } catch (OsmIllegalOperationException e) {
             Assert.fail(e.getMessage());
+        }
+    }
+    
+    /**
+     * Test against a way tagged as building, with filter that includes way nodes
+     */
+    @Test
+    public void tagFilterWayWithNodesInvert() {
+        try (TagFilterDatabaseHelper helper = new TagFilterDatabaseHelper(context); SQLiteDatabase db = helper.getWritableDatabase()) {
+            TreeMap<String, String> tags = new TreeMap<>();
+            tags.put(Tags.KEY_BUILDING, "yes");
+            Logic logic = App.getLogic();
+
+            logic.performAdd(null, 100.0f, 100.0f);
+            Node n1 = logic.getSelectedNode();
+            logic.performAdd(null, 1000.0f, 1000.0f);
+            Node n2 = logic.getSelectedNode();
+            Way w = logic.getSelectedWay();
+            logic.setSelectedNode(null);
+            logic.setSelectedWay(null);
+            logic.setTags(null, w, tags);
+            
+            // this should be included as not a way member
+            logic.performAdd(null, 200.0f, 200.0f);
+            Node n3 = logic.getSelectedNode();
+
+            insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, false, "way+", Tags.KEY_BUILDING, null);
+            insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "*", null, null);
+
+            TagFilter f = new TagFilter(context);
+            assertFalse(f.include(w, false));
+            assertFalse(f.include(n1, false));
+            assertFalse(f.include(n2, false));
+            assertTrue(f.include(n3, false));
+        } catch (OsmIllegalOperationException e) {
+            fail(e.getMessage());
         }
     }
 
