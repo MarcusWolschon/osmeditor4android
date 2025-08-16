@@ -66,23 +66,35 @@ public abstract class CommonFilter extends InvertableFilter {
         include = filter(way);
 
         if (include == Include.INCLUDE_WITH_WAYNODES) {
-            for (Node n : way.getNodes()) {
-                Include includeNode = cachedNodes.get(n);
-                if (includeNode == null || (include != Include.DONT && includeNode == Include.DONT)) {
-                    // if not originally included overwrite now
-                    if (include == Include.DONT && (n.hasTags() || n.hasParentRelations())) { // no entry yet so we have
-                                                                                              // to check tags and
-                                                                                              // relations
-                        include(n, false);
-                        continue;
-                    }
-                    cachedNodes.put(n, include);
-                }
-            }
+            includeWayNodes(way, false);
         }
         cachedWays.put(way, include);
 
         return include != Include.DONT || selected;
+    }
+
+    /**
+     * Add the nodes of the way to the cache with the appropriate Include value
+     * 
+     * @param way the Way
+     * @param invert if true exclude the nodes
+     */
+    protected void includeWayNodes(@NonNull Way way, boolean invert) {
+        for (Node n : way.getNodes()) {
+            Include includeNode = cachedNodes.get(n);
+            Include newInclude = invert ? Include.DONT : Include.INCLUDE;
+            final boolean notCached = includeNode == null;
+            if (notCached || includeNode != newInclude) {
+                // if has tags and isn't cached yet do it now
+                if (notCached && ((n.hasTags() || n.hasParentRelations()))) { // no entry yet so we have
+                    // to check tags and
+                    // relations
+                    include(n, false);
+                    continue;
+                }
+                cachedNodes.put(n, newInclude);
+            }
+        }
     }
 
     @Override
@@ -97,6 +109,7 @@ public abstract class CommonFilter extends InvertableFilter {
      * @param selected true if the Relation is selected
      * @return an Include value
      */
+    @NonNull
     Include testRelation(@NonNull Relation relation, boolean selected) {
         if (!enabled || selected) {
             return Include.INCLUDE_WITH_WAYNODES;
@@ -114,33 +127,32 @@ public abstract class CommonFilter extends InvertableFilter {
         }
         cachedRelations.put(relation, include);
         List<RelationMember> members = relation.getMembers();
-        if (members != null) {
-            for (RelationMember rm : members) {
-                OsmElement element = rm.getElement();
-                if (element != null) {
-                    if (element instanceof Way) {
-                        Way w = (Way) element;
-                        Include includeWay = cachedWays.get(w);
-                        if (includeWay != null && (include != Include.DONT && includeWay == Include.DONT)) {
-                            // if not originally included overwrite now
-                            if (include == Include.INCLUDE_WITH_WAYNODES) {
-                                for (Node n : w.getNodes()) {
-                                    cachedNodes.put(n, include);
-                                }
+        if (members == null) {
+            return include;
+        }
+        for (RelationMember rm : members) {
+            OsmElement element = rm.getElement();
+            if (element != null) {
+                if (element instanceof Way) {
+                    Way w = (Way) element;
+                    Include includeWay = cachedWays.get(w);
+                    if (includeWay != null && (include != Include.DONT && includeWay == Include.DONT)) {
+                        // if not originally included overwrite now
+                        if (include == Include.INCLUDE_WITH_WAYNODES) {
+                            for (Node n : w.getNodes()) {
+                                cachedNodes.put(n, include);
                             }
-                            cachedWays.put(w, include);
                         }
-                    } else if (element instanceof Node) {
-                        Node n = (Node) element;
-                        Include includeNode = cachedNodes.get(n);
-                        if (includeNode != null && (include != Include.DONT && includeNode == Include.DONT)) {
-                            // if not originally included overwrite now
-                            cachedNodes.put(n, include);
-                        }
-                    } else if (element instanceof Relation) {
-                        // FIXME not clear if we really want to do this
+                        cachedWays.put(w, include);
                     }
-                }
+                } else if (element instanceof Node) {
+                    Node n = (Node) element;
+                    Include includeNode = cachedNodes.get(n);
+                    if (includeNode != null && (include != Include.DONT && includeNode == Include.DONT)) {
+                        // if not originally included overwrite now
+                        cachedNodes.put(n, include);
+                    }
+                } //  We don't change the state of relation members!
             }
         }
         return include;

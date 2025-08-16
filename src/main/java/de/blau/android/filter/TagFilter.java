@@ -26,6 +26,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Way;
 import de.blau.android.util.ScreenMessage;
 
 /**
@@ -190,6 +191,18 @@ public class TagFilter extends CommonFilter {
                                                                 // this?
                     break;
                 }
+            }
+            if (match != Include.DONT) {
+                // we have a match
+
+                // as we need to potentially invert the way nodes too, we need to add/not add them here
+                if (e instanceof Way && match == Include.INCLUDE_WITH_WAYNODES) {
+                    includeWayNodes((Way) e, !f.include);
+                }
+
+                // if f.include is false invert
+                include = f.include ? match : Include.DONT;
+                break;
             }
         }
 
