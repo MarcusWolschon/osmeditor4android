@@ -31,6 +31,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Way;
 import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
@@ -196,8 +197,14 @@ public class TagFilter extends CommonFilter {
             }
             if (match != Include.DONT) {
                 // we have a match
-                include = f.include ? match : Include.DONT; // FIXME should relation membership be able to override
-                                                            // this?
+
+                // as we need to potentially invert the way nodes too, we need to add/not add them here
+                if (e instanceof Way && match == Include.INCLUDE_WITH_WAYNODES) {
+                    includeWayNodes((Way) e, !f.include);
+                }
+
+                // if f.include is false invert
+                include = f.include ? match : Include.DONT;
                 break;
             }
         }

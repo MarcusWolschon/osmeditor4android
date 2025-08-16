@@ -170,6 +170,42 @@ public class TagFilterTest {
             fail(e.getMessage());
         }
     }
+    
+    /**
+     * Test against a way tagged as building, with filter that includes way nodes
+     */
+    @Test
+    public void tagFilterWayWithNodesInvert() {
+        try (TagFilterDatabaseHelper helper = new TagFilterDatabaseHelper(context); SQLiteDatabase db = helper.getWritableDatabase()) {
+            TreeMap<String, String> tags = new TreeMap<>();
+            tags.put(Tags.KEY_BUILDING, "yes");
+            Logic logic = App.getLogic();
+
+            logic.performAdd(null, 100.0f, 100.0f);
+            Node n1 = logic.getSelectedNode();
+            logic.performAdd(null, 1000.0f, 1000.0f);
+            Node n2 = logic.getSelectedNode();
+            Way w = logic.getSelectedWay();
+            logic.setSelectedNode(null);
+            logic.setSelectedWay(null);
+            logic.setTags(null, w, tags);
+            
+            // this should be included as not a way member
+            logic.performAdd(null, 200.0f, 200.0f);
+            Node n3 = logic.getSelectedNode();
+
+            insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, false, "way+", Tags.KEY_BUILDING, null);
+            insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "*", null, null);
+
+            TagFilter f = new TagFilter(context);
+            assertFalse(f.include(w, false));
+            assertFalse(f.include(n1, false));
+            assertFalse(f.include(n2, false));
+            assertTrue(f.include(n3, false));
+        } catch (OsmIllegalOperationException e) {
+            fail(e.getMessage());
+        }
+    }
 
     /**
      * Test against a way tagged as building that is member of a Relation that the way will be included if the relation
