@@ -47,6 +47,7 @@
     <string name="unexpected_conflict_type">Unexpected conflict type </string>
     <string name="missing_referenced_elements">Missing referenced elements</string>
     <string name="still_in_use_by_elements">Still in use by elements</string>
+    <string name="local_reference_inconsistency">Local reference inconsistency, undeleting the referenced element is the safe option, but please report this as a bug.</string>
     <string name="delete_locally">Delete\nlocally</string>
     <string name="undelete_on_server">Undelete\non server</string>
     <!-- Upload retry -->
