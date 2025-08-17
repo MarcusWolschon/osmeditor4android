@@ -328,7 +328,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         done.setOnClickListener(v -> dismissDialog());
 
         dialog.setContentView(layout);
-        ViewCompat.setClipBounds(layout, null);
+        layout.setClipBounds(null);
         // Android 9 clips the popupmenus just above the dialog
         // moving it to the top forces the menu to the bottom which
         // which works
