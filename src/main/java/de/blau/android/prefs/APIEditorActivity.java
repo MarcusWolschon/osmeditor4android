@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map.Entry;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,11 +45,11 @@ import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.DataLoss;
 import de.blau.android.prefs.API.Auth;
 import de.blau.android.prefs.API.AuthParams;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FragmentUtil;
-import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
@@ -84,26 +83,10 @@ public class APIEditorActivity extends URLListEditActivity {
         Intent intent = new Intent(activity, APIEditorActivity.class);
         final Logic logic = App.getLogic();
         if (logic != null && logic.hasChanges()) {
-            DataLoss.showDialog(activity, intent, -1);
+            DataLoss.showDialog(activity, intent);
         } else {
             activity.startActivity(intent);
         }
-    }
-
-    /**
-     * Start the activity and return a result
-     * 
-     * @param activity the calling Activity
-     * @param apiName the name of the api
-     * @param apiUrl the url
-     * @param requestCode the code to identify the result
-     */
-    public static void startForResult(@NonNull Activity activity, @NonNull String apiName, @NonNull String apiUrl, int requestCode) {
-        Intent intent = new Intent(activity, APIEditorActivity.class);
-        intent.setAction(ACTION_NEW);
-        intent.putExtra(EXTRA_NAME, apiName);
-        intent.putExtra(EXTRA_VALUE, apiUrl);
-        activity.startActivityForResult(intent, requestCode);
     }
 
     @Override

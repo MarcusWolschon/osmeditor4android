@@ -26,26 +26,22 @@ public class DataLoss extends CancelableDialogFragment {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, DataLoss.class.getSimpleName().length());
     private static final String DEBUG_TAG = DataLoss.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String TAG             = "fragment_dataloss";
-    private static final String INTENT_KEY      = "intent";
-    private static final String REQUESTCODE_KEY = "requestcode";
+    private static final String TAG        = "fragment_dataloss";
+    private static final String INTENT_KEY = "intent";
 
     private Intent intent;
-    private int    requestCode;
 
     /**
      * Shows a dialog warning the user that he has unsaved changes that will be discarded.
      * 
      * @param activity Activity creating the dialog and starting the intent Activity if confirmed
      * @param intent intent for the activity to start
-     * @param requestCode If the activity should return a result, a non-negative request code. If no result is expected,
-     *            set to -1.
      */
-    public static void showDialog(@NonNull FragmentActivity activity, @NonNull final Intent intent, final int requestCode) {
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull final Intent intent) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            DataLoss dataLossActivityFragment = newInstance(intent, requestCode);
+            DataLoss dataLossActivityFragment = newInstance(intent);
             dataLossActivityFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -69,12 +65,11 @@ public class DataLoss extends CancelableDialogFragment {
      * @return a new DataLossActivity dialog instance
      */
     @NonNull
-    private static DataLoss newInstance(@NonNull final Intent intent, final int requestCode) {
+    private static DataLoss newInstance(@NonNull final Intent intent) {
         DataLoss f = new DataLoss();
 
         Bundle args = new Bundle();
         args.putParcelable(INTENT_KEY, intent);
-        args.putInt(REQUESTCODE_KEY, requestCode);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -85,20 +80,13 @@ public class DataLoss extends CancelableDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            Log.d(DEBUG_TAG, "restoring from saved state");
-            intent = de.blau.android.util.Util.getParcelable(savedInstanceState, INTENT_KEY, Intent.class);
-            requestCode = savedInstanceState.getInt(REQUESTCODE_KEY);
-        } else {
-            intent = de.blau.android.util.Util.getParcelable(getArguments(), INTENT_KEY, Intent.class);
-            requestCode = getArguments().getInt(REQUESTCODE_KEY);
-        }
+        intent = de.blau.android.util.Util.getParcelable(savedInstanceState != null ? savedInstanceState : getArguments(), INTENT_KEY, Intent.class);
     }
 
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        return createDialog(getActivity(), (dialog, which) -> getActivity().startActivityForResult(intent, requestCode));
+        return createDialog(getActivity(), (dialog, which) -> getActivity().startActivity(intent));
     }
 
     /**
@@ -122,6 +110,5 @@ public class DataLoss extends CancelableDialogFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(INTENT_KEY, intent);
-        outState.putInt(REQUESTCODE_KEY, requestCode);
     }
 }
