@@ -394,7 +394,8 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
                     false);
         }
         final TagEditRow row = ensureEmptyRow(editRowLayout);
-        if (getUserVisibleHint()) { // don't request focus if we are not visible
+
+        if (isVisible()) { // don't request focus if we are not visible
             Log.d(DEBUG_TAG, "is visible setting focus");
             // all of this is only done on initial creation
             if (applyLastAddressTags) {

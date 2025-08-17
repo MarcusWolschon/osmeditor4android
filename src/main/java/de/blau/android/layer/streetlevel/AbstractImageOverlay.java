@@ -75,7 +75,7 @@ public abstract class AbstractImageOverlay extends de.blau.android.layer.mvt.Map
         this.setRendererInfo(TileLayerSource.get(map.getContext(), tileId, false));
         this.map = map;
         final Context context = map.getContext();
-        File[] storageDirs = ContextCompat.getExternalCacheDirs(context);
+        File[] storageDirs = context.getExternalCacheDirs();
         try {
             cacheDir = FileUtil.getPublicDirectory(storageDirs.length > 1 && storageDirs[1] != null ? storageDirs[1] : storageDirs[0], getName());
         } catch (IOException e) {

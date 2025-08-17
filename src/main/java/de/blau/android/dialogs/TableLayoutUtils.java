@@ -403,7 +403,7 @@ public final class TableLayoutUtils {
                 cell.setMovementMethod(LinkMovementMethod.getInstance());
             }
 
-            ViewCompat.setPaddingRelative(cell, 10, 0, 0, 0);
+            cell.setPaddingRelative(10, 0, 0, 0);
             cell.setEllipsize(TruncateAt.MARQUEE);
 
             if (tp != null) {
