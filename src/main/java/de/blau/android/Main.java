@@ -2319,9 +2319,9 @@ public class Main extends ConfigurationChangeAwareActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                public boolean read(Context context, Uri fileUri) {
                     try {
-                        logic.applyOscFile(currentActivity, fileUri, new PostFileReadCallback(currentActivity, fileUri.toString()));
+                        logic.applyOscFile(context, fileUri, new PostFileReadCallback(context, fileUri.toString()));
                     } catch (FileNotFoundException e) {
                         fileNotFound(fileUri);
                     }
@@ -2338,12 +2338,12 @@ public class Main extends ConfigurationChangeAwareActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                public boolean read(Context context, Uri fileUri) {
                     try {
                         if (item.getItemId() == R.id.menu_transfer_read_file) {
-                            logic.readOsmFile(currentActivity, fileUri, false);
+                            logic.readOsmFile(context, fileUri, false);
                         } else {
-                            logic.readPbfFile(currentActivity, fileUri, false);
+                            logic.readPbfFile(context, fileUri, false);
                         }
                     } catch (FileNotFoundException e) {
                         fileNotFound(fileUri);
@@ -2365,13 +2365,13 @@ public class Main extends ConfigurationChangeAwareActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                public boolean save(Context context, Uri fileUri) {
 
-                    App.getLogic().writeOsmFile(currentActivity, fileUri, new PostFileWriteCallback(currentActivity, fileUri.getPath()) {
+                    App.getLogic().writeOsmFile(context, fileUri, new PostFileWriteCallback(context, fileUri.getPath()) {
                         @Override
                         public void onSuccess() {
                             super.onSuccess();
-                            addExtensionIfNeeded(currentActivity, fileUri, FileExtensions.OSM);
+                            addExtensionIfNeeded(context, fileUri, FileExtensions.OSM);
                         }
                     });
 
@@ -2418,13 +2418,13 @@ public class Main extends ConfigurationChangeAwareActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean save(FragmentActivity currentActivity, Uri fileUri) {
-                    TransferTasks.writeOsnFile(currentActivity, item.getItemId() == R.id.menu_transfer_save_notes_all, fileUri,
-                            new PostFileWriteCallback(currentActivity, fileUri.toString()) {
+                public boolean save(Context context, Uri fileUri) {
+                    TransferTasks.writeOsnFile(context, item.getItemId() == R.id.menu_transfer_save_notes_all, fileUri,
+                            new PostFileWriteCallback(context, fileUri.toString()) {
                                 @Override
                                 public void onSuccess() {
                                     super.onSuccess();
-                                    addExtensionIfNeeded(currentActivity, fileUri, FileExtensions.OSN);
+                                    addExtensionIfNeeded(context, fileUri, FileExtensions.OSN);
                                 }
                             });
                     SelectFile.savePref(prefs, R.string.config_notesPreferredDir_key, fileUri);
@@ -2438,8 +2438,8 @@ public class Main extends ConfigurationChangeAwareActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
-                    TransferTasks.readOsnFile(currentActivity, fileUri, true, new PostFileReadCallback(currentActivity, fileUri.toString()));
+                public boolean read(Context context, Uri fileUri) {
+                    TransferTasks.readOsnFile(context, fileUri, true, new PostFileReadCallback(context, fileUri.toString()));
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     map.invalidate();
                     return true;
@@ -2452,8 +2452,8 @@ public class Main extends ConfigurationChangeAwareActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
-                    TransferTasks.readTodos(currentActivity, fileUri, false, new PostFileReadCallback(currentActivity, fileUri.toString()));
+                public boolean read(Context context, Uri fileUri) {
+                    TransferTasks.readTodos(context, fileUri, false, new PostFileReadCallback(context, fileUri.toString()));
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     map.invalidate();
                     return true;
@@ -2520,9 +2520,9 @@ public class Main extends ConfigurationChangeAwareActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
-                    try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(currentActivity)) {
-                        keyDatabase.keysFromStream(currentActivity, currentActivity.getContentResolver().openInputStream(fileUri));
+                public boolean read(Context context, Uri fileUri) {
+                    try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(context)) {
+                        keyDatabase.keysFromStream(context, context.getContentResolver().openInputStream(fileUri));
                         SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     } catch (FileNotFoundException fex) {
                         fileNotFound(fileUri);
@@ -2537,18 +2537,18 @@ public class Main extends ConfigurationChangeAwareActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
-                    try (InputStream in = currentActivity.getContentResolver().openInputStream(fileUri)) {
-                        File destDir = FileUtil.getApplicationDirectory(currentActivity, Paths.DIRECTORY_PATH_STYLES);
-                        String filename = ContentResolverUtil.getDisplaynameColumn(currentActivity, fileUri);
+                public boolean read(Context context, Uri fileUri) {
+                    try (InputStream in = context.getContentResolver().openInputStream(fileUri)) {
+                        File destDir = FileUtil.getApplicationDirectory(context, Paths.DIRECTORY_PATH_STYLES);
+                        String filename = ContentResolverUtil.getDisplaynameColumn(context, fileUri);
                         File dest = new File(destDir, filename);
                         FileUtil.copy(in, dest);
                         if (filename.toLowerCase(Locale.US).endsWith("." + FileExtensions.ZIP)) {
                             FileUtil.unpackZip(destDir.getAbsolutePath() + Paths.DELIMITER, filename);
                             dest.delete(); // NOSONAR delete the zip file
                         }
-                        App.getDataStyle(currentActivity).reset();
-                        App.getDataStyle(currentActivity).getStylesFromFiles(currentActivity);
+                        App.getDataStyle(context).reset();
+                        App.getDataStyle(context).getStylesFromFiles(context);
                         SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     } catch (IOException fex) {
                         fileNotFound(fileUri);
@@ -2619,8 +2619,8 @@ public class Main extends ConfigurationChangeAwareActivity
             private static final long serialVersionUID = 1L;
 
             @Override
-            public boolean save(FragmentActivity currentActivity, Uri fileUri) {
-                SavingHelper.asyncExport(currentActivity, delegator, fileUri);
+            public boolean save(Context context, Uri fileUri) {
+                SavingHelper.asyncExport(context, delegator, fileUri);
                 SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                 return true;
             }
@@ -2728,12 +2728,12 @@ public class Main extends ConfigurationChangeAwareActivity
             private static final long serialVersionUID = 1L;
 
             @Override
-            public boolean save(FragmentActivity currentActivity, Uri fileUri) {
-                TransferTasks.writeTodoFile(currentActivity, fileUri, listName, true, new PostFileWriteCallback(currentActivity, fileUri.getPath()) {
+            public boolean save(Context context, Uri fileUri) {
+                TransferTasks.writeTodoFile(context, fileUri, listName, true, new PostFileWriteCallback(context, fileUri.getPath()) {
                     @Override
                     public void onSuccess() {
                         super.onSuccess();
-                        addExtensionIfNeeded(currentActivity, fileUri, FileExtensions.JSON);
+                        addExtensionIfNeeded(context, fileUri, FileExtensions.JSON);
                     }
                 });
                 SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);

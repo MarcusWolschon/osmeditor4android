@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -43,13 +44,16 @@ import de.blau.android.presets.PresetElement;
  * @author Simon Poole
  *
  */
-public final class SelectFile {
+public final class SelectFile extends ActivityResultContract<SelectFile.Mode, Uri>
+ {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, SelectFile.class.getSimpleName().length());
     private static final String DEBUG_TAG = SelectFile.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final int SAVE_FILE = 7113;
     public static final int READ_FILE = 9340;
+    
+    enum Mode{Read, Save};
 
     private static SaveFile     saveCallback;
     private static final Object saveCallbackLock = new Object();
@@ -206,7 +210,7 @@ public final class SelectFile {
      * @param code returned request code
      * @param data the returned intent
      */
-    public static void handleResult(@NonNull FragmentActivity activity, int code, @NonNull Intent data) {
+    public static void handleResult(@NonNull Context activity, int code, @NonNull Intent data) {
         Uri uri = data.getData();
         ContentResolverUtil.persistPermissions(activity, data.getFlags(), uri);
         try {
@@ -227,20 +231,20 @@ public final class SelectFile {
      * @param activity the current Activity
      * @param uri the file Uri
      */
-    private static void callSaveCallback(@NonNull FragmentActivity activity, @Nullable Uri uri) {
+    private static void callSaveCallback(@NonNull Context activity, @Nullable Uri uri) {
         if (uri == null) {
             Log.e(DEBUG_TAG, "callSaveCallback called with null uri");
             return;
         }
         File file = new File(uri.getPath());
         if (file.exists()) {
-            ScreenMessage.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite, v -> {
-                synchronized (saveCallbackLock) {
-                    if (saveCallback != null) {
-                        saveCallback.save(activity, uri);
-                    }
-                }
-            });
+//            ScreenMessage.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite, v -> {
+//                synchronized (saveCallbackLock) {
+//                    if (saveCallback != null) {
+//                        saveCallback.save(activity, uri);
+//                    }
+//                }
+//            });
             return;
         }
         synchronized (saveCallbackLock) {
@@ -258,7 +262,7 @@ public final class SelectFile {
      * @param data the Intent
      * @param uri the file Uri
      */
-    private static void callReadCallback(@NonNull FragmentActivity activity, @NonNull Intent data, @Nullable Uri uri) {
+    private static void callReadCallback(@NonNull Context activity, @NonNull Intent data, @Nullable Uri uri) {
         synchronized (readCallbackLock) {
             if (readCallback != null) {
                 Log.d(DEBUG_TAG, "reading " + uri);
@@ -289,5 +293,17 @@ public final class SelectFile {
      */
     public static void savePref(Preferences prefs, int directoryPrefKey, Uri fileUri) {
         prefs.putString(directoryPrefKey, fileUri.toString());
+    }
+
+    @Override
+    public Intent createIntent(Context arg0, Mode arg1) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Uri parseResult(int arg0, Intent arg1) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

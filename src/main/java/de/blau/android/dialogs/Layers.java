@@ -448,13 +448,13 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             private static final long serialVersionUID = 1L;
 
             @Override
-            public boolean read(FragmentActivity activity, Uri fileUri) {
+            public boolean read(Context activity, Uri fileUri) {
                 addStyleableLayerFromUri(activity, prefs, map, type, fileUri, true);
                 return true;
             }
 
             @Override
-            public void read(FragmentActivity activity, List<Uri> fileUris) {
+            public void read(Context activity, List<Uri> fileUris) {
                 for (Uri fileUri : fileUris) {
                     addStyleableLayerFromUri(activity, prefs, map, type, fileUri, false);
                 }
@@ -545,7 +545,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             private static final long serialVersionUID = 1L;
 
             @Override
-            public boolean read(FragmentActivity activity, Uri fileUri) {
+            public boolean read(Context activity, Uri fileUri) {
                 Style style = new Style();
                 try {
                     if (ContentResolverUtil.getSizeColumn(activity, fileUri) > MAX_STYLE_FILE_SIZE) {
