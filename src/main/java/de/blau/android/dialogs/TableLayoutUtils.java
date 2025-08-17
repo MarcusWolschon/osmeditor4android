@@ -19,7 +19,6 @@ import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
 import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
 

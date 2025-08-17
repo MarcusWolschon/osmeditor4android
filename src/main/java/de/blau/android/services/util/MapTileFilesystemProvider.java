@@ -21,7 +21,6 @@ import android.os.Looper;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.exception.InvalidTileException;

@@ -161,7 +161,7 @@ public class PresetFilter extends CommonFilter {
             if (parents != null) {
                 for (Relation r : parents) {
                     Include relationInclude = testRelation(r, false);
-                    if (relationInclude != null && relationInclude != Include.DONT) {
+                    if (relationInclude != Include.DONT) {
                         return relationInclude; // inherit include status from relation
                     }
                 }

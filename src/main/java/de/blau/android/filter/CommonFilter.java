@@ -86,7 +86,7 @@ public abstract class CommonFilter extends InvertableFilter {
             final boolean notCached = includeNode == null;
             if (notCached || includeNode != newInclude) {
                 // if has tags and isn't cached yet do it now
-                if (notCached && ((n.hasTags() || n.hasParentRelations()))) { // no entry yet so we have
+                if (notCached && (n.hasTags() || n.hasParentRelations())) { // no entry yet so we have
                     // to check tags and
                     // relations
                     include(n, false);

@@ -18,7 +18,6 @@ import android.text.SpannableString;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.Map;
 import de.blau.android.osm.ViewBox;
