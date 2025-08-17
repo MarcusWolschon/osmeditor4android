@@ -363,7 +363,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
 
         File mountPoint = null;
 
-        for (File dir : ContextCompat.getExternalFilesDirs(ctx, null)) { // iterate over the directories
+        for (File dir : ctx.getExternalFilesDirs(null)) { // iterate over the directories
                                                                          // preferring a removable one if
                                                                          // required
             if (dir == null || !dir.canWrite()) {
