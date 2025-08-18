@@ -436,27 +436,27 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
     /**
      * Add a StyleableLayer from a file
      * 
-     * @param activity the calling Activity
+     * @param context the calling Activity
      * @param prefs current Preferences
      * @param map current Map
      * @param type the layer type
      */
-    private void addStyleableLayerFromFile(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map,
+    private void addStyleableLayerFromFile(@NonNull final Context context, @NonNull final Preferences prefs, @NonNull final Map map,
             @NonNull final LayerType type) {
         Log.d(DEBUG_TAG, "addStyleableLayerFromFile");
-        SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
+        SelectFile.read(context, R.string.config_osmPreferredDir_key, new ReadFile() {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public boolean read(Context activity, Uri fileUri) {
-                addStyleableLayerFromUri(activity, prefs, map, type, fileUri, true);
+            public boolean read(Context context, Uri fileUri) {
+                addStyleableLayerFromUri(context, prefs, map, type, fileUri, true);
                 return true;
             }
 
             @Override
-            public void read(Context activity, List<Uri> fileUris) {
+            public void read(Context context, List<Uri> fileUris) {
                 for (Uri fileUri : fileUris) {
-                    addStyleableLayerFromUri(activity, prefs, map, type, fileUri, false);
+                    addStyleableLayerFromUri(context, prefs, map, type, fileUri, false);
                 }
             }
         }, true);
@@ -472,8 +472,8 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
      * @param fileUri the file uri
      * @param showDialog show the style dialog if true
      */
-    private void addStyleableLayerFromUri(@NonNull final Context context, @NonNull final Preferences prefs, @NonNull final Map map,
-            @NonNull LayerType type, @NonNull Uri fileUri, boolean showDialog) {
+    private void addStyleableLayerFromUri(@NonNull final Context context, @NonNull final Preferences prefs, @NonNull final Map map, @NonNull LayerType type,
+            @NonNull Uri fileUri, boolean showDialog) {
         String uriString = fileUri.toString();
         de.blau.android.layer.StyleableLayer layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
         if (layer == null) {
@@ -492,8 +492,8 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             map.setUpLayers(context);
             layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
             if (layer != null) { // if null setUpLayers will have toasted
-                if (showDialog) {
-                    LayerStyle.showDialog(context, layer.getIndex());
+                if (showDialog && context instanceof FragmentActivity) {
+                    LayerStyle.showDialog((FragmentActivity) context, layer.getIndex());
                 }
                 SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                 layer.invalidate();
@@ -1183,13 +1183,13 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                         private static final long serialVersionUID = 1L;
 
                         @Override
-                        public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                        public boolean save(Context context, Uri fileUri) {
                             // FIXME layer will likely not be valid if the activity has been recreated
                             if (layer != null) {
                                 final Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
                                 if (track != null) {
-                                    SavingHelper.asyncExport(currentActivity, track, fileUri);
-                                    SaveFile.addExtensionIfNeeded(currentActivity, fileUri, FileExtensions.GPX);
+                                    SavingHelper.asyncExport(context, track, fileUri);
+                                    SaveFile.addExtensionIfNeeded(context, fileUri, FileExtensions.GPX);
                                     SelectFile.savePref(App.getLogic().getPrefs(), R.string.config_osmPreferredDir_key, fileUri);
                                 }
                             }
@@ -1246,15 +1246,15 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                                 private static final long serialVersionUID = 1L;
 
                                 @Override
-                                public boolean read(FragmentActivity activity, Uri fileUri) {
+                                public boolean read(Context context, Uri fileUri) {
                                     try {
-                                        convertTodos(activity, map, (de.blau.android.layer.geojson.MapOverlay) layer,
-                                                FileUtil.readToString(new InputStreamReader(activity.getContentResolver().openInputStream(fileUri))));
+                                        convertTodos(context, map, (de.blau.android.layer.geojson.MapOverlay) layer,
+                                                FileUtil.readToString(new InputStreamReader(context.getContentResolver().openInputStream(fileUri))));
                                     } catch (FileNotFoundException e) {
-                                        ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_file_not_found, fileUri.toString()));
+                                        ScreenMessage.toastTopError(context, context.getString(R.string.toast_file_not_found, fileUri.toString()));
                                         return false;
                                     } catch (IOException e) {
-                                        ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_error_reading, fileUri.toString()));
+                                        ScreenMessage.toastTopError(context, context.getString(R.string.toast_error_reading, fileUri.toString()));
                                         return false;
                                     }
                                     return true;
@@ -1333,34 +1333,37 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
     /**
      * Convert all GeoJSOn objects in a layer to todos // NOSONAR
      * 
-     * @param activity the current Activity
+     * @param context the current Activity
      * @param map the current Map instance
      * @param layer the GeoJSON layer
      * @param script an optionalJavaScript conversion script
      */
-    private static void convertTodos(@NonNull final FragmentActivity activity, @NonNull final Map map, @Nullable de.blau.android.layer.geojson.MapOverlay layer,
+    private static void convertTodos(@NonNull final Context context, @NonNull final Map map, @Nullable de.blau.android.layer.geojson.MapOverlay layer,
             @Nullable final String script) { // NOSONAR needs to be here
         new ExecutorTask<String, Void, Void>() {
             @Override
             protected Void doInBackground(String script) throws Exception {
-                if (layer != null && activity instanceof Main) {
-                    List<Todo> todos = new ArrayList<>();
-                    try {
-                        for (Feature f : layer.getFeatures()) {
-                            todos.add(new Todo(activity, layer.getName(), f, script));
-                        }
-                        final TaskStorage bugs = App.getTaskStorage();
-                        TransferTasks.merge(activity, bugs, todos);
-                        TransferTasks.addBoundingBoxFromData(bugs, todos);
-                        map.invalidate();
-                        activity.invalidateOptionsMenu();
-                        return null;
-                    } catch (RhinoException ex) {
-                        handleRhinoException(activity, layer, script, ex);
-                    } catch (Exception ex) {
-                        Log.e(DEBUG_TAG, ex.getMessage());
-                        ScreenMessage.toastTopError(activity, ex.getMessage(), true);
+                if (layer == null) {
+                    return null;
+                }
+                List<Todo> todos = new ArrayList<>();
+                try {
+                    for (Feature f : layer.getFeatures()) {
+                        todos.add(new Todo(context, layer.getName(), f, script));
                     }
+                    final TaskStorage bugs = App.getTaskStorage();
+                    TransferTasks.merge(context, bugs, todos);
+                    TransferTasks.addBoundingBoxFromData(bugs, todos);
+                    map.invalidate();
+                    if (context instanceof FragmentActivity) {
+                        ((FragmentActivity) context).invalidateOptionsMenu();
+                    }
+                    return null;
+                } catch (RhinoException ex) {
+                    handleRhinoException(context, layer, script, ex);
+                } catch (Exception ex) {
+                    Log.e(DEBUG_TAG, ex.getMessage());
+                    ScreenMessage.toastTopError(context, ex.getMessage(), true);
                 }
                 return null;
             }
@@ -1370,23 +1373,24 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
     /**
      * Show the contents of a RhinoException in the JS console together with the script
      * 
-     * @param activity current Activity
+     * @param context current Activity
      * @param layer the GeoJSON layer
      * @param script the script
      * @param ex the exception
      */
-    private static void handleRhinoException(final FragmentActivity activity, de.blau.android.layer.geojson.MapOverlay layer, String script,
-            RhinoException ex) {
-        String message = activity.getString(R.string.rhino_exception, ex.lineNumber(), ex.columnNumber(), ex.details());
+    private static void handleRhinoException(final Context context, de.blau.android.layer.geojson.MapOverlay layer, String script, RhinoException ex) {
+        String message = context.getString(R.string.rhino_exception, ex.lineNumber(), ex.columnNumber(), ex.details());
         Log.e(DEBUG_TAG, "Exception processing feature for TODO conversion " + message);
-        int layerIndex = layer.getIndex();
-        ConsoleDialog.showDialog(activity, R.string.tag_menu_js_console, -1, -1, script, message, (context, input, flag1, flag2) -> {
-            // we need to avoid references to fields in this class or else we will crash when this gets
-            // serialized
-            Map map = App.getLogic().getMap();
-            convertTodos((Main) context, map, (de.blau.android.layer.geojson.MapOverlay) map.getLayer(layerIndex), input);
-            return null;
-        }, true);
+        if (context instanceof FragmentActivity) {
+            int layerIndex = layer.getIndex();
+            ConsoleDialog.showDialog((FragmentActivity) context, R.string.tag_menu_js_console, -1, -1, script, message, (c, input, flag1, flag2) -> {
+                // we need to avoid references to fields in this class or else we will crash when this gets
+                // serialized
+                Map map = App.getLogic().getMap();
+                convertTodos(c, map, (de.blau.android.layer.geojson.MapOverlay) map.getLayer(layerIndex), input);
+                return null;
+            }, true);
+        }
     }
 
     /**

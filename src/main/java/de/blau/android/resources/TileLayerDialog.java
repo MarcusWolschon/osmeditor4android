@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -180,8 +181,11 @@ public class TileLayerDialog extends CancelableDialogFragment {
         private static final long serialVersionUID = 1L;
 
         @Override
-        public boolean read(FragmentActivity currentActivity, final Uri contentUri) {
-            TileLayerDialog fragment = (TileLayerDialog) FragmentUtil.findFragmentByTag(currentActivity, TAG);
+        public boolean read(Context context, final Uri contentUri) {
+            if (!(context instanceof FragmentActivity)) {
+                return false;
+            }
+            TileLayerDialog fragment = (TileLayerDialog) FragmentUtil.findFragmentByTag((FragmentActivity) context, TAG);
             if (fragment == null) {
                 Log.e(DEBUG_TAG, "Restored fragment is null");
                 return false;
@@ -189,10 +193,10 @@ public class TileLayerDialog extends CancelableDialogFragment {
             // on Android API 29 and up we need to copy the file
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 // copy file
-                String fileName = ContentResolverUtil.getDisplaynameColumn(currentActivity, contentUri);
+                String fileName = ContentResolverUtil.getDisplaynameColumn(context, contentUri);
                 try {
                     final File destination = new File(FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_IMPORTS), fileName);
-                    FileUtil.importFile(currentActivity, contentUri, destination,
+                    FileUtil.importFile((FragmentActivity) context, contentUri, destination,
                             () -> configureFromFile(fragment, Uri.parse(FileUtil.FILE_SCHEME_PREFIX + destination.getAbsolutePath())));
                 } catch (IOException ex) {
                     return false;
@@ -200,9 +204,9 @@ public class TileLayerDialog extends CancelableDialogFragment {
                 return true;
             } else {
                 // rewrite content: Uris
-                final Uri fileUri = FileUtil.contentUriToFileUri(currentActivity, contentUri);
+                final Uri fileUri = FileUtil.contentUriToFileUri(context, contentUri);
                 if (fileUri == null) {
-                    ScreenMessage.toastTopError(currentActivity, R.string.not_found_title);
+                    ScreenMessage.toastTopError(context, R.string.not_found_title);
                     return false;
                 }
                 return configureFromFile(fragment, fileUri);

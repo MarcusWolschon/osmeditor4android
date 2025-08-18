@@ -44,16 +44,17 @@ import de.blau.android.presets.PresetElement;
  * @author Simon Poole
  *
  */
-public final class SelectFile extends ActivityResultContract<SelectFile.Mode, Uri>
- {
+public final class SelectFile extends ActivityResultContract<SelectFile.Mode, Uri> {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, SelectFile.class.getSimpleName().length());
     private static final String DEBUG_TAG = SelectFile.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final int SAVE_FILE = 7113;
     public static final int READ_FILE = 9340;
-    
-    enum Mode{Read, Save};
+
+    enum Mode {
+        Read, Save
+    };
 
     private static SaveFile     saveCallback;
     private static final Object saveCallbackLock = new Object();
@@ -76,13 +77,12 @@ public final class SelectFile extends ActivityResultContract<SelectFile.Mode, Ur
      * @param directoryPrefKey string resources for shared preferences for preferred (last) directory
      * @param callback callback that does the actual saving, should call {@link #savePref(Preferences, int, Uri)}
      */
-    public static void save(@NonNull FragmentActivity activity, @Nullable String mimeType, int directoryPrefKey,
-            @NonNull de.blau.android.util.SaveFile callback) {
+    public static void save(@NonNull Context context, @Nullable String mimeType, int directoryPrefKey, @NonNull de.blau.android.util.SaveFile callback) {
         synchronized (saveCallbackLock) {
             saveCallback = callback;
         }
-        String path = App.getPreferences(activity).getString(directoryPrefKey);
-        startFileSelector(activity, Intent.ACTION_CREATE_DOCUMENT, SAVE_FILE, path, mimeType, false);
+        String path = App.getPreferences(context).getString(directoryPrefKey);
+        startFileSelector(context, Intent.ACTION_CREATE_DOCUMENT, SAVE_FILE, path, mimeType, false);
     }
 
     /**
@@ -91,23 +91,23 @@ public final class SelectFile extends ActivityResultContract<SelectFile.Mode, Ur
      * @param readFile callback callback that does the actual saving, should call
      *            {@link #savePref(Preferences, int, Uri)}
      */
-    public static void read(@NonNull FragmentActivity activity, int directoryPrefKey, @NonNull ReadFile readFile) {
-        read(activity, directoryPrefKey, readFile, false);
+    public static void read(@NonNull Context context, int directoryPrefKey, @NonNull ReadFile readFile) {
+        read(context, directoryPrefKey, readFile, false);
     }
 
     /**
-     * @param activity activity activity that called us
+     * @param context activity activity that called us
      * @param directoryPrefKey string resources for shared preferences for preferred (last) directory
      * @param readFile callback callback that does the actual saving, should call
      *            {@link #savePref(Preferences, int, Uri)}
      * @param allowMultiple if true support selecting multiple files
      */
-    public static void read(@NonNull FragmentActivity activity, int directoryPrefKey, @NonNull ReadFile readFile, boolean allowMultiple) {
+    public static void read(@NonNull Context context, int directoryPrefKey, @NonNull ReadFile readFile, boolean allowMultiple) {
         synchronized (readCallbackLock) {
             readCallback = readFile;
         }
-        String path = App.getPreferences(activity).getString(directoryPrefKey);
-        startFileSelector(activity, Intent.ACTION_OPEN_DOCUMENT, READ_FILE, path, null, allowMultiple);
+        String path = App.getPreferences(context).getString(directoryPrefKey);
+        startFileSelector(context, Intent.ACTION_OPEN_DOCUMENT, READ_FILE, path, null, allowMultiple);
     }
 
     /**
@@ -139,14 +139,14 @@ public final class SelectFile extends ActivityResultContract<SelectFile.Mode, Ur
         List<ResolveInfo> activities = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                 ? pm.queryIntentActivities(i, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_ALL))
                 : pm.queryIntentActivities(i, PackageManager.MATCH_ALL);
-//        if (activities.isEmpty() && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-//            ErrorAlert.showDialog(context, ErrorCodes.REQUIRED_FEATURE_MISSING, "file selector");
-//            return;
-//        }
-//        if (activities.size() > 1) { // multiple activities support the required action
-//            selectFileSelectorActivity(context, pm, activities, i, intentRequestCode);
-//            return;
-//        }
+        // if (activities.isEmpty() && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+        // ErrorAlert.showDialog(context, ErrorCodes.REQUIRED_FEATURE_MISSING, "file selector");
+        // return;
+        // }
+        // if (activities.size() > 1) { // multiple activities support the required action
+        // selectFileSelectorActivity(context, pm, activities, i, intentRequestCode);
+        // return;
+        // }
         return i;
     }
 
@@ -238,13 +238,14 @@ public final class SelectFile extends ActivityResultContract<SelectFile.Mode, Ur
         }
         File file = new File(uri.getPath());
         if (file.exists()) {
-//            ScreenMessage.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite, v -> {
-//                synchronized (saveCallbackLock) {
-//                    if (saveCallback != null) {
-//                        saveCallback.save(activity, uri);
-//                    }
-//                }
-//            });
+            // ScreenMessage.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists,
+            // file.getName()), R.string.overwrite, v -> {
+            // synchronized (saveCallbackLock) {
+            // if (saveCallback != null) {
+            // saveCallback.save(activity, uri);
+            // }
+            // }
+            // });
             return;
         }
         synchronized (saveCallbackLock) {

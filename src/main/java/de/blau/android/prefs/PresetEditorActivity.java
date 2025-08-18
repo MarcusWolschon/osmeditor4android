@@ -434,8 +434,11 @@ public class PresetEditorActivity extends URLListEditActivity {
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
-                    final Dialog dialog = FragmentUtil.findDialogByTag(currentActivity, ITEM_EDIT_DIALOG_TAG);
+                public boolean read(Context context, Uri fileUri) {
+                    if (!(context instanceof FragmentActivity)) {
+                        return false;
+                    }
+                    final Dialog dialog = FragmentUtil.findDialogByTag((FragmentActivity) context, ITEM_EDIT_DIALOG_TAG);
                     if (dialog == null) {
                         Log.e(DEBUG_TAG, "Dialog is null");
                         return false;
@@ -443,7 +446,7 @@ public class PresetEditorActivity extends URLListEditActivity {
                     final TextView editValue = (TextView) dialog.findViewById(R.id.listedit_editValue);
 
                     editValue.setText(fileUri.toString());
-                    SelectFile.savePref(new Preferences(currentActivity), R.string.config_presetsPreferredDir_key, fileUri);
+                    SelectFile.savePref(new Preferences(context), R.string.config_presetsPreferredDir_key, fileUri);
                     return true;
                 }
             }));
