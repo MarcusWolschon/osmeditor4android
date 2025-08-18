@@ -465,43 +465,43 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
     /**
      * Add a StyleableLayer from a file Uri
      * 
-     * @param activity the calling Activity
+     * @param context Android Context
      * @param prefs current Preferences
      * @param map current Map
      * @param type the layer type
      * @param fileUri the file uri
      * @param showDialog show the style dialog if true
      */
-    private void addStyleableLayerFromUri(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map,
+    private void addStyleableLayerFromUri(@NonNull final Context context, @NonNull final Preferences prefs, @NonNull final Map map,
             @NonNull LayerType type, @NonNull Uri fileUri, boolean showDialog) {
         String uriString = fileUri.toString();
         de.blau.android.layer.StyleableLayer layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
         if (layer == null) {
             Log.d(DEBUG_TAG, "addStyleableLayerFromUri " + uriString);
-            final ContentResolver contentResolver = activity.getContentResolver();
+            final ContentResolver contentResolver = context.getContentResolver();
             String mimeType = contentResolver.getType(fileUri);
             if (MimeTypes.TEXTCSV.equals(mimeType)) {
                 try {
-                    uriString = convertCSV(activity, fileUri).toString();
+                    uriString = convertCSV(context, fileUri).toString();
                 } catch (IOException | CsvException | SecurityException | IllegalArgumentException e) {
-                    ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_error_converting, e.getLocalizedMessage()));
+                    ScreenMessage.toastTopError(context, context.getString(R.string.toast_error_converting, e.getLocalizedMessage()));
                     return;
                 }
             }
-            de.blau.android.layer.Util.addLayer(activity, type, uriString);
-            map.setUpLayers(activity);
+            de.blau.android.layer.Util.addLayer(context, type, uriString);
+            map.setUpLayers(context);
             layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
             if (layer != null) { // if null setUpLayers will have toasted
                 if (showDialog) {
-                    LayerStyle.showDialog(activity, layer.getIndex());
+                    LayerStyle.showDialog(context, layer.getIndex());
                 }
                 SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                 layer.invalidate();
                 tl.removeAllViews();
-                addRows(activity);
+                addRows(context);
             }
         } else {
-            ScreenMessage.toastTopWarning(activity, activity.getString(R.string.toast_styleable_layer_exists, fileUri.getLastPathSegment()));
+            ScreenMessage.toastTopWarning(context, context.getString(R.string.toast_styleable_layer_exists, fileUri.getLastPathSegment()));
         }
     }
 
@@ -536,32 +536,32 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
      * 
      * Adds a custom imagery entry then sets the style
      * 
-     * @param activity the calling Activity
+     * @param context Android Context
      * @param prefs current Preferences
      * @param map current Map
      */
-    private void addMVTLayerFromStyle(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map) {
-        SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
+    private void addMVTLayerFromStyle(@NonNull final Context context, @NonNull final Preferences prefs, @NonNull final Map map) {
+        SelectFile.read(context, R.string.config_osmPreferredDir_key, new ReadFile() {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public boolean read(Context activity, Uri fileUri) {
+            public boolean read(Context context, Uri fileUri) {
                 Style style = new Style();
                 try {
-                    if (ContentResolverUtil.getSizeColumn(activity, fileUri) > MAX_STYLE_FILE_SIZE) {
-                        ScreenMessage.toastTopError(activity, R.string.toast_style_file_too_large);
+                    if (ContentResolverUtil.getSizeColumn(context, fileUri) > MAX_STYLE_FILE_SIZE) {
+                        ScreenMessage.toastTopError(context, R.string.toast_style_file_too_large);
                         return false;
                     }
-                    style.loadStyle(activity, activity.getContentResolver().openInputStream(fileUri));
+                    style.loadStyle(context, context.getContentResolver().openInputStream(fileUri));
                     if (style.getSources().size() != 1) {
-                        ScreenMessage.toastTopError(activity, R.string.toast_only_one_source_supported);
+                        ScreenMessage.toastTopError(context, R.string.toast_only_one_source_supported);
                         return false;
                     }
                     Entry<String, Source> entry = new ArrayList<>(style.getSources().entrySet()).get(0);
-                    try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-                        String id = entry.getValue().createLayer(activity, db, entry.getKey(), Category.other, true);
-                        de.blau.android.layer.Util.addLayer(activity, LayerType.OVERLAYIMAGERY, id);
-                        updateDialogAndPrefs(activity, prefs, map);
+                    try (TileLayerDatabase tlDb = new TileLayerDatabase(context); SQLiteDatabase db = tlDb.getWritableDatabase()) {
+                        String id = entry.getValue().createLayer(context, db, entry.getKey(), Category.other, true);
+                        de.blau.android.layer.Util.addLayer(context, LayerType.OVERLAYIMAGERY, id);
+                        updateDialogAndPrefs(context, prefs, map);
                         de.blau.android.layer.mvt.MapOverlay mvtLayer = (MapOverlay) map.getLayer(LayerType.OVERLAYIMAGERY, id);
                         if (mvtLayer != null) {
                             mvtLayer.setStyle(style);
@@ -571,10 +571,10 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     }
                     return true;
                 } catch (FileNotFoundException e) {
-                    ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_file_not_found, fileUri.toString()));
+                    ScreenMessage.toastTopError(context, context.getString(R.string.toast_file_not_found, fileUri.toString()));
                     return false;
                 } catch (OsmIllegalOperationException e) {
-                    ScreenMessage.toastTopError(activity, e.getMessage());
+                    ScreenMessage.toastTopError(context, e.getMessage());
                     return false;
                 }
             }
@@ -584,14 +584,14 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
     /**
      * Update the dialog and set the prefs
      * 
-     * @param activity calling FragmentActivity
+     * @param context Android Context
      * @param prefs Preference instance to set
      * @param map the current Map instance
      */
-    private void updateDialogAndPrefs(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map) {
-        setPrefs(activity, prefs);
+    private void updateDialogAndPrefs(@NonNull final Context context, @NonNull final Preferences prefs, @NonNull final Map map) {
+        setPrefs(context, prefs);
         tl.removeAllViews();
-        addRows(activity);
+        addRows(context);
         map.invalidate();
     }
 
@@ -1611,13 +1611,13 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
     /**
      * Set the Preference instance in Main, Logic and Map
      * 
-     * @param activity the calling FragmentActivity
+     * @param context Android Context
      * @param prefs the new Preference object
      */
-    private void setPrefs(@Nullable FragmentActivity activity, @NonNull Preferences prefs) {
-        if (activity instanceof Main) {
-            ((Main) activity).updatePrefs(prefs);
-            App.getLogic().getMap().setPrefs(activity, prefs);
+    private void setPrefs(@Nullable Context context, @NonNull Preferences prefs) {
+        if (context instanceof Main) {
+            ((Main) context).updatePrefs(prefs);
+            App.getLogic().getMap().setPrefs(context, prefs);
         }
     }
 

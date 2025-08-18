@@ -4074,28 +4074,27 @@ public class Logic {
     /**
      * Read a file in (J)OSM format from device
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param uri uri of file to load
      * @param add unused currently
      * @throws FileNotFoundException when the selected file could not be found
      */
-    public void readOsmFile(@NonNull final FragmentActivity activity, final Uri uri, boolean add) throws FileNotFoundException {
-        readOsmFile(activity, uri, add, null);
+    public void readOsmFile(@NonNull final Context context, final Uri uri, boolean add) throws FileNotFoundException {
+        readOsmFile(context, uri, add, null);
     }
 
     /**
      * Read a file in (J)OSM format from device
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param uri uri of file to load
      * @param add unused currently
      * @param postLoad callback to execute once file is loaded
      * @throws FileNotFoundException when the selected file could not be found
      */
-    public void readOsmFile(@NonNull final FragmentActivity activity, final Uri uri, boolean add, final PostAsyncActionHandler postLoad)
-            throws FileNotFoundException {
-        final InputStream is = activity.getContentResolver().openInputStream(uri);
-        readOsmFile(activity, is, add, postLoad);
+    public void readOsmFile(@NonNull final Context context, final Uri uri, boolean add, final PostAsyncActionHandler postLoad) throws FileNotFoundException {
+        final InputStream is = context.getContentResolver().openInputStream(uri);
+        readOsmFile(context, is, add, postLoad);
     }
 
     /**
@@ -4174,16 +4173,16 @@ public class Logic {
     /**
      * Write data to an URI in (J)OSM compatible format¨
      * 
-     * @param activity the calling FragmentActivity
+     * @param context Android Context
      * @param uri URI to save to
      * @param postSaveHandler if not null executes code after saving
      */
-    public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable final PostAsyncActionHandler postSaveHandler) {
+    public void writeOsmFile(@NonNull final Context context, @NonNull final Uri uri, @Nullable final PostAsyncActionHandler postSaveHandler) {
         try {
-            writeOsmFile(activity, activity.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE), postSaveHandler);
+            writeOsmFile(context, context.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE), postSaveHandler);
         } catch (IOException e) {
-            if (!activity.isFinishing()) {
-                ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
+            if (context instanceof FragmentActivity && !((FragmentActivity) context).isFinishing()) {
+                ErrorAlert.showDialog((FragmentActivity) context, ErrorCodes.FILE_WRITE_FAILED);
             }
             if (postSaveHandler != null) {
                 postSaveHandler.onError(null);
@@ -4194,18 +4193,21 @@ public class Logic {
     /**
      * Asynchronously write data to an OutputStream in (J)OSM compatible format
      * 
-     * @param activity the calling FragmentActivity
+     * @param context Android Context
      * @param fout OutputStream to write to, note: do not close in caller
      * @param postSaveHandler if not null executes code after saving
      */
-    private void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fout,
-            @Nullable final PostAsyncActionHandler postSaveHandler) {
+    private void writeOsmFile(@NonNull final Context context, @NonNull final OutputStream fout, @Nullable final PostAsyncActionHandler postSaveHandler) {
+
+        final FragmentActivity activity = context instanceof FragmentActivity ? (FragmentActivity) context : null;
 
         new ExecutorTask<Void, Void, Integer>(executorService, uiHandler) {
 
             @Override
             protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_SAVING);
+                if (activity != null) {
+                    Progress.showDialog(activity, Progress.PROGRESS_SAVING);
+                }
             }
 
             @Override
@@ -4224,8 +4226,10 @@ public class Logic {
 
             @Override
             protected void onPostExecute(Integer result) {
-                Progress.dismissDialog(activity, Progress.PROGRESS_SAVING);
-                Map mainMap = activity instanceof Main ? ((Main) activity).getMap() : null;
+                if (activity != null) {
+                    Progress.dismissDialog(activity, Progress.PROGRESS_SAVING);
+                }
+                Map mainMap = context instanceof Main ? ((Main) context).getMap() : null;
                 if (mainMap != null) {
                     try {
                         viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
@@ -4255,30 +4259,29 @@ public class Logic {
     /**
      * Read a stream in PBF format
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param uri the file uri
      * @param add unused currently (if there are new objects in the file they could potentially conflict with in memory
      *            ones)
      * @throws FileNotFoundException when the selected file could not be found
      */
-    public void readPbfFile(@NonNull final FragmentActivity activity, @NonNull Uri uri, boolean add) throws FileNotFoundException {
-        final InputStream is = activity.getContentResolver().openInputStream(uri);
-        readPbfFile(activity, is, add, null);
+    public void readPbfFile(@NonNull final Context context, @NonNull Uri uri, boolean add) throws FileNotFoundException {
+        final InputStream is = context.getContentResolver().openInputStream(uri);
+        readPbfFile(context, is, add, null);
     }
 
     /**
      * Read a stream in PBF format
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param is InputStream
      * @param add unused currently (if there are new objects in the file they could potentially conflict with in memory
      *            ones)
      * @param postLoad callback to execute once stream has been loaded
      */
-    private void readPbfFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
-            @Nullable final PostAsyncActionHandler postLoad) {
+    private void readPbfFile(@NonNull final Context context, @NonNull final InputStream is, boolean add, @Nullable final PostAsyncActionHandler postLoad) {
 
-        new ReadAsyncClass(executorService, uiHandler, activity, is, add, postLoad) {
+        new ReadAsyncClass(executorService, uiHandler, context, is, add, postLoad) {
             @Override
             protected AsyncResult doInBackground(Boolean arg) {
                 try {
@@ -4314,17 +4317,16 @@ public class Logic {
      * 
      * Supports OsmAnd extension for Notes
      * 
-     * @param activity the calling activity
+     * @param context Android Context
      * @param fileUri the URI for the file
      * @param postLoad a callback to call post load
      * @throws FileNotFoundException if the file coudn't be found
      */
-    public void applyOscFile(@NonNull FragmentActivity activity, @NonNull Uri fileUri, @Nullable final PostAsyncActionHandler postLoad)
-            throws FileNotFoundException {
+    public void applyOscFile(@NonNull Context context, @NonNull Uri fileUri, @Nullable final PostAsyncActionHandler postLoad) throws FileNotFoundException {
 
-        final InputStream is = activity.getContentResolver().openInputStream(fileUri);
+        final InputStream is = context.getContentResolver().openInputStream(fileUri);
 
-        new ReadAsyncClass(executorService, uiHandler, activity, is, false, postLoad) {
+        new ReadAsyncClass(executorService, uiHandler, context, is, false, postLoad) {
             @Override
             protected AsyncResult doInBackground(Boolean arg) {
                 StorageDelegator sd = getDelegator();

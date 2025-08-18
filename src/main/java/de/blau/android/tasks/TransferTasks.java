@@ -495,14 +495,13 @@ public final class TransferTasks {
      * @param postWrite a supplied handler
      * @param e the Exception
      */
-    private static void handleExceptionOnWrite(@NonNull final FragmentActivity activity, @Nullable final PostAsyncActionHandler postWrite,
-            @NonNull IOException e) {
+    private static void handleExceptionOnWrite(@Nullable final Context context, @Nullable final PostAsyncActionHandler postWrite, @NonNull IOException e) {
         Log.e(DEBUG_TAG, "Problem writing", e);
         if (postWrite != null) {
             postWrite.onError(null);
         }
-        if (!activity.isFinishing()) {
-            ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
+        if (context instanceof FragmentActivity && !((FragmentActivity) context).isFinishing()) {
+            ErrorAlert.showDialog(((FragmentActivity) context), ErrorCodes.FILE_WRITE_FAILED);
         }
     }
 
@@ -511,17 +510,17 @@ public final class TransferTasks {
      * 
      * If fileName contains directories these are created, otherwise it is stored in the standard public dir
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param all if true write all notes, if false just those that have been modified
      * @param uri Uri to write to
      * @param postWrite handler to execute after the task has finished
      */
-    public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final Uri uri,
+    public static void writeOsnFile(@NonNull final Context context, final boolean all, @NonNull final Uri uri,
             @Nullable final PostAsyncActionHandler postWrite) {
         try {
-            writeOsnFile(activity, all, new BufferedOutputStream(activity.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE)), postWrite);
+            writeOsnFile(context, all, new BufferedOutputStream(context.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE)), postWrite);
         } catch (IOException e) {
-            handleExceptionOnWrite(activity, postWrite, e);
+            handleExceptionOnWrite(context, postWrite, e);
         }
     }
 
@@ -530,19 +529,22 @@ public final class TransferTasks {
      * 
      * If fileName contains directories these are created, otherwise it is stored in the standard public dir
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param all if true write all notes, if false just those that have been modified
      * @param out OutputStream to write to
      * @param postWrite handler to execute after the task has finished
      */
-    private static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final OutputStream out,
+    private static void writeOsnFile(@NonNull final Context context, final boolean all, @NonNull final OutputStream out,
             @Nullable final PostAsyncActionHandler postWrite) {
         Logic logic = App.getLogic();
+
         new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_SAVING);
+                if (context instanceof FragmentActivity) {
+                    Progress.showDialog((FragmentActivity) context, Progress.PROGRESS_SAVING);
+                }
             }
 
             @Override
@@ -575,7 +577,7 @@ public final class TransferTasks {
 
             @Override
             protected void onPostExecute(Integer result) {
-                finishWriting(activity, result, postWrite);
+                finishWriting(context, result, postWrite);
             }
 
         }.execute();
@@ -584,17 +586,16 @@ public final class TransferTasks {
     /**
      * Read an Uri in OSN format
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param uri Uri to read
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
-    public static void readOsnFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, final boolean add,
-            @Nullable final PostAsyncActionHandler postLoad) {
+    public static void readOsnFile(@NonNull final Context context, @NonNull final Uri uri, final boolean add, @Nullable final PostAsyncActionHandler postLoad) {
         try {
             // don't use try with resources as this will close the InputStream while we are still reading it
-            InputStream is = activity.getContentResolver().openInputStream(uri); // NOSONAR
-            readOsnFile(activity, is, add, postLoad);
+            InputStream is = context.getContentResolver().openInputStream(uri); // NOSONAR
+            readOsnFile(context, is, add, postLoad);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem parsing opening inputstream", e);
         }
@@ -605,19 +606,21 @@ public final class TransferTasks {
      * 
      * Assumes that we have checked for changed Notes in advanced if add is not set to true
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param is InputStream to read
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
-    public static void readOsnFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add,
+    public static void readOsnFile(@NonNull final Context context, @NonNull final InputStream is, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
         Logic logic = App.getLogic();
         new ExecutorTask<Boolean, Void, List<Note>>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_LOADING);
+                if (context instanceof FragmentActivity) {
+                    Progress.showDialog((FragmentActivity) context, Progress.PROGRESS_LOADING);
+                }
             }
 
             @Override
@@ -640,7 +643,7 @@ public final class TransferTasks {
 
             @Override
             protected void onPostExecute(List<Note> result) {
-                processReadResult(activity, Note.class, add, postLoad, result);
+                processReadResult(context, Note.class, add, postLoad, result);
             }
         }.execute(add);
     }
@@ -648,29 +651,30 @@ public final class TransferTasks {
     /**
      * Invalidate map and options menu
      * 
-     * @param activity the calling FragmentActivity
+     * @param context Android Context
      */
-    private static void invalidateUi(@NonNull final FragmentActivity activity) {
-        if (activity instanceof Main) {
-            ((Main) activity).invalidateMap();
+    private static void invalidateUi(@NonNull final Context context) {
+        if (context instanceof Main) {
+            ((Main) context).invalidateMap();
         }
-        activity.invalidateOptionsMenu();
+        if (context instanceof FragmentActivity) {
+            ((FragmentActivity) context).invalidateOptionsMenu();
+        }
     }
 
     /**
      * Read an Uri in todo format // NOSONAR
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param uri Uri to read
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
-    public static void readTodos(@NonNull final FragmentActivity activity, @NonNull final Uri uri, final boolean add,
-            @Nullable final PostAsyncActionHandler postLoad) {
+    public static void readTodos(@NonNull final Context context, @NonNull final Uri uri, final boolean add, @Nullable final PostAsyncActionHandler postLoad) {
         try {
             // don't use try with resources as this will close the InputStream while we are still reading it
-            InputStream is = activity.getContentResolver().openInputStream(uri); // NOSONAR
-            readTodos(activity, is, add, postLoad);
+            InputStream is = context.getContentResolver().openInputStream(uri); // NOSONAR
+            readTodos(context, is, add, postLoad);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem parsing", e);
         }
@@ -679,19 +683,21 @@ public final class TransferTasks {
     /**
      * Read an InputStream in todo format // NOSONAR
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param is InputStream to read
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
-    public static void readTodos(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add,
+    public static void readTodos(@NonNull final Context context, @NonNull final InputStream is, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
         Logic logic = App.getLogic();
         new ExecutorTask<Boolean, Void, Collection<Todo>>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_LOADING);
+                if (context instanceof FragmentActivity) {
+                    Progress.showDialog((FragmentActivity) context, Progress.PROGRESS_LOADING);
+                }
             }
 
             @Override
@@ -706,7 +712,7 @@ public final class TransferTasks {
 
             @Override
             protected void onPostExecute(Collection<Todo> result) {
-                processReadResult(activity, Todo.class, add, postLoad, result);
+                processReadResult(context, Todo.class, add, postLoad, result);
             }
         }.execute(add);
     }
@@ -715,15 +721,17 @@ public final class TransferTasks {
      * Process tasks received by reading a file
      * 
      * @param <T> type constraint for c
-     * @param activity the calling FragmentActivity
+     * @param context Android Context
      * @param c the class of Task
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once tasks have been processed
      * @param tasks the Tasks
      */
-    private static <T extends Task> void processReadResult(@NonNull final FragmentActivity activity, @NonNull Class<T> c, final boolean add,
+    private static <T extends Task> void processReadResult(@NonNull final Context context, @NonNull Class<T> c, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad, Collection<T> tasks) {
-        Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
+        if (context instanceof FragmentActivity) {
+            Progress.dismissDialog((FragmentActivity) context, Progress.PROGRESS_LOADING);
+        }
         if (tasks == null) {
             if (postLoad != null) {
                 postLoad.onError(null);
@@ -733,13 +741,13 @@ public final class TransferTasks {
             if (!add) {
                 delete(bugs, c);
             }
-            merge(activity, bugs, tasks);
+            merge(context, bugs, tasks);
             addBoundingBoxFromData(bugs, tasks);
             if (postLoad != null) {
                 postLoad.onSuccess();
             }
         }
-        invalidateUi(activity);
+        invalidateUi(context);
     }
 
     /**
@@ -760,38 +768,40 @@ public final class TransferTasks {
     /**
      * Write Todos to an uri
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param uri uri to write to * @param list name of the todo list // NOSONAR
      * @param list name of the todo list // NOSONAR
      * @param all if true write all todos, otherwise just open ones
      * @param postWrite call this when finished
      */
-    public static void writeTodoFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable String list, boolean all,
+    public static void writeTodoFile(@NonNull final Context context, @NonNull final Uri uri, @Nullable String list, boolean all,
             @Nullable final PostAsyncActionHandler postWrite) {
         try {
-            writeTodoFile(activity, activity.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE), list, all, postWrite);
+            writeTodoFile(context, context.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE), list, all, postWrite);
         } catch (IOException e) {
-            handleExceptionOnWrite(activity, postWrite, e);
+            handleExceptionOnWrite(context, postWrite, e);
         }
     }
 
     /**
      * Write Todos to an OutputStream
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param fileOut OutputStream to write to
      * @param list name of the todo list // NOSONAR
      * @param all if true write all todos, otherwise just open ones
      * @param postWrite call this when finished
      */
-    private static void writeTodoFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fileOut, @Nullable String list, boolean all,
+    private static void writeTodoFile(@NonNull final Context context, @NonNull final OutputStream fileOut, @Nullable String list, boolean all,
             @Nullable final PostAsyncActionHandler postWrite) {
         Logic logic = App.getLogic();
         new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_SAVING);
+                if (context instanceof FragmentActivity) {
+                    Progress.showDialog((FragmentActivity) context, Progress.PROGRESS_SAVING);
+                }
             }
 
             @Override
@@ -821,7 +831,7 @@ public final class TransferTasks {
 
             @Override
             protected void onPostExecute(Integer result) {
-                finishWriting(activity, result, postWrite);
+                finishWriting(context, result, postWrite);
             }
         }.execute();
     }
@@ -890,12 +900,14 @@ public final class TransferTasks {
     /**
      * Process the result of writing a file
      * 
-     * @param activity the calling FragmentActivity
+     * @param context Android Context
      * @param result the result code
      * @param postWrite callback to use once finished
      */
-    private static void finishWriting(@NonNull final FragmentActivity activity, @Nullable Integer result, @Nullable final PostAsyncActionHandler postWrite) {
-        Progress.dismissDialog(activity, Progress.PROGRESS_SAVING);
+    private static void finishWriting(@Nullable final Context context, @Nullable Integer result, @Nullable final PostAsyncActionHandler postWrite) {
+        if (context instanceof FragmentActivity) {
+            Progress.dismissDialog((FragmentActivity) context, Progress.PROGRESS_SAVING);
+        }
         if (result != null && result != 0) {
             if (result == ErrorCodes.OUT_OF_MEMORY && App.getTaskStorage().hasChanges()) {
                 result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
@@ -903,8 +915,8 @@ public final class TransferTasks {
             if (postWrite != null) {
                 postWrite.onError(null);
             }
-            if (!activity.isFinishing()) {
-                ErrorAlert.showDialog(activity, result);
+            if (context instanceof FragmentActivity && !((FragmentActivity) context).isFinishing()) {
+                ErrorAlert.showDialog((FragmentActivity) context, result);
             }
         } else {
             if (postWrite != null) {

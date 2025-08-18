@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -275,45 +276,44 @@ public class ConsoleDialog extends DialogFragment {
      * @return
      */
     private OnMenuItemClickListener getOnItemClickListener(@NonNull final Preferences prefs, @NonNull final EditText input) {
-        final FragmentActivity activity = getActivity();
+        final Context context = getContext();
         return item -> {
             switch (item.getItemId()) {
             case R.id.console_menu_share:
                 String text = input.getText().toString();
-                Intent shareIntent = new ShareCompat.IntentBuilder(activity).setText(text).setType(MimeTypes.TEXTPLAIN).getIntent();
-                activity.startActivity(shareIntent);
+                Intent shareIntent = new ShareCompat.IntentBuilder(context).setText(text).setType(MimeTypes.TEXTPLAIN).getIntent();
+                context.startActivity(shareIntent);
                 break;
             case R.id.console_menu_save:
-                SelectFile.save(activity, null, R.string.config_scriptsPreferredDir_key, new SaveFile() {
+                SelectFile.save(context, null, R.string.config_scriptsPreferredDir_key, new SaveFile() {
                     private static final long serialVersionUID = 1L;
 
                     @Override
-                    public boolean save(FragmentActivity currentActivity, Uri fileUri) {
-                        FragmentManager fm = currentActivity.getSupportFragmentManager();
-                        ConsoleDialog fragment = (ConsoleDialog) fm.findFragmentByTag(TAG);
+                    public boolean save(Context context, Uri fileUri) {
+                        ConsoleDialog fragment = getFragment(context);
                         if (fragment == null) {
                             Log.e(DEBUG_TAG, "Restored fragment is null");
                             return false;
                         }
-                        writeScriptFile(currentActivity, fileUri, fragment.input.getText().toString(), null);
+                        writeScriptFile(context, fileUri, fragment.input.getText().toString(), null);
                         SelectFile.savePref(prefs, R.string.config_scriptsPreferredDir_key, fileUri);
                         return true;
                     }
+
                 });
                 break;
             case R.id.console_menu_load:
-                SelectFile.read(activity, R.string.config_scriptsPreferredDir_key, new ReadFile() {
+                SelectFile.read(context, R.string.config_scriptsPreferredDir_key, new ReadFile() {
                     private static final long serialVersionUID = 1L;
 
                     @Override
-                    public boolean read(FragmentActivity currentActivity, Uri fileUri) {
-                        FragmentManager fm = currentActivity.getSupportFragmentManager();
-                        ConsoleDialog fragment = (ConsoleDialog) fm.findFragmentByTag(TAG);
+                    public boolean read(Context context, Uri fileUri) {
+                        ConsoleDialog fragment = getFragment(context);
                         if (fragment == null) {
                             Log.e(DEBUG_TAG, "Restored fragment is null");
                             return false;
                         }
-                        readScriptFile(currentActivity, fileUri, fragment.input, null);
+                        readScriptFile(context, fileUri, fragment.input, null);
                         SelectFile.savePref(prefs, R.string.config_scriptsPreferredDir_key, fileUri);
                         return true;
                     }
@@ -324,6 +324,22 @@ public class ConsoleDialog extends DialogFragment {
             }
             return true;
         };
+    }
+
+    /**
+     * Get the current fragment
+     * 
+     * @param context Android context
+     * @return the Fragment or null
+     */
+    @Nullable
+    private ConsoleDialog getFragment(@Nullable Context context) {
+        if (!(context instanceof FragmentActivity)) {
+            return null;
+        }
+        FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
+        return (ConsoleDialog) fm.findFragmentByTag(TAG);
+
     }
 
     /**
@@ -357,37 +373,41 @@ public class ConsoleDialog extends DialogFragment {
     /**
      * Write the contents of the console to a Uri
      * 
-     * @param activity the calling Activity
+     * @param context Android Context
      * @param uri an Uri pointing to the output destination
      * @param script the script to save
      * @param postSaveHandler called after saving
      */
-    private static void writeScriptFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @NonNull final String script,
+    private static void writeScriptFile(@NonNull final Context context, @NonNull final Uri uri, @NonNull final String script,
             @Nullable final PostAsyncActionHandler postSaveHandler) {
         Logic logic = App.getLogic();
         new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_SAVING);
+                if (context instanceof FragmentActivity) {
+                    Progress.showDialog((FragmentActivity) context, Progress.PROGRESS_SAVING);
+                }
             }
 
             @Override
             protected Integer doInBackground(Void arg) {
                 int result = 0;
-                try (BufferedOutputStream out = new BufferedOutputStream(activity.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE))) {
+                try (BufferedOutputStream out = new BufferedOutputStream(context.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE))) {
                     out.write(script.getBytes());
                 } catch (IOException | IllegalArgumentException | IllegalStateException e) {
                     result = ErrorCodes.FILE_WRITE_FAILED;
                     Log.e(DEBUG_TAG, "Problem writing", e);
-                    ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_error_writing, e.getLocalizedMessage()), true);
+                    ScreenMessage.toastTopError(context, context.getString(R.string.toast_error_writing, e.getLocalizedMessage()), true);
                 }
                 return result;
             }
 
             @Override
             protected void onPostExecute(Integer result) {
-                Progress.dismissDialog(activity, Progress.PROGRESS_SAVING);
+                if (context instanceof FragmentActivity) {
+                    Progress.dismissDialog((FragmentActivity) context, Progress.PROGRESS_SAVING);
+                }
                 if (result != 0) {
                     if (postSaveHandler != null) {
                         postSaveHandler.onError(null);

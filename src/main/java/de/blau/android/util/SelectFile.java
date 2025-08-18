@@ -113,13 +113,13 @@ public final class SelectFile extends ActivityResultContract<SelectFile.Mode, Ur
     /**
      * Start the system file selector or other installed app with the same functionality
      * 
-     * @param activity the calling Activity
+     * @param context the calling Activity
      * @param intentAction the intent action we want to use
      * @param intentRequestCode the request code
      * @param path a directory path to try to start with
      * @param mimeType mime type to use, null to not specify
      */
-    private static void startFileSelector(@NonNull FragmentActivity activity, @NonNull String intentAction, int intentRequestCode, @Nullable String path,
+    private static Intent startFileSelector(@NonNull Context context, @NonNull String intentAction, int intentRequestCode, @Nullable String path,
             String mimeType, boolean allowMultiple) {
         Intent i = new Intent(intentAction);
         if (mimeType == null) {
@@ -133,21 +133,21 @@ public final class SelectFile extends ActivityResultContract<SelectFile.Mode, Ur
         if (intentRequestCode == READ_FILE && allowMultiple) {
             i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         }
-        final PackageManager pm = activity.getPackageManager();
+        final PackageManager pm = context.getPackageManager();
 
         @SuppressWarnings("deprecation")
         List<ResolveInfo> activities = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                 ? pm.queryIntentActivities(i, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_ALL))
                 : pm.queryIntentActivities(i, PackageManager.MATCH_ALL);
-        if (activities.isEmpty() && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            ErrorAlert.showDialog(activity, ErrorCodes.REQUIRED_FEATURE_MISSING, "file selector");
-            return;
-        }
-        if (activities.size() > 1) { // multiple activities support the required action
-            selectFileSelectorActivity(activity, pm, activities, i, intentRequestCode);
-            return;
-        }
-        activity.startActivityForResult(i, intentRequestCode);
+//        if (activities.isEmpty() && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+//            ErrorAlert.showDialog(context, ErrorCodes.REQUIRED_FEATURE_MISSING, "file selector");
+//            return;
+//        }
+//        if (activities.size() > 1) { // multiple activities support the required action
+//            selectFileSelectorActivity(context, pm, activities, i, intentRequestCode);
+//            return;
+//        }
+        return i;
     }
 
     /**
@@ -296,7 +296,7 @@ public final class SelectFile extends ActivityResultContract<SelectFile.Mode, Ur
     }
 
     @Override
-    public Intent createIntent(Context arg0, Mode arg1) {
+    public Intent createIntent(Context context, Mode arg1) {
         // TODO Auto-generated method stub
         return null;
     }
