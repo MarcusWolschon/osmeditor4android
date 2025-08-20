@@ -2122,7 +2122,7 @@
         <li class="md-nav__item">
   <a href="#now-for-the-the-tricky-bits" class="md-nav__link">
     <span class="md-ellipsis">
-      Now for the the tricky bits###
+      Now for the the tricky bits
     </span>
   </a>
   
@@ -2233,7 +2233,7 @@
         <li class="md-nav__item">
   <a href="#now-for-the-the-tricky-bits" class="md-nav__link">
     <span class="md-ellipsis">
-      Now for the the tricky bits###
+      Now for the the tricky bits
     </span>
   </a>
   
@@ -2279,7 +2279,7 @@
 </li>
 <li>closing the changeset failed, this is normally harmless and your editing app should probably not even report this, as all your changes have been saved and your editor has current state. In your OSM account you will simply see that the changeset hasn't been closed till an hour later.</li>
 </ul>
-<h3 id="now-for-the-the-tricky-bits">Now for the the tricky bits###<a class="headerlink" href="#now-for-the-the-tricky-bits" title="Permanent link">#</a></h3>
+<h3 id="now-for-the-the-tricky-bits">Now for the the tricky bits<a class="headerlink" href="#now-for-the-the-tricky-bits" title="Permanent link">#</a></h3>
 <p>You would assume that these issues could be avoided completely by not uploading multiple times per changeset. However the popular, at least in JOSM and [Vespucci][1] <em>Upload selection</em> functionality and chunked uploads in to separate changesets have exactly the same issue: you have pending changes in your editors data that you haven't attempted to upload yet, and that possibly, to make matters worse, refer to elements that you did try to upload and that failed.</p>
 <p>If the upload failed completely as in 1. above, you are good to go and can retry, but scenario 2. doesn't help you. Why is that? </p>
 <p>When an editor creates an new object it assigns a negative value id to it, then when you upload the data the OSM API replaces it with the actual one that will be used in the database and reports that back in the response to the editor. If you don't receive the response you don't have the mapping between placeholder id and actual id.</p>
