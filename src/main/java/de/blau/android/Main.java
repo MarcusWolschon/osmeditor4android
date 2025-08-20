@@ -4753,7 +4753,7 @@ public class Main extends ConfigurationChangeAwareActivity
             }
         }
         if (e.hasParentRelations()) {
-            List<Relation> relations = e.getParentRelations();
+            List<Relation> relations = new ArrayList<>(e.getParentRelations());
             for (Relation r : relations) {
                 appendToTextList(parentList, r);
             }
