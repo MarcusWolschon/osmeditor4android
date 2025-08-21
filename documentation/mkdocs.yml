@@ -125,7 +125,7 @@ nav:
     - 'Offline data guide': 'tutorials/offline_guide.md'
     - 'Mapbox-GL Style Support': 'tutorials/mapbox-style.md'
     - 'Todo file format description': 'tutorials/todos.md'
-    - 'Dealing with failed uploads': 'failed_uploads.md'
+    - 'Dealing with failed uploads': 'tutorials/failed_uploads.md'
 - Videos & Screenshots: 'tutorials/screenshots.md'
 - FAQ: 'tutorials/faq.md'
 - Privacy: 'help/en/Privacy.md'
