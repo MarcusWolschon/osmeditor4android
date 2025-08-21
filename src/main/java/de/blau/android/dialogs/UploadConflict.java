@@ -202,6 +202,9 @@ public class UploadConflict extends CancelableDialogFragment {
                 //
                 // server element should always be available, except if we messed up something locally. local is deleted
                 //
+                if (false) {
+                    
+                }
 
                 // we are deleting an element that is still in use on the server
                 // get the elements that are still using it
@@ -237,7 +240,7 @@ public class UploadConflict extends CancelableDialogFragment {
                 infoLayout.addView(tl);
                 builder.setView(sv);
                 resolveActions.put(res.getString(R.string.undoing_local_delete), () -> {
-                    
+                    // logic.createCheckpoint(activity, R.string.undo_action_fix_conflict);
                     delegator.undoLast(elementLocal);
                     if (delegator.getApiElementCount() > 0) {
                         ReviewAndUpload.showDialog(activity, elements);

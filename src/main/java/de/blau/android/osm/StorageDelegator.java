@@ -4313,6 +4313,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<de.blau.android.osm.UndoStorage.Checkpoint> checkpoints = undo.getUndoCheckpoints(element);
         if (!checkpoints.isEmpty()) {
             final Checkpoint checkpoint = checkpoints.get(0);
+            System.out.println("Last checkpoint " + checkpoint.toString());
+            System.out.println("Element " + element.getDescription() + " " + element.getState());;
             App.getLogic().createCheckpoint(null, R.string.undo_action_fix_conflict);
             for (OsmElement e : checkpoint.getSavedElements()) {
                 OsmElement current = getOsmElement(e.getName(), e.getOsmId());
@@ -4321,6 +4323,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
             undo.undo(checkpoint);
+            System.out.println("Element after undo " + element.getDescription() + " " + element.getState());
             return;
         }
         Log.e(DEBUG_TAG, "No undo checkpoint found for " + element.getDescription());

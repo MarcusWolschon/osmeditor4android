@@ -279,12 +279,12 @@ public class UploadConflictTest {
      */
     @Test
     public void severElementInUse2() {
-        conflict("conflict3", new String[] { "way-210461100", "way-210461100-nodes", "relation-12345", "relation-12345", "empty" }, false, -1);
+        conflict("conflict3", new String[] { "404", "empty" }, false, -1);
         Way w = App.getDelegator().getApiStorage().getWay(210461100L);
         assertNotNull(w);
         // undelete and delete again so that after the conflict fix it is unchanged
         final Logic logic = App.getLogic();
-        logic.createCheckpoint(main, R.string.undo_action_fix_conflict);
+        logic.createCheckpoint(main, R.string.undo_redo_title); 
         StorageDelegator delegator = App.getDelegator();
         delegator.removeFromUpload(w, OsmElement.STATE_UNCHANGED);
         delegator.insertElementSafe(w);
