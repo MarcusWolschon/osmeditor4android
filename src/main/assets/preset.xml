@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.80.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.82.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -57,6 +57,7 @@
     
     
      
+    
     
     
     <!-- Item chunks -->
@@ -461,7 +462,7 @@
         <preset_link preset_name="No name"/>
     </chunk>
     <chunk id="level">
-        <combo text="Level" long_text="For indoor mapping, level 0 is the ground floor" key="level" length="3" values="20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,-1,-2,-3,-4,-5" values_sort="false" match="none" editable="true" value_type="integer"/>
+        <combo text="Level" long_text="For indoor mapping, level 0 is the ground floor" key="level" length="3" values="20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,-1,-2,-3,-4,-5" values_sort="false" match="none" editable="true"/>
     </chunk>
     <chunk id="optional_level">
         <optional>
@@ -1166,6 +1167,33 @@
             <reference ref="oh"/>
         </optional>
     </chunk>
+    <chunk id="car_service">
+        <multiselect key="service" text="Service" text_context="shop=car_repair" values="dealer;repair;parts;tyres;inspection" display_values="Dealer;Repair;Parts;Tyres;Inspection" rows="5"/>
+        <optional text="Alternate service tagging">
+            <checkgroup columns="4">
+                <check key="service:vehicle:car_repair" text="Car repair" text_context="shop=car_repair"/>
+                <check key="service:vehicle:truck_repair" text="Truck repair" text_context="shop=car_repair"/>
+                <check key="service:vehicle:new_car_sales" text="Sells new cars" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:used_car_sales" text="Sells used cars" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:air_conditioning" text="Repairs AC" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:alignment" text="Aligns tyres" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:batteries" text="Repairs/replaces batteries" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:body_repair" text="Repairs body" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:brakes" text="Services brakes" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:car_parts" text="Sells car parts" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:diagnostics" text="Performs diagnostics" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:electrical" text="Repairs electrical" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:glass" text="Repairs glass" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:inspection" text="State mandated inspections" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:motor" text="Repairs motor" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:muffler" text="Repairs muffler" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:oil_change" text="Performs oil changes" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:painting" text="Paints exterior" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:transmission" text="Repairs transmission" text_context="shop=car_repair" disable_off="true"/>
+                <check key="service:vehicle:tyres" text="Replaces tires" text_context="shop=car_repair" disable_off="true"/>
+            </checkgroup>
+        </optional>
+    </chunk>
     <chunk id="general_access">
         <combo key="access" text="General Access" values="yes,destination,delivery,permissive,private,customers,agricultural,forestry,permit,no" display_values="General access,Destination,Delivery,Permissive,Private,Customers,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" values_searchable="true" match="none"/>
     </chunk>
@@ -1244,6 +1272,10 @@
             <text key="diameter_crown" text="Crown diameter (meters)"/>    
             <reference ref="tree_form"/>
         </optional>
+    </chunk>
+    <chunk id="irrigation">
+        <check key="irrigated" text="Irrigated"/>
+        <combo key="irrigation" text="Irrigation method" values="flood,pivot" display_values="Flooding,Center pivot"/>
     </chunk>
     <!-- start of religions and denominations -->
     <chunk id="religious"> <!-- all religions and denominations -->
@@ -1584,7 +1616,7 @@
         <combo key="stars" text="Stars" values="1,2,3,4,5,6,7" display_values="*,**,***,****,*****,******,*******"/>
     </chunk>
     <chunk id="car_brands">
-        <multiselect key="brand" text="Car brand" values="Alfa Romeo;Aston Martin;Audi;Bentley;BMW;Buick;Cadillac;Chevrolet;Chrysler;Citro&#xEB;n;Dacia;Daewoo;Daihatsu;Dodge;Ferrari;Fiat;Ford;GMC;Great Wall;Holden;Honda;Hyundai;Infiniti;Isuzu;Jaguar;Jeep;Kia;Lada;Lancia;Land Rover;Lexus;Lincoln;Lotus;Maserati;Mazda;Mercedes-Benz;Mini;Mitsubishi;Nissan;Opel;Peugeot;Renault;Saab;Seat;&#x160;koda;Smart;SsangYong;Subaru;Suzuki;Toyota;Vauxhall;Volkswagen;Volvo" match="key"/>
+        <multiselect key="brand" text="Car brand" values="Alfa Romeo;Aston Martin;Audi;Bentley;BMW;Buick;Cadillac;Chevrolet;Chrysler;Citro&#xEB;n;Dacia;Daewoo;Daihatsu;Dodge;Ferrari;Fiat;Ford;GMC;Great Wall;Holden;Honda;Hyundai;Infiniti;Isuzu;Jaguar;Jeep;Kia;Lada;Lancia;Land Rover;Lexus;Lincoln;Lotus;Maserati;Mazda;Mercedes-Benz;Mini;Mitsubishi;Nissan;Opel;Peugeot;Porsche;Renault;Saab;Seat;&#x160;koda;Smart;SsangYong;Subaru;Suzuki;Toyota;Vauxhall;Volkswagen;Volvo" match="key"/>
     </chunk>
     <chunk id="motorcycle_brands">
         <multiselect key="brand" text="Motorcycle brand" values="Aprilia;BMW;Ducati;Gilera;Harley-Davidson;Honda;Kawasaki;KTM;Kymco;Moto Guzzi;Peugeot;Piaggio;Suzuki;Triumph;Vespa;Yamaha" match="key"/>
@@ -5515,6 +5547,9 @@
                 <reference ref="oh_ohworkshop_wheelchair"/>
                 <reference ref="car_brands"/>
                 <combo key="second_hand" text="Second hand" text_context="transport" values="only,yes,no" display_values="Only,Yes,No"/>
+                <optional>
+                    <reference ref="car_service"/>
+                </optional>
                 <reference ref="link_contact_address_payment"/>
             </item> <!-- Car Dealer -->
             <item name="Repair" icon="icons/png/shopping_car_repair.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5524,31 +5559,7 @@
                 <reference ref="name_operator"/>
                 <reference ref="oh_ohworkshop_wheelchair"/>
                 <reference ref="car_brands"/>
-                <multiselect key="service" text="Service" text_context="shop=car_repair" values="dealer;repair;parts;tyres;inspection" display_values="Dealer;Repair;Parts;Tyres;Inspection" rows="5"/>
-                <optional text="Alternate service tagging">
-                    <checkgroup columns="4">
-                        <check key="service:vehicle:car_repair" text="Car repair" text_context="shop=car_repair"/>
-                        <check key="service:vehicle:truck_repair" text="Truck repair" text_context="shop=car_repair"/>
-                        <check key="service:vehicle:new_car_sales" text="Sells new cars" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:used_car_sales" text="Sells used cars" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:air_conditioning" text="Repairs AC" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:alignment" text="Aligns tyres" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:batteries" text="Repairs/replaces batteries" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:body_repair" text="Repairs body" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:brakes" text="Services brakes" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:car_parts" text="Sells car parts" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:diagnostics" text="Performs diagnostics" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:electrical" text="Repairs electrical" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:glass" text="Repairs glass" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:inspection" text="State mandated inspections" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:motor" text="Repairs motor" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:muffler" text="Repairs muffler" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:oil_change" text="Performs oil changes" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:painting" text="Paints exterior" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:transmission" text="Repairs transmission" text_context="shop=car_repair" disable_off="true"/>
-                        <check key="service:vehicle:tyres" text="Replaces tires" text_context="shop=car_repair" disable_off="true"/>
-                    </checkgroup>
-                </optional>
+                <reference ref="car_service"/>
                 <reference ref="link_contact_address_payment"/>
             </item> <!-- Repair -->
             <item name="Parts" icon="icons/png/shopping_car_parts_29021.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -14326,8 +14337,10 @@
             <space/>
             <key key="landuse" value="farmland"/>
             <reference ref="optional_name"/>
-            <combo key="crop" text="Crop" values="asparagus,barley,cereal,corn,grass,hop,potatoes,rapeseed,rice,soy,sugarcane,tea,wheat" display_values="Asparagus,Barley,Cereal,Corn,Grass,Hop,Potatoes,Rapeseed,Rice,Soy,Sugarcane,Tea,Wheat" editable="true" values_context="crop"/>
-            <check key="irrigation" text="Center pivot irrigation" value_on="pivot" disable_off="true"/>
+            <combo key="crop" text="Crop" editable="true" values_context="crop">
+                <list_entry value="asparagus" display_value="Asparagus"/><list_entry value="barley" display_value="Barley"/><list_entry value="cereal" display_value="Cereal"/><list_entry value="coffee" display_value="Coffee"/><list_entry value="corn" display_value="Corn"/><list_entry value="cranberries" display_value="Cranberries"/><list_entry value="grape" display_value="Grapes"/><list_entry value="grass" display_value="Grass"/><list_entry value="hop" display_value="Hop"/><list_entry value="lavender" display_value="Lavender"/><list_entry value="potatoes" display_value="Potatoes"/><list_entry value="rapeseed" display_value="Rapeseed"/><list_entry value="rice" display_value="Rice"/><list_entry value="soy" display_value="Soy"/><list_entry value="strawberry" display_value="Strawberries"/><list_entry value="sugarcane" display_value="Sugarcane"/><list_entry value="tea" display_value="Tea"/><list_entry value="wheat" display_value="Wheat"/>
+            </combo>
+            <reference ref="irrigation"/>
         </item> <!-- Farmland -->
         <item name="Farm" icon="icons/png/landuse_farm_22120.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true">
             <link wiki="Tag:landuse=farm"/>
@@ -14347,6 +14360,7 @@
             <key key="landuse" value="orchard"/>
             <reference ref="optional_name"/>
             <combo key="trees" text="Trees" values="almond_trees,apple_trees,apricot_trees,avocado_trees,banana_plants,blueberry_plants,cacao_trees,cherimoya_trees,cherry_trees,chestnut_trees,coconut_palms,coffea_plants,date_palms,hazel_plants,hop_plants,lemon_trees,macadamia_trees,mango_trees,oil_palms,olive_trees,orange_trees,papaya_trees,peach_trees,pear_trees,pecan_trees,persimmon_trees,pineapple_plants,pistachio_trees,pitaya_plants,plum_trees,pomegranate_trees,tea_plants,walnut_trees" display_values="Almond trees,Apple trees,Apricot trees,Avocado trees,Banana plants,Blueberry plants,Cacao trees,Cherimoya trees,Cherry trees,Chestnut trees,Coconut palms,Coffea plants,Date palms,Hazel plants,Hop plants,Lemon trees,Macadamia trees,Mango trees,Oil palms,Olive trees,Orange trees,Papaya trees,Peach trees,Pear trees,Pecan trees,Persimmon trees,Pineapple plants,Pistachio trees,Pitaya plants,Plum trees,Pomegranate trees,Tea plants,Walnut trees" values_searchable="true"/>
+            <reference ref="irrigation"/>
         </item> <!-- Orchard -->
         <item name="Vineyard" icon="icons/png/landuse_wine_29203.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=vineyard"/>
