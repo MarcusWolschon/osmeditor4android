@@ -1648,6 +1648,7 @@
     <string name="tracking_active_text">Recording a GPS track or auto-downloading</string>
     <string name="tracking_long_text">Vespucci is recording a GPX track or auto-downloading. To completely exit press the button below or the back button in the app.</string>
     <string name="gps_failure">Failed to enable GPS</string>
+    <string name="gps_service_start_failure">Failed to start GPS service, try again.\n\nError: %1$s</string>
     <!-- element description -->
     <string name="address_housenumber">Address %1$s</string>
     <string name="address_housenumber_street">Address %1$s %2$s</string>
