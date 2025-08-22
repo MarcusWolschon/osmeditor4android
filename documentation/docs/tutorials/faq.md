@@ -86,20 +86,20 @@ Physical devices:
     6.0.1 Samsung S5
     8.0 Samsung S7
     9.0 Samsung Note 8 
-    11.0 Samsung A40
     11.0 Samsung S5e tablet
-    14.0 Samsung S23 Ultra
+    15.0 Samsung S23 Ultra
+    15.0 Samsung A16
     
 Emulators:
     
-    4.1.2
-    4.4.2
     7.1.1
     8.1 (full test suite)
     9.0 (full test suite)
     11.0 (full test suite)
     12.0 (full test suite)
-    13.0 
+    13.0
+    14.0
+    15.0 
     
 ## Installation
 
@@ -268,7 +268,7 @@ Due to the touchy situation having pre-defined presets for military objects on d
 
 ### The aerial or satellite imagery is out of date
 
-Vespucci uses the [Editor Layer Index](https://github.com/osmlab/editor-layer-index) for configuring the available backgrounds. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should preferably update the ELI or open an issue there.
+Vespucci uses the [Editor Layer Index](https://github.com/osmlab/editor-layer-index) for configuring the available backgrounds. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should update the ELI or open an issue there.
 
 ### On startup Vespucci complains that it can't write to a directory or reports an error
 
