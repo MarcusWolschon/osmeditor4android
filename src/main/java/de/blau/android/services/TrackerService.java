@@ -361,9 +361,7 @@ public class TrackerService extends Service {
      * this.
      */
     public void startTracking() {
-        Intent intent = new Intent(this, TrackerService.class);
-        intent.putExtra(TRACK_KEY, true);
-        startService(intent);
+        startService(TRACK_KEY);
     }
 
     /**
@@ -372,9 +370,7 @@ public class TrackerService extends Service {
      * this.
      */
     public void startAutoDownload() {
-        Intent intent = new Intent(this, TrackerService.class);
-        intent.putExtra(AUTODOWNLOAD_KEY, true);
-        startService(intent);
+        startService(AUTODOWNLOAD_KEY);
     }
 
     /**
@@ -383,9 +379,24 @@ public class TrackerService extends Service {
      * this.
      */
     public void startBugAutoDownload() {
+        startService(BUGAUTODOWNLOAD_KEY);
+    }
+
+    /**
+     * Create the Intent and start the foreground service
+     * 
+     * @param key the key indicating which service to start
+     * 
+     */
+    private void startService(@NonNull String key) {
         Intent intent = new Intent(this, TrackerService.class);
-        intent.putExtra(BUGAUTODOWNLOAD_KEY, true);
-        startService(intent);
+        intent.putExtra(key, true);
+        try {
+            ContextCompat.startForegroundService(this, intent);
+        } catch (IllegalStateException | SecurityException ex) {
+            Log.e(DEBUG_TAG, "Can't start service " + ex.getMessage());
+            ScreenMessage.toastTopError(this, getString(R.string.gps_service_start_failure, ex.getLocalizedMessage()));
+        }
     }
 
     /**
