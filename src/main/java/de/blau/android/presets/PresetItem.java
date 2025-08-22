@@ -1333,6 +1333,14 @@ public class PresetItem extends PresetElement {
             if (field instanceof PresetCheckGroupField) {
                 for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
                     appendTag(fieldName, jsonString, check.getKey(), null);
+                    StringWithDescription onValue = check.getOnValue();
+                    if (onValue != null && !PresetParser.VALUE_ON.equals(onValue.getValue()) && !Tags.VALUE_YES.equals(onValue.getValue())) {
+                        appendTag(fieldName, jsonString, check.getKey(), onValue);
+                    }
+                    StringWithDescription offValue = check.getOffValue();
+                    if (offValue != null && !PresetParser.VALUE_OFF.equals(offValue.getValue())  && !Tags.VALUE_NO.equals(offValue.getValue())) {
+                        appendTag(fieldName, jsonString, check.getKey(), offValue);
+                    }
                 }
             }
         }
