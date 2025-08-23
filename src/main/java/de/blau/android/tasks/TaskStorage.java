@@ -93,7 +93,12 @@ public class TaskStorage implements Serializable, DataStorage {
      * @return the number of stored tasks
      */
     public int count() {
-        return tasks.count();
+        try {
+            lock();
+            return tasks.count();
+        } finally {
+            unlock();
+        }
     }
 
     /**
@@ -619,7 +624,7 @@ public class TaskStorage implements Serializable, DataStorage {
     @Nullable
     public Note getNote(long id) {
         for (Task t : getTasks()) {
-            if (t instanceof Note && ((Note) t).getId() == id) {
+            if (t instanceof Note && ((LongIdTask) t).getId() == id) {
                 return (Note) t;
             }
         }
