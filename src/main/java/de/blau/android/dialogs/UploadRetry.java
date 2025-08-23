@@ -25,7 +25,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -40,8 +39,8 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UpdateFromChanges;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -91,10 +90,8 @@ public class UploadRetry extends CancelableDialogFragment {
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull UploadResult result, long changesetId,
             @NonNull UploadListener.UploadArguments arguments) {
         dismissDialog(activity);
-        FragmentManager fm = activity.getSupportFragmentManager();
         try {
-            UploadRetry uploadConflictDialogFragment = newInstance(result, changesetId, arguments);
-            uploadConflictDialogFragment.show(fm, TAG);
+            newInstance(result, changesetId, arguments).show(activity.getSupportFragmentManager(), TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "dismissDialog", isex);
         }
@@ -228,8 +225,12 @@ public class UploadRetry extends CancelableDialogFragment {
             private Storage                storage;
 
             @Override
-            protected Integer doInBackground(Long id) throws NumberFormatException, XmlPullParserException, IOException {
+            protected void onPreExecute() {
                 Progress.showDialog(getActivity(), Progress.PROGRESS_DETERMINING_STATUS, PROGRESS_STATUS_TAG);
+            }
+
+            @Override
+            protected Integer doInBackground(Long id) throws NumberFormatException, XmlPullParserException, IOException {
 
                 Server server = prefs.getServer();
                 // get the osmChange xml for the changeset
@@ -326,8 +327,12 @@ public class UploadRetry extends CancelableDialogFragment {
         ExecutorTask<Void, Void, Boolean> task = new ExecutorTask<Void, Void, Boolean>() {
 
             @Override
-            protected Boolean doInBackground(Void v) throws NumberFormatException, XmlPullParserException, IOException {
+            protected void onPreExecute() {
                 Progress.showDialog(getActivity(), Progress.PROGRESS_UPDATING, PROGRESS_STATUS_TAG);
+            }
+
+            @Override
+            protected Boolean doInBackground(Void v) throws NumberFormatException, XmlPullParserException, IOException {
                 return UpdateFromChanges.update(delegator, storage);
             }
 
@@ -335,6 +340,12 @@ public class UploadRetry extends CancelableDialogFragment {
             protected void onBackgroundError(Exception e) {
                 Progress.dismissDialog(getActivity(), Progress.PROGRESS_UPDATING, PROGRESS_STATUS_TAG);
             }
+
+            @Override
+            protected void onPostExecute(Boolean ignored) {
+                Progress.dismissDialog(getActivity(), Progress.PROGRESS_UPDATING, PROGRESS_STATUS_TAG);
+            }
+
         };
         task.execute();
         try {
