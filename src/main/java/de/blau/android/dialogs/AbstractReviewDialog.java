@@ -33,6 +33,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.MaxHeightDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.ExtendedValidator;
@@ -46,7 +47,8 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AbstractReviewDialog.class.getSimpleName().length());
     private static final String DEBUG_TAG = AbstractReviewDialog.class.getSimpleName().substring(0, TAG_LEN);
 
-    protected static final String TAG_KEY = "tag";
+    protected static final String TAG_KEY             = "tag";
+    private static final String   PROGRESS_STATUS_TAG = "progress_status";
 
     protected List<OsmElement> elements = null;
 
@@ -121,10 +123,29 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
             @NonNull Comparator<ChangedElement> comparator, @Nullable String parentTag, int itemResource) {
         ExtendedValidator validator = new ExtendedValidator(activity, App.getDefaultValidator(activity));
         final ChangedElement[] changes = getPendingChanges(activity.getResources(), elements == null ? App.getLogic().getPendingChangedElements() : elements);
-        revalidate(activity, validator, changes);
         Arrays.sort(changes, comparator);
+        final ValidatorArrayAdapter adapter = new ValidatorArrayAdapter(activity, itemResource, changes, validator, parentTag);
+        changesView.setAdapter(adapter);
+        new ExecutorTask<Void, Void, Void>() {
 
-        changesView.setAdapter(new ValidatorArrayAdapter(activity, itemResource, changes, validator, parentTag));
+            @Override
+            protected void onPreExecute() {
+                Progress.showDialog(getActivity(), Progress.PROGRESS_UPDATING, PROGRESS_STATUS_TAG);
+            }
+
+            @Override
+            protected Void doInBackground(Void nothing) {
+                revalidate(activity, validator, changes);
+                Arrays.sort(changes, comparator);
+                adapter.notifyDataSetChanged();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void ignored) {
+                Progress.dismissDialog(getActivity(), Progress.PROGRESS_UPDATING, PROGRESS_STATUS_TAG);
+            }
+        }.execute();
     }
 
     /**
