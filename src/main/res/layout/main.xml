@@ -7,98 +7,112 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
     <de.blau.android.views.LeftInset
-        android:layout_width="0dp" 
-        android:layout_height="match_parent"
+        android:layout_width="0dp" android:layout_height="match_parent"
         android:layout_weight="0" />
-    <LinearLayout
+    <LinearLayout 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" 
         android:layout_weight="1"
         android:orientation="vertical">
         <de.blau.android.views.TopInset
             android:layout_width="match_parent"
             android:layout_height="0dp" 
             android:layout_weight="0" />
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/mainToolbar"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_weight="0"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize">
-        </androidx.appcompat.widget.Toolbar>
-        <de.blau.android.views.SplitPaneLayout
-            android:id="@+id/pane_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            spl:orientation="vertical"
-            spl:splitterBackground="?attr/SplitterBGV"
-            spl:handleBackground="?attr/SplitterHandleH"
-            spl:handleDraggingBackground="@drawable/splitter_handle_dragging_h"
-            spl:splitterPosition="100%" 
-            spl:splitterSize="5dip"
-            android:layout_weight="99999">
-            <RelativeLayout android:id="@+id/mainMap"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent">
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingLock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_gravity="top"
-                    android:layout_margin="8dp" 
-                    android:clickable="true"
-                    android:src="@drawable/lock_bi_state"
-                    app:backgroundTint="?attr/colorAccent"
-                    app:fabSize="mini" app:useCompatPadding="true" />
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/layers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="top"
-                    android:layout_margin="0dp" android:clickable="true"
-                    android:src="@drawable/ic_view_headline_black_36dp"
-                    android:theme="@style/Theme.customMain"
-                    app:backgroundTint="?attr/colorControlNormal"
-                    app:fabSize="mini" 
-                    app:useCompatPadding="true" />
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/follow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="top"
-                    android:clickable="true"
-                    android:src="@drawable/ic_gps_fixed_black_36dp"
-                    android:theme="@style/Theme.customMain"
-                    app:backgroundTint="?attr/colorControlNormal"
-                    app:fabSize="mini" 
-                    app:useCompatPadding="true" />
-                <de.blau.android.views.ZoomControls
-                    android:id="@+id/zoom_controls"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true" />
-            </RelativeLayout>
-            <ViewStub android:id="@+id/pane2"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp" />
-        </de.blau.android.views.SplitPaneLayout>
-        <FrameLayout android:id="@+id/bottomBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_weight="0"
-            android:background="?attr/colorPrimary">
-            <include android:id="@+id/bottomToolbar"
-                layout="@layout/toolbar" />
-            <ViewStub android:id="@+id/cab_stub"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-        </FrameLayout>
+                android:layout_height="match_parent"
+                android:layout_weight="1" 
+                android:orientation="vertical">
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/mainToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_weight="0"
+                    android:background="?attr/colorPrimary"
+                    android:minHeight="?attr/actionBarSize">
+                </androidx.appcompat.widget.Toolbar>
+                <de.blau.android.views.SplitPaneLayout
+                    android:id="@+id/pane_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    spl:orientation="vertical"
+                    spl:splitterBackground="?attr/SplitterBGV"
+                    spl:handleBackground="?attr/SplitterHandleH"
+                    spl:handleDraggingBackground="@drawable/splitter_handle_dragging_h"
+                    spl:splitterPosition="100%" 
+                    spl:splitterSize="5dip"
+                    android:layout_weight="99999">
+                    <RelativeLayout
+                        android:id="@+id/mainMap"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent">
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/floatingLock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_gravity="top"
+                            android:layout_margin="8dp"
+                            android:clickable="true"
+                            android:src="@drawable/lock_bi_state"
+                            app:backgroundTint="?attr/colorAccent"
+                            app:fabSize="mini"
+                            app:useCompatPadding="true" />
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/layers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="top"
+                            android:layout_margin="0dp"
+                            android:clickable="true"
+                            android:src="@drawable/ic_view_headline_black_36dp"
+                            android:theme="@style/Theme.customMain"
+                            app:backgroundTint="?attr/colorControlNormal"
+                            app:fabSize="mini"
+                            app:useCompatPadding="true" />
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/follow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="top"
+                            android:clickable="true"
+                            android:src="@drawable/ic_gps_fixed_black_36dp"
+                            android:theme="@style/Theme.customMain"
+                            app:backgroundTint="?attr/colorControlNormal"
+                            app:fabSize="mini"
+                            app:useCompatPadding="true" />
+                        <de.blau.android.views.ZoomControls
+                            android:id="@+id/zoom_controls"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true" />
+                    </RelativeLayout>
+                    <ViewStub android:id="@+id/pane2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp" />
+                </de.blau.android.views.SplitPaneLayout>
+                <FrameLayout android:id="@+id/bottomBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_weight="0"
+                    android:background="?attr/colorPrimary">
+                    <include android:id="@+id/bottomToolbar"
+                        layout="@layout/toolbar" />
+                    <ViewStub android:id="@+id/cab_stub"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize" />
+                </FrameLayout>
+            </LinearLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
         <de.blau.android.views.BottomInset
             android:layout_width="match_parent"
             android:layout_height="0dp" 
