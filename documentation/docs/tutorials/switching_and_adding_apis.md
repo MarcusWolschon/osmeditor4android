@@ -47,7 +47,7 @@ Adding a new configuration is complicated by the fact that most target APIs requ
 
 Obtain a new client key for the app, create a vespucci key file and add it to the configuration by using _Load keys from file..._.
 
-An example key file can be found here (to add a key you only need the relevant entry): (keys2-default.txt)[https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/keys2-default.txt]
+An example key file can be found here (to add a key you only need the relevant entry): [keys2-default.txt](https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/keys2-default.txt).
 
 
 
