@@ -123,6 +123,7 @@ nav:
     - 'Object search': 'tutorials/object_search.md'
     - 'Going completely offline with Vespucci': 'tutorials/offline.md'
     - 'Offline data guide': 'tutorials/offline_guide.md'
+    - 'Switching and adding OpenStreetMap data APIs': 'tutorials/switching_and_adding_apis.md'
     - 'Mapbox-GL Style Support': 'tutorials/mapbox-style.md'
     - 'Todo file format description': 'tutorials/todos.md'
     - 'Dealing with failed uploads': 'tutorials/failed_uploads.md'
