@@ -27,8 +27,25 @@ public class InsetAwarePopupMenu extends PopupMenu {
 
     private static final String M_POPUP = "mPopup";
 
+    /**
+     * Construct a new instance
+     * 
+     * @param context an Android Context
+     * @param anchor the View to anchor to
+     */
     public InsetAwarePopupMenu(@NonNull Context context, @NonNull View anchor) {
         super(context, anchor);
+    }
+
+    /**
+     * Construct a new instance
+     * 
+     * @param context an Android Context
+     * @param anchor the View to anchor to
+     * @param gravity Gravity value to use
+     */
+    public InsetAwarePopupMenu(@NonNull Context context, @NonNull View anchor, int gravity) {
+        super(context, anchor, gravity);
     }
 
     @Override
