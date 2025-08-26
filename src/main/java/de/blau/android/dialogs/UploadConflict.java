@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -386,7 +387,8 @@ public class UploadConflict extends CancelableDialogFragment {
                     return;
                 }
                 neutral.setOnClickListener((View v) -> {
-                    PopupMenu popup = new InsetAwarePopupMenu(getActivity(), neutral);
+                    ViewParent parent = v.getParent();
+                    PopupMenu popup = new InsetAwarePopupMenu(getActivity(), parent != null ? (View) parent : v, Gravity.START);
                     for (Entry<String, Runnable> action : resolveActions.entrySet()) {
                         MenuItem item = popup.getMenu().add(action.getKey());
                         item.setOnMenuItemClickListener(unused -> {
