@@ -9,43 +9,54 @@
         android:layout_width="0dp" 
         android:layout_height="match_parent"
         android:layout_weight="0" />
-    <LinearLayout
+    <LinearLayout 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" 
         android:layout_weight="0"
         android:orientation="vertical">
         <de.blau.android.views.TopInset
             android:layout_width="match_parent"
             android:layout_height="0dp" 
             android:layout_weight="0" />
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/propertyEditorBar"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_weight="0"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize">
-        </androidx.appcompat.widget.Toolbar>
-        <de.blau.android.views.ExtendedViewPager
-            android:id="@+id/pager" android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
-            <de.blau.android.views.ExtendedPagerTabStrip
-                android:id="@+id/pager_header"
-                style="?attr/PagerTabStrip"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top" 
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp" />
-        </de.blau.android.views.ExtendedViewPager>
+                android:layout_height="match_parent"
+                android:layout_weight="1" 
+                android:orientation="vertical">
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/propertyEditorBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_weight="0"
+                    android:background="?attr/colorPrimary"
+                    android:minHeight="?attr/actionBarSize">
+                </androidx.appcompat.widget.Toolbar>
+                <de.blau.android.views.ExtendedViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <de.blau.android.views.ExtendedPagerTabStrip
+                        android:id="@+id/pager_header"
+                        style="?attr/PagerTabStrip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp" />
+                </de.blau.android.views.ExtendedViewPager>
+            </LinearLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
         <de.blau.android.views.BottomInset
             android:layout_width="match_parent"
-            android:layout_height="0dp" 
-            android:layout_weight="0" />
+            android:layout_height="0dp" android:layout_weight="0" />
     </LinearLayout>
     <de.blau.android.views.RightInset
-        android:layout_width="0dp" 
-        android:layout_height="match_parent"
+        android:layout_width="0dp" android:layout_height="match_parent"
         android:layout_weight="0" />
 </LinearLayout>

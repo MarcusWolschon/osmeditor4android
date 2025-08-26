@@ -297,7 +297,7 @@ public final class ScreenMessage {
      */
     public static void barError(@Nullable Activity activity, int res) {
         if (activity != null) {
-            barError(activity.findViewById(android.R.id.content), res);
+            barError(getTargetView(activity), res);
         }
     }
 
@@ -327,7 +327,7 @@ public final class ScreenMessage {
      */
     public static void barError(@Nullable Activity activity, String msg) {
         if (activity != null) {
-            barError(activity.findViewById(android.R.id.content), msg);
+            barError(getTargetView(activity), msg);
         }
     }
 
@@ -374,7 +374,7 @@ public final class ScreenMessage {
      */
     public static void barError(@Nullable Activity activity, int msgRes, int actionRes, View.OnClickListener listener) {
         if (activity != null) {
-            barError(activity.findViewById(android.R.id.content), msgRes, actionRes, listener);
+            barError(getTargetView(activity), msgRes, actionRes, listener);
         }
     }
 
@@ -411,7 +411,7 @@ public final class ScreenMessage {
      */
     public static void barInfo(@Nullable Activity activity, int res) {
         if (activity != null) {
-            barInfo(activity.findViewById(android.R.id.content), res);
+            barInfo(getTargetView(activity), res);
         }
     }
 
@@ -467,7 +467,7 @@ public final class ScreenMessage {
      */
     public static void barInfo(@Nullable Activity activity, @NonNull String msg) {
         if (activity != null) {
-            barInfo(activity.findViewById(android.R.id.content), msg);
+            barInfo(getTargetView(activity), msg);
         }
     }
 
@@ -479,7 +479,7 @@ public final class ScreenMessage {
      */
     public static void barInfoShort(@Nullable Activity activity, @NonNull String msg) {
         if (activity != null) {
-            barInfo(activity.findViewById(android.R.id.content), msg, BaseTransientBottomBar.LENGTH_SHORT);
+            barInfo(getTargetView(activity), msg, BaseTransientBottomBar.LENGTH_SHORT);
         }
     }
 
@@ -530,8 +530,25 @@ public final class ScreenMessage {
      */
     public static void barInfo(@Nullable Activity activity, String msg, int actionRes, @Nullable View.OnClickListener listener) {
         if (activity != null) {
-            barInfo(activity.findViewById(android.R.id.content), msg, actionRes, listener);
+            barInfo(getTargetView(activity), msg, actionRes, listener);
         }
+    }
+
+    /**
+     * Get a view for the SnackBar
+     * 
+     * If there is a view with the id "coordinator" that is returned otherwise the content view.
+     * 
+     * @param activity the target Activity
+     * @return a View or null
+     */
+    @Nullable
+    private static View getTargetView(@NonNull Activity activity) {
+        View targetView = activity.findViewById(R.id.coordinator);
+        if (targetView == null) {
+            targetView = activity.findViewById(android.R.id.content);
+        }
+        return targetView;
     }
 
     /**
@@ -567,7 +584,7 @@ public final class ScreenMessage {
      */
     public static void barWarning(@Nullable Activity activity, int res) {
         if (activity != null) {
-            barWarning(activity.findViewById(android.R.id.content), res, BaseTransientBottomBar.LENGTH_LONG);
+            barWarning(getTargetView(activity), res, BaseTransientBottomBar.LENGTH_LONG);
         }
     }
 
@@ -579,7 +596,7 @@ public final class ScreenMessage {
      */
     public static void barWarningShort(@Nullable Activity activity, int res) {
         if (activity != null) {
-            barWarning(activity.findViewById(android.R.id.content), res, BaseTransientBottomBar.LENGTH_SHORT);
+            barWarning(getTargetView(activity), res, BaseTransientBottomBar.LENGTH_SHORT);
         }
     }
 
@@ -610,7 +627,7 @@ public final class ScreenMessage {
      */
     public static void barWarning(@Nullable Activity activity, @NonNull String msg) {
         if (activity != null) {
-            barWarning(activity.findViewById(android.R.id.content), msg, BaseTransientBottomBar.LENGTH_LONG);
+            barWarning(getTargetView(activity), msg, BaseTransientBottomBar.LENGTH_LONG);
         }
     }
 
@@ -657,7 +674,7 @@ public final class ScreenMessage {
      * @param listener called when action is selected
      */
     public static void barWarning(@NonNull Activity activity, @NonNull String msg, int actionRes, View.OnClickListener listener) {
-        barWarning(activity.findViewById(android.R.id.content), msg, actionRes, listener);
+        barWarning(getTargetView(activity), msg, actionRes, listener);
     }
 
     /**
