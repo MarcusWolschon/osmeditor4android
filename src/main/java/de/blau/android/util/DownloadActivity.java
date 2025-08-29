@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.widget.CheckBox;
@@ -214,8 +215,9 @@ public class DownloadActivity extends WebViewActivity {
 
         setContentView(R.layout.download);
         webView = (WebView) findViewById(R.id.downloadSiteWebView);
-        ViewGroupCompat.installCompatInsetsDispatch(webView);
-        ViewCompat.setOnApplyWindowInsetsListener(webView, onApplyWindowInsetslistener);
+        View layout = (View) findViewById(R.id.downloadSiteLayout);
+        ViewGroupCompat.installCompatInsetsDispatch(layout);
+        ViewCompat.setOnApplyWindowInsetsListener(layout, onApplyWindowInsetslistener);
 
         CheckBox networks = (CheckBox) findViewById(R.id.allowAllNetworks);
         networks.setOnCheckedChangeListener((buttonView, isChecked) -> {
