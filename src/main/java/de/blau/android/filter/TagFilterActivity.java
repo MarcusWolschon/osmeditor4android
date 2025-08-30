@@ -33,7 +33,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cursoradapter.widget.CursorAdapter;
 import de.blau.android.App;
@@ -43,6 +42,7 @@ import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.prefs.ListActivity;
 import de.blau.android.util.AfterTextChangedWatcher;
 import de.blau.android.util.InsetAwarePopupMenu;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * Activity for editing filter entries. Due to the difficulties in using a ListView for editable items, this is a rather
@@ -128,7 +128,7 @@ public class TagFilterActivity extends ListActivity {
             MenuItem item = popup.getMenu().add(R.string.tag_filter_load);
             item.setOnMenuItemClickListener(unused -> {
                 final String[] names = TagFilterDatabaseHelper.getFilterNames(TagFilterActivity.this, db);
-                new AlertDialog.Builder(this).setItems(names, (DialogInterface d, int which) -> {
+                ThemeUtils.getAlertDialogBuilder(this).setItems(names, (DialogInterface d, int which) -> {
                     updateDatabaseFromList(); // write all changes
                     switchFilter(names[which]);
                 }).show();
@@ -148,7 +148,7 @@ public class TagFilterActivity extends ListActivity {
             });
             item = popup.getMenu().add(R.string.clear);
             item.setOnMenuItemClickListener(unused -> {
-                new AlertDialog.Builder(this).setTitle(R.string.tag_filter_clear_confirmation)
+                ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.tag_filter_clear_confirmation)
                         .setPositiveButton(R.string.yes, (DialogInterface d, int which) -> {
                             String filter = TagFilterDatabaseHelper.getCurrent(db);
                             db.delete(TagFilterDatabaseHelper.FILTERENTRIES_TABLE, TagFilterDatabaseHelper.FILTER_COLUMN + " =?", new String[] { filter });
@@ -160,7 +160,7 @@ public class TagFilterActivity extends ListActivity {
             item = popup.getMenu().add(R.string.delete);
             item.setEnabled(!TagFilter.DEFAULT_FILTER.equals(TagFilterDatabaseHelper.getCurrent(db)));
             item.setOnMenuItemClickListener(unused -> {
-                new AlertDialog.Builder(this).setTitle(R.string.tag_filter_delete_confirmation)
+                ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.tag_filter_delete_confirmation)
                         .setPositiveButton(R.string.yes, (DialogInterface d, int which) -> {
                             String filter = TagFilterDatabaseHelper.getCurrent(db);
                             db.delete(TagFilterDatabaseHelper.FILTERENTRIES_TABLE, TagFilterDatabaseHelper.FILTER_COLUMN + "=?", new String[] { filter });
