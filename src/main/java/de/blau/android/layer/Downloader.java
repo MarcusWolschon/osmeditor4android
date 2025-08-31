@@ -1,5 +1,7 @@
 package de.blau.android.layer;
 
+import java.util.concurrent.RejectedExecutionException;
+
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.osm.ViewBox;
@@ -27,7 +29,11 @@ public abstract class Downloader implements Runnable {
             Log.e(DEBUG_TAG, "Downloader run with null or too large ViewBox " + box);
             return;
         }
-        download();
+        try {
+            download();
+        } catch (RejectedExecutionException rjee) {
+            Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
+        }
     }
 
     /**
