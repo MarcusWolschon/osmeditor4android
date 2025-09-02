@@ -163,7 +163,6 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
         synchronized (temp) { // protect against CME
             layerToRender.addAll(temp);
         }
-
         for (Layer layer : layerToRender) {
             if (layer.isVisible() && z >= layer.getMinZoom() && (layer.getMaxZoom() == -1 || z <= layer.getMaxZoom())) {
                 if (layer instanceof Background) {
@@ -302,6 +301,6 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
         tempRect.left = destinationRect.left + (int) (tempRect.left * scaleX);
         tempRect.bottom = destinationRect.top + (int) (tempRect.bottom * scaleY);
         tempRect.top = destinationRect.top + (int) (tempRect.top * scaleY);
-        return tempRect.intersect(screenRect);
+        return Rect.intersects(tempRect, screenRect);
     }
 }
