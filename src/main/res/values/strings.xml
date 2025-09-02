@@ -565,6 +565,7 @@
     <string name="photo_viewer_goto">Go to photo</string>
     <string name="photo_viewer_label">Photo Viewer</string>
     <string name="mapillary_viewer_label">Mapillary Viewer</string>
+    <string name="photo_viewer_upload">Upload…</string>
     <!--  API info dialog -->
     <string name="api_info_bounds">Bounding box</string>
     <string name="api_info_latest_date">Last included date</string>
@@ -671,6 +672,7 @@
     <string name="toast_save_failed">Could not save</string>
     <string name="toast_export_failed">Could not export</string>
     <string name="toast_export_success">Exported to %1$s</string>
+    <string name="toast_upload_to_success">Successfully uploaded to %1$s</string>
     <plurals name="toast_preset_removed_or_replaced_tags">
         <item quantity="one">Overwrote or removed 1 tag</item>
         <item quantity="other">Overwrote or removed %1$d tags</item>
@@ -861,6 +863,7 @@
     <string name="toast_panoramax_sequence_error">Unable to retrieve panoramax sequence id %1$s id %2$s</string>
     <string name="toast_panoramax_image_not_in_sequence_error">Image id %1$s not found in sequence</string>
     <string name="toast_panoramax_sequence_exception">Unable to retrieve panoramax sequence\n%1$s</string>
+    <string name="toast_authorisation_successful">Authorisation successful!</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
@@ -1192,6 +1195,7 @@
     <string name="menu_tools_background_contrast">Contrast</string>
     <string name="menu_tools_oauth_reset">Reset authorization</string>
     <string name="menu_tools_oauth_authorisation">Authorize with OAuth…</string>
+    <string name="menu_authorize">Authorize…</string>
     <string name="menu_enable_tagfilter">Tag filter</string>
     <string name="menu_enable_presetfilter">Preset filter</string>
     <string name="preset_menu_waynodes">Include way nodes</string>
@@ -1218,6 +1222,8 @@
     <string name="menu_reverse">Reverse</string>
     <string name="notreversable_description">This way is unreversible due to being tagged with directionally dependent attributes. Reversing it would break the tagging.</string>
     <string name="reverse_anyway">Reverse anyway</string>
+    <string name="menu_add_new_image">Add new image…</string>
+    <string name="menu_add_existing_image">Add existing image…</string>
     <string name="deleteway_description">You are about to delete a way.\n\nYou can either keep all nodes, or delete those that only belong to this way and are tagless.</string>
     <string name="deleteway_relation_description">You are about to delete a way that is a member of one or more relations. Removing the way may render the relations invalid.</string>
     <string name="deleteway_nodesnotdownloaded_description">The way contains nodes outside of the downloaded area and cannot be deleted without potentially creating an inconsistent state.\n\nDownload the area around it before trying again.</string>
@@ -1358,8 +1364,10 @@
     <string name="config_useInternalPhotoViewer_summary">Use the builtin photo view, if not checked an external viewer will be used.</string>    
     <string name="config_indexMediaStore_summary">Additionally use the MediaStore for accessing photos</string>
     <string name="config_indexMediaStore_title">Use the MediaStore</string>
-    <string name="config_addToMediaStore_summary">Add images recorded with the camera button to the MediaStore</string>
+    <string name="config_addToMediaStore_summary">Add images recorded with the camera button to the MediaStore.</string>
     <string name="config_addToMediaStore_title">Add images to the MediaStore</string>
+    <string name="config_imageStores_summary">Configure destinations that can be used for storing images.</string>
+    <string name="config_imageStores_title">Image storage</string>
     <string name="config_followGPSbutton_title">Follow location button layout</string>
     <string name="config_followGPSbutton_summary">Where the "Follow location" button will be positioned.</string>
     <string name="config_alwaysDrawBoundingBoxes_title">Always dim non-downloaded areas</string>
@@ -1370,6 +1378,8 @@
     <string name="config_showTolerance_summary">Displays area where an element can be selected.</string>
     <string name="config_use_back_for_undo_title">Use ← key to undo</string>
     <string name="config_use_back_for_undo_summary">Use the ← key to undo in main edit view.</string>
+    <string name="config_imageLicence_title">Image licence</string>
+    <string name="config_imageLicence_summary">Licence to use for uploaded images</string>
     
     <string name="config_theme_title">Theme</string>
     <string name="config_theme_summary">Select app styling.</string>
@@ -1605,6 +1615,9 @@
     <string name="listedit_use_translations">Use translations</string>
     <string name="manage_geocoders">Manage geocoders</string>
     <string name="listedit_supports_compressed_uploads">Supports compressed uploads</string>
+    <string name="geocoder_type">Geocoder type</string>
+    <string name="manage_image_stores">Manage image storage</string>
+    <string name="imagestore_type">Image storage type</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset downloaded</string>
@@ -1614,6 +1627,9 @@
     <string name="preset_download_title">Preset downloader</string>
     <!-- preset management -->
     <string name="preset_management_delete">Really delete Preset?</string>
+    <!-- Image storage management -->
+    <string name="imagestores_add_from_panoramax_list">Add from Panoramax instances list…</string>
+    <string name="imagestores_add_manually">Add manually…</string>
     <!-- url handler activity -->
     <string name="urldialog_add_preset">Add preset</string>
     <string name="urldialog_preset_exists">This preset already exists</string>
@@ -1622,6 +1638,7 @@
     <string name="urldialog_add_api">Add API</string>
     <string name="urldialog_nodata_text">The configuration URL does not contain valid data.</string>
     <string name="urldialog_add_geocoder">Add geocoder</string>
+    <string name="urldialog_add_image_store">Add image storage</string>
     <!-- API configuration -->
     <string name="api_name">API name</string>
     <string name="api_url">API URL</string>
@@ -1629,6 +1646,12 @@
     <string name="notes_url">Notes API URL (optional)</string>
     <string name="copy_of">Copy of %1$s</string>
     <string name="choose_oauth_config">Choose OAuth configuration</string>
+    <!-- image upload dialog -->
+    <string name="image_upload">Upload</string>
+    <string name="image_upload_and_remove">Upload and remove</string>
+    <string name="image_upload_not_authorized">Upload failed due to not being authorized for the target storage</string>
+    <string name="image_upload_failed_due_to">Upload failed due to code %1$d %2$s for %3$s</string>
+    <string name="image_upload_failed">Upload failed %1$s</string>
     <!-- common terms -->
     <string name="add">Add</string>
     <string name="edit">Edit</string>
@@ -1643,7 +1666,6 @@
     <string name="URI">URI</string>
     <!--   -->
     <string name="empty_list">No entries</string>
-    <string name="geocoder_type">Geocoder type</string>
     <!-- "default" is a reserved Java keyword… -->
     <string name="preset">Preset</string>
     <string name="api">API</string>

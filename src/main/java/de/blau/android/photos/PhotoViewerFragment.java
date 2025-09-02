@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.activity.result.IntentSenderRequest;
@@ -76,12 +77,14 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
     public static final String PHOTO_LOADER_KEY = "loader";
     public static final String WRAP_KEY         = "wrap";
 
-    private static final int MENUITEM_BACK    = 0;
-    private static final int MENUITEM_SHARE   = 1;
-    private static final int MENUITEM_GOTO    = 2;
-    private static final int MENUITEM_INFO    = 3;
-    private static final int MENUITEM_DELETE  = 4;
-    private static final int MENUITEM_FORWARD = 5;
+    private static final int MENUITEM_BACK     = 0;
+    private static final int MENUITEM_SHARE    = 1;
+    private static final int MENUITEM_GOTO     = 2;
+    private static final int MENUITEM_INFO     = 3;
+    private static final int MENUITEM_DELETE   = 4;
+    private static final int MENUITEM_FORWARD  = 5;
+    private static final int MENUITEM_UPLOAD   = 6;
+    private static final int MENUITEM_OVERFLOW = 7;
 
     private List<T> photoList = null;
 
@@ -316,6 +319,16 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
             return true;
         }
 
+        @Override
+        public boolean supportsUpload() {
+            return true;
+        }
+
+        @Override
+        public void upload(@NonNull FragmentActivity caller, @NonNull String uri) {
+            UploadImage.dialog(caller, App.getPreferences(caller), new ImageAction(ImageAction.Action.UPLOAD), Uri.parse(uri));
+        }
+
     };
 
     /**
@@ -433,9 +446,21 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
             menu.add(Menu.NONE, MENUITEM_INFO, Menu.NONE, R.string.menu_information).setIcon(R.drawable.outline_info_white_48dp)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
-        if (photoLoader.supportsDelete()) {
-            menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        if (photoLoader.supportsUpload() && photoLoader.supportsDelete() && photoLoader.supportsInfo()) {
+            SubMenu overflow = menu.addSubMenu(Menu.NONE, MENUITEM_OVERFLOW, Menu.NONE, R.string.abc_action_menu_overflow_description)
+                    .setIcon(R.drawable.ic_more_vert_white_36dp);
+            overflow.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            overflow.add(Menu.NONE, MENUITEM_UPLOAD, Menu.NONE, R.string.photo_viewer_upload);
+            overflow.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete);
+        } else {
+            if (photoLoader.supportsUpload()) {
+                menu.add(Menu.NONE, MENUITEM_UPLOAD, Menu.NONE, R.string.photo_viewer_upload).setIcon(R.drawable.outline_import_export_white_36)
+                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            }
+            if (photoLoader.supportsDelete()) {
+                menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp)
+                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            }
         }
         itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp);
         itemForward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -536,6 +561,11 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
             case MENUITEM_DELETE:
                 if (loaderPresent) {
                     photoLoader.delete(caller, getUri(pos).toString());
+                }
+                break;
+            case MENUITEM_UPLOAD:
+                if (loaderPresent) {
+                    photoLoader.upload(caller, getUri(pos).toString());
                 }
                 break;
             default:

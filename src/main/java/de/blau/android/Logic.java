@@ -4402,7 +4402,8 @@ public class Logic {
         try {
             lock();
             if (editingStateRead) {
-                EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS(), prefs.getServer().getOpenChangeset());
+                EditState editState = new EditState(main, this, main.getImageFileName(), null, viewBox, main.getFollowGPS(),
+                        prefs.getServer().getOpenChangeset());
                 new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false, true);
                 main.getEasyEditManager().saveState();
             } else {

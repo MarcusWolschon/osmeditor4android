@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -54,6 +55,8 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
+import de.blau.android.photos.ImageAction;
+import de.blau.android.photos.UploadImage;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -68,7 +71,9 @@ import de.blau.android.tasks.Task.State;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.TodoFragment;
+import de.blau.android.util.ReadFile;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -116,6 +121,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     static final int           MENUITEM_PREFERENCES         = 47;
     static final int           MENUITEM_JS_CONSOLE          = 48;
     static final int           MENUITEM_ADD_TO_TODO         = 49;
+    static final int           MENUITEM_ADD_NEW_IMAGE       = 50;
+    static final int           MENUITEM_ADD_EXISTING_IMAGE  = 51;
 
     private static final int MENUITEM_TODO_CLOSE_AND_NEXT = 70;
     private static final int MENUITEM_TODO_SKIP_AND_NEXT  = 71;
@@ -216,6 +223,12 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         if (!isRelation) {
             menu.add(GROUP_BASE, MENUITEM_REPLACE_GEOMETRY, Menu.CATEGORY_SYSTEM | 10, R.string.menu_replace_geometry);
         }
+
+        if (main.hasCamera()) {
+            menu.add(GROUP_BASE, MENUITEM_ADD_NEW_IMAGE, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_new_image)
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_camera));
+        }
+        menu.add(GROUP_BASE, MENUITEM_ADD_EXISTING_IMAGE, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_existing_image);
 
         uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_element);
 
@@ -427,6 +440,34 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         case MENUITEM_ADD_TO_TODO:
             addToTodoList(main, manager, Util.wrapInList(element));
             break;
+        case MENUITEM_ADD_NEW_IMAGE:
+            main.descheduleAutoLock();
+            try {
+                final ActivityResultLauncher<ImageAction> takePictureRequestLauncher = main.getTakePictureRequestLauncher();
+                if (takePictureRequestLauncher != null) {
+                    takePictureRequestLauncher.launch(getImageActionForSelection());
+                }
+            } catch (Exception ex) {
+                try {
+                    ScreenMessage.barError(main, main.getResources().getString(R.string.toast_camera_error, ex.getMessage()));
+                    Log.e(DEBUG_TAG, ex.getMessage());
+                } catch (Exception e) {
+                    // protect against translation errors
+                }
+            }
+            break;
+        case MENUITEM_ADD_EXISTING_IMAGE:
+            main.descheduleAutoLock();
+            SelectFile.read(main, R.string.config_osmPreferredDir_key, new ReadFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                    UploadImage.dialog(main, prefs, getImageActionForSelection(), fileUri);
+                    return true;
+                }
+            });
+            break;
         case MENUITEM_TODO_CLOSE_AND_NEXT:
         case MENUITEM_TODO_SKIP_AND_NEXT:
             final List<Todo> todos = taskStorage.getTodosForElement(element);
@@ -457,6 +498,18 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             return false;
         }
         return true;
+    }
+
+    /**
+     * Get an approriate ImageAction for the selection
+     * 
+     * @return an ImageAction
+     */
+    private ImageAction getImageActionForSelection() {
+        ImageAction action = new ImageAction(ImageAction.Action.ADDTOELEMENT);
+        action.setElementType(element.getName());
+        action.setId(element.getOsmId());
+        return action;
     }
 
     /**
