@@ -354,7 +354,7 @@ public class MapOverlay extends StyleableFileLayer
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
         if (pointsSize > 1) {
-            path.reset();
+            path.rewind();
             path.moveTo(linePoints[0], linePoints[1]);
             for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
@@ -383,7 +383,7 @@ public class MapOverlay extends StyleableFileLayer
     public void drawPolygon(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<List<Point>> polygon, @NonNull Paint paint,
             @Nullable String label) {
         Coordinates c = null;
-        path.reset();
+        path.rewind();
         for (List<Point> ring : polygon) {
             GeoJson.pointListToLinePointsArray(bb, width, height, points, ring);
             float[] linePoints = points.getArray();

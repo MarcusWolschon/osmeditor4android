@@ -121,7 +121,7 @@ public class Fill extends Layer {
      * @param polygon List of List of Point objects defining the polygon rings
      */
     private void drawPolygon(Rect screenRect, @NonNull Canvas canvas, @NonNull List<List<Point>> polygon) {
-        path.reset();
+        path.rewind();
         float left = destinationRect.left + fillTranslate.literal[0];
         float top = destinationRect.top + fillTranslate.literal[1];
         for (List<Point> ring : polygon) {

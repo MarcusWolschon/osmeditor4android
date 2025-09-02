@@ -1669,7 +1669,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         // draw the way itself
         // this doesn't work properly with HW acceleration: canvas.drawLines(linePoints, fp.getPaint()); NOSONAR
         if (pointsSize > 2) {
-            path.reset();
+            path.rewind();
             path.moveTo(linePoints[0], linePoints[1]);
             for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);

@@ -120,7 +120,7 @@ public class Line extends Layer {
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
         if (pointsSize > 1) {
-            path.reset();
+            path.rewind();
             path.moveTo(linePoints[0], linePoints[1]);
             for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
