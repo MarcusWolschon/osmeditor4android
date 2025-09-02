@@ -67,6 +67,7 @@
     <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_selectCameraApp_key">selectCameraApp</string>
     <string name="config_useInternalPhotoViewer_key">useInternalPhotoViewer</string>
+    <string name="config_imageStores_key">imageStores</string>
     <string name="config_generateAlerts_key">generateAlerts</string>
     <string name="config_groupAlertsOnly_key">groupAlertsOnly</string>
     <string name="config_enableLightTheme_key">enableLightTheme</string>

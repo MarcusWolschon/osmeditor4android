@@ -50,7 +50,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private static final String TRUE         = "true";
 
     public enum EntryType {
-        IMAGERY, API_KEY, API_OAUTH1_KEY, API_OAUTH2_KEY
+        IMAGERY, API_KEY, API_OAUTH1_KEY, API_OAUTH2_KEY, PANORAMAX_KEY
     }
 
     /**
