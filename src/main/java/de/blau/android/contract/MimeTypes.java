@@ -20,6 +20,7 @@ public final class MimeTypes {
 
     public static final String GPX     = "application/gpx+xml";
     public static final String GEOJSON = "application/geo+json";
+    public static final String JSON    = "application/json";
 
     public static final String TEXTPLAIN = "text/plain";
     public static final String TEXTXML   = "text/xml";

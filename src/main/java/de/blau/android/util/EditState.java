@@ -22,6 +22,7 @@ import de.blau.android.filter.Filter;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.photos.ImageAction;
 
 /**
  * Save the edit state across pause / resume cycles
@@ -34,11 +35,12 @@ public class EditState implements Serializable {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, EditState.class.getSimpleName().length());
     private static final String DEBUG_TAG = EditState.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final long         serialVersionUID = 29L;
+    private static final long         serialVersionUID = 30L;
     private final boolean             savedLocked;
     private final Mode                savedMode;
     private final List<Selection.Ids> savedSelection;
     private final String              savedImageFileName;
+    private final ImageAction         savedImageAction;
     private final BoundingBox         savedBox;
     private final List<String>        savedLastComments;
     private final List<String>        savedLastSources;
@@ -59,11 +61,13 @@ public class EditState implements Serializable {
      * @param main Android Context
      * @param logic the current Logic instance
      * @param imageFileName a image filename is any
+     * @param imageAction the action for the above
      * @param box the current BoundingBox
      * @param followGPS true if the map is following the current location
      * @param changesetId the current changeset id (or -1)
      */
-    public EditState(@NonNull Main main, @NonNull Logic logic, @Nullable String imageFileName, @NonNull BoundingBox box, boolean followGPS, long changesetId) {
+    public EditState(@NonNull Main main, @NonNull Logic logic, @Nullable String imageFileName, @Nullable ImageAction imageAction, @NonNull BoundingBox box,
+            boolean followGPS, long changesetId) {
         savedLocked = logic.isUiLocked();
         savedMode = logic.getMode();
         savedSelection = new ArrayList<>();
@@ -71,6 +75,7 @@ public class EditState implements Serializable {
             savedSelection.add(selection.getIds());
         }
         savedImageFileName = imageFileName;
+        savedImageAction = imageAction;
         savedBox = box;
         savedLastComments = logic.getLastComments();
         savedCommentDraft = logic.getDraftComment();
@@ -144,6 +149,7 @@ public class EditState implements Serializable {
      */
     public void setMiscState(@NonNull Main main, @NonNull Logic logic) {
         main.setImageFileName(savedImageFileName);
+        main.setImageAction(savedImageAction);
         main.setSplitterPosition(savedNearbyPoiSplitterPos);
         logic.setLastComments(savedLastComments);
         logic.setDraftComment(savedCommentDraft);

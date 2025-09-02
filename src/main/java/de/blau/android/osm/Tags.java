@@ -188,6 +188,9 @@ public final class Tags {
     public static final String KEY_BRAND_WIKIPEDIA = "brand:wikipedia";
     public static final String KEY_BRAND_WIKIDATA  = "brand:wikidata";
 
+    // image tags
+    public static final String KEY_PANORAMAX = "panoramax";
+
     public static final String KEY_RAILWAY = "railway";
     //
     public static final String KEY_SOURCE   = "source";
@@ -402,8 +405,9 @@ public final class Tags {
     public static final String VALUE_NO    = "no";
     public static final String VALUE_FALSE = "false";
     //
-    public static final String KEY_WIKIPEDIA = "wikipedia";
-    public static final String KEY_WIKIDATA  = "wikidata";
+    public static final String KEY_WIKIPEDIA         = "wikipedia";
+    public static final String KEY_WIKIDATA          = "wikidata";
+    public static final String KEY_WIKIMEDIA_COMMONS = "wikimedia_commons";
 
     public static final String KEY_OPENING_HOURS    = "opening_hours";
     public static final String KEY_SERVICE_TIMES    = "service_times";
