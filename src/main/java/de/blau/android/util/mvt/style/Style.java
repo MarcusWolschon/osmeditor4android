@@ -235,11 +235,8 @@ public class Style implements Serializable {
             JsonElement root = JsonParser.parseReader(rd);
             if (root.isJsonObject()) {
                 JsonObject rootObject = (JsonObject) root;
-                JsonElement temp = rootObject.get(STYLE_VERSION);
-                if (temp != null) {
-                    version = temp.getAsInt();
-                }
-                temp = rootObject.get(STYLE_SOURCES);
+                version = getInt(rootObject.get(STYLE_VERSION), version);
+                JsonElement temp = rootObject.get(STYLE_SOURCES);
                 if (isObject(temp)) {
                     getSources((JsonObject) temp);
                 }
@@ -280,43 +277,53 @@ public class Style implements Serializable {
     private void getSources(@NonNull JsonObject sourcesObject) {
         for (Entry<String, JsonElement> entry : sourcesObject.entrySet()) {
             JsonElement value = entry.getValue();
-            if (value.isJsonObject()) {
-                JsonObject valueObject = (JsonObject) value;
-                JsonElement type = valueObject.get(SOURCE_TYPE);
-                JsonElement tiles = valueObject.get(SOURCE_TILES);
-                if (isString(type) && SOURCE_TYPE_VECTOR.equals(type.getAsString()) && isArray(tiles) && ((JsonArray) tiles).size() > 0) {
-                    Source source = new Source(SourceType.VECTOR);
-                    sources.put(entry.getKey(), source);
-                    int size = ((JsonArray) tiles).size();
-                    source.tileUrls = new String[size];
-                    for (int i = 0; i < size; i++) {
-                        source.getTileUrls()[i] = ((JsonArray) tiles).get(i).getAsString();
-                    }
-                    JsonElement minZoom = valueObject.get(SOURCE_MINZOOM);
-                    if (isNumber(minZoom)) {
-                        source.minZoom = minZoom.getAsInt();
-                    }
-                    JsonElement maxZoom = valueObject.get(SOURCE_MAXZOOM);
-                    if (isNumber(maxZoom)) {
-                        source.maxZoom = maxZoom.getAsInt();
-                    }
-                    JsonElement attribution = valueObject.get(SOURCE_ATTRIBUTION);
-                    if (isString(attribution)) {
-                        source.attribution = attribution.getAsString();
-                    }
-                    JsonElement bounds = valueObject.get(SOURCE_BOUNDS);
-                    if (isArray(bounds) && ((JsonArray) bounds).size() == 4) {
-                        JsonArray boundsArray = ((JsonArray) bounds);
-                        try {
-                            source.bounds.set((int) (boundsArray.get(0).getAsDouble() * 1E7), (int) (boundsArray.get(1).getAsDouble() * 1E7),
-                                    (int) (boundsArray.get(2).getAsDouble() * 1E7), (int) (boundsArray.get(3).getAsDouble() * 1E7));
-                        } catch (IllegalStateException isex) {
-                            Log.e(DEBUG_TAG, "Not a legal bounding box " + bounds);
-                        }
+            if (!value.isJsonObject()) {
+                continue;
+            }
+            JsonObject valueObject = (JsonObject) value;
+            JsonElement type = valueObject.get(SOURCE_TYPE);
+            JsonElement tiles = valueObject.get(SOURCE_TILES);
+            if (isString(type) && SOURCE_TYPE_VECTOR.equals(type.getAsString()) && isArray(tiles) && ((JsonArray) tiles).size() > 0) {
+                Source source = new Source(SourceType.VECTOR);
+                sources.put(entry.getKey(), source);
+                int size = ((JsonArray) tiles).size();
+                source.tileUrls = new String[size];
+                for (int i = 0; i < size; i++) {
+                    source.getTileUrls()[i] = ((JsonArray) tiles).get(i).getAsString();
+                }
+                source.minZoom = getInt(valueObject.get(SOURCE_MINZOOM), source.minZoom);
+                source.maxZoom = getInt(valueObject.get(SOURCE_MAXZOOM), source.maxZoom);
+
+                JsonElement attribution = valueObject.get(SOURCE_ATTRIBUTION);
+                if (isString(attribution)) {
+                    source.attribution = attribution.getAsString();
+                }
+                JsonElement bounds = valueObject.get(SOURCE_BOUNDS);
+                if (isArray(bounds) && ((JsonArray) bounds).size() == 4) {
+                    JsonArray boundsArray = ((JsonArray) bounds);
+                    try {
+                        source.bounds.set((int) (boundsArray.get(0).getAsDouble() * 1E7), (int) (boundsArray.get(1).getAsDouble() * 1E7),
+                                (int) (boundsArray.get(2).getAsDouble() * 1E7), (int) (boundsArray.get(3).getAsDouble() * 1E7));
+                    } catch (IllegalStateException isex) {
+                        Log.e(DEBUG_TAG, "Not a legal bounding box " + bounds);
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Return a JsonElement as int if possible
+     * 
+     * @param element the JsonElement
+     * @param defaultValue the default value
+     * @return the converted JsonElement of the default
+     */
+    private int getInt(@Nullable JsonElement element, int defaultValue) {
+        if (isNumber(element)) {
+            return element.getAsInt();
+        }
+        return defaultValue;
     }
 
     /**
@@ -441,16 +448,9 @@ public class Style implements Serializable {
         if (isObject(tempElement)) {
             paint = tempElement.getAsJsonObject();
         }
-        tempElement = layer.get(LAYER_MINZOOM);
-        int minZoom = 0;
-        if (isNumber(tempElement)) {
-            minZoom = tempElement.getAsInt();
-        }
-        tempElement = layer.get(LAYER_MAXZOOM);
-        int maxZoom = -1;
-        if (isNumber(tempElement)) {
-            maxZoom = tempElement.getAsInt();
-        }
+        int minZoom = getInt(layer.get(LAYER_MINZOOM), 0);
+        int maxZoom = getInt(layer.get(LAYER_MAXZOOM), -1);
+
         tempElement = layer.get(LAYER_INTERACTIVE);
         boolean interactive = true;
         if (isBoolean(tempElement)) {

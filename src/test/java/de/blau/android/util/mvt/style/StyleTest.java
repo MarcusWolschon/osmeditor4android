@@ -2,6 +2,7 @@ package de.blau.android.util.mvt.style;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -106,6 +111,25 @@ public class StyleTest {
         assertNotNull(something);
         assertEquals(3 * density, something.circleRadius.literal, 0.01);
         assertEquals(1 * density, something.stroke.getStrokeWidth(), 0.01);
+    }
+
+    /**
+     * Linear interpolation test
+     */
+    @Test
+    public void interpolationTest() {
+        // "line-width": { "stops": [ [ 12, 1 ], [ 14, 2 ], [ 16, 5 ], [ 18, 24 ], [ 19, 60 ], [ 20, 120 ] ] },
+        JsonElement function = JsonParser.parseString("{ \"stops\": [ [ 12, 1 ], [ 14, 2 ], [ 16, 5 ], [ 18, 24 ], [ 19, 60 ], [ 20, 120 ] ] }");
+        if (!function.isJsonObject()) {
+            fail("Unexpected JSON element " + function.toString());
+        }
+        assertEquals(1, Layer.evalNumberFunction((JsonObject) function, null, 10), 0.01);
+        assertEquals(1, Layer.evalNumberFunction((JsonObject) function, null, 12), 0.01);
+        assertEquals(1.5, Layer.evalNumberFunction((JsonObject) function, null, 13), 0.01);
+        assertEquals(2.0, Layer.evalNumberFunction((JsonObject) function, null, 14), 0.01);
+        assertEquals(3.5, Layer.evalNumberFunction((JsonObject) function, null, 15), 0.01);
+        assertEquals(5, Layer.evalNumberFunction((JsonObject) function, null, 16), 0.01);
+        assertEquals(120, Layer.evalNumberFunction((JsonObject) function, null, 21), 0.01);
     }
 
     /**

@@ -927,7 +927,7 @@ public class Map extends SurfaceView implements IMapView {
         int screenHeight = getHeight();
         screen.set(0, 0, screenWidth, screenHeight);
         ViewBox viewBox = getViewBox();
-        path.reset();
+        path.rewind();
         for (BoundingBox bb : list) {
             float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
             float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());

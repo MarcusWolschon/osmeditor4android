@@ -12,6 +12,7 @@ import android.graphics.Canvas;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.GeoJSONConstants;
@@ -25,6 +26,8 @@ public class Line extends Layer {
     private static final long serialVersionUID = 7L;
 
     public static final float DEFAULT_LINE_WIDTH = 1f;
+
+    private static final boolean API29 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
 
     private transient FloatPrimitiveList points = new FloatPrimitiveList(1000);
 
@@ -86,6 +89,7 @@ public class Line extends Layer {
     @Override
     public void render(Canvas c, Style style, Feature feature, int z, Rect screenRect, Rect destinationRect, float scaleX, float scaleY) {
         super.render(c, style, feature, z, screenRect, destinationRect, scaleX, scaleY);
+
         this.destinationRect = destinationRect;
         this.scaleX = scaleX;
         this.scaleY = scaleY;
@@ -94,13 +98,13 @@ public class Line extends Layer {
         case GeoJSONConstants.LINESTRING:
             @SuppressWarnings("unchecked")
             List<Point> line = ((CoordinateContainer<List<Point>>) g).coordinates();
-            drawLine(screenRect, c, line);
+            drawLine(screenRect, c, line, API29);
             break;
         case GeoJSONConstants.MULTILINESTRING:
             @SuppressWarnings("unchecked")
             List<List<Point>> lines = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
             for (List<Point> l : lines) {
-                drawLine(screenRect, c, l);
+                drawLine(screenRect, c, l, API29);
             }
             break;
         default:
@@ -114,13 +118,18 @@ public class Line extends Layer {
      * @param screenRect a REct with the screen bounds
      * @param canvas Canvas object we are drawing on
      * @param line a List of Points making up the line
+     * @param useDrawLines use Canvas.drawLines instead of constructing a path
      */
-    public void drawLine(@NonNull Rect screenRect, @NonNull Canvas canvas, @NonNull List<Point> line) {
+    private void drawLine(@NonNull Rect screenRect, @NonNull Canvas canvas, @NonNull List<Point> line, boolean useDrawLines) {
         pointListToLinePointsArray(screenRect, destinationRect.left, scaleX, destinationRect.top, scaleY, points, line);
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
         if (pointsSize > 1) {
-            path.reset();
+            if (useDrawLines) {
+                canvas.drawLines(linePoints, 0, pointsSize, paint);
+                return;
+            }
+            path.rewind();
             path.moveTo(linePoints[0], linePoints[1]);
             for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);

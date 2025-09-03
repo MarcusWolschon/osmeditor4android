@@ -167,7 +167,7 @@ public class MapOverlay extends StyleableFileLayer
             map.pointListToLinePointsArray(linePoints, trackPoints);
             GeoMath.squashPointsArray(linePoints, getStrokeWidth() * 2);
             float[] linePointsArray = linePoints.getArray();
-            path.reset();
+            path.rewind();
             path.moveTo(linePointsArray[0], linePointsArray[1]);
             int pointsSize = linePoints.size();
             for (int i = 0; i < pointsSize; i = i + 4) {
