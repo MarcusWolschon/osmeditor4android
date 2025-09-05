@@ -77,6 +77,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public static final String  FILENAME        = LAST_STATE + "." + FileExtensions.RES;
     public static final String  BACKUP_FILENAME = FILENAME + ".backup";
 
+    public static final String V_CHUNK = "v:chunk";
+
     private Storage currentStorage;
 
     private Storage apiStorage;
@@ -3321,7 +3323,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         while (elementCount > 0) {
             String tmpSource = source;
             if (split) {
-                tmpSource = source + " [" + part + "]";
+                if (extraTags == null) {
+                    extraTags = new HashMap<>();
+                }
+                extraTags.put(V_CHUNK, Integer.toString(part));
             }
             server.openChangeset(closeOpenChangeset, comment, tmpSource, Util.toOsmList(imagery), extraTags);
             try {

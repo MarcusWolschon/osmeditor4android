@@ -43,9 +43,9 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.net.GzipRequestInterceptor;
 import de.blau.android.prefs.API;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
 import okhttp3.HttpUrl;
@@ -511,7 +511,7 @@ public class ApiTest {
         logic.upload(main, arguments, new FailOnErrorHandler(signal2));
         runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
-
+    
         n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         assertNotNull(n);
         assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
@@ -615,6 +615,13 @@ public class ApiTest {
         assertNotNull(r);
         assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
         assertEquals(4L, r.getOsmVersion());
+        try {
+            mockServer.takeRequest();
+            RecordedRequest request = mockServer.takeRequest();
+            assertTrue(request.getBody().readUtf8().contains("<tag k=\"v:chunk\" v=\"1\" />"));
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
     }
 
     /**
