@@ -77,6 +77,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public static final String  FILENAME        = LAST_STATE + "." + FileExtensions.RES;
     public static final String  BACKUP_FILENAME = FILENAME + ".backup";
 
+    public static final String V_CHUNK = "v:chunk";
+
     private Storage currentStorage;
 
     private Storage apiStorage;
@@ -3304,55 +3306,66 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @throws IOException if the upload doesn't work
      */
     public void uploadToServer(@NonNull final Server server, @Nullable final String comment, @Nullable String source, boolean closeOpenChangeset,
-            boolean closeChangeset, @Nullable Map<String, String> extraTags, @Nullable List<OsmElement> elements) throws IOException {
+            boolean closeChangeset, @Nullable Map<String, String> extraTags, @Nullable final List<OsmElement> elements) throws IOException {
 
         dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
         removeUnchanged();
         // upload methods set dirty flag too, in case the file is saved during an upload
         boolean fullUpload = elements == null;
-        int uploadElementCount = fullUpload ? getApiElementCount() : elements.size();
-        int notUploadedElementCount = getApiElementCount() - uploadElementCount; // will be zero for normal uploads
+        // we can't modify the original list as that will destroy the record of what we are uploading
+        List<OsmElement> toUpload = !fullUpload ? new ArrayList<>(elements) : null;
+        int uploadElementCount = fullUpload ? getApiElementCount() : toUpload.size();
         boolean split = uploadElementCount > server.getCachedCapabilities().getMaxElementsInChangeset();
         int part = 1;
         int elementCount = uploadElementCount;
+        int uploadedCount = 0;
+
         while (elementCount > 0) {
             String tmpSource = source;
             if (split) {
-                tmpSource = source + " [" + part + "]";
+                if (extraTags == null) {
+                    extraTags = new HashMap<>();
+                }
+                extraTags.put(V_CHUNK, Integer.toString(part));
             }
             server.openChangeset(closeOpenChangeset, comment, tmpSource, Util.toOsmList(imagery), extraTags);
             try {
                 lock();
+                int startCount = apiStorage.getElementCount();
                 if (fullUpload) {
-                    server.diffUpload(this, getApiStorage());
+                    server.diffUpload(this, apiStorage);
                 } else {
                     Storage storage = new Storage();
-                    // if we are uploading more than the limit elements
-                    // this will work as uploaded elements will have
-                    // unmodified status
-                    storage.addChangedElements(elements);
+                    storage.addChangedElements(toUpload);
                     server.diffUpload(this, storage);
+                    // remove everything that has been processed from elements
+                    // unmodified status is not enough itself because of deleted elements
+                    for (OsmElement e : new ArrayList<>(toUpload)) {
+                        if (apiStorage.getOsmElement(e.getName(), e.getOsmId()) == null) {
+                            toUpload.remove(e);
+                        }
+                    }
                 }
+                uploadedCount = startCount - apiStorage.getElementCount();
+                elementCount = elementCount - uploadedCount;
             } finally {
                 unlock();
             }
-
             if (closeChangeset || split) { // always close when splitting
                 server.closeChangeset();
             }
             part++;
-            int currentElementCount = getApiElementCount();
-            if (currentElementCount < notUploadedElementCount + elementCount) {
-                elementCount = currentElementCount - notUploadedElementCount;
-            } else {
+            if (uploadedCount == 0) {
                 // element count didn't do anything, that should cause an exception to be
                 // thrown in diffUpload, but it is conceivable that that doesn't happen
                 Log.e(DEBUG_TAG, "Upload had no effect, API element count " + elementCount);
                 throw new ProtocolException("Upload had no effect");
             }
+            if (elementCount > 0 && !split) {
+                Log.e(DEBUG_TAG, "Unexpected remaining elements, originally " + uploadElementCount + " remaining " + elementCount);
+                break;
+            }
         }
-        // yes, again, just to be sure
-        dirty = true;
 
         // reset imagery recording for next upload
         imagery = new ArrayList<>();
