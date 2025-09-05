@@ -215,7 +215,7 @@ public class DownloadActivity extends WebViewActivity {
 
         setContentView(R.layout.download);
         webView = (WebView) findViewById(R.id.downloadSiteWebView);
-        View layout = (View) findViewById(R.id.downloadSiteLayout);
+        View layout = findViewById(R.id.downloadSiteLayout);
         ViewGroupCompat.installCompatInsetsDispatch(layout);
         ViewCompat.setOnApplyWindowInsetsListener(layout, onApplyWindowInsetslistener);
 
