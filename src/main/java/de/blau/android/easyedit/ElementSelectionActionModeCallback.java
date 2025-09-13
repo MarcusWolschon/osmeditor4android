@@ -507,8 +507,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * @return an ImageAction
      */
     private ImageAction getImageActionForSelection() {
-        ImageAction action = new ImageAction();
-        action.setAction(ImageAction.Action.ADDTOELEMENT);
+        ImageAction action = new ImageAction(ImageAction.Action.ADDTOELEMENT);
         action.setElementType(element.getName());
         action.setId(element.getOsmId());
         return action;

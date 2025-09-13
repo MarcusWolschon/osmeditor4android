@@ -2,6 +2,8 @@ package de.blau.android.photos;
 
 import java.io.Serializable;
 
+import androidx.annotation.NonNull;
+
 public class ImageAction implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -9,9 +11,18 @@ public class ImageAction implements Serializable {
         NOTHING, UPLOAD, ADDTOELEMENT, ADDTONOTE
     }
 
-    private Action action;
-    private long   id;
-    private String elementType;
+    private final Action action;
+    private long         id;
+    private String       elementType;
+
+    /**
+     * Construct a new instance
+     * 
+     * @param action what to doe with the image
+     */
+    public ImageAction(@NonNull Action action) {
+        this.action = action;
+    }
 
     /**
      * @return the elementType
@@ -46,12 +57,5 @@ public class ImageAction implements Serializable {
      */
     public Action getAction() {
         return action;
-    }
-
-    /**
-     * @param action the action to set
-     */
-    public void setAction(Action action) {
-        this.action = action;
     }
 }

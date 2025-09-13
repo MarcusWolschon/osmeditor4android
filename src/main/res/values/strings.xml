@@ -565,6 +565,7 @@
     <string name="photo_viewer_goto">Go to photo</string>
     <string name="photo_viewer_label">Photo Viewer</string>
     <string name="mapillary_viewer_label">Mapillary Viewer</string>
+    <string name="photo_viewer_upload">Upload…</string>
     <!--  API info dialog -->
     <string name="api_info_bounds">Bounding box</string>
     <string name="api_info_latest_date">Last included date</string>

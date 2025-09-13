@@ -2101,9 +2101,7 @@ public class Main extends ConfigurationChangeAwareActivity
         case R.id.menu_camera:
             try {
                 if (takePictureRequestLauncher != null) {
-                    ImageAction action = new ImageAction();
-                    action.setAction(ImageAction.Action.NOTHING);
-                    takePictureRequestLauncher.launch(action);
+                    takePictureRequestLauncher.launch(new ImageAction(ImageAction.Action.NOTHING));
                 }
             } catch (Exception ex) {
                 try {

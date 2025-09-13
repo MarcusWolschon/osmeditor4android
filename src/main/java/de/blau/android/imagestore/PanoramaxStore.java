@@ -249,6 +249,14 @@ public class PanoramaxStore implements ImageStore {
     private UploadResult uploadError(@NonNull Response response, @NonNull URL url) {
         UploadResult result = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
         result.setHttpError(response.code());
+        String message = response.message();
+        if (message == null) {
+            try {
+                message = new String(response.body().bytes());
+            } catch (IOException e) {
+                // nothing
+            }
+        }
         result.setMessage(response.message());
         result.setUrl(url.toString());
         return result;
