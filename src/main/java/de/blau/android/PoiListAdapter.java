@@ -15,12 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.dialogs.ElementInfo;
+import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.Density;
+import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.Validator;
 
@@ -90,6 +92,11 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
                     map.invalidate();
                     ElementInfo.showDialog(main, element);
                 } else {
+                    EasyEditManager manager = main.getEasyEditManager();
+                    if (manager != null && manager.isProcessingAction() && !manager.inElementSelectedMode()) {
+                        Sound.beep();
+                        return;
+                    }
                     main.edit(element);
                 }
             }
