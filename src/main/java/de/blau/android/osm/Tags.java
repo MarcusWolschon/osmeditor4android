@@ -188,6 +188,9 @@ public final class Tags {
     public static final String KEY_BRAND_WIKIPEDIA = "brand:wikipedia";
     public static final String KEY_BRAND_WIKIDATA  = "brand:wikidata";
 
+    // image tags
+    public static final String KEY_PANORAMAX = "panoramax";
+
     public static final String KEY_RAILWAY = "railway";
     //
     public static final String KEY_SOURCE   = "source";

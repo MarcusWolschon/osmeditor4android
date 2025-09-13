@@ -54,6 +54,10 @@
             android:key="@string/config_addToMediaStore_key"
             android:summary="@string/config_addToMediaStore_summary"
             android:title="@string/config_addToMediaStore_title" />
+        <androidx.preference.Preference
+            android:key="@string/config_imageStores_key"
+            android:summary="@string/config_imageStores_summary"
+            android:title="@string/config_imageStores_title" />
         <androidx.preference.ListPreference
             android:defaultValue="@string/follow_GPS_left"
             android:entries="@array/followGPSbutton_entries"

@@ -23,7 +23,7 @@
         android:id="@+id/listedit_labelValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/geocoder_type" />
+        android:text="@string/imagestore_type" />
 
     <Spinner
 		android:id="@+id/listedit_type_spinner"

@@ -8,8 +8,8 @@ import okhttp3.Response;
 
 public class OAuth2Interceptor implements Interceptor {
 
-    private static final String AUTHORIZATION_HEADER = "Authorization";
-    private static final String BEARER               = "Bearer ";
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String BEARER               = "Bearer ";
 
     private final String accessToken;
 
