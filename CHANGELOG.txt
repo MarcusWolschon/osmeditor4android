@@ -1,5 +1,26 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.1.4.0:
+
+- Fix only allow selection from the nearby POI list in appropriate modes
+- Fix store chunk number in custom changeset tag
+- Fix make code that checks how many elements have been uploaded more robust
+- Fix lock everything during task pruning
+- Fix back port tag filter excluding way nodes fix
+- Fix use Canvas.drawLines instead of constructing a Path
+- Fix use Rect.intersects instead of .intersect
+- Fix use Path.rewind and not .reset
+- Fix catch REE at top level too
+- Fix use the correct view for the inset listeners
+- Fix anchor popup menu on parent view if possible
+- Fix add a CoordinatorLayout to most activities for Snackbar positioning
+- Fix add left and right insets to activity layouts
+- Update translations
+- Update imagery from ELI
+- Update default preset
+- Update synonyms
+- Update NSI
+
 21.1.3.0:
 
 - Fix save popup related classes
