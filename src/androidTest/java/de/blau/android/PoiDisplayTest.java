@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -18,6 +20,7 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
@@ -109,5 +112,27 @@ public class PoiDisplayTest {
         TestUtils.unlock(device);
         assertTrue(TestUtils.clickText(device, false, "Excrement bags", true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect)));
+    }
+
+    /**
+     * During path creation mode selection should be blocked
+     */
+    @Test
+    public void blocked() {
+
+        unlocked();
+
+        TestUtils.zoomToLevel(device, main, 19);
+        TestUtils.unlock(device);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
+        TestUtils.clickAtCoordinates(device, map, 8.3853895, 47.3889168, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
+        TestUtils.clickAtCoordinates(device, map, 8.3854068, 47.3886554, true);
+        TestUtils.sleep();
+
+        assertTrue(TestUtils.clickText(device, false, "Excrement bags", true));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
     }
 }
