@@ -76,13 +76,18 @@
 "parkir sepeda"
 ],
 "amenity/bicycle_parking/building":[
-"Garasi Parkir Sepeda"
+"garasi sepeda",
+"Garasi Parkir Sepeda",
+"gedung parkir",
+"parkir sepeda"
 ],
 "amenity/bicycle_parking/lockers":[
-"Loker Sepeda"
+"Loker Sepeda",
+"parkir sepeda"
 ],
 "amenity/bicycle_parking/shed":[
-"Parkir Sepeda Teduh"
+"Parkir Sepeda Teduh",
+"parkir sepeda"
 ],
 "amenity/bicycle_rental":[
 "sewa sepeda",
@@ -118,6 +123,16 @@
 "bistro",
 "jamu",
 "kopi"
+],
+"amenity/cafe/bubble_tea":[
+"boba",
+"tapioca",
+"taiwanese tea drink",
+"Teh Boba",
+"pearl tea",
+"bubble milk tea",
+"pearl milk tea",
+"boba drink"
 ],
 "amenity/cafe/coffee_shop":[
 "Kedai Kopi"
@@ -265,7 +280,12 @@
 "kantor pemadam kebakaran"
 ],
 "amenity/food_court":[
-"Restoran Lesehan"
+"Taman Jajan",
+"lesehan",
+"pujasera",
+"pusat jajanan serbaada",
+"food court",
+"taman jajan"
 ],
 "amenity/fountain":[
 "Air Mancur"
@@ -322,6 +342,11 @@
 ],
 "amenity/motorcycle_parking":[
 "Parkir Motor"
+],
+"amenity/motorcycle_rental":[
+"rental motor",
+"Sewa Sepeda Bermotor",
+"rental moped"
 ],
 "amenity/music_school":[
 "Sekolah Musik"
@@ -581,6 +606,11 @@
 "amenity/shelter/public_transport":[
 "Hotel Transit"
 ],
+"amenity/shower":[
+"toilet",
+"Kamar Mandi",
+"wc"
+],
 "amenity/smoking_area":[
 "Ruang khusus merokok"
 ],
@@ -722,6 +752,15 @@
 ],
 "barrier/hedge":[
 "Pagar Tanaman"
+],
+"barrier/height_restrictor":[
+"height barrier",
+"maxheight",
+"tinggi max",
+"max height",
+"Pembatas Ketinggian",
+"height restriction barrier",
+"maximum height measurer"
 ],
 "barrier/kerb":[
 "Kerb Jalan"
@@ -1167,6 +1206,9 @@
 "ford_line":[
 "Arung sebidang dengan air"
 ],
+"golf/cartpath":[
+"Jalur Mobil Golf"
+],
 "golf/fairway":[
 "Jalur Golf"
 ],
@@ -1175,6 +1217,9 @@
 ],
 "golf/hole":[
 "Lubang Golf"
+],
+"golf/path":[
+"Jalur Pejalan Kaki Golf"
 ],
 "healthcare":[
 "rs",
@@ -1239,7 +1284,7 @@
 "jejak"
 ],
 "highway/bus_stop":[
-"Perhentian Bus"
+"Halte Bus"
 ],
 "highway/construction":[
 "Jalan dalam Pembangunan"
@@ -1261,9 +1306,16 @@
 "Tempat Penyebrangan / Zebra Kros"
 ],
 "highway/cycleway":[
+"jalur sepeda",
 "Jalur Sepeda"
 ],
 "highway/cycleway/crossing":[
+"Jalur Penyebrangan Sepeda"
+],
+"highway/cycleway/crossing/bicycle_foot":[
+"Jalur Penyebrangan Sepeda & Pejalan Kaki"
+],
+"highway/cycleway/crossing/unmarked":[
 "Jalur Penyebrangan Sepeda"
 ],
 "highway/emergency_access_point":[
@@ -1333,7 +1385,16 @@
 "jalan penghubung bebas hambatan"
 ],
 "highway/path":[
-"Jalur"
+"Jalur (umum)"
+],
+"highway/path/crossing":[
+"Jalur Penyebrangan Sepeda & Pejalan Kaki"
+],
+"highway/path/crossing/traffic_signals":[
+"Jalur Penyebrangan Sepeda & Pejalan Kaki dengan Lalin"
+],
+"highway/path/crossing/uncontrolled":[
+"Jalur Penyebrangan Sepeda & Pejalan Kaki Bermarka"
 ],
 "highway/pedestrian_area":[
 "square",
@@ -1518,8 +1579,14 @@
 "Tugu Peringatan",
 "tugu peringatan"
 ],
+"historic/memorial/blue_plaque-GB-IE":[
+"Plakat Biru"
+],
 "historic/memorial/plaque":[
 "Plakat Peringatan"
+],
+"historic/memorial/stolperstein-EU":[
+"Batu Sandungan"
 ],
 "historic/monument":[
 "Monumen",
@@ -1642,6 +1709,12 @@
 "bangun",
 "konstruksi",
 "Area Konstruksi"
+],
+"landuse/education":[
+"sekolah",
+"Kawasan Pendidikan",
+"kampus",
+"fasilitas pendidikan"
 ],
 "landuse/farm":[
 "Pertanian"
@@ -1874,6 +1947,9 @@
 "lapangan basket",
 "Lapangan Basket"
 ],
+"leisure/pitch/equestrian":[
+"Lapangan Pacuan Kuda"
+],
 "leisure/pitch/skateboard":[
 "Arena Papan Seluncur",
 "skating",
@@ -1911,6 +1987,15 @@
 ],
 "leisure/sports_centre":[
 "Gedung Pusat Olahraga"
+],
+"leisure/sports_centre/climbing":[
+"Panjat Tebing",
+"panjat",
+"climbing gym",
+"panjat tebing"
+],
+"leisure/sports_centre/horse_racing":[
+"Lapangan Balapan Kuda"
 ],
 "leisure/stadium":[
 "stadion",
@@ -2600,6 +2685,9 @@
 "pembangkit listrik",
 "PLTG"
 ],
+"power/plant/source/hydro":[
+"PLTA"
+],
 "power/plant/source/method/photovoltaic":[
 "surya",
 "pembangkit listrik",
@@ -2614,6 +2702,8 @@
 "pembangkit listrik"
 ],
 "power/plant/source/solar":[
+"panel surya",
+"sel surya",
 "PLTS"
 ],
 "power/plant/source/waste":[
@@ -2645,10 +2735,18 @@
 "Trafo"
 ],
 "public_transport/platform/bus_point":[
-"Perhentian Bis"
+"Halte Bis"
 ],
 "public_transport/platform/bus_tram_point":[
 "Halte Bis dan Tram"
+],
+"public_transport/platform/subway":[
+"Peron Kereta Metro",
+"subway",
+"mrt"
+],
+"public_transport/platform/subway_point":[
+"Stasiun / Peron Kereta Metro"
 ],
 "public_transport/platform/train":[
 "Peron Kereta"
@@ -2667,6 +2765,11 @@
 ],
 "public_transport/station_ferry":[
 "Pelabuhan Feri"
+],
+"public_transport/station_subway":[
+"subway",
+"Stasiun Kereta Metro",
+"mrt"
 ],
 "public_transport/station_train":[
 "Stasiun Kereta"
@@ -2692,8 +2795,8 @@
 "railway/level_crossing":[
 "penyeberangan",
 "penyebrangan",
-"Perlintasan Sebidang",
 "zebra cross",
+"Perlintasan Rel Sebidang",
 "crossing"
 ],
 "railway/light_rail":[
@@ -2725,11 +2828,12 @@
 "Stasiun Kereta"
 ],
 "railway/subway":[
-"Rel Kereta Bawah Tanah",
+"subway",
+"Rel Kereta Metro",
 "mrt"
 ],
 "railway/subway_entrance":[
-"Pintu Terowongan"
+"Pintu Terowongan Kereta Metro"
 ],
 "railway/switch":[
 "Wesel"
@@ -2880,6 +2984,15 @@
 "dry clean",
 "Jasa Cuci Kering"
 ],
+"shop/electrical":[
+"kipas",
+"kabel",
+"lampu",
+"kawat",
+"led",
+"daya",
+"listrik"
+],
 "shop/electronics":[
 "Toko Elektronik"
 ],
@@ -2968,6 +3081,10 @@
 "shop/hifi":[
 "Toko Hifi"
 ],
+"shop/houseware":[
+"Toko Parabot Rumah",
+"perabotan"
+],
 "shop/interior_decoration":[
 "Toko Dekorasi Interior",
 "rumah",
@@ -3054,6 +3171,11 @@
 "shop/photo":[
 "Toko Fotografi"
 ],
+"shop/psychic":[
+"Dukun",
+"cenayang",
+"indigo"
+],
 "shop/pyrotechnics":[
 "Toko Kembang Api"
 ],
@@ -3095,6 +3217,9 @@
 ],
 "shop/tea":[
 "Toko Teh"
+],
+"shop/telecommunication":[
+"Toko telekomunikasi"
 ],
 "shop/ticket":[
 "Penjual Tiket"
@@ -3193,7 +3318,10 @@
 "Objek Wisata"
 ],
 "tourism/camp_site":[
-"Perkemahan"
+"Perkemahan",
+"kemah",
+"kemping",
+"berkemah"
 ],
 "tourism/caravan_site":[
 "Taman RV"
@@ -3289,6 +3417,17 @@
 "rumble strip",
 "pita penggaduh"
 ],
+"traffic_sign":[
+"Rambu Lalu Lintas",
+"rambu lalin",
+"marka"
+],
+"traffic_sign/city_limit":[
+"Rambu Batas Wilayah"
+],
+"traffic_sign/maxspeed":[
+"Rambu Batas Kecepatan"
+],
 "type/boundary":[
 "Batas"
 ],
@@ -3336,6 +3475,11 @@
 "type/route/road":[
 "Rute Jalan"
 ],
+"type/route/subway":[
+"subway",
+"Rute Kereta Metro",
+"mrt"
+],
 "type/route/train":[
 "Rute Kereta"
 ],
@@ -3362,6 +3506,9 @@
 ],
 "waterway/drain":[
 "Saluran / Irigasi"
+],
+"waterway/lock_gate":[
+"Pintu Air"
 ],
 "waterway/river":[
 "kali",

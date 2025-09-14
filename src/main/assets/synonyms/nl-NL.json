@@ -1161,8 +1161,8 @@
 ],
 "amenity/parking_space":[
 "individuele parkeerplaats",
-"Parkeerplaats",
-"parkeervak"
+"parkeervak",
+"Parkeervak"
 ],
 "amenity/parking_space/disabled":[
 "Gehandicaptenparkeerplaats"
@@ -4245,6 +4245,9 @@
 "gedenkteken",
 "Gedenkteken"
 ],
+"historic/memorial/blue_plaque-GB-IE":[
+"Blue plaque"
+],
 "historic/memorial/plaque":[
 "bord",
 "Gedenkplaat",
@@ -5763,12 +5766,8 @@
 "talud"
 ],
 "natural/scrub":[
-"savanne",
-"Scrubland",
-"pampa",
-"ruigte",
-"kreupelhout",
-"prairie"
+"struik",
+"Struik"
 ],
 "natural/shingle":[
 "Kiezelstrand"

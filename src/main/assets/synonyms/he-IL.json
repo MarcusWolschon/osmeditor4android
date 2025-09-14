@@ -401,6 +401,12 @@
 "amenity/community_centre":[
 "מרכז קהילתי"
 ],
+"amenity/community_centre/cultural_centre":[
+"מרכז תרבות",
+"מרכז תרבותי",
+"מתנ״ס",
+"היכל תרבות"
+],
 "amenity/community_centre/lgbtq":[
 "אירוע לקהילה הגאה",
 "מרכז קהילתי ללהטבפא״ק+",
@@ -718,6 +724,11 @@
 "amenity/fuel":[
 "תחנת דלק"
 ],
+"amenity/funeral_hall":[
+"היכל הספדים",
+"היכל התכנסות",
+"אולם הספדים"
+],
 "amenity/gambling":[
 "קולטה",
 "הימורים",
@@ -838,6 +849,12 @@
 "ספרות",
 "ספרייה",
 "ספריה"
+],
+"amenity/library_dropoff":[
+"קופסה להחזרת ספרים",
+"החזרת ספרים",
+"תיבת החזרת ספרים",
+"קופסת ספרים"
 ],
 "amenity/loading_dock":[
 "מפרץ טעינה",

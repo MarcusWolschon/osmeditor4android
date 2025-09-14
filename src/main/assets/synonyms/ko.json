@@ -239,6 +239,9 @@
 "다방",
 "커피숍"
 ],
+"amenity/cafe/teahouse":[
+"찻집"
+],
 "amenity/car_pooling":[
 "카풀링 스테이션"
 ],
@@ -2169,8 +2172,10 @@
 ],
 "highway/bus_guideway":[
 "버스 가이드웨이",
-"버스 안내로",
-"버스 전용 안내로"
+"구속유도형",
+"버스 유도로",
+"버스 전용궤도",
+"유도 버스"
 ],
 "highway/bus_stop":[
 "버스 정류장"
@@ -2194,6 +2199,9 @@
 "횡단보도",
 "횡단도",
 "횡단로"
+],
+"highway/crossing/informal":[
+"비공식적인 횡단보도"
 ],
 "highway/crossing/traffic_signals":[
 "보행자 신호등이 있는 횡단보도"
@@ -2529,10 +2537,13 @@
 ],
 "highway/trunk":[
 "도시고속도로",
+"간선 도로",
 "고속화도로"
 ],
 "highway/trunk_link":[
-"고속화도로 연결로"
+"고속화도로 연결로",
+"간선 도로 연결로",
+"도시고속도로 연결로"
 ],
 "highway/turning_circle":[
 "쿨데삭 (컬드색)",
@@ -2590,6 +2601,9 @@
 "historic/memorial":[
 "기념관",
 "기념물"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"파란색 명판"
 ],
 "historic/memorial/plaque":[
 "기념 명판"
@@ -2678,7 +2692,7 @@
 "웅덩이"
 ],
 "landuse/brownfield":[
-"재개발 부지"
+"버려진 부지"
 ],
 "landuse/cemetery":[
 "묘역",
@@ -3868,8 +3882,7 @@
 "젖은 초원"
 ],
 "natural/wood":[
-"숲",
-"자연림"
+"숲"
 ],
 "network/type/node_network-DE-NL-BE-LU":[
 "네트워크 관계 점"
@@ -4077,6 +4090,9 @@
 "치료사 사무실",
 "치료사 사무소"
 ],
+"office/translator":[
+"번역 사무소"
+],
 "office/travel_agent":[
 "여행사"
 ],
@@ -4138,7 +4154,7 @@
 ],
 "place/hamlet":[
 "작은 마을",
-"반"
+"자연마을 · 반"
 ],
 "place/island":[
 "섬"
@@ -4159,7 +4175,7 @@
 "필지"
 ],
 "place/quarter":[
-"하위 자치구 / 지구"
+"동"
 ],
 "place/square":[
 "광장"
@@ -4431,10 +4447,12 @@
 "트램 정거장 / 승강장"
 ],
 "public_transport/platform/trolleybus":[
+"무궤도전차 승강장",
 "트롤리버스 승강장"
 ],
 "public_transport/platform/trolleybus_point":[
 "트롤리버스 정류장",
+"무궤도전차 정류장",
 "트롤리버스 정거장",
 "트롤리버스 정류소"
 ],
@@ -4689,7 +4707,11 @@
 "지하철역 입구"
 ],
 "railway/switch":[
-"철도 스위치"
+"선로전환기",
+"철도 분기기",
+"선로변환기",
+"분기기",
+"스위치"
 ],
 "railway/train_wash":[
 "기차 세차장"
@@ -5117,6 +5139,9 @@
 "shop/hairdresser":[
 "이발소",
 "미장원",
+"미용실"
+],
+"shop/hairdresser/barber":[
 "미용실"
 ],
 "shop/hairdresser_supply":[
@@ -5665,7 +5690,10 @@
 "초커"
 ],
 "traffic_calming/cushion":[
-"차별 과속방지턱"
+"과속방지쿠션",
+"스피드 쿠션",
+"패드형 과속방지턱 (스피드 쿠션)",
+"패드형 과속방지턱"
 ],
 "traffic_calming/dip":[
 "딥"

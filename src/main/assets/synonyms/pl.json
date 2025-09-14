@@ -411,6 +411,10 @@
 "kawiarnia",
 "Kawiarnia (coffeehouse)"
 ],
+"amenity/cafe/teahouse":[
+"Herbaciarnia",
+"herbaciarnia"
+],
 "amenity/car_pooling":[
 "punkt carpoolingowy",
 "Punkt carpoolingowy",
@@ -3087,6 +3091,24 @@
 "kwatera cmentarza",
 "kwatera cmentarna"
 ],
+"climbing/crag":[
+"Sektor wspinaczkowy",
+"sektor wspinaczkowy",
+"ściana",
+"skałka",
+"skała"
+],
+"climbing/route":[
+"Droga wspinaczkowa",
+"trasa wspinaczkowa",
+"droga wspinaczkowa"
+],
+"climbing/route_bottom":[
+"początek drogi wspinaczkowej",
+"Początek drogi wspinaczkowej",
+"trasa wspinaczkowa",
+"droga wspinaczkowa"
+],
 "club":[
 "klub",
 "Klub"
@@ -4242,8 +4264,8 @@
 ],
 "highway/give_way":[
 "a7",
+"Znak „ustąp pierwszeństwa”",
 "a-7",
-"Znak \"ustąp pierwszeństwa\"",
 "znak ustąp pierwszeństwa przejazdu"
 ],
 "highway/ladder":[
@@ -4282,18 +4304,19 @@
 ],
 "highway/motorway_junction":[
 "Węzeł dróg autostradowych",
-"droga autostrada",
 "zjazd z drogi autostradowej",
+"wyjazd z drogi autostradowej",
 "wjazd na drogę autostradową",
-"węzeł dróg autostradowych"
+"węzeł dróg autostradowych",
+"droga autostradowa"
 ],
 "highway/motorway_link":[
 "zjazd",
 "łącznik",
-"Droga autostradowa – wjazd/zjazd",
 "wjazd",
 "wyjazd",
-"rampa"
+"rampa",
+"Droga autostradowa – wjazd/wyjazd"
 ],
 "highway/passing_place":[
 "Mijanka",
@@ -4389,8 +4412,9 @@
 ],
 "highway/residential":[
 "droga lokalna",
-"droga osiedlowa",
-"Droga lokalna"
+"Droga mieszkaniowa",
+"droga mieszkaniowa",
+"droga osiedlowa"
 ],
 "highway/rest_area":[
 "odpoczynek dla kierowców",
@@ -4423,6 +4447,7 @@
 "droga serwisowa",
 "Droga wewnętrzna",
 "droga wewnętrzna",
+"droga obsługowa",
 "droga dojazdowa"
 ],
 "highway/service/alley":[
@@ -4535,17 +4560,18 @@
 ],
 "highway/trunk":[
 "droga główna",
-"Droga główna",
+"droga magistralna",
 "droga ekspresowa",
+"Droga magistralna",
 "droga szybkiego ruchu"
 ],
 "highway/trunk_link":[
 "zjazd",
 "łącznik",
+"Droga magistralna – wjazd/wyjazd",
 "wjazd",
 "wyjazd",
-"rampa",
-"Droga główna – zjazd/wjazd"
+"rampa"
 ],
 "highway/turning_circle":[
 "cul-de-sac",
@@ -4559,8 +4585,10 @@
 "Pętla do zawracania (z wyspą)"
 ],
 "highway/unclassified":[
-"Droga czwartorzędna",
-"droga czwartorzędna"
+"droga lokalna",
+"droga niesklasyfikowana",
+"droga czwartorzędna",
+"Droga lokalna"
 ],
 "historic":[
 "historia",
@@ -4568,6 +4596,13 @@
 "Obiekt historyczny",
 "obiekt historyczny",
 "miejsce historyczne"
+],
+"historic/aircraft":[
+"statek powietrzny",
+"śmigłowiec",
+"helikopter",
+"Statek powietrzny",
+"samolot"
 ],
 "historic/archaeological_site":[
 "stanowisko archeologiczne",
@@ -4640,6 +4675,11 @@
 "Pomnik / Miejsce pamięci",
 "upamiętnienie",
 "rzeźba"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Niebieska tablica",
+"niebieska tablica",
+"niebieska tabliczka"
 ],
 "historic/memorial/plaque":[
 "dedykacja",
@@ -4777,6 +4817,7 @@
 ],
 "junction":[
 "Skrzyżowanie",
+"węzeł",
 "krzyżówka"
 ],
 "landuse":[
@@ -5046,7 +5087,8 @@
 "Zbiornik retencyjny"
 ],
 "landuse/residential":[
-"Zabudowa mieszkaniowa",
+"Obszar mieszkalny",
+"obszar mieszkalny",
 "teren zamieszkały",
 "zabudowa mieszkaniowa"
 ],
@@ -10620,6 +10662,11 @@
 "linia autobusowa",
 "autobusy"
 ],
+"type/route/climbing":[
+"Droga wspinaczkowa",
+"trasa wspinaczkowa",
+"droga wspinaczkowa"
+],
 "type/route/detour":[
 "Objazd",
 "objazd"
@@ -10730,6 +10777,17 @@
 "grupowanie",
 "relacja grupująca",
 "wiązanie"
+],
+"type/site/climbing/area":[
+"Rejon wspinaczkowy",
+"rejon wspinaczkowy"
+],
+"type/site/climbing/crag":[
+"Sektor wspinaczkowy",
+"sektor wspinaczkowy",
+"ściana",
+"skałka",
+"skała"
 ],
 "type/waterway":[
 "ciek",

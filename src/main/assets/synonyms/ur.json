@@ -21,6 +21,11 @@
 "amenity/bar":[
 "بار"
 ],
+"amenity/bench":[
+"بینچ",
+"نشست",
+"بنچ"
+],
 "amenity/bus_station":[
 "بس اسٹیشن"
 ],
@@ -54,6 +59,11 @@
 ],
 "amenity/grave_yard":[
 "قبرستان"
+],
+"amenity/hospital":[
+"اسپتال رقبہ",
+"ہسپتال رقبہ",
+"بیمارستان رقبہ"
 ],
 "amenity/library":[
 "کتاب گھر"
@@ -185,6 +195,12 @@
 "دفتر",
 "دفاتر"
 ],
+"building/residential":[
+"مسکونہ",
+"اقامت گاہ",
+"رہائشی عمارت",
+"سکونت"
+],
 "building/retail":[
 "کاروبار"
 ],
@@ -243,6 +259,13 @@
 "highway/path/informal":[
 "کچا راستہ"
 ],
+"highway/residential":[
+"رہائشی سڑک",
+"رہائش پذیر سڑک",
+"محلہ جاتی سڑک",
+"رہائشی گلی",
+"گلی"
+],
 "highway/speed_camera":[
 "کیمرہ برائے رفتار"
 ],
@@ -274,6 +297,10 @@
 "historic/city_gate":[
 "شہر کا دروازہ"
 ],
+"historic/memorial":[
+"یادگار",
+"یاد گار"
+],
 "historic/ruins":[
 "کھنڈرات"
 ],
@@ -286,6 +313,12 @@
 ],
 "landuse/cemetery":[
 "قبرستان"
+],
+"landuse/farm":[
+"کھیت"
+],
+"landuse/farmland":[
+"کھیت"
 ],
 "landuse/grass":[
 "گھاس"
@@ -314,6 +347,9 @@
 ],
 "leisure/garden":[
 "باغ"
+],
+"leisure/garden/residential":[
+"رہائشی باغ"
 ],
 "leisure/park":[
 "پارک"
@@ -345,6 +381,9 @@
 "ساحل",
 "ریتیلا ساحل"
 ],
+"natural/cliff":[
+"چٹان"
+],
 "natural/coastline":[
 "ساحل"
 ],
@@ -374,6 +413,9 @@
 ],
 "office/diplomatic/embassy":[
 "صفارت خانہ"
+],
+"office/educational_institution":[
+"تعلیمی ادارہ"
 ],
 "office/financial":[
 "مالی دفتر"
@@ -441,6 +483,10 @@
 ],
 "point":[
 "مقام"
+],
+"power/substation":[
+"بجلی گھر",
+"چھوٹا بجلی گھر"
 ],
 "public_transport/platform/bus":[
 "چبوترہ",
@@ -608,6 +654,13 @@
 "ڈیم"
 ],
 "waterway/ditch":[
+"نالا",
+"نالی",
+"کھائی",
+"خندق",
+"نالہ"
+],
+"waterway/drain":[
 "نالا",
 "نالی",
 "نالہ"

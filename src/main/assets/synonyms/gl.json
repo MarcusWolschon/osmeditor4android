@@ -3292,6 +3292,14 @@
 "paso de cebra",
 "paso peatonal"
 ],
+"highway/crossing/traffic_signals":[
+"paso peonil con semáforo",
+"paso con semáforos para peóns",
+"Paso de peóns con semáforo"
+],
+"highway/crossing/uncontrolled":[
+"Paso de peóns marcado"
+],
 "highway/crossing/unmarked":[
 "peonil",
 "Paso de peóns sen marcar",
@@ -3329,6 +3337,9 @@
 "bicicleta",
 "peonal",
 "ciclismo"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"Paso de bicicletas con semáforo"
 ],
 "highway/cycleway/crossing/uncontrolled":[
 "cruzamento de senda ciclista",
@@ -3402,7 +3413,20 @@
 "Pasarela móbil"
 ],
 "highway/footway/crossing":[
-"Paso de peóns"
+"paso peonil",
+"Paso de peóns",
+"paso peonal"
+],
+"highway/footway/crossing/traffic_signals":[
+"paso peonil con semáforo",
+"paso con semáforos para peóns",
+"Paso de peóns con semáforo"
+],
+"highway/footway/crossing/uncontrolled":[
+"paso de peóns marcado",
+"peonil",
+"Paso peonil marcado",
+"peonal"
 ],
 "highway/footway/crossing/unmarked":[
 "peonil",
@@ -3522,6 +3546,15 @@
 ],
 "highway/path/crossing":[
 "Paso de peóns e de pista de ciclismo"
+],
+"highway/path/crossing/traffic_signals":[
+"Paso de peóns e bicicletas con semáforos"
+],
+"highway/path/crossing/uncontrolled":[
+"Paso marcado para peóns e bicicletas"
+],
+"highway/path/crossing/unmarked":[
+"Paso sen marcar para peóns e bicicletas"
 ],
 "highway/path/informal":[
 "Camiño informal"
@@ -6563,11 +6596,11 @@
 "Ferrovía en construción"
 ],
 "railway/crossing":[
+"Paso a nivel (camiño)",
 "tren",
 "peonil",
 "ferrocarril",
-"peonal",
-"Ferrovía - Cruce de camiño"
+"peonal"
 ],
 "railway/derail":[
 "Calzo descarrilador"
@@ -6600,8 +6633,8 @@
 ],
 "railway/level_crossing":[
 "tren",
-"Ferrovía - Cruce de estrada",
 "estrada",
+"Paso a nivel (estrada)",
 "ferrocarril"
 ],
 "railway/light_rail":[
@@ -6672,7 +6705,7 @@
 ],
 "railway/railway_crossing":[
 "tren",
-"Ferrovía - Cruce de ferrovía",
+"Ferrovía - Cruzamento de ferrovía",
 "ferrocarril"
 ],
 "railway/signal":[

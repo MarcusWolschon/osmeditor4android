@@ -779,6 +779,9 @@
 "yeri",
 "Geri Dönüşüm Merkezi"
 ],
+"amenity/recycling_container":[
+"Geridönüşüm Kutusu"
+],
 "amenity/refugee_site":[
 "Mülteci Kampı"
 ],
@@ -2465,6 +2468,9 @@
 "historic/memorial":[
 "anıt",
 "Anıt"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Blue Plaque"
 ],
 "historic/memorial/plaque":[
 "Hatıra Plaketi"

@@ -518,6 +518,14 @@
 "obchod s kávou",
 "macchiato"
 ],
+"amenity/cafe/teahouse":[
+"čajový dům",
+"čajový domek",
+"čajový pokoj",
+"čajová místnost",
+"pití čaje",
+"Čajovna"
+],
 "amenity/car_pooling":[
 "spolujízda",
 "sdílení aut",
@@ -3910,6 +3918,45 @@
 "kolumbárium",
 "hřbitovy"
 ],
+"climbing/crag":[
+"lezecké cesty",
+"boulder",
+"skalní věž",
+"horolezení",
+"lezecká stěna",
+"lezení",
+"horolezecká stěna",
+"lezecká cesta",
+"skála",
+"lezecké místo",
+"věž",
+"místo pro lezení",
+"lezecký sektor",
+"skály",
+"Skalní stěna"
+],
+"climbing/route":[
+"lezecká trasa",
+"lezecký výstup",
+"trasa",
+"lezecká délka",
+"výlez",
+"spára",
+"cesta",
+"výstup",
+"Lezecká cesta",
+"horolezecká cesta"
+],
+"climbing/route_bottom":[
+"spodek cesty",
+"začátek skály",
+"lezecká cesta",
+"horolezení",
+"věž",
+"lezecký sektor",
+"lezecká oblast",
+"Lezecká cesta (začátek)"
+],
 "club":[
 "sociální",
 "Klub"
@@ -4367,10 +4414,10 @@
 "přívod suchého stoupacího potrubí",
 "stoupací potrubí",
 "mokré stoupací potrubí",
+"Přípojka požárního vodovodu",
 "přívod stoupačky",
 "nabitá stoupačka",
-"suché stoupací potrubí",
-"Přípojka hasičského sboru"
+"suché stoupací potrubí"
 ],
 "emergency/first_aid_kit":[
 "lékařská souprava",
@@ -5526,6 +5573,15 @@
 "hrad",
 "Památné místo"
 ],
+"historic/aircraft":[
+"zastaralé letadlo",
+"staré letadlo",
+"létající stroj",
+"létací stroj",
+"blériot",
+"Historické letadlo",
+"historický letoun"
+],
 "historic/archaeological_site":[
 "Archeologické naleziště",
 "archeologické naleziště",
@@ -5609,6 +5665,10 @@
 "pamětihodnost",
 "Památník",
 "hrdina"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"modrá pamětní deska",
+"Modrá plaketa"
 ],
 "historic/memorial/plaque":[
 "dedikační",
@@ -12626,6 +12686,18 @@
 "autobusová trasa",
 "autobusová linka"
 ],
+"type/route/climbing":[
+"lezecká trasa",
+"lezecký výstup",
+"trasa",
+"lezecká délka",
+"výlez",
+"spára",
+"cesta",
+"výstup",
+"Lezecká cesta",
+"horolezecká cesta"
+],
 "type/route/detour":[
 "náhradní trasa",
 "Trasa objížďky",
@@ -12817,6 +12889,30 @@
 "místo",
 "seznam",
 "uskupení"
+],
+"type/site/climbing/area":[
+"skalní oblast",
+"horolezecká oblast",
+"lezecký region",
+"lezecké místo",
+"lezecký prostor",
+"Lezecká oblast",
+"skály",
+"oblast pro lezení"
+],
+"type/site/climbing/crag":[
+"lezení",
+"lezecké cesty",
+"horolezecká stěna",
+"boulder",
+"lezecká cesta",
+"skála",
+"lezecké místo",
+"horolezení",
+"lezecká stěna",
+"místo pro lezení",
+"skály",
+"Skalní stěna"
 ],
 "type/waterway":[
 "tok",

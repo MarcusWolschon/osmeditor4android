@@ -455,6 +455,11 @@
 "珈琲",
 "喫茶店"
 ],
+"amenity/cafe/teahouse":[
+"ティールーム",
+"ティーハウス",
+"茶屋"
+],
 "amenity/car_pooling":[
 "カープール",
 "レンタカー"
@@ -5210,6 +5215,10 @@
 "史跡",
 "歴史的建造物"
 ],
+"historic/aircraft":[
+"歴史的飛行機",
+"歴史的航空機"
+],
 "historic/archaeological_site":[
 "歴史",
 "遺跡",
@@ -5291,6 +5300,9 @@
 "彫刻",
 "公園",
 "像"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"ブルー・プラーク"
 ],
 "historic/memorial/plaque":[
 "プレート",

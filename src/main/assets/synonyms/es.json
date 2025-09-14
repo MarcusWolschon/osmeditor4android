@@ -576,6 +576,12 @@
 "Cafetería",
 "macchiato"
 ],
+"amenity/cafe/teahouse":[
+"Casa de té",
+"salón de té",
+"tetería",
+"establecimiento de té"
+],
 "amenity/car_pooling":[
 "vehículo compartido",
 "carro compartido",
@@ -4468,6 +4474,23 @@
 "Sección del cementerio",
 "cementerio de la iglesia"
 ],
+"climbing/crag":[
+"sector de escalada",
+"zona de escalada",
+"Zona de escalada"
+],
+"climbing/route":[
+"ruta de escalada",
+"recorrido de escalada",
+"Ruta de escalada",
+"vía de escalada"
+],
+"climbing/route_bottom":[
+"inicio de la ruta de escalada",
+"comienzo de la vía",
+"punto de inicio",
+"Inicio de la ruta de escalada"
+],
 "club":[
 "intercambio",
 "religioso",
@@ -6700,6 +6723,12 @@
 "lugar histórico",
 "Lugar histórico"
 ],
+"historic/aircraft":[
+"avión antiguo",
+"aeronave de época",
+"avión histórico",
+"Aeronave histórica"
+],
 "historic/archaeological_site":[
 "sitio arqueológico",
 "yacimiento arqueológico",
@@ -6769,6 +6798,12 @@
 "Monumento conmemorativo",
 "memorial",
 "monumento conmemorativo"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"placa histórica",
+"placa conmemorativa azul",
+"Placa azul",
+"señal azul histórica"
 ],
 "historic/memorial/plaque":[
 "memoria",
@@ -14236,6 +14271,12 @@
 "línea de autobús",
 "recorrido de bus"
 ],
+"type/route/climbing":[
+"ruta de escalada",
+"recorrido de escalada",
+"Ruta de escalada",
+"vía de escalada"
+],
 "type/route/detour":[
 "Ruta de desvío",
 "ruta",
@@ -14401,6 +14442,17 @@
 "Sitio",
 "terreno",
 "instalación"
+],
+"type/site/climbing/area":[
+"sector de escalada",
+"zona de escalada",
+"área de escalada",
+"Área de escalada"
+],
+"type/site/climbing/crag":[
+"sector de escalada",
+"zona de escalada",
+"Zona de escalada"
 ],
 "type/waterway":[
 "acuatico",

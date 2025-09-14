@@ -412,6 +412,13 @@
 "tropf",
 "macchiato"
 ],
+"amenity/cafe/teahouse":[
+"teestube",
+"tee",
+"teeraum",
+"teezeremonie",
+"Teehaus"
+],
 "amenity/car_pooling":[
 "mitfahren",
 "car sharing",
@@ -3166,6 +3173,23 @@
 "grab",
 "kirchhof"
 ],
+"climbing/crag":[
+"klippe",
+"kletterwand",
+"klettergipfel",
+"Kletterfelsen",
+"kletterfels"
+],
+"climbing/route":[
+"klettersteig",
+"kletterpfad",
+"Kletterroute",
+"kletterlinie"
+],
+"climbing/route_bottom":[
+"Unteres Ende der Kletterroute",
+"beginn der kletterroute"
+],
 "club":[
 "Verein",
 "verein",
@@ -4791,6 +4815,10 @@
 "Historische Stätte",
 "historische stätte"
 ],
+"historic/aircraft":[
+"flugzeug",
+"Historisches Flugzeug"
+],
 "historic/archaeological_site":[
 "archäologische stätte",
 "ausgrabungsstätte",
@@ -4870,6 +4898,10 @@
 "denkmal",
 "mahnmal",
 "Denkmal"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"blaue plakette",
+"Blue Plaque"
 ],
 "historic/memorial/plaque":[
 "gedenktafel",
@@ -8798,10 +8830,11 @@ schuhreinigungsstation",
 "Gefahrenleuchtfeuer"
 ],
 "seamark/beacon_lateral":[
-"Seitliche Tonne",
 "seitliche tonne",
+"seitliche bake",
 "lateraltonne",
-"laterales seezeichen"
+"laterales seezeichen",
+"Seitliche Bake"
 ],
 "seamark/buoy_lateral":[
 "Seitliche Tonne",
@@ -10551,6 +10584,12 @@ herrenfriseur"
 "Buslinie",
 "stadtbuslinie"
 ],
+"type/route/climbing":[
+"klettersteig",
+"kletterpfad",
+"Kletterroute",
+"kletterlinie"
+],
 "type/route/detour":[
 "Umleitungsstrecke",
 "umleitungsstrecke"
@@ -10653,6 +10692,18 @@ herrenfriseur"
 "Standort",
 "grundstück",
 "stelle"
+],
+"type/site/climbing/area":[
+"Klettergebiet",
+"kletterareal",
+"kletterzone"
+],
+"type/site/climbing/crag":[
+"klippe",
+"kletterwand",
+"klettergipfel",
+"Kletterfelsen",
+"kletterfels"
 ],
 "type/waterway":[
 "graben",

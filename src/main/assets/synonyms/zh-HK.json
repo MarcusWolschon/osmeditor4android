@@ -330,6 +330,13 @@
 "咖啡店",
 "咖啡館"
 ],
+"amenity/cafe/teahouse":[
+"茶馆",
+"茶楼",
+"茶舍",
+"茶社",
+"茶室"
+],
 "amenity/car_pooling":[
 "拼车站"
 ],
@@ -2540,6 +2547,20 @@
 "cemetery/sector":[
 "公墓分區"
 ],
+"climbing/crag":[
+"攀爬",
+"攀岩",
+"攀岩点",
+"峭壁"
+],
+"climbing/route":[
+"攀爬",
+"攀岩",
+"攀爬路线"
+],
+"climbing/route_bottom":[
+"攀岩路線起點"
+],
 "club":[
 "會所",
 "club",
@@ -3679,6 +3700,19 @@
 "歷史景點",
 "historic site"
 ],
+"historic/aircraft":[
+"老",
+"货机",
+"旧飞机",
+"客机",
+"古",
+"古代",
+"军机",
+"历史",
+"旧",
+"飞机",
+"固定翼"
+],
 "historic/archaeological_site":[
 "考古地",
 "archaeological site",
@@ -3763,6 +3797,12 @@
 "細紀念碑",
 "memorial",
 "紀念碑"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"蓝色",
+"牌匾",
+"藍色紀念牌",
+"蓝牌"
 ],
 "historic/memorial/plaque":[
 "紀念牌"
@@ -8048,6 +8088,11 @@
 "bus route",
 "巴士路綫"
 ],
+"type/route/climbing":[
+"攀爬",
+"攀岩",
+"攀爬路线"
+],
 "type/route/detour":[
 "繞道路線",
 "繞道路綫",
@@ -8156,6 +8201,15 @@
 "type/site":[
 "建築群",
 "一群建築"
+],
+"type/site/climbing/area":[
+"攀爬区域"
+],
+"type/site/climbing/crag":[
+"攀爬",
+"攀岩",
+"攀岩点",
+"峭壁"
 ],
 "type/waterway":[
 "水道",

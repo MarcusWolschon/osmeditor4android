@@ -639,6 +639,26 @@
 "kaffeshop",
 "macchiato"
 ],
+"amenity/cafe/teahouse":[
+"thesalong",
+"tehus",
+"grönt te",
+"gult te",
+"thehus",
+"varma drycker",
+"tebar",
+"the",
+"te",
+"tebod",
+"tearum",
+"oolong-te",
+"svart te",
+"thebar",
+"vitt te",
+"Tehus",
+"tecafé",
+"tesalong"
+],
 "amenity/car_pooling":[
 "bilpoolstation",
 "bildelning",
@@ -5947,6 +5967,44 @@
 "sektion",
 "kvarte"
 ],
+"climbing/crag":[
+"klippa",
+"klättring",
+"klätterberg",
+"klätterställe",
+"klättervägg",
+"klipphäll",
+"klippformation",
+"bouldering",
+"klätterklippa",
+"Klätterklippa",
+"klätterområde",
+"tradklättring",
+"sportklättring",
+"klippvägg"
+],
+"climbing/route":[
+"klättring",
+"klätterproblem",
+"Klätterled",
+"sportklättring",
+"klättertur",
+"led",
+"klätterlinje",
+"klippklättring",
+"klätterled",
+"klätterväg"
+],
+"climbing/route_bottom":[
+"ledstart",
+"sportklättring",
+"startpunkt",
+"start för klättring",
+"klätterklippa",
+"Startpunkt för klätterled",
+"klätterled",
+"klätterområde"
+],
 "club":[
 "klubblokal",
 "klubb",
@@ -8055,6 +8113,16 @@
 "historik",
 "historisk plats"
 ],
+"historic/aircraft":[
+"historiskt flygplan",
+"flyghistoriskt objekt",
+"veteranflygplan",
+"flygplansmonument",
+"museiflygplan",
+"gate guardian",
+"Historiskt flygplan",
+"utställt flygplan"
+],
 "historic/archaeological_site":[
 "historia",
 "utgrävning",
@@ -8187,6 +8255,17 @@
 "minnessten",
 "minnesmärke",
 "minnestavla"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"blå minnesskylt",
+"plakett",
+"informationsskylt",
+"historisk markör",
+"Blå minnestavla",
+"blå plakett",
+"kulturminnesskylt",
+"historisk skylt",
+"minnesskylt"
 ],
 "historic/memorial/plaque":[
 "Minnestavla",
@@ -17231,6 +17310,18 @@
 "bussrutt",
 "bussled"
 ],
+"type/route/climbing":[
+"klättring",
+"klätterproblem",
+"Klätterled",
+"sportklättring",
+"klättertur",
+"led",
+"klätterlinje",
+"klippklättring",
+"klätterled",
+"klätterväg"
+],
 "type/route/detour":[
 "Alternativ rutt",
 "alternativ rutt",
@@ -17416,6 +17507,34 @@
 "plats",
 "ställe",
 "Plats"
+],
+"type/site/climbing/area":[
+"klättringsområde",
+"klättersektor",
+"klätterställe",
+"klätterregion",
+"klippområde",
+"Klätterområde",
+"klätterklippa",
+"klätterplats",
+"klätterområde",
+"klätterzon"
+],
+"type/site/climbing/crag":[
+"klippa",
+"klättring",
+"klätterberg",
+"klätterställe",
+"klättervägg",
+"klipphäll",
+"klippformation",
+"bouldering",
+"klätterklippa",
+"Klätterklippa",
+"klätterområde",
+"tradklättring",
+"sportklättring",
+"klippvägg"
 ],
 "type/waterway":[
 "vattendrag",

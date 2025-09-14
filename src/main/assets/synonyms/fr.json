@@ -527,6 +527,9 @@
 "Café",
 "café"
 ],
+"amenity/cafe/teahouse":[
+"Salon de thé"
+],
 "amenity/car_pooling":[
 "co-voiturage",
 "autopartage",
@@ -3994,6 +3997,12 @@
 "enterrement",
 "Section de cimetière"
 ],
+"climbing/route":[
+"Voie d'escalade"
+],
+"climbing/route_bottom":[
+"Départ d'une voie d'escalade"
+],
 "club":[
 "Club",
 "club",
@@ -5323,6 +5332,9 @@
 "site historique",
 "Site historique"
 ],
+"historic/aircraft":[
+"Avion historique"
+],
 "historic/archaeological_site":[
 "Site archéologique",
 "site archéologique"
@@ -5408,6 +5420,9 @@
 "buste",
 "stèle",
 "mémorial"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Plaque bleue"
 ],
 "historic/memorial/plaque":[
 "plaque historique",
@@ -10637,6 +10652,9 @@
 "type/route/bus":[
 "trajet d'autobus",
 "Itinéraire de bus"
+],
+"type/route/climbing":[
+"Voie d'escalade"
 ],
 "type/route/detour":[
 "détour",

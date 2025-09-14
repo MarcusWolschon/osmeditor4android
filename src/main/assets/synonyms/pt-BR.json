@@ -377,6 +377,15 @@
 "cafeteria",
 "Cafeteria"
 ],
+"amenity/cafe/teahouse":[
+"tea",
+"té",
+"estabelecimento",
+"loja",
+"chás",
+"Salão de chá",
+"ervas"
+],
 "amenity/car_pooling":[
 "Estação de carona solidária",
 "estação de carona solidária"
@@ -3266,6 +3275,37 @@
 "sector",
 "jazigo"
 ],
+"climbing/crag":[
+"climb",
+"cordas",
+"escalar",
+"rocha",
+"rappel",
+"Escalada de rochedo escarpado",
+"rochedo",
+"subida",
+"crag",
+"rapel",
+"climbing"
+],
+"climbing/route":[
+"escalar",
+"route",
+"percurso",
+"rappel",
+"Rota de escalada",
+"rapel",
+"climbing"
+],
+"climbing/route_bottom":[
+"Início da rota de escalada",
+"route",
+"começo",
+"percurso",
+"trajeto",
+"climbing",
+"princípio"
+],
 "club":[
 "maçonaria",
 "moto clube",
@@ -3827,7 +3867,14 @@
 "entrada principal"
 ],
 "entrance/shop":[
-"Entrada de loja"
+"principal",
+"shop",
+"Entrada de loja",
+"entrada",
+"estabelecimento",
+"loja",
+"entrance",
+"porta"
 ],
 "entrance/staircase":[
 "Entrada com escadaria",
@@ -4774,6 +4821,18 @@
 "patrimônio",
 "turismo"
 ],
+"historic/aircraft":[
+"plane",
+"antigo",
+"aircraft",
+"aviões",
+"voo",
+"memorial",
+"Avião histórico",
+"voar",
+"avião",
+"aparelho voador"
+],
 "historic/archaeological_site":[
 "arqueologia",
 "Sítio arqueológico",
@@ -4856,6 +4915,9 @@
 "monumento comemorativo",
 "memorial",
 "Memorial"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Placa azul (UK)"
 ],
 "historic/memorial/plaque":[
 "placa comemorativa",
@@ -7136,8 +7198,19 @@
 "Arbustos"
 ],
 "natural/shingle":[
-"telha",
-"Telha"
+"margem de rio",
+"praia com seixos",
+"Seixos",
+"fragmentos",
+"praia",
+"pedras",
+"praia de seixos",
+"encosta seixosa",
+"cascalho",
+"encosta de seixos",
+"pedritas",
+"shingle",
+"seixos"
 ],
 "natural/shrub":[
 "Arbusto",
@@ -10041,8 +10114,12 @@
 "arte"
 ],
 "tourism/guest_house":[
-"Guesthouse",
-"guesthouse"
+"Pousada",
+"pensão",
+"café da manhã",
+"pousada",
+"bed and breakfast",
+"cama"
 ],
 "tourism/hostel":[
 "Hostel",
@@ -10356,6 +10433,15 @@
 "rota de ônibus",
 "transporte público"
 ],
+"type/route/climbing":[
+"escalar",
+"route",
+"percurso",
+"rappel",
+"Rota de escalada",
+"rapel",
+"climbing"
+],
 "type/route/detour":[
 "Rota de Desvio",
 "rota de desvio"
@@ -10459,6 +10545,30 @@
 "grupo de prédios",
 "elementos",
 "Grupo de elementos"
+],
+"type/site/climbing/area":[
+"area",
+"climb",
+"zona",
+"escalar",
+"espaço",
+"rappel",
+"Área de escalada",
+"rapel",
+"climbing"
+],
+"type/site/climbing/crag":[
+"climb",
+"cordas",
+"escalar",
+"rocha",
+"rappel",
+"Escalada de rochedo escarpado",
+"rochedo",
+"subida",
+"crag",
+"rapel",
+"climbing"
 ],
 "type/waterway":[
 "hidrovia",

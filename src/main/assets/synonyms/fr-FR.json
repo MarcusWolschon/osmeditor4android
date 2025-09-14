@@ -331,6 +331,7 @@
 "centre des arts"
 ],
 "amenity/atm":[
+"Distributeur de billets",
 "dab",
 "retrait d'argent",
 "gab",
@@ -525,6 +526,9 @@
 "américano",
 "Café",
 "café"
+],
+"amenity/cafe/teahouse":[
+"Salon de thé"
 ],
 "amenity/car_pooling":[
 "co-voiturage",
@@ -1099,11 +1103,11 @@
 ],
 "amenity/fast_food":[
 "vente à emporter",
+"Restauration rapide",
 "fast food",
 "a emporter",
 "service au comptoir",
 "à emporter",
-"Fast Food",
 "sandwich",
 "kébab",
 "tacos",
@@ -1272,6 +1276,7 @@
 "grande fontaine",
 "non potable",
 "fountain",
+"Fontaine",
 "fontaine d'ornement",
 "fontaine d'eau",
 "fontaine décorative",
@@ -1362,6 +1367,7 @@
 "mirador"
 ],
 "amenity/ice_cream":[
+"Boutique de glaces",
 "magasin de glaces"
 ],
 "amenity/ice_cream/frozen_yogurt":[
@@ -3141,7 +3147,7 @@
 "Portail en fils de fer"
 ],
 "barrier/handrail":[
-"Rampe"
+"Rampe, Main courante"
 ],
 "barrier/hedge":[
 "haie",
@@ -3992,6 +3998,12 @@
 "mausolée",
 "enterrement",
 "Section de cimetière"
+],
+"climbing/route":[
+"Voie d'escalade"
+],
+"climbing/route_bottom":[
+"Début d'une voie d'escalade"
 ],
 "club":[
 "Club",
@@ -4918,10 +4930,7 @@
 "Îlot central"
 ],
 "highway/cyclist_waiting_aid":[
-"sas à vélo",
-"Sas vélo",
-"sas pour vélo",
-"sas cycliste"
+"Aide pour cyclistes"
 ],
 "highway/elevator":[
 "monte-charge",
@@ -5064,6 +5073,7 @@
 "aire de croisement"
 ],
 "highway/path":[
+"sentier",
 "chemin",
 "Chemin"
 ],
@@ -5091,6 +5101,7 @@
 "Chemin informel",
 "raccourci",
 "chemin informel",
+"sentier informel",
 "ligne de désire",
 "chemin officieux"
 ],
@@ -5323,6 +5334,9 @@
 "site historique",
 "Site historique"
 ],
+"historic/aircraft":[
+"Avion historique"
+],
 "historic/archaeological_site":[
 "Site archéologique",
 "site archéologique"
@@ -5408,6 +5422,9 @@
 "buste",
 "stèle",
 "mémorial"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Plaque bleue"
 ],
 "historic/memorial/plaque":[
 "plaque historique",
@@ -8513,6 +8530,9 @@
 "gare",
 "attente voyageur"
 ],
+"public_transport/platform/light_rail_point":[
+"Arrêt de métro léger"
+],
 "public_transport/platform/monorail":[
 "Quai de monorail",
 "arrêt de monorail",
@@ -9590,7 +9610,8 @@
 "magasin de village"
 ],
 "shop/gift":[
-"boutique de souvenirs"
+"boutique de souvenirs",
+"Magasin de souvenirs"
 ],
 "shop/gold_buyer":[
 "Acheteur d'or"
@@ -10646,6 +10667,9 @@
 "type/route/bus":[
 "trajet d'autobus",
 "Itinéraire de bus"
+],
+"type/route/climbing":[
+"Voie d'escalade"
 ],
 "type/route/detour":[
 "détour",

@@ -194,6 +194,9 @@
 "amenity/cafe/coffee_shop":[
 "Кафеџилница"
 ],
+"amenity/cafe/teahouse":[
+"Чајџилница"
+],
 "amenity/car_pooling":[
 "Станица за заедничко автомобилско возење"
 ],
@@ -1456,6 +1459,15 @@
 "cemetery/sector":[
 "Гробишна парцела"
 ],
+"climbing/crag":[
+"Спила за искачување"
+],
+"climbing/route":[
+"Искачувачки правец"
+],
+"climbing/route_bottom":[
+"Почеток на искачувачкиот правец"
+],
 "club":[
 "Клуб"
 ],
@@ -2162,6 +2174,9 @@
 "historic":[
 "Историска месност"
 ],
+"historic/aircraft":[
+"Историски воздухоплов"
+],
 "historic/archaeological_site":[
 "Археолошко наоѓалиште"
 ],
@@ -2197,6 +2212,9 @@
 ],
 "historic/memorial":[
 "Паметник"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Сина спомен-плоча"
 ],
 "historic/memorial/plaque":[
 "Спомен-плоча"
@@ -4815,6 +4833,9 @@
 "type/route/bus":[
 "Автобуски патен правец"
 ],
+"type/route/climbing":[
+"Искачувачки правец"
+],
 "type/route/detour":[
 "Заобиколен патен правец"
 ],
@@ -4871,6 +4892,12 @@
 ],
 "type/site":[
 "Месност"
+],
+"type/site/climbing/area":[
+"Подрачје за искачување"
+],
+"type/site/climbing/crag":[
+"Спила за искачување"
 ],
 "type/waterway":[
 "Воден пат"

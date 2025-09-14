@@ -1621,11 +1621,11 @@
 "zwerfwagen"
 ],
 "amenity/school":[
+"School",
 "school",
 "basisschool",
 "secundair onderwijs",
 "middelbaar",
-"Schoolgebied",
 "onderwijs",
 "voortgezet onderwijs",
 "lager onderwijs"
@@ -4271,6 +4271,9 @@
 "herdenkingsmonument",
 "Gedenkteken",
 "gedenkplaats"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Blue plaque"
 ],
 "historic/memorial/plaque":[
 "bord",

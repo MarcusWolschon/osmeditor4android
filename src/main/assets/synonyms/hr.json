@@ -550,6 +550,9 @@
 "amenity/nightclub":[
 "Noćni klub"
 ],
+"amenity/nightclub/lgbtq":[
+"LGBTQ+ Noćni klub"
+],
 "amenity/parcel_locker":[
 "Ormarić za pakete"
 ],
@@ -597,8 +600,20 @@
 "amenity/place_of_worship/christian":[
 "Kršćanska crkva"
 ],
+"amenity/place_of_worship/jewish":[
+"Židovska sinagoga"
+],
 "amenity/place_of_worship/muslim":[
 "Muslimanska džamija"
+],
+"amenity/place_of_worship/shinto":[
+"Shinto oltar"
+],
+"amenity/place_of_worship/sikh":[
+"Sikh hram"
+],
+"amenity/place_of_worship/taoist":[
+"Tao hram"
 ],
 "amenity/planetarium":[
 "zvjezdarnica",
@@ -717,6 +732,9 @@
 "amenity/restaurant/pizza":[
 "Pizzeria"
 ],
+"amenity/restaurant/ramen":[
+"Ramen restoran"
+],
 "amenity/restaurant/seafood":[
 "Riblji restoran"
 ],
@@ -769,6 +787,9 @@
 ],
 "amenity/social_facility/homeless_shelter":[
 "Sklonište za beskućnike"
+],
+"amenity/stripclub":[
+"Striptiz klub"
 ],
 "amenity/studio":[
 "Studio"
@@ -856,6 +877,9 @@
 "amenity/vending_machine/excrement_bags":[
 "Vrećice za pseći izmet"
 ],
+"amenity/vending_machine/feminine_hygiene":[
+"Automat za žensku higijenu"
+],
 "amenity/vending_machine/food":[
 "Automat za prodaju hrane"
 ],
@@ -873,6 +897,9 @@
 ],
 "amenity/vending_machine/parking_tickets":[
 "Automat za parkirališne karte"
+],
+"amenity/vending_machine/pizza":[
+"Automat prodaju pizze"
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "Automat za karte za javni prijevoz"
@@ -921,6 +948,9 @@
 "attraction":[
 "Atrakcija"
 ],
+"attraction/amusement_ride":[
+"Vožnja u zabavnom parku"
+],
 "attraction/animal":[
 "lav",
 "akvarij",
@@ -938,6 +968,12 @@
 "životinja",
 "zoo"
 ],
+"attraction/big_wheel":[
+"Panoramski kotač"
+],
+"attraction/bumper_car":[
+"Električni autići za sudaranje"
+],
 "attraction/bungee_jumping":[
 "Bungee skokovi"
 ],
@@ -947,6 +983,9 @@
 ],
 "attraction/maze":[
 "Labirint"
+],
+"attraction/roller_coaster":[
+"Vlak smrti"
 ],
 "attraction/train":[
 "Turistički vlakić"
@@ -961,7 +1000,8 @@
 "Blok"
 ],
 "barrier/bollard":[
-"Stup"
+"Stup",
+"stupić"
 ],
 "barrier/border_control":[
 "Granični prijelaz"
@@ -1158,6 +1198,8 @@
 "Zgrada hotela"
 ],
 "building/house":[
+"dom",
+"kuća",
 "Kuća"
 ],
 "building/houseboat":[
@@ -1326,6 +1368,9 @@
 "craft/locksmith":[
 "Bravar"
 ],
+"craft/metal_construction":[
+"Obrađivač metala"
+],
 "craft/painter":[
 "Slikar"
 ],
@@ -1417,6 +1462,9 @@
 "garaža hitne pomoći",
 "hitna pomoć"
 ],
+"emergency/defibrillator":[
+"Defibrilator"
+],
 "emergency/fire_extinguisher":[
 "Aparat za gašenje požara",
 "vatrogasni aparat"
@@ -1448,6 +1496,9 @@
 ],
 "emergency/phone":[
 "Telefon za nuždu"
+],
+"emergency/siren":[
+"Sirena"
 ],
 "entrance":[
 "vrata",
@@ -1807,6 +1858,9 @@
 "historic":[
 "Povijesno područje"
 ],
+"historic/aircraft":[
+"Povijesna letjelica"
+],
 "historic/archaeological_site":[
 "Arheološko područje"
 ],
@@ -1902,6 +1956,9 @@
 "indoor/wall":[
 "Unutarnji zid"
 ],
+"internet_access/wlan":[
+"Wi-Fi pristupna točka"
+],
 "junction":[
 "Križanje"
 ],
@@ -1974,6 +2031,9 @@
 "landuse/orchard":[
 "Voćnjak"
 ],
+"landuse/plant_nursery":[
+"Rasadnik biljaka"
+],
 "landuse/pond":[
 "Ribnjak, Jezerce, Bara"
 ],
@@ -1994,6 +2054,9 @@
 ],
 "landuse/residential/apartments":[
 "Apartmanski kompleks"
+],
+"landuse/residential/trailer_park":[
+"Park za mobilne kućice"
 ],
 "landuse/retail":[
 "Trgovačka zona"
@@ -2025,6 +2088,9 @@
 "zajednička zelena površina",
 "zelena površina"
 ],
+"leisure/dance":[
+"Plesna dvorana"
+],
 "leisure/dancing_school":[
 "Plesna škola"
 ],
@@ -2033,6 +2099,9 @@
 ],
 "leisure/dog_park":[
 "Park za pse"
+],
+"leisure/escape_game":[
+"Escape Room"
 ],
 "leisure/firepit":[
 "Ložište"
@@ -2045,6 +2114,9 @@
 "aerobik",
 "Zatvoreni prostor za vježbanje",
 "teretana"
+],
+"leisure/fitness_centre/yoga":[
+"Joga studio"
 ],
 "leisure/fitness_station":[
 "Vanjski prostor za vježbanje"
@@ -2153,6 +2225,9 @@
 ],
 "leisure/pitch/handball":[
 "Teren za rukomet"
+],
+"leisure/pitch/padel":[
+"Padel teren"
 ],
 "leisure/pitch/paintball":[
 "Teren za paintball"
@@ -2380,6 +2455,9 @@
 "man_made/manhole":[
 "Šaht"
 ],
+"man_made/mast":[
+"Jarbol"
+],
 "man_made/mast/communication/radio":[
 "Radijska antena"
 ],
@@ -2518,6 +2596,9 @@
 ],
 "man_made/tunnel":[
 "Površina tunela"
+],
+"man_made/video_wall":[
+"Digitalni ekran"
 ],
 "man_made/wastewater_plant":[
 "Pogon za pročiščivanje otpadnih voda",
@@ -2819,6 +2900,9 @@
 "močvara",
 "močvarno tlo",
 "Močvara"
+],
+"natural/wood":[
+"Prirodno drvo"
 ],
 "noexit/yes":[
 "Bez izlaza"
@@ -3317,6 +3401,9 @@
 "railway/train_wash":[
 "Praonica vagona"
 ],
+"railway/tram":[
+"Tramvajska pruga"
+],
 "railway/tram_level_crossing":[
 "Prijelaz preko tramvajske pruge",
 "prijelaz preko tramvajske pruge"
@@ -3749,6 +3836,9 @@
 ],
 "shop/newsagent":[
 "Kiosk s novinama"
+],
+"shop/nuts":[
+"Prodavaonica orašastih plodova"
 ],
 "shop/optician":[
 "optičar",

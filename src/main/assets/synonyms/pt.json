@@ -562,6 +562,15 @@
 "drip",
 "macchiato"
 ],
+"amenity/cafe/teahouse":[
+"tea",
+"té",
+"estabelecimento",
+"loja",
+"chás",
+"Salão de chá",
+"ervas"
+],
 "amenity/car_pooling":[
 "carona",
 "Posto de boleia partilhada",
@@ -3640,7 +3649,7 @@
 "motocicleta"
 ],
 "barrier/planter":[
-"Caixa de plantas (barreira)"
+"Vaso urbano (barreira)"
 ],
 "barrier/retaining_wall":[
 "amparo",
@@ -4347,6 +4356,37 @@
 "cemetery",
 "sector",
 "jazigo"
+],
+"climbing/crag":[
+"climb",
+"cordas",
+"escalar",
+"rocha",
+"rappel",
+"Escalada de rochedo escarpado",
+"rochedo",
+"subida",
+"crag",
+"rapel",
+"climbing"
+],
+"climbing/route":[
+"escalar",
+"route",
+"percurso",
+"rappel",
+"Rota de escalada",
+"rapel",
+"climbing"
+],
+"climbing/route_bottom":[
+"Início da rota de escalada",
+"route",
+"começo",
+"percurso",
+"trajeto",
+"climbing",
+"princípio"
 ],
 "club":[
 "grupo",
@@ -5187,7 +5227,14 @@
 "porta"
 ],
 "entrance/shop":[
-"Entrada de loja"
+"principal",
+"shop",
+"Entrada de loja",
+"entrada",
+"estabelecimento",
+"loja",
+"entrance",
+"porta"
 ],
 "entrance/staircase":[
 "rolante",
@@ -6429,6 +6476,18 @@
 "história",
 "histórico"
 ],
+"historic/aircraft":[
+"plane",
+"antigo",
+"aircraft",
+"aviões",
+"voo",
+"memorial",
+"Avião histórico",
+"voar",
+"avião",
+"aparelho voador"
+],
 "historic/archaeological_site":[
 "arqueologia",
 "escavações",
@@ -6534,6 +6593,9 @@
 "memória",
 "Memorial",
 "dedicatória"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Placa azul (UK)"
 ],
 "historic/memorial/plaque":[
 "placa comemorativa",
@@ -9238,12 +9300,18 @@
 ],
 "man_made/planter":[
 "jardim",
-"plantas",
+"externo",
 "flores",
+"floreira",
+"bloco",
+"exterior",
+"arbusto",
+"árvore",
+"plantas",
 "caixa",
-"Caixa de plantas",
 "vegetação",
-"bloco"
+"canteiro",
+"Vaso urbano"
 ],
 "man_made/pumping_station":[
 "trasfega",
@@ -15539,6 +15607,15 @@
 "machimbombo",
 "carreira"
 ],
+"type/route/climbing":[
+"escalar",
+"route",
+"percurso",
+"rappel",
+"Rota de escalada",
+"rapel",
+"climbing"
+],
 "type/route/detour":[
 "Rota de desvio",
 "desviar",
@@ -15755,6 +15832,30 @@
 "área partilhada",
 "relação de local",
 "campus"
+],
+"type/site/climbing/area":[
+"area",
+"climb",
+"zona",
+"escalar",
+"espaço",
+"rappel",
+"Área de escalada",
+"rapel",
+"climbing"
+],
+"type/site/climbing/crag":[
+"climb",
+"cordas",
+"escalar",
+"rocha",
+"rappel",
+"Escalada de rochedo escarpado",
+"rochedo",
+"subida",
+"crag",
+"rapel",
+"climbing"
 ],
 "type/waterway":[
 "fluvial",

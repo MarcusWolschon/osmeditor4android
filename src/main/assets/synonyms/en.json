@@ -395,6 +395,12 @@
 "type/boundary":[
 "Boundary"
 ],
+"type/site/climbing/crag":[
+"Climbing Crag"
+],
+"type/site/climbing/area":[
+"Climbing Area"
+],
 "type/route/trolleybus":[
 "Trolleybus Route"
 ],
@@ -459,6 +465,13 @@
 ],
 "type/route/detour":[
 "Detour Route"
+],
+"type/route/climbing":[
+"Climbing Route",
+"rock climbing route",
+"rock climbing",
+"climbing",
+"mountain climbing"
 ],
 "type/route/bus":[
 "Bus Route"
@@ -1041,6 +1054,7 @@
 ],
 "shop/stationery":[
 "paper",
+"stationary",
 "Stationery Store",
 "card"
 ],
@@ -1620,6 +1634,8 @@
 ],
 "shop/fabric":[
 "sew",
+"textile",
+"textiles",
 "Fabric Store"
 ],
 "shop/erotic":[
@@ -1763,6 +1779,7 @@
 "pants",
 "boutique",
 "socks",
+"apparel",
 "bras",
 "suits",
 "clothes",
@@ -3406,6 +3423,7 @@
 "attorney",
 "legal",
 "barrister",
+"solicitor",
 "prosecutor",
 "advocate",
 "lawyer",
@@ -6057,6 +6075,10 @@
 "historic/archaeological_site":[
 "Archaeological Site"
 ],
+"historic/aircraft":[
+"Historic Aircraft",
+"gate guardian"
+],
 "historic/memorial/stolperstein-EU":[
 "Memorial Plaque Stolperstein"
 ],
@@ -6068,6 +6090,9 @@
 "dedicatory",
 "historical marker",
 "Commemorative Plaque"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Blue Plaque"
 ],
 "historic/castle/stately":[
 "nobility",
@@ -7361,6 +7386,26 @@
 "scouting",
 "guide"
 ],
+"climbing/route_bottom":[
+"sport climbing",
+"route bottom",
+"route start",
+"rock climbing route",
+"climbing crag",
+"climbing point",
+"Climbing Route Start",
+"climbing area"
+],
+"climbing/route":[
+"sport climbing",
+"Climbing Route",
+"rock climbing route",
+"rock climbing",
+"climbing"
+],
+"climbing/crag":[
+"Climbing Crag"
+],
 "cemetery/sector":[
 "burial ground",
 "cemetary",
@@ -8179,7 +8224,9 @@
 "Restroom",
 "privy",
 "outhouse",
-"wc"
+"public toilet",
+"wc",
+"public restroom"
 ],
 "amenity/ticket_validator":[
 "ticket",
@@ -8196,9 +8243,11 @@
 ],
 "amenity/telephone":[
 "payphone",
+"public phone",
 "Telephone",
 "phone",
 "pay phone",
+"public telephone",
 "phone booth"
 ],
 "amenity/taxi":[
@@ -8230,8 +8279,10 @@
 ],
 "amenity/social_facility":[
 "nonprofit",
+"group home",
 "Social Facility",
 "social services",
+"halfway house",
 "community"
 ],
 "amenity/social_centre":[
@@ -10600,6 +10651,20 @@
 "amenity/clinic/abortion":[
 "Abortion Clinic",
 "women's healthcare"
+],
+"amenity/cafe/teahouse":[
+"white tea",
+"hot drinks",
+"tea",
+"tearoom",
+"tea room",
+"green tea",
+"yellow tea",
+"oolong tea",
+"Teahouse",
+"tea house",
+"black tea",
+"tea drink"
 ],
 "amenity/cafe/coffee_shop":[
 "hot drinks",

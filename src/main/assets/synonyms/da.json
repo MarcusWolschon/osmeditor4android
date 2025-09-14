@@ -296,8 +296,13 @@
 "Cykeludlejning"
 ],
 "amenity/bicycle_repair_station":[
-"Cykelreparationsværktøj",
-"cykelreparationsværktøj"
+"cykelreparationsstation",
+"Cykelreparationsstation",
+"cykelreparationsværktøj",
+"arbejdsstativ",
+"pumpe",
+"cykelpumpe",
+"værktøj"
 ],
 "amenity/bicycle_wash":[
 "Cykelvask"
@@ -673,7 +678,8 @@
 "aula",
 "balsal",
 "riddersal",
-"festsal"
+"festsal",
+"kursuscenter"
 ],
 "amenity/exhibition_centre":[
 "Udstillings- og kongrescenter",
@@ -847,7 +853,8 @@
 "Afleveringsboks til bøger",
 "bogaflevering",
 "bogboks",
-"afleveringsboks til bøger"
+"afleveringsboks til bøger",
+"biblioteksbogaflevering"
 ],
 "amenity/loading_dock":[
 "Læsserampe"
@@ -1409,7 +1416,8 @@
 "træk",
 "slip",
 "træk og slip",
-"wc"
+"wc",
+"vandskyllende toiletter"
 ],
 "amenity/toilets/disposal/pitlatrine":[
 "latrin",
@@ -2292,6 +2300,12 @@
 "kirkegårdsafdeling",
 "kirkegårdsafsnit"
 ],
+"climbing/route":[
+"Klatrerute"
+],
+"climbing/route_bottom":[
+"Start på klatrerute"
+],
 "club":[
 "sysler",
 "fotografi",
@@ -2925,6 +2939,9 @@
 "highway/crossing":[
 "kryds",
 "Fodgængerovergang"
+],
+"highway/crossing/informal":[
+"Uformel krydsning"
 ],
 "highway/crossing/traffic_signals":[
 "Fodgængerovergang med lyssignal"
@@ -5430,6 +5447,7 @@
 ],
 "place/square":[
 "plads",
+"torv",
 "bytorv",
 "Plads"
 ],
@@ -6175,6 +6193,9 @@
 "rødekors",
 "Genbrugstøjbutik"
 ],
+"shop/clothes/suits":[
+"Jakkesætbutik"
+],
 "shop/clothes/underwear":[
 "underhakker",
 "bh",
@@ -6443,11 +6464,15 @@
 "Jagtbutik"
 ],
 "shop/interior_decoration":[
+"brugskunstbutik",
+"mode",
 "indendørsudsmykningsbutik",
-"bolig",
 "indendørs",
+"boligudstyr",
+"interiør",
 "indendørsudsmykning",
 "brugskunst",
+"keramik",
 "Brugskunstbutik",
 "kunst"
 ],
@@ -6584,6 +6609,7 @@
 ],
 "shop/paint":[
 "farvehandel",
+"maling",
 "malerforretning",
 "Farvehandel",
 "malerbutik"
@@ -6994,7 +7020,10 @@
 "vejviser",
 "guidepost",
 "pæl",
+"afmærkning",
+"markør",
 "rutemarkering",
+"rutemarkør",
 "Vejviser",
 "skilt"
 ],
@@ -7010,8 +7039,10 @@
 "stiafmærkning",
 "afmærkning",
 "markør",
-"Stimarkør",
-"stimarkør"
+"Rutemarkør",
+"rutemarkør",
+"stimarkør",
+"skilt"
 ],
 "tourism/information/terminal":[
 "Informationsterminal"
@@ -7187,6 +7218,11 @@
 "Administrativ grænse",
 "administrativ grænse"
 ],
+"type/destination_sign":[
+"Destinationsskilt",
+"endepunktskilt",
+"destinationsskilt"
+],
 "type/enforcement/maxspeed":[
 "Håndhævelse af hastighedsbegrænsning"
 ],
@@ -7238,6 +7274,9 @@
 "type/route/bus":[
 "busrute",
 "Busrute"
+],
+"type/route/climbing":[
+"Klatrerute"
 ],
 "type/route/detour":[
 "omvej",

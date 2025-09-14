@@ -694,6 +694,14 @@
 "amenity/doctors/surgery":[
 "Chirurg"
 ],
+"amenity/doctors/trauma":[
+"urazovy chirurg",
+"úrazová chirurgia",
+"Úrazový chirurg",
+"traumatolog",
+"urazova chirurgia",
+"traumatológ"
+],
 "amenity/doctors/urology":[
 "Urológ"
 ],
@@ -2330,7 +2338,16 @@
 "Farmárska neobytná budova"
 ],
 "building/fire_station":[
-"Budova hasičskej stanice"
+"požiarna stanica",
+"hasičská zbrojnica",
+"poziarna zbrojnica",
+"požiarna zbrojnica",
+"Budova hasičskej stanice",
+"hasicska zbrojnica",
+"hasičská stanica",
+"hasicska stanica",
+"poziarna stanica",
+"budova hasickej stanice"
 ],
 "building/garage":[
 "garáže",
@@ -2968,13 +2985,17 @@
 "civilna ochrana"
 ],
 "emergency/fire_alarm":[
+"hlasic poziaru",
+"požiarny alarm",
+"poziarny alarm",
 "Hlásič požiaru"
 ],
 "emergency/fire_extinguisher":[
 "Hasiaci prístroj"
 ],
 "emergency/fire_hose":[
-"Hasiaca hadica"
+"Požiarna hadica",
+"poziarna hadica"
 ],
 "emergency/fire_hydrant":[
 "hydrant",
@@ -2984,6 +3005,20 @@
 "uzáver vod",
 "zdroj vody",
 "Požiarny hydrant"
+],
+"emergency/fire_hydrant/pillar":[
+"nadzemný hydrant",
+"Stĺpik požiarneho hydrantu",
+"nadzemny hydrant",
+"stlpik poziarneho hydrantu",
+"hydrantový stĺpik",
+"hydrantovy stlpik"
+],
+"emergency/fire_hydrant/underground":[
+"Podzemný požiarny hydrant",
+"podzemny hydrant",
+"podzemný hydrant",
+"podzemny poziarny hydrant"
 ],
 "emergency/fire_service_inlet":[
 "pripojka poziarneho vodovodu",
@@ -3782,8 +3817,15 @@
 "historic/manor":[
 "dom panstva",
 "kastiel",
+"zamocek",
 "Kaštieľ",
-"pansky dom"
+"kuria",
+"panský dom",
+"pansky dom",
+"zámoček",
+"kúria",
+"slachticke sidlo",
+"šlachtické sídlo"
 ],
 "historic/memorial":[
 "pomník",
@@ -3795,6 +3837,9 @@
 "pamatihodnost",
 "Pamätník",
 "hrdina"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Modrá plaketa"
 ],
 "historic/memorial/plaque":[
 "plaketa",
@@ -3951,11 +3996,13 @@
 "Pestovateľská plocha"
 ],
 "landuse/farmland":[
-"zahrady",
+"poľnohospodárska pôda",
+"pôda",
+"poda",
 "Pestovateľská plocha",
+"polnohospodarska poda",
 "polia",
 "pole",
-"záhrady",
 "pestovatelska plocha"
 ],
 "landuse/farmyard":[
@@ -6935,7 +6982,12 @@
 "Obchod s módnymi doplnkami"
 ],
 "shop/fireplace":[
-"Obchod s krbmi a kachľami"
+"obchod s kachlami",
+"obchod s kachľami",
+"Obchod s krbmi a kachľami",
+"kachle",
+"krbové kachle",
+"krby"
 ],
 "shop/fishing":[
 "Obchod s rybárskymi potrebami"
@@ -7014,10 +7066,10 @@
 "ovocie a zelenina",
 "zelenina",
 "ovocie zelenina",
-"Predajňa ovocia alebo zeleniny",
 "predajna ovocia alebo zeleniny",
 "zelovoc",
-"ovocie"
+"ovocie",
+"Predajňa ovocia a zeleniny"
 ],
 "shop/hairdresser":[
 "holic",
