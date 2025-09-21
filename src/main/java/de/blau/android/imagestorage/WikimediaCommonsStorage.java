@@ -5,31 +5,43 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
+import de.blau.android.R;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.net.OAuth2Interceptor;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.ImageStorageConfiguration;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
+import de.blau.android.util.SavingHelper;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.MRUList;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -64,9 +76,32 @@ public class WikimediaCommonsStorage implements ImageStorage {
     private static final String IMAGEINFO                            = "imageinfo";
     private static final String CANONICALTITLE                       = "canonicaltitle";
     private static final String TEXT                                 = "text";
+    private static final String EOL                                  = "\n";
+    private static final String META_INFORMATION                     = "{{Information";
+    private static final String META_END                             = "}}";
+    private static final String META_DESCRIPTION                     = "|description=";
+    private static final Object META_SOURCE                          = "|source=";
+    private static final Object META_AUTHOR                          = "|author=";
+    private static final String CATEGORY_START                       = "[[Category:";
+    private static final String CATEGORY_END                         = "]]";
+
+    private static final String WIKIMEDIA_CATEGORIES = "wikimedia-categories";
+    private static final String WIKIMEDIA_AUTHORS    = "wikimedia-authors";
+    private static final String WIKIMEDIA_SOURCES    = "wikimedia-sources";
+
+    private static final int MRU_LIST_SIZE = 10;
 
     private final ImageStorageConfiguration configuration;
     private final OkHttpClient              client;
+
+    /**
+     * Meta data for the upload
+     */
+    private String metaFileName;
+    private String metaDescription;
+    private String metaSource;
+    private String metaAuthor;
+    private String metaCategory;
 
     public WikimediaCommonsStorage(@NonNull ImageStorageConfiguration configuration) {
         this.configuration = configuration;
@@ -123,12 +158,8 @@ public class WikimediaCommonsStorage implements ImageStorage {
                     return de.blau.android.imagestorage.Util.uploadError(sessionTokenCallResponse, url);
                 }
 
-                JsonElement root = JsonParser.parseReader(sessionTokenCallResponse.body().charStream());
-                if (root == null || !root.isJsonObject()) {
-                    Log.e(DEBUG_TAG, "Unable to retrieve session token");
-                    throw new IOException("unexpected JSON " + (root != null ? root.toString() : NULL));
-                }
-                JsonElement query = de.blau.android.imagestorage.Util.getJsonObject((JsonObject) root, QUERY);
+                JsonObject root = de.blau.android.imagestorage.Util.parseJsonResponse(sessionTokenCallResponse);
+                JsonElement query = de.blau.android.imagestorage.Util.getJsonObject(root, QUERY);
                 JsonElement tokens = de.blau.android.imagestorage.Util.getJsonObject((JsonObject) query, TOKENS);
                 JsonElement csrfToken = ((JsonObject) tokens).get(CSRFTOKEN);
                 if (csrfToken == null || !csrfToken.isJsonPrimitive()) {
@@ -139,13 +170,15 @@ public class WikimediaCommonsStorage implements ImageStorage {
                 Log.d(DEBUG_TAG, "csrftoken " + csrfToken.toString());
 
                 body = RequestBody.create(MediaType.parse(MimeTypes.JPEG), imageFile);
+
+                String metaText = buildMetaText(context);
                 // @formatter:off
                 MultipartBody multipartBody = new MultipartBody.Builder()
                         .setType(MultipartBody.FORM)
                         .addFormDataPart(ACTION, UPLOAD)
-                        .addFormDataPart(FILENAME, imageFile.getName())
+                        .addFormDataPart(FILENAME, metaFileName != null ? metaFileName : imageFile.getName())
                         .addFormDataPart(COMMENT, IMAGE_UPLOAD_WITH_VESPUCCI)
-                        .addFormDataPart(TEXT, App.getPreferences(context).getImageLicence())
+                        .addFormDataPart(TEXT, metaText)
                         .addFormDataPart(TOKEN, csrfToken.getAsString())
                         .addFormDataPart(FORMAT, JSON)
                         .addFormDataPart(IGNOREWARNINGS, "1")
@@ -162,19 +195,16 @@ public class WikimediaCommonsStorage implements ImageStorage {
                         Log.e(DEBUG_TAG, "Upload failed " + uploadCallResponse.toString());
                         return de.blau.android.imagestorage.Util.uploadError(uploadCallResponse, uploadUrl);
                     }
-                    root = JsonParser.parseReader(uploadCallResponse.body().charStream());
-                    if (!root.isJsonObject()) {
-                        throw new IOException("unexpected JSON " + root.toString());
-                    }
+                    root = de.blau.android.imagestorage.Util.parseJsonResponse(uploadCallResponse);
                     Log.d(DEBUG_TAG, root.toString());
-                    if (((JsonObject) root).has(ERROR)) {
-                        final String error = de.blau.android.imagestorage.Util.getJsonObject((JsonObject) root, ERROR).toString();
+                    if (root.has(ERROR)) {
+                        final String error = de.blau.android.imagestorage.Util.getJsonObject(root, ERROR).toString();
                         Log.e(DEBUG_TAG, "Upload returned error " + error);
                         UploadResult uploadResult = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
                         uploadResult.setMessage(error);
                         return uploadResult;
                     }
-                    JsonElement upload = de.blau.android.imagestorage.Util.getJsonObject((JsonObject) root, UPLOAD);
+                    JsonElement upload = de.blau.android.imagestorage.Util.getJsonObject(root, UPLOAD);
                     JsonElement imageInfo = de.blau.android.imagestorage.Util.getJsonObject((JsonObject) upload, IMAGEINFO);
                     JsonElement canonicalTitle = ((JsonObject) imageInfo).get(CANONICALTITLE);
                     if (canonicalTitle != null) {
@@ -193,15 +223,119 @@ public class WikimediaCommonsStorage implements ImageStorage {
         return new UploadResult(ErrorCodes.UNKNOWN_ERROR);
     }
 
+    /**
+     * Build the text with meta information
+     * 
+     * @param context an Android Context
+     * @return a String with the text
+     */
+    @NonNull
+    private String buildMetaText(Context context) {
+        StringBuilder metaText = new StringBuilder();
+        if (metaDescription != null || metaSource != null || metaAuthor != null) {
+            metaText.append(META_INFORMATION).append(EOL);
+            if (metaDescription != null) {
+                metaText.append(META_DESCRIPTION).append(metaDescription).append(EOL);
+            }
+            if (metaSource != null) {
+                metaText.append(META_SOURCE).append(metaSource).append(EOL);
+            }
+            if (metaAuthor != null) {
+                metaText.append(META_AUTHOR).append(metaAuthor).append(EOL);
+            }
+            metaText.append(META_END).append(EOL);
+        }
+        metaText.append(App.getPreferences(context).getImageLicence());
+        if (metaCategory != null) {
+            metaText.append(CATEGORY_START).append(metaCategory).append(CATEGORY_END);
+        }
+        return metaText.toString();
+    }
+
     @Override
     public void addTag(String url, Map<String, String> tags) {
         // if the key already exists we add a numeric suffix
         Util.addTagWithNumericSuffix(Tags.KEY_WIKIMEDIA_COMMONS, url, tags);
     }
 
-    @NonNull
-    public static List<ImageStorageConfiguration> getInstances(@NonNull Context context) {
-        // not used for WM
-        return new ArrayList<>();
+    @Override
+    public boolean canSetMetaData() {
+        return true;
+    }
+
+    private SavingHelper<MRUList<String>> listSaver = new SavingHelper<>();
+
+    @Override
+    public void setMetaData(Context context, @NonNull File imageFile, @NonNull Runnable upload) {
+        final Preferences prefs = App.getPreferences(context);
+        AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(context, prefs);
+        builder.setTitle(R.string.wikimedia_meta_title);
+        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(context);
+        final View layout = inflater.inflate(R.layout.wikimedia_meta, null);
+        builder.setView(layout);
+        final EditText fileName = layout.findViewById(R.id.imageFileName);
+        fileName.setText(imageFile.getName());
+        final EditText description = layout.findViewById(R.id.imageDescription);
+        final AutoCompleteTextView source = layout.findViewById(R.id.imageSource);
+        final MRUList<String> sources = loadAndSetAdapter(context, WIKIMEDIA_SOURCES, source);
+        final AutoCompleteTextView author = layout.findViewById(R.id.imageAuthor);
+        final MRUList<String> authors = loadAndSetAdapter(context, WIKIMEDIA_AUTHORS, author);
+        final Spinner licence = layout.findViewById(R.id.imageLicence);
+        licence.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                prefs.setImageLicence(context.getResources().getStringArray(R.array.licence_values)[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // nothing
+            }
+        });
+
+        final AutoCompleteTextView category = layout.findViewById(R.id.imageCategory);
+        final MRUList<String> categories = loadAndSetAdapter(context, WIKIMEDIA_CATEGORIES, category);
+
+        builder.setNeutralButton(R.string.cancel, null);
+        builder.setPositiveButton(R.string.image_upload, (DialogInterface d, int pos) -> {
+            metaFileName = fileName.getText().toString().trim();
+            metaDescription = description.getText().toString().trim();
+            metaSource = source.getText().toString().trim();
+            sources.push(metaSource);
+            listSaver.save(context, WIKIMEDIA_SOURCES, sources, false);
+            metaAuthor = author.getText().toString().trim();
+            authors.push(metaAuthor);
+            listSaver.save(context, WIKIMEDIA_AUTHORS, authors, false);
+            metaCategory = category.getText().toString().trim();
+            categories.push(metaCategory);
+            listSaver.save(context, WIKIMEDIA_CATEGORIES, categories, false);
+            upload.run();
+        });
+        builder.show();
+    }
+
+    /**
+     * Load saved strings, create and set an adapter on the text view
+     * 
+     * @param context an Android Context
+     * @param saveFileName the name of the file to load
+     * @param textView the target ActoCompleteTextView
+     */
+    private MRUList<String> loadAndSetAdapter(@NonNull Context context, @NonNull String saveFileName, @NonNull final AutoCompleteTextView textView) {
+        MRUList<String> savedList = listSaver.load(context, saveFileName, false);
+        if (savedList == null) {
+            savedList = new MRUList<>(MRU_LIST_SIZE);
+        }
+        textView.setAdapter(new ArrayAdapter<String>(context, R.layout.autocomplete_row, savedList));
+        // prefill with last value
+        if (!savedList.isEmpty()) {
+            textView.setText(savedList.get(0));
+        }
+        textView.setOnClickListener(v -> {
+            if (v.hasFocus()) {
+                ((AutoCompleteTextView) v).showDropDown();
+            }
+        });
+        return savedList;
     }
 }

@@ -155,7 +155,7 @@ public class Preferences {
     private final double      minCircleSegment;
     private final Set<String> poiKeys;
     private final double      replaceTolerance;
-    private final String      imageLicence;
+    private String            imageLicence;
 
     public static final String DEFAULT_MAP_STYLE     = "Color Round Nodes";
     public static final String DEFAULT_PEN_MAP_STYLE = "Pen Round Nodes";
@@ -2096,6 +2096,16 @@ public class Preferences {
     @NonNull
     public String getImageLicence() {
         return imageLicence;
+    }
+
+    /**
+     * Set the current licence
+     * 
+     * @param licence the new licence
+     */
+    public void setImageLicence(@NonNull String licence) {
+        this.imageLicence = licence;
+        putString(R.string.config_imageLicence_key, licence);
     }
 
     /**

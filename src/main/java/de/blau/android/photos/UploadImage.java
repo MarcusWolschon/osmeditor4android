@@ -97,6 +97,7 @@ public class UploadImage {
     private static void dialog(@NonNull Context context, @NonNull Preferences prefs, @NonNull ImageAction action, @NonNull File imageFile,
             boolean alwaysRemove) {
         AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(context, prefs);
+        builder.setTitle(R.string.image_upload_title);
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
             final ImageStorageConfiguration[] configurations = db.getImageStores();
             String[] names = new String[configurations.length];
@@ -141,12 +142,12 @@ public class UploadImage {
      * @param imageFile the image file to upload
      * @param alwaysRemove if true always remove the file
      */
-    private static void upload(@NonNull Context context, @NonNull Preferences prefs, final boolean remove, @NonNull final ImageStorageConfiguration configuration,
-            @NonNull ImageAction action, @NonNull final File imageFile, boolean alwaysRemove) {
+    private static void upload(@NonNull Context context, @NonNull Preferences prefs, final boolean remove,
+            @NonNull final ImageStorageConfiguration configuration, @NonNull ImageAction action, @NonNull final File imageFile, boolean alwaysRemove) {
 
         final ImageStorage imageStore = getImageStore(configuration);
 
-        new ExecutorTask<Void, Void, UploadResult>() {
+        ExecutorTask<Void, Void, UploadResult> uploader = new ExecutorTask<Void, Void, UploadResult>() {
 
             @Override
             protected void onPreExecute() {
@@ -210,7 +211,13 @@ public class UploadImage {
                     }
                 }
             }
-        }.execute();
+        };
+
+        if (imageStore.canSetMetaData()) {
+            imageStore.setMetaData(context, imageFile, uploader::execute);
+            return;
+        }
+        uploader.execute();
     }
 
     private static ImageStorage getImageStore(ImageStorageConfiguration configuration) {

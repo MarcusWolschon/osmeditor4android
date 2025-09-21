@@ -17,7 +17,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import android.content.Context;
 import android.content.Intent;
@@ -93,18 +92,14 @@ public class PanoramaxStorage implements ImageStorage {
                             Log.e(DEBUG_TAG, "Creating keys failed " + generateKeyCallResponse.toString());
                             return false;
                         }
-                        JsonElement root = JsonParser.parseReader(generateKeyCallResponse.body().charStream());
-                        if (!root.isJsonObject()) {
-                            Log.e(DEBUG_TAG, "Unable to generate Panoramax key");
-                            return false;
-                        }
-                        JsonObject rootObject = (JsonObject) root;
-                        String key = rootObject.get(JWT_TOKEN).getAsString();
+                        JsonObject root = de.blau.android.imagestorage.Util.parseJsonResponse(generateKeyCallResponse);
+
+                        String key = root.get(JWT_TOKEN).getAsString();
                         // this should only be set if auth was successful
                         try (KeyDatabaseHelper kdb = new KeyDatabaseHelper(context); SQLiteDatabase db = kdb.getWritableDatabase()) {
                             KeyDatabaseHelper.replaceOrDeleteKey(db, configuration.id, KeyDatabaseHelper.EntryType.PANORAMAX_KEY, key, false, true, null, null);
                         }
-                        JsonElement links = rootObject.get(LINKS);
+                        JsonElement links = root.get(LINKS);
                         if (!links.isJsonArray() && ((JsonArray) links).size() < 1) {
                             Log.e(DEBUG_TAG, "No links array found");
                             return false;
@@ -195,13 +190,8 @@ public class PanoramaxStorage implements ImageStorage {
                     return de.blau.android.imagestorage.Util.uploadError(uploadSetsCallResponse, url);
                 }
 
-                JsonElement root = JsonParser.parseReader(uploadSetsCallResponse.body().charStream());
-                if (!root.isJsonObject()) {
-                    Log.e(DEBUG_TAG, "Unable to create Panoramax upload set");
-                    throw new IOException("unexpected JSON " + root.toString());
-                }
-                JsonObject rootObject = (JsonObject) root;
-                JsonElement uploadSetId = rootObject.get(ID);
+                JsonObject root = de.blau.android.imagestorage.Util.parseJsonResponse(uploadSetsCallResponse);
+                JsonElement uploadSetId = root.get(ID);
                 if (uploadSetId == null || !uploadSetId.isJsonPrimitive()) {
                     Log.e(DEBUG_TAG, "Unable to retrieve upload set id");
                     throw new IOException("unexpected JSON " + root.toString());
@@ -220,11 +210,8 @@ public class PanoramaxStorage implements ImageStorage {
                         Log.e(DEBUG_TAG, "Upload failed " + uploadCallResponse.toString());
                         return de.blau.android.imagestorage.Util.uploadError(uploadCallResponse, uploadSetUrl);
                     }
-                    root = JsonParser.parseReader(uploadCallResponse.body().charStream());
-                    if (!root.isJsonObject()) {
-                        throw new IOException("unexpected JSON " + root.toString());
-                    }
-                    JsonElement pictureId = ((JsonObject) root).get(PICTURE_ID);
+                    root = de.blau.android.imagestorage.Util.parseJsonResponse(uploadCallResponse);
+                    JsonElement pictureId = root.get(PICTURE_ID);
                     if (pictureId != null) {
                         UploadResult result = new UploadResult(ErrorCodes.OK);
                         result.setUrl(pictureId.getAsString());
@@ -233,8 +220,7 @@ public class PanoramaxStorage implements ImageStorage {
                 }
             }
         } catch (Exception e) {
-            Log.e(DEBUG_TAG, "uploadImageToPanoramax " + e.getMessage());
-            e.printStackTrace();
+            Log.e(DEBUG_TAG, "upload " + e.getMessage());
             UploadResult result = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
             result.setMessage(e.getMessage());
             return result;
@@ -265,12 +251,10 @@ public class PanoramaxStorage implements ImageStorage {
                         return result;
                     }
 
-                    JsonElement root = JsonParser.parseReader(instancesResponse.body().charStream());
-                    if (!root.isJsonObject()) {
-                        throw new IOException("unexpected JSON " + root.toString());
-                    }
-                    JsonElement instances = ((JsonObject) root).get(INSTANCES_JSON);
-                    if (!instances.isJsonArray()) {
+                    JsonObject root = de.blau.android.imagestorage.Util.parseJsonResponse(instancesResponse);
+
+                    JsonElement instances = root.get(INSTANCES_JSON);
+                    if (instances == null || !instances.isJsonArray()) {
                         throw new IOException("unexpected JSON for instance array " + root.toString());
                     }
                     for (JsonElement e : ((JsonArray) instances)) {
