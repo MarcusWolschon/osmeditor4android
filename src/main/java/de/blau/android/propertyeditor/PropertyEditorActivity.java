@@ -14,10 +14,13 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -232,6 +235,13 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         ft.add(viewRes, fragment, tag);
         ft.addToBackStack(tag);
         ft.commit();
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(viewRes), (View v, WindowInsetsCompat insets) -> {
+            if (fragment != null) {
+                ViewCompat.dispatchApplyWindowInsets(fragment.getView(), insets);
+            }
+            return insets;
+        });
     }
 
     /**
