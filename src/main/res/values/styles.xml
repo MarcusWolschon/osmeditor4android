@@ -380,6 +380,7 @@
         name="Theme.AlertDialog"
         parent ="@style/Theme.AppCompat.Dialog.Alert">
         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
     </style>
     <style
         name="Theme.DialogDark"
@@ -411,6 +412,7 @@
         name="Theme.AlertDialogLight"
         parent ="@style/Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
     </style>
     <style
         name="Theme.DialogLight"

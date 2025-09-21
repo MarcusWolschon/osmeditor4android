@@ -48,4 +48,22 @@ public interface ImageStorage {
      */
     public void addTag(@NonNull String url, @NonNull Map<String, String> tags);
 
+    /**
+     * Check if this destination can set additional information
+     * 
+     * @return true if this destination can set additional information
+     */
+    default boolean canSetMetaData() {
+        return false;
+    }
+
+    /**
+     * Collect meta data and then upload
+     * 
+     * @param imageFile the image file to upload
+     * @param upload a Runnable that will actually upload when the meta data has been collected
+     */
+    default void setMetaData(@NonNull Context context, @NonNull File imageFile, @NonNull Runnable upload) {
+        // do nothing
+    }
 }

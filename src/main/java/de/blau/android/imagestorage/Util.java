@@ -7,6 +7,7 @@ import java.net.URL;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -63,5 +64,20 @@ public final class Util {
         result.setMessage(message);
         result.setUrl(url.toString());
         return result;
+    }
+
+    /**
+     * Parse an JSON object from a Response
+     * 
+     * @param response the Response
+     * @return
+     * @throws IOException
+     */
+    static JsonObject parseJsonResponse(Response response) throws IOException {
+        JsonElement root = JsonParser.parseReader(response.body().charStream());
+        if (root == null || !root.isJsonObject()) {
+            throw new IOException("unexpected JSON " + (root != null ? root.toString() : "null"));
+        }
+        return (JsonObject) root;
     }
 }
