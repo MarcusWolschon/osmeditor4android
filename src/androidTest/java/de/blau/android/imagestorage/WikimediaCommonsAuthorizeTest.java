@@ -43,7 +43,7 @@ import de.blau.android.resources.KeyDatabaseHelper;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class WikipediaCommonsAuthorizeTest {
+public class WikimediaCommonsAuthorizeTest {
 
     Context                 context      = null;
     AdvancedPrefDatabase    prefDB       = null;
