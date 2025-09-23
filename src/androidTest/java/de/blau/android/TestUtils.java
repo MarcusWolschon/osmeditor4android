@@ -1268,7 +1268,7 @@ public final class TestUtils {
             selectDirectory(device, storagePath, scrollableSelector);
         }
         if (directory != null) {
-            scrollToAndSelect(device, directory, scrollableSelector);
+            scrollToAndSelect(device, directory, scrollableSelector, 1);
         }
         if (create) {
             UiObject editText = device.findObject(new UiSelector().classNameMatches("^.*.EditText$"));
@@ -1280,7 +1280,7 @@ public final class TestUtils {
                 Assert.fail(e.getMessage());
             }
         } else {
-            scrollToAndSelect(device, fileName, scrollableSelector);
+            scrollToAndSelect(device, fileName, scrollableSelector, 0);
         }
     }
 
@@ -1340,11 +1340,11 @@ public final class TestUtils {
         if (dirs.length > 0) {
             for (String dir : dirs) {
                 if (!"".equals(dir)) {
-                    if (!scrollToAndSelect(device, dir, scrollableSelector)) {
+                    if (!scrollToAndSelect(device, dir, scrollableSelector, 0)) {
                         if (prev != null) {
                             // retry to get around suspected flaky android resend back button pressed
-                            scrollToAndSelect(device, prev, scrollableSelector);
-                            if (!scrollToAndSelect(device, dir, scrollableSelector)) {
+                            scrollToAndSelect(device, prev, scrollableSelector, 0);
+                            if (!scrollToAndSelect(device, dir, scrollableSelector, 0)) {
                                 Assert.fail("selectDirectory failed click on " + dir);
                             }
                         } else {
@@ -1364,9 +1364,10 @@ public final class TestUtils {
      * @param device the UiDevice
      * @param entry the text of the entry to select
      * @param scrollableSelector what Android widget is used for scrolling
+     * @param additionalScroll TODO
      * @return true if successful
      */
-    public static boolean scrollToAndSelect(@NonNull UiDevice device, @NonNull String entry, @NonNull UiSelector scrollableSelector) {
+    public static boolean scrollToAndSelect(@NonNull UiDevice device, @NonNull String entry, @NonNull UiSelector scrollableSelector, int additionalScroll) {
         hideSoftKeyboard(device);
 
         if (!findText(device, false, entry, 1000)) { // only scroll if text isn't already visible
@@ -1379,6 +1380,9 @@ public final class TestUtils {
             appView.setSwipeDeadZonePercentage(0.2);
             try {
                 appView.scrollIntoView(new UiSelector().text(entry));
+                if (additionalScroll > 0) {
+                    appView.scrollForward(additionalScroll);
+                }
             } catch (UiObjectNotFoundException e) {
                 // if there is no scrollable then this will fail
             }

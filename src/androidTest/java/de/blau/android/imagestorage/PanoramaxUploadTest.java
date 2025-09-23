@@ -202,6 +202,8 @@ public class PanoramaxUploadTest {
 
         assertEquals(1, App.getPhotoIndex().count());
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.3074998, 47.4694442, true);
+        
+        TestUtils.sleep(10000);
 
         TestUtils.clickMenuButton(device, main.getString(R.string.abc_action_menu_overflow_description), false, true, 10000);
         
@@ -218,5 +220,6 @@ public class PanoramaxUploadTest {
         } catch (InterruptedException e) {
             fail(e.getMessage());
         }
+        device.pressBack();
     }
 }
