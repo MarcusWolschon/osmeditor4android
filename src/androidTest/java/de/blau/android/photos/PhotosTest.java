@@ -144,11 +144,19 @@ public class PhotosTest {
         TestUtils.clickAtCoordinates(device, main.getMap(), 7.5886112, 47.5519448, true);
 
         TestUtils.clickMenuButton(device, context.getString(R.string.menu_information), false, true);
+        TestUtils.sleep(5000); // seems to be needed
+        
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.image_information_title)));
-        TestUtils.sleep(20000);
+        // TestUtils.sleep(20000);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done),true, false));
         
-        TestUtils.clickMenuButton(device, context.getString(R.string.delete), false, true);
+        TestUtils.clickMenuButton(device, main.getString(R.string.abc_action_menu_overflow_description), false, true, 10000);
+        
+        TestUtils.sleep(5000); // seems to be needed
+
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.delete), false));
+
+        // TestUtils.clickMenuButton(device, context.getString(R.string.delete), false, true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.photo_viewer_delete_button), true, false));
 
         assertEquals(1, App.getPhotoIndex().count());
