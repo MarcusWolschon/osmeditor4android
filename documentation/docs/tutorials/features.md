@@ -108,6 +108,7 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | GeoJSON Feature display                                  |
 |                           | Start camera app                                         |
 |                           | Display on device photos with location and orientation   |
+|                           | Upload images to Panoramax and Wikimedia Commons
 |                           | Undo- and redo functions                                 |
 |                           | OLC support                                              |
 |                           | Validate URLs from property editor                       |

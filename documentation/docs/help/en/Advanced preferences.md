@@ -20,22 +20,6 @@ Enable the form based tag editor. Default: _on_.
 
 Display labels from presets in the tag form editor. Default: _on_.
 
-### Show camera action
-
-Show a camera button on the main display (if a camera app is present). Default: _on_.
-
-### Camera app
-
-Select the camera app to use. If your, installed, camera app is not listed, please report this and we will add it to the list. Unluckily google does not allow to automatically determine installed camera apps outside of pre-installed ones. Default: _System default_.
-
-### Use the MediaStore
-
-Additionally use Androids MediaStore for accessing photos. This will add all photographs in JPEG format found via the MediaStore that contain coordinates in their EXIF data to the photo layer. Default: _off_.
-
-### Add images to the MediaStore
-
-Add images recorded via the camera button (see above) to Androids MediaStore. This potentially makes managing the images from an external app easier. Default: _off_.
-
 ### Follow location button layout
 
 Change the side of the display the "Follow location" button is positioned on or remove it completely. Default: _lefthand side_.
@@ -125,6 +109,36 @@ Note: this setting is only applicable when the current locale uses latin script.
 ### Use volume keys for zooming
 
 Allow the use of the volume keys for zooming in and out. Default: _false_.
+
+## Camera and Images Settings
+
+### Show camera action
+
+Show a camera button on the main display (if a camera app is present). Default: _on_.
+
+### Camera app
+
+Select the camera app to use. If your, installed, camera app is not listed, please report this and we will add it to the list. Unluckily google does not allow to automatically determine installed camera apps outside of pre-installed ones. Default: _System default_.
+
+### Use the building photo viewer
+
+If checked the the internal photo viewer will be used, if not checked the app will attempt to use a suitable 3rd party app on your device. Default: _on_.
+
+### Use the MediaStore
+
+Additionally to the _Pictures_ folder in the Vespucci directory, use Androids MediaStore for accessing photos. This will add all photographs in JPEG or HEIF format found via the MediaStore that contain coordinates in their EXIF data to the photo layer. Default: _off_.
+
+### Add images to the MediaStore
+
+Add images recorded via the camera button (see above) to Androids MediaStore. This potentially makes managing the images from an external app easier. Default: _off_.
+
+### Image storage
+
+Configure online destinations that can be used for storing images. Currently Panoramax instances and Wikimedia Commons are supported.
+
+### Image licence
+
+Licence to use for uploaded images. Currently this is just utilized for the Wikimedia COmmons destination.
 
 ## Data and Editing Settings
 

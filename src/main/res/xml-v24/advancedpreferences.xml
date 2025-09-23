@@ -25,46 +25,8 @@
         <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_supportPresetLabels_key"
-            android:summary="@string/configsupportPresetLabels_summary"
+            android:summary="@string/config_supportPresetLabels_summary"
             android:title="@string/config_supportPresetLabels_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/config_showCameraAction_key"
-            android:summary="@string/config_showCameraAction_summary"
-            android:title="@string/config_showCameraAction_title" />
-        <androidx.preference.ListPreference
-            android:defaultValue=""
-            android:entries="@array/camera_app_entries"
-            android:entryValues="@array/camera_app_values"
-            android:key="@string/config_selectCameraApp_key"
-            android:summary="@string/config_selectCameraApp_summary"
-            android:title="@string/config_selectCameraApp_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/config_useInternalPhotoViewer_key"
-            android:summary="@string/config_useInternalPhotoViewer_summary"
-            android:title="@string/config_useInternalPhotoViewer_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/config_indexMediaStore_key"
-            android:summary="@string/config_indexMediaStore_summary"
-            android:title="@string/config_indexMediaStore_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/config_addToMediaStore_key"
-            android:summary="@string/config_addToMediaStore_summary"
-            android:title="@string/config_addToMediaStore_title" />
-        <androidx.preference.Preference
-            android:key="@string/config_imageStores_key"
-            android:summary="@string/config_imageStores_summary"
-            android:title="@string/config_imageStores_title" />
-        <androidx.preference.ListPreference
-            android:defaultValue="@string/licence_cc_by_4_value"
-            android:entries="@array/licence_entries"
-            android:entryValues="@array/licence_values"
-            android:key="@string/config_imageLicence_key"
-            android:summary="@string/config_imageLicence_summary"
-            android:title="@string/config_imageLicence_title" />
         <androidx.preference.ListPreference
             android:defaultValue="@string/follow_GPS_left"
             android:entries="@array/followGPSbutton_entries"
@@ -240,6 +202,49 @@
             android:key="@string/config_zoomWithKeys_key"
             android:summary="@string/config_zoomWithKeys_summary"
             android:defaultValue="false" />
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
+        android:key="config_category_camera_and_images"
+        android:title="@string/config_category_camera_and_images"
+        android:summary="@string/config_category_camera_and_images">
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_showCameraAction_key"
+            android:summary="@string/config_showCameraAction_summary"
+            android:title="@string/config_showCameraAction_title" />
+        <androidx.preference.ListPreference
+            android:defaultValue=""
+            android:entries="@array/camera_app_entries"
+            android:entryValues="@array/camera_app_values"
+            android:key="@string/config_selectCameraApp_key"
+            android:summary="@string/config_selectCameraApp_summary"
+            android:title="@string/config_selectCameraApp_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_useInternalPhotoViewer_key"
+            android:summary="@string/config_useInternalPhotoViewer_summary"
+            android:title="@string/config_useInternalPhotoViewer_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_indexMediaStore_key"
+            android:summary="@string/config_indexMediaStore_summary"
+            android:title="@string/config_indexMediaStore_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_addToMediaStore_key"
+            android:summary="@string/config_addToMediaStore_summary"
+            android:title="@string/config_addToMediaStore_title" />
+        <androidx.preference.Preference
+            android:key="@string/config_imageStores_key"
+            android:summary="@string/config_imageStores_summary"
+            android:title="@string/config_imageStores_title" />
+        <androidx.preference.ListPreference
+            android:defaultValue="@string/licence_cc_by_4_value"
+            android:entries="@array/licence_entries"
+            android:entryValues="@array/licence_values"
+            android:key="@string/config_imageLicence_key"
+            android:summary="@string/config_imageLicence_summary"
+            android:title="@string/config_imageLicence_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_editing"
