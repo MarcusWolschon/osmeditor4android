@@ -1,10 +1,16 @@
 # Custom imagery
-_by Simon Poole, updated 2025-03-30_
+_by Simon Poole, updated 2025-09-24_
 
-For Vespucci 10.1 we've added four long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
-OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci versions support EPSG:4326 for WMS servers too), support for layers from [OAM](https://openaerialmap.org/) and support for imagery layers in [MBTiles](https://github.com/mapbox/mbtiles-spec) format.
+In Vespucci 10.1 we added four long requested features: 
+- a simple UI to add custom imagery sources, 
+- support for WMS servers that support the same projection as conventional
+OpenStreetMap / google map tiles (EPSG:3857, EPSG:900913, later Vespucci versions support EPSG:4326 too), 
+- support for layers from [OAM](https://openaerialmap.org/) 
+- support for imagery layers in [MBTiles](https://github.com/mapbox/mbtiles-spec) format.
 
-__NOTE__ even though the URLs may look similar to those for a WMS layer, we do not support requesting data from ESRI MapServer with their native protocol.
+__NOTES__ 
+- even though the URLs may look similar to those for a WMS layer, we do not support requesting data from ESRI MapServer with their native protocol.
+- not all options and placeholders are available in the form just the most commonly used ones. If you need all [supported features](https://github.com/MarcusWolschon/osmeditor4android/issues/2314) you can configure custom imagery sources in a [file](#adding-custom-imagery-sources-configuration-from-a-file). 
 
 ## Adding a custom imagery source
 
@@ -13,7 +19,7 @@ __NOTE__ even though the URLs may look similar to those for a WMS layer, we do n
 To add a custom layer goto the _Preferences_ screen and select _Custom imagery_, press the _+_ button to add a new layer. In the form you can set
 
 * a __Name__ this is what is displayed in the _Layer control_ background or overlay selection form. This field is _required_.
-* an __URL__ the URL for the source with place holders in the same format as the [JOSM imagery sources](https://josm.openstreetmap.de/wiki/Maps) that Vespucci, JOSM and Go Map!! use as source for standard imagery. This field is _required_.
+* an __URL__ the URL template for the source. The placeholders are in the same format _{....}_ as Vespucci, JOSM, iD, Go Map!! and other applications use. This field is _required_.
 * the __Overlay__ flag, indicating that the layer is not a background, but partially transparent images for displaying over a background layer.
 * __Coverage__ left, bottom, right and top coordinates of a coverage bounding box in WGS84 coordinates, if the values are empty it is assumed that the layer covers the whole visible web-mercator area, that is -180°, -85°, 180°, 85°.
 * __Zoom__ _Min_ and _Max_ zoom levels, these indicates the minimum and maximum zoom levels available and are important for the app to determine over- and under-zoom correctly.
@@ -21,7 +27,7 @@ To add a custom layer goto the _Preferences_ screen and select _Custom imagery_,
 
 ### Supported placeholders
 
-Placeholders are replaced when the application retrieves imagery files from the source and are replaced by calculated values. There are some variants even between applications that in principle use the same system, which are noted for completeness sake below.
+Placeholders are replaced when the application retrieves imagery files from the source and are replaced by calculated values. There is some variation even between applications that in principle use the same system, these are noted for completeness sake below.
 
 The placeholders have the general format of __{__ _placeholder name_ __}__.
 
@@ -40,6 +46,8 @@ __{switch:a,b,c}__ rotating server selection (replace _a,b,c_ by the actual sub-
 __{quadkey}__ used for Bing. _Vespucci_
 
 __{proj}__ projection for WMS servers. _JOSM_, _Vespucci (only in configuration files)_
+
+__{wkid}__ projection without the _EPSG:_ prefix, _JOSM_, _Vespucci (only in configuration files)_
 
 __{width}__ tile width for WMS servers. _JOSM_, _Vespucci_
 
