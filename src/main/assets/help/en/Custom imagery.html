@@ -15,11 +15,12 @@
 <p>Besides manually adding layers you can add WMS layers by querying a WMS server for a list of supported layers see <a href="Main%20map%20display.md#layer_control">layer control</a>, or by querying the Open Aerial Map (OAM) service.</p>
 <p><strong>NOTE</strong> even though the URLs may look similar to those for a WMS layer, we do not support requesting data from ESRI MapServer with their native protocol.</p>
 <h2 id="adding-a-custom-imagery-source">Adding a custom imagery source</h2>
+<p><strong>NOTE</strong> only a subset of all possible attributes can be set in the form, if you need access to more parameters, see <a href="https://vespucci.io/tutorials/custom_imagery/#adding-custom-imagery-sources-configuration-from-a-file">adding custom imagery from a file</a>.</p>
 <p>To add a custom layer goto the <em>Preferences</em> screen and select <em>Custom imagery</em>, press the <em>+</em> button to add a new layer, or you can select the same from the layer control, &quot;+&quot; menu. In the form you can set</p>
 <ul>
 <li>a <strong>Name</strong> this is what is displayed in the <em>Layer control</em> background or overlay selection form. This field is <em>required</em>.</li>
 <li>an <strong>URL</strong> the URL for the source with place holders. This field is <em>required</em>.</li>
-<li>the <strong>Overlay</strong> flag, indicating that the layer is not a background, but partially transparent images for displaying over a background layer.</li>
+<li>the <strong>Overlay</strong> flag, indicating that the layer is not a background, but partially transparent images for displaying over a background layer. If this flag is <em>not</em> set, layers that are below this one will be considered to be invisible and will not be rendered.</li>
 <li><strong>Coverage</strong> left, bottom, right and top coordinates of a coverage bounding box in WGS84 coordinates, if the values are empty it is assumed that the layer covers the whole visible web-mercator area, that is -180°, -85°, 180°, 85°.</li>
 <li><strong>Zoom</strong> <em>Min</em> and <em>Max</em> zoom levels, these indicates the minimum and maximum zoom levels available and are important for the app to determine over- and under-zoom correctly.</li>
 <li><strong>Tile size</strong> side length in pixels for the tiles, default 256. <em>Available from version 16.0 and later</em></li>

@@ -12,11 +12,13 @@ __NOTE__ even though the URLs may look similar to those for a WMS layer, we do n
 
 ## Adding a custom imagery source
 
+__NOTE__ only a subset of all possible attributes can be set in the form, if you need access to more parameters, see [adding custom imagery from a file](https://vespucci.io/tutorials/custom_imagery/#adding-custom-imagery-sources-configuration-from-a-file).
+
 To add a custom layer goto the _Preferences_ screen and select _Custom imagery_, press the _+_ button to add a new layer, or you can select the same from the layer control, "+" menu. In the form you can set
 
 * a __Name__ this is what is displayed in the _Layer control_ background or overlay selection form. This field is _required_.
 * an __URL__ the URL for the source with place holders. This field is _required_.
-* the __Overlay__ flag, indicating that the layer is not a background, but partially transparent images for displaying over a background layer.
+* the __Overlay__ flag, indicating that the layer is not a background, but partially transparent images for displaying over a background layer. If this flag is _not_ set, layers that are below this one will be considered to be invisible and will not be rendered.
 * __Coverage__ left, bottom, right and top coordinates of a coverage bounding box in WGS84 coordinates, if the values are empty it is assumed that the layer covers the whole visible web-mercator area, that is -180°, -85°, 180°, 85°.
 * __Zoom__ _Min_ and _Max_ zoom levels, these indicates the minimum and maximum zoom levels available and are important for the app to determine over- and under-zoom correctly.
 * __Tile size__ side length in pixels for the tiles, default 256. _Available from version 16.0 and later_
