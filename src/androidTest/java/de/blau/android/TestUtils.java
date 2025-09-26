@@ -1379,6 +1379,7 @@ public final class TestUtils {
             appView.setSwipeDeadZonePercentage(0.2);
             try {
                 appView.scrollIntoView(new UiSelector().text(entry));
+                appView.scrollForward(1);
             } catch (UiObjectNotFoundException e) {
                 // if there is no scrollable then this will fail
             }
