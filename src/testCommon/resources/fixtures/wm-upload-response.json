@@ -1,0 +1,295 @@
+{
+    "upload": {
+        "result": "Success",
+        "filename": "Tschopp-creativ-center-basel.jpg",
+        "imageinfo": {
+            "timestamp": "2025-09-15T07:39:36Z",
+            "user": "SimonPoole",
+            "userid": 3192660,
+            "size": 3874993,
+            "width": 3024,
+            "height": 4032,
+            "parsedcomment": "Image upload with Vespucci",
+            "comment": "Image upload with Vespucci",
+            "html": "<div>\n<figure typeof=\"mw:Error mw:File/Thumb\"><a href=\"/w/index.php?title=Special:Upload&amp;wpDestFile=Tschopp-creativ-center-basel.jpg\" class=\"new\" title=\"File:Tschopp-creativ-center-basel.jpg\"><span class=\"mw-file-element mw-broken-media\" data-width=\"100\">File:Tschopp-creativ-center-basel.jpg</span></a><figcaption>Existing file</figcaption></figure>\n<p><span id=\"wpUploadWarningFileexists\">A file with this name already exists; please check <b><a class=\"mw-selflink selflink\">the existing file</a></b> if you are not sure whether you want to change it. Please choose another filename, unless you are uploading a technically improved version of the same file. <br />Do not overwrite an image with a different one of the same topic (see <a href=\"/wiki/Commons:File_naming\" title=\"Commons:File naming\">file naming</a>).</span>\n</p>\n<div style=\"clear:both;\"></div>\n</div>",
+            "canonicaltitle": "File:Tschopp-creativ-center-basel.jpg",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Tschopp-creativ-center-basel.jpg",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Tschopp-creativ-center-basel.jpg",
+            "sha1": "e3a4ed5038ba12afdd92492240a5ffcce3e389d1",
+            "metadata": [
+                {
+                    "name": "Make",
+                    "value": "samsung"
+                },
+                {
+                    "name": "ImageLength",
+                    "value": 3024
+                },
+                {
+                    "name": "Orientation",
+                    "value": 6
+                },
+                {
+                    "name": "DateTime",
+                    "value": "2019:03:30 18:58:44"
+                },
+                {
+                    "name": "YResolution",
+                    "value": "72/1"
+                },
+                {
+                    "name": "XResolution",
+                    "value": "72/1"
+                },
+                {
+                    "name": "ImageWidth",
+                    "value": 4032
+                },
+                {
+                    "name": "Model",
+                    "value": "SM-N950F"
+                },
+                {
+                    "name": "Software",
+                    "value": "N950FXXS5DSB4"
+                },
+                {
+                    "name": "YCbCrPositioning",
+                    "value": 1
+                },
+                {
+                    "name": "ResolutionUnit",
+                    "value": 2
+                },
+                {
+                    "name": "ExifVersion",
+                    "value": "0220"
+                },
+                {
+                    "name": "ApertureValue",
+                    "value": "153/100"
+                },
+                {
+                    "name": "SceneType",
+                    "value": 1
+                },
+                {
+                    "name": "ExposureBiasValue",
+                    "value": "0/10"
+                },
+                {
+                    "name": "ExposureProgram",
+                    "value": 2
+                },
+                {
+                    "name": "ColorSpace",
+                    "value": 1
+                },
+                {
+                    "name": "MaxApertureValue",
+                    "value": "153/100"
+                },
+                {
+                    "name": "BrightnessValue",
+                    "value": "-123/100"
+                },
+                {
+                    "name": "DateTimeOriginal",
+                    "value": "2019:03:30 18:58:44"
+                },
+                {
+                    "name": "FlashPixVersion",
+                    "value": "0100"
+                },
+                {
+                    "name": "SubSecTimeOriginal",
+                    "value": "0301"
+                },
+                {
+                    "name": "WhiteBalance",
+                    "value": 0
+                },
+                {
+                    "name": "CustomRendered",
+                    "value": 0
+                },
+                {
+                    "name": "ExposureMode",
+                    "value": 0
+                },
+                {
+                    "name": "ExposureTime",
+                    "value": "1/25"
+                },
+                {
+                    "name": "Flash",
+                    "value": 0
+                },
+                {
+                    "name": "SubSecTime",
+                    "value": "0301"
+                },
+                {
+                    "name": "FNumber",
+                    "value": "170/100"
+                },
+                {
+                    "name": "ISOSpeedRatings",
+                    "value": 500
+                },
+                {
+                    "name": "Saturation",
+                    "value": 0
+                },
+                {
+                    "name": "ComponentsConfiguration",
+                    "value": [
+                        {
+                            "name": 0,
+                            "value": 1
+                        },
+                        {
+                            "name": 1,
+                            "value": 2
+                        },
+                        {
+                            "name": 2,
+                            "value": 3
+                        },
+                        {
+                            "name": 3,
+                            "value": 0
+                        },
+                        {
+                            "name": "_type",
+                            "value": "ol"
+                        }
+                    ]
+                },
+                {
+                    "name": "FocalLengthIn35mmFilm",
+                    "value": 26
+                },
+                {
+                    "name": "SubSecTimeDigitized",
+                    "value": "0301"
+                },
+                {
+                    "name": "Contrast",
+                    "value": 0
+                },
+                {
+                    "name": "Sharpness",
+                    "value": 0
+                },
+                {
+                    "name": "DateTimeDigitized",
+                    "value": "2019:03:30 18:58:44"
+                },
+                {
+                    "name": "ShutterSpeedValue",
+                    "value": "464/100"
+                },
+                {
+                    "name": "MeteringMode",
+                    "value": 2
+                },
+                {
+                    "name": "FocalLength",
+                    "value": "430/100"
+                },
+                {
+                    "name": "SceneCaptureType",
+                    "value": 0
+                },
+                {
+                    "name": "LightSource",
+                    "value": 0
+                },
+                {
+                    "name": "GPSLatitude",
+                    "value": 47.55166666666666
+                },
+                {
+                    "name": "GPSAltitude",
+                    "value": 370
+                },
+                {
+                    "name": "GPSTimeStamp",
+                    "value": [
+                        {
+                            "name": 0,
+                            "value": "17/1"
+                        },
+                        {
+                            "name": 1,
+                            "value": "58/1"
+                        },
+                        {
+                            "name": 2,
+                            "value": "44/1"
+                        }
+                    ]
+                },
+                {
+                    "name": "GPSLongitude",
+                    "value": 7.589166666666666
+                },
+                {
+                    "name": "GPSDateStamp",
+                    "value": "2019:03:30"
+                },
+                {
+                    "name": "GPSImgDirection",
+                    "value": "28879/100"
+                },
+                {
+                    "name": "GPSImgDirectionRef",
+                    "value": "M"
+                },
+                {
+                    "name": "GPSVersionID",
+                    "value": "0.0.2.2"
+                },
+                {
+                    "name": "MEDIAWIKI_EXIF_VERSION",
+                    "value": 2
+                }
+            ],
+            "commonmetadata": [
+                {
+                    "name": "Make",
+                    "value": "samsung"
+                },
+                {
+                    "name": "ImageLength",
+                    "value": 3024
+                },
+                {
+                    "name": "Orientation",
+                    "value": 6
+                },
+                {
+                    "name": "DateTime",
+                    "value": "2019:03:30 18:58:44"
+                },
+                {
+                    "name": "YResolution",
+                    "value": "72/1"
+                },
+                {
+                    "name": "XResolution",
+                    "value": "72/1"
+                },
+                {
+                    "name": "ImageWidth",
+                    "value": 4032
+                },
+                {
+                    "name": "Model",
+                    "value": "SM-N950F"
+                }
+            ]
+        }
+    }
+}

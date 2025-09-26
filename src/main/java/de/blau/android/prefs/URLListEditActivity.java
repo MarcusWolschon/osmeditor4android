@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -9,6 +11,7 @@ import java.util.Map.Entry;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
@@ -17,6 +20,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +43,7 @@ import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
 import de.blau.android.R;
 import de.blau.android.util.SelectFile;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * This activity allows the user to edit a list of URLs. Each entry consists of a unique ID, a name and a URL. The user
@@ -53,8 +59,9 @@ import de.blau.android.util.SelectFile;
  */
 public abstract class URLListEditActivity extends ListActivity
         implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
-    private static final String DEBUG_TAG = URLListEditActivity.class.getSimpleName().substring(0,
-            Math.min(23, URLListEditActivity.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, URLListEditActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = URLListEditActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     static final String ACTION_NEW   = "new";
     static final String EXTRA_NAME   = "name";
@@ -664,5 +671,67 @@ public abstract class URLListEditActivity extends ListActivity
         public void setMenuButtonListener(@NonNull OnClickListener listener) {
             menuButton.setOnClickListener(listener);
         }
+    }
+
+    /**
+     * Common code for items with a type spinner, name and URL
+     * 
+     * @param layoutRes the layout resource
+     * @param item the item
+     * @param types an array of enums for the spinner
+     * @param selected the selected type or null
+     */
+    protected <E extends Enum<?>> void itemEditDialogWithTypeSpinner(@NonNull final int layoutRes, @Nullable final ListEditItem item, @NonNull E[] types,
+            @Nullable E selected) {
+        final AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(this);
+        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(this);
+        final View mainView = inflater.inflate(layoutRes, null);
+        final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
+        final Spinner typeSpinner = (Spinner) mainView.findViewById(R.id.listedit_type_spinner);
+        final TextView url = (TextView) mainView.findViewById(R.id.listedit_editValue_2);
+
+        ArrayAdapter<E> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, types);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(adapter);
+
+        if (item != null) {
+            editName.setText(item.name);
+            typeSpinner.setSelection(selected != null ? selected.ordinal() : 0);
+            url.setText(item.value2);
+            if (LISTITEM_ID_DEFAULT.equals(item.id)) {
+                // name and value are not editable
+                editName.setEnabled(false);
+                typeSpinner.setEnabled(false);
+                url.setEnabled(false);
+            }
+        }
+
+        setViewAndButtons(builder, mainView);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // overriding the handlers
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
+            String name = editName.getText().toString();
+            @SuppressWarnings("unchecked")
+            String value = ((E) typeSpinner.getSelectedItem()).name();
+            String value2 = url.getText().toString();
+
+            if (item == null || item.id == null) {
+                // new item
+                if (!"".equals(value)) {
+                    finishCreateItem(new ListEditItem(name, value, !"".equals(value2) ? value2 : null, null, false, null));
+                }
+            } else {
+                item.name = name;
+                item.value = value;
+                item.value2 = !"".equals(value2) ? value2 : null;
+                finishEditItem(item);
+            }
+            dialog.dismiss();
+        });
+
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
     }
 }

@@ -1,0 +1,29 @@
+{
+    "collaborative_metadata": null,
+    "id": "fc38229d-dbfc-4205-b863-2917e8d96417",
+    "links": [
+        {
+            "href": "https://dev.panoramax.xyz/api/users/fc38229d-dbfc-4205-b863-2917e8d96417/catalog/",
+            "rel": "catalog",
+            "type": "application/json"
+        },
+        {
+            "href": "https://dev.panoramax.xyz/api/users/fc38229d-dbfc-4205-b863-2917e8d96417/collection",
+            "rel": "collection",
+            "type": "application/json"
+        },
+        {
+            "href": "https://dev.panoramax.xyz/api/users/fc38229d-dbfc-4205-b863-2917e8d96417/map/{z}/{x}/{y}.mvt",
+            "rel": "user-xyz",
+            "title": "Pictures and sequences vector tiles for a given user",
+            "type": "application/vnd.mapbox-vector-tile"
+        }
+    ],
+    "name": "simonpoole",
+    "permissions": {
+        "can_check_reports": false,
+        "can_edit_excluded_areas": false,
+        "can_edit_pages": false,
+        "role": "user"
+    }
+}

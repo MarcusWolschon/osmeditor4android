@@ -100,7 +100,7 @@ The layer dialog supports the following actions on the layer entries:
     * __Add GeoJSON layer__ Loads a GeoJSON layer from a file in to a new GeoJSON layer, this will load CVS files with suitable (WGS84) longitude and latitude columns and write a converted file to the Vespucci directory.
     * __Add background imagery layer__ Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.
     * __Add overlay imagery layer__ As above but assumes that the layer is partially transparent.
-    * __Enable photo layer__ Enables the photo layer this will display clickable icons for photos that will start an internal or external viewer. Which photos can be displayed depends strongly on your Android version and settings [Advanced preferences](Advanced%20preferences.md).
+    * __Enable photo layer__ Enables the photo layer this will display clickable icons for photos that will start an internal or external viewer. Which photos can be displayed depends strongly on your Android version and settings [Advanced preferences](Advanced%20preferences.md#add-images-to-the-mediastore).
     * __Enable bookmark layer__ Enables a layer displaying saved bookmarks.
     * __Enable Mapillary layer__ Enables the Mapillay layer.
     * __Enable Panoramax layer__ Enables the Panoramax layer.

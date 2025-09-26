@@ -4,27 +4,20 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.prefs.AdvancedPrefDatabase.GeocoderType;
 import de.blau.android.util.ScreenMessage;
-import de.blau.android.util.ThemeUtils;
 
 /** Provides an activity for editing the API list */
 public class GeocoderEditorActivity extends URLListEditActivity {
@@ -120,56 +113,6 @@ public class GeocoderEditorActivity extends URLListEditActivity {
      */
     @Override
     protected void itemEditDialog(final ListEditItem item) {
-        final AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(this);
-        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(this);
-        final View mainView = inflater.inflate(R.layout.listedit_geocoderedit, null);
-        final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
-        final Spinner geocoderType = (Spinner) mainView.findViewById(R.id.geocoder_type);
-        final TextView url = (TextView) mainView.findViewById(R.id.listedit_editValue_2);
-
-        GeocoderType[] geocoderTypes = GeocoderType.values();
-        ArrayAdapter<GeocoderType> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, geocoderTypes);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        geocoderType.setAdapter(adapter);
-
-        if (item != null) {
-            editName.setText(item.name);
-            geocoderType.setSelection((GeocoderType.valueOf(item.value)).ordinal());
-            url.setText(item.value2);
-
-            if (item.id.equals(LISTITEM_ID_DEFAULT)) {
-                // name and value are not editable
-                editName.setEnabled(false);
-                geocoderType.setEnabled(false);
-                url.setEnabled(false);
-            }
-        }
-
-        setViewAndButtons(builder, mainView);
-
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-
-        // overriding the handlers
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
-            String name = editName.getText().toString();
-            String value = ((GeocoderType) geocoderType.getSelectedItem()).name();
-            String value2 = url.getText().toString();
-
-            if (item == null) {
-                // new item
-                if (!"".equals(value)) {
-                    finishCreateItem(new ListEditItem(name, value, !"".equals(value2) ? value2 : null, null, false, null));
-                }
-            } else {
-                item.name = name;
-                item.value = value;
-                item.value2 = !"".equals(value2) ? value2 : null;
-                finishEditItem(item);
-            }
-            dialog.dismiss();
-        });
-        
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
+        itemEditDialogWithTypeSpinner(R.layout.listedit_geocoderedit, item, GeocoderType.values(), item != null ? GeocoderType.valueOf(item.value) : null);
     }
 }

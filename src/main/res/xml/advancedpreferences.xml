@@ -25,35 +25,8 @@
         <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_supportPresetLabels_key"
-            android:summary="@string/configsupportPresetLabels_summary"
+            android:summary="@string/config_supportPresetLabels_summary"
             android:title="@string/config_supportPresetLabels_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/config_showCameraAction_key"
-            android:summary="@string/config_showCameraAction_summary"
-            android:title="@string/config_showCameraAction_title" />
-        <androidx.preference.ListPreference
-            android:defaultValue=""
-            android:entries="@array/camera_app_entries"
-            android:entryValues="@array/camera_app_values"
-            android:key="@string/config_selectCameraApp_key"
-            android:summary="@string/config_selectCameraApp_summary"
-            android:title="@string/config_selectCameraApp_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/config_useInternalPhotoViewer_key"
-            android:summary="@string/config_useInternalPhotoViewer_summary"
-            android:title="@string/config_useInternalPhotoViewer_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/config_indexMediaStore_key"
-            android:summary="@string/config_indexMediaStore_summary"
-            android:title="@string/config_indexMediaStore_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/config_addToMediaStore_key"
-            android:summary="@string/config_addToMediaStore_summary"
-            android:title="@string/config_addToMediaStore_title" />
         <androidx.preference.ListPreference
             android:defaultValue="@string/follow_GPS_left"
             android:entries="@array/followGPSbutton_entries"
@@ -105,8 +78,7 @@
             android:key="@string/config_maxInlineValues_key"
             android:title="@string/config_maxInlineValues_title"
             android:dialogTitle="@string/config_maxInlineValues_title"
-            android:numeric="integer"
-            app:spt_maxValue="20"
+            android:numeric="integer" app:spt_maxValue="20"
             app:spt_minValue="1"
             app:spt_currentValueText="@string/config_maxInlineValues_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -117,8 +89,7 @@
             android:numeric="integer"
             android:summary="@string/config_longStringLimit_summary"
             android:title="@string/config_longStringLimit_title"
-            app:spt_maxValue="255"
-            app:spt_minValue="0"
+            app:spt_maxValue="255" app:spt_minValue="0"
             app:spt_increment="1"
             app:spt_currentValueText="@string/config_longStringLimit_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -129,8 +100,7 @@
             android:numeric="integer"
             android:summary="@string/config_autoLockDelay_summary"
             android:title="@string/config_autoLockDelay_title"
-            app:spt_maxValue="300"
-            app:spt_minValue="0"
+            app:spt_maxValue="300" app:spt_minValue="0"
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_autoLockDelay_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -146,8 +116,7 @@
             android:numeric="integer"
             android:summary="@string/config_maxStrokeWidth_summary"
             android:title="@string/config_maxStrokeWidth_title"
-            app:spt_maxValue="32"
-            app:spt_minValue="8"
+            app:spt_maxValue="32" app:spt_minValue="8"
             app:spt_currentValueText="@string/config_maxStrokeWidth_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
@@ -157,8 +126,7 @@
             android:numeric="integer"
             android:summary="@string/config_uploadOk_summary"
             android:title="@string/config_uploadOk_title"
-            app:spt_maxValue="1000"
-            app:spt_minValue="0"
+            app:spt_maxValue="1000" app:spt_minValue="0"
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_upload_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -169,8 +137,7 @@
             android:numeric="integer"
             android:summary="@string/config_uploadChecker_summary"
             android:title="@string/config_uploadChecker_title"
-            app:spt_maxValue="168"
-            app:spt_minValue="1"
+            app:spt_maxValue="168" app:spt_minValue="1"
             app:spt_increment="1"
             app:spt_currentValueText="@string/config_uploadChecker_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -181,8 +148,7 @@
             android:numeric="integer"
             android:summary="@string/config_uploadWarn_summary"
             android:title="@string/config_uploadWarn_title"
-            app:spt_maxValue="1000"
-            app:spt_minValue="0"
+            app:spt_maxValue="1000" app:spt_minValue="0"
             app:spt_increment="20"
             app:spt_currentValueText="@string/config_upload_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -193,8 +159,7 @@
             android:numeric="integer"
             android:summary="@string/config_dataWarn_summary"
             android:title="@string/config_dataWarn_title"
-            app:spt_maxValue="1000000"
-            app:spt_minValue="10000"
+            app:spt_maxValue="1000000" app:spt_minValue="10000"
             app:spt_increment="10000"
             app:spt_currentValueText="@string/config_upload_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -210,8 +175,7 @@
             android:numeric="integer"
             android:summary="@string/config_beepVolume_summary"
             android:title="@string/config_beepVolume_title"
-            app:spt_maxValue="100"
-            app:spt_minValue="0"
+            app:spt_maxValue="100" app:spt_minValue="0"
             app:spt_increment="1"
             app:spt_currentValueText="@string/config_beepVolume_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -222,8 +186,7 @@
             android:numeric="integer"
             android:summary="@string/config_mapillary_min_zoom_summary"
             android:title="@string/config_mapillary_min_zoom_title"
-            app:spt_maxValue="20"
-            app:spt_minValue="0"
+            app:spt_maxValue="20" app:spt_minValue="0"
             app:spt_increment="1"
             app:spt_currentValueText="@string/config_mapillary_min_zoom_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -239,6 +202,49 @@
             android:key="@string/config_zoomWithKeys_key"
             android:summary="@string/config_zoomWithKeys_summary"
             android:defaultValue="false" />
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
+        android:key="config_category_camera_and_images"
+        android:title="@string/config_category_camera_and_images"
+        android:summary="@string/config_category_camera_and_images">
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_showCameraAction_key"
+            android:summary="@string/config_showCameraAction_summary"
+            android:title="@string/config_showCameraAction_title" />
+        <androidx.preference.ListPreference
+            android:defaultValue=""
+            android:entries="@array/camera_app_entries"
+            android:entryValues="@array/camera_app_values"
+            android:key="@string/config_selectCameraApp_key"
+            android:summary="@string/config_selectCameraApp_summary"
+            android:title="@string/config_selectCameraApp_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_useInternalPhotoViewer_key"
+            android:summary="@string/config_useInternalPhotoViewer_summary"
+            android:title="@string/config_useInternalPhotoViewer_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_indexMediaStore_key"
+            android:summary="@string/config_indexMediaStore_summary"
+            android:title="@string/config_indexMediaStore_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_addToMediaStore_key"
+            android:summary="@string/config_addToMediaStore_summary"
+            android:title="@string/config_addToMediaStore_title" />
+        <androidx.preference.Preference
+            android:key="@string/config_imageStores_key"
+            android:summary="@string/config_imageStores_summary"
+            android:title="@string/config_imageStores_title" />
+        <androidx.preference.ListPreference
+            android:defaultValue="@string/licence_cc_by_4_value"
+            android:entries="@array/licence_entries"
+            android:entryValues="@array/licence_values"
+            android:key="@string/config_imageLicence_key"
+            android:summary="@string/config_imageLicence_summary"
+            android:title="@string/config_imageLicence_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_editing"
@@ -273,8 +279,7 @@
             android:numeric="integer"
             android:summary="@string/config_neighbourDistance_summary"
             android:title="@string/config_neighbourDistance_title"
-            app:spt_maxValue="100"
-            app:spt_minValue="0"
+            app:spt_maxValue="100" app:spt_minValue="0"
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_neighbourDistance_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -300,8 +305,7 @@
             android:numeric="integer"
             android:summary="@string/config_notificationCacheSize_summary"
             android:title="@string/config_notificationCacheSize_title"
-            app:spt_maxValue="20"
-            app:spt_minValue="1"
+            app:spt_maxValue="20" app:spt_minValue="1"
             app:spt_currentValueText="@string/config_notificationCacheSize_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
@@ -311,8 +315,7 @@
             android:numeric="integer"
             android:summary="@string/config_maxAlertDistance_summary"
             android:title="@string/config_maxAlertDistance_title"
-            app:spt_maxValue="500"
-            app:spt_minValue="0"
+            app:spt_maxValue="500" app:spt_minValue="0"
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_maxAlertDistance_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -328,8 +331,7 @@
             android:numeric="integer"
             android:summary="@string/config_orthogonalizeThreshold_summary"
             android:title="@string/config_orthogonalizeThreshold_title"
-            app:spt_maxValue="45"
-            app:spt_minValue="5"
+            app:spt_maxValue="45" app:spt_minValue="5"
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_orthogonalizeThreshold_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -345,8 +347,7 @@
             android:numeric="integer"
             android:summary="@string/config_maxOffsetDistance_summary"
             android:title="@string/config_maxOffsetDistance_title"
-            app:spt_maxValue="10000"
-            app:spt_minValue="0"
+            app:spt_maxValue="10000" app:spt_minValue="0"
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_maxOffsetDistance_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -362,8 +363,7 @@
             android:numeric="integer"
             android:summary="@string/config_minCircleNodes_summary"
             android:title="@string/config_minCircleNodes_title"
-            app:spt_maxValue="18"
-            app:spt_minValue="6"
+            app:spt_maxValue="18" app:spt_minValue="6"
             app:spt_increment="1"
             app:spt_currentValueText="@string/config_minCircleNodes_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -397,8 +397,7 @@
             android:numeric="integer"
             android:summary="@string/config_extTriggeredDownloadRadius_summary"
             android:title="@string/config_extTriggeredDownloadRadius_title"
-            app:spt_maxValue="500"
-            app:spt_minValue="0"
+            app:spt_maxValue="500" app:spt_minValue="0"
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_downloadRadius_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -409,8 +408,7 @@
             android:numeric="decimal"
             android:summary="@string/config_maxDownloadSpeed_summary"
             android:title="@string/config_maxDownloadSpeed_title"
-            app:spt_maxValue="200"
-            app:spt_minValue="0"
+            app:spt_maxValue="200" app:spt_minValue="0"
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_downloadSpeed_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -426,8 +424,7 @@
             android:numeric="integer"
             android:summary="@string/config_autoPruneNodeLimit_summary"
             android:title="@string/config_autoPruneNodeLimit_title"
-            app:spt_maxValue="50000"
-            app:spt_minValue="0"
+            app:spt_maxValue="50000" app:spt_minValue="0"
             app:spt_increment="1000"
             app:spt_currentValueText="@string/config_autoPruneNodeLimit_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -438,8 +435,7 @@
             android:numeric="integer"
             android:summary="@string/config_autoPruneBoundingBoxLimit_summary"
             android:title="@string/config_autoPruneBoundingBoxLimit_title"
-            app:spt_maxValue="500"
-            app:spt_minValue="50"
+            app:spt_maxValue="500" app:spt_minValue="50"
             app:spt_increment="50"
             app:spt_currentValueText="@string/config_autoPruneBoundingBoxLimit_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -450,8 +446,7 @@
             android:numeric="integer"
             android:summary="@string/config_panAndZoomLimit_summary"
             android:title="@string/config_panAndZoomLimit_title"
-            app:spt_maxValue="20"
-            app:spt_minValue="10"
+            app:spt_maxValue="20" app:spt_minValue="10"
             app:spt_increment="1"
             app:spt_currentValueText="@string/config_panAndZoomLimit_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -462,8 +457,7 @@
             android:numeric="integer"
             android:summary="@string/config_bugDownloadRadius_summary"
             android:title="@string/config_bugDownloadRadius_title"
-            app:spt_maxValue="500"
-            app:spt_minValue="0"
+            app:spt_maxValue="500" app:spt_minValue="0"
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_downloadRadius_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -474,8 +468,7 @@
             android:numeric="decimal"
             android:summary="@string/config_maxBugDownloadSpeed_summary"
             android:title="@string/config_maxBugDownloadSpeed_title"
-            app:spt_maxValue="200"
-            app:spt_minValue="0"
+            app:spt_maxValue="200" app:spt_minValue="0"
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_downloadSpeed_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -486,8 +479,7 @@
             android:numeric="integer"
             android:summary="@string/config_autoPruneTaskLimit_summary"
             android:title="@string/config_autoPruneTaskLimit_title"
-            app:spt_maxValue="50000"
-            app:spt_minValue="0"
+            app:spt_maxValue="50000" app:spt_minValue="0"
             app:spt_increment="1000"
             app:spt_currentValueText="@string/config_autoPruneTaskLimit_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -517,8 +509,7 @@
             android:numeric="integer"
             android:summary="@string/config_gps_interval_summary"
             android:title="@string/config_gps_interval_title"
-            app:spt_maxValue="30000"
-            app:spt_minValue="0"
+            app:spt_maxValue="30000" app:spt_minValue="0"
             app:spt_increment="200"
             app:spt_currentValueText="@string/config_gps_interval_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -529,8 +520,7 @@
             android:numeric="integer"
             android:summary="@string/config_gps_distance_summary"
             android:title="@string/config_gps_distance_title"
-            app:spt_maxValue="50"
-            app:spt_minValue="0"
+            app:spt_maxValue="50" app:spt_minValue="0"
             app:spt_currentValueText="@string/config_gps_distance_current"
             app:spt_setWrapSelectorWheel="false" />
         <androidx.preference.CheckBoxPreference
@@ -625,8 +615,7 @@
             android:numeric="integer"
             android:summary="@string/config_maxTileDownloadThreads_summary"
             android:title="@string/config_maxTileDownloadThreads_title"
-            app:spt_maxValue="16"
-            app:spt_minValue="1"
+            app:spt_maxValue="16" app:spt_minValue="1"
             app:spt_currentValueText="@string/config_downLoadThreads_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
@@ -636,8 +625,7 @@
             android:numeric="integer"
             android:summary="@string/config_tileCacheSize_summary"
             android:title="@string/config_tileCacheSize_title"
-            app:spt_maxValue="1000"
-            app:spt_minValue="10"
+            app:spt_maxValue="1000" app:spt_minValue="10"
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_tileCache_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -653,8 +641,7 @@
             android:numeric="integer"
             android:summary="@string/config_mapillaryCacheSize_summary"
             android:title="@string/config_mapillaryCacheSize_title"
-            app:spt_maxValue="1000"
-            app:spt_increment="10"
+            app:spt_maxValue="1000" app:spt_increment="10"
             app:spt_minValue="10"
             app:spt_currentValueText="@string/config_tileCache_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -680,8 +667,7 @@
             android:numeric="integer"
             android:summary="@string/config_autosaveInterval_summary"
             android:title="@string/config_autosaveInterval_title"
-            app:spt_maxValue="60"
-            app:spt_increment="5"
+            app:spt_maxValue="60" app:spt_increment="5"
             app:spt_minValue="5"
             app:spt_currentValueText="@string/config_autosaveInterval_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -692,8 +678,7 @@
             android:numeric="integer"
             android:summary="@string/config_autosaveChanges_summary"
             android:title="@string/config_autosaveChanges_title"
-            app:spt_maxValue="100"
-            app:spt_increment="1"
+            app:spt_maxValue="100" app:spt_increment="1"
             app:spt_minValue="1"
             app:spt_currentValueText="@string/config_autosaveChanges_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -703,8 +688,7 @@
             android:key="@string/config_autosaveMaxFiles_key"
             android:numeric="integer"
             android:title="@string/config_autosaveMaxFiles_title"
-            app:spt_maxValue="100"
-            app:spt_increment="5"
+            app:spt_maxValue="100" app:spt_increment="5"
             app:spt_minValue="5"
             app:spt_currentValueText="@string/config_autosaveMaxFiles_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -715,8 +699,7 @@
             android:numeric="integer"
             android:summary="@string/config_gpxAutosaveInterval_summary"
             android:title="@string/config_gpxAutosaveInterval_title"
-            app:spt_maxValue="60"
-            app:spt_increment="5"
+            app:spt_maxValue="60" app:spt_increment="5"
             app:spt_minValue="5"
             app:spt_currentValueText="@string/config_autosaveInterval_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -725,8 +708,7 @@
         android:key="config_category_misc"
         android:title="@string/config_category_misc">
         <androidx.preference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="acra.enable"
+            android:defaultValue="true" android:key="acra.enable"
             android:summaryOff="@string/pref_acra_disabled"
             android:summaryOn="@string/pref_acra_enabled"
             android:title="@string/pref_enable_acra" />

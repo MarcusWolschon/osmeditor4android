@@ -117,6 +117,15 @@ Add the current selection to an existing or new todo list.
 
 Move the tags of current node to a (in a second step) selected way and merge the current node in to one of the target ways to preserve history.
 
+### Add new image
+
+Start the camera app and upload the resulting image, adding an appropriate tag to the OSM element. Currently Panoramax and Wikimedia Commons targets are supported, 
+you do need to configure and authorize access to the servers in the [Advanced preferences](Advanced%20preferences.md#image-storage).
+
+### Add existing image
+
+As [Add new image](#add-new-image) but allows you to select an existing image for upload.
+
 ### Upload element
 
 Upload the selected element (only available for a new or modified element).
