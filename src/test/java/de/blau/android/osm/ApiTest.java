@@ -647,7 +647,7 @@ public class ApiTest {
         mockServer.enqueue(CHANGESET5_FIXTURE);
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         try {
-            Changeset cs = s.updateChangeset(1234567, "ignored", "ignored", "ignored", null);
+            Changeset cs = s.updateChangeset(1234567, "ignored", "ignored", Util.wrapInList("ignored"), null);
             assertNotNull(cs);
             assertEquals(120631739L, cs.getOsmId());
             assertNotNull(cs.getTags());
@@ -667,7 +667,7 @@ public class ApiTest {
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         s.setOpenChangeset(123456789);
         try {
-            s.openChangeset(false, "ignored", "ignored", "ignored", null);
+            s.openChangeset(false, "ignored", "ignored", Util.wrapInList("ignored"), null);
             assertEquals(123456789, s.getOpenChangeset()); // still open
         } catch (IOException e) {
             fail(e.getMessage());
@@ -692,7 +692,7 @@ public class ApiTest {
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         s.setOpenChangeset(123456789);
         try {
-            s.openChangeset(true, "ignored", "ignored", "ignored", null);
+            s.openChangeset(true, "ignored", "ignored", Util.wrapInList("ignored"), null);
             assertEquals(1234567, s.getOpenChangeset()); // new id
         } catch (IOException e) {
             fail(e.getMessage());

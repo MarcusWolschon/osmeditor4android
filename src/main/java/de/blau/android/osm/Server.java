@@ -770,11 +770,11 @@ public class Server {
      * @param closeOpenChangeset if true attempt to close a potentially open changeset first
      * @param comment value for the comment tag
      * @param source value for the source tag
-     * @param imagery value for the imagery_used tag
+     * @param imagery list of values for the imagery_used tag
      * @param extraTags Additional tags to add
      * @throws IOException on an IO issue
      */
-    public void openChangeset(boolean closeOpenChangeset, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
+    public void openChangeset(boolean closeOpenChangeset, @Nullable final String comment, @Nullable final String source, @Nullable final List<String> imagery,
             @Nullable Map<String, String> extraTags) throws IOException {
 
         if (changesetId != -1) { // potentially still open, check if really the case
@@ -795,7 +795,7 @@ public class Server {
             changesetId = -1;
         }
 
-        final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags).tagsToXml();
+        final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags, getCachedCapabilities()).tagsToXml();
         RequestBody body = new XmlRequestBody() {
             @Override
             public void writeTo(BufferedSink sink) throws IOException {
@@ -857,15 +857,15 @@ public class Server {
      * @param changesetId the id of the changeset
      * @param comment value for the comment tag
      * @param source value for the source tag
-     * @param imagery value for the imagery_used tag
+     * @param imagery list of values for the imagery_used tag
      * @param extraTags Additional tags to add
      * @return a Changeset object
      * @throws IOException on an IO issue
      */
     @Nullable
-    public Changeset updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
-            @Nullable Map<String, String> extraTags) throws IOException {
-        final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags).tagsToXml();
+    public Changeset updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source,
+            @Nullable final List<String> imagery, @Nullable Map<String, String> extraTags) throws IOException {
+        final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags, getCachedCapabilities()).tagsToXml();
         RequestBody body = new XmlRequestBody() {
             @Override
             public void writeTo(BufferedSink sink) throws IOException {

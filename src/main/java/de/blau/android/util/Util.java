@@ -940,4 +940,38 @@ public final class Util {
             ((Activity) ctx).runOnUiThread(action);
         }
     }
+
+    /**
+     * Add a tag incrementing the numeric suffix of key if there is a collision
+     * 
+     * @param key the key
+     * @param value the value
+     * @param tags the exiting tags
+     */
+    public static void addTagWithNumericSuffix(@NonNull String key, @NonNull String value, @NonNull Map<String, String> tags) {
+        String existing = tags.get(key);
+        if (existing == null) {
+            tags.put(key, value);
+            return;
+        }
+        int index = 0;
+        for (String tag : tags.keySet()) {
+            if (!tag.startsWith(key)) {
+                continue;
+            }
+            String[] parts = tag.split("\\:");
+            if (parts.length == 2) {
+                try {
+                    int temp = Integer.parseInt(parts[1]);
+                    if (temp > index) {
+                        index = temp;
+                    }
+                } catch (NumberFormatException nfex) {
+                    // ignore
+                }
+            }
+        }
+        tags.put(key + Tags.NS_SEP + Integer.toString(index + 1), value);
+    }
+
 }
