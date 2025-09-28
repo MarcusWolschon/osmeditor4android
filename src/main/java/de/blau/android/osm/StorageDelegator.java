@@ -3209,6 +3209,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 undo = newDelegator.undo;
                 clipboards = new MRUList<>(newDelegator.clipboards);
                 factory = newDelegator.factory;
+                imagery = newDelegator.imagery;
                 dirty = false; // data was just read, i.e. memory and file are in sync
                 return true;
             } else {
