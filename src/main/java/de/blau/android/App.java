@@ -62,6 +62,7 @@ import de.blau.android.util.GeoContext;
 import de.blau.android.util.NotificationCache;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Tag2Link;
 import de.blau.android.util.TagClipboard;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -192,6 +193,12 @@ public class App extends Application implements android.app.Application.Activity
      */
     private static AreaTags     areaTags;
     private static final Object areaTagsLock = new Object();
+
+    /**
+     * Uel templates for specific tag keys
+     */
+    private static Tag2Link     tag2Link;
+    private static final Object tag2LinkLock = new Object();
 
     private static Configuration configuration = null;
 
@@ -815,6 +822,22 @@ public class App extends Application implements android.app.Application.Activity
                 areaTags = new AreaTags(ctx);
             }
             return areaTags;
+        }
+    }
+
+    /**
+     * Get the Tag2Link object
+     * 
+     * @param ctx am Android Context
+     * @return an Tag2Link object
+     */
+    @NonNull
+    public static Tag2Link getTag2Link(@NonNull Context ctx) {
+        synchronized (tag2LinkLock) {
+            if (tag2Link == null) {
+                tag2Link = new Tag2Link(ctx);
+            }
+            return tag2Link;
         }
     }
 

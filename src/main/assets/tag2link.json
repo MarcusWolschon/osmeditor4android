@@ -1,0 +1,3260 @@
+[
+  {
+    "key": "Key:3dmr",
+    "url": "https://3dmr.eu/model/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:abandoned:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:addr:street:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:amenity:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:architect:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:architect:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:artist_name:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:artist:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:artist:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:artist:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:author:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:blind:website:lg",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:branch:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:brand:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:brand:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:brand:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:bridge:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:building:architecture:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:building:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:buried:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:buried:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:closed:note",
+    "url": "https://www.openstreetmap.org/note/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:commemorates:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:construction:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:booking",
+    "url": "https://www.booking.com/hotel/$1.html",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:facebook",
+    "url": "https://www.facebook.com/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:facebook",
+    "url": "https://unavatar.now.sh/facebook/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:facebook",
+    "url": "https://www.messenger.com/t/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:fax",
+    "url": "tel:$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:foursquare",
+    "url": "https://www.foursquare.com/v/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:google_plus",
+    "url": "https://web.archive.org/web/20190401000000/https://plus.google.com/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:instagram",
+    "url": "https://www.instagram.com/$1/",
+    "source": "osmwiki:P8",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:instagram",
+    "url": "https://www.instagram.com/$1/",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:instagram",
+    "url": "https://imginn.com/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:instagram",
+    "url": "https://www.threads.com/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:mastodon",
+    "url": "https://fedirect.toolforge.org/?id=$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:mastodon",
+    "url": "https://wikidata-externalid-url.toolforge.org/?p=4033&id=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:phone",
+    "url": "tel:$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://www.pinterest.com/$1/",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://ar.pinterest.com/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://au.pinterest.com/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://br.pinterest.com/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://co.pinterest.com/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://in.pinterest.com/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://www.pinterest.ca/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://www.pinterest.co.uk/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://www.pinterest.com.mx/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://www.pinterest.de/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://www.pinterest.es/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://www.pinterest.fr/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://www.pinterest.it/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:pinterest",
+    "url": "https://www.pinterest.jp/$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:telegram",
+    "url": "https://t.me/s/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:telegram",
+    "url": "https://telegram.dog/s/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:telegram",
+    "url": "https://unavatar.now.sh/telegram/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:telegram",
+    "url": "tg://resolve?domain=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:tiktok",
+    "url": "https://www.tiktok.com/@$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:tiktok",
+    "url": "https://www.tiktok.com/@$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:tripadvisor",
+    "url": "https://www.tripadvisor.com/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:tripadvisor",
+    "url": "https://www.tripadvisor.com/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://x.com/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "http://3nzoldnxplag42gqjs23xvghtzf6t6yzssrtytnntc6ppc7xxuoneoad.onion/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://keybase.io/_/api/1.0/user/lookup.json?twitter=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://nitter.net/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://nitter.snopyta.org/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://rattibha.com/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://scholia.toolforge.org/twitter/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://threadreaderapp.com/user/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://twilog.org/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://twitter.com/@$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://twitter.com/#!/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://twitter.com/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://twitter.com/intent/user?screen_name=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://unavatar.now.sh/twitter/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://www.trendsmap.com/twitter/user/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://x.com/@$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:twitter",
+    "url": "https://x.com/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:website",
+    "url": "$1",
+    "source": "wikidata:P3303",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:website",
+    "url": "https://web.archive.org/web/*/$1/",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:website",
+    "url": "https://webcache.googleusercontent.com/search?q=cache:$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:yelp",
+    "url": "https://www.yelp.com/biz/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:yelp",
+    "url": "https://www.yelp.com/biz/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:de:amtlicher_gemeindeschluessel",
+    "url": "http://dcat-ap.de/def/politicalGeocoding/municipalityKey/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:de:amtlicher_gemeindeschluessel",
+    "url": "https://dd.eionet.europa.eu/vocabularyconcept/lau2/de/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:de:amtlicher_gemeindeschluessel",
+    "url": "https://www.hdbg.eu/gemeinden/index.php/detail?rschl=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:de:amtlicher_gemeindeschluessel",
+    "url": "https://www.statistik-bw.de/Service/Gemeindeverzeichnis/Gem.jsp?G=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:de:amtlicher_gemeindeschluessel",
+    "url": "https://www.statistik.bayern.de/mam/produkte/statistik_kommunal/2018/$1.pdf",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:de:amtlicher_gemeindeschluessel",
+    "url": "https://www.statistikportal.de/de/gemeindeverzeichnis/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:de:amtlicher_gemeindeschluessel",
+    "url": "https://www.statistikportal.de/en/gemeindeverzeichnis/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:destination:ref:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:destination:ref:wikidata:lanes",
+    "url": "http://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:destination:wikidata",
+    "url": "https://www.wikidata.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:dhm_id",
+    "url": "https://www.molens.nl/molen/zoek-een-molen/molendetail/?molenid=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:disused:brand:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:disused:brand:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:disused:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:esr:user",
+    "url": "https://tr4.info/station/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:etymology:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:faa",
+    "url": "https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:facebook",
+    "url": "https://www.facebook.com/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:facebook",
+    "url": "https://unavatar.now.sh/facebook/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:facebook",
+    "url": "https://www.messenger.com/t/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:fax",
+    "url": "tel:$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:fcc:unique_system_identifier",
+    "url": "https://wireless2.fcc.gov/UlsApp/AsrSearch/asrRegistration.jsp?regKey=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:fhrs:id",
+    "url": "https://ratings.food.gov.uk/business/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:fhrs:id",
+    "url": "https://ratings.food.gov.uk/business/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:fixme:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:flag:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:flag:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:former_operator:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:former_operator:wikipedia",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:founder:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:franchise:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:genus:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:genus:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:geonames:id",
+    "url": "http://data.cervantesvirtual.com/location/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:geonames:id",
+    "url": "https://openweathermap.org/city/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:geonames:id",
+    "url": "https://www.bbc.co.uk/weather/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:geonames:id",
+    "url": "https://www.geonames.org/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:geonames:id",
+    "url": "https://www.timeanddate.com/worldclock/@$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:gnis:feature_id",
+    "url": "https://edits.nationalmap.gov/apps/gaz-domestic/public/summary/$1",
+    "source": "osmwiki:P8",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:gnis:feature_id",
+    "url": "https://edits.nationalmap.gov/apps/gaz-domestic/public/summary/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:gnis:feature_id",
+    "url": "http://gnis-ld.org/lod/gnis/feature/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:gnis:feature_id",
+    "url": "http://gnis-ld.org/lod/gnis/feature/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:gnis:feature_id",
+    "url": "https://edits.nationalmap.gov/apps/gaz-antarctica/public/summary/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:gnis:feature_id",
+    "url": "https://www.wikidata.org/w/index.php?search=haswbstatement%3A%22P590%3D$1%22&ns0=1&ns120=1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:GNS:id",
+    "url": "https://geonames.nga.mil/geon-ags/rest/services/RESEARCH/GIS_OUTPUT/MapServer/0/query?outFields=*&where=ufi+%3D+$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:GNS:id",
+    "url": "https://geonames.nga.mil/gn-ags/rest/services/RESEARCH/GIS_OUTPUT/MapServer/0/query?outFields=*&where=ufi+%3D+$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "http://seiga.nicovideo.jp/tag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://bsky.app/hashtag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://bsky.app/search?q=%23$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://d.tube/#!/t/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://facebook.com/hashtag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://gfycat.com/gifs/tag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://giphy.com/explore/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://github.com/topics/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://github.com/topics/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://hashtags-hub.toolforge.org/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://hashtags.wmcloud.org/?query=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://hashtags.wmflabs.org/?query=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://ifunny.co/tags/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://imgur.com/t/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://joindiaspora.com/tags/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://note.com/hashtag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://openbenches.org/tag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://pinboard.in/t:$1/",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://pixelfed.fr/discover/tags/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://s.weibo.com/weibo/%23$1%23",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://sepiasearch.org/search?tagsOneOf=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://soundcloud.com/tags/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://stackexchange.com/questions/tagged/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://stackoverflow.com/questions/tagged/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://truthsocial.com/tags/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://twitter.com/hashtag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://unsplash.com/s/photos/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.depop.com/search/?q=%23$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.deviantart.com/tag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.flickr.com/photos/tags/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.instagram.com/explore/tags/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.linkedin.com/feed/hashtag/?keywords=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.pinte%72est.com/search/pins/?q=%23$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.pixiv.net/tags/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.readtheplaque.com/tag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.thingiverse.com/tag:$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.tiktok.com/tag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.tumblr.com/tagged/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.youtube.com/hashtag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.youtube.com/results?search_query=%23$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.youtube.com/results?search_query=%23$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://x.com/hashtag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://x.com/search?q=%23$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://yandex.com/games/tag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:HE_ref",
+    "url": "https://historicengland.org.uk/listing/the-list/list-entry/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:HE_ref",
+    "url": "https://historicengland.org.uk/listing/the-list/list-entry/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:HE_ref",
+    "url": "https://historicengland.org.uk/listing/the-list/list-entry/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:HE_ref",
+    "url": "https://www.heritagegateway.org.uk/Gateway/Results_Single.aspx?uid=$1&resourceID=5",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:heritage:operator:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:heritage:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:heritage:website:arqueologia",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:heritage:website:sipa",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:heritage:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:home_club:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:iata",
+    "url": "https://www.iata.org/en/publications/directories/code-search/?airport.search=$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:iata",
+    "url": "http://aviation-safety.net/database/airport/airport.php?id=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:iata",
+    "url": "http://uk.flightaware.com/live/airport/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:iata",
+    "url": "https://flightadsb.variflight.com/airport/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:iata",
+    "url": "https://www.flightradar24.com/data/airports/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:IBGE:GEOCODIGO",
+    "url": "https://cidades.ibge.gov.br/xtras/perfil.php?codmun=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:icao",
+    "url": "http://uk.flightaware.com/live/airport/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:icao",
+    "url": "https://airportnavfinder.com/airport/$1/",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:icao",
+    "url": "https://aviation-safety.net/database/airport/airport.php?id=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:icao",
+    "url": "https://ourairports.com/airports/$1/",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:icao",
+    "url": "https://tools-static.wmflabs.org/mormegil/propertylinker/vfrmanual.htm?icao=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:icao",
+    "url": "https://www.flightradar24.com/data/airports/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:icao",
+    "url": "https://www.jetphotos.com/registration/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:icao",
+    "url": "https://www.radarbox.com/data/airports/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:instagram",
+    "url": "https://www.instagram.com/$1/",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:instagram",
+    "url": "https://imginn.com/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:internet_access:operator:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:kartaview",
+    "url": "https://kartaview.org/details/$1/track-info",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:KKR:code",
+    "url": "https://keskkonnaportaal.ee/register?kkr_kood=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:koes_id",
+    "url": "https://samlingen.koes.dk/vaerker-i-det-offentlige-rum/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:locale",
+    "url": "https://r12a.github.io/app-subtags/index?lookup=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:manufacturer:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:manufacturer:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:mapillary",
+    "url": "https://www.mapillary.com/app/?pKey=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:mapillary",
+    "url": "https://www.mapillary.com/app/?pKey=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:mdb_id",
+    "url": "https://molendatabase.nl/nederland/molen.php?nummer=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:memorial:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:memorial:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:model:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:model:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:MOE:id",
+    "url": "https://www.educationcounts.govt.nz/find-school/school/profile?school=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:name:etymology:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:name:etymology:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:name:start_date:source:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:name:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:name:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:network:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:network:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:nist:fips_code",
+    "url": "https://www.census.gov/quickfacts/table/PST045215/$1,00",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:notable_tenant:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:nycdoitt:bin",
+    "url": "http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?bin=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:official_name:etymology:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:old_name:etymology:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:old_name:source:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:openbenches:id",
+    "url": "https://openbenches.org/bench/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:opening_hours:url",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:openplaques:id",
+    "url": "https://openplaques.org/plaques/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:openplaques:id",
+    "url": "https://openplaques.org/plaques/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:operator:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:operator:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:operator:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:owner:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:panoramax",
+    "url": "https://api.panoramax.xyz/#focus=pic&pic=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:parish:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:payment:app:android",
+    "url": "https://play.google.com/store/apps/details?id=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:payment:app:ios",
+    "url": "https://itunes.apple.com/app/id$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:payment:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:phone",
+    "url": "tel:$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:piste:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:protection_title:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:railway:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:razed:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:admiralty",
+    "url": "http://listoflights.org/site/search?q=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:AQ:apa",
+    "url": "https://www.ats.aq/devph/en/apa-database/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:arlhs",
+    "url": "https://wlol.arlhs.com/lighthouse/$1.html",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:at:bda",
+    "url": "https://denkmalliste.toolforge.org/index.php?action=EinzelID&ID=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:AT:bda",
+    "url": "https://denkmalliste.toolforge.org/index.php?action=EinzelID&ID=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:at:gkz",
+    "url": "https://www.statistik.at/blickgem/gemDetail.do?gemnr=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:at:tkk",
+    "url": "https://gis.tirol.gv.at/kunstkatasterpdf/pdf/$1.pdf",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:at:wis",
+    "url": "https://wis.tirol.gv.at/wisSrvPublic/wis/wbo_wb_auszug.aspx?ANL_ID=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:AU-NSW:mooring",
+    "url": "https://mooringonline.onegov.nsw.gov.au/pwl/getstarted/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:bag",
+    "url": "https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html#?searchQuery=$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:bag",
+    "url": "https://bag.basisregistraties.overheid.nl/bag/id/pand/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:bag",
+    "url": "https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html#?searchQuery=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:bic",
+    "url": "https://heritage.toolforge.org/api/api.php?action=search&srcountry=es&format=html&srid=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:bkk",
+    "url": "https://go.bkk.hu/stop/BKK_$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:camptocamp",
+    "url": "https://www.camptocamp.org/waypoints/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:cin",
+    "url": "https://api-bdsr.ministeroturismo.gov.it/ui/user/strutturecin/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:clochers.org",
+    "url": "https://www.clochers.org/Fichiers_HTML/Accueil/Accueil_clochers/$1.htm",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:clochers.org",
+    "url": "http://www.clochers.org/Fichiers_HTML/Accueil/Accueil_clochers/$1.htm",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:crs",
+    "url": "http://www.nationalrail.co.uk/stations/$1/details.html",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:crs",
+    "url": "http://ojp.nationalrail.co.uk/service/ldbboard/dep/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:crs",
+    "url": "http://www.realtimetrains.co.uk/search/advanced/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:crs",
+    "url": "https://traintimes.org.uk/live/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:crs",
+    "url": "https://www.northernrailway.co.uk/stations/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:crs",
+    "url": "https://www.railwaydata.co.uk/stations/overview/?TLC=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:doc",
+    "url": "https://www.doc.govt.nz/search-results/?query=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:edubase",
+    "url": "https://www.get-information-schools.service.gov.uk/Establishments/Establishment/Details/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:edubase",
+    "url": "https://www.get-information-schools.service.gov.uk/Establishments/Establishment/Details/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:edubase:group",
+    "url": "https://www.get-information-schools.service.gov.uk/Groups/Group/Details/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ef",
+    "url": "https://www.marina.difesa.it/cosa-facciamo/per-la-difesa-sicurezza/fari/Pagine/$1.aspx",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:EGID",
+    "url": "https://api.geo.admin.ch/rest/services/ech/MapServer/ch.bfs.gebaeude_wohnungs_register/$1_0/extendedHtmlPopup",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:EU:bwid",
+    "url": "https://badplatsen.havochvatten.se/badplatsen/api/detail/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:EU:bwid",
+    "url": "https://badplatsen.havochvatten.se/badplatsen/api/testlocationprofile/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:EU:bwid",
+    "url": "https://badplatsen.havochvatten.se/badplatsen/karta/#/bath/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:EU:bwid",
+    "url": "https://dd.eionet.europa.eu/vocabularyconcept/wise/WFDProtectedArea/euProtectedAreaCode.$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:EU:ENTSOE_EIC",
+    "url": "http://energy.referencedata.eu/EIC/$1.ttl",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:EU:ENTSOE_EIC",
+    "url": "http://energy.referencedata.eu/EIC/$1.jsonld",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:EU:ENTSOE_EIC",
+    "url": "http://energy.referencedata.eu/EIC/$1.rdf",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:EU:ENTSOE_EIC",
+    "url": "https://explore.data.gouv.fr/fr/tableau?url=https%3A%2F%2Fwww.data.gouv.fr%2Ffr%2Fdatasets%2Fr%2Fc14e5a7d-2ca6-4ad8-bc61-93889d13fc25&codeeicresourceobject__exact=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:EU:ENTSOE_EIC",
+    "url": "https://transparency.ontotext.com/resource/eic/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:Allocine",
+    "url": "https://www.allocine.fr/seance/salle_gen_csalle=$1.html",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:Allocine",
+    "url": "https://www.allocine.fr/seance/salle_gen_csalle=$1.html",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:ANFR",
+    "url": "https://data.anfr.fr/visualisation/map/?id=observatoire_2g_3g_4g&refine.SUP_ID=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:CEF",
+    "url": "https://messes.info/lieu/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:FINESS",
+    "url": "https://finess.esante.gouv.fr/fininter/jsp/actionDetailEtablissement.do?noFiness=$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:FR:INPN",
+    "url": "https://inpn.mnhn.fr/espace/protege/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:Joconde",
+    "url": "https://www.pop.culture.gouv.fr/notice/joconde/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:LaPoste",
+    "url": "http://www.laposte.fr/particulier/outils/trouver-un-bureau-de-poste/bureau-detail/$1/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:MemorialGenWeb",
+    "url": "https://www.memorialgenweb.org/memorial3/html/fr/resultcommune.php?idsource=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:MemorialGenWeb",
+    "url": "https://www.memorialgenweb.org/memorial3/html/fr/resultcommune.php?idsource=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:museofile",
+    "url": "https://pop.culture.gouv.fr/notice/museo/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:museofile",
+    "url": "https://pop.culture.gouv.fr/notice/museo/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:NAF",
+    "url": "https://www.insee.fr/fr/metadonnees/nafr2?q=$1",
+    "source": "osmwiki:P8",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:FR:Paris:plaque",
+    "url": "https://opendata.paris.fr/explore/dataset/plaques_commemoratives/table/?q=index_plaque%3D$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:prix-carburants",
+    "url": "https://www.prix-carburants.gouv.fr/itineraire/print/pdv/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:RNA",
+    "url": "https://www.data-asso.fr/annuaire/association/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:FR:RNA",
+    "url": "http://stmaur.cquest.org:1901/rna?rna=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:RNA",
+    "url": "https://bazasso.fr/association/waldec/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:RNA",
+    "url": "https://www.journal-officiel.gouv.fr/association/index.php?ACTION=Rechercher&JTY_WALDEC=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:RTE",
+    "url": "https://explore.data.gouv.fr/fr/datasets/5f2cd1de7f9793e46858be28/?Code%20poste__contains=$1#/resources/6ae890b8-383d-4ef3-b301-5af089c401a8",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:SIREN",
+    "url": "https://annuaire-entreprises.data.gouv.fr/entreprise/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:SIREN",
+    "url": "https://data.inpi.fr/entreprises/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:SIREN",
+    "url": "https://opencorporates.com/companies/fr/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:SIREN",
+    "url": "https://scanr.enseignementsup-recherche.gouv.fr/organizations/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:SIREN",
+    "url": "https://www.infogreffe.fr/entreprise/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:SIRET",
+    "url": "https://annuaire-entreprises.data.gouv.fr/etablissement/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:FR:SIRET",
+    "url": "https://annuaire-entreprises.data.gouv.fr/etablissement/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:SIRET",
+    "url": "https://www.sirene.fr/sirene/public/recherche?recherche.sirenSiret=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:SIRET",
+    "url": "https://www.sirene.fr/sirene/public/recherche?recherche.sirenSiret=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:STIF",
+    "url": "https://jungle-bus.github.io/unroll/load.html?ref:FR:STIF=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:GB:nhle",
+    "url": "https://historicengland.org.uk/listing/the-list/list-entry/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:GB:nhle",
+    "url": "https://historicengland.org.uk/listing/the-list/list-entry/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:GB:nhle",
+    "url": "https://www.heritagegateway.org.uk/Gateway/Results_Single.aspx?uid=$1&resourceID=5",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:GB:nhs_ods",
+    "url": "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:GB:nhs_ods",
+    "url": "https://www.odsdatasearchandexport.nhs.uk/?search=generalorg&query=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:GB:uprn",
+    "url": "https://uprn.uk/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:GB:uprn",
+    "url": "https://uprn.uk/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:GB:uprn",
+    "url": "https://www.findmystreet.co.uk/map?usrn=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:GB:usrn",
+    "url": "https://www.findmystreet.co.uk/map?usrn=$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:GB:usrn",
+    "url": "https://uprn.uk/usrn/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:GB:usrn",
+    "url": "https://uprn.uk/usrn/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:gemeentecode",
+    "url": "https://identifier.overheid.nl/tooi/id/gemeente/gm$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:gnbc",
+    "url": "https://geonames.nrcan.gc.ca/search-place-names/unique/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:gss",
+    "url": "https://statistics.data.gov.uk/atlas/resource?uri=http://statistics.data.gov.uk/id/statistical-geography/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:hjartstartarregistret.se",
+    "url": "https://www.hjartstartarregistret.se/#/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:hmdb",
+    "url": "https://www.hmdb.org/m.asp?m=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:hr:uzkb",
+    "url": "https://registar.kulturnadobra.hr/#/details/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:HU:company",
+    "url": "https://nemzeticegtar.hu/nemzeticegtar/cegadat/$1/wd",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:HU:company",
+    "url": "https://wikidata-externalid-url.toolforge.org/?url=https%3A%2F%2Fwww.e-cegjegyzek.hu%2F%3Fcegadatlap%2F%251%252%253&exp=%28%5Cd%7B2%7D%29-%28%5Cd%7B2%7D%29-%28%5Cd%7B6%7D%29&id=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ibnr",
+    "url": "http://nrwbahnarchiv.bplaced.net/bf/$1.htm",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ibnr",
+    "url": "http://www.stationsdatenbank.bayern-takt.de/StationsdatenbankBEG/Steckbrief.html?efz=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ibnr",
+    "url": "https://api3.geo.admin.ch/rest/services/ech/MapServer/ch.bav.haltestellen-oev/$1/extendedHtmlPopup",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ibnr",
+    "url": "https://fahrplan.oebb.at/bin/stboard.exe/en?input=$1&start=yes",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ibnr",
+    "url": "https://meine.oebb.at/abfahrtankunft/arrival?evaNr=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ibnr",
+    "url": "https://meine.oebb.at/abfahrtankunft/departure?evaNr=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ibnr",
+    "url": "https://reiseauskunft.bahn.de/bin/bhftafel.exe/?input=$1&boardType=arr&time=actual&productsDefault=1111101&start=yes",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ibnr",
+    "url": "https://reiseauskunft.bahn.de/bin/bhftafel.exe/?input=$1&boardType=dep&time=actual&productsDefault=1111101&start=yes",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ibnr",
+    "url": "https://reiseauskunft.bahn.de/bin/bhftafel.exe/en?input=$1&boardType=arr&time=actual&productsDefault=1111101&start=yes",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ibnr",
+    "url": "https://reiseauskunft.bahn.de/bin/bhftafel.exe/en?input=$1&boardType=dep&time=actual&productsDefault=1111101&start=yes",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ibnr",
+    "url": "https://www.dbbahnpark.de/content/fahrplanauskunft/bahnpark/pdf/$1.pdf",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:IE:niah",
+    "url": "https://maps.archaeology.ie/historicenvironment/?REG_NO=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:IE:smr",
+    "url": "https://maps.archaeology.ie/HistoricEnvironment/?query=NationalMonuments_7120,SMRS,$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:IFOPT",
+    "url": "https://transmodel-ids.toolforge.org/ifopt/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:IL:inature",
+    "url": "https://www.inature.info/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:INEP",
+    "url": "https://anonymousdata.inep.gov.br/analytics/saw.dll?Dashboard&PortalPath=/shared/Censo da Educação Básica/_portal/Catálogo de Escolas&Page=Detalhamento Escola&Action=Navigate&P0=1&P1=eq&P2=\"F - Catalogo Escola\".\"Código Entidade\"&P3=\"$1\"",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:INEP",
+    "url": "https://culturaeduca.cc/equipamento/escola_detalhe/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:INEP",
+    "url": "https://culturaeduca.cc/equipamento/escola_detalhe/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:INSEE",
+    "url": "http://id.eaufrance.fr/COM/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:INSEE",
+    "url": "http://www.amf.asso.fr/annuaire/index.asp?refer=commune&NUM_INSEE=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:INSEE",
+    "url": "https://bano.openstreetmap.fr/fantoir/#insee=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:INSEE",
+    "url": "https://www.insee.fr/fr/statistiques/2011101?geo=COM-$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "https://w3id.org/isil/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "http://anagrafe.iccu.sbn.it/isil/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "http://dispatch.opac.d-nb.de/DB=1.2/CMD?ACT=SRCHA&IKT=8529&TRM=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "http://isil.kansalliskirjasto.fi/api/query?isil=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "http://isil.kbr.be/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "http://sigel.staatsbibliothek-berlin.de/suche/?isil=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "https://culture.ld.admin.ch/isil/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "https://lobid.org/organisation/$1/about",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "https://w3id.org/isil/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "https://w3id.org/isil/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "https://w3id.org/isil/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "https://w3id.org/isil/AU-$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:isil",
+    "url": "https://wikidata-externalid-url.toolforge.org/?url=http%3A%2F%2Fwww.sudoc.abes.fr%2Fcbs%2Fxslt%2F%2FDB%3D2.2%2FCMD%3FACT%3DSRCHA%26IKT%3D8888%26SRT%3DRLV%26TRM%3D%251&exp=%5EFR-(%5Cd%7B9%7D)&id=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:KGS-PBC",
+    "url": "https://wikidata-externalid-url.toolforge.org/?url=https%3A%2F%2Fheritage.toolforge.org%2Fapi%2Fapi.php%3Faction%3Dsearch%26format%3Dhtml%26srcountry%3Dch%26srid%3D%251&exp=0*(.*)&id=$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:KGS-PBC",
+    "url": "https://heritage.toolforge.org/api/api.php?action=search&format=html&srcountry=ch&srid=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:KGS-PBC",
+    "url": "https://heritage.toolforge.org/api/api.php?action=search&format=html&srcountry=ch&srid=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:kons",
+    "url": "http://aplikacija.kons.gov.ba/kons/public/nacionalnispomenici/show/$1",
+    "source": "osmwiki:P8",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:kozterkep",
+    "url": "https://www.kozterkep.hu/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:kozterkep",
+    "url": "https://www.kozterkep.hu/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:lfd",
+    "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:linz:address_id",
+    "url": "https://osm-nz.github.io/?address_id=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:linz:building_id",
+    "url": "https://osm-nz.github.io/?building_id=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:linz:napalis_id",
+    "url": "https://osm-nz.github.io/?napalis_id=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:linz:pastoral_lease_id",
+    "url": "https://osm-nz.github.io/?pastoral_lease_id=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:linz:place_id",
+    "url": "https://gazetteer.linz.govt.nz/place/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:LOCODE",
+    "url": "https://www.vesselfinder.com/ports/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:mav",
+    "url": "https://utas.hu/stop/mav_$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:metropoliaztm",
+    "url": "https://rj.metropoliaztm.pl/rozklady/przystanek/$1/",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:mhs",
+    "url": "https://www.pop.culture.gouv.fr/notice/merimee/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:natura2000",
+    "url": "https://natura2000.eea.europa.eu/Natura2000/SDF.aspx?site=$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:natura2000",
+    "url": "http://eunis.eea.europa.eu/sites/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:natura2000",
+    "url": "https://biodiversity.europa.eu/sites/natura2000/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:natura2000",
+    "url": "https://inpn.mnhn.fr/site/natura2000/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:nga",
+    "url": "https://wikidata-externalid-url.toolforge.org/?url=https%3A%2F%2Fmsi.nga.mil%2FqueryResults%3Fpublications%2Fngalol%2Flights-buoys%3Fvolume%3D%251%26featureNumber%3D%252%26includeRemovals%3Dfalse%26output%3Dhtml&exp=(%5Cd%7B3%7D)-(.*)&id=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:nrhp",
+    "url": "https://npgallery.nps.gov/AssetDetail/NRIS/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:nrhp",
+    "url": "https://npgallery.nps.gov/AssetDetail/NRIS/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:nz:heritage",
+    "url": "https://www.heritage.org.nz/list-details/$1/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:OnroerendErfgoed",
+    "url": "https://id.erfgoed.net/erfgoedobjecten/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:raa",
+    "url": "https://kulturarvsdata.se/raa/fmi/html/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:rce",
+    "url": "https://monumentenregister.cultureelerfgoed.nl/monumenten/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:rce",
+    "url": "https://monumentenregister.cultureelerfgoed.nl/monumenten/pdf/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:refuges.info",
+    "url": "https://www.refuges.info/point/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:relais_colis",
+    "url": "https://relaiscolis.com/relais/detail?codeRelais=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ruian",
+    "url": "https://linked.cuzk.cz/resource/ruian/katastralni-uzemi/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ruian",
+    "url": "https://vdp.cuzk.cz/vdp/ruian/obce/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ruian",
+    "url": "https://www.kamsnim.cz/?municipality=cz_obce_$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ruian:building",
+    "url": "https://vdp.cuzk.cz/vdp/ruian/stavebniobjekty/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ruian:building",
+    "url": "https://vdp.cuzk.cz/vdp/ruian/stavebniobjekty/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ruian:street",
+    "url": "https://linked.cuzk.cz/resource/ruian/ulice/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:sandre",
+    "url": "https://www.sandre.eaufrance.fr/geo/CoursEau_Carthage2017/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:sandre",
+    "url": "https://id.eaufrance.fr/SysTraitementEauxUsees/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:sipca",
+    "url": "http://www.sipca.es/censo/$1/.html",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:UAI",
+    "url": "https://data.education.gouv.fr/explore/dataset/fr-en-annuaire-education/map/?q=$1",
+    "source": "wikidata:P3303",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:UAI",
+    "url": "https://data.education.gouv.fr/pages/fiche-etablissement/?code_etab=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:UAI",
+    "url": "https://data.education.gouv.fr/pages/fiche-etablissement/?code_etab=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:US-MA:mhc",
+    "url": "https://mhc-macris.net/details?mhcid=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:US:EIA",
+    "url": "https://www.datacommons.org/browser/eia/pp/$1",
+    "source": "osmwiki:P8",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:US:EIA",
+    "url": "https://www.datacommons.org/browser/eia/pp/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:US:EIA",
+    "url": "https://www.eia.gov/electricity/data/browser/#/plant/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:US:EIA",
+    "url": "https://www.eia.gov/electricity/data/browser/#/plant/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:US:EPA",
+    "url": "https://frs-public.epa.gov/ords/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:US:NID",
+    "url": "https://nid.sec.usace.army.mil/#/dams/system/$1/summary",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:US:NID",
+    "url": "https://nid.sec.usace.army.mil/#/dams/system/$1/summary",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:US:NLD",
+    "url": "https://levees.sec.usace.army.mil/levees/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:vatin",
+    "url": "http://www.vat-lookup.co.uk/verify/vat_check.php/VATNumber/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:vatin",
+    "url": "https://adisreg.mfcr.cz/adistc/adis/irs/irep_dph/dphInputForm.faces?form:dt:0:inputDic=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:vatin",
+    "url": "https://wikidata-externalid-url.toolforge.org/index.php?url=https%3A%2F%2Fec.europa.eu%2Ftaxation_customs%2Fvies%2Frest-api%2Fms%2F%251%2Fvat%2F%252&exp=(%5BA-Z%5D%5BA-Z%5D)(.*)&id=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:vatin",
+    "url": "https://www.fatturatoitalia.it/cerca.php?cerca=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:vinted_go",
+    "url": "website=https://vintedgo.com/fr/carrier-locations?selected_point=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:WDPA",
+    "url": "https://eunis.eea.europa.eu/sites/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:WDPA",
+    "url": "https://protectedplanet.net/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:whc",
+    "url": "https://whc.unesco.org/en/list/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:whc",
+    "url": "https://whc.unesco.org/ar/list/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:whc",
+    "url": "https://whc.unesco.org/es/list/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:whc",
+    "url": "https://whc.unesco.org/fr/list/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:whc",
+    "url": "https://whc.unesco.org/ja/list/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:whc",
+    "url": "https://whc.unesco.org/nl/list/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:whc",
+    "url": "https://whc.unesco.org/ru/list/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:whc",
+    "url": "https://whc.unesco.org/zh/list/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:whc",
+    "url": "https://www.worldheritagesite.org/list/id/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:wien:kultur",
+    "url": "https://www.wien.gv.at/kulturportal/public/grafik.aspx?FeatureByID=$1&FeatureClass=kunstkultur&ThemePage=4",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:wigos",
+    "url": "https://oscar.wmo.int/surface/#/search/station/stationReportDetails/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:woonplaatscode",
+    "url": "https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html#?objectId=$1&detailsObjectId=$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:woonplaatscode",
+    "url": "https://bag.basisregistraties.overheid.nl/bag/id/woonplaats/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:woonplaatscode",
+    "url": "https://bag.basisregistraties.overheid.nl/bag/id/woonplaats/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:woonplaatscode",
+    "url": "https://brt.basisregistraties.overheid.nl/top10nl/doc/plaats/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:wpi",
+    "url": "https://msi.nga.mil/queryBreakout?publications/world-port-index?indexNumber=$1&output=html",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:reference:water_level:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:reg_name:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:related:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:religion:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:removed:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:royal_cypher:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:seamark:light:reference",
+    "url": "https://list.lighting/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:seamark:radio_station:mmsi",
+    "url": "https://www.vesselfinder.com/vessels/details/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:seamark:radio_station:mmsi",
+    "url": "https://sd.ic.gc.ca/pls/engdoc_anon/mmsi_search.Ship_Search?inMMSI=$1&inVesName=&inName=&inCallsign=&inVesId=",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:seamark:radio_station:mmsi",
+    "url": "https://sd.ic.gc.ca/pls/frndoc_anon/mmsi_search.Ship_Search?inMMSI=$1&inVesName=&inName=&inCallsign=&inVesId=",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:seamark:radio_station:mmsi",
+    "url": "https://www.aisfriends.com/embed?mmsi=$1&zoom=6&vessel_track=true&vessels_layer=false&menu=false",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:seamark:radio_station:mmsi",
+    "url": "https://www.marinetraffic.com/en/ais/details/ships/mmsi:$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:seamark:virtual_aton:mmsi",
+    "url": "https://www.vesselfinder.com/vessels/details/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:seamark:virtual_aton:mmsi",
+    "url": "https://sd.ic.gc.ca/pls/engdoc_anon/mmsi_search.Ship_Search?inMMSI=$1&inVesName=&inName=&inCallsign=&inVesId=",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:seamark:virtual_aton:mmsi",
+    "url": "https://sd.ic.gc.ca/pls/frndoc_anon/mmsi_search.Ship_Search?inMMSI=$1&inVesName=&inName=&inCallsign=&inVesId=",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:seamark:virtual_aton:mmsi",
+    "url": "https://www.aisfriends.com/embed?mmsi=$1&zoom=6&vessel_track=true&vessels_layer=false&menu=false",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:seamark:virtual_aton:mmsi",
+    "url": "https://www.marinetraffic.com/en/ais/details/ships/mmsi:$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:snowplowing:operator:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:source:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:species:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:species:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:subject:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:subject:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:taxon:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:tunnel:wikipedia",
+    "url": "https://wiki.openstreetmap.org/wiki/Item:Q15509",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://x.com/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "http://3nzoldnxplag42gqjs23xvghtzf6t6yzssrtytnntc6ppc7xxuoneoad.onion/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://keybase.io/_/api/1.0/user/lookup.json?twitter=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://nitter.net/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://nitter.snopyta.org/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://rattibha.com/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://scholia.toolforge.org/twitter/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://threadreaderapp.com/user/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://twilog.org/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://twitter.com/@$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://twitter.com/#!/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://twitter.com/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://twitter.com/intent/user?screen_name=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://unavatar.now.sh/twitter/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://www.trendsmap.com/twitter/user/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:twitter",
+    "url": "https://x.com/@$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:uic_ref",
+    "url": "https://irail.be/stations/NMBS/00$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:uic_ref",
+    "url": "https://kdypojedevlak.cz/Transits/Nearest/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:uic_ref",
+    "url": "https://meine.oebb.at/abfahrtankunft/departure?static=true&evaNr=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:uic_ref",
+    "url": "https://www.cd.cz/stanice/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:uic_ref",
+    "url": "https://www.kapella2.hu/ehuszfelulet/szolghelyadatok?infra_id=114593&taf_id=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:uic_ref",
+    "url": "https://www.sbb.ch/en/travel-information/stations/find-station/station.$1.html",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:url:bathing_water",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:vehicle:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:vessel:mmsi",
+    "url": "https://www.vesselfinder.com/vessels/details/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:vessel:mmsi",
+    "url": "https://sd.ic.gc.ca/pls/engdoc_anon/mmsi_search.Ship_Search?inMMSI=$1&inVesName=&inName=&inCallsign=&inVesId=",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:vessel:mmsi",
+    "url": "https://sd.ic.gc.ca/pls/frndoc_anon/mmsi_search.Ship_Search?inMMSI=$1&inVesName=&inName=&inCallsign=&inVesId=",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:vessel:mmsi",
+    "url": "https://www.aisfriends.com/embed?mmsi=$1&zoom=6&vessel_track=true&vessels_layer=false&menu=false",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:vessel:mmsi",
+    "url": "https://www.marinetraffic.com/en/ais/details/ships/mmsi:$1/",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:was:brand:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:was:brand:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website",
+    "url": "$1",
+    "source": "wikidata:P3303",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:website",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website",
+    "url": "https://web.archive.org/web/*/$1/",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website",
+    "url": "https://webcache.googleusercontent.com/search?q=cache:$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:booking",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:de",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:en",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:facebook",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:map",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:menu",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:network",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:official",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:operator",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:orders",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:regulation",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:reservation",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:ru",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:source",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:stock",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:tripadvisor",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wiki:symbol",
+    "url": "https://wiki.openstreetmap.org/wiki/File:$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://autodesc.toolforge.org/?q=$1&links=wikipedia&lang=en&mode=long&format=html&redlinks=reasonator",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://bionomia.net/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://hub.toolforge.org/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://inventaire.io/entity/wd:$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://osm.wikidata.link/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://portal.toolforge.org/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://reasonator.toolforge.org/?q=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://scholia.toolforge.org/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://sqid.toolforge.org/#/view?id=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://taginfo.openstreetmap.org/tags/wikidata=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://viaf.org/processed/WKP|$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://www.wikidata.org/w/index.php?title=Special:CiteThisPage&page=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://www.wikidata.org/wiki/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata",
+    "url": "https://www.wikidata.org/wiki/Special:Nearby#/page/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikimedia_commons",
+    "url": "https://commons.wikimedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikimedia_commons",
+    "url": "https://commons.wikimedia.org/wiki/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikimedia_commons",
+    "url": "https://commons.wikimedia.org/wiki/Category:$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikipedia",
+    "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:woeid",
+    "url": "https://www.flickr.com/places/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:woeid",
+    "url": "https://www.flickr.com/places/info/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:woeid",
+    "url": "https://www.flickr.com/places/info/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  }
+]
