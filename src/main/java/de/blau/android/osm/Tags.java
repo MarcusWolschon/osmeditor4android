@@ -435,10 +435,10 @@ public final class Tags {
     }
 
     // keys where the values are URLs
-    private static final String KEY_WEBSITE         = "website";
-    private static final String KEY_CONTACT_WEBSITE = "contact:website";
-    public static final String  HTTP_PREFIX         = "http://";
-    public static final String  HTTPS_PREFIX        = "https://";
+    public static final String KEY_WEBSITE         = "website";
+    public static final String KEY_CONTACT_WEBSITE = "contact:website";
+    public static final String HTTP_PREFIX         = "http://";
+    public static final String HTTPS_PREFIX        = "https://";
 
     /**
      * Check if this is a key that expects an URL

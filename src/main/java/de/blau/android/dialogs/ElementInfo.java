@@ -1,10 +1,6 @@
 package de.blau.android.dialogs;
 
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +56,7 @@ import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Tag2Link;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
@@ -424,6 +421,7 @@ public class ElementInfo extends InfoDialogFragment {
 
         // tag display
         if (element.hasTags() || (original instanceof OsmElementInterface && !original.getTags().isEmpty())) {
+            Tag2Link tag2Link = App.getTag2Link(ctx);
             tl.addView(TableLayoutUtils.divider(ctx));
             tl.addView(TableLayoutUtils.createRow(ctx, R.string.menu_tags, null, null, tp));
             Map<String, String> currentTags = element.getTags(); // the result of getTags is unmodifiable
@@ -452,24 +450,12 @@ public class ElementInfo extends InfoDialogFragment {
                     }
                 }
                 // special handling for some stuff
-                if (Tags.KEY_WIKIPEDIA.equals(k)) {
-                    Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(currentValue));
-                    addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : compareEmpty,
-                            encodeUrl(Urls.WIKIPEDIA, currentValue));
-                } else if (Tags.KEY_WIKIDATA.equals(k)) {
-                    addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : compareEmpty, encodeUrl(Urls.WIKIDATA, currentValue));
-                } else if (Tags.isWebsiteKey(k)) {
-                    try {
-                        addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(oldValue) : compareEmpty, encodeUrl(currentValue));
-                    } catch (MalformedURLException | URISyntaxException e1) {
-                        Log.d(DEBUG_TAG, "Key " + k + " value " + currentValue + " caused " + element + " " + e1.getMessage());
-                        addTagRow(ctx, tl, tp, deleted, k, oldValue, currentValue);
-                    }
-                } else if (Tags.isPhoneKey(k) || Tags.isEmailKey(k)) {
+                if (Tags.isPhoneKey(k) || Tags.isEmailKey(k)) {
                     final String url = Tags.isEmailKey(k) ? MAILTO : TEL;
-                    addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(url, oldValue) : compareEmpty, encodeUrl(url, currentValue));
+                    addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(url, oldValue) : compareEmpty, encodeUrl(url, currentValue), false);
                 } else {
-                    addTagRow(ctx, tl, tp, deleted, k, oldValue, currentValue);
+                    addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? getLinkOrValue(tag2Link, k, oldValue) : compareEmpty,
+                            getLinkOrValue(tag2Link, k, currentValue), tag2Link.isLink(k));
                 }
             }
         }
@@ -655,6 +641,23 @@ public class ElementInfo extends InfoDialogFragment {
     }
 
     /**
+     * Return a link or the original value
+     * 
+     * @param tag2Link Tag2Link instance
+     * @param key the key
+     * @param value the value
+     * @return if a link mapping can be found an
+     */
+    @NonNull
+    private static Spanned getLinkOrValue(@NonNull Tag2Link tag2Link, @NonNull String key, @Nullable String value) {
+        if (value == null) {
+            return new SpannedString("");
+        }
+        final String link = tag2Link.get(key, value);
+        return value.equals(link) ? new SpannedString(value) : Util.fromHtml("<a href=\"" + link + "\">" + value + "</a>");
+    }
+
+    /**
      * Add a list of errors to the display
      * 
      * @param ctx an Android Context
@@ -700,26 +703,11 @@ public class ElementInfo extends InfoDialogFragment {
      * @param key the tag key
      * @param oldValue the tag old value
      * @param currentValue the tag new value
+     * @param isLink true if a link
      */
     private static void addTagRow(@NonNull Context ctx, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp, boolean deleted, @NonNull String key,
-            @NonNull Spanned oldValue, @Nullable Spanned currentValue) {
-        tl.addView(TableLayoutUtils.createRow(ctx, key, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent, R.color.material_teal));
-    }
-
-    /**
-     * Add a tag row to the table
-     * 
-     * @param ctx calling Activity
-     * @param tl the TableLayout
-     * @param tp LayoutParams
-     * @param deleted true if object was deleted
-     * @param key the tag key
-     * @param oldValue the tag old value
-     * @param currentValue the tag new value
-     */
-    private static void addTagRow(@NonNull Context ctx, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp, boolean deleted, @NonNull String key,
-            @NonNull String oldValue, @Nullable String currentValue) {
-        tl.addView(TableLayoutUtils.createRow(ctx, key, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent, R.color.material_teal));
+            @NonNull Spanned oldValue, @Nullable Spanned currentValue, boolean isLink) {
+        tl.addView(TableLayoutUtils.createRow(ctx, key, oldValue, !deleted ? currentValue : null, isLink, tp, R.attr.colorAccent, R.color.material_teal));
     }
 
     /**
@@ -805,23 +793,6 @@ public class ElementInfo extends InfoDialogFragment {
      */
     private static Spanned encodeUrl(@NonNull String url, @NonNull String value) {
         return Util.fromHtml("<a href=\"" + url + encodeHttpPath(value) + "\">" + value + "</a>");
-    }
-
-    /**
-     * Create an clickable Url as text
-     * 
-     * @param value url to use
-     * @return clickable text
-     * @throws MalformedURLException for broken URLs
-     * @throws URISyntaxException for broken URLs
-     */
-    private static Spanned encodeUrl(@NonNull String value) throws MalformedURLException, URISyntaxException {
-        if ("".equals(value)) {
-            return new SpannedString("");
-        }
-        URL url = new URL(value);
-        URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
-        return Util.fromHtml("<a href=\"" + uri.toURL() + "\">" + value + "</a>");
     }
 
     /**

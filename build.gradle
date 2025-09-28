@@ -159,6 +159,14 @@ task updateNameSuggestionIndex(type: Download) {
 updateNameSuggestionIndex.group = 'vespucci'
 updateNameSuggestionIndex.description = 'Update the name-suggestion-index'
 
+task updateTag2Link(type: Download) {
+    acceptAnyCertificate true
+    src 'https://raw.githubusercontent.com/JOSM/tag2link/refs/heads/master/index.json'
+    dest new File(projectDir.getPath() + '/src/main/assets/tag2link.json')
+}
+updateTag2Link.group = 'vespucci'
+updateTag2Link.description = 'Update the tag2link configuration'
+
 task update3rdPartyDocs() {
 }
 update3rdPartyDocs.group = 'vespucci'
