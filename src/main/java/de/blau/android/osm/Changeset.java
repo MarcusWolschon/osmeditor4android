@@ -4,6 +4,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -17,6 +18,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.LocaleUtils;
+import de.blau.android.util.Util;
 
 /**
  * An OSM Changeset
@@ -57,22 +59,52 @@ public class Changeset {
      * @param generator the id of this application for OSM
      * @param comment value for the comment tag
      * @param source value for the source tag
-     * @param imagery value for the imagery_used tag
+     * @param imagery values for the imagery_used tag
      * @param extraTags Additional tags to add
+     * @param capabilities API Capabilities
      */
-    Changeset(@NonNull String generator, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
-            @Nullable Map<String, String> extraTags) {
+    Changeset(@NonNull String generator, @Nullable final String comment, @Nullable final String source, @Nullable final List<String> imagery,
+            @Nullable Map<String, String> extraTags, @NonNull Capabilities capabilities) {
         this();
         this.generator = generator;
         getTags().put(Tags.KEY_CREATED_BY, generator);
         putTag(Tags.KEY_COMMENT, comment);
         putTag(Tags.KEY_SOURCE, source);
         getTags().put(Tags.KEY_LOCALE, LocaleUtils.toBcp47Language(Locale.getDefault()));
-        putTag(Tags.KEY_IMAGERY_USED, imagery);
+        if (imagery != null) {
+            addImageryToTags(imagery, capabilities);
+        }
         if (extraTags != null) {
             for (Entry<String, String> t : extraTags.entrySet()) {
                 putTag(t.getKey(), t.getValue());
             }
+        }
+    }
+
+    /**
+     * Add the list of used imagery sources to the tags, not exceeding the max tag length
+     * 
+     * @param imagery the List of of sources
+     * @param capabilities API Capabilities
+     */
+    private void addImageryToTags(@NonNull final List<String> imagery, @NonNull Capabilities capabilities) {
+        final int maxStringLength = capabilities.getMaxStringLength();
+        StringBuilder builder = new StringBuilder();
+        for (String imageryEntry : imagery) {
+            // truncate individual entries that are longer than max string length
+            final String finalEntry = imageryEntry.substring(0, Math.min(imageryEntry.length(), maxStringLength));
+            int currentLength = builder.length();
+            if ((currentLength + finalEntry.length() + (currentLength == 0 ? 0 : 1)) > maxStringLength) {
+                Util.addTagWithNumericSuffix(Tags.KEY_IMAGERY_USED, builder.toString(), tags);
+                builder.setLength(0);
+            }
+            if (builder.length() != 0) {
+                builder.append(Tags.OSM_VALUE_SEPARATOR);
+            }
+            builder.append(finalEntry);
+        }
+        if (builder.length() != 0) {
+            Util.addTagWithNumericSuffix(Tags.KEY_IMAGERY_USED, builder.toString(), tags);
         }
     }
 

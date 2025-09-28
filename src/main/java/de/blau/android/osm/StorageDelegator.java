@@ -465,15 +465,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void recordImagery(@Nullable de.blau.android.Map map) {
         if (!imageryRecorded) { // flag is reset when we change imagery
             try {
-                if (map != null) { // currently we only modify data when the map exists
-                    List<String> currentImagery = map.getImageryNames();
-                    for (String i : currentImagery) {
-                        if (!imagery.contains(i) && !"None".equalsIgnoreCase(i)) {
-                            imagery.add(i);
-                        }
-                    }
-                    imageryRecorded = true;
+                if (map == null) { // currently we only modify data when the map exists
+                    return;
                 }
+                List<String> currentImagery = map.getImageryNames();
+                for (String i : currentImagery) {
+                    if (!imagery.contains(i) && !"None".equalsIgnoreCase(i)) {
+                        imagery.add(i);
+                    }
+                }
+                imageryRecorded = true;
             } catch (Exception | Error ignored) { // NOSONAR never fail on anything here
                 // IGNORE
             }
@@ -3329,7 +3330,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
                 extraTags.put(V_CHUNK, Integer.toString(part));
             }
-            server.openChangeset(closeOpenChangeset, comment, tmpSource, Util.toOsmList(imagery), extraTags);
+            server.openChangeset(closeOpenChangeset, comment, tmpSource, imagery, extraTags);
             try {
                 lock();
                 int startCount = apiStorage.getElementCount();
