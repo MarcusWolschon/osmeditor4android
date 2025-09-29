@@ -73,7 +73,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -83,7 +82,6 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.core.view.MenuCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -154,7 +152,9 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.photos.ImageAction;
 import de.blau.android.photos.PhotoIndex;
+import de.blau.android.photos.TakePicture;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
@@ -184,7 +184,6 @@ import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BadgeDrawable;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ContentResolverUtil;
-import de.blau.android.util.DateFormatter;
 import de.blau.android.util.DownloadActivity;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
@@ -256,11 +255,6 @@ public class Main extends ConfigurationChangeAwareActivity
     public static final float FABALPHA = 0.90f;
 
     /**
-     * Date pattern used for the image file name.
-     */
-    private static final String DATE_PATTERN_IMAGE_FILE_NAME_PART = "yyyyMMdd_HHmmss";
-
-    /**
      * Id for requesting permissions
      */
     private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 54321;
@@ -291,25 +285,6 @@ public class Main extends ConfigurationChangeAwareActivity
     }
 
     private ConnectivityChangedReceiver connectivityChangedReceiver;
-
-    private static class TakePicture extends ActivityResultContracts.TakePicture {
-        private final Preferences prefs;
-
-        public TakePicture(@NonNull Preferences prefs) {
-            this.prefs = prefs;
-        }
-
-        @NonNull
-        @Override
-        public Intent createIntent(@NonNull Context context, @NonNull Uri input) {
-            Intent intent = super.createIntent(context, input).putExtra(MediaStore.EXTRA_OUTPUT, input).setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            String cameraApp = prefs.getCameraApp();
-            if (!"".equals(cameraApp)) {
-                intent.setPackage(cameraApp);
-            }
-            return intent;
-        }
-    }
 
     /**
      * our map layout
@@ -440,11 +415,7 @@ public class Main extends ConfigurationChangeAwareActivity
      */
     private NetworkStatus networkStatus;
 
-    /**
-     * file we asked the camera app to create (ugly)
-     */
-    private File                        imageFile = null;
-    private ActivityResultLauncher<Uri> takePictureRequestLauncher;
+    private ActivityResultLauncher<ImageAction> takePictureRequestLauncher;
 
     // flag to ensure that we only check once per activity life cycle
     private boolean gpsChecked = false;
@@ -702,7 +673,8 @@ public class Main extends ConfigurationChangeAwareActivity
 
         Util.clearCaches(this, App.getConfiguration(), getResources().getConfiguration());
 
-        takePictureRequestLauncher = registerForActivityResult(new TakePicture(prefs), this::indexImage);
+        TakePicture takePicture = new TakePicture(this, prefs);
+        takePictureRequestLauncher = registerForActivityResult(takePicture, takePicture::processImage);
     }
 
     @Override
@@ -1977,7 +1949,7 @@ public class Main extends ConfigurationChangeAwareActivity
         menuUtil.setShowAlways(menu);
         // only show camera icon if we have a camera, and a camera app is
         // installed
-        if (haveCamera) {
+        if (hasCamera()) {
             menu.findItem(R.id.menu_camera).setShowAsAction(prefs.showCameraAction() ? MenuItem.SHOW_AS_ACTION_ALWAYS : MenuItem.SHOW_AS_ACTION_NEVER);
         } else {
             menu.findItem(R.id.menu_camera).setVisible(false).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -2128,10 +2100,8 @@ public class Main extends ConfigurationChangeAwareActivity
             return true;
         case R.id.menu_camera:
             try {
-                imageFile = getImageFile();
-                Uri photoUri = FileProvider.getUriForFile(this, getString(R.string.content_provider), imageFile);
-                if (photoUri != null && takePictureRequestLauncher != null) {
-                    takePictureRequestLauncher.launch(photoUri);
+                if (takePictureRequestLauncher != null) {
+                    takePictureRequestLauncher.launch(new ImageAction(ImageAction.Action.NOTHING));
                 }
             } catch (Exception ex) {
                 try {
@@ -2891,58 +2861,6 @@ public class Main extends ConfigurationChangeAwareActivity
     }
 
     /**
-     * Get a new File for storing an image
-     * 
-     * @return a File object
-     * @throws IOException if reading the file went wrong
-     */
-    @NonNull
-    private File getImageFile() throws IOException {
-        File outDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_PICTURES);
-        String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
-        // FIXME this forces the extension to jpg, but it could be a HEIC image
-        File newImageFile = File.createTempFile(imageFileName, "." + FileExtensions.JPG, outDir);
-        Log.d(DEBUG_TAG, "getImageFile " + newImageFile.getAbsolutePath());
-        return newImageFile;
-    }
-
-    /**
-     * If an image has successfully been captured by a camera app, index the file, otherwise delete
-     * 
-     * @param resultCode the result code from the intent
-     */
-    private void indexImage(final boolean result) {
-        if (imageFile == null) {
-            Log.e(DEBUG_TAG, "unexpected state imageFile == null");
-            return;
-        }
-        try {
-            if (result || imageFile.length() > 0L) {
-                try (PhotoIndex pi = new PhotoIndex(this)) {
-                    if (pi.addPhoto(imageFile) == null) {
-                        Log.e(DEBUG_TAG, "No image available");
-                        ScreenMessage.toastTopError(this, R.string.toast_photo_failed);
-                        return;
-                    }
-                }
-                if (prefs.addToMediaStore()) {
-                    PhotoIndex.addImageToMediaStore(getContentResolver(), imageFile.getAbsolutePath());
-                }
-                if (map.getPhotoLayer() != null) {
-                    map.invalidate();
-                }
-            } else {
-                Log.e(DEBUG_TAG, "image capture canceled, deleting image");
-                imageFile.delete(); // NOSONAR
-            }
-        } catch (SecurityException e) {
-            Log.e(DEBUG_TAG, "access denied for delete to " + imageFile.getAbsolutePath());
-        } finally {
-            imageFile = null; // reset
-        }
-    }
-
-    /**
      * Toggle position based data auto-download
      */
     private void startStopAutoDownload() {
@@ -3200,9 +3118,12 @@ public class Main extends ConfigurationChangeAwareActivity
      * @param savedImageFileName Image file name.
      */
     public void setImageFileName(@Nullable String savedImageFileName) {
+        if (takePictureRequestLauncher == null) {
+            return;
+        }
+        TakePicture takePicture = ((TakePicture) takePictureRequestLauncher.getContract());
         if (savedImageFileName != null) {
-            Log.d(DEBUG_TAG, "setting imageFIleName to " + savedImageFileName);
-            imageFile = new File(savedImageFileName);
+            takePicture.setImageFileName(savedImageFileName);
         }
     }
 
@@ -3213,7 +3134,38 @@ public class Main extends ConfigurationChangeAwareActivity
      */
     @Nullable
     public String getImageFileName() {
-        return imageFile != null ? imageFile.getAbsolutePath() : null;
+        if (takePictureRequestLauncher == null) {
+            return null;
+        }
+        return ((TakePicture) takePictureRequestLauncher.getContract()).getImageFileName();
+    }
+
+    /**
+     * Restore the file name for a photograph
+     * 
+     * @param savedImageFileName Image file name.
+     */
+    public void setImageAction(@Nullable ImageAction action) {
+        if (takePictureRequestLauncher == null) {
+            return;
+        }
+        TakePicture takePicture = ((TakePicture) takePictureRequestLauncher.getContract());
+        if (action != null) {
+            takePicture.setAction(action);
+        }
+    }
+
+    /**
+     * Return the file name for a photograph
+     * 
+     * @return Image file name.
+     */
+    @Nullable
+    public ImageAction getImageAction() {
+        if (takePictureRequestLauncher == null) {
+            return null;
+        }
+        return ((TakePicture) takePictureRequestLauncher.getContract()).getAction();
     }
 
     @Override
@@ -4784,5 +4736,20 @@ public class Main extends ConfigurationChangeAwareActivity
             list.append(", ");
         }
         list.append(e.getDescription(this));
+    }
+
+    /**
+     * @return the takePictureRequestLauncher
+     */
+    @Nullable
+    public ActivityResultLauncher<ImageAction> getTakePictureRequestLauncher() {
+        return takePictureRequestLauncher;
+    }
+
+    /**
+     * @return the haveCamera
+     */
+    public boolean hasCamera() {
+        return haveCamera;
     }
 }

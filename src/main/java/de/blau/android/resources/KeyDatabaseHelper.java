@@ -50,7 +50,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private static final String TRUE         = "true";
 
     public enum EntryType {
-        IMAGERY, API_KEY, API_OAUTH1_KEY, API_OAUTH2_KEY
+        IMAGERY, API_KEY, API_OAUTH1_KEY, API_OAUTH2_KEY, PANORAMAX_KEY, WIKIMEDIA_COMMONS_KEY
     }
 
     /**
@@ -321,5 +321,29 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Error reading keys file " + e.getMessage());
         }
+    }
+
+    /**
+     * Get the contents of the DB
+     * 
+     * @param db a readable DB
+     * @return a list of strings with tab separated columns
+     */
+    public static List<String> getAll(@NonNull SQLiteDatabase db) {
+        List<String> result = new ArrayList<>();
+        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { NAME_FIELD, KEY_FIELD, TYPE_FIELD, ADD1_FIELD, ADD2_FIELD }, null, null, null, null, null)) {
+            boolean haveEntry = dbresult.moveToFirst();
+            while (haveEntry) {
+                // @formatter:off
+                result.add(dbresult.getString(dbresult.getColumnIndexOrThrow(NAME_FIELD)) 
+                        + "\t" + dbresult.getString(dbresult.getColumnIndexOrThrow(KEY_FIELD))
+                        + "\t" + dbresult.getString(dbresult.getColumnIndexOrThrow(TYPE_FIELD)) 
+                        + "\t" + dbresult.getString(dbresult.getColumnIndexOrThrow(ADD1_FIELD)) 
+                        + "\t" + dbresult.getString(dbresult.getColumnIndexOrThrow(ADD2_FIELD)));
+                // @formatter:on
+                haveEntry = dbresult.moveToNext();
+            }
+        }
+        return result;
     }
 }

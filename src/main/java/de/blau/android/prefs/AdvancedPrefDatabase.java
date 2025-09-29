@@ -52,7 +52,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 20;
+    private static final int DATA_VERSION = 21;
 
     /** The ID string for the default API and the default Preset */
     public static final String ID_DEFAULT = "default";
@@ -63,6 +63,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private static final String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
     private static final String ID_DEFAULT_GEOCODER_PHOTON    = "Photon";
     private static final String VERSION_COL                   = "version";
+
+    private static final String IMAGESTORES_TABLE    = "imagestores";
+    private static final String ID_PANORAMAX_DEV     = "Panoramax developer instance";
+    public static final String  ID_WIKIMEDIA_COMMONS = "Wikimedia Commons";
 
     private static final String PRESETS_TABLE        = "presets";
     private static final String ID_COL               = "id";
@@ -135,13 +139,14 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         db.execSQL(
                 "CREATE TABLE presets (id TEXT, name TEXT, url TEXT, version TEXT DEFAULT NULL, shortdescription TEXT DEFAULT NULL, description TEXT DEFAULT NULL, lastupdate TEXT, data TEXT, position INTEGER DEFAULT 0, active INTEGER DEFAULT 0, usetranslations INTEGER DEFAULT 1)");
         db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
-        addGeocoder(db, ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.DEFAULT_NOMINATIM_SERVER, true);
-        addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER, true);
+        addDefaultGeocoderEntries(db);
         db.execSQL("CREATE TABLE layers (type TEXT, position INTEGER DEFAULT -1, visible INTEGER DEFAULT 1, content_id TEXT)");
         addLayer(db, 0, LayerType.IMAGERY, true, TileLayerSource.LAYER_MAPNIK);
         addLayer(db, 1, LayerType.SCALE);
         addLayer(db, 2, LayerType.OSMDATA);
         addLayer(db, 3, LayerType.TASKS);
+        db.execSQL("CREATE TABLE imagestores (id TEXT, type TEXT, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
+        addDefaultImageStoreEntries(db);
     }
 
     @Override
@@ -172,8 +177,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         }
         if (oldVersion <= 7) {
             db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
-            addGeocoder(db, ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.DEFAULT_NOMINATIM_SERVER, true);
-            addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER, true);
+            addDefaultGeocoderEntries(db);
         }
         if (oldVersion <= 8) {
             addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, null, new AuthParams(Auth.OAUTH1A, "", "", null, null));
@@ -248,6 +252,30 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         if (oldVersion <= 19) {
             addAPI(db, ID_OHM, Urls.DEFAULT_OHM_API_NAME, Urls.DEFAULT_OHM_API, null, null, new AuthParams(Auth.OAUTH2, "", "", null, null));
         }
+        if (oldVersion <= 20) {
+            db.execSQL("CREATE TABLE imagestores (id TEXT, type TEXT, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
+            addDefaultImageStoreEntries(db);
+        }
+    }
+
+    /**
+     * Add default geocoder entries
+     * 
+     * @param db the prefs db
+     */
+    private void addDefaultGeocoderEntries(@NonNull SQLiteDatabase db) {
+        addGeocoder(db, ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.DEFAULT_NOMINATIM_SERVER, true);
+        addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER, true);
+    }
+
+    /**
+     * Add default image store entries
+     * 
+     * @param db the prefs db
+     */
+    private void addDefaultImageStoreEntries(@NonNull SQLiteDatabase db) {
+        addImageStore(db, ID_PANORAMAX_DEV, ID_PANORAMAX_DEV, ImageStorageType.PANORAMAX, Urls.DEFAULT_PANORAMAX_DEV_UPLOAD_URL, true);
+        addImageStore(db, ID_WIKIMEDIA_COMMONS, ID_WIKIMEDIA_COMMONS, ImageStorageType.WIKIMEDIA_COMMONS, Urls.DEFAULT_WIKIMEDIA_COMMONS_API_URL, false);
     }
 
     @Override
@@ -848,12 +876,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param active state to set, active if true
      */
     public synchronized void setPresetState(@NonNull String id, boolean active) {
-        Log.d(DEBUG_TAG, "Setting preset " + id + " active state to " + active);
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ACTIVE_COL, active ? 1 : 0);
-        db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { id });
-        db.close();
+        setState(PRESETS_TABLE, id, active, false);
     }
 
     /**
@@ -1141,7 +1164,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param active use this geocoder if true
      */
     public synchronized void updateGeocoder(@NonNull String id, String name, GeocoderType type, int version, String url, boolean active) {
-        Log.d(DEBUG_TAG, "Setting geocoder " + id + " active to " + active);
+        Log.d(DEBUG_TAG, "Setting geocoder " + id + " active to " + active); // NOSONAR
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(NAME_COL, name);
@@ -1160,12 +1183,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param active use this geocoder if true
      */
     public synchronized void setGeocoderState(@NonNull String id, boolean active) {
-        Log.d(DEBUG_TAG, "Setting pref " + id + " active to " + active);
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ACTIVE_COL, active ? 1 : 0);
-        db.update(GEOCODERS_TABLE, values, WHERE_ID, new String[] { id });
-        db.close();
+        setState(GEOCODERS_TABLE, id, active, false);
     }
 
     /**
@@ -1435,4 +1453,163 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         }
     }
 
+    public enum ImageStorageType {
+        PANORAMAX, WIKIMEDIA_COMMONS
+    }
+
+    /**
+     * Get all currently known ImageStores
+     * 
+     * @return an array of ImageStore objects
+     */
+    @NonNull
+    public ImageStorageConfiguration[] getImageStores() {
+        return getImageStores(null);
+    }
+
+    /**
+     * Fetches all ImageStores matching the given ID, or all ImageStores if id is null
+     * 
+     * @param id null to fetch all ImageStores, or the id to fetch a specific one
+     * @return an array of ImageStore objects
+     */
+    @NonNull
+    public synchronized ImageStorageConfiguration[] getImageStores(@Nullable String id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor dbresult = db.query(IMAGESTORES_TABLE, new String[] { ID_COL, NAME_COL, TYPE_COL, URL_COL, ACTIVE_COL }, id == null ? null : WHERE_ID,
+                id == null ? null : new String[] { id }, null, null, null);
+        ImageStorageConfiguration[] result = new ImageStorageConfiguration[dbresult.getCount()];
+        dbresult.moveToFirst();
+        for (int i = 0; i < result.length; i++) {
+            result[i] = new ImageStorageConfiguration(dbresult.getString(0), dbresult.getString(1), ImageStorageType.valueOf(dbresult.getString(2)),
+                    dbresult.getString(3), dbresult.getInt(4) == 1);
+            dbresult.moveToNext();
+        }
+        dbresult.close();
+        db.close();
+        return result;
+    }
+
+    /**
+     * Fetches all active ImageStores
+     * 
+     * @return ImageStore[]
+     */
+    public synchronized ImageStorageConfiguration[] getActiveImageStores() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor dbresult = db.query(IMAGESTORES_TABLE, new String[] { ID_COL, NAME_COL, TYPE_COL, URL_COL, ACTIVE_COL }, "active = 1", null, null, null, null);
+        ImageStorageConfiguration[] result = new ImageStorageConfiguration[dbresult.getCount()];
+        dbresult.moveToFirst();
+        for (int i = 0; i < result.length; i++) {
+            result[i] = new ImageStorageConfiguration(dbresult.getString(0), dbresult.getString(1), ImageStorageType.valueOf(dbresult.getString(2)),
+                    dbresult.getString(3), dbresult.getInt(4) == 1);
+            dbresult.moveToNext();
+        }
+        dbresult.close();
+        db.close();
+        return result;
+    }
+
+    /**
+     * Add a new ImageStore with the given values to the database
+     * 
+     * Opens the existing or creates the database
+     * 
+     * @param id id of the image store
+     * @param name name used for display purposes
+     * @param type type
+     * @param version version of the image store
+     * @param url image store API url
+     * @param active use this image store
+     */
+    public synchronized void addImageStore(@NonNull String id, String name, ImageStorageType type, String url, boolean active) {
+        SQLiteDatabase db = getWritableDatabase();
+        addImageStore(db, id, name, type, url, active);
+        db.close();
+    }
+
+    /**
+     * Add a new ImageStore with the given values to the database
+     * 
+     * @param db database to use
+     * @param id id of the image store
+     * @param name name used for display purposes
+     * @param type type
+     * @param version version of the image store
+     * @param url image store API url
+     * @param active use this image storeif true
+     */
+    private synchronized void addImageStore(@NonNull SQLiteDatabase db, @NonNull String id, String name, ImageStorageType type, String url, boolean active) {
+        ContentValues values = new ContentValues();
+        values.put(ID_COL, id);
+        values.put(NAME_COL, name);
+        values.put(TYPE_COL, type.name());
+        values.put(URL_COL, url);
+        values.put(ACTIVE_COL, active ? 1 : 0);
+        db.insert(IMAGESTORES_TABLE, null, values);
+    }
+
+    /**
+     * Update the specified image store
+     * 
+     * @param id the ID of the image store to update
+     * @param name name used for display purposes
+     * @param type type
+     * @param version version of the image store
+     * @param url image store API url
+     * @param active use this image storeif true
+     */
+    public synchronized void updateImageStore(@NonNull String id, String name, ImageStorageType type, String url, boolean active) {
+        Log.d(DEBUG_TAG, "Setting geocoder " + id + " active to " + active); // NOSONAR
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(NAME_COL, name);
+        values.put(TYPE_COL, type.name());
+        values.put(URL_COL, url);
+        values.put(ACTIVE_COL, active ? 1 : 0);
+        db.update(IMAGESTORES_TABLE, values, WHERE_ID, new String[] { id });
+        db.close();
+    }
+
+    /**
+     * Sets the active value of the given image store
+     * 
+     * @param id the ID of the image store to update
+     * @param active use this image store if true
+     */
+    public synchronized void setImageStoreState(@NonNull String id, boolean active) {
+        setState(IMAGESTORES_TABLE, id, active, true);
+    }
+
+    /**
+     * Set the active state of an entry in one of the tables
+     * 
+     * @param table the table name
+     * @param id the row id
+     * @param active state to set
+     * @param singleActive if true only a single entry can be active
+     */
+    private void setState(@NonNull String table, @NonNull String id, boolean active, boolean singleActive) {
+        Log.d(DEBUG_TAG, "In table " + table + " setting pref " + id + " active to " + active); // NOSONAR
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        if (singleActive) {
+            values.put(ACTIVE_COL, 0);
+            db.update(table, values, null, null);
+        }
+        values.put(ACTIVE_COL, active ? 1 : 0);
+        db.update(table, values, WHERE_ID, new String[] { id });
+        db.close();
+    }
+
+    /**
+     * Deletes a image store entry
+     * 
+     * @param id id of the image store to delete
+     */
+    public synchronized void deleteImageStore(@NonNull String id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(IMAGESTORES_TABLE, WHERE_ID, new String[] { id });
+        db.close();
+    }
 }

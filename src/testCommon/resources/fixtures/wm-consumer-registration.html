@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html class="client-js vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-page-tools-pinned-enabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-enabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-disabled vector-feature-custom-font-size-clientpref--excluded vector-feature-appearance-pinned-clientpref-1 vector-feature-night-mode-enabled skin-theme-clientpref-day vector-toc-not-available vector-animations-ready ve-not-available" lang="en" dir="ltr"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>OAuth consumer registration - Meta-Wiki</title>
+
+<meta name="generator" content="MediaWiki 1.45.0-wmf.18">
+<meta name="referrer" content="origin">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="robots" content="noindex,nofollow,max-image-preview:standard">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=1120">
+<meta property="og:title" content="OAuth consumer registration - Meta-Wiki">
+<meta property="og:type" content="website">
+<link rel="alternate" media="only screen and (max-width: 640px)" href="https://meta.m.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth2">
+<link rel="icon" href="https://meta.wikimedia.org/static/favicon/community.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://meta.wikimedia.org/w/rest.php/v1/search" title="Meta-Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://meta.wikimedia.org/w/api.php?action=rsd">
+<link rel="canonical" href="https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth2">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="Meta-Wiki Atom feed" href="https://meta.wikimedia.org/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<body class="skin--responsive skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns--1 ns-special mw-special-OAuthConsumerRegistration page-Special_OAuthConsumerRegistration_propose_oauth2 rootpage-Special_OAuthConsumerRegistration_propose_oauth2 skin-vector-2022 action-view uls-dialog-sticky-hide"><a class="mw-jump-link" href="#bodyContent">Jump to content</a>
+<div class="vector-header-container">
+	<header class="vector-header mw-header no-font-mode-scale">
+		<div class="vector-header-start">
+			<nav class="vector-main-menu-landmark" aria-label="Site">
+				
+<div id="vector-main-menu-dropdown" class="vector-dropdown vector-main-menu-dropdown vector-button-flush-left vector-button-flush-right" title="Main menu">
+	<input type="checkbox" id="vector-main-menu-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-main-menu-dropdown" class="vector-dropdown-checkbox " aria-label="Main menu">
+	<label id="vector-main-menu-dropdown-label" for="vector-main-menu-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-menu mw-ui-icon-wikimedia-menu"></span>
+
+<span class="vector-dropdown-label-text">Main menu</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+				<div id="vector-main-menu-unpinned-container" class="vector-unpinned-container">
+		
+				</div>
+
+	</div>
+</div>
+
+		</nav>
+			
+<a href="https://meta.wikimedia.org/wiki/Special:MyLanguage/Main_Page" class="mw-logo">
+	
+	<span class="mw-logo-container skin-invert">
+	</span>
+</a>
+
+		</div>
+		<div class="vector-header-end">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="https://meta.wikimedia.org/wiki/Special:Search" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only search-toggle" title="Search Meta [Alt+Shift+f]" accesskey="f"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search"></span>
+
+<span>Search</span>
+	</a>
+	<div class="vector-typeahead-search-container">
+		<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail cdx-typeahead-search--auto-expand-width">
+			<form action="/w/index.php" id="searchform" class="cdx-search-input cdx-search-input--has-end-button">
+				<div id="simpleSearch" class="cdx-search-input__input-wrapper" data-search-loc="header-moved">
+					<div class="cdx-text-input cdx-text-input--has-start-icon">
+						<input class="cdx-text-input__input mw-searchInput" autocomplete="off" type="search" name="search" placeholder="Search Meta-Wiki" aria-label="Search Meta-Wiki" autocapitalize="sentences" spellcheck="false" title="Search Meta [Alt+Shift+f]" accesskey="f" id="searchInput">
+						<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+					</div>
+					<input type="hidden" name="title" value="Special:Search">
+				</div>
+				<button class="cdx-button cdx-search-input__end-button">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+			<nav class="vector-user-links vector-user-links-wide" aria-label="Personal tools">
+	<div class="vector-user-links-main">
+	
+<div id="p-vector-user-menu-preferences" class="vector-menu mw-portlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="ca-uls" class="mw-list-item active user-links-collapsible-item"><a data-mw="interface" href="#" class="uls-trigger cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet"><span class="vector-icon mw-ui-icon-wikimedia-language mw-ui-icon-wikimedia-wikimedia-language"></span>
+
+<span>English</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-userpage" class="vector-menu mw-portlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-userpage-2" class="mw-list-item user-links-collapsible-item"><a data-mw="interface" href="https://meta.wikimedia.org/wiki/User:SimonPoole" class="new" title="Your user page (page does not exist) [Alt+Shift+.]" accesskey="."><span>SimonPoole</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	<nav class="vector-appearance-landmark" aria-label="Appearance">
+		
+<div id="vector-appearance-dropdown" class="vector-dropdown " title="Change the appearance of the page's font size, width, and color">
+	<input type="checkbox" id="vector-appearance-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-appearance-dropdown" class="vector-dropdown-checkbox " aria-label="Appearance">
+	<label id="vector-appearance-dropdown-label" for="vector-appearance-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-appearance mw-ui-icon-wikimedia-appearance"></span>
+
+<span class="vector-dropdown-label-text">Appearance</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+			<div id="vector-appearance-unpinned-container" class="vector-unpinned-container">
+				
+			</div>
+		
+	</div>
+</div>
+
+	</nav>
+	
+<div id="p-vector-user-menu-notifications" class="vector-menu mw-portlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-notifications-alert" class="mw-list-item"><a data-mw="interface" href="https://meta.wikimedia.org/wiki/Special:Notifications" class="mw-echo-notification-badge-nojs mw-echo-unseen-notifications cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" data-mw-notifications-section="alert" data-badge-icon="bell" data-event-name="ui.notifications" data-counter-num="1" data-counter-text="1" title="Your alerts"><span class="vector-icon mw-ui-icon-bell mw-ui-icon-wikimedia-bell"></span>
+
+<span>Alert (1)</span></a>
+</li>
+<li id="pt-notifications-notice" class="mw-list-item"><a data-mw="interface" href="https://meta.wikimedia.org/wiki/Special:Notifications" class="mw-echo-notification-badge-nojs mw-echo-unseen-notifications cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" data-mw-notifications-section="message" data-badge-icon="tray" data-counter-num="6" data-counter-text="6" title="Your notices"><span class="vector-icon mw-ui-icon-tray mw-ui-icon-wikimedia-tray"></span>
+
+<span>Notices (6)</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-watchlist-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item"><a data-mw="interface" href="https://meta.wikimedia.org/wiki/Special:Watchlist" title="A list of pages you are monitoring for changes [Alt+Shift+l]" accesskey="l" class=" cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only"><span class="vector-icon mw-ui-icon-watchlist mw-ui-icon-wikimedia-watchlist"></span>
+
+<span>Watchlist</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	</div>
+	
+<div id="vector-user-links-dropdown" class="vector-dropdown vector-user-menu vector-button-flush-right vector-user-menu-logged-in" title="Personal settings">
+	<input type="checkbox" id="vector-user-links-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-user-links-dropdown" class="vector-dropdown-checkbox " aria-label="Personal tools">
+	<label id="vector-user-links-dropdown-label" for="vector-user-links-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-userAvatar mw-ui-icon-wikimedia-userAvatar"></span>
+
+<span class="vector-dropdown-label-text">Personal tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+		
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal" title="User menu">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="pt-userpage" class="user-links-collapsible-item mw-list-item"><a class="new" href="https://meta.wikimedia.org/wiki/User:SimonPoole" title="Your user page (page does not exist) [Alt+Shift+.]" accesskey="."><span class="vector-icon mw-ui-icon-userAvatar mw-ui-icon-wikimedia-userAvatar"></span> <span>SimonPoole</span></a></li><li id="pt-mytalk" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/User_talk:SimonPoole" title="Your talk page [Alt+Shift+n]" accesskey="n"><span class="vector-icon mw-ui-icon-userTalk mw-ui-icon-wikimedia-userTalk"></span> <span>Talk</span></a></li><li id="pt-preferences" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:Preferences" title="Your preferences"><span class="vector-icon mw-ui-icon-settings mw-ui-icon-wikimedia-settings"></span> <span>Preferences</span></a></li><li id="pt-betafeatures" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:Preferences#mw-prefsection-betafeatures" title="Beta features"><span class="vector-icon mw-ui-icon-labFlask mw-ui-icon-wikimedia-labFlask"></span> <span>Beta</span></a></li><li id="pt-watchlist" class="user-links-collapsible-item mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:Watchlist" title="A list of pages you are monitoring for changes [Alt+Shift+l]" accesskey="l"><span class="vector-icon mw-ui-icon-watchlist mw-ui-icon-wikimedia-watchlist"></span> <span>Watchlist</span></a></li><li id="pt-mycontris" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:Contributions/SimonPoole" title="A list of your contributions [Alt+Shift+y]" accesskey="y"><span class="vector-icon mw-ui-icon-userContributions mw-ui-icon-wikimedia-userContributions"></span> <span>Contributions</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-user-menu-logout" class="vector-menu mw-portlet mw-portlet-user-menu-logout">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="pt-logout" class="mw-list-item"><a data-mw="interface" href="https://meta.wikimedia.org/w/index.php?title=Special:UserLogout&amp;returnto=Special%3AOAuthConsumerRegistration%2Fpropose%2Foauth2" title="Log out"><span class="vector-icon mw-ui-icon-logOut mw-ui-icon-wikimedia-logOut"></span> <span>Log out</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+</nav>
+
+		</div>
+	</header>
+</div>
+<div class="mw-page-container">
+	<div class="mw-page-container-inner">
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"><!-- CentralNotice --></div>
+		</div>
+		<div class="vector-column-start">
+			<div class="vector-main-menu-container">
+		<div id="mw-navigation">
+			<nav id="mw-panel" class="vector-main-menu-landmark" aria-label="Site">
+				<div id="vector-main-menu-pinned-container" class="vector-pinned-container">
+				
+<div id="vector-main-menu" class="vector-main-menu vector-pinnable-element">
+	<div class="vector-pinnable-header vector-main-menu-pinnable-header vector-pinnable-header-pinned" data-feature-name="main-menu-pinned" data-pinnable-element-id="vector-main-menu" data-pinned-container-id="vector-main-menu-pinned-container" data-unpinned-container-id="vector-main-menu-unpinned-container" data-saved-pinned-state="true">
+	<div class="vector-pinnable-header-label">Main menu</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-main-menu.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-main-menu.unpin">hide</button>
+</div>
+
+	
+<div id="p-navigation" class="vector-menu mw-portlet mw-portlet-navigation">
+	<div class="vector-menu-heading">
+		Navigation
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-mainpage-description" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:MyLanguage/Main_Page" title="Visit the main page [Alt+Shift+z]" accesskey="z"><span>Main page</span></a></li><li id="n-wikimedia-news-label" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Wikimedia_News"><span>Wikimedia News</span></a></li><li id="n-translations-text" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:LanguageStats"><span>Translations</span></a></li><li id="n-recentchanges" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r"><span>Recent changes</span></a></li><li id="n-specialpages" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:SpecialPages"><span>Special pages</span></a></li><li id="n-randompage" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:Random" title="Load a random page [Alt+Shift+x]" accesskey="x"><span>Random page</span></a></li><li id="n-help" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:MyLanguage/Help:Help" title="The place to find out"><span>Help</span></a></li><li id="n-Babel-text" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Meta:Babel"><span>Babel</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div class="vector-main-menu-action vector-main-menu-action-opt-out">
+	<div class="vector-main-menu-action-item">
+		
+		<div class="vector-main-menu-action-content vector-menu-content">
+			<a href="https://meta.wikimedia.org/w/index.php?title=Special:Preferences&amp;useskin=vector&amp;wprov=vctw1#mw-prefsection-rendering-skin" title="Change your settings to go back to the old look of the skin (legacy Vector)"><span>Switch to old look</span></a>
+		</div>
+	</div>
+</div>
+
+	
+<div id="p-community" class="vector-menu mw-portlet mw-portlet-community">
+	<div class="vector-menu-heading">
+		Community
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-WikimediaForum-text" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Wikimedia_Forum"><span>Wikimedia Forum</span></a></li><li id="n-mailinglists-text" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:MyLanguage/Mailing_lists/Overview"><span>Mailing lists</span></a></li><li id="n-Requests-text" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:MyLanguage/Meta:Requests_and_proposals"><span>Requests</span></a></li><li id="n-Babylon-text" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:MyLanguage/Meta:Babylon"><span>Babylon</span></a></li><li id="n-Reports-text" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:MyLanguage/Wikimedia_Affiliates_Data_Portal"><span>Reports</span></a></li><li id="n-Research-text" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:MyLanguage/Research:Index"><span>Research</span></a></li><li id="n-planet" class="mw-list-item"><a href="https://en.planet.wikimedia.org/" title="Weblog aggregator of Wikimedia-related posts"><span>Planet Wikimedia</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-beyond_the_web" class="vector-menu mw-portlet mw-portlet-beyond_the_web">
+	<div class="vector-menu-heading">
+		Beyond the Web
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-Meetup-text" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:MyLanguage/Meetup"><span>Meet Wikimedians</span></a></li><li id="n-Events-text" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Events"><span>Events</span></a></li><li id="n-wikimedia-movement-affiliates-shortlabel" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Special:MyLanguage/Wikimedia_movement_affiliates"><span>Movement affiliates</span></a></li><li id="n-sitesupport" class="mw-list-item"><a href="https://donate.wikimedia.org/?wmf_source=donate&amp;wmf_medium=sidebar&amp;wmf_campaign=meta.wikimedia.org&amp;uselang=en" title="Support us"><span>Donate</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="vector-main-menu" class="vector-menu ">
+	<div class="vector-menu-heading">
+		
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+				</div>
+		</nav>
+		</div>
+	</div>
+</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body">
+				<header class="mw-body-header vector-page-titlebar no-font-mode-scale">
+					<h1 id="firstHeading" class="firstHeading mw-first-heading">OAuth consumer registration</h1>
+						<div class="mw-indicators">
+		<div id="mw-indicator-mw-helplink" class="mw-indicator"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:OAuth" target="_blank" class="mw-helplink"><span class="mw-helplink-icon"></span>Help</a></div>
+		</div>
+</header>
+				<div class="vector-page-toolbar vector-feature-custom-font-size-clientpref--excluded">
+					<div class="vector-page-toolbar-container">
+						<div id="left-navigation">
+							<nav aria-label="Namespaces">
+								
+<div id="p-associated-pages" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-associated-pages emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+								
+<div id="vector-variants-dropdown" class="vector-dropdown emptyPortlet">
+	<input type="checkbox" id="vector-variants-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-variants-dropdown" class="vector-dropdown-checkbox " aria-label="Change language variant">
+	<label id="vector-variants-dropdown-label" for="vector-variants-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">English</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+					
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+						<div id="right-navigation" class="vector-collapsible">
+							<nav aria-label="Views">
+								
+<div id="p-views" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-views emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+							</nav>
+				
+							<nav class="vector-page-tools-landmark" aria-label="Page tools">
+								
+<div id="vector-page-tools-dropdown" class="vector-dropdown vector-page-tools-dropdown">
+	<input type="checkbox" id="vector-page-tools-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-tools-dropdown" class="vector-dropdown-checkbox " aria-label="Tools">
+	<label id="vector-page-tools-dropdown-label" for="vector-page-tools-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">Tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+									<div id="vector-page-tools-unpinned-container" class="vector-unpinned-container">
+						
+									</div>
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="vector-column-end no-font-mode-scale">
+					<div class="vector-sticky-pinned-container">
+						<nav class="vector-page-tools-landmark" aria-label="Page tools">
+							<div id="vector-page-tools-pinned-container" class="vector-pinned-container">
+				
+<div id="vector-page-tools" class="vector-page-tools vector-pinnable-element">
+	<div class="vector-pinnable-header vector-page-tools-pinnable-header vector-pinnable-header-pinned" data-feature-name="page-tools-pinned" data-pinnable-element-id="vector-page-tools" data-pinned-container-id="vector-page-tools-pinned-container" data-unpinned-container-id="vector-page-tools-unpinned-container" data-saved-pinned-state="true">
+	<div class="vector-pinnable-header-label">Tools</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-page-tools.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-page-tools.unpin">hide</button>
+</div>
+
+	
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions emptyPortlet" title="More options">
+	<div class="vector-menu-heading">
+		Actions
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-tb" class="vector-menu mw-portlet mw-portlet-tb">
+	<div class="vector-menu-heading">
+		General
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate" title="Printable version of this page [Alt+Shift+p]" accesskey="p"><span>Printable version</span></a></li><li id="t-urlshortener" class="mw-list-item"><a href="https://meta.wikimedia.org/w/index.php?title=Special:UrlShortener&amp;url=https%3A%2F%2Fmeta.wikimedia.org%2Fwiki%2FSpecial%3AOAuthConsumerRegistration%2Fpropose%2Foauth2" aria-haspopup="dialog"><span>Get shortened URL</span></a></li><li id="t-urlshortener-qrcode" class="mw-list-item"><a href="https://meta.wikimedia.org/w/index.php?title=Special:QrCode&amp;url=https%3A%2F%2Fmeta.wikimedia.org%2Fwiki%2FSpecial%3AOAuthConsumerRegistration%2Fpropose%2Foauth2"><span>Download QR code</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-wikibase-otherprojects" class="vector-menu mw-portlet mw-portlet-wikibase-otherprojects emptyPortlet">
+	<div class="vector-menu-heading">
+		In other projects
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+							</div>
+		</nav>
+						<nav class="vector-appearance-landmark" aria-label="Appearance">
+							<div id="vector-appearance-pinned-container" class="vector-pinned-container">
+				<div id="vector-appearance" class="vector-appearance vector-pinnable-element">
+	<div class="vector-pinnable-header vector-appearance-pinnable-header vector-pinnable-header-pinned" data-feature-name="appearance-pinned" data-pinnable-element-id="vector-appearance" data-pinned-container-id="vector-appearance-pinned-container" data-unpinned-container-id="vector-appearance-unpinned-container" data-saved-pinned-state="true">
+	<div class="vector-pinnable-header-label">Appearance</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-appearance.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-appearance.unpin">hide</button>
+</div>
+
+
+<div class="mw-portlet mw-portlet-skin-client-prefs-vector-feature-custom-font-size vector-menu" id="skin-client-prefs-vector-feature-custom-font-size"><div class="vector-menu-heading">Text</div><div class="vector-menu-content"><ul class="vector-menu-content-list"><li class="mw-list-item mw-list-item-js"><div class=""><form><div class="cdx-radio"><input name="skin-client-pref-vector-feature-custom-font-size-group" id="skin-client-pref-vector-feature-custom-font-size-value-0" type="radio" value="0" data-event-name="skin-client-pref-vector-feature-custom-font-size-value-0" class="cdx-radio__input" disabled="disabled"><span class="cdx-radio__icon"></span><label class="cdx-label cdx-radio__label" for="skin-client-pref-vector-feature-custom-font-size-value-0"><span class="cdx-label__label__text">Small</span></label></div><div class="cdx-radio"><input name="skin-client-pref-vector-feature-custom-font-size-group" id="skin-client-pref-vector-feature-custom-font-size-value-1" type="radio" value="1" data-event-name="skin-client-pref-vector-feature-custom-font-size-value-1" class="cdx-radio__input" disabled="disabled"><span class="cdx-radio__icon"></span><label class="cdx-label cdx-radio__label" for="skin-client-pref-vector-feature-custom-font-size-value-1"><span class="cdx-label__label__text">Standard</span></label></div><div class="cdx-radio"><input name="skin-client-pref-vector-feature-custom-font-size-group" id="skin-client-pref-vector-feature-custom-font-size-value-2" type="radio" value="2" data-event-name="skin-client-pref-vector-feature-custom-font-size-value-2" class="cdx-radio__input" disabled="disabled"><span class="cdx-radio__icon"></span><label class="cdx-label cdx-radio__label" for="skin-client-pref-vector-feature-custom-font-size-value-2"><span class="cdx-label__label__text">Large</span></label></div></form><p class="exclusion-notice vector-feature-custom-font-size-exclusion-notice">This page always uses small font size</p></div></li></ul><span class="skin-client-pref-exclusion-notice">This page always uses small font size</span></div></div><div class="mw-portlet mw-portlet-skin-client-prefs-vector-feature-limited-width vector-menu" id="skin-client-prefs-vector-feature-limited-width"><div class="vector-menu-heading">Width</div><div class="vector-menu-content"><ul class="vector-menu-content-list"><li class="mw-list-item mw-list-item-js"><div class=""><form><div class="cdx-radio"><input name="skin-client-pref-vector-feature-limited-width-group" id="skin-client-pref-vector-feature-limited-width-value-1" type="radio" value="1" data-event-name="skin-client-pref-vector-feature-limited-width-value-1" class="cdx-radio__input" checked="checked"><span class="cdx-radio__icon"></span><label class="cdx-label cdx-radio__label" for="skin-client-pref-vector-feature-limited-width-value-1"><span class="cdx-label__label__text">Standard</span></label></div><div class="cdx-radio"><input name="skin-client-pref-vector-feature-limited-width-group" id="skin-client-pref-vector-feature-limited-width-value-0" type="radio" value="0" data-event-name="skin-client-pref-vector-feature-limited-width-value-0" class="cdx-radio__input"><span class="cdx-radio__icon"></span><label class="cdx-label cdx-radio__label" for="skin-client-pref-vector-feature-limited-width-value-0"><span class="cdx-label__label__text">Wide</span></label></div></form></div></li></ul><span class="skin-client-pref-exclusion-notice">The content is as wide as possible for your browser window.</span></div></div><div class="mw-portlet mw-portlet-skin-client-prefs-skin-theme vector-menu" id="skin-client-prefs-skin-theme"><div class="vector-menu-heading">Color <span><span>(beta)</span></span></div><div class="vector-menu-content"><ul class="vector-menu-content-list"><li class="mw-list-item mw-list-item-js"><div class=""><form><div class="cdx-radio"><input name="skin-client-pref-skin-theme-group" id="skin-client-pref-skin-theme-value-os" type="radio" value="os" data-event-name="skin-client-pref-skin-theme-value-os" class="cdx-radio__input"><span class="cdx-radio__icon"></span><label class="cdx-label cdx-radio__label" for="skin-client-pref-skin-theme-value-os"><span class="cdx-label__label__text">Automatic</span></label></div><div class="cdx-radio"><input name="skin-client-pref-skin-theme-group" id="skin-client-pref-skin-theme-value-day" type="radio" value="day" data-event-name="skin-client-pref-skin-theme-value-day" class="cdx-radio__input" checked="checked"><span class="cdx-radio__icon"></span><label class="cdx-label cdx-radio__label" for="skin-client-pref-skin-theme-value-day"><span class="cdx-label__label__text">Light</span></label></div><div class="cdx-radio"><input name="skin-client-pref-skin-theme-group" id="skin-client-pref-skin-theme-value-night" type="radio" value="night" data-event-name="skin-client-pref-skin-theme-value-night" class="cdx-radio__input"><span class="cdx-radio__icon"></span><label class="cdx-label cdx-radio__label" for="skin-client-pref-skin-theme-value-night"><span class="cdx-label__label__text">Dark</span></label></div></form><span id="skin-theme-beta-notice"><a href="https://www.mediawiki.org/wiki/Reading/Web/Accessibility_for_reading/Reporting/meta.wikimedia.org?section=new&amp;action=submit&amp;preloadtitle=[https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth2%20OAuthConsumerRegistration/propose/oauth2]%20dark%20mode%20error&amp;preload=MediaWiki:vector-night-mode-issue-reporting-preload-content" target="_blank" title="Report when dark mode colors make things difficult to read.">Report an issue with dark mode</a></span></div></li></ul><span class="skin-client-pref-exclusion-notice">This page is always in light mode.</span></div></div></div>
+
+							</div>
+		</nav>
+					</div>
+				</div>
+				<div id="bodyContent" class="vector-body" aria-labelledby="firstHeading" data-mw-ve-target-container="">
+					<div class="vector-body-before-content">
+					
+						
+					</div>
+					<div id="contentSub"><div id="mw-content-subtitle"><strong>Navigation:</strong> [<a href="https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth1a" title="Special:OAuthConsumerRegistration/propose/oauth1a">Propose new OAuth 1.0a consumer</a> | Propose new OAuth 2.0 client | <a href="https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/list" title="Special:OAuthConsumerRegistration/list">My consumer list</a>] <strong>(<a href="https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration" title="Special:OAuthConsumerRegistration">Main</a>)</strong></div></div>
+					
+					
+					<div id="mw-content-text" class="mw-body-content"><p>Your OAuth 2.0 client has been created.
+</p><p>Your tokens are:
+</p>
+<dl><dt>Client application key</dt>
+<dd>aa47ee91425e64479d40dd2f0f0e0eff</dd>
+<dt>Client application secret</dt>
+<dd>3bb9f95b611d0d3ba17da69763f6bea3cae49549</dd>
+<dt>Access token</dt>
+<dd><span style="overflow-wrap: break-word">eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhYTQ3ZWU5MTQyNWU2NDQ3OWQ0MGRkMmYwZjBlMGVmZiIsImp0aSI6IjhlMDQ2ZjMyYjk1NGY2MTRjYzg5ODkwODg2YmY5YzEwZDkzYmQwNTgyOWQ0ZWYwZWJhZDgyMmE1NjcwYTQ5NTNjNDk5YWVkNzFmZDJjZTMyIiwiaWF0IjoxNzU3ODQ2NDcwLjYwNDI1MywibmJmIjoxNzU3ODQ2NDcwLjYwNDI1NCwiZXhwIjozMzMxNDc1NTI3MC42MDE2NjUsInN1YiI6IjE3MjgyMDA2IiwiaXNzIjoiaHR0cHM6Ly9tZXRhLndpa2ltZWRpYS5vcmciLCJyYXRlbGltaXQiOnsicmVxdWVzdHNfcGVyX3VuaXQiOjUwMDAsInVuaXQiOiJIT1VSIn0sInNjb3BlcyI6WyJiYXNpYyIsImhpZ2h2b2x1bWUiLCJjcmVhdGVlZGl0bW92ZXBhZ2UiLCJ1cGxvYWRmaWxlIiwidXBsb2FkZWRpdG1vdmVmaWxlIl19.m5mpney7aPciGTrGEr1g667PPsaWTxwpLpLlGfy5XSRD3b-U9ikEWsKRI-WTp5E75WUsfFqSAokCRQg1Kgf5Re5Pj8-SOJ7Bwodkn74Ux2NrdOgIfutTaGRUVUSFiqyrbavoFie5vyYG5Ii7NG3ZUW1rXzEmIvZcy9CMGwgFgBpEaL5K-tD4XZKuBGWRtN1DkHuIZWh6M4SYjQzKmUijHrLaeCkt9PhjMQQD0z1rCrBqgQY0oSIJ3Kap36BHco4ZCNep5BKeJJBUO40igQ0AJeiFBeTseqiOyNkvE26XbZJMmpSh4NVaH2uELABnr2cvtYhE99EpW-sPc_xrVvSGyRPJ31vc8P7mNAKX9ddAejxqiqq31sgwXYwYocnHLbykpFb8ykI74zEGl9tDcm69MEv8qwih0peFgWucSaVAfFAlrCALpDjZ5rejJAW9PNKd0CXWrU4xD767jNNn2yV6Y2R2NsfHb86o69heEKh4R9cybh_MHEwyxNOj9Yfh1S-01A-DH0ny24HX2SJ2eLLWDR0ItRsZL-xTB57jBT3hstE2uilLE3d2vOckwcsdll14NNnZAGnb5_YhsF8F_j4oXWoBsUdCPwb-IsBM3fv2fIqFoJFX2T_9HoE5cfC5NvN5TAvuvB8AZAsNRn5N6Uz6oSKHB4mcoY8_b028EE70QCs</span></dd>
+<dt><em>Please record these for future reference.</em></dt></dl><p id="mw-returnto">Return to <a href="https://meta.wikimedia.org/wiki/Special:MyLanguage/Main_Page" title="Special:MyLanguage/Main Page">Special:MyLanguage/Main Page</a>.</p>
+
+<div class="printfooter" data-nosnippet="">Retrieved from "<a dir="ltr" href="https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth2">https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth2</a>"</div></div>
+					<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer">
+	<ul id="footer-info">
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="https://meta.wikimedia.org/wiki/Meta:About">About Meta-Wiki</a></li>
+	<li id="footer-places-disclaimers"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:General_disclaimer">Disclaimers</a></li>
+	<li id="footer-places-wm-codeofconduct"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Universal_Code_of_Conduct">Code of Conduct</a></li>
+	<li id="footer-places-developers"><a href="https://developer.wikimedia.org/">Developers</a></li>
+	<li id="footer-places-statslink"><a href="https://stats.wikimedia.org/#/meta.wikimedia.org">Statistics</a></li>
+	<li id="footer-places-cookiestatement"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Cookie_statement">Cookie statement</a></li>
+	<li id="footer-places-mobileview"><a href="https://meta.m.wikimedia.org/w/index.php?title=Special:OAuthConsumerRegistration/propose/oauth2&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://www.wikimedia.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><picture><source media="(min-width: 500px)" srcset="OAuth%20consumer%20registration%20-%20Meta-Wiki_files/wikimedia-button.svg 1x" width="84" height="29"></picture></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><picture><source media="(min-width: 500px)" srcset="OAuth%20consumer%20registration%20-%20Meta-Wiki_files/poweredby_mediawiki.svg 1x" width="88" height="31"></picture></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+<div class="vector-header-container vector-sticky-header-container no-font-mode-scale">
+	<div id="vector-sticky-header" class="vector-sticky-header">
+		<div class="vector-sticky-header-start">
+			<div class="vector-sticky-header-icon-start vector-button-flush-left vector-button-flush-right" aria-hidden="true">
+				<button class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-sticky-header-search-toggle" tabindex="-1" data-event-name="ui.vector-sticky-search-form.icon"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search"></span>
+
+<span>Search</span>
+			</button>
+		</div>
+			
+		<div role="search" class="vector-search-box-vue  vector-search-box-show-thumbnail vector-search-box">
+			<div class="vector-typeahead-search-container">
+				<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail">
+					<form action="/w/index.php" id="vector-sticky-search-form" class="cdx-search-input cdx-search-input--has-end-button">
+						<div class="cdx-search-input__input-wrapper" data-search-loc="header-moved">
+							<div class="cdx-text-input cdx-text-input--has-start-icon">
+								<input class="cdx-text-input__input mw-searchInput" autocomplete="off" type="search" name="search" placeholder="Search Meta-Wiki">
+								<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+							</div>
+							<input type="hidden" name="title" value="Special:Search">
+						</div>
+						<button class="cdx-button cdx-search-input__end-button">Search</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="vector-sticky-header-context-bar">
+				<div class="vector-sticky-header-context-bar-primary" aria-hidden="true">OAuth consumer registration</div>
+			</div>
+		</div>
+		<div class="vector-sticky-header-end" aria-hidden="true">
+			<div class="vector-sticky-header-icons">
+				<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-talk-sticky-header" tabindex="-1" data-event-name="talk-sticky-header"><span class="vector-icon mw-ui-icon-speechBubbles mw-ui-icon-wikimedia-speechBubbles"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-subject-sticky-header" tabindex="-1" data-event-name="subject-sticky-header"><span class="vector-icon mw-ui-icon-article mw-ui-icon-wikimedia-article"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-history-sticky-header" tabindex="-1" data-event-name="history-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-history mw-ui-icon-wikimedia-wikimedia-history"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only mw-watchlink" id="ca-watchstar-sticky-header" tabindex="-1" data-event-name="watch-sticky-header" aria-controls="mw-watchlink-notification"><span class="vector-icon mw-ui-icon-wikimedia-star mw-ui-icon-wikimedia-wikimedia-star"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only reading-lists-bookmark" id="ca-bookmark-sticky-header" tabindex="-1" data-event-name="watch-sticky-bookmark"><span class="vector-icon mw-ui-icon-wikimedia-bookmarkOutline mw-ui-icon-wikimedia-wikimedia-bookmarkOutline"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-edit-sticky-header" tabindex="-1" data-event-name="wikitext-edit-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-wikiText mw-ui-icon-wikimedia-wikimedia-wikiText"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-ve-edit-sticky-header" tabindex="-1" data-event-name="ve-edit-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-edit mw-ui-icon-wikimedia-wikimedia-edit"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-viewsource-sticky-header" tabindex="-1" data-event-name="ve-edit-protected-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-editLock mw-ui-icon-wikimedia-wikimedia-editLock"></span>
+
+<span></span>
+			</a>
+		</div>
+			<div class="vector-sticky-header-buttons">
+				<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--action-progressive" id="ca-addsection-sticky-header" tabindex="-1" data-event-name="addsection-sticky-header"><span class="vector-icon mw-ui-icon-speechBubbleAdd-progressive mw-ui-icon-wikimedia-speechBubbleAdd-progressive"></span>
+
+<span>Add topic</span>
+			</a>
+		</div>
+			<div class="vector-sticky-header-icon-end">
+				<div class="vector-user-links">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="mw-portlet mw-portlet-dock-bottom emptyPortlet" id="p-dock-bottom">
+	<ul>
+		
+	</ul>
+</div>
+
+
+<div id="mw-teleport-target" class="vector-body"></div></body></html>

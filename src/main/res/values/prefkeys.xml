@@ -67,6 +67,7 @@
     <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_selectCameraApp_key">selectCameraApp</string>
     <string name="config_useInternalPhotoViewer_key">useInternalPhotoViewer</string>
+    <string name="config_imageStores_key">imageStores</string>
     <string name="config_generateAlerts_key">generateAlerts</string>
     <string name="config_groupAlertsOnly_key">groupAlertsOnly</string>
     <string name="config_enableLightTheme_key">enableLightTheme</string>
@@ -149,6 +150,7 @@
     <string name="config_maxCircleSegment_key">maxCircleSegment</string>
     <string name="config_minCircleSegment_key">minCircleSegment</string>
     <string name="config_replaceTolerance_key">replaceTolerance</string>
+    <string name="config_imageLicence_key">imageLicence</string>
     <!-- Last directories used in the file selector -->
     <string name="config_gpxPreferredDir_key">gpxPreferredDir</string>
     <string name="config_osmPreferredDir_key">osmPreferredDir</string>

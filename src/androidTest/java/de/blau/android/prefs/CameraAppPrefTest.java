@@ -82,15 +82,15 @@ public class CameraAppPrefTest {
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
         instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
 
-        if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_advancedprefs), new UiSelector().scrollable(true))) {
+        if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_advancedprefs), new UiSelector().scrollable(true), 0)) {
             fail("Didn't find " + main.getString(R.string.config_advancedprefs));
         }
 
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_advancedprefs), true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.config_advancedprefs)));
 
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_category_view), true, false));
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.config_category_view)));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_category_camera_and_images), true, false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.config_category_camera_and_images)));
 
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_selectCameraApp_title), true, false));
 

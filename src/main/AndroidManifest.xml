@@ -156,6 +156,11 @@
             android:label="@string/manage_geocoders"
             android:theme="@style/Theme.custom" />
         <activity
+            android:name=".prefs.ImageStorageEditorActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:label="@string/manage_image_stores"
+            android:theme="@style/Theme.custom" />
+        <activity
             android:name=".prefs.VespucciURLActivity"
             android:exported="true"
             tools:ignore="ExportedActivity" >
@@ -319,6 +324,16 @@
             android:name=".util.DownloadActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".imagestore.PanoramaxAuthorize"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".imagestorage.WikimediaCommonsAuthorize"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat" />
 
         <receiver

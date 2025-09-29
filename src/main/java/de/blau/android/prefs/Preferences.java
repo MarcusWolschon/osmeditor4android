@@ -155,6 +155,7 @@ public class Preferences {
     private final double      minCircleSegment;
     private final Set<String> poiKeys;
     private final double      replaceTolerance;
+    private String            imageLicence;
 
     public static final String DEFAULT_MAP_STYLE     = "Color Round Nodes";
     public static final String DEFAULT_PEN_MAP_STYLE = "Pen Round Nodes";
@@ -343,6 +344,8 @@ public class Preferences {
         poiKeys = prefs.getStringSet(r.getString(R.string.config_poi_keys_key), new HashSet<>(Arrays.asList(r.getStringArray(R.array.poi_keys_defaults))));
 
         replaceTolerance = getFloatFromStringPref(R.string.config_replaceTolerance_key, 1.0f);
+
+        imageLicence = prefs.getString(r.getString(R.string.config_imageLicence_key), r.getString(R.string.licence_cc_by_4_value));
     }
 
     /**
@@ -2083,6 +2086,26 @@ public class Preferences {
 
     public void setApplyWithOptionalTags(@NonNull Context ctx, @NonNull PresetItem item, boolean enable) {
         putBoolean(USE_OPTIONAL_PREF + getPresetElementPath(ctx, item), enable);
+    }
+
+    /**
+     * Get the current image licence template
+     * 
+     * @return a String with the template
+     */
+    @NonNull
+    public String getImageLicence() {
+        return imageLicence;
+    }
+
+    /**
+     * Set the current licence
+     * 
+     * @param licence the new licence
+     */
+    public void setImageLicence(@NonNull String licence) {
+        this.imageLicence = licence;
+        putString(R.string.config_imageLicence_key, licence);
     }
 
     /**

@@ -97,7 +97,7 @@ public class ValidationPrefTest {
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
         instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
 
-        if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_validatorprefs_title), new UiSelector().scrollable(true))) {
+        if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_validatorprefs_title), new UiSelector().scrollable(true), 0)) {
             fail("Didn't find " + main.getString(R.string.config_validatorprefs_title));
         }
 
@@ -134,7 +134,7 @@ public class ValidationPrefTest {
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
         instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
 
-        if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_validatorprefs_title), new UiSelector().scrollable(true))) {
+        if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_validatorprefs_title), new UiSelector().scrollable(true), 0)) {
             fail("Didn't find " + main.getString(R.string.config_validatorprefs_title));
         }
 
@@ -190,7 +190,7 @@ public class ValidationPrefTest {
 
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_validatorprefs_title), true));
 
-        if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_enabledValidations_title), new UiSelector().scrollable(true))) {
+        if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_enabledValidations_title), new UiSelector().scrollable(true), 0)) {
             fail("Didn't find " + main.getString(R.string.config_enabledValidations_title));
         }
 
