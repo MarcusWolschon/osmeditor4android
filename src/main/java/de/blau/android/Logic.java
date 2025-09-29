@@ -1202,6 +1202,10 @@ public class Logic {
         }
         List<Node> filteredNodes = new ArrayList<>();
         for (Node n : nodes) {
+            // force caching of way node results
+            for (Way w : getWaysForNode(n)) {
+                filter.include(w, false);
+            }
             if (filter.include(n, false)) {
                 filteredNodes.add(n);
             }
