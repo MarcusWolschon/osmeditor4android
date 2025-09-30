@@ -174,10 +174,7 @@ public class UploadImage {
                         ScreenMessage.toastTopInfo(context, context.getString(R.string.toast_upload_to_success, configuration.name));
                         switch (action.getAction()) {
                         case ADDTOELEMENT:
-                            OsmElement element = App.getDelegator().getOsmElement(action.getElementType(), action.getId());
-                            Map<String, String> tags = new HashMap<>(element.getTags());
-                            imageStore.addTag(url, tags);
-                            App.getLogic().setTags((Activity) context, element, tags);
+                            addTagAndUrl(context, action, imageStore, url);
                             break;
                         case ADDTONOTE:
                         default:
@@ -218,6 +215,30 @@ public class UploadImage {
             return;
         }
         uploader.execute();
+    }
+
+    /**
+     * Add the url to the osm element
+     * 
+     * @param context an Android Context
+     * @param action the action
+     * @param imageStore the ImageStorage instance
+     * @param url the url
+     */
+    private static void addTagAndUrl(@NonNull Context context, @NonNull ImageAction action, @NonNull final ImageStorage imageStore, @NonNull String url) {
+        final String elementType = action.getElementType();
+        if (elementType == null) {
+            Log.e(DEBUG_TAG, "addTagAndUrl null elementType");
+            return;
+        }
+        OsmElement element = App.getDelegator().getOsmElement(elementType, action.getId());
+        if (element == null) {
+            Log.e(DEBUG_TAG, "addTagAndUrl element " + elementType + " " + action.getId() + " not found");
+            return;
+        }
+        Map<String, String> tags = new HashMap<>(element.getTags());
+        imageStore.addTag(url, tags);
+        App.getLogic().setTags((Activity) context, element, tags);
     }
 
     private static ImageStorage getImageStore(ImageStorageConfiguration configuration) {
