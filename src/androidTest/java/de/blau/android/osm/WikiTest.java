@@ -82,6 +82,7 @@ public class WikiTest {
         TestUtils.loadTestData(main, "test2.osm");
         App.getTaskStorage().reset();
         TestUtils.stopEasyEdit(main);
+        TestUtils.unlock(device);;
     }
 
     /**
@@ -89,6 +90,7 @@ public class WikiTest {
      */
     @After
     public void teardown() {
+        device.pressBack();
         try {
             mockServer.server().shutdown();
         } catch (IOException ioex) {
@@ -117,11 +119,10 @@ public class WikiTest {
         mockServer.enqueue("dummy_page");
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_menu_mapfeatures), true));
         
-        assertTrue(TestUtils.findText(device, false, "Dummy page", 60000));
-        
         try {
             mockServer.takeRequest();
             RecordedRequest request = mockServer.takeRequest();
+            assertTrue(TestUtils.findText(device, false, "Dummy page", 60000));
             assertTrue(request.getPath().endsWith("EN:Tag:place=village"));
         } catch (InterruptedException e) {
             fail(e.getMessage());
@@ -148,11 +149,10 @@ public class WikiTest {
         mockServer.enqueue("dummy_page");
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_menu_mapfeatures), true));
         
-        assertTrue(TestUtils.findText(device, false, "Dummy page", 60000));
-        
         try {
             mockServer.takeRequest();
             RecordedRequest request = mockServer.takeRequest();
+            assertTrue(TestUtils.findText(device, false, "Dummy page", 60000));
             assertTrue(request.getPath().endsWith("EN-US:Map_Features"));
         } catch (InterruptedException e) {
             fail(e.getMessage());
