@@ -21,6 +21,7 @@ import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ImageLoader;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Util;
 
 /**
@@ -94,7 +95,8 @@ public class PhotoViewerActivity<T extends Serializable> extends ConfigurationCh
             wrap = Util.getSerializableExtra(getIntent(), PhotoViewerFragment.WRAP_KEY, Boolean.class);
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
-            photoList = Util.getSerializeable(savedInstanceState, PhotoViewerFragment.PHOTO_LIST_KEY, ArrayList.class);
+            String photoListFilename = savedInstanceState.getString(PhotoViewerFragment.PHOTO_LIST_KEY);
+            photoList = new SavingHelper<ArrayList<T>>().load(this, photoListFilename, true);
             startPos = savedInstanceState.getInt(PhotoViewerFragment.START_POS_KEY);
             photoLoader = Util.getSerializeable(savedInstanceState, PhotoViewerFragment.PHOTO_LOADER_KEY, ImageLoader.class);
             wrap = savedInstanceState.getBoolean(PhotoViewerFragment.WRAP_KEY);
@@ -150,11 +152,17 @@ public class PhotoViewerActivity<T extends Serializable> extends ConfigurationCh
     @SuppressWarnings("unchecked")
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+        // NOSONAR don't call super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
-        outState.putSerializable(PhotoViewerFragment.PHOTO_LIST_KEY, photoList);
         Fragment f = getSupportFragmentManager().findFragmentById(android.R.id.content);
-        outState.putInt(PhotoViewerFragment.START_POS_KEY, f != null ? ((PhotoViewerFragment<T>) f).getCurrentPosition() : startPos);
+        if (f == null) {
+            Log.e(DEBUG_TAG, "Couldn't locate fragment");
+            return;
+        }
+        String listFilename = ((PhotoViewerFragment<T>) f).photoListFilename();
+        new SavingHelper<ArrayList<T>>().save(this, listFilename, photoList, true);
+        outState.putString(PhotoViewerFragment.PHOTO_LIST_KEY, listFilename);
+        outState.putInt(PhotoViewerFragment.START_POS_KEY, ((PhotoViewerFragment<T>) f).getCurrentPosition());
         outState.putSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY, photoLoader);
         outState.putBoolean(PhotoViewerFragment.WRAP_KEY, wrap);
     }

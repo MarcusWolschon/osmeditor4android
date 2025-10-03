@@ -53,6 +53,7 @@ import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ImageLoader;
 import de.blau.android.util.ImagePagerAdapter;
 import de.blau.android.util.OnPageSelectedListener;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SizedDynamicDialogFragment;
 import de.blau.android.util.ThemeUtils;
@@ -393,7 +394,8 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
             wrap = getArguments().getBoolean(WRAP_KEY, true);
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
-            photoList = Util.getSerializeable(savedInstanceState, PhotoViewerFragment.PHOTO_LIST_KEY, ArrayList.class);
+            String photoListFilename = savedInstanceState.getString(PhotoViewerFragment.PHOTO_LIST_KEY);
+            photoList = new SavingHelper<ArrayList<T>>().load(getContext(), photoListFilename, true);
             startPos = savedInstanceState.getInt(START_POS_KEY);
             photoLoader = Util.getSerializeable(savedInstanceState, PHOTO_LOADER_KEY, ImageLoader.class);
             wrap = savedInstanceState.getBoolean(WRAP_KEY);
@@ -551,13 +553,22 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
-        outState.putSerializable(PHOTO_LIST_KEY, (ArrayList<T>) photoList);
+        String listFilename = photoListFilename();
+        new SavingHelper<ArrayList<T>>().save(getContext(), listFilename, new ArrayList<>(photoList), true);
+        outState.putString(PhotoViewerFragment.PHOTO_LIST_KEY, listFilename);
         // there seems to be a situation in which this is called before viewPager is created
         outState.putInt(START_POS_KEY, viewPager != null ? viewPager.getCurrentItem() : 0);
         if (!photoLoader.equals(defaultLoader)) {
             outState.putSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY, photoLoader);
         }
         outState.putBoolean(WRAP_KEY, wrap);
+    }
+
+    /**
+     * @return the file name under which we save the list
+     */
+    String photoListFilename() {
+        return photoLoader.getClass().getCanonicalName() + ".res";
     }
 
     /**
