@@ -127,6 +127,7 @@ nav:
     - 'Mapbox-GL Style Support': 'tutorials/mapbox-style.md'
     - 'Todo file format description': 'tutorials/todos.md'
     - 'Dealing with failed uploads': 'tutorials/failed_uploads.md'
+    - 'Configuring image storage locations': 'tutorials/setting_up_image_storage_locations.md'
 - Videos & Screenshots: 'tutorials/screenshots.md'
 - FAQ: 'tutorials/faq.md'
 - Privacy: 'help/en/Privacy.md'
