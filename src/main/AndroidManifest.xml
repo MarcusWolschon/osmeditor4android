@@ -326,7 +326,7 @@
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat" />
         <activity
-            android:name=".imagestore.PanoramaxAuthorize"
+            android:name=".imagestorage.PanoramaxAuthorize"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat" />
