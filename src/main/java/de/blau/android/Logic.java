@@ -926,10 +926,14 @@ public class Logic {
             // a better thing to sort on would be the area the relation covers, but number of members is probably
             // a reasonable proxy
             Collections.sort(sortedParents, (Relation r1, Relation r2) -> Integer.compare(r1.getMemberCount(), r2.getMemberCount()));
-            for (Relation r : sortedParents) {
-                if (!relations.contains(r)) { // using a set is likely slower
-                    relations.add(r);
-                    nextLevel.add(r);
+            for (Relation parent : sortedParents) {
+                if (!relations.contains(parent)) { // using a set is likely slower
+                    // ignore relation parents if we are a subarea member of them
+                    if (e instanceof Relation && isSubarea(parent, parent.getMember(e))) {
+                        continue;
+                    }
+                    relations.add(parent);
+                    nextLevel.add(parent);
                 }
             }
         }
@@ -5899,7 +5903,8 @@ public class Logic {
                         break;
                     case Relation.NAME:
                         // break recursion if already selected or max depth exceeded
-                        if ((selectedRelationRelations == null || !selectedRelationRelations.contains(e)) && depth <= MAX_RELATION_SELECTION_DEPTH) {
+                        if ((selectedRelationRelations == null || !selectedRelationRelations.contains(e)) && depth <= MAX_RELATION_SELECTION_DEPTH
+                                && !isSubarea(r, rm)) {
                             addSelectedRelationRelation((Relation) e, depth);
                         }
                         break;
@@ -5911,6 +5916,17 @@ public class Logic {
         } finally {
             unlock();
         }
+    }
+
+    /**
+     * CHeck if a relation member is a subarea of a parent relation
+     * 
+     * @param parent the parent relation
+     * @param rm the relation member
+     * @return true if rm is a subarea
+     */
+    private boolean isSubarea(@NonNull Relation parent, @Nullable RelationMember rm) {
+        return rm != null && Tags.KEY_BOUNDARY.equals(parent.getTagWithKey(Tags.KEY_TYPE)) && Tags.ROLE_SUBAREA.equals(rm.getRole());
     }
 
     /**

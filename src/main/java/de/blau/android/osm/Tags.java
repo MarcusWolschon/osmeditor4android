@@ -224,6 +224,7 @@ public final class Tags {
     public static final String KEY_BOUNDARY           = "boundary";
     public static final String ROLE_OUTER             = "outer";
     public static final String ROLE_INNER             = "inner";
+    public static final String ROLE_SUBAREA           = "subarea";
 
     /**
      * Check if a relation member element should be treated as a via element
