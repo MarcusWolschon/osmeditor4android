@@ -31,8 +31,10 @@ import de.blau.android.util.ScreenMessage;
 
 public class TakePicture extends ActivityResultContract<ImageAction, Boolean> {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TakePicture.class.getSimpleName().length());
-    private static final String DEBUG_TAG = TakePicture.class.getSimpleName().substring(0, TAG_LEN);
+    private static final String UNICODE_WHITE_SPACE = "\\p{IsWhiteSpace}+";
+    private static final String UNDERSCORE          = "_";
+    private static final int    TAG_LEN             = Math.min(LOG_TAG_LEN, TakePicture.class.getSimpleName().length());
+    private static final String DEBUG_TAG           = TakePicture.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String HEIC_MAGIC = "ftypheic";
 
@@ -84,10 +86,14 @@ public class TakePicture extends ActivityResultContract<ImageAction, Boolean> {
     @NonNull
     private File generateImageFile() throws IOException {
         File outDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_PICTURES);
-        String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
-        // this forces the extension to jpg, but it could be a HEIC image, but we can rename once the image has been
+        String imageFilename = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
+        String actionFilename = action.getFilename();
+        if (actionFilename != null) {
+            imageFilename = actionFilename.replaceAll(UNICODE_WHITE_SPACE, UNDERSCORE).toLowerCase() + UNDERSCORE + imageFilename;
+        }
+        // this forces the extension to jpg, however it could be a HEIC image, but we can rename once the image has been
         // taken
-        return File.createTempFile(imageFileName, "." + FileExtensions.JPG, outDir);
+        return File.createTempFile(imageFilename, "." + FileExtensions.JPG, outDir);
     }
 
     /**

@@ -509,6 +509,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         ImageAction action = new ImageAction(ImageAction.Action.ADDTOELEMENT);
         action.setElementType(element.getName());
         action.setId(element.getOsmId());
+        action.setFilename(element.getTagWithKey(Tags.KEY_NAME));
         return action;
     }
 
