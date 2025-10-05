@@ -167,6 +167,9 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
         case MENU_ITEM_DESELECT_ALL:
             ((PropertyRows) caller).deselectAllRows();
             break;
+        case MENU_ITEM_INVERT_SELECTION:
+            ((PropertyRows) caller).invertSelectedRows();
+            break;
         case MENU_ITEM_HELP:
             HelpViewer.start(caller.getActivity(), R.string.help_propertyeditor);
             break;

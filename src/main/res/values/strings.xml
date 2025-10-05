@@ -963,6 +963,7 @@
     <string name="menu_top">Top</string>
     <string name="menu_select_all">Select all</string>
     <string name="menu_deselect_all">Deselect all</string>
+    <string name="menu_invert_selection">Invert selection</string>
     <string name="menu_preset_help">Preset help</string>
     <string name="internationalized_hint">%1$s (%2$s)</string>
     <string name="tag_menu_i18n">Add language variants</string>

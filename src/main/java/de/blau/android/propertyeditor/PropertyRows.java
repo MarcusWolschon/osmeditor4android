@@ -21,4 +21,9 @@ interface PropertyRows {
      * Deselect all rows
      */
     void deselectAllRows();
+
+    /**
+     * Invert which rows are selected
+     */
+    void invertSelectedRows();
 }

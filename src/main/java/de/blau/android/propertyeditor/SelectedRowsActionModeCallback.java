@@ -57,9 +57,10 @@ class SelectedRowsActionModeCallback implements Callback {
 
     static final int MENU_ITEM_DELETE = 1;
 
-    static final int MENU_ITEM_SELECT_ALL   = 13;
-    static final int MENU_ITEM_DESELECT_ALL = 14;
-    static final int MENU_ITEM_HELP         = 20;
+    static final int MENU_ITEM_SELECT_ALL       = 13;
+    static final int MENU_ITEM_DESELECT_ALL     = 14;
+    static final int MENU_ITEM_INVERT_SELECTION = 15;
+    static final int MENU_ITEM_HELP             = 20;
 
     ActionMode currentAction;
 
@@ -105,6 +106,8 @@ class SelectedRowsActionModeCallback implements Callback {
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_DESELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_deselect_all)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_INVERT_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_invert_selection)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help)
                 .setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_help));
         return true;
@@ -138,6 +141,9 @@ class SelectedRowsActionModeCallback implements Callback {
             return true;
         case MENU_ITEM_DESELECT_ALL:
             ((PropertyRows) caller).deselectAllRows();
+            return true;
+        case MENU_ITEM_INVERT_SELECTION:
+            ((PropertyRows) caller).invertSelectedRows();
             return true;
         case MENU_ITEM_HELP:
             HelpViewer.start(caller.getActivity(), R.string.help_propertyeditor);

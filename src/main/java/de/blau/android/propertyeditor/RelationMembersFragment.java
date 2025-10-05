@@ -912,32 +912,37 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
 
     @Override
     public void selectAllRows() { // selects all members
-        final View rowLayout = getOurView();
-        rowLayout.post( // as there can be a very large number of rows don't do it here
-                () -> {
-                    for (MemberEntry m : membersInternal) {
-                        if (m.enabled) {
-                            m.selected = true;
-                        }
-                    }
-                    adapter.notifyDataSetChanged();
-                    memberSelected();
-                });
+        setSelectedRows((boolean current) -> true);
+        memberSelected();
     }
 
-    @Override
-    public void deselectAllRows() { // deselects all members
+    /**
+     * iterate over all rows and set the selection status
+     * 
+     * @param change method that sets the selection status
+     */
+    private void setSelectedRows(@NonNull final ChangeSelectionStatus change) {
         final View rowLayout = getOurView();
         rowLayout.post( // as there can be a very large number of rows don't do it here
                 () -> {
                     for (MemberEntry m : membersInternal) {
                         if (m.enabled) {
-                            m.selected = false;
+                            m.selected = change.set(m.selected);
                         }
                     }
                     adapter.notifyDataSetChanged();
                     deselectRow();
                 });
+    }
+
+    @Override
+    public void deselectAllRows() { // deselects all members
+        setSelectedRows((boolean current) -> false);
+    }
+
+    @Override
+    public void invertSelectedRows() {
+        setSelectedRows((boolean current) -> !current);
     }
 
     /**

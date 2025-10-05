@@ -25,6 +25,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
@@ -268,15 +269,27 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
 
         row.roleEdit.addTextChangedListener(new SanitizeTextWatcher(getActivity(), maxStringLength));
 
-        row.selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        row.selected.setOnCheckedChangeListener(getOnCheckedChangeListener(row));
+
+        return row;
+    }
+
+    /**
+     * Construct the OnCheckedChangeListener for a row
+     * 
+     * @param row the row
+     * @return an OnCheckedChangeListener
+     */
+    @NonNull
+    private OnCheckedChangeListener getOnCheckedChangeListener(@NonNull RelationMembershipRow row) {
+        return (buttonView, isChecked) -> {
+            Log.d(DEBUG_TAG, "onCheckedChangedListener value " + isChecked);
             if (isChecked) {
                 parentSelected();
             } else {
                 deselectRow();
             }
-        });
-
-        return row;
+        };
     }
 
     static class RelationHolder implements Enabled {
@@ -571,7 +584,18 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
 
         @Override
         public void select() {
-            selected.setChecked(true);
+            setRowSelected(true);
+        }
+
+        /**
+         * Set the row to checked/non-checked state
+         *
+         * @param state target state
+         */
+        public void setRowSelected(boolean state) {
+            selected.setOnCheckedChangeListener(null);
+            selected.setChecked(state);
+            selected.setOnCheckedChangeListener(owner.getOnCheckedChangeListener(this));
         }
 
         // return the status of the checkbox
@@ -582,7 +606,8 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
 
         @Override
         public void deselect() {
-            selected.setChecked(false);
+            setRowSelected(false);
+            owner.deselectRow();
         }
 
         /**
@@ -647,27 +672,35 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
     }
 
     @Override
-    public void selectAllRows() { // select all parents
+    public void selectAllRows() {
+        setSelectedRows((boolean current) -> true);
+    }
+
+    /**
+     * iterate over all rows and set the selection status
+     * 
+     * @param change method that sets the selection status
+     */
+    private void setSelectedRows(@NonNull final ChangeSelectionStatus change) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
         int i = rowLayout.getChildCount();
         while (--i >= 0) {
             RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(i);
-            if (row.selected.isEnabled()) {
-                row.selected.setChecked(true);
+            final CheckBox selected = row.selected;
+            if (selected.isEnabled()) {
+                row.setSelected(change.set(selected.isChecked()));
             }
         }
     }
 
     @Override
-    public void deselectAllRows() { // // select all parents
-        LinearLayout rowLayout = (LinearLayout) getOurView();
-        int i = rowLayout.getChildCount();
-        while (--i >= 0) {
-            RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(i);
-            if (row.selected.isEnabled()) {
-                row.selected.setChecked(false);
-            }
-        }
+    public void deselectAllRows() {
+        setSelectedRows((boolean current) -> false);
+    }
+
+    @Override
+    public void invertSelectedRows() {
+        setSelectedRows((boolean current) -> !current);
     }
 
     /**
