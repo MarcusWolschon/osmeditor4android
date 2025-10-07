@@ -2,6 +2,9 @@ package de.blau.android.dialogs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -28,6 +31,99 @@ public class ErrorAlert extends CancelableDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ErrorAlert.class.getSimpleName().length());
     private static final String DEBUG_TAG = ErrorAlert.class.getSimpleName().substring(0, TAG_LEN);
+
+    private static final Map<Integer, String>  TAGS     = new HashMap<>();
+    private static final Map<Integer, Integer> TITLES   = new HashMap<>();
+    private static final Map<Integer, Integer> MESSAGES = new HashMap<>();
+    static {
+        TAGS.put(ErrorCodes.NO_LOGIN_DATA, "alert_no_login_data");
+        TITLES.put(ErrorCodes.NO_LOGIN_DATA, R.string.no_login_data_title);
+        MESSAGES.put(ErrorCodes.NO_LOGIN_DATA, R.string.no_login_data_message);
+        TAGS.put(ErrorCodes.NO_CONNECTION, "alert_no_connection");
+        TITLES.put(ErrorCodes.NO_CONNECTION, R.string.no_connection_title);
+        MESSAGES.put(ErrorCodes.NO_CONNECTION, R.string.no_connection_message);
+        TAGS.put(ErrorCodes.SSL_HANDSHAKE, "ssl_handshake_failed");
+        TITLES.put(ErrorCodes.SSL_HANDSHAKE, R.string.no_connection_title);
+        MESSAGES.put(ErrorCodes.SSL_HANDSHAKE, R.string.ssl_handshake_failed);
+        TAGS.put(ErrorCodes.UPLOAD_PROBLEM, "alert_upload_problem");
+        TITLES.put(ErrorCodes.UPLOAD_PROBLEM, R.string.upload_problem_title);
+        MESSAGES.put(ErrorCodes.UPLOAD_PROBLEM, R.string.upload_problem_message);
+        TAGS.put(ErrorCodes.BAD_REQUEST, "alert_bad_request");
+        TITLES.put(ErrorCodes.BAD_REQUEST, R.string.upload_problem_title);
+        MESSAGES.put(ErrorCodes.BAD_REQUEST, R.string.bad_request_message);
+        TAGS.put(ErrorCodes.DATA_CONFLICT, "alert_data_conflict");
+        TITLES.put(ErrorCodes.DATA_CONFLICT, R.string.data_conflict_title);
+        MESSAGES.put(ErrorCodes.DATA_CONFLICT, R.string.data_conflict_message);
+        TAGS.put(ErrorCodes.API_OFFLINE, "alert_api_offline");
+        TITLES.put(ErrorCodes.API_OFFLINE, R.string.api_offline_title);
+        MESSAGES.put(ErrorCodes.API_OFFLINE, R.string.api_offline_message);
+        TAGS.put(ErrorCodes.OUT_OF_MEMORY, "alert_out_of_memory");
+        TITLES.put(ErrorCodes.OUT_OF_MEMORY, R.string.out_of_memory_title);
+        MESSAGES.put(ErrorCodes.OUT_OF_MEMORY, R.string.out_of_memory_message);
+        TAGS.put(ErrorCodes.OUT_OF_MEMORY_DIRTY, "alert_out_of_memory_dirty");
+        TITLES.put(ErrorCodes.OUT_OF_MEMORY_DIRTY, R.string.out_of_memory_title);
+        MESSAGES.put(ErrorCodes.OUT_OF_MEMORY_DIRTY, R.string.out_of_memory_dirty_message);
+        TAGS.put(ErrorCodes.INVALID_DATA_RECEIVED, "alert_invalid_data_received");
+        TITLES.put(ErrorCodes.INVALID_DATA_RECEIVED, R.string.invalid_data_received_title);
+        MESSAGES.put(ErrorCodes.INVALID_DATA_RECEIVED, R.string.invalid_data_received_message);
+        TAGS.put(ErrorCodes.INVALID_DATA_READ, "alert_invalid_data_read");
+        TITLES.put(ErrorCodes.INVALID_DATA_READ, R.string.invalid_data_read_title);
+        MESSAGES.put(ErrorCodes.INVALID_DATA_READ, R.string.invalid_data_read_message);
+        TAGS.put(ErrorCodes.FILE_WRITE_FAILED, "alert_file_write_failed");
+        TITLES.put(ErrorCodes.FILE_WRITE_FAILED, R.string.file_write_failed_title);
+        MESSAGES.put(ErrorCodes.FILE_WRITE_FAILED, R.string.file_write_failed_message);
+        TAGS.put(ErrorCodes.NAN, "alert_nan");
+        TITLES.put(ErrorCodes.NAN, R.string.location_nan_title);
+        MESSAGES.put(ErrorCodes.NAN, R.string.location_nan_message);
+        TAGS.put(ErrorCodes.INVALID_BOUNDING_BOX, "invalid_bounding_box");
+        TITLES.put(ErrorCodes.INVALID_BOUNDING_BOX, R.string.invalid_bounding_box_title);
+        MESSAGES.put(ErrorCodes.INVALID_BOUNDING_BOX, R.string.invalid_bounding_box_message);
+        TAGS.put(ErrorCodes.BOUNDING_BOX_TOO_LARGE, "bounding_box_too_large");
+        TITLES.put(ErrorCodes.BOUNDING_BOX_TOO_LARGE, R.string.bounding_box_too_large_title);
+        MESSAGES.put(ErrorCodes.BOUNDING_BOX_TOO_LARGE, R.string.bounding_box_too_large_message);
+        TAGS.put(ErrorCodes.INVALID_LOGIN, "invalid_login");
+        TITLES.put(ErrorCodes.INVALID_LOGIN, R.string.wrong_login_data_title);
+        MESSAGES.put(ErrorCodes.INVALID_LOGIN, R.string.wrong_login_data_message);
+        TAGS.put(ErrorCodes.NOT_FOUND, "not_found");
+        TITLES.put(ErrorCodes.NOT_FOUND, R.string.not_found_title);
+        MESSAGES.put(ErrorCodes.NOT_FOUND, R.string.not_found_message);
+        TAGS.put(ErrorCodes.UNKNOWN_ERROR, "unknown");
+        TITLES.put(ErrorCodes.UNKNOWN_ERROR, R.string.unknown_error_title);
+        MESSAGES.put(ErrorCodes.UNKNOWN_ERROR, R.string.unknown_error_message);
+        TAGS.put(ErrorCodes.NO_DATA, "no_data");
+        TITLES.put(ErrorCodes.NO_DATA, R.string.no_data_title);
+        MESSAGES.put(ErrorCodes.NO_DATA, R.string.no_data_message);
+        TAGS.put(ErrorCodes.REQUIRED_FEATURE_MISSING, "required_feature_missing");
+        TITLES.put(ErrorCodes.REQUIRED_FEATURE_MISSING, R.string.required_feature_missing_title);
+        MESSAGES.put(ErrorCodes.REQUIRED_FEATURE_MISSING, R.string.required_feature_missing_message);
+        TAGS.put(ErrorCodes.APPLYING_OSC_FAILED, "applying_osc_failed");
+        TITLES.put(ErrorCodes.APPLYING_OSC_FAILED, R.string.applying_osc_failed_title);
+        MESSAGES.put(ErrorCodes.APPLYING_OSC_FAILED, R.string.applying_osc_failed_message);
+        TAGS.put(ErrorCodes.CORRUPTED_DATA, "alert_corrupt_data");
+        TITLES.put(ErrorCodes.CORRUPTED_DATA, R.string.corrupted_data_title);
+        MESSAGES.put(ErrorCodes.CORRUPTED_DATA, R.string.corrupted_data_message);
+        TAGS.put(ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED, "download_limit_exceeded");
+        TITLES.put(ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED, R.string.download_limit_title);
+        MESSAGES.put(ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED, R.string.download_limit_message);
+        TAGS.put(ErrorCodes.UPLOAD_LIMIT_EXCEEDED, "upload_limit_exceeded");
+        TITLES.put(ErrorCodes.UPLOAD_LIMIT_EXCEEDED, R.string.upload_limit_title);
+        MESSAGES.put(ErrorCodes.UPLOAD_LIMIT_EXCEEDED, R.string.upload_limit_message);
+        TAGS.put(ErrorCodes.DUPLICATE_TAG_KEY, "alert_duplicate_tag_key");
+        TITLES.put(ErrorCodes.DUPLICATE_TAG_KEY, R.string.duplicate_tag_key_title);
+        MESSAGES.put(ErrorCodes.DUPLICATE_TAG_KEY, R.string.duplicate_tag_key_message);
+        TAGS.put(ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE, "alert_bounding_box_too_large");
+        TITLES.put(ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE, R.string.upload_bounding_box_too_large_title);
+        MESSAGES.put(ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE, R.string.upload_bounding_box_too_large_message);
+        TAGS.put(ErrorCodes.TOO_MANY_WAY_NODES, "alert_too_many_way_nodes");
+        TITLES.put(ErrorCodes.TOO_MANY_WAY_NODES, R.string.attempt_to_add_too_many_way_nodes_title);
+        MESSAGES.put(ErrorCodes.TOO_MANY_WAY_NODES, R.string.attempt_to_add_too_many_way_nodes_message);
+        TAGS.put(ErrorCodes.UPLOAD_WAY_NEEDS_ONE_NODE, "alert_way_needs_one_node");
+        TITLES.put(ErrorCodes.UPLOAD_WAY_NEEDS_ONE_NODE, R.string.upload_way_needs_one_node_title);
+        MESSAGES.put(ErrorCodes.UPLOAD_WAY_NEEDS_ONE_NODE, R.string.upload_way_needs_one_node_message);
+        TAGS.put(ErrorCodes.UNAVAILABLE, "alert_service_unavailable");
+        TITLES.put(ErrorCodes.UNAVAILABLE, R.string.upload_unavailable_title);
+        MESSAGES.put(ErrorCodes.UNAVAILABLE, R.string.upload_unavailable_message);
+    }
 
     private static final String TITLE            = "title";
     private static final String MESSAGE          = "message";
@@ -66,7 +162,6 @@ public class ErrorAlert extends CancelableDialogFragment {
      */
     public static void showDialog(@NonNull FragmentActivity activity, int errorCode, @Nullable String msg) {
         dismissDialog(activity, errorCode);
-
         FragmentManager fm = activity.getSupportFragmentManager();
         ErrorAlert alertDialogFragment = newInstance(errorCode, msg);
         try {
@@ -102,67 +197,7 @@ public class ErrorAlert extends CancelableDialogFragment {
      */
     @Nullable
     private static String getTag(int errorCode) {
-        switch (errorCode) {
-        case ErrorCodes.NO_LOGIN_DATA:
-            return "alert_no_login_data";
-        case ErrorCodes.NO_CONNECTION:
-            return "alert_no_connection";
-        case ErrorCodes.SSL_HANDSHAKE:
-            return "ssl_handshake_failed";
-        case ErrorCodes.UPLOAD_PROBLEM:
-            return "alert_upload_problem";
-        case ErrorCodes.BAD_REQUEST:
-            return "alert_bad_request";
-        case ErrorCodes.DATA_CONFLICT:
-            return "alert_data_conflict";
-        case ErrorCodes.API_OFFLINE:
-            return "alert_api_offline";
-        case ErrorCodes.OUT_OF_MEMORY:
-            return "alert_out_of_memory";
-        case ErrorCodes.OUT_OF_MEMORY_DIRTY:
-            return "alert_out_of_memory_dirty";
-        case ErrorCodes.INVALID_DATA_RECEIVED:
-            return "alert_invalid_data_received";
-        case ErrorCodes.INVALID_DATA_READ:
-            return "alert_invalid_data_read";
-        case ErrorCodes.FILE_WRITE_FAILED:
-            return "alert_file_write_failed";
-        case ErrorCodes.NAN:
-            return "alert_nan";
-        case ErrorCodes.INVALID_BOUNDING_BOX:
-            return "invalid_bounding_box";
-        case ErrorCodes.BOUNDING_BOX_TOO_LARGE:
-            return "bounding_box_too_large";
-        case ErrorCodes.INVALID_LOGIN:
-            return "invalid_login";
-        case ErrorCodes.NOT_FOUND:
-            return "not_found";
-        case ErrorCodes.UNKNOWN_ERROR:
-            return "unknown";
-        case ErrorCodes.NO_DATA:
-            return "no_data";
-        case ErrorCodes.REQUIRED_FEATURE_MISSING:
-            return "required_feature_missing";
-        case ErrorCodes.APPLYING_OSC_FAILED:
-            return "applying_osc_failed";
-        case ErrorCodes.CORRUPTED_DATA:
-            return "alert_corrupt_data";
-        case ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED:
-            return "download_limit_exceeded";
-        case ErrorCodes.UPLOAD_LIMIT_EXCEEDED:
-            return "upload_limit_exceeded";
-        case ErrorCodes.DUPLICATE_TAG_KEY:
-            return "alert_duplicate_tag_key";
-        case ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE:
-            return "alert_bounding_box_too_large";
-        case ErrorCodes.TOO_MANY_WAY_NODES:
-            return "alert_too_many_way_nodes";
-        case ErrorCodes.UPLOAD_WAY_NEEDS_ONE_NODE:
-            return "alert_way_needs_one_node";
-        default:
-            // nothing
-        }
-        return null;
+        return TAGS.get(errorCode);
     }
 
     /**
@@ -174,65 +209,8 @@ public class ErrorAlert extends CancelableDialogFragment {
      */
     @Nullable
     private static ErrorAlert newInstance(int errorCode, @Nullable String msg) {
-        switch (errorCode) {
-        case ErrorCodes.NO_LOGIN_DATA:
-            return createNewInstance(R.string.no_login_data_title, R.string.no_login_data_message, msg);
-        case ErrorCodes.NO_CONNECTION:
-            return createNewInstance(R.string.no_connection_title, R.string.no_connection_message, msg);
-        case ErrorCodes.SSL_HANDSHAKE:
-            return createNewInstance(R.string.no_connection_title, R.string.ssl_handshake_failed, msg);
-        case ErrorCodes.UPLOAD_PROBLEM:
-            return createNewInstance(R.string.upload_problem_title, R.string.upload_problem_message, msg);
-        case ErrorCodes.BAD_REQUEST:
-            return createNewInstance(R.string.upload_problem_title, R.string.bad_request_message, msg);
-        case ErrorCodes.DATA_CONFLICT:
-            return createNewInstance(R.string.data_conflict_title, R.string.data_conflict_message, msg);
-        case ErrorCodes.API_OFFLINE:
-            return createNewInstance(R.string.api_offline_title, R.string.api_offline_message, msg);
-        case ErrorCodes.OUT_OF_MEMORY:
-            return createNewInstance(R.string.out_of_memory_title, R.string.out_of_memory_message, msg);
-        case ErrorCodes.OUT_OF_MEMORY_DIRTY:
-            return createNewInstance(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message, msg);
-        case ErrorCodes.INVALID_DATA_RECEIVED:
-            return createNewInstance(R.string.invalid_data_received_title, R.string.invalid_data_received_message, msg);
-        case ErrorCodes.INVALID_DATA_READ:
-            return createNewInstance(R.string.invalid_data_read_title, R.string.invalid_data_read_message, msg);
-        case ErrorCodes.FILE_WRITE_FAILED:
-            return createNewInstance(R.string.file_write_failed_title, R.string.file_write_failed_message, msg);
-        case ErrorCodes.NAN:
-            return createNewInstance(R.string.location_nan_title, R.string.location_nan_message, msg);
-        case ErrorCodes.INVALID_BOUNDING_BOX:
-            return createNewInstance(R.string.invalid_bounding_box_title, R.string.invalid_bounding_box_message, msg);
-        case ErrorCodes.BOUNDING_BOX_TOO_LARGE:
-            return createNewInstance(R.string.bounding_box_too_large_title, R.string.bounding_box_too_large_message, msg);
-        case ErrorCodes.INVALID_LOGIN:
-            return createNewInstance(R.string.wrong_login_data_title, R.string.wrong_login_data_message, msg);
-        case ErrorCodes.NOT_FOUND:
-            return createNewInstance(R.string.not_found_title, R.string.not_found_message, msg);
-        case ErrorCodes.UNKNOWN_ERROR:
-            return createNewInstance(R.string.unknown_error_title, R.string.unknown_error_message, msg);
-        case ErrorCodes.NO_DATA:
-            return createNewInstance(R.string.no_data_title, R.string.no_data_message, msg);
-        case ErrorCodes.REQUIRED_FEATURE_MISSING:
-            return createNewInstance(R.string.required_feature_missing_title, R.string.required_feature_missing_message, msg);
-        case ErrorCodes.APPLYING_OSC_FAILED:
-            return createNewInstance(R.string.applying_osc_failed_title, R.string.applying_osc_failed_message, msg);
-        case ErrorCodes.CORRUPTED_DATA:
-            return createNewInstance(R.string.corrupted_data_title, R.string.corrupted_data_message, msg);
-        case ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED:
-            return createNewInstance(R.string.download_limit_title, R.string.download_limit_message, msg);
-        case ErrorCodes.UPLOAD_LIMIT_EXCEEDED:
-            return createNewInstance(R.string.upload_limit_title, R.string.upload_limit_message, msg);
-        case ErrorCodes.DUPLICATE_TAG_KEY:
-            return createNewInstance(R.string.duplicate_tag_key_title, R.string.duplicate_tag_key_message, msg);
-        case ErrorCodes.UPLOAD_BOUNDING_BOX_TOO_LARGE:
-            return createNewInstance(R.string.upload_bounding_box_too_large_title, R.string.upload_bounding_box_too_large_message, msg);
-        case ErrorCodes.TOO_MANY_WAY_NODES:
-            return createNewInstance(R.string.attempt_to_add_too_many_way_nodes_title, R.string.attempt_to_add_too_many_way_nodes_message, msg);
-        case ErrorCodes.UPLOAD_WAY_NEEDS_ONE_NODE:
-            return createNewInstance(R.string.upload_way_needs_one_node_title, R.string.upload_way_needs_one_node_message, msg);
-        default:
-            // ignore
+        if (TAGS.containsKey(errorCode)) {
+            return createNewInstance(TITLES.get(errorCode), MESSAGES.get(errorCode), msg);
         }
         return null;
     }

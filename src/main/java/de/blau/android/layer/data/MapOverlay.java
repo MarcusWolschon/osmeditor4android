@@ -105,8 +105,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
-    public static final List<Integer> PAUSE_AUTO_DOWNLOAD = Collections
-            .unmodifiableList(Arrays.asList(ErrorCodes.CORRUPTED_DATA, ErrorCodes.DATA_CONFLICT, ErrorCodes.OUT_OF_MEMORY, ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED));
+    public static final List<Integer> PAUSE_AUTO_DOWNLOAD = Collections.unmodifiableList(Arrays.asList(ErrorCodes.CORRUPTED_DATA, ErrorCodes.DATA_CONFLICT,
+            ErrorCodes.OUT_OF_MEMORY, ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED, ErrorCodes.UNAVAILABLE));
 
     private static final int ICON_THREAD_POOL_SIZE = 2;
     public static final int  DATA_THREAD_POOL_SIZE = 3;
