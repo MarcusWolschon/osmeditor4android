@@ -1310,17 +1310,17 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
     private OnCheckedChangeListener getOnCheckedChangeListener(@NonNull TagEditRow row) {
         return (buttonView, isChecked) -> {
             Log.d(DEBUG_TAG, "onCheckedChangedListener value " + isChecked);
-            if (!row.isEmpty()) {
-                if (isChecked) {
-                    tagSelected();
-                } else {
-                    deselectRow();
-                }
-            }
             if (row.isEmpty()) {
                 row.deselect();
+                return;
+            }
+            if (isChecked) {
+                tagSelected();
+            } else {
+                deselectRow();
             }
         };
+
     }
 
     /**
@@ -1529,9 +1529,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
 
         @Override
         public void select() {
-            selected.setOnCheckedChangeListener(null);
-            selected.setChecked(true);
-            selected.setOnCheckedChangeListener(owner.getOnCheckedChangeListener(this));
+            setRowSelected(true);
         }
 
         @Override
@@ -1541,7 +1539,20 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
 
         @Override
         public void deselect() {
-            selected.setChecked(false);
+            setRowSelected(false);
+            // check if all have been deselected
+            owner.deselectRow();
+        }
+
+        /**
+         * Set the row to checked/non-checked state
+         *
+         * @param state target state
+         */
+        public void setRowSelected(boolean state) {
+            selected.setOnCheckedChangeListener(null);
+            selected.setChecked(state);
+            selected.setOnCheckedChangeListener(owner.getOnCheckedChangeListener(this));
         }
 
         /**
@@ -1615,30 +1626,37 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
 
     @Override
     public void selectAllRows() { // select all tags
+        setSelectedRows((boolean current) -> true);
+    }
+
+    /**
+     * Iterate over all rows and set the selection status
+     * 
+     * @param change method that sets the selection status
+     */
+    private void setSelectedRows(@NonNull final ChangeSelectionStatus change) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
         if (loaded) {
             int i = rowLayout.getChildCount();
             while (--i >= 0) {
                 TagEditRow row = (TagEditRow) rowLayout.getChildAt(i);
-                if (row.selected.isEnabled()) {
-                    row.selected.setChecked(true);
+                final CheckBox selected = row.selected;
+                if (selected.isEnabled()) {
+                    row.setRowSelected(change.set(selected.isChecked()));
                 }
             }
+            deselectRow();
         }
     }
 
     @Override
     public void deselectAllRows() { // deselect all tags
-        LinearLayout rowLayout = (LinearLayout) getOurView();
-        if (loaded) {
-            int i = rowLayout.getChildCount();
-            while (--i >= 0) {
-                TagEditRow row = (TagEditRow) rowLayout.getChildAt(i);
-                if (row.selected.isEnabled()) {
-                    row.selected.setChecked(false);
-                }
-            }
-        }
+        setSelectedRows((boolean current) -> false);
+    }
+
+    @Override
+    public void invertSelectedRows() {
+        setSelectedRows((boolean current) -> !current);
     }
 
     /**
@@ -2481,7 +2499,6 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
     @NonNull
     public List<Map<String, String>> getUpdatedTags() {
         @SuppressWarnings("unchecked")
-
         List<Map<String, String>> oldTags = propertyEditorListener.getOriginalTags();
         // make a (nearly) full copy
         List<Map<String, String>> newTags = new ArrayList<>();

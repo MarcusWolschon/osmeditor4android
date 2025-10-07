@@ -782,7 +782,7 @@ public class PropertyEditorTest {
         assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Charging Station"), true, false);
         assertTrue(found);
-        TestUtils.clickAwayTip(device, main);
+        TestUtils.clickAwayTip(device, main, 5000);
         UiObject2 vehicles = null;
         try {
             vehicles = getField(device, "Types of vehicles which can be charged", 1);
@@ -1209,7 +1209,7 @@ public class PropertyEditorTest {
         TestUtils.clickHome(device, false);
 
         // empty relation dialog
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.empty_relation_title), 5000));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.empty_relation_title), 10000));
         assertTrue(r.getMembers().isEmpty());
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.delete), true));
         assertEquals(OsmElement.STATE_DELETED, r.getState());

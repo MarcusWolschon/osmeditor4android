@@ -85,6 +85,8 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(EasyEditActionModeCallback.GROUP_BASE, SelectedRowsActionModeCallback.MENU_ITEM_DESELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_deselect_all)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(EasyEditActionModeCallback.GROUP_BASE, SelectedRowsActionModeCallback.MENU_ITEM_INVERT_SELECTION, Menu.CATEGORY_SYSTEM,
+                R.string.menu_invert_selection).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(EasyEditActionModeCallback.GROUP_BASE, SelectedRowsActionModeCallback.MENU_ITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help)
                 .setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_help));
 
@@ -152,6 +154,9 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             return true;
         case SelectedRowsActionModeCallback.MENU_ITEM_DESELECT_ALL:
             ((PropertyRows) caller).deselectAllRows();
+            return true;
+        case SelectedRowsActionModeCallback.MENU_ITEM_INVERT_SELECTION:
+            ((PropertyRows) caller).invertSelectedRows();
             return true;
         case SelectedRowsActionModeCallback.MENU_ITEM_HELP:
             HelpViewer.start(caller.getActivity(), R.string.help_propertyeditor);
