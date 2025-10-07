@@ -3423,6 +3423,9 @@ public class Logic {
             case HttpStatusCodes.HTTP_BANDWIDTH_LIMIT_EXCEEDED:
                 result = new AsyncResult(ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED);
                 break;
+            case HttpURLConnection.HTTP_UNAVAILABLE:
+                result = new AsyncResult(ErrorCodes.UNAVAILABLE, e.getMessage());
+                break;
             default:
                 result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, ctx.getString(R.string.unknown_http_code_message, e.getHttpErrorCode(), e.getMessage()));
             }

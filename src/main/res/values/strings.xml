@@ -109,6 +109,8 @@
     <string name="download_limit_message">Please wait before trying to download more data.</string>
     <string name="upload_limit_title">Upload limits exceeded</string>
     <string name="upload_limit_message">You have exhausted your current upload allowance, please wait before trying again.</string>
+    <string name="upload_unavailable_title">Service unavailable</string>
+    <string name="upload_unavailable_message">The service is, likely temporary, unavailable, please wait before trying again.</string>
     <string name="duplicate_tag_key_title">Duplicate keys</string>
     <string name="duplicate_tag_key_message">You have added the following key more than once, this needs to be resolved before you can proceed:</string>
     <string name="autodownload_has_been_paused">Auto download has been paused.</string>

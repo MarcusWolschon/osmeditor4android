@@ -164,6 +164,21 @@ public class ApiErrorTest {
         runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
     }
+    
+    /**
+     * Simple bounding box data download error 503
+     */
+    @Test
+    public void dataDownload503() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        mockServer.enqueue("503");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false,
+                new FailOnSuccessHandler(signal, ErrorCodes.UNAVAILABLE));
+        runLooper();
+        SignalUtils.signalAwait(signal, TIMEOUT);
+    }
 
     /**
      * Simple bounding box data download error 400
