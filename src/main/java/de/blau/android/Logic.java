@@ -927,11 +927,11 @@ public class Logic {
             // a reasonable proxy
             Collections.sort(sortedParents, (Relation r1, Relation r2) -> Integer.compare(r1.getMemberCount(), r2.getMemberCount()));
             for (Relation parent : sortedParents) {
-                if (!relations.contains(parent)) { // using a set is likely slower
-                    // ignore relation parents if we are a subarea member of them
-                    if (e instanceof Relation && isSubarea(parent, parent.getMember(e))) {
-                        continue;
-                    }
+                // ignore relation parents if we are a subarea member of them
+                if (e instanceof Relation && isSubarea(parent, parent.getMember(e))) {
+                    continue;
+                }
+                if (!relations.contains(parent)) { // using a set is likely slower   
                     relations.add(parent);
                     nextLevel.add(parent);
                 }

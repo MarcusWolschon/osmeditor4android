@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -31,6 +32,7 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
@@ -472,12 +474,16 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
          * @param relationHolderList the current parents?
          * @return the RelationMembershipRow object for convenience
          */
-        public RelationMembershipRow setValues(@NonNull String role, @NonNull Relation r, @NonNull String elementType, int position,
+        public RelationMembershipRow setValues(@NonNull String role, @NonNull final Relation r, @NonNull String elementType, int position,
                 @NonNull ArrayAdapter<RelationHolder> relationAdapter, @NonNull List<RelationHolder> relationHolderList) {
             relationId = r.getOsmId();
             roleEdit.setText(role);
             parentEdit.setAdapter(relationAdapter);
             parentEdit.setSelection(getRelationIndex(relationHolderList, r));
+            parentEdit.setOnLongClickListener((View v) -> {
+                ((ControlListener) owner.getActivity()).addPropertyEditor(r);
+                return true;
+            });
             this.elementType = elementType;
             this.position = position;
             return this;
@@ -522,9 +528,14 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
                 relationId = r.getOsmId();
                 parentEdit.setSelection(relationPos);
                 position = r.getMembers().size(); // last position
+                parentEdit.setOnLongClickListener((View v) -> {
+                    ((ControlListener) owner.getActivity()).addPropertyEditor(r);
+                    return true;
+                });
                 Log.d(DEBUG_TAG, "Set parent relation to " + relationId + " " + r.getDescription());
             } else {
                 relationId = UNSET;
+                parentEdit.setOnLongClickListener(null);
             }
             relationPreset = null; // zap to force it to be re-calculated
             roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter()); // update
