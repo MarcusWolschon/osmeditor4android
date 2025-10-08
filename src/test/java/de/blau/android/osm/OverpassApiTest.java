@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.xml.sax.SAXException;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
@@ -32,6 +33,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.AsyncResult;
+import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
@@ -47,7 +49,7 @@ import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class OverpassApiTest {
 
@@ -72,6 +74,7 @@ public class OverpassApiTest {
         prefs.setOverpassServer(mockBaseUrl.toString());
         logic.setPrefs(prefs);
         logic.getMap().setPrefs(main, prefs);
+        App.getDelegator().reset(true);
     }
 
     /**
@@ -102,7 +105,7 @@ public class OverpassApiTest {
         assertNotNull(way);
         assertEquals(12, way.getOsmVersion());
     }
-    
+
     /**
      * Simple overpass query with selection of results
      */
@@ -117,9 +120,26 @@ public class OverpassApiTest {
         Way way = (Way) App.getDelegator().getOsmElement(Way.NAME, 47977728L);
         assertNotNull(way);
         assertTrue(App.getLogic().getSelectedElements().contains(way));
-        Node wayNode = (Node) App.getDelegator().getOsmElement(Node.NAME,289981009L);
+        Node wayNode = (Node) App.getDelegator().getOsmElement(Node.NAME, 289981009L);
         assertNotNull(wayNode);
         assertFalse(App.getLogic().getSelectedElements().contains(wayNode));
+    }
+
+    /**
+     * Timeout from API
+     */
+    @Test
+    public void overpassTimeout() {
+        mockServer.enqueue("overpass-timeout");
+        String query = "[out:xml][timeout:90];" + "(" + "node[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);"
+                + "way[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);"
+                + "relation[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);" + ");" + "(._;>;);" + "out meta;";
+
+        AsyncResult result = de.blau.android.overpass.Server.query(main, query, false, false);
+        runLooper();
+        assertEquals(0, App.getDelegator().getCurrentElementCount());
+        assertEquals(ErrorCodes.INVALID_DATA_RECEIVED, result.getCode());
+        assertEquals("de.blau.android.exception.OsmParseException:  runtime error: Query timed out in \"query\" at line 3 after 11 seconds.", result.getMessage());
     }
 
     /**

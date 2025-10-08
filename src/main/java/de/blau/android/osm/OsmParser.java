@@ -39,9 +39,10 @@ public class OsmParser extends DefaultHandler {
 
     public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
-    protected static final String OVERPASS_NOTE = "note";
-    protected static final String OVERPASS_META = "meta";
-    protected static final String API_ERROR     = "error";
+    protected static final String OVERPASS_NOTE   = "note";
+    protected static final String OVERPASS_META   = "meta";
+    private static final String   OVERPASS_REMARK = "remark";
+    protected static final String API_ERROR       = "error";
 
     /** The storage, where the data will be stored (e.g. as JavaStorage or SqliteStorage). */
     private final Storage storage;
@@ -88,7 +89,7 @@ public class OsmParser extends DefaultHandler {
     protected LongOsmElementMap<Node> nodeIndex = null;
     private LongOsmElementMap<Way>    wayIndex  = null;
 
-    private String characters = null;
+    private StringBuilder buffer = new StringBuilder();
 
     /**
      * Construct a new instance of the parser
@@ -205,7 +206,9 @@ public class OsmParser extends DefaultHandler {
             case OsmXml.OSM:
             case OVERPASS_NOTE:
             case OVERPASS_META:
+            case OVERPASS_REMARK:
             case API_ERROR:
+                buffer.setLength(0);
                 break;
             default:
                 throw new OsmParseException("Unknown element " + name);
@@ -252,7 +255,9 @@ public class OsmParser extends DefaultHandler {
                 currentRelation = null;
                 break;
             case API_ERROR:
-                throw new OsmParseException("Internal API error: " + characters);
+                throw new OsmParseException("Internal API error: " + buffer.toString());
+            case OVERPASS_REMARK:
+                throw new OsmParseException(buffer.toString());
             default:
                 // ignore everything else
             }
@@ -264,7 +269,7 @@ public class OsmParser extends DefaultHandler {
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-        characters = new String(ch, start, length);
+        buffer.append(new String(ch, start, length));
     }
 
     /**
