@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.59.1 2a9d9642">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="108987" areas="108977"/>
+
+  <node id="1683178957" lat="47.4032795" lon="8.4019480" version="4" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="1683178958" lat="47.4028211" lon="8.4014917" version="6" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="1683178966" lat="47.4030240" lon="8.4017153" version="4" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="1686463607" lat="47.4032820" lon="8.4031534" version="3" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="1686463617" lat="47.4022777" lon="8.4029438" version="4" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="1686463626" lat="47.4026984" lon="8.4017806" version="3" timestamp="2024-01-05T12:17:02Z" changeset="145919735" uid="20816768" user="fabian_i"/>
+  <node id="1686463692" lat="47.4032848" lon="8.4020107" version="4" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="1686463703" lat="47.4032456" lon="8.4036231" version="4" timestamp="2024-01-05T12:17:02Z" changeset="145919735" uid="20816768" user="fabian_i"/>
+  <node id="1686464522" lat="47.4026699" lon="8.4019151" version="6" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="1924146097" lat="47.4027169" lon="8.4017713" version="4" timestamp="2022-06-13T13:56:40Z" changeset="122327150" uid="12525067" user="dmalischke"/>
+  <node id="1924146101" lat="47.4027856" lon="8.4016041" version="4" timestamp="2022-06-13T13:56:40Z" changeset="122327150" uid="12525067" user="dmalischke"/>
+  <node id="1924146103" lat="47.4027999" lon="8.4020301" version="5" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="1924146104" lat="47.4029223" lon="8.4017264" version="4" timestamp="2022-06-13T13:56:40Z" changeset="122327150" uid="12525067" user="dmalischke"/>
+  <node id="2318626517" lat="47.4031375" lon="8.4035647" version="4" timestamp="2024-10-17T13:57:02Z" changeset="158009368" uid="20816768" user="fabian_i"/>
+  <node id="2318626646" lat="47.4032200" lon="8.4036421" version="4" timestamp="2024-10-17T13:57:02Z" changeset="158009368" uid="20816768" user="fabian_i"/>
+  <node id="2318626661" lat="47.4030361" lon="8.4035271" version="5" timestamp="2024-10-17T13:57:02Z" changeset="158009368" uid="20816768" user="fabian_i"/>
+  <node id="2318626953" lat="47.4030060" lon="8.4034765" version="6" timestamp="2024-10-17T14:27:21Z" changeset="158010962" uid="20816768" user="fabian_i"/>
+  <node id="2318626962" lat="47.4031721" lon="8.4036119" version="5" timestamp="2024-10-17T13:57:02Z" changeset="158009368" uid="20816768" user="fabian_i"/>
+  <node id="3372429238" lat="47.4025908" lon="8.4020763" version="2" timestamp="2024-01-05T12:17:02Z" changeset="145919735" uid="20816768" user="fabian_i"/>
+  <node id="3372429254" lat="47.4030433" lon="8.4035061" version="4" timestamp="2024-10-17T14:27:21Z" changeset="158010962" uid="20816768" user="fabian_i"/>
+  <node id="3372429256" lat="47.4032735" lon="8.4035725" version="2" timestamp="2024-01-05T12:17:02Z" changeset="145919735" uid="20816768" user="fabian_i"/>
+  <node id="3372429268" lat="47.4032074" lon="8.4036602" version="3" timestamp="2024-10-17T13:57:02Z" changeset="158009368" uid="20816768" user="fabian_i"/>
+  <node id="3372429270" lat="47.4033006" lon="8.4019658" version="3" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="9814824151" lat="47.4027254" lon="8.4017790" version="1" timestamp="2022-06-13T13:56:40Z" changeset="122327150" uid="12525067" user="dmalischke"/>
+  <node id="11491517616" lat="47.4032808" lon="8.4032067" version="3" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491517618" lat="47.4033126" lon="8.4026028" version="2" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491517619" lat="47.4032946" lon="8.4029065" version="2" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491517620" lat="47.4032727" lon="8.4034515" version="3" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491517625" lat="47.4033326" lon="8.4023917" version="2" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491611290" lat="47.4033604" lon="8.4020736" version="2" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491611293" lat="47.4022570" lon="8.4029431" version="2" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491611294" lat="47.4022447" lon="8.4029646" version="2" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491611295" lat="47.4022259" lon="8.4030136" version="2" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491611296" lat="47.4022358" lon="8.4030483" version="2" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491611297" lat="47.4022888" lon="8.4030666" version="1" timestamp="2024-01-05T12:17:02Z" changeset="145919735" uid="20816768" user="fabian_i"/>
+  <node id="11491611298" lat="47.4023005" lon="8.4030387" version="2" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491611299" lat="47.4023561" lon="8.4030847" version="2" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491611300" lat="47.4022420" lon="8.4034302" version="2" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11491611301" lat="47.4022836" lon="8.4034627" version="1" timestamp="2024-01-05T12:17:02Z" changeset="145919735" uid="20816768" user="fabian_i"/>
+  <node id="11491611302" lat="47.4023439" lon="8.4032904" version="1" timestamp="2024-01-05T12:17:02Z" changeset="145919735" uid="20816768" user="fabian_i"/>
+  <node id="11491611303" lat="47.4024534" lon="8.4030161" version="2" timestamp="2024-10-17T14:27:21Z" changeset="158010962" uid="20816768" user="fabian_i"/>
+  <node id="11491611306" lat="47.4032288" lon="8.4036550" version="2" timestamp="2024-10-17T13:57:02Z" changeset="158009368" uid="20816768" user="fabian_i"/>
+  <node id="11868127569" lat="47.4026543" lon="8.4031754" version="2" timestamp="2024-10-17T14:27:21Z" changeset="158010962" uid="20816768" user="fabian_i"/>
+  <node id="11868127574" lat="47.4029997" lon="8.4034940" version="2" timestamp="2024-10-17T14:27:21Z" changeset="158010962" uid="20816768" user="fabian_i"/>
+  <node id="11868127575" lat="47.4026417" lon="8.4032099" version="2" timestamp="2024-10-17T14:27:21Z" changeset="158010962" uid="20816768" user="fabian_i"/>
+  <node id="11868127617" lat="47.4032711" lon="8.4019523" version="1" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11868127618" lat="47.4032618" lon="8.4019783" version="1" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11868127619" lat="47.4032353" lon="8.4019572" version="1" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11868127620" lat="47.4032436" lon="8.4019334" version="1" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11868127621" lat="47.4032428" lon="8.4019197" version="1" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11868127622" lat="47.4031601" lon="8.4018456" version="1" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11868127623" lat="47.4030968" lon="8.4017858" version="1" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11868127624" lat="47.4029403" lon="8.4016301" version="1" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11868127625" lat="47.4028101" lon="8.4014928" version="1" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="11868127626" lat="47.4028155" lon="8.4014888" version="1" timestamp="2024-04-30T05:07:01Z" changeset="150688762" uid="20816768" user="fabian_i"/>
+  <node id="12183447507" lat="47.4028628" lon="8.4016732" version="1" timestamp="2024-09-18T06:53:26Z" changeset="156757832" uid="12505494" user="hunspi"/>
+  <node id="12242208522" lat="47.4028242" lon="8.4016386" version="1" timestamp="2024-10-10T21:27:20Z" changeset="157733973" uid="20816768" user="fabian_i">
+    <tag k="access" v="private"/>
+    <tag k="entrance" v="main"/>
+    <tag k="level" v="0"/>
+  </node>
+  <node id="12242208523" lat="47.4029039" lon="8.4017721" version="1" timestamp="2024-10-10T21:27:20Z" changeset="157733973" uid="20816768" user="fabian_i">
+    <tag k="barrier" v="gate"/>
+    <tag k="locked" v="yes"/>
+  </node>
+  <node id="12242208524" lat="47.4028722" lon="8.4018506" version="1" timestamp="2024-10-10T21:27:20Z" changeset="157733973" uid="20816768" user="fabian_i">
+    <tag k="barrier" v="gate"/>
+    <tag k="locked" v="yes"/>
+  </node>
+  <node id="12242208525" lat="47.4028376" lon="8.4019366" version="1" timestamp="2024-10-10T21:27:20Z" changeset="157733973" uid="20816768" user="fabian_i">
+    <tag k="barrier" v="gate"/>
+    <tag k="locked" v="yes"/>
+  </node>
+  <node id="12242208526" lat="47.4028187" lon="8.4019833" version="1" timestamp="2024-10-10T21:27:20Z" changeset="157733973" uid="20816768" user="fabian_i">
+    <tag k="access" v="private"/>
+    <tag k="entrance" v="main"/>
+  </node>
+  <node id="12258393979" lat="47.4031140" lon="8.4035886" version="1" timestamp="2024-10-17T13:57:02Z" changeset="158009368" uid="20816768" user="fabian_i"/>
+  <node id="12258482850" lat="47.4023551" lon="8.4032867" version="1" timestamp="2024-10-17T14:27:21Z" changeset="158010962" uid="20816768" user="fabian_i"/>
+  <way id="156402680" version="12" timestamp="2024-10-17T14:27:21Z" changeset="158010962" uid="20816768" user="fabian_i">
+    <nd ref="1686463626"/>
+    <nd ref="3372429238"/>
+    <nd ref="1686463617"/>
+    <nd ref="11491611293"/>
+    <nd ref="11491611294"/>
+    <nd ref="11491611295"/>
+    <nd ref="11491611296"/>
+    <nd ref="11491611297"/>
+    <nd ref="11491611298"/>
+    <nd ref="11491611299"/>
+    <nd ref="11491611300"/>
+    <nd ref="11491611301"/>
+    <nd ref="11491611302"/>
+    <nd ref="12258482850"/>
+    <nd ref="11491611303"/>
+    <nd ref="11868127569"/>
+    <nd ref="11868127575"/>
+    <nd ref="11868127574"/>
+    <nd ref="2318626953"/>
+    <nd ref="3372429254"/>
+    <nd ref="2318626661"/>
+    <nd ref="12258393979"/>
+    <nd ref="2318626517"/>
+    <nd ref="2318626962"/>
+    <nd ref="3372429268"/>
+    <nd ref="2318626646"/>
+    <nd ref="11491611306"/>
+    <nd ref="1686463703"/>
+    <nd ref="3372429256"/>
+    <nd ref="11491517620"/>
+    <nd ref="11491517616"/>
+    <nd ref="1686463607"/>
+    <nd ref="11491517619"/>
+    <nd ref="11491517618"/>
+    <nd ref="11491517625"/>
+    <nd ref="11491611290"/>
+    <nd ref="1686463692"/>
+    <nd ref="3372429270"/>
+    <nd ref="1683178957"/>
+    <nd ref="11868127617"/>
+    <nd ref="11868127618"/>
+    <nd ref="11868127619"/>
+    <nd ref="11868127620"/>
+    <nd ref="11868127621"/>
+    <nd ref="11868127622"/>
+    <nd ref="11868127623"/>
+    <nd ref="1683178966"/>
+    <nd ref="11868127624"/>
+    <nd ref="1683178958"/>
+    <nd ref="11868127626"/>
+    <nd ref="11868127625"/>
+    <nd ref="1686463626"/>
+    <tag k="addr:city" v="Dietikon"/>
+    <tag k="addr:housenumber" v="15"/>
+    <tag k="addr:postcode" v="8953"/>
+    <tag k="addr:street" v="Bremgartnerstrasse"/>
+    <tag k="amenity" v="school"/>
+    <tag k="name" v="Schule Zentral"/>
+    <tag k="operator" v="Stadt Dietikon"/>
+    <tag k="operator:type" v="government"/>
+  </way>
+  <way id="182073593" version="6" timestamp="2024-10-10T21:27:20Z" changeset="157733973" uid="20816768" user="fabian_i">
+    <nd ref="1924146103"/>
+    <nd ref="12242208526"/>
+    <nd ref="12242208525"/>
+    <nd ref="12242208524"/>
+    <nd ref="12242208523"/>
+    <nd ref="1924146104"/>
+    <nd ref="12183447507"/>
+    <nd ref="12242208522"/>
+    <nd ref="1924146101"/>
+    <nd ref="1924146097"/>
+    <nd ref="9814824151"/>
+    <nd ref="1686464522"/>
+    <nd ref="1924146103"/>
+    <tag k="addr:city" v="Dietikon"/>
+    <tag k="addr:housenumber" v="15"/>
+    <tag k="addr:postcode" v="8953"/>
+    <tag k="addr:street" v="Bremgartnerstrasse"/>
+    <tag k="building" v="yes"/>
+  </way>
+
+</osm>

@@ -243,4 +243,44 @@ public class ObjectSearchTest {
             }
         }
     }
+
+    /**
+     * Example with overpass
+     */
+    @Test
+    public void overpassReFilter() {
+        App.getDelegator().reset(true);
+        MockWebServerPlus mockServer = new MockWebServerPlus();
+        try {
+            HttpUrl mockBaseUrl = mockServer.server().url("/");
+            System.out.println("mock overpass api url " + mockBaseUrl.toString()); // NOSONAR
+            prefs.setOverpassServer(mockBaseUrl.toString());
+            mockServer.enqueue("overpass-2");
+
+            TestUtils.clickOverflowButton(device);
+            TestUtils.clickText(device, false, main.getString(R.string.search_objects_title), true, false);
+            UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
+            try {
+                searchEditText.click();
+                searchEditText.setText("type:way \"addr:street\"=Bremgartnerstrasse \"addr:housenumber\"=15 in Dietikon");
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
+            TestUtils.clickButton(device, "android:id/button2", true);
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.overpass_console), 5000));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.select_result), false));
+            TestUtils.clickButton(device, "android:id/button2", false);
+            assertTrue(TestUtils.findText(device, false, "Downloaded 63", 5000));
+            TestUtils.clickButton(device, "android:id/button3", false);
+            TestUtils.findText(device, false, main.getString(R.string.actionmode_multiselect), 5000);
+            List<OsmElement> selected = logic.getSelectedElements();
+            assertEquals(2, selected.size());
+        } finally {
+            try {
+                mockServer.server().close();
+            } catch (IOException e) {
+                // Ignore
+            }
+        }
+    }
 }
