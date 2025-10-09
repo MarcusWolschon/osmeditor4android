@@ -207,7 +207,6 @@ public final class Server {
      * @param query the query
      * @param merge merge the received data instead of replacing existing data
      * @param select if true select results
-     * @param handler a listener to call when we are done
      */
     @NonNull
     public static AsyncResult query(@NonNull final Context context, @NonNull String query, boolean merge, boolean select) {
