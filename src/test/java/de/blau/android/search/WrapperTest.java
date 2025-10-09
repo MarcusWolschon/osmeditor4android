@@ -38,7 +38,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.util.Util;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class WrapperTest {
 
@@ -292,7 +292,7 @@ public class WrapperTest {
      * getPreset should fail if no Context is supplied
      */
     @Test
-    public void getPresetTes2t() {
+    public void getPresetTest2() {
         Wrapper wrapper2 = new Wrapper();
         try {
             wrapper2.getPreset("Highways|Streets|Secondary");
@@ -464,4 +464,49 @@ public class WrapperTest {
         assertNotNull(r);
         assertEquals(Type.RELATION, Wrapper.toJosmFilterType(r));
     }
+
+    /**
+     */
+    @Test
+    public void inTest() {
+        Wrapper wrapper2 = new Wrapper();
+        try {
+            wrapper2.in(wrapper2, "Zürich");
+            fail("Should have thrown an UnsupportedOperationException");
+        } catch (UnsupportedOperationException uoex) {
+            // expected
+        }
+    }
+
+    /**
+     */
+    @Test
+    public void inTest2() {
+        Wrapper wrapper2 = new Wrapper();
+        wrapper2.setSilent(true);
+        assertTrue(wrapper2.in(wrapper2, "Zürich"));
+    }
+
+    /**
+     */
+    @Test
+    public void aroundTest() {
+        Wrapper wrapper2 = new Wrapper();
+        try {
+            wrapper2.around(wrapper2, "Zürich");
+            fail("Should have thrown an UnsupportedOperationException");
+        } catch (UnsupportedOperationException uoex) {
+            // expected
+        }
+    }
+
+    /**
+     */
+    @Test
+    public void aroundTest2() {
+        Wrapper wrapper2 = new Wrapper();
+        wrapper2.setSilent(true);
+        assertTrue(wrapper2.around(wrapper2, "Zürich"));
+    }
+
 }

@@ -14,8 +14,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import ch.poole.osm.josmfilterparser.Condition;
 import de.blau.android.App;
 import de.blau.android.AsyncResult;
 import de.blau.android.ErrorCodes;
@@ -36,6 +39,8 @@ import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.search.Search;
+import de.blau.android.search.Wrapper;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -207,9 +212,10 @@ public final class Server {
      * @param query the query
      * @param merge merge the received data instead of replacing existing data
      * @param select if true select results
+     * @param condition parse tree of josm filter expressions if available
      */
     @NonNull
-    public static AsyncResult query(@NonNull final Context context, @NonNull String query, boolean merge, boolean select) {
+    public static AsyncResult query(@NonNull final Context context, @NonNull String query, boolean merge, boolean select, @Nullable Condition condition) {
         final String url = App.getPreferences(context).getOverpassServer();
         Log.d(DEBUG_TAG, "querying " + url + " for " + query);
         try {
@@ -227,7 +233,18 @@ public final class Server {
                 delegator.setCurrentStorage(storage); // this sets dirty flag
                 delegator.setOriginalBox(box);
             }
-            if (select) {
+            if (!select) {
+                return new AsyncResult(ErrorCodes.OK);
+            }
+            if (condition != null) {
+                // rerun "original" query to only select what we really wanted
+                Wrapper wrapper = new Wrapper(context);
+                wrapper.setSilent(true);
+                Wrapper.SearchResult result = wrapper.getMatchingElementsInternal(condition, storage);
+                if (context instanceof Main) {
+                    new Handler(context.getMainLooper()).post(() -> Search.selectResult((Main) context, App.getLogic(), result));
+                }
+            } else {
                 selectResult(storage, delegator);
             }
             return new AsyncResult(ErrorCodes.OK);

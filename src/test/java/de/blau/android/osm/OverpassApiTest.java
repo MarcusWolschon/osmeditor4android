@@ -99,7 +99,7 @@ public class OverpassApiTest {
         String query = "[out:xml][timeout:90];" + "(" + "node[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);"
                 + "way[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);"
                 + "relation[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);" + ");" + "(._;>;);" + "out meta;";
-        de.blau.android.overpass.Server.query(main, query, false, false);
+        de.blau.android.overpass.Server.query(main, query, false, false, null);
         runLooper();
         Way way = (Way) App.getDelegator().getOsmElement(Way.NAME, 47977728L);
         assertNotNull(way);
@@ -115,7 +115,7 @@ public class OverpassApiTest {
         String query = "[out:xml][timeout:90];" + "(" + "node[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);"
                 + "way[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);"
                 + "relation[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);" + ");" + "(._;>;);" + "out meta;";
-        de.blau.android.overpass.Server.query(main, query, false, true);
+        de.blau.android.overpass.Server.query(main, query, false, true, null);
         runLooper();
         Way way = (Way) App.getDelegator().getOsmElement(Way.NAME, 47977728L);
         assertNotNull(way);
@@ -135,11 +135,12 @@ public class OverpassApiTest {
                 + "way[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);"
                 + "relation[highway=residential](47.3795692,8.378648,47.3822631,8.3813708);" + ");" + "(._;>;);" + "out meta;";
 
-        AsyncResult result = de.blau.android.overpass.Server.query(main, query, false, false);
+        AsyncResult result = de.blau.android.overpass.Server.query(main, query, false, false, null);
         runLooper();
         assertEquals(0, App.getDelegator().getCurrentElementCount());
         assertEquals(ErrorCodes.INVALID_DATA_RECEIVED, result.getCode());
-        assertEquals("de.blau.android.exception.OsmParseException:  runtime error: Query timed out in \"query\" at line 3 after 11 seconds.", result.getMessage());
+        assertEquals("de.blau.android.exception.OsmParseException:  runtime error: Query timed out in \"query\" at line 3 after 11 seconds.",
+                result.getMessage());
     }
 
     /**

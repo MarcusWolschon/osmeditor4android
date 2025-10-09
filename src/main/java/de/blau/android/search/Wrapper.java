@@ -48,6 +48,8 @@ public class Wrapper implements Meta {
     final Context context;
     final Logic   logic;
 
+    private boolean silent = false;
+
     /**
      * Create a new wrapper object
      * 
@@ -81,6 +83,15 @@ public class Wrapper implements Meta {
     @Nullable
     public OsmElement getElement() {
         return element;
+    }
+
+    /**
+     * Set silent flag
+     * 
+     * @param silent value to set
+     */
+    public void setSilent(boolean silent) {
+        this.silent = silent;
     }
 
     @Override
@@ -423,7 +434,23 @@ public class Wrapper implements Meta {
         return result;
     }
 
-    class SearchResult {
+    @Override
+    public boolean in(Meta meta, String region) {
+        if (silent) {
+            return true;
+        }
+        return Meta.super.in(meta, region);
+    }
+
+    @Override
+    public boolean around(Meta meta, String region) {
+        if (silent) {
+            return true;
+        }
+        return Meta.super.around(meta, region);
+    }
+
+    public class SearchResult {
         List<Node>     nodes     = new ArrayList<>();
         List<Way>      ways      = new ArrayList<>();
         List<Relation> relations = new ArrayList<>();
@@ -461,6 +488,26 @@ public class Wrapper implements Meta {
     }
 
     /**
+     * Eval the condition on all objects in a storage object
+     * 
+     * @param c the Condition to check
+     * @param storage the Storage of the elements to search in
+     * @return a SearchResult object
+     */
+    @NonNull
+    public SearchResult getMatchingElementsInternal(@NonNull Condition c, @NonNull Storage storage) {
+        OsmElement savedElement = element; // save this instead of instantiating a new wrapper
+
+        SearchResult result = new SearchResult();
+        processElements(result.nodes, storage.getNodes(), null, Type.NODE, c);
+        processElements(result.ways, storage.getWays(), null, Type.WAY, c);
+        processElements(result.relations, storage.getRelations(), null, Type.RELATION, c);
+
+        element = savedElement;
+        return result;
+    }
+
+    /**
      * Loop over current and api storage and process all elements
      * 
      * @param <T> the type of OsmElement
@@ -470,17 +517,20 @@ public class Wrapper implements Meta {
      * @param type element type
      * @param c the Condition that needs to be matched
      */
-    private <T extends OsmElement> void processElements(@NonNull List<T> result, @NonNull List<T> current, @NonNull List<T> api, @NonNull Type type, @NonNull Condition c) {
+    private <T extends OsmElement> void processElements(@NonNull List<T> result, @NonNull List<T> current, @Nullable List<T> api, @NonNull Type type,
+            @NonNull Condition c) {
         for (T e : current) {
             element = e;
             if (c.eval(type, this, e.getTags())) {
                 result.add(e);
             }
         }
-        for (T e : api) {
-            element = e;
-            if (e.getState() == OsmElement.STATE_DELETED && c.eval(type, this, e.getTags())) {
-                result.add(e);
+        if (api != null) {
+            for (T e : api) {
+                element = e;
+                if (e.getState() == OsmElement.STATE_DELETED && c.eval(type, this, e.getTags())) {
+                    result.add(e);
+                }
             }
         }
     }

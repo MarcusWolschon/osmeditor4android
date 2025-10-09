@@ -88,6 +88,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+import ch.poole.osm.josmfilterparser.Condition;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.Selection.Ids;
@@ -2263,7 +2264,7 @@ public class Main extends ConfigurationChangeAwareActivity
             return true;
         case R.id.menu_transfer_query_overpass:
             descheduleAutoLock();
-            showOverpassConsole(this, null);
+            showOverpassConsole(this, null, null);
             break;
         case R.id.menu_transfer_upload:
             confirmUpload(null);
@@ -2666,8 +2667,9 @@ public class Main extends ConfigurationChangeAwareActivity
      * 
      * @param activity the calling FragmentActivity
      * @param text initial overpass query
+     * @param condition optional original JOSM search string
      */
-    public static void showOverpassConsole(@NonNull final FragmentActivity activity, @Nullable String text) {
+    public static void showOverpassConsole(@NonNull final FragmentActivity activity, @Nullable String text, @Nullable Condition condition) {
         ConsoleDialog.showDialog(activity, R.string.overpass_console, R.string.merge_result, R.string.select_result, text, null,
                 (context, input, merge, select) -> {
                     Logic logic = App.getLogic();
@@ -2675,7 +2677,7 @@ public class Main extends ConfigurationChangeAwareActivity
                         return Util.withHtmlColor(context, R.attr.errorTextColor, context.getString(R.string.overpass_query_would_overwrite));
                     }
                     AsyncResult result = de.blau.android.overpass.Server.query(context, de.blau.android.overpass.Server.replacePlaceholders(context, input),
-                            merge, select);
+                            merge, select, condition);
                     if (ErrorCodes.OK == result.getCode()) {
                         if (context instanceof Main) {
                             Main main = (Main) context;
