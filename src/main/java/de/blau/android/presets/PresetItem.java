@@ -39,7 +39,6 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.search.Wrapper;
-import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.StringWithDescription;
 
 /** Represents a preset item (e.g. "footpath", "grocery store") */
@@ -1325,7 +1324,7 @@ public class PresetItem extends PresetElement {
             }
             if (field instanceof PresetComboField) {
                 for (StringWithDescription v : ((PresetComboField) field).getValues()) {
-                    String valueName = fieldName + (v instanceof ExtendedStringWithDescription && ((ExtendedStringWithDescription) v).isDeprecated()
+                    String valueName = fieldName + (v instanceof PresetListEntry && ((PresetListEntry) v).isDeprecated()
                             && !field.isDeprecated() && !isDeprecated() ? " (value not recommended)" : "");
                     appendTag(valueName, jsonString, key, v);
                 }

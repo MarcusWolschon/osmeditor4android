@@ -25,10 +25,10 @@ import de.blau.android.contract.Ui;
 import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetTagField;
+import de.blau.android.presets.PresetListEntryWithIcon;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.Ruler;
 import de.blau.android.util.SelectByImageFragment;
 import de.blau.android.util.StringWithDescription;
-import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.Value;
@@ -115,7 +115,7 @@ public class ComboDialogRow extends DialogRow {
             for (int i = 0; i < adapter.getCount(); i++) {
                 Object o = adapter.getItem(i);
 
-                StringWithDescription swd = o instanceof StringWithDescriptionAndIcon ? new StringWithDescriptionAndIcon(o) : new StringWithDescription(o);
+                StringWithDescription swd = o instanceof PresetListEntryWithIcon ? new PresetListEntryWithIcon(o) : new StringWithDescription(o);
                 String v = swd.getValue();
 
                 if (v != null && !"".equals(v) && v.equals(value)) {
@@ -249,8 +249,8 @@ public class ComboDialogRow extends DialogRow {
                 valueGroup.addView(divider);
             } else {
                 Drawable icon = null;
-                if (o instanceof StringWithDescriptionAndIcon) {
-                    icon = ((StringWithDescriptionAndIcon) o).getIcon(context, preset);
+                if (o instanceof PresetListEntryWithIcon) {
+                    icon = ((PresetListEntryWithIcon) o).getIcon(context, preset);
                 }
                 StringWithDescription swd = new StringWithDescription(o);
                 String v = swd.getValue();
@@ -314,8 +314,8 @@ public class ComboDialogRow extends DialogRow {
             }
             final Value aValue = o instanceof Value ? ((Value) o) : new StringWithDescription((String) o);
             values.add(aValue);
-            if (o instanceof StringWithDescriptionAndIcon && ((StringWithDescriptionAndIcon) o).hasImagePath()) {
-                images.add(((StringWithDescriptionAndIcon) o).getImagePath());
+            if (o instanceof PresetListEntryWithIcon && ((PresetListEntryWithIcon) o).hasImagePath()) {
+                images.add(((PresetListEntryWithIcon) o).getImagePath());
             } else {
                 images.add("");
             }

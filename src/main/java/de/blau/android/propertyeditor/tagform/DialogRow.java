@@ -20,10 +20,10 @@ import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetListEntryWithIcon;
 import de.blau.android.propertyeditor.PropertyEditorFragment;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescription;
-import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.Util;
 
 /**
@@ -122,9 +122,9 @@ public class DialogRow extends LinearLayout implements KeyValueRow {
         setValue(swd.getValue(), description != null && !"".equals(description) ? description : swd.getValue());
         Drawable icon = null;
         Log.d(DEBUG_TAG, "got swd but no swdai");
-        if (swd instanceof StringWithDescriptionAndIcon) {
+        if (swd instanceof PresetListEntryWithIcon) {
             final Context context = getContext();
-            icon = ((StringWithDescriptionAndIcon) swd).getIcon(context, preset);
+            icon = ((PresetListEntryWithIcon) swd).getIcon(context, preset);
             Util.setCompoundDrawableWithIntrinsicBounds(Util.isRtlScript(context), valueView, icon);
             valueView.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }

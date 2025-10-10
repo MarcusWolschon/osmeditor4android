@@ -16,8 +16,8 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetListEntryWithIcon;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
-import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.Util;
 
 /**
@@ -194,7 +194,7 @@ public class ComboRow extends LinearLayout {
         }
         for (int i = 0; i < adapter.getCount(); i++) {
             Object o = adapter.getItem(i);
-            StringWithDescriptionAndIcon swd = new StringWithDescriptionAndIcon(o);
+            PresetListEntryWithIcon swd = new PresetListEntryWithIcon(o);
             String v = swd.getValue();
             String description = swd.getDescription();
             if (v == null || "".equals(v)) {

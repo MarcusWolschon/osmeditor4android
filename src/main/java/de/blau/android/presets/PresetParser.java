@@ -27,9 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.contract.Schemes;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.StringWithDescription;
-import de.blau.android.util.StringWithDescriptionAndIcon;
 
 public class PresetParser {
 
@@ -124,7 +122,7 @@ public class PresetParser {
     private static final String MATCH_EXPRESSION      = "match_expression";
 
     private enum PARSE_STATE {
-        TOP, ITEM, CHUNK
+        TOP, ITEM, CHUNK, LIST_ENTRY
     }
 
     /**
@@ -191,6 +189,8 @@ public class PresetParser {
                             throw new SAXException(msg);
                         }
                     }
+                    break;
+                case LIST_ENTRY:
                     break;
                 }
             }
@@ -620,6 +620,7 @@ public class PresetParser {
                     }
                     break;
                 case LIST_ENTRY:
+                    state = PARSE_STATE.LIST_ENTRY;
                     addListEntry(listValues, attr);
                     break;
                 case PRESET_LINK:
@@ -790,8 +791,8 @@ public class PresetParser {
                             imagePath = getImagePath(preset, imagePath);
                             imageCount++;
                         }
-                        ExtendedStringWithDescription swd = iconPath == null && imagePath == null ? new ExtendedStringWithDescription(v, listDescription)
-                                : new StringWithDescriptionAndIcon(v, listDescription, iconPath, imagePath);
+                        PresetListEntry swd = iconPath == null && imagePath == null ? new PresetListEntry(v, listDescription)
+                                : new PresetListEntryWithIcon(v, listDescription, iconPath, imagePath);
                         swd.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                         setRegions(attr, swd);
                         if (displayValue != null) { // short description is potentially unused

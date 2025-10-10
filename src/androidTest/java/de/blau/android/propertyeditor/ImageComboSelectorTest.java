@@ -41,8 +41,8 @@ import de.blau.android.prefs.PresetLoader;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetListEntryWithIcon;
 import de.blau.android.util.StringWithDescription;
-import de.blau.android.util.StringWithDescriptionAndIcon;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -165,8 +165,8 @@ public class ImageComboSelectorTest {
             if (item != null) {
                 PresetComboField combo = (PresetComboField) item.getField("bicycle_parking");
                 for (StringWithDescription value: combo.getValues()) {
-                    if ("stands".equals(value.getValue()) && value instanceof StringWithDescriptionAndIcon) {
-                        String imagePath = ((StringWithDescriptionAndIcon) value).getImagePath();
+                    if ("stands".equals(value.getValue()) && value instanceof PresetListEntryWithIcon) {
+                        String imagePath = ((PresetListEntryWithIcon) value).getImagePath();
                         if (imagePath != null) {
                             assertTrue(new File(imagePath).exists());
                             return;

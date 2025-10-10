@@ -1,4 +1,4 @@
-package de.blau.android.util;
+package de.blau.android.presets;
 
 import java.util.Objects;
 
@@ -8,10 +8,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.presets.PresetElement;
-import de.blau.android.presets.PresetItem;
+import de.blau.android.util.Density;
+import de.blau.android.util.Util;
 
-public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription {
+public class PresetListEntryWithIcon extends PresetListEntry {
     private static final long serialVersionUID = 2L;
 
     private transient Drawable icon;
@@ -25,7 +25,7 @@ public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription 
      * @param description the description of the value
      * @param iconPath the path of the associated icon
      */
-    public StringWithDescriptionAndIcon(@NonNull final String value, @Nullable final String description, @Nullable final String iconPath) {
+    public PresetListEntryWithIcon(@NonNull final String value, @Nullable final String description, @Nullable final String iconPath) {
         super(value, description);
         this.iconPath = iconPath;
         this.imagePath = null;
@@ -39,7 +39,7 @@ public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription 
      * @param iconPath the path of the associated icon
      * @param imagePath the path of a larger image
      */
-    public StringWithDescriptionAndIcon(@NonNull final String value, @Nullable final String description, @Nullable final String iconPath,
+    public PresetListEntryWithIcon(@NonNull final String value, @Nullable final String description, @Nullable final String iconPath,
             @Nullable final String imagePath) {
         super(value, description);
         this.iconPath = iconPath;
@@ -51,12 +51,12 @@ public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription 
      * 
      * @param object one of StringWithDescriptionAndIcon, StringWithDescription, ValueWithCount or String
      */
-    public StringWithDescriptionAndIcon(@NonNull final Object object) {
+    public PresetListEntryWithIcon(@NonNull final Object object) {
         super(object);
-        if (object instanceof StringWithDescriptionAndIcon) {
-            this.iconPath = ((StringWithDescriptionAndIcon) object).iconPath;
-            this.icon = ((StringWithDescriptionAndIcon) object).icon;
-            this.imagePath = ((StringWithDescriptionAndIcon) object).imagePath;
+        if (object instanceof PresetListEntryWithIcon) {
+            this.iconPath = ((PresetListEntryWithIcon) object).iconPath;
+            this.icon = ((PresetListEntryWithIcon) object).icon;
+            this.imagePath = ((PresetListEntryWithIcon) object).imagePath;
         } else {
             iconPath = null;
             imagePath = null;
@@ -124,10 +124,10 @@ public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription 
         if (!super.equals(obj)) {
             return false;
         }
-        if (!(obj instanceof StringWithDescriptionAndIcon)) {
+        if (!(obj instanceof PresetListEntryWithIcon)) {
             return false;
         }
-        StringWithDescriptionAndIcon other = (StringWithDescriptionAndIcon) obj;
+        PresetListEntryWithIcon other = (PresetListEntryWithIcon) obj;
         return Objects.equals(iconPath, other.iconPath) && Objects.equals(imagePath, other.imagePath);
     }
 }

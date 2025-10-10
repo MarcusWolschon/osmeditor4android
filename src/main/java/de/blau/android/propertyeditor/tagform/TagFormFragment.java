@@ -58,6 +58,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.PresetListEntry;
 import de.blau.android.presets.MatchType;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetCheckField;
@@ -75,6 +76,7 @@ import de.blau.android.presets.PresetLabelField;
 import de.blau.android.presets.PresetSpaceField;
 import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetTextField;
+import de.blau.android.presets.PresetListEntryWithIcon;
 import de.blau.android.presets.ValueType;
 import de.blau.android.propertyeditor.EditorUpdate;
 import de.blau.android.propertyeditor.FormUpdate;
@@ -87,12 +89,10 @@ import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.search.Wrapper;
 import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.BaseFragment;
-import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
-import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
@@ -361,7 +361,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         Collections.sort(result, comparator);
                     }
                     for (StringWithDescription s : result) {
-                        boolean deprecated = (s instanceof ExtendedStringWithDescription) && ((ExtendedStringWithDescription) s).isDeprecated();
+                        boolean deprecated = (s instanceof PresetListEntry) && ((PresetListEntry) s).isDeprecated();
                         Integer storedPosition = counter.get(s.getValue());
                         if (storedPosition != null) {
                             if (dedup) {
@@ -375,7 +375,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             if (!values.contains(s.getValue())) {
                                 continue;
                             }
-                            s = new StringWithDescriptionAndIcon(s);
+                            s = new PresetListEntryWithIcon(s);
                             s.setDescription(getContext().getString(R.string.deprecated, s.getDescription()));
                         }
                         adapter2.add(s);

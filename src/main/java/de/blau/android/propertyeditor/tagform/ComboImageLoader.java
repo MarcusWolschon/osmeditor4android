@@ -10,10 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
-import de.blau.android.util.ExtendedStringWithDescription;
+import de.blau.android.presets.PresetListEntry;
+import de.blau.android.presets.PresetListEntryWithIcon;
 import de.blau.android.util.ImageLoader;
 import de.blau.android.util.StringWithDescription;
-import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.Value;
 
 public class ComboImageLoader extends ImageLoader {
@@ -58,16 +58,16 @@ public class ComboImageLoader extends ImageLoader {
     @Override
     public void setDescription(TextView description, int position) {
         final Value v = values.get(position);
-        if (v instanceof ExtendedStringWithDescription) {
-            description.setText(((ExtendedStringWithDescription) v).getLongDescription());
+        if (v instanceof PresetListEntry) {
+            description.setText(((PresetListEntry) v).getLongDescription());
         }
     }
 
     @Override
     public void onSelected(int pos) {
         final Value v = values.get(pos);
-        if (v instanceof StringWithDescriptionAndIcon) {
-            update((StringWithDescriptionAndIcon) v);
+        if (v instanceof PresetListEntryWithIcon) {
+            update((PresetListEntryWithIcon) v);
         }
     }
 
