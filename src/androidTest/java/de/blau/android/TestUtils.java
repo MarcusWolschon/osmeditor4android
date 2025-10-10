@@ -1221,52 +1221,51 @@ public final class TestUtils {
         UiSelector scrollableSelector = Build.VERSION.SDK_INT > Build.VERSION_CODES.P ? new UiSelector().className("android.widget.FrameLayout")
                 : Build.VERSION.SDK_INT > Build.VERSION_CODES.N ? new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView")
                         : new UiSelector().scrollable(true).className("android.widget.ListView");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            TestUtils.clickOverflowButton(device);
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && !TestUtils.findText(device, false, "SDCARD", 2000)) {
-                // old stuff
-                TestUtils.clickText(device, false, "Settings", true, false);
-                UiObject cb = device.findObject(new UiSelector().resourceId("android:id/checkbox"));
+        TestUtils.clickOverflowButton(device);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && !TestUtils.findText(device, false, "SDCARD", 2000)) {
+            // old stuff
+            TestUtils.clickText(device, false, "Settings", true, false);
+            UiObject cb = device.findObject(new UiSelector().resourceId("android:id/checkbox"));
+            try {
+                if (!cb.isChecked()) {
+                    TestUtils.clickText(device, false, "Display advanced devices", false, false);
+                }
+            } catch (UiObjectNotFoundException e) {
+                Assert.fail("Coudn't turn on SDCARD view");
+            }
+            TestUtils.clickText(device, false, "Settings", true, false);
+            TestUtils.clickResource(device, false, "android:id/up", true);
+            TestUtils.clickText(device, false, "SDCARD", true, false);
+        } else {
+            if (!TestUtils.clickText(device, false, "Show", false, false)) {
+                TestUtils.clickAt(device, device.getDisplayWidth() / 2, device.getDisplayHeight() / 2);
+            }
+            TestUtils.clickMenuButton(device, "List view", false, false);
+            if (!TestUtils.clickMenuButton(device, "Show roots", false, true)) {
+                // TestUtils.clickResource(device, false, "android:id/roots_toolbar", true);
+                UiObject drawerButton = device.findObject(new UiSelector().classNameMatches("^.*.ImageButton$"));
                 try {
-                    if (!cb.isChecked()) {
-                        TestUtils.clickText(device, false, "Display advanced devices", false, false);
-                    }
+                    drawerButton.clickAndWaitForNewWindow();
                 } catch (UiObjectNotFoundException e) {
-                    Assert.fail("Coudn't turn on SDCARD view");
-                }
-                TestUtils.clickText(device, false, "Settings", true, false);
-                TestUtils.clickResource(device, false, "android:id/up", true);
-                TestUtils.clickText(device, false, "SDCARD", true, false);
-            } else {
-                if (!TestUtils.clickText(device, false, "Show", false, false)) {
-                    TestUtils.clickAt(device, device.getDisplayWidth() / 2, device.getDisplayHeight() / 2);
-                }
-                TestUtils.clickMenuButton(device, "List view", false, false);
-                if (!TestUtils.clickMenuButton(device, "Show roots", false, true)) {
-                    // TestUtils.clickResource(device, false, "android:id/roots_toolbar", true);
-                    UiObject drawerButton = device.findObject(new UiSelector().classNameMatches("^.*.ImageButton$"));
-                    try {
-                        drawerButton.clickAndWaitForNewWindow();
-                    } catch (UiObjectNotFoundException e) {
 
-                    }
-                }
-
-                UiSelector android = new UiSelector().resourceIdMatches(".*:id/title")
-                        .textMatches("(^Android SDK.*)|(^AOSP.*)|(^Internal.*)|(^Samsung.*)|(^sdk_.*)|(SDCARD)");
-                UiObject androidButton = device.findObject(android);
-                try {
-                    androidButton.clickAndWaitForNewWindow();
-                } catch (UiObjectNotFoundException e1) {
-                    Assert.fail("Link to internal storage not found in drawer");
                 }
             }
-            String storagePath = "Android/data/" + context.getPackageName() + "/files";
-            if (useVespucciDir) {
-                storagePath = "Download/Vespucci"; // FIXME use FileUtil...
+
+            UiSelector android = new UiSelector().resourceIdMatches(".*:id/title")
+                    .textMatches("(^Android SDK.*)|(^AOSP.*)|(^Internal.*)|(^Samsung.*)|(^sdk_.*)|(SDCARD)");
+            UiObject androidButton = device.findObject(android);
+            try {
+                androidButton.clickAndWaitForNewWindow();
+            } catch (UiObjectNotFoundException e1) {
+                Assert.fail("Link to internal storage not found in drawer");
             }
-            selectDirectory(device, storagePath, scrollableSelector);
         }
+        String storagePath = "Android/data/" + context.getPackageName() + "/files";
+        if (useVespucciDir) {
+            storagePath = "Download/Vespucci"; // FIXME use FileUtil...
+        }
+        selectDirectory(device, storagePath, scrollableSelector);
+
         if (directory != null) {
             scrollToAndSelect(device, directory, scrollableSelector, 1);
         }
@@ -1337,24 +1336,26 @@ public final class TestUtils {
         System.out.println("Path: " + path);
         String[] dirs = path.split("/");
         String prev = null;
-        if (dirs.length > 0) {
-            for (String dir : dirs) {
-                if (!"".equals(dir)) {
-                    if (!scrollToAndSelect(device, dir, scrollableSelector, 0)) {
-                        if (prev != null) {
-                            // retry to get around suspected flaky android resend back button pressed
-                            scrollToAndSelect(device, prev, scrollableSelector, 0);
-                            if (!scrollToAndSelect(device, dir, scrollableSelector, 0)) {
-                                Assert.fail("selectDirectory failed click on " + dir);
-                            }
-                        } else {
-                            Assert.fail("selectDirectory failed click on " + dir + " no prev dir");
+        if (dirs.length == 0) {
+            return;
+        }
+        for (String dir : dirs) {
+            if (!"".equals(dir)) {
+                if (!scrollToAndSelect(device, dir, scrollableSelector, 0)) {
+                    if (prev != null) {
+                        // retry to get around suspected flaky android resend back button pressed
+                        scrollToAndSelect(device, prev, scrollableSelector, 0);
+                        if (!scrollToAndSelect(device, dir, scrollableSelector, 0)) {
+                            Assert.fail("selectDirectory failed click on " + dir);
                         }
+                    } else {
+                        Assert.fail("selectDirectory failed click on " + dir + " no prev dir");
                     }
-                    prev = dir;
                 }
+                prev = dir;
             }
         }
+
     }
 
     /**

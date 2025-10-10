@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -307,17 +308,17 @@ public class WrapperTest {
      */
     @Test
     public void matchesPresetTest() {
-        Object secondary = wrapper.getPreset("Highways|Streets|Secondary");
+        Serializable secondary = wrapper.getPreset("Highways|Streets|Secondary");
         assertTrue(secondary instanceof PresetItem);
         Way way = (Way) delegator.getOsmElement(Way.NAME, 571087535L);
         assertNotNull(way);
         wrapper.setElement(way);
         assertTrue(wrapper.matchesPreset(secondary));
-        Object primary = wrapper.getPreset("Highways|Streets|Primary");
+        Serializable primary = wrapper.getPreset("Highways|Streets|Primary");
         assertTrue(primary instanceof PresetItem);
         assertFalse(wrapper.matchesPreset(primary));
 
-        Object streets = wrapper.getPreset("Highways|Streets|*");
+        Serializable streets = wrapper.getPreset("Highways|Streets|*");
         assertTrue(streets instanceof PresetGroup);
         assertTrue(wrapper.matchesPreset(streets));
         assertTrue(wrapper.matchesPreset(streets));
@@ -444,7 +445,7 @@ public class WrapperTest {
         Way way = (Way) delegator.getOsmElement(Way.NAME, 111762730L);
         assertNotNull(way);
         wrapper.setElement(way);
-        List<Object> objects = wrapper.getMatchingElements(new Version(8));
+        List<Serializable> objects = wrapper.getMatchingElements(new Version(8));
         assertEquals(441, objects.size());
         assertEquals(way, wrapper.getElement());
     }
