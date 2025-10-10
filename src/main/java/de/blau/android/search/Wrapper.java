@@ -1,5 +1,6 @@
 package de.blau.android.search;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -266,7 +267,7 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public Object getPreset(@NonNull String presetPath) {
+    public Serializable getPreset(@NonNull String presetPath) {
         if (context == null) {
             throw unsupported("preset:");
         }
@@ -282,7 +283,7 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public boolean matchesPreset(@NonNull Object preset) {
+    public boolean matchesPreset(@NonNull Serializable preset) {
         SortedMap<String, String> tags = element.getTags();
         ElementType type = element.getType();
         if (preset instanceof PresetItem && matches((PresetItem) preset, type, tags)) {
@@ -396,8 +397,8 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public boolean isChild(@NonNull Type type, @NonNull Meta meta, @NonNull List<Object> parents) {
-        for (Object o : parents) {
+    public boolean isChild(@NonNull Type type, @NonNull Meta meta, @NonNull List<Serializable> parents) {
+        for (Serializable o : parents) {
             if (o instanceof Relation) {
                 if (element.hasParentRelation((Relation) o)) {
                     return true;
@@ -410,8 +411,8 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public boolean isParent(@NonNull Type type, @NonNull Meta meta, @NonNull List<Object> children) {
-        for (Object o : children) {
+    public boolean isParent(@NonNull Type type, @NonNull Meta meta, @NonNull List<Serializable> children) {
+        for (Serializable o : children) {
             if (element instanceof Relation) {
                 if (((OsmElement) o).hasParentRelation((Relation) element)) {
                     return true;
@@ -425,8 +426,8 @@ public class Wrapper implements Meta {
 
     @NonNull
     @Override
-    public List<Object> getMatchingElements(@NonNull Condition c) {
-        List<Object> result = new ArrayList<>();
+    public List<Serializable> getMatchingElements(@NonNull Condition c) {
+        List<Serializable> result = new ArrayList<>();
         SearchResult sr = getMatchingElementsInternal(c);
         result.addAll(sr.nodes);
         result.addAll(sr.ways);
@@ -536,7 +537,7 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public @NonNull Meta wrap(Object arg0) {
+    public @NonNull Meta wrap(Serializable arg0) {
         if (context == null) {
             throw unsupported("unknown");
         }
