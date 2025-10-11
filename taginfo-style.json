@@ -92,6 +92,7 @@
 {"description":"Data rendering","key": "natural","value": "cliff","object_types": ["relation","way"]},
 {"description":"Data rendering","key": "natural","value": "coastline","object_types": ["relation","way"]},
 {"description":"Data rendering","key": "natural","value": "glacier","object_types": ["area","relation"]},
+{"description":"Data rendering","key": "natural","value": "gully","object_types": ["way"]},
 {"description":"Data rendering","key": "natural","value": "mountain_range","object_types": ["way"]},
 {"description":"Data rendering","key": "natural","value": "sand","object_types": ["area","relation"]},
 {"description":"Data rendering","key": "natural","value": "tree_row","object_types": ["relation","way"]},
