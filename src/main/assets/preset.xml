@@ -9439,6 +9439,15 @@
             <reference ref="name_operator"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Research institute -->
+        <separator/>
+        <item name="Give box" icon="icons/png/amenity_give_box.png" type="node" preset_name_label="true">
+            <link wiki="Tag:amenity=give_box"/>
+            <space/>
+            <key key="amenity" value="give_box"/>
+            <reference ref="optional_level"/>
+            <reference ref="optional_oh"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Give box -->
         </group> <!-- Facilities -->
            <group name="Advertising" icon="icons/png/amenity_advertising_12451.png">
             <item name="Advertising" icon="icons/png/amenity_advertising_12451.png" type="node,closedway" preset_name_label="true">
@@ -14021,6 +14030,7 @@
             <space/>
             <key key="natural" value="valley"/>
             <reference ref="name_wikipedia"/>
+            <preset_link preset_name="Gully" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Valley -->
         <item name="Mountain range" icon="icons/png/poi_mountain_range.png" type="way" preset_name_label="true">
             <link wiki="Tag:natural=mountain_range"/>
@@ -14039,6 +14049,17 @@
             <reference ref="optional_name_wikipedia"/>
             <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
         </item> <!-- Cliff -->
+        <item name="Gully" icon="icons/png/poi_gully.png" type="way" preset_name_label="true">
+            <link wiki="Tag:natural=gully"/>
+            <space/>
+            <label text="Small-scale landform incised into surrounding terrain through erosion by flowing water."/>
+            <space/>
+            <key key="natural" value="gully"/>
+            <optional>
+                <reference ref="name_wikipedia"/>
+            </optional>
+            <preset_link preset_name="Valley" text="Similar but different tags:" alternative="true"/>
+        </item> <!-- Gully -->
         <item name="Earth bank" icon="icons/png/poi_empty.png" type="way" preset_name_label="true">
             <link wiki="Tag:natural=earth_bank"/>
             <space/>
@@ -14112,7 +14133,7 @@
             <key key="place" value="islet"/>
             <reference ref="name_wikipedia"/>
         </item> <!-- Islet -->
-        <item name="Reef" icon="icons/png/poi_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Reef" icon="icons/png/poi_reef.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=reef"/>
             <space/>
             <key key="natural" value="reef"/>
