@@ -239,7 +239,7 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
             filter = (PresetFilter) tempFilter;
             final PresetElementPath path = element.getPath(rootGroup);
             if (path != null) {
-                filter.setPresetElement(path);
+                filter.setPresetElement(this, path);
                 currentGroup.getGroupView(this, presetView, this, null, null, element, null);
             }
             presetView.invalidate();
