@@ -166,7 +166,7 @@ public abstract class Filter implements Serializable {
     /**
      * Save the state of this filter
      */
-    public void saveState() {
+    public void saveState(@NonNull Context ctx) {
     }
 
     /**

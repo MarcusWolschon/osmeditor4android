@@ -45,7 +45,6 @@ public class PresetFilter extends CommonFilter {
     private transient SavingHelper<PresetElementPath> savingHelper = new SavingHelper<>();
 
     private transient Preset[]      preset          = null;
-    private transient Context       context;
     private transient PresetElement element         = null;
     private PresetElementPath       path            = null;
     private boolean                 includeWayNodes = false;
@@ -69,13 +68,14 @@ public class PresetFilter extends CommonFilter {
     /**
      * Set the PresetItem or PresetGroup that is used for filtering
      * 
+     * @param ctx an Androic Context
      * @param path the PresetELementPath of the item to use
      */
-    void setPresetElement(@NonNull PresetElementPath path) {
+    void setPresetElement(@NonNull Context ctx, @NonNull PresetElementPath path) {
         clear();
         this.path = path;
-        Preset[] presets = App.getCurrentPresets(context);
-        Preset searchPreset = App.getCurrentRootPreset(context);
+        Preset[] presets = App.getCurrentPresets(ctx);
+        Preset searchPreset = App.getCurrentRootPreset(ctx);
         element = Preset.getElementByPath(searchPreset.getRootGroup(), path);
         if (element == null) {
             if (presetFilterButton != null) {
@@ -96,7 +96,7 @@ public class PresetFilter extends CommonFilter {
         if (update != null) {
             update.execute();
         }
-        setIcon(context);
+        setIcon(ctx);
     }
 
     /**
@@ -112,18 +112,17 @@ public class PresetFilter extends CommonFilter {
     @Override
     public void init(Context context) {
         Log.d(DEBUG_TAG, "init");
-        this.context = context;
         clear();
         if (path != null) {
-            setPresetElement(path);
+            setPresetElement(context, path);
         }
     }
 
     @Override
-    public void saveState() {
+    public void saveState(@NonNull Context ctx) {
         synchronized (this) {
             if (path != null && savingHelper != null) {
-                savingHelper.save(context, FILENAME, path, false);
+                savingHelper.save(ctx, FILENAME, path, false);
             }
         }
     }

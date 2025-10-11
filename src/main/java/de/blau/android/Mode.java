@@ -87,7 +87,7 @@ public enum Mode {
             Filter filter = logic.getFilter();
             if (filter != null) {
                 if (!(filter instanceof IndoorFilter)) {
-                    filter.saveState();
+                    filter.saveState(main);
                     filter.hideControls();
                     filter.removeControls();
                     IndoorFilter indoor = new IndoorFilter();
@@ -111,7 +111,7 @@ public enum Mode {
             // needs to be removed here and previous filter, if any, restored
             Filter filter = logic.getFilter();
             if (filter instanceof IndoorFilter) {
-                filter.saveState();
+                filter.saveState(main);
                 filter.hideControls();
                 filter.removeControls();
                 filter = filter.getSavedFilter();
@@ -149,7 +149,7 @@ public enum Mode {
             Filter filter = logic.getFilter();
             if (filter != null) {
                 if (!(filter instanceof CorrectFilter)) {
-                    filter.saveState();
+                    filter.saveState(main);
                     filter.hideControls();
                     filter.removeControls();
                     CorrectFilter complete = new CorrectFilter();
@@ -171,7 +171,7 @@ public enum Mode {
             // needs to be removed here and previous filter, if any, restored
             Filter filter = logic.getFilter();
             if (filter instanceof CorrectFilter) {
-                filter.saveState();
+                filter.saveState(main);
                 filter.hideControls();
                 filter.removeControls();
                 filter = filter.getSavedFilter();

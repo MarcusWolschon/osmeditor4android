@@ -2093,7 +2093,7 @@ public class Main extends ConfigurationChangeAwareActivity
             }
             Filter currentFilter = logic.getFilter();
             if (currentFilter != null) {
-                currentFilter.saveState();
+                currentFilter.saveState(this);
                 currentFilter.hideControls();
                 currentFilter.removeControls();
                 logic.setFilter(null);
