@@ -152,7 +152,7 @@ public class PhotoViewerActivity<T extends Serializable> extends ConfigurationCh
     @SuppressWarnings("unchecked")
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        // NOSONAR don't call super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         Fragment f = getSupportFragmentManager().findFragmentById(android.R.id.content);
         if (f == null) {
@@ -163,7 +163,9 @@ public class PhotoViewerActivity<T extends Serializable> extends ConfigurationCh
         new SavingHelper<ArrayList<T>>().save(this, listFilename, photoList, true);
         outState.putString(PhotoViewerFragment.PHOTO_LIST_KEY, listFilename);
         outState.putInt(PhotoViewerFragment.START_POS_KEY, ((PhotoViewerFragment<T>) f).getCurrentPosition());
-        outState.putSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY, photoLoader);
+        if (!outState.containsKey(PhotoViewerFragment.PHOTO_LOADER_KEY)) {
+            outState.putSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY, photoLoader);
+        }
         outState.putBoolean(PhotoViewerFragment.WRAP_KEY, wrap);
     }
 
