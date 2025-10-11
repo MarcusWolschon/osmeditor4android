@@ -1,5 +1,19 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.1.5.0:
+
+- Fix protect against null activity when dismissing Progress dialog
+- Fix don't save Context in PresetFilter
+- Fix save list of images in file and not in bundle, avoids TTLE
+- Fix force caching of way node filter results
+- Fix correctness fixes imagery_used tag length
+- Fix actually set imagery list from saved state
+- Fix explicitly set inset listeners when adding additional fragments
+- Add styling for natural=gully
+- Update translations
+- Update imagery from ELI
+- Update default preset
+
 21.1.4.0:
 
 - Fix only allow selection from the nearby POI list in appropriate modes
