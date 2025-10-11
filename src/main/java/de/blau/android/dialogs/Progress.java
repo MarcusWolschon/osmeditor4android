@@ -97,7 +97,7 @@ public class Progress extends CancelableDialogFragment {
      * @param activity the calling FragmentActivity
      * @param dialogType an int indicating which heading to show
      */
-    public static void dismissDialog(@NonNull FragmentActivity activity, int dialogType) {
+    public static void dismissDialog(@Nullable FragmentActivity activity, int dialogType) {
         dismissDialog(activity, dialogType, null);
     }
 
@@ -109,7 +109,11 @@ public class Progress extends CancelableDialogFragment {
      *            spinners
      * @param tag a String identifying the dialog we want to dismiss or null
      */
-    public static void dismissDialog(@NonNull FragmentActivity activity, int dialogType, @Nullable String tag) {
+    public static void dismissDialog(@Nullable FragmentActivity activity, int dialogType, @Nullable String tag) {
+        if (activity == null) {
+            Log.e(DEBUG_TAG, "dismissDialog called with null Activity");
+            return;
+        }
         tag = getTag(dialogType) + (tag != null ? "-" + tag : "");
         de.blau.android.dialogs.Util.dismissDialog(activity, tag);
     }
