@@ -106,6 +106,7 @@
         <feature type="way" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" />
         <feature type="way" tags="natural=mountain_range" widthFactor="2.0" minVisibleZoom="10" color="ff555555" />
         <feature type="way" tags="natural=valley" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" />
+        <feature type="way" tags="natural=gully" widthFactor="1.5" color="ff71BE80" />
         <feature type="way" tags="natural=tree_row" widthFactor="2.5" color="ff146824" cap="ROUND" join="ROUND" casingStyle="tree_row_casing" labelZoomLimit="20">
             <dash phase="1.0">
                 <interval length="0.05" />
