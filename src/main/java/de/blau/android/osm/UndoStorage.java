@@ -1163,7 +1163,7 @@ public class UndoStorage implements Serializable {
      * @return a list of UndoElements empty if nothing found
      */
     @NonNull
-    private List<UndoElement> getElements(@NonNull LinkedList<Checkpoint> checkpoints, @NonNull OsmElement element) {
+    public List<UndoElement> getElements(@NonNull List<Checkpoint> checkpoints, @NonNull OsmElement element) {
         List<UndoElement> result = new ArrayList<>();
         String name = element.getName();
         long osmId = element.getOsmId();

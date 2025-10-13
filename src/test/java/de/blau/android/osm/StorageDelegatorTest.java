@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -31,6 +32,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.R;
 import de.blau.android.UnitTestUtils;
 import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.OsmException;
@@ -1937,5 +1939,18 @@ public class StorageDelegatorTest {
         assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, -1L)));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -2L)));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -3L)));
+    }
+
+    @Test
+    public void undoLast() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+        assertEquals(OsmElement.STATE_CREATED, w.getState());
+        UndoStorage undo = d.getUndo();
+        undo.createCheckpoint("Test checkpoint", null);
+        d.removeWay(w);
+        assertEquals(OsmElement.STATE_DELETED, w.getState());
+        d.undoLast(ApplicationProvider.getApplicationContext(), w);
+        assertEquals(OsmElement.STATE_CREATED, w.getState());
     }
 }

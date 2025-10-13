@@ -241,7 +241,7 @@ public class UploadConflict extends CancelableDialogFragment {
                 builder.setView(sv);
                 resolveActions.put(res.getString(R.string.undoing_local_delete), () -> {
                     // logic.createCheckpoint(activity, R.string.undo_action_fix_conflict);
-                    delegator.undoLast(elementLocal);
+                    delegator.undoLast(null, elementLocal);
                     if (delegator.getApiElementCount() > 0) {
                         ReviewAndUpload.showDialog(activity, elements);
                     }

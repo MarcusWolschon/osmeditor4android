@@ -4307,26 +4307,35 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Undo the last undo checkpoint the element was used in
      * 
+     * @param ctx TODO
      * @param element the element we want to reset to the previous state
      */
-    public void undoLast(@NonNull OsmElement element) {
-        List<de.blau.android.osm.UndoStorage.Checkpoint> checkpoints = undo.getUndoCheckpoints(element);
-        if (!checkpoints.isEmpty()) {
+    public void undoLast(@NonNull Context ctx, @NonNull OsmElement element) {
+        try {
+            lock();
+            List<de.blau.android.osm.UndoStorage.Checkpoint> checkpoints = undo.getUndoCheckpoints(element);
+            if (checkpoints.isEmpty()) {
+                Log.e(DEBUG_TAG, "No undo checkpoint found for " + element.getDescription());
+                return;
+            }
             final Checkpoint checkpoint = checkpoints.get(0);
             System.out.println("Last checkpoint " + checkpoint.toString());
-            System.out.println("Element " + element.getDescription() + " " + element.getState());;
-            App.getLogic().createCheckpoint(null, R.string.undo_action_fix_conflict);
-            for (OsmElement e : checkpoint.getSavedElements()) {
-                OsmElement current = getOsmElement(e.getName(), e.getOsmId());
-                if (current != null) {
-                    undo.save(current);
+            System.out.println("Element " + element.getDescription() + " " + element.getState());
+            undo.createCheckpoint(ctx.getString(R.string.undo_action_fix_conflict), null);
+            undo.save(element);
+            List<UndoStorage.UndoElement> list = undo.getElements(Util.wrapInList(checkpoint), element);
+            list.get(0).restore();
+            if (element instanceof Node) {
+                for (Way way : currentStorage.getWays()) {
+                    way.invalidateBoundingBox();
                 }
             }
-            undo.undo(checkpoint);
+            fixupBacklinks();
             System.out.println("Element after undo " + element.getDescription() + " " + element.getState());
             return;
+        } finally {
+            unlock();
         }
-        Log.e(DEBUG_TAG, "No undo checkpoint found for " + element.getDescription());
     }
 
     /**
