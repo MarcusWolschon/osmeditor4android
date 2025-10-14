@@ -24,6 +24,7 @@ import de.blau.android.Selection.Ids;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Coordinates;
+import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.Util;
 
 /**
@@ -41,8 +42,9 @@ public class MergeAction {
     private final OsmElement       mergeInto;
     private final OsmElement       mergeFrom;
     private final List<Result>     overallResult;
+    private final Selection.Ids    selection;
 
-    private final Selection.Ids selection;
+    private IntCoordinates origCoords;
 
     /**
      * Initialize a new MergeAction
@@ -78,6 +80,10 @@ public class MergeAction {
         if (swappable && mergeFrom.getOsmId() > 0
                 && (mergeInto.getOsmId() < 0 || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion() || mergeInto.getOsmId() > mergeFrom.getOsmId())) {
             // swap
+            if (mergeInto instanceof Node) {
+                // store original position
+                origCoords = new IntCoordinates((Node) mergeInto);
+            }
             Log.d(DEBUG_TAG, "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
             OsmElement tmpElement = mergeInto;
             mergeInto = mergeFrom;
@@ -123,6 +129,11 @@ public class MergeAction {
         } finally {
             delegator.unlock();
         }
+        // if we swapped from and into, set position from original into
+        if (origCoords != null) {
+            delegator.moveNode((Node) mergeInto, origCoords.lat, origCoords.lon);
+        }
+
         mergeElementsRelations(mergeInto, mergeFrom);
         // delete mergeFrom node
         delegator.removeNode((Node) mergeFrom);
