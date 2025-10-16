@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.83.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.85.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -323,6 +323,7 @@
         <reference ref="highway_overtaking"/>
         <checkgroup text="Additional attributes" columns="5">
             <check key="motorroad" text="Motorroad" disable_off="true"/>
+            <check key="expressway" text="Expressway" disable_off="true" regions="GB,PL,US"/>
             <check key="bridge" text="Bridge" disable_off="true"/>
             <check key="tunnel" text="Tunnel" disable_off="true"/>
             <check key="cutting" text="Cutting" disable_off="true"/>
@@ -758,9 +759,12 @@
         <preset_link preset_name="No name"/>
     </chunk>
     <chunk id="image_tags">
-        <text key="image" text="Image" match="none"/>
-        <text key="mapillary" text="Mapillary image" match="none"/>
-        <text key="wikimedia_commons" text="Wikimedia commons" match="none"/>
+        <text key="image" text="Image" match="none" value_type="image_reference"/>
+        <text key="mapillary" text="Mapillary image" match="none" value_type="image_reference"/>
+        <text key="panoramax" text="Panoramax image" match="none" value_type="image_reference"/>
+        <text key="wikimedia_commons" text="Wikimedia commons" match="none" value_type="image_reference"/>
+        <text key="kartaview" text="Kartaview image" match="none" value_type="image_reference"/>
+        <text key="flickr" text="Flickr image" match="none" value_type="image_reference"/>
     </chunk>
     <chunk id="wikipedia_wikidata">
         <text key="wikipedia" text="Wikipedia" value_type="wikipedia" match="none"/>
@@ -7300,6 +7304,7 @@
             <key key="amenity" value="public_bath"/>
             <combo key="bath:type" text="Type" values="hammam,hot_spring,lake,onsen,river,sento,thermal" display_values="Hammam,Hot spring,Lake,Onsen,River,Sento,Thermal" values_context="bath:type"/>
             <check key="bath:open_air" text="Open air"/>
+            <check key="bath:sand_bath" text="Sand bath" regions="JP"/>
             <check key="shower" text="Shower"/>
             <checkgroup text="Gender" columns="3">
                 <check key="female" text="Female" text_context="restroom"/>
