@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -103,6 +104,13 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         appendItem = menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
 
         joinItem = menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
+        joinItem.setActionView(R.layout.merge_action_view);
+        View joinView = joinItem.getActionView();
+        joinView.setOnClickListener((View v) -> mergeNode(joinableElements.size(), true));
+        joinView.setOnLongClickListener((View v) -> {
+            mergeNode(joinableElements.size(), false);
+            return true;
+        });
 
         unjoinItem = menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_unjoin));
 
@@ -187,7 +195,8 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                     }
                     break;
                 case MENUITEM_JOIN:
-                    mergeNode(joinableElements.size());
+                    Log.d(DEBUG_TAG, "MENUITEM_JOIN used via menu item");
+                    mergeNode(joinableElements.size(), true);
                     break;
                 case MENUITEM_UNJOIN:
                     logic.performUnjoinWays(main, (Node) element);
@@ -227,16 +236,31 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     }
 
     /**
+     * Merge the selected node with any other available elements
+     * 
+     * @param count the number of elements available for merge
+     * @param into true default, selected node is merged in to the nearby node(S)
+     */
+    private void mergeNode(int count, boolean into) {
+        if (count > 1) {
+            manager.showDisambiguationMenu();
+        } else {
+            mergeNodeWith(joinableElements, into);
+        }
+    }
+
+    /**
      * Merge the selected node with an OsmELement
      * 
      * @param target the target OsmElement
+     * @param into true default, selected node is merged in to the nearby node(s)
      * 
      */
-    private void mergeNodeWith(@NonNull List<OsmElement> target) {
-        Log.d(DEBUG_TAG, "mergeNodesWith " + element.getDescription(main));
+    private void mergeNodeWith(@NonNull List<OsmElement> target, boolean into) {
+        Log.d(DEBUG_TAG, "mergeNodesWith " + element.getDescription(main) + " " + into);
         try {
             List<Result> result = target.get(0) instanceof Way ? logic.performJoinNodeToWays(main, target, (Node) element)
-                    : logic.performMergeNodes(main, target, (Node) element);
+                    : logic.performMergeNodes(main, target, (Node) element, into);
             if (!result.isEmpty()) {
                 manager.invalidate(); // button will remain enabled
                 OsmElement newElement = result.get(0).getElement();
@@ -291,9 +315,9 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         int itemId = position;
         if (action == MENUITEM_JOIN) {
             if (itemId == 0) {
-                mergeNodeWith(joinableElements);
+                mergeNodeWith(joinableElements, true);
             } else {
-                mergeNodeWith(Util.wrapInList(joinableElements.get(itemId - 1)));
+                mergeNodeWith(Util.wrapInList(joinableElements.get(itemId - 1)), true);
             }
         } else if (action == MENUITEM_APPEND) {
             main.startSupportActionMode(new PathCreationActionModeCallback(manager, appendableWays.get(itemId), (Node) element));
@@ -329,26 +353,13 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         if (c == Util.getShortCut(main, R.string.shortcut_merge)) {
             int count = joinableElements.size();
             if (count > 0) {
-                mergeNode(count);
+                mergeNode(count, true);
             } else {
                 Sound.beep();
             }
             return true;
         }
         return super.processShortcut(c);
-    }
-
-    /**
-     * Merge the selected node with any other available elements
-     * 
-     * @param count the number of elements available for merge
-     */
-    void mergeNode(int count) {
-        if (count > 1) {
-            manager.showDisambiguationMenu();
-        } else {
-            mergeNodeWith(joinableElements);
-        }
     }
 
     /**

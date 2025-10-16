@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+    style="?attr/ActionButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:contentDescription="@string/menu_join"
+    android:longClickable="true"
+    android:src="?attr/menu_merge" >
+</ImageButton>
