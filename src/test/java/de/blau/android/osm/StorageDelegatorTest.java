@@ -797,7 +797,7 @@ public class StorageDelegatorTest {
     public void mergeNodes3() {
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
-        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
+        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.005));
         d.insertElementSafe(n1);
         Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
@@ -808,6 +808,28 @@ public class StorageDelegatorTest {
         assertFalse(result.get(0).hasIssue());
         assertNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
         assertNotNull(d.getOsmElement(Node.NAME, n2.getOsmId()));
+        assertEquals(toE7(0.005),n2.lon); 
+    }
+    
+    /**
+     * Merge two nodes
+     */
+    @Test
+    public void mergeNodes3_1() {
+        StorageDelegator d = new StorageDelegator();
+        OsmElementFactory factory = d.getFactory();
+        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.005));
+        d.insertElementSafe(n1);
+        Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
+        d.insertElementSafe(n2);
+        n2.setOsmId(1234L);
+        MergeAction action = new MergeAction(d, n2, n1, null);
+        List<Result> result = action.mergeNodes();
+        assertFalse(result.isEmpty());
+        assertFalse(result.get(0).hasIssue());
+        assertNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
+        assertNotNull(d.getOsmElement(Node.NAME, n2.getOsmId()));
+        assertEquals(toE7(0.006),n2.lon); 
     }
 
     /**

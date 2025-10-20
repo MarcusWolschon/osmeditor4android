@@ -2,6 +2,9 @@ package de.blau.android.util;
 
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import de.blau.android.osm.GeoPoint;
+
 /**
  * Wrapper for a WGS84*1E7 coordinate tupel
  * 
@@ -22,6 +25,16 @@ public class IntCoordinates {
     public IntCoordinates(int lon, int lat) {
         this.lon = lon;
         this.lat = lat;
+    }
+
+    /**
+     * Construct a new Coordinate object
+     * 
+     * @param point a GeoPoint implementing object
+     */
+    public IntCoordinates(@NonNull GeoPoint point) {
+        this.lon = point.getLon();
+        this.lat = point.getLat();
     }
 
     @Override

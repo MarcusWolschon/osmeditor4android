@@ -2686,10 +2686,11 @@ public class Logic {
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param elements List of Node that the Node will be merged to.
      * @param nodeToJoin Node to be merged
+     * @param into true default behaviour nodeToJoin is merged into the nearby nodes
      * @return a List of MergeResult objects containing the result of the merge
      */
     @NonNull
-    public List<Result> performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin) {
+    public List<Result> performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin, boolean into) {
         Log.d(DEBUG_TAG, "performMergeNodes " + nodeToJoin.getOsmId() + " " + elements.size() + " targets");
         List<Result> overallResult = new ArrayList<>();
         if (elements.isEmpty()) {
@@ -2705,7 +2706,8 @@ public class Logic {
                     throw new OsmIllegalOperationException("Trying to join node to itself");
                 }
                 displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
-                MergeAction action = new MergeAction(getDelegator(), element, nodeToJoin, getSelectedIds());
+                MergeAction action = into ? new MergeAction(getDelegator(), element, nodeToJoin, getSelectedIds())
+                        : new MergeAction(getDelegator(), nodeToJoin, element, getSelectedIds());
                 try {
                     List<Result> tempResult = action.mergeNodes();
                     if (overallResult.isEmpty()) {

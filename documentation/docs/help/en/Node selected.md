@@ -46,7 +46,7 @@ If a way node is selected that is a member of multiple ways this will create add
 
 ### ![Merge](../images/tag_menu_merge.png) Merge 
 
-Merge the selected node with a way (as a new way node) or with an existing node. To make this tool appear in the toolbar, select a node and move it next to a way. If there are multiple possible target nodes or ways a disambiguation context menu will be shown.
+Merge the selected node with a way (as a new way node) or with an existing node. To make this tool appear in the toolbar, select a node and move it next to a way. If there are multiple possible target nodes or ways a disambiguation context menu will be shown. Default behaviour is to merge the selected node in to the nearby node, long pressing the button will merge the nearby node in to the selected one. This behaviour is only available in the merge button is visible and not from the overflow menu. Merging will try to maintain as much object history as possible and will swap the actual OSM nodes if necessary, the node position will however always be set from the original target node.
 
 ### ![Extract](../images/extract_node.png) Extract node
 

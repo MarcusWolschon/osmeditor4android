@@ -564,7 +564,7 @@ public class GeometryEditsTest {
             int lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
             Node n2 = logic.performAddNode(main, lon, lat);
             assertEquals(2, App.getDelegator().getApiNodeCount());
-            List<Result> result = logic.performMergeNodes(main, Util.wrapInList(n1), n2);
+            List<Result> result = logic.performMergeNodes(main, Util.wrapInList(n1), n2, true);
             assertEquals(1, App.getDelegator().getApiNodeCount());
             assertFalse(result.isEmpty());
             assertFalse(result.get(0).hasIssue());
@@ -576,7 +576,7 @@ public class GeometryEditsTest {
             tags.clear();
             tags.put("highway", "unclassified");
             logic.setTags(main, n2, tags);
-            result = logic.performMergeNodes(main, Util.wrapInList(n1), n2);
+            result = logic.performMergeNodes(main, Util.wrapInList(n1), n2, true);
             assertFalse(result.isEmpty());
             assertTrue(result.get(0).hasIssue());
             assertEquals(1, result.get(0).getIssues().size());
@@ -1018,7 +1018,7 @@ public class GeometryEditsTest {
             StorageDelegator delegator = App.getDelegator();
             List<Node> nodes = w1.getNodes();
             assertEquals(2, nodes.size());
-            logic.performMergeNodes(main, Util.wrapInList(nodes.get(0)), nodes.get(1));
+            logic.performMergeNodes(main, Util.wrapInList(nodes.get(0)), nodes.get(1), true);
             assertNull(delegator.getCurrentStorage().getWay(w1.getOsmId()));
             assertNull(delegator.getApiStorage().getWay(w1.getOsmId()));
         } catch (Exception igit) {
