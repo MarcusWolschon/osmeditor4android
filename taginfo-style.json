@@ -51,6 +51,7 @@
 {"description":"Data rendering","key": "highway","value": "primary_link","object_types": ["way"]},
 {"description":"Data rendering","key": "highway","value": "proposed","object_types": ["way"]},
 {"description":"Data rendering","key": "highway","value": "residential","object_types": ["way"]},
+{"description":"Data rendering","key": "highway","value": "scramble","object_types": ["way"]},
 {"description":"Data rendering","key": "highway","value": "secondary","object_types": ["way"]},
 {"description":"Data rendering","key": "highway","value": "secondary_link","object_types": ["way"]},
 {"description":"Data rendering","key": "highway","value": "service","object_types": ["way"]},

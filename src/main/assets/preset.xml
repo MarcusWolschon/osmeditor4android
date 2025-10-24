@@ -60,6 +60,8 @@
     
     
     
+    
+    
     <!-- Item chunks -->
     <chunk id="optional_speech_output">
         <optional>
@@ -146,6 +148,9 @@
     </chunk>
     <chunk id="maxspeed">
         <text key="maxspeed" text="Max speed" long_text="Maximum speed in km/h if no units specified"/>
+        <optional>
+            <combo key="maxspeed:variable" text="Variable max. speed" values="yes,environment,peak_traffic,school_zone,weather" display_values="Yes,Environment,Peak traffic,School zone,Weather" match="none"/>
+        </optional>
     </chunk>
     <chunk id="handrail">
         <checkgroup text="Handrail" columns="1"> <!-- workaround -->
@@ -2297,6 +2302,9 @@
     <chunk id="trailblazed">
         <combo key="trailblazed" text="Trail markings" values="yes,poles,cairns,symbols,no" display_values="Yes,Poles,Cairns,Symbols,No" match="key"/>
     </chunk>
+    <chunk id="trail_visibility">
+        <combo key="trail_visibility" text="Visibility" values="excellent,good,intermediate,bad,horrible,no" display_values="Excellent,Good,Intermediate,Bad,Horrible,Not visible" values_context="trail_visibility" values_sort="false"/>
+    </chunk>
     <chunk id="aerialway_usage">
         <multiselect key="usage" text="Usage" values="industrial;freight;tourism" display_values="Freight;Industrial;Tourism" values_context="usage" values_searchable="true"/>
     </chunk>
@@ -3127,16 +3135,12 @@
                 <check key="informal" text="Informal"/>
                 <reference ref="highway_additional_oneway_lit_width"/>
                 <combo key="sac_scale" text="SAC Scale" values_searchable="true" values_sort="false">
-                    <list_entry value="hiking" display_value="T1 - hiking trail" short_description="Trail well cleared. Area flat or slightly sloped, no fall hazard"/>
-                    <list_entry value="mountain_hiking" display_value="T2 - mountain hiking trail" short_description="Trail with continuous line and balanced ascent. Terrain partially steep, fall hazard possible"/>
-                    <list_entry value="demanding_mountain_hiking" display_value="T3 - difficult, exposed hiking trail" short_description="exposed sites may be secured with ropes or chains, possible need to use hands for balance. Partly exposed sites with fall hazard, scree, pathless jagged rocks"/>
-                    <list_entry value="alpine_hiking" display_value="T4 - difficult, exposed, steep alpine trail" short_description="sometimes need for hand use to get ahead. Terrain quite exposed, precarious grassy acclivities, jagged rocks, facile snow-free glaciers"/>
-                    <list_entry value="demanding_alpine_hiking" display_value="T5 - difficult alpine trail with climbing" short_description="single plainly climbing up to second grade. Exposed, demanding terrain, jagged rocks, few dangerous glacier and snow"/>
-                    <list_entry value="difficult_alpine_hiking" display_value="T6 - hazardous alpine trail with climbing" short_description="climbing up to second grade. Often very exposed, precarious jagged rocks, glacier with danger to slip and fall"/>
-                </combo>
+                    <list_entry value="hiking" display_value="T1 - hiking trail" short_description="Trail well cleared. Area flat or slightly sloped, no fall hazard"/><list_entry value="mountain_hiking" display_value="T2 - mountain hiking trail" short_description="Trail with continuous line and balanced ascent. Terrain partially steep, fall hazard possible"/>
+                    <list_entry value="demanding_mountain_hiking" display_value="T3 - difficult, exposed hiking trail" short_description="exposed sites may be secured with ropes or chains, possible need to use hands for balance. Partly exposed sites with fall hazard, scree, pathless jagged rocks"/><list_entry value="alpine_hiking" display_value="T4 - difficult, exposed, steep alpine trail" short_description="sometimes need for hand use to get ahead. Terrain quite exposed, precarious grassy acclivities, jagged rocks, facile snow-free glaciers"/><list_entry value="demanding_alpine_hiking" display_value="T5 - difficult alpine trail with climbing" short_description="single plainly climbing up to second grade. Exposed, demanding terrain, jagged rocks, few dangerous glacier and snow"/><list_entry value="difficult_alpine_hiking" display_value="T6 - hazardous alpine trail with climbing" short_description="climbing up to second grade. Often very exposed, precarious jagged rocks, glacier with danger to slip and fall"/>
+                 </combo>
                 <reference ref="mtb_scale"/>
                 <reference ref="trailblazed"/>
-                <combo key="trail_visibility" text="Visibility" values="excellent,good,intermediate,bad,horrible,no" display_values="Excellent,Good,Intermediate,Bad,Horrible,Not visible" values_context="trail_visibility" values_sort="false"/>
+                <reference ref="trail_visibility"/>
                 <reference ref="footway_accessibility"/>
                 <reference ref="handrail"/>
             </optional>
@@ -3276,6 +3280,20 @@
                 <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
             </optional>
         </item> <!-- Ladder -->
+        <item name="Scramble" icon="icons/png/highway_scramble.png" type="way" preset_name_label="true">
+            <link wiki="Proposal:Highway=scramble"/>
+            <key key="highway" value="scramble"/>
+            <label text="Segment of a passage that requires use of hands"/>
+            <optional>
+                <reference ref="name"/>
+                <combo key="sac_scale" text="SAC Scale" values_searchable="true" values_sort="false">   
+                    <list_entry value="demanding_mountain_hiking" display_value="T3 - difficult, exposed hiking trail" short_description="exposed sites may be secured with ropes or chains, possible need to use hands for balance. Partly exposed sites with fall hazard, scree, pathless jagged rocks"/><list_entry value="alpine_hiking" display_value="T4 - difficult, exposed, steep alpine trail" short_description="sometimes need for hand use to get ahead. Terrain quite exposed, precarious grassy acclivities, jagged rocks, facile snow-free glaciers"/><list_entry value="demanding_alpine_hiking" display_value="T5 - difficult alpine trail with climbing" short_description="single plainly climbing up to second grade. Exposed, demanding terrain, jagged rocks, few dangerous glacier and snow"/><list_entry value="difficult_alpine_hiking" display_value="T6 - hazardous alpine trail with climbing" short_description="climbing up to second grade. Often very exposed, precarious jagged rocks, glacier with danger to slip and fall"/>
+                </combo>
+                <reference ref="trailblazed"/>
+                <reference ref="trail_visibility"/>
+                <reference ref="surface"/>
+            </optional>
+        </item> <!-- Scramble -->
     </group> <!-- Ways -->
     <group name="Waypoints" icon="icons/png/highway_way_point_sp.png">
         <item name="Motorway Junction" icon="icons/png/highway_motorway_junction_18009.png" type="node" preset_name_label="true">
@@ -9992,7 +10010,7 @@
             <reference ref="oh"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Gymnastics -->
-        <item name="Skating" deprecated="true" icon="icons/png/sport_iceskating.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Skating" deprecated="true" icon="icons/png/sport_iceskating.png" type="node,closedway,multipolygon" preset_name_label="true" name_context="ice_skating">
             <link wiki="Tag:sport=skating"/>
             <space/>
             <key key="sport" value="skating"/>
