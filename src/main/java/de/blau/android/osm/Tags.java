@@ -261,6 +261,7 @@ public final class Tags {
     public static final String KEY_MAXSPEED = "maxspeed";
     public static final String KEY_MINSPEED = "minspeed";
     public static final String MPH          = " mph";
+    public static final String VARIABLE     = "variable";
 
     /**
      * Check if the key has something to do with a vehicle speed
@@ -269,7 +270,8 @@ public final class Tags {
      * @return true is a speed related key
      */
     public static boolean isSpeedKey(@Nullable final String key) {
-        return key != null && (key.startsWith(KEY_MAXSPEED) || key.startsWith(KEY_MINSPEED)) && !(key.contains(KEY_SOURCE) || key.contains(KEY_TYPE));
+        return key != null && (key.startsWith(KEY_MAXSPEED) || key.startsWith(KEY_MINSPEED))
+                && !(key.contains(KEY_SOURCE) || key.contains(KEY_TYPE) || key.contains(VARIABLE));
     }
 
     public static final String KEY_ACCESS        = "access";
