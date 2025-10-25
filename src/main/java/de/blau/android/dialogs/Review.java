@@ -175,9 +175,12 @@ public class Review extends AbstractReviewDialog {
     private final class ListObserver extends DataSetObserver {
         @Override
         public void onChanged() {
+            Log.e(DEBUG_TAG, "onChanged");
+            final ValidatorArrayAdapter validatorArrayAdapter = (ValidatorArrayAdapter) listView.getAdapter();
+            final ChangedElement[] changedElements = validatorArrayAdapter.elements;
             boolean somethingSelected = false;
             boolean somethingNotSelected = false;
-            for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
+            for (ChangedElement e : changedElements) {
                 if (e.selected && !somethingSelected) {
                     somethingSelected = true;
                     continue;

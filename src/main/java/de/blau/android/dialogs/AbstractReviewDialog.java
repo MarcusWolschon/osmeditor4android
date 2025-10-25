@@ -266,12 +266,26 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
             CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox1);
             if (checkBox != null) {
                 checkBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
-                    elements[position].selected = isChecked;
+                    selectRequired(position, isChecked);
                     notifyDataSetChanged();
                 });
-                checkBox.setChecked(elements[position].selected);
             }
             return v;
+        }
+
+        /**
+         * Select/deselect entries that are dependent on each other
+         * 
+         * @param position the position of the changed entries
+         * @param isChecked true if checked
+         */
+        private void selectRequired(int position, boolean isChecked) {
+            List<OsmElement> related = App.getDelegator().addRequiredElements(null, de.blau.android.util.Util.wrapInList(elements[position].element));
+            for (ChangedElement e : elements) {
+                if (related.contains(e.element)) {
+                    e.selected = isChecked;
+                }
+            }
         }
 
         /**
