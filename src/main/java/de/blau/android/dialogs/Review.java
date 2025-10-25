@@ -22,6 +22,7 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.osm.OsmElement;
@@ -68,7 +69,7 @@ public class Review extends AbstractReviewDialog {
      * @param activity the calling FragmentActivity
      */
     public static void dismissDialog(@NonNull FragmentActivity activity) {
-        Util.dismissDialog(activity, TAG);
+        de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
     }
 
     /**
@@ -120,22 +121,11 @@ public class Review extends AbstractReviewDialog {
                     toUpload.add(e.element);
                 }
             }
-            ReviewAndUpload.showDialog(activity, toUpload);
+            ReviewAndUpload.showDialog(activity, App.getDelegator().addRequiredElements(activity, toUpload));
         });
 
         AppCompatDialog dialog = builder.create();
         dialog.setOnShowListener((DialogInterface d) -> ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(false));
-
-        dialog.setOnDismissListener((DialogInterface d) -> {
-            Log.d(DEBUG_TAG, "Saving state");
-            HashSet<String> checked = new HashSet<>();
-            for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
-                if (e.selected) {
-                    checked.add(getElementKey(e.element));
-                }
-            }
-            new SavingHelper<HashSet<String>>().save(activity, STATE_FILENAME, checked, false);
-        });
 
         return dialog;
     }

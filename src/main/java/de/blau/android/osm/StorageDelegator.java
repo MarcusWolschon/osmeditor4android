@@ -3383,6 +3383,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param elements the List of elements
      * @return the List of elements for convenience
      */
+    @NonNull
     public List<OsmElement> addRequiredElements(@NonNull final Context context, @NonNull final List<OsmElement> elements) {
         Set<OsmElement> additionalElements = new HashSet<>();
         // add parent elements containing new elements that have been selected for upload
