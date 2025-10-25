@@ -3,6 +3,7 @@ package de.blau.android.dialogs;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import android.content.DialogInterface;
@@ -22,8 +23,10 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -36,6 +39,8 @@ public class Review extends AbstractReviewDialog {
     private static final String DEBUG_TAG = Review.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String TAG = "fragment_review";
+
+    private static final String STATE_FILENAME = "review_state" + "." + FileExtensions.RES;
 
     private ListView listView;
 
@@ -121,13 +126,60 @@ public class Review extends AbstractReviewDialog {
         AppCompatDialog dialog = builder.create();
         dialog.setOnShowListener((DialogInterface d) -> ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(false));
 
+        dialog.setOnDismissListener((DialogInterface d) -> {
+            Log.d(DEBUG_TAG, "Saving state");
+            HashSet<String> checked = new HashSet<>();
+            for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
+                if (e.selected) {
+                    checked.add(getElementKey(e.element));
+                }
+            }
+            new SavingHelper<HashSet<String>>().save(activity, STATE_FILENAME, checked, false);
+        });
+
         return dialog;
     }
 
     @Override
     protected void createChangesView() {
         addChangesToView(getActivity(), listView, elements, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item_with_checkbox);
-        listView.getAdapter().registerDataSetObserver(new ListObserver());
+        HashSet<String> checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
+        ValidatorArrayAdapter adapter = (ValidatorArrayAdapter) listView.getAdapter();
+        if (checked != null) {
+            Log.d(DEBUG_TAG, "Loading previous state state");
+            for (int i = 0; i < adapter.getCount(); i++) {
+                ChangedElement e = adapter.getItem(i);
+                e.selected = checked.contains(getElementKey(e.element));
+            }
+            adapter.notifyDataSetChanged();
+        }
+        adapter.registerDataSetObserver(new ListObserver());
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+        saveState();
+    }
+
+    /**
+     * Save the selection state
+     */
+    private void saveState() {
+        Log.d(DEBUG_TAG, "Saving selection state");
+        HashSet<String> checked = new HashSet<>();
+        for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
+            if (e.selected) {
+                checked.add(getElementKey(e.element));
+            }
+        }
+        new SavingHelper<HashSet<String>>().save(getContext(), STATE_FILENAME, checked, false);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        saveState();
     }
 
     private final class ListObserver extends DataSetObserver {
@@ -152,5 +204,23 @@ public class Review extends AbstractReviewDialog {
             }
             ((AlertDialog) requireDialog()).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(somethingSelected);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(DEBUG_TAG, "onSaveInstanceState");
+
+    }
+
+    /**
+     * Get an unique key for a specific version of an OsmElement
+     * 
+     * @param e the element
+     * @return an unique string
+     */
+    @NonNull
+    private String getElementKey(@NonNull OsmElement e) {
+        return e.getName() + Long.toString(e.getOsmId()) + "_" + Long.toString(e.getOsmVersion());
     }
 }
