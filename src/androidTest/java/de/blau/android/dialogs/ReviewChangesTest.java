@@ -28,6 +28,7 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
+import androidx.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
@@ -184,8 +185,6 @@ public class ReviewChangesTest {
 
         itemCheckBox.click();
         TestUtils.sleep(5000); // hack
-        uploadButton = device.findObject(uiSelector0);
-        assertNotNull(uploadButton);
         try {
             assertTrue(uploadButton.isEnabled());
             uploadButton.click();
@@ -260,5 +259,49 @@ public class ReviewChangesTest {
         } catch (UiObjectNotFoundException e1) {
             fail(e1.getMessage());
         }
+    }
+
+    /**
+     * Select change to upload exit restart and check that it is still there
+     */
+    @Test
+    public void selectChanges3() {
+        Logic logic = App.getLogic();
+        Node bd = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
+        assertNotNull(bd);
+        Map<String, String> tags = new HashMap<>(bd.getTags());
+        tags.put(Tags.KEY_NAME, "Dietikonberg");
+        tags.put(Tags.KEY_WIKIPEDIA, "en:Bergdietikon");
+
+        logic.setTags(main, bd, tags);
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
+
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_review), true, false));
+
+        UiObject2 itemText = TestUtils.findObjectWithText(device, false, "Dietikonberg", 1000, false);
+        assertNotNull(itemText);
+        UiObject2 itemCheckBox = itemText.getParent().findObject(By.res(device.getCurrentPackageName() + ":id/checkBox1"));
+
+        itemCheckBox.click();
+        assertTrue(itemCheckBox.isChecked());
+
+        UiSelector uiSelector1 = new UiSelector().className("android.widget.Button").instance(1); //
+
+        UiObject doneButton = device.findObject(uiSelector1);
+        assertNotNull(doneButton);
+        device.performActionAndWait(() -> {
+            try {
+                doneButton.click();
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
+        }, Until.newWindow(), 5000);
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_review), true, false));
+
+        itemText = TestUtils.findObjectWithText(device, false, "Dietikonberg", 1000, false);
+        assertNotNull(itemText);
+        itemCheckBox = itemText.getParent().findObject(By.res(device.getCurrentPackageName() + ":id/checkBox1"));
+        assertTrue(itemCheckBox.isChecked());
     }
 }

@@ -5,6 +5,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.content.DialogInterface;
 import android.database.DataSetObserver;
@@ -132,18 +133,12 @@ public class Review extends AbstractReviewDialog {
 
     @Override
     protected void createChangesView() {
-        addChangesToView(getActivity(), listView, elements, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item_with_checkbox);
-        HashSet<String> checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
-        ValidatorArrayAdapter adapter = (ValidatorArrayAdapter) listView.getAdapter();
-        if (checked != null) {
-            Log.d(DEBUG_TAG, "Loading previous state state");
-            for (int i = 0; i < adapter.getCount(); i++) {
-                ChangedElement e = adapter.getItem(i);
-                e.selected = checked.contains(getElementKey(e.element));
-            }
-            adapter.notifyDataSetChanged();
-        }
-        adapter.registerDataSetObserver(new ListObserver());
+        Set<String> checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
+        addChangesToView(getActivity(), listView, elements, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item_with_checkbox,
+                (OsmElement e) -> checked != null && checked.contains(getElementKey(e)), () -> {
+                    ValidatorArrayAdapter adapter = (ValidatorArrayAdapter) listView.getAdapter();
+                    adapter.registerDataSetObserver(new ListObserver());
+                });
     }
 
     @Override
@@ -175,9 +170,21 @@ public class Review extends AbstractReviewDialog {
     private final class ListObserver extends DataSetObserver {
         @Override
         public void onChanged() {
+            final ValidatorArrayAdapter validatorArrayAdapter = (ValidatorArrayAdapter) listView.getAdapter();
+            final ChangedElement[] changedElements = validatorArrayAdapter.elements;
+            final int childCount = listView.getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.checkBox1);
+                if (checkBox != null) {
+                    checkBox.setOnCheckedChangeListener(null);
+                    checkBox.setChecked(changedElements[i].selected);
+                    checkBox.setOnCheckedChangeListener(validatorArrayAdapter.getOnCheckedChangeListener(i));
+                }
+            }
+
             boolean somethingSelected = false;
             boolean somethingNotSelected = false;
-            for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
+            for (ChangedElement e : changedElements) {
                 if (e.selected && !somethingSelected) {
                     somethingSelected = true;
                     continue;

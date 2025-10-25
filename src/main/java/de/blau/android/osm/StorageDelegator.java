@@ -3379,12 +3379,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Add any required referenced elements to upload
      * 
-     * @param context and Android Context
+     * @param context an Android Context if null no toast will be generated
      * @param elements the List of elements
      * @return the List of elements for convenience
      */
     @NonNull
-    public List<OsmElement> addRequiredElements(@NonNull final Context context, @NonNull final List<OsmElement> elements) {
+    public List<OsmElement> addRequiredElements(@Nullable final Context context, @NonNull final List<OsmElement> elements) {
         Set<OsmElement> additionalElements = new HashSet<>();
         // add parent elements containing new elements that have been selected for upload
         for (OsmElement e : elements) {
@@ -3428,7 +3428,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         if (added > 0) {
             // upload will sort elements correctly
             elements.addAll(additionalElements);
-            ScreenMessage.toastTopWarning(context, context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
+            if (context != null) {
+                ScreenMessage.toastTopWarning(context, context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
+            }
         }
         return elements;
     }
