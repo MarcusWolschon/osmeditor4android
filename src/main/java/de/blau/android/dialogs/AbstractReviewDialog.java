@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -109,6 +110,16 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
 
     protected abstract void createChangesView();
 
+    interface Selected {
+        /**
+         * Check if an element is selected
+         * 
+         * @param e
+         * @return true if selected
+         */
+        boolean isSelected(@NonNull OsmElement e);
+    }
+
     /**
      * Add changes to a ListView
      * 
@@ -118,16 +129,17 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
      * @param comparator a Comparator for sorting the changes
      * @param parentTag tag of parent dialog
      * @param itemResource the layout resource for the item
+     * @param s a Selected call back or null
+     * @param postAsync run this after sorting and adapter setup have completed
      */
     protected void addChangesToView(@NonNull final FragmentActivity activity, @NonNull final ListView changesView, @Nullable List<OsmElement> elements,
-            @NonNull Comparator<ChangedElement> comparator, @Nullable String parentTag, int itemResource) {
+            @NonNull Comparator<ChangedElement> comparator, @Nullable String parentTag, int itemResource, @Nullable Selected s, Runnable postAsync) {
         ExtendedValidator validator = new ExtendedValidator(activity, App.getDefaultValidator(activity));
         final ChangedElement[] changes = getPendingChanges(activity.getResources(), elements == null ? App.getLogic().getPendingChangedElements() : elements);
-        Arrays.sort(changes, comparator);
         final ValidatorArrayAdapter adapter = new ValidatorArrayAdapter(activity, itemResource, changes, validator, parentTag);
         changesView.setAdapter(adapter);
-        new ExecutorTask<Void, Void, Void>() {
 
+        new ExecutorTask<Void, Void, Void>() {
             @Override
             protected void onPreExecute() {
                 Progress.showDialog(getActivity(), Progress.PROGRESS_UPDATING, PROGRESS_STATUS_TAG);
@@ -135,15 +147,23 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
 
             @Override
             protected Void doInBackground(Void nothing) {
+                final ChangedElement[] changes = ((ValidatorArrayAdapter) changesView.getAdapter()).elements;
                 revalidate(activity, validator, changes);
                 Arrays.sort(changes, comparator);
-                adapter.notifyDataSetChanged();
+                if (s != null) {
+                    for (ChangedElement e : changes) {
+                        e.selected = s.isSelected(e.element);
+                    }
+                }
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void ignored) {
                 Progress.dismissDialog(getActivity(), Progress.PROGRESS_UPDATING, PROGRESS_STATUS_TAG);
+                if (postAsync != null) {
+                    postAsync.run();
+                }
             }
         }.execute();
     }
@@ -265,13 +285,41 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
             }
             CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox1);
             if (checkBox != null) {
-                checkBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
-                    elements[position].selected = isChecked;
-                    notifyDataSetChanged();
-                });
+                checkBox.setOnCheckedChangeListener(null);
                 checkBox.setChecked(elements[position].selected);
+                checkBox.setOnCheckedChangeListener(getOnCheckedChangeListener(position));
             }
             return v;
+        }
+
+        /**
+         * Get an OnCheckedChangeListener
+         * 
+         * @param position row that is relevant
+         * @return an OnCheckedChangeListener
+         */
+        @NonNull
+        OnCheckedChangeListener getOnCheckedChangeListener(int position) {
+            return (CompoundButton buttonView, boolean isChecked) -> {
+                Log.d(DEBUG_TAG, "onCheckedChange");
+                selectRequired(position, isChecked);
+                notifyDataSetChanged();
+            };
+        }
+
+        /**
+         * Select/deselect entries that are dependent on each other
+         * 
+         * @param position the position of the changed entries
+         * @param isChecked true if checked
+         */
+        private void selectRequired(int position, boolean isChecked) {
+            List<OsmElement> related = App.getDelegator().addRequiredElements(null, de.blau.android.util.Util.wrapInList(elements[position].element));
+            for (ChangedElement e : elements) {
+                if (related.contains(e.element)) {
+                    e.selected = isChecked;
+                }
+            }
         }
 
         /**

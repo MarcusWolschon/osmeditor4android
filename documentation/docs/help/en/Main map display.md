@@ -187,7 +187,7 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven or eight options:
 
  * **Upload data to OSM server...** - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available. See [Uploading your changes](Uploading%20your%20changes.md) for more information *(requires authentication)* *(requires network connectivity)*
- * **Review changes...** - review current changes, and potentially select them for upload.
+ * **Review changes...** - review current changes, and potentially select them for upload. The selection is persistent, that means you can select an OSM element for upload exit the modal and it will be re-selected. Note: if you select an element that requires other elements to be uploaded with them, they will be selected too, and the same if you de-select such an object the dependent elements will be de-selected too.
  * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
  * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
  * **Query Overpass...** - run a query against a Overpass API server, see [Overpass queries](#overpass_queries). *(requires network connectivity)*

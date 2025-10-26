@@ -3,7 +3,9 @@ package de.blau.android.dialogs;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.content.DialogInterface;
 import android.database.DataSetObserver;
@@ -21,9 +23,12 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -36,6 +41,8 @@ public class Review extends AbstractReviewDialog {
     private static final String DEBUG_TAG = Review.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String TAG = "fragment_review";
+
+    private static final String STATE_FILENAME = "review_state" + "." + FileExtensions.RES;
 
     private ListView listView;
 
@@ -63,7 +70,7 @@ public class Review extends AbstractReviewDialog {
      * @param activity the calling FragmentActivity
      */
     public static void dismissDialog(@NonNull FragmentActivity activity) {
-        Util.dismissDialog(activity, TAG);
+        de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
     }
 
     /**
@@ -115,7 +122,7 @@ public class Review extends AbstractReviewDialog {
                     toUpload.add(e.element);
                 }
             }
-            ReviewAndUpload.showDialog(activity, toUpload);
+            ReviewAndUpload.showDialog(activity, App.getDelegator().addRequiredElements(activity, toUpload));
         });
 
         AppCompatDialog dialog = builder.create();
@@ -126,16 +133,58 @@ public class Review extends AbstractReviewDialog {
 
     @Override
     protected void createChangesView() {
-        addChangesToView(getActivity(), listView, elements, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item_with_checkbox);
-        listView.getAdapter().registerDataSetObserver(new ListObserver());
+        Set<String> checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
+        addChangesToView(getActivity(), listView, elements, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item_with_checkbox,
+                (OsmElement e) -> checked != null && checked.contains(getElementKey(e)), () -> {
+                    ValidatorArrayAdapter adapter = (ValidatorArrayAdapter) listView.getAdapter();
+                    adapter.registerDataSetObserver(new ListObserver());
+                });
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+        saveState();
+    }
+
+    /**
+     * Save the selection state
+     */
+    private void saveState() {
+        Log.d(DEBUG_TAG, "Saving selection state");
+        HashSet<String> checked = new HashSet<>();
+        for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
+            if (e.selected) {
+                checked.add(getElementKey(e.element));
+            }
+        }
+        new SavingHelper<HashSet<String>>().save(getContext(), STATE_FILENAME, checked, false);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        saveState();
     }
 
     private final class ListObserver extends DataSetObserver {
         @Override
         public void onChanged() {
+            final ValidatorArrayAdapter validatorArrayAdapter = (ValidatorArrayAdapter) listView.getAdapter();
+            final ChangedElement[] changedElements = validatorArrayAdapter.elements;
+            final int childCount = listView.getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.checkBox1);
+                if (checkBox != null) {
+                    checkBox.setOnCheckedChangeListener(null);
+                    checkBox.setChecked(changedElements[i].selected);
+                    checkBox.setOnCheckedChangeListener(validatorArrayAdapter.getOnCheckedChangeListener(i));
+                }
+            }
+
             boolean somethingSelected = false;
             boolean somethingNotSelected = false;
-            for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
+            for (ChangedElement e : changedElements) {
                 if (e.selected && !somethingSelected) {
                     somethingSelected = true;
                     continue;
@@ -152,5 +201,23 @@ public class Review extends AbstractReviewDialog {
             }
             ((AlertDialog) requireDialog()).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(somethingSelected);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(DEBUG_TAG, "onSaveInstanceState");
+
+    }
+
+    /**
+     * Get an unique key for a specific version of an OsmElement
+     * 
+     * @param e the element
+     * @return an unique string
+     */
+    @NonNull
+    private String getElementKey(@NonNull OsmElement e) {
+        return e.getName() + Long.toString(e.getOsmId()) + "_" + Long.toString(e.getOsmVersion());
     }
 }

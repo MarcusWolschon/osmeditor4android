@@ -150,6 +150,7 @@ public class ReviewAndUpload extends AbstractReviewDialog {
         return f;
     }
 
+    @SuppressWarnings("unchecked")
     @NonNull
     @SuppressLint("InflateParams")
     @Override
@@ -335,7 +336,7 @@ public class ReviewAndUpload extends AbstractReviewDialog {
 
     protected void createChangesView() {
         addChangesToView(getActivity(), (ListView) requireDialog().findViewById(R.id.upload_changes), elements, DEFAULT_COMPARATOR,
-                getArguments().getString(TAG_KEY), R.layout.changes_list_item);
+                getArguments().getString(TAG_KEY), R.layout.changes_list_item, null, null);
     }
 
     /**
