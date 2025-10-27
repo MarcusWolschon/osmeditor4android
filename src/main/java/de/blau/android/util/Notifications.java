@@ -169,7 +169,7 @@ public final class Notifications {
      */
     private static void coloredNotification(@NonNull Context ctx, int titleRes, @NonNull final String message, @Nullable PendingIntent pendingIntent, int id,
             int colorAttr, int fallbackColorRes) {
-        NotificationCompat.Builder builder = Notifications.builder(ctx).setSmallIcon(R.drawable.logo_simplified).setContentTitle(ctx.getString(titleRes))
+        NotificationCompat.Builder builder = Notifications.builder(ctx).setSmallIcon(R.drawable.ic_notification_vespucci).setContentTitle(ctx.getString(titleRes))
                 .setColorized(true).setColor(ThemeUtils.getStyleAttribColorValue(ctx, colorAttr, fallbackColorRes));
         builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setPriority(NotificationCompat.PRIORITY_MAX);
         if (pendingIntent != null) {
