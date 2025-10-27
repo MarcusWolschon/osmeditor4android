@@ -29,14 +29,13 @@ import de.blau.android.validation.Validator;
  *
  */
 public class Relation extends StyledOsmElement implements RelationInterface, BoundedObject {
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = 1104911642016294268L;
 
     private final List<RelationMember> members;
 
-    public static final String NAME = "relation";
+    public static final String  NAME                = "relation";
+    private static final String AUGMENTED_DIFF_NAME = "rel";
 
     /**
      * Abbreviation
@@ -253,6 +252,30 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
         s.endTag("", NAME);
     }
 
+    @Override
+    public void toAugmentedXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", AUGMENTED_DIFF_NAME);
+        attributesToXml(s, null, false);
+        if (!isDeleted()) {
+            getBounds().toXml(s, null);
+            for (RelationMember member : members) {
+                s.startTag("", MEMBER_ATTR);
+                s.attribute("", MEMBER_TYPE_ATTR, member.getType());
+                s.attribute("", MEMBER_REF_ATTR, Long.toString(member.getRef()));
+                s.attribute("", MEMBER_ROLE_ATTR, member.getRole());
+                OsmElement e = member.getElement();
+                if (e instanceof Node) {
+                    Node.coordToXmlAttr(s, ((Node) e).getLat(), ((Node) e).getLon());
+                } else if (e instanceof Way) {
+                    ((Way) e).wayNodesToAugmentedXml(s);
+                }
+                s.endTag("", MEMBER_ATTR);
+            }
+            tagsToXml(s);
+        }
+        s.endTag("", AUGMENTED_DIFF_NAME);
+    }
+
     /**
      * Completely remove member from relation (even if present more than once) Does not update backlink
      * 
@@ -415,7 +438,6 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
                 description = route + " " + description;
             }
             break;
-
         case Tags.VALUE_BOUNDARY:
             String b = getTagWithKey(Tags.KEY_BOUNDARY);
             if (b != null) {
