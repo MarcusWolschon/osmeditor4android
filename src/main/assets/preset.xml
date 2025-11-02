@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.85.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.87.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -9,6 +9,7 @@
     Format description: https://josm.openstreetmap.de/wiki/TaggingPresets and http://vespucci.io/tutorials/presets/
 -->
     <!-- Value chunks for use in combos and multiselects -->
+    
     
     
     
@@ -57,6 +58,7 @@
     
     
      
+    
     
     
     
@@ -1911,15 +1913,7 @@
     </chunk>
     <chunk id="turn_restrictions">
         <combo key="restriction" text="Restriction" values_searchable="true" values_sort="false" values_context="restriction">
-            <list_entry value="no_left_turn" display_value="No left turn" icon="icons/png/no_left_turn.png"/>
-            <list_entry value="no_right_turn" display_value="No right turn" icon="icons/png/no_right_turn.png"/>
-            <list_entry value="no_u_turn" display_value="No u-turn" icon="icons/png/no_u_turn.png"/>
-            <list_entry value="only_right_turn" display_value="Only right turn" icon="icons/png/only_right_turn.png"/>
-            <list_entry value="only_left_turn" display_value="Only left turn" icon="icons/png/only_left_turn.png"/>
-            <list_entry value="only_straight_on" display_value="Only straight on" icon="icons/png/only_straight_on.png"/>
-            <list_entry value="no_straight_on" display_value="No straight on" icon="icons/png/no_straight_on.png"/>
-            <list_entry value="no_entry" display_value="No entry" icon="icons/png/no_entry.png"/>
-            <list_entry value="no_exit" display_value="No exit" icon="icons/png/no_entry.png"/>
+            <list_entry value="no_left_turn" display_value="No left turn" icon="icons/png/no_left_turn.png"/><list_entry value="no_right_turn" display_value="No right turn" icon="icons/png/no_right_turn.png"/><list_entry value="no_u_turn" display_value="No u-turn" icon="icons/png/no_u_turn.png"/><list_entry value="only_right_turn" display_value="Only right turn" icon="icons/png/only_right_turn.png"/><list_entry value="only_left_turn" display_value="Only left turn" icon="icons/png/only_left_turn.png"/><list_entry value="only_straight_on" display_value="Only straight on" icon="icons/png/only_straight_on.png"/><list_entry value="no_straight_on" display_value="No straight on" icon="icons/png/no_straight_on.png"/><list_entry value="no_entry" display_value="No entry" icon="icons/png/no_entry.png"/><list_entry value="no_exit" display_value="No exit" icon="icons/png/no_entry.png"/>
         </combo>
     </chunk>
     <chunk id="turn_restriction_roles">
@@ -2745,7 +2739,8 @@
                 <link wiki="Lanes"/>
                 <combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes" value_type="integer" values_sort="false"/>
                 <multiselect key="turn:lanes" text="Turning lanes" delimiter="|" match="key" editable="true">
-                    <list_entry value="none" short_description="None"/><list_entry value="reverse" short_description="Reverse"/><list_entry value="sharp_left" short_description="Sharp left"/><list_entry value="left" short_description="Left"/><list_entry value="left;through" short_description="Left and through"/><list_entry value="slight_left" short_description="Slight left"/><list_entry value="merge_to_left" short_description="Merge to left"/><list_entry value="through" short_description="Through"/><list_entry value="merge_to_right" short_description="Merge to right"/><list_entry value="slight_right" short_description="Slight right"/><list_entry value="through;right" short_description="Through and right"/><list_entry value="right" short_description="Right"/><list_entry value="sharp_right" short_description="Sharp right"/>    
+                    <list_entry value="none" short_description="None"/>
+                    <list_entry value="reverse" short_description="Reverse"/><list_entry value="sharp_left" short_description="Sharp left"/><list_entry value="left" short_description="Left"/><list_entry value="left;through" short_description="Left and through"/><list_entry value="slight_left" short_description="Slight left"/><list_entry value="merge_to_left" short_description="Merge to left"/><list_entry value="through" short_description="Through"/><list_entry value="merge_to_right" short_description="Merge to right"/><list_entry value="slight_right" short_description="Slight right"/><list_entry value="through;right" short_description="Through and right"/><list_entry value="right" short_description="Right"/><list_entry value="sharp_right" short_description="Sharp right"/>    
                 </multiselect>
                 <multiselect key="destination:lanes" text="Destinations per lane" delimiter="|" match="key" editable="true"/>
                 <multiselect key="destination:ref:lanes" text="Refs per lane" delimiter="|" match="key" editable="true"/>
@@ -2782,7 +2777,8 @@
                 <combo key="lanes:backward" values="1,2,3,4,5,6,7,8" text="# full width lanes opposite to way direction" value_type="integer"/>
                 <!-- forwards -->
                 <multiselect key="turn:lanes:forward" text="Turning lanes in way direction" delimiter="|" match="key" editable="true">
-                    <list_entry value="none" short_description="None"/><list_entry value="reverse" short_description="Reverse"/><list_entry value="sharp_left" short_description="Sharp left"/><list_entry value="left" short_description="Left"/><list_entry value="left;through" short_description="Left and through"/><list_entry value="slight_left" short_description="Slight left"/><list_entry value="merge_to_left" short_description="Merge to left"/><list_entry value="through" short_description="Through"/><list_entry value="merge_to_right" short_description="Merge to right"/><list_entry value="slight_right" short_description="Slight right"/><list_entry value="through;right" short_description="Through and right"/><list_entry value="right" short_description="Right"/><list_entry value="sharp_right" short_description="Sharp right"/>
+                    <list_entry value="none" short_description="None"/>
+                    <list_entry value="reverse" short_description="Reverse"/><list_entry value="sharp_left" short_description="Sharp left"/><list_entry value="left" short_description="Left"/><list_entry value="left;through" short_description="Left and through"/><list_entry value="slight_left" short_description="Slight left"/><list_entry value="merge_to_left" short_description="Merge to left"/><list_entry value="through" short_description="Through"/><list_entry value="merge_to_right" short_description="Merge to right"/><list_entry value="slight_right" short_description="Slight right"/><list_entry value="through;right" short_description="Through and right"/><list_entry value="right" short_description="Right"/><list_entry value="sharp_right" short_description="Sharp right"/>    
                 </multiselect>
                 <multiselect key="destination:lanes:forward" text="Destinations per lane in way direction" delimiter="|" match="key" editable="true"/>
                 <multiselect key="destination:ref:lanes:forward" text="Refs per lane in way direction" delimiter="|" match="key" editable="true"/>
@@ -2813,7 +2809,8 @@
                 </optional>
                 <!-- backwards -->
                 <multiselect key="turn:lanes:backward" text="Turning lanes opposite to way direction" delimiter="|" match="key" editable="true">
-                    <list_entry value="none" short_description="None"/><list_entry value="reverse" short_description="Reverse"/><list_entry value="sharp_left" short_description="Sharp left"/><list_entry value="left" short_description="Left"/><list_entry value="left;through" short_description="Left and through"/><list_entry value="slight_left" short_description="Slight left"/><list_entry value="merge_to_left" short_description="Merge to left"/><list_entry value="through" short_description="Through"/><list_entry value="merge_to_right" short_description="Merge to right"/><list_entry value="slight_right" short_description="Slight right"/><list_entry value="through;right" short_description="Through and right"/><list_entry value="right" short_description="Right"/><list_entry value="sharp_right" short_description="Sharp right"/>
+                    <list_entry value="none" short_description="None"/>
+                    <list_entry value="reverse" short_description="Reverse"/><list_entry value="sharp_left" short_description="Sharp left"/><list_entry value="left" short_description="Left"/><list_entry value="left;through" short_description="Left and through"/><list_entry value="slight_left" short_description="Slight left"/><list_entry value="merge_to_left" short_description="Merge to left"/><list_entry value="through" short_description="Through"/><list_entry value="merge_to_right" short_description="Merge to right"/><list_entry value="slight_right" short_description="Slight right"/><list_entry value="through;right" short_description="Through and right"/><list_entry value="right" short_description="Right"/><list_entry value="sharp_right" short_description="Sharp right"/>    
                 </multiselect>
                 <multiselect key="destination:lanes:backward" text="Destinations per lane opposite to way direction" delimiter="|" match="key" editable="true"/>
                 <multiselect key="destination:ref:lanes:backward" text="Refs per lane opposite to way direction" delimiter="|" match="key" editable="true"/>
@@ -3884,7 +3881,7 @@
             <label text="The tag `foot=yes` is implied and does not need to be set."/>
             <reference ref="check_access_nomotor"/>
             <check key="locked" text="Usually locked"/>
-        </item> <!-- Turnstile -->
+        </item> <!-- Wicket gate -->
         <item name="Sally Port" icon="icons/png/highway_sally_port_13031.png" type="node" preset_name_label="true">
             <link wiki="Tag:barrier=sally_port"/>
             <key key="barrier" value="sally_port"/>
@@ -4386,13 +4383,10 @@
                 <combo key="colour" text="Color" values_context="colour" default="white" match="none">
                     <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
                 </combo>
-                <label text="Use either arrow or restriction type"/>
                 <multiselect key="arrow" text="Arrow" match="none">
-                    <list_entry value="left" display_value="Left"/>
-                    <list_entry value="right" display_value="Right"/>
-                    <list_entry value="through" display_value="Through"/>
+                    <list_entry value="reverse" short_description="Reverse"/><list_entry value="sharp_left" short_description="Sharp left"/><list_entry value="left" short_description="Left"/><list_entry value="left;through" short_description="Left and through"/><list_entry value="slight_left" short_description="Slight left"/><list_entry value="merge_to_left" short_description="Merge to left"/><list_entry value="through" short_description="Through"/><list_entry value="merge_to_right" short_description="Merge to right"/><list_entry value="slight_right" short_description="Slight right"/><list_entry value="through;right" short_description="Through and right"/><list_entry value="right" short_description="Right"/><list_entry value="sharp_right" short_description="Sharp right"/>    
+                    <list_entry value="no_left_turn" display_value="No left turn" icon="icons/png/no_left_turn.png"/><list_entry value="no_right_turn" display_value="No right turn" icon="icons/png/no_right_turn.png"/><list_entry value="no_u_turn" display_value="No u-turn" icon="icons/png/no_u_turn.png"/><list_entry value="only_right_turn" display_value="Only right turn" icon="icons/png/only_right_turn.png"/><list_entry value="only_left_turn" display_value="Only left turn" icon="icons/png/only_left_turn.png"/><list_entry value="only_straight_on" display_value="Only straight on" icon="icons/png/only_straight_on.png"/><list_entry value="no_straight_on" display_value="No straight on" icon="icons/png/no_straight_on.png"/><list_entry value="no_entry" display_value="No entry" icon="icons/png/no_entry.png"/><list_entry value="no_exit" display_value="No exit" icon="icons/png/no_entry.png"/>
                 </multiselect>
-                <reference ref="turn_restrictions"/> 
             </item> <!-- Arrow -->
             <item name="Traffic sign" icon="icons/png/speed_limit.png" type="node" preset_name_label="true">
                 <link wiki="Key:road_marking"/>
@@ -8947,9 +8941,22 @@
                 <text key="operator" text="Operator"/>
                 <text key="description" text="Description" length="255"/>
                 <multiselect key="animal_breeding" text="Animals" values="alpaca;bird;cat;cow;dog;donkey;fish;goat;horse;pig;poultry;rabbit;sheep" display_values="Alpaca;Bird;Cat;Cow;Dog;Donkey;Fish;Goat;Horse;Pig;Poultry;Rabbit;Sheep" values_searchable="true" match="key"/>
+                <multiselect key="animal_training" text="Training" values="yes;dog;horse;no" display_values="Yes;Dog;Horse;No" values_searchable="true" match="key"/>
             </optional>
             <reference ref="link_contact_address"/>
         </item> <!-- Animal boarding -->
+       <item name="Animal training" icon="icons/png/amenity_animal_training.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=animal_training"/>
+            <space/>
+            <key key="amenity" value="animal_training"/>
+            <optional>
+                <text key="name" text="Name"/>
+                <text key="operator" text="Operator"/>
+                <text key="description" text="Description" length="255"/>
+                <multiselect key="animal_training" text="Trained animals" values="dog;horse" display_values="Dog;Horse" values_searchable="true" match="key"/>
+            </optional>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Animal training -->
         <item name="Animal feeding place" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=feeding_place"/>
             <space/>
@@ -9463,7 +9470,7 @@
             <reference ref="link_contact_address"/>
         </item> <!-- Research institute -->
         <separator/>
-        <item name="Give box" icon="icons/png/amenity_give_box.png" type="node" preset_name_label="true">
+        <item name="Give box" icon="icons/png/amenity_give_box.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=give_box"/>
             <space/>
             <key key="amenity" value="give_box"/>
