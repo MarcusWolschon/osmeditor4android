@@ -238,7 +238,10 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(viewRes), (View v, WindowInsetsCompat insets) -> {
             if (fragment != null) {
-                ViewCompat.dispatchApplyWindowInsets(fragment.getView(), insets);
+                View fragmentView = fragment.getView();
+                if (fragmentView != null) {
+                    ViewCompat.dispatchApplyWindowInsets(fragmentView, insets);
+                }
             }
             return insets;
         });
