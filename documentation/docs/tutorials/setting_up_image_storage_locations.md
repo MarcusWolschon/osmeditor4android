@@ -1,7 +1,7 @@
 ## Setting up image storage locations
 
-Vespucci V21.2 has added support to both Panoramax instances and Wikimedia Commons. Currently you can upload images from 
-the element selection modes (adding a corresponding link to the OSM element) and from the image viewer.
+Vespucci V21.2 has added support for uploading individual images both to Panoramax instances and Wikimedia Commons. Currently you can upload images from 
+the element selection modes, automatically adding a corresponding link to the OSM element and from the image viewer.
 
 Before you upload you need to configure and authorize the destinations:
 
