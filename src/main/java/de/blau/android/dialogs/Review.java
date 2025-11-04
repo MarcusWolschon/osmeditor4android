@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.util.ACRAHelper;
@@ -115,7 +116,7 @@ public class Review extends AbstractReviewDialog {
                     toUpload.add(e.element);
                 }
             }
-            ReviewAndUpload.showDialog(activity, toUpload);
+            ReviewAndUpload.showDialog(activity, App.getDelegator().addRequiredElements(activity, toUpload));
         });
 
         AppCompatDialog dialog = builder.create();
