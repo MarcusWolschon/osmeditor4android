@@ -1160,7 +1160,13 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
                     originalKey = row.getKey();
                     row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit));
                     if (row.getKey().length() == 0) {
-                        row.keyEdit.post(() -> row.keyEdit.showDropDown());
+                        row.keyEdit.post(() -> {
+                            try {
+                                row.keyEdit.showDropDown();
+                            } catch (android.view.WindowManager.BadTokenException btex) {
+                                Log.e(DEBUG_TAG, "onFocusChange " + btex.getMessage());
+                            }
+                        });
                     }
                 } else {
                     String newKey = row.getKey();
