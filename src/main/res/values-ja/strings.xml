@@ -200,7 +200,7 @@
   <string name="untagged_way">タグの無いウェイ</string>
   <string name="untagged_relation">タグの無いリレーション</string>
   <string name="changed_preset">%1$sから%2$s</string>
-  <string name="changed_tags">%1$s件のタグを変更</string>
+  <string name="changed_tags">%1$s変更されたタグ</string>
   <string name="moved">%1$s件の移動</string>
   <string name="unknown_object">未知の物体</string>
   <!--Review changes dialog-->
@@ -1173,6 +1173,7 @@
   <string name="config_uploadChecker_summary">変更を公開していない場合に、注意の通知を出す間隔です。</string>
   <string name="config_uploadChecker_current">%1$d時間</string>
   <string name="config_beepVolume_title">ビープの音量</string>
+  <string name="config_beepVolume_summary">ビープの音量設定。</string>
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_title">Mapillary用の最小拡大</string>
   <string name="config_mapillary_min_zoom_summary">Mapillaryのデータが表示される前に必要な最小の拡大段階。</string>
@@ -1187,6 +1188,8 @@
   <string name="config_category_editing_summary">自動ダウンロード、保存、通知の設定。</string>
   <string name="config_forceContextMenu_title">常にコンテキストメニューを利用する</string>
   <string name="config_forceContextMenu_summary">選択されたものがあいまいな場合にコンテキストメニューを常に表示する。</string>
+  <string name="config_overrideRegionAddressTags_title">初期設定の住所タグを上書き</string>
+  <string name="config_overrideRegionAddressTags_summary">地域固有の値に優先して、我々の住所タグ設定を使用します</string>
   <string name="config_address_tags">住所タグ</string>
   <string name="config_address_tags_summary">タグは住所の予測に使用されます。</string>
   <string name="config_neighbourDistance_title">近隣住所の間の距離</string>
@@ -1196,6 +1199,8 @@
   <string name="config_enableNameSuggestions_summary">名称タグに提案を有効化します</string>
   <string name="config_enableNameSuggestionsPresets_title">名称提案プリセットを有効化</string>
   <string name="config_enableNameSuggestionsPresets_summary">名称提案が選択された際、自動的にプリセットを入力します。</string>
+  <string name="config_autoApplyPreset_title">プリセットの自動適用を有効化</string>
+  <string name="config_autoApplyPreset_summary">属性編集の開始時に、プリセットを自動で適用します。</string>
   <string name="config_generateAlerts_title">通知を生成</string>
   <string name="config_generateAlerts_summary">問題やメモのあるデータ用に通知を生成する</string>
   <string name="config_groupAlertsOnly_summary">通知グループによる音の警告を一回だけ鳴らす</string>
@@ -1213,6 +1218,7 @@
   <string name="config_autoformatPhoneNumbers_summary">電話番号の形式を自動的に整える機能を有効化します。</string>
   <string name="config_maxOffsetDistance_title">保存された画像オフセット用の最大距離</string>
   <string name="config_maxOffsetDistance_current">%1$d メートル</string>
+  <string name="config_minCircleNodes_current">%1$d 個のノード</string>
   <string name="config_maxCircleSegment_current">%1$d メートル</string>
   <string name="config_minCircleSegment_current">%1$d メートル</string>
   <string name="config_replaceTolerance_title">タグ付きノードを移動する際の最大距離</string>
