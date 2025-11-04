@@ -1,5 +1,17 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.1.6.0:
+
+- Fix protect against NPE in onPrepareOptionsMenu
+- Fix protect against android.view.WindowManager.BadTokenException
+- Fix protect against Fragment.getView returning null
+- Fix run addRequiredElements on selection
+- Fix exclude maxspeed:variable from speed tags
+- Add rendering for highway=scramble
+- Update translations
+- Update imagery from ELI
+- Update default preset
+
 21.1.5.0:
 
 - Fix protect against null activity when dismissing Progress dialog
