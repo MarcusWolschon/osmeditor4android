@@ -30,6 +30,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.layer.LayerConfig;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
@@ -63,8 +64,7 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         // don't use Preferences here as this will create the Vespucci directory which is bad for migration
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        lightTheme = sharedPrefs.getBoolean(getString(R.string.config_enableLightTheme_key), true);
+        lightTheme = Preferences.lightThemeEnabled(this); // this is static aka is harmless
         setTheme(lightTheme ? R.style.SplashThemeLight : R.style.SplashTheme);
         SplashScreen.Companion.installSplashScreen(this);
         super.onCreate(savedInstanceState);
@@ -150,7 +150,7 @@ public class Splash extends AppCompatActivity {
                     Log.d(DEBUG_TAG, "Init geocontext");
                     App.initGeoContext(Splash.this);
                     Log.d(DEBUG_TAG, "Init geocontext finished");
-                    
+
                     Log.d(DEBUG_TAG, "Init tag2link");
                     App.getTag2Link(Splash.this);
                     Log.d(DEBUG_TAG, "Init tag2link finished");
