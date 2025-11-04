@@ -83,6 +83,7 @@ import de.blau.android.presets.UseLastAsDefaultType;
 import de.blau.android.presets.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoContext.Properties;
@@ -2039,13 +2040,20 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         // disable address prediction for stuff that won't have an address
-        menu.findItem(R.id.tag_menu_address).setVisible(elements.length == 1 && (!(elements[0] instanceof Way) || ((Way) elements[0]).isClosed()));
-        boolean multiSelect = elements.length > 1;
-        menu.findItem(R.id.tag_menu_apply_preset).setEnabled(!multiSelect);
-        menu.findItem(R.id.tag_menu_apply_preset_with_optional).setEnabled(!multiSelect);
-        menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
-        menu.findItem(R.id.tag_menu_paste).setEnabled(!App.getTagClipboard(getContext()).isEmpty());
-        menu.findItem(R.id.tag_menu_paste_from_clipboard).setEnabled(pasteFromClipboardIsPossible());
+        try {
+            menu.findItem(R.id.tag_menu_address).setVisible(elements.length == 1 && (!(elements[0] instanceof Way) || ((Way) elements[0]).isClosed()));
+            boolean multiSelect = elements.length > 1;
+            menu.findItem(R.id.tag_menu_apply_preset).setEnabled(!multiSelect);
+            menu.findItem(R.id.tag_menu_apply_preset_with_optional).setEnabled(!multiSelect);
+            menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
+            menu.findItem(R.id.tag_menu_paste).setEnabled(!App.getTagClipboard(getContext()).isEmpty());
+            menu.findItem(R.id.tag_menu_paste_from_clipboard).setEnabled(pasteFromClipboardIsPossible());
+        } catch (NullPointerException npe) {
+            // this should never happen as the menu should have been inflated and the item found, however it does now
+            // and then
+            Log.e(DEBUG_TAG, "onPrepareOptionsMenu " + npe.getMessage());
+            ACRAHelper.nocrashReport(null, "onPrepareOptionsMenu " + npe.getMessage());
+        }
     }
 
     /**
