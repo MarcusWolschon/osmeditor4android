@@ -3706,9 +3706,11 @@ public class Main extends ConfigurationChangeAwareActivity
                 ScreenMessage.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
                 return false;
             }
+            final EasyEditManager manager = getEasyEditManager();
             if (prefs.areSimpleActionsEnabled()) {
-                if (getEasyEditManager().usesLongClick()) {
-                    if (elementCount == 1 && getEasyEditManager().handleLongClick(v, clickedNodesAndWays.get(0))) {
+                if (manager.usesLongClick()) {
+                    System.out.println("onLongClick " + elementCount);
+                    if (elementCount == 1 && manager.handleLongClick(v, clickedNodesAndWays.get(0), x, y)) {
                         return true;
                     }
                     if (elementCount > 1) {
@@ -3717,7 +3719,7 @@ public class Main extends ConfigurationChangeAwareActivity
                         return true;
                     }
                 } // fall through to beep
-            } else if (getEasyEditManager().handleLongClick(v, x, y)) {
+            } else if (manager.handleLongClick(v, x, y)) {
                 // editing with the screen moving under you is a pain
                 setFollowGPS(false);
                 return true;
@@ -3975,20 +3977,21 @@ public class Main extends ConfigurationChangeAwareActivity
                 return;
             }
             Mode mode = App.getLogic().getMode();
+            final EasyEditManager manager = getEasyEditManager();
             if (mode.elementsGeomEditable()) {
                 if (doubleTap) {
                     doubleTap = false;
-                    getEasyEditManager().startExtendedSelection(element);
+                    manager.startExtendedSelection(element);
                 } else if (longClick) {
                     longClick = false;
-                    getEasyEditManager().handleLongClick(null, element);
+                    manager.handleLongClick(null, element, 0, 0); // FIXME do we need to get x,y here somehow?
                 } else {
-                    getEasyEditManager().editElement(element);
+                    manager.editElement(element);
                 }
             } else if (mode.elementsEditable()) {
                 if (doubleTap) {
                     doubleTap = false;
-                    startSupportActionMode(new MultiSelectActionModeCallback(getEasyEditManager(), clickedNodesAndWays.get(0)));
+                    startSupportActionMode(new MultiSelectActionModeCallback(manager, clickedNodesAndWays.get(0)));
                 } else {
                     performTagEdit(element, null, false, false);
                 }
@@ -4004,13 +4007,14 @@ public class Main extends ConfigurationChangeAwareActivity
             }
             clickedNodesAndWays = getClickedOsmElements(logic, x, y);
             final int clickedCount = clickedNodesAndWays.size();
+            final EasyEditManager manager = getEasyEditManager();
             if (clickedCount == 0) {
                 // no elements were touched
                 // short cut to finishing multi-select
-                getEasyEditManager().nothingTouched(true);
+                manager.nothingTouched(true);
                 return;
             }
-            if (!getEasyEditManager().inMultiSelectMode()) {
+            if (!manager.inMultiSelectMode()) {
                 if (clickedCount > 1 && menuRequired()) {
                     // multiple possible elements touched - show menu
                     Log.d(DEBUG_TAG, "onDoubleTap displaying menu");
@@ -4018,9 +4022,9 @@ public class Main extends ConfigurationChangeAwareActivity
                     showDisambiguationMenu(v, x, y);
                 } else if (logic.getMode().elementsGeomEditable()) {
                     // menuRequired tells us it's ok to just take the first one
-                    getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
+                    manager.startExtendedSelection(clickedNodesAndWays.get(0));
                 } else if (App.getLogic().getMode().elementsEditable()) {
-                    startSupportActionMode(new MultiSelectActionModeCallback(getEasyEditManager(), clickedNodesAndWays.get(0)));
+                    startSupportActionMode(new MultiSelectActionModeCallback(manager, clickedNodesAndWays.get(0)));
                 }
             } else {
                 ScreenMessage.toastTopInfo(Main.this, R.string.toast_already_in_multiselect);

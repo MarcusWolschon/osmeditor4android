@@ -2072,7 +2072,7 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation would create an illegal state
      */
     @Nullable
-    private Node addOnWay(Activity activity, List<Way> ways, final float x, final float y, boolean forceNew) {
+    public Node addOnWay(@Nullable Activity activity, @Nullable List<Way> ways, final float x, final float y, boolean forceNew) {
         createCheckpoint(activity, R.string.undo_action_add);
         try {
             return getClickedNodeOrCreatedWayNode(ways, x, y, forceNew);

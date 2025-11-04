@@ -169,9 +169,11 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * handling should apply.
      * 
      * @param element the OsmElement that was long clicked
+     * @param x screen X coordinate
+     * @param y screen Y coordinate
      * @return true if the click has been handled, false if default handling should apply
      */
-    public boolean handleElementLongClick(@NonNull OsmElement element) {
+    public boolean handleElementLongClick(@NonNull OsmElement element, float x, float y) {
         return false;
     }
 

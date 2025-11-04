@@ -1,8 +1,10 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.view.Menu;
 import androidx.annotation.NonNull;
@@ -82,7 +84,9 @@ public class WaySplittingActionModeCallback extends AbortableWayActionModeCallba
             mode.setSubtitle(R.string.actionmode_split_way_node_selection);
             Tip.showDialog(main, R.string.tip_way_splitting_key, R.string.tip_way_splitting);
         }
-        logic.setClickableElements(new HashSet<>(nodes));
+        Set<OsmElement> clickable = new HashSet<>(nodes);
+        clickable.add(way);
+        logic.setClickableElements(clickable);
         logic.setReturnRelations(false);
         return true;
     }
@@ -94,12 +98,22 @@ public class WaySplittingActionModeCallback extends AbortableWayActionModeCallba
         if (!(element instanceof Node)) {
             return false;
         }
+        splitAt((Node) element);
+        return true;
+    }
+
+    /**
+     * Split the way at node
+     * 
+     * @param node the Node to split at
+     */
+    private void splitAt(Node node) {
         if (way.isClosed()) {
-            main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(manager, way, (Node) element, createPolygons));
+            main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(manager, way, node, createPolygons));
         } else {
             splitSafe(Util.wrapInList(way), () -> {
                 try {
-                    List<Result> result = logic.performSplit(main, way, (Node) element, true);
+                    List<Result> result = logic.performSplit(main, way, node, true);
                     checkSplitResult(way, result);
                     manager.finish();
                     logic.setSelectedWay((Way) result.get(0).getElement());
@@ -110,12 +124,17 @@ public class WaySplittingActionModeCallback extends AbortableWayActionModeCallba
                 }
             });
         }
-        return true;
     }
 
     @Override
-    public boolean handleElementLongClick(@NonNull OsmElement element) {
-        super.handleElementLongClick(element);
+    public boolean handleElementLongClick(@NonNull OsmElement element, float x, float y) {
+        super.handleElementLongClick(element, x, y);
+        System.out.println("handleElementLongClick " + element.getDescription());
+        if (way.equals(element)) {
+            // this doesn't lock logic which is likely not necessary
+            splitAt(logic.addOnWay(main, Util.wrapInList(way), x, y, true));
+            return true;
+        }
         if (way.isClosed()) {
             ScreenMessage.toastTopWarning(main, R.string.toast_part_selection_not_supported);
         } else {
