@@ -1,5 +1,66 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.2.0.1:
+
+- Fix detect correctly which theme should be used in Splash
+- Fix protect against NPE in onPrepareOptionsMenu
+- Fix protect against android.view.WindowManager.BadTokenException
+- Fix protect against Fragment.getView returning null
+- Fix exclude maxspeed:variable from speed tags
+- Fix call through to super, but don't add the loader twice
+- Fix don't save Context in PresetFilter
+- Fix regression in overpass console by using serializable parse tree
+- Fix if the query times out overpass returns an undocumented <remark> element
+- Fix pause auto-downloads if we receive a 503 and show an appropriate message
+- Fix save list of images in file and not in bundle (avoids TTE)
+- Fix force caching of way node filter results
+- Fix correctness fixes imagery_used tag length
+- Fix actually set imagery list from saved state
+- Fix explicitly set inset listeners when adding additional fragments
+- Fix only allow selection from the nearby POI list in appropriate modes
+- Fix lock everything during task pruning
+- Fix make code that checks how many elements have been uploaded more robust
+- Fix use Canvas.drawLines instead of constructing a Path where possible
+- Fix use the correct view for the inset listeners
+- Fix anchor popup menu on parent view if possible
+- Fix add a CoordinatorLayout to most activities for Snackbar positioning
+- Fix make bars translucent for filter activities
+- Fix add left and right insets to activity layouts
+- Fix save popup related classes
+- Fix run revalidation in thread
+- Fix lock while counting tasks
+- Fix catch exceptions thrown by foreground (tracker) service start up
+- Fix if include way nodes is set, exclude the nodes if the way is excluded
+- Fix catch exception in onInterceptTouchEvent in ExtendedViewPager
+- Fix make sure that performJoinNodeToWays doesn't return null
+- Fix catch RejectedExecutionException everywhere it could be thrown
+- Fix don't compress empty request bodies, this stops the OSM Notes API from choking on a compressed empty req.body
+- Fix ensure that we have enough space to add a further view in WrappingLayout
+- Fix lock inversion
+- Fix refactor Logic locking
+- Fix only allow deep duplication of MP if all elements are downloaded
+- Fix run addRequiredElements on selection in Review modal
+- Add support compressed request bodies for HTTP PUT too
+- Add store chunk number in custom changeset tag
+- Add support for long press on node merge button to reverse behaviour
+- Add when merging nodes assure that the result is at the target node position
+- Add rendering for highway=scramble
+- Add styling for natural=gully
+- Add automatically select/de-select dependent elements in review modal
+- Add save selected state of reviewed elements
+- Add support long press on filter button to switch filter
+- Add support multiple tag filters and associated operations
+- Add use FAB for adding items and add (hidden) overflow button in URLListEditActivity childs
+- Add support for persistent and transient custom changeset tags
+- Add filter overpass results with the JOSM search expression for selection
+- Add support for "invert selection" in property editor tabs
+- Add image storage management and upload for Panoramax/WM Commons
+- Add support tag2link and use it instead of hardwired links in ElementInfo
+- Add configuration for OHM
+- Update default preset and taginfo project file
+- Update translations
+- Update imagery from ELI
+
 21.1.0.0:
 
 - Fix protect against null extra tags
