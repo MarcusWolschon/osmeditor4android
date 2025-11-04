@@ -1325,21 +1325,7 @@
   <string name="config_tagFormEnabled_title">顯示標籤表格</string>
   <string name="config_tagFormEnabled_summary">顯示標籤表格以便編輯。</string>
   <string name="config_supportPresetLabels_title">從預設組合顯示標籤</string>
-  <string name="configsupportPresetLabels_summary">從標籤表單編輯器顯示預設組合的標籤</string>
-  <string name="config_showCameraAction_title">顯示相機的動作</string>
-  <string name="config_showCameraAction_summary">在動作列上顯示相機圖示。</string>
-  <string name="config_selectCameraApp_title">相機 app</string>
-  <string name="config_selectCameraApp_summary">選擇使用的相機 app。</string>
-  <string name="config_system_camera">系統預設</string>
-  <string name="config_open_camera">開啟相機</string>
-  <string name="config_fv5_lite">PV5 lite</string>
-  <string name="config_fv5_pro">PV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">使用內建照片檢視器</string>
-  <string name="config_useInternalPhotoViewer_summary">使用內建照片檢視器，如果沒有勾選則會用外部檢視器。</string>
-  <string name="config_indexMediaStore_summary">額外使用 MediaStore 來截取照片</string>
-  <string name="config_indexMediaStore_title">使用 MediaStore</string>
-  <string name="config_addToMediaStore_summary">新增用照相機按鈕的影像記錄到 MediaStore</string>
-  <string name="config_addToMediaStore_title">新增影像到 MediaStore</string>
+  <string name="config_supportPresetLabels_summary">從標籤表單編輯器顯示預設組合的標籤</string>
   <string name="config_followGPSbutton_title">跟隨位置按鈕樣式</string>
   <string name="config_followGPSbutton_summary">「跟隨位置」按鈕的出現位置。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">總是模糊無法下載的區域</string>
@@ -1397,6 +1383,20 @@
   <string name="config_zoomWithKeys_summary">允許使用音量鍵來放大與縮小。</string>
   <string name="config_poi_keys_title">顯示附近興趣點</string>
   <string name="config_poi_keys_summary">設定顯示附近興趣點要設定的鍵。</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">顯示相機的動作</string>
+  <string name="config_showCameraAction_summary">在動作列上顯示相機圖示。</string>
+  <string name="config_selectCameraApp_title">相機 app</string>
+  <string name="config_selectCameraApp_summary">選擇使用的相機 app。</string>
+  <string name="config_system_camera">系統預設</string>
+  <string name="config_open_camera">開啟相機</string>
+  <string name="config_fv5_lite">PV5 lite</string>
+  <string name="config_fv5_pro">PV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">使用內建照片檢視器</string>
+  <string name="config_useInternalPhotoViewer_summary">使用內建照片檢視器，如果沒有勾選則會用外部檢視器。</string>
+  <string name="config_indexMediaStore_summary">額外使用 MediaStore 來截取照片</string>
+  <string name="config_indexMediaStore_title">使用 MediaStore</string>
+  <string name="config_addToMediaStore_title">新增影像到 MediaStore</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
@@ -1582,6 +1582,7 @@
   <string name="listedit_use_translations">使用翻譯</string>
   <string name="manage_geocoders">管理 geocoders</string>
   <string name="listedit_supports_compressed_uploads">支援壓縮上傳</string>
+  <string name="geocoder_type">geocoder 類型</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新預置</string>
   <string name="preset_download_successful">預置已下載</string>
@@ -1591,6 +1592,7 @@
   <string name="preset_download_title">預置下載器</string>
   <!--preset management-->
   <string name="preset_management_delete">真得要刪除預置？</string>
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">增加預置</string>
   <string name="urldialog_preset_exists">此預置已存在</string>
@@ -1606,6 +1608,12 @@
   <string name="notes_url">註解API網址 (選擇)</string>
   <string name="copy_of">%1$s的複製物</string>
   <string name="choose_oauth_config">選擇 OAuth 設定</string>
+  <!--image upload dialog-->
+  <string name="image_upload">上傳</string>
+  <string name="wikimedia_meta_description">說明</string>
+  <string name="wikimedia_meta_source">能量來源</string>
+  <string name="wikimedia_meta_author">作者</string>
+  <string name="wikimedia_meta_category">分類</string>
   <!--common terms-->
   <string name="add">增加</string>
   <string name="edit">編輯</string>
@@ -1620,7 +1628,6 @@
   <string name="URI">網址</string>
   <!---->
   <string name="empty_list">無輸入</string>
-  <string name="geocoder_type">geocoder 類型</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">預置</string>
   <string name="api">API</string>

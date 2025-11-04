@@ -910,8 +910,6 @@
   <string name="config_iconbutton_summary">Visa ikonen för den bäst matchande förinställningen ovanför noderna.</string>
   <string name="config_showWayIcons_title">Visa POI-ikoner på byggnader</string>
   <string name="config_showWayIcons_summary">Visa ikonen för bäst matchande förinställningar över byggnader.</string>
-  <string name="config_showCameraAction_title">Visa kamera knapp</string>
-  <string name="config_showCameraAction_summary">Visa kameraikonen i åtgärdsfältet.</string>
   <string name="config_showTolerance_title">Visa tolerans</string>
   <string name="config_showTolerance_summary">Visar område där ett element kan väljas.</string>
   <string name="config_use_back_for_undo_title">Använd ← knappen för att ångra</string>
@@ -936,6 +934,9 @@
   <string name="config_longStringLimit_current">%1$d</string>
   <string name="config_zoomWithKeys_title">Använd volym-knappar för att zooma</string>
   <string name="config_poi_keys_title">Närliggande POI</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Visa kamera knapp</string>
+  <string name="config_showCameraAction_summary">Visa kameraikonen i åtgärdsfältet.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Data och redigering</string>
   <string name="config_forceContextMenu_title">Använd alltid kontextmeny</string>
@@ -1034,6 +1035,7 @@
   <string name="manage_presets">Hantera förinställningar</string>
   <string name="listedit_use_translations">Använd översättningar</string>
   <string name="manage_geocoders">Hantera geocoders</string>
+  <string name="geocoder_type">Geocoder typ</string>
   <!--preset downloader messages-->
   <string name="preset_update">Uppdatera förinställningar</string>
   <string name="preset_download_successful">Förinställd hämtad</string>
@@ -1041,6 +1043,7 @@
   <string name="preset_download_parse_failed">Den förinställda filen är ogiltig. Förinställningen fungerar inte.</string>
   <string name="preset_download_missing_images">Förinställd fil hämtad. Men några saknade ikoner hämtades inte.</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Lägg till förinställd</string>
   <string name="urldialog_preset_exists">Förinställningen existerar redan</string>
@@ -1054,6 +1057,12 @@
   <string name="api_url">API URL</string>
   <string name="readonly_url">Läs bara API URL (frivillig)</string>
   <string name="choose_oauth_config">Välj OAuth inställning</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Ladda upp</string>
+  <string name="wikimedia_meta_description">Beskrivning</string>
+  <string name="wikimedia_meta_source">Källa</string>
+  <string name="wikimedia_meta_author">Författare</string>
+  <string name="wikimedia_meta_category">Kategori</string>
   <!--common terms-->
   <string name="add">Lägg till</string>
   <string name="edit">Redigera</string>
@@ -1068,7 +1077,6 @@
   <string name="URI">URI</string>
   <!---->
   <string name="empty_list">Inga poster</string>
-  <string name="geocoder_type">Geocoder typ</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Förinställning</string>
   <string name="api">API</string>

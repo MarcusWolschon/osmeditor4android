@@ -4,8 +4,10 @@
     <string name="help_app_description">Vespucci 帮助查看器</string>
     <string name="help_title">帮助：%1$s</string>
     <string name="help_introduction">简介</string>
+    <string name="help_safe_mode">安全模式</string>
     <string name="help_main">显示主地图</string>
     <string name="help_simple_actions">简单操作</string>
+    <string name="help_addrelationmember">编辑关系成员</string>
     <string name="help_multiselect">多选</string>
     <string name="help_longclick">创建新对象</string>
     <string name="help_nodeselection">点已被选中</string>
@@ -19,6 +21,7 @@
     <string name="help_advanced_preferences">高级首选项</string>
     <string name="help_custom_imagery">自定义影像</string>
     <string name="help_presets">预设</string>
+    <string name="help_uploading">上传你的变更</string>
     <string name="help_conflictresolution">冲突调解</string>
     <string name="help_gpssources">GPS来源</string>
     <string name="help_keyboard">键盘</string>
@@ -28,6 +31,19 @@
     <string name="help_newnoteselection">选择新批注</string>
     <string name="help_voice_commands">语音指令</string>
     <string name="help_add_route_segment">添加路线区段</string>
+    <string name="help_tag_only_mode">仅标签模式</string>
+    <string name="help_indoor_mode">室内模式</string>
+    <string name="help_address_mode">地址模式</string>
+    <string name="help_upgrade_211">21.1 发行笔记</string>
+    <string name="help_upgrade_210">21.0 发行笔记</string>
+    <string name="help_upgrade_202">20.2 发行笔记</string>
+    <string name="help_upgrade_201">20.1 发行笔记</string>
+    <string name="help_upgrade_200">20.0 发行笔记</string>
+    <string name="help_upgrade_193">19.3 发行笔记</string>
+    <string name="help_upgrade_192">19.2 发行笔记</string>
+    <string name="help_upgrade_191">19.1 发行笔记</string>
+    <string name="help_upgrade_190">19.0 发行笔记</string>
+    <string name="help_upgrade_181">18.1 发行笔记</string>
     <string name="help_upgrade_180">18.0 发行说明</string>
     <string name="help_upgrade_171">17.1 发行说明</string>
     <string name="help_upgrade_170">17.0 发行说明</string>
@@ -86,6 +102,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
         <item>@string/help_upgrade_202</item>
         <item>@string/help_upgrade_201</item>
@@ -154,6 +171,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>
         <item>21.0.0 Release notes</item>
         <item>20.2.0 Release notes</item>

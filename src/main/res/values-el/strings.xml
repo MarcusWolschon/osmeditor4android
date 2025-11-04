@@ -8,6 +8,7 @@
   <string name="mode_address">Διεύθυνση</string>
   <string name="mode_voice">Φωνή</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">Ασφαλής</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Προσοχή!</string>
   <string name="transfer_download_current_dialog_message">Έχετε κάνει αλλαγές. Θέλετε να τις μεταφορτώσετε αντί να τις απορρίψετε;</string>
@@ -46,6 +47,10 @@
   <string name="delete_locally">Διαγραφή\nτοπικά</string>
   <string name="undelete_on_server">Αναίρεση διαγραφής\nστο διακομιστή</string>
   <!--Upload retry-->
+  <string name="upload_retry_title">Το ανέβασμα απέτυχε</string>
+  <string name="upload_retry_message_no_open_changeset">Το άνοιγμα του συνόλου αλλαγών απέτυχε.\n\nΕίναι ασφαλές να ξαναδοκιμάσετε.</string>
+  <string name="upload_retry_message_update_failed_title">Το ανέβασμα απέτυχε</string>
+  <string name="upload_retry_message_update_failed">Αποτυχία ανεβάσματος δεδομένων. Προτείνουμε να αποθηκεύσετε τις αλλαγές σας σε ένα αρχείο για μετέπειτα χρήση.</string>
   <string name="save_changes">Αποθήκευση αλλαγών</string>
   <string name="upload_retry_issue">Ζήτημα: %1$s</string>
   <!---->
@@ -67,9 +72,12 @@
   <string name="file_write_failed_title">Αδυναμία εγγραφής στο αρχείο</string>
   <string name="file_write_failed_message">Το Vespucci δεν μπορεί να αλλάξει ή να αποθηκεύσει το αρχείο.</string>
   <string name="duplicate_tag_key_title">Διπλότυπα κλειδιά</string>
+  <string name="upload_bounding_box_too_large_title">Περιοχή πολύ μεγάλη για ανέβασμα</string>
   <!---->
   <!--Newbie dialog-->
   <string name="welcome_title">Καλώς ήλθατε</string>
+  <string name="welcome_auto_download_text">Αυτόματη λήψη δεδομένων</string>
+  <string name="welcome_pen_setup_text">Ρυθμίστε για χρήση με στυλό ή ποντίκι</string>
   <string name="read_introduction">Διαβάστε την εισαγωγή</string>
   <string name="welcome_start">Ξεκινήστε!</string>
   <!---->
@@ -79,24 +87,37 @@
   <string name="progress_title">Φόρτωση</string>
   <string name="progress_message">Φόρτωση δεδομένων στη μνήμη…</string>
   <string name="progress_download_message">Λήψη δεδομένων από τον διακομιστή…</string>
+  <string name="progress_download_tasks_message">Λήψη εργασιών από τους διακομιστές…</string>
+  <string name="progress_download_sequence_message">Λήψη ακολουθίας από τον διακομιστή…</string>
   <string name="progress_general_title">Παρακαλώ περιμένετε</string>
   <string name="progress_deleting_message">Γίνεται διαγραφή…</string>
   <string name="progress_searching_message">Γίνεται αναζήτηση…</string>
   <string name="progress_saving_message">Γίνεται αποθήκευση…</string>
   <string name="progress_uploading_message">Γίνεται αποστολή...</string>
-  <string name="progress_preset_message">Προεπιλεγμένη λήψη...</string>
+  <string name="progress_preset_message">Λήψη προρύθμισης…</string>
+  <string name="progress_loading_preset_message">Φόρτωμα προρύθμισης…</string>
   <string name="progress_importing_file_message">Γίνεται εισαγωγή αρχείου...</string>
   <string name="progress_running_message">Λειτουργία...</string>
+  <string name="progress_oauth">Φόρτωμα του λογαριασμού σας\n%1$s\nγια εξουσιοδότηση OAuth…</string>
   <string name="progress_building_imagery_database">Κατασκευή εικονικής βάσης δεδομένων...</string>
+  <string name="progress_query_oam">Ερώτημα OAM…</string>
   <string name="progress_pruning">Κλάδεμα...</string>
+  <string name="progress_migration">Μετεγκατάσταση…</string>
+  <string name="progress_determining_status_message">Προσδιορισμός κατάστασης…</string>
+  <string name="progress_updating_message">Ενημέρωση…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" διαγράφηκε</string>
   <string name="changes_changed">\"%1$s\" άλλαξε</string>
   <string name="changes_created">\"%1$s\" δημιουργήθηκε</string>
   <string name="confirm_upload_title">Μεταφόρτωση αλλαγών</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Ανέβασμα αυτής της αλλαγής;</item>
+    <item quantity="other">Ανέβασμα αυτών των %1$d αλλαγών;</item>
+  </plurals>
   <string name="confirm_upload_edits_page">Αλλαγές</string>
   <string name="upload_comment_label">Σχόλιο:</string>
   <string name="upload_source_label">Προέλευση:</string>
+  <string name="upload_close_open_changeset_label">Πρώτα κλείσιμο του ανοιχτού συνόλου αλλαγών:</string>
   <string name="upload_close_changeset_label">Κλείσιμο ομάδας αλλαγών</string>
   <string name="upload_validation_error_empty_comment">Το σχόλιο δεν πρέπει να είναι άδειο</string>
   <string name="upload_validation_error_empty_source">Η πηγή δεν πρέπει να είναι άδεια</string>
@@ -110,11 +131,13 @@
   <string name="moved">%1$s μετακινήθηκε</string>
   <string name="unknown_object">άγνωστο αντικείμενο</string>
   <!--Review changes dialog-->
+  <string name="review_upload_selected">Ανέβασμα επιλεγμένων</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Μεταφόρτωση ίχνους GPX</string>
   <string name="upload_gpx_description_label">Περιγραφή</string>
   <string name="upload_gpx_tags_label">Ετικέτες</string>
   <string name="upload_gpx_visibility_label">ορατότητα</string>
+  <string name="upload_validation_error_empty_description">Άδεια περιγραφή</string>
   <!--Background properties-->
   <string name="background_properties_title">Ιδιότητες φόντου</string>
   <!--task fragment-->
@@ -126,6 +149,7 @@
   <string name="openstreetbug_comment_label">Σχόλιο:</string>
   <string name="openstreetbug_commit_ok">Οι αλλαγές της εργασίας αποθηκεύτηκαν</string>
   <string name="openstreetbug_commit_fail">Δεν ήταν δυνατή η αποθήκευση των αλλαγών της εργασίας</string>
+  <string name="openstreetbug_commit_fail_with_message">Δεν ήταν δυνατή η αποθήκευση των αλλαγών της εργασίας\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Άγνωστος τύπος εργασίας</string>
   <string name="openstreetbug_not_supported">%1$s δεν υποστηρίζεται.</string>
   <string name="note_description">%1$s - %2$s</string>
@@ -142,6 +166,8 @@
   <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$s</string>
   <string name="bug_element_1">%1$s(δεν κατέβηκε) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
+  <string name="maproulette_task_title">Εργασία MapRoulette</string>
+  <string name="maproulette_task_coords">Γ. Πλ %1$4g, Γ. Μηκ %2$4g</string>
   <string name="maproulette_task_explanations">Επεξηγήσεις</string>
   <string name="maproulette_task_instructions">Οδηγίες</string>
   <string name="maproulette_task_set_apikey">Ορισμός κλειδιού MapRoulette API</string>
@@ -156,7 +182,9 @@
     <item quantity="other">Προσθέστε τις εκκρεμότητες στη λίστα</item>
   </plurals>
   <string name="all_todos_done_title">Όλες οι εκκρεμότητες στη λίστα υλοποιήθηκαν</string>
+  <string name="todo_list_hint">Κάντε κλικ για προτάσεις</string>
   <string name="todo_comment_legend">Σχόλιο</string>
+  <string name="todo_comment_hint">Προαιρετικό σχόλιο</string>
   <string name="save_changes_title">Αποθήκευση αλλαγών;</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Προσοχή!</string>
@@ -217,6 +245,7 @@
   <!--Tile layer info dialog-->
   <!--GPX info dialog-->
   <!--Image information dialog-->
+  <string name="image_information_title">Πληροφορίες εικόνας</string>
   <string name="created_by">Δημιουργήθηκε από</string>
   <string name="capture_date">Ημερομηνία λήψης</string>
   <string name="direction">Κατεύθυνση</string>
@@ -231,6 +260,8 @@
   <!--Relation editing dialog-->
   <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">Αφαίρεση μέλους</string>
+  <string name="choose_role_title">Επιλογή ρόλου</string>
+  <string name="leave_role_empty">Αφήστε τον ρόλο κενό</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move">Μετακίνηση</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -672,6 +703,7 @@
   <string name="menu_join">Σύνδεση</string>
   <string name="menu_unjoin">Αποσύνδεση</string>
   <string name="menu_copy">Αντιγραφή</string>
+  <string name="menu_duplicate">Δημιουργία διπλότυπου</string>
   <string name="menu_cut">Αποκοπή</string>
   <string name="menu_paste">Επικόλληση</string>
   <string name="menu_paste_tags">Επικόλληση ετικετών</string>
@@ -793,13 +825,6 @@
   <string name="config_showWayIcons_title">Εμφάνιση εικονιδίων POI στα κτίρια</string>
   <string name="config_showWayIcons_summary">Εμφάνιση των καλύτερα-ταιριαστών προεπιλεγμένων εικονιδίων πάνω από τα κτίρια.</string>
   <string name="config_tagFormEnabled_title">Εμφάνιση φόρμας ετικέτας</string>
-  <string name="config_showCameraAction_title">Εμφάνιση κάμερας δράσης</string>
-  <string name="config_selectCameraApp_title">Εφαρμογή κάμερας</string>
-  <string name="config_selectCameraApp_summary">Επιλέξτε εφαρμογή κάμερας για χρήση.</string>
-  <string name="config_system_camera">Προεπιλογή συστήματος</string>
-  <string name="config_open_camera">Open Camera</string>
-  <string name="config_fv5_lite">FV5 lite</string>
-  <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Πάντα θολές οι μη ληφθέντες περιοχές</string>
   <string name="config_showTolerance_title">Εμφάνιση ανεκτικότητας</string>
   <string name="config_theme_title">Θέμα</string>
@@ -823,6 +848,14 @@
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Εμφάνιση κάμερας δράσης</string>
+  <string name="config_selectCameraApp_title">Εφαρμογή κάμερας</string>
+  <string name="config_selectCameraApp_summary">Επιλέξτε εφαρμογή κάμερας για χρήση.</string>
+  <string name="config_system_camera">Προεπιλογή συστήματος</string>
+  <string name="config_open_camera">Open Camera</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing_summary">Ρυθμίσεις αυτόματης λήψης, αποθήκευσης και ειδοποίησης.</string>
   <string name="config_address_tags">Ετικέτες διεύθυνσης</string>
@@ -892,11 +925,13 @@
   <string name="config_api_url_title">API URL</string>
   <string name="manage_presets">Διαχείριση προεπιλογών</string>
   <string name="manage_geocoders">Διαχείριση γεωκωδικοποιητών</string>
+  <string name="geocoder_type">Τύπος γεωκωδικοποιητή</string>
   <!--preset downloader messages-->
   <string name="preset_update">Ενημέρωση προκαθορισμένων</string>
   <string name="preset_download_parse_failed">Το προκαθορισμένο αρχείο δεν είναι έγκυρο. Το προκαθορισμένο δεν θα λειτουργήσει.</string>
   <string name="preset_download_title">Προκαθορισμένο πρόγραμμα λήψης</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Προσθήκη Προκαθορισμένου</string>
   <string name="urldialog_preset_exists">Αυτή η προκαθορισμένη ρύθμιση υπάρχει ήδη</string>
@@ -909,6 +944,12 @@
   <string name="readonly_url">Διεύθυνση API μόνο για ανάγνωση (προαιρετικά)</string>
   <string name="notes_url">Διεύθυνση σημειώσεων API (προαιρετικό)</string>
   <string name="copy_of">Αντιγραφή του %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Μεταφόρτωση</string>
+  <string name="wikimedia_meta_description">Περιγραφή</string>
+  <string name="wikimedia_meta_source">Πηγή</string>
+  <string name="wikimedia_meta_author">Δημιουργός</string>
+  <string name="wikimedia_meta_category">Κατηγορία</string>
   <!--common terms-->
   <string name="add">Προσθήκη</string>
   <string name="edit">Επεξεργασία</string>
@@ -921,7 +962,6 @@
   <string name="Continue">Συνέχιση</string>
   <!---->
   <string name="empty_list">Χωρίς καταχωρήσεις</string>
-  <string name="geocoder_type">Τύπος γεωκωδικοποιητή</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Προκαθορισμένο</string>
   <string name="api">API</string>
@@ -955,6 +995,7 @@
   <string name="undo_action_update_relations">Σχέση ενημερώθηκε</string>
   <string name="undo_action_cut">Αποκοπή</string>
   <string name="undo_action_paste">Επικόλληση</string>
+  <string name="undo_action_duplicate">Δημιουργία διπλότυπου</string>
   <string name="undo_action_rotate">Περιστροφή</string>
   <string name="undo_action_circulize">Τακτοποίηση σε κύκλο</string>
   <string name="undo_action_fix_conflict">Επίλυση συγκρούσεων</string>

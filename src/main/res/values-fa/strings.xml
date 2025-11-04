@@ -1160,19 +1160,7 @@
   <string name="config_tagFormEnabled_title">نمایش فرم برچسب</string>
   <string name="config_tagFormEnabled_summary">فرم برچسب را برای ویرایش نشان بده.</string>
   <string name="config_supportPresetLabels_title">نمایش برچسب‌ها از پیش‌تنظیم‌ها</string>
-  <string name="configsupportPresetLabels_summary">برچسب‌ها را از پیش تنظیم‌ها در ویرایشگر فرم برچسب نمایش دهید.</string>
-  <string name="config_showCameraAction_title">نمایش کنش دوربین</string>
-  <string name="config_showCameraAction_summary">نماد دوربین را در نوار کنش نشان بده.</string>
-  <string name="config_selectCameraApp_title">برنامه دوربین</string>
-  <string name="config_selectCameraApp_summary">برنامه دوربین را برای استفاده انتخاب کنید.</string>
-  <string name="config_system_camera">پیش فرض سیستم</string>
-  <string name="config_open_camera">بازکردن دوربین</string>
-  <string name="config_fv5_lite">FV5 lite</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">استفاده از نمایشگر عکس توکار</string>
-  <string name="config_useInternalPhotoViewer_summary">نمایشگر عکس توکار را به کار ببر. اگر خاموش باشد نمایشگر خارجی استفاده می‌شود.</string>
-  <string name="config_indexMediaStore_summary">همچنین از MediaStore برای دسترسی به عکس‌ها استفاده کنید</string>
-  <string name="config_indexMediaStore_title">از MediaStore استفاده کنید</string>
+  <string name="config_supportPresetLabels_summary">برچسب‌ها را از پیش تنظیم‌ها در ویرایشگر فرم برچسب نمایش دهید.</string>
   <string name="config_followGPSbutton_title">طرح‌بندی دکمه موقعیت مکانی را دنبال کنید</string>
   <string name="config_followGPSbutton_summary">جایی که دکمه «دنبال کردن مکان» در آن قرار می‌گیرد.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">همیشه محدوده‌های بارگیری نشده را تاریک کن</string>
@@ -1225,6 +1213,19 @@
   <string name="config_longStringLimit_title">محدودیت رشته طولانی</string>
   <string name="config_longStringLimit_summary">محدودیتی که از آن برای نمایش یک مدال برای ویرایش متن در ویرایشگر ویژگی</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">نمایش کنش دوربین</string>
+  <string name="config_showCameraAction_summary">نماد دوربین را در نوار کنش نشان بده.</string>
+  <string name="config_selectCameraApp_title">برنامه دوربین</string>
+  <string name="config_selectCameraApp_summary">برنامه دوربین را برای استفاده انتخاب کنید.</string>
+  <string name="config_system_camera">پیش فرض سیستم</string>
+  <string name="config_open_camera">بازکردن دوربین</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">استفاده از نمایشگر عکس توکار</string>
+  <string name="config_useInternalPhotoViewer_summary">نمایشگر عکس توکار را به کار ببر. اگر خاموش باشد نمایشگر خارجی استفاده می‌شود.</string>
+  <string name="config_indexMediaStore_summary">همچنین از MediaStore برای دسترسی به عکس‌ها استفاده کنید</string>
+  <string name="config_indexMediaStore_title">از MediaStore استفاده کنید</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">تنظیمات داده و ویرایش</string>
   <string name="config_category_editing_summary">بارگیری خودکار، ذخیره‌سازی و تنظیمات اعلان.</string>
@@ -1390,6 +1391,7 @@
   <string name="manage_presets">مدیریت پیش‌تنظیم‌ها</string>
   <string name="listedit_use_translations">استفاده از ترجمه‌ها</string>
   <string name="manage_geocoders">مدیریت زمین‌کدیاب‌ها</string>
+  <string name="geocoder_type">نوع زمین‌کدیاب</string>
   <!--preset downloader messages-->
   <string name="preset_update">به‌روزرسانی پیش‌تنظیم</string>
   <string name="preset_download_successful">پیش‌تنظیم بارگیری شد</string>
@@ -1398,6 +1400,7 @@
   <string name="preset_download_missing_images">پروندهٔ پیش‌تنظیم بارگیری شد. البته چند شکلک ناموجود بارگیری نشد.</string>
   <string name="preset_download_title">بارگیری کنندهٔ پیش‌تنظیم</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">افزودن پیش‌تنظیم</string>
   <string name="urldialog_preset_exists">این پیش‌تنظیم از قبل وجود دارد</string>
@@ -1412,6 +1415,12 @@
   <string name="readonly_url">‏API URL فقط خواندنی (اختیاری)</string>
   <string name="notes_url">‏API URL یادداشت‌ها (اختیاری)</string>
   <string name="copy_of">کپی از %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">بارگذاری</string>
+  <string name="wikimedia_meta_description">توضیح</string>
+  <string name="wikimedia_meta_source">منبع</string>
+  <string name="wikimedia_meta_author">تنظیم‌کننده</string>
+  <string name="wikimedia_meta_category">دسته‌بندی</string>
   <!--common terms-->
   <string name="add">افزودن</string>
   <string name="edit">ویرایش</string>
@@ -1424,7 +1433,6 @@
   <string name="Continue">ادامه</string>
   <!---->
   <string name="empty_list">بدون مدخل</string>
-  <string name="geocoder_type">نوع زمین‌کدیاب</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">پیش‌تنظیم</string>
   <string name="api">API</string>

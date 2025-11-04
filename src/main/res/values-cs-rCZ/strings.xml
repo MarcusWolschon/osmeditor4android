@@ -1293,19 +1293,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="config_tagFormEnabled_title">Zobrazit formulář tagů</string>
   <string name="config_tagFormEnabled_summary">Pro úpravu tagů zobrazí formulář.</string>
   <string name="config_supportPresetLabels_title">Zobrazit štítky předvoleb</string>
-  <string name="configsupportPresetLabels_summary">Zobrazovat štítky předvoleb ve formuláři tagů editoru.</string>
-  <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
-  <string name="config_showCameraAction_summary">Zobrazit ikonu fotoaparátu na liště nástrojů.</string>
-  <string name="config_selectCameraApp_title">Aplikace kamery</string>
-  <string name="config_selectCameraApp_summary">Vyberte aplikaci fotoaparátu, kterou chcete použít.</string>
-  <string name="config_system_camera">Výchozí systém</string>
-  <string name="config_open_camera">Otevřená kamera</string>
-  <string name="config_fv5_lite">FV5 lite</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">Použít vestavěný prohlížeči fotografií</string>
-  <string name="config_useInternalPhotoViewer_summary">Použít vestavěný prohlížeči fotografií, při nezatržení se použije externí prohlížeč.</string>
-  <string name="config_indexMediaStore_summary">Pro přístup k fotografiím navíc použijte MediaStore</string>
-  <string name="config_indexMediaStore_title">Použít v MediaStore</string>
+  <string name="config_supportPresetLabels_summary">Zobrazovat štítky předvoleb ve formuláři tagů editoru.</string>
   <string name="config_followGPSbutton_title">Umístění tlačítka Následovat pozici</string>
   <string name="config_followGPSbutton_summary">Kde bude tlačítko „Následovat pozici“ umístěno.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Vždy ztmavit nestažené oblasti</string>
@@ -1362,6 +1350,19 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="config_zoomWithKeys_summary">Povolit použití tlačítek hlasitosti pro přiblížení a oddálení.</string>
   <string name="config_poi_keys_title">Zobrazení blízkých POI</string>
   <string name="config_poi_keys_summary">Nastavení tlačítek používaných pro zobrazení blízkých POI.</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
+  <string name="config_showCameraAction_summary">Zobrazit ikonu fotoaparátu na liště nástrojů.</string>
+  <string name="config_selectCameraApp_title">Aplikace kamery</string>
+  <string name="config_selectCameraApp_summary">Vyberte aplikaci fotoaparátu, kterou chcete použít.</string>
+  <string name="config_system_camera">Výchozí systém</string>
+  <string name="config_open_camera">Otevřená kamera</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">Použít vestavěný prohlížeči fotografií</string>
+  <string name="config_useInternalPhotoViewer_summary">Použít vestavěný prohlížeči fotografií, při nezatržení se použije externí prohlížeč.</string>
+  <string name="config_indexMediaStore_summary">Pro přístup k fotografiím navíc použijte MediaStore</string>
+  <string name="config_indexMediaStore_title">Použít v MediaStore</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Nastavení dat a úprav</string>
   <string name="config_category_editing_summary">Nastavení automatického stahování, ukládání a notifikací.</string>
@@ -1540,6 +1541,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="manage_presets">Spravovat předvolby</string>
   <string name="listedit_use_translations">Použít překlady</string>
   <string name="manage_geocoders">Spravovat geokodéry</string>
+  <string name="geocoder_type">Typ geokodéru</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aktualizovat předvolby</string>
   <string name="preset_download_successful">Předvolba stažena</string>
@@ -1548,6 +1550,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="preset_download_missing_images">Soubor předvoleb stažen. Některé ikony nebyly staženy a chybí.</string>
   <string name="preset_download_title">Přednastavený downloader</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předvolbu</string>
   <string name="urldialog_preset_exists">Tato předvolba již existuje</string>
@@ -1562,6 +1565,12 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="readonly_url">URL API Pouze ke čtení (volitelné)</string>
   <string name="notes_url">URL API Poznámek (volitelné)</string>
   <string name="copy_of">Kopie %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Odeslat</string>
+  <string name="wikimedia_meta_description">Popis</string>
+  <string name="wikimedia_meta_source">Zdroj</string>
+  <string name="wikimedia_meta_author">Autor</string>
+  <string name="wikimedia_meta_category">Kategorie</string>
   <!--common terms-->
   <string name="add">Přidat</string>
   <string name="edit">Editovat</string>
@@ -1574,7 +1583,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="Continue">Pokračovat</string>
   <!---->
   <string name="empty_list">Žádné položky</string>
-  <string name="geocoder_type">Typ geokodéru</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Předvolba</string>
   <string name="api">API</string>

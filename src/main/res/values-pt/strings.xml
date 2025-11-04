@@ -1295,19 +1295,7 @@ há %3$s %4$s</string>
   <string name="config_tagFormEnabled_title">Formulário de etiquetas</string>
   <string name="config_tagFormEnabled_summary">Mostra uma tabela de etiquetas para as editar.</string>
   <string name="config_supportPresetLabels_title">Mostrar etiquetas a partir dos modelos de etiquetas</string>
-  <string name="configsupportPresetLabels_summary">Mostra etiquetas de modelos de etiquetas no editor de formulários de etiquetas.</string>
-  <string name="config_showCameraAction_title">Mostrar ação da câmara</string>
-  <string name="config_showCameraAction_summary">Mostra o ícone da câmara fotográfica na barra de ações.</string>
-  <string name="config_selectCameraApp_title">Aplicação da câmara</string>
-  <string name="config_selectCameraApp_summary">Selecione a aplicação da câmara fotográfica a utilizar para tirar fotografias.</string>
-  <string name="config_system_camera">Predefinição do sistema</string>
-  <string name="config_open_camera">Open Camera</string>
-  <string name="config_fv5_lite">FV5 lite</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">Usar visualiz. fotos incorporado</string>
-  <string name="config_useInternalPhotoViewer_summary">Utiliza o visualizador de fotografias incorporado; caso contrário, será utilizado um visualizador externo.</string>
-  <string name="config_indexMediaStore_summary">Adicionalmente, utilizar o armazenamento no dispositivo (MediaStore) para aceder às fotografias tiradas</string>
-  <string name="config_indexMediaStore_title">Usar o armazenamento local</string>
+  <string name="config_supportPresetLabels_summary">Mostra etiquetas de modelos de etiquetas no editor de formulários de etiquetas.</string>
   <string name="config_followGPSbutton_title">Local do botão seguir localização</string>
   <string name="config_followGPSbutton_summary">Onde será posicionado o botão \"Seguir localização\".</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Escurecer p/descarregar</string>
@@ -1365,6 +1353,19 @@ há %3$s %4$s</string>
   <string name="config_zoomWithKeys_summary">Permitir a utilização das teclas de volume para aumentar e diminuir o zoom.</string>
   <string name="config_poi_keys_title">Visualizar POI nas proximidades</string>
   <string name="config_poi_keys_summary">Definir as teclas utilizadas para a visualização de POIs próximos.</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Mostrar ação da câmara</string>
+  <string name="config_showCameraAction_summary">Mostra o ícone da câmara fotográfica na barra de ações.</string>
+  <string name="config_selectCameraApp_title">Aplicação da câmara</string>
+  <string name="config_selectCameraApp_summary">Selecione a aplicação da câmara fotográfica a utilizar para tirar fotografias.</string>
+  <string name="config_system_camera">Predefinição do sistema</string>
+  <string name="config_open_camera">Open Camera</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">Usar visualiz. fotos incorporado</string>
+  <string name="config_useInternalPhotoViewer_summary">Utiliza o visualizador de fotografias incorporado; caso contrário, será utilizado um visualizador externo.</string>
+  <string name="config_indexMediaStore_summary">Adicionalmente, utilizar o armazenamento no dispositivo (MediaStore) para aceder às fotografias tiradas</string>
+  <string name="config_indexMediaStore_title">Usar o armazenamento local</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Definições de dados e edição</string>
   <string name="config_category_editing_summary">Configurações de descarregamento automático, gravar e notificações.</string>
@@ -1545,6 +1546,7 @@ há %3$s %4$s</string>
   <string name="manage_presets">Gerir modelos etiquetas</string>
   <string name="listedit_use_translations">Usar traduções</string>
   <string name="manage_geocoders">Gerir geo-codificadores</string>
+  <string name="geocoder_type">Tipo de geo-codificador</string>
   <!--preset downloader messages-->
   <string name="preset_update">Atualizar modelos de etiquetas</string>
   <string name="preset_download_successful">Modelo de etiquetas descarregado</string>
@@ -1553,6 +1555,7 @@ há %3$s %4$s</string>
   <string name="preset_download_missing_images">O ficheiro dos modelos de etiquetas foi descarregado. No entanto faltam alguns ícones.</string>
   <string name="preset_download_title">Descarregamento de modelo de etiquetas</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Adicionar modelo de etiquetas</string>
   <string name="urldialog_preset_exists">Este modelo de etiquetas já existe</string>
@@ -1567,6 +1570,12 @@ há %3$s %4$s</string>
   <string name="readonly_url">URL da API de leitura apenas (opcional)</string>
   <string name="notes_url">URL da API de Erros Reportados (opcional)</string>
   <string name="copy_of">Cópia de %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Enviar</string>
+  <string name="wikimedia_meta_description">Descrição</string>
+  <string name="wikimedia_meta_source">Fonte de energia</string>
+  <string name="wikimedia_meta_author">Autor</string>
+  <string name="wikimedia_meta_category">Categoria</string>
   <!--common terms-->
   <string name="add">Adicionar</string>
   <string name="edit">Editar</string>
@@ -1579,7 +1588,6 @@ há %3$s %4$s</string>
   <string name="Continue">Continuar</string>
   <!---->
   <string name="empty_list">Sem entradas</string>
-  <string name="geocoder_type">Tipo de geo-codificador</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Predefinição</string>
   <string name="api">API</string>

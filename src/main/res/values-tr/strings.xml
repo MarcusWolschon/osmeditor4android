@@ -926,10 +926,6 @@
   <string name="config_showWayIcons_summary">Binaların üzerinde en iyi eşleşen ön ayar simgesini gösterin.</string>
   <string name="config_tagFormEnabled_title">Etiket formunu görüntüle</string>
   <string name="config_tagFormEnabled_summary">Düzenlemek için etiket formunu görüntüle</string>
-  <string name="config_showCameraAction_title">Kamera eylemini göster</string>
-  <string name="config_showCameraAction_summary">Eylem çubuğunda kamera simgesini göster.</string>
-  <string name="config_useInternalPhotoViewer_title">Dahili fotoğraf görüntüleyicisini kullan</string>
-  <string name="config_useInternalPhotoViewer_summary">Dahili fotoğraf görünümünü kullanın, kontrol edilmezse harici bir görüntüleyici kullanılacaktır.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">İndirilmemiş alanları her zaman karartın</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">İndirilmemiş alanları kilitli modda karartır.</string>
   <string name="config_map_orientation_title">Harita ekranı yönü</string>
@@ -961,6 +957,11 @@
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Kamera eylemini göster</string>
+  <string name="config_showCameraAction_summary">Eylem çubuğunda kamera simgesini göster.</string>
+  <string name="config_useInternalPhotoViewer_title">Dahili fotoğraf görüntüleyicisini kullan</string>
+  <string name="config_useInternalPhotoViewer_summary">Dahili fotoğraf görünümünü kullanın, kontrol edilmezse harici bir görüntüleyici kullanılacaktır.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Veriler ve düzenleme ayarları</string>
   <string name="config_category_editing_summary">Otomatik indirme, kaydetme ve bildirim ayarları.</string>
@@ -1090,6 +1091,7 @@
   <string name="manage_presets">Ön ayarları yönet</string>
   <string name="listedit_use_translations">Çevirileri kullan</string>
   <string name="manage_geocoders">Coğrafi kodlayıcıları yönet</string>
+  <string name="geocoder_type">Geocoder türü</string>
   <!--preset downloader messages-->
   <string name="preset_update">Öntanımlıyı güncelle</string>
   <string name="preset_download_successful">Önayar indirildi</string>
@@ -1098,6 +1100,7 @@
   <string name="preset_download_missing_images">Önayar dosyası indirildi. Ancak, bazı eksik simgeler yoktu.</string>
   <string name="preset_download_title">Önayar indirici</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Önayar ekle</string>
   <string name="urldialog_preset_exists">Önayar zaten var</string>
@@ -1112,6 +1115,12 @@
   <string name="readonly_url">Salt okunur API URL\'si (isteğe bağlı)</string>
   <string name="notes_url">Notların API URL\'si (isteğe bağlı)</string>
   <string name="copy_of">%1$skopyala</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Yükle</string>
+  <string name="wikimedia_meta_description">Açıklama</string>
+  <string name="wikimedia_meta_source">Kaynak</string>
+  <string name="wikimedia_meta_author">Yazar</string>
+  <string name="wikimedia_meta_category">Kategori</string>
   <!--common terms-->
   <string name="add">Ekle</string>
   <string name="edit">Düzenle</string>
@@ -1124,7 +1133,6 @@
   <string name="Continue">Devam et</string>
   <!---->
   <string name="empty_list">Girdiler yok</string>
-  <string name="geocoder_type">Geocoder türü</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Öntanımlı</string>
   <string name="api">API</string>

@@ -1180,18 +1180,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="config_tagFormEnabled_title">Afficher le formulaire d\'attributs</string>
   <string name="config_tagFormEnabled_summary">Afficher le formulaire d\'attributs pour l\'édition</string>
   <string name="config_supportPresetLabels_title">Afficher les noms depuis les modèles</string>
-  <string name="config_showCameraAction_title">Icône caméra</string>
-  <string name="config_showCameraAction_summary">Ajouter l\'icône caméra sur la barre d\'action</string>
-  <string name="config_selectCameraApp_title">Application photo</string>
-  <string name="config_selectCameraApp_summary">Sélectionner l\'application appareil photo à utiliser.</string>
-  <string name="config_system_camera">Valeur système par défaut</string>
-  <string name="config_open_camera">Ouvrir l\'appareil photo</string>
-  <string name="config_fv5_lite">FV5 léger</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">Utiliser la visionneuse d\'images intégrée</string>
-  <string name="config_useInternalPhotoViewer_summary">Utiliser la visionneuse d\'images intégrées, sinon Vespucci utilisera une visionneuse externe.</string>
-  <string name="config_indexMediaStore_summary">Utiliser également le MediaStore pour accéder aux photos</string>
-  <string name="config_indexMediaStore_title">Utiliser le MediaStore</string>
   <string name="config_followGPSbutton_title">Position du bouton de recentrage GPS</string>
   <string name="config_followGPSbutton_summary">Positionner le bouton « recentrer sur ma position »</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Toujours assombrir les zones non téléchargées</string>
@@ -1239,6 +1227,19 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="config_zoomWithKeys_summary">Autoriser l\'utilisation des touches de volume pour zoomer et dézoomer.</string>
   <string name="config_poi_keys_title">Affichage des POIs proches</string>
   <string name="config_poi_keys_summary">Sélectionner les POIs à afficher dans la fenêtre des POIs proches.</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Icône caméra</string>
+  <string name="config_showCameraAction_summary">Ajouter l\'icône caméra sur la barre d\'action</string>
+  <string name="config_selectCameraApp_title">Application photo</string>
+  <string name="config_selectCameraApp_summary">Sélectionner l\'application appareil photo à utiliser.</string>
+  <string name="config_system_camera">Valeur système par défaut</string>
+  <string name="config_open_camera">Ouvrir l\'appareil photo</string>
+  <string name="config_fv5_lite">FV5 léger</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">Utiliser la visionneuse d\'images intégrée</string>
+  <string name="config_useInternalPhotoViewer_summary">Utiliser la visionneuse d\'images intégrées, sinon Vespucci utilisera une visionneuse externe.</string>
+  <string name="config_indexMediaStore_summary">Utiliser également le MediaStore pour accéder aux photos</string>
+  <string name="config_indexMediaStore_title">Utiliser le MediaStore</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Paramètres de données et de modifications</string>
   <string name="config_category_editing_summary">Paramètres de téléchargement automatique, de sauvegardes et de notifications.</string>
@@ -1402,6 +1403,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="manage_presets">Gérer les modèles d\'attributs</string>
   <string name="listedit_use_translations">Utiliser des traductions</string>
   <string name="manage_geocoders">Gérer les géocodeurs</string>
+  <string name="geocoder_type">Type de géocodeur</string>
   <!--preset downloader messages-->
   <string name="preset_update">Mettre à jour les modèles d\'attributs</string>
   <string name="preset_download_successful">Modèles d\'attributs téléchargés avec succès</string>
@@ -1410,6 +1412,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="preset_download_missing_images">Le fichier de modèles a été téléchargé. Cependant, le téléchargement de certaines icônes a échoué.</string>
   <string name="preset_download_title">Gestionnaire de téléchargement des modèles</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Ajouter un modèle d\'attributs</string>
   <string name="urldialog_preset_exists">Ce modèle d\'attributs existe déjà</string>
@@ -1424,6 +1427,12 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="readonly_url">URL de l\'API en lecture seule (facultatif)</string>
   <string name="notes_url">URL de l\'API des notes (facultatif)</string>
   <string name="copy_of">Copie de %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Envoyer</string>
+  <string name="wikimedia_meta_description">Description</string>
+  <string name="wikimedia_meta_source">Source</string>
+  <string name="wikimedia_meta_author">Auteur</string>
+  <string name="wikimedia_meta_category">Catégorie</string>
   <!--common terms-->
   <string name="add">Ajouter</string>
   <string name="edit">Modifier</string>
@@ -1436,7 +1445,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="Continue">Poursuivre</string>
   <!---->
   <string name="empty_list">Pas d\'entrées</string>
-  <string name="geocoder_type">Type de géocodeur</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Modèles d\'attributs</string>
   <string name="api">API</string>

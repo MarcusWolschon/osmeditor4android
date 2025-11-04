@@ -48,6 +48,8 @@
   <string name="undelete_on_server">Відновити\nна сервері</string>
   <!--Upload retry-->
   <string name="upload_retry_title">Помилка завантаження</string>
+  <string name="upload_retry_message_no_open_changeset">Не вдалося відкрити набір змін.\n\nМожна повторити спробу.</string>
+  <string name="upload_retry_message_unexpected_error">Неочікувана помилка під час спроби визначити стан набору змін %1$d.</string>
   <string name="upload_retry_message_no_changeset_status">Не вдається визначити стан набору змін %1$d.\n\nМи рекомендуємо зберегти ваші зміни у вигляді OCS-файлу і визначити, що робити, коли у вас буде кращий прийом.</string>
   <string name="upload_retry_message_nothing_uploaded">Жодних змін не було завантажено в набір змін %1$d.\n\nБезпечно повторити спробу.</string>
   <string name="upload_retry_message_all_uploaded">Зміни успішно завантажено в набір змін %1$d, але результат не отримано.\n\nОднак виглядає так, ніби всі зміни було завантажено, тож ви можете сміливо відхилити локальні зміни та повторно завантажити.</string>
@@ -55,7 +57,9 @@
   <string name="upload_retry_message_update_failed_title">Не вдалося оновити</string>
   <string name="upload_retry_message_update_failed">Не вдалося оновити дані. Рекомендуємо зберегти зміни у файл для подальшого використання.</string>
   <string name="redownload">Повторне завантаження (не можна скасувати)</string>
+  <string name="update_data">Оновити локальні дані (не можна скасувати)</string>
   <string name="save_changes">Зберегти зміни</string>
+  <string name="upload_retry_issue">Проблема: %1$s</string>
   <!---->
   <string name="no_login_data_title">Не вдалося перевірити автентичність</string>
   <string name="no_login_data_message">Якщо Ви використовуєте OAuth, то це ймовірно помилка, будь ласка, відправте звіт про помилку.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
@@ -70,6 +74,7 @@
   <string name="not_found_message">API не міг знайти чинний елемент або набір змін з вказаним ідентифікатором.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Невідома помилка</string>
   <string name="unknown_error_message">Код помилки, отриманий від API або повідомлення, не може бути оброблений.&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_http_code_message">Код помилки HTTP: %1$d&lt;br&gt;Повідомлення про помилку:&lt;br&gt;&lt;br&gt;%2$s</string>
   <string name="no_data_title">Немає даних</string>
   <string name="no_data_message">Зазначене джерело не має покриття в цьому місці.</string>
   <string name="required_feature_missing_title">Відсутній чи відключений компонент</string>
@@ -108,6 +113,11 @@
   <string name="upload_bounding_box_too_large_message">Ділянка, що охоплює зміни, які ви намагаєтеся завантажити, занадто велика.
         &lt;br&gt;&lt;br&gt;Будь ласка, розбийте ваші зміни на декілька менших наборів змін. 
         Ви можете зробити це, вибравши підмножину змінених елементів і завантаживши їх окремо.</string>
+  <string name="upload_way_needs_one_node_title">Лінії потрібна хоча б одна точка</string>
+  <string name="upload_way_needs_one_node_message">Лінія, яку ви намагалися завантажити, не має точок. Цього не повинно статися, і лінію тепер видалено, щоб ви могли спробувати ще раз. Будь ласка, відкрийте проблему за допомогою форми зворотного зв\'язку та самостійно надішліть дамп аварійного завершення роботи.</string>
+  <string name="attempt_to_add_too_many_way_nodes_title">Спроба додати забагато точок лінії</string>
+  <string name="attempt_to_add_too_many_way_nodes_message">Ця операція створить лінію, яка містить більше точок, ніж максимальна кількість. Додайте менше точок, або розділіть лінію у відповідному місці.</string>
+  <string name="too_many_way_nodes_details">Намагаємося додати %1$d точок, що призведе до загальної кількості %2$d точок, що перевищує ліміт %3$d</string>
   <!---->
   <string name="select_file_picker_title">Виберіть селектор файлів</string>
   <!--Newbie dialog-->
@@ -145,6 +155,7 @@
   <string name="progress_message">Завантаження даних в пам\'ять…</string>
   <string name="progress_download_message">Завантаження даних з сервера…</string>
   <string name="progress_download_tasks_message">Завантаження завдань з серверів...</string>
+  <string name="progress_download_sequence_message">Завантаження послідовності із сервера…</string>
   <string name="progress_general_title">Зачекайте</string>
   <string name="progress_deleting_message">Вилучення…</string>
   <string name="progress_searching_message">Пошук…</string>
@@ -154,10 +165,13 @@
   <string name="progress_loading_preset_message">Завантаження заготовки…</string>
   <string name="progress_importing_file_message">Імпортується файл…</string>
   <string name="progress_running_message">Запуск…</string>
+  <string name="progress_oauth">Завантаження вашого облікового запису on\n%1$s\nдля авторизації OAuth…</string>
   <string name="progress_building_imagery_database">Створення бази даних фонів…</string>
   <string name="progress_query_oam">Отримання даних з OAM…</string>
   <string name="progress_pruning">Обрізка…</string>
   <string name="progress_migration">Міграція…</string>
+  <string name="progress_determining_status_message">Визначення статусу…</string>
+  <string name="progress_updating_message">Оновлення…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">„%1$s“ вилучено</string>
   <string name="changes_changed">„%1$s“ змінено</string>
@@ -187,6 +201,7 @@
   <string name="unknown_object">невідомий об\'єкт</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">Переглянути зміни</string>
+  <string name="review_upload_selected">Завантажити вибране</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Надіслати трек GPX</string>
   <string name="upload_gpx_description_label">Опис</string>
@@ -305,6 +320,7 @@
   <string name="goto_element">Перейти до елемента</string>
   <string name="edit_properties">Редагувати теґи</string>
   <string name="toast_element_not_found_on_restore">Не вдалося знайти елемент під час відновлення</string>
+  <string name="toast_element_no_prior_state">Елемент було змінено, але немає локального попереднього стану для порівняння.</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Інформація об\'єкта GeoJSON</string>
   <string name="vt_feature_information">Інформація об\'єкта з векторних тайлів</string>
@@ -341,7 +357,13 @@
   <string name="duplicate_route_segment_message">Цей відрізок вже є членом маршрута.</string>
   <string name="duplicate_route_segment_button">Все одно додати</string>
   <!--Relation editing dialog-->
+  <string name="duplicate_relation_member_title">Додавання або видалення члена зв\'язку</string>
+  <string name="duplicate_relation_member_message">%1$s\n\nвже є членом зв\'язку.</string>
+  <string name="remove_relation_member_title">Видалити члена зв\'язку</string>
+  <string name="relation_member_no_match_warning">\n\nПопередження:\n\nЕлемент не відповідає попередньо визначеним фільтрам членів для цього типу зв\'язку.</string>
   <string name="duplicate_relation_member_remove_button">Вилучити члена</string>
+  <string name="choose_role_title">Виберіть роль</string>
+  <string name="leave_role_empty">Залиште роль порожньою</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Перенести теґи з зовнішнього контуру на мультиполігон</string>
   <string name="move_outer_tags_message">Теґи, що описують об\'єкт мають додаватись тільки мультиполігону. Ця дія перенесе такі теґи з зовнішнього контуру на мультиполігон.</string>
@@ -375,6 +397,7 @@
   <!--Overpass console-->
   <string name="run">Старт</string>
   <string name="overpass_result">Завантажено %1$d точок, %2$d ліній та %3$d зв\'язків.</string>
+  <string name="overpass_console">Консоль Overpass</string>
   <string name="select_result">Виділити результат</string>
   <string name="merge_result">З\'єднати результат</string>
   <string name="overpass_query_would_overwrite">Результат перезапише зміни! Запит перервано.</string>
@@ -428,6 +451,7 @@
   <string name="altitude">Висота над рівнем моря</string>
   <string name="create_osm_object">Створити об\'єкт OSM</string>
   <string name="create_osm_object_search">Створити об\'єкт OSM з результатів пошуку заготовок</string>
+  <string name="waypoint_link">Посилання</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Власний фон</string>
   <string name="oam_layer_title">Фон OAM</string>
@@ -531,6 +555,7 @@
   <string name="tag_conflict_title">Властивості змінено</string>
   <string name="tag_conflict_message">Операція вимагала зміни властивостей у залучених елементів.</string>
   <string name="replace_geometry_issue_title">Елемент змінено</string>
+  <string name="replace_geometry_issue_message">Операція вимагала зміни позиції елемента, його членства або тегів.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Немає відповідних зв\'язків у завантажених даних</string>
   <string name="select_route_title">Обрати маршрут</string>
@@ -554,6 +579,7 @@
   <string name="compass_widget_usage_with_additional">Зніміть виділення з будь-якого значення вище, а потім спрямуйте пристрій у напрямку, в якому ви хочете записати, або перетягніть дисплей до потрібного значення.</string>
   <string name="compass_widget_usage">Наведіть пристрій у напрямку, в якому ви хочете записати, або перетягніть дисплей до потрібного значення</string>
   <string name="integer_widget_usage_with_additional">Зніміть позначку з будь-якого значення вище, щоб скористатися номеронабирачем</string>
+  <string name="date_widget_usage_with_additional">Скасуйте вибір будь-якого значення вище, щоб скористатися засобом вибору дати</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Надіслати з вашим нікнеймом з OpenStreetMap</string>
   <string name="feedback_displayname_hint">Ваш нікнейм з OpenStreetMap ще не отриманий</string>
@@ -666,6 +692,7 @@
   <!---->
   <string name="toast_oauth_retry">Спробуйте надіслати дані ще раз після надання доступу до ваших облікових даних OSM через  OAuth.</string>
   <string name="toast_oauth">Дозвольте OAuth-доступ до свого облікового запису OSM.</string>
+  <string name="toast_no_oauth">Для API недоступна конфігурація OAuth \"%1$s\", будь ласка, встановіть логін та пароль, якщо підтримується.</string>
   <string name="toast_oauth_not_enabled">OAuth не включений у поточному API.</string>
   <string name="toast_oauth_timeout">Перевищено час очікування відповіді, спробуйте автентифікуватись ще раз.</string>
   <string name="toast_oauth_communication">Помилка з\'єднання під час автентифікації, спробуйте ще раз.</string>
@@ -731,6 +758,7 @@
   <string name="toast_flus_all_caches">Ця дія призведе до скидання кешу тайлів!</string>
   <string name="toast_applied_offset">Застосовано зміщення фону.</string>
   <string name="toast_unsupported_format">Формат не підтримується: %1$s</string>
+  <string name="toast_unsupported_operation">Непідтримувана операція</string>
   <string name="toast_returning_less_than_found">Повертаємо %1$d з %2$d знайдених елементів</string>
   <string name="toast_not_mbtiles">Не файл у форматі MBTiles або PMTiles</string>
   <string name="toast_using_network_location">Використовується мережеве розташування</string>
@@ -755,6 +783,7 @@
   <string name="toast_file_already_exists">Файл %1$s вже існує</string>
   <string name="toast_file_error_for">Помилка файлу для %1$s</string>
   <string name="toast_error_reading">Помилка читання %1$s</string>
+  <string name="toast_error_converting">Помилка конвертації %1$s</string>
   <string name="toast_read_successfully">Файл успішно прочитано</string>
   <string name="toast_error_writing">Помилка запису %1$s</string>
   <string name="toast_successfully_written">%1$s записано</string>
@@ -817,6 +846,9 @@
   <string name="toast_no_roles_found">Ролей не знайдено, всі елементи можна вибрати</string>
   <string name="toast_no_preset_found">Відповідних пресетів не знайдено, можна вибрати всі елементи</string>
   <string name="toast_undeleting_all_members">Видалення всіх членів відношення з цим елементом</string>
+  <string name="toast_panoramax_sequence_error">Не вдалося отримати послідовність panoramax id %1$s id %2$s</string>
+  <string name="toast_panoramax_image_not_in_sequence_error">Ідентифікатор %1$s зображення не знайдено в послідовності</string>
+  <string name="toast_panoramax_sequence_exception">Не вдалося отримати послідовність panoramax\n%1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Джерела MapSplit повинні мати встановлені мінімальне та максимальне масштабування</string>
   <string name="error_pbf_no_version">У файлі PBF відсутня інформація про версію</string>
@@ -889,6 +921,7 @@
   <string name="tag_menu_reset_address_prediction">Скинути прогнозування адрес</string>
   <string name="tag_menu_exit_no_save">Вийти\nбез збереження</string>
   <string name="tag_menu_delete_unassociated_tags">Вилучити непов\'язані теґи</string>
+  <string name="tag_menu_copy_system">Копія (система)</string>
   <string name="tag_menu_top">Вгору</string>
   <string name="tag_menu_bottom">Вниз</string>
   <string name="tag_value_hint">Додайте значення</string>
@@ -917,6 +950,7 @@
   <string name="menu_deselect_all">Скинути виділення</string>
   <string name="menu_preset_help">Довідка заготовки</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">Додати мовні варіанти</string>
   <string name="tag_restriction_header">Значення</string>
   <string name="tag_restriction_when">коли</string>
   <string name="tag_restriction_and">та</string>
@@ -935,6 +969,7 @@
   <string name="tag_menu_create_preset">Створити власний пресет</string>
   <string name="create_preset_title">Користувальницьке ім\'я пресету</string>
   <string name="create_preset_default_name">Власний %1$s</string>
+  <string name="saving_preset_failed">Не вдалося зберегти пресет із\n\n%1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Виберіть радіус: </string>
   <string name="location_default_radius">300 м.</string>
@@ -1130,6 +1165,7 @@
   <string name="menu_layers_add_grid">Увімкнути сітку</string>
   <string name="menu_layers_add_photolayer">Увімкнути шар з фото</string>
   <string name="menu_layers_enable_mapillary_layer">Увімкнути шар Mapillary</string>
+  <string name="menu_layers_enable_panoramax_layer">Увімкнути шар Panoramax</string>
   <string name="menu_layers_enable_bookmarkslayer">Увімкнути шар закладок</string>
   <string name="menu_layers_configure">Налаштувати…</string>
   <string name="menu_layers_background_align">Вирівняти фон...</string>
@@ -1218,6 +1254,8 @@
   <string name="menu_snap">Прив\'язка</string>
   <string name="menu_follow_way">Слідувати за лінією</string>
   <string name="select_follow_way">Виберіть шлях, яким слідувати</string>
+  <string name="select_way_to_extract_from">Виберіть спосіб вилучення сегмента з</string>
+  <string name="select_primary_key">Виберіть первинний ключ для використання</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Додати точку</string>
   <string name="simple_add_node">Торкніться екрана</string>
@@ -1235,6 +1273,7 @@
   <string name="menu_paste_multiple">Вставити кілька разів</string>
   <string name="simple_paste_multiple">Торкніться екрана</string>
   <!---->
+  <string name="duplicated_name_template">Дублікат %1$s</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Фон мапи</string>
   <string name="config_backgroundLayer_summary">Растрова фонова мапа.</string>
@@ -1286,17 +1325,7 @@
   <string name="config_tagFormEnabled_title">Відобразити шаблон тегу</string>
   <string name="config_tagFormEnabled_summary">Відобразити шаблон тегу для редагування.</string>
   <string name="config_supportPresetLabels_title">Відображати мітки з пресетів</string>
-  <string name="configsupportPresetLabels_summary">Відображати мітки з пресетів у редакторі тегів.</string>
-  <string name="config_showCameraAction_title">Показати камеру</string>
-  <string name="config_showCameraAction_summary">Показати камеру на панелі</string>
-  <string name="config_selectCameraApp_title">Додаток для камери</string>
-  <string name="config_selectCameraApp_summary">Виберіть програму для камери.</string>
-  <string name="config_system_camera">За замовчуванням у системі</string>
-  <string name="config_open_camera">Відкрити камеру</string>
-  <string name="config_useInternalPhotoViewer_title">Використовуйте вбудований переглядач фотографій</string>
-  <string name="config_useInternalPhotoViewer_summary">Використовуйте вбудований перегляд фотографій, якщо не позначено, використовуватиметься зовнішній переглядач.</string>
-  <string name="config_indexMediaStore_summary">Додатково використовувати MediaStore для доступу до фотографій</string>
-  <string name="config_indexMediaStore_title">Використовувати MediaStore</string>
+  <string name="config_supportPresetLabels_summary">Відображати мітки з пресетів у редакторі тегів.</string>
   <string name="config_followGPSbutton_title">Розташування кнопки місцезнаходження</string>
   <string name="config_followGPSbutton_summary">Де буде розташована кнопка «Відстежити позицію».</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Завжди затінювати незавантажені області</string>
@@ -1349,6 +1378,18 @@
   <string name="config_zoomWithKeys_summary">Дозвольте використовувати клавіші гучності для збільшення та зменшення масштабу.</string>
   <string name="config_poi_keys_title">Відображення найближчих POI</string>
   <string name="config_poi_keys_summary">Установіть клавіші, що використовуються для відображення POI поблизу.</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Показати камеру</string>
+  <string name="config_showCameraAction_summary">Показати камеру на панелі</string>
+  <string name="config_selectCameraApp_title">Додаток для камери</string>
+  <string name="config_selectCameraApp_summary">Виберіть програму для камери.</string>
+  <string name="config_system_camera">За замовчуванням у системі</string>
+  <string name="config_open_camera">Відкрити камеру</string>
+  <string name="config_useInternalPhotoViewer_title">Використовуйте вбудований переглядач фотографій</string>
+  <string name="config_useInternalPhotoViewer_summary">Використовуйте вбудований перегляд фотографій, якщо не позначено, використовуватиметься зовнішній переглядач.</string>
+  <string name="config_indexMediaStore_summary">Додатково використовувати MediaStore для доступу до фотографій</string>
+  <string name="config_indexMediaStore_title">Використовувати MediaStore</string>
+  <string name="config_addToMediaStore_title">Додавання зображень до MediaStore</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Налаштування даних та редагування</string>
   <string name="config_category_editing_summary">Налаштування автозавантаження, збереження та сповіщень.</string>
@@ -1411,6 +1452,8 @@
   <string name="config_maxDownloadSpeed_title">Максимальна швидкість авто-завантаження</string>
   <string name="config_maxDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження призупиняється</string>
   <string name="config_downloadSpeed_current">%1$d км/г</string>
+  <string name="config_autoPrune_title">Автоматична обрізка</string>
+  <string name="config_autoPrune_summary">Увімкнути/вимкнути автоматичне видалення даних та завдань у пам\'яті</string>
   <string name="config_autoPruneNodeLimit_title">Ліміт автоматичного скорочення</string>
   <string name="config_autoPruneNodeLimit_summary">Кількість Точок у пам’яті, досягнення якої ініціює видалення.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d Точки</string>
@@ -1467,6 +1510,7 @@
   <string name="config_overpassServer_summary">Сервер Overpass, що використовується для запитів</string>
   <string name="config_oamServer_title">Сервер OpenAerialMap</string>
   <string name="config_oamServer_summary">Сервер OpenAerialMap, що використовується для надання зображень</string>
+  <string name="config_panoramaxApiUrl_summary">Базова URL-адреса екземпляра Panoramax без доданого \"/api\"</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Завантаження та зберігання шарів</string>
   <string name="config_category_layers_summary">Завантаження та зберігання фонових зображень на основі плиток.</string>
@@ -1476,6 +1520,7 @@
   <string name="config_tileCacheSize_summary">Загальний розмір кешу в МБ</string>
   <string name="config_preferRemovableStorage_title">Надавати перевагу знімним носіям</string>
   <string name="config_preferRemovableStorage_summary">Надавати перевагу знімному сховищу для кешу тайлів.</string>
+  <string name="config_mapillaryCacheSize_title">Розмір кешу Mapillary</string>
   <string name="config_mapillaryCacheSize_summary">Загальний обсяг кешу зображень Mapillary, в МБ</string>
   <!--Auto-save-->
   <string name="config_category_autosave">Автозбереження конфігурації</string>
@@ -1484,8 +1529,12 @@
   <string name="config_autosaveSaveState_summary">Зберегти повний стан, включаючи незмінені дані.</string>
   <string name="config_autosaveSaveChanges_title">Зберегти зміни</string>
   <string name="config_autosaveSaveChanges_summary">Зберегти зміни як OSC-файл.</string>
+  <string name="config_autosaveInterval_title">Мінімальний інтервал</string>
   <string name="config_autosaveInterval_summary">Мінімальний інтервал у хвилинах між збереженнями.</string>
+  <string name="config_autosaveChanges_title">Мінімальна кількість змін</string>
   <string name="config_autosaveChanges_summary">Мінімальна кількість змін для збереження.</string>
+  <string name="config_autosaveMaxFiles_title">Максимальна кількість файлів OSC, які можна зберегти</string>
+  <string name="config_gpxAutosaveInterval_title">Мінімальний інтервал збереження GPX</string>
   <string name="config_gpxAutosaveInterval_summary">Мінімальний інтервал у хвилинах між збереженнями GPX-записів.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Додатково</string>
@@ -1505,14 +1554,18 @@
   <string name="config_newTaskForPropertyEditor_summary">Встановити FLAG_ACTIVITY_NEW_TASK під час запуску редактора властивостей, це може покращити поведінку певних засобів запуску під час відновлення програми.</string>
   <string name="config_newTaskForPropertyEditor_title">Використовувати режим \"нове завдання\" для редактора властивостей</string>
   <!---->
+  <string name="manage_apis">Керувати API</string>
   <string name="config_api_url_title">URL для API</string>
   <string name="config_api_oauth_title">Використовувати OAuth</string>
+  <string name="listedit_auth">Аутентифікація</string>
   <string name="config_username_title">Ім\'я користувача OSM</string>
   <string name="config_password_title">Пароль OSM</string>
   <string name="config_password_summary">Не плутайте його з паролем вікі.  Пам’ятайте: він зберігається та передається у відкритому тексті!</string>
   <string name="manage_presets">Керування заготовками</string>
   <string name="listedit_use_translations">Використовувати переклади</string>
   <string name="manage_geocoders">Керування геокодерами</string>
+  <string name="listedit_supports_compressed_uploads">Підтримує завантаження стиснених файлів</string>
+  <string name="geocoder_type">Тип геокодера</string>
   <!--preset downloader messages-->
   <string name="preset_update">Оновити заготовку</string>
   <string name="preset_download_successful">Заготовка завантажена</string>
@@ -1521,6 +1574,8 @@
   <string name="preset_download_missing_images">Файл заготовки успішно завантажено. Але, деякі значки неможливо завантажити і вони не будуть показані.</string>
   <string name="preset_download_title">Завантажувач заготовок</string>
   <!--preset management-->
+  <string name="preset_management_delete">Дійсно видалити пресет?</string>
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Додати заготовку</string>
   <string name="urldialog_preset_exists">Ця заготовка вже існує</string>
@@ -1534,6 +1589,14 @@
   <string name="api_url">URL для API</string>
   <string name="readonly_url">URL-адреса API лише для читання (необов’язково)</string>
   <string name="notes_url">URL-адреса API Notes (необов’язково)</string>
+  <string name="copy_of">Копія %1$s</string>
+  <string name="choose_oauth_config">Виберіть конфігурацію OAuth</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Надіслати</string>
+  <string name="wikimedia_meta_description">Опис</string>
+  <string name="wikimedia_meta_source">Джерело</string>
+  <string name="wikimedia_meta_author">Автор</string>
+  <string name="wikimedia_meta_category">Категорія</string>
   <!--common terms-->
   <string name="add">Додати</string>
   <string name="edit">Редагувати</string>
@@ -1544,9 +1607,9 @@
   <string name="regular_expression">Регулярні вирази</string>
   <string name="state">Стан</string>
   <string name="Continue">Далі</string>
+  <string name="File">Файл</string>
   <!---->
   <string name="empty_list">Записів немає</string>
-  <string name="geocoder_type">Тип геокодера</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Заготовка</string>
   <string name="api">API</string>
@@ -1580,6 +1643,7 @@
   <string name="undo_action_set_tags">Додавання теґів</string>
   <string name="undo_action_join">Об’єднання</string>
   <string name="undo_action_unjoin_ways">Роз’єднання ліній</string>
+  <string name="undo_action_merge_polygons">Об\'єднання полігонів</string>
   <string name="undo_action_create_relation">Створити зв’язок</string>
   <string name="undo_action_delete_relation">Вилучити зв’язок</string>
   <string name="undo_action_update_relations">Оновлення зв’язку</string>
@@ -1587,6 +1651,7 @@
   <string name="undo_action_cut">Вирізати</string>
   <string name="undo_action_paste">Вставити</string>
   <string name="undo_action_duplicate">Дублювати</string>
+  <string name="undo_action_rotate">Обертання</string>
   <string name="undo_action_orthogonalize">Ортогоналізувати лінію</string>
   <string name="undo_action_circulize">Вирівняти по колу</string>
   <string name="undo_action_fix_conflict">Розвʼязання конфліктів</string>
@@ -1629,8 +1694,21 @@
   <string name="culvert">Кульверт</string>
   <string name="steps">Сходи</string>
   <!--Issues-->
+  <string name="issue_not_reversable">Теги не можна змінити</string>
   <string name="issue_shared_node">Поділитись іншим способом</string>
+  <string name="issue_tags_reversed">Теги змінились</string>
+  <string name="issue_role_reversed">Ролі помінялися</string>
+  <string name="issue_oneway_direction_reversed">Односторонній рух змінено</string>
+  <string name="issue_role_conflict">Конфлікт ролей</string>
+  <string name="issue_merged_tags">Теги були об\'єднані</string>
+  <string name="issue_same_object">Той самий об\'єкт</string>
+  <string name="issue_merged_metric">Значення, що залежить від довжини, було об\'єднано</string>
+  <string name="issue_split_metric">Значення, що залежить від довжини, було розділено</string>
+  <string name="issue_split_route_ordering">Маршрут може потребувати ручного переупорядкування</string>
+  <string name="issue_split_area">Розділення області, можливо, потрібно перетворити на мультиполігон</string>
   <string name="issue_precondition_relation_member_count">Перевищено кількість членів зв\'язку</string>
+  <string name="issue_replace_extracted_node">Позначена точка, витягнута з шляху</string>
+  <string name="issue_replace_member_element_replaced">Елемент-член замінено</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 день</item>
@@ -1671,18 +1749,42 @@
   <!--Help system-->
   <string name="toast_nohelp">Довідка відсутня.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark_title">Додати закладку</string>
+  <string name="edit_bookmark_title">Редагувати закладку</string>
   <string name="bookmarks_desc">Назва</string>
   <string name="show_bookmarks">Закладки…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Вперед</string>
   <string name="bookmarkstitle">Закладки</string>
   <!--Element types-->
+  <string name="element_type_node">точка</string>
   <string name="element_type_way">лінія</string>
   <string name="element_type_closedway">замкнена лінія</string>
   <string name="element_type_area">полігон</string>
   <string name="element_type_relation">зв’язок</string>
   <!--Element names with id-->
+  <string name="node_id">точка %1$d</string>
+  <string name="way_id">лінія %1$d</string>
   <string name="relation_id">зв\'язок %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="layer_diag_title">Діагностика шарів</string>
+  <string name="no_tile_header">Заголовок «Без плитки» %1$s</string>
+  <string name="empty_tile">Порожня плитка</string>
+  <string name="tile_error">Код помилки плитки: %1$d\n\n%2$s</string>
+  <string name="tile_error_message">Повідомлення про помилку плитки:\n\n%1$s\n\n%2$s</string>
+  <string name="unexpected_tile_format">Несподіваний формат\nURL:%1$s %2$s</string>
+  <string name="unexpected_tile_format_subtype">Несподіваний підтип формату %1$s\nURL: %2$s</string>
+  <string name="diagnostics_for_tile">Діагностика для %1$s</string>
+  <string name="tile_status">Статус: %1$s</string>
+  <string name="tile_spec">масштаб %1$d x %2$d y %3$d</string>
+  <string name="tile_input_error">Помилка введення плитки: %1$s\nURL: %2$s</string>
+  <string name="tile_data_received">Успішно отримано %1$d байт</string>
+  <string name="tile_mark_invalid">Позначення плитки як недійсної</string>
+  <string name="tile_decoding_failed">Не вдалося розшифрувати плитку</string>
+  <string name="tile_success">Успіх</string>
+  <string name="tile_fail">Невдача</string>
+  <string name="tile_doesnt_exist">Плитка не існує</string>
+  <string name="tile_io_error">Помилка вводу-виводу</string>
+  <string name="tile_no_network">Немає мережі</string>
   <string name="tile_unknown_error">Невідома помилка</string>
 </resources>

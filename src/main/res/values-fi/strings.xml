@@ -1154,19 +1154,7 @@
   <string name="config_tagFormEnabled_title">Näytä tägilomake</string>
   <string name="config_tagFormEnabled_summary">Näytä tägilomake muokkausnäkymässä.</string>
   <string name="config_supportPresetLabels_title">Näytä esivalintojen nimikkeet</string>
-  <string name="configsupportPresetLabels_summary">Näytä esivalintojen nimikkeet tägien lomakemuokkaimessa.</string>
-  <string name="config_showCameraAction_title">Näytä kameratoiminto</string>
-  <string name="config_showCameraAction_summary">Näytä kamerakuvake toimintopalkissa.</string>
-  <string name="config_selectCameraApp_title">Kamerasovellus</string>
-  <string name="config_selectCameraApp_summary">Valitse käytettävä kamerasovellus</string>
-  <string name="config_system_camera">Järjestelmän oletus</string>
-  <string name="config_open_camera">Open Camera</string>
-  <string name="config_fv5_lite">FV5 lite</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">Käytä sisäistä kuvakatselinta</string>
-  <string name="config_useInternalPhotoViewer_summary">Käytä Vespuccin omaa, sisäistä kuvakatselinta. Muutoin käytetään ulkoista katselinta.</string>
-  <string name="config_indexMediaStore_summary">Käytä lisäksi MediaStorea kuvien katsomiseen</string>
-  <string name="config_indexMediaStore_title">Käytä MedisStorea</string>
+  <string name="config_supportPresetLabels_summary">Näytä esivalintojen nimikkeet tägien lomakemuokkaimessa.</string>
   <string name="config_followGPSbutton_title">Sijainninseuranta-napin asettelu</string>
   <string name="config_followGPSbutton_summary">Missä kohdassa \"Seuraa sijaintia\" -nappi näytetään.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Himmennä aina lataamattomat alueet</string>
@@ -1216,6 +1204,19 @@
   <string name="config_longStringLimit_title">Pitkän merkkijonon raja</string>
   <string name="config_longStringLimit_summary">Raja jota pidempiä ominaisuusmuokkaimen tekstikenttiä muokataan erillisessä ikkunassa.</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Näytä kameratoiminto</string>
+  <string name="config_showCameraAction_summary">Näytä kamerakuvake toimintopalkissa.</string>
+  <string name="config_selectCameraApp_title">Kamerasovellus</string>
+  <string name="config_selectCameraApp_summary">Valitse käytettävä kamerasovellus</string>
+  <string name="config_system_camera">Järjestelmän oletus</string>
+  <string name="config_open_camera">Open Camera</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">Käytä sisäistä kuvakatselinta</string>
+  <string name="config_useInternalPhotoViewer_summary">Käytä Vespuccin omaa, sisäistä kuvakatselinta. Muutoin käytetään ulkoista katselinta.</string>
+  <string name="config_indexMediaStore_summary">Käytä lisäksi MediaStorea kuvien katsomiseen</string>
+  <string name="config_indexMediaStore_title">Käytä MedisStorea</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Data- ja muokkausasetukset</string>
   <string name="config_category_editing_summary">Automaattilataus-, tallennus ja ilmoitusasetukset.</string>
@@ -1378,6 +1379,7 @@
   <string name="manage_presets">Esivalintojen hallinta</string>
   <string name="listedit_use_translations">Käytä käännöksiä</string>
   <string name="manage_geocoders">Geokoodereiden hallinta</string>
+  <string name="geocoder_type">Geokooderin tyyppi</string>
   <!--preset downloader messages-->
   <string name="preset_update">Päivitä esivalinta</string>
   <string name="preset_download_successful">Esivalinta ladattu</string>
@@ -1386,6 +1388,7 @@
   <string name="preset_download_missing_images">Esivalintatiedosto ladattiin onnistuneesti. Osaa kuvakkeista ei kuitenkaan voitu ladata, ja ne tulevat puuttumaan.</string>
   <string name="preset_download_title">Esivalintojen lataus</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Lisää esivalinta</string>
   <string name="urldialog_preset_exists">Tämä esivalinta on jo olemassa</string>
@@ -1400,6 +1403,12 @@
   <string name="readonly_url">Read-Only-APIn URL (valinnainen)</string>
   <string name="notes_url">Notes-APIn URL (valinnainen)</string>
   <string name="copy_of">Kopio - %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Lähettäminen</string>
+  <string name="wikimedia_meta_description">Kuvaus</string>
+  <string name="wikimedia_meta_source">Lähde</string>
+  <string name="wikimedia_meta_author">Tekijä</string>
+  <string name="wikimedia_meta_category">Luokka</string>
   <!--common terms-->
   <string name="add">Lisää</string>
   <string name="edit">Muokkaa</string>
@@ -1412,7 +1421,6 @@
   <string name="Continue">Pidennä</string>
   <!---->
   <string name="empty_list">Tyhjä lista</string>
-  <string name="geocoder_type">Geokooderin tyyppi</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Esivalinta</string>
   <string name="api">API</string>

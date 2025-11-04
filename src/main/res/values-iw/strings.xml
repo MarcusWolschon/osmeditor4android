@@ -21,8 +21,19 @@
   <string name="upload_conflict_title">סתירת העלאה</string>
   <string name="upload_conflict_message_version">סתירת גרסאות</string>
   <string name="upload_conflict_message_deleted">ל־%1$s \nיש גרסה מקומית %2$d \nוהוא נמחק מהשרת</string>
+  <string name="server_side_object">גרסת השרת</string>
+  <string name="local_object">גרסה מקורית</string>
+  <string name="resolve_by">פתרון סתירה על ידי…</string>
+  <string name="resolve">פתרון</string>
+  <string name="unexpected_conflict_type">סוג סתירה מפתיעה</string>
   <!--Upload retry-->
+  <string name="upload_retry_title">ההעלאה נכשלה</string>
+  <string name="upload_retry_message_update_failed_title">העדכון נכשל</string>
+  <string name="upload_retry_message_update_failed">לא ניתן לעדכן את הנתונים. אנו ממליצים לשמור את השינויים שלך לקובץ כדי להשתמש בהם בהמשך.</string>
+  <string name="redownload">הורדה מחדש (בלתי הפיך)</string>
+  <string name="update_data">עדכון הנתונים המקומיים (בלתי הפיך)</string>
   <string name="save_changes">שמירת השינויים</string>
+  <string name="upload_retry_issue">תקלה: %1$s</string>
   <!---->
   <string name="no_login_data_title">לא ניתן לאמת</string>
   <string name="no_login_data_message">אם השתמשת ב־OAuth כנראה מדובר בתקלה, נא לשלוח דיווח על בעיה, אם השתמשת בשם כניסה וססמה (לא מומלץ) נא לבדוק שהקלדת אותם כראוי.</string>
@@ -96,6 +107,7 @@
   <string name="progress_query_oam">OAM מתושאל…</string>
   <string name="progress_pruning">מתבצע קיצוץ…</string>
   <string name="progress_migration">מתבצע ייבוא…</string>
+  <string name="progress_determining_status_message">המצב נבדק…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">„%1$s” נמחקה</string>
   <string name="changes_changed">„%1$s” נערכה</string>
@@ -1090,14 +1102,6 @@
   <string name="config_showWayIcons_summary">הצגת סמל הערכה המוגדרת המתאימה ביותר מעל בניינים.</string>
   <string name="config_tagFormEnabled_title">הצגת טופס תגיות</string>
   <string name="config_tagFormEnabled_summary">הצגת טופס תגיות לעריכה.</string>
-  <string name="config_showCameraAction_title">הצגת פעולת מצלמה</string>
-  <string name="config_showCameraAction_summary">הצגת סמל מצלמה בסרגל הפעולות.</string>
-  <string name="config_selectCameraApp_title">יישומון מצלמה</string>
-  <string name="config_selectCameraApp_summary">נא לבחור יישומון מצלמה לשימוש.</string>
-  <string name="config_system_camera">בררת המחדל של המערכת</string>
-  <string name="config_open_camera">פתיחת מצלמה</string>
-  <string name="config_useInternalPhotoViewer_title">להשתמש במציג התמונות המובנה</string>
-  <string name="config_useInternalPhotoViewer_summary">להשתמש במציג התמונות המובנה, אם לא סומן ייעשה שימוש במציג תמונות חיצוני.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">תמיד להחשיך אזורים שלא התקבלו</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">עמעום של אזורים שלא התקבלו במצב נעול.</string>
   <string name="config_map_orientation_title">כיוון מסך המפה</string>
@@ -1131,6 +1135,15 @@
   <string name="config_mapillary_min_zoom_summary">רצת התקריב המזערכית שנדרשת לפני שהנתונים מ־Mapillary מוצגים.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">הצגת פעולת מצלמה</string>
+  <string name="config_showCameraAction_summary">הצגת סמל מצלמה בסרגל הפעולות.</string>
+  <string name="config_selectCameraApp_title">יישומון מצלמה</string>
+  <string name="config_selectCameraApp_summary">נא לבחור יישומון מצלמה לשימוש.</string>
+  <string name="config_system_camera">בררת המחדל של המערכת</string>
+  <string name="config_open_camera">פתיחת מצלמה</string>
+  <string name="config_useInternalPhotoViewer_title">להשתמש במציג התמונות המובנה</string>
+  <string name="config_useInternalPhotoViewer_summary">להשתמש במציג התמונות המובנה, אם לא סומן ייעשה שימוש במציג תמונות חיצוני.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">הגדרות נתונים ועריכה</string>
   <string name="config_category_editing_summary">הגדרות הורדה אוטומטית, שמירה והתראות.</string>
@@ -1264,6 +1277,7 @@
   <string name="manage_presets">ניהול ערכות מוגדרות</string>
   <string name="listedit_use_translations">שימוש בתרגומים</string>
   <string name="manage_geocoders">ניהול מקודדים גאוגרפיים</string>
+  <string name="geocoder_type">סוג מקודד גאוגרפי</string>
   <!--preset downloader messages-->
   <string name="preset_update">עדכון ערכה מוגדרת</string>
   <string name="preset_download_successful">הערכה המוגדרת התקבלה</string>
@@ -1272,6 +1286,7 @@
   <string name="preset_download_missing_images">התקבל קובץ ערכה מוגדרת. עם זאת, חלק מהסמלים החסרים לא התקבלו.</string>
   <string name="preset_download_title">מוריד ערכות מוגדרות</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">הוספת ערכה מוגדרת</string>
   <string name="urldialog_preset_exists">ערכת מוגדרת זו כבר קיימת</string>
@@ -1286,6 +1301,12 @@
   <string name="readonly_url">כתובת API לקריאה בלבד (רשות)</string>
   <string name="notes_url">כתובת API של הערות (רשות)</string>
   <string name="copy_of">עותק של %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">העלאה</string>
+  <string name="wikimedia_meta_description">תיאור</string>
+  <string name="wikimedia_meta_source">מקור</string>
+  <string name="wikimedia_meta_author">יוצר</string>
+  <string name="wikimedia_meta_category">קטגוריה</string>
   <!--common terms-->
   <string name="add">הוספה</string>
   <string name="edit">עריכה</string>
@@ -1298,7 +1319,6 @@
   <string name="Continue">להמשיך</string>
   <!---->
   <string name="empty_list">אין רשומות</string>
-  <string name="geocoder_type">סוג מקודד גאוגרפי</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">ערכה מוגדרת</string>
   <string name="api">API</string>

@@ -984,9 +984,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="config_showWayIcons_summary">Wyświetla ikonę najlepiej pasującego szablonu wewnątrz obrysu budynku.</string>
   <string name="config_tagFormEnabled_title">Formularz znacznika</string>
   <string name="config_tagFormEnabled_summary">Wyświetl formularz znacznika do edycji.</string>
-  <string name="config_showCameraAction_title">Aparat</string>
-  <string name="config_showCameraAction_summary">Pokaż ikonę aparatu na pasku czynności.</string>
-  <string name="config_useInternalPhotoViewer_title">Użyj wbudowanej przeglądarki zdjęć</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Przyciemnianie niepobranych obszarów</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Przyciemnia niepobrane obszary po zablokowaniu modyfikowania.</string>
   <string name="config_map_orientation_title">Orientacja ekranu mapy</string>
@@ -1017,6 +1014,10 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Aparat</string>
+  <string name="config_showCameraAction_summary">Pokaż ikonę aparatu na pasku czynności.</string>
+  <string name="config_useInternalPhotoViewer_title">Użyj wbudowanej przeglądarki zdjęć</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dane i ustawienia edycji</string>
   <string name="config_category_editing_summary">Opcje automatycznego pobierania, zapisywania i powiadomień.</string>
@@ -1140,6 +1141,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="manage_presets">Zarządzaj szablonami</string>
   <string name="listedit_use_translations">Użyj tłumaczeń</string>
   <string name="manage_geocoders">Zarządzaj geokoderami</string>
+  <string name="geocoder_type">Typ geokodera</string>
   <!--preset downloader messages-->
   <string name="preset_update">Uaktualnij szablon</string>
   <string name="preset_download_successful">Pobrano szablon</string>
@@ -1148,6 +1150,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="preset_download_missing_images">Pobrano plik szablonu. Jednak nie pobrano kilku brakujących ikon.</string>
   <string name="preset_download_title">Pobieracz szablonów</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Dodaj szablon</string>
   <string name="urldialog_preset_exists">Szablon już istnieje</string>
@@ -1162,6 +1165,12 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="readonly_url">Adres URL API tylko do odczytu (opcjonalny)</string>
   <string name="notes_url">Adres URL API uwag (opcjonalny)</string>
   <string name="copy_of">Kopia %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Wyślij</string>
+  <string name="wikimedia_meta_description">Opis</string>
+  <string name="wikimedia_meta_source">Źródło energii</string>
+  <string name="wikimedia_meta_author">Autor</string>
+  <string name="wikimedia_meta_category">Kategoria</string>
   <!--common terms-->
   <string name="add">Dodaj</string>
   <string name="edit">Edytuj</string>
@@ -1174,7 +1183,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="Continue">Kontynuuj</string>
   <!---->
   <string name="empty_list">Brak wpisów</string>
-  <string name="geocoder_type">Typ geokodera</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Szablon</string>
   <string name="api">API</string>

@@ -938,16 +938,6 @@
   <string name="config_showWayIcons_summary">在建筑物上显示最符合的预设图标。</string>
   <string name="config_tagFormEnabled_title">显示标签表单</string>
   <string name="config_tagFormEnabled_summary">显示标签表单以编辑。</string>
-  <string name="config_showCameraAction_title">显示相机操作</string>
-  <string name="config_showCameraAction_summary">在工具栏显示相机图标。</string>
-  <string name="config_selectCameraApp_title">相机应用</string>
-  <string name="config_selectCameraApp_summary">选择要使用的相机应用。</string>
-  <string name="config_system_camera">系统默认</string>
-  <string name="config_open_camera">打开相机</string>
-  <string name="config_fv5_lite">FV5 lite</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">使用内置图片浏览器</string>
-  <string name="config_useInternalPhotoViewer_summary">使用内置图片浏览器，如果没有勾选则使用外部图片浏览器。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">始终使未下载区域变暗</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">在锁定模式下使未下载区域变暗。</string>
   <string name="config_map_orientation_title">地图屏幕方向</string>
@@ -980,6 +970,17 @@
   <string name="config_mapillary_min_zoom_summary">显示 Mapillary 数据前所需的最小缩放等级。</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">显示相机操作</string>
+  <string name="config_showCameraAction_summary">在工具栏显示相机图标。</string>
+  <string name="config_selectCameraApp_title">相机应用</string>
+  <string name="config_selectCameraApp_summary">选择要使用的相机应用。</string>
+  <string name="config_system_camera">系统默认</string>
+  <string name="config_open_camera">打开相机</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">使用内置图片浏览器</string>
+  <string name="config_useInternalPhotoViewer_summary">使用内置图片浏览器，如果没有勾选则使用外部图片浏览器。</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">数据和编辑设置</string>
   <string name="config_category_editing_summary">自动下载，保存和通知设置。</string>
@@ -1116,6 +1117,7 @@
   <string name="manage_presets">管理预设</string>
   <string name="listedit_use_translations">使用翻译</string>
   <string name="manage_geocoders">管理 geocoders</string>
+  <string name="geocoder_type">Geocoder 类型</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新预设</string>
   <string name="preset_download_successful">预设已下载</string>
@@ -1124,6 +1126,7 @@
   <string name="preset_download_missing_images">预设文件已下载，然而缺失的图标还未下载。</string>
   <string name="preset_download_title">预设下载器</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">添加预设</string>
   <string name="urldialog_preset_exists">这种预设已经存在</string>
@@ -1138,6 +1141,12 @@
   <string name="readonly_url">只读 API URL (可选)</string>
   <string name="notes_url">注记 API URL (可选)</string>
   <string name="copy_of">%1$s 的副本</string>
+  <!--image upload dialog-->
+  <string name="image_upload">上传</string>
+  <string name="wikimedia_meta_description">描述</string>
+  <string name="wikimedia_meta_source">能量來源</string>
+  <string name="wikimedia_meta_author">作者</string>
+  <string name="wikimedia_meta_category">分類</string>
   <!--common terms-->
   <string name="add">添加</string>
   <string name="edit">编辑</string>
@@ -1149,7 +1158,6 @@
   <string name="state">状态</string>
   <!---->
   <string name="empty_list">无条目</string>
-  <string name="geocoder_type">Geocoder 类型</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">预设</string>
   <string name="api">API</string>

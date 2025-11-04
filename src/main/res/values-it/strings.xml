@@ -1207,18 +1207,6 @@
   <string name="config_tagFormEnabled_title">Mostra la scheda delle etichette</string>
   <string name="config_tagFormEnabled_summary">Mostra la scheda delle etichette per la modifica.</string>
   <string name="config_supportPresetLabels_title">Mostra etichette dalle preimpostazioni</string>
-  <string name="config_showCameraAction_title">Mostra la videocamera</string>
-  <string name="config_showCameraAction_summary">Mostra l’icona della telecamera nella barra delle azioni.</string>
-  <string name="config_selectCameraApp_title">App per la telecamera</string>
-  <string name="config_selectCameraApp_summary">Seleziona app della telecamera da usare.</string>
-  <string name="config_system_camera">Predefinita di sistema</string>
-  <string name="config_open_camera">Open Camera</string>
-  <string name="config_fv5_lite">FV5 lite</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">Utilizza il visualizzatore interno delle foto</string>
-  <string name="config_useInternalPhotoViewer_summary">Usa il visualizzatore interno delle foto, se non selezionato verrà usato un visualizzatore esterno.</string>
-  <string name="config_indexMediaStore_summary">Usa inoltre il MediaStore per accedere alle foto</string>
-  <string name="config_indexMediaStore_title">Usa il MediaStore</string>
   <string name="config_followGPSbutton_title">Layout del pulsante “Segui la posizione”</string>
   <string name="config_followGPSbutton_summary">Il punto in cui verrà posizionato il pulsante “Segui la posizione”</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Scurisci sempre le aree non scaricate</string>
@@ -1261,6 +1249,19 @@
   <string name="config_nameCap_summary">Maiuscole automatiche nei nomi durante l’inserimento</string>
   <string name="config_nameCap_title">Nomi con prima lettera in maiuscolo</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Mostra la videocamera</string>
+  <string name="config_showCameraAction_summary">Mostra l’icona della telecamera nella barra delle azioni.</string>
+  <string name="config_selectCameraApp_title">App per la telecamera</string>
+  <string name="config_selectCameraApp_summary">Seleziona app della telecamera da usare.</string>
+  <string name="config_system_camera">Predefinita di sistema</string>
+  <string name="config_open_camera">Open Camera</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">Utilizza il visualizzatore interno delle foto</string>
+  <string name="config_useInternalPhotoViewer_summary">Usa il visualizzatore interno delle foto, se non selezionato verrà usato un visualizzatore esterno.</string>
+  <string name="config_indexMediaStore_summary">Usa inoltre il MediaStore per accedere alle foto</string>
+  <string name="config_indexMediaStore_title">Usa il MediaStore</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dati e impostazioni di modifica</string>
   <string name="config_category_editing_summary">Impostazioni di download automatico, salvataggio e notifiche</string>
@@ -1426,6 +1427,7 @@
   <string name="manage_presets">Gestisci i preset</string>
   <string name="listedit_use_translations">Usa traduzione</string>
   <string name="manage_geocoders">Gestisci geo-codificatori</string>
+  <string name="geocoder_type">Tipo di geo-codificatore</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aggiorna predefinito</string>
   <string name="preset_download_successful">Preset scaricato</string>
@@ -1434,6 +1436,7 @@
   <string name="preset_download_missing_images">File del preset scaricati. Tuttavia, alcune icone mancanti non sono state scaricate.</string>
   <string name="preset_download_title">Scaricatore dei predefiniti</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aggiungi predefinito</string>
   <string name="urldialog_preset_exists">Questo predefinito esiste già</string>
@@ -1448,6 +1451,12 @@
   <string name="readonly_url">Indirizzo delle API in sola lettura (facoltativo)</string>
   <string name="notes_url">Indirizzo delle API per le note (facoltativo)</string>
   <string name="copy_of">Copia di %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Carica</string>
+  <string name="wikimedia_meta_description">Descrizione</string>
+  <string name="wikimedia_meta_source">Fonte</string>
+  <string name="wikimedia_meta_author">Autore</string>
+  <string name="wikimedia_meta_category">Categoria</string>
   <!--common terms-->
   <string name="add">Aggiungi</string>
   <string name="edit">Modifica</string>
@@ -1460,7 +1469,6 @@
   <string name="Continue">Continua</string>
   <!---->
   <string name="empty_list">Nessuna voce inserita</string>
-  <string name="geocoder_type">Tipo di geo-codificatore</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Predefiniti</string>
   <string name="api">API</string>

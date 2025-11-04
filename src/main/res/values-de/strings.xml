@@ -106,6 +106,8 @@
   <string name="download_limit_message">Bitte warte, bevor du versuchst, weitere Daten herunterzuladen.</string>
   <string name="upload_limit_title">Hochlade-Limit überschritten</string>
   <string name="upload_limit_message">Du hast dein aktuelles Hochlade-Limit erreicht, bitte warte, bevor du es erneut versuchst.</string>
+  <string name="upload_unavailable_title">Der Dienst ist nicht verfügbar</string>
+  <string name="upload_unavailable_message">Der Dienst ist, vermutlich nur vorübergehend, nicht verfügbar. Warte bitte etwas vor einem erneuten Versuch.</string>
   <string name="duplicate_tag_key_title">Doppelte Schlüssel</string>
   <string name="duplicate_tag_key_message">Der folgende Schlüssel wurde mehrmals verwendet, der Fehler muss behoben werden bevor fortgefahren werden kann:</string>
   <string name="autodownload_has_been_paused">Der automatische Download wurde pausiert.</string>
@@ -193,6 +195,7 @@
   <string name="upload_validation_error_empty_comment">Kommentar sollte nicht leer sein</string>
   <string name="upload_validation_error_empty_source">Quelle sollte nicht leer sein</string>
   <string name="upload_empty_comment_warning_label">Warnung, wenn der Kommentar leer ist</string>
+  <string name="confirm_upload_custom_tags_page">Benutzerdefinierte Tags</string>
   <string name="upload_auto_summary">Automatisch erzeugte Zusammenfassung</string>
   <string name="untagged_node">nicht gekennzeichneter Knoten</string>
   <string name="untagged_way">nicht gekennzeichneter Weg</string>
@@ -552,6 +555,7 @@
   <string name="photo_viewer_goto">Zum Foto gehen</string>
   <string name="photo_viewer_label">Fotoanzeige</string>
   <string name="mapillary_viewer_label">Mapillary-Anzeige</string>
+  <string name="photo_viewer_upload">Hochladen…</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Begrenzungsrechteck</string>
   <string name="api_info_latest_date">Letztes Einfügedatum</string>
@@ -658,6 +662,7 @@
   <string name="toast_save_failed">Speichern fehlgeschlagen</string>
   <string name="toast_export_failed">Export fehlgeschlagen</string>
   <string name="toast_export_success">Exportiert nach %1$s</string>
+  <string name="toast_upload_to_success">Erfolgreich nach %1$s hochgeladen</string>
   <plurals name="toast_preset_removed_or_replaced_tags">
     <item quantity="one"> 1 Tag überschrieben oder gelöscht</item>
     <item quantity="other">%1$d Tags überschrieben oder gelöscht</item>
@@ -678,6 +683,7 @@
   <string name="toast_download_failed">Download fehlgeschlagen, zugehöriger Fehlercode: %1$d, Meldung: %2$s</string>
   <string name="toast_note_reopened">Notiz wieder geöffnet</string>
   <string name="toast_untrusted_certificate">Nicht vertrauenswürdiges Zertifikat\n%1$s</string>
+  <string name="toast_element_may_have_been_moved">Element ist möglicherweise verschoben worden</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Straße nicht überprüft</string>
   <string name="toast_noname">Straße fehlt Tag \'name\' oder \'ref\'</string>
@@ -847,6 +853,7 @@
   <string name="toast_panoramax_sequence_error">Fehler beim Laden von Panoramax-Sequenz %1$s ID %2$s</string>
   <string name="toast_panoramax_image_not_in_sequence_error">Bild mit ID %1$skann in der Sequenz nicht gefunden werden </string>
   <string name="toast_panoramax_sequence_exception">Auf die Panoramax Sequenz kann nicht zugegriffen werden\n%1$s</string>
+  <string name="toast_authorisation_successful">Autorisierung erfolgreich!</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -946,6 +953,7 @@
   <string name="menu_top">An den Anfang</string>
   <string name="menu_select_all">Alle auswählen</string>
   <string name="menu_deselect_all">Alles abwählen</string>
+  <string name="menu_invert_selection">Auswahl umkehren</string>
   <string name="menu_preset_help">Hilfe zu Vorlagen</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i18n">Sprachvarianten hinzufügen</string>
@@ -1178,10 +1186,17 @@
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Authorisierung zurücksetzen</string>
   <string name="menu_tools_oauth_authorisation">Mit OAuth autorisieren…</string>
+  <string name="menu_authorize">Autorisieren…</string>
   <string name="menu_enable_tagfilter">Tag-Filter</string>
   <string name="menu_enable_presetfilter">Vorlagenfilter</string>
   <string name="preset_menu_waynodes">Wegknoten zurückgeben</string>
   <string name="preset_menu_invert">Filter umkehren</string>
+  <string name="tag_filter_title">Filter: %1$s</string>
+  <string name="tag_filter_load">Laden…</string>
+  <string name="tag_filter_new">Neu…</string>
+  <string name="tag_filter_name">Filtername</string>
+  <string name="tag_filter_clear_confirmation">Die Filtereinträge wirklich löschen?</string>
+  <string name="tag_filter_delete_confirmation">Den Filter wirklich löschen?</string>
   <!--element action mode menu-->
   <string name="menu_tags">Eigenschaften</string>
   <!--ELement entry in context menu-->
@@ -1198,6 +1213,8 @@
   <string name="menu_reverse">Weg umkehren</string>
   <string name="notreversable_description">Der Weg ist nicht umkehrbar, da er Tags mit richtungsabhängigen Eigenschaften besitzt. Das Umkehren würde das Tagging beschädigen.</string>
   <string name="reverse_anyway">Trotzdem umkehren</string>
+  <string name="menu_add_new_image">Neues Bild hinzufügen…</string>
+  <string name="menu_add_existing_image">Bestehendes Bild hinzufügen…</string>
   <string name="deleteway_description">Sie sind im Begriff, einen Weg zu löschen.\n\nSie können entweder alle Knoten behalten oder die Knoten löschen, die nur zu diesem Weg gehören und keine Tags haben.</string>
   <string name="deleteway_relation_description">Dieser Weg ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht, wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
   <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte außerhalb des heruntergeladenen Bereichs und kann nicht gelöscht werden, ohne möglicherweise einen inkonsistenten Zustand zu verursachen.\n\nVor einem erneuten Versuch, bitte zuerst den ganzen Bereich um den Weg herunterladen.</string>
@@ -1325,21 +1342,7 @@
   <string name="config_tagFormEnabled_title">Eigenschaftsformular anzeigen</string>
   <string name="config_tagFormEnabled_summary">Formularansicht für Eigenschaften anzeigen</string>
   <string name="config_supportPresetLabels_title">Zeige Beschriftung der Voreinstellungen</string>
-  <string name="configsupportPresetLabels_summary">Zeige Beschriftung der Voreinstellungen im Tag-Editor an.</string>
-  <string name="config_showCameraAction_title">Kamera-Aktion anzeigen</string>
-  <string name="config_showCameraAction_summary">Kamera-Symbol in Menüleiste anzeigen</string>
-  <string name="config_selectCameraApp_title">Kamera-App</string>
-  <string name="config_selectCameraApp_summary">Kamera-App auswählen.</string>
-  <string name="config_system_camera">Systemvoreinstellung</string>
-  <string name="config_open_camera">Open Camera</string>
-  <string name="config_fv5_lite">FV5 lite</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">Eingebaute Bildanzeige verwenden</string>
-  <string name="config_useInternalPhotoViewer_summary">Die eingebaute Bildanzeige verwenden, ansonsten eine externe App verwenden.</string>
-  <string name="config_indexMediaStore_summary">Zusätzlich den Medienspeicher für Zugriff auf Bilder nutzen</string>
-  <string name="config_indexMediaStore_title">Medienspeicher benutzen</string>
-  <string name="config_addToMediaStore_summary">Füge Photos die mit dem Kamera-Button aufgenommen wurde zum MediaStore hinzu</string>
-  <string name="config_addToMediaStore_title">Photos dem MediaStore hinzufügen</string>
+  <string name="config_supportPresetLabels_summary">Zeige Beschriftung der Voreinstellungen im Tag-Editor an.</string>
   <string name="config_followGPSbutton_title">Anordnung des Knopfes „Position folgen“</string>
   <string name="config_followGPSbutton_summary">Wo der „Position folgen“-Knopf angezeigt wird</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Abdunkeln nicht heruntergeladener Gebiete</string>
@@ -1350,6 +1353,8 @@
   <string name="config_showTolerance_summary">Zeigt die Fläche, mit der ein Element selektiert werden kann.</string>
   <string name="config_use_back_for_undo_title">\" ← \"-Taste für \"Rückgängig machen\"</string>
   <string name="config_use_back_for_undo_summary">\"Zurückpfeil\" in der Hauptansicht für \"Rückgängig machen\" verwenden</string>
+  <string name="config_imageLicence_title">Bildlizenz</string>
+  <string name="config_imageLicence_summary">Lizenz für heraufgeladene Bilder</string>
   <string name="config_theme_title">Thema</string>
   <string name="config_theme_summary">Aussehen der App auswählen</string>
   <string name="config_splitActionBarEnabled_title">Geteilte Action-Bar</string>
@@ -1397,6 +1402,24 @@
   <string name="config_zoomWithKeys_summary">Erlaube die Verwendung der Lautstärketasten zum Vergrößern und Verkleinern.</string>
   <string name="config_poi_keys_title">POIs in der Nähe Anzeige</string>
   <string name="config_poi_keys_summary">Auswahl der Schlüsselwerte für die POIs in der Nähe Anzeige </string>
+  <!--Camera and image settings-->
+  <string name="config_category_camera_and_images">Einstellungen für Kamera und Bilder</string>
+  <string name="config_showCameraAction_title">Kamera-Aktion anzeigen</string>
+  <string name="config_showCameraAction_summary">Kamera-Symbol in Menüleiste anzeigen</string>
+  <string name="config_selectCameraApp_title">Kamera-App</string>
+  <string name="config_selectCameraApp_summary">Kamera-App auswählen.</string>
+  <string name="config_system_camera">Systemvoreinstellung</string>
+  <string name="config_open_camera">Open Camera</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">Eingebaute Bildanzeige verwenden</string>
+  <string name="config_useInternalPhotoViewer_summary">Die eingebaute Bildanzeige verwenden, ansonsten eine externe App verwenden.</string>
+  <string name="config_indexMediaStore_summary">Zusätzlich den Medienspeicher für Zugriff auf Bilder nutzen</string>
+  <string name="config_indexMediaStore_title">Medienspeicher benutzen</string>
+  <string name="config_addToMediaStore_summary">Füge Photos die mit dem Kamera-Button aufgenommen wurde zum MediaStore hinzu</string>
+  <string name="config_addToMediaStore_title">Photos dem MediaStore hinzufügen</string>
+  <string name="config_imageStores_summary">Konfiguriere Speicher für Photographien</string>
+  <string name="config_imageStores_title">Bildspeicher</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
   <string name="config_category_editing_summary">Auto-Download-Einstellungen</string>
@@ -1582,6 +1605,9 @@
   <string name="listedit_use_translations">Übersetzungen benutzen</string>
   <string name="manage_geocoders">Geocoder verwalten</string>
   <string name="listedit_supports_compressed_uploads">Unterstützt komprimierte Uploads</string>
+  <string name="geocoder_type">Geocodertyp</string>
+  <string name="manage_image_stores">Bildspeicher verwalten</string>
+  <string name="imagestore_type">Bildspeichertyp</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlage erfolgreich heruntergeladen!</string>
@@ -1591,6 +1617,9 @@
   <string name="preset_download_title">Vorlagen-Download</string>
   <!--preset management-->
   <string name="preset_management_delete">Vorlage wirklich löschen?</string>
+  <!--Image storage management-->
+  <string name="imagestores_add_from_panoramax_list">Von Panoramax Instanzliste hinzufügen…</string>
+  <string name="imagestores_add_manually">Händisch hinzufügen…</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Vorlage hinzufügen</string>
   <string name="urldialog_preset_exists">Diese Vorlage existiert bereits.</string>
@@ -1599,6 +1628,7 @@
   <string name="urldialog_add_api">API hinzufügen</string>
   <string name="urldialog_nodata_text">Die Konfigurations-URL enthält keine gültigen Daten.</string>
   <string name="urldialog_add_geocoder">Geocoder hinzufügen</string>
+  <string name="urldialog_add_image_store">Bildspeicher hinzufügen</string>
   <!--API configuration-->
   <string name="api_name">API-Name</string>
   <string name="api_url">API-URL</string>
@@ -1606,6 +1636,20 @@
   <string name="notes_url">API-Adresse für Notizen (optional)</string>
   <string name="copy_of">Kopie von %1$s</string>
   <string name="choose_oauth_config">OAuth Konfiguration auswählen </string>
+  <!--image upload dialog-->
+  <string name="image_upload_title">Ziel auswählen</string>
+  <string name="image_upload">Hochladen</string>
+  <string name="image_upload_and_remove">Hochladen und löschen</string>
+  <string name="image_upload_not_authorized">Das Heraufladen schlug fehl wegen fehlende Autorisierung</string>
+  <string name="image_upload_failed_due_to">Heraufladen schlug fehl mit Fehler %1$d %2$s für %3$s</string>
+  <string name="image_upload_failed">Heraufladen fehlgeschlagen %1$s</string>
+  <string name="wikimedia_meta_title">Wikimedia Metadaten</string>
+  <string name="wikimedia_meta_filename">Dateiname</string>
+  <string name="wikimedia_meta_description">Beschreibung</string>
+  <string name="wikimedia_meta_source">Quelle</string>
+  <string name="wikimedia_meta_author">Autor</string>
+  <string name="wikimedia_meta_licence">Lizenz</string>
+  <string name="wikimedia_meta_category">Kategorie</string>
   <!--common terms-->
   <string name="add">Hinzufügen</string>
   <string name="edit">Bearbeiten</string>
@@ -1620,7 +1664,6 @@
   <string name="URI">URI</string>
   <!---->
   <string name="empty_list">Keine Einträge</string>
-  <string name="geocoder_type">Geocodertyp</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Vorlage</string>
   <string name="api">API</string>
@@ -1632,6 +1675,7 @@
   <string name="tracking_active_text">Ein GPS-Track wird aufgezeichnet oder Daten automatisch heruntergeladen</string>
   <string name="tracking_long_text">Vespucci zeichnet einen GPS-Track auf oder lädt Daten automatisch herunter. Um die App vollständig zu beenden, entweder die Schaltfläche unten oder die Zurücktaste in der App drücken.</string>
   <string name="gps_failure">GPS-Aktivierung fehlgeschlagen</string>
+  <string name="gps_service_start_failure">Start der GPS-Dienstes ist fehlgeschlagen.\n\nFehler: %1$s</string>
   <!--element description-->
   <string name="address_housenumber">Adresse %1$s</string>
   <string name="address_housenumber_street">Adresse %1$s %2$s</string>

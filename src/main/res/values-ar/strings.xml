@@ -1126,18 +1126,6 @@
   <string name="config_showWayIcons_summary">اعرض أنسب رمز للقالب على المباني.</string>
   <string name="config_tagFormEnabled_title">عرض شكل الوسم</string>
   <string name="config_tagFormEnabled_summary">عرض شكل الوسم للتحرير.</string>
-  <string name="config_showCameraAction_title">إظهار زر الكاميرا</string>
-  <string name="config_showCameraAction_summary">إظهار رمز الكاميرا على شريط الإجراءات.</string>
-  <string name="config_selectCameraApp_title">تطبيق الكاميرا</string>
-  <string name="config_selectCameraApp_summary">حدد تطبيق الكاميرا المراد استخدامه.</string>
-  <string name="config_system_camera">النظام الافتراضي</string>
-  <string name="config_open_camera">افتح الكاميرا</string>
-  <string name="config_fv5_lite">FV5 لايت</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">استخدم عارض الصور المدمج</string>
-  <string name="config_useInternalPhotoViewer_summary">استخدم عارض الصورة المدمج، إذا لم يتم تحديده فسيتم استخدام عارض خارجي.</string>
-  <string name="config_indexMediaStore_summary">بالإضافة إلى استخدام متجر الوسائط للوصول إلى الصور</string>
-  <string name="config_indexMediaStore_title">استخدم متجر الوسائط</string>
   <string name="config_followGPSbutton_title">تخطيط زر متتبع الموقع</string>
   <string name="config_followGPSbutton_summary">حيث سيتم وضع زر \"تتبع الموقع\".</string>
   <string name="config_alwaysDrawBoundingBoxes_title">قم دائمًا بتعتيم المناطق التي لم يتم تنزيلها</string>
@@ -1178,6 +1166,19 @@
   <string name="config_nameCap_summary">الكتابة التلقائية للوسوم بالأحرف الكبيرة على الإدخال</string>
   <string name="config_nameCap_title">كتابة الاسم بأحرف كبيرة</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">إظهار زر الكاميرا</string>
+  <string name="config_showCameraAction_summary">إظهار رمز الكاميرا على شريط الإجراءات.</string>
+  <string name="config_selectCameraApp_title">تطبيق الكاميرا</string>
+  <string name="config_selectCameraApp_summary">حدد تطبيق الكاميرا المراد استخدامه.</string>
+  <string name="config_system_camera">النظام الافتراضي</string>
+  <string name="config_open_camera">افتح الكاميرا</string>
+  <string name="config_fv5_lite">FV5 لايت</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">استخدم عارض الصور المدمج</string>
+  <string name="config_useInternalPhotoViewer_summary">استخدم عارض الصورة المدمج، إذا لم يتم تحديده فسيتم استخدام عارض خارجي.</string>
+  <string name="config_indexMediaStore_summary">بالإضافة إلى استخدام متجر الوسائط للوصول إلى الصور</string>
+  <string name="config_indexMediaStore_title">استخدم متجر الوسائط</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">البيانات وتحرير الإعدادات</string>
   <string name="config_category_editing_summary">إعدادات التنزيل التلقائي والحفظ والتنبيهات.</string>
@@ -1333,6 +1334,7 @@
   <string name="manage_presets">إدارة القوالب</string>
   <string name="listedit_use_translations">استخدم الترجمات</string>
   <string name="manage_geocoders">إدارة الترميزات الجغرافية</string>
+  <string name="geocoder_type">نوع الكود الجغرافي</string>
   <!--preset downloader messages-->
   <string name="preset_update">تحديث القالب</string>
   <string name="preset_download_successful">تم تنزيل القالب</string>
@@ -1341,6 +1343,7 @@
   <string name="preset_download_missing_images">تم تنزيل ملف القالب  ومع ذلك بعض الرموز لم يتم إنزالها.</string>
   <string name="preset_download_title">أداة تنزيل القالب</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">أضف القالب</string>
   <string name="urldialog_preset_exists">هذا القالب موجود بالفعل</string>
@@ -1355,6 +1358,12 @@
   <string name="readonly_url">عنوان URL لواجهة برمجة التطبيقات للقراءة فقط (اختياري)</string>
   <string name="notes_url">عنوان URL لواجهة برمجة تطبيقات Notes (اختياري)</string>
   <string name="copy_of">نسخ من %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">الرفع</string>
+  <string name="wikimedia_meta_description">الوصف</string>
+  <string name="wikimedia_meta_source">المصدر</string>
+  <string name="wikimedia_meta_author">المحرر</string>
+  <string name="wikimedia_meta_category">التصنيف</string>
   <!--common terms-->
   <string name="add">إضافة</string>
   <string name="edit">تحرير</string>
@@ -1367,7 +1376,6 @@
   <string name="Continue">إستمرار</string>
   <!---->
   <string name="empty_list">لا توجد إدخالات</string>
-  <string name="geocoder_type">نوع الكود الجغرافي</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">القالب</string>
   <string name="api">API</string>
