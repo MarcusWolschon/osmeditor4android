@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="http://172.16.2.51/help/en/Uploading%20your%20changes/">
+        <link rel="canonical" href="https://vespucci.io/help/en/Uploading%20your%20changes/">
       
       
         <link rel="prev" href="../Address%20mode/">
@@ -409,6 +409,27 @@
   
   <span class="md-ellipsis">
     Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21.2.0%20Release%20notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21.2.0 Release notes
   </span>
   
 
@@ -2176,6 +2197,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/setting_up_image_storage_locations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuring image storage locations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2321,9 +2363,10 @@ to a server providing the <a href="https://wiki.openstreetmap.org/wiki/API_v0.6"
 <p>If you have pending edits and for whatever reason cannot authorize, Vespucci reliably saves your edits on your device until you upload them or explicitly delete them. If you want to be extra safe you can <a href="../Main%20map%20display/#file">save them to a local file</a> in OCS or (J)OSM format that you can read with Vespucci or import in to JOSM. </p>
 <h2 id="uploading">Uploading<a class="headerlink" href="#uploading" title="Permanent link">#</a></h2>
 <p>To upload your edits you can either select <em>Upload data to OSM server</em> from the <a href="../Main%20map%20display/#transfer">Transfer menu</a>, or select <em>Upload element</em> from the overflow menu in any of the element selection modes or multi-select. The later will only upload the selected elements.</p>
-<p>The <em>Upload changes</em> dialog display two tabs <em>Changes</em> and <em>Properties</em>. The <em>Changes</em> tab displays a list of all the OSM elements that will be affected by the upload, the type of change and an information button that allows you to view further information on the element and jump to it to make corrections. The <em>Properties</em> tab allows you to set a <em>comment</em>
+<p>The <em>Upload changes</em> dialog displays three tabs <em>Changes</em>, <em>Properties</em> and <em>Custom tags</em>. The <em>Changes</em> tab displays a list of all the OSM elements that will be affected by the upload, the type of change and an information button that allows you to view further information on the element and jump to it to make corrections. The <em>Properties</em> tab allows you to set a <em>comment</em>
 for this upload and document that <em>source</em> that was used to create the changes (for example <em>survey</em> if you were personally present at the location in question). Prior entries in both
-fields are retained and can be used when appropriate.</p>
+fields are retained and can be used when appropriate. The <em>Custom tags</em> tab allows to add bespoke tags to a changeset, the tags in the <em>Persistent</em> section will remain until deleted, the tags
+in the <em>Transient</em> section will only be used for the current upload (note: if you are not closing the changeset only the transient tags of the last upload to the changeset will survive).</p>
 <p>It is considered best practice to provide meaningful information for other mappers in these fields. However Vespucci will automatically include a summary of your changes (starting with version 20.2) and a list of all imagery layers used for the current set of changes. If you leave the comment field empty it will include text pointing to the automatically generated summary.</p>
 <h2 id="upload-options">Upload options<a class="headerlink" href="#upload-options" title="Permanent link">#</a></h2>
 <ul>
@@ -2364,7 +2407,7 @@ will disable warnings that the comment is empty and disable the automatic switch
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-	    Generated for Vespucci 21.1
+	    Generated for Vespucci 21.2
     </div>
   
   
@@ -2415,7 +2458,7 @@ will disable warnings that the comment is empty and disable the automatic switch
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 21.1}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 21.2}</script>
     
     
       <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
