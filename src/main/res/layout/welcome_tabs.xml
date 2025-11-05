@@ -16,11 +16,16 @@
             android:paddingLeft="?attr/dialogPreferredPadding"
             android:paddingRight="?attr/dialogPreferredPadding"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/welcome_message"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" 
-                android:paddingTop="16dp"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
+                <TextView
+                    android:id="@+id/welcome_message"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" 
+                    android:paddingTop="16dp"/>
+            </ScrollView>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/settings_page"
