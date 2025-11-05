@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1 id="vespucci-212-beta-1-highlights">Vespucci 21.2 BETA 1 Highlights</h1>
+<p>2025-11-05</p>
+<h3 id="support-for-uploading-images-to-panoramax-instances-and-wikimedia-commons">Support for uploading images to Panoramax instances and Wikimedia Commons</h3>
+<p>We have added support for uploading individual images both to Panoramax instances and Wikimedia Commons. Currently you can upload images from the element selection modes, automatically adding a corresponding link to the OSM element and from the image viewer.</p>
+<p>Before you upload you need to configure and authorize the destinations, see <a href="https://vespucci.io/tutorials/setting_up_image_storage_locations/">Setting up image storage locations</a> for more information on that.</p>
+<h3 id="support-for-custom-changeset-tags">Support for custom changeset tags</h3>
+<p>You can now add additional changeset tags for your uploads in a further tab in the upload modal. Tags add in the <em>Persistent</em> section will be saved and reused for future uploads, those added in the <em>Transient</em> part will only be added to the current upload.</p>
+<h3 id="improvements-review-modal">Improvements <em>Review</em> modal</h3>
+<p>We've improved the behaviour of <em>Review</em> dialog to retain state even if you explicitly or implicitly (for example via a version comparison dialog) exit it. THis allows you to systematically inspect all objects you want to upload via the modal without having to restart.</p>
+<p>We've further changes the behaviour so that when you select or de-select an element that requires other elements these will be selected / de-selected too, to give better visual feedback.</p>
+<p>We are planning in a future version to make it possible to run the review modal in a separate window which will make it easier to use on tablets.</p>
+<h3 id="support-for-multiple-tag-filter-configurations">Support for multiple tag filter configurations</h3>
+<p>You can now create multiple sets of tag filters and save them on device. You can switch between these either in the filter activity or by long pressing the filter button and selecting the corresponding item from a menu.</p>
+<p>This and all other similar configuration activities now display a floating action button with a <strong>+</strong> for adding additional items.</p>
+<h3 id="improved-node-merging-behaviour">Improved node merging behaviour</h3>
+<p>Previously node merging could seem seem to be inconsistent. This was due to the default behaviour being to merge the selected node in to the nearby node except if that node had &quot;more&quot; history than the selected node, in that case we would swap the nodes (to maintain the history). In this situation the position of the resulting, merged, node would change from the default.</p>
+<p>We've changed how this works now to always retain the original position of the target node, even if we switch the elements to retain history. Long pressing the merge button will reverse the merge behaviour to merge the nearby nodes in to the selected node.</p>
+<h3 id="improved-selection-of-overpass-query-results">Improved selection of Overpass query results</h3>
+<p>When a Overpass query returns data and you have the option enabled to automatically select it, we cannot know which elements are a direct result of the query, and which are returned simply as child elements required by their parents, in particular way nodes. In the past to somewhat reduce the issues this causes, we have simply not selected untagged way nodes, but that will not work for example for entrance nodes on building outlines and other similar cases.</p>
+<p>For overpass queries that were created from a search expression we can improve on this by simply running the original expression without overpass specific terms on the downloaded data, which was implemented for this release.</p>
+<h3 id="other-behaviour-changes">Other behaviour changes</h3>
+<ul>
+<li>Add support for compressed request bodies for HTTP PUT.</li>
+<li>Store chunk number in custom changeset tag for chunked uploads instead of in the comment tag.</li>
+<li>Add styling for highway=scramble.</li>
+<li>Add styling for natural=gully.</li>
+<li>Add support for &quot;invert selection&quot; in property editor tabs.</li>
+<li>Add tag2link support and use it instead of hardwired links in ElementInfo.</li>
+<li>Add API configuration for OpenHistoryMap.</li>
+</ul>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
+<p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one.</p>
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul>
+
+</body>
+</html>
