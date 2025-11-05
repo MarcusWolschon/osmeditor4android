@@ -176,7 +176,9 @@ public final class Notifications {
             builder.setContentIntent(pendingIntent);
         }
         NotificationManagerCompat nManager = NotificationManagerCompat.from(ctx);
-        nManager.notify(id, builder.build());
+        if (nManager.areNotificationsEnabled()) {
+            nManager.notify(id, builder.build());
+        }
     }
 
     /**

@@ -149,8 +149,10 @@ public final class IssueAlert {
             addGroupNotification(context, QA_CHANNEL, GROUP_DATA, GROUP_DATA_ID, title, mNotificationManager);
 
             // mId allows you to update the notification later on.
-            mNotificationManager.notify(id(e), mBuilder.build());
-            App.getOsmDataNotifications(context).save(mNotificationManager, id(e));
+            if (mNotificationManager.areNotificationsEnabled()) {
+                mNotificationManager.notify(id(e), mBuilder.build());
+                App.getOsmDataNotifications(context).save(mNotificationManager, id(e));
+            }
         } catch (OsmException e1) {
             Log.d(DEBUG_TAG, "Illegal BB created from lat " + eLat + " lon " + eLon + " r " + prefs.getDownloadRadius());
         }
@@ -247,8 +249,10 @@ public final class IssueAlert {
         }
         // mId allows you to update the notification later on.
         int id = id(b);
-        mNotificationManager.notify(id, mBuilder.build());
-        App.getTaskNotifications(context).save(mNotificationManager, id);
+        if (mNotificationManager.areNotificationsEnabled()) {
+            mNotificationManager.notify(id, mBuilder.build());
+            App.getTaskNotifications(context).save(mNotificationManager, id);
+        }
     }
 
     /**
@@ -358,7 +362,7 @@ public final class IssueAlert {
      */
     private static void addGroupNotification(@NonNull Context context, @NonNull String channel, @NonNull String group, int groupId, @NonNull String title,
             @NonNull NotificationManagerCompat notificationManager) {
-        if (!hasGroupNotification(notificationManager, groupId)) {
+        if (notificationManager.areNotificationsEnabled() && !hasGroupNotification(notificationManager, groupId)) {
             try {
                 NotificationCompat.Builder groupBuilder = Notifications.builder(context, channel).setSmallIcon(R.drawable.logo_simplified)
                         .setContentTitle(title).setPriority(NotificationCompat.PRIORITY_HIGH).setGroup(group).setGroupSummary(true)
@@ -367,7 +371,6 @@ public final class IssueAlert {
             } catch (RuntimeException re) {
                 // don't do anything
             }
-
         }
     }
 }
