@@ -1,6 +1,6 @@
 site_name: Vespucci 
 site_dir: /var/www/site
-site_url: http://172.16.2.51/
+site_url: https://vespucci.io/
 site_description: 'Main site for Vespucci the Android OpenStreetMap Editor'
 theme:
   name: material
@@ -22,7 +22,7 @@ markdown_extensions:
         toc_depth: 4
 copyright: 'Generated for'
 extra:
-  version: 21.1
+  version: 21.2
   project: Vespucci
     #  alternate:
     #- name: English
@@ -49,6 +49,7 @@ nav:
     - 'Introduction': 'help/en/Introduction.md'
     - 'Safe mode': 'help/en/Safe mode.md'
     - 'Features': 'tutorials/features.md'
+    - '21.2.0 Release notes': 'help/en/21.2.0 Release notes.md'
     - '21.1.0 Release notes': 'help/en/21.1.0 Release notes.md'
     - '21.0.0 Release notes': 'help/en/21.0.0 Release notes.md'
     - '20.2.0 Release notes': 'help/en/20.2.0 Release notes.md'
