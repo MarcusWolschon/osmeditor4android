@@ -179,57 +179,58 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        if (!super.onActionItemClicked(mode, item)) {
-            try {
-                action = item.getItemId();
-                switch (action) {
-                case MENUITEM_APPEND:
-                    if (appendableWays.size() > 1) {
-                        manager.showDisambiguationMenu();
-                    } else {
-                        final PathCreationActionModeCallback callback = new PathCreationActionModeCallback(manager, appendableWays.get(0), (Node) element);
-                        callback.setTitle(R.string.menu_append);
-                        callback.setSubTitle(R.string.add_way_node_instruction);
-                        main.startSupportActionMode(callback);
-                    }
-                    break;
-                case MENUITEM_JOIN:
-                    Log.d(DEBUG_TAG, "MENUITEM_JOIN used via menu item");
-                    mergeNode(joinableElements.size(), true);
-                    break;
-                case MENUITEM_UNJOIN:
-                    logic.performUnjoinWays(main, (Node) element);
-                    mode.finish();
-                    break;
-                case MENUITEM_EXTRACT:
-                    logic.performExtract(main, (Node) element);
-                    manager.invalidate();
-                    break;
-                case MENUITEM_RESTRICTION:
-                    main.startSupportActionMode(new FromElementWithViaNodeActionModeCallback(manager, new HashSet<>(highways), (Node) element, null));
-                    break;
-                case MENUITEM_SET_POSITION:
-                    setPosition();
-                    break;
-                case MENUITEM_ADDRESS:
-                    main.performTagEdit(element, null, true, false);
-                    break;
-                case MENUITEM_ROTATE:
-                    deselect = false;
-                    main.startSupportActionMode(new RotationActionModeCallback(manager));
-                    break;
-                case MENUITEM_SHARE_POSITION:
-                    double[] lonLat = new double[2];
-                    lonLat[0] = ((Node) element).getLon() / 1E7;
-                    lonLat[1] = ((Node) element).getLat() / 1E7;
-                    Util.sharePosition(main, lonLat, main.getMap().getZoomLevel());
-                    break;
-                default:
-                    return false;
+        if (super.onActionItemClicked(mode, item)) {
+            return true;
+        }
+        try {
+            action = item.getItemId();
+            switch (action) {
+            case MENUITEM_APPEND:
+                if (appendableWays.size() > 1) {
+                    manager.showDisambiguationMenu();
+                } else {
+                    final PathCreationActionModeCallback callback = new PathCreationActionModeCallback(manager, appendableWays.get(0), (Node) element);
+                    callback.setTitle(R.string.menu_append);
+                    callback.setSubTitle(R.string.add_way_node_instruction);
+                    main.startSupportActionMode(callback);
                 }
-            } catch (OsmIllegalOperationException | StorageException ex) {
-                // logic will have already toasted
+                break;
+            case MENUITEM_JOIN:
+                Log.d(DEBUG_TAG, "MENUITEM_JOIN used via menu item");
+                mergeNode(joinableElements.size(), true);
+                break;
+            case MENUITEM_UNJOIN:
+                logic.performUnjoinWays(main, (Node) element);
+                mode.finish();
+                break;
+            case MENUITEM_EXTRACT:
+                logic.performExtract(main, (Node) element);
+                manager.invalidate();
+                break;
+            case MENUITEM_RESTRICTION:
+                main.startSupportActionMode(new FromElementWithViaNodeActionModeCallback(manager, new HashSet<>(highways), (Node) element, null));
+                break;
+            case MENUITEM_SET_POSITION:
+                setPosition();
+                break;
+            case MENUITEM_ADDRESS:
+                main.performTagEdit(element, null, true, false);
+                break;
+            case MENUITEM_ROTATE:
+                deselect = false;
+                main.startSupportActionMode(new RotationActionModeCallback(manager));
+                break;
+            case MENUITEM_SHARE_POSITION:
+                double[] lonLat = new double[2];
+                lonLat[0] = ((Node) element).getLon() / 1E7;
+                lonLat[1] = ((Node) element).getLat() / 1E7;
+                Util.sharePosition(main, lonLat, main.getMap().getZoomLevel());
+                break;
+            default:
+                return false;
             }
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            // logic will have already toasted
         }
         return true;
     }
@@ -241,6 +242,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      * @param into true default, selected node is merged in to the nearby node(S)
      */
     private void mergeNode(int count, boolean into) {
+        action = MENUITEM_JOIN; // don't forget this
         if (count > 1) {
             manager.showDisambiguationMenu();
         } else {

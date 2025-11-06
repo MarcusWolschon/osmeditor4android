@@ -4722,8 +4722,8 @@ public class Main extends ConfigurationChangeAwareActivity
                         : getString(R.string.element_for_menu_with_parents_with_direction, direction, description, parentList.toString());
             }
         }
-        return noParents ? getString(R.string.element_for_menu_with_parents, description, parentList.toString())
-                : getString(R.string.element_for_menu, description);
+        return noParents ? getString(R.string.element_for_menu, description)
+                : getString(R.string.element_for_menu_with_parents, description, parentList.toString());
     }
 
     /**
