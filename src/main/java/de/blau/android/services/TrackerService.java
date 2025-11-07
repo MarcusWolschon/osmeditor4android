@@ -476,9 +476,9 @@ public class TrackerService extends Service {
         Intent exitIntent = new Intent(this, Main.class);
         exitIntent.setAction(Main.ACTION_EXIT);
         PendingIntent pendingExitIntent = PendingIntent.getActivity(this, 0, exitIntent, PendingIntent.FLAG_IMMUTABLE);
-        notificationBuilder.setSmallIcon(R.drawable.logo_simplified).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent)
+        notificationBuilder.setSmallIcon(R.drawable.ic_notification_vespucci).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent)
                 .setColor(ContextCompat.getColor(this, R.color.osm_green))
-                .addAction(R.drawable.logo_simplified, getString(R.string.exit_title), pendingExitIntent);
+                .addAction(R.drawable.ic_notification_vespucci, getString(R.string.exit_title), pendingExitIntent);
         ServiceCompat.startForeground(this, R.id.notification_tracker, notificationBuilder.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
         init();
         if (externalListener != null) {

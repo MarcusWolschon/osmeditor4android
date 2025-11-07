@@ -10,8 +10,9 @@
         parent="@style/Theme.SplashScreen">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/vespucci_splash</item>
-        <item name="windowSplashScreenBackground">@color/osm_green</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_animated</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="windowSplashScreenBackground">#719B58</item>
         <item name="postSplashScreenTheme">@style/SplashTheme2</item>
         <item name="error">@color/material_red</item>
         <item name="insetColor">@color/osm_green_dark</item>
@@ -22,8 +23,9 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:navigationBarColor">@android:color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/vespucci_splash</item>
-        <item name="windowSplashScreenBackground">@color/osm_green</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_animated</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="windowSplashScreenBackground">#82AA6B</item>
         <item name="postSplashScreenTheme">@style/SplashThemeLight2</item>
         <item name="error">@color/material_red</item>
         <item name="insetColor">@color/osm_green_light</item>
@@ -44,21 +46,6 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowBackground">@color/osm_green</item>
-        <item name="error">@color/material_red</item>
-        <item name="insetColor">@color/osm_green_light</item>
-    </style>
-    <style
-        name="SplashThemePre21"
-        parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash</item>
-        <item name="error">@color/material_red</item>
-        <item name="insetColor">@color/osm_green_dark</item>
-    </style>
-    <style
-        name="SplashThemeLightPre21"
-        parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash</item>
-        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="error">@color/material_red</item>
         <item name="insetColor">@color/osm_green_light</item>
     </style>
