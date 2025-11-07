@@ -55,8 +55,8 @@
     <string name="upload_retry_message_unexpected_error">Unexpected error trying to determine status of changeset %1$d.</string>
     <string name="upload_retry_message_no_changeset_status">Unable to determine status of changeset %1$d.\n\nWe suggest saving your changes as an OCS file and determining what to do when you have better reception.</string>
     <string name="upload_retry_message_nothing_uploaded">No changes have been uploaded in changeset %1$d.\n\nIt is safe to retry.</string>
-    <string name="upload_retry_message_all_uploaded">Changes were uploaded sucessfully in changeset %1$d, but result was not received.\n\nHowever it seems as if all changes were uploaded, so you can safely discard you local changes and re-download.</string>
-    <string name="upload_retry_message_partial_upload">Changes were uploaded sucessfully in changeset %1$d, but result was not received.</string>
+    <string name="upload_retry_message_all_uploaded">Changes were uploaded successfully in changeset %1$d, but result was not received.\n\nHowever it seems as if all changes were uploaded, so you can safely discard you local changes and re-download.</string>
+    <string name="upload_retry_message_partial_upload">Changes were uploaded successfully in changeset %1$d, but result was not received.</string>
     <string name="upload_retry_message_update_failed_title">Update failed</string>
     <string name="upload_retry_message_update_failed">Unable to update data. We suggest saving your changes to a file for later use.</string>
     <string name="redownload">Re-download (can\'t be undone)</string>
