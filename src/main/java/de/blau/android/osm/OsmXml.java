@@ -34,54 +34,54 @@ import de.blau.android.osm.UndoStorage.UndoWay;
  */
 public final class OsmXml {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OsmXml.class.getSimpleName().length());
-    private static final String DEBUG_TAG = OsmXml.class.getSimpleName().substring(0, TAG_LEN);
+    private static final int                    TAG_LEN           = Math.min(LOG_TAG_LEN, OsmXml.class.getSimpleName().length());
+    private static final String                 DEBUG_TAG         = OsmXml.class.getSimpleName().substring(0, TAG_LEN);
 
-    public static final String UTF_8 = "UTF-8";
+    public static final String                  UTF_8             = "UTF-8";
 
-    public static final String OSM         = "osm";
-    public static final String OSM_CHANGE  = "osmChange";
-    public static final String CHANGESET   = "changeset";
-    public static final String JOSM_UPLOAD = "upload";
-    public static final String TRUE        = "true";
-    public static final String DELETE      = "delete";
-    public static final String MODIFY      = "modify";
-    public static final String CREATE      = "create";
-    public static final String VERSION_0_6 = "0.6";
-    public static final String VERSION     = "version";
-    public static final String GENERATOR   = "generator";
+    public static final String                  OSM               = "osm";
+    public static final String                  OSM_CHANGE        = "osmChange";
+    public static final String                  CHANGESET         = "changeset";
+    public static final String                  JOSM_UPLOAD       = "upload";
+    public static final String                  TRUE              = "true";
+    public static final String                  DELETE            = "delete";
+    public static final String                  MODIFY            = "modify";
+    public static final String                  CREATE            = "create";
+    public static final String                  VERSION_0_6       = "0.6";
+    public static final String                  VERSION           = "version";
+    public static final String                  GENERATOR         = "generator";
     // augmented diff constants
-    private static final String OSM_ADIFF         = "osm-adiff";
-    private static final String OSM_ADIFF_VERSION = "1.0";
-    private static final String NEW               = "new";
-    private static final String OLD               = "old";
-    private static final String TYPE              = "type";
-    private static final String ACTION            = "action";
+    private static final String                 OSM_ADIFF         = "osm-adiff";
+    private static final String                 OSM_ADIFF_VERSION = "1.0";
+    private static final String                 NEW               = "new";
+    private static final String                 OLD               = "old";
+    private static final String                 TYPE              = "type";
+    private static final String                 ACTION            = "action";
 
     /**
      * Try to order relations so that parent relations come later
      */
-    private static final Comparator<Relation> relationOrder = (r1, r2) -> {
-        if (r1.hasParentRelation(r2)) {
-            return -1;
-        }
-        if (r2.hasParentRelation(r1)) {
-            return 1;
-        }
-        return 0;
-    };
+    private static final Comparator<Relation>   relationOrder     = (r1, r2) -> {
+                                                                      if (r1.hasParentRelation(r2)) {
+                                                                          return -1;
+                                                                      }
+                                                                      if (r2.hasParentRelation(r1)) {
+                                                                          return 1;
+                                                                      }
+                                                                      return 0;
+                                                                  };
 
     /**
      * Comparator to avoid unpleasant surprises when processing unsorted OSM data with osmium and tools based on it
      */
-    private static final Comparator<OsmElement> sortItLikeJochen = (e1, e2) -> {
-        long id1 = e1.getOsmId();
-        long id2 = e2.getOsmId();
-        if ((id1 < 0 && id2 > 0) || (id1 > 0 && id2 < 0)) { // signs different
-            return Long.compare(id1, id2);
-        }
-        return Long.compare(Math.abs(id1), Math.abs(id2));
-    };
+    private static final Comparator<OsmElement> sortItLikeJochen  = (e1, e2) -> {
+                                                                      long id1 = e1.getOsmId();
+                                                                      long id2 = e2.getOsmId();
+                                                                      if ((id1 < 0 && id2 > 0) || (id1 > 0 && id2 < 0)) {                   // signs different
+                                                                          return Long.compare(id1, id2);
+                                                                      }
+                                                                      return Long.compare(Math.abs(id1), Math.abs(id2));
+                                                                  };
 
     /**
      * Empty private constructor to prevent instantiation
@@ -91,8 +91,7 @@ public final class OsmXml {
     }
 
     /**
-     * Writes created/changed/deleted data to outputStream in OsmChange format
-     * http://wiki.openstreetmap.org/wiki/OsmChange
+     * Writes created/changed/deleted data to outputStream in OsmChange format http://wiki.openstreetmap.org/wiki/OsmChange
      * 
      * @param storage a Storage object with the changes
      * @param outputStream stream to write to
@@ -115,15 +114,15 @@ public final class OsmXml {
         serializer.attribute(null, GENERATOR, generator);
         serializer.attribute(null, VERSION, VERSION_0_6);
 
-        List<Node> createdNodes = new ArrayList<>();
-        List<Node> modifiedNodes = new ArrayList<>();
-        List<Node> deletedNodes = new ArrayList<>();
-        List<Way> createdWays = new ArrayList<>();
-        List<Way> modifiedWays = new ArrayList<>();
-        List<Way> deletedWays = new ArrayList<>();
-        List<Relation> createdRelations = new ArrayList<>();
+        List<Node>     createdNodes      = new ArrayList<>();
+        List<Node>     modifiedNodes     = new ArrayList<>();
+        List<Node>     deletedNodes      = new ArrayList<>();
+        List<Way>      createdWays       = new ArrayList<>();
+        List<Way>      modifiedWays      = new ArrayList<>();
+        List<Way>      deletedWays       = new ArrayList<>();
+        List<Relation> createdRelations  = new ArrayList<>();
         List<Relation> modifiedRelations = new ArrayList<>();
-        List<Relation> deletedRelations = new ArrayList<>();
+        List<Relation> deletedRelations  = new ArrayList<>();
 
         count = fillLists(storage.getNodes(), maxChanges, count, createdNodes, modifiedNodes, deletedNodes);
         if (count < maxChanges) {
@@ -169,7 +168,7 @@ public final class OsmXml {
      */
     private static <E extends OsmElement> int fillLists(@NonNull final List<E> elements, int maxChanges, int count, @NonNull final List<E> created,
             @NonNull final List<E> modified, @NonNull final List<E> deleted) {
-        for (E elem : elements) {
+        for (E elem:elements) {
             Log.d(DEBUG_TAG, "node added to list for upload, id " + elem.getOsmId());
             switch (elem.state) {
             case OsmElement.STATE_CREATED:
@@ -209,7 +208,7 @@ public final class OsmXml {
             return;
         }
         serializer.startTag(null, action);
-        for (OsmElement elem : elements) {
+        for (OsmElement elem:elements) {
             elem.toXml(serializer, changeSetId);
         }
         serializer.endTag(null, action);
@@ -248,8 +247,8 @@ public final class OsmXml {
         serializer.attribute(null, VERSION, VERSION_0_6);
         serializer.attribute(null, JOSM_UPLOAD, TRUE);
 
-        List<Node> saveNodes = new ArrayList<>(current.getNodes());
-        List<Way> saveWays = new ArrayList<>(current.getWays());
+        List<Node>     saveNodes     = new ArrayList<>(current.getNodes());
+        List<Way>      saveWays      = new ArrayList<>(current.getWays());
         List<Relation> saveRelations = new ArrayList<>(current.getRelations());
 
         if (api != null) {
@@ -280,7 +279,7 @@ public final class OsmXml {
      * @param elements the list to add to
      */
     private static <E extends OsmElement> void addDeleted(@NonNull List<E> apiElements, @NonNull List<E> elements) {
-        for (E elem : apiElements) {
+        for (E elem:apiElements) {
             if (elem.state == OsmElement.STATE_DELETED) {
                 elements.add(elem);
             }
@@ -296,15 +295,14 @@ public final class OsmXml {
      */
     private static <E extends JosmXmlSerializable> void josmSerializer(XmlSerializer serializer, List<E> elements) throws IOException {
         if (!elements.isEmpty()) {
-            for (E elem : elements) {
+            for (E elem:elements) {
                 elem.toJosmXml(serializer);
             }
         }
     }
 
     /**
-     * Writes created/changed/deleted data to outputStream in Augmented Diff format
-     * https://wiki.openstreetmap.org/wiki/Overpass_API/Augmented_Diffs
+     * Writes created/changed/deleted data to outputStream in Augmented Diff format https://wiki.openstreetmap.org/wiki/Overpass_API/Augmented_Diffs
      * 
      * @param storage a Storage object with the changes
      * @param undo current UndoStorage
@@ -324,33 +322,46 @@ public final class OsmXml {
         serializer.attribute(null, VERSION, OSM_ADIFF_VERSION);
         serializer.attribute(null, GENERATOR, generator);
 
-        List<Node> createdNodes = new ArrayList<>();
-        Map<Long, UndoNode> oldModifiedNodes = new HashMap<>();
-        List<Node> modifiedNodes = new ArrayList<>();
-        Map<Long, UndoNode> oldDeletedNodes = new HashMap<>();
-        List<Node> deletedNodes = new ArrayList<>();
-        List<Way> createdWays = new ArrayList<>();
-        Map<Long, UndoWay> oldModifiedWays = new HashMap<>();
-        List<Way> modifiedWays = new ArrayList<>();
-        Map<Long, UndoWay> oldDeletedWays = new HashMap<>();
-        List<Way> deletedWays = new ArrayList<>();
-        List<Relation> createdRelations = new ArrayList<>();
+        List<Node>              createdNodes         = new ArrayList<>();
+        Map<Long, UndoNode>     oldModifiedNodes     = new HashMap<>();
+        List<Node>              modifiedNodes        = new ArrayList<>();
+        Map<Long, UndoNode>     oldDeletedNodes      = new HashMap<>();
+        List<Node>              deletedNodes         = new ArrayList<>();
+        List<Way>               createdWays          = new ArrayList<>();
+        Map<Long, UndoWay>      oldModifiedWays      = new HashMap<>();
+        List<Way>               modifiedWays         = new ArrayList<>();
+        Map<Long, UndoWay>      oldDeletedWays       = new HashMap<>();
+        List<Way>               deletedWays          = new ArrayList<>();
+        List<Relation>          createdRelations     = new ArrayList<>();
         Map<Long, UndoRelation> oldModifiedRelations = new HashMap<>();
-        List<Relation> modifiedRelations = new ArrayList<>();
-        Map<Long, UndoRelation> oldDeletedRelations = new HashMap<>();
-        List<Relation> deletedRelations = new ArrayList<>();
+        List<Relation>          modifiedRelations    = new ArrayList<>();
+        Map<Long, UndoRelation> oldDeletedRelations  = new HashMap<>();
+        List<Relation>          deletedRelations     = new ArrayList<>();
 
         fillAugmentedLists(storage.getNodes(), undo, createdNodes, oldModifiedNodes, modifiedNodes, oldDeletedNodes, deletedNodes);
-     
+
         fillAugmentedLists(storage.getWays(), undo, createdWays, oldModifiedWays, modifiedWays, oldDeletedWays, deletedWays);
         Set<Way> tempWays = new HashSet<>(modifiedWays);
-        for (Node n:modifiedNodes) { //created and deleted nodes modified any parent ways
-            tempWays.addAll(storage.getWays(n));
-        }
-        modifiedWays = new ArrayList<>(tempWays);
-        
         fillAugmentedLists(storage.getRelations(), undo, createdRelations, oldModifiedRelations, modifiedRelations, oldDeletedRelations, deletedRelations);
         Set<Relation> tempRelations = new HashSet<>(modifiedRelations);
+
+        for (Node n:modifiedNodes) { // created and deleted nodes modified any parent ways
+            System.out.println("Modified node " + n.getDescription());
+            tempWays.addAll(storage.getWays(n));
+            List<Relation> parents = n.getParentRelations();
+            if (parents != null) {
+                tempRelations.addAll(parents);
+            }
+        }
+        modifiedWays = new ArrayList<>(tempWays);
+
+        for (Way w:modifiedWays) { // the same for relations
+            List<Relation> parents = w.getParentRelations();
+            if (parents != null) {
+                tempRelations.addAll(parents);
+            }
+        }
+        modifiedRelations = new ArrayList<>(tempRelations);
 
         sortRelations(createdRelations, modifiedRelations, deletedRelations);
 
@@ -417,7 +428,7 @@ public final class OsmXml {
     private static <E extends OsmElement, U extends UndoElement> void fillAugmentedLists(@NonNull List<E> elements, @NonNull UndoStorage undo,
             @NonNull List<E> created, @NonNull Map<Long, U> oldModified, @NonNull List<E> modified, @NonNull Map<Long, U> oldDeleted,
             @NonNull List<E> deleted) {
-        for (E elem : elements) {
+        for (E elem:elements) {
             Log.d(DEBUG_TAG, "element added to list for upload, id " + elem.getOsmId());
             switch (elem.state) {
             case OsmElement.STATE_CREATED:
@@ -454,7 +465,7 @@ public final class OsmXml {
         if (elements.isEmpty()) {
             return;
         }
-        for (OsmElement elem : elements) {
+        for (OsmElement elem:elements) {
             serializer.startTag(null, ACTION);
             serializer.attribute(null, TYPE, action);
             if (oldElements != null) {
@@ -463,8 +474,10 @@ public final class OsmXml {
                     serializer.startTag(null, OLD);
                     undoElement.toAugmentedXml(serializer);
                     serializer.endTag(null, OLD);
-                } else { // error
-
+                } else if (MODIFY.equals(action)) { // if action modified create element with old references here
+//                    serializer.startTag(null, OLD);
+//                    undoElement.toAugmentedXml(serializer);
+//                    serializer.endTag(null, OLD);
                 }
             }
             serializer.startTag(null, NEW);
