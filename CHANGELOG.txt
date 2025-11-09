@@ -1,5 +1,10 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.2.0.3:
+
+- Fix proguard config to retain PopupMenu related classes properly
+- Fix typos in strings.xml
+
 21.2.0.2:
 
 - Fix disambiguation menu regression when merging node to multiple ways
