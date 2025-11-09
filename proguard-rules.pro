@@ -59,10 +59,16 @@
 -keep,includedescriptorclasses class de.blau.android.util.StringWithDescription
 -keep,includedescriptorclasses class de.blau.android.views.CustomAutoCompleteTextView$Tokenizer
 
--keep,includedescriptorclasses class androidx.appcompat.view.menu.MenuPopupHelper
+-keep,includedescriptorclasses class androidx.appcompat.view.menu.MenuPopupHelper {
+	private androidx.appcompat.view.menu.MenuPopup mPopup;
+}
+-keep,includedescriptorclasses class androidx.appcompat.view.menu.StandardMenuPopup {
+	final androidx.appcompat.widget.MenuPopupWindow mPopup;
+}
 -keep,includedescriptorclasses class androidx.appcompat.widget.MenuPopupWindow
--keep,includedescriptorclasses class androidx.appcompat.widget.PopupMenu
-
+-keep,includedescriptorclasses class androidx.appcompat.widget.PopupMenu {
+	final androidx.appcompat.view.menu.MenuPopupHelper mPopup;
+}
 -keepclassmembers class androidx.appcompat.view.StandaloneActionMode {    
     private androidx.appcompat.widget.ActionBarContextView mContextView;
  }
