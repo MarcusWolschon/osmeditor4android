@@ -5,6 +5,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import de.blau.android.util.BaseFragment;
@@ -85,7 +86,29 @@ public abstract class SelectableRowsFragment extends BaseFragment implements Pro
             }
         }
     }
+    
+    @Override
+    public void selectAllRows() {
+        setSelectedRows((boolean current) -> true);
+    }
+    
+    @Override
+    public void deselectAllRows() {
+        setSelectedRows((boolean current) -> false);
+    }
 
+    @Override
+    public void invertSelectedRows() {
+        setSelectedRows((boolean current) -> !current);
+    }
+    
+    /**
+     * Iterate over all rows and set the selection status
+     * 
+     * @param change method that sets the selection status
+     */
+    protected abstract void setSelectedRows(@NonNull final ChangeSelectionStatus change);
+    
     @Override
     public void startStopActionModeIfRowSelected() {
         synchronized (actionModeCallbackLock) {

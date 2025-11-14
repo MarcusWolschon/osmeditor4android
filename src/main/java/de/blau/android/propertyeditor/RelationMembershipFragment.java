@@ -671,17 +671,13 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
         }
     }
 
-    @Override
-    public void selectAllRows() {
-        setSelectedRows((boolean current) -> true);
-    }
-
     /**
      * iterate over all rows and set the selection status
      * 
      * @param change method that sets the selection status
      */
-    private void setSelectedRows(@NonNull final ChangeSelectionStatus change) {
+    @Override
+    protected void setSelectedRows(@NonNull final ChangeSelectionStatus change) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
         int i = rowLayout.getChildCount();
         while (--i >= 0) {
@@ -692,16 +688,6 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
             }
         }
         startStopActionModeIfRowSelected();
-    }
-
-    @Override
-    public void deselectAllRows() {
-        setSelectedRows((boolean current) -> false);
-    }
-
-    @Override
-    public void invertSelectedRows() {
-        setSelectedRows((boolean current) -> !current);
     }
 
     /**
