@@ -912,7 +912,7 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
 
     @Override
     public void selectAllRows() { // selects all members
-        setSelectedRows((boolean current) -> true);
+        super.selectAllRows();
         memberSelected();
     }
 
@@ -921,7 +921,8 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
      * 
      * @param change method that sets the selection status
      */
-    private void setSelectedRows(@NonNull final ChangeSelectionStatus change) {
+    @Override
+    protected void setSelectedRows(@NonNull final ChangeSelectionStatus change) {
         final View rowLayout = getOurView();
         rowLayout.post( // as there can be a very large number of rows don't do it here
                 () -> {
@@ -933,16 +934,6 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
                     adapter.notifyDataSetChanged();
                     deselectRow();
                 });
-    }
-
-    @Override
-    public void deselectAllRows() { // deselects all members
-        setSelectedRows((boolean current) -> false);
-    }
-
-    @Override
-    public void invertSelectedRows() {
-        setSelectedRows((boolean current) -> !current);
     }
 
     /**

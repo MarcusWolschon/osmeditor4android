@@ -1632,16 +1632,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
     }
 
     @Override
-    public void selectAllRows() { // select all tags
-        setSelectedRows((boolean current) -> true);
-    }
-
-    /**
-     * Iterate over all rows and set the selection status
-     * 
-     * @param change method that sets the selection status
-     */
-    private void setSelectedRows(@NonNull final ChangeSelectionStatus change) {
+    protected void setSelectedRows(@NonNull final ChangeSelectionStatus change) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
         if (loaded) {
             int i = rowLayout.getChildCount();
@@ -1652,18 +1643,8 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
                     row.setRowSelected(change.set(selected.isChecked()));
                 }
             }
-            deselectRow();
+            startStopActionModeIfRowSelected();
         }
-    }
-
-    @Override
-    public void deselectAllRows() { // deselect all tags
-        setSelectedRows((boolean current) -> false);
-    }
-
-    @Override
-    public void invertSelectedRows() {
-        setSelectedRows((boolean current) -> !current);
     }
 
     /**
