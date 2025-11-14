@@ -1652,7 +1652,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
                     row.setRowSelected(change.set(selected.isChecked()));
                 }
             }
-            deselectRow();
+            startStopActionModeIfRowSelected();
         }
     }
 

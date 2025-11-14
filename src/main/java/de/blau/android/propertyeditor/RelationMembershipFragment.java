@@ -688,9 +688,10 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
             RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(i);
             final CheckBox selected = row.selected;
             if (selected.isEnabled()) {
-                row.setSelected(change.set(selected.isChecked()));
+                row.setRowSelected(change.set(selected.isChecked()));
             }
         }
+        startStopActionModeIfRowSelected();
     }
 
     @Override

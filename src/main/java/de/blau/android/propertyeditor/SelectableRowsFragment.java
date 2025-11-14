@@ -85,4 +85,20 @@ public abstract class SelectableRowsFragment extends BaseFragment implements Pro
             }
         }
     }
+
+    @Override
+    public void startStopActionModeIfRowSelected() {
+        synchronized (actionModeCallbackLock) {
+            if (actionModeCallback == null) {
+                actionModeCallback = getActionModeCallback();
+                if (!actionModeCallback.rowsDeselected(true)) {
+                    ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
+                }
+                return;
+            }
+            if (actionModeCallback.rowsDeselected(true)) {
+                actionModeCallback = null;
+            }
+        }
+    }
 }
