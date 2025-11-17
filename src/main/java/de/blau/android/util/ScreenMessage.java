@@ -50,34 +50,48 @@ public final class ScreenMessage {
          * Cancel the message
          */
         public void cancel();
+
+        /**
+         * Get any reference associated with the message
+         * 
+         * @return the reference or null
+         */
+        @Nullable
+        default Object getRef() {
+            return null;
+        }
     }
 
     private static class ToastWrapper implements MessageControl {
 
-        private boolean     showing = false;
-        private final Toast toast;
+        private boolean      showing = false;
+        private final Toast  toast;
+        private final Object ref;
 
         /**
          * Create a new instance
          * 
          * @param toast the Toast to wrap
+         * @param ref a ref for the Toast
          */
-        ToastWrapper(@NonNull Toast toast) {
+        ToastWrapper(@NonNull Toast toast, @Nullable Object ref) {
             this.toast = toast;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                toast.addCallback(new Toast.Callback() {
-                    @Override
-                    public void onToastShown() {
-                        showing = true;
-                    }
-
-                    @Override
-                    public void onToastHidden() {
-                        showing = false;
-                        removeAndShowNext();
-                    }
-                });
+            this.ref = ref;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                return;
             }
+            toast.addCallback(new Toast.Callback() {
+                @Override
+                public void onToastShown() {
+                    showing = true;
+                }
+
+                @Override
+                public void onToastHidden() {
+                    showing = false;
+                    removeAndShowNext();
+                }
+            });
         }
 
         @Override
@@ -96,6 +110,11 @@ public final class ScreenMessage {
         @Override
         public void cancel() {
             toast.cancel();
+        }
+
+        @Override
+        public Object getRef() {
+            return ref;
         }
 
         /**
@@ -194,12 +213,12 @@ public final class ScreenMessage {
     }
 
     /**
-     * Enqueue a snackbar on a queue removing items if space is exhausted
+     * Enqueue a message on a queue removing items if space is exhausted
      * 
      * Note: caller needs to provide synchronization
      * 
      * @param queue the queue to use
-     * @param s the snackbar to queue
+     * @param s the message to queue
      */
     static void enqueue(@NonNull LinkedList<MessageControl> queue, @NonNull MessageControl s) {
         if (queue.size() >= QUEUE_CAPACITY) {
@@ -210,6 +229,12 @@ public final class ScreenMessage {
                     first.cancel(); // will try to remove itself but that is OK
                 }
             }
+        }
+        Object ref = s.getRef();
+        final MessageControl last = queue.peekLast();
+        if (last != null && ref != null && ref.equals(last.getRef())) {
+            Log.d(DEBUG_TAG, "Ignoring duplicate message");
+            return;
         }
         queue.offer(s);
     }
@@ -713,7 +738,7 @@ public final class ScreenMessage {
         if (context != null) {
             Toast info = toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal), Toast.LENGTH_SHORT);
             if (info != null) {
-                enqueueInfo(new ToastWrapper(info));
+                enqueueInfo(new ToastWrapper(info, msg));
             }
         }
     }
@@ -728,7 +753,7 @@ public final class ScreenMessage {
         if (context != null) {
             Toast info = toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal), Toast.LENGTH_LONG);
             if (info != null) {
-                enqueueInfo(new ToastWrapper(info));
+                enqueueInfo(new ToastWrapper(info, msgRes));
             }
         }
     }
@@ -744,7 +769,7 @@ public final class ScreenMessage {
             Toast warning = toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow),
                     Toast.LENGTH_LONG);
             if (warning != null) {
-                enqueueWarning(new ToastWrapper(warning));
+                enqueueWarning(new ToastWrapper(warning, msg));
             }
         }
     }
@@ -760,7 +785,7 @@ public final class ScreenMessage {
             Toast warning = toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow),
                     Toast.LENGTH_LONG);
             if (warning != null) {
-                enqueueWarning(new ToastWrapper(warning));
+                enqueueWarning(new ToastWrapper(warning, msgRes));
             }
         }
     }
@@ -809,7 +834,7 @@ public final class ScreenMessage {
         if (context != null) {
             Toast error = toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
             if (error != null) {
-                enqueueError(new ToastWrapper(error));
+                enqueueError(new ToastWrapper(error, msg));
             }
             if (persist) {
                 Notifications.error(context, R.string.error, msg, App.getRandom().nextInt());
