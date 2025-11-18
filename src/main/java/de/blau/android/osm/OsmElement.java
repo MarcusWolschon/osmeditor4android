@@ -162,8 +162,8 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      * @return an object of type T or null
      */
     @Nullable
-    public <T> T getFromCache(@NonNull Map<Map<String, String>, T> cache) {
-        synchronized (cache) {
+    public <T> T getFromCache(@NonNull final Map<Map<String, String>, T> cache) {
+        synchronized (cache) { // NOSONAR we actually want to be able to change what we are syncing on
             return cache.get(tags);
         }
     }
@@ -175,8 +175,8 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      * @param cache the cache
      * @param o an object of type T
      */
-    public <T> void addToCache(@NonNull Map<Map<String, String>, T> cache, @Nullable T o) {
-        synchronized (cache) {
+    public <T> void addToCache(@NonNull final Map<Map<String, String>, T> cache, @Nullable T o) {
+        synchronized (cache) { // NOSONAR we actually want to be able to change what we are syncing on
             cache.put(tags, o);
         }
     }
@@ -188,8 +188,8 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      * @param cache the cache
      * @return true if there is a mapping
      */
-    public <T> boolean isInCache(@NonNull Map<Map<String, String>, T> cache) {
-        synchronized (cache) {
+    public <T> boolean isInCache(@NonNull final Map<Map<String, String>, T> cache) {
+        synchronized (cache) { // NOSONAR we actually want to be able to change what we are syncing on
             return cache.containsKey(tags);
         }
     }
