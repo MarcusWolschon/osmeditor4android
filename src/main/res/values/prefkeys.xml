@@ -113,6 +113,7 @@
     <string name="config_zoomWithKeys_key">zoomWithKeys</string>
     <string name="config_poi_keys_key">poiKeys</string>
     <string name="config_autoPrune_key">autoPrune</string>
+    <string name="config_imageLicence_key">imageLicence</string>
     <!-- Preference keys used in the pref editor(s) int prefs -->
     <string name="config_maxInlineValues_key">maxInlineValuesInt</string>
     <string name="config_autoLockDelay_key">autoLockDelayInt</string>
@@ -150,7 +151,8 @@
     <string name="config_maxCircleSegment_key">maxCircleSegment</string>
     <string name="config_minCircleSegment_key">minCircleSegment</string>
     <string name="config_replaceTolerance_key">replaceTolerance</string>
-    <string name="config_imageLicence_key">imageLicence</string>
+    <string name="config_minMoveWayNodesWarning_key">minMoveWayNodesWarning</string>
+    <string name="config_minMoveVisibleWayNodesWarning_key">minMoveVisibleWayNodesWarning</string>
     <!-- Last directories used in the file selector -->
     <string name="config_gpxPreferredDir_key">gpxPreferredDir</string>
     <string name="config_osmPreferredDir_key">osmPreferredDir</string>

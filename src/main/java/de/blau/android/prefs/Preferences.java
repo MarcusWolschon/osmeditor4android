@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
@@ -156,6 +157,8 @@ public class Preferences {
     private final Set<String> poiKeys;
     private final double      replaceTolerance;
     private String            imageLicence;
+    private final int         minMoveWayNodesWarning;
+    private final int         minMoveWayVisibleNodesWarning;
 
     public static final String DEFAULT_MAP_STYLE     = "Color Round Nodes";
     public static final String DEFAULT_PEN_MAP_STYLE = "Pen Round Nodes";
@@ -346,6 +349,9 @@ public class Preferences {
         replaceTolerance = getFloatFromStringPref(R.string.config_replaceTolerance_key, 1.0f);
 
         imageLicence = prefs.getString(r.getString(R.string.config_imageLicence_key), r.getString(R.string.licence_cc_by_4_value));
+
+        minMoveWayNodesWarning = getIntPref(R.string.config_minMoveWayNodesWarning_key, Logic.MIN_NODES_FOR_MOVE_WARNING);
+        minMoveWayVisibleNodesWarning = getIntPref(R.string.config_minMoveVisibleWayNodesWarning_key, Logic.MIN_NODES_FOR_MOVE_VISIBLE_WARNING);
     }
 
     /**
@@ -2099,13 +2105,33 @@ public class Preferences {
     }
 
     /**
-     * Set the current licence
+     * Set the current image licence
      * 
-     * @param licence the new licence
+     * @param licence the new image licence
      */
     public void setImageLicence(@NonNull String licence) {
         this.imageLicence = licence;
         putString(R.string.config_imageLicence_key, licence);
+    }
+
+    /**
+     * Get the minimum number of way nodes that will cause a warning to be displayed when the way is moved
+     * 
+     * @return the minimum number of way nodes that will cause a warning to be displayed when the way is moved
+     */
+    public int minMoveWayNodesWarning() {
+        return minMoveWayNodesWarning;
+    }
+
+    /**
+     * Get the minimum number of way nodes that will cause the check for how many are visible and potentially a warning
+     * to be displayed when the way is moved
+     * 
+     * @return the minimum number of way nodes that will cause the check for how many are visible and potentially a
+     *         warning to be displayed when the way is moved
+     */
+    public int minMoveWayVisibleNodesWarning() {
+        return minMoveWayVisibleNodesWarning;
     }
 
     /**

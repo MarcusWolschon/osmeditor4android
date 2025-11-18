@@ -222,8 +222,16 @@ Minimum distance between two circle nodes. Default: _0.5m_.
 
 ### Maximum distance to move tagged node
 
-Maximum distance to move a tagged node when replacing way geometry. DEfault: _1.0m_.
-    
+Maximum distance to move a tagged node when replacing way geometry. Default: _1.0m_.
+
+### Min. way node count for move warning
+
+The minimum number of nodes a way needs to have to trigger the moved way warning. Default: _100_.
+
+### Min. way node count for visible node move warning
+
+The minimum number of nodes a way needs to have to trigger the visible node check and potential warning. The warning will be shown if more than half of the nodes in the way are not visible. Default: _5_.
+   
 ## Auto-download Settings
 
 ### Download radius
