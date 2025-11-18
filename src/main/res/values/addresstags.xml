@@ -2,6 +2,7 @@
 <resources>
     <string name="addr_housenumber">Housenumber (addr:housenumber)</string>
     <string name="addr_conscriptionnumber">Conscription number (addr:conscriptionnumber)</string>
+    <string name="addr_housename">House name (addr:housename)</string>
     <string name="addr_street">Street (addr:street)</string>
     <string name="addr_postcode">Postcode (addr:postcode)</string>
     <string name="addr_city">City/Town/Village/.. (addr:city)</string>
@@ -23,6 +24,7 @@
     <string-array translatable="false" name="address_tags_entries">
         <item>@string/addr_housenumber</item>
         <item>@string/addr_conscriptionnumber</item>
+        <item>@string/addr_housename</item>
         <item>@string/addr_street</item>
         <item>@string/addr_postcode</item>
         <item>@string/addr_city</item>
@@ -45,6 +47,7 @@
     <string-array translatable="false" name="address_tags_values">
         <item>addr:housenumber</item>
         <item>addr:conscriptionnumber</item>
+        <item>addr:housename</item>
         <item>addr:street</item>
         <item>addr:postcode</item>
         <item>addr:city</item>
@@ -62,7 +65,7 @@
         <item>addr:state</item>
         <item>addr:flats</item>
         <item>addr:door</item>
-        <item>addr:unit</item>
+        <item>addr:unit</item>      
     </string-array>
     <string-array translatable="false" name="address_tags_defaults">
         <item>addr:housenumber</item>
