@@ -2959,7 +2959,6 @@ public class Main extends ConfigurationChangeAwareActivity
      * @param follow if true center on current location
      */
     public synchronized void setFollowGPS(boolean follow) {
-        Log.d(DEBUG_TAG, "Set follow GPS " + follow);
         if (followGPS != follow) {
             followGPS = follow;
             if (follow) {

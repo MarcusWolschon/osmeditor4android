@@ -53,6 +53,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -209,9 +210,14 @@ public class Logic {
     private static final DistanceSorter<Way, Way>         waySorter  = new DistanceSorter<>();
 
     /**
-     * maximum number of nodes in a way for it still to be moveable, arbitrary number for now
+     * min number of nodes in a way to produce a warning if moved
      */
-    private static final int MAX_NODES_FOR_MOVE = 100;
+    public static final int MIN_NODES_FOR_MOVE_WARNING = 100;
+
+    /**
+     * min number of nodes in a wy to check if enough are visible
+     */
+    public static final int MIN_NODES_FOR_MOVE_VISIBLE_WARNING = 5;
 
     /**
      * maximum depth that we recursively select relations
@@ -1592,6 +1598,7 @@ public class Logic {
                 final int selectedWayCount = currentSelection.wayCount();
                 final int selectedNodeCount = currentSelection.nodeCount();
                 // checkpoint created where draggingNode is set
+                final StorageDelegator delegator = getDelegator();
                 if ((draggingNode && ((selectedNodeCount == 1 && selectedWayCount == 0) || selectedWayCount == 1)) || draggingHandle || draggingNote) {
                     if (draggingHandle) { // create node only if we are really dragging
                         if (handleNode == null && selectedHandle != null && selectedWayCount > 0) {
@@ -1600,9 +1607,8 @@ public class Logic {
                             selectedHandle = null;
                         }
                         if (handleNode != null) {
-                            getDelegator().moveNode(handleNode, lat, lon);
+                            delegator.moveNode(handleNode, lat, lon);
                         }
-
                     } else {
                         if (prefs.largeDragArea()) {
                             startY = startY + relativeY;
@@ -1615,7 +1621,7 @@ public class Logic {
                                 draggedNode = currentSelection.getNode();
                             }
                             displayAttachedObjectWarning(main, draggedNode);
-                            getDelegator().moveNode(draggedNode, lat, lon);
+                            delegator.moveNode(draggedNode, lat, lon);
                         } else {
                             de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
                             if (taskLayer != null) {
@@ -1639,9 +1645,10 @@ public class Logic {
                         nodes.addAll(currentSelection.getNodes());
                     }
                     displayAttachedObjectWarning(main, nodes);
-                    getDelegator().moveNodes(nodes, lat - startLat, lon - startLon);
-                    if (nodes.size() > MAX_NODES_FOR_MOVE && selectedWayCount == 1 && selectedNodeCount == 0) {
-                        ScreenMessage.toastTopWarning(main, main.getString(R.string.toast_way_nodes_moved, nodes.size()));
+                    delegator.moveNodes(nodes, lat - startLat, lon - startLon);
+                    final int nodeCount = nodes.size();
+                    if (selectedWayCount == 1 && selectedNodeCount == 0) {
+                        showMoveWarning(main, nodes, nodeCount);
                     }
                     // update
                     startLat = lat;
@@ -1681,6 +1688,36 @@ public class Logic {
             unlock();
         }
         invalidateMap();
+    }
+
+    /**
+     * If we have moved a long way or a majority of the way nodes are outside of the view box show a warning toast
+     * 
+     * @param main the current Main instance
+     * @param nodes the nodes that are being moved
+     * @param nodeCount the number of nodes
+     */
+    private void showMoveWarning(@NonNull Main main, @NonNull List<Node> nodes, final int nodeCount) {
+        boolean showWarning = nodeCount > prefs.minMoveWayNodesWarning();
+        if (!showWarning && nodeCount > prefs.minMoveWayVisibleNodesWarning()) {
+            // count nodes in view box
+            int visibleNodes = 0;
+            int nodeLimit = nodeCount / 2;
+            for (Node n : nodes) {
+                if (viewBox.contains(n.getLon(), n.getLat())) {
+                    visibleNodes++;
+                }
+                if (visibleNodes > nodeLimit) {
+                    return;
+                }
+            }
+            showWarning = visibleNodes < nodeLimit;
+        }
+        if (showWarning) {
+            String warning = main.getString(R.string.toast_way_nodes_moved, nodeCount);
+            Log.d(DEBUG_TAG, warning);
+            ScreenMessage.toastTopWarning(main, warning);
+        }
     }
 
     /**

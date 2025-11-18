@@ -385,6 +385,30 @@
             android:key="@string/config_replaceTolerance_key"
             android:summary="@string/config_replaceTolerance_summary"
             android:title="@string/config_replaceTolerance_title" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="100"
+            android:dialogTitle="@string/config_minMoveWayNodesWarning_title"
+            android:key="@string/config_minMoveWayNodesWarning_key"
+            android:numeric="integer"
+            android:summary="@string/config_minMoveWayNodesWarning_summary"
+            android:title="@string/config_minMoveWayNodesWarning_title"
+            app:spt_maxValue="2000" 
+            app:spt_minValue="10"
+            app:spt_increment="10"
+            app:spt_currentValueText="@string/config_minMoveWayNodesWarning_current"
+            app:spt_setWrapSelectorWheel="false" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="5"
+            android:dialogTitle="@string/config_minMoveVisibleWayNodesWarning_title"
+            android:key="@string/config_minMoveVisibleWayNodesWarning_key"
+            android:numeric="integer"
+            android:summary="@string/config_minMoveVisibleWayNodesWarning_summary"
+            android:title="@string/config_minMoveVisibleWayNodesWarning_title"
+            app:spt_maxValue="2000" 
+            app:spt_minValue="3"
+            app:spt_increment="1"
+            app:spt_currentValueText="@string/config_minMoveVisibleWayNodesWarning_current"
+            app:spt_setWrapSelectorWheel="false" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_auto_download"

@@ -1487,7 +1487,12 @@
     <string name="config_replaceTolerance_title">Maximum distance to move tagged node</string>
     <string name="config_replaceTolerance_summary">Maximum distance to move a tagged node when replacing way geometry.</string>
     <string name="config_replaceTolerance_current">%1$d meter(s)</string>
-     
+    <string name="config_minMoveWayNodesWarning_title">Min. way node count for move warning</string>
+    <string name="config_minMoveWayNodesWarning_summary">The minimum number of nodes a way needs to have to trigger the moved way warning.</string>
+    <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+    <string name="config_minMoveVisibleWayNodesWarning_title">Min. way node count for visible node move warning</string>
+    <string name="config_minMoveVisibleWayNodesWarning_summary">The minimum number of nodes a way needs to have to trigger the visible node check and potential warning.</string>
+    <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
     <!-- Auto-download settings -->
     <string name="config_category_auto_download">Auto-download settings</string>
     <string name="config_category_auto_download_summary">Settings for data and task auto downloading</string>

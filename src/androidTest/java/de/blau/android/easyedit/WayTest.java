@@ -361,6 +361,8 @@ public class WayTest {
 
         // drag the way
         TestUtils.drag(device, map, 8.3893384, 47.3894888, 8.38939, 47.389550, false, 10);
+        
+        // this seems to be too slow to work assertTrue(TestUtils.findText(device, false, main.getString(R.string.toast_way_nodes_moved, 15), 10000));
 
         int[][] dragged = nodeListToCoordinates(way.getNodes());
 
