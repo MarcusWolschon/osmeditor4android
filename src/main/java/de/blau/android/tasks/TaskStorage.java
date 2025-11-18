@@ -391,7 +391,12 @@ public class TaskStorage implements Serializable, DataStorage {
 
     @Override
     public boolean reachedPruneLimits(int dataLimit, int boxLimit) {
-        return boxes.count() > boxLimit || count() > dataLimit;
+        try {
+            lock();
+            return boxes.count() > boxLimit || count() > dataLimit;
+        } finally {
+            unlock();
+        }
     }
 
     @Override
