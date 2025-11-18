@@ -163,7 +163,9 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      */
     @Nullable
     public <T> T getFromCache(@NonNull Map<Map<String, String>, T> cache) {
-        return cache.get(tags);
+        synchronized (cache) {
+            return cache.get(tags);
+        }
     }
 
     /**
@@ -174,7 +176,9 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      * @param o an object of type T
      */
     public <T> void addToCache(@NonNull Map<Map<String, String>, T> cache, @Nullable T o) {
-        cache.put(tags, o);
+        synchronized (cache) {
+            cache.put(tags, o);
+        }
     }
 
     /**
@@ -185,7 +189,9 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      * @return true if there is a mapping
      */
     public <T> boolean isInCache(@NonNull Map<Map<String, String>, T> cache) {
-        return cache.containsKey(tags);
+        synchronized (cache) {
+            return cache.containsKey(tags);
+        }
     }
 
     @Override
@@ -430,7 +436,7 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
     public boolean isUnchanged() {
         return state == STATE_UNCHANGED;
     }
-    
+
     /**
      * Check if this element has been created
      * 

@@ -1337,9 +1337,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
                 temp.recycle();
             }
         }
-        synchronized (MapOverlay.this) {
-            element.addToCache(cache, icon);
-        }
+        element.addToCache(cache, icon);
         map.postInvalidate();
     }
 
