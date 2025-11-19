@@ -216,7 +216,7 @@ public class MergeAction {
             Map<String, String> dirTags = Reverse.getDirectionDependentTags(w2);
             if (!dirTags.isEmpty()) {
                 Reverse.reverseDirectionDependentTags(w2, dirTags, true);
-                mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
+                mergeResult.addIssue(ReverseIssue.TAGS_REVERSED);
             }
             if (w2.notReversable()) {
                 mergeResult.addIssue(MergeIssue.NOTREVERSABLE);
@@ -239,7 +239,7 @@ public class MergeAction {
             Map<String, String> dirTags = Reverse.getDirectionDependentTags(w2);
             if (!dirTags.isEmpty()) {
                 Reverse.reverseDirectionDependentTags(w2, dirTags, true);
-                mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
+                mergeResult.addIssue(ReverseIssue.TAGS_REVERSED);
             }
             if (w2.notReversable()) {
                 mergeResult.addIssue(MergeIssue.NOTREVERSABLE);
@@ -396,7 +396,7 @@ public class MergeAction {
             Map<String, String> dirTags = Reverse.getDirectionDependentTags(p2);
             if (!dirTags.isEmpty()) {
                 Reverse.reverseDirectionDependentTags(p2, dirTags, true);
-                mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
+                mergeResult.addIssue(ReverseIssue.TAGS_REVERSED);
             }
             if (p1.notReversable()) {
                 mergeResult.addIssue(MergeIssue.NOTREVERSABLE);

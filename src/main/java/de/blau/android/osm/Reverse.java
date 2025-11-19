@@ -18,6 +18,11 @@ import java.util.TreeMap;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
+import ch.poole.conditionalrestrictionparser.ParseException;
+import ch.poole.conditionalrestrictionparser.Restriction;
+import ch.poole.conditionalrestrictionparser.TokenMgrError;
+import ch.poole.conditionalrestrictionparser.Util;
 import ch.poole.osm.josmfilterparser.Condition;
 import ch.poole.osm.josmfilterparser.JosmFilterParseException;
 import ch.poole.osm.josmfilterparser.JosmFilterParser;
@@ -77,7 +82,7 @@ final class Reverse {
      * @return map containing the tags
      */
     @NonNull
-    public static synchronized Map<String, String> getDirectionDependentTags(@NonNull OsmElement e) {
+    public static Map<String, String> getDirectionDependentTags(@NonNull OsmElement e) {
         Map<String, String> result = new TreeMap<>();
         Map<String, String> tags = e.getTags();
         for (Entry<String, String> entry : tags.entrySet()) {
@@ -86,7 +91,7 @@ final class Reverse {
             // @formatter:off
             if ((implicitOneway(key, value)
                     || directionDependentKeys.contains(key) 
-                    || (e instanceof Way && ((Way)e).getOneway() != 0)
+                    || isOneWayTag(key, value)
                     || key.endsWith(LEFT_POSTFIX) 
                     || key.endsWith(RIGHT_POSTFIX) 
                     || key.endsWith(BACKWARD_POSTFIX)
@@ -99,9 +104,49 @@ final class Reverse {
                     && !matchExceptions(e, key)) {
                 result.put(key, value);
             }
-         // @formatter:on
+            // @formatter:on
         }
         return result;
+    }
+
+    /**
+     * Check if tag is a oneway tag
+     * 
+     * @param key the tag key
+     * @param value the taf value
+     * @return true if the tag is an actual oneway tag
+     */
+    private static boolean isOneWayTag(@NonNull String key, @NonNull String value) {
+        return key.startsWith(Tags.KEY_ONEWAY) && !(value.equals(Tags.VALUE_NO) || value.equals(Tags.VALUE_FALSE));
+    }
+
+    /**
+     * Extract oneway keys from map of tags
+     * 
+     * @param tags input map
+     * @return a map holding just the oneway keys
+     */
+    @NonNull
+    public static Map<String, String> getOnewayTags(@NonNull Map<String, String> tags) {
+        Map<String, String> result = new TreeMap<>();
+        for (Entry<String, String> entry : tags.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (implicitOneway(key, value) || isOneWayTag(key, value)) {
+                result.put(key, value);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Check if this is any kind of oneway key without a conditional suffix
+     * 
+     * @param key the key to check
+     * @return true if the conditions are matched
+     */
+    private static boolean nonConditionalOneway(@NonNull String key) {
+        return key.startsWith(Tags.KEY_ONEWAY) && !key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX);
     }
 
     /**
@@ -330,10 +375,26 @@ final class Reverse {
                     }
                     continue;
                 }
-                // normal case
-                if (Tags.KEY_ONEWAY.equals(key)) {
+                // normal case all oneway keys except conditionals
+                if (nonConditionalOneway(key)) { //
                     tags.put(key, reverseOneway(value));
                     continue;
+                }
+                if (key.startsWith(Tags.KEY_ONEWAY) && key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
+                    ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(value.getBytes()));
+                    try {
+                        List<Restriction> restrictions = parser.restrictions();
+                        for (Restriction r : restrictions) {
+                            r.setValue(reverseOneway(r.getValue()));
+                        }
+                        tags.put(key, Util.restrictionsToString(restrictions));
+                        continue;
+                    } catch (ParseException pex) {
+                        Log.d(DEBUG_TAG, "parsing " + value + "  got " + pex.getMessage());
+                    } catch (TokenMgrError err) { // NOSONAR JavaCC parsers with return an Error for unknown tokens
+                        // we currently can't do anything reasonable here except ignore
+                        Log.e(DEBUG_TAG, "parsing " + value + "  got " + err.getMessage());
+                    }
                 }
                 if (Tags.KEY_DIRECTION.equals(key)) {
                     tags.put(key, reverseDirection(value));

@@ -1956,12 +1956,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         if (!dirTags.isEmpty()) {
             Result wayResult = new Result();
             wayResult.setElement(way);
-            final boolean containsOneWay = dirTags.containsKey(Tags.KEY_ONEWAY);
-            if (containsOneWay) {
-                wayResult.addIssue(ReverseIssue.ONEWAYDIRECTIONREVERSED);
+            final Map<String, String> oneWayTags = Reverse.getOnewayTags(dirTags);
+            if (!oneWayTags.isEmpty()) {
+                wayResult.addIssue(ReverseIssue.ONEWAY_DIRECTION_REVERSED);
             }
-            if (dirTags.size() > 1 || !containsOneWay) {
-                wayResult.addIssue(ReverseIssue.TAGSREVERSED);
+            if (dirTags.size() > oneWayTags.size()) {
+                wayResult.addIssue(ReverseIssue.TAGS_REVERSED);
             }
             wayResult.addTags(dirTags);
             result.add(wayResult);
@@ -1975,7 +1975,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             for (Relation r : dirRelations) {
                 Result relationResult = new Result();
                 relationResult.setElement(r);
-                relationResult.addIssue(ReverseIssue.ROLEREVERSED);
+                relationResult.addIssue(ReverseIssue.ROLE_REVERSED);
                 result.add(relationResult);
                 r.updateState(OsmElement.STATE_MODIFIED);
                 apiStorage.insertElementSafe(r);
@@ -2002,10 +2002,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 undo.save(n);
                 Result nodeResult = new Result();
                 nodeResult.setElement(n);
-                nodeResult.addIssue(ReverseIssue.TAGSREVERSED);
+                nodeResult.addIssue(ReverseIssue.TAGS_REVERSED);
                 nodeResult.addTags(nodeDirTags);
                 if (getCurrentStorage().getWays(n).size() > 1) {
-                    nodeResult.addIssue(ReverseIssue.SHAREDNODE);
+                    nodeResult.addIssue(ReverseIssue.SHARED_NODE);
                 }
                 result.add(nodeResult);
                 Reverse.reverseDirectionDependentTags(n, nodeDirTags, true);
