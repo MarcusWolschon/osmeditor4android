@@ -113,9 +113,13 @@ Just download and install like any other app =)
 
 ### Which special permissions does Vespucci require?
 
-   * fine location (GPS): to be able to pan the map to your current position and generate GPX format tracks
-   * write to external storage: background imagery tiles are stored, if present, on external storage, removing this permission will make the background process that downloads tiles non-functional
-   
+The required permissions vary by Android version and while you can refuse to grant many of them, this will come with a reduction on functionality. 
+
+   * fine location (GPS): to be able to pan the map to your current position and generate GPX format tracks.
+   * from Android 13 on: notifications permission to display notifications.
+   * from Android 13 on: photo and video access for access to images on your device if you want to use the photo support in the app.
+   * up to and including Android 10: write to external storage: background imagery tiles are stored, if present, on external storage, removing this permission will make the process that downloads tiles non-functional.
+     
 ### How can I install Vespucci on the Android emulator?
 
 Installation of the Vespucci APK is like any other APK.
@@ -146,7 +150,7 @@ Note that this can only be reversed by either you providing a new Bing API key, 
 
 ### How can I upload new/changed data to the OSM server?
 
-Choose "Upload data to  OSM server" from the transfer menu.
+Choose "Upload data to OSM server" from the transfer menu.
 (With other words: Data is not automatically uploaded!)
 
 ### Which user account is used when uploading data to the OSM server?
