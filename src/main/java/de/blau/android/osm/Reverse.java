@@ -86,7 +86,7 @@ final class Reverse {
             // @formatter:off
             if ((implicitOneway(key, value)
                     || directionDependentKeys.contains(key) 
-                    || (e instanceof Way && ((Way)e).getOneway() != 0)
+                    || Tags.KEY_ONEWAY.equals(key)
                     || key.endsWith(LEFT_POSTFIX) 
                     || key.endsWith(RIGHT_POSTFIX) 
                     || key.endsWith(BACKWARD_POSTFIX)
