@@ -241,7 +241,7 @@ public class StorageDelegatorTest {
             assertEquals(originalNodes.get(i).getLon(), dupNodes.get(i).getLon());
         }
     }
-    
+
     /**
      * Test duplication with missing member, should throw an exception
      */
@@ -254,7 +254,7 @@ public class StorageDelegatorTest {
         d.insertElementSafe(r);
         try {
             d.duplicate(Util.wrapInList(r), true);
-        } catch (OsmIllegalOperationException ex ) {
+        } catch (OsmIllegalOperationException ex) {
             // expected
             return;
         }
@@ -808,9 +808,9 @@ public class StorageDelegatorTest {
         assertFalse(result.get(0).hasIssue());
         assertNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
         assertNotNull(d.getOsmElement(Node.NAME, n2.getOsmId()));
-        assertEquals(toE7(0.005),n2.lon); 
+        assertEquals(toE7(0.005), n2.lon);
     }
-    
+
     /**
      * Merge two nodes
      */
@@ -829,7 +829,7 @@ public class StorageDelegatorTest {
         assertFalse(result.get(0).hasIssue());
         assertNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
         assertNotNull(d.getOsmElement(Node.NAME, n2.getOsmId()));
-        assertEquals(toE7(0.006),n2.lon); 
+        assertEquals(toE7(0.006), n2.lon);
     }
 
     /**
@@ -1906,7 +1906,7 @@ public class StorageDelegatorTest {
         assertTrue(toUpload.contains(newNode));
         assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, 28075087L)));
     }
-    
+
     /**
      * Upload of modified way needs to include newly created node
      */
@@ -1921,7 +1921,7 @@ public class StorageDelegatorTest {
         assertTrue(toUpload.contains(modifiedWay));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -1L)));
     }
-    
+
     /**
      * Upload of modified relation needs to include newly created way
      */
@@ -1937,5 +1937,68 @@ public class StorageDelegatorTest {
         assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, -1L)));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -2L)));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -3L)));
+    }
+
+    /**
+     * Reverse a way
+     */
+    @Test
+    public void reverseWay1() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, false);
+        Node firstNode = w.getFirstNode();
+        Node lastNode = w.getLastNode();
+        SortedMap<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put(Tags.KEY_HIGHWAY, "residential");
+        tags.put(Tags.KEY_ONEWAY, Tags.VALUE_YES);
+        w.setTags(tags);
+        List<Result> result = d.reverseWay(w);
+        assertEquals(1, result.size());
+        assertEquals(1, result.get(0).getIssues().size());
+        assertEquals(ReverseIssue.ONEWAY_DIRECTION_REVERSED, new ArrayList<Issue>(result.get(0).getIssues()).get(0));
+        assertTrue(w.hasTag(Tags.KEY_ONEWAY, Tags.VALUE_YES)); // shouldn't change
+        assertEquals(lastNode, w.getFirstNode());
+        assertEquals(firstNode, w.getLastNode());
+    }
+    
+    /**
+     * Reverse a way
+     */
+    @Test
+    public void reverseWay2() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, false);
+        Node firstNode = w.getFirstNode();
+        Node lastNode = w.getLastNode();
+        SortedMap<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put(Tags.KEY_HIGHWAY, "residential");
+        tags.put(Tags.KEY_SIDEWALK + ":left", Tags.VALUE_YES);
+        w.setTags(tags);
+        List<Result> result = d.reverseWay(w);
+        assertEquals(1, result.size());
+        assertEquals(1, result.get(0).getIssues().size());
+        assertEquals(ReverseIssue.TAGS_REVERSED, new ArrayList<Issue>(result.get(0).getIssues()).get(0));
+        w.hasTag(Tags.KEY_SIDEWALK + ":right", Tags.VALUE_YES);
+        assertEquals(lastNode, w.getFirstNode());
+        assertEquals(firstNode, w.getLastNode());
+    }
+    
+    /**
+     * Reverse a way
+     */
+    @Test
+    public void reverseWay3() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, false);
+        Node firstNode = w.getFirstNode();
+        Node lastNode = w.getLastNode();
+        SortedMap<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put(Tags.KEY_HIGHWAY, "residential");
+        tags.put(Tags.KEY_ONEWAY, Tags.VALUE_NO);
+        w.setTags(tags);
+        List<Result> result = d.reverseWay(w);
+        assertEquals(0, result.size());
+        assertEquals(lastNode, w.getFirstNode());
+        assertEquals(firstNode, w.getLastNode());
     }
 }

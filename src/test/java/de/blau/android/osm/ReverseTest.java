@@ -40,6 +40,9 @@ public class ReverseTest {
         reverseTag("oneway", "yes", "-1");
         reverseTag("oneway", "true", "-1");
         reverseTag("oneway", "1", "-1");
+        reverseTag("oneway:bicycle", "yes", "-1");
+        reverseTag("oneway:conditional", "yes @ wet", "-1 @ wet"); 
+        reverseTag("oneway:hgv:conditional", "yes @ 09:00-15:00", "-1 @ 09:00-15:00"); 
         reverseTag("conveying", "forward", "backward");
         reverseTag("conveying", "backward", "forward");
         reverseTag("priority", "forward", "backward");
@@ -55,7 +58,17 @@ public class ReverseTest {
         Map<String, String> dirTags = Reverse.getDirectionDependentTags(e);
         assertFalse(dirTags.containsKey("oneway"));
     }
-
+    
+    @Test
+    public void ignoreNoOneWay2() {
+        Map<String, String> tags = new HashMap<>();
+        tags.put("oneway", "false");
+        Way e = OsmElementFactory.createWay(-1L, 1L, System.currentTimeMillis() / 1000, OsmElement.STATE_CREATED);
+        e.setTags(tags);
+        Map<String, String> dirTags = Reverse.getDirectionDependentTags(e);
+        assertFalse(dirTags.containsKey("oneway"));
+    }
+    
     /**
      * Test that way reversing has the intended effects on a way node
      */

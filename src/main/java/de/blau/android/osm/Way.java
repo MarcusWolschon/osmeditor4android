@@ -429,22 +429,20 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
         }
 
         String barrier = getTagWithKey(Tags.KEY_BARRIER);
-        if (barrier != null) {
-            if (Tags.VALUE_RETAINING_WALL.equals(barrier)) {
-                return true;
-            }
-            if (Tags.VALUE_KERB.equals(barrier)) {
-                return true;
-            }
-            if (Tags.VALUE_GUARD_RAIL.equals(barrier)) {
-                return true;
-            }
-            String twoSided = getTagWithKey(Tags.KEY_TWO_SIDED);
-            if (Tags.VALUE_CITY_WALL.equals(barrier) && (twoSided == null || !Tags.VALUE_YES.equals(twoSided))) {
-                return true;
-            }
+        if (barrier == null) {
+            return false;
         }
-        return false;
+        if (Tags.VALUE_RETAINING_WALL.equals(barrier)) {
+            return true;
+        }
+        if (Tags.VALUE_KERB.equals(barrier)) {
+            return true;
+        }
+        if (Tags.VALUE_GUARD_RAIL.equals(barrier)) {
+            return true;
+        }
+        String twoSided = getTagWithKey(Tags.KEY_TWO_SIDED);
+        return Tags.VALUE_CITY_WALL.equals(barrier) && (twoSided == null || !Tags.VALUE_YES.equals(twoSided));
     }
 
     @Override
