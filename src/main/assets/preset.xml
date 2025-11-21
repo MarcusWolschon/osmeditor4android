@@ -8359,6 +8359,7 @@
                 <list_entry value="birthing_center" short_description="Birthing center" deprecated="true"/>
                 <list_entry value="birthing_centre" short_description="Birthing centre"/>
                 <list_entry value="blood_donation" short_description="Blood donation"/>
+                <list_entry value="blood_bank" short_description="Blood bank"/>
                 <list_entry value="counselling" short_description="Counselling"/>
                 <list_entry value="dialysis" short_description="Dialysis"/>
                 <list_entry value="hospice" short_description="Hospice"/>
@@ -9387,6 +9388,21 @@
                 <reference ref="facility_access"/>
             </optional>
         </item> <!-- Water Point -->
+        <item name="Kitchen" icon="icons/png/amenity_kitchen_29090.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=kitchen"/>
+            <space/>
+            <key key="amenity" value="kitchen"/>
+            <check key="drinking_water" text="Drinking Water"/>
+            <optional>
+                <text key="name" text="Name"/>
+                <reference ref="ref_operator"/>
+                <reference ref="oh"/>
+                <text key="description" text="Description" length="255"/>
+                <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
+                <reference ref="level"/>
+                <reference ref="facility_access"/>
+            </optional>
+        </item> <!-- Kitchen -->
         <item name="Compressed Air" icon="icons/png/amenity_empty.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=compressed_air"/>
             <space/>
@@ -13067,6 +13083,13 @@
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Jewellery -->
+        <item name="Wigs" icon="icons/png/shopping_wigs.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:shop=wigs"/>
+            <space/>
+            <key key="shop" value="wigs"/>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Wigs -->
         <item name="Erotic" icon="icons/png/shopping_erotic_29049.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=erotic"/>
             <space/>
