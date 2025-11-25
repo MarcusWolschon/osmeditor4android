@@ -1087,6 +1087,7 @@
             <list_entry value="skateboard" display_value="Skateboard"/>
             <list_entry value="skating" display_value="Skating"/>
             <list_entry value="skiing" display_value="Skiing"/>
+            <list_entry value="ski_jumping" display_value="Ski jumping"/>
             <list_entry value="softball" display_value="Softball"/>
             <list_entry value="soccer" display_value="Soccer"/>
             <list_entry value="speedway" display_value="Speedway"/>
@@ -5261,7 +5262,7 @@
                 <reference ref="name_ref"/>
             </item> <!-- Railway junction -->
             <item name="Train wash" icon="icons/png/transport_train_wash.png" type="node,closedway,multipolygon" preset_name_label="true">
-                <key key="railway" value="train_wash"/>
+                <key key="railway" value="wash"/>
                 <text key="operator" text="Operator"/>
                 <text key="railway:ref" text="Reference"/>
             </item> <!-- Train wash -->
@@ -6557,13 +6558,17 @@
             <key key="tourism" value="camp_site"/>
             <reference ref="name_operator"/>
             <reference ref="stars"/>
+            <combo key="camp_site" text="Type" values="basic,standard,serviced,deluxe" display_values="Basic (only tent/vehicle spots),Standard (offers toilets and water),Serviced (offers showers and electricity),Deluxe (offers laundry or swimming pool etc.)"/>
             <reference ref="oh_wheelchair"/>
             <reference ref="reservation"/>
-            <text key="capacity" text="Number of places"/>
             <checkgroup text="Camping type" columns="2">
                 <check key="tents" text="Tents allowed"/>
                 <check key="caravans" text="Caravans allowed"/>
+                <check key="static_caravans" text="Mobile Homes"/>
             </checkgroup>
+            <text key="capacity" text="Capacity (total)" value_type="integer"/>
+            <text key="capacity:tents" text="Capacity (tents)" value_type="integer"/>
+            <text key="capacity:caravans" text="Capacity (caravans)" value_type="integer"/>
             <checkgroup columns="2">
                 <check key="backcountry" text="Backcountry" disable_off="true"/>
                 <check key="group_only" text="Group only access" disable_off="true"/>
@@ -10116,6 +10121,32 @@
                 <check key="piste:lit" text="Lit"/>
             </optional>
         </item> <!-- Skiing -->
+        <group name="Ski jumping" icon="icons/png/sport_ski_jumping.png">
+            <item name="Ski jump piste" icon="icons/png/sport_ski_jumping.png" type="way,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:piste:type=ski_jump"/>
+                <space/>
+                <key key="piste:type" value="ski_jump"/>
+                <key key="sport" value="ski_jumping"/>
+                <reference ref="name_wikipedia"/>           
+                <check key="piste:lit" text="Lit"/>
+                <optional>
+                    <check key="area" text="Area"/>
+                </optional>
+                <preset_link preset_name="Stadium"/>
+            </item> <!-- Ski jump piste -->
+            <item name="Ski jumping tower" icon="icons/png/sport_ski_jump_tower.png" type="way,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:man_made=ski_jump"/>
+                <space/>
+                <key key="man_made" value="ski_jump"/> 
+                <reference ref="name_wikipedia"/>
+                <preset_link preset_name="Stadium"/>
+            </item> <!-- Ski jumping tower -->
+            <item name="Ski jump takeoff point" icon="icons/png/sport_ski_jump_takeoff.png" type="node,way" preset_name_label="true">
+                <link wiki="Tag:piste:type=ski_jump"/>
+                <space/>
+                <key key="piste:takeoff" value="yes"/>      
+            </item> <!-- Ski jump takeoff point -->
+        </group> <!-- Ski jumping -->
         <item name="Shooting" icon="icons/png/sport_shooting.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:sport=shooting"/>
             <space/>
@@ -10440,6 +10471,13 @@
             <space/>
             <combo key="building:part" text="Building part" values_context="building" default="yes" match="key" values_searchable="true">
                 <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="container" display_value="Container"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="outbuilding" display_value="Outbuilding" deprecated="true"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="tent" display_value="Tent"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
+                <list_entry value="balcony" display_value="Balcony"/>
+                <list_entry value="column" display_value="Column"/>
+                <list_entry value="conservatory" display_value="Conservatory"/>
+                <list_entry value="deck" display_value="Deck"/>
+                <list_entry value="elevator" display_value="Elevator"/>
+                <list_entry value="porch" display_value="Porch"/>
+                <list_entry value="steps" display_value="Steps"/>
             </combo>
             <reference ref="additional_building_tags"/>
             <combo key="building:min_level" text="Skipped Levels" values="1,2,3,4,5,6,7,8,9,10" editable="true" text_context="building" value_type="integer"/>
@@ -10569,6 +10607,12 @@
             <text key="height" text="Height (Meters)" value_type="dimension_vertical"/>
             <text key="maxheight" text="Max. height (Meters)" value_type="dimension_vertical"/>
             <check key="automatic_door" text="Automatic door"/>
+            <optional>
+                <text key="dock:height" text="Dock Height (Meters)" value_type="dimension_vertical"/>
+                <text key="dock:width" text="Dock Width (Meters)" value_type="dimension_horizontal"/>
+                <text key="door:height" text="Door Height (Meters)" value_type="dimension_vertical"/>
+                <text key="door:width" text="Door Width (Meters)" value_type="dimension_horizontal"/>
+            </optional>
         </item> <!-- Loading dock -->  
     </group> <!-- Buildings -->
     <group name="Indoor elements" icon="icons/png/indoor_floorplan.png">
