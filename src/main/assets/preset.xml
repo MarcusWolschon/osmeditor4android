@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.89.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.91.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -2330,6 +2330,40 @@
             <check key="display:analog" text="Analog" disable_off="true"/>
             <check key="display:digital" text="Digital" disable_off="true"/>
         </checkgroup>
+    </chunk>
+    <chunk id="phone_booth_type">       
+        <combo key="booth" text="Phone booth type" regions="DE,GB,IE,NO">                 
+            <list_entry value="FeH_26" display_value="FeH 26" regions="DE"/> 
+            <list_entry value="FeH_32" display_value="FeH 32" regions="DE"/> 
+            <list_entry value="FeH_55" display_value="FeH 55" regions="DE"/>
+            <list_entry value="TelH_72" display_value="TelH 72" regions="DE"/>
+            <list_entry value="TelH_78" display_value="TelH 78" regions="DE"/> 
+            <list_entry value="TelH_90" display_value="TelH 90" regions="DE"/> 
+            <list_entry value="TelH_90_Sh" display_value="TelH 90 Sh" regions="DE"/>
+            <list_entry value="TelH_90_Sm" display_value="TelH 90 Sm" regions="DE"/> 
+            <list_entry value="TelH_08" display_value="TelH 08" regions="DE"/> 
+            <list_entry value="K1" display_value="K1" regions="GB,IE"/>
+            <list_entry value="K2" display_value="K2" regions="GB"/>
+            <list_entry value="K3" display_value="K3" regions="GB"/>
+            <list_entry value="K4&#x2423;Post&#x2423;Office" display_value="K4 Post Office" regions="GB"/>
+            <list_entry value="K6" display_value="K6" regions="GB"/>
+            <list_entry value="K8" display_value="K8" regions="GB"/>
+            <list_entry value="KX100" display_value="KX100" regions="GB"/>
+            <list_entry value="KX200" display_value="KX200" regions="GB"/>
+            <list_entry value="KX300" display_value="KX300" regions="GB"/>
+            <list_entry value="KX410" display_value="KX410" regions="GB"/>
+            <list_entry value="KX420" display_value="KX420" regions="GB"/>
+            <list_entry value="KXPlus" display_value="KX Plus" regions="GB"/>
+            <list_entry value="oakham" display_value="Oakham" regions="GB"/>
+            <list_entry value="ST6" display_value="ST6" regions="GB"/>
+            <list_entry value="Inlink" display_value="InLink" regions="GB"/>
+            <list_entry value="NWPyramid" display_value="NW Pyramid" regions="GB"/>
+            <list_entry value="NWCapped" display_value="NW Capped" regions="GB"/>
+            <list_entry value="Telefon" display_value="Telefon" regions="IE"/>
+            <list_entry value="Eircom" display_value="Eircom" regions="IE"/>
+            <list_entry value="Teileafon" display_value="Teileafon" regions="IE"/>
+            <list_entry value="Riks" display_value="Riks" regions="NO"/>
+        </combo>    
     </chunk>
     <!-- Groups -->
     <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -5711,6 +5745,7 @@
                     <list_entry value="stands" display_value="Stands"/>
                     <list_entry value="wall_loops" display_value="Wall loops" short_description="Wheel benders"/>
                 </combo>
+                <check key="bike_ride" text="Bike+Ride"/>
                 <reference ref="optional_name"/>
                 <text key="capacity" text="Capacity" value_type="integer"/>
                 <text key="capacity:cargo_bike" text="Capacity for cargo bikes" value_type="integer"/>
@@ -6539,6 +6574,8 @@
             <reference ref="stars"/>
             <text key="rooms" text="Rooms"/>
             <text key="beds" text="Beds"/>
+            <check key="cabins" text="Cabins available"/>
+            <text key="capacity:cabins" text="Number of cabins" value_type="integer"/>
             <reference ref="wheelchair"/>
             <space/>
             <reference ref="reservation"/>
@@ -6569,6 +6606,8 @@
             <text key="capacity" text="Capacity (total)" value_type="integer"/>
             <text key="capacity:tents" text="Capacity (tents)" value_type="integer"/>
             <text key="capacity:caravans" text="Capacity (caravans)" value_type="integer"/>
+            <check key="cabins" text="Cabins available"/>
+            <text key="capacity:cabins" text="Number of cabins" value_type="integer"/>
             <checkgroup columns="2">
                 <check key="backcountry" text="Backcountry" disable_off="true"/>
                 <check key="group_only" text="Group only access" disable_off="true"/>
@@ -7839,6 +7878,7 @@
                 <text key="capacity" text="Capacity" value_type="integer"/>
                 <reference ref="oh_wheelchair"/>
                 <combo key="public_bookcase:type" text="Type" values="building,glass_cabinet,metal_cabinet,movable_cabinet,phone_box,reading_box,sculpture,shelf,shelter,wooden_cabinet" display_values="Building,Glass cabinet,Metal cabinet,Movable cabinet,Phone booth,Reading box,Sculpture,Shelf,Shelter,Wooden cabinet"/>
+                <reference ref="phone_booth_type"/>
                 <reference ref="facility_access"/>
             </optional>
             <preset_link preset_name="Contact"/>
@@ -9110,7 +9150,7 @@
                 <list_entry value="scottish_crown" display_value="Crown of Scotland"/>
                 <list_entry value="no" display_value="None"/>
             </combo>
-            <text key="royal_cypher:wikidata" text="Royal cypher wikidata" regions="GB"/>
+            <text key="royal_cypher:wikidata" text="Royal cypher wikidata" value_type="wikipedia" regions="GB"/>
             <preset_link preset_name="Letter box" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Post Box -->
         <item name="Parcel Locker" icon="icons/png/amenity_parcel_locker.png" type="node,closedway" preset_name_label="true">
@@ -9160,6 +9200,9 @@
             <check key="payment:coins" text="Coins" disable_off="true"/>
             <check key="payment:notes" text="Notes" text_context="payment" disable_off="true"/>
             <check key="payment:telephone_cards" text="Telephone cards" disable_off="true"/>
+            <optional>
+                <reference ref="phone_booth_type"/>
+            </optional>
             <preset_link preset_name="Payment Methods"/>
         </item> <!-- Telephone -->
         <item name="Internet Access" icon="icons/png/amenity_internet.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10284,6 +10327,7 @@
             <link wiki="Tag:sport=boules"/>
             <space/>
             <key key="sport" value="boules"/>
+            <combo key="boules" text="Type" values="petanque,lyonnaise,bocce,boule_de_fort,breton" display_values="P&#xE9;tanque,Boule lyonnaise,Bocce,Boule de fort,Boule bretonne" text_context="sport"/>
             <reference ref="name_leisure_pitch"/>
             <reference ref="sport_surface"/>
         </item> <!-- Boule -->
@@ -10752,6 +10796,9 @@
             <link wiki="Tag:man_made=flagpole"/>
             <key key="man_made" value="flagpole"/>
             <combo key="flag:type" text="Type" values="advertising,athletic,governmental,military,municipal,national,organisation,regional,religious,signal" display_values="Advertising,Athletic,Governmental,Military,Municipal,National,Organisation,Regional,Religious,Signal" values_context="flag" match="keyvalue!" values_searchable="true"/>
+            <text key="flag:name" text="Name of the flag"/>
+            <text key="flag:wikidata" text="Flag wikidata entry" value_type="wikidata" match="none"/>
+            <text key="flag:wikipedia" text="Flag wikipedia entry" value_type="wikipedia" match="none"/>
         </item> <!-- Flagpole -->
         <item name="Cross" icon="icons/png/man_made_cross_12107.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=cross"/>
