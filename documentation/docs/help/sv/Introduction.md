@@ -1,8 +1,8 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"_
+_Innan vi börjar: de flesta skärmar har länkar i menyn till enhetens hjälpsystem som ger dig direkt tillgång till information som är relevant för det aktuella sammanhanget. Du kan enkelt navigera tillbaka till den här texten också. Om du har en större enhet, till exempel en surfplatta, kan du öppna hjälpsystemet i ett separat delat fönster. Alla hjälptexter och mer (FAQ, handledningar) finns också på [Vespuccis dokumentationswebbplats](https://vespucci.io/). Du kan även starta hjälpvisaren direkt på enheter som stöder genvägar genom att trycka länge på appikonen och välja "Hjälp"._
 
 # Vespucci introduktion
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
+Vespucci är en fullfjädrad OpenStreetMap-redigerare som stöder de flesta funktioner som skrivbordsredigerare erbjuder. Den har testats framgångsrikt på Googles Android 2.3 till 14.0 (versioner före 4.1 stöds inte längre) och olika AOSP-baserade varianter. En varning: även om mobila enheters funktioner har kommit ikapp sina skrivbordsrivaler, har särskilt äldre enheter mycket begränsat tillgängligt minne och tenderar att vara ganska långsamma. Du bör ta hänsyn till detta när du använder Vespucci och hålla till exempel de områden du redigerar till en rimlig storlek.
 
 ## Redigering med Vespucci
 
@@ -12,152 +12,153 @@ Beroende på skärmstorlek och ålder på enheten redigering åtgärder kan anti
 
 ### Nedladdning av OSM-data
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display eleven options:
+Välj antingen överföringsikonen ![Transfer](../images/menu_transfer.png) eller menyalternativet "Transfer". Detta visar elva alternativ:
 
-* **Upload data to OSM server...** - review and upload changes to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Review changes...** - review current changes
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory, including pending changes, and then download the area visible on the screen *(requires network connectivity)*
-* **Query Overpass...** - run a query against a Overpass API server *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Clear data** - remove any OSM data in memory, including pending changes.
-* **File...** - saving and loading OSM data to/from on device files.
-* **Tasks...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Ladda upp data till OSM-servern...** - granska och ladda upp ändringar till OpenStreetMap *(kräver autentisering)* *(kräver nätverksanslutning)*
+* **Granska ändringar...** - granska aktuella ändringar
+* **Ladda ner aktuell vy** - ladda ner området som syns på skärmen och sammanfoga det med befintlig data *(kräver nätverksanslutning eller offline-datakälla)*
+* **Rensa och ladda ner aktuell vy** - rensa all data i minnet, inklusive väntande ändringar, och ladda sedan ner området som syns på skärmen *(kräver nätverksanslutning)*
+* **Fråga efter Overpass...** - kör en fråga mot en Overpass API-server *(kräver nätverksanslutning)*
+* **Platsbaserad automatisk nedladdning** - ladda ner ett område runt den aktuella geografiska platsen automatiskt *(kräver nätverksanslutning eller offline-data)* *(kräver GPS)*
+* **Automatisk nedladdning av panorering och zoom** - ladda ner data för det aktuella kartområdet automatiskt *(kräver nätverksanslutning eller offline-data)* *(kräver GPS)*
+* **Uppdatera data** - ladda ner data för alla områden igen och uppdatera vad som finns i minne *(kräver nätverksanslutning)*
+* **Rensa data** - ta bort all OSM-data i minnet, inklusive väntande ändringar.
+* **Fil...** - spara och ladda OSM-data till/från filer på enheten.
+* **Uppgifter...** - ladda ner (automatiskt och manuellt) OSM-anteckningar och "buggar" från QA-verktyg (för närvarande OSMOSE) *(kräver nätverksanslutning)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Det enklaste sättet att ladda ner data till enheten är att zooma och panorera till den plats du vill redigera och sedan välja "Ladda ner aktuell vy". Du kan zooma med hjälp av gester, zoomknapparna eller volymkontrollknapparna på enheten. Vespucci bör då ladda ner data för den aktuella vyn. Ingen autentisering krävs för att ladda ner data till din enhet.
 
-In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md) so that dimming is always active.
+I upplåst läge kommer alla icke-nedladdade områden att vara nedtonade i förhållande till de nedladdade om du zoomar in tillräckligt mycket för att möjliggöra redigering. Detta är för att undvika att oavsiktligt lägga till dubbletter av objekt i områden som inte visas. I låst läge är nedtoning inaktiverad. Detta beteende kan ändras i [Avancerade inställningar](Advanced%20preferences.md) så att nedtoning alltid är aktiv.
 
-If you need to use a non-standard OSM API entry, or use [offline data](https://vespucci.io/tutorials/offline/) in _MapSplit_ format you can add or change entries via the _Configure..._ entry for the data layer in the layer control.
+Om du behöver använda en OSM API-post som inte är standard, eller använda [offlinedata](https://vespucci.io/tutorials/offline/) i _MapSplit_-format, kan du lägga till eller ändra poster via posten _Configure..._ för datalagret i lagerkontrollen.
 
 ### Redigering
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Lås, upplås, lägesväxling
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+För att undvika oavsiktliga redigeringar startar Vespucci i "låst" läge, ett läge som bara tillåter zoomning och förflyttning av kartan. Tryck på ikonen ![Låst](../images/locked.png) för att låsa upp skärmen. 
 
-A long press on the lock icon or the _Modes_ menu in the map display overflow menu will display a menu offering 4 options:
+Ett långt tryck på låsikonen eller _Lägen_-menyn i kartvisningens överflödesmeny visar en meny med 4 alternativ:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, new objects can be added via the green "+" button, or long press, but no other geometry operations are enabled. White lock icon with a "T" is displayed.
-* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normal** - standardredigeringsläget, nya objekt kan läggas till, befintliga redigeras, flyttas och tas bort. Enkel vit låsikon visas.
+* **Endast tagg** - om du väljer ett befintligt objekt startas egenskapsredigeraren. Nya objekt kan läggas till via den gröna "+"-knappen eller lång tryckning, men inga andra geometriska operationer är aktiverade. Vit låsikon med ett "T" visas.
+* **Adress** - aktiverar adressläget, ett något förenklat läge med specifika åtgärder tillgängliga från [Enkelt läge](../en/Simple%20actions.md) "+"-knappen. Vit låsikon med ett "A" visas.
+* **Inomhus** - aktiverar inomhusläget, se [Inomhusläge](#indoor). Vit låsikon med ett "I" visas.
+* **C-läge** - aktiverar C-läge, endast objekt som har en varningsflagga visas, se [C-läge](#c-läge). Vit låsikon med ett "C" visas.
 
-If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to _Address_ and _Indoor_ mode.
+Om du använder Vespucci på en Android-enhet som stöder genvägar (lång tryckning på appikonen) kan du börja direkt till _Adress_ och _Inomhus_ läge.
 
-#### Single tap, double tap, and long press
+#### Enkeltryckning, dubbeltryckning och långt tryck
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+21
+Som standard har valbara noder och vägar ett orange område runt sig som ungefär indikerar var du måste röra för att välja ett objekt. Du har tre alternativ:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md). This is only enabled if "Simple mode" is deactivated.
+* Enkelt tryck: Väljer objekt.
+* En isolerad nod/väg markeras omedelbart.
+* Om du däremot försöker välja ett objekt och Vespucci bestämmer att valet kan innebära flera objekt, visas en urvalsmeny där du kan välja det objekt du vill välja.
+* Valda objekt markeras i gult.
+* För mer information, se [Node vald](Node%20selected.md), [Väg vald](Way%20selected.md) och [Relation vald](Relation%20selected.md).
+* Dubbelt tryck: Starta [Flerval-läge](Multiselect.md)
+* Långt tryck: Skapar ett "korshår" som gör att du kan lägga till noder, se nedan och [Skapa nya objekt](Creating%20new%20objects.md). Detta är endast aktiverat om "Simple mode" är inaktiverat.
 
 Det är en bra strategi att zooma in om du försöker redigera ett område med hög täthet.
 
 Vespucci har ett bra "ångra/gör om" system så var inte rädd för att experimentera på din enhet, men vänligen ladda inte upp och spara ren testdata.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### Markera / Avmarkera (enkelt tryck och "valmeny")
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Peka på ett objekt för att välja och markera det. Om du pekar på skärmen i ett tomt område avmarkeras det. Om du har valt ett objekt och behöver välja något annat, peka bara på objektet i fråga. Du behöver inte avmarkera först. Ett dubbeltryck på ett objekt startar [Flervals-läge](Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Observera att om du försöker markera ett objekt och Vespucci bestämmer att markeringen kan innebära flera objekt (t.ex. en nod på en väg eller andra överlappande objekt) kommer en valmeny att visas: Tryck på objektet du vill markera så markeras objektet. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+Valda objekt markeras med en tunn gul ram. Den gula ramen kan vara svår att upptäcka, beroende på kartans bakgrund och zoomfaktor. När ett val har gjorts ser du ett meddelande som bekräftar valet.
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+När valet är klart ser du (antingen som knappar eller menyalternativ) en lista över funktioner som stöds för det valda objektet: För mer information, se [Nod vald](Node%20selected.md), [Väg vald](Way%20selected.md) och [Relation vald](Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Valda objekt: Redigera taggar
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+En andra tryckning på det valda objektet öppnar taggredigeraren och du kan redigera taggarna som är associerade med objektet.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+Observera att för överlappande objekt (t.ex. en nod på en väg) visas urvalsmenyn igen för andra gången. Om du väljer samma objekt visas taggredigeraren; om du väljer ett annat objekt markeras helt enkelt det andra objektet.
 
-#### Selected objects: Moving a Node or Way
+#### Valda objekt: Flytta en nod eller väg
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
+När du väl har valt ett objekt kan det flyttas. Observera att objekt bara kan dras/flyttas när de är markerade. Dra bara nära (dvs. inom toleranszonen för) det markerade objektet för att flytta det. Om du väljer det stora draområdet i [inställningar](Preferences.md) får du ett stort område runt den markerade noden som gör det enklare att placera objektet. 
 
-#### Adding a new Node/Point or Way 
+#### Lägga till en ny nod/punkt eller väg 
 
-On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+Vid första uppstarten startas appen i "Enkelt läge", detta kan ändras i huvudmenyn genom att avmarkera motsvarande kryssruta.
 
 ##### Enkelt läge
 
-Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
+Om du trycker på den stora gröna flytande knappen på kartskärmen visas en meny. När du har valt ett av alternativen blir du ombedd att trycka på skärmen på den plats där du vill skapa objektet. Panorering och zoom fortsätter att fungera om du behöver justera kartvyn. 
 
-See [Creating new objects in simple actions mode](Simple%20actions.md) for more information. Simple mode os the default for new installs.
+Se [Skapa nya objekt i läget för enkla åtgärder](Simple%20actions.md) för mer information. Enkelt läge är standardläget för nya installationer.
 
-##### Advanced (long press) mode
- 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), touch away from existing objects.
-* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+##### Avancerat läge (långt tryck)
 
-Once you can see the crosshair symbol, you have these options:
+Håll länge tryck där du vill att noden ska vara eller vägen ska börja. Du kommer att se ett svart "korshår"-symbol.
+* Om du vill skapa en ny nod (som inte är ansluten till ett objekt), tryck bort från befintliga objekt.
+* Om du vill förlänga en väg, tryck inom vägens "toleranszon" (eller en nod på vägen). Toleranszonen indikeras av områdena runt en nod eller väg.
 
-* _Normal press in the same place._
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+När du ser hårkorssymbolen har du följande alternativ:
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
+* _Normal tryckning på samma plats._
+ * Om hårkorset inte är nära en nod skapas en ny nod om du trycker på samma plats igen. Om du är nära en väg (men inte nära en nod) kommer den nya noden att vara på vägen (och ansluten till vägen).
+ * Om hårkorset är nära en nod (dvs. inom nodens toleranszon) markeras noden om du trycker på samma plats (och taggredigeraren öppnas. Ingen ny nod skapas. Åtgärden är densamma som valet ovan.
+* _Normal tryckning på en annan plats._ Om du trycker på en annan plats (utanför hårkorsetets toleranszon) läggs ett vägsegment till från den ursprungliga positionen till den aktuella positionen. Om hårkorset var nära en väg eller nod kommer det nya segmentet att anslutas till den noden eller vägen.
 
-You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
+Tryck bara på skärmen där du vill lägga till ytterligare noder på vägen. Avsluta genom att trycka på den sista noden två gånger. Om den sista noden finns på en väg eller nod kommer segmentet automatiskt att anslutas till vägen eller noden. 
+
+Du kan också använda ett menyalternativ: Se [Skapa nya objekt](Creating%20new%20objects.md) för mer information.
 
 #### Lägger till ett område
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+OpenStreetMap har för närvarande ingen objekttyp för "area" till skillnad från andra geodatasystem. Onlineredigeraren "iD" försöker skapa en areaabstraktion från de underliggande OSM-elementen, vilket fungerar bra under vissa omständigheter, men inte under andra. Vespucci försöker för närvarande inte göra något liknande, så du behöver veta lite om hur områden representeras:
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _stängda vägar (*polygoner")_: den enklaste och vanligaste områdesvarianten är vägar som har en gemensam första och sista nod som bildar en sluten "ring" (till exempel är de flesta byggnader av denna typ). Dessa är mycket enkla att skapa i Vespucci, anslut helt enkelt tillbaka till den första noden när du är klar med att rita området. Obs: tolkningen av den stängda vägen beror på dess taggning: till exempel om en stängd väg är taggad som en byggnad kommer den att betraktas som ett område, om den är taggad som en rondell kommer den inte att göra det. I vissa situationer där båda tolkningarna kan vara giltiga kan en "områdes"-tagg förtydliga den avsedda användningen.
+* _multi-polygoner_: vissa områden har flera delar, hål och ringar som inte kan representeras med bara en väg. OSM använder en specifik typ av relation (vårt generella objekt som kan modellera relationer mellan element) för att kringgå detta, en multi-polygon. En multi-polygon kan ha flera "yttre" ringar och flera "inre" ringar. Varje ring kan antingen vara en sluten väg som beskrivits ovan, eller flera individuella vägar som har gemensamma ändnoder. Medan stora multipolygoner är svåra att hantera med vilket verktyg som helst, är små inte svåra att skapa i Vespucci.
+* _kustlinjer_: för mycket stora objekt, kontinenter och öar, fungerar inte ens multipolygonmodellen på ett tillfredsställande sätt. För natural=coastline-vägar antar vi riktningsberoende semantik: landet ligger på vänster sida av vägen, vattnet på höger sida. En bieffekt av detta är att man i allmänhet inte bör vända riktningen på en väg med kustlinjemärkning. Mer information finns på [OSM-wikin](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Förbättra väg-geometri
 
-If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
+Om du zoomar in tillräckligt långt på en vald väg ser du ett litet "x" mitt i vägsegmenten som är tillräckligt långa. Om du drar "x" skapas en nod i vägen på den platsen. Obs: för att undvika att noder skapas av misstag är beröringstoleransområdet för denna operation ganska litet.
 
 #### Klipp ut, kopiera och klistra in
 
-You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+Du kan kopiera valda noder och vägar och sedan klistra in dem en eller flera gånger på en ny plats. Om du klipper ut dem behålls osm-ID och version, och kan därför bara klistras in en gång. För att klistra in, tryck länge på den plats du vill klistra in på (du kommer att se ett hårkors som markerar platsen). Välj sedan "Klistra in" från menyn.
 
 #### Effektivt lägga till adresser
 
-Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
+Vespucci stöder funktioner som effektiviserar adressmätning genom att förutsäga husnummer (vänster och höger sida av gatorna separat) och automatiskt lägga till _addr:street_- eller _addr:place_-taggar baserat på det senast använda värdet och närhet. I bästa fall gör detta det möjligt att lägga till en adress utan att behöva skriva någonting alls.   
 
-Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+Du kan lägga till taggarna genom att trycka på ![Adress](../images/address.png): 
 
-* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the property editor.
+* efter ett långt tryck (endast i icke-enkelt läge): Vespucci lägger till en nod på platsen och gör en bästa möjliga gissning av husnumret och lägger till adresstaggar som du nyligen har använt. Om noden finns på en byggnadskontur lägger den automatiskt till en "entrance=yes"-tagg till noden. Taggredigeraren öppnas för objektet i fråga och låter dig göra eventuella nödvändiga ytterligare ändringar.
+* i nod/väg-valda lägen: Vespucci lägger till adresstaggar som ovan och startar taggredigeraren.
+* i egenskapsredigeraren.
 
-To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
+För att lägga till enskilda adressnoder direkt i standardläget "Enkelt läge", växla till redigeringsläget "Adress" (håll ner låsknappen). "Lägg till adressnod" lägger sedan till en adressnod på platsen och om den finns på en byggnadskontur lägger du till en entrétagg till den enligt beskrivningen ovan.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+För att husnummerprediktion ska fungera krävs vanligtvis att minst två husnummer på varje sida av vägen anges. Ju fler siffror som finns i informationen, desto bättre.
 
-Consider using this with one of the [Auto-download](#download) modes.  
+Överväg att använda detta med ett av [Automatisk nedladdning](#nedladdning)-lägena.  
 
 #### Lägger till Sväng restriktioner
 
-Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
+Vespucci har ett snabbt sätt att lägga till svängbegränsningar. Om det behövs kommer den att dela upp vägar automatiskt och be dig att välja element igen. 
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
-* select "Add restriction" from the menu
-* select the "via" node or way (only possible "via" elements will have the touch area shown)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type
+* välj en väg med en huvudväg (svängbegränsningar kan bara läggas till huvudväg, om du behöver göra detta för andra vägar, använd det generiska läget "skapa relation")
+* välj "Lägg till begränsning" från menyn
+* välj noden eller vägen "via" (endast möjliga "via"-element kommer att få pekområdet visat)
+* välj vägen "till" (det är möjligt att gå tillbaka och ställa in "till"-elementet till "från"-elementet, Vespucci antar att du lägger till en begränsning av "ingen_u_sväng")
+* ange begränsningstyp
 
 ### Vespucci i "låst" läge
 
-When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+När det röda låset visas är alla åtgärder som inte är redigeringsåtgärder tillgängliga. Dessutom visar ett långt tryck på eller nära ett objekt skärmen med detaljerad information om det är ett OSM-objekt.
 
 ### Spara dina ändringar
 
@@ -165,157 +166,157 @@ When the red lock is displayed all non-editing actions are available. Additional
 
 Välj samma knapp eller menyalternativ du gjorde för nedladdning och välj nu "Skicka data till OSM-servern".
 
-Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.  
+Vespucci stöder OAuth 2, OAuth 1.0a-auktorisering och den klassiska användarnamn- och lösenordsmetoden. Sedan den 1 juli 2024 stöder standard OpenStreetMap API endast OAuth 2 och andra metoder är endast tillgängliga på privata installationer av API:et eller andra projekt som har återanvänt OSM-programvara.  
 
-Authorizing Vespucci to access your account on your behalf requires you to one time login with your display name and password. If your Vespucci install isn't authorized when you attempt to upload modified data you will be asked to login to the OSM website (over an encrypted connection). After you have logged on you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+Att ge Vespucci åtkomst till ditt konto åt dig kräver att du loggar in en gång med ditt visningsnamn och lösenord. Om din Vespucci-installation inte är auktoriserad när du försöker ladda upp ändrade data kommer du att bli ombedd att logga in på OSM-webbplatsen (via en krypterad anslutning). När du har loggat in kommer du att bli ombedd att ge Vespucci auktorisering att redigera med ditt konto. Om du vill eller behöver auktorisera OAuth-åtkomst till ditt konto innan du redigerar finns det ett motsvarande alternativ i menyn "Verktyg".
 
-If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
+Om du vill spara ditt arbete och inte har internetåtkomst kan du spara till en JOSM-kompatibel .osm-fil och antingen ladda upp den senare med Vespucci eller med JOSM. 
 
 #### Lös konfliktervid uppladdning
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
+Vespucci har en enkel konfliktlösare. Om du misstänker att det finns större problem med dina redigeringar, exportera dina ändringar till en .osc-fil ("Exportera" i menyn "Överför") och åtgärda och ladda upp dem med JOSM. Se den detaljerade hjälpen på [konfliktlösning](Conflict%20resolution.md).  
 
-### Nearby point-of-interest display
+### Visning av närliggande intressanta platser
 
-A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. 
+En närliggande sevärdhet kan visas genom att dra upp handtaget i mitten och överst i den nedre menyraden. 
 
-More information on this and other available functionality on the main display can be found here [Main map display](Main%20map%display.md).
+Mer information om detta och andra tillgängliga funktioner på huvudskärmen finns här [Huvudkartvisning](Main%20map%display.md).
 
 ## Använder GPS and GPX spår
 
-With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
+Med standardinställningarna kommer Vespucci att försöka aktivera GPS (och andra satellitbaserade navigationssystem) och återgå till att bestämma positionen via så kallad "nätverksplats" om detta inte är möjligt. Detta beteende förutsätter att du vid normal användning har din Android-enhet konfigurerad för att endast använda GPX-genererade platser (för att undvika spårning), det vill säga att du har det eufemistiskt namngivna alternativet "Förbättra platsnoggrannhet" avstängt. Om du vill aktivera alternativet men vill undvika att Vespucci återgår till "nätverksplats" bör du stänga av motsvarande alternativ i [Avancerade inställningar](Advanced%20preferences.md). 
 
-Touching the ![GPS](../images/menu_gps.png) button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+Om du trycker på knappen ![GPS](../images/menu_gps.png) (normalt till vänster i kartvisningen) centreras skärmen på den aktuella positionen och när du flyttar dig panoreras kartvisningen för att bibehålla denna. Om du flyttar skärmen manuellt eller redigerar den inaktiveras läget "följ GPS" och den blå GPS-pilen ändras från en kontur till en fylld pil. För att snabbt återgå till "följ"-läget trycker du bara på GPS-knappen eller markerar motsvarande menyalternativ igen. Om enheten inte har en aktuell plats visas platsmarkören/pilen i svart, om en aktuell plats är tillgänglig visas markören i blå.
 
-To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+För att spela in ett GPX-spår och visa det på din enhet, välj "Starta GPX-spår" i menyn ![GPS](../images/menu_gps.png). Detta lägger till ett lager i displayen med det aktuella inspelade spåret. Du kan ladda upp och exportera spåret från posten i [lagerkontroll](Main%20map%20display.md). Ytterligare lager kan läggas till från lokala GPX-filer och spår som laddats ner från OSM API.
 
-Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
+Obs: Som standard registrerar Vespucci inte höjddata med ditt GPX-spår, detta beror på vissa Android-specifika problem. För att aktivera höjdregistrering, installera antingen en gravitationsmodell eller, enklare, gå till [Avancerade inställningar](Advanced%20preferences.md) och konfigurera NMEA-ingången.
 
-### How to export a GPX track?
+### Hur exporterar man ett GPX-spår?
 
-Open the layer menu, then click the 3-dots menu next to "GPX recording", then select **Export GPX track...**. Choose in which folder to export the track, then give it a name suffixed with `.gpx` (example: MyTrack.gpx).
+Öppna lagermenyn, klicka sedan på 3-punktersmenyn bredvid "GPX-inspelning" och välj sedan **Exportera GPX-spår...**. Välj vilken mapp du vill exportera spåret till och ge det sedan ett namn med suffixet `.gpx` (exempel: MyTrack.gpx).
 
-## Notes, Bugs and Todos
+## Anteckningar, buggar och att-göra-uppgifter
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once. 
+Vespucci stöder nedladdning, kommentering och stängning av OSM-anteckningar (tidigare OSM-buggar) och motsvarande funktionalitet för "buggar" som produceras av [OSMOSE-kvalitetssäkringsverktyget](http://osmose.openstreetmap.fr/en/map/). Båda måste antingen laddas ner explicit eller så kan du använda den automatiska nedladdningsfunktionen för att komma åt objekten i ditt omedelbara område. När du har redigerat eller stängt kan du antingen ladda upp buggen eller anteckningen direkt eller ladda upp allt på en gång. 
 
-Further we support "Todos" that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete. 
+Vidare stöder vi "Todos" som antingen kan skapas från OSM-element, från ett GeoJSON-lager eller externt till Vespucci. Dessa ger ett bekvämt sätt att hålla reda på arbete som du vill slutföra. 
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.
+På kartan representeras anteckningar och buggar av en liten buggikon ![Bug](../images/bug_open.png), gröna är stängda/lösta, blå har skapats eller redigerats av dig, och gula indikerar att de fortfarande är aktiva och inte har ändrats. Att göra-det-själv-uppgifter använder en gul kryssruteikon.
 
-The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+OSMOSE-buggen och Att-göra-visningen visar en länk till det berörda elementet i blått (i fallet med Att-göra endast om ett OSM-element är associerat med det). Om du trycker på länken markeras objektet, skärmen centreras på det och området laddas ner i förväg om det behövs. 
 
 ### Filtrering
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
+Förutom att globalt aktivera visning av anteckningar och buggar kan du ställa in ett filter för grovkornig visning för att minska röran. Filterkonfigurationen kan nås från posten för aktivitetslagret i [lagerkontroll](#lager):
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
-* Maproulette
-* Todo
+* Anteckningar
+* Osmosfel
+* Osmosvarning
+* Mindre osmosproblem
+* Kartroulette
+* Att göra
 
 <a id="indoor"></a>
 
 ## Inomhus-läge
 
-Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
+Att kartlägga inomhus är utmanande på grund av det stora antalet objekt som ofta ligger över varandra. Vespucci har ett dedikerat inomhusläge som låter dig filtrera bort alla objekt som inte är på samma nivå och som automatiskt lägger till den aktuella nivån till nya objekt som skapas där.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Läget kan aktiveras genom att trycka länge på låsalternativet, se [Lås, upplås, lägesväxling] (#lock) och välja motsvarande menyalternativ.
 
 <a id="c-mode"></a>
 
 ## C-läge
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+I C-läge visas endast objekt som har en varningsflagga inställd. Detta gör det enkelt att identifiera objekt som har specifika problem eller matchar konfigurerbara kontroller. Om ett objekt väljs och egenskapsredigeraren startas i C-läge kommer den bäst matchande förinställningen automatiskt att tillämpas.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Läget kan aktiveras genom att trycka länge på låsalternativet, se [Lås, upplås, lägesväxling] (#lock) och välja motsvarande menyalternativ.
 
-### Configuring checks
+### Konfigurera kontroller
 
-All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the [preferences](Preferences.md). 
+Alla valideringar kan inaktiveras/aktiveras i "Valideringsinställningar/Aktiverade valideringar" i [inställningar](Preferences.md). 
 
-The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.
+Konfigurationen för "Ommätning"-poster låter dig ställa in en tid efter vilken en taggkombination ska mätas om. "Kontroll"-poster är taggar som ska finnas på objekt enligt matchande förinställningar. Poster kan redigeras genom att klicka på dem, den gröna menyknappen gör det möjligt att lägga till poster.
 
-#### Re-survey entries
+#### Återundersökningsposter
 
-Re-survey entries have the following properties:
+Omundersökningsposter har följande egenskaper:
 
-* **Key** - Key of the tag of interest.
-* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
+* **Nyckel** - Nyckeln till den aktuella taggen.
+* **Värde** - Värdet som taggen av intresse ska ha. Om det är tomt ignoreras taggvärdet.
+* **Ålder** - Hur många dagar efter att elementet senast ändrades ska elementet undersökas igen. Om en _check_date_-tagg finns kommer den att användas, annars datumet då den aktuella versionen skapades. Om värdet ställs in på noll kommer kontrollen helt enkelt att matcha mot nyckel och värde.
+* **Regulart uttryck** - om markerat antas **Värde** vara ett reguljärt JAVA-uttryck.
 
-**Key** and **Value** are checked against the _existing_ tags of the object in question.
+**Nyckel** och **Värde** kontrolleras mot de _existing_-taggarna för objektet i fråga.
 
-The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
+Gruppen _Annoteringar_ i standardförinställningarna innehåller ett objekt som automatiskt lägger till en _check_date_-tagg med aktuellt datum.
 
-#### Check entries
+#### Kontrollera poster
 
-Check entries have the following two properties:
+Kontrollposter har följande två egenskaper:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
+* **Nyckel** - Nyckel som ska finnas på objektet enligt den matchande förinställningen.
 
-This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+* **Kräv valfri** - Kräv nyckeln även om nyckeln finns i de valfria taggarna för den matchande förinställningen.
+
+Den här kontrollen fungerar genom att först fastställa den matchande förinställningen och sedan kontrollera om **Nyckel** är en "rekommenderad" nyckel för detta objekt enligt förinställningen. **Kräv valfri** utökar kontrollen till taggar som är "valfria* på objektet. Obs: för närvarande länkade förinställningar är inte markerade.
 
 ## Filter
 
 ### Tagbaserat filter
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
+Filtret kan aktiveras från huvudmenyn och sedan ändras genom att trycka på filterikonen. Mer dokumentation finns här [Tagfilter](Tag%20filter.md).
 
 ### Förinställt baserat filter
 
-An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
+Ett alternativ till ovanstående är att objekt filtreras antingen på individuella förinställningar eller på förinställningsgrupper. Om du trycker på filterikonen visas en dialogruta för val av förinställningar, liknande den som används på andra ställen i Vespucci. Enskilda förinställningar kan väljas med ett vanligt klick, förinställningsgrupper med ett långt klick (vanligt klick öppnar gruppen). Mer dokumentation finns här [Filter för förinställningar](Preset%20filter.md).
 
 ## Anpassa Vespucci
 
-Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
+Många aspekter av appen kan anpassas. Om du letar efter något specifikt och inte hittar det är [Vespuccis webbplats](https://vespucci.io/) sökbar och innehåller ytterligare information om vad som är tillgängligt på enheten.
 
 <a id="layers"></a>
 
-### Layer settings
+### Lagerinställningar
 
-Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
+Lagerinställningar kan ändras via lagerkontrollen ("hamburger"-menyn i det övre högra hörnet), alla andra inställningar nås via inställningsknappen i huvudmenyn. Lager kan aktiveras, inaktiveras och tillfälligt döljas.
 
-Available layer types:
+Tillgängliga lagertyper:
 
-* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
-* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
-* Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
-* GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.
-* GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.
-* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+* Datalager - detta är lagret som OpenStreetMap-data laddas in i. Vid normal användning behöver du inte ändra något här. Standard: på.
+* Bakgrundslager - det finns ett brett utbud av flyg- och satellitbilder tillgängliga som bakgrundsbilder. Standardvärdet för detta är kartan i "standardstil" från openstreetmap.org.
+* Överlagringslager - dessa är halvtransparenta lager med ytterligare information, till exempel kvalitetssäkringsinformation. Att lägga till ett överlagringslager kan orsaka problem med äldre enheter och liknande med begränsat minne. Standard: ingen.
+* Anteckningar/Buggvisning - Öppna anteckningar och buggar visas som en gul buggikon, stängda likadana i grönt. Standard: på.
+* Fotolager - Visar georefererade fotografier som röda kameraikoner. Om riktningsinformation är tillgänglig roteras ikonen. Standard: av.
+* Kartbildslager - Visar kartbildssegment med markörer där bilder finns. Om du klickar på en markör visas bilden. Standard: av.
+* GeoJSON-lager - Visar innehållet i en GeoJSON-fil. Flera lager kan läggas till från filer. Standard: ingen. * GPX-lager - Visar GPX-spår och vägpunkter. Flera lager kan läggas till från filer. Under inspelning visas det genererade GPX-spåret i ett separat lager. Standard: inget.
+* Rutnät - Visar en skala längs kartans sidor eller ett rutnät. Standard: på. 
 
-More information can be found in the section on the [map display](Main%20map%20display.md).
+Mer information finns i avsnittet om [kartvisning](Main%20map%20display.md).
 
-#### Preferences
+#### Inställningar
 
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Låt skärmen vara på. Standard: av.
+* Stort område för att dra noden. Att flytta noder på en enhet med pekinmatning är problematiskt eftersom dina fingrar kommer att dölja den aktuella positionen på skärmen. Att aktivera detta ger ett stort område som kan användas för att dra utanför mitten (markering och andra åtgärder använder fortfarande det normala området för pekfunktion). Standard: av.
 
-The full description can be found here [Preferences](Preferences.md)
+Den fullständiga beskrivningen finns här [Inställningar](Preferences.md)
 
 #### Avancerade inställningar
 
-* Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In _Auto_ mode we try to determine automatically if using full screen mode is sensible or not, setting it to _Force_ or _Never_ skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the _Auto_ mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: _Auto_.  
-* Node icons. Default: _on_.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+* Helskärmsläge. På enheter utan hårdvaruknappar kan Vespucci köras i helskärmsläge, det betyder att "virtuella" navigeringsknappar automatiskt döljs medan kartan visas, vilket ger mer utrymme på skärmen för kartan. Beroende på din enhet kan detta fungera bra eller inte. I _Auto_-läget försöker vi automatiskt avgöra om det är klokt att använda helskärmsläge eller inte. Om du ställer in det på _Force_ eller _Never_ hoppas den automatiska kontrollen över och helskärmsläget kommer alltid att användas respektive inte användas. På enheter som kör Android 11 eller senare kommer _Auto_-läget aldrig att aktivera helskärmsläge eftersom Androids gestnavigering erbjuder ett gångbart alternativ till det. Standard: _Auto_.
+* Nodikoner. Standard: _on_.
+* Visa alltid kontextmeny. När det är aktiverat visas kontextmenyn i varje valprocess. Avaktiverat visas menyn endast när inget entydigt val kan göras. Standard: av (brukade vara på).
+* Aktivera ljust tema. På moderna enheter är detta aktiverat som standard. Även om du kan aktivera det för äldre Android-versioner är det troligt att stilen blir inkonsekvent. 
 
-The full description can be found here [Advanced preferences](Advanced%20preferences.md)
+Den fullständiga beskrivningen finns här [Avancerade inställningar](Advanced%20preferences.md)
 
-## Reporting and Resolving Issues
+## Rapportera och lösa problem
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+Om Vespucci kraschar, eller om den upptäcker ett inkonsekvent tillstånd, kommer du att bli ombedd att skicka in kraschdumpen. Gör det om det händer, men bara en gång per specifik situation. Om du vill ge ytterligare feedback eller öppna ett ärende för en funktionsförfrågan eller liknande, gör det här: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). Funktionen "Ge feedback" från huvudmenyn öppnar ett nytt ärende och inkluderar relevant app- och enhetsinformation utan extra inmatning.
 
-If you are experiencing difficulties starting the app after a crash, you can try to start it in _Safe_ mode on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
+Om du har problem med att starta appen efter en krasch kan du prova att starta den i _Säkert_ läge på enheter som stöder genvägar: tryck länge på appikonen och välj sedan _Säkert_ från menyn. 
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [OpenStreetMap forum](https://community.openstreetmap.org).
+Om du vill diskutera något relaterat till Vespucci kan du antingen starta en diskussion på [OpenStreetMap-forumet](https://community.openstreetmap.org).
 
 

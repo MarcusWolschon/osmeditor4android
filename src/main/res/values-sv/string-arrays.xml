@@ -41,17 +41,6 @@
         <item>Höger</item>
         <item>Ingen</item>
     </string-array>
-    <string-array name="full_screen_preference_entries">
-        <item>Automatisk</item>
-        <item>Aldrig</item>
-        <item>Tvinga</item>
-        <item>Inget statusfält</item>
-    </string-array>
-    <string-array name="full_screen_preference_no_auto_entries">
-        <item>Aldrig</item>
-        <item>Tvinga</item>
-        <item>Inget statusfält</item>
-    </string-array>
     <string-array name="map_orientation_entries">
         <item>Automatisk</item>
         <item>Låst</item>
@@ -87,4 +76,22 @@
     <string name="authentication_basic_entry">Login - Lösenord</string>
     <string name="authentication_oauth1a_entry">OAuth 1a</string>
     <string name="authentication_oauth2_entry">OAuth 2</string>
+    <string name="licence_cc_by_4">Creative Commons Attribution 4.0</string>
+    <string name="licence_cc_by_3">Creative Commons Attribution 3.0</string>
+    <string name="licence_cc_by_sa_4">Creative Commons Attribution-ShareAlike 4.0</string>
+    <string name="licence_cc_by_sa_3">Creative Commons Attribution-ShareAlike 3.0</string>
+    <string name="licence_cc_zero">Creative Commons Zero</string>
+    <string name="licence_pd">Allmän egendom</string>
+    <string name="licence_gpl">GNU General Public License</string>
+    <string name="licence_mit">MIT-licens</string>
+    <string name="licence_bsd">BSD-licens</string>
+    <string name="licence_cc_by_4_short">CC BY 4.0</string>
+    <string name="licence_cc_by_3_short">CC BY 3.0</string>
+    <string name="licence_cc_by_sa_4_short">CC BY-SA 4.0</string>
+    <string name="licence_cc_by_sa_3_short">CC BY-SA 3.0</string>
+    <string name="licence_cc_zero_short">CC0</string>
+    <string name="licence_pd_short">PD</string>
+    <string name="licence_gpl_short">GPL</string>
+    <string name="licence_mit_short">MIT</string>
+    <string name="licence_bsd_short">BSD</string>
     </resources>

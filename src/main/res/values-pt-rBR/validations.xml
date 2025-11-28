@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Idade do objeto</item>
+        <item>Etiqueta FIXME</item>
+        <item>Etiquetas faltantes</item>
+        <item>Rodovia</item>
+        <item>Tipo sem relação</item>
+        <item>Unidade imperial desconhecida</item>
+        <item>Objeto inválido</item>
+        <item>Objeto sem etiqueta</item>
+        <item>Fim do nó não conectado</item>
+        <item>Degenerar caminho</item>
+        <item>Relação vazia</item>
+        <item>Membro da relação sem papel definido</item>
+        <item>Referência circular</item>
+        <item>Tipo de elemento não padronizado</item>
+    </string-array>
+    </resources>

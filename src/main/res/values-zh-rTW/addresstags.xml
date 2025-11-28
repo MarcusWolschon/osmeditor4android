@@ -2,6 +2,7 @@
 <resources>
   <string name="addr_housenumber">門牌號碼 (addr:housenumber)</string>
   <string name="addr_conscriptionnumber">兵籍號碼 (addr:conscriptionnumber)</string>
+  <string name="addr_housename">建築名稱 (addr:housename)</string>
   <string name="addr_street">道路 (addr:street)</string>
   <string name="addr_postcode">郵遞區號 (addr:postcode)</string>
   <string name="addr_city">城市/鎮/村落/... (addr:city)</string>
@@ -10,7 +11,7 @@
   <string name="addr_place">地名 (addr:place)</string>
   <string name="addr_block">街區 (addr:block)</string>
   <string name="addr_block_number">街區號碼 (addr:block_number)</string>
-  <string name="addr_parentstreet">額外的地方資訊 (addr:parenstreet)</string>
+  <string name="addr_parentstreet">額外在地化 (addr:parentstreet)</string>
   <string name="addr_hamlet">聚落 (addr:hamlet)</string>
   <string name="addr_suburb">效區 (addr:suburb)</string>
   <string name="addr_subdistrict">次分區 (addr:subdistrict)</string>

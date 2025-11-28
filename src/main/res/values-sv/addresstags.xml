@@ -2,6 +2,7 @@
 <resources>
   <string name="addr_housenumber">Husnummer (addr:housenumber)</string>
   <string name="addr_conscriptionnumber">Fältpostnummer (addr:consscriptionnumber)</string>
+  <string name="addr_housename">Husnamn (addr:housename)</string>
   <string name="addr_street">Gata (adds:street)</string>
   <string name="addr_postcode">Postnummer (addr:postcode)</string>
   <string name="addr_city">Postort (addr:city)</string>
@@ -10,7 +11,7 @@
   <string name="addr_place">Plats (addr:place)</string>
   <string name="addr_block">Kvarter (adds:block)</string>
   <string name="addr_block_number">Kvartersnummer (addr:block_number)</string>
-  <string name="addr_parentstreet">Ytterligare platsinformation (addr:parentstreet)</string>
+  <string name="addr_parentstreet">Extra lokalisering (addr:parentstreet)</string>
   <string name="addr_hamlet">Liten by (addr:hamlet)</string>
   <string name="addr_suburb">Förort (addr:suburb)</string>
   <string name="addr_subdistrict">Underdistrikt (adde:subdistrict)</string>
