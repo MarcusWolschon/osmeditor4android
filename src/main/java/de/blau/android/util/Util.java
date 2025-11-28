@@ -136,8 +136,8 @@ public final class Util {
         while (true) {
             boolean found = false;
             for (OsmElement w : unconnected) {
-                if (!Way.NAME.equals(w.getName())) {
-                    return null; // not all are ways
+                if (!(w instanceof Way) || ((Way)w).getNodes().isEmpty()) {
+                    return null; // not all are proper ways
                 }
                 // this is a bit complicated because we don't want to reverse ways just yet
                 Node firstNode1 = ((Way) result.get(0)).getFirstNode();
