@@ -194,6 +194,9 @@
 "amenity/cafe/coffee_shop":[
 "Кафеџилница"
 ],
+"amenity/cafe/teahouse":[
+"Чајџилница"
+],
 "amenity/car_pooling":[
 "Станица за заедничко автомобилско возење"
 ],
@@ -235,9 +238,6 @@
 ],
 "amenity/clock/sundial":[
 "Сончев часовник"
-],
-"amenity/college":[
-"Средношколски двор"
 ],
 "amenity/community_centre":[
 "Месна заедница"
@@ -283,6 +283,9 @@
 ],
 "amenity/dentist":[
 "Забар"
+],
+"amenity/device_charging_station":[
+"Постројка за полнење уреди"
 ],
 "amenity/dive_centre":[
 "Нуркачки центар"
@@ -389,9 +392,6 @@
 "amenity/driver_training":[
 "Автошколски полигон"
 ],
-"amenity/driving_school":[
-"Автоучилиште"
-],
 "amenity/embassy":[
 "Амбасада"
 ],
@@ -478,7 +478,7 @@
 "Даровница"
 ],
 "amenity/grave_yard":[
-"Гробишта"
+"Гробиштен двор"
 ],
 "amenity/grit_bin":[
 "Кутија за попескување"
@@ -506,14 +506,8 @@
 "amenity/karaoke_box":[
 "Просторија за караоке"
 ],
-"amenity/kindergarten":[
-"Двор на детска градинка"
-],
 "amenity/kneipp_water_cure":[
 "Кнајпова хидротерапија"
-],
-"amenity/language_school":[
-"Училиште за јазици"
 ],
 "amenity/lavoir":[
 "Пералница"
@@ -556,9 +550,6 @@
 ],
 "amenity/motorcycle_rental":[
 "Изнајмување мотоцикли"
-],
-"amenity/music_school":[
-"Музичко училиште"
 ],
 "amenity/nightclub":[
 "Ноќен клуб"
@@ -661,9 +652,6 @@
 ],
 "amenity/post_office":[
 "Пошта"
-],
-"amenity/prep_school":[
-"Подготвително училиште"
 ],
 "amenity/prison":[
 "Затворски двор"
@@ -800,9 +788,6 @@
 "amenity/sanitary_dump_station":[
 "Исфрлање трајлерски фекалии"
 ],
-"amenity/school":[
-"Училиштен двор"
-],
 "amenity/shelter":[
 "Засолниште"
 ],
@@ -919,9 +904,6 @@
 ],
 "amenity/trolley_bay":[
 "Остава за колички"
-],
-"amenity/university":[
-"Универзитетски двор"
 ],
 "amenity/vacuum_cleaner":[
 "Постројка за правосмукање"
@@ -1421,7 +1403,7 @@
 "Подвижен дом"
 ],
 "building/sty":[
-"Кочина"
+"Свињарник"
 ],
 "building/synagogue":[
 "Синагога"
@@ -1455,6 +1437,15 @@
 ],
 "cemetery/sector":[
 "Гробишна парцела"
+],
+"climbing/crag":[
+"Спила за искачување"
+],
+"climbing/route":[
+"Искачувачки правец"
+],
+"climbing/route_bottom":[
+"Почеток на искачувачкиот правец"
 ],
 "club":[
 "Клуб"
@@ -1648,6 +1639,39 @@
 "disused/shop":[
 "Напуштена продавница"
 ],
+"education":[
+"Образовна установа"
+],
+"education/college":[
+"Средношколски двор"
+],
+"education/dancing_school":[
+"Танцово училиште"
+],
+"education/driving_school":[
+"Автоучилиште"
+],
+"education/kindergarten":[
+"Двор на детска градинка"
+],
+"education/language_school":[
+"Училиште за јазици"
+],
+"education/music_school":[
+"Музичко училиште"
+],
+"education/prep_school":[
+"Подготвително училиште"
+],
+"education/school":[
+"Училиштен двор"
+],
+"education/university":[
+"Универзитетски двор"
+],
+"education/yes":[
+"Образовна установа (неукажан вид)"
+],
 "embankment":[
 "Кеј"
 ],
@@ -1662,12 +1686,6 @@
 ],
 "emergency/defibrillator":[
 "Дефибрилатор"
-],
-"emergency/designated":[
-"Означен итен пристап"
-],
-"emergency/destination":[
-"Итно одредиште"
 ],
 "emergency/disaster_response":[
 "Станица за справување со катастрофи"
@@ -1713,17 +1731,8 @@
 "emergency/mountain_rescue":[
 "Планинарска спасителна служба"
 ],
-"emergency/no":[
-"Итен пристап бр."
-],
-"emergency/official":[
-"Итен пристап за службени лица"
-],
 "emergency/phone":[
 "Итен телефон"
-],
-"emergency/private":[
-"Приватен итен пристап"
 ],
 "emergency/siren":[
 "Сирена"
@@ -1736,9 +1745,6 @@
 ],
 "emergency/water_tank":[
 "Водосклад за вонредни состојби"
-],
-"emergency/yes":[
-"Има итен пристап"
 ],
 "entrance":[
 "Влез/излез"
@@ -2160,7 +2166,10 @@
 "Месен/некатегоризиран пат"
 ],
 "historic":[
-"Историска месност"
+"Историско место"
+],
+"historic/aircraft":[
+"Историски воздухоплов"
 ],
 "historic/archaeological_site":[
 "Археолошко наоѓалиште"
@@ -2197,6 +2206,9 @@
 ],
 "historic/memorial":[
 "Паметник"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Сина спомен-плоча"
 ],
 "historic/memorial/plaque":[
 "Спомен-плоча"
@@ -2267,6 +2279,9 @@
 "landuse/aquaculture":[
 "Рибник"
 ],
+"landuse/aquaculture/fish":[
+"Рибник / Мрестилиште"
+],
 "landuse/basin":[
 "Слив"
 ],
@@ -2295,7 +2310,7 @@
 "Земјоделска површина"
 ],
 "landuse/farmyard":[
-"Селски двор"
+"Селскостопански двор"
 ],
 "landuse/flowerbed":[
 "Цветна леа"
@@ -2419,9 +2434,6 @@
 ],
 "leisure/dance":[
 "Сала за игранки"
-],
-"leisure/dancing_school":[
-"Танцово училиште"
 ],
 "leisure/disc_golf_course":[
 "Терен за дикс-голф"
@@ -2603,7 +2615,7 @@
 "Игралиште за боќање"
 ],
 "leisure/pitch/bowls":[
-"Терен за боќање"
+"Терен за боулс"
 ],
 "leisure/pitch/chess":[
 "Џиновска шаховска табла"
@@ -2817,6 +2829,15 @@
 "man_made/carpet_hanger":[
 "Шипка за тепих"
 ],
+"man_made/ceremonial_gate":[
+"Церемонијална порта"
+],
+"man_made/ceremonial_gate/paifang":[
+"Пајфанг"
+],
+"man_made/ceremonial_gate/torii":[
+"Тори"
+],
 "man_made/charge_point":[
 "Полнач за електрични возила"
 ],
@@ -3023,9 +3044,6 @@
 ],
 "man_made/telescope/radio":[
 "<преведете со истозначници или сродни поими на „Радиотелескоп“, одделени со запирки>"
-],
-"man_made/torii":[
-"тории"
 ],
 "man_made/tower":[
 "Кула"
@@ -4359,6 +4377,9 @@
 "shop/mobile_phone":[
 "Мобилара"
 ],
+"shop/mobile_phone_accessories":[
+"Мобилара за додатоци"
+],
 "shop/model":[
 "Моделарска продавница"
 ],
@@ -4752,6 +4773,9 @@
 "traffic_sign/variable_message":[
 "Знак со променливи известувања"
 ],
+"type/associatedStreet":[
+"Назначена улица"
+],
 "type/boundary":[
 "Граница"
 ],
@@ -4815,6 +4839,9 @@
 "type/route/bus":[
 "Автобуски патен правец"
 ],
+"type/route/climbing":[
+"Искачувачки правец"
+],
 "type/route/detour":[
 "Заобиколен патен правец"
 ],
@@ -4871,6 +4898,12 @@
 ],
 "type/site":[
 "Месност"
+],
+"type/site/climbing/area":[
+"Подрачје за искачување"
+],
+"type/site/climbing/crag":[
+"Спила за искачување"
 ],
 "type/waterway":[
 "Воден пат"

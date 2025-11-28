@@ -35,9 +35,6 @@
 "amenity/clinic":[
 "ክሊኒክ"
 ],
-"amenity/college":[
-"ኮሌጅ"
-],
 "amenity/community_centre":[
 "የማህበረሰብ ማዕከል"
 ],
@@ -49,9 +46,6 @@
 ],
 "amenity/doctors":[
 "ክሊኒክ"
-],
-"amenity/driving_school":[
-"የመኪና ትምህርት ቤት"
 ],
 "amenity/embassy":[
 "ኤምባሲ"
@@ -71,17 +65,11 @@
 "amenity/ice_cream":[
 "አይስ ክሬም"
 ],
-"amenity/kindergarten":[
-"ሕፃናት መዋያ"
-],
 "amenity/library":[
 "ቤተ-መፃሕፍት"
 ],
 "amenity/marketplace":[
 "የገበያ ቦታ"
-],
-"amenity/music_school":[
-"የሙዚቃ ትምህርት ቤት"
 ],
 "amenity/nightclub":[
 "የምሽት ክለብ"
@@ -107,9 +95,6 @@
 "amenity/restaurant":[
 "ምግብ ቤት"
 ],
-"amenity/school":[
-"ትምህርት ቤት"
-],
 "amenity/studio":[
 "ስቱዲዮ"
 ],
@@ -121,9 +106,6 @@
 ],
 "amenity/theatre":[
 "ቲያትር ቤት"
-],
-"amenity/university":[
-"ዩኒቨርሲቲ"
 ],
 "amenity/veterinary":[
 "የእንስሳት መድሃኒት ቤት"

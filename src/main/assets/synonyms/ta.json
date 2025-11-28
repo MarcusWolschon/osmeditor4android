@@ -82,9 +82,6 @@
 "குடிநீர்",
 "ஊற்று"
 ],
-"amenity/driving_school":[
-"ஓட்டுநர் பள்ளி"
-],
 "amenity/embassy":[
 "தூதரகம்"
 ],
@@ -101,9 +98,6 @@
 "amenity/hospital":[
 "மருத்துவமனை"
 ],
-"amenity/language_school":[
-"மொழிப் பள்ளி"
-],
 "amenity/library":[
 "புத்தகச்சாலை"
 ],
@@ -112,9 +106,6 @@
 ],
 "amenity/motorcycle_parking":[
 "ஈருருளை நிறுத்துமிடம்"
-],
-"amenity/music_school":[
-"இசைப் பள்ளி"
 ],
 "amenity/nightclub":[
 "டிஸ்கோ",
@@ -213,9 +204,6 @@
 "amenity/restaurant/vietnamese":[
 "வியட்நாமியர் உணவுவிடுதி"
 ],
-"amenity/school":[
-"பள்ளி மைதானம்"
-],
 "amenity/shelter":[
 "புகலிடம்"
 ],
@@ -235,9 +223,6 @@
 "கிராமம்",
 "நீதிமன்றம்",
 "அரசு"
-],
-"amenity/university":[
-"பல்கலைக்கழகத் திடல்"
 ],
 "amenity/vending_machine/condoms":[
 "ஆணுறை",
@@ -459,9 +444,6 @@
 ],
 "leisure/common":[
 "பொதுவான"
-],
-"leisure/dancing_school":[
-"நடனப் பள்ளி"
 ],
 "leisure/garden":[
 "தோட்டம்"

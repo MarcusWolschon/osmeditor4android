@@ -251,9 +251,6 @@
 "amenity/drinking_water":[
 "Drikkevann"
 ],
-"amenity/driving_school":[
-"Trafikkskole"
-],
 "amenity/embassy":[
 "Ambassade"
 ],
@@ -332,12 +329,6 @@
 "amenity/internet_cafe":[
 "Internettkafé"
 ],
-"amenity/kindergarten":[
-"Førskole- / Barnehageområde"
-],
-"amenity/language_school":[
-"Språkskole"
-],
 "amenity/lavoir":[
 "Vaskehus"
 ],
@@ -364,9 +355,6 @@
 ],
 "amenity/motorcycle_parking":[
 "Motorsykkelparkering"
-],
-"amenity/music_school":[
-"Musikkskole"
 ],
 "amenity/nightclub":[
 "Nattklubb"
@@ -572,9 +560,6 @@
 "amenity/sanitary_dump_station":[
 "Bobil-tømmestasjon"
 ],
-"amenity/school":[
-"Skoleområde"
-],
 "amenity/shelter":[
 "Skur"
 ],
@@ -649,9 +634,6 @@
 ],
 "amenity/toy_library":[
 "Lekebibliotek"
-],
-"amenity/university":[
-"Universitetsområde"
 ],
 "amenity/vending_machine":[
 "Automat"
@@ -1266,9 +1248,6 @@
 "emergency/defibrillator":[
 "Defibrillator"
 ],
-"emergency/designated":[
-"Dedikert nødtilgang"
-],
 "emergency/fire_alarm":[
 "Brannalarm-telefonboks"
 ],
@@ -1293,20 +1272,11 @@
 "emergency/lifeguard":[
 "Livvakt"
 ],
-"emergency/no":[
-"Nødtilgang nei"
-],
-"emergency/official":[
-"Nødtilgang offisiell"
-],
 "emergency/phone":[
 "Nødtelefon"
 ],
 "emergency/siren":[
 "Sirene"
-],
-"emergency/yes":[
-"Nødtilgang ja"
 ],
 "entrance":[
 "Inngang / Utgang"
@@ -1842,9 +1812,6 @@
 ],
 "leisure/dance":[
 "Dansesal"
-],
-"leisure/dancing_school":[
-"Danseskole"
 ],
 "leisure/disc_golf_course":[
 "Diskgolfbane"

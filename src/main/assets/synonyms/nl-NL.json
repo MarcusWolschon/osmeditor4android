@@ -446,18 +446,6 @@
 "zonnetijd",
 "Zonnewijzer"
 ],
-"amenity/college":[
-"Campus van beroepsschool",
-"buso",
-"speciaal onderwijs",
-"vmbo",
-"middelbaar",
-"secundair onderwijs",
-"onderwijs",
-"buo",
-"bso",
-"bijzonder onderwijs"
-],
 "amenity/community_centre":[
 "feestzaal",
 "parochiezaal",
@@ -746,13 +734,6 @@
 "rijles",
 "slipcursus"
 ],
-"amenity/driving_school":[
-"autorijschool",
-"autoschool",
-"Rijschool",
-"rijinstructeur",
-"rijlessen"
-],
 "amenity/embassy":[
 "Ambassade"
 ],
@@ -975,20 +956,11 @@
 "karaoke",
 "Karaokehokje"
 ],
-"amenity/kindergarten":[
-"Gebied van Crèche/Kleuterschool"
-],
 "amenity/kneipp_water_cure":[
 "kneipp",
 "voetbad",
 "Kneipp-faciliteit",
 "hydrotherapie"
-],
-"amenity/language_school":[
-"school",
-"Taalschool",
-"vertalen",
-"taal"
 ],
 "amenity/lavoir":[
 "wasserij",
@@ -1091,11 +1063,6 @@
 "moto",
 "Motorfietsverhuur"
 ],
-"amenity/music_school":[
-"conservatorium",
-"Muziekschool",
-"muziekacademie"
-],
 "amenity/nightclub":[
 "dancing",
 "bar",
@@ -1161,8 +1128,8 @@
 ],
 "amenity/parking_space":[
 "individuele parkeerplaats",
-"Parkeerplaats",
-"parkeervak"
+"parkeervak",
+"Parkeervak"
 ],
 "amenity/parking_space/disabled":[
 "Gehandicaptenparkeerplaats"
@@ -1305,12 +1272,6 @@
 "postbus",
 "postnl",
 "posterijen"
-],
-"amenity/prep_school":[
-"Studiebegeleiding",
-"huiswerk",
-"begeleiding",
-"voorbereidingsschool"
 ],
 "amenity/prison":[
 "Gevangenisgebied",
@@ -1610,16 +1571,6 @@
 "beerput",
 "zwerfwagen"
 ],
-"amenity/school":[
-"school",
-"basisschool",
-"secundair onderwijs",
-"middelbaar",
-"Schoolgebied",
-"onderwijs",
-"voortgezet onderwijs",
-"lager onderwijs"
-],
 "amenity/shelter":[
 "beschutting",
 "bescherming",
@@ -1871,12 +1822,6 @@
 "opstelplaats",
 "winkelwagen",
 "terugbrengen"
-],
-"amenity/university":[
-"hogeschool",
-"onderwijs",
-"universiteit",
-"hoger onderwijs"
 ],
 "amenity/vacuum_cleaner":[
 "stofzuiger",
@@ -3254,12 +3199,6 @@
 "reanimeren",
 "Defibrillator"
 ],
-"emergency/designated":[
-"Toegang voor hulpdiensten: geadviseerd"
-],
-"emergency/destination":[
-"Toegang voor hulpdiensten: bestemmingsverkeer"
-],
 "emergency/disaster_response":[
 "hulpverlening",
 "rampenhulpverlening",
@@ -3337,18 +3276,9 @@
 "reddingsdienst",
 "redding"
 ],
-"emergency/no":[
-"Toegang voor hulpdiensten: nee"
-],
-"emergency/official":[
-"Toegang voor hulpdiensten: officiële voorkeursweg"
-],
 "emergency/phone":[
 "noodtelefoon",
 "Praatpaal"
-],
-"emergency/private":[
-"Toegang voor hulpdiensten: privé"
 ],
 "emergency/siren":[
 "luchtalarm",
@@ -3383,9 +3313,6 @@
 "wateropslag",
 "reservoir",
 "Noodwatertank"
-],
-"emergency/yes":[
-"Toegang voor hulpdiensten: ja"
 ],
 "entrance":[
 "deur",
@@ -4245,6 +4172,9 @@
 "gedenkteken",
 "Gedenkteken"
 ],
+"historic/memorial/blue_plaque-GB-IE":[
+"Blue plaque"
+],
 "historic/memorial/plaque":[
 "bord",
 "Gedenkplaat",
@@ -4666,12 +4596,6 @@
 "tango",
 "Danszaal",
 "jive"
-],
-"leisure/dancing_school":[
-"conservatorium",
-"Dansschool",
-"dansconservatorium",
-"dansonderwijs"
 ],
 "leisure/disc_golf_course":[
 "disk",
@@ -5546,12 +5470,6 @@
 "man_made/telescope/radio":[
 "Radiotelescoop"
 ],
-"man_made/torii":[
-"Torii",
-"vogelzitstok",
-"japanse poort",
-"shintō schrijn"
-],
 "man_made/tower":[
 "Toren"
 ],
@@ -5763,12 +5681,8 @@
 "talud"
 ],
 "natural/scrub":[
-"savanne",
-"Scrubland",
-"pampa",
-"ruigte",
-"kreupelhout",
-"prairie"
+"struik",
+"Struik"
 ],
 "natural/shingle":[
 "Kiezelstrand"

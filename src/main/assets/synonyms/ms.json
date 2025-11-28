@@ -29,9 +29,6 @@
 "amenity/doctors":[
 "Doktor"
 ],
-"amenity/driving_school":[
-"Sekolah Memandu"
-],
 "amenity/embassy":[
 "Kedutaan Besar"
 ],
@@ -62,9 +59,6 @@
 "amenity/motorcycle_parking":[
 "parkir motosikal",
 "Tempat Letak Motosikal"
-],
-"amenity/music_school":[
-"Sekolah Muzik"
 ],
 "amenity/nightclub":[
 "Kelab Malam"
@@ -132,9 +126,6 @@
 "amenity/restaurant/vietnamese":[
 "Restoran Vietnam"
 ],
-"amenity/school":[
-"Kawasan Sekolah"
-],
 "amenity/shelter":[
 "Tempat Berlindung"
 ],
@@ -152,9 +143,6 @@
 ],
 "amenity/townhall":[
 "Dewan Perbandaran"
-],
-"amenity/university":[
-"Kawasan Universiti"
 ],
 "amenity/vending_machine":[
 "Mesin Layan Diri"

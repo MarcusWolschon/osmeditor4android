@@ -377,6 +377,15 @@
 "cafeteria",
 "Cafeteria"
 ],
+"amenity/cafe/teahouse":[
+"tea",
+"té",
+"estabelecimento",
+"loja",
+"chás",
+"Salão de chá",
+"ervas"
+],
 "amenity/car_pooling":[
 "Estação de carona solidária",
 "estação de carona solidária"
@@ -473,12 +482,6 @@
 "amenity/clock/sundial":[
 "Relógio de sol",
 "relógio de sol"
-],
-"amenity/college":[
-"ensino profissionalizante",
-"Escola técnica",
-"educação profissional",
-"colégio técnico"
 ],
 "amenity/community_centre":[
 "centro social",
@@ -900,13 +903,6 @@
 "Área de treinamento de megulho",
 "treino"
 ],
-"amenity/driving_school":[
-"escola de direção",
-"Auto escola",
-"escola de motoristas",
-"autoescola",
-"auto-escola"
-],
 "amenity/embassy":[
 "Embaixada"
 ],
@@ -1181,22 +1177,12 @@
 "caixa de karaokê",
 "Caixa de Karaokê"
 ],
-"amenity/kindergarten":[
-"pré-escola",
-"educação infantil",
-"escola de educação infantil",
-"Escola de educação infantil"
-],
 "amenity/kneipp_water_cure":[
 "kneipp",
 "banho",
 "Espaço de terapia Kneipp",
 "kneippismo",
 "hidroterapia"
-],
-"amenity/language_school":[
-"escola de idiomas",
-"Escola de idiomas"
 ],
 "amenity/lavoir":[
 "lavadeiro",
@@ -1278,14 +1264,6 @@
 "amenity/motorcycle_rental":[
 "Aluguel de motocicleta",
 "aluguel de motocicleta"
-],
-"amenity/music_school":[
-"ensino de música",
-"escola musical",
-"escola de instrumentos musicais",
-"escola de canto",
-"aulas de música",
-"Escola de Música"
 ],
 "amenity/nightclub":[
 "Boate",
@@ -1502,13 +1480,6 @@
 "transporte",
 "encomendas",
 "cargas"
-],
-"amenity/prep_school":[
-"escola de preparação",
-"escola",
-"tutoring school",
-"teste prep",
-"Escola de preparação para exames"
 ],
 "amenity/prison":[
 "cadeia",
@@ -1834,17 +1805,6 @@
 "despejo de banheiro",
 "Ponto de descarga de dejetos (para trailers)"
 ],
-"amenity/school":[
-"educação",
-"área escolar",
-"instituição de ensino",
-"colégio",
-"ensino fundamental",
-"ensino médio",
-"terreno escolar",
-"pátio escolar",
-"Escola"
-],
 "amenity/shelter":[
 "abrigo",
 "abrigo contra intempéries",
@@ -1858,10 +1818,10 @@
 "amenity/shelter/lean_to":[
 "abrigo",
 "cobertura",
+"Abrigo aberto",
 "montanha",
 "teto",
-"puxadinho",
-"Quiosque"
+"puxadinho"
 ],
 "amenity/shelter/picnic_shelter":[
 "Abrigo para piquenique",
@@ -2100,13 +2060,6 @@
 "Baia de carrinhos de supermercado",
 "shopping",
 "trolley"
-],
-"amenity/university":[
-"área de faculdade",
-"área de universidade",
-"centro universitário",
-"faculdade",
-"Universidade ou faculdade"
 ],
 "amenity/vacuum_cleaner":[
 "estação de aspiração",
@@ -3266,6 +3219,37 @@
 "sector",
 "jazigo"
 ],
+"climbing/crag":[
+"climb",
+"cordas",
+"escalar",
+"rocha",
+"rappel",
+"Escalada de rochedo escarpado",
+"rochedo",
+"subida",
+"crag",
+"rapel",
+"climbing"
+],
+"climbing/route":[
+"escalar",
+"route",
+"percurso",
+"rappel",
+"Rota de escalada",
+"rapel",
+"climbing"
+],
+"climbing/route_bottom":[
+"Início da rota de escalada",
+"route",
+"começo",
+"percurso",
+"trajeto",
+"climbing",
+"princípio"
+],
 "club":[
 "maçonaria",
 "moto clube",
@@ -3624,6 +3608,99 @@
 "disused/shop":[
 "Loja em desuso"
 ],
+"education":[
+"aprendizagem",
+"alunos",
+"aulas",
+"estudantes",
+"formar",
+"teaching",
+"training",
+"estudar",
+"treino",
+"educar",
+"educação",
+"aprender",
+"Instituição de ensino",
+"formação",
+"escolar",
+"estudo"
+],
+"education/dancing_school":[
+"dança",
+"jazz",
+"bachata",
+"ballet",
+"escola de dança",
+"salsa",
+"baile",
+"swing",
+"balé",
+"Escola de dança",
+"tango",
+"forró",
+"samba"
+],
+"education/driving_school":[
+"escola de direção",
+"Autoescola",
+"escola de motoristas",
+"autoescola",
+"auto-escola"
+],
+"education/kindergarten":[
+"pré-escola",
+"educação infantil",
+"Creche/Centro de educação infantil",
+"escola de educação infantil",
+"jardim de infância"
+],
+"education/language_school":[
+"idiomas",
+"línguas",
+"escola",
+"Escola de idiomas",
+"language",
+"idiom"
+],
+"education/music_school":[
+"ensino de música",
+"escola musical",
+"escola de instrumentos musicais",
+"escola de canto",
+"aulas de música",
+"Escola de música"
+],
+"education/prep_school":[
+"escola de preparação",
+"escola",
+"cursinho",
+"tutoring school",
+"teste prep",
+"kumon",
+"Escola de preparação para exames"
+],
+"education/school":[
+"educação",
+"área escolar",
+"instituição de ensino",
+"colégio",
+"ensino fundamental",
+"ensino médio",
+"terreno escolar",
+"pátio escolar",
+"Escola"
+],
+"education/university":[
+"área de faculdade",
+"área de universidade",
+"centro universitário",
+"faculdade",
+"Universidade"
+],
+"education/yes":[
+"Instituição de ensino (tipo não especificado)"
+],
 "embankment":[
 "Aterro Elevado"
 ],
@@ -3648,12 +3725,6 @@
 "dea",
 "Desfibrilador",
 "desfibrilador automático externo"
-],
-"emergency/designated":[
-"Acesso de Emergência Designado"
-],
-"emergency/destination":[
-"Acesso de emergência como destino"
 ],
 "emergency/disaster_response":[
 "protecção",
@@ -3763,18 +3834,9 @@
 "resgate na montanha",
 "Resgate na montanha"
 ],
-"emergency/no":[
-"Acesso de Emergência Não Permitido"
-],
-"emergency/official":[
-"Acesso de emergência oficial"
-],
 "emergency/phone":[
 "telefone de emergência",
 "Telefone de emergência"
-],
-"emergency/private":[
-"Acesso de Emergência Privado"
 ],
 "emergency/siren":[
 "sirene",
@@ -3804,9 +3866,6 @@
 "tanque de água de emergência",
 "Tanque de água de emergência"
 ],
-"emergency/yes":[
-"Acesso de Emergência"
-],
 "entrance":[
 "entrada / saída",
 "Entrada / Saída"
@@ -3827,7 +3886,14 @@
 "entrada principal"
 ],
 "entrance/shop":[
-"Entrada de loja"
+"principal",
+"shop",
+"Entrada de loja",
+"entrada",
+"estabelecimento",
+"loja",
+"entrance",
+"porta"
 ],
 "entrance/staircase":[
 "Entrada com escadaria",
@@ -4774,6 +4840,18 @@
 "patrimônio",
 "turismo"
 ],
+"historic/aircraft":[
+"plane",
+"antigo",
+"aircraft",
+"aviões",
+"voo",
+"memorial",
+"Avião histórico",
+"voar",
+"avião",
+"aparelho voador"
+],
 "historic/archaeological_site":[
 "arqueologia",
 "Sítio arqueológico",
@@ -4856,6 +4934,13 @@
 "monumento comemorativo",
 "memorial",
 "Memorial"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"plaque",
+"blue",
+"Placa azul (UK)",
+"azul",
+"placa"
 ],
 "historic/memorial/plaque":[
 "placa comemorativa",
@@ -5348,17 +5433,6 @@
 "salão de dança",
 "boate",
 "salsa"
-],
-"leisure/dancing_school":[
-"baile",
-"swing",
-"dança",
-"jazz",
-"tango",
-"escola de dança",
-"forró",
-"Escola de Dança",
-"samba"
 ],
 "leisure/disc_golf_course":[
 "Percurso de golfe de disco",
@@ -6812,11 +6886,6 @@
 "telescopio",
 "radio"
 ],
-"man_made/torii":[
-"torii",
-"tori",
-"Torii"
-],
 "man_made/tower":[
 "Torre",
 "torre"
@@ -7136,8 +7205,19 @@
 "Arbustos"
 ],
 "natural/shingle":[
-"telha",
-"Telha"
+"margem de rio",
+"praia com seixos",
+"Seixos",
+"fragmentos",
+"praia",
+"pedras",
+"praia de seixos",
+"encosta seixosa",
+"cascalho",
+"encosta de seixos",
+"pedritas",
+"shingle",
+"seixos"
 ],
 "natural/shrub":[
 "Arbusto",
@@ -9418,7 +9498,7 @@
 "kioske",
 "banca",
 "comércio",
-"Quiosque (comercial)"
+"Quiosque"
 ],
 "shop/kitchen":[
 "Loja de Cozinhas",
@@ -10041,8 +10121,12 @@
 "arte"
 ],
 "tourism/guest_house":[
-"Guesthouse",
-"guesthouse"
+"Pousada",
+"pensão",
+"café da manhã",
+"pousada",
+"bed and breakfast",
+"cama"
 ],
 "tourism/hostel":[
 "Hostel",
@@ -10356,6 +10440,15 @@
 "rota de ônibus",
 "transporte público"
 ],
+"type/route/climbing":[
+"escalar",
+"route",
+"percurso",
+"rappel",
+"Rota de escalada",
+"rapel",
+"climbing"
+],
 "type/route/detour":[
 "Rota de Desvio",
 "rota de desvio"
@@ -10459,6 +10552,30 @@
 "grupo de prédios",
 "elementos",
 "Grupo de elementos"
+],
+"type/site/climbing/area":[
+"area",
+"climb",
+"zona",
+"escalar",
+"espaço",
+"rappel",
+"Área de escalada",
+"rapel",
+"climbing"
+],
+"type/site/climbing/crag":[
+"climb",
+"cordas",
+"escalar",
+"rocha",
+"rappel",
+"Escalada de rochedo escarpado",
+"rochedo",
+"subida",
+"crag",
+"rapel",
+"climbing"
 ],
 "type/waterway":[
 "hidrovia",

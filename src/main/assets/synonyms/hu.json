@@ -436,12 +436,6 @@
 "gnomón",
 "árnyékóra"
 ],
-"amenity/college":[
-"felsőoktatás",
-"Főiskola területe",
-"főiskola",
-"fősuli"
-],
 "amenity/community_centre":[
 "művelődési ház",
 "Közösségi ház",
@@ -602,13 +596,6 @@
 "Autós gyakorlópálya",
 "autós iskola",
 "kresz pálya"
-],
-"amenity/driving_school":[
-"Autósiskola",
-"rutinpálya",
-"jogosítvány",
-"kresz",
-"tanpálya"
 ],
 "amenity/embassy":[
 "Külképviselet"
@@ -794,23 +781,9 @@
 "Karaoke-bár",
 "éneklés"
 ],
-"amenity/kindergarten":[
-"ovi terület",
-"iskolai előkészítő területe",
-"óvoda terület",
-"kisdedóvó terület",
-"Óvoda / óvodai terület",
-"bölcsőde terület"
-],
 "amenity/kneipp_water_cure":[
 "Kneipp-kúra",
 "kneipp-taposó"
-],
-"amenity/language_school":[
-"idegen nyelv",
-"Nyelviskola",
-"nyelvoktatás",
-"nyelvtanulás"
 ],
 "amenity/lavoir":[
 "mosószalon",
@@ -891,10 +864,6 @@
 "Motorkerékpár-kölcsönző",
 "kismotor",
 "cruiser"
-],
-"amenity/music_school":[
-"muzsika",
-"Zeneiskola"
 ],
 "amenity/nightclub":[
 "Diszkó",
@@ -1088,12 +1057,6 @@
 "postaközpont",
 "postahivatal",
 "Posta"
-],
-"amenity/prep_school":[
-"autós iskola",
-"tanulópálya",
-"Tesztpálya, tanulópálya",
-"tesztpálya"
 ],
 "amenity/prison":[
 "börtön",
@@ -1315,19 +1278,6 @@
 "wc",
 "ürítés"
 ],
-"amenity/school":[
-"iskola",
-"Iskola területe",
-"közoktatás",
-"gimnázium'",
-"nevelés",
-"akadémia",
-"oktatás",
-"általános iskola",
-"köznevelés",
-"középiskola",
-"tanítás"
-],
 "amenity/shelter":[
 "fedél",
 "esőkunyhó",
@@ -1519,13 +1469,6 @@
 ],
 "amenity/toy_library":[
 "Játékkölcsönző"
-],
-"amenity/university":[
-"felsőoktatás",
-"unversitas",
-"Egyetem területe",
-"kampusz",
-"campus"
 ],
 "amenity/vacuum_cleaner":[
 "hoover",
@@ -2672,12 +2615,6 @@
 "Defibrillátor",
 "újraélesztés"
 ],
-"emergency/designated":[
-"Kifejezetten vészhelyzeti használatra"
-],
-"emergency/destination":[
-"Kivéve célforgalom, vészhelyzetben"
-],
 "emergency/fire_alarm":[
 "Tűzriasztó"
 ],
@@ -2729,19 +2666,10 @@
 "emergency/mountain_rescue":[
 "Hegyi mentők"
 ],
-"emergency/no":[
-"Vészhelyzeti használat tilos"
-],
-"emergency/official":[
-"Hivatalosan vészhelyzeti használatra"
-],
 "emergency/phone":[
 "vészhívó",
 "Segélyhívó telefon",
 "vészhelyzeti telefon"
-],
-"emergency/private":[
-"Vészhelyzeti használat: magántulajdon"
 ],
 "emergency/siren":[
 "riasztó",
@@ -2756,9 +2684,6 @@
 "emergency/water_tank":[
 "tűzoltóvíz",
 "Tűzivíztartály"
-],
-"emergency/yes":[
-"Vészhelyzeti használat"
 ],
 "entrance":[
 "Bejárat / Kijárat",
@@ -3378,6 +3303,9 @@
 "Emlékmű",
 "emlékhely"
 ],
+"historic/memorial/blue_plaque-GB-IE":[
+"Kék tábla"
+],
 "historic/memorial/plaque":[
 "Emléktábla"
 ],
@@ -3718,9 +3646,6 @@
 "Táncterem",
 "táncterem",
 "tánchelyiség"
-],
-"leisure/dancing_school":[
-"Tánciskola"
 ],
 "leisure/disc_golf_course":[
 "frizbi",
@@ -4428,9 +4353,6 @@
 ],
 "man_made/telescope/radio":[
 "Rádióteleszkóp"
-],
-"man_made/torii":[
-"Sinto templomkapu"
 ],
 "man_made/tower":[
 "magas épület",

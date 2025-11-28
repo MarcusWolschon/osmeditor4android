@@ -26,9 +26,6 @@
 "amenity/ice_cream":[
 "Aihikirīmi toa"
 ],
-"amenity/kindergarten":[
-"Kura Pūhou"
-],
 "amenity/library":[
 "Whare pukapuka"
 ],
@@ -53,9 +50,6 @@
 "amenity/recycling_container":[
 "Ipu Hangarua"
 ],
-"amenity/school":[
-"Kura"
-],
 "amenity/theatre":[
 "Whare Tapere"
 ],
@@ -64,9 +58,6 @@
 ],
 "amenity/townhall":[
 "Hōro ā-Tāone"
-],
-"amenity/university":[
-"Whare Wānanga"
 ],
 "amenity/waste_basket":[
 "ipu para",

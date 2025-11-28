@@ -639,6 +639,26 @@
 "kaffeshop",
 "macchiato"
 ],
+"amenity/cafe/teahouse":[
+"thesalong",
+"tehus",
+"grönt te",
+"gult te",
+"thehus",
+"varma drycker",
+"tebar",
+"the",
+"te",
+"tebod",
+"tearum",
+"oolong-te",
+"svart te",
+"thebar",
+"vitt te",
+"Tehus",
+"tecafé",
+"tesalong"
+],
 "amenity/car_pooling":[
 "bilpoolstation",
 "bildelning",
@@ -778,15 +798,6 @@
 "solklocka",
 "Solur",
 "solvisare"
-],
-"amenity/college":[
-"college",
-"gymnasium",
-"gymnasieområde",
-"gymnasie",
-"vidareutbildning",
-"gymnasiumområde",
-"Collegeområde"
 ],
 "amenity/community_centre":[
 "folkets hus",
@@ -979,6 +990,17 @@
 "Tandläkare",
 "tandhygien",
 "tandhygienist"
+],
+"amenity/device_charging_station":[
+"laddningsstation",
+"laddstation",
+"enhetsladdare",
+"usb-laddare",
+"laddstation för enheter",
+"Laddstation för mobila enheter",
+"laddpunkt",
+"laddstation för mobila enheter",
+"laddplats"
 ],
 "amenity/dive_centre":[
 "sportdykare",
@@ -1312,16 +1334,6 @@
 "körkortsutbildning",
 "riskutbildning",
 "förautbildning",
-"körskola"
-],
-"amenity/driving_school":[
-"trafikskola",
-"bilskola",
-"körkort",
-"uppkörning",
-"lastbilskort",
-"Trafikskola",
-"övningskörning",
 "körskola"
 ],
 "amenity/embassy":[
@@ -1818,16 +1830,6 @@
 "ktv",
 "karaoke lounge"
 ],
-"amenity/kindergarten":[
-"kindergarten",
-"lekplats",
-"Förskoleområde",
-"dagis",
-"lekskola",
-"daghem",
-"lekis",
-"förskola"
-],
 "amenity/kneipp_water_cure":[
 "kneippism",
 "Kneippanläggning",
@@ -1835,14 +1837,6 @@
 "kneipphydroterapi",
 "fotbad",
 "kneippkur"
-],
-"amenity/language_school":[
-"språk",
-"språkskola",
-"språkkurs",
-"Språkskola",
-"språkutbildning",
-"esl"
 ],
 "amenity/lavoir":[
 "tvättstuga",
@@ -2043,19 +2037,6 @@
 "sidovagn",
 "motorscooter",
 "motorcykellån"
-],
-"amenity/music_school":[
-"musikskola",
-"musikinstrument",
-"sångskola",
-"kultur",
-"kör",
-"instrument",
-"musik",
-"kulturskola",
-"instrumentskola",
-"sång",
-"Musikskola"
 ],
 "amenity/nightclub":[
 "diskotek",
@@ -2578,19 +2559,6 @@
 "postgång",
 "postväsende",
 "brev"
-],
-"amenity/prep_school":[
-"kvälsskola",
-"matematik",
-"akademisk",
-"testförberedelse",
-"Pluggskola",
-"läxa",
-"läsning",
-"pluggskola",
-"läxhjälp",
-"handledning",
-"skrivning"
 ],
 "amenity/prison":[
 "häkte",
@@ -3595,21 +3563,6 @@
 "torrtoalett",
 "campingtoalett"
 ],
-"amenity/school":[
-"högskoleområde",
-"gymnasium",
-"grundskola",
-"campus",
-"Skolområde",
-"skolgård",
-"universitet",
-"högskola",
-"högstadium",
-"mellanstadium",
-"universitetsområde",
-"skolområde",
-"lågstadium"
-],
 "amenity/shelter":[
 "väntkur",
 "grotta",
@@ -4043,17 +3996,6 @@
 "kundvagn",
 "kundvagnshus",
 "förvaring av kundvagnar"
-],
-"amenity/university":[
-"college",
-"universitetsbyggnad",
-"högskola",
-"högskoleområde",
-"universitetsområde",
-"akademi",
-"universitet",
-"Universitetsområde",
-"lärosäte"
 ],
 "amenity/vacuum_cleaner":[
 "Dammsugarstation",
@@ -5947,6 +5889,44 @@
 "sektion",
 "kvarte"
 ],
+"climbing/crag":[
+"klippa",
+"klättring",
+"klätterberg",
+"klätterställe",
+"klättervägg",
+"klipphäll",
+"klippformation",
+"bouldering",
+"klätterklippa",
+"Klätterklippa",
+"klätterområde",
+"tradklättring",
+"sportklättring",
+"klippvägg"
+],
+"climbing/route":[
+"klättring",
+"klätterproblem",
+"Klätterled",
+"sportklättring",
+"klättertur",
+"led",
+"klätterlinje",
+"klippklättring",
+"klätterled",
+"klätterväg"
+],
+"climbing/route_bottom":[
+"ledstart",
+"sportklättring",
+"startpunkt",
+"start för klättring",
+"klätterklippa",
+"Startpunkt för klätterled",
+"klätterled",
+"klätterområde"
+],
 "club":[
 "klubblokal",
 "klubb",
@@ -6543,6 +6523,125 @@
 "disused/shop":[
 "Nedlagd affär"
 ],
+"education":[
+"träning",
+"undervisning",
+"kurser",
+"utbildning",
+"Utbildningsverksamhet",
+"studier",
+"skola",
+"läroanstalt",
+"lärande"
+],
+"education/college":[
+"högskola",
+"studieområde",
+"campus",
+"studentområde",
+"Högskoleområde",
+"universitet",
+"lärosäte"
+],
+"education/dancing_school":[
+"swing",
+"dansskola",
+"balettskola",
+"vals",
+"foxtrot",
+"jazzdans",
+"dansundervisning",
+"tango",
+"dansstudio",
+"Dansskola",
+"bugg",
+"salsa"
+],
+"education/driving_school":[
+"trafikskola",
+"bilskola",
+"förarutbildning",
+"körkort",
+"Trafikskola",
+"körlektioner",
+"körutbildning",
+"körskola"
+],
+"education/kindergarten":[
+"förskoleområde",
+"barnomsorg",
+"Förskoleområde",
+"dagis",
+"förskoleverksamhet",
+"daghem",
+"förskola",
+"förskoleklass"
+],
+"education/language_school":[
+"språkkurscenter",
+"språkskola",
+"sfi",
+"Språkskola",
+"språkkurser",
+"språkinstitut",
+"svenska för invandrare",
+"språkundervisning",
+"språkutbildning",
+"språkträning"
+],
+"education/music_school":[
+"musikundervisning",
+"musikskola",
+"musikutbildning",
+"musikkurser",
+"musiklärare",
+"musikinstitut",
+"kulturskola",
+"musiklektioner",
+"musikträning",
+"Musikskola"
+],
+"education/prep_school":[
+"provförberedelse",
+"skrivträning",
+"förberedande undervisning",
+"läxhjälp",
+"privatundervisning",
+"stödundervisning",
+"matematikundervisning",
+"studieteknik",
+"studiehjälp",
+"lästräning",
+"Stödundervisning"
+],
+"education/school":[
+"högstadium",
+"mellanstadium",
+"grundskola",
+"utbildning",
+"skolbyggnad",
+"Skolområde",
+"skola",
+"skolområde",
+"akademi",
+"lågstadium"
+],
+"education/university":[
+"forskarutbildning",
+"högskola",
+"högskoleområde",
+"masterprogram",
+"högre utbildning",
+"campus",
+"universitetsområde",
+"doktorandprogram",
+"magisterutbildning",
+"universitet",
+"Universitetsområde"
+],
+"education/yes":[
+"Utbildningsverksamhet (ospecificerad typ)"
+],
 "embankment":[
 "Vägbank"
 ],
@@ -6569,12 +6668,6 @@
 "defibrillator",
 "hjärthjälp",
 "Defibrillator"
-],
-"emergency/designated":[
-"Åtkomst för utryckningsfordon – Avsedd för"
-],
-"emergency/destination":[
-"Åtkomst för utryckningsfordon – Destination"
 ],
 "emergency/disaster_response":[
 "skydd och säkerhetscentral",
@@ -6708,12 +6801,6 @@
 "fjällräddning",
 "Fjällräddning"
 ],
-"emergency/no":[
-"Åtkomst för utryckningsfordon – Nej"
-],
-"emergency/official":[
-"Åtkomst för utryckningsfordon – Officiellt"
-],
 "emergency/phone":[
 "nödnummer",
 "Nödtelefon",
@@ -6721,9 +6808,6 @@
 "alarmtelefon",
 "larmtelefon",
 "alarmeringscentral"
-],
-"emergency/private":[
-"Åtkomst för utryckningsfordon – Privat"
 ],
 "emergency/siren":[
 "larm",
@@ -6775,9 +6859,6 @@
 "nöd",
 "vatten",
 "vattentank"
-],
-"emergency/yes":[
-"Åtkomst för utryckningsfordon – Ja"
 ],
 "entrance":[
 "ingång",
@@ -8055,6 +8136,16 @@
 "historik",
 "historisk plats"
 ],
+"historic/aircraft":[
+"historiskt flygplan",
+"flyghistoriskt objekt",
+"veteranflygplan",
+"flygplansmonument",
+"museiflygplan",
+"gate guardian",
+"Historiskt flygplan",
+"utställt flygplan"
+],
 "historic/archaeological_site":[
 "historia",
 "utgrävning",
@@ -8187,6 +8278,17 @@
 "minnessten",
 "minnesmärke",
 "minnestavla"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"blå minnesskylt",
+"plakett",
+"informationsskylt",
+"historisk markör",
+"Blå minnestavla",
+"blå plakett",
+"kulturminnesskylt",
+"historisk skylt",
+"minnesskylt"
 ],
 "historic/memorial/plaque":[
 "Minnestavla",
@@ -8389,6 +8491,21 @@
 "fisk",
 "utplantering av fisk",
 "ostronodling"
+],
+"landuse/aquaculture/fish":[
+"Fiskodling",
+"tilapia",
+"lax",
+"fiskfarm",
+"karp",
+"öring",
+"abborre",
+"stör",
+"fiskkläckeri",
+"fiskproduktion",
+"fiskodling",
+"fiskuppfödning",
+"fiskanläggning"
 ],
 "landuse/basin":[
 "Avrinningsområde"
@@ -8935,22 +9052,6 @@
 "tango",
 "dansbana",
 "danshus",
-"bugg",
-"jive"
-],
-"leisure/dancing_school":[
-"danskurs",
-"foxtrot",
-"vals",
-"gamaldans",
-"dans",
-"salsa",
-"swing",
-"dansskola",
-"tiodans",
-"tango",
-"dansutbildning",
-"Dansskola",
 "bugg",
 "jive"
 ],
@@ -10264,6 +10365,34 @@
 "piska",
 "matthängare"
 ],
+"man_made/ceremonial_gate":[
+"torii",
+"ceremoniport",
+"port",
+"Ceremoniell port",
+"högtidsport",
+"ceremoniell port",
+"paifang",
+"båge"
+],
+"man_made/ceremonial_gate/paifang":[
+"kinesisk båge",
+"paifang",
+"shanmen",
+"kinesisk port",
+"Paifang",
+"paifong",
+"pailou",
+"pailau"
+],
+"man_made/ceremonial_gate/torii":[
+"shintoport",
+"torii",
+"japansk port",
+"Torii",
+"shintohelgedom",
+"japansk båge"
+],
 "man_made/charge_point":[
 "laddningsstation",
 "laddställe",
@@ -11092,15 +11221,6 @@
 "anten",
 "astronomiskt teleskop",
 "radioparabol"
-],
-"man_made/torii":[
-"torii",
-"jinja",
-"japansk port",
-"Torii",
-"shinto shrine",
-"fågelsittpinne",
-"shintohelgedom"
 ],
 "man_made/tower":[
 "Torn",
@@ -15696,6 +15816,19 @@
 "telefonbutik",
 "mobiltelefonbutik"
 ],
+"shop/mobile_phone_accessories":[
+"mobil",
+"mobiltelefon",
+"telefonaccessoarer",
+"mobilaccessoarer",
+"mobiltelefontillbehör",
+"mobilfodral",
+"mobiltelefontillbehörsbutik",
+"mobilbutik",
+"mobilskal",
+"Butik med mobiltelefontillbehör",
+"mobiltillbehör"
+],
 "shop/model":[
 "modellbyggnad",
 "Affär för byggmodeller",
@@ -17072,6 +17205,9 @@
 "omledningsskylt",
 "vms"
 ],
+"type/associatedStreet":[
+"Associerad gata"
+],
 "type/boundary":[
 "gränslinje",
 "Gräns",
@@ -17230,6 +17366,18 @@
 "Busslinje",
 "bussrutt",
 "bussled"
+],
+"type/route/climbing":[
+"klättring",
+"klätterproblem",
+"Klätterled",
+"sportklättring",
+"klättertur",
+"led",
+"klätterlinje",
+"klippklättring",
+"klätterled",
+"klätterväg"
 ],
 "type/route/detour":[
 "Alternativ rutt",
@@ -17416,6 +17564,34 @@
 "plats",
 "ställe",
 "Plats"
+],
+"type/site/climbing/area":[
+"klättringsområde",
+"klättersektor",
+"klätterställe",
+"klätterregion",
+"klippområde",
+"Klätterområde",
+"klätterklippa",
+"klätterplats",
+"klätterområde",
+"klätterzon"
+],
+"type/site/climbing/crag":[
+"klippa",
+"klättring",
+"klätterberg",
+"klätterställe",
+"klättervägg",
+"klipphäll",
+"klippformation",
+"bouldering",
+"klätterklippa",
+"Klätterklippa",
+"klätterområde",
+"tradklättring",
+"sportklättring",
+"klippvägg"
 ],
 "type/waterway":[
 "vattendrag",

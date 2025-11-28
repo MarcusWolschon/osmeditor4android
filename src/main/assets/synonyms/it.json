@@ -375,8 +375,11 @@
 "caveau"
 ],
 "amenity/bar":[
-"Bar",
+"vino",
+"American bar",
+"alcolici",
 "birra",
+"drink",
 "alcoolico"
 ],
 "amenity/bar/lgbtq":[
@@ -415,9 +418,9 @@
 "livelli",
 "parcheggio",
 "parcheggio biciclette",
+"Garage per biciclette",
 "interno",
 "parco bici",
-"Garage parcheggio biciclette",
 "stazione"
 ],
 "amenity/bicycle_parking/lockers":[
@@ -510,13 +513,13 @@
 ],
 "amenity/cafe/bubble_tea":[
 "tè al latte perlato",
-"Bubble Tea Caffetteria",
 "boba",
 "tè al latte bubble",
 "tapioca",
 "bevanda boba",
 "tè alla perla",
-"bevanda al tè taiwanese"
+"bevanda al tè taiwanese",
+"Locale di bubble tea"
 ],
 "amenity/cafe/coffee_shop":[
 "filtro",
@@ -533,6 +536,9 @@
 "cafe",
 "napoletano",
 "macchiato"
+],
+"amenity/cafe/teahouse":[
+"Casa da tè"
 ],
 "amenity/car_pooling":[
 "dare un passaggio",
@@ -633,17 +639,6 @@
 "ombra",
 "sciaterica"
 ],
-"amenity/college":[
-"istruzione",
-"formazione",
-"conservatorio",
-"istituto",
-"accademia",
-"superiore",
-"università",
-"specializzazione",
-"Area di un’accademia"
-],
 "amenity/community_centre":[
 "evento",
 "sala",
@@ -683,6 +678,12 @@
 "salone lgbtq",
 "lgbt",
 "trans"
+],
+"amenity/community_centre/parish_hall":[
+"Sala parrocchiale"
+],
+"amenity/community_centre/village_hall":[
+"Sala comunale"
 ],
 "amenity/community_centre/youth_centre":[
 "circolo giovanile",
@@ -971,18 +972,6 @@
 "amenity/driver_training":[
 "Campi di addestramento dei conducenti"
 ],
-"amenity/driving_school":[
-"camion",
-"auto",
-"ambulanze",
-"autoscuola",
-"macchina",
-"scuola",
-"Scuola guida",
-"guida",
-"autobus",
-"scuolaguida"
-],
 "amenity/embassy":[
 "Ambasciata"
 ],
@@ -1031,7 +1020,7 @@
 "hamburger"
 ],
 "amenity/fast_food/cafeteria":[
-"Caffetteria"
+"Mensa"
 ],
 "amenity/fast_food/chicken":[
 "bocconcini",
@@ -1168,7 +1157,7 @@
 "cibo"
 ],
 "amenity/fountain":[
-"Fontana (decorativa)",
+"Fontana decorativa",
 "fontana"
 ],
 "amenity/fuel":[
@@ -1268,30 +1257,6 @@
 "amenity/karaoke_box":[
 "Karaoke"
 ],
-"amenity/kindergarten":[
-"mamma",
-"prescolastico",
-"Area dell'asilo/scuola d'infanzia",
-"cuccioli",
-"infanzia",
-"nido",
-"asilo",
-"bebè",
-"scuola",
-"piccoli",
-"materna"
-],
-"amenity/language_school":[
-"lingue",
-"tedesco",
-"Scuola di lingue straniere",
-"arabo",
-"spagnolo",
-"lingua",
-"cinese",
-"scuola",
-"inglese"
-],
 "amenity/lavoir":[
 "pulizia",
 "lavatoio",
@@ -1379,15 +1344,6 @@
 "amenity/motorcycle_rental":[
 "Noleggio motocicli"
 ],
-"amenity/music_school":[
-"educazione musicale",
-"scuola di batteria",
-"scuola di violino",
-"Scuola di musica",
-"lezioni di musica",
-"scuola di piano",
-"scuola di musica"
-],
 "amenity/nightclub":[
 "balera",
 "night",
@@ -1409,7 +1365,7 @@
 "trans"
 ],
 "amenity/nursing_home":[
-"Residenza sanitaria assistenziale (RSA)"
+"Residenza sanitaria assistenziale"
 ],
 "amenity/parcel_locker":[
 "paccomat",
@@ -1678,25 +1634,6 @@
 "poste",
 "lettere"
 ],
-"amenity/prep_school":[
-"college",
-"esercizi",
-"scrittura",
-"numero chiuso",
-"test",
-"sat",
-"compiti",
-"esami",
-"accademico",
-"Scuola di preparazione / tutoraggio ai test",
-"tutor",
-"matematica",
-"act",
-"preparazione",
-"ingresso",
-"lettura",
-"insegnante"
-],
 "amenity/prison":[
 "riformatorio",
 "gattabuia",
@@ -1759,7 +1696,7 @@
 "terme"
 ],
 "amenity/public_bookcase":[
-"Cassetta pubblica dei libri",
+"Casetta dei libri",
 "scambio",
 "scaffale",
 "libreria",
@@ -2038,25 +1975,6 @@
 "Smaltimento reflui camper",
 "wc"
 ],
-"amenity/school":[
-"collegio",
-"classe",
-"edificio scolastico",
-"istituto",
-"aula",
-"accademia",
-"lavagna",
-"seminario",
-"alma mater",
-"riformatorio",
-"dipartimento",
-"disciplina",
-"scuola",
-"facoltà",
-"istituzione",
-"università",
-"Area scolastica"
-],
 "amenity/shelter":[
 "rifugio",
 "grotta",
@@ -2155,8 +2073,8 @@
 "amenity/social_facility/nursing_home":[
 "rsa",
 "pensionato",
-"Residenza Sanitaria Assistenziale (RSA)",
 "ricovero",
+"Residenza sanitaria assistenziale",
 "casa di riposo",
 "ospizio"
 ],
@@ -2287,14 +2205,6 @@
 ],
 "amenity/trolley_bay":[
 "Corridoio del carrello"
-],
-"amenity/university":[
-"college",
-"laurea",
-"Area universitaria",
-"università americana",
-"phd",
-"master"
 ],
 "amenity/vacuum_cleaner":[
 "Stazione di Aspirapolvere per Interni"
@@ -2525,9 +2435,9 @@
 "rusco",
 "differenziata",
 "rifiuti",
+"Centro raccolta rifiuti",
 "pattume",
 "isola",
-"Centro Raccolta Rifiuti",
 "ecologica",
 "stazione"
 ],
@@ -2708,9 +2618,9 @@
 "panoramico"
 ],
 "attraction/water_slide":[
+"Acquascivolo",
 "parco a tema",
 "scivolo d’acqua",
-"Scivolo",
 "attrazioni",
 "divertimenti",
 "acquatico",
@@ -2907,7 +2817,11 @@
 "sbarra"
 ],
 "barrier/log":[
-"Ostruzione dell'albero caduto"
+"sbarramento da albero caduto",
+"Ostruzione dell'albero caduto",
+"albero caduto",
+"ostacolo albero caduto",
+"ostruzione da albero caduto"
 ],
 "barrier/motorcycle_barrier":[
 "Barriera moto"
@@ -3150,13 +3064,13 @@
 "building/garage":[
 "posto auto",
 "auto",
-"Garage",
 "garage",
-"box"
+"box",
+"Garage singolo"
 ],
 "building/garages":[
+"Serie di garage",
 "autorimessa",
-"Garage",
 "rimesse",
 "garage",
 "box"
@@ -3762,6 +3676,21 @@
 "disused/shop":[
 "Negozio in disuso"
 ],
+"education/dancing_school":[
+"Scuola di danza"
+],
+"education/driving_school":[
+"Scuola guida"
+],
+"education/kindergarten":[
+"Asilo o scuola per l'infanzia"
+],
+"education/language_school":[
+"Scuola di lingue"
+],
+"education/music_school":[
+"Scuola di musica"
+],
 "embankment":[
 "Terrapieno"
 ],
@@ -3791,12 +3720,6 @@
 "Defibrillatore",
 "dae",
 "defibrillatore"
-],
-"emergency/designated":[
-"Accesso di emergenza riservato"
-],
-"emergency/destination":[
-"Destinazione d'uso accesso di emergenza"
 ],
 "emergency/fire_alarm":[
 "pompieri",
@@ -3888,20 +3811,11 @@
 "emergency/mountain_rescue":[
 "Soccorso alpino"
 ],
-"emergency/no":[
-"Nessun accesso di emergenza"
-],
-"emergency/official":[
-"Ufficiale agli accessi di emergenza"
-],
 "emergency/phone":[
 "Telefono di emergenza",
 "sos",
 "emergenza",
 "telefono"
-],
-"emergency/private":[
-"Accesso di emergenza privato"
 ],
 "emergency/siren":[
 "allerta",
@@ -3926,9 +3840,6 @@
 "cisterna",
 "Serbatoio d'emergenza per l'acqua",
 "vasca"
-],
-"emergency/yes":[
-"Accesso di emergenza Sì"
 ],
 "entrance":[
 "Entrata / Uscita"
@@ -4443,6 +4354,9 @@
 "incrocio",
 "non segnato"
 ],
+"highway/footway/informal":[
+"Traccia di passaggio"
+],
 "highway/footway/sidewalk":[
 "marciapiedi",
 "Marciapiede"
@@ -4457,7 +4371,7 @@
 "precedenza"
 ],
 "highway/ladder":[
-"Scala"
+"Scala a pioli"
 ],
 "highway/living_street":[
 "living street",
@@ -4520,7 +4434,7 @@
 "Passerella di legno"
 ],
 "highway/path/crossing":[
-"Attraversamento ciclabile e pedonale"
+"Attraversamento ciclopedonale"
 ],
 "highway/path/informal":[
 "Percorso informale"
@@ -4643,10 +4557,11 @@
 "display di velocità"
 ],
 "highway/steps":[
+"scala",
 "gradini",
 "scale",
-"Scale",
-"scalinata"
+"scalinata",
+"Gradini"
 ],
 "highway/steps/conveying":[
 "discesa",
@@ -4804,6 +4719,9 @@
 "historic/memorial":[
 "memoriale",
 "Memoriale"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Targa Blu"
 ],
 "historic/memorial/plaque":[
 "ricordo",
@@ -5019,10 +4937,12 @@
 "Aiuola"
 ],
 "landuse/forest":[
+"macchia",
 "Foresta gestita"
 ],
 "landuse/garages":[
-"Area garage"
+"area di garage",
+"Area di garage"
 ],
 "landuse/grass":[
 "erba",
@@ -5093,6 +5013,13 @@
 "landuse/meadow":[
 "Coltivazione erbacea",
 "prato"
+],
+"landuse/meadow_orchard/meadow":[
+"coltivazione erbacea con piante da frutto",
+"Coltivazione erbacea con piante da frutto"
+],
+"landuse/meadow_orchard/orchard":[
+"Frutteto su Coltivazione Erbacea"
 ],
 "landuse/orchard":[
 "frutteto",
@@ -5189,7 +5116,7 @@
 "videogiochi"
 ],
 "leisure/bandstand":[
-"Chiosco della musica"
+"Palco"
 ],
 "leisure/beach_resort":[
 "bagni",
@@ -5239,19 +5166,6 @@
 "tango",
 "Sala da ballo",
 "jive"
-],
-"leisure/dancing_school":[
-"swing",
-"Scuola di danza",
-"valzer",
-"danza",
-"scuola di danza",
-"danzare",
-"imparare a danzare",
-"tango",
-"lezioni di danza",
-"maestro di danza",
-"samba"
 ],
 "leisure/disc_golf_course":[
 "Campo da golf del disco"
@@ -5645,9 +5559,9 @@
 ],
 "leisure/sports_centre":[
 "palazzetto",
-"Complesso / Centro Sportivo",
 "complesso",
-"sport"
+"sport",
+"Complesso / Centro sportivo"
 ],
 "leisure/sports_centre/climbing":[
 "corde",
@@ -5700,6 +5614,9 @@
 "Pista (sport non motoristici)",
 "pista"
 ],
+"leisure/track/athletics":[
+"Pista di atletica"
+],
 "leisure/track/athletics/javelin_throw":[
 "Pista del giavellotto"
 ],
@@ -5714,6 +5631,15 @@
 ],
 "leisure/track/athletics/running":[
 "Pista da corsa"
+],
+"leisure/track/athletics/sprint":[
+"Pista corsa di velocità"
+],
+"leisure/track/athletics/steeplechase":[
+"Pista steeplechase"
+],
+"leisure/track/athletics/triple_jump":[
+"Pista del salto triplo"
 ],
 "leisure/track/cycling":[
 "pista bici",
@@ -6207,9 +6133,6 @@
 ],
 "man_made/telescope/radio":[
 "Radiotelescopio"
-],
-"man_made/torii":[
-"Torii"
 ],
 "man_made/tower":[
 "Torre",
@@ -6710,7 +6633,8 @@
 "Piatto di marea"
 ],
 "natural/wetland/wet_meadow":[
-"Prato Umido"
+"Prato Umido",
+"prato umido"
 ],
 "natural/wood":[
 "arboreo",
@@ -6983,7 +6907,7 @@
 "office/research":[
 "ufficio ricerca",
 "ufficio di ricerca",
-"Istituto di Ricerca"
+"Istituto di ricerca"
 ],
 "office/security":[
 "ufficio di guardie giurate private",
@@ -7051,6 +6975,9 @@
 "piste/nordic":[
 "Pista da sci di fondo"
 ],
+"piste/piste":[
+"Pista sport su neve (tipo non specificato)"
+],
 "piste/skitour":[
 "sci di fondo",
 "piste",
@@ -7087,7 +7014,7 @@
 "palazzi"
 ],
 "place/farm":[
-"Fattoria o cascina"
+"Fattoria"
 ],
 "place/hamlet":[
 "paese",
@@ -7191,7 +7118,7 @@
 "Barra per trazioni"
 ],
 "playground/playhouse":[
-"Casetta dei Giochi"
+"Casetta dei giochi"
 ],
 "playground/roundabout":[
 "Girello"
@@ -7766,6 +7693,9 @@
 "relazione",
 "Relazione"
 ],
+"roller_coaster/track":[
+"Pista montagne russe"
+],
 "route/ferry":[
 "Linea traghetti",
 "navi",
@@ -8208,11 +8138,14 @@
 "merceria"
 ],
 "shop/farm":[
+"bancarella",
 "frutta",
 "freschi",
-"orofrutta",
-"Bancarella agricola",
-"verdura"
+"negozio agricolo",
+"Spaccio agricolo",
+"spaccio",
+"verdura",
+"ortofrutta"
 ],
 "shop/fashion":[
 "Negozio di moda"

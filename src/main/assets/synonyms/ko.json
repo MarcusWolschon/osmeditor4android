@@ -239,6 +239,9 @@
 "다방",
 "커피숍"
 ],
+"amenity/cafe/teahouse":[
+"찻집"
+],
 "amenity/car_pooling":[
 "카풀링 스테이션"
 ],
@@ -295,10 +298,6 @@
 ],
 "amenity/clock/sundial":[
 "해시계"
-],
-"amenity/college":[
-"전문대학 부지",
-"직업전문학교 부지"
 ],
 "amenity/community_centre":[
 "커뮤니티 센터"
@@ -452,9 +451,6 @@
 "amenity/driver_training":[
 "운전 연습장"
 ],
-"amenity/driving_school":[
-"운전학원"
-],
 "amenity/embassy":[
 "대사관"
 ],
@@ -579,17 +575,9 @@
 "가라오케",
 "노래방"
 ],
-"amenity/kindergarten":[
-"유치원 부지"
-],
 "amenity/kneipp_water_cure":[
 "kneipp 시설",
 "Kneipp 시설"
-],
-"amenity/language_school":[
-"영어 학원",
-"언어 학원",
-"국어 학원"
 ],
 "amenity/lavoir":[
 "빨래터",
@@ -637,9 +625,6 @@
 ],
 "amenity/motorcycle_rental":[
 "오토바이 대여소"
-],
-"amenity/music_school":[
-"음악 학교"
 ],
 "amenity/nightclub":[
 "나이트",
@@ -767,15 +752,6 @@
 "amenity/post_office":[
 "우편취급국",
 "우체국"
-],
-"amenity/prep_school":[
-"보습학원",
-"국어",
-"논술",
-"교습소",
-"수학",
-"영어",
-"학원"
 ],
 "amenity/prison":[
 "교도소 부지",
@@ -934,9 +910,6 @@
 "RV 화장실 처리장",
 "rv 화장실 처리"
 ],
-"amenity/school":[
-"학교 부지"
-],
 "amenity/shelter":[
 "대피소",
 "피난소"
@@ -1070,10 +1043,6 @@
 "amenity/trolley_bay":[
 "카트 보관소"
 ],
-"amenity/university":[
-"대학교 부지",
-"대학 부지"
-],
 "amenity/vacuum_cleaner":[
 "진공청소 스테이션"
 ],
@@ -1163,6 +1132,9 @@
 "amenity/veterinary":[
 "동물병원",
 "수의사"
+],
+"amenity/veterinary_pharmacy":[
+"동물 약국"
 ],
 "amenity/waste/dog_excrement":[
 "개 배설물 쓰레기통"
@@ -1258,7 +1230,8 @@
 "하늘 그네"
 ],
 "attraction/train":[
-"관광 기차"
+"관광 기차",
+"관광 열차"
 ],
 "attraction/water_slide":[
 "워터슬라이드"
@@ -1656,6 +1629,12 @@
 "묘소",
 "묘역 (묘지 내부)"
 ],
+"climbing/route":[
+"등산로"
+],
+"climbing/route_bottom":[
+"등산로 시점"
+],
 "club":[
 "클럽"
 ],
@@ -1868,6 +1847,36 @@
 "disused/shop":[
 "폐점한 가게"
 ],
+"education":[
+"교육 시설"
+],
+"education/dancing_school":[
+"무용 학원"
+],
+"education/driving_school":[
+"운전 학원"
+],
+"education/kindergarten":[
+"유치원"
+],
+"education/language_school":[
+"어학원"
+],
+"education/music_school":[
+"음악 학원"
+],
+"education/prep_school":[
+"보습 학원"
+],
+"education/school":[
+"학교 부지"
+],
+"education/university":[
+"대학교 부지"
+],
+"education/yes":[
+"교육 시설 (알 수 없는 유형)"
+],
 "embankment":[
 "둑"
 ],
@@ -1885,12 +1894,6 @@
 "emergency/defibrillator":[
 "aed",
 "제세동기"
-],
-"emergency/designated":[
-"비상시 접근으로 지정됨"
-],
-"emergency/destination":[
-"비상시 접근 도착지"
 ],
 "emergency/disaster_response":[
 "재난대응소",
@@ -1946,18 +1949,9 @@
 "산악 구조대",
 "산악 구조소"
 ],
-"emergency/no":[
-"비상시 접근 금지"
-],
-"emergency/official":[
-"공공 비상시설"
-],
 "emergency/phone":[
 "긴급 전화",
 "비상 전화"
-],
-"emergency/private":[
-"사유 비상시설"
 ],
 "emergency/siren":[
 "경고",
@@ -1973,9 +1967,6 @@
 "emergency/water_tank":[
 "비상용 물탱크",
 "비상 물탱크"
-],
-"emergency/yes":[
-"비상시 접근 가능"
 ],
 "entrance":[
 "입구/출구",
@@ -2169,8 +2160,10 @@
 ],
 "highway/bus_guideway":[
 "버스 가이드웨이",
-"버스 안내로",
-"버스 전용 안내로"
+"구속유도형",
+"버스 유도로",
+"버스 전용궤도",
+"유도 버스"
 ],
 "highway/bus_stop":[
 "버스 정류장"
@@ -2194,6 +2187,9 @@
 "횡단보도",
 "횡단도",
 "횡단로"
+],
+"highway/crossing/informal":[
+"비공식적인 횡단보도"
 ],
 "highway/crossing/traffic_signals":[
 "보행자 신호등이 있는 횡단보도"
@@ -2326,8 +2322,8 @@
 "보행자 교통섬"
 ],
 "highway/give_way":[
-"양보 표지",
-"양보 표지판"
+"양보",
+"양보 표시"
 ],
 "highway/ladder":[
 "사다리"
@@ -2434,10 +2430,11 @@
 "미확인 도로의 다리"
 ],
 "highway/secondary":[
+"특별시도",
 "지방도",
 "보조간선도로",
 "2차 도로",
-"보조 도로"
+"광역시도"
 ],
 "highway/secondary_link":[
 "2차 도로 연결로",
@@ -2488,8 +2485,8 @@
 "에스컬레이터"
 ],
 "highway/stop":[
+"정지 표시",
 "멈춤 표지",
-"정지 표지판",
 "정지 표지"
 ],
 "highway/street_lamp":[
@@ -2500,8 +2497,8 @@
 "집산도로",
 "3차 도로",
 "군도",
-"구도",
-"시·군·구도"
+"시군구도",
+"구도"
 ],
 "highway/tertiary_link":[
 "3차 도로 연결로"
@@ -2529,10 +2526,13 @@
 ],
 "highway/trunk":[
 "도시고속도로",
+"간선 도로",
 "고속화도로"
 ],
 "highway/trunk_link":[
-"고속화도로 연결로"
+"고속화도로 연결로",
+"간선 도로 연결로",
+"도시고속도로 연결로"
 ],
 "highway/turning_circle":[
 "쿨데삭 (컬드색)",
@@ -2590,6 +2590,9 @@
 "historic/memorial":[
 "기념관",
 "기념물"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"파란색 명판"
 ],
 "historic/memorial/plaque":[
 "기념 명판"
@@ -2678,7 +2681,7 @@
 "웅덩이"
 ],
 "landuse/brownfield":[
-"재개발 부지"
+"버려진 부지"
 ],
 "landuse/cemetery":[
 "묘역",
@@ -2860,9 +2863,6 @@
 ],
 "leisure/dance":[
 "댄스 홀"
-],
-"leisure/dancing_school":[
-"댄스 학원"
 ],
 "leisure/disc_golf_course":[
 "디스크 골프 코스"
@@ -3493,6 +3493,9 @@
 "사일로",
 "저장탑"
 ],
+"man_made/ski_jump":[
+"스키 점프대"
+],
 "man_made/storage_tank":[
 "저장 창고"
 ],
@@ -3540,12 +3543,6 @@
 ],
 "man_made/telescope/radio":[
 "전파 망원경"
-],
-"man_made/torii":[
-"토리이",
-"토리이, 홍살문, 일주문",
-"홍살문",
-"일주문"
 ],
 "man_made/tower":[
 "탑",
@@ -3640,6 +3637,9 @@
 ],
 "natural":[
 "자연 지물"
+],
+"natural/arch":[
+"자연 아치"
 ],
 "natural/bare_rock":[
 "노출된 암반",
@@ -3868,8 +3868,7 @@
 "젖은 초원"
 ],
 "natural/wood":[
-"숲",
-"자연림"
+"숲"
 ],
 "network/type/node_network-DE-NL-BE-LU":[
 "네트워크 관계 점"
@@ -4077,6 +4076,9 @@
 "치료사 사무실",
 "치료사 사무소"
 ],
+"office/translator":[
+"번역 사무소"
+],
 "office/travel_agent":[
 "여행사"
 ],
@@ -4114,6 +4116,9 @@
 "piste/nordic":[
 "크로스 컨트리 스키"
 ],
+"piste/ski_jump":[
+"스키 점프 주행대"
+],
 "piste/skitour":[
 "스키 관광"
 ],
@@ -4122,6 +4127,9 @@
 ],
 "piste/sleigh":[
 "썰매 경로"
+],
+"piste/take_off":[
+"스키 점프 도약대"
 ],
 "place":[
 "장소"
@@ -4138,7 +4146,7 @@
 ],
 "place/hamlet":[
 "작은 마을",
-"반"
+"자연마을 · 반"
 ],
 "place/island":[
 "섬"
@@ -4159,7 +4167,7 @@
 "필지"
 ],
 "place/quarter":[
-"하위 자치구 / 지구"
+"동"
 ],
 "place/square":[
 "광장"
@@ -4431,10 +4439,12 @@
 "트램 정거장 / 승강장"
 ],
 "public_transport/platform/trolleybus":[
+"무궤도전차 승강장",
 "트롤리버스 승강장"
 ],
 "public_transport/platform/trolleybus_point":[
 "트롤리버스 정류장",
+"무궤도전차 정류장",
 "트롤리버스 정거장",
 "트롤리버스 정류소"
 ],
@@ -4507,7 +4517,10 @@
 "기차"
 ],
 "public_transport/station_train_halt":[
-"기차역 (간이역)"
+"선택 정차",
+"하차 요청",
+"기차역 (하차 요청식)",
+"request stop"
 ],
 "public_transport/station_tram":[
 "터미널",
@@ -4636,7 +4649,7 @@
 "강삭 철도"
 ],
 "railway/halt":[
-"기차역 (간이역)"
+"기차역 (하차 요청식)"
 ],
 "railway/level_crossing":[
 "철도-도로 건널목"
@@ -4689,7 +4702,12 @@
 "지하철역 입구"
 ],
 "railway/switch":[
-"철도 스위치"
+"선로전환기",
+"철도 분기기",
+"선로변환기",
+"분기기",
+"스위치",
+"선로 분기기"
 ],
 "railway/train_wash":[
 "기차 세차장"
@@ -4815,6 +4833,9 @@
 "shop/bathroom_furnishing":[
 "화장실 기구 가게",
 "화장실 기구 상점"
+],
+"shop/bbq":[
+"바베큐 상점"
 ],
 "shop/beauty":[
 "스파",
@@ -5117,6 +5138,9 @@
 "shop/hairdresser":[
 "이발소",
 "미장원",
+"미용실"
+],
+"shop/hairdresser/barber":[
 "미용실"
 ],
 "shop/hairdresser_supply":[
@@ -5665,7 +5689,10 @@
 "초커"
 ],
 "traffic_calming/cushion":[
-"차별 과속방지턱"
+"과속방지쿠션",
+"스피드 쿠션",
+"패드형 과속방지턱 (스피드 쿠션)",
+"패드형 과속방지턱"
 ],
 "traffic_calming/dip":[
 "딥"
@@ -5695,7 +5722,9 @@
 "교통 표지판"
 ],
 "traffic_sign/city_limit":[
-"시 경계 표지판"
+"속도관리구역",
+"도심부",
+"도시부 표지판"
 ],
 "traffic_sign/maxspeed":[
 "제한 속도 표지판"

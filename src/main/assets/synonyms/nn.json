@@ -14,12 +14,6 @@
 "amenity/dentist":[
 "Tannlege"
 ],
-"amenity/driving_school":[
-"Køyreskule"
-],
-"amenity/language_school":[
-"Språkskule"
-],
 "amenity/telephone":[
 "Telefon"
 ],
@@ -55,9 +49,6 @@
 ],
 "entrance/emergency":[
 "Naudutgang"
-],
-"leisure/dancing_school":[
-"Danseskule"
 ],
 "line":[
 "Linje"

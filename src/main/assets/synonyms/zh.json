@@ -300,6 +300,13 @@
 "咖啡店",
 "咖啡館"
 ],
+"amenity/cafe/teahouse":[
+"茶馆",
+"茶楼",
+"茶舍",
+"茶社",
+"茶室"
+],
 "amenity/car_pooling":[
 "拼车站"
 ],
@@ -369,12 +376,6 @@
 "晷影",
 "晷针",
 "日晷"
-],
-"amenity/college":[
-"學院",
-"學院用地",
-"學院範圍",
-"學院校地"
 ],
 "amenity/community_centre":[
 "社區會堂",
@@ -654,12 +655,6 @@
 "駕訓場",
 "駕駛訓練場"
 ],
-"amenity/driving_school":[
-"驾培机构",
-"駕駛學校",
-"駕駛訓練班",
-"駕訓班"
-],
 "amenity/embassy":[
 "使馆"
 ],
@@ -855,28 +850,8 @@
 "卡拉 OK 店",
 "卡拉 ok 店"
 ],
-"amenity/kindergarten":[
-"托兒所 / 幼兒園",
-"托兒所 / 幼兒園範圍",
-"托兒所 / 幼稚園用地",
-"托兒所 / 幼稚園範圍",
-"托兒所 / 幼兒園校地",
-"托兒所 / 幼稚園校地",
-"托兒所 / 幼稚園"
-],
 "amenity/kneipp_water_cure":[
 "水療設施"
-],
-"amenity/language_school":[
-"学校",
-"语言",
-"语校",
-"外语学校",
-"外文",
-"外文学校",
-"语文",
-"外语",
-"語言學校"
 ],
 "amenity/lavoir":[
 "洗衣場",
@@ -949,9 +924,6 @@
 "amenity/motorcycle_rental":[
 "機車出租",
 "摩托車出租"
-],
-"amenity/music_school":[
-"音樂學校"
 ],
 "amenity/nightclub":[
 "夜店",
@@ -1152,12 +1124,6 @@
 "amenity/post_office":[
 "邮局",
 "郵局"
-],
-"amenity/prep_school":[
-"辅导班",
-"辅导学校",
-"培训班",
-"补习班"
 ],
 "amenity/prison":[
 "强制",
@@ -1407,12 +1373,6 @@
 "amenity/sanitary_dump_station":[
 "露營車廁所排污"
 ],
-"amenity/school":[
-"中小學校地",
-"中小學",
-"中小學範圍",
-"中小學用地"
-],
 "amenity/shelter":[
 "遮雨棚",
 "亭子",
@@ -1604,12 +1564,6 @@
 "手推車停放區",
 "手推车停放区",
 "購物車停放區"
-],
-"amenity/university":[
-"大學用地",
-"大學範圍",
-"大學",
-"大學校地"
 ],
 "amenity/vacuum_cleaner":[
 "吸塵器清理站"
@@ -2482,6 +2436,20 @@
 "cemetery/sector":[
 "公墓分區"
 ],
+"climbing/crag":[
+"攀爬",
+"攀岩",
+"攀岩点",
+"峭壁"
+],
+"climbing/route":[
+"攀爬",
+"攀岩",
+"攀爬路线"
+],
+"climbing/route_bottom":[
+"攀岩路線起點"
+],
 "club":[
 "俱樂部"
 ],
@@ -2741,12 +2709,6 @@
 "自動心臟去顫器 (aed)",
 "自動心臟去顫器 (AED)"
 ],
-"emergency/designated":[
-"緊急通道"
-],
-"emergency/destination":[
-"緊急通道"
-],
 "emergency/disaster_response":[
 "民間災害應變站"
 ],
@@ -2797,18 +2759,9 @@
 "emergency/mountain_rescue":[
 "山難救助單位"
 ],
-"emergency/no":[
-"非緊急通行使用"
-],
-"emergency/official":[
-"官方緊急通行使用"
-],
 "emergency/phone":[
 "緊急電話",
 "紧急电话"
-],
-"emergency/private":[
-"私人緊急通行使用"
 ],
 "emergency/siren":[
 "警報"
@@ -2821,9 +2774,6 @@
 ],
 "emergency/water_tank":[
 "消防儲水槽"
-],
-"emergency/yes":[
-"緊急通行使用"
 ],
 "entrance":[
 "入口 / 出口"
@@ -3628,6 +3578,19 @@
 "史蹟",
 "历史遗迹"
 ],
+"historic/aircraft":[
+"老",
+"货机",
+"旧飞机",
+"客机",
+"古",
+"古代",
+"军机",
+"历史",
+"旧",
+"飞机",
+"固定翼"
+],
 "historic/archaeological_site":[
 "考古遗址",
 "遗址",
@@ -3712,6 +3675,12 @@
 "historic/memorial":[
 "紀念物",
 "纪念馆"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"蓝色",
+"牌匾",
+"藍色紀念牌",
+"蓝牌"
 ],
 "historic/memorial/plaque":[
 "紀念牌"
@@ -4168,21 +4137,6 @@
 "leisure/dance":[
 "舞廳",
 "跳舞場所"
-],
-"leisure/dancing_school":[
-"芭蕾",
-"艺术",
-"探戈",
-"学校",
-"学习",
-"舞蹈學校",
-"学院",
-"爵士",
-"舞蹈",
-"跳舞",
-"拉丁舞",
-"舞",
-"培训"
 ],
 "leisure/disc_golf_course":[
 "飞盘高尔夫场",
@@ -5257,12 +5211,6 @@
 "射电",
 "射电望远镜",
 "望远镜"
-],
-"man_made/torii":[
-"寺庙",
-"鸟居",
-"日式大门",
-"神社"
 ],
 "man_made/tower":[
 "塔"
@@ -7779,6 +7727,11 @@
 "公車路線",
 "巴士路線"
 ],
+"type/route/climbing":[
+"攀爬",
+"攀岩",
+"攀爬路线"
+],
 "type/route/detour":[
 "繞道路線",
 "繞道路綫",
@@ -7864,6 +7817,15 @@
 ],
 "type/site":[
 "點位"
+],
+"type/site/climbing/area":[
+"攀爬区域"
+],
+"type/site/climbing/crag":[
+"攀爬",
+"攀岩",
+"攀岩点",
+"峭壁"
 ],
 "type/waterway":[
 "水道",

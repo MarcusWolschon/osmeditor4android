@@ -249,12 +249,6 @@
 "čas",
 "minute"
 ],
-"amenity/college":[
-"šolsko območje",
-"kampus",
-"univerza",
-"Šolsko središče"
-],
 "amenity/community_centre":[
 "Središče skupnosti"
 ],
@@ -300,11 +294,6 @@
 "pitnik",
 "korito s pipo",
 "pipa"
-],
-"amenity/driving_school":[
-"šola vožnje",
-"avto šola",
-"Avtošola"
 ],
 "amenity/embassy":[
 "Veleposlaništvo"
@@ -397,9 +386,6 @@
 ],
 "amenity/motorcycle_parking":[
 "Parkirišče za motorje"
-],
-"amenity/music_school":[
-"Glasbena šola"
 ],
 "amenity/nightclub":[
 "disko",
@@ -523,15 +509,6 @@
 "amenity/sanitary_dump_station":[
 "Odlaganje fekalij za avtodome"
 ],
-"amenity/school":[
-"Izobraževalno središče",
-"dvorana",
-"akademija",
-"fakulteta",
-"oddelek",
-"univerza",
-"inštitut"
-],
 "amenity/shelter":[
 "zaklonišče",
 "zaklon",
@@ -599,12 +576,6 @@
 "magistrat",
 "Mestna hiša",
 "rotovž"
-],
-"amenity/university":[
-"Univerzitetno območje",
-"fakulteta",
-"kampus",
-"univerza"
 ],
 "amenity/vending_machine":[
 "Prodajni avtomat",
@@ -1135,12 +1106,6 @@
 "emergency/defibrillator":[
 "Defibrilator"
 ],
-"emergency/designated":[
-"Označen dostop v sili"
-],
-"emergency/destination":[
-"Smer dostopa v sili"
-],
 "emergency/fire_extinguisher":[
 "Gasilnik",
 "gasilni aparat"
@@ -1167,18 +1132,9 @@
 "Reševalec",
 "reševalec iz vode"
 ],
-"emergency/no":[
-"Brez dostopa v sili"
-],
-"emergency/official":[
-"Uradni dostop v sili"
-],
 "emergency/phone":[
 "sos telefon",
 "Klic v sili"
-],
-"emergency/private":[
-"Zasebni dostop v sili"
 ],
 "emergency/siren":[
 "preplah",
@@ -1186,9 +1142,6 @@
 "alarm",
 "opozorilo",
 "sirene"
-],
-"emergency/yes":[
-"Dovoljen dostop v sili"
 ],
 "ford":[
 "Plitvina",

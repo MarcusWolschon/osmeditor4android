@@ -288,11 +288,6 @@
 "amenity/clock/sundial":[
 "Güneş saati"
 ],
-"amenity/college":[
-"üniversite kampüsü",
-"üniversite bahçesi",
-"Üniversite Kampüsü"
-],
 "amenity/community_centre":[
 "toplum merkezi",
 "sosyal merkez",
@@ -434,10 +429,6 @@
 "amenity/driver_training":[
 "Driver Training Grounds"
 ],
-"amenity/driving_school":[
-"sürücü okulu",
-"Sürücü Kursu"
-],
 "amenity/embassy":[
 "Büyükelçilik"
 ],
@@ -556,14 +547,8 @@
 "amenity/karaoke_box":[
 "Karaoke Kutusu"
 ],
-"amenity/kindergarten":[
-"Anaokulu Sahası"
-],
 "amenity/kneipp_water_cure":[
 "Kneipp Facility"
-],
-"amenity/language_school":[
-"Dil Okulu"
 ],
 "amenity/lavoir":[
 "Yıkama Evi"
@@ -607,10 +592,6 @@
 ],
 "amenity/motorcycle_rental":[
 "Motosiklet Kiralama"
-],
-"amenity/music_school":[
-"Müzik Okulu",
-"müzik merkezi"
 ],
 "amenity/nightclub":[
 "Gece Kulübü",
@@ -729,9 +710,6 @@
 "postane",
 "Postane"
 ],
-"amenity/prep_school":[
-"Sınava Hazırlık / Özel Ders Okulu"
-],
 "amenity/prison":[
 "Cezaevi",
 "cezaevi"
@@ -778,6 +756,9 @@
 "yer",
 "yeri",
 "Geri Dönüşüm Merkezi"
+],
+"amenity/recycling_container":[
+"Geridönüşüm Kutusu"
 ],
 "amenity/refugee_site":[
 "Mülteci Kampı"
@@ -862,11 +843,6 @@
 "amenity/sanitary_dump_station":[
 "tuvalet atık yeri",
 "Tuvalet Atık Yeri"
-],
-"amenity/school":[
-"Okul",
-"okul",
-"okul bahçesi"
 ],
 "amenity/shelter":[
 "barınak",
@@ -983,11 +959,6 @@
 ],
 "amenity/trolley_bay":[
 "Cart Corral"
-],
-"amenity/university":[
-"üniversite kampüsü",
-"üniversite yerleşkesi",
-"Üniversite Yerleşkesi"
 ],
 "amenity/vacuum_cleaner":[
 "Elektrikli Süpürge İstasyonu"
@@ -1854,12 +1825,6 @@
 "şok cihazı",
 "Şok Cihazı"
 ],
-"emergency/designated":[
-"Acil Erişim"
-],
-"emergency/destination":[
-"Acil Erişim İstikameti"
-],
 "emergency/fire_alarm":[
 "Yangın Alarmı Arama Kutusu"
 ],
@@ -1894,18 +1859,9 @@
 "emergency/mountain_rescue":[
 "Dağ Arama Kurtarma"
 ],
-"emergency/no":[
-"Acil Erişim Yok"
-],
-"emergency/official":[
-"Yetkililere Özel Acil Erişim"
-],
 "emergency/phone":[
 "acil durum telefonu",
 "Acil Durum Telefonu"
-],
-"emergency/private":[
-"Kısıtlı Acil Erişim"
 ],
 "emergency/siren":[
 "Siren"
@@ -1918,9 +1874,6 @@
 ],
 "emergency/water_tank":[
 "Acil Su Deposu"
-],
-"emergency/yes":[
-"Acil Erişim"
 ],
 "entrance":[
 "Giriş / Çıkış"
@@ -2096,7 +2049,7 @@
 ],
 "highway/busway":[
 "otobüs yolu",
-"Otobüs Güzerhâhı",
+"Otobüs İçin Ayrılmış Yol",
 "otobüs hattı"
 ],
 "highway/construction":[
@@ -2466,6 +2419,9 @@
 "anıt",
 "Anıt"
 ],
+"historic/memorial/blue_plaque-GB-IE":[
+"Blue Plaque"
+],
 "historic/memorial/plaque":[
 "Hatıra Plaketi"
 ],
@@ -2720,9 +2676,6 @@
 "leisure/dance":[
 "dans salonu",
 "Dans Salonu"
-],
-"leisure/dancing_school":[
-"Dans Okulu"
 ],
 "leisure/disc_golf_course":[
 "Disk Golf Sahası"
@@ -3335,9 +3288,6 @@ beşe beş futbol"
 ],
 "man_made/tailings_pond":[
 "Tailings Pond"
-],
-"man_made/torii":[
-"Tore Kapısı"
 ],
 "man_made/tower":[
 "Kule",

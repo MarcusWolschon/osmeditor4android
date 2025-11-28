@@ -92,9 +92,6 @@
 "amenity/drinking_water":[
 "Apă de Băut"
 ],
-"amenity/driving_school":[
-"Școală de Șoferi"
-],
 "amenity/embassy":[
 "Ambasadă"
 ],
@@ -200,9 +197,6 @@
 "amenity/restaurant":[
 "Restaurant"
 ],
-"amenity/school":[
-"Școală"
-],
 "amenity/shelter":[
 "Adăpost"
 ],
@@ -223,9 +217,6 @@
 ],
 "amenity/townhall":[
 "Primărie"
-],
-"amenity/university":[
-"Universitate"
 ],
 "amenity/veterinary":[
 "Medic Veterinar"

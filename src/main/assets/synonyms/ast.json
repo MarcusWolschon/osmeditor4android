@@ -170,9 +170,6 @@
 "amenity/clock":[
 "Reló"
 ],
-"amenity/college":[
-"Terrén de colexu universitariu"
-],
 "amenity/community_centre":[
 "atenéu",
 "centru social",
@@ -216,15 +213,6 @@
 "Agua potable",
 "fonte",
 "bebederu"
-],
-"amenity/driving_school":[
-"llicencia",
-"escuela",
-"permisu",
-"Autoescuela",
-"conducir",
-"conducción",
-"carné"
 ],
 "amenity/embassy":[
 "Embaxada"
@@ -276,11 +264,6 @@
 ],
 "amenity/motorcycle_parking":[
 "Aparcaderu de motos"
-],
-"amenity/music_school":[
-"Academia de música",
-"escuela de música",
-"conservatoriu"
 ],
 "amenity/nightclub":[
 "discobar",
@@ -366,11 +349,6 @@
 "Vertíu de depósitos d'autocaravanes",
 "saneamientru caravanes"
 ],
-"amenity/school":[
-"terrén d'escuela",
-"zona escolar",
-"Antoxana d'escuela"
-],
 "amenity/shelter":[
 "Abellugu"
 ],
@@ -414,10 +392,6 @@
 "ayuntamientu",
 "Edificiu municipal",
 "casa del conceyu"
-],
-"amenity/university":[
-"terrén universitariu",
-"Campus universitariu"
 ],
 "amenity/vending_machine":[
 "máquina",
@@ -845,35 +819,17 @@
 "corazón",
 "ataque cardiacu"
 ],
-"emergency/designated":[
-"Accesu d'emerxencia designáu"
-],
-"emergency/destination":[
-"Accesu d'emerxencia a destín"
-],
 "emergency/fire_hydrant":[
 "Toma de mangueres",
 "apagafueos",
 "boca de riegu",
 "fueu"
 ],
-"emergency/no":[
-"Accesu d'emerxencia Non"
-],
-"emergency/official":[
-"Accesu d'emerxencia oficial"
-],
 "emergency/phone":[
 "teléfonu d'ayuda",
 "Teléfonu d'emerxencia",
 "teléfonu de socorru",
 "s.o.s."
-],
-"emergency/private":[
-"Accesu d'emerxencia priváu"
-],
-"emergency/yes":[
-"Accesu d'emerxencia Si"
 ],
 "ford":[
 "Vau"

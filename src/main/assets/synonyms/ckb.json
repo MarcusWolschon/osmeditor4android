@@ -38,9 +38,6 @@
 "amenity/clock":[
 "کاتژمێر"
 ],
-"amenity/college":[
-"کۆلێژ"
-],
 "amenity/community_centre/youth_centre":[
 "ناوەندی گەنجان"
 ],
@@ -68,14 +65,8 @@
 "amenity/ice_cream":[
 "فرۆشگای ساردەمەنی"
 ],
-"amenity/language_school":[
-"قوتابخانەی زمان"
-],
 "amenity/library":[
 "پەڕتووکخانە"
-],
-"amenity/music_school":[
-"قوتابخانەی مۆسیقی"
 ],
 "amenity/nightclub":[
 "یانەی شەوانە"
@@ -514,9 +505,6 @@
 ],
 "leisure/dance":[
 "هۆڵی سەماکردن"
-],
-"leisure/dancing_school":[
-"قوتابخانەی سەما"
 ],
 "leisure/garden":[
 "باخچە"

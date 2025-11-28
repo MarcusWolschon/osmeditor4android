@@ -53,6 +53,24 @@
 "amenity/community_centre":[
 "Ionad Pobail"
 ],
+"amenity/community_centre/community_hall":[
+"Halla an Phobail"
+],
+"amenity/community_centre/cultural_centre":[
+"Ionad Cultúir"
+],
+"amenity/community_centre/family_centre":[
+"Ionad Teaghlaigh"
+],
+"amenity/community_centre/parish_hall":[
+"Halla an Pharóiste"
+],
+"amenity/community_centre/village_hall":[
+"Halla an tSráidbhaile"
+],
+"amenity/community_centre/youth_centre":[
+"Ionad Óige"
+],
 "amenity/courthouse":[
 "Teach Cúirte"
 ],
@@ -98,9 +116,6 @@
 "amenity/restaurant":[
 "Bialann"
 ],
-"amenity/school":[
-"Fearann Scoile"
-],
 "amenity/shelter":[
 "Scáthlán"
 ],
@@ -112,9 +127,6 @@
 ],
 "amenity/toilets":[
 "Leithris"
-],
-"amenity/university":[
-"Fearann Ollscoile"
 ],
 "area":[
 "Limistéar"
@@ -316,6 +328,132 @@
 ],
 "building_point":[
 "Foirgneamh"
+],
+"craft/agricultural_engines":[
+"Meicneoir Innill Talmhaíochta"
+],
+"craft/basket_maker":[
+"Caoladóir"
+],
+"craft/beekeeper":[
+"Beachaire"
+],
+"craft/blacksmith":[
+"Gabha Dibh"
+],
+"craft/boatbuilder":[
+"Déantóir Báid"
+],
+"craft/bookbinder":[
+"Ceanglóir Leabhar"
+],
+"craft/carpenter":[
+"Cearpantóir"
+],
+"craft/caterer":[
+"Lónadóir"
+],
+"craft/chimney_sweeper":[
+"Glantóir Simléar"
+],
+"craft/cleaning":[
+"Seirbhís Ghlantóireachta"
+],
+"craft/clockmaker":[
+"Déantóir Clog"
+],
+"craft/confectionery":[
+"Déantóir Milseáin"
+],
+"craft/distillery":[
+"Drioglann"
+],
+"craft/dressmaker":[
+"Gúnadóir"
+],
+"craft/electrician":[
+"Leictreoir"
+],
+"craft/floorer":[
+"Urláróir"
+],
+"craft/gardener":[
+"Garraíodóir"
+],
+"craft/glaziery":[
+"Gloineadóir"
+],
+"craft/insulator":[
+"Inslitheoir"
+],
+"craft/joiner":[
+"Siúinéir"
+],
+"craft/key_cutter":[
+"Gearrthóir Eochracha"
+],
+"craft/locksmith":[
+"Glasadóir"
+],
+"craft/metal_construction":[
+"Miotalóir"
+],
+"craft/painter":[
+"Péintéir"
+],
+"craft/photographer":[
+"Grianghrafadóir"
+],
+"craft/photographic_laboratory":[
+"Saotharlann Fótagrafaíochta"
+],
+"craft/plasterer":[
+"Plástrálaí"
+],
+"craft/plumber":[
+"Pluiméir"
+],
+"craft/rigger":[
+"Rigeálaí"
+],
+"craft/roofer":[
+"Díonadóir"
+],
+"craft/saddler":[
+"Diallaiteoir"
+],
+"craft/sawmill":[
+"Muileann Sábhadóireachta"
+],
+"craft/scaffolder":[
+"Scafallóir"
+],
+"craft/sculptor":[
+"Dealbhóir"
+],
+"craft/shoemaker":[
+"Gréasaí"
+],
+"craft/stonemason":[
+"Saor Cloiche"
+],
+"craft/tailor":[
+"Táilliúir"
+],
+"craft/tiler":[
+"Tíleoir"
+],
+"craft/upholsterer":[
+"Cumhdaitheoir"
+],
+"craft/watchmaker":[
+"Uaireadóirí"
+],
+"craft/window_construction":[
+"Tógáil Fhuinneoga"
+],
+"craft/winery":[
+"Fíonlann"
 ],
 "embankment":[
 "Claífort"
@@ -563,11 +701,47 @@
 "office":[
 "Oifig"
 ],
+"office/accountant":[
+"Oifig Cuntasóra"
+],
+"office/adoption_agency":[
+"Gníomhaireacht Uchtaithe"
+],
+"office/advertising_agency":[
+"Gníomhaireacht Fograíochta"
+],
+"office/architect":[
+"Oifig Ailtire"
+],
+"office/association":[
+"Oifig Eagraíochta Neamhbhrabúis"
+],
+"office/charity":[
+"Oifig Charthanachta"
+],
+"office/company":[
+"Oifig Chorparáideach"
+],
+"office/consulting":[
+"Oifig Chomhairleachta"
+],
 "office/diplomatic/consulate":[
 "Consalacht"
 ],
 "office/diplomatic/embassy":[
 "Ambasáid"
+],
+"office/educational_institution":[
+"Institiúid Oideachais"
+],
+"office/employment_agency":[
+"Gníomhaireacht Fostaíochta"
+],
+"office/engineer":[
+"Oifig Innealtóireachta"
+],
+"office/estate_agent":[
+"Oifig Eastát Réadach"
 ],
 "place":[
 "Áit"
@@ -707,6 +881,9 @@
 "shop/kiosk":[
 "Both"
 ],
+"shop/locksmith":[
+"Glasadóir"
+],
 "shop/mall":[
 "Ionad Siopadóireachta"
 ],
@@ -719,8 +896,26 @@
 "shop/supermarket":[
 "Ollmhargadh"
 ],
+"shop/tailor":[
+"Táilliúir"
+],
 "tourism/artwork":[
 "Obair Ealaíne"
+],
+"tourism/artwork/bust":[
+"Busta"
+],
+"tourism/artwork/graffiti":[
+"Graifítí"
+],
+"tourism/artwork/installation":[
+"Suiteán Ealaíne"
+],
+"tourism/artwork/mural":[
+"Múrphictiúr"
+],
+"tourism/artwork/sculpture":[
+"Dealbh"
 ],
 "tourism/artwork/statue":[
 "Dealbh"

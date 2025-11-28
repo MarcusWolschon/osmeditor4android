@@ -2,9 +2,6 @@
 "addr/interpolation":[
 "Address Interpolation"
 ],
-"address":[
-"Address"
-],
 "advertising":[
 "Advertising Device"
 ],
@@ -141,13 +138,7 @@
 "LGBTQ+ Bar"
 ],
 "amenity/bbq":[
-"bbq",
-"Barbecue/Grill",
-"barbecue",
-"grill"
-],
-"amenity/bench":[
-"Bench"
+"Barbecue/Grill"
 ],
 "amenity/bicycle_parking":[
 "Bicycle Parking"
@@ -166,9 +157,6 @@
 ],
 "amenity/bicycle_repair_station":[
 "Bicycle Repair Tool Stand"
-],
-"amenity/bicycle_wash":[
-"Bicycle Wash"
 ],
 "amenity/biergarten":[
 "Biergarten"
@@ -189,42 +177,13 @@
 "Bus Station / Terminal"
 ],
 "amenity/cafe":[
-"tea",
-"Cafe",
-"cafe",
-"coffee",
-"bistro"
+"Cafe"
 ],
 "amenity/cafe/bubble_tea":[
-"boba",
-"tapioca",
-"cafe",
-"taiwanese tea drink",
-"pearl tea",
-"bubble milk tea",
-"pearl milk tea",
-"Bubble Tea Cafe",
-"boba drink"
+"Bubble Tea Cafe"
 ],
 "amenity/cafe/coffee_shop":[
-"hot drinks",
-"espresso",
-"coffee shop",
-"caffe",
-"cappuccino",
-"caffè",
-"brew",
-"americano",
-"cold brew",
-"cocoa",
-"café",
-"latte",
-"tea",
-"cafe",
-"drip",
-"Coffee shop",
-"flat white",
-"macchiato"
+"Coffee shop"
 ],
 "amenity/car_pooling":[
 "Car Pooling Station"
@@ -267,9 +226,6 @@
 ],
 "amenity/clock/sundial":[
 "Sundial"
-],
-"amenity/college":[
-"College Grounds"
 ],
 "amenity/community_centre":[
 "Community Centre"
@@ -325,9 +281,6 @@
 "amenity/doctors/gynaecology":[
 "Obstetrician/Gynecologist"
 ],
-"amenity/doctors/haematology":[
-"Haematologist"
-],
 "amenity/doctors/paediatrics":[
 "Pediatrician"
 ],
@@ -366,9 +319,6 @@
 ],
 "amenity/driver_training":[
 "Driver Training Grounds"
-],
-"amenity/driving_school":[
-"Driving School"
 ],
 "amenity/embassy":[
 "Embassy"
@@ -474,30 +424,13 @@
 "Frozen Yoghurt Shop"
 ],
 "amenity/internet_cafe":[
-"cybercafe",
-"cafe",
-"coffee",
-"taxiphone",
-"teleboutique",
-"lanhouse",
-"net",
-"internet cafe",
 "Internet Cafe"
 ],
 "amenity/karaoke_box":[
 "Karaoke Box"
 ],
-"amenity/kindergarten":[
-"Preschool / Nursery Grounds"
-],
 "amenity/kneipp_water_cure":[
 "Kneipp Facility"
-],
-"amenity/language_school":[
-"Language School"
-],
-"amenity/lavoir":[
-"Lavoir"
 ],
 "amenity/letter_box":[
 "Letter Box"
@@ -532,9 +465,6 @@
 "amenity/motorcycle_rental":[
 "Motorcycle Rental"
 ],
-"amenity/music_school":[
-"Music School"
-],
 "amenity/nightclub":[
 "Nightclub"
 ],
@@ -548,26 +478,9 @@
 "Parcel Locker"
 ],
 "amenity/parking":[
-"car lot",
-"car parking",
-"parking lot",
-"rv parking",
-"vehicle parking",
-"automobile parking",
-"truck parking",
 "Car Park"
 ],
 "amenity/parking/multi-storey":[
-"parkade",
-"car",
-"indoor parking",
-"parking garage",
-"parking ramp",
-"parking structure",
-"multistorey car park",
-"multilevel parking garage",
-"parking building",
-"parking deck",
 "Multistorey Car Park"
 ],
 "amenity/parking/park_ride":[
@@ -580,11 +493,6 @@
 "Underground Parking"
 ],
 "amenity/parking_entrance":[
-"parking garage entrace",
-"parking garage exit",
-"car park entrance",
-"parking garage entrace/exit",
-"carpark entrance",
 "Parking Garage Entrance / Exit"
 ],
 "amenity/parking_space":[
@@ -653,9 +561,6 @@
 "amenity/post_office":[
 "Post Office"
 ],
-"amenity/prep_school":[
-"Exam Preparation"
-],
 "amenity/prison":[
 "Prison Grounds"
 ],
@@ -708,19 +613,7 @@
 "Asian Restaurant"
 ],
 "amenity/restaurant/barbecue":[
-"Barbecue Restaurant",
-"lunch",
-"dining",
-"dinner",
-"bbq",
-"bar",
-"dine",
-"canteen",
-"eat",
-"barbecue restaurant",
-"drive-in",
-"grill",
-"table"
+"Barbecue Restaurant"
 ],
 "amenity/restaurant/chinese":[
 "Chinese Restaurant"
@@ -788,9 +681,6 @@
 "amenity/sanitary_dump_station":[
 "RV Toilet Disposal"
 ],
-"amenity/school":[
-"School Grounds"
-],
 "amenity/shelter":[
 "Shelter"
 ],
@@ -802,9 +692,6 @@
 ],
 "amenity/shelter/picnic_shelter":[
 "Picnic Shelter"
-],
-"amenity/shelter/public_transport":[
-"Public Transport Shelter"
 ],
 "amenity/shower":[
 "Shower"
@@ -828,17 +715,7 @@
 "Food Bank"
 ],
 "amenity/social_facility/group_home":[
-"senior",
-"care home",
-"Retirement Home",
-"living",
-"retire",
-"old",
-"elderly",
-"aged",
-"assisted living",
-"retirement",
-"aged care"
+"Retirement Home"
 ],
 "amenity/social_facility/homeless_shelter":[
 "Homeless Shelter"
@@ -911,9 +788,6 @@
 ],
 "amenity/trolley_bay":[
 "Trolley Bay"
-],
-"amenity/university":[
-"University Grounds"
 ],
 "amenity/vacuum_cleaner":[
 "Car Hoover Service"
@@ -1009,9 +883,6 @@
 "Postage Vending Machine"
 ],
 "amenity/vending_machine/sweets":[
-"candy",
-"sweets",
-"lollies",
 "Sweets Vending Machine"
 ],
 "amenity/veterinary":[
@@ -1030,26 +901,13 @@
 "Waste Transfer Station"
 ],
 "amenity/water_point":[
-"water spigot",
-"water source",
-"rv drinking water",
-"campervan drinking water",
-"RV Drinking Water",
-"water faucet",
-"water point",
-"water tap"
+"RV Drinking Water"
 ],
 "amenity/watering_place":[
-"Animal Watering Place",
-"trough"
+"Animal Watering Place"
 ],
 "amenity/weighbridge":[
-"truck scale",
-"weigh station",
 "Weigh Bridge"
-],
-"area":[
-"Area"
 ],
 "area/footway":[
 "Footway Area"
@@ -1180,40 +1038,20 @@
 "barrier/height_restrictor":[
 "Height Restrictor"
 ],
-"barrier/jersey_barrier":[
-"Jersey Barrier"
-],
 "barrier/kerb":[
-"Kerb",
-"curb"
+"Kerb"
 ],
 "barrier/kerb/flush":[
-"level curb",
-"tactile curb",
-"even kerb",
-"level kerb",
-"tactile kerb",
-"even curb",
-"Flush Kerb",
-"flush curb"
+"Flush Kerb"
 ],
 "barrier/kerb/lowered":[
-"lowered curb",
-"kerb ramp",
-"curb ramp",
-"Lowered Kerb",
-"kerb cut",
-"dropped kerb",
-"curb cut",
-"pram ramp"
+"Lowered Kerb"
 ],
 "barrier/kerb/raised":[
-"raised curb",
 "Raised Kerb"
 ],
 "barrier/kerb/rolled":[
-"Rolled Kerb",
-"rolled curb"
+"Rolled Kerb"
 ],
 "barrier/kissing_gate":[
 "Kissing Gate"
@@ -1281,9 +1119,6 @@
 "bridge/support/pier":[
 "Bridge Pier"
 ],
-"building":[
-"Building"
-],
 "building/allotment_house":[
 "Allotment House"
 ],
@@ -1309,9 +1144,6 @@
 ],
 "building/cabin":[
 "Cabin"
-],
-"building/carport":[
-"Carport"
 ],
 "building/cathedral":[
 "Cathedral Building"
@@ -1411,8 +1243,6 @@
 "Outbuilding"
 ],
 "building/pavilion":[
-"sports",
-"pavilion",
 "Pavilion Building"
 ],
 "building/public":[
@@ -1547,9 +1377,6 @@
 "Clockmaker"
 ],
 "craft/confectionery":[
-"candy",
-"sweets",
-"lollies",
 "Confectioner"
 ],
 "craft/distillery":[
@@ -1702,12 +1529,6 @@
 "emergency/defibrillator":[
 "Defibrillator"
 ],
-"emergency/designated":[
-"Emergency Access Designated"
-],
-"emergency/destination":[
-"Emergency Access Destination"
-],
 "emergency/fire_alarm":[
 "Fire Alarm Call Box"
 ],
@@ -1715,13 +1536,7 @@
 "Fire Extinguisher"
 ],
 "emergency/fire_hose":[
-"fhr",
-"dry riser",
-"stand pipe",
-"Fire Hose",
-"fire hose reel",
-"standpipe",
-"riser"
+"Fire Hose"
 ],
 "emergency/fire_hydrant":[
 "Fire Hydrant"
@@ -1747,17 +1562,8 @@
 "emergency/mountain_rescue":[
 "Mountain Rescue"
 ],
-"emergency/no":[
-"Emergency Access No"
-],
-"emergency/official":[
-"Emergency Access Official"
-],
 "emergency/phone":[
 "Emergency Phone"
-],
-"emergency/private":[
-"Emergency Access Private"
 ],
 "emergency/siren":[
 "Siren"
@@ -1770,9 +1576,6 @@
 ],
 "emergency/water_tank":[
 "Emergency Water Tank"
-],
-"emergency/yes":[
-"Emergency Access Yes"
 ],
 "entrance":[
 "Entrance / Exit"
@@ -1943,30 +1746,13 @@
 "Cycle Path"
 ],
 "highway/cycleway/bicycle_foot":[
-"bicycle and foot path",
-"bike and pedestrian path",
-"mixed-use trail",
-"multi-use trail",
-"segregated trail",
-"shared use path",
-"Cycle & Foot Path",
-"greenway",
-"shared path",
-"green way",
-"rail trail",
-"cycle & foot path"
+"Cycle & Foot Path"
 ],
 "highway/cycleway/crossing":[
 "Cycle Crossing"
 ],
 "highway/cycleway/crossing/bicycle_foot":[
-"bike and pedestrian crossing",
-"cyclist",
-"Cycle & Foot Crossing",
-"cycle & foot crossing",
-"bicycle and foot crosswalk",
-"cycling",
-"cycleway"
+"Cycle & Foot Crossing"
 ],
 "highway/cycleway/crossing/traffic_signals":[
 "Cycle Crossing With Traffic Signals"
@@ -1980,19 +1766,13 @@
 "highway/cycleway/moped_link-NL":[
 "Moped Link"
 ],
-"highway/cycleway/traffic_island_shared":[
-"Shared Path Refuge Island"
-],
 "highway/cyclist_waiting_aid":[
 "Cyclist Waiting Aid"
 ],
 "highway/elevator":[
-"elevator",
 "Lift"
 ],
 "highway/elevator_line":[
-"inclined elevator",
-"cable railway",
 "Inclined Lift"
 ],
 "highway/emergency_access_point":[
@@ -2005,29 +1785,9 @@
 "Escape Lane"
 ],
 "highway/footway":[
-"Foot Path",
-"path",
-"trail",
-"foot path",
-"promenade",
-"hiking",
-"hike",
-"track",
-"trackway",
-"walk",
-"footpath"
+"Foot Path"
 ],
 "highway/footway/access_aisle":[
-"wheelchair aisle",
-"disabled parking access zone",
-"accessible van loading zone",
-"access aisle",
-"parking lot aisle",
-"parking access zone",
-"tow-away zone",
-"striped zone",
-"tow zone",
-"towaway zone",
 "Access Aisle"
 ],
 "highway/footway/conveying":[
@@ -2049,22 +1809,13 @@
 "Informal Foot Path"
 ],
 "highway/footway/sidewalk":[
-"sidewalk",
-"pavement",
-"Pavement",
-"footway",
-"footpath"
+"Pavement"
 ],
 "highway/footway/traffic_island":[
 "Refuge Island"
 ],
 "highway/give_way":[
-"Give Way Sign",
-"yield",
-"sign"
-],
-"highway/ladder":[
-"Ladder"
+"Give Way Sign"
 ],
 "highway/living_street":[
 "Living Street"
@@ -2092,12 +1843,6 @@
 ],
 "highway/path/boardwalk":[
 "Boardwalk"
-],
-"highway/path/crossing":[
-"Cycle & Foot Crossing"
-],
-"highway/path/crossing/traffic_signals":[
-"Path Crossing With Pedestrian Signals"
 ],
 "highway/path/informal":[
 "Informal Path"
@@ -2147,9 +1892,6 @@
 "highway/service/alley":[
 "Alley"
 ],
-"highway/service/drive-through":[
-"Drive-Through"
-],
 "highway/service/driveway":[
 "Driveway"
 ],
@@ -2181,11 +1923,6 @@
 "Stop Sign"
 ],
 "highway/street_lamp":[
-"streetlamp",
-"street lamp",
-"light",
-"lamp",
-"gaslight",
 "Street Light"
 ],
 "highway/tertiary":[
@@ -2198,21 +1935,13 @@
 "Open Road Toll"
 ],
 "highway/track":[
-"Track / Land-Access Road",
-"fire trail"
+"Track / Land-Access Road"
 ],
 "highway/traffic_mirror":[
 "Traffic Mirror"
 ],
 "highway/traffic_signals":[
-"light",
-"Traffic Lights",
-"traffic signals",
-"stoplight",
-"traffic light"
-],
-"highway/trailhead":[
-"Trailhead"
+"Traffic Lights"
 ],
 "highway/trunk":[
 "Trunk Road"
@@ -2240,9 +1969,6 @@
 ],
 "historic/building":[
 "Historic Building"
-],
-"historic/cannon":[
-"Cannon"
 ],
 "historic/castle":[
 "Castle"
@@ -2273,9 +1999,6 @@
 ],
 "historic/monument":[
 "Monument"
-],
-"historic/pillory":[
-"Historic Pillory"
 ],
 "historic/ruins":[
 "Ruins"
@@ -2458,7 +2181,6 @@
 "Amusement Arcade"
 ],
 "leisure/bandstand":[
-"bandstand",
 "Bandstand"
 ],
 "leisure/beach_resort":[
@@ -2478,9 +2200,6 @@
 ],
 "leisure/dance":[
 "Dance Hall"
-],
-"leisure/dancing_school":[
-"Dance School"
 ],
 "leisure/disc_golf_course":[
 "Disc Golf Course"
@@ -2710,9 +2429,6 @@
 "leisure/pitch/volleyball":[
 "Volleyball Court"
 ],
-"leisure/playground":[
-"Playground"
-],
 "leisure/playground/indoor":[
 "Indoor Playground"
 ],
@@ -2873,16 +2589,7 @@
 "Flagpole"
 ],
 "man_made/fuel_pump":[
-"diesel",
-"petrol",
-"lng",
-"gas pump",
-"fuel",
-"propane",
-"Fuel pump",
-"gasoline",
-"cng",
-"biodiesel"
+"Fuel pump"
 ],
 "man_made/gantry":[
 "Gantry"
@@ -2894,7 +2601,6 @@
 "Goods Conveyor"
 ],
 "man_made/groyne":[
-"groin",
 "Groyne"
 ],
 "man_made/insect_hotel":[
@@ -3023,9 +2729,6 @@
 "man_made/survey_point":[
 "Survey Point"
 ],
-"man_made/tailings_pond":[
-"Tailings Pond"
-],
 "man_made/telescope":[
 "Telescope"
 ],
@@ -3034,9 +2737,6 @@
 ],
 "man_made/telescope/radio":[
 "Radio Telescope"
-],
-"man_made/torii":[
-"Torii"
 ],
 "man_made/tower":[
 "Tower"
@@ -3129,8 +2829,7 @@
 "Beach"
 ],
 "natural/cape":[
-"Cape",
-"point"
+"Cape"
 ],
 "natural/cave_entrance":[
 "Cave Entrance"
@@ -3194,9 +2893,6 @@
 ],
 "natural/shrub":[
 "Shrub"
-],
-"natural/sinkhole":[
-"Sinkhole"
 ],
 "natural/spring":[
 "Spring"
@@ -3283,8 +2979,7 @@
 "Fen"
 ],
 "natural/wetland/mangrove":[
-"Mangrove",
-"mangrove"
+"Mangrove"
 ],
 "natural/wetland/marsh":[
 "Marsh"
@@ -3362,13 +3057,7 @@
 "Educational Institution"
 ],
 "office/employment_agency":[
-"vocation",
-"careers",
-"career",
-"vocational",
-"occupation",
-"Employment Agency",
-"job"
+"Employment Agency"
 ],
 "office/energy_supplier":[
 "Energy Supplier Office"
@@ -3413,15 +3102,7 @@
 "Insurance Office"
 ],
 "office/it":[
-"tech",
-"computer",
-"software",
-"information technology",
-"Information Technology Office",
-"information",
-"technology",
-"it",
-"ict"
+"Information Technology Office"
 ],
 "office/lawyer":[
 "Law Office"
@@ -3516,20 +3197,11 @@
 "piste/sleigh":[
 "Sleigh Trail"
 ],
-"place":[
-"Place"
-],
-"place/city":[
-"City"
-],
 "place/city_block":[
 "City Block"
 ],
 "place/farm":[
 "Farm"
-],
-"place/hamlet":[
-"Hamlet"
 ],
 "place/island":[
 "Island"
@@ -3732,12 +3404,6 @@
 "power/transformer":[
 "Transformer"
 ],
-"public_transport/platform":[
-"Public Transport Platform"
-],
-"public_transport/platform/aerialway_point":[
-"Aerialway Stop / Platform"
-],
 "public_transport/platform/bus":[
 "Bus Platform"
 ],
@@ -3799,9 +3465,6 @@
 ],
 "public_transport/platform/trolleybus_point":[
 "Trolleybus Stop"
-],
-"public_transport/platform_point":[
-"Transit Stop / Platform"
 ],
 "public_transport/station":[
 "Transit Station"
@@ -3924,8 +3587,7 @@
 "Heritage Railway Track"
 ],
 "railway/rail":[
-"Train Track",
-"railway"
+"Train Track"
 ],
 "railway/rail/highspeed":[
 "High-Speed Train Track"
@@ -3969,9 +3631,6 @@
 "railway/yard":[
 "Rail Yard"
 ],
-"relation":[
-"Relation"
-],
 "roller_coaster/station":[
 "Roller Coaster Station"
 ],
@@ -4004,9 +3663,6 @@
 ],
 "seamark/mooring":[
 "Mooring"
-],
-"shop":[
-"Shop"
 ],
 "shop/agrarian":[
 "Farm Supply Shop"
@@ -4114,16 +3770,13 @@
 "Charity Shop"
 ],
 "shop/cheese":[
-"Cheese Shop",
-"cheesemonger"
+"Cheese Shop"
 ],
 "shop/chemist":[
-"Chemist",
-"chemist"
+"Chemist"
 ],
 "shop/chocolate":[
-"Chocolate Shop",
-"chocolatier"
+"Chocolate Shop"
 ],
 "shop/clothes":[
 "Clothing Shop"
@@ -4153,19 +3806,10 @@
 "Computer Shop"
 ],
 "shop/confectionery":[
-"Sweet Shop",
-"candy",
-"sweets",
-"lollies"
+"Sweet Shop"
 ],
 "shop/convenience":[
-"Convenience Store",
-"superette",
-"convenience shop",
-"corner shop",
-"dairy",
-"corner store",
-"convenience store"
+"Convenience Store"
 ],
 "shop/copyshop":[
 "Copyshop"
@@ -4181,9 +3825,6 @@
 ],
 "shop/dairy":[
 "Dairy Shop"
-],
-"shop/deli":[
-"Delicatessen"
 ],
 "shop/department_store":[
 "Department Store"
@@ -4272,9 +3913,6 @@
 "shop/hairdresser":[
 "Hairdresser",
 "barber"
-],
-"shop/hairdresser/barber":[
-"Barber"
 ],
 "shop/hairdresser_supply":[
 "Hairdresser Supply Shop"
@@ -4612,9 +4250,6 @@
 "tourism/attraction":[
 "Tourist Attraction"
 ],
-"tourism/camp_pitch":[
-"Camp Pitch"
-],
 "tourism/camp_site":[
 "Camp Site"
 ],
@@ -4628,9 +4263,7 @@
 "Caravan Park"
 ],
 "tourism/chalet":[
-"Holiday Cottage",
-"crib",
-"bach"
+"Holiday Cottage"
 ],
 "tourism/gallery":[
 "Art Gallery"

@@ -459,9 +459,6 @@
 "amenity/clock/sundial":[
 "Aurinkokello"
 ],
-"amenity/college":[
-"Korkeakoulualue (college)"
-],
 "amenity/community_centre":[
 "nuorisotila",
 "kyläkeskus",
@@ -707,16 +704,6 @@
 "amenity/driver_training":[
 "Ajoharjoittelupaikka"
 ],
-"amenity/driving_school":[
-"auto",
-"koulu",
-"liikenne",
-"Autokoulu",
-"ajokortti",
-"autoilu",
-"ajaminen",
-"ajolupa"
-],
 "amenity/embassy":[
 "Suurlähetystö"
 ],
@@ -892,12 +879,6 @@
 "amenity/karaoke_box":[
 "Karaokekoppi"
 ],
-"amenity/kindergarten":[
-"Esikoulu"
-],
-"amenity/language_school":[
-"Kielikoulu"
-],
 "amenity/lavoir":[
 "Pyykinpesupaikka"
 ],
@@ -950,26 +931,6 @@
 ],
 "amenity/motorcycle_rental":[
 "Moottoripyörävuokraamo"
-],
-"amenity/music_school":[
-"musiikkioppilaitos",
-"taideakatemia",
-"yhtye",
-"muskari",
-"kitara",
-"orkesteri",
-"laulunopetus",
-"musiikkileikkikoulu",
-"musiikkiopisto",
-"piano",
-"konservatorio",
-"musiikkikoulu",
-"soitonopetus",
-"kuoro",
-"Musiikkikoulu",
-"musiikkiopetus",
-"musiikkiopettaja",
-"bändi"
 ],
 "amenity/nightclub":[
 "Yökerho"
@@ -1178,9 +1139,6 @@
 "postikonttori",
 "paketti"
 ],
-"amenity/prep_school":[
-"Valmennuskoulu"
-],
 "amenity/prison":[
 "Vankila"
 ],
@@ -1342,30 +1300,6 @@
 ],
 "amenity/sanitary_dump_station":[
 "Asuntoautojen jäteveden tyhjennyspiste"
-],
-"amenity/school":[
-"lukio",
-"ammattioppilaitos",
-"koulu",
-"ammatti",
-"välituntialue",
-"yhteislukio",
-"piha",
-"välitunti",
-"koulualue",
-"koulupiha",
-"Koulualue (peruskoulu/lukio/ammattikoulu)",
-"yläaste",
-"oppilaitos",
-"yläkoulu",
-"yhtenäiskoulu",
-"ammattikoulu",
-"yhtenäislukio",
-"ammattiopisto",
-"alue",
-"koulutus",
-"ala-aste",
-"amis"
 ],
 "amenity/shelter":[
 "pukeutuminen",
@@ -1540,9 +1474,6 @@
 ],
 "amenity/trolley_bay":[
 "Ostoskärrykatos"
-],
-"amenity/university":[
-"Yliopistokampus"
 ],
 "amenity/vacuum_cleaner":[
 "Imurointiasema"
@@ -2591,12 +2522,6 @@
 "elvytys",
 "hätä"
 ],
-"emergency/designated":[
-"Merkitty pelastustie"
-],
-"emergency/destination":[
-"Pelastustie ilman läpiajoa"
-],
 "emergency/fire_alarm":[
 "Paloilmoituspainike"
 ],
@@ -2650,12 +2575,6 @@
 "emergency/mountain_rescue":[
 "Vuoripelastus"
 ],
-"emergency/no":[
-"Ei pelastusajoa"
-],
-"emergency/official":[
-"Virallinen pelastustie"
-],
 "emergency/phone":[
 "hätätilanne",
 "Hätäpuhelin",
@@ -2664,9 +2583,6 @@
 "poikkeuspuhelin",
 "hätäpuhelin",
 "hätänumero"
-],
-"emergency/private":[
-"Yksityinen pelastustie"
 ],
 "emergency/siren":[
 "Sireeni",
@@ -2683,9 +2599,6 @@
 ],
 "emergency/water_tank":[
 "Varavesisäiliö"
-],
-"emergency/yes":[
-"Pelastusajo sallittu"
 ],
 "entrance":[
 "Sisään- tai uloskäynti"
@@ -3354,6 +3267,9 @@
 "historic/memorial":[
 "Muistomerkki"
 ],
+"historic/memorial/blue_plaque-GB-IE":[
+"Sininen muistolaatta"
+],
 "historic/memorial/plaque":[
 "Muistolaatta"
 ],
@@ -3675,10 +3591,6 @@
 "Tanssipaikka",
 "tanssiminen",
 "lavatanssiminen"
-],
-"leisure/dancing_school":[
-"tanssiopisto",
-"Tanssikoulu"
 ],
 "leisure/disc_golf_course":[
 "Frisbeegolfkenttä"
@@ -4405,9 +4317,6 @@
 ],
 "man_made/telescope/radio":[
 "Radioteleskooppi"
-],
-"man_made/torii":[
-"Torii"
 ],
 "man_made/tower":[
 "Torni"

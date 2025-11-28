@@ -792,17 +792,6 @@
 "dong ho mat troi",
 "đồng hồ ánh nắng mặt trời"
 ],
-"amenity/college":[
-"truong cao dang",
-"cd",
-"trường cao đẳng",
-"sân trường cao đẳng",
-"cao đẳng",
-"cao dang",
-"san truong cao dang",
-"Sân trường Cao đẳng",
-"cđ"
-],
 "amenity/community_centre":[
 "hoi truong cong dong",
 "trung tâm cộng đồng",
@@ -956,11 +945,6 @@
 "sân tập lái xe",
 "Sân Tập Lái xe",
 "bai tap lai xe"
-],
-"amenity/driving_school":[
-"Trường Dạy Lái Xe",
-"trường dạy lái xe",
-"truong day lai xe"
 ],
 "amenity/embassy":[
 "Tòa đại sứ"
@@ -1405,28 +1389,6 @@
 "dàn karaoke",
 "phong karaoke"
 ],
-"amenity/kindergarten":[
-"san nha tre",
-"san truong mau giao",
-"sân nhà giữ trẻ",
-"san nha giu tre",
-"san truong mam non",
-"sân nhà trẻ",
-"sân trường mầm non",
-"sân trường mẫu giáo",
-"Sân Nhà trẻ"
-],
-"amenity/language_school":[
-"truong ngon ngu",
-"trường ngôn ngữ",
-"truong hoc ngon ngu",
-"trường học ngoại ngữ",
-"trường ngoại ngữ",
-"truong hoc ngoai ngu",
-"Trường học Ngoại ngữ",
-"trường học ngôn ngữ",
-"truong ngoai ngu"
-],
 "amenity/letter_box":[
 "hom thu den",
 "hòm thư nhà",
@@ -1594,15 +1556,6 @@
 "tiệm thuê xe tay ga",
 "cho thue xe gan may",
 "tiem thue xe gan may"
-],
-"amenity/music_school":[
-"trường dạy nhạc",
-"trường âm nhạc",
-"Trường Âm nhạc",
-"truong am nhac",
-"truong day nhac",
-"trường nhạc",
-"truong nhac"
 ],
 "amenity/nightclub":[
 "hộp đêm",
@@ -2032,19 +1985,6 @@
 "Bưu điện",
 "buu dien",
 "bưu điện"
-],
-"amenity/prep_school":[
-"day kem",
-"truong hoc them",
-"trung tâm học thêm",
-"trung tam luyen thi",
-"trung tâm luyện thi",
-"trường luyện thi",
-"dạy kèm",
-"truong luyen thi",
-"Trường Luyện thi / Dạy Kèm",
-"trường học thêm",
-"trung tam hoc them"
 ],
 "amenity/prison":[
 "sân nhà giam",
@@ -3073,17 +3013,6 @@
 "Trạm Đổ Chất thải dành cho Nhà lưu động",
 "trạm đổ chất thải vệ sinh dành cho nhà lưu động"
 ],
-"amenity/school":[
-"sân trường",
-"sân trung tâm giáo dục",
-"san truong",
-"sân nhà trường",
-"san truong hoc",
-"san nha truong",
-"san trung tam giao duc",
-"Sân Trường",
-"sân trường học"
-],
 "amenity/shelter":[
 "Nhà trú",
 "diem tru an",
@@ -3490,23 +3419,6 @@
 "giỏ hàng",
 "cho de xe day",
 "noi do xe day"
-],
-"amenity/university":[
-"sân trường cao đẳng",
-"viện đại học",
-"san truong dai hoc",
-"truong dai hoc",
-"trường đại học",
-"vien dai hoc",
-"Sân trường Đại học",
-"sân trường đại học",
-"sân viện đại học",
-"cđ",
-"truong cao dang",
-"trường cao đẳng",
-"đh",
-"san truong cao dang",
-"san vien dai hoc"
 ],
 "amenity/vacuum_cleaner":[
 "hút bụi",
@@ -5559,12 +5471,6 @@
 "Máy Khử Rung Tim",
 "may khu rung tim"
 ],
-"emergency/designated":[
-"Chỉ định cho Dịch vụ Khẩn cấp"
-],
-"emergency/destination":[
-"Dịch vụ Khẩn cấp Đến nơi"
-],
 "emergency/fire_alarm":[
 "hộp cuộc gọi báo cháy",
 "hộp khẩn cấp cứu hỏa",
@@ -5681,19 +5587,10 @@
 "Trạm Cứu hộ trên Núi",
 "trạm cứu nạn trên núi"
 ],
-"emergency/no":[
-"Không cho phép Dịch vụ Khẩn cấp"
-],
-"emergency/official":[
-"Chính thức Dành cho Dịch vụ Khẩn cấp"
-],
 "emergency/phone":[
 "dien thoai khan cap",
 "Điện thoại Khẩn cấp",
 "điện thoại khẩn cấp"
-],
-"emergency/private":[
-"Chỉ Dịch vụ Khẩn cấp được Chủ Cho phép"
 ],
 "emergency/siren":[
 "coi bao dong",
@@ -5742,9 +5639,6 @@
 "bể nước cứu hỏa",
 "be nuoc phong chay",
 "bể nước cứu hoả"
-],
-"emergency/yes":[
-"Dành cho Dịch vụ Khẩn cấp"
 ],
 "entrance":[
 "cửa ra vào",
@@ -7785,31 +7679,6 @@
 "phòng nhảy",
 "phong nhay"
 ],
-"leisure/dancing_school":[
-"vanxơ",
-"tăng gô",
-"van xơ",
-"truong mua",
-"van-xo",
-"truong kheu vu",
-"trường múa",
-"trường khiêu vũ",
-"ba le",
-"ba lê",
-"van xo",
-"waltz",
-"balê",
-"tang go",
-"tăng-gô",
-"van-xơ",
-"ba-le",
-"bale",
-"vanxo",
-"Trường Múa/Khiêu vũ",
-"tango",
-"tang-go",
-"ba-lê"
-],
 "leisure/disc_golf_course":[
 "san gon dia",
 "sân gôn đĩa",
@@ -9188,16 +9057,6 @@
 "diem khao sat",
 "điểm khảo sát",
 "Điểm Khảo sát"
-],
-"man_made/torii":[
-"den tho than dao",
-"torii",
-"Torii",
-"điểu cư",
-"cổng nhật",
-"cong nhat",
-"đền thờ thần đạo",
-"dieu cu"
 ],
 "man_made/tower":[
 "Tháp",

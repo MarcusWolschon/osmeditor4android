@@ -114,6 +114,9 @@
 "sgio",
 "codi"
 ],
+"aerialway/goods":[
+"Awyrffordd Nwyddau"
+],
 "aerialway/j-bar":[
 "sgïo",
 "Lifft J-Bar",
@@ -153,6 +156,7 @@
 "hofren",
 "teithio",
 "hofrennydd",
+"Peilon Awyrffordd",
 "aer"
 ],
 "aerialway/rope_tow":[
@@ -194,11 +198,17 @@
 "aer"
 ],
 "aeroway/gate":[
-"Gât Maes Awyr",
+"borth",
 "glwyd",
+"phorth",
 "giât",
 "giat",
+"chlwyd",
 "llidiart",
+"Gât Maes Awyr",
+"gât",
+"iet",
+"porth",
 "llidiard",
 "gat",
 "clwyd"
@@ -243,6 +253,7 @@
 "plên",
 "hofren",
 "teithio",
+"Lle Parcio Awyren",
 "hofrennydd",
 "aer"
 ],
@@ -473,6 +484,9 @@
 "siop goffi",
 "macchiato"
 ],
+"amenity/cafe/teahouse":[
+"Ystafell De"
+],
 "amenity/car_rental":[
 "hwb",
 "rhannu",
@@ -528,8 +542,8 @@
 "ty",
 "gofal dydd",
 "grŵp chwarae",
-"Meithrinfa",
 "gwasanaeth",
+"Meithrinfa/Gofal Plant",
 "gofal plant"
 ],
 "amenity/cinema":[
@@ -566,14 +580,6 @@
 ],
 "amenity/clock/sundial":[
 "Deial Haul"
-],
-"amenity/college":[
-"col",
-"gol",
-"goleg",
-"choleg",
-"Tiroedd Coleg",
-"chol"
 ],
 "amenity/community_centre":[
 "Canolfan Gymunedol"
@@ -714,7 +720,7 @@
 "meddyg teulu",
 "gp",
 "ymarferydd teulu",
-"Ymarferydd Cyffredinol"
+"Ymarferydd Gofal Sylfaenol"
 ],
 "amenity/doctors/gynaecology":[
 "wŷ",
@@ -893,12 +899,15 @@
 "amenity/dog_toilet":[
 "piso",
 "ty bach",
-"wiwi",
 "Toiled Ci",
 "baw ci",
-"pi-pi",
 "lle chwech",
 "tŷ bach",
+"wc",
+"closed dŵr",
+"wiwi",
+"closed dwr",
+"pi-pi",
 "cŵn",
 "codi"
 ],
@@ -930,21 +939,14 @@
 "ysgol yrru",
 "trwydded yrru"
 ],
-"amenity/driving_school":[
-"ymarferol",
-"yrru",
-"car",
-"ceir",
-"Ysgol Gyrru",
-"gyrru",
-"trwydded",
-"theori"
-],
 "amenity/embassy":[
 "Llysgenhadaeth"
 ],
 "amenity/events_venue":[
 "Lleoliad Digwyddiadau"
+],
+"amenity/exhibition_centre":[
+"Canolfan Arddangos"
 ],
 "amenity/fast_food":[
 "bwrdd",
@@ -1016,8 +1018,8 @@
 "amenity/fast_food/chinese":[
 "chinese",
 "china",
-"Bwys Brys Tsieineaidd",
 "tsieina",
+"Bwyd Brys Tsieineaidd",
 "stir fry",
 "chow mein",
 "dim sum"
@@ -1045,7 +1047,7 @@
 "pysgod",
 "cafe",
 "dine",
-"Bwyd Brys Pysgod & Sglodion",
+"Bwyd Brys Pysgod a Sglodion",
 "eat",
 "bysgod",
 "cod",
@@ -1177,10 +1179,10 @@
 "tan",
 "nwy",
 "tân",
+"Gorsaf Betrol",
 "llosgi",
 "ffagl",
 "olew",
-"Gorsaf Petrol",
 "fagl"
 ],
 "amenity/funeral_hall":[
@@ -1243,7 +1245,21 @@
 "marijuana"
 ],
 "amenity/hospital":[
-"Tiroedd Ysbyty"
+"sefydliad",
+"dost",
+"brys",
+"iechyd",
+"ward",
+"ystafell",
+"theatr",
+"gofal",
+"frys",
+"salwch",
+"argyfwng",
+"sâl",
+"Tiroedd Ysbyty",
+"clinig",
+"sal"
 ],
 "amenity/ice_cream":[
 "yogurt",
@@ -1290,22 +1306,8 @@
 "ktv",
 "teledu"
 ],
-"amenity/kindergarten":[
-"Tiroedd Meithrinfa"
-],
 "amenity/kneipp_water_cure":[
 "Cyfleuster Kneipp"
-],
-"amenity/language_school":[
-"iaith",
-"tefl",
-"dysgu",
-"Ysgol Iaith",
-"dysgu cymraeg",
-"dysgwr",
-"siarad",
-"dysgwyr",
-"esl"
 ],
 "amenity/lavoir":[
 "golchi",
@@ -1341,6 +1343,12 @@
 "amenity/loading_dock":[
 "Doc Llwytho"
 ],
+"amenity/lounger":[
+"lolfa",
+"Cadair Ymlacio",
+"sedd",
+"mainc"
+],
 "amenity/love_hotel":[
 "Gwesty Rhyw"
 ],
@@ -1359,6 +1367,15 @@
 "amenity/marketplace":[
 "Marchnad"
 ],
+"amenity/monastery":[
+"Tiroedd Mynachdy"
+],
+"amenity/money_transfer":[
+"Gorsaf Drosglwyddo Arian"
+],
+"amenity/mortuary":[
+"Corffdy"
+],
 "amenity/motorcycle_parking":[
 "Parcio Beic Modur"
 ],
@@ -1373,17 +1390,6 @@
 "hurio",
 "benthyg",
 "Beic Modur Hur"
-],
-"amenity/music_school":[
-"offer",
-"Ysgol Gerddoriaeth",
-"cherddorol",
-"miwsig",
-"cerddoriaeth",
-"canu",
-"cherddoriaeth",
-"cerddorol",
-"offeryn"
 ],
 "amenity/nightclub":[
 "dawnsio",
@@ -1433,6 +1439,9 @@
 ],
 "amenity/parking/street-side":[
 "Parcio Ochr Stryd"
+],
+"amenity/parking/underground":[
+"Parcio Dan Ddaear"
 ],
 "amenity/parking_space":[
 "man parco",
@@ -1486,6 +1495,16 @@
 ],
 "amenity/pharmacy":[
 "Cownter Fferyllfa"
+],
+"amenity/photo_booth":[
+"Bwth Lluniau",
+"lluniau",
+"fwth",
+"ffotograffau",
+"ffoto",
+"ciosg",
+"camera",
+"delweddau"
 ],
 "amenity/place_of_worship":[
 "jehovah",
@@ -1620,12 +1639,6 @@
 "llythyr",
 "Swyddfa Bost"
 ],
-"amenity/prep_school":[
-"paratoi",
-"Ysgol Baratoi",
-"academi",
-"tiwtora"
-],
 "amenity/prison":[
 "Tiroedd Carchar"
 ],
@@ -1654,8 +1667,17 @@
 "amenity/public_bookcase":[
 "Blwch Llyfrau Cyhoeddus"
 ],
+"amenity/ranger_station":[
+"Gorsaf Barcmon"
+],
 "amenity/recycling":[
 "Ailgylchu"
+],
+"amenity/recycling/container/electrical_items":[
+"Cynhwysydd E-wastraff"
+],
+"amenity/recycling/container/green_waste":[
+"Cynhwysydd Gwastraff Gwyrdd"
 ],
 "amenity/recycling_centre":[
 "Canolfan Ailgylchu"
@@ -2160,14 +2182,16 @@
 "grill"
 ],
 "amenity/sanitary_dump_station":[
-"Lle Gwaredu Toiled Carafan"
-],
-"amenity/school":[
-"ysgol gyfun",
-"ysgol uwchradd",
-"Tiroedd Ysgol",
-"academi",
-"ysgol gynradd"
+"ty bach",
+"closed dŵr",
+"closed dwr",
+"Lle Gwaredu Toiled Carafan",
+"tai bach",
+"lle chwech",
+"tŷ bach",
+"llefydd chwech",
+"wc",
+"lle 6"
 ],
 "amenity/shelter":[
 "gazebo",
@@ -2216,11 +2240,18 @@
 "Cyfleuster Cymdeithasol",
 "gwasanaeth"
 ],
+"amenity/social_facility/ambulatory_care":[
+"Triniaeth Ddydd",
+"allanol"
+],
 "amenity/social_facility/food_bank":[
 "cegin sŵp",
 "cegin gawl",
 "Banc Bwyd",
 "cegin swp"
+],
+"amenity/social_facility/group_home":[
+"Cartref Grŵp i'r Henoed"
 ],
 "amenity/social_facility/homeless_shelter":[
 "ddi-gartref",
@@ -2321,6 +2352,9 @@
 "sioe gerdd",
 "Theatr"
 ],
+"amenity/theatre/type/amphi":[
+"Amffitheatr"
+],
 "amenity/toilets":[
 "ty bach",
 "Toiledau",
@@ -2332,15 +2366,36 @@
 ],
 "amenity/toilets/disposal/flush":[
 "ty bach",
+"closed dŵr",
+"closed dwr",
 "Toiledau Fflysh",
 "tai bach",
 "lle chwech",
 "tŷ bach",
 "llefydd chwech",
+"wc",
+"lle 6"
+],
+"amenity/toilets/disposal/pitlatrine":[
+"ty bach",
+"tai bach",
+"lle chwech",
+"tŷ bach",
+"llefydd chwech",
+"Closed Pridd",
 "lle 6"
 ],
 "amenity/toilets/portable":[
-"Toiled Symudol"
+"ty bach",
+"closed dŵr",
+"closed dwr",
+"Toiled Cludadwy",
+"tai bach",
+"lle chwech",
+"tŷ bach",
+"llefydd chwech",
+"wc",
+"lle 6"
 ],
 "amenity/townhall":[
 "Neuadd y Dref"
@@ -2364,9 +2419,6 @@
 "cart",
 "siopa"
 ],
-"amenity/university":[
-"Tiroedd Prifysgol"
-],
 "amenity/vehicle_inspection":[
 "car",
 "Man Arolygu Cerbydau",
@@ -2377,6 +2429,9 @@
 ],
 "amenity/vending_machine":[
 "Peiriant Gwerthu"
+],
+"amenity/vending_machine/bottle_return":[
+"Peiriant Dychwelyd Poteli"
 ],
 "amenity/vending_machine/bread":[
 "Peiriant Gwerthu Bara"
@@ -2564,8 +2619,14 @@
 "rwtsh",
 "trash"
 ],
+"amenity/waste_transfer_station":[
+"Gorsaf Drosglwyddo Gwastraff"
+],
 "amenity/water_point":[
 "Dŵr Yfed Carafan"
+],
+"amenity/watering_place":[
+"Man Dŵr i Anifeiliaid"
 ],
 "area":[
 "siap",
@@ -2660,7 +2721,10 @@
 "Trên Gwyllt"
 ],
 "attraction/summer_toboggan":[
-"Tobogan Haf"
+"sleid",
+"gwyllt",
+"Tobogan Haf",
+"mynydd"
 ],
 "attraction/swing_carousel":[
 "Carwsél Siglen"
@@ -2696,11 +2760,17 @@
 "siecio"
 ],
 "barrier/bump_gate":[
+"borth",
 "glwyd",
+"phorth",
 "giât",
 "giat",
-"Gât Bwmp",
+"chlwyd",
 "llidiart",
+"Gât Bwmp",
+"gât",
+"iet",
+"porth",
 "llidiard",
 "gat",
 "clwyd"
@@ -2746,11 +2816,17 @@
 "taldra"
 ],
 "barrier/gate":[
+"borth",
 "glwyd",
+"phorth",
 "giât",
 "giat",
-"Gât",
+"chlwyd",
 "llidiart",
+"gât",
+"Gât",
+"iet",
+"porth",
 "llidiard",
 "gat",
 "clwyd"
@@ -2759,11 +2835,17 @@
 "Bar Gwarchod"
 ],
 "barrier/hampshire_gate":[
+"borth",
 "glwyd",
+"phorth",
 "giât",
 "giat",
+"chlwyd",
 "Gât Gwifren",
 "llidiart",
+"gât",
+"iet",
+"porth",
 "llidiard",
 "gat",
 "clwyd"
@@ -2779,16 +2861,18 @@
 "prysglwyn",
 "clawdd",
 "ddraenlwyn",
-"Gwrychoedd",
 "lwyn",
 "dryslwyn",
 "ddryslwyn",
+"Gwrych",
 "berth",
 "bren",
 "phren",
+"glawdd",
 "draenllwyn",
 "brysglwyn",
 "draenen",
+"chlawdd",
 "wrychoedd",
 "pherth"
 ],
@@ -2805,21 +2889,42 @@
 "barrier/kerb":[
 "Cwrb"
 ],
+"barrier/kerb/flush":[
+"Cwrb Fflysh"
+],
+"barrier/kerb/raised":[
+"Cwrb Uwch"
+],
+"barrier/kerb/rolled":[
+"Cwrb Crwn"
+],
 "barrier/kissing_gate":[
+"borth",
 "glwyd",
+"phorth",
 "giât",
 "giat",
+"chlwyd",
 "llidiart",
+"Gât Mochyn",
+"gât",
+"iet",
+"porth",
 "llidiard",
 "gat",
-"Gât Mochyn",
 "clwyd"
+],
+"barrier/motorcycle_barrier":[
+"Rhwystr Beiciau Modur"
 ],
 "barrier/retaining_wall":[
 "chynnal",
 "Wal Gynnal",
 "mur",
 "cynnal"
+],
+"barrier/rope":[
+"Ffens Rhaff"
 ],
 "barrier/spikes":[
 "ystribyn",
@@ -2853,11 +2958,17 @@
 "grisiau"
 ],
 "barrier/swing_gate":[
+"borth",
 "glwyd",
+"phorth",
 "giât",
 "giat",
-"Gât Siglo",
+"chlwyd",
 "llidiart",
+"gât",
+"Gât Siglo",
+"iet",
+"porth",
 "llidiard",
 "gat",
 "clwyd"
@@ -2876,11 +2987,17 @@
 "Rhwystr Sŵn"
 ],
 "barrier/wicket_gate":[
+"borth",
 "glwyd",
+"phorth",
 "giât",
 "Gât Wiced",
 "giat",
+"chlwyd",
 "llidiart",
+"gât",
+"iet",
+"porth",
 "llidiard",
 "gat",
 "clwyd"
@@ -3093,7 +3210,21 @@
 "Adeilad Hangar"
 ],
 "building/hospital":[
-"Adeilad Ysbyty"
+"sefydliad",
+"dost",
+"brys",
+"Adeilad Ysbyty",
+"iechyd",
+"ward",
+"ystafell",
+"theatr",
+"gofal",
+"frys",
+"salwch",
+"argyfwng",
+"sâl",
+"clinig",
+"sal"
 ],
 "building/hotel":[
 "Adeilad Gwesty"
@@ -3278,7 +3409,7 @@
 "Rhes Teras"
 ],
 "building/train_station":[
-"Adeilad Gorsaf Drên"
+"Adeilad Gorsaf Drenau"
 ],
 "building/transportation":[
 "Adeilad Cludiant"
@@ -3300,6 +3431,26 @@
 ],
 "cemetery/sector":[
 "Adran Fynwent"
+],
+"climbing/crag":[
+"Craig Ddringo",
+"clegyr",
+"creigiau",
+"clegyrau"
+],
+"climbing/route":[
+"cerryg",
+"clegyr",
+"dringo",
+"craig",
+"clegyrau",
+"carreg",
+"Ffordd Ddringo"
+],
+"climbing/route_bottom":[
+"cychwyn",
+"Dechrau Ffordd Ddringo",
+"dringo"
 ],
 "club":[
 "Clwb"
@@ -3410,10 +3561,24 @@
 "Lloriwr Pharce"
 ],
 "craft/photographer":[
-"Ffotograffydd"
+"lluniau",
+"ffotos",
+"Ffotograffydd",
+"tynnu",
+"recordio",
+"camera",
+"delweddau"
 ],
 "craft/photographic_laboratory":[
-"Labordy Ffotograffiaeth"
+"lluniau",
+"fwth",
+"ffotograffau",
+"ffoto",
+"ffilm",
+"Labordy Ffotograffiaeth",
+"ciosg",
+"camera",
+"delweddau"
 ],
 "craft/plasterer":[
 "Plastrwr"
@@ -3475,15 +3640,18 @@
 "Gwneuthurwr Watshis"
 ],
 "craft/window_construction":[
-"Gwydrwr",
 "gwydr",
 "tywod",
 "paen",
 "ffenestr",
-"ffenestri"
+"ffenestri",
+"Adeiladwr Ffenestri"
 ],
 "craft/winery":[
 "Gwindy"
+],
+"demolished/building":[
+"Adeilad Wedi'i Ddinistrio'n Ddiweddar"
 ],
 "disc_golf/basket":[
 "Basged Golff Disg"
@@ -3503,6 +3671,85 @@
 "disused/shop":[
 "Siop Nas Defnyddir"
 ],
+"education":[
+"Cyfleuster Addysg",
+"addysgu",
+"ysgol",
+"dysgu",
+"coleg",
+"hyfforddiant",
+"prifysgol",
+"gwersi"
+],
+"education/college":[
+"israddedig",
+"prifysgol",
+"Tiroedd Coleg"
+],
+"education/dancing_school":[
+"dawnsio",
+"swing",
+"addysgu",
+"stiwdio",
+"tango",
+"ballet",
+"walts",
+"Ysgol Ddawnsio"
+],
+"education/driving_school":[
+"fan",
+"car",
+"Ysgol Gyrru",
+"hgv",
+"gyrru",
+"cerbyd"
+],
+"education/kindergarten":[
+"cylch",
+"kindergarten",
+"meithrin",
+"Tiroedd Meithrinfa",
+"cyn ysgol"
+],
+"education/language_school":[
+"cymraeg",
+"Ysgol Iaith",
+"esl"
+],
+"education/music_school":[
+"Ysgol Gerddoriaeth",
+"cerddoriaeth",
+"canu",
+"cerddorol"
+],
+"education/prep_school":[
+"darllen",
+"Ysgol Baratoi / Tiwtora",
+"academaidd",
+"gwaith cartref",
+"mathemateg",
+"tiwtora",
+"ysgrifennu",
+"sgwennu"
+],
+"education/school":[
+"ysgol gyfun",
+"ysgol uwchradd",
+"Tiroedd Ysgol",
+"academi",
+"ysgol gynradd"
+],
+"education/university":[
+"meistr",
+"Tiroedd Prifysgol",
+"graddedigion",
+"bagloriaeth",
+"coleg",
+"phd"
+],
+"education/yes":[
+"Cyfleuster Addysg (Math Amhenodol)"
+],
 "embankment":[
 "Arglawdd"
 ],
@@ -3517,12 +3764,6 @@
 ],
 "emergency/defibrillator":[
 "Diffibriliwr"
-],
-"emergency/designated":[
-"Mynediad Brys Dynodedig"
-],
-"emergency/destination":[
-"Cyrchfan Mynediad Brys"
 ],
 "emergency/disaster_response":[
 "Gorsaf Ymateb i Drychinebau",
@@ -3607,17 +3848,8 @@
 "dwr",
 "cadw"
 ],
-"emergency/no":[
-"Dim Mynediad Brys"
-],
-"emergency/official":[
-"Mynediad Brys Swyddogol"
-],
 "emergency/phone":[
 "Ffôn Argyfwng"
-],
-"emergency/private":[
-"Mynediad Brys Preifat"
 ],
 "emergency/siren":[
 "Larwm"
@@ -3649,6 +3881,13 @@
 "Cronfa Ddŵr Argyfwng (Gorchuddiedig)",
 "dwr",
 "lac"
+],
+"emergency/water_tank":[
+"ymladd tan",
+"tân",
+"Tanc Dŵr Brys",
+"diffodd",
+"argyfwng"
 ],
 "entrance":[
 "Mynedfa / Allanfa"
@@ -3708,12 +3947,26 @@
 "Rhwystr Dŵr"
 ],
 "healthcare":[
-"Cyfleuster Gofal"
+"sefydliad",
+"dost",
+"clefyd",
+"llawdriniaeth",
+"iechyd",
+"doctor",
+"haint",
+"Cyfleuster Gofal Iechyd",
+"meddyg",
+"salwch",
+"sâl",
+"lles",
+"clinig",
+"sal"
 ],
 "healthcare/alternative":[
-"Meddygaeth Amgen"
+"Meddyginiaeth Amgen"
 ],
 "healthcare/alternative/acupuncture":[
+"miniog",
 "Ymarferydd Aciwbigo"
 ],
 "healthcare/alternative/ayurveda":[
@@ -3727,8 +3980,9 @@
 "crack",
 "cefn",
 "spein",
-"Ceiropractydd",
+"ceiropractydd",
 "sacrum",
+"Ciropractydd",
 "poen",
 "thoracic",
 "crac"
@@ -3740,10 +3994,17 @@
 "Natur-iachäwr"
 ],
 "healthcare/alternative/osteopathy":[
+"osteo",
 "Osteopath"
 ],
 "healthcare/alternative/traditional_chinese_medicine":[
-"Ymarferydd Meddygaeth Tseineaidd Traddodiadol"
+"reiki",
+"shiatsu",
+"die da",
+"Ymarferydd Meddyginiaeth Tseineaidd Traddodiadol",
+"tui na",
+"dit da",
+"tcm"
 ],
 "healthcare/audiologist":[
 "Awdiolegydd"
@@ -3761,7 +4022,13 @@
 "Orthodontydd"
 ],
 "healthcare/hospice":[
-"Hospis"
+"angheuol",
+"diwedd oes",
+"salwch",
+"sâl",
+"dost.hospis",
+"Hosbis",
+"sal"
 ],
 "healthcare/laboratory":[
 "Labordy Meddygol"
@@ -3773,7 +4040,12 @@
 "Therapydd Galwedigaethol"
 ],
 "healthcare/optometrist":[
-"Optometrydd"
+"sbectol",
+"llygad",
+"Optometrydd",
+"llygaid",
+"gwelededd",
+"lasik"
 ],
 "healthcare/physiotherapist":[
 "Ffisiotherapydd"
@@ -3799,7 +4071,7 @@
 "Therapydd Lleferydd"
 ],
 "healthcare/yes":[
-"Cyfleuster Gofal (math anhysbys)"
+"Cyfleuster Gofal Iechyd (math anhysbys)"
 ],
 "highway":[
 "Nodwedd Priffordd"
@@ -3823,6 +4095,9 @@
 "Croesfan",
 "goleuadau",
 "croesfan"
+],
+"highway/crossing/informal":[
+"Croesfan Anffurfiol"
 ],
 "highway/crossing/traffic_signals":[
 "Croesfan â Goleuadau Cerddwyr"
@@ -3856,6 +4131,12 @@
 ],
 "highway/cycleway/moped_link-NL":[
 "Dolen Moped"
+],
+"highway/cycleway/traffic_island":[
+"Ynys Draffig Beiciau"
+],
+"highway/cycleway/traffic_island_shared":[
+"Ynys Draffig Beiciau a Throed"
 ],
 "highway/cyclist_waiting_aid":[
 "dwylo",
@@ -3968,6 +4249,15 @@
 ],
 "highway/path/crossing":[
 "Croesfan Beiciau & Troed"
+],
+"highway/path/crossing/traffic_signals":[
+"Croesfan Beiciau a Throed â Goleuadau Cerddwyr"
+],
+"highway/path/crossing/uncontrolled":[
+"Croesfan Beiciau a Throed â Marciau"
+],
+"highway/path/crossing/unmarked":[
+"Croesfan Beiciau a Throed heb Farciau"
 ],
 "highway/path/informal":[
 "Llwybr Anffurfiol"
@@ -4169,6 +4459,9 @@
 "historic":[
 "Safle Hanesyddol"
 ],
+"historic/aircraft":[
+"Awyren Hanesyddol"
+],
 "historic/archaeological_site":[
 "Safle Archeolegol"
 ],
@@ -4205,11 +4498,17 @@
 "Château"
 ],
 "historic/city_gate":[
+"borth",
 "glwyd",
+"phorth",
 "giât",
 "giat",
-"Gât Dinas",
+"chlwyd",
 "llidiart",
+"Gât Dinas",
+"gât",
+"iet",
+"porth",
 "llidiard",
 "gat",
 "clwyd"
@@ -4222,6 +4521,13 @@
 ],
 "historic/memorial":[
 "Cofeb"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"placiau",
+"glas",
+"plac",
+"Plac Glas",
+"las"
 ],
 "historic/memorial/plaque":[
 "Plac Coffa"
@@ -4484,6 +4790,9 @@
 "landuse/meadow":[
 "Gwaun"
 ],
+"landuse/meadow_orchard/meadow":[
+"Gwaun gyda Choed Ffrwythau"
+],
 "landuse/meadow_orchard/orchard":[
 "dol",
 "ffrwyth",
@@ -4575,6 +4884,9 @@
 "Fflatiau Adeilad Cymhleth",
 "chyfadeilad"
 ],
+"landuse/residential/trailer_park":[
+"Parc Tai Symudol"
+],
 "landuse/retail":[
 "siop",
 "Ardal Fanwerthu",
@@ -4584,8 +4896,14 @@
 "landuse/vineyard":[
 "Gwinllan"
 ],
+"landuse/winter_sports":[
+"Ardal Chwaraeon Gaeaf"
+],
 "leisure":[
 "Nodwedd Hamdden"
+],
+"leisure/adult_gaming_centre":[
+"Canolfan Gemau i Oedolion"
 ],
 "leisure/amusement_arcade":[
 "talu",
@@ -4609,6 +4927,9 @@
 "nofio",
 "Man Nofio",
 "dwr"
+],
+"leisure/beach_resort":[
+"Cyrchfan Draeth"
 ],
 "leisure/bird_hide":[
 "cuddfan",
@@ -4641,9 +4962,6 @@
 ],
 "leisure/dance":[
 "Neuadd Dawnsio"
-],
-"leisure/dancing_school":[
-"Ysgol Ddawnsio"
 ],
 "leisure/disc_golf_course":[
 "Cwrs Golff Disg"
@@ -4767,6 +5085,17 @@
 "spa",
 "jacwsi"
 ],
+"leisure/ice_rink":[
+"Llawr Iâ"
+],
+"leisure/indoor_play":[
+"maes",
+"pêl",
+"bêl",
+"pel",
+"bel",
+"Ardal Chwarae Dan Do"
+],
 "leisure/marina":[
 "harbwr",
 "llongau",
@@ -4826,6 +5155,9 @@
 "nfl",
 "america"
 ],
+"leisure/pitch/american_handball":[
+"Cwrt Pêl-law Americanaidd"
+],
 "leisure/pitch/australian_football":[
 "awstralia",
 "pel-droed",
@@ -4851,11 +5183,15 @@
 "leisure/pitch/bowls":[
 "gryn",
 "pytio",
+"wastad",
 "bowlio",
-"Cadlas Cnapan",
+"anwastad",
+"Lawnt Bowls",
 "glob",
 "crin",
 "cryn",
+"cnapan",
+"cadlas",
 "boules"
 ],
 "leisure/pitch/chess":[
@@ -4870,11 +5206,17 @@
 "leisure/pitch/gaga":[
 "Pit Gaga"
 ],
+"leisure/pitch/handball":[
+"Cwrt Pêl-law Tîm"
+],
 "leisure/pitch/netball":[
 "Cwrt Pêl-rwyd"
 ],
 "leisure/pitch/padel":[
 "Cwrt Padel"
+],
+"leisure/pitch/paintball":[
+"Cae Pêl-baent"
 ],
 "leisure/pitch/pickleball":[
 "Cwrt Pêl-bicl"
@@ -4922,9 +5264,10 @@
 "net"
 ],
 "leisure/playground":[
-"ardal",
+"maes",
 "chware",
 "lle",
+"faes",
 "warae",
 "warau",
 "cae",
@@ -4941,10 +5284,10 @@
 "belen",
 "chae",
 "bel",
+"Ardal Chwarae Dan Do",
 "ware",
 "gae",
-"Maes Chwarae Dan-do",
-"ardal",
+"maes",
 "warae",
 "pel",
 "pelen"
@@ -4954,6 +5297,9 @@
 ],
 "leisure/sauna":[
 "Sauna"
+],
+"leisure/slipway":[
+"Llithrfa"
 ],
 "leisure/sports_centre":[
 "cyfadeilad",
@@ -4970,6 +5316,9 @@
 "leisure/sports_centre/climbing":[
 "Campfa Dringo"
 ],
+"leisure/sports_centre/climbing_adventure":[
+"Parc Antur"
+],
 "leisure/sports_centre/karting":[
 "go kart",
 "gocart",
@@ -4981,14 +5330,29 @@
 "cerbydau",
 "Cyfleuster Rasio Certi"
 ],
+"leisure/sports_centre/shooting":[
+"Cyfleuster Maes Saethu"
+],
+"leisure/sports_centre/swimming":[
+"Cyfleuster Pwll Nofio"
+],
 "leisure/sports_hall":[
 "Campfa"
 ],
 "leisure/stadium":[
 "Stadiwm"
 ],
+"leisure/swimming_area":[
+"dŵr",
+"Ardal Nofio Naturiol",
+"dwr",
+"plymio"
+],
 "leisure/swimming_pool":[
 "Pwll Nofio"
+],
+"leisure/track":[
+"Trac Rasio (Nad Yw'n Fodur)"
 ],
 "leisure/track/athletics/running":[
 "Trac Rhedeg"
@@ -5001,6 +5365,11 @@
 ],
 "leisure/track/running":[
 "Trac Rhedeg"
+],
+"leisure/trampoline_park":[
+"Parc Trampolîn",
+"trampolin",
+"neidio"
 ],
 "leisure/water_park":[
 "Parc Dŵr"
@@ -5034,6 +5403,12 @@
 ],
 "man_made/cairn":[
 "Carnedd"
+],
+"man_made/ceremonial_gate/paifang":[
+"Paifang"
+],
+"man_made/ceremonial_gate/torii":[
+"Torii"
 ],
 "man_made/charge_point":[
 "ev",
@@ -5080,6 +5455,20 @@
 "man_made/cross":[
 "Croes"
 ],
+"man_made/cutline":[
+"Llinell Dorri"
+],
+"man_made/dovecote":[
+"aderyn",
+"golomendy",
+"adar",
+"Colomendy",
+"cholomendai",
+"colomendai",
+"cholomendy",
+"golomendai",
+"colomen"
+],
 "man_made/dyke":[
 "clawdd",
 "dike",
@@ -5108,9 +5497,9 @@
 "golchi",
 "ymolchi",
 "llnau",
+"Gorsaf Ddiheintio Esgidiau",
 "glanhau",
-"sgidia",
-"Gorsaf Diheintio Esgidiau"
+"sgidia"
 ],
 "man_made/fuel_pump":[
 "nwy",
@@ -5139,6 +5528,9 @@
 "caead",
 "Twll Caead"
 ],
+"man_made/manhole/drain":[
+"Draen Storom"
+],
 "man_made/manhole/gas":[
 "clawr",
 "archwilio",
@@ -5162,8 +5554,8 @@
 ],
 "man_made/manhole/telecom":[
 "clawr",
-"Twll Caead Telathrebiaeth",
 "archwilio",
+"Twll Caead Telathrebu",
 "manol",
 "caead"
 ],
@@ -5200,6 +5592,9 @@
 "siaft",
 "dan ddaear"
 ],
+"man_made/monitoring_station":[
+"Gorsaf Fonitro"
+],
 "man_made/obelisk":[
 "Obelisg"
 ],
@@ -5211,6 +5606,9 @@
 ],
 "man_made/pier":[
 "Pier"
+],
+"man_made/pipeline":[
+"Piblinell"
 ],
 "man_made/planter":[
 "Planhigyn"
@@ -5236,6 +5634,12 @@
 "dwr",
 "lac"
 ],
+"man_made/satellite_dish":[
+"dish",
+"dysglau",
+"Dysgl Lloeren",
+"soser"
+],
 "man_made/silo":[
 "Seilo"
 ],
@@ -5248,6 +5652,9 @@
 "rhediad",
 "bryn",
 "naid"
+],
+"man_made/storage_tank":[
+"Tanc Storio"
 ],
 "man_made/storage_tank/water":[
 "Tanc Dŵr"
@@ -5296,22 +5703,62 @@
 "cabinet",
 "sbwriel"
 ],
+"man_made/surveillance":[
+"Goruchwylio"
+],
+"man_made/surveillance/camera":[
+"alpr",
+"cctc",
+"Camera Goruchwylio",
+"anpr",
+"gwarchod",
+"cloch drws",
+"fideo",
+"caeedig",
+"cctv",
+"caeëdig",
+"arsylwi",
+"diogelwch",
+"teledu cylch cyfyng",
+"diogelu",
+"ctcc"
+],
+"man_made/survey_point":[
+"Pwynt Arsylwi"
+],
 "man_made/telescope":[
+"telesgôp",
 "Telesgop"
 ],
-"man_made/torii":[
-"Torii"
+"man_made/telescope/optical":[
+"telesgôp",
+"Telesgop Optegol"
+],
+"man_made/telescope/radio":[
+"telesgôp",
+"Telesgop Radio",
+"dysgl",
+"gorsaf",
+"soser"
 ],
 "man_made/tower":[
-"Tŵr"
+"Tŵr",
+"twr"
 ],
 "man_made/tower/bell_tower":[
-"Tŵr Cloch"
+"Tŵr Cloch",
+"twr"
 ],
 "man_made/tower/communication":[
-"Tŵr Cyfathrebu"
+"Tŵr Cyfathrebu",
+"twr"
 ],
 "man_made/tower/minaret":[
+"moslem",
+"mosque",
+"islam",
+"muezzin",
+"mosg",
 "Minarét"
 ],
 "man_made/tower/observation":[
@@ -5329,7 +5776,12 @@
 "Polyn Iwtiliti"
 ],
 "man_made/video_wall":[
-"Sgrîn Ddigidol"
+"fideo",
+"arddangosfa",
+"led",
+"sgrîn",
+"Sgrin Ddigidol",
+"teledu"
 ],
 "man_made/wastewater_plant":[
 "ystad",
@@ -5352,11 +5804,20 @@
 "man_made/water_tower":[
 "Tŵr Dŵr"
 ],
+"man_made/water_well":[
+"Ffynnon Ddŵr"
+],
+"man_made/water_works":[
+"Gwaith Dŵr"
+],
 "man_made/watermill":[
 "Melin Ddŵr"
 ],
 "man_made/windmill":[
 "Melin Wynt"
+],
+"man_made/windpump":[
+"Pwmp Gwynt"
 ],
 "man_made/works":[
 "Ffatri"
@@ -5383,10 +5844,13 @@
 "Marciwr Iwtiliti"
 ],
 "marker/utility/power":[
-"Marciwr Ynni"
+"Marciwr Pŵer"
 ],
 "natural":[
 "Nodwedd Naturiol"
+],
+"natural/arch":[
+"Bwa Naturiol"
 ],
 "natural/bare_rock":[
 "Carreg Plaen"
@@ -5433,7 +5897,9 @@
 "Ffynnon Boeth"
 ],
 "natural/mud":[
-"Mwd"
+"Mwd",
+"gwlyptir",
+"gwlypdir"
 ],
 "natural/peak":[
 "Copa"
@@ -5454,15 +5920,21 @@
 "Bwlch"
 ],
 "natural/sand":[
+"traeth",
+"anialdir",
+"anialwch",
 "Tywod"
 ],
 "natural/scree":[
 "Sgri"
 ],
 "natural/scrub":[
+"clawdd",
+"coed",
 "Prysgwydd",
 "coediog",
 "llwyn",
+"gwrych",
 "prysgoed"
 ],
 "natural/shingle":[
@@ -5579,7 +6051,12 @@
 "dwr"
 ],
 "natural/water/basin":[
-"Basin"
+"Basn",
+"llifo",
+"draen",
+"basin",
+"glaw",
+"cadw"
 ],
 "natural/water/canal":[
 "Ardal Gamlas"
@@ -5635,7 +6112,14 @@
 "wlypdir"
 ],
 "natural/wetland/bog":[
-"Bog"
+"Mawnog",
+"gorgors",
+"gyforgors",
+"cors",
+"moor",
+"gors",
+"bog",
+"cyforgors"
 ],
 "natural/wetland/fen":[
 "Ffen"
@@ -5656,7 +6140,14 @@
 "morfa"
 ],
 "natural/wetland/string_bog":[
-"Cors Llinyn"
+"gorgors",
+"gyforgors",
+"cors",
+"Cors Llinyn",
+"moor",
+"gors",
+"bog",
+"cyforgors"
 ],
 "natural/wetland/swamp":[
 "Cors"
@@ -5692,6 +6183,7 @@
 "Swyddfa Weinyddol"
 ],
 "office/adoption_agency":[
+"plant",
 "Asiantaeth Mabwysiadu"
 ],
 "office/advertising_agency":[
@@ -5837,7 +6329,18 @@
 "Swyddfa Gynghori Treth"
 ],
 "office/telecommunication":[
-"Swyddfa Delathrebu"
+"ffon",
+"thelathrebu",
+"ffôn",
+"darparwr",
+"Swyddfa Delathrebu",
+"isp",
+"rhyngrwyd",
+"rhwydwaith",
+"delathrebu",
+"switsh",
+"llais",
+"cyfathrebu"
 ],
 "office/therapist":[
 "Swyddfa Therapydd"
@@ -5862,6 +6365,13 @@
 ],
 "office/yes":[
 "Swyddfa (Math Amhenodol)"
+],
+"pipeline":[
+"Nodwedd Piblinell"
+],
+"pipeline/substation":[
+"Is-orsaf Biblinell",
+"piblinell"
 ],
 "piste/piste":[
 "Piste / Trac Chwaraeon Eira (Math Amhenodol)"
@@ -5901,7 +6411,10 @@
 "Ynys"
 ],
 "place/islet":[
-"Ynysig"
+"Ynys Fach"
+],
+"place/isolated_dwelling":[
+"Annedd Ynysig"
 ],
 "place/locality":[
 "Bro"
@@ -5922,6 +6435,9 @@
 "place/square":[
 "Sgwâr"
 ],
+"place/suburb":[
+"Bwrdeistref / Maestref"
+],
 "place/town":[
 "Tref"
 ],
@@ -5929,10 +6445,13 @@
 "Pentref"
 ],
 "playground":[
-"Offer Maes Chwarae"
+"Cyfarpar Ardal Chwarae"
 ],
 "playground/activitypanel":[
-"Panel Gweithgareddau Chwarae"
+"gweithgareddau",
+"modiwl",
+"teils",
+"Panel Gweithgaredd Chwarae"
 ],
 "playground/balancebeam":[
 "trawst",
@@ -5945,23 +6464,35 @@
 "playground/bridge":[
 "Pont Chwarae"
 ],
+"playground/climbingframe":[
+"Ffram Dringo Chwarae"
+],
+"playground/climbingwall":[
+"Wal Dringo Chwarae"
+],
 "playground/hopscotch":[
 "Pôtsh"
+],
+"playground/horizontal_bar":[
+"Bar Llorweddol Chwarae"
 ],
 "playground/map":[
 "ardal",
 "chware",
-"Map Maes Chwarae wedi'i Baentio",
 "lle",
 "warae",
 "warau",
 "cae",
 "chae",
 "ware",
-"gae"
+"gae",
+"Map Ardal Chwarae wedi'i Baentio"
 ],
 "playground/playhouse":[
 "Tŷ Chwarae"
+],
+"playground/roundabout":[
+"Cylchfan Chwarae"
 ],
 "playground/sandpit":[
 "Pwll Tywod Chwarae"
@@ -5977,11 +6508,17 @@
 "ceffyl",
 "ceffyl pren"
 ],
+"playground/structure":[
+"Strwythur Chwarae"
+],
 "playground/swing":[
 "Siglen"
 ],
 "playground/teenshelter":[
 "Cysgod Arddegwyr"
+],
+"playground/trampoline":[
+"Trampolîn"
 ],
 "playground/tunnel_tube":[
 "Twnnel Chwarae"
@@ -6003,8 +6540,14 @@
 "power":[
 "Nodwedd Pŵer"
 ],
+"power/cable":[
+"Cebl Pŵer"
+],
 "power/cable/underground":[
-"Cebl Ynni Dan Ddaear"
+"Cebl Pŵer Dan Ddaear"
+],
+"power/generator":[
+"Generadur Pŵer"
 ],
 "power/generator/method/photovoltaic":[
 "golau haul",
@@ -6018,6 +6561,9 @@
 ],
 "power/generator/method/photovoltaic/location/roof":[
 "Panel Solar ar y To"
+],
+"power/generator/source/hydro":[
+"Tyrbin Dŵr"
 ],
 "power/generator/source/wind":[
 "Tyrbin Gwynt"
@@ -6075,13 +6621,16 @@
 "felin"
 ],
 "power/pole":[
-"Polyn Ynni"
+"Polyn Pŵer"
 ],
 "power/substation":[
 "Is-orsaf"
 ],
 "power/switch":[
-"Switsh Ynni"
+"Switsh Pŵer"
+],
+"power/tower":[
+"Tŵr Foltedd Uchel"
 ],
 "power/transformer":[
 "Trawsnewidydd"
@@ -6089,8 +6638,18 @@
 "public_transport/platform":[
 "Platfform Cludiant"
 ],
+"public_transport/platform/aerialway":[
+"Platfform Awyrffordd"
+],
+"public_transport/platform/aerialway_point":[
+"Safle / Platfform Awyrffordd"
+],
 "public_transport/platform/bus":[
-"Platfform Bws"
+"platfform",
+"trafnidiaeth",
+"Platfform Bws",
+"cludiant",
+"bws"
 ],
 "public_transport/platform/bus_point":[
 "Safle Bws"
@@ -6165,10 +6724,10 @@
 "Gorsaf Danddaear"
 ],
 "public_transport/station_train":[
-"Gorsaf Drên"
+"Gorsaf Drenau"
 ],
 "public_transport/station_train_halt":[
-"Gorsaf Drên (Ar gais)"
+"Gorsaf Drenau (Ar gais)"
 ],
 "public_transport/station_tram":[
 "Gorsaf Dram"
@@ -6283,12 +6842,15 @@
 "rhagod",
 "Stop Byffer"
 ],
+"railway/construction":[
+"Rheilffordd sy'n cael ei Hadeiladu"
+],
 "railway/disused":[
 "Rheilffordd Nas Defnyddir",
 "segur"
 ],
 "railway/halt":[
-"Gorsaf Drên (Ar gais)"
+"Gorsaf Drenau (Ar gais)"
 ],
 "railway/level_crossing":[
 "Croesfan Reilffordd-Ffordd"
@@ -6315,13 +6877,16 @@
 "Signal Rheilffordd"
 ],
 "railway/station":[
-"Gorsaf Drên"
+"Gorsaf Drenau"
 ],
 "railway/subway":[
 "Trac Tanddaear"
 ],
 "railway/subway_entrance":[
 "Mynedfa Tanddaear"
+],
+"railway/tram":[
+"Trac Tram"
 ],
 "railway/tram_level_crossing":[
 "Croesfan Dramffordd"
@@ -6375,6 +6940,15 @@
 ],
 "seamark/beacon_lateral":[
 "Ffagl Sianel"
+],
+"seamark/buoy_lateral":[
+"Bwa Sianel"
+],
+"seamark/buoy_lateral/green":[
+"Bwi Gwyrdd"
+],
+"seamark/buoy_lateral/red":[
+"Bwi Coch"
 ],
 "shop":[
 "Siop",
@@ -6747,8 +7321,8 @@
 "shop/deli":[
 "deli",
 "delicatessen",
-"Siop Fwydydd Tramor",
 "bwydydd tramor",
+"Delicatessen",
 "tramor"
 ],
 "shop/department_store":[
@@ -6791,6 +7365,9 @@
 ],
 "shop/fashion":[
 "Siop Ffasiwn"
+],
+"shop/fashion_accessories":[
+"Siop Ategolion Ffasiwn"
 ],
 "shop/fishing":[
 "dŵr",
@@ -6980,6 +7557,9 @@
 "shop/houseware":[
 "Siop Nwyddau Cartref"
 ],
+"shop/hunting":[
+"Siop Helfa"
+],
 "shop/interior_decoration":[
 "Siop Addurno Mewnol"
 ],
@@ -7021,19 +7601,36 @@
 "allwedd"
 ],
 "shop/lottery":[
-"Siop Loteri"
+"hapchwarae",
+"crafu",
+"lotto",
+"Siop Loteri",
+"tocynnau",
+"gamblo"
 ],
 "shop/mall":[
 "Canolfan Siopa"
 ],
+"shop/massage":[
+"Siop Dylino",
+"tylino"
+],
 "shop/medical_supply":[
 "meddygol",
 "cyflenwi",
-"cynnyrch",
-"Siop Gyflenwi Meddygol"
+"Siop Gyflenwadau Meddygol",
+"cynnyrch"
 ],
 "shop/mobile_phone":[
 "Siop Ffonau Symudol"
+],
+"shop/mobile_phone_accessories":[
+"ces",
+"cases",
+"cesys",
+"ffonau",
+"cês",
+"Siop Ategolion Ffôn Symudol"
 ],
 "shop/model":[
 "Siop Fodelau"
@@ -7045,6 +7642,9 @@
 "taliad",
 "arian",
 "benthyca"
+],
+"shop/motorcycle":[
+"Gwerthwr Beiciau Modur"
 ],
 "shop/motorcycle_repair":[
 "Siop Atgyweirio Beiciau Modur"
@@ -7082,6 +7682,9 @@
 "Siop Gnau"
 ],
 "shop/optician":[
+"sbectol",
+"llygad",
+"llygaid",
 "Optegydd"
 ],
 "shop/outdoor":[
@@ -7161,7 +7764,16 @@
 "gwn"
 ],
 "shop/photo":[
-"Siop Ffotograffiaeth"
+"lluniau",
+"fwth",
+"ffotograffau",
+"ffoto",
+"ffilm",
+"ciosg",
+"Siop Ffotograffiaeth",
+"camera",
+"lens",
+"delweddau"
 ],
 "shop/pottery":[
 "Siop Grochenwaith"
@@ -7170,8 +7782,8 @@
 "Siop Incs Printeri"
 ],
 "shop/psychic":[
-"Seicig",
-"seicic"
+"Seicic",
+"seicig"
 ],
 "shop/pyrotechnics":[
 "tan",
@@ -7223,6 +7835,9 @@
 "Siop Reis",
 "reis"
 ],
+"shop/scuba_diving":[
+"Siop Ddeifio Scuba"
+],
 "shop/seafood":[
 "Siop Fwyd Morol"
 ],
@@ -7249,6 +7864,14 @@
 "shop/sports":[
 "Siop Offer Chwaraeon"
 ],
+"shop/stationery":[
+"Siop Ddeunydd Ysgrifennu",
+"papur",
+"beiro",
+"pen",
+"pensil",
+"cerdyn"
+],
 "shop/storage_rental":[
 "hwb",
 "rhannu",
@@ -7263,6 +7886,9 @@
 ],
 "shop/supermarket":[
 "Archfarchnad"
+],
+"shop/supermarket/organic":[
+"Archfarchnad Organig"
 ],
 "shop/swimming_pool":[
 "tub",
@@ -7285,6 +7911,20 @@
 "bag",
 "Siop De",
 "dail"
+],
+"shop/telecommunication":[
+"ffon",
+"Siop Fanwerthu Telathrebu",
+"thelathrebu",
+"ffôn",
+"darparwr",
+"isp",
+"rhyngrwyd",
+"rhwydwaith",
+"delathrebu",
+"switsh",
+"llais",
+"cyfathrebu"
 ],
 "shop/ticket":[
 "Gwerthwr Tocynnau"
@@ -7355,6 +7995,9 @@
 "shop/vacant":[
 "Siop Wag"
 ],
+"shop/vacuum_cleaner":[
+"Siop Sugnwr Llwch"
+],
 "shop/variety_store":[
 "pound",
 "Siop Ddisgownt",
@@ -7417,14 +8060,34 @@
 "shop/wigs":[
 "Siop Wigs"
 ],
+"shop/window_blind":[
+"Siop Orchuddion Ffenestr"
+],
 "shop/wine":[
 "Siop Win"
 ],
 "shop/yes":[
 "Siop (Math Amhenodol)"
 ],
+"telecom":[
+"Nodwedd Telathrebu"
+],
 "telecom/data_center":[
 "Canolfan Ddata"
+],
+"telecom/exchange":[
+"ffon",
+"thelathrebu",
+"ffôn",
+"darparwr",
+"Cyfnewidfa Telathrebu",
+"isp",
+"rhyngrwyd",
+"rhwydwaith",
+"delathrebu",
+"switsh",
+"llais",
+"cyfathrebu"
 ],
 "tourism":[
 "Nodwedd Twristiaeth"
@@ -7565,6 +8228,12 @@
 ],
 "tourism/information/office":[
 "Canolfan Ymwelwyr"
+],
+"tourism/information/route_marker":[
+"Marciwr Llwybr"
+],
+"tourism/information/terminal":[
+"Terfynfa Wybodaeth"
 ],
 "tourism/motel":[
 "Motel"
@@ -7890,6 +8559,15 @@
 "rowt",
 "bws"
 ],
+"type/route/climbing":[
+"cerryg",
+"clegyr",
+"dringo",
+"craig",
+"clegyrau",
+"carreg",
+"Ffordd Ddringo"
+],
 "type/route/detour":[
 "riwt",
 "trywydd",
@@ -7985,6 +8663,7 @@
 "lwybr",
 "llwybr",
 "ffordd",
+"Llwybr Piblinell",
 "rowt"
 ],
 "type/route/piste":[
@@ -8091,6 +8770,21 @@
 "parth",
 "Safle"
 ],
+"type/site/climbing/area":[
+"cerryg",
+"clegyr",
+"dringo",
+"craig",
+"clegyrau",
+"carreg",
+"Ardal Ddringo"
+],
+"type/site/climbing/crag":[
+"Craig Ddringo",
+"clegyr",
+"creigiau",
+"clegyrau"
+],
 "type/waterway":[
 "dŵr",
 "afon",
@@ -8156,13 +8850,19 @@
 "Gorsaf Danwydd Forol"
 ],
 "waterway/lock_gate":[
+"borth",
 "loc",
 "glwyd",
-"Llifddor",
+"phorth",
 "giât",
 "giat",
 "clo",
+"chlwyd",
 "llidiart",
+"Llifddor",
+"gât",
+"iet",
+"porth",
 "llidiard",
 "canal",
 "gat",
@@ -8190,14 +8890,18 @@
 ],
 "waterway/sanitary_dump_station":[
 "dŵr",
-"ffrwd",
-"bwmp",
 "afon",
-"dros dro",
 "ffos",
+"wc",
+"llif",
+"ffrwd",
+"closed dŵr",
+"closed dwr",
+"bwmp",
+"Lle Gwaredu Toiledau Morol",
+"dros dro",
 "dwr",
-"pwmp",
-"llif"
+"pwmp"
 ],
 "waterway/stream":[
 "dŵr",

@@ -296,8 +296,13 @@
 "Cykeludlejning"
 ],
 "amenity/bicycle_repair_station":[
-"Cykelreparationsværktøj",
-"cykelreparationsværktøj"
+"cykelreparationsstation",
+"Cykelreparationsstation",
+"cykelreparationsværktøj",
+"arbejdsstativ",
+"pumpe",
+"cykelpumpe",
+"værktøj"
 ],
 "amenity/bicycle_wash":[
 "Cykelvask"
@@ -417,17 +422,6 @@
 "ude",
 "Solur",
 "ur"
-],
-"amenity/college":[
-"college",
-"Område med videregående uddannelse",
-"cvu",
-"erhvervsakademi",
-"university college",
-"skole",
-"professionshøjskole",
-"område med videregående uddannelse",
-"mellemlang"
 ],
 "amenity/community_centre":[
 "kulturcenter",
@@ -659,11 +653,6 @@
 "amenity/driver_training":[
 "Køreteknisk anlæg"
 ],
-"amenity/driving_school":[
-"køreskole",
-"Køreskole",
-"trafikskole"
-],
 "amenity/embassy":[
 "Ambassade"
 ],
@@ -673,7 +662,8 @@
 "aula",
 "balsal",
 "riddersal",
-"festsal"
+"festsal",
+"kursuscenter"
 ],
 "amenity/exhibition_centre":[
 "Udstillings- og kongrescenter",
@@ -809,24 +799,8 @@
 "karaoke box",
 "Karaokebar"
 ],
-"amenity/kindergarten":[
-"institution",
-"børn",
-"vuggestue",
-"børnehave",
-"børnepasning",
-"Børnehave/vuggestue-grund",
-"pasning"
-],
 "amenity/kneipp_water_cure":[
 "Kneipp-facilitet"
-],
-"amenity/language_school":[
-"Sprogskole",
-"sprog",
-"lingvistik",
-"uddannelse",
-"skole"
 ],
 "amenity/lavoir":[
 "vaskehus",
@@ -847,7 +821,8 @@
 "Afleveringsboks til bøger",
 "bogaflevering",
 "bogboks",
-"afleveringsboks til bøger"
+"afleveringsboks til bøger",
+"biblioteksbogaflevering"
 ],
 "amenity/loading_dock":[
 "Læsserampe"
@@ -904,12 +879,6 @@
 ],
 "amenity/motorcycle_rental":[
 "Motorcykeludlejning"
-],
-"amenity/music_school":[
-"undervisning",
-"Musikskole",
-"skole",
-"musik"
 ],
 "amenity/nightclub":[
 "natclub",
@@ -1243,13 +1212,6 @@
 "kloak",
 "campingtoilet"
 ],
-"amenity/school":[
-"skoleområde",
-"gymnasium",
-"skolegrund",
-"gymnasie",
-"Skoleområde"
-],
 "amenity/shelter":[
 "skur",
 "halvtag",
@@ -1409,7 +1371,8 @@
 "træk",
 "slip",
 "træk og slip",
-"wc"
+"wc",
+"vandskyllende toiletter"
 ],
 "amenity/toilets/disposal/pitlatrine":[
 "latrin",
@@ -1445,10 +1408,6 @@
 "indkøbsvognsterminal",
 "kundevognsterminaler",
 "indkøbsvognsbås"
-],
-"amenity/university":[
-"universitetsområde",
-"Universitetsområde"
 ],
 "amenity/vacuum_cleaner":[
 "støvsugerstation",
@@ -2292,6 +2251,12 @@
 "kirkegårdsafdeling",
 "kirkegårdsafsnit"
 ],
+"climbing/route":[
+"Klatrerute"
+],
+"climbing/route_bottom":[
+"Start på klatrerute"
+],
 "club":[
 "sysler",
 "fotografi",
@@ -2596,6 +2561,30 @@
 "disused/shop":[
 "Lukket forretning"
 ],
+"education":[
+"Uddannelsesfacilitet"
+],
+"education/dancing_school":[
+"Danseskole"
+],
+"education/driving_school":[
+"Køreskole"
+],
+"education/kindergarten":[
+"Børnehaveområde"
+],
+"education/language_school":[
+"Sprogskole"
+],
+"education/music_school":[
+"Musikskole"
+],
+"education/school":[
+"Skoleområde"
+],
+"education/university":[
+"Universitetsområde"
+],
 "embankment":[
 "Forhøjning / vejdæmning"
 ],
@@ -2617,12 +2606,6 @@
 "aed",
 "hjertestarter",
 "Hjertestarter"
-],
-"emergency/designated":[
-"Udrykningskørsel forbeholdt"
-],
-"emergency/destination":[
-"Udrykningskørsel destination"
 ],
 "emergency/fire_alarm":[
 "tilkaldeboks til brandalarm",
@@ -2683,19 +2666,10 @@
 "Livredder",
 "kyst"
 ],
-"emergency/no":[
-"Udrykningskørsel Nej"
-],
-"emergency/official":[
-"Udrykningskørsel officielt"
-],
 "emergency/phone":[
 "nødopkaldstelefon",
 "nødtelefon",
 "Nødtelefon"
-],
-"emergency/private":[
-"Udrykningkørsel Privat"
 ],
 "emergency/siren":[
 "lyd",
@@ -2710,9 +2684,6 @@
 "reservoir",
 "brand",
 "Branddam"
-],
-"emergency/yes":[
-"Udrykningskørsel Ja"
 ],
 "entrance":[
 "Indgang/Udgang"
@@ -2925,6 +2896,9 @@
 "highway/crossing":[
 "kryds",
 "Fodgængerovergang"
+],
+"highway/crossing/informal":[
+"Uformel krydsning"
 ],
 "highway/crossing/traffic_signals":[
 "Fodgængerovergang med lyssignal"
@@ -3477,6 +3451,13 @@
 "Akvakultur",
 "akvakultur"
 ],
+"landuse/aquaculture/fish":[
+"dambrug",
+"fiskeopdræt",
+"akvakultur",
+"Fiskeopdræt",
+"lakseopdræt"
+],
 "landuse/basin":[
 "Bassin"
 ],
@@ -3760,9 +3741,6 @@
 "Dansehal",
 "dansehal",
 "dansested"
-],
-"leisure/dancing_school":[
-"Danseskole"
 ],
 "leisure/disc_golf_course":[
 "Discgolfbane"
@@ -4594,6 +4572,8 @@
 "man_made/surveillance/camera":[
 "overvågningskamera",
 "Overvågningskamera",
+"cctv",
+"kamera",
 "videoovervågning"
 ],
 "man_made/survey_point":[
@@ -5430,6 +5410,7 @@
 ],
 "place/square":[
 "plads",
+"torv",
 "bytorv",
 "Plads"
 ],
@@ -6096,6 +6077,9 @@
 "stearinlysbutik",
 "Stearinlysforhandler"
 ],
+"shop/cannabis":[
+"Cannabis-butik"
+],
 "shop/car":[
 "autoforhandler",
 "bil",
@@ -6138,6 +6122,9 @@
 "Tæppeforhandler",
 "tæppeforretning"
 ],
+"shop/catalogue":[
+"Katalogbutik"
+],
 "shop/charity":[
 "Velgørenhedsbutik",
 "genbrugsbutik",
@@ -6175,6 +6162,9 @@
 "rødekors",
 "Genbrugstøjbutik"
 ],
+"shop/clothes/suits":[
+"Jakkesætbutik"
+],
 "shop/clothes/underwear":[
 "underhakker",
 "bh",
@@ -6198,6 +6188,9 @@
 "kaffeforretning",
 "kaffebutik",
 "Kaffebutik"
+],
+"shop/collector":[
+"Butik med samlerobjekter"
 ],
 "shop/computer":[
 "computerbutik",
@@ -6226,6 +6219,9 @@
 "kosmetikbutik",
 "Kosmetikbutik",
 "kosmetikforretning"
+],
+"shop/country_store":[
+"Landbutik"
 ],
 "shop/craft":[
 "maling",
@@ -6327,6 +6323,9 @@
 "Fiskebutik",
 "lystfiskerbutik"
 ],
+"shop/flooring":[
+"Gulvbelægningsbutik"
+],
 "shop/florist":[
 "blomsterbutik",
 "blomsterforretning",
@@ -6336,6 +6335,9 @@
 "rammebutik",
 "billedrammer",
 "Rammebutik"
+],
+"shop/frozen_food":[
+"Frostvarebutik"
 ],
 "shop/fuel":[
 "Brændstofbutik"
@@ -6435,6 +6437,9 @@
 "honningbutik",
 "honningsalg"
 ],
+"shop/household_linen":[
+"Butik med husholdningsartikler"
+],
 "shop/houseware":[
 "køkkenudstyr",
 "Køkkenudstyr"
@@ -6443,11 +6448,15 @@
 "Jagtbutik"
 ],
 "shop/interior_decoration":[
+"brugskunstbutik",
+"mode",
 "indendørsudsmykningsbutik",
-"bolig",
 "indendørs",
+"boligudstyr",
+"interiør",
 "indendørsudsmykning",
 "brugskunst",
+"keramik",
 "Brugskunstbutik",
 "kunst"
 ],
@@ -6519,6 +6528,9 @@
 "mobiltelefonforhandler",
 "Mobiltelefonforhandler"
 ],
+"shop/mobile_phone_accessories":[
+"Mobiltilbehørbutik"
+],
 "shop/money_lender":[
 "kreditor",
 "pengeudlåner",
@@ -6584,9 +6596,13 @@
 ],
 "shop/paint":[
 "farvehandel",
+"maling",
 "malerforretning",
 "Farvehandel",
 "malerbutik"
+],
+"shop/party":[
+"Butik med festartikler"
 ],
 "shop/pastry":[
 "konditori",
@@ -6623,6 +6639,9 @@
 ],
 "shop/pottery":[
 "Keramikbutik"
+],
+"shop/psychic":[
+"Synsk"
 ],
 "shop/pyrotechnics":[
 "fyrværkeriforretning",
@@ -6712,8 +6731,10 @@
 ],
 "shop/storage_rental":[
 "opbevaringshotel",
+"depot",
 "Lagerhotel",
-"lagerhotel"
+"lagerhotel",
+"opmagasinering"
 ],
 "shop/supermarket":[
 "supermarked",
@@ -6994,7 +7015,10 @@
 "vejviser",
 "guidepost",
 "pæl",
+"afmærkning",
+"markør",
 "rutemarkering",
+"rutemarkør",
 "Vejviser",
 "skilt"
 ],
@@ -7010,8 +7034,10 @@
 "stiafmærkning",
 "afmærkning",
 "markør",
-"Stimarkør",
-"stimarkør"
+"Rutemarkør",
+"rutemarkør",
+"stimarkør",
+"skilt"
 ],
 "tourism/information/terminal":[
 "Informationsterminal"
@@ -7187,6 +7213,11 @@
 "Administrativ grænse",
 "administrativ grænse"
 ],
+"type/destination_sign":[
+"Destinationsskilt",
+"endepunktskilt",
+"destinationsskilt"
+],
 "type/enforcement/maxspeed":[
 "Håndhævelse af hastighedsbegrænsning"
 ],
@@ -7238,6 +7269,9 @@
 "type/route/bus":[
 "busrute",
 "Busrute"
+],
+"type/route/climbing":[
+"Klatrerute"
 ],
 "type/route/detour":[
 "omvej",

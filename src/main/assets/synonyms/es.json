@@ -576,6 +576,12 @@
 "Cafetería",
 "macchiato"
 ],
+"amenity/cafe/teahouse":[
+"Casa de té",
+"salón de té",
+"tetería",
+"establecimiento de té"
+],
 "amenity/car_pooling":[
 "vehículo compartido",
 "carro compartido",
@@ -708,24 +714,6 @@
 "sombra",
 "Reloj de sol"
 ],
-"amenity/college":[
-"area",
-"conservatorio",
-"área",
-"post-bachillerato",
-"ciclo formativo de grado superior",
-"fp",
-"escuela profesional",
-"Terreno de centro educativo superior no universitario",
-"suelo",
-"instituto",
-"formación profesional",
-"superior",
-"no universitario",
-"educación terciaria",
-"terciario",
-"terreno"
-],
 "amenity/community_centre":[
 "centro comunitario",
 "centro de la comunidad",
@@ -822,6 +810,12 @@
 "Dentista",
 "odontólogo",
 "dentista"
+],
+"amenity/device_charging_station":[
+"Estación de carga para dispositivos",
+"estación de carga",
+"punto de carga",
+"terminal de carga"
 ],
 "amenity/dive_centre":[
 "buceo",
@@ -1122,16 +1116,6 @@
 "formación de conductores",
 "entrenamiento de conductores",
 "Terreno para preparación de conductores"
-],
-"amenity/driving_school":[
-"autoescuela",
-"escuela de conducción",
-"Escuela de conducción",
-"escuela de manejo",
-"motocicletas",
-"vehículos",
-"camiones",
-"automóviles"
 ],
 "amenity/embassy":[
 "Embajada"
@@ -1538,19 +1522,6 @@
 "Karaoke Box",
 "ktv"
 ],
-"amenity/kindergarten":[
-"pre primaria",
-"kinder",
-"educación inicial",
-"jardín de infancia",
-"parvulario",
-"jardín maternal",
-"Terreno de preescolar / jardín de infantes",
-"preescolar",
-"párvulos",
-"jardín de infantes",
-"jardín de niños"
-],
 "amenity/kneipp_water_cure":[
 "Instalación Kneipp",
 "kneippismo",
@@ -1558,12 +1529,6 @@
 "baño de pies",
 "hidroterapia",
 "cura kneipp"
-],
-"amenity/language_school":[
-"idiomas",
-"escuela",
-"Escuela de idiomas",
-"colegio"
 ],
 "amenity/lavoir":[
 "lavandería",
@@ -1708,18 +1673,6 @@
 "scooter",
 "ciclomotor",
 "renta"
-],
-"amenity/music_school":[
-"conservatorio",
-"academia",
-"musical",
-"escuela de música",
-"academia de música",
-"música",
-"Escuela de música",
-"musica",
-"instrumentos musicales",
-"conservatorio de música"
 ],
 "amenity/nightclub":[
 "club nocturno",
@@ -2128,19 +2081,6 @@
 "correo",
 "casa de correos",
 "oficina de correos"
-],
-"amenity/prep_school":[
-"tarea",
-"act",
-"preparación para exámenes",
-"académico",
-"sat",
-"tutoría",
-"escritura",
-"academico",
-"matemáticas",
-"Preparación para exámenes / Escuela de tutoría",
-"lectura"
 ],
 "amenity/prison":[
 "cárcel",
@@ -2656,24 +2596,6 @@
 "inodoro",
 "motorhome"
 ],
-"amenity/school":[
-"institución educativa",
-"centro educativo",
-"recinto escolar",
-"escuela",
-"Terreno de escuela / colegio",
-"primaria",
-"secundaria",
-"instituto",
-"escuela elemental",
-"liceo",
-"academia",
-"preparatorio",
-"escolar",
-"colegio",
-"unidad educativa",
-"secundario"
-],
 "amenity/shelter":[
 "abrigo",
 "amparo",
@@ -3026,20 +2948,6 @@
 "carro de compras",
 "carrito",
 "retorno de carro"
-],
-"amenity/university":[
-"postgrado",
-"campus",
-"colegio mayor",
-"claustro",
-"educación superior",
-"universidad",
-"universitaria",
-"pregrado",
-"educación profesional",
-"Terreno de universidad",
-"universitario",
-"facultad"
 ],
 "amenity/vacuum_cleaner":[
 "aspiradora de automóviles",
@@ -4468,6 +4376,23 @@
 "Sección del cementerio",
 "cementerio de la iglesia"
 ],
+"climbing/crag":[
+"sector de escalada",
+"zona de escalada",
+"Zona de escalada"
+],
+"climbing/route":[
+"ruta de escalada",
+"recorrido de escalada",
+"Ruta de escalada",
+"vía de escalada"
+],
+"climbing/route_bottom":[
+"inicio de la ruta de escalada",
+"comienzo de la vía",
+"punto de inicio",
+"Inicio de la ruta de escalada"
+],
 "club":[
 "intercambio",
 "religioso",
@@ -5153,6 +5078,67 @@
 "disused/shop":[
 "Tienda cerrada permanentemente"
 ],
+"education":[
+"institución educativa",
+"centro educativo",
+"establecimiento educativo",
+"Centro educativo"
+],
+"education/college":[
+"campus de instituto terciario",
+"Terreno de instituto terciario",
+"predio de instituto terciario"
+],
+"education/dancing_school":[
+"academia de danza",
+"escuela de baile",
+"centro de danza",
+"Academia de danza"
+],
+"education/driving_school":[
+"autoescuela",
+"escuela de manejo",
+"academia de conducción",
+"Escuela de manejo"
+],
+"education/kindergarten":[
+"campus de preescolar",
+"predio de jardín de infancia",
+"Terreno de jardín de infancia / preescolar",
+"terreno de guardería"
+],
+"education/language_school":[
+"academia de idiomas",
+"centro de idiomas",
+"escuela de lenguas",
+"Escuela de idiomas"
+],
+"education/music_school":[
+"academia de música",
+"instituto musical",
+"Escuela de música",
+"centro de música"
+],
+"education/prep_school":[
+"apoyo escolar",
+"Centro de preparación para exámenes / Tutorías",
+"centro de tutorías",
+"academia de preparación"
+],
+"education/school":[
+"Terreno escolar",
+"predio de escuela",
+"campus escolar",
+"terreno de colegio"
+],
+"education/university":[
+"campus universitario",
+"Terreno universitario",
+"predio universitario"
+],
+"education/yes":[
+"Centro educativo (tipo no especificado)"
+],
 "embankment":[
 "Terraplén"
 ],
@@ -5187,12 +5173,6 @@
 "desfibrilador",
 "restablecedor",
 "ritmo cardíaco"
-],
-"emergency/designated":[
-"Acceso de emergencia designado"
-],
-"emergency/destination":[
-"Acceso de emergencia como destino"
 ],
 "emergency/disaster_response":[
 "punto de atención a damnificados",
@@ -5320,12 +5300,6 @@
 "greim",
 "emergencias"
 ],
-"emergency/no":[
-"Acceso de emergencia no permitido"
-],
-"emergency/official":[
-"Acceso de emergencia oficial"
-],
 "emergency/phone":[
 "teléfono de emergencia",
 "auxilio",
@@ -5348,9 +5322,6 @@
 "policía",
 "emergencia",
 "ayuda telefónica"
-],
-"emergency/private":[
-"Acceso de emergencia privado"
 ],
 "emergency/siren":[
 "bunker",
@@ -5402,9 +5373,6 @@
 "tanque de agua",
 "bidón",
 "agua"
-],
-"emergency/yes":[
-"Acceso de emergencia permitido"
 ],
 "entrance":[
 "puerta",
@@ -6700,6 +6668,12 @@
 "lugar histórico",
 "Lugar histórico"
 ],
+"historic/aircraft":[
+"avión antiguo",
+"aeronave de época",
+"avión histórico",
+"Aeronave histórica"
+],
 "historic/archaeological_site":[
 "sitio arqueológico",
 "yacimiento arqueológico",
@@ -6769,6 +6743,12 @@
 "Monumento conmemorativo",
 "memorial",
 "monumento conmemorativo"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"placa histórica",
+"placa conmemorativa azul",
+"Placa azul",
+"señal azul histórica"
 ],
 "historic/memorial/plaque":[
 "memoria",
@@ -6958,6 +6938,12 @@
 "crustáceos",
 "cultivo de algas",
 "maricultura"
+],
+"landuse/aquaculture/fish":[
+"Granja / criadero de peces",
+"criadero de peces",
+"granja acuícola",
+"piscifactoría"
 ],
 "landuse/basin":[
 "Cuenca"
@@ -7421,17 +7407,6 @@
 "conga",
 "polka",
 "jive"
-],
-"leisure/dancing_school":[
-"academia de danza",
-"baile",
-"taller",
-"escuela de danza",
-"academia",
-"danza",
-"escuela",
-"escuela de baile",
-"Escuela de baile"
 ],
 "leisure/disc_golf_course":[
 "frisbee golf",
@@ -8457,6 +8432,24 @@
 "colgador de alfombras",
 "soporte para alfombras"
 ],
+"man_made/ceremonial_gate":[
+"arco ceremonial",
+"puerta tradicional",
+"Puerta ceremonial",
+"entrada monumental"
+],
+"man_made/ceremonial_gate/paifang":[
+"arco ornamental",
+"puerta tradicional china",
+"arco chino",
+"Paifang"
+],
+"man_made/ceremonial_gate/torii":[
+"Torii",
+"arco japonés",
+"portal tradicional japonés",
+"puerta sintoísta"
+],
 "man_made/charge_point":[
 "ev",
 "estación de carga",
@@ -9042,11 +9035,6 @@
 "telescopio de radio",
 "Telescopio de radio",
 "radiotelescopio"
-],
-"man_made/torii":[
-"Torii",
-"santuario sintoísta",
-"puerta japonesa"
 ],
 "man_made/tower":[
 "mástil",
@@ -12785,6 +12773,12 @@
 "celular",
 "Tienda de telefonía móvil"
 ],
+"shop/mobile_phone_accessories":[
+"tienda de accesorios para celulares",
+"tienda de complementos para celular",
+"local de accesorios para teléfonos móviles",
+"Tienda de accesorios para móviles"
+],
 "shop/model":[
 "juegos",
 "modelismo",
@@ -14059,6 +14053,9 @@
 "vms",
 "señal de mensaje dinámico"
 ],
+"type/associatedStreet":[
+"Calle asociada"
+],
 "type/boundary":[
 "linde",
 "Límite",
@@ -14236,6 +14233,12 @@
 "línea de autobús",
 "recorrido de bus"
 ],
+"type/route/climbing":[
+"ruta de escalada",
+"recorrido de escalada",
+"Ruta de escalada",
+"vía de escalada"
+],
 "type/route/detour":[
 "Ruta de desvío",
 "ruta",
@@ -14401,6 +14404,17 @@
 "Sitio",
 "terreno",
 "instalación"
+],
+"type/site/climbing/area":[
+"sector de escalada",
+"zona de escalada",
+"área de escalada",
+"Área de escalada"
+],
+"type/site/climbing/crag":[
+"sector de escalada",
+"zona de escalada",
+"Zona de escalada"
 ],
 "type/waterway":[
 "acuatico",

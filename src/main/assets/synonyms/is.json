@@ -167,9 +167,6 @@
 "amenity/clock/sundial":[
 "Sólúr"
 ],
-"amenity/college":[
-"Framhaldskólalóð"
-],
 "amenity/community_centre":[
 "Samfélagsmiðstöð"
 ],
@@ -202,9 +199,6 @@
 ],
 "amenity/drinking_water":[
 "Drykkjarvatn"
-],
-"amenity/driving_school":[
-"Ökuskóli"
 ],
 "amenity/embassy":[
 "Sendiráð"
@@ -263,9 +257,6 @@
 "amenity/internet_cafe":[
 "Netkaffihús"
 ],
-"amenity/language_school":[
-"Tungumálaskóli"
-],
 "amenity/lavoir":[
 "Þvottaþró (þvottaaðstaða)"
 ],
@@ -286,9 +277,6 @@
 ],
 "amenity/motorcycle_parking":[
 "Mótorhjólastæði"
-],
-"amenity/music_school":[
-"Tónlistarskóli"
 ],
 "amenity/nightclub":[
 "Næturklúbbur"
@@ -427,9 +415,6 @@
 "amenity/sanitary_dump_station":[
 "Salernishreinsun fyrir bíla"
 ],
-"amenity/school":[
-"Skólalóð"
-],
 "amenity/shelter":[
 "Skýli"
 ],
@@ -477,9 +462,6 @@
 ],
 "amenity/townhall":[
 "Ráðhús"
-],
-"amenity/university":[
-"Háskólalóð"
 ],
 "amenity/vehicle_inspection":[
 "Skoðun farartækja"
@@ -964,12 +946,6 @@
 "emergency/defibrillator":[
 "Hjartastuðtæki"
 ],
-"emergency/designated":[
-"Ætlað sem neyðaraðgangur"
-],
-"emergency/destination":[
-"Neyðaraðgangur ef í fararleið"
-],
 "emergency/fire_extinguisher":[
 "Slökkvitæki"
 ],
@@ -991,26 +967,14 @@
 "emergency/mountain_rescue":[
 "Fjallabjörgun"
 ],
-"emergency/no":[
-"Ekki neyðaraðgangur"
-],
-"emergency/official":[
-"Opinber neyðaraðgangur"
-],
 "emergency/phone":[
 "Neyðarsími"
-],
-"emergency/private":[
-"Einka neyðaraðgangur"
 ],
 "emergency/siren":[
 "Sírena"
 ],
 "emergency/water_tank":[
 "Neyðarvatnstankur"
-],
-"emergency/yes":[
-"Neyðaraðgangur: Já"
 ],
 "ford":[
 "Vað"
@@ -1426,9 +1390,6 @@
 ],
 "leisure/dance":[
 "Danssalur"
-],
-"leisure/dancing_school":[
-"Dansskóli"
 ],
 "leisure/dog_park":[
 "Hundagarður"

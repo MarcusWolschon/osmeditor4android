@@ -83,14 +83,6 @@
 "полигон за начинаещи шофьори",
 "мото полигон"
 ],
-"amenity/driving_school":[
-"категория b",
-"авто курсове",
-"шофьорска книжка",
-"мото курсове",
-"Автошкола",
-"шофьорско училище"
-],
 "amenity/embassy":[
 "Посолство"
 ],
@@ -112,20 +104,11 @@
 "amenity/hospital":[
 "Болница"
 ],
-"amenity/kindergarten":[
-"Предучилищна / детска градина"
-],
-"amenity/language_school":[
-"Езиково училище"
-],
 "amenity/library":[
 "Библиотека"
 ],
 "amenity/marketplace":[
 "Пазар"
-],
-"amenity/music_school":[
-"Музикално училище"
 ],
 "amenity/nursing_home":[
 "Старчески дом"
@@ -233,9 +216,6 @@
 "amenity/restaurant/vietnamese":[
 "Виетнамски ресторант"
 ],
-"amenity/school":[
-"Училище"
-],
 "amenity/shelter":[
 "Навес"
 ],
@@ -276,9 +256,6 @@
 ],
 "amenity/townhall/city":[
 "Кметство"
-],
-"amenity/university":[
-"Университет"
 ],
 "amenity/vehicle_inspection":[
 "годишен технически преглед",

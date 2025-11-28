@@ -134,9 +134,6 @@
 "amenity/clock":[
 "Klok"
 ],
-"amenity/college":[
-"Hegeskoalleterrein"
-],
 "amenity/community_centre":[
 "Mienskipshûs"
 ],
@@ -154,9 +151,6 @@
 ],
 "amenity/drinking_water":[
 "Drinkwetter"
-],
-"amenity/driving_school":[
-"Rydskoalle"
 ],
 "amenity/embassy":[
 "Ambassade"
@@ -203,12 +197,6 @@
 "amenity/internet_cafe":[
 "Ynternetkafee"
 ],
-"amenity/kindergarten":[
-"Beukerskoalleterrein"
-],
-"amenity/language_school":[
-"Taalskoalle"
-],
 "amenity/library":[
 "Bibleteek"
 ],
@@ -229,9 +217,6 @@
 ],
 "amenity/motorcycle_parking":[
 "Motorparkearplak"
-],
-"amenity/music_school":[
-"Muzykskoalle"
 ],
 "amenity/nightclub":[
 "Nachtklup"
