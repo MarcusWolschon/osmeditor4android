@@ -60,7 +60,7 @@ public abstract class AbstractSequenceFetcher implements Runnable {
             saveIdsAndUpdate(ids);
         } catch (IOException ex) {
             Log.e(DEBUG_TAG, "query sequence failed with " + ex.getMessage());
-            throw new IllegalStateException(ex);
+            // don't (re-)throw an exception as that will crash the app it seems
         }
     }
 
