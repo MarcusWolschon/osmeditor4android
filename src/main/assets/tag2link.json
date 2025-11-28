@@ -690,6 +690,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:fvst:navnelbnr",
+    "url": "https://findsmiley.dk/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:genus:wikidata",
     "url": "https://www.wikidata.org/entity/$1",
     "source": "osmwiki:P8",
@@ -895,6 +901,12 @@
   },
   {
     "key": "Key:hashtags",
+    "url": "https://resultmaps.neis-one.org/osm-changesets?comment=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
     "url": "https://s.weibo.com/weibo/%23$1%23",
     "source": "wikidata:P3303",
     "rank": "normal"
@@ -998,6 +1010,12 @@
   {
     "key": "Key:hashtags",
     "url": "https://www.tiktok.com/tag/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:hashtags",
+    "url": "https://www.trustcafe.io/en/wt/$1",
     "source": "wikidata:P3303",
     "rank": "normal"
   },
@@ -1188,6 +1206,18 @@
     "rank": "normal"
   },
   {
+    "key": "Key:INEGI:cve_loc",
+    "url": "https://www.inegi.org.mx/app/areasgeograficas/?ag=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:INEGI:MUNID",
+    "url": "https://www.inegi.org.mx/app/areasgeograficas/?ag=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
     "key": "Key:instagram",
     "url": "https://www.instagram.com/$1/",
     "source": "wikidata:P1630",
@@ -1218,14 +1248,14 @@
     "rank": "normal"
   },
   {
-    "key": "Key:koes_id",
-    "url": "https://samlingen.koes.dk/vaerker-i-det-offentlige-rum/$1",
+    "key": "Key:locale",
+    "url": "https://r12a.github.io/app-subtags/index?lookup=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
-    "key": "Key:locale",
-    "url": "https://r12a.github.io/app-subtags/index?lookup=$1",
+    "key": "Key:maaamet:ETAK",
+    "url": "https://geoportaal.maaamet.ee/index.php?page_id=872&etak_id=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -1243,14 +1273,14 @@
   },
   {
     "key": "Key:mapillary",
-    "url": "https://www.mapillary.com/app/?pKey=$1",
-    "source": "osmwiki:P8",
+    "url": "https://www.mapillary.com/app/?focus=photo&pKey=$1",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
     "key": "Key:mapillary",
     "url": "https://www.mapillary.com/app/?pKey=$1",
-    "source": "wikidata:P1630",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -1482,6 +1512,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:afdc",
+    "url": "https://afdc.energy.gov/stations#/station/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:AQ:apa",
     "url": "https://www.ats.aq/devph/en/apa-database/$1",
     "source": "wikidata:P1630",
@@ -1617,6 +1653,18 @@
     "key": "Key:ref:crs",
     "url": "https://www.railwaydata.co.uk/stations/overview/?TLC=$1",
     "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:DK:cvr",
+    "url": "https://datacvr.virk.dk/enhed/virksomhed/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:DK:cvr:pnummer",
+    "url": "https://datacvr.virk.dk/enhed/produktionsenhed/$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2071,7 +2119,7 @@
   },
   {
     "key": "Key:ref:IE:niah",
-    "url": "https://maps.archaeology.ie/historicenvironment/?REG_NO=$1",
+    "url": "https://heritagedata.maps.arcgis.com/apps/webappviewer/index.html?id=0c9eb9575b544081b0d296436d8f60f8&query=18a4bc9c428-layer-10%2CREG_NO%2C$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -2080,6 +2128,12 @@
     "url": "https://maps.archaeology.ie/HistoricEnvironment/?query=NationalMonuments_7120,SMRS,$1",
     "source": "wikidata:P1630",
     "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:IFOPT",
+    "url": "https://bahnland-bayern.de/de/moby/efa/app/departureMonitor?departureMonitor=type%3Dstop&formik=origin%3D$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
   },
   {
     "key": "Key:ref:IFOPT",
@@ -2232,6 +2286,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:kmr",
+    "url": "https://register.muinas.ee/public.php?menuID=monument&action=view&id=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:kons",
     "url": "http://aplikacija.kons.gov.ba/kons/public/nacionalnispomenici/show/$1",
     "source": "osmwiki:P8",
@@ -2284,6 +2344,12 @@
     "url": "https://gazetteer.linz.govt.nz/place/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
+  },
+  {
+    "key": "Key:ref:LOCODE",
+    "url": "https://unlocode.info/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
   },
   {
     "key": "Key:ref:LOCODE",
@@ -2352,6 +2418,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:NVRID",
+    "url": "https://skyddadnatur.naturvardsverket.se/sknat/?nvrid=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:nz:heritage",
     "url": "https://www.heritage.org.nz/list-details/$1/$1",
     "source": "wikidata:P1630",
@@ -2361,12 +2433,6 @@
     "key": "Key:ref:OnroerendErfgoed",
     "url": "https://id.erfgoed.net/erfgoedobjecten/$1",
     "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:ref:raa",
-    "url": "https://kulturarvsdata.se/raa/fmi/html/$1",
-    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2442,6 +2508,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:SE:raa",
+    "url": "https://kulturarvsdata.se/raa/fmi/html/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:sipca",
     "url": "http://www.sipca.es/censo/$1/.html",
     "source": "wikidata:P1630",
@@ -2479,20 +2551,20 @@
   },
   {
     "key": "Key:ref:US:EIA",
-    "url": "https://www.datacommons.org/browser/eia/pp/$1",
+    "url": "https://www.eia.gov/electricity/data/browser/#/plant/$1",
     "source": "wikidata:P1630",
     "rank": "preferred"
   },
   {
     "key": "Key:ref:US:EIA",
-    "url": "https://www.eia.gov/electricity/data/browser/#/plant/$1",
-    "source": "osmwiki:P8",
+    "url": "https://www.datacommons.org/browser/eia/pp/$1",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
     "key": "Key:ref:US:EIA",
     "url": "https://www.eia.gov/electricity/data/browser/#/plant/$1",
-    "source": "wikidata:P1630",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2545,7 +2617,7 @@
   },
   {
     "key": "Key:ref:vinted_go",
-    "url": "website=https://vintedgo.com/fr/carrier-locations?selected_point=$1",
+    "url": "https://vintedgo.com/fr/carrier-locations?selected_point=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2628,6 +2700,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:wikimaginot",
+    "url": "wikimaginot.eu/V70_construction_detail.php?id=",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:woonplaatscode",
     "url": "https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html#?objectId=$1&detailsObjectId=$1",
     "source": "wikidata:P1630",
@@ -2684,6 +2762,12 @@
   {
     "key": "Key:removed:wikipedia",
     "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:revert:id",
+    "url": "https://www.openstreetmap.org/changeset/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -3130,90 +3214,6 @@
     "url": "https://www.wikidata.org/entity/$1",
     "source": "osmwiki:P8",
     "rank": "preferred"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://autodesc.toolforge.org/?q=$1&links=wikipedia&lang=en&mode=long&format=html&redlinks=reasonator",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://bionomia.net/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://hub.toolforge.org/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://inventaire.io/entity/wd:$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://osm.wikidata.link/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://portal.toolforge.org/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://reasonator.toolforge.org/?q=$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://scholia.toolforge.org/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://sqid.toolforge.org/#/view?id=$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://taginfo.openstreetmap.org/tags/wikidata=$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://viaf.org/processed/WKP|$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://www.wikidata.org/w/index.php?title=Special:CiteThisPage&page=$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://www.wikidata.org/wiki/$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:wikidata",
-    "url": "https://www.wikidata.org/wiki/Special:Nearby#/page/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
   },
   {
     "key": "Key:wikimedia_commons",
