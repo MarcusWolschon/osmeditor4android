@@ -761,6 +761,9 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      */
     @NonNull
     public List<String> getObjectKeys(@Nullable Context ctx) {
+        if (tags == null) {
+            return new ArrayList<>();
+        }
         Set<String> result = new HashSet<>();
         for (String key : Tags.IMPORTANT_TAGS) {
             if (tags.containsKey(key)) {
