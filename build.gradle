@@ -153,7 +153,7 @@ updateAreaTags.description = 'Update the area tags configuration'
 
 task updateNameSuggestionIndex(type: Download) {
     acceptAnyCertificate true
-    src 'https://raw.githubusercontent.com/osmlab/name-suggestion-index/main/dist/nsi.min.json'
+    src 'https://cdn.jsdelivr.net/npm/name-suggestion-index@7/dist/json/nsi.min.json'
     dest new File(projectDir.getPath() + '/src/main/assets/name-suggestions.min.json')
 }
 updateNameSuggestionIndex.group = 'vespucci'
