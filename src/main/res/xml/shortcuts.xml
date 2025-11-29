@@ -14,7 +14,7 @@
   <shortcut
     android:shortcutId="safe"
     android:enabled="true"
-    android:icon="@drawable/vespucci_logo_foreground"
+    android:icon="@drawable/locked"
     android:shortcutShortLabel="@string/shortcut_safe"
     android:shortcutLongLabel="@string/shortcut_safe" >   
     <intent
@@ -28,7 +28,7 @@
   <shortcut
     android:shortcutId="tag_only"
     android:enabled="true"
-    android:icon="@drawable/vespucci_logo_foreground"
+    android:icon="@drawable/unlocked_tag_white"
     android:shortcutShortLabel="@string/mode_tag_only"
     android:shortcutLongLabel="@string/mode_tag_only" >   
     <intent
@@ -42,7 +42,7 @@
   <shortcut
     android:shortcutId="address"
     android:enabled="true"
-    android:icon="@drawable/address_light"
+    android:icon="@drawable/address_dark"
     android:shortcutShortLabel="@string/mode_address"
     android:shortcutLongLabel="@string/mode_address" >   
     <intent
@@ -56,7 +56,7 @@
   <shortcut
     android:shortcutId="indoor"
     android:enabled="true"
-    android:icon="@drawable/vespucci_logo_foreground"
+    android:icon="@mipmap/ic_launcher"
     android:shortcutShortLabel="@string/mode_indoor"
     android:shortcutLongLabel="@string/mode_indoor" >   
     <intent
