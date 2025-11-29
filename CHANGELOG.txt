@@ -2,6 +2,7 @@
 
 21.2.0.0:
 
+- Fix crash when splitting closed way that is a relation member if there are relation related warnings
 - Fix check for null tags
 - Fix protect against degenerate Ways when sorting
 - Fix don't throw exception in thread
