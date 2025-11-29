@@ -3453,9 +3453,12 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <h3 id="how-can-i-install-vespucci-on-my-android-device">How can I install Vespucci on my Android device?<a class="headerlink" href="#how-can-i-install-vespucci-on-my-android-device" title="Permanent link">#</a></h3>
 <p>Just download and install like any other app =)</p>
 <h3 id="which-special-permissions-does-vespucci-require">Which special permissions does Vespucci require?<a class="headerlink" href="#which-special-permissions-does-vespucci-require" title="Permanent link">#</a></h3>
+<p>The required permissions vary by Android version and while you can refuse to grant many of them, this will come with a reduction on functionality. </p>
 <ul>
-<li>fine location (GPS): to be able to pan the map to your current position and generate GPX format tracks</li>
-<li>write to external storage: background imagery tiles are stored, if present, on external storage, removing this permission will make the background process that downloads tiles non-functional</li>
+<li>fine location (GPS): to be able to pan the map to your current position and generate GPX format tracks.</li>
+<li>from Android 13 on: notifications permission to display notifications.</li>
+<li>from Android 13 on: photo and video access for access to images on your device if you want to use the photo support in the app.</li>
+<li>up to and including Android 10: write to external storage: background imagery tiles are stored, if present, on external storage, removing this permission will make the process that downloads tiles non-functional.</li>
 </ul>
 <h3 id="how-can-i-install-vespucci-on-the-android-emulator">How can I install Vespucci on the Android emulator?<a class="headerlink" href="#how-can-i-install-vespucci-on-the-android-emulator" title="Permanent link">#</a></h3>
 <p>Installation of the Vespucci APK is like any other APK.
@@ -3479,7 +3482,7 @@ There are plenty of descriptions available (e.g. <a href="http://openhandsetmaga
 <p>Note that this can only be reversed by either you providing a new Bing API key, or completely removing Vespuccis data directory.</p>
 <h2 id="using-vespucci">Using Vespucci<a class="headerlink" href="#using-vespucci" title="Permanent link">#</a></h2>
 <h3 id="how-can-i-upload-newchanged-data-to-the-osm-server">How can I upload new/changed data to the OSM server?<a class="headerlink" href="#how-can-i-upload-newchanged-data-to-the-osm-server" title="Permanent link">#</a></h3>
-<p>Choose "Upload data to  OSM server" from the transfer menu.
+<p>Choose "Upload data to OSM server" from the transfer menu.
 (With other words: Data is not automatically uploaded!)</p>
 <h3 id="which-user-account-is-used-when-uploading-data-to-the-osm-server">Which user account is used when uploading data to the OSM server?<a class="headerlink" href="#which-user-account-is-used-when-uploading-data-to-the-osm-server" title="Permanent link">#</a></h3>
 <p>Vespucci uses OAuth authorization by default for new installations. On your first upload you will be directed to an OSM page where you will need to grant Vespucci permission to use your OpenStreetMap account. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).</p>
