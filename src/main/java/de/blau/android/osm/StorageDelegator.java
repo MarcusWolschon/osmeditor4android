@@ -1401,7 +1401,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
         resultOrig.setElement(way);
         resultNew.setElement(newWay);
-        List<Result> resultList = Arrays.asList(resultOrig, resultNew);
+        List<Result> resultList = new ArrayList<>();
+        resultList.add(resultOrig);
+        resultList.add(resultNew);
         resultList.addAll(relationResults);
         return resultList;
     }
