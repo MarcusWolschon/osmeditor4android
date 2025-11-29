@@ -1,5 +1,25 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.2.0.0:
+
+- Fix check for null tags
+- Fix protect against degenerate Ways when sorting
+- Fix don't throw exception in thread
+- Fix improve way reversing logic and messaging
+- Fix synchronize all per element rendering related caches
+- Fix counting the number of bounding boxes needs to be locked too
+- Fix regression "Select all" not working in the tag and relations tabs
+- Add addr:housename to address tag preferences
+- Add a warning when a moved way has more than half the nodes hidden
+- Add suppress duplicate toasts (only on Android 11 and later)
+- Change to new NSI distribution location and update
+- Update OH parser
+- Update translations
+- Update tag2link
+- Update synonyms
+- Update imagery from ELI
+- Update default preset and taginfo project file
+
 21.2.0.3:
 
 - Fix proguard config to retain PopupMenu related classes properly
