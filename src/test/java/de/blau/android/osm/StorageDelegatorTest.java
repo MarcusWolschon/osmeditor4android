@@ -1442,7 +1442,7 @@ public class StorageDelegatorTest {
         assertTrue(newWay0.isClosed());
         assertTrue(newWay1.isClosed());
     }
-
+    
     /**
      * Split way at node with incomplete route relation
      */
@@ -1474,6 +1474,35 @@ public class StorageDelegatorTest {
         assertEquals(2, newWay.nodeCount());
     }
 
+    /**
+     * Split closed way that is part of a not completely downloaded route
+     */
+    @Test
+    public void splitClosedWithIncompleteRouteRelation() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+        assertTrue(w.isClosed());
+
+        Relation r = w.getParentRelations().get(0);
+        // add dummy members before and after the way we are splitting
+        r.addMemberBefore(r.getMember(w), new RelationMember(Way.NAME, 12345, ""));
+        r.addMemberAfter(r.getMember(w), new RelationMember(Way.NAME, 12346, ""));
+        Map<String, String> routeTag = new HashMap<>();
+        routeTag.put(Tags.KEY_TYPE, Tags.VALUE_ROUTE);
+        r.setTags(routeTag);
+        
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        Node n1 = w.getNodes().get(1);
+        Node n2 = w.getNodes().get(2);
+        List<Result> results = d.splitAtNodes(w, n1, n2, false);
+        assertNotNull(results);
+        assertEquals(3, results.size());
+        Result relationResult = results.get(2);
+        assertEquals(r, relationResult.getElement());
+        assertTrue(relationResult.getIssues().contains(SplitIssue.SPLIT_ROUTE_ORDERING));      
+    }
+    
     /**
      * Split way at node with route relation
      */
