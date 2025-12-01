@@ -201,7 +201,7 @@ public class Logic {
     /**
      * Filename of file containing the currently edit state
      */
-    private static final String EDITSTATE_FILENAME = "edit.state";
+    public static final String EDITSTATE_FILENAME = "edit.state";
 
     /** Sorter instance for sorting nodes by distance */
     private static final DistanceSorter<OsmElement, Node> nodeSorter = new DistanceSorter<>();

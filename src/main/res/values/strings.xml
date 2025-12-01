@@ -455,7 +455,8 @@
     <string name="safe_mode_dialog_title">Safe mode options</string>
     <string name="safe_style_label">Set data style to minimal</string>
     <string name="safe_layer_label">Disable all layers</string>
-    <string name="safe_state_label">Remove saved state</string>
+    <string name="safe_editing_state_label">Remove selection and UI state</string>
+    <string name="safe_state_label">Remove saved data state</string>
     <string name="safe_delete_state_title">Delete saved data state?</string>
     <string name="safe_delete_state_text">Yes (cannot be undone)</string>
     <!-- Empty relation dialog  -->

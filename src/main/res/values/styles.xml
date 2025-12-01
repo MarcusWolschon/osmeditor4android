@@ -14,6 +14,7 @@
         <item name="windowSplashScreenBackground">@color/osm_green</item>
         <item name="postSplashScreenTheme">@style/SplashTheme2</item>
         <item name="error">@color/material_red</item>
+        <item name="warning">@color/material_orange</item>
         <item name="insetColor">@color/osm_green_dark</item>
     </style>
     <style
@@ -26,6 +27,7 @@
         <item name="windowSplashScreenBackground">@color/osm_green</item>
         <item name="postSplashScreenTheme">@style/SplashThemeLight2</item>
         <item name="error">@color/material_red</item>
+        <item name="warning">@color/material_orange</item>
         <item name="insetColor">@color/osm_green_light</item>
     </style>
     <style
@@ -35,6 +37,7 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowBackground">@color/osm_green</item>
         <item name="error">@color/material_red</item>
+        <item name="warning">@color/material_orange</item>
         <item name="insetColor">@color/osm_green_dark</item>
     </style>
     <style
@@ -45,6 +48,7 @@
         <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowBackground">@color/osm_green</item>
         <item name="error">@color/material_red</item>
+        <item name="warning">@color/material_orange</item>
         <item name="insetColor">@color/osm_green_light</item>
     </style>
     <style
@@ -52,6 +56,7 @@
         parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
         <item name="error">@color/material_red</item>
+        <item name="warning">@color/material_orange</item>
         <item name="insetColor">@color/osm_green_dark</item>
     </style>
     <style
@@ -60,6 +65,7 @@
         <item name="android:windowBackground">@drawable/splash</item>
         <item name="android:navigationBarColor">@android:color/white</item>
         <item name="error">@color/material_red</item>
+        <item name="warning">@color/material_orange</item>
         <item name="insetColor">@color/osm_green_light</item>
     </style>
     <style
