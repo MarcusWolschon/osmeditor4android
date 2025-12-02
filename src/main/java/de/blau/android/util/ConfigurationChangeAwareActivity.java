@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
+import androidx.core.os.ConfigurationCompat;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.WindowInsetsCompat;
 import de.blau.android.App;
@@ -25,7 +26,8 @@ public abstract class ConfigurationChangeAwareActivity extends AppCompatActivity
         super.onConfigurationChanged(newConfig);
         final Configuration oldConfig = App.getConfiguration();
         App.setConfiguration(newConfig);
-        if (Util.themeChanged(App.getPreferences(this), oldConfig, newConfig)) {
+        if (Util.themeChanged(App.getPreferences(this), oldConfig, newConfig)
+                || !ConfigurationCompat.getLocales(oldConfig).get(0).equals(ConfigurationCompat.getLocales(newConfig).get(0))) {
             Log.d(DEBUG_TAG, "recreating activity " + this.getClass().getCanonicalName());
             recreate();
         }
