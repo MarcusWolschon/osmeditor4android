@@ -101,6 +101,7 @@
 	<attr name="snack_warning" format="reference|color" />
 	<attr name="snack_error" format="reference|color" />
     <attr name="error" format="reference|color" />
+    <attr name="warning" format="reference|color" />
     <attr name="selected_item_background" format="reference|color" />
     <attr name="unselected_item_background" format="reference|color" />
     <attr name="text_normal" format="reference|color" />

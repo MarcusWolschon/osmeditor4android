@@ -211,6 +211,7 @@ public class Splash extends AppCompatActivity {
 
         CheckBox style = (CheckBox) layout.findViewById(R.id.safe_style_check);
         CheckBox layers = (CheckBox) layout.findViewById(R.id.safe_layer_check);
+        CheckBox editingState = (CheckBox) layout.findViewById(R.id.safe_editing_state_check);
         CheckBox state = (CheckBox) layout.findViewById(R.id.safe_state_check);
 
         builder.setPositiveButton(R.string.Continue, null);
@@ -234,6 +235,10 @@ public class Splash extends AppCompatActivity {
                             db.setLayerVisibility(config.getPosition(), false);
                         }
                     }
+                }
+                if (editingState.isChecked()) {
+                    Log.e(DEBUG_TAG, "Removing editing state");
+                    deleteFile(Logic.EDITSTATE_FILENAME);
                 }
                 if (state.isChecked()) {
                     Builder reallyBuilder = ThemeUtils.getAlertDialogBuilder(this, lightTheme);

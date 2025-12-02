@@ -41,6 +41,26 @@
         android:layout_alignParentEnd="true"
         android:checked="true"
         android:layout_alignBaseline="@id/safe_layer_label" />
+   <TextView
+        android:id="@+id/safe_editing_state_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/safe_layer_label"
+        android:text="@string/safe_editing_state_label" 
+        android:textColor="?attr/warning" />
+    <CheckBox
+        android:id="@+id/safe_editing_state_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:checked="false"
+        android:buttonTint="?attr/warning"
+        app:buttonTint="?attr/warning"
+        android:layout_alignBaseline="@id/safe_editing_state_label" />
     <TextView
         android:id="@+id/safe_state_label"
         android:layout_width="wrap_content"
@@ -48,7 +68,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="16dp"
-        android:layout_below="@id/safe_layer_label"
+        android:layout_below="@id/safe_editing_state_label"
         android:text="@string/safe_state_label"
         android:textColor="?attr/error" />
     <CheckBox
