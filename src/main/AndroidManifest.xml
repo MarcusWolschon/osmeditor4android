@@ -59,7 +59,8 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:enableOnBackInvokedCallback="false"
-        android:theme="@style/Theme.AppCompat" >
+        android:theme="@style/Theme.AppCompat"
+        android:localeConfig="@xml/res_locale_config" >
         <activity
             android:name=".Splash"
             android:exported="true"
@@ -79,7 +80,7 @@
         </activity>
         <activity
             android:name=".Main"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:exported="true"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.customMain" 
@@ -126,38 +127,38 @@
         </activity>
         <activity
             android:name=".prefs.PrefEditor"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:label="@string/menu_config"
             android:theme="@style/Theme.AppCompatPrefs" />
         <activity
             android:name=".prefs.AdvancedPrefEditor"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:label="@string/app_name_version"
             android:theme="@style/Theme.AppCompatPrefs" />
         <activity
             android:name=".propertyeditor.PropertyEditorActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:launchMode="singleTask"
             android:theme="@style/Theme.customTagEditor" 
             android:alwaysRetainTaskState="true"/>
         <activity
             android:name=".prefs.APIEditorActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:label="@string/manage_apis"
             android:theme="@style/Theme.custom" />
         <activity
             android:name=".prefs.PresetEditorActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:label="@string/manage_presets"
             android:theme="@style/Theme.custom" />
         <activity
             android:name=".prefs.GeocoderEditorActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:label="@string/manage_geocoders"
             android:theme="@style/Theme.custom" />
         <activity
             android:name=".prefs.ImageStorageEditorActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:label="@string/manage_image_stores"
             android:theme="@style/Theme.custom" />
         <activity
@@ -255,20 +256,20 @@
         </activity>
         <activity
             android:name="Authorize"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name="LicenseViewer"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:theme="@style/Theme.custom" />
         <activity
             android:name="DebugInformation"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:theme="@style/Theme.custom" />
         <activity
             android:name="HelpViewer"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:exported="true"
             android:launchMode="singleTask"
             android:taskAffinity=".HelpViewer"
@@ -279,7 +280,7 @@
         </activity>
         <activity
             android:name=".photos.PhotoViewerActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:exported="true"
             android:label="@string/photo_viewer_label"
             android:launchMode="singleTask"
@@ -291,7 +292,7 @@
         </activity>
         <activity
             android:name=".layer.streetlevel.ImageViewerActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:exported="true"
             android:label="@string/mapillary_viewer_label"
             android:launchMode="singleTask"
@@ -303,11 +304,11 @@
         </activity>
         <activity
             android:name=".filter.TagFilterActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:theme="@style/Theme.customActionBar" />
         <activity
             android:name=".filter.PresetFilterActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:theme="@style/Theme.customActionBar" />
         <activity
             android:name="org.acra.dialog.CrashReportDialog"
@@ -322,17 +323,17 @@
             android:theme="@style/Theme.IssueReporterModified" />
         <activity
             android:name=".util.DownloadActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".imagestorage.PanoramaxAuthorize"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".imagestorage.WikimediaCommonsAuthorize"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat" />
 
@@ -347,7 +348,7 @@
         <!-- Service for GPS tracking -->
         <service
             android:name=".services.TrackerService"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:foregroundServiceType="location"
             android:label="TrackerService" />
 
