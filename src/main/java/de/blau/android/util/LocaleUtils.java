@@ -15,6 +15,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.app.LocaleConfig;
 import android.content.Context;
 import android.os.Build;
+import android.os.LocaleList;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import de.blau.android.R;
 
 public final class LocaleUtils {
 
+    private static final String LOCALE    = "locale";
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, LocaleUtils.class.getSimpleName().length());
     private static final String DEBUG_TAG = LocaleUtils.class.getSimpleName().substring(0, TAG_LEN);
 
@@ -893,21 +895,18 @@ public final class LocaleUtils {
     /**
      * Get a list of supported locales for the app
      * 
-     * For devices prior to Android 13 this reads and parses locales_config.xml directly, note that since we are using
-     * automatic generation of the file it has a different name.
+     * Don't use the built-in parsing of the config file with LocaleConfig(context).getSupportedLocales()as that is
+     * broken anyway
      * 
      * @param context an Android Context
      * @return a LocaleListCompat
      */
     public static LocaleListCompat getSupportedLocales(@NonNull Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            return LocaleListCompat.wrap(new LocaleConfig(context).getSupportedLocales());
-        }
         List<String> locales = new ArrayList<>();
         try {
-            XmlPullParser parser = context.getResources().getXml(R.xml._generated_res_locale_config);
+            XmlPullParser parser = context.getResources().getXml(R.xml.res_locale_config);
             while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
-                if (parser.getEventType() == XmlPullParser.START_TAG && "locale".equals(parser.getName())) {
+                if (parser.getEventType() == XmlPullParser.START_TAG && LOCALE.equals(parser.getName())) {
                     locales.add(parser.getAttributeValue(0));
                 }
                 parser.next();
