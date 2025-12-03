@@ -163,6 +163,7 @@ public class WikimediaCommonsUploadTest {
 
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.image_upload_title)));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.image_upload), true));
+        TestUtils.clickAwayTip(device, main);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.wikimedia_meta_title)));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.image_upload), true));
 
