@@ -639,6 +639,7 @@
     <string name="tip_file_import">On devices running Android 10 or later we need to copy files to be able to access them fully. The copies are located in &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. If necessary you can delete the originals and just retain the copies.</string>
     <string name="tip_wms_tile_size">WMS servers can support larger tile sizes than 256x256, consider using 512x512 for a more efficient configuration.</string>
     <string name="tip_empty_comment_warning">Vespucci always adds an automatically created summary of what you uploaded.&lt;p&gt;You should still consider adding a few words on why you are making the edits to provide more context for other mappers.</string>
+    <string name="tip_wikimedia_filename">Always use a descriptive and unique filename, in particular not a camera generated one or else Wikimedia will reject the upload.</string>
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>

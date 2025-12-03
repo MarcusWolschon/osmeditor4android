@@ -32,6 +32,7 @@ import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.contract.MimeTypes;
+import de.blau.android.dialogs.Tip;
 import de.blau.android.net.OAuth2Interceptor;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.ImageStorageConfiguration;
@@ -311,7 +312,13 @@ public class WikimediaCommonsStorage implements ImageStorage {
             listSaver.save(context, WIKIMEDIA_CATEGORIES, categories, false);
             upload.run();
         });
-        builder.show();
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener((DialogInterface d) -> {
+            if (context instanceof FragmentActivity) {
+                Tip.showOptionalDialog((FragmentActivity) context, R.string.tip_wikimedia_filename_key, R.string.tip_wikimedia_filename);
+            }
+        });
+        dialog.show();
     }
 
     /**
