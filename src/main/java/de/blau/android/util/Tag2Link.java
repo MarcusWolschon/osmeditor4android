@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
@@ -17,6 +19,7 @@ import android.content.res.AssetManager;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.contract.Schemes;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.util.collections.MultiHashMap;
 
@@ -98,6 +101,8 @@ public class Tag2Link {
     /**
      * Get the 1st url
      * 
+     * If value is already an URL and in any error cases the original value will be returned.
+     * 
      * @param tagKey the tags key
      * @param value the tags value
      * @return an appropriate url or the original value
@@ -105,12 +110,24 @@ public class Tag2Link {
     @Nullable
     public String get(@NonNull String tagKey, @NonNull String value) {
         Set<String> urlTemplates = linkMap.get(tagKey);
-        if (!urlTemplates.isEmpty()) {
-            try {
-                return urlTemplates.iterator().next().replace(PLACEHOLDER_1, URLEncoder.encode(value, OsmXml.UTF_8).replace("+", ENCODED_SPACE));
-            } catch (UnsupportedEncodingException e) {
-                Log.e(DEBUG_TAG, e.getMessage());
+        if (urlTemplates.isEmpty()) {
+            return value;
+        }
+        final String template = urlTemplates.iterator().next(); // first template
+        try {
+            try { // NOSONAR
+                @SuppressWarnings("unused")
+                URL url = new URL(value); // NOSONAR
+                final String protocol = url.getProtocol();
+                if (PLACEHOLDER_1.equals(template) || Schemes.HTTP.equals(protocol) || Schemes.HTTPS.equals(protocol)) {
+                    return value;
+                }
+            } catch (MalformedURLException e) {
+                // not an URL, continue
             }
+            return template.replace(PLACEHOLDER_1, URLEncoder.encode(value, OsmXml.UTF_8).replace("+", ENCODED_SPACE));
+        } catch (UnsupportedEncodingException e) {
+            Log.e(DEBUG_TAG, e.getMessage());
         }
         return value;
     }
