@@ -37,4 +37,10 @@ public class Tag2LinkTest {
         assertEquals("https://wikipedia.org/wiki/de%3ASchloss%20Lenzburg", t2l.get(Tags.KEY_WIKIPEDIA, "de:Schloss Lenzburg"));
         assertEquals("https://www.wikidata.org/entity/Q668647", t2l.get(Tags.KEY_WIKIDATA, "Q668647"));
     }
+    
+    @Test
+    public void alreadyLinkTest() {
+        Tag2Link t2l = new Tag2Link(ApplicationProvider.getApplicationContext());
+        assertEquals("https://wikipedia.org/wiki/de%3ASchloss%20Lenzburg", t2l.get(Tags.KEY_WIKIPEDIA, "https://wikipedia.org/wiki/de%3ASchloss%20Lenzburg"));
+    }
 }
