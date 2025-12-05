@@ -243,8 +243,7 @@ public class EasyEditManager {
             return;
         }
         synchronized (actionModeCallbackLock) {
-            if (currentActionModeCallback instanceof ElementSelectionActionModeCallback
-                    || currentActionModeCallback instanceof MultiSelectActionModeCallback
+            if (currentActionModeCallback instanceof ElementSelectionActionModeCallback || currentActionModeCallback instanceof MultiSelectActionModeCallback
                     || currentActionModeCallback instanceof WayAppendingActionModeCallback
                     || currentActionModeCallback instanceof NewNoteSelectionActionModeCallback) {
                 currentActionMode.finish();
@@ -308,43 +307,44 @@ public class EasyEditManager {
      */
     public void restart() {
         synchronized (actionModeCallbackLock) {
-            if (currentActionModeCallback == null) {
-                Log.d(DEBUG_TAG, "Trying to restart " + restartActionModeCallbackName);
-                if (isRestartable(restartActionModeCallbackName)) {
-                    new ExecutorTask<Void, Void, SerializableState>(logic.getExecutorService(), logic.getHandler()) {
-                        @Override
-                        protected SerializableState doInBackground(Void param) {
-                            return savingHelper.load(main, FILENAME, false, true, true);
-                        }
-
-                        @Override
-                        protected void onPostExecute(SerializableState state) {
-                            try {
-                                if (state != null) {
-                                    try {
-                                        Class<?> clazz = Class.forName(restartActionModeCallbackName);
-                                        Constructor<?> constructor = clazz.getConstructor(EasyEditManager.class, SerializableState.class);
-                                        ActionMode.Callback cb = (ActionMode.Callback) constructor.newInstance(EasyEditManager.this, state);
-                                        getMain().startSupportActionMode(cb);
-                                        return;
-                                    } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
-                                            | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NullPointerException exception) {
-                                        Log.e(DEBUG_TAG, "Restarting " + restartActionModeCallbackName + " received " + exception.getClass().getCanonicalName()
-                                                + " " + exception.getMessage());
-                                    }
-                                }
-                                Log.e(DEBUG_TAG, "restart, saved state is null");
-                                startElementSelectionMode();
-                            } finally {
-                                restartActionModeCallbackName = null;
-                            }
-                        }
-                    }.execute();
-                } else {
-                    startElementSelectionMode();
-                }
+            if (currentActionModeCallback != null) {
+                return;
             }
+            Log.d(DEBUG_TAG, "Trying to restart " + restartActionModeCallbackName);
+            if (isRestartable(restartActionModeCallbackName)) {
+                new ExecutorTask<Void, Void, SerializableState>(logic.getExecutorService(), logic.getHandler()) {
+                    @Override
+                    protected SerializableState doInBackground(Void param) {
+                        return savingHelper.load(main, FILENAME, false, true, true);
+                    }
 
+                    @Override
+                    protected void onPostExecute(SerializableState state) {
+                        try {
+                            if (state != null) {
+                                try {
+                                    Class<?> clazz = Class.forName(restartActionModeCallbackName);
+                                    Constructor<?> constructor = clazz.getConstructor(EasyEditManager.class, SerializableState.class);
+                                    ActionMode.Callback cb = (ActionMode.Callback) constructor.newInstance(EasyEditManager.this, state);
+                                    getMain().startSupportActionMode(cb);
+                                    return;
+                                } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+                                        | IllegalArgumentException | InvocationTargetException | NullPointerException exception) {
+                                    Log.e(DEBUG_TAG, "Restarting " + restartActionModeCallbackName + " received " + exception.getClass().getCanonicalName()
+                                            + " " + exception.getMessage());
+                                }
+                            }
+                            Log.e(DEBUG_TAG, "restart, saved state is null");
+                            startElementSelectionMode();
+                        } finally {
+                            restartActionModeCallbackName = null;
+                        }
+                    }
+                }.execute();
+                return;
+            }
+            // simply try to start the an elements selection mode
+            startElementSelectionMode();
         }
     }
 
@@ -366,6 +366,9 @@ public class EasyEditManager {
         ActionMode.Callback cb = null;
         OsmElement e = null;
         List<OsmElement> selection = logic.getSelectedElements();
+        if (selection.isEmpty()) {
+            return;
+        }
         if (selection.size() == 1) {
             e = selection.get(0);
             if (e instanceof Node) {
@@ -378,7 +381,7 @@ public class EasyEditManager {
         } else {
             cb = new MultiSelectWithGeometryActionModeCallback(this, selection);
         }
-        if (cb != null && (e != null || !selection.isEmpty())) {
+        if (cb != null) {
             getMain().startSupportActionMode(cb);
             if (e != null) {
                 elementToast(e);
@@ -392,8 +395,8 @@ public class EasyEditManager {
      * @param actionModeCallbackName the name of the callback
      * @return true if the callback can be restarted
      */
-    private boolean isRestartable(@NonNull String actionModeCallbackName) {
-        return restartable.contains(actionModeCallbackName);
+    private boolean isRestartable(@Nullable String actionModeCallbackName) {
+        return restartActionModeCallbackName != null && restartable.contains(actionModeCallbackName);
     }
 
     /**
