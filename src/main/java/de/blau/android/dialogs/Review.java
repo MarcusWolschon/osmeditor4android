@@ -207,7 +207,7 @@ public class Review extends AbstractReviewDialog {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
-
+        saveState();
     }
 
     /**
