@@ -1,4 +1,4 @@
-package de.blau.android.dialogs;
+package de.blau.android.review;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -29,6 +30,9 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.dialogs.ElementInfo;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.Util;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -233,7 +237,7 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
      * @author Simon Poole
      *
      */
-    protected static class ValidatorArrayAdapter extends ArrayAdapter<ChangedElement> {
+    protected class ValidatorArrayAdapter extends ArrayAdapter<ChangedElement> {
         final ChangedElement[] elements;
         final Validator        validator;
         final ColorStateList   colorStateList;
@@ -261,6 +265,8 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
         public View getView(int position, View convertView, ViewGroup container) {
             View v = super.getView(position, convertView, container);
             TextView textView = (TextView) v.findViewById(R.id.text1);
+            final ChangedElement clicked = elements[position];
+            final OsmElement e = clicked.element;
             if (textView != null) {
                 OsmElement element = elements[position].element;
                 if (OsmElement.STATE_DELETED != element.getState() && element.hasProblem(null, validator) != Validator.OK) {
@@ -269,15 +275,9 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
                     setTintList(textView, null);
                 }
                 textView.setOnClickListener(view -> {
-                    ChangedElement clicked = elements[position];
-                    OsmElement e = clicked.element;
-                    byte elemenState = element.getState();
-                    boolean deleted = elemenState == OsmElement.STATE_DELETED;
-                    final FragmentActivity fragmentActivity = (FragmentActivity) view.getContext();
-                    if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
-                        ElementInfo.showDialog(fragmentActivity, UndoStorage.ORIGINAL_ELEMENT_INDEX, e, !deleted, true, parentTag);
-                    } else {
-                        ElementInfo.showDialog(fragmentActivity, e, !deleted, parentTag);
+                    Context context = v.getContext();
+                    if (context instanceof FragmentActivity) {
+                        onClickTextAction((FragmentActivity) context, e, parentTag);
                     }
                 });
             } else {
@@ -288,6 +288,15 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
                 checkBox.setOnCheckedChangeListener(null);
                 checkBox.setChecked(elements[position].selected);
                 checkBox.setOnCheckedChangeListener(getOnCheckedChangeListener(position));
+            }
+            ImageButton info = (ImageButton) v.findViewById(R.id.info1);
+            if (info != null) {
+                info.setOnClickListener(view -> {
+                    Context context = v.getContext();
+                    if (context instanceof FragmentActivity) {
+                        onClickInfoAction((FragmentActivity) context, e, parentTag);
+                    }
+                });
             }
             return v;
         }
@@ -339,6 +348,34 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
                 }
             }
         }
+    }
+
+    /**
+     * Overridable action when the entry text is clicked
+     * 
+     * @param activity the calling FragementActivity
+     * @param e the Element
+     * @param parentTag
+     */
+    protected void onClickTextAction(@NonNull final FragmentActivity activity, @NonNull final OsmElement e, String parentTag) {
+        byte elemenState = e.getState();
+        boolean deleted = elemenState == OsmElement.STATE_DELETED;
+        if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
+            ElementInfo.showDialog(activity, UndoStorage.ORIGINAL_ELEMENT_INDEX, e, !deleted, true, parentTag);
+        } else {
+            ElementInfo.showDialog(activity, e, !deleted, parentTag);
+        }
+    }
+
+    /**
+     * Overridable action when the entry info button is clicked
+     * 
+     * @param activity the calling FragementActivity
+     * @param e the Element
+     * @param parentTag
+     */
+    protected void onClickInfoAction(@NonNull final FragmentActivity activity, @NonNull final OsmElement e, String parentTag) {
+        onClickTextAction(activity, e, parentTag);
     }
 
     @Override

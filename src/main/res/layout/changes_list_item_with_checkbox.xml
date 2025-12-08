@@ -16,10 +16,16 @@
         android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="100"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:gravity="center_vertical"
-        android:drawableRight="?attr/information_small"
-        android:drawableEnd="?attr/information_small" />
+        android:gravity="center_vertical" />
+    <ImageButton
+        android:id="@+id/info1"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"      
+        android:background="@android:color/transparent"
+        android:src="?attr/information_small" />
 </LinearLayout>

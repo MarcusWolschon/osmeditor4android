@@ -111,8 +111,6 @@ import de.blau.android.dialogs.Layers;
 import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
-import de.blau.android.dialogs.Review;
-import de.blau.android.dialogs.ReviewAndUpload;
 import de.blau.android.dialogs.SearchForm;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.dialogs.TooMuchData;
@@ -167,6 +165,9 @@ import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerDatabaseView;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.review.Review;
+import de.blau.android.review.ReviewActivity;
+import de.blau.android.review.ReviewAndUpload;
 import de.blau.android.search.Search;
 import de.blau.android.sensors.CompassEventListener;
 import de.blau.android.services.TrackerService;
@@ -246,6 +247,7 @@ public class Main extends ConfigurationChangeAwareActivity
     public static final String ACTION_DELETE_PHOTO          = "de.blau.android.DELETE_PHOTO";
     public static final String ACTION_IMAGE_SELECT          = "de.blau.android.ACTION_MAPILLARY_SELECT";
     public static final String ACTION_MAP_UPDATE            = "de.blau.android.MAP_UPDATE";
+    public static final String ACTION_SELECT                = "de.blau.android.SELECT";
     public static final String ACTION_PUSH_SELECTION        = "de.blau.android.PUSH_SELECTION";
     public static final String ACTION_POP_SELECTION         = "de.blau.android.POP_SELECTION";
     public static final String ACTION_CLEAR_SELECTION_STACK = "de.blau.android.CLEAR_SELECTION_STACK";
@@ -1004,22 +1006,24 @@ public class Main extends ConfigurationChangeAwareActivity
                 case ACTION_MAP_UPDATE:
                     invalidateMap();
                     break;
+                case ACTION_SELECT:
+                    Selection.Ids ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
+                    Selection selection = new Selection();
+                    selection.fromIds(this, App.getDelegator(), ids);
+                    logic.replaceSelection(selection);
+                    zoomToSelected(logic);
+                    break;
                 case ACTION_PUSH_SELECTION:
                 case ACTION_POP_SELECTION:
                     if (ACTION_PUSH_SELECTION.equals(action)) {
-                        Selection.Ids ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
-                        Selection selection = new Selection();
+                        ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
+                        selection = new Selection();
                         selection.fromIds(this, App.getDelegator(), ids);
                         logic.pushSelection(selection);
                     } else {
                         logic.popSelection();
                     }
-                    final List<OsmElement> selectedElements = logic.getSelectedElements();
-                    zoomTo(selectedElements);
-                    if (Mode.MODE_EASYEDIT == logic.getMode() && !selectedElements.isEmpty()) {
-                        getEasyEditManager().startElementSelectionMode();
-                    }
-                    invalidateMap();
+                    zoomToSelected(logic);
                     break;
                 case ACTION_CLEAR_SELECTION_STACK:
                     Deque<Selection> stack = logic.getSelectionStack();
@@ -1057,6 +1061,18 @@ public class Main extends ConfigurationChangeAwareActivity
                 processShortcutExtras();
             }
         }
+    }
+
+    /**
+     * @param logic
+     */
+    private void zoomToSelected(final Logic logic) {
+        final List<OsmElement> selectedElements = logic.getSelectedElements();
+        zoomTo(selectedElements);
+        if (Mode.MODE_EASYEDIT == logic.getMode() && !selectedElements.isEmpty()) {
+            getEasyEditManager().editElements();
+        }
+        invalidateMap();
     }
 
     /**
@@ -2270,7 +2286,11 @@ public class Main extends ConfigurationChangeAwareActivity
             confirmUpload(null);
             return true;
         case R.id.menu_transfer_review:
-            Review.showDialog(this);
+            if (prefs.useSplitWindowForReview()) {
+                ReviewActivity.start(this);
+            } else {
+                Review.showDialog(this);
+            }
             return true;
         case R.id.menu_transfer_update:
             logic.redownload(this, false, null);

@@ -6207,6 +6207,24 @@ public class Logic {
     }
 
     /**
+     * Replace the current selection
+     * 
+     * @selection the new Selection
+     */
+    public void replaceSelection(@NonNull Selection selection) {
+        try {
+            lock();
+            if (selectionStack.size() > 1) {
+                selectionStack.pop();
+            }
+            selectionStack.push(selection);
+            selectFromTop();
+        } finally {
+            unlock();
+        }
+    }
+
+    /**
      * Fixup an object with a version conflict
      * 
      * Note: when we undelete relations this may fail if a newly created relation references one that hasn't been

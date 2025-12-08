@@ -45,6 +45,7 @@ import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.osm.ApiResponse;
 import de.blau.android.osm.ApiResponse.Conflict;
+import de.blau.android.review.ReviewAndUpload;
 import de.blau.android.osm.MergeAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;

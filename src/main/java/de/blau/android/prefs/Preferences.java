@@ -138,6 +138,7 @@ public class Preferences {
     private final int         autoNameCap;
     private boolean           wayNodeDragging;
     private final boolean     splitWindowForPropertyEditor;
+    private boolean           splitWindowForReview;
     private boolean           newTaskForPropertyEditor;
     private final boolean     useImperialUnits;
     private final boolean     supportPresetLabels;
@@ -332,6 +333,9 @@ public class Preferences {
         wayNodeDragging = prefs.getBoolean(r.getString(R.string.config_wayNodeDragging_key), false);
 
         splitWindowForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_splitWindowForPropertyEditor_key), false);
+
+        splitWindowForReview = prefs.getBoolean(r.getString(R.string.config_splitWindowForReview_key), false);
+
         newTaskForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_newTaskForPropertyEditor_key), false);
 
         useImperialUnits = prefs.getBoolean(r.getString(R.string.config_useImperialUnits_key), false);
@@ -1780,6 +1784,25 @@ public class Preferences {
      */
     public boolean useSplitWindowForPropertyEditor() {
         return splitWindowForPropertyEditor;
+    }
+
+    /**
+     * Enable or disable using split window / separate activity for the REview screen
+     * 
+     * @param enabled the value to set
+     */
+    public void setSplitWindowForReview(boolean enabled) {
+        splitWindowForReview = enabled;
+        prefs.edit().putBoolean(r.getString(R.string.config_splitWindowForReview_key), enabled).commit();
+    }
+
+    /**
+     * Check if we should try to use split window functionality for the ReviewFragment
+     * 
+     * @return true if we should use split windows
+     */
+    public boolean useSplitWindowForReview() {
+        return splitWindowForReview;
     }
 
     /**

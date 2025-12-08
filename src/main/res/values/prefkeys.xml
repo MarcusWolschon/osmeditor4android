@@ -107,6 +107,7 @@
     <string name="config_addToMediaStore_key">addToMediaStore</string>
     <string name="config_wayNodeDragging_key">wayNodeDragging</string>
     <string name="config_splitWindowForPropertyEditor_key">splitWindowForPropertyEditor</string>
+    <string name="config_splitWindowForReview_key">splitWindowForReview</string>
     <string name="config_newTaskForPropertyEditor_key">newTaskForPropertyEditor</string>
     <string name="config_useImperialUnits_key">useImperialUnits</string>
     <string name="config_supportPresetLabels_key">supportPresetLabels</string>

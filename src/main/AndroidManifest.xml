@@ -290,6 +290,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".review.ReviewActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:exported="true"
+            android:label="@string/photo_viewer_label"
+            android:launchMode="singleTask"
+            android:taskAffinity=".ReviewActivity"
+            android:theme="@style/Theme.customMain" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".layer.streetlevel.ImageViewerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:exported="true"

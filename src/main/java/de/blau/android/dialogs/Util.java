@@ -81,7 +81,7 @@ public final class Util {
      * @param elements a List of OsmELement
      * @param bundle the target bundle
      */
-    static void putElementsInBundle(@NonNull List<OsmElement> elements, @NonNull Bundle bundle) {
+    public static void putElementsInBundle(@NonNull List<OsmElement> elements, @NonNull Bundle bundle) {
         ArrayList<Long> ids = new ArrayList<>();
         ArrayList<String> types = new ArrayList<>();
         for (OsmElement e : elements) {
@@ -128,7 +128,7 @@ public final class Util {
      * @param context an Android context
      * @param bundle the Bundle
      */
-    static List<OsmElement> getElements(@NonNull Context context, @NonNull Bundle bundle) {
+    public static List<OsmElement> getElements(@NonNull Context context, @NonNull Bundle bundle) {
         try {
             return de.blau.android.dialogs.Util.getElementsFromBundle(bundle);
         } catch (IllegalStateException ise) {

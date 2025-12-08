@@ -1,5 +1,6 @@
-package de.blau.android.dialogs;
+package de.blau.android.review;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -134,6 +135,31 @@ public class ReviewChangesTest {
             button.click();
         } catch (UiObjectNotFoundException e1) {
             fail(e1.getMessage());
+        }
+    }
+
+    /**
+     * Display changes to review "split window mode"
+     */
+    @Test
+    public void reviewChanges3() {
+        Preferences prefs = new Preferences(context);
+        try {
+            prefs.setSplitWindowForReview(true);
+
+            main.updatePrefs(prefs);
+
+            assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
+
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_review), true, false)); // menu
+                                                                                                                        // item
+            assertTrue(TestUtils.findText(device, false, "address 777 Schulstrasse"));
+            assertTrue(TestUtils.clickText(device, false, "address 777 Schulstrasse", true, false));
+            TestUtils.clickAwayTip(device, context);
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_wayselect), 5000));
+            assertEquals(210461089L, App.getLogic().getSelectedWay().getOsmId());
+        } finally {
+            prefs.setSplitWindowForReview(false);
         }
     }
 

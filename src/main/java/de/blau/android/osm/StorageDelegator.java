@@ -386,12 +386,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<OsmElement> postList = null;
 
         if (pre != null) {
-            preList = new ArrayList<>();
-            preList.add(pre);
+            preList = Util.wrapInList(pre);
         }
         if (post != null) {
-            postList = new ArrayList<>();
-            postList.add(post);
+            postList = Util.wrapInList(post);
         }
         onElementChanged(preList, postList);
     }
