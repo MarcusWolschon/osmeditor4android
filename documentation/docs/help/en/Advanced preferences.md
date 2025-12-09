@@ -439,6 +439,10 @@ Enable voice command support: Default: _off_.
 
 Enable displaying the property editor in a separate window if available. Default: _off_
 
+### Enable split window review screen
+
+Enable displaying the review screen in a separate window if available. Default: _off_
+
 ### Use "new task" mode for property editor
 
 Set FLAG_ACTIVITY_NEW_TASK when starting the property editor, this may improve the behaviour of certain launchers when resuming the app. Default: _off_

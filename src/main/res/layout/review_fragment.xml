@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    <de.blau.android.views.LeftInset
+        android:layout_width="0dp" 
+        android:layout_height="match_parent"
+        android:layout_weight="0" />
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_weight="0"
+        android:orientation="vertical">
+        <de.blau.android.views.TopInset
+            android:layout_width="match_parent"
+            android:layout_height="0dp" 
+            android:layout_weight="0" />
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0"             
+            android:paddingLeft="?attr/dialogPreferredPadding"
+            android:paddingRight="?attr/dialogPreferredPadding"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:paddingTop="4dp"
+                android:orientation="horizontal">
+                <CheckBox 
+                    android:id="@+id/checkBoxAll"
+                    android:saveEnabled="false" 
+                    android:text=""
+                    android:layout_width="34dp"
+                    android:layout_height="fill_parent"
+                    android:paddingTop="4dp" 
+                    android:paddingBottom="4dp" />
+                <TextView 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:paddingTop="4dp" 
+                    android:paddingBottom="4dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/menu_select_all" />
+            </LinearLayout>
+            <View 
+                android:layout_width="fill_parent"
+                android:layout_height="2dp" 
+                android:layout_weight="0"
+                android:background="#b2dfdb" />
+            <ListView 
+                android:id="@+id/upload_changes"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" 
+                android:layout_weight="100"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:orientation="horizontal" 
+                android:gravity="end">
+                <Button 
+                    android:id="@+id/btn_neutral"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_weight="1" 
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/review_update" />
+                <Button 
+                    android:id="@+id/btn_positive"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_weight="1" 
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/review_upload_selected" />
+            </LinearLayout>
+        </LinearLayout>
+        <de.blau.android.views.BottomInset
+            android:layout_width="match_parent"
+            android:layout_height="0dp" 
+            android:layout_weight="0" />
+    </LinearLayout>
+    <de.blau.android.views.RightInset
+        android:layout_width="0dp" 
+        android:layout_height="match_parent"
+        android:layout_weight="0" />
+</LinearLayout>

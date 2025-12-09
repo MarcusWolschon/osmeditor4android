@@ -762,6 +762,11 @@
             android:title="@string/config_splitWindowForPropertyEditor_title" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
+            android:key="@string/config_splitWindowForReview_key"
+            android:summary="@string/config_splitWindowForReview_summary"
+            android:title="@string/config_splitWindowForReview_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
             android:key="@string/config_newTaskForPropertyEditor_key"
             android:summary="@string/config_newTaskForPropertyEditor_summary"
             android:title="@string/config_newTaskForPropertyEditor_title" />

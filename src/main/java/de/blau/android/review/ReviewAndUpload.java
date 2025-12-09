@@ -1,4 +1,4 @@
-package de.blau.android.dialogs;
+package de.blau.android.review;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
@@ -47,6 +47,8 @@ import androidx.viewpager.widget.PagerTabStrip;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.dialogs.Tip;
+import de.blau.android.dialogs.ViewPagerAdapter;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
@@ -434,7 +436,8 @@ public class ReviewAndUpload extends AbstractReviewDialog {
             if (button != null) {
                 button.setFocusableInTouchMode(false);
             }
-            if ((keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) && view instanceof EditText
+            if ((keyEvent.getAction() == KeyEvent.ACTION_UP
+                    || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) && view instanceof EditText
                     && keyCode == KeyEvent.KEYCODE_ENTER) {
                 View nextView = view.focusSearch(View.FOCUS_DOWN);
                 if (nextView != null && nextView.isFocusable()) {

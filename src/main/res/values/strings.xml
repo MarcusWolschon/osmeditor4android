@@ -219,6 +219,7 @@
     <!-- Review changes dialog -->
     <string name="review_changes_title">Review changes</string>
     <string name="review_upload_selected">Upload selected</string>
+    <string name="review_update">Update</string>
     <!-- Upload GPX -->
     <string name="upload_gpx_title">Upload GPX track</string>
     <string name="upload_gpx_description_label">Description</string>
@@ -1613,6 +1614,8 @@
     <string name="config_voiceCommandsEnabled_summary">Enable voice command support.</string>
     <string name="config_splitWindowForPropertyEditor_summary">Enable displaying the property editor in a separate window if available.</string>
     <string name="config_splitWindowForPropertyEditor_title">Enable split window property editor</string>
+    <string name="config_splitWindowForReview_summary">Enable displaying the review screen in a separate window if available.</string>
+    <string name="config_splitWindowForReview_title">Enable split window review screen</string>
     <string name="config_newTaskForPropertyEditor_summary">Set FLAG_ACTIVITY_NEW_TASK when starting the property editor, this may improve the behaviour of certain launchers when resuming the app.</string>
     <string name="config_newTaskForPropertyEditor_title">Use \"new task\" mode for property editor</string>
     <!--  -->

@@ -1,4 +1,4 @@
-package de.blau.android.dialogs;
+package de.blau.android.review;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
@@ -8,26 +8,35 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.Selection;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ThemeUtils;
 
@@ -44,6 +53,7 @@ public class Review extends AbstractReviewDialog {
 
     private static final String STATE_FILENAME = "review_state" + "." + FileExtensions.RES;
 
+    private View     layout;
     private ListView listView;
 
     /**
@@ -106,7 +116,7 @@ public class Review extends AbstractReviewDialog {
         Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setTitle(R.string.review_changes_title);
 
-        final View layout = inflater.inflate(R.layout.review, null);
+        layout = inflater.inflate(R.layout.review_dialog, null);
         builder.setView(layout);
 
         listView = layout.findViewById(R.id.upload_changes);
@@ -115,15 +125,7 @@ public class Review extends AbstractReviewDialog {
         checkbox.setOnCheckedChangeListener(selectAllListener);
 
         builder.setNegativeButton(R.string.Done, null);
-        builder.setNeutralButton(R.string.review_upload_selected, (DialogInterface dialog, int which) -> {
-            List<OsmElement> toUpload = new ArrayList<>();
-            for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
-                if (e.selected) {
-                    toUpload.add(e.element);
-                }
-            }
-            ReviewAndUpload.showDialog(activity, App.getDelegator().addRequiredElements(activity, toUpload));
-        });
+        builder.setNeutralButton(R.string.review_upload_selected, (DialogInterface dialog, int which) -> upload(activity));
 
         AppCompatDialog dialog = builder.create();
         dialog.setOnShowListener((DialogInterface d) -> ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(false));
@@ -131,14 +133,69 @@ public class Review extends AbstractReviewDialog {
         return dialog;
     }
 
+    /**
+     * @param activity
+     */
+    private void upload(FragmentActivity activity) {
+        List<OsmElement> toUpload = new ArrayList<>();
+        for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
+            if (e.selected) {
+                toUpload.add(e.element);
+            }
+        }
+        ReviewAndUpload.showDialog(activity, App.getDelegator().addRequiredElements(activity, toUpload));
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (getShowsDialog()) {
+            return null;
+        }
+        layout = inflater.inflate(R.layout.review_fragment, null);
+        listView = layout.findViewById(R.id.upload_changes);
+
+        CheckBox checkbox = layout.findViewById(R.id.checkBoxAll);
+        checkbox.setOnCheckedChangeListener(selectAllListener);
+
+        final Button positive = (Button) layout.findViewById(R.id.btn_positive);
+        positive.setOnClickListener((View v) -> upload(getActivity()));
+        positive.setEnabled(false);
+        final Button neutral = (Button) layout.findViewById(R.id.btn_neutral);
+        neutral.setOnClickListener((View v) -> createChangesView());
+        ViewGroupCompat.installCompatInsetsDispatch(layout);
+        ViewCompat.setOnApplyWindowInsetsListener(layout, ConfigurationChangeAwareActivity.onApplyWindowInsetslistener);
+        return layout;
+    }
+
     @Override
     protected void createChangesView() {
         Set<String> checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
-        addChangesToView(getActivity(), listView, elements, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item_with_checkbox,
+        addChangesToView(getActivity(), listView, null, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item_with_checkbox,
                 (OsmElement e) -> checked != null && checked.contains(getElementKey(e)), () -> {
                     ValidatorArrayAdapter adapter = (ValidatorArrayAdapter) listView.getAdapter();
                     adapter.registerDataSetObserver(new ListObserver());
                 });
+    }
+
+    @Override
+    protected void onClickTextAction(@NonNull final FragmentActivity activity, @NonNull final OsmElement e, String parentTag) {
+        if (activity instanceof Main) {
+            super.onClickTextAction(activity, e, parentTag);
+            return;
+        }
+        // select element on map
+        Intent intent = new Intent(activity, Main.class);
+        intent.setAction(Main.ACTION_SELECT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Selection selection = new Selection();
+        selection.add(e);
+        intent.putExtra(Selection.SELECTION_KEY, selection.getIds());
+        activity.startActivity(intent);
+    }
+
+    @Override
+    protected void onClickInfoAction(@NonNull final FragmentActivity activity, @NonNull final OsmElement e, String parentTag) {
+        super.onClickTextAction(activity, e, parentTag);
     }
 
     @Override
@@ -193,13 +250,18 @@ public class Review extends AbstractReviewDialog {
                     somethingNotSelected = true;
                 }
             }
-            final CheckBox checkBox = (CheckBox) requireDialog().findViewById(R.id.checkBoxAll);
+
+            final CheckBox checkBox = (CheckBox) (getShowsDialog() ? requireDialog().findViewById(R.id.checkBoxAll) : layout.findViewById(R.id.checkBoxAll));
             if (somethingNotSelected && checkBox.isChecked()) {
                 checkBox.setOnCheckedChangeListener(null);
                 checkBox.setChecked(!somethingNotSelected);
                 checkBox.setOnCheckedChangeListener(selectAllListener);
             }
-            ((AlertDialog) requireDialog()).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(somethingSelected);
+            if (getShowsDialog()) {
+                ((AlertDialog) requireDialog()).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(somethingSelected);
+            } else {
+                ((Button) layout.findViewById(R.id.btn_positive)).setEnabled(somethingSelected);
+            }
         }
     }
 
