@@ -232,8 +232,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
             @Nullable M extraTags, @Nullable L presetsToApply, @Nullable Boolean usePaneLayout, boolean attemptReplace) {
         FragmentTransaction ft = fm.beginTransaction();
         PropertyEditorFragment<M, L, T> existing = peekBackStack(fm);
-        PropertyEditorFragment<M, L, T> fragment = PropertyEditorFragment.newInstance(data, predictAddressTags, showPresets, extraTags, presetsToApply,
-                usePaneLayout);
+
         String tag = java.util.UUID.randomUUID().toString();
         if (existing != null) {
             if (existing.hasChanges() || !attemptReplace) {
@@ -242,6 +241,8 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
                 fm.popBackStackImmediate();
             }
         }
+        PropertyEditorFragment<M, L, T> fragment = PropertyEditorFragment.newInstance(data, predictAddressTags, showPresets, extraTags, presetsToApply,
+                usePaneLayout, backStackCount(fm) + 1);
         ft.add(viewRes, fragment, tag);
         ft.addToBackStack(tag);
         ft.commit();

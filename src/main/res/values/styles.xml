@@ -521,7 +521,7 @@
         <item name="not_downloaded_node_small">@drawable/node_small_dark</item>
         <item name="not_downloaded_line_small">@drawable/line_small_dark</item>
         <item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
-        <item name="propertyeditor_done">@drawable/ic_action_accept_holo_dark</item>
+        <item name="propertyeditor_done">@drawable/done_dark</item>
         <!-- colors -->
         <item name="insetColor">@color/osm_green_dark</item>
         <item name="snack_info">@color/material_teal</item>
@@ -728,7 +728,7 @@
         <item name="not_downloaded_node_small">@drawable/node_small_dark</item>
         <item name="not_downloaded_line_small">@drawable/line_small_dark</item>
         <item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
-        <item name="propertyeditor_done">@drawable/ic_action_accept_holo_light</item>
+        <item name="propertyeditor_done">@drawable/done_light</item>
         <!-- colors -->
         <item name="insetColor">@color/osm_green_light</item>
         <item name="snack_info">@color/material_teal</item>
