@@ -228,13 +228,7 @@ public class Splash extends AppCompatActivity {
                     prefs.edit().putString(getString(R.string.config_mapProfile_key), DataStyle.getBuiltinStyleName()).commit();
                 }
                 if (layers.isChecked()) {
-                    // hide all layers
-                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(this)) {
-                        final LayerConfig[] layerConfigs = db.getLayers();
-                        for (LayerConfig config : layerConfigs) {
-                            db.setLayerVisibility(config.getPosition(), false);
-                        }
-                    }
+                    hideAllAlayers();
                 }
                 if (editingState.isChecked()) {
                     Log.e(DEBUG_TAG, "Removing editing state");
@@ -259,6 +253,18 @@ public class Splash extends AppCompatActivity {
             });
         });
         dialog.show();
+    }
+
+    /**
+     * Hide all layers
+     */
+    private void hideAllAlayers() {
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(this)) {
+            final LayerConfig[] layerConfigs = db.getLayers();
+            for (LayerConfig config : layerConfigs) {
+                db.setLayerVisibility(config.getPosition(), false);
+            }
+        }
     }
 
     /**

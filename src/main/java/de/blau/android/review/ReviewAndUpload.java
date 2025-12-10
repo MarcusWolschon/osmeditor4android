@@ -436,24 +436,21 @@ public class ReviewAndUpload extends AbstractReviewDialog {
             if (button != null) {
                 button.setFocusableInTouchMode(false);
             }
-            if ((keyEvent.getAction() == KeyEvent.ACTION_UP
-                    || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) && view instanceof EditText
-                    && keyCode == KeyEvent.KEYCODE_ENTER) {
+            if (keyEvent.getAction() == KeyEvent.ACTION_UP && view instanceof EditText && keyCode == KeyEvent.KEYCODE_ENTER) {
                 View nextView = view.focusSearch(View.FOCUS_DOWN);
                 if (nextView != null && nextView.isFocusable()) {
                     nextView.requestFocus();
                     return true;
-                } else {
-                    if (view instanceof AutoCompleteTextView) {
-                        ((AutoCompleteTextView) view).dismissDropDown();
-                        if (button != null) {
-                            button.setFocusableInTouchMode(true);
-                            button.requestFocus();
-                        }
-                    }
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
+                if (view instanceof AutoCompleteTextView) {
+                    ((AutoCompleteTextView) view).dismissDropDown();
+                    if (button != null) {
+                        button.setFocusableInTouchMode(true);
+                        button.requestFocus();
+                    }
+                }
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
             return false;
         }
