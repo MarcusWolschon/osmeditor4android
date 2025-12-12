@@ -139,6 +139,7 @@ public class Preferences {
     private boolean           wayNodeDragging;
     private final boolean     splitWindowForPropertyEditor;
     private boolean           splitWindowForReview;
+    private final boolean     useTabLayout;
     private boolean           newTaskForPropertyEditor;
     private final boolean     useImperialUnits;
     private final boolean     supportPresetLabels;
@@ -335,6 +336,8 @@ public class Preferences {
         splitWindowForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_splitWindowForPropertyEditor_key), false);
 
         splitWindowForReview = prefs.getBoolean(r.getString(R.string.config_splitWindowForReview_key), false);
+        
+        useTabLayout = prefs.getBoolean(r.getString(R.string.config_tabLayout_key), false);
 
         newTaskForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_newTaskForPropertyEditor_key), false);
 
@@ -1803,6 +1806,15 @@ public class Preferences {
      */
     public boolean useSplitWindowForReview() {
         return splitWindowForReview;
+    }
+    
+    /**
+     * Always use tab layout for the property editor
+     * 
+     * @return true if we should use the tab layout
+     */
+    public boolean useTabLayout() {
+        return useTabLayout;
     }
 
     /**

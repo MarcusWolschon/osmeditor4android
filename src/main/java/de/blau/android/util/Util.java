@@ -974,4 +974,21 @@ public final class Util {
         tags.put(key + Tags.NS_SEP + Integer.toString(index + 1), value);
     }
 
+    /**
+     * Check if desktop mode is enabled, currently only for DeX
+     * 
+     * @param context an Andrpid context
+     * @return true if desktop mode is enabled.
+     */
+    public static boolean isDesktopModeEnabled(@NonNull Context context){
+        Configuration config = context.getResources().getConfiguration();
+        try {
+            Class<? extends Configuration> configClass = config.getClass();
+            return configClass.getField("SEM_DESKTOP_MODE_ENABLED").getInt(configClass)
+                    == configClass.getField("semDesktopModeEnabled").getInt(config);
+        } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException  e) {
+           Log.e(DEBUG_TAG, "isDesktopModeEnabled " + e.getMessage());
+        }
+        return false;
+    }
 }
