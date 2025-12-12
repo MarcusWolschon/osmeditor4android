@@ -235,9 +235,8 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
 
         String tag = java.util.UUID.randomUUID().toString();
         if (existing != null) {
-            if (existing.hasChanges() || !attemptReplace) {
-                ft.hide(existing);
-            } else {
+            ft.hide(existing);
+            if (!existing.hasChanges() && attemptReplace) {
                 fm.popBackStackImmediate();
             }
         }

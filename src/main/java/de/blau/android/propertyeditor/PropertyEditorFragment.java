@@ -264,7 +264,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             showPresets = args.getBoolean(TAGEDIT_SHOW_PRESETS);
             extraTags = (M) args.getSerializable(TAGEDIT_EXTRA_TAGS);
             presetsToApply = (L) args.getSerializable(TAGEDIT_PRESETSTOAPPLY);
-            usePaneLayout = args.getBoolean(PANELAYOUT, Screen.isLandscape(getActivity()));
+            usePaneLayout = args.getBoolean(PANELAYOUT, Screen.isLandscape(getActivity())) && !prefs.useTabLayout();
             position = args.getInt(POSITION);
 
             // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
