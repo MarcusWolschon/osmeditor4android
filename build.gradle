@@ -686,7 +686,7 @@ dependencies {
     implementation 'ch.poole.android:sprites:0.0.4'
     implementation 'ch.poole.android:indeterminate-checkbox:1.1.0@aar'
     implementation 'ch.poole.misc:bentley-ottmann:0.1.1'
-    implementation 'ch.poole.geo.pmtiles-reader:Reader:0.3.6'
+    implementation 'ch.poole.geo.pmtiles-reader:Reader:0.3.7'
     
     // for temp stuff during dev
     // implementation(name:'alibrary', ext:'jar')
