@@ -443,6 +443,10 @@ Enable displaying the property editor in a separate window if available. Default
 
 Enable displaying the review screen in a separate window if available. Default: _off_
 
+### Force property editor tab layout
+
+Always use the tab layout of the property editor. This is mainly useful on devices running in desktop mode that otherwise would use the pane layout. Default: _off_
+
 ### Use "new task" mode for property editor
 
 Set FLAG_ACTIVITY_NEW_TASK when starting the property editor, this may improve the behaviour of certain launchers when resuming the app. Default: _off_

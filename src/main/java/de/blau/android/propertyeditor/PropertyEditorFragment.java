@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -34,6 +35,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -72,6 +74,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.propertyeditor.tagform.TagFormFragment;
+import de.blau.android.util.BadgeDrawable;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NetworkStatus;
@@ -110,8 +113,12 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     static final String        TAGEDIT_SHOW_PRESETS      = "showPresets";
     static final String        TAGEDIT_EXTRA_TAGS        = "extra";
     static final String        TAGEDIT_PRESETSTOAPPLY    = "presetsToApply";
+    static final String        POSITION                  = "position";
 
     private static final int PREFERENCES_CODE = 5634;
+
+    private static final int PE_COUNT_WARNING = 5;
+    private static final int PE_COUNT_DANGER  = 10;
 
     /** The layout containing the edit rows */
     LinearLayout rowLayout = null;
@@ -180,6 +187,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     private ControlListener    controlListener;
     private PageChangeListener pageChangeListener;
     private Capabilities       capabilities;
+    private int                position;
 
     /**
      * Run these actions when we everything is restored
@@ -197,12 +205,13 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
      * @param extraTags additional tags that should be added
      * @param presetItems presets that should be applied
      * @param usePaneLayout option control of layout
+     * @param position current position in the fragment stack
      * @return a suitable Intent
      */
     @NonNull
     public static <M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable> PropertyEditorFragment<M, L, T> newInstance(
             @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets, @Nullable M extraTags, @Nullable L presetItems,
-            @Nullable Boolean usePaneLayout) {
+            @Nullable Boolean usePaneLayout, int position) {
         PropertyEditorFragment<M, L, T> f = new PropertyEditorFragment<>();
 
         Bundle args = new Bundle();
@@ -212,8 +221,9 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         args.putSerializable(TAGEDIT_EXTRA_TAGS, extraTags);
         args.putSerializable(TAGEDIT_PRESETSTOAPPLY, presetItems);
         if (usePaneLayout != null) {
-            args.putBoolean(TAGEDIT_SHOW_PRESETS, usePaneLayout);
+            args.putBoolean(PANELAYOUT, usePaneLayout);
         }
+        args.putInt(POSITION, position);
         f.setArguments(args);
         return f;
     }
@@ -254,7 +264,8 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             showPresets = args.getBoolean(TAGEDIT_SHOW_PRESETS);
             extraTags = (M) args.getSerializable(TAGEDIT_EXTRA_TAGS);
             presetsToApply = (L) args.getSerializable(TAGEDIT_PRESETSTOAPPLY);
-            usePaneLayout = args.getBoolean(PANELAYOUT, Screen.isLandscape(getActivity()));
+            usePaneLayout = args.getBoolean(PANELAYOUT, Screen.isLandscape(getActivity())) && !prefs.useTabLayout();
+            position = args.getInt(POSITION);
 
             // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
             // selected
@@ -267,7 +278,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
             loadData = PropertyEditorData.deserializeArray(Util.getSerializeable(savedInstanceState, TAGEDIT_DATA, Serializable.class));
             usePaneLayout = savedInstanceState.getBoolean(PANELAYOUT); // FIXME this disables layout changes on
-                                                                       // restarting
+            position = savedInstanceState.getInt(POSITION); // restarting
             StorageDelegator delegator = App.getDelegator();
             if (!delegator.isDirty() && delegator.isEmpty()) { // this can mean: need to load state
                 Log.d(DEBUG_TAG, "Loading saved state");
@@ -316,10 +327,17 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
+        LayerDrawable done = (LayerDrawable) ContextCompat.getDrawable(getContext(),
+                ThemeUtils.getResIdFromAttribute(getContext(), R.attr.propertyeditor_done));
+        final StorageDelegator delegator = App.getDelegator();
+        final int apiElementCount = delegator.getApiElementCount();
+        if (position > 1) {
+            BadgeDrawable.setBadgeWithCount(getContext(), done, position, PE_COUNT_WARNING, PE_COUNT_DANGER);
+        }
         // FIXME currently we statically change this, it would be nicer to actually make it dependent on if we have
         // actually changed something
         ActionBar actionbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionbar.setHomeAsUpIndicator(ThemeUtils.getResIdFromAttribute(getContext(), R.attr.propertyeditor_done));
+        actionbar.setHomeAsUpIndicator(done);
         actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setDisplayHomeAsUpEnabled(true);
 
@@ -1139,6 +1157,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         outState.putInt(CURRENTITEM, mViewPager.getCurrentItem());
         outState.putBoolean(PANELAYOUT, usePaneLayout);
         outState.putSerializable(TAGEDIT_DATA, loadData);
+        outState.putInt(POSITION, position);
         App.getMruTags().save(getContext());
     }
 
