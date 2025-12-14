@@ -3444,11 +3444,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private static void addRelationMembersToUpload(@NonNull Set<OsmElement> uploadElements, @NonNull Relation r) {
         for (RelationMember rm : r.getMembers()) {
-            if (rm.getRef() < 0) { // neg id == new element
-                OsmElement member = rm.getElement();
-                if (member instanceof Relation && !uploadElements.contains(member)) {
-                    addRelationMembersToUpload(uploadElements, r);
-                }
+            if (rm.getRef() > 0) { // neg id == new element
+                continue;
+            }
+            OsmElement member = rm.getElement();
+            if (member instanceof Relation && !uploadElements.contains(member)) {
+                uploadElements.add(member); // loop protection
+                addRelationMembersToUpload(uploadElements, r);
+            } else {
                 uploadElements.add(member);
             }
         }

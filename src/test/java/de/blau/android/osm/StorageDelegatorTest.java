@@ -1967,6 +1967,28 @@ public class StorageDelegatorTest {
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -2L)));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -3L)));
     }
+    
+    /**
+     * As above but check that we protect against relation loops
+     */
+    @Test
+    public void uploadModifiedRelationTest2() {
+        StorageDelegator sd = UnitTestUtils.loadTestData(getClass(), "selective-upload2.osm");
+        Relation modifiedRelation = (Relation) sd.getOsmElement(Relation.NAME, 29169L);
+        assertNotNull(modifiedRelation);
+        Relation loop = sd.createAndInsertRelation(Util.wrapInList(modifiedRelation));
+        loop.addMember(new RelationMember("", loop));
+        modifiedRelation.addMember(new RelationMember("", loop));
+        
+        List<OsmElement> toUpload = new ArrayList<>();
+        toUpload.add(modifiedRelation);
+        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        assertTrue(toUpload.contains(modifiedRelation));
+        assertTrue(toUpload.contains(loop));
+        assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, -1L)));
+        assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -2L)));
+        assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -3L)));
+    }
 
     /**
      * Reverse a way
