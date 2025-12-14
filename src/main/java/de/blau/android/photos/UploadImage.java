@@ -5,6 +5,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -195,6 +196,10 @@ public class UploadImage {
                     case ErrorCodes.UPLOAD_PROBLEM:
                         String message = result.getMessage();
                         int httpCode = result.getHttpError();
+                        if (imageStore instanceof PanoramaxStorage && httpCode == HttpURLConnection.HTTP_CONFLICT) {
+                            ScreenMessage.toastTopError(context, R.string.image_upload_failed_duplicate_image);
+                            return;
+                        }
                         ScreenMessage.toastTopError(context,
                                 context.getString(R.string.image_upload_failed_due_to, httpCode, (message != null ? message : ""), url));
                         return;
