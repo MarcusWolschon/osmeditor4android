@@ -69,7 +69,7 @@ public class PanoramaxStorage implements ImageStorage {
     private static final String API_AUTH_TOKENS_GENERATE = "/auth/tokens/generate";
     private static final String API_USERS_ME             = "/users/me";
 
-    private static final long TIMEOUT = 10000;
+    private static final long TIMEOUT = 20000;
 
     private final ImageStorageConfiguration configuration;
     private final OkHttpClient              client;
