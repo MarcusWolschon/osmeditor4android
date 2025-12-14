@@ -80,14 +80,16 @@ public class ExtendedValidator implements Validator {
     @Override
     public int validate(Node node) {
         int result = base.validate(node);
-        if (base.untaggedValidation && !wayNodes.contains(node.getOsmId()) && !node.hasTags() && !node.hasParentRelations()) {
-            List<Way> ways = logic.getWaysForNode(node);
-            if (ways.isEmpty()) {
-                return addResult(result, Validator.UNTAGGED);
-            }
-            for (Way w : ways) {
-                for (Node n : w.getNodes()) {
-                    wayNodes.put(n.getOsmId());
+        synchronized (wayNodes) {
+            if (base.untaggedValidation && !wayNodes.contains(node.getOsmId()) && !node.hasTags() && !node.hasParentRelations()) {
+                List<Way> ways = logic.getWaysForNode(node);
+                if (ways.isEmpty()) {
+                    return addResult(result, Validator.UNTAGGED);
+                }
+                for (Way w : ways) {
+                    for (Node n : w.getNodes()) {
+                        wayNodes.put(n.getOsmId());
+                    }
                 }
             }
         }
@@ -104,23 +106,7 @@ public class ExtendedValidator implements Validator {
         int result = base.validate(relation);
         List<RelationMember> members = relation.getMembers();
         if (missingRoleValidation && members != null) {
-            // check for missing roles
-            PresetItem pi = Preset.findBestMatch(base.getPresets(), relation.getTags(), base.getIsoCodes(relation), ElementType.RELATION, false, null);
-            if (pi != null) {
-                List<PresetRole> presetRoles = pi.getRoles();
-                if (presetRoles != null) {
-                    List<String> roles = new ArrayList<>();
-                    for (PresetRole role : presetRoles) {
-                        roles.add(role.getRole());
-                    }
-                    for (RelationMember member : members) {
-                        if (!roles.contains(member.getRole())) {
-                            result = addResult(result, Validator.MISSING_ROLE);
-                            break;
-                        }
-                    }
-                }
-            }
+            result = missingRoles(relation, members, result);
         }
         // loop check
         if (relationLoopValidation) {
@@ -128,6 +114,35 @@ public class ExtendedValidator implements Validator {
             map.put(relation.getOsmId(), relation);
             if (hasLoop(members, map)) {
                 result = addResult(result, Validator.RELATION_LOOP);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Check for missing mandatory roles
+     * 
+     * @param relation the Relation to check
+     * @param members the relation members
+     * @param result the result prior to the check
+     * @return the result
+     */
+    private int missingRoles(@NonNull Relation relation, @NonNull List<RelationMember> members, int result) {
+        // check for missing roles
+        PresetItem pi = Preset.findBestMatch(base.getPresets(), relation.getTags(), base.getIsoCodes(relation), ElementType.RELATION, false, null);
+        if (pi != null) {
+            List<PresetRole> presetRoles = pi.getRoles();
+            if (presetRoles != null) {
+                List<String> roles = new ArrayList<>();
+                for (PresetRole role : presetRoles) {
+                    roles.add(role.getRole());
+                }
+                for (RelationMember member : members) {
+                    if (!roles.contains(member.getRole())) {
+                        result = addResult(result, Validator.MISSING_ROLE);
+                        break;
+                    }
+                }
             }
         }
         return result;
