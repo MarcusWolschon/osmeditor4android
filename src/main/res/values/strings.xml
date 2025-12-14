@@ -1664,6 +1664,7 @@
     <string name="image_upload_not_authorized">Upload failed due to not being authorized for the target storage</string>
     <string name="image_upload_failed_due_to">Upload failed due to code %1$d %2$s for %3$s</string>
     <string name="image_upload_failed">Upload failed %1$s</string>
+    <string name="image_upload_failed_duplicate_image">Image was already successfully uploaded.</string>
     <string name="wikimedia_meta_title">Wikimedia Meta Data</string>
     <string name="wikimedia_meta_filename">Filename</string>
     <string name="wikimedia_meta_description">Description</string>
