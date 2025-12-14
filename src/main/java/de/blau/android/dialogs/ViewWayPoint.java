@@ -207,7 +207,12 @@ public class ViewWayPoint extends CancelableDialogFragment {
             context.startActivity(new Intent(Intent.ACTION_VIEW).setData(uri));
             return;
         }
-        Uri actualUri = Uri.parse(ContentResolverUtil.getPath(context, gpxUri));
+        final String path = ContentResolverUtil.getPath(context, gpxUri);
+        if (path == null) {
+            ScreenMessage.toastTopError(context, getString(R.string.toast_file_not_found, gpxUri), true);
+            return;
+        }
+        Uri actualUri = Uri.parse(path);
         Uri.Builder uriBuilder = new Uri.Builder();
         List<String> pathSegments = actualUri.getPathSegments();
         for (String segment : pathSegments.subList(0, pathSegments.size() - 1)) {
