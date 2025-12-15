@@ -753,7 +753,7 @@
   <string name="toast_openinghours_invalid">Ungültiger Öffnungszeitenwert für %1$s</string>
   <string name="toast_openinghours_autocorrected">Öffnungszeitenwert für %1$s wurde korrigiert</string>
   <string name="toast_exit_multiselect">Doppel-Tipp auf einen leeren Bereich oder benutze den ← Pfeil um Mehrfach-Selektion zu verlassen</string>
-  <string name="toast_already_in_multiselect">Bereits in Mehrfach-Selektion-Modus</string>
+  <string name="toast_already_in_multiselect">Bereits im Mehrfachauswahlmodus</string>
   <string name="toast_abort_actionmode">\"Zurückpfeil\" wählen, um abzubrechen</string>
   <string name="toast_null_island">Bitte keine Objekte bei 0°/0° (Null Island) hinzufügen</string>
   <string name="toast_string_too_long">Text ist zu lang (%1$d Zeichen), gekürzt!</string>
@@ -1178,7 +1178,7 @@
   <string name="wms_hint">%1$s [wms]</string>
   <string name="menu_layers_convert_geojson_todo">Todos aus GeoJSON-Objekten erstellen...</string>
   <string name="geojson_todo_title">Todos aus GeoJSON-Objekten erstellen</string>
-  <string name="geojson_todo_default_conversion">Standard-Konvertierung</string>
+  <string name="geojson_todo_default_conversion">Standardkonvertierung</string>
   <string name="geojson_todo_custom_conversion">Individuelle Konvertierung...</string>
   <string name="rhino_exception">&lt;br&gt;Fehler in Zeile %1$d, Spalte %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
   <!---->
@@ -1217,7 +1217,7 @@
   <string name="menu_add_existing_image">Bestehendes Bild hinzufügen…</string>
   <string name="deleteway_description">Sie sind im Begriff, einen Weg zu löschen.\n\nSie können entweder alle Knoten behalten oder die Knoten löschen, die nur zu diesem Weg gehören und keine Tags haben.</string>
   <string name="deleteway_relation_description">Dieser Weg ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht, wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
-  <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte außerhalb des heruntergeladenen Bereichs und kann nicht gelöscht werden, ohne möglicherweise einen inkonsistenten Zustand zu verursachen.\n\nVor einem erneuten Versuch, bitte zuerst den ganzen Bereich um den Weg herunterladen.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte außerhalb des heruntergeladenen Bereichs und kann nicht gelöscht werden, ohne möglicherweise einen inkonsistenten Zustand zu verursachen.\n\nVor einem erneuten Versuch bitte zuerst den umgebenden Bereich herunterladen.</string>
   <string name="deleteways_nodesnotdownloaded_description">Diese Auswahl enthält Wege, die Punkte außerhalb des heruntergeladenen Bereichs besitzen, und kann nicht gelöscht werden, ohne möglicherweise einen inkonsistenten Zustand zu verursachen.\n\nVor einem erneuten Versuch, bitte zuerst den ganzen Bereich um die Wege herunterladen.</string>
   <string name="deleteway_wayonly">Nur Weg löschen</string>
   <string name="deleteway_wayandnodes">Weg löschen</string>

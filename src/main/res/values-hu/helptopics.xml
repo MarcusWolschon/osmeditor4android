@@ -4,8 +4,10 @@
     <string name="help_app_description">Vespucci súgómegtekintő</string>
     <string name="help_title">Súgó: %1$s</string>
     <string name="help_introduction">Bevezetés</string>
+    <string name="help_safe_mode">Biztonságos mód</string>
     <string name="help_main">Fő térképmegjelenítő</string>
     <string name="help_simple_actions">Egyszerű műveletek</string>
+    <string name="help_addrelationmember">Kapcsolattagok szerkesztése</string>
     <string name="help_multiselect">Többszörös kijelölés</string>
     <string name="help_longclick">Új objektumok létrehozása</string>
     <string name="help_nodeselection">Pont kijelölve</string>
@@ -32,6 +34,8 @@
     <string name="help_tag_only_mode">Csak címkézés mód</string>
     <string name="help_indoor_mode">Beltéri mód</string>
     <string name="help_address_mode">Cím mód</string>
+    <string name="help_upgrade">21.2 kiadási megjegyzések</string>
+    <string name="help_upgrade_211">21.1 kiadási megjegyzések</string>
     <string name="help_upgrade_210">21.0 kiadási megjegyzések</string>
     <string name="help_upgrade_202">20.2 kiadási megjegyzések</string>
     <string name="help_upgrade_201">20.1 kiadási megjegyzések</string>
@@ -99,6 +103,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
         <item>@string/help_upgrade_202</item>
         <item>@string/help_upgrade_201</item>
@@ -167,6 +172,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>
         <item>21.0.0 Release notes</item>
         <item>20.2.0 Release notes</item>

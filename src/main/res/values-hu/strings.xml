@@ -52,7 +52,7 @@
   <string name="upload_retry_message_unexpected_error">Váratlan hiba történt a módosításcsomag (%1$d) állapotának meghatározásakor.</string>
   <string name="upload_retry_message_no_changeset_status">A módosításcsomag (%1$d) állapota nem határozható meg. Javasoljuk, hogy mentse el a változásokat OCS fájlként, és döntse el, mit szeretne tenni, amikor jobb a vétel.</string>
   <string name="upload_retry_message_nothing_uploaded">A módosításcsomagban (%1$d) nem történt változás.\n\nBiztonságosan megismételhető.</string>
-  <string name="upload_retry_message_all_uploaded">A változások sikeresen fel lettek töltve a %1$d módosításkészletben, de az eredmény nem érkezett meg.\n\nÚgy tűnik azonban, hogy az összes változás fel van töltve, ezért nyugodtan törölheti a helyi módosításokat, és újra letöltheti azokat.</string>
+  <string name="upload_retry_message_all_uploaded">A változások sikeresen fel lettek töltve a %1$d módosításcsomagban, de az eredmény nem érkezett meg.\n\nÚgy tűnik azonban, hogy az összes változás fel van töltve, ezért nyugodtan törölheti a helyi módosításokat, és újra letöltheti azokat.</string>
   <string name="upload_retry_message_partial_upload">A változtatások sikeresen fel lettek töltve a módosításcsomagba (%1$d), de az eredmény nem érkezett meg.</string>
   <string name="upload_retry_message_update_failed_title">A feltöltés sikertelen</string>
   <string name="upload_retry_message_update_failed">Az adatokat nem lehet frissíteni. Javasoljuk, hogy a módosításokat mentse el egy fájlba későbbi felhasználás céljából.</string>
@@ -106,6 +106,8 @@
   <string name="download_limit_message">Kérjük, várjon, mielőtt további adatokat próbálna letölteni.</string>
   <string name="upload_limit_title">Feltöltési korlátok túllépése</string>
   <string name="upload_limit_message">Ön kimerítette az aktuális feltöltési keretét, kérjük, várjon, mielőtt újra próbálkozna.</string>
+  <string name="upload_unavailable_title">Szolgáltatás elérhetetlen</string>
+  <string name="upload_unavailable_message">A szolgáltatás – valószínűleg ideiglenesen – nem érhető el. Kérjük várjon egy kicsit, mielőtt újra megpróbálja.</string>
   <string name="duplicate_tag_key_title">Duplikált kulcsok</string>
   <string name="duplicate_tag_key_message">A következő kulcsot többször adta hozzá, ezt meg kell oldania, mielőtt továbbléphetne:</string>
   <string name="autodownload_has_been_paused">Az automatikus letöltés szünetel.</string>
@@ -192,6 +194,7 @@ ezt a lépést kihagyhatod, és ha szeretnéd, később is megadhatod az egyéni
   <string name="upload_validation_error_empty_comment">A hozzászólás nem lehet üres</string>
   <string name="upload_validation_error_empty_source">A forrás nem lehet üres</string>
   <string name="upload_empty_comment_warning_label">Figyelmeztetés, ha a megjegyzés mező üres</string>
+  <string name="confirm_upload_custom_tags_page">Egyéni címkék</string>
   <string name="upload_auto_summary">Automatikusan generált összefoglaló</string>
   <string name="untagged_node">címkézetlen pont</string>
   <string name="untagged_way">címkézetlen vonal</string>
@@ -551,6 +554,7 @@ elemek megkövetelése</string>
   <string name="photo_viewer_goto">Ugrás a fényképhez</string>
   <string name="photo_viewer_label">Fényképnézegető</string>
   <string name="mapillary_viewer_label">Mapillary utcaképek</string>
+  <string name="photo_viewer_upload">Feltöltés</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Határolókeret</string>
   <string name="api_info_latest_date">Utolsó felvétel dátuma</string>
@@ -657,6 +661,7 @@ elemek megkövetelése</string>
   <string name="toast_save_failed">Nem menthető</string>
   <string name="toast_export_failed">Nem exportálható</string>
   <string name="toast_export_success">Exportálva ide: %1$s</string>
+  <string name="toast_upload_to_success">Sikeresen feltöltve ide: %1$s</string>
   <plurals name="toast_preset_removed_or_replaced_tags">
     <item quantity="one">Egy címke felül lett írva vagy módosult</item>
     <item quantity="other">%1$d címke felülírva vagy módosítva</item>
@@ -677,6 +682,7 @@ elemek megkövetelése</string>
   <string name="toast_download_failed">Sikertelen letöltés, hibakód: %1$d, üzenet: %2$s.</string>
   <string name="toast_note_reopened">Jegyzet újra megnyitva</string>
   <string name="toast_untrusted_certificate">Nem megbízható tanúsítvány\n%1$s</string>
+  <string name="toast_element_may_have_been_moved">Az elem elmozdulhatott</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Nem felmért út</string>
   <string name="toast_noname">Az útnak nincs neve vagy hivatkozási száma</string>
@@ -847,6 +853,7 @@ elemek megkövetelése</string>
   <string name="toast_panoramax_sequence_error">Nem található a következő Panormax-sorozat azonosítója: id %1$s id %2$s</string>
   <string name="toast_panoramax_image_not_in_sequence_error">Nem található meg a sorozatban a következő kép: %1$s</string>
   <string name="toast_panoramax_sequence_exception">Nem találhat a következő Panoramax-sorozat:\n%1$s</string>
+  <string name="toast_authorisation_successful">Hitelesítés sikeres</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">A MapSplit forrásoknál meg kell adni a legkisebb és legnagyobb nagyítást</string>
   <string name="error_pbf_no_version">A verzióinformációk hiányoznak a PBF-fájlban</string>
@@ -946,6 +953,7 @@ elemek megkövetelése</string>
   <string name="menu_top">Felülre</string>
   <string name="menu_select_all">Összes kijelölése</string>
   <string name="menu_deselect_all">Összes kijelölés visszavonása</string>
+  <string name="menu_invert_selection">Fordított kijelölés</string>
   <string name="menu_preset_help">Előbeállítás súgó</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i18n">Nyelvi változat hozzáadása</string>
@@ -1178,10 +1186,17 @@ elemek megkövetelése</string>
   <string name="menu_tools_background_contrast">Kontraszt</string>
   <string name="menu_tools_oauth_reset">Hitelesítés alaphelyzetbe állítása</string>
   <string name="menu_tools_oauth_authorisation">Hitelesítés OAuth segítégével</string>
+  <string name="menu_authorize">Hitelesítés</string>
   <string name="menu_enable_tagfilter">Címkeszűrő</string>
   <string name="menu_enable_presetfilter">Előbeállítás-szűrő</string>
   <string name="preset_menu_waynodes">Vonalpontok bevétele</string>
   <string name="preset_menu_invert">Szűrők megfordítása</string>
+  <string name="tag_filter_title">Szűrő: %1$s</string>
+  <string name="tag_filter_load">Betöltés</string>
+  <string name="tag_filter_new">Új</string>
+  <string name="tag_filter_name">Szűrő neve</string>
+  <string name="tag_filter_clear_confirmation">Tényleg törölni szeretné a szűrőelemeket?</string>
+  <string name="tag_filter_delete_confirmation">Tényleg törölni szeretné a szűrőt?</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tulajdonságok</string>
   <!--ELement entry in context menu-->
@@ -1196,6 +1211,8 @@ elemek megkövetelése</string>
   <string name="menu_reverse">Megfordítás</string>
   <string name="notreversable_description">Ez a vonal nem fordítható meg, mert irányfüggő tulajdonságai vannak. A megfordítása elrontaná a címkézést.</string>
   <string name="reverse_anyway">Megfordítás mindenképp</string>
+  <string name="menu_add_new_image">Új kép hozzáadása</string>
+  <string name="menu_add_existing_image">Meglévő kép hozzáadása</string>
   <string name="deleteway_description">Arra készül, hogy töröljön egy vonalat.\n\nMegtarthatja az összes pontot, vagy törölheti azokat a pontokat, amelyek a vonalhoz tartoznak, és nincs más címkéjük.</string>
   <string name="deleteway_relation_description">Törölni kíván egy olyan vonalat, amely egy vagy több kapcsolatnak is tagja. A vonal eltávolítása érvénytelenné teheti a kapcsolatokat.</string>
   <string name="deleteway_nodesnotdownloaded_description">A vonal a letöltött területen kívül is tartalmaz pontokat, és nem törölhető anélkül, hogy potenciálisan következetlen állapotot hozna létre.\n\nTöltse le a körülötte lévő területet is, mielőtt újra megpróbálja.</string>
@@ -1334,6 +1351,8 @@ elemek megkövetelése</string>
   <string name="config_showTolerance_summary">Megjeleníti azt a területet, amelyen egy elem kijelölhető.</string>
   <string name="config_use_back_for_undo_title">A visszavonáshoz használja a ← gombot</string>
   <string name="config_use_back_for_undo_summary">Használja a ← gombot a visszavonáshoz a fő szerkesztőnézetben.</string>
+  <string name="config_imageLicence_title">Kép szerzői jogai</string>
+  <string name="config_imageLicence_summary">A feltöltött képek használatára vonatkozó licenc</string>
   <string name="config_theme_title">Téma</string>
   <string name="config_theme_summary">App stílus kiválasztása</string>
   <string name="config_splitActionBarEnabled_title">Szétvágás műveletsáv engedélyezése</string>
@@ -1382,6 +1401,7 @@ elemek megkövetelése</string>
   <string name="config_poi_keys_title">Közeli érdekes pontok (POI-k) megjelenítése</string>
   <string name="config_poi_keys_summary">A közeli érdekes pontok (POI-k) megjelenítéséhez használt billentyűt megadása.</string>
   <!--Camera and image settings-->
+  <string name="config_category_camera_and_images">Fényképezőgép- és képbeállítások</string>
   <string name="config_showCameraAction_title">Kameraművelet megjelenítése</string>
   <string name="config_showCameraAction_summary">Kamera ikon megjelenítése a műveletsávon.</string>
   <string name="config_selectCameraApp_title">Kameraalkalmazás</string>
@@ -1394,7 +1414,10 @@ elemek megkövetelése</string>
   <string name="config_useInternalPhotoViewer_summary">Beépített fényképnéző használata, de ha nincs kijelölve, akkor más nézőprogram lesz használva.</string>
   <string name="config_indexMediaStore_summary">Fényképek eléréséhez használja a médiatárat is</string>
   <string name="config_indexMediaStore_title">Médiatár használata</string>
+  <string name="config_addToMediaStore_summary">A fényképezőgép gombbal rögzített képeket hozzáadása a médiatárhoz</string>
   <string name="config_addToMediaStore_title">Képek hozzáadása a MediaStore-hoz</string>
+  <string name="config_imageStores_summary">A képek tárolására szolgáló célhely beállítása.</string>
+  <string name="config_imageStores_title">Képtár</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Adat- és szerkesztési beállítások</string>
   <string name="config_category_editing_summary">Automatikus letöltési, mentési és értesítési beállítások.</string>
@@ -1581,6 +1604,8 @@ elemek megkövetelése</string>
   <string name="manage_geocoders">Geokódolók kezeléseqqq</string>
   <string name="listedit_supports_compressed_uploads">Tömörített feltöltést is támogat</string>
   <string name="geocoder_type">Geokódoló típusa</string>
+  <string name="manage_image_stores">Képtár kezelése</string>
+  <string name="imagestore_type">Képtár típusa</string>
   <!--preset downloader messages-->
   <string name="preset_update">Előbeállítás frissítése</string>
   <string name="preset_download_successful">Előbeállítás letöltve</string>
@@ -1591,6 +1616,8 @@ elemek megkövetelése</string>
   <!--preset management-->
   <string name="preset_management_delete">Valóban törli a címkesablont?</string>
   <!--Image storage management-->
+  <string name="imagestores_add_from_panoramax_list">Hozzáadás a Panoramax-példányok listájából</string>
+  <string name="imagestores_add_manually">Hozzáadás kézzel</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Előbeállítás hozzáadása</string>
   <string name="urldialog_preset_exists">Ez az előbeállítás már létezik</string>
@@ -1599,6 +1626,7 @@ elemek megkövetelése</string>
   <string name="urldialog_add_api">API hozzáadása</string>
   <string name="urldialog_nodata_text">A konfigurációs URL nem tartalmaz érvényes adatot.</string>
   <string name="urldialog_add_geocoder">Geokódoló hozzáadása</string>
+  <string name="urldialog_add_image_store">Képtár hozzáadása</string>
   <!--API configuration-->
   <string name="api_name">API név</string>
   <string name="api_url">API URL</string>
@@ -1607,10 +1635,17 @@ elemek megkövetelése</string>
   <string name="copy_of">%1$s másolata</string>
   <string name="choose_oauth_config">OAuth konfiguráció kiválasztása</string>
   <!--image upload dialog-->
+  <string name="image_upload_title">Feltöltés célpontjának kiválasztása</string>
   <string name="image_upload">Feltöltés</string>
+  <string name="image_upload_and_remove">Feltöltés és eltávolítás</string>
+  <string name="image_upload_not_authorized">A feltöltés sikertelen volt, mert nincs jogosultsága a tárolóhelyhez</string>
+  <string name="image_upload_failed">Feltöltés sikertelen: %1$s</string>
+  <string name="wikimedia_meta_title">Wikimedia metaadatok</string>
+  <string name="wikimedia_meta_filename">Fájlnév</string>
   <string name="wikimedia_meta_description">Leírás</string>
   <string name="wikimedia_meta_source">Áramforrás</string>
   <string name="wikimedia_meta_author">Szerző</string>
+  <string name="wikimedia_meta_licence">Licenc</string>
   <string name="wikimedia_meta_category">Kategória</string>
   <!--common terms-->
   <string name="add">Hozzáadás</string>
@@ -1637,6 +1672,7 @@ elemek megkövetelése</string>
   <string name="tracking_active_text">GPS nyomvonal rögzítése vagy automatikus letöltés</string>
   <string name="tracking_long_text">A Vespucci éppen felvesz egy GPX-nyomvonalat vagy automatikus letöltést végez. A teljes kilépéshez nyomja meg az alábbi gombot vagy az alkalmazásban a vissza gombot.</string>
   <string name="gps_failure">Nem sikerült engedélyezni a GPS-t</string>
+  <string name="gps_service_start_failure">Nem sikerült elindítni a GPS-szolgáltatást, próbálja meg újra.\n\nHiba: %1$s</string>
   <!--element description-->
   <string name="address_housenumber">Cím: %1$s</string>
   <string name="address_housenumber_street">Cím: %1$s%2$s</string>

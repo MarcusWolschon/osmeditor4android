@@ -2,6 +2,7 @@
 <resources>
   <string name="addr_housenumber">住居番号 / 号 / 支号 / 枝番号 (addr:housenumber)</string>
   <string name="addr_conscriptionnumber">Conscription number (addr:conscriptionnumber)</string>
+  <string name="addr_housename">家屋の名称 (addr:housename)</string>
   <string name="addr_street">通り名 (addr:street)</string>
   <string name="addr_postcode">郵便番号 (addr:postcode)</string>
   <string name="addr_city">市/区/町/村 (addr:city)</string>
@@ -10,7 +11,7 @@
   <string name="addr_place">領域名 (addr:place)</string>
   <string name="addr_block">街区名 (addr:block)</string>
   <string name="addr_block_number">街区符号 / 番 / 番地 / 地番 (addr:block_number)</string>
-  <string name="addr_parentstreet">追加住所 (addr:parenstreet)</string>
+  <string name="addr_parentstreet">訳注: イギリス用 (addr:parentstreet)</string>
   <string name="addr_hamlet">集落 / 通称地名 (addr:hamlet)</string>
   <string name="addr_suburb">政令指定都市の区  (addr:suburb)</string>
   <string name="addr_subdistrict">分区 (addr:subdistrict)</string>

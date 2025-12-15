@@ -2,6 +2,7 @@
 <resources>
   <string name="addr_housenumber">Номер дома (addr:housenumber)</string>
   <string name="addr_conscriptionnumber">Конскрипт номер (addr:conscriptionnumber)</string>
+  <string name="addr_housename">Назва будинку (addr:housename)</string>
   <string name="addr_street">Вулиця (addr:street)</string>
   <string name="addr_postcode">Індекс (addr:postcode)</string>
   <string name="addr_city">Місто/Селище/Село/.. (addr:city)</string>
@@ -10,7 +11,7 @@
   <string name="addr_place">Місце (addr:place)</string>
   <string name="addr_block">Квартал (addr:block)</string>
   <string name="addr_block_number">Номер квартала (addr:block_number)</string>
-  <string name="addr_parentstreet">Додаткова локалізація (addr:parenstreet)</string>
+  <string name="addr_parentstreet">Додаткова локалізація (addr:parentstreet)</string>
   <string name="addr_hamlet">Хутір (addr:hamlet)</string>
   <string name="addr_suburb">Частина міста (addr:suburb)</string>
   <string name="addr_subdistrict">Громада (addr:subdistrict)</string>

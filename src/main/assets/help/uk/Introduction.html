@@ -5,221 +5,218 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting &quot;Help&quot;</em></p>
+<p><em>Перш ніж почати: на більшості екранів у меню є посилання на систему довідки на пристрої, що надає вам прямий доступ до інформації, яка стосується поточного контексту. Ви також можете легко повернутися до цього тексту. Якщо у вас є більший пристрій, наприклад планшет, ви можете відкрити систему довідки в окремому розділеному вікні.  Всі тексти довідки та іншу інформацію (часті запитання, навчальні посібники) також можна знайти на <a href="https://vespucci.io/">сайті документації Vespucci</a>. Ви також можете запустити переглядач довідки безпосередньо на пристроях, що підтримують швидкі команди, натиснувши і утримуючи іконку програми та вибравши «Довідка»</em></p>
 <h1 id="веспуччі-вступ">Веспуччі – вступ</h1>
-<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
+<p>Vespucci — це повнофункціональний редактор OpenStreetMap, який підтримує більшість операцій, що надаються настільними редакторами. Він був успішно протестований на Google Android 2.3 до 14.0 (версії до 4.1 більше не підтримуються) та різних варіантах на базі AOSP. Застереження: хоча можливості мобільних пристроїв наздогнали своїх настільних конкурентів, особливо старі пристрої мають дуже обмежену пам'ять і, як правило, працюють досить повільно. Ви повинні враховувати це під час використання Vespucci і, наприклад, зберігати розумний розмір областей, які ви редагуєте.</p>
 <h2 id="редагування-у-веспуччі">Редагування у Веспуччі</h2>
 <p>В залежності від розміру екрана вашого пристрою перехід в режим редагування можливий за допомогою значка зверху на панелі інструментів, через меню на панелі інструментів праворуч, з панелі інструментів знизу (якщо є) або за допомогою кнопки меню.</p>
 <p><a id="download"></a></p>
 <h3 id="завантаження-даних-osm">Завантаження даних OSM</h3>
-<p>Select either the transfer icon <img src="../images/menu_transfer.png" alt="Transfer" /> or the &quot;Transfer&quot; menu item. This will display eleven options:</p>
+<p>Виберіть піктограму перенесення <img src="../images/menu_transfer.png" alt="Перенесення" /> або пункт меню «Перенесення». З'явиться одинадцять опцій:</p>
 <ul>
-<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Review changes...</strong> - review current changes</li>
-<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
-<li><strong>Clear and download current view</strong> - clear any data in memory, including pending changes, and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
-<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
-<li><strong>Clear data</strong> - remove any OSM data in memory, including pending changes.</li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
-<li><strong>Tasks...</strong> - download (automatically and manually) OSM Notes and &quot;Bugs&quot; from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
+<li><strong>Завантажити дані на сервер OSM...</strong> - переглянути та завантажити зміни до OpenStreetMap <em>(потрібна автентифікація)</em> <em>(потрібне підключення до мережі)</em></li>
+<li><strong>Переглянути зміни...</strong> - переглянути поточні зміни</li>
+<li><strong>Завантажити поточний вигляд</strong> - завантажити область, видиму на екрані, та об'єднати її з існуючими даними <em>(потрібне підключення до мережі або офлайн-джерело даних)</em></li>
+<li><strong>Очистити та завантажити поточний вигляд</strong> - очистити будь-які дані в пам'яті, включаючи зміни, що очікують на розгляд, а потім завантажити область, видиму на екрані <em>(потрібне підключення до мережі)</em></li>
+<li><strong>Запит до Overpass...</strong> - виконати запит до сервера Overpass API <em>(потрібне підключення до мережі)</em></li>
+<li><strong>Автозавантаження на основі розташування</strong> - автоматично завантажити область навколо поточного географічного розташування <em>(потрібне підключення до мережі або офлайн-дані)</em> <em>(потрібний GPS)</em></li>
+<li><strong>Автозавантаження поточного екрану</strong> - автоматично завантажити дані для поточної відображеної області карти <em>(потрібне підключення до мережі або офлайн-дані)</em> <em>(потрібний GPS)</em></li>
+<li><strong>Оновити дані</strong> - повторно завантажити дані для всіх областей та оновити те, що є в  пам'ять <em>(потрібне підключення до мережі)</em></li>
+<li><strong>Очистити дані</strong> - видалити будь-які дані OSM з пам'яті, включаючи зміни, що очікують на розгляд.</li>
+<li><strong>Файл...</strong> - збереження та завантаження даних OSM у/з файлів на пристрої.</li>
+<li><strong>Завдання...</strong> - завантажити (автоматично та вручну) нотатки OSM та &quot;помилки&quot; з інструментів контролю якості (наразі OSMOSE) <em>(потрібне підключення до мережі)</em></li>
 </ul>
 <p>Найпростіший спосіб завантажити дані на пристрій — це масштабування та панорамування до місця, яке потрібно відредагувати, потім виберіть &quot;Звантажити дані для поточного місця&quot;. Ви можете масштабувати за допомогою жестів, кнопок масштабування або кнопок регулювання гучності на пристрої. Після цього Веспуччі повинен завантажити дані для поточного місця. Для завантаження даних на пристрій автентифікація не потрібна.</p>
-<p>In unlocked state any non-downloaded areas will be dimmed relative to the downloaded ones if you are zoomed in far enough to enable editing. This is to avoid inadvertently adding duplicate objects in areas that are not being displayed. In the locked state dimming is disabled, this behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a> so that dimming is always active.</p>
-<p>If you need to use a non-standard OSM API entry, or use <a href="https://vespucci.io/tutorials/offline/">offline data</a> in <em>MapSplit</em> format you can add or change entries via the <em>Configure...</em> entry for the data layer in the layer control.</p>
+<p>У розблокованому стані всі незавантажені області будуть затемнені порівняно із завантаженими, якщо ви наблизили зображення настільки, щоб можна було редагувати. Це зроблено для того, щоб уникнути випадкового додавання дублікатів об'єктів у областях, які не відображаються. У заблокованому стані затемнення вимкнено. Цю поведінку можна змінити в <a href="Advanced%20preferences.md">Розширених налаштуваннях</a>, щоб затемнення було завжди активним.</p>
+<p>Якщо вам потрібно використовувати нестандартний запис OSM API або використовувати <a href="https://vespucci.io/tutorials/offline/">офлайн-дані</a> у форматі <em>MapSplit</em>, ви можете додавати або змінювати записи за допомогою запису <em>Configure...</em> для шару даних у контролі шару.</p>
 <h3 id="редагування">Редагування</h3>
 <p><a id="lock"></a></p>
 <h4 id="перегляд-розблокування-та-перемикання-режимів">Перегляд, розблокування та перемикання режимів</h4>
 <p>Для того щоб уникнути випадкових змін, Веспуччі запускається в режимі &quot;перегляду&quot;, в якому можливе лише пересування мапою та змінення її масштабу. Натисніть на значок <img src="../images/locked.png" alt="Locked" /> для розблокування екрану.</p>
-<p>A long press on the lock icon or the <em>Modes</em> menu in the map display overflow menu will display a menu offering 4 options:</p>
+<p>Тривале натискання на піктограму замка або меню «Режими» в меню переповнення відображення карти відкриє меню з 4 опціями:</p>
 <ul>
-<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
-<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, new objects can be added via the green &quot;+&quot; button, or long press, but no other geometry operations are enabled. White lock icon with a &quot;T&quot; is displayed.</li>
-<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../en/Simple%20actions.md">Simple mode</a> &quot;+&quot; button. White lock icon with an &quot;A&quot; is displayed.</li>
-<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an &quot;I&quot; is displayed.</li>
-<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a &quot;C&quot; is displayed.</li>
+<li><strong>Нормальний</strong> - режим редагування за замовчуванням, можна додавати нові об'єкти, редагувати, переміщати та видаляти існуючі. Відображається проста біла іконка замка.</li>
+<li><strong>Тільки теги</strong> - вибір існуючого об'єкта запускає редактор властивостей, нові об'єкти можна додавати за допомогою зеленої кнопки «+» або тривалим натисканням, але інші операції з геометрією не доступні. Відображається біла іконка замка з літерою «T».</li>
+<li><strong>Адреса</strong> — увімкнення режиму адреси, дещо спрощеного режиму з конкретними діями, доступними за допомогою кнопки «+» у <a href="../en/Simple%20actions.md">простому режимі</a>. Відображається біла іконка замка з літерою «A».</li>
+<li><strong>Всередині приміщення</strong> - увімкнення режиму «Всередині приміщення», див. <a href="#indoor">Режим «Всередині приміщення»</a>. Відображається біла іконка замка з літерою «I».</li>
+<li><strong>Режим C</strong> - увімкнення режиму C, відображатимуться лише об'єкти, для яких встановлено прапорець попередження, див. <a href="#c-mode">Режим C</a>. Відображається біла іконка замка з літерою «C».</li>
 </ul>
-<p>If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to <em>Address</em> and <em>Indoor</em> mode.</p>
+<p>Якщо ви використовуєте Vespucci на пристрої Android, який підтримує швидкі команди (довге натискання на піктограму програми), ви можете перейти безпосередньо до режимів «Адреса» та «Всередині приміщення».</p>
 <h4 id="звичайне-подвійне-та-довге-натискання">Звичайне, подвійне та довге натискання</h4>
 <p>Типово, точки та лінії мають помаранчеву підсвітку навколо них, що показує де ви можете торкнутись екрану щоб їх виділити. У вас є три варіанти:</p>
 <ul>
-<li>Single tap: Selects object.
-<ul>
-<li>An isolated node/way is highlighted immediately.</li>
-<li>However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select.</li>
-<li>Selected objects are highlighted in yellow.</li>
-<li>For further information see <a href="Node%20selected.md">Node selected</a>, <a href="Way%20selected.md">Way selected</a> and <a href="Relation%20selected.md">Relation selected</a>.</li>
-</ul>
-</li>
-<li>Double tap: Start <a href="Multiselect.md">Multiselect mode</a></li>
-<li>Long press: Creates a &quot;crosshair&quot;, enabling you to add nodes, see below and <a href="Creating%20new%20objects.md">Creating new objects</a>. This is only enabled if &quot;Simple mode&quot; is deactivated.</li>
+<li>Одне натискання: вибирає об'єкт.</li>
+<li>Ізольований вузол/шлях відразу виділяється.</li>
+<li>Однак, якщо ви намагаєтеся вибрати об'єкт, а Vespucci визначає, що вибір може означати кілька об'єктів, він відобразить меню вибору, що дозволить вам вибрати об'єкт, який ви хочете вибрати.</li>
+<li>Вибрані об'єкти виділяються жовтим кольором.</li>
+<li>Для отримання додаткової інформації див. <a href="Node%20selected.md">Вибраний вузол</a>, <a href="Way%20selected.md">Вибраний шлях</a> та <a href="Relation%20selected.md">Вибране відношення</a>.</li>
+<li>Подвійне натискання: запустити <a href="Multiselect.md">Режим багаторазового вибору</a></li>
+<li>Тривале натискання: створює «перехрестя», що дозволяє додавати вузли, див. нижче та <a href="Creating%20new%20objects.md">Створення нових об'єктів</a>. Ця функція доступна лише у разі вимкнення «Простого режиму».</li>
 </ul>
 <p>Кращє наблизитись для вибору об’єкта, якщо ви намагаєтесь редагувати ділянку з великою кількістю об’єктів.</p>
 <p>Веспуччі має гарну систему &quot;відміни/повтору&quot;дій, тож не бійтеся експериментувати з вашим пристроєм, але, будь ласка, не надсилайте суто тестові дані, у разі потреби зберігайте їх локально.</p>
-<h4 id="selecting-de-selecting-single-tap-and-selection-menu">Selecting / De-selecting (single tap and &quot;selection menu&quot;)</h4>
-<p>Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start <a href="Multiselect.md">Multiselect mode</a>.</p>
-<p>Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected.</p>
-<p>Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.</p>
-<p>Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see <a href="Node%20selected.md">Node selected</a>, <a href="Way%20selected.md">Way selected</a> and <a href="Relation%20selected.md">Relation selected</a>.</p>
-<h4 id="selected-objects-editing-tags">Selected objects: Editing tags</h4>
-<p>A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.</p>
-<p>Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.</p>
-<h4 id="selected-objects-moving-a-node-or-way">Selected objects: Moving a Node or Way</h4>
-<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object.</p>
+<h4 id="вибір-скасування-вибору-одноразове-натискання-та-меню-вибору">Вибір / скасування вибору (одноразове натискання та «меню вибору»)</h4>
+<p>Торкніться об'єкта, щоб вибрати та виділити його. Торкнення екрана в порожній області скасує вибір. Якщо ви вибрали об'єкт і вам потрібно вибрати щось інше, просто торкніться потрібного об'єкта, немає необхідності спочатку скасовувати вибір. Подвійне торкання об'єкта запустить <a href="Multiselect.md">режим багаторазового вибору</a>.</p>
+<p>Зверніть увагу, що якщо ви спробуєте вибрати об'єкт, а Vespucci визначить, що вибір може означати кілька об'єктів (наприклад, вузол на шляху або інші об'єкти, що перекриваються), він пред'явить меню вибору: Натисніть на об'єкт, який ви хочете вибрати, і об'єкт буде вибрано.</p>
+<p>Вибрані об'єкти позначаються тонкою жовтою рамкою. Жовта рамка може бути важко помітною, залежно від фону карти та коефіцієнта масштабування. Після вибору ви побачите повідомлення, що підтверджує вибір.</p>
+<p>Після завершення вибору ви побачите (у вигляді кнопок або пунктів меню) список підтримуваних операцій для вибраного об'єкта: Для отримання додаткової інформації див. <a href="Node%20selected.md">Вибрана точка</a>, <a href="Way%20selected.md">Вибрана лінія</a> та <a href="Relation%20selected.md">Вибраний зв'язок</a>.</p>
+<h4 id="вибрані-обєкти-редагування-тегів">Вибрані об'єкти: редагування тегів</h4>
+<p>Друге натискання на вибраний об'єкт відкриває редактор тегів, де ви можете редагувати теги, пов'язані з об'єктом.</p>
+<p>Зверніть увагу, що для об'єктів, які перекриваються (наприклад, точна на лінії), меню вибору з'являється вдруге. Вибір того самого об'єкта відкриває редактор тегів; вибір іншого об'єкта просто вибирає інший об'єкт.</p>
+<h4 id="вибрані-обєкти-переміщення-точки-або-лінії">Вибрані об'єкти: переміщення точки або лінії</h4>
+<p>Після вибору об'єкта його можна перемістити. Зверніть увагу, що об'єкти можна перетягувати/переміщати тільки тоді, коли вони вибрані. Щоб перемістити об'єкт, просто перетягніть його поблизу (тобто в межах зони допуску) вибраного об'єкта. Якщо ви виберете велику область перетягування в <a href="Preferences.md">налаштуваннях</a>, ви отримаєте велику область навколо вибраної точки, що полегшить розміщення об'єкта.</p>
 <h4 id="додавання-нової-точки-або-лінії">Додавання нової Точки або Лінії</h4>
 <p>При першому запуску програма запускається в «Простому режимі», це можна змінити в головному меню, знявши відповідний прапорець.</p>
 <h5 id="простий-режим">Простий режим</h5>
-<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view.</p>
-<p>See <a href="Simple%20actions.md">Creating new objects in simple actions mode</a> for more information. Simple mode os the default for new installs.</p>
-<h5 id="advanced-long-press-mode">Advanced (long press) mode</h5>
-<p>Long press where you want the node to be or the way to start. You will see a black &quot;crosshair&quot; symbol. * If you want to create a new node (not connected to an object), touch away from existing objects. * If you want to extend a way, touch within the &quot;tolerance zone&quot; of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
-<p>Once you can see the crosshair symbol, you have these options:</p>
+<p>Натиснувши велику зелену плаваючу кнопку на екрані карти, ви відкриєте меню. Після вибору одного з елементів вам буде запропоновано натиснути на екрані в тому місці, де ви хочете створити об'єкт. Функції панорамування та масштабування продовжують працювати, якщо вам потрібно налаштувати вигляд карти.</p>
+<p>Докладнішу інформацію див. у розділі <a href="Simple%20actions.md">Створення нових об'єктів у режимі простих дій</a>. Простий режим є стандартним для нових інсталяцій.</p>
+<h5 id="розширений-режим-довге-натискання">Розширений режим (довге натискання)</h5>
+<p>Довго натисніть у місці, де ви хочете створити точку або початок лінії. Ви побачите чорний символ «перехрестя». * Якщо ви хочете створити нову точку (не пов'язану з об'єктом), торкніться в місці, віддаленому від існуючих об'єктів. * Якщо ви хочете продовжити лінію, торкніться в межах «зони чутливості» лінії (або точки на лінії). Зона чутливості позначається областями навколо точки або лінії.</p>
+<p>Як тільки ви побачите символ перехрестя, у вас з'являться такі опції:</p>
 <ul>
-<li><em>Normal press in the same place.</em>
+<li><em>Звичайне натискання в тому самому місці.</em>
 <ul>
-<li>If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).</li>
-<li>If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.</li>
+<li>Якщо перехрестя не знаходиться поблизу точки, повторне натискання в тому самому місці створює нову точку. Якщо ви знаходитесь поблизу лінії (але не поблизу точки), нова точка буде на лінії (і з'єднана з нею).</li>
+<li>Якщо перехрестя знаходиться поблизу точки (тобто в межах зони чутливості точки), дотик до того самого місця просто вибирає точку (і відкриває редактор тегів. Нова точка не створюється. Дія така сама, як і у випадку вибору вище.</li>
 </ul>
 </li>
-<li><em>Normal touch in another place.</em> Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.</li>
+<li><em>Звичайне дотик в іншому місці.</em> Дотик до іншого місця (поза зоною чутливості перехрестя) додає сегмент лінії від початкового положення до поточного положення. Якщо перехрестя було поблизу лінії або точки, новий сегмент буде з'єднаний з цією точкою або лінією.</li>
 </ul>
-<p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically.</p>
-<p>You can also use a menu item: See <a href="Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
-<h4 id="adding-an-area">Adding an Area</h4>
-<p>OpenStreetMap currently doesn't have an &quot;area&quot; object type unlike other geo-data systems. The online editor &quot;iD&quot; tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:</p>
+<p>Просто торкніться екрана в тому місці, де ви хочете додати додаткові точки лінії. Щоб закінчити, двічі торкніться кінцевої точки. Якщо кінцева точка розташована на лінії або точці, сегмент буде автоматично підключений до лінії або точки.</p>
+<p>Ви також можете скористатися пунктом меню: Дивіться <a href="Creating%20new%20objects.md">Створення нових об'єктів</a> для отримання додаткової інформації.</p>
+<h4 id="додавання-області">Додавання області</h4>
+<p>На відміну від інших систем геоданих, OpenStreetMap наразі не має типу об'єкта «область». Онлайн-редактор «iD» намагається створити абстракцію області з базових елементів OSM, що в деяких випадках працює добре, а в інших — не дуже. Vespucci наразі не намагається робити нічого подібного, тому вам потрібно трохи знати про те, як представлені області:</p>
 <ul>
-<li><em>closed ways (*polygons&quot;)</em>: the simplest and most common area variant, are ways that have a shared first and last node forming a closed &quot;ring&quot; (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an &quot;area&quot; tag can clarify the intended use.</li>
-<li><em>multi-polygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple &quot;outer&quot; rings, and multiple &quot;inner&quot; rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci.</li>
-<li><em>coastlines</em>: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
+<li><em>закриті лінії (*полігони&quot;)</em>: найпростіший і найпоширеніший варіант області — це лінії, які мають спільну першу і останню точку, що утворюють закрите «кільце» (наприклад, більшість будівель є саме такого типу). Їх дуже легко створити в Vespucci, просто з'єднайте лінію з першою точкою, коли закінчите малювати область. Примітка: інтерпретація закритої лінії залежить від її тегування: наприклад, якщо закрита лінія тегується як будівля, вона буде вважатися областю, а якщо тегується як кільцева дорога, то ні. У деяких ситуаціях, коли обидві інтерпретації можуть бути правильними, тег «область» може уточнити передбачуване використання.</li>
+<li><em>мультиполігони</em>: деякі області мають кілька частин, отвори та кільця, які не можна представити лише однією лінією. OSM використовує для цього спеціальний тип зв'язку (наш універсальний об'єкт, який може моделювати відношення між елементами) — мультиполігон. Мультиполігон може мати кілька «зовнішніх» кілець і кілька «внутрішніх» кілець. Кожне кільце може бути або закритою лінією, як описано вище, або декількома окремими лініями, що мають спільні кінцеві точки. Хоча великі мультиполігони важко обробляти будь-яким інструментом, невеликі мультиполігони неважко створити в Vespucci.</li>
+<li><em>берегова лінія</em>: для дуже великих об'єктів, континентів і островів навіть модель мультиполігону не працює задовільно. Для ліній natural=coastline ми припускаємо семантику, що залежить від напрямку: земля знаходиться з лівого боку лінії, вода — з правого. Побічним ефектом цього є те, що, як правило, не слід змінювати напрямок лінії з тегом coastline. Більше інформації можна знайти на <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
 </ul>
 <h4 id="покращення-геометрії-ліній">Покращення геометрії ліній</h4>
-<p>If you zoom in far enough on a selected way you will see a small &quot;x&quot; in the middle of the way segments that are long enough. Dragging the &quot;x&quot; will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.</p>
+<p>Якщо ви достатньо збільшите вибрану лінію, ви побачите невеликий знак «x» посередині сегментів лінії, які є достатньо довгими. Перетягнувши знак «x», ви створите точку на лінії в цьому місці. Примітка: щоб уникнути випадкового створення точок, зона чутливості до дотику для цієї операції є досить малою.</p>
 <h4 id="вирізання-копіювання-та-вставка">Вирізання, Копіювання та Вставка</h4>
-<p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select &quot;Paste&quot; from the menu.</p>
+<p>Ви можете скопіювати вибрані точки та лінії, а потім вставити їх один або кілька разів у нове місце. При вирізанні зберігаються ідентифікатор osm та версія, тому вставити можна тільки один раз. Щоб вставити, натисніть і утримуйте місце, куди ви хочете вставити (ви побачите хрестик, що позначає місце). Потім виберіть «Вставити» з меню.</p>
 <h4 id="швидке-додавання-адрес">Швидке додавання адрес</h4>
-<p>Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding <em>addr:street</em> or <em>addr:place</em> tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.</p>
-<p>Adding the tags can be triggered by pressing <img src="../images/address.png" alt="Address" />:</p>
+<p>Vespucci підтримує функціонал, який робить обстеження адрес більш ефективним, передбачаючи номери будинків (окремо для лівої та правої сторін вулиць) та автоматично додаючи теги <em>addr:street</em> або <em>addr:place</em> на основі останнього використаного значення та близькості. У найкращому випадку це дозволяє додавати адресу без будь-якого набору тексту.</p>
+<p>Додавання тегів можна активувати, натиснувши <img src="../images/address.png" alt="Адреса" />:</p>
 <ul>
-<li>after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an &quot;entrance=yes&quot; tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
-<li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
-<li>in the property editor.</li>
+<li>після тривалого натискання (тільки в не простих режимах): Vespucci додасть точку у цьому місці, зробить найкраще припущення щодо номера будинку та додасть теги адреси, які ви останнім часом використовували. Якщо точка знаходиться на контурі будівлі, він автоматично додасть тег «entrance=yes» до точки. Відкриється редактор тегів для даного об'єкта, де ви зможете внести необхідні зміни.</li>
+<li>у режимах вибору точки/лінії: Vespucci додасть теги адреси, як зазначено вище, і запустить редактор тегів.</li>
+<li>у редакторі властивостей.</li>
 </ul>
-<p>To add individual address nodes directly while in the default &quot;Simple mode&quot; switch to &quot;Address&quot; editing mode (long press on the lock button), &quot;Add address node&quot; will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.</p>
+<p>Щоб додати окремі точки адреси безпосередньо в стандартному «Простому режимі», перейдіть у режим редагування «Адреса» (довго натисніть кнопку блокування), «Додати точку адреси» додасть точку адреси в цьому місці, а якщо він знаходиться на контурі будівлі, додайте до нього тег входу, як описано вище.</p>
 <p>Пропонування номерів будинків потребує наявності не менше двох номерів з кожного боку вулиці, чим більше є даних, тим звісно краще.</p>
-<p>Consider using this with one of the <a href="#download">Auto-download</a> modes.</p>
+<p>Розгляньте можливість використання цього з одним із режимів <a href="#download">Автоматичного завантаження</a>.</p>
 <h4 id="додавання-обмежень-поворотів">Додавання обмежень поворотів</h4>
-<p>Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements.</p>
+<p>Vespucci має швидкий спосіб додавання обмежень повороту. При необхідності він автоматично розділить шляхи і попросить вас повторно вибрати елементи.</p>
 <ul>
-<li>select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic &quot;create relation&quot; mode)</li>
-<li>select &quot;Add restriction&quot; from the menu</li>
-<li>select the &quot;via&quot; node or way (only possible &quot;via&quot; elements will have the touch area shown)</li>
-<li>select the &quot;to&quot; way (it is possible to double back and set the &quot;to&quot; element to the &quot;from&quot; element, Vespucci will assume that you are adding an no_u_turn restriction)</li>
-<li>set the restriction type</li>
+<li>виберіть лінію із тегом highway (обмеження поворотів можна додавати тільки до highway, якщо вам потрібно зробити це для інших ліній, скористайтеся загальним режимом «створити зв'язок»)</li>
+<li>виберіть «Додати обмеження» з меню</li>
+<li>виберіть точку або лінію «через» (тільки можливі елементи «через» матимуть відображену зону дотику)</li>
+<li>виберіть шлях «до» (можна повернутися назад і встановити елемент «до» як елемент «від», Vespucci вважатиме, що ви додаєте обмеження no_u_turn)</li>
+<li>встановіть тип обмеження</li>
 </ul>
 <h3 id="веспуччі-в-режимі-перегляду">Веспуччі в режимі &quot;перегляду&quot;</h3>
 <p>Коли показується червоний замок, вам доступні дії не повʼязані з редагуванням. Довге торкання до обʼєкта дозволяє побачити інформацію про нього, якщо він є обʼєктом ОСМ.</p>
 <h3 id="збереження-вашіх-змін">Збереження вашіх змін</h3>
 <p><em>(потрібне зʼєднання з мережею)</em></p>
-<p>Select the same button or menu item you did for the download and now select &quot;Upload data to OSM server&quot;.</p>
-<p>Vespucci supports OAuth 2, OAuth 1.0a authorization and the classical username and password method. Since July 1st 2024 the standard OpenStreetMap API only supports OAuth 2 and other methods are only available on private installations of the API or other projects that have repurposed OSM software.</p>
+<p>Виберіть ту саму кнопку або пункт меню, що й для завантаження, і тепер виберіть «Завантажити дані на сервер OSM».</p>
+<p>Vespucci підтримує авторизацію OAuth 2, OAuth 1.0a та класичний метод імені користувача та пароля. З 1 липня 2024 року стандартний API OpenStreetMap підтримує лише OAuth 2, а інші методи доступні лише на приватних інсталяціях API або в інших проектах, які перепрофілювали програмне забезпечення OSM.</p>
 <p>Авторизація Vespucci для доступу до вашого облікового запису від вашого імені вимагає від вас одноразового входу з вашим ім'ям користувача та паролем. Якщо ваша інсталяція Vespucci не авторизована при спробі завантажити змінені дані, вам буде запропоновано увійти на сайт OSM (через зашифроване з'єднання). Після входу вам буде запропоновано авторизувати Vespucci для редагування за допомогою вашого облікового запису. Якщо ви хочете або вам необхідно авторизувати OAuth доступ до вашого облікового запису перед редагуванням, в меню &quot;Інструменти&quot; є відповідний пункт.</p>
 <p>Якщо ви хочете зберегти свою роботу і не маєте доступу до Інтернету, ви можете зберегти у JOSM-сумісний файл .osm і завантажити пізніше за допомогою Vespucci або JOSM.</p>
-<h4 id="resolving-conflicts-on-uploads">Resolving conflicts on uploads</h4>
-<p>Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file (&quot;Export&quot; menu item in the &quot;Transfer&quot; menu) and fix and upload them with JOSM. See the detailed help on <a href="Conflict%20resolution.md">conflict resolution</a>.</p>
-<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display</h3>
-<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up.</p>
-<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
-<h2 id="using-gps-and-gpx-tracks">Using GPS and GPX tracks</h2>
-<p>With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called &quot;network location&quot; if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named &quot;Improve Location Accuracy&quot; option turned off. If you want to enable the option but want to avoid Vespucci falling back to &quot;network location&quot;, you should turn the corresponding option in the <a href="Advanced%20preferences.md">Advanced preferences</a> off.</p>
-<p>Touching the <img src="../images/menu_gps.png" alt="GPS" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the &quot;follow GPS&quot; mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the &quot;follow&quot; mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
-<p>To record a GPX track and display it on your device select &quot;Start GPX track&quot; item in the <img src="../images/menu_gps.png" alt="GPS" /> menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the <a href="Main%20map%20display.md">layer control</a>. Further layers can be added from local GPX files and tracks downloaded from the OSM API.</p>
-<p>Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the <a href="Advanced%20preferences.md">Advanced preferences</a> and configure NMEA input.</p>
-<h3 id="how-to-export-a-gpx-track">How to export a GPX track?</h3>
-<p>Open the layer menu, then click the 3-dots menu next to &quot;GPX recording&quot;, then select <strong>Export GPX track...</strong>. Choose in which folder to export the track, then give it a name suffixed with <code>.gpx</code> (example: MyTrack.gpx).</p>
-<h2 id="notes-bugs-and-todos">Notes, Bugs and Todos</h2>
+<h4 id="вирішення-конфліктів-щодо-завантажених-файлів">Вирішення конфліктів щодо завантажених файлів</h4>
+<p>Vespucci має простий механізм вирішення конфліктів. Однак, якщо ви підозрюєте, що ваші редагування містять серйозні проблеми, експортуйте зміни у файл .osc (пункт меню «Експорт» у меню «Передача») та виправте їх і завантажте за допомогою JOSM. Дивіться докладну довідку про <a href="Conflict%20resolution.md">вирішення конфліктів</a>.</p>
+<h3 id="відображення-найближчих-цікавих-місць">Відображення найближчих цікавих місць</h3>
+<p>Поруч розташовані цікаві місця можна переглянути, потягнувши вгору ручку в середині та верхній частині нижньої панелі меню.</p>
+<p>Більше інформації про цю та інші доступні функції на головному дисплеї можна знайти тут <a href="Main%20map%display.md">Головний дисплей карти</a>.</p>
+<h2 id="використання-gps-та-gpx-треків">Використання GPS та GPX треків</h2>
+<p>За стандартних налаштувань Vespucci спробує увімкнути GPS (та інші супутникові навігаційні системи) і, якщо це неможливо, перейде до визначення місцезнаходження за допомогою так званого «мережевого розташування». Така поведінка передбачає, що під час звичайного використання ви налаштували свій пристрій Android так, щоб він використовував лише місцезнаходження, згенеровані GPX (щоб уникнути відстеження), тобто ви вимкнули опцію з евфемістичною назвою «Покращити точність визначення місцезнаходження». Якщо ви хочете увімкнути цю опцію, але не хочете, щоб Vespucci переходив до «мережевого розташування», ви повинні вимкнути відповідну опцію в <a href="Advanced%20preferences.md">Розширених налаштуваннях</a>.</p>
+<p>Натискання кнопки <img src="../images/menu_gps.png" alt="GPS" /> (зазвичай розташована в лівій частині екрана з картою) призведе до центрування екрана на поточній позиції, і під час переміщення карта буде панорамуватися, щоб зберегти це положення.  Ручне переміщення екрану або редагування призведе до вимкнення режиму «слідувати за GPS», а синя стрілка GPS зміниться з контурної на заповнену. Щоб швидко повернутися до режиму «слідувати», просто натисніть кнопку GPS або повторно перевірте відповідний пункт меню. Якщо пристрій не має поточного місцезнаходження, маркер/стрілка місцезнаходження буде відображатися чорним кольором, якщо поточне місцезнаходження доступне, маркер буде синім.</p>
+<p>Щоб записати трек GPX і відобразити його на вашому пристрої, виберіть пункт «Почати трек GPX» в меню <img src="../images/menu_gps.png" alt="GPS" />. Це додасть шар на дисплей з поточним записаним треком, який ви можете завантажити та експортувати з запису в <a href="Main%20map%20display.md">керуванні шарами</a>. Додаткові шари можна додати з локальних файлів GPX та треків, завантажених з OSM API.</p>
+<p>Примітка: за замовчуванням Vespucci не записує дані про висоту над рівнем моря разом із вашим треком GPX, це пов'язано з деякими проблемами, характерними для Android. Щоб увімкнути запис висоти над рівнем моря, встановіть гравітаційну модель або, що простіше, перейдіть до <a href="Advanced%20preferences.md">Розширених налаштувань</a> і налаштуйте вхід NMEA.</p>
+<h3 id="як-експортувати-трек-gpx">Як експортувати трек GPX?</h3>
+<p>Відкрийте меню шару, потім натисніть на меню з трьома крапками поруч із «Запис GPX», а потім виберіть <strong>Експортувати трек GPX...</strong>. Виберіть папку, в яку потрібно експортувати трек, а потім дайте йому ім'я з розширенням <code>.gpx</code> (наприклад: MyTrack.gpx).</p>
+<h2 id="примітки-помилки-та-завдання">Примітки, помилки та завдання</h2>
 <p>Vespucci підтримує завантаження, коментування та закриття нотаток osm (раніше osm bugs) та еквівалентну функціональність для &quot;помилок&quot;, створених <a href="http://osmose.openstreetmap.fr/en/map/">інструментом забезпечення якості osmose</a>. Обидва інструменти потрібно або завантажити окремо, або скористатися функцією автоматичного завантаження, щоб отримати доступ до елементів, які знаходяться у вашій безпосередній близькості. Після редагування або закриття ви можете або негайно завантажити помилку або примітку, або завантажити всі одразу.</p>
-<p>Further we support &quot;Todos&quot; that can either be created from OSM elements, from a GeoJSON layer, or externally to Vespucci. These provide a convenient way to keep track of work that you want to complete.</p>
-<p>On the map the Notes and bugs are represented by a small bug icon <img src="../images/bug_open.png" alt="Bug" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. Todos use a yellow checkbox icon.</p>
-<p>The OSMOSE bug and Todos display will provide a link to the affected element in blue (in the case of Todos only if an OSM element is associated with it), touching the link will select the object, center the screen on it and down load the area beforehand if necessary.</p>
-<h3 id="filtering">Filtering</h3>
-<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
+<p>Крім того, ми підтримуємо «Todos», які можна створити з елементів OSM, з шару GeoJSON або зовні Vespucci. Вони забезпечують зручний спосіб відстежувати роботу, яку ви хочете виконати.</p>
+<p>На карті примітки та помилки позначаються маленькою піктограмою помилки <img src="../images/bug_open.png" alt="Bug" />, зелені позначки означають закриті/вирішені помилки, сині — створені або відредаговані вами, а жовті — активні та незмінені. Завдання позначаються жовтою піктограмою з галочкою.</p>
+<p>Окно OSMOSE bug і Todos відображатиме посилання на відповідний елемент синім кольором (у випадку Todos тільки якщо з ним пов'язаний елемент OSM). При натисканні на посилання об'єкт буде виділено, екран буде відцентровано на ньому і, за необхідності, попередньо завантажено відповідну область.</p>
+<h3 id="фільтрування">Фільтрування</h3>
+<p>Окрім глобального ввімкнення відображення приміток та помилок, ви можете встановити грубий фільтр відображення, щоб зменшити захаращення. До налаштувань фільтра можна отримати доступ із запису шару завдань у <a href="#layers">керуванні шарами</a>:</p>
 <ul>
-<li>Notes</li>
-<li>Osmose error</li>
-<li>Osmose warning</li>
-<li>Osmose minor issue</li>
+<li>Примітки</li>
+<li>Помилка Osmose</li>
+<li>Попередження Osmose</li>
+<li>Незначна проблема Osmose</li>
 <li>Maproulette</li>
 <li>Todo</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="режим-редагування-приміщень">Режим редагування приміщень</h2>
 <p>Редагування планів приміщень завжди є не простим завданням через високу щільність об'єктів, які дуже часто перекривають друг друга. Веспуччі має спеціальний режим для цього, який дозволяє показувати тільки ті об'єкти які знаходяться на одному поверсі та який автоматично додає номер поверху до новостворених об'єктів.</p>
-<p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
+<p>Цей режим можна увімкнути, натиснувши і утримуючи елемент блокування, див. <a href="#lock">Блокування, розблокування, перемикання режимів</a> і вибравши відповідний пункт меню.</p>
 <p><a id="c-mode"></a></p>
 <h2 id="c-mode">C-Mode</h2>
-<p>In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.</p>
-<p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
-<h3 id="configuring-checks">Configuring checks</h3>
-<p>All validations can be disabled/enabled in the &quot;Validator settings/Enabled validations&quot; in the <a href="Preferences.md">preferences</a>.</p>
-<p>The configuration for &quot;Re-survey&quot; entries allows you to set a time after which a tag combination should be re-surveyed. &quot;Check&quot; entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
-<h4 id="re-survey-entries">Re-survey entries</h4>
-<p>Re-survey entries have the following properties:</p>
+<p>У режимі C відображаються тільки об'єкти, для яких встановлено прапорець попередження, що дозволяє легко виявити об'єкти, які мають певні проблеми або відповідають настроюваним перевіркам. Якщо об'єкт вибрано і редактор властивостей запущено в режимі C, автоматично буде застосовано найкраще відповідне попереднє налаштування.</p>
+<p>Цей режим можна увімкнути, натиснувши і утримуючи елемент блокування, див. <a href="#lock">Блокування, розблокування, перемикання режимів</a> і вибравши відповідний пункт меню.</p>
+<h3 id="налаштування-перевірок">Налаштування перевірок</h3>
+<p>Усі перевірки можна вимкнути/увімкнути в розділі «Налаштування валідатора/Увімкнені перевірки» в <a href="Preferences.md">налаштуваннях</a>.</p>
+<p>Конфігурація для записів «Повторне сканування» дозволяє встановити час, після якого комбінація тегів повинна бути повторно просканована. Записи «Перевірити» — це теги, які повинні бути присутніми на об'єктах відповідно до заданих налаштувань. Записи можна редагувати, натиснувши на них, а зелена кнопка меню дозволяє додавати записи.</p>
+<h4 id="повторні-записи-опитування">Повторні записи опитування</h4>
+<p>Записи повторного опитування мають такі властивості:</p>
 <ul>
-<li><strong>Key</strong> - Key of the tag of interest.</li>
-<li><strong>Value</strong> - Value the tag of interest should have, if empty the tag value will be ignored.</li>
-<li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a <em>check_date</em> tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
-<li><strong>Regular expression</strong> - if checked <strong>Value</strong> is assumed to be a JAVA regular expression.</li>
+<li><strong>Ключ</strong> - ключ тегу, що цікавить.</li>
+<li><strong>Значення</strong> - значення, яке повинен мати тег, що цікавить; якщо поле порожнє, значення тегу буде проігноровано.</li>
+<li><strong>Вік</strong> - через скільки днів після останньої зміни елемента його слід повторно перевірити. Якщо тег <em>check_date</em> присутній, він буде використаний, інакше буде використана дата створення поточної версії. Встановлення значення нуль призведе до того, що перевірка буде просто порівнювати ключ і значення.</li>
+<li><strong>Регулярний вираз</strong> - якщо встановлено прапорець, <strong>Значення</strong> вважається регулярним виразом JAVA.</li>
 </ul>
-<p><strong>Key</strong> and <strong>Value</strong> are checked against the <em>existing</em> tags of the object in question.</p>
-<p>The <em>Annotations</em> group in the standard presets contain an item that will automatically add a <em>check_date</em> tag with the current date.</p>
-<h4 id="check-entries">Check entries</h4>
-<p>Check entries have the following two properties:</p>
+<p><strong>Ключ</strong> і <strong>значення</strong> перевіряються на відповідність існуючим тегам відповідного об'єкта.</p>
+<p>Група «Анотації» у стандартних пресетах містить елемент, який автоматично додає тег «check_date_» з поточною датою.</p>
+<h4 id="перевірка-записів">Перевірка записів</h4>
+<p>Перевірка записів має такі дві властивості:</p>
 <ul>
-<li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
-<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset.</li>
+<li><strong>Ключ</strong> — ключ, який повинен бути присутнім в об'єкті відповідно до відповідного пресету.</li>
+<li><strong>Вимагати опціональний</strong> — вимагати ключ, навіть якщо він знаходиться в опціональних тегах відповідного пресету.</li>
 </ul>
-<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a &quot;recommended&quot; key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are &quot;optional* on the object. Note: currently linked presets are not checked.</p>
-<h2 id="filters">Filters</h2>
-<h3 id="tag-based-filter">Tag based filter</h3>
-<p>The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here <a href="Tag%20filter.md">Tag filter</a>.</p>
-<h3 id="preset-based-filter">Preset based filter</h3>
-<p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here <a href="Preset%20filter.md">Preset filter</a>.</p>
-<h2 id="customizing-vespucci">Customizing Vespucci</h2>
-<p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
+<p>Ця перевірка працює таким чином: спочатку визначається відповідний пресет, а потім перевіряється, чи є <strong>Key</strong> «рекомендованим» ключем для цього об'єкта відповідно до пресету. <strong>Require optional</strong> розширює перевірку на теги, які є «опціональними» для об'єкта. Примітка: наразі пов'язані пресети не перевіряються.</p>
+<h2 id="фільтри">Фільтри</h2>
+<h3 id="фільтр-на-основі-тегів">Фільтр на основі тегів</h3>
+<p>Фільтр можна ввімкнути в головному меню, а потім змінити, натиснувши на піктограму фільтра. Більше інформації можна знайти тут <a href="Tag%20filter.md">Фільтр тегів</a>.</p>
+<h3 id="фільтр-на-основі-пресетів">Фільтр на основі пресетів</h3>
+<p>Як альтернатива вищезазначеному, об'єкти фільтруються або за індивідуальними пресетами, або за групами пресетів. Натискання на піктограму фільтра відобразить діалогове вікно вибору пресетів, подібне до того, що використовується в інших частинах Vespucci. Індивідуальні пресети можна вибрати звичайним клацанням, а групи пресетів — довгим клацанням (звичайне клацання відкриває групу). Більше документації можна знайти тут <a href="Preset%20filter.md">Фільтр пресетів</a>.</p>
+<h2 id="налаштування-vespucci">Налаштування Vespucci</h2>
+<p>Багато аспектів програми можна налаштувати. Якщо ви шукаєте щось конкретне і не можете знайти, на <a href="https://vespucci.io/">веб-сайті Vespucci</a> можна здійснити пошук і знайти додаткову інформацію, яка не доступна на пристрої.</p>
 <p><a id="layers"></a></p>
-<h3 id="layer-settings">Layer settings</h3>
-<p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
-<p>Available layer types:</p>
+<h3 id="налаштування-шарів">Налаштування шарів</h3>
+<p>Налаштування шарів можна змінити за допомогою панелі керування шарами (меню «гамбургер» у верхньому правому куті), всі інші налаштування доступні через кнопку налаштувань головного меню. Шари можна вмикати, вимикати та тимчасово приховувати.</p>
+<p>Доступні типи шарів:</p>
 <ul>
-<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
-<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the &quot;standard style&quot; map from openstreetmap.org.</li>
-<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
-<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
-<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
-<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
-<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
-<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
-<li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
+<li>Рівень даних - це рівень, на який завантажуються дані OpenStreetMap. При звичайному використанні вам не потрібно нічого змінювати тут. За замовчуванням: увімкнено.</li>
+<li>Рівень фону - доступний широкий вибір аерофотознімків та супутникових зображень. За замовчуванням використовується карта «стандартного стилю» з openstreetmap.org.</li>
+<li>Шар накладення — це напівпрозорі шари з додатковою інформацією, наприклад, інформацією про забезпечення якості. Додавання накладення може спричинити проблеми на старих пристроях та пристроях з обмеженою пам'яттю. За замовчуванням: відсутній.</li>
+<li>Відображення приміток/помилок — відкриті примітки та помилки відображатимуться у вигляді жовтої піктограми помилки, закриті — у вигляді зеленої піктограми. За замовчуванням: увімкнено.</li>
+<li>Шар фотографій — відображає геореферентні фотографії у вигляді червоних піктограм камери, якщо доступна інформація про напрямок, піктограма буде обертатися. За замовчуванням: вимкнено.</li>
+<li>Шар Mapillary — відображає сегменти Mapillary з маркерами, де є зображення, натискання на маркер відображає зображення. За замовчуванням: вимкнено.</li>
+<li>Шар GeoJSON — відображає вміст файлу GeoJSON, з файлів можна додати кілька шарів. За замовчуванням: відсутній.</li>
+<li>Шар GPX — відображає треки та точки маршруту GPX, з файлів можна додати кілька шарів, під час запису генерований трек GPX відображається в окремому шарі. За замовчуванням: відсутній.</li>
+<li>Сітка — відображає шкалу вздовж боків карти або сітку. За замовчуванням: увімкнено.</li>
 </ul>
 <p>Більше інформації можна знайти в розділі <a href="Main%20map%20display.md">відображення карти</a>.</p>
 <h4 id="уподобання">Уподобання</h4>
 <ul>
-<li>Keep screen on. Default: off.</li>
-<li>Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.</li>
+<li>Тримати екран увімкненим. За замовчуванням: вимкнено.</li>
+<li>Велика область перетягування вузлів. Переміщення вузлів на пристрої з сенсорним введенням є проблематичним, оскільки пальці закривають поточне положення на дисплеї. Увімкнення цієї опції забезпечить велику область, яку можна використовувати для перетягування поза центром (вибір та інші операції все ще використовують звичайну область чутливості до дотику). За замовчуванням: вимкнено.</li>
 </ul>
 <p>Повний опис можна знайти тут <a href="Preferences.md">Налаштування</a></p>
 <h4 id="розширені-налаштування">Розширені налаштування</h4>
 <ul>
-<li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that &quot;virtual&quot; navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.</li>
-<li>Node icons. Default: <em>on</em>.</li>
-<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
-<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.</li>
+<li>Повний екран. На пристроях без апаратних кнопок Vespucci може працювати в повноекранному режимі, що означає, що «віртуальні» кнопки навігації будуть автоматично приховані під час відображення карти, забезпечуючи більше місця на екрані для карти. Залежно від вашого пристрою, це може працювати добре або ні. У режимі <em>Auto</em> ми намагаємося автоматично визначити, чи доцільно використовувати повноекранний режим, а налаштування <em>Force</em> або <em>Never</em> пропускає автоматичну перевірку, і повноекранний режим буде завжди використовуватися або завжди не використовуватися відповідно. На пристроях з Android 11 або вище режим <em>Auto</em> ніколи не вмикає повноекранний режим, оскільки жестова навігація Android є його життєздатною альтернативою. За замовчуванням: «Авто».</li>
+<li>Піктограми точок. За замовчуванням: «увімкнено».</li>
+<li>Завжди показувати контекстне меню. Коли ця опція увімкнена, під час кожного вибору відображається контекстне меню, а коли вимкнена, меню відображається лише тоді, коли неможливо визначити однозначний вибір. За замовчуванням: вимкнено (раніше було увімкнено).</li>
+<li>Увімкнути світлу тему. На сучасних пристроях ця опція увімкнена за замовчуванням. Хоча ви можете увімкнути її для старіших версій Android, стиль, ймовірно, буде несумісним.</li>
 </ul>
 <p>Повний опис можна знайти тут <a href="Advanced%20preferences.md">Розширені налаштування</a></p>
 <h2 id="звітування-та-вирішення-проблем">Звітування та вирішення проблем</h2>
-<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The &quot;Provide feedback&quot; function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>Якщо Vespucci виходить з ладу або виявляє невідповідність стану, вам буде запропоновано надіслати дамп пам'яті. У такому випадку, будь ласка, зробіть це, але тільки один раз для конкретної ситуації. Якщо ви хочете надати додаткову інформацію або створити запит на додавання функції чи подібне, будь ласка, зробіть це тут: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Система відстеження проблем Vespucci</a>. Функція «Надати відгук» з головного меню відкриє нову проблему та включить відповідну інформацію про додаток та пристрій без додаткового введення даних.</p>
 <p>Якщо у вас виникли труднощі із запуском програми після збою, ви можете спробувати запустити її в Безпечному режимі на пристроях, які підтримують швидкі клавіші: довго натисніть на іконку програми, а потім виберіть <em>Безпечний режим</em> в меню.</p>
 <p>Якщо ви хочете обговорити щось, пов'язане з Vespucci, ви можете розпочати дискусію на <a href="https://community.openstreetmap.org">OpenStreetMap форумі</a>.</p>
 

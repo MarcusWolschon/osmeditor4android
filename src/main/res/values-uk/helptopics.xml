@@ -4,8 +4,10 @@
     <string name="help_app_description">Оглядач довідки Веспуччі</string>
     <string name="help_title">Довідка: %1$s</string>
     <string name="help_introduction">Вступ</string>
+    <string name="help_safe_mode">Безпечний режим</string>
     <string name="help_main">Екран з мапою</string>
     <string name="help_simple_actions">Звичайні дії</string>
+    <string name="help_addrelationmember">Редагувати членів зв\'язку</string>
     <string name="help_multiselect">Мультивиділення</string>
     <string name="help_longclick">Створення нових обʼєктів</string>
     <string name="help_nodeselection">Виділена точка</string>
@@ -32,7 +34,13 @@
     <string name="help_tag_only_mode">Режим тільки тегів</string>
     <string name="help_indoor_mode">Режим внутрішніх приміщень</string>
     <string name="help_address_mode">Режим адрес</string>
+    <string name="help_upgrade">21.2 Примітки до випуску</string>
+    <string name="help_upgrade_211">21.1 Примітки до випуску</string>
     <string name="help_upgrade_210">21.0 Примітки до випуску</string>
+    <string name="help_upgrade_202">20.2 Примітки до випуску</string>
+    <string name="help_upgrade_201">20.1 Примітки до випуску</string>
+    <string name="help_upgrade_200">20.0 Примітки до випуску</string>
+    <string name="help_upgrade_193">19.3 Примітки до випуску</string>
     <string name="help_upgrade_192">19.2 Примітки до випуску</string>
     <string name="help_upgrade_191">19.1 Примітки до випуску</string>
     <string name="help_upgrade_190">19.0 Примітки до випуску</string>
@@ -95,6 +103,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
         <item>@string/help_upgrade_202</item>
         <item>@string/help_upgrade_201</item>
@@ -163,6 +172,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>
         <item>21.0.0 Release notes</item>
         <item>20.2.0 Release notes</item>

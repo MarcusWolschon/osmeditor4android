@@ -106,6 +106,8 @@
   <string name="download_limit_message">更にデータのダウンロードを試行する前に、お待ちください。</string>
   <string name="upload_limit_title">アップロード上限を超過</string>
   <string name="upload_limit_message">現在のアップロード割当量を使い果たしました。再試行する前に、お待ちください。</string>
+  <string name="upload_unavailable_title">サービス不能</string>
+  <string name="upload_unavailable_message">サービスは一時的に不能です。再試行する前に、お待ちください。</string>
   <string name="duplicate_tag_key_title">重複キー</string>
   <string name="duplicate_tag_key_message">次のキーを複数回追加しています。これを解決しないと先に進めません：</string>
   <string name="autodownload_has_been_paused">自動ダウンロードは一時停止しました。</string>
@@ -195,6 +197,7 @@
   <string name="upload_validation_error_empty_comment">コメントは空にできません</string>
   <string name="upload_validation_error_empty_source">情報源は空にできません</string>
   <string name="upload_empty_comment_warning_label">コメントが空の場合の警告</string>
+  <string name="confirm_upload_custom_tags_page">任意のタグ</string>
   <string name="upload_auto_summary">自動生成概要</string>
   <string name="untagged_node">タグの無いノード</string>
   <string name="untagged_way">タグの無いウェイ</string>
@@ -483,6 +486,7 @@
   <string name="photo_viewer_goto">写真に行く</string>
   <string name="photo_viewer_label">写真表示器</string>
   <string name="mapillary_viewer_label">Mapillary表示器</string>
+  <string name="photo_viewer_upload">アップロード…</string>
   <!--API info dialog-->
   <string name="api_info_bounds">矩形境界</string>
   <string name="api_info_mapsplit_source">MapSplitは読み込みのみの情報源です</string>
@@ -564,6 +568,7 @@
   <string name="toast_save_failed">保存できませんでした</string>
   <string name="toast_export_failed">出力できませんでした</string>
   <string name="toast_export_success">%1$s へ出力</string>
+  <string name="toast_upload_to_success">%1$s へのアップロードに成功</string>
   <plurals name="toast_preset_removed_or_replaced_tags">
     <item quantity="other">%1$d 件のタグを上書きまはた削除</item>
   </plurals>
@@ -582,6 +587,7 @@
   <string name="toast_download_failed">ダウンロード失敗。エラーコード %1$d メッセージ %2$s</string>
   <string name="toast_note_reopened">メモを再度開きました</string>
   <string name="toast_untrusted_certificate">信用していない証明書\n%1$s</string>
+  <string name="toast_element_may_have_been_moved">要素は移動されたかもしれません</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">未調査の道</string>
   <string name="toast_noname">名称または参照番号が欠落した道</string>
@@ -688,6 +694,7 @@
   <string name="toast_error_loading_egm">地球重力モデルの読み込み中にエラー %1$s</string>
   <string name="toast_querying_wms_server_failed">WMSサーバーへの問い合わせに失敗: %1$s</string>
   <string name="toast_no_compass">端末は方位磁石機能を持ちません!</string>
+  <string name="toast_authorisation_successful">認証成功!</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">発信源MapSplitには最小と最大の拡大が設定されている必要があります</string>
   <string name="error_pbf_no_version">PBFファイル内のバージョン情報が欠落しています</string>
@@ -784,6 +791,7 @@
   <string name="menu_top">先頭</string>
   <string name="menu_select_all">全て選択</string>
   <string name="menu_deselect_all">全て選択解除</string>
+  <string name="menu_invert_selection">選択したものを反転</string>
   <string name="menu_preset_help">プリセットのヘルプ</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i18n">異なる言語を追加</string>
@@ -1006,10 +1014,15 @@
   <string name="menu_tools_background_contrast">彩度</string>
   <string name="menu_tools_oauth_reset">認証をリセット</string>
   <string name="menu_tools_oauth_authorisation">OAuthで認証…</string>
+  <string name="menu_authorize">認証…</string>
   <string name="menu_enable_tagfilter">タグフィルター</string>
-  <string name="menu_enable_presetfilter">リセットフィルター</string>
+  <string name="menu_enable_presetfilter">プリセットフィルター</string>
   <string name="preset_menu_waynodes">ウェイノードを含む</string>
   <string name="preset_menu_invert">フィルターを反転</string>
+  <string name="tag_filter_title">フィルター: %1$s</string>
+  <string name="tag_filter_load">読み込み…</string>
+  <string name="tag_filter_new">新規…</string>
+  <string name="tag_filter_name">フィルター名</string>
   <!--element action mode menu-->
   <string name="menu_tags">プロパティ</string>
   <!--ELement entry in context menu-->
@@ -1023,6 +1036,8 @@
   <string name="menu_reverse">反転</string>
   <string name="notreversable_description">このウェイは方向に依存する特性を持つタグが付けられているため、反転できません。反転すると、付けられたタグを破壊します。</string>
   <string name="reverse_anyway">とにかく反転する</string>
+  <string name="menu_add_new_image">新規画像を追加…</string>
+  <string name="menu_add_existing_image">既存画像を追加…</string>
   <string name="deleteway_description">あなたはウェイを削除しようとしています。\n\n全てのノードを残したままにするか、このウェイに属するタグなしノードを削除するか、選べます。</string>
   <string name="deleteway_relation_description">あなたは1個以上のリレーションのメンバーであるウェイを削除しようとしています。ウェイを削除すると、リレーションが不正な状態になる可能性があります。</string>
   <string name="deleteway_nodesnotdownloaded_description">ウェイにはダウンロードされた領域の外側のノードが含まれ、もしかすると一貫しない状態の生成なくして削除できません。\n\n再試行する前に、その周囲の領域をダウンロードしてください。</string>
@@ -1170,6 +1185,7 @@
   <string name="config_poi_keys_title">付近のPOIを表示</string>
   <string name="config_poi_keys_summary">付近のPOI(関心地点)を表示するために使用されるキーを設定します。</string>
   <!--Camera and image settings-->
+  <string name="config_category_camera_and_images">カメラと画像の設定</string>
   <string name="config_showCameraAction_title">カメラ操作を表示</string>
   <string name="config_showCameraAction_summary">アクションバーにカメラアイコンを表示します。</string>
   <string name="config_selectCameraApp_title">カメラアプリ</string>
@@ -1182,7 +1198,10 @@
   <string name="config_useInternalPhotoViewer_summary">組み込みの写真ビューワーを使用します。チェックがついていない場合は、外部のビューワーが使用されます。</string>
   <string name="config_indexMediaStore_summary">写真を利用するために、追加でMediaStoreを使用します</string>
   <string name="config_indexMediaStore_title">MediaStoreを使用</string>
+  <string name="config_addToMediaStore_summary">カメラボタンで記録した画像を、MediaStoreへ追加します。</string>
   <string name="config_addToMediaStore_title">MediaStoreへ画像を追加</string>
+  <string name="config_imageStores_summary">画像保存用の記憶位置を指定します。</string>
+  <string name="config_imageStores_title">画像記憶</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">データと編集の設定</string>
   <string name="config_category_editing_summary">自動ダウンロード、保存、通知の設定。</string>
@@ -1348,6 +1367,8 @@
   <string name="manage_geocoders">ジオコーダーの管理</string>
   <string name="listedit_supports_compressed_uploads">圧縮アップロードに対応</string>
   <string name="geocoder_type">ジオコーダーの種別</string>
+  <string name="manage_image_stores">画像記憶を管理</string>
+  <string name="imagestore_type">画像記憶の種別</string>
   <!--preset downloader messages-->
   <string name="preset_update">プリセットを更新</string>
   <string name="preset_download_successful">プリセットをダウンロードしました</string>
@@ -1358,6 +1379,7 @@
   <!--preset management-->
   <string name="preset_management_delete">本当にプリセットを削除しますか?</string>
   <!--Image storage management-->
+  <string name="imagestores_add_manually">手動で追加…</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">プリセットを追加</string>
   <string name="urldialog_preset_exists">プリセットは既に存在しています</string>
@@ -1366,6 +1388,7 @@
   <string name="urldialog_add_api">APIを追加</string>
   <string name="urldialog_nodata_text">設定URLは正しいデータを含んでいません。</string>
   <string name="urldialog_add_geocoder">ジオコーダーを追加</string>
+  <string name="urldialog_add_image_store">画像記憶を追加</string>
   <!--API configuration-->
   <string name="api_name">API名</string>
   <string name="api_url">API URL</string>
@@ -1374,7 +1397,9 @@
   <string name="copy_of">%1$sのコピー</string>
   <string name="choose_oauth_config">OAuth設定を選択</string>
   <!--image upload dialog-->
+  <string name="image_upload_title">アップロード先を選択</string>
   <string name="image_upload">アップロード</string>
+  <string name="image_upload_and_remove">アップロードと削除</string>
   <string name="wikimedia_meta_description">説明</string>
   <string name="wikimedia_meta_source">エネルギー源</string>
   <string name="wikimedia_meta_author">作者</string>

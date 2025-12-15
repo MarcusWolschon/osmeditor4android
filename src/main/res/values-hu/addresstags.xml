@@ -2,6 +2,7 @@
 <resources>
   <string name="addr_housenumber">Házszám (addr:housenumber)</string>
   <string name="addr_conscriptionnumber">Helyrajzi szám (addr:conscriptionnumber)</string>
+  <string name="addr_housename">Háznév (addr:housename)</string>
   <string name="addr_street">Utca (addr:street)</string>
   <string name="addr_postcode">Irányítószám (addr:postcode)</string>
   <string name="addr_city">Település (addr:city)</string>
