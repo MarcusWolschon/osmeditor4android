@@ -68,10 +68,10 @@ public final class Nmea {
         TALKER_PRIORITY.put(GI, 0);
         TALKER_PRIORITY.put(QZ, 0);
         TALKER_PRIORITY.put(GQ, 0);
-        TALKER_PRIORITY.put(BD, 1);
-        TALKER_PRIORITY.put(GB, 1);
-        TALKER_PRIORITY.put(GA, 2);
-        TALKER_PRIORITY.put(GL, 3);
+        TALKER_PRIORITY.put(GL, 1);
+        TALKER_PRIORITY.put(BD, 2);
+        TALKER_PRIORITY.put(GB, 2);
+        TALKER_PRIORITY.put(GA, 3);
         TALKER_PRIORITY.put(GP, 4);
         TALKER_PRIORITY.put(GN, 5);
     }
