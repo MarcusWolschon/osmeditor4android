@@ -1,5 +1,22 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.2.1.0:
+
+- Fix display a more specific error for duplicate Panoramax uploads
+- Fix increase Panoramax timeouts to 20s
+- Fix workaround AGP 8 / Android 15 bug with per app languages
+- Fix protect against the content resolver not finding the gpx file
+- Fix protect properly against relation loops when adding required elements
+- Fix synchronize access to the validator way node cache
+- Fix update pmtiles-reader dependency
+- Fix save the checked state in normal lifecycle too
+- Fix don't try to restart a selection mode if nothing is selected
+- Fix don't run existing URLs through tag2link
+- Add tip about the filename for wikimedia uploads
+- Update translations
+- Update default preset
+- Update imagery from ELI
+
 21.2.0.0:
 
 - Fix crash when splitting closed way that is a relation member if there are relation related warnings
