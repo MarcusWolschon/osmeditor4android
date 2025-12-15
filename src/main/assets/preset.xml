@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.91.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.92.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -6388,7 +6388,7 @@
             <item name="Navigation aid" icon="icons/png/transport_empty.png" type="node" preset_name_label="true">
                 <link wiki="Tag:aeroway=navigationaid"/>
                 <key key="aeroway" value="navigationaid"/>
-                <combo key="navigationaid" text="Type" values="als,papi,vasi" display_values="Approach lighting system,Precision approach path indicator,Visual Approach Slope Indicator"/>
+                <combo key="navigationaid" text="Type" values="als,papi,vasi,txc,txe,rwe" display_values="Approach lighting system,Precision approach path indicator,Visual Approach Slope Indicator,Beaconing taxiway centreline,Beaconing taxiway edge,Beaconing runway edge"/>
             </item> <!-- Navigation aid -->
             <item name="Windsock" icon="icons/png/transport_windsock_11009.png" type="node" preset_name_label="true">
                 <link wiki="Tag:aeroway=windsock"/>
@@ -9394,6 +9394,9 @@
             <check key="shelter" text="Shelter"/>
             <check key="hide" text="Hide" text_context="hunting stand" disable_off="true"/>
             <check key="lockable" text="Lockable" disable_off="true"/>
+            <optional>
+                <combo key="hunting_stand" text="Type" values="grouse_butt,raised_hide,tree_stand" display_values="Grouse butt,Raised hide,Tree stand"/>
+            </optional>
         </item> <!-- Hunting Stand -->
         <item name="Binoculars" icon="icons/png/amenity_binoculars.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=binoculars"/>
@@ -12562,8 +12565,8 @@
             <space/>
             <key key="shop" value="farm"/>
             <multiselect key="produce" text="Produce">
-                <list_entry value="apple" display_value="Apples"/><list_entry value="asparagus" display_value="Asparagus"/><list_entry value="banana" display_value="Bananas"/><list_entry value="cherry" display_value="Cherries"/><list_entry value="grape" display_value="Grapes"/><list_entry value="olive" display_value="Olives"/><list_entry value="orange" display_value="Oranges"/><list_entry value="nut" display_value="Nuts"/><list_entry value="onion" display_value="Onions"/><list_entry value="peach" display_value="Peaches"/><list_entry value="pear" display_value="Pears"/><list_entry value="plum" display_value="Plums"/><list_entry value="potatoes" display_value="Potatoes"/>
-                <list_entry value="eggs" display_value="Eggs"/><list_entry value="milk" display_value="Milk"/>
+                <list_entry value="apple" display_value="Apples"/><list_entry value="asparagus" display_value="Asparagus"/><list_entry value="banana" display_value="Bananas"/><list_entry value="cherry" display_value="Cherries"/><list_entry value="dates" display_value="Dates"/><list_entry value="grape" display_value="Grapes"/><list_entry value="olive" display_value="Olives"/><list_entry value="orange" display_value="Oranges"/><list_entry value="nut" display_value="Nuts"/><list_entry value="olive" display_value="Olives"/><list_entry value="onion" display_value="Onions"/><list_entry value="peach" display_value="Peaches"/><list_entry value="pear" display_value="Pears"/><list_entry value="plum" display_value="Plums"/><list_entry value="potatoes" display_value="Potatoes"/>
+                <list_entry value="cheese" display_value="Cheese"/><list_entry value="eggs" display_value="Eggs"/><list_entry value="honey" display_value="Honey"/><list_entry value="meat" display_value="Meat"/><list_entry value="milk" display_value="Milk"/><list_entry value="oysters" display_value="Oysters"/>
             </multiselect>
             <reference ref="name_oh_wheelchair"/>
             <text key="description" text="Description" length="255"/>
@@ -15039,6 +15042,18 @@
             <link wiki="Relation:site"/>
             <space/>
             <key key="type" value="site"/>
+            <optional>
+                <combo key="site" text="Site type" editable="true" match="key">
+                    <list_entry value="geodesic" display_value="Geodesic"/>
+                    <list_entry value="stop_area" display_value="Stop area" deprecated="true"/>
+                    <list_entry value="parking" display_value="Parking"/>
+                    <list_entry value="wind_farm" display_value="Wind farm"/>
+                    <list_entry value="traffic_signals" display_value="Traffic signals"/>
+                    <list_entry value="mall" display_value="Mall"/>
+                    <list_entry value="piste" display_value="Skiing"/>
+                    <list_entry value="housing" display_value="Housing"/>
+                </combo>
+            </optional>
             <text key="name" text="Site name"/>
             <roles>
                 <role key="label" text="where to place the label" requisite="optional" type="node"/>
