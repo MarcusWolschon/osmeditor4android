@@ -1616,6 +1616,8 @@
     <string name="config_splitWindowForPropertyEditor_title">Enable split window property editor</string>
     <string name="config_splitWindowForReview_summary">Enable displaying the review screen in a separate window if available.</string>
     <string name="config_splitWindowForReview_title">Enable split window review screen</string>
+    <string name="config_tabLayout_summary">Always use the tab layout of the property editor. This is mainly useful on devices running in desktop mode that otherwise would use the pane layout.</string>
+    <string name="config_tabLayout_title">Force property editor tab layout</string>
     <string name="config_newTaskForPropertyEditor_summary">Set FLAG_ACTIVITY_NEW_TASK when starting the property editor, this may improve the behaviour of certain launchers when resuming the app.</string>
     <string name="config_newTaskForPropertyEditor_title">Use \"new task\" mode for property editor</string>
     <!--  -->

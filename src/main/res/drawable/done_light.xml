@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/ic_action_accept_holo_light"
+        android:gravity="center" />
+    
+    <!-- set a place holder Drawable so android:drawable isn't null -->
+    <item
+        android:drawable="@drawable/ic_action_accept_holo_light"
+        android:id="@+id/ic_badge" />
+</layer-list>
