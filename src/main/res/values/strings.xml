@@ -30,6 +30,7 @@
     <string name="upload_conflict_message_missing_references">Local element references objects that are deleted on the server</string>
     <string name="upload_conflict_message_unknown">%1$s \ncaused unknown upload conflict \n%2$s</string>
     <string name="upload_conflict_message_changeset_closed">Changeset unexpectedly closed, retrying</string>
+    <string name="upload_conflict_message_local_reference_inconsistency">Local reference inconsistency</string>
     <string name="server_side_object">Server version</string>
     <string name="local_object">Local version</string>
     <string name="resolve_by">Resolve conflict by…</string>
@@ -47,6 +48,7 @@
     <string name="unexpected_conflict_type">Unexpected conflict type </string>
     <string name="missing_referenced_elements">Missing referenced elements</string>
     <string name="still_in_use_by_elements">Still in use by elements</string>
+    <string name="local_reference_inconsistency">Local reference inconsistency, undeleting the referenced element is the safe option, but please report this as a bug.</string>
     <string name="delete_locally">Delete\nlocally</string>
     <string name="undelete_on_server">Undelete\non server</string>
     <!-- Upload retry -->

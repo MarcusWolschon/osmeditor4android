@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -31,10 +32,12 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.R;
 import de.blau.android.UnitTestUtils;
 import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.osm.UndoStorage.Checkpoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Coordinates;
@@ -2051,5 +2054,22 @@ public class StorageDelegatorTest {
         assertEquals(0, result.size());
         assertEquals(lastNode, w.getFirstNode());
         assertEquals(firstNode, w.getLastNode());
+    }
+    
+    @Test
+    public void undoLast() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+        assertEquals(OsmElement.STATE_CREATED, w.getState());
+        UndoStorage undo = d.getUndo();
+        undo.createCheckpoint("Test checkpoint", null);
+        d.removeWay(w);
+        assertEquals(OsmElement.STATE_DELETED, w.getState());
+        d.undoLast(ApplicationProvider.getApplicationContext(), w);
+        assertEquals(OsmElement.STATE_CREATED, w.getState());
+        List<Checkpoint> checkpoints = d.getUndo().getUndoCheckpoints(w);
+        assertEquals(3, checkpoints.size());
+        assertEquals("Test checkpoint", checkpoints.get(1).getName());
+        assertEquals(ApplicationProvider.getApplicationContext().getString(R.string.undo_action_fix_conflict), checkpoints.get(2).getName());
     }
 }

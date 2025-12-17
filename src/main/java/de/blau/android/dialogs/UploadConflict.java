@@ -2,6 +2,7 @@ package de.blau.android.dialogs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import java.net.HttpURLConnection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.exception.OsmServerException;
 import de.blau.android.osm.ApiResponse;
 import de.blau.android.osm.ApiResponse.Conflict;
 import de.blau.android.review.ReviewAndUpload;
@@ -199,75 +201,84 @@ public class UploadConflict extends CancelableDialogFragment {
 
             if (conflict instanceof ApiResponse.StillUsedConflict) {
                 //
-                // server element should always be available. local is deleted
+                // server element should always be available, except if we messed up something locally. local is deleted
                 //
 
-                // we are deleting an element that is still in use on the server
+                // if we are deleting an element that is still in use on the server
                 // get the elements that are still using it
                 final String usedByElementType = ((ApiResponse.StillUsedConflict) conflict).getUsedByElementType();
                 final long[] usedByElementIds = ((ApiResponse.StillUsedConflict) conflict).getUsedByElementIds();
-                final Storage usedByOnServer = logic.getElementsWithDeleted(activity, usedByElementType, usedByElementIds);
 
-                builder.setTitle(R.string.upload_conflict_message_referential);
+                final Storage usedByOnServer = getReferencingElements(activity, logic, usedByElementType, usedByElementIds);
+                final boolean serverSideElementExists = !usedByOnServer.isEmpty();
+
                 TableLayout tl = (TableLayout) inflater.inflate(R.layout.missing_element_view, null);
                 ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, null, false);
                 if (elementOnServer == null) {
-                    throw new IllegalStateException("elementOnSerer should not be null here");
+                    builder.setTitle(R.string.upload_conflict_message_local_reference_inconsistency);
+                    sv = ElementInfo.createComparisionView(activity, sv, tp, null, null, res.getString(R.string.local_object), elementLocal);
+                } else {
+                    builder.setTitle(R.string.upload_conflict_message_referential);
+                    sv = ElementInfo.createComparisionView(activity, sv, tp, null, null, res.getString(R.string.server_side_object), elementOnServer);
+                    tl.setColumnStretchable(1, true);
+                    tl.setColumnStretchable(2, true);
                 }
-                sv = ElementInfo.createComparisionView(activity, sv, tp, null, null, res.getString(R.string.server_side_object), elementOnServer);
 
-                tl.setColumnStretchable(1, true);
-                tl.setColumnStretchable(2, true);
-                tl.addView(TableLayoutUtils.createFullRowTitle(activity, res.getString(R.string.still_in_use_by_elements), tp));
-
-                for (long id : usedByElementIds) {
-                    OsmElement e = usedByOnServer.getOsmElement(usedByElementType, id);
-                    tl.addView(TableLayoutUtils.createFullRow(activity,
-                            e != null ? e.getDescription(activity, true) : res.getString(R.string.unable_to_download_referring_element, usedByElementType, id),
-                            tp));
+                if (serverSideElementExists) {
+                    tl.addView(TableLayoutUtils.createFullRowTitle(activity, res.getString(R.string.still_in_use_by_elements), tp));
+                    for (long id : usedByElementIds) {
+                        OsmElement e = usedByOnServer.getOsmElement(usedByElementType, id);
+                        tl.addView(TableLayoutUtils.createFullRow(activity, e != null ? e.getDescription(activity, true)
+                                : res.getString(R.string.unable_to_download_referring_element, usedByElementType, id), tp));
+                    }
+                } else {
+                    tl.addView(TableLayoutUtils.createFullRow(activity, res.getString(R.string.local_reference_inconsistency), tp));
                 }
+
                 LinearLayout infoLayout = sv.findViewById(R.id.element_info_layout);
                 infoLayout.addView(tl);
                 builder.setView(sv);
                 resolveActions.put(res.getString(R.string.undoing_local_delete), () -> {
-                    logic.createCheckpoint(activity, R.string.undo_action_fix_conflict);
-                    delegator.undoLast(elementLocal);
+                    delegator.undoLast(activity, elementLocal);
                     if (delegator.getApiElementCount() > 0) {
                         ReviewAndUpload.showDialog(activity, elements);
                     }
                 });
-                resolveActions.put(res.getString(R.string.deleting_references_on_server), () -> {
-                    logic.createCheckpoint(activity, R.string.undo_action_fix_conflict);
-                    // first undelete
-                    delegator.removeFromUpload(elementLocal, OsmElement.STATE_UNCHANGED);
-                    if (elements != null) {
-                        elements.remove(elementLocal);
-                    }
-                    delegator.insertElementSafe(elementLocal);
-                    // now download referring elements
-                    for (long id : usedByElementIds) {
-                        if (logic.downloadElement(activity, usedByElementType, id, false, true, null) != ErrorCodes.OK) {
-                            throw new IllegalStateException(res.getString(R.string.unable_to_download_referring_element_for_deletion, usedByElementType, id));
+                if (serverSideElementExists) {
+                    resolveActions.put(res.getString(R.string.deleting_references_on_server), () -> {
+                        logic.createCheckpoint(activity, R.string.undo_action_fix_conflict);
+                        // first undelete
+                        delegator.removeFromUpload(elementLocal, OsmElement.STATE_UNCHANGED);
+                        if (elements != null) {
+                            elements.remove(elementLocal);
                         }
-                        delegator.removeOnUndo(delegator.getOsmElement(usedByElementType, id));
-                    }
-                    // local element will likely be new instance, so get it again
-                    OsmElement newElementLocal = delegator.getOsmElement(conflictElementType, conflictElementId);
-                    switch (elementLocal.getName()) {
-                    case Node.NAME:
-                        delegator.removeNode((Node) newElementLocal);
-                        break;
-                    case Way.NAME:
-                        delegator.removeWay((Way) newElementLocal);
-                        break;
-                    case Relation.NAME:
-                        delegator.removeRelation((Relation) newElementLocal);
-                        break;
-                    default:
-                        throw new IllegalStateException("Unknown element type");
-                    }
-                    ReviewAndUpload.showDialog(activity, elements);
-                });
+                        delegator.insertElementSafe(elementLocal);
+                        // now download referring elements
+                        for (long id : usedByElementIds) {
+                            if (logic.downloadElement(activity, usedByElementType, id, false, true, null) != ErrorCodes.OK) {
+                                throw new IllegalStateException(
+                                        res.getString(R.string.unable_to_download_referring_element_for_deletion, usedByElementType, id));
+                            }
+                            delegator.removeOnUndo(delegator.getOsmElement(usedByElementType, id));
+                        }
+                        // local element will likely be new instance, so get it again
+                        OsmElement newElementLocal = delegator.getOsmElement(conflictElementType, conflictElementId);
+                        switch (elementLocal.getName()) {
+                        case Node.NAME:
+                            delegator.removeNode((Node) newElementLocal);
+                            break;
+                        case Way.NAME:
+                            delegator.removeWay((Way) newElementLocal);
+                            break;
+                        case Relation.NAME:
+                            delegator.removeRelation((Relation) newElementLocal);
+                            break;
+                        default:
+                            throw new IllegalStateException("Unknown element type");
+                        }
+                        ReviewAndUpload.showDialog(activity, elements);
+                    });
+                }
             } else if (conflict instanceof ApiResponse.VersionConflict) {
                 //
                 // server element should always be available
@@ -410,6 +421,32 @@ public class UploadConflict extends CancelableDialogFragment {
         }
 
         return builder.create();
+    }
+
+    /**
+     * Get elements that reference local elements
+     * 
+     * @param activity the current Activiy
+     * @param logic the Logic instance
+     * @param usedByElementType the referencing element type
+     * @param usedByElementIds the referencing ids
+     * @return a Storage object with the elements or null if anyone of them cannot be found
+     * @throws OsmServerException if received from Logic and not a 404
+     */
+    @Nullable
+    private Storage getReferencingElements(@NonNull final FragmentActivity activity, @NonNull final Logic logic, @NonNull final String usedByElementType,
+            @NonNull final long[] usedByElementIds) throws OsmServerException {
+        try {
+            return logic.getElementsWithDeleted(activity, usedByElementType, usedByElementIds);
+        } catch (OsmServerException osex) {
+            // unable to retrieve server side referring elements
+            if (osex.getHttpErrorCode() != HttpURLConnection.HTTP_NOT_FOUND) {
+                Log.e(DEBUG_TAG, "Rethrowing " + osex);
+                throw osex;
+            }
+            Log.e(DEBUG_TAG, "Local reference inconsistency " + osex.getMessage());
+        }
+        return null;
     }
 
     /**

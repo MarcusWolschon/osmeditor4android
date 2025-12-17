@@ -25,6 +25,8 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.view.KeyEvent;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -252,7 +254,7 @@ public class UploadConflictTest {
     }
 
     /**
-     * Server side element is still in use
+     * Server side element is still in use, fix reference on server
      */
     @Test
     public void severElementInUse() {
@@ -270,6 +272,39 @@ public class UploadConflictTest {
         assertNotNull(r);
         assertEquals(OsmElement.STATE_MODIFIED, r.getState());
         assertNull(r.getMember(Way.NAME, 210461100L));
+    }
+    
+    /**
+     * Local inconsistency undelete local element
+     */
+    @Test
+    public void localInconsistency() {
+        loadDataAndFixtures("conflict3", new String[] { "404", "empty" }, false);
+   
+        Way w = App.getDelegator().getApiStorage().getWay(210461100L);
+        assertNotNull(w);
+        // undelete and delete again so that after the conflict fix it is unchanged
+        final Logic logic = App.getLogic();
+        logic.createCheckpoint(main, R.string.undo_redo_title); 
+        StorageDelegator delegator = App.getDelegator();
+        delegator.removeFromUpload(w, OsmElement.STATE_UNCHANGED);
+        delegator.insertElementSafe(w);
+        assertEquals(OsmElement.STATE_UNCHANGED, w.getState());
+        logic.performEraseWay(main, w, false, true);
+        assertEquals(OsmElement.STATE_DELETED, w.getState());
+        
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false);
+        uploadDialog(-1, device);
+        
+        assertTrue(TestUtils.findText(device, false, "210461100", 10000, true));
+        TestUtils.sleep(20000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.undoing_local_delete), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 20000));
+
+        w = (Way) App.getDelegator().getOsmElement(Way.NAME, 210461100L);
+        assertNotNull(w);
+        assertEquals(OsmElement.STATE_UNCHANGED, w.getState());
     }
 
     /**

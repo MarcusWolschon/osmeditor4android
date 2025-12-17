@@ -3666,6 +3666,8 @@ public class Logic {
         } catch (ParserConfigurationException ex) {
             Log.e(DEBUG_TAG, "getElementWithDeleted problem with parser", ex);
             throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
+        } catch (OsmServerException ex) {
+            throw ex;
         } catch (IOException ex) {
             Log.e(DEBUG_TAG, "getElementWithDeleted no connection", ex);
             throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
@@ -3732,6 +3734,8 @@ public class Logic {
                 } catch (ParserConfigurationException ex) {
                     Log.e(DEBUG_TAG, "getElementsWithDeleted problem with parser", ex);
                     throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
+                } catch (OsmServerException osex) {
+                    throw osex;
                 } catch (IOException ex) {
                     Log.e(DEBUG_TAG, "getElementsWithDeleted no connection", ex);
                     throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
