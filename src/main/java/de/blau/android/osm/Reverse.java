@@ -62,6 +62,8 @@ final class Reverse {
         try {
             reverseExceptions.put(Tags.KEY_SIDE,
                     compilePattern(Tags.KEY_HIGHWAY + "=" + Tags.VALUE_CYCLIST_WAITING_AID + " -child (type:way highway: (oneway? OR oneway=\"-1\"))"));
+            reverseExceptions.put(Tags.KEY_RAILWAY_TURNOUT_SIDE, compilePattern(
+                    "\"" + Tags.KEY_RAILWAY_TURNOUT_SIDE + "\"=" + Tags.VALUE_LEFT + " OR \"" + Tags.KEY_RAILWAY_TURNOUT_SIDE + "\"=" + Tags.VALUE_RIGHT));
         } catch (JosmFilterParseException e) {
             Log.e(DEBUG_TAG, e.getMessage());
         }

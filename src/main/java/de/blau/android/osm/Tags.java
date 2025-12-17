@@ -191,7 +191,9 @@ public final class Tags {
     // image tags
     public static final String KEY_PANORAMAX = "panoramax";
 
-    public static final String KEY_RAILWAY = "railway";
+    public static final String KEY_RAILWAY              = "railway";
+    public static final String KEY_RAILWAY_TURNOUT_SIDE = "railway:turnout_side";
+
     //
     public static final String KEY_SOURCE   = "source";
     public static final String VALUE_SURVEY = "survey";
