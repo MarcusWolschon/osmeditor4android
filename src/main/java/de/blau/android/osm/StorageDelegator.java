@@ -2514,13 +2514,23 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private void validateRelationMemberCount(@NonNull Relation r, final int increment) {
         Logic logic = App.getLogic();
-        if (logic != null) {
-            Preferences prefs = logic.getPrefs();
-            if (prefs != null && (r.getMemberCount() + increment) > prefs.getServer().getCachedCapabilities().getMaxRelationMembers()) {
-                throw new OsmIllegalOperationException(PreconditionIssue.RELATION_MEMBER_COUNT, r,
-                        App.resources().getString(R.string.exception_too_many_members, r.getDescription()));
-            }
+        if (logic == null) {
+            return;
         }
+        Preferences prefs = logic.getPrefs();
+        if (prefs != null && (r.getMemberCount() + increment) > prefs.getServer().getCachedCapabilities().getMaxRelationMembers()) {
+            throwExceptionForTooManyMembers(r);
+        }
+    }
+
+    /**
+     * Throw an OsmIllegalOperationException because the relation has too many members
+     * 
+     * @param r the Relation
+     */
+    private void throwExceptionForTooManyMembers(@NonNull Relation r) {
+        throw new OsmIllegalOperationException(PreconditionIssue.RELATION_MEMBER_COUNT, r,
+                App.resources().getString(R.string.exception_too_many_members, r.getDescription()));
     }
 
     /**
@@ -2531,19 +2541,21 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @throws OsmIllegalOperationException if the count is larger than the maximum supported
      */
     private void validateRelationMemberCount(@Nullable List<Relation> relations, int increment) {
-        if (relations != null) {
-            Logic logic = App.getLogic();
-            if (logic != null) {
-                Preferences prefs = logic.getPrefs();
-                if (prefs != null) {
-                    int limit = prefs.getServer().getCachedCapabilities().getMaxRelationMembers();
-                    for (Relation r : relations) {
-                        if (r.getMemberCount() + increment > limit) {
-                            throw new OsmIllegalOperationException(PreconditionIssue.RELATION_MEMBER_COUNT, r,
-                                    App.resources().getString(R.string.exception_too_many_members, r.getDescription()));
-                        }
-                    }
-                }
+        if (relations == null) {
+            return;
+        }
+        Logic logic = App.getLogic();
+        if (logic == null) {
+            return;
+        }
+        Preferences prefs = logic.getPrefs();
+        if (prefs == null) {
+            return;
+        }
+        int limit = prefs.getServer().getCachedCapabilities().getMaxRelationMembers();
+        for (Relation r : relations) {
+            if (r.getMemberCount() + increment > limit) {
+                throwExceptionForTooManyMembers(r);
             }
         }
     }
@@ -4309,22 +4321,32 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Undo the last undo checkpoint the element was used in
      * 
+     * @param ctx an optional Android Context
      * @param element the element we want to reset to the previous state
      */
-    public void undoLast(@NonNull OsmElement element) {
-        List<de.blau.android.osm.UndoStorage.Checkpoint> checkpoints = undo.getUndoCheckpoints(element);
-        if (!checkpoints.isEmpty()) {
-            final Checkpoint checkpoint = checkpoints.get(0);
-            for (OsmElement e : checkpoint.getSavedElements()) {
-                OsmElement current = getOsmElement(e.getName(), e.getOsmId());
-                if (current != null) {
-                    undo.save(current);
+    public void undoLast(@Nullable Context ctx, @NonNull OsmElement element) {
+        try {
+            lock();
+            List<de.blau.android.osm.UndoStorage.Checkpoint> checkpoints = undo.getUndoCheckpoints(element);
+            if (checkpoints.isEmpty()) {
+                Log.e(DEBUG_TAG, "No undo checkpoint found for " + element.getDescription());
+                return;
+            }
+            final Checkpoint checkpoint = checkpoints.get(checkpoints.size() - 1); // the last checkpoint
+            undo.createCheckpoint(ctx != null ? ctx.getString(R.string.undo_action_fix_conflict) : App.resources().getString(R.string.undo_action_fix_conflict),
+                    null);
+            undo.save(element);
+            List<UndoStorage.UndoElement> list = undo.getElements(Util.wrapInList(checkpoint), element);
+            list.get(0).restore();
+            if (element instanceof Node) {
+                for (Way way : currentStorage.getWays()) {
+                    way.invalidateBoundingBox();
                 }
             }
-            undo.undo(checkpoint);
-            return;
+            fixupBacklinks();
+        } finally {
+            unlock();
         }
-        Log.e(DEBUG_TAG, "No undo checkpoint found for " + element.getDescription());
     }
 
     /**

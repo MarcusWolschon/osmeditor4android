@@ -1,0 +1,4 @@
+statusCode: 404       
+delay: 0              
+body: '404.txt'
+                 
