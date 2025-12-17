@@ -12,10 +12,7 @@ import java.util.Map;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.app.LocaleConfig;
 import android.content.Context;
-import android.os.Build;
-import android.os.LocaleList;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
