@@ -116,6 +116,25 @@ public class ReverseTest {
     }
 
     /**
+     * Test a further hardwired exception
+     */
+    @Test
+    public void reverseRailwayTurnoutSide() {
+        Node n = OsmElementFactory.createNode(-1L, 1L, System.currentTimeMillis() / 1000, OsmElement.STATE_CREATED, 0, 0);
+        StorageDelegator d = App.getDelegator();
+        d.reset(false);
+        d.insertElementSafe(n); 
+        assertNotNull(d.getOsmElement(Node.NAME, -1L));
+      
+        Map<String, String> tags = new HashMap<>();
+        tags.put(Tags.KEY_RAILWAY_TURNOUT_SIDE, Tags.VALUE_LEFT);
+        n.setTags(tags);
+        Map<String, String> dirTags = Reverse.getDirectionDependentTags(n);
+        assertFalse(dirTags.containsKey(Tags.KEY_RAILWAY_TURNOUT_SIDE));
+    }
+    
+    
+    /**
      * Get the tag value changed by assuming that the way was reversed
      * 
      * @param key the key
