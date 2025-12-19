@@ -4,6 +4,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,8 @@ public class PanoramaxStorage implements ImageStorage {
 
     private static final String UPLOAD_SET_BODY          = "{" + "\"title\": \"" + "Vespucci upload" + "\"," + "\"estimated_nb_files\": \"1\"}";
     private static final String PICTURE_ID               = "picture_id";
+    private static final String EXISTING_ITEM_ID         = "existing_item_id";
+    private static final String UPLOAD_SETS              = "upload_sets";
     private static final String FILE                     = "file";
     private static final String ID                       = "id";
     private static final String FILES                    = "/files";
@@ -206,26 +209,45 @@ public class PanoramaxStorage implements ImageStorage {
                 Log.d(DEBUG_TAG, "Uploading image");
 
                 try (Response uploadCallResponse = authClient.newCall(uploadRequest).execute()) {
+                    final boolean duplicate = uploadCallResponse.code() == HttpURLConnection.HTTP_CONFLICT;
                     if (!uploadCallResponse.isSuccessful()) {
-                        Log.e(DEBUG_TAG, "Upload failed " + uploadCallResponse.toString());
-                        return de.blau.android.imagestorage.Util.uploadError(uploadCallResponse, uploadSetUrl);
+                        Log.e(DEBUG_TAG, "Upload failed " + uploadCallResponse.toString() + " duplicate " + duplicate);
+                        if (!duplicate) {
+                            return de.blau.android.imagestorage.Util.uploadError(uploadCallResponse, uploadSetUrl);
+                        }
                     }
                     root = de.blau.android.imagestorage.Util.parseJsonResponse(uploadCallResponse);
-                    JsonElement pictureId = root.get(PICTURE_ID);
+                    JsonElement pictureId = !duplicate ? root.get(PICTURE_ID) : extractExistingItemId(root);
                     if (pictureId != null) {
                         UploadResult result = new UploadResult(ErrorCodes.OK);
                         result.setUrl(pictureId.getAsString());
                         return result;
                     }
+                    Log.e(DEBUG_TAG, "upload id not found in response");
                 }
             }
         } catch (Exception e) {
-            Log.e(DEBUG_TAG, "upload " + e.getMessage());
+            Log.e(DEBUG_TAG, "upload " + e.getClass().getCanonicalName() + " " + e.getMessage());
             UploadResult result = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
             result.setMessage(e.getMessage());
             return result;
         }
         return new UploadResult(ErrorCodes.UNKNOWN_ERROR);
+    }
+
+    /**
+     * Get an "existing_item_id" from the error response
+     * 
+     * @param root the JsonObject returned as the response
+     * @return the id or null
+     */
+    @Nullable
+    private JsonElement extractExistingItemId(@NonNull JsonObject root) {
+        JsonElement uploadSets = root.get(UPLOAD_SETS);
+        if ((uploadSets instanceof JsonArray) && (((JsonArray) uploadSets).size() > 0)) {
+            return ((JsonObject) ((JsonArray) uploadSets).get(0)).get(EXISTING_ITEM_ID);
+        }
+        return null;
     }
 
     @Override
