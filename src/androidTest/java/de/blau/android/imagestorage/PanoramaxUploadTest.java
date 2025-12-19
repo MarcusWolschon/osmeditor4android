@@ -115,6 +115,7 @@ public class PanoramaxUploadTest {
         }
         PreferenceManager.getDefaultSharedPreferences(main).edit().putBoolean(main.getString(R.string.config_indexMediaStore_key), true).commit();
         Preferences prefs = new Preferences(context);
+        prefs.setAutolockDelay(300000L);
         App.getLogic().setPrefs(prefs);
 
         map.setPrefs(main, prefs);
