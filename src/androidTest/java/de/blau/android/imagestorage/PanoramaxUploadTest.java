@@ -189,6 +189,44 @@ public class PanoramaxUploadTest {
         }
         assertEquals("74451e31-119b-4b22-a6cb-23e97947331d", node.getTagWithKey(Tags.KEY_PANORAMAX));
     }
+    
+    /**
+     * Upload existing and add to element
+     */
+    @Test
+    public void uploadExistingDuplicate() {
+        TestUtils.clickAwayTip(device, context);
+
+        mockServer.enqueue("panoramax_auth_check");
+        mockServer.enqueue("panoramax_uploadset");
+        mockServer.enqueue("panoramax_upload_duplicate_response");
+
+        Node node = (Node) App.getDelegator().getOsmElement(Node.NAME, 3465444349L);
+        assertNotNull(node);
+        TestUtils.clickAtCoordinates(device, map, node.getLon(), node.getLat(), true);
+        TestUtils.sleep();
+        TestUtils.clickAwayTip(device, context);
+        assertTrue(TestUtils.clickTextContains(device, "Toilets", true, 5000));
+        node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(3465444349L, node.getOsmId());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        TestUtils.scrollTo(main.getString(R.string.menu_add_existing_image), false);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_add_existing_image), true, false));
+        TestUtils.selectFile(device, context, "Pictures", PHOTO_FILE3, false);
+
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.image_upload_title)));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.image_upload), true));
+
+        try {
+            mockServer.server().takeRequest(10, TimeUnit.SECONDS);
+            mockServer.server().takeRequest(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        assertEquals("fe853d9d-1a4d-4b3a-90a1-48ca0a0c5407", node.getTagWithKey(Tags.KEY_PANORAMAX));
+    }
 
     /**
      * Upload existing

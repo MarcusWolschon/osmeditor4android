@@ -1,0 +1,4 @@
+statusCode: 409       
+delay: 0              
+body: 'panoramax_upload_duplicate_response.json'
+                 

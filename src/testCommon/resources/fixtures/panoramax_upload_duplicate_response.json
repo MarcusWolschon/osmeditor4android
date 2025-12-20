@@ -1,0 +1,10 @@
+{
+    "message": "The same picture has already been sent in a past upload",
+    "status_code": 409,
+    "upload_sets": [
+        {
+            "existing_item_id": "fe853d9d-1a4d-4b3a-90a1-48ca0a0c5407",
+            "upload_set_id": "56e7c010-314f-4a28-88a7-38df885b99c3"
+        }
+    ]
+}
