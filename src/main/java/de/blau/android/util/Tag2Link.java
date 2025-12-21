@@ -11,6 +11,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.gson.stream.JsonReader;
 
@@ -42,6 +44,8 @@ public class Tag2Link {
     private static final String KEY_PREFIX    = "Key:";
     private static final String PLACEHOLDER_1 = "$1";
     private static final String ENCODED_SPACE = "%20";
+
+    private static final Pattern NUMERIC_SUFFIX_PATTERN = Pattern.compile("^(.*)\\:[0-9]*$");
 
     private final MultiHashMap<String, String> linkMap;
 
@@ -103,6 +107,8 @@ public class Tag2Link {
      * 
      * If value is already an URL and in any error cases the original value will be returned.
      * 
+     * Supports stripping of suffixes of the form :number
+     * 
      * @param tagKey the tags key
      * @param value the tags value
      * @return an appropriate url or the original value
@@ -111,7 +117,14 @@ public class Tag2Link {
     public String get(@NonNull String tagKey, @NonNull String value) {
         Set<String> urlTemplates = linkMap.get(tagKey);
         if (urlTemplates.isEmpty()) {
-            return value;
+            Matcher matcher = NUMERIC_SUFFIX_PATTERN.matcher(tagKey);
+            if (matcher.find()) {
+                urlTemplates = linkMap.get(matcher.group(1));
+            }
+            if (urlTemplates.isEmpty()) {
+                // still empty
+                return value;
+            }
         }
         final String template = urlTemplates.iterator().next(); // first template
         try {
@@ -139,6 +152,13 @@ public class Tag2Link {
      * @return true if we have an entry
      */
     public boolean isLink(@NonNull String tagKey) {
-        return linkMap.containsKey(tagKey);
+        if (linkMap.containsKey(tagKey)) {
+            return true;
+        }
+        Matcher matcher = NUMERIC_SUFFIX_PATTERN.matcher(tagKey);
+        if (matcher.find()) {
+            return linkMap.containsKey(matcher.group(1));
+        }
+        return false;
     }
 }
