@@ -14,9 +14,8 @@ public interface ImageStorage {
      * Note that if this needs network access it has to run its internals in a thread
      * 
      * @param context an Android context
-     * @return true if successful
      */
-    public boolean authorize(@NonNull Context context);
+    public void authorize(@NonNull Context context);
 
     /**
      * Check if we are authorized

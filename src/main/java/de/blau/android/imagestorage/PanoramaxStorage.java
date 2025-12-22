@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
+import de.blau.android.R;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Urls;
 import de.blau.android.net.OAuth2Interceptor;
@@ -37,6 +38,7 @@ import de.blau.android.prefs.ImageStorageConfiguration;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -83,54 +85,65 @@ public class PanoramaxStorage implements ImageStorage {
     }
 
     @Override
-    public boolean authorize(Context context) {
-        try {
-            return new ExecutorTask<Void, Void, Boolean>() {
-                @Override
-                protected Boolean doInBackground(Void nothing) throws XmlPullParserException, IOException {
-                    URL url = new URL(configuration.url + API_AUTH_TOKENS_GENERATE);
-                    Request generateKeyRequest = new Request.Builder().url(url).post(RequestBody.create(null, "")).build();
-                    try (Response generateKeyCallResponse = client.newCall(generateKeyRequest).execute()) {
-                        if (!generateKeyCallResponse.isSuccessful()) {
-                            Log.e(DEBUG_TAG, "Creating keys failed " + generateKeyCallResponse.toString());
-                            return false;
-                        }
-                        JsonObject root = de.blau.android.imagestorage.Util.parseJsonResponse(generateKeyCallResponse);
+    public void authorize(Context context) {
+        new ExecutorTask<Void, Void, Boolean>() {
+            String error = "";
 
-                        String key = root.get(JWT_TOKEN).getAsString();
-                        // this should only be set if auth was successful
-                        try (KeyDatabaseHelper kdb = new KeyDatabaseHelper(context); SQLiteDatabase db = kdb.getWritableDatabase()) {
-                            KeyDatabaseHelper.replaceOrDeleteKey(db, configuration.id, KeyDatabaseHelper.EntryType.PANORAMAX_KEY, key, false, true, null, null);
-                        }
-                        JsonElement links = root.get(LINKS);
-                        if (!links.isJsonArray() && ((JsonArray) links).size() < 1) {
-                            Log.e(DEBUG_TAG, "No links array found");
-                            return false;
-                        }
-                        JsonElement link = ((JsonArray) links).get(0);
-                        if (!link.isJsonObject()) {
-                            Log.e(DEBUG_TAG, "No link found");
-                            return false;
-                        }
-                        JsonElement claimUrl = ((JsonObject) link).get(HREF);
-                        if (!claimUrl.isJsonPrimitive()) {
-                            Log.e(DEBUG_TAG, "No url found");
-                            return false;
-                        }
-                        // start the actual authorisation
-                        Intent intent = new Intent(context, PanoramaxAuthorize.class);
-                        intent.putExtra(PanoramaxAuthorize.URL_KEY, claimUrl.getAsString());
-                        ((FragmentActivity) context).startActivity(intent);
-                        Log.d(DEBUG_TAG, "Claim url " + claimUrl.getAsString());
+            @Override
+            protected Boolean doInBackground(Void nothing) throws XmlPullParserException, IOException {
+                URL url = new URL(configuration.url + API_AUTH_TOKENS_GENERATE);
+                Request generateKeyRequest = new Request.Builder().url(url).post(RequestBody.create(null, "")).build();
+                try (Response generateKeyCallResponse = client.newCall(generateKeyRequest).execute()) {
+                    if (!generateKeyCallResponse.isSuccessful()) {
+                        error = "Creating keys failed " + generateKeyCallResponse.toString();
+                        return false;
                     }
+                    JsonObject root = de.blau.android.imagestorage.Util.parseJsonResponse(generateKeyCallResponse);
 
-                    return false;
+                    String key = root.get(JWT_TOKEN).getAsString();
+                    // this should only be set if auth was successful
+                    try (KeyDatabaseHelper kdb = new KeyDatabaseHelper(context); SQLiteDatabase db = kdb.getWritableDatabase()) {
+                        KeyDatabaseHelper.replaceOrDeleteKey(db, configuration.id, KeyDatabaseHelper.EntryType.PANORAMAX_KEY, key, false, true, null, null);
+                    }
+                    JsonElement links = root.get(LINKS);
+                    if (!links.isJsonArray() && ((JsonArray) links).size() < 1) {
+                        error = "No links array found";
+                        return false;
+                    }
+                    JsonElement link = ((JsonArray) links).get(0);
+                    if (!link.isJsonObject()) {
+                        error = "No link found";
+                        return false;
+                    }
+                    JsonElement claimUrl = ((JsonObject) link).get(HREF);
+                    if (!claimUrl.isJsonPrimitive()) {
+                        error = "No url found";
+                        return false;
+                    }
+                    // start the actual authorisation
+                    Intent intent = new Intent(context, PanoramaxAuthorize.class);
+                    intent.putExtra(PanoramaxAuthorize.URL_KEY, claimUrl.getAsString());
+                    ((FragmentActivity) context).startActivity(intent);
+                    Log.d(DEBUG_TAG, "Claim url " + claimUrl.getAsString());
                 }
-            }.execute().get(TIMEOUT, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR
-            Log.d(DEBUG_TAG, "Unable to authorize " + e.getMessage());
-        }
-        return false;
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                if (Boolean.FALSE.equals(result)) {
+                    Log.e(DEBUG_TAG, error);
+                    ScreenMessage.toastTopError(context, context.getString(R.string.toast_authorisation_failed, error));
+                }
+            }
+
+            @Override
+            protected void onBackgroundError(Exception e) {
+                Log.d(DEBUG_TAG, "Unable to authorize " + e.getMessage());
+                ScreenMessage.toastTopError(context, context.getString(R.string.toast_authorisation_failed, e.getLocalizedMessage()));
+            }
+
+        }.execute();
     }
 
     @Override
