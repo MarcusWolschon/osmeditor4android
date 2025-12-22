@@ -53,6 +53,7 @@ public class PanoramaxAuthorize extends WebViewActivity {
             Log.d(DEBUG_TAG, "handleLoading " + uri.toString());
             if (uri.getPath().endsWith(TOKEN_ACCEPTED)) {
                 Log.d(DEBUG_TAG, "Authorization successful");
+                ScreenMessage.toastTopInfo(view.getContext(), R.string.toast_authorisation_successful);
                 view.postDelayed(() -> exit(), 5000);
             }
             return false;

@@ -110,13 +110,11 @@ public class WikimediaCommonsStorage implements ImageStorage {
     }
 
     @Override
-    public boolean authorize(Context context) {
+    public void authorize(Context context) {
         // start the actual authorisation
         Intent intent = new Intent(context, WikimediaCommonsAuthorize.class);
         intent.putExtra(WikimediaCommonsAuthorize.CONFIGURATION_KEY, configuration);
         ((FragmentActivity) context).startActivity(intent);
-
-        return false;
     }
 
     @Override
