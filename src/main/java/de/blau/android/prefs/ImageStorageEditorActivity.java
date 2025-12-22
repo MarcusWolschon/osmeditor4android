@@ -2,6 +2,7 @@ package de.blau.android.prefs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -21,11 +22,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 import de.blau.android.R;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.imagestorage.PanoramaxStorage;
 import de.blau.android.imagestorage.WikimediaCommonsStorage;
 import de.blau.android.prefs.AdvancedPrefDatabase.ImageStorageType;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ThemeUtils;
 
@@ -94,18 +99,45 @@ public class ImageStorageEditorActivity extends URLListEditActivity {
         }
     }
 
+    /**
+     * Display a modal with a list of Panoramax instances
+     */
     private void selectPanoramaxStore() {
-        final List<ImageStorageConfiguration> instances = PanoramaxStorage.getInstances(this);
-        String[] names = new String[instances.size()];
-        for (int i = 0; i < names.length; i++) {
-            names[i] = instances.get(i).name;
-        }
-        ThemeUtils.getAlertDialogBuilder(this).setItems(names, (DialogInterface d, int which) -> {
-            ImageStorageConfiguration imagestore = instances.get(which);
-            // hack we test for null id in itemEditDialog
-            ListEditItem item = new ListEditItem(null, imagestore.name, imagestore.type.toString(), imagestore.url, null, null, false, false); // NOSONAR
-            itemEditDialog(item);
-        }).show();
+        new ExecutorTask<Void, Void, List<ImageStorageConfiguration>>() {
+            private AlertDialog progress = null;
+
+            @Override
+            protected void onPreExecute() {
+                progress = ProgressDialog.get(ImageStorageEditorActivity.this, Progress.PROGRESS_SEARCHING);
+                progress.show();
+            }
+
+            @Override
+            protected List<ImageStorageConfiguration> doInBackground(Void nothing) throws IOException {
+                return PanoramaxStorage.getInstances(ImageStorageEditorActivity.this);
+            }
+
+            @Override
+            protected void onPostExecute(List<ImageStorageConfiguration> instances) {
+                try {
+                    if (progress != null) {
+                        progress.dismiss();
+                    }
+                } catch (Exception ex) {
+                    Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
+                }
+                String[] names = new String[instances.size()];
+                for (int i = 0; i < names.length; i++) {
+                    names[i] = instances.get(i).name;
+                }
+                ThemeUtils.getAlertDialogBuilder(ImageStorageEditorActivity.this).setItems(names, (DialogInterface d, int which) -> {
+                    ImageStorageConfiguration imagestore = instances.get(which);
+                    // hack we test for null id in itemEditDialog
+                    ListEditItem item = new ListEditItem(null, imagestore.name, imagestore.type.toString(), imagestore.url, null, null, false, false); // NOSONAR
+                    itemEditDialog(item);
+                }).show();
+            }
+        }.execute();
     }
 
     @Override

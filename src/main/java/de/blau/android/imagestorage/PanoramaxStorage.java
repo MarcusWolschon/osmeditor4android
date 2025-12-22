@@ -272,9 +272,10 @@ public class PanoramaxStorage implements ImageStorage {
     @NonNull
     public static List<ImageStorageConfiguration> getInstances(@NonNull Context context) {
         final ExecutorTask<Void, Void, List<ImageStorageConfiguration>> getInstancesTask = new ExecutorTask<Void, Void, List<ImageStorageConfiguration>>() {
+            String error = "";
+
             @Override
             protected List<ImageStorageConfiguration> doInBackground(Void nothing) throws IOException {
-
                 List<ImageStorageConfiguration> result = new ArrayList<>();
 
                 URL url = new URL(Urls.PANORAMAX_EXPLORE);
@@ -282,7 +283,7 @@ public class PanoramaxStorage implements ImageStorage {
                 try (Response instancesResponse = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                         .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS).build().newCall(instancesRequest).execute()) {
                     if (!instancesResponse.isSuccessful()) {
-                        Log.e(DEBUG_TAG, "Retrieving instances failed " + instancesResponse.toString());
+                        error = "Retrieving instances failed " + instancesResponse.toString();
                         return result;
                     }
 
@@ -315,8 +316,17 @@ public class PanoramaxStorage implements ImageStorage {
             }
 
             @Override
+            protected void onPostExecute(List<ImageStorageConfiguration> result) {
+                if (result.isEmpty()) {
+                    Log.e(DEBUG_TAG, error);
+                    ScreenMessage.toastTopError(context, context.getString(R.string.toast_panoramax_instance_list_error, error));
+                }
+            }
+
+            @Override
             protected void onBackgroundError(Exception e) {
                 Log.e(DEBUG_TAG, "getInstances " + e.getMessage());
+                ScreenMessage.toastTopError(context, context.getString(R.string.toast_panoramax_instance_list_error, e.getLocalizedMessage()));
             }
         };
         try {
