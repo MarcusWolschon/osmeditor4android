@@ -1938,6 +1938,23 @@ public class StorageDelegatorTest {
         assertTrue(toUpload.contains(newNode));
         assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, 28075087L)));
     }
+    
+    /**
+     * Newly created way node upload should force upload of way, check that way isn't duplicated if already present
+     */
+    @Test
+    public void uploadNewWayNodeTest2() {
+        StorageDelegator sd = UnitTestUtils.loadTestData(getClass(), "selective-upload1.osm");
+        Node newNode = (Node) sd.getOsmElement(Node.NAME, -1L);
+        assertNotNull(newNode);
+        List<OsmElement> toUpload = new ArrayList<>();
+        toUpload.add(newNode);
+        toUpload.add(sd.getOsmElement(Way.NAME, 28075087L));
+        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        assertEquals(2, toUpload.size());
+        assertTrue(toUpload.contains(newNode));
+        assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, 28075087L)));
+    }
 
     /**
      * Upload of modified way needs to include newly created node

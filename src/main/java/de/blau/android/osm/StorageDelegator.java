@@ -3438,6 +3438,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         int added = additionalElements.size();
         if (added > 0) {
             // upload will sort elements correctly
+            // ensure that our result doesn't contain any duplicates
+            additionalElements.addAll(elements);
+            elements.clear();
             elements.addAll(additionalElements);
             if (context != null) {
                 ScreenMessage.toastTopWarning(context, context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
