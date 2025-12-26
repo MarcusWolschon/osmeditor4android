@@ -1,0 +1,13 @@
+Vespucci 是一个编辑 OpenStreetMap 数据的高级工具，不要用来查看地图或者进行导航。你要有 <a href="http://www.openstreetmap.org/">OpenStreetMap 账号</a>才能开始使用。
+
+你可以下载特定区域的地图数据，然后编辑这些数据。编辑完成后，你可以直接把编辑完的数据上传到 OSM 服务器上。
+
+可以撤销意外的改动。上传之前，所有改动都会列成表以备复查。自动填充标签、兼容 JSOM（较多人使用的电脑端 OSM 编辑器）的预设、指向已翻译的地图特性页面的链接、以及自动完成附近街道的名称，这些特性都有助于找到合适的标签。
+
+最好在应用商店关掉 Vespucci 的自动更新，不然软件一旦更新，没上传的编辑就没了。
+
+<a href="http://vespucci.io/">vespucci.io</a>以及本地帮助页面都能查到更多信息和文档。
+
+不要在这里报告问题或者寻求帮助，可以看这篇 FAQ<a href="http://vespucci.io/tutorials/faq/#why-cant-you-provide-technical-support-on-the-google-play-store-review-section">《为什么我们无法在 Play 商店评论区提供帮助以及受理问题》</a>。你可以直接在软件里<a href="http://vespucci.io/help/en/Introduction/#reporting-problems">报告问题</a>，这样不需要 Github 账号，或者直接去<a href="https://github.com/MarcusWolschon/osmeditor4android/issues">问题跟踪器</a>。
+
+“OpenStreetMap”、“OSM”和放大镜 Logo 都属于 <a href="https://osmfoundation.org/">OpenStreetMap 基金会</a>。Vespucci 跟 OpenStreetMap 基金会没有关联。

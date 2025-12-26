@@ -8,6 +8,6 @@ We recommend disabling auto-updates for Vespucci so that you can upload your edi
 
 More information and documentation can be found on <a href="http://vespucci.io/">vespucci.io</a> and in the on-device help.
 
-Please do not report problems here or ask for support, see <a href="http://vespucci.io/tutorials/faq/#why-cant-you-provide-technical-support-on-the-google-play-store-review-section">why we can't provide support and accept issues on the play store review section</a>. You can  <a href="http://vespucci.io/help/en/Introduction/#reporting-problems">report issues </a> directly from the app without a github account or go directly to <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">the issue tracker</a>.
+Please do not report problems or ask for support on the google playstore, see <a href="http://vespucci.io/tutorials/faq/#why-cant-you-provide-technical-support-on-the-google-play-store-review-section">why we can't provide support and accept issues on the play store review section</a>. You can  <a href="http://vespucci.io/help/en/Introduction/#reporting-problems">report issues </a> directly from the app without a github account or go directly to <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">the issue tracker</a>.
 
 OpenStreetMap, OSM and the magnifying glass logo are trademarks of the <a href="https://osmfoundation.org/">OpenStreetMap Foundation</a>. The Vespucci app is not endorsed by or affiliated with the OpenStreetMap Foundation. 

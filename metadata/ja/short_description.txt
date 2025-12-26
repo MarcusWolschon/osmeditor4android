@@ -1,0 +1,1 @@
+Vespucci はAndroid向けの中では最も多機能なOpenStreetMap 用の編集ソフトです。
