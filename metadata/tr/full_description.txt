@@ -1,0 +1,13 @@
+Vespucci, OpenStreetMap verilerini düzenlemek için gelişmiş bir açık kaynaklı araçtır, bir harita görüntüleyici veya navigasyon uygulaması değildir. Kullanmak için bir <a href="http://www.openstreetmap.org/">OpenStreetMap hesabına</a> ihtiyacınız olacak.
+
+Belirli bir alanın harita verilerini indirebilir ve haritayı düzenleyebilirsiniz. Düzenledikten sonra, doğrudan OSM sunucularına yükleyebilirsiniz.
+
+Herhangi bir kazara değişiklik geri alınabilir ve tüm değişiklikler yüklenmeden önce gözden geçirmek üzere listelenir. Etiket otomatik tamamlama, JOSM uyumlu öntanımlar, çevrilmiş harita özellikleri sayfalarına bağlantılar ve hatta yakındaki sokak adlarını otomatik olarak tamamlama, kullanılacak doğru etiketleri bulmanıza yardımcı olur.
+
+Uygulama güncellemelerinden önce düzenlemelerinizi yükleyebilmeniz için Vespucci için otomatik güncellemeleri devre dışı bırakmanızı öneririz.
+
+Daha fazla bilgilendirme ve belgeleme <a href="http://vespucci.io/">vespucci.io</a> adresinde ve cihazdaki yardımda bulunabilir.
+
+Lütfen sorunları burada bildirmeyin ya da destek için sormayınız, <a href="http://vespucci.io/tutorials/faq/#why-cant-you-provide-technical-support-on-the-google-play-store-review-section"> Play Store inceleme bölümünde neden destek sağlayamadığımızı ve sorunları kabul edemediğimizi görebilirsiniz</a>. Sorunları <a href="http://vespucci.io/help/en/Introduction/#reporting-problems"> doğrudan GITHUB hesabı olmadan uygulamadan bildirebilir ya da doğrudan <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">sorun izleyicisine gidebilirsiniz</a>.
+
+OpenStreetMap, OSM ve büyüteç logosu, <a href="https://osmfoundation.org/">OpenStreetMap Foundation</a>'ın ticari markalarıdır. Vespucci uygulaması OpenStreetMap Foundation tarafından onaylanmış veya ona bağlı değildir. 

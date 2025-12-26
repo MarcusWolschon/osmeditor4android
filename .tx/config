@@ -24,12 +24,6 @@ source_lang  = en
 minimum_perc = 100
 lang_map     = cs: cs-rCZ, pt_BR: pt-rBR, sv_SE: sv-rSE, pa_PK: pa-rPK, zh_TW: zh-rTW, zh_HK: zh-rHK, zh_CN: zh-rCN, id: in, he: iw, ca_ES: ca-rES
 
-[o:openstreetmap:p:vespucci:r:blurbtxt]
-file_filter  = build/tmp/playstore/<lang>/blurb.txt
-source_file  = documentation/docs/playstore/en/blurb.txt
-source_lang  = en
-minimum_perc = 100
-
 [o:openstreetmap:p:vespucci:r:bugfilterxml]
 file_filter  = src/main/res/values-<lang>/bugfilter.xml
 source_file  = src/main/res/values/bugfilter.xml
@@ -87,12 +81,6 @@ source_lang  = en
 minimum_perc = 90
 lang_map     = he: iw, pa_PK: pa-rPK, zh_HK: zh-rHK, zh_CN: zh-rCN, id: in, sv_SE: sv-rSE, ca_ES: ca-rES, cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR
 
-[o:openstreetmap:p:vespucci:r:titletxt]
-file_filter  = build/tmp/playstore/<lang>/title.txt
-source_file  = documentation/docs/playstore/en/title.txt
-source_lang  = en
-minimum_perc = 100
-
 [o:openstreetmap:p:vespucci:r:voicexml]
 file_filter  = src/main/res/values-<lang>/voice.xml
 source_file  = src/main/res/values/voice.xml
@@ -100,3 +88,23 @@ source_lang  = en
 minimum_perc = 100
 lang_map     = sv_SE: sv-rSE, id: in, he: iw, zh_TW: zh-rTW, pt_BR: pt-rBR, zh_CN: zh-rCN, pa_PK: pa-rPK, cs: cs-rCZ, zh_HK: zh-rHK, ca_ES: ca-rES
 
+[o:openstreetmap:p:vespucci:r:titletxt]
+file_filter  = metadata/<lang>/title.txt
+source_file  = metadata/en-US/title.txt
+source_lang  = en
+minimum_perc = 100
+lang_map     = cs: cs-CZ, pt_BR: pt-BR, sv_SE: sv-SE, pa_PK: pa-PK, zh_TW: zh-TW, zh_HK: zh-HK, zh_CN: zh-CN, id: in, he: iw, ca_ES: ca-ES
+
+[o:openstreetmap:p:vespucci:r:short_descriptiontxt]
+file_filter  = metadata/<lang>/short_description.txt
+source_file  = metadata/en-US/short_description.txt
+source_lang  = en
+minimum_perc = 100
+lang_map     = cs: cs-CZ, pt_BR: pt-BR, sv_SE: sv-SE, pa_PK: pa-PK, zh_TW: zh-TW, zh_HK: zh-HK, zh_CN: zh-CN, id: in, he: iw, ca_ES: ca-ES
+
+[o:openstreetmap:p:vespucci:r:full_descriptiontxt]
+file_filter  = metadata/<lang>/full_description.txt
+source_file  = metadata/en-US/full_description.txt
+source_lang  = en
+minimum_perc = 100
+lang_map     = cs: cs-CZ, pt_BR: pt-BR, sv_SE: sv-SE, pa_PK: pa-PK, zh_TW: zh-TW, zh_HK: zh-HK, zh_CN: zh-CN, id: in, he: iw, ca_ES: ca-ES

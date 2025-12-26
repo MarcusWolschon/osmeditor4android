@@ -1,0 +1,13 @@
+Vespucci je pokročilý opensourcový editor OpenStreetMap dat, není to prohlížeč map, nebo navigace. Pro použíbání budete potřebovat <a href="http://www.openstreetmap.org/">OpenStreetMap účet</a>.
+
+Můžete stáhnout data pro určitou oblast a upravovat je. Po skončení úprav je můžete nahrát na OSM servery.
+
+Jakékoliv nechtěné změny mohou být vzaty zpět, všechny změny jsou vypsány v seznamu pro kontrolu před nahráním. Automatické dokončování štítků (tags), JOSM kompatibilní předvolby, odkazy na přeložené mapy a dokonce i automatické doplňování názvů sousedních ulic vím pomohou najít správné štítky, které použít.
+
+Doporučujeme zakázat automatické aktualizace Vespucci, abyste před aktualizací aplikace mohli nahrát vaše změny.
+
+Více informací a dokumentaci můžete najít na <a href="http://vespucci.io/">vespucci.io</a> a v nápovědě aplikace.
+
+Nehlaste zde žádné problémy, ani nepožadujte o podporu, podívejte se, <a href="http://vespucci.io/tutorials/faq/#why-cant-you-provide-technical-support-on-the-google-play-store-review-section">proč nemůžeme poskytnout podporu a přijměte problémy v sekci kontroly Play store</a>. Problémy můžete <a href="http://vespucci.io/help/en/Introduction/#reporting-problems">nahlásit</a> přímo z aplikace bez účtu github nebo jít přímo do <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">trackeru problémů</a>.
+
+OpenStreetMap, OSM and logo lupy jsou ochranné známky <a href="https://osmfoundation.org/">OpenStreetMap nadace</a>. Aplikace Vespucci není jakýmkoliv způsobem spojena, nebo schválena nadací OpenStreetMap.

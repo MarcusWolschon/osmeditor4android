@@ -1,0 +1,1 @@
+A Vespucci a legátfogóbb OpenStreetMap-szerkesztő Androidra.
