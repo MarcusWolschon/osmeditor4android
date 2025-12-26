@@ -1,0 +1,13 @@
+Vespucci 是編輯開放街圖資料相當先進的開源工具，並不是地品檢視器或是導航 app，你也會需要<a href="http://www.openstreetmap.org/">開放街圖帳號</a>才能使用。
+
+你可以下載特定區域的地圖資料並且編輯，編輯之後，你可以直接上傳到 OSM 伺服器。
+
+任何意外的變動都可以復原，所有的變動在上傳前都會被列出來被複核。標籤自動完成，JOSM 相容的預設組合，連結到翻譯過的地圖圖徽頁面，甚至還有自動完成鄰近的道路名稱，幫助找到最適合使用的標籤。
+
+我們建議關閉 Vespucci 的自動更新功能，讓人可以在 app 更前前先上傳編輯資料。
+
+更多資訊和文件能夠在<a href="http://vespucci.io/">vespucci.io</a>以及裝置內的說明文件中找得到。
+
+請不要在這裡回報問題或是請求支援，請見<a href="http://vespucci.io/tutorials/faq/#why-cant-you-provide-technical-support-on-the-google-play-store-review-section"> 為何我們無法在 Play 商城評論區提供支援與接受問題回報</a>。你可以<a href="http://vespucci.io/help/en/Introduction/#reporting-problems">在 app 裡不用 Github 帳號直接回報問題</a>，或是<a href="https://github.com/MarcusWolschon/osmeditor4android/issues">在問題追蹤器回報</a>。
+
+開放街圖，OSM 和放大鏡 logo 都是<a href="https://osmfoundation.org/">開放街圖基金會</a>的註冊商標。Vespucci app 沒有鼓吹或是暗示與開放街圖基金會的關係。
