@@ -942,7 +942,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     if (!currentServerId.equals(id)) {
                         final TileLayerSource tileServer = TileLayerSource.get(activity, id, true);
                         if (tileServer != null) {
-                            MenuItem item = menu.add(tileServer.getName());
+                            MenuItem item = menu.add(1, Menu.NONE, Menu.NONE, tileServer.getName());
                             item.setOnMenuItemClickListener(unused -> {
                                 if (tileServer != null) {
                                     TableRow row = (TableRow) button.getTag();
@@ -957,8 +957,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                         }
                     }
                     if (i == tileServerIds.length - 1) {
-                        MenuItem divider = menu.add("");
-                        divider.setEnabled(false);
+                        menu.setGroupDividerEnabled(true);
                     }
                 }
 
