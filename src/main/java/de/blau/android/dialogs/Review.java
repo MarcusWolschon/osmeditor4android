@@ -30,6 +30,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Dialog for review of changes (cut down version of ReviewAndUpload
@@ -44,7 +45,8 @@ public class Review extends AbstractReviewDialog {
 
     private static final String STATE_FILENAME = "review_state" + "." + FileExtensions.RES;
 
-    private ListView listView;
+    private ListView    listView;
+    private Set<String> checked;
 
     /**
      * Instantiate and show the dialog
@@ -126,14 +128,13 @@ public class Review extends AbstractReviewDialog {
         });
 
         AppCompatDialog dialog = builder.create();
-        dialog.setOnShowListener((DialogInterface d) -> ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(false));
-
+        checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
+        dialog.setOnShowListener((DialogInterface d) -> ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(!Util.isEmpty(checked)));
         return dialog;
     }
 
     @Override
     protected void createChangesView() {
-        Set<String> checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
         addChangesToView(getActivity(), listView, elements, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item_with_checkbox,
                 (OsmElement e) -> checked != null && checked.contains(getElementKey(e)), () -> {
                     ValidatorArrayAdapter adapter = (ValidatorArrayAdapter) listView.getAdapter();

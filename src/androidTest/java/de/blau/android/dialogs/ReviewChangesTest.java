@@ -277,13 +277,29 @@ public class ReviewChangesTest {
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
 
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_review), true, false));
-
+       
         UiObject2 itemText = TestUtils.findObjectWithText(device, false, "Dietikonberg", 1000, false);
         assertNotNull(itemText);
+        
+        UiSelector uiSelector0 = new UiSelector().className("android.widget.Button").instance(0); //
+        UiObject uploadButton = device.findObject(uiSelector0);
+        try {
+            assertFalse(uploadButton.isEnabled());
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
         UiObject2 itemCheckBox = itemText.getParent().findObject(By.res(device.getCurrentPackageName() + ":id/checkBox1"));
 
         itemCheckBox.click();
         assertTrue(itemCheckBox.isChecked());
+        
+        // should be enabled now
+        uploadButton = device.findObject(uiSelector0);
+        try {
+            assertTrue(uploadButton.isEnabled());
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
 
         UiSelector uiSelector1 = new UiSelector().className("android.widget.Button").instance(1); //
 
@@ -303,5 +319,12 @@ public class ReviewChangesTest {
         assertNotNull(itemText);
         itemCheckBox = itemText.getParent().findObject(By.res(device.getCurrentPackageName() + ":id/checkBox1"));
         assertTrue(itemCheckBox.isChecked());
+        // still enabled
+        uploadButton = device.findObject(uiSelector0);
+        try {
+            assertTrue(uploadButton.isEnabled());
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
     }
 }
