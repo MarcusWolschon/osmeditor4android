@@ -62,6 +62,7 @@ public class ReviewChangesTest {
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
+        main.deleteFile(Review.STATE_FILENAME);
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
@@ -105,6 +106,7 @@ public class ReviewChangesTest {
      */
     @Test
     public void reviewChanges2() {
+        
         Logic logic = App.getLogic();
         Node bd = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
         assertNotNull(bd);
@@ -306,10 +308,26 @@ public class ReviewChangesTest {
 
         UiObject2 itemText = TestUtils.findObjectWithText(device, false, "Dietikonberg", 1000, false);
         assertNotNull(itemText);
+
+        UiSelector uiSelector0 = new UiSelector().className("android.widget.Button").instance(0); //
+        UiObject uploadButton = device.findObject(uiSelector0);
+        try {
+            assertFalse(uploadButton.isEnabled());
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
         UiObject2 itemCheckBox = itemText.getParent().findObject(By.res(device.getCurrentPackageName() + ":id/checkBox1"));
 
         itemCheckBox.click();
         assertTrue(itemCheckBox.isChecked());
+
+        // should be enabled now
+        uploadButton = device.findObject(uiSelector0);
+        try {
+            assertTrue(uploadButton.isEnabled());
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
 
         UiSelector uiSelector1 = new UiSelector().className("android.widget.Button").instance(1); //
 
@@ -329,5 +347,12 @@ public class ReviewChangesTest {
         assertNotNull(itemText);
         itemCheckBox = itemText.getParent().findObject(By.res(device.getCurrentPackageName() + ":id/checkBox1"));
         assertTrue(itemCheckBox.isChecked());
+        // still enabled
+        uploadButton = device.findObject(uiSelector0);
+        try {
+            assertTrue(uploadButton.isEnabled());
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
     }
 }
