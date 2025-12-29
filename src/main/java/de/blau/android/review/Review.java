@@ -39,6 +39,7 @@ import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Dialog for review of changes (cut down version of ReviewAndUpload
@@ -51,10 +52,11 @@ public class Review extends AbstractReviewDialog {
 
     public static final String TAG = "fragment_review";
 
-    private static final String STATE_FILENAME = "review_state" + "." + FileExtensions.RES;
+    static final String STATE_FILENAME = "review_state" + "." + FileExtensions.RES;
 
     private View     layout;
     private ListView listView;
+    private Set<String> checked;
 
     /**
      * Instantiate and show the dialog
@@ -128,7 +130,8 @@ public class Review extends AbstractReviewDialog {
         builder.setNeutralButton(R.string.review_upload_selected, (DialogInterface dialog, int which) -> upload(activity));
 
         AppCompatDialog dialog = builder.create();
-        dialog.setOnShowListener((DialogInterface d) -> ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(false));
+        checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
+        dialog.setOnShowListener((DialogInterface d) -> ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(!Util.isEmpty(checked)));
 
         return dialog;
     }
@@ -159,7 +162,8 @@ public class Review extends AbstractReviewDialog {
 
         final Button positive = (Button) layout.findViewById(R.id.btn_positive);
         positive.setOnClickListener((View v) -> upload(getActivity()));
-        positive.setEnabled(false);
+        checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
+        positive.setEnabled(!Util.isEmpty(checked));
         final Button neutral = (Button) layout.findViewById(R.id.btn_neutral);
         neutral.setOnClickListener((View v) -> createChangesView());
         ViewGroupCompat.installCompatInsetsDispatch(layout);
@@ -169,7 +173,6 @@ public class Review extends AbstractReviewDialog {
 
     @Override
     protected void createChangesView() {
-        Set<String> checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
         addChangesToView(getActivity(), listView, null, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item_with_checkbox,
                 (OsmElement e) -> checked != null && checked.contains(getElementKey(e)), () -> {
                     ValidatorArrayAdapter adapter = (ValidatorArrayAdapter) listView.getAdapter();
@@ -209,13 +212,13 @@ public class Review extends AbstractReviewDialog {
      */
     private void saveState() {
         Log.d(DEBUG_TAG, "Saving selection state");
-        HashSet<String> checked = new HashSet<>();
+        HashSet<String> state = new HashSet<>();
         for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
             if (e.selected) {
-                checked.add(getElementKey(e.element));
+                state.add(getElementKey(e.element));
             }
         }
-        new SavingHelper<HashSet<String>>().save(getContext(), STATE_FILENAME, checked, false);
+        new SavingHelper<HashSet<String>>().save(getContext(), STATE_FILENAME, state, false);
     }
 
     @Override
