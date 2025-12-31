@@ -1459,8 +1459,9 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
                                                    // a better idea to do so
                 && tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(way);
         boolean isMemberOfSelectedRelation = tmpDrawingInEditRange && tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);
+        boolean isClickable = tmpClickableElements != null && tmpClickableElements.contains(way);
 
-        if (zoomLevel < style.getMinVisibleZoom() || (style.dontRender() && !(isSelected || isMemberOfSelectedRelation))) {
+        if (zoomLevel < style.getMinVisibleZoom() || (style.dontRender() && !(isSelected || isMemberOfSelectedRelation || isClickable))) {
             return;
         }
 
@@ -1492,7 +1493,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         if (drawTolerance) {
             if (showTolerance && tmpClickableElements == null) {
                 canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint);
-            } else if (tmpClickableElements != null && tmpClickableElements.contains(way)) {
+            } else if (isClickable) {
                 canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint2);
             }
         }
