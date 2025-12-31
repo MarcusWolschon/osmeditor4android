@@ -86,6 +86,8 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             });
         }
 
+        // And add a preference item in your preferences XML that calls this
+
         Preference advPrefs = getPreferenceScreen().findPreference(r.getString(R.string.config_advancedprefs_key));
         if (advPrefs != null) {
             advPrefs.setOnPreferenceClickListener(preference -> {

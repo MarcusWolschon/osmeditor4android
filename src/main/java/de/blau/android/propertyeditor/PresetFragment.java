@@ -40,6 +40,7 @@ import de.blau.android.R;
 import de.blau.android.contract.Github;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetClickHandler;
@@ -143,6 +144,9 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         mListener = (OnPresetSelectedListener) parent;
         propertyEditorListener = (PropertyEditorListener) parent;
         editorUpdate = (EditorUpdate) parent;
+
+        actionMap.put(getString(R.string.ACTION_HELP),
+                new Shortcuts.Action(R.string.action_help, () -> HelpViewer.start(getActivity(), R.string.help_presets)));
     }
 
     private final class SearchResultsDisplay implements Runnable {

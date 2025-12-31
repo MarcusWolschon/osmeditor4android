@@ -48,6 +48,7 @@ import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.photos.Photo;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
@@ -195,10 +196,16 @@ public class App extends Application implements android.app.Application.Activity
     private static final Object areaTagsLock = new Object();
 
     /**
-     * Uel templates for specific tag keys
+     * Url templates for specific tag keys
      */
     private static Tag2Link     tag2Link;
     private static final Object tag2LinkLock = new Object();
+
+    /**
+     * Keyboard shortcuts
+     */
+    private static Shortcuts    shortcuts;
+    private static final Object shortcutsLock = new Object();
 
     private static Configuration configuration = null;
 
@@ -838,6 +845,33 @@ public class App extends Application implements android.app.Application.Activity
                 tag2Link = new Tag2Link(ctx);
             }
             return tag2Link;
+        }
+    }
+
+    /**
+     * Get the keyboard shortcuts
+     * 
+     * @param ctx am Android Context
+     * @return an KeyboardShortcuts object
+     */
+    @NonNull
+    public static Shortcuts getKeyboardShortcuts(@NonNull Context ctx) {
+        synchronized (shortcutsLock) {
+            if (shortcuts == null) {
+                shortcuts = new Shortcuts(ctx);
+            }
+            return shortcuts;
+        }
+    }
+
+    /**
+     * Reset the keyboard shortcuts
+     * 
+     * @param ctx am Android Context
+     */
+    public static void resetKeyboardShortcuts() {
+        synchronized (shortcutsLock) {
+            shortcuts = null;
         }
     }
 

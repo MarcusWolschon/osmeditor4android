@@ -38,6 +38,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
@@ -46,11 +47,13 @@ import androidx.viewpager.widget.ViewPager;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Feedback;
+import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.contract.Github;
+import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.IllegalOperationException;
@@ -66,6 +69,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
@@ -234,6 +238,11 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         Util.implementsInterface(context, ControlListener.class);
         controlListener = (ControlListener) context;
         setHasOptionsMenu(true);
+        FragmentActivity activity = getActivity();
+        actionMap.put(getString(R.string.ACTION_HELP),
+                new Shortcuts.Action(R.string.action_help, () -> HelpViewer.start(activity, R.string.help_propertyeditor)));
+        actionMap.put(getString(R.string.ACTION_INFO), new Shortcuts.Action(R.string.action_info, () -> ElementInfo.showDialog(activity, element)));
+        actionMap.put(getString(R.string.ACTION_KEEP), new Shortcuts.Action(R.string.action_keep, this::updateAndFinish));
     }
 
     @Override

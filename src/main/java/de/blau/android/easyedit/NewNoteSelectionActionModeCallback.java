@@ -9,13 +9,14 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.layer.tasks.MapOverlay;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.Util;
 
 public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG = NewNoteSelectionActionModeCallback.class.getSimpleName().substring(0, Math.min(23, NewNoteSelectionActionModeCallback.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = NewNoteSelectionActionModeCallback.class.getSimpleName().substring(0,
+            Math.min(23, NewNoteSelectionActionModeCallback.class.getSimpleName().length()));
 
     private static final int MENUITEM_VIEW   = 1;
     private static final int MENUITEM_DELETE = 2;
@@ -34,6 +35,8 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
         super(manager);
         this.note = note;
         this.layer = layer;
+
+        actionMap.put(main.getString(R.string.ACTION_DELETE), new Shortcuts.Action(R.string.action_delete, this::menuDelete));
     }
 
     @Override
@@ -111,14 +114,5 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
             return true;
         }
         return false;
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_remove)) {
-            menuDelete();
-            return true;
-        }
-        return super.processShortcut(c);
     }
 }

@@ -5,6 +5,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -24,6 +25,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.search.Search;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ScreenMessage;
@@ -74,6 +76,16 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
             }
         }.execute();
         undoListener = main.new UndoListener();
+
+        actionMap.put(main.getString(R.string.ACTION_TAGEDIT),
+                new Shortcuts.Action(R.string.action_tagedit, () -> main.performTagEdit(selection, false, false)));
+        actionMap.put(main.getString(R.string.ACTION_PASTE_TAGS), new Shortcuts.Action(R.string.action_paste_tags, () -> {
+            Map<String, String> tags = App.getTagClipboard(main).paste();
+            if (tags != null) {
+                main.performTagEdit(selection, false, new HashMap<>(tags), false);
+            }
+        }));
+        actionMap.put(main.getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_undo, () -> undoListener.onClick(null)));
     }
 
     /**
@@ -328,17 +340,5 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
         Log.d(DEBUG_TAG, "onBackPressed");
         deselectOnExit = true;
         return super.onBackPressed(); // call the normal stuff
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
-            main.performTagEdit(selection, false, false);
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_undo)) {
-            undoListener.onClick(null);
-            return true;
-        }
-        return super.processShortcut(c);
     }
 }
