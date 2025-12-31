@@ -31,6 +31,8 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.KeyboardShortcut;
+import de.blau.android.util.KeyboardShortcut.MetaKey;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -86,6 +88,11 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         super(manager, way);
         Log.d(DEBUG_TAG, "constructor");
         findConnectedWays(way);
+
+        actionMap.put(KeyboardShortcut.ACTION_SQUARE, new KeyboardShortcut.Action(R.string.action_square, () -> {
+            logic.performOrthogonalize(main, (Way) element);
+            manager.invalidate();
+        }));
     }
 
     /**
@@ -408,15 +415,5 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     @Override
     protected void update() {
         findConnectedWays((Way) element);
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_square)) {
-            logic.performOrthogonalize(main, (Way) element);
-            manager.invalidate();
-            return true;
-        }
-        return super.processShortcut(c);
     }
 }

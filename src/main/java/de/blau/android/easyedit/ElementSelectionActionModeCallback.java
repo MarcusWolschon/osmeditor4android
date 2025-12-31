@@ -71,6 +71,8 @@ import de.blau.android.tasks.Task.State;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.TodoFragment;
+import de.blau.android.util.KeyboardShortcut.MetaKey;
+import de.blau.android.util.KeyboardShortcut;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
@@ -153,6 +155,27 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         super(manager);
         this.element = element;
         undoListener = main.new UndoListener();
+
+        // additional keyboard actions
+        actionMap.put(KeyboardShortcut.ACTION_COPY, new KeyboardShortcut.Action(R.string.action_copy, () -> {
+            logic.copyToClipboard(main, element);
+            manager.finish();
+        }));
+        actionMap.put(KeyboardShortcut.ACTION_CUT, new KeyboardShortcut.Action(R.string.action_cut, () -> {
+            logic.cutToClipboard(main, element);
+            manager.finish();
+        }));
+        actionMap.put(KeyboardShortcut.ACTION_INFO, new KeyboardShortcut.Action(R.string.action_info, () -> ElementInfo.showDialog(main, element)));
+        actionMap.put(KeyboardShortcut.ACTION_TAGEDIT,
+                new KeyboardShortcut.Action(R.string.action_tagedit, () -> main.performTagEdit(element, null, false, false)));
+        actionMap.put(KeyboardShortcut.ACTION_PASTE_TAGS, new KeyboardShortcut.Action(R.string.action_paste_tags, () -> {
+            Map<String, String> tags = App.getTagClipboard(main).paste();
+            if (tags != null) {
+                main.performTagEdit(element, null, new HashMap<>(tags), false);
+            }
+        }));
+        actionMap.put(KeyboardShortcut.ACTION_UNDO, new KeyboardShortcut.Action(R.string.action_undo, () -> undoListener.onClick(null)));
+        actionMap.put(KeyboardShortcut.ACTION_DELETE, new KeyboardShortcut.Action(R.string.action_delete, () -> menuDelete(mode)));
     }
 
     @Override
@@ -681,38 +704,6 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             logic.deselectAll();
         }
         super.onDestroyActionMode(mode);
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
-            logic.copyToClipboard(main, element);
-            manager.finish();
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_cut)) {
-            logic.cutToClipboard(main, element);
-            manager.finish();
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_info)) {
-            ElementInfo.showDialog(main, element);
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
-            main.performTagEdit(element, null, false, false);
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_paste_tags)) {
-            Map<String, String> tags = App.getTagClipboard(main).paste();
-            if (tags != null) {
-                main.performTagEdit(element, null, new HashMap<>(tags), false);
-            }
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_undo)) {
-            undoListener.onClick(null);
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_remove)) {
-            menuDelete(mode);
-            return true;
-        }
-        return super.processShortcut(c);
     }
 
     /**
