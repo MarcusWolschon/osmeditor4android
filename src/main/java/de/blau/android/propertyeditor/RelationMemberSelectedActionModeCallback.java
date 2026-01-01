@@ -243,55 +243,63 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             ((RelationMembersFragment) caller).scrollToRow(action == MENU_ITEM_TOP ? 0 : size - 1);
             return true;
         case MENU_ITEM_DOWNLOAD:
-            Progress.showDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
-            PostAsyncActionHandler handler = () -> {
-                if (currentAction != null) {
-                    for (int j = 0; j < selectedCount; j++) {
-                        MemberEntry row = selected.get(j);
-                        if (!row.downloaded()) {
-                            updateRow(row);
-                            selected.set(j, row);
-                        }
-                    }
-                    currentAction.finish();
-                    Progress.dismissDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
-                    update();
-                }
-            };
-            final Logic logic = App.getLogic();
-            if (selectedCount < size) {
-                List<Long> nodes = new ArrayList<>();
-                List<Long> ways = new ArrayList<>();
-                List<Long> relations = new ArrayList<>();
-                for (i = 0; i < selectedCount; i++) {
-                    MemberEntry row = selected.get(i);
-                    if (!row.downloaded()) {
-                        switch (row.getType()) {
-                        case Node.NAME:
-                            nodes.add(row.getRef());
-                            break;
-                        case Way.NAME:
-                            ways.add(row.getRef());
-                            break;
-                        case Relation.NAME:
-                            relations.add(row.getRef());
-                            break;
-                        default:
-                            Log.e(DEBUG_TAG, "Unknown member tyoe " + row.getType());
-                        }
-                    }
-                }
-                logic.downloadElements(caller.getActivity(), nodes, ways, relations, handler);
-            } else {
-                logic.downloadElement(caller.getActivity(), Relation.NAME, ((RelationMembersFragment) caller).getOsmId(), true, false, handler);
-            }
-            invalidate();
+            downloadSelected(selected, selectedCount);
             return true;
         default:
             return false;
 
         }
         return true;
+    }
+
+    /**
+     * Download any selected members
+     * 
+     * @param selected List of selected MemberEntry
+     * @param selectedCount count
+     */
+    private void downloadSelected(final List<MemberEntry> selected, final int selectedCount) {
+        int i;
+        Progress.showDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
+        PostAsyncActionHandler handler = () -> {
+            if (currentAction != null) {
+                for (int j = 0; j < selectedCount; j++) {
+                    MemberEntry row = selected.get(j);
+                    if (!row.downloaded()) {
+                        updateRow(row);
+                        selected.set(j, row);
+                    }
+                }
+                currentAction.finish();
+                Progress.dismissDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
+                update();
+            }
+        };
+        final Logic logic = App.getLogic();
+        List<Long> nodes = new ArrayList<>();
+        List<Long> ways = new ArrayList<>();
+        List<Long> relations = new ArrayList<>();
+        for (i = 0; i < selectedCount; i++) {
+            MemberEntry row = selected.get(i);
+            if (!row.downloaded()) {
+                final long ref = row.getRef();
+                switch (row.getType()) {
+                case Node.NAME:
+                    nodes.add(ref);
+                    break;
+                case Way.NAME:
+                    ways.add(ref);
+                    break;
+                case Relation.NAME:
+                    relations.add(ref);
+                    break;
+                default:
+                    Log.e(DEBUG_TAG, "Unknown member tyoe " + row.getType());
+                }
+            }
+        }
+        logic.downloadElements(caller.getActivity(), nodes, ways, relations, handler);
+        invalidate();
     }
 
     /**
