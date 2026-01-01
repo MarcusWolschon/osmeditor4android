@@ -3983,10 +3983,10 @@ public class Logic {
                 try {
                     final OsmParser osmParser = new OsmParser(true);
                     Server server = getPrefs().getServer();
-                    if (nodes != null && !nodes.isEmpty()) {
+                    if (!Util.isEmpty(nodes)) {
                         multiFetch(ctx, server, osmParser, Node.NAME, toLongArray(nodes));
                     }
-                    if (ways != null && !ways.isEmpty()) {
+                    if (!Util.isEmpty(ways)) {
                         final long[] wayIds = toLongArray(ways);
                         Storage storage = multiFetch(ctx, server, osmParser, Way.NAME, wayIds);
                         for (long wayId : wayIds) {
@@ -3994,7 +3994,7 @@ public class Logic {
                             downloadMissingWayNodes(ctx, server, osmParser, way);
                         }
                     }
-                    if (relations != null && !relations.isEmpty()) {
+                    if (!Util.isEmpty(relations)) {
                         multiFetch(ctx, server, osmParser, Relation.NAME, toLongArray(relations));
                     }
                     getDelegator().mergeData(osmParser.getStorage(), null);
