@@ -701,6 +701,10 @@
     <string name="toast_note_reopened">Note reopened</string>
     <string name="toast_untrusted_certificate">Untrusted certificate\n%1$s</string>
     <string name="toast_element_may_have_been_moved">Element may have been moved</string>
+    <string name="toast_configuration_export_failed">Configuration export failed\n\n%1$s</string>
+    <string name="toast_configuration_import_failed">Configuration import failed\n\n%1$s</string>
+    <string name="toast_configuration_export_success">Configuration successfully exported!</string>
+    <string name="toast_configuration_import_success">Configuration successfully imported!</string>
     <!-- Validation -->
     <string name="toast_unsurveyed_road">Unsurveyed road</string>
     <string name="toast_noname">Road lacks name or ref</string>
@@ -1163,6 +1167,8 @@
     <string name="menu_tools_remove_egm">Remove EGM</string>
     <string name="menu_tools_import_data_style">Import data style…</string>
     <string name="menu_tools_load_keys">Load keys from file…</string>
+    <string name="menu_tools_export_configuration">Export configuration…</string>
+    <string name="menu_tools_import_configuration">Import configuration…</string>
     <!--  -->
     <string name="menu_modes">Modes…</string>
     <string name="menu_simple_actions">Simple mode</string>  

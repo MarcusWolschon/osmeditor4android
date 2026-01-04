@@ -34,17 +34,17 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private static final int    TAG_LEN   = Math.min(23, KeyDatabaseHelper.class.getSimpleName().length());
     private static final String DEBUG_TAG = KeyDatabaseHelper.class.getSimpleName().substring(0, TAG_LEN);
 
-    static final String         DATABASE_NAME    = "keys";
+    public static final String  DATABASE_NAME    = "keys";
     private static final int    DATABASE_VERSION = 4;
     private static final int    FIELD_COUNT      = 4;
     private static final String AND              = " AND ";
     private static final String NAME_AND         = "=? AND ";
 
-    private static final String KEYS_TABLE   = "keys";
+    public static final String  KEYS_TABLE   = "keys";
     private static final String NAME_FIELD   = "name";
     private static final String TYPE_FIELD   = "type";
     private static final String KEY_FIELD    = "key";
-    private static final String CUSTOM_FIELD = "custom";
+    public static final String  CUSTOM_FIELD = "custom";
     private static final String ADD1_FIELD   = "add1";
     private static final String ADD2_FIELD   = "add2";
     private static final String TRUE         = "true";

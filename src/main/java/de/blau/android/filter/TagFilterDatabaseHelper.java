@@ -19,13 +19,13 @@ public class TagFilterDatabaseHelper extends SQLiteOpenHelper {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TagFilterDatabaseHelper.class.getSimpleName().length());
     private static final String DEBUG_TAG = TagFilterDatabaseHelper.class.getSimpleName().substring(0, TAG_LEN);
 
-    static final String      DATABASE_NAME    = "tagfilters";
-    private static final int DATABASE_VERSION = 3;
+    public static final String DATABASE_NAME    = "tagfilters";
+    private static final int   DATABASE_VERSION = 3;
 
-    static final String FILTERENTRIES_TABLE = "filterentries";
-    static final String FILTER_COLUMN       = "filter";
+    public static final String FILTERENTRIES_TABLE = "filterentries";
+    static final String        FILTER_COLUMN       = "filter";
 
-    static final String         FILTER_NAME_TABLE = "filters";
+    public static final String  FILTER_NAME_TABLE = "filters";
     private static final String NAME_QUERY        = "SELECT rowid as _id,name FROM filters";
     private static final String CURRENT_QUERY     = "SELECT name FROM filters where current = 1";
     static final String         NAME_COLUMN       = "name";

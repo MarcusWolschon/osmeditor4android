@@ -54,21 +54,23 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
 
     private static final int DATA_VERSION = 22;
 
+    static final String DATABASE_NAME = "AdvancedPrefs";
+
     /** The ID string for the default API and the default Preset */
     public static final String ID_DEFAULT = "default";
     public static final String ID_SANDBOX = "sandbox";
     public static final String ID_OHM     = "ohm-default";
 
-    private static final String GEOCODERS_TABLE               = "geocoders";
+    static final String         GEOCODERS_TABLE               = "geocoders";
     private static final String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
     private static final String ID_DEFAULT_GEOCODER_PHOTON    = "Photon";
     private static final String VERSION_COL                   = "version";
 
-    private static final String IMAGESTORES_TABLE    = "imagestores";
-    private static final String ID_PANORAMAX_DEV     = "Panoramax developer instance";
-    public static final String  ID_WIKIMEDIA_COMMONS = "Wikimedia Commons";
+    static final String        IMAGESTORES_TABLE    = "imagestores";
+    static final String        ID_PANORAMAX_DEV     = "Panoramax developer instance";
+    public static final String ID_WIKIMEDIA_COMMONS = "Wikimedia Commons";
 
-    private static final String PRESETS_TABLE        = "presets";
+    static final String         PRESETS_TABLE        = "presets";
     private static final String ID_COL               = "id";
     private static final String POSITION_COL         = "position";
     private static final String NAME_COL             = "name";
@@ -79,9 +81,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private static final String SHORTDESCRIPTION_COL = "shortdescription";
     private static final String DESCRIPTION_COL      = "description";
 
-    private static final String APIS_TABLE            = "apis";
-    private static final String ACCESSTOKENSECRET_COL = "accesstokensecret";
-    private static final String ACCESSTOKEN_COL       = "accesstoken";
+    static final String         APIS_TABLE            = "apis";
+    static final String         ACCESSTOKENSECRET_COL = "accesstokensecret";
+    static final String         ACCESSTOKEN_COL       = "accesstoken";
     private static final String AUTH_COL              = "oauth";
     private static final String NOTESURL_COL          = "notesurl";
     private static final String READONLYURL_COL       = "readonlyurl";
@@ -90,7 +92,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private static final String TIMEOUT_COL           = "timeout";
     private static final String COMPRESSEDUPLOADS_COL = "compresseduploads";
 
-    private static final String LAYERS_TABLE   = "layers";
+    static final String         LAYERS_TABLE   = "layers";
     private static final String VISIBLE_COL    = "visible";
     private static final String TYPE_COL       = "type";
     private static final String CONTENT_ID_COL = "content_id";
@@ -120,8 +122,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param context an Android Context
      */
     public AdvancedPrefDatabase(@NonNull Context context) {
-        super(context.getApplicationContext(), "AdvancedPrefs", null, DATA_VERSION); // always use the application
-                                                                                     // context
+        super(context.getApplicationContext(), DATABASE_NAME, null, DATA_VERSION); // always use the application
+                                                                                   // context
         this.context = context;
         r = context.getResources();
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);

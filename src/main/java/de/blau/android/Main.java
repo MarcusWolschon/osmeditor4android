@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -155,6 +156,7 @@ import de.blau.android.photos.ImageAction;
 import de.blau.android.photos.PhotoIndex;
 import de.blau.android.photos.TakePicture;
 import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.ImportExportConfiguration;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.PresetElementPath;
@@ -2577,6 +2579,42 @@ public class Main extends ConfigurationChangeAwareActivity
                 }
             });
             return true;
+        case R.id.menu_tools_export_config:
+            descheduleAutoLock();
+            SelectFile.save(this, MimeTypes.TEXTXML, R.string.config_configPreferredDir_key, new SaveFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                    try (OutputStream out = Main.this.getContentResolver().openOutputStream(fileUri, FileUtil.TRUNCATE_WRITE_MODE)) {
+                        ImportExportConfiguration.exportConfig(Main.this, out);
+                    } catch (IOException ex) {
+                        ScreenMessage.toastTopError(Main.this, ex.getMessage());
+                        return false;
+                    }
+                    ScreenMessage.toastTopInfo(Main.this, R.string.toast_configuration_export_success);
+                    return true;
+                }
+            });
+            return true;
+        case R.id.menu_tools_import_config:
+            descheduleAutoLock();
+            SelectFile.read(this, R.string.config_configPreferredDir_key, new ReadFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                    try (InputStream in = currentActivity.getContentResolver().openInputStream(fileUri)) {
+                        ImportExportConfiguration.importConfig(Main.this, in);
+                    } catch (IOException ex) {
+                        ScreenMessage.toastTopError(Main.this, ex.getMessage());
+                        return false;
+                    }
+                    ScreenMessage.toastTopInfo(Main.this, R.string.toast_configuration_import_success);
+                    return true;
+                }
+            });
+            return true;
         case R.id.tag_menu_reset_address_prediction:
             Address.resetLastAddresses(this);
             return true;
@@ -2819,7 +2857,7 @@ public class Main extends ConfigurationChangeAwareActivity
     private void fileNotFound(Uri fileUri) {
         try {
             ScreenMessage.toastTopError(this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
-        } catch (Exception ex) {
+        } catch (Exception e) {
             // protect against translation errors
         }
     }
