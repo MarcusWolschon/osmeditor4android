@@ -13,8 +13,8 @@ import de.blau.android.presets.PresetItem;
  *
  */
 public class IndexSearchResult {
-    int              weight; // lower better
-    final PresetItem item;
+    private int              weight; // lower better
+    private final PresetItem item;
 
     /**
      * Construct a new instance
@@ -23,8 +23,29 @@ public class IndexSearchResult {
      * @param item the PresetItem
      */
     public IndexSearchResult(int weight, @NonNull PresetItem item) {
-        this.weight = weight;
+        this.setWeight(weight);
         this.item = item;
+    }
+
+    /**
+     * @return the item
+     */
+    public PresetItem getItem() {
+        return item;
+    }
+
+    /**
+     * @return the weight
+     */
+    public int getWeight() {
+        return weight;
+    }
+
+    /**
+     * @param weight the weight to set
+     */
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     @Override
@@ -51,7 +72,7 @@ public class IndexSearchResult {
         }
         return 0;
     };
-    
+
     @Override
     public String toString() {
         return item.getName() + " " + weight;
