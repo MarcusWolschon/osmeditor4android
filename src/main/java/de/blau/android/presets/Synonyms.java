@@ -1,5 +1,7 @@
 package de.blau.android.presets;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +24,7 @@ import de.blau.android.App;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.util.IndexSearchResult;
+import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.OptimalStringAlignment;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.collections.MultiHashMap;
@@ -33,7 +36,9 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class Synonyms {
-    private static final String DEBUG_TAG = Synonyms.class.getSimpleName().substring(0, Math.min(23, Synonyms.class.getSimpleName().length()));
+    
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Synonyms.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Synonyms.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String SYNONYMS_DIR = "synonyms/";
 
@@ -49,7 +54,7 @@ public class Synonyms {
         AssetManager assetManager = ctx.getAssets();
         Locale locale = Locale.getDefault();
         Log.d(DEBUG_TAG, "Locale " + locale);
-        try (InputStream is = assetManager.open(SYNONYMS_DIR + locale + "." + FileExtensions.JSON)) {
+        try (InputStream is = assetManager.open(SYNONYMS_DIR + LocaleUtils.toBcp47Language(locale) + "." + FileExtensions.JSON)) {
             parse(is);
         } catch (IOException ioex) {
             try (InputStream is2 = assetManager.open(SYNONYMS_DIR + locale.getLanguage() + "." + FileExtensions.JSON)) {
@@ -114,26 +119,28 @@ public class Synonyms {
             if (distance == -1) {
                 distance = OptimalStringAlignment.editDistance(s, term, maxDistance);
             } else {
-                distance = 0; // literal substring match, we don't want to weight this worse than a fuzzy match
+                // literal substring or exact match, we don't want to weight this worse than a fuzzy match
+                distance = -(s.equals(term) ? SearchIndexUtils.OFFSET_EXACT_MATCH_WITHOUT_ACCENTS : SearchIndexUtils.OFFSET_MATCH_SUBSTRING);
             }
-            if ((distance >= 0 && distance <= maxDistance)) {
-                Set<String> presetNames = synonymMap.get(s);
-                for (String presetName : presetNames) {
-                    String[] parts = presetName.split("/");
-                    Set<PresetItem> items = new HashSet<>();
-                    int len = parts.length;
-                    if (len == 1) {
-                        items.addAll(getPresetItems(type, presets, parts[0] + "\t"));
-                    } else if (len >= 2) {
-                        items.addAll(getPresetItems(type, presets, parts[0] + "\t" + parts[1]));
-                        if (len > 2) {
-                            items.addAll(getPresetItems(type, presets, parts[len - 2] + "\t" + parts[len - 1]));
-                        }
+            if (distance == -1 || distance > maxDistance) {
+                continue;
+            }
+            Set<String> presetNames = synonymMap.get(s);
+            for (String presetName : presetNames) {
+                String[] parts = presetName.split("/");
+                Set<PresetItem> items = new HashSet<>();
+                int len = parts.length;
+                if (len == 1) {
+                    items.addAll(getPresetItems(type, presets, parts[0] + "\t"));
+                } else if (len >= 2) {
+                    items.addAll(getPresetItems(type, presets, parts[0] + "\t" + parts[1]));
+                    if (len > 2) {
+                        items.addAll(getPresetItems(type, presets, parts[len - 2] + "\t" + parts[len - 1]));
                     }
-                    for (PresetItem pi : items) {
-                        IndexSearchResult isr = new IndexSearchResult(distance, pi);
-                        SearchIndexUtils.addToResult(result, distance, isr);
-                    }
+                }
+                for (PresetItem pi : items) {
+                    IndexSearchResult isr = new IndexSearchResult(distance, pi);
+                    SearchIndexUtils.addToResult(result, distance, isr);
                 }
             }
         }
