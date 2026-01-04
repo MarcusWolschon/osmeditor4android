@@ -51,4 +51,9 @@ public class IndexSearchResult {
         }
         return 0;
     };
+    
+    @Override
+    public String toString() {
+        return item.getName() + " " + weight;
+    }
 }

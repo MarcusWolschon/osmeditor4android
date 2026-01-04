@@ -39,9 +39,9 @@ public final class SearchIndexUtils {
 
     private static final Pattern DEACCENT_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
 
-    private static final int OFFSET_MATCH_SUBSTRING             = 10;
+    public static final int  OFFSET_MATCH_SUBSTRING             = 10;
     private static final int OFFSET_MATCH_START                 = 15;
-    private static final int OFFSET_EXACT_MATCH_WITHOUT_ACCENTS = 20;
+    public static final int  OFFSET_EXACT_MATCH_WITHOUT_ACCENTS = 20;
     private static final int OFFSET_EXACT_MATCH_WITH_ACCENTS    = 30;
     private static final int MAN_MADE_PENALTY                   = 5;
 
@@ -169,7 +169,6 @@ public final class SearchIndexUtils {
         for (IndexSearchResult isr : App.getSynonyms(ctx).search(ctx, normalizedTerm, type, maxDistance)) {
             rawResult.put(isr, isr);
         }
-
         // search in presets
         List<MultiHashMap<String, PresetItem>> presetSeachIndices = new ArrayList<>();
         presetSeachIndices.add(App.getTranslatedPresetSearchIndex(ctx));
