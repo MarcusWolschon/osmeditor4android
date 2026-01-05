@@ -42,6 +42,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
+import ch.poole.openinghoursfragment.templates.TemplateDatabase;
+import ch.poole.openinghoursfragment.templates.TemplateDatabaseHelper;
 import de.blau.android.R;
 import de.blau.android.filter.TagFilterDatabaseHelper;
 import de.blau.android.osm.OsmXml;
@@ -93,6 +95,7 @@ public final class ImportExportConfiguration {
         databaseHelpers.put(TagFilterDatabaseHelper.DATABASE_NAME, TagFilterDatabaseHelper.class);
         databaseHelpers.put(ValidatorRulesDatabaseHelper.DATABASE_NAME, ValidatorRulesDatabaseHelper.class);
         databaseHelpers.put(KeyDatabaseHelper.DATABASE_NAME, KeyDatabaseHelper.class);
+        databaseHelpers.put(TemplateDatabaseHelper.DATABASE_NAME, TemplateDatabaseHelper.class);
     }
 
     /**
@@ -102,6 +105,13 @@ public final class ImportExportConfiguration {
         // nothing
     }
 
+    /**
+     * Export a configuration.
+     * 
+     * @param ctx an Android Context
+     * @param outputStream output stream for the XML data
+     * @throws IOException other problems
+     */
     public static void exportConfig(@NonNull Context ctx, @NonNull OutputStream outputStream) throws IOException {
         try {
             XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
@@ -129,6 +139,7 @@ public final class ImportExportConfiguration {
             sqlite(ctx, ValidatorRulesDatabaseHelper.DATABASE_NAME, ValidatorRulesDatabase.RESURVEY_TABLE, "", null, true, serializer);
             sqlite(ctx, ValidatorRulesDatabaseHelper.DATABASE_NAME, ValidatorRulesDatabase.CHECK_TABLE, "", null, true, serializer);
             sqlite(ctx, KeyDatabaseHelper.DATABASE_NAME, KeyDatabaseHelper.KEYS_TABLE, " where " + KeyDatabaseHelper.CUSTOM_FIELD, null, false, serializer);
+            sqlite(ctx, TemplateDatabaseHelper.DATABASE_NAME, TemplateDatabase.TEMPLATES_TABLE, "", null, true, serializer);
             serializer.endTag(null, CONFIGURATION);
             serializer.endDocument();
         } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException | IOException | SQLiteException e) {
@@ -138,6 +149,15 @@ public final class ImportExportConfiguration {
         }
     }
 
+    /**
+     * Import a configuration.
+     * 
+     * There is no requirement that all possible sections are present.
+     * 
+     * @param ctx an Android Context
+     * @param inputStream input stream with the XML data
+     * @throws IOException other problems
+     */
     public static void importConfig(@NonNull Context ctx, @NonNull InputStream inputStream) throws IOException {
         SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
         factory.setNamespaceAware(true);

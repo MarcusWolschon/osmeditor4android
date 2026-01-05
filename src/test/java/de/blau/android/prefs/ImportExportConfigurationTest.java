@@ -19,6 +19,7 @@ import org.robolectric.annotation.Config;
 import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
+import de.blau.android.R;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.API.Auth;
 import de.blau.android.prefs.API.AuthParams;
@@ -40,6 +41,9 @@ public class ImportExportConfigurationTest {
             db.selectAPI("test_2");
             db.setAPIAccessToken("12345", "67890");
         }
+        Preferences prefs = new Preferences(ctx);
+        prefs.setAutolockDelay(10);
+        prefs.setGeoJsonStrokeWidth(1.5f);
         File file;
         try {
             file = File.createTempFile("test.config", ".xml");
@@ -51,6 +55,8 @@ public class ImportExportConfigurationTest {
             assertTrue(read.contains("test_2"));
             assertFalse(read.contains("12345"));
             assertFalse(read.contains("67890"));
+            assertTrue(read.contains(ctx.getString(R.string.config_autoLockDelay_key)));
+            assertTrue(read.contains(ctx.getString(R.string.config_geojson_stroke_width_key)));
         } catch (IOException e) {
             fail(e.getMessage());
         }
