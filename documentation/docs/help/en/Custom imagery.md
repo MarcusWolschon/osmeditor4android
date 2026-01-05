@@ -14,7 +14,7 @@ __NOTE__ even though the URLs may look similar to those for a WMS layer, we do n
 
 __NOTE__ only a subset of all possible attributes can be set in the form, if you need access to more parameters, see [adding custom imagery from a file](https://vespucci.io/tutorials/custom_imagery/#adding-custom-imagery-sources-configuration-from-a-file).
 
-To add a custom layer goto the _Preferences_ screen and select _Custom imagery_, press the _+_ button to add a new layer, or you can select the same from the layer control, "+" menu. In the form you can set
+To add a custom layer go to the _Preferences_ screen and select _Custom imagery_, press the _+_ button to add a new layer, or you can select the same from the layer control, "+" menu. In the form you can set
 
 * a __Name__ this is what is displayed in the _Layer control_ background or overlay selection form. This field is _required_.
 * an __URL__ the URL for the source with place holders. This field is _required_.
