@@ -2,6 +2,7 @@ package de.blau.android.presets;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -262,6 +263,7 @@ public class PresetEditorTest {
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Delete), true));
                 assertTrue(TestUtils.findText(device, false,  main.getString(R.string.Delete)));
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Yes), true));
+                assertNull(TestUtils.findObjectWithText(device, false, TEST_PRESET_NAME, 1000, false));
                 TestUtils.clickHome(device, true);
                 App.resetPresets();
             } finally {
