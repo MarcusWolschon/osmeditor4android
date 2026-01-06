@@ -424,6 +424,20 @@
     <string name="select_result">Select result</string>
     <string name="merge_result">Merge result</string>
     <string name="overpass_query_would_overwrite">Result would overwrite changes! Query aborted.</string>
+    <!-- Download missing dialog -->
+    <string name="download_missing_title">Download missing presets and styles</string>
+    <string name="download_missing_message">Your system has %1$s and %2$s that have been configured but have not been downloaded yet.</string>
+    <plurals name="download_missing_presets">
+        <item quantity="zero">no presets</item>
+        <item quantity="one">one preset</item>
+        <item quantity="other">%1$d presets</item>
+    </plurals>
+    <plurals name="download_missing_styles">
+        <item quantity="zero">no styles</item>
+        <item quantity="one">one style</item>
+        <item quantity="other">%1$d styles</item>
+    </plurals>
+    <string name="download_missing_error">Download error %1$s</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>

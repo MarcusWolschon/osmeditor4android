@@ -25,7 +25,6 @@ import org.xml.sax.helpers.DefaultHandler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.contract.Schemes;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.StringWithDescription;
@@ -929,7 +928,6 @@ public class PresetParser {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
             SAXParser saxParser = factory.newSAXParser();
-
             saxParser.parse(new File(presetDir, presetFilename), new DefaultHandler() {
                 /**
                  * ${@inheritDoc}.
@@ -938,7 +936,7 @@ public class PresetParser {
                 public void startElement(String uri, String localName, String name, Attributes attr) throws SAXException {
                     if (GROUP.equals(name) || ITEM.equals(name)) {
                         String url = attr.getValue(ICON);
-                        if (isUrl(url)) {
+                        if (de.blau.android.util.Util.isUrl(url)) {
                             urls.add(url);
                         }
                     }
@@ -948,15 +946,5 @@ public class PresetParser {
             Log.e(DEBUG_TAG, "Error parsing " + presetFilename + " for URLs", e);
         }
         return urls;
-    }
-
-    /**
-     * Check for an url
-     * 
-     * @param url the url
-     * @return true if the check passes
-     */
-    public static boolean isUrl(@Nullable String url) {
-        return url != null && (url.startsWith(Schemes.HTTP + "://") || url.startsWith(Schemes.HTTPS + "://"));
     }
 }

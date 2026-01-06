@@ -4,6 +4,8 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -34,6 +36,7 @@ import de.blau.android.propertyeditor.CustomPreset;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Util;
 
 /**
  * This class provides access to complex settings like OSM APIs which consist of complex/relational data. WARNING: It
@@ -1083,6 +1086,22 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         if (presetDir.isDirectory()) {
             killDirectory(presetDir);
         }
+    }
+
+    /**
+     * Get a list of downloadable presets that haven't been downloaded
+     * 
+     * @return a List of Preset ids
+     */
+    @NonNull
+    public List<String> getNotDownloadedPresets() {
+        List<String> result = new ArrayList<>();
+        for (PresetInfo pi : getPresets(null, false)) {
+            if (pi.url != null && !getPresetDirectory(pi.id).exists() && Util.isUrl(pi.url)) {
+                result.add(pi.id);
+            }
+        }
+        return result;
     }
 
     /**

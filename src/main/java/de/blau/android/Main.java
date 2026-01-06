@@ -106,6 +106,7 @@ import de.blau.android.dialogs.BarometerCalibration;
 import de.blau.android.dialogs.ConsoleDialog;
 import de.blau.android.dialogs.DataLoss;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
+import de.blau.android.dialogs.DownloadMissing;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.GnssPositionInfo;
 import de.blau.android.dialogs.Layers;
@@ -2611,6 +2612,13 @@ public class Main extends ConfigurationChangeAwareActivity
                         return false;
                     }
                     ScreenMessage.toastTopInfo(Main.this, R.string.toast_configuration_import_success);
+                    try (AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(Main.this)) {
+                        List<String> notDownloadedPresets = prefdb.getNotDownloadedPresets();
+                        if (!notDownloadedPresets.isEmpty()) {
+                            DownloadMissing.showDialog(Main.this, notDownloadedPresets, null);
+                        }
+                    }
+
                     return true;
                 }
             });
