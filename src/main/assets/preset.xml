@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.93.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.94.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -1402,7 +1402,9 @@
         </optional>
     </chunk>
     <chunk id="power_output">
-        <combo key="generator:plant" text="Plant generator type" values="output,intermediate"/>
+        <optional>
+            <combo key="generator:plant" text="Plant generator type" values="output,intermediate" display_values="Output,Intermediate"/>
+        </optional>
         <optional text="Energy output:">
             <combo key="generator:output:biogas" text="Biogas" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
             <combo key="generator:output:electricity" text="Electricity" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
@@ -2140,7 +2142,7 @@
         <check key="bench" text="Bench"/>
         <check key="shelter" text="Shelter"/>
         <check key="covered" text="Covered"/>
-        <check key="sign" text="Sign"/>
+        <check key="sign" text="Sign" text_context="public transport"/>
         <reference ref="bin"/>
         <reference ref="departures_board_speech"/>
         <check key="passenger_information_display" text="Passenger information display" deprecated="true"/>
@@ -7330,7 +7332,7 @@
             <link wiki="Tag:leisure=fitness_station"/>
             <space/>
             <key key="leisure" value="fitness_station"/>
-            <combo key="fitness_station" text="Fitness station" values_searchable="true" match="key">
+            <combo key="fitness_station" text="Fitness station" values_searchable="true" match="key" values_context="leisure">
                 <list_entry value="balance_beam" display_value="Balance beam"/>
                 <list_entry value="box" display_value="Box"/>
                 <list_entry value="horizontal_bar" display_value="Horizontal bar"/>
@@ -7466,39 +7468,95 @@
                 <checkgroup text="Equipment" columns="3">
                     <check text="Activity panel" key="playground:activitypanel" disable_off="true" text_context="leisure"/>
                     <check text="Aerial rotator" key="playground:aerialrotator" disable_off="true" text_context="leisure"/>
+                    <check text="Agility trail" key="playground:agility_trail" disable_off="true" text_context="leisure"/>
+                    <check text="Archimedes screw" key="playground:archimedes_screw" disable_off="true" text_context="leisure"/>
+                    <check text="Baby swing" key="playground:baby_swing" disable_off="true" text_context="leisure"/>
+                    <check text="Balancing device (unspecified)" key="playground:balance" disable_off="true" text_context="leisure"/>
                     <check text="Balance beam" key="playground:balancebeam" disable_off="true"/>
+                    <check text="Ball Pool" key="playground:ball_pool" disable_off="true" text_context="leisure"/>
+                    <check text="Banister bars" key="playground:bannister_bars" disable_off="true" text_context="leisure"/>
                     <check text="Basketball backboard" key="playground:basketball_backboard" disable_off="true" text_context="leisure"/>
                     <check text="Basket rotator" key="playground:basketrotator" disable_off="true" text_context="leisure"/>
                     <check text="Basket swing" key="playground:basketswing" disable_off="true" text_context="leisure"/>
+                    <check text="Belt bridge" key="playground:belt_bridge" disable_off="true" text_context="leisure"/>
+                    <check text="Blackboard" key="playground:blackboard" disable_off="true" text_context="leisure"/>
+                    <check text="Bridge" key="playground:bridge" disable_off="true" text_context="leisure"/>
                     <check text="Chain ladder" key="playground:chain_ladder" disable_off="true" text_context="leisure"/>
                     <check text="Chess table" key="playground:chess_table" disable_off="true" text_context="leisure"/>
+                    <check text="Chute" key="playground:chute" disable_off="true" text_context="leisure"/>
+                    <check text="Climbing device (unspecified)" key="playground:climbing" disable_off="true" text_context="leisure"/>
                     <check text="Climbing frame" key="playground:climbingframe" disable_off="true" text_context="leisure"/>
+                    <check text="Climbing pole" key="playground:climbing_pole" disable_off="true" text_context="leisure"/>
+                    <check text="Climbing slope" key="playground:climbing_slope" disable_off="true" text_context="leisure"/>
                     <check text="Climbing wall" key="playground:climbingwall" disable_off="true" text_context="leisure"/>
                     <check text="Cushion" key="playground:cushion" disable_off="true" text_context="leisure"/>
+                    <check text="Dome" key="playground:dome" disable_off="true" text_context="leisure"/>
+                    <check text="Excavator" key="playground:excavator" disable_off="true" text_context="leisure"/>
                     <check text="Exercise" key="playground:exercise" disable_off="true" text_context="leisure"/>
                     <check text="Funnel ball" key="playground:funnel_ball" disable_off="true" text_context="leisure"/>
+                    <check text="Hammock" key="playground:hammock" disable_off="true" text_context="leisure"/>
+                    <check text="Hamster wheel" key="playground:hamster_wheel" disable_off="true" text_context="leisure"/>
                     <check text="Hopscotch" key="playground:hopscotch" disable_off="true" text_context="leisure"/>
                     <check text="Horizontal bar" key="playground:horizontal_bar" disable_off="true" text_context="leisure"/>
+                    <check text="Ladder" key="playground:ladder" disable_off="true" text_context="leisure"/>
                     <check text="Map" key="playground:map" disable_off="true" text_context="leisure"/>
+                    <check text="Maze" key="playground:maze" disable_off="true" text_context="leisure"/>
+                    <check text="Marble run" key="playground:marble_run" disable_off="true" text_context="leisure"/>
+                    <check text="Monkey bars" key="playground:monkey_bars" disable_off="true" text_context="leisure"/>
+                    <check text="Artificial mound" key="playground:mound" disable_off="true" text_context="leisure"/>           
                     <check text="Multi play" key="playground:multi_play" disable_off="true" text_context="leisure"/>
+                    <check text="Musical instrument" key="playground:musical_instrument" disable_off="true" text_context="leisure"/>
+                    <check text="Parallel bars" key="playground:parallel_bars" disable_off="true" text_context="leisure"/>
+                    <check text="Platform" key="playground:platform" disable_off="true" text_context="leisure"/>
                     <check text="Playhouse" key="playground:playhouse" disable_off="true" text_context="leisure"/>
+                    <check text="Pump" key="playground:pump" disable_off="true" text_context="leisure"/>
+                    <check text="Fixed riding device" key="playground:ride_on" disable_off="true" text_context="leisure"/>
+                    <check text="Rope swing" key="playground:rope_swing" disable_off="true" text_context="leisure"/>
+                    <check text="Rope traverse" key="playground:rope_traverse" disable_off="true" text_context="leisure"/>
+                    <check text="Rotating device (unspecified)" key="playground:rotator" disable_off="true" text_context="leisure"/>
+                    <check text="Rotating seesaw" key="playground:rotating_seesaw" disable_off="true" text_context="leisure"/>
                     <check text="Roundabout" key="playground:roundabout" disable_off="true" text_context="leisure"/>
+                    <check text="Sand play device (unspecified)" key="playground:sand" disable_off="true" text_context="leisure"/>
+                    <check text="Sand pulley" key="playground:sand_pulley" disable_off="true" text_context="leisure"/>
+                    <check text="Sand seesaw" key="playground:sand_seesaw" disable_off="true" text_context="leisure"/>
+                    <check text="Sand wheel" key="playground:sand_wheel" disable_off="true" text_context="leisure"/>
                     <check text="Sandpit" key="playground:sandpit" disable_off="true" text_context="leisure"/>
+                    <check text="Seat" key="playground:seat" disable_off="true" text_context="leisure"/>
                     <check text="Seesaw" key="playground:seesaw" disable_off="true" text_context="leisure"/>
+                    <check text="Sieve" key="playground:sieve" disable_off="true" text_context="leisure"/>
                     <check text="Skate equipment" key="playground:skate_equipment" disable_off="true" text_context="leisure"/>
                     <check text="Sledding" key="playground:sledding" disable_off="true" text_context="leisure"/>
                     <check text="Slide" key="playground:slide" disable_off="true" text_context="leisure"/>
+                    <check text="Speaking tube" key="playground:speaking_tube" disable_off="true" text_context="leisure"/>
                     <check text="Gyro twister spinner" key="playground:spinner" disable_off="true" text_context="leisure"/>
+                    <check text="Spinner bowl" key="playground:spinner_bowl" disable_off="true" text_context="leisure"/>
+                    <check text="Spinning circle" key="playground:spinning_circle" disable_off="true" text_context="leisure"/>
+                    <check text="Spinning disc" key="playground:spinning_disc" disable_off="true" text_context="leisure"/>
                     <check text="Splash pad" key="playground:splash_pad" disable_off="true" text_context="leisure"/>
+                    <check text="Spring board" key="playground:spring_board" disable_off="true" text_context="leisure"/>
                     <check text="Springy" key="playground:springy" disable_off="true" text_context="leisure"/>
+                    <check text="Stepping post" key="playground:stepping_post" disable_off="true" text_context="leisure"/>
                     <check text="Stepping stones/pads" key="playground:stepping_stones" disable_off="true" text_context="leisure"/>
+                    <check text="Steps" key="playground:steps" disable_off="true" text_context="leisure"/>
                     <check text="Structure (playset)" key="playground:structure" disable_off="true" text_context="leisure"/>
                     <check text="Swing" key="playground:swing" disable_off="true" text_context="leisure"/>
+                    <check text="Table" key="playground:table" disable_off="true" text_context="leisure"/>
                     <check text="Teen shelter" key="playground:teenshelter" disable_off="true" text_context="leisure"/>
+                    <check text="Tire Swing" key="playground:tire_swing" disable_off="true" text_context="leisure"/>
                     <check text="Trampoline" key="playground:trampoline" disable_off="true" text_context="leisure"/>
                     <check text="Tree house" key="playground:tree_house" disable_off="true" text_context="leisure"/>
                     <check text="Tunnel tube" key="playground:tunnel_tube" disable_off="true" text_context="leisure"/>
                     <check text="Water" key="playground:water" disable_off="true" text_context="leisure"/>
+                    <check text="Water barrier" key="playground:water_barrier" disable_off="true" text_context="leisure"/>
+                    <check text="Water basin" key="playground:water_basin" disable_off="true" text_context="leisure"/>
+                    <check text="Water cannon" key="playground:water_cannon" disable_off="true" text_context="leisure"/>
+                    <check text="Water channel" key="playground:water_channel" disable_off="true" text_context="leisure"/>
+                    <check text="Water seesaw" key="playground:water_seesaw" disable_off="true" text_context="leisure"/>
+                    <check text="Water sprayer" key="playground:water_sprayer" disable_off="true" text_context="leisure"/>
+                    <check text="Water stream" key="playground:water_stream" disable_off="true" text_context="leisure"/>
+                    <check text="Water wheel" key="playground:water_wheel" disable_off="true" text_context="leisure"/>
+                    <check text="Wobble bridge" key="playground:wobble_bridge" disable_off="true" text_context="leisure"/>
+                    <check text="Youth bench" key="playground:youth_bench" disable_off="true" text_context="leisure"/>
                     <check text="Zigzag twister" key="playground:zigzagtwister" disable_off="true" text_context="leisure"/>
                     <check text="Zip wire" key="playground:zipwire" disable_off="true" text_context="leisure"/>
                 </checkgroup>
@@ -7509,44 +7567,98 @@
                 <link wiki="Key:playground"/>
                 <space/>
                 <combo text="Equipment" key="playground" match="key" values_context="leisure">
-                    <list_entry value="activitypanel" display_value="Activity panel"/>
-                    <list_entry value="aerialrotator" display_value="Aerial rotator"/>
-                    <list_entry value="balancebeam" display_value="Balance beam"/>
-                    <list_entry value="basketball_backboard" display_value="Basketball backboard"/>
-                    <list_entry value="basketrotator" display_value="Basket rotator"/>
-                    <list_entry value="basketswing" display_value="Basket swing"/>
-                    <list_entry value="bridge" display_value="Bridge"/>
-                    <list_entry value="chain_ladder" display_value="Chain ladder"/>
-                    <list_entry value="chess_table" display_value="Chess table"/>
-                    <list_entry value="climbingframe" display_value="Climbing frame"/>
-                    <list_entry value="climbingwall" display_value="Climbing wall"/>
-                    <list_entry value="cushion" display_value="Cushion"/>
-                    <list_entry value="exercise" display_value="Exercise"/>
-                    <list_entry value="funnel_ball" display_value="Funnel ball"/>
-                    <list_entry value="hopscotch" display_value="Hopscotch"/>
-                    <list_entry value="horizontal_bar" display_value="Horizontal bar"/>
-                    <list_entry value="map" display_value="Map"/>
-                    <list_entry value="multi_play" display_value="Multi play"/>
-                    <list_entry value="playhouse" display_value="Playhouse"/>
-                    <list_entry value="roundabout" display_value="Roundabout"/>
-                    <list_entry value="sandpit" display_value="Sandpit"/>
-                    <list_entry value="seesaw" display_value="Seesaw"/>
-                    <list_entry value="skate_equipment" display_value="Skate equipment"/>
-                    <list_entry value="sledding" display_value="Sledding"/>
-                    <list_entry value="slide" display_value="Slide"/>
-                    <list_entry value="spinner" display_value="Gyro twister spinner"/>
-                    <list_entry value="splash_pad" display_value="Splash pad"/>
-                    <list_entry value="springy" display_value="Springy"/>
-                    <list_entry value="stepping_stones" display_value="Stepping stones/pads"/>
-                    <list_entry value="structure" display_value="Structure (playset)"/>
-                    <list_entry value="swing" display_value="Swing"/>
-                    <list_entry value="teenshelter" display_value="Teen shelter"/>
-                    <list_entry value="trampoline" display_value="Trampoline"/>
-                    <list_entry value="tree_house" display_value="Tree house"/>
-                    <list_entry value="tunnel_tube" display_value="Tunnel tube"/>
-                    <list_entry value="water" display_value="Water"/>
-                    <list_entry value="zigzagtwister" display_value="Zigzag twister"/>
-                    <list_entry value="zipwire" display_value="Zip wire"/>
+                    <list_entry display_value="Activity panel" value="activitypanel"/>
+                    <list_entry display_value="Aerial rotator" value="aerialrotator"/>
+                    <list_entry display_value="Agility trail" value="agility_trail"/>
+                    <list_entry display_value="Archimedes screw" value="archimedes_screw"/>
+                    <list_entry display_value="Baby swing" value="baby_swing"/>
+                    <list_entry display_value="Balancing device (unspecified)" value="balance"/>       
+                    <list_entry display_value="Balance beam" value="balancebeam"/>
+                    <list_entry display_value="Ball Pool" value="ball_pool"/>
+                    <list_entry display_value="Banister bars" value="bannister_bars"/>
+                    <list_entry display_value="Basketball backboard" value="basketball_backboard"/>
+                    <list_entry display_value="Basket rotator" value="basketrotator"/>
+                    <list_entry display_value="Basket swing" value="basketswing"/>
+                    <list_entry display_value="Belt bridge" value="belt_bridge"/>
+                    <list_entry display_value="Blackboard" value="blackboard"/>
+                    <list_entry display_value="Bridge" value="bridge"/>
+                    <list_entry display_value="Chain ladder" value="chain_ladder"/>
+                    <list_entry display_value="Chess table" value="chess_table"/>
+                    <list_entry display_value="Chute" value="chute"/>
+                    <list_entry display_value="Climbing device (unspecified)" value="climbing"/>
+                    <list_entry display_value="Climbing frame" value="climbingframe"/>
+                    <list_entry display_value="Climbing pole" value="climbing_pole"/>
+                    <list_entry display_value="Climbing slope" value="climbing_slope"/>
+                    <list_entry display_value="Climbing wall" value="climbingwall"/>
+                    <list_entry display_value="Cushion" value="cushion"/>
+                    <list_entry display_value="Dome" value="dome"/>
+                    <list_entry display_value="Excavator" value="excavator"/>
+                    <list_entry display_value="Exercise" value="exercise"/>
+                    <list_entry display_value="Funnel ball" value="funnel_ball"/>
+                    <list_entry display_value="Hammock" value="hammock"/>
+                    <list_entry display_value="Hamster wheel" value="hamster_wheel"/>
+                    <list_entry display_value="Hopscotch" value="hopscotch"/>
+                    <list_entry display_value="Horizontal bar" value="horizontal_bar"/>
+                    <list_entry display_value="Ladder" value="ladder"/>
+                    <list_entry display_value="Map" value="map"/>
+                    <list_entry display_value="Maze" value="maze"/>
+                    <list_entry display_value="Marble run" value="marble_run"/>
+                    <list_entry display_value="Monkey bars" value="monkey_bars"/>
+                    <list_entry display_value="Artificial mound" value="mound"/>           
+                    <list_entry display_value="Multi play" value="multi_play"/>
+                    <list_entry display_value="Musical instrument" value="musical_instrument"/>
+                    <list_entry display_value="Parallel bars" value="parallel_bars"/>
+                    <list_entry display_value="Platform" value="platform"/>
+                    <list_entry display_value="Playhouse" value="playhouse"/>
+                    <list_entry display_value="Pump" value="pump"/>
+                    <list_entry display_value="Fixed riding device" value="ride_on"/>
+                    <list_entry display_value="Rope swing" value="rope_swing"/>
+                    <list_entry display_value="Rope traverse" value="rope_traverse"/>
+                    <list_entry display_value="Rotating device (unspecified)" value="rotator"/>
+                    <list_entry display_value="Rotating seesaw" value="rotating_seesaw"/>
+                    <list_entry display_value="Roundabout" value="roundabout"/>
+                    <list_entry display_value="Sand play device (unspecified)" value="sand"/>
+                    <list_entry display_value="Sand pulley" value="sand_pulley"/>
+                    <list_entry display_value="Sand seesaw" value="sand_seesaw"/>
+                    <list_entry display_value="Sand wheel" value="sand_wheel"/>
+                    <list_entry display_value="Sandpit" value="sandpit"/>
+                    <list_entry display_value="Seat" value="seat"/>
+                    <list_entry display_value="Seesaw" value="seesaw"/>
+                    <list_entry display_value="Sieve" value="sieve"/>
+                    <list_entry display_value="Skate equipment" value="skate_equipment"/>
+                    <list_entry display_value="Sledding" value="sledding"/>
+                    <list_entry display_value="Slide" value="slide"/>
+                    <list_entry display_value="Speaking tube" value="speaking_tube"/>
+                    <list_entry display_value="Gyro twister spinner" value="spinner"/>
+                    <list_entry display_value="Spinner bowl" value="spinner_bowl"/>
+                    <list_entry display_value="Spinning circle" value="spinning_circle"/>
+                    <list_entry display_value="Spinning disc" value="spinning_disc"/>
+                    <list_entry display_value="Splash pad" value="splash_pad"/>
+                    <list_entry display_value="Spring board" value="spring_board"/>
+                    <list_entry display_value="Springy" value="springy"/>
+                    <list_entry display_value="Stepping post" value="stepping_post"/>
+                    <list_entry display_value="Stepping stones/pads" value="stepping_stones"/>
+                    <list_entry display_value="Structure (playset)" value="structure"/>
+                    <list_entry display_value="Swing" value="swing"/>
+                    <list_entry display_value="Table" value="table"/>
+                    <list_entry display_value="Teen shelter" value="teenshelter"/>
+                    <list_entry display_value="Tire Swing" value="tire_swing"/>
+                    <list_entry display_value="Trampoline" value="trampoline"/>
+                    <list_entry display_value="Tree house" value="tree_house"/>
+                    <list_entry display_value="Tunnel tube" value="tunnel_tube"/>
+                    <list_entry display_value="Water device (unspecified)" value="water"/>
+                    <list_entry display_value="Water barrier" value="water_barrier"/>
+                    <list_entry display_value="Water basin" value="water_basin"/>
+                    <list_entry display_value="Water cannon" value="water_cannon"/>
+                    <list_entry display_value="Water channel" value="water_channel"/>
+                    <list_entry display_value="Water seesaw" value="water_seesaw"/>
+                    <list_entry display_value="Water sprayer" value="water_sprayer"/>
+                    <list_entry display_value="Water stream" value="water_stream"/>
+                    <list_entry display_value="Water wheel" value="water_wheel"/>
+                    <list_entry display_value="Wobble bridge" value="wobble_bridge"/>
+                    <list_entry display_value="Youth bench" value="youth_bench"/>
+                    <list_entry display_value="Zigzag twister" value="zigzagtwister"/>
+                    <list_entry display_value="Zip wire" value="zipwire"/>
                 </combo>
                 <reference ref="playground_theme"/>
                 <reference ref="material"/>
