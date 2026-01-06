@@ -215,7 +215,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.delete).setMessage(R.string.preset_management_delete)
                 .setPositiveButton(R.string.Yes, (dialog, which) -> {
                     db.deletePreset(item.id);
-                    App.resetPresets();
+                    reloadItems();
                 }).setNegativeButton(R.string.cancel, null).show();
     }
 
