@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<Configuration>
+    <Section name="shared_preferences" version="0.1">
+        <BooleanPref key="enableKeepScreenOn" value="false" />
+        <BooleanPref key="simpleActions" value="true" />
+        <StringPref key="profile" value="Color Round Nodes" />
+        <BooleanPref key="wayNodeDragging" value="false" />
+        <BooleanPref key="panAndZoomDownload" value="false" />
+        <BooleanPref key="presetFilter" value="false" />
+        <BooleanPref key="autoDownload" value="false" />
+        <BooleanPref key="modeSwitching" value="false" />
+        <BooleanPref key="acra.enable" value="false" />
+        <BooleanPref key="tagFilter" value="false" />
+        <StringSetPref key="poiKeys">
+            <StringSetValue value="shop" />
+            <StringSetValue value="amenity" />
+            <StringSetValue value="club" />
+            <StringSetValue value="craft" />
+            <StringSetValue value="emergency" />
+            <StringSetValue value="tourism" />
+            <StringSetValue value="building" />
+            <StringSetValue value="place" />
+            <StringSetValue value="leisure" />
+            <StringSetValue value="healthcare" />
+        </StringSetPref>
+        <BooleanPref key="showGps" value="true" />
+        <BooleanPref key="bugAutoDownload" value="false" />
+        <StringPref key="selectedAPI" value="default" />
+        <StringSetPref key="enabledValidations">
+            <StringSetValue value="MISSING_TAG" />
+            <StringSetValue value="MISSING_ROLE" />
+            <StringSetValue value="IMPERIAL_UNITS" />
+            <StringSetValue value="UNCONNECTED_END_NODE" />
+            <StringSetValue value="EMPTY_RELATION" />
+            <StringSetValue value="INVALID_OBJECT" />
+            <StringSetValue value="NO_TYPE" />
+            <StringSetValue value="FIXME" />
+            <StringSetValue value="UNTAGGED" />
+            <StringSetValue value="HIGHWAY_ROAD" />
+            <StringSetValue value="RELATION_LOOP" />
+            <StringSetValue value="WRONG_ELEMENT_TYPE" />
+            <StringSetValue value="DEGENERATE_WAY" />
+            <StringSetValue value="AGE" />
+        </StringSetPref>
+        <BooleanPref key="largeDragArea" value="false" />
+    </Section>
+    <Section name="AdvancedPrefs" table="apis" version="0.1"
+        truncate="false">
+        <ColumnTypes id="TEXT" name="TEXT" url="TEXT"
+            readonlyurl="TEXT" notesurl="TEXT" user="TEXT" pass="TEXT"
+            preset="TEXT" showicon="INTEGER" oauth="INTEGER"
+            accesstoken="TEXT" accesstokensecret="TEXT"
+            timeout="INTEGER" compresseduploads="INTEGER" />
+        <PrimaryKeyColumns id="true" />
+        <Row id="2175b04d-6a6e-44ac-9be8-956bd1d3a59b"
+            name="Copy of OpenStreetMap"
+            url="https://api.openstreetmap.org/api/0.6/"
+            readonlyurl="null" notesurl="null" user="" pass=""
+            preset="null" showicon="1" oauth="0" timeout="45000"
+            compresseduploads="1" />
+    </Section><!--Database AdvancedPrefs table imagestores has nothing to 
+        export -->
+    <Section name="AdvancedPrefs" table="presets" version="0.1"
+        truncate="false">
+        <ColumnTypes id="TEXT" name="TEXT" url="TEXT"
+            version="TEXT" shortdescription="TEXT" description="TEXT"
+            lastupdate="TEXT" data="TEXT" position="INTEGER"
+            active="INTEGER" usetranslations="INTEGER" />
+        <PrimaryKeyColumns id="true" />
+        <Row id="aab1d149-6183-4df8-8e28-2fc805e8d12f"
+            name="Military objects"
+            url="https://github.com/simonpoole/militarypreset/releases/latest/download/military.zip"
+            version="1.5.0"
+            shortdescription="Military Preset for Vespucci and JOSM"
+            description="Military preset for Vespucci and JOSM, based on the original JOSM version"
+            lastupdate="null" data="null" position="1" active="1"
+            usetranslations="1" />
+    </Section>
+    <Section name="AdvancedPrefs" table="geocoders"
+        version="0.1" truncate="false">
+        <ColumnTypes id="TEXT" type="TEXT" version="INTEGER"
+            name="TEXT" url="TEXT" active="INTEGER" />
+        <PrimaryKeyColumns id="true" />
+        <Row id="Nominatim" type="NOMINATIM" version="0"
+            name="Nominatim" url="https://nominatim.openstreetmap.org/"
+            active="1" />
+        <Row id="Photon" type="PHOTON" version="0" name="Photon"
+            url="https://photon.komoot.io/" active="1" />
+    </Section>
+    <Section name="AdvancedPrefs" table="layers" version="0.1"
+        truncate="true">
+        <ColumnTypes type="TEXT" position="INTEGER"
+            visible="INTEGER" content_id="TEXT" />
+        <PrimaryKeyColumns type="true" position="true" />
+        <Row type="IMAGERY" position="0" visible="1"
+            content_id="MAPNIK" />
+        <Row type="SCALE" position="1" visible="1" content_id="null" />
+        <Row type="OSMDATA" position="2" visible="1"
+            content_id="null" />
+        <Row type="TASKS" position="3" visible="1" content_id="null" />
+    </Section><!--Database tilelayers table layers has nothing to export --><!--Database tagfilters table filters doesn't exist yet android.database.sqlite.SQLiteCantOpenDatabaseException --><!--Database tagfilters table filterentries doesn't exist yet 
+        android.database.sqlite.SQLiteCantOpenDatabaseException -->
+    <Section name="validator_rules" table="resurveytags"
+        version="0.1" truncate="true">
+        <ColumnTypes ruleset="INTEGER" key="TEXT"
+            value="TEXT" is_regexp="INTEGER" days="INTEGER" />
+        <PrimaryKeyColumns />
+        <Row ruleset="0" key="shop" value="null" is_regexp="0"
+            days="365" />
+        <Row ruleset="0" key="amenity" value="restaurant"
+            is_regexp="0" days="365" />
+        <Row ruleset="0" key="amenity" value="fast_food"
+            is_regexp="0" days="365" />
+        <Row ruleset="0" key="amenity" value="cafe" is_regexp="0"
+            days="365" />
+        <Row ruleset="0" key="amenity" value="pub" is_regexp="0"
+            days="365" />
+        <Row ruleset="0" key="amenity" value="bar" is_regexp="0"
+            days="365" />
+        <Row ruleset="0" key="amenity" value="toilets" is_regexp="0"
+            days="365" />
+        <Row ruleset="0" key="landuse" value="construction"
+            is_regexp="0" days="365" />
+        <Row ruleset="0" key="highway" value="construction"
+            is_regexp="0" days="365" />
+        <Row ruleset="0" key="railway" value="construction"
+            is_regexp="0" days="365" />
+        <Row ruleset="0" key="building" value="construction"
+            is_regexp="0" days="365" />
+    </Section>
+    <Section name="validator_rules" table="checktags"
+        version="0.1" truncate="true">
+        <ColumnTypes ruleset="INTEGER" key="TEXT"
+            optional="INTEGER" />
+        <PrimaryKeyColumns />
+        <Row ruleset="0" key="opening_hours" optional="0" />
+        <Row ruleset="0" key="name|ref" optional="0" />
+        <Row ruleset="0" key="wheelchair" optional="0" />
+    </Section><!--Database keys table keys has nothing to export -->
+</Configuration>

@@ -60,6 +60,7 @@ import ch.poole.poparser.TokenMgrError;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.contract.Schemes;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -990,5 +991,15 @@ public final class Util {
            Log.e(DEBUG_TAG, "isDesktopModeEnabled " + e.getMessage());
         }
         return false;
+    }
+    
+    /**
+     * Check for an url
+     * 
+     * @param url the url
+     * @return true if the check passes
+     */
+    public static boolean isUrl(@Nullable String url) {
+        return url != null && (url.startsWith(Schemes.HTTP + "://") || url.startsWith(Schemes.HTTPS + "://"));
     }
 }

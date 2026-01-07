@@ -424,6 +424,20 @@
     <string name="select_result">Select result</string>
     <string name="merge_result">Merge result</string>
     <string name="overpass_query_would_overwrite">Result would overwrite changes! Query aborted.</string>
+    <!-- Download missing dialog -->
+    <string name="download_missing_title">Download missing presets and styles</string>
+    <string name="download_missing_message">Your system has %1$s and %2$s that have been configured but have not been downloaded yet.</string>
+    <plurals name="download_missing_presets">
+        <item quantity="zero">no presets</item>
+        <item quantity="one">one preset</item>
+        <item quantity="other">%1$d presets</item>
+    </plurals>
+    <plurals name="download_missing_styles">
+        <item quantity="zero">no styles</item>
+        <item quantity="one">one style</item>
+        <item quantity="other">%1$d styles</item>
+    </plurals>
+    <string name="download_missing_error">Download error %1$s</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>
@@ -701,6 +715,10 @@
     <string name="toast_note_reopened">Note reopened</string>
     <string name="toast_untrusted_certificate">Untrusted certificate\n%1$s</string>
     <string name="toast_element_may_have_been_moved">Element may have been moved</string>
+    <string name="toast_configuration_export_failed">Configuration export failed\n\n%1$s</string>
+    <string name="toast_configuration_import_failed">Configuration import failed\n\n%1$s</string>
+    <string name="toast_configuration_export_success">Configuration successfully exported!</string>
+    <string name="toast_configuration_import_success">Configuration successfully imported!</string>
     <!-- Validation -->
     <string name="toast_unsurveyed_road">Unsurveyed road</string>
     <string name="toast_noname">Road lacks name or ref</string>
@@ -1163,6 +1181,8 @@
     <string name="menu_tools_remove_egm">Remove EGM</string>
     <string name="menu_tools_import_data_style">Import data style…</string>
     <string name="menu_tools_load_keys">Load keys from file…</string>
+    <string name="menu_tools_export_configuration">Export configuration…</string>
+    <string name="menu_tools_import_configuration">Import configuration…</string>
     <!--  -->
     <string name="menu_modes">Modes…</string>
     <string name="menu_simple_actions">Simple mode</string>  

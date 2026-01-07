@@ -4,6 +4,8 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -34,6 +36,7 @@ import de.blau.android.propertyeditor.CustomPreset;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Util;
 
 /**
  * This class provides access to complex settings like OSM APIs which consist of complex/relational data. WARNING: It
@@ -52,23 +55,25 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 21;
+    private static final int DATA_VERSION = 22;
+
+    static final String DATABASE_NAME = "AdvancedPrefs";
 
     /** The ID string for the default API and the default Preset */
     public static final String ID_DEFAULT = "default";
     public static final String ID_SANDBOX = "sandbox";
     public static final String ID_OHM     = "ohm-default";
 
-    private static final String GEOCODERS_TABLE               = "geocoders";
+    static final String         GEOCODERS_TABLE               = "geocoders";
     private static final String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
     private static final String ID_DEFAULT_GEOCODER_PHOTON    = "Photon";
     private static final String VERSION_COL                   = "version";
 
-    private static final String IMAGESTORES_TABLE    = "imagestores";
-    private static final String ID_PANORAMAX_DEV     = "Panoramax developer instance";
-    public static final String  ID_WIKIMEDIA_COMMONS = "Wikimedia Commons";
+    static final String        IMAGESTORES_TABLE    = "imagestores";
+    static final String        ID_PANORAMAX_DEV     = "Panoramax developer instance";
+    public static final String ID_WIKIMEDIA_COMMONS = "Wikimedia Commons";
 
-    private static final String PRESETS_TABLE        = "presets";
+    static final String         PRESETS_TABLE        = "presets";
     private static final String ID_COL               = "id";
     private static final String POSITION_COL         = "position";
     private static final String NAME_COL             = "name";
@@ -79,9 +84,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private static final String SHORTDESCRIPTION_COL = "shortdescription";
     private static final String DESCRIPTION_COL      = "description";
 
-    private static final String APIS_TABLE            = "apis";
-    private static final String ACCESSTOKENSECRET_COL = "accesstokensecret";
-    private static final String ACCESSTOKEN_COL       = "accesstoken";
+    static final String         APIS_TABLE            = "apis";
+    static final String         ACCESSTOKENSECRET_COL = "accesstokensecret";
+    static final String         ACCESSTOKEN_COL       = "accesstoken";
     private static final String AUTH_COL              = "oauth";
     private static final String NOTESURL_COL          = "notesurl";
     private static final String READONLYURL_COL       = "readonlyurl";
@@ -90,15 +95,19 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private static final String TIMEOUT_COL           = "timeout";
     private static final String COMPRESSEDUPLOADS_COL = "compresseduploads";
 
-    private static final String LAYERS_TABLE   = "layers";
+    static final String         LAYERS_TABLE   = "layers";
     private static final String VISIBLE_COL    = "visible";
     private static final String TYPE_COL       = "type";
     private static final String CONTENT_ID_COL = "content_id";
+
+    private static final String CREATE_TABLE = "CREATE TABLE ";
 
     private static final String ROWID = "rowid";
 
     private static final String WHERE_ID    = "id = ?";
     private static final String WHERE_ROWID = "rowid = ?";
+
+    private static final String TEMP_TABLE = "temp";
 
     private static final String CANNOT_DELETE_DEFAULT = "Cannot delete default";
 
@@ -116,8 +125,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param context an Android Context
      */
     public AdvancedPrefDatabase(@NonNull Context context) {
-        super(context.getApplicationContext(), "AdvancedPrefs", null, DATA_VERSION); // always use the application
-                                                                                     // context
+        super(context.getApplicationContext(), DATABASE_NAME, null, DATA_VERSION); // always use the application
+                                                                                   // context
         this.context = context;
         r = context.getResources();
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -133,20 +142,71 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
 
     @Override
     public synchronized void onCreate(SQLiteDatabase db) {
-        db.execSQL(
-                "CREATE TABLE apis (id TEXT, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT, timeout INTEGER DEFAULT "
-                        + Server.DEFAULT_TIMEOUT + ", compresseduploads INTEGER DEFAULT 0)");
-        db.execSQL(
-                "CREATE TABLE presets (id TEXT, name TEXT, url TEXT, version TEXT DEFAULT NULL, shortdescription TEXT DEFAULT NULL, description TEXT DEFAULT NULL, lastupdate TEXT, data TEXT, position INTEGER DEFAULT 0, active INTEGER DEFAULT 0, usetranslations INTEGER DEFAULT 1)");
-        db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
+        createApisTable(db, APIS_TABLE);
+        createPresetsTable(db, PRESETS_TABLE);
+        createGeocodersTable(db, GEOCODERS_TABLE);
         addDefaultGeocoderEntries(db);
-        db.execSQL("CREATE TABLE layers (type TEXT, position INTEGER DEFAULT -1, visible INTEGER DEFAULT 1, content_id TEXT)");
+        createLayersTable(db, LAYERS_TABLE);
         addLayer(db, 0, LayerType.IMAGERY, true, TileLayerSource.LAYER_MAPNIK);
         addLayer(db, 1, LayerType.SCALE);
         addLayer(db, 2, LayerType.OSMDATA);
         addLayer(db, 3, LayerType.TASKS);
-        db.execSQL("CREATE TABLE imagestores (id TEXT, type TEXT, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
+        createImagestoresTable(db, IMAGESTORES_TABLE);
         addDefaultImageStoreEntries(db);
+    }
+
+    /**
+     * Create the table for layers
+     * 
+     * @param db a writable SQLIteDatabase
+     * @param table the table name
+     */
+    private void createLayersTable(@NonNull SQLiteDatabase db, @NonNull String table) {
+        db.execSQL(
+                CREATE_TABLE + table + " (type TEXT, position INTEGER DEFAULT -1, visible INTEGER DEFAULT 1, content_id TEXT, PRIMARY KEY (type, position))");
+    }
+
+    /**
+     * Create the table for imagestores
+     * 
+     * @param db a writable SQLIteDatabase
+     * @param table the table name
+     */
+    private void createImagestoresTable(@NonNull SQLiteDatabase db, @NonNull String table) {
+        db.execSQL(CREATE_TABLE + table + " (id TEXT PRIMARY KEY, type TEXT, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
+    }
+
+    /**
+     * Create the table for geocoders
+     * 
+     * @param db a writable SQLIteDatabase
+     * @param table the table name
+     */
+    private void createGeocodersTable(@NonNull SQLiteDatabase db, @NonNull String table) {
+        db.execSQL(CREATE_TABLE + table + " (id TEXT PRIMARY KEY, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
+    }
+
+    /**
+     * Create the table for presets
+     * 
+     * @param db a writable SQLIteDatabase
+     * @param table the table name
+     */
+    private void createPresetsTable(@NonNull SQLiteDatabase db, @NonNull String table) {
+        db.execSQL(CREATE_TABLE + table
+                + " (id TEXT PRIMARY KEY, name TEXT, url TEXT, version TEXT DEFAULT NULL, shortdescription TEXT DEFAULT NULL, description TEXT DEFAULT NULL, lastupdate TEXT, data TEXT, position INTEGER DEFAULT 0, active INTEGER DEFAULT 0, usetranslations INTEGER DEFAULT 1)");
+    }
+
+    /**
+     * Create the table for apis
+     * 
+     * @param db a writable SQLIteDatabase
+     * @param table the table name
+     */
+    private void createApisTable(@NonNull SQLiteDatabase db, @NonNull String table) {
+        db.execSQL(CREATE_TABLE + table
+                + " (id TEXT PRIMARY KEY, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT, timeout INTEGER DEFAULT "
+                + Server.DEFAULT_TIMEOUT + ", compresseduploads INTEGER DEFAULT 0)");
     }
 
     @Override
@@ -198,7 +258,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             }
         }
         if (oldVersion <= 12) {
-            db.execSQL("CREATE TABLE layers (type TEXT, position INTEGER DEFAULT -1, visible INTEGER DEFAULT 1, content_id TEXT)");
+            createLayersTable(db, LAYERS_TABLE);
             int position = 0;
             String backgroundLayer = sharedPrefs.getString(r.getString(R.string.config_backgroundLayer_key), TileLayerSource.LAYER_NONE);
             if (!TileLayerSource.LAYER_NONE.equals(backgroundLayer)) {
@@ -253,9 +313,36 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             addAPI(db, ID_OHM, Urls.DEFAULT_OHM_API_NAME, Urls.DEFAULT_OHM_API, null, null, new AuthParams(Auth.OAUTH2, "", "", null, null));
         }
         if (oldVersion <= 20) {
-            db.execSQL("CREATE TABLE imagestores (id TEXT, type TEXT, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
+            createImagestoresTable(db, IMAGESTORES_TABLE);
             addDefaultImageStoreEntries(db);
         }
+        if (oldVersion <= 21) {
+            createApisTable(db, TEMP_TABLE);
+            migrateTable(db, APIS_TABLE, TEMP_TABLE);
+            createPresetsTable(db, TEMP_TABLE);
+            migrateTable(db, PRESETS_TABLE, TEMP_TABLE);
+            createGeocodersTable(db, TEMP_TABLE);
+            migrateTable(db, GEOCODERS_TABLE, TEMP_TABLE);
+            createImagestoresTable(db, TEMP_TABLE);
+            migrateTable(db, IMAGESTORES_TABLE, TEMP_TABLE);
+            createLayersTable(db, TEMP_TABLE);
+            migrateTable(db, LAYERS_TABLE, TEMP_TABLE);
+        }
+    }
+
+    /**
+     * Workaround missing alter table/column functionality
+     * 
+     * @param db
+     * @param origTable the original table
+     * @param tempTable a temp table in the new format
+     */
+    public static void migrateTable(@NonNull SQLiteDatabase db, String origTable, String tempTable) {
+        db.execSQL("BEGIN TRANSACTION");
+        db.execSQL("INSERT INTO " + tempTable + " SELECT * FROM " + origTable);
+        db.execSQL("DROP TABLE " + origTable);
+        db.execSQL("ALTER TABLE " + tempTable + " RENAME TO " + origTable);
+        db.execSQL("COMMIT");
     }
 
     /**
@@ -999,6 +1086,22 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         if (presetDir.isDirectory()) {
             killDirectory(presetDir);
         }
+    }
+
+    /**
+     * Get a list of downloadable presets that haven't been downloaded
+     * 
+     * @return a List of Preset ids
+     */
+    @NonNull
+    public List<String> getNotDownloadedPresets() {
+        List<String> result = new ArrayList<>();
+        for (PresetInfo pi : getPresets(null, false)) {
+            if (pi.url != null && !getPresetDirectory(pi.id).exists() && Util.isUrl(pi.url)) {
+                result.add(pi.id);
+            }
+        }
+        return result;
     }
 
     /**
