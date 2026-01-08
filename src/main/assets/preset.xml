@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.94.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.95.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -819,6 +819,9 @@
     </chunk>
     <chunk id="bar">
         <check key="bar" text="Has a bar"/> 
+    </chunk>
+    <chunk id="fast_food">
+        <combo key="fast_food" text="Fast food service" values="cafeteria,yes" display_values="Cafeteria,Yes"/> 
     </chunk>
     <chunk id="cuisine">
         <multiselect key="cuisine" text="Cuisine" values_searchable="true" match="key">
@@ -5498,6 +5501,7 @@
                     <reference ref="name_operator"/>
                     <check key="self_service" text="Self-service" disable_off="true"/>
                     <combo key="shop" text="With shop" values="yes,convenience,kiosk,no" display_values="Yes,Convenience,Kiosk,No"/>
+                    <reference ref="fast_food"/>
                     <reference ref="oh_wheelchair"/>
                     <space/>
                     <label text="Fuel types:"/>
@@ -9157,6 +9161,13 @@
                 <reference ref="oh_wheelchair_level"/>
                 <check key="drinking_water" text="Drinking Water"/>
                 <check key="toilets:handwashing" text="Handwashing facilities"/>
+                <combo key="toilets:hands_drying" text="Hands drying facilities " values_context="restroom">
+                    <list_entry value="electric_hand_dryer" display_value="Electric hand dryer"/>
+                    <list_entry value="paper_towel" display_value="Paper towels"/>
+                    <list_entry value="towel_cabinet" display_value="Towel cabinet"/>
+                    <list_entry value="towel" display_value="Towel"/>
+                    <list_entry value="no" display_value="None"/>
+                </combo>
                 <check key="toilets:paper_supplied" text="Wiping paper supplied"/>
                 <combo key="toilets:menstrual_products" text="Free menstrual products" values="yes,limited,no" display_values="Yes,Limited,No"/>
             </optional>
@@ -9348,7 +9359,7 @@
             <space/>
             <key key="amenity" value="trolley_bay"/>
             <text key="operator" text="Operator"/>
-            <reference ref="fee"/>
+            <check key="trolley:deposit" text="Coin deposit"/>
             <check key="covered" text="Covered"/>
             <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
             <reference ref="level"/>
@@ -12561,6 +12572,7 @@
             <key key="shop" value="convenience"/>
             <reference ref="name_oh_wheelchair_level_toilets"/>
             <reference ref="organic"/>
+            <reference ref="fast_food"/>
             <reference ref="bulk_purchase"/>
             <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
@@ -12577,6 +12589,7 @@
             <link wiki="Tag:shop=kiosk"/>
             <space/>
             <key key="shop" value="kiosk"/>
+            <reference ref="fast_food"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
