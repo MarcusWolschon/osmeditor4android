@@ -2,6 +2,7 @@
 <resources>
   <string name="addr_housenumber">شماره/پلاک خانه (addr:housenumber)</string>
   <string name="addr_conscriptionnumber">کد خدمت سربازی (addr: conscriptionnumber)</string>
+  <string name="addr_housename">نام خانه (addr:housename)</string>
   <string name="addr_street">خیابان (addr:street)</string>
   <string name="addr_postcode">کدپستی (addr:postcode)</string>
   <string name="addr_city">شهر/شهرک/روستا/.. (addr:city)</string>
@@ -10,7 +11,7 @@
   <string name="addr_place">مکان (addr:place)</string>
   <string name="addr_block">بلوک (addr:block)</string>
   <string name="addr_block_number">شماره بلوک (addr:block_number)</string>
-  <string name="addr_parentstreet">محلی‌سازی بیشتر (addr:parenstreet)</string>
+  <string name="addr_parentstreet">محلی‌سازی بیشتر (addr:parentstreet)</string>
   <string name="addr_hamlet">دهکده (addr:hamlet)</string>
   <string name="addr_suburb">حومه شهر (addr:suburb)</string>
   <string name="addr_subdistrict">ناحیه فرعی (addr:subdistrict)</string>

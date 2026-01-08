@@ -20,7 +20,7 @@
     <string name="help_preferences">Preferencias</string>
     <string name="help_advanced_preferences">Preferencias avanzadas</string>
     <string name="help_custom_imagery">Imágenes personalizadas</string>
-    <string name="help_presets">Presets</string>
+    <string name="help_presets">Predefinidos</string>
     <string name="help_uploading">Subir tus cambios</string>
     <string name="help_conflictresolution">Resolución de conflictos</string>
     <string name="help_gpssources">Fuentes de GPS</string>
@@ -34,6 +34,7 @@
     <string name="help_tag_only_mode">Modo solo etiquetas</string>
     <string name="help_indoor_mode">Modo interiores</string>
     <string name="help_address_mode">Modo de direcciones</string>
+    <string name="help_upgrade">Notas de la versión 21.2</string>
     <string name="help_upgrade_211">Notas de la versión 21.1</string>
     <string name="help_upgrade_210">Versión 21.0 - Notas de la versión</string>
     <string name="help_upgrade_202">Versión 20.2 - Notas de la versión</string>

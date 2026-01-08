@@ -24,6 +24,7 @@
   <string name="upload_conflict_message_deleted">%1$s \nروی دستگاه شما نسخهٔ %2$d است \nو روی کارساز حذف شده است</string>
   <string name="upload_conflict_message_referential">عنصر به صورت محلی حذف شده است اما دارای منابع در سرور است</string>
   <string name="upload_conflict_message_unknown">%1$s \nتداخل بارگذاری ناشناخته ایجاد شد \n%2$s</string>
+  <string name="server_side_object">نگارش کارساز</string>
   <!--Upload retry-->
   <string name="save_changes">ذخیره‌کردن تغییرات</string>
   <!---->

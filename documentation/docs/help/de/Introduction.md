@@ -165,12 +165,9 @@ Während Vespucci "gesperrt" ist, sind alle Funktionen verfügbar, die nicht die
 
 Über denselben Knopf oder Menüeintrag, der für das Herunterladen verwendet wurde, kann "Daten zum OSM-Server hochladen" ausgewählt werden.
 
-Vespucci unterstützt OAuth 2, OAuth 1.0a Autorisierung und die klassische Methode mit Benutzername und Passwort. Seit dem 1. Juli 2024 unterstützt die Standard-OpenStreetMap-API nur noch OAuth 2, und andere Methoden sind nur noch bei privaten Installationen der API oder bei anderen Projekten verfügbar, die OSM-Software weiterverwendet haben.  
+Vespucci unterstützt OAuth 2, OAuth 1.0a-Autorisierung und die klassische Methode mit Benutzername und Passwort. Seit dem 1. Juli 2024 unterstützt die Standard-OpenStreetMap-API nur noch OAuth 2. Andere Methoden sind nur noch bei privaten Installationen der API oder bei anderen Projekten verfügbar, die OSM-Software für andere Zwecke nutzen.  
 
-Um Vespucci zu autorisieren, in Ihrem Namen auf Ihr Konto zuzugreifen, müssen Sie sich einmalig mit Ihrem Anzeigenamen und Passwort anmelden. Wenn Ihre Vespucci-Installation nicht autorisiert ist und Sie versuchen, geänderte Daten hochzuladen, werden Sie aufgefordert, sich auf der OSM-Website einzuloggen (über eine verschlüsselte Verbindung). Nachdem Sie sich eingeloggt haben, werden Sie aufgefordert, Vespucci für die Bearbeitung mit Ihrem Konto zu autorisieren. Wenn Sie den OAuth-Zugriff auf Ihr Konto vor der Bearbeitung autorisieren wollen oder müssen, gibt es einen entsprechenden Punkt im Menü „Tools“.
-
-
-Übersetzt mit DeepL.com (kostenlose Version)
+Um Vespucci zu autorisieren, in Ihrem Namen auf Ihr Konto zuzugreifen, müssen Sie sich einmalig mit Ihrem Anzeigenamen und Passwort anmelden. Wenn Ihre Vespucci-Installation nicht autorisiert ist und Sie versuchen, geänderte Daten hochzuladen, werden Sie aufgefordert, sich auf der OSM-Website (über eine verschlüsselte Verbindung) anzumelden. Nach der Anmeldung werden Sie aufgefordert, Vespucci die Berechtigung zur Bearbeitung Ihres Kontos zu erteilen. Wenn Sie den OAuth-Zugriff auf Ihr Konto vor der Bearbeitung autorisieren möchten oder müssen, finden Sie einen entsprechenden Eintrag im Menü „Tools“.
 
 Sollen die Änderungen gespeichert werden und es ist kein Internetzugang verfügbar, können sie in einer mit JOSM kompatiblen .osm-Datei gespeichert werden und später entweder mit Vespucci oder mit JOSM hochgeladen werden. 
 

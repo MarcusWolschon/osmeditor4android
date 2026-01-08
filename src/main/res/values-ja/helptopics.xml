@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">ヘルプ</string>
+    <string name="help_app_description">Vespucci ヘルプビューア</string>
+    <string name="help_title">ヘルプ: %1$s</string>
     <string name="help_introduction">導入</string>
+    <string name="help_safe_mode">セーフモード</string>
     <string name="help_main">メインマップディスプレイ</string>
     <string name="help_multiselect">複数選択</string>
     <string name="help_longclick">新規オブジェクトを作成</string>
@@ -26,6 +29,33 @@
     <string name="help_voice_commands">音声コマンド</string>
     <string name="help_add_route_segment">ルートにセグメントを追加</string>
     <string name="help_indoor_mode">屋内モード</string>
+    <string name="help_upgrade">21.2 リリースノート</string>
+    <string name="help_upgrade_211">21.1 リリースノート</string>
+    <string name="help_upgrade_210">21.0 リリースノート</string>
+    <string name="help_upgrade_202">20.2 リリースノート</string>
+    <string name="help_upgrade_201">20.1 リリースノート</string>
+    <string name="help_upgrade_200">20.0 リリースノート</string>
+    <string name="help_upgrade_193">19.3 リリースノート</string>
+    <string name="help_upgrade_192">19.2 リリースノート</string>
+    <string name="help_upgrade_191">19.1 リリースノート</string>
+    <string name="help_upgrade_190">19.0 リリースノート</string>
+    <string name="help_upgrade_181">18.1 リリースノート</string>
+    <string name="help_upgrade_180">18.0 リリースノート</string>
+    <string name="help_upgrade_171">17.1 リリースノート</string>
+    <string name="help_upgrade_170">17.0 リリースノート</string>
+    <string name="help_upgrade_161">16.1 リリースノート</string>
+    <string name="help_upgrade_160">16.0 リリースノート</string>
+    <string name="help_upgrade_152">15.2 リリースノート</string>
+    <string name="help_upgrade_151">15.1 リリースノート</string>
+    <string name="help_upgrade_150">15.0 リリースノート</string>
+    <string name="help_upgrade_141">14.1 リリースノート</string>
+    <string name="help_upgrade_140">14.0 リリースノート</string>
+    <string name="help_upgrade_131">13.1 リリースノート</string>
+    <string name="help_upgrade_130">13.0 リリースノート</string>
+    <string name="help_upgrade_121">12.1 リリースノート</string>
+    <string name="help_upgrade_120">12.0 リリースノート</string>
+    <string name="help_upgrade_112">11.2 リリースノート</string>
+    <string name="help_upgrade_111">11.1 リリースノート</string>
     <string name="help_upgrade_110">11.0 リリースノート</string>
     <string name="help_upgrade_102">10.2 リリースノート</string>
     <string name="help_upgrade_101">10.1 リリースノート</string>
@@ -68,6 +98,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
         <item>@string/help_upgrade_202</item>
         <item>@string/help_upgrade_201</item>
@@ -136,6 +167,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>
         <item>21.0.0 Release notes</item>
         <item>20.2.0 Release notes</item>
