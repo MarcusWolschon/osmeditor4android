@@ -175,6 +175,12 @@
   },
   {
     "key": "Key:contact:foursquare",
+    "url": "https://foursquare.com/mapaction?id=$1&action=view",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:foursquare",
     "url": "https://www.foursquare.com/v/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
@@ -210,6 +216,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:contact:linkedin",
+    "url": "https://www.linkedin.com/company/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:contact:mastodon",
     "url": "https://fedirect.toolforge.org/?id=$1",
     "source": "wikidata:P1630",
@@ -218,6 +230,12 @@
   {
     "key": "Key:contact:mastodon",
     "url": "https://wikidata-externalid-url.toolforge.org/?p=4033&id=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:mobile",
+    "url": "tel:$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -468,6 +486,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:contact:vimeo",
+    "url": "https://vimeo.com/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:contact:website",
     "url": "$1",
     "source": "wikidata:P3303",
@@ -489,6 +513,12 @@
     "key": "Key:contact:website",
     "url": "https://webcache.googleusercontent.com/search?q=cache:$1",
     "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:whatsapp",
+    "url": "whatsapp://send?phone=$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -1206,6 +1236,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:imagery_used",
+    "url": "https://osmlab.github.io/editor-layer-index/#$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:INEGI:cve_loc",
     "url": "https://www.inegi.org.mx/app/areasgeograficas/?ag=$1",
     "source": "wikidata:P1630",
@@ -1299,6 +1335,12 @@
     "key": "Key:memorial:wikipedia",
     "url": "https://wikipedia.org/wiki/$1",
     "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:mobile",
+    "url": "tel:$1",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -1447,6 +1489,12 @@
   },
   {
     "key": "Key:panoramax",
+    "url": "https://api.panoramax.xyz/#focus=pic&pic=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:panoramax:view",
     "url": "https://api.panoramax.xyz/#focus=pic&pic=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
@@ -1922,12 +1970,6 @@
   {
     "key": "Key:ref:FR:SIRET",
     "url": "https://www.sirene.fr/sirene/public/recherche?recherche.sirenSiret=$1",
-    "source": "osmwiki:P8",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:ref:FR:SIRET",
-    "url": "https://www.sirene.fr/sirene/public/recherche?recherche.sirenSiret=$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -1977,12 +2019,6 @@
     "key": "Key:ref:GB:uprn",
     "url": "https://uprn.uk/$1",
     "source": "osmwiki:P8",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:ref:GB:uprn",
-    "url": "https://www.findmystreet.co.uk/map?usrn=$1",
-    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -2131,12 +2167,6 @@
   },
   {
     "key": "Key:ref:IFOPT",
-    "url": "https://bahnland-bayern.de/de/moby/efa/app/departureMonitor?departureMonitor=type%3Dstop&formik=origin%3D$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:ref:IFOPT",
     "url": "https://transmodel-ids.toolforge.org/ifopt/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
@@ -2145,6 +2175,18 @@
     "key": "Key:ref:IL:inature",
     "url": "https://www.inature.info/wiki/$1",
     "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ine",
+    "url": "https://api-features.ign.es/collections/nuc/items?codine=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ine",
+    "url": "https://api-features.ign.es/collections/opob/items?codine=$1",
+    "source": "wikidata:P3303",
     "rank": "normal"
   },
   {
@@ -2335,7 +2377,7 @@
   },
   {
     "key": "Key:ref:linz:pastoral_lease_id",
-    "url": "https://osm-nz.github.io/?pastoral_lease_id=$1",
+    "url": "https://linz.govt.nz/our-work/crown-property-management/pastoral-land/location-crown-pastoral-land/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2701,7 +2743,7 @@
   },
   {
     "key": "Key:ref:wikimaginot",
-    "url": "wikimaginot.eu/V70_construction_detail.php?id=",
+    "url": "https://wikimaginot.eu/V70_construction_detail.php?id=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2745,6 +2787,12 @@
     "key": "Key:reg_name:wikipedia",
     "url": "https://wikipedia.org/wiki/$1",
     "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:related_law:FR:NOR",
+    "url": "https://www.legifrance.gouv.fr/WAspad/UnTexteDeJorf?numjo=$1",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -2894,103 +2942,7 @@
   {
     "key": "Key:twitter",
     "url": "https://x.com/$1",
-    "source": "wikidata:P1630",
-    "rank": "preferred"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "http://3nzoldnxplag42gqjs23xvghtzf6t6yzssrtytnntc6ppc7xxuoneoad.onion/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://keybase.io/_/api/1.0/user/lookup.json?twitter=$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://nitter.net/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://nitter.snopyta.org/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://rattibha.com/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://scholia.toolforge.org/twitter/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://threadreaderapp.com/user/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://twilog.org/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://twitter.com/@$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://twitter.com/#!/$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://twitter.com/$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://twitter.com/intent/user?screen_name=$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://unavatar.now.sh/twitter/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://www.trendsmap.com/twitter/user/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://x.com/@$1",
-    "source": "wikidata:P1630",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
