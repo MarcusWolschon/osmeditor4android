@@ -1,5 +1,26 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.2.2.0:
+
+- Fix protect properly against current node not being found
+- Fix deleting a preset should update the displayed preset list
+- Fix use standard locale format for finding synonym files
+- Fix always download individual member elements
+- Fix if a way is specifically clickable always render the highlighting
+- Fix after loading state re-enable upload button if necessary
+- Fix stop addRequiredElements from duplicating elements in upload
+- Fix wrap Panoramax instance list retrieval in ExecutorTask
+- Fix improve authorization messaging for Panoramax
+- Fix if a duplicate image is uploaded handle the error gracefully
+- Change rearrange playstore text and transifex config to be F-Droid compatible
+- Change NMEA talker priority
+- Change stop mentioning twitter
+- Add support for numeric suffixes for url tags
+- Add hardwire reversing behaviour for railway:turnout_side
+- Update translations
+- Update default preset
+- Update imagery from ELI
+
 21.2.1.0:
 
 - Fix display a more specific error for duplicate Panoramax uploads
