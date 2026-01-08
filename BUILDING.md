@@ -29,7 +29,7 @@ See [https://commonsware.com/blog/2018/01/08/android-version-ratchet.html](https
 
 Currently the split is as follows:
 
-  _current_ Android 14 / 4.0 "Ice Cream Sandwich" and later - androidx version1.0.0
+  _current_ Android 21 / 5.0 and later
   _legacy_ currently not configured as there is no practical way to do so
 
 ## Building with gradle (Eclipse or command line)
@@ -48,7 +48,9 @@ or this command on Windows:
 $ gradlew.bat installCurrentDebug
 ```
 
-Use _installLegacyDebug_ for the legacy flavor.
+__IMPORTANT__ : for testing with shrinking, optimization and obfuscation turned on build "fakeRelease" and test manually with it. Anything that uses reflection if particularly endangered to break when these are used, which is the case for release builds. 
+
+Use _installLegacyDebug_ for the legacy flavor if the build has such a flavour. 
 
 If you are using Eclipse you need to import the project as a gradle project, and then generate the .classpath file initially and on any configuration change or else the IDE is essentially useless. Run the gradle "eclipse" task to do this. It should be noted that this is a constant fight against changes in googles build tools and involves rather hackish workarounds
 
