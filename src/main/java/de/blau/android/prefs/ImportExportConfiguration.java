@@ -257,7 +257,7 @@ public final class ImportExportConfiguration {
             try (Cursor cursor = db.rawQuery("select * from " + table + query, null)) {
                 boolean more = cursor.moveToFirst();
                 if (!more) {
-                    serializer.comment("Database " + dbName + " table " + table + " has nothing to export");
+                    serializer.comment("Database " + dbName + " db table " + table + " has nothing to export");
                     return;
                 }
                 serializer.startTag(null, SECTION);
@@ -379,6 +379,7 @@ public final class ImportExportConfiguration {
                     return;
                 }
                 try {
+                    Log.i(DEBUG_TAG, "Importing DB " + nameAttr + " table " + table);
                     db = openDatabase(nameAttr);
                     columnTypes = getColumnTypes(db, table);
                     if (Boolean.parseBoolean(atts.getValue(TRUNCATE_ATTR))) {
@@ -422,6 +423,7 @@ public final class ImportExportConfiguration {
                 // database doesn't exist yet, need to open it with database helper so that tables get created
                 Class<?> helperClass = databaseHelpers.get(name);
                 if (helperClass != null) {
+                    Log.i(DEBUG_TAG, "Trying to call database helper for " + name);
                     Constructor<?> constructor;
                     try {
                         constructor = helperClass.getConstructor(Context.class);

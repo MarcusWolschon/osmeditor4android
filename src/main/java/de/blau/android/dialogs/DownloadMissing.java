@@ -129,51 +129,7 @@ public class DownloadMissing extends CancelableDialogFragment {
             if (Util.isEmpty(presetIds)) {
                 return;
             }
-            new ExecutorTask<Void, Void, Void>() {
-
-                @Override
-                protected void onPreExecute() {
-                    Progress.showDialog(activity, Progress.PROGRESS_PRESET);
-                }
-
-                @Override
-                protected Void doInBackground(Void param) throws IOException {
-                    List<String> tempIds = new ArrayList<>(presetIds);
-                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
-                        for (String id : tempIds) {
-                            final File presetDir = db.getPresetDirectory(id);
-                            presetDir.mkdir();
-                            if (!presetDir.exists()) {
-                                throw new IOException("Unable to create preset directory " + presetDir.getAbsolutePath());
-                            }
-                            final PresetInfo preset = db.getPreset(id);
-                            int code = PresetLoader.download(preset.url, presetDir, Preset.PRESETXML);
-                            if (code != PresetLoader.DOWNLOADED_PRESET_ERROR) {
-                                presetIds.remove(id); // saved state needs to remove downloaded ids
-                                // doesn't support icon download for now, but do that here if necessary
-                                continue;
-                            }
-                            presetDir.delete(); // NOSONAR
-                            throw new IOException("Unable to download " + preset.name);
-                        }
-
-                    } finally {
-                        App.resetPresets();
-                    }
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void result) {
-                    Progress.dismissDialog(activity, Progress.PROGRESS_PRESET);
-                }
-
-                @Override
-                protected void onBackgroundError(Exception ex) {
-                    Log.e(DEBUG_TAG, ex.getMessage());
-                    ScreenMessage.toastTopError(activity, getString(R.string.download_missing_error, ex.getMessage()));
-                }
-            }.execute();
+            new MissingDownloader(activity).execute();
         });
 
         builder.setNegativeButton(R.string.cancel, null);
@@ -185,5 +141,64 @@ public class DownloadMissing extends CancelableDialogFragment {
         super.onSaveInstanceState(outState);
         outState.putStringArrayList(PRESET_IDS_KEY, presetIds);
         outState.putStringArrayList(STYLE_IDS_KEY, styleIds);
+    }
+
+    private class MissingDownloader extends ExecutorTask<Void, Void, Void> {
+
+        private final FragmentActivity activity;
+
+        /**
+         * Create a new downloader for missing config files
+         * 
+         * @param activity the calling FragmentActivity
+         */
+        public MissingDownloader(@NonNull final FragmentActivity activity) {
+            this.activity = activity;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Progress.showDialog(activity, Progress.PROGRESS_PRESET);
+        }
+
+        @Override
+        protected Void doInBackground(Void param) throws IOException {
+            List<String> tempIds = new ArrayList<>(presetIds);
+            try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+                for (String id : tempIds) {
+                    final File presetDir = db.getPresetDirectory(id);
+                    presetDir.mkdir();
+                    if (!presetDir.exists()) {
+                        throw new IOException("Unable to create preset directory " + presetDir.getAbsolutePath());
+                    }
+                    final PresetInfo preset = db.getPreset(id);
+                    int code = PresetLoader.download(preset.url, presetDir, Preset.PRESETXML);
+                    if (code != PresetLoader.DOWNLOADED_PRESET_ERROR) {
+                        presetIds.remove(id); // saved state needs to remove downloaded ids
+                        // doesn't support icon download for now, but do that here if necessary
+                        continue;
+                    }
+                    presetDir.delete(); // NOSONAR
+                    throw new IOException("Unable to download " + preset.name);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            App.resetPresets();
+            Progress.dismissDialog(activity, Progress.PROGRESS_PRESET);
+        }
+
+        @Override
+        protected void onBackgroundError(Exception ex) {
+            Log.e(DEBUG_TAG, ex.getMessage());
+            if (activity.isFinishing()) {
+                return;
+            }
+            Progress.dismissDialog(activity, Progress.PROGRESS_PRESET);
+            ScreenMessage.toastTopError(activity, activity.getString(R.string.download_missing_error, ex.getMessage()));
+        }
     }
 }
