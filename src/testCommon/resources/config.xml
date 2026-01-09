@@ -18,9 +18,9 @@
             <StringSetValue value="craft" />
             <StringSetValue value="emergency" />
             <StringSetValue value="tourism" />
-            <StringSetValue value="building" />
             <StringSetValue value="place" />
             <StringSetValue value="leisure" />
+            <StringSetValue value="building" />
             <StringSetValue value="healthcare" />
         </StringSetPref>
         <BooleanPref key="showGps" value="true" />
@@ -98,8 +98,7 @@
         <Row type="OSMDATA" position="2" visible="1"
             content_id="null" />
         <Row type="TASKS" position="3" visible="1" content_id="null" />
-    </Section><!--Database tilelayers table layers has nothing to export --><!--Database tagfilters table filters doesn't exist yet android.database.sqlite.SQLiteCantOpenDatabaseException --><!--Database tagfilters table filterentries doesn't exist yet 
-        android.database.sqlite.SQLiteCantOpenDatabaseException -->
+    </Section><!--Database tilelayers table layers has nothing to export --><!--Database tagfilters table filters doesn't exist yet --><!--Database tagfilters table filterentries doesn't exist yet -->
     <Section name="validator_rules" table="resurveytags"
         version="0.1" truncate="true">
         <ColumnTypes ruleset="INTEGER" key="TEXT"
@@ -137,4 +136,32 @@
         <Row ruleset="0" key="name|ref" optional="0" />
         <Row ruleset="0" key="wheelchair" optional="0" />
     </Section><!--Database keys table keys has nothing to export -->
+    <Section name="openinghours_templates" table="templates"
+        version="0.1" truncate="true">
+        <ColumnTypes key="TEXT" name="TEXT"
+            is_default="INTEGER" template="TEXT" region="TEXT"
+            object="TEXT" />
+        <PrimaryKeyColumns />
+        <Row key="null" name="Weekdays with lunch break"
+            is_default="1"
+            template="Mo-Fr 09:00-12:00,13:30-18:30;Sa 09:00-17:00;PH closed"
+            region="null" object="null" />
+        <Row key="null"
+            name="Wekdays with lunch break and late shopping"
+            is_default="0"
+            template="Mo,Tu,Th,Fr 09:00-12:00,13:30-18:30;We 09:00-12:00,13:30-20:00;Sa 09:00-17:00;PH closed"
+            region="null" object="null" />
+        <Row key="null" name="Weekdays" is_default="0"
+            template="Mo-Fr 09:00-18:30;Sa 09:00-17:00;PH closed"
+            region="null" object="null" />
+        <Row key="null" name="Weekdays with late shopping"
+            is_default="0"
+            template="Mo,Tu,Th,Fr 09:00-18:30;We 09:00-20:00;Sa 09:00-17:00;PH closed"
+            region="null" object="null" />
+        <Row key="null" name="24 hours, 7 days a week"
+            is_default="0" template="24/7" region="null" object="null" />
+        <Row key="collection\_times" name="Once per weekday"
+            is_default="1" template="Mo-Fr 09:00; Sa 07:00; PH closed"
+            region="null" object="null" />
+    </Section>
 </Configuration>

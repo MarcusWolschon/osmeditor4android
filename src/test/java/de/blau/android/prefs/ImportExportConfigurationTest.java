@@ -17,8 +17,10 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import android.content.Context;
+import android.database.Cursor;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
+import ch.poole.openinghoursfragment.templates.TemplateDatabaseHelper;
 import de.blau.android.R;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.API.Auth;
@@ -75,6 +77,11 @@ public class ImportExportConfigurationTest {
             try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ctx)) {
                 assertEquals("https://github.com/simonpoole/militarypreset/releases/latest/download/military.zip",
                         db.getPreset("aab1d149-6183-4df8-8e28-2fc805e8d12f").url);
+            }
+            // this checks if the mechanism to call the database helper works if the db doesn't exist yet
+            try (TemplateDatabaseHelper t = new TemplateDatabaseHelper(ctx);
+                Cursor c = t.getReadableDatabase().rawQuery("select * from templates where name='Wekdays with lunch break and late shopping'", null);) {
+                assertTrue(c.moveToFirst());
             }
         } catch (Exception ex) {
             fail(ex.getMessage());
