@@ -133,7 +133,7 @@ public class ImageStorageEditorActivity extends URLListEditActivity {
                 ThemeUtils.getAlertDialogBuilder(ImageStorageEditorActivity.this).setItems(names, (DialogInterface d, int which) -> {
                     ImageStorageConfiguration imagestore = instances.get(which);
                     // hack we test for null id in itemEditDialog
-                    ListEditItem item = new ListEditItem(null, imagestore.name, imagestore.type.toString(), imagestore.url, null, null, false, false); // NOSONAR
+                    ListEditItem item = new ListEditItem("", imagestore.name, imagestore.type.toString(), imagestore.url, null, null, false, false); // NOSONAR
                     itemEditDialog(item);
                 }).show();
             }
