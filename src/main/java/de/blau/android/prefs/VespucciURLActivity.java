@@ -187,7 +187,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
         if (v.getId() == R.id.urldialog_buttonAddPreset) {
             CheckBox enableCheckBox = (CheckBox) mainView.findViewById(R.id.urldialog_checkboxEnable);
             boolean enable = enableCheckBox != null && enableCheckBox.isChecked();
-            PresetEditorActivity.startForResult(this, presetname, preseturl, enable, REQUEST_PRESETEDIT);
+            PresetConfigurationEditorActivity.startForResult(this, presetname, preseturl, enable, REQUEST_PRESETEDIT);
         }
     }
 

@@ -52,7 +52,7 @@ import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.prefs.PresetConfigurationEditorActivity;
 import de.blau.android.search.Wrapper;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.Hash;
@@ -67,7 +67,7 @@ import de.blau.android.util.collections.MultiHashMap;
  * 
  * Presets can come from one of three sources: a) the default preset, which is loaded from the default asset locations
  * (see below) b) an APK-based preset, which is loaded from an APK c) a downloaded preset, which is downloaded to local
- * storage by {@link PresetEditorActivity}
+ * storage by {@link PresetConfigurationEditorActivity}
  * 
  * The preset.xml is loaded from the following sources: a) for the default preset, "preset.xml" in the default asset
  * locations b) for APK-based presets, "preset.xml" in the APK asset directory c) for downloaded presets, "preset.xml"
@@ -78,7 +78,7 @@ import de.blau.android.util.collections.MultiHashMap;
  * Otherwise, from the default asset location (see below, "images/" is prepended to the path)
  * 
  * Icons referenced in the XML preset by a http or https URL are loaded from the presets data directory, where they
- * should be placed under a name derived from the URL hash by {@link PresetEditorActivity}. Default and APK presets
+ * should be placed under a name derived from the URL hash by {@link PresetConfigurationEditorActivity}. Default and APK presets
  * cannot have http/https icons.
  * 
  * If an asset needs to be loaded from the default asset locations, the loader checks for the existence of an APK with

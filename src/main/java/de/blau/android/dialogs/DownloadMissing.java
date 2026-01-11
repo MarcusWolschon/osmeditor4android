@@ -166,7 +166,7 @@ public class DownloadMissing extends CancelableDialogFragment {
             List<String> tempIds = new ArrayList<>(presetIds);
             try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
                 for (String id : tempIds) {
-                    final File presetDir = db.getPresetDirectory(id);
+                    final File presetDir = db.getResourceDirectory(id);
                     presetDir.mkdir();
                     if (!presetDir.exists()) {
                         throw new IOException("Unable to create preset directory " + presetDir.getAbsolutePath());

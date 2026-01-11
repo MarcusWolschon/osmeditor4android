@@ -1450,29 +1450,24 @@ public final class DataStyle extends DefaultHandler {
      * Get the list of available Styles translated
      * 
      * @param context an Android Context
-     * @param styleNames the list of style names to translate
-     * @return list of available Styles translated (or untranslated if no translation is available)
+     * @return Map of available Styles translated (or untranslated if no translation is available)
      */
     @NonNull
-    public static String[] getStyleListTranslated(@NonNull Context context, @NonNull String[] styleNames) {
+    public Map<String, String> getStyleListTranslated(@NonNull Context context) {
         Locale locale = Locale.getDefault();
+        Map<String, String> result = new HashMap<>();
         try (InputStream poFileStream = getPoFileStream(context, locale)) {
             Po po = de.blau.android.util.Util.parsePoFile(poFileStream);
-            if (po != null) {
-                int len = styleNames.length;
-                String[] res = new String[len];
-                for (int i = 0; i < len; i++) {
-                    res[i] = po.t(styleNames[i]);
-                }
-                return res;
-            } else {
-                Log.w(DEBUG_TAG, "Error parsing translations for " + locale);
-                return styleNames;
+            for (String name : getStyleList(context)) {
+                result.put(name, po.t(name));
             }
         } catch (IOException ioex) {
             Log.w(DEBUG_TAG, "No translations found for " + locale);
-            return styleNames;
+            for (String name : getStyleList(context)) {
+                result.put(name, name);
+            }
         }
+        return result;
     }
 
     /**

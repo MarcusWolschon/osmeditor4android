@@ -49,7 +49,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.prefs.PresetConfigurationEditorActivity;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.RecordedRequest;
 
@@ -77,7 +77,7 @@ public class ImportExportConfigurationTest {
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         context = instrumentation.getTargetContext();
-        monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PresetConfigurationEditorActivity.class.getName(), null, false);
         main = mActivityRule.getActivity();
         deleteTestPreset();
         Preferences prefs = new Preferences(context);
@@ -144,7 +144,7 @@ public class ImportExportConfigurationTest {
             TestUtils.sleep(2000);
             try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
                 assertNotNull(db.getPreset(PRESET_ID));
-                assertTrue(db.getPresetDirectory(PRESET_ID).exists());
+                assertTrue(db.getResourceDirectory(PRESET_ID).exists());
             }
         } catch (IOException e) {
             fail(e.getMessage());

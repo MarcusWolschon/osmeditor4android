@@ -55,10 +55,10 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
-public class PresetEditorActivity extends URLListEditActivity {
+public class PresetConfigurationEditorActivity extends URLListEditActivity {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetEditorActivity.class.getSimpleName().length());
-    private static final String DEBUG_TAG = PresetEditorActivity.class.getSimpleName().substring(0, TAG_LEN);
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetConfigurationEditorActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PresetConfigurationEditorActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     private AdvancedPrefDatabase db;
 
@@ -77,7 +77,7 @@ public class PresetEditorActivity extends URLListEditActivity {
     /**
      * Construct a new instance
      */
-    public PresetEditorActivity() {
+    public PresetConfigurationEditorActivity() {
         super();
         addAdditionalContextMenuItem(MENU_RELOAD, R.string.preset_update);
         addAdditionalContextMenuItem(MENU_UP, R.string.move_up);
@@ -90,7 +90,7 @@ public class PresetEditorActivity extends URLListEditActivity {
      * @param context an Android Context
      */
     public static void start(@NonNull Context context) {
-        Intent intent = new Intent(context, PresetEditorActivity.class);
+        Intent intent = new Intent(context, PresetConfigurationEditorActivity.class);
         context.startActivity(intent);
     }
 
@@ -104,7 +104,7 @@ public class PresetEditorActivity extends URLListEditActivity {
      * @param requestCode the code to identify the result
      */
     public static void startForResult(@NonNull Activity activity, @NonNull String presetName, @NonNull String presetUrl, boolean enable, int requestCode) {
-        Intent intent = new Intent(activity, PresetEditorActivity.class);
+        Intent intent = new Intent(activity, PresetConfigurationEditorActivity.class);
         intent.setAction(ACTION_NEW);
         intent.putExtra(EXTRA_NAME, presetName);
         intent.putExtra(EXTRA_VALUE, presetUrl);
@@ -201,7 +201,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         db.setPresetInfo(item.id, item.name, item.value, item.boolean0);
         if (preset.url != null && !preset.url.equals(item.value)) {
             // url changed so better recreate everything
-            db.removePresetDirectory(item.id);
+            db.removeResourceDirectory(item.id);
             retrievePresetData(this, db, item);
         }
         App.resetPresets();
@@ -281,8 +281,8 @@ public class PresetEditorActivity extends URLListEditActivity {
      * @param db an AdvancedPrefDatabase instance
      * @param item the item containing the preset to be downloaded
      */
-    private static void retrievePresetData(@NonNull PresetEditorActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item) {
-        final File presetDir = db.getPresetDirectory(item.id);
+    private static void retrievePresetData(@NonNull PresetConfigurationEditorActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item) {
+        final File presetDir = db.getResourceDirectory(item.id);
         // noinspection ResultOfMethodCallIgnored
         presetDir.mkdir();
         if (!presetDir.isDirectory()) {
@@ -398,7 +398,7 @@ public class PresetEditorActivity extends URLListEditActivity {
             final CheckBox useTranslations = (CheckBox) mainView.findViewById(R.id.listedit_translations);
             final ImageButton fileButton = (ImageButton) mainView.findViewById(R.id.listedit_file_button);
 
-            final PresetEditorActivity activity = (PresetEditorActivity) getActivity();
+            final PresetConfigurationEditorActivity activity = (PresetConfigurationEditorActivity) getActivity();
 
             final boolean itemExists = item != null;
             if (itemExists) {

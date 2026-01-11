@@ -278,7 +278,7 @@ public class PresetTest {
             File preset = JavaResources.copyFileFromResources(applicationContext, presetName, null, "/");
             String presetId = java.util.UUID.randomUUID().toString();
             db.addPreset(presetId, "Test preset", "", true);
-            File presetDir = db.getPresetDirectory(presetId);
+            File presetDir = db.getResourceDirectory(presetId);
             presetDir.mkdir();
             Uri inputUri = Uri.parse(preset.toURI().toString());
             ContentResolver contentResolver = ApplicationProvider.getApplicationContext().getContentResolver();

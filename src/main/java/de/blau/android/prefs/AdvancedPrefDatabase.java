@@ -55,7 +55,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 22;
+    private static final int DATA_VERSION = 23;
 
     static final String DATABASE_NAME = "AdvancedPrefs";
 
@@ -99,6 +99,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private static final String VISIBLE_COL    = "visible";
     private static final String TYPE_COL       = "type";
     private static final String CONTENT_ID_COL = "content_id";
+
+    static final String STYLES_TABLE = "styles";
 
     private static final String CREATE_TABLE = "CREATE TABLE ";
 
@@ -153,6 +155,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         addLayer(db, 3, LayerType.TASKS);
         createImagestoresTable(db, IMAGESTORES_TABLE);
         addDefaultImageStoreEntries(db);
+        createStylesTable(db, STYLES_TABLE);
+        addDefaultStyleEntries(db);
     }
 
     /**
@@ -207,6 +211,17 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         db.execSQL(CREATE_TABLE + table
                 + " (id TEXT PRIMARY KEY, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT, timeout INTEGER DEFAULT "
                 + Server.DEFAULT_TIMEOUT + ", compresseduploads INTEGER DEFAULT 0)");
+    }
+
+    /**
+     * Create the table for presets
+     * 
+     * @param db a writable SQLIteDatabase
+     * @param table the table name
+     */
+    private void createStylesTable(@NonNull SQLiteDatabase db, @NonNull String table) {
+        db.execSQL(CREATE_TABLE + table
+                + " (id TEXT PRIMARY KEY, name TEXT, url TEXT, version TEXT DEFAULT NULL, description TEXT DEFAULT NULL, lastupdate TEXT, data TEXT, active INTEGER DEFAULT 0)");
     }
 
     @Override
@@ -328,6 +343,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             createLayersTable(db, TEMP_TABLE);
             migrateTable(db, LAYERS_TABLE, TEMP_TABLE);
         }
+        if (oldVersion <= 22) {
+            createStylesTable(db, STYLES_TABLE);
+            addDefaultStyleEntries(db);
+        }
     }
 
     /**
@@ -343,6 +362,19 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         db.execSQL("DROP TABLE " + origTable);
         db.execSQL("ALTER TABLE " + tempTable + " RENAME TO " + origTable);
         db.execSQL("COMMIT");
+    }
+
+    /**
+     * Add default style entries
+     * 
+     * @param db the prefs db
+     */
+    private void addDefaultStyleEntries(SQLiteDatabase db) {
+        addStyle(db, "builtin-minimal", "Built-in (minimal)", null, false);
+        addStyle(db, "color-round", "Color Round Nodes", "Color-round.xml", true);
+        addStyle(db, "color-round-no-mp", "Color Round Nodes No Multipolygons", "Color-round-no-mp.xml", false);
+        addStyle(db, "no-path-patterns", "No path patterns", "No-path-patterns.xml", false);
+        addStyle(db, "pen-round", "Pen Round Nodes", "Pen-round.xml", false);
     }
 
     /**
@@ -731,7 +763,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             PresetInfo pi = presetInfos[i];
             try {
                 Log.d(DEBUG_TAG, "Adding preset " + pi.name);
-                activePresets[i] = new Preset(context, getPresetDirectory(pi.id), pi.useTranslations);
+                activePresets[i] = new Preset(context, getResourceDirectory(pi.id), pi.useTranslations);
                 Preset preset = activePresets[i];
                 if (preset != null) {
                     setAdditionalFieldsFromPreset(pi, preset);
@@ -922,11 +954,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param id the ID of the preset to update
      */
     public synchronized void setPresetLastupdateNow(@NonNull String id) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(LASTUPDATE_COL, ((Long) System.currentTimeMillis()).toString());
-        db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { id });
-        db.close();
+        setLastupdateNow(PRESETS_TABLE, id);
     }
 
     /**
@@ -980,7 +1008,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         // need to renumber after deleting
         renumberPresets(db);
         db.close();
-        removePresetDirectory(id);
+        removeResourceDirectory(id);
     }
 
     /**
@@ -1062,13 +1090,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
-     * Gets the preset data path for a preset with the given ID
+     * Gets the data path for a resource with the given ID
      * 
-     * @param id the id for the Preset
-     * @return the preset data path
+     * @param id the id for the resource
+     * @return the resource data path
      */
     @NonNull
-    public File getPresetDirectory(@Nullable String id) {
+    public File getResourceDirectory(@Nullable String id) {
         if (id == null || "".equals(id)) {
             throw new IllegalOperationException("Attempted to get folder for null or empty id!");
         }
@@ -1077,12 +1105,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
-     * Removes the data directory belonging to a preset
+     * Removes the data directory belonging to an importable resource
      * 
-     * @param id the preset ID of the preset whose directory is going to be deleted
+     * @param id the ID of the resource whose directory is going to be deleted
      */
-    public void removePresetDirectory(@NonNull String id) {
-        File presetDir = getPresetDirectory(id);
+    public void removeResourceDirectory(@NonNull String id) {
+        File presetDir = getResourceDirectory(id);
         if (presetDir.isDirectory()) {
             killDirectory(presetDir);
         }
@@ -1097,7 +1125,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     public List<String> getNotDownloadedPresets() {
         List<String> result = new ArrayList<>();
         for (PresetInfo pi : getPresets(null, false)) {
-            if (pi.url != null && !getPresetDirectory(pi.id).exists() && Util.isUrl(pi.url)) {
+            if (pi.url != null && !getResourceDirectory(pi.id).exists() && Util.isUrl(pi.url)) {
                 result.add(pi.id);
             }
         }
@@ -1640,7 +1668,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param type type
      * @param version version of the image store
      * @param url image store API url
-     * @param active use this image storeif true
+     * @param active use this image store if true
      */
     private synchronized void addImageStore(@NonNull SQLiteDatabase db, @NonNull String id, String name, ImageStorageType type, String url, boolean active) {
         ContentValues values = new ContentValues();
@@ -1660,7 +1688,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param type type
      * @param version version of the image store
      * @param url image store API url
-     * @param active use this image storeif true
+     * @param active use this image store if true
      */
     public synchronized void updateImageStore(@NonNull String id, String name, ImageStorageType type, String url, boolean active) {
         Log.d(DEBUG_TAG, "Setting geocoder " + id + " active to " + active); // NOSONAR
@@ -1682,6 +1710,180 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      */
     public synchronized void setImageStoreState(@NonNull String id, boolean active) {
         setState(IMAGESTORES_TABLE, id, active, true);
+    }
+
+    // style stuff
+
+    /**
+     * Get all currently known styles
+     * 
+     * @return an array of StyleConfiguration objects
+     */
+    @NonNull
+    public StyleConfiguration[] getStyles() {
+        return getStyles(null);
+    }
+
+    /**
+     * Fetches all ImageStores matching the given ID, or all ImageStores if id is null
+     * 
+     * @param id null to fetch all ImageStores, or the id to fetch a specific one
+     * @return an array of ImageStore objects
+     */
+    @NonNull
+    public synchronized StyleConfiguration[] getStyles(@Nullable String id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor dbresult = db.query(STYLES_TABLE, new String[] { ID_COL, NAME_COL, DESCRIPTION_COL, VERSION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL },
+                id == null ? null : WHERE_ID, id == null ? null : new String[] { id }, null, null, null);
+        StyleConfiguration[] result = new StyleConfiguration[dbresult.getCount()];
+        dbresult.moveToFirst();
+        for (int i = 0; i < result.length; i++) {
+            result[i] = new StyleConfiguration(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
+                    dbresult.getString(4), dbresult.getString(5), dbresult.getInt(6) == 1);
+            dbresult.moveToNext();
+        }
+        dbresult.close();
+        db.close();
+        return result;
+    }
+
+    /**
+     * Gets a style by ID (will return null if no style with this ID exists)
+     * 
+     * @param id id of the style
+     * @return a StyleConfiguration object or null
+     */
+    @Nullable
+    public StyleConfiguration getStyle(@NonNull String id) {
+        StyleConfiguration[] found = getStyles(id);
+        if (found.length == 0) {
+            return null;
+        }
+        return found[0];
+    }
+
+    /**
+     * Add a new ImageStore with the given values to the database
+     * 
+     * Opens the existing or creates the database
+     * 
+     * @param id id of the image store
+     * @param name name used for display purposes
+     * @param url image store API url
+     * @param active use this style if true
+     */
+    public synchronized void addStyle(@NonNull String id, @NonNull String name, @Nullable String url, boolean active) {
+        SQLiteDatabase db = getWritableDatabase();
+        addStyle(db, id, name, url, active);
+        db.close();
+    }
+
+    /**
+     * Add a new ImageStore with the given values to the database
+     * 
+     * @param db database to use
+     * @param id id of the image store
+     * @param name name used for display purposes
+     * @param url image store API url
+     * @param active use this style if true
+     */
+    private synchronized void addStyle(@NonNull SQLiteDatabase db, @NonNull String id, @NonNull String name, @Nullable String url, boolean active) {
+        ContentValues values = new ContentValues();
+        values.put(ID_COL, id);
+        values.put(NAME_COL, name);
+        values.put(URL_COL, url);
+        values.put(ACTIVE_COL, active ? 1 : 0);
+        db.insert(STYLES_TABLE, null, values);
+    }
+
+    /**
+     * Update the specified style configuration
+     * 
+     * @param id the ID of the image store to update
+     * @param name name used for display purposes
+     * @param url style url
+     * @param active use this style if true
+     */
+    public synchronized void updateStyle(@NonNull String id, @NonNull String name, @Nullable String url, boolean active) {
+        Log.d(DEBUG_TAG, "Setting style " + id + " active to " + active); // NOSONAR
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(ID_COL, id);
+        values.put(NAME_COL, name);
+        values.put(URL_COL, url);
+        values.put(ACTIVE_COL, active ? 1 : 0);
+        db.update(STYLES_TABLE, values, WHERE_ID, new String[] { id });
+        db.close();
+    }
+
+    /**
+     * Deletes a style including the corresponding style data directory
+     * 
+     * @param id id of the preset to delete
+     */
+    public synchronized void deleteStyle(@NonNull String id) {
+        if (ID_DEFAULT.equals(id)) {
+            throw new IllegalOperationException(CANNOT_DELETE_DEFAULT);
+        }
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(STYLES_TABLE, WHERE_ID, new String[] { id });
+        db.close();
+        removeResourceDirectory(id);
+    }
+
+    /**
+     * Sets information that requires parsing the style first
+     * 
+     * @param id the ID of the style to update
+     * @param version the version if null this will not be updated
+     * @param description the description if null this will not be updated
+     */
+    public synchronized void setStyleAdditionalFields(@NonNull String id, @Nullable String version, @Nullable String description) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        if (version != null) {
+            values.put(VERSION_COL, version);
+        }
+        if (description != null) {
+            values.put(DESCRIPTION_COL, description);
+        }
+        if (values.size() != 0) { // isEmpty was added in API 30
+            db.update(STYLES_TABLE, values, WHERE_ID, new String[] { id });
+        }
+        db.close();
+    }
+
+    /**
+     * Sets the active value of the given image store
+     * 
+     * @param id the ID of the image store to update
+     * @param active use this image store if true
+     */
+    public synchronized void setStyleState(@NonNull String id, boolean active) {
+        setState(STYLES_TABLE, id, active, true);
+    }
+
+    /**
+     * Sets the lastupdate value of the given preset to now
+     * 
+     * @param id the ID of the preset to update
+     */
+    public synchronized void setStyleLastupdateNow(@NonNull String id) {
+        setLastupdateNow(STYLES_TABLE, id);
+    }
+
+    /**
+     * Sets the lastupdate value of the given element to now
+     * 
+     * @param table the table name
+     * @param id the row id
+     */
+    public synchronized void setLastupdateNow(@NonNull String table, @NonNull String id) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(LASTUPDATE_COL, ((Long) System.currentTimeMillis()).toString());
+        db.update(table, values, WHERE_ID, new String[] { id });
+        db.close();
     }
 
     /**
