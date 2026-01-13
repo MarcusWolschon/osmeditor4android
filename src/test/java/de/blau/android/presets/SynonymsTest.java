@@ -48,4 +48,27 @@ public class SynonymsTest {
         Assert.assertTrue(result.size() > 0);
         Assert.assertEquals("Animal shelter", result.get(0).getName());
     }
+
+    /**
+     * Check that 2nd level tag replacements work
+     */
+    @Test
+    public void secondLevelTest() {
+        Locale.setDefault(new Locale("en", "AU"));
+        Synonyms s = new Synonyms(ApplicationProvider.getApplicationContext());
+        List<IndexSearchResult> results = s.search(ApplicationProvider.getApplicationContext(), "petrol", null, 2);
+        boolean found = false;
+        for (IndexSearchResult isr : results) {
+            PresetTagField field = isr.getItem().getField("vending");
+
+            if (field instanceof PresetFixedField) {
+                // we should not have any fixed tags with vending just the regular vending machine preset
+                assertEquals("fuel", ((PresetFixedField) field).getValue().getValue());
+            }
+            if (field instanceof PresetComboField) {
+                found = true;
+            }
+        }
+        assertTrue(found);
+    }
 }

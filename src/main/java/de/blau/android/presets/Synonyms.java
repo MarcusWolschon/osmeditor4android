@@ -36,11 +36,13 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class Synonyms {
-    
+
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Synonyms.class.getSimpleName().length());
     private static final String DEBUG_TAG = Synonyms.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String SYNONYMS_DIR = "synonyms/";
+
+    private static final int OFFSET_FOR_NO_SECOND_LEVEL = 10;
 
     private MultiHashMap<String, String> synonymMap = new MultiHashMap<>(false); // names -> tags
 
@@ -131,11 +133,16 @@ public class Synonyms {
                 Set<PresetItem> items = new HashSet<>();
                 int len = parts.length;
                 if (len == 1) {
-                    items.addAll(getPresetItems(type, presets, parts[0] + "\t"));
-                } else if (len >= 2) {
-                    items.addAll(getPresetItems(type, presets, parts[0] + "\t" + parts[1]));
-                    if (len > 2) {
-                        items.addAll(getPresetItems(type, presets, parts[len - 2] + "\t" + parts[len - 1]));
+                    items.addAll(getPresetItems(type, presets, parts[0], ""));
+                } else if (len == 2) {
+                    items.addAll(getPresetItems(type, presets, parts[0], parts[1]));
+                } else {
+                    Set<PresetItem> temp = getPresetItems(type, presets, replaceSecondLevelKey(parts[len - 2]), parts[len - 1]);
+                    if (!temp.isEmpty()) {
+                        items.addAll(temp);
+                    } else {
+                        items.addAll(getPresetItems(type, presets, parts[0], parts[1]));
+                        distance = distance + OFFSET_FOR_NO_SECOND_LEVEL;
                     }
                 }
                 for (PresetItem pi : items) {
@@ -148,23 +155,42 @@ public class Synonyms {
     }
 
     /**
+     * Check if the key has a replacement as a 2nd level key, if yes return that
+     * 
+     * @param key the 2nd level key to check
+     * @return a replacement key or the original
+     */
+    @NonNull
+    private String replaceSecondLevelKey(@NonNull String key) {
+        String replacementKey = ch.poole.osm.presetutils.Tags.SECOND_LEVEL_KEYS.get(key);
+        if (replacementKey != null) {
+            return replacementKey;
+        }
+        return key;
+    }
+
+    /**
      * Get the preset items for a tag or key
      * 
      * @param type the element type or null for all
      * @param presets the currently configured presets
-     * @param presetKey the tag or key we are looking for
+     * @param key the key we are looking for
+     * @param value the value we are looking for
      * @return a Set of PresetItem
      */
     @NonNull
-    private Set<PresetItem> getPresetItems(@Nullable ElementType type, @NonNull Preset[] presets, @NonNull String presetKey) {
+    private Set<PresetItem> getPresetItems(@Nullable ElementType type, @NonNull Preset[] presets, @NonNull String key, @NonNull String value) {
+        String presetKey = key + "\t" + value;
         Set<PresetItem> result = new HashSet<>();
         for (Preset preset : presets) {
-            if (preset != null) {
-                Set<PresetItem> items = preset.getItemByTag(presetKey);
-                for (PresetItem pi : items) {
-                    if (!pi.isDeprecated() && (type == null || pi.appliesTo(type))) {
-                        result.add(pi);
-                    }
+            if (preset == null) {
+                continue;
+            }
+            Set<PresetItem> items = preset.getItemByTag(presetKey);
+            for (PresetItem pi : items) {
+                if (!pi.isDeprecated() && (type == null || pi.appliesTo(type))) {
+
+                    result.add(pi);
                 }
             }
         }
