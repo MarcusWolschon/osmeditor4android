@@ -100,7 +100,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private static final String TYPE_COL       = "type";
     private static final String CONTENT_ID_COL = "content_id";
 
-    static final String STYLES_TABLE = "styles";
+    static final String         STYLES_TABLE = "styles";
+    private static final String CUSTOM_COL   = "custom";
 
     private static final String CREATE_TABLE = "CREATE TABLE ";
 
@@ -221,7 +222,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      */
     private void createStylesTable(@NonNull SQLiteDatabase db, @NonNull String table) {
         db.execSQL(CREATE_TABLE + table
-                + " (id TEXT PRIMARY KEY, name TEXT, url TEXT, version TEXT DEFAULT NULL, description TEXT DEFAULT NULL, lastupdate TEXT, data TEXT, active INTEGER DEFAULT 0)");
+                + " (id TEXT PRIMARY KEY, name TEXT, url TEXT, version TEXT DEFAULT NULL, description TEXT DEFAULT NULL, lastupdate TEXT, data TEXT, custom INTEGER DEFAULT 0, active INTEGER DEFAULT 0)");
     }
 
     @Override
@@ -370,11 +371,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param db the prefs db
      */
     private void addDefaultStyleEntries(SQLiteDatabase db) {
-        addStyle(db, "builtin-minimal", "Built-in (minimal)", null, false);
-        addStyle(db, "color-round", "Color Round Nodes", "Color-round.xml", true);
-        addStyle(db, "color-round-no-mp", "Color Round Nodes No Multipolygons", "Color-round-no-mp.xml", false);
-        addStyle(db, "no-path-patterns", "No path patterns", "No-path-patterns.xml", false);
-        addStyle(db, "pen-round", "Pen Round Nodes", "Pen-round.xml", false);
+        addStyle(db, "builtin-minimal", "Built-in (minimal)", null, false, false);
+        addStyle(db, "color-round", "Color Round Nodes", "Color-round.xml", false, true);
+        addStyle(db, "color-round-no-mp", "Color Round Nodes No Multipolygons", "Color-round-no-mp.xml", false, false);
+        addStyle(db, "no-path-patterns", "No path patterns", "No-path-patterns.xml", false, false);
+        addStyle(db, "pen-round", "Pen Round Nodes", "Pen-round.xml", false, false);
     }
 
     /**
@@ -1733,13 +1734,15 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     @NonNull
     public synchronized StyleConfiguration[] getStyles(@Nullable String id) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor dbresult = db.query(STYLES_TABLE, new String[] { ID_COL, NAME_COL, DESCRIPTION_COL, VERSION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL },
-                id == null ? null : WHERE_ID, id == null ? null : new String[] { id }, null, null, null);
+        Cursor dbresult = db.query(STYLES_TABLE,
+                new String[] { ID_COL, NAME_COL, DESCRIPTION_COL, VERSION_COL, URL_COL, LASTUPDATE_COL, CUSTOM_COL, ACTIVE_COL }, id == null ? null : WHERE_ID,
+                id == null ? null : new String[] { id }, null, null, null);
         StyleConfiguration[] result = new StyleConfiguration[dbresult.getCount()];
         dbresult.moveToFirst();
         for (int i = 0; i < result.length; i++) {
             result[i] = new StyleConfiguration(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
                     dbresult.getString(4), dbresult.getString(5), dbresult.getInt(6) == 1);
+            result[i].setActive(dbresult.getInt(7) == 1);
             dbresult.moveToNext();
         }
         dbresult.close();
@@ -1763,35 +1766,39 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
-     * Add a new ImageStore with the given values to the database
+     * Add a new style with the given values to the database
      * 
      * Opens the existing or creates the database
      * 
-     * @param id id of the image store
+     * @param id id of the style
      * @param name name used for display purposes
-     * @param url image store API url
+     * @param url style url or file
+     * @param custom if true this is a custom entry
      * @param active use this style if true
      */
-    public synchronized void addStyle(@NonNull String id, @NonNull String name, @Nullable String url, boolean active) {
+    public synchronized void addStyle(@NonNull String id, @NonNull String name, @Nullable String url, boolean custom, boolean active) {
         SQLiteDatabase db = getWritableDatabase();
-        addStyle(db, id, name, url, active);
+        addStyle(db, id, name, url, custom, active);
         db.close();
     }
 
     /**
-     * Add a new ImageStore with the given values to the database
+     * Add a new style with the given values to the database
      * 
      * @param db database to use
-     * @param id id of the image store
+     * @param id id of the style
      * @param name name used for display purposes
-     * @param url image store API url
+     * @param url style url or file
+     * @param custom if true this is a custom entry
      * @param active use this style if true
      */
-    private synchronized void addStyle(@NonNull SQLiteDatabase db, @NonNull String id, @NonNull String name, @Nullable String url, boolean active) {
+    private synchronized void addStyle(@NonNull SQLiteDatabase db, @NonNull String id, @NonNull String name, @Nullable String url, boolean custom,
+            boolean active) {
         ContentValues values = new ContentValues();
         values.put(ID_COL, id);
         values.put(NAME_COL, name);
         values.put(URL_COL, url);
+        values.put(CUSTOM_COL, custom ? 1 : 0);
         values.put(ACTIVE_COL, active ? 1 : 0);
         db.insert(STYLES_TABLE, null, values);
     }
@@ -1799,7 +1806,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     /**
      * Update the specified style configuration
      * 
-     * @param id the ID of the image store to update
+     * @param id the ID of the style to update
      * @param name name used for display purposes
      * @param url style url
      * @param active use this style if true
@@ -1819,7 +1826,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     /**
      * Deletes a style including the corresponding style data directory
      * 
-     * @param id id of the preset to delete
+     * @param id id of the style to delete
      */
     public synchronized void deleteStyle(@NonNull String id) {
         if (ID_DEFAULT.equals(id)) {
@@ -1854,19 +1861,19 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
-     * Sets the active value of the given image store
+     * Sets the active value of the given style
      * 
-     * @param id the ID of the image store to update
-     * @param active use this image store if true
+     * @param id the ID of the style to update
+     * @param active use this style if true
      */
     public synchronized void setStyleState(@NonNull String id, boolean active) {
         setState(STYLES_TABLE, id, active, true);
     }
 
     /**
-     * Sets the lastupdate value of the given preset to now
+     * Sets the lastupdate value of the given style to now
      * 
-     * @param id the ID of the preset to update
+     * @param id the ID of the style to update
      */
     public synchronized void setStyleLastupdateNow(@NonNull String id) {
         setLastupdateNow(STYLES_TABLE, id);
