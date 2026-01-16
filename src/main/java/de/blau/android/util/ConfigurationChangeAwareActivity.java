@@ -49,7 +49,7 @@ public abstract class ConfigurationChangeAwareActivity extends AppCompatActivity
      * @param v the View
      * @param insets the Insets
      */
-    public static void setMarginsFromInsets(@NonNull View v, @NonNull Insets insets) {
+    private static void setMarginsFromInsets(@NonNull View v, @NonNull Insets insets) {
         MarginLayoutParams mlp = (MarginLayoutParams) v.getLayoutParams();
         mlp.leftMargin = insets.left;
         mlp.bottomMargin = insets.bottom;
