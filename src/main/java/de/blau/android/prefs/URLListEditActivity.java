@@ -548,9 +548,7 @@ public abstract class URLListEditActivity extends ListActivity
             } else {
                 v = (ListItem) View.inflate(URLListEditActivity.this, R.layout.list_item, null);
             }
-            v.setText1(getItem(position).name);
-            v.setText2(getItem(position).value);
-            v.setChecked(getItem(position).active);
+            setListItemViews(v, getItem(position));
             v.setMenuButtonListener(view -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     view.showContextMenu(0, 0);
@@ -560,6 +558,18 @@ public abstract class URLListEditActivity extends ListActivity
             });
             return v;
         }
+    }
+
+    /**
+     * Overrideable method to set files in the list
+     * 
+     * @param v the ListItem
+     * @param listEditItem the ListEditItem holding the values
+     */
+    protected void setListItemViews(ListItem v, ListEditItem listEditItem) {
+        v.setText1(listEditItem.name);
+        v.setText2(listEditItem.value);
+        v.setChecked(listEditItem.active);
     }
 
     /**

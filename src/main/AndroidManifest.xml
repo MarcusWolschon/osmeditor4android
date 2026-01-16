@@ -164,7 +164,7 @@
         <activity
             android:name=".prefs.StyleConfigurationEditorActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
-            android:label="@string/manage_presets"
+            android:label="@string/manage_styles"
             android:theme="@style/Theme.custom" />
         <activity
             android:name=".prefs.VespucciURLActivity"

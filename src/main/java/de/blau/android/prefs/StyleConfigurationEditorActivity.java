@@ -2,11 +2,15 @@ package de.blau.android.prefs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
-import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map.Entry;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -38,12 +42,10 @@ import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.contract.Schemes;
-import de.blau.android.dialogs.Progress;
-import de.blau.android.exception.OperationFailedException;
-import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
-import de.blau.android.presets.Preset;
+import de.blau.android.prefs.URLListEditActivity.ListEditItem;
+import de.blau.android.prefs.URLListEditActivity.ListItem;
+import de.blau.android.resources.DataStyle;
 import de.blau.android.util.CancelableDialogFragment;
-import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FragmentUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.ScreenMessage;
@@ -51,7 +53,7 @@ import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-/** Provides an activity to edit the preset list. Downloads preset data when necessary. */
+/** Provides an activity to edit the style list. Downloads style data when necessary. */
 public class StyleConfigurationEditorActivity extends URLListEditActivity {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, StyleConfigurationEditorActivity.class.getSimpleName().length());
@@ -63,16 +65,14 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
 
     private static final int MENUITEM_HELP = 1;
 
-    private static final int RESULT_TOTAL_FAILURE     = 0;
-    private static final int RESULT_TOTAL_SUCCESS     = 1;
-    private static final int RESULT_DOWNLOAD_CANCELED = 4;
+    private static final String STYLE_XML = "style.xml";
 
     /**
      * Construct a new instance
      */
     public StyleConfigurationEditorActivity() {
         super();
-        addAdditionalContextMenuItem(MENU_RELOAD, R.string.preset_update);
+        addAdditionalContextMenuItem(MENU_RELOAD, R.string.style_update);
     }
 
     /**
@@ -89,16 +89,16 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
      * Start the activity and return a result
      * 
      * @param activity the calling Activity
-     * @param presetName the name of the preset
-     * @param presetUrl the url
-     * @param enable if true enable the preset
+     * @param styleName the name of the style
+     * @param styleUrl the url
+     * @param enable if true enable the style
      * @param requestCode the code to identify the result
      */
-    public static void startForResult(@NonNull Activity activity, @NonNull String presetName, @NonNull String presetUrl, boolean enable, int requestCode) {
+    public static void startForResult(@NonNull Activity activity, @NonNull String styleName, @NonNull String styleUrl, boolean enable, int requestCode) {
         Intent intent = new Intent(activity, StyleConfigurationEditorActivity.class);
         intent.setAction(ACTION_NEW);
-        intent.putExtra(EXTRA_NAME, presetName);
-        intent.putExtra(EXTRA_VALUE, presetUrl);
+        intent.putExtra(EXTRA_NAME, styleName);
+        intent.putExtra(EXTRA_VALUE, styleUrl);
         intent.putExtra(EXTRA_ENABLE, enable);
         activity.startActivityForResult(intent, requestCode);
     }
@@ -136,7 +136,7 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
         selectedItem = (ListEditItem) getListView().getItemAtPosition(info.position);
         if (selectedItem != null) {
             Resources r = getResources();
-            menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(selectedItem.boolean0 ? R.string.edit : R.string.config_category_info))
+            menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(selectedItem.boolean0 ? R.string.menu_edit : R.string.menu_view))
                     .setOnMenuItemClickListener(this);
             if (selectedItem.boolean0) {
                 menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
@@ -150,7 +150,7 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
 
     @Override
     protected int getAddTextResId() {
-        return R.string.urldialog_add_preset;
+        return R.string.urldialog_add_style;
     }
 
     @Override
@@ -159,6 +159,13 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
         for (StyleConfiguration style : styles) {
             items.add(new ListEditItem(style.id, style.name, style.url, style.description, style.version, style.custom, style.isActive()));
         }
+    }
+    
+    @Override
+    protected void setListItemViews(ListItem v, ListEditItem listEditItem) {
+        v.setText1(listEditItem.name);
+        v.setText2(listEditItem.value2);
+        v.setChecked(listEditItem.active);
     }
 
     @Override
@@ -172,7 +179,6 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
             lei.active = false;
         }
         item.active = true;
-        App.getPreferences(this).setDataStyle(item.name);
         updateAdapter();
     }
 
@@ -182,9 +188,14 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
             item.active = getIntent().getExtras().getBoolean(EXTRA_ENABLE);
         }
         db.addStyle(item.id, item.name, item.value, true, item.active);
-        // retrievePresetData(this, db, item);
-        if (!isAddingViaIntent() || item.active) { // added a new preset and enabled it: need to rebuild presets
-            // App.resetPresets();
+        StyleConfiguration conf = db.getStyle(item.id);
+        if (conf == null) {
+            Log.e(DEBUG_TAG, "Style configuration not found for " + item.id);
+            return;
+        }
+        PresetConfigurationEditorActivity.retrieveData(this, db, item, STYLE_XML);
+        if (!isAddingViaIntent()) { // added a new style and enabled it: need to rebuild styles
+            App.getDataStyle(this).reset(true);
         }
     }
 
@@ -195,7 +206,7 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
         if (style.url != null && !style.url.equals(item.value)) {
             // url changed so better recreate everything
             db.removeResourceDirectory(item.id);
-            // retrievePresetData(this, db, item);
+            App.getDataStyle(this).reset(true);
         }
     }
 
@@ -204,23 +215,24 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
         if (!activeDataStyleEnsured(item)) {
             return;
         }
-        ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.delete).setMessage(R.string.preset_management_delete)
+        ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.delete).setMessage(R.string.style_management_delete)
                 .setPositiveButton(R.string.Yes, (dialog, which) -> {
                     db.deleteStyle(item.id);
                     reloadItems();
+                    App.getDataStyle(this).reset(true);
                 }).setNegativeButton(R.string.cancel, null).show();
     }
 
     /**
-     * Check that we have at least one active preset
+     * Check that we have at least one active style
      * 
      * @param item the current item
      * @return true if there will be at least one active item after item is de-activated or deleted
      */
     private boolean activeDataStyleEnsured(@NonNull ListEditItem item) {
-        if (item.active && db.getActivePresets().length == 1) { // at least one item needs to be selected
+        if (item.active) { // at least one item needs to be selected
             updateAdapter();
-            ScreenMessage.barWarning(this, R.string.toast_min_one_preset);
+            ScreenMessage.barWarning(this, R.string.toast_min_one_style);
             return false;
         }
         return true;
@@ -228,101 +240,24 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
 
     @Override
     public void onAdditionalMenuItemClick(int menuItemId, ListEditItem clickedItem) {
-        switch (menuItemId) {
-        case MENU_RELOAD:
-            PresetInfo preset = db.getPreset(clickedItem.id);
-            if (preset.url != null) {
-                retrieveStyleData(this, db, clickedItem);
+        if (MENU_RELOAD == menuItemId) {
+            StyleConfiguration style = db.getStyle(clickedItem.id);
+            if (style.url != null) {
+                PresetConfigurationEditorActivity.retrieveData(this, db, clickedItem, STYLE_XML);
             }
-            App.resetPresets();
-            break;
-        default:
-            Log.e(DEBUG_TAG, "Unknown menu item " + menuItemId);
-            break;
+            App.getDataStyle(this).reset(true);
+            return;
         }
+        Log.e(DEBUG_TAG, "Unknown menu item " + menuItemId);
     }
 
     /**
-     * Reload the ListView and invalidate the global preset var
+     * Reload the ListView and invalidate 
      */
     private void reloadItems() {
         items.clear();
         onLoadList(items);
         updateAdapter();
-        App.resetPresets();
-    }
-
-    /**
-     * Download data (XML, icons) for a certain preset or load it from a file
-     * 
-     * @param activity a PresetEditorActivity instance
-     * @param db an AdvancedPrefDatabase instance
-     * @param item the item containing the preset to be downloaded
-     */
-    private static void retrieveStyleData(@NonNull StyleConfigurationEditorActivity activity, @NonNull AdvancedPrefDatabase db,
-            @NonNull final ListEditItem item) {
-        final File styleDir = db.getResourceDirectory(item.id);
-        // noinspection ResultOfMethodCallIgnored
-        styleDir.mkdir();
-        if (!styleDir.isDirectory()) {
-            throw new OperationFailedException("Could not create style directory " + styleDir.getAbsolutePath());
-        }
-        new ExecutorTask<Void, Integer, Integer>() {
-
-            @Override
-            protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_PRESET);
-            }
-
-            @Override
-            protected Integer doInBackground(Void args) {
-                Uri uri = Uri.parse(item.value);
-                final String scheme = uri.getScheme();
-                int loadResult = Schemes.FILE.equals(scheme) || Schemes.CONTENT.equals(scheme) ? PresetLoader.load(activity, uri, styleDir, Preset.PRESETXML)
-                        : PresetLoader.download(item.value, styleDir, Preset.PRESETXML);
-
-                if (loadResult == PresetLoader.DOWNLOADED_PRESET_ERROR) {
-                    return RESULT_TOTAL_FAILURE;
-                }
-                return RESULT_TOTAL_SUCCESS;
-            }
-
-            @Override
-            protected void onPostExecute(Integer result) {
-                Progress.dismissDialog(activity, Progress.PROGRESS_PRESET);
-                switch (result) {
-                case RESULT_TOTAL_SUCCESS:
-                    ScreenMessage.barInfo(activity, R.string.preset_download_successful);
-                    activity.sendResultIfApplicable(item);
-                    break;
-                case RESULT_TOTAL_FAILURE:
-                    msgbox(R.string.preset_download_failed);
-                    break;
-                case RESULT_DOWNLOAD_CANCELED:
-                    break; // do nothing
-                default:
-                    break;
-                }
-            }
-
-            /**
-             * Show a simple message box detailing the download result. The activity will end as soon as the box is
-             * closed.
-             * 
-             * @param msgResID string resource id of message
-             */
-            private void msgbox(int msgResID) {
-                AlertDialog.Builder box = ThemeUtils.getAlertDialogBuilder(activity);
-                box.setMessage(activity.getResources().getString(msgResID));
-                box.setOnCancelListener(dialog -> activity.sendResultIfApplicable(item));
-                box.setPositiveButton(R.string.okay, (dialog, which) -> {
-                    dialog.dismiss();
-                    activity.sendResultIfApplicable(item);
-                });
-                box.show();
-            }
-
-        }.execute();
     }
 
     @Override
@@ -356,7 +291,7 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
             ListEditItem item = Util.getSerializeable(getArguments(), ITEM_KEY, ListEditItem.class);
             final AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(getContext());
             final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getContext());
-            final View mainView = inflater.inflate(R.layout.listedit_presetedit, null);
+            final View mainView = inflater.inflate(R.layout.listedit_styleedit, null);
             final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
             final TextView editValue = (TextView) mainView.findViewById(R.id.listedit_editValue);
             final TextView versionLabel = (TextView) mainView.findViewById(R.id.listedit_labelVersion);
@@ -406,6 +341,7 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
                     final TextView editValue = (TextView) dialog.findViewById(R.id.listedit_editValue);
 
                     editValue.setText(fileUri.toString());
+
                     SelectFile.savePref(new Preferences(currentActivity), R.string.config_presetsPreferredDir_key, fileUri);
                     return true;
                 }
@@ -440,7 +376,7 @@ public class StyleConfigurationEditorActivity extends URLListEditActivity {
                         dialog.dismiss();
                     } else {
                         // if garbage value entered show toasts
-                        ScreenMessage.barError(activity, R.string.toast_invalid_preseturl);
+                        ScreenMessage.barError(activity, R.string.toast_invalid_styleurl);
                         changeBackgroundColor(editValue, ERROR_COLOR);
                     }
                 });

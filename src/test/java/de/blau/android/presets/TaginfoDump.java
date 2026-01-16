@@ -15,7 +15,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.PresetLoader;
+import de.blau.android.prefs.XmlConfigurationLoader;
 
 /**
  * This is just a convenient way of generating the default preset dump
@@ -50,7 +50,7 @@ public class TaginfoDump { // NOSONAR
                 for (String url : ADDITIONAL_PRESETS) {
                     final File presetDir = new File(ctx.getFilesDir(), Uri.parse(url).getLastPathSegment());
                     presetDir.mkdirs();
-                    PresetLoader.download(url, presetDir, Preset.PRESETXML);
+                    XmlConfigurationLoader.download(url, presetDir, Preset.PRESETXML);
                     db.addPreset(presetDir.getName(), presetDir.getName(), url, true);
                 }
                 presets = db.getCurrentPresetObject();

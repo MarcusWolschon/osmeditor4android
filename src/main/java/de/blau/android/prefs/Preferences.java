@@ -59,7 +59,6 @@ public class Preferences {
     private boolean           largeDragArea;
     private final boolean     tagFormEnabled;
     private String            scaleLayer;
-    private String            mapProfile;
     private final String      followGPSbutton;
     private final String      mapOrientation;
     private int               gpsInterval;
@@ -226,7 +225,6 @@ public class Preferences {
         emptyCommentWarning = prefs.getBoolean(r.getString(R.string.config_emptyCommentWarning_key), true);
         splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
         scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), r.getString(R.string.scale_metric));
-        mapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
         gpsSource = prefs.getString(r.getString(R.string.config_gps_source_key), r.getString(R.string.gps_source_internal));
         gpsTcpSource = prefs.getString(r.getString(R.string.config_gps_source_tcp_key), "127.0.0.1:1958");
         gpsDistance = getIntPref(R.string.config_gps_distance_key, 2);
@@ -336,7 +334,7 @@ public class Preferences {
         splitWindowForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_splitWindowForPropertyEditor_key), false);
 
         splitWindowForReview = prefs.getBoolean(r.getString(R.string.config_splitWindowForReview_key), false);
-        
+
         useTabLayout = prefs.getBoolean(r.getString(R.string.config_tabLayout_key), false);
 
         newTaskForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_newTaskForPropertyEditor_key), false);
@@ -509,7 +507,7 @@ public class Preferences {
     /**
      * Get the current data rendering style
      * 
-     * Side effect: if the currently configured style doesn't exist, we fallback to an existing one, and set the current
+     * Side effect: if the currently configured style doesn't exist, we fallback to the builtin one, and set the current
      * style to that
      * 
      * @param currentStyles current styles
@@ -517,12 +515,12 @@ public class Preferences {
      */
     @NonNull
     public String getDataStyle(@NonNull DataStyle currentStyles) {
-        // check if we actually still have the profile
-        if (currentStyles.getStyle(mapProfile) == null) {
-            Log.w(DEBUG_TAG, "Style " + mapProfile + " missing, replacing by default");
-            setDataStyle(currentStyles.getStyle(DEFAULT_MAP_STYLE) == null ? DataStyle.getBuiltinStyleName() : DEFAULT_MAP_STYLE);
+        StyleConfiguration activeStyle = advancedPrefs.getActiveStyle();
+        if (activeStyle == null || currentStyles.getStyle(activeStyle.name) == null) {
+            Log.e(DEBUG_TAG, "getDataStyle activeStyle null or style missing");
+            return DataStyle.getBuiltinStyleName();
         }
-        return mapProfile;
+        return activeStyle.name;
     }
 
     /**
@@ -531,8 +529,12 @@ public class Preferences {
      * @param dataStyle the name of the current data rendering style
      */
     public void setDataStyle(@NonNull String dataStyle) {
-        mapProfile = dataStyle;
-        prefs.edit().putString(r.getString(R.string.config_mapProfile_key), dataStyle).commit();
+        StyleConfiguration styleConfiguration = advancedPrefs.getStyleForName(dataStyle);
+        if (styleConfiguration == null) {
+            Log.e(DEBUG_TAG, "Style not found for name " + dataStyle);
+            return;
+        }
+        advancedPrefs.setStyleState(styleConfiguration.id, true);
     }
 
     /**
@@ -1807,7 +1809,7 @@ public class Preferences {
     public boolean useSplitWindowForReview() {
         return splitWindowForReview;
     }
-    
+
     /**
      * Always use tab layout for the property editor
      * 

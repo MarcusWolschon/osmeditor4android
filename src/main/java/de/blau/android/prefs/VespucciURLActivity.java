@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -9,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -37,9 +38,10 @@ import de.blau.android.util.Util;
  * @author Simon
  *
  */
-public class VespucciURLActivity extends AppCompatActivity implements OnClickListener {
-    private static final String DEBUG_TAG = VespucciURLActivity.class.getSimpleName().substring(0,
-            Math.min(23, VespucciURLActivity.class.getSimpleName().length()));
+public class VespucciURLActivity extends AppCompatActivity {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, VespucciURLActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = VespucciURLActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int    REQUEST_PRESETEDIT   = 0;
     private static final String OAUTH1A_PATH         = "oauth";
@@ -47,9 +49,12 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
     public static final String  PRESET_PATH          = "preset";
     public static final String  PRESETNAME_PARAMETER = "presetname";
     public static final String  PRESETURL_PARAMETER  = "preseturl";
+    public static final String  STYLE_PATH           = "style";
+    public static final String  STYLENAME_PARAMETER  = "stylename";
+    public static final String  STYLEURL_PARAMETER   = "styleurl";
 
-    private String preseturl;
-    private String presetname;
+    private String url;
+    private String name;
 
     private AdvancedPrefDatabase prefdb;
     private boolean              downloadSucessful = false;
@@ -101,6 +106,10 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
             // hack as the uri may not be encoded properly
             path = PRESET_PATH;
         }
+        if (Util.isEmpty(path) && data.getQueryParameter(STYLEURL_PARAMETER) != null) {
+            // hack as the uri may not be encoded properly
+            path = STYLE_PATH;
+        }
         Log.i(DEBUG_TAG, "onResume " + path);
         switch (path) {
         case OAUTH1A_PATH:
@@ -126,6 +135,9 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
         case PRESET_PATH:
             setupPresetUi(data);
             break;
+        case STYLE_PATH:
+            setupStyleUi(data);
+            break;
         }
         super.onResume();
     }
@@ -136,34 +148,80 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
      * @param data the Uri to use
      */
     private void setupPresetUi(@NonNull Uri data) {
-        mainView.findViewById(R.id.urldialog_nodata).setVisibility(preseturl == null ? View.VISIBLE : View.GONE);
-        preseturl = data.getQueryParameter(PRESETURL_PARAMETER);
-        presetname = data.getQueryParameter(PRESETNAME_PARAMETER);
-        if (preseturl != null) {
-            ActionBar actionbar = getSupportActionBar();
-            if (actionbar != null) {
-                actionbar.setDisplayShowHomeEnabled(true);
-                actionbar.setDisplayHomeAsUpEnabled(true);
-                actionbar.setTitle(R.string.preset_download_title);
-                actionbar.setDisplayShowTitleEnabled(true);
-                actionbar.show();
-            }
-            mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(View.VISIBLE);
-
-            ((TextView) mainView.findViewById(R.id.urldialog_textPresetName)).setText(presetname);
-            ((TextView) mainView.findViewById(R.id.urldialog_textPresetURL)).setText(preseturl);
-            PresetInfo existingPreset = prefdb.getPresetByURL(preseturl);
-            if (downloadSucessful) {
-                mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.VISIBLE);
-                mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(View.GONE);
-            } else {
-                mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
-                mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.GONE);
-            }
-            mainView.findViewById(R.id.urldialog_checkboxEnable).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
-            mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
-            mainView.findViewById(R.id.urldialog_buttonAddPreset).setOnClickListener(this);
+        mainView.findViewById(R.id.urldialog_nodata).setVisibility(url == null ? View.VISIBLE : View.GONE);
+        url = data.getQueryParameter(PRESETURL_PARAMETER);
+        name = data.getQueryParameter(PRESETNAME_PARAMETER);
+        if (url == null) {
+            Log.e(DEBUG_TAG, "Null preset url " + data);
         }
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setDisplayShowHomeEnabled(true);
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle(R.string.preset_download_title);
+            actionbar.setDisplayShowTitleEnabled(true);
+            actionbar.show();
+        }
+        mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(View.VISIBLE);
+
+        ((TextView) mainView.findViewById(R.id.urldialog_textPresetName)).setText(name);
+        ((TextView) mainView.findViewById(R.id.urldialog_textPresetURL)).setText(url);
+        PresetInfo existingPreset = prefdb.getPresetByURL(url);
+        if (downloadSucessful) {
+            mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.VISIBLE);
+            mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(View.GONE);
+        } else {
+            mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
+            mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.GONE);
+        }
+        mainView.findViewById(R.id.urldialog_checkboxEnable).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
+        mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
+        mainView.findViewById(R.id.urldialog_buttonAddPreset).setOnClickListener(v -> {
+            CheckBox enableCheckBox = (CheckBox) mainView.findViewById(R.id.urldialog_checkboxEnable);
+            boolean enable = enableCheckBox != null && enableCheckBox.isChecked();
+            PresetConfigurationEditorActivity.startForResult(this, name, url, enable, REQUEST_PRESETEDIT);
+        });
+    }
+
+    /**
+     * Show the style download UI
+     * 
+     * @param data the Uri to use
+     */
+    private void setupStyleUi(@NonNull Uri data) {
+        mainView.findViewById(R.id.urldialog_nodata).setVisibility(url == null ? View.VISIBLE : View.GONE);
+        url = data.getQueryParameter(STYLEURL_PARAMETER);
+        name = data.getQueryParameter(STYLENAME_PARAMETER);
+        if (url == null) {
+            Log.e(DEBUG_TAG, "Null style url " + data);
+        }
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setDisplayShowHomeEnabled(true);
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle(R.string.preset_download_title);
+            actionbar.setDisplayShowTitleEnabled(true);
+            actionbar.show();
+        }
+        mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(View.VISIBLE);
+
+        ((TextView) mainView.findViewById(R.id.urldialog_textPresetName)).setText(name);
+        ((TextView) mainView.findViewById(R.id.urldialog_textPresetURL)).setText(url);
+        PresetInfo existingPreset = prefdb.getPresetByURL(url);
+        if (downloadSucessful) {
+            mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.VISIBLE);
+            mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(View.GONE);
+        } else {
+            mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
+            mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.GONE);
+        }
+        mainView.findViewById(R.id.urldialog_checkboxEnable).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
+        mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
+        mainView.findViewById(R.id.urldialog_buttonAddPreset).setOnClickListener(v -> {
+            CheckBox enableCheckBox = (CheckBox) mainView.findViewById(R.id.urldialog_checkboxEnable);
+            boolean enable = enableCheckBox != null && enableCheckBox.isChecked();
+            StyleConfigurationEditorActivity.startForResult(this, name, url, enable, REQUEST_PRESETEDIT);
+        });
     }
 
     /**
@@ -180,15 +238,6 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
             path = path.substring(0, path.length() - 1);
         }
         return path;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.urldialog_buttonAddPreset) {
-            CheckBox enableCheckBox = (CheckBox) mainView.findViewById(R.id.urldialog_checkboxEnable);
-            boolean enable = enableCheckBox != null && enableCheckBox.isChecked();
-            PresetConfigurationEditorActivity.startForResult(this, presetname, preseturl, enable, REQUEST_PRESETEDIT);
-        }
     }
 
     @Override

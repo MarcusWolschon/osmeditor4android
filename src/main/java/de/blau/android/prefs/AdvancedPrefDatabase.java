@@ -1861,6 +1861,51 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
+     * Get a StyleConfiguration for a name
+     * 
+     * @param name the name
+     * @return a StyleConfiguration or null if not found
+     */
+    @Nullable
+    public StyleConfiguration getStyleForName(@NonNull String name) {
+        try (SQLiteDatabase db = getReadableDatabase();
+                Cursor dbresult = db.query(STYLES_TABLE,
+                        new String[] { ID_COL, NAME_COL, DESCRIPTION_COL, VERSION_COL, URL_COL, LASTUPDATE_COL, CUSTOM_COL, ACTIVE_COL }, "name = ?",
+                        new String[] { name }, null, null, null);) {
+            if (!dbresult.moveToFirst()) {
+                Log.w(DEBUG_TAG, "No style configuration found for " + name);
+                return null;
+            }
+            StyleConfiguration result = new StyleConfiguration(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
+                    dbresult.getString(4), dbresult.getString(5), dbresult.getInt(6) == 1);
+            result.setActive(dbresult.getInt(7) == 1);
+            return result;
+        }
+    }
+
+    /**
+     * Get the active StyleConfiguration
+     * 
+     * @return a StyleConfiguration or null if not found
+     */
+    @Nullable
+    public StyleConfiguration getActiveStyle() {
+        try (SQLiteDatabase db = getReadableDatabase();
+                Cursor dbresult = db.query(STYLES_TABLE, new String[] { ID_COL, NAME_COL, DESCRIPTION_COL, VERSION_COL, URL_COL, LASTUPDATE_COL, CUSTOM_COL },
+                        ACTIVE_COL + " = 1", null, null, null, null);) {
+            if (!dbresult.moveToFirst()) {
+                Log.w(DEBUG_TAG, "No active style configuration found");
+                return null;
+            }
+            StyleConfiguration result = new StyleConfiguration(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
+                    dbresult.getString(4), dbresult.getString(5), dbresult.getInt(6) == 1);
+            result.setActive(true);
+            Log.i(DEBUG_TAG, "getActiveStyle " + result.name);
+            return result;
+        }
+    }
+
+    /**
      * Sets the active value of the given style
      * 
      * @param id the ID of the style to update

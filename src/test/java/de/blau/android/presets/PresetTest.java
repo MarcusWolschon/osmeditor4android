@@ -52,7 +52,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.PresetLoader;
+import de.blau.android.prefs.XmlConfigurationLoader;
 import de.blau.android.util.SearchIndexUtils;
 
 /**
@@ -284,7 +284,7 @@ public class PresetTest {
             ContentResolver contentResolver = ApplicationProvider.getApplicationContext().getContentResolver();
             ShadowContentResolver shadowContentResolver = shadowOf(contentResolver);
             shadowContentResolver.registerInputStream(inputUri, new FileInputStream(preset));
-            PresetLoader.load(applicationContext, inputUri, presetDir, presetName);
+            XmlConfigurationLoader.load(applicationContext, inputUri, presetDir, presetName);
             return db.getCurrentPresetObject();
         } catch (Exception ex) {
             fail(ex.getMessage());

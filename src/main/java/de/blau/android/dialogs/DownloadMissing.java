@@ -19,7 +19,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
-import de.blau.android.prefs.PresetLoader;
+import de.blau.android.prefs.XmlConfigurationLoader;
 import de.blau.android.presets.Preset;
 import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ExecutorTask;
@@ -172,8 +172,8 @@ public class DownloadMissing extends CancelableDialogFragment {
                         throw new IOException("Unable to create preset directory " + presetDir.getAbsolutePath());
                     }
                     final PresetInfo preset = db.getPreset(id);
-                    int code = PresetLoader.download(preset.url, presetDir, Preset.PRESETXML);
-                    if (code != PresetLoader.DOWNLOADED_PRESET_ERROR) {
+                    int code = XmlConfigurationLoader.download(preset.url, presetDir, Preset.PRESETXML);
+                    if (code != XmlConfigurationLoader.DOWNLOADED_ERROR) {
                         presetIds.remove(id); // saved state needs to remove downloaded ids
                         // doesn't support icon download for now, but do that here if necessary
                         continue;

@@ -37,7 +37,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.prefs.PresetLoader;
+import de.blau.android.prefs.XmlConfigurationLoader;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetItem;
@@ -76,7 +76,7 @@ public class ImageComboSelectorTest {
             db.addPreset(presetId, "Bicycle parking", "", true);
             File presetDir = db.getResourceDirectory(presetId);
             presetDir.mkdir();
-            PresetLoader.load(context, Uri.parse(preset.toURI().toString()), presetDir, Preset.PRESETXML);
+            XmlConfigurationLoader.load(context, Uri.parse(preset.toURI().toString()), presetDir, Preset.PRESETXML);
             db.movePreset(1, 0); // otherwise we get the builtin preset
             App.resetPresets();
         } catch (Exception ex) {

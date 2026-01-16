@@ -189,7 +189,7 @@ public class PresetConfigurationEditorActivity extends URLListEditActivity {
             item.active = getIntent().getExtras().getBoolean(EXTRA_ENABLE);
         }
         db.addPreset(item.id, item.name, item.value, item.active);
-        retrievePresetData(this, db, item);
+        retrieveData(this, db, item, Preset.PRESETXML);
         if (!isAddingViaIntent() || item.active) { // added a new preset and enabled it: need to rebuild presets
             App.resetPresets();
         }
@@ -202,7 +202,7 @@ public class PresetConfigurationEditorActivity extends URLListEditActivity {
         if (preset.url != null && !preset.url.equals(item.value)) {
             // url changed so better recreate everything
             db.removeResourceDirectory(item.id);
-            retrievePresetData(this, db, item);
+            retrieveData(this, db, item, Preset.PRESETXML);
         }
         App.resetPresets();
     }
@@ -240,7 +240,7 @@ public class PresetConfigurationEditorActivity extends URLListEditActivity {
         case MENU_RELOAD:
             PresetInfo preset = db.getPreset(clickedItem.id);
             if (preset.url != null) {
-                retrievePresetData(this, db, clickedItem);
+                retrieveData(this, db, clickedItem, Preset.PRESETXML);
             }
             App.resetPresets();
             break;
@@ -277,18 +277,34 @@ public class PresetConfigurationEditorActivity extends URLListEditActivity {
     /**
      * Download data (XML, icons) for a certain preset or load it from a file
      * 
-     * @param activity a PresetEditorActivity instance
+     * @param activity a URLListEditActivity instance
      * @param db an AdvancedPrefDatabase instance
      * @param item the item containing the preset to be downloaded
      */
-    private static void retrievePresetData(@NonNull PresetConfigurationEditorActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item) {
-        final File presetDir = db.getResourceDirectory(item.id);
+    static void retrieveData(@NonNull URLListEditActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item) {
+        retrieveData(activity, db, item, Preset.PRESETXML);
+    }
+
+    /**
+     * Download data (XML, icons) for a certain preset or load it from a file
+     * 
+     * @param activity a URLListEditActivity instance
+     * @param db an AdvancedPrefDatabase instance
+     * @param item the item containing the preset to be downloaded
+     * @param defaultFilename default name to use for imported resources
+     */
+    static void retrieveData(@NonNull URLListEditActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item,
+            String defaultFilename) {
+
+        final File dir = db.getResourceDirectory(item.id);
         // noinspection ResultOfMethodCallIgnored
-        presetDir.mkdir();
-        if (!presetDir.isDirectory()) {
-            throw new OperationFailedException("Could not create preset directory " + presetDir.getAbsolutePath());
+        dir.mkdir();
+        if (!dir.isDirectory()) {
+            throw new OperationFailedException("Could not create directory " + dir.getAbsolutePath());
         }
         new ExecutorTask<Void, Integer, Integer>() {
+
+            private boolean localFile;
 
             @Override
             protected void onPreExecute() {
@@ -299,21 +315,24 @@ public class PresetConfigurationEditorActivity extends URLListEditActivity {
             protected Integer doInBackground(Void args) {
                 Uri uri = Uri.parse(item.value);
                 final String scheme = uri.getScheme();
-                int loadResult = Schemes.FILE.equals(scheme) || Schemes.CONTENT.equals(scheme) ? PresetLoader.load(activity, uri, presetDir, Preset.PRESETXML)
-                        : PresetLoader.download(item.value, presetDir, Preset.PRESETXML);
 
-                if (loadResult == PresetLoader.DOWNLOADED_PRESET_ERROR) {
+                localFile = Schemes.FILE.equals(scheme) || Schemes.CONTENT.equals(scheme);
+                int loadResult = localFile ? XmlConfigurationLoader.load(activity, uri, dir, defaultFilename)
+                        : XmlConfigurationLoader.download(item.value, dir, defaultFilename);
+
+                if (loadResult == XmlConfigurationLoader.DOWNLOADED_ERROR) {
                     return RESULT_TOTAL_FAILURE;
                 }
 
-                List<String> urls = PresetParser.parseForURLs(presetDir);
+                List<String> urls = PresetParser.parseForURLs(dir);
 
                 boolean allImagesSuccessful = true;
                 for (String url : urls) {
                     if (isCancelled()) {
                         return RESULT_DOWNLOAD_CANCELED;
                     }
-                    allImagesSuccessful &= (PresetLoader.download(url, presetDir, PresetIconManager.hashPath(url)) == PresetLoader.DOWNLOADED_PRESET_XML);
+                    allImagesSuccessful &= (XmlConfigurationLoader.download(url, dir,
+                            PresetIconManager.hashPath(url)) == XmlConfigurationLoader.DOWNLOADED_XML);
                 }
                 return allImagesSuccessful ? RESULT_TOTAL_SUCCESS : RESULT_IMAGE_FAILURE;
             }
@@ -323,7 +342,7 @@ public class PresetConfigurationEditorActivity extends URLListEditActivity {
                 Progress.dismissDialog(activity, Progress.PROGRESS_PRESET);
                 switch (result) {
                 case RESULT_TOTAL_SUCCESS:
-                    ScreenMessage.barInfo(activity, R.string.preset_download_successful);
+                    ScreenMessage.barInfo(activity, localFile ? R.string.resource_load_successful : R.string.preset_download_successful);
                     activity.sendResultIfApplicable(item);
                     break;
                 case RESULT_TOTAL_FAILURE:

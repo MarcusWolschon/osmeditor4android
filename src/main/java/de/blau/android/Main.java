@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
@@ -98,7 +97,6 @@ import de.blau.android.bookmarks.BookmarkStorage;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.MimeTypes;
-import de.blau.android.contract.Paths;
 import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Ui;
 import de.blau.android.contract.Urls;
@@ -2548,32 +2546,6 @@ public class Main extends ConfigurationChangeAwareActivity
                         keyDatabase.keysFromStream(currentActivity, currentActivity.getContentResolver().openInputStream(fileUri));
                         SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     } catch (FileNotFoundException fex) {
-                        fileNotFound(fileUri);
-                    }
-                    return true;
-                }
-            });
-            return true;
-        case R.id.menu_tools_import_data_style:
-            descheduleAutoLock();
-            SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
-                    try (InputStream in = currentActivity.getContentResolver().openInputStream(fileUri)) {
-                        File destDir = FileUtil.getApplicationDirectory(currentActivity, Paths.DIRECTORY_PATH_STYLES);
-                        String filename = ContentResolverUtil.getDisplaynameColumn(currentActivity, fileUri);
-                        File dest = new File(destDir, filename);
-                        FileUtil.copy(in, dest);
-                        if (filename.toLowerCase(Locale.US).endsWith("." + FileExtensions.ZIP)) {
-                            FileUtil.unpackZip(destDir.getAbsolutePath() + Paths.DELIMITER, filename);
-                            dest.delete(); // NOSONAR delete the zip file
-                        }
-                        App.getDataStyle(currentActivity).reset();
-                        App.getDataStyle(currentActivity).getStylesFromFiles(currentActivity);
-                        SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                    } catch (IOException fex) {
                         fileNotFound(fileUri);
                     }
                     return true;
