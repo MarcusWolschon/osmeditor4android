@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewGroupCompat;
 import de.blau.android.AsyncResult;
 import de.blau.android.Authorize;
 import de.blau.android.PostAsyncActionHandler;
@@ -84,6 +85,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
         super.onCreate(savedInstanceState);
         mainView = View.inflate(this, R.layout.url_activity, null);
         setContentView(mainView);
+        ViewGroupCompat.installCompatInsetsDispatch(mainView);
         prefdb = new AdvancedPrefDatabase(this);
     }
 
@@ -136,8 +138,8 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
      * @param data the Uri to use
      */
     private void setupPresetUi(@NonNull Uri data) {
-        mainView.findViewById(R.id.urldialog_nodata).setVisibility(preseturl == null ? View.VISIBLE : View.GONE);
         preseturl = data.getQueryParameter(PRESETURL_PARAMETER);
+        mainView.findViewById(R.id.urldialog_nodata).setVisibility(preseturl == null ? View.VISIBLE : View.GONE);       
         presetname = data.getQueryParameter(PRESETNAME_PARAMETER);
         if (preseturl != null) {
             ActionBar actionbar = getSupportActionBar();
