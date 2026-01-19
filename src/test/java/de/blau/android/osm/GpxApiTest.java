@@ -23,10 +23,10 @@ import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.prefs.API;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.prefs.API.AuthParams;
-import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import okhttp3.HttpUrl;
 
 @RunWith(RobolectricTestRunner.class)
@@ -57,7 +57,7 @@ public class GpxApiTest {
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         Logic logic = App.newLogic();
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         logic.setPrefs(new Preferences(ApplicationProvider.getApplicationContext()));
     }

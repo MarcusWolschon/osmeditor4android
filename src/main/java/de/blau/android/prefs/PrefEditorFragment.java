@@ -13,6 +13,7 @@ import androidx.preference.Preference.OnPreferenceChangeListener;
 import ch.poole.openinghoursfragment.templates.TemplateMangementDialog;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.TileLayerDatabaseView;
 import de.blau.android.validation.ValidatorRulesUI;
 
@@ -46,7 +47,8 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         if (stylePref != null) {
             final FragmentActivity activity = getActivity();
             Preferences prefs = new Preferences(activity);
-            stylePref.setSummary(App.getDataStyle(activity).getStyleListTranslated(activity).get(prefs.getDataStyle(App.getDataStyle(activity))));
+            final DataStyleManager styles = App.getDataStyleManager(activity);
+            stylePref.setSummary(styles.getStyleListTranslated(activity).get(prefs.getDataStyle(styles)));
         }
         Log.d(DEBUG_TAG, "onResume done");
     }

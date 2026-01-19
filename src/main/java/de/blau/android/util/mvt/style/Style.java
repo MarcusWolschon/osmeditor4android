@@ -41,6 +41,7 @@ import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Schemes;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.util.ColorUtil;
 import de.blau.android.util.ExecutorTask;
@@ -707,7 +708,7 @@ public class Style implements Serializable {
      */
     public void addAutoLayers(@NonNull de.blau.android.Map map, @NonNull String sourceLayer) {
         if (!layerMap.containsKey(sourceLayer)) {
-            DataStyle styles = map.getDataStyle();
+            DataStyleManager styles = map.getDataStyleManager();
             synchronized (layers) {
                 // add default styles
                 Paint paint = new Paint(styles.getInternal(DataStyle.MVT_DEFAULT).getPaint());

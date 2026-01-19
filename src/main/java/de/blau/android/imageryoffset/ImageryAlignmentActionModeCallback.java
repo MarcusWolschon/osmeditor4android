@@ -180,7 +180,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
 
         zoomAndOffsetText = new SpannableStringBuilder();
         zoomAndOffsetLayout = new DynamicLayout(zoomAndOffsetText, zoomAndOffsetText,
-                new TextPaint(map.getDataStyle().getInternal(DataStyle.LABELTEXT_NORMAL).getPaint()),
+                new TextPaint(map.getDataStyleManager().getInternal(DataStyle.LABELTEXT_NORMAL).getPaint()),
                 map.getWidth() - 2 * (int) Density.dpToPx(main, de.blau.android.layer.grid.MapOverlay.DISTANCE2SIDE_DP),
                 map.rtlLayout() ? Layout.Alignment.ALIGN_OPPOSITE : Layout.Alignment.ALIGN_NORMAL, 1.0f, 0f, true);
         setOffset(map.getZoomLevel(), 0, 0);

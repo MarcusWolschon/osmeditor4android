@@ -157,12 +157,12 @@ public abstract class AbstractImageOverlay extends de.blau.android.layer.mvt.Map
             ((VectorTileRenderer) tileRenderer).setStyle(style);
             Layer layer = style.getLayer(imageLayer);
             if (layer instanceof Symbol) {
-                ((Symbol) layer).setSymbol(Mapillary.NAME, map.getDataStyle());
+                ((Symbol) layer).setSymbol(Mapillary.NAME, map.getDataStyleManager());
                 layer.setColor(layer.getColor());
             }
             layer = style.getLayer(SELECTED_IMAGE_LAYER);
             if (layer instanceof Symbol) {
-                ((Symbol) layer).setSymbol(Mapillary.NAME, map.getDataStyle());
+                ((Symbol) layer).setSymbol(Mapillary.NAME, map.getDataStyleManager());
                 layer.setColor(layer.getColor());
                 selectedFilter = layer.getFilter();
             }

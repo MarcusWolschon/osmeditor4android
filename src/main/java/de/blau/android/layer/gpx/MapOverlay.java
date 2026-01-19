@@ -52,6 +52,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.ColorUtil;
@@ -108,7 +109,7 @@ public class MapOverlay extends StyleableFileLayer
         final Preferences prefs = map.getPrefs();
         // this is slightly annoying as we need to protect against overwriting already saved state
         initStyling(!hasStateFile(context), prefs.getGpxStrokeWidth(), prefs.getGpxLabelSource(), prefs.getGpxLabelMinZoom(), prefs.getGpxSynbol());
-        DataStyle styles = map.getDataStyle();
+        DataStyleManager styles = map.getDataStyleManager();
         setColor(ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GPX), 9, styles.getInternal(DataStyle.GPS_TRACK).getPaint().getColor()));
 
         // the following can only be changed in the DataStyle
@@ -257,7 +258,7 @@ public class MapOverlay extends StyleableFileLayer
         if (track != null) {
             List<WayPoint> wayPoints = track.getWayPoints();
             if (!wayPoints.isEmpty()) {
-                final float tolerance = map.getDataStyle().getCurrent().getNodeToleranceValue();
+                final float tolerance = map.getDataStyleManager().getCurrent().getNodeToleranceValue();
                 for (WayPoint wpp : wayPoints) {
                     int lat = wpp.getLat();
                     int lon = wpp.getLon();
@@ -362,7 +363,7 @@ public class MapOverlay extends StyleableFileLayer
      * @param symbolName the name of the point symbol
      */
     private void initStyling(boolean style, float strokeWidth, @NonNull String labelKey, int labelMinZoom, @NonNull String symbolName) {
-        DataStyle styles = map.getDataStyle();
+        DataStyleManager styles = map.getDataStyleManager();
         paint = new SerializableTextPaint(styles.getInternal(DataStyle.GPS_TRACK).getPaint());
         wayPointPaint = new SerializableTextPaint(styles.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
         iconRadius = map.getIconRadius();

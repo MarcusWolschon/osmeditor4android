@@ -28,6 +28,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.util.Sound;
@@ -514,11 +515,11 @@ public class Preferences {
      * @return the name of the current data rendering style
      */
     @NonNull
-    public String getDataStyle(@NonNull DataStyle currentStyles) {
+    public String getDataStyle(@NonNull DataStyleManager currentStyles) {
         StyleConfiguration activeStyle = advancedPrefs.getActiveStyle();
         if (activeStyle == null || currentStyles.getStyle(activeStyle.name) == null) {
             Log.e(DEBUG_TAG, "getDataStyle activeStyle null or style missing");
-            return DataStyle.getBuiltinStyleName();
+            return DataStyleManager.getBuiltinStyleName();
         }
         return activeStyle.name;
     }

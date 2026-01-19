@@ -79,6 +79,7 @@ import de.blau.android.presets.PresetIconManager;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
@@ -140,7 +141,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     private final StorageDelegator delegator;
     private Context                context;
     private final Validator        validator;
-    private final DataStyle        styles;
+    private final DataStyleManager styles;
 
     /**
      * Preference related fields
@@ -364,7 +365,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         validator = App.getDefaultValidator(context);
         download = new DataDownloader(context, prefs.getServer(), validator);
 
-        styles = App.getDataStyle(context);
+        styles = App.getDataStyleManager(context);
 
         iconRadius = Density.dpToPx(context, ICON_SIZE_DP / 2);
         houseNumberRadius = Density.dpToPx(context, HOUSE_NUMBER_RADIUS);

@@ -150,7 +150,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
         }
         retrieveData(this, db, item, STYLE_XML, false);
         if (!isAddingViaIntent()) { // added a new style and enabled it: need to rebuild styles
-            App.getDataStyle(this).reset(true);
+            App.getDataStyleManager(this).reset(this, true);
         }
         reloadItems();
     }
@@ -162,7 +162,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
         if (style.url != null && !style.url.equals(item.value)) {
             // url changed so better recreate everything
             db.removeResourceDirectory(item.id);
-            App.getDataStyle(this).reset(true);
+            App.getDataStyleManager(this).reset(this, true);
         }
     }
 
@@ -175,7 +175,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
                 .setPositiveButton(R.string.Yes, (dialog, which) -> {
                     db.deleteStyle(item.id);
                     reloadItems();
-                    App.getDataStyle(this).reset(true);
+                    App.getDataStyleManager(this).reset(this, true);
                 }).setNegativeButton(R.string.cancel, null).show();
     }
 
@@ -201,7 +201,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
             if (style.url != null) {
                 retrieveData(this, db, clickedItem, STYLE_XML, true);
             }
-            App.getDataStyle(this).reset(true);
+            App.getDataStyleManager(this).reset(this, true);
             return;
         }
         Log.e(DEBUG_TAG, "Unknown menu item " + menuItemId);

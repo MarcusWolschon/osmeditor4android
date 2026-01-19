@@ -8,12 +8,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,7 +28,7 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 
 /**
  * 
@@ -80,8 +76,8 @@ public class SafeModeTest {
         TestUtils.dismissStartUpDialogs(device, context);
 
         Preferences prefs = App.getLogic().getPrefs();
-        DataStyle styles = App.getDataStyle(main);
-        assertEquals(prefs.getDataStyle(styles), styles.getBuiltinStyleName());
+        DataStyleManager styles = App.getDataStyleManager(main);
+        assertEquals(styles.getBuiltinStyleName(), prefs.getDataStyle(styles));
 
         Map map = App.getLogic().getMap();
         for (MapViewLayer l : map.getLayers()) {

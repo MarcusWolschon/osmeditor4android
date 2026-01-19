@@ -31,6 +31,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ch.poole.android.sprites.Sprites;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.mvt.VectorTileDecoder;
@@ -250,13 +251,13 @@ public class Symbol extends Layer {
      */
     @NonNull
     public static Symbol fromPaint(@NonNull String layerName, @NonNull Paint paint, @NonNull Paint labelPaint, @Nullable String symbolName,
-            @NonNull DataStyle dataStyle) {
+            @NonNull DataStyleManager dataStyles) {
         Symbol style = new Symbol(layerName);
         style.paint = new SerializableTextPaint(paint);
         style.paint.setStyle(Paint.Style.STROKE);
-        style.setSymbol(symbolName, dataStyle);
+        style.setSymbol(symbolName, dataStyles);
         style.setLabelPaint(new SerializableTextPaint(labelPaint));
-        style.setLabelFont(dataStyle.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint().getTypeface());
+        style.setLabelFont(dataStyles.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint().getTypeface());
         labelPaint.setTextAlign(Align.CENTER);
         return style;
     }
@@ -265,12 +266,12 @@ public class Symbol extends Layer {
      * Set the symbol
      * 
      * @param symbolName name of the symbol
-     * @param dataStyle current data style
+     * @param dataStyles current data style manager
      */
-    public void setSymbol(@Nullable String symbolName, @Nullable DataStyle dataStyle) {
+    public void setSymbol(@Nullable String symbolName, @Nullable DataStyleManager dataStyles) {
         this.symbolName = symbolName;
-        if (symbolName != null && dataStyle != null) {
-            symbolPath = dataStyle.getCurrent().getSymbol(symbolName);
+        if (symbolName != null && dataStyles != null) {
+            symbolPath = dataStyles.getCurrent().getSymbol(symbolName);
         } else {
             symbolPath = null;
         }

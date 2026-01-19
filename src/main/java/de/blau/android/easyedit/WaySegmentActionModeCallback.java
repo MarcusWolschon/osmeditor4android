@@ -75,7 +75,7 @@ public class WaySegmentActionModeCallback extends AbortableWayActionModeCallback
     @NonNull
     static Node[] findSegmentFromCoordinates(@NonNull final List<Node> wayNodes, final float x, final float y) {
         Logic logic = App.getLogic();
-        final float tolerance = logic.getMap().getDataStyle().getCurrent().getWayToleranceValue();
+        final float tolerance = logic.getMap().getDataStyleManager().getCurrent().getWayToleranceValue();
         Node node1 = null;
         Node node2 = null;
 

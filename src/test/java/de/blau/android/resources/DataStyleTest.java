@@ -38,8 +38,8 @@ public class DataStyleTest {
      */
     @Before
     public void setup() {
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
-        styles.reset(false);
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
+        styles.reset(ApplicationProvider.getApplicationContext(), false);
     }
 
     /**
@@ -47,7 +47,7 @@ public class DataStyleTest {
      */
     @Test
     public void buildingTest() {
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         final StorageDelegator delegator = App.getDelegator();
         Way w = addWayToStorage(delegator, true);
@@ -56,7 +56,7 @@ public class DataStyleTest {
         delegator.setTags(w, tags);
         assertEquals(5, styles.getStyleList(ApplicationProvider.getApplicationContext()).length);
         assertEquals(styles.getBuiltinStyleName(), styles.getCurrent().getName());
-        styles.getStyle(DataStyle.getBuiltinStyleName());
+        styles.getStyle(DataStyleManager.getBuiltinStyleName());
         styles.switchTo("Color Round Nodes");
         assertEquals("Color Round Nodes", styles.getCurrent().getName());
         FeatureStyle style = styles.matchStyle(w);
@@ -80,7 +80,7 @@ public class DataStyleTest {
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         assertEquals(6, styles.getStyleList(ApplicationProvider.getApplicationContext()).length);
         // matching test

@@ -40,7 +40,7 @@ public class DataStyleTaginfoDump { // NOSONAR
         boolean manual = System.getProperty(TEST_MANUAL_PROPERTY).equals("true");
         final Context ctx = ApplicationProvider.getApplicationContext();
         File target = manual ? new File(TARGET_FILE) : new File(ctx.getFilesDir(), TARGET_FILE);
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         styles.switchTo(Preferences.DEFAULT_MAP_STYLE);
         assertTrue(styles.generateTaginfoJson(target));

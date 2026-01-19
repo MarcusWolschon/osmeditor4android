@@ -547,7 +547,7 @@ public class Main extends ConfigurationChangeAwareActivity
             Layers.showDialog(Main.this);
         });
 
-        App.getDataStyle(this); // needs to happen before setContentView
+        App.getDataStyleManager(this); // needs to happen before setContentView
 
         setContentView(ml);
 
@@ -3814,7 +3814,7 @@ public class Main extends ConfigurationChangeAwareActivity
             } finally {
                 logic.unlock();
             }
-            map.getDataStyle().updateStrokes(logic.strokeWidth(viewBox.getWidth()));
+            map.getDataStyleManager().updateStrokes(logic.strokeWidth(viewBox.getWidth()));
             if (logic.isRotationMode()) {
                 logic.showCrosshairsForCentroid();
             }

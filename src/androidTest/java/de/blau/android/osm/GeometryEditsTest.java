@@ -34,7 +34,7 @@ import de.blau.android.Map;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Util;
 
@@ -44,7 +44,7 @@ public class GeometryEditsTest {
 
     Context   context = null;
     Main      main    = null;
-    DataStyle styles  = null;
+    DataStyleManager styles  = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -58,7 +58,7 @@ public class GeometryEditsTest {
         context = instrumentation.getTargetContext();
         UiDevice device = UiDevice.getInstance(instrumentation);
         main = mActivityRule.getActivity();
-        styles = App.getDataStyle(main);
+        styles = App.getDataStyleManager(main);
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
         Logic logic = App.getLogic();

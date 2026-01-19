@@ -37,8 +37,8 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
-import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.DataStyleManager;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(shadows = { ShadowWorkManager.class }, sdk = 33)
@@ -83,7 +83,7 @@ public class BaseValidatorTest {
     public void suppressedMissingTest() {
         Logic logic = App.newLogic();
         // this needs a lot of setup as highway validation relies on a valid map object
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         de.blau.android.Map map = new de.blau.android.Map(ApplicationProvider.getApplicationContext());
         logic.setMap(map, false);
@@ -156,8 +156,8 @@ public class BaseValidatorTest {
         tags.put("golf", "bunker");
         tags.put(Tags.KEY_NATURAL, "sand");
         d.setTags(w, tags);
-        assertTrue(App.getDataStyle(ctx).switchTo(Preferences.DEFAULT_MAP_STYLE));
-        FeatureStyle style = App.getDataStyle(ctx).matchStyle(w);  
+        assertTrue(App.getDataStyleManager(ctx).switchTo(Preferences.DEFAULT_MAP_STYLE));
+        FeatureStyle style = App.getDataStyleManager(ctx).matchStyle(w);  
         assertTrue(style.isArea());
         PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null, null);
         assertFalse(pi.appliesTo().contains(ElementType.AREA));
