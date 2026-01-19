@@ -2,6 +2,7 @@ package de.blau.android.prefs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -14,6 +15,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -42,6 +44,13 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
 import de.blau.android.R;
+import de.blau.android.contract.Schemes;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.exception.OperationFailedException;
+import de.blau.android.presets.PresetIconManager;
+import de.blau.android.presets.PresetParser;
+import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
 
@@ -75,6 +84,12 @@ public abstract class URLListEditActivity extends ListActivity
     static final int MENUITEM_EDIT              = 0;
     static final int MENUITEM_DELETE            = 1;
     static final int MENUITEM_ADDITIONAL_OFFSET = 1000;
+
+    protected static final int RESULT_TOTAL_FAILURE       = 0;
+    protected static final int RESULT_TOTAL_SUCCESS       = 1;
+    protected static final int RESULT_IMAGE_FAILURE       = 2;
+    protected static final int RESULT_PRESET_NOT_PARSABLE = 3; // NOSONAR currently unused
+    protected static final int RESULT_DOWNLOAD_CANCELED   = 4;
 
     static final String      LISTITEM_ID_DEFAULT = AdvancedPrefDatabase.ID_DEFAULT;
     final List<ListEditItem> items;
@@ -548,9 +563,7 @@ public abstract class URLListEditActivity extends ListActivity
             } else {
                 v = (ListItem) View.inflate(URLListEditActivity.this, R.layout.list_item, null);
             }
-            v.setText1(getItem(position).name);
-            v.setText2(getItem(position).value);
-            v.setChecked(getItem(position).active);
+            setListItemViews(v, getItem(position));
             v.setMenuButtonListener(view -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     view.showContextMenu(0, 0);
@@ -560,6 +573,18 @@ public abstract class URLListEditActivity extends ListActivity
             });
             return v;
         }
+    }
+
+    /**
+     * Overrideable method to set files in the list
+     * 
+     * @param v the ListItem
+     * @param listEditItem the ListEditItem holding the values
+     */
+    protected void setListItemViews(ListItem v, ListEditItem listEditItem) {
+        v.setText1(listEditItem.name);
+        v.setText2(listEditItem.value);
+        v.setChecked(listEditItem.active);
     }
 
     /**
@@ -733,5 +758,116 @@ public abstract class URLListEditActivity extends ListActivity
         });
 
         dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
+    }
+
+    /**
+     * Download data (XML, icons) for a certain resource or load it from a file
+     * 
+     * @param activity a URLListEditActivity instance
+     * @param db an AdvancedPrefDatabase instance
+     * @param item the item containing the resource to be downloaded
+     * @param defaultFilename default name to use for imported resources
+     */
+    static void retrieveData(@NonNull URLListEditActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item,
+            String defaultFilename) {
+        retrieveData(activity, db, item, defaultFilename, true);
+    }
+
+    /**
+     * Download data (XML, icons) for a certain resource or load it from a file
+     * 
+     * @param activity a URLListEditActivity instance
+     * @param db an AdvancedPrefDatabase instance
+     * @param item the item containing the resource to be downloaded
+     * @param defaultFilename default name to use for imported resources
+     * @param parseForIcons parser the XML for icons, currently only of use for presets
+     */
+    static void retrieveData(@NonNull URLListEditActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item, String defaultFilename,
+            boolean parseForIcons) {
+
+        final File dir = db.getResourceDirectory(item.id);
+        // noinspection ResultOfMethodCallIgnored
+        dir.mkdir();
+        if (!dir.isDirectory()) {
+            throw new OperationFailedException("Could not create directory " + dir.getAbsolutePath());
+        }
+        new ExecutorTask<Void, Integer, Integer>() {
+
+            private boolean localFile;
+
+            @Override
+            protected void onPreExecute() {
+                Progress.showDialog(activity, Progress.PROGRESS_RESOURCE);
+            }
+
+            @Override
+            protected Integer doInBackground(Void args) {
+                Uri uri = Uri.parse(item.value);
+                final String scheme = uri.getScheme();
+
+                localFile = Schemes.FILE.equals(scheme) || Schemes.CONTENT.equals(scheme);
+                int loadResult = localFile ? XmlConfigurationLoader.load(activity, uri, dir, defaultFilename)
+                        : XmlConfigurationLoader.download(item.value, dir, defaultFilename);
+
+                if (loadResult == XmlConfigurationLoader.DOWNLOADED_ERROR) {
+                    return RESULT_TOTAL_FAILURE;
+                }
+
+                if (!parseForIcons) {
+                    return RESULT_TOTAL_SUCCESS;
+                }
+
+                List<String> urls = PresetParser.parseForURLs(dir);
+
+                boolean allImagesSuccessful = true;
+                for (String url : urls) {
+                    if (isCancelled()) {
+                        return RESULT_DOWNLOAD_CANCELED;
+                    }
+                    allImagesSuccessful &= (XmlConfigurationLoader.download(url, dir,
+                            PresetIconManager.hashPath(url)) == XmlConfigurationLoader.DOWNLOADED_XML);
+                }
+                return allImagesSuccessful ? RESULT_TOTAL_SUCCESS : RESULT_IMAGE_FAILURE;
+            }
+
+            @Override
+            protected void onPostExecute(Integer result) {
+                Progress.dismissDialog(activity, Progress.PROGRESS_RESOURCE);
+                switch (result) {
+                case RESULT_TOTAL_SUCCESS:
+                    ScreenMessage.barInfo(activity, localFile ? R.string.resource_load_successful : R.string.resource_download_successful);
+                    activity.sendResultIfApplicable(item);
+                    break;
+                case RESULT_TOTAL_FAILURE:
+                    msgbox(R.string.resource_download_failed);
+                    break;
+                case RESULT_IMAGE_FAILURE:
+                    msgbox(R.string.preset_download_missing_images);
+                    break;
+                case RESULT_DOWNLOAD_CANCELED:
+                    break; // do nothing
+                default:
+                    break;
+                }
+            }
+
+            /**
+             * Show a simple message box detailing the download result. The activity will end as soon as the box is
+             * closed.
+             * 
+             * @param msgResID string resource id of message
+             */
+            private void msgbox(int msgResID) {
+                AlertDialog.Builder box = ThemeUtils.getAlertDialogBuilder(activity);
+                box.setMessage(activity.getResources().getString(msgResID));
+                box.setOnCancelListener(dialog -> activity.sendResultIfApplicable(item));
+                box.setPositiveButton(R.string.okay, (dialog, which) -> {
+                    dialog.dismiss();
+                    activity.sendResultIfApplicable(item);
+                });
+                box.show();
+            }
+
+        }.execute();
     }
 }

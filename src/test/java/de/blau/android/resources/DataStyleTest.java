@@ -39,7 +39,7 @@ public class DataStyleTest {
     @Before
     public void setup() {
         DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
-        styles.reset();
+        styles.reset(false);
     }
 
     /**

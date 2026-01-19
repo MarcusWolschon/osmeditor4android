@@ -219,10 +219,6 @@
                 android:id="@+id/menu_tools_remove_egm"
                 android:title="@string/menu_tools_remove_egm" />
             <item
-                android:id="@+id/menu_tools_import_data_style"
-                android:title="@string/menu_tools_import_data_style"
-                app:showAsAction="never" />
-            <item
                 android:id="@+id/menu_tools_load_keys"
                 android:title="@string/menu_tools_load_keys"
                 app:showAsAction="never" />

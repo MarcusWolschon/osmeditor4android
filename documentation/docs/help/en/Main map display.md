@@ -236,7 +236,6 @@ Show the user preference screens. The settings are split into two sets: the firs
  * **Calibrate pressure sensor...** - calibrate the conversion from barometric pressure to elevation.
  * **Install EGM** - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the "Advanced preferences".
  * **Remove EGM** - remove the EGM.
- * **Import data style...** - import an additional data style from an XML file or from a ZIP archive containing an XML file and icons. This overwrites existing style files with the same name.
  * **Load keys from file...** - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.
  * **Export configuration...** - export large parts of the configuration to a file.
  * **Import configuration...** - import large parts of the configuration from a file.

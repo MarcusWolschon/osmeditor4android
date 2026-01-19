@@ -55,7 +55,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 22;
+    private static final int DATA_VERSION = 23;
 
     static final String DATABASE_NAME = "AdvancedPrefs";
 
@@ -100,11 +100,15 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private static final String TYPE_COL       = "type";
     private static final String CONTENT_ID_COL = "content_id";
 
+    static final String         STYLES_TABLE = "styles";
+    private static final String CUSTOM_COL   = "custom";
+
     private static final String CREATE_TABLE = "CREATE TABLE ";
 
     private static final String ROWID = "rowid";
 
     private static final String WHERE_ID    = "id = ?";
+    private static final String WHERE_URL   = "url = ?";
     private static final String WHERE_ROWID = "rowid = ?";
 
     private static final String TEMP_TABLE = "temp";
@@ -153,6 +157,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         addLayer(db, 3, LayerType.TASKS);
         createImagestoresTable(db, IMAGESTORES_TABLE);
         addDefaultImageStoreEntries(db);
+        createStylesTable(db, STYLES_TABLE);
+        addDefaultStyleEntries(db);
     }
 
     /**
@@ -207,6 +213,22 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         db.execSQL(CREATE_TABLE + table
                 + " (id TEXT PRIMARY KEY, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT, timeout INTEGER DEFAULT "
                 + Server.DEFAULT_TIMEOUT + ", compresseduploads INTEGER DEFAULT 0)");
+    }
+
+    /**
+     * Create the table for presets
+     * 
+     * @param db a writable SQLIteDatabase
+     * @param table the table name
+     */
+    private void createStylesTable(@NonNull SQLiteDatabase db, @NonNull String table) {
+        db.execSQL(CREATE_TABLE + table
+                + " (id TEXT PRIMARY KEY, name TEXT, url TEXT, version TEXT DEFAULT NULL, description TEXT DEFAULT NULL, lastupdate TEXT, data TEXT, custom INTEGER DEFAULT 0, active INTEGER DEFAULT 0)");
+
+        db.execSQL("CREATE TRIGGER style_insert BEFORE INSERT ON " + table + " WHEN NEW.active = 1 BEGIN UPDATE " + table + " SET active = 0; END");
+        // a straightforward BEFORE trigger doesn't work here
+        db.execSQL("CREATE TRIGGER style_update AFTER UPDATE ON " + table + " WHEN NEW.active = 1 BEGIN " + "UPDATE " + table + " SET active = 0; " + "UPDATE "
+                + table + " SET active = 1 WHERE NEW.id = id; " + "END");
     }
 
     @Override
@@ -328,6 +350,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             createLayersTable(db, TEMP_TABLE);
             migrateTable(db, LAYERS_TABLE, TEMP_TABLE);
         }
+        if (oldVersion <= 22) {
+            createStylesTable(db, STYLES_TABLE);
+            addDefaultStyleEntries(db);
+        }
     }
 
     /**
@@ -343,6 +369,19 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         db.execSQL("DROP TABLE " + origTable);
         db.execSQL("ALTER TABLE " + tempTable + " RENAME TO " + origTable);
         db.execSQL("COMMIT");
+    }
+
+    /**
+     * Add default style entries
+     * 
+     * @param db the prefs db
+     */
+    private void addDefaultStyleEntries(SQLiteDatabase db) {
+        addStyle(db, "builtin-minimal", "Built-in (minimal)", null, false, false);
+        addStyle(db, "color-round", "Color Round Nodes", "Color-round.xml", false, true);
+        addStyle(db, "color-round-no-mp", "Color Round Nodes No Multipolygons", "Color-round-no-mp.xml", false, false);
+        addStyle(db, "no-path-patterns", "No path patterns", "No-path-patterns.xml", false, false);
+        addStyle(db, "pen-round", "Pen Round Nodes", "Pen-round.xml", false, false);
     }
 
     /**
@@ -372,6 +411,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         db.execSQL("DROP TABLE presets");
         db.execSQL("DROP TABLE geocoders");
         db.execSQL("DROP TABLE layers");
+        db.execSQL("DROP TABLE styles");
         onCreate(db);
         migrateAPI(db);
     }
@@ -731,7 +771,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             PresetInfo pi = presetInfos[i];
             try {
                 Log.d(DEBUG_TAG, "Adding preset " + pi.name);
-                activePresets[i] = new Preset(context, getPresetDirectory(pi.id), pi.useTranslations);
+                activePresets[i] = new Preset(context, getResourceDirectory(pi.id), pi.useTranslations);
                 Preset preset = activePresets[i];
                 if (preset != null) {
                     setAdditionalFieldsFromPreset(pi, preset);
@@ -861,7 +901,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     @NonNull
     private synchronized PresetInfo[] getPresets(@Nullable String value, boolean byURL) {
         SQLiteDatabase db = getReadableDatabase();
-        String query = byURL ? "url = ?" : WHERE_ID;
+        String query = byURL ? WHERE_URL : WHERE_ID;
         Cursor dbresult = db.query(PRESETS_TABLE,
                 new String[] { ID_COL, NAME_COL, VERSION_COL, SHORTDESCRIPTION_COL, DESCRIPTION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
                 value == null ? null : query, value == null ? null : new String[] { value }, null, null, POSITION_COL);
@@ -922,11 +962,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param id the ID of the preset to update
      */
     public synchronized void setPresetLastupdateNow(@NonNull String id) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(LASTUPDATE_COL, ((Long) System.currentTimeMillis()).toString());
-        db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { id });
-        db.close();
+        setLastupdateNow(PRESETS_TABLE, id);
     }
 
     /**
@@ -980,7 +1016,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         // need to renumber after deleting
         renumberPresets(db);
         db.close();
-        removePresetDirectory(id);
+        removeResourceDirectory(id);
     }
 
     /**
@@ -1062,13 +1098,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
-     * Gets the preset data path for a preset with the given ID
+     * Gets the data path for a resource with the given ID
      * 
-     * @param id the id for the Preset
-     * @return the preset data path
+     * @param id the id for the resource
+     * @return the resource data path
      */
     @NonNull
-    public File getPresetDirectory(@Nullable String id) {
+    public File getResourceDirectory(@Nullable String id) {
         if (id == null || "".equals(id)) {
             throw new IllegalOperationException("Attempted to get folder for null or empty id!");
         }
@@ -1077,12 +1113,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
-     * Removes the data directory belonging to a preset
+     * Removes the data directory belonging to an importable resource
      * 
-     * @param id the preset ID of the preset whose directory is going to be deleted
+     * @param id the ID of the resource whose directory is going to be deleted
      */
-    public void removePresetDirectory(@NonNull String id) {
-        File presetDir = getPresetDirectory(id);
+    public void removeResourceDirectory(@NonNull String id) {
+        File presetDir = getResourceDirectory(id);
         if (presetDir.isDirectory()) {
             killDirectory(presetDir);
         }
@@ -1097,7 +1133,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     public List<String> getNotDownloadedPresets() {
         List<String> result = new ArrayList<>();
         for (PresetInfo pi : getPresets(null, false)) {
-            if (pi.url != null && !getPresetDirectory(pi.id).exists() && Util.isUrl(pi.url)) {
+            if (pi.url != null && !getResourceDirectory(pi.id).exists() && Util.isUrl(pi.url)) {
                 result.add(pi.id);
             }
         }
@@ -1640,7 +1676,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param type type
      * @param version version of the image store
      * @param url image store API url
-     * @param active use this image storeif true
+     * @param active use this image store if true
      */
     private synchronized void addImageStore(@NonNull SQLiteDatabase db, @NonNull String id, String name, ImageStorageType type, String url, boolean active) {
         ContentValues values = new ContentValues();
@@ -1660,7 +1696,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param type type
      * @param version version of the image store
      * @param url image store API url
-     * @param active use this image storeif true
+     * @param active use this image store if true
      */
     public synchronized void updateImageStore(@NonNull String id, String name, ImageStorageType type, String url, boolean active) {
         Log.d(DEBUG_TAG, "Setting geocoder " + id + " active to " + active); // NOSONAR
@@ -1684,6 +1720,272 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         setState(IMAGESTORES_TABLE, id, active, true);
     }
 
+    // style stuff
+
+    /**
+     * Get all currently known styles
+     * 
+     * @return an array of StyleConfiguration objects
+     */
+    @NonNull
+    public StyleConfiguration[] getStyles() {
+        return getStyles(null, false);
+    }
+
+    /**
+     * Fetches all ImageStores matching the given ID, or all ImageStores if id is null
+     * 
+     * @param value null to fetch all ImageStores, or the id to fetch a specific one
+     * @param byURL if false, value represents an ID, if true, value represents an URL
+     * @return an array of ImageStore objects
+     */
+    @NonNull
+    public synchronized StyleConfiguration[] getStyles(@Nullable String value, boolean byURL) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = byURL ? WHERE_URL : WHERE_ID;
+        Cursor dbresult = db.query(STYLES_TABLE,
+                new String[] { ID_COL, NAME_COL, DESCRIPTION_COL, VERSION_COL, URL_COL, LASTUPDATE_COL, CUSTOM_COL, ACTIVE_COL }, value == null ? null : query,
+                value == null ? null : new String[] { value }, null, null, null);
+        StyleConfiguration[] result = new StyleConfiguration[dbresult.getCount()];
+        dbresult.moveToFirst();
+        for (int i = 0; i < result.length; i++) {
+            result[i] = new StyleConfiguration(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
+                    dbresult.getString(4), dbresult.getString(5), dbresult.getInt(6) == 1);
+            result[i].setActive(dbresult.getInt(7) == 1);
+            dbresult.moveToNext();
+        }
+        dbresult.close();
+        db.close();
+        return result;
+    }
+
+    /**
+     * Gets a style by ID (will return null if no style with this ID exists)
+     * 
+     * @param id id of the style
+     * @return a StyleConfiguration object or null
+     */
+    @Nullable
+    public StyleConfiguration getStyle(@NonNull String id) {
+        StyleConfiguration[] found = getStyles(id, false);
+        if (found.length == 0) {
+            return null;
+        }
+        return found[0];
+    }
+
+    /**
+     * Add a new style with the given values to the database
+     * 
+     * Opens the existing or creates the database
+     * 
+     * @param id id of the style
+     * @param name name used for display purposes
+     * @param url style url or file
+     * @param custom if true this is a custom entry
+     * @param active use this style if true
+     */
+    public synchronized void addStyle(@NonNull String id, @NonNull String name, @Nullable String url, boolean custom, boolean active) {
+        SQLiteDatabase db = getWritableDatabase();
+        addStyle(db, id, name, url, custom, active);
+        db.close();
+    }
+
+    /**
+     * Add a new style with the given values to the database
+     * 
+     * @param db database to use
+     * @param id id of the style
+     * @param name name used for display purposes
+     * @param url style url or file
+     * @param custom if true this is a custom entry
+     * @param active use this style if true
+     */
+    private synchronized void addStyle(@NonNull SQLiteDatabase db, @NonNull String id, @NonNull String name, @Nullable String url, boolean custom,
+            boolean active) {
+        ContentValues values = setStyleValues(id, name, url, active);
+        values.put(CUSTOM_COL, custom ? 1 : 0);
+        db.insert(STYLES_TABLE, null, values);
+    }
+
+    /**
+     * Allocate a ContentValues object and set the values
+     *
+     * @param id id of the style
+     * @param name name used for display purposes
+     * @param url style url or file
+     * @param active use this style if true
+     * @return a ContentValues object
+     */
+    private ContentValues setStyleValues(@NonNull String id, @NonNull String name, @Nullable String url, boolean active) {
+        ContentValues values = new ContentValues();
+        values.put(ID_COL, id);
+        values.put(NAME_COL, name);
+        values.put(URL_COL, url);
+        values.put(ACTIVE_COL, active ? 1 : 0);
+        return values;
+    }
+
+    /**
+     * Update the specified style configuration
+     * 
+     * @param id the ID of the style to update
+     * @param name name used for display purposes
+     * @param url style url
+     * @param active use this style if true
+     */
+    public synchronized void updateStyle(@NonNull String id, @NonNull String name, @Nullable String url, boolean active) {
+        Log.d(DEBUG_TAG, "Setting style " + id + " active to " + active); // NOSONAR
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = setStyleValues(id, name, url, active);
+        db.update(STYLES_TABLE, values, WHERE_ID, new String[] { id });
+        db.close();
+    }
+
+    /**
+     * Deletes a style including the corresponding style data directory
+     * 
+     * @param id id of the style to delete
+     */
+    public synchronized void deleteStyle(@NonNull String id) {
+        StyleConfiguration style = getStyle(id);
+        if (style != null && !style.custom) {
+            throw new IllegalOperationException(CANNOT_DELETE_DEFAULT);
+        }
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.delete(STYLES_TABLE, WHERE_ID, new String[] { id });
+        db.close();
+        removeResourceDirectory(id);
+    }
+
+    /**
+     * Sets information that requires parsing the style first
+     * 
+     * @param id the ID of the style to update
+     * @param version the version if null this will not be updated
+     * @param description the description if null this will not be updated
+     */
+    public synchronized void setStyleAdditionalFields(@NonNull String id, @Nullable String version, @Nullable String description) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        if (version != null) {
+            values.put(VERSION_COL, version);
+        }
+        if (description != null) {
+            values.put(DESCRIPTION_COL, description);
+        }
+        if (values.size() != 0) { // isEmpty was added in API 30
+            db.update(STYLES_TABLE, values, WHERE_ID, new String[] { id });
+        }
+        db.close();
+    }
+
+    /**
+     * Get a StyleConfiguration for a name
+     * 
+     * @param name the name
+     * @return a StyleConfiguration or null if not found
+     */
+    @Nullable
+    public StyleConfiguration getStyleForName(@NonNull String name) {
+        try (SQLiteDatabase db = getReadableDatabase();
+                Cursor dbresult = db.query(STYLES_TABLE,
+                        new String[] { ID_COL, NAME_COL, DESCRIPTION_COL, VERSION_COL, URL_COL, LASTUPDATE_COL, CUSTOM_COL, ACTIVE_COL }, "name = ?",
+                        new String[] { name }, null, null, null);) {
+            if (!dbresult.moveToFirst()) {
+                Log.w(DEBUG_TAG, "No style configuration found for " + name);
+                return null;
+            }
+            StyleConfiguration result = new StyleConfiguration(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
+                    dbresult.getString(4), dbresult.getString(5), dbresult.getInt(6) == 1);
+            result.setActive(dbresult.getInt(7) == 1);
+            return result;
+        }
+    }
+
+    /**
+     * Get the active StyleConfiguration
+     * 
+     * @return a StyleConfiguration or null if not found
+     */
+    @Nullable
+    public StyleConfiguration getActiveStyle() {
+        try (SQLiteDatabase db = getReadableDatabase()) {
+            return getActiveStyle(db);
+        }
+    }
+
+    /**
+     * Get the active StyleConfiguration
+     * 
+     * @param db a readable SQLiteDatabase
+     * @return a StyleConfiguration or null if not found
+     *
+     */
+    private StyleConfiguration getActiveStyle(@NonNull SQLiteDatabase db) {
+        Cursor dbresult = db.query(STYLES_TABLE, new String[] { ID_COL, NAME_COL, DESCRIPTION_COL, VERSION_COL, URL_COL, LASTUPDATE_COL, CUSTOM_COL },
+                ACTIVE_COL + " = 1", null, null, null, null);
+        if (!dbresult.moveToFirst()) {
+            Log.w(DEBUG_TAG, "No active style configuration found");
+            return null;
+        }
+        StyleConfiguration result = new StyleConfiguration(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
+                dbresult.getString(4), dbresult.getString(5), dbresult.getInt(6) == 1);
+        result.setActive(true);
+        Log.i(DEBUG_TAG, "getActiveStyle " + result.name);
+        return result;
+    }
+
+    /**
+     * Gets a style by URL (will return null if no style with this URL exists)
+     * 
+     * @param url the url, if null the first style found will be returned
+     * @return a StyleConfiguration object or null
+     */
+    @Nullable
+    public StyleConfiguration getStyleByURL(@Nullable String url) {
+        StyleConfiguration[] found = getStyles(url, true);
+        if (found.length == 0) {
+            return null;
+        }
+        return found[0];
+    }
+
+    /**
+     * Sets the active value of the given style
+     * 
+     * @param id the ID of the style to update
+     * @param active use this style if true
+     */
+    public synchronized void setStyleState(@NonNull String id, boolean active) {
+        // triggers should guarantee that only one style is active
+        setState(STYLES_TABLE, id, active, false);
+    }
+
+    /**
+     * Sets the lastupdate value of the given style to now
+     * 
+     * @param id the ID of the style to update
+     */
+    public synchronized void setStyleLastupdateNow(@NonNull String id) {
+        setLastupdateNow(STYLES_TABLE, id);
+    }
+
+    /**
+     * Sets the lastupdate value of the given element to now
+     * 
+     * @param table the table name
+     * @param id the row id
+     */
+    public synchronized void setLastupdateNow(@NonNull String table, @NonNull String id) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(LASTUPDATE_COL, ((Long) System.currentTimeMillis()).toString());
+        db.update(table, values, WHERE_ID, new String[] { id });
+        db.close();
+    }
+
     /**
      * Set the active state of an entry in one of the tables
      * 
@@ -1693,7 +1995,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param singleActive if true only a single entry can be active
      */
     private void setState(@NonNull String table, @NonNull String id, boolean active, boolean singleActive) {
-        Log.d(DEBUG_TAG, "In table " + table + " setting pref " + id + " active to " + active); // NOSONAR
+        Log.d(DEBUG_TAG, "In table " + table + " setting pref " + id + " active to " + active + " singleActive " + singleActive); // NOSONAR
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         if (singleActive) {

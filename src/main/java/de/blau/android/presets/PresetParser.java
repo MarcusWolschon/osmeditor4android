@@ -29,6 +29,7 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
+import de.blau.android.util.XmlFile;
 
 public class PresetParser {
 
@@ -921,7 +922,7 @@ public class PresetParser {
     @NonNull
     public static List<String> parseForURLs(@NonNull File presetDir) {
         final List<String> urls = new ArrayList<>();
-        String presetFilename = Preset.getPresetFileName(presetDir);
+        String presetFilename = XmlFile.getFileName(presetDir);
         if (presetFilename == null) { // no preset file found
             return urls;
         }

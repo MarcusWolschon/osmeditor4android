@@ -28,6 +28,7 @@
     <string name="help_advanced_preferences">Advanced preferences</string>
     <string name="help_custom_imagery">Custom imagery</string>
     <string name="help_presets">Presets</string>
+    <string name="help_styles">Styles</string>
     <string name="help_uploading">Uploading your changes</string>
     <string name="help_conflictresolution">Conflict resolution</string>
     <string name="help_gpssources">GPS sources</string>
@@ -94,7 +95,8 @@
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
         <item>@string/help_custom_imagery</item>
-    	<item>@string/help_presets</item>	
+    	<item>@string/help_presets</item>
+        <item>@string/help_styles</item>	
         <item>@string/help_rotate</item>
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
@@ -164,7 +166,8 @@
         <item>Preferences</item>
         <item>Advanced preferences</item>
         <item>Custom imagery</item>
-    	<item>Presets</item>	
+    	<item>Presets</item>
+        <item>Styles</item>	
         <item>Rotating elements</item>
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>

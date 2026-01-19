@@ -8,7 +8,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -63,25 +62,26 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StyleableFeature;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.StyleConfiguration;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.symbols.Symbols;
 import de.blau.android.util.Density;
-import de.blau.android.util.FileUtil;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import de.blau.android.util.Version;
-import de.blau.android.util.XmlFileFilter;
+import de.blau.android.util.XmlFile;
 import de.blau.android.util.collections.MultiHashMap;
 
 public final class DataStyle extends DefaultHandler {
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, DataStyle.class.getSimpleName().length());
-    private static final String DEBUG_TAG = DataStyle.class.getSimpleName().substring(0, TAG_LEN);
+    private static final String DESCRIPTION_ATTR = "description";
+    private static final String VERSION_ATTR     = "version";
+    private static final int    TAG_LEN          = Math.min(LOG_TAG_LEN, DataStyle.class.getSimpleName().length());
+    private static final String DEBUG_TAG        = DataStyle.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String I18N_DATASTYLE = "i18n/datastyle_";
 
     private static final Version CURRENT_VERSION = new Version("0.3.0");
-
-    private static final String FILE_PATH_STYLE_SUFFIX = "-profile.xml";
 
     // constants for the internal profiles
     public static final String GPS_TRACK                     = "gps_track";
@@ -758,6 +758,8 @@ public final class DataStyle extends DefaultHandler {
     }
 
     private String                     name;
+    private String                     description;
+    private String                     version;
     private Map<String, FeatureStyle>  internalStyles;
     private Map<Integer, FeatureStyle> validationStyles;
     private FeatureStyle               nodeStyles;
@@ -844,7 +846,7 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
-     * initialize the minimum required internal style for a new profile
+     * initialize the minimum required internal style for a new style
      * 
      */
     private void init() {
@@ -861,7 +863,7 @@ public final class DataStyle extends DefaultHandler {
         createDirectionArrowPath(1.0f);
         Symbols.draw(ctx, 1.0f);
 
-        Log.i(DEBUG_TAG, "setting up default profile elements");
+        Log.i(DEBUG_TAG, "setting up default style elements");
         internalStyles = new HashMap<>();
         validationStyles = new HashMap<>();
 
@@ -1409,6 +1411,7 @@ public final class DataStyle extends DefaultHandler {
      */
     @Nullable
     public DataStyle getStyle(@NonNull String name) {
+        Log.i(DEBUG_TAG, "getStyle " + name);
         if (availableStyles == null) {
             return null;
         }
@@ -1450,29 +1453,24 @@ public final class DataStyle extends DefaultHandler {
      * Get the list of available Styles translated
      * 
      * @param context an Android Context
-     * @param styleNames the list of style names to translate
-     * @return list of available Styles translated (or untranslated if no translation is available)
+     * @return Map of available Styles translated (or untranslated if no translation is available)
      */
     @NonNull
-    public static String[] getStyleListTranslated(@NonNull Context context, @NonNull String[] styleNames) {
+    public Map<String, String> getStyleListTranslated(@NonNull Context context) {
         Locale locale = Locale.getDefault();
+        Map<String, String> result = new HashMap<>();
         try (InputStream poFileStream = getPoFileStream(context, locale)) {
             Po po = de.blau.android.util.Util.parsePoFile(poFileStream);
-            if (po != null) {
-                int len = styleNames.length;
-                String[] res = new String[len];
-                for (int i = 0; i < len; i++) {
-                    res[i] = po.t(styleNames[i]);
-                }
-                return res;
-            } else {
-                Log.w(DEBUG_TAG, "Error parsing translations for " + locale);
-                return styleNames;
+            for (String styleName : getStyleList(context)) {
+                result.put(styleName, po.t(styleName));
             }
         } catch (IOException ioex) {
             Log.w(DEBUG_TAG, "No translations found for " + locale);
-            return styleNames;
+            for (String styleName : getStyleList(context)) {
+                result.put(styleName, styleName);
+            }
         }
+        return result;
     }
 
     /**
@@ -1527,9 +1525,10 @@ public final class DataStyle extends DefaultHandler {
     /**
      * vars for the XML parser
      */
-    private FeatureStyle        tempFeatureStyle;
-    String                      type           = null;
+    private FeatureStyle tempFeatureStyle;
+
     String                      tags           = null;
+    String                      type           = null;
     int                         validationCode = 0;
     private List<Float>         tempIntervals;
     private float               tempPhase;
@@ -1539,60 +1538,29 @@ public final class DataStyle extends DefaultHandler {
     @Override
     public void startElement(final String uri, final String element, final String qName, final Attributes atts) {
         try {
-            if (element.equals(PROFILE_ELEMENT)) {
+            switch (element) {
+            case PROFILE_ELEMENT:
                 name = atts.getValue(NAME_ATTR);
                 String format = atts.getValue(FORMAT_ATTR);
                 if (format != null) {
                     Version v = new Version(format);
                     if (v.getMajor() == CURRENT_VERSION.getMajor() && v.getMinor() == CURRENT_VERSION.getMinor()) {
+                        version = atts.getValue(VERSION_ATTR);
+                        description = atts.getValue(DESCRIPTION_ATTR);
                         return; // everything OK
                     }
                 }
                 Log.e(DEBUG_TAG, "format attribute missing or wrong for " + getName());
                 throw new SAXException("format attribute missing or wrong for " + getName());
-            } else if (element.equals(CONFIG_ELEMENT)) {
-                type = atts.getValue(TYPE_ATTR);
-                if (type != null) {
-                    switch (type) {
-                    case LARGE_DRAG_AREA:
-                        // special handling
-                        largDragToleranceRadius = Density.dpToPx(ctx, Float.parseFloat(atts.getValue(TOUCH_RADIUS_ATTR)));
-                        return;
-                    case MARKER_SCALE:
-                        float scale = Float.parseFloat(atts.getValue(SCALE_ATTR));
-                        createOrientationPath(scale);
-                        createCrosshairsPath(scale);
-                        createXPath(scale);
-                        createDirectionArrowPath(scale);
-                        Symbols.draw(ctx, scale);
-                        return;
-                    case MIN_HANDLE_LEN:
-                        String lenStr = atts.getValue(LENGTH_ATTR);
-                        if (lenStr != null) {
-                            minLenForHandle = Density.dpToPx(ctx, Float.parseFloat(lenStr));
-                        }
-                        return;
-                    case ICON_ZOOM_LIMIT:
-                        String zoomStr = atts.getValue(ZOOM_ATTR);
-                        if (zoomStr != null) {
-                            iconZoomLimit = Integer.parseInt(zoomStr);
-                        }
-                        String labelZoomLimitString = atts.getValue(LABEL_ZOOM_LIMIT_ATTR);
-                        if (labelZoomLimitString != null) {
-                            iconLabelZoomLimit = Integer.parseInt(labelZoomLimitString);
-                        }
-                        return;
-                    default:
-                        Log.e(DEBUG_TAG, "unknown config type " + type);
-                    }
-                }
-            } else if (element.equals(FEATURE_ELEMENT)) {
+            case CONFIG_ELEMENT:
+                processConfigType(atts);
+                break;
+            case FEATURE_ELEMENT:
                 type = atts.getValue(TYPE_ATTR);
                 if (tempFeatureStyle != null) { // we already have a style, save it
                     styleStack.push(tempFeatureStyle);
                     parent = tempFeatureStyle;
                 }
-
                 tags = atts.getValue(TAGS_ATTR);
                 if (Way.NAME.equals(type) || Relation.NAME.equals(type) || Node.NAME.equals(type)) {
                     if (parent != null) {
@@ -1723,14 +1691,64 @@ public final class DataStyle extends DefaultHandler {
                 if (textColorString != null) {
                     tempFeatureStyle.setTextColor((int) Long.parseLong(textColorString, 16));
                 }
-            } else if (element.equals(DASH_ELEMENT)) {
+                break;
+            case DASH_ELEMENT:
                 tempPhase = Float.parseFloat(atts.getValue(PHASE_ATTR));
                 tempIntervals = new ArrayList<>();
-            } else if (element.equals(INTERVAL_ELEMENT)) {
+                break;
+            case INTERVAL_ELEMENT:
                 tempIntervals.add(Float.parseFloat(atts.getValue(LENGTH_ATTR)));
+                break;
+            default:
+                Log.e(DEBUG_TAG, "Unknown element " + element);
             }
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Parse Exception", e);
+        }
+    }
+
+    /**
+     * Set config values from XML attributes
+     * 
+     * @param atts the attributes
+     */
+    private void processConfigType(@NonNull final Attributes atts) {
+        String configType = atts.getValue(TYPE_ATTR);
+        if (configType == null) {
+            Log.e(DEBUG_TAG, "Missing config type");
+            return;
+        }
+        switch (configType) {
+        case LARGE_DRAG_AREA:
+            // special handling
+            largDragToleranceRadius = Density.dpToPx(ctx, Float.parseFloat(atts.getValue(TOUCH_RADIUS_ATTR)));
+            return;
+        case MARKER_SCALE:
+            float scale = Float.parseFloat(atts.getValue(SCALE_ATTR));
+            createOrientationPath(scale);
+            createCrosshairsPath(scale);
+            createXPath(scale);
+            createDirectionArrowPath(scale);
+            Symbols.draw(ctx, scale);
+            return;
+        case MIN_HANDLE_LEN:
+            String lenStr = atts.getValue(LENGTH_ATTR);
+            if (lenStr != null) {
+                minLenForHandle = Density.dpToPx(ctx, Float.parseFloat(lenStr));
+            }
+            return;
+        case ICON_ZOOM_LIMIT:
+            String zoomStr = atts.getValue(ZOOM_ATTR);
+            if (zoomStr != null) {
+                iconZoomLimit = Integer.parseInt(zoomStr);
+            }
+            String labelZoomLimitString = atts.getValue(LABEL_ZOOM_LIMIT_ATTR);
+            if (labelZoomLimitString != null) {
+                iconLabelZoomLimit = Integer.parseInt(labelZoomLimitString);
+            }
+            return;
+        default:
+            Log.e(DEBUG_TAG, "unknown config type " + configType);
         }
     }
 
@@ -1881,61 +1899,99 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
-     * searches directories for profile files and creates new profiles from them
+     * Query the config database for styles files and creates new styles from them
      * 
      * @param ctx Android Context
      */
     @SuppressLint("NewApi")
     public void getStylesFromFiles(@NonNull Context ctx) {
         if (availableStyles.size() == 0) {
-            Log.i(DEBUG_TAG, "No style files found");
+            Log.i(DEBUG_TAG, "No styles found");
             // no files, need to install a default
             addDefaultStyle(ctx);
         }
-        // assets directory
         AssetManager assetManager = ctx.getAssets();
-        String[] fileList = getAssetStyleList(assetManager);
-        if (fileList != null) {
-            for (String fn : fileList) {
-                if (fn.endsWith("." + FileExtensions.XML)) {
-                    Log.i(DEBUG_TAG, "Creating style from file in assets directory " + fn);
-                    try (InputStream is = assetManager.open(Paths.DIRECTORY_PATH_STYLES + Paths.DELIMITER + fn)) {
-                        DataStyle p = new DataStyle(ctx, is, null);
-                        availableStyles.put(p.getName(), p);
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ctx)) {
+            for (StyleConfiguration styleConf : db.getStyles()) {
+                final String url = styleConf.url;
+                if (Util.isEmpty(url)) {
+                    continue;
+                }
+                if (!styleConf.custom) {
+                    Log.i(DEBUG_TAG, "Creating style from file in assets directory " + url);
+                    try (InputStream is = assetManager.open(Paths.DIRECTORY_PATH_STYLES + Paths.DELIMITER + url)) {
+                        DataStyle style = new DataStyle(ctx, is, null);
+                        addStyle(db, styleConf, style);
                     } catch (Exception ex) {
                         // this shouldn't happen with styles included with the APK, so no need to toast
-                        Log.e(DEBUG_TAG, "Reading " + fn + " failed");
+                        Log.e(DEBUG_TAG, "Reading " + url + " failed");
+                    }
+                } else {
+                    try {
+                        // overwrites profile with same name, use name from configuration not from style
+                        DataStyle style = addStyleFromFile(ctx, db, styleConf);
+                        addStyle(db, styleConf, style);
+                    } catch (Exception ex) { // never crash
+                        Log.e(DEBUG_TAG, ex.toString());
+                        ScreenMessage.toastTopError(ctx, ctx.getString(R.string.toast_invalid_style_file, styleConf.url, ex.getMessage()));
                     }
                 }
             }
         }
+    }
 
-        // old style named files
-        try {
-            File indir = FileUtil.getPublicDirectory();
-            class StyleFilter implements FilenameFilter {
-                @Override
-                public boolean accept(File dir, String name) {
-                    return name.endsWith(FILE_PATH_STYLE_SUFFIX);
-                }
-            }
-            readStylesFromFileList(ctx, indir.listFiles(new StyleFilter()));
-        } catch (Exception ex) {
-            Log.e(DEBUG_TAG, "Unable to read style files " + ex.getMessage());
+    /**
+     * Make the style available and set the current style if it is active
+     * 
+     * @param db the AdvancedPrefDatabase
+     * @param styleConf the StyleConfiguration
+     * @param style the actual DataStyle
+     */
+    private void addStyle(AdvancedPrefDatabase db, StyleConfiguration styleConf, DataStyle style) {
+        availableStyles.put(styleConf.name, style);
+        if (styleConf.isActive()) {
+            currentStyle = style;
         }
-        // from public styles directory
-        try {
-            File indir = new File(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_STYLES);
-            readStylesFromFileList(ctx, indir.listFiles(new XmlFileFilter()));
-        } catch (Exception ex) {
-            Log.e(DEBUG_TAG, "Unable to read style files from public style dir " + ex.getMessage());
+        setAdditionalFieldsFromStyle(db, styleConf, style);
+    }
+
+    /**
+     * Read in a custom style file and add it to the list of available ones
+     * 
+     * @param ctx Android Context
+     * @param db the pref DB
+     * @param style the StyleCOnfiguration
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException
+     * 
+     */
+    @Nullable
+    public static DataStyle addStyleFromFile(@NonNull Context ctx, @NonNull AdvancedPrefDatabase db, @NonNull StyleConfiguration style)
+            throws SAXException, IOException, ParserConfigurationException {
+        // style is in directory with id as name
+        Log.i(DEBUG_TAG, "Creating style for " + style.url);
+        File styleDir = db.getResourceDirectory(style.id);
+        File f = new File(styleDir, XmlFile.getFileName(styleDir));
+        Log.i(DEBUG_TAG, "... file " + f.getAbsolutePath());
+
+        try (InputStream is = new FileInputStream(f)) {
+            return new DataStyle(ctx, is, f.getParent());
         }
-        // from private styles directory
-        try {
-            File indir = FileUtil.getApplicationDirectory(ctx, Paths.DIRECTORY_PATH_STYLES);
-            readStylesFromFileList(ctx, indir.listFiles(new XmlFileFilter()));
-        } catch (Exception ex) {
-            Log.e(DEBUG_TAG, "Unable to read style files from private styles dir " + ex.getMessage());
+    }
+
+    /**
+     * Set description and version fields if they have changed
+     * 
+     * @param db an AdvancedPrefDatabase instance
+     * @param styleConf the StyleCOnfiguration
+     * @param style the parsed style
+     */
+    private void setAdditionalFieldsFromStyle(@NonNull AdvancedPrefDatabase db, @NonNull StyleConfiguration styleConf, @NonNull DataStyle style) {
+        boolean versionChanged = style.getVersion() != null && !style.getVersion().equals(styleConf.version);
+        boolean descriptionChanged = style.getDescription() != null && !style.getDescription().equals(styleConf.description);
+        if (versionChanged || descriptionChanged) {
+            db.setStyleAdditionalFields(styleConf.id, style.getVersion(), style.getDescription());
         }
     }
 
@@ -1956,30 +2012,6 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
-     * Read styles provided as a list of Files, adding them to the available styles
-     * 
-     * @param ctx an Android Context
-     * @param list the list
-     */
-    private void readStylesFromFileList(@NonNull Context ctx, @Nullable File[] list) {
-        if (list == null) {
-            Log.w(DEBUG_TAG, "Null file list");
-            return;
-        }
-        for (File f : list) {
-            Log.i(DEBUG_TAG, "Creating profile from " + f.getName());
-            try (InputStream is = new FileInputStream(f)) {
-                DataStyle p = new DataStyle(ctx, is, f.getParent());
-                // overwrites profile with same name
-                availableStyles.put(p.getName(), p);
-            } catch (Exception ex) { // never crash
-                Log.e(DEBUG_TAG, ex.toString());
-                ScreenMessage.toastTopError(ctx, ctx.getString(R.string.toast_invalid_style_file, f.getName(), ex.getMessage()));
-            }
-        }
-    }
-
-    /**
      * Add the builtin minimal style so that we always have something to fall back too
      * 
      * @param ctx an Android Context
@@ -1993,10 +2025,15 @@ public final class DataStyle extends DefaultHandler {
 
     /**
      * Reset contents used for testing only
+     * 
+     * @param reInit if true reread files
      */
-    public void reset() {
+    public void reset(boolean reInit) {
         availableStyles.clear();
         currentStyle = null;
+        if (reInit) {
+            getStylesFromFiles(ctx);
+        }
     }
 
     /**
@@ -2065,8 +2102,25 @@ public final class DataStyle extends DefaultHandler {
     /**
      * @return the name
      */
+    @Nullable
     public String getName() {
         return name;
+    }
+
+    /**
+     * @return the description
+     */
+    @Nullable
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @return the version
+     */
+    @Nullable
+    public String getVersion() {
+        return version;
     }
 
     /**

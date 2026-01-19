@@ -4,11 +4,9 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -45,14 +43,13 @@ import ch.poole.poparser.Po;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
-import de.blau.android.contract.Paths;
 import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.prefs.PresetConfigurationEditorActivity;
 import de.blau.android.search.Wrapper;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.Hash;
@@ -60,6 +57,7 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Value;
+import de.blau.android.util.XmlFile;
 import de.blau.android.util.collections.MultiHashMap;
 
 /**
@@ -67,7 +65,7 @@ import de.blau.android.util.collections.MultiHashMap;
  * 
  * Presets can come from one of three sources: a) the default preset, which is loaded from the default asset locations
  * (see below) b) an APK-based preset, which is loaded from an APK c) a downloaded preset, which is downloaded to local
- * storage by {@link PresetEditorActivity}
+ * storage by {@link PresetConfigurationEditorActivity}
  * 
  * The preset.xml is loaded from the following sources: a) for the default preset, "preset.xml" in the default asset
  * locations b) for APK-based presets, "preset.xml" in the APK asset directory c) for downloaded presets, "preset.xml"
@@ -78,8 +76,8 @@ import de.blau.android.util.collections.MultiHashMap;
  * Otherwise, from the default asset location (see below, "images/" is prepended to the path)
  * 
  * Icons referenced in the XML preset by a http or https URL are loaded from the presets data directory, where they
- * should be placed under a name derived from the URL hash by {@link PresetEditorActivity}. Default and APK presets
- * cannot have http/https icons.
+ * should be placed under a name derived from the URL hash by {@link PresetConfigurationEditorActivity}. Default and APK
+ * presets cannot have http/https icons.
  * 
  * If an asset needs to be loaded from the default asset locations, the loader checks for the existence of an APK with
  * the package name specified in {@link PresetIconManager#EXTERNAL_DEFAULT_ASSETS_PACKAGE}. If this package exists and
@@ -164,9 +162,6 @@ public class Preset implements Serializable {
     private String              externalPackage;
     private final boolean       isDefault;
 
-    private static final FilenameFilter presetFileFilter = (File dir, String name) -> name.endsWith(".xml");
-    private static final FileFilter     directoryFilter  = File::isDirectory;
-
     /**
      * create a dummy preset
      */
@@ -229,7 +224,7 @@ public class Preset implements Serializable {
             } else {
                 Log.i(DEBUG_TAG, "Loading downloaded preset, directory=" + directory);
                 iconManager = new PresetIconManager(ctx, directory.getAbsolutePath(), null);
-                String presetFilename = getPresetFileName(directory);
+                String presetFilename = XmlFile.getFileName(directory);
                 if (presetFilename == null) {
                     throw new IOException(ctx.getString(R.string.toast_missing_preset_file, directory));
                 }
@@ -642,33 +637,6 @@ public class Preset implements Serializable {
                 field.translate(po);
             }
         }
-    }
-
-    /**
-     * Get a candidate preset file name in presetDir
-     * 
-     * Will descend recursively in to sub-directories if preset file is not found at top
-     * 
-     * @param presetDir the directory
-     * @return the file name or null
-     */
-    @Nullable
-    static String getPresetFileName(@NonNull File presetDir) {
-        File[] list = presetDir.listFiles(presetFileFilter);
-        if (list != null && list.length > 0) { // simply use the first XML file found
-            return list[0].getName();
-        } else {
-            list = presetDir.listFiles(directoryFilter);
-            if (list != null) {
-                for (File f : list) {
-                    String fileName = getPresetFileName(f);
-                    if (fileName != null) {
-                        return f.getName() + Paths.DELIMITER + fileName;
-                    }
-                }
-            }
-        }
-        return null;
     }
 
     /**

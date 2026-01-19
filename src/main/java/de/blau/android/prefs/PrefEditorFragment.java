@@ -7,13 +7,12 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.preference.ListPreference;
+import androidx.fragment.app.FragmentActivity;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import ch.poole.openinghoursfragment.templates.TemplateMangementDialog;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerDatabaseView;
 import de.blau.android.validation.ValidatorRulesUI;
 
@@ -28,7 +27,8 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PrefEditorFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = PrefEditorFragment.class.getSimpleName().substring(0, TAG_LEN);
 
-    private boolean resetValidationFlag;
+    private boolean    resetValidationFlag;
+    private Preference stylePref;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -42,8 +42,12 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
     public void onResume() {
         Log.d(DEBUG_TAG, "onResume");
         super.onResume();
-        setListPreferenceSummary(R.string.config_scale_key, false);
         setTitle();
+        if (stylePref != null) {
+            final FragmentActivity activity = getActivity();
+            Preferences prefs = new Preferences(activity);
+            stylePref.setSummary(App.getDataStyle(activity).getStyleListTranslated(activity).get(prefs.getDataStyle(App.getDataStyle(activity))));
+        }
         Log.d(DEBUG_TAG, "onResume done");
     }
 
@@ -53,29 +57,13 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
      * @param r the current resources
      */
     private void setPreferenceListeners(@NonNull final Resources r) {
-
-        Preferences prefs = new Preferences(getActivity());
-
-        ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(r.getString(R.string.config_mapProfile_key));
-        if (mapProfilePref != null) {
-            DataStyle styles = App.getDataStyle(getActivity());
-            final String[] styleList = styles.getStyleList(getActivity());
-            final String[] styleListTranslated = DataStyle.getStyleListTranslated(getActivity(), styleList);
-            mapProfilePref.setEntryValues(styleList);
-            mapProfilePref.setEntries(styleListTranslated);
-            OnPreferenceChangeListener p = (preference, newValue) -> {
-                Log.d(DEBUG_TAG, "onPreferenceChange mapProfile");
-                String id = (String) newValue;
-                for (int i = 0; i < styleList.length; i++) {
-                    if (id.equals(styleList[i])) {
-                        preference.setSummary(styleListTranslated[i]);
-                        break;
-                    }
-                }
+        stylePref = getPreferenceScreen().findPreference(r.getString(R.string.config_mapProfile_key));
+        if (stylePref != null) {
+            stylePref.setOnPreferenceClickListener(preference -> {
+                Log.d(DEBUG_TAG, "onPreferenceClick");
+                StyleConfigurationEditorActivity.start(getActivity());
                 return true;
-            };
-            mapProfilePref.setOnPreferenceChangeListener(p);
-            p.onPreferenceChange(mapProfilePref, prefs.getDataStyle(styles));
+            });
         }
 
         Preference customLayersPref = getPreferenceScreen().findPreference(r.getString(R.string.config_customlayers_key));
@@ -91,7 +79,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         if (presetPref != null) {
             presetPref.setOnPreferenceClickListener(preference -> {
                 Log.d(DEBUG_TAG, "onPreferenceClick");
-                PresetEditorActivity.start(getActivity());
+                PresetConfigurationEditorActivity.start(getActivity());
                 return true;
             });
         }

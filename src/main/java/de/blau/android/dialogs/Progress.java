@@ -32,7 +32,7 @@ public class Progress extends CancelableDialogFragment {
     public static final int PROGRESS_SAVING                    = 5;
     public static final int PROGRESS_OAUTH                     = 6;
     public static final int PROGRESS_UPLOADING                 = 7;
-    public static final int PROGRESS_PRESET                    = 8;
+    public static final int PROGRESS_RESOURCE                    = 8;
     public static final int PROGRESS_RUNNING                   = 9;
     public static final int PROGRESS_BUILDING_IMAGERY_DATABASE = 10;
     public static final int PROGRESS_QUERY_OAM                 = 11;
@@ -131,7 +131,7 @@ public class Progress extends CancelableDialogFragment {
         dismissDialog(activity, PROGRESS_SAVING);
         dismissDialog(activity, PROGRESS_OAUTH);
         dismissDialog(activity, PROGRESS_UPLOADING);
-        dismissDialog(activity, PROGRESS_PRESET);
+        dismissDialog(activity, PROGRESS_RESOURCE);
         dismissDialog(activity, PROGRESS_RUNNING);
         dismissDialog(activity, PROGRESS_BUILDING_IMAGERY_DATABASE);
         dismissDialog(activity, PROGRESS_QUERY_OAM);
@@ -168,7 +168,7 @@ public class Progress extends CancelableDialogFragment {
             return "dialog_progress_oauth";
         case PROGRESS_UPLOADING:
             return "dialog_progress_uploading";
-        case PROGRESS_PRESET:
+        case PROGRESS_RESOURCE:
             return "dialog_progress_preset";
         case PROGRESS_RUNNING:
             return "dialog_progress_running";

@@ -1,5 +1,5 @@
 ## Vespucci Data Styling
-_Documentation for Vespucci 21.1 Style file format version 0.3.2_
+_Documentation for Vespucci 22.0 Style file format version 0.3.3_
 
 The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.
 
@@ -18,7 +18,9 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 |---------------------------|----------------|---------|------------------------------------------------------
 |__&lt;profile&gt;__        |                |         | Top level enclosing element
 |                           | name           |         | Style name
-|                           | format         |         | Format version, currently 0.3.1
+|                           | format         |         | Format version, currently 0.3.3
+|                           | description    |         | Optional description of the style
+|                           | version        |         | Optional version string
 |__&lt;!--&nbsp;comment&nbsp;--&gt;__ |      |         | A comment
 |__&lt;config&gt;__         |                |         | Configuration element
 |                           | type           |         | One of "large_drag_area", "marker_scale", "min_handle_len", "icon_zoom_limit"
@@ -68,30 +70,30 @@ Name                          | Description
 gps_track                     | Default style for GPX tracks
 infotext                      | 
 attribution_text              | Text style for attribution notices on the map
-viewbox                       | 
-way_tolerance                 | 
+viewbox                       |
+way_tolerance                 | Styling for area around a way for touch purposes
 way_tolerance_2               | 
 way                           | Default way style
 selected_way                  | Selected way style
 selected_relation_way         | Style for relation member ways when the relation is selected
 problem_way                   | Style for a way with an issue
 hidden_way                    | Style for faint way rendering (used when filters are active)
-node_tolerance                | 
+node_tolerance                | Styling for area around a node for touch purposes
 node_tolerance_2              | 
-node_untagged                 | 
+node_untagged                 | Styling for an untagged node
 node_thin                     | 
-node_tagged                   | 
+node_tagged                   | Style for a tagged node without icon
 node_drag_radius              | Style for the large drag radius
 problem_node                  | Style for a node with an issue
 problem_node_thin             | 
 problem_node_tagged           | 
-selected_node                 | 
+selected_node                 | Style for a selected node
 selected_node_thin            | 
 selected_node_tagged          | 
 selected_relation_node        | 
 selected_relation_node_thin   | 
 selected_relation_node_tagged | 
-hidden_node                   | 
+hidden_node                   | Style for faint node rendering (used when filters are active)
 way_direction                 | 
 large_drag_area               | 
 marker_scale                  | 
@@ -99,12 +101,12 @@ gps_pos                       | Styling for the location indicator when not in f
 gps_pos_follow                | Styling for the location indicator when in follow mode
 gps_pos_stale                 | Styling for the location indicator when not in follow mode and the location is stale
 gps_pos_follow_stale          | Styling for the location indicator when in follow mode and the location is stale
-gps_accuracy                  | 
+gps_accuracy                  | Styling for the area around the GPS location indicating approximate accuracy
 open_note                     | 
 closed_note                   | 
-crosshairs                    | 
-crosshairs_halo               | 
-handle                        | 
+crosshairs                    | Styling for the small crosshair display for example when rotating an object
+crosshairs_halo               | Style for the halo around the crosshairs
+handle                        | Styling for the geometry "improvement" handles on ways
 labeltext                     | 
 labeltext_normal              | 
 labeltext_small               | 
@@ -155,6 +157,7 @@ WRONG_ELEMENT_TYPE   | 0x00008000
         <!-- Assorted config -->
         <config type="min_handle_length" length="200.0" />
         <config type="icon_zoom_limit" zoom="15" />
+        
         <!-- Vespucci internal styles -->
         <feature type="gps_accuracy" updateWidth="false" widthFactor="2.0" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokeWidth="0.0" />
         <feature type="problem_node_thin" updateWidth="false" widthFactor="1.0" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" />
@@ -172,6 +175,8 @@ WRONG_ELEMENT_TYPE   | 0x00008000
         <feature type="gps_pos" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="FILL" cap="ROUND" join="ROUND" strokeWidth="2.0" />
         <feature type="gps_pos_follow" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0"/>
         <feature type="dontrender_way" dontrender="true" updateWidth="true" widthFactor="1.0" color="00ffffff" style="STROKE" cap="ROUND" join="ROUND" />
+        <feature type="map_background" color="ff003153" />```
+
         <!-- OSM node based features currently internal features -->
         <feature type="node_untagged" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
         <feature type="node_tagged" updateWidth="true" widthFactor="1.5" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
