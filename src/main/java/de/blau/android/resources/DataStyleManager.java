@@ -412,14 +412,14 @@ public class DataStyleManager {
     }
 
     /**
-     * Reset contents used for testing only
+     * Reset contents 
      * 
      * @param ctx an Android Context
      * @param reInit if true reread files
      */
     public void reset(@NonNull Context ctx, boolean reInit) {
         availableStyles.clear();
-        currentStyle = null;
+        addDefaultStyle(ctx);
         if (reInit) {
             getStylesFromFiles(ctx);
         }

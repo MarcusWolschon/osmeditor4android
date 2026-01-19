@@ -146,8 +146,9 @@ public class PresetEditorTest {
         UiObject2 entry = TestUtils.findObjectWithText(device, false, TEST_PRESET_NAME, 100, false);
         UiObject2 menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
         menu.click();
-        TestUtils.clickText(device, false, main.getString(R.string.tag_menu_move_up), true, true); // Up needs exact
-                                                                                                   // match
+        TestUtils.clickText(device, false, main.getString(R.string.tag_menu_move_up), true, true); // Up needs exact match
+        instrumentation.removeMonitor(monitor);                                                                                         
+        
         TestUtils.clickHome(device, true);
         App.resetPresets();
         presets = App.getCurrentPresets(main);
@@ -163,10 +164,11 @@ public class PresetEditorTest {
         entry = TestUtils.findObjectWithText(device, false, TEST_PRESET_NAME, 100, false);
         menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
         menu.click();
-        TestUtils.clickText(device, false, main.getString(R.string.menu_edit), true);
+        TestUtils.clickText(device, false, main.getString(R.string.edit), true);
         TestUtils.findText(device, false, "0.1.0");
         TestUtils.clickText(device, false, main.getString(R.string.okay), true);
         TestUtils.clickHome(device, true);
+        instrumentation.removeMonitor(monitor);
 
         // delete the test preset
         monitor = instrumentation.addMonitor(PresetConfigurationEditorActivity.class.getName(), null, false);
@@ -180,6 +182,7 @@ public class PresetEditorTest {
         TestUtils.clickText(device, false, main.getString(R.string.yes), true);
         TestUtils.clickHome(device, true);
         App.resetPresets();
+        instrumentation.removeMonitor(monitor);
     }
 
     /**
@@ -200,7 +203,7 @@ public class PresetEditorTest {
             assertTrue(presetEditor instanceof PresetConfigurationEditorActivity);
             assertTrue(TestUtils.clickButton(device, "android:id/button1", true));
             // assertTrue(TestUtils.clickText(device, true, main.getString(R.string.okay), true, false));
-            assertTrue(TestUtils.findText(device, false, main.getString(R.string.urldialog_preset_download_successful), 5000, true));
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.urldialog_resource_download_successful), 5000, true));
         } finally {
             App.resetPresets();
         }
