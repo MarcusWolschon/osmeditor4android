@@ -59,6 +59,7 @@ public class DataStyleManager {
 
     private DataStyle                  currentStyle;
     private HashMap<String, DataStyle> availableStyles = new HashMap<>();
+    private Po                         po;
 
     /**
      * Loop over all styles and apply processor
@@ -229,27 +230,17 @@ public class DataStyleManager {
     }
 
     /**
-     * Get the list of available Styles translated
+     * Translate a string using the style specific translation files
      * 
-     * @param context an Android Context
-     * @return Map of available Styles translated (or untranslated if no translation is available)
+     * @param original the untranslated string
+     * @return the translated string (or the original if no translation was found)
      */
     @NonNull
-    public Map<String, String> getStyleListTranslated(@NonNull Context context) {
-        Locale locale = Locale.getDefault();
-        Map<String, String> result = new HashMap<>();
-        try (InputStream poFileStream = getPoFileStream(context, locale)) {
-            Po po = de.blau.android.util.Util.parsePoFile(poFileStream);
-            for (String styleName : getStyleList(context)) {
-                result.put(styleName, po.t(styleName));
-            }
-        } catch (IOException ioex) {
-            Log.w(DEBUG_TAG, "No translations found for " + locale);
-            for (String styleName : getStyleList(context)) {
-                result.put(styleName, styleName);
-            }
+    public String translate(@NonNull String original) {
+        if (po != null) {
+            return po.t(original);
         }
-        return result;
+        return original;
     }
 
     /**
@@ -325,6 +316,12 @@ public class DataStyleManager {
                     }
                 }
             }
+        }
+        Locale locale = Locale.getDefault();
+        try (InputStream poFileStream = getPoFileStream(ctx, locale)) {
+            po = de.blau.android.util.Util.parsePoFile(poFileStream);
+        } catch (IOException ioex) {
+            Log.w(DEBUG_TAG, "No translations found for " + locale);
         }
     }
 
@@ -412,7 +409,7 @@ public class DataStyleManager {
     }
 
     /**
-     * Reset contents 
+     * Reset contents
      * 
      * @param ctx an Android Context
      * @param reInit if true reread files

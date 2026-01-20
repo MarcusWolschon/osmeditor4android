@@ -48,7 +48,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             final FragmentActivity activity = getActivity();
             Preferences prefs = new Preferences(activity);
             final DataStyleManager styles = App.getDataStyleManager(activity);
-            stylePref.setSummary(styles.getStyleListTranslated(activity).get(prefs.getDataStyle(styles)));
+            stylePref.setSummary(styles.translate(prefs.getDataStyle(styles)));
         }
         Log.d(DEBUG_TAG, "onResume done");
     }

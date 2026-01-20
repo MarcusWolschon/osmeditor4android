@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
@@ -33,6 +34,8 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
     private static final int MENU_RELOAD = 1;
 
     private static final String STYLE_XML = "style.xml";
+    
+    private final DataStyleManager manager;
 
     /**
      * Construct a new instance
@@ -40,6 +43,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
     public StyleConfigurationEditorActivity() {
         super();
         addAdditionalContextMenuItem(MENU_RELOAD, R.string.style_update);
+        manager = App.getDataStyleManager(this);
     }
 
     /**
@@ -109,8 +113,8 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
 
     @Override
     protected void setListItemViews(ListItem v, ListEditItem listEditItem) {
-        v.setText1(listEditItem.name);
-        v.setText2(listEditItem.value2);
+        v.setText1(manager.translate(listEditItem.name));
+        v.setText2(manager.translate(listEditItem.value2));
         v.setChecked(listEditItem.active);
     }
 
@@ -150,7 +154,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
         }
         retrieveData(this, db, item, STYLE_XML, false);
         if (!isAddingViaIntent()) { // added a new style and enabled it: need to rebuild styles
-            App.getDataStyleManager(this).reset(this, true);
+            manager.reset(this, true);
         }
         reloadItems();
     }
@@ -162,7 +166,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
         if (style.url != null && !style.url.equals(item.value)) {
             // url changed so better recreate everything
             db.removeResourceDirectory(item.id);
-            App.getDataStyleManager(this).reset(this, true);
+            manager.reset(this, true);
         }
     }
 
@@ -175,7 +179,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
                 .setPositiveButton(R.string.Yes, (dialog, which) -> {
                     db.deleteStyle(item.id);
                     reloadItems();
-                    App.getDataStyleManager(this).reset(this, true);
+                    manager.reset(this, true);
                 }).setNegativeButton(R.string.cancel, null).show();
     }
 
@@ -201,7 +205,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
             if (style.url != null) {
                 retrieveData(this, db, clickedItem, STYLE_XML, true);
             }
-            App.getDataStyleManager(this).reset(this, true);
+            manager.reset(this, true);
             return;
         }
         Log.e(DEBUG_TAG, "Unknown menu item " + menuItemId);
