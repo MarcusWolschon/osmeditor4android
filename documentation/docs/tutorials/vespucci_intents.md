@@ -15,6 +15,20 @@ vespucci:/preset?preseturl=*url*&presetname=*name*
 
 Load a preset from a website and store it in internal storage, the preset can replace or be used together with the default and other presets.
 
+More information on using presets in Vespucci can be found in the [preset documentation](/presets).  
+
+__Load a style__
+
+vespucci:/style?styleurl=*url*&stylename=*name*
+
+*url*: URL of a Vespucci style file or zip archive (including icons)
+
+*name*: optional name of the style
+
+Load a style from a website and store it in internal storage.
+
+More information on using presets in Vespucci can be found in the [data styling documentation](/data_styling). 
+
 __Zoom to a bounding box__
 
 ~~http://127.0.0.1:8111/zoom?left=*left*&bottom=*bottom*&right=*right*&top=*top*~~
