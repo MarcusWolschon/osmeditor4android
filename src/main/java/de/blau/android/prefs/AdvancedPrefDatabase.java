@@ -33,6 +33,7 @@ import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
 import de.blau.android.propertyeditor.CustomPreset;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ScreenMessage;
@@ -377,7 +378,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param db the prefs db
      */
     private void addDefaultStyleEntries(SQLiteDatabase db) {
-        addStyle(db, "builtin-minimal", "Built-in (minimal)", null, false, false);
+        addStyle(db, DataStyleManager.getBuiltinStyleId(), DataStyleManager.getBuiltinStyleName(), null, false, false);
         addStyle(db, "color-round", "Color Round Nodes", "Color-round.xml", false, true);
         addStyle(db, "color-round-no-mp", "Color Round Nodes No Multipolygons", "Color-round-no-mp.xml", false, false);
         addStyle(db, "no-path-patterns", "No path patterns", "No-path-patterns.xml", false, false);
@@ -764,11 +765,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     @NonNull
     public Preset[] getCurrentPresetObject() {
         long start = System.currentTimeMillis();
-        PresetInfo[] presetInfos = getActivePresets();
+        PresetConfiguration[] presetInfos = getActivePresets();
 
         Preset[] activePresets = new Preset[presetInfos.length + 1];
         for (int i = 0; i < presetInfos.length; i++) {
-            PresetInfo pi = presetInfos[i];
+            PresetConfiguration pi = presetInfos[i];
             try {
                 Log.d(DEBUG_TAG, "Adding preset " + pi.name);
                 activePresets[i] = new Preset(context, getResourceDirectory(pi.id), pi.useTranslations);
@@ -799,7 +800,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param pi a PresetInfo object with the current DB values
      * @param preset a parsed Preset
      */
-    private void setAdditionalFieldsFromPreset(@NonNull PresetInfo pi, @NonNull Preset preset) {
+    private void setAdditionalFieldsFromPreset(@NonNull PresetConfiguration pi, @NonNull Preset preset) {
         boolean versionChanged = preset.getVersion() != null && !preset.getVersion().equals(pi.version);
         boolean shortDescriptionChanged = preset.getShortDescription() != null && !preset.getShortDescription().equals(pi.description);
         boolean descriptionChanged = preset.getDescription() != null && !preset.getDescription().equals(pi.description);
@@ -832,7 +833,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @return an array of PresetInfo
      */
     @Nullable
-    public PresetInfo[] getPresets() {
+    public PresetConfiguration[] getPresets() {
         return getPresets(null, false);
     }
 
@@ -843,8 +844,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @return a PresetInfo object or null
      */
     @Nullable
-    public PresetInfo getPreset(@NonNull String id) {
-        PresetInfo[] found = getPresets(id, false);
+    public PresetConfiguration getPreset(@NonNull String id) {
+        PresetConfiguration[] found = getPresets(id, false);
         if (found.length == 0) {
             return null;
         }
@@ -858,8 +859,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @return a PresetInfo object or null
      */
     @Nullable
-    public PresetInfo getPresetByURL(@Nullable String url) {
-        PresetInfo[] found = getPresets(url, true);
+    public PresetConfiguration getPresetByURL(@Nullable String url) {
+        PresetConfiguration[] found = getPresets(url, true);
         if (found.length == 0) {
             return null;
         }
@@ -872,18 +873,17 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @return an array of PresetInfo
      */
     @NonNull
-    public PresetInfo[] getActivePresets() {
+    public PresetConfiguration[] getActivePresets() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor dbresult = db.query(PRESETS_TABLE,
                 new String[] { ID_COL, NAME_COL, VERSION_COL, SHORTDESCRIPTION_COL, DESCRIPTION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
                 "active=1", null, null, null, POSITION_COL);
-        PresetInfo[] result = new PresetInfo[dbresult.getCount()];
-        Log.d(DEBUG_TAG, "#prefs " + result.length);
+        PresetConfiguration[] result = new PresetConfiguration[dbresult.getCount()];
         dbresult.moveToFirst();
         for (int i = 0; i < result.length; i++) {
             Log.d(DEBUG_TAG, "Reading pref " + i + " " + dbresult.getString(1));
-            result[i] = new PresetInfo(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4),
-                    dbresult.getString(5), dbresult.getString(6), dbresult.getInt(7) == 1, dbresult.getInt(8) == 1);
+            result[i] = new PresetConfiguration(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
+                    dbresult.getString(4), dbresult.getString(5), dbresult.getString(6), dbresult.getInt(7) == 1, dbresult.getInt(8) == 1);
             dbresult.moveToNext();
         }
         dbresult.close();
@@ -899,17 +899,17 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @return PresetInfo[]
      */
     @NonNull
-    private synchronized PresetInfo[] getPresets(@Nullable String value, boolean byURL) {
+    private synchronized PresetConfiguration[] getPresets(@Nullable String value, boolean byURL) {
         SQLiteDatabase db = getReadableDatabase();
         String query = byURL ? WHERE_URL : WHERE_ID;
         Cursor dbresult = db.query(PRESETS_TABLE,
                 new String[] { ID_COL, NAME_COL, VERSION_COL, SHORTDESCRIPTION_COL, DESCRIPTION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
                 value == null ? null : query, value == null ? null : new String[] { value }, null, null, POSITION_COL);
-        PresetInfo[] result = new PresetInfo[dbresult.getCount()];
+        PresetConfiguration[] result = new PresetConfiguration[dbresult.getCount()];
         dbresult.moveToFirst();
         for (int i = 0; i < result.length; i++) {
-            result[i] = new PresetInfo(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4),
-                    dbresult.getString(5), dbresult.getString(6), dbresult.getInt(7) == 1, dbresult.getInt(8) == 1);
+            result[i] = new PresetConfiguration(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
+                    dbresult.getString(4), dbresult.getString(5), dbresult.getString(6), dbresult.getInt(7) == 1, dbresult.getInt(8) == 1);
             dbresult.moveToNext();
         }
         dbresult.close();
@@ -1048,53 +1048,19 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
-     * Data structure class for Preset data
+     * Get a list of downloadable presets that haven't been downloaded
      * 
-     * @author Jan
+     * @return a List of Preset ids
      */
-    public class PresetInfo {
-        public final String  id;
-        public final String  name;
-        public final String  version;
-        public final String  shortDescription;
-        public final String  description;
-        public final String  url;
-        /** Timestamp (long, millis since epoch) when this preset was last downloaded */
-        public final long    lastupdate;
-        public final boolean active;
-        public final boolean useTranslations;
-
-        /**
-         * Construct a new configuration for a Preset
-         * 
-         * @param id the Preset id
-         * @param name the Preset name
-         * @param version the preset version
-         * @param shortDescription the name the author gave the preset
-         * @param description a description of its contents
-         * @param url an url or an empty string
-         * @param lastUpdate time and date of last update in milliseconds since the epoch
-         * @param active true if the Preset is active
-         * @param useTranslations if true translations included with the preset will be used
-         */
-        public PresetInfo(@NonNull String id, @NonNull String name, @Nullable String version, @Nullable String shortDescription, @Nullable String description,
-                @NonNull String url, @NonNull String lastUpdate, boolean active, boolean useTranslations) {
-            this.id = id;
-            this.name = name;
-            this.version = version;
-            this.shortDescription = shortDescription;
-            this.description = description;
-            this.url = url;
-            long tmpLastupdate;
-            try {
-                tmpLastupdate = Long.parseLong(lastUpdate);
-            } catch (Exception e) {
-                tmpLastupdate = 0;
+    @NonNull
+    public List<String> getNotDownloadedPresets() {
+        List<String> result = new ArrayList<>();
+        for (PresetConfiguration pi : getPresets(null, false)) {
+            if (pi.url != null && !getResourceDirectory(pi.id).exists() && Util.isUrl(pi.url)) {
+                result.add(pi.id);
             }
-            this.lastupdate = tmpLastupdate;
-            this.active = active;
-            this.useTranslations = useTranslations;
         }
+        return result;
     }
 
     /**
@@ -1118,26 +1084,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param id the ID of the resource whose directory is going to be deleted
      */
     public void removeResourceDirectory(@NonNull String id) {
-        File presetDir = getResourceDirectory(id);
-        if (presetDir.isDirectory()) {
-            killDirectory(presetDir);
+        File dir = getResourceDirectory(id);
+        if (dir.isDirectory()) {
+            killDirectory(dir);
         }
-    }
-
-    /**
-     * Get a list of downloadable presets that haven't been downloaded
-     * 
-     * @return a List of Preset ids
-     */
-    @NonNull
-    public List<String> getNotDownloadedPresets() {
-        List<String> result = new ArrayList<>();
-        for (PresetInfo pi : getPresets(null, false)) {
-            if (pi.url != null && !getResourceDirectory(pi.id).exists() && Util.isUrl(pi.url)) {
-                result.add(pi.id);
-            }
-        }
-        return result;
     }
 
     /**
@@ -1876,7 +1826,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             values.put(DESCRIPTION_COL, description);
         }
         if (values.size() != 0) { // isEmpty was added in API 30
-            db.update(STYLES_TABLE, values, WHERE_ID, new String[] { id });
+            int count = db.update(STYLES_TABLE, values, WHERE_ID, new String[] { id });
+            if (count == 0) {
+                Log.e(DEBUG_TAG, "update of additional style fields failed for id " + id);
+            }
         }
         db.close();
     }
@@ -1964,6 +1917,22 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
+     * Get a list of downloadable styles that haven't been downloaded
+     * 
+     * @return a List of Style ids
+     */
+    @NonNull
+    public List<String> getNotDownloadedStyles() {
+        List<String> result = new ArrayList<>();
+        for (StyleConfiguration sc : getStyles(null, false)) {
+            if (sc.url != null && !getResourceDirectory(sc.id).exists() && Util.isUrl(sc.url)) {
+                result.add(sc.id);
+            }
+        }
+        return result;
+    }
+
+    /**
      * Sets the lastupdate value of the given style to now
      * 
      * @param id the ID of the style to update
@@ -1982,7 +1951,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(LASTUPDATE_COL, ((Long) System.currentTimeMillis()).toString());
-        db.update(table, values, WHERE_ID, new String[] { id });
+        int count = db.update(table, values, WHERE_ID, new String[] { id });
+        if (count == 0) {
+            Log.e(DEBUG_TAG, "update of last update failed for id " + id + "in table " + table);
+        }
         db.close();
     }
 
@@ -2003,7 +1975,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             db.update(table, values, null, null);
         }
         values.put(ACTIVE_COL, active ? 1 : 0);
-        db.update(table, values, WHERE_ID, new String[] { id });
+        int count = db.update(table, values, WHERE_ID, new String[] { id });
+        if (count == 0) {
+            Log.e(DEBUG_TAG, "update of state failed for id " + id + "in table " + table);
+        }
         db.close();
     }
 

@@ -2586,8 +2586,9 @@ public class Main extends ConfigurationChangeAwareActivity
                     ScreenMessage.toastTopInfo(Main.this, R.string.toast_configuration_import_success);
                     try (AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(Main.this)) {
                         List<String> notDownloadedPresets = prefdb.getNotDownloadedPresets();
-                        if (!notDownloadedPresets.isEmpty()) {
-                            DownloadMissing.showDialog(Main.this, notDownloadedPresets, null);
+                        List<String> notDownloadedStyles = prefdb.getNotDownloadedStyles();
+                        if (!notDownloadedPresets.isEmpty() || !notDownloadedStyles.isEmpty()) {
+                            DownloadMissing.showDialog(Main.this, notDownloadedPresets, notDownloadedStyles);
                         }
                     }
 

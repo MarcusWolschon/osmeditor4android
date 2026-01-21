@@ -23,7 +23,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
@@ -110,9 +109,9 @@ public class PresetConfigurationEditorActivity extends AbstractConfigurationEdit
 
     @Override
     protected void onLoadList(List<ListEditItem> items) {
-        PresetInfo[] presets = db.getPresets();
-        for (PresetInfo preset : presets) {
-            items.add(new ListEditItem(preset.id, preset.name, preset.url, preset.shortDescription, preset.version, preset.useTranslations, preset.active));
+        PresetConfiguration[] presets = db.getPresets();
+        for (PresetConfiguration preset : presets) {
+            items.add(new ListEditItem(preset.id, preset.name, preset.url, preset.shortDescription, preset.version, preset.useTranslations, preset.isActive()));
         }
     }
 
@@ -140,7 +139,7 @@ public class PresetConfigurationEditorActivity extends AbstractConfigurationEdit
 
     @Override
     protected void onItemEdited(ListEditItem item) {
-        PresetInfo preset = db.getPreset(item.id);
+        PresetConfiguration preset = db.getPreset(item.id);
         db.setPresetInfo(item.id, item.name, item.value, item.boolean0);
         if (preset.url != null && !preset.url.equals(item.value)) {
             // url changed so better recreate everything
@@ -181,7 +180,7 @@ public class PresetConfigurationEditorActivity extends AbstractConfigurationEdit
     public void onAdditionalMenuItemClick(int menuItemId, ListEditItem clickedItem) {
         switch (menuItemId) {
         case MENU_RELOAD:
-            PresetInfo preset = db.getPreset(clickedItem.id);
+            PresetConfiguration preset = db.getPreset(clickedItem.id);
             if (preset.url != null) {
                 retrieveData(this, db, clickedItem, Preset.PRESETXML, true);
             }

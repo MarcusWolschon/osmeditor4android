@@ -33,8 +33,8 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
 
     private static final int MENU_RELOAD = 1;
 
-    private static final String STYLE_XML = "style.xml";
-    
+    public static final String STYLE_XML = "style.xml";
+
     private final DataStyleManager manager;
 
     /**

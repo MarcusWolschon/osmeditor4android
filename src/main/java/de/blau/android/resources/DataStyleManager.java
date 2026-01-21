@@ -336,6 +336,7 @@ public class DataStyleManager {
         availableStyles.put(styleConf.name, style);
         if (styleConf.isActive()) {
             currentStyle = style;
+            db.setStyleState(styleConf.id, true); // we may have temp switched to the builtin style
         }
         setAdditionalFieldsFromStyle(db, styleConf, style);
     }
