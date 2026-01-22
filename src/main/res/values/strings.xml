@@ -180,7 +180,7 @@
     <string name="progress_searching_message">Searching…</string>
     <string name="progress_saving_message">Saving…</string>
     <string name="progress_uploading_message">Uploading…</string>
-    <string name="progress_preset_message">Downloading preset…</string>
+    <string name="progress_resource_message">Downloading resource…</string>
     <string name="progress_loading_preset_message">Loading preset…</string>
     <string name="progress_importing_file_message">Importing file…</string>
     <string name="progress_running_message">Running…</string>
@@ -757,6 +757,7 @@
     <string name="toast_no_suitable_storage">The system did not return a suitable location for the tile database.</string>
     <string name="toast_min_one_preset">At least one preset has to be selected!</string>
     <string name="toast_min_one_geocoder">At least one geocoder has to be selected!</string>
+    <string name="toast_min_one_style">One style has to be selected!</string>
     <string name="toast_used_backup">Corrupted state file, used backup file instead.</string>
     <string name="toast_used_bug_backup">Corrupted bug state file, used backup file instead.</string>
     <string name="toast_split_from">Splitted \"from\" way</string>
@@ -771,7 +772,7 @@
     <string name="toast_invalid_apiurl">Invalid API URL</string>
     <string name="toast_invalid_readonlyurl">Invalid ReadOnly API URL</string>
     <string name="toast_invalid_notesurl">Invalid notes API URL</string>
-    <string name="toast_invalid_preseturl">Invalid preset URL</string>
+    <string name="toast_invalid_url">Invalid URL</string>
     <string name="toast_missing_preset_file">Missing preset file for \"%1$s\"</string>
     <string name="toast_invalid_filter_regexp">Invalid regular expression in filter with key="%1$s" value="%2$s"</string>
     <string name="toast_error_accessing_photo">Can\'t access photo %1$s</string>
@@ -1060,12 +1061,12 @@
     <string name="no_nominatim_result">Nominatim server didn\'t find %1$s</string>
     <!-- Menu -->
     <string name="menu_move">Move</string>
-    <string name="menu_edit">Edit</string>
+    <string name="menu_edit">Edit…</string>
     <string name="menu_add">New</string>
     <string name="menu_config">Preferences</string>
     <string name="menu_find">Find</string>
     <string name="menu_help">Help</string>
-    <string name="menu_view">View</string>
+    <string name="menu_view">View…</string>
     <string name="menu_erase">Erase node</string>
     <string name="menu_set_position">Position</string>
     <string name="menu_split">Split</string>
@@ -1661,25 +1662,32 @@
     <string name="imagestore_type">Image storage type</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
-    <string name="preset_download_successful">Preset downloaded</string>
-    <string name="preset_download_failed">Could not download preset file. The preset will not work.</string>
-    <string name="preset_download_parse_failed">The preset file is invalid. The preset will not work.</string>
+    <string name="resource_download_successful">Resource downloaded</string>
+    <string name="resource_load_successful">Resource loaded</string>
+    <string name="resource_download_failed">Could not download resouce file. The resource will not work.</string>
+    <string name="preset_download_parse_failed">The resource file is invalid. The resource will not work.</string>
     <string name="preset_download_missing_images">Preset file downloaded. However, some missing icons were not.</string>
-    <string name="preset_download_title">Preset downloader</string>
+    <string name="resource_download_title">Resource downloader</string>
     <!-- preset management -->
-    <string name="preset_management_delete">Really delete Preset?</string>
+    <string name="preset_management_delete">Really delete preset?</string>
+    <!-- style downloader messages -->
+    <string name="style_update">Update style</string>
+     <!-- style management -->
+    <string name="manage_styles">Manage styles</string>
+    <string name="style_management_delete">Really delete style?</string>
     <!-- Image storage management -->
     <string name="imagestores_add_from_panoramax_list">Add from Panoramax instances list…</string>
     <string name="imagestores_add_manually">Add manually…</string>
     <!-- url handler activity -->
-    <string name="urldialog_add_preset">Add preset</string>
-    <string name="urldialog_preset_exists">This preset already exists</string>
-    <string name="urldialog_preset_download_successful">Preset downloaded.</string>
+    <string name="urldialog_add_preset">Add preset…</string>
+    <string name="urldialog_resource_exists">This resource already exists</string>
+    <string name="urldialog_resource_download_successful">Resource downloaded.</string>
     <string name="urldialog_api_exists">An API with this URL already exists. However, you may add another one (e.g. to switch accounts easily).</string>
-    <string name="urldialog_add_api">Add API</string>
+    <string name="urldialog_add_api">Add API…</string>
     <string name="urldialog_nodata_text">The configuration URL does not contain valid data.</string>
-    <string name="urldialog_add_geocoder">Add geocoder</string>
-    <string name="urldialog_add_image_store">Add image storage</string>
+    <string name="urldialog_add_geocoder">Add geocoder…</string>
+    <string name="urldialog_add_image_store">Add image storage…</string>
+    <string name="urldialog_add_style">Add style…</string>
     <!-- API configuration -->
     <string name="api_name">API name</string>
     <string name="api_url">API URL</string>
@@ -1718,6 +1726,7 @@
     <string name="empty_list">No entries</string>
     <!-- "default" is a reserved Java keyword… -->
     <string name="preset">Preset</string>
+    <string name="style">Style</string>
     <string name="api">API</string>
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>

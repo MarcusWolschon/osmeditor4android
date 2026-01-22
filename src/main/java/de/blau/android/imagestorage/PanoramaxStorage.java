@@ -306,7 +306,7 @@ public class PanoramaxStorage implements ImageStorage {
                         JsonObject name = de.blau.android.imagestorage.Util.getJsonObject(instanceConfiguration, NAME);
                         JsonElement label = name.get(LABEL);
                         if (instanceUrl.isJsonPrimitive() && label.isJsonPrimitive()) {
-                            ImageStorageConfiguration imageStoreConf = new ImageStorageConfiguration(null, label.getAsString(), ImageStorageType.PANORAMAX,
+                            ImageStorageConfiguration imageStoreConf = new ImageStorageConfiguration("", label.getAsString(), ImageStorageType.PANORAMAX,
                                     instanceUrl.getAsString(), false);
                             result.add(imageStoreConf);
                         }

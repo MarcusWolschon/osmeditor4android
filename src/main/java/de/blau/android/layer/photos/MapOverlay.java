@@ -252,7 +252,7 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
     @Override
     public List<Photo> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Photo> result = new ArrayList<>();
-        final float tolerance = map.getDataStyle().getCurrent().getNodeToleranceValue();
+        final float tolerance = map.getDataStyleManager().getCurrent().getNodeToleranceValue();
         for (Photo p : photos) {
             float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, p.getLon()) - x);
             float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, p.getLat()) - y);

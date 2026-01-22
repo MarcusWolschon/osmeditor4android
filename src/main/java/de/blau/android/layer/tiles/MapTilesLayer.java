@@ -216,7 +216,7 @@ public class MapTilesLayer<T> extends NonSerializeableLayer implements ExtentInt
         }
         mTileRenderer = aTileRenderer;
         //
-        textPaint = map.getDataStyle().getInternal(DataStyle.ATTRIBUTION_TEXT).getPaint();
+        textPaint = map.getDataStyleManager().getInternal(DataStyle.ATTRIBUTION_TEXT).getPaint();
 
         Log.d(DEBUG_TAG,
                 aRendererInfo != null ? (aRendererInfo.isMetadataLoaded()

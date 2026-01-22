@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<profile name="Pen Round Nodes" format="0.3.1">
+<profile name="Pen Round Nodes" format="0.3.3" description="Style for tablett sized devices used with a pen or mouse" version="1.0">
     <!-- Assorted config -->
     <config type="min_handle_length" length="200.0" />
     <config type="icon_zoom_limit" zoom="15" />

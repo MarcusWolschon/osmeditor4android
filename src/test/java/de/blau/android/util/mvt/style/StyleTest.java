@@ -26,7 +26,7 @@ import androidx.test.filters.LargeTest;
 import ch.poole.android.sprites.Sprites;
 import de.blau.android.App;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.util.GeoMath;
 
 @RunWith(RobolectricTestRunner.class)
@@ -40,7 +40,7 @@ public class StyleTest {
     @Before
     public void setup() {
         // default values are currently take from the data style
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
     }
 

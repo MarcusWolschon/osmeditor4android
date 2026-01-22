@@ -16,10 +16,12 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
-import de.blau.android.prefs.PresetLoader;
+import de.blau.android.prefs.ResourceConfiguration;
+import de.blau.android.prefs.StyleConfigurationEditorActivity;
+import de.blau.android.prefs.XmlConfigurationLoader;
 import de.blau.android.presets.Preset;
 import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ExecutorTask;
@@ -28,7 +30,7 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**
- * Display a dialog asking if missing downloadable presets (and eventually styles) should be downloaded
+ * Display a dialog asking if missing downloadable presets and styles should be downloaded
  *
  */
 public class DownloadMissing extends CancelableDialogFragment {
@@ -125,12 +127,7 @@ public class DownloadMissing extends CancelableDialogFragment {
                 getString(R.string.download_missing_message, getResources().getQuantityString(R.plurals.download_missing_presets, presetCount, presetCount),
                         getResources().getQuantityString(R.plurals.download_missing_styles, styleCount, styleCount)));
 
-        builder.setPositiveButton(R.string.download, (dialog, which) -> {
-            if (Util.isEmpty(presetIds)) {
-                return;
-            }
-            new MissingDownloader(activity).execute();
-        });
+        builder.setPositiveButton(R.string.download, (dialog, which) -> new MissingDownloader(activity).execute());
 
         builder.setNegativeButton(R.string.cancel, null);
         return builder.create();
@@ -141,6 +138,16 @@ public class DownloadMissing extends CancelableDialogFragment {
         super.onSaveInstanceState(outState);
         outState.putStringArrayList(PRESET_IDS_KEY, presetIds);
         outState.putStringArrayList(STYLE_IDS_KEY, styleIds);
+    }
+
+    interface GetResource {
+        /**
+         * Given an id, return the configuration
+         * 
+         * @param id the id
+         * @return a ResourceConfiguration
+         */
+        ResourceConfiguration get(@NonNull String id);
     }
 
     private class MissingDownloader extends ExecutorTask<Void, Void, Void> {
@@ -158,37 +165,62 @@ public class DownloadMissing extends CancelableDialogFragment {
 
         @Override
         protected void onPreExecute() {
-            Progress.showDialog(activity, Progress.PROGRESS_PRESET);
+            Progress.showDialog(activity, Progress.PROGRESS_RESOURCE);
         }
 
         @Override
         protected Void doInBackground(Void param) throws IOException {
-            List<String> tempIds = new ArrayList<>(presetIds);
             try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
-                for (String id : tempIds) {
-                    final File presetDir = db.getPresetDirectory(id);
-                    presetDir.mkdir();
-                    if (!presetDir.exists()) {
-                        throw new IOException("Unable to create preset directory " + presetDir.getAbsolutePath());
+                if (!Util.isEmpty(presetIds)) {
+                    download(db, presetIds, db::getPreset, Preset.PRESETXML);
+                    App.resetPresets();
+                }
+                if (!Util.isEmpty(styleIds)) {
+                    download(db, styleIds, db::getStyle, StyleConfigurationEditorActivity.STYLE_XML);
+                    App.getDataStyleManager(activity).reset(activity, true);
+                    Logic logic = App.getLogic();
+                    if (logic != null) {
+                        logic.setPrefs(logic.getPrefs());
                     }
-                    final PresetInfo preset = db.getPreset(id);
-                    int code = PresetLoader.download(preset.url, presetDir, Preset.PRESETXML);
-                    if (code != PresetLoader.DOWNLOADED_PRESET_ERROR) {
-                        presetIds.remove(id); // saved state needs to remove downloaded ids
-                        // doesn't support icon download for now, but do that here if necessary
-                        continue;
-                    }
-                    presetDir.delete(); // NOSONAR
-                    throw new IOException("Unable to download " + preset.name);
                 }
             }
             return null;
         }
 
+        /**
+         * Actually download
+         * 
+         * @param db the AdvancedPrefDatabase
+         * @param ids list of ids to download
+         * @param r function to get the configuration from the id
+         * @param defaultFilename default filename for the resource
+         * @throws IOException if downloading goes wrong
+         */
+        private void download(@NonNull AdvancedPrefDatabase db, @NonNull List<String> ids, @NonNull GetResource r, @NonNull String defaultFilename)
+                throws IOException {
+            List<String> tempIds = new ArrayList<>(ids);
+            for (String id : tempIds) {
+                final File dir = db.getResourceDirectory(id);
+                dir.mkdir();
+                if (!dir.exists()) {
+                    throw new IOException("Unable to create directory " + dir.getAbsolutePath());
+                }
+                final ResourceConfiguration resource = r.get(id);
+                int code = XmlConfigurationLoader.download(resource.url, dir, defaultFilename);
+                if (code != XmlConfigurationLoader.DOWNLOADED_ERROR) {
+                    ids.remove(id); // saved state needs to remove downloaded ids
+                    // doesn't support icon download for now, but do that here if necessary
+                    continue;
+                }
+                dir.delete(); // NOSONAR
+                throw new IOException("Unable to download " + resource.name);
+            }
+        }
+
         @Override
         protected void onPostExecute(Void result) {
-            App.resetPresets();
-            Progress.dismissDialog(activity, Progress.PROGRESS_PRESET);
+            Progress.dismissDialog(activity, Progress.PROGRESS_RESOURCE);
+            ScreenMessage.toastTopInfo(activity, activity.getString(R.string.resource_download_successful));
         }
 
         @Override
@@ -197,7 +229,7 @@ public class DownloadMissing extends CancelableDialogFragment {
             if (activity.isFinishing()) {
                 return;
             }
-            Progress.dismissDialog(activity, Progress.PROGRESS_PRESET);
+            Progress.dismissDialog(activity, Progress.PROGRESS_RESOURCE);
             ScreenMessage.toastTopError(activity, activity.getString(R.string.download_missing_error, ex.getMessage()));
         }
     }

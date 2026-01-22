@@ -3,10 +3,14 @@ package de.blau.android.resources;
 import static de.blau.android.osm.DelegatorUtil.addWayToStorage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.robolectric.Shadows.shadowOf;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,7 +20,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowContentResolver;
 
+import android.content.ContentResolver;
+import android.net.Uri;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
@@ -26,6 +33,9 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.StyleConfiguration;
+import de.blau.android.prefs.XmlConfigurationLoader;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 
 @RunWith(RobolectricTestRunner.class)
@@ -38,8 +48,8 @@ public class DataStyleTest {
      */
     @Before
     public void setup() {
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
-        styles.reset();
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
+        styles.reset(ApplicationProvider.getApplicationContext(), false);
     }
 
     /**
@@ -47,16 +57,16 @@ public class DataStyleTest {
      */
     @Test
     public void buildingTest() {
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
-        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
         final StorageDelegator delegator = App.getDelegator();
         Way w = addWayToStorage(delegator, true);
         Map<String, String> tags = new TreeMap<>();
         tags.put(Tags.KEY_BUILDING, Tags.VALUE_YES);
         delegator.setTags(w, tags);
+        assertEquals(1, styles.getStyleList(ApplicationProvider.getApplicationContext()).length);
+        assertEquals(DataStyleManager.getBuiltinStyleName(), styles.getCurrent().getName());
+        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         assertEquals(5, styles.getStyleList(ApplicationProvider.getApplicationContext()).length);
-        assertEquals(styles.getBuiltinStyleName(), styles.getCurrent().getName());
-        styles.getStyle(DataStyle.getBuiltinStyleName());
         styles.switchTo("Color Round Nodes");
         assertEquals("Color Round Nodes", styles.getCurrent().getName());
         FeatureStyle style = styles.matchStyle(w);
@@ -75,16 +85,30 @@ public class DataStyleTest {
      */
     @Test
     public void customStyle() {
-        try {
-            JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "test-style.xml", null, "/" + Paths.DIRECTORY_PATH_STYLES);
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ApplicationProvider.getApplicationContext())) {
+            File style = JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "test-style.xml", null,
+                    "/" + Paths.DIRECTORY_PATH_STYLES);
+            final String id = "12345";
+            db.addStyle(id, "Test Style", "/" + Paths.DIRECTORY_PATH_STYLES + "/test-style.xml", true, false);
+            StyleConfiguration conf = db.getStyle(id);
+            assertNotNull(conf);
+            final File dir = db.getResourceDirectory(id);
+            dir.mkdir();
+            assertTrue(dir.isDirectory());
+            ContentResolver contentResolver = ApplicationProvider.getApplicationContext().getContentResolver();
+            ShadowContentResolver shadowContentResolver = shadowOf(contentResolver);
+            Uri inputUri = Uri.parse(conf.url);
+            shadowContentResolver.registerInputStream(inputUri, new FileInputStream(style));
+            XmlConfigurationLoader.load(ApplicationProvider.getApplicationContext(), inputUri, dir, "style.xml");
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
+        styles.reset(ApplicationProvider.getApplicationContext(), true);
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         assertEquals(6, styles.getStyleList(ApplicationProvider.getApplicationContext()).length);
-        // matching test
 
+        // matching test
         final StorageDelegator delegator = App.getDelegator();
         Node tree = delegator.getFactory().createNodeWithNewId(0, 0);
         delegator.insertElementSafe(tree);

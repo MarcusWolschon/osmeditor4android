@@ -23,6 +23,7 @@ import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializableTextPaint;
@@ -130,7 +131,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Labe
     @Override
     public void resetStyling() {
         Log.d(DEBUG_TAG, "resetStyling");
-        DataStyle styles = map.getDataStyle();
+        DataStyleManager styles = map.getDataStyleManager();
         labelFs = styles.getInternal(DataStyle.LABELTEXT_NORMAL);
         labelPaint = new SerializableTextPaint(labelFs.getPaint());
         labelStrokeWidth = labelPaint.getStrokeWidth();

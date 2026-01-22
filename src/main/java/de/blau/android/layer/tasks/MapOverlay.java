@@ -42,6 +42,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.tasks.MapRouletteFragment;
 import de.blau.android.tasks.MapRouletteTask;
 import de.blau.android.tasks.Note;
@@ -249,7 +250,7 @@ public class MapOverlay extends NonSerializeableLayer
     @Override
     public List<Task> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Task> result = new ArrayList<>();
-        final float tolerance = map.getDataStyle().getCurrent().getNodeToleranceValue();
+        final float tolerance = map.getDataStyleManager().getCurrent().getNodeToleranceValue();
         List<Task> tasksInViewBox = tasks.getTasks(viewBox);
         final int width = map.getWidth();
         final int height = map.getHeight();
@@ -426,7 +427,7 @@ public class MapOverlay extends NonSerializeableLayer
         autoPruneTaskLimit = prefs.getAutoPruneTaskLimit();
         autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
         largeDragArea = prefs.largeDragArea();
-        DataStyle styles = map.getDataStyle();
+        DataStyleManager styles = map.getDataStyleManager();
         largDragToleranceRadius = styles.getCurrent().getLargDragToleranceRadius();
         dragAreaPaint = styles.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint();
         iconPaint = styles.getInternal(DataStyle.SELECTED_NODE).getPaint();

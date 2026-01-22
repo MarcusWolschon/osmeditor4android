@@ -122,6 +122,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TransferTasks;
@@ -392,7 +393,7 @@ public class Logic {
     public void setPrefs(@NonNull final Preferences prefs) {
         this.prefs = prefs;
         if (map != null) {
-            DataStyle styles = map.getDataStyle();
+            DataStyleManager styles = map.getDataStyleManager();
             final String dataStyleName = prefs.getDataStyle(styles);
             if (!styles.getCurrent().getName().equals(dataStyleName)) {
                 styles.switchTo(dataStyleName);
@@ -414,7 +415,7 @@ public class Logic {
             r.setStyle(null);
         }
         if (map != null) {
-            DataStyle styles = map.getDataStyle();
+            DataStyleManager styles = map.getDataStyleManager();
             styles.updateStrokes(strokeWidth(viewBox.getWidth()));
             styles.setAntiAliasing(prefs.isAntiAliasingEnabled());
             map.updateStyle();
@@ -668,7 +669,7 @@ public class Logic {
      * @param map the current Map object
      */
     private void onZoomChanged(@NonNull Map map) {
-        map.getDataStyle().updateStrokes(strokeWidth(viewBox.getWidth()));
+        map.getDataStyleManager().updateStrokes(strokeWidth(viewBox.getWidth()));
         if (rotating) {
             showCrosshairsForCentroid();
         } else if (mode == Mode.MODE_ALIGN_BACKGROUND) {
@@ -955,7 +956,7 @@ public class Logic {
     private java.util.Map<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float touchX, final float touchY) {
         java.util.Map<Way, Double> result = new HashMap<>();
         boolean showWayIcons = prefs.getShowWayIcons();
-        final DataStyle currentStyle = map.getDataStyle().getCurrent();
+        final DataStyle currentStyle = map.getDataStyleManager().getCurrent();
         final float nodeToleranceValue = currentStyle.getNodeToleranceValue();
         final float wayToleranceValue = wayToleranceForTouch(currentStyle);
         List<Way> ways = getClickableWays();
@@ -1045,7 +1046,7 @@ public class Logic {
      * @return true if we should have an icon
      */
     private boolean areaHasIcon(@NonNull Way way) {
-        final FeatureStyle style = map.getDataStyle().matchStyle(way);
+        final FeatureStyle style = map.getDataStyleManager().matchStyle(way);
         return style.getIconPath() != null || style.getLabelKey() != null;
     }
 
@@ -1081,7 +1082,7 @@ public class Logic {
 
         Handle result = null;
         double bestDistance = Double.MAX_VALUE;
-        final DataStyle currentStyle = map.getDataStyle().getCurrent();
+        final DataStyle currentStyle = map.getDataStyleManager().getCurrent();
         float wayToleranceValue = wayToleranceForTouch(currentStyle);
         float minLenForHandle = currentStyle.getMinLenForHandle();
 
@@ -1143,7 +1144,7 @@ public class Logic {
      */
     @Nullable
     private Double clickDistance(@NonNull Node node, final float x, final float y) {
-        final DataStyle current = map.getDataStyle().getCurrent();
+        final DataStyle current = map.getDataStyleManager().getCurrent();
         return clickDistance(node, x, y, node.isTagged() ? current.getNodeToleranceValue() : wayToleranceForTouch(current));
     }
 
@@ -1434,7 +1435,7 @@ public class Logic {
                 } else if ((selectedNodeCount == 1 || selectedTask != null) && selectedWayCount == 0) { // single node
                                                                                                         // or
                                                                                                         // task dragging
-                    DataStyle currentStyle = map.getDataStyle().getCurrent();
+                    DataStyle currentStyle = map.getDataStyleManager().getCurrent();
                     float tolerance = largeDragArea ? currentStyle.getLargDragToleranceRadius() : currentStyle.getNodeToleranceValue();
                     GeoPoint point = selectedTask != null ? selectedTask : currentSelection.getNode();
                     if (clickDistance(point, x, y, tolerance) != null) {
@@ -2692,7 +2693,7 @@ public class Logic {
             return closestElements;
         }
         // fall back to closest ways
-        final float tolerance = wayToleranceForTouch(map.getDataStyle().getCurrent());
+        final float tolerance = wayToleranceForTouch(map.getDataStyleManager().getCurrent());
         for (Way way : getDelegator().getCurrentStorage().getWays()) {
             List<Node> wayNodes = way.getNodes();
             if (way.hasNode(nodeToJoin) || wayNodes.isEmpty()) {
@@ -2784,7 +2785,7 @@ public class Logic {
             return new ArrayList<>();
         }
         List<Result> result = null;
-        final float tolerance = map.getDataStyle().getCurrent().getWayToleranceValue() / 2f;
+        final float tolerance = map.getDataStyleManager().getCurrent().getWayToleranceValue() / 2f;
         try {
             lock();
             createCheckpoint(activity, R.string.undo_action_join);
@@ -3130,7 +3131,7 @@ public class Logic {
             List<Way> savedWays = new ArrayList<>();
             List<Integer> savedWaysNodeIndex = new ArrayList<>();
             double savedDistance = Double.MAX_VALUE;
-            final float tolerance = wayToleranceForTouch(map.getDataStyle().getCurrent());
+            final float tolerance = wayToleranceForTouch(map.getDataStyleManager().getCurrent());
             // create a new node on a way
             for (Way way : ways) {
                 if (filter != null && !filter.include(way, isSelected(way))) {
@@ -3202,7 +3203,7 @@ public class Logic {
         float node2Y = latE7ToY(node2.getLat());
 
         // At first, we check if the x,y is in the bounding box clamping by node1 and node2.
-        if (Geometry.isPositionOnLine(wayToleranceForTouch(map.getDataStyle().getCurrent()), x, y, node1X, node1Y, node2X, node2Y) >= 0) {
+        if (Geometry.isPositionOnLine(wayToleranceForTouch(map.getDataStyleManager().getCurrent()), x, y, node1X, node1Y, node2X, node2Y) >= 0) {
             float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
             int lat = yToLatE7(p[1]);
             int lon = xToLonE7(p[0]);
@@ -3305,7 +3306,7 @@ public class Logic {
                     }
                 }
                 if (mainMap != null) {
-                    mainMap.getDataStyle().updateStrokes(strokeWidth(viewBox.getWidth()));
+                    mainMap.getDataStyleManager().updateStrokes(strokeWidth(viewBox.getWidth()));
                     // this is always a manual download so make the layer visible
                     de.blau.android.layer.data.MapOverlay<OsmElement> dataLayer = mainMap.getDataLayer();
                     if (dataLayer != null) {
@@ -4550,7 +4551,7 @@ public class Logic {
                         // invalid dimensions or similar error
                         viewBox.setBorders(mainMap, new BoundingBox(-GeoMath.MAX_LON, -GeoMath.MAX_COMPAT_LAT, GeoMath.MAX_LON, GeoMath.MAX_COMPAT_LAT));
                     }
-                    mainMap.getDataStyle().updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not
+                    mainMap.getDataStyleManager().updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not
                                                                                               // done in
                     loadEditingState((Main) activity, true);
                 } else {
@@ -4721,7 +4722,7 @@ public class Logic {
                     // invalid dimensions or similar error
                     viewBox.setBorders(mainMap, new BoundingBox(-180.0, -GeoMath.MAX_COMPAT_LAT, 180.0, GeoMath.MAX_COMPAT_LAT));
                 }
-                mainMap.getDataStyle().updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+                mainMap.getDataStyleManager().updateStrokes(STROKE_FACTOR / viewBox.getWidth());
                 loadEditingState((Main) activity, true);
                 invalidateMap();
             }

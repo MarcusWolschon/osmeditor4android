@@ -42,9 +42,9 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
+import de.blau.android.prefs.PresetConfiguration;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.prefs.PresetConfigurationEditorActivity;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -52,7 +52,7 @@ import okhttp3.HttpUrl;
 public class PresetEditorTest {
 
     private static final String TEST_PRESET_NAME = "Test";
-    
+
     MockWebServerPlus    mockServer      = null;
     Context              context         = null;
     ActivityMonitor      monitor         = null;
@@ -71,7 +71,7 @@ public class PresetEditorTest {
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         context = instrumentation.getTargetContext();
-        monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PresetConfigurationEditorActivity.class.getName(), null, false);
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
@@ -90,7 +90,7 @@ public class PresetEditorTest {
         instrumentation.removeMonitor(monitor);
         // delete all additional presets
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
-            for (PresetInfo p : db.getPresets()) {
+            for (PresetConfiguration p : db.getPresets()) {
                 if (TEST_PRESET_NAME.equals(p.name)) {
                     db.deletePreset(p.id);
                 }
@@ -104,13 +104,13 @@ public class PresetEditorTest {
      */
     @Test
     public void downloadPreset() {
-        PresetEditorActivity.start(main);
+        PresetConfigurationEditorActivity.start(main);
         Activity presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(presetEditor instanceof PresetEditorActivity);
+        assertTrue(presetEditor instanceof PresetConfigurationEditorActivity);
         mockServer = new MockWebServerPlus();
         HttpUrl url = mockServer.server().url("military.zip");
         mockServer.server().enqueue(TestUtils.createBinaryReponse("application/zip", "fixtures/military.zip"));
-        //TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false, false);
+        // TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false, false);
         TestUtils.clickMenuButton(device, main.getString(R.string.urldialog_add_preset), false, true);
         device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/listedit_editName")), 500);
         UiObject name = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_editName"));
@@ -139,15 +139,17 @@ public class PresetEditorTest {
         assertEquals("Military", match.getName());
 
         // move military preset up
-        monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
-        PresetEditorActivity.start(main);
+        monitor = instrumentation.addMonitor(PresetConfigurationEditorActivity.class.getName(), null, false);
+        PresetConfigurationEditorActivity.start(main);
         presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(presetEditor instanceof PresetEditorActivity);
+        assertTrue(presetEditor instanceof PresetConfigurationEditorActivity);
         UiObject2 entry = TestUtils.findObjectWithText(device, false, TEST_PRESET_NAME, 100, false);
         UiObject2 menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
         menu.click();
         TestUtils.clickText(device, false, main.getString(R.string.tag_menu_move_up), true, true); // Up needs exact
                                                                                                    // match
+        instrumentation.removeMonitor(monitor);
+
         TestUtils.clickHome(device, true);
         App.resetPresets();
         presets = App.getCurrentPresets(main);
@@ -156,23 +158,24 @@ public class PresetEditorTest {
         assertTrue(match.getIconpath().endsWith("military_military.png"));
 
         // move display content and check that version is displayed
-        monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
-        PresetEditorActivity.start(main);
+        monitor = instrumentation.addMonitor(PresetConfigurationEditorActivity.class.getName(), null, false);
+        PresetConfigurationEditorActivity.start(main);
         presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(presetEditor instanceof PresetEditorActivity);
+        assertTrue(presetEditor instanceof PresetConfigurationEditorActivity);
         entry = TestUtils.findObjectWithText(device, false, TEST_PRESET_NAME, 100, false);
         menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
         menu.click();
-        TestUtils.clickText(device, false, main.getString(R.string.menu_edit), true);
+        TestUtils.clickText(device, false, main.getString(R.string.edit), true);
         TestUtils.findText(device, false, "0.1.0");
         TestUtils.clickText(device, false, main.getString(R.string.okay), true);
         TestUtils.clickHome(device, true);
+        instrumentation.removeMonitor(monitor);
 
         // delete the test preset
-        monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
-        PresetEditorActivity.start(main);
+        monitor = instrumentation.addMonitor(PresetConfigurationEditorActivity.class.getName(), null, false);
+        PresetConfigurationEditorActivity.start(main);
         presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(presetEditor instanceof PresetEditorActivity);
+        assertTrue(presetEditor instanceof PresetConfigurationEditorActivity);
         entry = TestUtils.findObjectWithText(device, false, TEST_PRESET_NAME, 100, false);
         menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
         menu.click();
@@ -180,6 +183,7 @@ public class PresetEditorTest {
         TestUtils.clickText(device, false, main.getString(R.string.yes), true);
         TestUtils.clickHome(device, true);
         App.resetPresets();
+        instrumentation.removeMonitor(monitor);
     }
 
     /**
@@ -197,10 +201,10 @@ public class PresetEditorTest {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.urldialog_add_preset), true, false));
 
             Activity presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-            assertTrue(presetEditor instanceof PresetEditorActivity);
+            assertTrue(presetEditor instanceof PresetConfigurationEditorActivity);
             assertTrue(TestUtils.clickButton(device, "android:id/button1", true));
             // assertTrue(TestUtils.clickText(device, true, main.getString(R.string.okay), true, false));
-            assertTrue(TestUtils.findText(device, false, main.getString(R.string.urldialog_preset_download_successful), 5000, true));
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.urldialog_resource_download_successful), 5000, true));
         } finally {
             App.resetPresets();
         }
@@ -213,9 +217,9 @@ public class PresetEditorTest {
      */
     @Test
     public void loadPreset() {
-        PresetEditorActivity.start(main);
+        PresetConfigurationEditorActivity.start(main);
         Activity presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(presetEditor instanceof PresetEditorActivity);
+        assertTrue(presetEditor instanceof PresetConfigurationEditorActivity);
         try {
             File preset = JavaResources.copyFileFromResources(main, "military2.zip", "fixtures/", "/");
             try {
@@ -239,12 +243,12 @@ public class PresetEditorTest {
                 assertTrue(TestUtils.findText(device, false, main.getString(R.string.listedit_use_translations), 1000));
                 // TestUtils.clickText(device, true, main.getString(R.string.okay), true, false);
                 assertTrue(TestUtils.clickButton(device, "android:id/button1", true));
-                
+
                 assertTrue(TestUtils.clickText(device, false, TEST_PRESET_NAME, false, false));
                 TestUtils.clickHome(device, true);
                 App.resetPresets();
                 Preset[] presets = App.getCurrentPresets(main);
-                assertEquals(2+1, presets.length); // +1 for the auto preset
+                assertEquals(2 + 1, presets.length); // +1 for the auto preset
 
                 HashMap<String, String> tags = new HashMap<>();
                 tags.put("military", "trench");
@@ -253,15 +257,15 @@ public class PresetEditorTest {
                 assertEquals("Trench", match.getName());
 
                 // delete the test preset
-                monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
-                PresetEditorActivity.start(main);
+                monitor = instrumentation.addMonitor(PresetConfigurationEditorActivity.class.getName(), null, false);
+                PresetConfigurationEditorActivity.start(main);
                 presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-                assertTrue(presetEditor instanceof PresetEditorActivity);
+                assertTrue(presetEditor instanceof PresetConfigurationEditorActivity);
                 UiObject2 entry = TestUtils.findObjectWithText(device, false, TEST_PRESET_NAME, 100, false);
                 UiObject2 menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
                 menu.click();
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Delete), true));
-                assertTrue(TestUtils.findText(device, false,  main.getString(R.string.Delete)));
+                assertTrue(TestUtils.findText(device, false, main.getString(R.string.Delete)));
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Yes), true));
                 assertNull(TestUtils.findObjectWithText(device, false, TEST_PRESET_NAME, 1000, false));
                 TestUtils.clickHome(device, true);

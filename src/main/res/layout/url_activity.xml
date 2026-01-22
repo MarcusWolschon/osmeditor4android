@@ -31,33 +31,33 @@
                     android:orientation="vertical"
                     android:padding="10dp">
                     <TextView
+                        android:id="@+id/urldialog_textTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/preset"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
                     <TextView
-                        android:id="@+id/urldialog_textPresetName"
+                        android:id="@+id/urldialog_textName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
                         android:paddingStart="20dp" />
                     <TextView
-                        android:id="@+id/urldialog_textPresetURL"
+                        android:id="@+id/urldialog_textURL"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="italic"
                         android:paddingLeft="20dp"
                         android:paddingStart="20dp" />
                     <TextView
-                        android:id="@+id/urldialog_textPresetExists"
+                        android:id="@+id/urldialog_textExists"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/urldialog_preset_exists" />
+                        android:text="@string/urldialog_resource_exists" />
                     <TextView
-                        android:id="@+id/urldialog_textPresetSuccessful"
+                        android:id="@+id/urldialog_textSuccessful"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/urldialog_preset_download_successful" />
+                        android:text="@string/urldialog_resource_download_successful" />
                     <CheckBox
                         android:id="@+id/urldialog_checkboxEnable"
                         android:layout_width="wrap_content"
@@ -66,10 +66,9 @@
                         android:text="@string/enable"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                     <Button
-                        android:id="@+id/urldialog_buttonAddPreset"
+                        android:id="@+id/urldialog_buttonAdd"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/urldialog_add_preset" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
                 <TextView android:id="@+id/urldialog_nodata"
                     android:layout_width="wrap_content"

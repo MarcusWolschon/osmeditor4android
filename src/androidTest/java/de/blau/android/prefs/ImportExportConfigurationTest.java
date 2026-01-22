@@ -1,18 +1,13 @@
 package de.blau.android.prefs;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.StandardOpenOption;
-import java.util.HashMap;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,34 +17,20 @@ import org.junit.runner.RunWith;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
-import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.util.Log;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.UiDevice;
-import androidx.test.uiautomator.UiObject;
-import androidx.test.uiautomator.UiObject2;
-import androidx.test.uiautomator.UiObjectNotFoundException;
-import androidx.test.uiautomator.UiSelector;
-import androidx.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.JavaResources;
 import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
-import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
-import de.blau.android.prefs.Preferences;
-import de.blau.android.prefs.PresetEditorActivity;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.RecordedRequest;
 
@@ -77,7 +58,7 @@ public class ImportExportConfigurationTest {
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         context = instrumentation.getTargetContext();
-        monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PresetConfigurationEditorActivity.class.getName(), null, false);
         main = mActivityRule.getActivity();
         deleteTestPreset();
         Preferences prefs = new Preferences(context);
@@ -120,11 +101,11 @@ public class ImportExportConfigurationTest {
 
             mockServer = new MockWebServerPlus();
             HttpUrl url = mockServer.server().url("military.zip");
-       
+
             String line = new String(Files.readAllBytes(configFile.toPath()));
             String changed = line.replace("https://github.com/simonpoole/militarypreset/releases/latest/download/military.zip", url.toString());
             Files.write(configFile.toPath(), changed.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
-            
+
             mockServer.server().enqueue(TestUtils.createBinaryReponse("application/zip", "fixtures/military.zip"));
 
             if (!TestUtils.clickMenuButton(device, main.getString(R.string.menu_tools), false, true)) {
@@ -144,7 +125,7 @@ public class ImportExportConfigurationTest {
             TestUtils.sleep(2000);
             try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
                 assertNotNull(db.getPreset(PRESET_ID));
-                assertTrue(db.getPresetDirectory(PRESET_ID).exists());
+                assertTrue(db.getResourceDirectory(PRESET_ID).exists());
             }
         } catch (IOException e) {
             fail(e.getMessage());

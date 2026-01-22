@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<profile name="Test Style" format="0.3.0">
+<profile name="Test Style" format="0.3.3" version="0.1" description="Style for testing" >
     <!-- Assorted config -->
     <config type="min_handle_length" length="200.0" />
     <config type="icon_zoom_limit" zoom="15" />
@@ -183,7 +183,7 @@
             </dash>
         </feature>
         <feature type="way" tags="highway=cycleway" widthFactor="0.6" color="fff48f42" />
-        <feature type="way" tags="highway=footway" widthFactor="0.6" color="ffff4500" />
+        <feature type="way" tags="highway=footway" widthFactor="0.6" color="ff45ff00" />
         <feature type="way" tags="highway=steps"  widthFactor="0.6" color="ffff4500" >
             <dash phase="1.0">
     	       <interval length="1.0" />

@@ -130,6 +130,8 @@ public final class ImportExportConfiguration {
                     false, serializer);
             sqlite(ctx, AdvancedPrefDatabase.DATABASE_NAME, AdvancedPrefDatabase.GEOCODERS_TABLE, "", null, false, serializer);
             sqlite(ctx, AdvancedPrefDatabase.DATABASE_NAME, AdvancedPrefDatabase.LAYERS_TABLE, "", null, true, serializer);
+            sqlite(ctx, AdvancedPrefDatabase.DATABASE_NAME, AdvancedPrefDatabase.STYLES_TABLE, " where custom = 1", null, false, serializer);
+            //
             sqlite(ctx, TileLayerDatabase.DATABASE_NAME, TileLayerDatabase.LAYERS_TABLE, " where source='" + TileLayerDatabase.SOURCE_MANUAL + "'", null, false,
                     serializer);
             // filter names need to be set before the entries

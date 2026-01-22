@@ -1,5 +1,6 @@
 package de.blau.android.resources;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -18,7 +19,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
+import androidx.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.JavaResources;
 import de.blau.android.Logic;
@@ -27,11 +33,13 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.PrefEditor;
+import de.blau.android.prefs.StyleConfigurationEditorActivity;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class CustomStyleTest {
 
+    private static final String TEST_STYLE_NAME = "Test Style";
     Main            main            = null;
     UiDevice        device          = null;
     Instrumentation instrumentation = null;
@@ -77,23 +85,43 @@ public class CustomStyleTest {
         try {
             File styleFile = JavaResources.copyFileFromResources(main, "test-style.zip", null, "/");
             ActivityMonitor monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
+            ActivityMonitor monitor2 = instrumentation.addMonitor(StyleConfigurationEditorActivity.class.getName(), null, false);
             try {
                 TestUtils.zoomToLevel(device, main, 18);
-                if (!TestUtils.clickMenuButton(device, main.getString(R.string.menu_tools), false, true)) {
-                    TestUtils.clickOverflowButton(device);
-                    TestUtils.clickText(device, false, main.getString(R.string.menu_tools), true, false);
-                }
-                TestUtils.scrollTo(main.getString(R.string.menu_tools_import_data_style), false);
-                TestUtils.clickText(device, false, main.getString(R.string.menu_tools_import_data_style), true, false);
-                TestUtils.selectFile(device, main, null, "test-style.zip", true);
                 assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
-                instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for prefs
-                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_mapProfile_title), true, false));
-                assertTrue(TestUtils.clickText(device, false, "Test style", true, false));
+                instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
+                
+                TestUtils.clickText(device, false, main.getString(R.string.config_mapProfile_title), true, false);
+                instrumentation.waitForMonitorWithTimeout(monitor2, 40000); //
+                
+                TestUtils.clickMenuButton(device, main.getString(R.string.urldialog_add_style), false, true);
+                device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/listedit_editName")), 500);
+                UiObject name = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_editName"));
+                try {
+                    name.setText(TEST_STYLE_NAME);
+                } catch (UiObjectNotFoundException e) {
+                    fail(e.getMessage());
+                }
+                
+                UiObject fileButton = device
+                        .findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_file_button"));
+                try {
+                    fileButton.click();
+                } catch (UiObjectNotFoundException e) {
+                    fail(e.getMessage());
+                }
+                TestUtils.selectFile(device, main, null, "test-style.zip", true);
+                assertTrue(TestUtils.clickButton(device, "android:id/button1", true));
+                assertTrue(TestUtils.clickText(device, false, TEST_STYLE_NAME, false, false));
                 assertTrue(TestUtils.clickHome(device, true));
+                assertTrue(TestUtils.clickHome(device, true));
+                
+                assertEquals(TEST_STYLE_NAME, App.getDataStyleManager(main).getCurrent().getName());
+                
             } finally {
                 styleFile.delete();
                 instrumentation.removeMonitor(monitor);
+                instrumentation.removeMonitor(monitor2);
             }
         } catch (IOException iex) {
             fail(iex.getMessage());
@@ -107,15 +135,36 @@ public class CustomStyleTest {
     public void importEmpty() {
         try {
             File styleFile = JavaResources.copyFileFromResources(main, "empty.xml", null, "/");
+            ActivityMonitor monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
+            ActivityMonitor monitor2 = instrumentation.addMonitor(StyleConfigurationEditorActivity.class.getName(), null, false);
             try {
                 TestUtils.zoomToLevel(device, main, 18);
-                if (!TestUtils.clickMenuButton(device, main.getString(R.string.menu_tools), false, true)) {
-                    TestUtils.clickOverflowButton(device);
-                    TestUtils.clickText(device, false, main.getString(R.string.menu_tools), true, false);
+                assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
+                instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
+                
+                TestUtils.clickText(device, false, main.getString(R.string.config_mapProfile_title), true, false);
+                instrumentation.waitForMonitorWithTimeout(monitor2, 40000); //
+                
+                TestUtils.clickMenuButton(device, main.getString(R.string.urldialog_add_style), false, true);
+                
+                TestUtils.clickMenuButton(device, main.getString(R.string.urldialog_add_style), false, true);
+                device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/listedit_editName")), 500);
+                UiObject name = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_editName"));
+                try {
+                    name.setText(TEST_STYLE_NAME);
+                } catch (UiObjectNotFoundException e) {
+                    fail(e.getMessage());
                 }
-                TestUtils.scrollTo(main.getString(R.string.menu_tools_import_data_style), false);
-                TestUtils.clickText(device, false, main.getString(R.string.menu_tools_import_data_style), true, false);
+                   
+                UiObject fileButton = device
+                        .findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_file_button"));
+                try {
+                    fileButton.click();
+                } catch (UiObjectNotFoundException e) {
+                    fail(e.getMessage());
+                }
                 TestUtils.selectFile(device, main, null, "empty.xml", true);
+                assertTrue(TestUtils.clickButton(device, "android:id/button1", true));
                 assertTrue(TestUtils.findNotification(device, "Error"));
             } finally {
                 styleFile.delete();

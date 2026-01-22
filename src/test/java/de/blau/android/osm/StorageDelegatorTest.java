@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -39,7 +38,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.UndoStorage.Checkpoint;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
@@ -1445,7 +1444,7 @@ public class StorageDelegatorTest {
         assertTrue(newWay0.isClosed());
         assertTrue(newWay1.isClosed());
     }
-    
+
     /**
      * Split way at node with incomplete route relation
      */
@@ -1493,7 +1492,7 @@ public class StorageDelegatorTest {
         Map<String, String> routeTag = new HashMap<>();
         routeTag.put(Tags.KEY_TYPE, Tags.VALUE_ROUTE);
         r.setTags(routeTag);
-        
+
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n1 = w.getNodes().get(1);
@@ -1503,9 +1502,9 @@ public class StorageDelegatorTest {
         assertEquals(3, results.size());
         Result relationResult = results.get(2);
         assertEquals(r, relationResult.getElement());
-        assertTrue(relationResult.getIssues().contains(SplitIssue.SPLIT_ROUTE_ORDERING));      
+        assertTrue(relationResult.getIssues().contains(SplitIssue.SPLIT_ROUTE_ORDERING));
     }
-    
+
     /**
      * Split way at node with route relation
      */
@@ -1567,7 +1566,7 @@ public class StorageDelegatorTest {
         Logic logic = App.getLogic();
         Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
         Server server = prefs.getServer();
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         try {
             server.getCachedCapabilities().setMaxRelationMembers(1);
@@ -1782,7 +1781,7 @@ public class StorageDelegatorTest {
         Logic logic = App.getLogic();
         Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
         Server server = prefs.getServer();
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         try {
             server.getCachedCapabilities().setMaxRelationMembers(1);
@@ -1938,7 +1937,7 @@ public class StorageDelegatorTest {
         assertTrue(toUpload.contains(newNode));
         assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, 28075087L)));
     }
-    
+
     /**
      * Newly created way node upload should force upload of way, check that way isn't duplicated if already present
      */
@@ -1987,7 +1986,7 @@ public class StorageDelegatorTest {
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -2L)));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -3L)));
     }
-    
+
     /**
      * As above but check that we protect against relation loops
      */
@@ -1999,7 +1998,7 @@ public class StorageDelegatorTest {
         Relation loop = sd.createAndInsertRelation(Util.wrapInList(modifiedRelation));
         loop.addMember(new RelationMember("", loop));
         modifiedRelation.addMember(new RelationMember("", loop));
-        
+
         List<OsmElement> toUpload = new ArrayList<>();
         toUpload.add(modifiedRelation);
         sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
@@ -2031,7 +2030,7 @@ public class StorageDelegatorTest {
         assertEquals(lastNode, w.getFirstNode());
         assertEquals(firstNode, w.getLastNode());
     }
-    
+
     /**
      * Reverse a way
      */
@@ -2053,7 +2052,7 @@ public class StorageDelegatorTest {
         assertEquals(lastNode, w.getFirstNode());
         assertEquals(firstNode, w.getLastNode());
     }
-    
+
     /**
      * Reverse a way
      */
@@ -2072,7 +2071,7 @@ public class StorageDelegatorTest {
         assertEquals(lastNode, w.getFirstNode());
         assertEquals(firstNode, w.getLastNode());
     }
-    
+
     @Test
     public void undoLast() {
         StorageDelegator d = new StorageDelegator();

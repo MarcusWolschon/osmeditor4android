@@ -53,7 +53,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.Synonyms;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
-import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.AreaTags;
@@ -185,8 +185,8 @@ public class App extends Application implements android.app.Application.Activity
     /**
      * DataStyles
      */
-    private static DataStyle    dataStyle;
-    private static final Object dataStyleLock = new Object();
+    private static DataStyleManager dataStyleManager;
+    private static final Object     dataStyleManagerLock = new Object();
 
     /**
      * Implied area tags
@@ -793,19 +793,19 @@ public class App extends Application implements android.app.Application.Activity
     }
 
     /**
-     * Get the DataStyle object
+     * Get the DataStyleManager object
      * 
      * @param ctx am Android Context
-     * @return a DataStyle object
+     * @return a DataStyleManager object
      */
     @NonNull
-    public static DataStyle getDataStyle(@NonNull Context ctx) {
-        synchronized (dataStyleLock) {
-            if (dataStyle == null) {
-                dataStyle = new DataStyle(ctx);
-                dataStyle.getStylesFromFiles(ctx);
+    public static DataStyleManager getDataStyleManager(@NonNull Context ctx) {
+        synchronized (dataStyleManagerLock) {
+            if (dataStyleManager == null) {
+                dataStyleManager = new DataStyleManager();
+                dataStyleManager.getStylesFromFiles(ctx);
             }
-            return dataStyle;
+            return dataStyleManager;
         }
     }
 

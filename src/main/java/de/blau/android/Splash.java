@@ -8,7 +8,6 @@ import java.io.IOException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
@@ -24,14 +23,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
-import androidx.preference.PreferenceManager;
 import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.layer.LayerConfig;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
@@ -141,7 +139,7 @@ public class Splash extends AppCompatActivity {
             new ExecutorTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void param) {
-                    App.getDataStyle(Splash.this);
+                    App.getDataStyleManager(Splash.this);
 
                     Log.d(DEBUG_TAG, "Create/get tile cache");
                     App.getMapTileFilesystemProvider(Splash.this);
@@ -224,8 +222,9 @@ public class Splash extends AppCompatActivity {
                 Log.e(DEBUG_TAG, "Starting in safe mode");
                 if (style.isChecked()) {
                     // use minimal data style
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-                    prefs.edit().putString(getString(R.string.config_mapProfile_key), DataStyle.getBuiltinStyleName()).commit();
+                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(this)) {
+                        db.setStyleState(DataStyleManager.getBuiltinStyleId(), true);
+                    }
                 }
                 if (layers.isChecked()) {
                     hideAllAlayers();

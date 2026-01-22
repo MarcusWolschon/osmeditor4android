@@ -20,7 +20,7 @@ import androidx.test.filters.LargeTest;
 import de.blau.android.contract.Files;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
@@ -45,7 +45,7 @@ public class MapTest {
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
         styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
     }
 

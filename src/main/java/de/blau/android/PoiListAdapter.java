@@ -124,7 +124,7 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
         holder.tv.setTag(e);
 
         if (e.hasProblem(ctx, App.getDefaultValidator(ctx)) != Validator.OK) {
-            final FeatureStyle validationStyle = App.getDataStyle(ctx).getValidationStyle(e.getCachedProblems());
+            final FeatureStyle validationStyle = App.getDataStyleManager(ctx).getValidationStyle(e.getCachedProblems());
             int validationColor = validationStyle.getPaint().getColor();
             holder.tv.setBackgroundColor(validationColor);
             holder.tv.setTextColor(validationStyle.getTextColor());

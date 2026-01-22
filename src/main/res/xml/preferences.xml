@@ -5,7 +5,7 @@
     android:title="@string/menu_config">
     <PreferenceCategory
         android:title="@string/config_category_view">
-        <androidx.preference.ListPreference
+        <androidx.preference.Preference
             android:key="@string/config_mapProfile_key"
             android:title="@string/config_mapProfile_title"
             android:summary="@string/config_mapProfile_summary"
