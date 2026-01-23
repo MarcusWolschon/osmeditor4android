@@ -1015,16 +1015,17 @@ public class Main extends ConfigurationChangeAwareActivity
                     zoomToSelected(logic);
                     break;
                 case ACTION_PUSH_SELECTION:
-                case ACTION_POP_SELECTION:
-                    if (ACTION_PUSH_SELECTION.equals(action)) {
-                        ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
-                        selection = new Selection();
-                        selection.fromIds(this, App.getDelegator(), ids);
-                        logic.pushSelection(selection);
-                    } else {
-                        logic.popSelection();
-                    }
+                    ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
+                    selection = new Selection();
+                    selection.fromIds(this, App.getDelegator(), ids);
+                    logic.pushSelection(selection);
                     zoomToSelected(logic);
+                    break;
+                case ACTION_POP_SELECTION:
+                    if (logic.getSelectionStack().size() > 1) {
+                        logic.popSelection();
+                        zoomToSelected(logic);
+                    }
                     break;
                 case ACTION_CLEAR_SELECTION_STACK:
                     Deque<Selection> stack = logic.getSelectionStack();
