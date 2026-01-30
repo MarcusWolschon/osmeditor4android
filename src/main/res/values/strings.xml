@@ -1906,4 +1906,25 @@
     <string name="tile_io_error">IO error</string>
     <string name="tile_no_network">No network</string>
     <string name="tile_unknown_error">Unknown error</string>
+    <!--  keyboard shortcut descriptions  -->
+    <string name="action_zoom_in">Zoom in</string>
+    <string name="action_zoom_out">Zoom out</string>
+    <string name="action_help">Help></string>
+    <string name="action_undo">Undo></string>
+    <string name="action_gps_follow">Follow GPS</string>
+    <string name="action_gps_goto">Goto GPS position</string>
+    <string name="action_download">Download</string>
+    <string name="action_bugs_download">Download tasks</string>
+    <string name="action_element_paste">Element paste</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_cut">Cut</string>
+    <string name="action_info">Info</string>
+    <string name="action_tagedit">Property editor</string>
+    <string name="action_paste_tags">Paste tags</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_square">Square/straighten</string>
+    <string name="action_merge">Merge</string>
+    <string name="action_address">Add address</string>
+    <string name="action_follow">Follow way</string>
+    <string name="action_keep">Save tag edits and exit</string>
 </resources>

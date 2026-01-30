@@ -31,6 +31,8 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.BentleyOttmannForOsm;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.KeyboardShortcut;
+import de.blau.android.util.KeyboardShortcut.MetaKey;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
@@ -64,6 +66,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
      */
     public MultiSelectWithGeometryActionModeCallback(@NonNull EasyEditManager manager, @NonNull List<OsmElement> elements) {
         super(manager, elements);
+        setupKeyboardActions();
     }
 
     /**
@@ -74,6 +77,31 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
      */
     public MultiSelectWithGeometryActionModeCallback(@NonNull EasyEditManager manager, @Nullable OsmElement element) {
         super(manager, element);
+        setupKeyboardActions();
+    }
+
+    /**
+     * Set up keyboard actions
+     */
+    private void setupKeyboardActions() {
+        actionMap.put(KeyboardShortcut.ACTION_COPY, new KeyboardShortcut.Action(R.string.action_copy, () -> {
+            logic.copyToClipboard(main, selection);
+            manager.finish();
+        }));
+        actionMap.put(KeyboardShortcut.ACTION_CUT, new KeyboardShortcut.Action(R.string.action_cut, () -> {
+            logic.cutToClipboard(main, selection);
+            manager.finish();
+        }));
+        actionMap.put(KeyboardShortcut.ACTION_UNDO, new KeyboardShortcut.Action(R.string.action_undo, () -> undoListener.onClick(null)));
+        actionMap.put(KeyboardShortcut.ACTION_DELETE, new KeyboardShortcut.Action(R.string.action_delete, () -> menuDelete(false)));
+        actionMap.put(KeyboardShortcut.ACTION_SQUARE, new KeyboardShortcut.Action(R.string.action_square, () -> orthogonalizeWays()));
+        actionMap.put(KeyboardShortcut.ACTION_MERGE, new KeyboardShortcut.Action(R.string.action_merge, () -> {
+            if (sortedWays != null) {
+                mergeWays();
+            } else {
+                Sound.beep();
+            }
+        }));
     }
 
     @Override
@@ -451,32 +479,5 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         // check for new empty relations
         ElementSelectionActionModeCallback.checkEmptyRelations(main, origParents);
         manager.finish();
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
-            logic.copyToClipboard(main, selection);
-            manager.finish();
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_cut)) {
-            logic.cutToClipboard(main, selection);
-            manager.finish();
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_undo)) {
-            undoListener.onClick(null);
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_merge)) {
-            if (sortedWays != null) {
-                mergeWays();
-            } else {
-                Sound.beep();
-            }
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_square)) {
-            orthogonalizeWays();
-            return true;
-        }
-        return super.processShortcut(c);
     }
 }

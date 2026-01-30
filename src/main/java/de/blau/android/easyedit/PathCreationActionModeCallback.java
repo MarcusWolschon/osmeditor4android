@@ -38,6 +38,8 @@ import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.UndoStorage.UndoWay;
 import de.blau.android.osm.Way;
+import de.blau.android.util.KeyboardShortcut.MetaKey;
+import de.blau.android.util.KeyboardShortcut;
 import de.blau.android.util.MathUtil;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableState;
@@ -99,6 +101,15 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     /** what the checkpoint is called **/
     private Integer checkpointName;
 
+    private PathCreationActionModeCallback(@NonNull EasyEditManager manager) {
+        super(manager);
+
+        actionMap.put(KeyboardShortcut.ACTION_UNDO, new KeyboardShortcut.Action(R.string.action_undo, () -> handleUndo()));
+        actionMap.put(KeyboardShortcut.ACTION_TAGEDIT, new KeyboardShortcut.Action(R.string.action_tagedit, () -> handleTagEdit(MENUITEM_NEWWAY_PRESET)));
+        actionMap.put(KeyboardShortcut.ACTION_FOLLOW, new KeyboardShortcut.Action(R.string.action_follow, () -> handleFollow()));
+        actionMap.put(KeyboardShortcut.ACTION_ADDRESS, new KeyboardShortcut.Action(R.string.action_address, () -> handleTagEdit(MENUITEM_ADDRESS)));
+    }
+
     /**
      * Construct a new callback from saved state
      * 
@@ -106,7 +117,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * @param state the saved state
      */
     public PathCreationActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
-        super(manager);
+        this(manager);
         StorageDelegator delegator = App.getDelegator();
         getElementsFromIds(state, delegator, NODE_IDS_KEY, addedNodes, Node.NAME);
         getElementsFromIds(state, delegator, EXISTING_NODE_IDS_KEY, existingNodes, Node.NAME);
@@ -165,7 +176,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * @param y screen y
      */
     public PathCreationActionModeCallback(@NonNull EasyEditManager manager, float x, float y) {
-        super(manager);
+        this(manager);
         this.x = x;
         this.y = y;
         appendTargetNode = null;
@@ -180,7 +191,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * @param node the existing Node to add
      */
     public PathCreationActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Node node) {
-        super(manager);
+        this(manager);
         appendTargetNode = node;
         appendTargetWay = way;
     }
@@ -664,31 +675,6 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
                 }
             }, 1000);
         }
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_undo)) {
-            handleUndo();
-            return true;
-        }
-        if (c == Util.getShortCut(main, R.string.shortcut_follow)) {
-            handleFollow();
-            return true;
-        }
-        if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
-            handleTagEdit(MENUITEM_NEWWAY_PRESET);
-            return true;
-        }
-        if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
-            handleTagEdit(MENUITEM_NEWWAY_PRESET);
-            return true;
-        }
-        if (c == Util.getShortCut(main, R.string.shortcut_address)) {
-            handleTagEdit(MENUITEM_ADDRESS);
-            return true;
-        }
-        return super.processShortcut(c);
     }
 
     @Override

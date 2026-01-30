@@ -88,6 +88,7 @@ import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.KeyValue;
+import de.blau.android.util.KeyboardShortcut;
 import de.blau.android.util.Screen;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StreetPlaceNamesAdapter;
@@ -254,7 +255,10 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
         propertyEditorListener = (PropertyEditorListener) parent;
         presetSelectedListener = (OnPresetSelectedListener) parent;
         setHasOptionsMenu(true);
-        getActivity().invalidateOptionsMenu();
+        FragmentActivity activity = getActivity();
+        activity.invalidateOptionsMenu();
+        keyboard = new KeyboardShortcut(context);
+        actionMap.put(KeyboardShortcut.ACTION_UNDO, new KeyboardShortcut.Action(R.string.action_info, () -> doRevert()));
     }
 
     @Override

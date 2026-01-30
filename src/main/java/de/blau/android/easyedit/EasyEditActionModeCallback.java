@@ -41,11 +41,11 @@ import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.util.KeyboardShortcut;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.Util;
 
 /**
  * Base class for ActionMode callbacks inside {@link EasyEditManager}. Derived classes should call
@@ -63,6 +63,9 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, EasyEditActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = EasyEditActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
+
+    protected final java.util.Map<String, KeyboardShortcut.Action> actionMap = new HashMap<>();
+    protected final KeyboardShortcut                               keyboard;
 
     protected int                     helpTopic    = 0;
     MenuUtil                          menuUtil;
@@ -91,6 +94,8 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         this.logic = App.getLogic();
         this.manager = manager;
         maxWayNodes = App.getDelegator().getMaxWayNodes();
+        keyboard = new KeyboardShortcut(main);
+        actionMap.put(KeyboardShortcut.ACTION_HELP, new KeyboardShortcut.Action(R.string.action_help, () -> startHelp()));
     }
 
     @Override
@@ -259,15 +264,13 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     /**
      * Process a short cut keyboard command
      * 
+     * @param metaKey the pressed modifier key
      * @param c the Character
+     * 
      * @return true is an action was found
      */
-    public boolean processShortcut(@NonNull Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_help)) {
-            startHelp();
-            return true;
-        }
-        return false;
+    public boolean processShortcut(@NonNull KeyboardShortcut.MetaKey metaKey, @NonNull Character c) {
+        return keyboard.executeShortcut(metaKey, c, actionMap);
     }
 
     /**

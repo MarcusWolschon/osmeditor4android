@@ -32,6 +32,8 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.tasks.Note;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.KeyboardShortcut;
+import de.blau.android.util.KeyboardShortcut.MetaKey;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableState;
@@ -543,12 +545,14 @@ public class EasyEditManager {
     /**
      * Process keyboard shortcuts
      * 
+     * @param metaKey the pressed modifier key
      * @param c the character
+     * 
      * @return true if we processed the character
      */
-    public boolean processShortcut(Character c) {
+    public boolean processShortcut(@NonNull KeyboardShortcut.MetaKey metaKey, @NonNull Character c) {
         synchronized (actionModeCallbackLock) {
-            return currentActionModeCallback != null && currentActionModeCallback.processShortcut(c);
+            return currentActionModeCallback != null && currentActionModeCallback.processShortcut(metaKey, c);
         }
     }
 

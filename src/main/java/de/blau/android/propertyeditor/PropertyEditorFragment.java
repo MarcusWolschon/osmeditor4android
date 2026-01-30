@@ -13,6 +13,7 @@ import java.util.Map;
 
 import org.acra.ACRA;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnKeyListener;
+import android.view.View.OnUnhandledKeyEventListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -36,8 +38,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewCompat.OnUnhandledKeyEventListenerCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
@@ -46,12 +51,16 @@ import androidx.viewpager.widget.ViewPager;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Feedback;
+import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.address.Address;
 import de.blau.android.contract.Github;
+import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.ErrorAlert;
+import de.blau.android.easyedit.SimpleActionModeCallback;
 import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -64,6 +73,7 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -77,10 +87,13 @@ import de.blau.android.propertyeditor.tagform.TagFormFragment;
 import de.blau.android.util.BadgeDrawable;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.GeoContext;
+import de.blau.android.util.GeoMath;
+import de.blau.android.util.KeyboardShortcut;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Screen;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
+import de.blau.android.util.Sound;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -234,6 +247,11 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         Util.implementsInterface(context, ControlListener.class);
         controlListener = (ControlListener) context;
         setHasOptionsMenu(true);
+        FragmentActivity activity = getActivity();
+        actionMap.put(KeyboardShortcut.ACTION_HELP,
+                new KeyboardShortcut.Action(R.string.action_help, () -> HelpViewer.start(activity, R.string.help_propertyeditor)));
+        actionMap.put(KeyboardShortcut.ACTION_INFO, new KeyboardShortcut.Action(R.string.action_info, () -> ElementInfo.showDialog(activity, element)));
+        actionMap.put(KeyboardShortcut.ACTION_KEEP, new KeyboardShortcut.Action(R.string.action_keep, () -> updateAndFinish()));
     }
 
     @Override
