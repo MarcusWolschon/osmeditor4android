@@ -207,9 +207,6 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
      */
     private Deque<Runnable> restoreQueue = new ArrayDeque<>();
 
-    protected final java.util.Map<String, KeyboardShortcut.Action> actionMap = new HashMap<>();
-    protected KeyboardShortcut                                     keyboard;
-
     /**
      * Build the intent to start the PropertyEditor
      * 
@@ -244,27 +241,17 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         return f;
     }
 
-    /**
-     * Create a new instance
-     */
-    private PropertyEditorFragment() {
-        FragmentActivity activity = getActivity();
-        keyboard = new KeyboardShortcut(activity);
-        actionMap.put(KeyboardShortcut.ACTION_HELP,
-                new KeyboardShortcut.Action(R.string.action_help, () -> HelpViewer.start(activity, R.string.help_propertyeditor)));
-        actionMap.put(KeyboardShortcut.ACTION_INFO, new KeyboardShortcut.Action(R.string.action_info, () -> ElementInfo.showDialog(activity, element)));
-        actionMap.put(KeyboardShortcut.ACTION_KEEP, new KeyboardShortcut.Action(R.string.action_keep, () -> updateAndFinish()));
-        actionMap.put(KeyboardShortcut.ACTION_UNDO, new KeyboardShortcut.Action(R.string.action_undo, () -> {
-
-        }));
-    }
-
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
         Util.implementsInterface(context, ControlListener.class);
         controlListener = (ControlListener) context;
         setHasOptionsMenu(true);
+        FragmentActivity activity = getActivity();
+        actionMap.put(KeyboardShortcut.ACTION_HELP,
+                new KeyboardShortcut.Action(R.string.action_help, () -> HelpViewer.start(activity, R.string.help_propertyeditor)));
+        actionMap.put(KeyboardShortcut.ACTION_INFO, new KeyboardShortcut.Action(R.string.action_info, () -> ElementInfo.showDialog(activity, element)));
+        actionMap.put(KeyboardShortcut.ACTION_KEEP, new KeyboardShortcut.Action(R.string.action_keep, () -> updateAndFinish()));
     }
 
     @Override
@@ -425,47 +412,6 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         mViewPager.setCurrentItem(currentItem != -1 ? currentItem : pagerAdapter.reversePosition(initialPosition));
 
         return layout;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ViewCompat.addOnUnhandledKeyEventListener(view, new KeyEventListener());
-    }
-
-    /**
-     * A KeyEventListener for unhandled key events.
-     * 
-     * @author simon
-     */
-    public class KeyEventListener implements OnUnhandledKeyEventListenerCompat {
-
-        @Override
-        public boolean onUnhandledKeyEvent(View v, KeyEvent event) {
-            System.out.println("event " + event.toString());
-            final FragmentActivity activity = getActivity();
-            if (activity == null) {
-                Log.w(DEBUG_TAG, "onUnhandledKeyEvent no activity");
-                return false;
-            }
-            switch (event.getAction()) {
-            case KeyEvent.ACTION_UP:
-                // this needs to be here or else this will get reported in main
-                if (KeyEvent.KEYCODE_BACK == event.getKeyCode()) {
-                    activity.getOnBackPressedDispatcher().onBackPressed();
-                    return true;
-                }
-                Log.w(DEBUG_TAG, "Up key event " + event.toString());
-                return true;
-            case KeyEvent.ACTION_DOWN:
-                char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
-                KeyboardShortcut.MetaKey metaKey = KeyboardShortcut.MetaKey.fromState(event.getMetaState());
-                return keyboard.executeShortcut(metaKey, shortcut, actionMap);
-            default:
-                Log.w(DEBUG_TAG, "Unknown key event " + event.getAction());
-            }
-            return false;
-        }
     }
 
     /**

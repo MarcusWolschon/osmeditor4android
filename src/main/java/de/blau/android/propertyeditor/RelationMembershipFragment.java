@@ -47,6 +47,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.util.ArrayAdapterWithState;
 import de.blau.android.util.Enabled;
+import de.blau.android.util.KeyboardShortcut;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
@@ -104,7 +105,10 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
         Util.implementsInterface(parent, PropertyEditorListener.class);
         propertyEditorListener = (PropertyEditorListener) parent;
         setHasOptionsMenu(true);
+
         getActivity().invalidateOptionsMenu();
+
+        actionMap.put(KeyboardShortcut.ACTION_UNDO, new KeyboardShortcut.Action(R.string.action_info, () -> doRevert()));
     }
 
     @Override
