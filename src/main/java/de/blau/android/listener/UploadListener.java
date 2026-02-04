@@ -59,32 +59,32 @@ import de.blau.android.validation.NotEmptyValidator;
  */
 public class UploadListener implements DialogInterface.OnShowListener, View.OnClickListener {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UploadListener.class.getSimpleName().length());
-    private static final String DEBUG_TAG = UploadListener.class.getSimpleName().substring(0, TAG_LEN);
+    private static final int           TAG_LEN             = Math.min(LOG_TAG_LEN, UploadListener.class.getSimpleName().length());
+    private static final String        DEBUG_TAG           = UploadListener.class.getSimpleName().substring(0, TAG_LEN);
 
     // auto summary tags
-    public static final String V_DELETED           = "v:deleted";
-    public static final String V_MODIFIED_MEMBERS  = "v:modified_members";
-    public static final String V_MODIFIED_GEOMETRY = "v:modified_geometry";
-    public static final String V_MODIFIED          = "v:modified";
-    public static final String V_CREATED           = "v:created";
+    public static final String         V_DELETED           = "v:deleted";
+    public static final String         V_MODIFIED_MEMBERS  = "v:modified_members";
+    public static final String         V_MODIFIED_GEOMETRY = "v:modified_geometry";
+    public static final String         V_MODIFIED          = "v:modified";
+    public static final String         V_CREATED           = "v:created";
 
-    private static final long DEBOUNCE_TIME = 1000;
+    private static final long          DEBOUNCE_TIME       = 1000;
 
-    private final FragmentActivity caller;
-    private final EditText         commentField;
-    private final EditText         sourceField;
-    private final CheckBox         closeOpenChangeset;
-    private final CheckBox         closeChangeset;
-    private final CheckBox         requestReview;
-    private LinearLayout           persistentCustomTagLayout;
-    private LinearLayout           transientCustomTagLayout;
+    private final FragmentActivity     caller;
+    private final EditText             commentField;
+    private final EditText             sourceField;
+    private final CheckBox             closeOpenChangeset;
+    private final CheckBox             closeChangeset;
+    private final CheckBox             requestReview;
+    private LinearLayout               persistentCustomTagLayout;
+    private LinearLayout               transientCustomTagLayout;
 
     private final List<FormValidation> validations;
     private final List<OsmElement>     elements;
-    private Long                       lastClickTime = null;
+    private Long                       lastClickTime       = null;
 
-    private boolean tagsShown = false;
+    private boolean                    tagsShown           = false;
 
     public static class UploadArguments {
 
@@ -129,7 +129,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
         this.requestReview = requestReview;
         this.elements = elements;
         FormValidation commentValidator = new NotEmptyValidator(commentField, caller.getString(R.string.upload_validation_error_empty_comment));
-        FormValidation sourceValidator = new NotEmptyValidator(sourceField, caller.getString(R.string.upload_validation_error_empty_source));
+        FormValidation sourceValidator  = new NotEmptyValidator(sourceField, caller.getString(R.string.upload_validation_error_empty_source));
         this.validations = Arrays.asList(commentValidator, sourceValidator);
     }
 
@@ -149,8 +149,8 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             validateFields();
         }
         if (!emptyCommentWarning || tagsShown || ReviewAndUpload.getPage(caller) == ReviewAndUpload.TAGS_PAGE) {
-            FragmentManager fm = caller.getSupportFragmentManager();
-            Fragment fragment = fm.findFragmentByTag(ReviewAndUpload.TAG);
+            FragmentManager fm       = caller.getSupportFragmentManager();
+            Fragment        fragment = fm.findFragmentByTag(ReviewAndUpload.TAG);
             if (fragment instanceof ReviewAndUpload) {
                 ((ReviewAndUpload) fragment).removeTransientCustomTags();
             }
@@ -178,14 +178,14 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             addCustomTags(transientCustomTagLayout, extraTags);
         }
         extraTags.putAll(generateAutoSummary(elements != null ? elements : App.getDelegator().listChangedElements()));
-        final Logic logic = App.getLogic();
+        final Logic  logic  = App.getLogic();
         final Server server = logic.getPrefs().getServer();
         if (!server.isLoginSet()) {
             ErrorAlert.showDialog(caller, ErrorCodes.NO_LOGIN_DATA);
             return;
         }
         boolean hasDataChanges = logic.hasChanges();
-        boolean hasBugChanges = !App.getTaskStorage().isEmpty() && App.getTaskStorage().hasChanges();
+        boolean hasBugChanges  = !App.getTaskStorage().isEmpty() && App.getTaskStorage().hasChanges();
         if (hasDataChanges || hasBugChanges) {
             if (hasDataChanges) {
                 UploadArguments arguments = new UploadArguments(getTrimmedString(commentField), getTrimmedString(sourceField),
@@ -214,7 +214,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
         for (int i = 0; i < customTagLayout.getChildCount(); i++) {
             View v = customTagLayout.getChildAt(i);
             if (v instanceof CustomTagRow) {
-                String key = ((CustomTagRow) v).getKey();
+                String key   = ((CustomTagRow) v).getKey();
                 String value = ((CustomTagRow) v).getValue();
                 if (!"".equals(key) && !"".equals(value)) {
                     tags.put(key, value);
@@ -241,20 +241,20 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      * @return a Map containing the tags
      */
     private Map<String, String> generateAutoSummary(@NonNull List<OsmElement> elements) {
-        Map<String, String> result = new HashMap<>();
-        UndoStorage undoStorage = App.getDelegator().getUndo();
-        Preset[] presets = App.getCurrentPresets(caller);
-        List<Node> movedNodes = new ArrayList<>();
-        Actions actions = new Actions();
-        for (OsmElement current : elements) {
+        Map<String, String> result      = new HashMap<>();
+        UndoStorage         undoStorage = App.getDelegator().getUndo();
+        Preset[]            presets     = App.getCurrentPresets(caller);
+        List<Node>          movedNodes  = new ArrayList<>();
+        Actions             actions     = new Actions();
+        for (OsmElement current:elements) {
             addActionsForElement(actions, movedNodes, undoStorage, presets, current);
         }
         if (!movedNodes.isEmpty()) {
             Set<Way> modifiedGeometryWays = new HashSet<>();
-            for (Node n : movedNodes) {
+            for (Node n:movedNodes) {
                 modifiedGeometryWays.addAll(App.getLogic().getWaysForNode(n));
             }
-            for (Way w : modifiedGeometryWays) {
+            for (Way w:modifiedGeometryWays) {
                 PresetItem match = Preset.findBestMatch(caller, presets, w.getTags(), null, w, true);
                 actions.geometryModified.add(getPresetName(match));
             }
@@ -281,11 +281,11 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
     private void addActionsForElement(@NonNull Actions actions, @NonNull List<Node> movedNodes, @NonNull UndoStorage undoStorage, @NonNull Preset[] presets,
             @NonNull OsmElement element) {
 
-        final boolean hasTags = element.hasTags();
-        final Map<String, String> currentTags = element.getTags();
-        PresetItem matchCurrent = Preset.findBestMatch(caller, presets, currentTags, null, element, true);
-        final String currentPresetName = getPresetName(matchCurrent);
-        final boolean currentHasMatch = matchCurrent != null;
+        final boolean             hasTags           = element.hasTags();
+        final Map<String, String> currentTags       = element.getTags();
+        PresetItem                matchCurrent      = Preset.findBestMatch(caller, presets, currentTags, null, element, true);
+        final String              currentPresetName = getPresetName(matchCurrent);
+        final boolean             currentHasMatch   = matchCurrent != null;
 
         if (element.isNew()) {
             // created
@@ -297,10 +297,10 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             return;
         }
         // note original can be null if data was loaded from a JOSM OSM file
-        UndoElement original = undoStorage.getOriginal(element);
-        final Map<String, String> originalTags = original != null ? original.getTags() : new HashMap<>();
+        UndoElement               original      = undoStorage.getOriginal(element);
+        final Map<String, String> originalTags  = original != null ? original.getTags() : new HashMap<>();
         // element type should be the same as current element here
-        PresetItem matchOriginal = Preset.findBestMatch(presets, originalTags, null, element.getType(), true, null);
+        PresetItem                matchOriginal = Preset.findBestMatch(presets, originalTags, null, element.getType(), true, null);
         if (OsmElement.STATE_DELETED == element.getState()) {
             // deleted
             actions.deleted.add(!originalTags.isEmpty() ? getPresetName(matchOriginal) : getUntaggedString(element));
@@ -389,11 +389,11 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      */
     private void putSummary(@NonNull String key, @NonNull Collection<String> actions, @NonNull Map<String, String> result) {
         actions = addCounts(actions);
-        int summaryCount = 0;
-        StringBuilder summary = new StringBuilder();
-        for (String s : actions) {
+        int           summaryCount = 0;
+        StringBuilder summary      = new StringBuilder();
+        for (String s:actions) {
             if (summary.length() + s.length() + 1 > Capabilities.DEFAULT_MAX_STRING_LENGTH) {
-                result.put(key + (summaryCount > 0 ? summaryCount : ""), summary.toString());
+                result.put(keyWithCount(key, summaryCount), summary.toString());
                 summaryCount++;
                 summary.setLength(0);
             }
@@ -403,8 +403,19 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             summary.append(s);
         }
         if (summary.length() > 0) {
-            result.put(key + (summaryCount > 0 ? summaryCount : ""), summary.toString());
+            result.put(keyWithCount(key, summaryCount), summary.toString());
         }
+    }
+
+    /**
+     * Add a count to a key if necessary
+     * 
+     * @param key the key
+     * @param count count to add (if not 0
+     * @return the key with a count
+     */
+    private String keyWithCount(@NonNull String key, int count) {
+        return key + (count > 0 ? ":" + count : "");
     }
 
     /**
@@ -415,9 +426,9 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      */
     @NonNull
     List<String> addCounts(@NonNull Collection<String> actions) {
-        List<String> result = new ArrayList<>();
+        List<String>         result = new ArrayList<>();
         Map<String, Integer> counts = new HashMap<>();
-        for (String action : actions) {
+        for (String action:actions) {
             Integer count = counts.get(action);
             if (count == null) {
                 counts.put(action, 1);
@@ -425,7 +436,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             }
             counts.put(action, count + 1);
         }
-        for (Entry<String, Integer> entry : counts.entrySet()) {
+        for (Entry<String, Integer> entry:counts.entrySet()) {
             result.add(Integer.toString(entry.getValue()) + " " + entry.getKey());
         }
         return result;
@@ -460,7 +471,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      * Run all supplied validators
      */
     private void validateFields() {
-        for (FormValidation validation : validations) {
+        for (FormValidation validation:validations) {
             validation.validate();
         }
     }
