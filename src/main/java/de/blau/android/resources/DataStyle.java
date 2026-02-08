@@ -51,119 +51,120 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.symbols.Symbols;
 import de.blau.android.util.Density;
+import de.blau.android.util.Util;
 import de.blau.android.util.Version;
 
 public final class DataStyle extends DefaultHandler {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, DataStyle.class.getSimpleName().length());
-    private static final String DEBUG_TAG = DataStyle.class.getSimpleName().substring(0, TAG_LEN);
+    private static final int     TAG_LEN                       = Math.min(LOG_TAG_LEN, DataStyle.class.getSimpleName().length());
+    private static final String  DEBUG_TAG                     = DataStyle.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final Version CURRENT_VERSION = new Version("0.3.0");
+    private static final Version CURRENT_VERSION               = new Version("0.3.0");
 
     // constants for the internal profiles
-    public static final String GPS_TRACK                     = "gps_track";
-    public static final String MVT_DEFAULT                   = "mvt_default";
-    public static final String INFOTEXT                      = "infotext";
-    public static final String ATTRIBUTION_TEXT              = "attribution_text";
-    public static final String VIEWBOX                       = "viewbox";
-    public static final String WAY_TOLERANCE                 = "way_tolerance";
-    public static final String WAY_TOLERANCE_2               = "way_tolerance_2";
-    public static final String WAY                           = "way";
-    public static final String SELECTED_WAY                  = "selected_way";
-    public static final String SELECTED_RELATION_WAY         = "selected_relation_way";
-    public static final String PROBLEM_WAY                   = "problem_way";
-    public static final String HIDDEN_WAY                    = "hidden_way";
-    public static final String NODE_TOLERANCE                = "node_tolerance";
-    public static final String NODE_TOLERANCE_2              = "node_tolerance_2";
-    public static final String NODE_UNTAGGED                 = "node_untagged";
-    public static final String NODE_THIN                     = "node_thin";
-    public static final String NODE_TAGGED                   = "node_tagged";
-    public static final String NODE_DRAG_RADIUS              = "node_drag_radius";
-    public static final String PROBLEM_NODE                  = "problem_node";
-    public static final String PROBLEM_NODE_THIN             = "problem_node_thin";
-    public static final String PROBLEM_NODE_TAGGED           = "problem_node_tagged";
-    public static final String SELECTED_NODE                 = "selected_node";
-    public static final String SELECTED_NODE_THIN            = "selected_node_thin";
-    public static final String SELECTED_NODE_TAGGED          = "selected_node_tagged";
-    public static final String SELECTED_RELATION_NODE        = "selected_relation_node";
-    public static final String SELECTED_RELATION_NODE_THIN   = "selected_relation_node_thin";
-    public static final String SELECTED_RELATION_NODE_TAGGED = "selected_relation_node_tagged";
-    public static final String HIDDEN_NODE                   = "hidden_node";
-    public static final String WAY_DIRECTION                 = "way_direction";
-    public static final String LARGE_DRAG_AREA               = "large_drag_area";
-    public static final String MARKER_SCALE                  = "marker_scale";
-    public static final String GPS_POS                       = "gps_pos";
-    public static final String GPS_POS_FOLLOW                = "gps_pos_follow";
-    public static final String GPS_POS_STALE                 = "gps_pos_stale";
-    public static final String GPS_POS_FOLLOW_STALE          = "gps_pos_follow_stale";
-    public static final String GPS_ACCURACY                  = "gps_accuracy";
-    public static final String OPEN_NOTE                     = "open_note";
-    public static final String CLOSED_NOTE                   = "closed_note";
-    public static final String CROSSHAIRS                    = "crosshairs";
-    public static final String CROSSHAIRS_HALO               = "crosshairs_halo";
-    public static final String HANDLE                        = "handle";
-    public static final String LABELTEXT                     = "labeltext";
-    public static final String LABELTEXT_NORMAL              = "labeltext_normal";
-    public static final String LABELTEXT_SMALL               = "labeltext_small";
-    public static final String LABELTEXT_NORMAL_SELECTED     = "labeltext_normal_selected";
-    public static final String LABELTEXT_SMALL_SELECTED      = "labeltext_small_selected";
-    public static final String LABELTEXT_NORMAL_PROBLEM      = "labeltext_normal_problem";
-    public static final String LABELTEXT_SMALL_PROBLEM       = "labeltext_small_problem";
-    public static final String LABELTEXT_BACKGROUND          = "labeltext_background";
-    public static final String GEOJSON_DEFAULT               = "geojson_default";
-    public static final String BOOKMARK_DEFAULT              = "bookmark_default";
-    public static final String DONTRENDER_WAY                = "dontrender_way";
-    public static final String MIN_HANDLE_LEN                = "min_handle_length";
-    public static final String ICON_ZOOM_LIMIT               = "icon_zoom_limit";
-    public static final String MAP_BACKGROUND                = "map_background";
+    public static final String   GPS_TRACK                     = "gps_track";
+    public static final String   MVT_DEFAULT                   = "mvt_default";
+    public static final String   INFOTEXT                      = "infotext";
+    public static final String   ATTRIBUTION_TEXT              = "attribution_text";
+    public static final String   VIEWBOX                       = "viewbox";
+    public static final String   WAY_TOLERANCE                 = "way_tolerance";
+    public static final String   WAY_TOLERANCE_2               = "way_tolerance_2";
+    public static final String   WAY                           = "way";
+    public static final String   SELECTED_WAY                  = "selected_way";
+    public static final String   SELECTED_RELATION_WAY         = "selected_relation_way";
+    public static final String   PROBLEM_WAY                   = "problem_way";
+    public static final String   HIDDEN_WAY                    = "hidden_way";
+    public static final String   NODE_TOLERANCE                = "node_tolerance";
+    public static final String   NODE_TOLERANCE_2              = "node_tolerance_2";
+    public static final String   NODE_UNTAGGED                 = "node_untagged";
+    public static final String   NODE_THIN                     = "node_thin";
+    public static final String   NODE_TAGGED                   = "node_tagged";
+    public static final String   NODE_DRAG_RADIUS              = "node_drag_radius";
+    public static final String   PROBLEM_NODE                  = "problem_node";
+    public static final String   PROBLEM_NODE_THIN             = "problem_node_thin";
+    public static final String   PROBLEM_NODE_TAGGED           = "problem_node_tagged";
+    public static final String   SELECTED_NODE                 = "selected_node";
+    public static final String   SELECTED_NODE_THIN            = "selected_node_thin";
+    public static final String   SELECTED_NODE_TAGGED          = "selected_node_tagged";
+    public static final String   SELECTED_RELATION_NODE        = "selected_relation_node";
+    public static final String   SELECTED_RELATION_NODE_THIN   = "selected_relation_node_thin";
+    public static final String   SELECTED_RELATION_NODE_TAGGED = "selected_relation_node_tagged";
+    public static final String   HIDDEN_NODE                   = "hidden_node";
+    public static final String   WAY_DIRECTION                 = "way_direction";
+    public static final String   LARGE_DRAG_AREA               = "large_drag_area";
+    public static final String   MARKER_SCALE                  = "marker_scale";
+    public static final String   GPS_POS                       = "gps_pos";
+    public static final String   GPS_POS_FOLLOW                = "gps_pos_follow";
+    public static final String   GPS_POS_STALE                 = "gps_pos_stale";
+    public static final String   GPS_POS_FOLLOW_STALE          = "gps_pos_follow_stale";
+    public static final String   GPS_ACCURACY                  = "gps_accuracy";
+    public static final String   OPEN_NOTE                     = "open_note";
+    public static final String   CLOSED_NOTE                   = "closed_note";
+    public static final String   CROSSHAIRS                    = "crosshairs";
+    public static final String   CROSSHAIRS_HALO               = "crosshairs_halo";
+    public static final String   HANDLE                        = "handle";
+    public static final String   LABELTEXT                     = "labeltext";
+    public static final String   LABELTEXT_NORMAL              = "labeltext_normal";
+    public static final String   LABELTEXT_SMALL               = "labeltext_small";
+    public static final String   LABELTEXT_NORMAL_SELECTED     = "labeltext_normal_selected";
+    public static final String   LABELTEXT_SMALL_SELECTED      = "labeltext_small_selected";
+    public static final String   LABELTEXT_NORMAL_PROBLEM      = "labeltext_normal_problem";
+    public static final String   LABELTEXT_SMALL_PROBLEM       = "labeltext_small_problem";
+    public static final String   LABELTEXT_BACKGROUND          = "labeltext_background";
+    public static final String   GEOJSON_DEFAULT               = "geojson_default";
+    public static final String   BOOKMARK_DEFAULT              = "bookmark_default";
+    public static final String   DONTRENDER_WAY                = "dontrender_way";
+    public static final String   MIN_HANDLE_LEN                = "min_handle_length";
+    public static final String   ICON_ZOOM_LIMIT               = "icon_zoom_limit";
+    public static final String   MAP_BACKGROUND                = "map_background";
 
     // XML elements for the config files
-    private static final String INTERVAL_ELEMENT      = "interval";
-    private static final String DASH_ELEMENT          = "dash";
-    private static final String PROFILE_ELEMENT       = "profile";
-    private static final String CONFIG_ELEMENT        = "config";
-    private static final String FEATURE_ELEMENT       = "feature";
-    private static final String DONTRENDER_ATTR       = "dontrender";
-    private static final String MIN_VISIBLE_ZOOM_ATTR = "minVisibleZoom";
-    private static final String UPDATE_WIDTH_ATTR     = "updateWidth";
-    private static final String WIDTH_FACTOR_ATTR     = "widthFactor";
-    private static final String AREA_ATTR             = "area";
-    private static final String CLOSED_ATTR           = "closed";
-    private static final String ONEWAY_ATTR           = "oneway";
-    private static final String COLOR_ATTR            = "color";
-    private static final String STYLE_ATTR            = "style";
-    private static final String CAP_ATTR              = "cap";
-    private static final String JOIN_ATTR             = "join";
-    private static final String STROKEWIDTH_ATTR      = "strokeWidth";
-    private static final String TEXTSIZE_ATTR         = "textsize";
-    private static final String PHASE_ATTR            = "phase";
-    private static final String LENGTH_ATTR           = "length";
-    private static final String TYPEFACESTYLE_ATTR    = "typefacestyle";
-    private static final String SHADOW_ATTR           = "shadow";
-    private static final String PATH_PATTERN_ATTR     = "pathPattern";
-    private static final String ARROW_STYLE_ATTR      = "arrowStyle";
-    private static final String CASING_STYLE_ATTR     = "casingStyle";
-    private static final String VALIDATION            = "validation";
-    private static final String CODE_ATTR             = "code";
-    private static final String SCALE_ATTR            = "scale";
-    private static final String TOUCH_RADIUS_ATTR     = "touchRadius";
-    private static final String ZOOM_ATTR             = "zoom";
-    private static final String TYPE_ATTR             = "type";
-    private static final String FORMAT_ATTR           = "format";
-    private static final String NAME_ATTR             = "name";
-    private static final String DESCRIPTION_ATTR      = "description";
-    private static final String VERSION_ATTR          = "version";
-    private static final String TAGS_ATTR             = "tags";
-    private static final String LABEL_KEY_ATTR        = "labelKey";
-    private static final String LABEL_ZOOM_LIMIT_ATTR = "labelZoomLimit";
-    private static final String ICON_PATH_ATTR        = "iconPath";
-    private static final String PRESET                = "preset";
-    private static final String OFFSET_ATTR           = "offset";
-    private static final String TEXT_COLOR_ATTR       = "textColor";
+    private static final String  INTERVAL_ELEMENT              = "interval";
+    private static final String  DASH_ELEMENT                  = "dash";
+    private static final String  PROFILE_ELEMENT               = "profile";
+    private static final String  CONFIG_ELEMENT                = "config";
+    private static final String  FEATURE_ELEMENT               = "feature";
+    private static final String  DONTRENDER_ATTR               = "dontrender";
+    private static final String  MIN_VISIBLE_ZOOM_ATTR         = "minVisibleZoom";
+    private static final String  UPDATE_WIDTH_ATTR             = "updateWidth";
+    private static final String  WIDTH_FACTOR_ATTR             = "widthFactor";
+    private static final String  AREA_ATTR                     = "area";
+    private static final String  CLOSED_ATTR                   = "closed";
+    private static final String  ONEWAY_ATTR                   = "oneway";
+    private static final String  COLOR_ATTR                    = "color";
+    private static final String  STYLE_ATTR                    = "style";
+    private static final String  CAP_ATTR                      = "cap";
+    private static final String  JOIN_ATTR                     = "join";
+    private static final String  STROKEWIDTH_ATTR              = "strokeWidth";
+    private static final String  TEXTSIZE_ATTR                 = "textsize";
+    private static final String  PHASE_ATTR                    = "phase";
+    private static final String  LENGTH_ATTR                   = "length";
+    private static final String  TYPEFACESTYLE_ATTR            = "typefacestyle";
+    private static final String  SHADOW_ATTR                   = "shadow";
+    private static final String  PATH_PATTERN_ATTR             = "pathPattern";
+    private static final String  ARROW_STYLE_ATTR              = "arrowStyle";
+    private static final String  CASING_STYLE_ATTR             = "casingStyle";
+    private static final String  VALIDATION                    = "validation";
+    private static final String  CODE_ATTR                     = "code";
+    private static final String  SCALE_ATTR                    = "scale";
+    private static final String  TOUCH_RADIUS_ATTR             = "touchRadius";
+    private static final String  ZOOM_ATTR                     = "zoom";
+    private static final String  TYPE_ATTR                     = "type";
+    private static final String  FORMAT_ATTR                   = "format";
+    private static final String  NAME_ATTR                     = "name";
+    private static final String  DESCRIPTION_ATTR              = "description";
+    private static final String  VERSION_ATTR                  = "version";
+    private static final String  TAGS_ATTR                     = "tags";
+    private static final String  LABEL_KEY_ATTR                = "labelKey";
+    private static final String  LABEL_ZOOM_LIMIT_ATTR         = "labelZoomLimit";
+    private static final String  ICON_PATH_ATTR                = "iconPath";
+    private static final String  PRESET                        = "preset";
+    private static final String  OFFSET_ATTR                   = "offset";
+    private static final String  TEXT_COLOR_ATTR               = "textColor";
 
-    private static final int  DEFAULT_MIN_VISIBLE_ZOOM     = 15;
-    public static final float DEFAULT_GPX_STROKE_WIDTH     = 4.0f;
-    public static final float DEFAULT_GEOJSON_STROKE_WIDTH = 3.0f;
+    private static final int     DEFAULT_MIN_VISIBLE_ZOOM      = 15;
+    public static final float    DEFAULT_GPX_STROKE_WIDTH      = 4.0f;
+    public static final float    DEFAULT_GEOJSON_STROKE_WIDTH  = 3.0f;
 
     public class FeatureStyle {
 
@@ -188,7 +189,7 @@ public final class DataStyle extends DefaultHandler {
         private int                       labelZoomLimit = Integer.MAX_VALUE;
         private int                       textColor;
 
-        List<FeatureStyle> cascadedStyles = null;
+        List<FeatureStyle>                cascadedStyles = null;
 
         class DashPath {
             float[] intervals;
@@ -204,7 +205,7 @@ public final class DataStyle extends DefaultHandler {
         FeatureStyle(@NonNull String tagString, @Nullable Paint p) {
             tags = new HashMap<>();
             String[] tagsList = tagString.split("\\|");
-            for (String t : tagsList) {
+            for (String t:tagsList) {
                 String[] kv = t.split("=");
                 if (kv.length == 2) {
                     tags.put(kv[0], kv[1]);
@@ -236,8 +237,7 @@ public final class DataStyle extends DefaultHandler {
         }
 
         /**
-         * Construct a new FestureStyle with tags set to tags and the other values, with the exception of
-         * cascadedStyles, set from the provided style
+         * Construct a new FestureStyle with tags set to tags and the other values, with the exception of cascadedStyles, set from the provided style
          * 
          * @param tags the tags
          * @param fp the style to copy
@@ -473,7 +473,7 @@ public final class DataStyle extends DefaultHandler {
          * @return true if all tags are present in element tags
          */
         public boolean match(@NonNull SortedMap<String, String> elementTags) {
-            for (Entry<String, String> tag : tags.entrySet()) {
+            for (Entry<String, String> tag:tags.entrySet()) {
                 String v = elementTags.get(tag.getKey());
                 if (v == null) {
                     return false;
@@ -724,7 +724,7 @@ public final class DataStyle extends DefaultHandler {
         public String toString() {
             try {
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
+                XmlSerializer         serializer   = XmlPullParserFactory.newInstance().newSerializer();
                 serializer.setOutput(outputStream, OsmXml.UTF_8);
                 serializer.startDocument(OsmXml.UTF_8, null);
                 toXml(serializer);
@@ -745,52 +745,52 @@ public final class DataStyle extends DefaultHandler {
     FeatureStyle               wayStyles;
     FeatureStyle               relationStyles;
 
-    public static final float NODE_OVERLAP_TOLERANCE_VALUE = 10f;
+    public static final float  NODE_OVERLAP_TOLERANCE_VALUE  = 10f;
 
-    private static final int TOLERANCE_ALPHA   = 40;
-    private static final int TOLERANCE_ALPHA_2 = 128;
+    private static final int   TOLERANCE_ALPHA               = 40;
+    private static final int   TOLERANCE_ALPHA_2             = 128;
 
     /**
      * zoom level from which on we display icons and house numbers
      */
-    private static final int DEFAULT_SHOW_ICONS_LIMIT      = 15;
-    private static final int DEFAULT_SHOW_ICON_LABEL_LIMIT = DEFAULT_SHOW_ICONS_LIMIT + 5;
+    private static final int   DEFAULT_SHOW_ICONS_LIMIT      = 15;
+    private static final int   DEFAULT_SHOW_ICON_LABEL_LIMIT = DEFAULT_SHOW_ICONS_LIMIT + 5;
 
     /**
      * GPS arrow
      */
-    private Path orientationPath = new Path();
+    private Path               orientationPath               = new Path();
 
     /**
      * Crosshairs
      */
-    private Path crosshairsPath = new Path();
+    private Path               crosshairsPath                = new Path();
 
     /**
      * X
      */
-    private Path xPath = new Path();
+    private Path               xPath                         = new Path();
 
     /**
      * Direction arrow
      */
-    private Path directionArrowPath = new Path();
+    private Path               directionArrowPath            = new Path();
 
     /**
      * Arrow indicating the direction of one-way streets. Set/updated in updateStrokes
      */
-    public static final Path WAY_DIRECTION_PATH = new Path();
+    public static final Path   WAY_DIRECTION_PATH            = new Path();
 
-    private float nodeToleranceValue;
-    private float wayToleranceValue;
-    private float largDragToleranceRadius;
-    private float minLenForHandle;
-    private int   iconZoomLimit;
-    private int   iconLabelZoomLimit;
+    private float              nodeToleranceValue;
+    private float              wayToleranceValue;
+    private float              largDragToleranceRadius;
+    private float              minLenForHandle;
+    private int                iconZoomLimit;
+    private int                iconLabelZoomLimit;
 
-    private String iconDirPath;
+    private String             iconDirPath;
 
-    private final Context ctx;
+    private final Context      ctx;
 
     /**
      * Create minimum default style
@@ -852,8 +852,8 @@ public final class DataStyle extends DefaultHandler {
         baseWayStyle.getPaint().setStrokeCap(Cap.ROUND);
         baseWayStyle.getPaint().setStrokeJoin(Join.ROUND);
 
-        FeatureStyle fp = new FeatureStyle(PROBLEM_WAY, standardPath);
-        int problemColor = ContextCompat.getColor(ctx, R.color.problem);
+        FeatureStyle fp           = new FeatureStyle(PROBLEM_WAY, standardPath);
+        int          problemColor = ContextCompat.getColor(ctx, R.color.problem);
         fp.setColor(problemColor);
         fp.setWidthFactor(1.5f);
         internalStyles.put(PROBLEM_WAY, fp);
@@ -1273,7 +1273,7 @@ public final class DataStyle extends DefaultHandler {
     /**
      * vars for the XML parser
      */
-    private FeatureStyle tempFeatureStyle;
+    private FeatureStyle        tempFeatureStyle;
 
     String                      tags           = null;
     String                      type           = null;
@@ -1398,13 +1398,23 @@ public final class DataStyle extends DefaultHandler {
                 }
 
                 String arrowStyle = atts.getValue(ARROW_STYLE_ATTR);
-                if (arrowStyle != null) {
-                    tempFeatureStyle.setArrowStyle(internalStyles.get(arrowStyle));
+                if (!Util.isEmpty(arrowStyle)) {
+                    final FeatureStyle arrowStyleFeature = internalStyles.get(arrowStyle);
+                    if (arrowStyleFeature != null) {
+                        tempFeatureStyle.setArrowStyle(arrowStyleFeature);
+                    } else {
+                        Log.e(DEBUG_TAG, getName() + " missing feature style for arrow " + arrowStyle);
+                    }
                 }
 
                 String casingStyle = atts.getValue(CASING_STYLE_ATTR);
-                if (casingStyle != null) {
-                    tempFeatureStyle.setCasingStyle(internalStyles.get(casingStyle));
+                if (!Util.isEmpty(casingStyle)) {
+                    final FeatureStyle casingStyleFeature = internalStyles.get(casingStyle);
+                    if (casingStyleFeature != null) {
+                        tempFeatureStyle.setCasingStyle(casingStyleFeature);
+                    } else {
+                        Log.e(DEBUG_TAG, getName() + " missing feature style for casing " + casingStyle);
+                    }
                 }
 
                 tempFeatureStyle.setCheckOneway(atts.getValue(ONEWAY_ATTR) != null);
@@ -1742,7 +1752,7 @@ public final class DataStyle extends DefaultHandler {
     static FeatureStyle matchRecursive(@NonNull FeatureStyle style, @NonNull SortedMap<String, String> tags, boolean closed) {
         FeatureStyle result = style;
         if (style.cascadedStyles != null) {
-            for (FeatureStyle s : style.cascadedStyles) {
+            for (FeatureStyle s:style.cascadedStyles) {
                 if ((s.closed == null || s.closed == closed) && s.match(tags)) {
                     return matchRecursive(s, tags, closed);
                 }
