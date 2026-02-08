@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<profile name="No path patterns" format="0.3.3"  description="Style for Android 8.0 and earlier" version="1.0">
+<profile name="No path patterns" format="0.3.3"  description="Style for Android 8.0 and earlier" version="1.0.1">
     <!-- Assorted config -->
     <config type="min_handle_length" length="200.0" />
     <config type="icon_zoom_limit" zoom="15" />
@@ -195,6 +195,13 @@
     <feature type="way" tags="tourism" closed="true" iconPath="preset" labelKey="name"/>
     <feature type="motorway_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
     <feature type="motorway_bridge_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
+        <dash phase="1.0">
+            <interval length="2.0" />
+            <interval length="2.0" />
+        </dash>
+    </feature>
+    <feature type="trunk_casing" updateWidth="true" widthFactor="2.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="trunk_bridge_casing" updateWidth="true" widthFactor="2.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
         <dash phase="1.0">
             <interval length="2.0" />
             <interval length="2.0" />
@@ -397,7 +404,7 @@
             </feature>
         </feature>
         <feature type="way" tags="highway=unclassified" widthFactor="1.0" color="ffCCCCCC" casingStyle="unclassified_casing" >
-            <feature type="way" tags="bridge=yes" casingStyle="unclassifies_bridge_casing" />
+            <feature type="way" tags="bridge=yes" casingStyle="unclassified_bridge_casing" />
             <feature type="way" tags="tunnel=yes" casingStyle="">
                 <dash phase="1.0">
                     <interval length="1.0" />
