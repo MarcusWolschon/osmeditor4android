@@ -5,6 +5,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -26,6 +27,8 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.search.Search;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.KeyboardShortcut;
+import de.blau.android.util.KeyboardShortcut.MetaKey;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -74,6 +77,16 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
             }
         }.execute();
         undoListener = main.new UndoListener();
+
+        actionMap.put(KeyboardShortcut.ACTION_TAGEDIT,
+                new KeyboardShortcut.Action(R.string.action_tagedit, () -> main.performTagEdit(selection, false, false)));
+        actionMap.put(KeyboardShortcut.ACTION_PASTE_TAGS, new KeyboardShortcut.Action(R.string.action_paste_tags, () -> {
+            Map<String, String> tags = App.getTagClipboard(main).paste();
+            if (tags != null) {
+                main.performTagEdit(selection, false, new HashMap<>(tags), false);
+            }
+        }));
+        actionMap.put(KeyboardShortcut.ACTION_UNDO, new KeyboardShortcut.Action(R.string.action_undo, () -> undoListener.onClick(null)));
     }
 
     /**
@@ -328,17 +341,5 @@ public class MultiSelectActionModeCallback extends EasyEditActionModeCallback {
         Log.d(DEBUG_TAG, "onBackPressed");
         deselectOnExit = true;
         return super.onBackPressed(); // call the normal stuff
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
-            main.performTagEdit(selection, false, false);
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_undo)) {
-            undoListener.onClick(null);
-            return true;
-        }
-        return super.processShortcut(c);
     }
 }

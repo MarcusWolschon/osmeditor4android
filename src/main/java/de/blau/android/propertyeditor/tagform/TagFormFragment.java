@@ -88,6 +88,7 @@ import de.blau.android.search.Wrapper;
 import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ExtendedStringWithDescription;
+import de.blau.android.util.KeyboardShortcut;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.ScreenMessage;
@@ -200,6 +201,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         presetSelectedListener = (OnPresetSelectedListener) parent;
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
+
+        actionMap.put(KeyboardShortcut.ACTION_UNDO, new KeyboardShortcut.Action(R.string.action_info, () -> doRevert()));
     }
 
     @Override

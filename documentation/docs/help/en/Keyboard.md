@@ -23,11 +23,11 @@ The alphabetic menu shortcuts should be usable with `<Ctrl>` + letter.
   
   __b__ Download notes/bugs for current view (merges with existing) 
 
-  __+__ Zoom in
+  __+__ Zoom in (no modifier key)
   
   __Volume +__ Zoom in
   
-  __-__ Zoom out
+  __-__ Zoom out (no modifier key)
   
   __Volume -__ Zoom out
   
@@ -77,6 +77,10 @@ The alphabetic menu shortcuts should be usable with `<Ctrl>` + letter.
 
 ### Property editor
 
+  __k__ Keep changes and exit
+
+  __i__ Element information
+ 
   __c__ Copy
   
   __x__ Cut 

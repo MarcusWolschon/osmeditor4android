@@ -49,6 +49,7 @@ import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.KeyboardShortcut;
 import de.blau.android.util.OnTextChangedWatcher;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SearchIndexUtils;
@@ -143,6 +144,9 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         mListener = (OnPresetSelectedListener) parent;
         propertyEditorListener = (PropertyEditorListener) parent;
         editorUpdate = (EditorUpdate) parent;
+
+        actionMap.put(KeyboardShortcut.ACTION_HELP,
+                new KeyboardShortcut.Action(R.string.action_help, () -> HelpViewer.start(getActivity(), R.string.help_presets)));
     }
 
     private final class SearchResultsDisplay implements Runnable {

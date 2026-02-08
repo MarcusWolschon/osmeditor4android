@@ -53,6 +53,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.propertyeditor.RelationMembershipFragment.RelationMembershipRow;
+import de.blau.android.util.KeyboardShortcut;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ScrollingLinearLayoutManager;
@@ -163,6 +164,8 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         Fragment parent = getParentFragment();
         Util.implementsInterface(parent, PropertyEditorListener.class);
         propertyEditorListener = (PropertyEditorListener) parent;
+
+        actionMap.put(KeyboardShortcut.ACTION_UNDO, new KeyboardShortcut.Action(R.string.action_info, () -> doRevert()));
     }
 
     @Override
