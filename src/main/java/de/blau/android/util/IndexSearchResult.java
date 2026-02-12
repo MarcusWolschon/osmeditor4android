@@ -13,8 +13,8 @@ import de.blau.android.presets.PresetItem;
  *
  */
 public class IndexSearchResult {
-    int              weight; // lower better
-    final PresetItem item;
+    int                     weight; // lower better
+    public final PresetItem item;
 
     /**
      * Construct a new instance
@@ -51,7 +51,7 @@ public class IndexSearchResult {
         }
         return 0;
     };
-    
+
     @Override
     public String toString() {
         return item.getName() + " " + weight;

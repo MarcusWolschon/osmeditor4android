@@ -1,5 +1,8 @@
 package de.blau.android.presets;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -16,6 +19,7 @@ import androidx.test.filters.LargeTest;
 import de.blau.android.Main;
 import de.blau.android.ShadowWorkManager;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.util.IndexSearchResult;
 import de.blau.android.util.SearchIndexUtils;
 
 /**
@@ -59,7 +63,7 @@ public class SynonymsTest {
         List<IndexSearchResult> results = s.search(ApplicationProvider.getApplicationContext(), "petrol", null, 2);
         boolean found = false;
         for (IndexSearchResult isr : results) {
-            PresetTagField field = isr.getItem().getField("vending");
+            PresetTagField field = isr.item.getField("vending");
 
             if (field instanceof PresetFixedField) {
                 // we should not have any fixed tags with vending just the regular vending machine preset
