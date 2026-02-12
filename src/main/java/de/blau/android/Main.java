@@ -2332,7 +2332,7 @@ public class Main extends ConfigurationChangeAwareActivity
             return true;
         case R.id.menu_transfer_export:
             descheduleAutoLock();
-            saveOscFile(this, delegator, prefs);
+            saveAugmentedDiff(this, delegator, prefs);
             return true;
         case R.id.menu_transfer_apply_osc_file:
             descheduleAutoLock();
@@ -2660,6 +2660,31 @@ public class Main extends ConfigurationChangeAwareActivity
             @Override
             public boolean save(FragmentActivity currentActivity, Uri fileUri) {
                 SavingHelper.asyncExport(currentActivity, delegator, fileUri);
+                SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                return true;
+            }
+        });
+    }
+    
+    /**
+     * Show the file picker and save current changes to an osmChanges file
+     * 
+     * @param activity a FragmentActivity
+     * @param delegator a StorageDelegator instance
+     * @param prefs current Preferences
+     */
+    public static void saveAugmentedDiff(@NonNull FragmentActivity activity, @NonNull final StorageDelegator delegator, @NonNull Preferences prefs) {
+        SelectFile.save(activity, null, R.string.config_osmPreferredDir_key, new SaveFile() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                try {
+                    delegator.exportAugmentedDiff(currentActivity.getContentResolver().openOutputStream(fileUri));
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                 return true;
             }

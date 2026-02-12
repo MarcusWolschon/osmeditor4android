@@ -121,6 +121,11 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
         toXml(s, null, true);
     }
 
+    @Override
+    public void toAugmentedXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        toXml(s, null, false);
+    }
+
     /**
      * Generate XML format OSM files
      * 
@@ -135,10 +140,20 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
             throws IllegalArgumentException, IllegalStateException, IOException {
         s.startTag("", NAME);
         attributesToXml(s, changeSetId, josm);
+        if (!isDeleted()) {
+            coordToXmlAttr(s, lat, lon);
+            tagsToXml(s);
+        }
+        s.endTag("", NAME);
+    }
+
+    /**
+     * @param s
+     * @throws IOException
+     */
+    public static void coordToXmlAttr(final XmlSerializer s, int lat, int lon) throws IOException {
         s.attribute("", LAT_ATTR, BigDecimal.valueOf(lat).scaleByPowerOfTen(-COORDINATE_SCALE).stripTrailingZeros().toPlainString());
         s.attribute("", LON_ATTR, BigDecimal.valueOf(lon).scaleByPowerOfTen(-COORDINATE_SCALE).stripTrailingZeros().toPlainString());
-        tagsToXml(s);
-        s.endTag("", NAME);
     }
 
     @Override

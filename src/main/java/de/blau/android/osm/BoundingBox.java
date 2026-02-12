@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -26,11 +28,12 @@ import de.blau.android.util.rtree.BoundedObject;
  * @author mb
  * @author Simon Poole
  */
-public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedObject {
+public class BoundingBox implements Serializable, XmlSerializable, JosmXmlSerializable, BoundedObject {
 
     private static final long serialVersionUID = -2708721312405863618L;
 
-    private static final String DEBUG_TAG = BoundingBox.class.getSimpleName().substring(0, Math.min(23, BoundingBox.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, BoundingBox.class.getSimpleName().length());
+    private static final String DEBUG_TAG = BoundingBox.class.getSimpleName().substring(0, TAG_LEN);
 
     static final String MINLAT_ATTR = "minlat";
     static final String MINLON_ATTR = "minlon";
@@ -522,9 +525,20 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     @Override
+    public void toXml(XmlSerializer s, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+        toXml(s, false);
+    }
+
+    @Override
     public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        toXml(s, true);
+    }
+
+    private void toXml(final XmlSerializer s, boolean josm) throws IllegalArgumentException, IllegalStateException, IOException {
         s.startTag("", BOUNDS_TAG);
-        s.attribute("", ORIGIN_ATTR, "");
+        if (josm) {
+            s.attribute("", ORIGIN_ATTR, "");
+        }
         s.attribute("", MAXLON_ATTR, Double.toString((right / 1E7)));
         s.attribute("", MAXLAT_ATTR, Double.toString((top / 1E7)));
         s.attribute("", MINLON_ATTR, Double.toString((left / 1E7)));

@@ -4252,12 +4252,15 @@ public class Logic {
             @Override
             protected Integer doInBackground(Void arg) {
                 int result = 0;
+                final StorageDelegator delegator = getDelegator();
                 try (OutputStream out = new BufferedOutputStream(fout)) {
-                    OsmXml.write(getDelegator().getCurrentStorage(), getDelegator().getApiStorage(), out, App.getUserAgent());
+                    delegator.lock();
+                    OsmXml.write(delegator.getCurrentStorage(), delegator.getApiStorage(), out, App.getUserAgent());
                 } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException | IOException e) {
                     result = ErrorCodes.FILE_WRITE_FAILED;
                     Log.e(DEBUG_TAG, "Problem writing", e);
                 } finally {
+                    delegator.unlock();
                     SavingHelper.close(fout);
                 }
                 return result;
@@ -4266,14 +4269,6 @@ public class Logic {
             @Override
             protected void onPostExecute(Integer result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_SAVING);
-                Map mainMap = activity instanceof Main ? ((Main) activity).getMap() : null;
-                if (mainMap != null) {
-                    try {
-                        viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
-                    } catch (OsmException e) {
-                        Log.d(DEBUG_TAG, "writeOsmFile got " + e.getMessage());
-                    }
-                }
                 if (result == 0) {
                     if (postSaveHandler != null) {
                         postSaveHandler.onSuccess();

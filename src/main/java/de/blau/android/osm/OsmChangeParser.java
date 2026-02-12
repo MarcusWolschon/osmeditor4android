@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,8 @@ import de.blau.android.tasks.OsnParser;
  */
 public class OsmChangeParser extends OsmParser {
 
-    private static final String DEBUG_TAG = OsmChangeParser.class.getSimpleName().substring(0, Math.min(23, OsmChangeParser.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OsmChangeParser.class.getSimpleName().length());
+    private static final String DEBUG_TAG = OsmChangeParser.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * Place holder for a node referenced by a way, but not in the OsmChange file
@@ -117,7 +120,7 @@ public class OsmChangeParser extends OsmParser {
      * @return the OsmElement state
      * @throws OsmParseException if the action is unknown
      */
-    private byte action2state(@NonNull String action) throws OsmParseException {
+    protected static byte action2state(@NonNull String action) throws OsmParseException {
         switch (action) {
         case OsmXml.CREATE:
             return OsmElement.STATE_CREATED;
