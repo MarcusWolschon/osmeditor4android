@@ -1,5 +1,17 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.2.3.0:
+
+- Fix TagFilterActivity crashes when starting split window mode
+- Fix remove unnecessary nested lock
+- Fix add missing trunk casing and fix typos in data styles
+- Fix correctly support insets and get rid of bogus error message in preference activities
+- Fix improve handling of synonyms that refer to "two level" presets
+- Update geocontext
+- Update translations
+- Update imagery from ELI
+- Update default preset
+
 21.2.2.0:
 
 - Fix protect properly against current node not being found
