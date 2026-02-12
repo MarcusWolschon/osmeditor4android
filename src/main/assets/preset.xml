@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.95.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.96.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -824,7 +824,7 @@
         <combo key="fast_food" text="Fast food service" values="cafeteria,yes" display_values="Cafeteria,Yes"/> 
     </chunk>
     <chunk id="cuisine">
-        <multiselect key="cuisine" text="Cuisine" values_searchable="true" match="key">
+        <multiselect key="cuisine" text="Cuisine" values_searchable="true" match="key" values_context="cuisine">
             <list_entry value="african" display_value="African"/>
             <list_entry value="american" display_value="American"/>
             <list_entry value="arab" display_value="Arab"/>
@@ -1501,6 +1501,10 @@
     <chunk id="maxweight">
         <text key="maxweight" text="Max. weight (tonnes)" match="key"/>
     </chunk>
+    <chunk id="vehicle_maxweight">
+        <text key="maxweight" text="Max. actual vehical weight (tonnes)" match="key" exclude_regions="true" regions="FR"/>
+        <text key="maxweightrating" text="Max. rated vehical weight (tonnes)" match="key"/>
+    </chunk>
     <chunk id="enforcement_roles">
         <roles>
             <role key="device" text="location of enforcement device" requisite="required" type="node,way,closedway"/>
@@ -1516,7 +1520,7 @@
             <space/>
             <reference ref="maxspeed"/>
             <space/>
-            <reference ref="maxweight"/>
+            <reference ref="vehicle_maxweight"/>
             <reference ref="incline"/>
             <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
             <check key="toll" text="Toll" disable_off="true"/>
@@ -3406,6 +3410,9 @@
         <item name="Advanced stop line" icon="icons/png/asl.png" type="node" preset_name_label="true">
             <link wiki="Tag:cycleway=asl"/>
             <key key="cycleway" value="asl" object="true"/>
+            <optional>
+                <combo key="direction" text="Direction" values="forward,backward" display_values="Forward,Backward" values_sort="false"/>
+            </optional>
         </item> <!-- Advanced stop line -->
         <item name="Mini-Roundabout" icon="icons/png/transport_miniroundabout_clockwise.png" type="node" preset_name_label="true">
             <link wiki="Tag:highway=mini_roundabout"/>
@@ -4276,7 +4283,7 @@
         <item name="Physical restrictions" icon="icons/png/maximum_width.png" type="node,way,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Key:access"/>
             <space/>
-            <reference ref="maxweight"/>
+            <reference ref="vehicle_maxweight"/>
             <text key="maxaxleload" text="Max. axle load (tonnes)" match="key"/>
             <text key="maxheight" text="Max. height (meters)" match="key" value_type="dimension_vertical"/>
             <text key="maxwidth" text="Max. width (meters)" match="key" value_type="dimension_horizontal"/>
@@ -11571,7 +11578,7 @@
             <multiselect key="observatory:type" text="Obervatory type" values_searchable="true">
                 <list_entry value="astronomical" short_description="Astronomical"/>
                 <list_entry value="meteorological" short_description="Meteorological"/>
-                <list_entry value="gravitational" short_description="gravitational"/>
+                <list_entry value="gravitational" short_description="Gravitational"/>
             </multiselect>
             <reference ref="name_wikipedia"/>
         </item> <!-- Observatory -->
@@ -13883,7 +13890,7 @@
             <check key="payment:bankaxept" text="BankAxept" match="keyvalue" disable_off="true"/>
             <check key="payment:girocard" text="Girocard" match="keyvalue" disable_off="true"/>
             <check key="payment:gpn_debit" text="GPN" match="keyvalue" disable_off="true"/>
-            <check key="payment:laser" text="Laser" match="keyvalue" disable_off="true"/>
+            <check key="payment:laser" text="Laser" match="keyvalue" disable_off="true" deprecated="true"/>
             <check key="payment:maestro" text="Maestro" match="keyvalue" disable_off="true"/>
             <check key="payment:postfinance_card" text="PostFinance Card (ch)" match="keyvalue" disable_off="true" regions="CH"/>
             <check key="payment:v_pay" text="V Pay" match="keyvalue" disable_off="true"/>
@@ -13908,16 +13915,16 @@
         <space/>
         <check key="payment:electronic_purses" text="Electronic purses" match="keyvalue"/>
         <checkgroup text="Electronic purses type" columns="4">
-            <check key="payment:ep_avant" text="Avant (fi)" match="keyvalue" disable_off="true" regions="FI"/>
+            <check key="payment:ep_avant" text="Avant (fi)" match="keyvalue" disable_off="true" regions="FI" deprecated="true"/>
             <check key="payment:ep_beep" text="Beep" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_brizzi" text="BRIZZI" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_bsbcash" text="BSB Cash" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_flazz" text="Flazz" match="keyvalue" disable_off="true"/>
-            <check key="payment:ep_geldkarte" text="Geldkarte (de)" match="keyvalue" disable_off="true" regions="DE"/>
+            <check key="payment:ep_geldkarte" text="Geldkarte (de)" match="keyvalue" disable_off="true" regions="DE" deprecated="true"/>
             <check key="payment:ep_mandiri_emoney" text="Mandiri e-money" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_megacash" text="MEGACASH" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_mep" text="Mep (pt)" match="keyvalue" disable_off="true" regions="PT"/>
-            <check key="payment:ep_minicash" text="Minicash (lu)" match="keyvalue" disable_off="true" regions="LU"/>
+            <check key="payment:ep_minicash" text="Minicash (lu)" match="keyvalue" disable_off="true" regions="LU" deprecated="true"/>
             <check key="payment:ep_minipay" text="Minipay (it)" match="keyvalue" disable_off="true" regions="IT"/>
             <check key="payment:ep_monedero" text="Mondero (ar)" match="keyvalue" disable_off="true" deprecated="true"/>
             <check key="payment:ep_monedero4b" text="Mondero 4b (es)" match="keyvalue" disable_off="true" regions="ES"/>
@@ -15497,17 +15504,52 @@
                     <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
                 </roles>
             </item> <!-- Detour Route -->
-            <item name="Power Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
-                <link wiki="Tag:route=power"/>
-                <space/>
-                <key key="type" value="route"/>
-                <key key="route" value="power"/>
-                <reference ref="name_ref_operator"/>
-                <roles>
-                    <role key="line" text="route segment" requisite="required" type="way" member_expression="power=line|power=cable"/>
-                    <role key="substation" text="Power Substation" requisite="optional" type="way,closedway,multipolygon" member_expression="power"/>
-                </roles>
-            </item> <!-- Power Route -->
+            <group name="Power" icon="icons/png/power_station_coal.png">
+                <item name="Power Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" deprecated="true">
+                    <link wiki="Tag:route=power"/>
+                    <space/>
+                    <key key="type" value="route"/>
+                    <key key="route" value="power"/>
+                    <reference ref="name_ref_operator"/>
+                    <roles>
+                        <role key="line" text="route segment" requisite="required" type="way" member_expression="power=line|power=cable"/>
+                        <role key="substation" text="Power Substation" requisite="optional" type="way,closedway,multipolygon" member_expression="power"/>
+                    </roles>
+                </item> <!-- Power Route -->
+                <item name="Power circuit" icon="icons/png/power_tower_high2.png" type="relation" preset_name_label="true">
+                    <link wiki="Tag:power=circuit"/>
+                    <space/>
+                    <key key="type" value="power"/>
+                    <key key="power" value="circuit"/>
+                    <space/>
+                    <reference ref="cables"/>
+                    <reference ref="voltage_frequency"/>
+                    <combo key="topology" text="Circuit topology" values="linear,branched" display_values="Linear,Branched"/>
+                    <optional>
+                        <reference ref="name_ref_operator"/>
+                    </optional>
+                    <roles>
+                        <role key="substation" text="Power Substation" requisite="required" type="way,closedway,multipolygon" member_expression="power|substation"/>
+                        <role key="section" text="Circuit section" requisite="required" type="way,relation" member_expression="power=line|power=cable|power=minor_line|power=line_section"/>
+                        <role key="tap" text="Tap point" requisite="optional" type="node" member_expression="power=pole|power=tower|power=connection"/>
+                    </roles>
+                </item> <!-- Power circuit -->
+                <item name="Power line section" icon="icons/png/power_tower_high2.png" type="relation" preset_name_label="true">
+                    <link wiki="Tag:power=line_section"/>
+                    <space/>
+                    <key key="type" value="power"/>
+                    <key key="power" value="line_section"/>
+                    <space/>
+                    <reference ref="cables"/>
+                    <reference ref="voltage_frequency"/>
+                    <optional>
+                        <reference ref="name_ref_operator"/>
+                    </optional>
+                    <roles>
+                        <role key="line" text="Section segment" requisite="required" type="way" member_expression="power=line|power=cable|power=minor_line"/>
+                    </roles>
+                </item> <!-- Power circuit -->
+            </group>
             <item name="Pipeline route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
                 <link wiki="Tag:route=pipeline"/>
                 <space/>
@@ -15547,7 +15589,19 @@
                 <link wiki="Relation:superroute"/>
                 <space/>
                 <key key="type" value="superroute"/>
-                <combo key="route" text="Type" values="bicycle,detour,foot,hiking,horse,mtb,piste,power,railway,road,ski" display_values="Bicycle route,Detour route,Walking route,Hiking route,Riding route,Mountain bike route,Piste route,Power route,Railway route,Road route,Ski route"/>
+                <combo key="route" text="Type">
+                     <list_entry value="bicycle" display_value="Bicycle route"/>
+                     <list_entry value="detour" display_value="Detour route"/>
+                     <list_entry value="foot" display_value="Walking route"/>
+                     <list_entry value="hiking" display_value="Hiking route"/>
+                     <list_entry value="horse" display_value="Riding route"/>
+                     <list_entry value="mtb" display_value="Mountain bike route"/>
+                     <list_entry value="piste" display_value="Piste route"/>
+                     <list_entry value="power" display_value="Power route" deprecated="true"/>
+                     <list_entry value="railway" display_value="Railway route"/>
+                     <list_entry value="road" display_value="Road route"/>
+                     <list_entry value="ski" display_value="Ski route"/>
+                </combo>
                 <reference ref="name_ref_operator"/>
                 <roles>
                     <role key="" text="Route segment" requisite="required" type="relation" member_expression="type=route"/> <!-- fixme: at least 2 members are required -->
@@ -16665,7 +16719,7 @@
             <!-- originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
                  before the PropertyEditor was started, tags are the current values, by removing the key at the
                  end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
-            <text key="set_to_abandoned" javascript=" var objects = ['amenity','aerialway''aeroway','bridge','building','highway','leisure','man_made','military','place','railway','shop','tourism'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('abandoned:'+key,tags.get(key));     tags.remove(key);   } } tags.remove('set_to_abandoned');"/>
+            <text key="set_to_abandoned" javascript=" var objects = ['amenity','aerialway','aeroway','bridge','building','highway','leisure','man_made','military','place','railway','shop','tourism'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('abandoned:'+key,tags.get(key));     tags.remove(key);   } } tags.remove('set_to_abandoned');"/>
         </item>
         <item name="Set to abandoned (remove tags)" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
             <link wiki="Key:abandoned:"/>
@@ -16673,7 +16727,7 @@
                  originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
                  before the PropertyEditor was started, tags are the current values, by removing the key at the
                  end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
-            <text key="set_to_abandoned_remove_tags" javascript=" var objects = ['amenity','aerialway''aeroway','bridge','building','highway','leisure','man_made','military','place','railway','shop','tourism'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  var presetItem = null; for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('abandoned:'+key,tags.get(key));     presetItem = key2PresetItem.get(key);     tags.remove(key);   }   if (typeof versionCode !== 'undefined' &amp;&amp; versionCode &gt; 703) {     if (presetItem !== null &amp;&amp; presetItem.equals(key2PresetItem.get(key))) {       tags.remove(key);     }   } } tags.remove('set_to_abandoned_remove_tags');"/>
+            <text key="set_to_abandoned_remove_tags" javascript=" var objects = ['amenity','aerialway','aeroway','bridge','building','highway','leisure','man_made','military','place','railway','shop','tourism'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  var presetItem = null; for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('abandoned:'+key,tags.get(key));     presetItem = key2PresetItem.get(key);     tags.remove(key);   }   if (typeof versionCode !== 'undefined' &amp;&amp; versionCode &gt; 703) {     if (presetItem !== null &amp;&amp; presetItem.equals(key2PresetItem.get(key))) {       tags.remove(key);     }   } } tags.remove('set_to_abandoned_remove_tags');"/>
         </item>
         <item name="Abandoned amenity" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:abandoned:"/>
@@ -16754,7 +16808,7 @@
                  originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
                  before the PropertyEditor was started, tags are the current values, by removing the key at the
                  end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
-            <text key="set_to_demolished_remove_tags" javascript=" var objects = ['building', 'highway','power'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  var presetItem = null; for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('demolished:'+key,tags.get(key));     presetItem = key2PresetItem.get(key);     tags.remove(key);   }   if (typeof versionCode !== 'undefined' &amp;&amp; versionCode &gt; 703) {     if (presetItem !== null &amp;&amp; presetItem.equals(key2PresetItem.get(key))) {       tags.remove(key);     }   } } tags.remove('set_to_demolished_remove_tags');"/>
+            <text key="set_to_demolished_remove_tags" javascript=" var objects = ['building','highway','power'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  var presetItem = null; for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('demolished:'+key,tags.get(key));     presetItem = key2PresetItem.get(key);     tags.remove(key);   }   if (typeof versionCode !== 'undefined' &amp;&amp; versionCode &gt; 703) {     if (presetItem !== null &amp;&amp; presetItem.equals(key2PresetItem.get(key))) {       tags.remove(key);     }   } } tags.remove('set_to_demolished_remove_tags');"/>
         </item>
         <item name="Demolished building" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:demolished:"/>
