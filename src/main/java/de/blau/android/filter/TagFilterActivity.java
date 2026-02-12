@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -447,6 +448,15 @@ public class TagFilterActivity extends ListActivity {
             this.filter = filter;
             notifyDataSetChanged();
 
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (mCursor.isClosed()) {
+                Log.w(DEBUG_TAG, "cursor closed, recreating");
+                updateAdapter(TagFilterDatabaseHelper.getCurrent(db));
+            }
+            return super.getView(position, convertView, parent);
         }
 
         @Override
