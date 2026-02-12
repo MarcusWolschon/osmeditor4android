@@ -49,6 +49,9 @@
   <!--Upload retry-->
   <string name="upload_retry_title">Nahrání se nezdařilo</string>
   <string name="upload_retry_message_nothing_uploaded">Žádné změny nebyly nahrány v rámci sady změn %1$d.\n\nJe bezpečné zkusit to znovu.</string>
+  <string name="upload_retry_message_update_failed">Nelze aktualizovat data. Doporučujeme uložit změny do souboru pro pozdější použití.</string>
+  <string name="redownload">Opětovné stažení (nelze vrátit zpět)</string>
+  <string name="update_data">Aktualizovat místní data (nelze vrátit zpět)</string>
   <string name="save_changes">Uložit změny</string>
   <string name="upload_retry_issue">Problém: %1$s</string>
   <!---->
@@ -65,6 +68,7 @@
   <string name="not_found_message">API nenašlo žádný prvek nebo sadu změn se zadaným id.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Neznámá chyba</string>
   <string name="unknown_error_message">API odpovědělo chybou nebo zprávou, kterou nelze zpracovat.&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_http_code_message">Kód chyby HTTP: %1$d&lt;br&gt;Chybová zpráva:&lt;br&gt;&lt;br&gt;%2$s</string>
   <string name="no_data_title">Žádná data</string>
   <string name="no_data_message">Nastavený zdroj dat zde nemá pokrytí.</string>
   <string name="required_feature_missing_title">Chybějící nebo deaktivovaná komponenta</string>
@@ -96,6 +100,8 @@
   <string name="download_limit_message">Prosím počkejte, než se pokusíte stáhnout více dat.</string>
   <string name="upload_limit_title">Limity nahrávání překročeny</string>
   <string name="upload_limit_message">Vyčerpal jste svůj aktuální povolený limit pro nahrávání, prosím, počkejte před dalším pokusem.</string>
+  <string name="upload_unavailable_title">Služba není k dispozici</string>
+  <string name="upload_unavailable_message">Služba je pravděpodobně dočasně nedostupná, počkejte prosím a zkuste to znovu.</string>
   <string name="duplicate_tag_key_title">Duplicitní klíče</string>
   <string name="duplicate_tag_key_message">Přidali jste následující klíč více než jednou, než budete moci pokračovat, budete muset vyřešit:</string>
   <string name="autodownload_has_been_paused">Automatické stahování bylo pozastaveno.</string>
@@ -104,6 +110,9 @@
 &lt;br&gt;&lt;br&gt;Rozdělte prosím své změny do více menších sad změn. 
 Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajete je samostatně.</string>
   <string name="upload_way_needs_one_node_title">Cesta vyžaduje alespoň jeden uzel</string>
+  <string name="upload_way_needs_one_node_message">Cesta, kterou jste se pokusili nahrát, nemá žádné uzly. To by se nemělo stát a cesta byla nyní smazána, abyste mohli pokus zopakovat. Otevřete prosím problém pomocí formuláře pro zpětnou vazbu a samostatně odešlete výpis paměti.</string>
+  <string name="attempt_to_add_too_many_way_nodes_title">Pokus o přidání příliš mnoha uzlů cesty</string>
+  <string name="attempt_to_add_too_many_way_nodes_message">Operace by vytvořila cestu, která obsahuje více než maximální počet uzlů cesty. Přidejte méně uzlů nebo rozdělte cestu na vhodném místě.</string>
   <!---->
   <string name="select_file_picker_title">Vyberte soubor pro výběr</string>
   <!--Newbie dialog-->
@@ -153,6 +162,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="progress_message">Načítam data do paměti…</string>
   <string name="progress_download_message">Stahuji data ze serveru…</string>
   <string name="progress_download_tasks_message">Stahování úkolů ze serverů...</string>
+  <string name="progress_download_sequence_message">Stahování sekvence ze serveru…</string>
   <string name="progress_general_title">Čekejte prosím</string>
   <string name="progress_deleting_message">Mazání...</string>
   <string name="progress_searching_message">Prohledávání…</string>
@@ -166,6 +176,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="progress_query_oam">Dotazování OAM…</string>
   <string name="progress_pruning">Ořezávání...</string>
   <string name="progress_migration">Migrace...</string>
+  <string name="progress_determining_status_message">Určování stavu…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" smazáno</string>
   <string name="changes_changed">\"%1$s\" změněno</string>

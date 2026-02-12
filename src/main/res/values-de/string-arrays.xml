@@ -83,8 +83,8 @@
     <string name="licence_cc_zero">Creative Commons Zero</string>
     <string name="licence_pd">Public Domain</string>
     <string name="licence_gpl">GNU General Public License</string>
-    <string name="licence_mit">MIT License</string>
-    <string name="licence_bsd">BSD License</string>
+    <string name="licence_mit">MIT-Lizenz</string>
+    <string name="licence_bsd">BSD-Lizenz</string>
     <string name="licence_cc_by_4_short">CC BY 4.0</string>
     <string name="licence_cc_by_3_short">CC BY 3.0</string>
     <string name="licence_cc_by_sa_4_short">CC BY-SA 4.0</string>

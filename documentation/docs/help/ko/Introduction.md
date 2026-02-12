@@ -2,7 +2,7 @@ _Before we start: most screens have links in the menu to the on-device help syst
 
 # Vespucci 소개
 
-Vespucci는 여러 데스크톱 편집기에서 제공하는 대부분의 작업을 지원하는 완전한 기능의 OpenStreetMap 편집기입니다. 이것은 성공적으로 구글의 안드로이드 버전 2.3에서 14.0까지(4.1 이전 버전은 더 이상 지원되지 않습니다.) 그리고 다양한 AOSP 기반 OS에서 테스트 되었습니다. 주의해야 할 점은 모바일 장치 기능이 데스크톱 경쟁자를 따라 잡았지만, 특히 구형 장치들은 사용 가능한 메모리가 매우 제한되어 있고 비교적 느린 경향이 있다는 점입니다. Vespucci를 사용할 때는 이것을 고려해야 합니다. 예를 들어 편집하려는 영역의 크기를 적절한 크기로 유지해야 합니다.
+Vespucci는 여러 데스크톱 편집기에서 제공하는 대부분의 작업을 지원하는 완전한 기능의 OpenStreetMap 편집기입니다. 이것은 구글의 안드로이드 버전 2.3에서 14.0까지(4.1 이전 버전은 더 이상 지원되지 않습니다.) 그리고 다양한 AOSP 기반 OS에서 성공적으로 테스트 되었습니다. 주의해야 할 점은 모바일 장치의 기능이 데스크톱 경쟁자를 따라 잡았지만, 특히 구형 장치들은 사용 가능한 메모리가 매우 제한되어 있고 비교적 느린 경향이 있다는 점입니다. Vespucci를 사용할 때는 이것을 고려해야 합니다. 예를 들어 편집하려는 영역의 크기를 적절한 크기로 유지해야 합니다.
 
 ## Vespucci로 편집하기
 
@@ -50,7 +50,7 @@ A long press on the lock icon or the _Modes_ menu in the map display overflow me
 
 If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to _Address_ and _Indoor_ mode.
 
-#### 한번 탭, 두번 탭, 및 길게 누르기
+#### 한번 탭, 두번 탭, 길게 누르기
 
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
 
@@ -209,12 +209,12 @@ The OSMOSE bug and Todos display will provide a link to the affected element in 
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* 참고
+* Osmose 오류
+* Osmose 경고
+* Osmose 사소한 이슈
 * Maproulette
-* Todo
+* 할 일
 
 <a id="indoor"></a>
 

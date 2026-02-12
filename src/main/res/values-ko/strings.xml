@@ -36,6 +36,8 @@
   <!--Upload retry-->
   <string name="upload_retry_title">업로드 실패</string>
   <string name="upload_retry_message_no_open_changeset">바뀜집합을 여는데 실패했습니다.\n\n다시 시도하는 것이 안전합니다.</string>
+  <string name="upload_retry_message_nothing_uploaded">바뀜집합 %1$d에 업로드될 변경 사항이 없습니다.\n\n재시도해도 안전합니다.</string>
+  <string name="upload_retry_message_partial_upload">바뀜집합%1$d에 변경 사항이 성공적으로 업로드되었으나, 결과를 수신하지 못했습니다.</string>
   <string name="upload_retry_message_update_failed_title">업데이트 실패</string>
   <string name="upload_retry_message_update_failed">데이터를 업데이트 할 수 없습니다. 다음 번 사용을 위해 변경 사항을 파일로 저장하기를 제안 드립니다.</string>
   <string name="redownload">다시 다운로드 (되돌릴 수 없음)</string>
@@ -48,13 +50,17 @@
   <string name="no_connection_message">OSM 서버에 연결할 수 없습니다. 인터넷에 연결되었는지 확인해주시거나 다시 시도해보세요.</string>
   <string name="ssl_handshake_failed">HTTPS 협상이 실패하여 OSM 서버에 연결할 수 없습니다. API 설정에서 인증되지 않은 연결로 전환을 시도해보세요.</string>
   <string name="wrong_login_data_title">인증할 수 없음</string>
+  <string name="wrong_login_data_message"> OAuth를 사용하신다면 재인증을 하고 다시 시도해주세요. 비밀번호 로그인(권장되지 않음)을 사용하신다면 정확히 입력하였는지 확인해주세요.</string>
   <string name="wrong_login_data_re_authenticate">다시 인증</string>
   <string name="forbidden_login_title">로그인 거부됨</string>
   <string name="not_found_title">요소를 찾을 수 없습니다.</string>
   <string name="not_found_message">API가 지정된 id로 된 지물이나 바뀜집합을 찾을 수 없습니다.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">알 수 없는 오류</string>
+  <string name="unknown_error_message">API로부터 받은 오류 코드나 메시지를 처리할 수 없습니다.</string>
   <string name="unknown_http_code_message">HTTP 오류 코드: %1$d&lt;br&gt;오류 메시지:&lt;br&gt;&lt;br&gt;%2$s</string>
   <string name="no_data_title">데이터 없음</string>
+  <string name="required_feature_missing_title">찾을 수 없거나 비활성화된 구성 요소</string>
+  <string name="required_feature_missing_message">이 지물은 찾을 수 없거나 비활성화된 시스템 구성 요소에 의존합니다.</string>
   <string name="go_to_openstreetmap">openstreetmap.org으로 가세요</string>
   <string name="data_conflict_title">버전 충돌</string>
   <string name="corrupted_data_title">손상된 데이터</string>
@@ -78,7 +84,7 @@
   <string name="duplicate_tag_key_title">키 복제하기</string>
   <string name="autodownload_has_been_paused">자동 다운로드가 중지됨</string>
   <string name="upload_bounding_box_too_large_title">영역이 업로드하기 너무 큽니다.</string>
-  <string name="upload_way_needs_one_node_title">길은 최소한 하나의 점이 있어야 합니다.</string>
+  <string name="upload_way_needs_one_node_title">길에는 최소한 하나의 점이 있어야 합니다.</string>
   <string name="attempt_to_add_too_many_way_nodes_title">너무 많은 점을 길에 추가하려고 합니다</string>
   <!---->
   <string name="select_file_picker_title">읽을 파일 선택</string>
@@ -120,9 +126,11 @@
   <string name="upload_request_review_label">검토 요청:</string>
   <string name="upload_validation_error_empty_comment">댓글은 비어 있을 수 없습니다</string>
   <string name="upload_empty_comment_warning_label">댓글이 비었다면 경고</string>
+  <string name="upload_auto_summary">자동으로 생성된 요약</string>
   <string name="untagged_node">태그되지 않은 점</string>
   <string name="untagged_way">태그되지 않은 선</string>
   <string name="untagged_relation">태그되지 않은 관계</string>
+  <string name="changed_tags">%1$s개의 태그가 변경됨</string>
   <string name="moved">%1$s 이동됨</string>
   <string name="unknown_object">알 수 없는 개체</string>
   <!--Review changes dialog-->
@@ -143,8 +151,10 @@
   <string name="openstreetbug_new_nodeway">점/길 만들기</string>
   <string name="openstreetbug_edit_title">참고 편집</string>
   <string name="openstreetbug_comment_label">댓글:</string>
+  <string name="openstreetbug_not_supported">%1$s는 지원되지 않습니다.</string>
   <string name="note_description">%1$s - %2$s</string>
   <string name="bug_description_191">%1$s - %2$s</string>
+  <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
   <string name="generic_bug">버그</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_list">목록%1$s</string>
@@ -184,6 +194,8 @@
   <string name="find_message">검색어를 입력하세요</string>
   <string name="geocoder_prompt">with</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">개체 찾기</string>
+  <string name="search_objects_hint">JOSM 필터/검색 표현식 입력</string>
   <string name="search_objects_use_regexps">정규 표현식 사용</string>
   <string name="search_objects_unsupported">지원되지 않는 표현식 \"%1$s\"</string>
   <string name="search_objects_query_overpass">Overpass 질의</string>
@@ -192,6 +204,7 @@
   <string name="preset_autopreset">자동 프리셋</string>
   <string name="search">검색</string>
   <string name="no_valid_preset">유효한 프리셋이 없습니다!</string>
+  <string name="existing_track_title">기존 GPX 트랙 데이터</string>
   <!--element information dialog-->
   <string name="element_information">요소 정보</string>
   <string name="id">ID</string>
@@ -226,7 +239,7 @@
   <string name="file_size">크기</string>
   <string name="file_size_kB">%1$d kB</string>
   <!--Too much data dialog-->
-  <string name="too_much_data_title">너무 많은 데이터가 받아졌습니다!</string>
+  <string name="too_much_data_title">너무 많은 데이터를 로드했습니다!</string>
   <string name="upload_data_now">변경 사항 업로드</string>
   <string name="prune_data_now">데이터 제거</string>
   <!--Delete custom preset dialog-->
@@ -237,6 +250,7 @@
   <string name="duplicate_route_segment_button">어쨌든 추가</string>
   <!--Relation editing dialog-->
   <string name="duplicate_relation_member_title">관계 구성원 추가 또는 삭제</string>
+  <string name="remove_relation_member_title">관계 구성원 삭제</string>
   <string name="remove_relation_member_message">%1$s</string>
   <string name="duplicate_relation_member_remove_button">구성원 삭제</string>
   <string name="choose_role_title">역할 선택</string>
@@ -244,10 +258,12 @@
   <string name="move">이동</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
   <string name="remove_duplicate_outer_tags_title">바깥 테두리의 중복된 태그를 삭제하세요</string>
+  <string name="remove_duplicate_outer_tags_message">다중 다각형에 설정된 바깥 경계선에서 태그를 제거하세요.</string>
   <string name="remove">제거</string>
   <!--Abort action mode dialog-->
   <string name="abort_action_title">실행 취소</string>
   <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">주소 보간 생성</string>
   <string name="start">시작</string>
   <string name="end">끝</string>
   <string name="even">짝수</string>
@@ -266,10 +282,13 @@
   <string name="share_code">코드 공유하기...</string>
   <!--Overpass console-->
   <string name="run">실행</string>
+  <string name="overpass_result">%1$d개 점, %2$d개 길, %3$d개 관계가 다운로드 되었습니다.</string>
   <string name="overpass_console">Overpass 콘솔</string>
   <string name="merge_result">쿼리 결과를 병합</string>
   <!---->
   <string name="error">오류</string>
+  <string name="warning">경고</string>
+  <string name="minor_issue">사소한 이슈</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">이 작업은 필터링된 부착된 지물에 영향을 미칩니다!</string>
   <!--replace geometry confirm-->
@@ -308,10 +327,11 @@
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
-  <string name="layer_panoramax">파노라마</string>
+  <string name="layer_panoramax">Panoramax</string>
   <string name="layer_grid">그리드</string>
   <string name="layer_bookmarks">북마크</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">GPX 기록</string>
   <string name="layer_photos">사진</string>
   <string name="layer_tasks">목표</string>
   <string name="layer_data">OSM 데이터</string>
@@ -320,6 +340,7 @@
   <string name="layer_load_style">스타일 불러오기..</string>
   <string name="layer_reset_style">스타일 초기화</string>
   <string name="layer_set_date_range">날짜 범위 지정...</string>
+  <string name="layer_test">테스트...</string>
   <string name="layer_category_all">모두</string>
   <string name="layer_category_photo">항공 이미지</string>
   <string name="layer_category_elevation">지형</string>
@@ -346,6 +367,7 @@
   <string name="photo_viewer_delete_title">사진 삭제</string>
   <string name="photo_viewer_delete_button">영구적으로 삭제하기</string>
   <string name="photo_viewer_label">사진 뷰어</string>
+  <string name="photo_viewer_upload">업로드..</string>
   <!--API info dialog-->
   <string name="api_info_attribution">속성</string>
   <!--Element issue dialog-->
@@ -359,6 +381,7 @@
   <string name="select_relation_type_other">기타</string>
   <!--Undo - Redo dialog-->
   <string name="undo_redo_title">실행 취소 - 다시 실행</string>
+  <string name="undo_latest">최근</string>
   <!--Undo location not in view dialog-->
   <string name="undo_location_undo_anyway">어쨌든 되돌리기</string>
   <string name="undo_location_zoom">해당 위치로 이동하여 되돌리기</string>
@@ -410,6 +433,8 @@
   <string name="toast_outside_of_download">이 지역을 편집하기 위해 더 많은 데이터를 다운로드</string>
   <string name="toast_file_not_found">%1$s을 찾을 수 없습니다.</string>
   <string name="toast_no_voice">현재 음성 인식 기능이 없습니다.</string>
+  <string name="toast_min_one_preset">최소한 하나의 프리셋이 선택되어야 합니다.</string>
+  <string name="toast_min_one_geocoder">최소한 하나의 지오코더가 선택되어야 합니다.</string>
   <string name="toast_split_from">길\"로부터\" 분할됨</string>
   <string name="toast_split_via">길\"을 통해\" 분할됨</string>
   <string name="toast_split_from_and_via">길\"로부터\" 및 길\"을 통해\" 분할됨</string>
@@ -426,7 +451,9 @@
   <string name="toast_needs_resurvey">개체가 오래되었을 수도 있음</string>
   <string name="toast_invalid_object">잘못된 개체</string>
   <string name="toast_openinghours_invalid">%1$s의 잘못된 운영 시간 값</string>
-  <string name="toast_abort_actionmode">취소하기 위해 ← 버튼을 사용</string>
+  <string name="toast_abort_actionmode">← 버튼을 사용하여 취소</string>
+  <string name="toast_imperial_units">제국 단위계가 없음</string>
+  <string name="toast_server_connection_failed">서버에 연결할 수 없음: %1$s</string>
   <string name="toast_flus_all_caches">타일 캐시를 전부 제거합니다!</string>
   <string name="toast_applied_offset">이미지 오프셋 적용됨</string>
   <string name="toast_unsupported_format">지원되지 않는 포맷: %1$s</string>
@@ -442,8 +469,13 @@
   <string name="toast_updated">업데이트 된 %1$s</string>
   <string name="toast_device_not_found_for">%1$s를 위한 장치가 발견되지 않음</string>
   <string name="toast_file_already_exists">%1$s 파일이 이미 존재함</string>
+  <string name="toast_file_error_for">%1$s 파일 오류</string>
+  <string name="toast_error_reading">%1$s 읽기 오류</string>
+  <string name="toast_error_converting">%1$s 변환 오류</string>
+  <string name="toast_read_successfully">파일을 성공적으로 읽음</string>
+  <string name="toast_error_writing">%1$s 쓰기 오류</string>
   <string name="toast_unknown_error_for">%1$s에 대한 알 수 없는 오류</string>
-  <string name="toast_restart_required">변경 사항이 올바르게 적용되려면 Vespucci을 재시작해야 합니다.</string>
+  <string name="toast_restart_required">변경 사항이 올바르게 적용되려면 Vespucci를 재시작해야 합니다.</string>
   <string name="toast_no_usable_location">사용 가능한 위치 정보 없음</string>
   <string name="toast_out_of_memory">메모리 부족! </string>
   <string name="toast_invalid_number_format">잘못된 숫자 형식 %1$s</string>
@@ -452,6 +484,7 @@
   <string name="toast_multipolygon_has_incomplete_rings">다중 다각형에 불완전한 루프가 있습니다.</string>
   <string name="toast_error_saving_bookmark">북마크를 저장할 수 없음</string>
   <string name="toast_only_one_source_supported">스타일마다 한 개의 소스만 지원합니다.</string>
+  <string name="toast_no_intersection_found">교차점이 발견되지 않음</string>
   <string name="toast_element_has_been_deleted">요소가 삭제됨</string>
   <string name="toast_updating_tags">태그 업데이트</string>
   <string name="toast_updating_parents">부모 업데이트</string>
@@ -512,8 +545,10 @@
   <string name="tag_menu_preset">프리셋</string>
   <string name="tag_menu_apply_preset">프리셋 적용</string>
   <string name="tag_menu_revert">되돌리기</string>
-  <string name="tag_menu_addtorelation">관계로 추가</string>
+  <string name="tag_menu_mapfeatures">지물 위키</string>
+  <string name="tag_menu_addtorelation">관계에 추가</string>
   <string name="tag_menu_resetMRU">프리셋 재설정</string>
+  <string name="tag_menu_reset_address_prediction">주소 예측 재설정</string>
   <string name="tag_menu_exit_no_save">저장 없이\n나가기</string>
   <string name="tag_menu_copy_system">복사 (시스템)</string>
   <string name="tag_menu_top">위로 스크롤</string>
@@ -544,6 +579,7 @@
   <string name="menu_deselect_all">모두 선택 해제</string>
   <string name="menu_preset_help">프리셋 도움말</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">언어별 표기 추가</string>
   <string name="tag_restriction_header">값</string>
   <string name="tag_restriction_when">때</string>
   <string name="tag_restriction_and">그리고</string>
@@ -602,10 +638,11 @@
   <string name="menu_config">환경 설정</string>
   <string name="menu_find">찾기</string>
   <string name="menu_help">도움말</string>
-  <string name="menu_erase">점 지우기</string>
+  <string name="menu_erase">점 삭제</string>
   <string name="menu_set_position">위치</string>
   <string name="menu_split">분할</string>
   <string name="menu_remove_node_from_way">길에서 점 삭제</string>
+  <string name="menu_start_end_way">시작점/끝점으로 이동</string>
   <string name="menu_extract">점 추출</string>
   <string name="menu_create_route">경로 만들기</string>
   <string name="menu_add_to_route">경로에 추가</string>
@@ -675,7 +712,7 @@
   <string name="menu_create_circle">원 생성</string>
   <string name="menu_split_polygon">다각형으로 분할</string>
   <string name="menu_extract_segment">선분 추출</string>
-  <string name="menu_select_way_nodes">길의 점 선택</string>
+  <string name="menu_select_way_nodes">길의 모든 점 선택</string>
   <string name="menu_newnode_gps">현재 GPS상 위치에 점 추가</string>
   <string name="menu_extend_selection">더 많이 선택하기</string>
   <string name="menu_information">정보...</string>
@@ -694,6 +731,7 @@
   <string name="menu_tools_remove_egm">EGM 제거</string>
   <string name="menu_tools_load_keys">파일에서 키 불러오기</string>
   <!---->
+  <string name="menu_modes">모드…</string>
   <string name="menu_simple_actions">간단 모드</string>
   <string name="menu_feedback">피드백 제공</string>
   <string name="menu_privacy">개인정보</string>
@@ -710,7 +748,12 @@
   <!--Menus in layers dialog-->
   <string name="menu_layers">레이어...</string>
   <string name="menu_layers_load_geojson">GeoJSON 레이어 추가..</string>
+  <string name="menu_layers_add_backgroundlayer">배경 레이어 추가...</string>
+  <string name="menu_layers_add_overlaylayer">오버레이 레이어 추가...</string>
   <string name="menu_layers_add_grid">격자 활성화</string>
+  <string name="menu_layers_add_photolayer">사진 레이어 활성화</string>
+  <string name="menu_layers_enable_mapillary_layer">Mapillary 레이어 활성화</string>
+  <string name="menu_layers_enable_panoramax_layer">Panoramax 레이어 활성화</string>
   <string name="menu_layers_enable_bookmarkslayer">북마크 레이어 활성화...</string>
   <string name="menu_layers_configure">설정...</string>
   <!---->
@@ -727,8 +770,11 @@
   <string name="menu_history">역사</string>
   <string name="menu_history_web">역사 (웹)</string>
   <string name="menu_merge">연결</string>
+  <string name="menu_add_node_at_intersection">교차하는 곳에 점 추가</string>
   <string name="menu_reverse">뒤집기</string>
   <string name="reverse_anyway">어쨌든 뒤집기</string>
+  <string name="menu_add_new_image">새 이미지 추가...</string>
+  <string name="menu_add_existing_image">기존 이미지 추가...</string>
   <string name="deleteway_wayandnodes">길 삭제</string>
   <string name="deletenode">점 삭제</string>
   <!--EasyEdit context menus-->
@@ -761,6 +807,7 @@
   <string name="menu_add_node">점 추가</string>
   <string name="menu_add_node_tags">태그된 점 추가</string>
   <string name="menu_add_way">길 추가하기</string>
+  <string name="add_way_node_instruction">다음 점의 위치를 눌러 추가</string>
   <string name="menu_add_map_note">지도 참고 추가</string>
   <string name="menu_paste_object">개체 붙여넣기</string>
   <!---->
@@ -768,18 +815,25 @@
   <string name="config_backgroundLayer_title">지도 배경</string>
   <string name="config_overlayLayer_title">지도 오버레이</string>
   <string name="config_customlayers_title">사용자 레이어</string>
+  <string name="config_customlayers_summary">기본 설정에 없는 레이어를 관리합니다.</string>
   <string name="config_scale_title">배율 표시</string>
+  <string name="config_enablePhotoLayer_title">사진 레이어 활성화</string>
   <string name="config_enablePhotoLayer_summary">지리적으로 참조된 사진을 표시합니다.</string>
   <string name="config_enableKeepScreenOn_title">화면 켜기 유지</string>
+  <string name="config_enableKeepScreenOn_summary">전원 절약을 위한 화면 꺼짐을 방지합니다.</string>
+  <string name="config_largeDragArea_title">큰 점 드래그 영역</string>
+  <string name="config_largeDragArea_summary">점을 드래그하는 영역을 크게 합니다.</string>
   <string name="config_wayNodeDragging_title">길의 점을 드래그할 수 있게 설정</string>
   <string name="config_wayNodeDragging_summary">선택한 길의 각 점을 드래그 할 수 있게 설정.</string>
   <string name="config_advancedprefs">고급 환경 설정</string>
+  <string name="config_moreprefs">더 많은 설정...</string>
   <string name="config_presetbutton_title">프리셋</string>
   <string name="config_presetbutton_summary">JOSM에 호환되는 프리셋을 추가하거나 활성화</string>
   <string name="config_built_in_preset">내장 프리셋</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">유효성 확인 설정</string>
   <string name="config_validatorprefs_summary">유효성 확인 규칙을 설정합니다.</string>
+  <string name="config_connectedNodeTolerance_title">연결된 점의 허용 오차</string>
   <string name="config_enabledValidations_title">활성화된 유효성 확인</string>
   <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
@@ -790,16 +844,24 @@
   <!--User Interface Settings-->
   <string name="config_category_view">사용자 인터페이스 설정</string>
   <string name="config_iconbutton_title">점 아이콘 보이기</string>
+  <string name="config_iconbutton_summary">점 위에 가장 적합한 프리셋의 아이콘을 보여줍니다.</string>
   <string name="config_showWayIcons_title">건물에 POI 아이콘 보이기</string>
-  <string name="config_tagFormEnabled_title">태그 양식 표시</string>
+  <string name="config_showWayIcons_summary">건물 위에 가장 적합한 프리셋의 아이콘을 보여줍니다.</string>
+  <string name="config_tagFormEnabled_title">태그 편집 양식 표시</string>
+  <string name="config_tagFormEnabled_summary">편집을 위해 태그 편집 양식을 표시합니다.</string>
+  <string name="config_supportPresetLabels_summary">태그 편집 양식에 프리셋의 레이블을 표시합니다.</string>
   <string name="config_followGPSbutton_summary">\"내 위치 따라가기\" 버튼의 위치</string>
   <string name="config_alwaysDrawBoundingBoxes_title">다운로드되지 않은 영역은 항상 어둡게 표시</string>
   <string name="config_showTolerance_summary">요소가 선택될 수 있는 지역을 표시합니다.</string>
   <string name="config_use_back_for_undo_title">← 키로 되돌리기</string>
+  <string name="config_use_back_for_undo_summary">주 편집 창에서 ← 버튼을 눌러 편집 취소</string>
+  <string name="config_imageLicence_title">이미지 라이선스</string>
+  <string name="config_imageLicence_summary">업로드한 이미지에 사용할 라이선스</string>
   <string name="config_theme_title">테마</string>
   <string name="config_splitActionBarEnabled_title">작업 막대 분할 활성화</string>
   <string name="config_appLocale_title">앱 언어</string>
   <string name="config_appLocale_device_language">장치 언어</string>
+  <string name="config_maxInlineValues_summary">태그 편집 양식에 보일 인라인 값의 최대 수</string>
   <string name="config_autoLockDelay_current">%1$d 초</string>
   <string name="config_enableAntiAliasing_title">안티 앨리어싱 활성화</string>
   <string name="config_enableAntiAliasing_summary">선을 부드럽게 합니다.</string>
@@ -825,6 +887,7 @@
   <string name="config_zoomWithKeys_summary">볼륨 키를 확대하고 축소하는데에 사용하세요.</string>
   <string name="config_poi_keys_title">근처의 POI 보이기</string>
   <!--Camera and image settings-->
+  <string name="config_category_camera_and_images">카메라, 이미지 설정</string>
   <string name="config_showCameraAction_title">카메라 작업 보이기</string>
   <string name="config_selectCameraApp_title">카메라 앱</string>
   <string name="config_system_camera">시스템 기본값</string>
@@ -845,6 +908,7 @@
   <string name="config_maxAlertDistance_title">알림의 최대 거리</string>
   <string name="config_maxAlertDistance_current">%1$d 미터</string>
   <string name="config_closeChangesetOnSave_title">변경집합 닫기</string>
+  <string name="config_enableAutoPresets_title">자동 프리셋 생성 활성화</string>
   <string name="config_enableAutoPresets_summary">taginfo에서 프리셋의 생성을 허용</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">자동으로 전화번호 형식 적용</string>
@@ -881,17 +945,24 @@
   <string name="config_leaveGpsDisabled_summary">GPS/GNSS가 꺼져 있을 때 다시 켤지 묻지 않습니다.</string>
   <string name="config_gnssTimeToStale_current">%1$d 초</string>
   <string name="config_useBarometricHeight_title">기압 고도 사용</string>
+  <string name="config_useBarometricHeight_summary">가능하면 경로에 기압 센서로 측정한 높이 값을 사용합니다.</string>
   <!--Server Settings-->
   <string name="config_category_server">서버 설정</string>
   <string name="config_apibutton_title">OSM API URL</string>
+  <string name="config_apibutton_summary">OSM API의 URL과 인증 수단을 설정합니다.</string>
   <string name="config_loginbutton_title">사용자 계정</string>
   <string name="config_offsetServer_title">오프셋 서버</string>
   <string name="config_osmoseServer_title">OSMOSE 서버</string>
   <string name="config_osmoseServer_summary">OSMOSE 서버의 URL 주소</string>
+  <string name="config_geocoderbutton_title">지오코더 설정</string>
+  <string name="config_geocoderbutton_summary">검색 기능을 위한 지오코더를 추가, 편집, 삭제합니다.</string>
   <string name="config_taginfoServer_title">Taginfo 서버</string>
+  <string name="config_taginfoServer_summary">프리셋 생성을 위한 사용할 Taginfo 서버</string>
   <string name="config_overpassServer_title">Overpass 서버</string>
   <string name="config_overpassServer_summary">쿼리에 사용되는 Overpass 서버</string>
   <string name="config_oamServer_title">OpenAerialMap 서버</string>
+  <string name="config_panoramaxApiUrl_title">Panoramax URL</string>
+  <string name="config_panoramaxApiUrl_summary">\"/api\"을 제외한 Panoramax 인스턴스의 루트 URL</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">레이어 다운로드와 저장소</string>
   <string name="config_maxTileDownloadThreads_title">다운로드 스레드의 최대 수</string>
@@ -929,6 +1000,7 @@
   <string name="config_js_console_summary">라이브 모드에서 JS 콘솔을 사용할 수 있게 합니다.</string>
   <string name="config_voiceCommandsEnabled_title">음성 명령 활성화</string>
   <string name="config_voiceCommandsEnabled_summary">음성 명령 지원을 활성화합니다.</string>
+  <string name="config_splitWindowForPropertyEditor_summary">가능하면 분리된 창에서 속성 편집기를 표시합니다.</string>
   <string name="config_splitWindowForPropertyEditor_title">속성 편집기 창 분할 활성화</string>
   <!---->
   <string name="manage_apis">API 관리</string>
@@ -937,8 +1009,11 @@
   <string name="listedit_auth">인증</string>
   <string name="config_username_title">OSM 사용자 이름</string>
   <string name="config_password_title">OSM 비밀번호</string>
+  <string name="config_password_summary">위키의 비밀번호 설정을 위한 것임을 잊지 마세요. 기억하세요. 평문으로 저장되고 전송될 수 있습니다!</string>
   <string name="manage_presets">프리셋 관리</string>
   <string name="listedit_use_translations">번역 사용</string>
+  <string name="manage_geocoders">지오코더 관리</string>
+  <string name="listedit_supports_compressed_uploads">압축 업로드 지원</string>
   <!--preset downloader messages-->
   <string name="preset_update">프리셋 업데이트</string>
   <string name="preset_download_successful">프리셋 다운로드됨</string>
@@ -947,6 +1022,7 @@
   <!--preset management-->
   <string name="preset_management_delete">프리셋을 정말로 삭제하시겠습니까?</string>
   <!--Image storage management-->
+  <string name="imagestores_add_from_panoramax_list">Panoramax 인스턴스 목록에서 추가...</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">프리셋 추가</string>
   <string name="urldialog_preset_exists">이 프리셋은 이미 존재합니다</string>
@@ -963,6 +1039,7 @@
   <string name="wikimedia_meta_description">설명</string>
   <string name="wikimedia_meta_source">출처</string>
   <string name="wikimedia_meta_author">저자</string>
+  <string name="wikimedia_meta_licence">라이선스</string>
   <string name="wikimedia_meta_category">분류</string>
   <!--common terms-->
   <string name="add">추가</string>
@@ -1016,7 +1093,7 @@
   <string name="undo_action_duplicate">복제</string>
   <string name="undo_action_rotate">회전</string>
   <string name="undo_action_orthogonalize">길 직각으로 만들기</string>
-  <string name="undo_action_circulize">동그라미에 정렬</string>
+  <string name="undo_action_circulize">원형으로 정렬</string>
   <string name="undo_action_fix_conflict">충돌 해결</string>
   <string name="undo_action_extract_node">점 추출</string>
   <string name="undo_action_apply_osc">OSC 파일 적용</string>
@@ -1104,6 +1181,7 @@
   <string name="way_id">길 %1$d</string>
   <string name="relation_id">관계 %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="layer_diag_title">레이어 진단</string>
   <string name="empty_tile">빈 타일</string>
   <string name="tile_status">상태: %1$s</string>
   <string name="tile_mark_invalid">타일을 잘못된 것으로 표시</string>

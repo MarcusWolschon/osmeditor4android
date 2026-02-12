@@ -7,6 +7,7 @@
     <string name="help_wayselection">Odabrana linija</string>
     <string name="help_preferences">Postavke</string>
     <string name="help_advanced_preferences">Napredne postavke</string>
+    <string name="help_opening_hours">Radno vrijeme</string>
     <string name="help_privacy">Privatnost</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
@@ -41,6 +42,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
         <item>@string/help_upgrade_202</item>
         <item>@string/help_upgrade_201</item>
@@ -109,6 +111,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>
         <item>21.0.0 Release notes</item>
         <item>20.2.0 Release notes</item>

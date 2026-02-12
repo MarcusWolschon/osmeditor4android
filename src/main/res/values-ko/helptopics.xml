@@ -6,6 +6,7 @@
     <string name="help_introduction">소개</string>
     <string name="help_safe_mode">안전 모드</string>
     <string name="help_main">주 지도 표시</string>
+    <string name="help_simple_actions">간단한 동작</string>
     <string name="help_addrelationmember">관계 구성원 편집</string>
     <string name="help_multiselect">다중 선택</string>
     <string name="help_longclick">새 개체 만들기</string>
@@ -33,6 +34,7 @@
     <string name="help_tag_only_mode">태그 편집 모드</string>
     <string name="help_indoor_mode">실내 모드</string>
     <string name="help_address_mode">주소 모드</string>
+    <string name="help_upgrade">21.2 릴리즈 노트</string>
     <string name="help_upgrade_211">21.1 릴리즈 노트</string>
     <string name="help_upgrade_210">21.0 릴리즈 노트</string>
     <string name="help_upgrade_202">20.2 릴리즈 노트</string>

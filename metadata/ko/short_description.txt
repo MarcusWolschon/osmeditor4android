@@ -1,1 +1,1 @@
-Vespucci는 OpenStreetMap에서 가장 포괄적인 Android용 편집기입니다.
+Vespucci는 오픈스트리트맵에서 가장 포괄적인 안드로이드용 편집기입니다.

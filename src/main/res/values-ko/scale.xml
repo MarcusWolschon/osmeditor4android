@@ -4,7 +4,7 @@
     <item>없음</item>
     <item>축척 (미터법)</item>
     <item>격자 (미터법)</item>
-    <item>축척 (임페리얼)</item>
-    <item>격자 (임페리얼)</item>
+    <item>축척 (제국 단위계)</item>
+    <item>격자 (제국 단위계)</item>
   </string-array>
 </resources>
