@@ -200,6 +200,13 @@
             <interval length="2.0" />
         </dash>
     </feature>
+    <feature type="trunk_casing" updateWidth="true" widthFactor="2.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="trunk_bridge_casing" updateWidth="true" widthFactor="2.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
+        <dash phase="1.0">
+            <interval length="2.0" />
+            <interval length="2.0" />
+        </dash>
+    </feature>
     <feature type="primary_casing" updateWidth="true" widthFactor="1.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
     <feature type="primary_bridge_casing" updateWidth="true" widthFactor="1.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
         <dash phase="1.0">
@@ -397,7 +404,7 @@
             </feature>
         </feature>
         <feature type="way" tags="highway=unclassified" widthFactor="1.0" color="ffCCCCCC" casingStyle="unclassified_casing" >
-            <feature type="way" tags="bridge=yes" casingStyle="unclassifies_bridge_casing" />
+            <feature type="way" tags="bridge=yes" casingStyle="unclassified_bridge_casing" />
             <feature type="way" tags="tunnel=yes" casingStyle="">
                 <dash phase="1.0">
                     <interval length="1.0" />
