@@ -622,12 +622,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         Way way = factory.createWayWithNewId();
         way.addNode(firstWayNode);
-        try {
-            lock();
-            insertElementUnsafe(way);
-        } finally {
-            unlock();
-        }
+        insertElementUnsafe(way);
         return way;
     }
 
