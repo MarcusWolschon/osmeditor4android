@@ -452,7 +452,7 @@ public class TagFilterActivity extends ListActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (mCursor.isClosed()) {
+            if (getCursor().isClosed()) {
                 Log.w(DEBUG_TAG, "cursor closed, recreating");
                 updateAdapter(TagFilterDatabaseHelper.getCurrent(db));
             }
