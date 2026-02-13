@@ -69,7 +69,7 @@ public final class Util {
             ft.remove(fragment);
         }
         try {
-            ft.commit();
+            ft.commitNowAllowingStateLoss();
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "dismissDialog " + tag, isex);
         }
