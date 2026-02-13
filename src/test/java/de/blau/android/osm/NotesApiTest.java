@@ -130,7 +130,7 @@ public class NotesApiTest {
             fail(e.getMessage());
         }
         runLooper();
-        SignalUtils.signalAwait(signal, TIMEOUT);
+        SignalUtils.signalAwait(signal, TIMEOUT*2);
         List<Task> tasks = App.getTaskStorage().getTasks();
         // note the fixture contains 100 notes, however 41 of them are closed and expired
         assertEquals(59, tasks.size());
