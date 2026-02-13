@@ -167,6 +167,10 @@ public class ErrorAlert extends CancelableDialogFragment {
         try {
             String tag = getTag(errorCode);
             if (alertDialogFragment != null && tag != null) {
+                if (fm.findFragmentByTag(tag) != null) {
+                    Log.w(DEBUG_TAG, "dialog still being displayed " + tag);
+                    return;
+                }
                 alertDialogFragment.show(fm, tag);
             } else {
                 Log.e(DEBUG_TAG, "Unable to create dialog for value " + errorCode);
