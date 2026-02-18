@@ -311,7 +311,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             lock();
             dirty = true;
             undo.save(elem);
-
             if (elem.setTags(tags)) {
                 // OsmElement tags have changed
                 elem.updateState(OsmElement.STATE_MODIFIED);

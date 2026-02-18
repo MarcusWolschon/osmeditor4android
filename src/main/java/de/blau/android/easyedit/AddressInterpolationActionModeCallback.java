@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.dialogs.AddressInterpolationDialog;
+import de.blau.android.dialogs.Tip;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
@@ -35,6 +36,7 @@ public class AddressInterpolationActionModeCallback extends PathCreationActionMo
      */
     public AddressInterpolationActionModeCallback(@NonNull EasyEditManager manager, float x, float y) {
         super(manager, x, y);
+        Tip.showDialog(main, R.string.tip_address_interpolation_key, R.string.tip_address_interpolation);
     }
 
     /**
@@ -46,6 +48,7 @@ public class AddressInterpolationActionModeCallback extends PathCreationActionMo
      */
     public AddressInterpolationActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Node node) {
         super(manager, way, node);
+        Tip.showDialog(main, R.string.tip_address_interpolation_key, R.string.tip_address_interpolation);
     }
 
     @Override

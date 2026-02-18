@@ -161,6 +161,14 @@ public class BasicStuffTest {
         } catch (OsmIllegalOperationException e) {
             // carry on
         }
+        // empty value
+        tags.put(key2, "");
+        try {
+            logic.setTags(null, eInStorage, tags);
+            Assert.fail("should have faile for empty values");
+        } catch (OsmIllegalOperationException e) {
+            // expected
+        }
     }
 
     /**

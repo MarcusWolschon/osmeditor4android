@@ -405,6 +405,9 @@
     <string name="even">Even</string>
     <string name="odd">Odd</string>
     <string name="other">Other</string>
+    <string name="validation_start_is_empty">You must provide a value for the first house number!</string>
+    <string name="validation_end_is_empty">You must provide a value for the last house number!</string>
+    <string name="validation_other_is_empty">If other is selected you must provide a value!</string>
     <!-- Safe split dialog -->
     <string name="split_safe_title">Missing relation members</string>
     <string name="split_safe_message">Neigbour relation member ways are not downloaded. Maintaining relation members ordering may depend on these.</string>
@@ -657,6 +660,7 @@
     <string name="tip_wms_tile_size">WMS servers can support larger tile sizes than 256x256, consider using 512x512 for a more efficient configuration.</string>
     <string name="tip_empty_comment_warning">Vespucci always adds an automatically created summary of what you uploaded.&lt;p&gt;You should still consider adding a few words on why you are making the edits to provide more context for other mappers.</string>
     <string name="tip_wikimedia_filename">Always use a descriptive and unique filename, in particular not a camera generated one or else Wikimedia will reject the upload.</string>
+    <string name="tip_address_interpolation">This tool is intended for adding address interpolations in Address mode. If you want to add a different object, switch to Normal mode and use the Add way tool.</string>
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
