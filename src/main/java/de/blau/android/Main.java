@@ -2593,7 +2593,7 @@ public class Main extends ConfigurationChangeAwareActivity
                             DownloadMissing.showDialog(Main.this, notDownloadedPresets, notDownloadedStyles);
                         }
                     }
-
+                    App.resetKeyboardShortcuts();
                     return true;
                 }
             });

@@ -22,7 +22,7 @@ public class ShortcutsHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME    = "shortcuts";
     private static final int   DATABASE_VERSION = 1;
 
-    private static final String SHORTCUT_ENTRIES_TABLE = "shortcutentries";
+    public static final String  SHORTCUT_ENTRIES_TABLE = "shortcutentries";
     private static final String MODIFIER_COL           = "modifier";
     private static final String CHARACTER_COL          = "character";
     private static final String ACTION_COL             = "action";
