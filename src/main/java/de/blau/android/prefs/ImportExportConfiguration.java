@@ -47,6 +47,7 @@ import ch.poole.openinghoursfragment.templates.TemplateDatabaseHelper;
 import de.blau.android.R;
 import de.blau.android.filter.TagFilterDatabaseHelper;
 import de.blau.android.osm.OsmXml;
+import de.blau.android.prefs.keyboard.ShortcutsHelper;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.validation.ValidatorRulesDatabase;
@@ -142,6 +143,7 @@ public final class ImportExportConfiguration {
             sqlite(ctx, ValidatorRulesDatabaseHelper.DATABASE_NAME, ValidatorRulesDatabase.CHECK_TABLE, "", null, true, serializer);
             sqlite(ctx, KeyDatabaseHelper.DATABASE_NAME, KeyDatabaseHelper.KEYS_TABLE, " where " + KeyDatabaseHelper.CUSTOM_FIELD, null, false, serializer);
             sqlite(ctx, TemplateDatabaseHelper.DATABASE_NAME, TemplateDatabase.TEMPLATES_TABLE, "", null, true, serializer);
+            sqlite(ctx, ShortcutsHelper.DATABASE_NAME, ShortcutsHelper.SHORTCUT_ENTRIES_TABLE, "", null, true, serializer);
             serializer.endTag(null, CONFIGURATION);
             serializer.endDocument();
         } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException | IOException | SQLiteException e) {

@@ -122,7 +122,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     /** The ID of the currently active API */
     private static Server currentServer = null;
 
-    private Context context;
+    private final Context context;
 
     /**
      * Construct a new database instance

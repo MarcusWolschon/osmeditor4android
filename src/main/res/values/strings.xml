@@ -1357,6 +1357,8 @@
     <string name="config_presetbutton_title">Presets</string>
     <string name="config_presetbutton_summary">Add and enable JOSM compatible presets</string>
     <string name="config_built_in_preset">Built-in preset</string>
+    <string name="config_keyboard_shortcuts_title">Keyboard shortcuts</string>
+    <string name="config_keyboard_shortcuts_summary">Change the mapping for keyboard shortcuts</string>
     <!-- Validator preferences -->
     <string name="config_validatorprefs_title">Validator settings</string>
     <string name="config_validatorprefs_summary">Configure the validation rules.</string> 
@@ -1906,4 +1908,17 @@
     <string name="tile_io_error">IO error</string>
     <string name="tile_no_network">No network</string>
     <string name="tile_unknown_error">Unknown error</string>
+    
+    <!-- Keyboard Shortcuts UI -->
+    <string name="keyboard_shortcuts_empty">No shortcuts available</string>
+    <string name="keyboard_shortcut_modifier">Modifier Key</string>
+    <string name="keyboard_shortcut_key">Key Character</string>
+    <string name="keyboard_shortcut_save">Save</string>
+    <string name="keyboard_shortcut_reset">Reset</string>
+    <string name="keyboard_shortcut_saved">Shortcut saved</string>
+    <string name="keyboard_shortcut_save_error">Error saving shortcut</string>
+    <string name="keyboard_shortcuts_reset_all">Reset All to Defaults</string>
+    <string name="keyboard_shortcuts_reset_title">Reset Shortcuts</string>
+    <string name="keyboard_shortcut_key_required">Key character is required</string>
+    <string name="keyboard_shortcut_duplicate">Duplicate shortcut</string>
 </resources>

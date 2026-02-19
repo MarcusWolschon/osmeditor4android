@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import de.blau.android.R;
+import de.blau.android.prefs.keyboard.ShortcutsActivity;
 import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.Util;
 
@@ -236,5 +238,14 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
             });
         }
 
+        Preference keyboadShortcutsPref = getPreferenceScreen().findPreference(r.getString(R.string.config_keyboard_shortcuts_key));
+        if (keyboadShortcutsPref != null) {
+            keyboadShortcutsPref.setOnPreferenceClickListener(preference -> {
+                Log.d(DEBUG_TAG, "onPreferenceClick keyboard shortcut");
+                Intent intent = new Intent(getActivity(), ShortcutsActivity.class);
+                startActivity(intent);
+                return true;
+            });
+        }
     }
 }

@@ -110,6 +110,10 @@ Note: this setting is only applicable when the current locale uses latin script.
 
 Allow the use of the volume keys for zooming in and out. Default: _false_.
 
+### Keyboard shortcuts
+
+Change the mapping for keyboard shortcuts.
+
 ## Camera and Images Settings
 
 ### Show camera action

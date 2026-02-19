@@ -49,6 +49,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
@@ -163,6 +164,8 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         Fragment parent = getParentFragment();
         Util.implementsInterface(parent, PropertyEditorListener.class);
         propertyEditorListener = (PropertyEditorListener) parent;
+
+        actionMap.put(getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_info, this::doRevert));
     }
 
     @Override

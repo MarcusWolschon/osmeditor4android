@@ -23,6 +23,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
@@ -63,6 +64,11 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         this.y = y;
         clickedNodes = logic.getClickedNodes(x, y);
         clickedNonClosedWays = logic.getClickedWays(false, x, y); //
+
+        actionMap.put(main.getString(R.string.ACTION_ELEMENT_PASTE), new Shortcuts.Action(R.string.action_help, () -> {
+            logic.hideCrosshairs();
+            SimpleActionModeCallback.paste(main, manager, startX, startY);
+        }));
     }
 
     @Override
@@ -267,15 +273,5 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     public void onDestroyActionMode(ActionMode mode) {
         logic.setSelectedNode(null);
         super.onDestroyActionMode(mode);
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_paste)) {
-            logic.hideCrosshairs();
-            SimpleActionModeCallback.paste(main, manager, startX, startY);
-            return true;
-        }
-        return false;
     }
 }

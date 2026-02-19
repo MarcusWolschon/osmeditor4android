@@ -1,22 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="shortcut_undo">u</string>
-    <string name="shortcut_gps_follow">f</string>
-    <string name="shortcut_gps_goto">g</string>
-    <string name="shortcut_download">d</string>
-    <string name="shortcut_bugs_download">b</string>
-    <string name="shortcut_help">h</string>
-    <string name="shortcut_copy">c</string>
-    <string name="shortcut_cut">x</string>
-    <string name="shortcut_paste">v</string>
-    <string name="shortcut_paste_tags">t</string>
-    <string name="shortcut_tagedit">e</string>
-    <string name="shortcut_info">i</string>
-    <string name="shortcut_zoom_in">+</string>
-    <string name="shortcut_zoom_out">-</string>
-    <string name="shortcut_merge">m</string>
-    <string name="shortcut_square">s</string>
-    <string name="shortcut_remove">r</string>
-    <string name="shortcut_follow">f</string>
-    <string name="shortcut_address">a</string>
+    <string name="shortcut_undo" translatable="false">u</string>
+    <string name="shortcut_gps_follow" translatable="false">f</string>
+    <string name="shortcut_gps_goto" translatable="false">g</string>
+    <string name="shortcut_download" translatable="false">d</string>
+    <string name="shortcut_bugs_download" translatable="false">b</string>
+    <string name="shortcut_help" translatable="false">h</string>
+    <string name="shortcut_copy" translatable="false">c</string>
+    <string name="shortcut_cut" translatable="false">x</string>
+    <string name="shortcut_paste" translatable="false">v</string>
+    <string name="shortcut_paste_tags" translatable="false">t</string>
+    <string name="shortcut_tagedit" translatable="false">e</string>
+    <string name="shortcut_info" translatable="false">i</string>
+    <string name="shortcut_zoom_in" translatable="false">+</string>
+    <string name="shortcut_zoom_out" translatable="false">-</string>
+    <string name="shortcut_merge" translatable="false">m</string>
+    <string name="shortcut_square" translatable="false">s</string>
+    <string name="shortcut_remove" translatable="false">r</string>
+    <string name="shortcut_follow" translatable="false">f</string>
+    <string name="shortcut_address" translatable="false">a</string>
+    <string name="shortcut_keep" translatable="false">k</string>
+   
+    <string name="ACTION_ZOOM_OUT" translatable="false">action_zoom_out</string>
+    <string name="ACTION_ZOOM_IN" translatable="false">action_zoom_in</string>
+    <string name="ACTION_BUG_DOWNLOAD" translatable="false">action_bug_download</string>
+    <string name="ACTION_DOWNLOAD" translatable="false">action_download</string>
+    <string name="ACTION_GPS_GOTO" translatable="false">action_gps_goto</string>
+    <string name="ACTION_GPS_FOLLOW" translatable="false">action_gps_follow</string>
+    <string name="ACTION_UNDO" translatable="false">action_undo</string>
+    <string name="ACTION_HELP" translatable="false">action_help</string>
+    <string name="ACTION_ELEMENT_PASTE" translatable="false">action_element_paste</string>
+    <string name="ACTION_COPY" translatable="false">action_copy</string>
+    <string name="ACTION_CUT" translatable="false">action_cut</string>
+    <string name="ACTION_INFO" translatable="false">action_info</string>
+    <string name="ACTION_TAGEDIT" translatable="false">action_tagedit</string>
+    <string name="ACTION_PASTE_TAGS" translatable="false">action_paste_tags</string>
+    <string name="ACTION_DELETE" translatable="false">action_delete</string>
+    <string name="ACTION_SQUARE" translatable="false">action_square</string>
+    <string name="ACTION_FOLLOW" translatable="false">action_follow</string>
+    <string name="ACTION_ADDRESS" translatable="false">action_address</string>
+    <string name="ACTION_MERGE" translatable="false">action_merge</string>
+    <string name="ACTION_KEEP" translatable="false">action_keep</string>
+    
+     <!--  keyboard shortcut descriptions  -->
+    <string name="action_zoom_in">Zoom in</string>
+    <string name="action_zoom_out">Zoom out</string>
+    <string name="action_help">Help</string>
+    <string name="action_undo">Undo</string>
+    <string name="action_gps_follow">Follow GPS</string>
+    <string name="action_gps_goto">Goto GPS position</string>
+    <string name="action_download">Download</string>
+    <string name="action_bugs_download">Download tasks</string>
+    <string name="action_element_paste">Element paste</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_cut">Cut</string>
+    <string name="action_info">Info</string>
+    <string name="action_tagedit">Property editor</string>
+    <string name="action_paste_tags">Paste tags</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_square">Square/straighten</string>
+    <string name="action_merge">Merge</string>
+    <string name="action_address">Add address</string>
+    <string name="action_follow">Follow way</string>
+    <string name="action_keep">Save tag edits and exit</string>
+    
+    <string-array name="shortcut_actions">
+        <item>@string/action_zoom_in</item>
+        <item>@string/action_zoom_out</item>
+        <item>@string/action_undo</item>
+        <item>@string/action_help</item>
+        <item>@string/action_download</item>
+        <item>@string/action_bugs_download</item>
+        <item>@string/action_gps_goto</item>
+        <item>@string/action_gps_follow</item>
+        <item>@string/action_element_paste</item>
+        <item>@string/action_copy</item>
+        <item>@string/action_cut</item>
+        <item>@string/action_info</item>
+        <item>@string/action_tagedit</item>
+        <item>@string/action_paste_tags</item>
+        <item>@string/action_delete</item>
+        <item>@string/action_square</item>
+        <item>@string/action_follow</item>
+        <item>@string/action_address</item>
+        <item>@string/action_merge</item>
+        <item>@string/action_keep</item>
+    </string-array>
+ 
+    <string-array name="shortcut_actions_keys" translatable="false">
+        <item>@string/ACTION_ZOOM_OUT</item>
+        <item>@string/ACTION_ZOOM_IN</item>
+        <item>@string/ACTION_UNDO</item>
+        <item>@string/ACTION_HELP</item>
+        <item>@string/ACTION_DOWNLOAD</item>
+        <item>@string/ACTION_BUG_DOWNLOAD</item>
+        <item>@string/ACTION_GPS_GOTO</item>
+        <item>@string/ACTION_GPS_FOLLOW</item>
+        <item>@string/ACTION_ELEMENT_PASTE</item>
+        <item>@string/ACTION_COPY</item>
+        <item>@string/ACTION_CUT</item>
+        <item>@string/ACTION_INFO</item>
+        <item>@string/ACTION_TAGEDIT</item>
+        <item>@string/ACTION_PASTE_TAGS</item>
+        <item>@string/ACTION_DELETE</item>
+        <item>@string/ACTION_SQUARE</item>
+        <item>@string/ACTION_FOLLOW</item>
+        <item>@string/ACTION_ADDRESS</item>
+        <item>@string/ACTION_MERGE</item>
+        <item>@string/ACTION_KEEP</item>
+    </string-array>
 </resources>

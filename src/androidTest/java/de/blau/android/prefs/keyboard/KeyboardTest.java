@@ -1,9 +1,10 @@
-package de.blau.android;
+package de.blau.android.prefs.keyboard;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,12 +22,27 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.By;
+import androidx.test.uiautomator.BySelector;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject2;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
+import androidx.test.uiautomator.Until;
+import de.blau.android.App;
+import de.blau.android.HelpViewer;
+import de.blau.android.LayerUtils;
+import de.blau.android.Logic;
+import de.blau.android.Main;
+import de.blau.android.Map;
+import de.blau.android.R;
+import de.blau.android.TestUtils;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
@@ -168,35 +184,20 @@ public class KeyboardTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void way() {
-
         map.getDataLayer().setVisible(true);
-
         TestUtils.zoomToLevel(device, main, 21);
-
         TestUtils.unlock(device);
 
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        TestUtils.clickAwayTip(device, context);
+        TestUtils.clickAwayTip(device, context, 5000);
         assertTrue(TestUtils.clickTextContains(device, "Path", true, 5000));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(104148456L, way.getOsmId());
         assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
 
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
-
-        device.pressKeyCode(KeyEvent.KEYCODE_E, KeyEvent.META_CTRL_ON);
-
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditorActivity);
-        instrumentation.removeMonitor(monitor);
-
-        assertTrue(TestUtils.clickHome(device, true));
-        assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
-
         device.pressKeyCode(KeyEvent.KEYCODE_R, KeyEvent.META_CTRL_ON);
         assertTrue(TestUtils.textGone(device, WAY_SELECTED, 1000));
-
         assertTrue(TestUtils.clickText(device, false, "Delete Way", true));
 
         assertEquals(OsmElement.STATE_DELETED, way.getState());
@@ -205,11 +206,6 @@ public class KeyboardTest {
         assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         TestUtils.clickText(device, false, "Ok", false); // in case we get a tip
 
-        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
-        way = App.getLogic().getSelectedWay();
-        assertNotNull(way);
-        assertEquals(104148456L, way.getOsmId());
         assertTrue(TestUtils.findText(device, false, WAY_SELECTED, 2000));
 
         device.pressKeyCode(KeyEvent.KEYCODE_C, KeyEvent.META_CTRL_ON);
@@ -219,12 +215,12 @@ public class KeyboardTest {
         assertNotNull(way);
         assertTrue(way.getOsmId() < 0);
 
-        monitor = instrumentation.addMonitor(HelpViewer.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(HelpViewer.class.getName(), null, false);
         device.pressKeyCode(KeyEvent.KEYCODE_H, KeyEvent.META_CTRL_ON);
         Activity helpViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(helpViewer instanceof HelpViewer);
         instrumentation.removeMonitor(monitor);
-        assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
+        assertTrue(TestUtils.findText(device, false, WAY_SELECTED, 1000, true));
         device.pressBack();
         assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
         TestUtils.clickUp(device);
@@ -245,6 +241,71 @@ public class KeyboardTest {
         assertTrue(TestUtils.findText(device, false, "Main Vespucci Screen", 2000));
         device.pressBack();
         device.pressKeyCode(KeyEvent.KEYCODE_X, KeyEvent.META_CTRL_ON);
+    }
+
+    /**
+     * Change the modifier key to ALT for the info dialog
+     */
+    @Test
+    public void changeMapping() {
+        ActivityMonitor monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
+        instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
+
+        if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_advancedprefs), new UiSelector().scrollable(true), 0)) {
+            fail("Didn't find " + main.getString(R.string.config_advancedprefs));
+        }
+
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_advancedprefs), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.config_advancedprefs)));
+
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_category_view), true, false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.config_category_view)));
+
+        if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_keyboard_shortcuts_title), new UiSelector().scrollable(true), 0)) {
+            fail("Didn't find " + main.getString(R.string.config_keyboard_shortcuts_title));
+        }
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_keyboard_shortcuts_title), true, false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.config_keyboard_shortcuts_title)));
+
+        try {
+            UiObject2 infoModifier = getField(device, "Info", 1);
+            infoModifier.click();
+            assertTrue(TestUtils.clickText(device, false, Shortcuts.Modifier.ALT.toString(), true, false));
+            UiObject2 saveButton = getField(device, "Info", 3);
+            saveButton.click();
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+
+        TestUtils.clickHome(device, false);
+        TestUtils.clickHome(device, false);
+        TestUtils.clickHome(device, false);
+        TestUtils.clickHome(device, false);
+
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        TestUtils.clickAwayTip(device, context, 5000);
+        assertTrue(TestUtils.clickTextContains(device, "Path", true, 5000));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(104148456L, way.getOsmId());
+        assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
+        device.pressKeyCode(KeyEvent.KEYCODE_I, KeyEvent.META_ALT_ON);
+
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.element_information)));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
+    }
+
+    private static UiObject2 getField(UiDevice mDevice, @NonNull String text, int fieldIndex) throws UiObjectNotFoundException {
+        TestUtils.scrollTo(text, false);
+        BySelector bySelector = By.textStartsWith(text);
+        UiObject2 keyField = mDevice.wait(Until.findObject(bySelector), 500);
+        UiObject2 constraintLayout = keyField.getParent();
+        return constraintLayout.getChildren().get(fieldIndex);
     }
 
     /**

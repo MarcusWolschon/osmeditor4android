@@ -37,6 +37,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.Preset;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
@@ -82,6 +83,15 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     NodeSelectionActionModeCallback(EasyEditManager manager, Node node) {
         super(manager, node);
         geoContext = App.getGeoContext(main);
+
+        actionMap.put(main.getString(R.string.ACTION_MERGE), new Shortcuts.Action(R.string.action_merge, () -> {
+            int count = joinableElements != null ? joinableElements.size() : 0;
+            if (count > 0) {
+                mergeNode(count, true);
+            } else {
+                Sound.beep();
+            }
+        }));
     }
 
     @Override
@@ -347,20 +357,6 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             mode.finish();
         }
         checkEmptyRelations(main, origParents);
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_merge)) {
-            int count = joinableElements.size();
-            if (count > 0) {
-                mergeNode(count, true);
-            } else {
-                Sound.beep();
-            }
-            return true;
-        }
-        return super.processShortcut(c);
     }
 
     /**

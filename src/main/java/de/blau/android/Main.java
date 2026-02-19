@@ -158,6 +158,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.ImportExportConfiguration;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.propertyeditor.PropertyEditorData;
@@ -1015,16 +1016,17 @@ public class Main extends ConfigurationChangeAwareActivity
                     zoomToSelected(logic);
                     break;
                 case ACTION_PUSH_SELECTION:
-                case ACTION_POP_SELECTION:
-                    if (ACTION_PUSH_SELECTION.equals(action)) {
-                        ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
-                        selection = new Selection();
-                        selection.fromIds(this, App.getDelegator(), ids);
-                        logic.pushSelection(selection);
-                    } else {
-                        logic.popSelection();
-                    }
+                    ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
+                    selection = new Selection();
+                    selection.fromIds(this, App.getDelegator(), ids);
+                    logic.pushSelection(selection);
                     zoomToSelected(logic);
+                    break;
+                case ACTION_POP_SELECTION:
+                    if (logic.getSelectionStack().size() > 1) {
+                        logic.popSelection();
+                        zoomToSelected(logic);
+                    }
                     break;
                 case ACTION_CLEAR_SELECTION_STACK:
                     Deque<Selection> stack = logic.getSelectionStack();
@@ -2591,7 +2593,7 @@ public class Main extends ConfigurationChangeAwareActivity
                             DownloadMissing.showDialog(Main.this, notDownloadedPresets, notDownloadedStyles);
                         }
                     }
-
+                    App.resetKeyboardShortcuts();
                     return true;
                 }
             });
@@ -4110,6 +4112,38 @@ public class Main extends ConfigurationChangeAwareActivity
      */
     public class MapKeyListener implements OnKeyListener {
 
+        private final java.util.Map<String, Shortcuts.Action> actionMap = new HashMap<>();
+
+        public MapKeyListener() {
+            final Main main = Main.this;
+            actionMap.put(main.getString(R.string.ACTION_ZOOM_IN), new Shortcuts.Action(R.string.action_zoom_in, () -> {
+                App.getLogic().zoom(Logic.ZOOM_IN);
+                updateZoomControls();
+            }));
+            actionMap.put(main.getString(R.string.ACTION_ZOOM_OUT), new Shortcuts.Action(R.string.action_zoom_out, () -> {
+                App.getLogic().zoom(Logic.ZOOM_OUT);
+                updateZoomControls();
+            }));
+            actionMap.put(main.getString(R.string.ACTION_HELP), new Shortcuts.Action(R.string.action_help, () -> HelpViewer.start(main, R.string.help_main)));
+            actionMap.put(main.getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_undo, () -> main.undoListener.onClick(null)));
+            actionMap.put(main.getString(R.string.ACTION_GPS_FOLLOW), new Shortcuts.Action(R.string.action_gps_follow, main::toggleFollowGPS));
+            actionMap.put(main.getString(R.string.ACTION_GPS_GOTO), new Shortcuts.Action(R.string.action_gps_goto, main::gotoCurrentLocation));
+            actionMap.put(main.getString(R.string.ACTION_DOWNLOAD), new Shortcuts.Action(R.string.action_download, () -> main.onMenuDownloadCurrent(true)));
+            actionMap.put(main.getString(R.string.ACTION_BUG_DOWNLOAD),
+                    new Shortcuts.Action(R.string.action_bugs_download, () -> main.downLoadBugs(map.getViewBox().copy())));
+            actionMap.put(main.getString(R.string.ACTION_ELEMENT_PASTE), new Shortcuts.Action(R.string.action_element_paste, () -> {
+                if (App.getDelegator().clipboardIsEmpty()) {
+                    return;
+                }
+                ViewBox viewBox = App.getLogic().getViewBox();
+                double[] coords = viewBox.getCenter();
+                int width = getMap().getWidth();
+                int height = getMap().getHeight();
+                SimpleActionModeCallback.paste(main, getEasyEditManager(), GeoMath.lonToX(width, viewBox, coords[0]),
+                        GeoMath.latToY(height, width, viewBox, coords[1]));
+            }));
+        }
+
         @SuppressLint("NewApi")
         @Override
         public boolean onKey(final View v, final int keyCode, final KeyEvent event) {
@@ -4192,63 +4226,23 @@ public class Main extends ConfigurationChangeAwareActivity
          * @param inElementSelectedMode true if we are in an Element selection mode
          */
         private boolean handleShortCut(@NonNull final KeyEvent event, @NonNull final Logic logic, boolean isProcessingAction, boolean inElementSelectedMode) {
-            Character c = Character.toLowerCase((char) event.getUnicodeChar());
-            if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
-                logic.zoom(Logic.ZOOM_IN);
-                updateZoomControls();
-                return true;
-            }
-            if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_out)) {
-                logic.zoom(Logic.ZOOM_OUT);
-                updateZoomControls();
-                return true;
-            }
-            if (!event.isCtrlPressed()) {
-                return false;
-            }
-            // get rid of Ctrl key
             char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
+            Shortcuts.Modifier metaKey = Shortcuts.Modifier.fromState(event.getMetaState());
             // menu based shortcuts don't seem to work (anymore) so we do this on foot
-            if (isProcessingAction && getEasyEditManager().processShortcut(shortcut)) {
+            if (isProcessingAction && getEasyEditManager().processShortcut(metaKey, shortcut)) {
                 return true;
             }
+
             if (!logic.getMode().elementsSelectable() || (isProcessingAction && !inElementSelectedMode)) {
+                // avoid any of the following shortcuts in action modes except selection
                 return false;
             }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_help)) {
-                HelpViewer.start(Main.this, R.string.help_main);
+
+            if (App.getKeyboardShortcuts(Main.this).execute(metaKey, shortcut, actionMap)) {
                 return true;
             }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_undo)) {
-                Main.this.undoListener.onClick(null);
-                return true;
-            }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_follow)) {
-                Main.this.toggleFollowGPS();
-                return true;
-            }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_goto)) {
-                Main.this.gotoCurrentLocation();
-                return true;
-            }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_download)) {
-                Main.this.onMenuDownloadCurrent(true);
-                return true;
-            }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_bugs_download)) {
-                Main.this.downLoadBugs(map.getViewBox().copy());
-                return true;
-            }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_paste) && !App.getDelegator().clipboardIsEmpty()) {
-                ViewBox viewBox = logic.getViewBox();
-                double[] coords = viewBox.getCenter();
-                int width = getMap().getWidth();
-                int height = getMap().getHeight();
-                SimpleActionModeCallback.paste(Main.this, getEasyEditManager(), GeoMath.lonToX(width, viewBox, coords[0]),
-                        GeoMath.latToY(height, width, viewBox, coords[1]));
-                return true;
-            }
-            // short cut not found
+
+            // shortcut not found
             Sound.beep();
             Log.w(DEBUG_TAG, "Unknown short cut key event " + event);
             return false;

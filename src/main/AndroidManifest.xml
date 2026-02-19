@@ -353,7 +353,11 @@
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat" />
-
+        <activity
+            android:name="de.blau.android.prefs.keyboard.ShortcutsActivity"
+            android:label="@string/config_keyboard_shortcuts_title"
+            android:parentActivityName="de.blau.android.prefs.PrefEditorActivity" 
+            android:theme="@style/Theme.customActionBar" />
         <receiver
             android:name=".util.DownloadBroadcastReceiver"
             android:exported="true" >

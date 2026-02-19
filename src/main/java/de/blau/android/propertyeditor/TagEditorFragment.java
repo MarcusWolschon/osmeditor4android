@@ -64,6 +64,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetCheckField;
@@ -254,7 +255,9 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
         propertyEditorListener = (PropertyEditorListener) parent;
         presetSelectedListener = (OnPresetSelectedListener) parent;
         setHasOptionsMenu(true);
-        getActivity().invalidateOptionsMenu();
+        FragmentActivity activity = getActivity();
+        activity.invalidateOptionsMenu();
+        actionMap.put(getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_info, this::doRevert));
     }
 
     @Override

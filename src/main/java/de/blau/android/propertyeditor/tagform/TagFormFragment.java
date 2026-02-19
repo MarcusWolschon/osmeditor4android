@@ -58,6 +58,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.MatchType;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetCheckField;
@@ -200,6 +201,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         presetSelectedListener = (OnPresetSelectedListener) parent;
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
+
+        actionMap.put(getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_undo, this::doRevert));
     }
 
     @Override
