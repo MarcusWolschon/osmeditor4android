@@ -798,6 +798,14 @@ public class Logic {
             Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element");
             throw new OsmIllegalOperationException("Element not in storage");
         }
+        if (tags != null) {
+            for (String v : tags.values()) {
+                if (Util.isEmpty(v) || "".equals(v.trim())) {
+                    Log.e(DEBUG_TAG, "Attempted to set empty value in setTags");
+                    throw new OsmIllegalOperationException("Attempting to set an empty tag value");
+                }
+            }
+        }
         try {
             lock();
             if (createCheckpoint) {
@@ -4551,8 +4559,9 @@ public class Logic {
                         // invalid dimensions or similar error
                         viewBox.setBorders(mainMap, new BoundingBox(-GeoMath.MAX_LON, -GeoMath.MAX_COMPAT_LAT, GeoMath.MAX_LON, GeoMath.MAX_COMPAT_LAT));
                     }
-                    mainMap.getDataStyleManager().updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not
-                                                                                              // done in
+                    mainMap.getDataStyleManager().updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure
+                                                                                                     // if not
+                    // done in
                     loadEditingState((Main) activity, true);
                 } else {
                     Log.e(DEBUG_TAG, "loadFromFile map is null");

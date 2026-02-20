@@ -21,7 +21,7 @@ public class NotEmptyValidator extends EditTextValidator {
 
     @Override
     protected boolean isValid(@NonNull String text) {
-        return !text.isEmpty();
+        return !text.trim().isEmpty();
     }
 
     @NonNull

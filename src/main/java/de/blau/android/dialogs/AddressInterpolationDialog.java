@@ -20,12 +20,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
@@ -46,9 +48,11 @@ import de.blau.android.propertyeditor.tagform.TextRow;
 import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.IntCoordinates;
+import de.blau.android.util.Sound;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.validation.NotEmptyValidator;
 import de.blau.android.views.CustomAutoCompleteTextView;
 import de.blau.android.views.SimpleTextRow;
 
@@ -85,8 +89,8 @@ public class AddressInterpolationDialog extends CancelableDialogFragment {
             if (activity instanceof Main) {
                 ((Main) activity).descheduleAutoLock();
             }
-            AddressInterpolationDialog tagConflictFragment = newInstance(way);
-            tagConflictFragment.show(fm, TAG);
+            AddressInterpolationDialog interpolationFragment = newInstance(way);
+            interpolationFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
         }
@@ -124,7 +128,6 @@ public class AddressInterpolationDialog extends CancelableDialogFragment {
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "Recreating from saved state");
             wayId = savedInstanceState.getLong(WAY_ID_KEY);
-
         } else {
             wayId = getArguments().getLong(WAY_ID_KEY);
         }
@@ -136,11 +139,14 @@ public class AddressInterpolationDialog extends CancelableDialogFragment {
 
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.interpolation, null);
         EditText start = (EditText) layout.findViewById(R.id.start_edit);
+        final NotEmptyValidator startValidator = new NotEmptyValidator(start, getString(R.string.validation_start_is_empty));
         EditText end = (EditText) layout.findViewById(R.id.end_edit);
+        final NotEmptyValidator endValidator = new NotEmptyValidator(end, getString(R.string.validation_end_is_empty));
         RadioButton even = (RadioButton) layout.findViewById(R.id.even);
         RadioButton odd = (RadioButton) layout.findViewById(R.id.odd);
         RadioButton other = (RadioButton) layout.findViewById(R.id.other);
         CustomAutoCompleteTextView otherEdit = (CustomAutoCompleteTextView) layout.findViewById(R.id.other_edit);
+        final NotEmptyValidator otherValidator = new NotEmptyValidator(otherEdit, getString(R.string.validation_other_is_empty));
         otherEdit.setOnFocusChangeListener((View v, boolean hasFocus) -> {
             if (hasFocus) {
                 other.setChecked(true);
@@ -149,6 +155,9 @@ public class AddressInterpolationDialog extends CancelableDialogFragment {
         other.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
             if (isChecked) {
                 otherEdit.requestFocus();
+                otherValidator.validate();
+            } else {
+                otherValidator.clearError();
             }
         });
         LinearLayout tagLayout = (LinearLayout) layout.findViewById(R.id.commonTags);
@@ -159,19 +168,25 @@ public class AddressInterpolationDialog extends CancelableDialogFragment {
         start.setText(firstHousenumber);
         final Node lastNode = way.getLastNode();
         Map<String, String> lastTags = predictNodeAddress(lastNode);
-        end.setText(lastTags.get(Tags.KEY_ADDR_HOUSENUMBER));
+        final String lastHousenumber = lastTags.get(Tags.KEY_ADDR_HOUSENUMBER);
+        end.setText(lastHousenumber);
         Map<String, String> wayTags = new TreeMap<>();
-        try {
-            if (Integer.parseInt(firstHousenumber) % 2 == 0) {
-                wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_EVEN);
-                even.setChecked(true);
-            } else {
-                wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_ODD);
-                odd.setChecked(true);
-            }
-        } catch (NumberFormatException nfex) {
+        if (firstHousenumber == null && lastHousenumber == null) {
             wayTags.put(Tags.KEY_ADDR_INTERPOLATION, "");
             other.setChecked(true);
+        } else {
+            try {
+                if (Integer.parseInt(firstHousenumber) % 2 == 0 || Integer.parseInt(lastHousenumber) % 2 == 0) {
+                    wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_EVEN);
+                    even.setChecked(true);
+                } else {
+                    wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_ODD);
+                    odd.setChecked(true);
+                }
+            } catch (NumberFormatException nfex) {
+                wayTags.put(Tags.KEY_ADDR_INTERPOLATION, "");
+                other.setChecked(true);
+            }
         }
 
         StreetPlaceNamesAdapter streetNameAutocompleteAdapter = new StreetPlaceNamesAdapter(context, R.layout.autocomplete_row, App.getDelegator(), Node.NAME,
@@ -223,36 +238,50 @@ public class AddressInterpolationDialog extends CancelableDialogFragment {
         Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         builder.setTitle(R.string.address_interpolation_title);
         builder.setNegativeButton(R.string.cancel, null);
-        builder.setPositiveButton(R.string.okay, (DialogInterface dialog, int which) -> {
-            Map<String, String> newTags = new TreeMap<>();
-            // collect common tags
-            for (int i = 0; i < tagLayout.getChildCount(); i++) {
-                TextRow row = (TextRow) tagLayout.getChildAt(i);
-                String value = row.getValue();
-                if (value != null && !"".equals(value)) {
-                    newTags.put(row.getKey(), value);
-                }
-            }
-            updateNode(firstNode, newTags, start.getText().toString());
-            updateNode(lastNode, newTags, end.getText().toString());
-            if (even.isChecked()) {
-                wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_EVEN);
-            } else if (odd.isChecked()) {
-                wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_ODD);
-            } else {
-                wayTags.put(Tags.KEY_ADDR_INTERPOLATION, otherEdit.getText().toString());
-            }
-            App.getLogic().setTags(activity, Way.NAME, way.getOsmId(), wayTags, false);
-            // update and save the addresses
-            Address.updateLastAddresses(context, streetNameAutocompleteAdapter, Node.NAME, firstNode.getOsmId(), Util.getListMap(firstNode.getTags()), false);
-            Address.updateLastAddresses(context, streetNameAutocompleteAdapter, Node.NAME, lastNode.getOsmId(), Util.getListMap(lastNode.getTags()), true);
-            if (activity instanceof Main) {
-                ((Main) activity).invalidateMap();
-            }
-        });
+        builder.setPositiveButton(R.string.okay, null);
 
         builder.setView(layout);
-        return builder.create();
+        AlertDialog dialog = builder.create();
+
+        dialog.setOnShowListener((DialogInterface d) -> {
+            final Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            positive.setOnClickListener((View v) -> {
+                startValidator.validate();
+                endValidator.validate();
+                if (start.getError() != null || end.getError() != null || otherEdit.getError() != null) {
+                    Sound.beep(); // error messages are already displayed
+                    return;
+                }
+                Map<String, String> newTags = new TreeMap<>();
+                // collect common tags
+                for (int i = 0; i < tagLayout.getChildCount(); i++) {
+                    TextRow row = (TextRow) tagLayout.getChildAt(i);
+                    String value = row.getValue();
+                    if (value != null && !"".equals(value)) {
+                        newTags.put(row.getKey(), value);
+                    }
+                }
+                updateNode(firstNode, newTags, start.getText().toString().trim());
+                updateNode(lastNode, newTags, end.getText().toString().trim());
+                if (even.isChecked()) {
+                    wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_EVEN);
+                } else if (odd.isChecked()) {
+                    wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_ODD);
+                } else {
+                    wayTags.put(Tags.KEY_ADDR_INTERPOLATION, otherEdit.getText().toString().trim());
+                }
+                App.getLogic().setTags(activity, Way.NAME, way.getOsmId(), wayTags, false);
+                // update and save the addresses
+                Address.updateLastAddresses(context, streetNameAutocompleteAdapter, Node.NAME, firstNode.getOsmId(), Util.getListMap(firstNode.getTags()),
+                        false);
+                Address.updateLastAddresses(context, streetNameAutocompleteAdapter, Node.NAME, lastNode.getOsmId(), Util.getListMap(lastNode.getTags()), true);
+                if (activity instanceof Main) {
+                    ((Main) activity).invalidateMap();
+                }
+                dialog.dismiss();
+            });
+        });
+        return dialog;
     }
 
     @Override
