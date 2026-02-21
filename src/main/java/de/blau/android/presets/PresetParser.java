@@ -315,6 +315,7 @@ public class PresetParser {
                 // a number of fields use these, always try to retrieve them
                 String text = attr.getValue(TEXT);
                 String textContext = attr.getValue(TEXT_CONTEXT);
+                final boolean deprecated = TRUE.equals(attr.getValue(DEPRECATED));
                 switch (name) {
                 case OPTIONAL:
                     inOptionalSection = true;
@@ -341,7 +342,7 @@ public class PresetParser {
                     } else {
                         // Optional fixed tags should not happen, their values will NOT be automatically inserted.
                         field = currentItem.addTag(true, key, PresetKeyType.TEXT, value, MatchType.fromString(match));
-                        field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED))); // fixed fields can't be deprecated
+                        field.setDeprecated(deprecated); // fixed fields can't be deprecated
                     }
                     if (match != null) {
                         field.setMatchType(match);
@@ -393,7 +394,7 @@ public class PresetParser {
                             Log.e(DEBUG_TAG, "Parsing of 'length' failed " + length + " " + e.getMessage());
                         }
                     }
-                    field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    field.setDeprecated(deprecated);
                     setBackground(attr, field);
                     setRegions(attr, field);
                     field.setMatchExpression(attr.getValue(MATCH_EXPRESSION));
@@ -432,7 +433,7 @@ public class PresetParser {
                         checkGroup.setTextContext(textContext);
                     }
                     checkGroup.setOptional(inOptionalSection);
-                    checkGroup.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    checkGroup.setDeprecated(deprecated);
                     setBackground(attr, checkGroup);
                     setRegions(attr, checkGroup);
                     break;
@@ -467,7 +468,7 @@ public class PresetParser {
                     if (useLastAsDefault != null) {
                         checkField.setUseLastAsDefault(useLastAsDefault);
                     }
-                    checkField.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    checkField.setDeprecated(deprecated);
                     if (checkGroup != null) {
                         checkGroup.addCheckField(checkField);
                     } else {
@@ -553,7 +554,7 @@ public class PresetParser {
                     if (valueCountKey != null) {
                         ((PresetComboField) field).setValueCountKey(valueCountKey);
                     }
-                    field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    field.setDeprecated(deprecated);
                     setBackground(attr, field);
                     setRegions(attr, field);
                     field.setMatchExpression(attr.getValue(MATCH_EXPRESSION));
@@ -569,7 +570,7 @@ public class PresetParser {
                     role.setRequisite(attr.getValue(REQUISITE));
                     role.setCount(attr.getValue(COUNT));
                     role.setRegexp(attr.getValue(REGEXP));
-                    role.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    role.setDeprecated(deprecated);
                     setRegions(attr, role);
                     currentItem.addRole(role);
                     break;

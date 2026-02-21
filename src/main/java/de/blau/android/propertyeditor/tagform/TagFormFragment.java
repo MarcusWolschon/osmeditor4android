@@ -1356,7 +1356,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     public void updateDialogRow(@NonNull String key, @NonNull final Map<String, String> tags) {
         View row = getRow(key);
         if (row instanceof CheckGroupDialogRow) {
-            ((CheckGroupDialogRow) row).setSelectedValues(tags);
+            ((CheckGroupDialogRow) row).setSelectedValues(getContext(), tags);
             ((DialogRow) row).setChanged(true);
         }
     }
