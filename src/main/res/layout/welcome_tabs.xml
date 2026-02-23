@@ -18,7 +18,8 @@
             android:orientation="vertical">
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:fillViewport="true">
                 <TextView
                     android:id="@+id/welcome_message"
@@ -30,13 +31,14 @@
         <LinearLayout
             android:id="@+id/settings_page"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:orientation="vertical"
             android:paddingLeft="?attr/dialogPreferredPadding"
             android:paddingRight="?attr/dialogPreferredPadding">
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:fillViewport="true">
                 <RelativeLayout
                     android:layout_width="fill_parent"
