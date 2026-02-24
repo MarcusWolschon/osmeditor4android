@@ -326,11 +326,10 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
     /**
      * Check if all rows have been de-selected
      * 
-     * @param skipHeaderRow if true skip the header row
      * @return true if no rows are selected
      */
     @Override
-    public boolean rowsDeselected(boolean skipHeaderRow) {
+    public boolean rowsDeselected() {
         for (MemberEntry entry : members) {
             if (entry.selected) {
                 // something is still selected

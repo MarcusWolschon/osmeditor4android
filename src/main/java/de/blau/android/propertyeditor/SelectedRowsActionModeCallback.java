@@ -182,13 +182,11 @@ class SelectedRowsActionModeCallback implements Callback {
     /**
      * Check if all rows have been de-selected
      * 
-     * @param skipHeaderRow if true skip the header row
      * @return true if no rows are selected
      */
-    public boolean rowsDeselected(boolean skipHeaderRow) {
+    public boolean rowsDeselected() {
         final int size = rows.getChildCount();
-        int initialRowIndex = skipHeaderRow ? 1 : 0;
-        for (int i = initialRowIndex; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             Row row = (Row) rows.getChildAt(i);
             if (row.isSelected()) {
                 // something is still selected
