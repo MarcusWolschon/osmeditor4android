@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -176,28 +177,28 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     /**
      * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
      */
-    private final WeakHashMap<java.util.Map<String, String>, Bitmap> iconCache = new WeakHashMap<>();
+    private final java.util.Map<java.util.Map<String, String>, Bitmap> iconCache = new WeakHashMap<>();
 
     /**
      * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags. This stores icons
      * for areas
      */
-    private final WeakHashMap<java.util.Map<String, String>, Bitmap> areaIconCache = new WeakHashMap<>();
+    private final java.util.Map<java.util.Map<String, String>, Bitmap> areaIconCache = new WeakHashMap<>();
 
     /**
      * Stores strings that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
      */
-    private final WeakHashMap<java.util.Map<String, String>, String> labelCache = new WeakHashMap<>();
+    private final java.util.Map<java.util.Map<String, String>, String> labelCache = new WeakHashMap<>();
 
     /**
      * Store direction values in degrees
      */
-    private final WeakHashMap<java.util.Map<String, String>, Float> directionCache = new WeakHashMap<>();
+    private final java.util.Map<java.util.Map<String, String>, Float> directionCache = new WeakHashMap<>();
 
     /**
      * Cache for any preset matching during one draw pass
      */
-    private final HashMap<java.util.Map<String, String>, PresetItem> matchCache = new HashMap<>();
+    private final java.util.Map<java.util.Map<String, String>, PresetItem> matchCache = new ConcurrentHashMap<>(100, 0.75f, 3);
 
     /**
      * Stores custom icons
@@ -1290,7 +1291,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     @Nullable
     public Bitmap getIcon(@NonNull OsmElement element) {
         boolean isWay = element instanceof Way;
-        WeakHashMap<java.util.Map<String, String>, Bitmap> tempCache = isWay ? areaIconCache : iconCache;
+        java.util.Map<java.util.Map<String, String>, Bitmap> tempCache = isWay ? areaIconCache : iconCache;
         Bitmap icon = element.getFromCache(tempCache); // may be null!
         if (icon == null) {
             try {
@@ -1310,7 +1311,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
      * @param cache the relevant cache
      */
     @TargetApi(26)
-    private void retrieveIcon(@NonNull OsmElement element, boolean isWay, @NonNull WeakHashMap<java.util.Map<String, String>, Bitmap> cache) {
+    private void retrieveIcon(@NonNull OsmElement element, boolean isWay, @NonNull java.util.Map<java.util.Map<String, String>, Bitmap> cache) {
         BitmapDrawable iconDrawable = null;
 
         // icon not cached, ask the preset/style, render to a bitmap and cache result
