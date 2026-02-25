@@ -177,7 +177,7 @@ public final class Server {
             break;
         case TURBO_GEOCODE_AREA:
             String url = QueryNominatim.getNominatimUrl(context);
-            QueryNominatim querier = new QueryNominatim(null, url, null, false);
+            QueryNominatim querier = new QueryNominatim(null, url, null, false, null);
             querier.execute(argument);
             try {
                 List<SearchResult> results = querier.get(5, TimeUnit.SECONDS);
