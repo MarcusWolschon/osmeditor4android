@@ -81,17 +81,17 @@ public abstract class SelectableRowsFragment extends BaseFragment implements Pro
     @Override
     public void deselectRow() {
         synchronized (actionModeCallbackLock) {
-            if (actionModeCallback != null && actionModeCallback.rowsDeselected(true)) {
+            if (actionModeCallback != null && actionModeCallback.rowsDeselected()) {
                 actionModeCallback = null;
             }
         }
     }
-    
+
     @Override
     public void selectAllRows() {
         setSelectedRows((boolean current) -> true);
     }
-    
+
     @Override
     public void deselectAllRows() {
         setSelectedRows((boolean current) -> false);
@@ -101,25 +101,25 @@ public abstract class SelectableRowsFragment extends BaseFragment implements Pro
     public void invertSelectedRows() {
         setSelectedRows((boolean current) -> !current);
     }
-    
+
     /**
      * Iterate over all rows and set the selection status
      * 
      * @param change method that sets the selection status
      */
     protected abstract void setSelectedRows(@NonNull final ChangeSelectionStatus change);
-    
+
     @Override
     public void startStopActionModeIfRowSelected() {
         synchronized (actionModeCallbackLock) {
             if (actionModeCallback == null) {
                 actionModeCallback = getActionModeCallback();
-                if (!actionModeCallback.rowsDeselected(true)) {
+                if (!actionModeCallback.rowsDeselected()) {
                     ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
                 }
                 return;
             }
-            if (actionModeCallback.rowsDeselected(true)) {
+            if (actionModeCallback.rowsDeselected()) {
                 actionModeCallback = null;
             }
         }

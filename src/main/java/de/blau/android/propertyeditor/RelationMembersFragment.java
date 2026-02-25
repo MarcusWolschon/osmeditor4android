@@ -904,7 +904,7 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
     public void deselectRow() {
         synchronized (actionModeCallbackLock) {
             if (actionModeCallback != null) {
-                if (actionModeCallback.rowsDeselected(true)) {
+                if (actionModeCallback.rowsDeselected()) {
                     actionModeCallback = null;
                 } else {
                     actionModeCallback.invalidate();
