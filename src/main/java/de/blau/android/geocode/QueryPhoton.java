@@ -1,20 +1,5 @@
 package de.blau.android.geocode;
 
-import android.annotation.SuppressLint;
-import android.net.Uri;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.Geometry;
-import com.mapbox.geojson.Point;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +10,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.Geometry;
+import com.mapbox.geojson.Point;
+
+import android.annotation.SuppressLint;
+import android.net.Uri;
+import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.osm.ViewBox;
@@ -54,14 +52,15 @@ class QueryPhoton extends Query {
      * @param activity the calling FragmentActivity, if null no progress spinner will be shown
      * @param url URL for the specific instance of the geocoder
      * @param bbox a ViewBox to restrict the query to, if null the whole world will be considered
+     * @param postQueryHandler code to run once we are done
      */
-    public QueryPhoton(@Nullable FragmentActivity activity, @NonNull String url, @Nullable ViewBox bbox) {
-        super(activity, url, bbox);
+    public QueryPhoton(@Nullable FragmentActivity activity, @NonNull String url, @Nullable ViewBox bbox, @Nullable final PostQueryHandler postQueryHandler) {
+        super(activity, url, bbox, postQueryHandler);
     }
 
     @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     @Override
-    protected List<SearchResult> doInBackground(String query) {
+    protected List<SearchResult> doInBackground(String query) throws IOException {
         List<SearchResult> result = new ArrayList<>();
         Uri.Builder builder = Uri.parse(url).buildUpon().appendPath("api").appendQueryParameter("q", query);
         if (bbox != null) {
@@ -74,27 +73,22 @@ class QueryPhoton extends Query {
         Uri uriBuilder = builder.build();
         String urlString = uriBuilder.toString();
         Log.d(DEBUG_TAG, "urlString: " + urlString);
-        try {
-            Request request = new Request.Builder().url(urlString).build();
-            Response searchCallResponse = App.getHttpClient().newCall(request).execute();
-            if (searchCallResponse.isSuccessful()) {
-                try (ResponseBody responseBody = searchCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
-                    if (inputStream != null) {
-                        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-                        FeatureCollection fc = FeatureCollection.fromJson(FileUtil.readToString(rd));
-                        for (Feature f : fc.features()) {
-                            SearchResult searchResult = readPhotonResult(f);
-                            if (searchResult != null) {
-                                result.add(searchResult);
-                                Log.d(DEBUG_TAG, "received: " + searchResult.toString());
-                            }
+        Request request = new Request.Builder().url(urlString).build();
+        Response searchCallResponse = App.getHttpClient().newCall(request).execute();
+        if (searchCallResponse.isSuccessful()) {
+            try (ResponseBody responseBody = searchCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
+                if (inputStream != null) {
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+                    FeatureCollection fc = FeatureCollection.fromJson(FileUtil.readToString(rd));
+                    for (Feature f : fc.features()) {
+                        SearchResult searchResult = readPhotonResult(f);
+                        if (searchResult != null) {
+                            result.add(searchResult);
+                            Log.d(DEBUG_TAG, "received: " + searchResult.toString());
                         }
                     }
                 }
             }
-        } catch (IOException e) {
-            Log.e(DEBUG_TAG, "QueryPhoton got " + e.getMessage());
-            connectionError(e.getMessage());
         }
         return result;
     }
