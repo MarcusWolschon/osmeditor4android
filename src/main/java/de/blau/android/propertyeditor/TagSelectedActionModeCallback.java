@@ -1,6 +1,5 @@
 package de.blau.android.propertyeditor;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.Map;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
@@ -177,24 +175,5 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
             return false;
         }
         return true;
-    }
-
-    /**
-     * Get the selected rows
-     * 
-     * @return a List of TagEditRow
-     */
-    @NonNull
-    private List<TagEditRow> getSelectedRows() {
-        final int size = rows.getChildCount();
-        List<TagEditRow> selected = new ArrayList<>();
-        for (int i = 0; i < size; ++i) {
-            View view = rows.getChildAt(i);
-            TagEditRow row = (TagEditRow) view;
-            if (row.isSelected()) {
-                selected.add(row);
-            }
-        }
-        return selected;
     }
 }

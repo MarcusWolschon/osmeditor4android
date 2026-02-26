@@ -42,7 +42,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
@@ -1325,9 +1324,9 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
                 return;
             }
             if (isChecked) {
-                tagSelected();
+                onRowSelected();
             } else {
-                deselectRow();
+                onDeselectRow();
             }
         };
 
@@ -1551,7 +1550,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
         public void deselect() {
             setRowSelected(false);
             // check if all have been deselected
-            owner.deselectRow();
+            owner.onDeselectRow();
         }
 
         /**
@@ -1620,18 +1619,6 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
     @Override
     protected SelectedRowsActionModeCallback getActionModeCallback() {
         return new TagSelectedActionModeCallback(this, (LinearLayout) getOurView());
-    }
-
-    /**
-     * Start the TagSelectedActionModeCallback
-     */
-    private void tagSelected() {
-        synchronized (actionModeCallbackLock) {
-            if (actionModeCallback == null) {
-                actionModeCallback = getActionModeCallback();
-                ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
-            }
-        }
     }
 
     @Override

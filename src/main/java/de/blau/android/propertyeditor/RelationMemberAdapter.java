@@ -87,13 +87,17 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
             holder.row.setIcon(ctx, memberEntry, connected);
         }
         holder.row.setOnCheckedChangeListener(null);
-        if (memberEntry.selected) {
+        if (memberEntry.isSelected()) {
             holder.row.select();
         } else {
             holder.row.deselect();
         }
         OnCheckedChangeListener realListener = (CompoundButton buttonView, boolean isChecked) -> {
-            memberEntry.selected = isChecked;
+            if (isChecked) {
+                memberEntry.select();
+            } else {
+                memberEntry.deselect();
+            }
             listener.onCheckedChanged(buttonView, isChecked);
             if (isChecked) {
                 holder.row.elementView.setTextColor(notSelectableColor);
@@ -108,7 +112,7 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
             memberEntry.setRole(s.toString());
         }));
 
-        if (memberEntry.downloaded() && !memberEntry.selected) {
+        if (memberEntry.downloaded() && !memberEntry.isSelected()) {
             holder.row.elementView.setOnClickListener((View v) -> {
                 OsmElement element = App.getDelegator().getOsmElement(memberEntry.getType(), memberEntry.getRef());
                 if (element != null) {
