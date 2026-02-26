@@ -3144,19 +3144,18 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @throws IOException if saving failed
      */
     public void writeToFile(@NonNull Context ctx) throws IOException {
-        if (apiStorage == null || currentStorage == null) {
+        if (apiStorage == null || currentStorage == null || !dirty) {
             // don't write empty state files
-            Log.i(DEBUG_TAG, "storage delegator empty, skipping save");
-            return;
-        }
-        if (!dirty) { // dirty flag should only be set if we have actually read/loaded/changed something
-            Log.i(DEBUG_TAG, "storage delegator not dirty, skipping save");
+            // dirty flag should only be set if we have actually read/loaded/changed something
+            Log.i(DEBUG_TAG, "storage delegator empty or not dirty, skipping save");
             return;
         }
         if (lock.tryLock()) {
-            if (savingHelper.save(ctx, FILENAME, this, true)) {
-                dirty = false;
-            } else {
+            try {
+                if (savingHelper.save(ctx, FILENAME, this, true)) {
+                    dirty = false;
+                    return;
+                }
                 // this is essentially catastrophic and can only happen if something went really wrong
                 // running out of memory or disk, or HW failure
                 Log.e(DEBUG_TAG, "writeToFile unable to save");
@@ -3171,10 +3170,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
                 SavingHelper.export(ctx, this); // ctx == null is checked in method
                 Log.d(DEBUG_TAG, "save of state file failed, written emergency change file");
+            } finally {
+                lock.unlock();
             }
-            lock.unlock();
         } else {
-            Log.i(DEBUG_TAG, "storage delegator state being read, skipping save");
+            Log.i(DEBUG_TAG, "storage delegator locked, skipping save");
         }
     }
 
