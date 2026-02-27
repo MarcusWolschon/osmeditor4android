@@ -43,7 +43,11 @@ public final class Util {
      * @param tag the tag of the DialogFragment we want to remove
      */
     public static void dismissDialog(@NonNull FragmentActivity activity, @NonNull String tag) {
-        dismiss(activity.getSupportFragmentManager(), tag);
+        try {
+            dismiss(activity.getSupportFragmentManager(), tag);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "dismissDialog " + tag, isex);
+        }
     }
 
     /**
@@ -53,7 +57,12 @@ public final class Util {
      * @param tag the tag of the DialogFragment we want to remove
      */
     public static void dismissDialog(@NonNull Fragment fragment, @NonNull String tag) {
-        dismiss(fragment.getChildFragmentManager(), tag);
+        // note getChildFragmentManager can throw an ISE too
+        try {
+            dismiss(fragment.getChildFragmentManager(), tag);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "dismissDialog " + tag, isex);
+        }
     }
 
     /**
@@ -62,17 +71,13 @@ public final class Util {
      * @param fm the FragmentManager
      * @param tag the tag
      */
-    static void dismiss(FragmentManager fm, @NonNull String tag) {
+    private static void dismiss(FragmentManager fm, @NonNull String tag) {
         FragmentTransaction ft = fm.beginTransaction();
         Fragment fragment = fm.findFragmentByTag(tag);
         if (fragment != null) {
             ft.remove(fragment);
         }
-        try {
-            ft.commitNowAllowingStateLoss();
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "dismissDialog " + tag, isex);
-        }
+        ft.commitNowAllowingStateLoss();
     }
 
     /**
