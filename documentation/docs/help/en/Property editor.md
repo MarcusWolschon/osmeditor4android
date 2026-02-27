@@ -107,7 +107,7 @@ Start the on device help browser.
 
 ## Relations Tab
 
-Display of the relations the edited object is a member of and the role in the relation.
+Display of the relations the edited object is a member of and the role in the relation. A long press on the description field will drill "up" and a new property editor will be opened for the relation. Note: during such a drill down operation the property editors are stacked, if you close a stacked property editor you will be returned to the previous one and so on.
 
 The following operation can be performed on selected relations.
 

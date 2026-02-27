@@ -235,6 +235,10 @@ The minimum number of nodes a way needs to have to trigger the moved way warning
 ### Min. way node count for visible node move warning
 
 The minimum number of nodes a way needs to have to trigger the visible node check and potential warning. The warning will be shown if more than half of the nodes in the way are not visible. Default: _5_.
+
+### Ignore subareas
+
+Ignore parent relations that we are a subarea of in the disambiguation modal. Default: _on_.
    
 ## Auto-download Settings
 

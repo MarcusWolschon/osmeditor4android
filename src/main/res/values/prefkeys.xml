@@ -156,6 +156,7 @@
     <string name="config_replaceTolerance_key">replaceTolerance</string>
     <string name="config_minMoveWayNodesWarning_key">minMoveWayNodesWarning</string>
     <string name="config_minMoveVisibleWayNodesWarning_key">minMoveVisibleWayNodesWarning</string>
+    <string name="config_ignoreSubareas_key">ignoreSubareas</string>
     <!-- Last directories used in the file selector -->
     <string name="config_gpxPreferredDir_key">gpxPreferredDir</string>
     <string name="config_osmPreferredDir_key">osmPreferredDir</string>

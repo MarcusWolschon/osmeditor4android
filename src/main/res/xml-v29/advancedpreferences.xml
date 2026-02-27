@@ -418,6 +418,11 @@
             app:spt_increment="1"
             app:spt_currentValueText="@string/config_minMoveVisibleWayNodesWarning_current"
             app:spt_setWrapSelectorWheel="false" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_ignoreSubareas_key"
+            android:summary="@string/config_ignoreSubareas_summary"
+            android:title="@string/config_ignoreSubareas_title" /> 
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_auto_download"
