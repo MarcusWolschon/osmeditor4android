@@ -892,7 +892,7 @@ public class Logic {
         result.addAll(getClickedWays(x, y));
         if (returnRelations) {
             // add any relations that the elements are members of
-            result.addAll(getParentRelations(result));
+            result.addAll(getParentRelations(result, prefs.ignoreSubareas()));
         }
         if (clickableElements != null) {
             for (OsmElement e : new ArrayList<OsmElement>(result)) {
@@ -908,16 +908,17 @@ public class Logic {
      * Return all the Relations the OsmElements are a member of and parent relations
      * 
      * @param elements the OsmElements to check
+     * @param ignoreSubareas if true don't add subareas to the list
      * @return a List of OsmElement
      */
     @NonNull
-    private List<Relation> getParentRelations(@NonNull List<OsmElement> elements) {
+    private List<Relation> getParentRelations(@NonNull List<OsmElement> elements, boolean ignoreSubareas) {
         // NWR sorting of the elements ensures that the parents of relations
         // are last in the list, for example subarea members in boundaries
         List<OsmElement> toSort = new ArrayList<>(elements);
         Collections.sort(toSort, new NwrComparator());
         List<Relation> relations = new ArrayList<>();
-        getParentRelations(toSort, relations);
+        getParentRelations(toSort, relations, ignoreSubareas);
         return relations;
     }
 
@@ -928,8 +929,9 @@ public class Logic {
      * 
      * @param elements the OsmElements to get the parent Relations of
      * @param relations the List of Relations
+     * @param ignoreSubareas if true don't add subareas to the list
      */
-    private void getParentRelations(@NonNull List<OsmElement> elements, @NonNull List<Relation> relations) {
+    private void getParentRelations(@NonNull List<OsmElement> elements, @NonNull List<Relation> relations, boolean ignoreSubareas) {
         List<OsmElement> nextLevel = new ArrayList<>();
         for (OsmElement e : elements) {
             final List<Relation> parentRelations = e.getParentRelations();
@@ -940,15 +942,19 @@ public class Logic {
             // a better thing to sort on would be the area the relation covers, but number of members is probably
             // a reasonable proxy
             Collections.sort(sortedParents, (Relation r1, Relation r2) -> Integer.compare(r1.getMemberCount(), r2.getMemberCount()));
-            for (Relation r : sortedParents) {
-                if (!relations.contains(r)) { // using a set is likely slower
-                    relations.add(r);
-                    nextLevel.add(r);
+            for (Relation parent : sortedParents) {
+                // ignore relation parents if we are a subarea member of them
+                if (e instanceof Relation && ignoreSubareas && isSubarea(parent, parent.getMember(e))) {
+                    continue;
+                }
+                if (!relations.contains(parent)) { // using a set is likely slower
+                    relations.add(parent);
+                    nextLevel.add(parent);
                 }
             }
         }
         if (!nextLevel.isEmpty()) {
-            getParentRelations(nextLevel, relations);
+            getParentRelations(nextLevel, relations, ignoreSubareas);
         }
     }
 
@@ -5949,7 +5955,8 @@ public class Logic {
                         break;
                     case Relation.NAME:
                         // break recursion if already selected or max depth exceeded
-                        if ((selectedRelationRelations == null || !selectedRelationRelations.contains(e)) && depth <= MAX_RELATION_SELECTION_DEPTH) {
+                        if ((selectedRelationRelations == null || !selectedRelationRelations.contains(e)) && depth <= MAX_RELATION_SELECTION_DEPTH
+                                && !isSubarea(r, rm)) {
                             addSelectedRelationRelation((Relation) e, depth);
                         }
                         break;
@@ -5961,6 +5968,17 @@ public class Logic {
         } finally {
             unlock();
         }
+    }
+
+    /**
+     * CHeck if a relation member is a subarea of a parent relation
+     * 
+     * @param parent the parent relation
+     * @param rm the relation member
+     * @return true if rm is a subarea
+     */
+    private boolean isSubarea(@NonNull Relation parent, @Nullable RelationMember rm) {
+        return rm != null && Tags.KEY_BOUNDARY.equals(parent.getTagWithKey(Tags.KEY_TYPE)) && Tags.ROLE_SUBAREA.equals(rm.getRole());
     }
 
     /**

@@ -161,6 +161,7 @@ public class Preferences {
     private String            imageLicence;
     private final int         minMoveWayNodesWarning;
     private final int         minMoveWayVisibleNodesWarning;
+    private boolean           ignoreSubareas;
 
     public static final String DEFAULT_MAP_STYLE     = "Color Round Nodes";
     public static final String DEFAULT_PEN_MAP_STYLE = "Pen Round Nodes";
@@ -358,6 +359,8 @@ public class Preferences {
 
         minMoveWayNodesWarning = getIntPref(R.string.config_minMoveWayNodesWarning_key, Logic.MIN_NODES_FOR_MOVE_WARNING);
         minMoveWayVisibleNodesWarning = getIntPref(R.string.config_minMoveVisibleWayNodesWarning_key, Logic.MIN_NODES_FOR_MOVE_VISIBLE_WARNING);
+
+        ignoreSubareas = prefs.getBoolean(r.getString(R.string.config_ignoreSubareas_key), true);
     }
 
     /**
@@ -2170,6 +2173,25 @@ public class Preferences {
      */
     public int minMoveWayVisibleNodesWarning() {
         return minMoveWayVisibleNodesWarning;
+    }
+
+    /**
+     * Check if we should ignore subareas in the disambiguation menu or not
+     * 
+     * @return true if we should ignore subareas
+     */
+    public boolean ignoreSubareas() {
+        return ignoreSubareas;
+    }
+
+    /**
+     * Set the ignore subareas pref
+     * 
+     * @param ignore value to set
+     */
+    public void setIgnoreSubAreas(boolean ignore) {
+        ignoreSubareas = ignore;
+        prefs.edit().putBoolean(r.getString(R.string.config_ignoreSubareas_key), ignore).commit();
     }
 
     /**
