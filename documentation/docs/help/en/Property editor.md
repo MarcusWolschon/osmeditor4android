@@ -111,7 +111,8 @@ Display of the relations the edited object is a member of and the role in the re
 
 The following operation can be performed on selected relations.
 
- * Delete - remove the edited object from this relation.
+ * _Info_ - show a screen with some detailed information on the selected object. *(only available if a single object is selected)*
+ * _Delete_ - remove the edited object from this relation.
 
 ### ![Revert](../images/undolist_undo.png) Revert
 
@@ -135,6 +136,7 @@ Individual member entries can be moved by _drag and drop_ (long press followed b
 
 The following operation can be performed on selected relation members.
 
+ * _Info_ show a screen with some detailed information on the selected object. *(only available if a single downloaded object is selected)*
  * _Delete_ - remove the object from this (the edited) relation.
  * _Move up_ - move the member up one position.
  * _Move down_ - move the member down one position.

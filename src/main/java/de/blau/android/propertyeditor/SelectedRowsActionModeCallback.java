@@ -61,6 +61,7 @@ class SelectedRowsActionModeCallback implements Callback {
     static final int MENU_ITEM_DESELECT_ALL     = 14;
     static final int MENU_ITEM_INVERT_SELECTION = 15;
     static final int MENU_ITEM_HELP             = 20;
+    static final int MENU_ITEM_INFO             = 21;
 
     ActionMode currentAction;
 
@@ -174,7 +175,7 @@ class SelectedRowsActionModeCallback implements Callback {
         propertyEditorListener.enablePresets();
         PropertyRows rowContainer = (PropertyRows) caller;
         rowContainer.deselectHeaderCheckBox();
-        rowContainer.deselectRow();
+        rowContainer.onDeselectRow();
         currentAction = null;
         ((AppCompatActivity) caller.getActivity()).invalidateOptionsMenu();
     }
@@ -268,5 +269,25 @@ class SelectedRowsActionModeCallback implements Callback {
                 presetFragment.disable();
             }
         }
+    }
+
+    /**
+     * Get the selected rows
+     * 
+     * @return a List of Row
+     */
+    @NonNull
+    protected <R extends Row> List<R> getSelectedRows() {
+        final int size = rows.getChildCount();
+        List<R> selected = new ArrayList<>();
+        for (int i = 0; i < size; ++i) {
+            View view = rows.getChildAt(i);
+            @SuppressWarnings("unchecked")
+            R row = (R) view;
+            if (row.isSelected()) {
+                selected.add(row);
+            }
+        }
+        return selected;
     }
 }

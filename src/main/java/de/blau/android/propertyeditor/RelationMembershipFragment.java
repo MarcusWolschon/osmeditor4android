@@ -30,7 +30,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
@@ -289,9 +288,9 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
         return (buttonView, isChecked) -> {
             Log.d(DEBUG_TAG, "onCheckedChangedListener value " + isChecked);
             if (isChecked) {
-                parentSelected();
+                onRowSelected();
             } else {
-                deselectRow();
+                onDeselectRow();
             }
         };
     }
@@ -408,6 +407,16 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
                 relationPreset = Preset.findBestMatch(presets, r.getTags(), null, null);
             }
             return relationPreset;
+        }
+
+        /**
+         * Get the relation for this row
+         * 
+         * @return a relation or null
+         */
+        @Nullable
+        Relation getRelation() {
+            return (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
         }
 
         /**
@@ -611,7 +620,7 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
         @Override
         public void deselect() {
             setRowSelected(false);
-            owner.deselectRow();
+            owner.onDeselectRow();
         }
 
         /**
@@ -661,18 +670,6 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
     @Override
     protected SelectedRowsActionModeCallback getActionModeCallback() {
         return new ParentSelectedActionModeCallback(this, (LinearLayout) getOurView());
-    }
-
-    /**
-     * Start the action mode when a row is selected
-     */
-    private void parentSelected() {
-        synchronized (actionModeCallbackLock) {
-            if (actionModeCallback == null) {
-                actionModeCallback = getActionModeCallback();
-                ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
-            }
-        }
     }
 
     /**

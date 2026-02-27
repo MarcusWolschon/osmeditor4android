@@ -31,7 +31,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.ItemTouchHelper.Callback;
@@ -54,6 +53,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.propertyeditor.RelationMembershipFragment.RelationMembershipRow;
+import de.blau.android.propertyeditor.SelectedRowsActionModeCallback.Row;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ScrollingLinearLayoutManager;
@@ -98,14 +98,15 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         NOT, UP, DOWN, BOTH, RING_TOP, RING, RING_BOTTOM, CLOSEDWAY, CLOSEDWAY_UP, CLOSEDWAY_DOWN, CLOSEDWAY_BOTH, CLOSEDWAY_RING
     }
 
-    class MemberEntry extends RelationMemberDescription { // NOSONAR currently this is only used in a list
+    class MemberEntry extends RelationMemberDescription implements Row { // NOSONAR currently this is only used in a
+                                                                         // list
         private static final long serialVersionUID = 1L;
 
-        Connected      connected;
-        boolean        selected;
-        boolean        enabled = true;
-        transient Node up      = null;
-        transient Node down    = null;
+        Connected       connected;
+        private boolean selected;
+        boolean         enabled = true;
+        transient Node  up      = null;
+        transient Node  down    = null;
 
         /**
          * Create a MemberEntry from a RelationMemberDescription
@@ -135,6 +136,26 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
                 }
             }
             return null;
+        }
+
+        @Override
+        public void select() {
+            selected = true;
+        }
+
+        @Override
+        public void delete() {
+            // unused
+        }
+
+        @Override
+        public void deselect() {
+            selected = false;
+        }
+
+        @Override
+        public boolean isSelected() {
+            return selected;
         }
     }
 
@@ -225,9 +246,9 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
 
         adapter = new RelationMemberAdapter(getContext(), this, inflater, membersInternal, (buttonView, isChecked) -> {
             if (isChecked) {
-                memberSelected();
+                onRowSelected();
             } else {
-                deselectRow();
+                onDeselectRow();
             }
         }, propertyEditorListener.getCapabilities().getMaxStringLength());
         membersVerticalLayout.setAdapter(adapter);
@@ -811,6 +832,15 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
             return "".equals(roleEdit.getText().toString().trim());
         }
 
+        /**
+         * Check if the element is downloaded
+         * 
+         * @return true if the element is downloaded
+         */
+        public boolean isDownloaded() {
+            return rmd != null && rmd.downloaded();
+        }
+
         // return the status of the checkbox
         @Override
         public boolean isSelected() {
@@ -820,6 +850,7 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         /**
          * Select this row
          */
+
         public void select() {
             selected.setChecked(true);
         }
@@ -887,36 +918,10 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         return new RelationMemberSelectedActionModeCallback(this, adapter, membersInternal);
     }
 
-    /**
-     * Start the ActionMode for when an element is selected
-     */
-    private void memberSelected() {
-        synchronized (actionModeCallbackLock) {
-            if (actionModeCallback == null) {
-                actionModeCallback = getActionModeCallback();
-                ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
-            }
-            actionModeCallback.invalidate();
-        }
-    }
-
-    @Override
-    public void deselectRow() {
-        synchronized (actionModeCallbackLock) {
-            if (actionModeCallback != null) {
-                if (actionModeCallback.rowsDeselected()) {
-                    actionModeCallback = null;
-                } else {
-                    actionModeCallback.invalidate();
-                }
-            }
-        }
-    }
-
     @Override
     public void selectAllRows() { // selects all members
         super.selectAllRows();
-        memberSelected();
+        onRowSelected();
     }
 
     /**
@@ -935,7 +940,7 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
                         }
                     }
                     adapter.notifyDataSetChanged();
-                    deselectRow();
+                    onDeselectRow();
                 });
     }
 
