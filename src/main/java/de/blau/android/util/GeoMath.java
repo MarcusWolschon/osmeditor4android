@@ -250,19 +250,19 @@ public final class GeoMath {
         double top = lat + radiusDegree;
         if (left < -MAX_LON) {
             left = -MAX_LON;
-            right = left + radiusDegree * 2d;
+            right = left + horizontalRadiusDegree * 2d;
         }
         if (right > MAX_LON) {
-            right = MAX_LON_E7;
-            left = right - radiusDegree * 2d;
+            right = MAX_LON;
+            left = right - horizontalRadiusDegree * 2d;
         }
         if (bottom < -MAX_COMPAT_LAT) {
             bottom = -MAX_COMPAT_LAT;
-            top = bottom + horizontalRadiusDegree * 2d;
+            top = bottom + radiusDegree * 2d;
         }
         if (top > MAX_COMPAT_LAT) {
             top = MAX_COMPAT_LAT;
-            bottom = top - horizontalRadiusDegree * 2d;
+            bottom = top - radiusDegree * 2d;
         }
         return new BoundingBox(left, bottom, right, top);
     }
