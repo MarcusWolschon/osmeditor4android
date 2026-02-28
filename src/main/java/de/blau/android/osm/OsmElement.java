@@ -32,7 +32,7 @@ import de.blau.android.util.IssueAlert;
 import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
 
-public abstract class OsmElement implements OsmElementInterface, Serializable, XmlSerializable, JosmXmlSerializable {
+public abstract class OsmElement implements OsmElementInterface, Serializable, XmlSerializable, JosmXmlSerializable, AugmentedXmlSerializable {
 
     /**
      * 
@@ -377,6 +377,15 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
         return (tags != null) && (tags.size() > 0);
     }
 
+    /**
+     * check if this element is deleted
+     * 
+     * @return true if this element is deleted
+     */
+    public boolean isDeleted() {
+        return STATE_DELETED == state;
+    }
+
     @Override
     public String toString() {
         return getName() + " " + osmId;
@@ -391,6 +400,14 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      * @throws IOException if writing to the serializer fails
      */
     protected void tagsToXml(@NonNull final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        tagsToXml(s, tags);
+    }
+
+    /**
+     * @param s
+     * @throws IOException
+     */
+    public static void tagsToXml(final XmlSerializer s, Map<String, String> tags) throws IOException {
         if (tags != null) {
             for (Entry<String, String> tag : tags.entrySet()) {
                 s.startTag("", TAG);
@@ -425,7 +442,7 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
         if (timestamp >= 0) {
             s.attribute("", TIMESTAMP_ATTR, DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
         }
-        s.attribute("", VISIBLE_ATTR, TRUE_VALUE); // it could be argued that this should follow the state too
+        s.attribute("", VISIBLE_ATTR, Boolean.toString(!isDeleted()));
     }
 
     /**
