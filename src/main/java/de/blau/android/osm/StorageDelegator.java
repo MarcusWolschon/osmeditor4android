@@ -41,6 +41,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
+import de.blau.android.osm.OsmChangeParser.MissingNode;
 import de.blau.android.osm.UndoStorage.Checkpoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
@@ -4083,6 +4084,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
             // add nodes
             for (Node n : osc.getNodes()) {
+                if (n instanceof MissingNode) {
+                    // skip these, if the real node isn't present things will fail anyway
+                    continue;
+                }
                 byte state = n.getState();
                 if (n.getOsmId() < 0) {
                     // place holder, need to get a valid placeholder and renumber
