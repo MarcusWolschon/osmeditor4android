@@ -72,12 +72,16 @@ public final class Util {
      * @param tag the tag
      */
     private static void dismiss(FragmentManager fm, @NonNull String tag) {
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment fragment = fm.findFragmentByTag(tag);
-        if (fragment != null) {
-            ft.remove(fragment);
+        try {
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment fragment = fm.findFragmentByTag(tag);
+            if (fragment != null) {
+                ft.remove(fragment);
+            }
+            ft.commitNowAllowingStateLoss();
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "dismissDialog " + tag, isex);
         }
-        ft.commitNowAllowingStateLoss();
     }
 
     /**
