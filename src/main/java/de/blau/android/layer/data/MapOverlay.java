@@ -1205,6 +1205,9 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         PresetItem match = matchCache.get(tags);
         if (match == null && !matchCache.containsKey(tags)) {
             match = Preset.findBestMatch(context, tmpPresets, e.getTags(), null, e, false);
+            if (match == null) {
+                return null;
+            }
             matchCache.put(tags, match);
         }
         return match;
