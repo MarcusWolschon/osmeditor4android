@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.96.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.97.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -1736,6 +1736,8 @@
         <preset_link preset_name="Motor vehicle (CH)"/>
         <preset_link preset_name="Motorcar and -cycle (CH)"/>
         <preset_link preset_name="Heavy Goods Vehicle"/>
+        <preset_link preset_name="Motorhome"/>
+        <preset_link preset_name="Trailer"/>
         <preset_link preset_name="Physical restrictions"/>
         <preset_link preset_name="Other mode restrictions"/>
     </chunk>
@@ -4245,6 +4247,18 @@
             </combo>
             <reference ref="additional_access_tags"/>
         </item> <!-- Motorcycles -->
+        <item name="Motorhome" icon="icons/png/no_motorhomes.png" type="node,way,closedway" preset_name_label="true">
+            <link wiki="Key:access"/>
+            <space/>
+            <combo key="motorhome" text="Motorhome" values_context="access" values_sort="false" match="key">
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
+            </combo>
+            <combo key="motorhome:conditional" text="Motorhome @" long_text="Conditional restriction for motorhomes" values_sort="false" match="key">
+                <list_entry value="yes @ wet"/><list_entry value="no @ dry"/><list_entry value="destination @ rain"/><list_entry value="delivery @ snow"/><list_entry value="agricultural @ hazmat"/><list_entry value="forestry @ weight&lt;=0"/><list_entry value="private @ length&lt;=0"/><list_entry value="no @ width&lt;=0"/>
+            </combo>
+            <reference ref="additional_access_tags"/>
+        </item> <!-- Motorhome -->
         <item name="Heavy Goods Vehicle" icon="icons/png/no_hgv.png" type="node,way,closedway" preset_name_label="true">
             <link wiki="Key:access"/>
             <space/>
@@ -4269,6 +4283,18 @@
             </combo>
             <reference ref="additional_access_tags"/>
         </item> <!-- Heavy Goods Vehicle -->
+        <item name="Trailer" icon="icons/png/no_trailers.png" type="node,way,closedway" preset_name_label="true">
+            <link wiki="Key:access"/>
+            <space/>
+            <combo key="trailer" text="Trailer" values_context="access" values_sort="false" match="key">
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
+            </combo>
+            <combo key="trailer:conditional" text="Trailer @" long_text="Conditional restriction for motorhomes" values_sort="false" match="key">
+                <list_entry value="yes @ wet"/><list_entry value="no @ dry"/><list_entry value="destination @ rain"/><list_entry value="delivery @ snow"/><list_entry value="agricultural @ hazmat"/><list_entry value="forestry @ weight&lt;=0"/><list_entry value="private @ length&lt;=0"/><list_entry value="no @ width&lt;=0"/>
+            </combo>
+            <reference ref="additional_access_tags"/>
+        </item> <!-- Trailer -->
         <item name="General access" icon="" type="node,way,closedway" preset_name_label="true">
             <link wiki="Key:access"/>
             <space/>
@@ -9128,6 +9154,17 @@
             </optional>
             <reference ref="link_contact_address"/>
         </item> <!-- Animal training -->
+        <item name="Horse walker" icon="icons/png/amenity_animal_horse_walker.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:animal=horse_walker"/>
+            <space/>
+            <key key="animal" value="horse_walker" object="true"/>
+            <optional>            
+                <text key="operator" text="Operator"/>
+            </optional>
+            <reference ref="facility_access"/>
+            <reference ref="link_contact_address"/>
+            <preset_link preset_name="Building"/>
+        </item> <!-- Horse walker -->
         <item name="Animal feeding place" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=feeding_place"/>
             <space/>
