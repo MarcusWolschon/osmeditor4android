@@ -164,7 +164,9 @@ Add the current selection to an existing or new todo list.
 
 ### Replace geometry
 
-Replace the geometry of the current way with that of a  (in a second step) selected way, the algorithm tries to reuse the nodes in the way as best as possible. Tagged nodes in way will be moved up to an adjustable maximum (default 1m, this can be changed in the [Advanced preferences](Advanced%20preferences.md)), if they would have to be moved more they will be extracted from the way to give the user a chance to position them correctly. 
+Replace the geometry of the current way with that of a (in a second step) selected way, the algorithm tries to reuse the nodes in the way as best as possible. Tagged nodes or such that are part of a different way will be moved up to an adjustable maximum (default 1m, this can be changed in the [Advanced preferences](Advanced%20preferences.md)), if they would have to be moved more they will be extracted from the way to give the user a chance to position them correctly. If there are such nodes a todo list with them we automatically be created allowing you to check them systematically.
+
+Note: while it is not necessary to unglue the way, all way nodes need to have been downloaded with their parent ways.
 
 ### Add new image
 

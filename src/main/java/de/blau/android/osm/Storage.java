@@ -414,7 +414,7 @@ public class Storage implements Serializable {
      * 
      * @param bbox bounding box to add
      */
-    void setBoundingBox(@NonNull final BoundingBox bbox) {
+    public void setBoundingBox(@NonNull final BoundingBox bbox) {
         synchronized (bboxes) {
             bboxes.clear();
             bboxes.add(bbox);
