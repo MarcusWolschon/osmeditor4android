@@ -57,7 +57,6 @@ public class ReviewActivity extends ConfigurationChangeAwareActivity {
 
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
-
         }
         String tag = Review.class.getName() + this.getClass().getName();
         Review reviewFragment = (Review) getSupportFragmentManager().findFragmentByTag(tag);

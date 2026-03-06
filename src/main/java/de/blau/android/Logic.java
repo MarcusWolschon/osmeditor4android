@@ -94,6 +94,7 @@ import de.blau.android.osm.MergeAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.NwrComparator;
 import de.blau.android.osm.OsmChangeParser;
+import de.blau.android.osm.OsmChangeParser.MissingNode;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmGpxApi;
 import de.blau.android.osm.OsmGpxApi.Visibility;
@@ -4413,6 +4414,20 @@ public class Logic {
                     oscParser.clearBoundingBoxes(); // this removes the default bounding box
                     oscParser.start(in);
                     lock();
+                    List<Long> missing = new ArrayList<>();
+                    for (Way w : oscParser.getStorage().getWays()) {
+                        for (Node n : w.getNodes()) {
+                            if (n instanceof MissingNode) {
+                                missing.add(n.getOsmId());
+                            }
+                        }
+                    }
+                    if (!missing.isEmpty()) {
+                        Log.d(DEBUG_TAG, "applyOscFile " + missing.size() + " missing nodes");
+                        final OsmParser osmParser = new OsmParser(false);
+                        Server server = getPrefs().getServer();
+                        sd.mergeData(multiFetch(activity, server, osmParser, Node.NAME, toLongArray(missing)), null);
+                    }
                     createCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc);
                     if (!sd.applyOsc(oscParser.getStorage(), null)) {
                         removeCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc, true);

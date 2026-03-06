@@ -1922,6 +1922,7 @@ public class Main extends ConfigurationChangeAwareActivity
             menu.findItem(R.id.menu_transfer_download_current).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_current);
             menu.findItem(R.id.menu_transfer_download_replace).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_replace);
         }
+        menu.findItem(R.id.menu_transfer_query_overpass).setEnabled(networkConnected);
         // note: isDirty is not a good indicator of if if there is really
         // something to upload
         final boolean hasChanges = apiElementCount > 0;

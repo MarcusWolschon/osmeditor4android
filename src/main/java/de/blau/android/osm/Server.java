@@ -556,7 +556,7 @@ public class Server {
      */
     @NonNull
     public InputStream getStreamForElements(@Nullable final Context context, @NonNull final String type, final long[] ids) throws IOException {
-        Log.d(DEBUG_TAG, "getStreamForElements");
+        Log.d(DEBUG_TAG, "getStreamForElements " + ids.length + " " + type);
 
         StringBuilder urlString = new StringBuilder();
         urlString.append(hasMapSplitSource() ? getReadWriteUrl() : getReadOnlyUrl());

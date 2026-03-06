@@ -198,7 +198,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
  * **Clear data** - remove any OSM data in memory
  * **File...** - saving and loading OSM data to/from on device files. <a id="file"></a>
     * **Export changes to OSC file** - write a ".osc" format file containing the current edits
-    * **Apply changes from OSC file** - read a ".osc" format file and apply its contents
+    * **Apply changes from OSC file** - read a ".osc" format file and apply its contents, this will attempt to download any missing way nodes
     * **Save to JOSM file...** - save as a JOSM compatible XML format file
     * **Read from JOSM file...** - read a JOSM compatible XML format file, this supports JOSM, regular OSM and Overpass API (if metadata is included) format XML files. The files must be node-way-relation ordered.
     * **Read from PBF file...** - read OSM data from a PBF format file
