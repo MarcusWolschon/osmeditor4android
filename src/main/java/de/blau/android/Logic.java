@@ -125,6 +125,8 @@ import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.DataStyleManager;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
+import de.blau.android.tasks.TaskStorage;
+import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.EditState;
@@ -3013,6 +3015,8 @@ public class Logic {
     /**
      * Replace a Ways geometry adding/deleting nodes if necessary
      * 
+     * To work properly all nodes need to be downloaded including their parent ways
+     * 
      * @param activity optional Activity
      * @param target way that will get the new geometry
      * @param geometry list of GeoPoint with the new geometry
@@ -3024,6 +3028,9 @@ public class Logic {
         try {
             lock();
             createCheckpoint(activity, R.string.undo_action_replace_geometry);
+            if (!delegator.isInDownload(target)) {
+                throw new OsmIllegalOperationException(getResources(activity).getString(R.string.toast_all_way_nodes_download));
+            }
             final int geometrySize = geometry.size();
             delegator.validateWayNodeCount(geometrySize);
             boolean sourceClosed = geometry.get(0).equals(geometry.get(geometrySize - 1));
@@ -3059,6 +3066,7 @@ public class Logic {
                     Result r = new Result(n);
                     r.addIssue(ReplaceIssue.EXTRACTED_NODE);
                     result.add(r);
+                    addElementToTodoList(activity, R.string.replace_geometry_todo_list, r.getElement());
                 }
             }
             return result;
@@ -3067,6 +3075,25 @@ public class Logic {
             throw ex; // rethrow
         } finally {
             unlock();
+        }
+    }
+
+    /**
+     * Add an OsmElement to a "system" created todo list
+     * 
+     * @param ctx an Android context
+     * @param listNameRes a resource id for the name of the list
+     * @param e the OsmElement
+     */
+    private void addElementToTodoList(@NonNull Context ctx, int listNameRes, @Nullable OsmElement e) {
+        if (e == null || ctx == null) {
+            return;
+        }
+        final TaskStorage storage = App.getTaskStorage();
+        String listName = ctx.getString(listNameRes);
+        if (!storage.contains(e, listName)) {
+            Todo todo = new Todo(listName, e);
+            storage.add(todo);
         }
     }
 
@@ -3082,14 +3109,12 @@ public class Logic {
     private Node findTargetNode(@NonNull List<Node> targetNodes, double newLon, double newLat) {
         Node bestTarget = null;
         double bestDistance = Double.MAX_VALUE;
+        double replaceTolerance = prefs != null ? prefs.getReplaceTolerance() : 0D;
         for (Node target : targetNodes) {
             double distance = GeoMath.haversineDistance(target.getLon() / 1E7D, target.getLat() / 1E7D, newLon, newLat);
             if (distance < bestDistance) {
-                if (target.hasTags() && prefs != null && distance > prefs.getReplaceTolerance()) { // only use tagged
-                                                                                                   // nodes if they are
-                                                                                                   // really close to
-                                                                                                   // new
-                    // position
+                if (distance > replaceTolerance && (target.hasTags() || getWaysForNode(target).size() > 1)) {
+                    // only use tagged nodes or further connected ones if they are really close to new position
                     continue;
                 }
                 bestDistance = distance;

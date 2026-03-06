@@ -3,6 +3,7 @@ package de.blau.android;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,12 @@ import org.robolectric.annotation.Config;
 
 import androidx.annotation.NonNull;
 import androidx.test.filters.LargeTest;
+import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Util;
 
@@ -107,10 +111,31 @@ public class LogicTest {
     }
 
     /**
+     * Replace way geometry by new one, this should fails as none of the nodes is in a downloaded bounding box
+     */
+    @Test
+    public void replaceGeometry4() {
+        try {
+            replaceGeometry("replace_geometry5.osm", 1, 2);
+            fail("should have thrown an exception"); 
+        } catch (OsmIllegalOperationException loo) {
+            // expected
+        }
+    }
+
+    /**
      * Replace way geometry by new one
      */
     private List<Result> replaceGeometry(@NonNull String input, int targetId, int sourceId) {
         UnitTestUtils.loadTestData(getClass(), input);
+        Storage storage = App.getDelegator().getCurrentStorage();
+        if (storage.getBoundingBoxes().isEmpty()) {
+            try {
+                storage.setBoundingBox(storage.calcBoundingBoxFromData());
+            } catch (OsmException e) {
+                fail(e.getMessage());
+            }
+        }
         Way target = (Way) App.getDelegator().getOsmElement(Way.NAME, targetId);
         assertNotNull(target);
         Way source = (Way) App.getDelegator().getOsmElement(Way.NAME, sourceId);

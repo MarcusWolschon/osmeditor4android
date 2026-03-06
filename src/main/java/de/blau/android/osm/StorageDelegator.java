@@ -4384,6 +4384,37 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Check that all of the Nodes in a Way are in a downloaded area
+     * 
+     * This is not a good algorithm per se
+     * 
+     * @param w the Way
+     * @return true if all the Nodes are downloaded or are newly created
+     */
+    public boolean isInDownload(@NonNull Way w) {
+        List<Node> toCheck = new ArrayList<>(w.getNodes());
+        List<Node> inDownload = new ArrayList<>();
+        for (BoundingBox bb : new ArrayList<>(currentStorage.getBoundingBoxes())) { // make shallow copy
+            if (bb == null) {
+                continue;
+            }
+            for (Node n : toCheck) {
+                if ((bb.isIn(n.getLon(), n.getLat())) || n.isNew()) {
+                    inDownload.add(n);
+                }
+            }
+            if (!inDownload.isEmpty()) {
+                toCheck.removeAll(inDownload);
+            }
+            if (toCheck.isEmpty()) {
+                return true;
+            }
+            inDownload.clear();
+        }
+        return false;
+    }
+
+    /**
      * Get the last added BoundingBox
      * 
      * @return the last BoundingBox in the list or an empty one
