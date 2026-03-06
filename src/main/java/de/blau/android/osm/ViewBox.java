@@ -715,7 +715,8 @@ public class ViewBox extends BoundingBox {
         int deltaE7 = (int) (delta * 1E7);
         setTop(Math.min(GeoMath.MAX_COMPAT_LAT_E7, getTop() + deltaE7));
         setBottom(Math.max(-GeoMath.MAX_COMPAT_LAT_E7, getBottom() - deltaE7));
-        int deltaHE7 = (int) ((delta / Math.cos(Math.toRadians(getTop() / 1E7D))) * 1E7D);
+        double maxAbsLat = Math.max(Math.abs(getTop() / 1E7D), Math.abs(getBottom() / 1E7D));
+        int deltaHE7 = (int) ((delta / Math.cos(Math.toRadians(maxAbsLat))) * 1E7D);
         setLeft(Math.max(-GeoMath.MAX_LON_E7, getLeft() - deltaHE7));
         setRight(Math.min(GeoMath.MAX_LON_E7, getRight() + deltaHE7));
         calcDimensions();
@@ -735,7 +736,8 @@ public class ViewBox extends BoundingBox {
             setTop(Math.min(GeoMath.MAX_COMPAT_LAT_E7, getTop() + deltaE7));
             setBottom(Math.max(-GeoMath.MAX_COMPAT_LAT_E7, getBottom() - deltaE7));
         }
-        int minWE7 = (int) ((min / Math.cos(Math.toRadians(getTop() / 1E7D))) * 1E7D);
+        double maxAbsLat = Math.max(Math.abs(getTop() / 1E7D), Math.abs(getBottom() / 1E7D));
+        int minWE7 = (int) ((min / Math.cos(Math.toRadians(maxAbsLat))) * 1E7D);
         if (getWidth() < minWE7) {
             long deltaWE7 = (minWE7 - getWidth()) / 2;
             setLeft((int) Math.max(-GeoMath.MAX_LON_E7, getLeft() - deltaWE7));
