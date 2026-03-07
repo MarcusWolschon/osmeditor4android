@@ -89,6 +89,7 @@ public class ReplaceGeometryActionModeCallback extends NonSimpleActionModeCallba
     public void onDestroyActionMode(ActionMode mode) {
         super.onDestroyActionMode(mode);
         logic.setClickableElements(null);
+        logic.setReturnRelations(true);
     }
 
     @Override
