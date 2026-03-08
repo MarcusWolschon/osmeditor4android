@@ -504,51 +504,39 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * apiStorage is empty. As a side effect it updates the id sequences for the creation of new elements.
      */
     public void fixupApiStorage() {
-        long minNodeId = 0;
-        long minWayId = 0;
-        long minRelationId = 0;
         try {
             lock();
-            List<Node> nl = new ArrayList<>(currentStorage.getNodes());
-            for (Node n : nl) {
-                if (n.getState() != OsmElement.STATE_UNCHANGED) {
-                    apiStorage.insertElementUnsafe(n);
-                    if (n.getOsmId() < minNodeId) {
-                        minNodeId = n.getOsmId();
-                    }
-                }
-                if (n.getState() == OsmElement.STATE_DELETED) {
-                    currentStorage.removeElement(n);
-                }
-            }
-            List<Way> wl = new ArrayList<>(currentStorage.getWays());
-            for (Way w : wl) {
-                if (w.getState() != OsmElement.STATE_UNCHANGED) {
-                    apiStorage.insertElementUnsafe(w);
-                    if (w.getOsmId() < minWayId) {
-                        minWayId = w.getOsmId();
-                    }
-                }
-                if (w.getState() == OsmElement.STATE_DELETED) {
-                    currentStorage.removeElement(w);
-                }
-            }
-            List<Relation> rl = new ArrayList<>(currentStorage.getRelations());
-            for (Relation r : rl) {
-                if (r.getState() != OsmElement.STATE_UNCHANGED) {
-                    apiStorage.insertElementUnsafe(r);
-                    if (r.getOsmId() < minRelationId) {
-                        minRelationId = r.getOsmId();
-                    }
-                }
-                if (r.getState() == OsmElement.STATE_DELETED) {
-                    currentStorage.removeElement(r);
-                }
-            }
+            long minNodeId = fixupApiStorage(currentStorage.getNodes());
+            long minWayId = fixupApiStorage(currentStorage.getWays());
+            long minRelationId = fixupApiStorage(currentStorage.getRelations());
             getFactory().setIdSequences(minNodeId, minWayId, minRelationId);
         } finally {
             unlock();
         }
+    }
+
+    /**
+     * Fixup the API storage for one specific element type
+     * 
+     * @param <E> the relevant OsmElement type
+     * @param elements a list of E
+     * @return the current minimum id
+     */
+    private <E extends OsmElement> long fixupApiStorage(List<E> elements) {
+        long minId = 0;
+        List<E> elementsCopy = new ArrayList<>(elements);
+        for (E e : elementsCopy) {
+            if (e.getState() != OsmElement.STATE_UNCHANGED) {
+                apiStorage.insertElementUnsafe(e);
+                if (e.getOsmId() < minId) {
+                    minId = e.getOsmId();
+                }
+            }
+            if (e.getState() == OsmElement.STATE_DELETED) {
+                currentStorage.removeElement(e);
+            }
+        }
+        return minId;
     }
 
     /**
