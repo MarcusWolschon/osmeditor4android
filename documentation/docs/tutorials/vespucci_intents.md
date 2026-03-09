@@ -60,7 +60,7 @@ Further supported attributes:
 
 __Load objects__
 
-josm:/load\_and\_object?objects=*osmobjects*
+josm:/load\_object?objects=*osmobjects*
 
 *osmobjects*: optional, comma separated list of OSM objects in the form *abbreviationID*, ie n1111111,w1234456. 
 
