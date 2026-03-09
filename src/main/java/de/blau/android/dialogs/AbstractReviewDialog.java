@@ -147,7 +147,8 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
 
             @Override
             protected Void doInBackground(Void nothing) {
-                final ChangedElement[] changes = ((ValidatorArrayAdapter) changesView.getAdapter()).elements;
+                final ValidatorArrayAdapter validatorAdapter = (ValidatorArrayAdapter) changesView.getAdapter();
+                final ChangedElement[] changes = validatorAdapter.elements;
                 revalidate(activity, validator, changes);
                 Arrays.sort(changes, comparator);
                 if (s != null) {
@@ -155,6 +156,7 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
                         e.selected = s.isSelected(e.element);
                     }
                 }
+                validatorAdapter.notifyDataSetChanged();
                 return null;
             }
 
