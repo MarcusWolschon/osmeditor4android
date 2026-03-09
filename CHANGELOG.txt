@@ -1,5 +1,16 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+21.2.4.0:
+
+- Fix typo in documentation for load_object JOSM RC command
+- Fix re-enable return relations after replacing geometry
+- Fix regression when de-selecting a row
+- Fix take a belt and suspenders approach to avoiding runaway alerts
+- Change trust custom/user CAs
+- Update translations
+- Update imagery from ELI
+- Update default preset
+
 21.2.3.0:
 
 - Fix TagFilterActivity crashes when starting split window mode
