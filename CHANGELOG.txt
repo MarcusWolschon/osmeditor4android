@@ -2,6 +2,7 @@
 
 21.2.4.0:
 
+- Fix run notifyDataSetChanged after running validator
 - Fix typo in documentation for load_object JOSM RC command
 - Fix re-enable return relations after replacing geometry
 - Fix regression when de-selecting a row
