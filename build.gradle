@@ -797,15 +797,23 @@ marathon {
             totalAllowedRetryQuota = 100
         }
     }
+    filteringConfiguration {
     // uncomment for running specific tests
-//    filteringConfiguration {
 //        allowlist {
 //            fullyQualifiedTestnameFilter =
 //               [            
 //                    'de.blau.android.search.ObjectSearchTest#overpass'
 //               ] 
 //        }
-//    }
+        // we normally -don't- want to run this test as it connects to non local hosts
+        // and is only useful after we have updated the imagery configuration
+        blocklist {
+            fullyQualifiedTestnameFilter =
+               [            
+                    'de.blau.android.resources.LayerSourceTest#testCertAuthority'
+               ] 
+        }
+    }
     // analytics and sorting configuration requires a DB to be installed
 //    analytics {
 //       influx {
