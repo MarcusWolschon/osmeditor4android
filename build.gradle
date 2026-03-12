@@ -662,7 +662,7 @@ dependencies {
     implementation "org.mozilla:rhino:1.7.13"
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-geojson:$mapboxVersion"
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:$mapboxVersion"
-    implementation 'com.github.Kunzisoft:AndroidClearChroma:2.4'
+    implementation 'com.github.Kunzisoft:AndroidClearChroma:2.6'
     implementation 'de.westnordost:countryboundaries:2.1'
     implementation 'de.ruedigermoeller:fst:2.57'
     implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.48.3'
