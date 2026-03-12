@@ -138,7 +138,7 @@ public class UrlCheckTest {
         }
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.check), false));
         String[] statusStrings = main.getResources().getStringArray(R.array.checkstatus_entries);
-        assertTrue(TestUtils.findNotification(device, statusStrings[3]));
+        assertTrue(TestUtils.findNotification(device, statusStrings[4]));
 
         MockWebServerPlus mockServer = new MockWebServerPlus();
         try {

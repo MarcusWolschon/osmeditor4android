@@ -37,8 +37,11 @@ public final class OkHttpTlsCompat {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OkHttpTlsCompat.class.getSimpleName().length());
     private static final String DEBUG_TAG = OkHttpTlsCompat.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String TL_SV1_2     = "TLSv1.2";
-    private static final String ISRG_ROOT_X1 = "res/raw/isrg_root_x1.pem";
+    private static final String   TL_SV1_2         = "TLSv1.2";
+    private static final String   ISRG_ROOT_X1     = "res/raw/isrg_root_x1.pem";
+    private static final String[] ANDROID_13_CERTS = new String[] { "res/raw/cec384ca.pem", "res/raw/ctrca.pem", "res/raw/gdroot_g2.pem",
+            "res/raw/gsgccr6alphasslca2025.crt", "res/raw/root_r6.crt", "res/raw/entrust_dv_tls_issuing_rsa_ca_2.crt",
+            "res/raw/sectigo_public_server_authentication_root_r46.crt" };
 
     /**
      * Private constructor to stop instantiation
@@ -48,7 +51,7 @@ public final class OkHttpTlsCompat {
     }
 
     /**
-     * Add TLS 1.2 support and ISRG X1 cert for letsencrypt for older for older Android versions
+     * Add TLS 1.2 support and missing certificates for older for older Android versions
      * 
      * @param builder an OkHttpClient.Builder instance
      * @return the builder with TLS1.2 added if necessary
@@ -81,31 +84,63 @@ public final class OkHttpTlsCompat {
                 Log.e(DEBUG_TAG, "Error while setting TLS 1.2", exc);
             }
         }
+        try {
+            addMissingCertificates(builder);
+        } catch (CertificateException e) {
+            Log.e(DEBUG_TAG, "Error adding additional certificates", e);
+        }
+        return builder;
+    }
+
+    /**
+     * Add missing certificates for older Android versions
+     * 
+     * @param builder the OkHttp client builder
+     * @throws CertificateException if something goes wrong ...
+     */
+    private static void addMissingCertificates(OkHttpClient.Builder builder) throws CertificateException {
+        HandshakeCertificates.Builder certBuilder = new HandshakeCertificates.Builder();
+        ClassLoader loader = builder.getClass().getClassLoader();
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
         // Add ISRG X1 cert for letsencrypt on older devices (pre and including 7.1)
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
             Log.d(DEBUG_TAG, "Adding ISRG X1 root certificate");
             // download fresh from https://letsencrypt.org/certs/isrgrootx1.pem
             try {
-                CertificateFactory cf = CertificateFactory.getInstance("X.509");
-                // we don't have an context here and it would be very inconvenient to get one, this is a hack around
-                // that
-                final InputStream certInputStream = builder.getClass().getClassLoader().getResourceAsStream(ISRG_ROOT_X1);
-                if (certInputStream == null) {
-                    throw new FileNotFoundException(ISRG_ROOT_X1);
-                }
-                java.security.cert.Certificate isgCertificate = cf.generateCertificate(certInputStream);
-                HandshakeCertificates certificates = new HandshakeCertificates.Builder().addTrustedCertificate((X509Certificate) isgCertificate)
-                        // Uncomment to allow connection to any site generally, but could possibly cause
-                        // noticeable memory pressure in Android apps.
-                        .addPlatformTrustedCertificates().build();
-
-                builder.sslSocketFactory(certificates.sslSocketFactory(), certificates.trustManager());
+                certBuilder.addTrustedCertificate((X509Certificate) readCertificatefromResources(cf, loader.getResourceAsStream(ISRG_ROOT_X1)));
             } catch (CertificateException | IOException e) {
                 Log.e(DEBUG_TAG, "Error adding ISRG X1 cert connections to letsencrypt secured servers will not work", e);
             }
         }
+        // add missing CAs for devices prior to Android 14
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            for (String certFilename : ANDROID_13_CERTS) {
+                try {
+                    certBuilder.addTrustedCertificate((X509Certificate) readCertificatefromResources(cf, loader.getResourceAsStream(certFilename)));
+                } catch (CertificateException | IOException e) {
+                    Log.e(DEBUG_TAG, "Error adding certificate from " + certFilename, e);
+                }
+            }
+        }
+        HandshakeCertificates certificates = certBuilder.addPlatformTrustedCertificates().build();
+        builder.sslSocketFactory(certificates.sslSocketFactory(), certificates.trustManager());
+    }
 
-        return builder;
+    /**
+     * Read a certificate from resources, both .pen and .crt format will work
+     * 
+     * @param cf a CertificateFactory
+     * 
+     * @return a Certificate
+     * @throws FileNotFoundException if the file isn't found or couldn't be read
+     * @throws CertificateException
+     */
+    private static java.security.cert.Certificate readCertificatefromResources(@NonNull CertificateFactory cf, final InputStream certInputStream)
+            throws FileNotFoundException, CertificateException {
+        if (certInputStream == null) {
+            throw new FileNotFoundException();
+        }
+        return cf.generateCertificate(certInputStream);
     }
 
     private static class Tls12SocketFactory extends SSLSocketFactory {

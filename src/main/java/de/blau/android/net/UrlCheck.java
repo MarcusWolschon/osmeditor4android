@@ -26,7 +26,7 @@ public class UrlCheck {
     public static final long TIMEOUT = 2000;
 
     public enum CheckStatus {
-        HTTP, HTTPS, DOESNTEXIST, UNREACHABLE, MALFORMEDURL, INVALID
+        HTTP, HTTPS, SSLERROR, DOESNTEXIST, UNREACHABLE, MALFORMEDURL, INVALID
     }
 
     /**
