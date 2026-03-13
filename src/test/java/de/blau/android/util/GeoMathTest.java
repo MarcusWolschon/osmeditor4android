@@ -243,6 +243,14 @@ public class GeoMathTest {
         assertEquals(40 * 1E7D, GeoMath.mercatorToLatE7(4865942.28D * GeoMath._360_PI / (2 * GeoMath.EARTH_RADIUS_EQUATOR)), 0.1);
     }
 
+    /**
+     * Check that latToMercator throws an exception for out of bounds values
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void latToMercatorOutOfBounds() {
+        GeoMath.latToMercator(GeoMath.MAX_COMPAT_LAT + 0.1);
+    }
+
     private class TestPoint implements GeoPoint {
         private final int lat;
         private final int lon;
