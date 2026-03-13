@@ -215,6 +215,7 @@ public class WayTest {
         TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_split), 1000));
         TestUtils.longClickAtCoordinates(device, map, splitNode.getLon(), splitNode.getLat(), true);
+        assertTrue(TestUtils.clickText(device, false, "↓ #" + splitNode.getOsmId(), false, false));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_split_way_select_part), 1000));
         TestUtils.clickAtCoordinates(device, map, 8.3889859, 47.3889246, true);
         TestUtils.sleep(2000);
@@ -225,6 +226,33 @@ public class WayTest {
         way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(OsmElement.STATE_MODIFIED, way.getState());
+    }
+    
+    /**
+     * Select, split at location without node on the way
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void splitWithLongClick() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(104148456L, way.getOsmId());
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_split), false, false));
+        TestUtils.clickAwayTip(device, context);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_split), 1000));
+        TestUtils.longClickAtCoordinates(device, map, 8.3900833D, 47.3899508, true);
+        way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(OsmElement.STATE_CREATED, way.getState());
+        assertEquals(3, way.nodeCount());
+        assertEquals(36.22, way.length(), 0.2);
     }
 
     /**

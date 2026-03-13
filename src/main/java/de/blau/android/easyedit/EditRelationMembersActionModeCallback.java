@@ -441,8 +441,8 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     }
 
     @Override
-    public boolean handleElementLongClick(@NonNull OsmElement element) {
-        super.handleElementLongClick(element);
+    public boolean handleElementLongClick(@NonNull OsmElement element, float x, float y) {
+        super.handleElementLongClick(element, x, y);
         List<PresetRole> roles = getRoles();
         if (roles != null && !checkRole(roles, element)) {
             CharSequence message = main.getString(R.string.remove_relation_member_message, element.getDescription(main, true));

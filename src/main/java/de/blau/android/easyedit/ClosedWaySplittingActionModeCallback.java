@@ -15,6 +15,8 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
+import de.blau.android.util.Sound;
+import de.blau.android.util.Util;
 
 /**
  * Callback for splitting a closed way/polygon
@@ -30,7 +32,7 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
     private static final String CREATE_POLYGONS_KEY = "create polygons";
 
     private final Way  way;
-    private final Node node;
+    private final Node first;
     private boolean    createPolygons = false;
 
     /**
@@ -44,7 +46,7 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
     public ClosedWaySplittingActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Node node, boolean createPolygons) {
         super(manager);
         this.way = way;
-        this.node = node;
+        this.first = node;
         this.createPolygons = createPolygons;
         setup(createPolygons);
     }
@@ -58,7 +60,7 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
     public ClosedWaySplittingActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
         super(manager);
         way = getSavedWay(state);
-        node = getSavedNode(state);
+        first = getSavedNode(state);
         setup(state.getBoolean(CREATE_POLYGONS_KEY));
     }
 
@@ -72,16 +74,16 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
         nodes.addAll(allNodes);
         this.createPolygons = createPolygons != null && createPolygons;
         if (this.createPolygons) { // remove neighbouring nodes
-            if (way.isEndNode(node)) { // we have at least 4 nodes so this will not cause problems
+            if (way.isEndNode(first)) { // we have at least 4 nodes so this will not cause problems
                 nodes.remove(allNodes.get(1)); // remove 2nd element
                 nodes.remove(allNodes.get(allNodes.size() - 2)); // remove 2nd last element
             } else {
-                int nodeIndex = allNodes.indexOf(node);
+                int nodeIndex = allNodes.indexOf(first);
                 nodes.remove(allNodes.get(nodeIndex - 1));
                 nodes.remove(allNodes.get(nodeIndex + 1));
             }
         }
-        nodes.remove(node);
+        nodes.remove(first);
     }
 
     @Override
@@ -90,23 +92,7 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
         super.handleElementClick(element);
         try {
             if (element instanceof Node) {
-                List<Result> results = logic.performClosedWaySplit(main, way, node, (Node) element, createPolygons);
-                logic.setSelectedNode(null);
-                logic.setSelectedRelation(null);
-                logic.setSelectedWay((Way) results.get(0).getElement());
-                logic.addSelectedWay((Way) results.get(1).getElement());
-                List<OsmElement> selection = new ArrayList<>();
-                selection.addAll(logic.getSelectedWays());
-                main.startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(manager, selection));
-                List<Result> resultsWithIssue = new ArrayList<>();
-                for (Result r : results) {
-                    if (r.hasIssue()) {
-                        resultsWithIssue.add(r);
-                    }
-                }
-                if (!resultsWithIssue.isEmpty()) {
-                    ElementIssueDialog.showTagConflictDialog(main, resultsWithIssue);
-                }
+                split((Node) element);
                 return true;
             }
         } catch (OsmIllegalOperationException | StorageException ex) {
@@ -117,10 +103,46 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
         return true;
     }
 
+    /**
+     * Split the way at both the first and second node
+     * 
+     * @param second the second node
+     */
+    private void split(@NonNull Node second) {
+        List<Result> results = logic.performClosedWaySplit(main, way, first, second, createPolygons);
+        logic.setSelectedNode(null);
+        logic.setSelectedRelation(null);
+        logic.setSelectedWay((Way) results.get(0).getElement());
+        logic.addSelectedWay((Way) results.get(1).getElement());
+        List<OsmElement> selection = new ArrayList<>();
+        selection.addAll(logic.getSelectedWays());
+        main.startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(manager, selection));
+        List<Result> resultsWithIssue = new ArrayList<>();
+        for (Result r : results) {
+            if (r.hasIssue()) {
+                resultsWithIssue.add(r);
+            }
+        }
+        if (!resultsWithIssue.isEmpty()) {
+            ElementIssueDialog.showTagConflictDialog(main, resultsWithIssue);
+        }
+    }
+
+    @Override
+    public boolean handleElementLongClick(@NonNull OsmElement element, float x, float y) {
+        super.handleElementLongClick(element, x, y);
+        if (way.equals(element)) {
+            split(logic.addOnWay(main, Util.wrapInList(way), x, y, true));
+            return true;
+        }
+        Sound.beep();
+        return true;
+    }
+
     @Override
     public void saveState(SerializableState state) {
         state.putLong(WAY_ID_KEY, way.getOsmId());
-        state.putLong(NODE_ID_KEY, node.getOsmId());
+        state.putLong(NODE_ID_KEY, first.getOsmId());
         state.putBoolean(CREATE_POLYGONS_KEY, createPolygons);
     }
 }

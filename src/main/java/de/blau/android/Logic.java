@@ -2126,7 +2126,7 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation would create an illegal state
      */
     @Nullable
-    private Node addOnWay(Activity activity, List<Way> ways, final float x, final float y, boolean forceNew) {
+    public Node addOnWay(@Nullable Activity activity, @Nullable List<Way> ways, final float x, final float y, boolean forceNew) {
         createCheckpoint(activity, R.string.undo_action_add);
         try {
             return getClickedNodeOrCreatedWayNode(ways, x, y, forceNew);
@@ -3235,6 +3235,7 @@ public class Logic {
      * @return a new created node at lon/lat corresponding to x,y. When x,y does not lay on the line between node1 and
      *         node2 it will return null.
      */
+    @Nullable
     private Node createNodeOnWay(final Node node1, final Node node2, final float x, final float y) {
         // Nodes have to be converted to screen-coordinates, due to a better tolerance-check.
         float node1X = lonE7ToX(node1.getLon());

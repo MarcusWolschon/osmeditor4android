@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -26,6 +28,7 @@ import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.RestartFromElementActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.ToElementActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.ViaElementActionModeCallback;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -47,7 +50,8 @@ import de.blau.android.validation.Validator;
  */
 public class EasyEditManager {
 
-    private static final String DEBUG_TAG = EasyEditManager.class.getSimpleName().substring(0, Math.min(23, EasyEditManager.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, EasyEditManager.class.getSimpleName().length());
+    private static final String DEBUG_TAG = EasyEditManager.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int INVALIDATION_DELAY = 100; // minimum delay before action mode will be invalidated
 
@@ -426,15 +430,22 @@ public class EasyEditManager {
      * 
      * @param v the View that was long clicked
      * @param e an OsmElement
+     * @param x screen X coordinate
+     * @param y screen Y coordinate
      * @return true if we handled the click
      */
-    public boolean handleLongClick(@Nullable View v, @NonNull OsmElement e) {
+    public boolean handleLongClick(@Nullable View v, @NonNull OsmElement e, float x, float y) {
+        Log.d(DEBUG_TAG, "handleLongClick " + e.getDescription());
         synchronized (actionModeCallbackLock) {
-            if (currentActionModeCallback != null && currentActionModeCallback.handleElementLongClick(e)) {
-                if (v != null) {
-                    v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+            try {
+                if (currentActionModeCallback != null && currentActionModeCallback.handleElementLongClick(e, x, y)) {
+                    if (v != null) {
+                        v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+                    }
+                    return true;
                 }
-                return true;
+            } catch (OsmIllegalOperationException ooex) {
+                Log.e(DEBUG_TAG, "handleLongClick " + ooex.getLocalizedMessage());
             }
             return false;
         }
@@ -452,7 +463,7 @@ public class EasyEditManager {
         synchronized (actionModeCallbackLock) {
             if ((currentActionModeCallback instanceof PathCreationActionModeCallback)) {
                 // we don't do long clicks in the above modes
-                Log.d("EasyEditManager", "handleLongClick ignoring long click");
+                Log.d(DEBUG_TAG, "handleLongClick ignoring long click");
                 return false;
             }
         }

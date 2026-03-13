@@ -50,6 +50,8 @@ Reverse the direction of the way. If the way has direction dependent tags it wil
 
 Split the selected way. The nodes at the available locations for splitting will have a visible touch area. The "Split" action is only available if the way has more than two nodes. If the way is closed you will need to select two nodes. For non-closed ways a long touch on the node to use for splitting will allow you to select which part of the original way will be used for the new way.
 
+If there is no existing node in a convenient position you can add one and split at it by long clicking the location on the way. Segment selection is not possible if you use this function.
+
 ### ![Merge](../images/tag_menu_merge.png) Merge
 
 Join the selected way with one that it shares a node with resulting in a single way. This option will only be available if the ways have compatible tags and relation memberships.
