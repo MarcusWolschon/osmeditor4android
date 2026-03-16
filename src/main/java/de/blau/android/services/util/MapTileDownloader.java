@@ -300,6 +300,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                                 throw new FileNotFoundException(mCtx.getString(R.string.tile_error_message, tileURLString, responseBody.string()));
                             case MimeTypes.MVT_SUBTYPE:
                             case MimeTypes.X_PROTOBUF_SUBTYPE:
+                            case MimeTypes.OCTET_STREAM_SUBTYPE:
                                 byte[] noTileTile = source.getNoTileTile();
                                 if (noTileTile != null && data.length == noTileTile.length && Arrays.equals(data, noTileTile)) {
                                     throw new FileNotFoundException(mCtx.getString(R.string.no_tile_mvt_tile, tileURLString));
