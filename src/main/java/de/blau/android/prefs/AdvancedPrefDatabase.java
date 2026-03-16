@@ -116,6 +116,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
 
     private static final String CANNOT_DELETE_DEFAULT = "Cannot delete default";
 
+    private static final int MOVE_OFFSET = 1000; // this constrains the number of presets and layers to 999 each
+
     /** The ID of the currently active API */
     private String currentAPI;
 
@@ -1506,6 +1508,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     /**
      * Move a table row to a new position, renumbering at the same time
      * 
+     * Temporarily uses negative positions to avoid issues with constraints
+     * 
      * @param table the table holding the row
      * @param rowId the column holding the row id
      * @param whereId the query for the above
@@ -1516,28 +1520,37 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         if (oldPos == newPos) {
             return;
         }
-        try (SQLiteDatabase db = getWritableDatabase(); Cursor dbresult = db.query(table, new String[] { rowId }, null, null, null, null, POSITION_COL)) {
+        try (SQLiteDatabase db = getWritableDatabase();
+                Cursor dbresult = db.query(table, new String[] { rowId, POSITION_COL }, null, null, null, null, POSITION_COL)) {
             dbresult.moveToFirst();
             int count = dbresult.getCount();
-            for (int i = 0; i < count; i++) {
-                ContentValues values = new ContentValues();
-                if (i == oldPos) {
-                    values.put(POSITION_COL, newPos);
-                } else if (oldPos < newPos) { // moving down
-                    if (i < oldPos || i > newPos) {
-                        dbresult.moveToNext();
-                        continue;
+            db.beginTransaction();
+            try {
+                for (int i = 0; i < count; i++) {
+                    ContentValues values = new ContentValues();
+                    if (i == oldPos) {
+                        values.put(POSITION_COL, newPos - MOVE_OFFSET);
+                    } else if (oldPos < newPos) { // moving down
+                        if (i < oldPos || i > newPos) {
+                            dbresult.moveToNext();
+                            continue;
+                        }
+                        values.put(POSITION_COL, (i - 1) - MOVE_OFFSET); // move everything in between up
+                    } else {
+                        if (i > oldPos || i < newPos) {
+                            dbresult.moveToNext();
+                            continue;
+                        }
+                        values.put(POSITION_COL, (i + 1) - MOVE_OFFSET); // move everything in between down
                     }
-                    values.put(POSITION_COL, i - 1); // move everything in between up
-                } else {
-                    if (i > oldPos || i < newPos) {
-                        dbresult.moveToNext();
-                        continue;
-                    }
-                    values.put(POSITION_COL, i + 1); // move everything in between down
+                    db.update(table, values, whereId, new String[] { dbresult.getString(0) });
+                    dbresult.moveToNext();
                 }
-                db.update(table, values, whereId, new String[] { dbresult.getString(0) });
-                dbresult.moveToNext();
+                // remove the offset
+                db.execSQL("update " + table + " set " + POSITION_COL + "=(" + POSITION_COL + " + " + MOVE_OFFSET + ") where " + POSITION_COL + "< 0");
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
             }
         }
     }
