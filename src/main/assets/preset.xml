@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.97.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.98.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -820,6 +820,9 @@
     <chunk id="bar">
         <check key="bar" text="Has a bar"/> 
     </chunk>
+    <chunk id="food">
+        <combo key="food" text="Food available" values="yes,no,snacks,prepared_meals" display_values="Yes,No,Snacks,Prepared meals"/> 
+    </chunk>
     <chunk id="fast_food">
         <combo key="fast_food" text="Fast food service" values="cafeteria,yes" display_values="Cafeteria,Yes"/> 
     </chunk>
@@ -932,6 +935,9 @@
             <list_entry value="women" short_description="Women"/>
             <list_entry value="workwear" short_description="Workwear"/>
         </multiselect>
+    </chunk>
+    <chunk id="piercing">
+        <check key="piercing" text="Piercing service"/>
     </chunk>
     <chunk id="post_office">
         <combo key="post_office" text="Post office type" values_searchable="true">
@@ -6481,6 +6487,7 @@
             <reference ref="wheelchair_rooms"/>
             <space/>
             <reference ref="bar"/>
+            <reference ref="food"/>
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
             <reference ref="swimming_pool_facility"/>
@@ -6499,6 +6506,7 @@
             <reference ref="wheelchair_rooms"/>
             <space/>
             <reference ref="bar"/>
+            <reference ref="food"/>
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
             <reference ref="swimming_pool_facility"/>
@@ -6518,6 +6526,7 @@
             <reference ref="wheelchair_rooms"/>
             <space/>
             <reference ref="bar"/>
+            <reference ref="food"/>
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
             <reference ref="swimming_pool_facility"/>
@@ -6551,6 +6560,7 @@
             <reference ref="wheelchair_rooms"/>
             <space/>
             <reference ref="bar"/>
+            <reference ref="food"/>
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
             <reference ref="swimming_pool_facility"/>
@@ -6568,6 +6578,7 @@
             <reference ref="wheelchair_rooms"/>
             <space/>
             <reference ref="bar"/>
+            <reference ref="food"/>
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
             <reference ref="swimming_pool_facility"/>
@@ -6581,6 +6592,7 @@
             <text key="ele" text="Elevation (meters)" length="10"/>
             <text key="rooms" text="Rooms"/>
             <text key="beds" text="Beds"/>
+            <reference ref="food"/>
             <reference ref="reservation"/>
             <space/>
             <reference ref="internet_smoking"/>
@@ -6597,6 +6609,7 @@
             <reference ref="toilets"/>
             <check key="shower" text="Shower"/>
             <combo key="drinking_water" text="Drinking Water" values="yes,no,seasonal" display_values="Yes,No,Seasonal"/>
+            <reference ref="food"/>
             <reference ref="reservation"/>
             <text key="ele" text="Elevation (meters)" length="10"/>
             <text key="description" text="Detailed description" length="255"/>
@@ -6657,6 +6670,7 @@
             <reference ref="internet"/>
             <space/>
             <reference ref="bar"/>
+            <reference ref="food"/>
             <reference ref="nudism"/>
             <reference ref="swimming_pool_facility"/>
             <reference ref="link_contact_address_payment"/>
@@ -6753,6 +6767,7 @@
             <reference ref="name_operator"/>
             <combo key="cuisine" text="Cuisine" values="ice_cream" display_values="Ice cream"/>
             <reference ref="bar"/>
+            <reference ref="food"/>
             <reference ref="seating"/>
             <reference ref="takeaway_with_reusable_packaging"/>
             <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00"/>
@@ -6773,6 +6788,7 @@
             <key key="cuisine" value="bubble_tea"/>
             <reference ref="name_operator"/>
             <reference ref="seating"/>
+            <reference ref="food"/>
             <reference ref="oh_wheelchair_level"/>
             <reference ref="toilets_with_access"/>
             <space/>
@@ -6809,6 +6825,7 @@
             <reference ref="name_operator"/>
             <check key="microbrewery" text="Microbrewery" disable_off="true"/>
             <reference ref="seating"/>
+            <reference ref="food"/>
             <reference ref="takeaway_with_reusable_packaging"/>
             <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00"/>
             <reference ref="oh_wheelchair_level"/>
@@ -6833,6 +6850,7 @@
             <reference ref="name_operator"/>
             <check key="microbrewery" text="Microbrewery" disable_off="true"/>
             <reference ref="bar"/>
+            <reference ref="food"/>
             <reference ref="indoor_seating"/>
             <reference ref="oh_wheelchair"/>
             <reference ref="toilets_with_access"/>
@@ -6850,6 +6868,7 @@
             <key key="amenity" value="bar"/>
             <reference ref="name_operator"/>
             <reference ref="seating"/>
+            <reference ref="food"/>
             <reference ref="oh_wheelchair_level"/>
             <reference ref="toilets_with_access"/>
             <space/>
@@ -7731,6 +7750,14 @@
             <check text="Baby" key="baby"/>
             <reference ref="playground_theme"/>
         </item> <!--  Indoor playing -->
+        <item name="Traffic park" icon="icons/png/amenity_motorsport_track.png" type="node,closedway,multipolygon" name_context="leisure">
+            <link wiki="Tag:amenity=traffic_park"/>
+            <space/>
+            <key key="amenity" value="traffic_park"/>
+            <reference ref="name_operator_oh_wheelchair"/>
+            <combo key="fee" text="Fee" values="yes,no" display_values="Yes,No" match="none"/>
+            <reference ref="min_max_age"/>
+        </item> <!--  Traffic park -->
         <item name="Picnic Site" icon="icons/png/tourist_picnic.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:tourism=picnic_site"/>
             <space/>
@@ -12736,6 +12763,13 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Herbalist -->
+        <item name="Nuts" icon="icons/png/shopping_nuts.png" type="node,closedway,multipolygon" name_context="food" preset_name_label="true">
+            <link wiki="Tag:shop=nuts"/>
+            <space/>
+            <key key="shop" value="nuts"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Nuts -->
         <separator/>
         <item name="Public Market" icon="icons/png/shopping_marketplace.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=marketplace"/>
@@ -13335,6 +13369,7 @@
             <link wiki="Tag:shop=tattoo"/>
             <space/>
             <key key="shop" value="tattoo"/>
+            <reference ref="piercing"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Tattoo -->
@@ -13368,6 +13403,7 @@
             <link wiki="Tag:shop=jewelry"/>
             <space/>
             <key key="shop" value="jewelry"/>
+            <reference ref="piercing"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Jewellery -->
