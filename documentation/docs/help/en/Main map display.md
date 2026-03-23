@@ -237,8 +237,8 @@ Show the user preference screens. The settings are split into two sets: the firs
  * **Install EGM** - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the "Advanced preferences".
  * **Remove EGM** - remove the EGM.
  * **Load keys from file...** - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.
- * **Export configuration...** - export large parts of the configuration to a file.
- * **Import configuration...** - import large parts of the configuration from a file.
+ * **Export configuration...** - export configuration data to a file.
+ * **Import configuration...** - import configuration data from a file.
  * **JS Console** - start the JavaScript console for scripting the application. Note that this needs to be enabled in the "Advanced preferences".
 
 ### ![Find](../images/ic_menu_search_holo_light.png) Find

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1 id="vespucci-220-beta-highlights">Vespucci 22.0 BETA Highlights</h1>
+<p>2026-03-23</p>
+<h3 id="export-and-import-configuration-data">Export and import configuration data</h3>
+<p>We now support exporting and importing configuration data in a simple XML format, see the <a href="Main%20map%20display.md#tools">Tools menu</a>. This is useful for migrating your settings from a different device or distributing them to multiple users.</p>
+<p>While exporting will always include all non-default settings, you can import just a subset by preparing a file that only includes the relevant sections for example a keyboard shortcut setup. If your preset or style configuration contains an URL to a relevant resource the importer will try to download it for you automatically.</p>
+<h3 id="improve-layer-support-on-pre-android-14-devices">Improve layer support on pre-Android 14 devices</h3>
+<p>As discussed here <a href="https://www.openstreetmap.org/user/SimonPoole/diary/408343">Wasn't it just yesterday that Android 13 was shiny and new?</a>, pre-Android 14 devices have no way to automatically have the set of root certificates that they use updated. This does and can cause problems with certain layer sources. V22 enables support for using custom/user provided certificate authorities and adds a small number of missing root certificates for some important sources.</p>
+<p>This issue will not go away, it will just get worse, if a layer that previously worked suddenly stops working you should check if this is not due to this problem.</p>
+<h3 id="better-keyboard-shortcut-handling">Better keyboard shortcut handling</h3>
+<p>Previously keyboard shortcuts were hardwired and couldn't be modified by the user. This has been replaced by a more flexible system that allows the user to change the mappings and load them from a file with the new configuration export/import facility.</p>
+<p>If you want a shortcut for an action that isn't covered yet, please open an issue on our tracker.</p>
+<h3 id="changes-to-replace-geometry">Changes to &quot;Replace geometry&quot;</h3>
+<p>If you are updating a way geometry with a new geometry previously nodes shared with other ways would indiscriminately be moved, as a result you always had to <em>unjoin</em> the way before replacing its geometry. This has now been changed to use the same, configurable, logic as for tagged nodes: that is that nodes that would be moved more than a configurable distance will automatically be unjoined. Further to guarantee that this can be detected the area around each way node needs to be downloaded (so that other way memberships can be detected), if you try to use the function without doing that you will be shown an error and the operation will be aborted.</p>
+<p>To make checking unjoined nodes after the operation easier, they will automatically be added to a todo list.</p>
+<h3 id="support-splitting-ways-without-existing-nodes">Support splitting ways without existing Nodes</h3>
+<p>Vespuccis &quot;Simple mode&quot; has since its introduction with V12 in 2019 received support for most functionality in the legacy &quot;Non-simple mode&quot;, but one, some times, annoying omission was that you could only split a way if a node was already present at the location. V22 now supports direct splitting with a long click, see the <a href="Way%20selected.md#split">Split</a> menu item for more information.</p>
+<h3 id="improvements-split-window-mode">Improvements split window mode</h3>
+<p>This release contains a few improvements to usage in split window mode. Preferences for these options can be found in the <a href="Advanced%20preferences.md#experimental">Experimental</a> section of the advanced preferences.</p>
+<ul>
+<li>Improve behaviour with samsung DeX and add option to force tab layout for the property editor.</li>
+<li>Display a badge indicating the position of the property editor fragment.</li>
+<li>Add support for showing the review modal in a separate window, this could be useful even on a phone.</li>
+</ul>
+<h3 id="improve-style-management">Improve style management</h3>
+<p>While previously it was possible to install custom data styles, it was a bit of a black art and not at all friction free. V22 changes style management to use the same UI as used for presets and API configurations which should make it far easier to load and remove custom styles.</p>
+<h3 id="ignore-parents-of-subareas-in-the-disambiguation-menu">Ignore parents of subareas in the disambiguation menu</h3>
+<p>Vespucci will recursively show parent relations of potentially selectable objects in the disambiguation menu. For example if you select a way that is part of a boundary relation you will be shown an entry for that way and the parent relation, however if that boundary relation itself is a <em>subarea</em> member of a further boundary, you would be shown that relation too, and potentially recursively more. This can be very annoying as it leads to you being shown relations for that the way itself is not part of the geometry, starting with V22 this behaviour is suppressed and needs to be explicitly enabled in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
+<h3 id="improved-behaviour-when-applying-an-osc-file">Improved behaviour when applying an OSC file</h3>
+<p>Previously if you didn't pre-load the necessary data applying an OSC file would fail if it referenced way nodes that were not present. This is not an issue if the changes only affected a small easy to download area, but could be very painful if the edits were spread out over a larger area. V22 changes the behaviour to automatically attempt to download any missing way nodes.</p>
+<h3 id="improvements-to-safe-mode">Improvements to safe mode</h3>
+<p>V22 adds an option to remove the current UI state and any selections. This provides another low impact way to get out of situations that may stop the app from starting, consider selecting all 27'525 members of the Tongass National Forest by accident.</p>
+<h3 id="other-behaviour-changes">Other behaviour changes</h3>
+<ul>
+<li>Add ability to show parents and relation members in the info modal</li>
+<li>Support for the deprecated attribute for checks in checkgoups</li>
+<li>Support for numeric suffixes in tag2link</li>
+<li>Hardwire reversing behaviour for railway:turnout_side</li>
+<li>Change use a double colon as separator in changeset auto-comments</li>
+<li>Disable &quot;Query Overpass&quot; if there is no network connectivity</li>
+<li>Allow octet-stream as mime type for vector tiles</li>
+</ul>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
+<p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one.</p>
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul>
+
+</body>
+</html>
