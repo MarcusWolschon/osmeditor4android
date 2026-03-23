@@ -65,6 +65,7 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.view.MenuCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -957,7 +958,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                         }
                     }
                     if (i == tileServerIds.length - 1) {
-                        menu.setGroupDividerEnabled(true);
+                        MenuCompat.setGroupDividerEnabled(menu, true);
                     }
                 }
 
