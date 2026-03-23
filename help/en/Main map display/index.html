@@ -425,6 +425,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../22.0.0%20Release%20notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22 BETA Release notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../21.2.0%20Release%20notes/" class="md-nav__link">
         
   
@@ -1829,6 +1850,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../Styles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Styles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../Aligning%20background%20imagery/" class="md-nav__link">
         
   
@@ -2873,7 +2915,7 @@
 </ul>
 </li>
 <li>Data layer:<ul>
-<li><strong>Configure...</strong> Select the API instance, configure the URLs including read-only sources and authentication method. See<a href="../Advanced%20preferences/#OSM-API-URL">OSM API URL</a></li>
+<li><strong>Configure...</strong> Select the API instance, configure the URLs including read-only sources and authentication method. See <a href="../Advanced%20preferences/#OSM-API-URL">OSM API URL</a></li>
 </ul>
 </li>
 <li>Data and Tasks layers:<ul>
@@ -2967,7 +3009,7 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display seven or eight options:</p>
 <ul>
 <li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available. See <a href="../Uploading%20your%20changes/">Uploading your changes</a> for more information <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Review changes...</strong> - review current changes, and potentially select them for upload. The selection is persistent, that means you can select an OSM element for upload exit the modal and it will be re-selected. Note: if you select an element that requires other elements to be uploaded with them, they will be selected too, and the same if you de-select such an object the dependent elements will be de-selected too.</li>
+<li><strong>Review changes...</strong> - review current changes, and potentially select them for upload. The selection is persistent, that means you can select an OSM element for upload exit the modal and it will be re-selected. Note: if you select an element that requires other elements to be uploaded with them, they will be selected too, and the same if you de-select such an object the dependent elements will be de-selected too. If you select the <a href="../Advanced%20preferences/#enable_split_window_review_screen">Enable split window review screen</a> option the changes will be shown in a separate window, clicking on an entry with select and zoom to the element on map, the info button will show the regular information modal.</li>
 <li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
 <li><strong>Query Overpass...</strong> - run a query against a Overpass API server, see <a href="#overpass_queries">Overpass queries</a>. <em>(requires network connectivity)</em></li>
@@ -2978,7 +3020,7 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <li><strong>Clear data</strong> - remove any OSM data in memory</li>
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files. <a id="file"></a><ul>
 <li><strong>Export changes to OSC file</strong> - write a ".osc" format file containing the current edits</li>
-<li><strong>Apply changes from OSC file</strong> - read a ".osc" format file and apply its contents</li>
+<li><strong>Apply changes from OSC file</strong> - read a ".osc" format file and apply its contents, this will attempt to download any missing way nodes</li>
 <li><strong>Save to JOSM file...</strong> - save as a JOSM compatible XML format file</li>
 <li><strong>Read from JOSM file...</strong> - read a JOSM compatible XML format file, this supports JOSM, regular OSM and Overpass API (if metadata is included) format XML files. The files must be node-way-relation ordered.</li>
 <li><strong>Read from PBF file...</strong> - read OSM data from a PBF format file</li>
@@ -3021,8 +3063,9 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <li><strong>Calibrate pressure sensor...</strong> - calibrate the conversion from barometric pressure to elevation.</li>
 <li><strong>Install EGM</strong> - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the "Advanced preferences".</li>
 <li><strong>Remove EGM</strong> - remove the EGM.</li>
-<li><strong>Import data style...</strong> - import an additional data style from an XML file or from a ZIP archive containing an XML file and icons. This overwrites existing style files with the same name.</li>
 <li><strong>Load keys from file...</strong> - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.</li>
+<li><strong>Export configuration...</strong> - export configuration data to a file.</li>
+<li><strong>Import configuration...</strong> - import configuration data from a file.</li>
 <li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be enabled in the "Advanced preferences".</li>
 </ul>
 <h3 id="find"><img alt="Find" src="../../images/ic_menu_search_holo_light.png" /> Find<a class="headerlink" href="#find" title="Permanent link">#</a></h3>
@@ -3079,7 +3122,7 @@ creating a query you should add <em>({{bbox}})</em> terms for the same reason.</
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-	    Generated for Vespucci 21.2
+	    Generated for Vespucci 22.0
     </div>
   
   
@@ -3130,7 +3173,7 @@ creating a query you should add <em>({{bbox}})</em> terms for the same reason.</
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 21.2}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 22.0}</script>
     
     
       <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>

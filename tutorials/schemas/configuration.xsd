@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <!-- Root element -->
+    <xs:element name="Configuration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Section" minOccurs="1"
+                    maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- Section element - can be shared_preferences or a DB table -->
+    <xs:element name="Section">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- Shared preferences -->
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="StringPref" />
+                    <xs:element ref="IntPref" />
+                    <xs:element ref="LongPref" />
+                    <xs:element ref="FloatPref" />
+                    <xs:element ref="BooleanPref" />
+                    <xs:element ref="StringSetPref" />
+                    <!-- For SQLite DBs -->
+                    <xs:element ref="ColumnTypes" />
+                    <xs:element ref="PrimaryKeyColumns" />
+                    <xs:element ref="Row" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string"
+                use="required" />
+            <xs:attribute name="version" type="xs:string"
+                use="optional" />
+            <xs:attribute name="table" type="xs:string"
+                use="optional" />
+            <xs:attribute name="truncate" type="xs:boolean"
+                use="optional" />
+        </xs:complexType>
+    </xs:element>
+    <!-- Shared Preference elements -->
+    <xs:element name="StringPref">
+        <xs:complexType>
+            <xs:attribute name="key" type="xs:string"
+                use="required" />
+            <xs:attribute name="value" type="xs:string"
+                use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="IntPref">
+        <xs:complexType>
+            <xs:attribute name="key" type="xs:string"
+                use="required" />
+            <xs:attribute name="value" type="xs:int"
+                use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="LongPref">
+        <xs:complexType>
+            <xs:attribute name="key" type="xs:string"
+                use="required" />
+            <xs:attribute name="value" type="xs:long"
+                use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="FloatPref">
+        <xs:complexType>
+            <xs:attribute name="key" type="xs:string"
+                use="required" />
+            <xs:attribute name="value" type="xs:float"
+                use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="BooleanPref">
+        <xs:complexType>
+            <xs:attribute name="key" type="xs:string"
+                use="required" />
+            <xs:attribute name="value" type="xs:boolean"
+                use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="StringSetPref">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="StringSetValue"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="key" type="xs:string"
+                use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="StringSetValue">
+        <xs:complexType>
+            <xs:attribute name="value" type="xs:string"
+                use="required" />
+        </xs:complexType>
+    </xs:element>
+    <!-- SQLite DB Serialization -->
+    <xs:element name="ColumnTypes">
+        <xs:complexType>
+            <xs:anyAttribute processContents="lax" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PrimaryKeyColumns">
+        <xs:complexType>
+            <xs:anyAttribute processContents="lax" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Row">
+        <xs:complexType>
+            <xs:anyAttribute processContents="lax" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
