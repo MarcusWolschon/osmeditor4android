@@ -2,7 +2,6 @@ package de.blau.android.prefs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -35,7 +34,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteCantOpenDatabaseException;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.OpenParams;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -255,8 +253,7 @@ public final class ImportExportConfiguration {
     private static void sqlite(@NonNull Context ctx, @NonNull String dbName, @NonNull String table, @NonNull String query, @Nullable List<String> ignoreColumns,
             boolean truncate, @NonNull XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
 
-        SQLiteDatabase.OpenParams.Builder builder = new SQLiteDatabase.OpenParams.Builder();
-        try (SQLiteDatabase db = SQLiteDatabase.openDatabase(ctx.getDatabasePath(dbName), builder.addOpenFlags(SQLiteDatabase.OPEN_READONLY).build())) {
+        try (SQLiteDatabase db = SQLiteDatabase.openDatabase(ctx.getDatabasePath(dbName).getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY, null)) {
             Map<String, ColumnMeta> tableMeta = getColumnTypes(db, table);
             try (Cursor cursor = db.rawQuery("select * from " + table + query, null)) {
                 boolean more = cursor.moveToFirst();
@@ -418,11 +415,9 @@ public final class ImportExportConfiguration {
          */
         @NonNull
         private SQLiteDatabase openDatabase(@NonNull final String name) {
-            final File databasePath = ctx.getDatabasePath(name);
-            SQLiteDatabase.OpenParams.Builder builder = new SQLiteDatabase.OpenParams.Builder();
-            OpenParams flags = builder.addOpenFlags(SQLiteDatabase.OPEN_READWRITE).build();
+            final String databasePath = ctx.getDatabasePath(name).getAbsolutePath();
             try {
-                return SQLiteDatabase.openDatabase(databasePath, flags);
+                return SQLiteDatabase.openDatabase(databasePath, null, SQLiteDatabase.OPEN_READWRITE, null);
             } catch (SQLiteException s) {
                 // database doesn't exist yet, need to open it with database helper so that tables get created
                 Class<?> helperClass = databaseHelpers.get(name);
@@ -434,7 +429,7 @@ public final class ImportExportConfiguration {
                         try (SQLiteOpenHelper helper = (SQLiteOpenHelper) constructor.newInstance(ctx); SQLiteDatabase dummy = helper.getWritableDatabase();) {
                             // we don't actually do anything with this instance, just close it
                         }
-                        return SQLiteDatabase.openDatabase(databasePath, flags);
+                        return SQLiteDatabase.openDatabase(databasePath, null, SQLiteDatabase.OPEN_READWRITE, null);
                     } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException
                             | InvocationTargetException e) {
                         throw new IllegalArgumentException(e.getMessage());
