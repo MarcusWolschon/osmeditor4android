@@ -1,6 +1,68 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-21.2.0.0:
+22.0.0-1:
+
+- Fix upgrade com.github.Kunzisoft:AndroidClearChroma dependency to fix unrelated views changing colour
+- Fix run notifyDataSetChanged after running validator
+- Fix re-enable return relations after replacing geometry
+- Fix geometric calculation error in ViewBox expansion
+- Fix null value arg to match cache
+- Fix GeoMath bounding box logic
+- Fix refactor the search modal (Nominatim, Photon) to not block
+- Fix avoid CMEs when matching presets while drawing
+- Fix regression when de-selecting a row in the property editor
+- Fix try to stop users from misusing the address interpolation tool
+- Fix don't try to pop selection if stack only has one element
+- Fix take a belt and suspenders approach to avoiding runaway alerts
+- Fix TagFilterActivity crashes when starting split window mode
+- Fix add missing trunk casing and fix typo for unclassifieds
+- Fix correctly support insets and get rid of bogus error message in some preference activities
+- Fix improve handling of synonyms that refer to "two level" presets
+- Fix protect properly against current node not being found
+- Fix deleting a preset should update the displayed preset list
+- Fix use standard locale format for finding synonym files
+- Fix always download individual member elements in relation members tab
+- Fix if a way is specifically clickable always render the highlighting
+- Fix review modal after loading state re-enable upload button if necessary
+- Fix stop addRequiredElements from duplicating elements in upload
+- Fix wrap Panoramax instance list retrieval in ExecutorTask
+- Fix improve authorization messaging for Panoramax
+- Fix handle local inconsistencies that lead to upload conflicts
+- Fix if starting the property editor from main simply replace it
+- Fix display a more specific error for duplicate Panoramax uploads and increase timeouts to 20s
+- Fix workaround AGP 8 / Android 15 bug with per app languages
+- Fix protect against the content resolver not finding the gpx file
+- Fix protect properly against relation loops when adding required elements
+- Fix synchronize access to the way node cache
+- Fix the checked state in normal lifecycle too in review modal
+- Fix don't try to restart a selection mode if nothing is selected
+- Fix don't run existing URLs through tag2link
+- Add ability to show parents and relation members in the info modal
+- Add support for the deprecated attribute for checks in checkgoups
+- Add facility to export/import most configuration
+- Add support for numeric suffixes in tag2link
+- Add hardwire reversing behaviour for railway:turnout_side
+- Add split window mode improvements: improve behaviour with samsung DeX and add option to force tab layout and display a badge indicating the position of the property editor fragment
+- Add support an experimental option for showing review modal in a separate window
+- Add tip about the filename for wikimedia uploads
+- Add option to safe mode to remove selection and UI mode
+- Add a small number of root certificates missing from Android 13 and earlier
+- Add support long clicks to split ways
+- Change refactor style management to be in line with how we handle other user loadable resources
+- Change use a double colon as separator in changeset auto-comments
+- Change re-factor keyboard shortcut handling
+- Change support ignoring subareas in the disambiguation menu
+- Change don't move nodes used in other ways when replacing way geometry
+- Change if an OSC file has references to not available way nodes download them
+- Change disable "Query Overpass" if there is no network connectivity
+- Change enable custom/user CAs
+- Change allow octet-stream as mime type for vector tiles
+- Update default preset and taginfo project file
+- Update pmtiles-reader dependency
+- Update intents documentation
+- Update translations
+
+21.2.0:
 
 - Fix crash when splitting closed way that is a relation member if there are relation related warnings
 - Fix check for null tags
@@ -21,17 +83,17 @@
 - Update imagery from ELI
 - Update default preset and taginfo project file
 
-21.2.0.3:
+21.2.3:
 
 - Fix proguard config to retain PopupMenu related classes properly
 - Fix typos in strings.xml
 
-21.2.0.2:
+21.2.2:
 
 - Fix disambiguation menu regression when merging node to multiple ways
 - Fix inverted logic when creating the disambiguation menu in some cases
 
-21.2.0.1:
+21.2.1:
 
 - Fix wrap welcome text in a ScrollView
 - Fix detect correctly which theme should be used in Splash
@@ -93,7 +155,7 @@
 - Update translations
 - Update imagery from ELI
 
-21.1.0.0:
+21.1.0:
 
 - Fix protect against null extra tags
 - Fix workaround bogus IME insets on Android 5
