@@ -31,7 +31,6 @@
   <string name="local_object">Versión local</string>
   <string name="resolve_by">Resolver el conflicto…</string>
   <string name="resolve">Resolver</string>
-  <string name="delete_refering_element">… eliminando el elemento de referencia</string>
   <string name="use_local_version">… usando la versión local</string>
   <string name="merge_tags_in_to_local">… combinando etiquetas en la versión local</string>
   <string name="merge_tags_in_to_server">… combinando etiquetas en la versión del servidor</string>
@@ -52,7 +51,6 @@
   <string name="upload_retry_message_unexpected_error">Error inesperado al intentar determinar el estado del conjunto de cambios %1$d.</string>
   <string name="upload_retry_message_no_changeset_status">No se pudo determinar el estado del conjunto de cambios %1$d.\n\nSugerimos guardar tus cambios como un archivo OCS y decidir qué hacer cuando tengas mejor recepción.</string>
   <string name="upload_retry_message_nothing_uploaded">No se han subido cambios en el conjunto de cambios %1$d.\n\nEs seguro reintentar.</string>
-  <string name="upload_retry_message_all_uploaded">Los cambios se subieron correctamente en el conjunto de cambios %1$d, pero no se recibió el resultado.\n\nSin embargo, parece que todos los cambios se subieron, por lo que puedes descartar de forma segura tus cambios locales y volver a descargar.</string>
   <string name="upload_retry_message_partial_upload">Los cambios se subieron correctamente en el conjunto de cambios %1$d, pero no se recibió el resultado.</string>
   <string name="upload_retry_message_update_failed_title">Error al actualizar</string>
   <string name="upload_retry_message_update_failed">No se pudieron actualizar los datos. Sugerimos guardar tus cambios en un archivo para usarlos más tarde.</string>
@@ -106,6 +104,8 @@
   <string name="download_limit_message">Espera antes de intentar descargar más datos.</string>
   <string name="upload_limit_title">Se excedieron los límites de subida</string>
   <string name="upload_limit_message">Has agotado tu límite de subida actual, espera antes de volver a intentarlo.</string>
+  <string name="upload_unavailable_title">Servicio no disponible</string>
+  <string name="upload_unavailable_message">El servicio no está disponible, probablemente de forma temporal. Espera un momento antes de intentarlo nuevamente.</string>
   <string name="duplicate_tag_key_title">Claves duplicadas</string>
   <string name="duplicate_tag_key_message">Has agregado la siguiente clave más de una vez; esto debe resolverse antes de poder continuar:</string>
   <string name="autodownload_has_been_paused">La descarga automática se ha pausado.</string>
@@ -173,7 +173,6 @@
   <string name="progress_searching_message">Buscando…</string>
   <string name="progress_saving_message">Guardando…</string>
   <string name="progress_uploading_message">Subiendo…</string>
-  <string name="progress_preset_message">Descargando preset…</string>
   <string name="progress_loading_preset_message">Cargando preset…</string>
   <string name="progress_importing_file_message">Importando archivo…</string>
   <string name="progress_running_message">Ejecutando…</string>
@@ -203,6 +202,7 @@
   <string name="upload_validation_error_empty_comment">El comentario no debe estar vacío</string>
   <string name="upload_validation_error_empty_source">La fuente no debe estar vacía</string>
   <string name="upload_empty_comment_warning_label">Advertir si el comentario está vacío</string>
+  <string name="confirm_upload_custom_tags_page">Etiquetas personalizadas</string>
   <string name="upload_auto_summary">Resumen generado automáticamente</string>
   <string name="untagged_node">nodo sin etiquetas</string>
   <string name="untagged_way">vía sin etiquetas</string>
@@ -277,6 +277,7 @@
   <string name="toast_no_open_todos">No hay tareas abiertas</string>
   <string name="toast_no_todos_in_list">No hay tareas en la lista seleccionada</string>
   <string name="save_changes_title">¿Guardar cambios?</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">¡Precaución!</string>
   <string name="unsaved_data_message">Si continúas, se descartarán los cambios no guardados.</string>
@@ -400,7 +401,6 @@
   <string name="other">Otro</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">Faltan miembros de la relación</string>
-  <string name="split_safe_message">Las vías miembro de la relación vecina no se han descargado. Mantener el orden de los miembros de la relación puede depender de estos.</string>
   <!--JS console dialog-->
   <string name="evaluate">Evaluar</string>
   <string name="js_console_msg_live">¡Modo en vivo!</string>
@@ -417,6 +417,7 @@
   <string name="select_result">Seleccionar</string>
   <string name="merge_result">Combinar</string>
   <string name="overpass_query_would_overwrite">¡El resultado sobrescribiría los cambios! Consulta abortada.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Error</string>
   <string name="warning">Advertencia</string>
@@ -451,7 +452,6 @@
   <string name="safe_mode_dialog_title">Opciones de modo seguro</string>
   <string name="safe_style_label">Establecer estilo de datos a mínimo</string>
   <string name="safe_layer_label">Deshabilitar todas las capas</string>
-  <string name="safe_state_label">Eliminar estado guardado</string>
   <string name="safe_delete_state_title">¿Eliminar el estado de datos guardados?</string>
   <string name="safe_delete_state_text">Sí (no se puede deshacer)</string>
   <!--Empty relation dialog-->
@@ -563,6 +563,7 @@
   <string name="photo_viewer_goto">Ir a la foto</string>
   <string name="photo_viewer_label">Visor de fotos</string>
   <string name="mapillary_viewer_label">Visor de Mapillary</string>
+  <string name="photo_viewer_upload">Subir…</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Cuadro delimitador</string>
   <string name="api_info_latest_date">Última fecha incluida</string>
@@ -619,7 +620,6 @@
   <string name="tip_longpress_simple_mode">En el modo simple, una pulsación larga no hará nada. Desactiva el modo simple en el menú principal si deseas utilizar pulsaciones largas para crear objetos.</string>
   <string name="tip_gpx_no_elevation">A partir de la versión 15, las trazas GPX ya no contienen información de elevación de forma predeterminada.&lt;p&gt;Para habilitar el registro de elevación, instala un modelo de geoide con &lt;i&gt;Instalar EGM&lt;/i&gt; desde el menú Herramientas o cambia a la entrada NMEA.</string>
   <string name="tip_tag_conflict">La combinación y la inversión de elementos OSM a veces requiere cambiar los atributos de los elementos; si hay un posible error o conflicto, se te alertará y se te ofrecerá la oportunidad de revisar los objetos en cuestión.</string>
-  <string name="tip_replace_geometry">Reemplazar la geometría de una vía a menudo requiere mover la posición de nodos existentes. Si estos tienen etiquetas, es decir, representan objetos, esto podría ser no deseable.&lt;p&gt;Para evitar este problema, extraemos los nodos que no están dentro de un pequeño radio de tolerancia de la vía principal y mostramos una advertencia. Puedes ajustar la tolerancia (por defecto 1 m) en las preferencias avanzadas.</string>
   <string name="tip_gpx_recording">Cuando inicias la grabación GPX, Vespucci recopila datos de ubicación para habilitar la grabación GPX incluso cuando la app no está visible.&lt;p&gt;Cerrar explícitamente la aplicación o desactivar la grabación GPX detendrá el uso de datos de ubicación en tales situaciones.</string>
   <string name="tip_auto_download">Cuando inicias la descarga automática de datos o tareas de OSM, Vespucci utiliza los datos de ubicación para determinar la posición actual, incluso cuando la app no está visible.&lt;p&gt;Cerrar explícitamente la aplicación o desactivar la descarga automática detendrá el uso de datos de ubicación en tales situaciones.</string>
   <string name="tip_tristate_checkbox">Acabas de tocar una casilla de verificación triestado. Estas funcionan como casillas normales, alternando entre dos valores, por ejemplo, sí/no o verdadero/falso.&lt;p&gt;Sin embargo, tienen un tercer estado adicional &lt;b&gt;no establecido&lt;/b&gt;, indicado por una casilla de verificación atenuada, que impedirá que se agregue la etiqueta correspondiente. Puedes establecer la casilla de verificación en este estado con una pulsación larga.</string>
@@ -627,7 +627,6 @@
   <string name="tip_mode_switching">El botón de bloqueo también funciona como conmutador de modo; una pulsación larga mostrará un menú con las diferentes opciones.&lt;p&gt;Puedes encontrar más información sobre los modos de Vespucci en el sistema de ayuda, tanto en la introducción como en la ayuda para la visualización del mapa principal.</string>
   <string name="tip_empty_gpx_download">Debido a una peculiaridad en la API de OSM, el punto de inicio de la traza GPX debe estar a la vista para que se pueda encontrar para descargar.</string>
   <string name="tip_no_redo">Este modo actualmente no admite rehacer adiciones de nodos.</string>
-  <string name="tip_way_splitting">Toca un nodo resaltado para determinar la posición de división. Un toque largo te permitirá seleccionar qué parte se utiliza para la nueva vía en un paso adicional.</string>
   <string name="tip_closed_way_splitting">Una vía cerrada debe dividirse en dos lugares. Toca un nodo resaltado para determinar la primera posición de división; el siguiente paso te pedirá que selecciones la segunda posición.</string>
   <string name="tip_disambiguation_menu">Cuando varios elementos OSM u otros objetos están muy juntos o los elementos son miembros de relaciones, se mostrará el menú de desambiguación. A continuación, puedes seleccionar el elemento específico de la lista.&lt;p&gt;Si un elemento ya está seleccionado, se resaltará.</string>
   <string name="tip_file_import">En dispositivos con Android 10 o posterior, necesitamos copiar archivos para poder acceder a ellos por completo. Las copias se encuentran en &lt;i&gt;Descargas/Vespucci/imports&lt;/i&gt;. Si es necesario, puedes eliminar los originales y conservar solo las copias.</string>
@@ -670,6 +669,7 @@
   <string name="toast_save_failed">No se pudo guardar</string>
   <string name="toast_export_failed">No se pudo exportar</string>
   <string name="toast_export_success">Exportado a %1$s</string>
+  <string name="toast_upload_to_success">Cargado correctamente en %1$s</string>
   <plurals name="toast_preset_removed_or_replaced_tags">
     <item quantity="one">Se sobrescribió o eliminó 1 etiqueta</item>
     <item quantity="many">Se sobrescribieron o eliminaron %1$d etiquetas</item>
@@ -692,6 +692,7 @@
   <string name="toast_download_failed">Error en la descarga con código de error %1$d, mensaje %2$s</string>
   <string name="toast_note_reopened">Nota reabierta</string>
   <string name="toast_untrusted_certificate">Certificado no confiable\n%1$s</string>
+  <string name="toast_element_may_have_been_moved">Es posible que el elemento haya sido movido</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Camino no inspeccionado</string>
   <string name="toast_noname">La vía no tiene nombre ni referencia</string>
@@ -700,8 +701,8 @@
   <string name="toast_relation_loop">La referencia al miembro de la relación crea un bucle</string>
   <string name="toast_untagged_element">Elemento sin etiquetar</string>
   <string name="toast_unconnected_end_node">El nodo está cerca del elemento al que podría conectarse</string>
-  <string name="toast_degenerate_way">Vía degenerada</string>
-  <string name="toast_degenerate_way_with_info">Vía degenerada \"%1$s\"</string>
+  <string name="toast_degenerate_way">Vía defectuosa</string>
+  <string name="toast_degenerate_way_with_info">Vía defectuosa \"%1$s\"</string>
   <string name="toast_wrong_element_type">Tipo de elemento no estándar: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">Intenta subir de nuevo después de permitir el acceso OAuth a tu cuenta de OSM.</string>
@@ -732,10 +733,6 @@
   <string name="toast_min_one_geocoder">¡Debe seleccionarse al menos un geocodificador!</string>
   <string name="toast_used_backup">Archivo de estado dañado, se utilizó un archivo de respaldo en su lugar.</string>
   <string name="toast_used_bug_backup">Archivo de estado de errores dañado, se utilizó un archivo de respaldo en su lugar.</string>
-  <string name="toast_split_from">Vía dividida \"desde\"</string>
-  <string name="toast_split_via">Vía dividida \"vía\"</string>
-  <string name="toast_split_from_and_via">Vías divididas \"desde\" y \"vía\"</string>
-  <string name="toast_split_to">Vía dividida \"a\"</string>
   <string name="toast_tile_database_issue_short">Problema con la base de datos de teselas</string>
   <string name="toast_tile_database_issue">Problema grave con la base de datos de teselas de mapa\n\"%1$s\"\nConsulta nuestras preguntas frecuentes en https://vespucci.io/</string>
   <string name="toast_tile_source_issue">Problema grave con la fuente de teselas del mapa, deshabilitada temporalmente\n\"%1$s\"</string>
@@ -744,7 +741,6 @@
   <string name="toast_invalid_apiurl">URL de API no válida</string>
   <string name="toast_invalid_readonlyurl">URL de API de solo lectura no válida</string>
   <string name="toast_invalid_notesurl">URL de API de notas no válida</string>
-  <string name="toast_invalid_preseturl">URL de preset no válida</string>
   <string name="toast_missing_preset_file">Falta el archivo de preset para \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">Expresión regular no válida en el filtro con clave=\"%1$s\" valor=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">No se puede acceder a la foto %1$s</string>
@@ -862,6 +858,7 @@
   <string name="toast_panoramax_sequence_error">No se pudo recuperar la secuencia Panoramax %1$s, ID %2$s</string>
   <string name="toast_panoramax_image_not_in_sequence_error">La imagen con ID %1$s no se encontró en la secuencia</string>
   <string name="toast_panoramax_sequence_exception">No se puede recuperar la secuencia de panoramax\n%1$s</string>
+  <string name="toast_authorisation_successful">¡Autorización exitosa!</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Las fuentes de MapSplit deben tener el zoom mínimo y máximo establecidos</string>
   <string name="error_pbf_no_version">Falta la información de versión en el archivo PBF</string>
@@ -940,9 +937,9 @@
   <string name="tag_value_hint">Escribir valor</string>
   <string name="tag_autocomplete_value_hint">Escribir o pulsar para ver valores</string>
   <string name="tag_autocomplete_name_hint">Escribir o pulsar para ver sugerencias de nombres</string>
-  <string name="tag_tap_to_edit_hint">Pulsa para editar</string>
+  <string name="tag_tap_to_edit_hint">Pulsar para editar</string>
   <string name="tag_multi_value_hint">Valores múltiples</string>
-  <string name="tag_dialog_value_hint">Pulsa para ver valores</string>
+  <string name="tag_dialog_value_hint">Pulsar para ver valores</string>
   <string name="tag_action_tag_title">Etiqueta(s) seleccionada(s)</string>
   <string name="tag_action_members_title">Miembro(s) seleccionado(s)</string>
   <string name="tag_action_parents_title">Padre(s) seleccionado(s)</string>
@@ -961,6 +958,7 @@
   <string name="menu_top">Arriba</string>
   <string name="menu_select_all">Seleccionar todo</string>
   <string name="menu_deselect_all">Deseleccionar todo</string>
+  <string name="menu_invert_selection">Invertir selección</string>
   <string name="menu_preset_help">Ayuda de preset</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i18n">Añadir variantes de idioma</string>
@@ -1030,12 +1028,10 @@
   <string name="no_nominatim_result">El servidor Nominatim no encontró %1$s</string>
   <!--Menu-->
   <string name="menu_move">Mover</string>
-  <string name="menu_edit">Editar</string>
   <string name="menu_add">Nuevo</string>
   <string name="menu_config">Preferencias</string>
   <string name="menu_find">Buscar</string>
   <string name="menu_help">Ayuda</string>
-  <string name="menu_view">Ver</string>
   <string name="menu_erase">Borrar nodo</string>
   <string name="menu_set_position">Posición</string>
   <string name="menu_split">Dividir</string>
@@ -1193,10 +1189,17 @@
   <string name="menu_tools_background_contrast">Contraste</string>
   <string name="menu_tools_oauth_reset">Restablecer autorización</string>
   <string name="menu_tools_oauth_authorisation">Autorizar con OAuth…</string>
+  <string name="menu_authorize">Autorizar…</string>
   <string name="menu_enable_tagfilter">Filtro de etiquetas</string>
   <string name="menu_enable_presetfilter">Filtro de presets</string>
   <string name="preset_menu_waynodes">Incluir nodos de vía</string>
   <string name="preset_menu_invert">Invertir filtros</string>
+  <string name="tag_filter_title">Filtro: %1$s</string>
+  <string name="tag_filter_load">Cargar…</string>
+  <string name="tag_filter_new">Nuevo…</string>
+  <string name="tag_filter_name">Nombre del filtro</string>
+  <string name="tag_filter_clear_confirmation">¿Realmente quieres borrar los elementos del filtro?</string>
+  <string name="tag_filter_delete_confirmation">¿Realmente quieres eliminar el filtro?</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propiedades</string>
   <!--ELement entry in context menu-->
@@ -1213,6 +1216,8 @@
   <string name="menu_reverse">Invertir</string>
   <string name="notreversable_description">Esta vía es irreversible debido a que está etiquetada con atributos dependientes de la dirección. Invertirla rompería el etiquetado.</string>
   <string name="reverse_anyway">Invertir de todas formas</string>
+  <string name="menu_add_new_image">Añadir nueva imagen…</string>
+  <string name="menu_add_existing_image">Añadir imagen existente…</string>
   <string name="deleteway_description">Estás a punto de eliminar una vía.\n\nPuedes mantener todos los nodos o eliminar aquellos que solo pertenecen a esta vía y que no tienen etiquetas.</string>
   <string name="deleteway_relation_description">Estás a punto de eliminar una vía que es miembro de una o más relaciones. Eliminar la vía puede invalidar las relaciones.</string>
   <string name="deleteway_nodesnotdownloaded_description">La vía contiene nodos fuera del área descargada y no se puede eliminar sin crear potencialmente un estado inconsistente.\n\nDescarga el área circundante antes de volver a intentarlo.</string>
@@ -1316,6 +1321,7 @@
   <string name="config_presetbutton_title">Presets</string>
   <string name="config_presetbutton_summary">Agregar y habilitar presets compatibles con JOSM</string>
   <string name="config_built_in_preset">Preset incorporado</string>
+  <string name="config_keyboard_shortcuts_title">Atajos del teclado</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Ajustes del validador</string>
   <string name="config_validatorprefs_summary">Configura las reglas de validación.</string>
@@ -1352,6 +1358,8 @@
   <string name="config_showTolerance_summary">Muestra el área donde se puede seleccionar un elemento.</string>
   <string name="config_use_back_for_undo_title">Usar la tecla ← para deshacer</string>
   <string name="config_use_back_for_undo_summary">Usa la tecla ← para deshacer en la vista de edición principal.</string>
+  <string name="config_imageLicence_title">Licencia de la imagen</string>
+  <string name="config_imageLicence_summary">Licencia para usar en imágenes subidas</string>
   <string name="config_theme_title">Tema</string>
   <string name="config_theme_summary">Selecciona el estilo de la aplicación.</string>
   <string name="config_splitActionBarEnabled_title">Habilitar barra de acciones dividida</string>
@@ -1400,6 +1408,7 @@
   <string name="config_poi_keys_title">Visualización de PDI cercanos</string>
   <string name="config_poi_keys_summary">Establece las claves utilizadas para la visualización de PDI cercanos.</string>
   <!--Camera and image settings-->
+  <string name="config_category_camera_and_images">Configuración de cámara e imágenes</string>
   <string name="config_showCameraAction_title">Mostrar acción de la cámara</string>
   <string name="config_showCameraAction_summary">Mostrar icono de cámara en la barra de acciones.</string>
   <string name="config_selectCameraApp_title">Aplicación de cámara</string>
@@ -1412,7 +1421,10 @@
   <string name="config_useInternalPhotoViewer_summary">Usa el visor de fotos incorporado; si no está marcado, se utilizará un visor externo.</string>
   <string name="config_indexMediaStore_summary">Usar adicionalmente MediaStore para acceder a las fotos</string>
   <string name="config_indexMediaStore_title">Usar MediaStore</string>
+  <string name="config_addToMediaStore_summary">Agregar imágenes tomadas con el botón de la cámara al MediaStore.</string>
   <string name="config_addToMediaStore_title">Agregar imágenes a MediaStore</string>
+  <string name="config_imageStores_summary">Configurar los destinos que pueden usarse para almacenar imágenes.</string>
+  <string name="config_imageStores_title">Almacenamiento de imágenes</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Ajustes de datos y edición</string>
   <string name="config_category_editing_summary">Ajustes de autodescarga, guardado y notificaciones.</string>
@@ -1467,6 +1479,8 @@
   <string name="config_replaceTolerance_title">Distancia máxima para mover un nodo etiquetado</string>
   <string name="config_replaceTolerance_summary">Distancia máxima para mover un nodo etiquetado al reemplazar la geometría de una vía.</string>
   <string name="config_replaceTolerance_current">%1$d metro(s)</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Ajustes de descarga automática</string>
   <string name="config_category_auto_download_summary">Ajustes para la descarga automática de datos y tareas</string>
@@ -1599,24 +1613,20 @@
   <string name="manage_geocoders">Administrar geocodificadores</string>
   <string name="listedit_supports_compressed_uploads">Admite subidas comprimidas</string>
   <string name="geocoder_type">Tipo de geocodificador</string>
+  <string name="manage_image_stores">Administrar almacenamiento de imágenes</string>
+  <string name="imagestore_type">Tipo de almacenamiento de imágenes</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar preset</string>
-  <string name="preset_download_successful">Preset descargado</string>
-  <string name="preset_download_failed">No se pudo descargar el archivo de preset. El preset no funcionará.</string>
-  <string name="preset_download_parse_failed">El archivo de preset no es válido. El preset no funcionará.</string>
   <string name="preset_download_missing_images">Archivo de preset descargado. Sin embargo, faltaban algunos iconos.</string>
-  <string name="preset_download_title">Descargador de presets</string>
   <!--preset management-->
-  <string name="preset_management_delete">¿Realmente quieres eliminar el preset?</string>
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
+  <string name="imagestores_add_from_panoramax_list">Agregar desde la lista de instancias de Panoramax…</string>
+  <string name="imagestores_add_manually">Agregar manualmente…</string>
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Añadir preset</string>
-  <string name="urldialog_preset_exists">Este preset ya existe</string>
-  <string name="urldialog_preset_download_successful">Preset descargado.</string>
   <string name="urldialog_api_exists">Ya existe una API con esta URL. Sin embargo, puedes añadir otra (por ejemplo, para cambiar de cuenta fácilmente).</string>
-  <string name="urldialog_add_api">Añadir API</string>
   <string name="urldialog_nodata_text">La URL de configuración no contiene datos válidos.</string>
-  <string name="urldialog_add_geocoder">Añadir geocodificador</string>
   <!--API configuration-->
   <string name="api_name">Nombre de la API</string>
   <string name="api_url">URL de la API</string>
@@ -1625,10 +1635,18 @@
   <string name="copy_of">Copia de %1$s</string>
   <string name="choose_oauth_config">Elegir configuración OAuth</string>
   <!--image upload dialog-->
+  <string name="image_upload_title">Elegir destino de carga</string>
   <string name="image_upload">Subir</string>
+  <string name="image_upload_and_remove">Subir y eliminar</string>
+  <string name="image_upload_not_authorized">Error al subir: no tienes autorización para el almacenamiento de destino</string>
+  <string name="image_upload_failed_due_to">Error al subir: código %1$d %2$s para %3$s</string>
+  <string name="image_upload_failed">Error al subir %1$s</string>
+  <string name="wikimedia_meta_title">Metadatos de Wikimedia</string>
+  <string name="wikimedia_meta_filename">Nombre del archivo</string>
   <string name="wikimedia_meta_description">Descripción</string>
   <string name="wikimedia_meta_source">Fuente</string>
   <string name="wikimedia_meta_author">Autor</string>
+  <string name="wikimedia_meta_licence">Licencia</string>
   <string name="wikimedia_meta_category">Categoría</string>
   <!--common terms-->
   <string name="add">Añadir</string>
@@ -1646,6 +1664,7 @@
   <string name="empty_list">Sin entradas</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Preset</string>
+  <string name="style">Estilo</string>
   <string name="api">API</string>
   <string name="undo">Deshacer</string>
   <string name="redo">Rehacer</string>
@@ -1655,6 +1674,7 @@
   <string name="tracking_active_text">Grabando una traza GPS o descargando automáticamente</string>
   <string name="tracking_long_text">Vespucci está grabando una traza GPX o descargando automáticamente. Para salir por completo, pulsa el botón de abajo o el botón de retroceso en la aplicación.</string>
   <string name="gps_failure">Error al activar el GPS</string>
+  <string name="gps_service_start_failure">No se pudo iniciar el servicio de GPS, intenta de nuevo.\n\nError: %1$s</string>
   <!--element description-->
   <string name="address_housenumber">Dirección %1$s</string>
   <string name="address_housenumber_street">Dirección %1$s %2$s</string>
@@ -1753,7 +1773,6 @@
   <string name="issue_split_route_ordering">La ruta puede necesitar un reordenamiento manual</string>
   <string name="issue_split_area">Área dividida, puede necesitar ser convertida a un multipolígono</string>
   <string name="issue_precondition_relation_member_count">Se excedió el recuento de miembros de la relación</string>
-  <string name="issue_replace_extracted_node">Nodo etiquetado extraído de la vía</string>
   <string name="issue_replace_member_element_replaced">Elemento miembro reemplazado</string>
   <!--time and distance-->
   <plurals name="days">
@@ -1828,4 +1847,7 @@
   <string name="tile_io_error">Error de E/S</string>
   <string name="tile_no_network">Sin red</string>
   <string name="tile_unknown_error">Error desconocido</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Guardar</string>
+  <string name="keyboard_shortcut_reset">Reiniciar</string>
 </resources>

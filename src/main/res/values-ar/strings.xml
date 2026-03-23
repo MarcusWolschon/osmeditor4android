@@ -81,7 +81,6 @@
   <string name="progress_searching_message">جارٍ البحث…</string>
   <string name="progress_saving_message">جار الحفظ…</string>
   <string name="progress_uploading_message">جارٍ الرفع...</string>
-  <string name="progress_preset_message">يتم الآن تنزيل القالب...</string>
   <string name="progress_loading_preset_message">جارٍ تحميل قوالب الوسوم...</string>
   <string name="progress_importing_file_message">جارٍ استيراد الملف ...</string>
   <string name="progress_running_message">تشغيل...</string>
@@ -174,6 +173,7 @@
   <string name="toast_todo_already_in_list">العنصر موجود بالفعل في قائمة المهام هذه</string>
   <string name="toast_no_open_todos">لا يوجد مهام لإنجازها</string>
   <string name="toast_no_todos_in_list">لا توجد مهام في القائمة المحددة</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">انتبه!</string>
   <string name="unsaved_data_message">إذا قمت بالمتابعة سيتم تجاهل التغييرات التي لم يتم حفظها.</string>
@@ -280,13 +280,13 @@
   <string name="other">آخر</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">أعضاء في علاقة مفقودة</string>
-  <string name="split_safe_message">لا يتم تنزيل طرق أعضاء علاقة الجيران. قد يعتمد الحفاظ على علاقة ترتيب الأعضاء على هذه.</string>
   <!--JS console dialog-->
   <string name="evaluate">تقييم</string>
   <string name="js_console_msg_live">الوضع الحي المباشر!</string>
   <string name="js_console_msg_debug">وضع التصحيح!</string>
   <string name="console_output_hint">المخرجات ستظهر هنا</string>
   <!--Overpass console-->
+  <!--Download missing dialog-->
   <!---->
   <string name="error">خطأ</string>
   <string name="warning">تحذير</string>
@@ -475,7 +475,6 @@
   <string name="tip_mode_switching">يتضاعف زر القفل كمبدل للوضع ، وعند الضغط عليه لفترة طويلة ستظهر قائمة بها خيارات مختلفة.&lt;p&gt;كما يمكنك العثور على مزيد من المعلومات حول أوضاع فسبوتشي في نظام المساعدة ، سواء في المقدمة أو في المساعدة لعرض الخريطة الرئيسية.</string>
   <string name="tip_empty_gpx_download">نظرًا لوجود خلل في OSM API، يجب أن تكون نقطة البداية لمسار GPX في الاعتبار حتى يمكن العثور عليها للتنزيل.</string>
   <string name="tip_no_redo">هذا الوضع لا يدعم إعادة إضافات العقدة، في الوقت الحالي.</string>
-  <string name="tip_way_splitting">المس عقدة مظللة لتحديد موضع الانقسام، كما ستتيح لك اللمسة الطويلة تحديد الجزء المستخدم للطريق الجديد في خطوة أخرى.</string>
   <string name="tip_closed_way_splitting">يجب تقسيم الطريق المغلق إلى مكانين. المس العقدة المظللة لتحديد موضع الانقسام الأول، وفي الخطوة التالية سيطلب منك تحديد موضع الانقسام الثاني.</string>
   <string name="tip_disambiguation_menu">عندما تتواجد عدة عناصر أو كائنات أخرى قريبة جدًا من بعضها أو عندما تكون العناصر أعضاء في علاقة ما، سيعرض لك التطبيق قائمة توضيحية، يمكنك بعد ذلك تحديد العنصر الذي تقصده من القائمة.&lt;p&gt;وعندما يكون العنصر محدداً، فسيتم تمييزه عن بقية العناصر.</string>
   <!--NumberPicker-->
@@ -577,16 +576,11 @@
   <string name="toast_min_one_geocoder">يجب اختيار معرف جغرافي واحد على الأقل!</string>
   <string name="toast_used_backup">ملف حالة تالف، استخدم ملف النسخ الاحتياطي بدلاً من ذلك.</string>
   <string name="toast_used_bug_backup">ملف حالة الخلل البرمجي تالف، استخدم ملف النسخ الاحتياطي بدلاً من ذلك.</string>
-  <string name="toast_split_from">يتجزأ \"من\" الطريق</string>
-  <string name="toast_split_via">يتجزأ \"عبر\" الطريق</string>
-  <string name="toast_split_from_and_via">يتجزأ \"من\" و \"عبر\" الطرق</string>
-  <string name="toast_split_to">يتجزأ \"إلى\" الطريق</string>
   <string name="toast_tile_database_issue_short">مشلكة في قاعدة بيانات الخريطة المصورة</string>
   <string name="toast_tile_database_issue">مشكلة قوية في قاعدة بيانات مصورات الخرائط\n\"%1$s\"\n الرجاء مراجعة الأسئلة المتكررة على https://vespucci.io/</string>
   <string name="toast_invalid_apiurl">عنوان URL غير صالح لواجهة برمجة التطبيقات</string>
   <string name="toast_invalid_readonlyurl">عنوان URL غير صالح للقراءة فقط لواجهة برمجة التطبيقات</string>
   <string name="toast_invalid_notesurl">عنوان URL لواجهة برمجة تطبيقات للملاحظات غير صالح</string>
-  <string name="toast_invalid_preseturl">عنوان URL غير صحيح للقالب</string>
   <string name="toast_missing_preset_file">ملف القالب غير موجود لـ\"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">تعبير عادي غير صالح في عامل التصفية بالمفتاح = \"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">لا يمكن الوصول إلى الصورة %1$s</string>
@@ -847,12 +841,10 @@
   <string name="no_nominatim_result">لم يتم العثور على خادم Nominatim %1$s</string>
   <!--Menu-->
   <string name="menu_move">نقل</string>
-  <string name="menu_edit">تحرير</string>
   <string name="menu_add">جديد</string>
   <string name="menu_config">التفضيلات</string>
   <string name="menu_find">بحث</string>
   <string name="menu_help">مساعدة</string>
-  <string name="menu_view">العرض</string>
   <string name="menu_erase">محو العقدة/النقطة</string>
   <string name="menu_set_position">موضع</string>
   <string name="menu_split">تجزئة</string>
@@ -1102,6 +1094,7 @@
   <string name="config_presetbutton_title">القوالب</string>
   <string name="config_presetbutton_summary">قم بإضافة وتمكين القوالب المتوافقة مع JOSM</string>
   <string name="config_built_in_preset">قالب موجود بالاصل</string>
+  <string name="config_keyboard_shortcuts_title">اختصارات لوحة المفاتيح</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">إعدادات المدقق</string>
   <string name="config_validatorprefs_summary">تكوين قواعد التحقق من الصحة.</string>
@@ -1220,6 +1213,8 @@
   <string name="config_maxCircleSegment_current">%1$d متر (أمتار)</string>
   <string name="config_minCircleSegment_current">%1$d متر (أمتار)</string>
   <string name="config_replaceTolerance_current">%1$d متر (أمتار)</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">إعدادات التنزيل التلقائي</string>
   <string name="config_category_auto_download_summary">إعدادات البيانات وتنزيل المهام تلقائيًا</string>
@@ -1337,21 +1332,14 @@
   <string name="geocoder_type">نوع الكود الجغرافي</string>
   <!--preset downloader messages-->
   <string name="preset_update">تحديث القالب</string>
-  <string name="preset_download_successful">تم تنزيل القالب</string>
-  <string name="preset_download_failed">تعذر تنزيل ملف القالب.  لن يعمل القالب.</string>
-  <string name="preset_download_parse_failed">ملف القالب غير صالح.  لن يعمل القالب.</string>
   <string name="preset_download_missing_images">تم تنزيل ملف القالب  ومع ذلك بعض الرموز لم يتم إنزالها.</string>
-  <string name="preset_download_title">أداة تنزيل القالب</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">أضف القالب</string>
-  <string name="urldialog_preset_exists">هذا القالب موجود بالفعل</string>
-  <string name="urldialog_preset_download_successful">تم تنزيل القالب.</string>
   <string name="urldialog_api_exists">يوجد بالفعل API مع نفس عنوان URL هذا.  ومع ذلك ، يمكنك إضافة حساب آخر (على سبيل المثال للتبديل بين الحسابات بسهولة).</string>
-  <string name="urldialog_add_api">إضافة API</string>
   <string name="urldialog_nodata_text">لا يحتوي عنوان URL الخاص بالتكوين على بيانات صالحة.</string>
-  <string name="urldialog_add_geocoder">أضف المكود الجغرافي</string>
   <!--API configuration-->
   <string name="api_name">اسم API</string>
   <string name="api_url">عنوان URL الخاص بواجهة برمجة التطبيقات</string>
@@ -1378,6 +1366,7 @@
   <string name="empty_list">لا توجد إدخالات</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">القالب</string>
+  <string name="style">النمط</string>
   <string name="api">API</string>
   <string name="undo">تراجع</string>
   <string name="redo">إعادة</string>
@@ -1544,4 +1533,7 @@
   <string name="relation_id">العلاقة %1$d</string>
   <!--Tile downloader diagnostics-->
   <string name="tile_unknown_error">خطأ غير معروف</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">حفظ</string>
+  <string name="keyboard_shortcut_reset">إعادة ضبط</string>
 </resources>

@@ -99,7 +99,6 @@
   <string name="progress_searching_message">מתבצע חיפוש…</string>
   <string name="progress_saving_message">מתבצעת שמירה…</string>
   <string name="progress_uploading_message">מתבצעת העלאה…</string>
-  <string name="progress_preset_message">הערכה מתקבלת…</string>
   <string name="progress_loading_preset_message">הערכה נטענת…</string>
   <string name="progress_importing_file_message">קובץ מיובא…</string>
   <string name="progress_running_message">מתבצעת הרצה…</string>
@@ -191,6 +190,7 @@
   <string name="toast_no_open_todos">אין מטלות פתוחות</string>
   <string name="toast_no_todos_in_list">אין מטלות ברשימה הנבחרת</string>
   <string name="save_changes_title">לשמור שינויים?</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">אזהרה!</string>
   <string name="unsaved_data_message">השינויים שלא שמרת יימחקו אלמלא יישמרו.</string>
@@ -316,6 +316,7 @@
   <string name="select_result">בחירת תוצאה</string>
   <string name="merge_result">מיזוג תוצאה</string>
   <string name="overpass_query_would_overwrite">התוצאה תדרוס את השינויים! השאילתה בוטלה.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">שגיאה</string>
   <string name="warning">אזהרה</string>
@@ -349,7 +350,6 @@
   <string name="safe_mode_dialog_title">אפשרויות מצב בטוח</string>
   <string name="safe_style_label">הגדרת סגנון נתונים למצומצם</string>
   <string name="safe_layer_label">השבתת כל השכבות</string>
-  <string name="safe_state_label">הסרת מצב שמור</string>
   <string name="safe_delete_state_title">למחוק את מצב הנתונים השמור?</string>
   <string name="safe_delete_state_text">כן (אי אפשר להחזיר)</string>
   <!--Empty relation dialog-->
@@ -585,16 +585,11 @@
   <string name="toast_min_one_geocoder">יש לבחור במקודד גאוגרפי אחת לפחות!</string>
   <string name="toast_used_backup">קובץ מצב פגום, נעשה שימוש בקובץ הגיבוי במקום.</string>
   <string name="toast_used_bug_backup">קובץ מצב תקלה פגום, נעשה שימוש בקובץ הגיבוי במקום.</string>
-  <string name="toast_split_from">דרך „מוצא” מפוצלת</string>
-  <string name="toast_split_via">דרך „מעבר” מפוצלת</string>
-  <string name="toast_split_from_and_via">דרכי „מוצא” ו־„מעבר” מפוצלות</string>
-  <string name="toast_split_to">דרך „יעד” מפוצלת</string>
   <string name="toast_tile_database_issue_short">תקלה במסד נתוני האריחים</string>
   <string name="toast_tile_database_issue">התרחשה תקלה מהותית במסד נתוני אריחי המפה\n”%1$s„\nנא לפנות אל השו״ת שלנו בכתובת https://vespucci.io/‎</string>
   <string name="toast_invalid_apiurl">כתובת API שגויה</string>
   <string name="toast_invalid_readonlyurl">כתובת API שגויה לקריאה בלבד</string>
   <string name="toast_invalid_notesurl">כתובת API שגויה להערות</string>
-  <string name="toast_invalid_preseturl">כתובת שגויה לערכה מוגדרת</string>
   <string name="toast_invalid_filter_regexp">ביטוי רגולרי שגוי במסנן עם מפתח=„%1$s” ערך=„%2$s”</string>
   <string name="toast_error_accessing_photo">לא ניתן לגשת לתמונה %1$s</string>
   <string name="toast_no_photo_found">לא נמצאה תמונה</string>
@@ -847,12 +842,10 @@
   <string name="no_nominatim_result">שרת ה־Nominatim לא מצא את %1$s</string>
   <!--Menu-->
   <string name="menu_move">העברה</string>
-  <string name="menu_edit">עריכה</string>
   <string name="menu_add">חדש</string>
   <string name="menu_config">העדפות</string>
   <string name="menu_find">חיפוש</string>
   <string name="menu_help">עזרה</string>
-  <string name="menu_view">תצוגה</string>
   <string name="menu_erase">מחיקת מפרק</string>
   <string name="menu_set_position">מיקום</string>
   <string name="menu_split">פיצול</string>
@@ -1080,6 +1073,7 @@
   <string name="config_presetbutton_title">ערכות</string>
   <string name="config_presetbutton_summary">הוספה והפעלה של ערכות תואמות JOSM</string>
   <string name="config_built_in_preset">ערכה מובנית</string>
+  <string name="config_keyboard_shortcuts_title">קיצורי מקלדת</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">הגדרות המאמת</string>
   <string name="config_validatorprefs_summary">הגדרת כללי אימות.</string>
@@ -1182,6 +1176,8 @@
   <string name="config_maxCircleSegment_current">%1$d מטר/ים</string>
   <string name="config_minCircleSegment_current">%1$d מטר/ים</string>
   <string name="config_replaceTolerance_current">%1$d מטר/ים</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">הגדרות הורדה אוטומטית</string>
   <string name="config_category_auto_download_summary">הגדרות להורדה אוטומטית של נתונים ומשימות</string>
@@ -1280,21 +1276,14 @@
   <string name="geocoder_type">סוג מקודד גאוגרפי</string>
   <!--preset downloader messages-->
   <string name="preset_update">עדכון ערכה מוגדרת</string>
-  <string name="preset_download_successful">הערכה המוגדרת התקבלה</string>
-  <string name="preset_download_failed">לא ניתן להוריד את קובץ הערכה המוגדרת. הערכה המוגדרת לא תעבוד.</string>
-  <string name="preset_download_parse_failed">הערכה המוגדרת שגויה והיא לא תפעל.</string>
   <string name="preset_download_missing_images">התקבל קובץ ערכה מוגדרת. עם זאת, חלק מהסמלים החסרים לא התקבלו.</string>
-  <string name="preset_download_title">מוריד ערכות מוגדרות</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">הוספת ערכה מוגדרת</string>
-  <string name="urldialog_preset_exists">ערכת מוגדרת זו כבר קיימת</string>
-  <string name="urldialog_preset_download_successful">הערכה המוגדרת התקבלה.</string>
   <string name="urldialog_api_exists">API עם הכתובת הזאת כבר קיים. עם זאת, יש לך אפשרות להוסיף עוד אחד (למשל: כדי להחליף חשבונות בקלות).</string>
-  <string name="urldialog_add_api">הוספת API</string>
   <string name="urldialog_nodata_text">כתובת ההגדרה אינה מכילה נתונים תקפים.</string>
-  <string name="urldialog_add_geocoder">הוספת מקודד גאוגרפי</string>
   <!--API configuration-->
   <string name="api_name">שם API</string>
   <string name="api_url">כתובת ה־API</string>
@@ -1453,4 +1442,7 @@
   <!--Element names with id-->
   <!--Tile downloader diagnostics-->
   <string name="tile_unknown_error">שגיאה לא ידועה</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">שמירה</string>
+  <string name="keyboard_shortcut_reset">איפוס</string>
 </resources>

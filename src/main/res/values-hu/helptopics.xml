@@ -4,8 +4,10 @@
     <string name="help_app_description">Vespucci súgómegtekintő</string>
     <string name="help_title">Súgó: %1$s</string>
     <string name="help_introduction">Bevezetés</string>
+    <string name="help_safe_mode">Biztonságos mód</string>
     <string name="help_main">Fő térképmegjelenítő</string>
     <string name="help_simple_actions">Egyszerű műveletek</string>
+    <string name="help_addrelationmember">Kapcsolattagok szerkesztése</string>
     <string name="help_multiselect">Többszörös kijelölés</string>
     <string name="help_longclick">Új objektumok létrehozása</string>
     <string name="help_nodeselection">Pont kijelölve</string>
@@ -19,6 +21,7 @@
     <string name="help_advanced_preferences">Speciális beállítások</string>
     <string name="help_custom_imagery">Egyéni légifelvétel</string>
     <string name="help_presets">Előbeállítások</string>
+    <string name="help_styles">Táncstílusok</string>
     <string name="help_uploading">Módosításaid feltöltése</string>
     <string name="help_conflictresolution">Ütközés feloldása</string>
     <string name="help_gpssources">GPS-források</string>
@@ -32,6 +35,8 @@
     <string name="help_tag_only_mode">Csak címkézés mód</string>
     <string name="help_indoor_mode">Beltéri mód</string>
     <string name="help_address_mode">Cím mód</string>
+    <string name="help_upgrade_212">21.2 kiadási megjegyzések</string>
+    <string name="help_upgrade_211">21.1 kiadási megjegyzések</string>
     <string name="help_upgrade_210">21.0 kiadási megjegyzések</string>
     <string name="help_upgrade_202">20.2 kiadási megjegyzések</string>
     <string name="help_upgrade_201">20.1 kiadási megjegyzések</string>
@@ -83,7 +88,8 @@
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
         <item>@string/help_custom_imagery</item>
-    	<item>@string/help_presets</item>	
+    	<item>@string/help_presets</item>
+        <item>@string/help_styles</item>	
         <item>@string/help_rotate</item>
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
@@ -99,6 +105,8 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_212</item>
+        <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
         <item>@string/help_upgrade_202</item>
         <item>@string/help_upgrade_201</item>
@@ -152,7 +160,8 @@
         <item>Preferences</item>
         <item>Advanced preferences</item>
         <item>Custom imagery</item>
-    	<item>Presets</item>	
+    	<item>Presets</item>
+        <item>Styles</item>	
         <item>Rotating elements</item>
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
@@ -167,6 +176,8 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>22.0.0 Release notes</item>
+        <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>
         <item>21.0.0 Release notes</item>
         <item>20.2.0 Release notes</item>

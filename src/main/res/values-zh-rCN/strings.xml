@@ -31,7 +31,6 @@
   <string name="local_object">本地版本</string>
   <string name="resolve_by">通过…解决冲突</string>
   <string name="resolve">解决</string>
-  <string name="delete_refering_element">…通过删除引用元素解决</string>
   <string name="use_local_version">…通过使用本地版本解决</string>
   <string name="merge_tags_in_to_local">…将标签合并到本地版本</string>
   <string name="merge_tags_in_to_server">…将标签合并到服务器版本</string>
@@ -52,8 +51,6 @@
   <string name="upload_retry_message_unexpected_error">尝试确定变更集%1$d状态时发生意外错误。</string>
   <string name="upload_retry_message_no_changeset_status">无法确定变更集%1$d状态。\n\n建议将更改保存为OCS文件，待网络改善后处理。</string>
   <string name="upload_retry_message_nothing_uploaded">变更集%1$d中无任何更改上传。\n\n可安全重试。</string>
-  <string name="upload_retry_message_all_uploaded">变更已成功上传至变更集%1$d，但未收到结果。\n\n所有更改似乎均已上传，可安全丢弃本地更改并重新下载。</string>
-  <string name="upload_retry_message_partial_upload">变更已成功上传至变更集%1$d，但未收到结果。</string>
   <string name="upload_retry_message_update_failed_title">更新失败</string>
   <string name="upload_retry_message_update_failed">无法更新数据。建议将更改保存至文件供后续使用。</string>
   <string name="redownload">重新下载（不可撤销）</string>
@@ -172,7 +169,6 @@
   <string name="progress_searching_message">正在搜索…</string>
   <string name="progress_saving_message">正在保存…</string>
   <string name="progress_uploading_message">正在上传…</string>
-  <string name="progress_preset_message">正在下载预设…</string>
   <string name="progress_loading_preset_message">正在加载预设…</string>
   <string name="progress_importing_file_message">导入文件...</string>
   <string name="progress_running_message">正在运行…</string>
@@ -272,6 +268,7 @@
   <string name="toast_no_open_todos">没有开启的待办事项</string>
   <string name="toast_no_todos_in_list">选择清单中没有待办事项</string>
   <string name="save_changes_title">保存更改？</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">小心！</string>
   <string name="unsaved_data_message">您有未保存的变更，如果继续将被丢弃。</string>
@@ -395,7 +392,6 @@
   <string name="other">其它</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">丢失关系成员</string>
-  <string name="split_safe_message">邻近的关系成员没有下载下来。要维护关系成员的顺序，也许要依赖邻近的关系成员。</string>
   <!--JS console dialog-->
   <string name="evaluate">评估</string>
   <string name="js_console_msg_live">Live 模式！</string>
@@ -412,6 +408,7 @@
   <string name="select_result">选择结果</string>
   <string name="merge_result">合并结果</string>
   <string name="overpass_query_would_overwrite">结果将覆盖更改！查询已中止</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">错误</string>
   <string name="warning">警告</string>
@@ -446,7 +443,6 @@
   <string name="safe_mode_dialog_title">安全模式选项</string>
   <string name="safe_style_label">将数据样式设为最小化</string>
   <string name="safe_layer_label">禁用所有图层</string>
-  <string name="safe_state_label">移除已保存状态</string>
   <string name="safe_delete_state_title">删除已保存的数据状态？</string>
   <string name="safe_delete_state_text">是（不可撤销）</string>
   <!--Empty relation dialog-->
@@ -614,7 +610,6 @@
   <string name="tip_longpress_simple_mode">在简单模式下长按什么事都不会发生。在菜单中关闭简单模式可以使用长按创建对象。</string>
   <string name="tip_gpx_no_elevation">从版本 15 开始，GPX 轨迹默认不再包含高程信息。&lt;p&gt;要启用高程信息记录，请在菜单中使用 &lt;i&gt;安装 EGM&lt;/i&gt; 安装 Geoid 模型，或切换为 NMEA 输入。</string>
   <string name="tip_tag_conflict">合并和反转 OSM 要素有时候需要改变要素的属性，如果变动时出现错误或冲突，您可以手动检查有问题的对象。</string>
-  <string name="tip_replace_geometry">替换路径几何形状通常需移动现有节点位置，若这些节点已标记（即本身代表对象），此操作可能不妥。&lt;p&gt;为避免此问题，系统会提取与父路径容差半径不重合的节点并显示警告。您可在高级首选项中调整容差（默认1米）</string>
   <string name="tip_gpx_recording">当开始 GPX 轨迹记录时，Vespucci 会在后台收集位置信息来记录 GPX。&lt;p&gt;在这种情况下，彻底关闭应用或关闭 GPX 记录将停止使用位置数据。</string>
   <string name="tip_auto_download">当开始自动下载 OSM 数据或任务时，Vespucci 会在后台收集位置信息以确定当前位置。&lt;p&gt;在这种情况下，彻底关闭应用或关闭自动下载功能将停止使用位置数据。</string>
   <string name="tip_tristate_checkbox">您刚刚点击了一个三态复选框，它们和普通复选框类似，点击可以在两个值之间切换，例如 是/否。&lt;p&gt;不过它们有第三个附加的&lt;b&gt;未设定&lt;/b&gt;状态，由灰色框表示，该复选框将阻止添加相应的标记。长按可将复选框设定为这种状态。</string>
@@ -622,7 +617,6 @@
   <string name="tip_mode_switching">锁定按钮也是模式切换按钮，长按锁定按钮会显示出菜单。&lt;p&gt;你可以在帮助系统中找到有关 Vespucci 的模式的更多信息，帮助系统里还有软件介绍和主地图显示的帮助。</string>
   <string name="tip_empty_gpx_download">由于 OSM  API 的一个屎山，需要在视图里看到 GPX 轨迹的起点，才能下载。</string>
   <string name="tip_no_redo">此模式当前不支持重做节点添加操作</string>
-  <string name="tip_way_splitting">触摸高亮节点确定分割位置。长按可在后续步骤中选择用于新路径的部分</string>
   <string name="tip_closed_way_splitting">闭合路径需在两点分割。触摸高亮节点确定第一分割位置，下一步将要求选择第二位置</string>
   <string name="tip_disambiguation_menu">当多个OSM元素或其他对象极为接近，或元素是关系成员时，将显示消歧菜单。您可从列表中选择特定元素。&lt;p&gt;若元素当前已被选中，则会高亮显示</string>
   <string name="tip_file_import">在运行Android 10或更高版本的设备上，需复制文件以实现完全访问。副本位于&lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;。必要时可删除原始文件仅保留副本</string>
@@ -721,10 +715,6 @@
   <string name="toast_min_one_geocoder">至少选择一个 geocoder！</string>
   <string name="toast_used_backup">已损坏的状态文件，请使用备份文件替代。</string>
   <string name="toast_used_bug_backup">已损坏的bug状态文件，请使用备份文件替代。</string>
-  <string name="toast_split_from">分离 \"从\" 路径</string>
-  <string name="toast_split_via">分离 \"经过\" 路径</string>
-  <string name="toast_split_from_and_via">分离 \"从\" 和 \"经过\" 路径</string>
-  <string name="toast_split_to">分离 \"到\" 路径</string>
   <string name="toast_tile_database_issue_short">瓦片数据库问题</string>
   <string name="toast_tile_database_issue">瓦片数据库的严重问题\n\"%1$s\"\n请访问我们在 https://vespucci.io/ 的 FAQ。</string>
   <string name="toast_tile_source_issue">瓦片来源有重大问题，已暂时禁用\n\"%1$s\"</string>
@@ -733,7 +723,6 @@
   <string name="toast_invalid_apiurl">无效的 API 链接</string>
   <string name="toast_invalid_readonlyurl">无效的只读 API 链接</string>
   <string name="toast_invalid_notesurl">无效的注解 API 链接</string>
-  <string name="toast_invalid_preseturl">无效的预设链接</string>
   <string name="toast_missing_preset_file">缺少预设文件 \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">无效的正则表达式， key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">无法读取照片 %1$s</string>
@@ -1017,12 +1006,10 @@
   <string name="no_nominatim_result">Nominatim 服务器未找到 %1$s</string>
   <!--Menu-->
   <string name="menu_move">移动</string>
-  <string name="menu_edit">编辑</string>
   <string name="menu_add">新建</string>
   <string name="menu_config">偏好设置</string>
   <string name="menu_find">查找</string>
   <string name="menu_help">帮助</string>
-  <string name="menu_view">查看</string>
   <string name="menu_erase">擦除节点</string>
   <string name="menu_set_position">位置</string>
   <string name="menu_split">分割</string>
@@ -1301,6 +1288,7 @@
   <string name="config_presetbutton_title">预设</string>
   <string name="config_presetbutton_summary">添加并启用 JSOM 兼容的预设</string>
   <string name="config_built_in_preset">内置预设</string>
+  <string name="config_keyboard_shortcuts_title">键盘快捷键</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">验证器设置</string>
   <string name="config_validatorprefs_summary">配置验证规则。</string>
@@ -1452,6 +1440,8 @@
   <string name="config_replaceTolerance_title">标记节点最大移动距离</string>
   <string name="config_replaceTolerance_summary">替换路径几何形状时标记节点的最大移动距离</string>
   <string name="config_replaceTolerance_current">%1$d 米</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自动下载设置</string>
   <string name="config_category_auto_download_summary">数据和任务的自动下载设置</string>
@@ -1586,22 +1576,14 @@
   <string name="geocoder_type">Geocoder 类型</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新预设</string>
-  <string name="preset_download_successful">预设已下载</string>
-  <string name="preset_download_failed">无法下载预设文件，预设将无法正常工作。</string>
-  <string name="preset_download_parse_failed">预设文件无效，预设将无法正常工作。</string>
   <string name="preset_download_missing_images">预设文件已下载，然而缺失的图标还未下载。</string>
-  <string name="preset_download_title">预设下载器</string>
   <!--preset management-->
-  <string name="preset_management_delete">确认删除预设？</string>
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">添加预设</string>
-  <string name="urldialog_preset_exists">此预设已存在</string>
-  <string name="urldialog_preset_download_successful">预设已下载。</string>
   <string name="urldialog_api_exists">使用此 URL 的 API 已存在。不过，您可以增加另一个（例如方便地切换账号）。</string>
-  <string name="urldialog_add_api">添加 API</string>
   <string name="urldialog_nodata_text">配置的 URL 没有有效数据。</string>
-  <string name="urldialog_add_geocoder">添加 geocoder</string>
   <!--API configuration-->
   <string name="api_name">API 名称</string>
   <string name="api_url">API URL</string>
@@ -1738,7 +1720,6 @@
   <string name="issue_split_route_ordering">路线可能需要手动调整顺序</string>
   <string name="issue_split_area">区域已分割，可能需要转为多重多边形</string>
   <string name="issue_precondition_relation_member_count">超出关系成员数量</string>
-  <string name="issue_replace_extracted_node">从路径提取的标记节点</string>
   <string name="issue_replace_member_element_replaced">成员元素已替换</string>
   <!--time and distance-->
   <plurals name="days">
@@ -1801,4 +1782,7 @@
   <string name="tile_io_error">IO错误</string>
   <string name="tile_no_network">没有网络</string>
   <string name="tile_unknown_error">未知错误</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">保存</string>
+  <string name="keyboard_shortcut_reset">重置</string>
 </resources>

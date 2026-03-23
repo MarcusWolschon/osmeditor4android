@@ -26,7 +26,6 @@
   <string name="local_object">Локальная версия</string>
   <string name="resolve_by">Разрешить конфликт через…</string>
   <string name="resolve">Разрешить</string>
-  <string name="delete_refering_element">… удаление ссылающегося элемента</string>
   <string name="use_local_version">… использование локальной версии</string>
   <string name="merge_tags_in_to_local">… объединение тегов в локальную версию</string>
   <string name="merge_tags_in_to_server">… объединение тегов в версию сервера</string>
@@ -104,7 +103,6 @@
   <string name="progress_searching_message">Поиск…</string>
   <string name="progress_saving_message">Сохранение…</string>
   <string name="progress_uploading_message">Передача…</string>
-  <string name="progress_preset_message">Загружается заготовка…</string>
   <string name="progress_loading_preset_message">Загрузка заготовки...</string>
   <string name="progress_importing_file_message">Импорт файла…</string>
   <string name="progress_running_message">В процессе...</string>
@@ -184,6 +182,7 @@
   <string name="todo_comment_hint">Необязательный комментарий</string>
   <string name="toast_no_open_todos">Нет открытых задач</string>
   <string name="save_changes_title">Сохранить изменения?</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Внимание!</string>
   <string name="unsaved_data_message">Если вы продолжите, ваши несохранённые изменения будут утеряны.</string>
@@ -296,7 +295,6 @@
   <string name="other">Другое</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">Отсутствуют члены отношения</string>
-  <string name="split_safe_message">Соседние сегменты отношения не загружены. От них может зависеть порядок членов отношения.</string>
   <!--JS console dialog-->
   <string name="evaluate">Оценить</string>
   <string name="js_console_msg_live">\"Живой\" режим!</string>
@@ -313,6 +311,7 @@
   <string name="select_result">Выбрать результат</string>
   <string name="merge_result">Объединить результат</string>
   <string name="overpass_query_would_overwrite">Результат перезапишет изменения! Запрос отменён.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Ошибка</string>
   <string name="warning">Предупреждение</string>
@@ -494,7 +493,6 @@
   <string name="tip_tag_conflict">Слияние и реверсирование элементов OSM иногда требует изменения атрибутов элементов. Если есть потенциальная ошибка или конфликт, вы будете предупреждены об этом и получите возможность просмотреть рассматриваемые объекты.</string>
   <string name="tip_auto_download">Когда вы запускаете автоматическую загрузку данных или задач OSM, Vespucci использует данные о местоположении для определения текущего положения, даже если приложение не отображается.&lt;p&gt; Явное закрытие приложения или отключение автоматической загрузки остановит использование данных о местоположении в таких случаях.</string>
   <string name="tip_no_redo">Этот режим пока не поддерживает повтор добавления точек.</string>
-  <string name="tip_way_splitting">Нажмите на выбранную точку для определения позиции разделения. Долгое нажатие позволит определить ту часть, которая будет использована для новой линии на следующем шаге.</string>
   <string name="tip_closed_way_splitting">Замкнутая линия должна быть разделена в двух местах. Нажмите на выбранную точку, чтобы определить первую позицию разделения, на следующем шаге вам будет предложено выбрать вторую позицию.</string>
   <string name="tip_disambiguation_menu">Когда несколько элементов OSM или других объектов расположены очень близко друг к другу или элементы являются членами отношений, будет отображаться меню устранения неоднозначности. Затем вы можете выбрать нужный элемент из списка.&lt;p&gt;Если элемент уже выбран, он будет выделен.</string>
   <!--NumberPicker-->
@@ -589,16 +587,11 @@
   <string name="toast_min_one_geocoder">Должен быть выбран как минимум один геокодер!</string>
   <string name="toast_used_backup">Файл состояния испорчен, используется предыдущий сохраненный файл.</string>
   <string name="toast_used_bug_backup">Файл состояния ошибок/заметок испорчен, используется предыдущий сохраненный файл.</string>
-  <string name="toast_split_from">Разделена линия \"из\"</string>
-  <string name="toast_split_via">Разделена линия \"через\"</string>
-  <string name="toast_split_from_and_via">Разделены линии \"из\" и \"через\"</string>
-  <string name="toast_split_to">Разделена линия \"к\"</string>
   <string name="toast_tile_database_issue_short">Ошибка базы подложек карты</string>
   <string name="toast_tile_database_issue">Серьёзная ошибка базы подложки карты:\n\"%1$s\"\nПожалуйста, обратитесь к нашему руководству на http://vespucci.io/</string>
   <string name="toast_invalid_apiurl">Неправильный API URL</string>
   <string name="toast_invalid_readonlyurl">Неправильный API URL только для чтения</string>
   <string name="toast_invalid_notesurl">Неправильный API URL для заметок</string>
-  <string name="toast_invalid_preseturl">Неправильный URL заготовки</string>
   <string name="toast_missing_preset_file">Отсутствует заготовка для \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">Неправильное регулярное выражение в фильтре с ключом \"%1$s\" и значением \"%2$s\"</string>
   <string name="toast_error_accessing_photo">Нет доступа к фотографии %1$s</string>
@@ -861,12 +854,10 @@
   <string name="no_nominatim_result">Сервер Nominatim не нашёл %1$s</string>
   <!--Menu-->
   <string name="menu_move">Подвинуть</string>
-  <string name="menu_edit">Изменить</string>
   <string name="menu_add">Новый</string>
   <string name="menu_config">Настройки</string>
   <string name="menu_find">Поиск</string>
   <string name="menu_help">Справка</string>
-  <string name="menu_view">Вид</string>
   <string name="menu_erase">Удалить точку</string>
   <string name="menu_set_position">Позиция</string>
   <string name="menu_split">Разделить</string>
@@ -1114,6 +1105,7 @@
   <string name="config_presetbutton_title">Заготовки</string>
   <string name="config_presetbutton_summary">Добавление и активация JOSM-совместимых заготовок</string>
   <string name="config_built_in_preset">Встроенная заготовка</string>
+  <string name="config_keyboard_shortcuts_title">Горячие клавиши</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Проверки</string>
   <string name="config_validatorprefs_summary">Настройка правил проверок.</string>
@@ -1233,6 +1225,8 @@
   <string name="config_maxCircleSegment_current">%1$d м</string>
   <string name="config_minCircleSegment_current">%1$d м</string>
   <string name="config_replaceTolerance_current">%1$d м</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Автозагрузка</string>
   <string name="config_category_auto_download_summary">Параметры автоматической загрузки данных и задач</string>
@@ -1350,21 +1344,14 @@
   <string name="geocoder_type">Тип геокодера</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
-  <string name="preset_download_successful">Заготовка загружена</string>
-  <string name="preset_download_failed">Невозможно загрузить файл с заготовкой. Заготовка не будет работать.</string>
-  <string name="preset_download_parse_failed">Некорректный файл заготовки. Заготовка не будет работать.</string>
   <string name="preset_download_missing_images">Заготовка загружена, но без некоторых значков.</string>
-  <string name="preset_download_title">Загрузка заготовки</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Добавить заготовку</string>
-  <string name="urldialog_preset_exists">Эта заготовка уже существует</string>
-  <string name="urldialog_preset_download_successful">Заготовка загружена.</string>
   <string name="urldialog_api_exists">API с таким же URL уже существует. Однако, вы можете добавить ещё (например, чтобы упростить переключение между учётными записями).</string>
-  <string name="urldialog_add_api">Добавить API</string>
   <string name="urldialog_nodata_text">Конфигурационный URL не содержит корректных данных.</string>
-  <string name="urldialog_add_geocoder">Добавить геокодер</string>
   <!--API configuration-->
   <string name="api_name">Название API</string>
   <string name="api_url">API URL</string>
@@ -1540,4 +1527,7 @@
   <!--Tile downloader diagnostics-->
   <string name="tile_success">Успех</string>
   <string name="tile_unknown_error">Неизвестная ошибка</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Сохранить</string>
+  <string name="keyboard_shortcut_reset">Сбросить</string>
 </resources>

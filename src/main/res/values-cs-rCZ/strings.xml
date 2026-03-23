@@ -31,7 +31,6 @@
   <string name="local_object">Lokální verze</string>
   <string name="resolve_by">Vyřešit konflikt pomocí…</string>
   <string name="resolve">Vyřešit</string>
-  <string name="delete_refering_element">… odstraněním odkazujícího prvku</string>
   <string name="use_local_version">… pomocí lokální verze</string>
   <string name="merge_tags_in_to_local">… sloučením tagů do lokální verze</string>
   <string name="merge_tags_in_to_server">… sloučením tagů do serverové verze</string>
@@ -49,6 +48,9 @@
   <!--Upload retry-->
   <string name="upload_retry_title">Nahrání se nezdařilo</string>
   <string name="upload_retry_message_nothing_uploaded">Žádné změny nebyly nahrány v rámci sady změn %1$d.\n\nJe bezpečné zkusit to znovu.</string>
+  <string name="upload_retry_message_update_failed">Nelze aktualizovat data. Doporučujeme uložit změny do souboru pro pozdější použití.</string>
+  <string name="redownload">Opětovné stažení (nelze vrátit zpět)</string>
+  <string name="update_data">Aktualizovat místní data (nelze vrátit zpět)</string>
   <string name="save_changes">Uložit změny</string>
   <string name="upload_retry_issue">Problém: %1$s</string>
   <!---->
@@ -65,6 +67,7 @@
   <string name="not_found_message">API nenašlo žádný prvek nebo sadu změn se zadaným id.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Neznámá chyba</string>
   <string name="unknown_error_message">API odpovědělo chybou nebo zprávou, kterou nelze zpracovat.&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_http_code_message">Kód chyby HTTP: %1$d&lt;br&gt;Chybová zpráva:&lt;br&gt;&lt;br&gt;%2$s</string>
   <string name="no_data_title">Žádná data</string>
   <string name="no_data_message">Nastavený zdroj dat zde nemá pokrytí.</string>
   <string name="required_feature_missing_title">Chybějící nebo deaktivovaná komponenta</string>
@@ -96,6 +99,8 @@
   <string name="download_limit_message">Prosím počkejte, než se pokusíte stáhnout více dat.</string>
   <string name="upload_limit_title">Limity nahrávání překročeny</string>
   <string name="upload_limit_message">Vyčerpal jste svůj aktuální povolený limit pro nahrávání, prosím, počkejte před dalším pokusem.</string>
+  <string name="upload_unavailable_title">Služba není k dispozici</string>
+  <string name="upload_unavailable_message">Služba je pravděpodobně dočasně nedostupná, počkejte prosím a zkuste to znovu.</string>
   <string name="duplicate_tag_key_title">Duplicitní klíče</string>
   <string name="duplicate_tag_key_message">Přidali jste následující klíč více než jednou, než budete moci pokračovat, budete muset vyřešit:</string>
   <string name="autodownload_has_been_paused">Automatické stahování bylo pozastaveno.</string>
@@ -104,6 +109,9 @@
 &lt;br&gt;&lt;br&gt;Rozdělte prosím své změny do více menších sad změn. 
 Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajete je samostatně.</string>
   <string name="upload_way_needs_one_node_title">Cesta vyžaduje alespoň jeden uzel</string>
+  <string name="upload_way_needs_one_node_message">Cesta, kterou jste se pokusili nahrát, nemá žádné uzly. To by se nemělo stát a cesta byla nyní smazána, abyste mohli pokus zopakovat. Otevřete prosím problém pomocí formuláře pro zpětnou vazbu a samostatně odešlete výpis paměti.</string>
+  <string name="attempt_to_add_too_many_way_nodes_title">Pokus o přidání příliš mnoha uzlů cesty</string>
+  <string name="attempt_to_add_too_many_way_nodes_message">Operace by vytvořila cestu, která obsahuje více než maximální počet uzlů cesty. Přidejte méně uzlů nebo rozdělte cestu na vhodném místě.</string>
   <!---->
   <string name="select_file_picker_title">Vyberte soubor pro výběr</string>
   <!--Newbie dialog-->
@@ -153,12 +161,12 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="progress_message">Načítam data do paměti…</string>
   <string name="progress_download_message">Stahuji data ze serveru…</string>
   <string name="progress_download_tasks_message">Stahování úkolů ze serverů...</string>
+  <string name="progress_download_sequence_message">Stahování sekvence ze serveru…</string>
   <string name="progress_general_title">Čekejte prosím</string>
   <string name="progress_deleting_message">Mazání...</string>
   <string name="progress_searching_message">Prohledávání…</string>
   <string name="progress_saving_message">Ukládání…</string>
   <string name="progress_uploading_message">Nahrávání...</string>
-  <string name="progress_preset_message">Stahování předvolby…</string>
   <string name="progress_loading_preset_message">Načítání předvolby…</string>
   <string name="progress_importing_file_message">Importování souboru…</string>
   <string name="progress_running_message">Běží...</string>
@@ -166,6 +174,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="progress_query_oam">Dotazování OAM…</string>
   <string name="progress_pruning">Ořezávání...</string>
   <string name="progress_migration">Migrace...</string>
+  <string name="progress_determining_status_message">Určování stavu…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" smazáno</string>
   <string name="changes_changed">\"%1$s\" změněno</string>
@@ -256,6 +265,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="toast_no_open_todos">Žádné otevřené úkoly</string>
   <string name="toast_no_todos_in_list">Žádné úkoly ve vybraném seznamu</string>
   <string name="save_changes_title">Uložit změny?</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Pozor!</string>
   <string name="unsaved_data_message">Neuložené změny budou zahozeny, pokud budete pokračovat.</string>
@@ -372,7 +382,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="other">Jiné</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">Chybí členy relace</string>
-  <string name="split_safe_message">Způsoby členství v sousedství se nestahují. Udržování pořadí členů vztahu na nich může záviset.</string>
   <!--JS console dialog-->
   <string name="evaluate">Spustit</string>
   <string name="js_console_msg_live">Ostrý režim!</string>
@@ -389,6 +398,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="select_result">Vybrat výsledek</string>
   <string name="merge_result">Spojit výsledek</string>
   <string name="overpass_query_would_overwrite">Výsledek by měl přepsat změny! Dotaz přerušen.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Chyba</string>
   <string name="warning">Varování</string>
@@ -422,7 +432,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="safe_mode_dialog_title">Možnosti bezpečného režimu</string>
   <string name="safe_style_label">Nastavte styl dat na minimální.</string>
   <string name="safe_layer_label">Vypnout všechny vrstvy</string>
-  <string name="safe_state_label">Odebrat uložený stav</string>
   <string name="safe_delete_state_title">Smazat stav uložených dat?</string>
   <string name="safe_delete_state_text">Ano (nelze vrátit zpět)</string>
   <!--Empty relation dialog-->
@@ -592,7 +601,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="tip_mode_switching">Zamykací tlačítko slouží zároveň jako přepínač režimů, dlouhým stisknutím se zobrazí nabídka s různými možnostmi.&lt;p&gt;Více informací o režimech Vespucci naleznete v systému nápovědy, a to jak v úvodu, tak v nápovědě k zobrazení hlavní mapy.</string>
   <string name="tip_empty_gpx_download">Kvůli zvláštnostem v OSM API musí být výchozí bod trasy GPX zobrazen, aby ji bylo možné najít ke stažení.</string>
   <string name="tip_no_redo">Tento režim v současné době nepodporuje opětovné přidávání uzlů.</string>
-  <string name="tip_way_splitting">Klepnutím na zvýrazněný uzel určete polohu rozdělení. Dlouhý dotyk vám umožní v dalším kroku vybrat, která část se použije pro nový způsob.</string>
   <string name="tip_closed_way_splitting">Uzavřená cesta musí být rozdělena na dvě místa. Dotkněte se zvýrazněného uzlu pro určení 1. pozice rozdělení, v dalším kroku budete požádáni o výběr 2. pozice.</string>
   <string name="tip_disambiguation_menu">Pokud je více prvků OSM nebo jiných objektů velmi blízko u sebe nebo jsou prvky členy relací, zobrazí se nabídka disambiguace. Poté můžete vybrat konkrétní prvek ze seznamu.&lt;p&gt;Pokud je prvek aktuálně vybrán, bude zvýrazněn.</string>
   <string name="tip_file_import">V zařízeních se systémem Android 10 nebo novějším musíme soubory zkopírovat, abychom k nim měli plný přístup. Kopie se nacházejí v adresáři &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. V případě potřeby můžete originály smazat a ponechat si pouze kopie.</string>
@@ -698,10 +706,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="toast_min_one_geocoder">Musíte vybrat alespoň jeden geokodér!</string>
   <string name="toast_used_backup">Poškozený stavový soubor, použit záložní soubor.</string>
   <string name="toast_used_bug_backup">Poškozený soubor se stavy chyb, použit záložní soubor.</string>
-  <string name="toast_split_from">Rozdělena cesta \"odkud\"</string>
-  <string name="toast_split_via">Rozdělena cesta \"přes\"</string>
-  <string name="toast_split_from_and_via">Rozděleny cesty \"odkud\" a \"přes\"</string>
-  <string name="toast_split_to">Rozdělena cesta \"kam\"</string>
   <string name="toast_tile_database_issue_short">Problém databáze dlaždic</string>
   <string name="toast_tile_database_issue">Závažný problém s databází mapových dlaždic\n\"%1$s\"\nPřečtěte si prosím naše FAQ na adrese https://vespucci.io/</string>
   <string name="toast_tile_source_issue">Vážný problém s mapovým zdrojem dlaždic, dočasně vypnuto\n\"%1$s\"</string>
@@ -710,7 +714,6 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="toast_invalid_apiurl">Neplatné URL API</string>
   <string name="toast_invalid_readonlyurl">Neplatné URL API Pouze ke čtení</string>
   <string name="toast_invalid_notesurl">Neplatné URL API poznámek</string>
-  <string name="toast_invalid_preseturl">Neplatné URL předvoleb</string>
   <string name="toast_missing_preset_file">Chybějící soubor předvolby pro „%1$s“</string>
   <string name="toast_invalid_filter_regexp">Neplatný regulární výraz ve filtru s klíčem=\"%1$s\" hodnotou=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Nelze získat přístup k fotografii %1$s</string>
@@ -991,12 +994,10 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="no_nominatim_result">Server Nominatim nenalezl %1$s</string>
   <!--Menu-->
   <string name="menu_move">Přesunout</string>
-  <string name="menu_edit">Upravit</string>
   <string name="menu_add">Nový</string>
   <string name="menu_config">Nastavení</string>
   <string name="menu_find">Najít</string>
   <string name="menu_help">Nápověda</string>
-  <string name="menu_view">Pohled</string>
   <string name="menu_erase">Smazat uzel</string>
   <string name="menu_set_position">Poloha</string>
   <string name="menu_split">Rozdělit</string>
@@ -1268,6 +1269,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="config_presetbutton_title">Předvolby</string>
   <string name="config_presetbutton_summary">Přidejte a povolte předvolby kompatibilní s JOSM</string>
   <string name="config_built_in_preset">Výchozí předvolby</string>
+  <string name="config_keyboard_shortcuts_title">Klávesové zkratky</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Nastavení validátoru</string>
   <string name="config_validatorprefs_summary">Nastavení pravidel validátoru.</string>
@@ -1415,6 +1417,8 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="config_minCircleSegment_summary">Minimální vzdálenost mezi dvěma uzly kruhu.</string>
   <string name="config_minCircleSegment_current">%1$d m</string>
   <string name="config_replaceTolerance_current">%1$d m</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Nastavení automatického stahování</string>
   <string name="config_category_auto_download_summary">Nastavení automatického stahování dat a úkolů</string>
@@ -1544,21 +1548,14 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="geocoder_type">Typ geokodéru</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aktualizovat předvolby</string>
-  <string name="preset_download_successful">Předvolba stažena</string>
-  <string name="preset_download_failed">Nelze stáhnout soubor předvoleb. Předvolby nebudou fungovat.</string>
-  <string name="preset_download_parse_failed">Neplatný soubor předvoleb. Předvolby nebudou fungovat.</string>
   <string name="preset_download_missing_images">Soubor předvoleb stažen. Některé ikony nebyly staženy a chybí.</string>
-  <string name="preset_download_title">Přednastavený downloader</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Přidat předvolbu</string>
-  <string name="urldialog_preset_exists">Tato předvolba již existuje</string>
-  <string name="urldialog_preset_download_successful">Předvolba stažena.</string>
   <string name="urldialog_api_exists">API s touto adresou již existuje. Mužete přidat dalši (např. pro rychlé přepínání už. účtů).</string>
-  <string name="urldialog_add_api">Přidat API</string>
   <string name="urldialog_nodata_text">Konfigurační URL neobsahuje platné ůdaje.</string>
-  <string name="urldialog_add_geocoder">Přidat geokodér</string>
   <!--API configuration-->
   <string name="api_name">Název API</string>
   <string name="api_url">URL API</string>
@@ -1585,6 +1582,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="empty_list">Žádné položky</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Předvolba</string>
+  <string name="style">Styl</string>
   <string name="api">API</string>
   <string name="undo">Zpět</string>
   <string name="redo">Vpřed</string>
@@ -1765,4 +1763,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="tile_fail">Selhání</string>
   <string name="tile_no_network">Žádná síť</string>
   <string name="tile_unknown_error">Neznámá chyba</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Uložit</string>
+  <string name="keyboard_shortcut_reset">Reset</string>
 </resources>

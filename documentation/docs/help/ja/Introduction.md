@@ -2,7 +2,7 @@ _Before we start: most screens have links in the menu to the on-device help syst
 
 # Vespucci の導入
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 14.0 (versions prior to 4.1 are no longer supported) and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
+Vespucci は、デスクトップエディタが提供する大半の機能をサポートする、フル機能の OpenStreetMap エディタです。Google の Android 2.3 から 14.0 （4.1 以前は最早サポートされません）と AOSP ベースの派生物でうまくテストされています。注意事項：モバイルデバイスの性能はデスクトップに追いついていますが、特に古いデバイスではメモリが限られており、かなり遅くなる傾向にあります。Vespucci を使用する際にはこれを念頭に置き、編集するエリアを適切なサイズに保つなどしてください。
 
 ## Vespucci での編集
 
@@ -12,7 +12,7 @@ Vespucci is a full featured OpenStreetMap editor that supports most operations t
 
 ### OSM データのダウンロード
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display eleven options:
+転送アイコン ![Transfer](../images/menu_transfer.png) または「転送」メニュー項目で選びます。オプションが11個あります:
 
 * **Upload data to OSM server...** - review and upload changes to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
 * **Review changes...** - review current changes
@@ -36,9 +36,9 @@ If you need to use a non-standard OSM API entry, or use [offline data](https://v
 
 <a id="lock"></a>
 
-#### ロック、アンロック、モード切り替え
+#### 鍵、鍵解除、モード切り替え
 
-誤編集を避けるためにVespucciは「ロック」モードで始まります。これは地図のズームと移動だけができるモードです。画面をアンロックするには ![Locked](../images/locked.png) アイコンをタップします。 
+誤編集を避けるためにVespucciは「鍵」モードで始まります。これは地図のズームと移動だけができるモードです。画面の鍵を解除するには ![Locked](../images/locked.png) アイコンをタップします。 
 
 A long press on the lock icon or the _Modes_ menu in the map display overflow menu will display a menu offering 4 options:
 
@@ -218,7 +218,7 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 <a id="indoor"></a>
 
-## 室内モード
+## 屋内モード
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
 
@@ -228,7 +228,7 @@ Mapping indoors is challenging due to the high number of objects that very often
 
 ## Cモード
 
-Cモードでは、警告フラグセットを持つオブジェクトだけが表示され、特定の問題を持っていたり構成可能なチェックに一致するオブジェクトを簡単に選び出せます。オブジェクトが選択され、プロパティエディタがCモードで起動されるとベストマッチのプリセットが自動的に適用されます。
+C方式では、警告フラグセットを持つ物体だけが表示され、特定の問題を持っていたり設定可能な確認項目に一致する物体を簡単に選び出せます。物体が選択され、属性編集がC方式で起動されると、最一致のプリセットが自動的に適用されます。
 
 モードはロック項目上で長押しすると有効化できます。 [Lock, unlock, mode switching](#lock) および対応するメニュー項目の選択を参照。
 

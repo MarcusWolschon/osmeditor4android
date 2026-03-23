@@ -31,7 +31,6 @@
   <string name="local_object">Version locale</string>
   <string name="resolve_by">Résoudre le conflit en…</string>
   <string name="resolve">Résoudre</string>
-  <string name="delete_refering_element">… en supprimant l’élément de référence</string>
   <string name="use_local_version">... en utilisant la version locale</string>
   <string name="merge_tags_in_to_local">… fusionner les attributs dans la version locale</string>
   <string name="merge_tags_in_to_server">… fusionner les attributs dans la version serveur</string>
@@ -129,7 +128,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="progress_searching_message">Recherche…</string>
   <string name="progress_saving_message">Sauvegarde…</string>
   <string name="progress_uploading_message">Envoi…</string>
-  <string name="progress_preset_message">Téléchargement des modèles d\'attributs…</string>
   <string name="progress_loading_preset_message">Chargement des modèles d\'attributs...</string>
   <string name="progress_importing_file_message">Importation du fichier...</string>
   <string name="progress_running_message">Lancement…</string>
@@ -220,6 +218,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="toast_no_open_todos">Pas de tâche ouverte</string>
   <string name="toast_no_todos_in_list">Pas de tâche dans la liste sélectionnée</string>
   <string name="save_changes_title">Enregistrer les modifications ?</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Attention !</string>
   <string name="unsaved_data_message">Vos modifications non enregistrées seront abandonnées si vous continuez.</string>
@@ -334,7 +333,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="other">Autre</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">Il manque des membres de la relation</string>
-  <string name="split_safe_message">Les chemins voisins membres de la relation ne sont pas téléchargés. Conserver l\'ordre des membres de la relation peut dépendre de ceci.</string>
   <!--JS console dialog-->
   <string name="evaluate">Evaluer</string>
   <string name="js_console_msg_live">Mode direct</string>
@@ -351,6 +349,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="select_result">Sélectionner le résultat</string>
   <string name="merge_result">Fusionner le résultat</string>
   <string name="overpass_query_would_overwrite">Le résultat écraserait les changements ! Requête annulée.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Erreur</string>
   <string name="warning">Avertissement</string>
@@ -543,7 +542,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="tip_mode_switching">Le bouton de verouillage permet également de changer de mode, un appui long affichera le menu avec les différentes options.&lt;p&gt; Vous pouvez trouver plus d\'informations sur les modes de Vespucci dans l\'aide.</string>
   <string name="tip_empty_gpx_download">En raison d\'une bizarrerie dans l\'API OSM, le point de départ de la trace GPX doit être visible pour qu\'elle puisse être trouvée pour être téléchargée.</string>
   <string name="tip_no_redo">Ce mode ne supporte pas actuellement le ré-ajout de nœuds.</string>
-  <string name="tip_way_splitting">Sélectionnez un noeud en surbrillance pour indiquer l\'emplacement de séparation. Un appui long permettra de définir quelle partie servira de nouvelle voie dans une étape suivante.</string>
   <string name="tip_disambiguation_menu">Lorsque plusieurs éléments sont proches ou qu\'ils font partie de relations, le menu de sélection s\'affichera. Vous pouvez alors sélectionner précisément l\'élément dans la liste.&lt;p&gt;Si un élément est déjà sélectionné, il apparaitra en surbrillance.</string>
   <string name="tip_file_import">Sur les appareils équipés d\' Android 10 ou supérieur, l\'application doit copier les fichiers pour y avoir l\'accès total. Les copies sont disponibles dans &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. Si nécessaire, vous pouvez supprimer les fichiers initiaux et conserver uniquement les copies.</string>
   <string name="tip_wms_tile_size">Les serveurs WMS peuvent fournir des tuiles plus grandes que 256x256. Pour une configuration plus performante, pensez à utiliser du 512x512.</string>
@@ -635,16 +633,11 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="toast_min_one_geocoder">Au moins un géocodeur doit être sélectionné !</string>
   <string name="toast_used_backup">Le fichier est corrompu. Utilisation du fichier de sauvegarde.</string>
   <string name="toast_used_bug_backup">Le fichier des bugs est corrompu. Utilisation du fichier de sauvegarde.</string>
-  <string name="toast_split_from">Voie « from » coupée</string>
-  <string name="toast_split_via">Voie « via » coupée</string>
-  <string name="toast_split_from_and_via">Voies « from » et « via » coupées</string>
-  <string name="toast_split_to">Voie « to » coupée</string>
   <string name="toast_tile_database_issue_short">Problème avec la base des tuiles</string>
   <string name="toast_tile_database_issue">Problème sérieux avec la base de données des tuiles\n« %1$s »\nConsultez notre FAQ sur https://vespucci.io/</string>
   <string name="toast_invalid_apiurl">URL d\'API invalide</string>
   <string name="toast_invalid_readonlyurl">URL d\'API en lecture seule invalide</string>
   <string name="toast_invalid_notesurl">URL d\'API des notes invalide</string>
-  <string name="toast_invalid_preseturl">URL des modèles invalide</string>
   <string name="toast_invalid_filter_regexp">Expression régulière invalide dans le filtre avec la clef « %1$s » et la valeur « %2$s »</string>
   <string name="toast_error_accessing_photo">Impossible d\'accéder à la photo %1$s</string>
   <string name="toast_no_photo_found">Aucune photo trouvée</string>
@@ -893,12 +886,10 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="no_nominatim_result">Le serveur Nominatim n\'a pas trouvé %1$s</string>
   <!--Menu-->
   <string name="menu_move">Naviguer</string>
-  <string name="menu_edit">Déplacer</string>
   <string name="menu_add">Ajouter</string>
   <string name="menu_config">Paramètres</string>
   <string name="menu_find">Rechercher</string>
   <string name="menu_help">Aide</string>
-  <string name="menu_view">Vue</string>
   <string name="menu_erase">Supprimer le nœud</string>
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Scinder</string>
@@ -1155,6 +1146,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="config_presetbutton_title">Modèles d\'attributs</string>
   <string name="config_presetbutton_summary">Ajouter et activer des modèles d\'attributs de JOSM</string>
   <string name="config_built_in_preset">Modèle inclus</string>
+  <string name="config_keyboard_shortcuts_title">Raccourcis clavier</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Paramètres du validateur</string>
   <string name="config_validatorprefs_summary">Configurer les règles de validation</string>
@@ -1289,6 +1281,8 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="config_minCircleSegment_summary">Distance minimum entre deux nœuds d\'un cercle</string>
   <string name="config_minCircleSegment_current">%1$d mètres</string>
   <string name="config_replaceTolerance_current">%1$d mètres</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Paramètres du téléchargement automatique</string>
   <string name="config_category_auto_download_summary">Les paramètres pour le téléchargement automatique des données et des tâches</string>
@@ -1406,21 +1400,14 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="geocoder_type">Type de géocodeur</string>
   <!--preset downloader messages-->
   <string name="preset_update">Mettre à jour les modèles d\'attributs</string>
-  <string name="preset_download_successful">Modèles d\'attributs téléchargés avec succès</string>
-  <string name="preset_download_failed">Le fichier de modèles n\'a pas pu être téléchargé. Il ne fonctionnera pas.</string>
-  <string name="preset_download_parse_failed">Le modèles d\'attributs est invalide. Il ne sera pas pris en compte.</string>
   <string name="preset_download_missing_images">Le fichier de modèles a été téléchargé. Cependant, le téléchargement de certaines icônes a échoué.</string>
-  <string name="preset_download_title">Gestionnaire de téléchargement des modèles</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Ajouter un modèle d\'attributs</string>
-  <string name="urldialog_preset_exists">Ce modèle d\'attributs existe déjà</string>
-  <string name="urldialog_preset_download_successful">Modèle d\'attributs téléchargé.</string>
   <string name="urldialog_api_exists">Une API avec cette URL existe déjà. Néanmoins, vous pouvez en ajouter une nouvelle (p. ex. pour changer facilement de compte).</string>
-  <string name="urldialog_add_api">Ajouter une API</string>
   <string name="urldialog_nodata_text">L\'URL de configuration ne contient pas de données valides.</string>
-  <string name="urldialog_add_geocoder">Ajouter un géocodeur</string>
   <!--API configuration-->
   <string name="api_name">Nom de l\'API</string>
   <string name="api_url">URL de l\'API</string>
@@ -1587,4 +1574,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="tile_success">Réussite</string>
   <string name="tile_fail">Échec</string>
   <string name="tile_unknown_error">Erreur inconnue</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Sauvegarder…</string>
+  <string name="keyboard_shortcut_reset">Réinitialiser</string>
 </resources>

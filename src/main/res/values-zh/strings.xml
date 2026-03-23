@@ -76,7 +76,6 @@
   <string name="progress_searching_message">搜索…</string>
   <string name="progress_saving_message">正在保存…</string>
   <string name="progress_uploading_message">正在上传…</string>
-  <string name="progress_preset_message">正在下载预设…</string>
   <string name="progress_running_message">正在运行…</string>
   <string name="progress_building_imagery_database">建立影像数据库…</string>
   <string name="progress_query_oam">正在查询 OAM …</string>
@@ -130,6 +129,7 @@
   <string name="maproulette_task_apikey_set">MapRoulette API key 已保存</string>
   <string name="maproulette_task_no_apikey">没有 MapRoulette API key</string>
   <!--Todo dialogs-->
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未保存的变更，如果继续将被丢弃。</string>
@@ -240,6 +240,7 @@
   <string name="js_console_msg_debug">调试模式！</string>
   <string name="console_output_hint">此处显示输出结果</string>
   <!--Overpass console-->
+  <!--Download missing dialog-->
   <!---->
   <string name="error">错误</string>
   <string name="warning">警告</string>
@@ -464,16 +465,11 @@
   <string name="toast_min_one_geocoder">至少选择一个 geocoder！</string>
   <string name="toast_used_backup">已损坏的状态文件，请使用备份文件替代。</string>
   <string name="toast_used_bug_backup">已损坏的bug状态文件，请使用备份文件替代。</string>
-  <string name="toast_split_from">分离 \"从\" 路径</string>
-  <string name="toast_split_via">分离 \"经过\" 路径</string>
-  <string name="toast_split_from_and_via">分离 \"从\" 和 \"经过\" 路径</string>
-  <string name="toast_split_to">分离 \"到\" 路径</string>
   <string name="toast_tile_database_issue_short">瓦片数据库问题</string>
   <string name="toast_tile_database_issue">瓦片数据库的严重问题\n\"%1$s\"\n请访问我们在 https://vespucci.io/ 的 FAQ。</string>
   <string name="toast_invalid_apiurl">无效的 API 链接</string>
   <string name="toast_invalid_readonlyurl">无效的只读 API 链接</string>
   <string name="toast_invalid_notesurl">无效的注记 API 链接</string>
-  <string name="toast_invalid_preseturl">无效的预设链接</string>
   <string name="toast_missing_preset_file">缺少预设文件 \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">无效的正则表达式， key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">无法读取照片 %1$s</string>
@@ -705,12 +701,10 @@
   <string name="no_nominatim_result">Nominatim 服务器未找到 %1$s</string>
   <!--Menu-->
   <string name="menu_move">移动</string>
-  <string name="menu_edit">编辑</string>
   <string name="menu_add">新的</string>
   <string name="menu_config">首选项</string>
   <string name="menu_find">查找</string>
   <string name="menu_help">帮助</string>
-  <string name="menu_view">查看</string>
   <string name="menu_erase">擦除节点</string>
   <string name="menu_set_position">位置</string>
   <string name="menu_split">分开</string>
@@ -1022,6 +1016,8 @@
   <string name="config_maxCircleSegment_current">%1$d 米</string>
   <string name="config_minCircleSegment_current">%1$d 米</string>
   <string name="config_replaceTolerance_current">%1$d 米</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自动下载设置</string>
   <string name="config_category_auto_download_summary">数据和任务的自动下载设置</string>
@@ -1120,21 +1116,14 @@
   <string name="geocoder_type">Geocoder 类型</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新预设</string>
-  <string name="preset_download_successful">预设已下载</string>
-  <string name="preset_download_failed">无法下载预设文件，预设将无法正常工作。</string>
-  <string name="preset_download_parse_failed">预设文件是无效的。预设将无法正常工作。</string>
   <string name="preset_download_missing_images">预设文件已下载，然而缺失的图标还未下载。</string>
-  <string name="preset_download_title">预设下载器</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">添加预设</string>
-  <string name="urldialog_preset_exists">这种预设已经存在</string>
-  <string name="urldialog_preset_download_successful">预设已下载。</string>
   <string name="urldialog_api_exists">这个API的网址已经存在。不过，您可以增加另一个（例如，方便地切换帐号）。</string>
-  <string name="urldialog_add_api">添加API</string>
   <string name="urldialog_nodata_text">配置的URL没有有效数据。</string>
-  <string name="urldialog_add_geocoder">添加 geocoder</string>
   <!--API configuration-->
   <string name="api_name">API 名称</string>
   <string name="api_url">API网址</string>
@@ -1285,4 +1274,7 @@
   <!--Element names with id-->
   <!--Tile downloader diagnostics-->
   <string name="tile_unknown_error">未知错误</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">保存</string>
+  <string name="keyboard_shortcut_reset">重置</string>
 </resources>

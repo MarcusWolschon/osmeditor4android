@@ -31,7 +31,6 @@
   <string name="local_object">Lokale versie</string>
   <string name="resolve_by">Los conflict op door...</string>
   <string name="resolve">Oplossen</string>
-  <string name="delete_refering_element">... het gerefereerde element te verwijderen</string>
   <string name="use_local_version">... de lokale versie te gebruiken</string>
   <string name="merge_tags_in_to_local">... de tags samen te voegen in de lokale versie</string>
   <string name="merge_tags_in_to_server">... de tags samen te voegen in de server versie</string>
@@ -156,7 +155,6 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="progress_searching_message">Zoeken…</string>
   <string name="progress_saving_message">Opslaan…</string>
   <string name="progress_uploading_message">Uploaden…</string>
-  <string name="progress_preset_message">Voorkeuzen downloaden…</string>
   <string name="progress_loading_preset_message">Voorkeuzen laden...</string>
   <string name="progress_importing_file_message">Bestand importeren...</string>
   <string name="progress_running_message">Uitvoeren…</string>
@@ -249,6 +247,7 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="toast_no_open_todos">Geen open taken</string>
   <string name="toast_no_todos_in_list">Geen taken in de geselecteerde lijst</string>
   <string name="save_changes_title">Wijzigingen opslaan?</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Let op!</string>
   <string name="unsaved_data_message">Je niet opgeslagen wijzigingen worden verworpen als je verder gaat.</string>
@@ -366,7 +365,6 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="other">Overig</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">Missende relatieonderdelen</string>
-  <string name="split_safe_message">Naastliggende weg-relatieonderdelen zijn niet gedownload. De volgorde van relatieonderdelen kan hiervan afhankelijk zijn.</string>
   <!--JS console dialog-->
   <string name="evaluate">Evalueer</string>
   <string name="js_console_msg_live">Live modus!</string>
@@ -383,6 +381,7 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="select_result">Selecteer resultaat</string>
   <string name="merge_result">Voeg resultaat samen</string>
   <string name="overpass_query_would_overwrite">Resultaat zou veranderingen overschrijven. Vraag afgebroken.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Fout</string>
   <string name="warning">Waarschuwing</string>
@@ -416,7 +415,6 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="safe_mode_dialog_title">Veilige modus opties</string>
   <string name="safe_style_label">Zet gegevensstijl op minimaal</string>
   <string name="safe_layer_label">Zet alle lagen uit</string>
-  <string name="safe_state_label">Verwijder opgeslagen staat</string>
   <string name="safe_delete_state_title">Opgeslagen gegevensstaat verwijderen?</string>
   <string name="safe_delete_state_text">Ja (kan niet ongedaan worden gemaakt)</string>
   <!--Empty relation dialog-->
@@ -580,8 +578,6 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="tip_longpress_simple_mode">In de simpele modus doet een lange klik niets. Zet de simpele modus uit in het hoofdmenu als je lange kliks wilt gebruiken om objecten aan te maken.</string>
   <string name="tip_gpx_no_elevation">Beginnend met versie 15, zullen GPX tracks niet langer hoogteinformatie bevatten.&lt;p&gt;Om hoogteinformatie op te nemen kan een Geoid model worden geïnstalleerd met &lt;i&gt;Installeer EGM&lt;/i&gt; in het Hulpmiddelen menu, of wissel naar NMEA invoer.</string>
   <string name="tip_tag_conflict">Het samenvoegen of omkeren van OSM elementen vereist soms het wijzigen van attributen op de elementen. Als er mogelijk een fout of conflict kan ontstaan zal je op de hoogte worden gesteld en de mogelijkheid krijgen om te objecten in kwestie na te kijken.</string>
-  <string name="tip_replace_geometry">Het vervangen van de vorm van een weg vereist vaak het verplaatsen van bestaande knopen, als deze zijn getagd, oftewel dat ze objecten voorstellen,  is dit mogelijk niet wenselijk.
-Om dit probleem te voorkomen, halen we knopen die niet binnen een kleine radius van de weg liggen eruit en laten we een waarschuwing zien. Je kan de tolerantie (standaard 1m) in de geavanceerde instellingen aanpassen.</string>
   <string name="tip_gpx_recording">Wanneer je GPX opnames begint, zal Vespucci locatiegegevens verzamelen om GPX opnames mogelijk te maken zelfs als de app niet zichtbaar is.&lt;p&gt;Sluit te app expliciet of zet GPX opnames uit om het gebruik van locatiegegevens te stoppen in zulke situaties.</string>
   <string name="tip_auto_download">Als je begint met auto-downloaden van OSM gegevens of taken, zal Vespucci locatiegegevens gebruiken om de huidige positie te bepalen, zelfs als de app niet zichtbaar is.&lt;p&gt;Sluit de app expliciet of zet automatisch downloaden uit om het gebruik van locatiegegevens te stoppen in zulke situaties.</string>
   <string name="tip_tristate_checkbox">Je hebt zojuist een drievoudig selectievakje aangetikt. Deze werken net als normale selectievakjes met twee waardes, bijvoorbeeld ja/nee of waar/onwaar.&lt;p&gt;Er is echter een derde &lt;b&gt;ongedefinieerde&lt;/b&gt; staat, aangegeven met een grijze achtergrond, welke de aangegeven tag niet zal toevoegen. Je kan het selectievakje naar deze staat zetten met een lange tik.</string>
@@ -589,7 +585,6 @@ Om dit probleem te voorkomen, halen we knopen die niet binnen een kleine radius 
   <string name="tip_mode_switching">De slot-knop is tegelijk een modus-wisselaar. Een lange tik toont een menu met opties.&lt;p&gt;Je kunt meer informatie vinden over de modi in Vespucci in het helpsysteem, zowel in de introductie en in de hulp over de kaartweergave.</string>
   <string name="tip_empty_gpx_download">Vanwege een eigenaardigheid in de OSM API moet het startpunt van de GPX-route binnen het beeld liggen om gevonden of gedownload te kunnen worden.</string>
   <string name="tip_no_redo">Deze modus heeft nog geen ondersteuning voor het opnieuw uitvoeren van knooptoevoegingen.</string>
-  <string name="tip_way_splitting">Tik op een gemarkeerde knoop om de positie te bepalen voor het splitsen. Een lange tik laat je selecteren welk gedeelte zal worden gebruikt voor de nieuwe weg in een volgende stap.</string>
   <string name="tip_closed_way_splitting">Een gesloten weg moet op twee plaatsen worden gesplitst. Tik een gemarkeerde knoop aan om de 1ste positie te bepalen om te splitsen. De volgende stap laat je de 2e positie bepalen.</string>
   <string name="tip_disambiguation_menu">Wanneer meerdere OSM elementen of andere objecten erg dicht bij elkaar liggen of elementen onderdelen van relaties zijn, zal het onderscheidingsmenu worden getoond. Je kunt dan het specifieke element uit de lijst selecteren.&lt;p&gt;Als een element al geselecteerd is, wordt het gemarkeerd.</string>
   <string name="tip_file_import">Op apparaten met Android 10 of later moeten we bestanden kopiëren om er volledig toegang tot te krijgen. De kopieën staan in &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. Als het nodig is, kan je de originelen verwijderen en alleen de kopieën bewaren.</string>
@@ -690,10 +685,6 @@ Om dit probleem te voorkomen, halen we knopen die niet binnen een kleine radius 
   <string name="toast_min_one_geocoder">Minstens een geocoder moet geselecteerd zijn!</string>
   <string name="toast_used_backup">Corrupt statusbestand, het backupbestand wordt in plaats daarvan gebruikt.</string>
   <string name="toast_used_bug_backup">Corrupt probleemstatusbestand, het backupbestand wordt in plaats daarvan gebruikt.</string>
-  <string name="toast_split_from">\"Van\" weg opgesplitst</string>
-  <string name="toast_split_via">\"Via\" weg opgesplitst</string>
-  <string name="toast_split_from_and_via">\"Van\" en \"via\" wegen opgesplitst</string>
-  <string name="toast_split_to">\"Naar\" weg opgesplitst</string>
   <string name="toast_tile_database_issue_short">Tegeldatabank probleem</string>
   <string name="toast_tile_database_issue">Serieus probleem met de kaarttegeldatabank\n\"%1$s\"\nRaadpleeg onze FAQ op https://vespucci.io/</string>
   <string name="toast_tile_source_issue">Serieus probleem met de kaarttegelbron, tijdelijk uitgeschakeld\n\"%1$s\"</string>
@@ -702,7 +693,6 @@ Om dit probleem te voorkomen, halen we knopen die niet binnen een kleine radius 
   <string name="toast_invalid_apiurl">Ongeldige API URL</string>
   <string name="toast_invalid_readonlyurl">Ongeldige Alleen-Lezen API URL</string>
   <string name="toast_invalid_notesurl">Ongeldige notities API URL</string>
-  <string name="toast_invalid_preseturl">Ongeldige voorkeuze URL</string>
   <string name="toast_missing_preset_file">Missend voorkeuzebestand voor \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">Ongeldige reguliere expressie in filter met sleutel=\"%1$s\" waarde=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Geen toegang tot foto %1$s</string>
@@ -982,12 +972,10 @@ Om dit probleem te voorkomen, halen we knopen die niet binnen een kleine radius 
   <string name="no_nominatim_result">Nominatim server kon %1$s niet vinden</string>
   <!--Menu-->
   <string name="menu_move">Verschuif</string>
-  <string name="menu_edit">Bewerken</string>
   <string name="menu_add">Nieuw</string>
   <string name="menu_config">Voorkeuren</string>
   <string name="menu_find">Zoeken</string>
   <string name="menu_help">Hulp</string>
-  <string name="menu_view">Toon</string>
   <string name="menu_erase">Verwijder knoop</string>
   <string name="menu_set_position">Positie</string>
   <string name="menu_split">Splits</string>
@@ -1261,6 +1249,7 @@ Om dit probleem te voorkomen, halen we knopen die niet binnen een kleine radius 
   <string name="config_presetbutton_title">Voorkeuzen</string>
   <string name="config_presetbutton_summary">Creëer en activeer JOSM compatibele voorkeuzes</string>
   <string name="config_built_in_preset">Ingebouwde voorkeuze</string>
+  <string name="config_keyboard_shortcuts_title">Sneltoetsen</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Validator-instellingen</string>
   <string name="config_validatorprefs_summary">Configureer de validatieregels.</string>
@@ -1409,6 +1398,8 @@ Om dit probleem te voorkomen, halen we knopen die niet binnen een kleine radius 
   <string name="config_minCircleSegment_summary">Minimale afstand tussen twee cirkelknopen.</string>
   <string name="config_minCircleSegment_current">%1$d meter</string>
   <string name="config_replaceTolerance_current">%1$d meter</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-download instellingen</string>
   <string name="config_category_auto_download_summary">Instellingen voor het automatisch downloaden van gegevens en taken</string>
@@ -1537,21 +1528,14 @@ Om dit probleem te voorkomen, halen we knopen die niet binnen een kleine radius 
   <string name="geocoder_type">Type Geocoder</string>
   <!--preset downloader messages-->
   <string name="preset_update">Update voorkeuze</string>
-  <string name="preset_download_successful">Voorkeuze gedownload</string>
-  <string name="preset_download_failed">Kon voorkeuzebestand niet downloaden. De voorkeuze zal niet werken.</string>
-  <string name="preset_download_parse_failed">Het voorkeuzebestand is ongeldig. De voorkeuze zal niet werken.</string>
   <string name="preset_download_missing_images">Voorkeuzebestand gedownload, echter zonder een aantal missende iconen.</string>
-  <string name="preset_download_title">Voorkeuzedownloader</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Voorkeuze toevoegen</string>
-  <string name="urldialog_preset_exists">Deze voorkeuze bestaat al</string>
-  <string name="urldialog_preset_download_successful">Voorkeuze gedownload.</string>
   <string name="urldialog_api_exists">Een API met deze URL bestaat al. Je mag er een extra toevoegen (bijv. om snel te wisselen tussen accounts).</string>
-  <string name="urldialog_add_api">API toevoegen</string>
   <string name="urldialog_nodata_text">De configuratie URL bevat geen geldige gegevens.</string>
-  <string name="urldialog_add_geocoder">Geocoder toevoegen</string>
   <!--API configuration-->
   <string name="api_name">API naam</string>
   <string name="api_url">API URL</string>
@@ -1578,6 +1562,7 @@ Om dit probleem te voorkomen, halen we knopen die niet binnen een kleine radius 
   <string name="empty_list">Geen items</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Voorkeuze</string>
+  <string name="style">Stijl</string>
   <string name="api">API</string>
   <string name="undo">Ongedaan maken</string>
   <string name="redo">Opnieuw doen</string>
@@ -1744,4 +1729,7 @@ Om dit probleem te voorkomen, halen we knopen die niet binnen een kleine radius 
   <string name="tile_success">Succes</string>
   <string name="tile_fail">Mislukt</string>
   <string name="tile_unknown_error">Onbekende fout</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Opslaan</string>
+  <string name="keyboard_shortcut_reset">Resetten</string>
 </resources>

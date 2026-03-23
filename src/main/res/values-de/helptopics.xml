@@ -21,6 +21,7 @@
     <string name="help_advanced_preferences">Erweiterte Einstellungen</string>
     <string name="help_custom_imagery">Benutzerdefinierter Hintergrund</string>
     <string name="help_presets">Vorlagen</string>
+    <string name="help_styles">Tanzstile</string>
     <string name="help_uploading">Deine Bearbeitungen veröffentlichen</string>
     <string name="help_conflictresolution">Konfliktauflösung</string>
     <string name="help_gpssources">GPS-Quellen</string>
@@ -34,6 +35,8 @@
     <string name="help_tag_only_mode">Nur Tags Modus</string>
     <string name="help_indoor_mode">Innenraum-Modus</string>
     <string name="help_address_mode">Adress-Modus</string>
+    <string name="help_upgrade">22.0 Versionshinweise</string>
+    <string name="help_upgrade_212">21.2 Versionshinweise</string>
     <string name="help_upgrade_211">21.1 Versionshinweise</string>
     <string name="help_upgrade_210">21.0 Versionshinweise</string>
     <string name="help_upgrade_202">20.2 Versionshinweise</string>
@@ -86,7 +89,8 @@
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
         <item>@string/help_custom_imagery</item>
-    	<item>@string/help_presets</item>	
+    	<item>@string/help_presets</item>
+        <item>@string/help_styles</item>	
         <item>@string/help_rotate</item>
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
@@ -102,6 +106,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_212</item>
         <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
         <item>@string/help_upgrade_202</item>
@@ -156,7 +161,8 @@
         <item>Preferences</item>
         <item>Advanced preferences</item>
         <item>Custom imagery</item>
-    	<item>Presets</item>	
+    	<item>Presets</item>
+        <item>Styles</item>	
         <item>Rotating elements</item>
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
@@ -171,6 +177,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>22.0.0 Release notes</item>
         <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>
         <item>21.0.0 Release notes</item>

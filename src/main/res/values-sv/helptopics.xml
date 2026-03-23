@@ -21,6 +21,7 @@
     <string name="help_advanced_preferences">Avancerade inställningar</string>
     <string name="help_custom_imagery">Egen bild</string>
     <string name="help_presets">Förinställningar</string>
+    <string name="help_styles">Stilar</string>
     <string name="help_uploading">Laddar upp dina ändringar</string>
     <string name="help_conflictresolution">Lösa konflikter</string>
     <string name="help_gpssources">GPS källa</string>
@@ -34,7 +35,7 @@
     <string name="help_tag_only_mode">Läge för enbart taggning</string>
     <string name="help_indoor_mode">Inomhusläge</string>
     <string name="help_address_mode">Adressläge</string>
-    <string name="help_upgrade">21.2 Versionsinformation</string>
+    <string name="help_upgrade_212">21.2 Versionsinformation</string>
     <string name="help_upgrade_211">21.1 Versionsinformation</string>
     <string name="help_upgrade_210">21.0 Versionsinformation</string>
     <string name="help_upgrade_202">20.2 Versionsinformation</string>
@@ -87,7 +88,8 @@
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
         <item>@string/help_custom_imagery</item>
-    	<item>@string/help_presets</item>	
+    	<item>@string/help_presets</item>
+        <item>@string/help_styles</item>	
         <item>@string/help_rotate</item>
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
@@ -103,6 +105,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_212</item>
         <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
         <item>@string/help_upgrade_202</item>
@@ -157,7 +160,8 @@
         <item>Preferences</item>
         <item>Advanced preferences</item>
         <item>Custom imagery</item>
-    	<item>Presets</item>	
+    	<item>Presets</item>
+        <item>Styles</item>	
         <item>Rotating elements</item>
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
@@ -172,6 +176,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>22.0.0 Release notes</item>
         <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>
         <item>21.0.0 Release notes</item>

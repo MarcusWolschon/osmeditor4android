@@ -31,7 +31,6 @@
   <string name="local_object">Versão local</string>
   <string name="resolve_by">Resolver conflito…</string>
   <string name="resolve">Resolver</string>
-  <string name="delete_refering_element">…eliminando o elemento referente</string>
   <string name="use_local_version">…utilizando a versão local</string>
   <string name="merge_tags_in_to_local">…juntando as etiquetas na versão local</string>
   <string name="merge_tags_in_to_server">…juntando as etiquetas na versão do servidor</string>
@@ -153,7 +152,6 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="progress_searching_message">A procurar...</string>
   <string name="progress_saving_message">A gravar...</string>
   <string name="progress_uploading_message">A enviar…</string>
-  <string name="progress_preset_message">A descarregar modelos de etiquetas…</string>
   <string name="progress_loading_preset_message">A carregar modelo de etiquetas…</string>
   <string name="progress_importing_file_message">A importar ficheiro…</string>
   <string name="progress_running_message">A executar...</string>
@@ -253,6 +251,7 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="toast_no_open_todos">Sem tarefas abertas</string>
   <string name="toast_no_todos_in_list">Sem tarefas abertas na lista selecionada</string>
   <string name="save_changes_title">Guardar alterações?</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Atenção!</string>
   <string name="unsaved_data_message">Se continuar perderá as suas alterações por guardar.</string>
@@ -369,7 +368,6 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="other">Outro</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">Membros em falta na relação</string>
-  <string name="split_safe_message">As vias membros da relação vizinha não foram descarregadas. A atualização da ordenação dos membros da relação pode depender destes.</string>
   <!--JS console dialog-->
   <string name="evaluate">Avaliar</string>
   <string name="js_console_msg_live">Modo ao vivo!</string>
@@ -386,6 +384,7 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="select_result">Selecionar resultado</string>
   <string name="merge_result">Unir resultado</string>
   <string name="overpass_query_would_overwrite">O resultado sobrepor-se-ia às alterações! A consulta foi abortada.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Aviso</string>
@@ -420,7 +419,6 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="safe_mode_dialog_title">Opções do modo de segurança</string>
   <string name="safe_style_label">Aplicar o estilo dos dados mínimo</string>
   <string name="safe_layer_label">Desativar todas as camadas</string>
-  <string name="safe_state_label">Remover o estado guardado</string>
   <string name="safe_delete_state_title">Eliminar o estado dos dados guardados?</string>
   <string name="safe_delete_state_text">Sim (não pode ser anulado)</string>
   <!--Empty relation dialog-->
@@ -585,7 +583,6 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="tip_longpress_simple_mode">No modo simples, um clique longo não faz nada. Desative o modo simples no menu principal se quiser utilizar os cliques longos para criar objetos.</string>
   <string name="tip_gpx_no_elevation">A partir da versão 15, os trilhos GPX já não contêm informações de elevação por predefinição. Para ativar o registo de elevação, instale um modelo Geoid com &lt;i&gt;Instale EGM&lt;/i&gt; no menu Ferramentas ou mude para a entrada NMEA.</string>
   <string name="tip_tag_conflict">A união e a reversão de elementos OSM requerem, por vezes, a alteração de atributos nos elementos. Se houver um potencial erro ou conflito, será alertado para esse facto e ser-lhe-á dada a oportunidade de rever os objetos em questão.</string>
-  <string name="tip_replace_geometry">Substituir a geometria de uma linha requer frequentemente mover a posição dos nós existentes, se estes estiverem etiquetados, ou seja, se representarem os próprios objetos, isto pode ser indesejável. Para evitar este problema, extraímos os nós que não estão dentro de um pequeno raio de tolerância da linha-mãe e apresentamos um aviso. Pode ajustar a tolerância (predefinido em 1m) nas preferências avançadas.</string>
   <string name="tip_gpx_recording">Quando se inicia a gravação GPX, o Vespucci recolhe dados de localização para permitir a gravação GPX, mesmo quando a aplicação não está visível.&lt;p&gt;O encerramento explícito da aplicação ou a desativação da gravação GPX impedirá a utilização de dados de localização nessas situações.</string>
   <string name="tip_auto_download">Quando se inicia o descarregamento automático de dados ou tarefas OSM, o Vespucci utiliza dados de localização para determinar a posição atual, mesmo quando a aplicação não está visível.&lt;p&gt;Fechar explicitamente a aplicação ou desativar o descarregamento automático interrompe a utilização dos dados de localização nestas situações.</string>
   <string name="tip_tristate_checkbox">Acabou de tocar numa caixa de verificação de 3 estados. Estas funcionam como as caixas de verificação normais, alternando entre 2 valores, por exemplo sim/não ou verdadeiro/falso.&lt;p&gt;No entanto, têm um terceiro estado adicional &lt;b&gt;not set&lt;/b&gt; indicado por uma caixa de verificação a cinzento que impedirá a adição da etiqueta correspondente. Pode definir a caixa de verificação para este estado premindo longamente.</string>
@@ -593,7 +590,6 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="tip_mode_switching">O botão de bloqueio funciona também como comutador de modo, uma pressão prolongada mostra um menu com as diferentes opções.&lt;p&gt;Pode encontrar mais informações sobre os modos do Vespucci no sistema de ajuda, tanto na introdução como na ajuda para o ecrã principal do mapa.</string>
   <string name="tip_empty_gpx_download">Devido a uma peculiaridade na API do OSM, o ponto de partida do trilho GPX tem de estar à vista para que possa ser encontrado para descarregar.</string>
   <string name="tip_no_redo">Atualmente, este modo não suporta refazer adições de nós.</string>
-  <string name="tip_way_splitting">Toque num nó realçado para determinar a posição onde dividir. Um toque longo permite-lhe selecionar a parte que será utilizada para a nova linha numa etapa posterior.</string>
   <string name="tip_closed_way_splitting">Uma linha fechada tem de ser dividida em dois sítios. Toque num nó realçado para determinar a 1ª posição de divisão, o passo seguinte pedir-lhe-á para selecionar a 2ª posição.</string>
   <string name="tip_disambiguation_menu">Quando vários elementos OSM ou outros objetos estão muito próximos uns dos outros ou os elementos são membros de relações, será apresentado o menu de desambiguação. Pode então selecionar o elemento específico da lista.&lt;p&gt;Se um elemento já estiver selecionado, será destacado.</string>
   <string name="tip_file_import">Nos dispositivos com Android 10 ou posterior, é necessário copiar os ficheiros para podermos aceder-lhes plenamente. As cópias estão localizadas em &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. Se necessário, pode eliminar os originais e manter apenas as cópias.</string>
@@ -697,10 +693,6 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="toast_min_one_geocoder">Tem de estar selecionado pelo menos um geo-codificador!</string>
   <string name="toast_used_backup">O ficheiro de estado está corrompido. A usar o ficheiro de cópia de segurança!</string>
   <string name="toast_used_bug_backup">O ficheiro de estado de erro está corrompido. A usar o ficheiro de cópia de segurança!</string>
-  <string name="toast_split_from">Linha \"from\" (de) dividida</string>
-  <string name="toast_split_via">Linha \"via\" (através de) dividida</string>
-  <string name="toast_split_from_and_via">Linha \"from\" (de) e \"via\" (através de) divididas</string>
-  <string name="toast_split_to">Linha \"to\" (para) dividida</string>
   <string name="toast_tile_database_issue_short">Problema na base de dados dos mosaicos</string>
   <string name="toast_tile_database_issue">Ocorreu um erro grave na base de dados dos mosaicos do mapa\n\"%1$s\"\nPor favor consulte as perguntas frequentes em https://vespucci.io/</string>
   <string name="toast_tile_source_issue">Problema grave com a fonte de mosaicos de mapas, temporariamente desativada\n\"%1$s\"</string>
@@ -709,7 +701,6 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="toast_invalid_apiurl">URL da API inválido</string>
   <string name="toast_invalid_readonlyurl">URL de leitura da API inválido</string>
   <string name="toast_invalid_notesurl">URL da API das notas inválido</string>
-  <string name="toast_invalid_preseturl">URL dos modelos de etiquetas inválido</string>
   <string name="toast_missing_preset_file">Falta um ficheiro de modelo de etiquetas para \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">Expressão inválida no filtro com a chave=%1$s e valor=%2$s</string>
   <string name="toast_error_accessing_photo">Não foi possível aceder à foto %1$s</string>
@@ -992,12 +983,10 @@ há %3$s %4$s</string>
   <string name="no_nominatim_result">O servidor Nominatim não encontrou %1$s</string>
   <!--Menu-->
   <string name="menu_move">Mover</string>
-  <string name="menu_edit">Editar</string>
   <string name="menu_add">Novo</string>
   <string name="menu_config">Preferências</string>
   <string name="menu_find">Procurar</string>
   <string name="menu_help">Ajuda</string>
-  <string name="menu_view">Vista</string>
   <string name="menu_erase">Eliminar nó</string>
   <string name="menu_set_position">Posição</string>
   <string name="menu_split">Dividir</string>
@@ -1270,6 +1259,7 @@ há %3$s %4$s</string>
   <string name="config_presetbutton_title">Modelos de etiquetas</string>
   <string name="config_presetbutton_summary">Adicionar e ativar modelos de etiquetas compatíveis com o JOSM</string>
   <string name="config_built_in_preset">Modelo de etiquetas original</string>
+  <string name="config_keyboard_shortcuts_title">Atalhos de Teclado</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Definições do verificador</string>
   <string name="config_validatorprefs_summary">Configurar regras de validação.</string>
@@ -1420,6 +1410,8 @@ há %3$s %4$s</string>
   <string name="config_replaceTolerance_title">Distância máxima para mover o nó etiquetado</string>
   <string name="config_replaceTolerance_summary">Distância máxima para mover um nó etiquetado ao substituir a geometria do caminho.</string>
   <string name="config_replaceTolerance_current">%1$d metro(s)</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Definições de descarregar automático</string>
   <string name="config_category_auto_download_summary">Definições para o descarregamento automático de dados e tarefas</string>
@@ -1549,21 +1541,14 @@ há %3$s %4$s</string>
   <string name="geocoder_type">Tipo de geo-codificador</string>
   <!--preset downloader messages-->
   <string name="preset_update">Atualizar modelos de etiquetas</string>
-  <string name="preset_download_successful">Modelo de etiquetas descarregado</string>
-  <string name="preset_download_failed">Não foi possível descarregar o ficheiro de modelos de etiquetas. Os modelos de etiquetas não funcionarão.</string>
-  <string name="preset_download_parse_failed">O ficheiro de modelos de etiquetas não é válido. O modelo de etiquetas não irá funcionar.</string>
   <string name="preset_download_missing_images">O ficheiro dos modelos de etiquetas foi descarregado. No entanto faltam alguns ícones.</string>
-  <string name="preset_download_title">Descarregamento de modelo de etiquetas</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Adicionar modelo de etiquetas</string>
-  <string name="urldialog_preset_exists">Este modelo de etiquetas já existe</string>
-  <string name="urldialog_preset_download_successful">Modelo de etiquetas descarregado.</string>
   <string name="urldialog_api_exists">Já existe uma API com este URL. No entanto, pode adicionar outro (por exemplo, para mudar de contas facilmente).</string>
-  <string name="urldialog_add_api">Adicionar API</string>
   <string name="urldialog_nodata_text">O URL de configuração não contém dados válidos.</string>
-  <string name="urldialog_add_geocoder">Adicionar geo-codificador</string>
   <!--API configuration-->
   <string name="api_name">Nome da API</string>
   <string name="api_url">URL da API</string>
@@ -1590,6 +1575,7 @@ há %3$s %4$s</string>
   <string name="empty_list">Sem entradas</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Predefinição</string>
+  <string name="style">Estilo</string>
   <string name="api">API</string>
   <string name="undo">Desfazer</string>
   <string name="redo">Refazer</string>
@@ -1695,7 +1681,6 @@ há %3$s %4$s</string>
   <string name="issue_split_metric">O valor dependente do comprimento foi dividido</string>
   <string name="issue_split_route_ordering">A rota pode necessitar de reordenação manual</string>
   <string name="issue_precondition_relation_member_count">Número de membros da relação excedido</string>
-  <string name="issue_replace_extracted_node">Nó etiquetado extraído da linha</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dia</item>
@@ -1765,4 +1750,7 @@ há %3$s %4$s</string>
   <string name="tile_success">Sucesso</string>
   <string name="tile_fail">Falha</string>
   <string name="tile_unknown_error">Erro desconhecido</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Guardar</string>
+  <string name="keyboard_shortcut_reset">Repôr</string>
 </resources>

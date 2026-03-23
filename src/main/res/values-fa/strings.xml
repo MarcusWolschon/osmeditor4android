@@ -24,6 +24,7 @@
   <string name="upload_conflict_message_deleted">%1$s \nروی دستگاه شما نسخهٔ %2$d است \nو روی کارساز حذف شده است</string>
   <string name="upload_conflict_message_referential">عنصر به صورت محلی حذف شده است اما دارای منابع در سرور است</string>
   <string name="upload_conflict_message_unknown">%1$s \nتداخل بارگذاری ناشناخته ایجاد شد \n%2$s</string>
+  <string name="server_side_object">نگارش کارساز</string>
   <!--Upload retry-->
   <string name="save_changes">ذخیره‌کردن تغییرات</string>
   <!---->
@@ -89,7 +90,6 @@
   <string name="progress_searching_message">در حال جستجو… </string>
   <string name="progress_saving_message">در حال ذخیره‌سازی… </string>
   <string name="progress_uploading_message">در حال بارگذاری…</string>
-  <string name="progress_preset_message">در حال بارگیری پیش‌تنظیم…</string>
   <string name="progress_loading_preset_message">در حال بارگیری از پیش‌تنظیم‌شده...</string>
   <string name="progress_importing_file_message">در حال وارد کردن فایل…</string>
   <string name="progress_running_message">در حال اجرا…</string>
@@ -177,6 +177,7 @@
   <string name="toast_todo_already_in_list">عنصر در حال حاضر در این فهرست کارها قرار دارد</string>
   <string name="toast_no_open_todos">بدون کار ناتمام</string>
   <string name="toast_no_todos_in_list">هیچ کاری برای انجام شدن در لیست انتخاب شده وجود ندارد</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">احتیاط! </string>
   <string name="unsaved_data_message">اگر ادامه دهید تغییرات ذخیره‌نشده‌تان از بین می‌رود.</string>
@@ -288,7 +289,6 @@
   <string name="other">سایر</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">اعضای رابطه گمشده</string>
-  <string name="split_safe_message">راه‌های عضو ارتباط همسایه(کنار) دانلود نمی‌شود. حفظ نظم اعضای رابطه ممکن است به این موارد بستگی داشته باشد.</string>
   <!--JS console dialog-->
   <string name="evaluate">ارزیابی</string>
   <string name="js_console_msg_live">حالت زنده!</string>
@@ -305,6 +305,7 @@
   <string name="select_result">نتیجه را انتخاب کنید</string>
   <string name="merge_result">ادغام نتیجه</string>
   <string name="overpass_query_would_overwrite">نتیجه تغییرات را بازنویسی خواهد کرد! درخواست لغو شد.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">خطا</string>
   <string name="warning">هشدار</string>
@@ -338,7 +339,6 @@
   <string name="safe_mode_dialog_title">گزینه‌های حالت امن</string>
   <string name="safe_style_label">سبک داده را روی حداقل تنظیم کنید</string>
   <string name="safe_layer_label">غیرفعال کردن تمام لایه‌ها</string>
-  <string name="safe_state_label">حذف حالت ذخیره شده</string>
   <string name="safe_delete_state_title">وضعیت داده‌های ذخیره شده حذف شود؟</string>
   <string name="safe_delete_state_text">بله (قابل واگرد نیست)</string>
   <!--Empty relation dialog-->
@@ -504,7 +504,6 @@
   <string name="tip_mode_switching">دکمه قفل به عنوان تعویض‌کننده حالت دو برابر می‌شود، با فشار طولانی یک منو با گزینه‌های مختلف نشان داده می‌شود.&lt;p&gt;می‌توانید اطلاعات بیشتری در مورد حالت‌های وسپوچی در سیستم راهنما، هم در مقدمه و هم در راهنمای نمایش نقشه اصلی بیابید.</string>
   <string name="tip_empty_gpx_download">به دلیل یک ابهام در OSM API، نقطه شروع مسیر GPX باید در نظر گرفته شود تا برای دانلود پیدا شود.</string>
   <string name="tip_no_redo">این حالت در حال حاضر از انجام مجدد افزودن گره‌ها پشتیبانی نمی‌کند.</string>
-  <string name="tip_way_splitting">یک گره برجسته شده را برای تعیین موقعیت تقسیم لمس کنید. یک لمس طولانی به شما این امکان را می‌دهد که در مرحله بعدی انتخاب کنید کدام قسمت برای روش جدید استفاده می‌شود.</string>
   <string name="tip_closed_way_splitting">یک راه بسته باید به دو مکان تقسیم شود. برای تعیین موقعیت تقسیم 1، یک گره برجسته را لمس کنید، مرحله بعدی از شما می‌خواهد که موقعیت 2 را انتخاب کنید.</string>
   <string name="tip_disambiguation_menu">هنگامی که چندین عنصر OSM یا سایر اشیاء بسیار نزدیک به هم باشند یا عناصر عضو روابط باشند، منوی ابهام‌زدایی نمایش داده می‌شود. سپس می توانید عنصر خاصی را از لیست انتخاب کنید.&lt;p&gt;اگر عنصری در حال حاضر انتخاب شده باشد، برجسته می‌شود.</string>
   <!--NumberPicker-->
@@ -594,10 +593,6 @@
   <string name="toast_min_one_geocoder">حداقل یک کد جغرافیایی باید انتخاب شود!</string>
   <string name="toast_used_backup">پروندهٔ وضعیت خراب است. درعوض، پروندهٔ پشتیبان به کار رفت.</string>
   <string name="toast_used_bug_backup">پروندهٔ وضعیت باگ خراب است. درعوض، پروندهٔ پشتیبان به کار رفت.</string>
-  <string name="toast_split_from">راه from دو نیم شد</string>
-  <string name="toast_split_via">راه via دو نیم شد</string>
-  <string name="toast_split_from_and_via">راه from و via دو نیم شدند</string>
-  <string name="toast_split_to">راه to دو نیم شد</string>
   <string name="toast_tile_database_issue_short">مسئله با پایگاه‌دادهٔ کاشی</string>
   <string name="toast_tile_database_issue">مسئلهٔ جدی در پایگاه دادهٔ کاشی نقشه \n\"%1$s\"\n لطفاً به پرسش‌های متداول ما در https://vespucci.io/ مراجعه کنید</string>
   <string name="toast_tile_source_issue">مشکل جدی با منبع کاشی نقشه، به طور موقت غیرفعال است\n\"%1$s\"</string>
@@ -606,7 +601,6 @@
   <string name="toast_invalid_apiurl">‏API URL نامعتبر</string>
   <string name="toast_invalid_readonlyurl">‏ReadOnly API URL نامعتبر</string>
   <string name="toast_invalid_notesurl">‏API URL یادداشت‌ها نامعتبر است</string>
-  <string name="toast_invalid_preseturl">‏URL پیش‌تنظیم نامعتبر است</string>
   <string name="toast_missing_preset_file">پروندهٔ پیش‌تنظیم برای \"%1$s\" وجود ندارد</string>
   <string name="toast_invalid_filter_regexp">عبارت باقاعده در پالایه با key=\\"%1$s\\" value=\\"%2$s\\"‎ نامعتبر است</string>
   <string name="toast_error_accessing_photo">دسترسی به عکس %1$s ممکن نیست</string>
@@ -874,12 +868,10 @@
   <string name="no_nominatim_result">کارساز Nominatim، ‏%1$s را نیافت</string>
   <!--Menu-->
   <string name="menu_move">جابه‌جایی</string>
-  <string name="menu_edit">ويرايش</string>
   <string name="menu_add">جديد</string>
   <string name="menu_config">ترجیحات</string>
   <string name="menu_find">یافتن</string>
   <string name="menu_help">راهنما</string>
-  <string name="menu_view">نما</string>
   <string name="menu_erase">پاک‌کردن گره</string>
   <string name="menu_set_position">موقعیت</string>
   <string name="menu_split">دونیم‌کردن</string>
@@ -1135,6 +1127,7 @@
   <string name="config_presetbutton_title">پیش‌تنظیم‌ها</string>
   <string name="config_presetbutton_summary">افزودن و فعال‌سازی پیش‌تنظیم‌های سازگار با JOSM</string>
   <string name="config_built_in_preset">پیش‌تنظیم توکار</string>
+  <string name="config_keyboard_shortcuts_title">میانبُرهای صفحه‌کلید</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">تنظیمات اعتبارسنج</string>
   <string name="config_validatorprefs_summary">قواعد اعتبارسنجی را پیکربندی کنید.</string>
@@ -1271,6 +1264,8 @@
   <string name="config_maxCircleSegment_current">%1$d متر</string>
   <string name="config_minCircleSegment_current">%1$d متر</string>
   <string name="config_replaceTolerance_current">%1$d متر</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">تنظیمات بارگیری خودکار</string>
   <string name="config_category_auto_download_summary">تنظیمات بارگیری خودکار داده و وظیفه</string>
@@ -1394,21 +1389,14 @@
   <string name="geocoder_type">نوع زمین‌کدیاب</string>
   <!--preset downloader messages-->
   <string name="preset_update">به‌روزرسانی پیش‌تنظیم</string>
-  <string name="preset_download_successful">پیش‌تنظیم بارگیری شد</string>
-  <string name="preset_download_failed">بارگیری پروندهٔ پیش‌تنظیم ناموفق بود. پیش‌تنظیم کار نخواهد کرد.</string>
-  <string name="preset_download_parse_failed">پروندهٔ پیش‌تنظیم نامعتبر است. پیش‌تنظیم کار نخواهد کرد.</string>
   <string name="preset_download_missing_images">پروندهٔ پیش‌تنظیم بارگیری شد. البته چند شکلک ناموجود بارگیری نشد.</string>
-  <string name="preset_download_title">بارگیری کنندهٔ پیش‌تنظیم</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">افزودن پیش‌تنظیم</string>
-  <string name="urldialog_preset_exists">این پیش‌تنظیم از قبل وجود دارد</string>
-  <string name="urldialog_preset_download_successful">پیش‌تنظیم بارگیری شد.</string>
   <string name="urldialog_api_exists">یک API با این نشانی از قبل وجود دارد. البته، می‌توانید یکی دیگر بیفزایید (مثلاً برای جابه‌جایی آسان بین حساب‌ها).</string>
-  <string name="urldialog_add_api">افزودن API</string>
   <string name="urldialog_nodata_text">‏URL پیکربندی حاوی دادهٔ معتبر نیست.</string>
-  <string name="urldialog_add_geocoder">افزودن زمین‌کدیاب</string>
   <!--API configuration-->
   <string name="api_name">نام API</string>
   <string name="api_url">API URL</string>
@@ -1600,4 +1588,7 @@
   <string name="tile_success">موفقیت</string>
   <string name="tile_fail">شکست</string>
   <string name="tile_unknown_error">خطای ناشناخته</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">ذخیره</string>
+  <string name="keyboard_shortcut_reset">بازنشانی</string>
 </resources>

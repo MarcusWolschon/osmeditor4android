@@ -31,7 +31,6 @@
   <string name="local_object">本地版本</string>
   <string name="resolve_by">由解決衝突…</string>
   <string name="resolve">解決</string>
-  <string name="delete_refering_element">藉由刪除參照元素…</string>
   <string name="use_local_version">藉由使用本地版本…</string>
   <string name="merge_tags_in_to_local">藉由整併本地版本的標籤…</string>
   <string name="merge_tags_in_to_server">藉由整併伺服器版本的標籤…</string>
@@ -52,7 +51,6 @@
   <string name="upload_retry_message_unexpected_error">非預期的錯誤發現，目前嘗試瞭解變更集%1$d的狀態。</string>
   <string name="upload_retry_message_no_changeset_status">無法瞭解變更集%1$d的狀態。\n\n我們建議將你的變動儲存為 OCS 檔案，之後狀況排除後決定怎麼處理。</string>
   <string name="upload_retry_message_nothing_uploaded">變更集%1$d還沒有變動上傳。\n\n可以安全重試。</string>
-  <string name="upload_retry_message_all_uploaded">已經在變更集%1$d上傳成功，但是結果還沒有確認。\n\n然而，應該所有的變更都上傳了，所以你可以安全地拋棄本地變動並且重新下載。</string>
   <string name="upload_retry_message_partial_upload">已經在變更集%1$d上傳成功，但結果還沒有確認。</string>
   <string name="upload_retry_message_update_failed_title">上傳失敗</string>
   <string name="upload_retry_message_update_failed">無法更新資料，我們建議你先儲存你的變動到檔案之後再做處理。</string>
@@ -106,6 +104,8 @@
   <string name="download_limit_message">要下載更多資料請稍等</string>
   <string name="upload_limit_title">達到上傳限制</string>
   <string name="upload_limit_message">你已經過過目前的上傳量了，請稍等然後再次嘗試。</string>
+  <string name="upload_unavailable_title">服務無法存取</string>
+  <string name="upload_unavailable_message">服務可能暫時無法存取，請稍後再試一次。</string>
   <string name="duplicate_tag_key_title">重覆的鍵</string>
   <string name="duplicate_tag_key_message">你新增下列鍵超過一次，請先解決再繼續下去：</string>
   <string name="autodownload_has_been_paused">已經暫停自動下載</string>
@@ -170,7 +170,6 @@
   <string name="progress_searching_message">正在搜尋...</string>
   <string name="progress_saving_message">正在儲存…</string>
   <string name="progress_uploading_message">上傳中...</string>
-  <string name="progress_preset_message">下載預設組合</string>
   <string name="progress_loading_preset_message">載入預置…</string>
   <string name="progress_importing_file_message">匯入檔案…</string>
   <string name="progress_running_message">運作中...</string>
@@ -198,6 +197,7 @@
   <string name="upload_validation_error_empty_comment">註解不應該留空</string>
   <string name="upload_validation_error_empty_source">來源不應該留空</string>
   <string name="upload_empty_comment_warning_label">當註記空白時警告</string>
+  <string name="confirm_upload_custom_tags_page">自訂標籤</string>
   <string name="upload_auto_summary">自動產生摘要</string>
   <string name="untagged_node">沒有標籤的節點</string>
   <string name="untagged_way">沒有標籤的路徑</string>
@@ -270,6 +270,7 @@
   <string name="toast_no_open_todos">沒有開啟的待辦事項</string>
   <string name="toast_no_todos_in_list">選取清單沒有待辦事項</string>
   <string name="save_changes_title">儲存變動？</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存儲的變更，如果繼續將被丟棄。</string>
@@ -393,7 +394,6 @@
   <string name="other">其他</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">遺失關聯成員</string>
-  <string name="split_safe_message">附近關聯成員路徑並沒有下載，要維護關聯成員順序也許需要這些資訊。</string>
   <!--JS console dialog-->
   <string name="evaluate">評估</string>
   <string name="js_console_msg_live">Live 模式！</string>
@@ -410,6 +410,7 @@
   <string name="select_result">選擇結果</string>
   <string name="merge_result">合併結果</string>
   <string name="overpass_query_would_overwrite">結果會被覆寫掉！放棄檢索。</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -444,7 +445,6 @@
   <string name="safe_mode_dialog_title">安全模式選項</string>
   <string name="safe_style_label">設定資料樣式到最低度</string>
   <string name="safe_layer_label">取消所有圖層</string>
-  <string name="safe_state_label">移除已經儲存的狀態</string>
   <string name="safe_delete_state_title">要刪除儲存的資料狀態嗎？</string>
   <string name="safe_delete_state_text">是 (無法復原)</string>
   <!--Empty relation dialog-->
@@ -556,6 +556,7 @@
   <string name="photo_viewer_goto">到圖片</string>
   <string name="photo_viewer_label">照片觀看器</string>
   <string name="mapillary_viewer_label">Mapillary 觀看器</string>
+  <string name="photo_viewer_upload">上傳中…</string>
   <!--API info dialog-->
   <string name="api_info_bounds">邊界框</string>
   <string name="api_info_latest_date">最後包括的日期</string>
@@ -612,7 +613,6 @@
   <string name="tip_longpress_simple_mode">在簡單模式之下長按什麼事情都不會發生。如果要用長按方式來新增物件，則要在主選單關閉簡單模式。</string>
   <string name="tip_gpx_no_elevation">從版本 15 開始，GPX 軌跡預設將不會有海拔資訊。&lt;p&gt;要啟用海拔記錄，請在用&lt;i&gt;安裝 Geoid 模式。從工具選單安裝 EGM&lt;/i&gt; ，或是切換為 NMEA 輸入。</string>
   <string name="tip_tag_conflict">合併或回復 OSM 元件有時候需要改變元件的屬性，如果變動時有可能出現錯誤或衝突的話，你能手動審核有問題的元件。</string>
-  <string name="tip_replace_geometry">取代路徑的幾何通常需要移動既有節點的位置，如果這些節點都有標籤，表示他們本身代表物件，這可能不太妙。&lt;p&gt;要避免上述問題，我們從上層路徑截取沒有在容許範圍內的節點，然後顯示警告。你可以在進階設定調整容許值 (預設為1公尺)。</string>
   <string name="tip_gpx_recording">當你開始錄製 GPX 時，Vespucci 收集地點資訊，即便 app 在背景，仍然在錄製。強制關閉 app 或是停止 GPS 記錄，則會停止收集位置資料。</string>
   <string name="tip_auto_download">當你自動下載 OSM 資料或是任務時，Vespucci 運用位置資料來決定你所在位置，即便你 app 在背景執行。.&lt;p&gt;強制關閉 app 或是將自動下載關掉則會停止記錄位置資訊。</string>
   <string name="tip_tristate_checkbox">你剛弄到三相檢核框，就像一般檢核框，能夠在兩個值變動，例如說是/否，或是真/假。&lt;p&gt;然而這個有第三個狀態&lt;b&gt;沒有設定&lt;/b&gt; 狀態，用灰階的檢核框來顯示，不會在相關的標籤做出變動。你可以透過長按來設定檢核框的狀態。</string>
@@ -620,7 +620,6 @@
   <string name="tip_mode_switching">上鎖按鈕也是模式切換鍵，長按之後會顯示不同選項的選單。&lt;p&gt;你可以說明系統找到 Vespucci 不同模式的資訊，同樣也有在簡介與主要地圖畫面的說明都有。</string>
   <string name="tip_empty_gpx_download">由於 OSM API 的狀況，GPX 軌跡的開始點必須在檢視範圍而且能找到下載下來。</string>
   <string name="tip_no_redo">這個模式不支搜重做節點新增。</string>
-  <string name="tip_way_splitting">碰觸高亮度呈現的節點來決定分割位置，長按則會允許你選擇那個部分會在接下來的步驟成為新的路徑。</string>
   <string name="tip_closed_way_splitting">封閉路徑必須分割為兩部分，碰觸高度度呈現的節點來決定第一個分割位置，接下來則會詢問第二個位置。</string>
   <string name="tip_disambiguation_menu">當有多個 OSM 元素或其他物件相當靠近彼此，或是元素是關聯的成員，消歧義的選單就會出現。你可以從清單選擇精確的元素。&lt;p&gt; 如果已經有元素被選取則會高亮度顯示。</string>
   <string name="tip_file_import">在運行 Android 10 或者之後版本的裝置上，你必須複製檔案才會有完整權限。複製的檔案位於  &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;.，如果需要你可以刪除原檔只需要保留複製版本。</string>
@@ -661,6 +660,7 @@
   <string name="toast_save_failed">無法儲存</string>
   <string name="toast_export_failed">無法匯出</string>
   <string name="toast_export_success">已匯出到  %1$s</string>
+  <string name="toast_upload_to_success">成功上傳到%1$s</string>
   <plurals name="toast_preset_removed_or_replaced_tags">
     <item quantity="other">覆寫或是移除 %1$d標籤</item>
   </plurals>
@@ -679,6 +679,7 @@
   <string name="toast_download_failed">下載失敗，錯誤代碼是 %1$d，訊息為 %2$s</string>
   <string name="toast_note_reopened">已重新開放的註解</string>
   <string name="toast_untrusted_certificate">無法信任的憑證\n%1$s</string>
+  <string name="toast_element_may_have_been_moved">元素已經被移動</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">未勘測的路</string>
   <string name="toast_noname">道路缺少名稱或編號</string>
@@ -719,10 +720,6 @@
   <string name="toast_min_one_geocoder">至少必須選擇一個 geocoder！</string>
   <string name="toast_used_backup">已損壞狀況檔案，使用備份檔案替代。</string>
   <string name="toast_used_bug_backup">已損壞呈錯誤情況的檔案，使用備份檔案替代。</string>
-  <string name="toast_split_from">分離\"從\"路徑</string>
-  <string name="toast_split_via">分離\"經過\"路徑</string>
-  <string name="toast_split_from_and_via">分離\"從\"和\"經過\"路徑</string>
-  <string name="toast_split_to">分離\"到\"路徑</string>
   <string name="toast_tile_database_issue_short">圖磚資料庫問題</string>
   <string name="toast_tile_database_issue">關於地圖磚資料庫 \n\"%1$s\"\n 的嚴重問題，請參閱我們在 http://vespucci.io/ 的 FAQ</string>
   <string name="toast_tile_source_issue">地圖圖磚來源有重大問題，暫時取消\n\"%1$s\"</string>
@@ -731,7 +728,6 @@
   <string name="toast_invalid_apiurl">無效的 API 網址</string>
   <string name="toast_invalid_readonlyurl">無效的唯讀 API 網址</string>
   <string name="toast_invalid_notesurl">無效的註解 API 網址</string>
-  <string name="toast_invalid_preseturl">無效的預置網址</string>
   <string name="toast_missing_preset_file">\"%1$s\" 遺失預置檔案</string>
   <string name="toast_invalid_filter_regexp">篩選器無效的正規表示式，key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">無法讀取照片 %1$s</string>
@@ -847,6 +843,7 @@
   <string name="toast_panoramax_sequence_error">無法截取 panorama 序列編號%1$s編號%2$s</string>
   <string name="toast_panoramax_image_not_in_sequence_error">無法在序列當中找到影像編號%1$s</string>
   <string name="toast_panoramax_sequence_exception">無法取得 panoramax 序列\n%1$s</string>
+  <string name="toast_authorisation_successful">認證成功</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -946,6 +943,7 @@
   <string name="menu_top">頂點</string>
   <string name="menu_select_all">選取所有</string>
   <string name="menu_deselect_all">取消選取全部</string>
+  <string name="menu_invert_selection">反向選擇</string>
   <string name="menu_preset_help">預置幫助</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i18n">新增語言變體</string>
@@ -1016,12 +1014,10 @@
   <string name="no_nominatim_result">Nominatim 伺服器沒有找到 %1$s</string>
   <!--Menu-->
   <string name="menu_move">移動</string>
-  <string name="menu_edit">編輯</string>
   <string name="menu_add">新的</string>
   <string name="menu_config">參數選項</string>
   <string name="menu_find">找尋</string>
   <string name="menu_help">幫助</string>
-  <string name="menu_view">檢視</string>
   <string name="menu_erase">抹除節點</string>
   <string name="menu_set_position">位置</string>
   <string name="menu_split">拆分</string>
@@ -1179,10 +1175,17 @@
   <string name="menu_tools_background_contrast">對比</string>
   <string name="menu_tools_oauth_reset">重置認證機制</string>
   <string name="menu_tools_oauth_authorisation">以 OAuth 認證…</string>
+  <string name="menu_authorize">認證中…</string>
   <string name="menu_enable_tagfilter">標籤篩選</string>
   <string name="menu_enable_presetfilter">預置篩選</string>
   <string name="preset_menu_waynodes">包括路徑節點</string>
   <string name="preset_menu_invert">反轉篩選</string>
+  <string name="tag_filter_title">篩選：%1$s</string>
+  <string name="tag_filter_load">載入…</string>
+  <string name="tag_filter_new">新增…</string>
+  <string name="tag_filter_name">篩選名稱</string>
+  <string name="tag_filter_clear_confirmation">你真得要清除篩選的項目嗎？</string>
+  <string name="tag_filter_delete_confirmation">你真得要刪除這個篩選嗎？</string>
   <!--element action mode menu-->
   <string name="menu_tags">屬性</string>
   <!--ELement entry in context menu-->
@@ -1199,6 +1202,8 @@
   <string name="menu_reverse">反向</string>
   <string name="notreversable_description">該道路是有標記與屬性的，那是方向依據並且不能反向。反向道路將會破壞標簽。</string>
   <string name="reverse_anyway">仍然反向</string>
+  <string name="menu_add_new_image">新增新影像…</string>
+  <string name="menu_add_existing_image">新增既有影像…</string>
   <string name="deleteway_description">您即將刪除一條路徑。\n\n您可以保留所有節點，或者刪除只屬於這條路徑，並且沒有任何標籤的節點。</string>
   <string name="deleteway_relation_description">你即將刪除屬於一個或多個關聯當中成員的路徑，移除路徑意味著處理關聯可能無效。</string>
   <string name="deleteway_nodesnotdownloaded_description">路徑含有的節點位於下載區以外，所以無法在確保可能不穩定狀況下刪除。\n\n請先下載週邊區域再試一次。</string>
@@ -1300,6 +1305,7 @@
   <string name="config_presetbutton_title">預置</string>
   <string name="config_presetbutton_summary">增加並啟用 JOSM 相容的預置</string>
   <string name="config_built_in_preset">內建預設</string>
+  <string name="config_keyboard_shortcuts_title">鍵盤快速鍵</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">驗證器設定</string>
   <string name="config_validatorprefs_summary">設定驗證規則。</string>
@@ -1336,6 +1342,8 @@
   <string name="config_showTolerance_summary">在元件周圍顯示可以被選取的區域。</string>
   <string name="config_use_back_for_undo_title">用 ← 作取消復原</string>
   <string name="config_use_back_for_undo_summary">在主編輯檢視中，使用 ← 復原。</string>
+  <string name="config_imageLicence_title">影像授權條款</string>
+  <string name="config_imageLicence_summary">上傳影像所採用的授權條款</string>
   <string name="config_theme_title">主題</string>
   <string name="config_theme_summary">選擇 app 樣式。</string>
   <string name="config_splitActionBarEnabled_title">啟用拆分動作列</string>
@@ -1384,6 +1392,7 @@
   <string name="config_poi_keys_title">顯示附近興趣點</string>
   <string name="config_poi_keys_summary">設定顯示附近興趣點要設定的鍵。</string>
   <!--Camera and image settings-->
+  <string name="config_category_camera_and_images">鏡頭與影像設定</string>
   <string name="config_showCameraAction_title">顯示相機的動作</string>
   <string name="config_showCameraAction_summary">在動作列上顯示相機圖示。</string>
   <string name="config_selectCameraApp_title">相機 app</string>
@@ -1396,7 +1405,10 @@
   <string name="config_useInternalPhotoViewer_summary">使用內建照片檢視器，如果沒有勾選則會用外部檢視器。</string>
   <string name="config_indexMediaStore_summary">額外使用 MediaStore 來截取照片</string>
   <string name="config_indexMediaStore_title">使用 MediaStore</string>
+  <string name="config_addToMediaStore_summary">新增用鏡頭按鈕記錄影像到媒體儲存區。</string>
   <string name="config_addToMediaStore_title">新增影像到 MediaStore</string>
+  <string name="config_imageStores_summary">設定儲存影像的目的地。</string>
+  <string name="config_imageStores_title">影像儲存區</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
@@ -1451,6 +1463,8 @@
   <string name="config_replaceTolerance_title">移動有標籤節點的最大距離</string>
   <string name="config_replaceTolerance_summary">當取代路徑幾何時移動有標籤節點的最大距離。</string>
   <string name="config_replaceTolerance_current">%1$d公尺</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
   <string name="config_category_auto_download_summary">資料和任務自動下載的設定</string>
@@ -1583,24 +1597,20 @@
   <string name="manage_geocoders">管理 geocoders</string>
   <string name="listedit_supports_compressed_uploads">支援壓縮上傳</string>
   <string name="geocoder_type">geocoder 類型</string>
+  <string name="manage_image_stores">管理影像儲存區</string>
+  <string name="imagestore_type">影像儲存類別</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新預置</string>
-  <string name="preset_download_successful">預置已下載</string>
-  <string name="preset_download_failed">無法下載預置檔案，預置將無法運作。</string>
-  <string name="preset_download_parse_failed">預置檔案無效。預置將無法工作。</string>
   <string name="preset_download_missing_images">預載檔案已經下載，然後遺失的的圖示還未下載。</string>
-  <string name="preset_download_title">預置下載器</string>
   <!--preset management-->
-  <string name="preset_management_delete">真得要刪除預置？</string>
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
+  <string name="imagestores_add_from_panoramax_list">從 Panoramax 站點清單新增…</string>
+  <string name="imagestores_add_manually">手動新增…</string>
   <!--url handler activity-->
-  <string name="urldialog_add_preset">增加預置</string>
-  <string name="urldialog_preset_exists">此預置已存在</string>
-  <string name="urldialog_preset_download_successful">預置已下載。</string>
   <string name="urldialog_api_exists">這個 API 的網址已經存在。不過，您可以增加另一個 (例如，方便地切換帳號)。</string>
-  <string name="urldialog_add_api">增加 API</string>
   <string name="urldialog_nodata_text">組態 URL 未包含有效的資料。</string>
-  <string name="urldialog_add_geocoder">增加 geocoder</string>
   <!--API configuration-->
   <string name="api_name">API 名稱</string>
   <string name="api_url">API URL</string>
@@ -1609,10 +1619,18 @@
   <string name="copy_of">%1$s的複製物</string>
   <string name="choose_oauth_config">選擇 OAuth 設定</string>
   <!--image upload dialog-->
+  <string name="image_upload_title">選擇上傳目的地</string>
   <string name="image_upload">上傳</string>
+  <string name="image_upload_and_remove">上傳與移除</string>
+  <string name="image_upload_not_authorized">由於沒有取得目的地儲存的權限而上傳失數</string>
+  <string name="image_upload_failed_due_to">由於%3$s上傳失敗代碼為%1$d%2$s</string>
+  <string name="image_upload_failed">上傳失敗 %1$s</string>
+  <string name="wikimedia_meta_title">維基媒體中繼資料</string>
+  <string name="wikimedia_meta_filename">檔案名稱</string>
   <string name="wikimedia_meta_description">說明</string>
   <string name="wikimedia_meta_source">能量來源</string>
   <string name="wikimedia_meta_author">作者</string>
+  <string name="wikimedia_meta_licence">授權條款</string>
   <string name="wikimedia_meta_category">分類</string>
   <!--common terms-->
   <string name="add">增加</string>
@@ -1630,6 +1648,7 @@
   <string name="empty_list">無輸入</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">預置</string>
+  <string name="style">樣式</string>
   <string name="api">API</string>
   <string name="undo">復原</string>
   <string name="redo">取消復原</string>
@@ -1639,6 +1658,7 @@
   <string name="tracking_active_text">錄製 GPS 軌跡或是自動下載</string>
   <string name="tracking_long_text">Vespucci 正在錄製 GPX 軌跡或是自動下載，要徹底關閉的話請按下面的按鈕或是按 app 內的返回鍵。</string>
   <string name="gps_failure">啟用 GPS 失敗</string>
+  <string name="gps_service_start_failure">無法啟動 GPS 裝置，請再試一次。\n\n錯誤：%1$s</string>
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>
   <string name="address_housenumber_street">地址 %1$s%2$s</string>
@@ -1737,7 +1757,6 @@
   <string name="issue_split_route_ordering">路線也許需要手動調整順序</string>
   <string name="issue_split_area">區域已經分割，也許需要轉換為多重多邊形</string>
   <string name="issue_precondition_relation_member_count">超出關聯成員數目</string>
-  <string name="issue_replace_extracted_node">有標籤節點從路徑抽出</string>
   <string name="issue_replace_member_element_replaced">成員元件已經被取代</string>
   <!--time and distance-->
   <plurals name="days">
@@ -1800,4 +1819,7 @@
   <string name="tile_io_error">輸入輸出錯誤</string>
   <string name="tile_no_network">沒有網路</string>
   <string name="tile_unknown_error">未知的錯誤</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">儲存</string>
+  <string name="keyboard_shortcut_reset">重置</string>
 </resources>

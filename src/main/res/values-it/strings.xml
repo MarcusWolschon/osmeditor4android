@@ -31,7 +31,6 @@
   <string name="local_object">Versione locale</string>
   <string name="resolve_by">Risolvi conflitto…</string>
   <string name="resolve">Risolvi</string>
-  <string name="delete_refering_element">…eliminando l\'elemento che fa riferimento</string>
   <string name="use_local_version">…usando la versione locale</string>
   <string name="merge_tags_in_to_local">…unendo i tag nella versione locale</string>
   <string name="merge_tags_in_to_server">…unendo i tag nella versione server</string>
@@ -52,7 +51,6 @@
   <string name="upload_retry_message_unexpected_error">Errore inatteso durante la determinazione dello stato del gruppo di modifiche %1$d.</string>
   <string name="upload_retry_message_no_changeset_status">Impossibile determinare lo stato del gruppo di modifiche %1$d.\n\nTi consigliamo di salvare le tue modifiche in un file OCS e scegliere cosa fare quando avrai una ricezione migliore.</string>
   <string name="upload_retry_message_nothing_uploaded">Nessuna modifica è stata caricata nel gruppo di modifiche %1$d.\n\nPuoi riprovare in tutta sicurezza.</string>
-  <string name="upload_retry_message_all_uploaded">Le modifiche sono state caricate con successo nel gruppo di modifiche %1$d ma non è stato ricevuto il risultato.\n\nSembra comunque che le modifiche siano state caricate, pertanto puoi tranquillamente scartare le tue modifiche locali e scaricare di nuovo i dati.</string>
   <string name="upload_retry_message_partial_upload">Le modifiche sono state caricate con successo nel gruppo di modifiche %1$d ma non è stato ricevuto il risultato.</string>
   <string name="upload_retry_message_update_failed_title">Aggiornamento fallito</string>
   <string name="upload_retry_message_update_failed">Impossibile aggiornare i dati. Si consiglia di salvare le proprie modifiche in un file da usare successivamente.</string>
@@ -74,6 +72,7 @@
   <string name="not_found_message">L’API non ha trovato un elemento o gruppo di modifiche esistenti con l’id specificato.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Errore sconosciuto</string>
   <string name="unknown_error_message">Non è stato possibile processare il codice errore o il messaggio restituito dall’API.&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_http_code_message">Codice di errore HTTP: %1$d &lt;br&gt;Messaggio di errore:&lt;br&gt;&lt;br&gt;%2$s</string>
   <string name="no_data_title">Nessun dato</string>
   <string name="no_data_message">La fonte dei dati configurata non ha copertura qui.</string>
   <string name="required_feature_missing_title">Componente mancante o disabilitato</string>
@@ -105,6 +104,8 @@
   <string name="download_limit_message">Attendere prima di tentare di scaricare altri dati.</string>
   <string name="upload_limit_title">Superato il limite di caricamento sul server</string>
   <string name="upload_limit_message">Hai esaurito il limite attuale di caricamento dati sul server, attendi prima di tentare di nuovo.</string>
+  <string name="upload_unavailable_title">Servizio non disponibile</string>
+  <string name="upload_unavailable_message">Il servizio non è disponibile, probabilmente temporaneamente, attendi prima di tentare di nuovo.</string>
   <string name="duplicate_tag_key_title">Chiavi duplicate</string>
   <string name="duplicate_tag_key_message">Hai aggiunto la seguente chiave più di una volta, ciò deve essere risolto prima di procedere:</string>
   <string name="autodownload_has_been_paused">Il caricamento automatico è stato sospeso.</string>
@@ -121,8 +122,29 @@
   <string name="select_file_picker_title">Scegli file</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Benvenuti</string>
+  <string name="welcome_message">Grazie per aver installato Vespucci.\n&lt;br&gt;&lt;br&gt;Vespucci è uno strumento molto potente per modificare OpenStreetMap.
+        Supporta per dispositivi mobili quasi tutto ciò che puoi fare dal computer, ma questo è accompagnato da un particolare livello di complessità. 
+        Le pagine di aiuto sul dispositivo o online rispondono alla maggior parte delle domande. Se dovessi avere bisogno di ulteriore aiuto, raccomandiamo di chiedere nel forum comunitario di OpenStreetMap.
+        &lt;br&gt;&lt;br&gt;Per iniziare devi sapere tre cose:
+        &lt;ul&gt;&lt;li&gt;premendo l’icona del lucchetto nell’angolo in alto a sinistra passerai dalla modalità bloccata (nessuna modifica ammessa) a quella sbloccata.
+        &lt;/li&gt;&lt;li&gt;per aggiungere un nuovo oggetto, premi il grande pulsante verde e seleziona quello che vuoi aggiungere, poi premi nel punto in cui vuoi posizionarlo.
+        &lt;/li&gt;&lt;li&gt;per aprire la lista dei punti di interesse vicini, trascina verso l\'alto la barra sopra il menu che trovi in basso. 
+        &lt;/li&gt;&lt;/ul&gt;
+        Nella prossima pagina puoi impostare delle configurazioni che renderanno il tuo viaggio con Vespucci più piacevole.
+</string>
+  <string name="welcome_settings_tab_text">Per migliorare la tua esperienza iniziale, puoi configurare subito delle impostazioni,
+se preferisci, puoi saltare questo passo e configurare le singole impostazioni successivamente.</string>
+  <string name="welcome_use_imagery_text">VIsualizza immagini aeree\nper la tua posizione corrente</string>
   <string name="welcome_auto_download_text">Scarica automaticamente i dati</string>
+  <string name="welcome_pen_setup_text">Configura per l\'utilizzo di una penna o un mouse</string>
+  <string name="welcome_pen_setup_explanation">Se stai usando una penna, un mouse, o un altro strumento di puntamento,
+selezionare questa opzione renderà più semplice fare modifiche.
+</string>
   <string name="welcome_authorize_text">Autorizza adesso</string>
+  <string name="welcome_authorize_explanation">Devi permettere a Vespucci di caricare tramite la tua utenza OpenStreetMap.
+Se hai il tuo nome utente e la password a disposizione, puoi iniziare l\'autenticazione non appena avrai completato questo form,
+altrimenti il processo inizierà automaticamente la prima volta che caricherai delle modifiche.
+</string>
   <string name="read_introduction">Leggi l\'introduzione</string>
   <string name="welcome_start">Iniziamo!</string>
   <!---->
@@ -140,8 +162,7 @@
   <string name="progress_searching_message">Sto cercando...</string>
   <string name="progress_saving_message">Sto salvando...</string>
   <string name="progress_uploading_message">Caricamento in corso...</string>
-  <string name="progress_preset_message">Scaricamento dei predefiniti in corso...</string>
-  <string name="progress_loading_preset_message">Caricamento della impostazioni predefinite...</string>
+  <string name="progress_loading_preset_message">Caricamento delle impostazioni predefinite...</string>
   <string name="progress_importing_file_message">Importazione del file…</string>
   <string name="progress_running_message">In esecuzione...</string>
   <string name="progress_building_imagery_database">Generazione del database delle immagini…</string>
@@ -243,6 +264,7 @@
   <string name="toast_no_open_todos">nessuna lista di cose da fare attiva</string>
   <string name="toast_no_todos_in_list">Nessun elemento nella lista selezionata</string>
   <string name="save_changes_title">Salvare cambiamenti?</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Se procedi, le tue modifiche non salvate verranno scartate.</string>
@@ -373,6 +395,7 @@
   <string name="select_result">Seleziona risultato</string>
   <string name="merge_result">Unisci risultato</string>
   <string name="overpass_query_would_overwrite">Il risultato sovrascriverebbe le modifiche! Richiesta annullata.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Errore</string>
   <string name="warning">Attenzione</string>
@@ -403,6 +426,7 @@
   <string name="add_resurvey_entry">Aggiungi dati sopralluogo</string>
   <string name="add_check_entry">Aggiungi controllo inserimenti</string>
   <!--Safe mode dialog-->
+  <string name="safe_delete_state_text">Sì (non puoi tornare indietro)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Relazione vuota</string>
   <string name="empty_relation_message">La relazione %1$s non ha membri.\n\nSe la lasci così non potrai modificarla con Vespucci.</string>
@@ -649,17 +673,12 @@
   <string name="toast_min_one_geocoder">Deve essere selezionato almeno un geo-codificatore</string>
   <string name="toast_used_backup">File di stato corrotto, al suo posto è stato usato il file di recupero.</string>
   <string name="toast_used_bug_backup">File di stato dei bug corrotto, al suo posto è stato usato il file di recupero.</string>
-  <string name="toast_split_from">Percorso \"da\" diviso</string>
-  <string name="toast_split_via">Percorso \"via\" diviso</string>
-  <string name="toast_split_from_and_via">Percorsi \"da\" e \"via\" divisi</string>
-  <string name="toast_split_to">Percorso \"verso\" diviso</string>
   <string name="toast_tile_database_issue_short">Problema nel database dei tasselli</string>
   <string name="toast_tile_database_issue">Problema serio con il database dei tasselli per la mappa\n%1$s\nConsultare le nostre FAQ su https://vespucci.io/</string>
   <string name="toast_tile_source_issue">È accaduto un problema serio con la fonte dei tasselli della mappa, verrà disabilitato temporaneamente\n“%1$s”</string>
   <string name="toast_invalid_apiurl">URL dell\'API non valida</string>
   <string name="toast_invalid_readonlyurl">URL invalido per le API in sola lettura</string>
   <string name="toast_invalid_notesurl">Indirizzo delle API per le note non valido</string>
-  <string name="toast_invalid_preseturl">Indirizzo per i preset non valido</string>
   <string name="toast_missing_preset_file">File predefiniti mancante per “%1$s”</string>
   <string name="toast_invalid_filter_regexp">Espressione regolare non valida nel filtro con key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Impossibile accedere alla foto %1$s</string>
@@ -919,12 +938,10 @@
   <string name="no_nominatim_result">Il server Nominatim non ha trovato %1$s</string>
   <!--Menu-->
   <string name="menu_move">Sposta</string>
-  <string name="menu_edit">Modifica</string>
   <string name="menu_add">Nuovo</string>
   <string name="menu_config">Preferenze</string>
   <string name="menu_find">Trova</string>
   <string name="menu_help">Aiuto</string>
-  <string name="menu_view">Visualizza</string>
   <string name="menu_erase">Cancella nodo</string>
   <string name="menu_set_position">Posizione</string>
   <string name="menu_split">Dividi</string>
@@ -1182,6 +1199,7 @@
   <string name="config_presetbutton_title">Predefiniti</string>
   <string name="config_presetbutton_summary">Aggiungi e abilita le preimpostazioni compatibili con JOSM</string>
   <string name="config_built_in_preset">Predefinito di sistema</string>
+  <string name="config_keyboard_shortcuts_title">Scorciatoie da tastiera</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Impostazioni del validatore</string>
   <string name="config_validatorprefs_summary">Configura le regole di validazione.</string>
@@ -1304,6 +1322,8 @@
   <string name="config_maxCircleSegment_current">%1$d metro(i)</string>
   <string name="config_minCircleSegment_current">%1$d metro(i)</string>
   <string name="config_replaceTolerance_current">%1$d metro(i)</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Impostazioni per lo scaricamento automatico</string>
   <string name="config_category_auto_download_summary">Impostazioni per lo scaricamento automatico di dati e compiti</string>
@@ -1430,21 +1450,14 @@
   <string name="geocoder_type">Tipo di geo-codificatore</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aggiorna predefinito</string>
-  <string name="preset_download_successful">Preset scaricato</string>
-  <string name="preset_download_failed">Impossibile scaricare il file del preset. Il preset non funzionerà.</string>
-  <string name="preset_download_parse_failed">Il file dei predefiniti non è valido. I predefiniti non funzioneranno.</string>
   <string name="preset_download_missing_images">File del preset scaricati. Tuttavia, alcune icone mancanti non sono state scaricate.</string>
-  <string name="preset_download_title">Scaricatore dei predefiniti</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Aggiungi predefinito</string>
-  <string name="urldialog_preset_exists">Questo predefinito esiste già</string>
-  <string name="urldialog_preset_download_successful">Preset scaricato.</string>
   <string name="urldialog_api_exists">Una API con questa URL esiste già. Tuttavia, puoi aggiungerne un\'altra (e.g. per cambiare account facilmente).</string>
-  <string name="urldialog_add_api">Aggiungi API</string>
   <string name="urldialog_nodata_text">L\'URL di configurazione non contiene dati validi.</string>
-  <string name="urldialog_add_geocoder">Aggiungi geo-codificatore</string>
   <!--API configuration-->
   <string name="api_name">nome delle API</string>
   <string name="api_url">URL dell\'API</string>
@@ -1576,7 +1589,6 @@
   <string name="issue_split_metric">È stato diviso un valore che dipende dalla lunghezza</string>
   <string name="issue_split_route_ordering">Il percorso potrebbe richiedere un riordino manuale</string>
   <string name="issue_precondition_relation_member_count">Conteggio dei membri della relazione superato</string>
-  <string name="issue_replace_extracted_node">Nodo con etichette estratto dal percorso</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 giorno</item>
@@ -1646,4 +1658,7 @@
   <string name="tile_success">Successo</string>
   <string name="tile_fail">Fallimento</string>
   <string name="tile_unknown_error">Errore sconosciuto</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Salva</string>
+  <string name="keyboard_shortcut_reset">Ripristina</string>
 </resources>

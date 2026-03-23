@@ -99,7 +99,6 @@
   <string name="progress_searching_message">Etsitään...</string>
   <string name="progress_saving_message">Tallennetaan...</string>
   <string name="progress_uploading_message">Lähetetään...</string>
-  <string name="progress_preset_message">Ladataan esivalintaa...</string>
   <string name="progress_loading_preset_message">Ladataan esivalintaa...</string>
   <string name="progress_importing_file_message">Tuodaan tiedostoa...</string>
   <string name="progress_running_message">Suoritetaan...</string>
@@ -187,6 +186,7 @@
   <string name="toast_todo_already_in_list">Elementti on jo tässä tehtävälistassa</string>
   <string name="toast_no_open_todos">Ei tehtäviä avoinna</string>
   <string name="toast_no_todos_in_list">Ei tehtäviä valitussa listassa</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Varoitus!</string>
   <string name="unsaved_data_message">Tallentamattomat muokkaukset hylätään jos jatkat.</string>
@@ -296,7 +296,6 @@
   <string name="other">Muu</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">Puuttuva relaatiojäsen</string>
-  <string name="split_safe_message">Viereisiä relaatiojäsen-viivoja ei ole ladattu. Relaatiojäsenten järjestyksen säilyttäminen saattaa riippua niistä.</string>
   <!--JS console dialog-->
   <string name="evaluate">Suorita</string>
   <string name="js_console_msg_live">Suoramuokkaustila!</string>
@@ -313,6 +312,7 @@
   <string name="select_result">Valitse tulos</string>
   <string name="merge_result">Sulautuksen tulos</string>
   <string name="overpass_query_would_overwrite">Tulos menisi muutosten päälle! Haku keskeytetään.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Virhe</string>
   <string name="warning">Varoitus</string>
@@ -504,7 +504,6 @@
   <string name="tip_mode_switching">Lukkopainikkeella voi vaihtaa myös muokkaustilaa. Pitkä painallus avaa eri vaihtoehdot näyttävän valikon.&lt;p&gt;Lisätietoja Vespuccin muokkaustiloista on ohjesivuilla – sekä esittelyssä että pääkarttanäkymän ohjeessa.</string>
   <string name="tip_empty_gpx_download">OSM-APIn pienen omituisuuden vuoksi GPX-jäljen alkupisteen pitää olla näkymässä, jotta se löytyisi ladattavaksi.</string>
   <string name="tip_no_redo">Tässä tilassa ei toistaiseksi ole mahdollista toistaa pisteiden lisäyksiä.</string>
-  <string name="tip_way_splitting">Osoita jakokohta koskettamalla jotain korostettua pistettä. Pitkä kosketus antaa sinun valita kummasta osasta tehdään uusi viiva.</string>
   <string name="tip_closed_way_splitting">Suljettu viiva täytyy jakaa kahdesta kohdasta. Osoita 1. jakokohta koskettamalla jotain korostettua pistettä, ja seuraavassa vaiheessa sinulta kysytään 2. jakokohta.</string>
   <string name="tip_disambiguation_menu">Kun useita OSM-elementtejä tai muita kohteita on hyvin lähellä toisiaan tai elementit ovat relaation jäseniä, näytölle avautuu täsmennysikkuna. Ikkunan listasta voi sitten valita haluamansa elementin.&lt;p&gt;Elementit, jotka ovat parhaillaan valittuja, näytetään listassa korostettuina.</string>
   <!--NumberPicker-->
@@ -594,16 +593,11 @@
   <string name="toast_min_one_geocoder">Ainakin yhden geokooderin pitää olla valittuna.</string>
   <string name="toast_used_backup">Vioittunut tilatiedosto, käytettiin varmuuskopiota.</string>
   <string name="toast_used_bug_backup">Vioittunut virhetilatiedosto, käytettiin varmuuskopiota.</string>
-  <string name="toast_split_from">From-viiva jaettiin kahtia</string>
-  <string name="toast_split_via">Via-viiva jaettiin kahtia</string>
-  <string name="toast_split_from_and_via">From- ja via-viivat jaettiin kahtia</string>
-  <string name="toast_split_to">To-viiva jaettiin kahtia</string>
   <string name="toast_tile_database_issue_short">Ongelma laattatietokannassa</string>
   <string name="toast_tile_database_issue">Laattatietokannassa on vakava ongelma:\n\"%1$s\"\nKatso ohjeita sivultamme osoitteesta https://vespucci.io/</string>
   <string name="toast_invalid_apiurl">APIn URL on virheellinen</string>
   <string name="toast_invalid_readonlyurl">APIn ReadOnly-URL on virheellinen</string>
   <string name="toast_invalid_notesurl">APIn Notes-URL on virheellinen</string>
-  <string name="toast_invalid_preseturl">Esivalinta-URL on virheellinen</string>
   <string name="toast_missing_preset_file">Esivalintatiedostoa \"%1$s\" ei ole</string>
   <string name="toast_invalid_filter_regexp">Virheellinen säännöllinen lauseke suodattimessa, jossa avain=\"%1$sja \" arvo=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Valokuvaa %1$s ei voida lukea</string>
@@ -867,12 +861,10 @@
   <string name="no_nominatim_result">Nominatim-palvelin ei löytänyt sijaintia %1$s</string>
   <!--Menu-->
   <string name="menu_move">Siirrä</string>
-  <string name="menu_edit">Muokkaa</string>
   <string name="menu_add">Uusi</string>
   <string name="menu_config">Asetukset</string>
   <string name="menu_find">Etsi</string>
   <string name="menu_help">Ohje</string>
-  <string name="menu_view">Näytä</string>
   <string name="menu_erase">Poista piste</string>
   <string name="menu_set_position">Sijainti</string>
   <string name="menu_split">Jaa kahtia</string>
@@ -1129,6 +1121,7 @@
   <string name="config_presetbutton_title">Esivalinnat</string>
   <string name="config_presetbutton_summary">Lisää ja ota käyttöön JOSM-yhteensopivia esivalintoja</string>
   <string name="config_built_in_preset">Valmiit esivalinnat</string>
+  <string name="config_keyboard_shortcuts_title">Pikanäppäimet</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Tarkistimen asetukset</string>
   <string name="config_validatorprefs_summary">Määritä tarkistimen säännöt</string>
@@ -1262,6 +1255,8 @@
   <string name="config_maxCircleSegment_current">%1$d metri(ä)</string>
   <string name="config_minCircleSegment_current">%1$d metri(ä)</string>
   <string name="config_replaceTolerance_current">%1$d metri(ä)</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Automaattisen latauksen asetukset</string>
   <string name="config_category_auto_download_summary">Automaattisen datan ja tehtävien latauksen asetukset.</string>
@@ -1382,21 +1377,14 @@
   <string name="geocoder_type">Geokooderin tyyppi</string>
   <!--preset downloader messages-->
   <string name="preset_update">Päivitä esivalinta</string>
-  <string name="preset_download_successful">Esivalinta ladattu</string>
-  <string name="preset_download_failed">Esivalintatiedostoa ei voitu ladata. Esivalintaa ei voi käyttää.</string>
-  <string name="preset_download_parse_failed">Esivalintatiedosto on virheellinen. Esivalintaa ei voi käyttää.</string>
   <string name="preset_download_missing_images">Esivalintatiedosto ladattiin onnistuneesti. Osaa kuvakkeista ei kuitenkaan voitu ladata, ja ne tulevat puuttumaan.</string>
-  <string name="preset_download_title">Esivalintojen lataus</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Lisää esivalinta</string>
-  <string name="urldialog_preset_exists">Tämä esivalinta on jo olemassa</string>
-  <string name="urldialog_preset_download_successful">Esivalinta ladattu.</string>
   <string name="urldialog_api_exists">Tässä URLissa oleva API on jo olemassa. Voit kuitenkin lisätä toisen (esim. helpottamaan tilin vaihtamista).</string>
-  <string name="urldialog_add_api">Lisää API</string>
   <string name="urldialog_nodata_text">Määritys-URLissa ei ole kelvollista dataa.</string>
-  <string name="urldialog_add_geocoder">Lisää geokooderi</string>
   <!--API configuration-->
   <string name="api_name">APIn nimi</string>
   <string name="api_url">APIn URL</string>
@@ -1588,4 +1576,7 @@
   <string name="tile_success">Onnistui</string>
   <string name="tile_fail">Ei onnistunut</string>
   <string name="tile_unknown_error">Tuntematon virhe</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Tallentaminen</string>
+  <string name="keyboard_shortcut_reset">Palauta</string>
 </resources>

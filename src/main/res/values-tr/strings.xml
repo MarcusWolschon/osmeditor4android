@@ -81,7 +81,6 @@
   <string name="progress_searching_message">Aranıyor...</string>
   <string name="progress_saving_message">Kaydediliyor...</string>
   <string name="progress_uploading_message">Yükleniyor...</string>
-  <string name="progress_preset_message">Ön ayarları indiriliyor...</string>
   <string name="progress_running_message">Çalıştırılıyor...</string>
   <string name="progress_building_imagery_database">Görüntü veritabanı oluşturuluyor…</string>
   <string name="progress_query_oam">OAM sorgulanıyor</string>
@@ -139,6 +138,7 @@
   <string name="maproulette_task_no_apikey">MapRoulette API anahtarı yok</string>
   <!--Todo dialogs-->
   <string name="todo_comment_legend">Yorum</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Dikkat!</string>
   <string name="unsaved_data_message">Devam ederseniz kaydedilmemiş değişiklikleriniz atılır.</string>
@@ -243,6 +243,7 @@
   <string name="js_console_msg_debug">Hata ayıklama kipi!</string>
   <string name="console_output_hint">Çıktı burada görünecek</string>
   <!--Overpass console-->
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Hata</string>
   <string name="warning">Uyarı</string>
@@ -463,16 +464,11 @@
   <string name="toast_min_one_geocoder">En az bir coğrafi kodlayıcı seçilmelidir!</string>
   <string name="toast_used_backup">Bozuk durum dosyası, bunun yerine yedekleme dosyası kullanıldı.</string>
   <string name="toast_used_bug_backup">Bozuk hata durumu dosyası, bunun yerine yedekleme dosyası kullanıldı.</string>
-  <string name="toast_split_from">Yol \"dan\" ayrılındı</string>
-  <string name="toast_split_via">Yol \"aracılığıyla\" ayrıldı</string>
-  <string name="toast_split_from_and_via">Yold \"dan\" ve \"aracılığıyla\" ayrıldı</string>
-  <string name="toast_split_to">Yol \"a\" ayrılındı</string>
   <string name="toast_tile_database_issue_short">Döşeme veritabanı sorunu</string>
   <string name="toast_tile_database_issue">Harita döşeme veritabanıyla ilgili ciddi sorun \n \"%1$s\" \nLütfen https://vespucci.io/ adresindeki SSS bölümümüze bakın.</string>
   <string name="toast_invalid_apiurl">Geçersiz API URL\'si</string>
   <string name="toast_invalid_readonlyurl">Geçersiz Salt-Okunur API URL</string>
   <string name="toast_invalid_notesurl">Geçersiz not API URL</string>
-  <string name="toast_invalid_preseturl">Geçersiz önceden ayarlanmış URL</string>
   <string name="toast_invalid_filter_regexp">\"%1$s\"değer=\"%2$s\" anahtarlı filtrede geçersiz normal ifade</string>
   <string name="toast_error_accessing_photo">%1$s fotoğrafına erişilemiyor</string>
   <string name="toast_security_error_accessing_photo">Fotoğrafa erişime izin verilmiyor %1$s</string>
@@ -698,12 +694,10 @@
   <string name="no_nominatim_result">Nominatim sunucusu %1$s\'ı bulamadı</string>
   <!--Menu-->
   <string name="menu_move">Taşı</string>
-  <string name="menu_edit">Düzenle</string>
   <string name="menu_add">Yeni</string>
   <string name="menu_config">Tercihler</string>
   <string name="menu_find">Bul</string>
   <string name="menu_help">Yardım</string>
-  <string name="menu_view">Göster</string>
   <string name="menu_erase">Düğümü sil</string>
   <string name="menu_set_position">Pozisyon</string>
   <string name="menu_split">Böl</string>
@@ -904,6 +898,7 @@
   <string name="config_presetbutton_title">Öntanımlılar</string>
   <string name="config_presetbutton_summary">JOSM uyumlu öntanımlı ekle ve etkinleştir</string>
   <string name="config_built_in_preset">Dahili ön ayar</string>
+  <string name="config_keyboard_shortcuts_title">Klavye kısayolları</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Doğrulayıcı ayarları</string>
   <string name="config_validatorprefs_summary">Doğrulama kurallarını yapılandırın.</string>
@@ -999,6 +994,8 @@
   <string name="config_maxCircleSegment_current">%1$d metre</string>
   <string name="config_minCircleSegment_current">%1$d metre</string>
   <string name="config_replaceTolerance_current">%1$d metre</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Otomatik indirme ayarları</string>
   <string name="config_category_auto_download_summary">Veri ve görevi otomatik indirme ayarları</string>
@@ -1094,21 +1091,14 @@
   <string name="geocoder_type">Geocoder türü</string>
   <!--preset downloader messages-->
   <string name="preset_update">Öntanımlıyı güncelle</string>
-  <string name="preset_download_successful">Önayar indirildi</string>
-  <string name="preset_download_failed">Önayar dosyası indirilemedi. Önayar çalışmaz</string>
-  <string name="preset_download_parse_failed">Öntanımlı dosya geçersiz. Öntanımlı çalışmayabilir.</string>
   <string name="preset_download_missing_images">Önayar dosyası indirildi. Ancak, bazı eksik simgeler yoktu.</string>
-  <string name="preset_download_title">Önayar indirici</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
   <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Önayar ekle</string>
-  <string name="urldialog_preset_exists">Önayar zaten var</string>
-  <string name="urldialog_preset_download_successful">Önayar indirildi</string>
   <string name="urldialog_api_exists">API URL zaten var. Fakat, başka bir tane eklemek isteyebilirsiniz (örn. hesaplar arasında kolay geçmek için)</string>
-  <string name="urldialog_add_api">API ekle</string>
   <string name="urldialog_nodata_text">Yapılandırma URL si geçerli veri içermiyor.</string>
-  <string name="urldialog_add_geocoder">Geocoder ekle</string>
   <!--API configuration-->
   <string name="api_name">API ismi</string>
   <string name="api_url">API URL</string>
@@ -1261,4 +1251,7 @@
   <!--Element names with id-->
   <!--Tile downloader diagnostics-->
   <string name="tile_unknown_error">Bilinmeyen hata</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Kaydet</string>
+  <string name="keyboard_shortcut_reset">Sıfırla</string>
 </resources>
