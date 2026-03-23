@@ -1530,7 +1530,7 @@
     <string name="config_minMoveVisibleWayNodesWarning_title">Min. way node count for visible node move warning</string>
     <string name="config_minMoveVisibleWayNodesWarning_summary">The minimum number of nodes a way needs to have to trigger the visible node check and potential warning.</string>
     <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
-    <string name="config_ignoreSubareas_summary">Don't display parent relations of subareas in the disambiguation modal.</string>
+    <string name="config_ignoreSubareas_summary">Don\'t display parent relations of subareas in the disambiguation modal.</string>
     <string name="config_ignoreSubareas_title">Ignore subareas</string>
     <!-- Auto-download settings -->
     <string name="config_category_auto_download">Auto-download settings</string>
