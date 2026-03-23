@@ -35,7 +35,7 @@
     <string name="local_object">Local version</string>
     <string name="resolve_by">Resolve conflict by…</string>
     <string name="resolve">Resolve</string>
-    <string name="delete_refering_element">… by deleting the refering element</string>
+    <string name="delete_refering_element">… by deleting the referring element</string>
     <string name="use_local_version">… by using the local version</string>
     <string name="merge_tags_in_to_local">… merging tags in to the local version</string>
     <string name="merge_tags_in_to_server">… merging tags in to the server version</string>
@@ -57,7 +57,7 @@
     <string name="upload_retry_message_unexpected_error">Unexpected error trying to determine status of changeset %1$d.</string>
     <string name="upload_retry_message_no_changeset_status">Unable to determine status of changeset %1$d.\n\nWe suggest saving your changes as an OCS file and determining what to do when you have better reception.</string>
     <string name="upload_retry_message_nothing_uploaded">No changes have been uploaded in changeset %1$d.\n\nIt is safe to retry.</string>
-    <string name="upload_retry_message_all_uploaded">Changes were uploaded successfully in changeset %1$d, but result was not received.\n\nHowever it seems as if all changes were uploaded, so you can safely discard you local changes and re-download.</string>
+    <string name="upload_retry_message_all_uploaded">Changes were uploaded successfully in changeset %1$d, but result was not received.\n\nHowever it seems as if all changes were uploaded, so you can safely discard your local changes and re-download.</string>
     <string name="upload_retry_message_partial_upload">Changes were uploaded successfully in changeset %1$d, but result was not received.</string>
     <string name="upload_retry_message_update_failed_title">Update failed</string>
     <string name="upload_retry_message_update_failed">Unable to update data. We suggest saving your changes to a file for later use.</string>
@@ -412,7 +412,7 @@
     <string name="validation_other_is_empty">If other is selected you must provide a value!</string>
     <!-- Safe split dialog -->
     <string name="split_safe_title">Missing relation members</string>
-    <string name="split_safe_message">Neigbour relation member ways are not downloaded. Maintaining relation members ordering may depend on these.</string>
+    <string name="split_safe_message">Neighbour relation member ways are not downloaded. Maintaining relation members ordering may depend on these.</string>
     <!-- JS console dialog  -->
     <string name="evaluate">Evaluate</string>
     <string name="js_console_msg_live">Live mode!</string>
@@ -647,7 +647,7 @@
     <string name="tip_longpress_simple_mode">In simple mode a long press will not do anything. Turn simple mode off in the main menu if you want to use long clicks to create objects.</string>
     <string name="tip_gpx_no_elevation">Starting with version 15, GPX tracks no longer contain elevation information by default.&lt;p&gt;To enable elevation recording, install a Geoid model with &lt;i&gt;Install EGM&lt;/i&gt; from the Tools menu, or switch to NMEA input.</string>
     <string name="tip_tag_conflict">Merging and reversing OSM elements sometimes requires changing attributes on the elements, if there is a potential error or conflict you are alerted to this and are offered an opportunity to review the objects in question.</string>
-    <string name="tip_replace_geometry">Replacing the geometry of a way often requires moving the position of existing nodes, if these are tagged, that is they represent objects themselves or are connected to other ways, this might be undesireable.&lt;p&gt;To avoid this problem we extract nodes that are not within a small tolerance radius from the parent way and display a warning. You can adjust the tolerance (default 1m) in the advanced preferences.</string>
+    <string name="tip_replace_geometry">Replacing the geometry of a way often requires moving the position of existing nodes, if these are tagged, that is they represent objects themselves or are connected to other ways, this might be undesirable.&lt;p&gt;To avoid this problem we extract nodes that are not within a small tolerance radius from the parent way and display a warning. You can adjust the tolerance (default 1m) in the advanced preferences.</string>
     <string name="tip_gpx_recording">When you start GPX recording Vespucci collects location data to enable the GPX recording even when the app is not visible.&lt;p&gt;Explicitly closing the application or turning GPX recording off will stop the use of location data in such situations.</string>
     <string name="tip_auto_download">When you start auto-downloading OSM data or tasks Vespucci utilizes location data to determine the current position even when the app is not visible.&lt;p&gt;Explicitly closing the application or turning auto-downloading off will stop the use of location data in such situations.</string>
     <string name="tip_tristate_checkbox">You just touched a tristate checkbox, these work just as normal checkboxes, toggling between two values, for example yes/no or true/false.&lt;p&gt;However they have an additional third &lt;b&gt;not set&lt;/b&gt; state, indicated by a greyed out checkbox which will stop the corresponding tag from being added. You can set the checkbox to this state with a long press.</string>
@@ -766,10 +766,10 @@
     <string name="toast_min_one_style">One style has to be selected!</string>
     <string name="toast_used_backup">Corrupted state file, used backup file instead.</string>
     <string name="toast_used_bug_backup">Corrupted bug state file, used backup file instead.</string>
-    <string name="toast_split_from">Splitted \"from\" way</string>
-    <string name="toast_split_via">Splitted \"via\" way</string>
-    <string name="toast_split_from_and_via">Splitted \"from\" and \"via\" ways</string>
-    <string name="toast_split_to">Splitted \"to\" way</string>
+    <string name="toast_split_from">Split \"from\" way</string>
+    <string name="toast_split_via">Split \"via\" way</string>
+    <string name="toast_split_from_and_via">Split \"from\" and \"via\" ways</string>
+    <string name="toast_split_to">Split \"to\" way</string>
     <string name="toast_tile_database_issue_short">Tile database issue</string>
     <string name="toast_tile_database_issue">Serious issue with map tile database\n"%1$s"\nPlease consult our FAQ at https://vespucci.io/</string>
     <string name="toast_tile_source_issue">Serious issue with map tile source, temporarily disabled\n"%1$s"</string>
@@ -1675,7 +1675,7 @@
     <string name="preset_update">Update preset</string>
     <string name="resource_download_successful">Resource downloaded</string>
     <string name="resource_load_successful">Resource loaded</string>
-    <string name="resource_download_failed">Could not download resouce file. The resource will not work.</string>
+    <string name="resource_download_failed">Could not download resource file. The resource will not work.</string>
     <string name="preset_download_parse_failed">The resource file is invalid. The resource will not work.</string>
     <string name="preset_download_missing_images">Preset file downloaded. However, some missing icons were not.</string>
     <string name="resource_download_title">Resource downloader</string>
