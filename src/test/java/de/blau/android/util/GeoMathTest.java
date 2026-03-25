@@ -244,11 +244,12 @@ public class GeoMathTest {
     }
 
     /**
-     * Check that latToMercator throws an exception for out of bounds values
+     * Check that latToMercator returns a large finite value for out of bounds values
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void latToMercatorOutOfBounds() {
-        GeoMath.latToMercator(GeoMath.MAX_COMPAT_LAT + 0.1);
+        assertEquals(1000.0, GeoMath.latToMercator(GeoMath.MAX_COMPAT_LAT + 0.1), 0.1);
+        assertEquals(-1000.0, GeoMath.latToMercator(-GeoMath.MAX_COMPAT_LAT - 0.1), 0.1);
     }
 
     private class TestPoint implements GeoPoint {
