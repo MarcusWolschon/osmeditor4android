@@ -112,7 +112,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private static final String WHERE_URL   = "url = ?";
     private static final String WHERE_ROWID = "rowid = ?";
 
-    private static final String TEMP_TABLE = "temp";
+    public static final String TEMP_TABLE = "temp";
 
     private static final String CANNOT_DELETE_DEFAULT = "Cannot delete default";
 
@@ -368,7 +368,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      */
     public static void migrateTable(@NonNull SQLiteDatabase db, String origTable, String tempTable) {
         db.execSQL("BEGIN TRANSACTION");
-        db.execSQL("INSERT INTO " + tempTable + " SELECT * FROM " + origTable);
+        db.execSQL("INSERT OR IGNORE INTO " + tempTable + " SELECT * FROM " + origTable);
         db.execSQL("DROP TABLE " + origTable);
         db.execSQL("ALTER TABLE " + tempTable + " RENAME TO " + origTable);
         db.execSQL("COMMIT");

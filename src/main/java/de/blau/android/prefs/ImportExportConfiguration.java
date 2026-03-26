@@ -1,6 +1,22 @@
 package de.blau.android.prefs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+import static de.blau.android.prefs.AdvancedPrefDatabase.ACCESSTOKENSECRET_COL;
+import static de.blau.android.prefs.AdvancedPrefDatabase.ACCESSTOKEN_COL;
+import static de.blau.android.prefs.AdvancedPrefDatabase.APIS_TABLE;
+import static de.blau.android.prefs.AdvancedPrefDatabase.DATABASE_NAME;
+import static de.blau.android.prefs.AdvancedPrefDatabase.GEOCODERS_TABLE;
+import static de.blau.android.prefs.AdvancedPrefDatabase.ID_DEFAULT;
+import static de.blau.android.prefs.AdvancedPrefDatabase.ID_OHM;
+import static de.blau.android.prefs.AdvancedPrefDatabase.ID_PANORAMAX_DEV;
+import static de.blau.android.prefs.AdvancedPrefDatabase.ID_SANDBOX;
+import static de.blau.android.prefs.AdvancedPrefDatabase.ID_WIKIMEDIA_COMMONS;
+import static de.blau.android.prefs.AdvancedPrefDatabase.IMAGESTORES_TABLE;
+import static de.blau.android.prefs.AdvancedPrefDatabase.PRESETS_TABLE;
+import static de.blau.android.prefs.AdvancedPrefDatabase.STYLES_TABLE;
+import static de.blau.android.resources.TileLayerDatabase.HEADERS_TABLE;
+import static de.blau.android.resources.TileLayerDatabase.LAYERS_TABLE;
+import static de.blau.android.resources.TileLayerDatabase.SOURCE_MANUAL;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -118,21 +134,19 @@ public final class ImportExportConfiguration {
             serializer.startDocument(OsmXml.UTF_8, null);
             serializer.startTag(null, CONFIGURATION);
             sharedPreferences(ctx, serializer);
-            sqlite(ctx, AdvancedPrefDatabase.DATABASE_NAME, AdvancedPrefDatabase.APIS_TABLE,
-                    " where id not in (" + "'" + AdvancedPrefDatabase.ID_DEFAULT + "'," + "'" + AdvancedPrefDatabase.ID_SANDBOX + "'," + "'"
-                            + AdvancedPrefDatabase.ID_OHM + "')",
-                    Arrays.asList(AdvancedPrefDatabase.ACCESSTOKEN_COL, AdvancedPrefDatabase.ACCESSTOKENSECRET_COL), false, serializer);
-            sqlite(ctx, AdvancedPrefDatabase.DATABASE_NAME, AdvancedPrefDatabase.IMAGESTORES_TABLE,
-                    " where id not in (" + "'" + AdvancedPrefDatabase.ID_WIKIMEDIA_COMMONS + "'," + "'" + AdvancedPrefDatabase.ID_PANORAMAX_DEV + "')", null,
-                    false, serializer);
-            sqlite(ctx, AdvancedPrefDatabase.DATABASE_NAME, AdvancedPrefDatabase.PRESETS_TABLE, " where id != '" + AdvancedPrefDatabase.ID_DEFAULT + "'", null,
-                    false, serializer);
-            sqlite(ctx, AdvancedPrefDatabase.DATABASE_NAME, AdvancedPrefDatabase.GEOCODERS_TABLE, "", null, false, serializer);
-            sqlite(ctx, AdvancedPrefDatabase.DATABASE_NAME, AdvancedPrefDatabase.LAYERS_TABLE, "", null, true, serializer);
-            sqlite(ctx, AdvancedPrefDatabase.DATABASE_NAME, AdvancedPrefDatabase.STYLES_TABLE, " where custom = 1", null, false, serializer);
-            //
-            sqlite(ctx, TileLayerDatabase.DATABASE_NAME, TileLayerDatabase.LAYERS_TABLE, " where source='" + TileLayerDatabase.SOURCE_MANUAL + "'", null, false,
+            sqlite(ctx, DATABASE_NAME, APIS_TABLE, " where id not in (" + "'" + ID_DEFAULT + "'," + "'" + ID_SANDBOX + "'," + "'" + ID_OHM + "')",
+                    Arrays.asList(ACCESSTOKEN_COL, ACCESSTOKENSECRET_COL), false, serializer);
+            sqlite(ctx, DATABASE_NAME, IMAGESTORES_TABLE, " where id not in (" + "'" + ID_WIKIMEDIA_COMMONS + "'," + "'" + ID_PANORAMAX_DEV + "')", null, false,
                     serializer);
+            sqlite(ctx, DATABASE_NAME, PRESETS_TABLE, " where id != '" + ID_DEFAULT + "'", null, false, serializer);
+            sqlite(ctx, DATABASE_NAME, GEOCODERS_TABLE, "", null, false, serializer);
+            sqlite(ctx, DATABASE_NAME, AdvancedPrefDatabase.LAYERS_TABLE, "", null, true, serializer);
+            sqlite(ctx, DATABASE_NAME, STYLES_TABLE, " where custom = 1", null, false, serializer);
+            //
+            sqlite(ctx, TileLayerDatabase.DATABASE_NAME, LAYERS_TABLE, " where source='" + SOURCE_MANUAL + "'", null, false, serializer);
+            sqlite(ctx, TileLayerDatabase.DATABASE_NAME, HEADERS_TABLE,
+                    "," + LAYERS_TABLE + " where " + HEADERS_TABLE + ".id=" + LAYERS_TABLE + ".id AND " + LAYERS_TABLE + ".source='" + SOURCE_MANUAL + "'",
+                    null, false, serializer);
             // filter names need to be set before the entries
             sqlite(ctx, TagFilterDatabaseHelper.DATABASE_NAME, TagFilterDatabaseHelper.FILTER_NAME_TABLE, "", null, false, serializer);
             sqlite(ctx, TagFilterDatabaseHelper.DATABASE_NAME, TagFilterDatabaseHelper.FILTERENTRIES_TABLE, "", null, false, serializer);
