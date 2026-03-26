@@ -278,7 +278,7 @@ public class Main extends ConfigurationChangeAwareActivity
     private final class ConnectivityChangedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
                 Log.d("ConnectivityChanged...", "Received broadcast");
                 if (getEasyEditManager().isProcessingAction()) {
                     getEasyEditManager().invalidate();
