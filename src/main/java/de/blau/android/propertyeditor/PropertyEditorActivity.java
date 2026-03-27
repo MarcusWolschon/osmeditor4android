@@ -234,10 +234,11 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         PropertyEditorFragment<M, L, T> existing = peekBackStack(fm);
 
         String tag = java.util.UUID.randomUUID().toString();
-        if (existing != null) {
-            ft.hide(existing);
+        if (existing != null) {           
             if (!existing.hasChanges() && attemptReplace) {
                 fm.popBackStackImmediate();
+            } else {
+                ft.hide(existing);
             }
         }
         PropertyEditorFragment<M, L, T> fragment = PropertyEditorFragment.newInstance(data, predictAddressTags, showPresets, extraTags, presetsToApply,
