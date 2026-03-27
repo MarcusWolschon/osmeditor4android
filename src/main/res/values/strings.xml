@@ -578,6 +578,7 @@
     <string name="errors">Errors</string>
     <string name="layer_info_layer_not_available">Layer information not available</string>
     <string name="layer_info_no_meta_data">Meta data not loaded</string>
+    <string name="layer_info_custom_headers">Custom headers</string>
     <!--  Mapillary layer -->
     <string name="mapillary_image">%1$s</string>
     <!-- Date range dialog -->
