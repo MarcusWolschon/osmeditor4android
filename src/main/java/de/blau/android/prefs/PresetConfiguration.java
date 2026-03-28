@@ -32,6 +32,7 @@ public class PresetConfiguration extends ResourceConfiguration {
     public PresetConfiguration(@NonNull String id, @NonNull String name, @Nullable String version, @Nullable String shortDescription,
             @Nullable String description, @NonNull String url, @NonNull String lastUpdate, boolean active, boolean useTranslations) {
         super(id, name, description, version, url, lastUpdate);
+        setActive(active);
         this.shortDescription = shortDescription;
         this.useTranslations = useTranslations;
     }
