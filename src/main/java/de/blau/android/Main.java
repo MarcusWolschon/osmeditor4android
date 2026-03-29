@@ -3727,7 +3727,7 @@ public class Main extends ConfigurationChangeAwareActivity
             final Logic logic = App.getLogic();
             final EasyEditManager manager = getEasyEditManager();
             clickedNodesAndWays = manager.filterElementsLongClick(getClickedOsmElements(logic, x, y));
-            int elementCount = clickedNodesAndWays.size();
+            final int elementCount = clickedNodesAndWays.size();
             if (logic.isUiLocked()) {
                 // display context menu
                 getClickedObjects(x, y);

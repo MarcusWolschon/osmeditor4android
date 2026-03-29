@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
+import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
 import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
@@ -87,6 +89,13 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
     }
 
     @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        super.onCreateActionMode(mode, menu);
+        logic.getClickableElements().add(way);
+        return true;
+    }
+
+    @Override
     public boolean handleElementClick(OsmElement element) { // NOSONAR
         // due to clickableElements, only valid nodes can be clicked
         super.handleElementClick(element);
@@ -129,6 +138,11 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
     }
 
     @Override
+    public List<OsmElement> filterElementsLongClick(List<OsmElement> nodesAndWays) {
+        return WaySplittingActionModeCallback.preferNodeOverWaysFilter(nodesAndWays);
+    }
+
+    @Override
     public boolean handleElementLongClick(@NonNull OsmElement element, float x, float y) {
         super.handleElementLongClick(element, x, y);
         if (way.equals(element)) {
@@ -136,6 +150,11 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
             return true;
         }
         Sound.beep();
+        return true;
+    }
+
+    @Override
+    public boolean usesLongClick() {
         return true;
     }
 
