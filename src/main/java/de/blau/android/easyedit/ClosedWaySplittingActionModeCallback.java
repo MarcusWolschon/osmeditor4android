@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.R;
 import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
@@ -91,6 +92,7 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         super.onCreateActionMode(mode, menu);
+        mode.setSubtitle(R.string.actionmode_closed_way_split_long_click_2);
         logic.getClickableElements().add(way);
         return true;
     }
