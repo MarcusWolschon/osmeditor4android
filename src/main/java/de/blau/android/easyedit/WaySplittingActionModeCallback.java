@@ -151,6 +151,26 @@ public class WaySplittingActionModeCallback extends AbortableWayActionModeCallba
         return true;
     }
 
+    // only return ways if there is no Node in the list
+    @Override
+    public List<OsmElement> filterElementsLongClick(List<OsmElement> nodesAndWays) {
+        if (nodesAndWays.size() == 1) {
+            return nodesAndWays;
+        }
+        Node node = null;
+        for (OsmElement e : nodesAndWays) {
+            if (e instanceof Node) {
+                node = (Node) e;
+                break;
+            }
+        }
+        if (node != null) {
+            nodesAndWays.clear();
+            nodesAndWays.add(node);
+        }
+        return nodesAndWays;
+    }
+
     @Override
     public boolean usesLongClick() {
         return true;

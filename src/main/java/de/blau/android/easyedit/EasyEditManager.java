@@ -567,6 +567,18 @@ public class EasyEditManager {
     }
 
     /**
+     * If an action mode is active call its filterElementsLongClick method
+     * 
+     * @param nodesAndWays the elements to filter
+     * @return if there is an action mode active the filtered results, otherwise the original list
+     */
+    public List<OsmElement> filterElementsLongClick(@NonNull List<OsmElement> nodesAndWays) {
+        synchronized (actionModeCallbackLock) {
+            return currentActionModeCallback != null ? currentActionModeCallback.filterElementsLongClick(nodesAndWays) : nodesAndWays;
+        }
+    }
+
+    /**
      * Show the context menu programmatically
      * 
      * This is slightly complicated because Android will always show a menu on long press if one has been created
@@ -575,7 +587,7 @@ public class EasyEditManager {
         synchronized (actionModeCallbackLock) {
             contextMenuEnabled = true;
         }
-        main.showDisambiguationMenu();
+        main.showDisambiguationMenu(this);
     }
 
     /**

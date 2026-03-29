@@ -3709,7 +3709,7 @@ public class Main extends ConfigurationChangeAwareActivity
                     clickedObjects.get(0).onSelected(Main.this);
                     break;
                 default:
-                    showDisambiguationMenu(v, x, y);
+                    showDisambiguationMenu(getEasyEditManager(), v, x, y);
                     break;
                 }
             }
@@ -3725,7 +3725,8 @@ public class Main extends ConfigurationChangeAwareActivity
         @Override
         public boolean onLongClick(final View v, final float x, final float y) {
             final Logic logic = App.getLogic();
-            clickedNodesAndWays = getClickedOsmElements(logic, x, y);
+            final EasyEditManager manager = getEasyEditManager();
+            clickedNodesAndWays = manager.filterElementsLongClick(getClickedOsmElements(logic, x, y));
             int elementCount = clickedNodesAndWays.size();
             if (logic.isUiLocked()) {
                 // display context menu
@@ -3739,7 +3740,7 @@ public class Main extends ConfigurationChangeAwareActivity
                         ElementInfo.showDialog(Main.this, clickedNodesAndWays.get(0));
                     }
                 } else if (itemCount > 1) {
-                    showDisambiguationMenu(v, x, y);
+                    showDisambiguationMenu(manager, v, x, y);
                 }
                 return true;
             }
@@ -3747,7 +3748,6 @@ public class Main extends ConfigurationChangeAwareActivity
                 ScreenMessage.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
                 return false;
             }
-            final EasyEditManager manager = getEasyEditManager();
             if (prefs.areSimpleActionsEnabled()) {
                 if (manager.usesLongClick()) {
                     if (elementCount == 1 && manager.handleLongClick(v, clickedNodesAndWays.get(0), x, y)) {
@@ -3755,7 +3755,7 @@ public class Main extends ConfigurationChangeAwareActivity
                     }
                     if (elementCount > 1) {
                         longClick = true; // another ugly flag
-                        showDisambiguationMenu(v, x, y);
+                        showDisambiguationMenu(manager, v, x, y);
                         return true;
                     }
                 } // fall through to beep
@@ -3837,8 +3837,8 @@ public class Main extends ConfigurationChangeAwareActivity
          * @param y the click-position on the display.
          */
         private void performEdit(Mode mode, final View v, final float x, final float y) {
-            final EasyEditManager easyEditMgr = getEasyEditManager();
-            if (easyEditMgr.actionModeHandledClick(x, y)) {
+            final EasyEditManager manager = getEasyEditManager();
+            if (manager.actionModeHandledClick(x, y)) {
                 return;
             }
             Logic logic = App.getLogic();
@@ -3855,7 +3855,7 @@ public class Main extends ConfigurationChangeAwareActivity
             case 0:
                 // no elements were touched
                 if (inEasyEditMode) {
-                    easyEditMgr.nothingTouched(false);
+                    manager.nothingTouched(false);
                 }
                 break;
             case 1:
@@ -3866,7 +3866,7 @@ public class Main extends ConfigurationChangeAwareActivity
                     return;
                 }
                 if (clickedNodesAndWays.size() == 1) {
-                    editClickedOsmElement(easyEditMgr, inEasyEditMode);
+                    editClickedOsmElement(manager, inEasyEditMode);
                     return;
                 }
                 String debugString = "performEdit can't find what was clicked " + filter;
@@ -3876,10 +3876,10 @@ public class Main extends ConfigurationChangeAwareActivity
             default:
                 // multiple possible elements touched - show menu
                 if (menuRequired()) {
-                    showDisambiguationMenu(v, x, y);
+                    showDisambiguationMenu(manager, v, x, y);
                     return;
                 }
-                editClickedOsmElement(easyEditMgr, inEasyEditMode);
+                editClickedOsmElement(manager, inEasyEditMode);
                 break;
             }
         }
@@ -3926,7 +3926,7 @@ public class Main extends ConfigurationChangeAwareActivity
          * @param x x screen coordinate
          * @param y y screen coordinate
          */
-        public void onCreateDefaultDisambiguationMenu(@NonNull final DisambiguationMenu menu, float x, float y) {
+        private void onCreateDefaultDisambiguationMenu(@NonNull final DisambiguationMenu menu, float x, float y) {
             int id = 0;
             if (!clickedObjects.isEmpty()) {
                 for (final ClickedObject<?> co : clickedObjects) {
@@ -4059,7 +4059,7 @@ public class Main extends ConfigurationChangeAwareActivity
                     // multiple possible elements touched - show menu
                     Log.d(DEBUG_TAG, "onDoubleTap displaying menu");
                     doubleTap = true; // ugly flag
-                    showDisambiguationMenu(v, x, y);
+                    showDisambiguationMenu(manager, v, x, y);
                 } else if (logic.getMode().elementsGeomEditable()) {
                     // menuRequired tells us it's ok to just take the first one
                     manager.startExtendedSelection(clickedNodesAndWays.get(0));
@@ -4087,13 +4087,14 @@ public class Main extends ConfigurationChangeAwareActivity
         /**
          * Create and show the disambiguation menu
          * 
+         * @param manager the current EasyEditManager instance
          * @param view the current anchor view
          * @param x x screen coordinate
          * @param y y screen coordinate
          */
-        public void showDisambiguationMenu(@NonNull View view, float x, float y) {
+        private void showDisambiguationMenu(@NonNull EasyEditManager manager, @NonNull View view, float x, float y) {
             DisambiguationMenu menu = new DisambiguationMenu(view);
-            if (!getEasyEditManager().createDisambiguationMenu(menu)) {
+            if (!manager.createDisambiguationMenu(menu)) {
                 onCreateDefaultDisambiguationMenu(menu, x, y);
             }
             menu.show();
@@ -4103,9 +4104,11 @@ public class Main extends ConfigurationChangeAwareActivity
 
     /**
      * Create and show the disambiguation menu
+     * 
+     * @param manager a EasyEditManager instance
      */
-    public void showDisambiguationMenu() {
-        mapTouchListener.showDisambiguationMenu(getMap(), -1f, -1f);
+    public void showDisambiguationMenu(@NonNull EasyEditManager manager) {
+        mapTouchListener.showDisambiguationMenu(manager, getMap(), -1f, -1f);
     }
 
     /**
