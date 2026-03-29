@@ -64,7 +64,6 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     private Set<OsmElement> cachedAppendableNodes;
     private Set<OsmElement> cachedViaElements;
     private MenuItem        addressItem;
-    private MenuItem        splitItem;
     private MenuItem        mergeItem;
     private MenuItem        appendItem;
     private MenuItem        restrictionItem;
@@ -133,7 +132,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
 
         menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_reverse));
 
-        splitItem = menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_split));
+        menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_split));
 
         mergeItem = menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
 
@@ -179,8 +178,6 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         boolean closed = way.isClosed();
 
         updated |= setItemVisibility(way.hasTagKey(Tags.KEY_BUILDING) && !way.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER), addressItem, false);
-
-        updated |= setItemVisibility(size > 2, splitItem, false);
 
         updated |= setItemVisibility(!cachedMergeableWays.isEmpty(), mergeItem, false);
 

@@ -316,6 +316,16 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     }
 
     /**
+     * Default implementation that simply returns the list unchanged
+     * 
+     * @param nodesAndWays List of OSMElements to filter
+     * @return a potentially filtered List of elements
+     */
+    public List<OsmElement> filterElementsLongClick(List<OsmElement> nodesAndWays) {
+        return nodesAndWays;
+    }
+
+    /**
      * Finds which ways can be merged with a way. For this, the ways must not be equal, need to share at least one end
      * node, and either at least one of them must not have tags, or the tags on both ways must be equal.
      * 

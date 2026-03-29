@@ -1292,9 +1292,10 @@
     <string name="actionmode_split_closed_way">Split closed way</string>
     <string name="actionmode_rotate">Rotate</string>
     <!-- EasyEdit action mode sub-titles -->
-    <string name="actionmode_closed_way_split_1">Select 1st node</string>
+    <string name="actionmode_closed_way_split_1">Select 1st node or long click</string>
     <string name="actionmode_closed_way_split_2">Select 2nd node</string>
-    <string name="actionmode_split_way_node_selection">Select node</string>
+    <string name="actionmode_closed_way_split_long_click_2">Select 2nd node or long click</string>
+    <string name="actionmode_split_way_node_selection">Select node or long click</string>
     <string name="actionmode_split_way_select_part">Select part for new way</string>
     <string name="actionmode_select_node_to_append_to">Select node to append to</string>
     <string name="actionmode_restriction">Add turn restriction</string>

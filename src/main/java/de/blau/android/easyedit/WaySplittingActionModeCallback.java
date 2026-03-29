@@ -152,6 +152,35 @@ public class WaySplittingActionModeCallback extends AbortableWayActionModeCallba
     }
 
     @Override
+    public List<OsmElement> filterElementsLongClick(List<OsmElement> nodesAndWays) {
+        return preferNodeOverWaysFilter(nodesAndWays);
+    }
+
+    /**
+     * Static filter so that we can call this from other action modes
+     * 
+     * @param nodesAndWays nodesAndWays List of OSMElements to filter
+     * @return if a Node is present return just that otherwise simply the contents
+     */
+    static List<OsmElement> preferNodeOverWaysFilter(List<OsmElement> nodesAndWays) {
+        if (nodesAndWays.size() == 1) {
+            return nodesAndWays;
+        }
+        Node node = null;
+        for (OsmElement e : nodesAndWays) {
+            if (e instanceof Node) {
+                node = (Node) e;
+                break;
+            }
+        }
+        if (node != null) {
+            nodesAndWays.clear();
+            nodesAndWays.add(node);
+        }
+        return nodesAndWays;
+    }
+
+    @Override
     public boolean usesLongClick() {
         return true;
     }
