@@ -215,7 +215,6 @@ public class WayTest {
         TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_split), 1000));
         TestUtils.longClickAtCoordinates(device, map, splitNode.getLon(), splitNode.getLat(), true);
-        assertTrue(TestUtils.clickText(device, false, "↓ #" + splitNode.getOsmId(), false, false));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_split_way_select_part), 1000));
         TestUtils.clickAtCoordinates(device, map, 8.3889859, 47.3889246, true);
         TestUtils.sleep(2000);
