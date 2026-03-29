@@ -510,7 +510,7 @@ public class Logic {
      */
     @Nullable
     public String undo(boolean updateUI) {
-        return postUndo(getDelegator(), getDelegator().getUndo().undo(), updateUI);
+        return postUndoRedo(getDelegator(), getDelegator().getUndo().undo(), updateUI);
     }
 
     /**
@@ -521,7 +521,7 @@ public class Logic {
      */
     @Nullable
     public String undo(int checkpoint) {
-        return postUndo(getDelegator(), getDelegator().getUndo().undo(checkpoint), true);
+        return postUndoRedo(getDelegator(), getDelegator().getUndo().undo(checkpoint), true);
     }
 
     /**
@@ -532,7 +532,7 @@ public class Logic {
      * @param updateUI update selection etc
      * @return checkpoint name or null if none available
      */
-    private String postUndo(@NonNull final StorageDelegator delegator, @Nullable Checkpoint undone, boolean updateUI) {
+    private String postUndoRedo(@NonNull final StorageDelegator delegator, @Nullable Checkpoint undone, boolean updateUI) {
         Selection.Ids ids = undone != null ? undone.getSelection() : null;
         if (updateUI && ids != null && map != null && map.getContext() instanceof Main) {
             Main main = (Main) map.getContext();
@@ -565,9 +565,7 @@ public class Logic {
      */
     @Nullable
     public String redo() {
-        String name = getDelegator().getUndo().redo();
-        getDelegator().dirty();
-        return name;
+        return postUndoRedo(getDelegator(), getDelegator().getUndo().redo(), true);
     }
 
     /**
@@ -578,16 +576,14 @@ public class Logic {
      */
     @Nullable
     public String redo(int checkpoint) {
-        String name = getDelegator().getUndo().redo(checkpoint);
-        getDelegator().dirty();
-        return name;
+        return postUndoRedo(getDelegator(), getDelegator().getUndo().redo(checkpoint), true);
     }
 
     /**
      * Undo without creating a redo checkpoint
      */
     public void rollback() {
-        postUndo(getDelegator(), getDelegator().getUndo().undo(false), true);
+        postUndoRedo(getDelegator(), getDelegator().getUndo().undo(false), true);
     }
 
     /**

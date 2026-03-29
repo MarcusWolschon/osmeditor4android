@@ -407,20 +407,20 @@ public class UndoStorage implements Serializable {
      * Performs an redo operation, restoring the state at the next redo checkpoint. A new undo checkpoint is
      * automatically created. If no checkpoint is available, an error is logged and the function does nothing.
      * 
-     * @return the name of the redo checkpoint used, or null if no checkpoint was available
+     * @return the redo checkpoint used, or null if no checkpoint was available
      */
     @Nullable
-    public String redo() {
+    public Checkpoint redo() {
         if (!canRedo()) {
             Log.e(DEBUG_TAG, "Attempted to redo, but no redo checkpoints available");
             return null;
         }
-        final Checkpoint lastRedo = redoCheckpoints.getLast();
+        final Checkpoint lastRedo = redoCheckpoints.removeLast();
         String name = lastRedo.getName();
         Checkpoint reundoPoint = new Checkpoint(name, lastRedo.getSelection());
-        redoCheckpoints.removeLast().restore(reundoPoint);
+        lastRedo.restore(reundoPoint);
         undoCheckpoints.add(reundoPoint);
-        return name;
+        return lastRedo;
     }
 
     /**
@@ -428,20 +428,20 @@ public class UndoStorage implements Serializable {
      * automatically created. If no checkpoint is available, an error is logged and the function does nothing.
      * 
      * @param index index of the checkpoint to redo
-     * @return the name of the redo checkpoint used, or null if no checkpoint was available
+     * @return the redo checkpoint used, or null if no checkpoint was available
      */
     @Nullable
-    public String redo(int index) {
+    public Checkpoint redo(int index) {
         if (!canRedo()) {
             Log.e(DEBUG_TAG, "Attempted to redo, but no redo checkpoints available");
             return null;
         }
-        final Checkpoint checkpoint = redoCheckpoints.get(index);
+        final Checkpoint checkpoint = redoCheckpoints.remove(index);
         String name = checkpoint.getName();
         Checkpoint reundoPoint = new Checkpoint(name, checkpoint.getSelection());
-        redoCheckpoints.remove(index).restore(reundoPoint);
+        checkpoint.restore(reundoPoint);
         undoCheckpoints.add(reundoPoint);
-        return name;
+        return checkpoint;
     }
 
     /**
