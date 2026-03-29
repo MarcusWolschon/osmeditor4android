@@ -1068,16 +1068,21 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     /**
      * Gets the data path for a resource with the given ID
      * 
+     * Will prefer creating new resources in the "external" app private storage
+     * 
      * @param id the id for the resource
      * @return the resource data path
      */
     @NonNull
     public File getResourceDirectory(@Nullable String id) {
-        if (id == null || "".equals(id)) {
+        if (Util.isEmpty(id)) {
             throw new IllegalOperationException("Attempted to get folder for null or empty id!");
         }
-        File rootDir = context.getFilesDir();
-        return new File(rootDir, id);
+        File resource = new File(context.getFilesDir(), id);
+        if (resource.exists()) {
+            return resource;
+        }
+        return new File(context.getExternalFilesDir(null), id);
     }
 
     /**
