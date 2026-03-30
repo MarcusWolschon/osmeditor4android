@@ -199,6 +199,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @return the UndoStorage, allowing operations like creation of checkpoints and undo/redo.
      */
+    @NonNull
     public UndoStorage getUndo() {
         return undo;
     }
