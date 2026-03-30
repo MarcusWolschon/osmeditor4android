@@ -48,8 +48,8 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 |                           | shadow         |         |
 |                           | pathPattern    |         | Reference to a pattern to apply along the path, one of "triangle_left", "triangle_right", "border_left", "border_right"
 |                           | minVisibleZoom |      15 | Minimum zoom that has to be reached before the element is rendered
-|                           | casingStyle    |         | Reference to a style to use for casing
-|                           | arrowStyle     |         | Reference to a style to use for way arrows                          
+|                           | casingStyle    |         | Reference to a style to use for casing, setting this to "" will remove inherited values
+|                           | arrowStyle     |         | Reference to a style to use for way arrows, setting this to "" will remove inherited values                 
 |                           | oneway         |         | Set this on the referenced arrowStyle if it should have oneway semantics
 |                           | labelKey       |         | Tag key to use as label if present, magic value "preset" will use the preset name.
 |                           | labelZoomLimit |    none | List for displaying labels on ways, if not set no label will be displayed
