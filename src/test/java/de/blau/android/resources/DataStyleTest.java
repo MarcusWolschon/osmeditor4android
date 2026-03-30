@@ -79,6 +79,31 @@ public class DataStyleTest {
         style = styles.matchStyle(w);
         assertEquals(Tags.KEY_ADDR_HOUSENUMBER, style.getLabelKey());
     }
+    
+    /**
+     * Check that setting casingStyle to "" resets it
+     */
+    @Test
+    public void casingResetTest() {
+        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
+        final StorageDelegator delegator = App.getDelegator();
+        Way w = addWayToStorage(delegator, true);
+        Map<String, String> tags = new TreeMap<>();
+        tags.put(Tags.KEY_HIGHWAY, Tags.VALUE_MOTORWAY);
+        delegator.setTags(w, tags);
+        assertEquals(1, styles.getStyleList(ApplicationProvider.getApplicationContext()).length);
+        assertEquals(DataStyleManager.getBuiltinStyleName(), styles.getCurrent().getName());
+        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        assertEquals(5, styles.getStyleList(ApplicationProvider.getApplicationContext()).length);
+        styles.switchTo("Color Round Nodes");
+        assertEquals("Color Round Nodes", styles.getCurrent().getName());
+        FeatureStyle style = styles.matchStyle(w);
+        assertNotNull(style.getCasingStyle());
+        tags.put(Tags.KEY_TUNNEL, Tags.VALUE_YES);
+        delegator.setTags(w, tags);
+        style = styles.matchStyle(w);
+        assertNull(style.getCasingStyle());
+    }
 
     /**
      * Load a custom style besides the standard ones
