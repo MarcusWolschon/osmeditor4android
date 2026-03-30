@@ -488,6 +488,7 @@ public class Logic {
      * 
      * @return the UndoStorage, allowing operations like creation of checkpoints and undo/redo.
      */
+    @NonNull
     public UndoStorage getUndo() {
         return getDelegator().getUndo();
     }
@@ -510,7 +511,7 @@ public class Logic {
      */
     @Nullable
     public String undo(boolean updateUI) {
-        return postUndoRedo(getDelegator(), getDelegator().getUndo().undo(), updateUI);
+        return postUndoRedo(getDelegator(), getUndo().undo(), updateUI);
     }
 
     /**
@@ -521,7 +522,7 @@ public class Logic {
      */
     @Nullable
     public String undo(int checkpoint) {
-        return postUndoRedo(getDelegator(), getDelegator().getUndo().undo(checkpoint), true);
+        return postUndoRedo(getDelegator(), getUndo().undo(checkpoint), true);
     }
 
     /**
