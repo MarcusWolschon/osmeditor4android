@@ -182,16 +182,17 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     private MultiHashMap<Long, RelationMemberPosition> originalParents;
     private ArrayList<RelationMemberDescription>       originalMembers;
 
-    private Preferences        prefs         = null;
+    private Preferences        prefs           = null;
     private ExtendedViewPager  mViewPager;
-    private boolean            usePaneLayout = false;
-    private boolean            isRelation    = false;
+    private boolean            usePaneLayout   = false;
+    private boolean            isRelation      = false;
     private NetworkStatus      networkStatus;
-    private List<String>       isoCodes      = null;
+    private List<String>       isoCodes        = null;
     private ControlListener    controlListener;
     private PageChangeListener pageChangeListener;
     private Capabilities       capabilities;
     private int                position;
+    private Bundle             actionModeState = new Bundle();
 
     /**
      * Run these actions when we everything is restored
@@ -437,21 +438,27 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden) {
-            Log.d(DEBUG_TAG, "onHiddenChanged");
-            if (elementDeleted()) {
-                ScreenMessage.toastTopWarning(getContext(), R.string.toast_element_has_been_deleted);
-                App.getLogic().getHandler().post(() -> controlListener.finished(this));
-                return;
+        Log.d(DEBUG_TAG, "onHiddenChanged " + hidden);
+        final SelectableRowsFragment[] fragments = new SelectableRowsFragment[] { tagEditorFragment, relationMembershipFragment, relationMembersFragment };
+        if (hidden) {
+            for (SelectableRowsFragment f : fragments) {
+                if (f != null) {
+                    f.saveActionModeState(actionModeState);
+                    f.finishActionMode();
+                }
             }
-            if (tagEditorFragment != null) {
-                tagEditorFragment.onDataUpdate();
-            }
-            if (relationMembersFragment != null) {
-                relationMembersFragment.onDataUpdate();
-            }
-            if (relationMembershipFragment != null) {
-                relationMembershipFragment.onDataUpdate();
+            return;
+        }
+        if (elementDeleted()) {
+            ScreenMessage.toastTopWarning(getContext(), R.string.toast_element_has_been_deleted);
+            App.getLogic().getHandler().post(() -> controlListener.finished(this));
+            return;
+        }
+        for (SelectableRowsFragment f : fragments) {
+            if (f != null) {
+                ((DataUpdate) f).onDataUpdate();
+                f.onViewStateRestored(actionModeState);
+                f.restartActionMode();
             }
         }
     }
@@ -1559,5 +1566,16 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             capabilities = server.getCachedCapabilities();
         }
         return capabilities;
+    }
+
+    /**
+     * Finish any active action modes
+     */
+    public void finishActionMode() {
+        for (SelectableRowsFragment f : new SelectableRowsFragment[] { tagEditorFragment, relationMembershipFragment, relationMembersFragment }) {
+            if (f != null) {
+                f.finishActionMode();
+            }
+        }
     }
 }
