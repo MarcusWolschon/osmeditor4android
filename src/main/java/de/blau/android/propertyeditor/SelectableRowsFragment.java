@@ -22,6 +22,8 @@ public abstract class SelectableRowsFragment extends BaseFragment implements Pro
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, SelectableRowsFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = SelectableRowsFragment.class.getSimpleName().substring(0, TAG_LEN);
 
+    private static final String FRAGMENT_NAME = "fragmentName";
+
     protected SelectedRowsActionModeCallback actionModeCallback     = null;
     protected final Object                   actionModeCallbackLock = new Object();
 
@@ -30,8 +32,9 @@ public abstract class SelectableRowsFragment extends BaseFragment implements Pro
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null && savedInstanceState.getIntegerArrayList(SelectedRowsActionModeCallback.SELECTED_ROWS_KEY) != null
-                && actionModeCallback == null) {
+        Log.d(DEBUG_TAG, "onViewStateRestored");
+        if (savedInstanceState != null && this.getClass().getCanonicalName().equals(savedInstanceState.getString(FRAGMENT_NAME))
+                && savedInstanceState.getIntegerArrayList(SelectedRowsActionModeCallback.SELECTED_ROWS_KEY) != null && actionModeCallback == null) {
             actionModeCallback = getActionModeCallback();
             actionModeCallback.restoreState(savedInstanceState);
             restartActionMode = true;
@@ -49,6 +52,13 @@ public abstract class SelectableRowsFragment extends BaseFragment implements Pro
     public void onResume() {
         super.onResume();
         Log.d(DEBUG_TAG, "onResume");
+        restartActionMode();
+    }
+
+    /**
+     * Restart the action mode if necessary
+     */
+    void restartActionMode() {
         if (restartActionMode) {
             restartActionMode = false;
             ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
@@ -58,12 +68,22 @@ public abstract class SelectableRowsFragment extends BaseFragment implements Pro
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        saveActionModeState(outState);
+        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
+    }
+
+    /**
+     * Save only the action mode state to a BUndle
+     * 
+     * @param outState the Bundle to save to
+     */
+    void saveActionModeState(@NonNull Bundle outState) {
         synchronized (actionModeCallbackLock) {
             if (actionModeCallback != null) {
+                outState.putString(FRAGMENT_NAME, this.getClass().getCanonicalName());
                 actionModeCallback.saveState(outState);
             }
         }
-        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
     @Override
@@ -117,6 +137,18 @@ public abstract class SelectableRowsFragment extends BaseFragment implements Pro
     @Override
     public void invertSelectedRows() {
         setSelectedRows((boolean current) -> !current);
+    }
+
+    /**
+     * Finish any action mode
+     */
+    public void finishActionMode() {
+        synchronized (actionModeCallbackLock) {
+            if (actionModeCallback != null) {
+                actionModeCallback.currentAction.finish();
+                actionModeCallback = null;
+            }
+        }
     }
 
     /**
