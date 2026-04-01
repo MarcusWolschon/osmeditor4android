@@ -121,7 +121,7 @@ public final class ProgressDialog {
             messageId = R.string.progress_determining_status_message;
             break;
         case Progress.PROGRESS_UPDATING:
-            titleId = R.string.progress_title;
+            titleId = R.string.progress_validation_title;
             messageId = R.string.progress_updating_message;
             break;
         default:

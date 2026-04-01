@@ -33,7 +33,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +42,7 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerTabStrip;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -59,6 +59,7 @@ import de.blau.android.util.FilterlessArrayAdapter;
 import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.ScrollingLinearLayoutManager;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
@@ -337,8 +338,10 @@ public class ReviewAndUpload extends AbstractReviewDialog {
     }
 
     protected void createChangesView() {
-        addChangesToView(getActivity(), (ListView) requireDialog().findViewById(R.id.upload_changes), elements, DEFAULT_COMPARATOR,
-                getArguments().getString(TAG_KEY), R.layout.changes_list_item, null, null);
+        final RecyclerView listView = (RecyclerView) requireDialog().findViewById(R.id.upload_changes);
+        ScrollingLinearLayoutManager layoutManager = new ScrollingLinearLayoutManager(getActivity(), 10000);
+        listView.setLayoutManager(layoutManager);
+        addChangesToView(getActivity(), listView, elements, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item, null, null);
     }
 
     /**
