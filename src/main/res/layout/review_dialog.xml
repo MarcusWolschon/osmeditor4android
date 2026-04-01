@@ -33,8 +33,12 @@
         android:layout_width="fill_parent"
         android:layout_height="2dp"
         android:background="#b2dfdb" />
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/upload_changes"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="fill_parent"
+        android:layout_weight="100"
+        android:scrollbars="vertical"
+        android:saveEnabled="false"
+        android:padding="0dp"/>
 </LinearLayout>

@@ -9,7 +9,6 @@ import java.util.Set;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +18,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -29,6 +27,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -38,6 +38,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.ScrollingLinearLayoutManager;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -54,9 +55,9 @@ public class Review extends AbstractReviewDialog {
 
     static final String STATE_FILENAME = "review_state" + "." + FileExtensions.RES;
 
-    private View     layout;
-    private ListView listView;
-    private Set<String> checked;
+    private View         layout;
+    private RecyclerView listView;
+    private Set<String>  checked;
 
     /**
      * Instantiate and show the dialog
@@ -119,9 +120,12 @@ public class Review extends AbstractReviewDialog {
         builder.setTitle(R.string.review_changes_title);
 
         layout = inflater.inflate(R.layout.review_dialog, null);
+
         builder.setView(layout);
 
         listView = layout.findViewById(R.id.upload_changes);
+        ScrollingLinearLayoutManager layoutManager = new ScrollingLinearLayoutManager(getActivity(), 10000);
+        listView.setLayoutManager(layoutManager);
 
         CheckBox checkbox = layout.findViewById(R.id.checkBoxAll);
         checkbox.setOnCheckedChangeListener(selectAllListener);
@@ -155,7 +159,11 @@ public class Review extends AbstractReviewDialog {
             return null;
         }
         layout = inflater.inflate(R.layout.review_fragment, null);
+
         listView = layout.findViewById(R.id.upload_changes);
+
+        ScrollingLinearLayoutManager layoutManager = new ScrollingLinearLayoutManager(getActivity(), 10000);
+        listView.setLayoutManager(layoutManager);
 
         CheckBox checkbox = layout.findViewById(R.id.checkBoxAll);
         checkbox.setOnCheckedChangeListener(selectAllListener);
@@ -176,7 +184,7 @@ public class Review extends AbstractReviewDialog {
         addChangesToView(getActivity(), listView, null, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item_with_checkbox,
                 (OsmElement e) -> checked != null && checked.contains(getElementKey(e)), () -> {
                     ValidatorArrayAdapter adapter = (ValidatorArrayAdapter) listView.getAdapter();
-                    adapter.registerDataSetObserver(new ListObserver());
+                    adapter.registerAdapterDataObserver(new ListObserver());
                 });
     }
 
@@ -227,7 +235,7 @@ public class Review extends AbstractReviewDialog {
         saveState();
     }
 
-    private final class ListObserver extends DataSetObserver {
+    private final class ListObserver extends AdapterDataObserver {
         @Override
         public void onChanged() {
             final ValidatorArrayAdapter validatorArrayAdapter = (ValidatorArrayAdapter) listView.getAdapter();

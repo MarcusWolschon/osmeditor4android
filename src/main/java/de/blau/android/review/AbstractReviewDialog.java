@@ -14,19 +14,19 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -136,11 +136,13 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
      * @param s a Selected call back or null
      * @param postAsync run this after sorting and adapter setup have completed
      */
-    protected void addChangesToView(@NonNull final FragmentActivity activity, @NonNull final ListView changesView, @Nullable List<OsmElement> elements,
+    protected void addChangesToView(@NonNull final FragmentActivity activity, @NonNull final RecyclerView changesView, @Nullable List<OsmElement> elements,
             @NonNull Comparator<ChangedElement> comparator, @Nullable String parentTag, int itemResource, @Nullable Selected s, Runnable postAsync) {
+
         ExtendedValidator validator = new ExtendedValidator(activity, App.getDefaultValidator(activity));
         final ChangedElement[] changes = getPendingChanges(activity.getResources(), elements == null ? App.getLogic().getPendingChangedElements() : elements);
-        final ValidatorArrayAdapter adapter = new ValidatorArrayAdapter(activity, itemResource, changes, validator, parentTag);
+        final ValidatorArrayAdapter adapter = new ValidatorArrayAdapter(activity, ThemeUtils.getLayoutInflater(activity), itemResource, changes, validator,
+                parentTag);
         changesView.setAdapter(adapter);
 
         new ExecutorTask<Void, Void, Void>() {
@@ -233,17 +235,33 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
         return result.toArray(new ChangedElement[result.size()]);
     }
 
+    public static class ChangedElementViewHolder extends RecyclerView.ViewHolder {
+        View row;
+
+        /**
+         * Create a new ViewHolder
+         * 
+         * @param v the RelationMemberRow that will be displayed
+         */
+        public ChangedElementViewHolder(@NonNull View v) {
+            super(v);
+            row = v;
+        }
+    }
+
     /**
      * Highlight elements for upload that have a potential issue
      * 
      * @author Simon Poole
      *
      */
-    protected class ValidatorArrayAdapter extends ArrayAdapter<ChangedElement> {
+    protected class ValidatorArrayAdapter extends RecyclerView.Adapter<ChangedElementViewHolder> {
         final ChangedElement[] elements;
         final Validator        validator;
         final ColorStateList   colorStateList;
         final String           parentTag;
+        final LayoutInflater   inflater;
+        final int              resource;
 
         /**
          * Construct a new instance
@@ -254,53 +272,57 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
          * @param validator the Validator to use
          * @param parentTag
          */
-        public ValidatorArrayAdapter(@NonNull Context context, int resource, @NonNull final ChangedElement[] elements, @NonNull Validator validator,
-                @Nullable String parentTag) {
-            super(context, resource, R.id.text1, elements);
+        public ValidatorArrayAdapter(@NonNull Context context, @NonNull LayoutInflater inflater, int resource, @NonNull final ChangedElement[] elements,
+                @NonNull Validator validator, @Nullable String parentTag) {
             this.elements = elements;
             this.validator = validator;
             this.parentTag = parentTag;
             colorStateList = ColorStateList.valueOf(ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red));
+            this.inflater = inflater;
+            this.resource = resource;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup container) {
-            View v = super.getView(position, convertView, container);
-            TextView textView = (TextView) v.findViewById(R.id.text1);
+        public ChangedElementViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ChangedElementViewHolder(inflater.inflate(viewType, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(ChangedElementViewHolder holder, int position) {
+            TextView textView = (TextView) holder.row.findViewById(R.id.text1);
             final ChangedElement clicked = elements[position];
             final OsmElement e = clicked.element;
             if (textView != null) {
-                OsmElement element = elements[position].element;
-                if (OsmElement.STATE_DELETED != element.getState() && element.hasProblem(null, validator) != Validator.OK) {
+                textView.setText(clicked.description);
+                if (OsmElement.STATE_DELETED != e.getState() && e.hasProblem(null, validator) != Validator.OK) {
                     setTintList(textView, colorStateList);
                 } else {
                     setTintList(textView, null);
                 }
                 textView.setOnClickListener(view -> {
-                    Context context = v.getContext();
-                    if (context instanceof FragmentActivity) {
-                        onClickTextAction((FragmentActivity) context, e, parentTag);
+                    FragmentActivity activity = getActivity();
+                    if (activity != null) {
+                        onClickTextAction(activity, e, parentTag);
                     }
                 });
             } else {
                 Log.e("ValidatorAdapterView", "position " + position + " view is null");
             }
-            CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox1);
+            CheckBox checkBox = (CheckBox) holder.row.findViewById(R.id.checkBox1);
             if (checkBox != null) {
                 checkBox.setOnCheckedChangeListener(null);
-                checkBox.setChecked(elements[position].selected);
+                checkBox.setChecked(clicked.selected);
                 checkBox.setOnCheckedChangeListener(getOnCheckedChangeListener(position));
             }
-            ImageButton info = (ImageButton) v.findViewById(R.id.info1);
+            ImageButton info = (ImageButton) holder.row.findViewById(R.id.info1);
             if (info != null) {
                 info.setOnClickListener(view -> {
-                    Context context = v.getContext();
-                    if (context instanceof FragmentActivity) {
-                        onClickInfoAction((FragmentActivity) context, e, parentTag);
+                    FragmentActivity activity = getActivity();
+                    if (activity != null) {
+                        onClickInfoAction(activity, e, parentTag);
                     }
                 });
             }
-            return v;
         }
 
         /**
@@ -350,6 +372,17 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
                 }
             }
         }
+
+        @Override
+        public int getItemCount() {
+            return elements.length;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return resource;
+        }
+
     }
 
     /**
