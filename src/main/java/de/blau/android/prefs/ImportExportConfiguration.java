@@ -546,7 +546,7 @@ public final class ImportExportConfiguration {
             case SHARED_PREFERENCES:
                 switch (name) {
                 case SECTION:
-                    Log.i(DEBUG_TAG, "commiting edits");
+                    Log.i(DEBUG_TAG, "committing edits");
                     editor.apply();
                     state = State.BASE;
                     return;
