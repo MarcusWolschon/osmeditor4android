@@ -117,7 +117,7 @@ public class VespucciURLActivity extends AppCompatActivity {
             finish();
             return;
         }
-        String path = stripPathSeperators(data.getPath());
+        String path = stripPathSeparators(data.getPath());
         if (Util.isEmpty(path)) {
             path = fixupPath(data);
         }
@@ -256,7 +256,7 @@ public class VespucciURLActivity extends AppCompatActivity {
      * @param path the String to remove the slashes from
      * @return the String
      */
-    private String stripPathSeperators(@NonNull String path) {
+    private String stripPathSeparators(@NonNull String path) {
         if (path.startsWith("/")) {
             path = path.substring(1);
         }

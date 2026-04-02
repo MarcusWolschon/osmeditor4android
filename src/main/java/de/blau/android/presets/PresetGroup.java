@@ -176,7 +176,7 @@ public class PresetGroup extends PresetElement {
                 } else if (element instanceof PresetGroup) {
                     sortAndAddElements(filteredElements, tempItems);
                     tempGroups.add((PresetGroup) element);
-                } else { // PresetSeperator
+                } else { // PresetSeparator
                     sortAndAddElements(filteredElements, tempGroups);
                     sortAndAddElements(filteredElements, tempItems);
                     filteredElements.add(element);
