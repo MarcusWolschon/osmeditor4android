@@ -45,6 +45,7 @@ import de.blau.android.osm.OsmChangeParser.MissingNode;
 import de.blau.android.osm.UndoStorage.Checkpoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.BentleyOttmannForOsm;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.DataStorage;
 import de.blau.android.util.GeoMath;
@@ -873,6 +874,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void circulizeWay(@NonNull final de.blau.android.Map map, int minNodes, double maxSegmentLength, double minSegmentLength, @NonNull final Way way) {
         undo.save(way);
         final List<Node> nodes = way.getNodes();
+        if (BentleyOttmannForOsm.isSelfIntersecting(nodes)) {
+            throw new OsmIllegalOperationException("Input defines self intersecting polygon");
+        }
         // Guarantee uniqueness by creating a set
         List<Node> circleNodes = addNodesToCircle(new ArrayList<>(new LinkedHashSet<>(nodes)), minNodes, maxSegmentLength, minSegmentLength, getMaxWayNodes());
         nodes.clear();

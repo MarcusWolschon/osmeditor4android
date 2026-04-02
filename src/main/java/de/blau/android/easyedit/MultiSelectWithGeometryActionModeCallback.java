@@ -325,24 +325,24 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         List<Way> ways = logic.getSelectedWays();
         if (ways != null && !ways.isEmpty()) {
             List<Coordinates> intersections = BentleyOttmannForOsm.findIntersections(ways);
-            if (!intersections.isEmpty()) {
-                Map map = logic.getMap();
-                int width = map.getWidth();
-                float x = GeoMath.lonToX(width, logic.getViewBox(), intersections.get(0).x);
-                float y = GeoMath.latMercatorToY(map.getHeight(), width, logic.getViewBox(), intersections.get(0).y);
-                final Node node = logic.performAddOnWay(main, ways, x, y, true);
-                if (node != null) {
-                    logic.getHandler().post(() -> {
-                        List<Way> waysWithNode = logic.getWaysForNode(node);
-                        selection.removeAll(waysWithNode);
-                        logic.performJoinNodeToWays(main, selection, node);
-                        main.zoomTo(node);
-                        manager.finish();
-                        manager.editElement(node);
-                    });
-                } else {
-                    ScreenMessage.toastTopError(main, R.string.toast_no_intersection_found);
-                }
+            if (intersections.isEmpty()) {
+                ScreenMessage.toastTopError(main, R.string.toast_no_intersection_found);
+                return;
+            }
+            Map map = logic.getMap();
+            int width = map.getWidth();
+            float x = GeoMath.lonToX(width, logic.getViewBox(), intersections.get(0).x);
+            float y = GeoMath.latMercatorToY(map.getHeight(), width, logic.getViewBox(), intersections.get(0).y);
+            final Node node = logic.performAddOnWay(main, ways, x, y, true);
+            if (node != null) {
+                logic.getHandler().post(() -> {
+                    List<Way> waysWithNode = logic.getWaysForNode(node);
+                    selection.removeAll(waysWithNode);
+                    logic.performJoinNodeToWays(main, selection, node);
+                    main.zoomTo(node);
+                    manager.finish();
+                    manager.editElement(node);
+                });
             }
         }
     }

@@ -4,6 +4,7 @@ import static de.blau.android.osm.DelegatorUtil.toE7;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -76,6 +77,30 @@ public class BentleyOttmannForOsmTest {
         d.addNodeToWay(n5, w2);
 
         List<Coordinates> intersections = BentleyOttmannForOsm.findIntersections(Arrays.asList(w1, w2));
+       
+        assertEquals(1, intersections.size());
+    }
+    
+    
+    /**
+     * Two ways with common start node should intersect once
+     */
+    @Test
+    public void selfIntersectingWay() {
+        StorageDelegator d = App.getDelegator();
+        OsmElementFactory factory = d.getFactory();
+        Way w1 = factory.createWayWithNewId();
+        Node n0 = factory.createNodeWithNewId(toE7(47.4698529), toE7(8.3076071));
+        d.addNodeToWay(n0, w1);
+        Node n1 = factory.createNodeWithNewId(toE7(47.4698653), toE7(8.3077989));
+        d.addNodeToWay(n1, w1);
+        Node n2 = factory.createNodeWithNewId(toE7(47.4697273), toE7(8.3076144));
+        d.addNodeToWay(n2, w1);
+        Node n3 = factory.createNodeWithNewId(toE7(47.469738), toE7(8.3078108));
+        d.addNodeToWay(n3, w1);
+        d.addNodeToWay(n0, w1);
+
+        List<Coordinates> intersections = BentleyOttmannForOsm.findIntersections(Arrays.asList(w1));
        
         assertEquals(1, intersections.size());
     }
