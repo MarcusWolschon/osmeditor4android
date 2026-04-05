@@ -33,6 +33,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.PbfTest;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
@@ -509,5 +510,14 @@ public class WrapperTest {
         wrapper2.setSilent(true);
         assertTrue(wrapper2.around(wrapper2, "Zürich"));
     }
-
+    
+    @Test
+    public void displayValueTest() {
+        Way way = (Way) delegator.getOsmElement(Way.NAME, 571087535L);
+        assertNotNull(way);
+        wrapper.setElement(way);
+        assertEquals("Asphalt", wrapper.displayValue("surface", "asphalt"));
+        assertEquals("asphalt", wrapper.displayValue("no key", "asphalt"));
+        assertEquals("no value", wrapper.displayValue("surface", "no value"));
+    }
 }

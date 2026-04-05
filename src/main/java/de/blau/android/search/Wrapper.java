@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 
+import org.jetbrains.annotations.NotNull;
+
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -449,6 +451,16 @@ public class Wrapper implements Meta {
             return true;
         }
         return Meta.super.around(meta, region);
+    }
+
+    @Override
+    public String displayValue(String key, String value) {
+        PresetItem item = Preset.findBestMatch(App.getCurrentPresets(context), getTags(), null, null);
+        if (item == null) {
+            return value;
+        }
+        String displayValue = item.getDescriptionForValue(key, value);
+        return displayValue != null ? displayValue : value;
     }
 
     public class SearchResult {
