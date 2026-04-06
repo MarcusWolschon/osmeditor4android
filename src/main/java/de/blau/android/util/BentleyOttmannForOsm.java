@@ -1,9 +1,7 @@
 package de.blau.android.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -16,7 +14,6 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Way;
 
 public final class BentleyOttmannForOsm {
-    private static Map<Long, Coordinates> nodeMap = new HashMap<>();
 
     /**
      * Private constructor
@@ -25,7 +22,7 @@ public final class BentleyOttmannForOsm {
         // empty
     }
 
-    static class Segment implements ISegment {
+    private static class Segment implements ISegment {
         IPoint p1;
         IPoint p2;
 
@@ -66,22 +63,53 @@ public final class BentleyOttmannForOsm {
     public static List<Coordinates> findIntersections(@NonNull List<Way> ways) {
         final BentleyOttmann bentleyOttmann = new BentleyOttmann(Coordinates::new);
         final List<ISegment> segments = new ArrayList<>();
+        Coordinates offset = null; // offset of first node from origin
         for (Way w : ways) {
             List<Node> nodes = w.getNodes();
-            for (int i = 0; i < nodes.size() - 1; i++) {
-                Coordinates c1 = getCoordinates(nodes.get(i));
-                Coordinates c2 = getCoordinates(nodes.get(i + 1));
-                segments.add(new Segment(c1, c2));
+            if (offset == null) {
+                offset = getCoordinates(nodes.get(0));
             }
+            addSegmentsFromNodes(segments, nodes, offset);
         }
         bentleyOttmann.addSegments(segments);
         bentleyOttmann.findIntersections();
         List<IPoint> intersections = bentleyOttmann.intersections();
         List<Coordinates> coordinates = new ArrayList<>();
         for (IPoint p : intersections) {
-            coordinates.add(new Coordinates(p.x(), p.y()));
+            coordinates.add(new Coordinates(p.x(), p.y()).add(offset)); // NOSONAR
         }
         return coordinates;
+    }
+
+    /**
+     * Add new segments from a list of nodes
+     * 
+     * @param segments target list of segments
+     * @param nodes list of nodes
+     * @param offset
+     */
+    private static void addSegmentsFromNodes(@NonNull final List<ISegment> segments, @NonNull List<Node> nodes, @NonNull Coordinates offset) {
+        for (int i = 0; i < nodes.size() - 1; i++) {
+            Coordinates c1 = getCoordinates(nodes.get(i)).subtract(offset);
+            Coordinates c2 = getCoordinates(nodes.get(i + 1)).subtract(offset);
+            segments.add(new Segment(c1, c2));
+        }
+    }
+
+    /**
+     * Check if the polygon defined by a list of nodes is self intersecting
+     * 
+     * @param nodes a List of Node
+     * @return true if self intersecting
+     */
+    @NonNull
+    public static boolean isSelfIntersecting(@NonNull List<Node> nodes) {
+        final BentleyOttmann bentleyOttmann = new BentleyOttmann(Coordinates::new);
+        final List<ISegment> segments = new ArrayList<>();
+        addSegmentsFromNodes(segments, nodes, getCoordinates(nodes.get(0)));
+        bentleyOttmann.addSegments(segments);
+        bentleyOttmann.findIntersections();
+        return !bentleyOttmann.intersections().isEmpty();
     }
 
     /**
@@ -92,11 +120,6 @@ public final class BentleyOttmannForOsm {
      */
     @NonNull
     private static Coordinates getCoordinates(@NonNull Node n) {
-        Coordinates c = nodeMap.get(n.getOsmId());
-        if (c == null) {
-            c = new Coordinates(n.getLon() / 1E7D, GeoMath.latE7ToMercator(n.getLat()));
-            nodeMap.put(n.getOsmId(), c);
-        }
-        return c;
+        return new Coordinates(n.getLon() / 1E7D, GeoMath.latE7ToMercator(n.getLat()));
     }
 }

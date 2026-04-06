@@ -478,7 +478,7 @@ public final class Geometry {
     @NonNull
     public static Circle calculateCircle(@NonNull Coordinates[] coords) {
         Coordinates[] translated = new Coordinates[coords.length];
-
+        // the algorithm will fail for mercator coordinates due to loss of precision issues, so we translate to somewhere near 0,0
         for (int i = 0; i < coords.length; i++) {
             translated[i] = new Coordinates(coords[i].x - coords[0].x, coords[i].y - coords[0].y);
         }

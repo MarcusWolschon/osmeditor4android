@@ -237,103 +237,104 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        if (!super.onActionItemClicked(mode, item)) {
-            try {
-                Way way = (Way) element;
-                switch (item.getItemId()) {
-                case MENUITEM_SPLIT:
-                    deselect = false;
-                    main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, false));
-                    break;
-                case MENUITEM_MERGE:
-                    deselect = false;
-                    main.startSupportActionMode(new WayMergingActionModeCallback(manager, way, cachedMergeableWays));
-                    break;
-                case MENUITEM_REVERSE:
-                    if (way.notReversable()) {
-                        ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.menu_reverse).setMessage(R.string.notreversable_description)
-                                .setPositiveButton(R.string.reverse_anyway, (dialog, which) -> reverseWay(way)).show();
-                    } else {
-                        reverseWay(way);
-                    }
-                    manager.invalidate();
-                    findConnectedWays(way);
-                    break;
-                case MENUITEM_APPEND:
-                    deselect = false;
-                    main.startSupportActionMode(new WayAppendingActionModeCallback(manager, way, cachedAppendableNodes));
-                    break;
-                case MENUITEM_RESTRICTION:
-                    deselect = false;
-                    main.startSupportActionMode(new FromElementActionModeCallback(manager, way, cachedViaElements));
-                    break;
-                case MENUITEM_ROUTE:
-                    main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, findViaElements(way, false)));
-                    break;
-                case MENUITEM_ADD_TO_ROUTE:
-                    buildRelationSelectDialog(main, r -> {
-                        Relation route = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
-                        if (route != null) {
-                            main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, route, findViaElements(way, false), null));
-                        }
-                    }, -1, R.string.select_route_title, Tags.KEY_TYPE, Tags.VALUE_ROUTE, Util.wrapInList(element)).show();
-                    break;
-                case MENUITEM_ROTATE:
-                    deselect = false;
-                    main.startSupportActionMode(new RotationActionModeCallback(manager));
-                    break;
-                case MENUITEM_ORTHOGONALIZE:
-                    logic.performOrthogonalize(main, way);
-                    manager.invalidate();
-                    break;
-                case MENUITEM_CIRCULIZE:
-                    logic.performCirculize(main, way);
-                    manager.invalidate();
-                    break;
-                case MENUITEM_SPLIT_POLYGON:
-                    deselect = false;
-                    main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, true));
-                    break;
-                case MENUITEM_ADDRESS:
-                    main.performTagEdit(element, null, true, false);
-                    break;
-                case MENUITEM_REMOVE_NODE:
-                    deselect = false;
-                    main.startSupportActionMode(new RemoveNodeFromWayActionModeCallback(manager, way));
-                    break;
-                case MENUITEM_UNJOIN:
-                    logic.performUnjoinWay(main, way, null);
-                    break;
-                case MENUITEM_UNJOIN_DISSIMILAR:
-                    unjonDissimilar(main, way);
-                    break;
-                case MENUITEM_SHARE_POSITION:
-                    Util.sharePosition(main, Geometry.centroidLonLat(way), main.getMap().getZoomLevel());
-                    break;
-                case MENUITEM_EXTRACT_SEGMENT:
-                    deselect = false;
-                    main.startSupportActionMode(new WaySegmentActionModeCallback(manager, way));
-                    break;
-                case MENUITEM_SELECT_WAY_NODES:
-                    logic.deselectAll();
-                    deselect = false;
-                    main.startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(manager, new ArrayList<>(new HashSet<>(way.getNodes()))));
-                    break;
-                case MENUITEM_START_END_OF_WAY:
-                    ThemeUtils.getAlertDialogBuilder(main).setMessage(R.string.start_end_way_description).setPositiveButton(R.string.end, (dialog, which) -> {
-                        main.zoomTo(way.getLastNode());
-                        main.invalidateMap();
-                    }).setNegativeButton(R.string.start, (dialog, which) -> {
-                        main.zoomTo(way.getFirstNode());
-                        main.invalidateMap();
-                    }).show();
-                    break;
-                default:
-                    return false;
+        if (super.onActionItemClicked(mode, item)) {
+            return true;
+        }
+        try {
+            Way way = (Way) element;
+            switch (item.getItemId()) {
+            case MENUITEM_SPLIT:
+                deselect = false;
+                main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, false));
+                break;
+            case MENUITEM_MERGE:
+                deselect = false;
+                main.startSupportActionMode(new WayMergingActionModeCallback(manager, way, cachedMergeableWays));
+                break;
+            case MENUITEM_REVERSE:
+                if (way.notReversable()) {
+                    ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.menu_reverse).setMessage(R.string.notreversable_description)
+                            .setPositiveButton(R.string.reverse_anyway, (dialog, which) -> reverseWay(way)).show();
+                } else {
+                    reverseWay(way);
                 }
-            } catch (OsmIllegalOperationException | StorageException ex) {
-                // logic will have already toasted
+                manager.invalidate();
+                findConnectedWays(way);
+                break;
+            case MENUITEM_APPEND:
+                deselect = false;
+                main.startSupportActionMode(new WayAppendingActionModeCallback(manager, way, cachedAppendableNodes));
+                break;
+            case MENUITEM_RESTRICTION:
+                deselect = false;
+                main.startSupportActionMode(new FromElementActionModeCallback(manager, way, cachedViaElements));
+                break;
+            case MENUITEM_ROUTE:
+                main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, findViaElements(way, false)));
+                break;
+            case MENUITEM_ADD_TO_ROUTE:
+                buildRelationSelectDialog(main, r -> {
+                    Relation route = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
+                    if (route != null) {
+                        main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, route, findViaElements(way, false), null));
+                    }
+                }, -1, R.string.select_route_title, Tags.KEY_TYPE, Tags.VALUE_ROUTE, Util.wrapInList(element)).show();
+                break;
+            case MENUITEM_ROTATE:
+                deselect = false;
+                main.startSupportActionMode(new RotationActionModeCallback(manager));
+                break;
+            case MENUITEM_ORTHOGONALIZE:
+                logic.performOrthogonalize(main, way);
+                manager.invalidate();
+                break;
+            case MENUITEM_CIRCULIZE:
+                logic.performCirculize(main, way);
+                manager.invalidate();
+                break;
+            case MENUITEM_SPLIT_POLYGON:
+                deselect = false;
+                main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, true));
+                break;
+            case MENUITEM_ADDRESS:
+                main.performTagEdit(element, null, true, false);
+                break;
+            case MENUITEM_REMOVE_NODE:
+                deselect = false;
+                main.startSupportActionMode(new RemoveNodeFromWayActionModeCallback(manager, way));
+                break;
+            case MENUITEM_UNJOIN:
+                logic.performUnjoinWay(main, way, null);
+                break;
+            case MENUITEM_UNJOIN_DISSIMILAR:
+                unjonDissimilar(main, way);
+                break;
+            case MENUITEM_SHARE_POSITION:
+                Util.sharePosition(main, Geometry.centroidLonLat(way), main.getMap().getZoomLevel());
+                break;
+            case MENUITEM_EXTRACT_SEGMENT:
+                deselect = false;
+                main.startSupportActionMode(new WaySegmentActionModeCallback(manager, way));
+                break;
+            case MENUITEM_SELECT_WAY_NODES:
+                logic.deselectAll();
+                deselect = false;
+                main.startSupportActionMode(new MultiSelectWithGeometryActionModeCallback(manager, new ArrayList<>(new HashSet<>(way.getNodes()))));
+                break;
+            case MENUITEM_START_END_OF_WAY:
+                ThemeUtils.getAlertDialogBuilder(main).setMessage(R.string.start_end_way_description).setPositiveButton(R.string.end, (dialog, which) -> {
+                    main.zoomTo(way.getLastNode());
+                    main.invalidateMap();
+                }).setNegativeButton(R.string.start, (dialog, which) -> {
+                    main.zoomTo(way.getFirstNode());
+                    main.invalidateMap();
+                }).show();
+                break;
+            default:
+                return false;
             }
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            // logic will have already toasted
         }
         return true;
     }
