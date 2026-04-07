@@ -1172,9 +1172,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     Log.d(DEBUG_TAG, "orthogonalize last iteration " + iteration + " score " + score);
                     break;
                 }
-                Log.d(DEBUG_TAG, "orthogonalize  " + iteration + " score " + score);
             }
-
             // prepare updated nodes for upload
             try {
                 lock();
