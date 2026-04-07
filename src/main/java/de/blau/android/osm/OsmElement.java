@@ -17,6 +17,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ch.poole.osm.josmtemplateparser.Formatter;
@@ -34,11 +35,10 @@ import de.blau.android.validation.Validator;
 
 public abstract class OsmElement implements OsmElementInterface, Serializable, XmlSerializable, JosmXmlSerializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 7711945069147743675L;
 
+    private static final String DEBUG_TAG = Relation.class.getSimpleName().substring(0, Math.min(23, Relation.class.getSimpleName().length()));
+    
     public static final long NEW_OSM_ID = -1;
 
     public static final byte STATE_UNCHANGED = 0;
@@ -715,7 +715,7 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
                 wrapper.setElement(this);
                 return ch.poole.osm.josmtemplateparser.Util.listFormat(rs, wrapper.getType(), wrapper, getTags());
             } catch (JosmTemplateParseException e) {
-                // ignore
+                Log.e(DEBUG_TAG,"nameFromTemplate " + e.getMessage());
             }
         }
         return null;
