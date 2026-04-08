@@ -69,7 +69,7 @@
     
     <!-- OSM way based features -->
     <feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" />
-    <feature type="way" tags="boundary" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER">
+    <feature type="way" tags="boundary" updateWidth="true" widthFactor="0.6" color="ffd3e03a" style="STROKE" cap="BUTT" join="MITER">
     	<dash phase="1.0">
     		<interval length="6.0" />
     		<interval length="2.0" />

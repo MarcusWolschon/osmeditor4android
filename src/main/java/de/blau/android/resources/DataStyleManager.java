@@ -16,6 +16,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.SortedMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -455,12 +456,13 @@ public class DataStyleManager {
         final boolean styleable = element instanceof StyleableFeature;
         FeatureStyle style = styleable ? ((StyleableFeature) element).getStyle() : null;
         if (style == null) {
+            final SortedMap<String, String> tags = element.getTags();
             if (element instanceof Way) {
-                style = DataStyle.matchRecursive(currentStyle.wayStyles, element.getTags(), ((Way) element).isClosed());
+                style = DataStyle.matchRecursive(currentStyle.wayStyles, tags, ((Way) element).isClosed());
             } else if (element instanceof Node) {
-                style = DataStyle.matchRecursive(currentStyle.nodeStyles, element.getTags(), false);
+                style = DataStyle.matchRecursive(currentStyle.nodeStyles, tags, false);
             } else {
-                style = DataStyle.matchRecursive(currentStyle.relationStyles, element.getTags(), false);
+                style = DataStyle.matchRecursive(currentStyle.relationStyles, tags, false);
             }
             if (styleable) {
                 ((StyleableFeature) element).setStyle(style);
