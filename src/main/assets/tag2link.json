@@ -24,6 +24,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:architect:ref:CH:hls-dhs",
+    "url": "https://hls-dhs-dss.ch/fr/articles/$1/",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:architect:wikidata",
     "url": "https://www.wikidata.org/entity/$1",
     "source": "osmwiki:P8",
@@ -38,6 +44,24 @@
   {
     "key": "Key:artist_name:wikipedia",
     "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:artist:ref:CH-GE:icono",
+    "url": "https://www.bge-geneve.ch/iconographie/personne/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:artist:ref:CH:hls-dhs",
+    "url": "https://hls-dhs-dss.ch/fr/articles/$1/",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:artist:ref:sikart",
+    "url": "https://recherche.sik-isea.ch/sik:person-$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -132,6 +156,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:coat_of_arms",
+    "url": "https://commons.wikimedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:commemorates:wikidata",
     "url": "https://www.wikidata.org/entity/$1",
     "source": "osmwiki:P8",
@@ -140,12 +170,6 @@
   {
     "key": "Key:construction:website",
     "url": "$1",
-    "source": "osmwiki:P8",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:contact:booking",
-    "url": "https://www.booking.com/hotel/$1.html",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -172,6 +196,12 @@
     "url": "tel:$1",
     "source": "wikidata:P1630",
     "rank": "normal"
+  },
+  {
+    "key": "Key:contact:foursquare",
+    "url": "https://foursquare.com/mapaction?id=$1&action=view",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
   },
   {
     "key": "Key:contact:foursquare",
@@ -210,6 +240,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:contact:linkedin",
+    "url": "https://www.linkedin.com/company/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:contact:mastodon",
     "url": "https://fedirect.toolforge.org/?id=$1",
     "source": "wikidata:P1630",
@@ -218,6 +254,12 @@
   {
     "key": "Key:contact:mastodon",
     "url": "https://wikidata-externalid-url.toolforge.org/?p=4033&id=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:mobile",
+    "url": "tel:$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -468,6 +510,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:contact:vimeo",
+    "url": "https://vimeo.com/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:contact:website",
     "url": "$1",
     "source": "wikidata:P3303",
@@ -492,6 +540,18 @@
     "rank": "normal"
   },
   {
+    "key": "Key:contact:wechat",
+    "url": "https://open.weixin.qq.com/qr/code?username=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:whatsapp",
+    "url": "whatsapp://send?phone=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:contact:yelp",
     "url": "https://www.yelp.com/biz/$1",
     "source": "osmwiki:P8",
@@ -501,6 +561,36 @@
     "key": "Key:contact:yelp",
     "url": "https://www.yelp.com/biz/$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:youtube",
+    "url": "https://www.youtube.com/user/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:country",
+    "url": "https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:country",
+    "url": "https://www.iso.org/obp/ui/#iso:code:3166:$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:country_code_iso3166_1_alpha_2",
+    "url": "https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:country_code_iso3166_1_alpha_2",
+    "url": "https://www.iso.org/obp/ui/#iso:code:3166:$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -645,12 +735,6 @@
     "key": "Key:fhrs:id",
     "url": "https://ratings.food.gov.uk/business/$1",
     "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:fixme:wikipedia",
-    "url": "https://wikipedia.org/wiki/$1",
-    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -1206,6 +1290,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:imagery_used",
+    "url": "https://osmlab.github.io/editor-layer-index/#$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:INEGI:cve_loc",
     "url": "https://www.inegi.org.mx/app/areasgeograficas/?ag=$1",
     "source": "wikidata:P1630",
@@ -1236,6 +1326,42 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ISO3166-1",
+    "url": "https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ISO3166-1",
+    "url": "https://www.iso.org/obp/ui/#iso:code:3166:$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ISO3166-1:alpha2",
+    "url": "https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ISO3166-1:alpha2",
+    "url": "https://www.iso.org/obp/ui/#iso:code:3166:$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ISO3166-1:alpha3",
+    "url": "https://op.europa.eu/en/web/eu-vocabularies/concept/-/resource?uri=http://publications.europa.eu/resource/authority/country/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ISO3166-1:numeric",
+    "url": "https://vocabs.cbs.nl/cbs_geo/en/page/?uri=https%3A%2F%2Fvocabs.cbs.nl%2Fgeo%2Fdef%2FISO-3166-1%2F$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:kartaview",
     "url": "https://kartaview.org/details/$1/track-info",
     "source": "osmwiki:P8",
@@ -1244,6 +1370,18 @@
   {
     "key": "Key:KKR:code",
     "url": "https://keskkonnaportaal.ee/register?kkr_kood=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:kons:decision_number",
+    "url": "http://aplikacija.kons.gov.ba/",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:kons:inscription_date",
+    "url": "http://aplikacija.kons.gov.ba/",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -1302,6 +1440,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:mobile",
+    "url": "tel:$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
     "key": "Key:model:wikidata",
     "url": "https://www.wikidata.org/entity/$1",
     "source": "osmwiki:P8",
@@ -1317,6 +1461,12 @@
     "key": "Key:MOE:id",
     "url": "https://www.educationcounts.govt.nz/find-school/school/profile?school=$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:name:etymology:ref:CH:hls-dhs",
+    "url": "https://hls-dhs-dss.ch/fr/articles/$1/",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -1404,6 +1554,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:opening_hours",
+    "url": "https://openingh.openstreetmap.de/evaluation_tool/?EXP=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:opening_hours:url",
     "url": "$1",
     "source": "osmwiki:P8",
@@ -1419,6 +1575,18 @@
     "key": "Key:openplaques:id",
     "url": "https://openplaques.org/plaques/$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:operator:ref:CH:UID",
+    "url": "https://www.uid.admin.ch/Detail.aspx?uid_id=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:operator:ref:FR:SIREN",
+    "url": "https://annuaire-entreprises.data.gouv.fr/entreprise/$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -1440,6 +1608,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:owner:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:owner:wikipedia",
     "url": "https://wikipedia.org/wiki/$1",
     "source": "osmwiki:P8",
@@ -1447,6 +1621,30 @@
   },
   {
     "key": "Key:panoramax",
+    "url": "https://api.panoramax.xyz/#focus=pic&pic=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:panoramax:0",
+    "url": "https://api.panoramax.xyz/#focus=pic&pic=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:panoramax:1",
+    "url": "https://api.panoramax.xyz/#focus=pic&pic=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:panoramax:2",
+    "url": "https://api.panoramax.xyz/#focus=pic&pic=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:panoramax:view",
     "url": "https://api.panoramax.xyz/#focus=pic&pic=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
@@ -1579,7 +1777,7 @@
   },
   {
     "key": "Key:ref:bag",
-    "url": "https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html#?searchQuery=$1",
+    "url": "https://bagviewer.kadaster.nl/?objectId=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -1599,6 +1797,78 @@
     "key": "Key:ref:camptocamp",
     "url": "https://www.camptocamp.org/waypoints/$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:caribischopenbaarlichaamcode",
+    "url": "https://identifier.overheid.nl/tooi/id/col/col$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH-GE:archi",
+    "url": "https://geneve-archi.ch/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH-GE:fcac",
+    "url": "https://collection.fcac.ch/fr/collection/item/$1/",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH-GE:fmac",
+    "url": "https://collections.geneve.ch/fmac/?id=$1&page=detail&collections=&table=libre",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH-GE:fmac-public",
+    "url": "https://artpublic-fmac.ch/oeuvres/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH-GE:icono",
+    "url": "https://www.bge-geneve.ch/iconographie/personne/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH-GE:icono-lieu",
+    "url": "https://www.bge-geneve.ch/iconographie/recherche?f%5B0%5D=lieux_representes%3A$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH-GE:noms",
+    "url": "https://noms-geographiques.app.ge.ch/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH-GE:REG",
+    "url": "https://reg.app.ge.ch/#/etablissement/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH:hls-dhs",
+    "url": "https://hls-dhs-dss.ch/fr/articles/$1/",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH:UID",
+    "url": "https://www.uid.admin.ch/Detail.aspx?uid_id=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH:vbs-inventario",
+    "url": "https://api3.geo.admin.ch/featureattachments/ch.vbs.armee-kriegsdenkmaeler/objekte/$1.pdf",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -1704,6 +1974,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:EGID",
+    "url": "https://api3.geo.admin.ch/rest/services/ech/MapServer/ch.bfs.gebaeude_wohnungs_register/$1_0/extendedHtmlPopup?lang=en",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:EU:bwid",
     "url": "https://badplatsen.havochvatten.se/badplatsen/api/detail/$1",
     "source": "wikidata:P3303",
@@ -1758,6 +2034,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:fagm",
+    "url": "https://www.findagrave.com/memorial/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:FR:Allocine",
     "url": "https://www.allocine.fr/seance/salle_gen_csalle=$1.html",
     "source": "osmwiki:P8",
@@ -1778,6 +2060,18 @@
   {
     "key": "Key:ref:FR:CEF",
     "url": "https://messes.info/lieu/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:FFT",
+    "url": "https://tenup.fft.fr/club/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:FFTT",
+    "url": "https://carte.fftt.com/club/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -1843,7 +2137,7 @@
   },
   {
     "key": "Key:ref:FR:prix-carburants",
-    "url": "https://www.prix-carburants.gouv.fr/itineraire/print/pdv/$1",
+    "url": "https://www.prix-carburants.gouv.fr/station/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -1922,12 +2216,6 @@
   {
     "key": "Key:ref:FR:SIRET",
     "url": "https://www.sirene.fr/sirene/public/recherche?recherche.sirenSiret=$1",
-    "source": "osmwiki:P8",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:ref:FR:SIRET",
-    "url": "https://www.sirene.fr/sirene/public/recherche?recherche.sirenSiret=$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -1980,12 +2268,6 @@
     "rank": "normal"
   },
   {
-    "key": "Key:ref:GB:uprn",
-    "url": "https://www.findmystreet.co.uk/map?usrn=$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
     "key": "Key:ref:GB:usrn",
     "url": "https://www.findmystreet.co.uk/map?usrn=$1",
     "source": "wikidata:P1630",
@@ -2006,6 +2288,30 @@
   {
     "key": "Key:ref:gemeentecode",
     "url": "https://identifier.overheid.nl/tooi/id/gemeente/gm$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:gemeentecode",
+    "url": "https://vocabs.cbs.nl/geo/def/gemeenten/GM$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:gemeentecode",
+    "url": "https://www.gemeentegeschiedenis.nl/cbscode/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:geneanet:cim-v",
+    "url": "https://www.geneanet.org/cimetieres/view/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:gnbc",
+    "url": "https://geonames.nrcan.gc.ca/search-place-names/unique?id=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2031,6 +2337,12 @@
     "key": "Key:ref:hmdb",
     "url": "https://www.hmdb.org/m.asp?m=$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:HR:e-matica",
+    "url": "https://data.gov.hr/ckan/api/3/action/datastore_search?resource_id=srednje-skole&filters=%7B%22%C5%A0ifra%22%3A%22$1%22%7D&limit=1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2125,13 +2437,13 @@
   },
   {
     "key": "Key:ref:IE:smr",
-    "url": "https://maps.archaeology.ie/HistoricEnvironment/?query=NationalMonuments_7120,SMRS,$1",
+    "url": "https://heritagedata.maps.arcgis.com/apps/webappviewer/index.html?id=0c9eb9575b544081b0d296436d8f60f8&query=18a4b61b268-layer-9%2CSMRS%2C$1",
     "source": "wikidata:P1630",
     "rank": "preferred"
   },
   {
-    "key": "Key:ref:IFOPT",
-    "url": "https://bahnland-bayern.de/de/moby/efa/app/departureMonitor?departureMonitor=type%3Dstop&formik=origin%3D$1",
+    "key": "Key:ref:IE:smr",
+    "url": "https://maps.archaeology.ie/HistoricEnvironment/?query=NationalMonuments_7120,SMRS,$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -2145,6 +2457,18 @@
     "key": "Key:ref:IL:inature",
     "url": "https://www.inature.info/wiki/$1",
     "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ine",
+    "url": "https://api-features.ign.es/collections/nuc/items?codine=$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ine",
+    "url": "https://api-features.ign.es/collections/opob/items?codine=$1",
+    "source": "wikidata:P3303",
     "rank": "normal"
   },
   {
@@ -2187,6 +2511,12 @@
     "key": "Key:ref:INSEE",
     "url": "https://www.insee.fr/fr/statistiques/2011101?geo=COM-$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:ipac",
+    "url": "card/$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2310,6 +2640,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:landsdeelcode",
+    "url": "https://vocabs.cbs.nl/geo/def/landsdelen/LD$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:lfd",
     "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=$1",
     "source": "wikidata:P1630",
@@ -2335,7 +2671,7 @@
   },
   {
     "key": "Key:ref:linz:pastoral_lease_id",
-    "url": "https://osm-nz.github.io/?pastoral_lease_id=$1",
+    "url": "https://linz.govt.nz/our-work/crown-property-management/pastoral-land/location-crown-pastoral-land/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2358,6 +2694,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:mastr",
+    "url": "https://www.marktstammdatenregister.de/MaStR/suche/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:mav",
     "url": "https://utas.hu/stop/mav_$1",
     "source": "wikidata:P1630",
@@ -2366,6 +2708,12 @@
   {
     "key": "Key:ref:metropoliaztm",
     "url": "https://rj.metropoliaztm.pl/rozklady/przystanek/$1/",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:mhs",
+    "url": "https://pop.culture.gouv.fr/recherche?q=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2418,6 +2766,36 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:nuts",
+    "url": "https://op.europa.eu/en/web/eu-vocabularies/concept/-/resource?uri=http://data.europa.eu/nuts/code/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:nuts:1",
+    "url": "https://op.europa.eu/en/web/eu-vocabularies/concept/-/resource?uri=http://data.europa.eu/nuts/code/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:nuts:2",
+    "url": "https://op.europa.eu/en/web/eu-vocabularies/concept/-/resource?uri=http://data.europa.eu/nuts/code/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:nuts:3",
+    "url": "https://op.europa.eu/en/web/eu-vocabularies/concept/-/resource?uri=http://data.europa.eu/nuts/code/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:NVRID",
+    "url": "https://skyddadnatur.naturvardsverket.se/sknat/?nvrid=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:NVRID",
     "url": "https://skyddadnatur.naturvardsverket.se/sknat/?nvrid=$1",
     "source": "wikidata:P1630",
@@ -2433,6 +2811,18 @@
     "key": "Key:ref:OnroerendErfgoed",
     "url": "https://id.erfgoed.net/erfgoedobjecten/$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:provinciecode",
+    "url": "https://identifier.overheid.nl/tooi/id/provincie/pv$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:provinciecode",
+    "url": "https://vocabs.cbs.nl/geo/def/provincies/PV$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2599,7 +2989,7 @@
   },
   {
     "key": "Key:ref:vatin",
-    "url": "https://adisreg.mfcr.cz/adistc/adis/irs/irep_dph/dphInputForm.faces?form:dt:0:inputDic=$1",
+    "url": "https://adisreg.mfcr.cz/adistc/DphReg?id=1&pocet=1&fu=&OK=+Search+&ZPRAC=RDPHI1&dic=$1",
     "source": "wikidata:P3303",
     "rank": "normal"
   },
@@ -2618,6 +3008,12 @@
   {
     "key": "Key:ref:vinted_go",
     "url": "https://vintedgo.com/fr/carrier-locations?selected_point=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:waterschapscode",
+    "url": "https://identifier.overheid.nl/tooi/id/waterschap/ws$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2701,7 +3097,7 @@
   },
   {
     "key": "Key:ref:wikimaginot",
-    "url": "wikimaginot.eu/V70_construction_detail.php?id=",
+    "url": "https://wikimaginot.eu/V70_construction_detail.php?id=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2714,13 +3110,13 @@
   {
     "key": "Key:ref:woonplaatscode",
     "url": "https://bag.basisregistraties.overheid.nl/bag/id/woonplaats/$1",
-    "source": "osmwiki:P8",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
     "key": "Key:ref:woonplaatscode",
-    "url": "https://bag.basisregistraties.overheid.nl/bag/id/woonplaats/$1",
-    "source": "wikidata:P1630",
+    "url": "https://bagviewer.kadaster.nl/?objectId=$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2745,6 +3141,12 @@
     "key": "Key:reg_name:wikipedia",
     "url": "https://wikipedia.org/wiki/$1",
     "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:related_law:FR:NOR",
+    "url": "https://www.legifrance.gouv.fr/WAspad/UnTexteDeJorf?numjo=$1",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -2868,14 +3270,44 @@
     "rank": "normal"
   },
   {
+    "key": "Key:subject:ref:CH-GE:icono",
+    "url": "https://www.bge-geneve.ch/iconographie/personne/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:subject:ref:CH:hls-dhs",
+    "url": "https://hls-dhs-dss.ch/fr/articles/$1/",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:subject:wikidata",
     "url": "https://www.wikidata.org/entity/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
+    "key": "Key:subject:wikimedia_commons",
+    "url": "https://commons.wikimedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:subject:wikipedia",
     "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:swisstopo:KANTONSNUM",
+    "url": "https://wiki.openstreetmap.org/wiki/Key:swisstopo:KANTONSNUM#$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:taxon:wikidata",
+    "url": "https://www.wikidata.org/entity/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2894,103 +3326,7 @@
   {
     "key": "Key:twitter",
     "url": "https://x.com/$1",
-    "source": "wikidata:P1630",
-    "rank": "preferred"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "http://3nzoldnxplag42gqjs23xvghtzf6t6yzssrtytnntc6ppc7xxuoneoad.onion/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://keybase.io/_/api/1.0/user/lookup.json?twitter=$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://nitter.net/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://nitter.snopyta.org/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://rattibha.com/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://scholia.toolforge.org/twitter/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://threadreaderapp.com/user/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://twilog.org/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://twitter.com/@$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://twitter.com/#!/$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://twitter.com/$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://twitter.com/intent/user?screen_name=$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://unavatar.now.sh/twitter/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://www.trendsmap.com/twitter/user/$1",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:twitter",
-    "url": "https://x.com/@$1",
-    "source": "wikidata:P1630",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -3031,6 +3367,12 @@
   },
   {
     "key": "Key:url:bathing_water",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:url:spaceapi",
     "url": "$1",
     "source": "osmwiki:P8",
     "rank": "normal"
@@ -3109,6 +3451,12 @@
   },
   {
     "key": "Key:website:booking",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:website:catalogue",
     "url": "$1",
     "source": "osmwiki:P8",
     "rank": "normal"
