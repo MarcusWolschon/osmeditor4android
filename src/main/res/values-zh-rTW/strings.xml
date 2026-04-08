@@ -27,10 +27,12 @@
   <string name="upload_conflict_message_missing_references">本機元素參照的物件已經在伺服器上刪除了</string>
   <string name="upload_conflict_message_unknown">%1$s \n造成原因不明的上傳衝突 \n%2$s</string>
   <string name="upload_conflict_message_changeset_closed">編輯變動非預期關閉，再次嘗試</string>
+  <string name="upload_conflict_message_local_reference_inconsistency">本地參照不一致</string>
   <string name="server_side_object">伺服器版本</string>
   <string name="local_object">本地版本</string>
   <string name="resolve_by">由解決衝突…</string>
   <string name="resolve">解決</string>
+  <string name="delete_refering_element">...藉由刪除參照元素</string>
   <string name="use_local_version">藉由使用本地版本…</string>
   <string name="merge_tags_in_to_local">藉由整併本地版本的標籤…</string>
   <string name="merge_tags_in_to_server">藉由整併伺服器版本的標籤…</string>
@@ -43,6 +45,7 @@
   <string name="unexpected_conflict_type">非預期的衝突類型</string>
   <string name="missing_referenced_elements">遺失參照元素</string>
   <string name="still_in_use_by_elements">仍然被元素使用</string>
+  <string name="local_reference_inconsistency">本地參照不一致，恢復參照元素是保證安全的選項，但也請回報錯誤。</string>
   <string name="delete_locally">本地\n刪除</string>
   <string name="undelete_on_server">非伺服器\n復原已刪除</string>
   <!--Upload retry-->
@@ -51,6 +54,7 @@
   <string name="upload_retry_message_unexpected_error">非預期的錯誤發現，目前嘗試瞭解變更集%1$d的狀態。</string>
   <string name="upload_retry_message_no_changeset_status">無法瞭解變更集%1$d的狀態。\n\n我們建議將你的變動儲存為 OCS 檔案，之後狀況排除後決定怎麼處理。</string>
   <string name="upload_retry_message_nothing_uploaded">變更集%1$d還沒有變動上傳。\n\n可以安全重試。</string>
+  <string name="upload_retry_message_all_uploaded">變動已經在變更集 %1$d 上傳成功了，但還沒有收到結果。\r\n然而，所有變動都已經上傳，所以您可以刪除本地的暫存然後重新下載資料。</string>
   <string name="upload_retry_message_partial_upload">已經在變更集%1$d上傳成功，但結果還沒有確認。</string>
   <string name="upload_retry_message_update_failed_title">上傳失敗</string>
   <string name="upload_retry_message_update_failed">無法更新資料，我們建議你先儲存你的變動到檔案之後再做處理。</string>
@@ -170,6 +174,7 @@
   <string name="progress_searching_message">正在搜尋...</string>
   <string name="progress_saving_message">正在儲存…</string>
   <string name="progress_uploading_message">上傳中...</string>
+  <string name="progress_resource_message">下載資源…</string>
   <string name="progress_loading_preset_message">載入預置…</string>
   <string name="progress_importing_file_message">匯入檔案…</string>
   <string name="progress_running_message">運作中...</string>
@@ -180,6 +185,7 @@
   <string name="progress_migration">正遷移中...</string>
   <string name="progress_determining_status_message">決定狀態…</string>
   <string name="progress_updating_message">上傳中…</string>
+  <string name="progress_validation_title">已檢核</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" 已刪除</string>
   <string name="changes_changed">\"%1$s\" 已變更</string>
@@ -209,6 +215,7 @@
   <!--Review changes dialog-->
   <string name="review_changes_title">覆核變動</string>
   <string name="review_upload_selected">上傳選擇物件</string>
+  <string name="review_update">更新</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">上傳 GPS 軌跡</string>
   <string name="upload_gpx_description_label">記述</string>
@@ -271,6 +278,7 @@
   <string name="toast_no_todos_in_list">選取清單沒有待辦事項</string>
   <string name="save_changes_title">儲存變動？</string>
   <!--System created todo lists-->
+  <string name="replace_geometry_todo_list">取代幾何議題</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存儲的變更，如果繼續將被丟棄。</string>
@@ -392,8 +400,12 @@
   <string name="even">偶數</string>
   <string name="odd">奇數</string>
   <string name="other">其他</string>
+  <string name="validation_start_is_empty">您必須為第一間門牌號填寫數值！</string>
+  <string name="validation_end_is_empty">您必須為最後一間門牌號碼填寫數值！</string>
+  <string name="validation_other_is_empty">如果您選擇其他的話，您必須提供數值！</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">遺失關聯成員</string>
+  <string name="split_safe_message">鄰里關聯成員路徑並沒有下載，要維護關聯成員順序也許需要這些資訊。</string>
   <!--JS console dialog-->
   <string name="evaluate">評估</string>
   <string name="js_console_msg_live">Live 模式！</string>
@@ -411,6 +423,15 @@
   <string name="merge_result">合併結果</string>
   <string name="overpass_query_would_overwrite">結果會被覆寫掉！放棄檢索。</string>
   <!--Download missing dialog-->
+  <string name="download_missing_title">下載遺失的預置與樣式</string>
+  <string name="download_missing_message">您的系統有 %1$s 與 %2$s 已經被設定過了，但還沒有下載。</string>
+  <plurals name="download_missing_presets">
+    <item quantity="other">%1$d預置</item>
+  </plurals>
+  <plurals name="download_missing_styles">
+    <item quantity="other">%1$d樣式</item>
+  </plurals>
+  <string name="download_missing_error">下載錯誤 %1$s</string>
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -445,6 +466,8 @@
   <string name="safe_mode_dialog_title">安全模式選項</string>
   <string name="safe_style_label">設定資料樣式到最低度</string>
   <string name="safe_layer_label">取消所有圖層</string>
+  <string name="safe_editing_state_label">移除選取與 UI 狀態</string>
+  <string name="safe_state_label">移除已儲存的資料狀態</string>
   <string name="safe_delete_state_title">要刪除儲存的資料狀態嗎？</string>
   <string name="safe_delete_state_text">是 (無法復原)</string>
   <!--Empty relation dialog-->
@@ -546,6 +569,7 @@
   <string name="errors">錯誤</string>
   <string name="layer_info_layer_not_available">並沒有圖層資訊</string>
   <string name="layer_info_no_meta_data">沒有載入中繼資料</string>
+  <string name="layer_info_custom_headers">客製化檔頭</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
   <!--Date range dialog-->
@@ -613,6 +637,7 @@
   <string name="tip_longpress_simple_mode">在簡單模式之下長按什麼事情都不會發生。如果要用長按方式來新增物件，則要在主選單關閉簡單模式。</string>
   <string name="tip_gpx_no_elevation">從版本 15 開始，GPX 軌跡預設將不會有海拔資訊。&lt;p&gt;要啟用海拔記錄，請在用&lt;i&gt;安裝 Geoid 模式。從工具選單安裝 EGM&lt;/i&gt; ，或是切換為 NMEA 輸入。</string>
   <string name="tip_tag_conflict">合併或回復 OSM 元件有時候需要改變元件的屬性，如果變動時有可能出現錯誤或衝突的話，你能手動審核有問題的元件。</string>
+  <string name="tip_replace_geometry">取代路徑的幾何通常需要移動既有節點的位置，如果這些節點都有標籤，表示他們本身代表物件，或是連接到其他路徑，這可能不太妙。&lt;p&gt;要避免上述問題，我們從上層路徑截取沒有在容許範圍內的節點，然後顯示警告。你可以在進階設定調整容許值 (預設為1公尺)。</string>
   <string name="tip_gpx_recording">當你開始錄製 GPX 時，Vespucci 收集地點資訊，即便 app 在背景，仍然在錄製。強制關閉 app 或是停止 GPS 記錄，則會停止收集位置資料。</string>
   <string name="tip_auto_download">當你自動下載 OSM 資料或是任務時，Vespucci 運用位置資料來決定你所在位置，即便你 app 在背景執行。.&lt;p&gt;強制關閉 app 或是將自動下載關掉則會停止記錄位置資訊。</string>
   <string name="tip_tristate_checkbox">你剛弄到三相檢核框，就像一般檢核框，能夠在兩個值變動，例如說是/否，或是真/假。&lt;p&gt;然而這個有第三個狀態&lt;b&gt;沒有設定&lt;/b&gt; 狀態，用灰階的檢核框來顯示，不會在相關的標籤做出變動。你可以透過長按來設定檢核框的狀態。</string>
@@ -620,6 +645,7 @@
   <string name="tip_mode_switching">上鎖按鈕也是模式切換鍵，長按之後會顯示不同選項的選單。&lt;p&gt;你可以說明系統找到 Vespucci 不同模式的資訊，同樣也有在簡介與主要地圖畫面的說明都有。</string>
   <string name="tip_empty_gpx_download">由於 OSM API 的狀況，GPX 軌跡的開始點必須在檢視範圍而且能找到下載下來。</string>
   <string name="tip_no_redo">這個模式不支搜重做節點新增。</string>
+  <string name="tip_way_splitting">碰觸高亮度呈現的節點來決定分割位置，長按則會允許你選擇那個部分會在接下來的步驟成為新的路徑。&lt;p&gt;如果在方便的位置沒有已經存在的節點，您可以加一個，以及在路徑的位置長按來分割路徑。如果您使用這一方式則片段選取無法作用。</string>
   <string name="tip_closed_way_splitting">封閉路徑必須分割為兩部分，碰觸高度度呈現的節點來決定第一個分割位置，接下來則會詢問第二個位置。</string>
   <string name="tip_disambiguation_menu">當有多個 OSM 元素或其他物件相當靠近彼此，或是元素是關聯的成員，消歧義的選單就會出現。你可以從清單選擇精確的元素。&lt;p&gt; 如果已經有元素被選取則會高亮度顯示。</string>
   <string name="tip_file_import">在運行 Android 10 或者之後版本的裝置上，你必須複製檔案才會有完整權限。複製的檔案位於  &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;.，如果需要你可以刪除原檔只需要保留複製版本。</string>
@@ -1014,10 +1040,12 @@
   <string name="no_nominatim_result">Nominatim 伺服器沒有找到 %1$s</string>
   <!--Menu-->
   <string name="menu_move">移動</string>
+  <string name="menu_edit">編輯…</string>
   <string name="menu_add">新的</string>
   <string name="menu_config">參數選項</string>
   <string name="menu_find">找尋</string>
   <string name="menu_help">幫助</string>
+  <string name="menu_view">檢視…</string>
   <string name="menu_erase">抹除節點</string>
   <string name="menu_set_position">位置</string>
   <string name="menu_split">拆分</string>
@@ -1133,6 +1161,8 @@
   <string name="menu_tools_remove_egm">移除 EGM</string>
   <string name="menu_tools_import_data_style">匯入資料樣式…</string>
   <string name="menu_tools_load_keys">從檔案載入鍵...</string>
+  <string name="menu_tools_export_configuration">匯出設定…</string>
+  <string name="menu_tools_import_configuration">匯入設定…</string>
   <!---->
   <string name="menu_modes">模式…</string>
   <string name="menu_simple_actions">簡易模式</string>
@@ -1235,9 +1265,10 @@
   <string name="actionmode_split_closed_way">分割封閉路徑</string>
   <string name="actionmode_rotate">旋轉</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">選取第一個節點</string>
+  <string name="actionmode_closed_way_split_1">選擇第一個節點或是長按</string>
   <string name="actionmode_closed_way_split_2">選取第二個節點</string>
-  <string name="actionmode_split_way_node_selection">選擇節點</string>
+  <string name="actionmode_closed_way_split_long_click_2">選擇第二個節點或是長按</string>
+  <string name="actionmode_split_way_node_selection">選擇節點或是長按</string>
   <string name="actionmode_split_way_select_part">選取部分成為新路徑</string>
   <string name="actionmode_select_node_to_append_to">選擇節點來附著</string>
   <string name="actionmode_restriction">增加轉彎限制</string>
@@ -1306,6 +1337,7 @@
   <string name="config_presetbutton_summary">增加並啟用 JOSM 相容的預置</string>
   <string name="config_built_in_preset">內建預設</string>
   <string name="config_keyboard_shortcuts_title">鍵盤快速鍵</string>
+  <string name="config_keyboard_shortcuts_summary">改變鍵盤快速鍵的對照</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">驗證器設定</string>
   <string name="config_validatorprefs_summary">設定驗證規則。</string>
@@ -1463,8 +1495,11 @@
   <string name="config_replaceTolerance_title">移動有標籤節點的最大距離</string>
   <string name="config_replaceTolerance_summary">當取代路徑幾何時移動有標籤節點的最大距離。</string>
   <string name="config_replaceTolerance_current">%1$d公尺</string>
+  <string name="config_minMoveWayNodesWarning_title">移動警告的最少路徑節點計算</string>
+  <string name="config_minMoveWayNodesWarning_summary">一個路徑最少有幾個節點，當移動時會發出警告。</string>
   <string name="config_minMoveWayNodesWarning_current">%1$d</string>
   <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
+  <string name="config_ignoreSubareas_title">忽略子區域</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
   <string name="config_category_auto_download_summary">資料和任務自動下載的設定</string>

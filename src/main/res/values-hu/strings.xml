@@ -1232,9 +1232,7 @@ elemek megkövetelése</string>
   <string name="actionmode_split_closed_way">Zárt vonal elvágása</string>
   <string name="actionmode_rotate">Forgatás</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Első pont kijelölése</string>
   <string name="actionmode_closed_way_split_2">Második pont kijelölése</string>
-  <string name="actionmode_split_way_node_selection">Pont kijelölése</string>
   <string name="actionmode_split_way_select_part">Rész kijelölése új vonalhoz</string>
   <string name="actionmode_select_node_to_append_to">Pont kijelölése, amelyhez csatolni kívánja</string>
   <string name="actionmode_restriction">Behajtási korlátozás hozzáadása</string>

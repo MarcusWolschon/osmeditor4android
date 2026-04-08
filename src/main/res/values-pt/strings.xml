@@ -1189,9 +1189,7 @@ há %3$s %4$s</string>
   <string name="actionmode_split_closed_way">Dividir linha fechada</string>
   <string name="actionmode_rotate">Rodar</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Selecionar o 1º nó</string>
   <string name="actionmode_closed_way_split_2">Selecionar o 2º nó</string>
-  <string name="actionmode_split_way_node_selection">Selecionar nó</string>
   <string name="actionmode_split_way_select_part">Selecionar a parte da nova linha</string>
   <string name="actionmode_select_node_to_append_to">Selecionar o nó a acrescentar</string>
   <string name="actionmode_restriction">Adicionar restrição de viragem</string>

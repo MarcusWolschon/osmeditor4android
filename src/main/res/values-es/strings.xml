@@ -1249,9 +1249,7 @@
   <string name="actionmode_split_closed_way">Dividir vía cerrada</string>
   <string name="actionmode_rotate">Rotar</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Seleccionar el primer nodo</string>
   <string name="actionmode_closed_way_split_2">Seleccionar el segundo nodo</string>
-  <string name="actionmode_split_way_node_selection">Seleccionar nodo</string>
   <string name="actionmode_split_way_select_part">Seleccionar parte para la nueva vía</string>
   <string name="actionmode_select_node_to_append_to">Seleccionar nodo al que añadir</string>
   <string name="actionmode_restriction">Añadir restricción de giro</string>

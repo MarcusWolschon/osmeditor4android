@@ -27,10 +27,12 @@
   <string name="upload_conflict_message_missing_references">この端末内の要素は、サーバー上で削除された物体を参照します</string>
   <string name="upload_conflict_message_unknown">%1$s \nを原因とする未知のアップロード競合 \n%2$s</string>
   <string name="upload_conflict_message_changeset_closed">変更セットが不意に閉じられました、再試行中</string>
+  <string name="upload_conflict_message_local_reference_inconsistency">端末内での参照が不一致</string>
   <string name="server_side_object">サーバー側の版</string>
   <string name="local_object">この端末内の版</string>
   <string name="resolve_by">…によって競合を解決</string>
   <string name="resolve">解決</string>
+  <string name="delete_refering_element">参照中の要素を削除することによって…</string>
   <string name="use_local_version">この端末内のバージョンを使用することによって…</string>
   <string name="merge_tags_in_to_local">この端末内のバージョンにタグを組み込み統合することによって…</string>
   <string name="merge_tags_in_to_server">サーバーのバージョンにタグを組み込み統合することによって…</string>
@@ -43,6 +45,7 @@
   <string name="unexpected_conflict_type">不意の種類の競合</string>
   <string name="missing_referenced_elements">参照された要素が欠落</string>
   <string name="still_in_use_by_elements">要素が使用するままにする</string>
+  <string name="local_reference_inconsistency">端末内での参照が不一致です。参照された要素の削除を取り消すことは安全な選択肢ですが、これをバグとして報告してください。</string>
   <string name="delete_locally">端末内で削除</string>
   <string name="undelete_on_server">サーバー上で\n復元</string>
   <!--Upload retry-->
@@ -51,6 +54,7 @@
   <string name="upload_retry_message_unexpected_error">変更セット %1$d の状態の特定を試行中に、予期しないエラーが発生しました。</string>
   <string name="upload_retry_message_no_changeset_status">変更セット %1$d の状態の特定ができませんでした。\n\nOCSファイルとして変更を保存して、良いものを受信したときに何をすべきかを判断することを推奨します。</string>
   <string name="upload_retry_message_nothing_uploaded">変更セット %1$d 内に、アップロードされたものはありません。\n\n安全に再試行できます。</string>
+  <string name="upload_retry_message_all_uploaded">変更セット %1$d のアップロードが成功しましたが、結果を受信しませんでした。\n\nしかしながら、全変更がアップロードされように見えるならば、あなたの端末内の変更と再ダウンロードについては安全に無視できます。</string>
   <string name="upload_retry_message_partial_upload">変更セット %1$d のアップロードが成功しましたが、結果を受信しませんでした。</string>
   <string name="upload_retry_message_update_failed_title">更新失敗</string>
   <string name="upload_retry_message_update_failed">データを更新できません。後で使用するために、ファイルへ変更の保存を推奨します。</string>
@@ -167,6 +171,7 @@
   <string name="progress_searching_message">検索中...</string>
   <string name="progress_saving_message">保存中...</string>
   <string name="progress_uploading_message">アップロード中…</string>
+  <string name="progress_resource_message">リソースをダウンロード中…</string>
   <string name="progress_loading_preset_message">プリセットを読み込み中…</string>
   <string name="progress_importing_file_message">ファイルを取り込み中</string>
   <string name="progress_running_message">実行中…</string>
@@ -206,6 +211,7 @@
   <!--Review changes dialog-->
   <string name="review_changes_title">変更点を確認</string>
   <string name="review_upload_selected">選択したものをアップロード</string>
+  <string name="review_update">更新</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">GPX経路をアップロード</string>
   <string name="upload_gpx_description_label">説明</string>
@@ -359,6 +365,7 @@
   <string name="other">その他</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">リレーションのメンバーが欠けています</string>
+  <string name="split_safe_message">付近のリレーションのメンバーのウェイがダウンロードされていません。リレーションのメンバーの順序を維持するには、ダウンロードする必要があるかもしれません。</string>
   <!--JS console dialog-->
   <string name="evaluate">評価する</string>
   <string name="js_console_msg_live">ライブ方式!</string>
@@ -376,6 +383,15 @@
   <string name="merge_result">結果を統合</string>
   <string name="overpass_query_would_overwrite">結果は変更を上書きします!　クエリは中止されました。</string>
   <!--Download missing dialog-->
+  <string name="download_missing_title">欠落したプリセットと様式をダウンロード</string>
+  <string name="download_missing_message">あなたのシステムには %1$s と %2$s で設定がありますが、まだダウンロードされていません。</string>
+  <plurals name="download_missing_presets">
+    <item quantity="other">%1$d 件のプリセット</item>
+  </plurals>
+  <plurals name="download_missing_styles">
+    <item quantity="other">%1$d 件の様式</item>
+  </plurals>
+  <string name="download_missing_error">ダウンロードのエラー %1$s</string>
   <!---->
   <string name="error">エラー</string>
   <string name="warning">警告</string>
@@ -405,6 +421,8 @@
   <string name="safe_mode_dialog_title">安全方式の選択肢</string>
   <string name="safe_style_label">データの様式を最小に設定</string>
   <string name="safe_layer_label">全てのレイヤーを無効化</string>
+  <string name="safe_editing_state_label">選択したものとUI状態を削除</string>
+  <string name="safe_state_label">保存したデータ状態を削除</string>
   <string name="safe_delete_state_title">保存した状態を削除しますか?</string>
   <string name="safe_delete_state_text">よろしい (取り消せません)</string>
   <!--Empty relation dialog-->
@@ -447,6 +465,7 @@
   <string name="layer_style_label">ラベル</string>
   <string name="json_object_not_displayed">JSONオブジェクト (非表示)</string>
   <string name="json_array_not_displayed">JSON配列 (非表示)</string>
+  <string name="gpx_automatic">自動</string>
   <string name="gpx_name">GPX名</string>
   <string name="gpx_description">GPX説明</string>
   <string name="gpx_type">GPXの種類</string>
@@ -554,6 +573,7 @@
   <string name="tip_gpx_recording">GPX記録を開始すると、Vespucciはこのアプリが表示されていないときにも、GPX記録のために位置情報を収集します。&lt;p&gt;その場合、アプリを明確に閉じるか、GPX記録を切ることによって、位置情報の利用を止めることができます。</string>
   <string name="tip_auto_download">OSMデータや課題の自動ダウンロードを開始すると、Vespucciはアプリが表示されていないときにも、現在地を特定するために位置情報を利用します。&lt;p&gt;その場合、アプリを明確に閉じるか、自動ダウンロードを切ることによって、位置情報の利用を止めることができます。</string>
   <string name="tip_no_redo">この方式では現在、ノードの追加を元に戻すことに対応していません。</string>
+  <string name="tip_way_splitting">強調表示されたノードを触れて、分割箇所を決定してください。長押しすると、新規ウェイに使用される更に多くの部分を選択できるようになります。&lt;p&gt;都合のいい箇所に既存のノードがない場合は、ウェイ上で長クリックすると、その位置でノードを追加し分割できます。この方法を使用する場合、区分選択はできません。</string>
   <string name="tip_closed_way_splitting">閉じたウェイは2箇所で分割されます。強調表示されたノードを触れて、1番目の分割箇所を決定してください。次に、2番目の分割箇所を尋ねます。</string>
   <string name="tip_disambiguation_menu">互いにとても近い複数のOSMの要素もしくは他の物体、または、リレーションのメンバーは、明確にメニューに表示されます。あなたは、ここで一覧から特定の要素を選択できます。&lt;p&gt;要素が現在既に選択されている場合は、強調表示されます。</string>
   <string name="tip_wms_tile_size">WMS (Web Map Service)は256x256より大きなタイルに対応します。より効率的にするために、512x512を使用する設定を検討してください。</string>
@@ -609,6 +629,10 @@
   <string name="toast_note_reopened">メモを再度開きました</string>
   <string name="toast_untrusted_certificate">信用していない証明書\n%1$s</string>
   <string name="toast_element_may_have_been_moved">要素は移動されたかもしれません</string>
+  <string name="toast_configuration_export_failed">設定の出力に失敗しました\n\n%1$s</string>
+  <string name="toast_configuration_import_failed">設定の取り込みに失敗しました\n\n%1$s</string>
+  <string name="toast_configuration_export_success">設定の出力に成功しました!</string>
+  <string name="toast_configuration_import_success">設定の取り込みに成功しました!</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">未調査の道</string>
   <string name="toast_noname">名称または参照番号が欠落した道</string>
@@ -622,7 +646,7 @@
   <string name="toast_oauth_timeout">認証ハンドシェイク中にタイムアウトしました。再試行してください。</string>
   <string name="toast_oauth_communication">認証ハンドシェイク中に誤通信しました。再試行してください。</string>
   <string name="toast_oauth_handshake_failed">OAuthハンドシェイクを成し遂げられませんでした: %1$s</string>
-  <string name="toast_timeout">サーバからタイムアウト</string>
+  <string name="toast_timeout">サーバーからタイムアウト</string>
   <string name="coordinates_out_of_range">経度の値は -180°/+180° 以内です。緯度は -85°/85° です。</string>
   <string name="toast_nothing_found">検索結果なし</string>
   <string name="toast_layer_statesave_failed">%1$s レイヤーで現在の状態を保存できませんでした!</string>
@@ -650,6 +674,7 @@
   <string name="toast_invalid_apiurl">不適切な API URL</string>
   <string name="toast_invalid_readonlyurl">不適切な読込専用 API URL</string>
   <string name="toast_invalid_notesurl">不正なメモAPIのURL</string>
+  <string name="toast_invalid_url">無効なURL</string>
   <string name="toast_missing_preset_file">「%1$s」用のプリセットファイルが欠落しています</string>
   <string name="toast_invalid_filter_regexp">フィルター内に不適切な正規表現 キー=\"%1$s\" 値=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">写真 %1$s を利用できません。</string>
@@ -668,6 +693,7 @@
   <string name="toast_null_island">エレメントを0°/0°(Null Island)に追加しないでください</string>
   <string name="toast_string_too_long">文字列が長すぎます (%1$d 文字)、切り捨てました！</string>
   <string name="toast_illegal_operation">不正な操作： %1$s</string>
+  <string name="toast_all_way_nodes_download">全てのウェイノードは、ダウンロードされた領域内でなければなりません</string>
   <string name="toast_preset_creation_failed">プリセット「%1$s」を作成できませんでした: %2$s</string>
   <string name="toast_imperial_units">欠如している帝国単位</string>
   <string name="toast_server_connection_failed">サーバーに接続できませんでした: %1$s</string>
@@ -688,6 +714,7 @@
   <string name="toast_move_note_warning">新しいノートのみが移動できます</string>
   <string name="toast_task_layer_disabled">課題レイヤーは無効です</string>
   <string name="toast_unable_to_create_task_layer">課題レイヤーを作成できませんでした</string>
+  <string name="toast_merged">統合しました</string>
   <string name="toast_invalid_style_file">不正な様式ファイル %1$s\n%2$s</string>
   <string name="toast_updated">%1$s を更新しました</string>
   <string name="toast_cannot_resume_download_of">%1$s のダウンロードを再開できません</string>
@@ -708,6 +735,7 @@
   <string name="toast_phone_number_reformatted">電話番号の書式が直されました</string>
   <string name="toast_members_not_downloaded">リレーションのメンバーがダウンロードされていません</string>
   <string name="toast_restart_required">変更を反映するには、Vespucciを再起動する必要があります</string>
+  <string name="toast_unable_to_open_offline_data">オフライン用データを開けません %1$s %2$s</string>
   <string name="toast_no_usable_location">使用できる位置情報がありません</string>
   <string name="toast_default_channel_needs_to_be_enabled">初期設定の通知チャンネルでは、記録の開始が有効化されている必要があります。</string>
   <plurals name="added_required_elements">
@@ -733,7 +761,12 @@
   <string name="toast_querying_wms_server_failed">WMSサーバーへの問い合わせに失敗: %1$s</string>
   <string name="toast_note_not_found">メモ #%1$d が見つかりません</string>
   <string name="toast_no_compass">端末は方位磁石機能を持ちません!</string>
+  <string name="toast_panoramax_sequence_error">panoramax一連 id %1$s id %2$s を取得できません</string>
+  <string name="toast_panoramax_image_not_in_sequence_error">一連内に画像id %1$s が見つかりません</string>
+  <string name="toast_panoramax_sequence_exception">panoramax一連を取得できません\n%1$s</string>
+  <string name="toast_panoramax_instance_list_error">panoramaxインスタンス一覧を取得できません\n%1$s</string>
   <string name="toast_authorisation_successful">認証成功!</string>
+  <string name="toast_authorisation_failed">認証失敗\n%1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">発信源MapSplitには最小と最大の拡大が設定されている必要があります</string>
   <string name="error_pbf_no_version">PBFファイル内のバージョン情報が欠落しています</string>
@@ -842,6 +875,7 @@
   <string name="tag_restriction_add_expression">条件式を追加</string>
   <string name="tag_restriction_add_opening_hours">営業時間を追加</string>
   <string name="tag_restriction_value_hint">条件付きの制限</string>
+  <string name="default_checkgroup_hint">追加属性</string>
   <string name="tag_form_unknown_element">不明な要素 (プリセットが見つかりません)</string>
   <string name="tag_form_untagged_element">タグの無い要素</string>
   <!--preset item menu in preset MRU-->
@@ -897,10 +931,12 @@
   <string name="no_nominatim_result">Nominatimサーバーで%1$sが見つかりませんでした</string>
   <!--Menu-->
   <string name="menu_move">表示位置の移動</string>
+  <string name="menu_edit">編集…</string>
   <string name="menu_add">新規</string>
   <string name="menu_config">設定</string>
   <string name="menu_find">検索</string>
   <string name="menu_help">ヘルプ</string>
+  <string name="menu_view">表示…</string>
   <string name="menu_erase">ノード削除</string>
   <string name="menu_set_position">位置</string>
   <string name="menu_split">ウェイ分割</string>
@@ -1013,6 +1049,8 @@
   <string name="menu_tools_remove_egm">地球重力モデルを削除</string>
   <string name="menu_tools_import_data_style">データの様式を取り込む…</string>
   <string name="menu_tools_load_keys">ファイルから諸キーを読込…</string>
+  <string name="menu_tools_export_configuration">設定を出力…</string>
+  <string name="menu_tools_import_configuration">設定を取り込み…</string>
   <!---->
   <string name="menu_modes">方式</string>
   <string name="menu_simple_actions">簡単方式</string>
@@ -1105,9 +1143,7 @@
   <string name="actionmode_split_closed_way">閉じたウェイを分割</string>
   <string name="actionmode_rotate">回転</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">1番目のノードを選択</string>
   <string name="actionmode_closed_way_split_2">2番目のノードを選択</string>
-  <string name="actionmode_split_way_node_selection">ノードを選択</string>
   <string name="actionmode_restriction">進行方向制限を追加</string>
   <string name="actionmode_restriction_restart_from">「from」セグメントを再選択</string>
   <string name="actionmode_restriction_via">「via」セグメント/エレメントを追加</string>
@@ -1296,7 +1332,11 @@
   <string name="config_replaceTolerance_title">タグ付きノードを移動する際の最大距離</string>
   <string name="config_replaceTolerance_summary">ウェイの配置を変えてタグ付きノードを移動する際の最大距離</string>
   <string name="config_replaceTolerance_current">%1$d メートル</string>
+  <string name="config_minMoveWayNodesWarning_title">移し警告用の、最小ウェイノード数</string>
+  <string name="config_minMoveWayNodesWarning_summary">移したウェイの警告が発動するのに必要な、ウェイの最小ノード個数です。</string>
   <string name="config_minMoveWayNodesWarning_current">%1$d 個</string>
+  <string name="config_minMoveVisibleWayNodesWarning_title">可視ノード移し警告用の、最小ウェイノード数</string>
+  <string name="config_minMoveVisibleWayNodesWarning_summary">可視ノード確認との潜在的警告が発動するのに必要な、ウェイの最小ノード個数です。</string>
   <string name="config_minMoveVisibleWayNodesWarning_current">%1$d 個</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動ダウンロード設定</string>
@@ -1313,6 +1353,7 @@
   <string name="config_autoPruneNodeLimit_current">%1$d 個のノード</string>
   <string name="config_autoPruneBoundingBoxLimit_title">自動節減する矩形境界の上限</string>
   <string name="config_autoPruneBoundingBoxLimit_summary">メモリ内でこの矩形境界数に到達したとき、節減が発動します。</string>
+  <string name="config_autoPruneBoundingBoxLimit_current">%1$d 個の矩形</string>
   <string name="config_panAndZoomLimit_title">拡大制限</string>
   <string name="config_panAndZoomLimit_summary">描画範囲の移動や拡大で自動ダウンロードする最小拡大段階です。</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
@@ -1340,7 +1381,7 @@
   <string name="config_gps_distance_current">%1$d メートル</string>
   <string name="config_leaveGpsDisabled_title">GPS/GNSSが無効のままにする</string>
   <string name="config_leaveGpsDisabled_summary">GPS/GNSSが無効の場合、有効にするかどうかを尋ねません。</string>
-  <string name="config_gps_network_title">ネットワークの位置にフォールバック</string>
+  <string name="config_gps_network_title">ネットワークの位置情報にフォールバック</string>
   <string name="config_gps_network_summary">GPS/GNSS測位が存在しないか有効化されていない場合、ネットワーク提供者にフォールバックします。</string>
   <string name="config_gnssTimeToStale_title">位置情報が期限切れになる時間</string>
   <string name="config_gnssTimeToStale_summary">場所が期限切れと見なす必要がある位置情報の経過時間 (秒単位)。</string>
@@ -1431,15 +1472,31 @@
   <string name="imagestore_type">画像記憶の種別</string>
   <!--preset downloader messages-->
   <string name="preset_update">プリセットを更新</string>
+  <string name="resource_download_successful">リソースをダウンロードしました</string>
+  <string name="resource_load_successful">リソースを読み込みました</string>
+  <string name="resource_download_failed">リソースファイルをダウンロードできませんでした。そのリソースは機能しません。</string>
+  <string name="preset_download_parse_failed">リソースファイルは不正です。リソースは動作しません。</string>
   <string name="preset_download_missing_images">プリセットファイルをダウンロードしました。ただし、一部の欠落しているアイコンはダウンロードしませんでした。</string>
+  <string name="resource_download_title">リソースダウンローダー</string>
   <!--preset management-->
+  <string name="preset_management_delete">本当にプリセットを削除しますか?</string>
   <!--style downloader messages-->
+  <string name="style_update">様式を更新</string>
   <!--style management-->
+  <string name="manage_styles">様式を管理</string>
+  <string name="style_management_delete">本当に様式を削除しますか?</string>
   <!--Image storage management-->
+  <string name="imagestores_add_from_panoramax_list">panoramaxインスタンス一覧から追加…</string>
   <string name="imagestores_add_manually">手動で追加…</string>
   <!--url handler activity-->
+  <string name="urldialog_add_preset">プリセットを追加…</string>
+  <string name="urldialog_resource_exists">このリソースは既に存在しています</string>
+  <string name="urldialog_resource_download_successful">リソースをダウンロードしました。</string>
   <string name="urldialog_api_exists">このURLのAPIは既に存在しています。しかし、他のものを追加できます (例: アカウントの変更が簡単になります)。</string>
+  <string name="urldialog_add_api">APIを追加…</string>
   <string name="urldialog_nodata_text">設定URLは正しいデータを含んでいません。</string>
+  <string name="urldialog_add_image_store">画像記憶を追加…</string>
+  <string name="urldialog_add_style">様式を追加…</string>
   <!--API configuration-->
   <string name="api_name">API名</string>
   <string name="api_url">API URL</string>
@@ -1451,6 +1508,10 @@
   <string name="image_upload_title">アップロード先を選択</string>
   <string name="image_upload">アップロード</string>
   <string name="image_upload_and_remove">アップロードと削除</string>
+  <string name="image_upload_not_authorized">対象のストレージ用に認証していないため、アップロードに失敗しました</string>
+  <string name="image_upload_failed">アップロード失敗 %1$s</string>
+  <string name="image_upload_failed_duplicate_image">画像はすでにアップロードに成功しました。</string>
+  <string name="wikimedia_meta_title">Wikimediaのメタデータ</string>
   <string name="wikimedia_meta_filename">ファイル名</string>
   <string name="wikimedia_meta_description">説明</string>
   <string name="wikimedia_meta_source">情報源</string>
@@ -1570,13 +1631,14 @@
   <string name="issue_role_reversed">ロールを反転しました</string>
   <string name="issue_oneway_direction_reversed">一方通行の方向を反転しました</string>
   <string name="issue_role_conflict">ロールが競合しています</string>
-  <string name="issue_merged_tags">タグをマージしました</string>
+  <string name="issue_merged_tags">タグを統合しました</string>
   <string name="issue_same_object">同じオブジェクト</string>
   <string name="issue_merged_metric">長さに依存する値を結合しました</string>
   <string name="issue_split_metric">長さに依存する値を分割しました</string>
   <string name="issue_split_route_ordering">ルートを手動で並び替える必要があるかもしれません</string>
   <string name="issue_split_area">エリアを分割しました。マルチポリゴンに変換する必要があるかもしれません</string>
   <string name="issue_precondition_relation_member_count">リレーションのメンバーが多すぎます</string>
+  <string name="issue_replace_extracted_node">ノードをウェイから抽出しました</string>
   <string name="issue_replace_member_element_replaced">メンバー要素を置き換えました</string>
   <!--time and distance-->
   <plurals name="days">
@@ -1637,6 +1699,15 @@
   <string name="tile_no_network">ネットワークなし</string>
   <string name="tile_unknown_error">未知のエラー</string>
   <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcuts_empty">利用可能なショートカットがありません</string>
+  <string name="keyboard_shortcut_modifier">修飾キー</string>
+  <string name="keyboard_shortcut_key">キー文字</string>
   <string name="keyboard_shortcut_save">保存</string>
   <string name="keyboard_shortcut_reset">リセット</string>
+  <string name="keyboard_shortcut_saved">ショートカットを保存しました</string>
+  <string name="keyboard_shortcut_save_error">ショートカットを保存中にエラー</string>
+  <string name="keyboard_shortcuts_reset_all">全てを初期設定にリセット</string>
+  <string name="keyboard_shortcuts_reset_title">ショートカットをリセット</string>
+  <string name="keyboard_shortcut_key_required">キー文字は必須です</string>
+  <string name="keyboard_shortcut_duplicate">重複したショートカット</string>
 </resources>

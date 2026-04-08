@@ -21,6 +21,7 @@
     <string name="help_advanced_preferences">Додаткові налаштування</string>
     <string name="help_custom_imagery">Власний фон</string>
     <string name="help_presets">Заготовки</string>
+    <string name="help_styles">Стилі</string>
     <string name="help_uploading">Завантаження змін</string>
     <string name="help_conflictresolution">Розвʼязання конфліктів</string>
     <string name="help_gpssources">Джерела GPS</string>
@@ -34,6 +35,7 @@
     <string name="help_tag_only_mode">Режим тільки тегів</string>
     <string name="help_indoor_mode">Режим внутрішніх приміщень</string>
     <string name="help_address_mode">Режим адрес</string>
+    <string name="help_upgrade">22.0. Інформація про версію</string>
     <string name="help_upgrade_212">21.2 Примітки до випуску</string>
     <string name="help_upgrade_211">21.1 Примітки до випуску</string>
     <string name="help_upgrade_210">21.0 Примітки до випуску</string>

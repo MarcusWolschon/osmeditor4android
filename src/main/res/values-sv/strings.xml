@@ -1242,9 +1242,7 @@
   <string name="actionmode_split_closed_way">Dela sluten sträcka</string>
   <string name="actionmode_rotate">Rotera</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Välj 1:a noden</string>
   <string name="actionmode_closed_way_split_2">Välj 2:a noden</string>
-  <string name="actionmode_split_way_node_selection">Välj nod</string>
   <string name="actionmode_split_way_select_part">Välj del för ny väg</string>
   <string name="actionmode_select_node_to_append_to">Välj nod att lägga till</string>
   <string name="actionmode_restriction">Lägg till svängrestriktion</string>

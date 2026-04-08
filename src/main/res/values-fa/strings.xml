@@ -1063,9 +1063,7 @@
   <string name="actionmode_split_closed_way">تقسیم راه بسته</string>
   <string name="actionmode_rotate">چرخش</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">گره 1 را انتخاب کنید</string>
   <string name="actionmode_closed_way_split_2">گره 2 را انتخاب کنید</string>
-  <string name="actionmode_split_way_node_selection">گره را انتخاب کنید</string>
   <string name="actionmode_split_way_select_part">قسمتی را برای راه جدید انتخاب کنید</string>
   <string name="actionmode_select_node_to_append_to">گره را برای الحاق انتخاب کنید</string>
   <string name="actionmode_restriction">افزودن محدودیت گردش</string>

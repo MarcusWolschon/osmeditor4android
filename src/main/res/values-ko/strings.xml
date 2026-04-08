@@ -286,6 +286,7 @@
   <string name="overpass_console">Overpass 콘솔</string>
   <string name="merge_result">쿼리 결과를 병합</string>
   <!--Download missing dialog-->
+  <string name="download_missing_title">누락된 프리셋과 스타일 다운로드</string>
   <!---->
   <string name="error">오류</string>
   <string name="warning">경고</string>
@@ -300,6 +301,7 @@
   <!--Validator dialogs-->
   <string name="check_entries">수표</string>
   <!--Safe mode dialog-->
+  <string name="safe_style_label">데이터 스타일을 최소 스타일로 변경</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">빈 관계</string>
   <string name="add_members">구성원 추가</string>
@@ -310,7 +312,10 @@
   <string name="create_osm_object">OSM 개체 만들기</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">사용자 정의 이미지</string>
+  <string name="edit_layer_title">레이어 항목 편집</string>
+  <string name="add_layer_title">레이어 항목 추가</string>
   <string name="select_layer_title">레이어 선택</string>
+  <string name="overlay">오버레이</string>
   <string name="coverage">적용범위</string>
   <string name="coverage_top">상위</string>
   <string name="coverage_left">왼쪽</string>
@@ -318,6 +323,7 @@
   <string name="tile_size">타일 크기</string>
   <string name="delete_layer">레이어 삭제?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">레이어 스타일</string>
   <string name="layer_style_stroke_width">선 두께</string>
   <string name="layer_style_color">색</string>
   <string name="layer_style_label">이름표</string>
@@ -349,6 +355,7 @@
   <string name="layer_category_map">지도</string>
   <string name="layer_category_osmbasedmap">OSM 기반 지도</string>
   <string name="layer_category_other">기타</string>
+  <string name="layer_add_layer_from_mvt_style">MVT 스타일로 레이어 추가...</string>
   <string name="layer_add_custom_imagery">사용자 정의 이미지 추가...</string>
   <string name="layer_add_gpx">GPX 파일로 레이어 추가…</string>
   <string name="layer_download_track">GPX 경로 다운로드..</string>
@@ -407,6 +414,7 @@
   <string name="toast_permission_denied">권한 거부됨 %1$s</string>
   <string name="toast_url_empty">URL 입력</string>
   <string name="toast_no_changes">아직 아무것도 바꾸지 않았습니다…</string>
+  <string name="toast_jpeg_not_transparent">JPEG 파일은 투명도가 없어서 오버레이로 사용될 수 없습니다.</string>
   <string name="toast_unsaved_changes">먼저 저장되지 않은 변경 사항을 업로드하세요.</string>
   <string name="clear_anyway">어쨌든 지울까요?</string>
   <string name="toast_upload_success">OSM 서버에 업로드</string>
@@ -436,6 +444,7 @@
   <string name="toast_no_voice">현재 음성 인식 기능이 없습니다.</string>
   <string name="toast_min_one_preset">최소한 하나의 프리셋이 선택되어야 합니다.</string>
   <string name="toast_min_one_geocoder">최소한 하나의 지오코더가 선택되어야 합니다.</string>
+  <string name="toast_min_one_style">하나의 스타일이 선택되었습니다!</string>
   <string name="toast_tile_database_issue_short">타일 데이터베이스 이슈</string>
   <string name="toast_invalid_apiurl">올바르지 않은 API URL</string>
   <string name="toast_invalid_readonlyurl">올바르지 않은 읽기 전용 API URL</string>
@@ -479,6 +488,7 @@
   <string name="toast_outer_rings_differing_tags">바깥 테두리가 다른 태그를 가지고 있습니다</string>
   <string name="toast_multipolygon_has_incomplete_rings">다중 다각형에 불완전한 루프가 있습니다.</string>
   <string name="toast_error_saving_bookmark">북마크를 저장할 수 없음</string>
+  <string name="toast_error_loading_style">스타일을 불러올 수 없음: %1$s</string>
   <string name="toast_only_one_source_supported">스타일마다 한 개의 소스만 지원합니다.</string>
   <string name="toast_no_intersection_found">교차점이 발견되지 않음</string>
   <string name="toast_element_has_been_deleted">요소가 삭제됨</string>
@@ -501,6 +511,7 @@
   <string name="set">설정</string>
   <string name="replace">교체</string>
   <string name="save">저장</string>
+  <string name="save_and_set">저장하고 설정</string>
   <string name="back">뒤로</string>
   <string name="forward">앞으로</string>
   <string name="keep">유지</string>
@@ -582,7 +593,7 @@
   <string name="tag_restriction_add_restriction">제약 추가</string>
   <string name="tag_restriction_add_simple_condition">간단한 조건 추가</string>
   <string name="tag_restriction_add_expression">표현식 추가</string>
-  <string name="tag_restriction_add_opening_hours">여는 시간 추가</string>
+  <string name="tag_restriction_add_opening_hours">운영 시간 추가</string>
   <string name="tag_restriction_value_hint">조건부 제한</string>
   <string name="default_checkgroup_hint">추가적인 속성</string>
   <string name="tag_form_unknown_element">알 수 없는 요소 (프리셋을 찾을 수 없음)</string>
@@ -649,7 +660,7 @@
   <string name="menu_openstreetbug">참고 추가</string>
   <string name="menu_camera">카메라</string>
   <string name="menu_gps">GPS/GNSS…</string>
-  <string name="menu_gps_show">내 위치 보이기</string>
+  <string name="menu_gps_show">내 위치 표시</string>
   <string name="menu_gps_follow">내 위치 따라가기</string>
   <string name="menu_gps_goto">현재 위치로</string>
   <string name="menu_gps_goto_coordinates">입력한 좌표로 이동</string>
@@ -666,7 +677,7 @@
   <string name="menu_gps_goto_start">GPX 경로의 시작점으로 이동</string>
   <string name="menu_gps_add_bookmark">북마크 추가...</string>
   <string name="menu_enable_gps_autodownload">위치에 따라 자동 다운로드</string>
-  <string name="menu_transfer">이송…</string>
+  <string name="menu_transfer">전송…</string>
   <string name="menu_transfer_download_current">현재 보기 다운로드</string>
   <string name="menu_transfer_download_replace">지우고 현재 보기 다운로드</string>
   <string name="menu_transfer_load_replace">지우고 현재 보기 불러오기</string>
@@ -724,11 +735,13 @@
   <string name="menu_tools_calibrate_height">압력 센서 교정</string>
   <string name="menu_tools_install_egm">EGM 설치</string>
   <string name="menu_tools_remove_egm">EGM 제거</string>
+  <string name="menu_tools_import_data_style">데이터 스타일 불러오기...</string>
   <string name="menu_tools_load_keys">파일에서 키 불러오기</string>
   <!---->
   <string name="menu_modes">모드…</string>
   <string name="menu_simple_actions">간단 모드</string>
   <string name="menu_feedback">피드백 제공</string>
+  <string name="menu_preset_feedback">프리셋 피드백 제공</string>
   <string name="menu_privacy">개인정보</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">재설정</string>
@@ -789,9 +802,7 @@
   <string name="actionmode_split_closed_way">닫힌 길 분할</string>
   <string name="actionmode_rotate">회전</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">1번째 점를 선택하세요</string>
   <string name="actionmode_closed_way_split_2">2번째 점를 선택하세요.</string>
-  <string name="actionmode_split_way_node_selection">점 선택</string>
   <string name="actionmode_select_node_to_append_to">추가할 점 선택</string>
   <string name="actionmode_restriction">회전 제한 추가</string>
   <string name="actionmode_extract_segment_select">분절 선택</string>
@@ -809,17 +820,19 @@
   <!--Preferences-->
   <string name="config_backgroundLayer_title">지도 배경</string>
   <string name="config_overlayLayer_title">지도 오버레이</string>
+  <string name="config_overlayLayer_summary">타일 기반 지도 오버레이</string>
   <string name="config_customlayers_title">사용자 레이어</string>
   <string name="config_customlayers_summary">기본 설정에 없는 레이어를 관리합니다.</string>
   <string name="config_scale_title">배율 표시</string>
+  <string name="config_mapProfile_title">데이터 스타일</string>
   <string name="config_enablePhotoLayer_title">사진 레이어 활성화</string>
   <string name="config_enablePhotoLayer_summary">지리적으로 참조된 사진을 표시합니다.</string>
   <string name="config_enableKeepScreenOn_title">화면 켜기 유지</string>
   <string name="config_enableKeepScreenOn_summary">전원 절약을 위한 화면 꺼짐을 방지합니다.</string>
-  <string name="config_largeDragArea_title">큰 점 드래그 영역</string>
+  <string name="config_largeDragArea_title">넓은 점의 드래그 영역</string>
   <string name="config_largeDragArea_summary">점을 드래그하는 영역을 크게 합니다.</string>
   <string name="config_wayNodeDragging_title">길의 점을 드래그할 수 있게 설정</string>
-  <string name="config_wayNodeDragging_summary">선택한 길의 각 점을 드래그 할 수 있게 설정.</string>
+  <string name="config_wayNodeDragging_summary">선택한 길의 각 점 드래그 활성화</string>
   <string name="config_advancedprefs">고급 환경 설정</string>
   <string name="config_moreprefs">더 많은 설정...</string>
   <string name="config_presetbutton_title">프리셋</string>
@@ -831,6 +844,7 @@
   <string name="config_validatorprefs_summary">유효성 확인 규칙을 설정합니다.</string>
   <string name="config_connectedNodeTolerance_title">연결된 점의 허용 오차</string>
   <string name="config_enabledValidations_title">활성화된 유효성 확인</string>
+  <string name="config_enabledValidations_summary">유효성 확인을 개별적으로 활성화/비활성화</string>
   <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">저자 및 라이선스</string>
@@ -839,12 +853,13 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">사용자 인터페이스 설정</string>
-  <string name="config_iconbutton_title">점 아이콘 보이기</string>
+  <string name="config_iconbutton_title">점 아이콘 표시</string>
   <string name="config_iconbutton_summary">점 위에 가장 적합한 프리셋의 아이콘을 보여줍니다.</string>
-  <string name="config_showWayIcons_title">건물에 POI 아이콘 보이기</string>
+  <string name="config_showWayIcons_title">건물 위에 POI 아이콘 표시</string>
   <string name="config_showWayIcons_summary">건물 위에 가장 적합한 프리셋의 아이콘을 보여줍니다.</string>
   <string name="config_tagFormEnabled_title">태그 편집 양식 표시</string>
   <string name="config_tagFormEnabled_summary">편집을 위해 태그 편집 양식을 표시합니다.</string>
+  <string name="config_supportPresetLabels_title">프리셋의 레이블 표시</string>
   <string name="config_supportPresetLabels_summary">태그 편집 양식에 프리셋의 레이블을 표시합니다.</string>
   <string name="config_followGPSbutton_summary">\"내 위치 따라가기\" 버튼의 위치</string>
   <string name="config_alwaysDrawBoundingBoxes_title">다운로드되지 않은 영역은 항상 어둡게 표시</string>
@@ -881,10 +896,10 @@
   <string name="config_longStringLimit_current">%1$d</string>
   <string name="config_zoomWithKeys_title">볼륨 키를 화면 확대에 사용</string>
   <string name="config_zoomWithKeys_summary">볼륨 키를 확대하고 축소하는데에 사용하세요.</string>
-  <string name="config_poi_keys_title">근처의 POI 보이기</string>
+  <string name="config_poi_keys_title">근처의 POI 표시</string>
   <!--Camera and image settings-->
   <string name="config_category_camera_and_images">카메라, 이미지 설정</string>
-  <string name="config_showCameraAction_title">카메라 작업 보이기</string>
+  <string name="config_showCameraAction_title">카메라 작업 표시</string>
   <string name="config_selectCameraApp_title">카메라 앱</string>
   <string name="config_system_camera">시스템 기본값</string>
   <string name="config_open_camera">카메라 열기</string>
@@ -900,6 +915,7 @@
   <string name="config_autoApplyPreset_summary">속성 편집기를 시작할 때 자동으로 프리셋을 적용합니다.</string>
   <string name="config_generateAlerts_title">알림 생성</string>
   <string name="config_generateAlerts_summary">문제 또는 참고로 된 데이터의 알림 생성</string>
+  <string name="config_notificationCacheSize_title">표시될 알림 개수의 제한</string>
   <string name="config_notificationCacheSize_current">%1$d 알림</string>
   <string name="config_maxAlertDistance_title">알림의 최대 거리</string>
   <string name="config_maxAlertDistance_current">%1$d 미터</string>
@@ -928,6 +944,7 @@
   <string name="config_downloadRadius_current">%1$d 미터</string>
   <string name="config_maxDownloadSpeed_title">최대 자동 다운로드 속도</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_autoPrune_summary">메모리의 데이터나 작업 자동 삭제 활성화/비활성화</string>
   <string name="config_autoPruneNodeLimit_current">%1$d 점</string>
   <string name="config_panAndZoomLimit_title">확대 제한</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
@@ -990,7 +1007,7 @@
   <string name="pref_enable_acra">애플리케이션 충돌 보고</string>
   <string name="pref_acra_enabled">충돌 보고 활성화됨</string>
   <string name="pref_acra_disabled">충돌 보고 활성화되지 않음</string>
-  <string name="config_showStats_title">통계 보이기</string>
+  <string name="config_showStats_title">통계 표시</string>
   <string name="config_showStats_summary">좌측 하단에 데이터 통계와 FPS를 표시합니다.</string>
   <!--Experimental-->
   <string name="config_category_experimental">실험적임</string>
@@ -998,7 +1015,7 @@
   <string name="config_js_console_summary">라이브 모드에서 JS 콘솔을 사용할 수 있게 합니다.</string>
   <string name="config_voiceCommandsEnabled_title">음성 명령 활성화</string>
   <string name="config_voiceCommandsEnabled_summary">음성 명령 지원을 활성화합니다.</string>
-  <string name="config_splitWindowForPropertyEditor_summary">가능하면 분리된 창에서 속성 편집기를 표시합니다.</string>
+  <string name="config_splitWindowForPropertyEditor_summary">가능하면 분리된 창에서 속성 편집기 표시를 활성화</string>
   <string name="config_splitWindowForPropertyEditor_title">속성 편집기 창 분할 활성화</string>
   <!---->
   <string name="manage_apis">API 관리</string>
@@ -1015,12 +1032,18 @@
   <!--preset downloader messages-->
   <string name="preset_update">프리셋 업데이트</string>
   <!--preset management-->
+  <string name="preset_management_delete">프리셋을 삭제할까요?</string>
   <!--style downloader messages-->
+  <string name="style_update">스타일 업데이트</string>
   <!--style management-->
+  <string name="manage_styles">스타일 관리</string>
+  <string name="style_management_delete">스타일을 삭제할까요?</string>
   <!--Image storage management-->
   <string name="imagestores_add_from_panoramax_list">Panoramax 인스턴스 목록에서 추가...</string>
   <!--url handler activity-->
+  <string name="urldialog_add_preset">프리셋 추가...</string>
   <string name="urldialog_nodata_text">환경 설정 URL이 올바른 데이터를 포함하고 있지 않습니다.</string>
+  <string name="urldialog_add_style">스타일 추가...</string>
   <!--API configuration-->
   <string name="api_name">API 이름</string>
   <string name="api_url">API URL</string>
@@ -1187,4 +1210,5 @@
   <!--Keyboard Shortcuts UI-->
   <string name="keyboard_shortcut_save">저장하기</string>
   <string name="keyboard_shortcut_reset">재설정</string>
+  <string name="keyboard_shortcuts_reset_title">단축키 리셋</string>
 </resources>

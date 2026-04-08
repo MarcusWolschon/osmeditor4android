@@ -1081,9 +1081,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="actionmode_split_closed_way">Séparer le chemin fermé</string>
   <string name="actionmode_rotate">Pivoter</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Sélectionner le 1er nœud</string>
   <string name="actionmode_closed_way_split_2">Sélectionner le 2nd nœud</string>
-  <string name="actionmode_split_way_node_selection">Sélectionner le nœud</string>
   <string name="actionmode_split_way_select_part">Sélectionner une partie du nouveau chemin</string>
   <string name="actionmode_select_node_to_append_to">Sélectionner le nœud à ajouter</string>
   <string name="actionmode_restriction">Ajouter une interdiction de tourner</string>

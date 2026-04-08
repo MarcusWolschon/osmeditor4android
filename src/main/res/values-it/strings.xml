@@ -1134,9 +1134,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="actionmode_split_closed_way">Dividi percorso chiuso</string>
   <string name="actionmode_rotate">Ruota</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Seleziona 1º nodo</string>
   <string name="actionmode_closed_way_split_2">Seleziona 2º nodo</string>
-  <string name="actionmode_split_way_node_selection">Seleziona nodo</string>
   <string name="actionmode_split_way_select_part">Seleziona tratto per il nuovo percorso</string>
   <string name="actionmode_select_node_to_append_to">Seleziona nodo a cui aggiungere</string>
   <string name="actionmode_restriction">Aggiungi un divieto di svolta</string>

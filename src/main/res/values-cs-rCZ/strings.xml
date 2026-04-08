@@ -1200,9 +1200,7 @@ Můžete to udělat tak, že vyberete podmnožinu změněných prvků a nahrajet
   <string name="actionmode_split_closed_way">Rozdělit uzavřenou cestu</string>
   <string name="actionmode_rotate">Otočit</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Zvolit 1. bod</string>
   <string name="actionmode_closed_way_split_2">Zvolit 2. bod</string>
-  <string name="actionmode_split_way_node_selection">Zvolit bod</string>
   <string name="actionmode_split_way_select_part">Zvolit část pro novou linii</string>
   <string name="actionmode_select_node_to_append_to">Zvolit bod pro připojení</string>
   <string name="actionmode_restriction">Přidat omezení odbočení</string>

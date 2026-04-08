@@ -1040,9 +1040,7 @@
   <string name="actionmode_split_closed_way">Разделить замкнутую линию</string>
   <string name="actionmode_rotate">Повернуть</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Выбрать первую точку</string>
   <string name="actionmode_closed_way_split_2">Выбрать вторую точку</string>
-  <string name="actionmode_split_way_node_selection">Выбрать точку</string>
   <string name="actionmode_select_node_to_append_to">Выбрать точку для добавления</string>
   <string name="actionmode_restriction">Добавить ограничение поворота</string>
   <string name="actionmode_restriction_restart_from">Повторно выбрать сегмент \"from\"</string>

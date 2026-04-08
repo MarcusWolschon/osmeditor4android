@@ -1218,9 +1218,7 @@
   <string name="actionmode_split_closed_way">分割封闭路径</string>
   <string name="actionmode_rotate">旋转</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">选择第1个节点</string>
   <string name="actionmode_closed_way_split_2">选择第2个节点</string>
-  <string name="actionmode_split_way_node_selection">选择节点</string>
   <string name="actionmode_split_way_select_part">选择用于新路径的部分</string>
   <string name="actionmode_select_node_to_append_to">选择要追加到的节点</string>
   <string name="actionmode_restriction">添加转向限制</string>

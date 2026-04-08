@@ -1181,9 +1181,7 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="actionmode_split_closed_way">Splits gesloten weg</string>
   <string name="actionmode_rotate">Draai</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Selecteer 1ste knoop</string>
   <string name="actionmode_closed_way_split_2">Selecteer 2e knoop</string>
-  <string name="actionmode_split_way_node_selection">Selecteer knoop</string>
   <string name="actionmode_split_way_select_part">Selecteer deel voor nieuwe weg</string>
   <string name="actionmode_select_node_to_append_to">Selecteer knoop om aan toe te voegen</string>
   <string name="actionmode_restriction">Voeg afslagbeperking toe</string>

@@ -1057,9 +1057,7 @@
   <string name="actionmode_split_closed_way">Jaa suljettu viiva</string>
   <string name="actionmode_rotate">Pyöritä</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Valitse 1. piste</string>
   <string name="actionmode_closed_way_split_2">Valitse 2. piste</string>
-  <string name="actionmode_split_way_node_selection">Valitse piste</string>
   <string name="actionmode_split_way_select_part">Valitse osa uudeksi viivaksi</string>
   <string name="actionmode_select_node_to_append_to">Valitse piste josta jatketaan</string>
   <string name="actionmode_restriction">Lisää kääntymisrajoitus</string>

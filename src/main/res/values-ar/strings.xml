@@ -1026,9 +1026,7 @@
   <string name="actionmode_split_closed_way">تقسيم طريق مغلق</string>
   <string name="actionmode_rotate">تدوير</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">تحديد العقدة الأولى</string>
   <string name="actionmode_closed_way_split_2">تحديد العقدة الثانية</string>
-  <string name="actionmode_split_way_node_selection">تحديد العقدة</string>
   <string name="actionmode_split_way_select_part">حدد جزء للطريق الجديد</string>
   <string name="actionmode_select_node_to_append_to">حدد عقدة للإلحاق بها</string>
   <string name="actionmode_restriction">أضف قيود الانعطاف</string>

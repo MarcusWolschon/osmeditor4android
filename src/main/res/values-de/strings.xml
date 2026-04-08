@@ -179,6 +179,7 @@
   <string name="progress_migration">Migrieren…</string>
   <string name="progress_determining_status_message">Der Status wird bestimmt...</string>
   <string name="progress_updating_message">Aktualisieren...</string>
+  <string name="progress_validation_title">Überprüfung läuft</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">„%1$s“ gelöscht</string>
   <string name="changes_changed">„%1$s“ verändert</string>
@@ -633,6 +634,7 @@
   <string name="tip_longpress_simple_mode">Im einfachen Modus hat ein langer Klick keine Funktion. Schalten Sie den einfachen Modus ab, wenn Sie mit langem Klick Objekte erstellen wollen.</string>
   <string name="tip_gpx_no_elevation">Ab Version 15 enthalten GPX-Aufzeichnungen standardmäßig keine Höhendaten mehr.&lt;p&gt;Um Höhendaten hinzufügen entweder im Werkzeugmenü &lt;i&gt;EGM installieren&lt;/i&gt; auswählen, oder als Standortdatenquelle NMEA-Input verwenden.</string>
   <string name="tip_tag_conflict">Das Zusammenführen und Umdrehen von OSM-Objekten führt manchmal dazu, dass Eigenschaften der Objekte geändert werden. Falls das zu einem Fehler oder Konflikt führen könnte, wird eine Meldung angezeigt und die Änderungen können geprüft werden.</string>
+  <string name="tip_replace_geometry">Das Ändern der Geometrie einer Linie erfordert oft das Verschieben der Position bestehender Knoten. Sind diese mit Tags versehen, d. h. stellen sie selbst Objekte dar oder sind mit anderen Linien verbunden, kann dies unerwünscht sein.&lt;p&gt;Um dieses Problem zu vermeiden, entfernen wir Knoten, die sich nicht innerhalb eines kleinen Toleranzradius um die übergeordnete Linie befinden, und zeigen eine Warnung an. Du kannst die Toleranz (Standardwert 1 m) in den erweiterten Einstellungen anpassen.</string>
   <string name="tip_gpx_recording">Beim Aufzeichnen eine GPX-Spur verwendet Vespucci Standortdaten um die Aufzeichnung zu ermöglichen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
   <string name="tip_auto_download">Beim automatischen Download von Daten oder Aufgaben um den aktuellen Standort verwendet Vespucci Standortdaten um den aktuellen Standort zu bestimmen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder der automatischer Download beendet, wird der Standort nicht mehr verwendet.</string>
   <string name="tip_tristate_checkbox">Sie haben gerade ein Kontrollkästchen mit drei Zuständen berührt. Diese funktionieren wie normale Kontrollkästchen, die zwischen zwei Werten, wie ja/nein oder wahr/falsch, hin- und herschalten. &lt;p&gt;Allerdings besitzen sie einen weiteren dritten&lt;b&gt;nicht aktivierten&lt;/b&gt; Zustand, der dazu führt, dass das entsprechende Merkmal nicht mehr hinzugefügt wird. Sie können das Kontrollkästchen durch langes Drücken in diesen Zustand versetzen. Es wird danach ausgegraut sein.</string>
@@ -640,11 +642,13 @@
   <string name="tip_mode_switching">Die Schlosstaste dient gleichzeitig als Modusumschalter, ein langer Druck zeigt ein Menü mit den verschiedenen Optionen an. Weitere Informationen zu Vespuccis Modi finden Sie im Hilfesystem, sowohl in der Einführung als auch in der Hilfe zur Hauptkartenanzeige.</string>
   <string name="tip_empty_gpx_download">Aufgrund einer Besonderheit in der OSM-API muss der Startpunkt des GPX-Tracks sichtbar sein, damit er zum Herunterladen gefunden werden kann.</string>
   <string name="tip_no_redo">In diesem Modus können momentan keine Knoten-Neuaufnahmen rückgängig gemacht werden</string>
+  <string name="tip_way_splitting">Berühre einen markierten Knoten, um die Teilungsposition festzulegen. Durch langes Berühren kannst du in einem weiteren Schritt auswählen, welcher Teil für die neue Strecke verwendet werden soll.&lt;p&gt;Wenn sich kein Knoten an einer geeigneten Stelle befindet, kannst du einen hinzufügen und dort die Teilung vornehmen, indem du an der gewünschten Stelle auf der Strecke lange drückst. In diesem Fall ist keine Segmentauswahl möglich.</string>
   <string name="tip_closed_way_splitting">Ein geschlossener Weg muss an zwei Stellen getrennt werden. Berühren Sie einen der hervorgehobenen Knoten, um die 1. Stelle zu bestimmen, im nächsten Schritt wird die 2. Stelle ausgewählt.</string>
   <string name="tip_disambiguation_menu">Wenn mehrere OSM-Elemente oder andere Objekte sehr nahe beieinander liegen oder Elemente Mitglieder von Relationen sind, wird das Auswahlmenü angezeigt. Sie können dann das gewünschte Element aus der Liste auswählen.&lt;p&gt;Wenn ein Element bereits ausgewählt ist, wird es hervorgehoben angezeigt.</string>
   <string name="tip_file_import">Auf Geräten, die Android 10 oder neuer ausführen, müssen wir Dateien kopieren, um vollen Zugriff auf sie zu haben. Die Kopien befinden sich in &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. Falls notwendig, kannst du die Originale löschen und nur die Kopien behalten.</string>
   <string name="tip_wms_tile_size">WMS-Server können größere Kachelgrößen als 256x256 unterstützen. Für eine effizientere Konfiguration solltest du 512x512 verwenden.</string>
   <string name="tip_empty_comment_warning">Vespucci fügt immer eine automatisch erstellte Zusammenfassung dessen hinzu, was du hochgeladen hast.&lt;p&gt;Du solltest trotzdem ein paar Worte hinzufügen, warum du die Änderungen vorgenommen hast, um anderen Mappern mehr Kontext zu geben.</string>
+  <string name="tip_wikimedia_filename">Stets einen aussagekräftigen und eindeutigen Dateinamen verwenden, insbesondere keinen von der Kamera generierten, da Wikimedia den Upload sonst ablehnt.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -1275,9 +1279,10 @@
   <string name="actionmode_split_closed_way">Geschlossenen Weg teilen</string>
   <string name="actionmode_rotate">Drehen</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">1. Knoten auswählen</string>
+  <string name="actionmode_closed_way_split_1">1. Knoten auswählen oder langer Klick</string>
   <string name="actionmode_closed_way_split_2">2. Knoten auswählen</string>
-  <string name="actionmode_split_way_node_selection">Knoten auswählen</string>
+  <string name="actionmode_closed_way_split_long_click_2">2. Knoten auswählen oder langer Klick</string>
+  <string name="actionmode_split_way_node_selection">Knoten auswählen oder langer Klick</string>
   <string name="actionmode_split_way_select_part">Teil für den neuen Weg auswählen</string>
   <string name="actionmode_select_node_to_append_to">Knoten auswählen, an dem angeschlossen wird</string>
   <string name="actionmode_restriction">Abbiegebeschränkung hinzufügen</string>
@@ -1347,6 +1352,7 @@
   <string name="config_presetbutton_summary">JOSM-kompatible Vorlagen hinzufügen und verwalten</string>
   <string name="config_built_in_preset">Eingebaute Vorlage</string>
   <string name="config_keyboard_shortcuts_title">Tastenkürzel</string>
+  <string name="config_keyboard_shortcuts_summary"> Tastaturkürzel ändern</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Validationseinstellungen</string>
   <string name="config_validatorprefs_summary">Validierungsregeln konfigurieren</string>
@@ -1506,6 +1512,7 @@
   <string name="config_replaceTolerance_current">%1$d Meter</string>
   <string name="config_minMoveWayNodesWarning_current">%1$d</string>
   <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
+  <string name="config_ignoreSubareas_title">Subareas ignorieren</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-Download-Einstellungen</string>
   <string name="config_category_auto_download_summary">Einstellungen für das automatische Herunterladen von Daten und Aufgaben</string>
@@ -1682,6 +1689,7 @@
   <string name="image_upload_not_authorized">Das Hochladen ist fehlgeschlagen, da keine Berechtigung für den Zielspeicher vorhanden ist.</string>
   <string name="image_upload_failed_due_to">Hochladen schlug fehl mit Fehler %1$d %2$s für %3$s</string>
   <string name="image_upload_failed">Hochladen fehlgeschlagen %1$s</string>
+  <string name="image_upload_failed_duplicate_image">Bild wurde bereits erfolgreich hochgeladen.</string>
   <string name="wikimedia_meta_title">Wikimedia Metadaten</string>
   <string name="wikimedia_meta_filename">Dateiname</string>
   <string name="wikimedia_meta_description">Beschreibung</string>
@@ -1815,6 +1823,7 @@ in %1$d m %2$s</string>
   <string name="issue_split_route_ordering">Die Route muss eventuell händisch geordnet werden</string>
   <string name="issue_split_area">Fläche wurde aufgeteilt und muss möglicherweise in ein Multipolygon konvertiert werden</string>
   <string name="issue_precondition_relation_member_count">Anzahl der Mitglieder in der Relation überschritten</string>
+  <string name="issue_replace_extracted_node">Knoten aus Weg extrahiert</string>
   <string name="issue_replace_member_element_replaced">Mitgliedselement ersetzt</string>
   <!--time and distance-->
   <plurals name="days">
@@ -1884,6 +1893,14 @@ in %1$d m %2$s</string>
   <string name="tile_no_network">Kein Netz</string>
   <string name="tile_unknown_error">Unbekannter Fehler</string>
   <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcuts_empty">Keine Tastaturkürzel verfügbar</string>
+  <string name="keyboard_shortcut_modifier">Modifikatortaste</string>
+  <string name="keyboard_shortcut_key">Buchstabentaste</string>
   <string name="keyboard_shortcut_save">Speichern</string>
   <string name="keyboard_shortcut_reset">Zurücksetzen</string>
+  <string name="keyboard_shortcut_saved">Tastaturkürzel gespeichert</string>
+  <string name="keyboard_shortcut_save_error">Fehler beim Speichern des Kürzels</string>
+  <string name="keyboard_shortcuts_reset_title">Tastenkürzel zurücksetzen</string>
+  <string name="keyboard_shortcut_key_required">Buchstabentaste fehlt</string>
+  <string name="keyboard_shortcut_duplicate">Doppelter Tastaturkürzel</string>
 </resources>
