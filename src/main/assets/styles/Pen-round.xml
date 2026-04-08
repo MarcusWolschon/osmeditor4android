@@ -69,7 +69,7 @@
     
     <!-- OSM way based features -->
     <feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" />
-    <feature type="way" tags="boundary" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER">
+    <feature type="way" tags="boundary" updateWidth="true" widthFactor="0.6" color="ffd3e03a" style="STROKE" cap="BUTT" join="MITER">
     	<dash phase="1.0">
     		<interval length="6.0" />
     		<interval length="2.0" />
@@ -536,7 +536,7 @@
     
     <!-- relations (only multipolygons currently) -->
     <feature type="relation" updateWidth="true" widthFactor="1.0" color="ff222222" style="STROKE" cap="BUTT" join="MITER" />
-    <feature type="relation" tags="boundary" dontrender="true" />
+    <feature type="relation" tags="boundary" dontrender="true" /> <!--  boundary ways that are untagged will get no styling -->
     <feature type="relation" tags="type=multipolygon" updateWidth="true" widthFactor="0.8" color="88222222" style="STROKE" cap="BUTT" join="MITER" offset="0.50">
         <feature type="relation" tags="building" widthFactor="1.0" color="ffcc9999"/>
         <feature type="relation" tags="leisure=playground" widthFactor="1.0" color="88f4a460" style="FILL_AND_STROKE" />
