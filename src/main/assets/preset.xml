@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.99.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.99.1" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -15248,13 +15248,13 @@
                 <role key="inner" text="inner segment" requisite="optional" type="way,closedway,area" member_expression="-type=multipolygon"/>
             </roles>
         </item> <!-- Multipolygon -->
-        <item name="Boundary" icon="icons/png/poi_boundary_administrative.png" type="relation,multipolygon" preset_name_label="true" name_template="?{'{name} ' | '{postal_code} ' | ''} ?{'({%boundary}' | '('} ?{' {admin_level})' | ')'}">
+        <item name="Boundary" icon="icons/png/poi_boundary_administrative.png" type="relation,multipolygon" preset_name_label="true" name_template="?{'{name} ' | '{postal_code} ' | '{ref} ' | 'Boundary '} ?{'{%boundary} ' | ''} ?{'({admin_level})' | ''}">
             <link wiki="Relation:boundary"/>
             <space/>
             <key key="type" value="boundary"/>
             <text key="name" text="Name"/>
             <reference ref="wikipedia_wikidata"/>
-            <combo key="boundary" text="Boundary type" values="administrative,maritime,national_park,place,political,postal_code,protected_area,statistical" display_values="Administrative,Maritime,National park,Place,Political,Postal code,Protected area,Statistical" values_searchable="true"/>
+            <combo key="boundary" text="Boundary type" values="administrative,historic,maritime,national_park,place,political,postal_code,protected_area,statistical" display_values="Administrative,Historic,Maritime,National park,Place,Political,Postal code,Protected area,Statistical" values_searchable="true"/>
             <optional>
                 <combo key="admin_level" text="Administrative level" values="1,2,3,4,5,6,7,8,9,10,11" sort_values="false" match_expression="boundary=administrative"/>    
                 <text key="postal_code" text="Postal code" match_expression="boundary=postal_code"/> 
