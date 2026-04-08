@@ -395,11 +395,6 @@
 "lgbt",
 "trans"
 ],
-"amenity/bbq":[
-"barbeque",
-"grigliata",
-"Barbecue/Griglia"
-],
 "amenity/bench":[
 "panca",
 "posto a sedere",
@@ -578,12 +573,6 @@
 "ricarica",
 "colonnina di ricarica",
 "colonnina"
-],
-"amenity/childcare":[
-"asilo",
-"centro diurno",
-"Asilo nido",
-"spazio giochi"
 ],
 "amenity/cinema":[
 "cine",
@@ -796,16 +785,6 @@
 "Medico di base",
 "medico di famiglia"
 ],
-"amenity/doctors/gynaecology":[
-"medico femminile",
-"ginecologo",
-"uovo",
-"riproduzione",
-"Ostetrico ginecologo",
-"ostetricia",
-"ovulazione",
-"ginecologia"
-],
 "amenity/doctors/haematology":[
 "sangue",
 "Ematologo",
@@ -970,7 +949,10 @@
 "fontanella"
 ],
 "amenity/driver_training":[
-"Campi di addestramento dei conducenti"
+"patenti",
+"cqc",
+"Scuola guida",
+"patente"
 ],
 "amenity/embassy":[
 "Ambasciata"
@@ -1203,15 +1185,15 @@
 ],
 "amenity/hospital":[
 "pronto soccorso",
-"ospedale",
 "sanatorio",
 "infermeria",
 "casa di riposo",
-"Area ospedaliera",
+"Ospedale",
 "salute",
 "ospizio",
 "ambulatorio",
 "casa di cura",
+"area ospedaliera",
 "servizio sanitario",
 "clinica",
 "chirurgia",
@@ -1636,10 +1618,10 @@
 ],
 "amenity/prison":[
 "riformatorio",
+"Carcere",
 "gattabuia",
 "casa circondariale",
-"carcere",
-"Area carceraria",
+"area carceraria",
 "penitenziario",
 "casa di reclusione",
 "prigione",
@@ -1740,6 +1722,7 @@
 "Campo profughi"
 ],
 "amenity/research_institute":[
+"ente di ricerca",
 "Istituto di ricerca"
 ],
 "amenity/restaurant":[
@@ -2102,6 +2085,9 @@
 "amenity/studio/video":[
 "Studio di produzione video"
 ],
+"amenity/swingerclub":[
+"Club per scambisti"
+],
 "amenity/taxi":[
 "taxi",
 "Posteggio taxi"
@@ -2131,7 +2117,8 @@
 "Anfiteatro"
 ],
 "amenity/ticket_validator":[
-"Validatore di biglietti"
+"Validatore di biglietti",
+"obliteratrice"
 ],
 "amenity/toilets":[
 "gabinetto",
@@ -2412,6 +2399,9 @@
 "farmacia",
 "Veterinario"
 ],
+"amenity/veterinary_pharmacy":[
+"Farmacia veterinaria"
+],
 "amenity/waste/dog_excrement":[
 "cestino deiezioni canine",
 "cacca",
@@ -2476,6 +2466,10 @@
 ],
 "area/highway":[
 "Area stradale"
+],
+"area/highway/traffic_island":[
+"Isola spartitraffico",
+"area spartitraffico"
 ],
 "attraction":[
 "Attrazione"
@@ -2913,10 +2907,10 @@
 "appartamenti",
 "casermoni",
 "case popolari",
-"Condominio",
 "palazzi",
 "palazzoni",
 "terreno",
+"Edificio di appartamenti",
 "condomini",
 "case"
 ],
@@ -3009,7 +3003,7 @@
 ],
 "building/commercial":[
 "servizi",
-"Edificio commerciale",
+"Edificio per uffici di servizio alla persona",
 "uffici"
 ],
 "building/construction":[
@@ -3030,9 +3024,6 @@
 "Dormitorio",
 "dormitorio",
 "struttura sociale"
-],
-"building/entrance":[
-"Entrata/Uscita"
 ],
 "building/farm":[
 "casa colonica",
@@ -3369,7 +3360,8 @@
 "craft":[
 "artigianato",
 "produzione locale",
-"Mestiere"
+"Artigiano",
+"mestiere"
 ],
 "craft/agricultural_engines":[
 "mietitori",
@@ -3676,6 +3668,15 @@
 "disused/shop":[
 "Negozio in disuso"
 ],
+"education":[
+"Ente educativo"
+],
+"education/college":[
+"Accademia",
+"conservatorio",
+"scuola superiore",
+"afam"
+],
 "education/dancing_school":[
 "Scuola di danza"
 ],
@@ -3683,13 +3684,32 @@
 "Scuola guida"
 ],
 "education/kindergarten":[
-"Asilo o scuola per l'infanzia"
+"infanzia",
+"asilo",
+"Scuola dell'infanzia"
 ],
 "education/language_school":[
 "Scuola di lingue"
 ],
 "education/music_school":[
 "Scuola di musica"
+],
+"education/prep_school":[
+"Scuola professionale"
+],
+"education/school":[
+"area scolastica",
+"scuola media",
+"scuola elementare",
+"liceo",
+"Scuola",
+"scuola superiore"
+],
+"education/university":[
+"Università"
+],
+"education/yes":[
+"Formazione"
 ],
 "embankment":[
 "Terrapieno"
@@ -4403,10 +4423,6 @@
 "Autostrada",
 "autostrada"
 ],
-"highway/motorway_junction":[
-"Uscita autostradale",
-"uscita autostradale"
-],
 "highway/motorway_link":[
 "Svincolo autostradale",
 "svincolo",
@@ -4673,15 +4689,12 @@
 "inversione",
 "Rotonda per inversione di marcia"
 ],
-"highway/unclassified":[
-"strada extraurbana",
-"strada locale",
-"strada intercomunale",
-"Strada minore/non classificata"
-],
 "historic":[
 "luogo storico",
 "Sito storico"
+],
+"historic/aircraft":[
+"Aereo storico"
 ],
 "historic/archaeological_site":[
 "sito archeologico",
@@ -4692,7 +4705,10 @@
 "Pietra di confine"
 ],
 "historic/building":[
-"Edificio Storico"
+"Edificio storico"
+],
+"historic/cannon":[
+"Cannone"
 ],
 "historic/castle":[
 "Castello",
@@ -4893,8 +4909,8 @@
 "Area parrocchiale"
 ],
 "landuse/commercial":[
-"Area commerciale",
 "servizi",
+"Area per uffici di servizio alla persona",
 "commerciale",
 "commercio",
 "laboratori",
@@ -4909,13 +4925,6 @@
 "scavo",
 "construction",
 "cantiere"
-],
-"landuse/education":[
-"campus educativo",
-"educazione",
-"Polo educativo",
-"campus scolastico",
-"scuola"
 ],
 "landuse/farm":[
 "Terreno agricolo"
@@ -5387,9 +5396,6 @@
 "leisure/pitch/athletics/hammer_throw":[
 "Settore per il lancio del martello"
 ],
-"leisure/pitch/athletics/high_jump":[
-"Campo per il salto in alto"
-],
 "leisure/pitch/athletics/javelin_throw":[
 "Settore per il lancio del giavellotto"
 ],
@@ -5438,9 +5444,6 @@
 "leisure/pitch/beachvolleyball":[
 "Campo di beach volley"
 ],
-"leisure/pitch/boules":[
-"Campo da bocce"
-],
 "leisure/pitch/bowls":[
 "campo da bocce",
 "Campo da bocce"
@@ -5479,17 +5482,23 @@
 "Campo di netball"
 ],
 "leisure/pitch/padel":[
-"Campo da paddle"
+"Campo da padel",
+"padel"
 ],
 "leisure/pitch/paintball":[
-"Campo di paintball"
+"Campo da paintball"
+],
+"leisure/pitch/pickleball":[
+"Campo da pickleball"
 ],
 "leisure/pitch/rugby_league":[
+"rugby a 13",
 "campo regolamentare lega rugbistica",
 "Campo di rugby a 13"
 ],
 "leisure/pitch/rugby_union":[
 "campo regolamentare unione rugbistica",
+"rugby",
 "Campo di rugby"
 ],
 "leisure/pitch/shooting":[
@@ -5501,8 +5510,8 @@
 "leisure/pitch/skateboard":[
 "Skate Park",
 "skateboard",
-"pista",
-"skate park"
+"skate",
+"pista"
 ],
 "leisure/pitch/soccer":[
 "Campo di calcio",
@@ -5577,7 +5586,13 @@
 "parete"
 ],
 "leisure/sports_centre/climbing_adventure":[
-"Parco Avventura"
+"Parco avventura"
+],
+"leisure/sports_centre/horse_racing":[
+"Percorso per equitazione"
+],
+"leisure/sports_centre/karting":[
+"Circuito per Go kart"
 ],
 "leisure/sports_centre/shooting":[
 "Poligono di tiro"
@@ -6937,6 +6952,9 @@
 "office/therapist":[
 "Studio psichiatrico"
 ],
+"office/translator":[
+"Ufficio traduzioni"
+],
 "office/travel_agent":[
 "Agenzia di viaggi"
 ],
@@ -7158,7 +7176,10 @@
 "Punto"
 ],
 "police/checkpoint":[
-"Posto di blocco della Polizia"
+"checkpoint",
+"Posto di blocco della polizia",
+"pattuglia",
+"punto di controllo"
 ],
 "polling_station":[
 "Seggio elettorale temporaneo"
@@ -7806,12 +7827,6 @@
 "negozio di articoli per l'infanzia",
 "Negozio di prodotti per l'infanzia"
 ],
-"shop/bag":[
-"borsetta",
-"borsa",
-"Negozio di borse e valigie",
-"valigia"
-],
 "shop/bakery":[
 "panificio",
 "panetteria",
@@ -7835,6 +7850,7 @@
 "solare",
 "bellezza",
 "smalto",
+"estetista",
 "tatuaggio",
 "salone",
 "epilazione",
@@ -7858,18 +7874,6 @@
 "solarium",
 "centro abbronzatura",
 "Centro abbronzatura"
-],
-"shop/bed":[
-"materassi",
-"letti",
-"cuscini",
-"Negozio di letti/materassi",
-"negozio di materassi",
-"letto",
-"guanciali",
-"cuscino",
-"materasso",
-"guanciale"
 ],
 "shop/beverages":[
 "Negozio di bevande",
@@ -7958,8 +7962,8 @@
 "Produzione di cataloghi"
 ],
 "shop/charity":[
+"Mercatino di beneficenza",
 "usato",
-"Mercatino dell'usato",
 "robivecchi",
 "seconda mano"
 ],
@@ -8252,9 +8256,20 @@
 "Negozio souvenir",
 "negozio di articoli da regalo"
 ],
+"shop/gold_buyer":[
+"Compro oro",
+"oro"
+],
 "shop/greengrocer":[
 "fruttivendolo",
 "Fruttivendolo"
+],
+"shop/groundskeeping":[
+"Negozio di articoli per il giardinaggio",
+"giardinaggio",
+"prato",
+"cortile",
+"giardino"
 ],
 "shop/hairdresser":[
 "barbiere",
@@ -8422,6 +8437,11 @@
 "negozio di cellulari",
 "Negozio di telefonia mobile"
 ],
+"shop/mobile_phone_accessories":[
+"Negozio di accessori per cellulari",
+"negozio di accessori per telefoni cellulari",
+"negozio di accessori per smartphone"
+],
 "shop/model":[
 "Negozio di modellistica"
 ],
@@ -8555,12 +8575,6 @@
 "scoppi",
 "razzi",
 "raudi"
-],
-"shop/radiotechnics":[
-"componenti elettronici",
-"elettronica",
-"radioamatori",
-"Negozio di componenti elettronici"
 ],
 "shop/religion":[
 "religioso",
@@ -8743,12 +8757,6 @@
 "Negozio di acqua da bere",
 "salute",
 "bottiglie"
-],
-"shop/water_sports":[
-"Negozio per sport acquatici",
-"nuoto",
-"sport",
-"acqua"
 ],
 "shop/weapons":[
 "armi",
@@ -8969,9 +8977,6 @@
 "Cartina",
 "turismo"
 ],
-"tourism/information/office":[
-"Centro visitatori"
-],
 "tourism/information/route_marker":[
 "Segnavia"
 ],
@@ -9123,6 +9128,9 @@
 ],
 "traffic_sign/variable_message":[
 "Segnale a messaggio variabile"
+],
+"type/associatedStreet":[
+"Strada associata"
 ],
 "type/boundary":[
 "Confine",
@@ -9282,20 +9290,6 @@
 "type/route/pipeline":[
 "Condotta",
 "itinerario conduttura"
-],
-"type/route/piste":[
-"piste",
-"discesa",
-"pista blu",
-"piste da sci",
-"pista da sci",
-"nera",
-"pista nera",
-"Pista da sci",
-"blu",
-"pista",
-"rossa",
-"pista rossa"
 ],
 "type/route/power":[
 "Linea elettrica",

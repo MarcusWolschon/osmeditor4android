@@ -211,12 +211,6 @@
 "同性戀酒吧",
 "LGBTQ+ 酒吧"
 ],
-"amenity/bbq":[
-"烤爐",
-"烤肉架",
-"烤肉爐",
-"烤架"
-],
 "amenity/bench":[
 "座椅",
 "長板凳",
@@ -326,14 +320,6 @@
 "充電站",
 "充电站",
 "充电桩"
-],
-"amenity/childcare":[
-"托管站",
-"託兒所／幼兒護理",
-"托管机构",
-"托儿所",
-"小饭桌",
-"学前班"
 ],
 "amenity/cinema":[
 "电影院",
@@ -554,9 +540,6 @@
 "一般科",
 "家醫科",
 "家庭醫學科"
-],
-"amenity/doctors/gynaecology":[
-"婦產科"
 ],
 "amenity/doctors/haematology":[
 "血液科"
@@ -2199,9 +2182,6 @@
 "宿舍",
 "學寮"
 ],
-"building/entrance":[
-"入口／出口"
-],
 "building/farm":[
 "农家",
 "农庄",
@@ -3316,9 +3296,6 @@
 "道路",
 "路"
 ],
-"highway/motorway_junction":[
-"高速公路交流道 / 出口"
-],
 "highway/motorway_link":[
 "高速公路匝道"
 ],
@@ -3525,9 +3502,6 @@
 "highway/turning_loop":[
 "環形迴車道",
 "環形迴轉道"
-],
-"highway/unclassified":[
-"一般/未分級道路"
 ],
 "historic":[
 "古蹟",
@@ -3847,16 +3821,6 @@
 "在建",
 "建设区域",
 "建造"
-],
-"landuse/education":[
-"学校",
-"校园",
-"教学",
-"教育用地",
-"教育",
-"高中园",
-"园区",
-"校园用地"
 ],
 "landuse/farm":[
 "農地"
@@ -4380,10 +4344,6 @@
 "链球场",
 "投掷"
 ],
-"leisure/pitch/athletics/high_jump":[
-"跳高场",
-"跳高"
-],
 "leisure/pitch/athletics/javelin_throw":[
 "标枪场",
 "标枪",
@@ -4438,11 +4398,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "沙灘排球場"
-],
-"leisure/pitch/boules":[
-"草地滚球场",
-"地掷球场",
-"滚球场"
 ],
 "leisure/pitch/bowls":[
 "草地滾球場"
@@ -6032,9 +5987,6 @@
 "鑽爬",
 "隧道"
 ],
-"playground/water":[
-"戲水設施"
-],
 "playground/zipwire":[
 "滑降台"
 ],
@@ -6564,9 +6516,6 @@
 "shop/baby_goods":[
 "嬰兒用品店"
 ],
-"shop/bag":[
-"包包/行李箱店"
-],
 "shop/bakery":[
 "烘焙店",
 "麵包店",
@@ -6591,10 +6540,6 @@
 "美黑",
 "日曬沙龍",
 "日光浴沙龙"
-],
-"shop/bed":[
-"床具/寐具店",
-"寢具/床褥店"
 ],
 "shop/beverages":[
 "飲品店",
@@ -7077,9 +7022,6 @@
 "shop/pyrotechnics":[
 "煙火專賣店"
 ],
-"shop/radiotechnics":[
-"無線電/電子設備店"
-],
 "shop/religion":[
 "宗教舖",
 "宗教用品店"
@@ -7216,10 +7158,6 @@
 ],
 "shop/water":[
 "飲用水供應店"
-],
-"shop/water_sports":[
-"水上运动/泳装店",
-"水上活動/游泳用品店"
 ],
 "shop/weapons":[
 "武器店"
@@ -7388,11 +7326,6 @@
 "旅遊景點圖",
 "地圖",
 "位置圖"
-],
-"tourism/information/office":[
-"旅遊中心",
-"資訊服務站",
-"遊客中心"
 ],
 "tourism/information/route_marker":[
 "路線標記",
@@ -7652,9 +7585,6 @@
 ],
 "type/route/pipeline":[
 "管線路線"
-],
-"type/route/piste":[
-"滑雪道路線"
 ],
 "type/route/power":[
 "供電路線",

@@ -528,6 +528,11 @@
 "centrum kultury",
 "centrum społeczności"
 ],
+"amenity/community_centre/chitalishte_BG":[
+"czitaliszte",
+"czytaliszcze",
+"Czitaliszte"
+],
 "amenity/community_centre/club_home":[
 "Świetlica klubowa",
 "świetlica klubowa",
@@ -1613,6 +1618,13 @@
 "restauracja grecka",
 "kuchnia grecka"
 ],
+"amenity/restaurant/hotpot":[
+"Restauracja hot pot",
+"hotpot",
+"huoguo",
+"chińska",
+"restauracja hot pot"
+],
 "amenity/restaurant/indian":[
 "Restauracja indyjska",
 "restauracja hinduska",
@@ -1629,7 +1641,7 @@
 "Restauracja japońska"
 ],
 "amenity/restaurant/korean":[
-"korea",
+"kuchnia koreańska",
 "Restauracja koreańska",
 "restauracja koreańska"
 ],
@@ -2184,6 +2196,10 @@
 "waga dla pojazdów",
 "waga samochodowa",
 "Waga samochodowa"
+],
+"animal/horse_walker":[
+"karuzela dla koni",
+"Karuzela dla koni"
 ],
 "area":[
 "obręb",
@@ -2745,7 +2761,7 @@
 "internat"
 ],
 "building/entrance":[
-"Wejście/Wyjście"
+"Wejście / Wyjście"
 ],
 "building/farm":[
 "farma",
@@ -2986,6 +3002,10 @@
 "domy w zabudowie szeregowej"
 ],
 "building/train_station":[
+"dworzec kolejowy",
+"budynek stacji kolejowej",
+"budynek dworca kolejowego",
+"stacja kolejowa",
 "Budynek dworca kolejowego"
 ],
 "building/transportation":[
@@ -4300,13 +4320,11 @@
 "Droga autostradowa"
 ],
 "highway/motorway_junction":[
-"zjazd z drogi autostradowej",
-"wyjazd z drogi autostradowej",
-"Węzeł drogowy (wyjazd)",
-"wjazd na drogę autostradową",
-"węzeł drogowy",
-"węzeł dróg autostradowych",
-"droga autostradowa"
+"zjazd z autostrady",
+"Węzeł autostradowy (zjazd)",
+"węzeł autostradowy",
+"wyjazd z autostrady",
+"węzeł drogowy"
 ],
 "highway/motorway_link":[
 "zjazd",
@@ -5037,6 +5055,10 @@
 "streuobstwiese",
 "Sad w obrębie łąki"
 ],
+"landuse/olive_grove":[
+"Gaj oliwny",
+"gaj oliwny"
+],
 "landuse/orchard":[
 "sad",
 "Sad",
@@ -5540,6 +5562,10 @@
 "boisko do siatkówki plażowej",
 "siatkówka plażowa"
 ],
+"leisure/pitch/biathlon":[
+"strzelnica biatlonowa",
+"Strzelnica biatlonowa"
+],
 "leisure/pitch/boules":[
 "bulodrom",
 "boisko do gry w bule",
@@ -5966,6 +5992,7 @@
 "wyręba",
 "obszar wycinki",
 "drewno",
+"zrąb",
 "las"
 ],
 "man_made/compass_rose":[
@@ -7642,6 +7669,10 @@
 "domeczek",
 "domek"
 ],
+"playground/pump":[
+"pompa",
+"Pompa (na placu zabaw)"
+],
 "playground/roundabout":[
 "karuzela",
 "Karuzela (na placu zabaw)"
@@ -8441,6 +8472,10 @@
 "semafor",
 "Semafor"
 ],
+"railway/signal_box":[
+"Nastawnia",
+"nastawnia"
+],
 "railway/station":[
 "Stacja kolejowa (osobowa lub osobowo-towarowa)"
 ],
@@ -8655,10 +8690,10 @@
 ],
 "shop/bag":[
 "torebki",
+"Sklep z torebkami / walizkami",
 "galanteria",
 "torby",
 "sklep z torebkami",
-"Sklep z torebkami/walizkami",
 "sklep z walizkami",
 "walizki"
 ],
@@ -8722,10 +8757,11 @@
 "materace",
 "pościel",
 "poduszki",
-"Sklep z łóżkami/materacami",
+"sklep z łóżkami",
+"Sklep z łóżkami / materacami",
+"sklep z materacami",
 "łóżka",
-"sypialnie",
-"sklep z łóżkami/materacami"
+"sypialnie"
 ],
 "shop/beverages":[
 "Sklep z napojami",
@@ -9184,6 +9220,12 @@
 "sex shop dla homoseksualistów",
 "gejów",
 "sex-shop"
+],
+"shop/esoteric":[
+"Sklep magiczny",
+"magia",
+"sklep ezoteryczny",
+"sklep magiczny"
 ],
 "shop/fabric":[
 "tkaniny",
@@ -10409,6 +10451,7 @@
 "Biuro informacji turystycznej",
 "biuro informacji turystycznej",
 "centrum informacji turystycznej",
+"punkt informacji turystycznej",
 "informacja turystyczna"
 ],
 "tourism/information/route_marker":[
@@ -10425,6 +10468,15 @@
 "informacja",
 "informacja miejska",
 "Terminal informacyjny"
+],
+"tourism/information/visitor_centre":[
+"centrum informacji dla odwiedzających",
+"punkt informacji dla odwiedzających",
+"centrum informacji dla zwiedzających",
+"punkt informacji dla zwiedzających",
+"centrum obsługi odwiedzających",
+"Centrum obsługi zwiedzających",
+"centrum obsługi zwiedzających"
 ],
 "tourism/motel":[
 "Motel",
@@ -10838,6 +10890,12 @@
 ],
 "waterway":[
 "Ciek"
+],
+"waterway/access_point":[
+"dostęp do wody",
+"dostęp do wód powierzchniowych",
+"dostęp do brzegu",
+"Dostęp do wody"
 ],
 "waterway/boatyard":[
 "Stocznia jachtowa",

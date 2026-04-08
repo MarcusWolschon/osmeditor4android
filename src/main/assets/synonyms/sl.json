@@ -154,13 +154,6 @@
 "bife",
 "pivnica"
 ],
-"amenity/bbq":[
-"okrepčevalnica",
-"jedi z žara",
-"Okrepčevalnica",
-"bife",
-"grill"
-],
 "amenity/bench":[
 "Klop",
 "klopca",
@@ -227,12 +220,6 @@
 "polnilnica",
 "elektro",
 "polnilni terminal"
-],
-"amenity/childcare":[
-"otroški vrtec",
-"ciciban",
-"jaslice",
-"Jasli / Vrtec"
 ],
 "amenity/cinema":[
 "kinematograf",
@@ -793,9 +780,6 @@
 "dijaški dom",
 "Študentski/Dijaški dom"
 ],
-"building/entrance":[
-"Vhod/Izhod"
-],
 "building/garage":[
 "parkirna hiša",
 "garažna hiša",
@@ -1265,12 +1249,6 @@
 "ac",
 "Avtocesta"
 ],
-"highway/motorway_junction":[
-"izvoz",
-"Avtocestno križišče / Izvoz",
-"uvoz",
-"priključek"
-],
 "highway/motorway_link":[
 "priključna rampa",
 "priključek",
@@ -1420,9 +1398,6 @@
 "obračalni otok",
 "obračališče (otok)",
 "Obračališče (otok)"
-],
-"highway/unclassified":[
-"Ožja/Neopredeljena cestna povezava"
 ],
 "historic":[
 "zgodovina",
@@ -2354,9 +2329,6 @@
 "igrače",
 "otroci"
 ],
-"shop/bag":[
-"Trgovina za prtljago"
-],
 "shop/bakery":[
 "pekarija",
 "hrana",
@@ -2379,9 +2351,6 @@
 ],
 "shop/beauty/tanning":[
 "Solarij"
-],
-"shop/bed":[
-"Trgovina s posteljnino in žimnicami"
 ],
 "shop/beverages":[
 "pijače",
@@ -2636,9 +2605,6 @@
 "foto delavnica",
 "Foto trgovina",
 "prodajalna fotografske opreme"
-],
-"shop/radiotechnics":[
-"Trgovina z elektroniko"
 ],
 "shop/scuba_diving":[
 "Trgovina s potapljaško opremo"

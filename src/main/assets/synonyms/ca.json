@@ -171,12 +171,6 @@
 "amenity/bar/lgbtq":[
 "Bar LGBTQ+"
 ],
-"amenity/bbq":[
-"barbacoa",
-"torradora",
-"torrador",
-"Barbacoa/graella"
-],
 "amenity/bench":[
 "banc per a asseure's",
 "banc de carrer",
@@ -266,12 +260,6 @@
 "Estació de càrrega",
 "vehicle elèctric"
 ],
-"amenity/childcare":[
-"orfanat",
-"centre de dia",
-"guarderia",
-"Llar d'Infants"
-],
 "amenity/cinema":[
 "cine",
 "local de projeccions cinematogràfiques",
@@ -328,7 +316,9 @@
 "Ajuntament pedani"
 ],
 "amenity/community_centre/village_hall":[
-"Ajuntament"
+"Ajuntament",
+"casa consistorial",
+"casa del poble"
 ],
 "amenity/community_centre/youth_centre":[
 "Centre Juvenil"
@@ -1263,6 +1253,9 @@
 "serveis",
 "w.c"
 ],
+"amenity/toilets/disposal/flush":[
+"Vàters amb cisterna"
+],
 "amenity/toilets/disposal/pitlatrine":[
 "Latrina de Fossa"
 ],
@@ -1407,7 +1400,7 @@
 "àrea"
 ],
 "area/footway":[
-"Àrea de vianants"
+"Àrea de vorera"
 ],
 "area/highway":[
 "Àrea de la carretera"
@@ -1591,6 +1584,11 @@
 "valla",
 "reixa",
 "tanca"
+],
+"barrier/fence/railing":[
+"barrots",
+"reixat",
+"Reixa"
 ],
 "barrier/gate":[
 "Porta",
@@ -1817,9 +1815,6 @@
 "Edifici d'habitacions",
 "dormitori"
 ],
-"building/entrance":[
-"Entrada/Sortida"
-],
 "building/farm":[
 "Casa d'una granja"
 ],
@@ -1878,6 +1873,9 @@
 "casa",
 "Casa"
 ],
+"building/house/terraced":[
+"Casa en filera"
+],
 "building/houseboat":[
 "casa",
 "Casa flotant",
@@ -1887,6 +1885,7 @@
 ],
 "building/hut":[
 "barraca",
+"cabanya",
 "Cabana"
 ],
 "building/industrial":[
@@ -2396,7 +2395,8 @@
 "porta"
 ],
 "entrance/emergency":[
-"Sortida d'emergència"
+"Sortida d'emergència",
+"eixida d'emergència"
 ],
 "entrance/emergency_ward_entrance":[
 "Entrada a la sala d'urgències"
@@ -2688,11 +2688,6 @@
 "autopista",
 "Autopista"
 ],
-"highway/motorway_junction":[
-"ixida",
-"Intersecció d'autopista / Sortida",
-"eixida"
-],
 "highway/motorway_link":[
 "entrada",
 "autovia",
@@ -2735,7 +2730,9 @@
 "Àrea de vianants"
 ],
 "highway/pedestrian_line":[
-"Carrer per vianants"
+"peatonal",
+"pedestre",
+"Carrer per a vianants"
 ],
 "highway/primary":[
 "carretera primària",
@@ -2884,12 +2881,6 @@
 "canviar de sentit",
 "Cul de sac"
 ],
-"highway/unclassified":[
-"carrer",
-"Carretera menor / sense classificació",
-"carretera",
-"via"
-],
 "historic":[
 "lloc històric",
 "Lloc històric"
@@ -2904,6 +2895,9 @@
 ],
 "historic/building":[
 "Edifici històric"
+],
+"historic/cannon":[
+"Canó"
 ],
 "historic/castle":[
 "Castell",
@@ -2999,7 +2993,7 @@
 "landuse/brownfield":[
 "industrial",
 "desenvolupament",
-"Sòl urbanitzable ja urbanitzat"
+"Sòl reurbanitzable"
 ],
 "landuse/cemetery":[
 "cementiri",
@@ -3714,6 +3708,13 @@
 "antena de televisió",
 "Màstil de comunicació de televisió"
 ],
+"man_made/mast/lighting":[
+"Màstil d'il·luminació",
+"farell",
+"llanterna",
+"farola",
+"llum"
+],
 "man_made/monitoring_station":[
 "Estació de seguiment"
 ],
@@ -4112,7 +4113,8 @@
 "Bosc natural"
 ],
 "noexit/yes":[
-"Sense sortida"
+"Sense sortida",
+"sense eixida"
 ],
 "office":[
 "oficina",
@@ -4403,7 +4405,7 @@
 "Lloc"
 ],
 "place/city":[
-"ciutat",
+"ciutat gran",
 "municipi",
 "Ciutat"
 ],
@@ -4471,10 +4473,15 @@
 "Districte / Suburbi"
 ],
 "place/town":[
-"Ciutat"
+"Vila",
+"poble",
+"ciutat",
+"municipi"
 ],
 "place/village":[
-"Poble"
+"població",
+"Poble",
+"vila"
 ],
 "playground":[
 "Equipament de parcs infantils"
@@ -4757,7 +4764,7 @@
 "Parada / andana de tren"
 ],
 "public_transport/platform/tram":[
-"Andana de tranvia"
+"Andana de tramvia"
 ],
 "public_transport/platform/tram_point":[
 "Parada / andana de tramvia"
@@ -4884,6 +4891,9 @@
 ],
 "railway/milestone":[
 "Fita quilomètrica ferroviaria"
+],
+"railway/miniature":[
+"Vies de tren en miniatura"
 ],
 "railway/monorail":[
 "Via de monoraïl"
@@ -5050,17 +5060,6 @@
 "tenda per a nadons",
 "Botiga per a nadons"
 ],
-"shop/bag":[
-"tenda d'equipatges o bosses",
-"bolso",
-"maleta",
-"equipatge",
-"moneder",
-"complements",
-"Botiga d'equipatges o bosses",
-"bossa",
-"cartera"
-],
 "shop/bakery":[
 "Fleca",
 "panaderia",
@@ -5083,9 +5082,6 @@
 ],
 "shop/beauty/tanning":[
 "Saló de bronzejat"
-],
-"shop/bed":[
-"Botiga de matalassos"
 ],
 "shop/beverages":[
 "Botiga de begudes",
@@ -5639,9 +5635,6 @@
 "shop/pyrotechnics":[
 "Botiga d'articles pirotècnics"
 ],
-"shop/radiotechnics":[
-"Botiga d'articles electrònics"
-],
 "shop/religion":[
 "Botiga d'articles religiosos"
 ],
@@ -5847,15 +5840,6 @@
 "potable",
 "Botiga d'aigua potable"
 ],
-"shop/water_sports":[
-"aigua",
-"Botiga d'esports aquàtics",
-"nadar",
-"piscina",
-"tenda d'esports aquàtics",
-"natació",
-"mar"
-],
 "shop/weapons":[
 "armes",
 "tenda d'armes",
@@ -6041,12 +6025,6 @@
 ],
 "tourism/information/map":[
 "Mapa"
-],
-"tourism/information/office":[
-"turisme",
-"oficina de turisme",
-"tourist info",
-"Centre de visitants"
 ],
 "tourism/information/terminal":[
 "Terminal d'informació"
@@ -6267,11 +6245,6 @@
 ],
 "type/route/pipeline":[
 "Traçat d'una canonada"
-],
-"type/route/piste":[
-"ruta d'ski",
-"Pista/ruta d'esquí",
-"pistes d'ski"
 ],
 "type/route/power":[
 "energia",

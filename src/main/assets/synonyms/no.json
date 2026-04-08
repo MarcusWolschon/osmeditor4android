@@ -128,9 +128,6 @@
 "homsebar",
 "LHBTQ+-bar"
 ],
-"amenity/bbq":[
-"Grill"
-],
 "amenity/bench":[
 "Benk"
 ],
@@ -238,9 +235,6 @@
 ],
 "amenity/doctors/dermatology":[
 "Hudlege"
-],
-"amenity/doctors/gynaecology":[
-"Fødselslege/Gynekolog"
 ],
 "amenity/doctors/plastic_surgery":[
 "Plastisk kirurg"
@@ -927,9 +921,6 @@
 "building/dormitory":[
 "Sovesal"
 ],
-"building/entrance":[
-"Inngang/utgang"
-],
 "building/farm":[
 "Gårdshus"
 ],
@@ -1470,9 +1461,6 @@
 "highway/motorway":[
 "Motorvei"
 ],
-"highway/motorway_junction":[
-"Motorveikryss / Avkjøring"
-],
 "highway/motorway_link":[
 "motorveiforbindelse",
 "Motorveirampe"
@@ -1603,9 +1591,6 @@
 "highway/turning_loop":[
 "Snuplass"
 ],
-"highway/unclassified":[
-"Mindre/uklassifisert vei"
-],
 "historic":[
 "Historisk sted"
 ],
@@ -1710,9 +1695,6 @@
 ],
 "landuse/construction":[
 "Byggeplass"
-],
-"landuse/education":[
-"Utdanningsområde"
 ],
 "landuse/farm":[
 "Jordbruksland"
@@ -1896,9 +1878,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Strandvolleyballbane"
-],
-"leisure/pitch/boules":[
-"Boule-/bocciabane"
 ],
 "leisure/pitch/chess":[
 "Stort sjakkbrett"
@@ -2940,9 +2919,6 @@
 "shop/baby_goods":[
 "Babyutstyrsbutikk"
 ],
-"shop/bag":[
-"Veskebutikk"
-],
 "shop/bakery":[
 "Bakeri"
 ],
@@ -2960,9 +2936,6 @@
 ],
 "shop/beauty/tanning":[
 "Solstudio"
-],
-"shop/bed":[
-"Sengebutikk"
 ],
 "shop/beverages":[
 "Øl- og vinutsalg"
@@ -3325,9 +3298,6 @@
 "shop/pyrotechnics":[
 "Fyrverkerihandel"
 ],
-"shop/radiotechnics":[
-"Elektronikkbutikk"
-],
 "shop/religion":[
 "Religiøs butikk"
 ],
@@ -3433,9 +3403,6 @@
 "shop/water":[
 "Drikkevannbutikk"
 ],
-"shop/water_sports":[
-"Vannsport/Svømmebutikk"
-],
 "shop/weapons":[
 "Våpenbutikk"
 ],
@@ -3537,9 +3504,6 @@
 ],
 "tourism/information/map":[
 "Kart"
-],
-"tourism/information/office":[
-"Besøkssenter"
 ],
 "tourism/information/route_marker":[
 "Stimarkør"
@@ -3726,9 +3690,6 @@
 ],
 "type/route/pipeline":[
 "Rørledningsrute"
-],
-"type/route/piste":[
-"Skiløype"
 ],
 "type/route/power":[
 "Kraftlinje"

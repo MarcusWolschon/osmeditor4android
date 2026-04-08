@@ -441,14 +441,6 @@
 "quán bar lgbt",
 "quan bar lgbtq"
 ],
-"amenity/bbq":[
-"bbq",
-"vi nuong thit",
-"vỉ",
-"vi",
-"Vỉ nướng",
-"vỉ nướng thịt"
-],
 "amenity/bench":[
 "Băng ghế",
 "ghế dài",
@@ -727,17 +719,6 @@
 "trạm sạc pin",
 "trạm sạc xe hơi điện",
 "tram sac pin"
-],
-"amenity/childcare":[
-"giu dua be",
-"giữ trẻ",
-"nha tre",
-"giu tre",
-"nhà trẻ",
-"Giữ trẻ",
-"giữ con nít",
-"giữ đứa bé",
-"giu con nit"
 ],
 "amenity/cinema":[
 "xi nê",
@@ -4494,9 +4475,6 @@
 "ky tuc sa",
 "cu xa"
 ],
-"building/entrance":[
-"Cửa Ra vào"
-],
 "building/farm":[
 "căn nhà nông trại",
 "Nhà ở Nông trại",
@@ -6283,25 +6261,6 @@
 "xa lộ liên bang",
 "xa lo lien tieu bang"
 ],
-"highway/motorway_junction":[
-"giao lộ đường cao tốc",
-"loi ra xa lo lien tieu bang",
-"loi ra xa lo lien bang",
-"giao lộ quốc lộ",
-"lối ra đường cao tốc",
-"lối ra xa lộ liên tiểu bang",
-"giao lộ xa lộ liên bang",
-"giao lo xa lo lien tieu bang",
-"giao lo xa lo lien bang",
-"loi ra duong cao toc",
-"Giao lộ Đường Cao tốc",
-"giao lộ xa lộ liên tiểu bang",
-"lối ra xa lộ liên bang",
-"loi ra quoc lo",
-"lối ra quốc lộ",
-"giao lo duong cao toc",
-"giao lo quoc lo"
-],
 "highway/motorway_link":[
 "duong nhanh re cao toc",
 "lối ra vào đường cao tốc",
@@ -6946,10 +6905,6 @@
 "bùng binh ở đường cùng",
 "Bùng binh ở Đường cùng"
 ],
-"highway/unclassified":[
-"đường nhỏ",
-"Đường Nhỏ"
-],
 "historic":[
 "Nơi Lịch sử",
 "tưởng niệm lịch sử",
@@ -7305,21 +7260,6 @@
 "khu dang xay dung",
 "công trình xây dựng",
 "vung dang xay dung"
-],
-"landuse/education":[
-"khuôn viên trường học",
-"khuon vien truong hoc",
-"Khu Khuôn viên Trường",
-"san hoc vien",
-"khu khuon vien hoc vien",
-"san truong hoc",
-"khuôn viên học viện",
-"khuon vien hoc vien",
-"khu khuôn viên học viện",
-"sân học viện",
-"khu khuon vien truong",
-"khu khuôn viên trường",
-"sân trường học"
 ],
 "landuse/farm":[
 "Đất Nông nghiệp"
@@ -8044,11 +7984,6 @@
 "san bong chuyen bai bien",
 "sân bóng chuyền bãi biển",
 "Sân Bóng chuyền Bãi biển"
-],
-"leisure/pitch/boules":[
-"sân bi sắt",
-"san bi sat",
-"Sân Bi sắt"
 ],
 "leisure/pitch/bowls":[
 "Sân Bowling",
@@ -10405,19 +10340,6 @@
 "trò chơi hầm",
 "Trò chơi Hầm chui"
 ],
-"playground/water":[
-"bom",
-"bơm nước",
-"tro choi vit nuoc",
-"trò chơi bơm nước",
-"bom nuoc",
-"trò chơi vít nước",
-"tro choi bom nuoc",
-"vit nuoc",
-"vít nước",
-"Trò chơi Bơm hay Vít nước",
-"bơm"
-],
 "playground/zipwire":[
 "đu dây",
 "Đu Dây",
@@ -11522,57 +11444,6 @@
 "sua",
 "cua hang do so sinh"
 ],
-"shop/bag":[
-"quan bao",
-"quan xac",
-"quán xắc",
-"cua hang va li",
-"cửa hàng vali",
-"quán va-li",
-"tiệm va li",
-"cửa hiệu xắc",
-"tiem va-li",
-"cửa hàng va-li",
-"tiem tui",
-"tiệm xắc",
-"cửa hiệu bao",
-"tiem bao",
-"quan va li",
-"tiem xac",
-"cua hang va-li",
-"cửa hiệu va-li",
-"cửa hiệu túi",
-"tiệm túi",
-"cửa hàng xắc",
-"tiệm va-li",
-"cửa hàng tửi",
-"cua hieu va-li",
-"quán va li",
-"tiệm bao",
-"cua hieu vali",
-"quan vali",
-"cua hang vali",
-"cua hieu xac",
-"cửa hiệu va li",
-"tiem vali",
-"quan va-li",
-"Tiệm Túi",
-"cua hang tui",
-"tiệm vali",
-"quán bao",
-"cua hieu bao",
-"quán vali",
-"cua hang bao",
-"tiem va li",
-"cửa hàng bao",
-"cửa hàng va li",
-"cua hieu tui",
-"quán túi",
-"cửa hiệu vali",
-"quan tui",
-"cua hang xac",
-"cua hieu va li"
-],
 "shop/bakery":[
 "Tiệm Bánh",
 "tiệm bánh mì",
@@ -11656,27 +11527,6 @@
 "tiệm tanning",
 "tiem tanning",
 "cua hang tanning"
-],
-"shop/bed":[
-"cua hang do giuong",
-"tiệm đồ giường",
-"cua hieu nem",
-"cửa hiệu nệm",
-"cửa hiệu đệm",
-"cửa hàng đồ giường",
-"tiem dem",
-"cua hieu do giuong",
-"cửa hàng nệm",
-"tiệm nệm",
-"cua hang dem",
-"tiem do giuong",
-"tiệm đệm",
-"tiem nem",
-"cua hieu dem",
-"cửa hàng đệm",
-"Tiệm Nệm",
-"cửa hiệu đồ giường",
-"cua hang nem"
 ],
 "shop/beverages":[
 "tiệm đồ uống",
@@ -13363,36 +13213,6 @@
 "tiem phao bong",
 "Tiệm Pháo bông"
 ],
-"shop/radiotechnics":[
-"cua hang linh kien radio",
-"tiệm linh kiện rađiô",
-"cua hieu linh kien radio",
-"tiem linh kien dien tu",
-"tiệm linh kiện điện thoại",
-"cua hang linh kien vo tuyen",
-"cửa hiệu linh kiện radio",
-"cửa hàng linh kiện rađiô",
-"cua hieu linh kien dien tu",
-"cua hieu linh kien vo tuyen",
-"Tiệm Linh kiện Điện tử",
-"cửa hiệu linh kiện vô tuyến",
-"tiem linh kien dien thoai",
-"cửa hàng linh kiện điện thoại",
-"tiem linh kien vo tuyen",
-"tiệm linh kiện vô tuyến",
-"cửa hàng linh kiện vô tuyến",
-"cửa hàng linh kiện radio",
-"cửa hiệu linh kiện rađiô",
-"cua hang linh kien dien thoai",
-"tiem linh kien radio",
-"cua hieu linh kien dien thoai",
-"cua hang linh kien dien tu",
-"tiệm linh kiện điện tử",
-"tiệm linh kiện radio",
-"cửa hiệu linh kiện điện tử",
-"cửa hiệu linh kiện điện thoại",
-"cửa hàng linh kiện điện tử"
-],
 "shop/religion":[
 "tiem ban do ton giao",
 "Tiệm Bán đồ Tôn giáo",
@@ -13877,21 +13697,6 @@
 "tiệm nước uống",
 "cua hang nuoc uong"
 ],
-"shop/water_sports":[
-"cửa hàng dụng cụ bơi lội",
-"Tiệm Dụng cụ Bơi lội",
-"cua hieu dung cu boi loi",
-"cua hang dung cu boi loi",
-"cửa hàng bán đồ bơi lội",
-"tiệm bán đồ bơi lội",
-"cửa hiệu bán đồ bơi lội",
-"cua hang ban do boi loi",
-"tiệm dụng cụ bơi lội",
-"tiem ban do boi loi",
-"cua hieu ban do boi loi",
-"tiem dung cu boi loi",
-"cửa hiệu dụng cụ bơi lội"
-],
 "shop/weapons":[
 "cua hang sung",
 "tiệm súng",
@@ -14183,22 +13988,6 @@
 "bản đồ",
 "ban do",
 "Bản đồ"
-],
-"tourism/information/office":[
-"trạm hỗ trợ du khách",
-"trung tâm hỗ trợ du khách",
-"trạm hỗ trợ khách du lịch",
-"tram ho tro khach du lich",
-"van phong ho tro du khach",
-"trung tâm hỗ trợ khách du lịch",
-"Trung tâm Hỗ trợ Du khách",
-"văn phòng hỗ trợ du khách",
-"van phong ho tro khach du lich",
-"tthtdk",
-"trung tam ho tro khach du lich",
-"văn phòng hỗ trợ khách du lịch",
-"trung tam ho tro du khach",
-"tram ho tro du khach"
 ],
 "tourism/motel":[
 "Khách sạn Dọc đường",
@@ -14719,13 +14508,6 @@
 "tuyến đường ống",
 "tuyen duong ong",
 "tuyen ong dan"
-],
-"type/route/piste":[
-"tuyến đường mòn trượt tuyết",
-"tuyen duong mon truot tuyet",
-"Tuyến đường Trượt tuyết",
-"tuyen duong truot tuyet",
-"tuyến đường trượt tuyết"
 ],
 "type/route/power":[
 "tuyến đường dây điện",

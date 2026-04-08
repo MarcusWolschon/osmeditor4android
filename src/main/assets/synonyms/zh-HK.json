@@ -232,10 +232,6 @@
 "同性戀酒吧",
 "LGBTQ+ 酒吧"
 ],
-"amenity/bbq":[
-"bbq",
-"燒烤"
-],
 "amenity/bench":[
 "長櫈",
 "bench",
@@ -363,12 +359,6 @@
 "amenity/charging_station":[
 "充電站",
 "叉電站"
-],
-"amenity/childcare":[
-"幼兒護理",
-"託兒所／幼兒護理",
-"託兒所",
-"託管"
 ],
 "amenity/cinema":[
 "電影戲院",
@@ -578,9 +568,6 @@
 "一般科",
 "家醫科",
 "家庭醫學科"
-],
-"amenity/doctors/gynaecology":[
-"婦產科"
 ],
 "amenity/doctors/haematology":[
 "血液科"
@@ -2281,9 +2268,6 @@
 "宿舍",
 "職員宿舍"
 ],
-"building/entrance":[
-"入口／出口"
-],
 "building/farm":[
 "farm house",
 "農莊",
@@ -3366,9 +3350,6 @@
 "快速公路",
 "motorway"
 ],
-"highway/motorway_junction":[
-"快速公路交滙處/出口"
-],
 "highway/motorway_link":[
 "快速公路連接路",
 "高速公路連接路",
@@ -3615,12 +3596,6 @@
 "迴車圈",
 "turning loop",
 "迴車處 (島式)"
-],
-"highway/unclassified":[
-"次級/未分類道路",
-"小規模道路",
-"小路",
-"未分類的道路"
 ],
 "historic":[
 "歷史遺跡",
@@ -3914,16 +3889,6 @@
 "在建",
 "建设区域",
 "建造"
-],
-"landuse/education":[
-"学校",
-"校园",
-"教学",
-"教育用地",
-"教育",
-"高中园",
-"园区",
-"校园用地"
 ],
 "landuse/farm":[
 "農地"
@@ -4410,10 +4375,6 @@
 "链球场",
 "投掷"
 ],
-"leisure/pitch/athletics/high_jump":[
-"跳高场",
-"跳高"
-],
 "leisure/pitch/athletics/javelin_throw":[
 "标枪场",
 "标枪",
@@ -4471,11 +4432,6 @@
 "leisure/pitch/beachvolleyball":[
 "beach volleyball court",
 "沙灘排球場"
-],
-"leisure/pitch/boules":[
-"草地滚球场",
-"地掷球场",
-"滚球场"
 ],
 "leisure/pitch/bowls":[
 "bowling green",
@@ -6163,9 +6119,6 @@
 "鑽爬",
 "隧道"
 ],
-"playground/water":[
-"戲水設施"
-],
 "playground/zipwire":[
 "滑降台"
 ],
@@ -6746,11 +6699,6 @@
 "嬰兒用品店",
 "bb用品店"
 ],
-"shop/bag":[
-"袋/行李箱店",
-"行李店",
-"袋店"
-],
 "shop/bakery":[
 "餅店",
 "餅舖",
@@ -6794,16 +6742,6 @@
 "tanning salon",
 "日光浴店",
 "曬燈店"
-],
-"shop/bed":[
-"寢具店",
-"床具店",
-"床墊店",
-"寢室用品店",
-"床上用品店",
-"床褥店",
-"睡房用品店",
-"寢具/床褥店"
 ],
 "shop/beverages":[
 "飲品店",
@@ -7383,11 +7321,6 @@
 "煙火",
 "爆竹"
 ],
-"shop/radiotechnics":[
-"無線電/電子零件店",
-"對講機店",
-"電子零件店"
-],
 "shop/religion":[
 "宗教用品店",
 "紙紮舖",
@@ -7552,10 +7485,6 @@
 ],
 "shop/water":[
 "飲用水供應店"
-],
-"shop/water_sports":[
-"泳具店",
-"水上活動/游泳用品店"
 ],
 "shop/weapons":[
 "刀",
@@ -7743,11 +7672,6 @@
 "tourism/information/map":[
 "地圖",
 "map"
-],
-"tourism/information/office":[
-"旅遊中心",
-"資訊服務站",
-"遊客中心"
 ],
 "tourism/information/route_marker":[
 "路線標記",
@@ -8048,9 +7972,6 @@
 "pipeline route",
 "管道路綫",
 "管道路線"
-],
-"type/route/piste":[
-"滑雪道路線"
 ],
 "type/route/power":[
 "供電路線",

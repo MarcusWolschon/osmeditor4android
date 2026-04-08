@@ -368,6 +368,18 @@
 "waterway/boatyard":[
 "Boatyard"
 ],
+"waterway/access_point":[
+"rowboat",
+"Waterway Access Point",
+"canoe",
+"put-in",
+"take-out",
+"launch",
+"paddleboard",
+"kayak",
+"boat",
+"portage"
+],
 "waterway/canal/lock":[
 "Canal Lock"
 ],
@@ -433,7 +445,7 @@
 "Power Route"
 ],
 "type/route/piste":[
-"Piste/Ski Route"
+"Piste / Ski Route"
 ],
 "type/route/pipeline":[
 "Pipeline Route"
@@ -555,6 +567,7 @@
 "Speed Table",
 "hump",
 "slow",
+"traffic calming",
 "speed",
 "flat top"
 ],
@@ -562,6 +575,7 @@
 "audible lines",
 "Rumble Strip",
 "growlers",
+"traffic calming",
 "sleeper lines"
 ],
 "traffic_calming/mini_bumps":[
@@ -570,6 +584,7 @@
 "slow",
 "Mini Speed Bumps",
 "bumps",
+"traffic calming",
 "speed",
 "circular speed bumps",
 "small speed bumps"
@@ -577,41 +592,48 @@
 "traffic_calming/island":[
 "slow",
 "circle",
+"traffic calming",
 "Traffic Calming Island",
 "roundabout"
 ],
 "traffic_calming/hump":[
 "slow",
 "bump",
+"traffic calming",
 "speed",
 "Speed Hump"
 ],
 "traffic_calming/dip":[
 "slow",
 "Dip",
+"traffic calming",
 "speed"
 ],
 "traffic_calming/cushion":[
 "hump",
 "slow",
 "bump",
+"traffic calming",
 "speed",
 "Speed Cushion"
 ],
 "traffic_calming/choker":[
 "Traffic Choker",
 "slow",
+"traffic calming",
 "speed"
 ],
 "traffic_calming/chicane":[
 "slow",
 "driveway link",
+"traffic calming",
 "Traffic Chicane",
 "speed"
 ],
 "traffic_calming/bump":[
 "hump",
 "slow",
+"traffic calming",
 "Speed Bump",
 "speed"
 ],
@@ -637,7 +659,12 @@
 ],
 "tourism/viewpoint":[
 "lookout",
-"Viewpoint"
+"Viewpoint",
+"overlook",
+"vantage point",
+"scenery",
+"scenic",
+"vista"
 ],
 "tourism/trail_riding_station":[
 "Trail Riding Station"
@@ -682,6 +709,8 @@
 ],
 "tourism/hotel":[
 "lodging",
+"suite",
+"inn",
 "overnight accommodations",
 "lodge",
 "concierge",
@@ -690,7 +719,9 @@
 "tourism/hostel":[
 "lodging",
 "Hostel",
+"backpacker",
 "bunk beds",
+"youth hostel",
 "dorms",
 "overnight accommodations",
 "dormitories"
@@ -703,14 +734,15 @@
 "overnight accommodations",
 "bed and breakfast",
 "b & b",
+"airbnb",
 "b&b"
 ],
 "tourism/gallery":[
 "exhibition",
 "art",
+"photograph",
 "painting",
 "Art Gallery",
-"photogaph",
 "sculpture"
 ],
 "tourism/chalet":[
@@ -758,16 +790,24 @@
 ],
 "tourism/aquarium":[
 "Aquarium",
+"sea life",
 "fish",
+"aquatic",
 "water",
-"sea"
+"sea",
+"marine life"
 ],
 "tourism/apartment":[
 "lodging",
+"b and b",
 "holiday rental",
 "bnb",
 "overnight accommodations",
+"bed and breakfast",
 "Guest Apartment / Condo",
+"b & b",
+"airbnb",
+"b&b",
 "vacation rental"
 ],
 "tourism/alpine_hut":[
@@ -807,6 +847,12 @@
 "foundation",
 "artifacts"
 ],
+"tourism/information/visitor_centre":[
+"Visitor Center",
+"visitors center",
+"visitors information center",
+"welcome center"
+],
 "tourism/information/terminal":[
 "Information Terminal"
 ],
@@ -822,13 +868,14 @@
 "stone pile"
 ],
 "tourism/information/office":[
+"tourist office",
 "tourism office",
 "tour guide",
 "tourist information center",
-"Visitor Center",
 "visitors center",
 "visitors information center",
 "welcome center",
+"Tourist Information Office",
 "information office"
 ],
 "tourism/information/map":[
@@ -940,7 +987,7 @@
 "Weapon Shop"
 ],
 "shop/water_sports":[
-"Watersport/Swim Shop"
+"Watersport / Swim Shop"
 ],
 "shop/water":[
 "bottled water",
@@ -987,9 +1034,12 @@
 "shop/travel_agency":[
 "tickets",
 "hotels",
+"vacation",
+"tour operator",
 "flights",
 "Travel Agency",
 "cruises",
+"holiday",
 "travel packages"
 ],
 "shop/trade":[
@@ -1075,6 +1125,7 @@
 ],
 "shop/sports":[
 "Sporting Goods Store",
+"fitness",
 "athletics",
 "hobby"
 ],
@@ -1116,11 +1167,14 @@
 ],
 "shop/second_hand":[
 "second-hand",
+"preowned",
+"vintage",
 "resale",
 "used",
 "Thrift Store"
 ],
 "shop/seafood":[
+"fish",
 "Seafood Shop"
 ],
 "shop/scuba_diving":[
@@ -1140,6 +1194,7 @@
 "rehabilitate",
 "refurbish",
 "fixit shop",
+"maintenance",
 "mend"
 ],
 "shop/rental":[
@@ -1150,7 +1205,7 @@
 ],
 "shop/radiotechnics":[
 "antenna",
-"Radio/Electronic Component Store",
+"Radio / Electronic Component Store",
 "transistor"
 ],
 "shop/pyrotechnics":[
@@ -1205,16 +1260,20 @@
 ],
 "shop/perfumery":[
 "fragrance",
-"purfume",
 "cologne",
-"Perfume Store"
+"Perfume Store",
+"perfume"
 ],
 "shop/pawnbroker":[
-"Pawnshop"
+"Pawnshop",
+"loan",
+"collateral",
+"secondhand"
 ],
 "shop/pastry":[
 "Pastry Shop",
 "cakery",
+"chimney cake shop",
 "patisserie",
 "cake shop",
 "cookies"
@@ -1254,7 +1313,8 @@
 "shop/optician":[
 "eye",
 "glasses",
-"Optician"
+"Optician",
+"spectacles"
 ],
 "shop/nuts":[
 "pecans",
@@ -1303,6 +1363,7 @@
 "casette store",
 "cds",
 "casette",
+"record store",
 "compact discs",
 "vinyl records",
 "tape cassettes",
@@ -1342,10 +1403,14 @@
 ],
 "shop/mobile_phone_accessories":[
 "Mobile Phone Accessory Store",
-"phone case"
+"smartphone",
+"phone case",
+"cell phone"
 ],
 "shop/mobile_phone":[
-"Mobile Phone Store"
+"smartphone",
+"Mobile Phone Store",
+"cell phone"
 ],
 "shop/military_surplus":[
 "armor",
@@ -1441,6 +1506,8 @@
 "shop/houseware":[
 "kitchenware",
 "Houseware Store",
+"home goods",
+"cookware",
 "home"
 ],
 "shop/household_linen":[
@@ -1461,6 +1528,7 @@
 ],
 "shop/hifi":[
 "hi-fi",
+"speakers",
 "stereo",
 "Hifi Store",
 "audio",
@@ -1535,6 +1603,7 @@
 ],
 "shop/gift":[
 "Gift Shop",
+"present",
 "tourist trap"
 ],
 "shop/general":[
@@ -1579,7 +1648,9 @@
 "Furniture Store",
 "sofa",
 "chair",
-"table"
+"couch",
+"table",
+"interior"
 ],
 "shop/funeral_directors":[
 "mortuary",
@@ -1588,7 +1659,13 @@
 "undertaker"
 ],
 "shop/fuel":[
-"Fuel Shop"
+"heating oil",
+"firewood",
+"pellets",
+"briquettes",
+"coal",
+"Fuel Shop",
+"kerosene"
 ],
 "shop/frozen_food":[
 "Frozen Food Store"
@@ -1602,6 +1679,7 @@
 ],
 "shop/florist":[
 "Florist",
+"bouquet",
 "flower"
 ],
 "shop/flooring":[
@@ -1627,15 +1705,15 @@
 "fireplace"
 ],
 "shop/fashion_accessories":[
+"jewelry",
 "sunglasses",
-"purfume",
 "wallet",
 "umbrella",
 "scarf",
 "bag",
+"perfume",
 "Fashion Accessories Store",
 "fragrance",
-"jewellery",
 "watch",
 "cologne",
 "hat",
@@ -1657,24 +1735,42 @@
 "textiles",
 "Fabric Store"
 ],
+"shop/esoteric":[
+"acupuncture",
+"aromatherapy",
+"crystal",
+"meditation",
+"woo",
+"alternative",
+"essential oil",
+"psychic",
+"new age",
+"pendant",
+"Esoteric Store"
+],
 "shop/erotic":[
+"18+",
 "sex",
 "Erotic Store",
 "porn"
 ],
 "shop/electronics":[
 "appliance",
-"computer",
 "tv",
+"consumer electronics",
+"smartphone",
+"Electronics Store",
+"video",
+"radio",
+"computer",
 "dvd",
+"phone",
 "home theater",
 "speaker",
-"Electronics Store",
 "audio",
-"video",
 "camera",
 "blueray",
-"radio"
+"gadgets"
 ],
 "shop/electrical":[
 "fan",
@@ -1688,6 +1784,7 @@
 ],
 "shop/e-cigarette":[
 "vapor",
+"ecigarette",
 "vape",
 "electronic",
 "vaping",
@@ -1714,7 +1811,9 @@
 ],
 "shop/deli":[
 "deli",
-"Delicatessen"
+"charcuterie",
+"Delicatessen",
+"cold cuts"
 ],
 "shop/dairy":[
 "egg",
@@ -1792,7 +1891,10 @@
 "hobby"
 ],
 "shop/coffee":[
-"Coffee Store"
+"espresso",
+"cafe",
+"Coffee Store",
+"latte"
 ],
 "shop/clothes":[
 "pants",
@@ -1815,6 +1917,7 @@
 ],
 "shop/chocolate":[
 "Chocolate Store",
+"confectionery",
 "cocoa"
 ],
 "shop/chemist":[
@@ -1873,7 +1976,8 @@
 "shop/car":[
 "automobile",
 "automotive",
-"Car Dealership"
+"Car Dealership",
+"vehicle"
 ],
 "shop/cannabis":[
 "420",
@@ -1947,9 +2051,9 @@
 "shop/bed":[
 "bed",
 "mattress",
-"Bedding/Mattress Store",
 "pillow",
-"duvet"
+"duvet",
+"Bedding / Mattress Store"
 ],
 "shop/beauty":[
 "Beauty Shop",
@@ -1969,17 +2073,21 @@
 ],
 "shop/bakery":[
 "bread",
+"bakeshop",
 "Bakery",
 "cakes",
 "rolls"
 ],
 "shop/bag":[
 "handbag",
-"Bag/Luggage Store",
-"purse"
+"purse",
+"Bag / Luggage Store"
 ],
 "shop/baby_goods":[
-"Baby Goods Store"
+"Baby Goods Store",
+"toddler",
+"newborn",
+"infant"
 ],
 "shop/art":[
 "exhibition",
@@ -2005,6 +2113,8 @@
 "grill"
 ],
 "shop/antiques":[
+"old",
+"vintage",
 "Antique Shop"
 ],
 "shop/anime":[
@@ -2068,6 +2178,7 @@
 "moustache"
 ],
 "shop/erotic/lgbtq":[
+"18+",
 "sex",
 "LGBTQ+ Erotic Store",
 "porn"
@@ -2125,7 +2236,9 @@
 "second hand",
 "blouses",
 "skirts",
+"preowned",
 "shirts",
+"vintage",
 "consignment",
 "dresses",
 "shorts",
@@ -2142,6 +2255,7 @@
 "sunbed"
 ],
 "shop/beauty/nails":[
+"nails",
 "Nail Salon",
 "pedicure",
 "manicure"
@@ -2279,6 +2393,17 @@
 "metro",
 "transit",
 "underground railway"
+],
+"railway/signal_box":[
+"interlock tower",
+"signal cab",
+"interlocking tower",
+"radio block center",
+"signalling box",
+"radio block centre",
+"lever frame",
+"signalling cab",
+"Signal Box"
 ],
 "railway/signal":[
 "Railway Signal",
@@ -3044,7 +3169,7 @@
 "zipline"
 ],
 "playground/water":[
-"Play Water Pump/Screw"
+"Play Water Device (unspecified)"
 ],
 "playground/tunnel_tube":[
 "Play Tunnel"
@@ -3096,6 +3221,9 @@
 "Play Roundabout",
 "merry-go-round",
 "carousel"
+],
+"playground/pump":[
+"Play Water Pump"
 ],
 "playground/playhouse":[
 "children's house",
@@ -4164,6 +4292,7 @@
 "mill"
 ],
 "man_made/water_works":[
+"water treatment plant",
 "Water Works"
 ],
 "man_made/water_well":[
@@ -4620,6 +4749,7 @@
 "man_made/tower/defensive":[
 "castle tower",
 "Fortified Tower",
+"guard tower",
 "defensive tower"
 ],
 "man_made/tower/cooling":[
@@ -5413,6 +5543,7 @@
 ],
 "leisure/pitch/equestrian":[
 "dressage arena",
+"horse training",
 "ring",
 "horseback riding",
 "horseback riding arena",
@@ -5423,6 +5554,7 @@
 "riding ring",
 "dressage ring",
 "horse",
+"horse exercising",
 "jumping ring",
 "horseback",
 "jumping arena",
@@ -5454,9 +5586,15 @@
 ],
 "leisure/pitch/boules":[
 "bocce",
-"Boules/Bocce Court",
+"Boules / Bocce Court",
 "pétanque",
 "lyonnaise"
+],
+"leisure/pitch/biathlon":[
+"biathlon firing range",
+"Biathlon Range",
+"biathlon shooting gallery",
+"biathlon shooting range"
 ],
 "leisure/pitch/beachvolleyball":[
 "Beach Volleyball Court",
@@ -5515,7 +5653,7 @@
 "Javelin Sector"
 ],
 "leisure/pitch/athletics/high_jump":[
-"High Jump Pit"
+"High Jump Area"
 ],
 "leisure/pitch/athletics/hammer_throw":[
 "Hammer Throw Ring / Sector"
@@ -5753,6 +5891,14 @@
 "Orchard",
 "fruit"
 ],
+"landuse/olive_grove":[
+"Olive Grove",
+"olive orchard",
+"olive production",
+"olive oil",
+"olive yard",
+"olive culture"
+],
 "landuse/meadow":[
 "hay field",
 "Meadow",
@@ -5835,11 +5981,13 @@
 "crop"
 ],
 "landuse/education":[
+"school campus",
 "educational facilities",
+"educational campus",
 "school center",
 "campus",
 "school grounds",
-"Educational Campus"
+"Educational Area"
 ],
 "landuse/construction":[
 "crane",
@@ -6152,7 +6300,7 @@
 "highway/unclassified":[
 "road",
 "street",
-"Minor/Unclassified Road"
+"Minor / Unclassified Road"
 ],
 "highway/turning_loop":[
 "cul-de-sac",
@@ -6406,7 +6554,7 @@
 ],
 "highway/motorway_junction":[
 "exit",
-"Motorway Junction / Exit"
+"Motorway Exit"
 ],
 "highway/motorway":[
 "freeway",
@@ -6700,6 +6848,7 @@
 "multi-use trail",
 "segregated trail",
 "shared use path",
+"multi-use path",
 "Cycle & Foot Path",
 "greenway",
 "shared path",
@@ -6776,6 +6925,7 @@
 "urine sample collection",
 "laboratory",
 "Sample Collection Facility",
+"diagnostic",
 "blood sample collection"
 ],
 "healthcare/rehabilitation":[
@@ -6832,10 +6982,10 @@
 "labour"
 ],
 "healthcare/laboratory":[
-"medical_lab",
-"blood_check",
+"blood check",
+"diagnostic",
 "Medical Laboratory",
-"medical_laboratory"
+"medical lab"
 ],
 "healthcare/hospice":[
 "Hospice",
@@ -7511,6 +7661,12 @@
 "building/transportation":[
 "Transportation Building"
 ],
+"building/train_station":[
+"halt",
+"railway station",
+"terminal",
+"Train Station Building"
+],
 "building/terrace":[
 "row house",
 "brownstone",
@@ -7778,9 +7934,6 @@
 "building/allotment_house":[
 "Allotment House"
 ],
-"building/train_station":[
-"Train Station Building"
-],
 "building/outbuilding":[
 "Outbuilding"
 ],
@@ -7788,7 +7941,7 @@
 "Industrial Production Building"
 ],
 "building/entrance":[
-"Entrance/Exit"
+"Entrance / Exit"
 ],
 "building/bunker":[
 "Bunker"
@@ -8193,13 +8346,19 @@
 "refuge island",
 "Traffic Island Area"
 ],
+"animal/horse_walker":[
+"horse training",
+"Horse Walker"
+],
 "amenity/weighbridge":[
 "weigh station",
 "Truck Scale",
 "weighbridge"
 ],
 "amenity/watering_place":[
-"Animal Watering Place"
+"Animal Watering Place",
+"livestock water",
+"trough"
 ],
 "amenity/water_point":[
 "water spigot",
@@ -8290,6 +8449,7 @@
 ],
 "amenity/toilets":[
 "head",
+"water closet",
 "latrine",
 "w.c.",
 "Restroom",
@@ -8326,27 +8486,33 @@
 "cab"
 ],
 "amenity/swingerclub":[
-"porn*",
+"strip",
+"swinger",
 "Swinger Club",
+"18+",
 "sex",
-"strip*",
-"swinger*",
 "lifestyle club",
-"adult*"
+"adult",
+"porn"
 ],
 "amenity/studio":[
 "television",
 "recording",
 "Studio",
-"radio"
+"radio",
+"tv studio"
 ],
 "amenity/stripclub":[
+"strip",
+"18+",
 "cabaret",
-"strip*",
+"sex",
 "Strip club",
+"gentlemen",
 "lap dance",
-"adult*",
-"gentlemen*"
+"adult",
+"porn",
+"striptease"
 ],
 "amenity/social_facility":[
 "nonprofit",
@@ -8357,17 +8523,19 @@
 "community"
 ],
 "amenity/social_centre":[
-"fraternal",
 "sorority",
+"hall",
+"union",
+"community center",
+"professional",
+"fraternal",
 "society",
 "Social Center",
 "organization",
 "fraternity",
-"hall",
-"union",
 "event",
-"vetern",
-"professional"
+"community hall",
+"vetern"
 ],
 "amenity/smoking_area":[
 "Smoking Area",
@@ -8379,6 +8547,7 @@
 ],
 "amenity/shelter":[
 "gazebo",
+"covered shelter",
 "lean-to",
 "Shelter",
 "picnic"
@@ -8397,6 +8566,7 @@
 "amenity/restaurant":[
 "lunch",
 "dining",
+"brasserie",
 "dinner",
 "café",
 "Restaurant",
@@ -8436,6 +8606,7 @@
 "glass",
 "scrap",
 "bin",
+"recycle",
 "garbage",
 "bottle",
 "rubbish",
@@ -8446,6 +8617,7 @@
 "can",
 "glass",
 "scrap",
+"recycle",
 "garbage",
 "bottle",
 "dump",
@@ -8467,12 +8639,15 @@
 "little free library",
 "share a book",
 "book swap",
+"sidewalk library",
 "library",
+"community bookshelf",
 "book sharing",
 "bookcrossing",
 "Public Bookcase",
 "sharing books",
-"book exchange shelf"
+"book exchange shelf",
+"street library"
 ],
 "amenity/public_bath":[
 "Public Bath",
@@ -8482,7 +8657,9 @@
 ],
 "amenity/pub":[
 "alcohol",
+"bar",
 "booze",
+"tavern",
 "bier",
 "dive",
 "Pub",
@@ -8490,13 +8667,18 @@
 "drink"
 ],
 "amenity/prison":[
+"correctional facility",
 "jail",
 "Prison Grounds",
 "cell",
-"correction"
+"detention center"
 ],
 "amenity/post_office":[
+"parcel",
+"postal service",
+"package",
 "mail",
+"shipping",
 "Post Office",
 "letter"
 ],
@@ -8579,8 +8761,10 @@
 "cathedral"
 ],
 "amenity/photo_booth":[
+"passport photos",
 "photobooth",
 "photo",
+"picture booth",
 "camera",
 "kiosk",
 "booth",
@@ -8604,6 +8788,7 @@
 "tax pay",
 "ekiosk",
 "atm",
+"payment kiosk",
 "cash",
 "card",
 "finance",
@@ -8723,7 +8908,8 @@
 "temple"
 ],
 "amenity/marketplace":[
-"Marketplace"
+"Marketplace",
+"bazaar"
 ],
 "amenity/luggage_locker":[
 "baggage",
@@ -8736,7 +8922,9 @@
 "Luggage Locker"
 ],
 "amenity/love_hotel":[
-"Love Hotel"
+"romantic hotel",
+"Love Hotel",
+"short stay hotel"
 ],
 "amenity/lounger":[
 "seat",
@@ -8762,7 +8950,9 @@
 ],
 "amenity/library":[
 "book",
-"Library"
+"reading",
+"Library",
+"public library"
 ],
 "amenity/letter_box":[
 "mail slot",
@@ -8776,6 +8966,7 @@
 "letterplate",
 "letter hole",
 "mail hole",
+"post box",
 "letter slot",
 "mailbox",
 "letter plate",
@@ -8802,6 +8993,7 @@
 "karaoke club",
 "karaoke television",
 "Karaoke Box",
+"sing along",
 "ktv",
 "karaoke room"
 ],
@@ -8820,7 +9012,9 @@
 "sorbet",
 "sherbet",
 "frozen",
+"froyo",
 "gelato",
+"sundae",
 "Ice Cream Shop"
 ],
 "amenity/hunting_stand":[
@@ -8920,26 +9114,35 @@
 ],
 "amenity/fountain":[
 "Fountain",
+"bubbler",
 "basin",
 "water"
 ],
 "amenity/food_court":[
+"food plaza",
 "fast food",
 "restaurant",
+"food hall",
 "Food Court",
 "food"
 ],
 "amenity/fire_station":[
 "Fire Station",
 "firehouse",
-"fire fighters"
+"fire brigade",
+"fire fighters",
+"fire department"
 ],
 "amenity/fast_food":[
 "restaurant",
+"drive-through",
 "Fast Food",
+"drive thru",
+"takeout",
 "takeaway"
 ],
 "amenity/exhibition_centre":[
+"convention center",
 "trade exhibition",
 "fair",
 "expo",
@@ -8957,9 +9160,11 @@
 "bat mitzvah",
 "baptism",
 "confirmation",
+"event hall",
 "celebrations",
 "reunions",
 "birthdays",
+"conventions",
 "parties",
 "meetings",
 "conferences",
@@ -8970,6 +9175,7 @@
 "Driver Training Grounds"
 ],
 "amenity/drinking_water":[
+"water refill",
 "bubbler",
 "potable water source",
 "drinking fountain",
@@ -8999,6 +9205,7 @@
 "dog urine"
 ],
 "amenity/doctors":[
+"general practitioner",
 "medical doctor",
 "medic",
 "physician",
@@ -9011,11 +9218,16 @@
 ],
 "amenity/device_charging_station":[
 "charger",
+"smartphone",
+"phone",
 "usb",
 "Device Charging Station",
-"plug"
+"mobile",
+"plug",
+"cell phone"
 ],
 "amenity/dentist":[
+"dental",
 "Dentist",
 "teeth",
 "tooth"
@@ -9026,7 +9238,10 @@
 "cemetery"
 ],
 "amenity/courthouse":[
-"Courthouse"
+"judicial",
+"Courthouse",
+"law court",
+"justice"
 ],
 "amenity/conference_centre":[
 "exhibition",
@@ -9037,7 +9252,9 @@
 ],
 "amenity/compressed_air":[
 "Compressed Air",
-"air compressor"
+"air compressor",
+"tire inflation",
+"air pump"
 ],
 "amenity/community_centre":[
 "Community Center",
@@ -9055,9 +9272,11 @@
 ],
 "amenity/cinema":[
 "movie",
+"multiplex",
 "theater",
 "show",
 "screen",
+"imax",
 "film",
 "flick",
 "drive-in",
@@ -9065,16 +9284,20 @@
 "Cinema"
 ],
 "amenity/childcare":[
+"Nursery / Childcare",
 "daycare",
-"Nursery/Childcare",
 "orphanage",
 "playgroup"
 ],
 "amenity/charging_station":[
 "ev",
+"charger",
 "charge point",
+"dc charger",
 "supercharger",
 "electric vehicle",
+"fast charger",
+"fast charging",
 "charging stall",
 "Charging Station"
 ],
@@ -9084,16 +9307,26 @@
 "poker",
 "gambling",
 "blackjack",
-"craps"
+"craps",
+"slot machines"
 ],
 "amenity/car_wash":[
-"Car Wash"
+"car cleaning",
+"Car Wash",
+"wash bay",
+"auto wash"
 ],
 "amenity/car_sharing":[
-"Car Sharing Station"
+"car pool",
+"Car Sharing Station",
+"ride sharing",
+"lift sharing",
+"carpooling"
 ],
 "amenity/car_rental":[
-"Car Rental"
+"hire",
+"Car Rental",
+"vehicle"
 ],
 "amenity/car_pooling":[
 "car sharing",
@@ -9104,11 +9337,14 @@
 ],
 "amenity/cafe":[
 "tea",
+"espresso",
 "Cafe",
 "coffee",
-"bistro"
+"bistro",
+"latte"
 ],
 "amenity/bureau_de_change":[
+"foreign exchange",
 "money changer",
 "Currency Exchange"
 ],
@@ -9116,11 +9352,15 @@
 "dry dock",
 "boathouse",
 "Boat Storage",
-"marina"
+"marina",
+"boat garage",
+"boat shed"
 ],
 "amenity/boat_rental":[
 "boat hire",
-"Boat Rental"
+"canoe",
+"Boat Rental",
+"kayak"
 ],
 "amenity/binoculars":[
 "spotting scope",
@@ -9137,6 +9377,7 @@
 "amenity/biergarten":[
 "booze",
 "Biergarten",
+"beer garden",
 "bier",
 "beer"
 ],
@@ -9159,6 +9400,7 @@
 "cycling",
 "bike repair",
 "cycle repair",
+"bike pump",
 "bike tools"
 ],
 "amenity/bicycle_rental":[
@@ -9166,6 +9408,7 @@
 "cycle hub",
 "bicycle",
 "bicycle share",
+"rent a bike",
 "bikeshare",
 "cycleshare",
 "cycling",
@@ -9187,19 +9430,24 @@
 ],
 "amenity/bbq":[
 "bbq",
-"Barbecue/Grill",
+"Barbecue / Grill",
 "grill"
 ],
 "amenity/bar":[
 "Bar",
 "booze",
+"cocktails",
+"tavern",
 "bier",
 "dive",
-"beer"
+"pub",
+"beer",
+"drink"
 ],
 "amenity/bank":[
 "trust",
 "Bank",
+"financial",
 "investment",
 "check",
 "repository",
@@ -9227,14 +9475,17 @@
 "money",
 "machine",
 "ATM",
+"withdrawal",
 "cash"
 ],
 "amenity/arts_centre":[
 "arts centre",
+"performance venue",
 "theatre space",
 "Arts Center",
 "theater space",
-"community arts"
+"community arts",
+"cultural center"
 ],
 "amenity/animal_shelter":[
 "raptor",
@@ -9888,6 +10139,31 @@
 "grill",
 "table"
 ],
+"amenity/restaurant/hotpot":[
+"budae jjigae",
+"lau",
+"hotpot",
+"nabemono",
+"sichaun",
+"teochew",
+"jjigae",
+"teoswa",
+"yao hon",
+"beijing",
+"peking",
+"kimchi jjigae",
+"sin jum",
+"guangdong",
+"Hot Pot Restaurant",
+"sukiyaki",
+"fondue",
+"shabu shabu",
+"china",
+"mu kratha",
+"jeongol",
+"canton",
+"chhnang pleurng"
+],
 "amenity/restaurant/greek":[
 "gyros",
 "lunch",
@@ -10080,6 +10356,7 @@
 "islam",
 "muslim",
 "Muslim Mosque",
+"masjid",
 "islamic center"
 ],
 "amenity/place_of_worship/jewish":[
@@ -10369,6 +10646,7 @@
 "breakfast",
 "dinner",
 "drive-in",
+"fried chicken",
 "grill",
 "table"
 ],
@@ -10388,6 +10666,7 @@
 "breakfast",
 "dinner",
 "drive-in",
+"french fries",
 "grill",
 "table"
 ],
@@ -10574,6 +10853,7 @@
 "gynecology",
 "obgyn",
 "egg",
+"Obstetrician / Gynecologist",
 "gynaecologist",
 "ob/gyn",
 "women's doctor",
@@ -10581,8 +10861,7 @@
 "obstetrics",
 "woman's doctor",
 "ovulation",
-"reproductive",
-"Obstetrician/Gynecologist"
+"reproductive"
 ],
 "amenity/doctors/general":[
 "family practitioner",
@@ -10669,6 +10948,10 @@
 ],
 "amenity/community_centre/club_home":[
 "Club Home"
+],
+"amenity/community_centre/chitalishte_BG":[
+"Chitalishte",
+"community center"
 ],
 "amenity/clock/sundial":[
 "gnomon",

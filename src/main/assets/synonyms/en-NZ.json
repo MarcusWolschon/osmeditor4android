@@ -2,12 +2,6 @@
 "amenity/arts_centre":[
 "Arts Centre"
 ],
-"amenity/bbq":[
-"bbq",
-"Barbeque/Grill",
-"barbecue",
-"grill"
-],
 "amenity/cafe":[
 "tea",
 "cafe",
@@ -410,9 +404,6 @@
 "beer",
 "wine"
 ],
-"shop/bed":[
-"Bedding/Mattress Shop"
-],
 "shop/caravan":[
 "Caravan Shop"
 ],
@@ -458,8 +449,5 @@
 "tourism/chalet":[
 "crib",
 "bach"
-],
-"tourism/information/office":[
-"Visitor Centre"
 ]
 }

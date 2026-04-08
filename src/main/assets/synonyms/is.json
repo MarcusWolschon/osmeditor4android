@@ -102,9 +102,6 @@
 "amenity/bar/lgbtq":[
 "LGBTQ+ Bar"
 ],
-"amenity/bbq":[
-"Grill"
-],
 "amenity/bench":[
 "Bekkur"
 ],
@@ -144,9 +141,6 @@
 ],
 "amenity/charging_station":[
 "Hleðslustöð"
-],
-"amenity/childcare":[
-"Barnagæsla/dagvistun"
 ],
 "amenity/cinema":[
 "bíó",
@@ -711,9 +705,6 @@
 "building/dormitory":[
 "Heimavist"
 ],
-"building/entrance":[
-"Inngangur/Útgangur"
-],
 "building/farm":[
 "Íbúðarhús á býli"
 ],
@@ -1108,9 +1099,6 @@
 "highway/motorway":[
 "Hraðbraut"
 ],
-"highway/motorway_junction":[
-"Hraðbrautartenging / Útafakstur"
-],
 "highway/motorway_link":[
 "Hraðbrautarrein"
 ],
@@ -1216,9 +1204,6 @@
 ],
 "highway/turning_loop":[
 "Viðsnúningstorg (eyja)"
-],
-"highway/unclassified":[
-"Minni/Óflokkaður vegur"
 ],
 "historic":[
 "Sögulegur staður"
@@ -1492,9 +1477,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Strandblakvöllur"
-],
-"leisure/pitch/boules":[
-"Kúluspilsvöllur (boules/bocce)"
 ],
 "leisure/pitch/bowls":[
 "Kúluspilsflöt"
@@ -2307,9 +2289,6 @@
 "shop/baby_goods":[
 "Barnavöruverslun"
 ],
-"shop/bag":[
-"Töskubúð"
-],
 "shop/bakery":[
 "Bakarí"
 ],
@@ -2324,9 +2303,6 @@
 ],
 "shop/beauty/tanning":[
 "Sólbaðsstofa"
-],
-"shop/bed":[
-"Rúm/Dýnuverslun"
 ],
 "shop/beverages":[
 "Drykkjarbúð"
@@ -2547,9 +2523,6 @@
 "shop/pyrotechnics":[
 "Flugeldaverslun"
 ],
-"shop/radiotechnics":[
-"Rafíhlutaverslun"
-],
 "shop/religion":[
 "Verslun með trúartengdar vörur"
 ],
@@ -2622,9 +2595,6 @@
 ],
 "shop/watches":[
 "Úraverslun"
-],
-"shop/water_sports":[
-"Verslun með sund/vatnaíþróttavörur"
 ],
 "shop/weapons":[
 "Vopnaverslun"
@@ -2811,9 +2781,6 @@
 ],
 "type/route/pipeline":[
 "Röraleið"
-],
-"type/route/piste":[
-"Skíða/göngubraut"
 ],
 "type/route/power":[
 "Orkuflutningsleið"

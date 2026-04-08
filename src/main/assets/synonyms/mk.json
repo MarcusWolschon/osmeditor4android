@@ -242,6 +242,9 @@
 "amenity/community_centre":[
 "Месна заедница"
 ],
+"amenity/community_centre/chitalishte_BG":[
+"Читалиште"
+],
 "amenity/community_centre/club_home":[
 "Клупски дом"
 ],
@@ -729,6 +732,11 @@
 "amenity/restaurant/greek":[
 "Грчки ресторан"
 ],
+"amenity/restaurant/hotpot":[
+"[преведете со истозначници и сродни поими на „ресторан со огнени котлиња“",
+"одделени со запирки]",
+"Ресторан со огнени котлиња"
+],
 "amenity/restaurant/indian":[
 "Индиски ресторан"
 ],
@@ -1009,6 +1017,9 @@
 ],
 "amenity/weighbridge":[
 "Мосна вага"
+],
+"animal/horse_walker":[
+"Коњошетач"
 ],
 "area":[
 "Подрачје"
@@ -2019,7 +2030,7 @@
 "Автопат"
 ],
 "highway/motorway_junction":[
-"Автопатна клучка / излез"
+"Автопатен излез"
 ],
 "highway/motorway_link":[
 "Автопатен приод"
@@ -2163,7 +2174,7 @@
 "Свртилиште (остров)"
 ],
 "highway/unclassified":[
-"Месен/некатегоризиран пат"
+"Месен / Некатегоризиран пат"
 ],
 "historic":[
 "Историско место"
@@ -2301,7 +2312,7 @@
 "Градилиште"
 ],
 "landuse/education":[
-"Образовен кампус"
+"Образовно подрачје"
 ],
 "landuse/farm":[
 "Земјоделска површина"
@@ -2356,6 +2367,9 @@
 ],
 "landuse/meadow_orchard/orchard":[
 "Овоштарник насаден на ливада"
+],
+"landuse/olive_grove":[
+"Маслинарник"
 ],
 "landuse/orchard":[
 "Овоштарник"
@@ -2571,8 +2585,8 @@
 "Круг за фрлање кладиво"
 ],
 "leisure/pitch/athletics/high_jump":[
-"Душек за скок во височина",
-"[преведете со истозначници и сродни поими на „душек за скок во височина“",
+"[преведете со истозначници и сродни поими на „подрачје за скок во височина“",
+"Подрачје за скок во височина",
 "одделени со запирки]"
 ],
 "leisure/pitch/athletics/javelin_throw":[
@@ -2610,6 +2624,9 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Игралиште за одбојка на плажа"
+],
+"leisure/pitch/biathlon":[
+"Стрелиште за биатлон"
 ],
 "leisure/pitch/boules":[
 "Игралиште за боќање"
@@ -3627,6 +3644,9 @@
 "playground/playhouse":[
 "Куќичка"
 ],
+"playground/pump":[
+"Игровна водна пумпа"
+],
 "playground/roundabout":[
 "Вртелешка"
 ],
@@ -3667,7 +3687,7 @@
 "Игровен тунел"
 ],
 "playground/water":[
-"Игровна водна пумпа или завој"
+"Водна справа (неукажано)"
 ],
 "playground/zipwire":[
 "Детска жичена спушталка"
@@ -3966,6 +3986,9 @@
 "railway/signal":[
 "Железнички сигнал"
 ],
+"railway/signal_box":[
+"Поставница"
+],
 "railway/station":[
 "Железничка саница"
 ],
@@ -4229,6 +4252,9 @@
 ],
 "shop/erotic/lgbtq":[
 "Еротска продавница за ЛГБТК+"
+],
+"shop/esoteric":[
+"Езотерична продавница"
 ],
 "shop/fabric":[
 "Продавница за ткаенини"
@@ -4681,13 +4707,16 @@
 "Карта"
 ],
 "tourism/information/office":[
-"Посетителски центар"
+"Туристичко биро"
 ],
 "tourism/information/route_marker":[
 "Обележувач на патека"
 ],
 "tourism/information/terminal":[
 "Инфотерминал"
+],
+"tourism/information/visitor_centre":[
+"Посетителски центар"
 ],
 "tourism/motel":[
 "Мотел"
@@ -4910,6 +4939,9 @@
 ],
 "waterway":[
 "Водносообраќаен елемент"
+],
+"waterway/access_point":[
+"Пристапна точка кон воден пат"
 ],
 "waterway/boatyard":[
 "Бродоградилиште"

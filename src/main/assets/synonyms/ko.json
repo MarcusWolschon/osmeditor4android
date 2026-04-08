@@ -174,10 +174,6 @@
 "LGBTQ+ 바",
 "lgbtq+ 바"
 ],
-"amenity/bbq":[
-"바비큐/그릴",
-"바베큐/그릴"
-],
 "amenity/bench":[
 "의자",
 "벤치"
@@ -268,12 +264,6 @@
 "전기차",
 "충전소"
 ],
-"amenity/childcare":[
-"탁아소",
-"보육/육아",
-"고아원",
-"보육원"
-],
 "amenity/cinema":[
 "시네마",
 "영화관"
@@ -301,6 +291,9 @@
 ],
 "amenity/community_centre":[
 "커뮤니티 센터"
+],
+"amenity/community_centre/community_hall":[
+"지역회관"
 ],
 "amenity/community_centre/cultural_centre":[
 "문화 센터"
@@ -365,10 +358,6 @@
 ],
 "amenity/doctors/general":[
 "주치의"
-],
-"amenity/doctors/gynaecology":[
-"부인과 의사",
-"산부인과 의사"
 ],
 "amenity/doctors/haematology":[
 "혈액종양내과 의사"
@@ -476,6 +465,9 @@
 ],
 "amenity/fast_food/chicken":[
 "치킨 패스트푸드"
+],
+"amenity/fast_food/chinese":[
+"중식 패스트푸드"
 ],
 "amenity/fast_food/donut":[
 "도넛 패스트푸드"
@@ -840,6 +832,9 @@
 "amenity/restaurant/greek":[
 "그리스 식당",
 "그리스 음식점"
+],
+"amenity/restaurant/hotpot":[
+"훠궈 가게"
 ],
 "amenity/restaurant/indian":[
 "인도 식당",
@@ -1312,6 +1307,7 @@
 "산울타리"
 ],
 "barrier/height_restrictor":[
+"통과높이 제한시설",
 "높이 제한기"
 ],
 "barrier/jersey_barrier":[
@@ -1600,7 +1596,10 @@
 "테라스 연립 주택"
 ],
 "building/train_station":[
-"기차역 건물"
+"철도역 건물",
+"기차역 건물",
+"역 건물",
+"역사"
 ],
 "building/transportation":[
 "대중교통 건물"
@@ -1630,10 +1629,10 @@
 "묘역 (묘지 내부)"
 ],
 "climbing/route":[
-"등산로"
+"등반로"
 ],
 "climbing/route_bottom":[
-"등산로 시점"
+"등반로 시점"
 ],
 "club":[
 "클럽"
@@ -1842,7 +1841,7 @@
 "버려진 지물"
 ],
 "disused/railway":[
-"폐선된 철도 지물"
+"폐지된 철도 지물"
 ],
 "disused/shop":[
 "폐점한 가게"
@@ -1969,8 +1968,10 @@
 "비상 물탱크"
 ],
 "entrance":[
-"입구/출구",
-"출입구"
+"출구",
+"입구",
+"출입구",
+"입구/출구"
 ],
 "entrance/emergency":[
 "비상구"
@@ -2270,7 +2271,8 @@
 ],
 "highway/emergency_bay":[
 "긴급 정차 지점",
-"비상 정차대",
+"비상정차대",
+"비상주차대",
 "비상 대피 구역",
 "긴급 정차 공간"
 ],
@@ -2345,8 +2347,14 @@
 "고속도로"
 ],
 "highway/motorway_junction":[
-"고속도로 분기점 / 출구",
-"고속도로 ic / jc"
+"나들목",
+"교차로",
+"출구",
+"분기점",
+"jc",
+"ic",
+"고속도로 출구",
+"출입구"
 ],
 "highway/motorway_link":[
 "고속도로 연결로",
@@ -2544,15 +2552,13 @@
 "회차 루프 (교통섬)"
 ],
 "highway/unclassified":[
-"미등급 도로",
-"4차 도로",
-"분류되지 않은 도로",
-"비주요/미분류 도로",
-"국지도로",
-"미분류 도로"
+"비주요/미분류 도로"
 ],
 "historic":[
 "사적지"
+],
+"historic/aircraft":[
+"역사적 항공기"
 ],
 "historic/archaeological_site":[
 "유적"
@@ -2677,6 +2683,12 @@
 "양식장",
 "양어장"
 ],
+"landuse/aquaculture/fish":[
+"어장 / 부화장",
+"부화장",
+"양식장",
+"어장"
+],
 "landuse/basin":[
 "웅덩이"
 ],
@@ -2696,11 +2708,6 @@
 ],
 "landuse/construction":[
 "공사 중인 지역"
-],
-"landuse/education":[
-"연수원",
-"교육원",
-"교육 시설(학교 이외)"
 ],
 "landuse/farm":[
 "농지"
@@ -2768,6 +2775,9 @@
 ],
 "landuse/meadow":[
 "목초지"
+],
+"landuse/meadow_orchard/meadow":[
+"과일나무가 있는 초원"
 ],
 "landuse/orchard":[
 "과일",
@@ -3017,11 +3027,6 @@
 "leisure/pitch/athletics/hammer_throw":[
 "해머 던지기 링 / 섹터"
 ],
-"leisure/pitch/athletics/high_jump":[
-"높이뛰기 피트",
-"높이뛰기 착지지역",
-"높이뛰기 매트"
-],
 "leisure/pitch/athletics/javelin_throw":[
 "창던지기 영역"
 ],
@@ -3058,12 +3063,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "비치발리볼 코트"
-],
-"leisure/pitch/boules":[
-"불/보체 코트",
-"보체",
-"리오네즈",
-"페탕크"
 ],
 "leisure/pitch/bowls":[
 "잔디 볼링장"
@@ -3300,6 +3299,12 @@
 ],
 "man_made/carpet_hanger":[
 "카펫 걸이"
+],
+"man_made/ceremonial_gate/paifang":[
+"패방"
+],
+"man_made/ceremonial_gate/torii":[
+"도리이"
 ],
 "man_made/charge_point":[
 "전기차 충전소"
@@ -3874,7 +3879,10 @@
 "네트워크 관계 점"
 ],
 "noexit/yes":[
-"출구 없음"
+"출구 없음",
+"막다른 길",
+"도로 끝",
+"도로끝"
 ],
 "office":[
 "사무실",
@@ -4274,9 +4282,6 @@
 "playground/tunnel_tube":[
 "놀이터 터널"
 ],
-"playground/water":[
-"놀이용 나선형 물펌프"
-],
 "playground/zipwire":[
 "놀이용 집라인"
 ],
@@ -4299,6 +4304,7 @@
 "지하 전력 케이블"
 ],
 "power/catenary_mast":[
+"가공전차선 지지대",
 "가공 전차선"
 ],
 "power/generator":[
@@ -4400,7 +4406,10 @@
 "버스 정류소"
 ],
 "public_transport/platform/bus_tram_point":[
-"트램 & 버스 정류소"
+"노면전차",
+"버스",
+"트램 & 버스 정류소",
+"트램"
 ],
 "public_transport/platform/ferry":[
 "페리 승강장"
@@ -4421,10 +4430,12 @@
 "모노레일 정거장 / 승강장"
 ],
 "public_transport/platform/subway":[
-"지하철 승강장"
+"지하철 승강장",
+"도시철도 승강장",
+"지하철 (도시철도) 승강장"
 ],
 "public_transport/platform/subway_point":[
-"지하철 정거장 / 승강장"
+"지하철 (도시철도) 정거장 / 승강장"
 ],
 "public_transport/platform/train":[
 "기차 승강장"
@@ -4433,10 +4444,14 @@
 "기차 정거장 / 승강장"
 ],
 "public_transport/platform/tram":[
-"트램 승강장"
+"트램 승강장",
+"노면전차",
+"트램"
 ],
 "public_transport/platform/tram_point":[
-"트램 정거장 / 승강장"
+"노면전차",
+"트램 정거장 / 승강장",
+"트램"
 ],
 "public_transport/platform/trolleybus":[
 "무궤도전차 승강장",
@@ -4499,6 +4514,7 @@
 ],
 "public_transport/station_subway":[
 "터미널",
+"도시철도",
 "대중교통",
 "지하",
 "선로",
@@ -4518,16 +4534,17 @@
 ],
 "public_transport/station_train_halt":[
 "선택 정차",
+"기차역 (하차 요청식 / 간이역)",
 "하차 요청",
-"기차역 (하차 요청식)",
 "request stop"
 ],
 "public_transport/station_tram":[
 "터미널",
 "대중교통",
-"트램역",
+"노면전차",
 "전기",
 "선로",
+"트램 정거장",
 "트램",
 "철도",
 "역",
@@ -4591,9 +4608,10 @@
 "모노레일 정차 위치"
 ],
 "public_transport/stop_position_subway":[
+"도시철도",
 "대중교통",
 "지하",
-"지하철 정차 위치",
+"지하철 (도시철도) 정차 위치",
 "선로",
 "지하철",
 "철도"
@@ -4607,13 +4625,13 @@
 ],
 "public_transport/stop_position_tram":[
 "대중교통",
-"트램 정차 위치",
+"노면전차",
 "전기",
 "선로",
 "트램",
 "철도",
 "전차",
-"트롤리"
+"트램 정거장 (정차 위치)"
 ],
 "public_transport/stop_position_trolleybus":[
 "무궤도",
@@ -4628,12 +4646,16 @@
 "철도 지물"
 ],
 "railway/abandoned":[
-"버려진 철도"
+"폐지된 철도",
+"버려진 철도",
+"폐선된 철도",
+"버려진 선로"
 ],
 "railway/buffer_stop":[
 "차막이"
 ],
 "railway/construction":[
+"공사 중인 선로",
 "공사 중인 철도"
 ],
 "railway/crossing":[
@@ -4643,13 +4665,16 @@
 "철도 탈선기"
 ],
 "railway/disused":[
-"폐선된 철도"
+"폐지된 철도",
+"버려진 철도",
+"폐선된 철도",
+"폐지된 선로"
 ],
 "railway/funicular":[
 "강삭 철도"
 ],
 "railway/halt":[
-"기차역 (하차 요청식)"
+"기차역 (하차 요청식 / 간이역)"
 ],
 "railway/level_crossing":[
 "철도-도로 건널목"
@@ -4676,30 +4701,43 @@
 "기차 승강장"
 ],
 "railway/preserved":[
+"역사적 선로",
 "역사적 철도"
 ],
 "railway/rail":[
+"일반철도 선로",
 "철도"
 ],
 "railway/rail/highspeed":[
 "고속철 철도",
+"고속선",
+"고속철도 선로",
 "고속철도"
 ],
 "railway/railway_crossing":[
 "철도-철도 건널목"
 ],
 "railway/signal":[
-"철도 신호"
+"철도 신호",
+"철도 신호기"
+],
+"railway/signal_box":[
+"신호소",
+"신호장"
 ],
 "railway/station":[
 "기차역"
 ],
 "railway/subway":[
+"도시철도",
+"도시철도 선로",
 "지하철 선로"
 ],
 "railway/subway_entrance":[
-"지하철 입구",
-"지하철역 입구"
+"도시철도",
+"지하철역 입구",
+"출구",
+"지하철역 출입구"
 ],
 "railway/switch":[
 "선로전환기",
@@ -4707,14 +4745,18 @@
 "선로변환기",
 "분기기",
 "스위치",
-"선로 분기기"
+"선로 분기기",
+"전철기"
 ],
 "railway/train_wash":[
-"기차 세차장"
+"기차 세차장",
+"열차 세척고"
 ],
 "railway/tram":[
 "트램 선로",
-"트램 철도"
+"노면전차 궤도",
+"트램 철도",
+"궤도전차"
 ],
 "railway/tram_crossing":[
 "트램-보도 건널목"
@@ -4726,10 +4768,14 @@
 "트램 정차 위치"
 ],
 "railway/turntable":[
-"기차 턴 테이블"
+"기차 턴 테이블",
+"전차대"
 ],
 "railway/yard":[
-"화물역"
+"차량기지",
+"조차장",
+"화물역",
+"차량기지 / 조차장 / 화물역"
 ],
 "relation":[
 "관계"
@@ -4745,6 +4791,7 @@
 ],
 "route/ferry":[
 "페리 경로",
+"항로",
 "페리 노선"
 ],
 "seamark":[
@@ -4822,9 +4869,7 @@
 "유아 용품 상점"
 ],
 "shop/bag":[
-"손가방",
-"가방/여행가방 가게",
-"핸드백"
+"가방/여행가방 가게"
 ],
 "shop/bakery":[
 "제과점",
@@ -4852,7 +4897,6 @@
 "일광 살롱"
 ],
 "shop/bed":[
-"침구/매트리스 상점",
 "침구/매트리스 가게"
 ],
 "shop/beverages":[
@@ -4939,19 +4983,24 @@
 "초콜릿 가게"
 ],
 "shop/clothes":[
+"의류점",
 "옷 가게",
-"옷 상점"
+"옷가게"
 ],
 "shop/clothes/second_hand":[
-"중고 옷 상점",
-"중고 옷 가게"
+"중고 옷가게",
+"헌옷상점",
+"헌옷가게",
+"중고 옷 가게",
+"헌옷집"
 ],
 "shop/clothes/suits":[
 "슈트 가게"
 ],
 "shop/clothes/underwear":[
+"속옷집",
 "속옷 가게",
-"속옷 상점"
+"속옷가게"
 ],
 "shop/clothes/wedding":[
 "혼례복 가게",
@@ -5135,6 +5184,9 @@
 "청과상",
 "과일"
 ],
+"shop/groundskeeping":[
+"잔디 및 정원용품점"
+],
 "shop/hairdresser":[
 "이발소",
 "미장원",
@@ -5238,6 +5290,9 @@
 "shop/mobile_phone":[
 "휴대폰 대리점",
 "휴대폰 가게"
+],
+"shop/mobile_phone_accessories":[
+"휴대폰 악세서리 가게"
 ],
 "shop/model":[
 "모형 가게",
@@ -5346,7 +5401,6 @@
 "불꽃놀이 가게"
 ],
 "shop/radiotechnics":[
-"라디오/전자 부품 상점",
 "라디오/전자 부품 가게"
 ],
 "shop/religion":[
@@ -5634,6 +5688,9 @@
 "tourism/information/terminal":[
 "안내 단말기"
 ],
+"tourism/information/visitor_centre":[
+"방문자 센터"
+],
 "tourism/motel":[
 "모텔"
 ],
@@ -5791,6 +5848,7 @@
 ],
 "type/route/aerialway":[
 "항공 노선",
+"항로",
 "운항 노선"
 ],
 "type/route/bicycle":[
@@ -5807,9 +5865,11 @@
 ],
 "type/route/ferry":[
 "페리 경로",
+"항로",
 "페리 노선"
 ],
 "type/route/foot":[
+"걷기 코스",
 "도보 노선",
 "도보 경로"
 ],
@@ -5825,6 +5885,7 @@
 ],
 "type/route/light_rail":[
 "경전철 노선",
+"경전철 운행 경로",
 "경전철 경로"
 ],
 "type/route/monorail":[
@@ -5845,10 +5906,6 @@
 "파이프 경로",
 "파이프라인 노선"
 ],
-"type/route/piste":[
-"피스트/스키 경로",
-"피스트/스키 노선"
-],
 "type/route/power":[
 "송전 노선",
 "전력 노선",
@@ -5857,23 +5914,28 @@
 ],
 "type/route/railway":[
 "철도 노선",
-"철도 경로"
+"철도 경로",
+"철도 영업 노선"
 ],
 "type/route/road":[
 "도로 경로",
 "도로 노선"
 ],
 "type/route/subway":[
+"도시철도",
 "지하철 노선",
+"지하철 (도시철도) 운행 경로",
 "지하철 경로"
 ],
 "type/route/train":[
 "기차 노선",
-"기차 경로"
+"기차 경로",
+"열차 운행 경로"
 ],
 "type/route/tram":[
 "트램 노선",
-"트램 경로"
+"트램 경로",
+"트램 운행 경로"
 ],
 "type/route/trolleybus":[
 "트롤리버스 노선",

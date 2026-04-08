@@ -57,9 +57,6 @@
 "baras",
 "Baras"
 ],
-"amenity/bbq":[
-"Barbekiu/Grilis"
-],
 "amenity/bench":[
 "suolas",
 "suoliukas",
@@ -467,9 +464,6 @@
 "Bendrabutis",
 "bendrabutis"
 ],
-"building/entrance":[
-"Įėjimas/Išėjimas"
-],
 "building/farm":[
 "Fermos namas"
 ],
@@ -876,9 +870,6 @@
 ],
 "highway/turning_circle":[
 "Apsisukimo žiedas"
-],
-"highway/unclassified":[
-"Mažas/Neklasifikuotas Kelias"
 ],
 "historic":[
 "istorinė vieta",
@@ -1497,9 +1488,6 @@
 "shop/baby_goods":[
 "Vaikų prekių parduotuvė"
 ],
-"shop/bag":[
-"Kuprinių/lagaminų parduotuvė"
-],
 "shop/bakery":[
 "Kepykla",
 "kepykla"
@@ -1727,9 +1715,6 @@
 ],
 "shop/pyrotechnics":[
 "Fejerverkų parduotuvė"
-],
-"shop/radiotechnics":[
-"Radijo/elektroninių dalių parduotuvė"
 ],
 "shop/religion":[
 "Religinė parduotuvė"

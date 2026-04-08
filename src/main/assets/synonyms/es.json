@@ -404,12 +404,9 @@
 ],
 "amenity/bbq":[
 "asador",
-"Parrilla",
-"asado",
-"barbacoa",
+"Parrilla / asador",
 "parrilla",
-"parrillada",
-"carne asada"
+"barbacoa"
 ],
 "amenity/bench":[
 "Banco / Asiento",
@@ -648,15 +645,9 @@
 ],
 "amenity/childcare":[
 "guardería",
-"infantil",
-"guardería infantil",
-"bebes",
-"niñas",
-"cuidado",
-"cuidado infantil",
-"niños",
-"Guardería/Cuidado de niños",
-"bebés"
+"Guardería / Cuidado infantil",
+"jardín infantil",
+"centro de cuidado infantil"
 ],
 "amenity/cinema":[
 "sala de cine",
@@ -718,6 +709,13 @@
 "centro comunitario",
 "centro de la comunidad",
 "Centro Comunitario"
+],
+"amenity/community_centre/chitalishte_BG":[
+"chitalishte",
+"centro cultural local",
+"centro cultural búlgaro",
+"casa de cultura comunitaria",
+"Chitalishte"
 ],
 "amenity/community_centre/club_home":[
 "club",
@@ -889,16 +887,11 @@
 "médico primario"
 ],
 "amenity/doctors/gynaecology":[
-"reproductor",
-"ginecóloga",
 "ginecólogo",
-"ovulación",
-"reproductivo",
-"Obstetra / ginecólogo",
-"ginecología",
-"gine",
-"obstetricia",
-"ovarios"
+"médico ginecólogo",
+"obstetra",
+"Obstetra / Ginecólogo",
+"médico obstetra"
 ],
 "amenity/doctors/haematology":[
 "Hematólogo",
@@ -2364,6 +2357,13 @@
 "Restaurante griego",
 "café"
 ],
+"amenity/restaurant/hotpot":[
+"Restaurante de hot pot",
+"restaurante de fondue asiática",
+"restaurante de hot pot",
+"restaurante de cocina china estilo hot pot",
+"restaurante de olla caliente"
+],
 "amenity/restaurant/indian":[
 "comedor",
 "mesa",
@@ -3275,6 +3275,12 @@
 "báscula",
 "Báscula de camiones"
 ],
+"animal/horse_walker":[
+"andador para caballos",
+"Caminador para caballos",
+"caminador ecuestre",
+"caminador para caballos"
+],
 "area":[
 "espacio",
 "zona",
@@ -4041,7 +4047,7 @@
 "Dormitorio universitario"
 ],
 "building/entrance":[
-"Entrada/Salida"
+"Entrada / Salida"
 ],
 "building/farm":[
 "casal",
@@ -4327,7 +4333,11 @@
 "fila de casas unifamiliares"
 ],
 "building/train_station":[
-"Edificio de la estación de tren"
+"edificio de estación de tren",
+"edificio de la estación ferroviaria",
+"Edificio de la estación de tren",
+"estructura de estación de tren",
+"edificio principal de la estación"
 ],
 "building/transportation":[
 "edificio de transporte público",
@@ -6153,15 +6163,10 @@
 ],
 "highway/motorway_junction":[
 "rampa de salida",
-"autovía",
-"ingreso",
-"acceso",
-"Cruce de autopista / Salida",
-"autopista",
-"rampa de acceso",
-"rampa de ingreso",
-"enlace",
-"salida"
+"salida de autovía",
+"empalme de salida",
+"salida de autopista",
+"Salida de autopista"
 ],
 "highway/motorway_link":[
 "rampa de salida",
@@ -6652,16 +6657,10 @@
 "callejón sin salida"
 ],
 "highway/unclassified":[
-"camino",
-"carretera menor",
-"menor",
-"no clasificada",
-"carretera sin clasificar",
-"sendero",
-"Carretera menor",
-"carretera",
-"vía",
-"sin clasificación"
+"carretera secundaria menor",
+"vía menor",
+"Carretera menor / Sin clasificar",
+"vía sin clasificar"
 ],
 "historic":[
 "sitio histórico",
@@ -6996,14 +6995,16 @@
 "construcción"
 ],
 "landuse/education":[
-"centro escolar",
+"área escolar",
+"predio escolar",
+"centro educativo",
+"zona educativa",
+"Área educativa",
+"zona escolar",
+"campus educativo",
 "campus",
-"educación",
 "instalaciones educativas",
-"educativo",
-"Campus educativo",
-"escolar",
-"terrenos escolares"
+"campus escolar"
 ],
 "landuse/farm":[
 "Tierra de labranza"
@@ -7173,6 +7174,12 @@
 "frutales en campo",
 "frutales en campo abierto",
 "huerto en pradera"
+],
+"landuse/olive_grove":[
+"huerto de olivos",
+"cultivo de oliva",
+"Olival",
+"plantación de olivos"
 ],
 "landuse/orchard":[
 "terreno de frutas",
@@ -7822,9 +7829,10 @@
 "círculo de lanzamiento de martillo"
 ],
 "leisure/pitch/athletics/high_jump":[
-"recinto de salto de altura",
-"Campo de salto de altura",
-"pista de salto de altura"
+"área de salto alto",
+"sector de salto alto",
+"Área de salto alto",
+"zona de salto alto"
 ],
 "leisure/pitch/athletics/javelin_throw":[
 "Sector de jabalina",
@@ -7894,12 +7902,17 @@
 "vóleibol",
 "vóley"
 ],
+"leisure/pitch/biathlon":[
+"Campo de biatlón",
+"polígono de biatlón",
+"campo de biatlón",
+"pista de biatlón"
+],
 "leisure/pitch/boules":[
-"bochas",
-"cancha",
-"bolos",
-"bolera",
-"Cancha de bolos / bochas"
+"cancha de petanca",
+"Cancha de bochas / petanca",
+"cancha de bochas",
+"pista de bochas"
 ],
 "leisure/pitch/bowls":[
 "Campo de bolos",
@@ -10589,6 +10602,12 @@
 "Casita para jugar",
 "casa de niños"
 ],
+"playground/pump":[
+"bomba de agua de plaza",
+"bomba de agua infantil",
+"Bomba de agua de juego",
+"bomba de agua recreativa"
+],
 "playground/roundabout":[
 "carrusel",
 "tiovivo",
@@ -10689,10 +10708,10 @@
 "juego"
 ],
 "playground/water":[
-"Bomba de agua/tornillo para jugar",
-"tornillo de arquímedes",
-"bomba de agua",
-"tornillo"
+"dispositivo de agua para juego",
+"Dispositivo de agua para juego (no especificado)",
+"equipo de agua recreativo",
+"elemento acuático de juego"
 ],
 "playground/zipwire":[
 "canopy",
@@ -11573,6 +11592,12 @@
 "señalización",
 "via"
 ],
+"railway/signal_box":[
+"Cabina de señales",
+"cabina de señalización",
+"caja de señales",
+"puesto de señales"
+],
 "railway/station":[
 "Estación de tren"
 ],
@@ -11827,17 +11852,11 @@
 "cariño"
 ],
 "shop/bag":[
-"monedero",
-"billetera",
-"bolsos",
-"mochila",
-"maleta",
-"equipaje",
-"equipajes",
-"maletas",
+"tienda de bolsos",
+"tienda de valijas",
 "Tienda de bolsos / equipaje",
-"valija",
-"cartera"
+"tienda de equipaje",
+"tienda de maletas"
 ],
 "shop/bakery":[
 "horno",
@@ -11895,12 +11914,10 @@
 "centro de bronceado"
 ],
 "shop/bed":[
-"sábanas",
-"almohada",
-"colchón",
-"Tienda de ropa de cama / Colchonería",
-"ropa de cama",
-"cama"
+"tienda de colchones",
+"colchonería",
+"tienda de ropa de cama",
+"Tienda de ropa de cama / colchones"
 ],
 "shop/beverages":[
 "brebaje",
@@ -12340,6 +12357,12 @@
 "porno",
 "Tienda erótica LGBTQ+",
 "sexo"
+],
+"shop/esoteric":[
+"tienda espiritual",
+"tienda de esoterismo",
+"Tienda esotérica",
+"tienda de productos místicos"
 ],
 "shop/fabric":[
 "tela",
@@ -12997,11 +13020,10 @@
 "Tienda de fuegos artificiales"
 ],
 "shop/radiotechnics":[
-"electrónica",
-"componentes",
-"radioelectrónica",
-"Tienda de componentes radio electrónicos",
-"radio"
+"Tienda de radios / componentes electrónicos",
+"tienda de radios",
+"tienda de electrónica",
+"tienda de componentes electrónicos"
 ],
 "shop/religion":[
 "religión",
@@ -13331,13 +13353,10 @@
 "agua"
 ],
 "shop/water_sports":[
-"bañador",
-"Tienda de deporte acuático / natación",
-"natación",
-"bikini",
-"acuático",
-"goggles",
-"lentes natación"
+"tienda de natación",
+"tienda de deportes acuáticos",
+"tienda de artículos de natación",
+"Tienda de deportes acuáticos / natación"
 ],
 "shop/weapons":[
 "munición",
@@ -13652,16 +13671,10 @@
 "croquis"
 ],
 "tourism/information/office":[
-"oficina de información",
-"centro de información para visitantes",
-"guía turístico",
-"centro de informaciones",
-"oficina de turismo",
-"información turística",
-"centro de visitantes",
-"centro de información turística",
-"centro de bienvenida",
-"Centro de informaciones"
+"oficina de información turística",
+"Oficina de información turística",
+"oficina turística",
+"centro de información turística"
 ],
 "tourism/information/route_marker":[
 "marcador de ruta",
@@ -13678,6 +13691,12 @@
 "Terminal de información",
 "información",
 "terminal"
+],
+"tourism/information/visitor_centre":[
+"centro turístico para visitantes",
+"centro de atención a visitantes",
+"Centro de visitantes",
+"centro de visitantes"
 ],
 "tourism/motel":[
 "Motel",
@@ -14326,13 +14345,10 @@
 "conducto"
 ],
 "type/route/piste":[
-"ski",
-"esqui",
-"ruta",
-"esquiar",
-"pista",
-"esquí",
-"Ruta de pista / esquí"
+"Pista / Ruta de esquí",
+"pista de esquí",
+"pista de nieve",
+"ruta de esquí"
 ],
 "type/route/power":[
 "línea electrica",
@@ -14431,6 +14447,12 @@
 ],
 "waterway":[
 "Elemento fluvial"
+],
+"waterway/access_point":[
+"punto de acceso al agua",
+"Punto de acceso a vía navegable",
+"acceso a vía acuática",
+"punto de acceso a vía navegable"
 ],
 "waterway/boatyard":[
 "bote",
@@ -14597,12 +14619,12 @@
 "presa de poca altura",
 "hidráulico",
 "presa de baja altura",
+"Vertedero hidráulico / Dique / Azud",
 "vertedero hidráulico",
 "vertedero",
 "desagüe",
 "aliviadero hidráulico",
 "pequeña represa",
-"Vertedero hidráulico",
 "dique",
 "presa"
 ]

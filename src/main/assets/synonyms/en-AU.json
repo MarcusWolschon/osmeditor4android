@@ -16,13 +16,6 @@
 "amenity/arts_centre":[
 "Arts Centre"
 ],
-"amenity/bbq":[
-"bbq",
-"barbecue",
-"barbeque",
-"Barbeque",
-"grill"
-],
 "amenity/bicycle_parking/building":[
 "Bicycle Parking Building"
 ],
@@ -63,9 +56,6 @@
 "drip",
 "flat white",
 "macchiato"
-],
-"amenity/childcare":[
-"Childcare"
 ],
 "amenity/clinic/dialysis":[
 "Dialysis Centre"
@@ -369,7 +359,7 @@
 "riser"
 ],
 "emergency/fire_service_inlet":[
-"Fire Brigade Connection"
+"Fire Hydrant Booster"
 ],
 "entrance/emergency_ward_entrance":[
 "Emergency Department Entrance"
@@ -691,14 +681,8 @@
 "shop/baby_goods":[
 "Baby Goods Shop"
 ],
-"shop/bag":[
-"Bag/Luggage Shop"
-],
 "shop/bathroom_furnishing":[
 "Bathroom Furnishing Shop"
-],
-"shop/bed":[
-"Bed Shop"
 ],
 "shop/beverages":[
 "Beverages Shop"
@@ -945,9 +929,6 @@
 "shop/pyrotechnics":[
 "Fireworks Shop"
 ],
-"shop/radiotechnics":[
-"Radio/Electronic Component Shop"
-],
 "shop/religion":[
 "Religious Shop"
 ],
@@ -1014,9 +995,6 @@
 "tourism/chalet":[
 "crib",
 "bach"
-],
-"tourism/information/office":[
-"Visitor Centre"
 ],
 "tourism/viewpoint":[
 "Lookout"

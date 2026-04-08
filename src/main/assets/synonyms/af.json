@@ -86,9 +86,6 @@
 "amenity/bar":[
 "Kroeg"
 ],
-"amenity/bbq":[
-"Braai"
-],
 "amenity/bench":[
 "Bankie"
 ],
@@ -133,9 +130,6 @@
 ],
 "amenity/charging_station":[
 "Herlaaistasie"
-],
-"amenity/childcare":[
-"Kindersorg"
 ],
 "amenity/cinema":[
 "silverdoek",
@@ -451,9 +445,6 @@
 "building/dormitory":[
 "Studentehuis"
 ],
-"building/entrance":[
-"Ingang/Uitgang"
-],
 "building/farm":[
 "Plaashuis"
 ],
@@ -729,9 +720,6 @@
 "highway/motorway":[
 "Snelweg"
 ],
-"highway/motorway_junction":[
-"Snelwegkruising"
-],
 "highway/motorway_link":[
 "Verbindingsweg van snelweg"
 ],
@@ -837,9 +825,6 @@
 ],
 "highway/turning_loop":[
 "Draailus"
-],
-"highway/unclassified":[
-"Ongeklassifiseerde weg"
 ],
 "historic":[
 "Historiese plek"

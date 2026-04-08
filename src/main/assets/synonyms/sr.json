@@ -146,9 +146,6 @@
 "геј бар",
 "лгбт бар"
 ],
-"amenity/bbq":[
-"Роштиљ/печењара"
-],
 "amenity/bench":[
 "Клупа"
 ],
@@ -219,6 +216,9 @@
 "amenity/cafe/coffee_shop":[
 "Кафеџиница"
 ],
+"amenity/cafe/teahouse":[
+"Чајџиница"
+],
 "amenity/car_rental":[
 "Изнајмљивање возила"
 ],
@@ -234,9 +234,6 @@
 "amenity/charging_station":[
 "станица за пуњење",
 "Станица за пуњење електричних возила"
-],
-"amenity/childcare":[
-"Обданиште"
 ],
 "amenity/cinema":[
 "Биоскоп"
@@ -327,9 +324,6 @@
 ],
 "amenity/doctors/general":[
 "Лекар опште праксе"
-],
-"amenity/doctors/gynaecology":[
-"Акушер/Гинеколог"
 ],
 "amenity/doctors/haematology":[
 "Хематолог"
@@ -520,6 +514,9 @@
 ],
 "amenity/karaoke_box":[
 "Караоке кабина"
+],
+"amenity/kneipp_water_cure":[
+"Кнајпово купатило"
 ],
 "amenity/letter_box":[
 "кућни сандучић",
@@ -1305,9 +1302,6 @@
 "спаваоница",
 "Студентски дом"
 ],
-"building/entrance":[
-"Улаз/излаз"
-],
 "building/farm":[
 "Сеоска кућа"
 ],
@@ -1986,10 +1980,6 @@
 "highway/motorway":[
 "Аутопут"
 ],
-"highway/motorway_junction":[
-"излаз са аутопута",
-"Искључење са аутопута"
-],
 "highway/motorway_link":[
 "укључење на аутопут",
 "Укључење на аутопут",
@@ -2129,9 +2119,6 @@
 ],
 "highway/turning_loop":[
 "Окретница (с острвом)"
-],
-"highway/unclassified":[
-"Мањи / некласификовани пут"
 ],
 "historic":[
 "Историјско место"
@@ -2277,9 +2264,6 @@
 ],
 "landuse/construction":[
 "Градилиште"
-],
-"landuse/education":[
-"Кампус"
 ],
 "landuse/farm":[
 "Пољопривредно земљиште"
@@ -2552,9 +2536,6 @@
 ],
 "leisure/pitch/athletics/hammer_throw":[
 "Сектор за бацање кладива"
-],
-"leisure/pitch/athletics/high_jump":[
-"Јама за скок увис"
 ],
 "leisure/pitch/athletics/javelin_throw":[
 "Сектор за бацање копља"
@@ -3632,9 +3613,6 @@
 "playground/tunnel_tube":[
 "Тунел на дечијем игралишту"
 ],
-"playground/water":[
-"Опрема за игру у води"
-],
 "playground/zipwire":[
 "Зип-лајн на игралишту"
 ],
@@ -4028,9 +4006,6 @@
 "shop/beauty/tanning":[
 "Соларијум"
 ],
-"shop/bed":[
-"Продавница душека"
-],
 "shop/beverages":[
 "Продавница пића"
 ],
@@ -4271,6 +4246,9 @@
 "shop/honey":[
 "Продавница меда"
 ],
+"shop/household_linen":[
+"Продавница кућног текстила"
+],
 "shop/houseware":[
 "Позамантерија"
 ],
@@ -4413,9 +4391,6 @@
 "shop/pyrotechnics":[
 "Продавница пиротехнике"
 ],
-"shop/radiotechnics":[
-"Продавница електронских делова"
-],
 "shop/religion":[
 "Продавница верских предмета"
 ],
@@ -4534,9 +4509,6 @@
 "shop/water":[
 "Продавница пијаће воде"
 ],
-"shop/water_sports":[
-"Продавница пливачке опреме"
-],
 "shop/weapons":[
 "Оружарница"
 ],
@@ -4643,9 +4615,6 @@
 ],
 "tourism/information/map":[
 "Мапа"
-],
-"tourism/information/office":[
-"Туристички инфо центар"
 ],
 "tourism/information/route_marker":[
 "Ознака стазе"
@@ -4821,9 +4790,6 @@
 ],
 "type/route/pipeline":[
 "Цевоводна путања"
-],
-"type/route/piste":[
-"Ски-рута"
 ],
 "type/route/power":[
 "Високонапонска путања"

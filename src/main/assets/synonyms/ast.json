@@ -104,12 +104,6 @@
 "tasca",
 "chigre"
 ],
-"amenity/bbq":[
-"llar",
-"Barbacoa/Asador",
-"fueu",
-"cocina"
-],
 "amenity/bench":[
 "asientu",
 "Asientu"
@@ -151,11 +145,6 @@
 ],
 "amenity/charging_station":[
 "Estación de recarga"
-],
-"amenity/childcare":[
-"Preescolar/Guardería",
-"escuela infantil",
-"educación infantil"
 ],
 "amenity/cinema":[
 "multicine",
@@ -585,9 +574,6 @@
 "building/dormitory":[
 "Residencia"
 ],
-"building/entrance":[
-"Entrada/Salida"
-],
 "building/garage":[
 "aparcaderu",
 "Garaxe",
@@ -944,9 +930,6 @@
 "highway/motorway":[
 "Autoestrada"
 ],
-"highway/motorway_junction":[
-"Entrada/salida d'autoestrada"
-],
 "highway/motorway_link":[
 "accesu",
 "autoestrada",
@@ -1068,9 +1051,6 @@
 ],
 "highway/turning_loop":[
 "Círculu de xiru (con islla)"
-],
-"highway/unclassified":[
-"Estrada menor/ensin clasificar"
 ],
 "historic":[
 "Sitiu históricu"
@@ -1255,9 +1235,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Campu de voleibol  playa"
-],
-"leisure/pitch/boules":[
-"Pista de petanca"
 ],
 "leisure/pitch/bowls":[
 "Bolera"
@@ -1979,9 +1956,6 @@
 "shop/pyrotechnics":[
 "Venta de pirotecnia"
 ],
-"shop/radiotechnics":[
-"Componentes electrónicos"
-],
 "shop/religion":[
 "Artículos relixosos"
 ],
@@ -2062,9 +2036,6 @@
 ],
 "shop/watches":[
 "Reloxería"
-],
-"shop/water_sports":[
-"Tienda de natación/deportes acuáticos"
 ],
 "shop/weapons":[
 "Armería"
@@ -2200,9 +2171,6 @@
 "type/route/pipeline":[
 "ruta de tubería",
 "Ruta de tubería"
-],
-"type/route/piste":[
-"Pista/Ruta d'esquí"
 ],
 "type/route/power":[
 "ruta de llinia d'enerxía",

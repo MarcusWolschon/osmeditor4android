@@ -77,9 +77,6 @@
 "amenity/bar":[
 "Bar"
 ],
-"amenity/bbq":[
-"Barbekjû/gril"
-],
 "amenity/bench":[
 "Bankje"
 ],
@@ -118,9 +115,6 @@
 ],
 "amenity/charging_station":[
 "Laadstasjon"
-],
-"amenity/childcare":[
-"Berne-opfang"
 ],
 "amenity/cinema":[
 "Bioskoop"

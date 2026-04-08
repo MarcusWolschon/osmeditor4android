@@ -1,4 +1,7 @@
 {
+"aeroway/gate":[
+"Kēti"
+],
 "amenity/atm":[
 "Pūrere Pūtea"
 ],
@@ -13,6 +16,9 @@
 ],
 "amenity/cinema":[
 "Whare Pikitia"
+],
+"amenity/courthouse":[
+"Wharekōti"
 ],
 "amenity/ferry_terminal":[
 "Taunga Waka Kōpiko"
@@ -66,14 +72,14 @@
 "area":[
 "Pae"
 ],
+"barrier/entrance":[
+"Kuhunga"
+],
 "building":[
 "Whare"
 ],
 "building/church":[
 "Whare hāhi"
-],
-"building/entrance":[
-"Putanga"
 ],
 "building/fire_station":[
 "Whare ki ratonga ahi"
@@ -117,9 +123,6 @@
 "highway/motorway":[
 "Te Ara Whānui"
 ],
-"highway/motorway_junction":[
-"Putanga ki Te Ara Whānui"
-],
 "highway/speed_camera":[
 "Kāmera inetere"
 ],
@@ -153,11 +156,20 @@
 "leisure/pitch":[
 "Papa hākinakina"
 ],
+"leisure/pitch/badminton":[
+"Papa pūkura"
+],
 "leisure/pitch/basketball":[
 "Papa poitūkohu"
 ],
 "leisure/pitch/beachvolleyball":[
 "Papa tātahi poirewa"
+],
+"leisure/pitch/netball":[
+"Poitarawhiti / Netipōro"
+],
+"leisure/pitch/rugby_league":[
+"Papa rīki"
 ],
 "leisure/pitch/volleyball":[
 "Papa poirewa"
@@ -237,6 +249,9 @@
 "railway/station":[
 "Teihana Rerewē"
 ],
+"railway/subway_entrance":[
+"Kuhunga ki teihana"
+],
 "shop":[
 "Toa"
 ],
@@ -264,8 +279,15 @@
 "tourism/information":[
 "Ngā Mōhiohio"
 ],
+"tourism/information/guidepost":[
+"Kimihia Tō Ara"
+],
 "tourism/museum":[
+"whare taoka",
 "Whare tongarewa"
+],
+"tourism/viewpoint":[
+"Mātairangi"
 ],
 "traffic_sign/maxspeed":[
 "Te pae tere"

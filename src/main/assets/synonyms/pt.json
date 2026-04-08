@@ -326,14 +326,21 @@
 "abandonado"
 ],
 "amenity/arts_centre":[
-"artistas",
 "artista",
 "Centro de artes",
-"centro artístico",
 "atelier",
+"teatro",
+"arte",
+"cultural",
+"artistas",
+"cultura",
+"exposições",
+"exposição",
+"música",
+"centro artístico",
+"cinema",
 "artes",
-"galeria",
-"arte"
+"galeria"
 ],
 "amenity/atm":[
 "multicaixa",
@@ -395,14 +402,6 @@
 "bar homossexual",
 "bar gay",
 "bar lgbtq"
-],
-"amenity/bbq":[
-"Grelhador",
-"churrasqueira",
-"carne assada",
-"churrasco",
-"barbacue",
-"grill"
 ],
 "amenity/bench":[
 "bench",
@@ -637,6 +636,7 @@
 "crianças",
 "Berçário / Creche",
 "nursery",
+"children",
 "childcare",
 "infantil",
 "berçário",
@@ -713,6 +713,7 @@
 "amenity/community_centre/cultural_centre":[
 "atividades",
 "cultura",
+"Centro cultural",
 "comunitário",
 "center",
 "centre",
@@ -890,11 +891,11 @@
 "atenção primária à saúde"
 ],
 "amenity/doctors/gynaecology":[
-"Ginecologista / Obstetra",
 "ginecológico",
 "medicina",
 "obstétrico",
 "reprodução",
+"Obstetra / Ginecologista",
 "ginecologia",
 "médica",
 "consultório",
@@ -2255,6 +2256,31 @@
 "restaurante",
 "comida grega",
 "cozinha grega"
+],
+"amenity/restaurant/hotpot":[
+"budae jjigae",
+"lau",
+"hotpot",
+"nabemono",
+"sichaun",
+"teochew",
+"Restaurante hot pot",
+"jjigae",
+"teoswa",
+"yao hon",
+"beijing",
+"peking",
+"kimchi jjigae",
+"sin jum",
+"guangdong",
+"sukiyaki",
+"fondue",
+"shabu shabu",
+"china",
+"mu kratha",
+"jeongol",
+"canton",
+"chhnang pleurng"
 ],
 "amenity/restaurant/indian":[
 "comida indiana",
@@ -4175,7 +4201,14 @@
 "residência"
 ],
 "building/train_station":[
-"Edifício de estação de comboios"
+"Edifício de estação de comboios",
+"edifício",
+"station",
+"terminal",
+"ferroviária",
+"estação",
+"ferroviário",
+"ferrovia"
 ],
 "building/transportation":[
 "rodoviária",
@@ -6016,17 +6049,6 @@
 "auto-estrada"
 ],
 "highway/motorway_junction":[
-"sair",
-"rodovia",
-"autoestrada",
-"nó",
-"entrada",
-"junção",
-"saída",
-"estrada",
-"mudar",
-"auto-estrada",
-"mudança",
 "Saída de autoestrada/via rápida"
 ],
 "highway/motorway_link":[
@@ -6484,10 +6506,7 @@
 "ilha"
 ],
 "highway/unclassified":[
-"estrada não-classificada",
-"sem referência",
-"Estrada menor / sem classificação",
-"rua"
+"Estrada menor / sem classificação"
 ],
 "historic":[
 "Local histórico",
@@ -6819,6 +6838,17 @@
 "maricultura",
 "malacocultura"
 ],
+"landuse/aquaculture/fish":[
+"perca",
+"piscicultura",
+"carpa",
+"fish",
+"tilápia",
+"Viveiro de peixes",
+"peixe",
+"salmão",
+"truta"
+],
 "landuse/basin":[
 "Bacia hidrográfica"
 ],
@@ -7079,6 +7109,13 @@
 "zona",
 "frutas",
 "terreno"
+],
+"landuse/olive_grove":[
+"olivocultura",
+"oliveiras",
+"olive",
+"Olival",
+"azeitonas"
 ],
 "landuse/orchard":[
 "árvores",
@@ -8013,6 +8050,13 @@
 "vólei",
 "campo"
 ],
+"leisure/pitch/biathlon":[
+"biathlon firing range",
+"desporto",
+"biathlon shooting gallery",
+"Campo de tiro de biatlo",
+"biathlon shooting range"
+],
 "leisure/pitch/boules":[
 "bocce",
 "bosia",
@@ -8767,6 +8811,27 @@
 "lavagem",
 "tapete",
 "pendurar"
+],
+"man_made/ceremonial_gate":[
+"porta da vila",
+"monumento",
+"portas",
+"portas da vila",
+"portas da cidade",
+"porta da cidade",
+"Porta cerimonial",
+"portão da cidade",
+"portão da vila"
+],
+"man_made/ceremonial_gate/paifang":[
+"arco",
+"chinês",
+"shanmen",
+"portal",
+"Paifang",
+"paifong",
+"pailou",
+"pailau"
 ],
 "man_made/ceremonial_gate/torii":[
 "torii",
@@ -11541,13 +11606,6 @@
 "Túnel de brincar",
 "tubo"
 ],
-"playground/water":[
-"parafuso",
-"água",
-"broca",
-"Parafuso de Arquimedes",
-"lama"
-],
 "playground/zipwire":[
 "recreio",
 "suspenso",
@@ -13008,13 +13066,7 @@
 "brinquedos"
 ],
 "shop/bag":[
-"Loja de malas / bagagem",
-"bolsa",
-"luggage",
-"malas",
-"bag",
-"mala",
-"bolsas"
+"Loja de malas / bagagem"
 ],
 "shop/bakery":[
 "bakery",
@@ -13602,6 +13654,15 @@
 "gay",
 "lgbt"
 ],
+"shop/esoteric":[
+"óleos essenciais",
+"misticismo",
+"esoterismo",
+"cristais",
+"Loja esotérica",
+"incenso",
+"esoteric"
+],
 "shop/fabric":[
 "tecidos",
 "tecido",
@@ -14116,6 +14177,23 @@
 "celular",
 "telemóveis",
 "telemóvel"
+],
+"shop/mobile_phone_accessories":[
+"ecrã",
+"adaptadores",
+"smartphone",
+"cases",
+"película",
+"batteries",
+"carregadores",
+"telemóvel",
+"mobile phone",
+"celular",
+"Loja de acessórios para telemóveis",
+"telemóveis",
+"ac adaptor",
+"protective screens",
+"baterias"
 ],
 "shop/model":[
 "passatempo",
@@ -15170,6 +15248,7 @@
 "planta"
 ],
 "tourism/information/office":[
+"tourist",
 "posto turístico",
 "Posto de turismo",
 "viajantes",
@@ -15177,6 +15256,7 @@
 "informações",
 "centro de informações",
 "recepção",
+"tourism",
 "receção",
 "posto de informação",
 "turistas"
@@ -15203,6 +15283,19 @@
 "painel de informação eletrónico",
 "painel de informação",
 "painel táctil"
+],
+"tourism/information/visitor_centre":[
+"cultural",
+"cultura",
+"Centro de interpretação",
+"visitors center",
+"visitors information center",
+"welcome center",
+"turismo",
+"turistas",
+"interpretar",
+"visitação",
+"visitas"
 ],
 "tourism/motel":[
 "albergue",
@@ -15453,6 +15546,9 @@
 "leds",
 "alternável",
 "aviso"
+],
+"type/associatedStreet":[
+"Rua associada"
 ],
 "type/boundary":[
 "divisão",
@@ -15734,12 +15830,15 @@
 "type/route/piste":[
 "sky",
 "ski",
+"piste",
 "esqui",
+"route",
 "neve",
+"snow",
 "esquiar",
 "downhill",
 "trilhos",
-"Rota de pista de desporto de inverno"
+"Rota / pista de esqui"
 ],
 "type/route/power":[
 "linha de eletricidade",
@@ -15895,6 +15994,19 @@
 ],
 "waterway":[
 "Curso de água"
+],
+"waterway/access_point":[
+"canoa",
+"access",
+"rio",
+"ribeira",
+"ribeiro",
+"lagoa",
+"kayak",
+"barco",
+"caiaque",
+"lago",
+"Ponto de acesso a curso de água"
 ],
 "waterway/boatyard":[
 "Estaleiro",

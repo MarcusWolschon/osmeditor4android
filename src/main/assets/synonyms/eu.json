@@ -35,9 +35,6 @@
 "amenity/bar":[
 "Taberna"
 ],
-"amenity/bbq":[
-"Barbakoa/Parrila"
-],
 "amenity/bench":[
 "Bankua",
 "banku",
@@ -79,9 +76,6 @@
 ],
 "amenity/charging_station":[
 "Kargatzeko geltokia"
-],
-"amenity/childcare":[
-"Haurtzendegi/ Ume zaintza"
 ],
 "amenity/cinema":[
 "Zinema"
@@ -456,9 +450,6 @@
 ],
 "building/dormitory":[
 "Erresidentzia"
-],
-"building/entrance":[
-"Sarrera/Irteera"
 ],
 "building/farm":[
 "basetxea",

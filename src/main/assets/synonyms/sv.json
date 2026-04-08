@@ -465,8 +465,10 @@
 "barbecue",
 "eldning",
 "eldstad",
+"Grillplats / Grill",
+"grillområde",
+"utomhusgrill",
 "grillplats",
-"Grillplats/Grill",
 "grill",
 "eldplats",
 "grillning"
@@ -722,6 +724,7 @@
 "barnomsorg",
 "barnhem",
 "dagis",
+"barnpassning",
 "Barnomsorg",
 "daghem",
 "förskola"
@@ -812,6 +815,17 @@
 "sockenstuga",
 "bystuga",
 "evenemang"
+],
+"amenity/community_centre/chitalishte_BG":[
+"chitalishte",
+"kulturcenter",
+"folkets hus",
+"samhällscenter",
+"aktivitetshus",
+"kulturhus",
+"allaktivitetshus",
+"Chitalishte",
+"medborgarhus"
 ],
 "amenity/community_centre/club_home":[
 "klubbgård",
@@ -1079,16 +1093,19 @@
 "familjeläkare"
 ],
 "amenity/doctors/gynaecology":[
-"kvinnodoktor",
+"Gynekolog / Obstetriker",
 "gynekolog",
-"obstetrik",
-"obstetriker",
 "reproduktiv",
 "kvinnovård",
-"gynekologi",
 "kvinnoläkare",
+"graviditet",
 "ägglossning",
-"Obstetriker/Gynekolog"
+"kvinnodoktor",
+"obstetrik",
+"obstetriker",
+"gynekologi",
+"reproduktion",
+"förlossning"
 ],
 "amenity/doctors/haematology":[
 "blod",
@@ -3005,6 +3022,48 @@
 "pub",
 "sylta"
 ],
+"amenity/restaurant/hotpot":[
+"pekinggryta",
+"budae jjigae",
+"teochew",
+"sichuan hot pot",
+"kryddig fondue",
+"yao hon",
+"grönsaksfondue",
+"kimchi jjigae",
+"sukiyaki",
+"fondue",
+"shabu shabu",
+"kinesisk gryta",
+"kinesisk hot pot",
+"mu kratha",
+"köttfondue",
+"asiatisk mat",
+"jeongol",
+"kryddig gryta",
+"chhnang pleurng",
+"wokgryta",
+"kinesisk fondue",
+"kinesisk mat",
+"japansk gryta",
+"hotpot",
+"nabemono",
+"Hot pot-restaurang",
+"mongolisk hot pot",
+"koreansk gryta",
+"hot pot",
+"kantonesisk hot pot",
+"jjigae",
+"teoswa",
+"asiatisk fondue",
+"kantonesisk gryta",
+"japansk hot pot",
+"spicy hot pot",
+"asiatisk gryta",
+"asiatisk soppa",
+"mongolisk gryta",
+"koreansk hot pot"
+],
 "amenity/restaurant/indian":[
 "lunch",
 "servering",
@@ -4384,6 +4443,19 @@
 "vikt",
 "tyngd"
 ],
+"animal/horse_walker":[
+"hästmotion",
+"horse walker",
+"hästexercis",
+"hästrastare",
+"hästträningmaskin",
+"häströrelsetränare",
+"hästtränare",
+"walker",
+"Hästwalker",
+"hästwalker",
+"hästträning"
+],
 "area":[
 "fällt",
 "areal",
@@ -5378,7 +5450,7 @@
 "elevhem"
 ],
 "building/entrance":[
-"Entré/utgång"
+"Entré / Utgång"
 ],
 "building/farm":[
 "lantbruk",
@@ -5817,7 +5889,27 @@
 "radhus"
 ],
 "building/train_station":[
-"Stationshus"
+"järnvägsbyggnad",
+"tågterminal",
+"hållplats",
+"train station",
+"railway station",
+"terminal",
+"järnvägsanläggning",
+"resecentrum",
+"stationshus",
+"järnvägshus",
+"halt",
+"vänthall",
+"järnvägshållplats",
+"station",
+"järnvägsterminal",
+"station building",
+"Stationshus",
+"järnvägsstation",
+"stationsbyggnad",
+"tågstation",
+"väntsal"
 ],
 "building/transportation":[
 "linbaneterminal",
@@ -7711,14 +7803,20 @@
 "stadsmotorväg"
 ],
 "highway/motorway_junction":[
-"motorvägspåfart",
 "trafikplats",
-"mot",
+"utfart",
 "avfart",
-"Motorvägspåfart / -avfart",
+"motorvägskorsning",
+"avfartsramp",
+"motorvägsutfart",
+"Motorvägsavfart",
+"exit",
+"mot",
+"motorvägsmot",
+"motorvägsanslutning",
+"avfartsområde",
 "motorvägsavfart",
-"påfart",
-"vägkorsning"
+"avfartsanslutning"
 ],
 "highway/motorway_link":[
 "trafikplats",
@@ -8119,12 +8217,17 @@
 "vändplats"
 ],
 "highway/unclassified":[
-"mindre väg",
 "oklassificerad väg",
-"Mindre/oklassificerad väg",
-"övrig väg",
 "industrigata",
+"lokal väg",
+"småväg",
 "enskild väg",
+"Mind­re väg / Oklassificerad väg",
+"mindre väg",
+"övrig väg",
+"sidoväg",
+"gata",
+"väg",
 "skogsväg",
 "liten väg",
 "industriväg"
@@ -8554,16 +8657,21 @@
 "byggnation"
 ],
 "landuse/education":[
-"högskola",
+"skolcampus",
 "högskoleområde",
 "campus",
+"utbildningsanläggning",
 "utbildningscampus",
 "utbildningslokaler",
-"universitetsområde",
-"skolområde",
+"skola",
+"skolgård",
 "Utbildningscampus",
 "skolcentrum",
-"universitet"
+"universitet",
+"högskola",
+"universitetsområde",
+"skolområde",
+"utbildningsområde"
 ],
 "landuse/farm":[
 "Åkermark"
@@ -8761,6 +8869,24 @@
 "fruktäng",
 "fruktträdgård på äng",
 "fruktodling i äng"
+],
+"landuse/olive_grove":[
+"olivträdslund",
+"olivfrukt",
+"olivplantage",
+"olivträdgård",
+"olivlund",
+"olivproduktion",
+"olivträd",
+"olivfält",
+"olivkultur",
+"Olivlund",
+"olivodling",
+"olivgård",
+"olivdunge",
+"olivolja",
+"olivfarm",
+"olivskog"
 ],
 "landuse/orchard":[
 "fruktträd",
@@ -9575,12 +9701,13 @@
 "slägga"
 ],
 "leisure/pitch/athletics/high_jump":[
-"matta",
-"Höjdhoppsmatta",
+"höjdhoppsyta",
 "höjdhopp",
+"friidrott",
 "höjdhoppsbana",
-"höjdhoppsområde",
-"ribba"
+"höjdhoppsanläggning",
+"Höjdhoppsområde",
+"höjdhoppsområde"
 ],
 "leisure/pitch/athletics/javelin_throw":[
 "spjutkastning",
@@ -9677,12 +9804,26 @@
 "volleyboll",
 "beachplan"
 ],
+"leisure/pitch/biathlon":[
+"skidskytteskjutbana",
+"skjutområde",
+"skjutbana",
+"skidskyttebana",
+"biatlonbana",
+"skidskytte",
+"skjutvall",
+"skidskytteskytte",
+"Skidskyttebana"
+],
 "leisure/pitch/boules":[
-"bocce",
+"boccia",
+"boulebana",
 "pétanque",
+"boccia-bana",
 "boule",
-"Boule/Bocce-plan",
-"lyonnaise"
+"pétanque-bana",
+"lyonnaise",
+"Boule- / Bocce-plan"
 ],
 "leisure/pitch/bowls":[
 "shortmat",
@@ -11743,14 +11884,14 @@
 "strand",
 "klappersten",
 "småsten",
-"Grus (singel)",
 "grus",
 "rundade stenfragment",
+"Klappersten",
 "singel",
 "flodbädd"
 ],
 "natural/shrub":[
-"Buskmark",
+"Buske",
 "buskage",
 "buskmark",
 "buskar"
@@ -13160,6 +13301,24 @@
 "lekstuga",
 "lekpark"
 ],
+"playground/pump":[
+"vattenlekbrunn",
+"vattenlekutrustning",
+"lekpump",
+"vattenlekspump",
+"vattenlekstation",
+"vattenlekplats",
+"vattenpump för lek",
+"vattenlekredskap",
+"Vattenpump för lek",
+"vattenlekställning",
+"handpump",
+"vattenlekfontän",
+"vattenlek",
+"pump",
+"lekvattenpump",
+"vattenskruv"
+],
 "playground/roundabout":[
 "karusell",
 "lek",
@@ -13284,13 +13443,32 @@
 "rör"
 ],
 "playground/water":[
-"Vattenpump/skruv (lekplats)",
-"vattenpump",
-"lek",
-"lekplats",
-"lekområde",
+"vattenlekbrunn",
+"vattenlekland",
+"vattenlekbassäng",
+"vattenleklekplats",
+"vattenlekplats",
+"vattenlekstruktur",
+"vattenlekredskap",
+"vattenlekaktivitet",
+"vattenlekställning",
+"vattenlekbyggnad",
+"vattenlekpark",
+"vattenlekbana",
+"vattenlekattraktion",
 "vattenlek",
-"vattenskruv"
+"vattenlekmodul",
+"vattenlekutrustning",
+"vattenlekstation",
+"vattenlekdel",
+"vattenlekpool",
+"vattenlekdamm",
+"vattenlekspel",
+"vattenlekområde",
+"vattenlekfontän",
+"Vattenlek (ospecificerad)",
+"vattenskruv",
+"vattenlekzon"
 ],
 "playground/zipwire":[
 "lek",
@@ -14363,6 +14541,25 @@
 "Järnvägssignal",
 "dvärgsignal"
 ],
+"railway/signal_box":[
+"kontrollbyggnad",
+"signalställverk",
+"signalbyggnad",
+"styrkabin",
+"ställverkskur",
+"ställverksbyggnad",
+"signalhus",
+"ställverk",
+"kontrollhus",
+"ställverkskabin",
+"styrhus",
+"kontrollkur",
+"Ställverk",
+"styrkur",
+"signalkabin",
+"signalkur",
+"kontrollkabin"
+],
 "railway/station":[
 "Järnvägsstation"
 ],
@@ -14670,12 +14867,15 @@
 "shop/bag":[
 "bagageväskor",
 "resväskor",
+"väska",
 "bagage",
 "handväska",
+"Väskbutik",
 "väskor",
 "väskaffär",
 "plånbok",
-"Väskaffär",
+"väskbutik",
+"resväska",
 "handväskor"
 ],
 "shop/bakery":[
@@ -14742,14 +14942,17 @@
 "Solarium"
 ],
 "shop/bed":[
+"kudde",
 "sängaffär",
-"madrasser",
-"sängar",
-"påslakan",
+"täcke",
 "Sängaffär",
-"täcken",
-"lakan",
-"kuddar"
+"madrassbutik",
+"madrass",
+"säng",
+"bädd",
+"kuddar",
+"sängbutik",
+"bäddbutik"
 ],
 "shop/beverages":[
 "dricka",
@@ -15258,6 +15461,61 @@
 "gay",
 "HBTQ-sexshop",
 "erotisk"
+],
+"shop/esoteric":[
+"rökelse",
+"chakrabalansering",
+"aromaterapi",
+"healing",
+"pagan",
+"alternativ butik",
+"horoskop",
+"spåkort",
+"woo",
+"esoterisk butik",
+"wiccabutik",
+"kristallbutik",
+"eteriska oljor",
+"numerologi",
+"mystikbutik",
+"tarotkort",
+"shamansk butik",
+"mineraler",
+"pendel",
+"kristallstenar",
+"stenar",
+"new age-butik",
+"ockultism",
+"Esoterisk butik (mystik/New Age)",
+"essential oils",
+"spirituell butik",
+"kristaller",
+"spiritism",
+"magi",
+"energihealing",
+"rökelser",
+"ockult",
+"shamansk praktik",
+"spådom",
+"aura",
+"pendelsten",
+"wicca",
+"mineralbutik",
+"runor",
+"esoterisk affär",
+"feng shui",
+"runstenar",
+"tarot",
+"astrologi",
+"meditationstillbehör",
+"alternativandlighet",
+"kristallterapi",
+"chakra",
+"paganism",
+"pendelbutik",
+"magibutik",
+"meditation",
+"kristallhealing"
 ],
 "shop/fabric":[
 "tyg",
@@ -16133,10 +16391,15 @@
 "shop/radiotechnics":[
 "elektronikbutik",
 "radiotillbehör",
+"Radio / Elektronikbutik",
+"radiodelar",
 "radiobutik",
+"antenn",
+"radioteknik",
 "elektronik",
 "elektronikkomponenter",
-"Radio/Elektronikbutik",
+"elektronikdelar",
+"transistor",
 "radio"
 ],
 "shop/religion":[
@@ -16520,10 +16783,19 @@
 "vatten"
 ],
 "shop/water_sports":[
+"sup-butik",
+"kanotbutik",
 "simning",
+"paddlingsbutik",
+"kajakbutik",
+"surfbutik",
 "badkläder",
-"Vattensport/simning",
-"vattensport"
+"dykbutik",
+"snorklingsbutik",
+"simb­utik",
+"vattensport",
+"Vattensport- / Simbutik",
+"vattensportbutik"
 ],
 "shop/weapons":[
 "ammunition",
@@ -16838,19 +17110,7 @@
 "industrikarta"
 ],
 "tourism/information/office":[
-"turist",
-"Turistbyrå",
-"turistinformationscenter",
-"informationskontor",
-"turism",
-"besöksinformationscenter",
-"turistkontor",
-"reseguide",
-"turistinformation",
-"turistbyrå",
-"resebyrå",
-"besökscenter",
-"välkomstcenter"
+"Turistinformationskontor"
 ],
 "tourism/information/route_marker":[
 "skidled",
@@ -16882,6 +17142,9 @@
 "informationskarta",
 "information",
 "terminal"
+],
+"tourism/information/visitor_centre":[
+"Besökscenter"
 ],
 "tourism/motel":[
 "motorhotell",
@@ -17476,6 +17739,7 @@
 ],
 "type/route/piste":[
 "längdskidspår",
+"skidled",
 "pistspår",
 "skidor",
 "skidtur",
@@ -17483,7 +17747,9 @@
 "skidbacke",
 "utförsåkning",
 "pist",
+"Pist / Skidspår",
 "skridskorutt",
+"skidåkning",
 "skidrutt",
 "slädspår",
 "längdskidåkning",
@@ -17492,7 +17758,8 @@
 "skidbana",
 "skridskospår",
 "skridskobana",
-"Pist/skidspår"
+"offpist",
+"slalom"
 ],
 "type/route/power":[
 "kraftledningsrutt",
@@ -17600,6 +17867,25 @@
 ],
 "waterway":[
 "Vattenvägobjekt"
+],
+"waterway/access_point":[
+"kanotplats",
+"upptagning",
+"sjösättningsplats",
+"rodd",
+"åtkomstpunkt för vattenväg",
+"kajakplats",
+"iläggning",
+"kanot",
+"vattenvägsåtkomst",
+"kajak",
+"båt",
+"Åtkomst till vattenväg",
+"roddbåt",
+"iläggningsplats",
+"portage",
+"båtiläggning",
+"paddling"
 ],
 "waterway/boatyard":[
 "båtvarv",

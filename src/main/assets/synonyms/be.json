@@ -5,14 +5,74 @@
 "amenity/atm":[
 "Банкамат"
 ],
+"amenity/doctors":[
+"Доктар"
+],
 "area":[
 "Мясцовасць"
+],
+"highway/bridleway":[
+"Шлях для вершнікаў"
+],
+"highway/crossing":[
+"Пераход"
+],
+"highway/crossing/traffic_signals":[
+"Пераход зь сьвятлафорам"
+],
+"highway/crossing/uncontrolled":[
+"Пазначаны пераход"
+],
+"highway/crossing/unmarked":[
+"Непазначаны пераход"
+],
+"highway/cycleway":[
+"Роварны шлях"
+],
+"highway/cycleway/bicycle_foot":[
+"Роварны і пешаходны шлях"
+],
+"highway/cycleway/crossing":[
+"Роварны пераезд"
+],
+"highway/cycleway/crossing/bicycle_foot":[
+"Роварны і пешаходны пераход"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"Роварны пераезд зь сьвятлафорам"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"Пазначаны роварны пераезд"
+],
+"highway/cycleway/crossing/unmarked":[
+"Не пазначаны роварны пераезд"
+],
+"highway/cycleway/traffic_island":[
+"Роварны астравок бяспекі"
+],
+"highway/cycleway/traffic_island_shared":[
+"Роварны і пешаходны астравок бяспекі"
+],
+"highway/elevator":[
+"Пад'ёмнік"
+],
+"highway/footway":[
+"Пешаходны шлях"
+],
+"highway/footway/traffic_island":[
+"Астравок бяспекі"
+],
+"highway/path":[
+"Шлях"
 ],
 "line":[
 "Лінія"
 ],
 "place/city":[
 "Горад"
+],
+"place/island":[
+"Выспа"
 ],
 "place/square":[
 "Выраўняць вуглы"
@@ -28,5 +88,11 @@
 ],
 "tourism/information/map":[
 "Мапа"
+],
+"tourism/viewpoint":[
+"Аглядная пляцоўка"
+],
+"type/site":[
+"Сайт"
 ]
 }

@@ -467,9 +467,9 @@
 "ladestation für elektroautos"
 ],
 "amenity/childcare":[
-"kindergarten",
 "kinderkrippe",
-"Kinderkrippenbetreuung, Kindertagesstätte"
+"Kinderbetreuung",
+"hort"
 ],
 "amenity/cinema":[
 "lichtspieltheater",
@@ -518,7 +518,7 @@
 ],
 "amenity/clock/sundial":[
 "Sonnenuhr",
-"sonneuhr"
+"sonnenuhr"
 ],
 "amenity/community_centre":[
 "bürgerhaus",
@@ -528,6 +528,15 @@
 "stadthalle",
 "stadteilzentrum",
 "gemeinschaftszentrum"
+],
+"amenity/community_centre/chitalishte_BG":[
+"gemeindezentrum",
+"soziokulturelles zentrum",
+"kulturzentrum",
+"lesezimmer",
+"bürgerzentrum",
+"Chitalishte",
+"kulturhaus"
 ],
 "amenity/community_centre/club_home":[
 "vereinsgebäude",
@@ -731,9 +740,17 @@
 "allgemeinmediziner"
 ],
 "amenity/doctors/gynaecology":[
+"obstetrik",
+"geburtshilfe",
+"hebarzt",
+"frauenmedizin",
 "gynäkologe",
+"geburtshelfer",
 "Gynäkologe",
-"gynäkologie"
+"frauenheilkunde",
+"gynäkologie",
+"geburtskunde",
+"tokologie"
 ],
 "amenity/doctors/haematology":[
 "blut",
@@ -1768,6 +1785,32 @@
 "Griechisches Restaurant",
 "griechisches restaurant"
 ],
+"amenity/restaurant/hotpot":[
+"budae jjigae",
+"lau",
+"hotpot",
+"nabemono",
+"sichaun",
+"teochew",
+"jjigae",
+"teoswa",
+"yao hon",
+"peking",
+"kimchi jjigae",
+"sin jum",
+"guangdong",
+"Hot Pot Restaurant",
+"sukiyaki",
+"fondue",
+"shabu shabu",
+"schmortopf",
+"china",
+"mu kratha",
+"jeongol",
+"kanton",
+"chhnang pleurng",
+"eintop"
+],
 "amenity/restaurant/indian":[
 "Indisches Restaurant",
 "indisches restaurant"
@@ -2305,6 +2348,10 @@
 "wiegeanlage",
 "brückenwaage",
 "Brückenwaage, LKW-Waage"
+],
+"animal/horse_walker":[
+"pferdeführanlage",
+"Führanlage"
 ],
 "area":[
 "areal",
@@ -2865,7 +2912,7 @@
 "Wohnheim"
 ],
 "building/entrance":[
-"Eingang/Ausgang (veralteter Tag)"
+"Eingang / Ausgang"
 ],
 "building/farm":[
 "Bauernhaus",
@@ -3083,7 +3130,10 @@
 "hauszeile"
 ],
 "building/train_station":[
-"Bahnhofsgebäude"
+"hauptbahnhof",
+"bahnhofgebäude",
+"Bahnhofsgebäude",
+"bahnhof"
 ],
 "building/transportation":[
 "Gebäude für den öffentlichen Verkehr",
@@ -4466,14 +4516,10 @@
 "Autobahn"
 ],
 "highway/motorway_junction":[
-"autobahnabfahrt (kreuzungspunkt)",
 "ausfahrt",
-"autobahnanschluss",
-"autobahnkreuz",
-"anschlussstelle",
-"autobahnzubringer",
 "abfahrt",
-"Autobahnkreuzungspunkt"
+"autobahnabfahrt",
+"Autobahnausfahrt"
 ],
 "highway/motorway_link":[
 "autobahnanschlussstelle",
@@ -5169,23 +5215,13 @@
 "entwicklung"
 ],
 "landuse/education":[
-"lernzentrum",
+"bildungseinrichtungen",
 "campus",
 "bildungscampus",
-"berufsschulcampus",
-"bildungszentrum",
-"bildungskomplex",
-"lernkomplex",
-"berufsschulzentrum",
-"schulzentrum",
 "schulcampus",
-"schulkomplex",
-"ausbildungskomplex",
-"berufsschulkomplex",
-"lerncampus",
-"ausbildungszentrum",
-"ausbildungscampus",
-"Gelände für Bildungseinrichtungen"
+"schulzentrum",
+"schulgelände",
+"Bildungsbereich"
 ],
 "landuse/farm":[
 "Ackerland"
@@ -5320,6 +5356,13 @@
 "Streuobstwiese (zahlreiche Obstbäume)",
 "obstwiese",
 "obstgarten"
+],
+"landuse/olive_grove":[
+"olivenanbau",
+"olivenproduktion",
+"olivenhof",
+"olivenöl",
+"Olivenhain"
 ],
 "landuse/orchard":[
 "streuobstwiese",
@@ -5864,6 +5907,17 @@
 "beachvolleyballfeld",
 "beachvolleyballplatz",
 "Beachvolleyballfeld"
+],
+"leisure/pitch/biathlon":[
+"schießen",
+"schussbahn",
+"biathlon",
+"stehendschießen",
+"liegendschießen",
+"zielscheibe",
+"schießbahn",
+"schießstand",
+"Biathlon Schießstand"
 ],
 "leisure/pitch/boules":[
 "bouleplatz",
@@ -8112,6 +8166,14 @@ schuhreinigungsstation",
 "Spielhaus",
 "kinderhaus"
 ],
+"playground/pump":[
+"wasserpumpe",
+"wasserspiel",
+"wasserspielanlage",
+"Spielplatzwasserpumpe",
+"wasserspielgerät",
+"pumpe"
+],
 "playground/roundabout":[
 "kinderkarussell",
 "ringelspiel",
@@ -8183,9 +8245,9 @@ schuhreinigungsstation",
 "wasserspiel",
 "wasserspielanlage",
 "wasserspielgerät",
+"Wasserspielgerät (nicht spezifiziert)",
 "matschanlage",
 "pumpe",
-"Wasserspielgerät",
 "wasserbahn"
 ],
 "playground/zipwire":[
@@ -8801,6 +8863,11 @@ schuhreinigungsstation",
 "eisenbahnsignal",
 "Eisenbahnsignal"
 ],
+"railway/signal_box":[
+"Stellwerk",
+"signalstellwerk",
+"blockstelle"
+],
 "railway/station":[
 "Eisenbahnhaltestelle"
 ],
@@ -8991,13 +9058,13 @@ schuhreinigungsstation",
 ],
 "shop/bag":[
 "handtaschen",
+"Taschen / Koffergeschäft",
 "koffer",
 "umhängetaschen",
 "taschen",
 "reisegepäck",
 "reisetaschen",
-"rollkoffer",
-"Taschengeschäft"
+"rollkoffer"
 ],
 "shop/bakery":[
 "Bäckerei",
@@ -9034,9 +9101,9 @@ schuhreinigungsstation",
 ],
 "shop/bed":[
 "matratzenladen",
+"Betten / Matratzengeschäft",
 "schlafzimmerbedarf",
 "matratzengeschäft",
-"Betten/Matratzengeschäft",
 "schlafzimmereinrichtungsgeschäft",
 "bettengeschäft"
 ],
@@ -9388,6 +9455,13 @@ schuhreinigungsstation",
 "shop/erotic/lgbtq":[
 "LGBTQ+ Erotikgeschäft",
 "lgbtq+ erotikgeschäft"
+],
+"shop/esoteric":[
+"Esoterischer Laden",
+"kristall",
+"woo",
+"anhänger",
+"ätherisches öl"
 ],
 "shop/fabric":[
 "Stoffgeschäft",
@@ -9902,9 +9976,9 @@ herrenfriseur"
 "Feuerwerksgeschäft"
 ],
 "shop/radiotechnics":[
-"elektronikladen",
-"Radio/Elektronik-Geschäft",
-"radio/elektro-laden"
+"radio / elektro-laden",
+"Radio / Elektronik-Geschäft",
+"elektronikladen"
 ],
 "shop/religion":[
 "religionsbedarfsladen",
@@ -10158,6 +10232,7 @@ herrenfriseur"
 ],
 "shop/water_sports":[
 "schwimmbedarf",
+"schwimmsport",
 "Wassersportgeschäft",
 "wassersportladen"
 ],
@@ -10362,14 +10437,11 @@ herrenfriseur"
 "sehenswürdigkeitenkarte"
 ],
 "tourism/information/office":[
-"begrüßungszentrum",
-"reiseleiter",
-"Besucherzentrum",
-"besucherinformationszentrum",
+"touristeninformation",
 "informationsbüro",
 "tourismusbüro",
 "touristeninformationszentrum",
-"besucherzentrum"
+"Touristeninformation"
 ],
 "tourism/information/route_marker":[
 "wegmarkierung",
@@ -10379,6 +10451,12 @@ herrenfriseur"
 "tourism/information/terminal":[
 "informationsterminal",
 "Informationsterminal"
+],
+"tourism/information/visitor_centre":[
+"begrüßungszentrum",
+"Besucherzentrum",
+"besucherinformationszentrum",
+"besucherzentrum"
 ],
 "tourism/motel":[
 "Motel",
@@ -10803,6 +10881,18 @@ herrenfriseur"
 ],
 "waterway":[
 "Wasserstraßen..."
+],
+"waterway/access_point":[
+"ruderboot",
+"paddelboard",
+"Wasserstraßen-Zugangspunkt",
+"wasserung",
+"einbootung",
+"boot",
+"ausbootung",
+"portage",
+"kanu",
+"kajak"
 ],
 "waterway/boatyard":[
 "bootswerft",

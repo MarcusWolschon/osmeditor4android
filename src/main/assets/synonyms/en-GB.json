@@ -123,7 +123,12 @@
 "Arts Centre"
 ],
 "amenity/atm":[
-"Cash Machine"
+"money",
+"machine",
+"Cash Machine",
+"atm",
+"withdrawal",
+"cash"
 ],
 "amenity/baking_oven":[
 "Baking Oven"
@@ -136,9 +141,6 @@
 ],
 "amenity/bar/lgbtq":[
 "LGBTQ+ Bar"
-],
-"amenity/bbq":[
-"Barbecue/Grill"
 ],
 "amenity/bicycle_parking":[
 "Bicycle Parking"
@@ -202,9 +204,6 @@
 ],
 "amenity/charging_station":[
 "Charging Station"
-],
-"amenity/childcare":[
-"Nursery/Childcare"
 ],
 "amenity/cinema":[
 "Cinema"
@@ -277,9 +276,6 @@
 ],
 "amenity/doctors/general":[
 "General Practitioner"
-],
-"amenity/doctors/gynaecology":[
-"Obstetrician/Gynecologist"
 ],
 "amenity/doctors/paediatrics":[
 "Pediatrician"
@@ -1179,9 +1175,6 @@
 "building/dormitory":[
 "Dormitory"
 ],
-"building/entrance":[
-"Entrance/Exit"
-],
 "building/farm":[
 "Farm House"
 ],
@@ -1829,9 +1822,6 @@
 "highway/motorway":[
 "Motorway"
 ],
-"highway/motorway_junction":[
-"Motorway Junction / Exit"
-],
 "highway/motorway_link":[
 "Motorway Link"
 ],
@@ -1955,9 +1945,6 @@
 "highway/turning_loop":[
 "Turning Loop (Island)"
 ],
-"highway/unclassified":[
-"Minor/Unclassified Road"
-],
 "historic":[
 "Historic Site"
 ],
@@ -2074,9 +2061,6 @@
 ],
 "landuse/construction":[
 "Construction Area"
-],
-"landuse/education":[
-"Educational Campus"
 ],
 "landuse/farm":[
 "Farmland"
@@ -2330,9 +2314,6 @@
 "leisure/pitch/athletics/hammer_throw":[
 "Hammer Throw Ring / Sector"
 ],
-"leisure/pitch/athletics/high_jump":[
-"High Jump Pit"
-],
 "leisure/pitch/athletics/javelin_throw":[
 "Javelin Sector"
 ],
@@ -2362,9 +2343,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Beach Volleyball Court"
-],
-"leisure/pitch/boules":[
-"Boules/Bocce Court"
 ],
 "leisure/pitch/bowls":[
 "Bowling Green"
@@ -3691,9 +3669,6 @@
 "shop/baby_goods":[
 "Baby Goods Shop"
 ],
-"shop/bag":[
-"Bag/Luggage Shop"
-],
 "shop/bakery":[
 "Bakery"
 ],
@@ -3708,9 +3683,6 @@
 ],
 "shop/beauty/tanning":[
 "Tanning Salon"
-],
-"shop/bed":[
-"Bed Shop"
 ],
 "shop/beverages":[
 "Beverages Shop"
@@ -4073,9 +4045,6 @@
 "shop/pyrotechnics":[
 "Fireworks Shop"
 ],
-"shop/radiotechnics":[
-"Radio/Electronic Component Shop"
-],
 "shop/religion":[
 "Religious Shop"
 ],
@@ -4187,9 +4156,6 @@
 "shop/water":[
 "Drinking Water Shop"
 ],
-"shop/water_sports":[
-"Watersport/Swim Shop"
-],
 "shop/weapons":[
 "Weapon Shop"
 ],
@@ -4291,9 +4257,6 @@
 ],
 "tourism/information/map":[
 "Map"
-],
-"tourism/information/office":[
-"Visitor Centre"
 ],
 "tourism/information/route_marker":[
 "Trail Marker"
@@ -4474,9 +4437,6 @@
 ],
 "type/route/pipeline":[
 "Pipeline Route"
-],
-"type/route/piste":[
-"Piste/Ski Route"
 ],
 "type/route/power":[
 "Power Route"

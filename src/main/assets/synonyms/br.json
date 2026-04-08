@@ -227,15 +227,6 @@
 "gay",
 "lgbt"
 ],
-"amenity/bbq":[
-"rosta",
-"krazañ",
-"regeziñ",
-"regezer",
-"grill",
-"suilhañ",
-"Regezer/grill"
-],
 "amenity/bench":[
 "bank",
 "Bank",
@@ -363,17 +354,6 @@
 "argant",
 "Kazino",
 "c'hoari"
-],
-"amenity/childcare":[
-"bugel",
-"diwallañ",
-"babig",
-"plediñ",
-"Magouri",
-"kraou",
-"magouri",
-"bugale",
-"ober war-dro"
 ],
 "amenity/cinema":[
 "fiñvskeudenndi",
@@ -589,28 +569,6 @@
 "koazhadour",
 "bouzellenn",
 "gastroenterologour"
-],
-"amenity/doctors/gynaecology":[
-"vaouez",
-"verc'h",
-"plac'h",
-"maouez",
-"amiegez",
-"benevourez",
-"maouezed",
-"ginekologourez",
-"benvezegez",
-"benvezeg",
-"merc'h",
-"plac'hed",
-"medisin ar merc'hed",
-"benevour",
-"vaouezed",
-"blac'h",
-"Amiegour/ginekologour",
-"amiegour/ginekologour",
-"ginekologour",
-"amiegourez"
 ],
 "amenity/doctors/haematology":[
 "gwadour",
@@ -2531,9 +2489,6 @@
 "kousklec'h",
 "kouskva"
 ],
-"building/entrance":[
-"Mont-tre / mont-maez"
-],
 "building/farm":[
 "Ti-feurm",
 "kêr",
@@ -3849,18 +3804,6 @@
 "Gourhent",
 "hent-tizh"
 ],
-"highway/motorway_junction":[
-"kroashent",
-"er-maez",
-"hent-maez",
-"gourhent",
-"hent",
-"ermaez",
-"bretell",
-"eskemmer",
-"Hent-maez / Eskemmer",
-"hent-tizh"
-],
 "highway/motorway_link":[
 "mont-e-maez",
 "mont-tre",
@@ -4185,9 +4128,6 @@
 "kelc'h distreiñ",
 "kroashent-tro bihan"
 ],
-"highway/unclassified":[
-"Hent eilrenk/direnk"
-],
 "historic":[
 "lec'hienn",
 "Lec'h Istorel",
@@ -4443,18 +4383,6 @@
 "savadur",
 "saver",
 "savadenn"
-],
-"landuse/education":[
-"skol",
-"takad",
-"kampus",
-"skol-veur",
-"deskadurezh",
-"deskiñ",
-"skolaj",
-"kelenn",
-"lise",
-"Takad deskadurezh"
 ],
 "landuse/farm":[
 "Takad labour-douar"
@@ -4898,14 +4826,6 @@
 "Tachenn bannañ horzh",
 "morzhol",
 "teurel",
-"tachenn"
-],
-"leisure/pitch/athletics/high_jump":[
-"takad",
-"tachad",
-"leur",
-"lammat a-serzh",
-"Tachenn lammat a-serzh",
 "tachenn"
 ],
 "leisure/pitch/athletics/javelin_throw":[
@@ -7325,14 +7245,6 @@
 "Stal-arz",
 "stal-arz"
 ],
-"shop/bag":[
-"seier",
-"sac'h",
-"malizenn",
-"stal valizennoù",
-"stal malizennoù ha seier",
-"Stal malizennoù ha seier"
-],
 "shop/bakery":[
 "ti-bara",
 "stal-vara",
@@ -7353,15 +7265,6 @@
 "kenederezh",
 "stal gened",
 "stal-gened"
-],
-"shop/bed":[
-"Stal dafar gwele",
-"stal dafar gwele",
-"stal vatarasennoù",
-"gweleoù",
-"gwele",
-"matarasenn",
-"matarasennoù"
 ],
 "shop/beverages":[
 "evajoù",
@@ -8724,6 +8627,9 @@
 "panell bevenn tizh",
 "Panell bevenn tizh"
 ],
+"type/associatedStreet":[
+"Straed kevredet"
+],
 "type/boundary":[
 "harz",
 "Harzoù",
@@ -8871,15 +8777,6 @@
 "korzenn",
 "hentad"
 ],
-"type/route/piste":[
-"ski",
-"hentad ski",
-"skiañ",
-"roudenn",
-"roudenn ski",
-"Hentad/roudenn ski",
-"skiiñ"
-],
 "type/route/railway":[
 "Hentad hent-houarn",
 "hent-houarn",
@@ -9024,6 +8921,12 @@
 "stêr",
 "stêrioù",
 "Gwazh"
+],
+"waterway/stream_intermittent":[
+"stêr a-bep-eil",
+"Stêr a-bep-eil",
+"gwazh",
+"stêr"
 ],
 "waterway/water_point":[
 "war vor",

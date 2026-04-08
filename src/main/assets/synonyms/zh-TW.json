@@ -332,6 +332,10 @@
 "活動中心",
 "社區發展協會"
 ],
+"amenity/community_centre/chitalishte_BG":[
+"chitalishte",
+"社區文教中心"
+],
 "amenity/community_centre/club_home":[
 "俱樂部會所"
 ],
@@ -974,6 +978,11 @@
 "希臘餐廳",
 "希臘料理"
 ],
+"amenity/restaurant/hotpot":[
+"火鍋餐廳",
+"小火鍋",
+"火鍋店"
+],
 "amenity/restaurant/indian":[
 "印度菜",
 "印度餐廳",
@@ -1351,6 +1360,9 @@
 "amenity/weighbridge":[
 "地磅"
 ],
+"animal/horse_walker":[
+"遛馬機"
+],
 "area":[
 "區域"
 ],
@@ -1686,7 +1698,7 @@
 "學寮"
 ],
 "building/entrance":[
-"入口/出口"
+"入口 / 出口"
 ],
 "building/farm":[
 "農舍"
@@ -1841,7 +1853,9 @@
 "連棟透天厝"
 ],
 "building/train_station":[
-"鐵路車站建築"
+"鐵路車站建築",
+"火車站建築",
+"火車站大樓"
 ],
 "building/transportation":[
 "轉運站建築",
@@ -2512,7 +2526,8 @@
 "高速公路"
 ],
 "highway/motorway_junction":[
-"高速公路交流道 / 出口"
+"高速公路出口",
+"匝道"
 ],
 "highway/motorway_link":[
 "高速公路匝道"
@@ -2871,9 +2886,7 @@
 "施工用地"
 ],
 "landuse/education":[
-"教育用地",
-"校地",
-"學校用地"
+"教育區域"
 ],
 "landuse/farm":[
 "農地"
@@ -2941,6 +2954,9 @@
 ],
 "landuse/meadow_orchard/orchard":[
 "種植在草地上的果樹"
+],
+"landuse/olive_grove":[
+"橄欖園"
 ],
 "landuse/orchard":[
 "果園"
@@ -3201,7 +3217,8 @@
 "鏈球投擲場"
 ],
 "leisure/pitch/athletics/high_jump":[
-"跳高場"
+"跳高區域",
+"跳高區"
 ],
 "leisure/pitch/athletics/javelin_throw":[
 "標槍投擲場"
@@ -3233,6 +3250,9 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "沙灘排球場"
+],
+"leisure/pitch/biathlon":[
+"冬季兩項射擊場"
 ],
 "leisure/pitch/boules":[
 "法式滾球場"
@@ -4416,6 +4436,10 @@
 "playground/playhouse":[
 "遊戲小屋"
 ],
+"playground/pump":[
+"玩水幫浦",
+"戲水幫浦"
+],
 "playground/roundabout":[
 "旋轉盤"
 ],
@@ -4460,7 +4484,8 @@
 "隧道"
 ],
 "playground/water":[
-"戲水設施"
+"玩水裝置（未指定）",
+"戲水裝置（未指定）"
 ],
 "playground/zipwire":[
 "滑降台"
@@ -4835,6 +4860,12 @@
 "railway/signal":[
 "鐵路號誌"
 ],
+"railway/signal_box":[
+"訊號箱",
+"訊號盒",
+"號誌盒",
+"號誌箱"
+],
 "railway/station":[
 "鐵路車站"
 ],
@@ -5133,6 +5164,11 @@
 "shop/erotic/lgbtq":[
 "LGBTQ+ 情趣用品店",
 "lgbtq+ 情趣用品店"
+],
+"shop/esoteric":[
+"神秘學商店",
+"靈學商店",
+"靈性商店"
 ],
 "shop/fabric":[
 "布料行"
@@ -5713,10 +5749,7 @@
 "地圖"
 ],
 "tourism/information/office":[
-"旅遊中心",
-"資訊服務站",
-"旅遊服務中心",
-"遊客中心"
+"旅遊服務中心"
 ],
 "tourism/information/route_marker":[
 "路線標記",
@@ -5728,6 +5761,12 @@
 "資訊站",
 "公共資訊站",
 "資訊終端機"
+],
+"tourism/information/visitor_centre":[
+"旅遊中心",
+"資訊服務站",
+"旅遊服務中心",
+"遊客中心"
 ],
 "tourism/motel":[
 "摩鐵",
@@ -6045,6 +6084,9 @@
 "waterway":[
 "水路圖徵"
 ],
+"waterway/access_point":[
+"水道進入點"
+],
 "waterway/boatyard":[
 "船廠",
 "船塢"
@@ -6092,7 +6134,8 @@
 ],
 "waterway/lock_gate":[
 "船閘閘門",
-"船閘門"
+"船閘門",
+"船閘"
 ],
 "waterway/milestone":[
 "水路里程標",

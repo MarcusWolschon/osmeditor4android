@@ -38,9 +38,6 @@
 "amenity/cafe":[
 "Caifé"
 ],
-"amenity/childcare":[
-"Naíonra"
-],
 "amenity/cinema":[
 "Pictiúrlann"
 ],
@@ -74,14 +71,68 @@
 "amenity/courthouse":[
 "Teach Cúirte"
 ],
+"amenity/crematorium":[
+"Créamatóiriam"
+],
 "amenity/dentist":[
 "Fiaclóir"
 ],
 "amenity/doctors":[
 "Doctúir"
 ],
+"amenity/doctors/allergology":[
+"Ailléirgeolaí"
+],
+"amenity/doctors/cardiology":[
+"Cairdeolaí"
+],
+"amenity/doctors/dermatology":[
+"Deirmeolaí"
+],
+"amenity/doctors/gastroenterology":[
+"Gaistreintreolaí"
+],
+"amenity/doctors/haematology":[
+"Haemaiteolaí"
+],
+"amenity/doctors/nephrology":[
+"Neifreolaí"
+],
+"amenity/doctors/neurology":[
+"Néareolaí"
+],
+"amenity/doctors/neurosurgery":[
+"Néaramháinlia"
+],
+"amenity/doctors/oncology":[
+"Oinceolaí"
+],
+"amenity/doctors/ophthalmology":[
+"Oftailmeolaí"
+],
+"amenity/doctors/otolaryngology":[
+"Otalaraingeolaí"
+],
+"amenity/doctors/paediatrics":[
+"Péidiatraí"
+],
+"amenity/doctors/pathology":[
+"Paiteolaí"
+],
 "amenity/doctors/podiatry":[
 "Coslia"
+],
+"amenity/doctors/pulmonology":[
+"Scamhógeolaí"
+],
+"amenity/doctors/radiology":[
+"Raideolaí"
+],
+"amenity/doctors/rheumatology":[
+"Réamaiteolaí"
+],
+"amenity/doctors/urology":[
+"Úireolaí"
 ],
 "amenity/drinking_water":[
 "Uisce Óil"
@@ -100,6 +151,9 @@
 ],
 "amenity/marketplace":[
 "Margadh"
+],
+"amenity/nightclub":[
+"Club oíche"
 ],
 "amenity/parking":[
 "Carrchlós"
@@ -124,6 +178,9 @@
 ],
 "amenity/theatre":[
 "Amharclann"
+],
+"amenity/theatre/type/amphi":[
+"Amfaitéatar"
 ],
 "amenity/toilets":[
 "Leithris"
@@ -226,9 +283,6 @@
 ],
 "building/dormitory":[
 "Dórtúr"
-],
-"building/entrance":[
-"Slí Isteach/Amach"
 ],
 "building/farm":[
 "Teach Feirme"
@@ -467,6 +521,15 @@
 "ford_line":[
 "Áth"
 ],
+"healthcare/alternative/homeopathy":[
+"Hoiméapat"
+],
+"healthcare/alternative/naturopathy":[
+"Nádúrapat"
+],
+"healthcare/alternative/osteopathy":[
+"Oistéapat"
+],
 "healthcare/audiologist":[
 "Éisteolaí"
 ],
@@ -515,9 +578,6 @@
 "highway/motorway":[
 "Mótarbhealach"
 ],
-"highway/motorway_junction":[
-"Slí Amach / Acomhal Mótarbhealaigh"
-],
 "highway/path":[
 "Cosán"
 ],
@@ -538,6 +598,9 @@
 ],
 "highway/steps":[
 "Céimeanna"
+],
+"highway/steps/conveying":[
+"Staighre Beo"
 ],
 "highway/stop":[
 "Comhartha Stop"
@@ -592,6 +655,9 @@
 ],
 "landuse/grass":[
 "Féar"
+],
+"landuse/harbour":[
+"Cuan"
 ],
 "landuse/meadow":[
 "Cluain"
@@ -1009,6 +1075,9 @@
 ],
 "waterway/stream":[
 "Sruth"
+],
+"waterway/waterfall":[
+"Eas"
 ],
 "waterway/weir":[
 "Cora"

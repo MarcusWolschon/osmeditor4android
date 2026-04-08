@@ -277,13 +277,6 @@
 "lgbtq+ bar",
 "LGBTQ+ Bar"
 ],
-"amenity/bbq":[
-"barbecue",
-"Churrasqueira",
-"churrasco",
-"forno",
-"grill"
-],
 "amenity/bench":[
 "banco de praça",
 "Assento",
@@ -426,14 +419,6 @@
 "tomada de cargamento",
 "Estação de carregamento",
 "estação de recarga"
-],
-"amenity/childcare":[
-"cuidados infantis",
-"Berçário ou creche",
-"jardim de infância",
-"berçário",
-"creche",
-"maternal"
 ],
 "amenity/cinema":[
 "sala de cinema",
@@ -631,18 +616,6 @@
 "médico de cuidados primários",
 "atenção primária à saúde",
 "Clínico Geral"
-],
-"amenity/doctors/gynaecology":[
-"Ginecologista / Obstetra",
-"ginecológico",
-"medicina",
-"obstétrico",
-"reprodução",
-"ginecologia",
-"médica",
-"consultório",
-"reprodutivo",
-"médico"
 ],
 "amenity/doctors/haematology":[
 "sangue",
@@ -2914,7 +2887,7 @@
 "dormitório"
 ],
 "building/entrance":[
-"Entrada/Saída"
+"Entrada/saída"
 ],
 "building/farm":[
 "administrador rural",
@@ -4536,18 +4509,7 @@
 "via expressa"
 ],
 "highway/motorway_junction":[
-"acesso de autoestrada",
-"ligação de via expressa",
-"Entroncamento/Saída de autoestrada",
-"acesso",
-"saída de autoestrada",
-"junção de autoestrada",
-"acesso à via expressa",
-"saída de via expressa",
-"acesso à autoestrada",
-"saída",
-"acesso de via expressa",
-"junção de via expressa"
+"Saída de autoestrada"
 ],
 "highway/motorway_link":[
 "ligação de via expressa",
@@ -4822,15 +4784,6 @@
 "retorno",
 "Balão de Retorno (com ilha central)"
 ],
-"highway/unclassified":[
-"vicinal",
-"Via local ou estrada vicinal",
-"estrada",
-"estrada de terra",
-"via local",
-"rodovia sem pavimentação",
-"via sem classificação"
-],
 "historic":[
 "Local histórico",
 "monumento",
@@ -5091,13 +5044,7 @@
 "Área de construção"
 ],
 "landuse/education":[
-"área educacional",
-"escola",
-"colégio",
-"campus",
-"universidade",
-"faculdade",
-"Complexo Educativo"
+"Área educacional"
 ],
 "landuse/farm":[
 "Área de lavoura"
@@ -5725,20 +5672,6 @@
 "sector",
 "lançamento"
 ],
-"leisure/pitch/athletics/high_jump":[
-"areia",
-"atletismo",
-"saltar",
-"high",
-"atleta",
-"saltador",
-"altura",
-"pit",
-"salto",
-"saltadora",
-"Colchão de salto em altura",
-"jump"
-],
 "leisure/pitch/athletics/javelin_throw":[
 "arremesso",
 "atletismo",
@@ -5829,20 +5762,6 @@
 "arena",
 "vôlei",
 "Quadra de voleibol de praia"
-],
-"leisure/pitch/boules":[
-"bocce",
-"boccia",
-"raffa",
-"bocha",
-"cancha de bocha",
-"bowls",
-"petanca",
-"boule lyonnaise",
-"pista de bocha",
-"pètanque",
-"Quadra de boules/bocha",
-"boules"
 ],
 "leisure/pitch/bowls":[
 "gramado",
@@ -8171,13 +8090,6 @@
 "tubo",
 "Túnel de parquinho"
 ],
-"playground/water":[
-"parafuso",
-"água",
-"broca",
-"lama",
-"Brinquedo bomba d'água"
-],
 "playground/zipwire":[
 "Tirolesa",
 "tirolesa"
@@ -8904,9 +8816,7 @@
 "bebês"
 ],
 "shop/bag":[
-"loja de malas",
-"loja de bagagens",
-"Loja de Bolsas/Malas"
+"Loja de malas/bagagem"
 ],
 "shop/bakery":[
 "padaria",
@@ -8944,12 +8854,6 @@
 "shop/beauty/tanning":[
 "clínica de bronzeamento",
 "Salão de Bronzeamento"
-],
-"shop/bed":[
-"loja de camas",
-"Loja de Camas e Colchões",
-"loja de colchões",
-"móveis"
 ],
 "shop/beverages":[
 "cerveja",
@@ -9762,12 +9666,6 @@
 "loja de fogos de artifício",
 "Loja de Fogos de Artifício"
 ],
-"shop/radiotechnics":[
-"televisão",
-"rádio e tv",
-"loja de componentes eletrônicos",
-"Loja de Componentes Eletrônicos"
-],
 "shop/religion":[
 "Loja de Artigos Religiosos",
 "loja de artigos religiosos"
@@ -9976,12 +9874,6 @@
 "loja de água potável",
 "Loja de Água Potável"
 ],
-"shop/water_sports":[
-"Loja de esportes aquáticos",
-"loja de esportes áquáticos",
-"loja de artigos para natação",
-"loja de equipamentos para esportes áquáticos"
-],
 "shop/weapons":[
 "loja de tiro",
 "Loja de armas",
@@ -10157,10 +10049,6 @@
 "tourism/information/map":[
 "mapa turístico",
 "Mapa"
-],
-"tourism/information/office":[
-"Centro de visitantes",
-"centro de visitantes"
 ],
 "tourism/information/route_marker":[
 "Marcador de trilha",
@@ -10494,13 +10382,6 @@
 "Rota de Tubulação",
 "faixa de dutos",
 "rota de tubulação"
-],
-"type/route/piste":[
-"ski",
-"pista de esqui",
-"Rota de Ski",
-"esqui",
-"snowboarding"
 ],
 "type/route/power":[
 "rota de energia elétrica",

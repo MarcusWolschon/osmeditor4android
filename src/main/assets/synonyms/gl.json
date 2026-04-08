@@ -300,13 +300,6 @@
 "Bar de copas LGBTQ+",
 "bar lgbtq"
 ],
-"amenity/bbq":[
-"asador",
-"lume",
-"Barbacoa/Grella",
-"barbacoa",
-"grella"
-],
 "amenity/bench":[
 "Banco",
 "banco",
@@ -463,36 +456,6 @@
 "batería",
 "carga",
 "punto de recarga"
-],
-"amenity/childcare":[
-"guardería",
-"gardería",
-"xardin infantil",
-"coidadora",
-"nenos",
-"párvulo",
-"gardaría infantil",
-"parvulos",
-"zona",
-"niñera",
-"Gardaría",
-"gardaria",
-"coidado infantil",
-"gardaría",
-"garderia",
-"area",
-"niñeira",
-"área",
-"infantil",
-"preescolar",
-"párvulos",
-"coidado",
-"xardin de infancia",
-"neneira",
-"nenas",
-"xardín de infancia",
-"xardín infantil",
-"bebés"
 ],
 "amenity/cinema":[
 "pantalla",
@@ -2296,9 +2259,6 @@
 "residencia",
 "habitacións"
 ],
-"building/entrance":[
-"Entrada/Saída"
-],
 "building/farm":[
 "Casa de campo"
 ],
@@ -3399,14 +3359,6 @@
 "autoestrada",
 "autopista"
 ],
-"highway/motorway_junction":[
-"autovía",
-"autoestrada",
-"entrada",
-"saída",
-"autopista",
-"Saída de autoestrada"
-],
 "highway/motorway_link":[
 "autovía",
 "autoestrada",
@@ -3701,9 +3653,6 @@
 ],
 "highway/turning_loop":[
 "Círculo de xiro (illa)"
-],
-"highway/unclassified":[
-"Estrada menor/Sen clasificar"
 ],
 "historic":[
 "Lugar histórico"
@@ -4443,9 +4392,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Cancha de voleibol praia"
-],
-"leisure/pitch/boules":[
-"Pista de birlos"
 ],
 "leisure/pitch/bowls":[
 "Campo de bolos",
@@ -6751,9 +6697,6 @@
 "Tenda de produtos para meniños",
 "bebés"
 ],
-"shop/bag":[
-"Tenda de maletas"
-],
 "shop/bakery":[
 "Panadaría"
 ],
@@ -6768,9 +6711,6 @@
 ],
 "shop/beauty/tanning":[
 "Salón de bronceado"
-],
-"shop/bed":[
-"Tenda de colchóns/roupa de cama"
 ],
 "shop/beverages":[
 "Tenda de bebidas"
@@ -7290,12 +7230,6 @@
 "pirotecnia",
 "fogos artificiais"
 ],
-"shop/radiotechnics":[
-"electrónica",
-"Tenda de compoñentes electrónicos",
-"compoñentes",
-"radio"
-],
 "shop/religion":[
 "Tenda relixiosa"
 ],
@@ -7487,18 +7421,6 @@
 "Tenda de auga potábel",
 "agua"
 ],
-"shop/water_sports":[
-"bañador",
-"auga",
-"natación",
-"bikini",
-"acuático",
-"goggles",
-"Tenda de deportes acuáticos / natación",
-"biquini",
-"lentes natación",
-"neopreno"
-],
 "shop/weapons":[
 "Armaría"
 ],
@@ -7644,18 +7566,6 @@
 ],
 "tourism/information/map":[
 "Mapa"
-],
-"tourism/information/office":[
-"centro de visistantes",
-"centro de benvida",
-"visitantes",
-"guía turístico",
-"Oficina de información turística",
-"benvida",
-"turismo",
-"oficina turística",
-"centro de información",
-"centro de información turística"
 ],
 "tourism/information/route_marker":[
 "Marcaxe de pista"
@@ -7882,9 +7792,6 @@
 "tubaxe",
 "conduto",
 "rota"
-],
-"type/route/piste":[
-"Ruta / Pista de esquí"
 ],
 "type/route/power":[
 "Ruta de rede eléctrica",

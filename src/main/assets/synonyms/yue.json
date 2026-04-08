@@ -249,12 +249,6 @@
 "lgbtq+ bar",
 "同性戀酒吧"
 ],
-"amenity/bbq":[
-"烤爐",
-"烤肉架",
-"烤肉爐",
-"烤架"
-],
 "amenity/bench":[
 "長櫈",
 "bench",
@@ -406,19 +400,6 @@
 "charging station",
 "叉電站",
 "充電處"
-],
-"amenity/childcare":[
-"托管站",
-"小飯桌",
-"幼兒護理",
-"託兒所／幼兒護理",
-"托管機構",
-"nursery",
-"託兒所",
-"childcare",
-"學前班",
-"託管",
-"托兒所"
 ],
 "amenity/cinema":[
 "電影戲院",
@@ -648,9 +629,6 @@
 "一般科",
 "家醫科",
 "家庭醫學科"
-],
-"amenity/doctors/gynaecology":[
-"婦產科"
 ],
 "amenity/doctors/haematology":[
 "血液科"
@@ -2694,9 +2672,6 @@
 "dormitory",
 "學寮"
 ],
-"building/entrance":[
-"出入口"
-],
 "building/farm":[
 "farm house",
 "農家",
@@ -4109,11 +4084,6 @@
 "高速公路",
 "motorway"
 ],
-"highway/motorway_junction":[
-"車道路口出口",
-"高速公路交流道 / 出口",
-"motorway junction / exit"
-],
 "highway/motorway_link":[
 "高速公路匝道",
 "高速公路駁路",
@@ -4388,15 +4358,6 @@
 "turning loop (island)",
 "環形迴車道",
 "環形迴轉道"
-],
-"highway/unclassified":[
-"road",
-"street",
-"一般/未分級道路",
-"minor/unclassified road",
-"道仔無類道",
-"unclassified road",
-"小道"
 ],
 "historic":[
 "歷史遺跡",
@@ -4741,16 +4702,6 @@
 "建設區域",
 "建設",
 "地盤"
-],
-"landuse/education":[
-"学校",
-"校园",
-"教学",
-"教育用地",
-"教育",
-"高中园",
-"园区",
-"校园用地"
 ],
 "landuse/farm":[
 "田地"
@@ -5360,10 +5311,6 @@
 "链球场",
 "投掷"
 ],
-"leisure/pitch/athletics/high_jump":[
-"跳高场",
-"跳高"
-],
 "leisure/pitch/athletics/javelin_throw":[
 "标枪场",
 "标枪",
@@ -5420,11 +5367,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "沙灘排球場"
-],
-"leisure/pitch/boules":[
-"草地滚球场",
-"地掷球场",
-"滚球场"
 ],
 "leisure/pitch/bowls":[
 "草地滾球場"
@@ -7288,13 +7230,6 @@
 "捐山窿",
 "隧道"
 ],
-"playground/water":[
-"嬉水設施",
-"水",
-"戲水設施",
-"玩",
-"play water pump/screw"
-],
 "playground/zipwire":[
 "zip",
 "滑降台",
@@ -7919,12 +7854,6 @@
 "嬰兒用品店",
 "baby goods store"
 ],
-"shop/bag":[
-"包包/行李箱店",
-"袋篋舖",
-"bag",
-"luggage store"
-],
 "shop/bakery":[
 "餅店",
 "餅舖",
@@ -7968,12 +7897,6 @@
 "tanning salon",
 "日光浴舖",
 "日曬沙龍"
-],
-"shop/bed":[
-"寢具/牀褥舖",
-"床具/寐具店",
-"bedding",
-"mattress store"
 ],
 "shop/beverages":[
 "飲品店",
@@ -8679,14 +8602,6 @@
 "烟花",
 "爆竹"
 ],
-"shop/radiotechnics":[
-"無綫電零件舖",
-"無綫電／電子零件舖",
-"radio component store",
-"electronic component store",
-"電子零件舖",
-"無線電零件舖"
-],
 "shop/religion":[
 "宗教舖",
 "宗教用品店",
@@ -8885,13 +8800,6 @@
 "食水舖",
 "樽裝水",
 "drinking water shop"
-],
-"shop/water_sports":[
-"水上運動/泳裝店",
-"watersport/swim shop",
-"泳",
-"水上活動/游泳用品舖",
-"swim"
 ],
 "shop/weapons":[
 "刀",
@@ -9099,12 +9007,6 @@
 "地圖",
 "位置圖",
 "map"
-],
-"tourism/information/office":[
-"旅遊中心",
-"資訊服務站",
-"visitor center",
-"遊客中心"
 ],
 "tourism/information/route_marker":[
 "路線標記",
@@ -9465,12 +9367,6 @@
 "pipeline route",
 "管路綫",
 "管道路線"
-],
-"type/route/piste":[
-"滑雪道路線",
-"piste/ski route",
-"route",
-"ski route"
 ],
 "type/route/power":[
 "供電路線",

@@ -375,12 +375,11 @@
 "amenity/bbq":[
 "bbq",
 "barbecue",
-"mechoui",
 "méchoui",
 "feu",
 "grillades",
 "foyer",
-"Barbecue, grill",
+"Barbecue / Grill",
 "grill"
 ],
 "amenity/bench":[
@@ -578,11 +577,6 @@
 "recharge électrique",
 "batterie",
 "station de recharge"
-],
-"amenity/childcare":[
-"ne pas utiliser",
-"déprécié",
-"Déprécié, ne pas utiliser"
 ],
 "amenity/cinema":[
 "films",
@@ -829,12 +823,6 @@
 "générale",
 "médecin",
 "généraliste"
-],
-"amenity/doctors/gynaecology":[
-"obstétricien",
-"gynécologue",
-"obstétricienne",
-"Gynécologue"
 ],
 "amenity/doctors/haematology":[
 "sang",
@@ -1846,6 +1834,9 @@
 "Restaurant grec",
 "restaurant grec",
 "café"
+],
+"amenity/restaurant/hotpot":[
+"Fondue chinoise"
 ],
 "amenity/restaurant/indian":[
 "restaurant indien",
@@ -3542,7 +3533,7 @@
 "étudiants"
 ],
 "building/entrance":[
-"Entrée/Sortie"
+"Entrée / Sortie"
 ],
 "building/farm":[
 "ferme",
@@ -3882,6 +3873,9 @@
 "mausolée",
 "enterrement",
 "Section de cimetière"
+],
+"climbing/crag":[
+"Rocher de grimpe"
 ],
 "climbing/route":[
 "Voie d'escalade"
@@ -4240,6 +4234,9 @@
 "disused/shop":[
 "Magasin désaffecté"
 ],
+"education":[
+"Structure éducative"
+],
 "education/college":[
 "Enseignement supérieur (non universitaire) - institution ou campus (terrain)"
 ],
@@ -4258,11 +4255,17 @@
 "education/music_school":[
 "École de musique"
 ],
+"education/prep_school":[
+"École préparatoire"
+],
 "education/school":[
 "École élémentaire ou secondaire (terrain)"
 ],
 "education/university":[
 "Université, établissement d'enseignement supérieur, campus (terrain)"
+],
+"education/yes":[
+"Structure éducative (non spécifiée)"
 ],
 "embankment":[
 "Terre-plein"
@@ -4943,12 +4946,7 @@
 "Autoroute"
 ],
 "highway/motorway_junction":[
-"sortie",
-"intersection d'autoroutes",
-"Sortie / Échangeur",
-"échangeur autoroutier",
-"échangeur",
-"croisement d'autoroutes"
+"Sortie autoroutière"
 ],
 "highway/motorway_link":[
 "voie",
@@ -5217,8 +5215,7 @@
 "Boucle de retournement (îlot central)"
 ],
 "highway/unclassified":[
-"route non classée;voie communale",
-"Route mineure ou non classifiée"
+"Route mineure"
 ],
 "historic":[
 "site historique",
@@ -5454,6 +5451,10 @@
 "halieuculture",
 "Aquaculture"
 ],
+"landuse/aquaculture/fish":[
+"Ferme piscicole",
+"élevage de poissons"
+],
 "landuse/basin":[
 "Bassin"
 ],
@@ -5483,16 +5484,6 @@
 "construction",
 "grue",
 "démolition"
-],
-"landuse/education":[
-"scolaire",
-"zone",
-"aire",
-"campus",
-"éducation",
-"Zone dédiée à l'éducation",
-"groupe",
-"école"
 ],
 "landuse/farm":[
 "Zone agricole"
@@ -5577,10 +5568,15 @@
 "prairie"
 ],
 "landuse/meadow_orchard/meadow":[
-"Prairie avec arbres fruitiers"
+"Prairie avec arbres fruitiers",
+"pré avec des arbres fruitiers"
 ],
 "landuse/meadow_orchard/orchard":[
+"verger planté dans un pré",
 "Verger planté dans une prairie"
+],
+"landuse/olive_grove":[
+"Oliveraie"
 ],
 "landuse/orchard":[
 "verger",
@@ -5984,10 +5980,6 @@
 "Terrain de lancer de marteau",
 "zone"
 ],
-"leisure/pitch/athletics/high_jump":[
-"terrain de saut en hauteur",
-"Terrain de saut en hauteur"
-],
 "leisure/pitch/athletics/javelin_throw":[
 "Terrain de lancer de javelot",
 "terrain de lancer de javelot"
@@ -6035,12 +6027,6 @@
 "leisure/pitch/beachvolleyball":[
 "Terrain de Beach-volley",
 "terrain de beach-volley"
-],
-"leisure/pitch/boules":[
-"bocce",
-"pétanque",
-"lyonnaise",
-"Terrain de boules (Pétanque, Bocce...)"
 ],
 "leisure/pitch/bowls":[
 "Terrain de boulingrin",
@@ -6447,6 +6433,12 @@
 "râtelier à tapis",
 "support de tapis",
 "cintre à tapis"
+],
+"man_made/ceremonial_gate/paifang":[
+"Païfang"
+],
+"man_made/ceremonial_gate/torii":[
+"Torii"
 ],
 "man_made/charge_point":[
 "borne de recharge pour véhicules électriques",
@@ -8095,14 +8087,6 @@
 "tunnel",
 "jeux"
 ],
-"playground/water":[
-"Appareils pour jouer avec de l'eau",
-"vis",
-"eau",
-"appareils",
-"pompe",
-"jeux"
-],
 "playground/zipwire":[
 "tyrolienne",
 "Tyrolienne (jeu pour enfants)"
@@ -9037,10 +9021,6 @@
 "magasin de puériculture",
 "Magasin de produits pour bébés"
 ],
-"shop/bag":[
-"vente de bagages",
-"Bagagerie"
-],
 "shop/bakery":[
 "boulangerie",
 "Boulangerie"
@@ -9370,6 +9350,9 @@
 "gay",
 "sex-shop"
 ],
+"shop/esoteric":[
+"Ésotérique"
+],
 "shop/fabric":[
 "mercerie",
 "Magasin de tissus"
@@ -9486,6 +9469,7 @@
 "Boutique de cadeaux"
 ],
 "shop/gold_buyer":[
+"achat d'or",
 "Acheteur d'or"
 ],
 "shop/greengrocer":[
@@ -9672,6 +9656,9 @@
 "cellulaires",
 "Magasin de téléphonie mobile"
 ],
+"shop/mobile_phone_accessories":[
+"Boutique d'accessoires pour téléphone"
+],
 "shop/model":[
 "Magasin de modélisme",
 "modélisme",
@@ -9826,10 +9813,6 @@
 "shop/pyrotechnics":[
 "Magasin de feux d'artifice",
 "magasin de feux d'artifice"
-],
-"shop/radiotechnics":[
-"Magasin de composants électroniques et de radio",
-"magasin de composants électroniques et de radio"
 ],
 "shop/religion":[
 "d'un monastère",
@@ -10032,10 +10015,6 @@
 "shop/water":[
 "eau potable",
 "Magasin d'eau potable"
-],
-"shop/water_sports":[
-"vente d'équipements et d'articles pour sports nautiques",
-"Vente d'équipements et d'articles pour sports nautiques"
 ],
 "shop/weapons":[
 "Armurerie",
@@ -10246,10 +10225,7 @@
 "plan"
 ],
 "tourism/information/office":[
-"Centre d'accueil des visiteurs",
-"centre d'informations touristique",
-"office de tourisme",
-"agence de tourisme"
+"Office de tourisme"
 ],
 "tourism/information/route_marker":[
 "repère",
@@ -10264,6 +10240,9 @@
 "tourism/information/terminal":[
 "terminal d'information",
 "Terminal d'information"
+],
+"tourism/information/visitor_centre":[
+"Centre d'accueil des visiteurs"
 ],
 "tourism/motel":[
 "Motel",
@@ -10422,6 +10401,9 @@
 "panneau",
 "message",
 "lumineux"
+],
+"type/associatedStreet":[
+"Rue associée"
 ],
 "type/boundary":[
 "Frontière",
@@ -10590,10 +10572,6 @@
 "Itinéraire de pipeline",
 "oléoduc"
 ],
-"type/route/piste":[
-"itinéraire de ski",
-"Itinéraire de Ski"
-],
 "type/route/power":[
 "Itinéraire électrique",
 "ligne électrique"
@@ -10640,6 +10618,12 @@
 "type/site":[
 "Site",
 "site"
+],
+"type/site/climbing/area":[
+"Zone de grimpe"
+],
+"type/site/climbing/crag":[
+"Rocher de grimpe"
 ],
 "type/waterway":[
 "cours d'eau",

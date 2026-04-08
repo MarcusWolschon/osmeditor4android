@@ -316,13 +316,6 @@
 "transseksa",
 "lgbt"
 ],
-"amenity/bbq":[
-"bbq",
-"rostigilo",
-"rostejo",
-"kradrostilo",
-"Rostilo"
-],
 "amenity/bench":[
 "seĝo",
 "segho",
@@ -475,15 +468,6 @@
 "shargostacio",
 "sxargostacio"
 ],
-"amenity/childcare":[
-"beb-vartejo",
-"infangardejo",
-"bebogardejo",
-"infanvartejo",
-"Bebovartejo",
-"infanĝardeno",
-"vartejo"
-],
 "amenity/cinema":[
 "kinoteatro",
 "filmejo",
@@ -600,9 +584,6 @@
 "kuracistejo",
 "doktoro",
 "sanigejo"
-],
-"amenity/doctors/gynaecology":[
-"Obstetrikisto/Ginekologo"
 ],
 "amenity/doctors/podiatry":[
 "piedisto",
@@ -2241,9 +2222,6 @@
 "lernodomo",
 "studanthejmo"
 ],
-"building/entrance":[
-"Enirejo/elirejo"
-],
 "building/farm":[
 "farmo",
 "kampara domo",
@@ -3371,11 +3349,6 @@
 "auxtosxoseo",
 "autovojo"
 ],
-"highway/motorway_junction":[
-"vojkruciĝo",
-"Elvetrejo el aŭtovojo",
-"aŭtovojo"
-],
 "highway/motorway_link":[
 "Aŭtovoja ligilo",
 "aŭtoŝoseo",
@@ -3662,11 +3635,6 @@
 "trafikinsulo",
 "ghirado u-forma"
 ],
-"highway/unclassified":[
-"Vojo kvara-ranga",
-"kvarranga",
-"kvargrada"
-],
 "historic":[
 "antikvaĵo",
 "historiejo",
@@ -3901,11 +3869,6 @@
 "Konstruejo",
 "konstruado",
 "buldozoj"
-],
-"landuse/education":[
-"lernejo",
-"universitato",
-"Tereno de edukada institucio"
 ],
 "landuse/farm":[
 "Farmejo"
@@ -4394,15 +4357,6 @@
 "retpilkadejo",
 "plagxa flugpilkado",
 "Plaĝ-flugpilkada ludkampo"
-],
-"leisure/pitch/boules":[
-"bocce",
-"petanque",
-"Globludo grunda (Boules)",
-"pétanque",
-"globludo",
-"lyonnaise",
-"grunda globludo"
 ],
 "leisure/pitch/bowls":[
 "herbejglobludo",
@@ -6785,12 +6739,6 @@
 "suĉinfano",
 "bebo"
 ],
-"shop/bag":[
-"valizoj",
-"Saka/valiza vendejo",
-"mansaketoj",
-"sakoj"
-],
 "shop/bakery":[
 "kukejo",
 "panoj",
@@ -6823,12 +6771,6 @@
 "sunumi",
 "sunbrunigado",
 "Salono de sunbrunigado"
-],
-"shop/bed":[
-"litoj",
-"Lita/matraca vendejo",
-"matracoj",
-"litkusenoj"
 ],
 "shop/beverages":[
 "trinkaĵoj",
@@ -7616,12 +7558,6 @@
 "artfajrajxoj",
 "fajraĵoj"
 ],
-"shop/radiotechnics":[
-"radioteĥniko",
-"radiotekniko",
-"Radioteĥnika/elektronik-parta vendejo",
-"elektroniko"
-],
 "shop/religion":[
 "devotaĵoj",
 "kultobjektoj",
@@ -7849,10 +7785,6 @@
 "trinkebla akvo",
 "boteligita akvo"
 ],
-"shop/water_sports":[
-"akvosportiloj",
-"Akvosport-aparata vendejo"
-],
 "shop/weapons":[
 "armea",
 "pistoloj",
@@ -8064,11 +7996,6 @@
 "tourism/information/map":[
 "mapo",
 "Mapo"
-],
-"tourism/information/office":[
-"informejo",
-"Turism-informa oficejo",
-"turisminformejo"
 ],
 "tourism/information/route_marker":[
 "vojindikilo",
@@ -8406,11 +8333,6 @@
 "tubaro",
 "naftodukto",
 "akvodukto"
-],
-"type/route/piste":[
-"skitrako",
-"Skiada kurso",
-"skivojo"
 ],
 "type/route/power":[
 "lineo",
