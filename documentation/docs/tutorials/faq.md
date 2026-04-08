@@ -87,8 +87,8 @@ Physical devices:
     8.0 Samsung S7
     9.0 Samsung Note 8 
     11.0 Samsung S5e tablet
-    15.0 Samsung S23 Ultra
-    15.0 Samsung A16
+    16.0 Samsung S23 Ultra
+    16.0 Samsung A16
     
 Emulators:
     
@@ -99,7 +99,8 @@ Emulators:
     12.0 (full test suite)
     13.0
     14.0
-    15.0 
+    15.0
+    16.0 
     
 ## Installation
 
