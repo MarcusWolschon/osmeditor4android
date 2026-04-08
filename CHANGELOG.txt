@@ -1,5 +1,30 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.0.0:
+
+- Fix refactor AbstractReviewDialog to use a RecyclerView (fixes performance issues with lots of edits)
+- Fix various inconsistencies with action modes in split window use
+- Fix refactor undo/redo to ensure selection sync
+- Fix "regression" in data styling
+- Fix allow splitting of two node ways and improve messaging
+- Fix fully support long click splitting for closed ways
+- Fix filter clicked elements in way splitting mode
+- Fix add missing setActive when constructing PresetConfiguration from the DB
+- Fix replacing the PropertyEditor more than twice caused a crash
+- Add support for exporting and importing custom headers for tile sources
+- Add support for detecting self-intersecting polygons
+- Add support the name_template extension to show display_values
+- Change prefer the external file directory for storing new resources
+- Change use a bright colour for boundary ways instead of black
+- Update JosmFilterParser and JosmTemplateParser dependencies
+- Update launcher icon update
+- Update default preset and taginfo project file
+- Update translations
+- Update imagery from ELI
+- Update tag2link
+- Update NSI
+- Update synonyms
+
 22.0.0-1:
 
 - Fix upgrade com.github.Kunzisoft:AndroidClearChroma dependency to fix unrelated views changing colour
