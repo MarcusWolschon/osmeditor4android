@@ -14,12 +14,6 @@ This is the first [OpenStreetMap][openstreetmap] editor for
 
 [Latest release from Github](https://github.com/MarcusWolschon/osmeditor4android/releases/latest)
 
-## Contributing
-
-If you're interested in this project, you're welcome to help improving it. We
-need UI designers, [translators](TRANSLATIONS.md), and of course Java programmers. 
-See the [build documentation](BUILDING.md) for more information.
-
 ## What is Vespucci?
 
 * An on- and offline editor for OpenStreetMap
@@ -55,15 +49,24 @@ Detailed documentation can be found on the [Vespucci Website](https://vespucci.i
 
 * a pure map-view or a routing-application
 
-## Getting started with contributing
+## Contributing
 
-Here is how you can start developing.
+If you're interested in this project, you're welcome to help improving it. We need UI designers, [translators](TRANSLATIONS.md), and of course Java programmers. 
 
 Currently building is supported with gradle in eclipse, android studio and naturally gradle on the command line, see [build instructions](BUILDING.md).
 
-If you are interested in adding a feature or other development work, please reach out to us before embarking on something that might be already in work or a fools errand. 
+If you are interested in adding a feature or other development work, please reach out to us before embarking on something that might be already in work or a fools errand. For trivial changes (for example typos) please feel free to directly create a pull request. Development currently happens on the _master_ branch, if you are working on a feature please _rebase_ on the HEAD of that branch to keep your code up to date and mergeable, if you have already created a pull request you can force push to github to make in reflect your local work..
 
 Important note: if you are building your own version, particularly if you are making it available to third parties, please change app_version and app_name_version in res/values/appname.xml to something that makes it clear that this is not an "official" release and clearly identifies your builds.
+
+### AI/LLM-Generated Contributions
+
+If you choose to use AI tools to help create pull requests and issues, you should follow these additional guidelines:
+
+* Make sure that a human has reviewed, tested, and fully understands all the code changes being submitted.
+* If you submit a PR and the maintainers suspect that you haven't reviewed, tested, or understood the code, they may decline your PR without further discussion.
+* If what you have submitted goes beyond template code, particularly implementations of more complex algorithms, you need to verify that the generated code is compatible with 
+the licence of this project.   
 
 ## Related projects
 
