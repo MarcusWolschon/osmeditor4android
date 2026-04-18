@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<Configuration>
+    <Section name="tilelayers" table="headers" version="0.1" truncate="false">
+        <ColumnTypes id="TEXT" name="TEXT" value="TEXT" />
+        <PrimaryKeyColumns />
+        <Row id="Test" name="userAgent" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"/>
+        <Row id="Test" name="referer" value="https://nakarte.me/" />
+    </Section>
+</Configuration>
