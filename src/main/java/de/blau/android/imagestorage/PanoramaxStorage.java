@@ -30,7 +30,6 @@ import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.contract.MimeTypes;
-import de.blau.android.contract.Urls;
 import de.blau.android.net.OAuth2Interceptor;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.AdvancedPrefDatabase.ImageStorageType;
@@ -278,7 +277,7 @@ public class PanoramaxStorage implements ImageStorage {
             protected List<ImageStorageConfiguration> doInBackground(Void nothing) throws IOException {
                 List<ImageStorageConfiguration> result = new ArrayList<>();
 
-                URL url = new URL(Urls.PANORAMAX_EXPLORE);
+                URL url = new URL(App.getPreferences(context).getPanoramaxInstancesUrl());
                 Request instancesRequest = new Request.Builder().url(url).get().build();
                 try (Response instancesResponse = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                         .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS).build().newCall(instancesRequest).execute()) {
