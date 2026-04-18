@@ -98,6 +98,7 @@ public class Preferences {
     private String            mapillaryImagesUrlV4;
     private final int         mapillaryMinZoom;
     private String            panoramaxApiUrl;
+    private String            panoramaxInstancesUrl;
     private final boolean     showCameraAction;
     private final String      cameraApp;
     private final boolean     useInternalPhotoViewer;
@@ -257,6 +258,7 @@ public class Preferences {
         mapillaryMinZoom = getIntPref(R.string.config_mapillary_min_zoom_key, AbstractImageOverlay.DEFAULT_MIN_ZOOM);
 
         panoramaxApiUrl = prefs.getString(r.getString(R.string.config_panoramaxApiUrl_key), Urls.DEFAULT_PANORAMAX_API_URL);
+        panoramaxInstancesUrl = prefs.getString(r.getString(R.string.config_panoramaxApiUrl_key), Urls.DEFAULT_PANORAMAX_INSTANCES_URL);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
         cameraApp = prefs.getString(r.getString(R.string.config_selectCameraApp_key), "");
@@ -983,6 +985,25 @@ public class Preferences {
     public void setPanoramaxApiUrl(@NonNull String url) {
         this.panoramaxApiUrl = url;
         prefs.edit().putString(r.getString(R.string.config_panoramaxApiUrl_key), url).commit();
+    }
+
+    /**
+     * Get the configured panoramax instances url
+     * 
+     * @return the API url
+     */
+    public String getPanoramaxInstancesUrl() {
+        return panoramaxInstancesUrl;
+    }
+
+    /**
+     * Set the configured panoramax instances url
+     * 
+     * @param url the API url
+     */
+    public void setPanoramaxInstancesUrl(@NonNull String url) {
+        this.panoramaxInstancesUrl = url;
+        prefs.edit().putString(r.getString(R.string.config_panoramaxInstancesUrl_key), url).commit();
     }
 
     /**
