@@ -18,6 +18,9 @@ import org.robolectric.annotation.Config;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import ch.poole.openinghoursfragment.templates.TemplateDatabaseHelper;
@@ -25,6 +28,11 @@ import de.blau.android.R;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.API.Auth;
 import de.blau.android.prefs.API.AuthParams;
+import de.blau.android.resources.TileLayerDatabase;
+import de.blau.android.resources.TileLayerSource;
+import de.blau.android.resources.TileLayerSource.Category;
+import de.blau.android.resources.TileLayerSource.Provider;
+import de.blau.android.resources.TileLayerSource.TileType;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = 33)
@@ -80,11 +88,41 @@ public class ImportExportConfigurationTest {
             }
             // this checks if the mechanism to call the database helper works if the db doesn't exist yet
             try (TemplateDatabaseHelper t = new TemplateDatabaseHelper(ctx);
-                Cursor c = t.getReadableDatabase().rawQuery("select * from templates where name='Wekdays with lunch break and late shopping'", null);) {
+                    Cursor c = t.getReadableDatabase().rawQuery("select * from templates where name='Wekdays with lunch break and late shopping'", null);) {
                 assertTrue(c.moveToFirst());
             }
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
     }
+
+    /**
+     */
+    @Test
+    public void importExportHeadersTest() {
+        final Context ctx = ApplicationProvider.getApplicationContext();
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext());
+        TileLayerSource.addOrUpdateCustomLayer(ctx, db.getWritableDatabase(), "Test", null, -1L, -1L, "Test", null, null, null, null, 0, 18, 256, true,
+                "https://proxy.nakarte.me/https/content-a.strava.com/identified/globalheat/all/hot/{z}/{x}/{y}.png?px=256");
+        try (InputStream is = loader.getResourceAsStream("headers.xml")) {
+            ImportExportConfiguration.importConfig(ctx, is);
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+        File file;
+        try {
+            file = File.createTempFile("test.headers", ".xml");
+            file.deleteOnExit();
+            try (FileOutputStream os = new FileOutputStream(file)) {
+                ImportExportConfiguration.exportConfig(ctx, os);
+            }
+            String read = new String(Files.readAllBytes(file.toPath()));
+            System.out.println(read);
+            assertTrue(read.contains("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"));
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+
 }

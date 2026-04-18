@@ -145,8 +145,7 @@ public final class ImportExportConfiguration {
             //
             sqlite(ctx, TileLayerDatabase.DATABASE_NAME, LAYERS_TABLE, " where source='" + SOURCE_MANUAL + "'", null, false, serializer);
             sqlite(ctx, TileLayerDatabase.DATABASE_NAME, HEADERS_TABLE,
-                    "," + LAYERS_TABLE + " where " + HEADERS_TABLE + ".id=" + LAYERS_TABLE + ".id AND " + LAYERS_TABLE + ".source='" + SOURCE_MANUAL + "'",
-                    null, false, serializer);
+                    " as h where exists (select 1 from " + LAYERS_TABLE + " where " + "h.id=id AND source='" + SOURCE_MANUAL + "')", null, false, serializer);
             // filter names need to be set before the entries
             sqlite(ctx, TagFilterDatabaseHelper.DATABASE_NAME, TagFilterDatabaseHelper.FILTER_NAME_TABLE, "", null, false, serializer);
             sqlite(ctx, TagFilterDatabaseHelper.DATABASE_NAME, TagFilterDatabaseHelper.FILTERENTRIES_TABLE, "", null, false, serializer);
@@ -268,6 +267,7 @@ public final class ImportExportConfiguration {
             boolean truncate, @NonNull XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
 
         try (SQLiteDatabase db = SQLiteDatabase.openDatabase(ctx.getDatabasePath(dbName).getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY, null)) {
+            Log.i(DEBUG_TAG, "Exporting " + dbName + " " + table);
             Map<String, ColumnMeta> tableMeta = getColumnTypes(db, table);
             try (Cursor cursor = db.rawQuery("select * from " + table + query, null)) {
                 boolean more = cursor.moveToFirst();
@@ -327,7 +327,8 @@ public final class ImportExportConfiguration {
      * @param cols column names
      * @throws IOException if serializing goes wrong
      */
-    private static void serializeTableMeta(XmlSerializer serializer, Map<String, ColumnMeta> tableMeta, String[] cols) throws IOException {
+    private static void serializeTableMeta(@NonNull XmlSerializer serializer, @NonNull Map<String, ColumnMeta> tableMeta, @NonNull String[] cols)
+            throws IOException {
         serializer.startTag(null, COLUMN_TYPES);
         for (int i = 0; i < cols.length; i++) {
             final String column = cols[i];
