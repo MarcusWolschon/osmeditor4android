@@ -1629,7 +1629,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param url image store API url
      * @param active use this image store
      */
-    public synchronized void addImageStore(@NonNull String id, String name, ImageStorageType type, String url, boolean active) {
+    public synchronized void addImageStore(@NonNull String id, @NonNull String name, @NonNull ImageStorageType type, @NonNull String url, boolean active) {
         SQLiteDatabase db = getWritableDatabase();
         addImageStore(db, id, name, type, url, active);
         db.close();
@@ -1646,7 +1646,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param url image store API url
      * @param active use this image store if true
      */
-    private synchronized void addImageStore(@NonNull SQLiteDatabase db, @NonNull String id, String name, ImageStorageType type, String url, boolean active) {
+    private synchronized void addImageStore(@NonNull SQLiteDatabase db, @NonNull String id, @NonNull String name, @NonNull ImageStorageType type, @NonNull String url, boolean active) {
+        Log.d(DEBUG_TAG, "Adding image store entry " + id + " " + name + " " + type + " " + url + " " + active);
         ContentValues values = new ContentValues();
         values.put(ID_COL, id);
         values.put(NAME_COL, name);
@@ -1667,7 +1668,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param active use this image store if true
      */
     public synchronized void updateImageStore(@NonNull String id, String name, ImageStorageType type, String url, boolean active) {
-        Log.d(DEBUG_TAG, "Setting geocoder " + id + " active to " + active); // NOSONAR
+        Log.d(DEBUG_TAG, "Setting imagestore " + id + " active to " + active); // NOSONAR
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(NAME_COL, name);
