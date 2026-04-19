@@ -266,11 +266,9 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
      */
     private CustomAutoCompleteTextView addEditText(final @NonNull String value, @NonNull final View.OnFocusChangeListener listener,
             @Nullable final ValueType valueType, @Nullable final ArrayAdapter<?> adapter, int position) {
-
-        CustomAutoCompleteTextView editText = (CustomAutoCompleteTextView) inflater.inflate(R.layout.form_dialog_multitext_value, valueLayout, false);
-
+        final CustomAutoCompleteTextView editText = (CustomAutoCompleteTextView) inflater.inflate(R.layout.form_dialog_multitext_value, valueLayout, false);
         final TextWatcher textWatcher = new MyTextWatcher(editText, listener, valueType, adapter);
-        Log.e(DEBUG_TAG, "addEditText " + value + " pos " + position);
+        Log.i(DEBUG_TAG, "addEditText " + value + " pos " + position);
         editText.setText(value);
         editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         InputTypeUtil.setInputTypeFromValueType(editText, valueType);
@@ -294,6 +292,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
                     return true;
                 }
             }
+            editText.showDropDown();
             return false;
         });
         editText.setOnItemClickListener((parent, view, pos, id) -> {
@@ -305,6 +304,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
                 editText.setText((String) o);
             }
             listener.onFocusChange(editText, false);
+            adapter.getFilter().filter(null); // reset filter
         });
         editText.addTextChangedListener(textWatcher);
         if (adapter != null) {
