@@ -872,15 +872,25 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     /**
      * Gets an array of PresetInfos for all active presets
      * 
+     * If none are active select the default preset
+     * 
      * @return an array of PresetInfo
      */
     @NonNull
     public PresetConfiguration[] getActivePresets() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor dbresult = db.query(PRESETS_TABLE,
-                new String[] { ID_COL, NAME_COL, VERSION_COL, SHORTDESCRIPTION_COL, DESCRIPTION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
-                "active=1", null, null, null, POSITION_COL);
-        PresetConfiguration[] result = new PresetConfiguration[dbresult.getCount()];
+        Cursor dbresult = queryActivePresets(db);
+        int count = dbresult.getCount();
+        if (count == 0) {
+            // force default preset active
+            Log.e(DEBUG_TAG, "Activating the default preset");
+            setPresetState(ID_DEFAULT, true);
+            dbresult.close();
+            db = getReadableDatabase(); // setPresetState closed the db
+            dbresult = queryActivePresets(db);
+            count = dbresult.getCount();
+        }     
+        PresetConfiguration[] result = new PresetConfiguration[count];
         dbresult.moveToFirst();
         for (int i = 0; i < result.length; i++) {
             Log.d(DEBUG_TAG, "Reading pref " + i + " " + dbresult.getString(1));
@@ -891,6 +901,20 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         dbresult.close();
         db.close();
         return result;
+    }
+
+    /**
+     * Query all active presets 
+     * 
+     * @param db the Database
+     * @return a Cursor
+     */
+    @NonNull
+    private Cursor queryActivePresets(@NonNull SQLiteDatabase db) {
+        Cursor dbresult = db.query(PRESETS_TABLE,
+                new String[] { ID_COL, NAME_COL, VERSION_COL, SHORTDESCRIPTION_COL, DESCRIPTION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
+                "active=1", null, null, null, POSITION_COL);
+        return dbresult;
     }
 
     /**
