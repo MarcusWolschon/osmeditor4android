@@ -152,11 +152,12 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
             Log.e(DEBUG_TAG, "Style configuration not found for " + item.id);
             return;
         }
-        retrieveData(this, db, item, STYLE_XML, false);
-        if (!isAddingViaIntent()) { // added a new style and enabled it: need to rebuild styles
-            manager.reset(this, true);
-        }
-        reloadItems();
+        retrieveData(this, db, item, STYLE_XML, false, () -> {
+            if (!isAddingViaIntent()) { // added a new style and enabled it: need to rebuild styles
+                manager.reset(this, true);
+            }
+            reloadItems();
+        });
     }
 
     @Override
@@ -203,9 +204,8 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
         if (MENU_RELOAD == menuItemId) {
             StyleConfiguration style = db.getStyle(clickedItem.id);
             if (style.url != null) {
-                retrieveData(this, db, clickedItem, STYLE_XML, true);
+                retrieveData(this, db, clickedItem, STYLE_XML, true, () -> manager.reset(this, true));
             }
-            manager.reset(this, true);
             return;
         }
         Log.e(DEBUG_TAG, "Unknown menu item " + menuItemId);

@@ -180,7 +180,8 @@
     <string name="progress_searching_message">Searching…</string>
     <string name="progress_saving_message">Saving…</string>
     <string name="progress_uploading_message">Uploading…</string>
-    <string name="progress_resource_message">Downloading resource…</string>
+    <string name="progress_resource_download_message">Downloading resource…</string>
+    <string name="progress_resource_load_message">Loading resource…</string>
     <string name="progress_loading_preset_message">Loading preset…</string>
     <string name="progress_importing_file_message">Importing file…</string>
     <string name="progress_running_message">Running…</string>
@@ -1677,6 +1678,7 @@
     <string name="resource_download_successful">Resource downloaded</string>
     <string name="resource_load_successful">Resource loaded</string>
     <string name="resource_download_failed">Could not download resource file. The resource will not work.</string>
+    <string name="resource_load_failed">Could not load resource file. The resource will not work.</string>
     <string name="preset_download_parse_failed">The resource file is invalid. The resource will not work.</string>
     <string name="preset_download_missing_images">Preset file downloaded. However, some missing icons were not.</string>
     <string name="resource_download_title">Resource downloader</string>

@@ -43,6 +43,7 @@ import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
@@ -767,23 +768,10 @@ public abstract class URLListEditActivity extends ListActivity
      * @param db an AdvancedPrefDatabase instance
      * @param item the item containing the resource to be downloaded
      * @param defaultFilename default name to use for imported resources
-     */
-    static void retrieveData(@NonNull URLListEditActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item,
-            String defaultFilename) {
-        retrieveData(activity, db, item, defaultFilename, true);
-    }
-
-    /**
-     * Download data (XML, icons) for a certain resource or load it from a file
-     * 
-     * @param activity a URLListEditActivity instance
-     * @param db an AdvancedPrefDatabase instance
-     * @param item the item containing the resource to be downloaded
-     * @param defaultFilename default name to use for imported resources
      * @param parseForIcons parser the XML for icons, currently only of use for presets
      */
     static void retrieveData(@NonNull URLListEditActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item, String defaultFilename,
-            boolean parseForIcons) {
+            boolean parseForIcons, @Nullable PostAsyncActionHandler handler) {
 
         final File dir = db.getResourceDirectory(item.id);
         // noinspection ResultOfMethodCallIgnored
@@ -794,18 +782,18 @@ public abstract class URLListEditActivity extends ListActivity
         new ExecutorTask<Void, Integer, Integer>() {
 
             private boolean localFile;
+            private Uri     uri;
 
             @Override
             protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_RESOURCE);
+                uri = Uri.parse(item.value);
+                final String scheme = uri.getScheme();
+                localFile = Schemes.FILE.equals(scheme) || Schemes.CONTENT.equals(scheme);
+                Progress.showDialog(activity, localFile ? Progress.PROGRESS_RESOURCE_LOAD : Progress.PROGRESS_RESOURCE_DOWNLOAD);
             }
 
             @Override
             protected Integer doInBackground(Void args) {
-                Uri uri = Uri.parse(item.value);
-                final String scheme = uri.getScheme();
-
-                localFile = Schemes.FILE.equals(scheme) || Schemes.CONTENT.equals(scheme);
                 int loadResult = localFile ? XmlConfigurationLoader.load(activity, uri, dir, defaultFilename)
                         : XmlConfigurationLoader.download(item.value, dir, defaultFilename);
 
@@ -832,23 +820,31 @@ public abstract class URLListEditActivity extends ListActivity
 
             @Override
             protected void onPostExecute(Integer result) {
-                Progress.dismissDialog(activity, Progress.PROGRESS_RESOURCE);
                 switch (result) {
                 case RESULT_TOTAL_SUCCESS:
-                    ScreenMessage.barInfo(activity, localFile ? R.string.resource_load_successful : R.string.resource_download_successful);
+                case RESULT_IMAGE_FAILURE:
+                    if (result == RESULT_IMAGE_FAILURE) {
+                        msgbox(R.string.preset_download_missing_images);
+                    } else {
+                        ScreenMessage.barInfo(activity, localFile ? R.string.resource_load_successful : R.string.resource_download_successful);
+                    }
+                    if (handler != null) {
+                        handler.onSuccess();
+                    }
                     activity.sendResultIfApplicable(item);
                     break;
                 case RESULT_TOTAL_FAILURE:
-                    msgbox(R.string.resource_download_failed);
-                    break;
-                case RESULT_IMAGE_FAILURE:
-                    msgbox(R.string.preset_download_missing_images);
+                    msgbox(localFile ? R.string.resource_load_failed : R.string.resource_download_failed);
+                    if (handler != null) {
+                        handler.onError(null);
+                    }
                     break;
                 case RESULT_DOWNLOAD_CANCELED:
                     break; // do nothing
                 default:
                     break;
                 }
+                Progress.dismissDialog(activity, localFile ? Progress.PROGRESS_RESOURCE_LOAD : Progress.PROGRESS_RESOURCE_DOWNLOAD);
             }
 
             /**

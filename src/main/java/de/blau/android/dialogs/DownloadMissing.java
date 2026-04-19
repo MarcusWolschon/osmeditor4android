@@ -165,7 +165,7 @@ public class DownloadMissing extends CancelableDialogFragment {
 
         @Override
         protected void onPreExecute() {
-            Progress.showDialog(activity, Progress.PROGRESS_RESOURCE);
+            Progress.showDialog(activity, Progress.PROGRESS_RESOURCE_DOWNLOAD);
         }
 
         @Override
@@ -219,7 +219,7 @@ public class DownloadMissing extends CancelableDialogFragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            Progress.dismissDialog(activity, Progress.PROGRESS_RESOURCE);
+            Progress.dismissDialog(activity, Progress.PROGRESS_RESOURCE_DOWNLOAD);
             ScreenMessage.toastTopInfo(activity, activity.getString(R.string.resource_download_successful));
         }
 
@@ -229,7 +229,7 @@ public class DownloadMissing extends CancelableDialogFragment {
             if (activity.isFinishing()) {
                 return;
             }
-            Progress.dismissDialog(activity, Progress.PROGRESS_RESOURCE);
+            Progress.dismissDialog(activity, Progress.PROGRESS_RESOURCE_DOWNLOAD);
             ScreenMessage.toastTopError(activity, activity.getString(R.string.download_missing_error, ex.getMessage()));
         }
     }
