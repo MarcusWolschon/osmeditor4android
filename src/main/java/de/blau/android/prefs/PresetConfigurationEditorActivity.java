@@ -131,7 +131,7 @@ public class PresetConfigurationEditorActivity extends AbstractConfigurationEdit
             item.active = getIntent().getExtras().getBoolean(EXTRA_ENABLE);
         }
         db.addPreset(item.id, item.name, item.value, item.active);
-        retrieveData(this, db, item, Preset.PRESETXML, true);
+        retrieveData(this, db, item, Preset.PRESETXML, true, null);
         if (!isAddingViaIntent() || item.active) { // added a new preset and enabled it: need to rebuild presets
             App.resetPresets();
         }
@@ -144,7 +144,7 @@ public class PresetConfigurationEditorActivity extends AbstractConfigurationEdit
         if (preset.url != null && !preset.url.equals(item.value)) {
             // url changed so better recreate everything
             db.removeResourceDirectory(item.id);
-            retrieveData(this, db, item, Preset.PRESETXML, true);
+            retrieveData(this, db, item, Preset.PRESETXML, true, null);
         }
         App.resetPresets();
     }
@@ -182,7 +182,7 @@ public class PresetConfigurationEditorActivity extends AbstractConfigurationEdit
         case MENU_RELOAD:
             PresetConfiguration preset = db.getPreset(clickedItem.id);
             if (preset.url != null) {
-                retrieveData(this, db, clickedItem, Preset.PRESETXML, true);
+                retrieveData(this, db, clickedItem, Preset.PRESETXML, true, null);
             }
             App.resetPresets();
             break;
@@ -224,7 +224,7 @@ public class PresetConfigurationEditorActivity extends AbstractConfigurationEdit
      * @param item the item containing the preset to be downloaded
      */
     static void retrieveData(@NonNull URLListEditActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item) {
-        retrieveData(activity, db, item, Preset.PRESETXML, true);
+        retrieveData(activity, db, item, Preset.PRESETXML, true, null);
     }
 
     @Override

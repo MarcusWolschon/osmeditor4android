@@ -76,9 +76,13 @@ public final class ProgressDialog {
             titleId = R.string.progress_general_title;
             messageId = R.string.progress_uploading_message;
             break;
-        case Progress.PROGRESS_RESOURCE:
+        case Progress.PROGRESS_RESOURCE_LOAD:
             titleId = R.string.progress_general_title;
-            messageId = R.string.progress_resource_message;
+            messageId = R.string.progress_resource_load_message;
+            break;
+        case Progress.PROGRESS_RESOURCE_DOWNLOAD:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_resource_download_message;
             break;
         case Progress.PROGRESS_RUNNING:
             titleId = R.string.progress_general_title;
