@@ -911,10 +911,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      */
     @NonNull
     private Cursor queryActivePresets(@NonNull SQLiteDatabase db) {
-        Cursor dbresult = db.query(PRESETS_TABLE,
+        return db.query(PRESETS_TABLE,
                 new String[] { ID_COL, NAME_COL, VERSION_COL, SHORTDESCRIPTION_COL, DESCRIPTION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
                 "active=1", null, null, null, POSITION_COL);
-        return dbresult;
     }
 
     /**
