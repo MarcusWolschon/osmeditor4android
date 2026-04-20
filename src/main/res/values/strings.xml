@@ -51,6 +51,7 @@
     <string name="local_reference_inconsistency">Local reference inconsistency, undeleting the referenced element is the safe option, but please report this as a bug.</string>
     <string name="delete_locally">Delete\nlocally</string>
     <string name="undelete_on_server">Undelete\non server</string>
+    <string name="error_running_action">Action %1$s errored with %2$s</string>
     <!-- Upload retry -->
     <string name="upload_retry_title">Upload failed</string>
     <string name="upload_retry_message_no_open_changeset">Opening changeset failed.\n\nIt is safe to retry.</string>
