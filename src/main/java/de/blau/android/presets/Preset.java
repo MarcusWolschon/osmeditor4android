@@ -1609,7 +1609,7 @@ public class Preset implements Serializable {
         outputStream.println("\"project_url\":\"https://github.com/MarcusWolschon/osmeditor4android\",");
         outputStream.println("\"doc_url\":\"http://vespucci.io/\",");
         outputStream
-                .println("\"icon_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/src/main/res/drawable/vespucci_logo.png\",");
+                .println("\"icon_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/documentation/docs/vespucci_logo_small.png\",");
         outputStream.println("\"contact_name\":\"Simon Poole\",");
         outputStream.println("\"contact_email\":\"info@vespucci.io\",");
         outputStream.println("\"keywords\":[");
