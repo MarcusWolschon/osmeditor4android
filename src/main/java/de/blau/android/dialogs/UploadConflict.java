@@ -393,7 +393,7 @@ public class UploadConflict extends CancelableDialogFragment {
                     Entry<String, Runnable> action = resolveActions.entrySet().iterator().next();
                     neutral.setText(action.getKey());
                     neutral.setOnClickListener((View v) -> {
-                        action.getValue().run();
+                        runAction(activity, action);
                         dialog.dismiss();
                     });
                     return;
@@ -404,7 +404,7 @@ public class UploadConflict extends CancelableDialogFragment {
                     for (Entry<String, Runnable> action : resolveActions.entrySet()) {
                         MenuItem item = popup.getMenu().add(action.getKey());
                         item.setOnMenuItemClickListener(unused -> {
-                            action.getValue().run();
+                            runAction(activity, action);
                             dialog.dismiss();
                             return false;
                         });
@@ -421,6 +421,24 @@ public class UploadConflict extends CancelableDialogFragment {
         }
 
         return builder.create();
+    }
+
+    /**
+     * Run the clicked action, catching and reporting any exceptions
+     * 
+     * @param activity the parent activity
+     * @param action the action
+     */
+    private void runAction(@Nullable FragmentActivity activity, @NonNull final Entry<String, Runnable> action) {
+        try {
+            action.getValue().run();
+        } catch (Exception e) {
+            final String key = action.getKey();
+            Log.e(DEBUG_TAG, "Caught exception running action " + key + " " + e);
+            if (activity != null) {
+                ScreenMessage.toastTopError(activity, activity.getString(R.string.error_running_action, key, e.getLocalizedMessage()));
+            }
+        }
     }
 
     /**
