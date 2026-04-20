@@ -71,6 +71,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/cancel"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="fill_parent"
                 android:layout_height="48dp"
                 android:layout_weight="1"
@@ -78,6 +79,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/save"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="fill_parent"
                 android:layout_height="48dp"
                 android:layout_weight="1"
