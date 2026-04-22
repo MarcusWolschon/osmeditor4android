@@ -165,7 +165,7 @@
   <string name="progress_searching_message">Пошук…</string>
   <string name="progress_saving_message">Збереження…</string>
   <string name="progress_uploading_message">Надсилання…</string>
-  <string name="progress_resource_message">Завантаження ресурсу…</string>
+  <string name="progress_resource_download_message">Завантаження ресурсу…</string>
   <string name="progress_loading_preset_message">Завантаження заготовки…</string>
   <string name="progress_importing_file_message">Імпортується файл…</string>
   <string name="progress_running_message">Запуск…</string>

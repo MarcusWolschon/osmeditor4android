@@ -27,10 +27,12 @@
   <string name="upload_conflict_message_missing_references">本地元素引用了服务器上已删除的对象</string>
   <string name="upload_conflict_message_unknown">%1$s \n 导致了未知的上传冲突 \n%2$s</string>
   <string name="upload_conflict_message_changeset_closed">变更集意外关闭了，正在重试</string>
+  <string name="upload_conflict_message_local_reference_inconsistency">本地引用不一致</string>
   <string name="server_side_object">服务器版本</string>
   <string name="local_object">本地版本</string>
   <string name="resolve_by">通过…解决冲突</string>
   <string name="resolve">解决</string>
+  <string name="delete_refering_element">…通过删除引用元素</string>
   <string name="use_local_version">…通过使用本地版本解决</string>
   <string name="merge_tags_in_to_local">…将标签合并到本地版本</string>
   <string name="merge_tags_in_to_server">…将标签合并到服务器版本</string>
@@ -43,6 +45,7 @@
   <string name="unexpected_conflict_type">冲突类型异常 </string>
   <string name="missing_referenced_elements">引用的元素缺失</string>
   <string name="still_in_use_by_elements">仍被其他元素使用</string>
+  <string name="local_reference_inconsistency">本地引用不一致，恢复被引用元素是安全选项，但请将此作为错误报告。</string>
   <string name="delete_locally">本地\n删除</string>
   <string name="undelete_on_server">在服务器上\n取消删除</string>
   <!--Upload retry-->
@@ -51,6 +54,8 @@
   <string name="upload_retry_message_unexpected_error">尝试确定变更集%1$d状态时发生意外错误。</string>
   <string name="upload_retry_message_no_changeset_status">无法确定变更集%1$d状态。\n\n建议将更改保存为OCS文件，待网络改善后处理。</string>
   <string name="upload_retry_message_nothing_uploaded">变更集%1$d中无任何更改上传。\n\n可安全重试。</string>
+  <string name="upload_retry_message_all_uploaded">更改已成功上传至变更集%1$d ，但未收到结果。\n\n不过似乎所有更改都已上传，因此您可以安全地丢弃本地更改并重新下载。</string>
+  <string name="upload_retry_message_partial_upload">更改已成功上传至变更集%1$d ，但未收到结果。</string>
   <string name="upload_retry_message_update_failed_title">更新失败</string>
   <string name="upload_retry_message_update_failed">无法更新数据。建议将更改保存至文件供后续使用。</string>
   <string name="redownload">重新下载（不可撤销）</string>
@@ -103,6 +108,8 @@
   <string name="download_limit_message">请稍候再尝试下载更多数据。</string>
   <string name="upload_limit_title">达到上传限制</string>
   <string name="upload_limit_message">你已经用尽当前上传量，请稍后再试</string>
+  <string name="upload_unavailable_title">服务不可用</string>
+  <string name="upload_unavailable_message">该服务可能暂时不可用，请稍后再试。</string>
   <string name="duplicate_tag_key_title">重复的键</string>
   <string name="duplicate_tag_key_message">您添加了下面的相同键，需要解决后才能继续：</string>
   <string name="autodownload_has_been_paused">自动下载已暂停</string>
@@ -169,6 +176,7 @@
   <string name="progress_searching_message">正在搜索…</string>
   <string name="progress_saving_message">正在保存…</string>
   <string name="progress_uploading_message">正在上传…</string>
+  <string name="progress_resource_download_message">正在下载资源…</string>
   <string name="progress_loading_preset_message">正在加载预设…</string>
   <string name="progress_importing_file_message">导入文件...</string>
   <string name="progress_running_message">正在运行…</string>
@@ -179,6 +187,7 @@
   <string name="progress_migration">正在迁移…</string>
   <string name="progress_determining_status_message">正在确定状态…</string>
   <string name="progress_updating_message">正在更新…</string>
+  <string name="progress_validation_title">正在验证</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" 已删除</string>
   <string name="changes_changed">\"%1$s\" 已修改</string>
@@ -196,6 +205,7 @@
   <string name="upload_validation_error_empty_comment">注释不应留空</string>
   <string name="upload_validation_error_empty_source">来源不应留空</string>
   <string name="upload_empty_comment_warning_label">注释为空时警告</string>
+  <string name="confirm_upload_custom_tags_page">自定义标签</string>
   <string name="upload_auto_summary">自动生成的摘要</string>
   <string name="untagged_node">未添加标签的节点</string>
   <string name="untagged_way">未添加标签的路径</string>
@@ -207,6 +217,7 @@
   <!--Review changes dialog-->
   <string name="review_changes_title">检查变更</string>
   <string name="review_upload_selected">上传选中的项</string>
+  <string name="review_update">更新</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">上传 GPX 轨迹</string>
   <string name="upload_gpx_description_label">说明</string>
@@ -269,6 +280,7 @@
   <string name="toast_no_todos_in_list">选择清单中没有待办事项</string>
   <string name="save_changes_title">保存更改？</string>
   <!--System created todo lists-->
+  <string name="replace_geometry_todo_list">替换几何问题</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">小心！</string>
   <string name="unsaved_data_message">您有未保存的变更，如果继续将被丢弃。</string>
@@ -390,8 +402,12 @@
   <string name="even">偶数</string>
   <string name="odd">奇数</string>
   <string name="other">其它</string>
+  <string name="validation_start_is_empty">您必须为第一个门牌号提供值！</string>
+  <string name="validation_end_is_empty">您必须为最后一个门牌号提供值！</string>
+  <string name="validation_other_is_empty">如果选择了“其他”，您必须提供一个值！</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">丢失关系成员</string>
+  <string name="split_safe_message">附近关系的成员路径未被下载。维护关系成员的顺序可能依赖这些路径。</string>
   <!--JS console dialog-->
   <string name="evaluate">评估</string>
   <string name="js_console_msg_live">Live 模式！</string>
@@ -409,6 +425,15 @@
   <string name="merge_result">合并结果</string>
   <string name="overpass_query_would_overwrite">结果将覆盖更改！查询已中止</string>
   <!--Download missing dialog-->
+  <string name="download_missing_title">下载缺失的预设与样式</string>
+  <string name="download_missing_message">您的系统已配置了%1$s和%2$s，但尚未下载。</string>
+  <plurals name="download_missing_presets">
+    <item quantity="other">%1$d预设</item>
+  </plurals>
+  <plurals name="download_missing_styles">
+    <item quantity="other">%1$d样式</item>
+  </plurals>
+  <string name="download_missing_error">下载错误%1$s</string>
   <!---->
   <string name="error">错误</string>
   <string name="warning">警告</string>
@@ -443,6 +468,8 @@
   <string name="safe_mode_dialog_title">安全模式选项</string>
   <string name="safe_style_label">将数据样式设为最小化</string>
   <string name="safe_layer_label">禁用所有图层</string>
+  <string name="safe_editing_state_label">移除选择与界面状态</string>
+  <string name="safe_state_label">移除已保存的数据状态</string>
   <string name="safe_delete_state_title">删除已保存的数据状态？</string>
   <string name="safe_delete_state_text">是（不可撤销）</string>
   <!--Empty relation dialog-->
@@ -544,6 +571,7 @@
   <string name="errors">错误</string>
   <string name="layer_info_layer_not_available">图层信息不可用</string>
   <string name="layer_info_no_meta_data">没有加载元数据</string>
+  <string name="layer_info_custom_headers">自定义头部</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
   <!--Date range dialog-->
@@ -554,6 +582,7 @@
   <string name="photo_viewer_goto">前往照片</string>
   <string name="photo_viewer_label">图片浏览器</string>
   <string name="mapillary_viewer_label">Mapillary 浏览器</string>
+  <string name="photo_viewer_upload">上传…</string>
   <!--API info dialog-->
   <string name="api_info_bounds">边界框</string>
   <string name="api_info_latest_date">最后包含的日期</string>
@@ -610,6 +639,7 @@
   <string name="tip_longpress_simple_mode">在简单模式下长按什么事都不会发生。在菜单中关闭简单模式可以使用长按创建对象。</string>
   <string name="tip_gpx_no_elevation">从版本 15 开始，GPX 轨迹默认不再包含高程信息。&lt;p&gt;要启用高程信息记录，请在菜单中使用 &lt;i&gt;安装 EGM&lt;/i&gt; 安装 Geoid 模型，或切换为 NMEA 输入。</string>
   <string name="tip_tag_conflict">合并和反转 OSM 要素有时候需要改变要素的属性，如果变动时出现错误或冲突，您可以手动检查有问题的对象。</string>
+  <string name="tip_replace_geometry">替换路径的几何形状通常需要移动现有节点的位置，如果这些节点带有标签（即它们自身表示对象）或连接到其他路径，这可能是不可取的。&lt;p&gt;避免此问题，我们提取出不在父路径小容差半径内的节点并显示警告。您可以在高级偏好设置中调整容差（默认1米）。</string>
   <string name="tip_gpx_recording">当开始 GPX 轨迹记录时，Vespucci 会在后台收集位置信息来记录 GPX。&lt;p&gt;在这种情况下，彻底关闭应用或关闭 GPX 记录将停止使用位置数据。</string>
   <string name="tip_auto_download">当开始自动下载 OSM 数据或任务时，Vespucci 会在后台收集位置信息以确定当前位置。&lt;p&gt;在这种情况下，彻底关闭应用或关闭自动下载功能将停止使用位置数据。</string>
   <string name="tip_tristate_checkbox">您刚刚点击了一个三态复选框，它们和普通复选框类似，点击可以在两个值之间切换，例如 是/否。&lt;p&gt;不过它们有第三个附加的&lt;b&gt;未设定&lt;/b&gt;状态，由灰色框表示，该复选框将阻止添加相应的标记。长按可将复选框设定为这种状态。</string>
@@ -617,11 +647,14 @@
   <string name="tip_mode_switching">锁定按钮也是模式切换按钮，长按锁定按钮会显示出菜单。&lt;p&gt;你可以在帮助系统中找到有关 Vespucci 的模式的更多信息，帮助系统里还有软件介绍和主地图显示的帮助。</string>
   <string name="tip_empty_gpx_download">由于 OSM  API 的一个屎山，需要在视图里看到 GPX 轨迹的起点，才能下载。</string>
   <string name="tip_no_redo">此模式当前不支持重做节点添加操作</string>
+  <string name="tip_way_splitting">触摸高亮节点以确定拆分位置。长按可在下一步中选择新路径使用哪一部分。&lt;p&gt;如果方便的位置上没有现有节点，您可以长按路径上的位置添加节点并在此处拆分。使用此方法时将无法选择线段。</string>
   <string name="tip_closed_way_splitting">闭合路径需在两点分割。触摸高亮节点确定第一分割位置，下一步将要求选择第二位置</string>
   <string name="tip_disambiguation_menu">当多个OSM元素或其他对象极为接近，或元素是关系成员时，将显示消歧菜单。您可从列表中选择特定元素。&lt;p&gt;若元素当前已被选中，则会高亮显示</string>
   <string name="tip_file_import">在运行Android 10或更高版本的设备上，需复制文件以实现完全访问。副本位于&lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;。必要时可删除原始文件仅保留副本</string>
   <string name="tip_wms_tile_size">WMS服务器可支持大于256x256的瓦片尺寸，建议使用512x512以实现更高效配置</string>
   <string name="tip_empty_comment_warning">Vespucci总会自动添加您上传内容的摘要。&lt;p&gt;您仍应补充编辑原因说明，以便为其他制图者提供更多背景信息</string>
+  <string name="tip_wikimedia_filename">始终使用具有描述性且唯一的文件名，尤其不要使用相机生成的文件名，否则维基媒体将拒绝上传。</string>
+  <string name="tip_address_interpolation">此工具用于在“地址”模式下添加地址插值。如果要添加其他物件，请切换到“普通”模式并使用“添加路径”工具。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -657,6 +690,7 @@
   <string name="toast_save_failed">无法保存</string>
   <string name="toast_export_failed">无法导出</string>
   <string name="toast_export_success">已导出到 %1$s</string>
+  <string name="toast_upload_to_success">已成功上传至%1$s</string>
   <plurals name="toast_preset_removed_or_replaced_tags">
     <item quantity="other">已覆写或移除 %1$d 条标签</item>
   </plurals>
@@ -675,6 +709,11 @@
   <string name="toast_download_failed">下载失败，错误代码是%1$d，信息为%2$s</string>
   <string name="toast_note_reopened">笔记已重新开放</string>
   <string name="toast_untrusted_certificate">不受信任的证书\n%1$s</string>
+  <string name="toast_element_may_have_been_moved">元素可能已被移动</string>
+  <string name="toast_configuration_export_failed">配置导出失败\n\n%1$s</string>
+  <string name="toast_configuration_import_failed">配置导入失败\n\n%1$s</string>
+  <string name="toast_configuration_export_success">配置导出成功！</string>
+  <string name="toast_configuration_import_success">配置导入成功！</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">未调查的道路</string>
   <string name="toast_noname">道路缺少名称或编号</string>
@@ -713,8 +752,13 @@
   <string name="toast_no_suitable_storage">系统未返回瓦片数据库的合适位置。</string>
   <string name="toast_min_one_preset">必须至少选择一个预设！</string>
   <string name="toast_min_one_geocoder">至少选择一个 geocoder！</string>
+  <string name="toast_min_one_style">必须选择一个样式！</string>
   <string name="toast_used_backup">已损坏的状态文件，请使用备份文件替代。</string>
   <string name="toast_used_bug_backup">已损坏的bug状态文件，请使用备份文件替代。</string>
+  <string name="toast_split_from">拆分“起点”路径</string>
+  <string name="toast_split_via">拆分“途经”路径</string>
+  <string name="toast_split_from_and_via">拆分“起点”和“途经”路径</string>
+  <string name="toast_split_to">拆分“终点”路径</string>
   <string name="toast_tile_database_issue_short">瓦片数据库问题</string>
   <string name="toast_tile_database_issue">瓦片数据库的严重问题\n\"%1$s\"\n请访问我们在 https://vespucci.io/ 的 FAQ。</string>
   <string name="toast_tile_source_issue">瓦片来源有重大问题，已暂时禁用\n\"%1$s\"</string>
@@ -723,6 +767,7 @@
   <string name="toast_invalid_apiurl">无效的 API 链接</string>
   <string name="toast_invalid_readonlyurl">无效的只读 API 链接</string>
   <string name="toast_invalid_notesurl">无效的注解 API 链接</string>
+  <string name="toast_invalid_url">无效的URL</string>
   <string name="toast_missing_preset_file">缺少预设文件 \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">无效的正则表达式， key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">无法读取照片 %1$s</string>
@@ -744,6 +789,7 @@
   <string name="toast_null_island">请不要在 0°/0° 添加要素(Null Island)</string>
   <string name="toast_string_too_long">字符串过长（%1$d 字符）被截断了！</string>
   <string name="toast_illegal_operation">非法操作：%1$s</string>
+  <string name="toast_all_way_nodes_download">所有路径节点必须位于已下载区域内</string>
   <string name="toast_preset_creation_failed">无法创建预设 \"%1$s\": %2$s</string>
   <string name="toast_imperial_units">缺失的英制单位</string>
   <string name="toast_server_connection_failed">无法连接至服务器：%1$s</string>
@@ -838,6 +884,9 @@
   <string name="toast_panoramax_sequence_error">无法获取Panoramax序列id %1$s id %2$s</string>
   <string name="toast_panoramax_image_not_in_sequence_error">序列中未找到图像ID%1$s</string>
   <string name="toast_panoramax_sequence_exception">无法获取Panoramax序列\n%1$s</string>
+  <string name="toast_panoramax_instance_list_error">无法获取Panoramax实例列表\n%1$s</string>
+  <string name="toast_authorisation_successful">授权成功！</string>
+  <string name="toast_authorisation_failed">授权失败\n%1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 源必须有最小和最大缩放设置</string>
   <string name="error_pbf_no_version">PBF 文件缺少版本信息</string>
@@ -937,6 +986,7 @@
   <string name="menu_top">顶部</string>
   <string name="menu_select_all">选择全部</string>
   <string name="menu_deselect_all">取消选择全部</string>
+  <string name="menu_invert_selection">反选</string>
   <string name="menu_preset_help">预设帮助</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i18n">添加语言变体</string>
@@ -1006,10 +1056,12 @@
   <string name="no_nominatim_result">Nominatim 服务器未找到 %1$s</string>
   <!--Menu-->
   <string name="menu_move">移动</string>
+  <string name="menu_edit">编辑…</string>
   <string name="menu_add">新建</string>
   <string name="menu_config">偏好设置</string>
   <string name="menu_find">查找</string>
   <string name="menu_help">帮助</string>
+  <string name="menu_view">查看…</string>
   <string name="menu_erase">擦除节点</string>
   <string name="menu_set_position">位置</string>
   <string name="menu_split">分割</string>
@@ -1125,6 +1177,8 @@
   <string name="menu_tools_remove_egm">移除 EGM</string>
   <string name="menu_tools_import_data_style">导入数据样式...</string>
   <string name="menu_tools_load_keys">从文件载入关键字</string>
+  <string name="menu_tools_export_configuration">导出配置…</string>
+  <string name="menu_tools_import_configuration">导入配置…</string>
   <!---->
   <string name="menu_modes">模式…</string>
   <string name="menu_simple_actions">简单模式</string>
@@ -1167,10 +1221,17 @@
   <string name="menu_tools_background_contrast">对比度</string>
   <string name="menu_tools_oauth_reset">重置授权</string>
   <string name="menu_tools_oauth_authorisation">使用OAuth授权…</string>
+  <string name="menu_authorize">授权…</string>
   <string name="menu_enable_tagfilter">标签筛选器</string>
   <string name="menu_enable_presetfilter">预设筛选器</string>
   <string name="preset_menu_waynodes">包括路径节点</string>
   <string name="preset_menu_invert">反选过滤</string>
+  <string name="tag_filter_title">筛选：%1$s</string>
+  <string name="tag_filter_load">加载…</string>
+  <string name="tag_filter_new">新建…</string>
+  <string name="tag_filter_name">筛选器名称</string>
+  <string name="tag_filter_clear_confirmation">确定要清空筛选器项目吗？</string>
+  <string name="tag_filter_delete_confirmation">确定要删除筛选器吗？</string>
   <!--element action mode menu-->
   <string name="menu_tags">属性</string>
   <!--ELement entry in context menu-->
@@ -1187,6 +1248,8 @@
   <string name="menu_reverse">反转</string>
   <string name="notreversable_description">这条路径不可反转，因为标记了方向相关的属性。反转它会破坏标签。</string>
   <string name="reverse_anyway">仍要反转</string>
+  <string name="menu_add_new_image">添加新图像…</string>
+  <string name="menu_add_existing_image">添加已有图像…</string>
   <string name="deleteway_description">您即将删除一条路径。\n\n您可以保留所有节点，或者删除只属于这条路径且没有任何标签的节点。</string>
   <string name="deleteway_relation_description">您即将删除属于一个或多个关系的路径。移除路径可能导致关系失效。</string>
   <string name="deleteway_nodesnotdownloaded_description">这条路径包含位于下载区域之外的节点，无法在确保一致性的情况下删除。\n\n请下载相关区域并重试。</string>
@@ -1218,7 +1281,10 @@
   <string name="actionmode_split_closed_way">分割封闭路径</string>
   <string name="actionmode_rotate">旋转</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">选择第一个节点或长按</string>
   <string name="actionmode_closed_way_split_2">选择第2个节点</string>
+  <string name="actionmode_closed_way_split_long_click_2">选择第二个节点或长按</string>
+  <string name="actionmode_split_way_node_selection">选择节点或长按</string>
   <string name="actionmode_split_way_select_part">选择用于新路径的部分</string>
   <string name="actionmode_select_node_to_append_to">选择要追加到的节点</string>
   <string name="actionmode_restriction">添加转向限制</string>
@@ -1287,6 +1353,7 @@
   <string name="config_presetbutton_summary">添加并启用 JSOM 兼容的预设</string>
   <string name="config_built_in_preset">内置预设</string>
   <string name="config_keyboard_shortcuts_title">键盘快捷键</string>
+  <string name="config_keyboard_shortcuts_summary">更改键盘快捷键映射</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">验证器设置</string>
   <string name="config_validatorprefs_summary">配置验证规则。</string>
@@ -1323,6 +1390,8 @@
   <string name="config_showTolerance_summary">显示要素可被选中的区域。</string>
   <string name="config_use_back_for_undo_title">使用 ← 键撤销</string>
   <string name="config_use_back_for_undo_summary">使用 ← 键在主编辑视图中撤销。</string>
+  <string name="config_imageLicence_title">图像许可证</string>
+  <string name="config_imageLicence_summary">上传图像时使用的许可证</string>
   <string name="config_theme_title">主题</string>
   <string name="config_theme_summary">选择应用样式</string>
   <string name="config_splitActionBarEnabled_title">启用拆分工具栏</string>
@@ -1371,6 +1440,7 @@
   <string name="config_poi_keys_title">附近兴趣点显示</string>
   <string name="config_poi_keys_summary">设置用于附近兴趣点显示的键值</string>
   <!--Camera and image settings-->
+  <string name="config_category_camera_and_images">相机与图像设置</string>
   <string name="config_showCameraAction_title">显示相机操作</string>
   <string name="config_showCameraAction_summary">在工具栏显示相机图标。</string>
   <string name="config_selectCameraApp_title">相机应用</string>
@@ -1383,7 +1453,10 @@
   <string name="config_useInternalPhotoViewer_summary">使用内置图片浏览器，如果没有勾选则使用外部图片浏览器。</string>
   <string name="config_indexMediaStore_summary">额外地，使用媒体存储（Android 11 API）来访问照片</string>
   <string name="config_indexMediaStore_title">使用媒体存储（Android 11 API）</string>
+  <string name="config_addToMediaStore_summary">将使用相机按钮拍摄的图像添加到MediaStore。</string>
   <string name="config_addToMediaStore_title">将图像添加到MediaStore</string>
+  <string name="config_imageStores_summary">配置可用于存储图像的目标位置。</string>
+  <string name="config_imageStores_title">图像存储</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">数据和编辑设置</string>
   <string name="config_category_editing_summary">自动下载，保存和通知设置。</string>
@@ -1438,8 +1511,14 @@
   <string name="config_replaceTolerance_title">标记节点最大移动距离</string>
   <string name="config_replaceTolerance_summary">替换路径几何形状时标记节点的最大移动距离</string>
   <string name="config_replaceTolerance_current">%1$d 米</string>
+  <string name="config_minMoveWayNodesWarning_title">触发移动警告的最小路径节点数</string>
+  <string name="config_minMoveWayNodesWarning_summary">路径需要拥有的最小节点数，以触发“路径已移动”警告。</string>
   <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_title">触发可见节点移动警告的最小路径节点数</string>
+  <string name="config_minMoveVisibleWayNodesWarning_summary">路径需要拥有的最小节点数，以触发可见节点检查及可能的警告。</string>
   <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
+  <string name="config_ignoreSubareas_summary">在消歧弹窗中不显示子区域的父级关系。</string>
+  <string name="config_ignoreSubareas_title">忽略子区域</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自动下载设置</string>
   <string name="config_category_auto_download_summary">数据和任务的自动下载设置</string>
@@ -1557,6 +1636,10 @@
   <string name="config_voiceCommandsEnabled_summary">启用语音控制支持，</string>
   <string name="config_splitWindowForPropertyEditor_summary">如果可用，在单独的窗口中启用属性编辑器界面。</string>
   <string name="config_splitWindowForPropertyEditor_title">允许属性编辑器在分屏中显示</string>
+  <string name="config_splitWindowForReview_summary">如果可用，启用在新窗口中显示复核屏幕。</string>
+  <string name="config_splitWindowForReview_title">启用分窗口复核屏幕</string>
+  <string name="config_tabLayout_summary">始终使用属性编辑器的标签页布局。这主要适用于以桌面模式运行的设备（否则会使用窗格布局）。</string>
+  <string name="config_tabLayout_title">强制使用属性编辑器标签页布局</string>
   <string name="config_newTaskForPropertyEditor_summary">启动属性编辑器时设置FLAG_ACTIVITY_NEW_TASK，可改善某些启动器恢复应用时的行为</string>
   <string name="config_newTaskForPropertyEditor_title">为属性编辑器启用\"新任务\"模式</string>
   <!---->
@@ -1572,16 +1655,36 @@
   <string name="manage_geocoders">管理 geocoders</string>
   <string name="listedit_supports_compressed_uploads">支持压缩上传</string>
   <string name="geocoder_type">Geocoder 类型</string>
+  <string name="manage_image_stores">管理图像存储</string>
+  <string name="imagestore_type">图像存储类型</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新预设</string>
+  <string name="resource_download_successful">资源已下载</string>
+  <string name="resource_load_successful">资源已加载</string>
+  <string name="resource_download_failed">无法下载资源文件，该资源将无法使用。</string>
+  <string name="preset_download_parse_failed">资源文件无效，该资源将无法使用。</string>
   <string name="preset_download_missing_images">预设文件已下载，然而缺失的图标还未下载。</string>
+  <string name="resource_download_title">资源下载器</string>
   <!--preset management-->
+  <string name="preset_management_delete">确定删除预设吗？</string>
   <!--style downloader messages-->
+  <string name="style_update">更新样式</string>
   <!--style management-->
+  <string name="manage_styles">管理样式</string>
+  <string name="style_management_delete">确定删除样式吗？</string>
   <!--Image storage management-->
+  <string name="imagestores_add_from_panoramax_list">从Panoramax实例列表添加…</string>
+  <string name="imagestores_add_manually">手动添加…</string>
   <!--url handler activity-->
+  <string name="urldialog_add_preset">添加预设…</string>
+  <string name="urldialog_resource_exists">该资源已存在</string>
+  <string name="urldialog_resource_download_successful">资源已下载。</string>
   <string name="urldialog_api_exists">使用此 URL 的 API 已存在。不过，您可以增加另一个（例如方便地切换账号）。</string>
+  <string name="urldialog_add_api">添加API…</string>
   <string name="urldialog_nodata_text">配置的 URL 没有有效数据。</string>
+  <string name="urldialog_add_geocoder">添加地理编码器…</string>
+  <string name="urldialog_add_image_store">添加图像存储…</string>
+  <string name="urldialog_add_style">添加样式…</string>
   <!--API configuration-->
   <string name="api_name">API 名称</string>
   <string name="api_url">API URL</string>
@@ -1590,10 +1693,19 @@
   <string name="copy_of">%1$s 的副本</string>
   <string name="choose_oauth_config">选择OAuth配置</string>
   <!--image upload dialog-->
+  <string name="image_upload_title">选择上传目标</string>
   <string name="image_upload">上传</string>
+  <string name="image_upload_and_remove">上传并移除</string>
+  <string name="image_upload_not_authorized">上传失败，因为未获得目标存储的授权</string>
+  <string name="image_upload_failed_due_to">上传失败，代码%1$d%2$s（针对%3$s）</string>
+  <string name="image_upload_failed">上传失败%1$s</string>
+  <string name="image_upload_failed_duplicate_image">图像已成功上传。</string>
+  <string name="wikimedia_meta_title">维基媒体元数据</string>
+  <string name="wikimedia_meta_filename">文件名</string>
   <string name="wikimedia_meta_description">描述</string>
   <string name="wikimedia_meta_source">来源</string>
   <string name="wikimedia_meta_author">作者</string>
+  <string name="wikimedia_meta_licence">许可证</string>
   <string name="wikimedia_meta_category">类别</string>
   <!--common terms-->
   <string name="add">添加</string>
@@ -1611,6 +1723,7 @@
   <string name="empty_list">无条目</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">预设</string>
+  <string name="style">样式</string>
   <string name="api">API</string>
   <string name="undo">撤销</string>
   <string name="redo">重做</string>
@@ -1620,6 +1733,7 @@
   <string name="tracking_active_text">记录 GPS 轨迹或自动下载</string>
   <string name="tracking_long_text">Vespucci 正在记录 GPX 轨迹或自动下载。想要完全退出的话，请点击下方按钮或在应用内按返回键。</string>
   <string name="gps_failure">启用 GPS 失败</string>
+  <string name="gps_service_start_failure">启动GPS服务失败，请重试。\n\n错误：%1$s</string>
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>
   <string name="address_housenumber_street">地址 %1$s %2$s</string>
@@ -1710,6 +1824,7 @@
   <string name="issue_tags_reversed">标签已回退</string>
   <string name="issue_role_reversed">角色已回退</string>
   <string name="issue_oneway_direction_reversed">单行道方向已反转</string>
+  <string name="issue_oneway_reversing_not_supported">不支持的oneway标签</string>
   <string name="issue_role_conflict">角色冲突</string>
   <string name="issue_merged_tags">标签合并</string>
   <string name="issue_same_object">相同的对象</string>
@@ -1718,6 +1833,7 @@
   <string name="issue_split_route_ordering">路线可能需要手动调整顺序</string>
   <string name="issue_split_area">区域已分割，可能需要转为多重多边形</string>
   <string name="issue_precondition_relation_member_count">超出关系成员数量</string>
+  <string name="issue_replace_extracted_node">从路径中提取的节点</string>
   <string name="issue_replace_member_element_replaced">成员元素已替换</string>
   <!--time and distance-->
   <plurals name="days">
@@ -1781,6 +1897,15 @@
   <string name="tile_no_network">没有网络</string>
   <string name="tile_unknown_error">未知错误</string>
   <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcuts_empty">没有可用的快捷键</string>
+  <string name="keyboard_shortcut_modifier">修饰键</string>
+  <string name="keyboard_shortcut_key">按键字符</string>
   <string name="keyboard_shortcut_save">保存</string>
   <string name="keyboard_shortcut_reset">重置</string>
+  <string name="keyboard_shortcut_saved">快捷键已保存</string>
+  <string name="keyboard_shortcut_save_error">保存快捷键出错</string>
+  <string name="keyboard_shortcuts_reset_all">全部重置为默认值</string>
+  <string name="keyboard_shortcuts_reset_title">重置快捷键</string>
+  <string name="keyboard_shortcut_key_required">按键字符为必填项</string>
+  <string name="keyboard_shortcut_duplicate">快捷键重复</string>
 </resources>

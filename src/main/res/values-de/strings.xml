@@ -168,7 +168,8 @@
   <string name="progress_searching_message">Suchen…</string>
   <string name="progress_saving_message">Speichern…</string>
   <string name="progress_uploading_message">Hochladen…</string>
-  <string name="progress_resource_message">Ressource wird herunterladen…</string>
+  <string name="progress_resource_download_message">Ressource wird herunterladen…</string>
+  <string name="progress_resource_load_message">Ressource wird geladen…</string>
   <string name="progress_loading_preset_message">Vorlage laden...</string>
   <string name="progress_importing_file_message">Datei wird importiert…</string>
   <string name="progress_running_message">Wird ausgeführt…</string>
@@ -567,6 +568,7 @@
   <string name="errors">Fehler</string>
   <string name="layer_info_layer_not_available">Keine Ebeneninformation verfügbar</string>
   <string name="layer_info_no_meta_data">Metadaten nicht geladen</string>
+  <string name="layer_info_custom_headers">Benutzerdefinierte HTTP-Kopfzeilen</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
   <!--Date range dialog-->
@@ -1510,6 +1512,7 @@
   <string name="config_replaceTolerance_title">Maximale Entfernung zum Verschieben des markierten Knotens</string>
   <string name="config_replaceTolerance_summary">Maximale Entfernung, um die ein markierter Knoten beim Ersetzen der Weggeometrie verschoben werden kann.</string>
   <string name="config_replaceTolerance_current">%1$d Meter</string>
+  <string name="config_minMoveWayNodesWarning_summary">Mindestzahl an Knoten eines Weges, bei der vor unbeabsichtigtem Verschieben desselben gewarnt wird.</string>
   <string name="config_minMoveWayNodesWarning_current">%1$d</string>
   <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <string name="config_ignoreSubareas_title">Subareas ignorieren</string>
@@ -1652,6 +1655,7 @@
   <string name="resource_download_successful">Ressource heruntergeladen.</string>
   <string name="resource_load_successful">Ressource geladen</string>
   <string name="resource_download_failed">Die Ressource konnte nicht heruntergeladen werden. Die Ressource wird nicht funktionieren.</string>
+  <string name="resource_load_failed">Die Ressource konnte nicht geladen werden. Die Ressource wird nicht funktionieren.</string>
   <string name="preset_download_parse_failed">Die Ressourcendatei ist ungültig. Die Ressource wird nicht funktionieren.</string>
   <string name="preset_download_missing_images">Die Vorlagendatei wurde heruntergeladen. Einige Symbole fehlen allerdings.</string>
   <string name="resource_download_title">Ressourcen-Download</string>

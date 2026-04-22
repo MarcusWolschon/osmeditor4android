@@ -39,6 +39,8 @@
   <string name="deleting_references_on_server">…poistamalla viittaukset palvelimelta</string>
   <string name="unexpected_conflict_type">Odottamaton ristiriidan tyyppi</string>
   <!--Upload retry-->
+  <string name="upload_retry_title">Lähetys epäonnistui</string>
+  <string name="upload_retry_message_update_failed_title">Päivitys epäonnistui</string>
   <string name="save_changes">Tallenna muutokset</string>
   <!---->
   <string name="no_login_data_title">Kirjautuminen epäonnistui</string>
@@ -81,6 +83,7 @@
   <string name="applying_osc_failed_message">Todennäköisin syy on, ettet ole ladannut kaikkea sitä alkuperäistä dataa, johon muutoksia olisi tehtävä.</string>
   <string name="duplicate_tag_key_title">Sama avain useamman kerran</string>
   <string name="duplicate_tag_key_message">Olet lisännyt seuraavan avaimen useamman kerran, etkä voi jatkaa ennen kuin ongelma on ratkaistu:</string>
+  <string name="upload_bounding_box_too_large_title">Alue on liian suuri lähetettäväksi</string>
   <!---->
   <string name="select_file_picker_title">Valitse tiedostoselain</string>
   <!--Newbie dialog-->

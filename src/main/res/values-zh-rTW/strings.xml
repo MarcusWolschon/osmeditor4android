@@ -174,7 +174,8 @@
   <string name="progress_searching_message">正在搜尋...</string>
   <string name="progress_saving_message">正在儲存…</string>
   <string name="progress_uploading_message">上傳中...</string>
-  <string name="progress_resource_message">下載資源…</string>
+  <string name="progress_resource_download_message">下載資源…</string>
+  <string name="progress_resource_load_message">載入資源…</string>
   <string name="progress_loading_preset_message">載入預置…</string>
   <string name="progress_importing_file_message">匯入檔案…</string>
   <string name="progress_running_message">運作中...</string>
@@ -651,6 +652,8 @@
   <string name="tip_file_import">在運行 Android 10 或者之後版本的裝置上，你必須複製檔案才會有完整權限。複製的檔案位於  &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;.，如果需要你可以刪除原檔只需要保留複製版本。</string>
   <string name="tip_wms_tile_size">WMS 伺服器能夠支援大於 256x256 大小的圖磚，考慮使用 512x512 的更有效設定。</string>
   <string name="tip_empty_comment_warning">Vespucci 總是自動新增你上傳事物的摘要。&lt;p&gt;你仍然應該考慮新增一些文字為何你做出這次編輯，並且提供更多背景資訊給其他圖客。</string>
+  <string name="tip_wikimedia_filename">總是用敘述性與獨一的檔案名稱，而且不能用相機自動產生的西稱，否則維基媒體會拒絕上傳。</string>
+  <string name="tip_address_interpolation">這個工具是在地址模式下新增地址內插點，如果您想要加不同的物件，請切換至正常模式來使用新增路徑工具。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -706,6 +709,10 @@
   <string name="toast_note_reopened">已重新開放的註解</string>
   <string name="toast_untrusted_certificate">無法信任的憑證\n%1$s</string>
   <string name="toast_element_may_have_been_moved">元素已經被移動</string>
+  <string name="toast_configuration_export_failed">匯出設定檔失敗\n\n%1$s</string>
+  <string name="toast_configuration_import_failed">匯入設定檔失敗\n\n%1$s</string>
+  <string name="toast_configuration_export_success">成功匯出設定檔！</string>
+  <string name="toast_configuration_import_success">成功匯入設定檔！</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">未勘測的路</string>
   <string name="toast_noname">道路缺少名稱或編號</string>
@@ -744,8 +751,13 @@
   <string name="toast_no_suitable_storage">系統並未回傳圖磚資料庫上適當的位置。</string>
   <string name="toast_min_one_preset">至少必須選擇一個做預設！</string>
   <string name="toast_min_one_geocoder">至少必須選擇一個 geocoder！</string>
+  <string name="toast_min_one_style">您必須選擇一種樣式！</string>
   <string name="toast_used_backup">已損壞狀況檔案，使用備份檔案替代。</string>
   <string name="toast_used_bug_backup">已損壞呈錯誤情況的檔案，使用備份檔案替代。</string>
+  <string name="toast_split_from">分割「從」路徑</string>
+  <string name="toast_split_via">分割「經過」路徑</string>
+  <string name="toast_split_from_and_via">分割「從」與「經過」路徑</string>
+  <string name="toast_split_to">分割「到」路徑</string>
   <string name="toast_tile_database_issue_short">圖磚資料庫問題</string>
   <string name="toast_tile_database_issue">關於地圖磚資料庫 \n\"%1$s\"\n 的嚴重問題，請參閱我們在 http://vespucci.io/ 的 FAQ</string>
   <string name="toast_tile_source_issue">地圖圖磚來源有重大問題，暫時取消\n\"%1$s\"</string>
@@ -754,6 +766,7 @@
   <string name="toast_invalid_apiurl">無效的 API 網址</string>
   <string name="toast_invalid_readonlyurl">無效的唯讀 API 網址</string>
   <string name="toast_invalid_notesurl">無效的註解 API 網址</string>
+  <string name="toast_invalid_url">無效的連結</string>
   <string name="toast_missing_preset_file">\"%1$s\" 遺失預置檔案</string>
   <string name="toast_invalid_filter_regexp">篩選器無效的正規表示式，key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">無法讀取照片 %1$s</string>
@@ -775,6 +788,7 @@
   <string name="toast_null_island">請不要在 0°/0° (Null Island) 增加物件</string>
   <string name="toast_string_too_long">字串太長 (%1$d 文字) 被截斷了！</string>
   <string name="toast_illegal_operation">非法操作：%1$s</string>
+  <string name="toast_all_way_nodes_download">所有的路徑節點必須在下載區域</string>
   <string name="toast_preset_creation_failed">無法建立預置 \"%1$s\"：%2$s</string>
   <string name="toast_imperial_units">移失的英制單位</string>
   <string name="toast_server_connection_failed">無法連線到伺服器：%1$s</string>
@@ -869,7 +883,9 @@
   <string name="toast_panoramax_sequence_error">無法截取 panorama 序列編號%1$s編號%2$s</string>
   <string name="toast_panoramax_image_not_in_sequence_error">無法在序列當中找到影像編號%1$s</string>
   <string name="toast_panoramax_sequence_exception">無法取得 panoramax 序列\n%1$s</string>
+  <string name="toast_panoramax_instance_list_error">無法取得 panoramax 站臺清單\n%1$s</string>
   <string name="toast_authorisation_successful">認證成功</string>
+  <string name="toast_authorisation_failed">認證失數\n%1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -1498,7 +1514,10 @@
   <string name="config_minMoveWayNodesWarning_title">移動警告的最少路徑節點計算</string>
   <string name="config_minMoveWayNodesWarning_summary">一個路徑最少有幾個節點，當移動時會發出警告。</string>
   <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_title">為可見節點移動時計算最少路徑節點的警告</string>
+  <string name="config_minMoveVisibleWayNodesWarning_summary">最少路徑的節點數量會啟動可見節點檢查以及可能的警告。</string>
   <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
+  <string name="config_ignoreSubareas_summary">不要在模糊模式顯示父關聯的子區域。</string>
   <string name="config_ignoreSubareas_title">忽略子區域</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
@@ -1617,6 +1636,10 @@
   <string name="config_voiceCommandsEnabled_summary">啟用聲控指令支援功能</string>
   <string name="config_splitWindowForPropertyEditor_summary">啟用如果可能在分開的視窗顯示屬性編輯器。</string>
   <string name="config_splitWindowForPropertyEditor_title">啟用分開的視窗的屬性編輯器</string>
+  <string name="config_splitWindowForReview_summary">如果有的話，在另外的視窗啟用顯示審核螢幕。</string>
+  <string name="config_splitWindowForReview_title">啟用分割視窗審核螢幕</string>
+  <string name="config_tabLayout_summary">總是使用屬性編輯器的頁籤樣式，這通常會用在採用手機模式的狀置上相當有用，不然就要用扁平樣式。</string>
+  <string name="config_tabLayout_title">強制採用屬性編輯器頁籤樣式</string>
   <string name="config_newTaskForPropertyEditor_summary">當開啟屬性編輯器時設定 FLAG_ACTIVITY_NEW_TASK，這也許會改進 app 啟動時特定啟動器的行為。</string>
   <string name="config_newTaskForPropertyEditor_title">屬性編輯器使用「新任務」模式</string>
   <!---->
@@ -1636,16 +1659,33 @@
   <string name="imagestore_type">影像儲存類別</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新預置</string>
+  <string name="resource_download_successful">已下載資源</string>
+  <string name="resource_load_successful">已載入資源</string>
+  <string name="resource_download_failed">無法下載資源檔案，無法使用資源。</string>
+  <string name="resource_load_failed">無法載入資源檔案，資源無法運作。</string>
+  <string name="preset_download_parse_failed">資源檔案無效。無法使用資源。</string>
   <string name="preset_download_missing_images">預載檔案已經下載，然後遺失的的圖示還未下載。</string>
+  <string name="resource_download_title">資源下載器</string>
   <!--preset management-->
+  <string name="preset_management_delete">真得要刪除預置嗎？</string>
   <!--style downloader messages-->
+  <string name="style_update">更新樣式</string>
   <!--style management-->
+  <string name="manage_styles">管理樣式</string>
+  <string name="style_management_delete">真得要刪除樣式嗎？</string>
   <!--Image storage management-->
   <string name="imagestores_add_from_panoramax_list">從 Panoramax 站點清單新增…</string>
   <string name="imagestores_add_manually">手動新增…</string>
   <!--url handler activity-->
+  <string name="urldialog_add_preset">新增預置…</string>
+  <string name="urldialog_resource_exists">這項資源已經存在了</string>
+  <string name="urldialog_resource_download_successful">已經下載資源了。</string>
   <string name="urldialog_api_exists">這個 API 的網址已經存在。不過，您可以增加另一個 (例如，方便地切換帳號)。</string>
+  <string name="urldialog_add_api">新增 API…</string>
   <string name="urldialog_nodata_text">組態 URL 未包含有效的資料。</string>
+  <string name="urldialog_add_geocoder">新增地理解析…</string>
+  <string name="urldialog_add_image_store">新增影像儲存…</string>
+  <string name="urldialog_add_style">新增樣式…</string>
   <!--API configuration-->
   <string name="api_name">API 名稱</string>
   <string name="api_url">API URL</string>
@@ -1660,6 +1700,7 @@
   <string name="image_upload_not_authorized">由於沒有取得目的地儲存的權限而上傳失數</string>
   <string name="image_upload_failed_due_to">由於%3$s上傳失敗代碼為%1$d%2$s</string>
   <string name="image_upload_failed">上傳失敗 %1$s</string>
+  <string name="image_upload_failed_duplicate_image">影片已經成功上傳了。</string>
   <string name="wikimedia_meta_title">維基媒體中繼資料</string>
   <string name="wikimedia_meta_filename">檔案名稱</string>
   <string name="wikimedia_meta_description">說明</string>
@@ -1784,6 +1825,7 @@
   <string name="issue_tags_reversed">標籤回復</string>
   <string name="issue_role_reversed">角色回復</string>
   <string name="issue_oneway_direction_reversed">單行道方向倒轉</string>
+  <string name="issue_oneway_reversing_not_supported">不支援的單行道標籤</string>
   <string name="issue_role_conflict">角色衝突</string>
   <string name="issue_merged_tags">合併標籤</string>
   <string name="issue_same_object">相同物件</string>
@@ -1792,6 +1834,7 @@
   <string name="issue_split_route_ordering">路線也許需要手動調整順序</string>
   <string name="issue_split_area">區域已經分割，也許需要轉換為多重多邊形</string>
   <string name="issue_precondition_relation_member_count">超出關聯成員數目</string>
+  <string name="issue_replace_extracted_node">從路徑截取節點</string>
   <string name="issue_replace_member_element_replaced">成員元件已經被取代</string>
   <!--time and distance-->
   <plurals name="days">
@@ -1855,6 +1898,15 @@
   <string name="tile_no_network">沒有網路</string>
   <string name="tile_unknown_error">未知的錯誤</string>
   <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcuts_empty">沒有可使用的快速鍵</string>
+  <string name="keyboard_shortcut_modifier">變動鍵</string>
+  <string name="keyboard_shortcut_key">鍵字元</string>
   <string name="keyboard_shortcut_save">儲存</string>
   <string name="keyboard_shortcut_reset">重置</string>
+  <string name="keyboard_shortcut_saved">已儲存快速鍵</string>
+  <string name="keyboard_shortcut_save_error">儲存快速鍵時錯誤</string>
+  <string name="keyboard_shortcuts_reset_all">重設所有為預設</string>
+  <string name="keyboard_shortcuts_reset_title">重設快速鍵</string>
+  <string name="keyboard_shortcut_key_required">必須有鍵字元</string>
+  <string name="keyboard_shortcut_duplicate">重覆的快速鍵</string>
 </resources>

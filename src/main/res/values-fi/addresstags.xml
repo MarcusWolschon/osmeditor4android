@@ -2,6 +2,7 @@
 <resources>
   <string name="addr_housenumber">Talonumero (addr:housenumber)</string>
   <string name="addr_conscriptionnumber">Asevelvollisuusnumero (addr:conscriptionnumber)</string>
+  <string name="addr_housename">Talon nimi (addr:housename)</string>
   <string name="addr_street">Katu (addr:street)</string>
   <string name="addr_postcode">Postinumero (addr:postcode)</string>
   <string name="addr_city">Kaupunki/Kunta/.. (addr:city)</string>
@@ -10,7 +11,7 @@
   <string name="addr_place">Paikka (addr:place)</string>
   <string name="addr_block">Kortteli (addr:block)</string>
   <string name="addr_block_number">Korttelinumero (addr:block_number)</string>
-  <string name="addr_parentstreet">Sijainnin tarkennus (addr:parenstreet)</string>
+  <string name="addr_parentstreet">Sijainnin tarkennus (addr:parentstreet)</string>
   <string name="addr_hamlet">Kylä (addr:hamlet)</string>
   <string name="addr_suburb">Lähiö (addr:suburb)</string>
   <string name="addr_subdistrict">Alihallintoalue (addr:subdistrict)</string>

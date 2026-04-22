@@ -171,7 +171,8 @@
   <string name="progress_searching_message">検索中...</string>
   <string name="progress_saving_message">保存中...</string>
   <string name="progress_uploading_message">アップロード中…</string>
-  <string name="progress_resource_message">リソースをダウンロード中…</string>
+  <string name="progress_resource_download_message">リソースをダウンロード中…</string>
+  <string name="progress_resource_load_message">リソースを読み込み中…</string>
   <string name="progress_loading_preset_message">プリセットを読み込み中…</string>
   <string name="progress_importing_file_message">ファイルを取り込み中</string>
   <string name="progress_running_message">実行中…</string>
@@ -182,6 +183,7 @@
   <string name="progress_migration">移行中…</string>
   <string name="progress_determining_status_message">状態特定中…</string>
   <string name="progress_updating_message">更新中…</string>
+  <string name="progress_validation_title">妥当性検査中</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" の削除</string>
   <string name="changes_changed">\"%1$s\" の変更</string>
@@ -1194,6 +1196,7 @@
   <string name="config_presetbutton_summary">JOSM互換プリセット追加と有効化</string>
   <string name="config_built_in_preset">内蔵プリセット</string>
   <string name="config_keyboard_shortcuts_title">ショートカットキー</string>
+  <string name="config_keyboard_shortcuts_summary">キーボードショートカットの対応付けを変更</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">妥当性検査設定</string>
   <string name="config_validatorprefs_summary">妥当性検査用の諸規定を設定します。</string>
@@ -1475,6 +1478,7 @@
   <string name="resource_download_successful">リソースをダウンロードしました</string>
   <string name="resource_load_successful">リソースを読み込みました</string>
   <string name="resource_download_failed">リソースファイルをダウンロードできませんでした。そのリソースは機能しません。</string>
+  <string name="resource_load_failed">リソースファイルを読み込めませんでした。そのリソースは機能しません。</string>
   <string name="preset_download_parse_failed">リソースファイルは不正です。リソースは動作しません。</string>
   <string name="preset_download_missing_images">プリセットファイルをダウンロードしました。ただし、一部の欠落しているアイコンはダウンロードしませんでした。</string>
   <string name="resource_download_title">リソースダウンローダー</string>
