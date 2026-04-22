@@ -1,5 +1,19 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.0.1:
+
+- Fix catch and report exceptions from running conflict resolution actions
+- Fix reset adapter filter after selection in MultiTextRow
+- Fix run rebuilding of data style structures after import of style
+- Fix if no presets are selected, select the default preset
+- Fix meta data for headers table wasn't generated correctly with original sql query
+- Fix regression that stopped panoramax instances being added from instance list
+- Change improve button styling and add logic for enabling/disabling save button in ConditionalRestrictionFragment
+- Update OpeningHoursFragment dependency
+- Update default preset
+- Update translations
+- Update imagery from ELI
+
 22.0.0:
 
 - Fix refactor AbstractReviewDialog to use a RecyclerView (fixes performance issues with lots of edits)
