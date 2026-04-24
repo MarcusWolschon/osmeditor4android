@@ -21,7 +21,6 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -35,6 +34,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.util.CustomAlertDialog;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ScreenMessage;
@@ -130,7 +130,7 @@ public class FeatureInfo extends InfoDialogFragment {
 
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
+        CustomAlertDialog.Builder builder = ThemeUtils.getCustomAlertDialogBuilder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         if (feature != null) {
