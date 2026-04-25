@@ -125,6 +125,15 @@
         <item name="more">@drawable/ic_more_vert_white_36dp</item>
     </style>
     <style
+        name="Theme.customFeedback"
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
+        <item name="colorPrimary">@color/osm_green</item>
+        <item name="colorAccent">@color/material_teal</item>
+    </style>
+    <style
         name="Theme.custom"
         parent="@style/Theme.AppCompat">
         <item name="android:windowTranslucentStatus">true</item>
@@ -876,8 +885,5 @@
         parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@android:color/black</item>
-    </style>
-    <style name="Theme.IssueReporterModified" parent="Theme.IssueReporter">
-         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 </resources>
