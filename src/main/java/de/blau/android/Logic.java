@@ -2906,13 +2906,19 @@ public class Logic {
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param way the Way to unjoin
      * @param primaryKey don't unjoin from ways with the same primary key, but replace the node in them too
+     * @return a list of the unjoined nodes
      */
-    public void performUnjoinWay(@Nullable FragmentActivity activity, @NonNull Way way, @Nullable String primaryKey) {
+    @NonNull
+    public List<Node> performUnjoinWay(@Nullable FragmentActivity activity, @NonNull Way way, @Nullable String primaryKey) {
         try {
             lock();
+            final StorageDelegator delegator = getDelegator();
+            if (!delegator.isInDownload(way)) {
+                throw new OsmIllegalOperationException(getResources(activity).getString(R.string.toast_all_way_nodes_download));
+            }
             createCheckpoint(activity, R.string.undo_action_unjoin_ways);
             displayAttachedObjectWarning(activity, way); // needs to be done before unjoin
-            getDelegator().unjoinWay(activity, way, primaryKey);
+            return delegator.unjoinWay(activity, way, primaryKey);
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             throw ex; // rethrow

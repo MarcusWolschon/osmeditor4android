@@ -625,13 +625,17 @@ public class GeometryEditsTest {
             assertTrue(w1.hasCommonNode(w2));
             assertTrue(w2.hasCommonNode(w3));
             assertTrue(w1.hasCommonNode(w3));
-            logic.performUnjoinWay(main, w1, null);
+            // normal mode
+            List<Node> unjoinedNodes = logic.performUnjoinWay(main, w1, null);
+            assertEquals(3, unjoinedNodes.size());
             assertFalse(w1.hasCommonNode(w2));
             assertFalse(w1.hasCommonNode(w3));
             logic.undo();
             assertTrue(w1.hasCommonNode(w2));
             assertTrue(w1.hasCommonNode(w3));
-            logic.performUnjoinWay(main, w1, Tags.KEY_HIGHWAY);
+            // unjoin dissimilar
+            unjoinedNodes = logic.performUnjoinWay(main, w1, Tags.KEY_HIGHWAY);
+            assertEquals(3, unjoinedNodes.size());
             assertFalse(w1.hasCommonNode(w2));
             assertTrue(w1.hasCommonNode(w3));
         } catch (Exception igit) {

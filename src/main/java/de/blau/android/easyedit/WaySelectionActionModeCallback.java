@@ -304,7 +304,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 main.startSupportActionMode(new RemoveNodeFromWayActionModeCallback(manager, way));
                 break;
             case MENUITEM_UNJOIN:
-                logic.performUnjoinWay(main, way, null);
+                List<Node> result = logic.performUnjoinWay(main, way, null);
+                toastUnglued(result.size());
                 break;
             case MENUITEM_UNJOIN_DISSIMILAR:
                 unjonDissimilar(main, way);
@@ -349,17 +350,28 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         List<String> primaryKeys = way.getObjectKeys(activity);
         final int keyCount = primaryKeys.size();
         if (keyCount <= 1) {
-            logic.performUnjoinWay(activity, way, keyCount == 1 ? primaryKeys.get(0) : null);
+            List<Node> result = logic.performUnjoinWay(activity, way, keyCount == 1 ? primaryKeys.get(0) : null);
+            toastUnglued(result.size());
             return;
         }
         ThemeUtils.getAlertDialogBuilder(activity).setTitle(R.string.select_primary_key)
                 .setItems(primaryKeys.toArray(new String[0]), (DialogInterface dialog, int which) -> {
                     try {
-                        logic.performUnjoinWay(activity, way, primaryKeys.get(which));
+                        List<Node> result = logic.performUnjoinWay(activity, way, primaryKeys.get(which));
+                        toastUnglued(result.size());
                     } catch (OsmIllegalOperationException | StorageException ex) {
                         // already toasted
                     }
                 }).setNegativeButton(R.string.cancel, null).show();
+    }
+
+    /**
+     * Display a toast with the number of unglued nodes
+     * 
+     * @param count the number of unglued nodes
+     */
+    private void toastUnglued(int count) {
+        ScreenMessage.toastTopInfo(main, main.getResources().getQuantityString(R.plurals.toast_unglued_nodes, count, count));
     }
 
     @Override
