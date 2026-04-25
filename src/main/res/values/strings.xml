@@ -628,9 +628,40 @@
     <string name="integer_widget_usage_with_additional">Deselect any value above to use the number picker</string>
     <string name="date_widget_usage_with_additional">Deselect any value above to use the date picker</string>
     <!--  Feedback activity  -->
-    <string name="feedback_with_displayname">Send with your OpenStreetMap display name</string>
-    <string name="feedback_displayname_hint">OpenStreetMap display name not retrieved yet</string>
     <string name="feedback_title">Feedback for the developers</string>
+    <string name="feedback_title_hint">Title</string>
+    <string name="feedback_description_hint">Please describe the issue or feature request in detail</string>
+    <string name="feedback_who_is_sending">Who is sending this?</string>
+    <string name="feedback_login_osm">Login to OpenStreetMap</string>
+    <string name="feedback_with_displayname">Send with your OpenStreetMap display name</string>
+    <string name="feedback_displayname_hint">OpenStreetMap display name</string>
+    <string name="feedback_send">Send</string>
+    <string name="feedback_device_info">Include device information</string>
+    <string name="feedback_anonymous">Send anonymously</string>
+    <string name="feedback_advanced_settings">Advanced settings</string>
+    <string name="feedback_repo_host">Repository host (e.g. github.com)</string>
+    <string name="feedback_repo_owner">Owner / Organization</string>
+    <string name="feedback_repo_name_hint">Repository name</string>
+    <string name="feedback_oauth_client_id">OAuth Client ID (optional)</string>
+    <string name="feedback_token_client_id_hint">Enter your client ID here</string>
+    <string name="feedback_device_info_format">App Version: %1$s (%2$d)\nAndroid Version: %3$s (API %4$d)\nDevice: %5$s %6$s</string>
+    <string name="feedback_reporter_label">\n\nReporter: %1$s</string>
+    <string name="feedback_error_code">Error: %1$d %2$s</string>
+    <string name="feedback_exception">Exception: %1$s</string>
+    <string name="github_login_with_host">Login to %1$s</string>
+    <string name="github_login_with_github">Login with GitHub</string>
+    <string name="github_status_authenticated_with_host">Authenticated with %1$s</string>
+    <string name="github_auth_title">GitHub Authorization</string>
+    <string name="github_auth_message">1. Copy the code: %1$s\n2. Paste it on the GitHub website.</string>
+    <string name="github_auth_button_copy_open">Copy &amp; Open Browser</string>
+    <string name="github_auth_clipboard_label">GitHub Code</string>
+    <string name="github_status_not_logged_in">Not logged in to GitHub</string>
+    <string name="github_status_authenticated">Authenticated with GitHub</string>
+    <string name="github_login_required_toast">Please Login with GitHub first to send feedback</string>
+    <string name="feedback_title_required">Title is required</string>
+    <string name="feedback_success_title">Success</string>
+    <string name="feedback_success_message">Your feedback has been submitted successfully.</string>
+    <string name="feedback_failure_title">Submission Failed</string>
     <!--  BoxPicker -->
     <string name="boxpicker_firsttimetitle">Download OpenStreetMap data</string>
     <!--  Clear/Reset GPX Track -->
