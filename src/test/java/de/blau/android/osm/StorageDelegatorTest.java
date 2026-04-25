@@ -1233,12 +1233,6 @@ public class StorageDelegatorTest {
         final Node n2 = w.getNodes().get(2);
         d.addNodeToWay(n2, w2);
 
-        Relation r = d.getFactory().createRelationWithNewId();
-        RelationMember member = new RelationMember("test", n2);
-        r.addMember(member);
-        d.insertElementSafe(r);
-        n2.addParentRelation(r);
-
         assertEquals(2, d.getApiWayCount());
         assertEquals(w.nodeCount(), d.getApiNodeCount());
         d.unjoinWay(null, w2, null);
@@ -1247,8 +1241,6 @@ public class StorageDelegatorTest {
         assertNotEquals(n2, lastNode);
         assertEquals(2, d.getApiWayCount());
         assertEquals(w.nodeCount() + 2, d.getApiNodeCount());
-
-        assertTrue(lastNode.hasParentRelation(r.getOsmId()));
     }
 
     /**
@@ -1312,6 +1304,80 @@ public class StorageDelegatorTest {
 
         assertEquals(2, d.getApiWayCount());
         assertEquals(w.nodeCount() + 3, d.getApiNodeCount());
+    }
+
+    /**
+     * Unjoin two ways one node has tags and is a relation member, check that that doesn't get copied
+     */
+    @Test
+    public void unjoinWayWithTaggedNode() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, false);
+        final Node n1 = w.getNodes().get(1);
+        Way w2 = d.createAndInsertWay(n1);
+        final Node n2 = w.getNodes().get(2);
+        d.addNodeToWay(n2, w2);
+
+        Map<String, String> tags = new TreeMap<>();
+        tags.put(Tags.KEY_AMENITY, "bench");
+        n2.setTags(tags);
+
+        Relation r = d.getFactory().createRelationWithNewId();
+        RelationMember member = new RelationMember("test", n2);
+        r.addMember(member);
+        d.insertElementSafe(r);
+        n2.addParentRelation(r);
+
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount(), d.getApiNodeCount());
+        d.unjoinWay(null, w2, null);
+        assertNotEquals(n1, w2.getFirstNode());
+        final Node lastNode = w2.getLastNode();
+        assertNotEquals(n2, lastNode);
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount() + 2, d.getApiNodeCount());
+
+        assertFalse(lastNode.hasTagWithValue(Tags.KEY_AMENITY, "bench"));
+        assertFalse(lastNode.hasParentRelation(r.getOsmId()));
+    }
+
+    /**
+     * Unjoin two ways at one node that has tags and is a relation member
+     */
+    @Test
+    public void unjoinWaysAtTaggedNode() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, false);
+        final Node n1 = w.getNodes().get(1);
+        Way w2 = d.createAndInsertWay(n1);
+        final Node n2 = w.getNodes().get(2);
+        d.addNodeToWay(n2, w2);
+
+        Map<String, String> tags = new TreeMap<>();
+        tags.put(Tags.KEY_AMENITY, "bench");
+        n1.setTags(tags);
+
+        Relation r = d.getFactory().createRelationWithNewId();
+        RelationMember member = new RelationMember("test", n1);
+        r.addMember(member);
+        d.insertElementSafe(r);
+        n1.addParentRelation(r);
+
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount(), d.getApiNodeCount());
+
+        d.unjoinWays(n1);
+
+        final Node firstNode = w2.getFirstNode();
+
+        assertTrue(firstNode.hasTagWithValue(Tags.KEY_AMENITY, "bench"));
+        assertTrue(firstNode.hasParentRelation(r.getOsmId()));
+        
+        final Node oNode =  w.getNodes().get(1);
+        assertTrue(oNode.hasTagWithValue(Tags.KEY_AMENITY, "bench"));
+        assertTrue(oNode.hasParentRelation(r.getOsmId()));
+        
+        assertNotEquals(firstNode, oNode);
     }
 
     /**
