@@ -29,7 +29,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
@@ -53,6 +52,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.osm.WayInterface;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.CustomAlertDialog;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ScreenMessage;
@@ -249,7 +249,7 @@ public class ElementInfo extends InfoDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
+        CustomAlertDialog.Builder builder = ThemeUtils.getCustomAlertDialogBuilder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         final FragmentActivity activity = getActivity();
@@ -268,7 +268,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @param activity the current activity
      * @param builder an AlertDialog.Builder
      */
-    private void setupButtons(@NonNull final FragmentActivity activity, @NonNull Builder builder) {
+    private void setupButtons(@NonNull final FragmentActivity activity, @NonNull CustomAlertDialog.Builder builder) {
         BoundingBox tempBox = element.getBounds();
         final ViewBox box = tempBox != null ? new ViewBox(tempBox) : null;
         if (getArguments().getBoolean(SHOW_JUMP_TO_KEY)) {
