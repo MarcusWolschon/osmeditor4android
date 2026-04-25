@@ -1793,7 +1793,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     first = false;
                 } else {
                     // subsequent ways
-                    replaceWayNode(node, way);
+                    replaceWayNode(node, way, true);
                 }
             }
         }
@@ -1805,9 +1805,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param ctx Android Context
      * @param way the Way to unjoin
      * @param primaryKey don't unjoin from ways with the same primary key if not null, but replace the node in them too
+     * @return List of the original nodes that had to be unglued
      */
-    public void unjoinWay(@Nullable Context ctx, @NonNull final Way way, @Nullable String primaryKey) {
+    @NonNull
+    public List<Node> unjoinWay(@Nullable Context ctx, @NonNull final Way way, @Nullable String primaryKey) {
         Set<Node> wayNodes = new HashSet<>(way.getNodes()); // only do every node once
+        List<Node> ungluedNodes = new ArrayList<>(); // List of the original nodes that had to be unglued
         Map<Long, Boolean> keyMap = new HashMap<>();
         for (Node nd : wayNodes) {
             List<Way> otherWays = getCurrentStorage().getWays(nd);
@@ -1828,13 +1831,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     }
                 }
             }
-            if (similarWays.size() < otherWays.size() - 1) { // if all are the same no need to replace
-                Node newNode = replaceWayNode(nd, way);
-                for (Way similar : similarWays) {
-                    replaceNodeInWay(nd, newNode, similar);
-                }
+            if (similarWays.size() >= otherWays.size() - 1) { // if all are the same no need to replace
+                continue;
+            }
+            Node newNode = replaceWayNode(nd, way, false);
+            ungluedNodes.add(nd);
+            for (Way similar : similarWays) {
+                replaceNodeInWay(nd, newNode, similar);
             }
         }
+        return ungluedNodes;
     }
 
     /**
@@ -1842,15 +1848,18 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param node the node to replace
      * @param way the Way
+     * @param clone copy tags and relation memberships (with the exception of restrictions)
      * @return the new Node
      */
     @NonNull
-    private Node replaceWayNode(@NonNull final Node node, @NonNull final Way way) {
+    private Node replaceWayNode(@NonNull final Node node, @NonNull final Way way, boolean clone) {
         List<OsmElement> changedElements = new ArrayList<>();
         dirty = true;
         // create a new node that duplicates the given node
         Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
-        newNode.addTags(node.getTags());
+        if (clone) {
+            newNode.addTags(node.getTags());
+        }
         insertElementUnsafe(newNode);
         changedElements.add(newNode);
         // replace the given node in the way with the new node
@@ -1870,8 +1879,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         changedElements.add(way);
 
         // check if node is in a relation, if yes, add to new node
-        // should probably check for restrictions
-        if (node.hasParentRelations()) {
+        if (clone && node.hasParentRelations()) {
             List<Relation> relations = node.getParentRelations();
             /*
              * iterate through relations, for all except restrictions add the new node to the relation, for now simply
@@ -1882,14 +1890,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 undo.save(r);
                 String type = r.getTagWithKey(Tags.KEY_TYPE);
                 if (type != null) {
-                    if (type.equals(Tags.VALUE_RESTRICTION)) {
-                        // doing nothing for now at least gives a chance of being right :-)
-                    } else {
+                    if (!Tags.VALUE_RESTRICTION.equals(type)) {
                         RelationMember newMember = new RelationMember(rm.getRole(), newNode);
                         r.addMemberAfter(rm, newMember);
                         newNode.addParentRelation(r);
                     }
-
                 } else {
                     RelationMember newMember = new RelationMember(rm.getRole(), newNode);
                     r.addMemberAfter(rm, newMember);
