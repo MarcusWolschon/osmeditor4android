@@ -1793,7 +1793,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     first = false;
                 } else {
                     // subsequent ways
-                    replaceWayNode(node, way);
+                    replaceWayNode(node, way, true);
                 }
             }
         }
@@ -1829,7 +1829,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
             if (similarWays.size() < otherWays.size() - 1) { // if all are the same no need to replace
-                Node newNode = replaceWayNode(nd, way);
+                Node newNode = replaceWayNode(nd, way, false);
                 for (Way similar : similarWays) {
                     replaceNodeInWay(nd, newNode, similar);
                 }
@@ -1842,15 +1842,18 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param node the node to replace
      * @param way the Way
+     * @param clone copy tags and relation memberships (with the exception of restrictions)
      * @return the new Node
      */
     @NonNull
-    private Node replaceWayNode(@NonNull final Node node, @NonNull final Way way) {
+    private Node replaceWayNode(@NonNull final Node node, @NonNull final Way way, boolean clone) {
         List<OsmElement> changedElements = new ArrayList<>();
         dirty = true;
         // create a new node that duplicates the given node
         Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
-        newNode.addTags(node.getTags());
+        if (clone) {
+            newNode.addTags(node.getTags());
+        }
         insertElementUnsafe(newNode);
         changedElements.add(newNode);
         // replace the given node in the way with the new node
@@ -1870,8 +1873,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         changedElements.add(way);
 
         // check if node is in a relation, if yes, add to new node
-        // should probably check for restrictions
-        if (node.hasParentRelations()) {
+        if (clone && node.hasParentRelations()) {
             List<Relation> relations = node.getParentRelations();
             /*
              * iterate through relations, for all except restrictions add the new node to the relation, for now simply
