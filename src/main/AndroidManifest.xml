@@ -335,7 +335,8 @@
             android:theme="@android:style/Theme.Dialog"
             tools:replace="android:process" />
         <activity
-            android:name="de.blau.android.Feedback"
+            android:name=".Feedback"
+            android:launchMode="singleTask"
             android:exported="true"
             android:theme="@style/Theme.customFeedback" />
         <activity

@@ -66,7 +66,8 @@
                     android:gravity="top"
                     android:inputType="textMultiLine|textCapSentences"
                     android:lines="10"
-                    android:maxLines="10" />
+                    android:maxLines="10"
+                    android:scrollbars = "vertical" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -132,7 +133,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="@string/feedback_device_info"
                 android:checked="true" />
-
+                
             <TextView
                 android:id="@+id/deviceInfoText"
                 android:layout_width="match_parent"
@@ -142,82 +143,7 @@
                 android:textAppearance="?attr/textAppearanceCaption"
                 android:textIsSelectable="true"
                 tools:text="App Version: 1.0\nAndroid Version: 16" />
-
-            <Button
-                android:id="@+id/buttonAdvancedSettings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/feedback_advanced_settings"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_gravity="end"
-                android:layout_marginBottom="8dp" />
-
-            <LinearLayout
-                android:id="@+id/layoutAdvancedSettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginBottom="16dp"
-                android:padding="8dp">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/repoHostLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/feedback_repo_host"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/repoHostInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textUri" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/repoOwnerLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/feedback_repo_owner"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/repoOwnerInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/repoNameLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/feedback_repo_name_hint"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/repoNameInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/repoClientIdLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/feedback_oauth_client_id"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/repoClientIdInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
+                
             <Button
                 android:id="@+id/buttonSend"
                 android:layout_width="match_parent"
@@ -225,7 +151,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/feedback_send"
                 style="@style/Widget.MaterialComponents.Button" />
-
+                
             <LinearLayout
                 android:id="@+id/layoutGithubLogin"
                 android:layout_width="match_parent"
@@ -233,24 +159,42 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:visibility="visible">
-
-                <TextView
-                    android:id="@+id/textGithubStatus"
-                    android:layout_width="wrap_content"
+                
+                <RelativeLayout
+                    android:id="@+id/githubStatus"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/github_status_not_logged_in"
-                    android:textAppearance="?attr/textAppearanceCaption"
-                    android:layout_marginBottom="8dp" />
-
+                    android:gravity="center"
+                    android:visibility="visible">
+                    
+                    <TextView
+                        android:id="@+id/textGithubStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="@string/github_status_authenticated"
+                        android:textAppearance="?attr/textAppearanceCaption"
+                        android:layout_marginBottom="8dp" />
+                        
+                    <Button
+                        android:id="@+id/buttonReset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textGithubStatus"
+                        android:layout_alignBaseline="@id/textGithubStatus"
+                        android:text="@string/github_reset_login"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="8dp" />
+                </RelativeLayout>
+                
                 <Button
                     android:id="@+id/buttonGithubLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/github_login_with_github"
                     style="@style/Widget.MaterialComponents.Button.TextButton" />
-
             </LinearLayout>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -1,107 +1,118 @@
 package de.blau.android;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+import static de.blau.android.net.HttpHeaders.ACCEPT_HEADER;
+import static de.blau.android.net.HttpHeaders.AUTHORIZATION_HEADER;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
+import java.nio.charset.Charset;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.radiobutton.MaterialRadioButton;
+import org.json.JSONObject;
+
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.radiobutton.MaterialRadioButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import de.blau.android.contract.Github;
-import de.blau.android.contract.Urls;
+import de.blau.android.net.OAuth2Helper;
+import de.blau.android.net.OAuth2Interceptor;
+import de.blau.android.net.OAuthHelper.OAuthConfiguration;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.UserDetails;
+import de.blau.android.prefs.API.Auth;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.util.ActivityResultHandler;
+import de.blau.android.util.AfterTextChangedWatcher;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.GithubOAuth;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.json.JSONObject;
-
-import androidx.appcompat.app.AlertDialog;
 
 /**
- * Open an issue on github or Forgejo/Gitea.
- * An anonymous submission requires the current OSM display name.
+ * Open an issue on github or Forgejo/Gitea. An anonymous submission requires the current OSM display name.
  */
 public class Feedback extends AppCompatActivity implements ActivityResultHandler {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Feedback.class.getSimpleName().length());
     private static final String DEBUG_TAG = Feedback.class.getSimpleName().substring(0, TAG_LEN);
 
-    static final String VESPUCCI_REPORTER_ENTRY = "VESPUCCI_REPORTER";
-    private static final String REPO_HOST_KEY   = "repo_host";
-    private static final String REPO_USER_KEY   = "repo_user";
-    private static final String REPO_NAME_KEY   = "repo_name";
-    private static final String GITHUB_API_KEY  = "github_api_key";
+    public static final String REPO_KEY                = "github";
+    static final String        VESPUCCI_REPORTER_ENTRY = "VESPUCCI_REPORTER";
+    public static final String GITHUB_BEARER_TOKEN     = "GITHUB_BEARER_TOKEN";
+
+    private static final String DIVIDER     = "\n\n---\n";
+    private static final String ISSUE_BODY  = "body";
+    private static final String ISSUE_TITLE = "title";
+
+    private static final String REPO_HOST_KEY = "repo_host";
+    private static final String REPO_USER_KEY = "repo_user";
+    private static final String REPO_NAME_KEY = "repo_name";
 
     private static final String EMPTY_BUG_REPORT = "bug_report_empty.md";
 
-    private static final String PREF_CUSTOM_REPO_HOST = "custom_repo_host";
-    private static final String PREF_CUSTOM_REPO_USER = "custom_repo_user";
-    private static final String PREF_CUSTOM_REPO_NAME = "custom_repo_name";
-    private static final String PREF_CUSTOM_REPO_CLIENT_ID = "custom_repo_client_id";
-
     private MaterialCheckBox checkboxDeviceInfo;
-    private TextView deviceInfoText;
-    private Button buttonSend;
-    private Button buttonGithubLogin;
-    private Button buttonOsmLogin;
-    private TextView textGithubStatus;
-    private Button buttonAdvancedSettings;
-    private View layoutAdvancedSettings;
-    private TextInputEditText repoHostInput;
-    private TextInputEditText repoOwnerInput;
-    private TextInputEditText repoNameInput;
-    private TextInputEditText repoClientIdInput;
+    private TextView         deviceInfoText;
+    private Button           buttonSend;
+    private Button           buttonGithubLogin;
+    private Button           buttonOsmLogin;
+    private RelativeLayout   githubStatus;
+    private Button           buttonReset;
 
     private String repoHost = Github.GITHUB_HOST;
     private String repoUser = Github.CODE_REPO_USER;
     private String repoName = Github.CODE_REPO_NAME;
-    private String mCustomClientId = null;
-    private String githubApiKey;
+
+    private String githubPersonalAccessToken;
+    private String githubBearerToken;
 
     private Server server;
     private String displayName = null;
 
-    private TextInputEditText titleInput;
-    private TextInputEditText descriptionInput;
-    private RadioGroup senderRadioGroup;
-    private MaterialRadioButton radioAnonymous;
-    private MaterialRadioButton radioDisplayName;
+    private TextInputEditText                                     titleInput;
+    private TextInputEditText                                     descriptionInput;
+    private MaterialRadioButton                                   radioDisplayName;
     private com.google.android.material.textfield.TextInputLayout nameInputLayout;
-    private TextInputEditText nameInput;
+    private TextInputEditText                                     nameInput;
 
     java.util.Map<Integer, ActivityResultHandler.Listener> activityResultListeners = new java.util.HashMap<>();
 
@@ -109,8 +120,7 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
      * Start this Activity
      * 
      * @param context Android Context
-     * @param useUrl  if true don't use the builtin reporter, if the github app is
-     *                installed this is ignored
+     * @param useUrl if true don't use the builtin reporter, if the github app is installed this is ignored
      */
     public static void start(@NonNull Context context, boolean useUrl) {
         start(context, Github.GITHUB_HOST, Github.CODE_REPO_USER, Github.CODE_REPO_NAME, useUrl);
@@ -122,179 +132,47 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
      * @param context Android Context
      * @param repoUser github repository user
      * @param repoName github repository name
-     * @param useUrl   if true don't use the builtin reporter
+     * @param useUrl if true don't use the builtin reporter
      */
     public static void start(@androidx.annotation.NonNull Context context, @androidx.annotation.NonNull String repoUser,
-            @androidx.annotation.NonNull String repoName,
-            boolean useUrl) {
+            @androidx.annotation.NonNull String repoName, boolean useUrl) {
         start(context, Github.GITHUB_HOST, repoUser, repoName, useUrl);
     }
 
     /**
      * Start this Activity or alternatively an external app via Url
      * 
-     * @param context  Android Context
-     * @param host     repository host (e.g. github.com)
-     * @param repoUser repository user
-     * @param repoName repository name
-     * @param useUrl   if true don't use the builtin reporter
+     * @param context Android Context
+     * @param useUrl if true don't use the builtin reporter
      */
-    public static void start(@NonNull Context context, @NonNull String host, @NonNull String repoUser,
-            @NonNull String repoName, boolean useUrl) {
-        try (KeyDatabaseHelper keys = new KeyDatabaseHelper(context); SQLiteDatabase db = keys.getReadableDatabase()) {
-            String apiKey = KeyDatabaseHelper.getKey(db, VESPUCCI_REPORTER_ENTRY, EntryType.API_KEY);
-            if (useUrl) {
-                // User explicitly wants browser
-                reportViaUrl(context, host, repoUser, repoName);
-            } else {
-                // Open native screen. Activity will handle missing apiKey by showing Login
-                // button.
-                Intent intent = new Intent(context, Feedback.class);
-                intent.putExtra(REPO_HOST_KEY, host);
-                intent.putExtra(REPO_USER_KEY, repoUser);
-                intent.putExtra(REPO_NAME_KEY, repoName);
-                if (!Util.isEmpty(apiKey)) {
-                    intent.putExtra(GITHUB_API_KEY, apiKey);
-                }
-                context.startActivity(intent);
-            }
-        }
-    }
-
-    /**
-     * Starts GitHub Device Flow OAuth2. On success, saves the token and updates the
-     * UI.
-     *
-     * @param context  Android context
-     * @param repoUser GitHub repo user
-     * @param repoName GitHub repo name
-     * @param activity Optional Feedback activity instance to update on success
-     */
-    private static AlertDialog authDialog;
-
-    /**
-     * Starts the OAuth 2 Device Flow for GitHub, Forgejo, or Gitea.
-     * If no Client ID is provided, it falls back to the host's default Client ID.
-     *
-     * @param context  Android context
-     * @param host     The repository host (e.g., github.com, codeberg.org)
-     * @param repoUser The owner of the target repository
-     * @param repoName The name of the target repository
-     * @param clientId Optional custom OAuth Client ID
-     * @param activity The Feedback activity instance to update on success
-     */
-    private static void triggerDeviceFlowLogin(Context context, String host, String repoUser,
-            String repoName, String clientId, Feedback activity) {
-        String effectiveClientId = clientId;
-        if (Util.isEmpty(effectiveClientId)) {
-            effectiveClientId = Github.getOAuthClientId(host);
-        }
-
-        if (Util.isEmpty(effectiveClientId)) {
-            // No client_id configured - fall back to browser
-            reportViaUrl(context, host, repoUser, repoName);
+    public static void start(@NonNull Context context, @NonNull String host, @NonNull String repoUser, @NonNull String repoName, boolean useUrl) {
+        if (useUrl) {
+            // User explicitly wants browser
+            reportViaUrl(context, Github.GITHUB_HOST, Github.CODE_REPO_USER, Github.CODE_REPO_NAME);
             return;
         }
 
-        if (host.equalsIgnoreCase(Github.GITHUB_HOST) && effectiveClientId.startsWith("Ov23liXXX")) {
-            // placeholder client_id - fall back to browser
-            reportViaUrl(context, host, repoUser, repoName);
-            return;
-        }
-
-        GithubOAuth.startDeviceFlow(context, host, effectiveClientId, new GithubOAuth.DeviceFlowCallback() {
-            @Override
-            public void onShowCode(@NonNull String userCode) {
-                if (activity != null) {
-                    activity.runOnUiThread(() -> {
-                        if (authDialog != null && authDialog.isShowing()) {
-                            authDialog.dismiss();
-                        }
-                        authDialog = new AlertDialog.Builder(activity)
-                                .setTitle(R.string.github_auth_title)
-                                .setMessage(context.getString(R.string.github_auth_message, userCode))
-                                .setPositiveButton(R.string.github_auth_button_copy_open, (dialog, which) -> {
-                                    // Copy to clipboard
-                                    ClipboardManager clipboard = (ClipboardManager) context
-                                            .getSystemService(Context.CLIPBOARD_SERVICE);
-                                    ClipData clip = ClipData.newPlainText(
-                                            context.getString(R.string.github_auth_clipboard_label), userCode);
-                                    clipboard.setPrimaryClip(clip);
-
-                                    // Open browser
-                                    try {
-                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                                                Uri.parse(Github.getUserAuthUrl(host)));
-                                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        context.startActivity(browserIntent);
-                                    } catch (Exception e) {
-                                        Log.e(DEBUG_TAG, "Could not open browser: " + e.getMessage());
-                                    }
-                                })
-                                .setCancelable(false)
-                                .show();
-                    });
-                }
-            }
-
-            @Override
-            public void onSuccess(@NonNull String accessToken) {
-                if (authDialog != null) {
-                    authDialog.dismiss();
-                    authDialog = null;
-                }
-                // Save token for future use
-                try (KeyDatabaseHelper keys = new KeyDatabaseHelper(context);
-                        SQLiteDatabase db = keys.getWritableDatabase()) {
-                    KeyDatabaseHelper.replaceOrDeleteKey(db, VESPUCCI_REPORTER_ENTRY, EntryType.API_KEY,
-                            accessToken, true, true, null, null);
-                }
-
-                if (activity != null) {
-                    // Update current Activity UI
-                    activity.runOnUiThread(() -> {
-                        activity.githubApiKey = accessToken;
-                        activity.updateGithubStatus();
-                    });
-                } else {
-                    // Open native Feedback screen
-                    Intent intent = new Intent(context, Feedback.class);
-                    intent.putExtra(REPO_HOST_KEY, host);
-                    intent.putExtra(REPO_USER_KEY, repoUser);
-                    intent.putExtra(REPO_NAME_KEY, repoName);
-                    intent.putExtra(GITHUB_API_KEY, accessToken);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onError(@NonNull String reason) {
-                if (authDialog != null) {
-                    authDialog.dismiss();
-                    authDialog = null;
-                }
-                Log.e(DEBUG_TAG, "Device Flow failed: " + reason);
-                reportViaUrl(context, host, repoUser, repoName);
-            }
-        });
+        // Open native screen. Activity will handle missing apiKey by showing Login button.
+        Intent intent = new Intent(context, Feedback.class);
+        intent.putExtra(REPO_HOST_KEY, host);
+        intent.putExtra(REPO_USER_KEY, repoUser);
+        intent.putExtra(REPO_NAME_KEY, repoName);
+        context.startActivity(intent);
     }
 
     /**
      * Simply use an URL instead of the builtin reporter
      * 
-     * @param context  an Android Context
-     * @param host     the repository host
+     * @param context an Android Context
+     * @param host the repository host
      * @param repoUser the owner of the target repo
      * @param repoName the target repo
      */
-    private static void reportViaUrl(Context context, String host, String repoUser, String repoName) {
+    private static void reportViaUrl(@NonNull Context context, @NonNull String host, @NonNull String repoUser, @NonNull String repoName) {
         String description = "";
         try {
-            context.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://" + host + "/" + repoUser + "/" + repoName + "/issues/new?template="
-                            + EMPTY_BUG_REPORT
-                            + "&body=" + URLEncoder.encode(description, OsmXml.UTF_8))));
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://" + host + "/" + repoUser + "/" + repoName + "/issues/new?template="
+                    + EMPTY_BUG_REPORT + "&body=" + URLEncoder.encode(description, OsmXml.UTF_8))));
         } catch (UnsupportedEncodingException e) {
             Log.e(DEBUG_TAG, "Unsupported encoding " + e.getMessage());
         }
@@ -302,10 +180,8 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(DEBUG_TAG, "onCreate " + savedInstanceState);
         Preferences prefs = App.getPreferences(this);
-        if (prefs.lightThemeEnabled()) {
-            setTheme(R.style.Theme_customLight);
-        }
         server = prefs.getServer();
 
         super.onCreate(savedInstanceState);
@@ -324,6 +200,8 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
             repoName = s;
         }
 
+        updateTokens();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -340,8 +218,9 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
 
         titleInput = findViewById(R.id.feedbackTitle);
         descriptionInput = findViewById(R.id.feedbackDescription);
-        senderRadioGroup = findViewById(R.id.senderRadioGroup);
-        radioAnonymous = findViewById(R.id.radioAnonymous);
+        descriptionInput.setMovementMethod(new ScrollingMovementMethod());
+        descriptionInput.setScrollBarStyle(TAG_LEN);
+        RadioGroup senderRadioGroup = findViewById(R.id.senderRadioGroup);
         radioDisplayName = findViewById(R.id.radioDisplayName);
         nameInputLayout = findViewById(R.id.feedbackNameLayout);
         nameInput = findViewById(R.id.feedbackName);
@@ -350,105 +229,41 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
         buttonSend = findViewById(R.id.buttonSend);
         buttonGithubLogin = findViewById(R.id.buttonGithubLogin);
         buttonOsmLogin = findViewById(R.id.buttonOsmLogin);
-        textGithubStatus = findViewById(R.id.textGithubStatus);
-        buttonAdvancedSettings = findViewById(R.id.buttonAdvancedSettings);
-        layoutAdvancedSettings = findViewById(R.id.layoutAdvancedSettings);
-        repoHostInput = findViewById(R.id.repoHostInput);
-        repoOwnerInput = findViewById(R.id.repoOwnerInput);
-        repoNameInput = findViewById(R.id.repoNameInput);
-        repoClientIdInput = findViewById(R.id.repoClientIdInput);
+        githubStatus = findViewById(R.id.githubStatus);
+        buttonReset = findViewById(R.id.buttonReset);
 
-        // Load custom repo settings if saved
-        android.content.SharedPreferences commonPrefs = androidx.preference.PreferenceManager
-                .getDefaultSharedPreferences(this);
-        repoHost = commonPrefs.getString(PREF_CUSTOM_REPO_HOST, Github.GITHUB_HOST);
-        repoUser = commonPrefs.getString(PREF_CUSTOM_REPO_USER, Github.CODE_REPO_USER);
-        repoName = commonPrefs.getString(PREF_CUSTOM_REPO_NAME, Github.CODE_REPO_NAME);
-        mCustomClientId = commonPrefs.getString(PREF_CUSTOM_REPO_CLIENT_ID, null);
+        updateStatus();
 
-        repoHostInput.setText(repoHost);
-        repoOwnerInput.setText(repoUser);
-        repoNameInput.setText(repoName);
-        if (mCustomClientId != null) {
-            repoClientIdInput.setText(mCustomClientId);
-        }
-
-        buttonAdvancedSettings.setOnClickListener(v -> {
-            if (layoutAdvancedSettings.getVisibility() == View.VISIBLE) {
-                layoutAdvancedSettings.setVisibility(View.GONE);
-            } else {
-                layoutAdvancedSettings.setVisibility(View.VISIBLE);
-            }
-        });
-
-        android.text.TextWatcher repoWatcher = new android.text.TextWatcher() {
+        TextWatcher watcher = new AfterTextChangedWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(android.text.Editable s) {
-                repoHost = repoHostInput.getText().toString().trim();
-                repoUser = repoOwnerInput.getText().toString().trim();
-                repoName = repoNameInput.getText().toString().trim();
-                mCustomClientId = repoClientIdInput.getText().toString().trim();
-                if (mCustomClientId.isEmpty()) {
-                    mCustomClientId = null;
-                }
-
-                commonPrefs.edit()
-                        .putString(PREF_CUSTOM_REPO_HOST, repoHost)
-                        .putString(PREF_CUSTOM_REPO_USER, repoUser)
-                        .putString(PREF_CUSTOM_REPO_NAME, repoName)
-                        .putString(PREF_CUSTOM_REPO_CLIENT_ID, mCustomClientId)
-                        .apply();
-
-                updateGithubStatus();
+            public void afterTextChanged(Editable s) {
+                updateStatus();
             }
         };
 
-        repoHostInput.addTextChangedListener(repoWatcher);
-        repoOwnerInput.addTextChangedListener(repoWatcher);
-        repoNameInput.addTextChangedListener(repoWatcher);
-        repoClientIdInput.addTextChangedListener(repoWatcher);
+        titleInput.addTextChangedListener(watcher);
+        descriptionInput.addTextChangedListener(watcher);
 
-        githubApiKey = getIntent().getStringExtra(GITHUB_API_KEY);
-        updateGithubStatus();
+        buttonGithubLogin.setOnClickListener(v -> triggerWebFlowLogin(this, REPO_KEY));
 
-        final String h = repoHost;
-        final String u = repoUser;
-        final String n = repoName;
-        final String cid = mCustomClientId;
-        final Feedback act = Feedback.this;
-        buttonGithubLogin
-                .setOnClickListener(
-                        v -> triggerDeviceFlowLogin(act, h, u, n, cid, act));
-
-        buttonOsmLogin.setOnClickListener(v -> {
-            Server.checkOsmAuthentication(this, server, new PostAsyncActionHandler() {
-                @Override
-                public void onSuccess() {
-                    fetchOsmDisplayName();
-                }
-            });
-        });
+        buttonOsmLogin.setOnClickListener(v -> Server.checkOsmAuthentication(this, server, this::fetchOsmDisplayName));
 
         buttonSend.setOnClickListener(v -> submitBugReport());
 
+        buttonReset.setOnClickListener(v -> {
+            try (KeyDatabaseHelper keys = new KeyDatabaseHelper(this); SQLiteDatabase db = keys.getReadableDatabase()) {
+                KeyDatabaseHelper.updateField(db, GITHUB_BEARER_TOKEN, EntryType.API_KEY, KeyDatabaseHelper.KEY_FIELD, null);
+            }
+            githubBearerToken = null;
+            updateStatus();
+        });
+
         // Fetch basic device info
-        String deviceInfo = getString(R.string.feedback_device_info_format,
-                BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE,
-                android.os.Build.VERSION.RELEASE, android.os.Build.VERSION.SDK_INT,
-                android.os.Build.MANUFACTURER, android.os.Build.MODEL);
+        String deviceInfo = getString(R.string.feedback_device_info_format, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE,
+                android.os.Build.VERSION.RELEASE, android.os.Build.VERSION.SDK_INT, android.os.Build.MANUFACTURER, android.os.Build.MODEL);
         deviceInfoText.setText(deviceInfo);
 
-        checkboxDeviceInfo.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            deviceInfoText.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-        });
+        checkboxDeviceInfo.setOnCheckedChangeListener((buttonView, isChecked) -> deviceInfoText.setVisibility(isChecked ? View.VISIBLE : View.GONE));
 
         senderRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.radioDisplayName) {
@@ -469,41 +284,20 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
     }
 
     /**
+     * Get current tokens from the key database
+     */
+    private void updateTokens() {
+        try (KeyDatabaseHelper keys = new KeyDatabaseHelper(this); SQLiteDatabase db = keys.getReadableDatabase()) {
+            githubPersonalAccessToken = KeyDatabaseHelper.getKey(db, VESPUCCI_REPORTER_ENTRY, EntryType.API_KEY);
+            githubBearerToken = KeyDatabaseHelper.getKey(db, GITHUB_BEARER_TOKEN, EntryType.API_KEY);
+        }
+    }
+
+    /**
      * Fetches the OpenStreetMap display name for the currently authenticated user.
      */
     private void fetchOsmDisplayName() {
-        if (server != null && server.getDisplayName() != null) {
-            new ExecutorTask<Void, UserDetails, UserDetails>() {
-                @Override
-                protected UserDetails doInBackground(Void param) {
-                    try {
-                        return server.getUserDetails();
-                    } catch (Exception e) {
-                        Log.e(DEBUG_TAG, "Problem accessing user details", e);
-                        return null;
-                    }
-                }
-
-                @Override
-                protected void onPostExecute(UserDetails userDetails) {
-                    if (userDetails != null) {
-                        displayName = userDetails.getDisplayName();
-                        nameInput.setText(displayName);
-                        if (radioDisplayName.isChecked()) {
-                            nameInputLayout.setVisibility(View.VISIBLE);
-                            buttonOsmLogin.setVisibility(View.GONE);
-                        }
-                    } else {
-                        // Auth failure or other error: hide name UI and show login button
-                        displayName = null;
-                        if (radioDisplayName.isChecked()) {
-                            nameInputLayout.setVisibility(View.GONE);
-                            buttonOsmLogin.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
-            }.execute();
-        } else {
+        if (server == null || server.getDisplayName() == null) {
             if (radioDisplayName.isChecked()) {
                 nameInputLayout.setVisibility(View.GONE);
                 buttonOsmLogin.setVisibility(View.VISIBLE);
@@ -511,31 +305,88 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
                 nameInputLayout.setVisibility(View.GONE);
                 buttonOsmLogin.setVisibility(View.GONE);
             }
+            return;
         }
+
+        new ExecutorTask<Void, UserDetails, UserDetails>() {
+            @Override
+            protected UserDetails doInBackground(Void param) {
+                try {
+                    return server.getUserDetails();
+                } catch (Exception e) {
+                    Log.e(DEBUG_TAG, "Problem accessing user details", e);
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(UserDetails userDetails) {
+                if (userDetails != null) {
+                    displayName = userDetails.getDisplayName();
+                    nameInput.setText(displayName);
+                    if (radioDisplayName.isChecked()) {
+                        nameInputLayout.setVisibility(View.VISIBLE);
+                        buttonOsmLogin.setVisibility(View.GONE);
+                    }
+                    return;
+                }
+                // Auth failure or other error: hide name UI and show login button
+                displayName = null;
+                if (radioDisplayName.isChecked()) {
+                    nameInputLayout.setVisibility(View.GONE);
+                    buttonOsmLogin.setVisibility(View.VISIBLE);
+                }
+            }
+        }.execute();
     }
 
     /**
-     * Updates the UI to reflect the current GitHub/Forgejo login status.
-     * Updates the status text and the visibility of the login button.
+     * Updates the UI to reflect the current GitHub/Forgejo login status. Updates the status text and the visibility of
+     * the login button.
      */
-    private void updateGithubStatus() {
-        if (Util.isEmpty(githubApiKey)) {
-            textGithubStatus.setText(getString(R.string.github_status_not_logged_in));
-            String buttonText = repoHost.equalsIgnoreCase(Github.GITHUB_HOST)
-                    ? getString(R.string.github_login_with_github)
-                    : getString(R.string.github_login_with_host, repoHost);
-            buttonGithubLogin.setText(buttonText);
+    private void updateStatus() {
+        Log.d(DEBUG_TAG, "Updating status");
+        if (Util.isEmpty(githubBearerToken)) {
+            githubStatus.setVisibility(View.GONE);
+            buttonReset.setVisibility(View.GONE);
+            buttonGithubLogin.setText(getString(R.string.github_login_with_github));
             buttonGithubLogin.setVisibility(View.VISIBLE);
-            buttonSend.setEnabled(true);
-            buttonSend.setAlpha(0.6f);
+
         } else {
-            String status = repoHost.equalsIgnoreCase(Github.GITHUB_HOST)
-                    ? getString(R.string.github_status_authenticated)
-                    : getString(R.string.github_status_authenticated_with_host, repoHost);
-            textGithubStatus.setText(status);
+            githubStatus.setVisibility(View.VISIBLE);
+            buttonReset.setVisibility(View.VISIBLE);
             buttonGithubLogin.setVisibility(View.GONE);
-            buttonSend.setEnabled(true);
-            buttonSend.setAlpha(1.0f);
+
+        }
+        buttonSend.setEnabled(!isEmpty(descriptionInput.getText()) && !isEmpty(titleInput.getText()));
+    }
+
+    /**
+     * Check if an editable is empty
+     * 
+     * @return true if empty
+     */
+    private boolean isEmpty(@Nullable Editable editable) {
+        return editable == null || "".equals(editable.toString());
+    }
+
+    private static void triggerWebFlowLogin(@NonNull Feedback activity, @NonNull final String host) {
+
+        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(activity)) {
+            OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), REPO_KEY, Auth.OAUTH2);
+            if (configuration == null) {
+                ScreenMessage.toastTopError(activity, "No configuration found for " + REPO_KEY);
+                return;
+            }
+            String clientId = configuration.getKey();
+
+            if (Util.isEmpty(clientId)) {
+                // No client_id configured - fall back to browser
+                ScreenMessage.toastTopError(activity, "No client id found for " + REPO_KEY);
+                return;
+            }
+
+            startWebFlow(activity, host);
         }
     }
 
@@ -543,12 +394,6 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
      * Submits the bug report to the configured repository using the Issues API.
      */
     private void submitBugReport() {
-        if (Util.isEmpty(githubApiKey)) {
-            android.widget.Toast
-                    .makeText(this, R.string.github_login_required_toast, android.widget.Toast.LENGTH_LONG)
-                    .show();
-            return;
-        }
 
         String title = titleInput.getText().toString();
         String description = descriptionInput.getText().toString();
@@ -559,7 +404,7 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
         }
 
         if (checkboxDeviceInfo.isChecked()) {
-            description += "\n\n---\n" + deviceInfoText.getText().toString();
+            description += DIVIDER + deviceInfoText.getText().toString();
         }
 
         if (radioDisplayName.isChecked()) {
@@ -569,58 +414,101 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
         final String finalTitle = title;
         final String finalDescription = description;
 
-        new ExecutorTask<Void, String, String>() {
+        new ExecutorTask<Void, AsyncResult, AsyncResult>() {
             @Override
-            protected String doInBackground(Void param) {
+            protected AsyncResult doInBackground(Void param) {
                 OkHttpClient client = App.getHttpClient();
                 // GitHub/Forgejo Issue API: POST /repos/{owner}/{repo}/issues
                 String url = Github.getApiBaseUrl(repoHost) + "repos/" + repoUser + "/" + repoName + "/issues";
 
                 try {
                     JSONObject body = new JSONObject();
-                    body.put("title", finalTitle);
-                    body.put("body", finalDescription);
+                    body.put(ISSUE_TITLE, finalTitle);
+                    body.put(ISSUE_BODY, finalDescription);
 
-                    okhttp3.RequestBody requestBody = okhttp3.RequestBody.create(
-                            okhttp3.MediaType.parse(Github.MIME_TYPE_JSON),
-                            body.toString());
+                    okhttp3.RequestBody requestBody = okhttp3.RequestBody.create(okhttp3.MediaType.parse(Github.MIME_TYPE_JSON), body.toString());
 
-                    Request request = new Request.Builder()
-                            .url(url)
-                            .addHeader("Authorization", Github.AUTH_HEADER_PREFIX + githubApiKey)
-                            .addHeader("Accept", Github.ACCEPT_HEADER_GITHUB_V3)
-                            .post(requestBody)
-                            .build();
+                    Request.Builder builder = new Request.Builder().url(url).addHeader(ACCEPT_HEADER, Github.ACCEPT_HEADER_GITHUB_V3);
+                    if (githubBearerToken != null) {
+                        client = client.newBuilder().addInterceptor(new OAuth2Interceptor(githubBearerToken)).build();
+                    } else {
+                        builder.addHeader(AUTHORIZATION_HEADER, Github.AUTH_HEADER_PREFIX + githubPersonalAccessToken);
+                    }
+
+                    Request request = builder.post(requestBody).build();
 
                     try (Response response = client.newCall(request).execute()) {
-                        if (response.isSuccessful()) {
-                            return "success";
-                        } else {
-                            return getString(R.string.feedback_error_code, response.code(), response.message());
+                        if (!response.isSuccessful()) {
+                            return new AsyncResult(ErrorCodes.UNKNOWN_ERROR, getString(R.string.feedback_error_code, response.code(), response.message()));
                         }
+                        return parseApiResponse(response);
                     }
                 } catch (Exception e) {
-                    return getString(R.string.feedback_exception, e.getMessage());
+                    return new AsyncResult(ErrorCodes.UNKNOWN_ERROR, getString(R.string.feedback_exception, e.getMessage()));
                 }
             }
 
             @Override
-            protected void onPostExecute(String result) {
-                if ("success".equals(result)) {
-                    new AlertDialog.Builder(Feedback.this)
-                            .setTitle(R.string.feedback_success_title)
-                            .setMessage(R.string.feedback_success_message)
-                            .setPositiveButton(android.R.string.ok, (dialog, which) -> finish())
-                            .show();
+            protected void onPostExecute(AsyncResult result) {
+                if (ErrorCodes.OK == result.getCode()) {
+                    AlertDialog dialog = new AlertDialog.Builder(Feedback.this).setTitle(R.string.feedback_success_title)
+                            .setMessage(Util.fromHtml(getString(R.string.feedback_success_message, getIssueLink(repoUser, repoName, result.getMessage()))))
+                            .setPositiveButton(android.R.string.ok, (d, which) -> finish()).create();
+                    dialog.setOnShowListener(
+                            d -> ((TextView) ((AlertDialog) d).findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance()));
+                    dialog.show();
                 } else {
-                    new AlertDialog.Builder(Feedback.this)
-                            .setTitle(R.string.feedback_failure_title)
-                            .setMessage(result)
-                            .setPositiveButton(android.R.string.ok, null)
-                            .show();
+                    new AlertDialog.Builder(Feedback.this).setTitle(R.string.feedback_failure_title).setMessage(result.getMessage())
+                            .setPositiveButton(android.R.string.ok, null).show();
                 }
             }
         }.execute();
+    }
+
+    /**
+     * Parse the response from the issue API
+     * 
+     * @param response the Response
+     * @return an AsyncResult holding an error message or the issue URL
+     */
+    @NonNull
+    private AsyncResult parseApiResponse(@NonNull Response response) {
+        try (BufferedReader rd = new BufferedReader(new InputStreamReader(response.body().byteStream(), Charset.forName(OsmXml.UTF_8)))) {
+            JsonElement root = JsonParser.parseReader(rd);
+            if (root.isJsonObject()) {
+                JsonElement issue = ((JsonObject) root).get(Github.ISSUE_URL);
+                if (issue instanceof JsonElement) {
+                    return new AsyncResult(ErrorCodes.OK, issue.getAsString());
+                }
+            }
+            return new AsyncResult(ErrorCodes.UNKNOWN_ERROR, root.toString());
+        } catch (IOException | JsonSyntaxException e) {
+            Log.e(DEBUG_TAG, "Error reading response " + e.getMessage());
+            return new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
+        }
+    }
+
+    /**
+     * Get the UI issue URL from, the API issue URL
+     * 
+     * @param repoUser owner of the repo
+     * @param repoName name of the repo
+     * @param url the API issue url
+     * @return the UI issue URL
+     */
+    @NonNull
+    private static String getIssueLink(@NonNull String repoUser, @NonNull String repoName, @NonNull String url) {
+        try {
+            URL issue = new URL(url);
+            String[] segments = issue.getPath().split("/");
+            if (segments.length > 0) {
+                return Github.getIssueUrl(repoUser, repoName, segments[segments.length - 1]);
+            }
+        } catch (MalformedURLException e) {
+            // fall through
+        }
+        Log.e(DEBUG_TAG, "Unparseable issue response " + url);
+        return "";
     }
 
     @Override
@@ -633,20 +521,34 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
     }
 
     @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        Log.d(DEBUG_TAG, "onActivityResult");
-        super.onActivityResult(requestCode, resultCode, data);
+    public void setResultListener(int code, Listener listener) {
+        activityResultListeners.put(code, listener);
+    }
 
-        ActivityResultHandler.Listener listener = activityResultListeners.get(requestCode);
-        if (listener != null) {
-            listener.processResult(resultCode, data);
-        } else {
-            Log.w(DEBUG_TAG, "Received activity result without listener, code " + requestCode);
+    /**
+     * Initiates the GitHub/Forgejo/Gitea Web Application Flow OAuth 2 authentication.
+     *
+     * @param context Android context
+     * @param host The repository host (e.g., github.com, codeberg.org)
+     * @param callback Callback to handle the final authentication result
+     */
+    private static void startWebFlow(@NonNull Context context, @NonNull String host) {
+
+        try {
+            String authUrl = new OAuth2Helper(context, host, Github.AUTHORIZE_PATH, Github.ACCESS_TOKEN_PATH, Github.WEB_FLOW_REDIRECT_URI)
+                    .getAuthorisationUrl(context, Util.wrapInList(Github.SCOPE_PUBLIC_REPO));
+            Util.launchInCustomTabOrBrowser((Activity) context, Uri.parse(authUrl));
+        } catch (Exception e) {
+            Log.e(DEBUG_TAG, "Could not open browser: " + e.getMessage());
         }
     }
 
     @Override
-    public void setResultListener(int code, Listener listener) {
-        activityResultListeners.put(code, listener);
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (Authorize.ACTION_FINISH_OAUTH.equals(intent.getAction())) {
+            updateTokens();
+            updateStatus();
+        }
     }
 }

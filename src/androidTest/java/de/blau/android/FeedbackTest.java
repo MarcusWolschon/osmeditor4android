@@ -51,7 +51,7 @@ public class FeedbackTest {
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
         KeyDatabaseHelper.replaceOrDeleteKey(new KeyDatabaseHelper(main).getWritableDatabase(), Feedback.VESPUCCI_REPORTER_ENTRY, EntryType.API_KEY, "123",
-                false, false, null, null);
+                false, false, null, null, null);
         ;
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");

@@ -26,20 +26,21 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.ShadowWorkManager;
+import de.blau.android.contract.OpenStreetMap;
 import de.blau.android.exception.NoOAuthConfigurationException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.prefs.API;
+import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.VespucciURLActivity;
-import de.blau.android.prefs.API.AuthParams;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class OAuth2Test {
 
@@ -60,13 +61,13 @@ public class OAuth2Test {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null,  new AuthParams(API.Auth.OAUTH2, null, null, null, null), false, false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.OAUTH2, null, null, null, null), false, false);
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext())) {
             KeyDatabaseHelper.replaceOrDeleteKey(keyDatabase.getWritableDatabase(), "Test", EntryType.API_OAUTH2_KEY, "1212121212", true, false, "empty",
-                    mockBaseUrl.toString());
+                    mockBaseUrl.toString(), null);
         }
         Logic logic = App.getLogic();
         prefs = new Preferences(main);
@@ -95,8 +96,8 @@ public class OAuth2Test {
     @Test
     public void authorisationUrl() {
         try {
-            OAuth2Helper oa = new OAuth2Helper(ApplicationProvider.getApplicationContext(), "Test");
-            String authUrl = oa.getAuthorisationUrl(ApplicationProvider.getApplicationContext());
+            OAuth2Helper oa = new OAuth2Helper(ApplicationProvider.getApplicationContext(), "Test", OpenStreetMap.AUTHORIZE_PATH, OpenStreetMap.ACCESS_TOKEN_PATH, OpenStreetMap.OSM_REDIRECT_URI);
+            String authUrl = oa.getAuthorisationUrl(ApplicationProvider.getApplicationContext(), OAuth2Helper.OSM_SCOPES);
             // http://127.0.0.1/oauth2/authorize?response_type=code&client_id=1212121212&scope=read_prefs%20write_prefs%20write_api%20read_gpx%20write_gpx%20write_notes&redirect_uri=vespucci%3A%2Foauth2%2F&state=Test&code_challenge_method=S256&code_challenge=WbUnPg5qbjrJYrAPux3iAm0w_SS9CDFb-nXCrzdgF0E
             Uri parsed = Uri.parse(authUrl);
             assertEquals("1212121212", parsed.getQueryParameter("client_id"));
@@ -127,7 +128,7 @@ public class OAuth2Test {
         authorisationUrl();
         mockServer.enqueue("accesstoken");
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(OAuth2Helper.REDIRECT_URI + "?" + OAuth2Helper.CODE_PARAM + "=12345" + "&state=Test"));
+        intent.setData(Uri.parse(OpenStreetMap.OSM_REDIRECT_URI + "?" + OAuth2Helper.CODE_PARAM + "=12345" + "&state=Test"));
         VespucciURLActivity activity = Robolectric.buildActivity(VespucciURLActivity.class, intent).create().start().resume().get();
         runLooper();
         API api = prefDB.getCurrentAPI();

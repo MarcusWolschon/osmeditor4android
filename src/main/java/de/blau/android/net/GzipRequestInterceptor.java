@@ -12,6 +12,8 @@
  */
 package de.blau.android.net;
 
+import static de.blau.android.net.HttpHeaders.CONTENT_ENCODING_HEADER;
+
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
@@ -27,18 +29,17 @@ import okio.Okio;
 /** This interceptor compresses the HTTP request body. Many webservers can't handle this! */
 public class GzipRequestInterceptor implements Interceptor {
 
-    public static final String GZIP_ENCODING           = "gzip";
-    public static final String HEADER_CONTENT_ENCODING = "Content-Encoding";
+    public static final String GZIP_ENCODING = "gzip";
 
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
         final RequestBody body = originalRequest.body();
-        if (body == null || body.contentLength() == 0 || originalRequest.header(HEADER_CONTENT_ENCODING) != null) {
+        if (body == null || body.contentLength() == 0 || originalRequest.header(CONTENT_ENCODING_HEADER) != null) {
             return chain.proceed(originalRequest);
         }
 
-        Request compressedRequest = originalRequest.newBuilder().header(HEADER_CONTENT_ENCODING, GZIP_ENCODING).method(originalRequest.method(), gzip(body))
+        Request compressedRequest = originalRequest.newBuilder().header(CONTENT_ENCODING_HEADER, GZIP_ENCODING).method(originalRequest.method(), gzip(body))
                 .build();
         return chain.proceed(compressedRequest);
     }

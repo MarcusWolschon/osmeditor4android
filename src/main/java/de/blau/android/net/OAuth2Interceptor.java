@@ -1,5 +1,7 @@
 package de.blau.android.net;
 
+import static de.blau.android.net.HttpHeaders.AUTHORIZATION_HEADER;
+
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
@@ -8,8 +10,7 @@ import okhttp3.Response;
 
 public class OAuth2Interceptor implements Interceptor {
 
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String BEARER               = "Bearer ";
+    public static final String BEARER = "Bearer ";
 
     private final String accessToken;
 

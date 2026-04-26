@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import static de.blau.android.net.HttpHeaders.CONTENT_ENCODING_HEADER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -431,7 +432,7 @@ public class ApiTest {
             mockServer.takeRequest();
             mockServer.takeRequest();
             RecordedRequest upload = mockServer.takeRequest();
-            assertTrue(GzipRequestInterceptor.GZIP_ENCODING.equals(upload.getHeader(GzipRequestInterceptor.HEADER_CONTENT_ENCODING)));
+            assertTrue(GzipRequestInterceptor.GZIP_ENCODING.equals(upload.getHeader(CONTENT_ENCODING_HEADER)));
 
         } catch (IOException | InterruptedException e) {
             fail(e.getMessage());

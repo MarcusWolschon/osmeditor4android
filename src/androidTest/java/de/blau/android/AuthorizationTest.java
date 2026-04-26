@@ -60,7 +60,7 @@ public class AuthorizationTest {
         mockServer = new MockWebServerPlus();
         HttpUrl mockUrl = mockServer.server().url("/");
         try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(main)) {
-            KeyDatabaseHelper.replaceOrDeleteKey(keyDatabase.getWritableDatabase(), "OpenStreetMap sandbox", EntryType.API_OAUTH2_KEY, "1111111111", false, true, "empty", mockUrl.toString());
+            KeyDatabaseHelper.replaceOrDeleteKey(keyDatabase.getWritableDatabase(), "OpenStreetMap sandbox", EntryType.API_OAUTH2_KEY, "1111111111", false, true, "empty", mockUrl.toString(), null);
         }
         mockApiServer = new MockWebServerPlus();
         HttpUrl mockApiBaseUrl = mockApiServer.server().url("/api/0.6/");
