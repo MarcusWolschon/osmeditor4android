@@ -431,8 +431,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             Context ctx = map.getContext();
             List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
             box.scale(1.2); // make sides 20% larger
-            box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
             List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
+            BoundingBox.consolidate(bboxes, (int) (GeoMath.convertMetersToGeoDistance(minDownloadSize) * 1E7));
             final Logic logic = App.getLogic();
             for (BoundingBox b : bboxes) {
                 try {
