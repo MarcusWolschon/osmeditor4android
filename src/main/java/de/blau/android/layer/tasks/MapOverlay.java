@@ -155,8 +155,8 @@ public class MapOverlay extends NonSerializeableLayer
             downloadThreadPool.execute(() -> {
                 ViewBox box = new ViewBox(map.getViewBox());
                 box.scale(1.2); // make sides 20% larger
-                box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
                 List<BoundingBox> bboxes = BoundingBox.newBoxes(tasks.getBoundingBoxes(), box);
+                BoundingBox.consolidate(bboxes, (int) (GeoMath.convertMetersToGeoDistance(minDownloadSize) * 1E7));
                 for (BoundingBox b : bboxes) {
                     tasks.addBoundingBox(b);
                     try {

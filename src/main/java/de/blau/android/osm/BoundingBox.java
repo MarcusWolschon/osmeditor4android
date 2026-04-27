@@ -746,6 +746,78 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     /**
+     * Check if two boxes are adjacent (touching but not overlapping)
+     */
+    public boolean isAdjacent(@NonNull BoundingBox neighbour) {
+        // Horizontally adjacent
+        if ((right == neighbour.left || left == neighbour.right) && bottom < neighbour.top && top > neighbour.bottom) {
+            return true;
+        }
+        // Vertically adjacent
+        return (top == neighbour.bottom || bottom == neighbour.top) && left < neighbour.right && right > neighbour.left;
+    }
+
+    /**
+     * Merge small slivers (boxes with very small width or height) with adjacent boxes.
+     * 
+     * @param boxes list of boxes to consolidate
+     * @param minSize minimum dimension (in 1E7 degrees) to keep as separate box
+     * @return consolidated list
+     */
+    @NonNull
+    public static List<BoundingBox> consolidate(@NonNull List<BoundingBox> boxes, int minSize) {
+        if (boxes.isEmpty()) {
+            return boxes;
+        }
+
+        List<BoundingBox> result = new ArrayList<>(boxes);
+        boolean changed = true;
+
+        // Iteratively merge small boxes with neighbors
+        while (changed) {
+            changed = false;
+            for (int i = 0; i < result.size(); i++) {
+                BoundingBox current = result.get(i);
+
+                // Skip boxes that are reasonably sized in both dimensions
+                if (current.getWidth() >= minSize && current.getHeight() >= minSize) {
+                    continue;
+                }
+
+                // Find best neighbor to merge with (smallest union)
+                int bestNeighbor = -1;
+                long smallestUnion = Long.MAX_VALUE;
+
+                for (int j = 0; j < result.size(); j++) {
+                    if (i == j) {
+                        continue;
+                    }
+                    BoundingBox neighbor = result.get(j);
+                    // Check if adjacent or overlapping
+                    if (current.intersects(neighbor) || current.isAdjacent(neighbor)) {
+                        BoundingBox union = new BoundingBox(current);
+                        union.union(neighbor);
+                        long unionArea = union.approxArea();
+                        if (unionArea < smallestUnion) {
+                            smallestUnion = unionArea;
+                            bestNeighbor = j;
+                        }
+                    }
+                }
+
+                // Merge with best neighbor
+                if (bestNeighbor >= 0) {
+                    current.union(result.get(bestNeighbor));
+                    result.remove(bestNeighbor);
+                    changed = true;
+                    break; // Restart iteration after modification
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * Get an approximate size of the BoundingBox
      * 
      * @return the size in squared degrees * 1E7
