@@ -132,6 +132,8 @@ public class TileLayerSource implements Serializable {
     public static final String LAYER_NOOVERLAY = "NOOVERLAY";
     public static final String LAYER_BING      = "Bing";
 
+    public static final String LAYER_NONE_NAME = "None";
+
     private static final String SWITCH_START = "{switch:";
 
     // supported URL placeholders
