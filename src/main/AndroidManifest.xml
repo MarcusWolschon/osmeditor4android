@@ -337,8 +337,9 @@
             android:theme="@android:style/Theme.Dialog"
             tools:replace="android:process" />
         <activity
-            android:name="Feedback"
-            android:theme="@style/Theme.IssueReporterModified" />
+            android:name="de.blau.android.Feedback"
+            android:exported="true"
+            android:theme="@style/Theme.customFeedback" />
         <activity
             android:name=".util.DownloadActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
