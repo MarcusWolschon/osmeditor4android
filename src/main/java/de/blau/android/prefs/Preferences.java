@@ -258,7 +258,7 @@ public class Preferences {
         mapillaryMinZoom = getIntPref(R.string.config_mapillary_min_zoom_key, AbstractImageOverlay.DEFAULT_MIN_ZOOM);
 
         panoramaxApiUrl = prefs.getString(r.getString(R.string.config_panoramaxApiUrl_key), Urls.DEFAULT_PANORAMAX_API_URL);
-        panoramaxInstancesUrl = prefs.getString(r.getString(R.string.config_panoramaxApiUrl_key), Urls.DEFAULT_PANORAMAX_INSTANCES_URL);
+        panoramaxInstancesUrl = prefs.getString(r.getString(R.string.config_panoramaxInstancesUrl_key), Urls.DEFAULT_PANORAMAX_INSTANCES_URL);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
         cameraApp = prefs.getString(r.getString(R.string.config_selectCameraApp_key), "");
