@@ -44,6 +44,8 @@ import de.blau.android.filter.Filter;
 import de.blau.android.osm.OsmChangeParser.MissingNode;
 import de.blau.android.osm.UndoStorage.Checkpoint;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.TileLayerDatabase;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.BentleyOttmannForOsm;
 import de.blau.android.util.Coordinates;
@@ -467,10 +469,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 if (map == null) { // currently we only modify data when the map exists
                     return;
                 }
-                List<String> currentImagery = map.getImageryNames();
-                for (String i : currentImagery) {
-                    if (!imagery.contains(i) && !"None".equalsIgnoreCase(i)) {
-                        imagery.add(i);
+                List<TileLayerSource> currentImagery = map.getImagerySources();
+                for (TileLayerSource i : currentImagery) {
+                    String toRecord = TileLayerDatabase.SOURCE_MANUAL.equals(i.getSource()) ? i.getOriginalTileUrl() : i.getName();
+                    if (!imagery.contains(toRecord) && !TileLayerSource.LAYER_NONE_NAME.equalsIgnoreCase(i.getName())) {
+                        imagery.add(toRecord);
                     }
                 }
                 imageryRecorded = true;

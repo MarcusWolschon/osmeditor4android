@@ -66,19 +66,19 @@ public class MapTest {
         db.close();
         Map map = new Map(ApplicationProvider.getApplicationContext());
         map.setPrefs(ApplicationProvider.getApplicationContext(), prefs);
-        List<String> names = map.getImageryNames();
+        List<TileLayerSource> names = map.getImagerySources();
         assertEquals(1, names.size());
         TileLayerSource mapnik = TileLayerSource.get(ApplicationProvider.getApplicationContext(), TileLayerSource.LAYER_MAPNIK, false);
         assertNotNull(mapnik);
-        assertEquals(mapnik.getName(), map.getImageryNames().get(0));
+        assertEquals(mapnik.getName(), map.getImagerySources().get(0).getName());
         TileLayerSource mapillary = TileLayerSource.get(ApplicationProvider.getApplicationContext(),
                 de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay.MAPILLARY_TILES_ID, false);
         assertNotNull(mapillary);
         de.blau.android.layer.Util.addLayer(ApplicationProvider.getApplicationContext(), LayerType.MAPILLARY);
         map.setUpLayers(ApplicationProvider.getApplicationContext());
-        names = map.getImageryNames();
+        names = map.getImagerySources();
         assertEquals(2, names.size());
-        assertEquals(mapillary.getName(), map.getImageryNames().get(0));
-        assertEquals(mapnik.getName(), map.getImageryNames().get(1));
+        assertEquals(mapillary.getName(), map.getImagerySources().get(0).getName());
+        assertEquals(mapnik.getName(), map.getImagerySources().get(1).getName());
     }
 }
