@@ -70,10 +70,10 @@ public final class Util {
      * Parse an JSON object from a Response
      * 
      * @param response the Response
-     * @return
+     * @return a JsonObject
      * @throws IOException
      */
-    static JsonObject parseJsonResponse(Response response) throws IOException {
+    static JsonObject parseJsonResponse(@NonNull Response response) throws IOException {
         JsonElement root = JsonParser.parseReader(response.body().charStream());
         if (root == null || !root.isJsonObject()) {
             throw new IOException("unexpected JSON " + (root != null ? root.toString() : "null"));

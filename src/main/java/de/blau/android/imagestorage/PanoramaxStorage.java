@@ -278,6 +278,7 @@ public class PanoramaxStorage implements ImageStorage {
                 List<ImageStorageConfiguration> result = new ArrayList<>();
 
                 URL url = new URL(App.getPreferences(context).getPanoramaxInstancesUrl());
+                Log.d(DEBUG_TAG, "Retrieving instances list from " + url.toString());
                 Request instancesRequest = new Request.Builder().url(url).get().build();
                 try (Response instancesResponse = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                         .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS).build().newCall(instancesRequest).execute()) {
